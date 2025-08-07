@@ -57,6 +57,7 @@ android {
 configurations { natives }
 
 dependencies {
+    implementation 'cat.ereza:customactivityoncrash:2.4.0'//崩溃提示https://github.com/Ereza/CustomActivityOnCrash
     implementation project(':core')
 
     // We are using the natives from 1.11.0 to maintain compatibility with Android 4.0-4.3 for now

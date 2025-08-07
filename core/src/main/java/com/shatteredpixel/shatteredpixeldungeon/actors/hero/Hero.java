@@ -193,10 +193,10 @@ public class Hero extends Char {
 		alignment = Alignment.ALLY;
 	}
 	
-	public static final int MAX_LEVEL = 30;
+	public static final int 最大等级 = 25;
 
-	public static final int STARTING_STR = 10;
-	
+	public static final int 初始力量 = 10;
+
 	private static final float TIME_TO_REST		    = 1f;
 	private static final float TIME_TO_SEARCH	    = 2f;
 	private static final float HUNGER_FOR_SEARCH	= 6f;
@@ -207,8 +207,8 @@ public class Hero extends Char {
 	public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
 	public LinkedHashMap<Talent, Talent> metamorphedTalents = new LinkedHashMap<>();
 	
-	private int attackSkill = 10;
-	private int defenseSkill = 5;
+	private int 最大命中 = 10;
+	private int 最大闪避 = 5;
 
 	public boolean ready = false;
 	public boolean damageInterrupt = true;
@@ -226,8 +226,8 @@ public class Hero extends Char {
 	
 	public float awareness;
 	
-	public int lvl = 1;
-	public int exp = 0;
+	public int 当前等级 = 1;
+	public int 当前经验 = 0;
 	
 	public int HTBoost = 0;
 	
@@ -241,7 +241,7 @@ public class Hero extends Char {
 		super();
 
 		HP = HT = 20;
-		STR = STARTING_STR;
+		STR = 初始力量;
 		
 		belongings = new Belongings( this );
 		
@@ -251,7 +251,7 @@ public class Hero extends Char {
 	public void updateHT( boolean boostHP ){
 		int curHT = HT;
 		
-		HT = 20 + 5*(lvl-1) + HTBoost;
+		HT = 20 + 5*(当前等级 -1) + HTBoost;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		HT = Math.round(multiplier * HT);
 		
@@ -303,13 +303,13 @@ public class Hero extends Char {
 		bundle.put( ABILITY, armorAbility );
 		Talent.storeTalentsInBundle( bundle, this );
 		
-		bundle.put( ATTACK, attackSkill );
-		bundle.put( DEFENSE, defenseSkill );
+		bundle.put( ATTACK, 最大命中);
+		bundle.put( DEFENSE, 最大闪避);
 		
 		bundle.put( STRENGTH, STR );
 		
-		bundle.put( LEVEL, lvl );
-		bundle.put( EXPERIENCE, exp );
+		bundle.put( LEVEL, 当前等级);
+		bundle.put( EXPERIENCE, 当前经验);
 		
 		bundle.put( HTBOOST, HTBoost );
 
@@ -319,8 +319,8 @@ public class Hero extends Char {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 
-		lvl = bundle.getInt( LEVEL );
-		exp = bundle.getInt( EXPERIENCE );
+		当前等级 = bundle.getInt( LEVEL );
+		当前经验 = bundle.getInt( EXPERIENCE );
 
 		HTBoost = bundle.getInt(HTBOOST);
 
@@ -331,8 +331,8 @@ public class Hero extends Char {
 		armorAbility = (ArmorAbility)bundle.get( ABILITY );
 		Talent.restoreTalentsFromBundle( bundle, this );
 		
-		attackSkill = bundle.getInt( ATTACK );
-		defenseSkill = bundle.getInt( DEFENSE );
+		最大命中 = bundle.getInt( ATTACK );
+		最大闪避 = bundle.getInt( DEFENSE );
 		
 		STR = bundle.getInt( STRENGTH );
 
@@ -382,19 +382,19 @@ public class Hero extends Char {
 	}
 
 	public int talentPointsAvailable(int tier){
-		if (lvl < (Talent.tierLevelThresholds[tier] - 1)
+		if (当前等级 < (Talent.tierLevelThresholds[tier] - 1)
 			|| (tier == 3 && subClass == HeroSubClass.NONE)
 			|| (tier == 4 && armorAbility == null)) {
 			return 0;
-		} else if (lvl >= Talent.tierLevelThresholds[tier+1]){
+		} else if (当前等级 >= Talent.tierLevelThresholds[tier+1]){
 			return Talent.tierLevelThresholds[tier+1] - Talent.tierLevelThresholds[tier] - talentPointsSpent(tier) + bonusTalentPoints(tier);
 		} else {
-			return 1 + lvl - Talent.tierLevelThresholds[tier] - talentPointsSpent(tier) + bonusTalentPoints(tier);
+			return 1 + 当前等级 - Talent.tierLevelThresholds[tier] - talentPointsSpent(tier) + bonusTalentPoints(tier);
 		}
 	}
 
 	public int bonusTalentPoints(int tier){
-		if (lvl < (Talent.tierLevelThresholds[tier]-1)
+		if (当前等级 < (Talent.tierLevelThresholds[tier]-1)
 				|| (tier == 3 && subClass == HeroSubClass.NONE)
 				|| (tier == 4 && armorAbility == null)) {
 			return 0;
@@ -549,9 +549,9 @@ public class Hero extends Char {
 		}
 		
 		if (!RingOfForce.fightingUnarmed(this)) {
-			return Math.max(1, Math.round(attackSkill * accuracy * wep.accuracyFactor( this, target )));
+			return Math.max(1, Math.round(最大命中 * accuracy * wep.accuracyFactor( this, target )));
 		} else {
-			return Math.max(1, Math.round(attackSkill * accuracy));
+			return Math.max(1, Math.round(最大命中 * accuracy));
 		}
 	}
 	
@@ -569,7 +569,7 @@ public class Hero extends Char {
 			return INFINITE_EVASION;
 		}
 		
-		float evasion = defenseSkill;
+		float evasion = 最大闪避;
 		
 		evasion *= RingOfEvasion.evasionMultiplier( this );
 
@@ -914,7 +914,7 @@ public class Hero extends Char {
 		}
 		
 		if(hasTalent(Talent.BARKSKIN) && Dungeon.level.map[pos] == Terrain.FURROWED_GRASS){
-			Barkskin.conditionallyAppend(this, (lvl*pointsInTalent(Talent.BARKSKIN))/2, 1 );
+			Barkskin.conditionallyAppend(this, (当前等级 *pointsInTalent(Talent.BARKSKIN))/2, 1 );
 		}
 		
 		return actResult;
@@ -1941,7 +1941,7 @@ public class Hero extends Char {
 
 		//xp granted by ascension challenge is only for on-exp gain effects
 		if (source != AscensionChallenge.class) {
-			this.exp += exp;
+			this.当前经验 += exp;
 		}
 		float percent = exp/(float)maxExp();
 
@@ -1985,16 +1985,16 @@ public class Hero extends Char {
 		}
 		
 		boolean levelUp = false;
-		while (this.exp >= maxExp()) {
-			this.exp -= maxExp();
+		while (this.当前经验 >= maxExp()) {
+			this.当前经验 -= maxExp();
 
 			if (buff(Talent.WandPreservationCounter.class) != null
 				&& pointsInTalent(Talent.WAND_PRESERVATION) == 2){
 				buff(Talent.WandPreservationCounter.class).detach();
 			}
 
-			if (lvl < MAX_LEVEL) {
-				lvl++;
+			if (当前等级 < 最大等级) {
+				当前等级++;
 				levelUp = true;
 				
 				if (buff(ElixirOfMight.HTBoost.class) != null){
@@ -2002,12 +2002,12 @@ public class Hero extends Char {
 				}
 				
 				updateHT( true );
-				attackSkill++;
-				defenseSkill++;
+				最大命中++;
+				最大闪避++;
 
 			} else {
 				Buff.prolong(this, Bless.class, Bless.DURATION);
-				this.exp = 0;
+				this.当前经验 = 0;
 
 				GLog.newLine();
 				GLog.p( Messages.get(this, "level_cap"));
@@ -2023,7 +2023,7 @@ public class Hero extends Char {
 				GLog.p( Messages.get(this, "new_level") );
 				sprite.showStatus( CharSprite.POSITIVE, Messages.get(Hero.class, "level_up") );
 				Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
-				if (lvl < Talent.tierLevelThresholds[Talent.MAX_TALENT_TIERS+1]){
+				if (当前等级 < Talent.tierLevelThresholds[Talent.MAX_TALENT_TIERS+1]){
 					GLog.newLine();
 					GLog.p( Messages.get(this, "new_talent") );
 					StatusPane.talentBlink = 10f;
@@ -2038,7 +2038,7 @@ public class Hero extends Char {
 	}
 	
 	public int maxExp() {
-		return maxExp( lvl );
+		return maxExp(当前等级);
 	}
 	
 	public static int maxExp( int lvl ){

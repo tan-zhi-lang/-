@@ -148,10 +148,10 @@ public class GamesInProgress {
 		info.daily = Dungeon.daily;
 		info.dailyReplay = Dungeon.dailyReplay;
 		
-		info.level = Dungeon.hero.lvl;
+		info.level = Dungeon.hero.当前等级;
 		info.str = Dungeon.hero.STR;
 		info.strBonus = Dungeon.hero.STR() - Dungeon.hero.STR;
-		info.exp = Dungeon.hero.exp;
+		info.exp = Dungeon.hero.当前经验;
 		info.hp = Dungeon.hero.HP;
 		info.ht = Dungeon.hero.HT;
 		info.shld = Dungeon.hero.shielding();

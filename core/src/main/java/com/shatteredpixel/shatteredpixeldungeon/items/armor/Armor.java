@@ -423,7 +423,7 @@ public class Armor extends EquipableItem {
 			
 			Momentum momentum = owner.buff(Momentum.class);
 			if (momentum != null){
-				evasion += momentum.evasionBonus(((Hero) owner).lvl, Math.max(0, -aEnc));
+				evasion += momentum.evasionBonus(((Hero) owner).当前等级, Math.max(0, -aEnc));
 			}
 		}
 		

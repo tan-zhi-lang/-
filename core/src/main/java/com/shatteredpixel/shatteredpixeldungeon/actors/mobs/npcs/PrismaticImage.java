@@ -151,7 +151,7 @@ public class PrismaticImage extends NPC {
 	@Override
 	public int damageRoll() {
 		if (hero != null) {
-			return Random.NormalIntRange( 2 + hero.lvl/4, 4 + hero.lvl/2 );
+			return Random.NormalIntRange( 2 + hero.当前等级 /4, 4 + hero.当前等级 /2 );
 		} else {
 			return Random.NormalIntRange( 2, 4 );
 		}
@@ -161,7 +161,7 @@ public class PrismaticImage extends NPC {
 	public int attackSkill( Char target ) {
 		if (hero != null) {
 			//same base attack skill as hero, benefits from accuracy ring
-			return (int)((9 + hero.lvl) * RingOfAccuracy.accuracyMultiplier(hero));
+			return (int)((9 + hero.当前等级) * RingOfAccuracy.accuracyMultiplier(hero));
 		} else {
 			return 0;
 		}
@@ -170,8 +170,8 @@ public class PrismaticImage extends NPC {
 	@Override
 	public int defenseSkill(Char enemy) {
 		if (hero != null) {
-			int baseEvasion = 4 + hero.lvl;
-			int heroEvasion = (int)((4 + hero.lvl) * RingOfEvasion.evasionMultiplier( hero ));
+			int baseEvasion = 4 + hero.当前等级;
+			int heroEvasion = (int)((4 + hero.当前等级) * RingOfEvasion.evasionMultiplier( hero ));
 			if (hero.belongings.armor() != null){
 				heroEvasion = (int)hero.belongings.armor().evasionFactor(this, heroEvasion);
 			}

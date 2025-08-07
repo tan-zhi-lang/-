@@ -281,26 +281,26 @@ public class StatusPane extends Component {
 		}
 
 		if (large) {
-			exp.scale.x = (128 / exp.width) * Dungeon.hero.exp / Dungeon.hero.maxExp();
+			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.maxExp();
 
 			hpText.measure();
 			hpText.x = hp.x + (128 - hpText.width())/2f;
 
-			expText.text(Dungeon.hero.exp + "/" + Dungeon.hero.maxExp());
+			expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.maxExp());
 			expText.measure();
 			expText.x = hp.x + (128 - expText.width())/2f;
 
 		} else {
-			exp.scale.x = (width / exp.width) * Dungeon.hero.exp / Dungeon.hero.maxExp();
+			exp.scale.x = (width / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.maxExp();
 		}
 
-		if (Dungeon.hero.lvl != lastLvl) {
+		if (Dungeon.hero.当前等级 != lastLvl) {
 
 			if (lastLvl != -1) {
 				showStarParticles();
 			}
 
-			lastLvl = Dungeon.hero.lvl;
+			lastLvl = Dungeon.hero.当前等级;
 
 			if (large){
 				level.text( "lv. " + lastLvl );

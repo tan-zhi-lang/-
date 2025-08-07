@@ -36,7 +36,7 @@ public class BrokenHilt extends RemainsItem {
 
 	@Override
 	protected void doEffect(Hero hero) {
-		Buff.affect( hero, PhysicalEmpower.class).set(Math.max(2, hero.lvl/3), 2);
+		Buff.affect( hero, PhysicalEmpower.class).set(Math.max(2, hero.当前等级 /3), 2);
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 	}
 }

@@ -53,7 +53,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class WndSettings extends WndTabbed {
+public class WndSettings extends WndTabbed {//WndSettings
 
 	private static final int WIDTH_P	    = 122;
 	private static final int WIDTH_L	    = 223;
@@ -159,7 +159,7 @@ public class WndSettings extends WndTabbed {
 		langs = new LangsTab();
 		langs.setSize(width, 0);
 		height = Math.max(height, langs.height());
-		add( langs );
+//		add( langs );
 
 
 		IconTab langsTab = new IconTab(Icons.get(Icons.LANGS)){
@@ -184,7 +184,7 @@ public class WndSettings extends WndTabbed {
 			}
 
 		};
-		add( langsTab );
+//		add( langsTab );
 
 		resize(width, (int)Math.ceil(height));
 

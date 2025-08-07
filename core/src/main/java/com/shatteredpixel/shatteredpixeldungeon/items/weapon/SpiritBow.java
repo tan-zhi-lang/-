@@ -186,17 +186,17 @@ public class SpiritBow extends Weapon {
 	
 	@Override
 	public int min(int lvl) {
-		int dmg = 1 + Dungeon.hero.lvl/5
+		int dmg = 1 + Dungeon.hero.当前等级 /5
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 1 + Dungeon.hero.lvl/30 : 0);
+				+ (curseInfusionBonus ? 1 + Dungeon.hero.当前等级 /30 : 0);
 		return Math.max(0, dmg);
 	}
 	
 	@Override
 	public int max(int lvl) {
-		int dmg = 6 + (int)(Dungeon.hero.lvl/2.5f)
+		int dmg = 6 + (int)(Dungeon.hero.当前等级 /2.5f)
 				+ 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 2 + Dungeon.hero.lvl/15 : 0);
+				+ (curseInfusionBonus ? 2 + Dungeon.hero.当前等级 /15 : 0);
 		return Math.max(0, dmg);
 	}
 
@@ -269,7 +269,7 @@ public class SpiritBow extends Weapon {
 
 	@Override
 	public int level() {
-		int level = Dungeon.hero == null ? 0 : Dungeon.hero.lvl/5;
+		int level = Dungeon.hero == null ? 0 : Dungeon.hero.当前等级 /5;
 		if (curseInfusionBonus) level += 1 + level/6;
 		return level;
 	}

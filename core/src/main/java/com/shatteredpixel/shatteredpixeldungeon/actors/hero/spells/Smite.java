@@ -57,8 +57,8 @@ public class Smite extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = 5 + Dungeon.hero.lvl/2;
-		int max = 10 + Dungeon.hero.lvl;
+		int min = 5 + Dungeon.hero.当前等级 /2;
+		int max = 10 + Dungeon.hero.当前等级;
 		return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -118,8 +118,8 @@ public class Smite extends TargetedClericSpell {
 	}
 
 	public static int bonusDmg( Hero attacker, Char defender){
-		int min = 5 + attacker.lvl/2;
-		int max = 10 + attacker.lvl;
+		int min = 5 + attacker.当前等级 /2;
+		int max = 10 + attacker.当前等级;
 		if (Char.hasProp(defender, Char.Property.UNDEAD) || Char.hasProp(defender, Char.Property.DEMONIC)){
 			return max;
 		} else {

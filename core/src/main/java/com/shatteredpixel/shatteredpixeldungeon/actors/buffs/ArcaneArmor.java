@@ -85,7 +85,7 @@ public class ArcaneArmor extends Buff {
 	@Override
 	public float iconFadePercent() {
 		if (target instanceof Hero){
-			float max = ((Hero) target).lvl/2 + 5;
+			float max = ((Hero) target).当前等级 /2 + 5;
 			return (max-level)/max;
 		}
 		return 0;

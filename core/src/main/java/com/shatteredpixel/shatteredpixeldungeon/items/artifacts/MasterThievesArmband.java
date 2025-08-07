@@ -149,7 +149,7 @@ public class MasterThievesArmband extends Artifact {
 
 							float lootChance = ((Mob) ch).lootChance() * lootMultiplier;
 
-							if (Dungeon.hero.lvl > ((Mob) ch).maxLvl + 2) {
+							if (Dungeon.hero.当前等级 > ((Mob) ch).maxLvl + 2) {
 								lootChance = 0;
 							} else if (ch.buff(StolenTracker.class) != null){
 								lootChance = 0;

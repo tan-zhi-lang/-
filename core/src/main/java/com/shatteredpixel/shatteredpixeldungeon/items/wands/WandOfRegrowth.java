@@ -89,7 +89,7 @@ public class WandOfRegrowth extends Wand {
 		ArrayList<Integer> cells = new ArrayList<>(cone.cells);
 
 		float furrowedChance = 0;
-		if (totChrgUsed >= chargeLimit(Dungeon.hero.lvl)){
+		if (totChrgUsed >= chargeLimit(Dungeon.hero.当前等级)){
 			furrowedChance = (chargesOverLimit+1)/5f;
 		}
 
@@ -187,12 +187,12 @@ public class WandOfRegrowth extends Wand {
 			grassToPlace--;
 		}
 
-		if (totChrgUsed < chargeLimit(Dungeon.hero.lvl)) {
+		if (totChrgUsed < chargeLimit(Dungeon.hero.当前等级)) {
 			chargesOverLimit = 0;
 			totChrgUsed += chrgUsed;
-			if (totChrgUsed > chargeLimit(Dungeon.hero.lvl)){
-				chargesOverLimit = totChrgUsed - chargeLimit(Dungeon.hero.lvl);
-				totChrgUsed = chargeLimit(Dungeon.hero.lvl);
+			if (totChrgUsed > chargeLimit(Dungeon.hero.当前等级)){
+				chargesOverLimit = totChrgUsed - chargeLimit(Dungeon.hero.当前等级);
+				totChrgUsed = chargeLimit(Dungeon.hero.当前等级);
 			}
 		} else {
 			chargesOverLimit += chrgUsed;
@@ -288,7 +288,7 @@ public class WandOfRegrowth extends Wand {
 	public String statsDesc() {
 		String desc = Messages.get(this, "stats_desc", chargesPerCast());
 		if (isIdentified()){
-			int chargeLeft = chargeLimit(Dungeon.hero.lvl) - totChrgUsed;
+			int chargeLeft = chargeLimit(Dungeon.hero.当前等级) - totChrgUsed;
 			if (chargeLeft < 10000) desc += " " + Messages.get(this, "degradation", Math.max(chargeLeft, 0));
 		}
 		return desc;
@@ -304,7 +304,7 @@ public class WandOfRegrowth extends Wand {
 		if (level >= 10){
 			return "∞";
 		} else {
-			return Integer.toString(chargeLimit(Dungeon.hero.lvl, level));
+			return Integer.toString(chargeLimit(Dungeon.hero.当前等级, level));
 		}
 	}
 

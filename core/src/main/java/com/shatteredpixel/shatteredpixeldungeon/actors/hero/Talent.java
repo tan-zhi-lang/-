@@ -621,7 +621,7 @@ public enum Talent {
 				ScrollOfRecharging.charge( hero );
 			} else {
 				// lvl/3 / lvl/2 bonus dmg on next hit for other classes
-				Buff.affect( hero, PhysicalEmpower.class).set(Math.round(hero.lvl / (4f - hero.pointsInTalent(FOCUSED_MEAL))), 1);
+				Buff.affect( hero, PhysicalEmpower.class).set(Math.round(hero.当前等级 / (4f - hero.pointsInTalent(FOCUSED_MEAL))), 1);
 			}
 		}
 		if (hero.hasTalent(SATIATED_SPELLS)){

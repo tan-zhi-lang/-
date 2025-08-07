@@ -98,7 +98,7 @@ public class GnollExile extends Gnoll {
 	public void rollToDropLoot() {
 		super.rollToDropLoot();
 
-		if (Dungeon.hero.lvl > maxLvl + 2) return;
+		if (Dungeon.hero.当前等级 > maxLvl + 2) return;
 
 		//drops 2 or 3 random items
 		ArrayList<Item> items = new ArrayList<>();

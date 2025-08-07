@@ -120,7 +120,7 @@ public class MirrorImage extends NPC {
 	@Override
 	public int attackSkill( Char target ) {
 		//same base attack skill as hero, benefits from accuracy ring and weapon
-		int attackSkill = 9 + hero.lvl;
+		int attackSkill = 9 + hero.当前等级;
 		attackSkill *= RingOfAccuracy.accuracyMultiplier(hero);
 		if (hero.belongings.attackingWeapon() != null){
 			attackSkill *= hero.belongings.attackingWeapon().accuracyFactor(this, target);
@@ -131,8 +131,8 @@ public class MirrorImage extends NPC {
 	@Override
 	public int defenseSkill(Char enemy) {
 		if (hero != null) {
-			int baseEvasion = 4 + hero.lvl;
-			int heroEvasion = (int)((4 + hero.lvl) * RingOfEvasion.evasionMultiplier( hero ));
+			int baseEvasion = 4 + hero.当前等级;
+			int heroEvasion = (int)((4 + hero.当前等级) * RingOfEvasion.evasionMultiplier( hero ));
 			
 			//if the hero has more/less evasion, 50% of it is applied
 			//includes ring of evasion boost

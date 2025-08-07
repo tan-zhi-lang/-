@@ -142,7 +142,7 @@ public class DistortionTrap extends Trap{
 				continue;
 			}
 
-			mob.maxLvl = Hero.MAX_LEVEL-1;
+			mob.maxLvl = Hero.最大等级 -1;
 			if (mob.state != mob.PASSIVE) {
 				mob.state = mob.WANDERING;
 			}

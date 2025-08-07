@@ -125,7 +125,7 @@ public class PrismaticGuard extends Buff {
 	}
 	
 	public static int maxHP( Hero hero ){
-		return 10 + (int)Math.floor(hero.lvl * 2.5f); //half of hero's HP
+		return 10 + (int)Math.floor(hero.当前等级 * 2.5f); //half of hero's HP
 	}
 
 	public boolean isEmpowered(){

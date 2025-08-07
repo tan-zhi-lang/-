@@ -70,7 +70,7 @@ public abstract class AllyBuff extends Buff {
 
 			AscensionChallenge.processEnemyKill(enemy);
 
-			int exp = hero.lvl <= enemy.maxLvl ? enemy.EXP : 0;
+			int exp = hero.当前等级 <= enemy.maxLvl ? enemy.EXP : 0;
 			if (exp > 0) {
 				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.EXPERIENCE);
 			}

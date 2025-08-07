@@ -34,7 +34,7 @@ allprojects {
 
     ext {
         appName = '缝合像素地牢重制版'
-        appPackageName = 'com.shatteredpixel.shatteredpixeldungeon'
+        appPackageName = 'com.sp'
 
         appVersionCode = 10_00_00
         appVersionName = '1.0.0'

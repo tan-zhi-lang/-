@@ -100,7 +100,7 @@ public enum Rankings {
 		rec.win		= win;
 		rec.heroClass	= Dungeon.hero.heroClass;
 		rec.armorTier	= Dungeon.hero.tier();
-		rec.herolevel	= Dungeon.hero.lvl;
+		rec.herolevel	= Dungeon.hero.当前等级;
 		if (Statistics.highestAscent == 0){
 			rec.depth = Statistics.deepestFloor;
 			rec.ascending = false;
@@ -165,14 +165,14 @@ public enum Rankings {
 	}
 
 	private int score( boolean win ) {
-		return (Statistics.goldCollected + Dungeon.hero.lvl * (win ? 26 : Dungeon.depth ) * 100) * (win ? 2 : 1);
+		return (Statistics.goldCollected + Dungeon.hero.当前等级 * (win ? 26 : Dungeon.depth ) * 100) * (win ? 2 : 1);
 	}
 
 	//assumes a ranking is loaded, or game is ending
 	public int calculateScore(){
 
 		if (Dungeon.initialVersion > ShatteredPixelDungeon.v1_2_3){
-			Statistics.progressScore = Dungeon.hero.lvl * Statistics.deepestFloor * 65;
+			Statistics.progressScore = Dungeon.hero.当前等级 * Statistics.deepestFloor * 65;
 			Statistics.progressScore = Math.min(Statistics.progressScore, 50_000);
 
 			if (Statistics.heldItemValue == 0) {
@@ -212,7 +212,7 @@ public enum Rankings {
 		//only progress and treasure score, and they are each up to 50% bigger
 		//win multiplier is a simple 2x if run was a win, challenge multi is the same as 1.3.0
 		} else {
-			Statistics.progressScore = Dungeon.hero.lvl * Statistics.deepestFloor * 100;
+			Statistics.progressScore = Dungeon.hero.当前等级 * Statistics.deepestFloor * 100;
 			Statistics.treasureScore = Math.min(Statistics.goldCollected, 30_000);
 
 			Statistics.exploreScore = Statistics.totalBossScore = Statistics.totalQuestScore = 0;

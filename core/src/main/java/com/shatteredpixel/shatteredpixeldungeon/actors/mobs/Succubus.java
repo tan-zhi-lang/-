@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -36,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SuccubusSprite;
@@ -55,12 +36,12 @@ public class Succubus extends Mob {
 	{
 		spriteClass = SuccubusSprite.class;
 		
-		HP = HT = 80;
+		生命 = 最大生命 = 80;
 		defenseSkill = 25;
 		viewDistance = Light.DISTANCE;
 		
-		EXP = 12;
-		maxLvl = 25;
+		经验 = 12;
+		最大等级 = 25;
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.33f;
@@ -69,7 +50,7 @@ public class Succubus extends Mob {
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 25, 30 );
 	}
 	
@@ -78,24 +59,24 @@ public class Succubus extends Mob {
 		damage = super.attackProc( enemy, damage );
 		
 		if (enemy.buff(Charm.class) != null ){
-			int shield = (HP - HT) + (5 + damage);
+			int shield = (生命 - 最大生命) + (5 + damage);
 			if (shield > 0){
-				HP = HT;
+				生命 = 最大生命;
 				if (shield < 5){
 					sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(5-shield), FloatingText.HEALING);
 				}
 
-				Buff.affect(this, Barrier.class).setShield(shield);
+				Buff.施加(this, Barrier.class).setShield(shield);
 				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
 			} else {
-				HP += 5 + damage;
+				生命 += 5 + damage;
 				sprite.showStatusWithIcon(CharSprite.POSITIVE, "5", FloatingText.HEALING);
 			}
 			if (Dungeon.level.heroFOV[pos]) {
 				Sample.INSTANCE.play( Assets.Sounds.CHARMS );
 			}
 		} else if (Random.Int( 3 ) == 0) {
-			Charm c = Buff.affect( enemy, Charm.class, Charm.DURATION/2f );
+			Charm c = Buff.施加( enemy, Charm.class, Charm.DURATION/2f );
 			c.object = id();
 			c.ignoreNextHit = true; //so that the -5 duration from succubus hit is ignored
 			if (Dungeon.level.heroFOV[enemy.pos]) {
@@ -160,7 +141,7 @@ public class Succubus extends Mob {
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 40;
 	}
 	
@@ -174,7 +155,7 @@ public class Succubus extends Mob {
 		Class<?extends Scroll> loot;
 		do{
 			loot = (Class<? extends Scroll>) Random.oneOf(Generator.Category.SCROLL.classes);
-		} while (loot == ScrollOfIdentify.class || loot == ScrollOfUpgrade.class);
+		} while (loot == ScrollOfIdentify.class || loot == 升级卷轴.class);
 
 		return Reflection.newInstance(loot);
 	}

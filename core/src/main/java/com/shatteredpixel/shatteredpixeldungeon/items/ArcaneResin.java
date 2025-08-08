@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
@@ -112,12 +93,12 @@ public class ArcaneResin extends Item {
 			if (item != null && item instanceof Wand) {
 				Wand w = (Wand)item;
 
-				if (w.level() >= 3){
+				if (w.等级() >= 3){
 					GLog.w(Messages.get(ArcaneResin.class, "level_too_high"));
 					return;
 				}
 
-				int resinToUse = w.level()+1;
+				int resinToUse = w.等级()+1;
 
 				if (quantity() < resinToUse){
 					GLog.w(Messages.get(ArcaneResin.class, "not_enough"));
@@ -187,11 +168,11 @@ public class ArcaneResin extends Item {
 		}
 
 		private int resinQuantity(Wand w){
-			int level = w.level() - w.resinBonus;
+			int level = w.等级() - w.resinBonus;
 			int quantity = 2*(level+1);
 
-			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)){
-				quantity += Dungeon.hero.pointsInTalent(Talent.WAND_PRESERVATION);
+			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.有天赋(Talent.WAND_PRESERVATION)){
+				quantity += Dungeon.hero.天赋点数(Talent.WAND_PRESERVATION);
 			}
 			return quantity;
 		}

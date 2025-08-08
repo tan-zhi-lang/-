@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
@@ -224,7 +205,7 @@ public class GameScene extends PixelScene {
 		Camera.main.zoom( GameMath.gate(minZoom, defaultZoom + SPDSettings.zoom(), maxZoom));
 		Camera.main.edgeScroll.set(1);
 
-		switch (SPDSettings.cameraFollow()) {
+		switch (SPDSettings.镜头追踪强度()) {
 			case 4: default:    Camera.main.setFollowDeadzone(0);      break;
 			case 3:             Camera.main.setFollowDeadzone(0.2f);   break;
 			case 2:             Camera.main.setFollowDeadzone(0.5f);   break;
@@ -505,7 +486,7 @@ public class GameScene extends PixelScene {
 				GLog.h(Messages.get(this, "return"), Dungeon.depth);
 			}
 
-			if (Dungeon.hero.hasTalent(Talent.ROGUES_FORESIGHT)
+			if (Dungeon.hero.有天赋(Talent.ROGUES_FORESIGHT)
 					&& Dungeon.level instanceof RegularLevel && Dungeon.branch == 0){
 				int reqSecrets = Dungeon.level.feeling == Level.Feeling.SECRETS ? 2 : 1;
 				for (Room r : ((RegularLevel) Dungeon.level).rooms()){
@@ -515,7 +496,7 @@ public class GameScene extends PixelScene {
 				//75%/100% chance, use level's seed so that we get the same result for the same level
 				//offset seed slightly to avoid output patterns
 				Random.pushGenerator(Dungeon.seedCurDepth()+1);
-					if (reqSecrets <= 0 && Random.Int(4) < 2+Dungeon.hero.pointsInTalent(Talent.ROGUES_FORESIGHT)){
+					if (reqSecrets <= 0 && Random.Int(2) < Dungeon.hero.天赋点数(Talent.ROGUES_FORESIGHT)){
 						GLog.p(Messages.get(this, "secret_hint"));
 					}
 				Random.popGenerator();
@@ -1392,7 +1373,7 @@ public class GameScene extends PixelScene {
 				super.update();
 			}
 		};
-		restart.icon(Icons.get(Icons.ENTER));
+		restart.icon(Icons.get(Icons.进入));
 		restart.alpha(0);
 		restart.camera = uiCamera;
 		float offset = Camera.main.centerOffset.y;

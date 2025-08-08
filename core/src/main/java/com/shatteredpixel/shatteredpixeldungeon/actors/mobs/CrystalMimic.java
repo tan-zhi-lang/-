@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -94,14 +75,14 @@ public class CrystalMimic extends Mimic {
 
 	//does not deal bonus damage, steals instead. See attackProc
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		if (alignment == Alignment.NEUTRAL) {
 			alignment = Alignment.ENEMY;
-			int dmg = super.damageRoll();
+			int dmg = super.攻击();
 			alignment = Alignment.NEUTRAL;
 			return dmg;
 		} else {
-			return super.damageRoll();
+			return super.攻击();
 		}
 	}
 
@@ -110,9 +91,9 @@ public class CrystalMimic extends Mimic {
 		if (sprite != null) sprite.idle();
 		//haste for 2 turns if attacking
 		if (alignment == Alignment.NEUTRAL){
-			Buff.affect(this, Haste.class, 2f);
+			Buff.施加(this, Haste.class, 2f);
 		} else {
-			Buff.affect(this, Haste.class, 1f);
+			Buff.施加(this, Haste.class, 1f);
 		}
 		if (Actor.chars().contains(this) && Dungeon.level.heroFOV[pos]) {
 			enemy = Dungeon.hero;
@@ -151,9 +132,9 @@ public class CrystalMimic extends Mimic {
 		Item item;
 		do {
 			item = hero.belongings.randomUnequipped();
-		} while (tries-- > 0 && (item == null || item.unique || item.level() > 0));
+		} while (tries-- > 0 && (item == null || item.unique || item.等级() > 0));
 
-		if (item != null && !item.unique && item.level() < 1 ) {
+		if (item != null && !item.unique && item.等级() < 1 ) {
 
 			GLog.w( Messages.get(this, "ate", item.name()) );
 			if (!item.stackable) {

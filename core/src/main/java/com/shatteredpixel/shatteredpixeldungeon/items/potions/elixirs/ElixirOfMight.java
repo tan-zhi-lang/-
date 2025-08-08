@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs;
 
@@ -47,24 +28,24 @@ public class ElixirOfMight extends Elixir {
 	
 	@Override
 	public void apply( Hero hero ) {
-		identify();
+		鉴定();
 		
-		hero.STR++;
+		hero.力量++;
 		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, "1", FloatingText.STRENGTH);
 		
-		Buff.affect(hero, HTBoost.class).reset();
-		HTBoost boost = Buff.affect(hero, HTBoost.class);
+		Buff.施加(hero, HTBoost.class).reset();
+		HTBoost boost = Buff.施加(hero, HTBoost.class);
 		boost.reset();
 		
-		hero.updateHT( true );
-		GLog.p( Messages.get(this, "msg", hero.STR()) );
+		hero.更新生命( true );
+		GLog.p( Messages.get(this, "msg", hero.力量()) );
 
 		Badges.validateStrengthAttained();
 		Badges.validateDuelistUnlock();
 	}
 	
 	public String desc() {
-		return Messages.get(this, "desc", HTBoost.boost(Dungeon.hero != null ? Dungeon.hero.HT : 20));
+		return Messages.get(this, "desc", HTBoost.boost(Dungeon.hero != null ? Dungeon.hero.最大生命 : 20));
 	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
@@ -94,7 +75,7 @@ public class ElixirOfMight extends Elixir {
 		}
 		
 		public int boost(){
-			return Math.round(left*boost(15 + 5*((Hero)target).当前等级)/5f);
+			return Math.round(left*boost(15 + 5*((Hero)target).等级)/5f);
 		}
 		
 		public static int boost(int HT){

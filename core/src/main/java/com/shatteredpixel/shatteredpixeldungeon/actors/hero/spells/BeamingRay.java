@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -57,7 +38,7 @@ public class BeamingRay extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", 4*Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY), 30 + 5*Dungeon.hero.pointsInTalent(Talent.BEAMING_RAY)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", 4*Dungeon.hero.天赋点数(Talent.BEAMING_RAY), 30 + 5*Dungeon.hero.天赋点数(Talent.BEAMING_RAY)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
@@ -68,7 +49,7 @@ public class BeamingRay extends TargetedClericSpell {
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.hasTalent(Talent.BEAMING_RAY)
+				&& hero.有天赋(Talent.BEAMING_RAY)
 				&& (PowerOfMany.getPoweredAlly() != null || Stasis.getStasisAlly() != null);
 	}
 
@@ -113,7 +94,7 @@ public class BeamingRay extends TargetedClericSpell {
 			ally = Stasis.getStasisAlly();
 		}
 
-		int range = 4*hero.pointsInTalent(Talent.BEAMING_RAY);
+		int range = 4*hero.天赋点数(Talent.BEAMING_RAY);
 		if (Char.hasProp(ally, Char.Property.IMMOVABLE)){
 			range /= 2;
 		}
@@ -126,7 +107,7 @@ public class BeamingRay extends TargetedClericSpell {
 		if (Actor.findChar(target) != null && Actor.findChar(target).alignment == Char.Alignment.ENEMY){
 			chTarget = Actor.findChar(target);
 			if (hero.subClass == HeroSubClass.PRIEST){
-				Buff.affect(chTarget, GuidingLight.Illuminated.class);
+				Buff.施加(chTarget, GuidingLight.Illuminated.class);
 			}
 		}
 
@@ -138,7 +119,7 @@ public class BeamingRay extends TargetedClericSpell {
 					new Beam.SunRay(hero.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(telePos)));
 
 			if (ally.buff(LifeLink.class) != null){
-				Buff.prolong(Dungeon.hero, LifeLink.class, ally.buff(LifeLink.class).cooldown()).object = ally.id();
+				Buff.延长(Dungeon.hero, LifeLink.class, ally.buff(LifeLink.class).cooldown()).object = ally.id();
 			}
 		} else {
 			hero.sprite.parent.add(
@@ -164,13 +145,13 @@ public class BeamingRay extends TargetedClericSpell {
 			} else if (ally instanceof Mob) {
 				((Mob) ally).aggro(chTarget);
 			}
-			FlavourBuff.prolong(ally, BeamingRayBoost.class, BeamingRayBoost.DURATION).object = chTarget.id();
+			FlavourBuff.延长(ally, BeamingRayBoost.class, BeamingRayBoost.DURATION).object = chTarget.id();
 		} else {
 			if (ally instanceof DirectableAlly) {
 				((DirectableAlly) ally).clearDefensingPos();
 			}
 			//just the buff with no target
-			FlavourBuff.prolong(ally, BeamingRayBoost.class, BeamingRayBoost.DURATION);
+			FlavourBuff.延长(ally, BeamingRayBoost.class, BeamingRayBoost.DURATION);
 		}
 
 		hero.spendAndNext(Actor.TICK);

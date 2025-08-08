@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -202,8 +183,8 @@ public class AscensionChallenge extends Buff {
 
 		//if the hero is at the max level, grant them 10 effective xp per stack cleared
 		// for the purposes of on-xp gain effects
-		if (oldStacks > chal.stacks && Dungeon.hero.当前等级 == Hero.最大等级){
-			Dungeon.hero.earnExp(Math.round(10*(oldStacks - chal.stacks)), chal.getClass());
+		if (oldStacks > chal.stacks && Dungeon.hero.等级 == Hero.最大等级){
+			Dungeon.hero.经验(Math.round(10*(oldStacks - chal.stacks)), chal.getClass());
 		}
 
 		BuffIndicator.refreshHero();
@@ -212,7 +193,7 @@ public class AscensionChallenge extends Buff {
 	public static int AscensionCorruptResist(Mob m){
 		//default to just using their EXP value if no ascent challenge is happening
 		if (Dungeon.hero.buff(AscensionChallenge.class) == null){
-			return m.EXP;
+			return m.经验;
 		}
 
 		if (m instanceof Ratmogrify.TransmogRat){
@@ -220,7 +201,7 @@ public class AscensionChallenge extends Buff {
 		}
 
 		if (m.buff(AscensionBuffBlocker.class) != null){
-			return m.EXP;
+			return m.经验;
 		}
 
 		if (m instanceof RipperDemon){
@@ -230,11 +211,11 @@ public class AscensionChallenge extends Buff {
 		} else {
 			for (Class<?extends Mob> cls : modifiers.keySet()){
 				if (cls.isAssignableFrom(m.getClass())){
-					return Math.max(13, m.EXP); //same exp as an eye
+					return Math.max(13, m.经验); //same exp as an eye
 				}
 			}
 		}
-		return m.EXP;
+		return m.经验;
 	}
 
 	{
@@ -252,7 +233,7 @@ public class AscensionChallenge extends Buff {
 			justAscended = true;
 			if (Dungeon.bossLevel()){
 				Dungeon.hero.buff(Hunger.class).satisfy(Hunger.STARVING);
-				Buff.affect(Dungeon.hero, Healing.class).setHeal(Dungeon.hero.HT, 0, 20);
+				Buff.施加(Dungeon.hero, Healing.class).setHeal(Dungeon.hero.最大生命, 0, 20);
 			} else {
 				stacks += 2f;
 

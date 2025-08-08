@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -42,11 +23,11 @@ public class Swarm extends Mob {
 	{
 		spriteClass = SwarmSprite.class;
 		
-		HP = HT = 50;
+		生命 = 最大生命 = 50;
 		defenseSkill = 5;
 
-		EXP = 3;
-		maxLvl = 9;
+		经验 = 3;
+		最大等级 = 9;
 		
 		flying = true;
 
@@ -70,7 +51,7 @@ public class Swarm extends Mob {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		generation = bundle.getInt( GENERATION );
-		if (generation > 0) EXP = 0;
+		if (generation > 0) 经验 = 0;
 	}
 
 	@Override
@@ -80,14 +61,14 @@ public class Swarm extends Mob {
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 1, 4 );
 	}
 	
 	@Override
 	public int defenseProc( Char enemy, int damage ) {
 
-		if (HP >= damage + 2) {
+		if (生命 >= damage + 2) {
 			ArrayList<Integer> candidates = new ArrayList<>();
 			
 			int[] neighbours = {pos + 1, pos - 1, pos + Dungeon.level.width(), pos - Dungeon.level.width()};
@@ -107,12 +88,12 @@ public class Swarm extends Mob {
 				clone.state = clone.HUNTING;
 				GameScene.add( clone, SPLIT_DELAY ); //we add before assigning HP due to ascension
 
-				clone.HP = (HP - damage) / 2;
+				clone.生命 = (生命 - damage) / 2;
 				Actor.add( new Pushing( clone, pos, clone.pos ) );
 
 				Dungeon.level.occupyCell(clone);
 				
-				HP -= clone.HP;
+				生命 -= clone.生命;
 			}
 		}
 		
@@ -120,23 +101,23 @@ public class Swarm extends Mob {
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 10;
 	}
 	
 	private Swarm split() {
 		Swarm clone = new Swarm();
 		clone.generation = generation + 1;
-		clone.EXP = 0;
+		clone.经验 = 0;
 		if (buff( Burning.class ) != null) {
-			Buff.affect( clone, Burning.class ).reignite( clone );
+			Buff.施加( clone, Burning.class ).reignite( clone );
 		}
 		if (buff( Poison.class ) != null) {
-			Buff.affect( clone, Poison.class ).set(2);
+			Buff.施加( clone, Poison.class ).set(2);
 		}
 		for (Buff b : buffs()){
 			if (b.revivePersists) {
-				Buff.affect(clone, b.getClass());
+				Buff.施加(clone, b.getClass());
 			}
 		}
 		return clone;

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
@@ -77,7 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImag
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMetamorphosis;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -222,11 +203,11 @@ public class CursedWand {
 			Char target = Actor.findChar(bolt.collisionPos);
 			//doesn't affect caster if positive only
 			if (Random.Int(2) == 0) {
-				if (target != null) Buff.affect(target, Burning.class).reignite(target);
-				if (!positiveOnly) Buff.affect(user, Frost.class, Frost.DURATION);
+				if (target != null) Buff.施加(target, Burning.class).reignite(target);
+				if (!positiveOnly) Buff.施加(user, Frost.class, Frost.DURATION);
 			} else {
-				if (!positiveOnly)Buff.affect(user, Burning.class).reignite(user);
-				if (target != null) Buff.affect(target, Frost.class, Frost.DURATION);
+				if (!positiveOnly)Buff.施加(user, Burning.class).reignite(user);
+				if (target != null) Buff.施加(target, Frost.class, Frost.DURATION);
 			}
 			tryForWandProc(target, origin);
 			return true;
@@ -371,7 +352,7 @@ public class CursedWand {
 				wand = (Wand)Generator.randomUsingDefaults(Generator.Category.WAND);
 			}
 			if (origin instanceof Wand){
-				wand.upgrade(origin.level());
+				wand.upgrade(origin.等级());
 			} else {
 				wand.upgrade(Dungeon.scalingDepth()/5);
 			}
@@ -398,7 +379,7 @@ public class CursedWand {
 					Char ch = Actor.findChar(  i );
 					//does not harm hero or allies when positive only
 					if (ch != null && (!positiveOnly || ch.alignment != Char.Alignment.ALLY)){
-						Buff.affect(ch, Ooze.class).set( Ooze.DURATION );
+						Buff.施加(ch, Ooze.class).set( Ooze.DURATION );
 					}
 				}
 			}
@@ -485,7 +466,7 @@ public class CursedWand {
 					toHeal = target;
 					toDamage = user;
 				}
-				toHeal.HP = Math.min(toHeal.HT, toHeal.HP + damage/2);
+				toHeal.生命 = Math.min(toHeal.最大生命, toHeal.生命 + damage/2);
 				toHeal.sprite.emitter().burst(Speck.factory(Speck.HEALING), 3);
 				toHeal.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(damage/2), FloatingText.HEALING );
 
@@ -568,7 +549,7 @@ public class CursedWand {
 
 			for (Char ch : affected){
 				if (ch instanceof Hero) {
-					Buff.prolong(ch, Recharging.class, Recharging.DURATION/3f);
+					Buff.延长(ch, Recharging.class, Recharging.DURATION/3f);
 					ScrollOfRecharging.charge(ch);
 					SpellSprite.show(ch, SpellSprite.CHARGE);
 				}
@@ -577,7 +558,7 @@ public class CursedWand {
 					//shocking dart damage and a little stun
 					ch.damage(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
 					if (ch.isAlive()) {
-						Buff.affect(ch, Paralysis.class, Paralysis.DURATION / 2f);
+						Buff.施加(ch, Paralysis.class, Paralysis.DURATION / 2f);
 					} else if (ch == Dungeon.hero){
 						if (user == Dungeon.hero && origin != null) {
 							Badges.validateDeathFromFriendlyMagic();
@@ -627,9 +608,9 @@ public class CursedWand {
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 			Char ch = Actor.findChar(bolt.collisionPos);
 			if ((!positiveOnly || (ch instanceof Piranha)) && ch != null && !ch.flying && !Char.hasProp(ch, Char.Property.IMMOVABLE)) {
-				Buff.affect(ch, Levitation.class, Levitation.DURATION);
+				Buff.施加(ch, Levitation.class, Levitation.DURATION);
 			} else {
-				Buff.affect(user, Levitation.class, Levitation.DURATION);
+				Buff.施加(user, Levitation.class, Levitation.DURATION);
 			}
 			return true;
 		}
@@ -649,7 +630,7 @@ public class CursedWand {
 			}
 			user.sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
 			if (positiveOnly){
-				Buff.affect(user, ScrollOfChallenge.ChallengeArena.class).setup(user.pos);
+				Buff.施加(user, ScrollOfChallenge.ChallengeArena.class).setup(user.pos);
 				Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
 			} else {
 				Sample.INSTANCE.play(Assets.Sounds.ALERT);
@@ -733,7 +714,7 @@ public class CursedWand {
 			if (positiveOnly || !(user instanceof Hero)){
 				Char ch = Actor.findChar( bolt.collisionPos );
 				if (ch != null){
-					Buff.affect(ch, Hex.class, Hex.DURATION);
+					Buff.施加(ch, Hex.class, Hex.DURATION);
 				}
 				return true;
 			} else {
@@ -813,7 +794,7 @@ public class CursedWand {
 					CellEmitter.get(i).burst(FlameParticle.FACTORY, 10);
 					if (Actor.findChar(i) != null){
 						Char ch = Actor.findChar(i);
-						Burning burning = Buff.affect(ch, Burning.class);
+						Burning burning = Buff.施加(ch, Burning.class);
 						burning.reignite(ch);
 						int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth()*2);
 						ch.damage(dmg, burning);
@@ -898,31 +879,31 @@ public class CursedWand {
 					int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth()*2);
 					switch (Random.Int(5)){
 						case 0: default:
-							Burning burning = Buff.affect(ch, Burning.class);
+							Burning burning = Buff.施加(ch, Burning.class);
 							burning.reignite(ch);
 							ch.damage(dmg, burning);
 							ch.sprite.emitter().burst(FlameParticle.FACTORY, 20);
 							break;
 						case 1:
 							ch.damage(dmg, new Frost());
-							if (ch.isAlive()) Buff.affect(ch, Frost.class, Frost.DURATION);
+							if (ch.isAlive()) Buff.施加(ch, Frost.class, Frost.DURATION);
 							Splash.at( ch.sprite.center(), 0xFFB2D6FF, 20 );
 							break;
 						case 2:
-							Poison poison = Buff.affect(ch, Poison.class);
+							Poison poison = Buff.施加(ch, Poison.class);
 							poison.set(3 + Dungeon.scalingDepth() / 2);
 							ch.damage(dmg, poison);
 							ch.sprite.emitter().burst(PoisonParticle.SPLASH, 20);
 							break;
 						case 3:
-							Ooze ooze = Buff.affect(ch, Ooze.class);
+							Ooze ooze = Buff.施加(ch, Ooze.class);
 							ooze.set(Ooze.DURATION);
 							ch.damage(dmg, ooze);
 							Splash.at( ch.sprite.center(), 0x000000, 20 );
 							break;
 						case 4:
 							ch.damage(dmg, new Electricity());
-							if (ch.isAlive()) Buff.affect(ch, Paralysis.class, Paralysis.DURATION);
+							if (ch.isAlive()) Buff.施加(ch, Paralysis.class, Paralysis.DURATION);
 							ch.sprite.emitter().burst(SparkParticle.FACTORY, 20);
 							break;
 					}
@@ -955,8 +936,8 @@ public class CursedWand {
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 
 			for (Char ch : Actor.chars()){
-				Buff.affect(ch, Invulnerability.class, 10f);
-				Buff.affect(ch, Bless.class, Bless.DURATION);
+				Buff.施加(ch, Invulnerability.class, 10f);
+				Buff.施加(ch, Bless.class, Bless.DURATION);
 			}
 
 			new Flare(5, 48).color(0xFFFF00, true).show(user.sprite, 3f);
@@ -984,7 +965,7 @@ public class CursedWand {
 		@Override
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 
-			Buff.affect(user, TimeStasis.class, 100f);
+			Buff.施加(user, TimeStasis.class, 100f);
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
 			user.sprite.emitter().burst(Speck.factory(Speck.STEAM), 10);
@@ -1074,13 +1055,13 @@ public class CursedWand {
 
 			//mimic is enthralled, but also contains no extra reward, if positive only
 			if (positiveOnly){
-				Buff.affect(mimic, ScrollOfSirensSong.Enthralled.class);
+				Buff.施加(mimic, ScrollOfSirensSong.Enthralled.class);
 			} else {
 				Item reward;
 				do {
 					reward = Generator.randomUsingDefaults(Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR,
 							Generator.Category.RING, Generator.Category.WAND));
-				} while (reward.level() < 1);
+				} while (reward.等级() < 1);
 				mimic.items.add(reward);
 			}
 
@@ -1155,7 +1136,7 @@ public class CursedWand {
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 			//triggers metamorph effect if positive only
 			if (positiveOnly){
-				GameScene.show(new ScrollOfMetamorphosis.WndMetamorphChoose());
+				GameScene.show(new 蜕变秘卷.WndMetamorphChoose());
 				return true;
 			}
 
@@ -1191,11 +1172,11 @@ public class CursedWand {
 		@Override
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 			if (user instanceof Hero){
-				Buff.affect(user, HeroDisguise.class, HeroDisguise.DURATION);
+				Buff.施加(user, HeroDisguise.class, HeroDisguise.DURATION);
 				GLog.w( Messages.get(CursedWand.class, "disguise") );
 				return true;
 			} else if (Actor.findChar(bolt.collisionPos) instanceof Hero){
-				Buff.affect(Actor.findChar(bolt.collisionPos), HeroDisguise.class, HeroDisguise.DURATION);
+				Buff.施加(Actor.findChar(bolt.collisionPos), HeroDisguise.class, HeroDisguise.DURATION);
 				GLog.w( Messages.get(CursedWand.class, "disguise") );
 				return true;
 			}
@@ -1206,7 +1187,7 @@ public class CursedWand {
 	public static class SuperNova extends CursedEffect {
 		@Override
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
-			SuperNovaTracker nova = Buff.append(Dungeon.hero, SuperNovaTracker.class);
+			SuperNovaTracker nova = Buff.新增(Dungeon.hero, SuperNovaTracker.class);
 			nova.pos = bolt.collisionPos;
 			nova.harmsAllies = !positiveOnly;
 			if (positiveOnly){
@@ -1249,7 +1230,7 @@ public class CursedWand {
 					}
 				}
 			}
-			PitfallTrap.DelayedPit p = Buff.append(Dungeon.hero, PitfallTrap.DelayedPit.class, 1);
+			PitfallTrap.DelayedPit p = Buff.新增(Dungeon.hero, PitfallTrap.DelayedPit.class, 1);
 			p.depth = Dungeon.depth;
 			p.branch = Dungeon.branch;
 			p.setPositions(positions);
@@ -1274,7 +1255,7 @@ public class CursedWand {
 
 		@Override
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
-			Buff.append(user, GravityChaosTracker.class).positiveOnly = positiveOnly;
+			Buff.新增(user, GravityChaosTracker.class).positiveOnly = positiveOnly;
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 			if (positiveOnly){
 				GLog.p(Messages.get(CursedWand.class, "gravity_positive"));

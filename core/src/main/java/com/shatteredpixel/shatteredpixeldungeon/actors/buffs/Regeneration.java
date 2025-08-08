@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -49,10 +30,10 @@ public class Regeneration extends Buff {
 			//if other trinkets ever get buffs like this should probably make the buff attaching
 			// behaviour more like wands/rings/artifacts
 			if (ChaoticCenser.averageTurnsUntilGas() != -1){
-				Buff.affect(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
+				Buff.施加(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
 			}
 
-			if (regenOn() && target.HP < regencap() && !((Hero)target).isStarving()) {
+			if (regenOn() && target.生命 < regencap() && !((Hero)target).isStarving()) {
 				boolean chaliceCursed = false;
 				int chaliceLevel = -1;
 				if (target.buff(MagicImmune.class) == null) {
@@ -84,10 +65,10 @@ public class Regeneration extends Buff {
 				partialRegen += 1f / delay;
 
 				if (partialRegen >= 1) {
-					target.HP += (int)partialRegen;
+					target.生命 += (int)partialRegen;
 					partialRegen -= (int)partialRegen;
-					if (target.HP >= regencap()) {
-						target.HP = regencap();
+					if (target.生命 >= regencap()) {
+						target.生命 = regencap();
 						((Hero) target).resting = false;
 					}
 				}
@@ -106,7 +87,7 @@ public class Regeneration extends Buff {
 	}
 	
 	public int regencap(){
-		return target.HT;
+		return target.最大生命;
 	}
 
 	public static boolean regenOn(){

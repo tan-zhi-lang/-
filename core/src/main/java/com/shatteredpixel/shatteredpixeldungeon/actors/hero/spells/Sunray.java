@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -55,15 +36,15 @@ public class Sunray extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
-		int max = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 12 : 8;
-		int dur = Dungeon.hero.pointsInTalent(Talent.SUNRAY) == 2 ? 6 : 4;
+		int min = Dungeon.hero.天赋点数(Talent.SUNRAY,3);
+		int max = Dungeon.hero.天赋点数(Talent.SUNRAY,7);
+		int dur = Dungeon.hero.天赋点数(Talent.SUNRAY,3);
 		return Messages.get(this, "desc", min, max, dur) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.SUNRAY);
+		return super.canCast(hero) && hero.有天赋(Talent.SUNRAY);
 	}
 
 	@Override
@@ -97,30 +78,22 @@ public class Sunray extends TargetedClericSpell {
 			ch.sprite.burst(0xFFFFFF44, 5);
 
 			if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)){
-				if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
-					ch.damage(12, Sunray.this);
-				} else {
-					ch.damage(8, Sunray.this);
-				}
+				ch.damage(hero.天赋点数(Talent.SUNRAY,7), Sunray.this);
 			} else {
-				if (hero.pointsInTalent(Talent.SUNRAY) == 2) {
-					ch.damage(Random.NormalIntRange(6, 12), Sunray.this);
-				} else {
-					ch.damage(Random.NormalIntRange(4, 8), Sunray.this);
-				}
+					ch.damage(Random.NormalIntRange(hero.天赋点数(Talent.SUNRAY,3), hero.天赋点数(Talent.SUNRAY,7)), Sunray.this);
 			}
 
 			if (ch.isAlive()) {
 				if (ch.buff(Blindness.class) != null && ch.buff(SunRayRecentlyBlindedTracker.class) != null) {
-					Buff.prolong(ch, Paralysis.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
+					Buff.延长(ch, Paralysis.class, hero.天赋点数(Talent.SUNRAY,3));
 					ch.buff(SunRayRecentlyBlindedTracker.class).detach();
 				} else if (ch.buff(SunRayUsedTracker.class) == null) {
-					Buff.prolong(ch, Blindness.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
-					Buff.prolong(ch, SunRayRecentlyBlindedTracker.class, 2f + 2f*hero.pointsInTalent(Talent.SUNRAY));
-					Buff.affect(ch, SunRayUsedTracker.class);
+					Buff.延长(ch, Blindness.class, hero.天赋点数(Talent.SUNRAY,3));
+					Buff.延长(ch, SunRayRecentlyBlindedTracker.class, hero.天赋点数(Talent.SUNRAY,2));
+					Buff.施加(ch, SunRayUsedTracker.class);
 				}
 				if (hero.subClass == HeroSubClass.PRIEST){
-					Buff.affect(ch, GuidingLight.Illuminated.class);
+					Buff.施加(ch, GuidingLight.Illuminated.class);
 				}
 			}
 		}

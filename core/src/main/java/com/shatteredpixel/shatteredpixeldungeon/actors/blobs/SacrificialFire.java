@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
@@ -86,7 +67,7 @@ public class SacrificialFire extends Blob {
 								if (Dungeon.level.heroFOV[cell+k] && ch.buff( Marked.class ) == null) {
 									CellEmitter.get(cell+k).burst( SacrificialParticle.FACTORY, 5 );
 								}
-								Buff.prolong( ch, Marked.class, Marked.DURATION );
+								Buff.延长( ch, Marked.class, Marked.DURATION );
 							}
 						}
 
@@ -166,11 +147,11 @@ public class SacrificialFire extends Blob {
 					exp = 1 + Dungeon.depth/2;
 				} else if (ch instanceof Wraith) {
 					exp = 1 + Dungeon.depth/3;
-				} else if (ch instanceof Swarm && ((Swarm) ch).EXP == 0){
+				} else if (ch instanceof Swarm && ((Swarm) ch).经验 == 0){
 					//give 1 exp for child swarms, instead of 0
 					exp = 1;
-				} else if (((Mob) ch).EXP > 0) {
-					exp = 1 + ((Mob)ch).EXP;
+				} else if (((Mob) ch).经验 > 0) {
+					exp = 1 + ((Mob)ch).经验;
 				}
 				exp *= Random.IntRange( 2, 3 );
 			} else if (ch instanceof Hero) {

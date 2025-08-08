@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -68,9 +49,9 @@ public class YogDzewa extends Mob {
 	{
 		spriteClass = YogSprite.class;
 
-		HP = HT = 1000;
+		生命 = 最大生命 = 1000;
 
-		EXP = 50;
+		经验 = 50;
 
 		//so that allies can attack it. States are never actually used.
 		state = HUNTING;
@@ -152,7 +133,7 @@ public class YogDzewa extends Mob {
 	private ArrayList<Integer> targetedCells = new ArrayList<>();
 
 	@Override
-	public int attackSkill(Char target) {
+	public int 最大命中(Char target) {
 		return INFINITE_ACCURACY;
 	}
 
@@ -243,7 +224,7 @@ public class YogDzewa extends Mob {
 
 			if (abilityCooldown <= 0){
 
-				int beams = 1 + (HT - HP)/400;
+				int beams = 1 + (最大生命 - 生命)/400;
 				HashSet<Integer> affectedCells = new HashSet<>();
 				for (int i = 0; i < beams; i++){
 
@@ -386,24 +367,24 @@ public class YogDzewa extends Mob {
 	@Override
 	public void damage( int dmg, Object src ) {
 
-		int preHP = HP;
+		int preHP = 生命;
 		super.damage( dmg, src );
 
 		if (phase == 0 || findFist() != null) return;
 
 		if (phase < 4) {
-			HP = Math.max(HP, HT - 300 * phase);
+			生命 = Math.max(生命, 最大生命 - 300 * phase);
 		} else if (phase == 4) {
-			HP = Math.max(HP, 100);
+			生命 = Math.max(生命, 100);
 		}
-		int dmgTaken = preHP - HP;
+		int dmgTaken = preHP - 生命;
 
 		if (dmgTaken > 0) {
 			abilityCooldown -= dmgTaken / 10f;
 			summonCooldown -= dmgTaken / 10f;
 		}
 
-		if (phase < 4 && HP <= HT - 300*phase){
+		if (phase < 4 && 生命 <= 最大生命 - 300*phase){
 
 			phase++;
 
@@ -638,24 +619,24 @@ public class YogDzewa extends Mob {
 		{
 			spriteClass = LarvaSprite.class;
 
-			HP = HT = 20;
+			生命 = 最大生命 = 20;
 			defenseSkill = 12;
 			viewDistance = Light.DISTANCE;
 
-			EXP = 5;
-			maxLvl = -2;
+			经验 = 5;
+			最大等级 = -2;
 
 			properties.add(Property.DEMONIC);
 			properties.add(Property.BOSS_MINION);
 		}
 
 		@Override
-		public int attackSkill( Char target ) {
+		public int 最大命中(Char target ) {
 			return 30;
 		}
 
 		@Override
-		public int damageRoll() {
+		public int 攻击() {
 			return Random.NormalIntRange( 15, 25 );
 		}
 
@@ -669,19 +650,19 @@ public class YogDzewa extends Mob {
 	//used so death to yog's ripper demons have their own rankings description
 	public static class YogRipper extends RipperDemon {
 		{
-			maxLvl = -2;
+			最大等级 = -2;
 			properties.add(Property.BOSS_MINION);
 		}
 	}
 	public static class YogEye extends Eye {
 		{
-			maxLvl = -2;
+			最大等级 = -2;
 			properties.add(Property.BOSS_MINION);
 		}
 	}
 	public static class YogScorpio extends Scorpio {
 		{
-			maxLvl = -2;
+			最大等级 = -2;
 			properties.add(Property.BOSS_MINION);
 		}
 	}

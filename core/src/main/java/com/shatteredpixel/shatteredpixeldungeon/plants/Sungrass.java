@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.plants;
 
@@ -48,9 +29,9 @@ public class Sungrass extends Plant {
 		
 		if (ch != null){
 			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN) {
-				Buff.affect(ch, Healing.class).setHeal(ch.HT, 0, 1);
+				Buff.施加(ch, Healing.class).setHeal(ch.最大生命, 0, 1);
 			} else {
-				Buff.affect(ch, Health.class).boost(ch.HT);
+				Buff.施加(ch, Health.class).boost(ch.最大生命);
 			}
 		}
 		
@@ -89,20 +70,20 @@ public class Sungrass extends Plant {
 			}
 			
 			//for the hero, full heal takes ~50/93/111/120 turns at levels 1/10/20/30
-			partialHeal += (40 + target.HT)/150f;
+			partialHeal += (40 + target.最大生命)/150f;
 			
 			if (partialHeal > 1){
 				int healThisTurn = (int)partialHeal;
 				partialHeal -= healThisTurn;
 				level -= healThisTurn;
 
-				if (target.HP < target.HT) {
+				if (target.生命 < target.最大生命) {
 
-					target.HP += healThisTurn;
+					target.生命 += healThisTurn;
 					target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healThisTurn), FloatingText.HEALING);
 
-					if (target.HP >= target.HT) {
-						target.HP = target.HT;
+					if (target.生命 >= target.最大生命) {
+						target.生命 = target.最大生命;
 						if (target instanceof Hero) {
 							((Hero) target).resting = false;
 						}
@@ -134,7 +115,7 @@ public class Sungrass extends Plant {
 
 		@Override
 		public float iconFadePercent() {
-			return Math.max(0, (target.HT - level) / (float)target.HT);
+			return Math.max(0, (target.最大生命 - level) / (float)target.最大生命);
 		}
 
 		@Override

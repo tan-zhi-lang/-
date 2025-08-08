@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
@@ -26,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMetamorphosis;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -70,7 +51,7 @@ public class TalentButton extends Button {
 		this.pointsInTalent = points;
 		this.mode = mode;
 
-		bg.frame(20*(talent.maxPoints()-1), 0, WIDTH, HEIGHT);
+		bg.frame(20*(talent.最大点数()-1), 0, WIDTH, HEIGHT);
 
 		icon = new TalentIcon( talent );
 		add(icon);
@@ -96,7 +77,7 @@ public class TalentButton extends Button {
 
 		fill.x = x+2;
 		fill.y = y + WIDTH - 1;
-		fill.size( pointsInTalent/(float)talent.maxPoints() * (WIDTH-4), 5);
+		fill.size( pointsInTalent/(float)talent.最大点数() * (WIDTH-4), 5);
 
 		bg.x = x;
 		bg.y = y;
@@ -115,7 +96,7 @@ public class TalentButton extends Button {
 				&& Dungeon.hero != null
 				&& Dungeon.hero.isAlive()
 				&& Dungeon.hero.talentPointsAvailable(tier) > 0
-				&& Dungeon.hero.pointsInTalent(talent) < talent.maxPoints()){
+				&& Dungeon.hero.天赋点数(talent) < talent.最大点数()){
 			toAdd = new WndInfoTalent(talent, pointsInTalent, new WndInfoTalent.TalentButtonCallback() {
 
 				@Override
@@ -133,7 +114,7 @@ public class TalentButton extends Button {
 
 				@Override
 				public String prompt() {
-					return Messages.titleCase(Messages.get(ScrollOfMetamorphosis.class, "metamorphose_talent"));
+					return Messages.titleCase(Messages.get(蜕变秘卷.class, "metamorphose_talent"));
 				}
 
 				@Override
@@ -143,10 +124,10 @@ public class TalentButton extends Button {
 
 				@Override
 				public void call() {
-					if (ScrollOfMetamorphosis.WndMetamorphChoose.INSTANCE != null){
-						ScrollOfMetamorphosis.WndMetamorphChoose.INSTANCE.hide();
+					if (蜕变秘卷.WndMetamorphChoose.INSTANCE != null){
+						蜕变秘卷.WndMetamorphChoose.INSTANCE.hide();
 					}
-					GameScene.show(new ScrollOfMetamorphosis.WndMetamorphReplace(talent, tier));
+					GameScene.show(new 蜕变秘卷.WndMetamorphReplace(talent, tier));
 				}
 			});
 		} else if (mode == Mode.METAMORPH_REPLACE && Dungeon.hero != null && Dungeon.hero.isAlive()) {
@@ -154,7 +135,7 @@ public class TalentButton extends Button {
 
 				@Override
 				public String prompt() {
-					return Messages.titleCase(Messages.get(ScrollOfMetamorphosis.class, "metamorphose_talent"));
+					return Messages.titleCase(Messages.get(蜕变秘卷.class, "metamorphose_talent"));
 				}
 
 				@Override
@@ -164,7 +145,7 @@ public class TalentButton extends Button {
 
 				@Override
 				public void call() {
-					Talent replacing = ScrollOfMetamorphosis.WndMetamorphReplace.INSTANCE.replacing;
+					Talent replacing = 蜕变秘卷.WndMetamorphReplace.INSTANCE.replacing;
 
 					for (LinkedHashMap<Talent, Integer> tier : Dungeon.hero.talents){
 						if (tier.containsKey(replacing)){
@@ -196,15 +177,15 @@ public class TalentButton extends Button {
 									newTier.put(t, tier.get(t));
 								}
 							}
-							Dungeon.hero.talents.set(ScrollOfMetamorphosis.WndMetamorphReplace.INSTANCE.tier-1, newTier);
+							Dungeon.hero.talents.set(蜕变秘卷.WndMetamorphReplace.INSTANCE.tier-1, newTier);
 							break;
 						}
 					}
 
-					ScrollOfMetamorphosis.onMetamorph(replacing, talent);
+					蜕变秘卷.onMetamorph(replacing, talent);
 
-					if (ScrollOfMetamorphosis.WndMetamorphReplace.INSTANCE != null){
-						ScrollOfMetamorphosis.WndMetamorphReplace.INSTANCE.hide();
+					if (蜕变秘卷.WndMetamorphReplace.INSTANCE != null){
+						蜕变秘卷.WndMetamorphReplace.INSTANCE.hide();
 					}
 
 				}

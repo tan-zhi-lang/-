@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -57,7 +38,7 @@ public class BlessSpell extends TargetedClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.BLESS);
+		return super.canCast(hero) && hero.有天赋(Talent.BLESS);
 	}
 
 	@Override
@@ -100,36 +81,36 @@ public class BlessSpell extends TargetedClericSpell {
 	private void affectChar(Hero hero, Char ch){
 		new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
 		if (ch == hero){
-			Buff.prolong(ch, Bless.class, 2f + 4*hero.pointsInTalent(Talent.BLESS));
-			Buff.affect(ch, Barrier.class).setShield(5 + 5*hero.pointsInTalent(Talent.BLESS));
-			ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(5 + 5*hero.pointsInTalent(Talent.BLESS)), FloatingText.SHIELDING );
+			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,5));
+			Buff.施加(ch, Barrier.class).setShield(hero.天赋点数(Talent.BLESS,7));
+			ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.天赋点数(Talent.BLESS,5)), FloatingText.SHIELDING );
 		} else {
-			Buff.prolong(ch, Bless.class, 5f + 5*hero.pointsInTalent(Talent.BLESS));
-			int totalHeal = 5 + 5*hero.pointsInTalent(Talent.BLESS);
-			if (ch.HT - ch.HP < totalHeal){
-				int barrier = totalHeal - (ch.HT - ch.HP);
+			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,6));
+			int totalHeal = hero.天赋点数(Talent.BLESS,6);
+			if (ch.最大生命 - ch.生命 < totalHeal){
+				int barrier = totalHeal - (ch.最大生命 - ch.生命);
 				barrier = Math.max(barrier, 0);
-				if (ch.HP != ch.HT) {
-					ch.HP = ch.HT;
+				if (ch.生命 != ch.最大生命) {
+					ch.生命 = ch.最大生命;
 					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalHeal - barrier), FloatingText.HEALING);
 				}
 				if (barrier > 0) {
-					Buff.affect(ch, Barrier.class).setShield(barrier);
+					Buff.施加(ch, Barrier.class).setShield(barrier);
 					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING);
 				}
 			} else {
-				ch.HP = ch.HP + totalHeal;
+				ch.生命 = ch.生命 + totalHeal;
 				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(totalHeal), FloatingText.HEALING );
 			}
 		}
 
 		if (ch.alignment != Char.Alignment.ALLY && hero.subClass == HeroSubClass.PRIEST){
-			Buff.affect(ch, GuidingLight.Illuminated.class);
+			Buff.施加(ch, GuidingLight.Illuminated.class);
 		}
 	}
 
 	public String desc(){
-		int talentLvl = Dungeon.hero.pointsInTalent(Talent.BLESS);
+		int talentLvl = Dungeon.hero.天赋点数(Talent.BLESS);
 		return Messages.get(this, "desc", 2+4*talentLvl, 5+5*talentLvl, 5+5*talentLvl, 5+5*talentLvl) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

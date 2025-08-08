@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -81,8 +62,8 @@ public class DM300 extends Mob {
 	{
 		spriteClass = DM300Sprite.class;
 
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 400 : 300;
-		EXP = 30;
+		生命 = 最大生命 = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 400 : 300;
+		经验 = 30;
 		defenseSkill = 15;
 
 		properties.add(Property.BOSS);
@@ -91,12 +72,12 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 15, 25 );
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 20;
 	}
 
@@ -337,10 +318,10 @@ public class DM300 extends Mob {
 				}
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
 				sprite.emitter().start(SparkParticle.STATIC, 0.05f, 20);
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(30 + (HT - HP)/10), FloatingText.SHIELDING);
+				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(30 + (最大生命 - 生命)/10), FloatingText.SHIELDING);
 			}
 
-			Buff.affect(this, Barrier.class).setShield( 30 + (HT - HP)/10);
+			Buff.施加(this, Barrier.class).setShield( 30 + (最大生命 - 生命)/10);
 
 		}
 	}
@@ -460,7 +441,7 @@ public class DM300 extends Mob {
 			sprite.parent.add(new TargetedCell(i, 0xFF0000));
 		}
 		//don't want to overly punish players with slow move or attack speed
-		Buff.append(this, FallingRockBuff.class, GameMath.gate(TICK, (int)Math.ceil(target.cooldown()), 3*TICK)).setRockPositions(rockCells);
+		Buff.新增(this, FallingRockBuff.class, GameMath.gate(TICK, (int)Math.ceil(target.cooldown()), 3*TICK)).setRockPositions(rockCells);
 
 	}
 
@@ -472,13 +453,13 @@ public class DM300 extends Mob {
 			notice();
 		}
 
-		int preHP = HP;
+		int preHP = 生命;
 		super.damage(dmg, src);
 		if (isInvulnerable(src.getClass())){
 			return;
 		}
 
-		int dmgTaken = preHP - HP;
+		int dmgTaken = preHP - 生命;
 		if (dmgTaken > 0) {
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 			if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
@@ -489,13 +470,13 @@ public class DM300 extends Mob {
 
 		int threshold;
 		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-			threshold = HT / 4 * (3 - pylonsActivated);
+			threshold = 最大生命 / 4 * (3 - pylonsActivated);
 		} else {
-			threshold = HT / 3 * (2 - pylonsActivated);
+			threshold = 最大生命 / 3 * (2 - pylonsActivated);
 		}
 
-		if (HP <= threshold && threshold > 0){
-			HP = threshold;
+		if (生命 <= threshold && threshold > 0){
+			生命 = threshold;
 			supercharge();
 		}
 
@@ -683,7 +664,7 @@ public class DM300 extends Mob {
 		@Override
 		public void affectChar(Char ch) {
 			if (!(ch instanceof DM300)){
-				Buff.prolong(ch, Paralysis.class, Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 5 : 3);
+				Buff.延长(ch, Paralysis.class, Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 5 : 3);
 				if (ch == Dungeon.hero) {
 					Statistics.bossScores[2] -= 100;
 				}

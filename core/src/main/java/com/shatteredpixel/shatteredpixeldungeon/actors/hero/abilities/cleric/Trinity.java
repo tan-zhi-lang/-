@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric;
 
@@ -128,7 +109,7 @@ public class Trinity extends ArmorAbility {
 								GLog.w(Messages.get(Trinity.class, "no_duplicate"));
 								hide();
 							} else {
-								Buff.prolong(Dungeon.hero, BodyForm.BodyFormBuff.class, BodyForm.duration()).setEffect(bodyForm);
+								Buff.延长(Dungeon.hero, BodyForm.BodyFormBuff.class, BodyForm.duration()).setEffect(bodyForm);
 								Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 								Weapon w = new WornShortsword();
 								if (Dungeon.hero.belongings.weapon() != null) {
@@ -162,7 +143,7 @@ public class Trinity extends ArmorAbility {
 								GLog.w(Messages.get(Trinity.class, "no_duplicate"));
 								hide();
 							} else {
-								Buff.prolong(Dungeon.hero, BodyForm.BodyFormBuff.class, BodyForm.duration()).setEffect(bodyForm);
+								Buff.延长(Dungeon.hero, BodyForm.BodyFormBuff.class, BodyForm.duration()).setEffect(bodyForm);
 								Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 								Armor a = new ClothArmor();
 								if (Dungeon.hero.belongings.armor() != null) {
@@ -242,7 +223,7 @@ public class Trinity extends ArmorAbility {
 						Invisibility.dispel();
 						//Rings and the Chalice specifically get their passive effects for 20 turns
 						if (spiritForm instanceof Ring || spiritForm instanceof ChaliceOfBlood) {
-							Buff.prolong(Dungeon.hero, SpiritForm.SpiritFormBuff.class, SpiritForm.SpiritFormBuff.DURATION).setEffect(spiritForm);
+							Buff.延长(Dungeon.hero, SpiritForm.SpiritFormBuff.class, SpiritForm.SpiritFormBuff.DURATION).setEffect(spiritForm);
 							Dungeon.hero.spendAndNext(1f);
 						} else {
 							SpiritForm.applyActiveArtifactEffect(armor, (Artifact) spiritForm);

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
@@ -95,7 +76,7 @@ public class WandOfLivingEarth extends DamageWand {
 			armorToAdd = 0;
 		} else {
 			if (buff == null && guardian == null) {
-				buff = Buff.affect(curUser, RockArmor.class);
+				buff = Buff.施加(curUser, RockArmor.class);
 			}
 			if (buff != null) {
 				buff.addArmor( buffedLvl(), armorToAdd);
@@ -117,7 +98,7 @@ public class WandOfLivingEarth extends DamageWand {
 			guardian.setInfo(curUser, buffedLvl(), buff.armor);
 
 			if (buff.powerOfManyTurns > 0){
-				Buff.affect(guardian, PowerOfMany.PowerBuff.class, buff.powerOfManyTurns);
+				Buff.施加(guardian, PowerOfMany.PowerBuff.class, buff.powerOfManyTurns);
 			}
 
 			//if the collision pos is occupied (likely will be), then spawn the guardian in the
@@ -238,7 +219,7 @@ public class WandOfLivingEarth extends DamageWand {
 			guardian.setInfo(Dungeon.hero, buffedLvl(), armor);
 		} else {
 			attacker.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + buffedLvl() / 2);
-			Buff.affect(attacker, RockArmor.class).addArmor( buffedLvl(), armor);
+			Buff.施加(attacker, RockArmor.class).addArmor( buffedLvl(), armor);
 		}
 	}
 	
@@ -378,7 +359,7 @@ public class WandOfLivingEarth extends DamageWand {
 			//before other mobs
 			actPriority = MOB_PRIO + 1;
 
-			HP = HT = 0;
+			生命 = 最大生命 = 0;
 		}
 
 		private int wandLevel = -1;
@@ -386,18 +367,18 @@ public class WandOfLivingEarth extends DamageWand {
 		public void setInfo(Hero hero, int wandLevel, int healthToAdd){
 			if (wandLevel > this.wandLevel) {
 				this.wandLevel = wandLevel;
-				HT = 16 + 8 * wandLevel;
+				最大生命 = 16 + 8 * wandLevel;
 			}
-			if (HP != 0 && sprite != null){
+			if (生命 != 0 && sprite != null){
 				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healthToAdd), FloatingText.HEALING);
 			}
-			HP = Math.min(HT, HP + healthToAdd);
+			生命 = Math.min(最大生命, 生命 + healthToAdd);
 			//half of hero's evasion
-			defenseSkill = (hero.当前等级 + 4)/2;
+			defenseSkill = (hero.等级 + 4)/2;
 		}
 
 		@Override
-		public int attackSkill(Char target) {
+		public int 最大命中(Char target) {
 			//same as the hero
 			return 2*defenseSkill + 5;
 		}
@@ -409,7 +390,7 @@ public class WandOfLivingEarth extends DamageWand {
 		}
 
 		@Override
-		public int damageRoll() {
+		public int 攻击() {
 			return Random.NormalIntRange(2, 4 + Dungeon.scalingDepth()/2);
 		}
 
@@ -465,9 +446,9 @@ public class WandOfLivingEarth extends DamageWand {
 			@Override
 			public boolean act(boolean enemyInFOV, boolean justAlerted) {
 				if (!enemyInFOV){
-					Buff.affect(Dungeon.hero, RockArmor.class).addArmor(wandLevel, HP);
+					Buff.施加(Dungeon.hero, RockArmor.class).addArmor(wandLevel, 生命);
 					if (buff(PowerOfMany.PowerBuff.class) != null){
-						Buff.affect(Dungeon.hero, RockArmor.class).powerOfManyTurns = buff(PowerOfMany.PowerBuff.class).cooldown()+1;
+						Buff.施加(Dungeon.hero, RockArmor.class).powerOfManyTurns = buff(PowerOfMany.PowerBuff.class).cooldown()+1;
 					}
 					Dungeon.hero.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + wandLevel/2);
 					destroy();

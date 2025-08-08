@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
@@ -69,7 +50,7 @@ public class Freezing extends Blob {
 		Char ch = Actor.findChar( cell );
 		if (ch != null && !ch.isImmune(Freezing.class)) {
 			if (ch.buff(Frost.class) != null){
-				Buff.affect(ch, Frost.class, 2f);
+				Buff.施加(ch, Frost.class, 2f);
 			} else {
 				Chill chill = ch.buff(Chill.class);
 				float turnsToAdd = Dungeon.level.water[cell] ? 5f : 3f;
@@ -79,12 +60,12 @@ public class Freezing extends Blob {
 					turnsToAdd = Math.min(turnsToAdd, chillToCap);
 				}
 				if (turnsToAdd > 0f) {
-					Buff.affect(ch, Chill.class, turnsToAdd);
+					Buff.施加(ch, Chill.class, turnsToAdd);
 				}
 				if (chill != null
 						&& chill.cooldown() >= Chill.DURATION &&
 						!ch.isImmune(Frost.class)){
-					Buff.affect(ch, Frost.class, Frost.DURATION);
+					Buff.施加(ch, Frost.class, Frost.DURATION);
 				}
 			}
 		}
@@ -110,9 +91,9 @@ public class Freezing extends Blob {
 		Char ch = Actor.findChar( cell );
 		if (ch != null) {
 			if (Dungeon.level.water[ch.pos]){
-				Buff.prolong(ch, Frost.class, Frost.DURATION * 3);
+				Buff.延长(ch, Frost.class, Frost.DURATION * 3);
 			} else {
-				Buff.prolong(ch, Frost.class, Frost.DURATION);
+				Buff.延长(ch, Frost.class, Frost.DURATION);
 			}
 		}
 

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 
@@ -48,7 +29,7 @@ public class ScrollOfRetribution extends Scroll {
 		GameScene.flash( 0x80FFFFFF );
 		
 		//scales from 0x to 1x power, maxing at ~10% HP
-		float hpPercent = (curUser.HT - curUser.HP)/(float)(curUser.HT);
+		float hpPercent = (curUser.最大生命 - curUser.生命)/(float)(curUser.最大生命);
 		float power = Math.min( 4f, 4.45f*hpPercent);
 		
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
@@ -65,17 +46,17 @@ public class ScrollOfRetribution extends Scroll {
 
 		for (Mob mob : targets){
 			//deals 10%HT, plus 0-90%HP based on scaling
-			mob.damage(Math.round(mob.HT/10f + (mob.HP * power * 0.225f)), this);
+			mob.damage(Math.round(mob.最大生命 /10f + (mob.生命 * power * 0.225f)), this);
 			if (mob.isAlive()) {
-				Buff.prolong(mob, Blindness.class, Blindness.DURATION);
+				Buff.延长(mob, Blindness.class, Blindness.DURATION);
 			}
 		}
 		
-		Buff.prolong(curUser, Weakness.class, Weakness.DURATION);
-		Buff.prolong(curUser, Blindness.class, Blindness.DURATION);
+		Buff.延长(curUser, Weakness.class, Weakness.DURATION);
+		Buff.延长(curUser, Blindness.class, Blindness.DURATION);
 		Dungeon.observe();
 
-		identify();
+		鉴定();
 		
 		readAnimation();
 		

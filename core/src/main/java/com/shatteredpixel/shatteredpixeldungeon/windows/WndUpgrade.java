@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
@@ -27,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -98,7 +79,7 @@ public class WndUpgrade extends Window {
 
 		// *** Computing current and next level to display ***
 
-		int levelFrom = toUpgrade.isIdentified() ? toUpgrade.level() : 0;
+		int levelFrom = toUpgrade.isIdentified() ? toUpgrade.等级() : 0;
 		int levelTo = levelFrom + 1;
 
 		if (toUpgrade instanceof Wand && ((Wand) toUpgrade).resinBonus > 0){
@@ -247,8 +228,8 @@ public class WndUpgrade extends Window {
 			//missile weapons are always IDed currently, so we always use true level
 			int uses1, uses2;
 			if (toUpgrade.levelKnown) {
-				uses1 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(toUpgrade.level()));
-				uses2 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(toUpgrade.level()+1));
+				uses1 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(toUpgrade.等级()));
+				uses2 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(toUpgrade.等级()+1));
 			} else {
 				uses1 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(0));
 				uses2 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(1));
@@ -416,12 +397,12 @@ public class WndUpgrade extends Window {
 			protected void onClick() {
 				super.onClick();
 
-				ScrollOfUpgrade.upgrade(Dungeon.hero);
+				升级卷轴.upgrade(Dungeon.hero);
 
 				Item upgraded = toUpgrade;
-				if (upgrader instanceof ScrollOfUpgrade){
-					((ScrollOfUpgrade) upgrader).readAnimation();
-					upgraded = ((ScrollOfUpgrade) upgrader).upgradeItem(toUpgrade);
+				if (upgrader instanceof 升级卷轴){
+					((升级卷轴) upgrader).readAnimation();
+					upgraded = ((升级卷轴) upgrader).upgradeItem(toUpgrade);
 					Sample.INSTANCE.play( Assets.Sounds.READ );
 				} else if (upgrader instanceof MagicalInfusion){
 					((MagicalInfusion) upgrader).useAnimation();
@@ -446,8 +427,8 @@ public class WndUpgrade extends Window {
 			protected void onClick() {
 				super.onClick();
 				hide();
-				if (upgrader instanceof ScrollOfUpgrade) {
-					((ScrollOfUpgrade) upgrader).reShowSelector(force);
+				if (upgrader instanceof 升级卷轴) {
+					((升级卷轴) upgrader).reShowSelector(force);
 				} else if (upgrader instanceof MagicalInfusion){
 					((MagicalInfusion)upgrader).reShowSelector();
 				}
@@ -460,7 +441,7 @@ public class WndUpgrade extends Window {
 		btnUpgrade.enable(Dungeon.hero.ready);
 
 		btnUpgrade.icon(new ItemSprite(upgrader));
-		btnCancel.icon(Icons.EXIT.get());
+		btnCancel.icon(Icons.退出.get());
 
 		bottom = (int)btnCancel.bottom();
 
@@ -479,8 +460,8 @@ public class WndUpgrade extends Window {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		if (upgrader instanceof ScrollOfUpgrade) {
-			((ScrollOfUpgrade) upgrader).reShowSelector(force);
+		if (upgrader instanceof 升级卷轴) {
+			((升级卷轴) upgrader).reShowSelector(force);
 		} else if (upgrader instanceof MagicalInfusion){
 			((MagicalInfusion)upgrader).reShowSelector();
 		}

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -122,8 +103,8 @@ public abstract class Mob extends Char {
 	
 	public int defenseSkill = 0;
 	
-	public int EXP = 1;
-	public int maxLvl = Hero.MAX_LEVEL-1;
+	public int 经验 = 1;
+	public int 最大等级 = Hero.最大等级-1;
 	
 	protected Char enemy;
 	protected int enemyID = -1; //used for save/restore
@@ -136,9 +117,9 @@ public abstract class Mob extends Char {
 	protected void onAdd(){
 		if (firstAdded) {
 			//modify health for ascension challenge if applicable, only on first add
-			float percent = HP / (float) HT;
-			HT = Math.round(HT * AscensionChallenge.statModifier(this));
-			HP = Math.round(HT * percent);
+			float percent = 生命 / (float) 最大生命;
+			最大生命 = Math.round(最大生命 * AscensionChallenge.statModifier(this));
+			生命 = Math.round(最大生命 * percent);
 			firstAdded = false;
 		}
 	}
@@ -168,7 +149,7 @@ public abstract class Mob extends Char {
 		}
 		bundle.put( SEEN, enemySeen );
 		bundle.put( TARGET, target );
-		bundle.put( MAX_LVL, maxLvl );
+		bundle.put( MAX_LVL, 最大等级);
 
 		if (enemy != null) {
 			bundle.put(ENEMY_ID, enemy.id() );
@@ -197,7 +178,7 @@ public abstract class Mob extends Char {
 
 		target = bundle.getInt( TARGET );
 
-		if (bundle.contains(MAX_LVL)) maxLvl = bundle.getInt(MAX_LVL);
+		if (bundle.contains(MAX_LVL)) 最大等级 = bundle.getInt(MAX_LVL);
 
 		if (bundle.contains(ENEMY_ID)) {
 			enemyID = bundle.getInt(ENEMY_ID);
@@ -681,7 +662,7 @@ public abstract class Mob extends Char {
 			if (enemy instanceof Hero){
 				Hero h = (Hero) enemy;
 				if (!(h.belongings.attackingWeapon() instanceof Weapon)
-						|| ((Weapon) h.belongings.attackingWeapon()).STRReq() <= h.STR()){
+						|| ((Weapon) h.belongings.attackingWeapon()).STRReq() <= h.力量()){
 					return 0;
 				}
 			} else {
@@ -737,18 +718,18 @@ public abstract class Mob extends Char {
 		}
 
 		if (buff(SoulMark.class) != null) {
-			int restoration = Math.min(damage, HP+shielding());
+			int restoration = Math.min(damage, 生命 +shielding());
 			
 			//physical damage that doesn't come from the hero is less effective
 			if (enemy != Dungeon.hero){
-				restoration = Math.round(restoration * 0.4f*Dungeon.hero.pointsInTalent(Talent.SOUL_SIPHON)/3f);
+				restoration = Math.round(restoration*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.12f));
 			}
 			if (restoration > 0) {
-				Buff.affect(Dungeon.hero, Hunger.class).affectHunger(restoration*Dungeon.hero.pointsInTalent(Talent.SOUL_EATER)/3f);
+				Buff.施加(Dungeon.hero, Hunger.class).affectHunger(restoration*Dungeon.hero.天赋点数(Talent.SOUL_EATER)/3f);
 
-				if (Dungeon.hero.HP < Dungeon.hero.HT) {
+				if (Dungeon.hero.生命 < Dungeon.hero.最大生命) {
 					int heal = (int)Math.ceil(restoration * 0.4f);
-					Dungeon.hero.HP = Math.min(Dungeon.hero.HT, Dungeon.hero.HP + heal);
+					Dungeon.hero.生命 = Math.min(Dungeon.hero.最大生命, Dungeon.hero.生命 + heal);
 					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
 				}
 			}
@@ -844,23 +825,23 @@ public abstract class Mob extends Char {
 
 				AscensionChallenge.processEnemyKill(this);
 				
-				int exp = Dungeon.hero.lvl <= maxLvl ? EXP : 0;
+				int exp = Dungeon.hero.等级 <= 最大等级 ? 经验 : 0;
 
 				//during ascent, under-levelled enemies grant 10 xp each until level 30
 				// after this enemy kills which reduce the amulet curse still grant 10 effective xp
 				// for the purposes of on-exp effects, see AscensionChallenge.processEnemyKill
 				if (Dungeon.hero.buff(AscensionChallenge.class) != null &&
-						exp == 0 && maxLvl > 0 && EXP > 0 && Dungeon.hero.lvl < Hero.MAX_LEVEL){
+						exp == 0 && 最大等级 > 0 && 经验 > 0 && Dungeon.hero.等级 < Hero.最大等级){
 					exp = Math.round(10 * spawningWeight());
 				}
 
 				if (exp > 0) {
 					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.EXPERIENCE);
 				}
-				Dungeon.hero.earnExp(exp, getClass());
+				Dungeon.hero.经验(exp, getClass());
 
 				if (Dungeon.hero.subClass == HeroSubClass.MONK){
-					Buff.affect(Dungeon.hero, MonkEnergy.class).gainEnergy(this);
+					Buff.施加(Dungeon.hero, MonkEnergy.class).gainEnergy(this);
 				}
 			}
 		}
@@ -871,8 +852,8 @@ public abstract class Mob extends Char {
 
 		if (cause == Chasm.class){
 			//50% chance to round up, 50% to round down
-			if (EXP % 2 == 1) EXP += Random.Int(2);
-			EXP /= 2;
+			if (经验 % 2 == 1) 经验 += Random.Int(2);
+			经验 /= 2;
 		}
 
 		if (alignment == Alignment.ENEMY){
@@ -884,15 +865,16 @@ public abstract class Mob extends Char {
 			rollToDropLoot();
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
-				if (Dungeon.hero.hasTalent(Talent.LETHAL_MOMENTUM)
-						&& Random.Float() < 0.34f + 0.33f* Dungeon.hero.pointsInTalent(Talent.LETHAL_MOMENTUM)){
-					Buff.affect(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
+				if (Dungeon.hero.有天赋(Talent.LETHAL_MOMENTUM)
+						&& Random.Float() < 0.5f +Dungeon.hero.天赋点数(Talent.LETHAL_MOMENTUM,0.5f)){
+					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
+					Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(1);
 				}
 				if (Dungeon.hero.heroClass != HeroClass.DUELIST
-						&& Dungeon.hero.hasTalent(Talent.LETHAL_HASTE)
+						&& Dungeon.hero.有天赋(Talent.LETHAL_HASTE)
 						&& Dungeon.hero.buff(Talent.LethalHasteCooldown.class) == null){
-					Buff.affect(Dungeon.hero, Talent.LethalHasteCooldown.class, 100f);
-					Buff.affect(Dungeon.hero, GreaterHaste.class).set(2 + 2*Dungeon.hero.pointsInTalent(Talent.LETHAL_HASTE));
+					Buff.施加(Dungeon.hero, Talent.LethalHasteCooldown.class, 100f);
+					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,3));
 				}
 			}
 
@@ -908,10 +890,10 @@ public abstract class Mob extends Char {
 
 		if (!(this instanceof Wraith)
 				&& soulMarked
-				&& Random.Float() < (0.4f*Dungeon.hero.pointsInTalent(Talent.NECROMANCERS_MINIONS)/3f)){
+				&& Random.Float() < (Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
 			Wraith w = Wraith.spawnAt(pos, Wraith.class);
 			if (w != null) {
-				Buff.affect(w, Corruption.class);
+				Buff.施加(w, Corruption.class);
 				if (Dungeon.level.heroFOV[pos]) {
 					CellEmitter.get(pos).burst(ShadowParticle.CURSE, 6);
 					Sample.INSTANCE.play(Assets.Sounds.CURSED);
@@ -931,7 +913,7 @@ public abstract class Mob extends Char {
 			if (prep != null){
 				// 2/4/8/16% per prep level, multiplied by talent points
 				float bhBonus = 0.02f * (float)Math.pow(2, prep.attackLevel()-1);
-				bhBonus *= Dungeon.hero.pointsInTalent(Talent.BOUNTY_HUNTER);
+				bhBonus *= Dungeon.hero.天赋点数(Talent.BOUNTY_HUNTER);
 				dropBonus += bhBonus;
 			}
 		}
@@ -942,7 +924,7 @@ public abstract class Mob extends Char {
 	}
 	
 	public void rollToDropLoot(){
-		if (Dungeon.hero.lvl > maxLvl + 2) return;
+		if (Dungeon.hero.等级 > 最大等级 + 2) return;
 
 		MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
 		if (stolen == null || !stolen.itemWasStolen()) {
@@ -974,7 +956,7 @@ public abstract class Mob extends Char {
 
 		//soul eater talent
 		if (buff(SoulMark.class) != null &&
-				Random.Int(10) < Dungeon.hero.pointsInTalent(Talent.SOUL_EATER)){
+				Random.Int(10) < Dungeon.hero.天赋点数(Talent.SOUL_EATER)){
 			Talent.onFoodEaten(Dungeon.hero, 0, null);
 		}
 
@@ -1092,8 +1074,8 @@ public abstract class Mob extends Char {
 						float chDist = ch.stealth() + distance(ch);
 						//silent steps rogue talent, which also applies to rogue's shadow clone
 						if ((ch instanceof Hero || ch instanceof ShadowClone.ShadowAlly)
-								&& Dungeon.hero.hasTalent(Talent.SILENT_STEPS)){
-							if (distance(ch) >= 4 - Dungeon.hero.pointsInTalent(Talent.SILENT_STEPS)) {
+								&& Dungeon.hero.有天赋(Talent.SILENT_STEPS)){
+							if (distance(ch) >= 4 - Dungeon.hero.天赋点数(Talent.SILENT_STEPS)) {
 								chDist = Float.POSITIVE_INFINITY;
 							}
 						}

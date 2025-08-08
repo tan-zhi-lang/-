@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -133,7 +114,7 @@ public class TalismanOfForesight extends Artifact {
 	}
 
 	private float maxDist(){
-		return Math.min(5 + 2*level(), (charge-3)/1.08f);
+		return Math.min(5 + 2* 等级(), (charge-3)/1.08f);
 	}
 
 	public CellSelector.Listener scry = new CellSelector.Listener(){
@@ -191,7 +172,7 @@ public class TalismanOfForesight extends Artifact {
 					if (ch != null
 							&& (ch.alignment != Char.Alignment.NEUTRAL || ch instanceof Mimic)
 							&& ch.alignment != curUser.alignment){
-						Buff.append(curUser, CharAwareness.class, 5 + 2*level()).charID = ch.id();
+						Buff.新增(curUser, CharAwareness.class, 5 + 2* 等级()).charID = ch.id();
 
 						artifactProc(ch, visiblyUpgraded(), (int)(3 + dist*1.08f));
 
@@ -202,7 +183,7 @@ public class TalismanOfForesight extends Artifact {
 
 					Heap h = Dungeon.level.heaps.get(cell);
 					if (h != null){
-						Buff.append(curUser, HeapAwareness.class, 5 + 2*level()).pos = h.pos;
+						Buff.新增(curUser, HeapAwareness.class, 5 + 2* 等级()).pos = h.pos;
 
 						if (!h.seen){
 							earnedExp += 10;
@@ -212,8 +193,8 @@ public class TalismanOfForesight extends Artifact {
 				}
 
 				exp += earnedExp;
-				if (exp >= 100 + 50*level() && level() < levelCap) {
-					exp -= 100 + 50*level();
+				if (exp >= 100 + 50* 等级() && 等级() < levelCap) {
+					exp -= 100 + 50* 等级();
 					upgrade();
 					Catalog.countUse(TalismanOfForesight.class);
 					GLog.p( Messages.get(TalismanOfForesight.class, "levelup") );
@@ -282,7 +263,7 @@ public class TalismanOfForesight extends Artifact {
 					&& target.buff(MagicImmune.class) == null
 					&& Regeneration.regenOn()) {
 				//fully charges in 2000 turns at +0, scaling to 1000 turns at +10.
-				float chargeGain = (0.05f+(level()*0.005f));
+				float chargeGain = (0.05f+(等级()*0.005f));
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
 				partialCharge += chargeGain;
 

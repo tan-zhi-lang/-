@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -62,7 +43,7 @@ public class HornOfPlenty extends Artifact {
 
 		charge = 0;
 		partialCharge = 0;
-		chargeCap = 5 + level()/2;
+		chargeCap = 5 + 等级()/2;
 
 		defaultAction = AC_SNACK;
 	}
@@ -81,7 +62,7 @@ public class HornOfPlenty extends Artifact {
 			actions.add(AC_SNACK);
 			actions.add(AC_EAT);
 		}
-		if (isEquipped( hero ) && level() < levelCap && !cursed) {
+		if (isEquipped( hero ) && 等级() < levelCap && !cursed) {
 			actions.add(AC_STORE);
 		}
 		return actions;
@@ -105,7 +86,7 @@ public class HornOfPlenty extends Artifact {
 					satietyPerCharge /= 3;
 				}
 
-				Hunger hunger = Buff.affect(Dungeon.hero, Hunger.class);
+				Hunger hunger = Buff.施加(Dungeon.hero, Hunger.class);
 				int chargesToUse = Math.max( 1, hunger.hunger() / satietyPerCharge);
 				if (chargesToUse > charge) chargesToUse = charge;
 
@@ -130,7 +111,7 @@ public class HornOfPlenty extends Artifact {
 			satietyPerCharge /= 3;
 		}
 
-		Buff.affect(hero, Hunger.class).satisfy(satietyPerCharge * chargesToUse);
+		Buff.施加(hero, Hunger.class).satisfy(satietyPerCharge * chargesToUse);
 
 		Statistics.foodEaten++;
 
@@ -143,12 +124,12 @@ public class HornOfPlenty extends Artifact {
 		Sample.INSTANCE.play(Assets.Sounds.EAT);
 		GLog.i( Messages.get(this, "eat") );
 
-		if (Dungeon.hero.hasTalent(Talent.IRON_STOMACH)
-				|| Dungeon.hero.hasTalent(Talent.ENERGIZING_MEAL)
-				|| Dungeon.hero.hasTalent(Talent.MYSTICAL_MEAL)
-				|| Dungeon.hero.hasTalent(Talent.INVIGORATING_MEAL)
-				|| Dungeon.hero.hasTalent(Talent.FOCUSED_MEAL)
-				|| Dungeon.hero.hasTalent(Talent.ENLIGHTENING_MEAL)){
+		if (Dungeon.hero.有天赋(Talent.IRON_STOMACH)
+				|| Dungeon.hero.有天赋(Talent.ENERGIZING_MEAL)
+				|| Dungeon.hero.有天赋(Talent.MYSTICAL_MEAL)
+				|| Dungeon.hero.有天赋(Talent.INVIGORATING_MEAL)
+				|| Dungeon.hero.有天赋(Talent.FOCUSED_MEAL)
+				|| Dungeon.hero.有天赋(Talent.ENLIGHTENING_MEAL)){
 			hero.spend(Food.TIME_TO_EAT - 2);
 		} else {
 			hero.spend(Food.TIME_TO_EAT);
@@ -200,7 +181,7 @@ public class HornOfPlenty extends Artifact {
 
 		if ( isEquipped( Dungeon.hero ) ){
 			if (!cursed) {
-				if (level() < levelCap)
+				if (等级() < levelCap)
 					desc += "\n\n" +Messages.get(this, "desc_hint");
 			} else {
 				desc += "\n\n" +Messages.get(this, "desc_cursed");
@@ -211,20 +192,20 @@ public class HornOfPlenty extends Artifact {
 	}
 
 	@Override
-	public void level(int value) {
-		super.level(value);
-		chargeCap = 5 + level()/2;
+	public void 等级(int value) {
+		super.等级(value);
+		chargeCap = 5 + 等级()/2;
 	}
 
 	@Override
 	public Item upgrade() {
 		super.upgrade();
-		chargeCap = 5 + level()/2;
+		chargeCap = 5 + 等级()/2;
 		return this;
 	}
 	
 	public void gainFoodValue( Food food ){
-		if (level() >= 10) return;
+		if (等级() >= 10) return;
 		
 		storedFoodEnergy += food.energy;
 		//Pasties and phantom meat are worth two upgrades instead of 1.5, meat pies are worth 4 instead of 3!
@@ -235,11 +216,11 @@ public class HornOfPlenty extends Artifact {
 		}
 		if (storedFoodEnergy >= Hunger.HUNGRY){
 			int upgrades = storedFoodEnergy / (int)Hunger.HUNGRY;
-			upgrades = Math.min(upgrades, 10 - level());
+			upgrades = Math.min(upgrades, 10 - 等级());
 			upgrade(upgrades);
 			Catalog.countUse(HornOfPlenty.class);
 			storedFoodEnergy -= upgrades * Hunger.HUNGRY;
-			if (level() == 10){
+			if (等级() == 10){
 				storedFoodEnergy = 0;
 				GLog.p( Messages.get(this, "maxlevel") );
 			} else {
@@ -279,7 +260,7 @@ public class HornOfPlenty extends Artifact {
 				//generates 0.25x max hunger value every hero level, +0.125x max value per horn level
 				//to a max of 1.5x max hunger value per hero level
 				//This means that a standard ration will be recovered in ~5.333 hero levels
-				float chargeGain = Hunger.STARVING * levelPortion * (0.25f + (0.125f*level()));
+				float chargeGain = Hunger.STARVING * levelPortion * (0.25f + (0.125f* 等级()));
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
 
 				//each charge is equal to 1/5 the max hunger value

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 
@@ -229,25 +210,25 @@ public class ShopRoom extends SpecialRoom {
 		case 6: default:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[1]);
-			itemsToSpawn.add( new LeatherArmor().identify(false) );
+			itemsToSpawn.add( new LeatherArmor().鉴定(false) );
 			break;
 			
 		case 11:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[2]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[2]);
-			itemsToSpawn.add( new MailArmor().identify(false) );
+			itemsToSpawn.add( new MailArmor().鉴定(false) );
 			break;
 			
 		case 16:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[3]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[3]);
-			itemsToSpawn.add( new ScaleArmor().identify(false) );
+			itemsToSpawn.add( new ScaleArmor().鉴定(false) );
 			break;
 
 		case 20: case 21:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[4]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[4]);
-			itemsToSpawn.add( new PlateArmor().identify(false) );
+			itemsToSpawn.add( new PlateArmor().鉴定(false) );
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
@@ -255,14 +236,14 @@ public class ShopRoom extends SpecialRoom {
 		}
 		w.enchant(null);
 		w.cursed = false;
-		w.level(0);
-		w.identify(false);
+		w.等级(0);
+		w.鉴定(false);
 		itemsToSpawn.add(w);
 
 		m.enchant(null);
 		m.cursed = false;
-		m.level(0);
-		m.identify(false);
+		m.等级(0);
+		m.鉴定(false);
 		itemsToSpawn.add(m);
 		
 		itemsToSpawn.add( TippedDart.randomTipped(2) );
@@ -333,11 +314,11 @@ public class ShopRoom extends SpecialRoom {
 		switch (Random.Int(10)){
 			case 0:
 				rare = Generator.random( Generator.Category.WAND );
-				rare.level( 0 );
+				rare.等级( 0 );
 				break;
 			case 1:
 				rare = Generator.random(Generator.Category.RING);
-				rare.level( 0 );
+				rare.等级( 0 );
 				break;
 			case 2:
 				rare = Generator.random( Generator.Category.ARTIFACT );

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -189,13 +170,13 @@ public class SandalsOfNature extends Artifact {
 
 	@Override
 	public String name() {
-		if (level() == 0)   return super.name();
-		else                return Messages.get(this, "name_" + level());
+		if (等级() == 0)   return super.name();
+		else                return Messages.get(this, "name_" + 等级());
 	}
 
 	@Override
 	public String desc() {
-		String desc = Messages.get(this, "desc_" + (level()+1));
+		String desc = Messages.get(this, "desc_" + (等级()+1));
 
 		if ( isEquipped ( Dungeon.hero ) ) {
 			desc += "\n\n";
@@ -223,17 +204,17 @@ public class SandalsOfNature extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		if (level() < 0)        image = ItemSpriteSheet.ARTIFACT_SANDALS;
-		else if (level() == 0)  image = ItemSpriteSheet.ARTIFACT_SHOES;
-		else if (level() == 1)  image = ItemSpriteSheet.ARTIFACT_BOOTS;
-		else if (level() >= 2)  image = ItemSpriteSheet.ARTIFACT_GREAVES;
+		if (等级() < 0)        image = ItemSpriteSheet.ARTIFACT_SANDALS;
+		else if (等级() == 0)  image = ItemSpriteSheet.ARTIFACT_SHOES;
+		else if (等级() == 1)  image = ItemSpriteSheet.ARTIFACT_BOOTS;
+		else if (等级() >= 2)  image = ItemSpriteSheet.ARTIFACT_GREAVES;
 		return super.upgrade();
 	}
 
 	public boolean canUseSeed(Item item){
 		return item instanceof Plant.Seed
 				&& !seeds.contains(item.getClass())
-				&& (level() < 3 || curSeedEffect != item.getClass());
+				&& (等级() < 3 || curSeedEffect != item.getClass());
 	}
 
 	@Override
@@ -263,9 +244,9 @@ public class SandalsOfNature extends Artifact {
 		}
 		curSeedEffect = bundle.getClass(CUR_SEED_EFFECT);
 
-		if (level() == 1)  image = ItemSpriteSheet.ARTIFACT_SHOES;
-		else if (level() == 2)  image = ItemSpriteSheet.ARTIFACT_BOOTS;
-		else if (level() >= 3)  image = ItemSpriteSheet.ARTIFACT_GREAVES;
+		if (等级() == 1)  image = ItemSpriteSheet.ARTIFACT_SHOES;
+		else if (等级() == 2)  image = ItemSpriteSheet.ARTIFACT_BOOTS;
+		else if (等级() >= 3)  image = ItemSpriteSheet.ARTIFACT_GREAVES;
 	}
 
 	public class Naturalism extends ArtifactBuff{
@@ -273,7 +254,7 @@ public class SandalsOfNature extends Artifact {
 			if (cursed || target.buff(MagicImmune.class) != null) return;
 			if (charge < chargeCap){
 				//0.5 charge per grass at +0, up to 1 at +10
-				float chargeGain = (3f + level())/6f;
+				float chargeGain = (3f + 等级())/6f;
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
 				partialCharge += Math.max(0, chargeGain);
 				while (partialCharge >= 1){
@@ -306,7 +287,7 @@ public class SandalsOfNature extends Artifact {
 		@Override
 		public void onSelect( Item item ) {
 			if (item != null && item instanceof Plant.Seed) {
-				if (level() < 3) seeds.add(0, item.getClass());
+				if (等级() < 3) seeds.add(0, item.getClass());
 				curSeedEffect = item.getClass();
 
 				Hero hero = Dungeon.hero;
@@ -314,11 +295,11 @@ public class SandalsOfNature extends Artifact {
 				Sample.INSTANCE.play( Assets.Sounds.PLANT );
 				hero.busy();
 				hero.spend( Actor.TICK );
-				if (seeds.size() >= 3+(level()*3)){
+				if (seeds.size() >= 3+(等级()*3)){
 					seeds.clear();
 					upgrade();
-					Catalog.countUses(SandalsOfNature.class, level() == 3 ? 4 : 3);
-					if (level() >= 1 && level() <= 3) {
+					Catalog.countUses(SandalsOfNature.class, 等级() == 3 ? 4 : 3);
+					if (等级() >= 1 && 等级() <= 3) {
 						GLog.p( Messages.get(SandalsOfNature.class, "levelup") );
 					}
 

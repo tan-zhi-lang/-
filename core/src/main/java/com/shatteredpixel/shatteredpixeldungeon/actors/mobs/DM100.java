@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -44,11 +25,11 @@ public class DM100 extends Mob implements Callback {
 	{
 		spriteClass = DM100Sprite.class;
 		
-		HP = HT = 20;
+		生命 = 最大生命 = 20;
 		defenseSkill = 8;
 		
-		EXP = 6;
-		maxLvl = 13;
+		经验 = 6;
+		最大等级 = 13;
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.25f;
@@ -58,12 +39,12 @@ public class DM100 extends Mob implements Callback {
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 2, 8 );
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 11;
 	}
 	

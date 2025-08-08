@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -61,7 +42,7 @@ public class MasterThievesArmband extends Artifact {
 
 		charge = 0;
 		partialCharge = 0;
-		chargeCap = 5+level()/2;
+		chargeCap = 5+ 等级()/2;
 
 		defaultAction = AC_STEAL;
 	}
@@ -134,8 +115,8 @@ public class MasterThievesArmband extends Artifact {
 							Sample.INSTANCE.play(Assets.Sounds.HIT);
 
 							boolean surprised = ((Mob) ch).surprisedBy(curUser, false);
-							float lootMultiplier = 1f + 0.1f*level();
-							int debuffDuration = 3 + level()/2;
+							float lootMultiplier = 1f + 0.1f* 等级();
+							int debuffDuration = 3 + 等级()/2;
 
 							Invisibility.dispel(curUser);
 
@@ -149,7 +130,7 @@ public class MasterThievesArmband extends Artifact {
 
 							float lootChance = ((Mob) ch).lootChance() * lootMultiplier;
 
-							if (Dungeon.hero.当前等级 > ((Mob) ch).maxLvl + 2) {
+							if (Dungeon.hero.等级 > ((Mob) ch).最大等级 + 2) {
 								lootChance = 0;
 							} else if (ch.buff(StolenTracker.class) != null){
 								lootChance = 0;
@@ -161,7 +142,7 @@ public class MasterThievesArmband extends Artifact {
 								Item loot = ((Mob) ch).createLoot();
 								if (Challenges.isItemBlocked(loot)){
 									GLog.i(Messages.get(MasterThievesArmband.class, "failed_steal"));
-									Buff.affect(ch, StolenTracker.class).setItemStolen(false);
+									Buff.施加(ch, StolenTracker.class).setItemStolen(false);
 								} else {
 									if (loot.doPickUp(curUser)) {
 										//item collection happens instantly
@@ -170,23 +151,23 @@ public class MasterThievesArmband extends Artifact {
 										Dungeon.level.drop(loot, curUser.pos).sprite.drop();
 									}
 									GLog.i(Messages.get(MasterThievesArmband.class, "stole_item", loot.name()));
-									Buff.affect(ch, StolenTracker.class).setItemStolen(true);
+									Buff.施加(ch, StolenTracker.class).setItemStolen(true);
 								}
 							} else {
 								GLog.i(Messages.get(MasterThievesArmband.class, "failed_steal"));
-								Buff.affect(ch, StolenTracker.class).setItemStolen(false);
+								Buff.施加(ch, StolenTracker.class).setItemStolen(false);
 							}
 
-							Buff.prolong(ch, Blindness.class, debuffDuration);
-							Buff.prolong(ch, Cripple.class, debuffDuration);
+							Buff.延长(ch, Blindness.class, debuffDuration);
+							Buff.延长(ch, Cripple.class, debuffDuration);
 
 							artifactProc(ch, visiblyUpgraded(), 1);
 
 							charge--;
 							exp += 3;
 							Talent.onArtifactUsed(Dungeon.hero);
-							while (exp >= (10 + Math.round(3.33f * level())) && level() < levelCap) {
-								exp -= 10 + Math.round(3.33f * level());
+							while (exp >= (10 + Math.round(3.33f * 等级())) && 等级() < levelCap) {
+								exp -= 10 + Math.round(3.33f * 等级());
 								Catalog.countUse(MasterThievesArmband.class);
 								GLog.p(Messages.get(MasterThievesArmband.class, "level_up"));
 								upgrade();
@@ -239,7 +220,7 @@ public class MasterThievesArmband extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		chargeCap = 5 + (level()+1)/2;
+		chargeCap = 5 + (等级()+1)/2;
 		return super.upgrade();
 	}
 
@@ -306,8 +287,8 @@ public class MasterThievesArmband extends Artifact {
 				GLog.i(Messages.get(MasterThievesArmband.class, "stole_item", item.name()));
 
 				Talent.onArtifactUsed(Dungeon.hero);
-				while (exp >= (10 + Math.round(3.33f * level())) && level() < levelCap) {
-					exp -= 10 + Math.round(3.33f * level());
+				while (exp >= (10 + Math.round(3.33f * 等级())) && 等级() < levelCap) {
+					exp -= 10 + Math.round(3.33f * 等级());
 					Catalog.countUse(MasterThievesArmband.class);
 					GLog.p(Messages.get(MasterThievesArmband.class, "level_up"));
 					upgrade();
@@ -319,7 +300,7 @@ public class MasterThievesArmband extends Artifact {
 
 		public float stealChance(Item item){
 			int chargesUsed = chargesToUse(item);
-			float val = chargesUsed * (10 + level()/2f);
+			float val = chargesUsed * (10 + 等级()/2f);
 			return Math.min(1f, val/item.value());
 		}
 
@@ -328,7 +309,7 @@ public class MasterThievesArmband extends Artifact {
 			float valUsing = 0;
 			int chargesUsed = 0;
 			while (valUsing < value && chargesUsed < charge){
-				valUsing += 10 + level()/2f;
+				valUsing += 10 + 等级()/2f;
 				chargesUsed++;
 			}
 			return chargesUsed;

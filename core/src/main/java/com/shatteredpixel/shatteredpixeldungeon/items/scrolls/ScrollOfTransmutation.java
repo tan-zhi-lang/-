@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 
@@ -183,11 +164,11 @@ public class ScrollOfTransmutation extends InventoryScroll {
 				result.cursed = item.cursed;
 				result.cursedKnown = item.cursedKnown;
 				if (item.visiblyUpgraded() == 10){
-					result.level(2);
+					result.等级(2);
 				} else if (item.visiblyUpgraded() >= 5){
-					result.level(1);
+					result.等级(1);
 				} else {
-					result.level(0);
+					result.等级(0);
 				}
 				return result;
 			} else {
@@ -211,8 +192,8 @@ public class ScrollOfTransmutation extends InventoryScroll {
 				n = (Wand) Generator.randomUsingDefaults(Generator.Category.WAND);
 			} while (Challenges.isItemBlocked(n) || n.getClass() == wandClass);
 			n.cursed = false;
-			n.level(0);
-			n.identify();
+			n.等级(0);
+			n.鉴定();
 			staff.imbueWand(n, null);
 		}
 		
@@ -241,7 +222,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			n = (Weapon)Generator.randomUsingDefaults(c);
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
-		n.level(0);
+		n.等级(0);
 		n.quantity(w.quantity());
 		int level = w.trueLevel();
 		if (level > 0) {
@@ -261,7 +242,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 
 		//technically a new set, ensure old one is destroyed (except for darts)
 		if (w instanceof MissileWeapon && w.isUpgradable()){
-			Buff.affect(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) w).setID, Integer.MAX_VALUE);
+			Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) w).setID, Integer.MAX_VALUE);
 			//also extra missile weapon properties
 			((MissileWeapon) n).damage(100 - ((MissileWeapon)w).durabilityLeft());
 		}
@@ -276,9 +257,9 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			n = (Ring)Generator.randomUsingDefaults( Generator.Category.RING );
 		} while (Challenges.isItemBlocked(n) || n.getClass() == r.getClass());
 		
-		n.level(0);
+		n.等级(0);
 		
-		int level = r.level();
+		int level = r.等级();
 		if (level > 0) {
 			n.upgrade( level );
 		} else if (level < 0) {
@@ -325,7 +306,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			n = (Trinket)Generator.random(Generator.Category.TRINKET);
 		} while ( Challenges.isItemBlocked(n) || n.getClass() == t.getClass());
 
-		n.level(t.trueLevel());
+		n.等级(t.trueLevel());
 		n.levelKnown = t.levelKnown;
 		n.cursedKnown = t.cursedKnown;
 		n.cursed = t.cursed;
@@ -339,7 +320,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			n = (Wand)Generator.randomUsingDefaults( Generator.Category.WAND );
 		} while ( Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 		
-		n.level( 0 );
+		n.等级( 0 );
 		int level = w.trueLevel();
 		n.upgrade( level );
 

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -231,7 +212,7 @@ public class DriedRose extends Artifact {
 	}
 	
 	public int ghostStrength(){
-		return 13 + level()/2;
+		return 13 + 等级()/2;
 	}
 
 	@Override
@@ -246,7 +227,7 @@ public class DriedRose extends Artifact {
 		if (isEquipped( Dungeon.hero )){
 			if (!cursed){
 
-				if (level() < levelCap)
+				if (等级() < levelCap)
 					desc+= "\n\n" + Messages.get(this, "desc_hint");
 
 			} else {
@@ -296,7 +277,7 @@ public class DriedRose extends Artifact {
 		if (ghost == null){
 			return super.status();
 		} else {
-			return ((ghost.HP*100) / ghost.HT) + "%";
+			return ((ghost.生命 *100) / ghost.最大生命) + "%";
 		}
 	}
 	
@@ -323,9 +304,9 @@ public class DriedRose extends Artifact {
 				}
 				updateQuickslot();
 			}
-		} else if (ghost.HP < ghost.HT) {
-			int heal = Math.round((1 + level()/3f)*amount);
-			ghost.HP = Math.min( ghost.HT, ghost.HP + heal);
+		} else if (ghost.生命 < ghost.最大生命) {
+			int heal = Math.round((1 + 等级()/3f)*amount);
+			ghost.生命 = Math.min( ghost.最大生命, ghost.生命 + heal);
 			if (ghost.sprite != null) {
 				ghost.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
 			}
@@ -335,13 +316,13 @@ public class DriedRose extends Artifact {
 	
 	@Override
 	public Item upgrade() {
-		if (level() >= 9)
+		if (等级() >= 9)
 			image = ItemSpriteSheet.ARTIFACT_ROSE3;
-		else if (level() >= 4)
+		else if (等级() >= 4)
 			image = ItemSpriteSheet.ARTIFACT_ROSE2;
 
 		//For upgrade transferring via well of transmutation
-		droppedPetals = Math.max( level(), droppedPetals );
+		droppedPetals = Math.max( 等级(), droppedPetals );
 		
 		if (ghost != null){
 			ghost.updateRose();
@@ -411,12 +392,12 @@ public class DriedRose extends Artifact {
 			if (ghost != null && !cursed && target.buff(MagicImmune.class) == null){
 				
 				//heals to full over 500 turns
-				if (ghost.HP < ghost.HT && Regeneration.regenOn()) {
-					partialCharge += (ghost.HT / 500f) * RingOfEnergy.artifactChargeMultiplier(target);
+				if (ghost.生命 < ghost.最大生命 && Regeneration.regenOn()) {
+					partialCharge += (ghost.最大生命 / 500f) * RingOfEnergy.artifactChargeMultiplier(target);
 					updateQuickslot();
 					
 					while (partialCharge > 1) {
-						ghost.HP++;
+						ghost.生命++;
 						partialCharge--;
 					}
 				} else {
@@ -500,7 +481,7 @@ public class DriedRose extends Artifact {
 			if (rose == null){
 				GLog.w( Messages.get(this, "no_rose") );
 				return false;
-			} if ( rose.level() >= rose.levelCap ){
+			} if ( rose.等级() >= rose.levelCap ){
 				GLog.i( Messages.get(this, "no_room") );
 				hero.spendAndNext(TIME_TO_PICK_UP);
 				return true;
@@ -508,7 +489,7 @@ public class DriedRose extends Artifact {
 
 				rose.upgrade();
 				Catalog.countUse(rose.getClass());
-				if (rose.level() == rose.levelCap) {
+				if (rose.等级() == rose.levelCap) {
 					GLog.p( Messages.get(this, "maxlevel") );
 				} else
 					GLog.i( Messages.get(this, "levelup") );
@@ -556,7 +537,7 @@ public class DriedRose extends Artifact {
 			super();
 			this.rose = rose;
 			updateRose();
-			HP = HT;
+			生命 = 最大生命;
 		}
 
 		@Override
@@ -583,9 +564,9 @@ public class DriedRose extends Artifact {
 			}
 			
 			//same dodge as the hero
-			defenseSkill = (Dungeon.hero.当前等级 +4);
+			defenseSkill = (Dungeon.hero.等级 +4);
 			if (rose == null) return;
-			HT = 20 + 8*rose.level();
+			最大生命 = 20 + 8*rose.等级();
 		}
 
 		public Weapon weapon(){
@@ -616,10 +597,10 @@ public class DriedRose extends Artifact {
 		public static class NoRoseDamage{}
 
 		@Override
-		public int attackSkill(Char target) {
+		public int 最大命中(Char target) {
 			
 			//same accuracy as the hero.
-			int acc = Dungeon.hero.当前等级 + 9;
+			int acc = Dungeon.hero.等级 + 9;
 			
 			if (weapon() != null){
 				acc *= weapon().accuracyFactor( this, target );
@@ -643,7 +624,7 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int damageRoll() {
+		public int 攻击() {
 			int dmg = 0;
 			if (weapon() != null){
 				dmg += weapon().damageRoll(this);
@@ -659,7 +640,7 @@ public class DriedRose extends Artifact {
 			damage = super.attackProc(enemy, damage);
 
 			if (weapon() != null) {
-				damage = weapon().proc(this, enemy, damage);
+				damage = weapon().攻击时(this, enemy, damage);
 				if (!enemy.isAlive() && enemy == Dungeon.hero) {
 					Dungeon.fail(this);
 					GLog.n(Messages.capitalize(Messages.get(Char.class, "kill", name())));

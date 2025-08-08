@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
@@ -38,7 +19,9 @@ import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
@@ -73,11 +56,13 @@ public class TitleScene extends PixelScene {
 		int h = Camera.main.height;
 		
 		Archs archs = new Archs();
-		archs.setSize( w, h );
+		archs.setSize( w*2, h*2 );
 		add( archs );
+//		Image y = new Image(Assets.Interfaces.背景);
+//		add( y );
 
 		Image title = BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
-		add( title );
+//		add( title );
 
 		float topRegion = Math.max(title.height - 6, h*0.45f);
 
@@ -87,11 +72,11 @@ public class TitleScene extends PixelScene {
 		align(title);
 
 		if (landscape()){
-			placeTorch(title.x + 30, title.y + 35);
-			placeTorch(title.x + title.width - 30, title.y + 35);
+//			placeTorch(title.x + 30, title.y + 35);
+//			placeTorch(title.x + title.width - 30, title.y + 35);
 		} else {
-			placeTorch(title.x + 16, title.y + 70);
-			placeTorch(title.x + title.width - 16, title.y + 70);
+//			placeTorch(title.x + 16, title.y + 70);
+//			placeTorch(title.x + title.width - 16, title.y + 70);
 		}
 
 		Image signs = new Image(BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_GLOW_LAND : BannerSprites.Type.TITLE_GLOW_PORT)){
@@ -111,7 +96,10 @@ public class TitleScene extends PixelScene {
 		};
 		signs.x = title.x + (title.width() - signs.width())/2f;
 		signs.y = title.y;
-		add( signs );
+//		add( signs );
+
+
+//		IconButton 进入按钮 = new IconButton(Icons.get(Icons.进入));
 
 		final Chrome.Type GREY_TR = Chrome.Type.GREY_BUTTON_TR;
 		
@@ -126,7 +114,7 @@ public class TitleScene extends PixelScene {
 					ShatteredPixelDungeon.switchNoFade( StartScene.class );
 				}
 			}
-			
+
 			@Override
 			protected boolean onLongClick() {
 				//making it easier to start runs quickly while debugging
@@ -139,11 +127,11 @@ public class TitleScene extends PixelScene {
 				return super.onLongClick();
 			}
 		};
-		btnPlay.icon(Icons.get(Icons.ENTER));
+		btnPlay.icon(Icons.get(Icons.进入));
 		add(btnPlay);
 
 		StyledButton btnSupport = new SupportButton(GREY_TR, Messages.get(this, "support"));
-		add(btnSupport);
+//		add(btnSupport);
 
 		StyledButton btnRankings = new StyledButton(GREY_TR,Messages.get(this, "rankings")){
 			@Override
@@ -152,7 +140,7 @@ public class TitleScene extends PixelScene {
 			}
 		};
 		btnRankings.icon(Icons.get(Icons.RANKINGS));
-		add(btnRankings);
+//		add(btnRankings);
 		Dungeon.daily = Dungeon.dailyReplay = false;
 
 		StyledButton btnBadges = new StyledButton(GREY_TR, Messages.get(this, "journal")){
@@ -162,18 +150,18 @@ public class TitleScene extends PixelScene {
 			}
 		};
 		btnBadges.icon(Icons.get(Icons.JOURNAL));
-		add(btnBadges);
+//		add(btnBadges);
 
 		StyledButton btnNews = new NewsButton(GREY_TR, Messages.get(this, "news"));
 		btnNews.icon(Icons.get(Icons.NEWS));
-		add(btnNews);
+//		add(btnNews);
 
 		StyledButton btnChanges = new ChangesButton(GREY_TR, Messages.get(this, "changes"));
 		btnChanges.icon(Icons.get(Icons.CHANGES));
-		add(btnChanges);
+//		add(btnChanges);
 
 		StyledButton btnSettings = new SettingsButton(GREY_TR, Messages.get(this, "settings"));
-		add(btnSettings);
+//		add(btnSettings);
 
 		StyledButton btnAbout = new StyledButton(GREY_TR, Messages.get(this, "about")){
 			@Override
@@ -182,7 +170,7 @@ public class TitleScene extends PixelScene {
 			}
 		};
 		btnAbout.icon(Icons.get(Icons.SHPX));
-		add(btnAbout);
+//		add(btnAbout);
 		
 		final int BTN_HEIGHT = 20;
 		int GAP = (int)(h - topRegion - (landscape() ? 3 : 4)*BTN_HEIGHT)/3;

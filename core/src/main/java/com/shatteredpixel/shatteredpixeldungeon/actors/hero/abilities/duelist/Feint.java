@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist;
 
@@ -166,7 +147,7 @@ public class Feint extends ArmorAbility {
 			alignment = Alignment.ALLY;
 			state = PASSIVE;
 
-			HP = HT = 1;
+			生命 = 最大生命 = 1;
 
 			//fades just before the hero's next action
 			actPriority = Actor.HERO_PRIO+1;
@@ -195,17 +176,17 @@ public class Feint extends ArmorAbility {
 				if (enemy instanceof Mob) {
 					((Mob) enemy).clearEnemy();
 				}
-				Buff.affect(enemy, FeintConfusion.class, 1);
+				Buff.施加(enemy, FeintConfusion.class, 1);
 				if (enemy.sprite != null) enemy.sprite.showLost();
-				if (Dungeon.hero.hasTalent(Talent.FEIGNED_RETREAT)) {
-					Buff.prolong(Dungeon.hero, Haste.class, 2f * Dungeon.hero.pointsInTalent(Talent.FEIGNED_RETREAT));
+				if (Dungeon.hero.有天赋(Talent.FEIGNED_RETREAT)) {
+					Buff.延长(Dungeon.hero, Haste.class, 2f * Dungeon.hero.天赋点数(Talent.FEIGNED_RETREAT));
 				}
-				if (Dungeon.hero.hasTalent(Talent.EXPOSE_WEAKNESS)) {
-					Buff.prolong(enemy, Vulnerable.class, 2f * Dungeon.hero.pointsInTalent(Talent.EXPOSE_WEAKNESS));
-					Buff.prolong(enemy, Weakness.class, 2f * Dungeon.hero.pointsInTalent(Talent.EXPOSE_WEAKNESS));
+				if (Dungeon.hero.有天赋(Talent.EXPOSE_WEAKNESS)) {
+					Buff.延长(enemy, Vulnerable.class, 2f * Dungeon.hero.天赋点数(Talent.EXPOSE_WEAKNESS));
+					Buff.延长(enemy, Weakness.class, 2f * Dungeon.hero.天赋点数(Talent.EXPOSE_WEAKNESS));
 				}
-				if (Dungeon.hero.hasTalent(Talent.COUNTER_ABILITY)) {
-					Buff.prolong(Dungeon.hero, Talent.CounterAbilityTacker.class, 3f);
+				if (Dungeon.hero.有天赋(Talent.COUNTER_ABILITY)) {
+					Buff.延长(Dungeon.hero, Talent.CounterAbilityTacker.class, 3f);
 				}
 			}
 			return 0;

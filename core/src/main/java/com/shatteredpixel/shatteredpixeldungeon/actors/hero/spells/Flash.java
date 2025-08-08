@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -52,7 +33,7 @@ public class Flash extends TargetedClericSpell {
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.hasTalent(Talent.FLASH)
+				&& hero.有天赋(Talent.FLASH)
 				&& hero.buff(AscendedForm.AscendBuff.class) != null;
 	}
 
@@ -69,7 +50,7 @@ public class Flash extends TargetedClericSpell {
 		}
 
 		if (Dungeon.level.solid[target] || (!Dungeon.level.mapped[target] && !Dungeon.level.visited[target])
-				|| Dungeon.level.distance(hero.pos, target) > 2+hero.pointsInTalent(Talent.FLASH)){
+				|| Dungeon.level.distance(hero.pos, target) > 2+hero.天赋点数(Talent.FLASH)){
 			GLog.w(Messages.get(this, "invalid_target"));
 			return;
 		}

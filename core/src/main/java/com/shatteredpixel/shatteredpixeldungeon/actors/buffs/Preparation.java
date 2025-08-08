@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -77,41 +58,41 @@ public class Preparation extends Buff implements ActionIndicator.Action {
 
 		//1st index is prep level, 2nd is talent level
 		private static final float[][] KOThresholds = new float[][]{
-				{.03f, .04f, .05f, .06f},
-				{.10f, .13f, .17f, .20f},
-				{.20f, .27f, .33f, .40f},
-				{.50f, .67f, .83f, 1.0f}
+				{.3f, .4f, .5f, .6f, .07f},
+				{.4f, .5f, .6f, .7f, .8f},
+				{.5f, .6f, .7f, .8f, .9f},
+				{.6f, .7f, .8f, 0.9f,1.0f}
 		};
 
 		public float KOThreshold(){
-			return KOThresholds[ordinal()][Dungeon.hero.pointsInTalent(Talent.ENHANCED_LETHALITY)];
+			return KOThresholds[ordinal()][Dungeon.hero.天赋点数(Talent.ENHANCED_LETHALITY)];
 		}
 
 		//1st index is prep level, 2nd is talent level
 		private static final int[][] blinkRanges = new int[][]{
-				{1, 1, 2, 2},
-				{2, 3, 4, 5},
-				{3, 4, 6, 7},
-				{4, 6, 8, 10}
+				{1, 2, 3, 4,5},
+				{2, 3, 4, 5,6},
+				{3, 4, 5, 6,7},
+				{4, 5, 6, 7,8}
 		};
 
 		public int blinkDistance(){
-			return blinkRanges[ordinal()][Dungeon.hero.pointsInTalent(Talent.ASSASSINS_REACH)];
+			return blinkRanges[ordinal()][Dungeon.hero.天赋点数(Talent.ASSASSINS_REACH)];
 		}
 		
 		public boolean canKO(Char defender){
 			if (defender.properties().contains(Char.Property.MINIBOSS)
 					|| defender.properties().contains(Char.Property.BOSS)){
-				return (defender.HP/(float)defender.HT) < (KOThreshold()/5f);
+				return (defender.生命 /(float)defender.最大生命) < (KOThreshold()/5f);
 			} else {
-				return (defender.HP/(float)defender.HT) < KOThreshold();
+				return (defender.生命 /(float)defender.最大生命) < KOThreshold();
 			}
 		}
 		
 		public int damageRoll( Char attacker ){
-			int dmg = attacker.damageRoll();
+			int dmg = attacker.攻击();
 			for( int i = 1; i < damageRolls; i++){
-				int newDmg = attacker.damageRoll();
+				int newDmg = attacker.攻击();
 				if (newDmg > dmg) dmg = newDmg;
 			}
 			return Math.round(dmg * (1f + baseDmgBonus));

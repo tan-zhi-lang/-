@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -59,13 +40,13 @@ public class Stasis extends ClericSpell {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", 30 + 30*Dungeon.hero.pointsInTalent(Talent.STASIS)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", 30 + 30*Dungeon.hero.天赋点数(Talent.STASIS)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.hasTalent(Talent.STASIS)
+				&& hero.有天赋(Talent.STASIS)
 				&& (PowerOfMany.getPoweredAlly() != null || hero.buff(StasisBuff.class) != null);
 	}
 
@@ -105,7 +86,7 @@ public class Stasis extends ClericSpell {
 		}
 		ally.clearTime();
 
-		Buff.prolong(hero, StasisBuff.class, 30 + 30*hero.pointsInTalent(Talent.STASIS)).stasisAlly = (Mob)ally;
+		Buff.延长(hero, StasisBuff.class, 30 + 30*hero.天赋点数(Talent.STASIS)).stasisAlly = (Mob)ally;
 		Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
 		if (hero.buff(LifeLink.class) != null && hero.buff(LifeLink.class).object == ally.id()){
@@ -138,7 +119,7 @@ public class Stasis extends ClericSpell {
 
 		@Override
 		public float iconFadePercent() {
-			int duration = 30 + 30*Dungeon.hero.pointsInTalent(Talent.STASIS);
+			int duration = 30 + 30*Dungeon.hero.天赋点数(Talent.STASIS);
 			return Math.max(0, (duration - visualcooldown()) / duration);
 		}
 
@@ -168,7 +149,7 @@ public class Stasis extends ClericSpell {
 			}
 
 			if (stasisAlly.buff(LifeLink.class) != null){
-				Buff.prolong(Dungeon.hero, LifeLink.class, stasisAlly.buff(LifeLink.class).cooldown()).object = stasisAlly.id();
+				Buff.延长(Dungeon.hero, LifeLink.class, stasisAlly.buff(LifeLink.class).cooldown()).object = stasisAlly.id();
 			}
 
 			ScrollOfTeleportation.appear(stasisAlly, stasisAlly.pos);

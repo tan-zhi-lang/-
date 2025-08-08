@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress;
 
@@ -145,13 +126,13 @@ public class SpiritHawk extends ArmorAbility {
 		{
 			spriteClass = HawkSprite.class;
 
-			HP = HT = 10;
+			生命 = 最大生命 = 10;
 			defenseSkill = 60;
 
 			flying = true;
 			if (Dungeon.hero != null) {
-				viewDistance = (int) GameMath.gate(6, 6 + Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE), 8);
-				baseSpeed = 2f + Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT) / 2f;
+				viewDistance = (int) GameMath.gate(6, 6 + Dungeon.hero.天赋点数(Talent.EAGLE_EYE), 8);
+				baseSpeed = 2f + Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT) / 2f;
 			} else {
 				viewDistance = 6;
 				baseSpeed = 2f;
@@ -163,7 +144,7 @@ public class SpiritHawk extends ArmorAbility {
 		}
 
 		@Override
-		public int attackSkill(Char target) {
+		public int 最大命中(Char target) {
 			return 60;
 		}
 
@@ -172,8 +153,8 @@ public class SpiritHawk extends ArmorAbility {
 
 		@Override
 		public int defenseSkill(Char enemy) {
-			if (Dungeon.hero.hasTalent(Talent.SWIFT_SPIRIT) &&
-					dodgesUsed < 2*Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)) {
+			if (Dungeon.hero.有天赋(Talent.SWIFT_SPIRIT) &&
+					dodgesUsed < 2*Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT)) {
 				dodgesUsed++;
 				return Char.INFINITE_EVASION;
 			}
@@ -181,27 +162,27 @@ public class SpiritHawk extends ArmorAbility {
 		}
 
 		@Override
-		public int damageRoll() {
+		public int 攻击() {
 			return Random.NormalIntRange(5, 10);
 		}
 
 		@Override
 		public int attackProc(Char enemy, int damage) {
 			damage = super.attackProc( enemy, damage );
-			switch (Dungeon.hero.pointsInTalent(Talent.GO_FOR_THE_EYES)){
+			switch (Dungeon.hero.天赋点数(Talent.GO_FOR_THE_EYES)){
 				case 1:
-					Buff.prolong( enemy, Blindness.class, 2);
+					Buff.延长( enemy, Blindness.class, 2);
 					break;
 				case 2:
-					Buff.prolong( enemy, Blindness.class, 5);
+					Buff.延长( enemy, Blindness.class, 5);
 					break;
 				case 3:
-					Buff.prolong( enemy, Blindness.class, 5);
-					Buff.prolong( enemy, Cripple.class, 2);
+					Buff.延长( enemy, Blindness.class, 5);
+					Buff.延长( enemy, Cripple.class, 2);
 					break;
 				case 4:
-					Buff.prolong( enemy, Blindness.class, 5);
-					Buff.prolong( enemy, Cripple.class, 5);
+					Buff.延长( enemy, Blindness.class, 5);
+					Buff.延长( enemy, Cripple.class, 5);
 					break;
 				default:
 					//do nothing
@@ -217,8 +198,8 @@ public class SpiritHawk extends ArmorAbility {
 				Dungeon.hero.interrupt();
 				return true;
 			}
-			viewDistance = 6+Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE);
-			baseSpeed = 2f + Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)/2f;
+			viewDistance = 6+Dungeon.hero.天赋点数(Talent.EAGLE_EYE);
+			baseSpeed = 2f + Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT)/2f;
 			boolean result = super.act();
 			Dungeon.level.updateFieldOfView( this, fieldOfView );
 			GameScene.updateFog(pos, viewDistance+(int)Math.ceil(speed()));
@@ -267,8 +248,8 @@ public class SpiritHawk extends ArmorAbility {
 			String message = Messages.get(this, "desc", (int)timeRemaining);
 			if (Actor.chars().contains(this)){
 				message += "\n\n" + Messages.get(this, "desc_remaining", (int)timeRemaining);
-				if (dodgesUsed < 2*Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT)){
-					message += "\n" + Messages.get(this, "desc_dodges", (2*Dungeon.hero.pointsInTalent(Talent.SWIFT_SPIRIT) - dodgesUsed));
+				if (dodgesUsed < 2*Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT)){
+					message += "\n" + Messages.get(this, "desc_dodges", (2*Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT) - dodgesUsed));
 				}
 			}
 			return message;

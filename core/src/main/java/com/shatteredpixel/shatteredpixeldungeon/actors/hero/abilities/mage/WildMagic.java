@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage;
 
@@ -71,7 +52,7 @@ public class WildMagic extends ArmorAbility {
 		ArrayList<Wand> wands = hero.belongings.getAllItems(Wand.class);
 		Random.shuffle(wands);
 
-		float chargeUsePerShot = 0.5f * (float)Math.pow(0.67f, hero.pointsInTalent(Talent.CONSERVED_MAGIC));
+		float chargeUsePerShot = 0.5f * (float)Math.pow(0.67f, hero.天赋点数(Talent.CONSERVED_MAGIC));
 
 		for (Wand w : wands.toArray(new Wand[0])){
 			if (w.curCharges < 1 && w.partialCharge < chargeUsePerShot){
@@ -79,7 +60,7 @@ public class WildMagic extends ArmorAbility {
 			}
 		}
 
-		int maxWands = 4 + Dungeon.hero.pointsInTalent(Talent.FIRE_EVERYTHING);
+		int maxWands = 4 + Dungeon.hero.天赋点数(Talent.FIRE_EVERYTHING);
 
 		//second and third shots
 		if (wands.size() < maxWands){
@@ -92,7 +73,7 @@ public class WildMagic extends ArmorAbility {
 					seconds.remove(w);
 				}
 				if (totalCharge < 3*chargeUsePerShot
-					|| Random.Int(4) >= Dungeon.hero.pointsInTalent(Talent.FIRE_EVERYTHING)){
+					|| Random.Int(4) >= Dungeon.hero.天赋点数(Talent.FIRE_EVERYTHING)){
 					thirds.remove(w);
 				}
 			}
@@ -117,7 +98,7 @@ public class WildMagic extends ArmorAbility {
 
 		Random.shuffle(wands);
 
-		Buff.affect(hero, WildMagicTracker.class, 0f);
+		Buff.施加(hero, WildMagicTracker.class, 0f);
 
 		armor.charge -= chargeUse(hero);
 		armor.updateQuickslot();
@@ -212,7 +193,7 @@ public class WildMagic extends ArmorAbility {
 	}
 
 	private void afterZap( Wand cur, ArrayList<Wand> wands, Hero hero, int target){
-		cur.partialCharge -= 0.5f * (float)Math.pow(0.67f, hero.pointsInTalent(Talent.CONSERVED_MAGIC));
+		cur.partialCharge -= 0.5f * (float)Math.pow(0.67f, hero.天赋点数(Talent.CONSERVED_MAGIC));
 		if (cur.partialCharge < 0) {
 			cur.partialCharge++;
 			cur.curCharges--;
@@ -244,7 +225,7 @@ public class WildMagic extends ArmorAbility {
 			}
 			Item.updateQuickslot();
 			Invisibility.dispel();
-			if (Random.Int(4) >= hero.pointsInTalent(Talent.CONSERVED_MAGIC)) {
+			if (Random.Int(4) >= hero.天赋点数(Talent.CONSERVED_MAGIC)) {
 				hero.spendAndNext(Actor.TICK);
 			} else {
 				hero.next();

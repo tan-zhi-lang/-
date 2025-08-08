@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.plants;
 
@@ -45,14 +26,14 @@ public class Icecap extends Plant {
 	public void activate( Char ch ) {
 		
 		if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
-			Buff.affect(ch, FrostImbue.class, FrostImbue.DURATION*0.3f);
+			Buff.施加(ch, FrostImbue.class, FrostImbue.DURATION*0.3f);
 		}
 
 		for (int i : PathFinder.NEIGHBOURS9){
 			if (!Dungeon.level.solid[pos+i]) {
 				Freezing.affect( pos+i );
 				if (Actor.findChar(pos+i) instanceof Mob){
-					Buff.prolong(Actor.findChar(pos+i), Trap.HazardAssistTracker.class, Trap.HazardAssistTracker.DURATION);
+					Buff.延长(Actor.findChar(pos+i), Trap.HazardAssistTracker.class, Trap.HazardAssistTracker.DURATION);
 				}
 			}
 		}

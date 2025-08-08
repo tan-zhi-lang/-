@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -92,8 +73,8 @@ public class Combo extends Buff implements ActionIndicator.Action {
 		count++;
 		comboTime = 5f;
 
-		if (!enemy.isAlive() || (enemy.buff(Corruption.class) != null && enemy.HP == enemy.HT)){
-			comboTime = 15f + 15f*((Hero)target).pointsInTalent(Talent.CLEAVE);
+		if (!enemy.isAlive() || (enemy.buff(Corruption.class) != null && enemy.生命 == enemy.最大生命)){
+			comboTime = 10 + ((Hero)target).天赋点数(Talent.CLEAVE,20);
 		}
 
 		initialComboTime = comboTime;
@@ -207,11 +188,11 @@ public class Combo extends Buff implements ActionIndicator.Action {
 	}
 
 	public enum ComboMove {
-		CLOBBER(2, 0x00FF00),
-		SLAM   (4, 0xCCFF00),
-		PARRY  (6, 0xFFFF00),
-		CRUSH  (8, 0xFFCC00),
-		FURY   (10, 0xFF0000);
+		CLOBBER(2 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0x00FF00),
+		SLAM   (4 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xCCFF00),
+		PARRY  (6 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xFFFF00),
+		CRUSH  (8 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xFFCC00),
+		FURY   (10 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xFF0000);
 
 		public int comboReq, tintColor;
 
@@ -227,31 +208,31 @@ public class Combo extends Buff implements ActionIndicator.Action {
 		public String desc(int count){
 			switch (this){
 				case CLOBBER: default:
-					if (count >= 7 && Dungeon.hero.pointsInTalent(Talent.ENHANCED_COMBO) >= 1){
+					if (count >= 7 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 1){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case SLAM:
-					if (count >= 3 && Dungeon.hero.pointsInTalent(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*20);
 					} else {
 						return Messages.get(this, name() + ".desc", count*20);
 					}
 				case PARRY:
-					if (count >= 9 && Dungeon.hero.pointsInTalent(Talent.ENHANCED_COMBO) >= 2){
+					if (count >= 9  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 2){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case CRUSH:
-					if (count >= 3 && Dungeon.hero.pointsInTalent(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*25);
 					} else {
 						return Messages.get(this,  name() + ".desc", count*25);
 					}
 				case FURY:
-					if (count >= 3 && Dungeon.hero.pointsInTalent(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
 						return Messages.get(this, name() + ".empower_desc", count/3);
 					} else {
 						return Messages.get(this,  name() + ".desc");
@@ -289,7 +270,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 			parryUsed = true;
 			comboTime = 5f;
 			Invisibility.dispel();
-			Buff.affect(target, ParryTracker.class, Actor.TICK);
+			Buff.施加(target, ParryTracker.class, Actor.TICK);
 			((Hero)target).spendAndNext(Actor.TICK);
 			Dungeon.hero.busy();
 		} else {
@@ -375,9 +356,9 @@ public class Combo extends Buff implements ActionIndicator.Action {
 					trajectory = new Ballistica(trajectory.collisionPos, trajectory.path.get(trajectory.path.size() - 1), Ballistica.PROJECTILE);
 					//knock them back along that ballistica, ensuring they don't fall into a pit
 					int dist = 2;
-					if (enemy.isAlive() && count >= 7 && hero.pointsInTalent(Talent.ENHANCED_COMBO) >= 1) {
+					if (enemy.isAlive() && count >= 7 && hero.天赋点数(Talent.ENHANCED_COMBO) >= 1) {
 						dist++;
-						Buff.prolong(enemy, Vertigo.class, 3);
+						Buff.延长(enemy, Vertigo.class, 3);
 					} else if (!enemy.flying) {
 						while (dist > trajectory.dist ||
 								(dist > 0 && Dungeon.level.pit[trajectory.path.get(dist)])) {
@@ -397,7 +378,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 					for (Char ch : Actor.chars()) {
 						if (ch != enemy && ch.alignment == Char.Alignment.ENEMY
 								&& PathFinder.distance[ch.pos] < Integer.MAX_VALUE) {
-							int aoeHit = Math.round(target.damageRoll() * 0.25f * count);
+							int aoeHit = Math.round(target.攻击() * 0.25f * count);
 							aoeHit /= 2;
 							aoeHit -= ch.drRoll();
 							if (ch.buff(Vulnerable.class) != null) aoeHit *= 1.33f;
@@ -410,8 +391,8 @@ public class Combo extends Buff implements ActionIndicator.Action {
 							ch.sprite.bloodBurstA(target.sprite.center(), aoeHit);
 							ch.sprite.flash();
 
-							if (!ch.isAlive() && hero.hasTalent(Talent.LETHAL_DEFENSE)) {
-								Buff.affect(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.pointsInTalent(Talent.LETHAL_DEFENSE)/3f);
+							if (!ch.isAlive() && hero.有天赋(Talent.LETHAL_DEFENSE)) {
+								Buff.施加(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
 							}
 						}
 					}
@@ -463,8 +444,8 @@ public class Combo extends Buff implements ActionIndicator.Action {
 		}
 
 		if (!enemy.isAlive() || (!wasAlly && enemy.alignment == target.alignment)) {
-			if (hero.hasTalent(Talent.LETHAL_DEFENSE)){
-				Buff.affect(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.pointsInTalent(Talent.LETHAL_DEFENSE)/3f);
+			if (hero.有天赋(Talent.LETHAL_DEFENSE)){
+				Buff.施加(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
 			}
 		}
 
@@ -483,7 +464,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 				GLog.w(Messages.get(Combo.class, "bad_target"));
 
 			} else if (!((Hero)target).canAttack(enemy)){
-				if (((Hero) target).pointsInTalent(Talent.ENHANCED_COMBO) < 3
+				if (((Hero) target).天赋点数(Talent.ENHANCED_COMBO) < 3
 					|| Dungeon.level.distance(target.pos, enemy.pos) > 1 + target.buff(Combo.class).count/3){
 					GLog.w(Messages.get(Combo.class, "bad_target"));
 				} else {

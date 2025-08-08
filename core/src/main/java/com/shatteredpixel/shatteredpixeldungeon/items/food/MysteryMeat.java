@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
@@ -55,19 +36,19 @@ public class MysteryMeat extends Food {
 		switch (Random.Int( 5 )) {
 			case 0:
 				GLog.w( Messages.get(MysteryMeat.class, "hot") );
-				Buff.affect( hero, Burning.class ).reignite( hero );
+				Buff.施加( hero, Burning.class ).reignite( hero );
 				break;
 			case 1:
 				GLog.w( Messages.get(MysteryMeat.class, "legs") );
-				Buff.prolong( hero, Roots.class, Roots.DURATION*2f );
+				Buff.延长( hero, Roots.class, Roots.DURATION*2f );
 				break;
 			case 2:
 				GLog.w( Messages.get(MysteryMeat.class, "not_well") );
-				Buff.affect( hero, Poison.class ).set( hero.HT / 5 );
+				Buff.施加( hero, Poison.class ).set( hero.最大生命 / 5 );
 				break;
 			case 3:
 				GLog.w( Messages.get(MysteryMeat.class, "stuffed") );
-				Buff.prolong( hero, Slow.class, Slow.DURATION );
+				Buff.延长( hero, Slow.class, Slow.DURATION );
 				break;
 		}
 	}

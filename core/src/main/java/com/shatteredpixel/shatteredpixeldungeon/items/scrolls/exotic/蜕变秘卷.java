@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 
@@ -46,7 +27,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
-public class ScrollOfMetamorphosis extends ExoticScroll {
+public class 蜕变秘卷 extends ExoticScroll {
 	
 	{
 		icon = ItemSpriteSheet.Icons.SCROLL_METAMORPH;
@@ -59,7 +40,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 	@Override
 	public void doRead() {
 		if (!isKnown()) {
-			identify();
+			鉴定();
 			curItem = detach(curUser.belongings.backpack);
 			identifiedByUse = true;
 		} else {
@@ -69,14 +50,14 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 	}
 
 	public static void onMetamorph( Talent oldTalent, Talent newTalent ){
-		if (curItem instanceof ScrollOfMetamorphosis) {
-			((ScrollOfMetamorphosis) curItem).readAnimation();
+		if (curItem instanceof 蜕变秘卷) {
+			((蜕变秘卷) curItem).readAnimation();
 			Sample.INSTANCE.play(Assets.Sounds.READ);
 		}
 		curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 10);
 		Transmuting.show(curUser, oldTalent, newTalent);
 
-		if (Dungeon.hero.hasTalent(newTalent)) {
+		if (Dungeon.hero.有天赋(newTalent)) {
 			Talent.onTalentUpgraded(Dungeon.hero, newTalent);
 		}
 	}
@@ -84,7 +65,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 	private void confirmCancelation( Window chooseWindow, boolean byID ) {
 		GameScene.show( new WndOptions(new ItemSprite(this),
 				Messages.titleCase(name()),
-				byID ? Messages.get(InventoryScroll.class, "warning") : Messages.get(ScrollOfMetamorphosis.class, "cancel_warn"),
+				byID ? Messages.get(InventoryScroll.class, "warning") : Messages.get(蜕变秘卷.class, "cancel_warn"),
 				Messages.get(InventoryScroll.class, "yes"),
 				Messages.get(InventoryScroll.class, "no") ) {
 			@Override
@@ -124,7 +105,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 
 			top = title.bottom() + 2;
 
-			RenderedTextBlock text = PixelScene.renderTextBlock(Messages.get(ScrollOfMetamorphosis.class, "choose_desc"), 6);
+			RenderedTextBlock text = PixelScene.renderTextBlock(Messages.get(蜕变秘卷.class, "choose_desc"), 6);
 			text.maxWidth(120);
 			text.setPos(0, top);
 			add(text);
@@ -136,7 +117,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 
 			for (LinkedHashMap<Talent, Integer> tier : talents){
 				for (Talent talent : tier.keySet()){
-					tier.put(talent, Dungeon.hero.pointsInTalent(talent));
+					tier.put(talent, Dungeon.hero.天赋点数(talent));
 				}
 			}
 
@@ -158,7 +139,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 		public void onBackPressed() {
 
 			if (identifiedByUse){
-				((ScrollOfMetamorphosis)curItem).confirmCancelation(this, true);
+				((蜕变秘卷)curItem).confirmCancelation(this, true);
 			} else {
 				super.onBackPressed();
 			}
@@ -197,7 +178,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 		public WndMetamorphReplace(Talent replacing, int tier){
 			super();
 
-			if (!identifiedByUse && curItem instanceof ScrollOfMetamorphosis) {
+			if (!identifiedByUse && curItem instanceof 蜕变秘卷) {
 				curItem.detach(curUser.belongings.backpack);
 			}
 			identifiedByUse = false;
@@ -228,7 +209,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 					}
 				}
 				if (!replacingIsInSet && !clsTalentsAtTier.isEmpty()) {
-					options.put(Random.element(clsTalentsAtTier), Dungeon.hero.pointsInTalent(replacing));
+					options.put(Random.element(clsTalentsAtTier), Dungeon.hero.天赋点数(replacing));
 				}
 			}
 
@@ -246,7 +227,7 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 
 			top = title.bottom() + 2;
 
-			RenderedTextBlock text = PixelScene.renderTextBlock(Messages.get(ScrollOfMetamorphosis.class, "replace_desc"), 6);
+			RenderedTextBlock text = PixelScene.renderTextBlock(Messages.get(蜕变秘卷.class, "replace_desc"), 6);
 			text.maxWidth(120);
 			text.setPos(0, top);
 			add(text);
@@ -273,8 +254,8 @@ public class ScrollOfMetamorphosis extends ExoticScroll {
 
 		@Override
 		public void onBackPressed() {
-			if (curItem instanceof ScrollOfMetamorphosis) {
-				((ScrollOfMetamorphosis) curItem).confirmCancelation(this, false);
+			if (curItem instanceof 蜕变秘卷) {
+				((蜕变秘卷) curItem).confirmCancelation(this, false);
 			} else {
 				super.onBackPressed();
 			}

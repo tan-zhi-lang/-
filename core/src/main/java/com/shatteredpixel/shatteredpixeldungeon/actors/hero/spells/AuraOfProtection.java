@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -46,8 +27,8 @@ public class AuraOfProtection extends ClericSpell {
 
 	@Override
 	public String desc() {
-		int dmgReduction = 10 + 10*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
-		int glyphPow = 25 + 25*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
+		int dmgReduction = Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,15);
+		int glyphPow = Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,30);
 		return Messages.get(this, "desc", dmgReduction, glyphPow) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -58,13 +39,13 @@ public class AuraOfProtection extends ClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.AURA_OF_PROTECTION);
+		return super.canCast(hero) && hero.有天赋(Talent.AURA_OF_PROTECTION);
 	}
 
 	@Override
 	public void onCast(HolyTome tome, Hero hero) {
 
-		Buff.affect(hero,AuraBuff.class, AuraBuff.DURATION);
+		Buff.施加(hero,AuraBuff.class, AuraBuff.DURATION);
 
 		Sample.INSTANCE.play(Assets.Sounds.READ);
 

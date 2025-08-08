@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
@@ -89,7 +70,7 @@ public class WandOfRegrowth extends Wand {
 		ArrayList<Integer> cells = new ArrayList<>(cone.cells);
 
 		float furrowedChance = 0;
-		if (totChrgUsed >= chargeLimit(Dungeon.hero.当前等级)){
+		if (totChrgUsed >= chargeLimit(Dungeon.hero.等级)){
 			furrowedChance = (chargesOverLimit+1)/5f;
 		}
 
@@ -118,7 +99,7 @@ public class WandOfRegrowth extends Wand {
 						Statistics.qualifiedForBossChallengeBadge = false;
 					}
 					wandProc(ch, chargesPerCast());
-					Buff.prolong( ch, Roots.class, 4f * chrgUsed );
+					Buff.延长( ch, Roots.class, 4f * chrgUsed );
 				}
 			}
 		}
@@ -187,12 +168,12 @@ public class WandOfRegrowth extends Wand {
 			grassToPlace--;
 		}
 
-		if (totChrgUsed < chargeLimit(Dungeon.hero.当前等级)) {
+		if (totChrgUsed < chargeLimit(Dungeon.hero.等级)) {
 			chargesOverLimit = 0;
 			totChrgUsed += chrgUsed;
-			if (totChrgUsed > chargeLimit(Dungeon.hero.当前等级)){
-				chargesOverLimit = totChrgUsed - chargeLimit(Dungeon.hero.当前等级);
-				totChrgUsed = chargeLimit(Dungeon.hero.当前等级);
+			if (totChrgUsed > chargeLimit(Dungeon.hero.等级)){
+				chargesOverLimit = totChrgUsed - chargeLimit(Dungeon.hero.等级);
+				totChrgUsed = chargeLimit(Dungeon.hero.等级);
 			}
 		} else {
 			chargesOverLimit += chrgUsed;
@@ -201,7 +182,7 @@ public class WandOfRegrowth extends Wand {
 	}
 
 	private int chargeLimit( int heroLvl ){
-		return chargeLimit(  heroLvl, level() );
+		return chargeLimit(  heroLvl, 等级() );
 	}
 
 	private int chargeLimit( int heroLvl, int wndLvl ){
@@ -236,7 +217,7 @@ public class WandOfRegrowth extends Wand {
 			// lvl 2 - 25%
 			int healing = Math.round(damage * (level + 2f) / (level + 6f) / 2f);
 			healing = Math.round(healing * procChanceMultiplier(attacker));
-			Buff.affect(attacker, Sungrass.Health.class).boost(healing);
+			Buff.施加(attacker, Sungrass.Health.class).boost(healing);
 		}
 
 	}
@@ -288,7 +269,7 @@ public class WandOfRegrowth extends Wand {
 	public String statsDesc() {
 		String desc = Messages.get(this, "stats_desc", chargesPerCast());
 		if (isIdentified()){
-			int chargeLeft = chargeLimit(Dungeon.hero.当前等级) - totChrgUsed;
+			int chargeLeft = chargeLimit(Dungeon.hero.等级) - totChrgUsed;
 			if (chargeLeft < 10000) desc += " " + Messages.get(this, "degradation", Math.max(chargeLeft, 0));
 		}
 		return desc;
@@ -304,7 +285,7 @@ public class WandOfRegrowth extends Wand {
 		if (level >= 10){
 			return "∞";
 		} else {
-			return Integer.toString(chargeLimit(Dungeon.hero.当前等级, level));
+			return Integer.toString(chargeLimit(Dungeon.hero.等级, level));
 		}
 	}
 
@@ -430,7 +411,7 @@ public class WandOfRegrowth extends Wand {
 
 		private void setLevel( int lvl ){
 			wandLvl = lvl;
-			HP = HT = 25 + 3*lvl;
+			生命 = 最大生命 = 25 + 3*lvl;
 		}
 
 		public boolean inRange(int pos){
@@ -450,7 +431,7 @@ public class WandOfRegrowth extends Wand {
 		protected boolean act() {
 			super.act();
 
-			if (--HP <= 0){
+			if (--生命 <= 0){
 				destroy();
 				sprite.die();
 			}

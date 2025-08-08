@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.traps;
 
@@ -103,7 +84,7 @@ public class PoisonDartTrap extends Trap {
 
 				if (target != null) {
 					if (target instanceof Mob){
-						Buff.prolong(target, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
+						Buff.延长(target, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 					}
 					final Char finalTarget = target;
 					if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[target.pos]) {
@@ -125,7 +106,7 @@ public class PoisonDartTrap extends Trap {
 												if (reclaimed) Badges.validateDeathFromFriendlyMagic();
 											}
 										}
-										Buff.affect( finalTarget, Poison.class ).set( poisonAmount() );
+										Buff.施加( finalTarget, Poison.class ).set( poisonAmount() );
 										Sample.INSTANCE.play(Assets.Sounds.HIT, 1, 1, Random.Float(0.8f, 1.25f));
 										finalTarget.sprite.bloodBurstA(finalTarget.sprite.center(), dmg);
 										finalTarget.sprite.flash();
@@ -135,7 +116,7 @@ public class PoisonDartTrap extends Trap {
 						return false;
 					} else {
 						finalTarget.damage(Random.NormalIntRange(4, 8) - finalTarget.drRoll(), PoisonDartTrap.this);
-						Buff.affect( finalTarget, Poison.class ).set( poisonAmount() );
+						Buff.施加( finalTarget, Poison.class ).set( poisonAmount() );
 						return true;
 					}
 				} else {

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor.curses;
 
@@ -44,17 +25,17 @@ public class Metabolism extends Glyph {
 		if ( Random.Float() < procChance && defender instanceof Hero) {
 
 			//assumes using up 10% of starving, and healing of 1 hp per 10 turns;
-			int healing = Math.min((int)Hunger.STARVING/100, defender.HT - defender.HP);
+			int healing = Math.min((int)Hunger.STARVING/100, defender.最大生命 - defender.生命);
 
 			if (healing > 0) {
 				
-				Hunger hunger = Buff.affect(defender, Hunger.class);
+				Hunger hunger = Buff.施加(defender, Hunger.class);
 				
 				if (!hunger.isStarving()) {
 					
 					hunger.affectHunger( healing * -10 );
 					
-					defender.HP += healing;
+					defender.生命 += healing;
 					defender.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( healing ), FloatingText.HEALING);
 				}
 			}

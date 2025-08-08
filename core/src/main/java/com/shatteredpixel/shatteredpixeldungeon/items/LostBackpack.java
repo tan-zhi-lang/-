@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
@@ -57,9 +38,9 @@ public class LostBackpack extends Item {
 			} else {
 				if (i instanceof EquipableItem && i.isEquipped(hero)){
 					((EquipableItem) i).activate(hero);
-				} else if ( i instanceof CloakOfShadows && hero.hasTalent(Talent.LIGHT_CLOAK)){
+				} else if ( i instanceof CloakOfShadows && hero.有天赋(Talent.LIGHT_CLOAK)){
 					((CloakOfShadows) i).activate(hero);
-				} else if ( i instanceof HolyTome && hero.hasTalent(Talent.LIGHT_READING)){
+				} else if ( i instanceof HolyTome && hero.有天赋(Talent.LIGHT_READING)){
 					((HolyTome) i).activate(hero);
 				} else if (i instanceof Wand){
 					if (holster != null && holster.contains(i)){
@@ -73,7 +54,7 @@ public class LostBackpack extends Item {
 			}
 		}
 
-		hero.updateHT(false);
+		hero.更新生命(false);
 
 		Item.updateQuickslot();
 		Sample.INSTANCE.play( Assets.Sounds.DEWDROP );

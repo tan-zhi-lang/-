@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -56,15 +37,15 @@ public class Cleanse extends ClericSpell {
 	}
 
 	public String desc(){
-		int immunity = 2 * (Dungeon.hero.pointsInTalent(Talent.CLEANSE)-1);
+		int immunity = 2 * (Dungeon.hero.天赋点数(Talent.CLEANSE)-1);
 		if (immunity > 0) immunity++;
-		int shield = 10 * Dungeon.hero.pointsInTalent(Talent.CLEANSE);
+		int shield = 10 * Dungeon.hero.天赋点数(Talent.CLEANSE);
 		return Messages.get(this, "desc", immunity, shield) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.CLEANSE);
+		return super.canCast(hero) && hero.有天赋(Talent.CLEANSE);
 	}
 
 	@Override
@@ -95,11 +76,9 @@ public class Cleanse extends ClericSpell {
 				}
 			}
 
-			if (hero.pointsInTalent(Talent.CLEANSE) > 1) {
-				//0, 2, or 4. 1 less than displayed as spell is instant
-				Buff.prolong(ch, PotionOfCleansing.Cleanse.class, 2 * (Dungeon.hero.pointsInTalent(Talent.CLEANSE)-1));
-			}
-			Buff.affect(ch, Barrier.class).setShield(10 * hero.pointsInTalent(Talent.CLEANSE));
+            Buff.延长(ch, PotionOfCleansing.Cleanse.class, (Dungeon.hero.天赋点数(Talent.CLEANSE,1.5f)));
+
+			Buff.施加(ch, Barrier.class).setShield(hero.天赋点数(Talent.CLEANSE,10));
 			new Flare( 6, 32 ).color(0xFF4CD2, true).show( ch.sprite, 2f );
 		}
 

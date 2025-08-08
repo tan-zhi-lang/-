@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts;
 
@@ -136,7 +117,7 @@ public abstract class TippedDart extends Dart {
 			d.quantity(1);
 			Catalog.countUse(getClass());
 			if (sticky && enemy != null && enemy.isAlive() && enemy.alignment != Char.Alignment.ALLY){
-				PinCushion p = Buff.affect(enemy, PinCushion.class);
+				PinCushion p = Buff.施加(enemy, PinCushion.class);
 				if (p.target == enemy){
 					p.stick(d);
 					return;
@@ -173,7 +154,7 @@ public abstract class TippedDart extends Dart {
 		float use = super.durabilityPerUse(level);
 
 		if (Dungeon.hero != null) {
-			use /= (1 + Dungeon.hero.pointsInTalent(Talent.DURABLE_TIPS));
+			use /= (1 + Dungeon.hero.天赋点数(Talent.DURABLE_TIPS));
 
 			//checks both destination and source position
 			float lotusPreserve = 0f;

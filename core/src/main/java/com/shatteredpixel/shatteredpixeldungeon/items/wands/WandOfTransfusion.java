@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
@@ -90,18 +71,18 @@ public class WandOfTransfusion extends DamageWand {
 			if (ch.alignment == Char.Alignment.ALLY || ch.buff(Charm.class) != null){
 				
 				// 5% of max hp
-				int selfDmg = Math.round(curUser.HT*0.05f);
+				int selfDmg = Math.round(curUser.最大生命 *0.05f);
 				
 				int healing = selfDmg + 3*buffedLvl();
-				int shielding = (ch.HP + healing) - ch.HT;
+				int shielding = (ch.生命 + healing) - ch.最大生命;
 				if (shielding > 0){
 					healing -= shielding;
-					Buff.affect(ch, Barrier.class).setShield(shielding);
+					Buff.施加(ch, Barrier.class).setShield(shielding);
 				} else {
 					shielding = 0;
 				}
 				
-				ch.HP += healing;
+				ch.生命 += healing;
 				
 				ch.sprite.emitter().burst(Speck.factory(Speck.HEALING), 2 + buffedLvl() / 2);
 				if (healing > 0) {
@@ -122,12 +103,12 @@ public class WandOfTransfusion extends DamageWand {
 			} else if (ch.alignment == Char.Alignment.ENEMY || ch instanceof Mimic) {
 
 				//grant a self-shield, and...
-				Buff.affect(curUser, Barrier.class).setShield((5 + buffedLvl()));
+				Buff.施加(curUser, Barrier.class).setShield((5 + buffedLvl()));
 				curUser.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(5+buffedLvl()), FloatingText.SHIELDING);
 				
 				//charms living enemies
 				if (!ch.properties().contains(Char.Property.UNDEAD)) {
-					Charm charm = Buff.affect(ch, Charm.class, Charm.DURATION/2f);
+					Charm charm = Buff.施加(ch, Charm.class, Charm.DURATION/2f);
 					charm.object = curUser.id();
 					charm.ignoreHeroAllies = true;
 					ch.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 3 );
@@ -163,7 +144,7 @@ public class WandOfTransfusion extends DamageWand {
 			//grants a free use of the staff and shields self
 			freeCharge = true;
 			int shieldToGive = Math.round((2*(5 + buffedLvl()))*procChanceMultiplier(attacker));
-			Buff.affect(attacker, Barrier.class).setShield(shieldToGive);
+			Buff.施加(attacker, Barrier.class).setShield(shieldToGive);
 			attacker.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			GLog.p( Messages.get(this, "charged") );
 			attacker.sprite.emitter().burst(BloodParticle.BURST, 20);
@@ -189,7 +170,7 @@ public class WandOfTransfusion extends DamageWand {
 
 	@Override
 	public String statsDesc() {
-		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.HT*0.05f): 1;
+		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
 		if (levelKnown)
 			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3*buffedLvl(), 5+buffedLvl(), min(), max());
 		else
@@ -198,7 +179,7 @@ public class WandOfTransfusion extends DamageWand {
 
 	@Override
 	public String upgradeStat1(int level) {
-		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.HT*0.05f): 1;
+		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
 		return Integer.toString(selfDMG + 3*level);
 	}
 

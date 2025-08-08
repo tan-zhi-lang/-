@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
@@ -98,7 +79,7 @@ public class SpiritBow extends Weapon {
 	};
 
 	@Override
-	public int proc(Char attacker, Char defender, int damage) {
+	public int 攻击时(Char attacker, Char defender, int damage) {
 
 		if (attacker.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial){
 
@@ -110,7 +91,7 @@ public class SpiritBow extends Weapon {
 				@Override
 				protected boolean act() {
 
-					if (Random.Int(12) < ((Hero)attacker).pointsInTalent(Talent.NATURES_WRATH)){
+					if (Random.Int(12) < ((Hero)attacker).天赋点数(Talent.NATURES_WRATH)){
 						Plant plant = (Plant) Reflection.newInstance(Random.element(harmfulPlants));
 						plant.pos = defender.pos;
 						plant.activate( defender.isAlive() ? defender : null );
@@ -119,7 +100,7 @@ public class SpiritBow extends Weapon {
 					if (!defender.isAlive()){
 						NaturesPower.naturesPowerTracker tracker = attacker.buff(NaturesPower.naturesPowerTracker.class);
 						if (tracker != null){
-							tracker.extend(((Hero) attacker).pointsInTalent(Talent.WILD_MOMENTUM));
+							tracker.extend(((Hero) attacker).天赋点数(Talent.WILD_MOMENTUM));
 						}
 					}
 
@@ -130,7 +111,7 @@ public class SpiritBow extends Weapon {
 
 		}
 
-		return super.proc(attacker, defender, damage);
+		return super.攻击时(attacker, defender, damage);
 	}
 
 	@Override
@@ -142,10 +123,10 @@ public class SpiritBow extends Weapon {
 				Math.round(augment.damageFactor(max())),
 				STRReq());
 		
-		if (STRReq() > Dungeon.hero.STR()) {
+		if (STRReq() > Dungeon.hero.力量()) {
 			info += " " + Messages.get(Weapon.class, "too_heavy");
-		} else if (Dungeon.hero.STR() > STRReq()){
-			info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.STR() - STRReq());
+		} else if (Dungeon.hero.力量() > STRReq()){
+			info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - STRReq());
 		}
 		
 		switch (augment) {
@@ -186,17 +167,17 @@ public class SpiritBow extends Weapon {
 	
 	@Override
 	public int min(int lvl) {
-		int dmg = 1 + Dungeon.hero.当前等级 /5
+		int dmg = 1 + Dungeon.hero.等级 /5
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 1 + Dungeon.hero.当前等级 /30 : 0);
+				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级 /30 : 0);
 		return Math.max(0, dmg);
 	}
 	
 	@Override
 	public int max(int lvl) {
-		int dmg = 6 + (int)(Dungeon.hero.当前等级 /2.5f)
+		int dmg = 6 + (int)(Dungeon.hero.等级 /2.5f)
 				+ 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 2 + Dungeon.hero.当前等级 /15 : 0);
+				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级 /15 : 0);
 		return Math.max(0, dmg);
 	}
 
@@ -212,7 +193,7 @@ public class SpiritBow extends Weapon {
 		int damage = augment.damageFactor(super.damageRoll(owner));
 		
 		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).STR() - STRReq();
+			int exStr = ((Hero)owner).力量() - STRReq();
 			if (exStr > 0) {
 				damage += Hero.heroDamageIntRange( 0, exStr );
 			}
@@ -262,14 +243,14 @@ public class SpiritBow extends Weapon {
 		float speed = super.speedMultiplier(owner);
 		if (owner.buff(NaturesPower.naturesPowerTracker.class) != null){
 			// +33% speed to +50% speed, depending on talent points
-			speed += ((8 + ((Hero)owner).pointsInTalent(Talent.GROWING_POWER)) / 24f);
+			speed += ((8 + ((Hero)owner).天赋点数(Talent.GROWING_POWER)) / 24f);
 		}
 		return speed;
 	}
 
 	@Override
-	public int level() {
-		int level = Dungeon.hero == null ? 0 : Dungeon.hero.当前等级 /5;
+	public int 等级() {
+		int level = Dungeon.hero == null ? 0 : Dungeon.hero.等级 /5;
 		if (curseInfusionBonus) level += 1 + level/6;
 		return level;
 	}
@@ -277,7 +258,7 @@ public class SpiritBow extends Weapon {
 	@Override
 	public int buffedLvl() {
 		//level isn't affected by buffs/debuffs
-		return level();
+		return this.等级();
 	}
 	
 	@Override
@@ -328,8 +309,8 @@ public class SpiritBow extends Weapon {
 		}
 		
 		@Override
-		public int proc(Char attacker, Char defender, int damage) {
-			return SpiritBow.this.proc(attacker, defender, damage);
+		public int 攻击时(Char attacker, Char defender, int damage) {
+			return SpiritBow.this.攻击时(attacker, defender, damage);
 		}
 		
 		@Override
@@ -457,15 +438,15 @@ public class SpiritBow extends Weapon {
 				
 			} else {
 
-				if (user.hasTalent(Talent.SEER_SHOT)
+				if (user.有天赋(Talent.SEER_SHOT)
 						&& user.buff(Talent.SeerShotCooldown.class) == null){
 					int shotPos = throwPos(user, dst);
 					if (Actor.findChar(shotPos) == null) {
-						RevealedArea a = Buff.affect(user, RevealedArea.class, 5 * user.pointsInTalent(Talent.SEER_SHOT));
+						RevealedArea a = Buff.施加(user, RevealedArea.class, user.天赋点数(Talent.SEER_SHOT,5));
 						a.depth = Dungeon.depth;
 						a.branch = Dungeon.branch;
 						a.pos = shotPos;
-						Buff.affect(user, Talent.SeerShotCooldown.class, 20f);
+						Buff.施加(user, Talent.SeerShotCooldown.class, 20f);
 					}
 				}
 

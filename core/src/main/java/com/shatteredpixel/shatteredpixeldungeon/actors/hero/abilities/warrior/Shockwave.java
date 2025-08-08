@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior;
 
@@ -79,12 +60,12 @@ public class Shockwave extends ArmorAbility {
 
 		Ballistica aim = new Ballistica(hero.pos, target, Ballistica.WONT_STOP);
 
-		int maxDist = 5 + hero.pointsInTalent(Talent.EXPANDING_WAVE);
+		int maxDist = 5 + hero.天赋点数(Talent.EXPANDING_WAVE);
 		int dist = Math.min(aim.dist, maxDist);
 
 		ConeAOE cone = new ConeAOE(aim,
 				dist,
-				60 + 15*hero.pointsInTalent(Talent.EXPANDING_WAVE),
+				60 + 15*hero.天赋点数(Talent.EXPANDING_WAVE),
 				Ballistica.STOP_SOLID | Ballistica.STOP_TARGET);
 
 		//cast to cells at the tip, rather than all cells, better performance.
@@ -113,31 +94,31 @@ public class Shockwave extends ArmorAbility {
 
 							Char ch = Actor.findChar(cell);
 							if (ch != null && ch.alignment != hero.alignment){
-								int scalingStr = hero.STR()-10;
+								int scalingStr = hero.力量()-10;
 								int damage = Hero.heroDamageIntRange(5 + scalingStr, 10 + 2*scalingStr);
-								damage = Math.round(damage * (1f + 0.2f*hero.pointsInTalent(Talent.SHOCK_FORCE)));
+								damage = Math.round(damage * (1f + 0.2f*hero.天赋点数(Talent.SHOCK_FORCE)));
 								damage -= ch.drRoll();
 
-								if (hero.pointsInTalent(Talent.STRIKING_WAVE) == 4){
-									Buff.affect(hero, Talent.StrikingWaveTracker.class, 0f);
+								if (hero.天赋点数(Talent.STRIKING_WAVE) == 4){
+									Buff.施加(hero, Talent.StrikingWaveTracker.class, 0f);
 								}
 
-								if (Random.Int(10) < 3*hero.pointsInTalent(Talent.STRIKING_WAVE)){
+								if (Random.Int(10) < 3*hero.天赋点数(Talent.STRIKING_WAVE)){
 									boolean wasEnemy = ch.alignment == Char.Alignment.ENEMY
 											|| (ch instanceof Mimic && ch.alignment == Char.Alignment.NEUTRAL);
 									damage = hero.attackProc(ch, damage);
 									ch.damage(damage, hero);
 									if (hero.subClass == HeroSubClass.GLADIATOR && wasEnemy){
-										Buff.affect( hero, Combo.class ).hit( ch );
+										Buff.施加( hero, Combo.class ).hit( ch );
 									}
 								} else {
 									ch.damage(damage, hero);
 								}
 								if (ch.isAlive()){
-									if (Random.Int(4) < hero.pointsInTalent(Talent.SHOCK_FORCE)){
-										Buff.affect(ch, Paralysis.class, 5f);
+									if (Random.Int(4) < hero.天赋点数(Talent.SHOCK_FORCE)){
+										Buff.施加(ch, Paralysis.class, 5f);
 									} else {
-										Buff.affect(ch, Cripple.class, 5f);
+										Buff.施加(ch, Cripple.class, 5f);
 									}
 								}
 

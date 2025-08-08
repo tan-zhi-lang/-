@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -70,9 +51,9 @@ public class UnstableSpellbook extends Artifact {
 
 		levelCap = 10;
 
-		charge = (int)(level()*0.6f)+2;
+		charge = (int)(等级()*0.6f)+2;
 		partialCharge = 0;
-		chargeCap = (int)(level()*0.6f)+2;
+		chargeCap = (int)(等级()*0.6f)+2;
 
 		defaultAction = AC_READ;
 	}
@@ -110,7 +91,7 @@ public class UnstableSpellbook extends Artifact {
 		if (isEquipped( hero ) && charge > 0 && !cursed && hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_READ);
 		}
-		if (isEquipped( hero ) && level() < levelCap && !cursed && hero.buff(MagicImmune.class) == null) {
+		if (isEquipped( hero ) && 等级() < levelCap && !cursed && hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_ADD);
 		}
 		return actions;
@@ -160,7 +141,7 @@ public class UnstableSpellbook extends Artifact {
 		if (charge > 0 && !scrolls.contains(scroll.getClass())) {
 			final Scroll fScroll = scroll;
 
-			final ExploitHandler handler = Buff.affect(hero, ExploitHandler.class);
+			final ExploitHandler handler = Buff.施加(hero, ExploitHandler.class);
 			handler.scroll = scroll;
 
 			GameScene.show(new WndOptions(new ItemSprite(this),
@@ -279,10 +260,10 @@ public class UnstableSpellbook extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		chargeCap = (int)((level()+1)*0.6f)+2;
+		chargeCap = (int)((等级()+1)*0.6f)+2;
 
 		//for artifact transmutation.
-		while (!scrolls.isEmpty() && scrolls.size() > (levelCap-1-level())) {
+		while (!scrolls.isEmpty() && scrolls.size() > (levelCap-1- 等级())) {
 			scrolls.remove(0);
 		}
 
@@ -293,7 +274,7 @@ public class UnstableSpellbook extends Artifact {
 	public void resetForTrinity(int visibleLevel) {
 		super.resetForTrinity(visibleLevel);
 		setupScrolls();
-		while (!scrolls.isEmpty() && scrolls.size() > (levelCap-1-level())) {
+		while (!scrolls.isEmpty() && scrolls.size() > (levelCap-1- 等级())) {
 			scrolls.remove(0);
 		}
 	}
@@ -307,7 +288,7 @@ public class UnstableSpellbook extends Artifact {
 				desc += "\n\n" + Messages.get(this, "desc_cursed");
 			}
 			
-			if (level() < levelCap && scrolls.size() > 0) {
+			if (等级() < levelCap && scrolls.size() > 0) {
 				desc += "\n\n" + Messages.get(this, "desc_index");
 				desc += "\n" + "_" + Messages.get(scrolls.get(0), "name") + "_";
 				if (scrolls.size() > 1)
@@ -315,7 +296,7 @@ public class UnstableSpellbook extends Artifact {
 			}
 		}
 		
-		if (level() > 0) {
+		if (等级() > 0) {
 			desc += "\n\n" + Messages.get(this, "desc_empowered");
 		}
 

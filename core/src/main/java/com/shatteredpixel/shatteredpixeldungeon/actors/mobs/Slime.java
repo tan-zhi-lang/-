@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -35,22 +16,22 @@ public class Slime extends Mob {
 	{
 		spriteClass = SlimeSprite.class;
 		
-		HP = HT = 20;
+		生命 = 最大生命 = 20;
 		defenseSkill = 5;
 		
-		EXP = 4;
-		maxLvl = 9;
+		经验 = 4;
+		最大等级 = 9;
 		
 		lootChance = 0.2f; //by default, see lootChance()
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 2, 5 );
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 12;
 	}
 	
@@ -78,7 +59,7 @@ public class Slime extends Mob {
 		Dungeon.LimitedDrops.SLIME_WEP.count++;
 		Generator.Category c = Generator.Category.WEP_T2;
 		MeleeWeapon w = (MeleeWeapon)Generator.randomUsingDefaults(Generator.Category.WEP_T2);
-		w.level(0);
+		w.等级(0);
 		return w;
 	}
 }

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress;
 
@@ -67,7 +48,7 @@ public class SpectralBlades extends ArmorAbility {
 		Ballistica b = new Ballistica(hero.pos, target, Ballistica.WONT_STOP);
 		final HashSet<Char> targets = new HashSet<>();
 
-		Char enemy = findChar(b, hero, 2*hero.pointsInTalent(Talent.PROJECTING_BLADES), targets);
+		Char enemy = findChar(b, hero, 2*hero.天赋点数(Talent.PROJECTING_BLADES), targets);
 
 		if (enemy == null || !hero.fieldOfView[enemy.pos]){
 			GLog.w(Messages.get(this, "no_target"));
@@ -76,15 +57,15 @@ public class SpectralBlades extends ArmorAbility {
 
 		targets.add(enemy);
 
-		if (hero.hasTalent(Talent.FAN_OF_BLADES)){
-			ConeAOE cone = new ConeAOE(b, 30*hero.pointsInTalent(Talent.FAN_OF_BLADES));
+		if (hero.有天赋(Talent.FAN_OF_BLADES)){
+			ConeAOE cone = new ConeAOE(b, 30*hero.天赋点数(Talent.FAN_OF_BLADES));
 			for (Ballistica ray : cone.rays){
-				Char toAdd = findChar(ray, hero, 2*hero.pointsInTalent(Talent.PROJECTING_BLADES), targets);
+				Char toAdd = findChar(ray, hero, 2*hero.天赋点数(Talent.PROJECTING_BLADES), targets);
 				if (toAdd != null && hero.fieldOfView[toAdd.pos]){
 					targets.add(toAdd);
 				}
 			}
-			while (targets.size() > 1 + hero.pointsInTalent(Talent.FAN_OF_BLADES)){
+			while (targets.size() > 1 + hero.天赋点数(Talent.FAN_OF_BLADES)){
 				Char furthest = null;
 				for (Char ch : targets){
 					if (furthest == null){
@@ -110,9 +91,9 @@ public class SpectralBlades extends ArmorAbility {
 				@Override
 				public void call() {
 					float dmgMulti = ch == enemy ? 1f : 0.5f;
-					float accmulti = 1f + 0.25f*hero.pointsInTalent(Talent.PROJECTING_BLADES);
-					if (hero.hasTalent(Talent.SPIRIT_BLADES)){
-						Buff.affect(hero, Talent.SpiritBladesTracker.class, 0f);
+					float accmulti = 1f + 0.25f*hero.天赋点数(Talent.PROJECTING_BLADES);
+					if (hero.有天赋(Talent.SPIRIT_BLADES)){
+						Buff.施加(hero, Talent.SpiritBladesTracker.class, 0f);
 					}
 					hero.attack( ch, dmgMulti, 0, accmulti );
 					callbacks.remove( this );

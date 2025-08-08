@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior;
 
@@ -54,7 +35,7 @@ public class Endure extends ArmorAbility {
 		if (hero.buff(EndureTracker.class) != null){
 			hero.buff(EndureTracker.class).detach();
 		}
-		Buff.prolong(hero, EndureTracker.class, 12f);
+		Buff.延长(hero, EndureTracker.class, 12f);
 
 		Combo combo = hero.buff(Combo.class);
 		if (combo != null){
@@ -104,9 +85,9 @@ public class Endure extends ArmorAbility {
 				damageBonus += damage/2;
 
 				float damageMulti = 0.5f;
-				if (Dungeon.hero.hasTalent(Talent.SHRUG_IT_OFF)){
+				if (Dungeon.hero.有天赋(Talent.SHRUG_IT_OFF)){
 					//total damage reduction is 60%/68%/74%/80%, based on points in talent
-					damageMulti *= Math.pow(0.8f, Dungeon.hero.pointsInTalent(Talent.SHRUG_IT_OFF));
+					damageMulti *= Math.pow(0.8f, Dungeon.hero.天赋点数(Talent.SHRUG_IT_OFF));
 				}
 
 				return damage*damageMulti;
@@ -120,7 +101,7 @@ public class Endure extends ArmorAbility {
 			}
 
 			enduring = false;
-			damageBonus *= 1f + 0.15f*Dungeon.hero.pointsInTalent(Talent.SUSTAINED_RETRIBUTION);
+			damageBonus *= 1f + 0.15f*Dungeon.hero.天赋点数(Talent.SUSTAINED_RETRIBUTION);
 
 			int nearby = 0;
 			for (Char ch : Actor.chars()){
@@ -128,9 +109,9 @@ public class Endure extends ArmorAbility {
 					nearby ++;
 				}
 			}
-			damageBonus *= 1f + (nearby*0.05f*Dungeon.hero.pointsInTalent(Talent.EVEN_THE_ODDS));
+			damageBonus *= 1f + (nearby*0.05f*Dungeon.hero.天赋点数(Talent.EVEN_THE_ODDS));
 
-			hitsLeft = 1+Dungeon.hero.pointsInTalent(Talent.SUSTAINED_RETRIBUTION);
+			hitsLeft = 1+Dungeon.hero.天赋点数(Talent.SUSTAINED_RETRIBUTION);
 			damageBonus /= hitsLeft;
 
 			if (damageBonus > 0) {

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -51,8 +32,8 @@ import com.watabou.utils.Random;
 public class Goo extends Mob {
 
 	{
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 120 : 100;
-		EXP = 10;
+		生命 = 最大生命 = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 120 : 100;
+		经验 = 10;
 		defenseSkill = 8;
 		spriteClass = GooSprite.class;
 
@@ -65,9 +46,9 @@ public class Goo extends Mob {
 	private int healInc = 1;
 
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		int min = 1;
-		int max = (HP*2 <= HT) ? 12 : 8;
+		int max = (生命 *2 <= 最大生命) ? 12 : 8;
 		if (pumpedUp > 0) {
 			pumpedUp = 0;
 			if (enemy == Dungeon.hero) {
@@ -81,16 +62,16 @@ public class Goo extends Mob {
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		int attack = 10;
-		if (HP*2 <= HT) attack = 15;
+		if (生命 *2 <= 最大生命) attack = 15;
 		if (pumpedUp > 0) attack *= 2;
 		return attack;
 	}
 
 	@Override
 	public int defenseSkill(Char enemy) {
-		return (int)(super.defenseSkill(enemy) * ((HP*2 <= HT)? 1.5 : 1));
+		return (int)(super.defenseSkill(enemy) * ((生命 *2 <= 最大生命)? 1.5 : 1));
 	}
 
 	@Override
@@ -106,8 +87,8 @@ public class Goo extends Mob {
 			sprite.idle();
 		}
 
-		if (!flying && Dungeon.level.water[pos] && HP < HT) {
-			HP += healInc;
+		if (!flying && Dungeon.level.water[pos] && 生命 < 最大生命) {
+			生命 += healInc;
 			Statistics.qualifiedForBossChallengeBadge = false;
 
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
@@ -122,10 +103,10 @@ public class Goo extends Mob {
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) && healInc < 3) {
 				healInc++;
 			}
-			if (HP*2 > HT) {
+			if (生命 *2 > 最大生命) {
 				BossHealthBar.bleed(false);
 				((GooSprite)sprite).spray(false);
-				HP = Math.min(HP, HT);
+				生命 = Math.min(生命, 最大生命);
 			}
 		} else {
 			healInc = 1;
@@ -155,7 +136,7 @@ public class Goo extends Mob {
 	public int attackProc( Char enemy, int damage ) {
 		damage = super.attackProc( enemy, damage );
 		if (Random.Int( 3 ) == 0) {
-			Buff.affect( enemy, Ooze.class ).set( Ooze.DURATION );
+			Buff.施加( enemy, Ooze.class ).set( Ooze.DURATION );
 			enemy.sprite.burst( 0x000000, 5 );
 		}
 
@@ -184,7 +165,7 @@ public class Goo extends Mob {
 			spend( attackDelay() );
 
 			return true;
-		} else if (pumpedUp >= 2 || Random.Int( (HP*2 <= HT) ? 2 : 5 ) > 0) {
+		} else if (pumpedUp >= 2 || Random.Int( (生命 *2 <= 最大生命) ? 2 : 5 ) > 0) {
 
 			boolean visible = Dungeon.level.heroFOV[pos];
 
@@ -264,9 +245,9 @@ public class Goo extends Mob {
 			BossHealthBar.assignBoss( this );
 			Dungeon.level.seal();
 		}
-		boolean bleeding = (HP*2 <= HT);
+		boolean bleeding = (生命 *2 <= 最大生命);
 		super.damage(dmg, src);
-		if ((HP*2 <= HT) && !bleeding){
+		if ((生命 *2 <= 最大生命) && !bleeding){
 			BossHealthBar.bleed(true);
 			sprite.showStatus(CharSprite.WARNING, Messages.get(this, "enraged"));
 			((GooSprite)sprite).spray(true);
@@ -342,7 +323,7 @@ public class Goo extends Mob {
 
 		pumpedUp = bundle.getInt( PUMPEDUP );
 		if (state != SLEEPING) BossHealthBar.assignBoss(this);
-		if ((HP*2 <= HT)) BossHealthBar.bleed(true);
+		if ((生命 *2 <= 最大生命)) BossHealthBar.bleed(true);
 
 		healInc = bundle.getInt(HEALINC);
 	}

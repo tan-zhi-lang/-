@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -57,8 +38,8 @@ public class Smite extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = 5 + Dungeon.hero.当前等级 /2;
-		int max = 10 + Dungeon.hero.当前等级;
+		int min = 5 + Dungeon.hero.等级 /2;
+		int max = 10 + Dungeon.hero.等级;
 		return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -85,7 +66,7 @@ public class Smite extends TargetedClericSpell {
 		}
 
 		//we apply here because of projecting
-		SmiteTracker tracker = Buff.affect(hero, SmiteTracker.class);
+		SmiteTracker tracker = Buff.施加(hero, SmiteTracker.class);
 		if (hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target] || !hero.canAttack(enemy)) {
 			GLog.w(Messages.get(this, "invalid_enemy"));
 			tracker.detach();
@@ -99,7 +80,7 @@ public class Smite extends TargetedClericSpell {
 
 				float accMult = 1;
 				if (!(hero.belongings.attackingWeapon() instanceof Weapon)
-						|| ((Weapon) hero.belongings.attackingWeapon()).STRReq() <= hero.STR()){
+						|| ((Weapon) hero.belongings.attackingWeapon()).STRReq() <= hero.力量()){
 					accMult = Char.INFINITE_ACCURACY;
 				}
 				if (hero.attack(enemy, 1, 0, accMult)){
@@ -118,8 +99,8 @@ public class Smite extends TargetedClericSpell {
 	}
 
 	public static int bonusDmg( Hero attacker, Char defender){
-		int min = 5 + attacker.当前等级 /2;
-		int max = 10 + attacker.当前等级;
+		int min = 5 + attacker.等级 /2;
+		int max = 10 + attacker.等级;
 		if (Char.hasProp(defender, Char.Property.UNDEAD) || Char.hasProp(defender, Char.Property.DEMONIC)){
 			return max;
 		} else {

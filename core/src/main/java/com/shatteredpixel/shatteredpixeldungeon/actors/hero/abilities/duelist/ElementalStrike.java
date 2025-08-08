@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist;
 
@@ -155,12 +136,12 @@ public class ElementalStrike extends ArmorAbility {
 
 		Ballistica aim = new Ballistica(hero.pos, target, Ballistica.WONT_STOP);
 
-		int maxDist = 4 + hero.pointsInTalent(Talent.ELEMENTAL_REACH);
+		int maxDist = 4 + hero.天赋点数(Talent.ELEMENTAL_REACH);
 		int dist = Math.min(aim.dist, maxDist);
 
 		ConeAOE cone = new ConeAOE(aim,
 				dist,
-				65 + 10*hero.pointsInTalent(Talent.ELEMENTAL_REACH),
+				65 + 10*hero.天赋点数(Talent.ELEMENTAL_REACH),
 				Ballistica.STOP_SOLID | Ballistica.STOP_TARGET);
 
 		KindOfWeapon w = hero.belongings.weapon();
@@ -234,12 +215,12 @@ public class ElementalStrike extends ArmorAbility {
 			}
 		}
 
-		if (hero.hasTalent(Talent.DIRECTED_POWER)){
-			float enchBoost = 0.30f * targetsHit * hero.pointsInTalent(Talent.DIRECTED_POWER);
-			Buff.affect(hero, DirectedPowerTracker.class, 0f).enchBoost = enchBoost;
+		if (hero.有天赋(Talent.DIRECTED_POWER)){
+			float enchBoost = 0.30f * targetsHit * hero.天赋点数(Talent.DIRECTED_POWER);
+			Buff.施加(hero, DirectedPowerTracker.class, 0f).enchBoost = enchBoost;
 		}
 
-		float powerMulti = 1f + 0.30f*Dungeon.hero.pointsInTalent(Talent.STRIKING_FORCE);
+		float powerMulti = 1f + 0.30f*Dungeon.hero.天赋点数(Talent.STRIKING_FORCE);
 
 		//*** Kinetic ***
 		if (ench instanceof Kinetic){
@@ -251,7 +232,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Blocking){
 			if (targetsHit > 0){
 				int shield = Math.round(Math.round(6f*targetsHit*powerMulti));
-				Buff.affect(hero, Barrier.class).setShield(Math.round(6f*targetsHit*powerMulti));
+				Buff.施加(hero, Barrier.class).setShield(Math.round(6f*targetsHit*powerMulti));
 				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
 			}
 
@@ -259,16 +240,16 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Vampiric){
 			if (targetsHit > 0){
 				int heal = Math.round(2.5f*targetsHit*powerMulti);
-				heal = Math.min( heal, hero.HT - hero.HP );
+				heal = Math.min( heal, hero.最大生命 - hero.生命);
 				if (heal > 0){
-					hero.HP += heal;
+					hero.生命 += heal;
 					hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( heal ), FloatingText.HEALING );
 				}
 			}
 
 		//*** Sacrificial ***
 		} else if (ench instanceof Sacrificial){
-			Buff.affect(hero, Bleeding.class).set(10 * powerMulti);
+			Buff.施加(hero, Bleeding.class).set(10 * powerMulti);
 		}
 
 	}
@@ -293,7 +274,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 		}
 
-		float powerMulti = 1f + 0.30f*Dungeon.hero.pointsInTalent(Talent.STRIKING_FORCE);
+		float powerMulti = 1f + 0.30f*Dungeon.hero.天赋点数(Talent.STRIKING_FORCE);
 
 		//*** Blazing ***
 		if (ench instanceof Blazing){
@@ -323,7 +304,7 @@ public class ElementalStrike extends ArmorAbility {
 			// each hero level is worth 20 normal uses, but just 5 if no enemies are present
 			// cap of 40/10 uses
 			int highGrassType = Terrain.HIGH_GRASS;
-			if (Buff.affect(Dungeon.hero, ElementalStrikeFurrowCounter.class).count() >= 40){
+			if (Buff.施加(Dungeon.hero, ElementalStrikeFurrowCounter.class).count() >= 40){
 				highGrassType = Terrain.FURROWED_GRASS;
 			} else {
 				if (Dungeon.hero.visibleEnemies() == 0 && targetsHit == 0) {
@@ -357,7 +338,7 @@ public class ElementalStrike extends ArmorAbility {
 	//effects that affect the characters within the cone AOE
 	private void perCharEffect(ConeAOE cone, Hero hero, Char primaryTarget, Weapon.Enchantment ench) {
 
-		float powerMulti = 1f + 0.30f * Dungeon.hero.pointsInTalent(Talent.STRIKING_FORCE);
+		float powerMulti = 1f + 0.30f * Dungeon.hero.天赋点数(Talent.STRIKING_FORCE);
 
 		ArrayList<Char> affected = new ArrayList<>();
 
@@ -391,7 +372,7 @@ public class ElementalStrike extends ArmorAbility {
 		//*** Blooming ***
 		} else if (ench instanceof Blooming){
 			for (Char ch : affected){
-				Buff.affect(ch, Roots.class, Math.round(6f*powerMulti));
+				Buff.施加(ch, Roots.class, Math.round(6f*powerMulti));
 			}
 
 		//*** Elastic ***
@@ -426,7 +407,7 @@ public class ElementalStrike extends ArmorAbility {
 						&& ch.buff(ElementalStrikeLuckyTracker.class) == null) {
 					Dungeon.level.drop(Lucky.genLoot(), ch.pos).sprite.drop();
 					Lucky.showFlare(ch.sprite);
-					Buff.affect(ch, ElementalStrikeLuckyTracker.class);
+					Buff.施加(ch, ElementalStrikeLuckyTracker.class);
 				}
 			}
 
@@ -434,7 +415,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Projecting){
 			for (Char ch : affected){
 				if (ch != primaryTarget) {
-					ch.damage(Math.round(hero.damageRoll() * 0.3f * powerMulti), ench);
+					ch.damage(Math.round(hero.攻击() * 0.3f * powerMulti), ench);
 				}
 			}
 
@@ -457,7 +438,7 @@ public class ElementalStrike extends ArmorAbility {
 						&& ch.buff(Corruption.class) == null
 						&& ch instanceof Mob
 						&& ch.isAlive()) {
-					float hpMissing = 1f - (ch.HP / (float)ch.HT);
+					float hpMissing = 1f - (ch.生命 / (float)ch.最大生命);
 					float chance = 0.05f + 0.2f*hpMissing; //5-25%
 					if (Random.Float() < chance*powerMulti){
 						Corruption.corruptionHeal(ch);
@@ -470,10 +451,10 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Grim){
 			for (Char ch : affected){
 				if (ch != primaryTarget) {
-					float hpMissing = 1f - (ch.HP / (float)ch.HT);
+					float hpMissing = 1f - (ch.生命 / (float)ch.最大生命);
 					float chance = 0.06f + 0.24f*hpMissing; //6-30%
 					if (Random.Float() < chance*powerMulti){
-						ch.damage( ch.HP, Grim.class );
+						ch.damage( ch.生命, Grim.class );
 						ch.sprite.emitter().burst( ShadowParticle.UP, 5 );
 					}
 				}
@@ -484,7 +465,7 @@ public class ElementalStrike extends ArmorAbility {
 			for (Char ch : affected){
 				if (Random.Float() < 0.2f*powerMulti){
 					//TODO totally should add a bit of dialogue here
-					Buff.affect(ch, Amok.class, 6f);
+					Buff.施加(ch, Amok.class, 6f);
 				}
 			}
 
@@ -509,7 +490,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Dazzling){
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
-					Buff.affect(ch, Blindness.class, 6f);
+					Buff.施加(ch, Blindness.class, 6f);
 				}
 			}
 
@@ -523,14 +504,14 @@ public class ElementalStrike extends ArmorAbility {
 		//*** Sacrificial ***
 		} else if (ench instanceof Sacrificial){
 			for (Char ch : affected){
-				Buff.affect(ch, Bleeding.class).set(12f*powerMulti);
+				Buff.施加(ch, Bleeding.class).set(12f*powerMulti);
 			}
 
 		//*** Wayward ***
 		} else if (ench instanceof Wayward){
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
-					Buff.affect(ch, Hex.class, 6f);
+					Buff.施加(ch, Hex.class, 6f);
 				}
 			}
 
@@ -546,7 +527,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Friendly){
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
-					Buff.affect(ch, Charm.class, 6f).object = hero.id();
+					Buff.施加(ch, Charm.class, 6f).object = hero.id();
 				}
 			}
 		}

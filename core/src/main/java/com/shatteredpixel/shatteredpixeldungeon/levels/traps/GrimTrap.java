@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.traps;
 
@@ -89,15 +70,15 @@ public class GrimTrap extends Trap {
 
 				if (target != null) {
 					if (target instanceof Mob){
-						Buff.prolong(target, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
+						Buff.延长(target, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 					}
 					final Char finalTarget = target;
 					//instant kill, use a mix of current HP and max HP, just like psi blast (for resistances)
-					int damage = Math.round(finalTarget.HT/2f + finalTarget.HP/2f);
+					int damage = Math.round(finalTarget.最大生命 /2f + finalTarget.生命 /2f);
 
 					//can't do more than 90% HT for the hero specifically
 					if (finalTarget == Dungeon.hero){
-						damage = (int)Math.min(damage, finalTarget.HT*0.9f);
+						damage = (int)Math.min(damage, finalTarget.最大生命 *0.9f);
 					}
 
 					final int finalDmg = damage;

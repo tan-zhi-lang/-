@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 
@@ -39,7 +20,7 @@ public abstract class InventoryScroll extends Scroll {
 	public void doRead() {
 		
 		if (!isKnown()) {
-			identify();
+			鉴定();
 			curItem = detach( curUser.belongings.backpack );
 			identifiedByUse = true;
 		} else {
@@ -113,12 +94,12 @@ public abstract class InventoryScroll extends Scroll {
 
 				//SoU opens a separate window that can be cancelled
 				//so we don't do a lot of logic here
-				if (!identifiedByUse && !(curItem instanceof ScrollOfUpgrade)) {
+				if (!identifiedByUse && !(curItem instanceof 升级卷轴)) {
 					curItem = detach(curUser.belongings.backpack);
 				}
 				((InventoryScroll)curItem).onItemSelected( item );
 
-				if (!(curItem instanceof ScrollOfUpgrade)) {
+				if (!(curItem instanceof 升级卷轴)) {
 					((InventoryScroll) curItem).readAnimation();
 					Sample.INSTANCE.play(Assets.Sounds.READ);
 				}

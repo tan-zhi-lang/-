@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue;
 
@@ -67,7 +48,7 @@ public class DeathMark extends ArmorAbility {
 		float chargeUse = super.chargeUse(hero);
 		if (hero.buff(DoubleMarkTracker.class) != null){
 			//reduced charge use by 30%/50%/65%/75%
-			chargeUse *= Math.pow(0.707, hero.pointsInTalent(Talent.DOUBLE_MARK));
+			chargeUse *= Math.pow(0.707, hero.天赋点数(Talent.DOUBLE_MARK));
 		}
 		return chargeUse;
 	}
@@ -89,7 +70,7 @@ public class DeathMark extends ArmorAbility {
 		}
 
 		if (ch != null){
-			Buff.affect(ch, DeathMarkTracker.class, DeathMarkTracker.DURATION).setInitialHP(ch.HP);
+			Buff.施加(ch, DeathMarkTracker.class, DeathMarkTracker.DURATION).setInitialHP(ch.生命);
 		}
 
 		armor.charge -= chargeUse( hero );
@@ -100,34 +81,34 @@ public class DeathMark extends ArmorAbility {
 
 		if (hero.buff(DoubleMarkTracker.class) != null){
 			hero.buff(DoubleMarkTracker.class).detach();
-		} else if (hero.hasTalent(Talent.DOUBLE_MARK)) {
-			Buff.affect(hero, DoubleMarkTracker.class, 0.01f);
+		} else if (hero.有天赋(Talent.DOUBLE_MARK)) {
+			Buff.施加(hero, DoubleMarkTracker.class, 0.01f);
 		}
 
 	}
 
 	public static void processFearTheReaper( Char ch ){
-		if (ch.HP > 0 || ch.buff(DeathMarkTracker.class) == null){
+		if (ch.生命 > 0 || ch.buff(DeathMarkTracker.class) == null){
 			return;
 		}
 
-		if (Dungeon.hero.hasTalent(Talent.FEAR_THE_REAPER)) {
-			if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) >= 2) {
-				Buff.prolong(ch, Terror.class, 5f).object = Dungeon.hero.id();
+		if (Dungeon.hero.有天赋(Talent.FEAR_THE_REAPER)) {
+			if (Dungeon.hero.天赋点数(Talent.FEAR_THE_REAPER) >= 2) {
+				Buff.延长(ch, Terror.class, 5f).object = Dungeon.hero.id();
 			}
-			Buff.prolong(ch, Cripple.class, 5f);
+			Buff.延长(ch, Cripple.class, 5f);
 
-			if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) >= 3) {
+			if (Dungeon.hero.天赋点数(Talent.FEAR_THE_REAPER) >= 3) {
 				boolean[] passable = BArray.not(Dungeon.level.solid, null);
 				PathFinder.buildDistanceMap(ch.pos, passable, 3);
 
 				for (Char near : Actor.chars()) {
 					if (near != ch && near.alignment == Char.Alignment.ENEMY
 							&& PathFinder.distance[near.pos] != Integer.MAX_VALUE) {
-						if (Dungeon.hero.pointsInTalent(Talent.FEAR_THE_REAPER) == 4) {
-							Buff.prolong(near, Terror.class, 5f).object = Dungeon.hero.id();
+						if (Dungeon.hero.天赋点数(Talent.FEAR_THE_REAPER) == 4) {
+							Buff.延长(near, Terror.class, 5f).object = Dungeon.hero.id();
 						}
-						Buff.prolong(near, Cripple.class, 5f);
+						Buff.延长(near, Cripple.class, 5f);
 					}
 				}
 			}
@@ -194,14 +175,14 @@ public class DeathMark extends ArmorAbility {
 			target.deathMarked = false;
 			if (!target.isAlive()){
 				target.sprite.flash();
-				target.sprite.bloodBurstA(target.sprite.center(), target.HT*2);
+				target.sprite.bloodBurstA(target.sprite.center(), target.最大生命 *2);
 				Sample.INSTANCE.play(Assets.Sounds.HIT_STAB);
 				Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
 				target.die(this);
-				int shld = Math.round(initialHP * (0.125f*Dungeon.hero.pointsInTalent(Talent.DEATHLY_DURABILITY)));
+				int shld = Math.round(initialHP * (0.125f*Dungeon.hero.天赋点数(Talent.DEATHLY_DURABILITY)));
 				if (shld > 0 && target.alignment != Char.Alignment.ALLY){
 					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shld), FloatingText.SHIELDING);
-					Buff.affect(Dungeon.hero, Barrier.class).setShield(shld);
+					Buff.施加(Dungeon.hero, Barrier.class).setShield(shld);
 				}
 			}
 		}

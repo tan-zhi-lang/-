@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
@@ -68,7 +49,7 @@ public class TalentsPane extends ScrollPane {
 			}
 		} else {
 			while (tiersAvailable < Talent.MAX_TALENT_TIERS
-					&& Dungeon.hero.当前等级 +1 >= Talent.tierLevelThresholds[tiersAvailable+1]){
+					&& Dungeon.hero.等级 +1 >= Talent.天赋解锁[tiersAvailable+1]){
 				tiersAvailable++;
 			}
 			if (tiersAvailable > 2 && Dungeon.hero.subClass == HeroSubClass.NONE){
@@ -105,8 +86,8 @@ public class TalentsPane extends ScrollPane {
 			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier3"), 6);
 			content.add(blockText);
 		} else if (tiersAvailable == 3) {
-			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier4"), 6);
-			content.add(blockText);
+//			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier4"), 6);
+//			content.add(blockText);
 		} else {
 			blockText = null;
 		}
@@ -200,7 +181,7 @@ public class TalentsPane extends ScrollPane {
 				stars.clear();
 			}
 
-			int totStars = Talent.tierLevelThresholds[tier+1] - Talent.tierLevelThresholds[tier] + Dungeon.hero.bonusTalentPoints(tier);
+			int totStars = Talent.天赋解锁[tier+1] - Talent.天赋解锁[tier] + Dungeon.hero.bonusTalentPoints(tier);
 			int openStars = Dungeon.hero.talentPointsAvailable(tier);
 			int usedStars = Dungeon.hero.talentPointsSpent(tier);
 			for (int i = 0; i < totStars; i++){
@@ -219,7 +200,7 @@ public class TalentsPane extends ScrollPane {
 		protected void layout() {
 			super.layout();
 
-			int regStars = Talent.tierLevelThresholds[tier+1] - Talent.tierLevelThresholds[tier];
+			int regStars = Talent.天赋解锁[tier+1] - Talent.天赋解锁[tier];
 
 			float titleWidth = title.width();
 			titleWidth += 2 + Math.min(stars.size(), regStars)*6;

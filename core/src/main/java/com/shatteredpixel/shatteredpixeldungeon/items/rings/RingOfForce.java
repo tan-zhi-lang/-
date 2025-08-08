@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
@@ -82,7 +63,7 @@ public class RingOfForce extends Ring {
 		if (hero.buff(Force.class) != null
 				&& hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) == null) {
 			int level = getBuffedBonus(hero, Force.class);
-			float tier = tier(hero.STR());
+			float tier = tier(hero.力量());
 			int dmg = Hero.heroDamageIntRange(min(level, tier), max(level, tier));
 			if (hero.buff(BrawlersStance.class) != null
 				&& hero.buff(BrawlersStance.class).active){
@@ -93,7 +74,7 @@ public class RingOfForce extends Ring {
 			return dmg;
 		} else {
 			//attack without any ring of force influence
-			return Hero.heroDamageIntRange(1, Math.max(hero.STR()-8, 1));
+			return Hero.heroDamageIntRange(1, Math.max(hero.力量()-8, 1));
 		}
 	}
 
@@ -119,7 +100,7 @@ public class RingOfForce extends Ring {
 
 	@Override
 	public String statsInfo() {
-		float tier = tier(Dungeon.hero != null ? Dungeon.hero.STR() : 10);
+		float tier = tier(Dungeon.hero != null ? Dungeon.hero.力量() : 10);
 		if (isIdentified()) {
 			int level = soloBuffedBonus();
 			String info = Messages.get(this, "stats", min(level, tier), max(level, tier), level);
@@ -136,7 +117,7 @@ public class RingOfForce extends Ring {
 	@Override
 	public String upgradeStat1(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		float tier = tier(Dungeon.hero != null ? Dungeon.hero.STR() : 10);
+		float tier = tier(Dungeon.hero != null ? Dungeon.hero.力量() : 10);
 		return min(level+1, tier) + "-" + max(level+1, tier);
 	}
 
@@ -150,7 +131,7 @@ public class RingOfForce extends Ring {
 	public String upgradeStat3(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
 		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST){
-			float tier = tier(Dungeon.hero != null ? Dungeon.hero.STR() : 10);
+			float tier = tier(Dungeon.hero != null ? Dungeon.hero.力量() : 10);
 			int bonus = Math.round(3+tier+(level*((4+2*tier)/8f)));
 			return (min(level+1, tier) + bonus) + "-" + (max(level+1, tier) + bonus);
 		} else {
@@ -169,7 +150,7 @@ public class RingOfForce extends Ring {
 	public void activate(Char ch) {
 		super.activate(ch);
 		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.DUELIST){
-			Buff.affect(ch, MeleeWeapon.Charger.class);
+			Buff.施加(ch, MeleeWeapon.Charger.class);
 		}
 	}
 
@@ -216,7 +197,7 @@ public class RingOfForce extends Ring {
 				GLog.w(Messages.get(MeleeWeapon.class, "ability_need_equip"));
 
 			} else {
-				Buff.affect(hero, BrawlersStance.class).reset();
+				Buff.施加(hero, BrawlersStance.class).reset();
 				AttackIndicator.updateState();
 				hero.sprite.operate(hero.pos);
 			}
@@ -233,7 +214,7 @@ public class RingOfForce extends Ring {
 			&& (anonymous || isIdentified() || isEquipped(Dungeon.hero))){
 			//0 if unidentified, solo level if unequipped, combined level if equipped
 			int level = isIdentified() ? (isEquipped(Dungeon.hero) ? getBuffedBonus(Dungeon.hero, Force.class) : soloBuffedBonus()) : 0;
-			float tier = tier(Dungeon.hero.STR());
+			float tier = tier(Dungeon.hero.力量());
 			int dmgBoost = Math.round(3+tier+(level*((4+2*tier)/8f)));
 			if (isIdentified()) {
 				info += "\n\n" + Messages.get(this, "ability_desc", min(level, tier)+dmgBoost, max(level, tier)+dmgBoost);

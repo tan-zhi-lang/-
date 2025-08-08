@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
@@ -94,7 +75,7 @@ public class WndGameInProgress extends Window {
 		else                        statSlot( Messages.get(this, "str"), info.str );
 		if (info.shld > 0)  statSlot( Messages.get(this, "health"), info.hp + "+" + info.shld + "/" + info.ht );
 		else                statSlot( Messages.get(this, "health"), (info.hp) + "/" + info.ht );
-		statSlot( Messages.get(this, "exp"), info.exp + "/" + Hero.maxExp(info.level) );
+		statSlot( Messages.get(this, "exp"), info.exp + "/" + Hero.升级所需(info.level) );
 		
 		pos += GAP;
 		statSlot( Messages.get(this, "gold"), info.goldCollected );
@@ -149,7 +130,7 @@ public class WndGameInProgress extends Window {
 			}
 		};
 
-		cont.icon(Icons.get(Icons.ENTER));
+		cont.icon(Icons.get(Icons.进入));
 		cont.setRect(0, pos, WIDTH/2 -1, 20);
 		add(cont);
 

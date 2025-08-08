@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -65,14 +46,14 @@ import com.watabou.utils.Random;
 public abstract class YogFist extends Mob {
 
 	{
-		HP = HT = 300;
+		生命 = 最大生命 = 300;
 		defenseSkill = 20;
 
 		viewDistance = Light.DISTANCE;
 
 		//for doomed resistance
-		EXP = 25;
-		maxLvl = -2;
+		经验 = 25;
+		最大等级 = -2;
 
 		state = HUNTING;
 
@@ -147,9 +128,9 @@ public abstract class YogFist extends Mob {
 
 	@Override
 	public void damage(int dmg, Object src) {
-		int preHP = HP;
+		int preHP = 生命;
 		super.damage(dmg, src);
-		int dmgTaken = preHP - HP;
+		int dmgTaken = preHP - 生命;
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (dmgTaken > 0 && lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
@@ -176,12 +157,12 @@ public abstract class YogFist extends Mob {
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 36;
 	}
 
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 18, 36 );
 	}
 
@@ -263,7 +244,7 @@ public abstract class YogFist extends Mob {
 				GameScene.updateMap( enemy.pos );
 				CellEmitter.get( enemy.pos ).burst( Speck.factory( Speck.STEAM ), 10 );
 			} else {
-				Buff.affect( enemy, Burning.class ).reignite( enemy );
+				Buff.施加( enemy, Burning.class ).reignite( enemy );
 			}
 
 			for (int i : PathFinder.NEIGHBOURS9){
@@ -349,7 +330,7 @@ public abstract class YogFist extends Mob {
 			Char enemy = this.enemy;
 			if (hit( this, enemy, true )) {
 
-				Buff.affect( enemy, Roots.class, 3f );
+				Buff.施加( enemy, Roots.class, 3f );
 
 			} else {
 
@@ -394,9 +375,9 @@ public abstract class YogFist extends Mob {
 			//ensures toxic gas acts at the appropriate time when added
 			GameScene.add(Blob.seed(pos, 0, ToxicGas.class));
 
-			if (Dungeon.level.water[pos] && HP < HT) {
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(HT/50), FloatingText.HEALING);
-				HP = Math.min(HT, HP + HT/50);
+			if (Dungeon.level.water[pos] && 生命 < 最大生命) {
+				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(最大生命 /50), FloatingText.HEALING);
+				生命 = Math.min(最大生命, 生命 + 最大生命 /50);
 			}
 
 			return super.act();
@@ -435,7 +416,7 @@ public abstract class YogFist extends Mob {
 			damage = super.attackProc( enemy, damage );
 
 			if (Random.Int( 2 ) == 0) {
-				Buff.affect( enemy, Ooze.class ).set( Ooze.DURATION );
+				Buff.施加( enemy, Ooze.class ).set( Ooze.DURATION );
 				enemy.sprite.burst( 0xFF000000, 5 );
 			}
 
@@ -458,7 +439,7 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public int damageRoll() {
+		public int 攻击() {
 			return Random.NormalIntRange( 22, 44 );
 		}
 
@@ -467,7 +448,7 @@ public abstract class YogFist extends Mob {
 			if (!isInvulnerable(src.getClass()) && !(src instanceof Viscosity.DeferedDamage)){
 				dmg = Math.round( dmg * resist( src.getClass() ));
 				if (dmg >= 0) {
-					Buff.affect(this, Viscosity.DeferedDamage.class).extend(dmg);
+					Buff.施加(this, Viscosity.DeferedDamage.class).extend(dmg);
 					sprite.showStatus(CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg));
 				}
 			} else{
@@ -478,7 +459,7 @@ public abstract class YogFist extends Mob {
 		@Override
 		protected void zap() {
 			spend( 1f );
-			Buff.affect(enemy, Cripple.class, 4f);
+			Buff.施加(enemy, Cripple.class, 4f);
 		}
 
 	}
@@ -510,7 +491,7 @@ public abstract class YogFist extends Mob {
 			if (hit( this, enemy, true )) {
 
 				enemy.damage( Random.NormalIntRange(10, 20), new LightBeam() );
-				Buff.prolong( enemy, Blindness.class, Blindness.DURATION/2f );
+				Buff.延长( enemy, Blindness.class, Blindness.DURATION/2f );
 
 				if (!enemy.isAlive() && enemy == Dungeon.hero) {
 					Badges.validateDeathFromEnemyMagic();
@@ -527,11 +508,11 @@ public abstract class YogFist extends Mob {
 
 		@Override
 		public void damage(int dmg, Object src) {
-			int beforeHP = HP;
+			int beforeHP = 生命;
 			super.damage(dmg, src);
-			if (isAlive() && beforeHP > HT/2 && HP < HT/2){
-				HP = HT/2;
-				Buff.prolong( Dungeon.hero, Blindness.class, Blindness.DURATION*1.5f );
+			if (isAlive() && beforeHP > 最大生命 /2 && 生命 < 最大生命 /2){
+				生命 = 最大生命 /2;
+				Buff.延长( Dungeon.hero, Blindness.class, Blindness.DURATION*1.5f );
 				int i;
 				do {
 					i = Random.Int(Dungeon.level.length());
@@ -544,7 +525,7 @@ public abstract class YogFist extends Mob {
 				GameScene.flash(0x80FFFFFF);
 				GLog.w( Messages.get( this, "teleport" ));
 			} else if (!isAlive()){
-				Buff.prolong( Dungeon.hero, Blindness.class, Blindness.DURATION*3f );
+				Buff.延长( Dungeon.hero, Blindness.class, Blindness.DURATION*3f );
 				GameScene.flash(0x80FFFFFF);
 			}
 		}
@@ -597,10 +578,10 @@ public abstract class YogFist extends Mob {
 
 		@Override
 		public void damage(int dmg, Object src) {
-			int beforeHP = HP;
+			int beforeHP = 生命;
 			super.damage(dmg, src);
-			if (isAlive() && beforeHP > HT/2 && HP < HT/2){
-				HP = HT/2;
+			if (isAlive() && beforeHP > 最大生命 /2 && 生命 < 最大生命 /2){
+				生命 = 最大生命 /2;
 				Light l = Dungeon.hero.buff(Light.class);
 				if (l != null){
 					l.detach();

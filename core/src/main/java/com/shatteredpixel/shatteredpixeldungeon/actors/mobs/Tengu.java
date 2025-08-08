@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -87,8 +68,8 @@ public class Tengu extends Mob {
 	{
 		spriteClass = TenguSprite.class;
 		
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 250 : 200;
-		EXP = 20;
+		生命 = 最大生命 = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 250 : 200;
+		经验 = 20;
 		defenseSkill = 15;
 		
 		HUNTING = new Hunting();
@@ -99,12 +80,12 @@ public class Tengu extends Mob {
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 6, 12 );
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		if (Dungeon.level.adjacent(pos, target.pos)){
 			return 10;
 		} else {
@@ -136,20 +117,20 @@ public class Tengu extends Mob {
 
 		PrisonBossLevel.State state = ((PrisonBossLevel)Dungeon.level).state();
 		
-		int hpBracket = HT / 8;
+		int hpBracket = 最大生命 / 8;
 
-		int curbracket = HP / hpBracket;
+		int curbracket = 生命 / hpBracket;
 
-		int beforeHitHP = HP;
+		int beforeHitHP = 生命;
 		super.damage(dmg, src);
 
 		//cannot be hit through multiple brackets at a time
-		if (HP <= (curbracket-1)*hpBracket){
-			HP = (curbracket-1)*hpBracket + 1;
+		if (生命 <= (curbracket-1)*hpBracket){
+			生命 = (curbracket-1)*hpBracket + 1;
 		}
 
-		int newBracket =  HP / hpBracket;
-		dmg = beforeHitHP - HP;
+		int newBracket =  生命 / hpBracket;
+		dmg = beforeHitHP - 生命;
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
@@ -158,7 +139,7 @@ public class Tengu extends Mob {
 		}
 
 		//phase 2 of the fight is over
-		if (HP == 0 && state == PrisonBossLevel.State.FIGHT_ARENA) {
+		if (生命 == 0 && state == PrisonBossLevel.State.FIGHT_ARENA) {
 			//let full attack action complete first
 			Actor.add(new Actor() {
 
@@ -177,8 +158,8 @@ public class Tengu extends Mob {
 		}
 
 		//phase 1 of the fight is over
-		if (state == PrisonBossLevel.State.FIGHT_START && HP <= HT/2){
-			HP = (HT/2);
+		if (state == PrisonBossLevel.State.FIGHT_START && 生命 <= 最大生命 /2){
+			生命 = (最大生命 /2);
 			yell(Messages.get(this, "interesting"));
 			((PrisonBossLevel)Dungeon.level).progress();
 			BossHealthBar.bleed(true);
@@ -275,7 +256,7 @@ public class Tengu extends Mob {
 				if (level.heroFOV[newPos]) CellEmitter.get( newPos ).burst( Speck.factory( Speck.WOOL ), 6 );
 				Sample.INSTANCE.play( Assets.Sounds.PUFF );
 
-				float fill = 0.9f - 0.5f*((HP-(HT/2f))/(HT/2f));
+				float fill = 0.9f - 0.5f*((生命 -(最大生命 /2f))/(最大生命 /2f));
 				level.placeTrapsInTenguCell(fill);
 				
 			//otherwise, jump in a larger possible area, as the room is bigger
@@ -332,8 +313,8 @@ public class Tengu extends Mob {
 		super.notice();
 		if (!BossHealthBar.isAssigned()) {
 			BossHealthBar.assignBoss(this);
-			if (HP <= HT/2) BossHealthBar.bleed(true);
-			if (HP == HT) {
+			if (生命 <= 最大生命 /2) BossHealthBar.bleed(true);
+			if (生命 == 最大生命) {
 				yell(Messages.get(this, "notice_gotcha", Dungeon.hero.name()));
 				for (Char ch : Actor.chars()){
 					if (ch instanceof DriedRose.GhostHero){
@@ -378,7 +359,7 @@ public class Tengu extends Mob {
 		abilityCooldown = bundle.getInt( ABILITY_COOLDOWN );
 		
 		BossHealthBar.assignBoss(this);
-		if (HP <= HT/2) BossHealthBar.bleed(true);
+		if (生命 <= 最大生命 /2) BossHealthBar.bleed(true);
 	}
 
 	//tengu is always hunting, and can use simpler rules because he never moves
@@ -447,7 +428,7 @@ public class Tengu extends Mob {
 	//expects to be called once per turn;
 	public boolean canUseAbility(){
 		
-		if (HP > HT/2) return false;
+		if (生命 > 最大生命 /2) return false;
 		
 		if (abilitiesUsed >= targetAbilityUses()){
 			return false;
@@ -722,10 +703,10 @@ public class Tengu extends Mob {
 			protected void onThrow(int cell) {
 				super.onThrow(cell);
 				if (throwingChar != null){
-					Buff.append(throwingChar, BombAbility.class).bombPos = cell;
+					Buff.新增(throwingChar, BombAbility.class).bombPos = cell;
 					throwingChar = null;
 				} else {
-					Buff.append(curUser, BombAbility.class).bombPos = cell;
+					Buff.新增(curUser, BombAbility.class).bombPos = cell;
 				}
 			}
 			
@@ -751,7 +732,7 @@ public class Tengu extends Mob {
 		for (int i = 0; i < PathFinder.CIRCLE8.length; i++){
 			if (aim.sourcePos+PathFinder.CIRCLE8[i] == aim.path.get(1)){
 				thrower.sprite.zap(target.pos);
-				Buff.append(thrower, Tengu.FireAbility.class).direction = i;
+				Buff.新增(thrower, Tengu.FireAbility.class).direction = i;
 				
 				thrower.sprite.emitter().start(Speck.factory(Speck.STEAM), .03f, 10);
 				return true;
@@ -869,7 +850,7 @@ public class Tengu extends Mob {
 							//similar to fire.burn(), but Tengu is immune, and hero loses score
 							Char ch = Actor.findChar( cell );
 							if (ch != null && !ch.isImmune(Fire.class) && !(ch instanceof Tengu)) {
-								Buff.affect( ch, Burning.class ).reignite( ch );
+								Buff.施加( ch, Burning.class ).reignite( ch );
 							}
 							if (ch == Dungeon.hero){
 								Statistics.qualifiedForBossChallengeBadge = false;
@@ -1116,10 +1097,10 @@ public class Tengu extends Mob {
 			protected void onThrow(int cell) {
 				super.onThrow(cell);
 				if (throwingChar != null){
-					Buff.append(throwingChar, ShockerAbility.class).shockerPos = cell;
+					Buff.新增(throwingChar, ShockerAbility.class).shockerPos = cell;
 					throwingChar = null;
 				} else {
-					Buff.append(curUser, ShockerAbility.class).shockerPos = cell;
+					Buff.新增(curUser, ShockerAbility.class).shockerPos = cell;
 				}
 			}
 			

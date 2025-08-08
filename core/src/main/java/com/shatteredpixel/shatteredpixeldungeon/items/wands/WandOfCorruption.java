@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
@@ -159,7 +140,7 @@ public class WandOfCorruption extends Wand {
 			}
 			
 			//100% health: 5x resist   75%: 3.25x resist   50%: 2x resist   25%: 1.25x resist
-			enemyResist *= 1 + 4*Math.pow(enemy.HP/(float)enemy.HT, 2);
+			enemyResist *= 1 + 4*Math.pow(enemy.生命 /(float)enemy.最大生命, 2);
 			
 			//debuffs placed on the enemy reduce their resistance
 			for (Buff buff : enemy.buffs()){
@@ -211,7 +192,7 @@ public class WandOfCorruption extends Wand {
 		Class<?extends FlavourBuff> debuffCls = (Class<? extends FlavourBuff>) Random.chances(debuffs);
 		
 		if (debuffCls != null){
-			Buff.append(enemy, debuffCls, 6 + buffedLvl()*3);
+			Buff.新增(enemy, debuffCls, 6 + buffedLvl()*3);
 		} else {
 			//if no debuff can be applied (all are present), then go up one tier
 			if (category == MINOR_DEBUFFS)          debuffEnemy( enemy, MAJOR_DEBUFFS);
@@ -231,7 +212,7 @@ public class WandOfCorruption extends Wand {
 
 			AllyBuff.affectAndLoot(enemy, curUser, Corruption.class);
 		} else {
-			Buff.affect(enemy, Doom.class);
+			Buff.施加(enemy, Doom.class);
 		}
 	}
 
@@ -247,7 +228,7 @@ public class WandOfCorruption extends Wand {
 
 			float powerMulti = Math.max(1f, procChance);
 
-			Buff.prolong( defender, Amok.class, Math.round((4+level*2) * powerMulti));
+			Buff.延长( defender, Amok.class, Math.round((4+level*2) * powerMulti));
 		}
 	}
 

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -92,10 +73,10 @@ public class CapeOfThorns extends Artifact {
 
 		public int proc(int damage, Char attacker, Char defender){
 			if (cooldown == 0){
-				charge += damage*(0.5+level()*0.05);
+				charge += damage*(0.5+ 等级()*0.05);
 				if (charge >= chargeCap){
 					charge = 0;
-					cooldown = 10+level();
+					cooldown = 10+ 等级();
 					GLog.p( Messages.get(this, "radiating") );
 				}
 			}
@@ -110,8 +91,8 @@ public class CapeOfThorns extends Artifact {
 
 				exp+= deflected;
 
-				if (exp >= (level()+1)*5 && level() < levelCap){
-					exp -= (level()+1)*5;
+				if (exp >= (等级()+1)*5 && 等级() < levelCap){
+					exp -= (等级()+1)*5;
 					upgrade();
 					Catalog.countUse(CapeOfThorns.class);
 					GLog.p( Messages.get(this, "levelup") );

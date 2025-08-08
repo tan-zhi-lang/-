@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -58,7 +39,7 @@ public class ShieldOfLight extends TargetedClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.SHIELD_OF_LIGHT);
+		return super.canCast(hero) && hero.有天赋(Talent.SHIELD_OF_LIGHT);
 	}
 
 	@Override
@@ -80,10 +61,10 @@ public class ShieldOfLight extends TargetedClericSpell {
 		hero.sprite.operate(hero.pos);
 
 		//1 turn less as the casting is instant
-		Buff.prolong( hero, ShieldOfLightTracker.class, 4f).object = ch.id();
+		Buff.延长( hero, ShieldOfLightTracker.class, 4f).object = ch.id();
 
 		if (hero.subClass == HeroSubClass.PRIEST) {
-			Buff.affect(ch, GuidingLight.Illuminated.class);
+			Buff.施加(ch, GuidingLight.Illuminated.class);
 		}
 
 		hero.busy();
@@ -92,7 +73,7 @@ public class ShieldOfLight extends TargetedClericSpell {
 
 		Char ally = PowerOfMany.getPoweredAlly();
 		if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-			Buff.prolong( ally, ShieldOfLightTracker.class, 3f).object = ch.id();
+			Buff.延长( ally, ShieldOfLightTracker.class, 3f).object = ch.id();
 			ally.sprite.emitter().start(Speck.factory(Speck.LIGHT), 0.15f, 6);
 		}
 
@@ -102,7 +83,7 @@ public class ShieldOfLight extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = 1 + Dungeon.hero.pointsInTalent(Talent.SHIELD_OF_LIGHT);
+		int min = 1 + Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT);
 		int max = 2*min;
 		return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}

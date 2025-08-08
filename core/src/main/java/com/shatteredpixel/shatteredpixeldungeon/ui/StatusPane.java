@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
@@ -243,9 +224,9 @@ public class StatusPane extends Component {
 	public void update() {
 		super.update();
 		
-		int health = Dungeon.hero.HP;
+		int health = Dungeon.hero.生命;
 		int shield = Dungeon.hero.shielding();
-		int max = Dungeon.hero.HT;
+		int max = Dungeon.hero.最大生命;
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);
@@ -281,26 +262,26 @@ public class StatusPane extends Component {
 		}
 
 		if (large) {
-			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.maxExp();
+			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 
 			hpText.measure();
 			hpText.x = hp.x + (128 - hpText.width())/2f;
 
-			expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.maxExp());
+			expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
 			expText.measure();
 			expText.x = hp.x + (128 - expText.width())/2f;
 
 		} else {
-			exp.scale.x = (width / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.maxExp();
+			exp.scale.x = (width / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 		}
 
-		if (Dungeon.hero.当前等级 != lastLvl) {
+		if (Dungeon.hero.等级 != lastLvl) {
 
 			if (lastLvl != -1) {
 				showStarParticles();
 			}
 
-			lastLvl = Dungeon.hero.当前等级;
+			lastLvl = Dungeon.hero.等级;
 
 			if (large){
 				level.text( "lv. " + lastLvl );

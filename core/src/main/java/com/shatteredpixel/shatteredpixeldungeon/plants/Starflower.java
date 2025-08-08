@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.plants;
 
@@ -43,12 +24,12 @@ public class Starflower extends Plant {
 	public void activate( Char ch ) {
 
 		if (ch != null) {
-			Buff.prolong(ch, Bless.class, Bless.DURATION);
+			Buff.延长(ch, Bless.class, Bless.DURATION);
 			if (Dungeon.level.heroFOV[ch.pos]){
 				new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
 			}
 			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
-				Buff.prolong(ch, Recharging.class, Recharging.DURATION);
+				Buff.延长(ch, Recharging.class, Recharging.DURATION);
 				SpellSprite.show( ch, SpellSprite.CHARGE );
 			}
 		}

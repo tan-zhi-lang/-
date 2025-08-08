@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 
@@ -35,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetributio
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -47,8 +28,8 @@ public abstract class ExoticScroll extends Scroll {
 	public static final LinkedHashMap<Class<?extends Scroll>, Class<?extends ExoticScroll>> regToExo = new LinkedHashMap<>();
 	public static final LinkedHashMap<Class<?extends ExoticScroll>, Class<?extends Scroll>> exoToReg = new LinkedHashMap<>();
 	static{
-		regToExo.put(ScrollOfUpgrade.class, ScrollOfEnchantment.class);
-		exoToReg.put(ScrollOfEnchantment.class, ScrollOfUpgrade.class);
+		regToExo.put(升级卷轴.class, ScrollOfEnchantment.class);
+		exoToReg.put(ScrollOfEnchantment.class, 升级卷轴.class);
 
 		regToExo.put(ScrollOfIdentify.class, ScrollOfDivination.class);
 		exoToReg.put(ScrollOfDivination.class, ScrollOfIdentify.class);
@@ -80,8 +61,8 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(ScrollOfTerror.class, ScrollOfDread.class);
 		exoToReg.put(ScrollOfDread.class, ScrollOfTerror.class);
 		
-		regToExo.put(ScrollOfTransmutation.class, ScrollOfMetamorphosis.class);
-		exoToReg.put(ScrollOfMetamorphosis.class, ScrollOfTransmutation.class);
+		regToExo.put(ScrollOfTransmutation.class, 蜕变秘卷.class);
+		exoToReg.put(蜕变秘卷.class, ScrollOfTransmutation.class);
 	}
 	
 	@Override

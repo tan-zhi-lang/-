@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -67,11 +48,11 @@ import java.util.ArrayList;
 public abstract class Elemental extends Mob {
 
 	{
-		HP = HT = 60;
+		生命 = 最大生命 = 60;
 		defenseSkill = 20;
 		
-		EXP = 10;
-		maxLvl = 20;
+		经验 = 10;
+		最大等级 = 20;
 		
 		flying = true;
 	}
@@ -79,7 +60,7 @@ public abstract class Elemental extends Mob {
 	protected boolean summonedALly;
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		if (!summonedALly) {
 			return Random.NormalIntRange(20, 25);
 		} else {
@@ -89,7 +70,7 @@ public abstract class Elemental extends Mob {
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		if (!summonedALly) {
 			return 25;
 		} else {
@@ -103,7 +84,7 @@ public abstract class Elemental extends Mob {
 		//sewers are prison are equivalent, otherwise scales as normal (2/2/3/4/5)
 		int regionScale = Math.max(2, (1 + Dungeon.scalingDepth()/5));
 		defenseSkill = 5*regionScale;
-		HT = 15*regionScale;
+		最大生命 = 15*regionScale;
 	}
 	
 	@Override
@@ -189,7 +170,7 @@ public abstract class Elemental extends Mob {
 	@Override
 	public boolean add( Buff buff ) {
 		if (harmfulBuffs.contains( buff.getClass() )) {
-			damage( Random.NormalIntRange( HT/2, HT * 3/5 ), buff );
+			damage( Random.NormalIntRange( 最大生命 /2, 最大生命 * 3/5 ), buff );
 			return false;
 		} else {
 			return super.add( buff );
@@ -240,7 +221,7 @@ public abstract class Elemental extends Mob {
 		@Override
 		protected void meleeProc( Char enemy, int damage ) {
 			if (Random.Int( 2 ) == 0 && !Dungeon.level.water[enemy.pos]) {
-				Buff.affect( enemy, Burning.class ).reignite( enemy );
+				Buff.施加( enemy, Burning.class ).reignite( enemy );
 				if (enemy.sprite.visible) Splash.at( enemy.sprite.center(), sprite.blood(), 5);
 			}
 		}
@@ -248,7 +229,7 @@ public abstract class Elemental extends Mob {
 		@Override
 		protected void rangedProc( Char enemy ) {
 			if (!Dungeon.level.water[enemy.pos]) {
-				Buff.affect( enemy, Burning.class ).reignite( enemy, 4f );
+				Buff.施加( enemy, Burning.class ).reignite( enemy, 4f );
 			}
 			if (enemy.sprite.visible) Splash.at( enemy.sprite.center(), sprite.blood(), 5);
 		}
@@ -367,7 +348,7 @@ public abstract class Elemental extends Mob {
 
 						Char target = Actor.findChar(targetingPos + i);
 						if (target != null && target != this) {
-							Buff.affect(target, Burning.class).reignite(target);
+							Buff.施加(target, Burning.class).reignite(target);
 							if (target == Dungeon.hero){
 								Statistics.questScores[1] -= 200;
 							}
@@ -382,20 +363,20 @@ public abstract class Elemental extends Mob {
 		}
 
 		@Override
-		public int attackSkill(Char target) {
+		public int 最大命中(Char target) {
 			if (!summonedALly) {
 				return 15;
 			} else {
-				return super.attackSkill(target);
+				return super.最大命中(target);
 			}
 		}
 
 		@Override
-		public int damageRoll() {
+		public int 攻击() {
 			if (!summonedALly) {
 				return Random.NormalIntRange(10, 12);
 			} else {
-				return super.damageRoll();
+				return super.攻击();
 			}
 		}
 
@@ -544,7 +525,7 @@ public abstract class Elemental extends Mob {
 		
 		@Override
 		protected void rangedProc( Char enemy ) {
-			Buff.affect( enemy, Blindness.class, Blindness.DURATION/2f );
+			Buff.施加( enemy, Blindness.class, Blindness.DURATION/2f );
 			if (enemy == Dungeon.hero) {
 				GameScene.flash(0x80FFFFFF);
 			}

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
@@ -88,7 +69,7 @@ public class Waterskin extends Item {
 
 			if (volume > 0) {
 				
-				float missingHealthPercent = 1f - (hero.HP / (float)hero.HT);
+				float missingHealthPercent = 1f - (hero.生命 / (float)hero.最大生命);
 
 				//each drop is worth 5% of total health
 				float dropsNeeded = missingHealthPercent / 0.05f;
@@ -101,10 +82,10 @@ public class Waterskin extends Item {
 				//add extra drops if we can gain shielding
 				int curShield = 0;
 				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
-				int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
-				if (hero.hasTalent(Talent.SHIELDING_DEW)){
+				int maxShield = Math.round(hero.最大生命 *hero.天赋点数(Talent.SHIELDING_DEW,0.25f));
+				if (hero.有天赋(Talent.SHIELDING_DEW)){
 					float missingShieldPercent = 1f - (curShield / (float)maxShield);
-					missingShieldPercent *= 0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW);
+					missingShieldPercent *= hero.天赋点数(Talent.SHIELDING_DEW,0.25f);
 					if (missingShieldPercent > 0){
 						dropsNeeded += missingShieldPercent / 0.05f;
 					}

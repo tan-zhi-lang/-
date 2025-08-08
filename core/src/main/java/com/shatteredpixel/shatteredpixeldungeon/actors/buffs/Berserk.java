@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -58,7 +39,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	}
 	private State state = State.NORMAL;
 
-	private static final float LEVEL_RECOVER_START = 4f;
+	private static final float LEVEL_RECOVER_START = 4f+1f;
 	private float levelRecovery;
 
 	private static final int TURN_RECOVERY_START = 100;
@@ -133,7 +114,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 			if (powerLossBuffer > 0){
 				powerLossBuffer--;
 			} else {
-				power -= GameMath.gate(0.1f, power, 1f) * 0.05f * Math.pow((target.HP / (float) target.HT), 2);
+				power -= GameMath.gate(0.1f, power, 1f) * 0.05f * Math.pow((target.生命 / (float) target.最大生命), 2);
 
 				if (power < 1f){
 					ActionIndicator.clearAction(this);
@@ -163,7 +144,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	}
 
 	public float enchantFactor(float chance){
-		return chance + ((Math.min(1f, power) * 0.15f) * ((Hero) target).pointsInTalent(Talent.ENRAGED_CATALYST));
+		return chance + ((Math.min(1f, power) * 0.15f) * ((Hero) target).天赋点数(Talent.ENRAGED_CATALYST));
 	}
 
 	public float damageFactor(float dmg){
@@ -171,10 +152,10 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	}
 
 	public boolean berserking(){
-		if (target.HP == 0
+		if (target.生命 == 0
 				&& state == State.NORMAL
 				&& power >= 1f
-				&& ((Hero)target).hasTalent(Talent.DEATHLESS_FURY)){
+				&& ((Hero)target).有天赋(Talent.DEATHLESS_FURY)){
 			startBerserking();
 			ActionIndicator.clearAction(this);
 		}
@@ -188,11 +169,11 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 		Sample.INSTANCE.play( Assets.Sounds.CHALLENGE );
 		GameScene.flash(0xFF0000);
 
-		if (target.HP > 0) {
+		if (target.生命 > 0) {
 			turnRecovery = TURN_RECOVERY_START;
 			levelRecovery = 0;
 		} else {
-			levelRecovery = LEVEL_RECOVER_START - ((Hero)target).pointsInTalent(Talent.DEATHLESS_FURY);
+			levelRecovery = LEVEL_RECOVER_START - ((Hero)target).天赋点数(Talent.DEATHLESS_FURY);
 			turnRecovery = 0;
 		}
 
@@ -205,7 +186,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 
 	public int currentShieldBoost(){
 		//base multiplier scales at 1/1.5/2/2.5/3x at 100/37/20/9/0% HP
-		float shieldMultiplier = 1f + 2*(float)Math.pow((1f-(target.HP/(float)target.HT)), 3);
+		float shieldMultiplier = 1f + 2*(float)Math.pow((1f-(target.生命 /(float)target.最大生命)), 3);
 
 		//Endless rage effect on shield and cooldown
 		if (power > 1f){
@@ -232,8 +213,8 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	
 	public void damage(int damage){
 		if (state != State.NORMAL) return;
-		float maxPower = 1f + 0.1667f*((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE);
-		power = Math.min(maxPower, power + (damage/(float)target.HT)/4f );
+		float maxPower = 1f + ((Hero)target).天赋点数(Talent.ENDLESS_RAGE,0.5f);
+		power = Math.min(maxPower, power + (damage/(float)target.最大生命)/4f );
 		BuffIndicator.refreshHero(); //show new power immediately
 		powerLossBuffer = 3; //2 turns until rage starts dropping
 		if (power >= 1f){
@@ -313,13 +294,13 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	public float iconFadePercent() {
 		switch (state){
 			case NORMAL: default:
-				float maxPower = 1f + 0.1667f*((Hero)target).pointsInTalent(Talent.ENDLESS_RAGE);
+				float maxPower = 1f + ((Hero)target).天赋点数(Talent.ENDLESS_RAGE,0.5f);
 				return (maxPower - power)/maxPower;
 			case BERSERK:
 				return 1f - shielding() / (float)maxShieldBoost();
 			case RECOVERING:
 				if (levelRecovery > 0) {
-					return levelRecovery/(LEVEL_RECOVER_START-Dungeon.hero.pointsInTalent(Talent.DEATHLESS_FURY));
+					return levelRecovery/(LEVEL_RECOVER_START-Dungeon.hero.天赋点数(Talent.DEATHLESS_FURY));
 				} else {
 					return turnRecovery/(float)TURN_RECOVERY_START;
 				}

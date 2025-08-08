@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -74,7 +55,7 @@ public class Artifact extends KindofMisc {
 
 			if (super.doEquip( hero )){
 
-				identify();
+				鉴定();
 				return true;
 
 			} else {
@@ -121,7 +102,7 @@ public class Artifact extends KindofMisc {
 
 	@Override
 	public int visiblyUpgraded() {
-		return levelKnown ? Math.round((level()*10)/(float)levelCap): 0;
+		return levelKnown ? Math.round((等级()*10)/(float)levelCap): 0;
 	}
 
 	@Override
@@ -132,7 +113,7 @@ public class Artifact extends KindofMisc {
 	@Override
 	public int buffedLvl() {
 		//level isn't affected by buffs/debuffs
-		return level();
+		return 等级();
 	}
 
 	//transfers upgrades from another artifact, transfer level will equal the displayed level
@@ -141,7 +122,7 @@ public class Artifact extends KindofMisc {
 	}
 
 	public void resetForTrinity(int visibleLevel){
-		level(Math.round((visibleLevel*levelCap)/10f));
+		等级(Math.round((visibleLevel*levelCap)/10f));
 		exp = Integer.MIN_VALUE; //ensures no levelling
 		charge = chargeCap;
 		cooldown = 0;
@@ -150,23 +131,23 @@ public class Artifact extends KindofMisc {
 	public static void artifactProc(Char target, int artifLevel, int chargesUsed){
 		if (Dungeon.hero.subClass == HeroSubClass.PRIEST && target.buff(GuidingLight.Illuminated.class) != null) {
 			target.buff(GuidingLight.Illuminated.class).detach();
-			target.damage(5+Dungeon.hero.当前等级, GuidingLight.INSTANCE);
+			target.damage(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
 		}
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.SEARING_LIGHT)
+				&& Dungeon.hero.有天赋(Talent.SEARING_LIGHT)
 				&& Dungeon.hero.buff(Talent.SearingLightCooldown.class) == null){
-			Buff.affect(target, GuidingLight.Illuminated.class);
-			Buff.affect(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
+			Buff.施加(target, GuidingLight.Illuminated.class);
+			Buff.施加(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
 		}
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.SUNRAY)){
+				&& Dungeon.hero.有天赋(Talent.SUNRAY)){
 			// 15/25% chance
-			if (Random.Int(20) < 1 + 2*Dungeon.hero.pointsInTalent(Talent.SUNRAY)){
-				Buff.prolong(target, Blindness.class, 4f);
+			if (Dungeon.hero.天赋概率(Talent.SUNRAY,15)){
+				Buff.延长(target, Blindness.class, 4f);
 			}
 		}
 	}
@@ -228,7 +209,7 @@ public class Artifact extends KindofMisc {
 	@Override
 	public int value() {
 		int price = 100;
-		if (level() > 0)
+		if (等级() > 0)
 			price += 20*visiblyUpgraded();
 		if (cursed && cursedKnown) {
 			price /= 2;
@@ -265,7 +246,7 @@ public class Artifact extends KindofMisc {
 		}
 
 		public int itemLevel() {
-			return level();
+			return 等级();
 		}
 
 		public boolean isCursed() {

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
@@ -93,6 +74,9 @@ public class Armor extends EquipableItem {
 		EVASION (2f , -1f),
 		DEFENSE (-2f, 1f),
 		NONE	(0f   ,  0f);
+//		EVASION (2f , -1f),
+//		DEFENSE (-2f, 1f),
+//		NONE	(0f   ,  0f);
 		
 		private float evasionFactor;
 		private float defenceFactor;
@@ -212,12 +196,12 @@ public class Armor extends EquipableItem {
 	}
 
 	@Override
-	public Item identify(boolean byHero) {
+	public Item 鉴定(boolean byHero) {
 		if (glyph != null && byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){
 			Catalog.setSeen(glyph.getClass());
 			Statistics.itemTypesDiscovered.add(glyph.getClass());
 		}
-		return super.identify(byHero);
+		return super.鉴定(byHero);
 	}
 
 	public void setIDReady(){
@@ -232,9 +216,9 @@ public class Armor extends EquipableItem {
 	public boolean doEquip( Hero hero ) {
 
 		// 15/25% chance
-		if (hero.heroClass != HeroClass.CLERIC && hero.hasTalent(Talent.HOLY_INTUITION)
+		if (hero.heroClass != HeroClass.CLERIC && hero.有天赋(Talent.HOLY_INTUITION)
 				&& cursed && !cursedKnown
-				&& Random.Int(20) < 1 + 2*hero.pointsInTalent(Talent.HOLY_INTUITION)){
+				&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
 			cursedKnown = true;
 			GLog.p(Messages.get(this, "curse_detected"));
 			return false;
@@ -300,22 +284,22 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public void activate(Char ch) {
-		if (seal != null) Buff.affect(ch, BrokenSeal.WarriorShield.class).setArmor(this);
+		if (seal != null) Buff.施加(ch, BrokenSeal.WarriorShield.class).setArmor(this);
 	}
 
 	public void affixSeal(BrokenSeal seal){
 		this.seal = seal;
-		if (seal.level() > 0){
+		if (seal.等级() > 0){
 			//doesn't trigger upgrading logic such as affecting curses/glyphs
 			int newLevel = trueLevel()+1;
-			level(newLevel);
+			等级(newLevel);
 			Badges.validateItemLevelAquired(this);
 		}
 		if (seal.getGlyph() != null){
 			inscribe(seal.getGlyph());
 		}
 		if (isEquipped(Dungeon.hero)){
-			Buff.affect(Dungeon.hero, BrokenSeal.WarriorShield.class).setArmor(this);
+			Buff.施加(Dungeon.hero, BrokenSeal.WarriorShield.class).setArmor(this);
 		}
 	}
 
@@ -330,7 +314,7 @@ public class Armor extends EquipableItem {
 			BrokenSeal detaching = seal;
 			seal = null;
 
-			if (detaching.level() > 0){
+			if (detaching.等级() > 0){
 				degrade();
 			}
 			if (detaching.canTransferGlyph()){
@@ -418,12 +402,12 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (owner instanceof Hero){
-			int aEnc = STRReq() - ((Hero) owner).STR();
+			int aEnc = STRReq() - ((Hero) owner).力量();
 			if (aEnc > 0) evasion /= Math.pow(1.5, aEnc);
 			
 			Momentum momentum = owner.buff(Momentum.class);
 			if (momentum != null){
-				evasion += momentum.evasionBonus(((Hero) owner).当前等级, Math.max(0, -aEnc));
+				evasion += momentum.evasionBonus(((Hero) owner).等级, Math.max(0, -aEnc));
 			}
 		}
 		
@@ -433,7 +417,7 @@ public class Armor extends EquipableItem {
 	public float speedFactor( Char owner, float speed ){
 		
 		if (owner instanceof Hero) {
-			int aEnc = STRReq() - ((Hero) owner).STR();
+			int aEnc = STRReq() - ((Hero) owner).力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
 		}
 		
@@ -442,8 +426,8 @@ public class Armor extends EquipableItem {
 	}
 	
 	@Override
-	public int level() {
-		int level = super.level();
+	public int 等级() {
+		int level = super.等级();
 		//TODO warrior's seal upgrade should probably be considered here too
 		// instead of being part of true level
 		if (curseInfusionBonus) level += 1 + level/6;
@@ -464,7 +448,7 @@ public class Armor extends EquipableItem {
 		} else if (glyph != null) {
 			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
 			if (glyphHardened) {
-				if (level() >= 6 && Random.Float(10) < Math.pow(2, level()-6)){
+				if (等级() >= 6 && Random.Float(10) < Math.pow(2, 等级()-6)){
 					glyphHardened = false;
 				}
 
@@ -477,11 +461,11 @@ public class Armor extends EquipableItem {
 
 				//the chance from +4/5, and then +6 can be set to 0% with metamorphed runic transference
 				int lossChanceStart = 4;
-				if (Dungeon.hero != null && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.hasTalent(Talent.RUNIC_TRANSFERENCE)){
-					lossChanceStart += 1+Dungeon.hero.pointsInTalent(Talent.RUNIC_TRANSFERENCE);
+				if (Dungeon.hero != null && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.有天赋(Talent.RUNIC_TRANSFERENCE)){
+					lossChanceStart += 1+Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE);
 				}
 
-				if (level() >= lossChanceStart && Random.Float(10) < Math.pow(2, level()-4)) {
+				if (等级() >= lossChanceStart && Random.Float(10) < Math.pow(2, 等级()-4)) {
 					inscribe(null);
 				}
 			}
@@ -489,7 +473,7 @@ public class Armor extends EquipableItem {
 		
 		cursed = false;
 
-		if (seal != null && seal.level() == 0)
+		if (seal != null && seal.等级() == 0)
 			seal.upgrade();
 
 		return super.upgrade();
@@ -550,7 +534,7 @@ public class Armor extends EquipableItem {
 					}
 					setIDReady();
 				} else {
-					identify();
+					鉴定();
 					GLog.p(Messages.get(Armor.class, "identify"));
 					Badges.validateItemLevelAquired(this);
 				}
@@ -588,13 +572,13 @@ public class Armor extends EquipableItem {
 
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", tier, DRMin(), DRMax(), STRReq());
 			
-			if (Dungeon.hero != null && STRReq() > Dungeon.hero.STR()) {
+			if (Dungeon.hero != null && STRReq() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
 			}
 		} else {
 			info += "\n\n" + Messages.get(Armor.class, "avg_absorb", tier, DRMin(0), DRMax(0), STRReq(0));
 
-			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.STR()) {
+			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "probably_too_heavy");
 			}
 		}
@@ -634,7 +618,7 @@ public class Armor extends EquipableItem {
 		}
 
 		if (seal != null) {
-			info += "\n\n" + Messages.get(Armor.class, "seal_attached", seal.maxShield(tier, level()));
+			info += "\n\n" + Messages.get(Armor.class, "seal_attached", seal.maxShield(tier, 等级()));
 		}
 		
 		return info;
@@ -662,7 +646,7 @@ public class Armor extends EquipableItem {
 				n++;
 			}
 		}
-		level(n);
+		等级(n);
 
 		//we use a separate RNG here so that variance due to things like parchment scrap
 		//does not affect levelgen
@@ -684,7 +668,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public int STRReq(){
-		return STRReq(level());
+		return STRReq(等级());
 	}
 
 	public int STRReq(int lvl){
@@ -713,8 +697,8 @@ public class Armor extends EquipableItem {
 		if (cursedKnown && (cursed || hasCurseGlyph())) {
 			price /= 2;
 		}
-		if (levelKnown && level() > 0) {
-			price *= (level() + 1);
+		if (levelKnown && 等级() > 0) {
+			price *= (等级() + 1);
 		}
 		if (price < 1) {
 			price = 1;
@@ -824,7 +808,7 @@ public class Armor extends EquipableItem {
 			if (Dungeon.hero.alignment == defender.alignment
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 					&& (Dungeon.level.distance(defender.pos, Dungeon.hero.pos) <= 2 || defender.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)){
-				multi += 0.25f + 0.25f*Dungeon.hero.pointsInTalent(Talent.AURA_OF_PROTECTION);
+				multi +=Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,0.3f);
 			}
 
 			return multi;

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
@@ -81,12 +62,12 @@ public class Dewdrop extends Item {
 
 	public static boolean consumeDew(int quantity, Hero hero, boolean force){
 		//20 drops for a full heal
-		int effect = Math.round( hero.HT * 0.05f * quantity );
+		int effect = Math.round( hero.最大生命 * 0.05f * quantity );
 
-		int heal = Math.min( hero.HT - hero.HP, effect );
+		int heal = Math.min( hero.最大生命 - hero.生命, effect );
 
 		int shield = 0;
-		if (hero.hasTalent(Talent.SHIELDING_DEW)){
+		if (hero.有天赋(Talent.SHIELDING_DEW)){
 
 			//When vial is present, this allocates exactly as much of the effect as is needed
 			// to get to 100% HP, and the rest is then given as shielding (without the vial boost)
@@ -96,7 +77,7 @@ public class Dewdrop extends Item {
 
 			shield = effect - heal;
 
-			int maxShield = Math.round(hero.HT *0.2f*hero.pointsInTalent(Talent.SHIELDING_DEW));
+			int maxShield = Math.round(hero.最大生命*hero.天赋点数(Talent.SHIELDING_DEW,0.25f));
 			int curShield = 0;
 			if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
 			shield = Math.min(shield, maxShield-curShield);
@@ -105,18 +86,18 @@ public class Dewdrop extends Item {
 		if (heal > 0 || shield > 0) {
 
 			if (heal > 0 && quantity > 1 && VialOfBlood.delayBurstHealing()){
-				Healing healing = Buff.affect(hero, Healing.class);
+				Healing healing = Buff.施加(hero, Healing.class);
 				healing.setHeal(heal, 0, VialOfBlood.maxHealPerTurn());
 				healing.applyVialEffect();
 			} else {
-				hero.HP += heal;
+				hero.生命 += heal;
 				if (heal > 0){
 					hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
 				}
 			}
 
 			if (shield > 0) {
-				Buff.affect(hero, Barrier.class).incShield(shield);
+				Buff.施加(hero, Barrier.class).incShield(shield);
 				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING );
 			}
 

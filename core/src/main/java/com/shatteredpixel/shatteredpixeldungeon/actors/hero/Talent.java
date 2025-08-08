@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
@@ -62,7 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -98,13 +79,13 @@ public enum Talent {
 	//Warrior T1
 	HEARTY_MEAL(0), VETERANS_INTUITION(1), PROVOKED_ANGER(2), IRON_WILL(3),
 	//Warrior T2
-	IRON_STOMACH(4), LIQUID_WILLPOWER(5), RUNIC_TRANSFERENCE(6), LETHAL_MOMENTUM(7), IMPROVISED_PROJECTILES(8),
+	IRON_STOMACH(4), LIQUID_WILLPOWER(5,3), RUNIC_TRANSFERENCE(6,3), LETHAL_MOMENTUM(7,3), IMPROVISED_PROJECTILES(8,3),
 	//Warrior T3
-	HOLD_FAST(9, 3), STRONGMAN(10, 3),
+	HOLD_FAST(9, 4), STRONGMAN(10, 4),
 	//Berserker T3
-	ENDLESS_RAGE(11, 3), DEATHLESS_FURY(12, 3), ENRAGED_CATALYST(13, 3),
+	ENDLESS_RAGE(11, 4), DEATHLESS_FURY(12, 4), ENRAGED_CATALYST(13, 4),
 	//Gladiator T3
-	CLEAVE(14, 3), LETHAL_DEFENSE(15, 3), ENHANCED_COMBO(16, 3),
+	CLEAVE(14, 4), LETHAL_DEFENSE(15, 4), ENHANCED_COMBO(16, 4),
 	//Heroic Leap T4
 	BODY_SLAM(17, 4), IMPACT_WAVE(18, 4), DOUBLE_JUMP(19, 4),
 	//Shockwave T4
@@ -115,13 +96,13 @@ public enum Talent {
 	//Mage T1
 	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), LINGERING_MAGIC(34), BACKUP_BARRIER(35),
 	//Mage T2
-	ENERGIZING_MEAL(36), INSCRIBED_POWER(37), WAND_PRESERVATION(38), ARCANE_VISION(39), SHIELD_BATTERY(40),
+	ENERGIZING_MEAL(36), INSCRIBED_POWER(37,3), WAND_PRESERVATION(38,3), ARCANE_VISION(39,3), SHIELD_BATTERY(40,3),
 	//Mage T3
-	DESPERATE_POWER(41, 3), ALLY_WARP(42, 3),
+	DESPERATE_POWER(41, 4), ALLY_WARP(42, 4),
 	//Battlemage T3
-	EMPOWERED_STRIKE(43, 3), MYSTICAL_CHARGE(44, 3), EXCESS_CHARGE(45, 3),
+	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), EXCESS_CHARGE(45, 4),
 	//Warlock T3
-	SOUL_EATER(46, 3), SOUL_SIPHON(47, 3), NECROMANCERS_MINIONS(48, 3),
+	SOUL_EATER(46, 4), SOUL_SIPHON(47, 4), NECROMANCERS_MINIONS(48, 4),
 	//Elemental Blast T4
 	BLAST_RADIUS(49, 4), ELEMENTAL_POWER(50, 4), REACTIVE_BARRIER(51, 4),
 	//Wild Magic T4
@@ -132,13 +113,13 @@ public enum Talent {
 	//Rogue T1
 	CACHED_RATIONS(64), THIEFS_INTUITION(65), SUCKER_PUNCH(66), PROTECTIVE_SHADOWS(67),
 	//Rogue T2
-	MYSTICAL_MEAL(68), INSCRIBED_STEALTH(69), WIDE_SEARCH(70), SILENT_STEPS(71), ROGUES_FORESIGHT(72),
+	MYSTICAL_MEAL(68), INSCRIBED_STEALTH(69,3), WIDE_SEARCH(70,3), SILENT_STEPS(71,3), ROGUES_FORESIGHT(72,3),
 	//Rogue T3
-	ENHANCED_RINGS(73, 3), LIGHT_CLOAK(74, 3),
+	ENHANCED_RINGS(73, 4), LIGHT_CLOAK(74, 4),
 	//Assassin T3
-	ENHANCED_LETHALITY(75, 3), ASSASSINS_REACH(76, 3), BOUNTY_HUNTER(77, 3),
+	ENHANCED_LETHALITY(75, 4), ASSASSINS_REACH(76, 4), BOUNTY_HUNTER(77, 4),
 	//Freerunner T3
-	EVASIVE_ARMOR(78, 3), PROJECTILE_MOMENTUM(79, 3), SPEEDY_STEALTH(80, 3),
+	EVASIVE_ARMOR(78, 4), PROJECTILE_MOMENTUM(79, 4), SPEEDY_STEALTH(80, 4),
 	//Smoke Bomb T4
 	HASTY_RETREAT(81, 4), BODY_REPLACEMENT(82, 4), SHADOW_STEP(83, 4),
 	//Death Mark T4
@@ -149,13 +130,13 @@ public enum Talent {
 	//Huntress T1
 	NATURES_BOUNTY(96), SURVIVALISTS_INTUITION(97), FOLLOWUP_STRIKE(98), NATURES_AID(99),
 	//Huntress T2
-	INVIGORATING_MEAL(100), LIQUID_NATURE(101), REJUVENATING_STEPS(102), HEIGHTENED_SENSES(103), DURABLE_PROJECTILES(104),
+	INVIGORATING_MEAL(100), LIQUID_NATURE(101,3), REJUVENATING_STEPS(102,3), HEIGHTENED_SENSES(103,3), DURABLE_PROJECTILES(104,3),
 	//Huntress T3
-	POINT_BLANK(105, 3), SEER_SHOT(106, 3),
+	POINT_BLANK(105, 4), SEER_SHOT(106, 4),
 	//Sniper T3
-	FARSIGHT(107, 3), SHARED_ENCHANTMENT(108, 3), SHARED_UPGRADES(109, 3),
+	FARSIGHT(107, 4), SHARED_ENCHANTMENT(108, 4), SHARED_UPGRADES(109, 4),
 	//Warden T3
-	DURABLE_TIPS(110, 3), BARKSKIN(111, 3), SHIELDING_DEW(112, 3),
+	DURABLE_TIPS(110, 4), BARKSKIN(111, 4), SHIELDING_DEW(112, 4),
 	//Spectral Blades T4
 	FAN_OF_BLADES(113, 4), PROJECTING_BLADES(114, 4), SPIRIT_BLADES(115, 4),
 	//Natures Power T4
@@ -166,13 +147,13 @@ public enum Talent {
 	//Duelist T1
 	STRENGTHENING_MEAL(128), ADVENTURERS_INTUITION(129), PATIENT_STRIKE(130), AGGRESSIVE_BARRIER(131),
 	//Duelist T2
-	FOCUSED_MEAL(132), LIQUID_AGILITY(133), WEAPON_RECHARGING(134), LETHAL_HASTE(135), SWIFT_EQUIP(136),
+	FOCUSED_MEAL(132), LIQUID_AGILITY(133,3), WEAPON_RECHARGING(134,3), LETHAL_HASTE(135,3), SWIFT_EQUIP(136,3),
 	//Duelist T3
-	PRECISE_ASSAULT(137, 3), DEADLY_FOLLOWUP(138, 3),
+	PRECISE_ASSAULT(137, 4), DEADLY_FOLLOWUP(138, 4),
 	//Champion T3
-	VARIED_CHARGE(139, 3), TWIN_UPGRADES(140, 3), COMBINED_LETHALITY(141, 3),
+	VARIED_CHARGE(139, 4), TWIN_UPGRADES(140, 4), COMBINED_LETHALITY(141, 4),
 	//Monk T3
-	UNENCUMBERED_SPIRIT(142, 3), MONASTIC_VIGOR(143, 3), COMBINED_ENERGY(144, 3),
+	UNENCUMBERED_SPIRIT(142, 4), MONASTIC_VIGOR(143, 4), COMBINED_ENERGY(144, 4),
 	//Challenge T4
 	CLOSE_THE_GAP(145, 4), INVIGORATING_VICTORY(146, 4), ELIMINATION_MATCH(147, 4),
 	//Elemental Strike T4
@@ -183,13 +164,13 @@ public enum Talent {
 	//Cleric T1
 	SATIATED_SPELLS(160), HOLY_INTUITION(161), SEARING_LIGHT(162), SHIELD_OF_LIGHT(163),
 	//Cleric T2
-	ENLIGHTENING_MEAL(164), RECALL_INSCRIPTION(165), SUNRAY(166), DIVINE_SENSE(167), BLESS(168),
+	ENLIGHTENING_MEAL(164), RECALL_INSCRIPTION(165,3), SUNRAY(166,3), DIVINE_SENSE(167,3), BLESS(168,3),
 	//Cleric T3
-	CLEANSE(169, 3), LIGHT_READING(170, 3),
+	CLEANSE(169, 4), LIGHT_READING(170, 4),
 	//Priest T3
-	HOLY_LANCE(171, 3), HALLOWED_GROUND(172, 3), MNEMONIC_PRAYER(173, 3),
+	HOLY_LANCE(171, 4), HALLOWED_GROUND(172, 4), MNEMONIC_PRAYER(173, 4),
 	//Paladin T3
-	LAY_ON_HANDS(174, 3), AURA_OF_PROTECTION(175, 3), WALL_OF_LIGHT(176, 3),
+	LAY_ON_HANDS(174, 4), AURA_OF_PROTECTION(175, 4), WALL_OF_LIGHT(176, 4),
 	//Ascended Form T4
 	DIVINE_INTERVENTION(177, 4), JUDGEMENT(178, 4), FLASH(179, 4),
 	//Trinity T4
@@ -220,10 +201,10 @@ public enum Talent {
 		@Override
 		public boolean act() {
 			//barrier every 2/1 turns, to a max of 3/5
-			if (((Hero)target).hasTalent(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
-				Barrier barrier = Buff.affect(target, Barrier.class);
-				if (barrier.shielding() < 1 + 2*((Hero)target).pointsInTalent(Talent.PROTECTIVE_SHADOWS)) {
-					barrierInc += 0.5f * ((Hero) target).pointsInTalent(Talent.PROTECTIVE_SHADOWS);
+			if (((Hero)target).有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
+				Barrier barrier = Buff.施加(target, Barrier.class);
+				if (barrier.shielding() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,4)) {
+					barrierInc += 0.5f * ((Hero) target).天赋点数(Talent.PROTECTIVE_SHADOWS);
 				}
 				if (barrierInc >= 1){
 					barrierInc = 0;
@@ -255,7 +236,7 @@ public enum Talent {
 	public static class RejuvenatingStepsCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0f, 0.35f, 0.15f); }
-		public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / (15 - 5*Dungeon.hero.pointsInTalent(REJUVENATING_STEPS)), 1); }
+		public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / (15 - 5*Dungeon.hero.天赋点数(REJUVENATING_STEPS)), 1); }
 	};
 	public static class RejuvenatingStepsFurrow extends CounterBuff{{revivePersists = true;}};
 	public static class SeerShotCooldown extends FlavourBuff{
@@ -425,18 +406,18 @@ public enum Talent {
 	}
 
 	int icon;
-	int maxPoints;
+	int 最大点数;
 
-	// tiers 1/2/3/4 start at levels 2/7/13/21
-	public static int[] tierLevelThresholds = new int[]{0, 2, 7, 13, 21, 31};
+	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 => 2/8/15/24/35 6-3 7-1 9
+	public static int[] 天赋解锁 = new int[]{0, 1+1+0, 6+1+1, 12+1+2, 20+1+3, 30+1+4};
 
 	Talent( int icon ){
 		this(icon, 2);
 	}
 
-	Talent( int icon, int maxPoints ){
+	Talent( int icon, int 最大点数){
 		this.icon = icon;
-		this.maxPoints = maxPoints;
+		this.最大点数 = 最大点数;
 	}
 
 	public int icon(){
@@ -464,8 +445,8 @@ public enum Talent {
 		}
 	}
 
-	public int maxPoints(){
-		return maxPoints;
+	public int 最大点数(){
+		return 最大点数;
 	}
 
 	public String title(){
@@ -492,20 +473,20 @@ public enum Talent {
 	public static void onTalentUpgraded( Hero hero, Talent talent ){
 		//for metamorphosis
 		if (talent == IRON_WILL && hero.heroClass != HeroClass.WARRIOR){
-			Buff.affect(hero, BrokenSeal.WarriorShield.class);
+			Buff.施加(hero, BrokenSeal.WarriorShield.class);
 		}
 
-		if (talent == VETERANS_INTUITION && hero.pointsInTalent(VETERANS_INTUITION) == 2){
+		if (talent == VETERANS_INTUITION && hero.天赋点数(VETERANS_INTUITION) == 2){
 			if (hero.belongings.armor() != null && !ShardOfOblivion.passiveIDDisabled())  {
-				hero.belongings.armor.identify();
+				hero.belongings.armor.鉴定();
 			}
 		}
-		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 2){
+		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 2){
 			if (hero.belongings.ring instanceof Ring && !ShardOfOblivion.passiveIDDisabled()) {
-				hero.belongings.ring.identify();
+				hero.belongings.ring.鉴定();
 			}
 			if (hero.belongings.misc instanceof Ring && !ShardOfOblivion.passiveIDDisabled()) {
-				hero.belongings.misc.identify();
+				hero.belongings.misc.鉴定();
 			}
 			for (Item item : Dungeon.hero.belongings){
 				if (item instanceof Ring){
@@ -513,18 +494,18 @@ public enum Talent {
 				}
 			}
 		}
-		if (talent == THIEFS_INTUITION && hero.pointsInTalent(THIEFS_INTUITION) == 1){
+		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
 			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.setKnown();
 			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
 		}
-		if (talent == ADVENTURERS_INTUITION && hero.pointsInTalent(ADVENTURERS_INTUITION) == 2){
+		if (talent == ADVENTURERS_INTUITION && hero.天赋点数(ADVENTURERS_INTUITION) == 2){
 			if (hero.belongings.weapon() != null && !ShardOfOblivion.passiveIDDisabled()){
-				hero.belongings.weapon().identify();
+				hero.belongings.weapon().鉴定();
 			}
 		}
 
 		if (talent == PROTECTIVE_SHADOWS && hero.invisible > 0){
-			Buff.affect(hero, Talent.ProtectiveShadowsTracker.class);
+			Buff.施加(hero, Talent.ProtectiveShadowsTracker.class);
 		}
 
 		if (talent == LIGHT_CLOAK && hero.heroClass == HeroClass.ROGUE){
@@ -546,12 +527,12 @@ public enum Talent {
 			Item.updateQuickslot();
 		}
 
-		if (talent == UNENCUMBERED_SPIRIT && hero.pointsInTalent(talent) == 3){
-			Item toGive = new ClothArmor().identify();
+		if (talent == UNENCUMBERED_SPIRIT && hero.满天赋(talent)){
+			Item toGive = new ClothArmor().鉴定();
 			if (!toGive.collect()){
 				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
 			}
-			toGive = new Gloves().identify();
+			toGive = new Gloves().鉴定();
 			if (!toGive.collect()){
 				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
 			}
@@ -569,7 +550,7 @@ public enum Talent {
 
 		//if we happen to have spirit form applied with a ring of might
 		if (talent == SPIRIT_FORM){
-			Dungeon.hero.updateHT(false);
+			Dungeon.hero.更新生命(false);
 		}
 	}
 
@@ -577,89 +558,89 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}};
 
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
-		if (hero.hasTalent(HEARTY_MEAL)){
+		if (hero.有天赋(HEARTY_MEAL)){
 			//4/6 HP healed, when hero is below 33% health (with a little rounding up)
-			if (hero.HP/(float)hero.HT < 0.334f) {
-				int healing = 2 + 2 * hero.pointsInTalent(HEARTY_MEAL);
-				hero.HP = Math.min(hero.HP + healing, hero.HT);
+			if (hero.生命 /(float)hero.最大生命 < 0.334f) {
+				int healing = hero.天赋点数(HEARTY_MEAL,4);
+				hero.生命 = Math.min(hero.生命 + healing, hero.最大生命);
 				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healing), FloatingText.HEALING);
 
 			}
 		}
-		if (hero.hasTalent(IRON_STOMACH)){
+		if (hero.有天赋(IRON_STOMACH)){
 			if (hero.cooldown() > 0) {
-				Buff.affect(hero, WarriorFoodImmunity.class, hero.cooldown());
+				Buff.施加(hero, WarriorFoodImmunity.class, hero.cooldown());
 			}
 		}
-		if (hero.hasTalent(EMPOWERING_MEAL)){
+		if (hero.有天赋(EMPOWERING_MEAL)){
 			//2/3 bonus wand damage for next 3 zaps
-			Buff.affect( hero, WandEmpower.class).set(1 + hero.pointsInTalent(EMPOWERING_MEAL), 3);
+			Buff.施加( hero, WandEmpower.class).set(hero.天赋点数(EMPOWERING_MEAL,6), 1);
 			ScrollOfRecharging.charge( hero );
 		}
 		int wandChargeTurns = 0;
-		if (hero.hasTalent(ENERGIZING_MEAL)){
+		if (hero.有天赋(ENERGIZING_MEAL)){
 			//5/8 turns of recharging
-			wandChargeTurns += 2 + 3*hero.pointsInTalent(ENERGIZING_MEAL);
+			wandChargeTurns += hero.天赋点数(ENERGIZING_MEAL,5);
 		}
 		int artifactChargeTurns = 0;
-		if (hero.hasTalent(MYSTICAL_MEAL)){
+		if (hero.有天赋(MYSTICAL_MEAL)){
 			//3/5 turns of recharging
-			artifactChargeTurns += 1 + 2*hero.pointsInTalent(MYSTICAL_MEAL);
+			artifactChargeTurns += hero.天赋点数(MYSTICAL_MEAL,3);
 		}
-		if (hero.hasTalent(INVIGORATING_MEAL)){
+		if (hero.有天赋(INVIGORATING_MEAL)){
 			//effectively 1/2 turns of haste
-			Buff.prolong( hero, Haste.class, 0.67f+hero.pointsInTalent(INVIGORATING_MEAL));
+			Buff.延长( hero, Haste.class, hero.天赋点数(INVIGORATING_MEAL));
 		}
-		if (hero.hasTalent(STRENGTHENING_MEAL)){
+		if (hero.有天赋(STRENGTHENING_MEAL)){
 			//3 bonus physical damage for next 2/3 attacks
-			Buff.affect( hero, PhysicalEmpower.class).set(3, 1 + hero.pointsInTalent(STRENGTHENING_MEAL));
+			Buff.施加( hero, PhysicalEmpower.class).set(hero.天赋点数(STRENGTHENING_MEAL,5), 1);
 		}
-		if (hero.hasTalent(FOCUSED_MEAL)){
+		if (hero.有天赋(FOCUSED_MEAL)){
 			if (hero.heroClass == HeroClass.DUELIST){
 				//0.67/1 charge for the duelist
-				Buff.affect( hero, MeleeWeapon.Charger.class ).gainCharge((hero.pointsInTalent(FOCUSED_MEAL)+1)/3f);
+				Buff.施加( hero, MeleeWeapon.Charger.class ).gainCharge(hero.天赋点数(FOCUSED_MEAL,0.5f));
 				ScrollOfRecharging.charge( hero );
 			} else {
 				// lvl/3 / lvl/2 bonus dmg on next hit for other classes
-				Buff.affect( hero, PhysicalEmpower.class).set(Math.round(hero.当前等级 / (4f - hero.pointsInTalent(FOCUSED_MEAL))), 1);
+				Buff.施加( hero, PhysicalEmpower.class).set(Math.round(hero.等级 / (4f - hero.天赋点数(FOCUSED_MEAL))), 1);
 			}
 		}
-		if (hero.hasTalent(SATIATED_SPELLS)){
+		if (hero.有天赋(SATIATED_SPELLS)){
 			if (hero.heroClass == HeroClass.CLERIC) {
-				Buff.affect(hero, SatiatedSpellsTracker.class);
+				Buff.施加(hero, SatiatedSpellsTracker.class);
 			} else {
 				//3/5 shielding, delayed up to 10 turns
-				int amount = 1 + 2*hero.pointsInTalent(SATIATED_SPELLS);
-				Barrier b = Buff.affect(hero, Barrier.class);
+				int amount = hero.天赋点数(SATIATED_SPELLS,5);
+				Barrier b = Buff.施加(hero, Barrier.class);
 				if (b.shielding() <= amount){
 					b.setShield(amount);
 					b.delay(Math.max(10-b.cooldown(), 0));
 				}
 			}
 		}
-		if (hero.hasTalent(ENLIGHTENING_MEAL)){
+		if (hero.有天赋(ENLIGHTENING_MEAL)){
 			if (hero.heroClass == HeroClass.CLERIC) {
 				HolyTome tome = hero.belongings.getItem(HolyTome.class);
 				if (tome != null) {
 					// 2/3 of a charge at +1, 1 full charge at +2
-					tome.directCharge( (1+hero.pointsInTalent(ENLIGHTENING_MEAL))/3f );
+					tome.directCharge( hero.天赋点数(ENLIGHTENING_MEAL,0.5f));
 					ScrollOfRecharging.charge(hero);
 				}
 			} else {
 				//2/3 turns of recharging, both kinds
-				wandChargeTurns += 1 + hero.pointsInTalent(ENLIGHTENING_MEAL);
-				artifactChargeTurns += 1 + hero.pointsInTalent(ENLIGHTENING_MEAL);
+				wandChargeTurns += hero.天赋点数(ENLIGHTENING_MEAL,2);
+				artifactChargeTurns += hero.天赋点数(ENLIGHTENING_MEAL,2);
 			}
 		}
 
 		//we process these at the end as they can stack together from some talents
 		if (wandChargeTurns > 0){
-			Buff.prolong( hero, Recharging.class, wandChargeTurns );
+			Buff.延长( hero, Recharging.class, wandChargeTurns );
 			ScrollOfRecharging.charge( hero );
 			SpellSprite.show(hero, SpellSprite.CHARGE);
 		}
 		if (artifactChargeTurns > 0){
-			ArtifactRecharge buff = Buff.affect( hero, ArtifactRecharge.class);
+			ArtifactRecharge buff = Buff.施加( hero, ArtifactRecharge.class);
 			if (buff.left() < artifactChargeTurns){
 				buff.set(artifactChargeTurns).ignoreHornOfPlenty = foodSource instanceof HornOfPlenty;
 			}
@@ -677,37 +658,37 @@ public enum Talent {
 
 		// Affected by both Warrior(1.75x/2.5x) and Duelist(2.5x/inst.) talents
 		if (item instanceof MeleeWeapon){
-			factor *= 1f + 1.5f*hero.pointsInTalent(ADVENTURERS_INTUITION); //instant at +2 (see onItemEquipped)
-			factor *= 1f + 0.75f*hero.pointsInTalent(VETERANS_INTUITION);
+			factor *= hero.天赋点数(ADVENTURERS_INTUITION,10); //instant at +2 (see onItemEquipped)
+			factor *= hero.天赋点数(VETERANS_INTUITION,2);
 		}
 		// Affected by both Warrior(2.5x/inst.) and Duelist(1.75x/2.5x) talents
 		if (item instanceof Armor){
-			factor *= 1f + 0.75f*hero.pointsInTalent(ADVENTURERS_INTUITION);
-			factor *= 1f + hero.pointsInTalent(VETERANS_INTUITION); //instant at +2 (see onItemEquipped)
+			factor *= hero.天赋点数(ADVENTURERS_INTUITION,2);
+			factor *= hero.天赋点数(VETERANS_INTUITION,10); //instant at +2 (see onItemEquipped)
 		}
 		// 3x/instant for Mage (see Wand.wandUsed())
 		if (item instanceof Wand){
-			factor *= 1f + 2.0f*hero.pointsInTalent(SCHOLARS_INTUITION);
+			factor *= hero.天赋点数(SCHOLARS_INTUITION,10);
 		}
 		// 3x/instant speed with Huntress talent (see MissileWeapon.proc)
 		if (item instanceof MissileWeapon){
-			factor *= 1f + 2.0f*hero.pointsInTalent(SURVIVALISTS_INTUITION);
+			factor *= hero.天赋点数(SURVIVALISTS_INTUITION,10);
 		}
 		// 2x/instant for Rogue (see onItemEqupped), also id's type on equip/on pickup
 		if (item instanceof Ring){
-			factor *= 1f + hero.pointsInTalent(THIEFS_INTUITION);
+			factor *= hero.天赋点数(THIEFS_INTUITION,10);
 		}
 		return factor;
 	}
 
 	public static void onPotionUsed( Hero hero, int cell, float factor ){
-		if (hero.hasTalent(LIQUID_WILLPOWER)){
+		if (hero.有天赋(LIQUID_WILLPOWER)){
 			// 6.5/10% of max HP
-			int shieldToGive = Math.round( factor * hero.HT * (0.030f + 0.035f*hero.pointsInTalent(LIQUID_WILLPOWER)));
+			int shieldToGive = Math.round( factor * hero.最大生命 * hero.天赋点数(LIQUID_WILLPOWER,0.06f));
 			hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-			Buff.affect(hero, Barrier.class).setShield(shieldToGive);
+			Buff.施加(hero, Barrier.class).setShield(shieldToGive);
 		}
-		if (hero.hasTalent(LIQUID_NATURE)){
+		if (hero.有天赋(LIQUID_NATURE)){
 			ArrayList<Integer> grassCells = new ArrayList<>();
 			for (int i : PathFinder.NEIGHBOURS9){
 				grassCells.add(cell+i);
@@ -717,7 +698,7 @@ public enum Talent {
 				Char ch = Actor.findChar(grassCell);
 				if (ch != null && ch.alignment == Char.Alignment.ENEMY){
 					//1/2 turns of roots
-					Buff.affect(ch, Roots.class, factor * hero.pointsInTalent(LIQUID_NATURE));
+					Buff.施加(ch, Roots.class, factor * hero.天赋点数(LIQUID_NATURE));
 				}
 				if (Dungeon.level.map[grassCell] == Terrain.EMPTY ||
 						Dungeon.level.map[grassCell] == Terrain.EMBERS ||
@@ -728,7 +709,7 @@ public enum Talent {
 				CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC, 4);
 			}
 			// 4/6 cells total
-			int totalGrassCells = (int) (factor * (2 + 2 * hero.pointsInTalent(LIQUID_NATURE)));
+			int totalGrassCells = (int) (factor * (hero.天赋点数(LIQUID_NATURE,2)));
 			while (grassCells.size() > totalGrassCells){
 				grassCells.remove(0);
 			}
@@ -743,30 +724,30 @@ public enum Talent {
 			}
 			Dungeon.observe();
 		}
-		if (hero.hasTalent(LIQUID_AGILITY)){
-			Buff.prolong(hero, LiquidAgilEVATracker.class, hero.cooldown() + Math.max(0, factor-1));
+		if (hero.有天赋(LIQUID_AGILITY)){
+			Buff.延长(hero, LiquidAgilEVATracker.class, hero.cooldown() + Math.max(0, factor-1));
 			if (factor >= 0.5f){
-				Buff.prolong(hero, LiquidAgilACCTracker.class, 5f).uses = Math.round(factor);
+				Buff.延长(hero, LiquidAgilACCTracker.class, 5f).uses = Math.round(factor);
 			}
 		}
 	}
 
 	public static void onScrollUsed( Hero hero, int pos, float factor, Class<?extends Item> cls ){
-		if (hero.hasTalent(INSCRIBED_POWER)){
+		if (hero.有天赋(INSCRIBED_POWER)){
 			// 2/3 empowered wand zaps
-			Buff.affect(hero, ScrollEmpower.class).reset((int) (factor * (1 + hero.pointsInTalent(INSCRIBED_POWER))));
+			Buff.施加(hero, ScrollEmpower.class).reset((int) (factor * (hero.天赋点数(INSCRIBED_POWER))));
 		}
-		if (hero.hasTalent(INSCRIBED_STEALTH)){
+		if (hero.有天赋(INSCRIBED_STEALTH)){
 			// 3/5 turns of stealth
-			Buff.affect(hero, Invisibility.class, factor * (1 + 2*hero.pointsInTalent(INSCRIBED_STEALTH)));
+			Buff.施加(hero, Invisibility.class, factor * hero.天赋点数(INSCRIBED_STEALTH,3));
 			Sample.INSTANCE.play( Assets.Sounds.MELD );
 		}
-		if (hero.hasTalent(RECALL_INSCRIPTION) && Scroll.class.isAssignableFrom(cls) && cls != ScrollOfUpgrade.class){
+		if (hero.有天赋(RECALL_INSCRIPTION) && Scroll.class.isAssignableFrom(cls) && cls != 升级卷轴.class){
 			if (hero.heroClass == HeroClass.CLERIC){
-				Buff.prolong(hero, RecallInscription.UsedItemTracker.class, hero.pointsInTalent(RECALL_INSCRIPTION) == 2 ? 300 : 10).item = cls;
+				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION) == 2 ? 300 : 10).item = cls;
 			} else {
 				// 10/15%
-				if (Random.Int(20) < 1 + hero.pointsInTalent(RECALL_INSCRIPTION)){
+				if (Random.Int(99) < hero.天赋点数(RECALL_INSCRIPTION,10)){
 					Reflection.newInstance(cls).collect();
 					GLog.p("refunded!");
 				}
@@ -775,9 +756,9 @@ public enum Talent {
 	}
 
 	public static void onRunestoneUsed( Hero hero, int pos, Class<?extends Item> cls ){
-		if (hero.hasTalent(RECALL_INSCRIPTION) && Runestone.class.isAssignableFrom(cls)){
+		if (hero.有天赋(RECALL_INSCRIPTION) && Runestone.class.isAssignableFrom(cls)){
 			if (hero.heroClass == HeroClass.CLERIC){
-				Buff.prolong(hero, RecallInscription.UsedItemTracker.class, hero.pointsInTalent(RECALL_INSCRIPTION) == 2 ? 300 : 10).item = cls;
+				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION) == 2 ? 300 : 10).item = cls;
 			} else {
 
 				//don't trigger on 1st intuition use
@@ -785,7 +766,7 @@ public enum Talent {
 					return;
 				}
 				// 10/15%
-				if (Random.Int(20) < 1 + hero.pointsInTalent(RECALL_INSCRIPTION)){
+				if (Random.Int(99) < 1 + hero.天赋点数(RECALL_INSCRIPTION)){
 					Reflection.newInstance(cls).collect();
 					GLog.p("refunded!");
 				}
@@ -794,19 +775,19 @@ public enum Talent {
 	}
 
 	public static void onArtifactUsed( Hero hero ){
-		if (hero.hasTalent(ENHANCED_RINGS)){
-			Buff.prolong(hero, EnhancedRings.class, 3f*hero.pointsInTalent(ENHANCED_RINGS));
+		if (hero.有天赋(ENHANCED_RINGS)){
+			Buff.延长(hero, EnhancedRings.class, hero.天赋点数(ENHANCED_RINGS,2));
 		}
 
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.DIVINE_SENSE)){
-			Buff.prolong(Dungeon.hero, DivineSense.DivineSenseTracker.class, Dungeon.hero.cooldown()+1);
+				&& Dungeon.hero.有天赋(Talent.DIVINE_SENSE)){
+			Buff.延长(Dungeon.hero, DivineSense.DivineSenseTracker.class, Dungeon.hero.cooldown()+1);
 		}
 
 		// 10/20/30%
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.CLEANSE)
-				&& Random.Int(10) < Dungeon.hero.pointsInTalent(Talent.CLEANSE)){
+				&& Dungeon.hero.有天赋(Talent.CLEANSE)
+				&& Random.Int(10) < Dungeon.hero.天赋点数(Talent.CLEANSE)){
 			boolean removed = false;
 			for (Buff b : Dungeon.hero.buffs()) {
 				if (b.type == Buff.buffType.NEGATIVE
@@ -823,84 +804,88 @@ public enum Talent {
 
 	public static void onItemEquipped( Hero hero, Item item ){
 		boolean identify = false;
-		if (hero.pointsInTalent(VETERANS_INTUITION) == 2 && item instanceof Armor){
+		if (hero.天赋点数(VETERANS_INTUITION) == 2 && item instanceof Armor){
 			identify = true;
 		}
-		if (hero.hasTalent(THIEFS_INTUITION) && item instanceof Ring){
-			if (hero.pointsInTalent(THIEFS_INTUITION) == 2){
+		if (hero.有天赋(THIEFS_INTUITION) && item instanceof Ring){
+			if (hero.天赋点数(THIEFS_INTUITION) == 2){
 				identify = true;
 			}
 			((Ring) item).setKnown();
 		}
-		if (hero.pointsInTalent(ADVENTURERS_INTUITION) == 2 && item instanceof Weapon){
+		if (hero.天赋点数(ADVENTURERS_INTUITION) == 2 && item instanceof Weapon){
 			identify = true;
 		}
 
 		if (identify && !ShardOfOblivion.passiveIDDisabled()){
-			item.identify();
+			item.鉴定();
 		}
 	}
 
 	public static void onItemCollected( Hero hero, Item item ){
-		if (hero.pointsInTalent(THIEFS_INTUITION) == 2){
+		if (hero.天赋点数(THIEFS_INTUITION) == 2){
 			if (item instanceof Ring) ((Ring) item).setKnown();
 		}
 	}
 
-	public static int onAttackProc( Hero hero, Char enemy, int dmg ){
+	public static int 伏击时(Hero hero, Char enemy, int dmg ){
 
-		if (hero.hasTalent(Talent.PROVOKED_ANGER)
+		if(hero.有天赋(Talent.SUCKER_PUNCH) && enemy.buff(SuckerPunchTracker.class) == null) {
+			dmg += hero.天赋点数(Talent.SUCKER_PUNCH, 2);
+			Buff.施加(enemy, SuckerPunchTracker.class);
+		}
+		return dmg;
+	}
+	public static int 攻击时(Hero hero, Char enemy, int dmg ){
+
+		if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)){
+			dmg=伏击时(hero,enemy,dmg);
+		}
+		if (hero.有天赋(Talent.PROVOKED_ANGER)
 			&& hero.buff(ProvokedAngerTracker.class) != null){
-			dmg += 1 + 2*hero.pointsInTalent(Talent.PROVOKED_ANGER);
+			dmg += hero.天赋点数(Talent.PROVOKED_ANGER,3);
 			hero.buff(ProvokedAngerTracker.class).detach();
 		}
 
-		if (hero.hasTalent(Talent.LINGERING_MAGIC)
+		if (hero.有天赋(Talent.LINGERING_MAGIC)
 				&& hero.buff(LingeringMagicTracker.class) != null){
-			dmg += Random.IntRange(hero.pointsInTalent(Talent.LINGERING_MAGIC) , 2);
+			dmg += hero.天赋点数(Talent.LINGERING_MAGIC,3);
 			hero.buff(LingeringMagicTracker.class).detach();
 		}
 
-		if (hero.hasTalent(Talent.SUCKER_PUNCH)
-				&& enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)
-				&& enemy.buff(SuckerPunchTracker.class) == null){
-			dmg += Random.IntRange(hero.pointsInTalent(Talent.SUCKER_PUNCH) , 2);
-			Buff.affect(enemy, SuckerPunchTracker.class);
-		}
-
-		if (hero.hasTalent(Talent.FOLLOWUP_STRIKE) && enemy.isAlive() && enemy.alignment == Char.Alignment.ENEMY) {
+		if (hero.有天赋(Talent.FOLLOWUP_STRIKE) && enemy.isAlive() && enemy.alignment == Char.Alignment.ENEMY) {
 			if (hero.belongings.attackingWeapon() instanceof MissileWeapon) {
-				Buff.prolong(hero, FollowupStrikeTracker.class, 5f).object = enemy.id();
+				Buff.延长(hero, FollowupStrikeTracker.class, 5f).object = enemy.id();
 			} else if (hero.buff(FollowupStrikeTracker.class) != null
 					&& hero.buff(FollowupStrikeTracker.class).object == enemy.id()){
-				dmg += 1 + hero.pointsInTalent(FOLLOWUP_STRIKE);
+				dmg += hero.天赋点数(FOLLOWUP_STRIKE,3);
 				hero.buff(FollowupStrikeTracker.class).detach();
 			}
 		}
 
 		if (hero.buff(Talent.SpiritBladesTracker.class) != null
-				&& Random.Int(10) < 3*hero.pointsInTalent(Talent.SPIRIT_BLADES)){
+				&& Random.Int(10) < 3*hero.天赋点数(Talent.SPIRIT_BLADES)){
 			SpiritBow bow = hero.belongings.getItem(SpiritBow.class);
-			if (bow != null) dmg = bow.proc( hero, enemy, dmg );
+			if (bow != null) dmg = bow.攻击时( hero, enemy, dmg );
 			hero.buff(Talent.SpiritBladesTracker.class).detach();
 		}
 
-		if (hero.hasTalent(PATIENT_STRIKE)){
+		if (hero.有天赋(PATIENT_STRIKE)){
 			if (hero.buff(PatientStrikeTracker.class) != null
 					&& !(hero.belongings.attackingWeapon() instanceof MissileWeapon)){
 				hero.buff(PatientStrikeTracker.class).detach();
-				dmg += Random.IntRange(hero.pointsInTalent(Talent.PATIENT_STRIKE), 2);
+				dmg += hero.天赋点数(Talent.PATIENT_STRIKE,3);
 			}
 		}
 
-		if (hero.hasTalent(DEADLY_FOLLOWUP) && enemy.alignment == Char.Alignment.ENEMY) {
+		if (hero.有天赋(DEADLY_FOLLOWUP) && enemy.alignment == Char.Alignment.ENEMY) {
 			if (hero.belongings.attackingWeapon() instanceof MissileWeapon) {
 				if (!(hero.belongings.attackingWeapon() instanceof SpiritBow.SpiritArrow)) {
-					Buff.prolong(hero, DeadlyFollowupTracker.class, 5f).object = enemy.id();
+					Buff.延长(hero, DeadlyFollowupTracker.class, 5f).object = enemy.id();
 				}
 			} else if (hero.buff(DeadlyFollowupTracker.class) != null
 					&& hero.buff(DeadlyFollowupTracker.class).object == enemy.id()){
-				dmg = Math.round(dmg * (1.0f + .1f*hero.pointsInTalent(DEADLY_FOLLOWUP)));
+				dmg = Math.round(dmg * (1.0f +hero.天赋点数(DEADLY_FOLLOWUP,0.1f)));
 			}
 		}
 
@@ -959,22 +944,22 @@ public enum Talent {
 		//tier 1
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, HEARTY_MEAL, VETERANS_INTUITION, PROVOKED_ANGER, IRON_WILL);
+				Collections.addAll(tierTalents, /*HEARTY_MEAL,*/ VETERANS_INTUITION, PROVOKED_ANGER, IRON_WILL);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, EMPOWERING_MEAL, SCHOLARS_INTUITION, LINGERING_MAGIC, BACKUP_BARRIER);
+				Collections.addAll(tierTalents, /*EMPOWERING_MEAL,*/ SCHOLARS_INTUITION, LINGERING_MAGIC, BACKUP_BARRIER);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, CACHED_RATIONS, THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);
+				Collections.addAll(tierTalents, /*CACHED_RATIONS,*/ THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, NATURES_BOUNTY, SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
+				Collections.addAll(tierTalents, /*NATURES_BOUNTY,*/ SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
 				break;
 			case DUELIST:
-				Collections.addAll(tierTalents, STRENGTHENING_MEAL, ADVENTURERS_INTUITION, PATIENT_STRIKE, AGGRESSIVE_BARRIER);
+				Collections.addAll(tierTalents, /*STRENGTHENING_MEAL,*/ ADVENTURERS_INTUITION, PATIENT_STRIKE, AGGRESSIVE_BARRIER);
 				break;
 			case CLERIC:
-				Collections.addAll(tierTalents, SATIATED_SPELLS, HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
+				Collections.addAll(tierTalents, /*SATIATED_SPELLS,*/ HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -988,22 +973,22 @@ public enum Talent {
 		//tier 2
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, IRON_STOMACH, LIQUID_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, /*IRON_STOMACH,*/ LIQUID_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, ENERGIZING_MEAL, INSCRIBED_POWER, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
+				Collections.addAll(tierTalents, /*ENERGIZING_MEAL,*/ INSCRIBED_POWER, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, MYSTICAL_MEAL, INSCRIBED_STEALTH, WIDE_SEARCH, SILENT_STEPS, ROGUES_FORESIGHT);
+				Collections.addAll(tierTalents, /*MYSTICAL_MEAL,*/ INSCRIBED_STEALTH, WIDE_SEARCH, SILENT_STEPS, ROGUES_FORESIGHT);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, INVIGORATING_MEAL, LIQUID_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, /*INVIGORATING_MEAL,*/ LIQUID_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
 				break;
 			case DUELIST:
-				Collections.addAll(tierTalents, FOCUSED_MEAL, LIQUID_AGILITY, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);
+				Collections.addAll(tierTalents,/* FOCUSED_MEAL,*/ LIQUID_AGILITY, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);
 				break;
 			case CLERIC:
-				Collections.addAll(tierTalents, ENLIGHTENING_MEAL, RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
+				Collections.addAll(tierTalents, /*ENLIGHTENING_MEAL,*/ RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -1134,7 +1119,7 @@ public enum Talent {
 					tierBundle.put(talent.name(), tier.get(talent));
 				}
 				if (tierBundle.contains(talent.name())){
-					tier.put(talent, Math.min(tierBundle.getInt(talent.name()), talent.maxPoints()));
+					tier.put(talent, Math.min(tierBundle.getInt(talent.name()), talent.最大点数()));
 				}
 			}
 			bundle.put(TALENT_TIER+(i+1), tierBundle);
@@ -1190,7 +1175,7 @@ public enum Talent {
 						try {
 							Talent talent = Talent.valueOf(tName);
 							if (tier.containsKey(talent)) {
-								tier.put(talent, Math.min(points, talent.maxPoints()));
+								tier.put(talent, Math.min(points, talent.最大点数()));
 							}
 						} catch (Exception e) {
 							ShatteredPixelDungeon.reportException(e);

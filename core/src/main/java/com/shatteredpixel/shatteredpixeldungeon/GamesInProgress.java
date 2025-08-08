@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
@@ -148,12 +129,12 @@ public class GamesInProgress {
 		info.daily = Dungeon.daily;
 		info.dailyReplay = Dungeon.dailyReplay;
 		
-		info.level = Dungeon.hero.当前等级;
-		info.str = Dungeon.hero.STR;
-		info.strBonus = Dungeon.hero.STR() - Dungeon.hero.STR;
+		info.level = Dungeon.hero.等级;
+		info.str = Dungeon.hero.力量;
+		info.strBonus = Dungeon.hero.力量() - Dungeon.hero.力量;
 		info.exp = Dungeon.hero.当前经验;
-		info.hp = Dungeon.hero.HP;
-		info.ht = Dungeon.hero.HT;
+		info.hp = Dungeon.hero.生命;
+		info.ht = Dungeon.hero.最大生命;
 		info.shld = Dungeon.hero.shielding();
 		info.heroClass = Dungeon.hero.heroClass;
 		info.subClass = Dungeon.hero.subClass;

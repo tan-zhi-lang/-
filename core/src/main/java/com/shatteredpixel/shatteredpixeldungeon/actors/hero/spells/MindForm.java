@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -65,11 +46,11 @@ public class MindForm extends ClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.MIND_FORM);
+		return super.canCast(hero) && hero.有天赋(Talent.MIND_FORM);
 	}
 
 	public static int effectLevel(){
-		return 2 + Dungeon.hero.pointsInTalent(Talent.MIND_FORM);
+		return 2 + Dungeon.hero.天赋点数(Talent.MIND_FORM);
 	}
 
 	@Override
@@ -80,7 +61,7 @@ public class MindForm extends ClericSpell {
 	}
 
 	public static int itemLevel(){
-		return 2 + Dungeon.hero.pointsInTalent(Talent.MIND_FORM);
+		return 2 + Dungeon.hero.天赋点数(Talent.MIND_FORM);
 	}
 
 	//TODO selecting
@@ -94,9 +75,9 @@ public class MindForm extends ClericSpell {
 
 		private Wand wand(){
 			if (effect instanceof Wand){
-				((Wand) effect).level(effectLevel());
+				((Wand) effect).等级(effectLevel());
 				((Wand) effect).curCharges = ((Wand) effect).maxCharges;
-				((Wand) effect).identify(false);
+				((Wand) effect).鉴定(false);
 				return (Wand)effect;
 			}
 			return null;
@@ -104,9 +85,9 @@ public class MindForm extends ClericSpell {
 
 		private MissileWeapon thrown(){
 			if (effect instanceof MissileWeapon){
-				((MissileWeapon) effect).level(effectLevel());
+				((MissileWeapon) effect).等级(effectLevel());
 				((MissileWeapon) effect).repair(100);
-				((MissileWeapon) effect).identify(false);
+				((MissileWeapon) effect).鉴定(false);
 				((MissileWeapon) effect).spawnedForEffect = true;
 				return (MissileWeapon) effect;
 			}

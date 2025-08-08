@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities;
 
@@ -85,7 +66,7 @@ public class Ratmogrify extends ArmorAbility {
 			GLog.w(Messages.get(this, "no_target"));
 			return;
 		} else if (ch == hero){
-			if (!hero.hasTalent(Talent.RATFORCEMENTS)){
+			if (!hero.有天赋(Talent.RATFORCEMENTS)){
 				GLog.w(Messages.get(this, "self_target"));
 				return;
 			} else {
@@ -98,7 +79,7 @@ public class Ratmogrify extends ArmorAbility {
 					}
 				}
 
-				int ratsToSpawn = hero.pointsInTalent(Talent.RATFORCEMENTS);
+				int ratsToSpawn = hero.天赋点数(Talent.RATFORCEMENTS);
 
 				while (ratsToSpawn > 0 && spawnPoints.size() > 0) {
 					int index = Random.index( spawnPoints );
@@ -106,7 +87,7 @@ public class Ratmogrify extends ArmorAbility {
 					Rat rat = new Rat();
 					rat.alignment = Char.Alignment.ALLY;
 					rat.state = rat.HUNTING;
-					Buff.affect(rat, AscensionChallenge.AscensionBuffBlocker.class);
+					Buff.施加(rat, AscensionChallenge.AscensionBuffBlocker.class);
 					GameScene.add( rat );
 					ScrollOfTeleportation.appear( rat, spawnPoints.get( index ) );
 
@@ -119,15 +100,15 @@ public class Ratmogrify extends ArmorAbility {
 			GLog.w(Messages.get(this, "cant_transform"));
 			return;
 		} else if (ch instanceof TransmogRat){
-			if (((TransmogRat) ch).allied || !hero.hasTalent(Talent.RATLOMACY)){
+			if (((TransmogRat) ch).allied || !hero.有天赋(Talent.RATLOMACY)){
 				GLog.w(Messages.get(this, "cant_transform"));
 				return;
 			} else {
 				((TransmogRat) ch).makeAlly();
 				ch.sprite.emitter().start(Speck.factory(Speck.HEART), 0.2f, 5);
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-				if (hero.pointsInTalent(Talent.RATLOMACY) > 1){
-					Buff.affect(ch, Adrenaline.class, 2*(hero.pointsInTalent(Talent.RATLOMACY)-1));
+				if (hero.天赋点数(Talent.RATLOMACY) > 1){
+					Buff.施加(ch, Adrenaline.class, 2*(hero.天赋点数(Talent.RATLOMACY)-1));
 				}
 			}
 		} else if (Char.hasProp(ch, Char.Property.MINIBOSS) || Char.hasProp(ch, Char.Property.BOSS)){
@@ -201,13 +182,13 @@ public class Ratmogrify extends ArmorAbility {
 			this.original = original;
 			original.clearTime();
 
-			HP = original.HP;
-			HT = original.HT;
+			生命 = original.生命;
+			最大生命 = original.最大生命;
 
 			defenseSkill = original.defenseSkill;
 
-			EXP = original.EXP;
-			maxLvl = original.maxLvl;
+			经验 = original.经验;
+			最大等级 = original.最大等级;
 
 			if (original.state == original.SLEEPING) {
 				state = SLEEPING;
@@ -221,7 +202,7 @@ public class Ratmogrify extends ArmorAbility {
 
 		public Mob getOriginal(){
 			if (original != null) {
-				original.HP = HP;
+				original.生命 = 生命;
 				original.pos = pos;
 			}
 			return original;
@@ -236,7 +217,7 @@ public class Ratmogrify extends ArmorAbility {
 				this.original = null;
 				GameScene.add(original);
 
-				EXP = 0;
+				经验 = 0;
 				destroy();
 				sprite.killAndErase();
 				CellEmitter.get(original.pos).burst(Speck.factory(Speck.WOOL), 4);
@@ -261,8 +242,8 @@ public class Ratmogrify extends ArmorAbility {
 			Bestiary.countEncounter(original.getClass());
 		}
 
-		public int attackSkill(Char target) {
-			return original.attackSkill(target);
+		public int 最大命中(Char target) {
+			return original.最大命中(target);
 		}
 
 		public int drRoll() {
@@ -270,10 +251,10 @@ public class Ratmogrify extends ArmorAbility {
 		}
 
 		@Override
-		public int damageRoll() {
-			int damage = original.damageRoll();
-			if (!allied && Dungeon.hero.hasTalent(Talent.RATSISTANCE)){
-				damage *= Math.pow(0.9f, Dungeon.hero.pointsInTalent(Talent.RATSISTANCE));
+		public int 攻击() {
+			int damage = original.攻击();
+			if (!allied && Dungeon.hero.有天赋(Talent.RATSISTANCE)){
+				damage *= Math.pow(0.9f, Dungeon.hero.天赋点数(Talent.RATSISTANCE));
 			}
 			return damage;
 		}
@@ -323,7 +304,7 @@ public class Ratmogrify extends ArmorAbility {
 
 			original = (Mob) bundle.get(ORIGINAL);
 			defenseSkill = original.defenseSkill;
-			EXP = original.EXP;
+			经验 = original.经验;
 
 			allied = bundle.getBoolean(ALLIED);
 			if (allied) alignment = Alignment.ALLY;

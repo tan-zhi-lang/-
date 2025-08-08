@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -64,7 +45,7 @@ public class AlchemistsToolkit extends Artifact {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero ) && !cursed && hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_BREW);
-			if (level() < levelCap) {
+			if (等级() < levelCap) {
 				actions.add(AC_ENERGIZE);
 			}
 		}
@@ -93,7 +74,7 @@ public class AlchemistsToolkit extends Artifact {
 			else if (Dungeon.energy < 6)        GLog.w( Messages.get(this, "need_energy") );
 			else {
 
-				final int maxLevels = Math.min(levelCap - level(), Dungeon.energy/6);
+				final int maxLevels = Math.min(levelCap - 等级(), Dungeon.energy/6);
 
 				String[] options;
 				if (maxLevels > 1){
@@ -223,12 +204,12 @@ public class AlchemistsToolkit extends Artifact {
 		public boolean act() {
 
 			if (warmUpDelay > 0){
-				if (level() == 10){
+				if (等级() == 10){
 					warmUpDelay = 0;
 				} else if (warmUpDelay == 101){
 					warmUpDelay = 100f;
 				} else if (!cursed && target.buff(MagicImmune.class) == null) {
-					float turnsToWarmUp = (int) Math.pow(10 - level(), 2);
+					float turnsToWarmUp = (int) Math.pow(10 - 等级(), 2);
 					warmUpDelay -= 100 / turnsToWarmUp;
 				}
 				updateQuickslot();
@@ -244,7 +225,7 @@ public class AlchemistsToolkit extends Artifact {
 			//generates 2 energy every hero level, +1 energy per toolkit level
 			//to a max of 12 energy per hero level
 			//This means that energy absorbed into the kit is recovered in 5 hero levels
-			float chargeGain = (2 + level()) * levelPortion;
+			float chargeGain = (2 + 等级()) * levelPortion;
 			chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
 			partialCharge += chargeGain;
 

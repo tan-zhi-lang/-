@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -75,12 +56,12 @@ public abstract class ClericSpell {
 
 	public void onSpellCast(HolyTome tome, Hero hero){
 		Invisibility.dispel();
-		if (hero.hasTalent(Talent.SATIATED_SPELLS) && hero.buff(Talent.SatiatedSpellsTracker.class) != null){
-			int amount = 1 + 2*hero.pointsInTalent(Talent.SATIATED_SPELLS);
-			Buff.affect(hero, Barrier.class).setShield(amount);
+		if (hero.有天赋(Talent.SATIATED_SPELLS) && hero.buff(Talent.SatiatedSpellsTracker.class) != null){
+			int amount = hero.天赋点数(Talent.SATIATED_SPELLS,5);
+			Buff.施加(hero, Barrier.class).setShield(amount);
 			Char ally = PowerOfMany.getPoweredAlly();
 			if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-				Buff.affect(ally, Barrier.class).setShield(amount);
+				Buff.施加(ally, Barrier.class).setShield(amount);
 			}
 			hero.buff(Talent.SatiatedSpellsTracker.class).detach();
 		}
@@ -110,29 +91,29 @@ public abstract class ClericSpell {
 			spells.add(HolyWeapon.INSTANCE);
 			spells.add(HolyWard.INSTANCE);
 
-			if (cleric.hasTalent(Talent.HOLY_INTUITION)) {
+			if (cleric.有天赋(Talent.HOLY_INTUITION)) {
 				spells.add(HolyIntuition.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.SHIELD_OF_LIGHT)) {
+			if (cleric.有天赋(Talent.SHIELD_OF_LIGHT)) {
 				spells.add(ShieldOfLight.INSTANCE);
 			}
 
 		} else if (tier == 2) {
 
-			if (cleric.hasTalent(Talent.RECALL_INSCRIPTION)){
+			if (cleric.有天赋(Talent.RECALL_INSCRIPTION)){
 				spells.add(RecallInscription.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.SUNRAY)){
+			if (cleric.有天赋(Talent.SUNRAY)){
 				spells.add(Sunray.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.DIVINE_SENSE)) {
+			if (cleric.有天赋(Talent.DIVINE_SENSE)) {
 				spells.add(DivineSense.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.BLESS)){
+			if (cleric.有天赋(Talent.BLESS)){
 				spells.add(BlessSpell.INSTANCE);
 			}
 
@@ -145,59 +126,59 @@ public abstract class ClericSpell {
 				spells.add(Smite.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.CLEANSE)){
+			if (cleric.有天赋(Talent.CLEANSE)){
 				spells.add(Cleanse.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.HOLY_LANCE)){
+			if (cleric.有天赋(Talent.HOLY_LANCE)){
 				spells.add(HolyLance.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.HALLOWED_GROUND)){
+			if (cleric.有天赋(Talent.HALLOWED_GROUND)){
 				spells.add(HallowedGround.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.MNEMONIC_PRAYER)){
+			if (cleric.有天赋(Talent.MNEMONIC_PRAYER)){
 				spells.add(MnemonicPrayer.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.LAY_ON_HANDS)){
+			if (cleric.有天赋(Talent.LAY_ON_HANDS)){
 				spells.add(LayOnHands.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.AURA_OF_PROTECTION)){
+			if (cleric.有天赋(Talent.AURA_OF_PROTECTION)){
 				spells.add(AuraOfProtection.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.WALL_OF_LIGHT)){
+			if (cleric.有天赋(Talent.WALL_OF_LIGHT)){
 				spells.add(WallOfLight.INSTANCE);
 			}
 
 		} else if (tier == 4){
 
-			if (cleric.hasTalent(Talent.DIVINE_INTERVENTION)){
+			if (cleric.有天赋(Talent.DIVINE_INTERVENTION)){
 				spells.add(DivineIntervention.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.JUDGEMENT)){
+			if (cleric.有天赋(Talent.JUDGEMENT)){
 				spells.add(Judgement.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.FLASH)){
+			if (cleric.有天赋(Talent.FLASH)){
 				spells.add(Flash.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.BODY_FORM)){
+			if (cleric.有天赋(Talent.BODY_FORM)){
 				spells.add(BodyForm.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.MIND_FORM)){
+			if (cleric.有天赋(Talent.MIND_FORM)){
 				spells.add(MindForm.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.SPIRIT_FORM)){
+			if (cleric.有天赋(Talent.SPIRIT_FORM)){
 				spells.add(SpiritForm.INSTANCE);
 			}
 
-			if (cleric.hasTalent(Talent.BEAMING_RAY)){
+			if (cleric.有天赋(Talent.BEAMING_RAY)){
 				spells.add(BeamingRay.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.LIFE_LINK)){
+			if (cleric.有天赋(Talent.LIFE_LINK)){
 				spells.add(LifeLinkSpell.INSTANCE);
 			}
-			if (cleric.hasTalent(Talent.STASIS)){
+			if (cleric.有天赋(Talent.STASIS)){
 				spells.add(Stasis.INSTANCE);
 			}
 

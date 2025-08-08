@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
@@ -224,13 +205,13 @@ public class WndRanking extends WndTabbed {
 
 				pos += GAP;
 
-				int strBonus = Dungeon.hero.STR() - Dungeon.hero.STR;
+				int strBonus = Dungeon.hero.力量() - Dungeon.hero.力量;
 				if (strBonus > 0)
-					pos = statSlot(this, Messages.get(this, "str"), Dungeon.hero.STR + " + " + strBonus, pos);
+					pos = statSlot(this, Messages.get(this, "str"), Dungeon.hero.力量 + " + " + strBonus, pos);
 				else if (strBonus < 0)
-					pos = statSlot(this, Messages.get(this, "str"), Dungeon.hero.STR + " - " + -strBonus, pos);
+					pos = statSlot(this, Messages.get(this, "str"), Dungeon.hero.力量 + " - " + -strBonus, pos);
 				else
-					pos = statSlot(this, Messages.get(this, "str"), Integer.toString(Dungeon.hero.STR), pos);
+					pos = statSlot(this, Messages.get(this, "str"), Integer.toString(Dungeon.hero.力量), pos);
 				pos = statSlot(this, Messages.get(this, "duration"), num.format((int) Statistics.duration), pos);
 				if (Statistics.highestAscent == 0) {
 					pos = statSlot(this, Messages.get(this, "depth"), num.format(Statistics.deepestFloor), pos);
@@ -319,9 +300,9 @@ public class WndRanking extends WndTabbed {
 			camera = WndRanking.this.camera;
 
 			int tiers = 1;
-			if (Dungeon.hero.当前等级 >= 6) tiers++;
-			if (Dungeon.hero.当前等级 >= 12 && Dungeon.hero.subClass != HeroSubClass.NONE) tiers++;
-			if (Dungeon.hero.当前等级 >= 20 && Dungeon.hero.armorAbility != null) tiers++;
+			if (Dungeon.hero.等级 >= 6) tiers++;
+			if (Dungeon.hero.等级 >= 12 && Dungeon.hero.subClass != HeroSubClass.NONE) tiers++;
+			if (Dungeon.hero.等级 >= 20 && Dungeon.hero.armorAbility != null) tiers++;
 			while (Dungeon.hero.talents.size() > tiers){
 				Dungeon.hero.talents.remove(Dungeon.hero.talents.size()-1);
 			}

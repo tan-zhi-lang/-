@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
@@ -49,7 +30,7 @@ public class PrismaticImage extends NPC {
 	{
 		spriteClass = PrismaticSprite.class;
 		
-		HP = HT = 10;
+		生命 = 最大生命 = 10;
 		defenseSkill = 1;
 		
 		alignment = Alignment.ALLY;
@@ -144,24 +125,24 @@ public class PrismaticImage extends NPC {
 	public void duplicate( Hero hero, int HP ) {
 		this.hero = hero;
 		heroID = this.hero.id();
-		this.HP = HP;
-		HT = PrismaticGuard.maxHP( hero );
+		this.生命 = HP;
+		最大生命 = PrismaticGuard.maxHP( hero );
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		if (hero != null) {
-			return Random.NormalIntRange( 2 + hero.当前等级 /4, 4 + hero.当前等级 /2 );
+			return Random.NormalIntRange( 2 + hero.等级 /4, 4 + hero.等级 /2 );
 		} else {
 			return Random.NormalIntRange( 2, 4 );
 		}
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		if (hero != null) {
 			//same base attack skill as hero, benefits from accuracy ring
-			return (int)((9 + hero.当前等级) * RingOfAccuracy.accuracyMultiplier(hero));
+			return (int)((9 + hero.等级) * RingOfAccuracy.accuracyMultiplier(hero));
 		} else {
 			return 0;
 		}
@@ -170,8 +151,8 @@ public class PrismaticImage extends NPC {
 	@Override
 	public int defenseSkill(Char enemy) {
 		if (hero != null) {
-			int baseEvasion = 4 + hero.当前等级;
-			int heroEvasion = (int)((4 + hero.当前等级) * RingOfEvasion.evasionMultiplier( hero ));
+			int baseEvasion = 4 + hero.等级;
+			int heroEvasion = (int)((4 + hero.等级) * RingOfEvasion.evasionMultiplier( hero ));
 			if (hero.belongings.armor() != null){
 				heroEvasion = (int)hero.belongings.armor().evasionFactor(this, heroEvasion);
 			}
@@ -247,7 +228,7 @@ public class PrismaticImage extends NPC {
 		@Override
 		public boolean act(boolean enemyInFOV, boolean justAlerted) {
 			if (!enemyInFOV){
-				Buff.affect(hero, PrismaticGuard.class).set( PrismaticImage.this );
+				Buff.施加(hero, PrismaticGuard.class).set( PrismaticImage.this );
 				destroy();
 				CellEmitter.get(pos).start( Speck.factory(Speck.LIGHT), 0.2f, 3 );
 				sprite.die();

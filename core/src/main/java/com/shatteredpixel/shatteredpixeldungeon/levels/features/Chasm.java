@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.features;
 
@@ -143,17 +124,17 @@ public class Chasm implements Hero.Doom {
 		PixelScene.shake( 4, 1f );
 
 		Dungeon.level.occupyCell(hero );
-		Buff.prolong( hero, Cripple.class, Cripple.DURATION );
+		Buff.延长( hero, Cripple.class, Cripple.DURATION );
 
 		//The lower the hero's HP, the more bleed and the less upfront damage.
 		//Hero has a 50% chance to bleed out at 66% HP, and begins to risk instant-death at 25%
-		Buff.affect( hero, Bleeding.class).set( Math.round(hero.HT / (6f + (6f*(hero.HP/(float)hero.HT)))), Chasm.class);
-		hero.damage( Math.max( hero.HP / 2, Random.NormalIntRange( hero.HP / 2, hero.HT / 4 )), new Chasm() );
+		Buff.施加( hero, Bleeding.class).set( Math.round(hero.最大生命 / (6f + (6f*(hero.生命 /(float)hero.最大生命)))), Chasm.class);
+		hero.damage( Math.max( hero.生命 / 2, Random.NormalIntRange( hero.生命 / 2, hero.最大生命 / 4 )), new Chasm() );
 	}
 
 	public static void mobFall( Mob mob ) {
 		if (mob.isAlive()) {
-			Buff.prolong(mob, Trap.HazardAssistTracker.class, Trap.HazardAssistTracker.DURATION);
+			Buff.延长(mob, Trap.HazardAssistTracker.class, Trap.HazardAssistTracker.DURATION);
 			mob.die( Chasm.class );
 		}
 		

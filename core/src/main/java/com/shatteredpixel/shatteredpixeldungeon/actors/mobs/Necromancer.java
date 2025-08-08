@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -49,11 +30,11 @@ public class Necromancer extends Mob {
 	{
 		spriteClass = NecromancerSprite.class;
 		
-		HP = HT = 40;
+		生命 = 最大生命 = 40;
 		defenseSkill = 14;
 		
-		EXP = 7;
-		maxLvl = 14;
+		经验 = 7;
+		最大等级 = 14;
 		
 		loot = PotionOfHealing.class;
 		lootChance = 0.2f; //see lootChance()
@@ -167,15 +148,15 @@ public class Necromancer extends Mob {
 		}
 		
 		//heal skeleton first
-		if (mySkeleton.HP < mySkeleton.HT){
+		if (mySkeleton.生命 < mySkeleton.最大生命){
 
 			if (sprite.visible || mySkeleton.sprite.visible) {
 				sprite.parent.add(new Beam.HealthRay(sprite.center(), mySkeleton.sprite.center()));
 			}
 			
-			mySkeleton.HP = Math.min(mySkeleton.HP + mySkeleton.HT/5, mySkeleton.HT);
+			mySkeleton.生命 = Math.min(mySkeleton.生命 + mySkeleton.最大生命 /5, mySkeleton.最大生命);
 			if (mySkeleton.sprite.visible) {
-				mySkeleton.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( mySkeleton.HT/5 ), FloatingText.HEALING );
+				mySkeleton.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( mySkeleton.最大生命 /5 ), FloatingText.HEALING );
 			}
 			
 		//otherwise give it adrenaline
@@ -185,7 +166,7 @@ public class Necromancer extends Mob {
 				sprite.parent.add(new Beam.HealthRay(sprite.center(), mySkeleton.sprite.center()));
 			}
 			
-			Buff.affect(mySkeleton, Adrenaline.class, 3f);
+			Buff.施加(mySkeleton, Adrenaline.class, 3f);
 		}
 		
 		next();
@@ -244,7 +225,7 @@ public class Necromancer extends Mob {
 
 		for (Buff b : buffs()){
 			if (b.revivePersists) {
-				Buff.affect(mySkeleton, b.getClass());
+				Buff.施加(mySkeleton, b.getClass());
 			}
 		}
 	}
@@ -358,7 +339,7 @@ public class Necromancer extends Mob {
 				} else {
 					
 					//zap skeleton
-					if (mySkeleton.HP < mySkeleton.HT || mySkeleton.buff(Adrenaline.class) == null) {
+					if (mySkeleton.生命 < mySkeleton.最大生命 || mySkeleton.buff(Adrenaline.class) == null) {
 						if (sprite != null && sprite.visible){
 							sprite.zap(mySkeleton.pos);
 							return false;
@@ -386,10 +367,10 @@ public class Necromancer extends Mob {
 			spriteClass = NecroSkeletonSprite.class;
 			
 			//no loot or exp
-			maxLvl = -5;
+			最大等级 = -5;
 			
 			//20/25 health to start
-			HP = 20;
+			生命 = 20;
 		}
 
 		@Override

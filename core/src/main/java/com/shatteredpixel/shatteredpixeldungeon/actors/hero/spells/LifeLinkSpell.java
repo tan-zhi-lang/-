@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -48,13 +29,13 @@ public class LifeLinkSpell extends ClericSpell {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", 4 + 2*Dungeon.hero.pointsInTalent(Talent.LIFE_LINK), 30 + 5*Dungeon.hero.pointsInTalent(Talent.LIFE_LINK)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", 4 + 2*Dungeon.hero.天赋点数(Talent.LIFE_LINK), 30 + 5*Dungeon.hero.天赋点数(Talent.LIFE_LINK)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.hasTalent(Talent.LIFE_LINK)
+				&& hero.有天赋(Talent.LIFE_LINK)
 				&& (PowerOfMany.getPoweredAlly() != null || Stasis.getStasisAlly() != null);
 	}
 
@@ -66,7 +47,7 @@ public class LifeLinkSpell extends ClericSpell {
 	@Override
 	public void onCast(HolyTome tome, Hero hero) {
 
-		int duration = Math.round(6.67f + 3.33f*Dungeon.hero.pointsInTalent(Talent.LIFE_LINK));
+		int duration = Math.round(6.67f + 3.33f*Dungeon.hero.天赋点数(Talent.LIFE_LINK));
 
 		Char ally = PowerOfMany.getPoweredAlly();
 
@@ -75,7 +56,7 @@ public class LifeLinkSpell extends ClericSpell {
 			hero.sprite.parent.add(
 					new Beam.HealthRay(hero.sprite.center(), ally.sprite.center()));
 
-			Buff.prolong(hero, LifeLink.class, duration).object = ally.id();
+			Buff.延长(hero, LifeLink.class, duration).object = ally.id();
 		} else {
 			ally = Stasis.getStasisAlly();
 			hero.sprite.operate(hero.pos);
@@ -83,8 +64,8 @@ public class LifeLinkSpell extends ClericSpell {
 					new Beam.HealthRay(DungeonTilemap.tileCenterToWorld(hero.pos), hero.sprite.center()));
 		}
 
-		Buff.prolong(ally, LifeLink.class, duration).object = hero.id();
-		Buff.prolong(ally, LifeLinkSpellBuff.class, duration);
+		Buff.延长(ally, LifeLink.class, duration).object = hero.id();
+		Buff.延长(ally, LifeLinkSpellBuff.class, duration);
 
 		if (ally == Stasis.getStasisAlly()){
 			ally.buff(LifeLink.class).clearTime();
@@ -110,7 +91,7 @@ public class LifeLinkSpell extends ClericSpell {
 
 		@Override
 		public float iconFadePercent() {
-			int duration = Math.round(6.67f + 3.33f*Dungeon.hero.pointsInTalent(Talent.LIFE_LINK));
+			int duration = Math.round(6.67f + 3.33f*Dungeon.hero.天赋点数(Talent.LIFE_LINK));
 			return Math.max(0, (duration - visualcooldown()) / duration);
 		}
 	}

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -87,7 +68,7 @@ public class SpiritForm extends ClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.SPIRIT_FORM);
+		return super.canCast(hero) && hero.有天赋(Talent.SPIRIT_FORM);
 	}
 
 	@Override
@@ -98,11 +79,11 @@ public class SpiritForm extends ClericSpell {
 	}
 
 	public static int ringLevel(){
-		return Dungeon.hero.pointsInTalent(Talent.SPIRIT_FORM);
+		return Dungeon.hero.天赋点数(Talent.SPIRIT_FORM);
 	}
 
 	public static int artifactLevel(){
-		return 2 + 2*Dungeon.hero.pointsInTalent(Talent.SPIRIT_FORM);
+		return 2 + 2*Dungeon.hero.天赋点数(Talent.SPIRIT_FORM);
 	}
 
 	public static class SpiritFormBuff extends FlavourBuff{
@@ -133,8 +114,8 @@ public class SpiritForm extends ClericSpell {
 		public void setEffect(Bundlable effect){
 			this.effect = effect;
 			if (effect instanceof RingOfMight){
-				((Ring) effect).level(ringLevel());
-				Dungeon.hero.updateHT( false );
+				((Ring) effect).等级(ringLevel());
+				Dungeon.hero.更新生命( false );
 			}
 		}
 
@@ -142,13 +123,13 @@ public class SpiritForm extends ClericSpell {
 		public void detach() {
 			super.detach();
 			if (effect instanceof RingOfMight){
-				Dungeon.hero.updateHT( false );
+				Dungeon.hero.更新生命( false );
 			}
 		}
 
 		public Ring ring(){
 			if (effect instanceof Ring){
-				((Ring) effect).level(ringLevel());
+				((Ring) effect).等级(ringLevel());
 				return (Ring) effect;
 			}
 			return null;
@@ -207,8 +188,8 @@ public class SpiritForm extends ClericSpell {
 			if (!spawnPoints.isEmpty()) {
 				Wraith w = Wraith.spawnAt(Random.element(spawnPoints), Wraith.class);
 
-				w.HP = w.HT = 20 + 8*artifactLevel();
-				Buff.affect(w, Corruption.class);
+				w.生命 = w.最大生命 = 20 + 8*artifactLevel();
+				Buff.施加(w, Corruption.class);
 			}
 			Talent.onArtifactUsed(Dungeon.hero);
 			Dungeon.hero.spendAndNext(1f);
@@ -243,7 +224,7 @@ public class SpiritForm extends ClericSpell {
 			GameScene.selectCell(((TalismanOfForesight) effect).scry);
 
 		} else if (effect instanceof TimekeepersHourglass){
-			Buff.affect(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(artifactLevel());
+			Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(artifactLevel());
 			Dungeon.hero.spendAndNext(1f);
 
 		} else if (effect instanceof UnstableSpellbook){

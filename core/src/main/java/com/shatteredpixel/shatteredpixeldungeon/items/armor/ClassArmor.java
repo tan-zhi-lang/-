@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
@@ -120,7 +101,7 @@ abstract public class ClassArmor extends Armor {
 				break;
 		}
 		
-		classArmor.level(armor.trueLevel());
+		classArmor.等级(armor.trueLevel());
 		classArmor.tier = armor.tier;
 		classArmor.augment = armor.augment;
 		classArmor.inscribe(armor.glyph);
@@ -132,7 +113,7 @@ abstract public class ClassArmor extends Armor {
 		classArmor.curseInfusionBonus = armor.curseInfusionBonus;
 		classArmor.masteryPotionBonus = armor.masteryPotionBonus;
 		if (armor.levelKnown && armor.cursedKnown) {
-			classArmor.identify();
+			classArmor.鉴定();
 		} else {
 			classArmor.levelKnown = armor.levelKnown;
 			classArmor.cursedKnown = true;
@@ -237,7 +218,7 @@ abstract public class ClassArmor extends Armor {
 										((HeroSprite) hero.sprite).updateArmor();
 									}
 								}
-								level(armor.trueLevel());
+								等级(armor.trueLevel());
 								tier = armor.tier;
 								augment = armor.augment;
 								cursed = armor.cursed;
@@ -249,9 +230,9 @@ abstract public class ClassArmor extends Armor {
 								} else if (checkSeal() != null){
 									//automates the process of detaching the seal manually
 									// and re-affixing it to the new armor
-									if (seal.level() > 0){
+									if (seal.等级() > 0){
 										int newLevel = trueLevel() + 1;
-										level(newLevel);
+										等级(newLevel);
 										Badges.validateItemLevelAquired(ClassArmor.this);
 									}
 
@@ -270,7 +251,7 @@ abstract public class ClassArmor extends Armor {
 								}
 
 								if (armor.levelKnown && armor.cursedKnown) {
-									identify();
+									鉴定();
 								} else {
 									levelKnown = armor.levelKnown;
 									cursedKnown = true;

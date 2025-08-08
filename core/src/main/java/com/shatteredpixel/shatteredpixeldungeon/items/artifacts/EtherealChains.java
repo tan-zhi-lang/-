@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -117,7 +98,7 @@ public class EtherealChains extends Artifact {
 	@Override
 	public void resetForTrinity(int visibleLevel) {
 		super.resetForTrinity(visibleLevel);
-		charge = 5+(level()*2); //sets charge to soft cap
+		charge = 5+(等级()*2); //sets charge to soft cap
 	}
 
 	public CellSelector.Listener caster = new CellSelector.Listener(){
@@ -287,7 +268,7 @@ public class EtherealChains extends Artifact {
 	@Override
 	public void charge(Hero target, float amount) {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
-		int chargeTarget = 5+(level()*2);
+		int chargeTarget = 5+(等级()*2);
 		if (charge < chargeTarget*2){
 			partialCharge += 0.5f*amount;
 			while (partialCharge >= 1){
@@ -316,7 +297,7 @@ public class EtherealChains extends Artifact {
 
 		@Override
 		public boolean act() {
-			int chargeTarget = 5+(level()*2);
+			int chargeTarget = 5+(等级()*2);
 			if (charge < chargeTarget
 					&& !cursed
 					&& target.buff(MagicImmune.class) == null
@@ -326,7 +307,7 @@ public class EtherealChains extends Artifact {
 				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
 				partialCharge += chargeGain;
 			} else if (cursed && Random.Int(100) == 0){
-				Buff.prolong( target, Cripple.class, 10f);
+				Buff.延长( target, Cripple.class, 10f);
 			}
 
 			while (partialCharge >= 1) {
@@ -347,13 +328,13 @@ public class EtherealChains extends Artifact {
 			exp += Math.round(levelPortion*100);
 
 			//past the soft charge cap, gaining  charge from leveling is slowed.
-			if (charge > 5+(level()*2)){
-				levelPortion *= (5+((float)level()*2))/charge;
+			if (charge > 5+(等级()*2)){
+				levelPortion *= (5+((float) 等级()*2))/charge;
 			}
 			partialCharge += levelPortion*6f;
 
-			if (exp > 100+level()*100 && level() < levelCap){
-				exp -= 100+level()*100;
+			if (exp > 100+ 等级()*100 && 等级() < levelCap){
+				exp -= 100+ 等级()*100;
 				GLog.p( Messages.get(this, "levelup") );
 				Catalog.countUses(EtherealChains.class, 2);
 				upgrade();

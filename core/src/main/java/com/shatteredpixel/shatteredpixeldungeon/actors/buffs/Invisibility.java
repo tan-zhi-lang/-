@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -47,10 +28,10 @@ public class Invisibility extends FlavourBuff {
 		if (super.attachTo( target )) {
 			target.invisible++;
 			if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.ASSASSIN){
-				Buff.affect(target, Preparation.class);
+				Buff.施加(target, Preparation.class);
 			}
-			if (target instanceof Hero && ((Hero) target).hasTalent(Talent.PROTECTIVE_SHADOWS)){
-				Buff.affect(target, Talent.ProtectiveShadowsTracker.class);
+			if (target instanceof Hero && ((Hero) target).有天赋(Talent.PROTECTIVE_SHADOWS)){
+				Buff.施加(target, Talent.ProtectiveShadowsTracker.class);
 			}
 			return true;
 		} else {

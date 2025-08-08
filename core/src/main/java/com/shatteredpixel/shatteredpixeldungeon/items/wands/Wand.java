@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
@@ -142,7 +123,7 @@ public abstract class Wand extends Item {
 	//not affected by enchantment proc chance changers
 	public static float procChanceMultiplier( Char attacker ){
 		if (attacker.buff(Talent.EmpoweredStrikeTracker.class) != null){
-			return 1f + ((Hero)attacker).pointsInTalent(Talent.EMPOWERED_STRIKE)/2f;
+			return 1f + ((Hero)attacker).天赋点数(Talent.EMPOWERED_STRIKE,0.5f);
 		}
 		return 1f;
 	}
@@ -208,37 +189,37 @@ public abstract class Wand extends Item {
 
 	//TODO Consider externalizing char awareness buff
 	protected static void wandProc(Char target, int wandLevel, int chargesUsed){
-		if (Dungeon.hero.hasTalent(Talent.ARCANE_VISION)) {
-			int dur = 5 + 5*Dungeon.hero.pointsInTalent(Talent.ARCANE_VISION);
-			Buff.append(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = target.id();
+		if (Dungeon.hero.有天赋(Talent.ARCANE_VISION)) {
+			int dur = Dungeon.hero.天赋点数(Talent.ARCANE_VISION,10);
+			Buff.新增(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = target.id();
 		}
 
 		if (target != Dungeon.hero &&
 				Dungeon.hero.subClass == HeroSubClass.WARLOCK &&
 				//standard 1 - 0.92^x chance, plus 7%. Starts at 15%
 				Random.Float() > (Math.pow(0.92f, (wandLevel*chargesUsed)+1) - 0.07f)){
-			SoulMark.prolong(target, SoulMark.class, SoulMark.DURATION + wandLevel);
+			SoulMark.延长(target, SoulMark.class, SoulMark.DURATION + wandLevel);
 		}
 
 		if (Dungeon.hero.subClass == HeroSubClass.PRIEST && target.buff(GuidingLight.Illuminated.class) != null) {
 			target.buff(GuidingLight.Illuminated.class).detach();
-			target.damage(Dungeon.hero.当前等级 +5, GuidingLight.INSTANCE);
+			target.damage(Dungeon.hero.等级 +5, GuidingLight.INSTANCE);
 		}
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.SEARING_LIGHT)
+				&& Dungeon.hero.有天赋(Talent.SEARING_LIGHT)
 				&& Dungeon.hero.buff(Talent.SearingLightCooldown.class) == null){
-			Buff.affect(target, GuidingLight.Illuminated.class);
-			Buff.affect(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
+			Buff.施加(target, GuidingLight.Illuminated.class);
+			Buff.施加(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
 		}
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.SUNRAY)){
+				&& Dungeon.hero.有天赋(Talent.SUNRAY)){
 			// 15/25% chance
-			if (Random.Int(20) < 1 + 2*Dungeon.hero.pointsInTalent(Talent.SUNRAY)){
-				Buff.prolong(target, Blindness.class, 4f);
+			if (Dungeon.hero.天赋概率(Talent.SUNRAY,15)){
+				Buff.延长(target, Blindness.class, 4f);
 			}
 		}
 	}
@@ -255,16 +236,16 @@ public abstract class Wand extends Item {
 		}
 	}
 	
-	public void level( int value) {
-		super.level( value );
+	public void 等级(int value) {
+		super.等级( value );
 		updateLevel();
 	}
 	
 	@Override
-	public Item identify( boolean byHero ) {
+	public Item 鉴定(boolean byHero ) {
 		
 		curChargeKnown = true;
-		super.identify(byHero);
+		super.鉴定(byHero);
 		
 		updateQuickslot();
 		
@@ -343,12 +324,12 @@ public abstract class Wand extends Item {
 	}
 	
 	@Override
-	public int level() {
+	public int 等级() {
 		if (!cursed && curseInfusionBonus){
 			curseInfusionBonus = false;
 			updateLevel();
 		}
-		int level = super.level();
+		int level = super.等级();
 		if (curseInfusionBonus) level += 1 + level/6;
 		level += resinBonus;
 		return level;
@@ -401,16 +382,16 @@ public abstract class Wand extends Item {
 				lvl += 2;
 			}
 
-			if (curCharges == 1 && charger.target instanceof Hero && ((Hero)charger.target).hasTalent(Talent.DESPERATE_POWER)){
-				lvl += ((Hero)charger.target).pointsInTalent(Talent.DESPERATE_POWER);
+			if (curCharges == 1 && charger.target instanceof Hero && ((Hero)charger.target).有天赋(Talent.DESPERATE_POWER)){
+				lvl += ((Hero)charger.target).天赋点数(Talent.DESPERATE_POWER);
 			}
 
 			if (charger.target.buff(WildMagic.WildMagicTracker.class) != null){
-				int bonus = 4 + ((Hero)charger.target).pointsInTalent(Talent.WILD_POWER);
+				int bonus = 4 + ((Hero)charger.target).天赋点数(Talent.WILD_POWER);
 				if (Random.Int(2) == 0) bonus++;
 				bonus /= 2; // +2/+2.5/+3/+3.5/+4 at 0/1/2/3/4 talent points
 
-				int maxBonusLevel = 3 + ((Hero)charger.target).pointsInTalent(Talent.WILD_POWER);
+				int maxBonusLevel = 3 + ((Hero)charger.target).天赋点数(Talent.WILD_POWER);
 				if (lvl < maxBonusLevel) {
 					lvl = Math.min(lvl + bonus, maxBonusLevel);
 				}
@@ -425,7 +406,7 @@ public abstract class Wand extends Item {
 	}
 
 	public void updateLevel() {
-		maxCharges = Math.min( initialCharges() + level(), 10 );
+		maxCharges = Math.min( initialCharges() + 等级(), 10 );
 		curCharges = Math.min( curCharges, maxCharges );
 	}
 	
@@ -459,28 +440,28 @@ public abstract class Wand extends Item {
 			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(Dungeon.hero, this) );
 			availableUsesToID -= uses;
 			usesLeftToID -= uses;
-			if (usesLeftToID <= 0 || Dungeon.hero.pointsInTalent(Talent.SCHOLARS_INTUITION) == 2) {
+			if (usesLeftToID <= 0 || Dungeon.hero.天赋点数(Talent.SCHOLARS_INTUITION) == 2) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){
 						GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
 					}
 					setIDReady();
 				} else {
-					identify();
+					鉴定();
 					GLog.p(Messages.get(Wand.class, "identify"));
 					Badges.validateItemLevelAquired(this);
 				}
 			}
 			if (ShardOfOblivion.passiveIDDisabled()){
-				Buff.prolong(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
+				Buff.延长(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
 			}
 		}
 
 		//inside staff
 		if (charger != null && charger.target == Dungeon.hero && !Dungeon.hero.belongings.contains(this)){
-			if (Dungeon.hero.hasTalent(Talent.EXCESS_CHARGE) && curCharges >= maxCharges){
-				int shieldToGive = Math.round(buffedLvl()*0.67f*Dungeon.hero.pointsInTalent(Talent.EXCESS_CHARGE));
-				Buff.affect(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+			if (Dungeon.hero.有天赋(Talent.EXCESS_CHARGE) && curCharges >= maxCharges){
+				int shieldToGive = Math.round(buffedLvl()*Dungeon.hero.天赋点数(Talent.EXCESS_CHARGE,0.5f));
+				Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
 				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			}
 		}
@@ -503,28 +484,28 @@ public abstract class Wand extends Item {
 		}
 
 		//If hero owns wand but it isn't in belongings it must be in the staff
-		if (Dungeon.hero.hasTalent(Talent.EMPOWERED_STRIKE)
+		if (Dungeon.hero.有天赋(Talent.EMPOWERED_STRIKE)
 				&& charger != null && charger.target == Dungeon.hero
 				&& !Dungeon.hero.belongings.contains(this)){
 
-			Buff.prolong(Dungeon.hero, Talent.EmpoweredStrikeTracker.class, 10f);
+			Buff.延长(Dungeon.hero, Talent.EmpoweredStrikeTracker.class, 10f);
 		}
 
-		if (Dungeon.hero.hasTalent(Talent.LINGERING_MAGIC)
+		if (Dungeon.hero.有天赋(Talent.LINGERING_MAGIC)
 				&& charger != null && charger.target == Dungeon.hero){
 
-			Buff.prolong(Dungeon.hero, Talent.LingeringMagicTracker.class, 5f);
+			Buff.延长(Dungeon.hero, Talent.LingeringMagicTracker.class, 5f);
 		}
 
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.DIVINE_SENSE)){
-			Buff.prolong(Dungeon.hero, DivineSense.DivineSenseTracker.class, Dungeon.hero.cooldown()+1);
+				&& Dungeon.hero.有天赋(Talent.DIVINE_SENSE)){
+			Buff.延长(Dungeon.hero, DivineSense.DivineSenseTracker.class, Dungeon.hero.cooldown()+1);
 		}
 
 		// 10/20/30%
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.CLEANSE)
-				&& Random.Int(10) < Dungeon.hero.pointsInTalent(Talent.CLEANSE)){
+				&& Dungeon.hero.有天赋(Talent.CLEANSE)
+				&& Dungeon.hero.天赋概率(Talent.CLEANSE,10)){
 			boolean removed = false;
 			for (Buff b : Dungeon.hero.buffs()) {
 				if (b.type == Buff.buffType.NEGATIVE
@@ -554,7 +535,7 @@ public abstract class Wand extends Item {
 				n++;
 			}
 		}
-		level(n);
+		等级(n);
 		curCharges += n;
 		
 		//30% chance to be cursed
@@ -579,10 +560,10 @@ public abstract class Wand extends Item {
 			price /= 2;
 		}
 		if (levelKnown) {
-			if (level() > 0) {
-				price *= (level() + 1);
-			} else if (level() < 0) {
-				price /= (1 - level());
+			if (等级() > 0) {
+				price *= (等级() + 1);
+			} else if (等级() < 0) {
+				price /= (1 - 等级());
 			}
 		}
 		if (price < 1) {
@@ -679,7 +660,7 @@ public abstract class Wand extends Item {
 				int cell = shot.collisionPos;
 				
 				if (target == curUser.pos || cell == curUser.pos) {
-					if (target == curUser.pos && curUser.hasTalent(Talent.SHIELD_BATTERY)){
+					if (target == curUser.pos && curUser.有天赋(Talent.SHIELD_BATTERY)){
 
 						if (curUser.buff(MagicImmune.class) != null){
 							GLog.w( Messages.get(Wand.class, "no_magic") );
@@ -691,9 +672,8 @@ public abstract class Wand extends Item {
 							return;
 						}
 
-						float shield = curUser.HT * (0.04f*curWand.curCharges);
-						if (curUser.pointsInTalent(Talent.SHIELD_BATTERY) == 2) shield *= 1.5f;
-						Buff.affect(curUser, Barrier.class).setShield(Math.round(shield));
+						float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY,0.03f)*curWand.curCharges);
+						Buff.施加(curUser, Barrier.class).setShield(Math.round(shield));
 						curUser.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(Math.round(shield)), FloatingText.SHIELDING);
 						curWand.curCharges = 0;
 						curUser.sprite.operate(curUser.pos);
@@ -721,29 +701,29 @@ public abstract class Wand extends Item {
 
 					//backup barrier logic
 					//This triggers before the wand zap, mostly so the barrier helps vs skeletons
-					if (curUser.hasTalent(Talent.BACKUP_BARRIER)
+					if (curUser.有天赋(Talent.BACKUP_BARRIER)
 							&& curWand.curCharges == curWand.chargesPerCast()
 							&& curWand.charger != null && curWand.charger.target == curUser){
 
 						//regular. If hero owns wand but it isn't in belongings it must be in the staff
 						if (curUser.heroClass == HeroClass.MAGE && !curUser.belongings.contains(curWand)){
 							//grants 3/5 shielding
-							int shieldToGive = 1 + 2 * Dungeon.hero.pointsInTalent(Talent.BACKUP_BARRIER);
-							Buff.affect(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+							int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,5);
+							Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
 							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 
 						//metamorphed. Triggers if wand is highest level hero has
 						} else if (curUser.heroClass != HeroClass.MAGE) {
 							boolean highest = true;
 							for (Item i : curUser.belongings.getAllItems(Wand.class)){
-								if (i.level() > curWand.level()){
+								if (i.等级() > curWand.等级()){
 									highest = false;
 								}
 							}
 							if (highest){
 								//grants 3/5 shielding
-								int shieldToGive = 1 + 2 * Dungeon.hero.pointsInTalent(Talent.BACKUP_BARRIER);
-								Buff.affect(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+								int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,5);
+								Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
 								Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 							}
 						}

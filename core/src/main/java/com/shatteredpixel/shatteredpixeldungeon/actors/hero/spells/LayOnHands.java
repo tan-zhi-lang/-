@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -49,7 +30,7 @@ public class LayOnHands extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", 10 + 5*Dungeon.hero.pointsInTalent(Talent.LAY_ON_HANDS)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.LAY_ON_HANDS,10)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
@@ -59,7 +40,7 @@ public class LayOnHands extends TargetedClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.LAY_ON_HANDS);
+		return super.canCast(hero) && hero.有天赋(Talent.LAY_ON_HANDS);
 	}
 
 	@Override
@@ -105,24 +86,24 @@ public class LayOnHands extends TargetedClericSpell {
 	}
 
 	private void affectChar(Hero hero, Char ch){
-		int totalHeal = 10 + 5*hero.pointsInTalent(Talent.LAY_ON_HANDS);
+		int totalHeal = hero.天赋点数(Talent.LAY_ON_HANDS,10);
 		int totalBarrier = 0;
 		if (ch == hero){
-			Barrier barrier = Buff.affect(ch, Barrier.class);
+			Barrier barrier = Buff.施加(ch, Barrier.class);
 			totalBarrier = totalHeal;
 			totalBarrier = Math.min(3*totalHeal - barrier.shielding(), totalBarrier);
 			totalBarrier = Math.max(0, totalBarrier);
-			Buff.affect(ch, Barrier.class).incShield(totalBarrier);
+			Buff.施加(ch, Barrier.class).incShield(totalBarrier);
 			ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(totalBarrier), FloatingText.SHIELDING );
 		} else {
-			if (ch.HT - ch.HP < totalHeal){
-				totalBarrier = totalHeal - (ch.HT - ch.HP);
-				if (ch.HP != ch.HT) {
-					ch.HP = ch.HT;
+			if (ch.最大生命 - ch.生命 < totalHeal){
+				totalBarrier = totalHeal - (ch.最大生命 - ch.生命);
+				if (ch.生命 != ch.最大生命) {
+					ch.生命 = ch.最大生命;
 					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalHeal - totalBarrier), FloatingText.HEALING);
 				}
 				if (totalBarrier > 0) {
-					Barrier barrier = Buff.affect(ch, Barrier.class);
+					Barrier barrier = Buff.施加(ch, Barrier.class);
 					totalBarrier = Math.min(3 * totalHeal - barrier.shielding(), totalBarrier);
 					totalBarrier = Math.max(0, totalBarrier);
 					if (totalBarrier > 0) {
@@ -131,7 +112,7 @@ public class LayOnHands extends TargetedClericSpell {
 					}
 				}
 			} else {
-				ch.HP = ch.HP + totalHeal;
+				ch.生命 = ch.生命 + totalHeal;
 				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(totalHeal), FloatingText.HEALING );
 			}
 		}

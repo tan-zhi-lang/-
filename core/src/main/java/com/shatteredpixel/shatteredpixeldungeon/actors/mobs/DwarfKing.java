@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -81,8 +62,8 @@ public class DwarfKing extends Mob {
 	{
 		spriteClass = KingSprite.class;
 
-		HP = HT = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 450 : 300;
-		EXP = 40;
+		生命 = 最大生命 = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 450 : 300;
+		经验 = 40;
 		defenseSkill = 22;
 
 		properties.add(Property.BOSS);
@@ -90,12 +71,12 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 15, 25 );
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 26;
 	}
 
@@ -359,8 +340,8 @@ public class DwarfKing extends Mob {
 		}
 
 		if (furthest != null) {
-			Buff.append(furthest, LifeLink.class, 100f).object = id();
-			Buff.append(this, LifeLink.class, 100f).object = furthest.id();
+			Buff.新增(furthest, LifeLink.class, 100f).object = id();
+			Buff.新增(this, LifeLink.class, 100f).object = furthest.id();
 			yell(Messages.get(this, "lifelink_" + Random.IntRange(1, 2)));
 			sprite.parent.add(new Beam.HealthRay(sprite.destinationCenter(), furthest.sprite.destinationCenter()));
 			return true;
@@ -467,14 +448,14 @@ public class DwarfKing extends Mob {
 			return;
 		} else if (phase == 3 && !(src instanceof Viscosity.DeferedDamage)){
 			if (dmg >= 0) {
-				Viscosity.DeferedDamage deferred = Buff.affect( this, Viscosity.DeferedDamage.class );
+				Viscosity.DeferedDamage deferred = Buff.施加( this, Viscosity.DeferedDamage.class );
 				deferred.extend( dmg );
 
 				sprite.showStatus( CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg) );
 			}
 			return;
 		}
-		int preHP = HP;
+		int preHP = 生命;
 		super.damage(dmg, src);
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
@@ -484,18 +465,18 @@ public class DwarfKing extends Mob {
 		}
 
 		if (phase == 1) {
-			int dmgTaken = preHP - HP;
+			int dmgTaken = preHP - 生命;
 			abilityCooldown -= dmgTaken/8f;
 			summonCooldown -= dmgTaken/8f;
-			if (HP <= (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50)) {
-				HP = (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50);
+			if (生命 <= (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50)) {
+				生命 = (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50);
 				sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
 				ScrollOfTeleportation.appear(this, CityBossLevel.throne);
 				properties.add(Property.IMMOVABLE);
 				phase = 2;
 				summonsMade = 0;
 				sprite.idle();
-				Buff.affect(this, DKBarrior.class).setShield(HT);
+				Buff.施加(this, DKBarrior.class).setShield(最大生命);
 				for (Summoning s : buffs(Summoning.class)) {
 					s.detach();
 				}
@@ -529,7 +510,7 @@ public class DwarfKing extends Mob {
 					});
 				}
 			});
-		} else if (phase == 3 && preHP > 20 && HP < 20 && isAlive()){
+		} else if (phase == 3 && preHP > 20 && 生命 < 20 && isAlive()){
 			yell( Messages.get(this, "losing") );
 		}
 	}
@@ -691,21 +672,21 @@ public class DwarfKing extends Mob {
 				if (Actor.findChar(pos) == null) {
 					Mob m = Reflection.newInstance(summon);
 					m.pos = pos;
-					m.maxLvl = -2;
+					m.最大等级 = -2;
 					GameScene.add(m);
 					Dungeon.level.occupyCell(m);
 					m.state = m.HUNTING;
 					if (((DwarfKing)target).phase == 2){
-						Buff.affect(m, KingDamager.class);
+						Buff.施加(m, KingDamager.class);
 					}
 				} else {
 					Char ch = Actor.findChar(pos);
 					ch.damage(Random.NormalIntRange(20, 40), this);
 					if (((DwarfKing)target).phase == 2){
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-							target.damage(target.HT/18, new KingDamager());
+							target.damage(target.最大生命 /18, new KingDamager());
 						} else {
-							target.damage(target.HT/12, new KingDamager());
+							target.damage(target.最大生命 /12, new KingDamager());
 						}
 					}
 					if (!ch.isAlive() && ch == Dungeon.hero) {
@@ -782,7 +763,7 @@ public class DwarfKing extends Mob {
 			super.detach();
 			for (Mob m : Dungeon.level.mobs){
 				if (m instanceof DwarfKing){
-					int damage = m.HT / (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 18 : 12);
+					int damage = m.最大生命 / (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 18 : 12);
 					m.damage(damage, this);
 				}
 			}

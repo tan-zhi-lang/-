@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
@@ -52,7 +33,7 @@ public class MirrorImage extends NPC {
 	{
 		spriteClass = MirrorSprite.class;
 		
-		HP = HT = 1;
+		生命 = 最大生命 = 1;
 		defenseSkill = 1;
 		
 		alignment = Alignment.ALLY;
@@ -103,24 +84,24 @@ public class MirrorImage extends NPC {
 	public void duplicate( Hero hero ) {
 		this.hero = hero;
 		heroID = this.hero.id();
-		Buff.affect(this, MirrorInvis.class, Short.MAX_VALUE);
+		Buff.施加(this, MirrorInvis.class, Short.MAX_VALUE);
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		int damage;
 		if (hero.belongings.weapon() != null){
 			damage = hero.belongings.weapon().damageRoll(this);
 		} else {
-			damage = hero.damageRoll(); //handles ring of force
+			damage = hero.攻击(); //handles ring of force
 		}
 		return (damage+1)/2; //half hero damage, rounded up
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		//same base attack skill as hero, benefits from accuracy ring and weapon
-		int attackSkill = 9 + hero.当前等级;
+		int attackSkill = 9 + hero.等级;
 		attackSkill *= RingOfAccuracy.accuracyMultiplier(hero);
 		if (hero.belongings.attackingWeapon() != null){
 			attackSkill *= hero.belongings.attackingWeapon().accuracyFactor(this, target);
@@ -131,8 +112,8 @@ public class MirrorImage extends NPC {
 	@Override
 	public int defenseSkill(Char enemy) {
 		if (hero != null) {
-			int baseEvasion = 4 + hero.当前等级;
-			int heroEvasion = (int)((4 + hero.当前等级) * RingOfEvasion.evasionMultiplier( hero ));
+			int baseEvasion = 4 + hero.等级;
+			int heroEvasion = (int)((4 + hero.等级) * RingOfEvasion.evasionMultiplier( hero ));
 			
 			//if the hero has more/less evasion, 50% of it is applied
 			//includes ring of evasion boost
@@ -175,7 +156,7 @@ public class MirrorImage extends NPC {
 			((Mob)enemy).aggro( this );
 		}
 		if (hero.belongings.weapon() != null){
-			damage = hero.belongings.weapon().proc( this, enemy, damage );
+			damage = hero.belongings.weapon().攻击时( this, enemy, damage );
 			if (!enemy.isAlive() && enemy == Dungeon.hero){
 				Dungeon.fail(this);
 				GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );

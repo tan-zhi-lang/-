@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -48,11 +29,11 @@ public class CrystalGuardian extends Mob{
 	{
 		spriteClass = CrystalGuardianSprite.class;
 
-		HP = HT = 100;
+		生命 = 最大生命 = 100;
 		defenseSkill = 14;
 
-		EXP = 10;
-		maxLvl = -2;
+		经验 = 10;
+		最大等级 = -2;
 
 		SLEEPING = new Sleeping();
 		state = SLEEPING;
@@ -74,11 +55,11 @@ public class CrystalGuardian extends Mob{
 				buff(PinCushion.class).detach();
 			}
 			throwItems();
-			HP = Math.min(HT, HP+5);
+			生命 = Math.min(最大生命, 生命 +5);
 			if (Dungeon.level.heroFOV[pos]) {
 				sprite.showStatusWithIcon(CharSprite.POSITIVE, "5", FloatingText.HEALING);
 			}
-			if (HP == HT){
+			if (生命 == 最大生命){
 				recovering = false;
 				if (sprite instanceof CrystalGuardianSprite) ((CrystalGuardianSprite) sprite).endCrumple();
 			}
@@ -89,12 +70,12 @@ public class CrystalGuardian extends Mob{
 	}
 
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 10, 16 );
 	}
 
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 20;
 	}
 
@@ -126,7 +107,7 @@ public class CrystalGuardian extends Mob{
 		if (enemy == Dungeon.hero){
 			boolean spireNear = false;
 			for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])){
-				if (m instanceof CrystalSpire && m.HP != m.HT && Dungeon.level.distance(pos, m.pos) <= 8){
+				if (m instanceof CrystalSpire && m.生命 != m.最大生命 && Dungeon.level.distance(pos, m.pos) <= 8){
 					spireNear = true;
 				}
 			}
@@ -142,7 +123,7 @@ public class CrystalGuardian extends Mob{
 		if (recovering){
 			//this triggers before blocking, so the dmg as block-bypassing
 			sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(damage), FloatingText.PHYS_DMG_NO_BLOCK);
-			HP = Math.max(1, HP-damage);
+			生命 = Math.max(1, 生命 -damage);
 			damage = -1;
 		}
 
@@ -151,8 +132,8 @@ public class CrystalGuardian extends Mob{
 
 	@Override
 	public boolean isAlive() {
-		if (HP <= 0){
-			HP = 1;
+		if (生命 <= 0){
+			生命 = 1;
 
 			for (Buff b : buffs()){
 				if (!(b instanceof Doom || b instanceof Cripple)) {

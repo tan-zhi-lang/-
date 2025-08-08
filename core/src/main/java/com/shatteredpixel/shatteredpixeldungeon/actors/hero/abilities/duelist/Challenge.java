@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist;
 
@@ -78,7 +59,7 @@ public class Challenge extends ArmorAbility {
 		float chargeUse = super.chargeUse(hero);
 		if (hero.buff(EliminationMatchTracker.class) != null){
 			//reduced charge use by 16%/30%/41%/50%
-			chargeUse *= Math.pow(0.84, hero.pointsInTalent(Talent.ELIMINATION_MATCH));
+			chargeUse *= Math.pow(0.84, hero.天赋点数(Talent.ELIMINATION_MATCH));
 		}
 		return chargeUse;
 	}
@@ -114,9 +95,9 @@ public class Challenge extends ArmorAbility {
 		int[] reachable = PathFinder.distance.clone();
 
 		int blinkpos = hero.pos;
-		if (hero.hasTalent(Talent.CLOSE_THE_GAP) && !hero.rooted){
+		if (hero.有天赋(Talent.CLOSE_THE_GAP) && !hero.rooted){
 
-			int blinkrange = 1 + hero.pointsInTalent(Talent.CLOSE_THE_GAP);
+			int blinkrange = 1 + hero.天赋点数(Talent.CLOSE_THE_GAP);
 			PathFinder.buildDistanceMap(hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null), blinkrange);
 
 			for (int i = 0; i < PathFinder.distance.length; i++){
@@ -167,12 +148,12 @@ public class Challenge extends ArmorAbility {
 			if (toFreeze != targetCh && toFreeze.alignment != Char.Alignment.ALLY && !(toFreeze instanceof NPC)
 				&& (!bossTarget || !(Char.hasProp(targetCh, Char.Property.BOSS) || Char.hasProp(targetCh, Char.Property.BOSS_MINION)))) {
 				Actor.delayChar(toFreeze, DuelParticipant.DURATION);
-				Buff.affect(toFreeze, SpectatorFreeze.class, DuelParticipant.DURATION);
+				Buff.施加(toFreeze, SpectatorFreeze.class, DuelParticipant.DURATION);
 			}
 		}
 
-		Buff.affect(targetCh, DuelParticipant.class);
-		Buff.affect(hero, DuelParticipant.class);
+		Buff.施加(targetCh, DuelParticipant.class);
+		Buff.施加(hero, DuelParticipant.class);
 		if (targetCh instanceof Mob){
 			((Mob) targetCh).aggro(hero);
 		}
@@ -257,7 +238,7 @@ public class Challenge extends ArmorAbility {
 				if (!target.isAlive() || target.alignment == Dungeon.hero.alignment){
 					Sample.INSTANCE.play(Assets.Sounds.BOSS);
 
-					if (Dungeon.hero.hasTalent(Talent.INVIGORATING_VICTORY)){
+					if (Dungeon.hero.有天赋(Talent.INVIGORATING_VICTORY)){
 						DuelParticipant heroBuff = Dungeon.hero.buff(DuelParticipant.class);
 
 						int hpToHeal = 0;
@@ -266,11 +247,11 @@ public class Challenge extends ArmorAbility {
 						}
 
 						//heals for 30%/50%/65%/75% of taken damage plus 5/10/15/20 bonus, based on talent points
-						hpToHeal = (int)Math.round(hpToHeal * (1f - Math.pow(0.707f, Dungeon.hero.pointsInTalent(Talent.INVIGORATING_VICTORY))));
-						hpToHeal += 5*Dungeon.hero.pointsInTalent(Talent.INVIGORATING_VICTORY);
-						hpToHeal = Math.min(hpToHeal, Dungeon.hero.HT - Dungeon.hero.HP);
+						hpToHeal = (int)Math.round(hpToHeal * (1f - Math.pow(0.707f, Dungeon.hero.天赋点数(Talent.INVIGORATING_VICTORY))));
+						hpToHeal += 5*Dungeon.hero.天赋点数(Talent.INVIGORATING_VICTORY);
+						hpToHeal = Math.min(hpToHeal, Dungeon.hero.最大生命 - Dungeon.hero.生命);
 						if (hpToHeal > 0){
-							Dungeon.hero.HP += hpToHeal;
+							Dungeon.hero.生命 += hpToHeal;
 							Dungeon.hero.sprite.emitter().start( Speck.factory( Speck.HEALING ), 0.33f, 6 );
 							Dungeon.hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hpToHeal), FloatingText.HEALING );
 						}
@@ -281,8 +262,8 @@ public class Challenge extends ArmorAbility {
 				if (Dungeon.hero.isAlive()) {
 					GameScene.flash(0x80FFFFFF);
 
-					if (Dungeon.hero.hasTalent(Talent.ELIMINATION_MATCH)){
-						Buff.affect(target, EliminationMatchTracker.class, 3);
+					if (Dungeon.hero.有天赋(Talent.ELIMINATION_MATCH)){
+						Buff.施加(target, EliminationMatchTracker.class, 3);
 					}
 				}
 			}

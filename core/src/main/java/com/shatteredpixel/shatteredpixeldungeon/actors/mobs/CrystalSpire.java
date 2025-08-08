@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -60,10 +41,10 @@ public class CrystalSpire extends Mob {
 
 	{
 		//this translates to roughly 33/27/23/20/18/16 pickaxe hits at +0/1/2/3/4/5
-		HP = HT = 300;
+		生命 = 最大生命 = 300;
 		spriteClass = CrystalSpireSprite.class;
 
-		EXP = 20;
+		经验 = 20;
 
 		//acts after other mobs, which makes baiting crystal guardians more consistent
 		actPriority = MOB_PRIO-1;
@@ -129,7 +110,7 @@ public class CrystalSpire extends Mob {
 					//guardians are hit harder by the attack
 					if (ch instanceof CrystalGuardian) {
 						dmg += 12; //18-27 damage
-						Buff.prolong(ch, Cripple.class, 30f);
+						Buff.延长(ch, Cripple.class, 30f);
 					} else if (ch == Dungeon.hero){
 						Statistics.questScores[2] -= 100;
 					}
@@ -218,10 +199,10 @@ public class CrystalSpire extends Mob {
 		aoeCells.addAll(spreadDiamondAOE(aoeCells));
 		targetedCells.add(new ArrayList<>(aoeCells));
 
-		if (HP < 2*HT/3f){
+		if (生命 < 2* 最大生命 /3f){
 			aoeCells.addAll(spreadDiamondAOE(aoeCells));
 			targetedCells.add(new ArrayList<>(aoeCells));
-			if (HP < HT/3f) {
+			if (生命 < 最大生命 /3f) {
 				aoeCells.addAll(spreadDiamondAOE(aoeCells));
 				targetedCells.add(aoeCells);
 			}
@@ -255,10 +236,10 @@ public class CrystalSpire extends Mob {
 		}
 
 		targetedCells.add(new ArrayList<>(lineCells));
-		if (HP < 2*HT/3f){
+		if (生命 < 2* 最大生命 /3f){
 			lineCells.addAll(spreadDiamondAOE(lineCells));
 			targetedCells.add(new ArrayList<>(lineCells));
-			if (HP < HT/3f) {;
+			if (生命 < 最大生命 /3f) {;
 				lineCells.addAll(spreadDiamondAOE(lineCells));
 				targetedCells.add(lineCells);
 			}
@@ -329,7 +310,7 @@ public class CrystalSpire extends Mob {
 					sprite.bloodBurstA(Dungeon.hero.sprite.center(), dmg);
 					sprite.flash();
 
-					BossHealthBar.bleed(HP <= HT/3);
+					BossHealthBar.bleed(生命 <= 最大生命 /3);
 
 					if (isAlive()) {
 						Sample.INSTANCE.play(Assets.Sounds.SHATTER, 1f, Random.Float(1.15f, 1.25f));
@@ -360,10 +341,10 @@ public class CrystalSpire extends Mob {
 						for (Char ch : Actor.chars()){
 							if (fieldOfView[ch.pos]) {
 								if (ch instanceof CrystalGuardian) {
-									ch.damage(ch.HT, new SpireSpike());
+									ch.damage(ch.最大生命, new SpireSpike());
 								}
 								if (ch instanceof CrystalWisp) {
-									Buff.affect(ch, Blindness.class, 5f);
+									Buff.施加(ch, Blindness.class, 5f);
 								}
 							}
 						}
@@ -422,7 +403,7 @@ public class CrystalSpire extends Mob {
 
 										//delays sleeping guardians that happen to be near to the crystal
 										if (PathFinder.distance[ch.pos] < 20){
-											Buff.affect(ch, Paralysis.class, 20-PathFinder.distance[ch.pos]);
+											Buff.施加(ch, Paralysis.class, 20-PathFinder.distance[ch.pos]);
 										}
 
 									} else if (((CrystalGuardian) ch).state != ((CrystalGuardian) ch).HUNTING && ((CrystalGuardian) ch).target != pos){
@@ -433,7 +414,7 @@ public class CrystalSpire extends Mob {
 
 										//speeds up already woken guardians that aren't very close
 										if (PathFinder.distance[ch.pos] > 8){
-											Buff.affect(ch, Haste.class, Math.round((PathFinder.distance[ch.pos]-8)/2f));
+											Buff.施加(ch, Haste.class, Math.round((PathFinder.distance[ch.pos]-8)/2f));
 										}
 									}
 								}

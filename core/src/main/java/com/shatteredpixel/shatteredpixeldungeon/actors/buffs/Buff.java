@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -159,43 +140,43 @@ public class Buff extends Actor {
 	}
 
 	//creates a fresh instance of the buff and attaches that, this allows duplication.
-	public static<T extends Buff> T append( Char target, Class<T> buffClass ) {
+	public static<T extends Buff> T 新增(Char target, Class<T> buffClass ) {//重复
 		T buff = Reflection.newInstance(buffClass);
 		buff.attachTo( target );
 		return buff;
 	}
 
-	public static<T extends FlavourBuff> T append( Char target, Class<T> buffClass, float duration ) {
-		T buff = append( target, buffClass );
+	public static<T extends FlavourBuff> T 新增(Char target, Class<T> buffClass, float duration ) {
+		T buff = 新增( target, buffClass );
 		buff.spend( duration * target.resist(buffClass) );
 		return buff;
 	}
 
 	//same as append, but prevents duplication.
-	public static<T extends Buff> T affect( Char target, Class<T> buffClass ) {
+	public static<T extends Buff> T 施加(Char target, Class<T> buffClass ) {//不重复
 		T buff = target.buff( buffClass );
 		if (buff != null) {
 			return buff;
 		} else {
-			return append( target, buffClass );
+			return 新增( target, buffClass );
 		}
 	}
 	
-	public static<T extends FlavourBuff> T affect( Char target, Class<T> buffClass, float duration ) {
-		T buff = affect( target, buffClass );
+	public static<T extends FlavourBuff> T 施加(Char target, Class<T> buffClass, float duration ) {
+		T buff = 施加( target, buffClass );
 		buff.spend( duration * target.resist(buffClass) );
 		return buff;
 	}
 
 	//postpones an already active buff, or creates & attaches a new buff and delays that.
-	public static<T extends FlavourBuff> T prolong( Char target, Class<T> buffClass, float duration ) {
-		T buff = affect( target, buffClass );
+	public static<T extends FlavourBuff> T 延长(Char target, Class<T> buffClass, float duration ) {//没有新增
+		T buff = 施加( target, buffClass );
 		buff.postpone( duration * target.resist(buffClass) );
 		return buff;
 	}
 
 	public static<T extends CounterBuff> T count( Char target, Class<T> buffclass, float count ) {
-		T buff = affect( target, buffclass );
+		T buff = 施加( target, buffclass );
 		buff.countUp( count );
 		return buff;
 	}

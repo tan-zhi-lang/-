@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
@@ -33,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfExperience;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -141,21 +122,21 @@ public class Pasty extends Food {
 				}
 
 				if (target != null){
-					Buff.affect(target, Charm.class, 5f).object = hero.id();
+					Buff.施加(target, Charm.class, 5f).object = hero.id();
 				}
 				hero.sprite.emitter().burst(RainbowParticle.BURST, 15);
 				break;
 			case SHATTEREDPD_BIRTHDAY:
 			case PD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
-				int expToGive = Math.max(2, hero.maxExp()/10);
+				int expToGive = Math.max(2, hero.升级所需()/10);
 				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(expToGive), FloatingText.EXPERIENCE);
-				hero.earnExp(expToGive, PotionOfExperience.class);
+				hero.经验(expToGive, 经验药剂.class);
 				break;
 			case HALLOWEEN:
 				//heals for 5% max hp, min of 3
-				int toHeal = Math.max(3, hero.HT/20);
-				hero.HP = Math.min(hero.HP + toHeal, hero.HT);
+				int toHeal = Math.max(3, hero.最大生命 /20);
+				hero.生命 = Math.min(hero.生命 + toHeal, hero.最大生命);
 				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(toHeal), FloatingText.HEALING );
 				break;
 			case WINTER_HOLIDAYS:
@@ -164,8 +145,8 @@ public class Pasty extends Food {
 				break;
 			case NEW_YEARS:
 				//shields for 10% of max hp, min of 5
-				int toShield = Math.max(5, hero.HT/10);
-				Buff.affect(hero, Barrier.class).setShield(toShield);
+				int toShield = Math.max(5, hero.最大生命 /10);
+				Buff.施加(hero, Barrier.class).setShield(toShield);
 				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
 		}

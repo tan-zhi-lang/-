@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles;
 
@@ -147,7 +128,7 @@ abstract public class MissileWeapon extends Weapon {
 			durability = MAX_DURABILITY;
 			extraThrownLeft = false;
 			quantity = defaultQuantity();
-			Buff.affect(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
+			Buff.施加(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
 		}
 		//thrown weapons don't get curse weakened
 		boolean wasCursed = cursed;
@@ -164,7 +145,7 @@ abstract public class MissileWeapon extends Weapon {
 			durability = MAX_DURABILITY;
 			extraThrownLeft = false;
 			quantity = defaultQuantity();
-			Buff.affect(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
+			Buff.施加(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
 		}
 		return super.upgrade();
 	}
@@ -193,7 +174,7 @@ abstract public class MissileWeapon extends Weapon {
 		if (hasEnchant(Projecting.class, user)){
 			projecting += 4;
 		}
-		if ((!(this instanceof SpiritBow.SpiritArrow) && Random.Int(3) < user.pointsInTalent(Talent.SHARED_ENCHANTMENT))){
+		if ((!(this instanceof SpiritBow.SpiritArrow) && Random.Int(3) < user.天赋点数(Talent.SHARED_ENCHANTMENT))){
 			SpiritBow bow = Dungeon.hero.belongings.getItem(SpiritBow.class);
 			if (bow != null && bow.hasEnchant(Projecting.class, user)) {
 				projecting += 4;
@@ -221,7 +202,7 @@ abstract public class MissileWeapon extends Weapon {
 	protected float adjacentAccFactor(Char owner, Char target){
 		if (Dungeon.level.adjacent( owner.pos, target.pos )) {
 			if (owner instanceof Hero){
-				return (0.5f + 0.2f*((Hero) owner).pointsInTalent(Talent.POINT_BLANK));
+				return (0.5f + ((Hero) owner).天赋点数(Talent.POINT_BLANK,0.25f));
 			} else {
 				return 0.5f;
 			}
@@ -233,7 +214,7 @@ abstract public class MissileWeapon extends Weapon {
 	@Override
 	public void doThrow(Hero hero) {
 		parent = null; //reset parent before throwing, just in case
-		if (((levelKnown && level() > 0) || hasGoodEnchant() || masteryPotionBonus || enchantHardened)
+		if (((levelKnown && 等级() > 0) || hasGoodEnchant() || masteryPotionBonus || enchantHardened)
 				&& !extraThrownLeft && quantity() == 1 && durabilityLeft() <= durabilityPerUse()){
 			GameScene.show(new WndOptions(new ItemSprite(this), Messages.titleCase(title()),
 					Messages.get(MissileWeapon.class, "break_upgraded_warn_desc"),
@@ -269,14 +250,14 @@ abstract public class MissileWeapon extends Weapon {
 			parent = null;
 
 			//metamorphed seer shot logic
-			if (curUser.hasTalent(Talent.SEER_SHOT)
+			if (curUser.有天赋(Talent.SEER_SHOT)
 					&& curUser.heroClass != HeroClass.HUNTRESS
 					&& curUser.buff(Talent.SeerShotCooldown.class) == null){
 				if (Actor.findChar(cell) == null) {
-					RevealedArea a = Buff.affect(curUser, RevealedArea.class, 5 * curUser.pointsInTalent(Talent.SEER_SHOT));
+					RevealedArea a = Buff.施加(curUser, RevealedArea.class, curUser.天赋点数(Talent.SEER_SHOT,5));
 					a.depth = Dungeon.depth;
 					a.pos = cell;
-					Buff.affect(curUser, Talent.SeerShotCooldown.class, 20f);
+					Buff.施加(curUser, Talent.SeerShotCooldown.class, 20f);
 				}
 			}
 
@@ -293,8 +274,8 @@ abstract public class MissileWeapon extends Weapon {
 	}
 
 	@Override
-	public int proc(Char attacker, Char defender, int damage) {
-		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.pointsInTalent(Talent.SHARED_ENCHANTMENT)){
+	public int 攻击时(Char attacker, Char defender, int damage) {
+		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.天赋点数(Talent.SHARED_ENCHANTMENT)){
 			SpiritBow bow = Dungeon.hero.belongings.getItem(SpiritBow.class);
 			if (bow != null && bow.enchantment != null && Dungeon.hero.buff(MagicImmune.class) == null) {
 				damage = bow.enchantment.proc(this, attacker, defender, damage);
@@ -308,12 +289,12 @@ abstract public class MissileWeapon extends Weapon {
 		if (parent != null) parent.cursedKnown = true;
 
 		//instant ID with the right talent
-		if (attacker == Dungeon.hero && Dungeon.hero.pointsInTalent(Talent.SURVIVALISTS_INTUITION) == 2){
+		if (attacker == Dungeon.hero && Dungeon.hero.天赋点数(Talent.SURVIVALISTS_INTUITION) == 2){
 			usesLeftToID = Math.min(usesLeftToID, 0);
 			availableUsesToID =  Math.max(usesLeftToID, 0);
 		}
 
-		int result = super.proc(attacker, defender, damage);
+		int result = super.攻击时(attacker, defender, damage);
 
 		//handle ID progress over parent/child
 		if (parent != null && parent.usesLeftToID > usesLeftToID){
@@ -324,13 +305,13 @@ abstract public class MissileWeapon extends Weapon {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					parent.setIDReady();
 				} else {
-					parent.identify();
+					parent.鉴定();
 				}
 			}
 		}
 
 		if (!isIdentified() && ShardOfOblivion.passiveIDDisabled()){
-			Buff.prolong(curUser, ShardOfOblivion.ThrownUseTracker.class, 50f);
+			Buff.延长(curUser, ShardOfOblivion.ThrownUseTracker.class, 50f);
 		}
 
 		return result;
@@ -364,7 +345,7 @@ abstract public class MissileWeapon extends Weapon {
 				n++;
 			}
 		}
-		level(n);
+		等级(n);
 
 		//we use a separate RNG here so that variance due to things like parchment scrap
 		//does not affect levelgen
@@ -404,7 +385,7 @@ abstract public class MissileWeapon extends Weapon {
 		if (durability > 0 && !spawnedForEffect){
 			//attempt to stick the missile weapon to the enemy, just drop it if we can't.
 			if (sticky && enemy != null && enemy.isActive() && enemy.alignment != Char.Alignment.ALLY){
-				PinCushion p = Buff.affect(enemy, PinCushion.class);
+				PinCushion p = Buff.施加(enemy, PinCushion.class);
 				if (p.target == enemy){
 					p.stick(this);
 					return;
@@ -434,7 +415,7 @@ abstract public class MissileWeapon extends Weapon {
 	}
 
 	public final float durabilityPerUse(){
-		return durabilityPerUse(level());
+		return durabilityPerUse(等级());
 	}
 
 	//classes that add steps onto durabilityPerUse can turn rounding off, to do their own rounding after more logic
@@ -444,8 +425,8 @@ abstract public class MissileWeapon extends Weapon {
 		float usages = baseUses * (float)(Math.pow(1.5f, level));
 
 		//+33%/50% durability
-		if (Dungeon.hero != null && Dungeon.hero.hasTalent(Talent.DURABLE_PROJECTILES)){
-			usages *= 1f + (1+Dungeon.hero.pointsInTalent(Talent.DURABLE_PROJECTILES))/6f;
+		if (Dungeon.hero != null && Dungeon.hero.有天赋(Talent.DURABLE_PROJECTILES)){
+			usages *= 1f + Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES,0.3f);
 		}
 		if (holster) {
 			usages *= MagicalHolster.HOLSTER_DURABILITY_FACTOR;
@@ -502,12 +483,12 @@ abstract public class MissileWeapon extends Weapon {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
 		
 		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).STR() - STRReq();
+			int exStr = ((Hero)owner).力量() - STRReq();
 			if (exStr > 0) {
 				damage += Hero.heroDamageIntRange( 0, exStr );
 			}
 			if (owner.buff(Momentum.class) != null && owner.buff(Momentum.class).freerunning()) {
-				damage = Math.round(damage * (1f + 0.1f * ((Hero) owner).pointsInTalent(Talent.PROJECTILE_MOMENTUM)));
+				damage = Math.round(damage * (1f + ((Hero) owner).天赋点数(Talent.PROJECTILE_MOMENTUM,0.1f)));
 			}
 		}
 		
@@ -616,15 +597,15 @@ abstract public class MissileWeapon extends Weapon {
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), STRReq());
 			if (Dungeon.hero != null) {
-				if (STRReq() > Dungeon.hero.STR()) {
+				if (STRReq() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
-				} else if (Dungeon.hero.STR() > STRReq()) {
-					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.STR() - STRReq());
+				} else if (Dungeon.hero.力量() > STRReq()) {
+					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - STRReq());
 				}
 			}
 		} else {
 			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_unknown", tier, min(0), max(0), STRReq(0));
-			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.STR()) {
+			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MissileWeapon.class, "probably_too_heavy");
 			}
 		}
@@ -686,8 +667,8 @@ abstract public class MissileWeapon extends Weapon {
 		if (cursedKnown && (cursed || hasCurseEnchant())) {
 			price /= 2;
 		}
-		if (levelKnown && level() > 0) {
-			price *= (level() + 1);
+		if (levelKnown && 等级() > 0) {
+			price *= (等级() + 1);
 		}
 		if (price < 1) {
 			price = 1;
@@ -724,7 +705,7 @@ abstract public class MissileWeapon extends Weapon {
 		} else {
 			//if we have a higher than 0 level, assume that this was a solitary thrown wep upgrade
 			//turn it into a set of full quantity
-			if (level() > 0){
+			if (等级() > 0){
 				//set ID will be a random long
 				quantity = defaultQuantity();
 

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs;
 
@@ -43,7 +24,7 @@ public class Stone extends Armor.Glyph {
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 		
 		testing = true;
-		float accuracy = attacker.attackSkill(defender);
+		float accuracy = attacker.最大命中(defender);
 		float evasion = defender.defenseSkill(attacker);
 		testing = false;
 
@@ -57,10 +38,10 @@ public class Stone extends Armor.Glyph {
 		}
 		accuracy *= AscensionChallenge.statModifier(attacker);
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.BLESS)
+				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& attacker.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
-			accuracy *= 1.01f + 0.02f*Dungeon.hero.pointsInTalent(Talent.BLESS);
+			accuracy *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.03f);
 		}
 
 		if (defender.buff(Bless.class) != null) evasion *= 1.25f;
@@ -71,10 +52,10 @@ public class Stone extends Armor.Glyph {
 		}
 		evasion *= AscensionChallenge.statModifier(defender);
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.hasTalent(Talent.BLESS)
+				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& defender.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
-			evasion *= 1.01f + 0.02f*Dungeon.hero.pointsInTalent(Talent.BLESS);
+			evasion *= 1 + Dungeon.hero.天赋点数(Talent.BLESS,0.03f);
 		}
 		evasion *= FerretTuft.evasionMultiplier();
 

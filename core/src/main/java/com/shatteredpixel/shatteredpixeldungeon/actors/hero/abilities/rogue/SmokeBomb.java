@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue;
 
@@ -75,11 +56,11 @@ public class SmokeBomb extends ArmorAbility {
 
 	@Override
 	public float chargeUse(Hero hero) {
-		if (!hero.hasTalent(Talent.SHADOW_STEP) || hero.invisible <= 0){
+		if (!hero.有天赋(Talent.SHADOW_STEP) || hero.invisible <= 0){
 			return super.chargeUse(hero);
 		} else {
 			//reduced charge use by 16%/30%/41%/50%
-			return (float)(super.chargeUse(hero) * Math.pow(0.84, hero.pointsInTalent(Talent.SHADOW_STEP)));
+			return (float)(super.chargeUse(hero) * Math.pow(0.84, hero.天赋点数(Talent.SHADOW_STEP)));
 		}
 	}
 
@@ -105,18 +86,18 @@ public class SmokeBomb extends ArmorAbility {
 			armor.charge -= chargeUse(hero);
 			Item.updateQuickslot();
 
-			boolean shadowStepping = hero.invisible > 0 && hero.hasTalent(Talent.SHADOW_STEP);
+			boolean shadowStepping = hero.invisible > 0 && hero.有天赋(Talent.SHADOW_STEP);
 
 			if (!shadowStepping) {
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
 					if (Dungeon.level.adjacent(mob.pos, hero.pos) && mob.alignment != Char.Alignment.ALLY) {
-						Buff.prolong(mob, Blindness.class, Blindness.DURATION / 2f);
+						Buff.延长(mob, Blindness.class, Blindness.DURATION / 2f);
 						if (mob.state == mob.HUNTING) mob.state = mob.WANDERING;
 						mob.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 4);
 					}
 				}
 
-				if (hero.hasTalent(Talent.BODY_REPLACEMENT)) {
+				if (hero.有天赋(Talent.BODY_REPLACEMENT)) {
 					for (Char ch : Actor.chars()){
 						if (ch instanceof NinjaLog){
 							ch.die(null);
@@ -129,11 +110,11 @@ public class SmokeBomb extends ArmorAbility {
 					Dungeon.level.occupyCell(n);
 				}
 
-				if (hero.hasTalent(Talent.HASTY_RETREAT)){
+				if (hero.有天赋(Talent.HASTY_RETREAT)){
 					//effectively 1/2/3/4 turns
-					float duration = 0.67f + hero.pointsInTalent(Talent.HASTY_RETREAT);
-					Buff.affect(hero, Haste.class, duration);
-					Buff.affect(hero, Invisibility.class, duration);
+					float duration = 0.67f + hero.天赋点数(Talent.HASTY_RETREAT);
+					Buff.施加(hero, Haste.class, duration);
+					Buff.施加(hero, Invisibility.class, duration);
 				}
 			}
 
@@ -172,17 +153,17 @@ public class SmokeBomb extends ArmorAbility {
 
 			alignment = Alignment.ALLY;
 
-			HT = 20;
-			if (Dungeon.hero != null) HT *= Dungeon.hero.pointsInTalent(Talent.BODY_REPLACEMENT);
-			HP = HT;
+			最大生命 = 20;
+			if (Dungeon.hero != null) 最大生命 *= Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT);
+			生命 = 最大生命;
 		}
 
 		@Override
 		public int drRoll() {
 			int dr = super.drRoll();
 
-			dr += Random.NormalIntRange(Dungeon.hero.pointsInTalent(Talent.BODY_REPLACEMENT),
-					3*Dungeon.hero.pointsInTalent(Talent.BODY_REPLACEMENT));
+			dr += Random.NormalIntRange(Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT),
+					3*Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT));
 
 			return dr;
 		}

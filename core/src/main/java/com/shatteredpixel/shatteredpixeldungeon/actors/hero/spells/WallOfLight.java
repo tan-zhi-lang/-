@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -55,7 +36,7 @@ public class WallOfLight extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", 1 + 2*Dungeon.hero.pointsInTalent(Talent.WALL_OF_LIGHT)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", 1 + 2*Dungeon.hero.天赋点数(Talent.WALL_OF_LIGHT)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
@@ -74,7 +55,7 @@ public class WallOfLight extends TargetedClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.WALL_OF_LIGHT);
+		return super.canCast(hero) && hero.有天赋(Talent.WALL_OF_LIGHT);
 	}
 
 	@Override
@@ -116,7 +97,7 @@ public class WallOfLight extends TargetedClericSpell {
 		int rightDirX = 0;
 		int rightDirY = 0;
 
-		int steps = Dungeon.hero.pointsInTalent(Talent.WALL_OF_LIGHT);
+		int steps = Dungeon.hero.天赋点数(Talent.WALL_OF_LIGHT);
 
 		switch (closestIdx){
 			case 0: //top left
@@ -236,7 +217,7 @@ public class WallOfLight extends TargetedClericSpell {
 			Char ch = Actor.findChar(pos);
 			if (ch != null && ch.alignment == Char.Alignment.ENEMY){
 				WandOfBlastWave.throwChar(ch, new Ballistica(pos, pos+knockbackDIR, Ballistica.PROJECTILE), 1, false, false, WallOfLight.INSTANCE);
-				Buff.affect(ch, Paralysis.class, ch.cooldown());
+				Buff.施加(ch, Paralysis.class, ch.cooldown());
 			}
 		}
 	}

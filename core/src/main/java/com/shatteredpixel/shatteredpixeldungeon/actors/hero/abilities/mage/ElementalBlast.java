@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage;
 
@@ -159,7 +140,7 @@ public class ElementalBlast extends ArmorAbility {
 			return;
 		}
 
-		int aoeSize = 4 + hero.pointsInTalent(Talent.BLAST_RADIUS);
+		int aoeSize = 4 + hero.天赋点数(Talent.BLAST_RADIUS);
 
 		int projectileProps = Ballistica.STOP_SOLID | Ballistica.STOP_TARGET;
 
@@ -189,7 +170,7 @@ public class ElementalBlast extends ArmorAbility {
 			);
 		}
 
-		final float effectMulti = 1f + 0.25f*hero.pointsInTalent(Talent.ELEMENTAL_POWER);
+		final float effectMulti = 1f + 0.25f*hero.天赋点数(Talent.ELEMENTAL_POWER);
 
 		//cast a ray 2/3 the way, and do effects
 		Class<? extends Wand> finalWandCls = wandCls;
@@ -282,19 +263,19 @@ public class ElementalBlast extends ArmorAbility {
 								//*** Wand of Lightning ***
 								if (finalWandCls == WandOfLightning.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
-										Buff.affect( mob, Paralysis.class, effectMulti*Paralysis.DURATION/2 );
+										Buff.施加( mob, Paralysis.class, effectMulti*Paralysis.DURATION/2 );
 									}
 
 								//*** Wand of Fireblast ***
 								} else if (finalWandCls == WandOfFireblast.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
-										Buff.affect( mob, Burning.class ).reignite( mob );
+										Buff.施加( mob, Burning.class ).reignite( mob );
 									}
 
 								//*** Wand of Corrosion ***
 								} else if (finalWandCls == WandOfCorrosion.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
-										Buff.affect( mob, Corrosion.class ).set(4, Math.round(6*effectMulti));
+										Buff.施加( mob, Corrosion.class ).set(4, Math.round(6*effectMulti));
 										charsHit++;
 									}
 
@@ -315,13 +296,13 @@ public class ElementalBlast extends ArmorAbility {
 								//*** Wand of Frost ***
 								} else if (finalWandCls == WandOfFrost.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
-										Buff.affect( mob, Frost.class, effectMulti*Frost.DURATION );
+										Buff.施加( mob, Frost.class, effectMulti*Frost.DURATION );
 									}
 
 								//*** Wand of Prismatic Light ***
 								} else if (finalWandCls == WandOfPrismaticLight.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
-										Buff.prolong(mob, Blindness.class, effectMulti*Blindness.DURATION/2);
+										Buff.延长(mob, Blindness.class, effectMulti*Blindness.DURATION/2);
 										charsHit++;
 									}
 
@@ -336,14 +317,14 @@ public class ElementalBlast extends ArmorAbility {
 								} else if (finalWandCls == WandOfTransfusion.class){
 									if(mob.alignment == Char.Alignment.ALLY || mob.buff(Charm.class) != null){
 										int healing = Math.round(10*effectMulti);
-										int shielding = (mob.HP + healing) - mob.HT;
+										int shielding = (mob.生命 + healing) - mob.最大生命;
 										if (shielding > 0){
 											healing -= shielding;
-											Buff.affect(mob, Barrier.class).setShield(shielding);
+											Buff.施加(mob, Barrier.class).setShield(shielding);
 										} else {
 											shielding = 0;
 										}
-										mob.HP += healing;
+										mob.生命 += healing;
 
 										mob.sprite.emitter().burst(Speck.factory(Speck.HEALING), 4);
 
@@ -355,7 +336,7 @@ public class ElementalBlast extends ArmorAbility {
 										}
 									} else {
 										if (!mob.properties().contains(Char.Property.UNDEAD)) {
-											Charm charm = Buff.affect(mob, Charm.class, effectMulti*Charm.DURATION/2f);
+											Charm charm = Buff.施加(mob, Charm.class, effectMulti*Charm.DURATION/2f);
 											charm.object = hero.id();
 											charm.ignoreHeroAllies = true;
 											mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 3);
@@ -370,14 +351,14 @@ public class ElementalBlast extends ArmorAbility {
 								//*** Wand of Corruption ***
 								} else if (finalWandCls == WandOfCorruption.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
-										Buff.prolong(mob, Amok.class, effectMulti*5f);
+										Buff.延长(mob, Amok.class, effectMulti*5f);
 										charsHit++;
 									}
 
 								//*** Wand of Regrowth ***
 								} else if (finalWandCls == WandOfRegrowth.class){
 									if (mob.alignment != Char.Alignment.ALLY) {
-										Buff.prolong( mob, Roots.class, effectMulti*Roots.DURATION );
+										Buff.延长( mob, Roots.class, effectMulti*Roots.DURATION );
 										charsHit++;
 									}
 								}
@@ -388,7 +369,7 @@ public class ElementalBlast extends ArmorAbility {
 						//### Self-Effects ###
 						//*** Wand of Magic Missile ***
 						if (finalWandCls == WandOfMagicMissile.class) {
-							Buff.affect(hero, Recharging.class, effectMulti* Recharging.DURATION / 2f);
+							Buff.施加(hero, Recharging.class, effectMulti* Recharging.DURATION / 2f);
 							SpellSprite.show( hero, SpellSprite.CHARGE );
 
 						//*** Wand of Living Earth ***
@@ -410,18 +391,18 @@ public class ElementalBlast extends ArmorAbility {
 						//*** Wand of Prismatic Light ***
 						} else if (finalWandCls == WandOfPrismaticLight.class){
 							if (Dungeon.isChallenged(Challenges.DARKNESS)){
-								Buff.prolong(hero, Light.class, effectMulti * 10f);
+								Buff.延长(hero, Light.class, effectMulti * 10f);
 							} else {
-								Buff.prolong(hero, Light.class, effectMulti * 50f);
+								Buff.延长(hero, Light.class, effectMulti * 50f);
 							}
 
 						}
 
-						charsHit = Math.min(4 + hero.pointsInTalent(Talent.REACTIVE_BARRIER), charsHit);
-						if (charsHit > 0 && hero.hasTalent(Talent.REACTIVE_BARRIER)){
-							int shielding = Math.round(charsHit*2.5f*hero.pointsInTalent(Talent.REACTIVE_BARRIER));
+						charsHit = Math.min(4 + hero.天赋点数(Talent.REACTIVE_BARRIER), charsHit);
+						if (charsHit > 0 && hero.有天赋(Talent.REACTIVE_BARRIER)){
+							int shielding = Math.round(charsHit*2.5f*hero.天赋点数(Talent.REACTIVE_BARRIER));
 							hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shielding), FloatingText.SHIELDING);
-							Buff.affect(hero, Barrier.class).setShield(shielding);
+							Buff.施加(hero, Barrier.class).setShield(shielding);
 						}
 
 						hero.spendAndNext(Actor.TICK);

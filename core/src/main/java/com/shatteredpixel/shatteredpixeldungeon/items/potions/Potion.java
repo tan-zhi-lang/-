@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
@@ -364,8 +345,8 @@ public class Potion extends Item {
 	}
 	
 	@Override
-	public Item identify( boolean byHero ) {
-		super.identify(byHero);
+	public Item 鉴定(boolean byHero ) {
+		super.鉴定(byHero);
 
 		if (!isKnown()) {
 			setKnown();
@@ -476,7 +457,7 @@ public class Potion extends Item {
 			types.put(Icecap.Seed.class,        PotionOfFrost.class);
 			types.put(Rotberry.Seed.class,      PotionOfStrength.class);
 			types.put(Sorrowmoss.Seed.class,    PotionOfToxicGas.class);
-			types.put(Starflower.Seed.class,    PotionOfExperience.class);
+			types.put(Starflower.Seed.class,    经验药剂.class);
 			types.put(Stormvine.Seed.class,     PotionOfLevitation.class);
 			types.put(Sungrass.Seed.class,      PotionOfHealing.class);
 			types.put(Swiftthistle.Seed.class,  PotionOfHaste.class);
@@ -531,7 +512,7 @@ public class Potion extends Item {
 			}
 			
 			if (seeds.size() == 1){
-				result.identify();
+				result.鉴定();
 			}
 
 			while (result instanceof PotionOfHealing

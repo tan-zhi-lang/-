@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -43,11 +24,11 @@ public class Spinner extends Mob {
 	{
 		spriteClass = SpinnerSprite.class;
 
-		HP = HT = 50;
+		生命 = 最大生命 = 50;
 		defenseSkill = 17;
 
-		EXP = 9;
-		maxLvl = 17;
+		经验 = 9;
+		最大等级 = 17;
 
 		loot = MysteryMeat.class;
 		lootChance = 0.125f;
@@ -57,12 +38,12 @@ public class Spinner extends Mob {
 	}
 
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange(10, 20);
 	}
 
 	@Override
-	public int attackSkill(Char target) {
+	public int 最大命中(Char target) {
 		return 22;
 	}
 
@@ -123,7 +104,7 @@ public class Spinner extends Mob {
 			int duration = Random.IntRange(7, 8);
 			//we only use half the ascension modifier here as total poison dmg doesn't scale linearly
 			duration = Math.round(duration * (AscensionChallenge.statModifier(this)/2f + 0.5f));
-			Buff.affect(enemy, Poison.class).set(duration);
+			Buff.施加(enemy, Poison.class).set(duration);
 			webCoolDown = 0;
 			state = FLEEING;
 		}

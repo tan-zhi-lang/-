@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage;
 
@@ -63,7 +44,7 @@ public class WarpBeacon extends ArmorAbility {
 	@Override
 	public String targetingPrompt() {
 		if (Dungeon.hero.buff(WarpBeaconTracker.class) == null
-				&& Dungeon.hero.hasTalent(Talent.REMOTE_BEACON)){
+				&& Dungeon.hero.有天赋(Talent.REMOTE_BEACON)){
 			return Messages.get(this, "prompt");
 		}
 		return super.targetingPrompt();
@@ -95,7 +76,7 @@ public class WarpBeacon extends ArmorAbility {
 				protected void onSelect(int index) {
 					if (index == 0){
 
-						if (tracker.depth != Dungeon.depth && !hero.hasTalent(Talent.LONGRANGE_WARP)){
+						if (tracker.depth != Dungeon.depth && !hero.有天赋(Talent.LONGRANGE_WARP)){
 							GLog.w( Messages.get(WarpBeacon.class, "depths") );
 							return;
 						}
@@ -103,7 +84,7 @@ public class WarpBeacon extends ArmorAbility {
 						float chargeNeeded = chargeUse(hero);
 
 						if (tracker.depth != Dungeon.depth){
-							chargeNeeded *= 1.833f - 0.333f*Dungeon.hero.pointsInTalent(Talent.LONGRANGE_WARP);
+							chargeNeeded *= 1.833f - 0.333f*Dungeon.hero.天赋点数(Talent.LONGRANGE_WARP);
 						}
 
 						if (armor.charge < chargeNeeded){
@@ -118,12 +99,12 @@ public class WarpBeacon extends ArmorAbility {
 							Char existing = Actor.findChar(tracker.pos);
 
 							if (existing != null && existing != hero){
-								if (hero.hasTalent(Talent.TELEFRAG)){
-									int heroHP = hero.HP + hero.shielding();
-									int heroDmg = 5 * hero.pointsInTalent(Talent.TELEFRAG);
+								if (hero.有天赋(Talent.TELEFRAG)){
+									int heroHP = hero.生命 + hero.shielding();
+									int heroDmg = 5 * hero.天赋点数(Talent.TELEFRAG);
 									hero.damage(Math.min(heroDmg, heroHP-1), WarpBeacon.this);
 
-									int damage = Hero.heroDamageIntRange(10*hero.pointsInTalent(Talent.TELEFRAG), 15*hero.pointsInTalent(Talent.TELEFRAG));
+									int damage = Hero.heroDamageIntRange(10*hero.天赋点数(Talent.TELEFRAG), 15*hero.天赋点数(Talent.TELEFRAG));
 									existing.sprite.flash();
 									existing.sprite.bloodBurstA(existing.sprite.center(), damage);
 									existing.damage(damage, WarpBeacon.this);
@@ -196,7 +177,7 @@ public class WarpBeacon extends ArmorAbility {
 				return;
 			}
 
-			if (Dungeon.level.distance(hero.pos, target) > 4*hero.pointsInTalent(Talent.REMOTE_BEACON)){
+			if (Dungeon.level.distance(hero.pos, target) > 4*hero.天赋点数(Talent.REMOTE_BEACON)){
 				GLog.w( Messages.get(WarpBeacon.class, "too_far") );
 				return;
 			}

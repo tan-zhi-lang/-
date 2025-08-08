@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -44,23 +25,23 @@ import com.watabou.utils.Random;
 public abstract class Shaman extends Mob {
 	
 	{
-		HP = HT = 35;
+		生命 = 最大生命 = 35;
 		defenseSkill = 15;
 		
-		EXP = 8;
-		maxLvl = 16;
+		经验 = 8;
+		最大等级 = 16;
 		
 		loot = Generator.Category.WAND;
 		lootChance = 0.03f; //initially, see lootChance()
 	}
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return Random.NormalIntRange( 5, 10 );
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 18;
 	}
 	
@@ -155,7 +136,7 @@ public abstract class Shaman extends Mob {
 		
 		@Override
 		protected void debuff( Char enemy ) {
-			Buff.prolong( enemy, Weakness.class, Weakness.DURATION );
+			Buff.延长( enemy, Weakness.class, Weakness.DURATION );
 		}
 	}
 	
@@ -166,7 +147,7 @@ public abstract class Shaman extends Mob {
 		
 		@Override
 		protected void debuff( Char enemy ) {
-			Buff.prolong( enemy, Vulnerable.class, Vulnerable.DURATION );
+			Buff.延长( enemy, Vulnerable.class, Vulnerable.DURATION );
 		}
 	}
 	
@@ -177,7 +158,7 @@ public abstract class Shaman extends Mob {
 		
 		@Override
 		protected void debuff( Char enemy ) {
-			Buff.prolong( enemy, Hex.class, Hex.DURATION );
+			Buff.延长( enemy, Hex.class, Hex.DURATION );
 		}
 	}
 	

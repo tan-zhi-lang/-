@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
@@ -412,26 +393,26 @@ public class Badges {
 	public static void validateLevelReached() {
 		Badge badge = null;
 		
-		if (!local.contains( Badge.LEVEL_REACHED_1 ) && Dungeon.hero.当前等级 >= 6) {
+		if (!local.contains( Badge.LEVEL_REACHED_1 ) && Dungeon.hero.等级 >= 6) {
 			badge = Badge.LEVEL_REACHED_1;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.LEVEL_REACHED_2 ) && Dungeon.hero.当前等级 >= 12) {
+		if (!local.contains( Badge.LEVEL_REACHED_2 ) && Dungeon.hero.等级 >= 12) {
 			if (badge != null) unlock(badge);
 			badge = Badge.LEVEL_REACHED_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.LEVEL_REACHED_3 ) && Dungeon.hero.当前等级 >= 18) {
+		if (!local.contains( Badge.LEVEL_REACHED_3 ) && Dungeon.hero.等级 >= 18) {
 			if (badge != null) unlock(badge);
 			badge = Badge.LEVEL_REACHED_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.LEVEL_REACHED_4 ) && Dungeon.hero.当前等级 >= 24) {
+		if (!local.contains( Badge.LEVEL_REACHED_4 ) && Dungeon.hero.等级 >= 24) {
 			if (badge != null) unlock(badge);
 			badge = Badge.LEVEL_REACHED_4;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.LEVEL_REACHED_5 ) && Dungeon.hero.当前等级 >= 30) {
+		if (!local.contains( Badge.LEVEL_REACHED_5 ) && Dungeon.hero.等级 >= 30) {
 			if (badge != null) unlock(badge);
 			badge = Badge.LEVEL_REACHED_5;
 			local.add( badge );
@@ -443,26 +424,26 @@ public class Badges {
 	public static void validateStrengthAttained() {
 		Badge badge = null;
 		
-		if (!local.contains( Badge.STRENGTH_ATTAINED_1 ) && Dungeon.hero.STR >= 12) {
+		if (!local.contains( Badge.STRENGTH_ATTAINED_1 ) && Dungeon.hero.力量 >= 12) {
 			badge = Badge.STRENGTH_ATTAINED_1;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.STRENGTH_ATTAINED_2 ) && Dungeon.hero.STR >= 14) {
+		if (!local.contains( Badge.STRENGTH_ATTAINED_2 ) && Dungeon.hero.力量 >= 14) {
 			if (badge != null) unlock(badge);
 			badge = Badge.STRENGTH_ATTAINED_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.STRENGTH_ATTAINED_3 ) && Dungeon.hero.STR >= 16) {
+		if (!local.contains( Badge.STRENGTH_ATTAINED_3 ) && Dungeon.hero.力量 >= 16) {
 			if (badge != null) unlock(badge);
 			badge = Badge.STRENGTH_ATTAINED_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.STRENGTH_ATTAINED_4 ) && Dungeon.hero.STR >= 18) {
+		if (!local.contains( Badge.STRENGTH_ATTAINED_4 ) && Dungeon.hero.力量 >= 18) {
 			if (badge != null) unlock(badge);
 			badge = Badge.STRENGTH_ATTAINED_4;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.STRENGTH_ATTAINED_5 ) && Dungeon.hero.STR >= 20) {
+		if (!local.contains( Badge.STRENGTH_ATTAINED_5 ) && Dungeon.hero.力量 >= 20) {
 			if (badge != null) unlock(badge);
 			badge = Badge.STRENGTH_ATTAINED_5;
 			local.add( badge );
@@ -568,26 +549,26 @@ public class Badges {
 		}
 		
 		Badge badge = null;
-		if (!local.contains( Badge.ITEM_LEVEL_1 ) && item.level() >= 3) {
+		if (!local.contains( Badge.ITEM_LEVEL_1 ) && item.等级() >= 3) {
 			badge = Badge.ITEM_LEVEL_1;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_2 ) && item.level() >= 6) {
+		if (!local.contains( Badge.ITEM_LEVEL_2 ) && item.等级() >= 6) {
 			if (badge != null) unlock(badge);
 			badge = Badge.ITEM_LEVEL_2;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_3 ) && item.level() >= 9) {
+		if (!local.contains( Badge.ITEM_LEVEL_3 ) && item.等级() >= 9) {
 			if (badge != null) unlock(badge);
 			badge = Badge.ITEM_LEVEL_3;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_4 ) && item.level() >= 12) {
+		if (!local.contains( Badge.ITEM_LEVEL_4 ) && item.等级() >= 12) {
 			if (badge != null) unlock(badge);
 			badge = Badge.ITEM_LEVEL_4;
 			local.add( badge );
 		}
-		if (!local.contains( Badge.ITEM_LEVEL_5 ) && item.level() >= 15) {
+		if (!local.contains( Badge.ITEM_LEVEL_5 ) && item.等级() >= 15) {
 			if (badge != null) unlock(badge);
 			badge = Badge.ITEM_LEVEL_5;
 			local.add( badge );
@@ -984,14 +965,14 @@ public class Badges {
 		if (!isUnlocked(Badge.UNLOCK_DUELIST) && Dungeon.hero != null
 				&& Dungeon.hero.belongings.weapon instanceof MeleeWeapon
 				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).tier >= 2
-				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq() <= Dungeon.hero.STR()){
+				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq() <= Dungeon.hero.力量()){
 
 			if (Dungeon.hero.belongings.weapon.isIdentified() &&
-					((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq() <= Dungeon.hero.STR()) {
+					((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq() <= Dungeon.hero.力量()) {
 				displayBadge(Badge.UNLOCK_DUELIST);
 
 			} else if (!Dungeon.hero.belongings.weapon.isIdentified() &&
-					((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq(0) <= Dungeon.hero.STR()){
+					((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq(0) <= Dungeon.hero.力量()){
 				displayBadge(Badge.UNLOCK_DUELIST);
 			}
 		}
@@ -1038,7 +1019,7 @@ public class Badges {
 	public static void validateTakingTheMick(Object cause){
 		if (cause == Dungeon.hero &&
 				Dungeon.hero.belongings.attackingWeapon() instanceof Pickaxe
-				&& Dungeon.hero.belongings.attackingWeapon().level() >= 20){
+				&& Dungeon.hero.belongings.attackingWeapon().等级() >= 20){
 			local.add( Badge.TAKING_THE_MICK );
 			displayBadge(Badge.TAKING_THE_MICK);
 		}

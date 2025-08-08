@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
@@ -74,7 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
@@ -221,25 +202,25 @@ public abstract class Level implements Bundlable {
 
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
 
-			if (Dungeon.posNeeded()) {
+			if (Dungeon.力量药剂掉落()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
 				addItemToSpawn( new PotionOfStrength() );
 			}
-			if (Dungeon.souNeeded()) {
+			if (Dungeon.升级卷轴掉落()) {
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
 				//every 2nd scroll of upgrade is removed with forbidden runes challenge on
 				//TODO while this does significantly reduce this challenge's levelgen impact, it doesn't quite remove it
 				//for 0 levelgen impact, we need to do something like give the player all SOU, but nerf them
 				//or give a random scroll (from a separate RNG) instead of every 2nd SOU
 				if (!Dungeon.isChallenged(Challenges.NO_SCROLLS) || Dungeon.LimitedDrops.UPGRADE_SCROLLS.count%2 != 0){
-					addItemToSpawn(new ScrollOfUpgrade());
+					addItemToSpawn(new 升级卷轴());
 				}
 			}
 			if (Dungeon.asNeeded()) {
 				Dungeon.LimitedDrops.ARCANE_STYLI.count++;
 				addItemToSpawn( new Stylus() );
 			}
-			if ( Dungeon.enchStoneNeeded() ){
+			if ( Dungeon.附魔符石掉落() ){
 				Dungeon.LimitedDrops.ENCH_STONE.drop();
 				addItemToSpawn( new StoneOfEnchantment() );
 			}
@@ -617,7 +598,7 @@ public abstract class Level implements Bundlable {
 	public void seal(){
 		if (!locked) {
 			locked = true;
-			Buff.affect(Dungeon.hero, LockedFloor.class);
+			Buff.施加(Dungeon.hero, LockedFloor.class);
 		}
 	}
 
@@ -1126,7 +1107,7 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.level.heroFOV[ch.pos]) {
 				CellEmitter.get(ch.pos).burst( SacrificialParticle.FACTORY, 5 );
 			}
-			Buff.prolong( ch, SacrificialFire.Marked.class, SacrificialFire.Marked.DURATION );
+			Buff.延长( ch, SacrificialFire.Marked.class, SacrificialFire.Marked.DURATION );
 		}
 
 		if (!ch.flying){
@@ -1142,7 +1123,7 @@ public abstract class Level implements Bundlable {
 			}
 
 			if ( (map[ch.pos] == Terrain.GRASS || map[ch.pos] == Terrain.EMBERS)
-					&& ch == Dungeon.hero && Dungeon.hero.hasTalent(Talent.REJUVENATING_STEPS)
+					&& ch == Dungeon.hero && Dungeon.hero.有天赋(Talent.REJUVENATING_STEPS)
 					&& ch.buff(Talent.RejuvenatingStepsCooldown.class) == null){
 
 				if (!Regeneration.regenOn()){
@@ -1151,10 +1132,10 @@ public abstract class Level implements Bundlable {
 					set(ch.pos, Terrain.FURROWED_GRASS);
 				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
-					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 3 - Dungeon.hero.pointsInTalent(Talent.REJUVENATING_STEPS));
+					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 4 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS));
 				}
 				GameScene.updateMap(ch.pos);
-				Buff.affect(ch, Talent.RejuvenatingStepsCooldown.class, 15f - 5f*Dungeon.hero.pointsInTalent(Talent.REJUVENATING_STEPS));
+				Buff.施加(ch, Talent.RejuvenatingStepsCooldown.class, 12 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,3));
 			}
 			
 			if (pit[ch.pos]){
@@ -1320,7 +1301,7 @@ public abstract class Level implements Bundlable {
 
 			float viewDist = c.viewDistance;
 			if (c instanceof Hero){
-				viewDist *= 1f + 0.25f*((Hero) c).pointsInTalent(Talent.FARSIGHT);
+				viewDist *= 1f + ((Hero) c).天赋点数(Talent.FARSIGHT,0.25f);
 				viewDist *= EyeOfNewt.visionRangeMultiplier();
 			}
 			
@@ -1364,8 +1345,8 @@ public abstract class Level implements Bundlable {
 			}
 		}
 
-		if (c instanceof SpiritHawk.HawkAlly && Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE) >= 3){
-			int range = 1+(Dungeon.hero.pointsInTalent(Talent.EAGLE_EYE)-2);
+		if (c instanceof SpiritHawk.HawkAlly && Dungeon.hero.天赋点数(Talent.EAGLE_EYE) >= 3){
+			int range = 1+(Dungeon.hero.天赋点数(Talent.EAGLE_EYE)-2);
 			for (Mob mob : mobs) {
 				int p = mob.pos;
 				if (!fieldOfView[p] && distance(c.pos, p) <= range) {
@@ -1398,14 +1379,14 @@ public abstract class Level implements Bundlable {
 			} else {
 
 				int mindVisRange = 0;
-				if (((Hero) c).hasTalent(Talent.HEIGHTENED_SENSES)){
-					mindVisRange = 1+((Hero) c).pointsInTalent(Talent.HEIGHTENED_SENSES);
+				if (((Hero) c).有天赋(Talent.HEIGHTENED_SENSES)){
+					mindVisRange = 1+((Hero) c).天赋点数(Talent.HEIGHTENED_SENSES);
 				}
 				if (c.buff(DivineSense.DivineSenseTracker.class) != null){
 					if (((Hero) c).heroClass == HeroClass.CLERIC){
-						mindVisRange = 4+4*((Hero) c).pointsInTalent(Talent.DIVINE_SENSE);
+						mindVisRange = ((Hero) c).天赋点数(Talent.DIVINE_SENSE,5);
 					} else {
-						mindVisRange = 1+2*((Hero) c).pointsInTalent(Talent.DIVINE_SENSE);
+						mindVisRange = ((Hero) c).天赋点数(Talent.DIVINE_SENSE,2);
 					}
 				}
 				mindVisRange = Math.max(mindVisRange, EyeOfNewt.mindVisionRange());
@@ -1637,5 +1618,11 @@ public abstract class Level implements Bundlable {
 			default:
 				return "";
 		}
+	}
+	public boolean 在水中(Char ch){
+		return map[ch.pos] == Terrain.WATER;
+	}
+	public boolean 在草丛(Char ch){
+		return map[ch.pos] == Terrain.GRASS||map[ch.pos] == Terrain.HIGH_GRASS||map[ch.pos] == Terrain.FURROWED_GRASS;
 	}
 }

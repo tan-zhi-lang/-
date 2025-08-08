@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
@@ -89,9 +70,12 @@ abstract public class Weapon extends KindOfWeapon {
 	public int      RCH = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
-		SPEED   (0.7f, 2/3f),
-		DAMAGE  (1.5f, 5/3f),
+		SPEED   (1, 0.5f),
+		DAMAGE  (1.5f, 0.5f),
 		NONE	(1.0f, 1f);
+//		SPEED   (0.7f, 2/3f),
+//		DAMAGE  (1.5f, 5/3f),
+//		NONE	(1.0f, 1f);
 
 		private float damageFactor;
 		private float delayFactor;
@@ -124,7 +108,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean masteryPotionBonus = false;
 	
 	@Override
-	public int proc( Char attacker, Char defender, int damage ) {
+	public int 攻击时(Char attacker, Char defender, int damage ) {
 
 		boolean becameAlly = false;
 		boolean wasAlly = defender.alignment == Char.Alignment.ALLY;
@@ -194,7 +178,7 @@ abstract public class Weapon extends KindOfWeapon {
 					}
 					setIDReady();
 				} else {
-					identify();
+					鉴定();
 					GLog.p(Messages.get(Weapon.class, "identify"));
 					Badges.validateItemLevelAquired(this);
 				}
@@ -267,12 +251,12 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	@Override
-	public Item identify(boolean byHero) {
+	public Item 鉴定(boolean byHero) {
 		if (enchantment != null && byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){
 			Catalog.setSeen(enchantment.getClass());
 			Statistics.itemTypesDiscovered.add(enchantment.getClass());
 		}
-		return super.identify(byHero);
+		return super.鉴定(byHero);
 	}
 
 	public void setIDReady(){
@@ -289,7 +273,7 @@ abstract public class Weapon extends KindOfWeapon {
 		int encumbrance = 0;
 		
 		if( owner instanceof Hero ){
-			encumbrance = STRReq() - ((Hero)owner).STR();
+			encumbrance = STRReq() - ((Hero)owner).力量();
 		}
 
 		float ACC = this.ACC;
@@ -309,7 +293,7 @@ abstract public class Weapon extends KindOfWeapon {
 	protected float baseDelay( Char owner ){
 		float delay = augment.delayFactor(this.DLY);
 		if (owner instanceof Hero) {
-			int encumbrance = STRReq() - ((Hero)owner).STR();
+			int encumbrance = STRReq() - ((Hero)owner).力量();
 			if (encumbrance > 0){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
@@ -348,7 +332,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public int STRReq(){
-		return STRReq(level());
+		return STRReq(等级());
 	}
 
 	public abstract int STRReq(int lvl);
@@ -361,8 +345,8 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	@Override
-	public int level() {
-		int level = super.level();
+	public int 等级() {
+		int level = super.等级();
 		if (curseInfusionBonus) level += 1 + level/6;
 		return level;
 	}
@@ -381,7 +365,7 @@ abstract public class Weapon extends KindOfWeapon {
 		} else if (enchantment != null) {
 			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
 			if (enchantHardened){
-				if (level() >= 6 && Random.Float(10) < Math.pow(2, level()-6)){
+				if (等级() >= 6 && Random.Float(10) < Math.pow(2, 等级()-6)){
 					enchantHardened = false;
 				}
 
@@ -390,7 +374,7 @@ abstract public class Weapon extends KindOfWeapon {
 				if (Random.Int(3) == 0) enchant(null);
 
 			//otherwise chance to lose enchant is 10/20/40/80/100% when upgrading from +4/5/6/7/8
-			} else if (level() >= 4 && Random.Float(10) < Math.pow(2, level()-4)){
+			} else if (等级() >= 4 && Random.Float(10) < Math.pow(2, 等级()-4)){
 				enchant(null);
 			}
 		}
@@ -423,7 +407,7 @@ abstract public class Weapon extends KindOfWeapon {
 				n++;
 			}
 		}
-		level(n);
+		等级(n);
 
 		//we use a separate RNG here so that variance due to things like parchment scrap
 		//does not affect levelgen
@@ -558,11 +542,11 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 
 			if (attacker.buff(Talent.SpiritBladesTracker.class) != null
-					&& ((Hero)attacker).pointsInTalent(Talent.SPIRIT_BLADES) == 4){
+					&& ((Hero)attacker).天赋点数(Talent.SPIRIT_BLADES) == 4){
 				multi += 0.1f;
 			}
 			if (attacker.buff(Talent.StrikingWaveTracker.class) != null
-					&& ((Hero)attacker).pointsInTalent(Talent.STRIKING_WAVE) == 4){
+					&& ((Hero)attacker).天赋点数(Talent.STRIKING_WAVE) == 4){
 				multi += 0.2f;
 			}
 

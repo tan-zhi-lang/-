@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue;
 
@@ -106,7 +87,7 @@ public class ShadowClone extends ArmorAbility {
 				armor.charge -= chargeUse(hero);
 				armor.updateQuickslot();
 
-				ally = new ShadowAlly(hero.当前等级);
+				ally = new ShadowAlly(hero.等级);
 				ally.pos = Random.element(spawnPoints);
 				GameScene.add(ally);
 
@@ -146,7 +127,7 @@ public class ShadowClone extends ArmorAbility {
 		{
 			spriteClass = ShadowSprite.class;
 
-			HP = HT = 80;
+			生命 = 最大生命 = 80;
 
 			immunities.add(AllyBuff.class);
 
@@ -160,10 +141,10 @@ public class ShadowClone extends ArmorAbility {
 		public ShadowAlly( int heroLevel ){
 			super();
 			int hpBonus = 15 + 5*heroLevel;
-			hpBonus = Math.round(0.1f * Dungeon.hero.pointsInTalent(Talent.PERFECT_COPY) * hpBonus);
+			hpBonus = Math.round(0.1f * Dungeon.hero.天赋点数(Talent.PERFECT_COPY) * hpBonus);
 			if (hpBonus > 0){
-				HT += hpBonus;
-				HP += hpBonus;
+				最大生命 += hpBonus;
+				生命 += hpBonus;
 			}
 			defenseSkill = heroLevel + 4; //equal to base hero defense skill
 		}
@@ -198,16 +179,16 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int attackSkill(Char target) {
+		public int 最大命中(Char target) {
 			return defenseSkill+5; //equal to base hero attack skill
 		}
 
 		@Override
-		public int damageRoll() {
+		public int 攻击() {
 			int damage = Random.NormalIntRange(10, 20);
-			int heroDamage = Dungeon.hero.damageRoll();
+			int heroDamage = Dungeon.hero.攻击();
 			heroDamage /= Dungeon.hero.attackDelay(); //normalize hero damage based on atk speed
-			heroDamage = Math.round(0.08f * Dungeon.hero.pointsInTalent(Talent.SHADOW_BLADE) * heroDamage);
+			heroDamage = Math.round(0.08f * Dungeon.hero.天赋点数(Talent.SHADOW_BLADE) * heroDamage);
 			if (heroDamage > 0){
 				damage += heroDamage;
 			}
@@ -217,9 +198,9 @@ public class ShadowClone extends ArmorAbility {
 		@Override
 		public int attackProc( Char enemy, int damage ) {
 			damage = super.attackProc( enemy, damage );
-			if (Random.Int(4) < Dungeon.hero.pointsInTalent(Talent.SHADOW_BLADE)
+			if (Random.Int(4) < Dungeon.hero.天赋点数(Talent.SHADOW_BLADE)
 					&& Dungeon.hero.belongings.weapon() != null){
-				return Dungeon.hero.belongings.weapon().proc( this, enemy, damage );
+				return Dungeon.hero.belongings.weapon().攻击时( this, enemy, damage );
 			} else {
 				return damage;
 			}
@@ -229,7 +210,7 @@ public class ShadowClone extends ArmorAbility {
 		public int drRoll() {
 			int dr = super.drRoll();
 			int heroRoll = Dungeon.hero.drRoll();
-			heroRoll = Math.round(0.12f * Dungeon.hero.pointsInTalent(Talent.CLONED_ARMOR) * heroRoll);
+			heroRoll = Math.round(0.12f * Dungeon.hero.天赋点数(Talent.CLONED_ARMOR) * heroRoll);
 			if (heroRoll > 0){
 				dr += heroRoll;
 			}
@@ -238,7 +219,7 @@ public class ShadowClone extends ArmorAbility {
 
 		@Override
 		public int glyphLevel(Class<? extends Armor.Glyph> cls) {
-			if (Dungeon.hero != null && Random.Int(4) < Dungeon.hero.pointsInTalent(Talent.CLONED_ARMOR)){
+			if (Dungeon.hero != null && Random.Int(4) < Dungeon.hero.天赋点数(Talent.CLONED_ARMOR)){
 				return Math.max(super.glyphLevel(cls), Dungeon.hero.glyphLevel(cls));
 			} else {
 				return super.glyphLevel(cls);
@@ -248,7 +229,7 @@ public class ShadowClone extends ArmorAbility {
 		@Override
 		public int defenseProc(Char enemy, int damage) {
 			damage = super.defenseProc(enemy, damage);
-			if (Random.Int(4) < Dungeon.hero.pointsInTalent(Talent.CLONED_ARMOR)
+			if (Random.Int(4) < Dungeon.hero.天赋点数(Talent.CLONED_ARMOR)
 					&& Dungeon.hero.belongings.armor() != null){
 				return Dungeon.hero.belongings.armor().proc( enemy, this, damage );
 			} else {
@@ -274,7 +255,7 @@ public class ShadowClone extends ArmorAbility {
 		public boolean canInteract(Char c) {
 			if (super.canInteract(c)){
 				return true;
-			} else if (Dungeon.level.distance(pos, c.pos) <= Dungeon.hero.pointsInTalent(Talent.PERFECT_COPY)) {
+			} else if (Dungeon.level.distance(pos, c.pos) <= Dungeon.hero.天赋点数(Talent.PERFECT_COPY)) {
 				return true;
 			} else {
 				return false;
@@ -283,7 +264,7 @@ public class ShadowClone extends ArmorAbility {
 
 		@Override
 		public boolean interact(Char c) {
-			if (!Dungeon.hero.hasTalent(Talent.PERFECT_COPY)){
+			if (!Dungeon.hero.有天赋(Talent.PERFECT_COPY)){
 				return super.interact(c);
 			}
 

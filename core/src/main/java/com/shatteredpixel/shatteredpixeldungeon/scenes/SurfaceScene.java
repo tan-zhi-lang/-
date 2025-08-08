@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
@@ -99,7 +80,7 @@ public class SurfaceScene extends PixelScene {
 		Archs archs = new Archs();
 		archs.reversed = true;
 		archs.setSize( w, h );
-		add( archs );
+//		add( archs );
 
 		float vx = align((w - SKY_WIDTH) / 2f);
 		float vy = align((h - SKY_HEIGHT - BUTTON_HEIGHT) / 2f);
@@ -178,24 +159,24 @@ public class SurfaceScene extends PixelScene {
 		int roseLevel = 0;
 		DriedRose rose = Dungeon.hero.belongings.getItem(DriedRose.class);
 		if (rose != null){
-			roseLevel = rose.level()/2;
+			roseLevel = rose.等级()/2;
 			if (rose.ghostWeapon() != null){
-				roseLevel = Math.max(roseLevel, rose.ghostWeapon().level());
+				roseLevel = Math.max(roseLevel, rose.ghostWeapon().等级());
 			}
 			if (rose.ghostArmor() != null){
-				roseLevel = Math.max(roseLevel, rose.ghostArmor().level());
+				roseLevel = Math.max(roseLevel, rose.ghostArmor().等级());
 			}
 		}
 		
-		int earthLevel = Dungeon.hero.belongings.getItem(WandOfLivingEarth.class) == null ? 0 : Dungeon.hero.belongings.getItem(WandOfLivingEarth.class).level();
-		int wardLevel = Dungeon.hero.belongings.getItem(WandOfWarding.class) == null ? 0 : Dungeon.hero.belongings.getItem(WandOfWarding.class).level();
+		int earthLevel = Dungeon.hero.belongings.getItem(WandOfLivingEarth.class) == null ? 0 : Dungeon.hero.belongings.getItem(WandOfLivingEarth.class).等级();
+		int wardLevel = Dungeon.hero.belongings.getItem(WandOfWarding.class) == null ? 0 : Dungeon.hero.belongings.getItem(WandOfWarding.class).等级();
 		
 		MagesStaff staff = Dungeon.hero.belongings.getItem(MagesStaff.class);
 		if (staff != null){
 			if (staff.wandClass() == WandOfLivingEarth.class){
-				earthLevel = Math.max(earthLevel, staff.level());
+				earthLevel = Math.max(earthLevel, staff.等级());
 			} else if (staff.wandClass() == WandOfWarding.class){
-				wardLevel = Math.max(wardLevel, staff.level());
+				wardLevel = Math.max(wardLevel, staff.等级());
 			}
 		}
 		

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
@@ -375,7 +356,7 @@ public class Item implements Bundlable {
 	}
 
 	//returns the persistant level of the item, only affected by modifiers which are persistent (e.g. curse infusion)
-	public int level(){
+	public int 等级(){
 		return level;
 	}
 	
@@ -385,13 +366,13 @@ public class Item implements Bundlable {
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
 			&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
-			return Degrade.reduceLevel(level());
+			return Degrade.reduceLevel(等级());
 		} else {
-			return level();
+			return 等级();
 		}
 	}
 
-	public void level( int value ){
+	public void 等级(int value ){
 		level = value;
 
 		updateQuickslot();
@@ -430,7 +411,7 @@ public class Item implements Bundlable {
 	}
 	
 	public int visiblyUpgraded() {
-		return levelKnown ? level() : 0;
+		return levelKnown ? 等级() : 0;
 	}
 
 	public int buffedVisiblyUpgraded() {
@@ -453,11 +434,11 @@ public class Item implements Bundlable {
 		return false;
 	}
 
-	public final Item identify(){
-		return identify(true);
+	public final Item 鉴定(){
+		return 鉴定(true);
 	}
 
-	public Item identify( boolean byHero ) {
+	public Item 鉴定(boolean byHero ) {
 
 		if (byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){
 			Catalog.setSeen(getClass());
@@ -659,13 +640,13 @@ public class Item implements Bundlable {
 							curUser = user;
 							Item i = Item.this.detach(user.belongings.backpack);
 							if (i != null) i.onThrow(cell);
-							if (curUser.hasTalent(Talent.IMPROVISED_PROJECTILES)
+							if (curUser.有天赋(Talent.IMPROVISED_PROJECTILES)
 									&& !(Item.this instanceof MissileWeapon)
 									&& curUser.buff(Talent.ImprovisedProjectileCooldown.class) == null){
 								if (enemy != null && enemy.alignment != curUser.alignment){
 									Sample.INSTANCE.play(Assets.Sounds.HIT);
-									Buff.affect(enemy, Blindness.class, 1f + curUser.pointsInTalent(Talent.IMPROVISED_PROJECTILES));
-									Buff.affect(curUser, Talent.ImprovisedProjectileCooldown.class, 50f);
+									Buff.施加(enemy, Blindness.class, curUser.天赋点数(Talent.IMPROVISED_PROJECTILES,2));
+									Buff.施加(curUser, Talent.ImprovisedProjectileCooldown.class, 50f);
 								}
 							}
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){

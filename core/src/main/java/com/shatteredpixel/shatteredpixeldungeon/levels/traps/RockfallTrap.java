@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.traps;
 
@@ -97,14 +78,14 @@ public class RockfallTrap extends Trap {
 
 			if (ch != null && ch.isAlive()){
 				if (ch instanceof Mob) {
-					Buff.prolong(ch, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
+					Buff.延长(ch, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 				}
 				int damage = Random.NormalIntRange(5+scalingDepth(), 10+scalingDepth()*2);
 				damage -= ch.drRoll();
 				ch.damage( Math.max(damage, 0) , this);
 
 				if (ch.isActive()) {
-					Buff.prolong(ch, Paralysis.class, Paralysis.DURATION);
+					Buff.延长(ch, Paralysis.class, Paralysis.DURATION);
 				} else if (!ch.isAlive() && ch == Dungeon.hero){
 					Dungeon.fail( this );
 					GLog.n( Messages.get(this, "ondeath") );

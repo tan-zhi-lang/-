@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -42,11 +23,11 @@ public class Brute extends Mob {
 	{
 		spriteClass = BruteSprite.class;
 		
-		HP = HT = 40;
+		生命 = 最大生命 = 40;
 		defenseSkill = 15;
 		
-		EXP = 8;
-		maxLvl = 16;
+		经验 = 8;
+		最大等级 = 16;
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
@@ -55,14 +36,14 @@ public class Brute extends Mob {
 	protected boolean hasRaged = false;
 	
 	@Override
-	public int damageRoll() {
+	public int 攻击() {
 		return buff(BruteRage.class) != null ?
 				Random.NormalIntRange( 15, 40 ) :
 				Random.NormalIntRange( 5, 25 );
 	}
 	
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 20;
 	}
 	
@@ -93,8 +74,8 @@ public class Brute extends Mob {
 	}
 	
 	protected void triggerEnrage(){
-		Buff.affect(this, BruteRage.class).setShield(HT/2 + 4);
-		sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(HT/2 + 4), FloatingText.SHIELDING );
+		Buff.施加(this, BruteRage.class).setShield(最大生命 /2 + 4);
+		sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(最大生命 /2 + 4), FloatingText.SHIELDING );
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
 		}
@@ -125,7 +106,7 @@ public class Brute extends Mob {
 		@Override
 		public boolean act() {
 			
-			if (target.HP > 0){
+			if (target.生命 > 0){
 				detach();
 				return true;
 			}

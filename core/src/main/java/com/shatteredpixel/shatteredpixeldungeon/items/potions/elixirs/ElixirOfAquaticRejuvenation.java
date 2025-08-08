@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs;
 
@@ -52,7 +33,7 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
 			PotionOfHealing.pharmacophobiaProc(hero);
 		} else {
-			Buff.affect(hero, AquaHealing.class).set(Math.round(hero.HT * 1.5f));
+			Buff.施加(hero, AquaHealing.class).set(Math.round(hero.最大生命 * 1.5f));
 		}
 	}
 	
@@ -76,20 +57,20 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 		@Override
 		public boolean act() {
 			
-			if (!target.flying && Dungeon.level.water[target.pos] && target.HP < target.HT){
-				float healAmt = GameMath.gate( 1, target.HT/50f, left );
-				healAmt = Math.min(healAmt, target.HT - target.HP);
+			if (!target.flying && Dungeon.level.water[target.pos] && target.生命 < target.最大生命){
+				float healAmt = GameMath.gate( 1, target.最大生命 /50f, left );
+				healAmt = Math.min(healAmt, target.最大生命 - target.生命);
 				if (Random.Float() < (healAmt % 1)){
 					healAmt = (float)Math.ceil(healAmt);
 				} else {
 					healAmt = (float)Math.floor(healAmt);
 				}
-				target.HP += (int)healAmt;
+				target.生命 += (int)healAmt;
 				left -= (int)healAmt;
 				target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString((int)healAmt), FloatingText.HEALING );
 
-				if (target.HP >= target.HT) {
-					target.HP = target.HT;
+				if (target.生命 >= target.最大生命) {
+					target.生命 = target.最大生命;
 					if (target instanceof Hero) {
 						((Hero) target).resting = false;
 					}
@@ -119,7 +100,7 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 
 		@Override
 		public float iconFadePercent() {
-			float max = Math.round(target.HT * 1.5f);
+			float max = Math.round(target.最大生命 * 1.5f);
 			return Math.max(0, (max - left) / max);
 		}
 

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
@@ -241,10 +222,10 @@ public class Ring extends KindofMisc {
 	}
 	
 	@Override
-	public Item identify( boolean byHero ) {
+	public Item 鉴定(boolean byHero ) {
 		setKnown();
 		levelsToID = 0;
-		return super.identify(byHero);
+		return super.鉴定(byHero);
 	}
 
 	public void setIDReady(){
@@ -267,7 +248,7 @@ public class Ring extends KindofMisc {
 				n++;
 			}
 		}
-		level(n);
+		等级(n);
 		
 		//30% chance to be cursed
 		if (Random.Float() < 0.3f) {
@@ -296,10 +277,10 @@ public class Ring extends KindofMisc {
 			price /= 2;
 		}
 		if (levelKnown) {
-			if (level() > 0) {
-				price *= (level() + 1);
-			} else if (level() < 0) {
-				price /= (1 - level());
+			if (等级() > 0) {
+				price *= (等级() + 1);
+			} else if (等级() < 0) {
+				price /= (1 - 等级());
 			}
 		}
 		if (price < 1) {
@@ -338,7 +319,7 @@ public class Ring extends KindofMisc {
 				}
 				setIDReady();
 			} else {
-				identify();
+				鉴定();
 				GLog.p(Messages.get(Ring.class, "identify"));
 				Badges.validateItemLevelAquired(this);
 			}
@@ -349,7 +330,7 @@ public class Ring extends KindofMisc {
 	public int buffedLvl() {
 		int lvl = super.buffedLvl();
 		if (Dungeon.hero.buff(EnhancedRings.class) != null){
-			lvl++;
+			lvl+=Dungeon.hero.天赋点数(Talent.ENHANCED_RINGS);
 		}
 		return lvl;
 	}
@@ -388,9 +369,9 @@ public class Ring extends KindofMisc {
 	//just used for ring descriptions
 	public int soloBonus(){
 		if (cursed){
-			return Math.min( 0, Ring.this.level()-2 );
+			return Math.min( 0, Ring.this.等级()-2 );
 		} else {
-			return Ring.this.level()+1;
+			return Ring.this.等级()+1;
 		}
 	}
 

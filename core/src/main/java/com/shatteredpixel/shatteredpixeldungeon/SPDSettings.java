@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
@@ -100,38 +81,38 @@ public class SPDSettings extends GameSettings {
 		return getInt( KEY_ZOOM, 0 );
 	}
 	
-	public static void brightness( int value ) {
+	public static void 亮度(int value ) {
 		put( KEY_BRIGHTNESS, value );
 		GameScene.updateFog();
 	}
 	
-	public static int brightness() {
-		return getInt( KEY_BRIGHTNESS, 0, -1, 1 );
+	public static int 亮度() {
+		return getInt( KEY_BRIGHTNESS, 1, -1, 1 );
 	}
 	
-	public static void visualGrid( int value ){
+	public static void 网格可视度(int value ){
 		put( KEY_GRID, value );
 		GameScene.updateMap();
 	}
 	
-	public static int visualGrid() {
-		return getInt( KEY_GRID, 0, -1, 2 );
+	public static int 网格可视度() {
+		return getInt( KEY_GRID, 2, -1, 2 );
 	}
 
-	public static void cameraFollow( int value ){
+	public static void 镜头追踪强度(int value ){
 		put( KEY_CAMERA_FOLLOW, value );
 	}
 
-	public static int cameraFollow() {
+	public static int 镜头追踪强度() {
 		return getInt( KEY_CAMERA_FOLLOW, 4, 1, 4 );
 	}
 
-	public static void screenShake( int value ){
+	public static void 震屏强度(int value ){
 		put( KEY_SCREEN_SHAKE, value );
 	}
 
-	public static int screenShake() {
-		return getInt( KEY_SCREEN_SHAKE, 2, 0, 4 );
+	public static int 震屏强度() {
+		return getInt( KEY_SCREEN_SHAKE, 4, 0, 4 );
 	}
 	
 	//Interface

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
@@ -310,40 +291,40 @@ public class WndSettings extends WndTabbed {//WndSettings
 					Messages.get(this, "dark"), Messages.get(this, "bright"), -1, 1) {
 				@Override
 				protected void onChange() {
-					SPDSettings.brightness(getSelectedValue());
+					SPDSettings.亮度(getSelectedValue());
 				}
 			};
-			optBrightness.setSelectedValue(SPDSettings.brightness());
+			optBrightness.setSelectedValue(SPDSettings.亮度());
 			add(optBrightness);
 
 			optVisGrid = new OptionSlider(Messages.get(this, "visual_grid"),
 					Messages.get(this, "off"), Messages.get(this, "high"), -1, 2) {
 				@Override
 				protected void onChange() {
-					SPDSettings.visualGrid(getSelectedValue());
+					SPDSettings.网格可视度(getSelectedValue());
 				}
 			};
-			optVisGrid.setSelectedValue(SPDSettings.visualGrid());
+			optVisGrid.setSelectedValue(SPDSettings.网格可视度());
 			add(optVisGrid);
 
 			optFollowIntensity = new OptionSlider(Messages.get(this, "camera_follow"),
 					Messages.get(this, "low"), Messages.get(this, "high"), 1, 4) {
 				@Override
 				protected void onChange() {
-					SPDSettings.cameraFollow(getSelectedValue());
+					SPDSettings.镜头追踪强度(getSelectedValue());
 				}
 			};
-			optFollowIntensity.setSelectedValue(SPDSettings.cameraFollow());
+			optFollowIntensity.setSelectedValue(SPDSettings.镜头追踪强度());
 			add(optFollowIntensity);
 
 			optScreenShake = new OptionSlider(Messages.get(this, "screenshake"),
 					Messages.get(this, "off"), Messages.get(this, "high"), 0, 4) {
 				@Override
 				protected void onChange() {
-					SPDSettings.screenShake(getSelectedValue());
+					SPDSettings.震屏强度(getSelectedValue());
 				}
 			};
-			optScreenShake.setSelectedValue(SPDSettings.screenShake());
+			optScreenShake.setSelectedValue(SPDSettings.震屏强度());
 			add(optScreenShake);
 
 		}

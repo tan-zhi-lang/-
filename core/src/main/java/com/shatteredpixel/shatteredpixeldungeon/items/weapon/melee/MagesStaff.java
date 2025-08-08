@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
@@ -94,7 +75,7 @@ public class MagesStaff extends MeleeWeapon {
 
 	public MagesStaff(Wand wand){
 		this();
-		wand.identify();
+		wand.鉴定();
 		wand.cursed = false;
 		this.wand = wand;
 		updateWand(false);
@@ -164,15 +145,15 @@ public class MagesStaff extends MeleeWeapon {
 	}
 
 	@Override
-	public int proc(Char attacker, Char defender, int damage) {
-		if (attacker instanceof Hero && ((Hero) attacker).hasTalent(Talent.MYSTICAL_CHARGE)){
+	public int 攻击时(Char attacker, Char defender, int damage) {
+		if (attacker instanceof Hero && ((Hero) attacker).有天赋(Talent.MYSTICAL_CHARGE)){
 			Hero hero = (Hero) attacker;
-			ArtifactRecharge.chargeArtifacts(hero, hero.pointsInTalent(Talent.MYSTICAL_CHARGE)/2f);
+			ArtifactRecharge.chargeArtifacts(hero, hero.天赋点数(Talent.MYSTICAL_CHARGE,0.5f));
 		}
 
 		Talent.EmpoweredStrikeTracker empoweredStrike = attacker.buff(Talent.EmpoweredStrikeTracker.class);
 		if (empoweredStrike != null){
-			damage = Math.round( damage * (1f + Dungeon.hero.pointsInTalent(Talent.EMPOWERED_STRIKE)/6f));
+			damage = Math.round( damage * (1f + Dungeon.hero.天赋点数(Talent.EMPOWERED_STRIKE,0.15f)));
 		}
 
 		if (wand != null &&
@@ -188,7 +169,7 @@ public class MagesStaff extends MeleeWeapon {
 				Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG, 0.75f, 1.2f);
 			}
 		}
-		return super.proc(attacker, defender, damage);
+		return super.攻击时(attacker, defender, damage);
 	}
 
 	@Override
@@ -223,11 +204,11 @@ public class MagesStaff extends MeleeWeapon {
 
 		int oldStaffcharges = this.wand != null ? this.wand.curCharges : 0;
 
-		if (owner == Dungeon.hero && Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)){
-			Talent.WandPreservationCounter counter = Buff.affect(Dungeon.hero, Talent.WandPreservationCounter.class);
+		if (owner == Dungeon.hero && Dungeon.hero.有天赋(Talent.WAND_PRESERVATION)){
+			Talent.WandPreservationCounter counter = Buff.施加(Dungeon.hero, Talent.WandPreservationCounter.class);
 			if (counter.count() == 0){
 				counter.countUp(1);
-				this.wand.level(0);
+				this.wand.等级(Dungeon.hero.满天赋(Talent.WAND_PRESERVATION)?1:0);
 				if (!this.wand.collect()) {
 					Dungeon.level.drop(this.wand, owner.pos);
 				}
@@ -247,7 +228,7 @@ public class MagesStaff extends MeleeWeapon {
 		//if the staff's level is being overridden by the wand, preserve 1 upgrade
 		if (wand.trueLevel() >= this.trueLevel() && this.trueLevel() > 0) targetLevel++;
 		
-		level(targetLevel);
+		等级(targetLevel);
 		this.wand = wand;
 		wand.levelKnown = wand.curChargeKnown = true;
 		updateWand(false);
@@ -320,7 +301,7 @@ public class MagesStaff extends MeleeWeapon {
 	public void updateWand(boolean levelled){
 		if (wand != null) {
 			int curCharges = wand.curCharges;
-			wand.level(level());
+			wand.等级(等级());
 			//gives the wand one additional max charge
 			wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
 			wand.curCharges = Math.min(curCharges + (levelled ? 1 : 0), wand.maxCharges);
@@ -446,7 +427,7 @@ public class MagesStaff extends MeleeWeapon {
 						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_cursed");
 					}
 
-					if (Dungeon.hero.hasTalent(Talent.WAND_PRESERVATION)
+					if (Dungeon.hero.有天赋(Talent.WAND_PRESERVATION)
 						&& Dungeon.hero.buff(Talent.WandPreservationCounter.class) == null){
 						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_talent");
 					} else {

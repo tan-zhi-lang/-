@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -63,9 +44,9 @@ public class TimekeepersHourglass extends Artifact {
 
 		levelCap = 5;
 
-		charge = 5+level();
+		charge = 5+ 等级();
 		partialCharge = 0;
-		chargeCap = 5+level();
+		chargeCap = 5+ 等级();
 
 		defaultAction = AC_ACTIVATE;
 	}
@@ -197,7 +178,7 @@ public class TimekeepersHourglass extends Artifact {
 		chargeCap+= 1;
 
 		//for artifact transmutation.
-		while (level()+1 > sandBags)
+		while (等级()+1 > sandBags)
 			sandBags ++;
 
 		return super.upgrade();
@@ -209,7 +190,7 @@ public class TimekeepersHourglass extends Artifact {
 
 		if (isEquipped( Dungeon.hero )){
 			if (!cursed) {
-				if (level() < levelCap )
+				if (等级() < levelCap )
 					desc += "\n\n" + Messages.get(this, "desc_hint");
 
 			} else
@@ -300,7 +281,7 @@ public class TimekeepersHourglass extends Artifact {
 				spend(5*usedCharge);
 
 				//shouldn't punish the player for going into stasis frequently
-				Hunger hunger = Buff.affect(target, Hunger.class);
+				Hunger hunger = Buff.施加(target, Hunger.class);
 				if (hunger != null && !hunger.isStarving()) {
 					hunger.satisfy(5 * usedCharge);
 				}
@@ -513,7 +494,7 @@ public class TimekeepersHourglass extends Artifact {
 				hourglass.upgrade();
 				Catalog.countUses(hourglass.getClass(), 2);
 				Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
-				if (hourglass.level() == hourglass.levelCap)
+				if (hourglass.等级() == hourglass.levelCap)
 					GLog.p( Messages.get(this, "maxlevel") );
 				else
 					GLog.i( Messages.get(this, "levelup") );

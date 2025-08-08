@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -78,7 +59,7 @@ public class HallowedGround extends TargetedClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.HALLOWED_GROUND);
+		return super.canCast(hero) && hero.有天赋(Talent.HALLOWED_GROUND);
 	}
 
 	@Override
@@ -95,7 +76,7 @@ public class HallowedGround extends TargetedClericSpell {
 
 		ArrayList<Char> affected = new ArrayList<>();
 
-		PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), hero.pointsInTalent(Talent.HALLOWED_GROUND));
+		PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), hero.天赋点数(Talent.HALLOWED_GROUND));
 		for (int i = 0; i < Dungeon.level.length(); i++){
 			if (PathFinder.distance[i] != Integer.MAX_VALUE){
 				int c = Dungeon.level.map[i];
@@ -138,28 +119,28 @@ public class HallowedGround extends TargetedClericSpell {
 	private void affectChar( Char ch ){
 		if (ch.alignment == Char.Alignment.ALLY){
 
-			if (ch == Dungeon.hero || ch.HP == ch.HT){
+			if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
 				int barrierToGive = Math.min(15, 30 - ch.shielding());
-				Buff.affect(ch, Barrier.class).incShield(barrierToGive);
+				Buff.施加(ch, Barrier.class).incShield(barrierToGive);
 				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrierToGive), FloatingText.SHIELDING );
 			} else {
-				int barrier = 15 - (ch.HT - ch.HP);
+				int barrier = 15 - (ch.最大生命 - ch.生命);
 				barrier = Math.max(barrier, 0);
-				ch.HP += 15 - barrier;
+				ch.生命 += 15 - barrier;
 				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(15-barrier), FloatingText.HEALING );
 				if (barrier > 0){
-					Buff.affect(ch, Barrier.class).incShield(barrier);
+					Buff.施加(ch, Barrier.class).incShield(barrier);
 					ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING );
 				}
 			}
 		} else if (!ch.flying) {
-			Buff.affect(ch, GuidingLight.Illuminated.class);
-			Buff.affect(ch, Roots.class, 2f);
+			Buff.施加(ch, GuidingLight.Illuminated.class);
+			Buff.施加(ch, Roots.class, 2f);
 		}
 	}
 
 	public String desc(){
-		int area = 1 + 2*Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
+		int area = 1 + Dungeon.hero.天赋点数(Talent.HALLOWED_GROUND,2);
 		return Messages.get(this, "desc", area) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -175,7 +156,7 @@ public class HallowedGround extends TargetedClericSpell {
 			ArrayList<Char> affected = new ArrayList<>();
 
 			// on avg, hallowed ground produces 9/17/25 tiles of grass, 100/67/50% of total tiles
-			int chance = 10 + 10*Dungeon.hero.pointsInTalent(Talent.HALLOWED_GROUND);
+			int chance = 10 + 10*Dungeon.hero.天赋点数(Talent.HALLOWED_GROUND);
 
 			for (int i = area.left-1; i <= area.right; i++) {
 				for (int j = area.top-1; j <= area.bottom; j++) {
@@ -241,15 +222,15 @@ public class HallowedGround extends TargetedClericSpell {
 
 		private void affectChar( Char ch ){
 			if (ch.alignment == Char.Alignment.ALLY){
-				if (ch == Dungeon.hero || ch.HP == ch.HT){
-					Buff.affect(ch, Barrier.class).incShield(1);
+				if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
+					Buff.施加(ch, Barrier.class).incShield(1);
 					ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, "1", FloatingText.SHIELDING );
 				} else {
-					ch.HP++;
+					ch.生命++;
 					ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, "1", FloatingText.HEALING );
 				}
 			} else if (!ch.flying && ch.buff(Roots.class) == null){
-				Buff.prolong(ch, Cripple.class, 1f);
+				Buff.延长(ch, Cripple.class, 1f);
 			}
 		}
 

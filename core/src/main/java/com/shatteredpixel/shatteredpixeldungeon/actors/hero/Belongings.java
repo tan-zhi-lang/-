@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
@@ -318,7 +299,7 @@ public class Belongings implements Iterable<Item> {
 	//triggers when a run ends, so ignores lost inventory effects
 	public void identify() {
 		for (Item item : this) {
-			item.identify(false);
+			item.鉴定(false);
 		}
 	}
 	
@@ -327,7 +308,7 @@ public class Belongings implements Iterable<Item> {
 			if (ShardOfOblivion.passiveIDDisabled() && weapon() instanceof Weapon){
 				((Weapon) weapon()).setIDReady();
 			} else {
-				weapon().identify();
+				weapon().鉴定();
 				Badges.validateItemLevelAquired(weapon());
 			}
 		}
@@ -335,7 +316,7 @@ public class Belongings implements Iterable<Item> {
 			if (ShardOfOblivion.passiveIDDisabled() && secondWep() instanceof Weapon){
 				((Weapon) secondWep()).setIDReady();
 			} else {
-				secondWep().identify();
+				secondWep().鉴定();
 				Badges.validateItemLevelAquired(secondWep());
 			}
 		}
@@ -343,20 +324,20 @@ public class Belongings implements Iterable<Item> {
 			if (ShardOfOblivion.passiveIDDisabled()){
 				armor().setIDReady();
 			} else {
-				armor().identify();
+				armor().鉴定();
 				Badges.validateItemLevelAquired(armor());
 			}
 		}
 		if (artifact() != null) {
 			//oblivion shard does not prevent artifact IDing
-			artifact().identify();
+			artifact().鉴定();
 			Badges.validateItemLevelAquired(artifact());
 		}
 		if (misc() != null) {
 			if (ShardOfOblivion.passiveIDDisabled() && misc() instanceof Ring){
 				((Ring) misc()).setIDReady();
 			} else {
-				misc().identify();
+				misc().鉴定();
 				Badges.validateItemLevelAquired(misc());
 			}
 		}
@@ -364,7 +345,7 @@ public class Belongings implements Iterable<Item> {
 			if (ShardOfOblivion.passiveIDDisabled()){
 				ring().setIDReady();
 			} else {
-				ring().identify();
+				ring().鉴定();
 				Badges.validateItemLevelAquired(ring());
 			}
 		}

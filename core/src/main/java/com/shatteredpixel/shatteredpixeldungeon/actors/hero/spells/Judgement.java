@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -55,7 +36,7 @@ public class Judgement extends ClericSpell {
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.hasTalent(Talent.JUDGEMENT)
+				&& hero.有天赋(Talent.JUDGEMENT)
 				&& hero.buff(AscendedForm.AscendBuff.class) != null;
 	}
 
@@ -68,14 +49,14 @@ public class Judgement extends ClericSpell {
 				GameScene.flash( 0x80FFFFFF );
 				Sample.INSTANCE.play(Assets.Sounds.BLAST);
 
-				int damageBase = 5 + 5*hero.pointsInTalent(Talent.JUDGEMENT);
+				int damageBase = 5 + 5*hero.天赋点数(Talent.JUDGEMENT);
 				damageBase += Math.round(damageBase*hero.buff(AscendedForm.AscendBuff.class).spellCasts/3f);
 
 				for (Char ch : Actor.chars()){
 					if (ch.alignment != hero.alignment && Dungeon.level.heroFOV[ch.pos]){
 						ch.damage( Random.NormalIntRange(damageBase, 2*damageBase), Judgement.this);
 						if (hero.subClass == HeroSubClass.PRIEST){
-							Buff.affect(ch, GuidingLight.Illuminated.class);
+							Buff.施加(ch, GuidingLight.Illuminated.class);
 						}
 					}
 				}
@@ -93,7 +74,7 @@ public class Judgement extends ClericSpell {
 
 	@Override
 	public String desc() {
-		int baseDmg = 5 + 5*Dungeon.hero.pointsInTalent(Talent.JUDGEMENT);
+		int baseDmg = 5 + 5*Dungeon.hero.天赋点数(Talent.JUDGEMENT);
 		int totalBaseDmg = baseDmg;
 		if (Dungeon.hero.buff(AscendedForm.AscendBuff.class) != null) {
 			totalBaseDmg += Math.round(baseDmg*Dungeon.hero.buff(AscendedForm.AscendBuff.class).spellCasts/3f);

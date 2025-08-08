@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
@@ -135,7 +116,7 @@ public class LiquidMetal extends Item {
 				MissileWeapon m = (MissileWeapon)item;
 
 				float maxToUse = 5*(m.tier+1);
-				maxToUse *= Math.pow(1.35f, m.level());
+				maxToUse *= Math.pow(1.35f, m.等级());
 
 				float durabilityPerMetal = 100 / maxToUse;
 
@@ -212,7 +193,7 @@ public class LiquidMetal extends Item {
 			}
 
 			m.quantity(0);
-			Buff.affect(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(m.setID, Integer.MAX_VALUE);
+			Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(m.setID, Integer.MAX_VALUE);
 
 			return result;
 		}
@@ -233,7 +214,7 @@ public class LiquidMetal extends Item {
 			if (m.defaultQuantity() != 3){
 				quantityPerWeapon = 3f / m.defaultQuantity();
 			}
-			quantityPerWeapon *= Math.pow(1.33f, Math.min(5, m.level()));
+			quantityPerWeapon *= Math.pow(1.33f, Math.min(5, m.等级()));
 
 			float quantity = m.quantity()-1;
 			quantity += 0.25f + 0.0075f*m.durabilityLeft();

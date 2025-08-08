@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior;
 
@@ -58,7 +39,7 @@ public class HeroicLeap extends ArmorAbility {
 		float chargeUse = super.chargeUse(hero);
 		if (hero.buff(DoubleJumpTracker.class) != null){
 			//reduced charge use by 16%/30%/41%/50%
-			chargeUse *= Math.pow(0.84, hero.pointsInTalent(Talent.DOUBLE_JUMP));
+			chargeUse *= Math.pow(0.84, hero.天赋点数(Talent.DOUBLE_JUMP));
 		}
 		return chargeUse;
 	}
@@ -98,18 +79,18 @@ public class HeroicLeap extends ArmorAbility {
 					for (int i : PathFinder.NEIGHBOURS8) {
 						Char mob = Actor.findChar(hero.pos + i);
 						if (mob != null && mob != hero && mob.alignment != Char.Alignment.ALLY) {
-							if (hero.hasTalent(Talent.BODY_SLAM)){
-								int damage = Hero.heroDamageIntRange(hero.pointsInTalent(Talent.BODY_SLAM), 4*hero.pointsInTalent(Talent.BODY_SLAM));
-								damage += Math.round(hero.drRoll()*0.25f*hero.pointsInTalent(Talent.BODY_SLAM));
+							if (hero.有天赋(Talent.BODY_SLAM)){
+								int damage = Hero.heroDamageIntRange(hero.天赋点数(Talent.BODY_SLAM), 4*hero.天赋点数(Talent.BODY_SLAM));
+								damage += Math.round(hero.drRoll()*0.25f*hero.天赋点数(Talent.BODY_SLAM));
 								damage -= mob.drRoll();
 								mob.damage(damage, hero);
 							}
-							if (mob.pos == hero.pos + i && hero.hasTalent(Talent.IMPACT_WAVE)){
+							if (mob.pos == hero.pos + i && hero.有天赋(Talent.IMPACT_WAVE)){
 								Ballistica trajectory = new Ballistica(mob.pos, mob.pos + i, Ballistica.MAGIC_BOLT);
-								int strength = 1+hero.pointsInTalent(Talent.IMPACT_WAVE);
+								int strength = 1+hero.天赋点数(Talent.IMPACT_WAVE);
 								WandOfBlastWave.throwChar(mob, trajectory, strength, true, true, HeroicLeap.this);
-								if (Random.Int(4) < hero.pointsInTalent(Talent.IMPACT_WAVE)){
-									Buff.prolong(mob, Vulnerable.class, 5f);
+								if (Random.Int(4) < hero.天赋点数(Talent.IMPACT_WAVE)){
+									Buff.延长(mob, Vulnerable.class, 5f);
 								}
 							}
 						}
@@ -124,8 +105,8 @@ public class HeroicLeap extends ArmorAbility {
 					if (hero.buff(DoubleJumpTracker.class) != null){
 						hero.buff(DoubleJumpTracker.class).detach();
 					} else {
-						if (hero.hasTalent(Talent.DOUBLE_JUMP)) {
-							Buff.affect(hero, DoubleJumpTracker.class, 3);
+						if (hero.有天赋(Talent.DOUBLE_JUMP)) {
+							Buff.施加(hero, DoubleJumpTracker.class, 3);
 						}
 					}
 				}

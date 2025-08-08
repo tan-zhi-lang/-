@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -59,7 +40,7 @@ public class ChaliceOfBlood extends Artifact {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero )
-				&& level() < levelCap
+				&& 等级() < levelCap
 				&& !cursed
 				&& !hero.isInvulnerable(getClass())
 				&& hero.buff(MagicImmune.class) == null)
@@ -73,9 +54,9 @@ public class ChaliceOfBlood extends Artifact {
 
 		if (action.equals(AC_PRICK)){
 
-			int damage = 5 + 3*(level()*level());
+			int damage = 5 + 3*(等级()* 等级());
 
-			if (damage > hero.HP*0.75) {
+			if (damage > hero.生命 *0.75) {
 
 				GameScene.show(
 					new WndOptions(new ItemSprite(this),
@@ -98,7 +79,7 @@ public class ChaliceOfBlood extends Artifact {
 	}
 
 	private void prick(Hero hero){
-		int damage = 5 + 3*(level()*level());
+		int damage = 5 + 3*(等级()* 等级());
 
 		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);
 		if (armor != null) {
@@ -137,9 +118,9 @@ public class ChaliceOfBlood extends Artifact {
 
 	@Override
 	public Item upgrade() {
-		if (level() >= 6)
+		if (等级() >= 6)
 			image = ItemSpriteSheet.ARTIFACT_CHALICE3;
-		else if (level() >= 2)
+		else if (等级() >= 2)
 			image = ItemSpriteSheet.ARTIFACT_CHALICE2;
 		return super.upgrade();
 	}
@@ -147,8 +128,8 @@ public class ChaliceOfBlood extends Artifact {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		if (level() >= 7) image = ItemSpriteSheet.ARTIFACT_CHALICE3;
-		else if (level() >= 3) image = ItemSpriteSheet.ARTIFACT_CHALICE2;
+		if (等级() >= 7) image = ItemSpriteSheet.ARTIFACT_CHALICE3;
+		else if (等级() >= 3) image = ItemSpriteSheet.ARTIFACT_CHALICE2;
 	}
 
 	@Override
@@ -163,18 +144,18 @@ public class ChaliceOfBlood extends Artifact {
 		//grants 5 turns of healing up-front, if hero isn't starving
 		if (target.isStarving()) return;
 
-		float healDelay = 10f - (1.33f + level()*0.667f);
+		float healDelay = 10f - (1.33f + 等级()*0.667f);
 		healDelay /= amount;
 		float heal = 5f/healDelay;
 		//effectively 0.5/1/1.5/2/2.5 HP per turn at +0/+6/+8/+9/+10
 		if (Random.Float() < heal%1){
 			heal++;
 		}
-		if (heal >= 1f && target.HP < target.HT) {
-			target.HP = Math.min(target.HT, target.HP + (int)heal);
+		if (heal >= 1f && target.生命 < target.最大生命) {
+			target.生命 = Math.min(target.最大生命, target.生命 + (int)heal);
 			target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString((int)heal), FloatingText.HEALING);
 
-			if (target.HP == target.HT && target instanceof Hero) {
+			if (target.生命 == target.最大生命 && target instanceof Hero) {
 				((Hero) target).resting = false;
 			}
 		}
@@ -188,9 +169,9 @@ public class ChaliceOfBlood extends Artifact {
 			desc += "\n\n";
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
-			else if (level() == 0)
+			else if (等级() == 0)
 				desc += Messages.get(this, "desc_1");
-			else if (level() < levelCap)
+			else if (等级() < levelCap)
 				desc += Messages.get(this, "desc_2");
 			else
 				desc += Messages.get(this, "desc_3");

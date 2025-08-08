@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
@@ -45,10 +26,10 @@ public class GnollTrickster extends Gnoll {
 	{
 		spriteClass = GnollTricksterSprite.class;
 
-		HP = HT = 20;
+		生命 = 最大生命 = 20;
 		defenseSkill = 5;
 
-		EXP = 5;
+		经验 = 5;
 
 		WANDERING = new Wandering();
 		state = WANDERING;
@@ -63,7 +44,7 @@ public class GnollTrickster extends Gnoll {
 	private int combo = 0;
 
 	@Override
-	public int attackSkill( Char target ) {
+	public int 最大命中(Char target ) {
 		return 16;
 	}
 
@@ -93,10 +74,10 @@ public class GnollTrickster extends Gnoll {
 				if (Dungeon.level.flamable[enemy.pos]) {
 					GameScene.add(Blob.seed(enemy.pos, 4, Fire.class));
 				}
-				Buff.affect(enemy, Burning.class).reignite( enemy );
+				Buff.施加(enemy, Burning.class).reignite( enemy );
 
 			} else {
-				Buff.affect(enemy, Poison.class).set((effect - 2));
+				Buff.施加(enemy, Poison.class).set((effect - 2));
 			}
 
 		}
@@ -126,12 +107,12 @@ public class GnollTrickster extends Gnoll {
 	@Override
 	public Item createLoot() {
 		MissileWeapon drop = (MissileWeapon)super.createLoot();
-		drop.level(0);
+		drop.等级(0);
 		if (drop.hasCurseEnchant()){
 			drop.enchant(null);
 		}
 		drop.cursed = false;
-		drop.identify(false);
+		drop.鉴定(false);
 		//half quantity, rounded up
 		drop.quantity((drop.quantity()+1)/2);
 		return drop;

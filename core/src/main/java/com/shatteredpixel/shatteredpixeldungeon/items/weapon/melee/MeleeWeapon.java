@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
@@ -67,14 +48,14 @@ public class MeleeWeapon extends Weapon {
 	public void activate(Char ch) {
 		super.activate(ch);
 		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.DUELIST){
-			Buff.affect(ch, Charger.class);
+			Buff.施加(ch, Charger.class);
 		}
 	}
 
 	@Override
 	public String defaultAction() {
 		if (Dungeon.hero != null && (Dungeon.hero.heroClass == HeroClass.DUELIST
-			|| Dungeon.hero.hasTalent(Talent.SWIFT_EQUIP))){
+			|| Dungeon.hero.有天赋(Talent.SWIFT_EQUIP))){
 			return AC_ABILITY;
 		} else {
 			return super.defaultAction();
@@ -106,7 +87,7 @@ public class MeleeWeapon extends Weapon {
 		if (action.equals(AC_ABILITY)){
 			usesTargeting = false;
 			if (!isEquipped(hero)) {
-				if (hero.hasTalent(Talent.SWIFT_EQUIP)){
+				if (hero.有天赋(Talent.SWIFT_EQUIP)){
 					if (hero.buff(Talent.SwiftEquipCooldown.class) == null
 						|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
 						execute(hero, AC_EQUIP);
@@ -118,9 +99,9 @@ public class MeleeWeapon extends Weapon {
 				}
 			} else if (hero.heroClass != HeroClass.DUELIST){
 				//do nothing
-			} else if (STRReq() > hero.STR()){
+			} else if (STRReq() > hero.力量()){
 				GLog.w(Messages.get(this, "ability_low_str"));
-			} else if ((Buff.affect(hero, Charger.class).charges + Buff.affect(hero, Charger.class).partialCharge) < abilityChargeUse(hero, null)) {
+			} else if ((Buff.施加(hero, Charger.class).charges + Buff.施加(hero, Charger.class).partialCharge) < abilityChargeUse(hero, null)) {
 				GLog.w(Messages.get(this, "ability_no_charge"));
 			} else {
 
@@ -168,7 +149,7 @@ public class MeleeWeapon extends Weapon {
 
 	protected void beforeAbilityUsed(Hero hero, Char target){
 		hero.belongings.abilityWeapon = this;
-		Charger charger = Buff.affect(hero, Charger.class);
+		Charger charger = Buff.施加(hero, Charger.class);
 
 		charger.partialCharge -= abilityChargeUse(hero, target);
 		while (charger.partialCharge < 0 && charger.charges > 0) {
@@ -177,10 +158,10 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		if (hero.heroClass == HeroClass.DUELIST
-				&& hero.hasTalent(Talent.AGGRESSIVE_BARRIER)
-				&& (hero.HP / (float)hero.HT) <= 0.5f){
-			int shieldAmt = 1 + 2*hero.pointsInTalent(Talent.AGGRESSIVE_BARRIER);
-			Buff.affect(hero, Barrier.class).setShield(shieldAmt);
+				&& hero.有天赋(Talent.AGGRESSIVE_BARRIER)
+				&& (hero.生命 / (float)hero.最大生命) <= 0.5f){
+			int shieldAmt = hero.天赋点数(Talent.AGGRESSIVE_BARRIER,4);
+			Buff.施加(hero, Barrier.class).setShield(shieldAmt);
 			hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 		}
 
@@ -189,49 +170,49 @@ public class MeleeWeapon extends Weapon {
 
 	protected void afterAbilityUsed( Hero hero ){
 		hero.belongings.abilityWeapon = null;
-		if (hero.hasTalent(Talent.PRECISE_ASSAULT)){
-			Buff.prolong(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+4f);
+		if (hero.有天赋(Talent.PRECISE_ASSAULT)){
+			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f-2+Dungeon.hero.天赋点数(Talent.PRECISE_ASSAULT,2));
 		}
-		if (hero.hasTalent(Talent.VARIED_CHARGE)){
+		if (hero.有天赋(Talent.VARIED_CHARGE)){
 			Talent.VariedChargeTracker tracker = hero.buff(Talent.VariedChargeTracker.class);
 			if (tracker == null || tracker.weapon == getClass() || tracker.weapon == null){
-				Buff.affect(hero, Talent.VariedChargeTracker.class).weapon = getClass();
+				Buff.施加(hero, Talent.VariedChargeTracker.class).weapon = getClass();
 			} else {
 				tracker.detach();
-				Charger charger = Buff.affect(hero, Charger.class);
-				charger.gainCharge(hero.pointsInTalent(Talent.VARIED_CHARGE) / 6f);
+				Charger charger = Buff.施加(hero, Charger.class);
+				charger.gainCharge(hero.天赋点数(Talent.VARIED_CHARGE,0.15f));
 				ScrollOfRecharging.charge(hero);
 			}
 		}
-		if (hero.hasTalent(Talent.COMBINED_LETHALITY)) {
+		if (hero.有天赋(Talent.COMBINED_LETHALITY)) {
 			Talent.CombinedLethalityAbilityTracker tracker = hero.buff(Talent.CombinedLethalityAbilityTracker.class);
 			if (tracker == null || tracker.weapon == this || tracker.weapon == null){
-				Buff.affect(hero, Talent.CombinedLethalityAbilityTracker.class, hero.cooldown()).weapon = this;
+				Buff.施加(hero, Talent.CombinedLethalityAbilityTracker.class, hero.cooldown()).weapon = this;
 			} else {
 				//we triggered the talent, so remove the tracker
 				tracker.detach();
 			}
 		}
-		if (hero.hasTalent(Talent.COMBINED_ENERGY)){
+		if (hero.有天赋(Talent.COMBINED_ENERGY)){
 			Talent.CombinedEnergyAbilityTracker tracker = hero.buff(Talent.CombinedEnergyAbilityTracker.class);
 			if (tracker == null || !tracker.monkAbilused){
-				Buff.prolong(hero, Talent.CombinedEnergyAbilityTracker.class, 5f).wepAbilUsed = true;
+				Buff.延长(hero, Talent.CombinedEnergyAbilityTracker.class, 5f).wepAbilUsed = true;
 			} else {
 				tracker.wepAbilUsed = true;
-				Buff.affect(hero, MonkEnergy.class).processCombinedEnergy(tracker);
+				Buff.施加(hero, MonkEnergy.class).processCombinedEnergy(tracker);
 			}
 		}
 		if (hero.buff(Talent.CounterAbilityTacker.class) != null){
-			Charger charger = Buff.affect(hero, Charger.class);
-			charger.gainCharge(hero.pointsInTalent(Talent.COUNTER_ABILITY)*0.375f);
+			Charger charger = Buff.施加(hero, Charger.class);
+			charger.gainCharge(hero.天赋点数(Talent.COUNTER_ABILITY)*0.375f);
 			hero.buff(Talent.CounterAbilityTacker.class).detach();
 		}
 	}
 
 	public static void onAbilityKill( Hero hero, Char killed ){
-		if (killed.alignment == Char.Alignment.ENEMY && hero.hasTalent(Talent.LETHAL_HASTE)){
+		if (killed.alignment == Char.Alignment.ENEMY && hero.有天赋(Talent.LETHAL_HASTE)){
 			//effectively 3/5 turns of greater haste
-			Buff.affect(hero, GreaterHaste.class).set(2 + 2*hero.pointsInTalent(Talent.LETHAL_HASTE));
+			Buff.施加(hero, GreaterHaste.class).set(hero.天赋点数(Talent.LETHAL_HASTE,3));
 		}
 	}
 
@@ -268,7 +249,7 @@ public class MeleeWeapon extends Weapon {
 	private static boolean evaluatingTwinUpgrades = false;
 	@Override
 	public int buffedLvl() {
-		if (!evaluatingTwinUpgrades && Dungeon.hero != null && isEquipped(Dungeon.hero) && Dungeon.hero.hasTalent(Talent.TWIN_UPGRADES)){
+		if (!evaluatingTwinUpgrades && Dungeon.hero != null && isEquipped(Dungeon.hero) && Dungeon.hero.有天赋(Talent.TWIN_UPGRADES)){
 			KindOfWeapon other = null;
 			if (Dungeon.hero.belongings.weapon() != this) other = Dungeon.hero.belongings.weapon();
 			if (Dungeon.hero.belongings.secondWep() != this) other = Dungeon.hero.belongings.secondWep();
@@ -279,7 +260,7 @@ public class MeleeWeapon extends Weapon {
 				evaluatingTwinUpgrades = false;
 
 				//weaker weapon needs to be 2/1/0 tiers lower, based on talent level
-				if ((tier + (3 - Dungeon.hero.pointsInTalent(Talent.TWIN_UPGRADES))) <= ((MeleeWeapon) other).tier
+				if ((tier + (4 - Dungeon.hero.天赋点数(Talent.TWIN_UPGRADES))) <= ((MeleeWeapon) other).tier
 						&& otherLevel > super.buffedLvl()) {
 					return otherLevel;
 				}
@@ -294,7 +275,7 @@ public class MeleeWeapon extends Weapon {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
 
 		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).STR() - STRReq();
+			int exStr = ((Hero)owner).力量() - STRReq();
 			if (exStr > 0) {
 				damage += Hero.heroDamageIntRange( 0, exStr );
 			}
@@ -310,15 +291,15 @@ public class MeleeWeapon extends Weapon {
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), STRReq());
 			if (Dungeon.hero != null) {
-				if (STRReq() > Dungeon.hero.STR()) {
+				if (STRReq() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
-				} else if (Dungeon.hero.STR() > STRReq()) {
-					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.STR() - STRReq());
+				} else if (Dungeon.hero.力量() > STRReq()) {
+					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - STRReq());
 				}
 			}
 		} else {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(0), max(0), STRReq(0));
-			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.STR()) {
+			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
 			}
 		}
@@ -400,8 +381,8 @@ public class MeleeWeapon extends Weapon {
 		if (cursedKnown && (cursed || hasCurseEnchant())) {
 			price /= 2;
 		}
-		if (levelKnown && level() > 0) {
-			price *= (level() + 1);
+		if (levelKnown && 等级() > 0) {
+			price *= (等级() + 1);
 		}
 		if (price < 1) {
 			price = 1;
@@ -434,7 +415,7 @@ public class MeleeWeapon extends Weapon {
 					partialCharge += chargeToGain;
 				}
 
-				int points = ((Hero)target).pointsInTalent(Talent.WEAPON_RECHARGING);
+				int points = ((Hero)target).天赋点数(Talent.WEAPON_RECHARGING);
 				if (points > 0 && target.buff(Recharging.class) != null || target.buff(ArtifactRecharge.class) != null){
 					//1 every 15 turns at +1, 10 turns at +2
 					partialCharge += 1/(20f - 5f*points);
@@ -473,9 +454,9 @@ public class MeleeWeapon extends Weapon {
 		public int chargeCap(){
 			//caps at level 19 with 8 or 10 charges
 			if (Dungeon.hero.subClass == HeroSubClass.CHAMPION){
-				return Math.min(10, 4 + (Dungeon.hero.当前等级 - 1) / 3);
+				return Math.min(10, 4 + (Dungeon.hero.等级 - 1) / 3);
 			} else {
-				return Math.min(8, 2 + (Dungeon.hero.当前等级 - 1) / 3);
+				return Math.min(8, 2 + (Dungeon.hero.等级 - 1) / 3);
 			}
 		}
 

@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
@@ -79,7 +60,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 
 	@Override
 	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.hasTalent(Talent.MNEMONIC_PRAYER);
+		return super.canCast(hero) && hero.有天赋(Talent.MNEMONIC_PRAYER);
 	}
 
 	@Override
@@ -98,7 +79,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 
 		QuickSlotButton.target(ch);
 
-		float extension = 2 + hero.pointsInTalent(Talent.MNEMONIC_PRAYER);
+		float extension = hero.天赋点数(Talent.MNEMONIC_PRAYER,2);
 		affectChar(ch, extension);
 
 		Char ally = PowerOfMany.getPoweredAlly();
@@ -141,7 +122,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 				}
 
 				//should consider some buffs that may be OP here, e.g. invuln
-				if (b instanceof FlavourBuff)           Buff.affect(ch, (Class<?extends FlavourBuff>)b.getClass(), extension);
+				if (b instanceof FlavourBuff)           Buff.施加(ch, (Class<?extends FlavourBuff>)b.getClass(), extension);
 				else if (b instanceof AdrenalineSurge)  ((AdrenalineSurge) b).delay(extension);
 				else if (b instanceof ArcaneArmor)      ((ArcaneArmor) b).delay(extension);
 				else if (b instanceof ArtifactRecharge) ((ArtifactRecharge) b).extend(extension);
@@ -166,7 +147,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 			Sample.INSTANCE.play(Assets.Sounds.DEBUFF);
 			ch.sprite.emitter().start(Speck.factory(Speck.DOWN), 0.15f, 4);
 
-			Buff.affect(ch, GuidingLight.Illuminated.class);
+			Buff.施加(ch, GuidingLight.Illuminated.class);
 
 			for (Buff b : ch.buffs()){
 				if (b.type != Buff.buffType.NEGATIVE || b.mnemonicExtended){
@@ -174,7 +155,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 				}
 
 				//this might need a nerf of aggression vs bosses. (perhaps nerf the extension?)
-				if (b instanceof FlavourBuff)       Buff.affect(ch, (Class<?extends FlavourBuff>)b.getClass(), extension);
+				if (b instanceof FlavourBuff)       Buff.施加(ch, (Class<?extends FlavourBuff>)b.getClass(), extension);
 				else if (b instanceof Bleeding)     ((Bleeding) b).extend( extension );
 				else if (b instanceof Burning)      ((Burning) b).extend( extension );
 				else if (b instanceof Corrosion)    ((Corrosion) b).extend( extension );
@@ -191,7 +172,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 	}
 
 	public String desc(){
-		return Messages.get(this, "desc", 2 + Dungeon.hero.pointsInTalent(Talent.MNEMONIC_PRAYER)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.MNEMONIC_PRAYER,2)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 }

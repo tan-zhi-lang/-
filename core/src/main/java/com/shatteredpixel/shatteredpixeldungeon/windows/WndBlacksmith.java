@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
@@ -34,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -266,7 +247,7 @@ public class WndBlacksmith extends Window {
 					}
 
 					Sample.INSTANCE.play( Assets.Sounds.EVOKE );
-					ScrollOfUpgrade.upgrade( Dungeon.hero );
+					升级卷轴.upgrade( Dungeon.hero );
 					Item.evoke( Dungeon.hero );
 
 					if (second.isEquipped( Dungeon.hero )) {
@@ -280,7 +261,7 @@ public class WndBlacksmith extends Window {
 							Dungeon.level.drop( seal, Dungeon.hero.pos );
 						}
 					} else if (second instanceof MissileWeapon){
-						Buff.affect(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class)
+						Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class)
 								.levelThresholds.put(((MissileWeapon) second).setID, Integer.MAX_VALUE);
 					}
 
@@ -423,7 +404,7 @@ public class WndBlacksmith extends Window {
 			return item.isUpgradable()
 					&& item.isIdentified()
 					&& !item.cursed
-					&& item.level() < 2;
+					&& item.等级() < 2;
 		}
 
 		@Override
@@ -437,7 +418,7 @@ public class WndBlacksmith extends Window {
 				WndBlacksmith.this.hide();
 
 				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
-				ScrollOfUpgrade.upgrade( Dungeon.hero );
+				升级卷轴.upgrade( Dungeon.hero );
 				Item.evoke( Dungeon.hero );
 
 				Badges.validateItemLevelAquired( item );
@@ -520,7 +501,7 @@ public class WndBlacksmith extends Window {
 							((Armor) item).inscribe(Blacksmith.Quest.smithGlyph);
 						}
 
-						item.identify(false);
+						item.鉴定(false);
 						Sample.INSTANCE.play(Assets.Sounds.EVOKE);
 						Item.evoke( Dungeon.hero );
 						if (item.doPickUp( Dungeon.hero )) {

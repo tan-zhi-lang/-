@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
@@ -66,7 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMappi
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -102,7 +83,7 @@ public enum HeroClass {
 		hero.heroClass = this;
 		Talent.initClassTalents(hero);
 
-		Item i = new ClothArmor().identify();
+		Item i = new ClothArmor().鉴定();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
 		i = new Food();
@@ -114,7 +95,7 @@ public enum HeroClass {
 		Waterskin waterskin = new Waterskin();
 		waterskin.collect();
 
-		new ScrollOfIdentify().identify();
+		new ScrollOfIdentify().鉴定();
 
 		switch (this) {
 			case WARRIOR:
@@ -172,9 +153,9 @@ public enum HeroClass {
 	}
 
 	private static void initWarrior( Hero hero ) {
-		(hero.belongings.weapon = new WornShortsword()).identify();
+		(hero.belongings.weapon = new WornShortsword()).鉴定();
 		ThrowingStone stones = new ThrowingStone();
-		stones.identify().collect();
+		stones.鉴定().collect();
 
 		Dungeon.quickslot.setSlot(0, stones);
 
@@ -183,8 +164,8 @@ public enum HeroClass {
 			Catalog.setSeen(BrokenSeal.class); //as it's not added to the inventory
 		}
 
-		new PotionOfHealing().identify();
-		new ScrollOfRage().identify();
+		new PotionOfHealing().鉴定();
+		new ScrollOfRage().鉴定();
 	}
 
 	private static void initMage( Hero hero ) {
@@ -192,72 +173,72 @@ public enum HeroClass {
 
 		staff = new MagesStaff(new WandOfMagicMissile());
 
-		(hero.belongings.weapon = staff).identify();
+		(hero.belongings.weapon = staff).鉴定();
 		hero.belongings.weapon.activate(hero);
 
 		Dungeon.quickslot.setSlot(0, staff);
 
-		new ScrollOfUpgrade().identify();
-		new PotionOfLiquidFlame().identify();
+		new 升级卷轴().鉴定();
+		new PotionOfLiquidFlame().鉴定();
 	}
 
 	private static void initRogue( Hero hero ) {
-		(hero.belongings.weapon = new Dagger()).identify();
+		(hero.belongings.weapon = new Dagger()).鉴定();
 
 		CloakOfShadows cloak = new CloakOfShadows();
-		(hero.belongings.artifact = cloak).identify();
+		(hero.belongings.artifact = cloak).鉴定();
 		hero.belongings.artifact.activate( hero );
 
 		ThrowingKnife knives = new ThrowingKnife();
-		knives.identify().collect();
+		knives.鉴定().collect();
 
 		Dungeon.quickslot.setSlot(0, cloak);
 		Dungeon.quickslot.setSlot(1, knives);
 
-		new ScrollOfMagicMapping().identify();
-		new PotionOfInvisibility().identify();
+		new ScrollOfMagicMapping().鉴定();
+		new PotionOfInvisibility().鉴定();
 	}
 
 	private static void initHuntress( Hero hero ) {
 
-		(hero.belongings.weapon = new Gloves()).identify();
+		(hero.belongings.weapon = new Gloves()).鉴定();
 		SpiritBow bow = new SpiritBow();
-		bow.identify().collect();
+		bow.鉴定().collect();
 
 		Dungeon.quickslot.setSlot(0, bow);
 
-		new PotionOfMindVision().identify();
-		new ScrollOfLullaby().identify();
+		new PotionOfMindVision().鉴定();
+		new ScrollOfLullaby().鉴定();
 	}
 
 	private static void initDuelist( Hero hero ) {
 
-		(hero.belongings.weapon = new Rapier()).identify();
+		(hero.belongings.weapon = new Rapier()).鉴定();
 		hero.belongings.weapon.activate(hero);
 
 		ThrowingSpike spikes = new ThrowingSpike();
-		spikes.quantity(2).identify().collect(); //set quantity is 3, but Duelist starts with 2
+		spikes.quantity(2).鉴定().collect(); //set quantity is 3, but Duelist starts with 2
 
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, spikes);
 
-		new PotionOfStrength().identify();
-		new ScrollOfMirrorImage().identify();
+		new PotionOfStrength().鉴定();
+		new ScrollOfMirrorImage().鉴定();
 	}
 
 	private static void initCleric( Hero hero ) {
 
-		(hero.belongings.weapon = new Cudgel()).identify();
+		(hero.belongings.weapon = new Cudgel()).鉴定();
 		hero.belongings.weapon.activate(hero);
 
 		HolyTome tome = new HolyTome();
-		(hero.belongings.artifact = tome).identify();
+		(hero.belongings.artifact = tome).鉴定();
 		hero.belongings.artifact.activate( hero );
 
 		Dungeon.quickslot.setSlot(0, tome);
 
-		new PotionOfPurity().identify();
-		new ScrollOfRemoveCurse().identify();
+		new PotionOfPurity().鉴定();
+		new ScrollOfRemoveCurse().鉴定();
 	}
 
 	public String title() {

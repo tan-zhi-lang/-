@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
@@ -54,9 +35,9 @@ public class HolyTome extends Artifact {
 		exp = 0;
 		levelCap = 10;
 
-		charge = Math.min(level()+3, 10);
+		charge = Math.min(等级()+3, 10);
 		partialCharge = 0;
-		chargeCap = Math.min(level()+3, 10);
+		chargeCap = Math.min(等级()+3, 10);
 
 		defaultAction = AC_CAST;
 
@@ -69,7 +50,7 @@ public class HolyTome extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.hasTalent(Talent.LIGHT_READING))
+		if ((isEquipped( hero ) || hero.有天赋(Talent.LIGHT_READING))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
@@ -86,7 +67,7 @@ public class HolyTome extends Artifact {
 
 		if (action.equals(AC_CAST)) {
 
-			if (!isEquipped(hero) && !hero.hasTalent(Talent.LIGHT_READING)) GLog.i(Messages.get(Artifact.class, "need_to_equip"));
+			if (!isEquipped(hero) && !hero.有天赋(Talent.LIGHT_READING)) GLog.i(Messages.get(Artifact.class, "need_to_equip"));
 			else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 			else {
 
@@ -112,7 +93,7 @@ public class HolyTome extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (collect && hero.hasTalent(Talent.LIGHT_READING)){
+			if (collect && hero.有天赋(Talent.LIGHT_READING)){
 				activate(hero);
 			}
 
@@ -126,7 +107,7 @@ public class HolyTome extends Artifact {
 		if (super.collect(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).hasTalent(Talent.LIGHT_READING)){
+					&& ((Hero) container.owner).有天赋(Talent.LIGHT_READING)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -144,7 +125,7 @@ public class HolyTome extends Artifact {
 	}
 
 	public boolean canCast( Hero hero, ClericSpell spell ){
-		return (isEquipped(hero) || (Dungeon.hero.hasTalent(Talent.LIGHT_READING) && hero.belongings.contains(this)))
+		return (isEquipped(hero) || (Dungeon.hero.有天赋(Talent.LIGHT_READING) && hero.belongings.contains(this)))
 				&& hero.buff(MagicImmune.class) == null
 				&& charge >= spell.chargeUse(hero)
 				&& spell.canCast(hero);
@@ -158,10 +139,10 @@ public class HolyTome extends Artifact {
 		}
 
 		//target hero level is 1 + 2*tome level
-		int lvlDiffFromTarget = Dungeon.hero.lvl - (1+level()*2);
+		int lvlDiffFromTarget = Dungeon.hero.等级 - (1+ 等级()*2);
 		//plus an extra one for each level after 6
-		if (level() >= 7){
-			lvlDiffFromTarget -= level()-6;
+		if (等级() >= 7){
+			lvlDiffFromTarget -= 等级()-6;
 		}
 
 		if (lvlDiffFromTarget >= 0){
@@ -170,10 +151,10 @@ public class HolyTome extends Artifact {
 			exp += Math.round(chargesSpent * 10f * Math.pow(0.75f, -lvlDiffFromTarget));
 		}
 
-		if (exp >= (level() + 1) * 50 && level() < levelCap) {
+		if (exp >= (等级() + 1) * 50 && 等级() < levelCap) {
 			upgrade();
 			Catalog.countUse(HolyTome.class);
-			exp -= level() * 50;
+			exp -= 等级() * 50;
 			GLog.p(Messages.get(this, "levelup"));
 
 		}
@@ -213,7 +194,7 @@ public class HolyTome extends Artifact {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
-			if (!isEquipped(target)) amount *= 0.75f*target.pointsInTalent(Talent.LIGHT_READING)/3f;
+			if (!isEquipped(target)) amount *= target.天赋点数(Talent.LIGHT_READING,0.25f);
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1f) {
 				charge++;
@@ -289,12 +270,12 @@ public class HolyTome extends Artifact {
 			if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null) {
 				if (Regeneration.regenOn()) {
 					float missing = (chargeCap - charge);
-					if (level() > 7) missing += 5*(level() - 7)/3f;
+					if (等级() > 7) missing += 5*(等级() - 7)/3f;
 					float turnsToCharge = (45 - missing);
 					turnsToCharge /= RingOfEnergy.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= 0.75f*Dungeon.hero.pointsInTalent(Talent.LIGHT_READING)/3f;
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.LIGHT_READING,025f);
 					}
 					partialCharge += chargeToGain;
 				}

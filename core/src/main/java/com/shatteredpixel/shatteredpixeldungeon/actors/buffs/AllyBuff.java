@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
@@ -57,7 +38,7 @@ public abstract class AllyBuff extends Buff {
 	//consider that chars with the ally alignment do not drop items or award exp on death
 	public static void affectAndLoot(Mob enemy, Hero hero, Class<?extends AllyBuff> buffCls){
 		boolean wasEnemy = enemy.alignment == Char.Alignment.ENEMY || enemy instanceof Mimic;
-		Buff.affect(enemy, buffCls);
+		Buff.施加(enemy, buffCls);
 
 		if (enemy.buff(buffCls) != null && wasEnemy){
 			enemy.rollToDropLoot();
@@ -70,14 +51,14 @@ public abstract class AllyBuff extends Buff {
 
 			AscensionChallenge.processEnemyKill(enemy);
 
-			int exp = hero.当前等级 <= enemy.maxLvl ? enemy.EXP : 0;
+			int exp = hero.等级 <= enemy.最大等级 ? enemy.经验 : 0;
 			if (exp > 0) {
 				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.EXPERIENCE);
 			}
-			hero.earnExp(exp, enemy.getClass());
+			hero.经验(exp, enemy.getClass());
 
 			if (hero.subClass == HeroSubClass.MONK){
-				Buff.affect(hero, MonkEnergy.class).gainEnergy(enemy);
+				Buff.施加(hero, MonkEnergy.class).gainEnergy(enemy);
 			}
 		}
 	}

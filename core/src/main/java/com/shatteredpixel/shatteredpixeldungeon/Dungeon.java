@@ -1,23 +1,4 @@
-/*
- * Pixel Dungeon
- * Copyright (C) 2012-2015 Oleg Dolya
- *
- * Shattered Pixel Dungeon
- * Copyright (C) 2014-2025 Evan Debenham
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- */
+
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
@@ -519,7 +500,7 @@ public class Dungeon {
 		dropped.add( item );
 	}
 
-	public static boolean posNeeded() {
+	public static boolean 力量药剂掉落() {
 		//2 POS each floor set
 		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
 		if (posLeftThisSet <= 0) return false;
@@ -535,10 +516,10 @@ public class Dungeon {
 
 	}
 	
-	public static boolean souNeeded() {
+	public static boolean 升级卷轴掉落() {
 		int souLeftThisSet;
 		//3 SOU each floor set
-		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
+		souLeftThisSet = 4 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 4);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -556,7 +537,7 @@ public class Dungeon {
 		return Random.Int(5 - floorThisSet) < asLeftThisSet;
 	}
 
-	public static boolean enchStoneNeeded(){
+	public static boolean 附魔符石掉落(){
 		//1 enchantment stone, spawns on chapter 2 or 3
 		if (!LimitedDrops.ENCH_STONE.dropped()){
 			int region = 1+depth/5;
@@ -889,7 +870,7 @@ public class Dungeon {
 	//default to recomputing based on max hero vision, in case vision just shrank/grew
 	public static void observe(){
 		int dist = Math.max(Dungeon.hero.viewDistance, 8);
-		dist *= 1f + 0.25f*Dungeon.hero.pointsInTalent(Talent.FARSIGHT);
+		dist *= 1f + Dungeon.hero.天赋点数(Talent.FARSIGHT,0.25f);
 
 		if (Dungeon.hero.buff(MagicalSight.class) != null){
 			dist = Math.max( dist, MagicalSight.DISTANCE );
@@ -1082,5 +1063,7 @@ public class Dungeon {
 		return step;
 
 	}
-
+	public static boolean hero(){
+		return hero==null;
+	}
 }

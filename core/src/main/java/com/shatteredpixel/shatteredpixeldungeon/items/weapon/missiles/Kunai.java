@@ -20,7 +20,7 @@ public class Kunai extends MissileWeapon {
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  4 * tier +                      //12 base, down from 15
 				(tier-1)*lvl;                   //scaling unchanged
 	}
@@ -32,10 +32,10 @@ public class Kunai extends MissileWeapon {
 			Char enemy = hero.attackTarget();
 			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
 				//deals 60% toward max to max on surprise, instead of min to max.
-				int diff = max() - min();
+				int diff = 最大攻击() - 最小攻击();
 				int damage = augment.damageFactor(Hero.heroDamageIntRange(
-						min() + Math.round(diff*0.6f),
-						max()));
+						最小攻击() + Math.round(diff*0.6f),
+						最大攻击()));
 				int exStr = hero.力量() - 力量();
 				if (exStr > 0) {
 					damage += Hero.heroDamageIntRange(0, exStr);

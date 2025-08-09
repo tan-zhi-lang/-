@@ -17,7 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -171,7 +170,7 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case ROGUE:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							Icons.get(Icons.STAIRS),
+							Icons.get(Icons.上楼),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case HUNTRESS:

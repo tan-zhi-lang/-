@@ -19,7 +19,7 @@ public class WarScythe extends MeleeWeapon {
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  Math.round(6.67f*(tier+1)) +    //40 base, up from 30
 				lvl*(tier+1);                   //scaling unchanged
 	}

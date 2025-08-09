@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -46,6 +47,13 @@ public class HolyIntuition extends InventoryClericSpell {
 		}
 
 		item.cursedKnown = true;
+
+		if(hero.满天赋(Talent.HOLY_INTUITION)){
+			item.鉴定();
+			祛邪卷轴.净化(hero,item);
+		}else{
+			item.鉴定();
+		}
 
 		if (item.cursed){
 			GLog.w(Messages.get(this, "cursed"));

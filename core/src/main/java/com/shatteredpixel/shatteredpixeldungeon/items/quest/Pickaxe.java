@@ -117,12 +117,12 @@ public class Pickaxe extends MeleeWeapon {
 	@Override
 	public String abilityInfo() {
 		int dmgBoost = 8 + 2*buffedLvl();
-		return Messages.get(this, "ability_desc", augment.damageFactor(min()+dmgBoost), augment.damageFactor(max()+dmgBoost));
+		return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()+dmgBoost), augment.damageFactor(最大攻击()+dmgBoost));
 	}
 
 	public String upgradeAbilityStat(int level){
 		int dmgBoost = 8 + 2*level;
-		return augment.damageFactor(min(level)+dmgBoost) + "-" + augment.damageFactor(max(level)+dmgBoost);
+		return augment.damageFactor(最小攻击(level)+dmgBoost) + "-" + augment.damageFactor(最大攻击(level)+dmgBoost);
 	}
 
 }

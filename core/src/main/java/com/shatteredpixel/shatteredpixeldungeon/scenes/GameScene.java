@@ -1373,7 +1373,7 @@ public class GameScene extends PixelScene {
 				super.update();
 			}
 		};
-		restart.icon(Icons.get(Icons.进入));
+		restart.icon(Icons.get(Icons.下楼));
 		restart.alpha(0);
 		restart.camera = uiCamera;
 		float offset = Camera.main.centerOffset.y;

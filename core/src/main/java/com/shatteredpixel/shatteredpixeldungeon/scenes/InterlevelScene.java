@@ -266,7 +266,7 @@ public class InterlevelScene extends PixelScene {
 							Document.INTROS.readPage(region);
 						}
 					};
-					btnContinue.icon(Icons.STAIRS.get());
+					btnContinue.icon(Icons.上楼.get());
 					btnContinue.setSize(btnContinue.reqWidth()+10, 22);
 					btnContinue.visible = false;
 					btnContinue.enable(false);

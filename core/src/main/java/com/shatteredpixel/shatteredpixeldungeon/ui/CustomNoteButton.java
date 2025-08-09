@@ -104,7 +104,7 @@ public class CustomNoteButton extends IconButton {
 	private class WndDepthSelect extends WndTitledMessage {
 
 		public WndDepthSelect(){
-			super(Icons.STAIRS.get(),
+			super(Icons.上楼.get(),
 					Messages.get(CustomNoteButton.class, "new_floor"),
 					Messages.get(CustomNoteButton.class, "new_floor_prompt"));
 

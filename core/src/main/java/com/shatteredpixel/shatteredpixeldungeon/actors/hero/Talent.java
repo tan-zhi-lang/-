@@ -50,7 +50,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gloves;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -477,12 +477,12 @@ public enum Talent {
 			Buff.施加(hero, BrokenSeal.WarriorShield.class);
 		}
 
-		if (talent == VETERANS_INTUITION && hero.天赋点数(VETERANS_INTUITION) == 2){
+		if (talent == VETERANS_INTUITION && hero.天赋点数(VETERANS_INTUITION) == 1){
 			if (hero.belongings.armor() != null && !ShardOfOblivion.passiveIDDisabled())  {
 				hero.belongings.armor.鉴定();
 			}
 		}
-		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 2){
+		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
 			if (hero.belongings.ring instanceof Ring && !ShardOfOblivion.passiveIDDisabled()) {
 				hero.belongings.ring.鉴定();
 			}
@@ -499,7 +499,7 @@ public enum Talent {
 			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.setKnown();
 			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
 		}
-		if (talent == ADVENTURERS_INTUITION && hero.天赋点数(ADVENTURERS_INTUITION) == 2){
+		if (talent == ADVENTURERS_INTUITION && hero.天赋点数(ADVENTURERS_INTUITION) == 1){
 			if (hero.belongings.weapon() != null && !ShardOfOblivion.passiveIDDisabled()){
 				hero.belongings.weapon().鉴定();
 			}
@@ -533,7 +533,7 @@ public enum Talent {
 			if (!toGive.放背包()){
 				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
 			}
-			toGive = new Gloves().鉴定();
+			toGive = new 镶钉手套().鉴定();
 			if (!toGive.放背包()){
 				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
 			}
@@ -663,25 +663,11 @@ public enum Talent {
 
 		// Affected by both Warrior(1.75x/2.5x) and Duelist(2.5x/inst.) talents
 		if (item instanceof MeleeWeapon){
-			factor *= hero.天赋点数(ADVENTURERS_INTUITION,10); //instant at +2 (see onItemEquipped)
 			factor *= hero.天赋点数(VETERANS_INTUITION,2);
 		}
 		// Affected by both Warrior(2.5x/inst.) and Duelist(1.75x/2.5x) talents
 		if (item instanceof Armor){
 			factor *= hero.天赋点数(ADVENTURERS_INTUITION,2);
-			factor *= hero.天赋点数(VETERANS_INTUITION,10); //instant at +2 (see onItemEquipped)
-		}
-		// 3x/instant for Mage (see Wand.wandUsed())
-		if (item instanceof Wand){
-			factor *= hero.天赋点数(SCHOLARS_INTUITION,10);
-		}
-		// 3x/instant speed with Huntress talent (see MissileWeapon.proc)
-		if (item instanceof MissileWeapon){
-			factor *= hero.天赋点数(SURVIVALISTS_INTUITION,10);
-		}
-		// 2x/instant for Rogue (see onItemEqupped), also id's type on equip/on pickup
-		if (item instanceof Ring){
-			factor *= hero.天赋点数(THIEFS_INTUITION,10);
 		}
 		return factor;
 	}
@@ -807,18 +793,18 @@ public enum Talent {
 		}
 	}
 
-	public static void onItemEquipped( Hero hero, Item item ){
+	public static void 装备时(Hero hero, Item item ){
 		boolean identify = false;
-		if (hero.天赋点数(VETERANS_INTUITION) == 2 && item instanceof Armor){
+		if (hero.天赋点数(VETERANS_INTUITION) == 1 && item instanceof Armor){
 			identify = true;
 		}
 		if (hero.有天赋(THIEFS_INTUITION) && item instanceof Ring){
-			if (hero.天赋点数(THIEFS_INTUITION) == 2){
+			if (hero.天赋点数(THIEFS_INTUITION) == 1){
 				identify = true;
 			}
 			((Ring) item).setKnown();
 		}
-		if (hero.天赋点数(ADVENTURERS_INTUITION) == 2 && item instanceof Weapon){
+		if (hero.天赋点数(ADVENTURERS_INTUITION) == 1 && item instanceof Weapon){
 			identify = true;
 		}
 
@@ -827,9 +813,24 @@ public enum Talent {
 		}
 	}
 
-	public static void onItemCollected( Hero hero, Item item ){
+	public static void 拾取时(Hero hero, Item item ){
 		if (hero.天赋点数(THIEFS_INTUITION) == 2){
-			if (item instanceof Ring) ((Ring) item).setKnown();
+			if (item instanceof Ring){
+				((Ring) item).setKnown();
+				((Ring) item).鉴定();
+			}
+		}
+		if (hero.天赋点数(VETERANS_INTUITION) == 2){
+			if (item instanceof Armor) ((Armor) item).鉴定();
+		}
+		if (hero.天赋点数(SCHOLARS_INTUITION) == 2){
+			if (item instanceof Wand) ((Wand) item).鉴定();
+		}
+		if (hero.天赋点数(SURVIVALISTS_INTUITION) == 2){
+			if (item instanceof MissileWeapon) ((MissileWeapon) item).鉴定();
+		}
+		if (hero.天赋点数(ADVENTURERS_INTUITION) == 2){
+			if (item instanceof MeleeWeapon) ((MeleeWeapon) item).鉴定();
 		}
 	}
 

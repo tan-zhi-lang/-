@@ -957,6 +957,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void onClick() {
 					super.onClick();
 					SPDSettings.music(!checked());
+					Sample.INSTANCE.play(Random.oneOf(Assets.Music.allBGM));
 				}
 			};
 			chkMusicMute.checked(!SPDSettings.music());
@@ -969,16 +970,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 				@Override
 				protected void onChange() {
 					SPDSettings.SFXVol(getSelectedValue());
-					if (Random.Int(100) == 0){
-						Sample.INSTANCE.play(Assets.Sounds.MIMIC);
-					} else {
-						Sample.INSTANCE.play(Random.oneOf(Assets.Sounds.GOLD,
-								Assets.Sounds.HIT,
-								Assets.Sounds.ITEM,
-								Assets.Sounds.SHATTER,
-								Assets.Sounds.EVOKE,
-								Assets.Sounds.SECRET));
-					}
+					Sample.INSTANCE.play(Random.oneOf(Assets.Sounds.all));
 				}
 			};
 			optSFX.setSelectedValue(SPDSettings.SFXVol());

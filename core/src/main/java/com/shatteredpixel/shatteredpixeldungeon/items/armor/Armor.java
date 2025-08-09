@@ -47,6 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Thorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -220,6 +221,12 @@ public class Armor extends EquipableItem {
 				&& cursed && !cursedKnown
 				&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
 			cursedKnown = true;
+			if(hero.满天赋(Talent.HOLY_INTUITION)){
+				鉴定();
+				祛邪卷轴.净化(hero,this);
+			}else{
+				鉴定();
+			}
 			GLog.p(Messages.get(this, "curse_detected"));
 			return false;
 		}
@@ -239,7 +246,7 @@ public class Armor extends EquipableItem {
 			
 			((HeroSprite)hero.sprite).updateArmor();
 			activate(hero);
-			Talent.onItemEquipped(hero, this);
+			Talent.装备时(hero, this);
 			hero.spend( timeToEquip( hero ) );
 
 			if (Dungeon.hero.heroClass == HeroClass.WARRIOR && checkSeal() == null){

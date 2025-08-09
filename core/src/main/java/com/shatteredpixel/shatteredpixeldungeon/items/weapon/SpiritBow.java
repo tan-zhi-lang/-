@@ -119,8 +119,8 @@ public class SpiritBow extends Weapon {
 		String info = super.info();
 		
 		info += "\n\n" + Messages.get( SpiritBow.class, "stats",
-				Math.round(augment.damageFactor(min())),
-				Math.round(augment.damageFactor(max())),
+				Math.round(augment.damageFactor(最小攻击())),
+				Math.round(augment.damageFactor(最大攻击())),
 				力量());
 		
 		if (力量() > Dungeon.hero.力量()) {
@@ -166,7 +166,7 @@ public class SpiritBow extends Weapon {
 	}
 	
 	@Override
-	public int min(int lvl) {
+	public int 最小攻击(int lvl) {
 		int dmg = 1 + Dungeon.hero.等级 /5
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
 				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级 /30 : 0);
@@ -174,7 +174,7 @@ public class SpiritBow extends Weapon {
 	}
 	
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		int dmg = 6 + (int)(Dungeon.hero.等级 /2.5f)
 				+ 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
 				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级 /15 : 0);

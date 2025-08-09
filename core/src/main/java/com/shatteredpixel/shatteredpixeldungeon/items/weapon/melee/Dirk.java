@@ -20,7 +20,7 @@ public class Dirk extends MeleeWeapon {
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  4*(tier+1) +    //12 base, down from 15
 				lvl*(tier+1);   //scaling unchanged
 	}
@@ -32,10 +32,10 @@ public class Dirk extends MeleeWeapon {
 			Char enemy = hero.attackTarget();
 			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
 				//deals 67% toward max to max on surprise, instead of min to max.
-				int diff = max() - min();
+				int diff = 最大攻击() - 最小攻击();
 				int damage = augment.damageFactor(Hero.heroDamageIntRange(
-						min() + Math.round(diff*0.67f),
-						max()));
+						最小攻击() + Math.round(diff*0.67f),
+						最大攻击()));
 				int exStr = hero.力量() - 力量();
 				if (exStr > 0) {
 					damage += Hero.heroDamageIntRange(0, exStr);
@@ -57,7 +57,7 @@ public class Dirk extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		Dagger.sneakAbility(hero, target, 4, 2+buffedLvl(), this);
+		双匕首.sneakAbility(hero, target, 4, 2+buffedLvl(), this);
 	}
 
 	@Override

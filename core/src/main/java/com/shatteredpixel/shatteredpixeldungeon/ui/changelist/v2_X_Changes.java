@@ -344,7 +344,7 @@ public class v2_X_Changes {
 				"\n" +
 				"Look out for a trinket catalyst in the early stages of the game, which you can use at the first alchemy pot to produce one of three trinket options. There are _11 trinkets in total_."));
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.STAIRS), "New Rooms",
+		changes.addButton( new ChangeButton(Icons.get(Icons.上楼), "New Rooms",
 				"_New standard rooms have been added to the various regions of the game!_\n" +
 				"\n" +
 				"This includes one totally new room per region, and two new variants of entrance/exit rooms per region. Rooms that are mostly empty rectangles are now much less common, and there's a bunch of variety for which rooms can have entrance/exit stairs in them.\n" +
@@ -925,7 +925,7 @@ public class v2_X_Changes {
 				"\n" +
 				"_- Corrosion_ curse turns of ooze down to 10, from 20."));
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.STAIRS), "Ascension Challenge",
+		changes.addButton( new ChangeButton(Icons.get(Icons.上楼), "Ascension Challenge",
 				"The combination of enemy stat scaling adjustments and the switch to boosting HP instead of reducing damage taken has made the earlier floors in the ascension challenge a little harder than intended, so I'm scaling things back:\n" +
 				"\n" +
 				"_-_ Reverted the v2.1.0 increase to enemy stats in the caves and prison during the ascension challenge."));
@@ -975,7 +975,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.STAIRS.get(), "Ascension Changes",
+		changes.addButton( new ChangeButton(Icons.上楼.get(), "Ascension Changes",
 				"I've made several changes to the Ascension challenge to make it more fun, mesh better with some items/effects, and to smooth out its difficulty:\n\n" +
 				"_-_ Enemies now gain increased max HP during ascent, instead of damage resistance\n\n" +
 				"_-_ Enemies now grant exp to the hero up to level 30 while ascending\n" +
@@ -1210,7 +1210,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(Icons.get(Icons.STAIRS), "Ascension Challenge",
+		changes.addButton(new ChangeButton(Icons.get(Icons.上楼), "Ascension Challenge",
 				"I'm making a few adjustments to the ascension challenge to slightly increase the difficulty of some regions, while also reducing the pressure to kill enemies a little bit:\n" +
 				"\n" +
 				"_-_ Enemies to kill per floor reduced to 2 from 2.5. Thresholds for all amulet debuff effects adjusted to compensate\n" +

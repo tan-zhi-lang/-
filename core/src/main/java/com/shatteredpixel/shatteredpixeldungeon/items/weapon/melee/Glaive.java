@@ -15,12 +15,12 @@ public class Glaive extends MeleeWeapon {
 		hitSoundPitch = 0.8f;
 
 		tier = 5;
-		DLY = 1.5f; //0.67x speed
+		延迟 = 1.5f; //0.67x speed
 		RCH = 2;    //extra reach
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  Math.round(6.67f*(tier+1)) +    //40 base, up from 30
 				lvl*Math.round(1.33f*(tier+1)); //+8 per level, up from +6
 	}
@@ -39,16 +39,16 @@ public class Glaive extends MeleeWeapon {
 
 	public String upgradeAbilityStat(int level){
 		int dmgBoost = 12 + Math.round(2.5f*level);
-		return augment.damageFactor(min(level)+dmgBoost) + "-" + augment.damageFactor(max(level)+dmgBoost);
+		return augment.damageFactor(最小攻击(level)+dmgBoost) + "-" + augment.damageFactor(最大攻击(level)+dmgBoost);
 	}
 
 	@Override
 	public String abilityInfo() {
 		int dmgBoost = levelKnown ? 12 + Math.round(2.5f*buffedLvl()) : 12;
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", augment.damageFactor(min()+dmgBoost), augment.damageFactor(max()+dmgBoost));
+			return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()+dmgBoost), augment.damageFactor(最大攻击()+dmgBoost));
 		} else {
-			return Messages.get(this, "typical_ability_desc", min(0)+dmgBoost, max(0)+dmgBoost);
+			return Messages.get(this, "typical_ability_desc", 最小攻击(0)+dmgBoost, 最大攻击(0)+dmgBoost);
 		}
 	}
 

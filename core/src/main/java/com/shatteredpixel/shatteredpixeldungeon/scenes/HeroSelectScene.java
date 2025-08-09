@@ -126,7 +126,7 @@ public class HeroSelectScene extends PixelScene {
 				Game.switchScene( InterlevelScene.class );
 			}
 		};
-		startBtn.icon(Icons.get(Icons.进入));
+		startBtn.icon(Icons.get(Icons.下楼));
 		startBtn.setSize(80, 21);
 		startBtn.textColor(Window.TITLE_COLOR);
 		add(startBtn);

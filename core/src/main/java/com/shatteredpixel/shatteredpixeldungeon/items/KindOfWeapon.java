@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -99,6 +100,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 				&& cursed && !cursedKnown
 				&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
 			cursedKnown = true;
+			if(hero.满天赋(Talent.HOLY_INTUITION)){
+				鉴定();
+				祛邪卷轴.净化(hero,this);
+			}else{
+				鉴定();
+			}
 			GLog.p(Messages.get(this, "curse_detected"));
 			return false;
 		}
@@ -109,7 +116,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			
 			hero.belongings.weapon = this;
 			activate( hero );
-			Talent.onItemEquipped(hero, this);
+			Talent.装备时(hero, this);
 			Badges.validateDuelistUnlock();
 			updateQuickslot();
 
@@ -156,7 +163,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 			hero.belongings.secondWep = this;
 			activate( hero );
-			Talent.onItemEquipped(hero, this);
+			Talent.装备时(hero, this);
 			Badges.validateDuelistUnlock();
 			updateQuickslot();
 
@@ -212,22 +219,22 @@ abstract public class KindOfWeapon extends EquipableItem {
 		}
 	}
 
-	public int min(){
-		return min(buffedLvl());
+	public int 最小攻击(){
+		return 最小攻击(buffedLvl());
 	}
 
-	public int max(){
-		return max(buffedLvl());
+	public int 最大攻击(){
+		return 最大攻击(buffedLvl());
 	}
 
-	abstract public int min(int lvl);
-	abstract public int max(int lvl);
+	abstract public int 最小攻击(int lvl);
+	abstract public int 最大攻击(int lvl);
 
 	public int damageRoll( Char owner ) {
 		if (owner instanceof Hero){
-			return Hero.heroDamageIntRange(min(), max());
+			return Hero.heroDamageIntRange(最小攻击(), 最大攻击());
 		} else {
-			return Random.NormalIntRange(min(), max());
+			return Random.NormalIntRange(最小攻击(), 最大攻击());
 		}
 	}
 	

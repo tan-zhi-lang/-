@@ -93,9 +93,10 @@ public class Assets {
 	}
 
 	public static class Music {
-		public static final String THEME_1              = "music/theme_1.ogg";
-		public static final String THEME_2              = "music/theme_2.ogg";
-		public static final String THEME_FINALE         = "music/theme_finale.ogg";
+		public static final String 夜航星              = "music/夜航星.mp3";
+		public static final String THEME_1              = "music/夜航星.ogg";
+		public static final String THEME_2              = "music/夜航星.ogg";
+		public static final String THEME_FINALE         = "music/夜航星.ogg";
 
 		public static final String SEWERS_1             = "music/sewers_1.ogg";
 		public static final String SEWERS_2             = "music/sewers_2.ogg";
@@ -129,6 +130,42 @@ public class Assets {
 		public static final String HALLS_TENSE          = "music/halls_tense.ogg";
 		public static final String HALLS_BOSS           = "music/halls_boss.ogg";
 		public static final String HALLS_BOSS_FINALE    = "music/halls_boss_finale.ogg";
+
+		public static final String[] allBGM = new String[]{
+			夜航星,
+
+			SEWERS_1,
+			SEWERS_2,
+			SEWERS_3,
+			SEWERS_TENSE,
+			SEWERS_BOSS,
+
+			PRISON_1,
+			PRISON_2,
+			PRISON_3,
+			PRISON_TENSE,
+			PRISON_BOSS,
+
+			CAVES_1,
+			CAVES_2,
+			CAVES_3,
+			CAVES_TENSE,
+			CAVES_BOSS,
+			CAVES_BOSS_FINALE,
+
+			CITY_1,
+			CITY_2,
+			CITY_3,
+			CITY_TENSE,
+			CITY_BOSS,
+			CITY_BOSS_FINALE,
+			HALLS_1,
+			HALLS_2,
+			HALLS_3,
+			HALLS_TENSE,
+			HALLS_BOSS,
+			HALLS_BOSS_FINALE
+		};
 	}
 
 	public static class Sounds {

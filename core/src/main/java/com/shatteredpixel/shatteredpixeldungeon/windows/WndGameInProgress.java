@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
@@ -120,7 +119,7 @@ public class WndGameInProgress extends Window {
 			}
 		};
 
-		cont.icon(Icons.get(Icons.进入));
+		cont.icon(Icons.get(Icons.下楼));
 		cont.setRect(0, pos, WIDTH/2 -1, 20);
 		add(cont);
 

@@ -214,7 +214,7 @@ public class Item implements Bundlable {
 					item.updateQuickslot();
 					if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
 						Badges.validateItemLevelAquired( this );
-						Talent.onItemCollected(Dungeon.hero, item);
+						Talent.拾取时(Dungeon.hero, item);
 						if (isIdentified()) {
 							Catalog.setSeen(getClass());
 							Statistics.itemTypesDiscovered.add(getClass());
@@ -244,7 +244,7 @@ public class Item implements Bundlable {
 
 		if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
 			Badges.validateItemLevelAquired( this );
-			Talent.onItemCollected( Dungeon.hero, this );
+			Talent.拾取时( Dungeon.hero, this );
 			if (isIdentified()){
 				Catalog.setSeen(getClass());
 				Statistics.itemTypesDiscovered.add(getClass());

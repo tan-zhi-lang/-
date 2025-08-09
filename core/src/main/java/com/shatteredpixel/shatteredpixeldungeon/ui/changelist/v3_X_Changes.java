@@ -266,7 +266,7 @@ public class v3_X_Changes {
 				"**- Gladiator** will retain any active shielding from his broken seal as long as he has combo.\n" +
 				"**- Berserker** enrage shield is now its own separate shielding buff, and has its own scaling separate from the seal's max shield."));
 
-		changes.addButton( new ChangeButton(Icons.STAIRS.get(), "New Rooms and Terrain Types",
+		changes.addButton( new ChangeButton(Icons.上楼.get(), "New Rooms and Terrain Types",
 				"This update includes an **expansion to the dungeon's standard rooms!**\n" +
 				"\n" +
 				"**- New decorative terrain** has been added to each region, largely inspired by details from the region splash arts. \n" +

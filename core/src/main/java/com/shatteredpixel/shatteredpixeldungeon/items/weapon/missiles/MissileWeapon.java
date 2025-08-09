@@ -77,31 +77,31 @@ abstract public class MissileWeapon extends Weapon {
 	}
 	
 	@Override
-	public int min() {
+	public int 最小攻击() {
 		if (Dungeon.hero != null){
-			return Math.max(0, min(buffedLvl() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero)));
+			return Math.max(0, 最小攻击(buffedLvl() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero)));
 		} else {
-			return Math.max(0 , min( buffedLvl() ));
+			return Math.max(0 , 最小攻击( buffedLvl() ));
 		}
 	}
 	
 	@Override
-	public int min(int lvl) {
+	public int 最小攻击(int lvl) {
 		return  2 * tier +                      //base
 				lvl;                            //level scaling
 	}
 	
 	@Override
-	public int max() {
+	public int 最大攻击() {
 		if (Dungeon.hero != null){
-			return Math.max(0, max( buffedLvl() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero) ));
+			return Math.max(0, 最大攻击( buffedLvl() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero) ));
 		} else {
-			return Math.max(0 , max( buffedLvl() ));
+			return Math.max(0 , 最大攻击( buffedLvl() ));
 		}
 	}
 	
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  5 * tier +                      //base
 				tier*lvl;                       //level scaling
 	}
@@ -202,12 +202,16 @@ abstract public class MissileWeapon extends Weapon {
 	protected float adjacentAccFactor(Char owner, Char target){
 		if (Dungeon.level.adjacent( owner.pos, target.pos )) {
 			if (owner instanceof Hero){
+				return 1.5f;
+			} else {
+				return 1.5f;
+			}
+		} else {
+			if (owner instanceof Hero){
 				return (0.5f + ((Hero) owner).天赋点数(Talent.POINT_BLANK,0.25f));
 			} else {
 				return 0.5f;
 			}
-		} else {
-			return 1.5f;
 		}
 	}
 
@@ -289,7 +293,7 @@ abstract public class MissileWeapon extends Weapon {
 		if (parent != null) parent.cursedKnown = true;
 
 		//instant ID with the right talent
-		if (attacker == Dungeon.hero && Dungeon.hero.天赋点数(Talent.SURVIVALISTS_INTUITION) == 2){
+		if (attacker == Dungeon.hero && Dungeon.hero.天赋点数(Talent.SURVIVALISTS_INTUITION) == 1){
 			usesLeftToID = Math.min(usesLeftToID, 0);
 			availableUsesToID =  Math.max(usesLeftToID, 0);
 		}
@@ -595,7 +599,7 @@ abstract public class MissileWeapon extends Weapon {
 		String info = super.info();
 
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), 力量());
+			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_known", tier, augment.damageFactor(最小攻击()), augment.damageFactor(最大攻击()), 力量());
 			if (Dungeon.hero != null) {
 				if (力量() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
@@ -604,7 +608,7 @@ abstract public class MissileWeapon extends Weapon {
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_unknown", tier, min(0), max(0), 力量(0));
+			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_unknown", tier, 最小攻击(0), 最大攻击(0), 力量(0));
 			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MissileWeapon.class, "probably_too_heavy");
 			}

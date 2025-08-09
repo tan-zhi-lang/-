@@ -22,7 +22,7 @@ public class ThrowingKnife extends MissileWeapon {
 	}
 	
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  6 * tier +                      //6 base, up from 5
 				(tier == 1 ? 2*lvl : tier*lvl); //scaling unchanged
 	}
@@ -34,10 +34,10 @@ public class ThrowingKnife extends MissileWeapon {
 			Char enemy = hero.attackTarget();
 			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
 				//deals 75% toward max to max on surprise, instead of min to max.
-				int diff = max() - min();
+				int diff = 最大攻击() - 最小攻击();
 				int damage = augment.damageFactor(Hero.heroDamageIntRange(
-						min() + Math.round(diff*0.75f),
-						max()));
+						最小攻击() + Math.round(diff*0.75f),
+						最大攻击()));
 				int exStr = hero.力量() - 力量();
 				if (exStr > 0) {
 					damage += Hero.heroDamageIntRange(0, exStr);

@@ -60,7 +60,7 @@ public class Notes {
 			return depth;
 		}
 
-		public Image icon() { return Icons.STAIRS.get(); }
+		public Image icon() { return Icons.上楼.get(); }
 
 		public Visual secondIcon() { return null; }
 
@@ -137,7 +137,7 @@ public class Notes {
 		public Image icon(){
 			switch (landmark){
 				default:
-					return Icons.STAIRS.get();
+					return Icons.上楼.get();
 
 				case CHASM_FLOOR:
 					return Icons.STAIRS_CHASM.get();
@@ -425,7 +425,7 @@ public class Notes {
 				case TEXT: default:
 					return Icons.SCROLL_COLOR.get();
 				case DEPTH:
-					return Icons.STAIRS.get();
+					return Icons.上楼.get();
 				case ITEM_TYPE:
 				case SPECIFIC_ITEM:
 					Item i = (Item) Reflection.newInstance(itemClass);

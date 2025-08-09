@@ -52,7 +52,7 @@ public class StartScene extends PixelScene {
 		btnExit.setPos( w - btnExit.width(), 0 );
 		add( btnExit );
 		
-		IconTitle title = new IconTitle( Icons.进入.get(), Messages.get(this, "title"));
+		IconTitle title = new IconTitle( Icons.下楼.get(), Messages.get(this, "title"));
 		title.setSize(200, 0);
 		title.setPos(
 				(w - title.reqWidth()) / 2f,
@@ -201,7 +201,7 @@ public class StartScene extends PixelScene {
 					hero = new Image(info.heroClass.spritesheet(), 0, 15*info.armorTier, 12, 15);
 					add(hero);
 					
-					steps = new Image(Icons.get(Icons.STAIRS));
+					steps = new Image(Icons.get(Icons.上楼));
 					add(steps);
 					depth = new BitmapText(PixelScene.pixelFont);
 					add(depth);

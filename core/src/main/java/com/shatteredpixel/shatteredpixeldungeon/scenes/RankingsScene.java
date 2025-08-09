@@ -225,7 +225,7 @@ public class RankingsScene extends PixelScene {
 				if (rec.depth != 0){
 					depth.text( Integer.toString(rec.depth) );
 					depth.measure();
-					steps.copy(Icons.STAIRS.get());
+					steps.copy(Icons.上楼.get());
 
 					add(steps);
 					add(depth);

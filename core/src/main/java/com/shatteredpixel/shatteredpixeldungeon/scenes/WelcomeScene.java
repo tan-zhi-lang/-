@@ -168,7 +168,7 @@ public class WelcomeScene extends PixelScene {
 		} else {
 			okay.text(Messages.get(TitleScene.class, "enter"));
 			okay.setRect(btnAreaLeft, buttonY, buttonAreaWidth, 20);
-			okay.icon(Icons.get(Icons.进入));
+			okay.icon(Icons.get(Icons.下楼));
 			add(okay);
 		}
 

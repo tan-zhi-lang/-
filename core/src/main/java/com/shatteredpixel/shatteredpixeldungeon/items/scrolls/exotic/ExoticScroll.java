@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMappi
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
@@ -34,8 +34,8 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(ScrollOfIdentify.class, ScrollOfDivination.class);
 		exoToReg.put(ScrollOfDivination.class, ScrollOfIdentify.class);
 		
-		regToExo.put(ScrollOfRemoveCurse.class, ScrollOfAntiMagic.class);
-		exoToReg.put(ScrollOfAntiMagic.class, ScrollOfRemoveCurse.class);
+		regToExo.put(祛邪卷轴.class, ScrollOfAntiMagic.class);
+		exoToReg.put(ScrollOfAntiMagic.class, 祛邪卷轴.class);
 
 		regToExo.put(ScrollOfMirrorImage.class, ScrollOfPrismaticImage.class);
 		exoToReg.put(ScrollOfPrismaticImage.class, ScrollOfMirrorImage.class);

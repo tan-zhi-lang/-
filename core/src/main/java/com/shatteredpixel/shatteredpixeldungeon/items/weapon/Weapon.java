@@ -66,7 +66,7 @@ import java.util.Arrays;
 abstract public class Weapon extends KindOfWeapon {
 
 	public float    ACC = 1f;	// Accuracy modifier
-	public float	DLY	= 1f;	// Speed modifier
+	public float 延迟 = 1f;	// Speed modifier
 	public int      RCH = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
@@ -291,7 +291,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	protected float baseDelay( Char owner ){
-		float delay = augment.delayFactor(this.DLY);
+		float delay = augment.delayFactor(this.延迟);
 		if (owner instanceof Hero) {
 			int encumbrance = 力量() - ((Hero)owner).力量();
 			if (encumbrance > 0){

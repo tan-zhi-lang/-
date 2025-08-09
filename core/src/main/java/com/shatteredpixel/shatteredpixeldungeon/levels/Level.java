@@ -1306,8 +1306,7 @@ public abstract class Level implements Bundlable {
 
 			float viewDist = c.viewDistance;
 			if (c instanceof Hero){
-				viewDist *= 1f + ((Hero) c).天赋点数(Talent.FARSIGHT,0.25f);
-				viewDist *= EyeOfNewt.visionRangeMultiplier();
+				viewDist= ((Hero) c).视野范围();
 			}
 			
 			ShadowCaster.castShadow( cx, cy, width(), fieldOfView, blocking, Math.round(viewDist) );
@@ -1383,17 +1382,7 @@ public abstract class Level implements Bundlable {
 				}
 			} else {
 
-				int mindVisRange = 0;
-				if (((Hero) c).有天赋(Talent.HEIGHTENED_SENSES)){
-					mindVisRange = 1+((Hero) c).天赋点数(Talent.HEIGHTENED_SENSES);
-				}
-				if (c.buff(DivineSense.DivineSenseTracker.class) != null){
-					if (((Hero) c).heroClass == HeroClass.CLERIC){
-						mindVisRange = ((Hero) c).天赋点数(Talent.DIVINE_SENSE,5);
-					} else {
-						mindVisRange = ((Hero) c).天赋点数(Talent.DIVINE_SENSE,2);
-					}
-				}
+				int mindVisRange = ((Hero) c).感知范围();
 				mindVisRange = Math.max(mindVisRange, EyeOfNewt.mindVisionRange());
 
 				//power of many's life link spell allows allies to get divine sense

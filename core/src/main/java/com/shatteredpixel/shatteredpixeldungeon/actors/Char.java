@@ -1141,6 +1141,9 @@ public abstract class Char extends Actor {
 		}
 		return null;
 	}
+	public boolean hasbuff(Buff c){
+		return buff(c.getClass())!= null;
+	}
 
 	public synchronized boolean isCharmedBy( Char ch ) {
 		int chID = ch.id();

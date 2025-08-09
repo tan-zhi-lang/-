@@ -24,7 +24,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GreaterHaste;
@@ -35,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
@@ -52,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.El
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HallowedGround;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
@@ -118,6 +122,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -875,7 +880,17 @@ public class Hero extends Char {
 	
 	@Override
 	public boolean act() {
-		
+		if(belongings.armor instanceof 铠甲){
+			immunities.add( Chill.class );
+		}else{
+			immunities.remove( Chill.class );
+		}
+		if(belongings.armor instanceof 祭服){
+			immunities.add( Degrade.class );
+		}else{
+			immunities.remove( Degrade.class );
+		}
+
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
 
@@ -2431,6 +2446,40 @@ public class Hero extends Char {
 		}
 	}
 
+	public int 探索范围(){
+		int x=0;
+
+		if (buff(Foresight.class) != null) {
+			x = Foresight.DISTANCE;
+		}
+		x+=heroClass == HeroClass.ROGUE?2:1;
+		if (有天赋(Talent.WIDE_SEARCH)) x+=天赋点数(Talent.WIDE_SEARCH);
+		return x;
+	}
+	public int 感知范围(){
+		int x=2;
+
+		if (buff(DivineSense.DivineSenseTracker.class) != null){
+			if (heroClass == HeroClass.CLERIC){
+				x = 天赋点数(Talent.DIVINE_SENSE,5);
+			} else {
+				x = 天赋点数(Talent.DIVINE_SENSE,2);
+			}
+		}
+		if (有天赋(Talent.HEIGHTENED_SENSES)){
+			x+= 天赋点数(Talent.HEIGHTENED_SENSES);
+		}
+		return x;
+	}
+	public int 视野范围(){
+		int x=8;
+		if (Dungeon.hero.buff(MagicalSight.class) != null){
+			x = Math.max( x, MagicalSight.DISTANCE );
+		}
+		x *= 1f + Dungeon.hero.天赋点数(Talent.FARSIGHT,0.25f);
+		x *= EyeOfNewt.visionRangeMultiplier();
+		return x;
+	}
 	public boolean search( boolean intentional ) {
 		
 		if (!isAlive()) return false;
@@ -2438,19 +2487,16 @@ public class Hero extends Char {
 		boolean smthFound = false;
 
 		boolean circular = false;//圆探索
-		int distance = heroClass == HeroClass.ROGUE ? 2 : 1;
-		if (有天赋(Talent.WIDE_SEARCH)) distance+=天赋点数(Talent.WIDE_SEARCH);
 		
+		int distance =探索范围();
 		boolean foresight = buff(Foresight.class) != null;
-		boolean foresightScan = foresight && !Dungeon.level.mapped[pos];
+		if(foresight) {
+			circular = true;
+		}
+		boolean foresightScan = buff(Foresight.class) != null && !Dungeon.level.mapped[pos];
 
 		if (foresightScan){
 			Dungeon.level.mapped[pos] = true;
-		}
-
-		if (foresight) {
-			distance = Foresight.DISTANCE;
-			circular = true;
 		}
 
 		Point c = Dungeon.level.cellToPoint(pos);

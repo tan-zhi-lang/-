@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -35,10 +34,11 @@ import java.util.Locale;
 
 public class WndHero extends WndTabbed {
 	
-	private static final int WIDTH		= 120;
+	private static final int WIDTH		= 120+5;
 	private static final int HEIGHT		= 120;
 	
 	private StatsTab stats;
+
 	private TalentsTab talents;
 	private BuffsTab buffs;
 
@@ -173,12 +173,13 @@ public class WndHero extends WndTabbed {
 			else                        statSlot( Messages.get(this, "str"), hero.力量() );
 			statSlot( Messages.get(this, "exp"), hero.当前经验 + "/" + hero.升级所需() );
 
-			statSlot( "命中", hero.最大命中(null) );
-			statSlot( "闪避", hero.最大闪避(null) );
-			statSlot( "攻速", hero.攻速()+"");
-			statSlot( "移速", hero.移速()+"");
+			statSlot( "命中/闪避", hero.最大命中(null)+"/"+hero.最大闪避(null));
+			statSlot( "攻速/移速", hero.攻速()+"/"+hero.移速());
+			statSlot( "视野范围", hero.视野范围()+"");
+			statSlot( "感知范围", hero.感知范围()+"");
+			statSlot( "探索范围", hero.探索范围()+"");
 
-			pos += GAP;
+//			pos += GAP;
 
 			if (Dungeon.daily){
 				if (!Dungeon.dailyReplay) {
@@ -202,7 +203,7 @@ public class WndHero extends WndTabbed {
 			add( txt );
 			
 			txt = PixelScene.renderTextBlock( value, 8 );
-			txt.setPos(WIDTH * 0.55f, pos);
+			txt.setPos(WIDTH * (0.55f-0.05f), pos);
 			PixelScene.align(txt);
 			add( txt );
 			

@@ -23,7 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
@@ -128,7 +128,7 @@ public class UnstableSpellbook extends Artifact {
 		} while (scroll == null
 				//reduce the frequency of these scrolls by half
 				||((scroll instanceof ScrollOfIdentify ||
-				scroll instanceof ScrollOfRemoveCurse ||
+				scroll instanceof 祛邪卷轴 ||
 				scroll instanceof ScrollOfMagicMapping) && Random.Int(2) == 0)
 				//cannot roll transmutation
 				|| (scroll instanceof ScrollOfTransmutation));
@@ -188,7 +188,7 @@ public class UnstableSpellbook extends Artifact {
 	private void checkForArtifactProc(Hero user, Scroll scroll){
 		//if the base scroll (exotics all match) is an AOE effect, then also trigger illuminate
 		if (scroll instanceof ScrollOfLullaby
-				|| scroll instanceof ScrollOfRemoveCurse || scroll instanceof ScrollOfTerror) {
+				|| scroll instanceof 祛邪卷轴 || scroll instanceof ScrollOfTerror) {
 			for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 				if (Dungeon.level.heroFOV[mob.pos]) {
 					artifactProc(mob, visiblyUpgraded(), 1);

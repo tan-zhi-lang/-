@@ -20,7 +20,7 @@ public enum Document {
 	ADVENTURERS_GUIDE(物品表.GUIDE_PAGE, false),
 	ALCHEMY_GUIDE(物品表.ALCH_PAGE, false),
 
-	INTROS(Icons.STAIRS, true),
+	INTROS(Icons.上楼, true),
 	SEWERS_GUARD(物品表.SEWER_PAGE, true),
 	PRISON_WARDEN(物品表.PRISON_PAGE, true),
 	CAVES_EXPLORER(物品表.CAVES_PAGE, true),

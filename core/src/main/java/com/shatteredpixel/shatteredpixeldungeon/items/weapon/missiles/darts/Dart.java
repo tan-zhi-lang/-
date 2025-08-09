@@ -62,7 +62,7 @@ public class Dart extends MissileWeapon {
 	}
 	
 	@Override
-	public int min(int lvl) {
+	public int 最小攻击(int lvl) {
 		if (bow != null){
 			if (!(this instanceof TippedDart) && Dungeon.hero.buff(Crossbow.ChargedShot.class) != null){
 				//ability increases base dmg by 50%, scaling by 50%
@@ -79,7 +79,7 @@ public class Dart extends MissileWeapon {
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		if (bow != null){
 			if (!(this instanceof TippedDart) && Dungeon.hero.buff(Crossbow.ChargedShot.class) != null){
 				//ability increases base dmg by 50%, scaling by 50%

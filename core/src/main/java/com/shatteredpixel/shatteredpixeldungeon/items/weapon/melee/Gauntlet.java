@@ -15,11 +15,11 @@ public class Gauntlet extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 		
 		tier = 5;
-		DLY = 0.5f; //2x speed
+		延迟 = 0.5f; //2x speed
 	}
 	
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  Math.round(2.5f*(tier+1)) +     //15 base, down from 30
 				lvl*Math.round(0.5f*(tier+1));  //+3 per level, down from +6
 	}

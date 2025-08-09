@@ -163,7 +163,7 @@ public abstract class Scroll extends Item {
 				GLog.w( Messages.get(this, "blinded") );
 			} else if (hero.buff(UnstableSpellbook.bookRecharge.class) != null
 					&& hero.buff(UnstableSpellbook.bookRecharge.class).isCursed()
-					&& !(this instanceof ScrollOfRemoveCurse || this instanceof ScrollOfAntiMagic)){
+					&& !(this instanceof 祛邪卷轴 || this instanceof ScrollOfAntiMagic)){
 				GLog.n( Messages.get(this, "cursed") );
 			} else {
 				doRead();
@@ -298,7 +298,7 @@ public abstract class Scroll extends Item {
 			stones.put(ScrollOfRetribution.class,   StoneOfBlast.class);
 			stones.put(ScrollOfRage.class,          StoneOfAggression.class);
 			stones.put(ScrollOfRecharging.class,    StoneOfShock.class);
-			stones.put(ScrollOfRemoveCurse.class,   StoneOfDetectMagic.class);
+			stones.put(祛邪卷轴.class,   StoneOfDetectMagic.class);
 			stones.put(ScrollOfTeleportation.class, StoneOfBlink.class);
 			stones.put(ScrollOfTerror.class,        StoneOfFear.class);
 			stones.put(ScrollOfTransmutation.class, StoneOfAugmentation.class);

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -120,6 +121,12 @@ public abstract class KindofMisc extends EquipableItem {
 					&& cursed && !cursedKnown
 					&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
 				cursedKnown = true;
+				if(hero.满天赋(Talent.HOLY_INTUITION)){
+					鉴定();
+					祛邪卷轴.净化(hero,this);
+				}else{
+					鉴定();
+				}
 				GLog.p(Messages.get(this, "curse_detected"));
 				return false;
 			}
@@ -134,7 +141,7 @@ public abstract class KindofMisc extends EquipableItem {
 
 			detach( hero.belongings.backpack );
 
-			Talent.onItemEquipped(hero, this);
+			Talent.装备时(hero, this);
 			activate( hero );
 
 			cursedKnown = true;

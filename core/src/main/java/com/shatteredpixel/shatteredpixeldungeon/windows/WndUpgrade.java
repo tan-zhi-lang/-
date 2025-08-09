@@ -178,8 +178,8 @@ public class WndUpgrade extends Window {
 		if (toUpgrade instanceof Weapon){
 			Weapon.Augment aug = ((Weapon) toUpgrade).augment;
 			bottom = fillFields(Messages.get(this, "damage"),
-					aug.damageFactor(((Weapon) toUpgrade).min(levelFrom)) + "-" + aug.damageFactor(((Weapon) toUpgrade).max(levelFrom)),
-					aug.damageFactor(((Weapon) toUpgrade).min(levelTo)) + "-" + aug.damageFactor(((Weapon) toUpgrade).max(levelTo)),
+					aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelFrom)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelFrom)),
+					aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo)),
 					bottom);
 		}
 
@@ -200,8 +200,8 @@ public class WndUpgrade extends Window {
 					bottom);
 		} else if (toUpgrade instanceof RoundShield){
 			bottom = fillFields(Messages.get(this, "blocking"),
-					0 + "-" + ((RoundShield) toUpgrade).DRMax(levelFrom),
-					0 + "-" + ((RoundShield) toUpgrade).DRMax(levelTo),
+					0 + "-" + ((RoundShield) toUpgrade).最大防御(levelFrom),
+					0 + "-" + ((RoundShield) toUpgrade).最大防御(levelTo),
 					bottom);
 		} else if (toUpgrade instanceof Greatshield){
 			bottom = fillFields(Messages.get(this, "blocking"),

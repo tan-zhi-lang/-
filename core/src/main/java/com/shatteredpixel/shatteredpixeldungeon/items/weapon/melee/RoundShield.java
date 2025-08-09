@@ -25,22 +25,22 @@ public class RoundShield extends MeleeWeapon {
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  Math.round(3f*(tier+1)) +   //12 base, down from 20
 				lvl*(tier-1);               //+2 per level, down from +4
 	}
 
 	@Override
 	public int defenseFactor( Char owner ) {
-		return DRMax();
+		return 最大防御();
 	}
 
-	public int DRMax(){
-		return DRMax(buffedLvl());
+	public int 最大防御(){
+		return 最大防御(buffedLvl());
 	}
 
 	//4 extra defence, plus 1 per level
-	public int DRMax(int lvl){
+	public int 最大防御(int lvl){
 		return 4 + lvl;
 	}
 	

@@ -27,11 +27,11 @@ public class Sai extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 3;
-		DLY = 0.5f; //2x speed
+		延迟 = 0.5f; //2x speed
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  Math.round(2.5f*(tier+1)) +     //10 base, down from 20
 				lvl*Math.round(0.5f*(tier+1));  //+2 per level, down from +4
 	}
@@ -122,10 +122,10 @@ public class Sai extends MeleeWeapon {
 
 		@Override
 		public int icon() {
-			if (Dungeon.hero.belongings.weapon() instanceof Gloves
+			if (Dungeon.hero.belongings.weapon() instanceof 镶钉手套
 					|| Dungeon.hero.belongings.weapon() instanceof Sai
 					|| Dungeon.hero.belongings.weapon() instanceof Gauntlet
-					|| Dungeon.hero.belongings.secondWep() instanceof Gloves
+					|| Dungeon.hero.belongings.secondWep() instanceof 镶钉手套
 					|| Dungeon.hero.belongings.secondWep() instanceof Sai
 					|| Dungeon.hero.belongings.secondWep() instanceof Gauntlet) {
 				return BuffIndicator.DUEL_COMBO;

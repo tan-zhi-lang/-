@@ -15,7 +15,7 @@ import com.watabou.utils.RectF;
 public enum Icons {
 
 	//slightly larger title screen icons, spacing for 17x16
-	进入,
+	下楼,
 	GOLD,
 	RANKINGS,
 	BADGES,
@@ -68,7 +68,7 @@ public enum Icons {
 	ALCHEMY,
 	GRASS,
 
-	STAIRS,
+	上楼,
 	STAIRS_CHASM,
 	STAIRS_WATER,
 	STAIRS_GRASS,
@@ -123,7 +123,7 @@ public enum Icons {
 		Image icon = new Image( Assets.Interfaces.ICONS );
 		switch (type) {
 
-			case 进入:
+			case 下楼:
 				icon.frame( icon.texture.uvRectBySize( 0, 0, 16, 16 ) );
 				break;
 			case GOLD:
@@ -271,7 +271,7 @@ public enum Icons {
 				icon.frame( icon.texture.uvRectBySize( 112, 48, 16, 16 ) );
 				break;
 
-			case STAIRS:
+			case 上楼:
 				icon.frame( icon.texture.uvRectBySize( 0, 64, 15, 16 ) );
 				break;
 			case STAIRS_CHASM:
@@ -472,7 +472,7 @@ public enum Icons {
 	public static Image getLarge(Level.Feeling feeling){
 		switch (feeling){
 			case NONE: default:
-				return get(STAIRS);
+				return get(上楼);
 			case CHASM:
 				return get(STAIRS_CHASM);
 			case WATER:

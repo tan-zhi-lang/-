@@ -27,7 +27,7 @@ public class Whip extends MeleeWeapon {
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  5*(tier) +      //15 base, down from 20
 				lvl*(tier);     //+3 per level, down from +4
 	}
@@ -80,13 +80,13 @@ public class Whip extends MeleeWeapon {
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", augment.damageFactor(min()), augment.damageFactor(max()));
+			return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()), augment.damageFactor(最大攻击()));
 		} else {
-			return Messages.get(this, "typical_ability_desc", min(0), max(0));
+			return Messages.get(this, "typical_ability_desc", 最小攻击(0), 最大攻击(0));
 		}
 	}
 
 	public String upgradeAbilityStat(int level){
-		return augment.damageFactor(min(level)) + "-" + augment.damageFactor(max(level));
+		return augment.damageFactor(最小攻击(level)) + "-" + augment.damageFactor(最大攻击(level));
 	}
 }

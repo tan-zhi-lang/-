@@ -227,13 +227,13 @@ public class MeleeWeapon extends Weapon {
 	public int tier;
 
 	@Override
-	public int min(int lvl) {
+	public int 最小攻击(int lvl) {
 		return  tier +  //base
 				lvl;    //level scaling
 	}
 
 	@Override
-	public int max(int lvl) {
+	public int 最大攻击(int lvl) {
 		return  5*(tier+1) +    //base
 				lvl*(tier+1);   //level scaling
 	}
@@ -289,7 +289,7 @@ public class MeleeWeapon extends Weapon {
 		String info = super.info();
 
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), 力量());
+			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(最小攻击()), augment.damageFactor(最大攻击()), 力量());
 			if (Dungeon.hero != null) {
 				if (力量() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
@@ -298,7 +298,7 @@ public class MeleeWeapon extends Weapon {
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(0), max(0), 力量(0));
+			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, 最小攻击(0), 最大攻击(0), 力量(0));
 			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
 			}

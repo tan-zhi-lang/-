@@ -83,7 +83,7 @@ public class Bleeding extends Buff {
 			
 			if (dmg > 0) {
 				
-				target.damage( dmg, this );
+				target.受伤时( dmg, this );
 				if (target.sprite.visible) {
 					Splash.at( target.sprite.center(), -PointF.PI / 2, PointF.PI / 6,
 							target.sprite.blood(), Math.min( 10 * dmg / target.最大生命, 10 ) );

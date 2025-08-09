@@ -95,9 +95,9 @@ public class CrystalWisp extends Mob{
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		flying = false;
-		super.die(cause);
+		super.死亡时(cause);
 	}
 
 	//used so resistances can differentiate between melee and magical attacks
@@ -111,7 +111,7 @@ public class CrystalWisp extends Mob{
 		if (hit( this, enemy, true )) {
 
 			int dmg = Random.NormalIntRange( 5, 10 );
-			enemy.damage( dmg, new LightBeam() );
+			enemy.受伤时( dmg, new LightBeam() );
 
 			if (!enemy.isAlive() && enemy == Dungeon.hero) {
 				Badges.validateDeathFromEnemyMagic();

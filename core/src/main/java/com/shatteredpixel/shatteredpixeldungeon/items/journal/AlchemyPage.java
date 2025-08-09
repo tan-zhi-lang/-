@@ -4,12 +4,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class AlchemyPage extends DocumentPage {
 	
 	{
-		image = ItemSpriteSheet.ALCH_PAGE;
+		image = 物品表.ALCH_PAGE;
 	}
 	
 	@Override

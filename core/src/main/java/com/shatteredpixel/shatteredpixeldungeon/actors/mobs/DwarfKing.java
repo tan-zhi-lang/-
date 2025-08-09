@@ -432,7 +432,7 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		//hero counts as unarmed if they aren't attacking with a weapon and aren't benefiting from force
 		if (src == Dungeon.hero && (!RingOfForce.fightingUnarmed(Dungeon.hero) || Dungeon.hero.buff(RingOfForce.Force.class) != null)){
 			Statistics.qualifiedForBossChallengeBadge = false;
@@ -444,7 +444,7 @@ public class DwarfKing extends Mob {
 		}
 
 		if (isInvulnerable(src.getClass())){
-			super.damage(dmg, src);
+			super.受伤时(dmg, src);
 			return;
 		} else if (phase == 3 && !(src instanceof Viscosity.DeferedDamage)){
 			if (dmg >= 0) {
@@ -456,7 +456,7 @@ public class DwarfKing extends Mob {
 			return;
 		}
 		int preHP = 生命;
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
@@ -482,7 +482,7 @@ public class DwarfKing extends Mob {
 				}
 				Bestiary.skipCountingEncounters = true;
 				for (Mob m : getSubjects()) {
-					m.die(null);
+					m.死亡时(null);
 				}
 				Bestiary.skipCountingEncounters = false;
 				for (Buff b: buffs()){
@@ -521,11 +521,11 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 
 		GameScene.bossSlain();
 
-		super.die( cause );
+		super.死亡时( cause );
 
 		Heap h = Dungeon.level.heaps.get(CityBossLevel.throne);
 		if (h != null) {
@@ -551,7 +551,7 @@ public class DwarfKing extends Mob {
 
 		Bestiary.skipCountingEncounters = true;
 		for (Mob m : getSubjects()){
-			m.die(null);
+			m.死亡时(null);
 		}
 		Bestiary.skipCountingEncounters = false;
 
@@ -666,7 +666,7 @@ public class DwarfKing extends Mob {
 
 				//kill sheep that are right on top of the spawner instead of failing to spawn
 				if (Actor.findChar(pos) instanceof Sheep){
-					Actor.findChar(pos).die(null);
+					Actor.findChar(pos).死亡时(null);
 				}
 
 				if (Actor.findChar(pos) == null) {
@@ -681,12 +681,12 @@ public class DwarfKing extends Mob {
 					}
 				} else {
 					Char ch = Actor.findChar(pos);
-					ch.damage(Random.NormalIntRange(20, 40), this);
+					ch.受伤时(Random.NormalIntRange(20, 40), this);
 					if (((DwarfKing)target).phase == 2){
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-							target.damage(target.最大生命 /18, new KingDamager());
+							target.受伤时(target.最大生命 /18, new KingDamager());
 						} else {
-							target.damage(target.最大生命 /12, new KingDamager());
+							target.受伤时(target.最大生命 /12, new KingDamager());
 						}
 					}
 					if (!ch.isAlive() && ch == Dungeon.hero) {
@@ -764,7 +764,7 @@ public class DwarfKing extends Mob {
 			for (Mob m : Dungeon.level.mobs){
 				if (m instanceof DwarfKing){
 					int damage = m.最大生命 / (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 18 : 12);
-					m.damage(damage, this);
+					m.受伤时(damage, this);
 				}
 			}
 		}

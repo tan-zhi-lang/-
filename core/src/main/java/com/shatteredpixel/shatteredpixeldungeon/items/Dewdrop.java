@@ -17,14 +17,14 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class Dewdrop extends Item {
 	
 	{
-		image = ItemSpriteSheet.DEWDROP;
+		image = 物品表.DEWDROP;
 		
 		stackable = true;
 		dropsDownHeap = true;
@@ -33,7 +33,7 @@ public class Dewdrop extends Item {
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {
 		
-		Waterskin flask = hero.belongings.getItem( Waterskin.class );
+		水袋 flask = hero.belongings.getItem( 水袋.class );
 		Catalog.setSeen(getClass());
 		Statistics.itemTypesDiscovered.add(getClass());
 		

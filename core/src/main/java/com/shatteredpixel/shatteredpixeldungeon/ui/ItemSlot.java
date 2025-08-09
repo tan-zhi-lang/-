@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWea
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Rect;
@@ -48,27 +48,27 @@ public class ItemSlot extends Button {
 
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
-		public int image() { return ItemSpriteSheet.CHEST; }
+		public int image() { return 物品表.CHEST; }
 		public String name() { return Messages.get(Heap.class, "chest"); }
 	};
 	public static final Item LOCKED_CHEST = new Item() {
-		public int image() { return ItemSpriteSheet.LOCKED_CHEST; }
+		public int image() { return 物品表.LOCKED_CHEST; }
 		public String name() { return Messages.get(Heap.class, "locked_chest"); }
 	};
 	public static final Item CRYSTAL_CHEST = new Item() {
-		public int image() { return ItemSpriteSheet.CRYSTAL_CHEST; }
+		public int image() { return 物品表.CRYSTAL_CHEST; }
 		public String name() { return Messages.get(Heap.class, "crystal_chest"); }
 	};
 	public static final Item TOMB = new Item() {
-		public int image() { return ItemSpriteSheet.TOMB; }
+		public int image() { return 物品表.TOMB; }
 		public String name() { return Messages.get(Heap.class, "tomb"); }
 	};
 	public static final Item SKELETON = new Item() {
-		public int image() { return ItemSpriteSheet.BONES; }
+		public int image() { return 物品表.BONES; }
 		public String name() { return Messages.get(Heap.class, "skeleton"); }
 	};
 	public static final Item REMAINS = new Item() {
-		public int image() { return ItemSpriteSheet.REMAINS; }
+		public int image() { return 物品表.REMAINS; }
 		public String name() { return Messages.get(Heap.class, "remains"); }
 	};
 	
@@ -136,8 +136,8 @@ public class ItemSlot extends Button {
 		if (itemIcon != null){
 			//center the icon slightly if there is enough room
 			if (width >= 24 || height >= 24) {
-				itemIcon.x = x + width - (ItemSpriteSheet.Icons.SIZE + itemIcon.width()) / 2f - margin.right;
-				itemIcon.y = y + (ItemSpriteSheet.Icons.SIZE - itemIcon.height) / 2f + margin.top;
+				itemIcon.x = x + width - (物品表.Icons.SIZE + itemIcon.width()) / 2f - margin.right;
+				itemIcon.y = y + (物品表.Icons.SIZE - itemIcon.height) / 2f + margin.top;
 			} else {
 				itemIcon.x = x + width - itemIcon.width() - margin.right;
 				itemIcon.y = y + margin.top;
@@ -166,7 +166,7 @@ public class ItemSlot extends Button {
 		item(null);
 		enable(true);
 		sprite.visible(true);
-		sprite.view(ItemSpriteSheet.SOMETHING, null);
+		sprite.view(物品表.SOMETHING, null);
 		layout();
 	}
 	
@@ -227,13 +227,13 @@ public class ItemSlot extends Button {
 			extra.text( null );
 
 			itemIcon = new Image(Assets.Sprites.ITEM_ICONS);
-			itemIcon.frame(ItemSpriteSheet.Icons.film.get(item.icon));
+			itemIcon.frame(物品表.Icons.film.get(item.icon));
 			add(itemIcon);
 
 		} else if (item instanceof Weapon || item instanceof Armor) {
 
 			if (item.levelKnown){
-				int str = item instanceof Weapon ? ((Weapon)item).STRReq() : ((Armor)item).STRReq();
+				int str = item instanceof Weapon ? ((Weapon)item).力量() : ((Armor)item).力量();
 				extra.text( Messages.format( TXT_STRENGTH, str ) );
 				if (Dungeon.hero != null && str > Dungeon.hero.力量()) {
 					extra.hardlight( DEGRADED );
@@ -245,7 +245,7 @@ public class ItemSlot extends Button {
 					extra.resetColor();
 				}
 			} else {
-				int str = item instanceof Weapon ? ((Weapon)item).STRReq(0) : ((Armor)item).STRReq(0);
+				int str = item instanceof Weapon ? ((Weapon)item).力量(0) : ((Armor)item).力量(0);
 				extra.text( Messages.format( TXT_TYPICAL_STR, str ) );
 				extra.hardlight( WARNING );
 			}

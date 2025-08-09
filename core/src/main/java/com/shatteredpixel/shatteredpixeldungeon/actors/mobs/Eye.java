@@ -132,15 +132,15 @@ public class Eye extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (beamCharged) dmg /= 4;
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		flying = false;
-		super.die(cause);
+		super.死亡时(cause);
 	}
 	
 	//used so resistances can differentiate between melee and magical attacks
@@ -185,7 +185,7 @@ public class Eye extends Mob {
 					}
 				}
 
-				ch.damage( dmg, new DeathGaze() );
+				ch.受伤时( dmg, new DeathGaze() );
 
 				if (Dungeon.level.heroFOV[pos]) {
 					ch.sprite.flash();

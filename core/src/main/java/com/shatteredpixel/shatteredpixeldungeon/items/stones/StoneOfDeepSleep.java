@@ -9,13 +9,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
 public class StoneOfDeepSleep extends Runestone {
 	
 	{
-		image = ItemSpriteSheet.STONE_SLEEP;
+		image = 物品表.STONE_SLEEP;
 	}
 	
 	@Override

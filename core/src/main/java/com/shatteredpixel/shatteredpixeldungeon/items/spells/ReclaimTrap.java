@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class ReclaimTrap extends TargetedSpell {
 	
 	{
-		image = ItemSpriteSheet.RECLAIM_TRAP;
+		image = 物品表.RECLAIM_TRAP;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
 import com.watabou.noosa.audio.Sample;
@@ -25,7 +25,7 @@ import com.watabou.utils.Random;
 public class MagicalInfusion extends InventorySpell {
 	
 	{
-		image = ItemSpriteSheet.MAGIC_INFUSE;
+		image = 物品表.MAGIC_INFUSE;
 
 		unique = true;
 

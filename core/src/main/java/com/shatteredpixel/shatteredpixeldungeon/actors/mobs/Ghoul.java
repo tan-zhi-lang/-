@@ -131,7 +131,7 @@ public class Ghoul extends Mob {
 	private boolean beingLifeLinked = false;
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		if (cause != Chasm.class && cause != GhoulLifeLink.class && !Dungeon.level.pit[pos]){
 			Ghoul nearby = GhoulLifeLink.searchForHost(this);
 			if (nearby != null){
@@ -145,7 +145,7 @@ public class Ghoul extends Mob {
 			}
 		}
 
-		super.die(cause);
+		super.死亡时(cause);
 	}
 
 	@Override
@@ -238,7 +238,7 @@ public class Ghoul extends Mob {
 			if (Dungeon.level.pit[ghoul.pos]){
 				super.detach();
 				ghoul.beingLifeLinked = false;
-				ghoul.die(this);
+				ghoul.死亡时(this);
 				return true;
 			}
 
@@ -311,7 +311,7 @@ public class Ghoul extends Mob {
 				timeToNow();
 			} else {
 				ghoul.beingLifeLinked = false;
-				ghoul.die(this);
+				ghoul.死亡时(this);
 			}
 		}
 

@@ -8,13 +8,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDragonsBreath;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
 public class ElixirOfDragonsBlood extends Elixir {
 	
 	{
-		image = ItemSpriteSheet.ELIXIR_DRAGON;
+		image = 物品表.ELIXIR_DRAGON;
 	}
 	
 	@Override

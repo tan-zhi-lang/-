@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ChallengeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.BArray;
 import com.watabou.noosa.Image;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class ScrollOfChallenge extends ExoticScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_CHALLENGE;
+		icon = 物品表.Icons.SCROLL_CHALLENGE;
 	}
 	
 	@Override

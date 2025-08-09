@@ -18,14 +18,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
 
 public class 升级卷轴 extends InventoryScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_UPGRADE;
+		icon = 物品表.Icons.SCROLL_UPGRADE;
 		preferredBag = Belongings.Backpack.class;
 
 		unique = true;

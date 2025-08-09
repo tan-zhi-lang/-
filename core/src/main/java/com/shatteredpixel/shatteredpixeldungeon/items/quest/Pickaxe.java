@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class Pickaxe extends MeleeWeapon {
 	
 	{
-		image = ItemSpriteSheet.PICKAXE;
+		image = 物品表.PICKAXE;
 
 		levelKnown = true;
 		
@@ -40,8 +40,8 @@ public class Pickaxe extends MeleeWeapon {
 	}
 
 	@Override
-	public int STRReq(int lvl) {
-		return super.STRReq(lvl) + 2; //tier 3 strength requirement with tier 2 damage stats
+	public int 力量(int lvl) {
+		return super.力量(lvl) + 2; //tier 3 strength requirement with tier 2 damage stats
 	}
 
 	@Override

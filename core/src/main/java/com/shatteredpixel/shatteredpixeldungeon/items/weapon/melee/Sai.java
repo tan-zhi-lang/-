@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -22,7 +22,7 @@ import com.watabou.utils.Callback;
 public class Sai extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.SAI;
+		image = 物品表.SAI;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.3f;
 

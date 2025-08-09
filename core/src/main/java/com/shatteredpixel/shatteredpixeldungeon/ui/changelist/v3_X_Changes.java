@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollExileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -76,7 +76,7 @@ public class v3_X_Changes {
 				"\n" +
 				"Dev commentary will be added here in the future."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.JAVELIN), "Thrown Weapon Sets",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.JAVELIN), "Thrown Weapon Sets",
 				"**Thrown weapons have been majorly overhauled to be more worthwhile to upgrade!**\n" +
 				"\n" +
 				"**-** Thrown weapons now spawn in sets of three, sets do not mix.\n" +
@@ -106,7 +106,7 @@ public class v3_X_Changes {
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.LIQUID_METAL), "Liquid Metal",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.LIQUID_METAL), "Liquid Metal",
 				"Liquid metal has also been changed to go along with the general changes to thrown weapons:\n" +
 				"\n" +
 				"**-** Recipe adjusted, now takes one known uncursed thrown weapon set and always costs 3 energy.\n" +
@@ -199,7 +199,7 @@ public class v3_X_Changes {
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.TOMAHAWK), "Thrown Weapon Nerfs",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.TOMAHAWK), "Thrown Weapon Nerfs",
 				"Various thrown weapons are getting targeted nerfs, mainly focused around compensating for lower durability weapons now effectively having +50% base uses, or certain weapons now being much more spammable.\n" +
 				"\n" +
 				"**- Shuriken** instant-throw condition changed to a simple 20 turn cooldown\n" +
@@ -242,7 +242,7 @@ public class v3_X_Changes {
 				"\n" +
 				"Dev commentary will be added here in the future"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SEAL), "Warrior Mini Rework",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.SEAL), "Warrior Mini Rework",
 				"**The Warrior has had a mini overhaul to his broken seal ability, and new visuals for his splash art and broken seal!**\n" +
 				"\n" +
 				"The seal's shielding now triggers in bursts with a cooldown, when the Warrior is below 50% HP. It should feel more impactful and interactive while still being easy to use for new players.\n" +
@@ -276,7 +276,7 @@ public class v3_X_Changes {
 				"**- Boss Arenas** also use these new terrain types in a few places\n" +
 				"**- Plain empty rooms** no longer spawn normally."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.FERRET_TUFT), "Ferret Tuft",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.FERRET_TUFT), "Ferret Tuft",
 				"**A new trinket has been added to the game!**\n" +
 				"\n" +
 				"The **Ferret Tuft** is a simpler evasion-boosting trinket with more of a cute aesthetic. It's a little reference to a favourite lime ferret.\n" +
@@ -611,7 +611,7 @@ public class v3_X_Changes {
 		changes.hardlight(CharSprite.POSITIVE);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.CHAOTIC_CENSER), "Trinket Buffs",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.CHAOTIC_CENSER), "Trinket Buffs",
 				"Overall trinket balance is in a much better place since v2.5, but there are still some that can do with being more powerful or fun to use:\n" +
 				"\n" +
 				"**- Chaotic Censer** now only spawns gasses when enemies are present, and gives a warning one moment before the gas is spewed.\n" +
@@ -620,7 +620,7 @@ public class v3_X_Changes {
 				"**- Trap Mechanism** now also makes 10% of a level's traps spawn visible per level.\n" +
 				"**- Shard of Oblivion** now prevents ID effects such as scroll of ID and wells of knowledge. Items are instead set to be ready to be IDed by the shard."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SAI), "Weapon Ability Buffs",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.SAI), "Weapon Ability Buffs",
 				"The Duelist continues to do better following all the changes in v2.X updates. A couple of weapon abilities are still lagging behind though, and so I'm giving them a little help:\n" +
 				"\n" +
 				"**- Combo Strike** ability damage boost buffed by 25% for Gauntlets. 33% for Sai, 50% for Gloves.\n" +
@@ -630,7 +630,7 @@ public class v3_X_Changes {
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.MOSSY_CLUMP), "Trinket Nerfs",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.MOSSY_CLUMP), "Trinket Nerfs",
 				"Despite nerfs in v2.5 the Mossy Clump is still far and away the strongest trinket. For now I'm going to experiment with adjusting the ratios on the floors it grants.\n" +
 				"\n" +
 				"**- Mossy Clump** now generates grassy floors 1/3 of the time and water floors 2/3 of the time, instead of 1/2 each. This will usually result in one fewer grassy floor over a whole run.\n" +

@@ -7,13 +7,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class RingOfEnergy extends Ring {
+public class 能量之戒 extends Ring {
 
 	{
-		icon = ItemSpriteSheet.Icons.RING_ENERGY;
+		icon = 物品表.Icons.RING_ENERGY;
 		buffClass = Energy.class;
 	}
 
@@ -47,6 +48,10 @@ public class RingOfEnergy extends Ring {
 
 		if (target instanceof Hero && ((Hero) target).heroClass != HeroClass.CLERIC && ((Hero) target).有天赋(Talent.LIGHT_READING)){
 			bonus *= 1f + ((Hero) target).天赋点数(Talent.LIGHT_READING,0.07f);
+		}
+
+		if (target instanceof Hero && ((Hero) target).belongings.armor instanceof 法袍){
+			bonus *= 1.25f;
 		}
 
 		return bonus;

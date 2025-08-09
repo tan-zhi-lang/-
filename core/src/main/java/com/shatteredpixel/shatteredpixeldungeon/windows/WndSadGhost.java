@@ -105,7 +105,7 @@ public class WndSadGhost extends Window {
 		}
 		
 		ghost.yell( Messages.get(this, "farewell") );
-		ghost.die( null );
+		ghost.死亡时( null );
 		
 		Ghost.Quest.complete();
 	}

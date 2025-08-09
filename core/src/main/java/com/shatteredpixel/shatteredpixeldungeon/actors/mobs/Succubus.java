@@ -55,8 +55,8 @@ public class Succubus extends Mob {
 	}
 	
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		
 		if (enemy.buff(Charm.class) != null ){
 			int shield = (生命 - 最大生命) + (5 + damage);

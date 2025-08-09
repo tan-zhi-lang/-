@@ -448,13 +448,13 @@ public class DM300 extends Mob {
 	private boolean invulnWarned = false;
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (!BossHealthBar.isAssigned()){
 			notice();
 		}
 
 		int preHP = 生命;
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 		if (isInvulnerable(src.getClass())){
 			return;
 		}
@@ -545,9 +545,9 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 
-		super.die( cause );
+		super.死亡时( cause );
 
 		GameScene.bossSlain();
 		Dungeon.level.unseal();

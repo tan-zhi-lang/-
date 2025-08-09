@@ -26,7 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.Visual;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 public class RingOfWealth extends Ring {
 
 	{
-		icon = ItemSpriteSheet.Icons.RING_WEALTH;
+		icon = 物品表.Icons.RING_WEALTH;
 		buffClass = Wealth.class;
 	}
 

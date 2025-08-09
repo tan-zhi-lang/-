@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ConeAOE;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.GameMath;
@@ -34,10 +34,10 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class WandOfFireblast extends DamageWand {
+public class 焰浪法杖 extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_FIREBOLT;
+		image = 物品表.焰浪法杖;
 
 		//only used for targeting, actual projectile logic is Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID
 		collisionProperties = Ballistica.WONT_STOP;
@@ -117,7 +117,7 @@ public class WandOfFireblast extends DamageWand {
 
 		for ( Char ch : affectedChars ){
 			wandProc(ch, chargesPerCast());
-			ch.damage(damageRoll(), this);
+			ch.受伤时(damageRoll(), this);
 			if (ch.isAlive()) {
 				Buff.施加(ch, Burning.class).reignite(ch);
 				switch (chargesPerCast()) {
@@ -181,7 +181,7 @@ public class WandOfFireblast extends DamageWand {
 						}
 						if (ch.alignment == Char.Alignment.ENEMY) {
 							//A 2-charge zap's base dmg with a 1-charge zap's scaling
-							ch.damage(Math.round(powerMulti*Random.NormalIntRange(2 + buffedLvl(), 8 + 2*buffedLvl())), this);
+							ch.受伤时(Math.round(powerMulti*Random.NormalIntRange(2 + buffedLvl(), 8 + 2*buffedLvl())), this);
 						}
 					}
 				}

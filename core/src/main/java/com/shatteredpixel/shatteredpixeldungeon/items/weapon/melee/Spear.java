@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -21,7 +21,7 @@ import com.watabou.utils.Callback;
 public class Spear extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.SPEAR;
+		image = 物品表.SPEAR;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 0.9f;
 

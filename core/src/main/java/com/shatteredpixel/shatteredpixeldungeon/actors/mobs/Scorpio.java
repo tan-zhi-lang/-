@@ -57,8 +57,8 @@ public class Scorpio extends Mob {
 	}
 	
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		if (Random.Int( 2 ) == 0) {
 			Buff.延长( enemy, Cripple.class, Cripple.DURATION );
 		}

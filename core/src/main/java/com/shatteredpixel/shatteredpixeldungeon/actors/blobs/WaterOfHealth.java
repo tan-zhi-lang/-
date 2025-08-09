@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
@@ -60,8 +60,8 @@ public class WaterOfHealth extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
-		if (item instanceof Waterskin && !((Waterskin)item).isFull()) {
-			((Waterskin)item).fill();
+		if (item instanceof 水袋 && !((水袋)item).isFull()) {
+			((水袋)item).fill();
 			CellEmitter.get( pos ).start( Speck.factory( Speck.HEALING ), 0.4f, 4 );
 			Sample.INSTANCE.play( Assets.Sounds.DRINK );
 			return item;

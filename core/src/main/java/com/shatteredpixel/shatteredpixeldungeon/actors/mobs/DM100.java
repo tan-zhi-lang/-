@@ -78,7 +78,7 @@ public class DM100 extends Mob implements Callback {
 			if (hit( this, enemy, true )) {
 				int dmg = Random.NormalIntRange(3, 10);
 				dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
-				enemy.damage( dmg, new LightningBolt() );
+				enemy.受伤时( dmg, new LightningBolt() );
 
 				if (enemy.sprite.visible) {
 					enemy.sprite.centerEmitter().burst(SparkParticle.FACTORY, 3);

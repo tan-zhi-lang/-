@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
@@ -24,7 +24,7 @@ import com.watabou.utils.PathFinder;
 public class Dagger extends MeleeWeapon {
 	
 	{
-		image = ItemSpriteSheet.DAGGER;
+		image = 物品表.DAGGER;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.1f;
 
@@ -50,7 +50,7 @@ public class Dagger extends MeleeWeapon {
 				int damage = augment.damageFactor(Hero.heroDamageIntRange(
 						min() + Math.round(diff*0.75f),
 						max()));
-				int exStr = hero.力量() - STRReq();
+				int exStr = hero.力量() - 力量();
 				if (exStr > 0) {
 					damage += Hero.heroDamageIntRange(0, exStr);
 				}

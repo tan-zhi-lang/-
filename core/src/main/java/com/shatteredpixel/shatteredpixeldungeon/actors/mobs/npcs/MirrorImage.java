@@ -53,7 +53,7 @@ public class MirrorImage extends NPC {
 		if ( hero == null ){
 			hero = (Hero)Actor.findById(heroID);
 			if ( hero == null ){
-				die(null);
+				死亡时(null);
 				sprite.killAndErase();
 				return true;
 			}
@@ -144,8 +144,8 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		
 		MirrorInvis buff = buff(MirrorInvis.class);
 		if (buff != null){
@@ -172,7 +172,7 @@ public class MirrorImage extends NPC {
 			if (!wasEnemy || enemy.alignment == Alignment.ENEMY) {
 				if (hero.buff(HolyWeapon.HolyWepBuff.class) != null) {
 					int dmg = hero.subClass == HeroSubClass.PALADIN ? 6 : 2;
-					enemy.damage(Math.round(dmg * Weapon.Enchantment.genericProcChanceMultiplier(this)), HolyWeapon.INSTANCE);
+					enemy.受伤时(Math.round(dmg * Weapon.Enchantment.genericProcChanceMultiplier(this)), HolyWeapon.INSTANCE);
 				}
 			}
 			return damage;

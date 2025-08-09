@@ -10,12 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class CleansingDart extends TippedDart {
 	
 	{
-		image = ItemSpriteSheet.CLEANSING_DART;
+		image = 物品表.CLEANSING_DART;
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class CleansingDart extends TippedDart {
 			}
 			//for when cleansed effects were keeping defender alive (e.g. raging brutes)
 			if (!defender.isAlive()){
-				defender.die(attacker);
+				defender.死亡时(attacker);
 				return super.攻击时(attacker, defender, damage);
 			}
 			if (defender instanceof Mob) {

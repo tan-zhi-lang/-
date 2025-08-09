@@ -12,14 +12,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnc
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class StoneOfEnchantment extends InventoryStone {
 	
 	{
 		preferredBag = Belongings.Backpack.class;
-		image = ItemSpriteSheet.STONE_ENCHANT;
+		image = 物品表.STONE_ENCHANT;
 
 		unique = true;
 	}

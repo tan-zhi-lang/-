@@ -5,12 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class Greatshield extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.GREATSHIELD;
+		image = 物品表.GREATSHIELD;
 
 		tier = 5;
 	}

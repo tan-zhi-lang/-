@@ -29,11 +29,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Waterskin;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
@@ -41,7 +47,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -49,7 +54,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImag
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dagger;
@@ -90,11 +95,13 @@ public enum HeroClass {
 		i = new Food();
 		if (!Challenges.isItemBlocked(i)) i.放背包();
 
-		new VelvetPouch().放背包();
+		new 绒布袋().放背包();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 
-		Waterskin waterskin = new Waterskin();
-		waterskin.放背包();
+		水袋 水袋 = new 水袋();
+		if(hero.HeroClass(WARRIOR)){
+			水袋.放背包();
+		}
 
 		new ScrollOfIdentify().鉴定();
 
@@ -127,8 +134,10 @@ public enum HeroClass {
 		if (SPDSettings.quickslotWaterskin()) {
 			for (int s = 0; s < QuickSlot.SIZE; s++) {
 				if (Dungeon.quickslot.getItem(s) == null) {
-					Dungeon.quickslot.setSlot(s, waterskin);
-					break;
+					if(hero.HeroClass(WARRIOR)) {
+						Dungeon.quickslot.setSlot(s, 水袋);
+						break;
+					}
 				}
 			}
 		}
@@ -155,6 +164,10 @@ public enum HeroClass {
 
 	private static void initWarrior( Hero hero ) {
 		(hero.belongings.weapon = new WornShortsword()).鉴定();
+
+		Item i = new 铠甲().鉴定();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (铠甲)i;
+
 		ThrowingStone stones = new ThrowingStone();
 		stones.鉴定().放背包();
 
@@ -170,9 +183,12 @@ public enum HeroClass {
 	}
 
 	private static void initMage( Hero hero ) {
+		Item i = new 法袍().鉴定();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (法袍)i;
+
 		MagesStaff staff;
 
-		staff = new MagesStaff(new WandOfMagicMissile());
+		staff = new MagesStaff(new 焰浪法杖());
 
 		(hero.belongings.weapon = staff).鉴定();
 		hero.belongings.weapon.activate(hero);
@@ -184,6 +200,9 @@ public enum HeroClass {
 	}
 
 	private static void initRogue( Hero hero ) {
+		Item i = new 风衣().鉴定();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (风衣)i;
+
 		(hero.belongings.weapon = new Dagger()).鉴定();
 
 		CloakOfShadows cloak = new CloakOfShadows();
@@ -201,8 +220,9 @@ public enum HeroClass {
 	}
 
 	private static void initHuntress( Hero hero ) {
+		Item i = new 披风().鉴定();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (披风)i;
 
-		(hero.belongings.weapon = new Gloves()).鉴定();
 		SpiritBow bow = new SpiritBow();
 		bow.鉴定().放背包();
 
@@ -213,6 +233,8 @@ public enum HeroClass {
 	}
 
 	private static void initDuelist( Hero hero ) {
+		Item i = new 胸铠().鉴定();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (胸铠)i;
 
 		(hero.belongings.weapon = new Rapier()).鉴定();
 		hero.belongings.weapon.activate(hero);
@@ -228,6 +250,8 @@ public enum HeroClass {
 	}
 
 	private static void initCleric( Hero hero ) {
+		Item i = new 祭服().鉴定();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (祭服)i;
 
 		(hero.belongings.weapon = new Cudgel()).鉴定();
 		hero.belongings.weapon.activate(hero);

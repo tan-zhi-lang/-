@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.Calendar;
@@ -12,7 +12,7 @@ import java.util.GregorianCalendar;
 public class DimensionalSundial extends Trinket {
 
 	{
-		image = ItemSpriteSheet.SUNDIAL;
+		image = 物品表.SUNDIAL;
 	}
 
 	@Override

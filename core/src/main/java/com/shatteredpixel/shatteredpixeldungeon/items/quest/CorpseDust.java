@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class CorpseDust extends Item {
 	
 	{
-		image = ItemSpriteSheet.DUST;
+		image = 物品表.DUST;
 		
 		cursed = true;
 		cursedKnown = true;
@@ -130,7 +130,7 @@ public class CorpseDust extends Item {
 			detach();
 			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
 				if (mob instanceof DustWraith){
-					mob.die(null);
+					mob.死亡时(null);
 				}
 			}
 			Game.runOnRenderThread(new Callback() {

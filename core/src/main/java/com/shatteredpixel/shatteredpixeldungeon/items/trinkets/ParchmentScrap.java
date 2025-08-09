@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ParchmentScrap extends Trinket {
 
 	{
-		image = ItemSpriteSheet.PARCHMENT_SCRAP;
+		image = 物品表.PARCHMENT_SCRAP;
 	}
 
 	@Override

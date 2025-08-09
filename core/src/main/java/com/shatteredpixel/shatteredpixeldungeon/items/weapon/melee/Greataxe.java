@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -18,7 +18,7 @@ import com.watabou.utils.Callback;
 public class Greataxe extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.GREATAXE;
+		image = 物品表.GREATAXE;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1f;
 
@@ -32,8 +32,8 @@ public class Greataxe extends MeleeWeapon {
 	}
 
 	@Override
-	public int STRReq(int lvl) {
-		int req = STRReq(tier+1, lvl); //20 base strength req, up from 18
+	public int 力量(int lvl) {
+		int req = 力量(tier+1, lvl); //20 base strength req, up from 18
 		if (masteryPotionBonus){
 			req -= 2;
 		}

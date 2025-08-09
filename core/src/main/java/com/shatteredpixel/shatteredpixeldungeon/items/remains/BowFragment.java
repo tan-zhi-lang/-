@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class BowFragment extends RemainsItem {
 
 	{
-		image = ItemSpriteSheet.BOW_FRAGMENT;
+		image = 物品表.BOW_FRAGMENT;
 	}
 
 	@Override

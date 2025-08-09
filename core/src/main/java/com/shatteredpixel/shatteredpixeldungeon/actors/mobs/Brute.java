@@ -53,8 +53,8 @@ public class Brute extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
-		super.die(cause);
+	public void 死亡时(Object cause) {
+		super.死亡时(cause);
 
 		if (cause == Chasm.class){
 			hasRaged = true; //don't let enrage trigger for chasm deaths
@@ -114,7 +114,7 @@ public class Brute extends Mob {
 			absorbDamage( Math.round(4*AscensionChallenge.statModifier(target)));
 			
 			if (shielding() <= 0){
-				target.die(null);
+				target.死亡时(null);
 			}
 			
 			spend( TICK );

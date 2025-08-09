@@ -53,7 +53,7 @@ public class DisarmingTrap extends Trap{
 		}
 
 		if (Actor.findChar(pos) instanceof Statue){
-			Actor.findChar(pos).die(this);
+			Actor.findChar(pos).死亡时(this);
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 			CellEmitter.get(pos).burst(Speck.factory(Speck.LIGHT), 4);
 		}

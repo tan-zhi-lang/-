@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class Rotberry extends Plant {
 
@@ -45,7 +45,7 @@ public class Rotberry extends Plant {
 
 	public static class Seed extends Plant.Seed {
 		{
-			image = ItemSpriteSheet.SEED_ROTBERRY;
+			image = 物品表.SEED_ROTBERRY;
 
 			plantClass = Rotberry.class;
 

@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class PetrifiedSeed extends Trinket {
 
 	{
-		image = ItemSpriteSheet.PETRIFIED_SEED;
+		image = 物品表.PETRIFIED_SEED;
 	}
 
 	@Override

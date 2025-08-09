@@ -847,7 +847,7 @@ public class CavesBossLevel extends Level {
 							}
 
 							Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-							ch.damage( Random.NormalIntRange(6, 12), new Electricity());
+							ch.受伤时( Random.NormalIntRange(6, 12), new Electricity());
 							ch.sprite.flash();
 
 							if (ch == Dungeon.hero){

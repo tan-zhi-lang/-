@@ -104,9 +104,9 @@ public abstract class Elemental extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		flying = false;
-		super.die(cause);
+		super.死亡时(cause);
 	}
 	
 	@Override
@@ -139,8 +139,8 @@ public abstract class Elemental extends Mob {
 	}
 	
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		meleeProc( enemy, damage );
 		
 		return damage;
@@ -170,7 +170,7 @@ public abstract class Elemental extends Mob {
 	@Override
 	public boolean add( Buff buff ) {
 		if (harmfulBuffs.contains( buff.getClass() )) {
-			damage( Random.NormalIntRange( 最大生命 /2, 最大生命 * 3/5 ), buff );
+			受伤时( Random.NormalIntRange( 最大生命 /2, 最大生命 * 3/5 ), buff );
 			return false;
 		} else {
 			return super.add( buff );
@@ -389,8 +389,8 @@ public abstract class Elemental extends Mob {
 		}
 
 		@Override
-		public void die(Object cause) {
-			super.die(cause);
+		public void 死亡时(Object cause) {
+			super.死亡时(cause);
 			if (alignment == Alignment.ENEMY) {
 				Dungeon.level.drop( new Embers(), pos ).sprite.drop();
 				//assign score here as player may choose to keep the embers
@@ -505,7 +505,7 @@ public abstract class Elemental extends Mob {
 			}
 			
 			for (Char ch : affected) {
-				ch.damage( Math.round( damage * 0.4f ), new Shocking() );
+				ch.受伤时( Math.round( damage * 0.4f ), new Shocking() );
 				if (ch == Dungeon.hero && !ch.isAlive()){
 					Dungeon.fail(this);
 					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );

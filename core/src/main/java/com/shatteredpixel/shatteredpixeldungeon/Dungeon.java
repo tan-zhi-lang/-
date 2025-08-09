@@ -1064,6 +1064,6 @@ public class Dungeon {
 
 	}
 	public static boolean hero(){
-		return hero==null;
+		return hero!=null;
 	}
 }

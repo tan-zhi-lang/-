@@ -45,12 +45,12 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (src instanceof Burning) {
 			destroy();
 			sprite.die();
 		} else {
-			super.damage(dmg, src);
+			super.受伤时(dmg, src);
 		}
 	}
 
@@ -63,10 +63,10 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public int attackProc(Char enemy, int damage) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage) {
+		damage = super.攻击时( enemy, damage );
 		Buff.施加( enemy, Cripple.class, 2f );
-		return super.attackProc(enemy, damage);
+		return super.攻击时(enemy, damage);
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class WoollyBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.WOOLY_BOMB;
+		image = 物品表.WOOLY_BOMB;
 	}
 
 	@Override

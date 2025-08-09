@@ -5,13 +5,13 @@ package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfForesight extends ExoticScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_FORESIGHT;
+		icon = 物品表.Icons.SCROLL_FORESIGHT;
 	}
 	
 	@Override

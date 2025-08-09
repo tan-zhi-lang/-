@@ -195,8 +195,8 @@ public class WndUpgrade extends Window {
 		if (toUpgrade instanceof Armor){
 			Armor.Augment aug = ((Armor) toUpgrade).augment;
 			bottom = fillFields(Messages.get(this, "blocking"),
-					((Armor) toUpgrade).DRMin(levelFrom) + "-" + (((Armor) toUpgrade).DRMax(levelFrom)),
-					((Armor) toUpgrade).DRMin(levelTo) + "-" +  (((Armor) toUpgrade).DRMax(levelTo)),
+					((Armor) toUpgrade).最小防御(levelFrom) + "-" + (((Armor) toUpgrade).最大防御(levelFrom)),
+					((Armor) toUpgrade).最小防御(levelTo) + "-" +  (((Armor) toUpgrade).最大防御(levelTo)),
 					bottom);
 		} else if (toUpgrade instanceof RoundShield){
 			bottom = fillFields(Messages.get(this, "blocking"),
@@ -213,13 +213,13 @@ public class WndUpgrade extends Window {
 		//weight (i.e. strength requirement)
 		if (toUpgrade instanceof Weapon){
 			bottom = fillFields(Messages.get(this, "weight"),
-					Integer.toString((((Weapon) toUpgrade).STRReq(levelFrom))),
-					Integer.toString((((Weapon) toUpgrade).STRReq(levelTo))),
+					Integer.toString((((Weapon) toUpgrade).力量(levelFrom))),
+					Integer.toString((((Weapon) toUpgrade).力量(levelTo))),
 					bottom);
 		} else if (toUpgrade instanceof Armor) {
 			bottom = fillFields(Messages.get(this, "weight"),
-					Integer.toString((((Armor) toUpgrade).STRReq(levelFrom))),
-					Integer.toString((((Armor) toUpgrade).STRReq(levelTo))),
+					Integer.toString((((Armor) toUpgrade).力量(levelFrom))),
+					Integer.toString((((Armor) toUpgrade).力量(levelTo))),
 					bottom);
 		}
 

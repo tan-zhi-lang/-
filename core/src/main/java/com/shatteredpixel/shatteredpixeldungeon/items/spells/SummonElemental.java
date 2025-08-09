@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
@@ -45,7 +45,7 @@ public class SummonElemental extends Spell {
 	public static final String AC_IMBUE = "IMBUE";
 
 	{
-		image = ItemSpriteSheet.SUMMON_ELE;
+		image = 物品表.SUMMON_ELE;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

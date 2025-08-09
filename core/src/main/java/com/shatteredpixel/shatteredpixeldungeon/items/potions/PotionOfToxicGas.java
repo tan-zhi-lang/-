@@ -7,13 +7,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
 public class PotionOfToxicGas extends Potion {
 
 	{
-		icon = ItemSpriteSheet.Icons.POTION_TOXICGAS;
+		icon = 物品表.Icons.POTION_TOXICGAS;
 	}
 
 	@Override

@@ -7,13 +7,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ParalyticGas;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
 public class PotionOfParalyticGas extends Potion {
 
 	{
-		icon = ItemSpriteSheet.Icons.POTION_PARAGAS;
+		icon = 物品表.Icons.POTION_PARAGAS;
 	}
 
 	@Override

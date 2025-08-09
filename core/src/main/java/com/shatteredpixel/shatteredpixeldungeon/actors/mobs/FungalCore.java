@@ -30,8 +30,8 @@ public class FungalCore extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
-		super.die(cause);
+	public void 死亡时(Object cause) {
+		super.死亡时(cause);
 		Blacksmith.Quest.beatBoss();
 	}
 }

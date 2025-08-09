@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class StoneOfBlink extends Runestone {
 	
 	{
-		image = ItemSpriteSheet.STONE_BLINK;
+		image = 物品表.STONE_BLINK;
 	}
 	
 	private static Ballistica throwPath;

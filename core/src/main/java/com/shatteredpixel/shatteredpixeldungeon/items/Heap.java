@@ -76,7 +76,7 @@ public class Heap implements Bundlable {
 		if (haunted){
 			if (Wraith.spawnAt( pos ) == null) {
 				hero.sprite.emitter().burst( ShadowParticle.CURSE, 6 );
-				hero.damage( hero.生命 / 2, this );
+				hero.受伤时( hero.生命 / 2, this );
 				if (!hero.isAlive()){
 					Dungeon.fail(Wraith.class);
 					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", Messages.get(Wraith.class, "name"))));

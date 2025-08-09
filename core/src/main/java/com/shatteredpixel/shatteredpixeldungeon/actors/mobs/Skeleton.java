@@ -42,9 +42,9 @@ public class Skeleton extends Mob {
 	}
 	
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 		
-		super.die( cause );
+		super.死亡时( cause );
 		
 		if (cause == Chasm.class) return;
 		
@@ -74,7 +74,7 @@ public class Skeleton extends Mob {
 
 				//apply DR twice (with 2 rolls for more consistency)
 				damage = Math.max( 0,  damage - (ch.drRoll() + ch.drRoll()) );
-				ch.damage( damage, this );
+				ch.受伤时( damage, this );
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;
 				}

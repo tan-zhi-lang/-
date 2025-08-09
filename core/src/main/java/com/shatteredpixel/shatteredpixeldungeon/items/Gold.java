@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Gold extends Item {
 
 	{
-		image = ItemSpriteSheet.GOLD;
+		image = 物品表.GOLD;
 		stackable = true;
 	}
 	

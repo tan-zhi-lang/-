@@ -40,7 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.TerrainFeaturesTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BadgesGrid;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BadgesList;
@@ -134,7 +134,7 @@ public class WndJournal extends WndTabbed {
 						return Messages.get(notesTab, "title");
 					}
 				},
-				new IconTab( new ItemSprite(ItemSpriteSheet.MASTERY, null) ) {
+				new IconTab( new ItemSprite(物品表.MASTERY, null) ) {
 					protected void select( boolean value ) {
 						super.select( value );
 						guideTab.active = guideTab.visible = value;
@@ -271,15 +271,15 @@ public class WndJournal extends WndTabbed {
 		private static final int NUM_BUTTONS = 9;
 		
 		private static final int[] sprites = {
-				ItemSpriteSheet.SEED_HOLDER,
-				ItemSpriteSheet.STONE_HOLDER,
-				ItemSpriteSheet.FOOD_HOLDER,
-				ItemSpriteSheet.POTION_HOLDER,
-				ItemSpriteSheet.SCROLL_HOLDER,
-				ItemSpriteSheet.BOMB_HOLDER,
-				ItemSpriteSheet.MISSILE_HOLDER,
-				ItemSpriteSheet.ELIXIR_HOLDER,
-				ItemSpriteSheet.SPELL_HOLDER
+				物品表.SEED_HOLDER,
+				物品表.STONE_HOLDER,
+				物品表.FOOD_HOLDER,
+				物品表.POTION_HOLDER,
+				物品表.SCROLL_HOLDER,
+				物品表.BOMB_HOLDER,
+				物品表.MISSILE_HOLDER,
+				物品表.ELIXIR_HOLDER,
+				物品表.SPELL_HOLDER
 		};
 		
 		public static int currentPageIdx   = 0;
@@ -305,14 +305,14 @@ public class WndJournal extends WndTabbed {
 				if (Document.ALCHEMY_GUIDE.isPageFound(i)) {
 					pageButtons[i].icon(new ItemSprite(sprites[i], null));
 				} else {
-					pageButtons[i].icon(new ItemSprite(ItemSpriteSheet.SOMETHING, null));
+					pageButtons[i].icon(new ItemSprite(物品表.SOMETHING, null));
 					pageButtons[i].enable(false);
 				}
 				add( pageButtons[i] );
 			}
 			
 			title = new IconTitle();
-			title.icon( new ItemSprite(ItemSpriteSheet.ALCH_PAGE));
+			title.icon( new ItemSprite(物品表.ALCH_PAGE));
 			title.visible = false;
 
 			body = PixelScene.renderTextBlock(6);
@@ -576,10 +576,10 @@ public class WndJournal extends WndTabbed {
 				};
 				add( itemButtons[i] );
 			}
-			itemButtons[EQUIP_IDX].icon(new ItemSprite(ItemSpriteSheet.WEAPON_HOLDER));
-			itemButtons[CONSUM_IDX].icon(new ItemSprite(ItemSpriteSheet.POTION_HOLDER));
-			itemButtons[BESTIARY_IDX].icon(new ItemSprite(ItemSpriteSheet.MOB_HOLDER));
-			itemButtons[LORE_IDX].icon(new ItemSprite(ItemSpriteSheet.DOCUMENT_HOLDER));
+			itemButtons[EQUIP_IDX].icon(new ItemSprite(物品表.WEAPON_HOLDER));
+			itemButtons[CONSUM_IDX].icon(new ItemSprite(物品表.POTION_HOLDER));
+			itemButtons[BESTIARY_IDX].icon(new ItemSprite(物品表.MOB_HOLDER));
+			itemButtons[LORE_IDX].icon(new ItemSprite(物品表.DOCUMENT_HOLDER));
 
 			grid = new ScrollingGridPane(){
 				@Override
@@ -750,7 +750,7 @@ public class WndJournal extends WndTabbed {
 				sprite = new ItemSprite(item.image, seen ? item.glowing() : null);
 				if (!seen)  {
 					if (item instanceof ExoticPotion){
-						sprite.frame(ItemSpriteSheet.POTION_CRIMSON);
+						sprite.frame(物品表.POTION_CRIMSON);
 					}
 					sprite.lightness(0);
 					title = "???";
@@ -788,7 +788,7 @@ public class WndJournal extends WndTabbed {
 
 					if (item.icon != -1) {
 						secondIcon = new Image(Assets.Sprites.ITEM_ICONS);
-						secondIcon.frame(ItemSpriteSheet.Icons.film.get(item.icon));
+						secondIcon.frame(物品表.Icons.film.get(item.icon));
 					}
 				}
 
@@ -797,11 +797,11 @@ public class WndJournal extends WndTabbed {
 				Weapon.Enchantment ench = (Weapon.Enchantment) Reflection.newInstance(itemClass);
 
 				if (seen){
-					sprite = new ItemSprite(ItemSpriteSheet.WORN_SHORTSWORD, ench.glowing());
+					sprite = new ItemSprite(物品表.WORN_SHORTSWORD, ench.glowing());
 					title = Messages.titleCase(ench.name());
 					desc = ench.desc();
 				} else {
-					sprite = new ItemSprite(ItemSpriteSheet.WORN_SHORTSWORD);
+					sprite = new ItemSprite(物品表.WORN_SHORTSWORD);
 					sprite.lightness(0f);
 					title = "???";
 					desc = Messages.get(CatalogTab.class, "not_seen_enchantment");
@@ -813,11 +813,11 @@ public class WndJournal extends WndTabbed {
 				Armor.Glyph glyph = (Armor.Glyph) Reflection.newInstance(itemClass);
 
 				if (seen){
-					sprite = new ItemSprite(ItemSpriteSheet.ARMOR_CLOTH, glyph.glowing());
+					sprite = new ItemSprite(物品表.ARMOR_CLOTH, glyph.glowing());
 					title = Messages.titleCase(glyph.name());
 					desc = glyph.desc();
 				} else {
-					sprite = new ItemSprite(ItemSpriteSheet.ARMOR_CLOTH);
+					sprite = new ItemSprite(物品表.ARMOR_CLOTH);
 					sprite.lightness(0f);
 					title = "???";
 					desc = Messages.get(CatalogTab.class, "not_seen_glyph");

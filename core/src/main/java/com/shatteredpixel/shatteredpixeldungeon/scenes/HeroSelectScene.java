@@ -310,8 +310,19 @@ public class HeroSelectScene extends PixelScene {
 
 		btnExit = new ExitButton();
 		btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
-		add( btnExit );
+//		add( btnExit );
 		btnExit.visible = btnExit.active = !SPDSettings.intro();
+
+
+//		IconButton 进入游戏 = new IconButton(Icons.get(Icons.JOURNAL)){
+//			@Override
+//			protected void onClick() {
+//				super.onClick();
+//
+//			}
+//		};
+//		进入游戏.setRect(进入游戏.right(), 16, 16, 16);
+//		add(进入游戏);
 
 		PointerArea fadeResetter = new PointerArea(0, 0, Camera.main.width, Camera.main.height){
 			@Override

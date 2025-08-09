@@ -44,7 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
@@ -70,18 +70,18 @@ public class Potion extends Item {
 
 	private static final LinkedHashMap<String, Integer> colors = new LinkedHashMap<String, Integer>() {
 		{
-			put("crimson",ItemSpriteSheet.POTION_CRIMSON);
-			put("amber",ItemSpriteSheet.POTION_AMBER);
-			put("golden",ItemSpriteSheet.POTION_GOLDEN);
-			put("jade",ItemSpriteSheet.POTION_JADE);
-			put("turquoise",ItemSpriteSheet.POTION_TURQUOISE);
-			put("azure",ItemSpriteSheet.POTION_AZURE);
-			put("indigo",ItemSpriteSheet.POTION_INDIGO);
-			put("magenta",ItemSpriteSheet.POTION_MAGENTA);
-			put("bistre",ItemSpriteSheet.POTION_BISTRE);
-			put("charcoal",ItemSpriteSheet.POTION_CHARCOAL);
-			put("silver",ItemSpriteSheet.POTION_SILVER);
-			put("ivory",ItemSpriteSheet.POTION_IVORY);
+			put("crimson", 物品表.POTION_CRIMSON);
+			put("amber", 物品表.POTION_AMBER);
+			put("golden", 物品表.POTION_GOLDEN);
+			put("jade", 物品表.POTION_JADE);
+			put("turquoise", 物品表.POTION_TURQUOISE);
+			put("azure", 物品表.POTION_AZURE);
+			put("indigo", 物品表.POTION_INDIGO);
+			put("magenta", 物品表.POTION_MAGENTA);
+			put("bistre", 物品表.POTION_BISTRE);
+			put("charcoal", 物品表.POTION_CHARCOAL);
+			put("silver", 物品表.POTION_SILVER);
+			put("ivory", 物品表.POTION_IVORY);
 		}
 	};
 
@@ -171,7 +171,7 @@ public class Potion extends Item {
 	//useful for items that appear in UIs, or which are only spawned for their effects
 	protected boolean anonymous = false;
 	public void anonymize(){
-		if (!isKnown()) image = ItemSpriteSheet.POTION_HOLDER;
+		if (!isKnown()) image = 物品表.POTION_HOLDER;
 		anonymous = true;
 	}
 
@@ -182,7 +182,7 @@ public class Potion extends Item {
 			image = handler.image(this);
 			color = handler.label(this);
 		} else {
-			image = ItemSpriteSheet.POTION_CRIMSON;
+			image = 物品表.POTION_CRIMSON;
 			color = "crimson";
 		}
 	}
@@ -430,7 +430,7 @@ public class Potion extends Item {
 	public static class PlaceHolder extends Potion {
 		
 		{
-			image = ItemSpriteSheet.POTION_HOLDER;
+			image = 物品表.POTION_HOLDER;
 		}
 		
 		@Override
@@ -530,7 +530,7 @@ public class Potion extends Item {
 		
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
-			return new WndBag.Placeholder(ItemSpriteSheet.POTION_HOLDER){
+			return new WndBag.Placeholder(物品表.POTION_HOLDER){
 
 				@Override
 				public String name() {

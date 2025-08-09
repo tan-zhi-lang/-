@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class HolyBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.HOLY_BOMB;
+		image = 物品表.HOLY_BOMB;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class HolyBomb extends Bomb {
 				
 				//bomb deals an additional 50% damage to unholy enemies
 				int damage = Math.round(Random.NormalIntRange( Dungeon.scalingDepth()+4, 12 + 3*Dungeon.scalingDepth() ) * 0.5f);
-				ch.damage(damage, new HolyDamage());
+				ch.受伤时(damage, new HolyDamage());
 			}
 		}
 		

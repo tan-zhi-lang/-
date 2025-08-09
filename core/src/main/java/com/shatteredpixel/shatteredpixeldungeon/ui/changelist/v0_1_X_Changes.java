@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 
@@ -52,7 +52,7 @@ public class v0_1_X_Changes {
 				"Ankh buffed:\n" +
 				"_-_ Can now be blessed with a full dew vial, to gain the vial's old revive effect."));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_BERKANAN, null), "Misc Item Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.SCROLL_BERKANAN, null), "Misc Item Changes",
 				"Sungrass buffed:\n" +
 				"_-_ Heal scaling now scales with max hp.\n\n" +
 				"Scroll of Psionic Blast rebalanced:\n" +
@@ -81,17 +81,17 @@ public class v0_1_X_Changes {
 				"\n" +
 				"At the time I didn't have any plans to add new content, I thought I was just going to spend a couple months rebalancing the game and that was it!"));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SEED_EARTHROOT, null), "Seed Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.SEED_EARTHROOT, null), "Seed Changes",
 				"_-_ Blindweed buffed, now cripples as well as blinds.\n\n" +
 				"_-_ Sungrass nerfed, heal scales up over time, total heal reduced by combat.\n\n" +
 				"_-_ Earthroot nerfed, damage absorb down to 50% from 100%, total shield unchanged.\n\n" +
 				"_-_ Icecap buffed, freeze effect is now much stronger in water."));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POTION_SILVER, null), "Potion Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.POTION_SILVER, null), "Potion Changes",
 				"_-_ Potion of Purity buffed, immunity duration increased to 10 turns from 5, clear effect radius increased.\n\n" +
 				"_-_ Potion of Frost buffed, freeze effect is now much stronger in water."));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_BERKANAN, null), "Scroll Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.SCROLL_BERKANAN, null), "Scroll Changes",
 				"_-_ Scroll of Psionic blast reworked, now rarer and much stronger, but deals damage to the hero.\n\n" +
 				"_-_ Scroll of Challenge renamed to Scroll of Rage, now amoks nearby enemies."));
 		

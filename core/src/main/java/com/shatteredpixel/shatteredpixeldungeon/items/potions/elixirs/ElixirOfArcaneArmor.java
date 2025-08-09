@@ -9,14 +9,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfEarthenArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 import java.util.ArrayList;
 
 public class ElixirOfArcaneArmor extends Elixir {
 	
 	{
-		image = ItemSpriteSheet.ELIXIR_ARCANE;
+		image = 物品表.ELIXIR_ARCANE;
 	}
 	
 	@Override

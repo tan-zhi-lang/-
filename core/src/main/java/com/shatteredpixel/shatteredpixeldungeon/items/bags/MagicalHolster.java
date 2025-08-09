@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class MagicalHolster extends Bag {
 
 	{
-		image = ItemSpriteSheet.HOLSTER;
+		image = 物品表.HOLSTER;
 	}
 
 	public static final float HOLSTER_SCALE_FACTOR = 0.85f;

@@ -15,11 +15,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class CloakOfShadows extends Artifact {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_CLOAK;
+		image = 物品表.ARTIFACT_CLOAK;
 
 		exp = 0;
 		levelCap = 10;
@@ -216,7 +216,7 @@ public class CloakOfShadows extends Artifact {
 					float missing = (chargeCap - charge);
 					if (等级() > 7) missing += 5*(等级() - 7)/3f;
 					float turnsToCharge = (45 - missing);
-					turnsToCharge /= RingOfEnergy.artifactChargeMultiplier(target);
+					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
 						chargeToGain *= Dungeon.hero.天赋点数(Talent.LIGHT_CLOAK,0.25f);

@@ -10,14 +10,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 public class Noisemaker extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.NOISEMAKER;
+		image = 物品表.NOISEMAKER;
 	}
 
 	@Override

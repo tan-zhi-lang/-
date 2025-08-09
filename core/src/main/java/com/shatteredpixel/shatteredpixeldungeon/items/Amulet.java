@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AmuletScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.Game;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class Amulet extends Item {
 	private static final String AC_END = "END";
 	
 	{
-		image = ItemSpriteSheet.AMULET;
+		image = 物品表.AMULET;
 		
 		unique = true;
 	}

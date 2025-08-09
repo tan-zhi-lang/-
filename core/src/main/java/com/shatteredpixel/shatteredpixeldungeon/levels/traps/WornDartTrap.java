@@ -79,7 +79,7 @@ public class WornDartTrap extends Trap {
 									@Override
 									public void call() {
 										int dmg = Random.NormalIntRange(4, 8) - finalTarget.drRoll();
-										finalTarget.damage(dmg, WornDartTrap.this);
+										finalTarget.受伤时(dmg, WornDartTrap.this);
 										if (finalTarget == Dungeon.hero && !finalTarget.isAlive()){
 											Dungeon.fail( WornDartTrap.this  );
 											GLog.n(Messages.get(WornDartTrap.class, "ondeath"));
@@ -93,7 +93,7 @@ public class WornDartTrap extends Trap {
 								});
 						return false;
 					} else {
-						finalTarget.damage(Random.NormalIntRange(4, 8) - finalTarget.drRoll(), WornDartTrap.this);
+						finalTarget.受伤时(Random.NormalIntRange(4, 8) - finalTarget.drRoll(), WornDartTrap.this);
 						return true;
 					}
 				} else {

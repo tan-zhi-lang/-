@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.PathFinder;
@@ -25,7 +25,7 @@ public class Honeypot extends Item {
 	public static final String AC_SHATTER	= "SHATTER";
 	
 	{
-		image = ItemSpriteSheet.HONEYPOT;
+		image = 物品表.HONEYPOT;
 
 		defaultAction = AC_THROW;
 		usesTargeting = true;
@@ -135,7 +135,7 @@ public class Honeypot extends Item {
 	public static class ShatteredPot extends Item {
 
 		{
-			image = ItemSpriteSheet.SHATTPOT;
+			image = 物品表.SHATTPOT;
 			stackable = true;
 		}
 

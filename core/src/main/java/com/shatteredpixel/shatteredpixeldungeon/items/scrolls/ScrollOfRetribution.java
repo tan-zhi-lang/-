@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ScrollOfRetribution extends Scroll {
 
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_RETRIB;
+		icon = 物品表.Icons.SCROLL_RETRIB;
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ public class ScrollOfRetribution extends Scroll {
 
 		for (Mob mob : targets){
 			//deals 10%HT, plus 0-90%HP based on scaling
-			mob.damage(Math.round(mob.最大生命 /10f + (mob.生命 * power * 0.225f)), this);
+			mob.受伤时(Math.round(mob.最大生命 /10f + (mob.生命 * power * 0.225f)), this);
 			if (mob.isAlive()) {
 				Buff.延长(mob, Blindness.class, Blindness.DURATION);
 			}

@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
@@ -21,7 +21,7 @@ import com.watabou.noosa.audio.Sample;
 public class PotionOfCleansing extends ExoticPotion {
 	
 	{
-		icon = ItemSpriteSheet.Icons.POTION_CLEANSE;
+		icon = 物品表.Icons.POTION_CLEANSE;
 	}
 	
 	@Override

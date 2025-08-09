@@ -10,12 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class IncendiaryDart extends TippedDart {
 
 	{
-		image = ItemSpriteSheet.INCENDIARY_DART;
+		image = 物品表.INCENDIARY_DART;
 	}
 	
 	@Override

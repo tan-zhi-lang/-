@@ -34,7 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -53,18 +53,18 @@ public abstract class Scroll extends Item {
 
 	private static final LinkedHashMap<String, Integer> runes = new LinkedHashMap<String, Integer>() {
 		{
-			put("KAUNAN",ItemSpriteSheet.SCROLL_KAUNAN);
-			put("SOWILO",ItemSpriteSheet.SCROLL_SOWILO);
-			put("LAGUZ",ItemSpriteSheet.SCROLL_LAGUZ);
-			put("YNGVI",ItemSpriteSheet.SCROLL_YNGVI);
-			put("GYFU",ItemSpriteSheet.SCROLL_GYFU);
-			put("RAIDO",ItemSpriteSheet.SCROLL_RAIDO);
-			put("ISAZ",ItemSpriteSheet.SCROLL_ISAZ);
-			put("MANNAZ",ItemSpriteSheet.SCROLL_MANNAZ);
-			put("NAUDIZ",ItemSpriteSheet.SCROLL_NAUDIZ);
-			put("BERKANAN",ItemSpriteSheet.SCROLL_BERKANAN);
-			put("ODAL",ItemSpriteSheet.SCROLL_ODAL);
-			put("TIWAZ",ItemSpriteSheet.SCROLL_TIWAZ);
+			put("KAUNAN", 物品表.SCROLL_KAUNAN);
+			put("SOWILO", 物品表.SCROLL_SOWILO);
+			put("LAGUZ", 物品表.SCROLL_LAGUZ);
+			put("YNGVI", 物品表.SCROLL_YNGVI);
+			put("GYFU", 物品表.SCROLL_GYFU);
+			put("RAIDO", 物品表.SCROLL_RAIDO);
+			put("ISAZ", 物品表.SCROLL_ISAZ);
+			put("MANNAZ", 物品表.SCROLL_MANNAZ);
+			put("NAUDIZ", 物品表.SCROLL_NAUDIZ);
+			put("BERKANAN", 物品表.SCROLL_BERKANAN);
+			put("ODAL", 物品表.SCROLL_ODAL);
+			put("TIWAZ", 物品表.SCROLL_TIWAZ);
 		}
 	};
 	
@@ -126,7 +126,7 @@ public abstract class Scroll extends Item {
 	//useful for items that appear in UIs, or which are only spawned for their effects
 	protected boolean anonymous = false;
 	public void anonymize(){
-		if (!isKnown()) image = ItemSpriteSheet.SCROLL_HOLDER;
+		if (!isKnown()) image = 物品表.SCROLL_HOLDER;
 		anonymous = true;
 	}
 	
@@ -138,7 +138,7 @@ public abstract class Scroll extends Item {
 			image = handler.image(this);
 			rune = handler.label(this);
 		} else {
-			image = ItemSpriteSheet.SCROLL_KAUNAN;
+			image = 物品表.SCROLL_KAUNAN;
 			rune = "KAUNAN";
 		}
 	}
@@ -269,7 +269,7 @@ public abstract class Scroll extends Item {
 	public static class PlaceHolder extends Scroll {
 		
 		{
-			image = ItemSpriteSheet.SCROLL_HOLDER;
+			image = 物品表.SCROLL_HOLDER;
 		}
 		
 		@Override

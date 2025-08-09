@@ -7,12 +7,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ToxicImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PoisonParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCorrosiveGas;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ElixirOfToxicEssence extends Elixir {
 	
 	{
-		image = ItemSpriteSheet.ELIXIR_TOXIC;
+		image = 物品表.ELIXIR_TOXIC;
 	}
 	
 	@Override

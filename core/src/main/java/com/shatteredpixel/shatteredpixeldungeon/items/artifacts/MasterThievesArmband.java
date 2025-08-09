@@ -20,12 +20,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class MasterThievesArmband extends Artifact {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_ARMBAND;
+		image = 物品表.ARTIFACT_ARMBAND;
 
 		levelCap = 10;
 
@@ -257,7 +257,7 @@ public class MasterThievesArmband extends Artifact {
 
 			if (charge < chargeCap){
 				float chargeGain = 3f * levelPortion;
-				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
+				chargeGain *= 能量之戒.artifactChargeMultiplier(target);
 
 				partialCharge += chargeGain;
 				while (partialCharge > 1f){

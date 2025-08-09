@@ -31,7 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SpawnerSprite;
@@ -175,7 +175,7 @@ public class Notes {
 				case LOST_PACK:
 					return Icons.get(Icons.BACKPACK_LRG);
 				case BEACON_LOCATION:
-					return new ItemSprite(ItemSpriteSheet.RETURN_BEACON);
+					return new ItemSprite(物品表.RETURN_BEACON);
 
 				case GHOST:
 					return new Image(new GhostSprite());
@@ -447,7 +447,7 @@ public class Notes {
 					Item item = (Item) Reflection.newInstance(itemClass);
 					if (item.isIdentified() && item.icon != -1) {
 						Image secondIcon = new Image(Assets.Sprites.ITEM_ICONS);
-						secondIcon.frame(ItemSpriteSheet.Icons.film.get(item.icon));
+						secondIcon.frame(物品表.Icons.film.get(item.icon));
 						return secondIcon;
 					}
 					return null;

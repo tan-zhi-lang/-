@@ -10,14 +10,14 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfMagicMapping extends Scroll {
 
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_MAGICMAP;
+		icon = 物品表.Icons.SCROLL_MAGICMAP;
 	}
 
 	@Override

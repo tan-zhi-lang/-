@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
@@ -39,7 +39,7 @@ public class BrokenSeal extends Item {
 	public static final String AC_INFO = "INFO_WINDOW";
 
 	{
-		image = ItemSpriteSheet.SEAL;
+		image = 物品表.SEAL;
 
 		cursedKnown = levelKnown = true;
 		unique = true;
@@ -116,7 +116,7 @@ public class BrokenSeal extends Item {
 					&& canTransferGlyph()
 					&& armor.glyph.getClass() != getGlyph().getClass()) {
 
-				GameScene.show(new WndOptions(new ItemSprite(ItemSpriteSheet.SEAL),
+				GameScene.show(new WndOptions(new ItemSprite(物品表.SEAL),
 						Messages.get(BrokenSeal.class, "choose_title"),
 						Messages.get(BrokenSeal.class, "choose_desc", armor.glyph.name(), getGlyph().name()),
 						armor.glyph.name(),

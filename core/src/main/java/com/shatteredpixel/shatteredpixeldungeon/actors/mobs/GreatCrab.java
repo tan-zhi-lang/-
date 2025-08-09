@@ -54,7 +54,7 @@ public class GreatCrab extends Crab {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ){
+	public void 受伤时(int dmg, Object src ){
 		//crab blocks all wand damage from the hero if it sees them.
 		//Direct damage is negated, but add-on effects and environmental effects go through as normal.
 		if (enemySeen
@@ -68,7 +68,7 @@ public class GreatCrab extends Crab {
 			Sample.INSTANCE.play( Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
 			Statistics.questScores[0] -= 50;
 		} else {
-			super.damage( dmg, src );
+			super.受伤时( dmg, src );
 		}
 	}
 
@@ -93,8 +93,8 @@ public class GreatCrab extends Crab {
 	}
 
 	@Override
-	public void die( Object cause ) {
-		super.die( cause );
+	public void 死亡时(Object cause ) {
+		super.死亡时( cause );
 
 		Ghost.Quest.process();
 	}

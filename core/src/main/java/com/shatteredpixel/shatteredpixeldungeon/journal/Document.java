@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
@@ -17,15 +17,15 @@ import java.util.LinkedHashMap;
 
 public enum Document {
 	
-	ADVENTURERS_GUIDE(ItemSpriteSheet.GUIDE_PAGE, false),
-	ALCHEMY_GUIDE(ItemSpriteSheet.ALCH_PAGE, false),
+	ADVENTURERS_GUIDE(物品表.GUIDE_PAGE, false),
+	ALCHEMY_GUIDE(物品表.ALCH_PAGE, false),
 
 	INTROS(Icons.STAIRS, true),
-	SEWERS_GUARD(ItemSpriteSheet.SEWER_PAGE, true),
-	PRISON_WARDEN(ItemSpriteSheet.PRISON_PAGE, true),
-	CAVES_EXPLORER(ItemSpriteSheet.CAVES_PAGE, true),
-	CITY_WARLOCK(ItemSpriteSheet.CITY_PAGE, true),
-	HALLS_KING(ItemSpriteSheet.HALLS_PAGE, true);
+	SEWERS_GUARD(物品表.SEWER_PAGE, true),
+	PRISON_WARDEN(物品表.PRISON_PAGE, true),
+	CAVES_EXPLORER(物品表.CAVES_PAGE, true),
+	CITY_WARLOCK(物品表.CITY_PAGE, true),
+	HALLS_KING(物品表.HALLS_PAGE, true);
 	
 	Document( int sprite, boolean lore ){
 		pageIcon = null;
@@ -164,7 +164,7 @@ public enum Document {
 			//special per-page visuals for guidebook
 			switch (page){
 				case Document.GUIDE_INTRO: default:
-					return new ItemSprite(ItemSpriteSheet.MASTERY);
+					return new ItemSprite(物品表.MASTERY);
 				case "Examining":
 					return Icons.get(Icons.MAGNIFY);
 				case "Surprise_Attacks":
@@ -172,25 +172,25 @@ public enum Document {
 				case "Identifying":
 					return new ItemSprite( new ScrollOfIdentify() );
 				case "Food":
-					return new ItemSprite( ItemSpriteSheet.PASTY );
+					return new ItemSprite( 物品表.PASTY );
 				case "Alchemy":
-					return new ItemSprite( ItemSpriteSheet.TRINKET_CATA );
+					return new ItemSprite( 物品表.TRINKET_CATA );
 				case "Dieing":
-					return new ItemSprite( ItemSpriteSheet.TOMB );
+					return new ItemSprite( 物品表.TOMB );
 				case Document.GUIDE_SEARCHING:
 					return Icons.get(Icons.MAGNIFY);
 				case "Strength":
-					return new ItemSprite( ItemSpriteSheet.GREATAXE );
+					return new ItemSprite( 物品表.GREATAXE );
 				case "Upgrades":
-					return new ItemSprite( ItemSpriteSheet.RING_EMERALD );
+					return new ItemSprite( 物品表.RING_EMERALD );
 				case "Looting":
-					return new ItemSprite( ItemSpriteSheet.CRYSTAL_KEY );
+					return new ItemSprite( 物品表.CRYSTAL_KEY );
 				case "Levelling":
 					return Icons.get(Icons.TALENT);
 				case "Positioning":
-					return new ItemSprite( ItemSpriteSheet.SPIRIT_BOW );
+					return new ItemSprite( 物品表.SPIRIT_BOW );
 				case "Magic":
-					return new ItemSprite( ItemSpriteSheet.WAND_FIREBOLT );
+					return new ItemSprite( 物品表.焰浪法杖);
 			}
 		}
 	}

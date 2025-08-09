@@ -105,7 +105,7 @@ public class CrystalMimic extends Mimic {
 	}
 
 	@Override
-	public int attackProc(Char enemy, int damage) {
+	public int 攻击时(Char enemy, int damage) {
 		if (alignment == Alignment.NEUTRAL && enemy == Dungeon.hero){
 			steal( Dungeon.hero );
 
@@ -123,7 +123,7 @@ public class CrystalMimic extends Mimic {
 
 			if (alignment == Alignment.ENEMY) state = FLEEING;
 		}
-		return super.attackProc(enemy, damage);
+		return super.攻击时(enemy, damage);
 	}
 
 	protected void steal( Hero hero ) {

@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.watabou.noosa.audio.Sample;
@@ -40,7 +40,7 @@ public class SpiritBow extends Weapon {
 	public static final String AC_SHOOT		= "SHOOT";
 	
 	{
-		image = ItemSpriteSheet.SPIRIT_BOW;
+		image = 物品表.SPIRIT_BOW;
 		
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
@@ -121,12 +121,12 @@ public class SpiritBow extends Weapon {
 		info += "\n\n" + Messages.get( SpiritBow.class, "stats",
 				Math.round(augment.damageFactor(min())),
 				Math.round(augment.damageFactor(max())),
-				STRReq());
+				力量());
 		
-		if (STRReq() > Dungeon.hero.力量()) {
+		if (力量() > Dungeon.hero.力量()) {
 			info += " " + Messages.get(Weapon.class, "too_heavy");
-		} else if (Dungeon.hero.力量() > STRReq()){
-			info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - STRReq());
+		} else if (Dungeon.hero.力量() > 力量()){
+			info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - 力量());
 		}
 		
 		switch (augment) {
@@ -161,8 +161,8 @@ public class SpiritBow extends Weapon {
 	}
 	
 	@Override
-	public int STRReq(int lvl) {
-		return STRReq(1, lvl); //tier 1
+	public int 力量(int lvl) {
+		return 力量(1, lvl); //tier 1
 	}
 	
 	@Override
@@ -193,7 +193,7 @@ public class SpiritBow extends Weapon {
 		int damage = augment.damageFactor(super.damageRoll(owner));
 		
 		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).力量() - STRReq();
+			int exStr = ((Hero)owner).力量() - 力量();
 			if (exStr > 0) {
 				damage += Hero.heroDamageIntRange( 0, exStr );
 			}
@@ -273,7 +273,7 @@ public class SpiritBow extends Weapon {
 	public class SpiritArrow extends MissileWeapon {
 		
 		{
-			image = ItemSpriteSheet.SPIRIT_ARROW;
+			image = 物品表.SPIRIT_ARROW;
 
 			hitSound = Assets.Sounds.HIT_ARROW;
 
@@ -328,8 +328,8 @@ public class SpiritBow extends Weapon {
 		}
 		
 		@Override
-		public int STRReq(int lvl) {
-			return SpiritBow.this.STRReq();
+		public int 力量(int lvl) {
+			return SpiritBow.this.力量();
 		}
 
 		@Override

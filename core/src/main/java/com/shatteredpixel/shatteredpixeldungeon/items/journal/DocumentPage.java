@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -15,7 +15,7 @@ import com.watabou.utils.Bundle;
 public abstract class DocumentPage extends Item {
 	
 	{
-		image = ItemSpriteSheet.MASTERY;
+		image = 物品表.MASTERY;
 	}
 
 	public abstract Document document();

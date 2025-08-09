@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.GooWarn;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class ArcaneBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.ARCANE_BOMB;
+		image = 物品表.ARCANE_BOMB;
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class ArcaneBomb extends Bomb {
 		for (Char ch : affected){
 			//pierces armor, and damage in 5x5 instead of 3x3
 			int damage = Math.round(Random.NormalIntRange( 4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth() ));
-			ch.damage(damage, this);
+			ch.受伤时(damage, this);
 			if (ch == Dungeon.hero && !ch.isAlive()){
 				Badges.validateDeathFromFriendlyMagic();
 				Dungeon.fail(this);

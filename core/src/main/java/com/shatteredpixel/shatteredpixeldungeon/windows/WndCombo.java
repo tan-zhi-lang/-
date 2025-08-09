@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -39,7 +39,7 @@ public class WndCombo extends Window {
 		if (Dungeon.hero.belongings.weapon() != null){
 			icon = new ItemSprite(Dungeon.hero.belongings.weapon().image, null);
 		} else {
-			icon = new ItemSprite(new Item(){ {image = ItemSpriteSheet.WEAPON_HOLDER; }});
+			icon = new ItemSprite(new Item(){ {image = 物品表.WEAPON_HOLDER; }});
 		}
 
 		for (Combo.ComboMove move : Combo.ComboMove.values()) {

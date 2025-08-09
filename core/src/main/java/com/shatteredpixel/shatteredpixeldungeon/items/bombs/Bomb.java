@@ -31,7 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
@@ -47,7 +47,7 @@ import java.util.LinkedHashMap;
 public class Bomb extends Item {
 	
 	{
-		image = ItemSpriteSheet.BOMB;
+		image = 物品表.BOMB;
 
 		defaultAction = AC_LIGHTTHROW;
 		usesTargeting = true;
@@ -174,7 +174,7 @@ public class Bomb extends Item {
 				dmg -= ch.drRoll();
 
 				if (dmg > 0) {
-					ch.damage(dmg, this);
+					ch.受伤时(dmg, this);
 				}
 				
 				if (ch == Dungeon.hero && !ch.isAlive()) {
@@ -306,7 +306,7 @@ public class Bomb extends Item {
 	public static class DoubleBomb extends Bomb{
 
 		{
-			image = ItemSpriteSheet.DBL_BOMB;
+			image = 物品表.DBL_BOMB;
 			stackable = false;
 		}
 

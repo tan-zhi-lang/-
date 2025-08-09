@@ -7,12 +7,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class VelvetPouch extends Bag {
+public class 绒布袋 extends Bag {
 
 	{
-		image = ItemSpriteSheet.POUCH;
+		image = 物品表.绒布袋;
 	}
 
 	@Override

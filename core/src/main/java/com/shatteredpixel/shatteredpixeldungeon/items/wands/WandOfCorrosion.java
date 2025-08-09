@@ -20,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
@@ -30,7 +30,7 @@ import com.watabou.utils.Random;
 public class WandOfCorrosion extends Wand {
 
 	{
-		image = ItemSpriteSheet.WAND_CORROSION;
+		image = 物品表.WAND_CORROSION;
 
 		collisionProperties = Ballistica.STOP_TARGET | Ballistica.STOP_SOLID;
 	}

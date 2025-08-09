@@ -8,14 +8,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class HolyDart extends TippedDart {
 
 	{
-		image = ItemSpriteSheet.HOLY_DART;
+		image = 物品表.HOLY_DART;
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class HolyDart extends TippedDart {
 		if (Char.hasProp(defender, Char.Property.UNDEAD) || Char.hasProp(defender, Char.Property.DEMONIC)){
 			defender.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+buffedLvl() );
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
-			defender.damage(Random.NormalIntRange(10 + Dungeon.scalingDepth()/3, 20 + Dungeon.scalingDepth()/3), this);
+			defender.受伤时(Random.NormalIntRange(10 + Dungeon.scalingDepth()/3, 20 + Dungeon.scalingDepth()/3), this);
 		//also do not bless enemies if processing charged shot
 		} else if (!processingChargedShot){
 			Buff.施加(defender, Bless.class, Math.round(Bless.DURATION));

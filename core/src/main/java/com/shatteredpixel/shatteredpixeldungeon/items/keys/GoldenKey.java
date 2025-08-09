@@ -2,12 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.keys;
 
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class GoldenKey extends Key {
 	
 	{
-		image = ItemSpriteSheet.GOLDEN_KEY;
+		image = 物品表.GOLDEN_KEY;
 	}
 
 	public GoldenKey() {

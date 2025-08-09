@@ -43,8 +43,8 @@ public class FetidRat extends Rat {
 	}
 
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		if (Random.Int(3) == 0) {
 			Buff.施加(enemy, Ooze.class).set( Ooze.DURATION );
 			//score loss is on-hit instead of on-attack because it's tied to ooze
@@ -57,16 +57,16 @@ public class FetidRat extends Rat {
 	}
 
 	@Override
-	public int defenseProc( Char enemy, int damage ) {
+	public int 防御时(Char enemy, int damage ) {
 
 		GameScene.add(Blob.seed(pos, 20, StenchGas.class));
 
-		return super.defenseProc(enemy, damage);
+		return super.防御时(enemy, damage);
 	}
 
 	@Override
-	public void die( Object cause ) {
-		super.die( cause );
+	public void 死亡时(Object cause ) {
+		super.死亡时( cause );
 
 		Ghost.Quest.process();
 	}

@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -26,7 +26,7 @@ import com.watabou.utils.PathFinder;
 public class ScrollOfRemoveCurse extends InventoryScroll {
 
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_REMCURSE;
+		icon = 物品表.Icons.SCROLL_REMCURSE;
 		preferredBag = Belongings.Backpack.class;
 	}
 

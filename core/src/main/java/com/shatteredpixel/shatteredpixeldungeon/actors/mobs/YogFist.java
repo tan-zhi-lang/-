@@ -127,9 +127,9 @@ public abstract class YogFist extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		int preHP = 生命;
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 		int dmgTaken = preHP - 生命;
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
@@ -140,8 +140,8 @@ public abstract class YogFist extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
-		super.die(cause);
+	public void 死亡时(Object cause) {
+		super.死亡时(cause);
 		for ( Char c : Actor.chars() ){
 			if (c instanceof YogDzewa){
 				((YogDzewa) c).processFistDeath();
@@ -304,7 +304,7 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void 受伤时(int dmg, Object src) {
 			int grassCells = 0;
 			for (int i : PathFinder.NEIGHBOURS9) {
 				if (Dungeon.level.map[pos+i] == Terrain.FURROWED_GRASS
@@ -319,7 +319,7 @@ public abstract class YogFist extends Mob {
 				return;
 			}
 
-			super.damage(dmg, src);
+			super.受伤时(dmg, src);
 		}
 
 		@Override
@@ -384,7 +384,7 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void 受伤时(int dmg, Object src) {
 			if (!isInvulnerable(src.getClass())
 					&& !(src instanceof Bleeding)
 					&& buff(Sickle.HarvestBleedTracker.class) == null){
@@ -401,7 +401,7 @@ public abstract class YogFist extends Mob {
 				b.attachTo(this);
 				sprite.showStatus(CharSprite.WARNING, Messages.titleCase(b.name()) + " " + (int)b.level());
 			} else{
-				super.damage(dmg, src);
+				super.受伤时(dmg, src);
 			}
 		}
 
@@ -412,8 +412,8 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public int attackProc( Char enemy, int damage ) {
-			damage = super.attackProc( enemy, damage );
+		public int 攻击时(Char enemy, int damage ) {
+			damage = super.攻击时( enemy, damage );
 
 			if (Random.Int( 2 ) == 0) {
 				Buff.施加( enemy, Ooze.class ).set( Ooze.DURATION );
@@ -444,7 +444,7 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void 受伤时(int dmg, Object src) {
 			if (!isInvulnerable(src.getClass()) && !(src instanceof Viscosity.DeferedDamage)){
 				dmg = Math.round( dmg * resist( src.getClass() ));
 				if (dmg >= 0) {
@@ -452,7 +452,7 @@ public abstract class YogFist extends Mob {
 					sprite.showStatus(CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg));
 				}
 			} else{
-				super.damage(dmg, src);
+				super.受伤时(dmg, src);
 			}
 		}
 
@@ -490,7 +490,7 @@ public abstract class YogFist extends Mob {
 			Char enemy = this.enemy;
 			if (hit( this, enemy, true )) {
 
-				enemy.damage( Random.NormalIntRange(10, 20), new LightBeam() );
+				enemy.受伤时( Random.NormalIntRange(10, 20), new LightBeam() );
 				Buff.延长( enemy, Blindness.class, Blindness.DURATION/2f );
 
 				if (!enemy.isAlive() && enemy == Dungeon.hero) {
@@ -507,9 +507,9 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void 受伤时(int dmg, Object src) {
 			int beforeHP = 生命;
-			super.damage(dmg, src);
+			super.受伤时(dmg, src);
 			if (isAlive() && beforeHP > 最大生命 /2 && 生命 < 最大生命 /2){
 				生命 = 最大生命 /2;
 				Buff.延长( Dungeon.hero, Blindness.class, Blindness.DURATION*1.5f );
@@ -556,7 +556,7 @@ public abstract class YogFist extends Mob {
 			Char enemy = this.enemy;
 			if (hit( this, enemy, true )) {
 
-				enemy.damage( Random.NormalIntRange(10, 20), new DarkBolt() );
+				enemy.受伤时( Random.NormalIntRange(10, 20), new DarkBolt() );
 
 				Light l = enemy.buff(Light.class);
 				if (l != null){
@@ -577,9 +577,9 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public void damage(int dmg, Object src) {
+		public void 受伤时(int dmg, Object src) {
 			int beforeHP = 生命;
-			super.damage(dmg, src);
+			super.受伤时(dmg, src);
 			if (isAlive() && beforeHP > 最大生命 /2 && 生命 < 最大生命 /2){
 				生命 = 最大生命 /2;
 				Light l = Dungeon.hero.buff(Light.class);

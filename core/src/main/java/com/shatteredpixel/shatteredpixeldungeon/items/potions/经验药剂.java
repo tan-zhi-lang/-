@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 经验药剂 extends Potion {
 
 	{
-		icon = ItemSpriteSheet.Icons.POTION_EXP;
+		icon = 物品表.Icons.POTION_EXP;
 
 		bones = true;
 

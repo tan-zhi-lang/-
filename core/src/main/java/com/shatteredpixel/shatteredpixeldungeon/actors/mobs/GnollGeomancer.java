@@ -30,7 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollGeomancerSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -194,7 +194,7 @@ public class GnollGeomancer extends Mob {
 
 					dmg = Math.min(dmg, buff(RockArmor.class).shielding());
 
-					damage(dmg, p);
+					GnollGeomancer.this.受伤时(dmg, p);
 					sprite.bloodBurstA(Dungeon.hero.sprite.center(), dmg);
 					sprite.flash();
 
@@ -246,7 +246,7 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		int hpBracket = 最大生命 / 3;
 
 		int curbracket = 生命 / hpBracket;
@@ -254,7 +254,7 @@ public class GnollGeomancer extends Mob {
 
 		inFinalBracket = curbracket == 0;
 
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 
 		abilityCooldown -= dmg/10f;
 
@@ -494,8 +494,8 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
-		super.die(cause);
+	public void 死亡时(Object cause) {
+		super.死亡时(cause);
 		Blacksmith.Quest.beatBoss();
 		Sample.INSTANCE.playDelayed(Assets.Sounds.ROCKS, 0.1f);
 		PixelScene.shake( 3, 0.7f );
@@ -684,7 +684,7 @@ public class GnollGeomancer extends Mob {
 						}
 
 						if (ch != null && !(ch instanceof GnollGeomancer)){
-							ch.damage(Random.NormalIntRange(6, 12), new GnollGeomancer.Boulder());
+							ch.受伤时(Random.NormalIntRange(6, 12), new GnollGeomancer.Boulder());
 
 							if (ch == Dungeon.hero){
 								Statistics.questScores[2] -= 100;
@@ -720,7 +720,7 @@ public class GnollGeomancer extends Mob {
 
 	public static class Boulder extends Item {
 		{
-			image = ItemSpriteSheet.GEO_BOULDER;
+			image = 物品表.GEO_BOULDER;
 		}
 	}
 
@@ -791,7 +791,7 @@ public class GnollGeomancer extends Mob {
 
 		@Override
 		public void affectChar(Char ch) {
-			ch.damage(Random.NormalIntRange(6, 12), this);
+			ch.受伤时(Random.NormalIntRange(6, 12), this);
 			if (ch == Dungeon.hero){
 				Statistics.questScores[2] -= 100;
 			}

@@ -55,9 +55,9 @@ public class Swarm extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		flying = false;
-		super.die(cause);
+		super.死亡时(cause);
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class Swarm extends Mob {
 	}
 	
 	@Override
-	public int defenseProc( Char enemy, int damage ) {
+	public int 防御时(Char enemy, int damage ) {
 
 		if (生命 >= damage + 2) {
 			ArrayList<Integer> candidates = new ArrayList<>();
@@ -97,7 +97,7 @@ public class Swarm extends Mob {
 			}
 		}
 		
-		return super.defenseProc(enemy, damage);
+		return super.防御时(enemy, damage);
 	}
 	
 	@Override

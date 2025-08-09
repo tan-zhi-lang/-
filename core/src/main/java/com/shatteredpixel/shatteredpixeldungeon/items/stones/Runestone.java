@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public abstract class Runestone extends Item {
 	
@@ -22,7 +22,7 @@ public abstract class Runestone extends Item {
 	//useful for stones which are only spawned for their effects
 	protected boolean anonymous = false;
 	public void anonymize(){
-		image = ItemSpriteSheet.STONE_HOLDER;
+		image = 物品表.STONE_HOLDER;
 		anonymous = true;
 	}
 
@@ -69,7 +69,7 @@ public abstract class Runestone extends Item {
 	public static class PlaceHolder extends Runestone {
 		
 		{
-			image = ItemSpriteSheet.STONE_HOLDER;
+			image = 物品表.STONE_HOLDER;
 		}
 		
 		@Override

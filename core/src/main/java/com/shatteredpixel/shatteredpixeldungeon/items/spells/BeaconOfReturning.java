@@ -19,7 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Game;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class BeaconOfReturning extends Spell {
 	
 	{
-		image = ItemSpriteSheet.RETURN_BEACON;
+		image = 物品表.RETURN_BEACON;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

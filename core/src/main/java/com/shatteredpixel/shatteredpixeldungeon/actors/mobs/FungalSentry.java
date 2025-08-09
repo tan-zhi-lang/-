@@ -62,9 +62,9 @@ public class FungalSentry extends Mob {
 	//TODO if we want to allow them to be literally killed, probably should give them a heal if hero is out of FOV, or similar
 
 	@Override
-	public int attackProc(Char enemy, int damage) {
+	public int 攻击时(Char enemy, int damage) {
 		Buff.施加(enemy, Poison.class).extend(6);
-		return super.attackProc(enemy, damage);
+		return super.攻击时(enemy, damage);
 	}
 
 	@Override

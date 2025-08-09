@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class PotionOfDragonsBreath extends ExoticPotion {
 	
 	{
-		icon = ItemSpriteSheet.Icons.POTION_DRGBREATH;
+		icon = 物品表.Icons.POTION_DRGBREATH;
 	}
 
 	protected static boolean identifiedByUse = false;

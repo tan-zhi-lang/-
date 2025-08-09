@@ -10,11 +10,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -40,22 +43,22 @@ public class WndHeroInfo extends WndTabbed {
 		Image tabIcon;
 		switch (cl){
 			case WARRIOR: default:
-				tabIcon = new ItemSprite(ItemSpriteSheet.SEAL, null);
+				tabIcon = new ItemSprite(物品表.SEAL, null);
 				break;
 			case MAGE:
-				tabIcon = new ItemSprite(ItemSpriteSheet.MAGES_STAFF, null);
+				tabIcon = new ItemSprite(物品表.MAGES_STAFF, null);
 				break;
 			case ROGUE:
-				tabIcon = new ItemSprite(ItemSpriteSheet.ARTIFACT_CLOAK, null);
+				tabIcon = new ItemSprite(物品表.ARTIFACT_CLOAK, null);
 				break;
 			case HUNTRESS:
-				tabIcon = new ItemSprite(ItemSpriteSheet.SPIRIT_BOW, null);
+				tabIcon = new ItemSprite(物品表.SPIRIT_BOW, null);
 				break;
 			case DUELIST:
-				tabIcon = new ItemSprite(ItemSpriteSheet.RAPIER, null);
+				tabIcon = new ItemSprite(物品表.RAPIER, null);
 				break;
 			case CLERIC:
-				tabIcon = new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME, null);
+				tabIcon = new ItemSprite(物品表.ARTIFACT_TOME, null);
 				break;
 		}
 
@@ -93,7 +96,7 @@ public class WndHeroInfo extends WndTabbed {
 			subclassInfo.setSize(WIDTH, MIN_HEIGHT);
 			finalHeight = (int)Math.max(finalHeight, subclassInfo.height());
 
-			add(new IconTab(new ItemSprite(ItemSpriteSheet.MASK, null)) {
+			add(new IconTab(new ItemSprite(物品表.MASK, null)) {
 				@Override
 				protected void select(boolean value) {
 					super.select(value);
@@ -156,38 +159,35 @@ public class WndHeroInfo extends WndTabbed {
 
 			switch (cls){
 				case WARRIOR: default:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SEAL),
-							new ItemSprite(ItemSpriteSheet.WORN_SHORTSWORD),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
+							new ItemSprite(物品表.GREATAXE),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case MAGE:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.MAGES_STAFF),
-							new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
+//							new TalentIcon(Talent.PRECISE_ASSAULT),
+							new BuffIcon(BuffIndicator.RECHARGING, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case ROGUE:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.ARTIFACT_CLOAK),
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.get(Icons.STAIRS),
-							new ItemSprite(ItemSpriteSheet.DAGGER),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case HUNTRESS:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.SPIRIT_BOW),
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.GRASS.get(),
-							new ItemSprite(ItemSpriteSheet.GLOVES),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case DUELIST:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.RAPIER),
-							new ItemSprite(ItemSpriteSheet.WAR_HAMMER),
-							new ItemSprite(ItemSpriteSheet.THROWING_SPIKE),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new ItemSprite(物品表.WAR_HAMMER),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case CLERIC:
-					icons = new Image[]{ new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME),
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.TALENT.get(),
-							new ItemSprite(ItemSpriteSheet.CUDGEL),
-							new ItemSprite(ItemSpriteSheet.SCROLL_ISAZ)};
+							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}
 			for (Image im : icons) {

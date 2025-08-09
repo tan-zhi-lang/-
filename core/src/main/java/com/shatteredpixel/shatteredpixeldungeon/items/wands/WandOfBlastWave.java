@@ -20,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
@@ -35,7 +35,7 @@ import com.watabou.utils.Random;
 public class WandOfBlastWave extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_BLAST_WAVE;
+		image = 物品表.WAND_BLAST_WAVE;
 
 		collisionProperties = Ballistica.PROJECTILE;
 	}
@@ -66,7 +66,7 @@ public class WandOfBlastWave extends DamageWand {
 
 			if (ch != null){
 				wandProc(ch, chargesPerCast());
-				if (ch.alignment != Char.Alignment.ALLY) ch.damage(damageRoll(), this);
+				if (ch.alignment != Char.Alignment.ALLY) ch.受伤时(damageRoll(), this);
 
 				//do not push chars that are dieing over a pit, or that move due to the damage
 				if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
@@ -83,7 +83,7 @@ public class WandOfBlastWave extends DamageWand {
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null){
 			wandProc(ch, chargesPerCast());
-			ch.damage(damageRoll(), this);
+			ch.受伤时(damageRoll(), this);
 
 			//do not push chars that are dieing over a pit, or that move due to the damage
 			if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
@@ -146,7 +146,7 @@ public class WandOfBlastWave extends DamageWand {
 				int oldPos = ch.pos;
 				ch.pos = newPos;
 				if (finalCollided && ch.isActive()) {
-					ch.damage(Random.NormalIntRange(finalDist, 2*finalDist), new Knockback());
+					ch.受伤时(Random.NormalIntRange(finalDist, 2*finalDist), new Knockback());
 					if (ch.isActive()) {
 						Paralysis.延长(ch, Paralysis.class, 1 + finalDist/2f);
 					} else if (ch == Dungeon.hero){
@@ -179,7 +179,7 @@ public class WandOfBlastWave extends DamageWand {
 		if (defender.buff(Paralysis.class) != null && defender.buff(BWaveOnHitTracker.class) == null){
 			defender.buff(Paralysis.class).detach();
 			int dmg = Random.NormalIntRange(6+buffedLvl(), 12+2*buffedLvl());
-			defender.damage(Math.round(procChanceMultiplier(attacker) * dmg), this);
+			defender.受伤时(Math.round(procChanceMultiplier(attacker) * dmg), this);
 			BlastWave.blast(defender.pos);
 			Sample.INSTANCE.play( Assets.Sounds.BLAST );
 

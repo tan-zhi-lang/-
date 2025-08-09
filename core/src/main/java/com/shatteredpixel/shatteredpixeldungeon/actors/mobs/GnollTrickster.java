@@ -55,8 +55,8 @@ public class GnollTrickster extends Gnoll {
 	}
 
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 
 		if (combo >= 1){
 			//score loss is on-hit instead of on-attack as it's tied to combo
@@ -119,8 +119,8 @@ public class GnollTrickster extends Gnoll {
 	}
 	
 	@Override
-	public void die( Object cause ) {
-		super.die( cause );
+	public void 死亡时(Object cause ) {
+		super.死亡时( cause );
 
 		Ghost.Quest.process();
 	}

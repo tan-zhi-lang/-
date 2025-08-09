@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM300;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
@@ -28,7 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM300Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ElementalSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShamanSprite;
@@ -71,7 +71,7 @@ public class v0_8_X_Changes {
 				"\n" +
 				"Lastly, v0.8.2 included a crucial UI addition: an in-game news feed! I've always tried to be communicative to players who reach out to me, but lots of people will just passively wait for news to come to them. The news UI has made it possible for me to effectively communicate with everyone, not just players to seek me out."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.ARTIFACT_HORN1), "Fifth Equipment Slot!",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_HORN1), "Fifth Equipment Slot!",
 				"_An extra slot has been added for rings/artifacts_, bringing the total number of equip slots up to 5!\n\n" +
 				"The player can now equip _one ring, one artifact, and one ring or artifact._ The third slot doesn't allow equipping three of the same type of item.\n\n" +
 				"I'm hoping this change will reduce the amount that these two item types compete with each other, and also opens up some interesting new build possibilities!"));
@@ -81,7 +81,7 @@ public class v0_8_X_Changes {
 				"This feed pulls in blog posts from ShatteredPixel.com, and displays then within the game. It will also notify players when new posts are available.\n\n" +
 				"I've wanted to improve my communication with the game's playerbase for quite a while, and this is a huge step in that direction."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_TOPAZ), Messages.get(RingOfEnergy.class, "name"),
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_TOPAZ), Messages.get(能量之戒.class, "name"),
 				"With the changes to equipment slots, I've taken the opportunity to buff and expand the _Ring of Energy_ a bit:\n\n" +
 				"_-_ Ring of Energy wand recharge boost down to 20% from 30%\n" +
 				"_-_ Ring of Energy now increases artifact recharge speed by 10%"));
@@ -181,7 +181,7 @@ public class v0_8_X_Changes {
 		changes.hardlight(CharSprite.POSITIVE);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AMETHYST), Messages.get(RingOfWealth.class, "name"),
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_AMETHYST), Messages.get(RingOfWealth.class, "name"),
 				"The _Ring of Wealth_ is doing better after its buff/rework in v0.8.1, but it's still the weakest ring when upgraded. I'm making some more tweaks to improve its upgrade scaling, and put more emphasis on its new rare drops:\n\n" +
 				"_-_ Regular drop chance boost down to 20% from 25%\n" +
 				"_-_ Now gives a rare drop every 0-25 kills, down from 0-30\n" +
@@ -196,13 +196,13 @@ public class v0_8_X_Changes {
 				"_-_ Stun from knockback collision adjusted to 1+dist/2, from dist/2-dist\n\n" +
 				"This should fix the usability disparity of knockback between melee and ranged, make stunning more consistent, give another slight buff to elastic/repulsion, and boost blast wave at higher levels without also making it much stronger at +0/+1."));
 
-		changes.addButton(new ChangeButton(new WandOfFireblast(),
+		changes.addButton(new ChangeButton(new 焰浪法杖(),
 				"While I'm happy with how consistent its new cone logic is, the _Wand of Fireblast_ lost a bit of its chaotic firepower in v0.8.1. So I'm giving it some of that back:\n\n" +
 				"_-_ Fireblast can now trickshot just like other wands along the center of its cone\n" +
 				"_-_ Fireblast now bursts open doors and goes through them\n" +
 				"_-_ Increased Fireblast's range to 5/7/9 from 4/6/8"));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_WARDING), "Various Wand Buffs",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_WARDING), "Various Wand Buffs",
 				"I'm buffing a few wands as a followup to the changes made in v0.8.1:\n\n" +
 				"The _Wand of Warding_ is in a much better spot, but could still use a slight boost, so I'm increasing the efficiency of its sentries:\n" +
 				"_-_ Sentry HP up to 35/54/84, from 30/48/70\n" +
@@ -307,7 +307,7 @@ public class v0_8_X_Changes {
 		changes.hardlight( CharSprite.WARNING );
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.POUCH), "Item Droprate and Inventory Managment",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.绒布袋), "Item Droprate and Inventory Managment",
 				"I'm making several changes primarily targeted at reducing inventory clutter. These shouldn't have a significant impact on game balance, but should reduce the likelihood of the player's inventory being clogged with low-value items.\n\n" +
 				"_-_ Bags now appear inside of themselves, rather than taking up main inventory space.\n" +
 				"_-_ Consumable drops are now slightly rarer, but the game is now much more likely to give a variety of consumables over the course of a run.\n" +
@@ -365,7 +365,7 @@ public class v0_8_X_Changes {
 		changes.hardlight( CharSprite.POSITIVE );
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_AMETHYST), "Ring of Wealth and Lucky Enchant",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.RING_AMETHYST), "Ring of Wealth and Lucky Enchant",
 				"The _Ring of Wealth_ has been substantially buffed to make it more worth investing upgrades in:\n" +
 				"_-_ Regular drop chance boost up to 25% from 20%.\n" +
 				"_-_ Special ring of wealth drops now increase in value, not frequency, as the ring levels.\n" +
@@ -399,7 +399,7 @@ public class v0_8_X_Changes {
 				"_-_ Wards can now be summoned out of FOV if nothing is in the way\n" +
 				"_-_ Wards now spawn adjacent to an enemy/wall if shot at one"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_DISINTEGRATION), "Various Item Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAND_DISINTEGRATION), "Various Item Buffs",
 				"I'm buffing items that are performing poorly after v0.8.0:\n\n" +
 				"Several wands need a boost as raw damage is now less effective:\n" +
 				"_- Disintegration_ base range up to 6 from 4.\n" +
@@ -420,7 +420,7 @@ public class v0_8_X_Changes {
 		changes.hardlight( CharSprite.NEGATIVE );
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_CORRUPTION), "Various Item Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAND_CORRUPTION), "Various Item Nerfs",
 				"I'm nerfing items that are overperforming due to v0.8.0:\n\n" +
 				"The _Wand of Corruption_ is once again overpowered, so I'm trying out making it more dependant on enemy health:\n" +
 				"_-_ Enemies now have 5x resistance at full HP, up from 3x.\n\n" +
@@ -436,7 +436,7 @@ public class v0_8_X_Changes {
 				"_- Swiftness_ now requires 2 tiles of space, up from 1\n" +
 				"_- Thorns_ proc rate scaling reduced by ~50%"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.GREATAXE), "Various Weapon Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.GREATAXE), "Various Weapon Nerfs",
 				"A few weapons are also being toned down:\n\n" +
 				"As warlocks no longer reduce hero strength, the greataxe is now much easier to use and is too strong as a result:\n" +
 				"_- Greataxe_ base dmg reduced to 5-45 from 5-50\n\n" +
@@ -545,7 +545,7 @@ public class v0_8_X_Changes {
 				"_-_ Pitfall traps are now more common, affect a 3x3 area, and give you one turn to react\n" +
 				"_-_ Distortion traps are now more common, can appear in the city, and have a reworked effect. They now act as more chaotic summoning traps, instead of resetting the current floor."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ARMOR_WARRIOR), "Weapon and Armor Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.ARMOR_WARRIOR), "Weapon and Armor Changes",
 				"While I intend to make larger changes in a future update, I've decided to do some targeted improvements to class armors now to make the abilities more usable:\n" +
 				"_-_ Class armor now has a charge percentage which builds at a rate of 50% per level, each ability uses 35% charge.\n" +
 				"_-_ Stun from heroic leap increased to 5 turns from 3.\n" +
@@ -579,7 +579,7 @@ public class v0_8_X_Changes {
 					"_-_ Support for smooth font (droid sans) on all languages\n" +
 					"_-_ A crash popup, which includes debug info" ) );
 		} else {
-			changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SCROLL_TIWAZ, null), "Update Notification",
+			changes.addButton( new ChangeButton( new ItemSprite(物品表.SCROLL_TIWAZ, null), "Update Notification",
 					"A little blinking button will now appear in the bottom-left of the title screen if an update is available for the game. \n\n" +
 					"The Google Play version of the game uses Google's in-app updates library, and will seamlessly update the game through Google Play if the user accepts the prompt.\n\n" +
 					"Other versions of the game will grab update info from Github, and will direct the player to the latest releases page to download the update.\n\n" +

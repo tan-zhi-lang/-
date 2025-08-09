@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.Image;
 import com.watabou.utils.RectF;
 
@@ -427,22 +427,22 @@ public enum Icons {
 	public static Image get( HeroClass cl ) {
 		switch (cl) {
 			case WARRIOR:
-				return new ItemSprite(ItemSpriteSheet.SEAL);
+				return new ItemSprite(物品表.SEAL);
 			case MAGE:
 				//mage's staff normally has 2 pixels extra at the top for particle effects, we chop that off here
-				Image result = new ItemSprite(ItemSpriteSheet.MAGES_STAFF);
+				Image result = new ItemSprite(物品表.MAGES_STAFF);
 				RectF frame = result.frame();
 				frame.top += frame.height()/8f;
 				result.frame(frame);
 				return result;
 			case ROGUE:
-				return new ItemSprite(ItemSpriteSheet.ARTIFACT_CLOAK);
+				return new ItemSprite(物品表.ARTIFACT_CLOAK);
 			case HUNTRESS:
-				return new ItemSprite(ItemSpriteSheet.SPIRIT_BOW);
+				return new ItemSprite(物品表.SPIRIT_BOW);
 			case DUELIST:
-				return new ItemSprite(ItemSpriteSheet.RAPIER);
+				return new ItemSprite(物品表.RAPIER);
 			case CLERIC:
-				return new ItemSprite(ItemSpriteSheet.ARTIFACT_TOME);
+				return new ItemSprite(物品表.ARTIFACT_TOME);
 			default:
 				return null;
 		}

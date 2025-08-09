@@ -106,18 +106,18 @@ public class Statue extends Mob {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
 		
-		super.damage( dmg, src );
+		super.受伤时( dmg, src );
 	}
 	
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		damage = weapon.攻击时( this, enemy, damage );
 		if (!enemy.isAlive() && enemy == Dungeon.hero){
 			Dungeon.fail(this);
@@ -134,10 +134,10 @@ public class Statue extends Mob {
 	}
 	
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 		weapon.鉴定(false);
 		Dungeon.level.drop( weapon, pos ).sprite.drop();
-		super.die( cause );
+		super.死亡时( cause );
 	}
 
 	@Override

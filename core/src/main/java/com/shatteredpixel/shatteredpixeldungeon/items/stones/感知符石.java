@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class 感知符石 extends InventoryStone {
 	
 	{
-		image = ItemSpriteSheet.STONE_INTUITION;
+		image = 物品表.STONE_INTUITION;
 	}
 
 	@Override
@@ -182,7 +182,7 @@ public class 感知符石 extends InventoryStone {
 					}
 				};
 				Image im = new Image(Assets.Sprites.ITEM_ICONS);
-				im.frame(ItemSpriteSheet.Icons.film.get(Reflection.newInstance(i).icon));
+				im.frame(物品表.Icons.film.get(Reflection.newInstance(i).icon));
 				im.scale.set(2f);
 				btn.icon(im);
 				btn.setRect(left + placed*BTN_SIZE, top, BTN_SIZE, BTN_SIZE);

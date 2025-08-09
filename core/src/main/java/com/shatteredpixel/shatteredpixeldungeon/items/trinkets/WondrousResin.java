@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class WondrousResin extends Trinket {
 
 	{
-		image = ItemSpriteSheet.WONDROUS_RESIN;
+		image = 物品表.WONDROUS_RESIN;
 	}
 
 	@Override

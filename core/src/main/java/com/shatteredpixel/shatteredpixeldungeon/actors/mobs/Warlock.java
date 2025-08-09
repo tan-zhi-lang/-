@@ -107,7 +107,7 @@ public class Warlock extends Mob implements Callback {
 				dmg *= 0.5f;
 			}
 
-			enemy.damage( dmg, new DarkBolt() );
+			enemy.受伤时( dmg, new DarkBolt() );
 			
 			if (enemy == Dungeon.hero && !enemy.isAlive()) {
 				Badges.validateDeathFromEnemyMagic();

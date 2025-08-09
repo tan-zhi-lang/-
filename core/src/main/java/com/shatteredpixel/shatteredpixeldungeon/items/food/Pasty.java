@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.noosa.audio.Sample;
@@ -38,34 +38,34 @@ public class Pasty extends Food {
 		super.reset();
 		switch(Holiday.getCurrentHoliday()){
 			case NONE: default:
-				image = ItemSpriteSheet.PASTY;
+				image = 物品表.PASTY;
 				break;
 			case LUNAR_NEW_YEAR:
-				image = ItemSpriteSheet.STEAMED_FISH;
+				image = 物品表.STEAMED_FISH;
 				break;
 			case APRIL_FOOLS:
-				image = ItemSpriteSheet.CHOC_AMULET;
+				image = 物品表.CHOC_AMULET;
 				break;
 			case EASTER:
-				image = ItemSpriteSheet.EASTER_EGG;
+				image = 物品表.EASTER_EGG;
 				break;
 			case PRIDE:
-				image = ItemSpriteSheet.RAINBOW_POTION;
+				image = 物品表.RAINBOW_POTION;
 				break;
 			case SHATTEREDPD_BIRTHDAY:
-				image = ItemSpriteSheet.SHATTERED_CAKE;
+				image = 物品表.SHATTERED_CAKE;
 				break;
 			case HALLOWEEN:
-				image = ItemSpriteSheet.PUMPKIN_PIE;
+				image = 物品表.PUMPKIN_PIE;
 				break;
 			case PD_BIRTHDAY:
-				image = ItemSpriteSheet.VANILLA_CAKE;
+				image = 物品表.VANILLA_CAKE;
 				break;
 			case WINTER_HOLIDAYS:
-				image = ItemSpriteSheet.CANDY_CANE;
+				image = 物品表.CANDY_CANE;
 				break;
 			case NEW_YEARS:
-				image = ItemSpriteSheet.SPARKLING_POTION;
+				image = 物品表.SPARKLING_POTION;
 				break;
 		}
 	}
@@ -212,7 +212,7 @@ public class Pasty extends Food {
 	public static class FishLeftover extends Food {
 
 		{
-			image = ItemSpriteSheet.FISH_LEFTOVER;
+			image = 物品表.FISH_LEFTOVER;
 			energy = Hunger.HUNGRY/2;
 		}
 

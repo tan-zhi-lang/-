@@ -26,7 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.LotusSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -42,7 +42,7 @@ import java.util.Iterator;
 public class WandOfRegrowth extends Wand {
 
 	{
-		image = ItemSpriteSheet.WAND_REGROWTH;
+		image = 物品表.WAND_REGROWTH;
 
 		//only used for targeting, actual projectile logic is Ballistica.STOP_SOLID
 		collisionProperties = Ballistica.WONT_STOP;
@@ -440,7 +440,7 @@ public class WandOfRegrowth extends Wand {
 		}
 
 		@Override
-		public void damage( int dmg, Object src ) {
+		public void 受伤时(int dmg, Object src ) {
 			//do nothing
 		}
 

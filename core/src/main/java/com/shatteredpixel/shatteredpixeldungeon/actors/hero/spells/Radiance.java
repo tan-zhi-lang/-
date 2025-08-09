@@ -50,7 +50,7 @@ public class Radiance extends ClericSpell {
 			if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
 
 				if (mob.buff(GuidingLight.Illuminated.class) != null){
-					mob.damage(hero.等级 +5, GuidingLight.class);
+					mob.受伤时(hero.等级 +5, GuidingLight.class);
 				} else {
 					Buff.施加(mob, GuidingLight.Illuminated.class);
 					Buff.施加(mob, GuidingLight.WasIlluminatedTracker.class);

@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ItemButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -36,7 +36,7 @@ import java.util.Collection;
 public class TrinketCatalyst extends Item {
 
 	{
-		image = ItemSpriteSheet.TRINKET_CATA;
+		image = 物品表.TRINKET_CATA;
 
 		unique = true;
 	}
@@ -127,7 +127,7 @@ public class TrinketCatalyst extends Item {
 	public static class RandomTrinket extends Item {
 
 		{
-			image = ItemSpriteSheet.SOMETHING;
+			image = 物品表.SOMETHING;
 		}
 
 	}

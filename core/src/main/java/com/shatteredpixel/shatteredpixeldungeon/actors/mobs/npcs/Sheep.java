@@ -47,7 +47,7 @@ public class Sheep extends NPC {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 		//do nothing
 	}
 

@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ShockingDart extends TippedDart {
 	
 	{
-		image = ItemSpriteSheet.SHOCKING_DART;
+		image = 物品表.SHOCKING_DART;
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class ShockingDart extends TippedDart {
 
 		//when processing charged shot, only shock enemies
 		if (!processingChargedShot || attacker.alignment != defender.alignment) {
-			defender.damage(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
+			defender.受伤时(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
 
 			CharSprite s = defender.sprite;
 			if (s != null && s.parent != null) {

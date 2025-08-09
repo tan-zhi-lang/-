@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class MossyClump extends Trinket {
 
 	{
-		image = ItemSpriteSheet.MOSSY_CLUMP;
+		image = 物品表.MOSSY_CLUMP;
 	}
 
 	@Override

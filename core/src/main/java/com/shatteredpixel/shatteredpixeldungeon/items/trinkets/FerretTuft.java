@@ -3,13 +3,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 //🍋‍🟩
 public class FerretTuft extends Trinket {
 
 	{
-		image = ItemSpriteSheet.FERRET_TUFT;
+		image = 物品表.FERRET_TUFT;
 	}
 
 	@Override

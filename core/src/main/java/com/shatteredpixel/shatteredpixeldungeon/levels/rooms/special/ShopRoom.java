@@ -23,7 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
@@ -343,7 +343,7 @@ public class ShopRoom extends SpecialRoom {
 
 		//generate a hashmap of all valid bags.
 		HashMap<Bag, Integer> bags = new HashMap<>();
-		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new VelvetPouch(), 1);
+		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new 绒布袋(), 1);
 		if (!Dungeon.LimitedDrops.SCROLL_HOLDER.dropped()) bags.put(new ScrollHolder(), 0);
 		if (!Dungeon.LimitedDrops.POTION_BANDOLIER.dropped()) bags.put(new PotionBandolier(), 0);
 		if (!Dungeon.LimitedDrops.MAGICAL_HOLSTER.dropped()) bags.put(new MagicalHolster(), 0);
@@ -369,7 +369,7 @@ public class ShopRoom extends SpecialRoom {
 			}
 		}
 
-		if (bestBag instanceof VelvetPouch){
+		if (bestBag instanceof 绒布袋){
 			Dungeon.LimitedDrops.VELVET_POUCH.drop();
 		} else if (bestBag instanceof ScrollHolder){
 			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();

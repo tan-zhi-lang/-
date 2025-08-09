@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -27,7 +27,7 @@ public class PotionOfPurity extends Potion {
 	private static ArrayList<Class> affectedBlobs;
 
 	{
-		icon = ItemSpriteSheet.Icons.POTION_PURITY;
+		icon = 物品表.Icons.POTION_PURITY;
 		
 		affectedBlobs = new ArrayList<>(new BlobImmunity().immunities());
 	}

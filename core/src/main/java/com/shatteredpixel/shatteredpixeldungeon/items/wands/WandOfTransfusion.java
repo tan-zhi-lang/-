@@ -22,7 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -34,7 +34,7 @@ import com.watabou.utils.Random;
 public class WandOfTransfusion extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_TRANSFUSION;
+		image = 物品表.WAND_TRANSFUSION;
 
 		collisionProperties = Ballistica.PROJECTILE;
 	}
@@ -115,7 +115,7 @@ public class WandOfTransfusion extends DamageWand {
 				
 				//harms the undead
 				} else {
-					ch.damage(damageRoll(), this);
+					ch.受伤时(damageRoll(), this);
 					ch.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10 + buffedLvl());
 					Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				}
@@ -129,7 +129,7 @@ public class WandOfTransfusion extends DamageWand {
 	//this wand costs health too
 	private void damageHero(int damage){
 		
-		curUser.damage(damage, this);
+		curUser.受伤时(damage, this);
 
 		if (!curUser.isAlive()){
 			Badges.validateDeathFromFriendlyMagic();

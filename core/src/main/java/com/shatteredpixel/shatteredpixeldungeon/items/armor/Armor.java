@@ -54,7 +54,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.particles.Emitter;
@@ -246,7 +246,7 @@ public class Armor extends EquipableItem {
 				BrokenSeal seal = oldArmor != null ? oldArmor.checkSeal() : null;
 				if (seal != null && (!cursed || (seal.getGlyph() != null && seal.getGlyph().curse()))){
 
-					GameScene.show(new WndOptions(new ItemSprite(ItemSpriteSheet.SEAL),
+					GameScene.show(new WndOptions(new ItemSprite(物品表.SEAL),
 							Messages.titleCase(seal.title()),
 							Messages.get(Armor.class, "seal_transfer"),
 							Messages.get(Armor.class, "seal_transfer_yes"),
@@ -356,11 +356,11 @@ public class Armor extends EquipableItem {
 		return hero != null && hero.belongings.armor() == this;
 	}
 
-	public final int DRMax(){
-		return DRMax(buffedLvl());
+	public final int 最大防御(){
+		return 最大防御(buffedLvl());
 	}
 
-	public int DRMax(int lvl){
+	public int 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 1 + tier + lvl + augment.defenseFactor(lvl);
 		}
@@ -373,16 +373,16 @@ public class Armor extends EquipableItem {
 		}
 	}
 
-	public final int DRMin(){
-		return DRMin(buffedLvl());
+	public final int 最小防御(){
+		return 最小防御(buffedLvl());
 	}
 
-	public int DRMin(int lvl){
+	public int 最小防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 0;
 		}
 
-		int max = DRMax(lvl);
+		int max = 最大防御(lvl);
 		if (lvl >= max){
 			return (lvl - max);
 		} else {
@@ -402,7 +402,7 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (owner instanceof Hero){
-			int aEnc = STRReq() - ((Hero) owner).力量();
+			int aEnc = 力量() - ((Hero) owner).力量();
 			if (aEnc > 0) evasion /= Math.pow(1.5, aEnc);
 			
 			Momentum momentum = owner.buff(Momentum.class);
@@ -417,7 +417,7 @@ public class Armor extends EquipableItem {
 	public float speedFactor( Char owner, float speed ){
 		
 		if (owner instanceof Hero) {
-			int aEnc = STRReq() - ((Hero) owner).力量();
+			int aEnc = 力量() - ((Hero) owner).力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
 		}
 		
@@ -570,15 +570,15 @@ public class Armor extends EquipableItem {
 		
 		if (levelKnown) {
 
-			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", tier, DRMin(), DRMax(), STRReq());
+			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", tier, 最小防御(), 最大防御(), 力量());
 			
-			if (Dungeon.hero != null && STRReq() > Dungeon.hero.力量()) {
+			if (Dungeon.hero != null && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
 			}
 		} else {
-			info += "\n\n" + Messages.get(Armor.class, "avg_absorb", tier, DRMin(0), DRMax(0), STRReq(0));
+			info += "\n\n" + Messages.get(Armor.class, "avg_absorb", tier, 最小防御(0), 最大防御(0), 力量(0));
 
-			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.力量()) {
+			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "probably_too_heavy");
 			}
 		}
@@ -628,7 +628,7 @@ public class Armor extends EquipableItem {
 	public Emitter emitter() {
 		if (seal == null) return super.emitter();
 		Emitter emitter = new Emitter();
-		emitter.pos(ItemSpriteSheet.film.width(image)/2f + 2f, ItemSpriteSheet.film.height(image)/3f);
+		emitter.pos(物品表.film.width(image)/2f + 2f, 物品表.film.height(image)/3f);
 		emitter.fillTarget = false;
 		emitter.pour(Speck.factory( Speck.RED_LIGHT ), 0.6f);
 		return emitter;
@@ -667,19 +667,19 @@ public class Armor extends EquipableItem {
 		return this;
 	}
 
-	public int STRReq(){
-		return STRReq(等级());
+	public int 力量(){
+		return 力量(等级());
 	}
 
-	public int STRReq(int lvl){
-		int req = STRReq(tier, lvl);
+	public int 力量(int lvl){
+		int req = 力量(tier, lvl);
 		if (masteryPotionBonus){
 			req -= 2;
 		}
 		return req;
 	}
 
-	protected static int STRReq(int tier, int lvl){
+	protected static int 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
 
 		//strength req decreases at +1,+3,+6,+10,etc.

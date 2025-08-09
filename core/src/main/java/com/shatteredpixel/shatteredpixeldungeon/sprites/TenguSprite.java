@@ -108,7 +108,7 @@ public class TenguSprite extends MobSprite {
 	
 	public static class TenguShuriken extends Item {
 		{
-			image = ItemSpriteSheet.SHURIKEN;
+			image = 物品表.SHURIKEN;
 		}
 	}
 }

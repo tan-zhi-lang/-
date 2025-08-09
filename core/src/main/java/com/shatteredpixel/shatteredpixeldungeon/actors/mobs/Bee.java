@@ -61,9 +61,9 @@ public class Bee extends Mob {
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		flying = false;
-		super.die(cause);
+		super.死亡时(cause);
 	}
 	
 	public void spawn( int level ) {
@@ -100,8 +100,8 @@ public class Bee extends Mob {
 	}
 	
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		if (enemy instanceof Mob) {
 			((Mob)enemy).aggro( this );
 		}

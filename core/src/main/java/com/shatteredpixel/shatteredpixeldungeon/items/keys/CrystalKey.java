@@ -2,12 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.keys;
 
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class CrystalKey extends Key {
 	
 	{
-		image = ItemSpriteSheet.CRYSTAL_KEY;
+		image = 物品表.CRYSTAL_KEY;
 	}
 	
 	public CrystalKey() {

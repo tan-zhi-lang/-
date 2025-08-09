@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.watabou.noosa.TextureFilm;
 
-public class ItemSpriteSheet {
+public class 物品表 {
 
 	private static final int WIDTH = 16;
 	public static final int SIZE = 16;
@@ -376,7 +376,7 @@ public class ItemSpriteSheet {
 
 	private static final int WANDS              =                           xy(1, 14);  //16 slots
 	public static final int WAND_MAGIC_MISSILE  = WANDS+0;
-	public static final int WAND_FIREBOLT       = WANDS+1;
+	public static final int 焰浪法杖 = WANDS+1;
 	public static final int WAND_FROST          = WANDS+2;
 	public static final int WAND_LIGHTNING      = WANDS+3;
 	public static final int WAND_DISINTEGRATION = WANDS+4;
@@ -745,17 +745,17 @@ public class ItemSpriteSheet {
 	}
 
 	private static final int BAGS       =                                   xy(1, 31);  //16 slots
-	public static final int WATERSKIN   = BAGS+0;
+	public static final int 水袋 = BAGS+0;
 	public static final int BACKPACK    = BAGS+1;
-	public static final int POUCH       = BAGS+2;
+	public static final int 绒布袋 = BAGS+2;
 	public static final int HOLDER      = BAGS+3;
 	public static final int BANDOLIER   = BAGS+4;
 	public static final int HOLSTER     = BAGS+5;
 	public static final int VIAL        = BAGS+6;
 	static{
-		assignItemRect(WATERSKIN,   16, 14);
+		assignItemRect(水袋,   16, 14);
 		assignItemRect(BACKPACK,    16, 16);
-		assignItemRect(POUCH,       14, 15);
+		assignItemRect(绒布袋,       14, 15);
 		assignItemRect(HOLDER,      16, 16);
 		assignItemRect(BANDOLIER,   15, 16);
 		assignItemRect(HOLSTER,     15, 16);

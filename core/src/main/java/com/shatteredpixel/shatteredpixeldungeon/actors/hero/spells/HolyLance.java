@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -101,7 +101,7 @@ public class HolyLance extends TargetedClericSpell {
 									if (Char.hasProp(enemy, Char.Property.UNDEAD) || Char.hasProp(enemy, Char.Property.DEMONIC)){
 										min = max;
 									}
-									enemy.damage(Random.NormalIntRange(min, max), HolyLance.this);
+									enemy.受伤时(Random.NormalIntRange(min, max), HolyLance.this);
 									Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.8f, 1f) );
 									Sample.INSTANCE.play( Assets.Sounds.HIT_STAB, 1, Random.Float(0.8f, 1f) );
 
@@ -137,7 +137,7 @@ public class HolyLance extends TargetedClericSpell {
 	public static class HolyLanceVFX extends Item {
 
 		{
-			image = ItemSpriteSheet.THROWING_SPIKE;
+			image = 物品表.THROWING_SPIKE;
 		}
 
 		@Override

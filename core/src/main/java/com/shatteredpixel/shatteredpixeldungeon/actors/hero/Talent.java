@@ -582,6 +582,7 @@ public enum Talent {
 			ScrollOfRecharging.charge( hero );
 		}
 		int wandChargeTurns = 0;
+
 		if (hero.有天赋(ENERGIZING_MEAL)){
 			//5/8 turns of recharging
 			wandChargeTurns += hero.天赋点数(ENERGIZING_MEAL,5);

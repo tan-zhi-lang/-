@@ -14,8 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -35,7 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
@@ -51,7 +51,7 @@ import java.util.HashMap;
 public class SandalsOfNature extends Artifact {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_SANDALS;
+		image = 物品表.ARTIFACT_SANDALS;
 
 		levelCap = 3;
 
@@ -204,10 +204,10 @@ public class SandalsOfNature extends Artifact {
 
 	@Override
 	public Item 升级() {
-		if (等级() < 0)        image = ItemSpriteSheet.ARTIFACT_SANDALS;
-		else if (等级() == 0)  image = ItemSpriteSheet.ARTIFACT_SHOES;
-		else if (等级() == 1)  image = ItemSpriteSheet.ARTIFACT_BOOTS;
-		else if (等级() >= 2)  image = ItemSpriteSheet.ARTIFACT_GREAVES;
+		if (等级() < 0)        image = 物品表.ARTIFACT_SANDALS;
+		else if (等级() == 0)  image = 物品表.ARTIFACT_SHOES;
+		else if (等级() == 1)  image = 物品表.ARTIFACT_BOOTS;
+		else if (等级() >= 2)  image = 物品表.ARTIFACT_GREAVES;
 		return super.升级();
 	}
 
@@ -244,9 +244,9 @@ public class SandalsOfNature extends Artifact {
 		}
 		curSeedEffect = bundle.getClass(CUR_SEED_EFFECT);
 
-		if (等级() == 1)  image = ItemSpriteSheet.ARTIFACT_SHOES;
-		else if (等级() == 2)  image = ItemSpriteSheet.ARTIFACT_BOOTS;
-		else if (等级() >= 3)  image = ItemSpriteSheet.ARTIFACT_GREAVES;
+		if (等级() == 1)  image = 物品表.ARTIFACT_SHOES;
+		else if (等级() == 2)  image = 物品表.ARTIFACT_BOOTS;
+		else if (等级() >= 3)  image = 物品表.ARTIFACT_GREAVES;
 	}
 
 	public class Naturalism extends ArtifactBuff{
@@ -255,7 +255,7 @@ public class SandalsOfNature extends Artifact {
 			if (charge < chargeCap){
 				//0.5 charge per grass at +0, up to 1 at +10
 				float chargeGain = (3f + 等级())/6f;
-				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
+				chargeGain *= 能量之戒.artifactChargeMultiplier(target);
 				partialCharge += Math.max(0, chargeGain);
 				while (partialCharge >= 1){
 					charge++;
@@ -276,7 +276,7 @@ public class SandalsOfNature extends Artifact {
 
 		@Override
 		public Class<?extends Bag> preferredBag(){
-			return VelvetPouch.class;
+			return 绒布袋.class;
 		}
 
 		@Override

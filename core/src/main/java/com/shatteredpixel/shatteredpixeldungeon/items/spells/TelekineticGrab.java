@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -23,7 +23,7 @@ import com.watabou.utils.Callback;
 public class TelekineticGrab extends TargetedSpell {
 
 	{
-		image = ItemSpriteSheet.TELE_GRAB;
+		image = 物品表.TELE_GRAB;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

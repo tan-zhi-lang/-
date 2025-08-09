@@ -10,13 +10,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfDread extends ExoticScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_DREAD;
+		icon = 物品表.Icons.SCROLL_DREAD;
 	}
 	
 	@Override

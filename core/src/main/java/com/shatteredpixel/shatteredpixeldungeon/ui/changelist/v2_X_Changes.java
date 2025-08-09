@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollGuardSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TormentedSpiritSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
@@ -62,7 +62,7 @@ public class v2_X_Changes {
 				"\n" +
 				"The guidebook tabs are unchanged, and the lore tab has been merged into the catalogs."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SALT_CUBE), "New Trinkets!",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.SALT_CUBE), "New Trinkets!",
 				"_Four new trinkets have been added!_ Bringing the total to 15 trinkets.\n" +
 				"\n" +
 				"The _Salt Cube_ extends the duration that food keeps you full, but also reduces HP regeneration.\n" +
@@ -86,7 +86,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_TIWAZ), "Interface Improvements",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.SCROLL_TIWAZ), "Interface Improvements",
 				"In addition to the journal overhaul, there are several smaller UI changes and additions in this update too:\n" +
 				"\n" +
 				"_Scrolls of Upgrade_ now have a preview window that appears when they are used, that summarizes how the stats of an item will change when upgraded.\n" +
@@ -97,7 +97,7 @@ public class v2_X_Changes {
 				"\n" +
 				"The game now displays a little congratulations message after your first win, and clarity on what winning the game unlocks has been improved."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WAND_MAGIC_MISSILE), "Cursed Wand Expansion",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAND_MAGIC_MISSILE), "Cursed Wand Expansion",
 				"Cursed wand effects have been massively expanded! There are now 16 new effects bringing the total number of effects up to 32. These include simple common effects like shooting bubbles and new super rare effects like a giant supernova explosion!\n" +
 				"\n" +
 				"A few existing cursed effects have also been changed:\n" +
@@ -115,7 +115,7 @@ public class v2_X_Changes {
 				"_-_ Stones of Intuition now always get 2 uses each, even if the first guess is incorrect\n" +
 				"_-_ Dark dungeon levels no longer contain a torch, but also reduce vision by 3/8, down from 4/8"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.BOMB), "Bombs and Identification",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.BOMB), "Bombs and Identification",
 				"I've fixed a long-standing exploit where players could use explosions to determine if equipment was upgraded. Explosions will now avoid destroying any equipment, previously they would destroy un-upgraded equipment only.\n" +
 				"\n" +
 				"As compensation to this change, I'm changing up a runestone, and buffing bombs and explosion effects:\n" +
@@ -249,7 +249,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.POSITIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.CLOVER), "Trinket Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.CLOVER), "Trinket Buffs",
 				"I'm handing out buffs to several trinkets that are underperforming:\n" +
 				"\n" +
 				"_- 13 Leaf Clover_ upgrade cost up, but it now only affect the hero's damage rolls. It no longer applies to armor or enemy attacks. This should preserve the intended chaos of the effect without making enemies way more dangerous.\n" +
@@ -284,7 +284,7 @@ public class v2_X_Changes {
 				"_- Unencumbered Spirit_ energy gain changed to 50%/75%/100% from 40%/80%/120%\n" +
 				"_- Combined Energy_ is now more permissive and reduces charge use by 1, instead of 50%"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.UNSTABLE_SPELL), "Other Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.UNSTABLE_SPELL), "Other Buffs",
 				"_- Wand Preservation_ talent now always succeeds, no longer grants arcane resin on failure, and is limited to 1 use at +1, and 1 use per level at +2. \n" +
 				"_- Rogue's foresight_ talent trigger chance increased to 75% at +1 and 100% at +2, up from 60% and 90%.\n" +
 				"_- Hold Fast_ talent now grants 1-2 armor per level, up from 0-2.\n" +
@@ -297,20 +297,20 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.MOSSY_CLUMP), "Mossy Clump & Grassy Floors",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.MOSSY_CLUMP), "Mossy Clump & Grassy Floors",
 				"The Mossy Clump is still far and away the strongest trinket, despite several nerfs since adding it. At this point it's clear the value of that trinket is more reflective of how powerful grassy floors are, rather than the trinket itself.\n" +
 				"\n" +
 				"So, I'm nerfing the drop-rate of dew from grassy floors by 50%, meaning that they will generate 2x as much dew as a regular floor on average, down from 4x. Seed drops from these floor are unaffected.\n" +
 				"\n" +
 				"This reduces the bonus dew granted by the mossy clump by 67%, which should hopefully bring it more in-line with other trinket."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.STONE_AGGRESSION), "Stone of Aggression",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.STONE_AGGRESSION), "Stone of Aggression",
 				"_Stones of Aggression_ were meant to have some use during boss fights, but currently they're too strong in that case, especially with many challenges enabled:\n" +
 				"\n" +
 				"_-_ Bosses now take 1/2 damage from their minions when affected by aggression, the final boss specifically takes 1/4 damage.\n" +
 				"_-_ Aggression duration vs. regular enemies up to 20 turns, from 5."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WHIP), "Other Item Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.WHIP), "Other Item Nerfs",
 				"_- Whip's Lash Ability_ bonus damage reduced to 0%, from +20%. Ability still guarantees a hit on every target.\n" +
 				"\n" +
 				"_- Ring of Haste_ bonus speed per level reduced to 17.5% from 20%.\n" +
@@ -337,7 +337,7 @@ public class v2_X_Changes {
 				"_-_ 118 days after Shattered v2.3.0\n\n" +
 				"Dev commentary will be added here in the future."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RAT_SKULL), "Trinkets!",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.RAT_SKULL), "Trinkets!",
 				"_A new category of item has been added: Trinkets!_\n" +
 				"\n" +
 				"Trinkets are a new item type produced and upgraded via alchemical energy, and are more about tweaking gameplay variables than giving direct power or utility.\n" +
@@ -351,7 +351,7 @@ public class v2_X_Changes {
 				"\n" +
 				"Entrance rooms are now also capable of merging with other rooms in a dungeon floor, but there are some guarantees so that enemies won't ever be near you right after descending to a new floor."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.PUMPKIN_PIE), "More Holiday Items",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.PUMPKIN_PIE), "More Holiday Items",
 				"_I've added more holiday items for the rest of 2024!_\n" +
 				"\n" +
 				"Expect to see some new temporary holiday overrides for cornish pasties for:\n" +
@@ -381,7 +381,7 @@ public class v2_X_Changes {
 				"_-_ Champion's two weapons now share a charge count, but Champion gets boosted max charges and charge speed.\n" +
 				"_-_ Champion's secondary charge talent has been replaced with a new talent that encourages varied ability use."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ENERGY), "Alchemy Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.ENERGY), "Alchemy Changes",
 				"I've made a bunch of changes to the alchemy system to streamline things and complement the addition of trinkets:\n" +
 				"\n" +
 				"_-_ Catalysts have been removed entirely, recipes that required one now simply cost 8 or 9 more energy.\n" +
@@ -497,7 +497,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.POSITIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RAPIER), "Weapon Ability Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.RAPIER), "Weapon Ability Buffs",
 				"_- Lunge_ damage up\n" +
 				"_- Cleave_ damage up, is now instant if it kills, but no longer chains\n" +
 				"_- Heavy Blow_ damage up, non-surprise penalty changed to no bonus damage\n" +
@@ -515,7 +515,7 @@ public class v2_X_Changes {
 				"_- Retribution_ is now instant if it kills\n" +
 				"_- Brawler's Stance_ now deals bonus damage, reduces recharge speed instead of costing charge per hit"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ALCHEMIZE), "Alchemy Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.ALCHEMIZE), "Alchemy Buffs",
 				"Firstly, many items have received simple energy cost reductions. Note that all energy costs are after accounting for catalyst removal\n" +
 				"_- Caustic Brew_ cost down to 1 from 2\n" +
 				"_- Blizzard Brew_ cost down to 8 from 11\n" +
@@ -545,7 +545,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ELIXIR_MIGHT), "Alchemy Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "Alchemy Nerfs",
 				"_- Elixir of Might_ cost up to 16 from 14 (after account for catalyst removal)\n" +
 				"_- Phase Shift_ cost down to 10 from 13, but output quantity down to 6 from 8"));
 
@@ -574,7 +574,7 @@ public class v2_X_Changes {
 				"\n" +
 				"The boss for this variant is the _gnoll geomancer,_ an experienced gnoll with access to lots of mobility and earth-moving power."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.REMAINS), "New Remains Items",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.REMAINS), "New Remains Items",
 				"_Heroes remains now contain a new unique item that varies based on the class of the hero that died._\n" +
 				"\n" +
 				"These items are single use consumables that provide a small benefit that's themed after the hero who died. There are also two new badges relating to these items.\n" +
@@ -583,7 +583,7 @@ public class v2_X_Changes {
 				"\n" +
 				"Additionally, remains which contain a stackable item from the previous run now cap the quantity of that item at 3."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.CANDY_CANE), "New Holiday Items",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.CANDY_CANE), "New Holiday Items",
 				"Shattered has had little holiday food items that temporarily replace cornish pasties ever since 2016, but only for Halloween and the Winter Holidays. Throughout 2024 you'll see a bunch of new items for more holidays through the year, which all have different tiny bonus effects when eaten.\n" +
 				"\n" +
 				"For now I have implemented items for Lunar New Years and Easter, with more on the way in future updates.\n" +
@@ -758,7 +758,7 @@ public class v2_X_Changes {
 				"\n" +
 				"Originally this quest was going to be much more focused on mining and ores, like Motherlode, Dome Keeper, or Miner Disturbance. In early testing this just wasn't fun though. I eventually realized that I was trying to jam a different game into the middle of Shattered, but instead I needed to use mining to enhance Shattered's existing gameplay. That led to the current quest design, which I think works quite well!"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.PICKAXE), "New Blacksmith Quest!",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.PICKAXE), "New Blacksmith Quest!",
 				"_Shattered Pixel Dungeon's blacksmith quest has been completely redone!_\n" +
 				"\n" +
 				"_The quest now takes place in a new sublevel, with one entirely new environment, and two more on the way in v2.3!_ Each environment has its own set of hazards, level generation logic, and unique enemies.\n" +
@@ -902,7 +902,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.POSITIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.DIRK), "Weapon Ability Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.DIRK), "Weapon Ability Buffs",
 				"Weapon abilities are overall in a much better place now, but there are still a couple that need a boost:\n" +
 				"\n" +
 				"_- Sneak_ ability (Dagger, Dirk, and Assassin's blade) reworked. Now lets the Duelist instantly blink for 6/5/4 tiles of distance and grants 1 turn of invisibility, instead of granting 10/8/6 turns of invisibility.\n" +
@@ -915,7 +915,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.KATANA), "Weapon & Curse Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.KATANA), "Weapon & Curse Nerfs",
 				"Relatively mild changes here, a slight nerf to a new weapon and nerfs to the two most harmful curses (i.e. they are less detrimental now).\n" +
 				"\n" +
 				"_- Katana_ blocking down to 0-3 from 0-4\n" +
@@ -952,7 +952,7 @@ public class v2_X_Changes {
 				"\n" +
 				"There was also a variety of side content in this update, most of which was varied, but some of it was targeted at more Duelist variety by adding a few more weapons."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WAR_SCYTHE), "New Weapons!",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAR_SCYTHE), "New Weapons!",
 				"Three new weapons have been added to the game!\n" +
 				"\n" +
 				"_The Katana_ is a tier-4 defensive weapon that was designed to respond to the common feedback point of players wanting a higher tier weapon with the rapier's ability. Just like with her rapier, the Duelist can _lunge_ at enemies with a katana, dealing bonus damage.\n" +
@@ -1105,7 +1105,7 @@ public class v2_X_Changes {
 				"The whip is getting a quick and simple buff, as it is performing a bit worse than its T3 counterparts:\n\n" +
 				"_- Whip_ base damage increased to 3-15 from 3-12"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.WAR_HAMMER), "Weapon Abilities",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAR_HAMMER), "Weapon Abilities",
 				"Several of the Duelist's weapon abilities have not been performing as well as I'd hoped, even after the buffs in v2.0.1. It seems that I've overestimated how much the drawbacks I added have held back many of these abilities. My hope with these changes is to better balance other abilities versus the simple-yet-effective Cleave.\n" +
 				"\n" +
 				"Firstly, some abilities need relatively little help:\n" +
@@ -1375,7 +1375,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.POSITIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_TOPAZ), "Item Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.RING_TOPAZ), "Item Buffs",
 				"I'm making several buffs to various items that could be performing a little better:\n" +
 				"\n" +
 				"_- Pickaxe_ can now benefit from upgrades enchantments and augmentation, if you feel like using it for fun.\n" +
@@ -1402,7 +1402,7 @@ public class v2_X_Changes {
 		changes.hardlight(CharSprite.NEGATIVE);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.ROUND_SHIELD), "Major Item Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.ROUND_SHIELD), "Major Item Nerfs",
 				"I'm also making several significant nerfs to items with standout winrates this update:\n" +
 				"\n" +
 				"_- Round Shield_ blocking per level reduced to 0-1 from 0-2, base damage increased to 3-12 from 3-10\n" +
@@ -1423,7 +1423,7 @@ public class v2_X_Changes {
 				"\n" +
 				"_- Ethereal chains_ charge from gaining exp reduced by 40%"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.RING_RUBY), "Smaller Item Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.RING_RUBY), "Smaller Item Nerfs",
 				"There are also some more minor nerfs to items that are just doing a bit too well:\n" +
 				"\n" +
 				"_- Ring of Furor_ attack speed boost per level down to 9.05% from 10.5%\n" +

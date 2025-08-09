@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.input.ControllerHandler;
@@ -20,7 +20,7 @@ import com.watabou.noosa.audio.Sample;
 public class Guidebook extends Item {
 
 	{
-		image = ItemSpriteSheet.MASTERY;
+		image = 物品表.MASTERY;
 	}
 
 	@Override

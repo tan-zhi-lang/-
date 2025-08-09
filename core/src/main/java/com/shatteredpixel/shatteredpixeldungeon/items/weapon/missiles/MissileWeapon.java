@@ -28,7 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.InventoryPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -106,8 +106,8 @@ abstract public class MissileWeapon extends Weapon {
 				tier*lvl;                       //level scaling
 	}
 	
-	public int STRReq(int lvl){
-		int req = STRReq(tier, lvl) - 1; //1 less str than normal for their tier
+	public int 力量(int lvl){
+		int req = 力量(tier, lvl) - 1; //1 less str than normal for their tier
 		if (masteryPotionBonus){
 			req -= 2;
 		}
@@ -483,7 +483,7 @@ abstract public class MissileWeapon extends Weapon {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
 		
 		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).力量() - STRReq();
+			int exStr = ((Hero)owner).力量() - 力量();
 			if (exStr > 0) {
 				damage += Hero.heroDamageIntRange( 0, exStr );
 			}
@@ -595,17 +595,17 @@ abstract public class MissileWeapon extends Weapon {
 		String info = super.info();
 
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), STRReq());
+			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), 力量());
 			if (Dungeon.hero != null) {
-				if (STRReq() > Dungeon.hero.力量()) {
+				if (力量() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
-				} else if (Dungeon.hero.力量() > STRReq()) {
-					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - STRReq());
+				} else if (Dungeon.hero.力量() > 力量()) {
+					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - 力量());
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_unknown", tier, min(0), max(0), STRReq(0));
-			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.力量()) {
+			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_unknown", tier, min(0), max(0), 力量(0));
+			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MissileWeapon.class, "probably_too_heavy");
 			}
 		}
@@ -725,7 +725,7 @@ abstract public class MissileWeapon extends Weapon {
 	public static class PlaceHolder extends MissileWeapon {
 
 		{
-			image = ItemSpriteSheet.MISSILE_HOLDER;
+			image = 物品表.MISSILE_HOLDER;
 		}
 
 		@Override

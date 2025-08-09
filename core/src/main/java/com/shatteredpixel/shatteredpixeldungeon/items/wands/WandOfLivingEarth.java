@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.EarthGuardianSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
@@ -37,7 +37,7 @@ import com.watabou.utils.Random;
 public class WandOfLivingEarth extends DamageWand {
 	
 	{
-		image = ItemSpriteSheet.WAND_LIVING_EARTH;
+		image = 物品表.WAND_LIVING_EARTH;
 	}
 	
 	@Override
@@ -108,7 +108,7 @@ public class WandOfLivingEarth extends DamageWand {
 				ch.sprite.centerEmitter().burst(MagicMissile.EarthParticle.BURST, 5 + buffedLvl()/2);
 
 				wandProc(ch, chargesPerCast());
-				ch.damage(damage, this);
+				ch.受伤时(damage, this);
 
 				int closest = -1;
 				boolean[] passable = Dungeon.level.passable;
@@ -154,7 +154,7 @@ public class WandOfLivingEarth extends DamageWand {
 				ch.sprite.centerEmitter().burst(MagicMissile.EarthParticle.BURST, 5 + buffedLvl() / 2);
 
 				wandProc(ch, chargesPerCast());
-				ch.damage(damage, this);
+				ch.受伤时(damage, this);
 				Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.8f * Random.Float(0.87f, 1.15f) );
 				
 				if (guardian == null) {
@@ -384,9 +384,9 @@ public class WandOfLivingEarth extends DamageWand {
 		}
 
 		@Override
-		public int attackProc(Char enemy, int damage) {
+		public int 攻击时(Char enemy, int damage) {
 			if (enemy instanceof Mob) ((Mob)enemy).aggro(this);
-			return super.attackProc(enemy, damage);
+			return super.攻击时(enemy, damage);
 		}
 
 		@Override

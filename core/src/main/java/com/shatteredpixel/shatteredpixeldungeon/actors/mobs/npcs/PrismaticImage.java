@@ -89,10 +89,10 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		if (deathTimer == -1) {
 			if (cause == Chasm.class){
-				super.die( cause );
+				super.死亡时( cause );
 			} else {
 				deathTimer = 5;
 				sprite.add(CharSprite.State.PARALYSED);
@@ -176,11 +176,11 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
-	public int defenseProc(Char enemy, int damage) {
+	public int 防御时(Char enemy, int damage) {
 		if (hero != null && hero.belongings.armor() != null){
 			damage = hero.belongings.armor().proc( enemy, this, damage );
 		}
-		return super.defenseProc(enemy, damage);
+		return super.防御时(enemy, damage);
 	}
 
 	@Override
@@ -193,13 +193,13 @@ public class PrismaticImage extends NPC {
 	}
 
 	@Override
-	public int attackProc( Char enemy, int damage ) {
+	public int 攻击时(Char enemy, int damage ) {
 		
 		if (enemy instanceof Mob) {
 			((Mob)enemy).aggro( this );
 		}
 		
-		return super.attackProc( enemy, damage );
+		return super.攻击时( enemy, damage );
 	}
 	
 	@Override

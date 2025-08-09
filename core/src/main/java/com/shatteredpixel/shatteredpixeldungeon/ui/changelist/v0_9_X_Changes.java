@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FistSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SpawnerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SpinnerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
@@ -53,7 +53,7 @@ public class v0_9_X_Changes {
 				"\n" +
 				"This update also included Shattered's second new challenge! Badder bosses was rattling around in my head ever since the release of v0.8.0, as I knew it would be very easy to make stronger versions of each of the new boss encounters that weren't just based on higher stats. Badder bosses was well received while still managing to be distinct from hostile champions. Hostile champions is a bit more random and can apply anywhere, whereas badder bosses is consistent in its effect but only applies during specific fights."));
 
-		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.CROWN, null), "Armor abilities and T4 Talents!",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.CROWN, null), "Armor abilities and T4 Talents!",
 				"_Hero armor abilities have been totally overhauled, featuring 13 abilities and 40 T4 talents!_\n\n" +
 				"After the defeating the fourth boss, the player now gets to choose between one of three abilities for each hero. Armor abilities also charge much faster, and can be further improved via tier four talents!\n\n" +
 				"Each armor ability has three talents, plus one charge-speed talent that's shared between them. These talents all take up to 4 points, and there are up to 10 points available in tier 4, for levels 21-30."));
@@ -82,7 +82,7 @@ public class v0_9_X_Changes {
 				"_-_ Reduced chance for 3+ enemies to appear near each other on floor 1.\n" +
 				"_-_ Increased the minimum size of pit rooms, to prevent wraith fights in 3x3 spaces." ));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.MASK, null), "Hero Changes",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.MASK, null), "Hero Changes",
 				"I've made several changes to hero starting items and the process of powering up your hero:\n\n" +
 				"_Gameplay Changes:_\n" +
 				"_-_ All heroes now start with a velvet pouch. This should make sewers inventory management a bit smoother.\n\n" +
@@ -242,7 +242,7 @@ public class v0_9_X_Changes {
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.MASTERY, null), "Other Subclass Changes",
+		changes.addButton( new ChangeButton( new ItemSprite(物品表.MASTERY, null), "Other Subclass Changes",
 				"Several subclasses have received more minor changes due to the addition of talents. Primarily subclass abilities that used to be innate are now talents:\n\n" +
 				"_- Berserker:_ Rage increasing past 100% has been moved to a talent, berserking has been nerfed but can be buffed back up via a talent.\n\n" +
 				"_- Warlock:_ Gaining satiety from soul mark, and soul mark triggering from other characters have both been moved to talents.\n\n" +
@@ -329,7 +329,7 @@ public class v0_9_X_Changes {
 				"_-_ Rather than having a 1/8 chance per enemy, the game now guarantees that every 8th enemy is a champion. This should make champion spawn rates much more consistent.\n" +
 				"_-_ Removed champion enemy caps, no longer needed now that spawning is more consistent."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_TIWAZ), "On-Upgrade Talents",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_TIWAZ), "On-Upgrade Talents",
 				"T2 talents are doing very well overall, but I'm handing out a buff to each on-upgrade talent as they're a bit weak and aren't picked often:\n\n" +
 				"_- Energizing Upgrade_ staff charges increased to 2/3 at +1/+2, up from 1/2 at +1/+2.\n" +
 				"_- Mystical Upgrade_ cloak of shadows charges increased to 2/3 at +1/+2, up from 1/2 at +1/+2."));
@@ -486,7 +486,7 @@ public class v0_9_X_Changes {
 				"_-_ Self-damage reduced to 5% of max HP, from 10% max HP\n" +
 				"_-_ Damage from allies no longer cancels charm effect"));
 
-		changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.RING_TOPAZ, null), Messages.get(RingOfEnergy.class, "name"),
+		changes.addButton( new ChangeButton( new ItemSprite(物品表.RING_TOPAZ, null), Messages.get(能量之戒.class, "name"),
 				"The _Ring of Energy_ is doing better after being buffed to apply to artifacts, but there is still room to make its effect stronger without making it overpowered:\n\n" +
 				"_-_ Bonus artifact charging increased from 10% to 15%"));
 

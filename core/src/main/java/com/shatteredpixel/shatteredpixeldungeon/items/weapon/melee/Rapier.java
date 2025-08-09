@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -23,7 +23,7 @@ import com.watabou.utils.PathFinder;
 public class Rapier extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.RAPIER;
+		image = 物品表.RAPIER;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.3f;
 

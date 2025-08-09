@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Callback;
 
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Whip extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WHIP;
+		image = 物品表.WHIP;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 

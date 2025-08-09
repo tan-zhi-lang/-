@@ -77,6 +77,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CapeOfThorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -110,6 +116,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -259,7 +266,7 @@ public class Hero extends Char {
 			strBonus += (int)Math.floor(力量 * 天赋点数(Talent.STRONGMAN,0.08F));
 		}
 		if (HeroClass(HeroClass.WARRIOR)){
-			//战士额外1
+			strBonus++;
 		}
 
 		return 力量 + strBonus;
@@ -467,10 +474,18 @@ public class Hero extends Char {
 		Buff.施加( this, Regeneration.class );
 		Buff.施加( this, Hunger.class );
 	}
-	
+
 	public int tier() {
 		Armor armor = belongings.armor();
 		if (armor instanceof ClassArmor){
+			return 6;
+		}else if (armor instanceof 铠甲||
+				armor instanceof 法袍||
+				armor instanceof 风衣||
+				armor instanceof 披风||
+				armor instanceof 胸铠 ||
+				armor instanceof 祭服
+		){
 			return 6;
 		} else if (armor != null){
 			return armor.tier;
@@ -599,7 +614,10 @@ public class Hero extends Char {
 		}
 		
 		float evasion = (最大闪避+等级);
-		
+
+		if(belongings.armor instanceof 风衣){
+			evasion*=1.25f;
+		}
 		evasion *= RingOfEvasion.evasionMultiplier( this );
 
 		if (buff(Talent.LiquidAgilEVATracker.class) != null){
@@ -663,16 +681,16 @@ public class Hero extends Char {
 		int dr = super.drRoll();
 
 		if (belongings.armor() != null) {
-			int armDr = Random.NormalIntRange( belongings.armor().DRMin(), belongings.armor().DRMax());
-			if (力量() < belongings.armor().STRReq()){
-				armDr -= 2*(belongings.armor().STRReq() - 力量());
+			int armDr = Random.NormalIntRange( belongings.armor().最小防御(), belongings.armor().最大防御());
+			if (力量() < belongings.armor().力量()){
+				armDr -= 2*(belongings.armor().力量() - 力量());
 			}
 			if (armDr > 0) dr += armDr;
 		}
 		if (belongings.weapon() != null && !RingOfForce.fightingUnarmed(this))  {
 			int wepDr = Random.NormalIntRange( 0 , belongings.weapon().defenseFactor( this ) );
-			if (力量() < ((Weapon)belongings.weapon()).STRReq()){
-				wepDr -= 2*(((Weapon)belongings.weapon()).STRReq() - 力量());
+			if (力量() < ((Weapon)belongings.weapon()).力量()){
+				wepDr -= 2*(((Weapon)belongings.weapon()).力量() - 力量());
 			}
 			if (wepDr > 0) dr += wepDr;
 		}
@@ -734,6 +752,9 @@ public class Hero extends Char {
 
 		float speed = super.移速();
 
+		if(belongings.armor instanceof 披风){
+			speed*=1.25f;
+		}
 		speed *= RingOfHaste.speedMultiplier(this);
 		
 		if (belongings.armor() != null) {
@@ -764,7 +785,7 @@ public class Hero extends Char {
 		KindOfWeapon w = belongings.attackingWeapon();
 		if (!(w instanceof Weapon))             return true;
 		if (RingOfForce.fightingUnarmed(this))  return true;
-		if (力量() < ((Weapon)w).STRReq())       return false;
+		if (力量() < ((Weapon)w).力量())       return false;
 		if (w instanceof Flail)                 return false;
 
 		return super.canSurpriseAttack();
@@ -1484,8 +1505,8 @@ public class Hero extends Char {
 	}
 	
 	@Override
-	public int attackProc( final Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(final Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 
 		KindOfWeapon wep;
 		if (RingOfForce.fightingUnarmed(this) && !RingOfForce.unarmedGetsWeaponEnchantment(this)){
@@ -1507,10 +1528,10 @@ public class Hero extends Char {
 			if (!wasEnemy || enemy.alignment == Alignment.ENEMY) {
 				if (buff(HolyWeapon.HolyWepBuff.class) != null) {
 					int dmg = subClass == HeroSubClass.PALADIN ? 6 : 2;
-					enemy.damage(Math.round(dmg * Weapon.Enchantment.genericProcChanceMultiplier(this)), HolyWeapon.INSTANCE);
+					enemy.受伤时(Math.round(dmg * Weapon.Enchantment.genericProcChanceMultiplier(this)), HolyWeapon.INSTANCE);
 				}
 				if (buff(Smite.SmiteTracker.class) != null) {
-					enemy.damage(Smite.bonusDmg(this, enemy), Smite.INSTANCE);
+					enemy.受伤时(Smite.bonusDmg(this, enemy), Smite.INSTANCE);
 				}
 			}
 		}
@@ -1549,7 +1570,7 @@ public class Hero extends Char {
 	}
 	
 	@Override
-	public int defenseProc( Char enemy, int damage ) {
+	public int 防御时(Char enemy, int damage ) {
 		
 		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
 			Berserk berserk = Buff.施加(this, Berserk.class);
@@ -1574,7 +1595,7 @@ public class Hero extends Char {
 			damage = rockArmor.absorb(damage);
 		}
 		
-		return super.defenseProc( enemy, damage );
+		return super.防御时( enemy, damage );
 	}
 
 	@Override
@@ -1591,7 +1612,7 @@ public class Hero extends Char {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 		if (buff(TimekeepersHourglass.timeStasis.class) != null
 				|| buff(TimeStasis.class) != null) {
 			return;
@@ -1649,7 +1670,7 @@ public class Hero extends Char {
 
 		int preHP = 生命 + shielding();
 		if (src instanceof Hunger) preHP -= shielding();
-		super.damage( dmg, src );
+		super.受伤时( dmg, src );
 		int postHP = 生命 + shielding();
 		if (src instanceof Hunger) postHP -= shielding();
 		int effectiveDamage = preHP - postHP;
@@ -1979,6 +2000,12 @@ public class Hero extends Char {
 		//xp granted by ascension challenge is only for on-exp gain effects
 		if (source != AscensionChallenge.class) {
 			this.当前经验 += exp;
+
+			if (HeroClass(HeroClass.MAGE)){
+				Buff.延长( this, Recharging.class, 1 );
+				ScrollOfRecharging.charge( this );
+				SpellSprite.show(this, SpellSprite.CHARGE);
+			}
 		}
 		float percent = exp/(float) 升级所需();
 
@@ -2077,7 +2104,10 @@ public class Hero extends Char {
 		return Math.round(升级所需(等级));
 	}
 	
-	public static int 升级所需(int lvl ){
+	public int 升级所需(int lvl ){
+		if (HeroClass(HeroClass.CLERIC)){
+			return 10 + lvl * 5;
+		}
 		return 12 + lvl * 6;
 	}
 	
@@ -2087,7 +2117,6 @@ public class Hero extends Char {
 	
 	@Override
 	public boolean add( Buff buff ) {
-
 		if (buff.type == Buff.buffType.NEGATIVE &&
 				(buff(TimekeepersHourglass.timeStasis.class) != null || buff(TimeStasis.class) != null)) {
 			return false;
@@ -2122,7 +2151,7 @@ public class Hero extends Char {
 	}
 	
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 		
 		curAction = null;
 
@@ -2188,7 +2217,7 @@ public class Hero extends Char {
 		}
 		
 		Actor.fixTime();
-		super.die( cause );
+		super.死亡时( cause );
 		reallyDie( cause );
 	}
 	

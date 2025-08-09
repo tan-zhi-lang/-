@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
@@ -321,7 +321,7 @@ public class HallsBossLevel extends Level {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
-					GameScene.show( new WndOptions( new ItemSprite(ItemSpriteSheet.AMULET),
+					GameScene.show( new WndOptions( new ItemSprite(物品表.AMULET),
 							Messages.get(Amulet.class, "ascent_title"),
 							Messages.get(Amulet.class, "ascent_desc"),
 							Messages.get(Amulet.class, "ascent_yes"),

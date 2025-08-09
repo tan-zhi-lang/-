@@ -5,12 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class Gloves extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.GLOVES;
+		image = 物品表.GLOVES;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.3f;
 

@@ -90,7 +90,7 @@ public class GrimTrap extends Trap {
 								new Callback() {
 									@Override
 									public void call() {
-										finalTarget.damage(finalDmg, GrimTrap.this);
+										finalTarget.受伤时(finalDmg, GrimTrap.this);
 										if (finalTarget == Dungeon.hero) {
 											Sample.INSTANCE.play(Assets.Sounds.CURSED);
 											if (!finalTarget.isAlive()) {
@@ -108,7 +108,7 @@ public class GrimTrap extends Trap {
 								});
 						return false;
 					} else {
-						finalTarget.damage(finalDmg, GrimTrap.this);
+						finalTarget.受伤时(finalDmg, GrimTrap.this);
 						return true;
 					}
 				} else {

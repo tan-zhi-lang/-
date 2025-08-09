@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -40,7 +40,7 @@ public class EtherealChains extends Artifact {
 	public static final String AC_CAST       = "CAST";
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_CHAINS;
+		image = 物品表.ARTIFACT_CHAINS;
 
 		levelCap = 5;
 		exp = 0;
@@ -304,7 +304,7 @@ public class EtherealChains extends Artifact {
 					&& Regeneration.regenOn()) {
 				//gains a charge in 40 - 2*missingCharge turns
 				float chargeGain = (1 / (40f - (chargeTarget - charge)*2f));
-				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
+				chargeGain *= 能量之戒.artifactChargeMultiplier(target);
 				partialCharge += chargeGain;
 			} else if (cursed && Random.Int(100) == 0){
 				Buff.延长( target, Cripple.class, 10f);

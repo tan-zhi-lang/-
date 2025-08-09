@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Stamina;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class PotionOfStamina extends ExoticPotion {
 	
 	{
-		icon = ItemSpriteSheet.Icons.POTION_STAMINA;
+		icon = 物品表.Icons.POTION_STAMINA;
 	}
 	
 	@Override

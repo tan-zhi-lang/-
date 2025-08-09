@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class FlashBangBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.FLASHBANG;
+		image = 物品表.FLASHBANG;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class FlashBangBomb extends Bomb {
 		for (Char ch : affected){
 			//25% bonus damage and 10 turns of stun
 			int damage = Math.round(Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth()) / 4f);
-			ch.damage(damage, new Electricity());
+			ch.受伤时(damage, new Electricity());
 			if (ch.isAlive()) Buff.延长(ch, Paralysis.class, Paralysis.DURATION);
 			arcs.add(new Lightning.Arc(DungeonTilemap.tileCenterToWorld(cell), ch.sprite.center()));
 

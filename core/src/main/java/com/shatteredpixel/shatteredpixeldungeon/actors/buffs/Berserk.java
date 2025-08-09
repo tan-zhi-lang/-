@@ -96,7 +96,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 					power = 0f;
 					BuffIndicator.refreshHero();
 					if (!target.isAlive()){
-						target.die(this);
+						target.死亡时(this);
 						if (!target.isAlive()) Dungeon.fail(this);
 					}
 				}
@@ -105,7 +105,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 				state = State.RECOVERING;
 				power = 0f;
 				if (!target.isAlive()){
-					target.die(this);
+					target.死亡时(this);
 					if (!target.isAlive()) Dungeon.fail(this);
 				}
 

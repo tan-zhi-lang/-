@@ -11,14 +11,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
 
 public class MysteryMeat extends Food {
 
 	{
-		image = ItemSpriteSheet.MEAT;
+		image = 物品表.MEAT;
 		energy = Hunger.HUNGRY/2f;
 	}
 	
@@ -56,7 +56,7 @@ public class MysteryMeat extends Food {
 	public static class PlaceHolder extends MysteryMeat {
 		
 		{
-			image = ItemSpriteSheet.FOOD_HOLDER;
+			image = 物品表.FOOD_HOLDER;
 		}
 		
 		@Override

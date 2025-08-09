@@ -249,7 +249,7 @@ public class PowerOfMany extends ArmorAbility {
 		@Override
 		protected boolean act() {
 			if (buff(PowerOfMany.PowerBuff.class) == null){
-				die(null);
+				死亡时(null);
 				return true;
 			}
 			int oldPos = pos;

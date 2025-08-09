@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class HealingDart extends TippedDart {
 	
 	{
-		image = ItemSpriteSheet.HEALING_DART;
+		image = 物品表.HEALING_DART;
 		usesTargeting = false; //you never want to throw this at an enemy
 	}
 	

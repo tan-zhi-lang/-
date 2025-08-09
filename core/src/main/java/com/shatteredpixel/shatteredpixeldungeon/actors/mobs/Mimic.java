@@ -163,30 +163,30 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public int defenseProc(Char enemy, int damage) {
+	public int 防御时(Char enemy, int damage) {
 		if (state == PASSIVE){
 			alignment = Alignment.ENEMY;
 			stopHiding();
 		}
-		return super.defenseProc(enemy, damage);
+		return super.防御时(enemy, damage);
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (state == PASSIVE){
 			alignment = Alignment.ENEMY;
 			stopHiding();
 		}
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		if (state == PASSIVE){
 			alignment = Alignment.ENEMY;
 			stopHiding();
 		}
-		super.die(cause);
+		super.死亡时(cause);
 	}
 
 	public void stopHiding(){

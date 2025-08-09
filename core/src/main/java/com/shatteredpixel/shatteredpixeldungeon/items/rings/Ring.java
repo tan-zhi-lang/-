@@ -19,7 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -35,18 +35,18 @@ public class Ring extends KindofMisc {
 
 	private static final LinkedHashMap<String, Integer> gems = new LinkedHashMap<String, Integer>() {
 		{
-			put("garnet",ItemSpriteSheet.RING_GARNET);
-			put("ruby",ItemSpriteSheet.RING_RUBY);
-			put("topaz",ItemSpriteSheet.RING_TOPAZ);
-			put("emerald",ItemSpriteSheet.RING_EMERALD);
-			put("onyx",ItemSpriteSheet.RING_ONYX);
-			put("opal",ItemSpriteSheet.RING_OPAL);
-			put("tourmaline",ItemSpriteSheet.RING_TOURMALINE);
-			put("sapphire",ItemSpriteSheet.RING_SAPPHIRE);
-			put("amethyst",ItemSpriteSheet.RING_AMETHYST);
-			put("quartz",ItemSpriteSheet.RING_QUARTZ);
-			put("agate",ItemSpriteSheet.RING_AGATE);
-			put("diamond",ItemSpriteSheet.RING_DIAMOND);
+			put("garnet", 物品表.RING_GARNET);
+			put("ruby", 物品表.RING_RUBY);
+			put("topaz", 物品表.RING_TOPAZ);
+			put("emerald", 物品表.RING_EMERALD);
+			put("onyx", 物品表.RING_ONYX);
+			put("opal", 物品表.RING_OPAL);
+			put("tourmaline", 物品表.RING_TOURMALINE);
+			put("sapphire", 物品表.RING_SAPPHIRE);
+			put("amethyst", 物品表.RING_AMETHYST);
+			put("quartz", 物品表.RING_QUARTZ);
+			put("agate", 物品表.RING_AGATE);
+			put("diamond", 物品表.RING_DIAMOND);
 		}
 	};
 	
@@ -89,7 +89,7 @@ public class Ring extends KindofMisc {
 	//useful for items that appear in UIs, or which are only spawned for their effects
 	protected boolean anonymous = false;
 	public void anonymize(){
-		if (!isKnown()) image = ItemSpriteSheet.RING_HOLDER;
+		if (!isKnown()) image = 物品表.RING_HOLDER;
 		anonymous = true;
 	}
 	
@@ -100,7 +100,7 @@ public class Ring extends KindofMisc {
 			image = handler.image(this);
 			gem = handler.label(this);
 		} else {
-			image = ItemSpriteSheet.RING_GARNET;
+			image = 物品表.RING_GARNET;
 			gem = "garnet";
 		}
 	}

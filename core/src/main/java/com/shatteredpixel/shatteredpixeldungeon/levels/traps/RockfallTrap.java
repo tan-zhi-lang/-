@@ -82,7 +82,7 @@ public class RockfallTrap extends Trap {
 				}
 				int damage = Random.NormalIntRange(5+scalingDepth(), 10+scalingDepth()*2);
 				damage -= ch.drRoll();
-				ch.damage( Math.max(damage, 0) , this);
+				ch.受伤时( Math.max(damage, 0) , this);
 
 				if (ch.isActive()) {
 					Buff.延长(ch, Paralysis.class, Paralysis.DURATION);

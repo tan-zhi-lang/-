@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class RegionLorePage {
 
@@ -19,7 +19,7 @@ public class RegionLorePage {
 
 	public static class Sewers extends DocumentPage {
 		{
-			image = ItemSpriteSheet.SEWER_PAGE;
+			image = 物品表.SEWER_PAGE;
 		}
 
 		@Override
@@ -30,7 +30,7 @@ public class RegionLorePage {
 
 	public static class Prison extends DocumentPage {
 		{
-			image = ItemSpriteSheet.PRISON_PAGE;
+			image = 物品表.PRISON_PAGE;
 		}
 
 		@Override
@@ -41,7 +41,7 @@ public class RegionLorePage {
 
 	public static class Caves extends DocumentPage {
 		{
-			image = ItemSpriteSheet.CAVES_PAGE;
+			image = 物品表.CAVES_PAGE;
 		}
 
 		@Override
@@ -52,7 +52,7 @@ public class RegionLorePage {
 
 	public static class City extends DocumentPage {
 		{
-			image = ItemSpriteSheet.CITY_PAGE;
+			image = 物品表.CITY_PAGE;
 		}
 
 		@Override
@@ -63,7 +63,7 @@ public class RegionLorePage {
 
 	public static class Halls extends DocumentPage {
 		{
-			image = ItemSpriteSheet.HALLS_PAGE;
+			image = 物品表.HALLS_PAGE;
 		}
 
 		@Override

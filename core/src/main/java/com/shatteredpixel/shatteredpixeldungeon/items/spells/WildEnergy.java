@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class WildEnergy extends TargetedSpell {
 	
 	{
-		image = ItemSpriteSheet.WILD_ENERGY;
+		image = 物品表.WILD_ENERGY;
 
 		usesTargeting = true;
 

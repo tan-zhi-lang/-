@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EnergyParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
@@ -17,7 +17,7 @@ import com.watabou.noosa.particles.Emitter;
 public class ScrollOfRecharging extends Scroll {
 
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_RECHARGE;
+		icon = 物品表.Icons.SCROLL_RECHARGE;
 	}
 
 	@Override

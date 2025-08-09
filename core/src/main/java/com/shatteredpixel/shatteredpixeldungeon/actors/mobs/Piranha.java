@@ -89,12 +89,12 @@ public class Piranha extends Mob {
 	}
 
 	public void dieOnLand(){
-		die( null );
+		死亡时( null );
 	}
 
 	@Override
-	public void die( Object cause ) {
-		super.die( cause );
+	public void 死亡时(Object cause ) {
+		super.死亡时( cause );
 		
 		Statistics.piranhasKilled++;
 		Badges.validatePiranhasKilled();

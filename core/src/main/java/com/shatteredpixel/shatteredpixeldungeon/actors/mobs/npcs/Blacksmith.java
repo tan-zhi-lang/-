@@ -47,7 +47,7 @@ public class Blacksmith extends NPC {
 	@Override
 	protected boolean act() {
 		if (Dungeon.hero.buff(AscensionChallenge.class) != null){
-			die(null);
+			死亡时(null);
 			Notes.remove( landmark() );
 			return true;
 		} else if (!Quest.rewardsAvailable() && Quest.completed()){
@@ -164,7 +164,7 @@ public class Blacksmith extends NPC {
 	}
 	
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 		//do nothing
 	}
 

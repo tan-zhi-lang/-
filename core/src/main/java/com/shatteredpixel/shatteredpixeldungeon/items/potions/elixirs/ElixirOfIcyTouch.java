@@ -7,12 +7,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfSnapFreeze;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ElixirOfIcyTouch extends Elixir {
 	
 	{
-		image = ItemSpriteSheet.ELIXIR_ICY;
+		image = 物品表.ELIXIR_ICY;
 	}
 	
 	@Override

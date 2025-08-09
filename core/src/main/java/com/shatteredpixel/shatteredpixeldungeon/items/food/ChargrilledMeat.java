@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ChargrilledMeat extends Food {
 
 	{
-		image = ItemSpriteSheet.STEAK;
+		image = 物品表.STEAK;
 		energy = Hunger.HUNGRY/2f;
 	}
 	

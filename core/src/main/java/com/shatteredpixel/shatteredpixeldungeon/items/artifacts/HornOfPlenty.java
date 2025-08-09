@@ -21,11 +21,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.watabou.noosa.audio.Sample;
@@ -37,7 +37,7 @@ public class HornOfPlenty extends Artifact {
 
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_HORN1;
+		image = 物品表.ARTIFACT_HORN1;
 
 		levelCap = 10;
 
@@ -139,10 +139,10 @@ public class HornOfPlenty extends Artifact {
 
 		Badges.validateFoodEaten();
 
-		if (charge >= 8)        image = ItemSpriteSheet.ARTIFACT_HORN4;
-		else if (charge >= 5)   image = ItemSpriteSheet.ARTIFACT_HORN3;
-		else if (charge >= 2)   image = ItemSpriteSheet.ARTIFACT_HORN2;
-		else                    image = ItemSpriteSheet.ARTIFACT_HORN1;
+		if (charge >= 8)        image = 物品表.ARTIFACT_HORN4;
+		else if (charge >= 5)   image = 物品表.ARTIFACT_HORN3;
+		else if (charge >= 2)   image = 物品表.ARTIFACT_HORN2;
+		else                    image = 物品表.ARTIFACT_HORN1;
 
 		updateQuickslot();
 	}
@@ -165,10 +165,10 @@ public class HornOfPlenty extends Artifact {
 					partialCharge = 0;
 				}
 
-				if (charge >= 8)        image = ItemSpriteSheet.ARTIFACT_HORN4;
-				else if (charge >= 5)   image = ItemSpriteSheet.ARTIFACT_HORN3;
-				else if (charge >= 2)   image = ItemSpriteSheet.ARTIFACT_HORN2;
-				else                    image = ItemSpriteSheet.ARTIFACT_HORN1;
+				if (charge >= 8)        image = 物品表.ARTIFACT_HORN4;
+				else if (charge >= 5)   image = 物品表.ARTIFACT_HORN3;
+				else if (charge >= 2)   image = 物品表.ARTIFACT_HORN2;
+				else                    image = 物品表.ARTIFACT_HORN1;
 
 				updateQuickslot();
 			}
@@ -245,9 +245,9 @@ public class HornOfPlenty extends Artifact {
 
 		storedFoodEnergy = bundle.getInt(STORED);
 		
-		if (charge >= 8)       image = ItemSpriteSheet.ARTIFACT_HORN4;
-		else if (charge >= 5)  image = ItemSpriteSheet.ARTIFACT_HORN3;
-		else if (charge >= 2)   image = ItemSpriteSheet.ARTIFACT_HORN2;
+		if (charge >= 8)       image = 物品表.ARTIFACT_HORN4;
+		else if (charge >= 5)  image = 物品表.ARTIFACT_HORN3;
+		else if (charge >= 2)   image = 物品表.ARTIFACT_HORN2;
 	}
 
 	public class hornRecharge extends ArtifactBuff{
@@ -261,7 +261,7 @@ public class HornOfPlenty extends Artifact {
 				//to a max of 1.5x max hunger value per hero level
 				//This means that a standard ration will be recovered in ~5.333 hero levels
 				float chargeGain = Hunger.STARVING * levelPortion * (0.25f + (0.125f* 等级()));
-				chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
+				chargeGain *= 能量之戒.artifactChargeMultiplier(target);
 
 				//each charge is equal to 1/5 the max hunger value
 				chargeGain /= Hunger.STARVING/5;
@@ -272,10 +272,10 @@ public class HornOfPlenty extends Artifact {
 					charge++;
 					partialCharge -= 1;
 
-					if (charge >= 8)        image = ItemSpriteSheet.ARTIFACT_HORN4;
-					else if (charge >= 5)   image = ItemSpriteSheet.ARTIFACT_HORN3;
-					else if (charge >= 2)   image = ItemSpriteSheet.ARTIFACT_HORN2;
-					else                    image = ItemSpriteSheet.ARTIFACT_HORN1;
+					if (charge >= 8)        image = 物品表.ARTIFACT_HORN4;
+					else if (charge >= 5)   image = 物品表.ARTIFACT_HORN3;
+					else if (charge >= 2)   image = 物品表.ARTIFACT_HORN2;
+					else                    image = 物品表.ARTIFACT_HORN1;
 
 					updateQuickslot();
 

@@ -103,7 +103,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsi
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -403,7 +403,7 @@ public abstract class Char extends Actor {
 					dmg += Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,4);
 				}
 				if (this != Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.PRIEST){
-					enemy.damage(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
+					enemy.受伤时(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
 				}
 			}
 
@@ -468,7 +468,7 @@ public abstract class Char extends Actor {
 				}
 			}
 			
-			int effectiveDamage = enemy.defenseProc( this, Math.round(dmg) );
+			int effectiveDamage = enemy.防御时( this, Math.round(dmg) );
 			//do not trigger on-hit logic if defenseProc returned a negative value
 			if (effectiveDamage >= 0) {
 				effectiveDamage = Math.max(effectiveDamage - dr, 0);
@@ -483,7 +483,7 @@ public abstract class Char extends Actor {
 					effectiveDamage *= 1.33f;
 				}
 
-				effectiveDamage = attackProc(enemy, effectiveDamage);
+				effectiveDamage = 攻击时(enemy, effectiveDamage);
 			}
 			if (visibleFight) {
 				if (effectiveDamage > 0 || !enemy.blockSound(Random.Float(0.96f, 1.05f))) {
@@ -497,7 +497,7 @@ public abstract class Char extends Actor {
 				return true;
 			}
 
-			enemy.damage( effectiveDamage, this );
+			enemy.受伤时( effectiveDamage, this );
 
 			if (buff(FireImbue.class) != null)  buff(FireImbue.class).proc(enemy);
 			if (buff(FrostImbue.class) != null) buff(FrostImbue.class).proc(enemy);
@@ -508,10 +508,10 @@ public abstract class Char extends Actor {
 					enemy.buff(Brute.BruteRage.class).detach();
 				}
 				if (!enemy.isAlive()) {
-					enemy.die(this);
+					enemy.死亡时(this);
 				} else {
 					//helps with triggering any on-damage effects that need to activate
-					enemy.damage(-1, this);
+					enemy.受伤时(-1, this);
 					DeathMark.processFearTheReaper(enemy);
 				}
 				if (enemy.sprite != null) {
@@ -529,10 +529,10 @@ public abstract class Char extends Actor {
 						enemy.buff(Brute.BruteRage.class).detach();
 					}
 					if (!enemy.isAlive()) {
-						enemy.die(this);
+						enemy.死亡时(this);
 					} else {
 						//helps with triggering any on-damage effects that need to activate
-						enemy.damage(-1, this);
+						enemy.受伤时(-1, this);
 						DeathMark.processFearTheReaper(enemy);
 					}
 					if (enemy.sprite != null) {
@@ -699,14 +699,14 @@ public abstract class Char extends Actor {
 	//TODO it would be nice to have a pre-armor and post-armor proc.
 	// atm attack is always post-armor and defence is already pre-armor
 	
-	public int attackProc( Char enemy, int damage ) {
+	public int 攻击时(Char enemy, int damage ) {
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			buff.onAttackProc( enemy );
 		}
 		return damage;
 	}
 	
-	public int defenseProc( Char enemy, int damage ) {
+	public int 防御时(Char enemy, int damage ) {
 
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (armor != null) {
@@ -789,7 +789,7 @@ public abstract class Char extends Actor {
 		return cachedShield;
 	}
 	
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 		
 		if (!isAlive() || dmg < 0) {
 			return;
@@ -812,7 +812,7 @@ public abstract class Char extends Actor {
 			for (LifeLink link : links){
 				Char ch = (Char)Actor.findById(link.object);
 				if (ch != null) {
-					ch.damage(dmg, link);
+					ch.受伤时(dmg, link);
 					if (!ch.isAlive()) {
 						link.detach();
 						if (ch == Dungeon.hero){
@@ -1007,7 +1007,7 @@ public abstract class Char extends Actor {
 		if (生命 < 0) 生命 = 0;
 
 		if (!isAlive()) {
-			die( src );
+			死亡时( src );
 		} else if (生命 == 0 && buff(DeathMark.DeathMarkTracker.class) != null){
 			DeathMark.processFearTheReaper(this);
 		}
@@ -1058,7 +1058,7 @@ public abstract class Char extends Actor {
 		}
 	}
 	
-	public void die( Object src ) {
+	public void 死亡时(Object src ) {
 		destroy();
 		if (src != Chasm.class) {
 			sprite.die();
@@ -1350,7 +1350,7 @@ public abstract class Char extends Actor {
 		DEMONIC,
 		INORGANIC ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class) )),
-		FIERY ( new HashSet<Class>( Arrays.asList(WandOfFireblast.class, Elemental.FireElemental.class)),
+		FIERY ( new HashSet<Class>( Arrays.asList(焰浪法杖.class, Elemental.FireElemental.class)),
 				new HashSet<Class>( Arrays.asList(Burning.class, Blazing.class))),
 		ICY ( new HashSet<Class>( Arrays.asList(WandOfFrost.class, Elemental.FrostElemental.class)),
 				new HashSet<Class>( Arrays.asList(Frost.class, Chill.class))),

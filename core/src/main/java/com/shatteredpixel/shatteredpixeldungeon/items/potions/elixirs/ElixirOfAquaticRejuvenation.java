@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class ElixirOfAquaticRejuvenation extends Elixir {
 	
 	{
-		image = ItemSpriteSheet.ELIXIR_AQUA;
+		image = 物品表.ELIXIR_AQUA;
 	}
 	
 	@Override

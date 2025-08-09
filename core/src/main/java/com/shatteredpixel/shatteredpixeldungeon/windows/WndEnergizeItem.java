@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
@@ -40,7 +40,7 @@ public class WndEnergizeItem extends WndInfoItem {
 				}
 			};
 			btnEnergize.setRect( 0, pos + GAP, width, BTN_HEIGHT );
-			btnEnergize.icon(new ItemSprite(ItemSpriteSheet.ENERGY));
+			btnEnergize.icon(new ItemSprite(物品表.ENERGY));
 			add( btnEnergize );
 
 			pos = btnEnergize.bottom();
@@ -56,7 +56,7 @@ public class WndEnergizeItem extends WndInfoItem {
 				}
 			};
 			btnEnergize1.setRect( 0, pos + GAP, width, BTN_HEIGHT );
-			btnEnergize1.icon(new ItemSprite(ItemSpriteSheet.ENERGY));
+			btnEnergize1.icon(new ItemSprite(物品表.ENERGY));
 			add( btnEnergize1 );
 			RedButton btnEnergizeAll = new RedButton( Messages.get(this, "energize_all", energyAll ) ) {
 				@Override
@@ -66,7 +66,7 @@ public class WndEnergizeItem extends WndInfoItem {
 				}
 			};
 			btnEnergizeAll.setRect( 0, btnEnergize1.bottom() + 1, width, BTN_HEIGHT );
-			btnEnergizeAll.icon(new ItemSprite(ItemSpriteSheet.ENERGY));
+			btnEnergizeAll.icon(new ItemSprite(物品表.ENERGY));
 			add( btnEnergizeAll );
 
 			pos = btnEnergizeAll.bottom();

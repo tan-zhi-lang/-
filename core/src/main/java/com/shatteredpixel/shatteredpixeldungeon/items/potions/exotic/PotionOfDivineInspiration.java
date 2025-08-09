@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -25,7 +25,7 @@ import com.watabou.utils.Random;
 public class PotionOfDivineInspiration extends ExoticPotion {
 	
 	{
-		icon = ItemSpriteSheet.Icons.POTION_DIVINE;
+		icon = 物品表.Icons.POTION_DIVINE;
 
 		talentFactor = 2f;
 	}

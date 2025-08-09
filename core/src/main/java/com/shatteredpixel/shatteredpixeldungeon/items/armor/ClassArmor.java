@@ -14,12 +14,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.Trinity;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndChooseAbility;
@@ -187,7 +187,7 @@ abstract public class ClassArmor extends Armor {
 			
 		} else if (action.equals(AC_TRANSFER)){
 
-			GameScene.show(new WndOptions(new ItemSprite(ItemSpriteSheet.CROWN),
+			GameScene.show(new WndOptions(new ItemSprite(物品表.CROWN),
 					Messages.get(ClassArmor.class, "transfer_title"),
 					Messages.get(ClassArmor.class, "transfer_desc"),
 					Messages.get(ClassArmor.class, "transfer_prompt"),
@@ -317,7 +317,7 @@ abstract public class ClassArmor extends Armor {
 		public boolean act() {
 			if (Regeneration.regenOn()) {
 				float chargeGain = 100 / 500f; //500 turns to full charge
-				chargeGain *= RingOfEnergy.armorChargeMultiplier(target);
+				chargeGain *= 能量之戒.armorChargeMultiplier(target);
 				charge += chargeGain;
 				updateQuickslot();
 				if (charge > 100) {

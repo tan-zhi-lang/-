@@ -55,9 +55,9 @@ public class GnollGuard extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (hasSapper()) dmg /= 4;
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 	}
 
 	@Override
@@ -70,8 +70,8 @@ public class GnollGuard extends Mob {
 	}
 
 	@Override
-	public int attackProc(Char enemy, int damage) {
-		int dmg = super.attackProc(enemy, damage);
+	public int 攻击时(Char enemy, int damage) {
+		int dmg = super.攻击时(enemy, damage);
 		if (enemy == Dungeon.hero && !Dungeon.level.adjacent(pos, enemy.pos) && dmg > 12){
 			GLog.n(Messages.get(this, "spear_warn"));
 		}

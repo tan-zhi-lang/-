@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -17,7 +17,7 @@ import com.watabou.utils.GameMath;
 
 import java.util.ArrayList;
 
-public class Waterskin extends Item {
+public class 水袋 extends Item {
 
 	private static final int MAX_VOLUME	= 20;
 
@@ -28,7 +28,7 @@ public class Waterskin extends Item {
 	private static final String TXT_STATUS	= "%d/%d";
 
 	{
-		image = ItemSpriteSheet.WATERSKIN;
+		image = 物品表.水袋;
 
 		defaultAction = AC_DRINK;
 

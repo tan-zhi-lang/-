@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.SupporterScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -20,7 +20,7 @@ public class WndVictoryCongrats extends Window {
 		int width = PixelScene.landscape() ? 180 : 120;
 		int height = 0;
 
-		IconTitle title = new IconTitle( new ItemSprite(ItemSpriteSheet.AMULET), Messages.get(this, "title"));
+		IconTitle title = new IconTitle( new ItemSprite(物品表.AMULET), Messages.get(this, "title"));
 		title.setRect( 0, 0, width, 0 );
 		add(title);
 
@@ -49,7 +49,7 @@ public class WndVictoryCongrats extends Window {
 
 		height += Math.max(chalImg.height(), chalTxt.height()) + 6;
 
-		Image seedImg = new ItemSprite(ItemSpriteSheet.SEED_SUNGRASS);
+		Image seedImg = new ItemSprite(物品表.SEED_SUNGRASS);
 		seedImg.y = height;
 		seedImg.x = (16-seedImg.width())/2f;
 		PixelScene.align(seedImg);

@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
@@ -50,7 +50,7 @@ public class MagesStaff extends MeleeWeapon {
 	private static final float STAFF_SCALE_FACTOR = 0.75f;
 
 	{
-		image = ItemSpriteSheet.MAGES_STAFF;
+		image = 物品表.MAGES_STAFF;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 

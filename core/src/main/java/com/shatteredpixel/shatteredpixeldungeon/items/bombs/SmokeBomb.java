@@ -6,14 +6,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SmokeScreen;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 public class SmokeBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.SMOKE_BOMB;
+		image = 物品表.SMOKE_BOMB;
 	}
 
 	@Override

@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.quest;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class GooBlob extends Item {
 	
 	{
-		image = ItemSpriteSheet.BLOB;
+		image = 物品表.BLOB;
 		stackable = true;
 	}
 	

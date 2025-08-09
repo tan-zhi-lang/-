@@ -57,7 +57,7 @@ public class ItemSprite extends MovieClip {
 	protected float shadowOffset    = 0.5f;
 	
 	public ItemSprite() {
-		this( ItemSpriteSheet.SOMETHING, null );
+		this( 物品表.SOMETHING, null );
 	}
 	
 	public ItemSprite( Heap heap ){
@@ -199,17 +199,17 @@ public class ItemSprite extends MovieClip {
 			case HEAP: case FOR_SALE:
 				return view( heap.peek() );
 			case CHEST:
-				return view( ItemSpriteSheet.CHEST, null );
+				return view( 物品表.CHEST, null );
 			case LOCKED_CHEST:
-				return view( ItemSpriteSheet.LOCKED_CHEST, null );
+				return view( 物品表.LOCKED_CHEST, null );
 			case CRYSTAL_CHEST:
-				return view( ItemSpriteSheet.CRYSTAL_CHEST, null );
+				return view( 物品表.CRYSTAL_CHEST, null );
 			case TOMB:
-				return view( ItemSpriteSheet.TOMB, null );
+				return view( 物品表.TOMB, null );
 			case SKELETON:
-				return view( ItemSpriteSheet.BONES, null );
+				return view( 物品表.BONES, null );
 			case REMAINS:
-				return view( ItemSpriteSheet.REMAINS, null );
+				return view( 物品表.REMAINS, null );
 			default:
 				return view( 0, null );
 		}
@@ -224,9 +224,9 @@ public class ItemSprite extends MovieClip {
 	}
 
 	public void frame( int image ){
-		frame( ItemSpriteSheet.film.get( image ));
+		frame( 物品表.film.get( image ));
 
-		float height = ItemSpriteSheet.film.height( image );
+		float height = 物品表.film.height( image );
 		//adds extra raise to very short items, so they are visible
 		if (height < 8f){
 			perspectiveRaise =  (5 + 8 - height) / 16f;

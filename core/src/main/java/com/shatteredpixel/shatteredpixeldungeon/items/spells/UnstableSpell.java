@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutat
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
@@ -32,7 +32,7 @@ import java.util.HashSet;
 public class UnstableSpell extends Spell {
 
 	{
-		image = ItemSpriteSheet.UNSTABLE_SPELL;
+		image = 物品表.UNSTABLE_SPELL;
 	}
 	
 	private static HashMap<Class<? extends Scroll>, Float> scrollChances = new HashMap<>();

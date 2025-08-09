@@ -7,14 +7,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportat
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
 
 public class ScrollOfPassage extends ExoticScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_PASSAGE;
+		icon = 物品表.Icons.SCROLL_PASSAGE;
 	}
 	
 	@Override

@@ -116,7 +116,7 @@ public class Pylon extends Mob {
 	private void shockChar( Char ch ){
 		if (ch != null && !(ch instanceof DM300)){
 			ch.sprite.flash();
-			ch.damage(Random.NormalIntRange(10, 20), new Electricity());
+			ch.受伤时(Random.NormalIntRange(10, 20), new Electricity());
 
 			if (ch == Dungeon.hero) {
 				Statistics.qualifiedForBossChallengeBadge = false;
@@ -177,7 +177,7 @@ public class Pylon extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (dmg >= 15){
 			//takes 15/16/17/18/19/20 dmg at 15/17/20/24/29/36 incoming dmg
 			dmg = 14 + (int)(Math.sqrt(8*(dmg - 14) + 1) - 1)/2;
@@ -188,12 +188,12 @@ public class Pylon extends Mob {
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/2f);
 			else                                                    lock.addTime(dmg);
 		}
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 	}
 
 	@Override
-	public void die(Object cause) {
-		super.die(cause);
+	public void 死亡时(Object cause) {
+		super.死亡时(cause);
 		((CavesBossLevel)Dungeon.level).eliminatePylon();
 	}
 

@@ -66,7 +66,7 @@ public class GeyserTrap extends Trap {
 					int dmg = Random.NormalIntRange(5 + scalingDepth(), 10 + scalingDepth()*2);
 					dmg *= 0.67f;
 					if (!ch.isImmune(GeyserTrap.class)){
-						ch.damage(dmg, this);
+						ch.受伤时(dmg, this);
 					}
 				}
 
@@ -114,7 +114,7 @@ public class GeyserTrap extends Trap {
 			if (Char.hasProp(ch, Char.Property.FIERY)){
 				int dmg = Random.NormalIntRange(5 + scalingDepth(), 10 + scalingDepth()*2);
 				if (!ch.isImmune(GeyserTrap.class)){
-					ch.damage(dmg, this);
+					ch.受伤时(dmg, this);
 				}
 			}
 

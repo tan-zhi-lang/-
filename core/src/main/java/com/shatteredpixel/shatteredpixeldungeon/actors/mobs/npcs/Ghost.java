@@ -70,7 +70,7 @@ public class Ghost extends NPC {
 	@Override
 	protected boolean act() {
 		if (Dungeon.hero.buff(AscensionChallenge.class) != null){
-			die(null);
+			死亡时(null);
 			Notes.remove( landmark() );
 			return true;
 		}
@@ -93,7 +93,7 @@ public class Ghost extends NPC {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 		//do nothing
 	}
 

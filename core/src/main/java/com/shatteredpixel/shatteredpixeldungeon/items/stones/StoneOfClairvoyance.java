@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Point;
 
@@ -17,7 +17,7 @@ public class StoneOfClairvoyance extends Runestone {
 	private static final int DIST = 20;
 	
 	{
-		image = ItemSpriteSheet.STONE_CLAIRVOYANCE;
+		image = 物品表.STONE_CLAIRVOYANCE;
 	}
 	
 	@Override

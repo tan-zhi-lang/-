@@ -10,12 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class PotionOfShielding extends ExoticPotion {
 	
 	{
-		icon = ItemSpriteSheet.Icons.POTION_SHIELDING;
+		icon = 物品表.Icons.POTION_SHIELDING;
 	}
 	
 	@Override

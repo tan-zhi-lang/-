@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class DisplacingDart extends TippedDart {
 	
 	{
-		image = ItemSpriteSheet.DISPLACING_DART;
+		image = 物品表.DISPLACING_DART;
 	}
 	
 	@Override

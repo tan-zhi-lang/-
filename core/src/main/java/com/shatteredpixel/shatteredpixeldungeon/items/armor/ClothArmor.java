@@ -2,12 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ClothArmor extends Armor {
 
 	{
-		image = ItemSpriteSheet.ARMOR_CLOTH;
+		image = 物品表.ARMOR_CLOTH;
 
 		bones = false; //Finding them in bones would be semi-frequent and disappointing.
 	}

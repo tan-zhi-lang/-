@@ -99,7 +99,7 @@ public class MeleeWeapon extends Weapon {
 				}
 			} else if (hero.heroClass != HeroClass.DUELIST){
 				//do nothing
-			} else if (STRReq() > hero.力量()){
+			} else if (力量() > hero.力量()){
 				GLog.w(Messages.get(this, "ability_low_str"));
 			} else if ((Buff.施加(hero, Charger.class).charges + Buff.施加(hero, Charger.class).partialCharge) < abilityChargeUse(hero, null)) {
 				GLog.w(Messages.get(this, "ability_no_charge"));
@@ -238,8 +238,8 @@ public class MeleeWeapon extends Weapon {
 				lvl*(tier+1);   //level scaling
 	}
 
-	public int STRReq(int lvl){
-		int req = STRReq(tier, lvl);
+	public int 力量(int lvl){
+		int req = 力量(tier, lvl);
 		if (masteryPotionBonus){
 			req -= 2;
 		}
@@ -275,7 +275,7 @@ public class MeleeWeapon extends Weapon {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
 
 		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).力量() - STRReq();
+			int exStr = ((Hero)owner).力量() - 力量();
 			if (exStr > 0) {
 				damage += Hero.heroDamageIntRange( 0, exStr );
 			}
@@ -289,17 +289,17 @@ public class MeleeWeapon extends Weapon {
 		String info = super.info();
 
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), STRReq());
+			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(min()), augment.damageFactor(max()), 力量());
 			if (Dungeon.hero != null) {
-				if (STRReq() > Dungeon.hero.力量()) {
+				if (力量() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
-				} else if (Dungeon.hero.力量() > STRReq()) {
-					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - STRReq());
+				} else if (Dungeon.hero.力量() > 力量()) {
+					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - 力量());
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(0), max(0), STRReq(0));
-			if (Dungeon.hero != null && STRReq(0) > Dungeon.hero.力量()) {
+			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, min(0), max(0), 力量(0));
+			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
 			}
 		}

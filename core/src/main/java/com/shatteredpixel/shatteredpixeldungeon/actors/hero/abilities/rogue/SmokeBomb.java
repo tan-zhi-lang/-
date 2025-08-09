@@ -100,7 +100,7 @@ public class SmokeBomb extends ArmorAbility {
 				if (hero.有天赋(Talent.BODY_REPLACEMENT)) {
 					for (Char ch : Actor.chars()){
 						if (ch instanceof NinjaLog){
-							ch.die(null);
+							ch.死亡时(null);
 						}
 					}
 

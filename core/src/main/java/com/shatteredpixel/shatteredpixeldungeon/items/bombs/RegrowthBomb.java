@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class RegrowthBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.REGROWTH_BOMB;
+		image = 物品表.REGROWTH_BOMB;
 	}
 	
 	@Override

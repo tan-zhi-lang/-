@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class Kunai extends MissileWeapon {
 	
 	{
-		image = ItemSpriteSheet.KUNAI;
+		image = 物品表.KUNAI;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.1f;
 		
@@ -36,7 +36,7 @@ public class Kunai extends MissileWeapon {
 				int damage = augment.damageFactor(Hero.heroDamageIntRange(
 						min() + Math.round(diff*0.6f),
 						max()));
-				int exStr = hero.力量() - STRReq();
+				int exStr = hero.力量() - 力量();
 				if (exStr > 0) {
 					damage += Hero.heroDamageIntRange(0, exStr);
 				}

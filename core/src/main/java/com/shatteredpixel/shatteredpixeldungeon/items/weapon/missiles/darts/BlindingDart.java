@@ -5,13 +5,13 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 
 public class BlindingDart extends TippedDart {
 	
 	{
-		image = ItemSpriteSheet.BLINDING_DART;
+		image = 物品表.BLINDING_DART;
 	}
 	
 	@Override

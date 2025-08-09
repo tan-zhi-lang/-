@@ -44,7 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.TenguSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -110,7 +110,7 @@ public class Tengu extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (!Dungeon.level.mobs.contains(this)){
 			return;
 		}
@@ -122,7 +122,7 @@ public class Tengu extends Mob {
 		int curbracket = 生命 / hpBracket;
 
 		int beforeHitHP = 生命;
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 
 		//cannot be hit through multiple brackets at a time
 		if (生命 <= (curbracket-1)*hpBracket){
@@ -190,14 +190,14 @@ public class Tengu extends Mob {
 	}
 
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 		
 		if (Dungeon.hero.subClass == HeroSubClass.NONE) {
 			Dungeon.level.drop( new TengusMask(), pos ).sprite.drop();
 		}
 		
 		GameScene.bossSlain();
-		super.die( cause );
+		super.死亡时( cause );
 		
 		Badges.validateBossSlain();
 		if (Statistics.qualifiedForBossChallengeBadge){
@@ -615,7 +615,7 @@ public class Tengu extends Mob {
 							dmg -= ch.drRoll();
 
 							if (dmg > 0) {
-								ch.damage(dmg, Bomb.class);
+								ch.受伤时(dmg, Bomb.class);
 							}
 
 							if (ch == Dungeon.hero){
@@ -690,7 +690,7 @@ public class Tengu extends Mob {
 				dropsDownHeap = true;
 				unique = true;
 				
-				image = ItemSpriteSheet.TENGU_BOMB;
+				image = 物品表.TENGU_BOMB;
 			}
 			
 			@Override
@@ -1045,7 +1045,7 @@ public class Tengu extends Mob {
 							
 							Char ch = Actor.findChar(cell);
 							if (ch != null && !(ch instanceof Tengu)){
-								ch.damage(2 + Dungeon.scalingDepth(), new Electricity());
+								ch.受伤时(2 + Dungeon.scalingDepth(), new Electricity());
 								
 								if (ch == Dungeon.hero){
 									Statistics.qualifiedForBossChallengeBadge = false;
@@ -1084,7 +1084,7 @@ public class Tengu extends Mob {
 				dropsDownHeap = true;
 				unique = true;
 				
-				image = ItemSpriteSheet.TENGU_SHOCKER;
+				image = 物品表.TENGU_SHOCKER;
 			}
 			
 			@Override

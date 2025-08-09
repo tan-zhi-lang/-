@@ -2,12 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class PlateArmor extends Armor {
 
 	{
-		image = ItemSpriteSheet.ARMOR_PLATE;
+		image = 物品表.ARMOR_PLATE;
 	}
 	
 	public PlateArmor() {

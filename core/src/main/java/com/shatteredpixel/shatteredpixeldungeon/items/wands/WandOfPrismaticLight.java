@@ -22,7 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -33,7 +33,7 @@ import com.watabou.utils.Random;
 public class WandOfPrismaticLight extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_PRISMATIC_LIGHT;
+		image = 物品表.WAND_PRISMATIC_LIGHT;
 
 		collisionProperties = Ballistica.MAGIC_BOLT;
 	}
@@ -78,11 +78,11 @@ public class WandOfPrismaticLight extends DamageWand {
 			ch.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+buffedLvl() );
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 
-			ch.damage(Math.round(dmg*1.333f), this);
+			ch.受伤时(Math.round(dmg*1.333f), this);
 		} else {
 			ch.sprite.centerEmitter().burst( RainbowParticle.BURST, 10+buffedLvl() );
 
-			ch.damage(dmg, this);
+			ch.受伤时(dmg, this);
 		}
 
 	}

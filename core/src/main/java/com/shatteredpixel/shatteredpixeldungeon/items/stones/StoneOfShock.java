@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EnergyParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class StoneOfShock extends Runestone {
 	
 	{
-		image = ItemSpriteSheet.STONE_SHOCK;
+		image = 物品表.STONE_SHOCK;
 	}
 	
 	@Override

@@ -11,13 +11,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class ScrollOfIdentify extends InventoryScroll {
 
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_IDENTIFY;
+		icon = 物品表.Icons.SCROLL_IDENTIFY;
 
 		bones = true;
 	}

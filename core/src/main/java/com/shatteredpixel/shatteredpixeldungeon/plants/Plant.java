@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -214,7 +214,7 @@ public abstract class Plant implements Bundlable {
 		public static class PlaceHolder extends Seed {
 			
 			{
-				image = ItemSpriteSheet.SEED_HOLDER;
+				image = 物品表.SEED_HOLDER;
 			}
 			
 			@Override

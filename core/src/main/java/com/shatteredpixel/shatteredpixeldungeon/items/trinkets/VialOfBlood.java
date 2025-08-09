@@ -4,12 +4,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class VialOfBlood extends Trinket {
 
 	{
-		image = ItemSpriteSheet.BLOOD_VIAL;
+		image = 物品表.BLOOD_VIAL;
 	}
 
 	@Override

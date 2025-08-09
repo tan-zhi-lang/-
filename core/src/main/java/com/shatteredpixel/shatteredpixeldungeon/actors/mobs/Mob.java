@@ -662,7 +662,7 @@ public abstract class Mob extends Char {
 			if (enemy instanceof Hero){
 				Hero h = (Hero) enemy;
 				if (!(h.belongings.attackingWeapon() instanceof Weapon)
-						|| ((Weapon) h.belongings.attackingWeapon()).STRReq() <= h.力量()){
+						|| ((Weapon) h.belongings.attackingWeapon()).力量() <= h.力量()){
 					return 0;
 				}
 			} else {
@@ -680,7 +680,7 @@ public abstract class Mob extends Char {
 	}
 	
 	@Override
-	public int defenseProc( Char enemy, int damage ) {
+	public int 防御时(Char enemy, int damage ) {
 		
 		if (enemy instanceof Hero
 				&& ((Hero) enemy).belongings.attackingWeapon() instanceof MissileWeapon){
@@ -735,7 +735,7 @@ public abstract class Mob extends Char {
 			}
 		}
 
-		return super.defenseProc(enemy, damage);
+		return super.防御时(enemy, damage);
 	}
 
 	@Override
@@ -776,7 +776,7 @@ public abstract class Mob extends Char {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 
 		if (!isInvulnerable(src.getClass())) {
 			if (state == SLEEPING) {
@@ -798,7 +798,7 @@ public abstract class Mob extends Char {
 			}
 		}
 		
-		super.damage( dmg, src );
+		super.受伤时( dmg, src );
 	}
 	
 	
@@ -848,7 +848,7 @@ public abstract class Mob extends Char {
 	}
 	
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 
 		if (cause == Chasm.class){
 			//50% chance to round up, 50% to round down
@@ -886,7 +886,7 @@ public abstract class Mob extends Char {
 
 		boolean soulMarked = buff(SoulMark.class) != null;
 
-		super.die( cause );
+		super.死亡时( cause );
 
 		if (!(this instanceof Wraith)
 				&& soulMarked

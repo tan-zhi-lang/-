@@ -13,12 +13,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
@@ -278,11 +278,11 @@ public class InventoryPane extends Component {
 			lastBag = stuff.backpack;
 		}
 
-		equipped.get(0).item(stuff.weapon == null ? new WndBag.Placeholder( ItemSpriteSheet.WEAPON_HOLDER ) : stuff.weapon);
-		equipped.get(1).item(stuff.armor == null ? new WndBag.Placeholder( ItemSpriteSheet.ARMOR_HOLDER ) : stuff.armor);
-		equipped.get(2).item(stuff.artifact == null ? new WndBag.Placeholder( ItemSpriteSheet.ARTIFACT_HOLDER ) : stuff.artifact);
-		equipped.get(3).item(stuff.misc == null ? new WndBag.Placeholder( ItemSpriteSheet.SOMETHING ) : stuff.misc);
-		equipped.get(4).item(stuff.ring == null ? new WndBag.Placeholder( ItemSpriteSheet.RING_HOLDER ) : stuff.ring);
+		equipped.get(0).item(stuff.weapon == null ? new WndBag.Placeholder( 物品表.WEAPON_HOLDER ) : stuff.weapon);
+		equipped.get(1).item(stuff.armor == null ? new WndBag.Placeholder( 物品表.ARMOR_HOLDER ) : stuff.armor);
+		equipped.get(2).item(stuff.artifact == null ? new WndBag.Placeholder( 物品表.ARTIFACT_HOLDER ) : stuff.artifact);
+		equipped.get(3).item(stuff.misc == null ? new WndBag.Placeholder( 物品表.SOMETHING ) : stuff.misc);
+		equipped.get(4).item(stuff.ring == null ? new WndBag.Placeholder( 物品表.RING_HOLDER ) : stuff.ring);
 
 		ArrayList<Item> items = (ArrayList<Item>) lastBag.items.clone();
 
@@ -452,7 +452,7 @@ public class InventoryPane extends Component {
 	}
 
 	private Image bagIcon(Bag bag ) {
-		if (bag instanceof VelvetPouch) {
+		if (bag instanceof 绒布袋) {
 			return Icons.get( Icons.SEED_POUCH );
 		} else if (bag instanceof ScrollHolder) {
 			return Icons.get( Icons.SCROLL_HOLDER );

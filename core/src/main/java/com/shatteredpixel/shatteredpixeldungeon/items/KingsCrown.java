@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndChooseAbility;
 import com.watabou.noosa.audio.Sample;
@@ -27,7 +27,7 @@ public class KingsCrown extends Item {
 	private static final String AC_WEAR = "WEAR";
 	
 	{
-		image = ItemSpriteSheet.CROWN;
+		image = 物品表.CROWN;
 
 		defaultAction = AC_WEAR;
 

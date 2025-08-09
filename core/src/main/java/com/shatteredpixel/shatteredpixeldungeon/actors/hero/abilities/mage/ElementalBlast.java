@@ -40,7 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -75,7 +75,7 @@ public class ElementalBlast extends ArmorAbility {
 		effectTypes.put(WandOfMagicMissile.class,   MagicMissile.MAGIC_MISS_CONE);
 		effectTypes.put(WandOfLightning.class,      MagicMissile.SPARK_CONE);
 		effectTypes.put(WandOfDisintegration.class, MagicMissile.PURPLE_CONE);
-		effectTypes.put(WandOfFireblast.class,      MagicMissile.FIRE_CONE);
+		effectTypes.put(焰浪法杖.class,      MagicMissile.FIRE_CONE);
 		effectTypes.put(WandOfCorrosion.class,      MagicMissile.CORROSION_CONE);
 		effectTypes.put(WandOfBlastWave.class,      MagicMissile.FORCE_CONE);
 		effectTypes.put(WandOfLivingEarth.class,    MagicMissile.EARTH_CONE);
@@ -92,7 +92,7 @@ public class ElementalBlast extends ArmorAbility {
 		damageFactors.put(WandOfMagicMissile.class,     0.5f);
 		damageFactors.put(WandOfLightning.class,        1f);
 		damageFactors.put(WandOfDisintegration.class,   1f);
-		damageFactors.put(WandOfFireblast.class,        1f);
+		damageFactors.put(焰浪法杖.class,        1f);
 		damageFactors.put(WandOfCorrosion.class,        0f);
 		damageFactors.put(WandOfBlastWave.class,        0.67f);
 		damageFactors.put(WandOfLivingEarth.class,      0.5f);
@@ -150,7 +150,7 @@ public class ElementalBlast extends ArmorAbility {
 			projectileProps = Ballistica.STOP_TARGET;
 
 		//*** Wand of Fireblast ***
-		} else if (wandCls == WandOfFireblast.class){
+		} else if (wandCls == 焰浪法杖.class){
 			projectileProps = projectileProps | Ballistica.IGNORE_SOFT_SOLID;
 
 		//*** Wand of Warding ***
@@ -195,7 +195,7 @@ public class ElementalBlast extends ArmorAbility {
 								}
 
 							//*** Wand of Fireblast ***
-							} else if (finalWandCls == WandOfFireblast.class){
+							} else if (finalWandCls == 焰浪法杖.class){
 								if (Dungeon.level.map[cell] == Terrain.DOOR){
 									Level.set(cell, Terrain.OPEN_DOOR);
 									GameScene.updateMap(cell);
@@ -254,7 +254,7 @@ public class ElementalBlast extends ArmorAbility {
 									* damageFactors.get(finalWandCls));
 
 							if (mob != null && damage > 0 && mob.alignment != Char.Alignment.ALLY){
-								mob.damage(damage, Reflection.newInstance(finalWandCls));
+								mob.受伤时(damage, Reflection.newInstance(finalWandCls));
 								charsHit++;
 							}
 
@@ -267,7 +267,7 @@ public class ElementalBlast extends ArmorAbility {
 									}
 
 								//*** Wand of Fireblast ***
-								} else if (finalWandCls == WandOfFireblast.class){
+								} else if (finalWandCls == 焰浪法杖.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
 										Buff.施加( mob, Burning.class ).reignite( mob );
 									}
@@ -342,7 +342,7 @@ public class ElementalBlast extends ArmorAbility {
 											mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 3);
 										} else {
 											damage = Math.round(Hero.heroDamageIntRange(15, 25) * effectMulti);
-											mob.damage(damage, Reflection.newInstance(finalWandCls));
+											mob.受伤时(damage, Reflection.newInstance(finalWandCls));
 											mob.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10);
 										}
 									}

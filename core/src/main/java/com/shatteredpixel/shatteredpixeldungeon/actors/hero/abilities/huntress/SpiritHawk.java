@@ -167,8 +167,8 @@ public class SpiritHawk extends ArmorAbility {
 		}
 
 		@Override
-		public int attackProc(Char enemy, int damage) {
-			damage = super.attackProc( enemy, damage );
+		public int 攻击时(Char enemy, int damage) {
+			damage = super.攻击时( enemy, damage );
 			switch (Dungeon.hero.天赋点数(Talent.GO_FOR_THE_EYES)){
 				case 1:
 					Buff.延长( enemy, Blindness.class, 2);
@@ -194,7 +194,7 @@ public class SpiritHawk extends ArmorAbility {
 		@Override
 		protected boolean act() {
 			if (timeRemaining <= 0){
-				die(null);
+				死亡时(null);
 				Dungeon.hero.interrupt();
 				return true;
 			}
@@ -207,9 +207,9 @@ public class SpiritHawk extends ArmorAbility {
 		}
 
 		@Override
-		public void die(Object cause) {
+		public void 死亡时(Object cause) {
 			flying = false;
-			super.die(cause);
+			super.死亡时(cause);
 		}
 
 		@Override

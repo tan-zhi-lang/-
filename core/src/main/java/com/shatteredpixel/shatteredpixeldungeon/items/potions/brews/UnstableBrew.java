@@ -20,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
@@ -30,7 +30,7 @@ import java.util.HashMap;
 public class UnstableBrew extends Brew {
 
 	{
-		image = ItemSpriteSheet.BREW_UNSTABLE;
+		image = 物品表.BREW_UNSTABLE;
 	}
 
 	@Override

@@ -133,8 +133,8 @@ public class Goo extends Mob {
 	}
 
 	@Override
-	public int attackProc( Char enemy, int damage ) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage ) {
+		damage = super.攻击时( enemy, damage );
 		if (Random.Int( 3 ) == 0) {
 			Buff.施加( enemy, Ooze.class ).set( Ooze.DURATION );
 			enemy.sprite.burst( 0x000000, 5 );
@@ -240,13 +240,13 @@ public class Goo extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (!BossHealthBar.isAssigned()){
 			BossHealthBar.assignBoss( this );
 			Dungeon.level.seal();
 		}
 		boolean bleeding = (生命 *2 <= 最大生命);
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 		if ((生命 *2 <= 最大生命) && !bleeding){
 			BossHealthBar.bleed(true);
 			sprite.showStatus(CharSprite.WARNING, Messages.get(this, "enraged"));
@@ -261,9 +261,9 @@ public class Goo extends Mob {
 	}
 
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 		
-		super.die( cause );
+		super.死亡时( cause );
 		
 		Dungeon.level.unseal();
 		

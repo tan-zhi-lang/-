@@ -11,12 +11,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.InventorySlot;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -151,7 +151,7 @@ public class WndBag extends WndTabbed {
 
 		float titleWidth;
 		if (Dungeon.energy == 0) {
-			ItemSprite gold = new ItemSprite(ItemSpriteSheet.GOLD, null);
+			ItemSprite gold = new ItemSprite(物品表.GOLD, null);
 			gold.x = width - gold.width();
 			gold.y = (TITLE_HEIGHT - gold.height()) / 2f;
 			PixelScene.align(gold);
@@ -218,11 +218,11 @@ public class WndBag extends WndTabbed {
 		
 		// Equipped items
 		Belongings stuff = Dungeon.hero.belongings;
-		placeItem( stuff.weapon != null ? stuff.weapon : new Placeholder( ItemSpriteSheet.WEAPON_HOLDER ) );
-		placeItem( stuff.armor != null ? stuff.armor : new Placeholder( ItemSpriteSheet.ARMOR_HOLDER ) );
-		placeItem( stuff.artifact != null ? stuff.artifact : new Placeholder( ItemSpriteSheet.ARTIFACT_HOLDER ) );
-		placeItem( stuff.misc != null ? stuff.misc : new Placeholder( ItemSpriteSheet.SOMETHING ) );
-		placeItem( stuff.ring != null ? stuff.ring : new Placeholder( ItemSpriteSheet.RING_HOLDER ) );
+		placeItem( stuff.weapon != null ? stuff.weapon : new Placeholder( 物品表.WEAPON_HOLDER ) );
+		placeItem( stuff.armor != null ? stuff.armor : new Placeholder( 物品表.ARMOR_HOLDER ) );
+		placeItem( stuff.artifact != null ? stuff.artifact : new Placeholder( 物品表.ARTIFACT_HOLDER ) );
+		placeItem( stuff.misc != null ? stuff.misc : new Placeholder( 物品表.SOMETHING ) );
+		placeItem( stuff.ring != null ? stuff.ring : new Placeholder( 物品表.RING_HOLDER ) );
 
 		int equipped = 5;
 
@@ -380,7 +380,7 @@ public class WndBag extends WndTabbed {
 	}
 	
 	private Image icon( Bag bag ) {
-		if (bag instanceof VelvetPouch) {
+		if (bag instanceof 绒布袋) {
 			return Icons.get( Icons.SEED_POUCH );
 		} else if (bag instanceof ScrollHolder) {
 			return Icons.get( Icons.SCROLL_HOLDER );

@@ -114,7 +114,7 @@ public class CrystalSpire extends Mob {
 					} else if (ch == Dungeon.hero){
 						Statistics.questScores[2] -= 100;
 					}
-					ch.damage(dmg, new SpireSpike());
+					ch.受伤时(dmg, new SpireSpike());
 
 					int movePos = i;
 					//crystal guardians get knocked away from the hero, others get knocked away from the spire
@@ -270,11 +270,11 @@ public class CrystalSpire extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		if (!(src instanceof Pickaxe) ){
 			dmg = 0;
 		}
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 	}
 
 	@Override
@@ -305,7 +305,7 @@ public class CrystalSpire extends Mob {
 					//we pretend the spire is the owner here so that properties like hero str or or other equipment do not factor in
 					int dmg = p.damageRoll(CrystalSpire.this);
 
-					damage(dmg, p);
+					CrystalSpire.this.受伤时(dmg, p);
 					abilityCooldown -= dmg/10f;
 					sprite.bloodBurstA(Dungeon.hero.sprite.center(), dmg);
 					sprite.flash();
@@ -341,7 +341,7 @@ public class CrystalSpire extends Mob {
 						for (Char ch : Actor.chars()){
 							if (fieldOfView[ch.pos]) {
 								if (ch instanceof CrystalGuardian) {
-									ch.damage(ch.最大生命, new SpireSpike());
+									ch.受伤时(ch.最大生命, new SpireSpike());
 								}
 								if (ch instanceof CrystalWisp) {
 									Buff.施加(ch, Blindness.class, 5f);

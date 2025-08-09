@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
@@ -30,7 +30,7 @@ import java.util.Set;
 public class 蜕变秘卷 extends ExoticScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_METAMORPH;
+		icon = 物品表.Icons.SCROLL_METAMORPH;
 
 		talentFactor = 2f;
 	}

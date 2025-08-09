@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class CausticBrew extends Brew {
 	
 	{
-		image = ItemSpriteSheet.BREW_CAUSTIC;
+		image = 物品表.BREW_CAUSTIC;
 	}
 	
 	@Override

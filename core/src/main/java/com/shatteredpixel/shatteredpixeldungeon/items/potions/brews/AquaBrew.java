@@ -5,12 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.potions.brews;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfStormClouds;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class AquaBrew extends Brew {
 
 	{
-		image = ItemSpriteSheet.BREW_AQUA;
+		image = 物品表.BREW_AQUA;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

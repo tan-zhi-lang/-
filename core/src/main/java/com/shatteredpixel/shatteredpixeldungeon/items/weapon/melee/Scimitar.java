@@ -7,13 +7,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class Scimitar extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.SCIMITAR;
+		image = 物品表.SCIMITAR;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.2f;
 

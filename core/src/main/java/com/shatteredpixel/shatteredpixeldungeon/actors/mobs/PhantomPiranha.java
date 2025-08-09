@@ -28,7 +28,7 @@ public class PhantomPiranha extends Piranha {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		Char dmgSource = null;
 		if (src instanceof Char) dmgSource = (Char)src;
 		if (src instanceof Wand || src instanceof ClericSpell) dmgSource = Dungeon.hero;
@@ -36,7 +36,7 @@ public class PhantomPiranha extends Piranha {
 		if (dmgSource == null || !Dungeon.level.adjacent(pos, dmgSource.pos)){
 			dmg = Math.round(dmg/2f); //halve damage taken if we are going to teleport
 		}
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 
 		if (isAlive() && !(src instanceof Corruption)) {
 			if (dmgSource != null) {
@@ -61,8 +61,8 @@ public class PhantomPiranha extends Piranha {
 	}
 
 	@Override
-	public int defenseProc(Char enemy, int damage) {
-		return super.defenseProc(enemy, damage);
+	public int 防御时(Char enemy, int damage) {
+		return super.防御时(enemy, damage);
 	}
 
 	@Override

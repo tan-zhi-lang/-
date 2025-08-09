@@ -5,14 +5,14 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 
 public class Shuriken extends MissileWeapon {
 
 	{
-		image = ItemSpriteSheet.SHURIKEN;
+		image = 物品表.SHURIKEN;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.2f;
 		

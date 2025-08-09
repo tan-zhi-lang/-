@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ThrowingStone extends MissileWeapon {
 	
 	{
-		image = ItemSpriteSheet.THROWING_STONE;
+		image = 物品表.THROWING_STONE;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 		

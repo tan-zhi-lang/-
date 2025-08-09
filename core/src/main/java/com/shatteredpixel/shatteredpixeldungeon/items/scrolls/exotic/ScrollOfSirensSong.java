@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -23,7 +23,7 @@ import com.watabou.noosa.audio.Sample;
 public class ScrollOfSirensSong extends ExoticScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_SIREN;
+		icon = 物品表.Icons.SCROLL_SIREN;
 	}
 
 	protected static boolean identifiedByUse = false;

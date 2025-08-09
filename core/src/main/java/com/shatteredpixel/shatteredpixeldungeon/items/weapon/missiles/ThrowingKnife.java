@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ThrowingKnife extends MissileWeapon {
 	
 	{
-		image = ItemSpriteSheet.THROWING_KNIFE;
+		image = 物品表.THROWING_KNIFE;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.2f;
 		
@@ -38,7 +38,7 @@ public class ThrowingKnife extends MissileWeapon {
 				int damage = augment.damageFactor(Hero.heroDamageIntRange(
 						min() + Math.round(diff*0.75f),
 						max()));
-				int exStr = hero.力量() - STRReq();
+				int exStr = hero.力量() - 力量();
 				if (exStr > 0) {
 					damage += Hero.heroDamageIntRange(0, exStr);
 				}

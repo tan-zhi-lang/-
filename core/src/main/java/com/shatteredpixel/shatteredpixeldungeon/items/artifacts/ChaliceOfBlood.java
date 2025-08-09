@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class ChaliceOfBlood extends Artifact {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_CHALICE1;
+		image = 物品表.ARTIFACT_CHALICE1;
 
 		levelCap = 10;
 	}
@@ -104,7 +104,7 @@ public class ChaliceOfBlood extends Artifact {
 			hero.sprite.emitter().burst( ShadowParticle.CURSE, 4+(damage/10) );
 		}
 
-		hero.damage(damage, this);
+		hero.受伤时(damage, this);
 
 		if (!hero.isAlive()) {
 			Badges.validateDeathFromFriendlyMagic();
@@ -119,17 +119,17 @@ public class ChaliceOfBlood extends Artifact {
 	@Override
 	public Item 升级() {
 		if (等级() >= 6)
-			image = ItemSpriteSheet.ARTIFACT_CHALICE3;
+			image = 物品表.ARTIFACT_CHALICE3;
 		else if (等级() >= 2)
-			image = ItemSpriteSheet.ARTIFACT_CHALICE2;
+			image = 物品表.ARTIFACT_CHALICE2;
 		return super.升级();
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		if (等级() >= 7) image = ItemSpriteSheet.ARTIFACT_CHALICE3;
-		else if (等级() >= 3) image = ItemSpriteSheet.ARTIFACT_CHALICE2;
+		if (等级() >= 7) image = 物品表.ARTIFACT_CHALICE3;
+		else if (等级() >= 3) image = 物品表.ARTIFACT_CHALICE2;
 	}
 
 	@Override

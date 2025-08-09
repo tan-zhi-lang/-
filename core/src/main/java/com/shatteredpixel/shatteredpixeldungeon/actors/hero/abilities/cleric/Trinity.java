@@ -31,7 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourg
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
@@ -41,7 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ItemButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -129,7 +129,7 @@ public class Trinity extends ArmorAbility {
 					if (Dungeon.hero.belongings.weapon() != null) {
 						btnBody.icon(new ItemSprite(Dungeon.hero.belongings.weapon().image, ((Weapon.Enchantment) bodyForm).glowing()));
 					} else {
-						btnBody.icon(new ItemSprite(ItemSpriteSheet.WORN_SHORTSWORD, ((Weapon.Enchantment) bodyForm).glowing()));
+						btnBody.icon(new ItemSprite(物品表.WORN_SHORTSWORD, ((Weapon.Enchantment) bodyForm).glowing()));
 					}
 				} else if (bodyForm instanceof Armor.Glyph){
 					btnBody = new RedButton(Messages.get(WndUseTrinity.class, "body",
@@ -163,7 +163,7 @@ public class Trinity extends ArmorAbility {
 					if (Dungeon.hero.belongings.armor() != null) {
 						btnBody.icon(new ItemSprite(Dungeon.hero.belongings.armor().image, ((Armor.Glyph) bodyForm).glowing()));
 					} else {
-						btnBody.icon(new ItemSprite(ItemSpriteSheet.ARMOR_CLOTH, ((Armor.Glyph) bodyForm).glowing()));
+						btnBody.icon(new ItemSprite(物品表.ARMOR_CLOTH, ((Armor.Glyph) bodyForm).glowing()));
 					}
 				}
 				btnBody.multiline = true;
@@ -488,7 +488,7 @@ public class Trinity extends ArmorAbility {
 			return Messages.get(Trinity.class, "thrown_use", MindForm.itemLevel(), Messages.decimalFormat("#.##", chargeUse));
 		}
 		if (Wand.class.isAssignableFrom(cls)){
-			if (cls.equals(WandOfFireblast.class) || cls.equals(WandOfRegrowth.class)){
+			if (cls.equals(焰浪法杖.class) || cls.equals(WandOfRegrowth.class)){
 				return Messages.get(Trinity.class, "wand_multi_use", MindForm.itemLevel(), Messages.decimalFormat("#.##", chargeUse));
 			}
 			return Messages.get(Trinity.class, "wand_use", MindForm.itemLevel(), Messages.decimalFormat("#.##", chargeUse));
@@ -517,7 +517,7 @@ public class Trinity extends ArmorAbility {
 				}
 			}
 		}
-		if (cls.equals(WandOfFireblast.class) || cls.equals(WandOfRegrowth.class)){
+		if (cls.equals(焰浪法杖.class) || cls.equals(WandOfRegrowth.class)){
 			return 2*chargeUse;
 		}
 		if (Artifact.class.isAssignableFrom(cls)){

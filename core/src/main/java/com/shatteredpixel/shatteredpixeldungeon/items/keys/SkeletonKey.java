@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndSupportPrompt;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Callback;
@@ -16,7 +16,7 @@ import java.io.IOException;
 public class SkeletonKey extends Key {
 	
 	{
-		image = ItemSpriteSheet.SKELETON_KEY;
+		image = 物品表.SKELETON_KEY;
 	}
 	
 	public SkeletonKey() {

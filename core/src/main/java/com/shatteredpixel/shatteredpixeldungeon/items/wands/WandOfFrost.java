@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
@@ -25,7 +25,7 @@ import com.watabou.utils.Random;
 public class WandOfFrost extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_FROST;
+		image = 物品表.WAND_FROST;
 	}
 
 	public int min(int lvl){
@@ -76,7 +76,7 @@ public class WandOfFrost extends DamageWand {
 			}
 
 			wandProc(ch, chargesPerCast());
-			ch.damage(damage, this);
+			ch.受伤时(damage, this);
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 1.1f * Random.Float(0.87f, 1.15f) );
 
 			if (ch.isAlive()){

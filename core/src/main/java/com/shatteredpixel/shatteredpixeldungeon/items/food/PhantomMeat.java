@@ -10,12 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class PhantomMeat extends Food {
 
 	{
-		image = ItemSpriteSheet.PHANTOM_MEAT;
+		image = 物品表.PHANTOM_MEAT;
 		energy = Hunger.STARVING;
 	}
 

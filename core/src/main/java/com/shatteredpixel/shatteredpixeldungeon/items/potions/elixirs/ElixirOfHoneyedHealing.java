@@ -13,13 +13,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bee;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
 public class ElixirOfHoneyedHealing extends Elixir {
 	
 	{
-		image = ItemSpriteSheet.ELIXIR_HONEY;
+		image = 物品表.ELIXIR_HONEY;
 	}
 	
 	@Override

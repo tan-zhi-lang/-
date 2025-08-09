@@ -137,7 +137,7 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 				if (defender.isAlive() && !becameAlly) {
 					int dmg = ((Hero) attacker).subClass == HeroSubClass.PALADIN ? 6 : 2;
-					defender.damage(Math.round(dmg * Enchantment.genericProcChanceMultiplier(attacker)), HolyWeapon.INSTANCE);
+					defender.受伤时(Math.round(dmg * Enchantment.genericProcChanceMultiplier(attacker)), HolyWeapon.INSTANCE);
 				}
 
 			} else {
@@ -155,7 +155,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 			if (attacker instanceof Hero && isEquipped((Hero) attacker) &&
 					attacker.buff(Smite.SmiteTracker.class) != null && !becameAlly){
-				defender.damage(Smite.bonusDmg((Hero) attacker, defender), Smite.INSTANCE);
+				defender.受伤时(Smite.bonusDmg((Hero) attacker, defender), Smite.INSTANCE);
 			}
 		}
 
@@ -273,7 +273,7 @@ abstract public class Weapon extends KindOfWeapon {
 		int encumbrance = 0;
 		
 		if( owner instanceof Hero ){
-			encumbrance = STRReq() - ((Hero)owner).力量();
+			encumbrance = 力量() - ((Hero)owner).力量();
 		}
 
 		float ACC = this.ACC;
@@ -293,7 +293,7 @@ abstract public class Weapon extends KindOfWeapon {
 	protected float baseDelay( Char owner ){
 		float delay = augment.delayFactor(this.DLY);
 		if (owner instanceof Hero) {
-			int encumbrance = STRReq() - ((Hero)owner).力量();
+			int encumbrance = 力量() - ((Hero)owner).力量();
 			if (encumbrance > 0){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
@@ -331,13 +331,13 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 	}
 
-	public int STRReq(){
-		return STRReq(等级());
+	public int 力量(){
+		return 力量(等级());
 	}
 
-	public abstract int STRReq(int lvl);
+	public abstract int 力量(int lvl);
 
-	protected static int STRReq(int tier, int lvl){
+	protected static int 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
 
 		//strength req decreases at +1,+3,+6,+10,etc.

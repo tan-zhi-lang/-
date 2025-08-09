@@ -39,18 +39,18 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		//TODO: when effect properties are done, change this to FIRE
 		if (src instanceof Burning) {
 			destroy();
 			sprite.die();
 		} else {
-			super.damage(dmg, src);
+			super.受伤时(dmg, src);
 		}
 	}
 
 	@Override
-	public int defenseProc(Char enemy, int damage) {
+	public int 防御时(Char enemy, int damage) {
 		//rot heart spreads less gas in enclosed spaces
 		int openNearby = 0;
 		for (int i : PathFinder.NEIGHBOURS8){
@@ -61,7 +61,7 @@ public class RotHeart extends Mob {
 
 		GameScene.add(Blob.seed(pos, 5 + 3*openNearby, ToxicGas.class));
 
-		return super.defenseProc(enemy, damage);
+		return super.防御时(enemy, damage);
 	}
 
 	@Override
@@ -80,15 +80,15 @@ public class RotHeart extends Mob {
 		Bestiary.skipCountingEncounters = true;
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[Dungeon.level.mobs.size()])){
 			if (mob instanceof RotLasher){
-				mob.die(null);
+				mob.死亡时(null);
 			}
 		}
 		Bestiary.skipCountingEncounters = false;
 	}
 
 	@Override
-	public void die(Object cause) {
-		super.die(cause);
+	public void 死亡时(Object cause) {
+		super.死亡时(cause);
 		Dungeon.level.drop( new Rotberry.Seed(), pos ).sprite.drop();
 		//assign score here as player may choose to keep the rotberry seed
 		Statistics.questScores[1] += 2000;

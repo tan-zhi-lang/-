@@ -202,9 +202,9 @@ public class YogDzewa extends Mob {
 
 					if (hit( this, ch, true )) {
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
-							ch.damage(Random.NormalIntRange(30, 50), new Eye.DeathGaze());
+							ch.受伤时(Random.NormalIntRange(30, 50), new Eye.DeathGaze());
 						} else {
-							ch.damage(Random.NormalIntRange(20, 30), new Eye.DeathGaze());
+							ch.受伤时(Random.NormalIntRange(20, 30), new Eye.DeathGaze());
 						}
 						if (Dungeon.level.heroFOV[pos]) {
 							ch.sprite.flash();
@@ -295,7 +295,7 @@ public class YogDzewa extends Mob {
 						}
 					}
 					if (spawnPos != -1){
-						Actor.findChar(spawnPos).die(null);
+						Actor.findChar(spawnPos).死亡时(null);
 					}
 				}
 
@@ -365,10 +365,10 @@ public class YogDzewa extends Mob {
 	}
 
 	@Override
-	public void damage( int dmg, Object src ) {
+	public void 受伤时(int dmg, Object src ) {
 
 		int preHP = 生命;
-		super.damage( dmg, src );
+		super.受伤时( dmg, src );
 
 		if (phase == 0 || findFist() != null) return;
 
@@ -439,7 +439,7 @@ public class YogDzewa extends Mob {
 		}
 
 		if (Actor.findChar(fist.pos) instanceof Sheep){
-			Actor.findChar(fist.pos).die(null);
+			Actor.findChar(fist.pos).死亡时(null);
 		}
 
 		GameScene.add(fist, 4);
@@ -496,12 +496,12 @@ public class YogDzewa extends Mob {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void die( Object cause ) {
+	public void 死亡时(Object cause ) {
 
 		Bestiary.skipCountingEncounters = true;
 		for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
 			if (mob instanceof Larva || mob instanceof YogRipper || mob instanceof YogEye || mob instanceof YogScorpio) {
-				mob.die( cause );
+				mob.死亡时( cause );
 			}
 		}
 		Bestiary.skipCountingEncounters = false;
@@ -520,7 +520,7 @@ public class YogDzewa extends Mob {
 		Badges.validateTakingTheMick(cause);
 
 		Dungeon.level.unseal();
-		super.die( cause );
+		super.死亡时( cause );
 
 		yell( Messages.get(this, "defeated") );
 	}

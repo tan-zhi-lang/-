@@ -3,13 +3,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
 
 public class ThirteenLeafClover extends Trinket {
 
 	{
-		image = ItemSpriteSheet.CLOVER;
+		image = 物品表.CLOVER;
 	}
 
 	@Override

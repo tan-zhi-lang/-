@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
@@ -85,7 +85,7 @@ public class AmuletScene extends PixelScene {
 						false);
 			}
 		};
-		btnExit.icon(new ItemSprite(ItemSpriteSheet.AMULET));
+		btnExit.icon(new ItemSprite(物品表.AMULET));
 		btnExit.setSize( WIDTH, BTN_HEIGHT );
 		add( btnExit );
 		

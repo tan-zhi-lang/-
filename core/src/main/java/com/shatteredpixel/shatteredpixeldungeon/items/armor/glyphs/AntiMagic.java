@@ -33,7 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsi
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFireblast;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -86,7 +86,7 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( CursedWand.class );
 		RESISTS.add( WandOfBlastWave.class );
 		RESISTS.add( WandOfDisintegration.class );
-		RESISTS.add( WandOfFireblast.class );
+		RESISTS.add( 焰浪法杖.class );
 		RESISTS.add( WandOfFrost.class );
 		RESISTS.add( WandOfLightning.class );
 		RESISTS.add( WandOfLivingEarth.class );
@@ -97,7 +97,7 @@ public class AntiMagic extends Armor.Glyph {
 
 		RESISTS.add( ElementalStrike.class );
 		RESISTS.add( Blazing.class );
-		RESISTS.add( WandOfFireblast.FireBlastOnHit.class );
+		RESISTS.add( 焰浪法杖.FireBlastOnHit.class );
 		RESISTS.add( Shocking.class );
 		RESISTS.add( WandOfLightning.LightningOnHit.class );
 		RESISTS.add( Grim.class );

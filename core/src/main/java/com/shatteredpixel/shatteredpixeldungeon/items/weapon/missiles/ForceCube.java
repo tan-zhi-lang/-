@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class ForceCube extends MissileWeapon {
 	
 	{
-		image = ItemSpriteSheet.FORCE_CUBE;
+		image = 物品表.FORCE_CUBE;
 		
 		tier = 5;
 		baseUses = 5;

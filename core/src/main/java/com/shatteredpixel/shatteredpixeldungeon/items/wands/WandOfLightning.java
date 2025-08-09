@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 public class WandOfLightning extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_LIGHTNING;
+		image = 物品表.WAND_LIGHTNING;
 	}
 	
 	private ArrayList<Char> affected = new ArrayList<>();
@@ -72,14 +72,14 @@ public class WandOfLightning extends DamageWand {
 
 			wandProc(ch, chargesPerCast());
 			if (ch == curUser && ch.isAlive()) {
-				ch.damage(Math.round(damageRoll() * multiplier * 0.5f), this);
+				ch.受伤时(Math.round(damageRoll() * multiplier * 0.5f), this);
 				if (!curUser.isAlive()) {
 					Badges.validateDeathFromFriendlyMagic();
 					Dungeon.fail( this );
 					GLog.n(Messages.get(this, "ondeath"));
 				}
 			} else {
-				ch.damage(Math.round(damageRoll() * multiplier), this);
+				ch.受伤时(Math.round(damageRoll() * multiplier), this);
 			}
 		}
 	}

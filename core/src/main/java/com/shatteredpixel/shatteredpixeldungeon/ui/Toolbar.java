@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTerrainTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
@@ -113,7 +113,7 @@ public class Toolbar extends Component {
 							slotIcons[i] = new ItemSprite(item);
 						} else {
 							slotNames[i] = Messages.get(Toolbar.class, "quickslot_assign");
-							slotIcons[i] = new ItemSprite(ItemSpriteSheet.SOMETHING);
+							slotIcons[i] = new ItemSprite(物品表.SOMETHING);
 						}
 					}
 

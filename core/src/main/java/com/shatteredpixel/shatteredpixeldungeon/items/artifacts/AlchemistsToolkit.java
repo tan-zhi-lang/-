@@ -7,13 +7,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Game;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class AlchemistsToolkit extends Artifact {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_TOOLKIT;
+		image = 物品表.ARTIFACT_TOOLKIT;
 		defaultAction = AC_BREW;
 
 		levelCap = 10;
@@ -116,7 +116,7 @@ public class AlchemistsToolkit extends Artifact {
 
 					@Override
 					protected Image getIcon(int index) {
-						return new ItemSprite(ItemSpriteSheet.ENERGY);
+						return new ItemSprite(物品表.ENERGY);
 					}
 				});
 			}
@@ -226,7 +226,7 @@ public class AlchemistsToolkit extends Artifact {
 			//to a max of 12 energy per hero level
 			//This means that energy absorbed into the kit is recovered in 5 hero levels
 			float chargeGain = (2 + 等级()) * levelPortion;
-			chargeGain *= RingOfEnergy.artifactChargeMultiplier(target);
+			chargeGain *= 能量之戒.artifactChargeMultiplier(target);
 			partialCharge += chargeGain;
 
 			//charge is in increments of 1 energy.

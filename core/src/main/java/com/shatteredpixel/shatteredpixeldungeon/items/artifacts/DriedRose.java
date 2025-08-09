@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -43,7 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ItemButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -66,7 +66,7 @@ import java.util.ArrayList;
 public class DriedRose extends Artifact {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_ROSE1;
+		image = 物品表.ARTIFACT_ROSE1;
 
 		levelCap = 10;
 
@@ -317,9 +317,9 @@ public class DriedRose extends Artifact {
 	@Override
 	public Item 升级() {
 		if (等级() >= 9)
-			image = ItemSpriteSheet.ARTIFACT_ROSE3;
+			image = 物品表.ARTIFACT_ROSE3;
 		else if (等级() >= 4)
-			image = ItemSpriteSheet.ARTIFACT_ROSE2;
+			image = 物品表.ARTIFACT_ROSE2;
 
 		//For upgrade transferring via well of transmutation
 		droppedPetals = Math.max( 等级(), droppedPetals );
@@ -393,7 +393,7 @@ public class DriedRose extends Artifact {
 				
 				//heals to full over 500 turns
 				if (ghost.生命 < ghost.最大生命 && Regeneration.regenOn()) {
-					partialCharge += (ghost.最大生命 / 500f) * RingOfEnergy.artifactChargeMultiplier(target);
+					partialCharge += (ghost.最大生命 / 500f) * 能量之戒.artifactChargeMultiplier(target);
 					updateQuickslot();
 					
 					while (partialCharge > 1) {
@@ -412,7 +412,7 @@ public class DriedRose extends Artifact {
 					&& target.buff(MagicImmune.class) == null
 					&& Regeneration.regenOn()) {
 				//500 turns to a full charge
-				partialCharge += (1/5f * RingOfEnergy.artifactChargeMultiplier(target));
+				partialCharge += (1/5f * 能量之戒.artifactChargeMultiplier(target));
 				while (partialCharge > 1){
 					charge++;
 					partialCharge--;
@@ -469,7 +469,7 @@ public class DriedRose extends Artifact {
 			stackable = true;
 			dropsDownHeap = true;
 			
-			image = ItemSpriteSheet.PETAL;
+			image = 物品表.PETAL;
 		}
 
 		@Override
@@ -585,7 +585,7 @@ public class DriedRose extends Artifact {
 			if (rose == null
 					|| !rose.isEquipped(Dungeon.hero)
 					|| Dungeon.hero.buff(MagicImmune.class) != null){
-				damage(1, new NoRoseDamage());
+				this.受伤时(1, new NoRoseDamage());
 			}
 			
 			if (!isAlive()) {
@@ -636,8 +636,8 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int attackProc(Char enemy, int damage) {
-			damage = super.attackProc(enemy, damage);
+		public int 攻击时(Char enemy, int damage) {
+			damage = super.攻击时(enemy, damage);
 
 			if (weapon() != null) {
 				damage = weapon().攻击时(this, enemy, damage);
@@ -651,16 +651,16 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int defenseProc(Char enemy, int damage) {
+		public int 防御时(Char enemy, int damage) {
 			if (armor() != null) {
 				damage = armor().proc( enemy, this, damage );
 			}
-			return super.defenseProc(enemy, damage);
+			return super.防御时(enemy, damage);
 		}
 		
 		@Override
-		public void damage(int dmg, Object src) {
-			super.damage( dmg, src );
+		public void 受伤时(int dmg, Object src) {
+			super.受伤时( dmg, src );
 			
 			//for the rose status indicator
 			Item.updateQuickslot();
@@ -695,7 +695,7 @@ public class DriedRose extends Artifact {
 		public int drRoll() {
 			int dr = super.drRoll();
 			if (armor() != null){
-				dr += Random.NormalIntRange( armor().DRMin(), armor().DRMax());
+				dr += Random.NormalIntRange( armor().最小防御(), armor().最大防御());
 			}
 			if (weapon() != null){
 				dr += Random.NormalIntRange( 0, weapon().defenseFactor( this ));
@@ -730,9 +730,9 @@ public class DriedRose extends Artifact {
 		}
 
 		@Override
-		public void die(Object cause) {
+		public void 死亡时(Object cause) {
 			sayDefeated();
-			super.die(cause);
+			super.死亡时(cause);
 		}
 
 		@Override
@@ -864,7 +864,7 @@ public class DriedRose extends Artifact {
 				@Override
 				protected void onClick() {
 					if (rose.weapon != null){
-						item(new WndBag.Placeholder(ItemSpriteSheet.WEAPON_HOLDER));
+						item(new WndBag.Placeholder(物品表.WEAPON_HOLDER));
 						if (!rose.weapon.doPickUp(Dungeon.hero)){
 							Dungeon.level.drop( rose.weapon, Dungeon.hero.pos);
 						}
@@ -897,10 +897,10 @@ public class DriedRose extends Artifact {
 								} else if (item.cursed || !item.cursedKnown) {
 									GLog.w(Messages.get(WndGhostHero.class, "cant_cursed"));
 									hide();
-								}  else if (!item.levelKnown && ((MeleeWeapon)item).STRReq(0) > rose.ghostStrength()){
+								}  else if (!item.levelKnown && ((MeleeWeapon)item).力量(0) > rose.ghostStrength()){
 									GLog.w( Messages.get(WndGhostHero.class, "cant_strength_unknown"));
 									hide();
-								} else if (((MeleeWeapon)item).STRReq() > rose.ghostStrength()) {
+								} else if (((MeleeWeapon)item).力量() > rose.ghostStrength()) {
 									GLog.w( Messages.get(WndGhostHero.class, "cant_strength"));
 									hide();
 								} else {
@@ -931,7 +931,7 @@ public class DriedRose extends Artifact {
 			if (rose.weapon != null) {
 				btnWeapon.item(rose.weapon);
 			} else {
-				btnWeapon.item(new WndBag.Placeholder(ItemSpriteSheet.WEAPON_HOLDER));
+				btnWeapon.item(new WndBag.Placeholder(物品表.WEAPON_HOLDER));
 			}
 			add( btnWeapon );
 			
@@ -939,7 +939,7 @@ public class DriedRose extends Artifact {
 				@Override
 				protected void onClick() {
 					if (rose.armor != null){
-						item(new WndBag.Placeholder(ItemSpriteSheet.ARMOR_HOLDER));
+						item(new WndBag.Placeholder(物品表.ARMOR_HOLDER));
 						if (!rose.armor.doPickUp(Dungeon.hero)){
 							Dungeon.level.drop( rose.armor, Dungeon.hero.pos);
 						}
@@ -972,10 +972,10 @@ public class DriedRose extends Artifact {
 								} else if (item.cursed || !item.cursedKnown) {
 									GLog.w(Messages.get(WndGhostHero.class, "cant_cursed"));
 									hide();
-								}  else if (!item.levelKnown && ((Armor)item).STRReq(0) > rose.ghostStrength()){
+								}  else if (!item.levelKnown && ((Armor)item).力量(0) > rose.ghostStrength()){
 									GLog.w( Messages.get(WndGhostHero.class, "cant_strength_unknown"));
 									hide();
-								} else if (((Armor)item).STRReq() > rose.ghostStrength()) {
+								} else if (((Armor)item).力量() > rose.ghostStrength()) {
 									GLog.w( Messages.get(WndGhostHero.class, "cant_strength"));
 									hide();
 								} else {
@@ -1006,7 +1006,7 @@ public class DriedRose extends Artifact {
 			if (rose.armor != null) {
 				btnArmor.item(rose.armor);
 			} else {
-				btnArmor.item(new WndBag.Placeholder(ItemSpriteSheet.ARMOR_HOLDER));
+				btnArmor.item(new WndBag.Placeholder(物品表.ARMOR_HOLDER));
 			}
 			add( btnArmor );
 			

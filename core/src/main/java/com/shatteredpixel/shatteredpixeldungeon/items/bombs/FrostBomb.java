@@ -10,14 +10,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 public class FrostBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.FROST_BOMB;
+		image = 物品表.FROST_BOMB;
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -34,7 +34,7 @@ public class Belongings implements Iterable<Item> {
 
 	public static class Backpack extends Bag {
 		{
-			image = ItemSpriteSheet.BACKPACK;
+			image = 物品表.BACKPACK;
 		}
 		public int capacity(){
 			int cap = super.capacity();

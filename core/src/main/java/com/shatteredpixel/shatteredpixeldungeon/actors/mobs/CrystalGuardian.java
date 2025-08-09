@@ -119,7 +119,7 @@ public class CrystalGuardian extends Mob{
 	}
 
 	@Override
-	public int defenseProc(Char enemy, int damage) {
+	public int 防御时(Char enemy, int damage) {
 		if (recovering){
 			//this triggers before blocking, so the dmg as block-bypassing
 			sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(damage), FloatingText.PHYS_DMG_NO_BLOCK);
@@ -127,7 +127,7 @@ public class CrystalGuardian extends Mob{
 			damage = -1;
 		}
 
-		return super.defenseProc(enemy, damage);
+		return super.防御时(enemy, damage);
 	}
 
 	@Override

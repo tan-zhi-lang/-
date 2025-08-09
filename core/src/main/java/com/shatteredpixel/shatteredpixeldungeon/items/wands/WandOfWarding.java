@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WardSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
@@ -38,7 +38,7 @@ import com.watabou.utils.Random;
 public class WandOfWarding extends Wand {
 
 	{
-		image = ItemSpriteSheet.WAND_WARDING;
+		image = 物品表.WAND_WARDING;
 		usesTargeting = false; //player usually targets wards or spaces, not enemies
 	}
 
@@ -355,7 +355,7 @@ public class WandOfWarding extends Wand {
 			//always hits
 			int dmg = Hero.heroDamageIntRange( 2 + wandLevel, 8 + 4*wandLevel );
 			Char enemy = this.enemy;
-			enemy.damage( dmg, this );
+			enemy.受伤时( dmg, this );
 			if (enemy.isAlive()){
 				Wand.wandProc(enemy, wandLevel, 1);
 			}
@@ -370,17 +370,17 @@ public class WandOfWarding extends Wand {
 			switch(tier){
 				case 1: case 2: case 3: default:
 					if (totalZaps >= (2*tier-1)){
-						die(this);
+						死亡时(this);
 					}
 					break;
 				case 4:
-					damage(5, this);
+					受伤时(5, this);
 					break;
 				case 5:
-					damage(6, this);
+					受伤时(6, this);
 					break;
 				case 6:
-					damage(7, this);
+					受伤时(7, this);
 					break;
 			}
 		}
@@ -442,7 +442,7 @@ public class WandOfWarding extends Wand {
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								die(null);
+								死亡时(null);
 							}
 						}
 					});

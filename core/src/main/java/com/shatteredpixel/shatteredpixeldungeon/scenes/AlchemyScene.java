@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Button;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
@@ -412,7 +412,7 @@ public class AlchemyScene extends PixelScene {
 		energyLeft.hardlight(0x44CCFF);
 		add(energyLeft);
 
-		energyIcon = new ItemSprite( toolkit != null ? ItemSpriteSheet.ARTIFACT_TOOLKIT : ItemSpriteSheet.ENERGY);
+		energyIcon = new ItemSprite( toolkit != null ? 物品表.ARTIFACT_TOOLKIT : 物品表.ENERGY);
 		energyIcon.x = energyLeft.left() - energyIcon.width();
 		energyIcon.y = energyLeft.top() - (energyIcon.height() - energyLeft.height())/2;
 		align(energyIcon);
@@ -500,7 +500,7 @@ public class AlchemyScene extends PixelScene {
 				return Messages.titleCase(Document.ALCHEMY_GUIDE.title());
 			}
 		};
-		btnGuide.icon(new ItemSprite(ItemSpriteSheet.ALCH_PAGE));
+		btnGuide.icon(new ItemSprite(物品表.ALCH_PAGE));
 		btnGuide.setSize(btnGuide.reqWidth()+4, 18);
 		btnGuide.setPos(centerW - btnGuide.width()/2f, energyAdd.top()- btnGuide.height()-2);
 		align(btnGuide);
@@ -1041,7 +1041,7 @@ public class AlchemyScene extends PixelScene {
 		public void item( Item item ) {
 			if (item == null){
 				this.item = null;
-				slot.item(new WndBag.Placeholder(ItemSpriteSheet.SOMETHING));
+				slot.item(new WndBag.Placeholder(物品表.SOMETHING));
 			} else {
 				slot.item(this.item = item);
 			}

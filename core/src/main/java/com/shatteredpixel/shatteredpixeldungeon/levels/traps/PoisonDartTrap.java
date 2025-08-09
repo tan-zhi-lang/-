@@ -93,7 +93,7 @@ public class PoisonDartTrap extends Trap {
 									@Override
 									public void call() {
 										int dmg = Random.NormalIntRange(4, 8) - finalTarget.drRoll();
-										finalTarget.damage(dmg, PoisonDartTrap.this);
+										finalTarget.受伤时(dmg, PoisonDartTrap.this);
 										if (finalTarget == Dungeon.hero){
 											//for the poison dart traps in the Tengu fight
 											if (Dungeon.depth == 10) {
@@ -115,7 +115,7 @@ public class PoisonDartTrap extends Trap {
 								});
 						return false;
 					} else {
-						finalTarget.damage(Random.NormalIntRange(4, 8) - finalTarget.drRoll(), PoisonDartTrap.this);
+						finalTarget.受伤时(Random.NormalIntRange(4, 8) - finalTarget.drRoll(), PoisonDartTrap.this);
 						Buff.施加( finalTarget, Poison.class ).set( poisonAmount() );
 						return true;
 					}

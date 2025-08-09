@@ -36,7 +36,7 @@ public class Slime extends Mob {
 	}
 	
 	@Override
-	public void damage(int dmg, Object src) {
+	public void 受伤时(int dmg, Object src) {
 		float scaleFactor = AscensionChallenge.statModifier(this);
 		int scaledDmg = Math.round(dmg/scaleFactor);
 		if (scaledDmg >= 5){
@@ -44,7 +44,7 @@ public class Slime extends Mob {
 			scaledDmg = 4 + (int)(Math.sqrt(8*(scaledDmg - 4) + 1) - 1)/2;
 		}
 		dmg = (int)(scaledDmg*AscensionChallenge.statModifier(this));
-		super.damage(dmg, src);
+		super.受伤时(dmg, src);
 	}
 
 	@Override

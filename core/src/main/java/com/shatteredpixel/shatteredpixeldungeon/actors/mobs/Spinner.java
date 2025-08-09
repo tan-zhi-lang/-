@@ -98,8 +98,8 @@ public class Spinner extends Mob {
 	}
 
 	@Override
-	public int attackProc(Char enemy, int damage) {
-		damage = super.attackProc( enemy, damage );
+	public int 攻击时(Char enemy, int damage) {
+		damage = super.攻击时( enemy, damage );
 		if (Random.Int(2) == 0) {
 			int duration = Random.IntRange(7, 8);
 			//we only use half the ascension modifier here as total poison dmg doesn't scale linearly

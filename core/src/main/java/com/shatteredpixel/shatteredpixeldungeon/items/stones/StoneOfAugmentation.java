@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -23,7 +23,7 @@ public class StoneOfAugmentation extends InventoryStone {
 	
 	{
 		preferredBag = Belongings.Backpack.class;
-		image = ItemSpriteSheet.STONE_AUGMENTATION;
+		image = 物品表.STONE_AUGMENTATION;
 	}
 
 	@Override

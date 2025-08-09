@@ -9,12 +9,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class Berry extends Food {
 
 	{
-		image = ItemSpriteSheet.BERRY;
+		image = 物品表.BERRY;
 		energy = Hunger.HUNGRY/3f; //100 food value
 
 		bones = false;

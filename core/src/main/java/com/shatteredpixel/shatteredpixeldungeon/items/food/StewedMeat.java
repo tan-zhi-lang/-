@@ -4,12 +4,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class StewedMeat extends Food {
 	
 	{
-		image = ItemSpriteSheet.STEWED;
+		image = 物品表.STEWED;
 		energy = Hunger.HUNGRY/2f;
 	}
 	

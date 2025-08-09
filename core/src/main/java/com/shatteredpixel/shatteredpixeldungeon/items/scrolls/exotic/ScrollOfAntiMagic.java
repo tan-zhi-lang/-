@@ -5,12 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ScrollOfAntiMagic extends ExoticScroll {
 	
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_ANTIMAGIC;
+		icon = 物品表.Icons.SCROLL_ANTIMAGIC;
 	}
 	
 	@Override

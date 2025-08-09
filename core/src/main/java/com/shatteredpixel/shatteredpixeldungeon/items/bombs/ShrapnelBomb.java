@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class ShrapnelBomb extends Bomb {
 	
 	{
-		image = ItemSpriteSheet.SHRAPNEL_BOMB;
+		image = 物品表.SHRAPNEL_BOMB;
 	}
 	
 	@Override
@@ -56,7 +56,7 @@ public class ShrapnelBomb extends Bomb {
 			//regular bomb damage over an FOV up to 8-range
 			int damage = Random.NormalIntRange( 4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth() );
 			damage -= ch.drRoll();
-			ch.damage(damage, this);
+			ch.受伤时(damage, this);
 			if (ch == Dungeon.hero && !ch.isAlive()) {
 				Dungeon.fail(this);
 			}

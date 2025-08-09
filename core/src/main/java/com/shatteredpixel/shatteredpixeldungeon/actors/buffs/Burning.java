@@ -86,7 +86,7 @@ public class Burning extends Buff implements Hero.Doom {
 				
 				Hero hero = (Hero)target;
 
-				hero.damage( damage, this );
+				hero.受伤时( damage, this );
 				burnIncrement++;
 
 				//at 4+ turns, there is a (turns-3)/3 chance an item burns
@@ -117,7 +117,7 @@ public class Burning extends Buff implements Hero.Doom {
 				}
 				
 			} else {
-				target.damage( damage, this );
+				target.受伤时( damage, this );
 			}
 
 			if (target instanceof Thief && ((Thief) target).item != null) {

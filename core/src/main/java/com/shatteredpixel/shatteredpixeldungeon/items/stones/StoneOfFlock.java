@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class StoneOfFlock extends Runestone {
 	
 	{
-		image = ItemSpriteSheet.STONE_FLOCK;
+		image = 物品表.STONE_FLOCK;
 	}
 	
 	@Override

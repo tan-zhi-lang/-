@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class SaltCube extends Trinket {
 
 	{
-		image = ItemSpriteSheet.SALT_CUBE;
+		image = 物品表.SALT_CUBE;
 	}
 
 	@Override

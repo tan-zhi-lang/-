@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public abstract class Trinket extends Item {
 	public static class PlaceHolder extends Trinket {
 
 		{
-			image = ItemSpriteSheet.TRINKET_HOLDER;
+			image = 物品表.TRINKET_HOLDER;
 		}
 
 		@Override

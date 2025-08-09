@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.stones;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class StoneOfBlast extends Runestone {
 	
 	{
-		image = ItemSpriteSheet.STONE_BLAST;
+		image = 物品表.STONE_BLAST;
 	}
 	
 	@Override

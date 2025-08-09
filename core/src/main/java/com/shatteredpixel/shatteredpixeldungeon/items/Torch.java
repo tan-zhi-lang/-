@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 
@@ -21,7 +21,7 @@ public class Torch extends Item {
 	public static final float TIME_TO_LIGHT = 1;
 	
 	{
-		image = ItemSpriteSheet.TORCH;
+		image = 物品表.TORCH;
 		
 		stackable = true;
 		

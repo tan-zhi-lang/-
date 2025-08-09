@@ -131,7 +131,7 @@ public class Artifact extends KindofMisc {
 	public static void artifactProc(Char target, int artifLevel, int chargesUsed){
 		if (Dungeon.hero.subClass == HeroSubClass.PRIEST && target.buff(GuidingLight.Illuminated.class) != null) {
 			target.buff(GuidingLight.Illuminated.class).detach();
-			target.damage(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
+			target.受伤时(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
 		}
 
 		if (target.alignment != Char.Alignment.ALLY

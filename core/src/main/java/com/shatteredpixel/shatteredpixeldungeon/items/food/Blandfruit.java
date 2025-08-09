@@ -26,7 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant.Seed;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
 import com.watabou.utils.Bundle;
@@ -41,7 +41,7 @@ public class Blandfruit extends Food {
 
 	{
 		stackable = true;
-		image = ItemSpriteSheet.BLANDFRUIT;
+		image = 物品表.BLANDFRUIT;
 
 		//only applies when blandfruit is cooked
 		energy = Hunger.STARVING;
@@ -149,7 +149,7 @@ public class Blandfruit extends Food {
 		potionAttrib = potion;
 		potionAttrib.anonymize();
 
-		potionAttrib.image = ItemSpriteSheet.BLANDFRUIT;
+		potionAttrib.image = 物品表.BLANDFRUIT;
 
 		if (potionAttrib instanceof PotionOfHealing)        potionGlow = new ItemSprite.Glowing( 0x2EE62E );
 		if (potionAttrib instanceof PotionOfStrength)       potionGlow = new ItemSprite.Glowing( 0xCC0022 );
@@ -280,7 +280,7 @@ public class Blandfruit extends Food {
 
 		{
 			stackable = true;
-			image = ItemSpriteSheet.BLAND_CHUNKS;
+			image = 物品表.BLAND_CHUNKS;
 
 			energy = Hunger.STARVING;
 

@@ -6,12 +6,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class Bolas extends MissileWeapon {
 	
 	{
-		image = ItemSpriteSheet.BOLAS;
+		image = 物品表.BOLAS;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1f;
 		

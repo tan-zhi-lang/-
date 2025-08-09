@@ -470,7 +470,7 @@ public class CursedWand {
 				toHeal.sprite.emitter().burst(Speck.factory(Speck.HEALING), 3);
 				toHeal.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(damage/2), FloatingText.HEALING );
 
-				toDamage.damage(damage, new CursedWand());
+				toDamage.受伤时(damage, new CursedWand());
 				toDamage.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10);
 
 				if (toDamage == Dungeon.hero){
@@ -556,7 +556,7 @@ public class CursedWand {
 				//does not harm allies if positive only
 				if (ch.alignment != Char.Alignment.ALLY || !positiveOnly){
 					//shocking dart damage and a little stun
-					ch.damage(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
+					ch.受伤时(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
 					if (ch.isAlive()) {
 						Buff.施加(ch, Paralysis.class, Paralysis.DURATION / 2f);
 					} else if (ch == Dungeon.hero){
@@ -797,7 +797,7 @@ public class CursedWand {
 						Burning burning = Buff.施加(ch, Burning.class);
 						burning.reignite(ch);
 						int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth()*2);
-						ch.damage(dmg, burning);
+						ch.受伤时(dmg, burning);
 					}
 					if (Dungeon.level.flamable[i]){
 						GameScene.add(Blob.seed(i, 4, Fire.class));
@@ -881,28 +881,28 @@ public class CursedWand {
 						case 0: default:
 							Burning burning = Buff.施加(ch, Burning.class);
 							burning.reignite(ch);
-							ch.damage(dmg, burning);
+							ch.受伤时(dmg, burning);
 							ch.sprite.emitter().burst(FlameParticle.FACTORY, 20);
 							break;
 						case 1:
-							ch.damage(dmg, new Frost());
+							ch.受伤时(dmg, new Frost());
 							if (ch.isAlive()) Buff.施加(ch, Frost.class, Frost.DURATION);
 							Splash.at( ch.sprite.center(), 0xFFB2D6FF, 20 );
 							break;
 						case 2:
 							Poison poison = Buff.施加(ch, Poison.class);
 							poison.set(3 + Dungeon.scalingDepth() / 2);
-							ch.damage(dmg, poison);
+							ch.受伤时(dmg, poison);
 							ch.sprite.emitter().burst(PoisonParticle.SPLASH, 20);
 							break;
 						case 3:
 							Ooze ooze = Buff.施加(ch, Ooze.class);
 							ooze.set(Ooze.DURATION);
-							ch.damage(dmg, ooze);
+							ch.受伤时(dmg, ooze);
 							Splash.at( ch.sprite.center(), 0x000000, 20 );
 							break;
 						case 4:
-							ch.damage(dmg, new Electricity());
+							ch.受伤时(dmg, new Electricity());
 							if (ch.isAlive()) Buff.施加(ch, Paralysis.class, Paralysis.DURATION);
 							ch.sprite.emitter().burst(SparkParticle.FACTORY, 20);
 							break;

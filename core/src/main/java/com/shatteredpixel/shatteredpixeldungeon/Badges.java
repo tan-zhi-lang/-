@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.VelvetPouch;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
@@ -580,7 +580,7 @@ public class Badges {
 	public static void validateAllBagsBought( Item bag ) {
 		
 		Badge badge = null;
-		if (bag instanceof VelvetPouch) {
+		if (bag instanceof 绒布袋) {
 			badge = Badge.BAG_BOUGHT_VELVET_POUCH;
 		} else if (bag instanceof ScrollHolder) {
 			badge = Badge.BAG_BOUGHT_SCROLL_HOLDER;
@@ -965,14 +965,14 @@ public class Badges {
 		if (!isUnlocked(Badge.UNLOCK_DUELIST) && Dungeon.hero != null
 				&& Dungeon.hero.belongings.weapon instanceof MeleeWeapon
 				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).tier >= 2
-				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq() <= Dungeon.hero.力量()){
+				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()){
 
 			if (Dungeon.hero.belongings.weapon.isIdentified() &&
-					((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq() <= Dungeon.hero.力量()) {
+					((MeleeWeapon) Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()) {
 				displayBadge(Badge.UNLOCK_DUELIST);
 
 			} else if (!Dungeon.hero.belongings.weapon.isIdentified() &&
-					((MeleeWeapon) Dungeon.hero.belongings.weapon).STRReq(0) <= Dungeon.hero.力量()){
+					((MeleeWeapon) Dungeon.hero.belongings.weapon).力量(0) <= Dungeon.hero.力量()){
 				displayBadge(Badge.UNLOCK_DUELIST);
 			}
 		}

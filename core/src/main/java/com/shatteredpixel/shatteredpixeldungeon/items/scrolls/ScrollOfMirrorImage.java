@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class ScrollOfMirrorImage extends Scroll {
 
 	{
-		icon = ItemSpriteSheet.Icons.SCROLL_MIRRORIMG;
+		icon = 物品表.Icons.SCROLL_MIRRORIMG;
 	}
 
 	private static final int NIMAGES	= 2;

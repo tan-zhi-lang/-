@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Random;
@@ -15,7 +15,7 @@ import com.watabou.utils.Random;
 public class CapeOfThorns extends Artifact {
 
 	{
-		image = ItemSpriteSheet.ARTIFACT_CAPE;
+		image = 物品表.ARTIFACT_CAPE;
 
 		levelCap = 10;
 
@@ -86,7 +86,7 @@ public class CapeOfThorns extends Artifact {
 				damage -= deflected;
 
 				if (attacker != null && Dungeon.level.adjacent(attacker.pos, defender.pos)) {
-					attacker.damage(deflected, this);
+					attacker.受伤时(deflected, this);
 				}
 
 				exp+= deflected;

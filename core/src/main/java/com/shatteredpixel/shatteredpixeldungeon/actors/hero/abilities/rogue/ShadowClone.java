@@ -196,8 +196,8 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int attackProc( Char enemy, int damage ) {
-			damage = super.attackProc( enemy, damage );
+		public int 攻击时(Char enemy, int damage ) {
+			damage = super.攻击时( enemy, damage );
 			if (Random.Int(4) < Dungeon.hero.天赋点数(Talent.SHADOW_BLADE)
 					&& Dungeon.hero.belongings.weapon() != null){
 				return Dungeon.hero.belongings.weapon().攻击时( this, enemy, damage );
@@ -227,8 +227,8 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int defenseProc(Char enemy, int damage) {
-			damage = super.defenseProc(enemy, damage);
+		public int 防御时(Char enemy, int damage) {
+			damage = super.防御时(enemy, damage);
 			if (Random.Int(4) < Dungeon.hero.天赋点数(Talent.CLONED_ARMOR)
 					&& Dungeon.hero.belongings.armor() != null){
 				return Dungeon.hero.belongings.armor().proc( enemy, this, damage );

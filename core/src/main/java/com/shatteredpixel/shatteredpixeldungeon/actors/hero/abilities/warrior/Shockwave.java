@@ -106,13 +106,13 @@ public class Shockwave extends ArmorAbility {
 								if (Random.Int(10) < 3*hero.天赋点数(Talent.STRIKING_WAVE)){
 									boolean wasEnemy = ch.alignment == Char.Alignment.ENEMY
 											|| (ch instanceof Mimic && ch.alignment == Char.Alignment.NEUTRAL);
-									damage = hero.attackProc(ch, damage);
-									ch.damage(damage, hero);
+									damage = hero.攻击时(ch, damage);
+									ch.受伤时(damage, hero);
 									if (hero.subClass == HeroSubClass.GLADIATOR && wasEnemy){
 										Buff.施加( hero, Combo.class ).hit( ch );
 									}
 								} else {
-									ch.damage(damage, hero);
+									ch.受伤时(damage, hero);
 								}
 								if (ch.isAlive()){
 									if (Random.Int(4) < hero.天赋点数(Talent.SHOCK_FORCE)){

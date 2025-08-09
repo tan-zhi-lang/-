@@ -51,15 +51,15 @@ public class SpectralNecromancer extends Necromancer {
 	}
 
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		for (int ID : wraithIDs){
 			Actor a = Actor.findById(ID);
 			if (a instanceof Wraith && ((Wraith) a).alignment == alignment){
-				((Wraith) a).die(null);
+				((Wraith) a).死亡时(null);
 			}
 		}
 
-		super.die(cause);
+		super.死亡时(cause);
 	}
 
 	private static final String WRAITH_IDS = "wraith_ids";
@@ -112,7 +112,7 @@ public class SpectralNecromancer extends Necromancer {
 
 				Char blocker = Actor.findChar(summoningPos);
 				if (blocker.alignment != alignment){
-					blocker.damage( Random.NormalIntRange(2, 10), new SummoningBlockDamage() );
+					blocker.受伤时( Random.NormalIntRange(2, 10), new SummoningBlockDamage() );
 					if (blocker == Dungeon.hero && !blocker.isAlive()){
 						Badges.validateDeathFromEnemyMagic();
 						Dungeon.fail(this);

@@ -78,9 +78,9 @@ public class Sunray extends TargetedClericSpell {
 			ch.sprite.burst(0xFFFFFF44, 5);
 
 			if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)){
-				ch.damage(hero.天赋点数(Talent.SUNRAY,7), Sunray.this);
+				ch.受伤时(hero.天赋点数(Talent.SUNRAY,7), Sunray.this);
 			} else {
-					ch.damage(Random.NormalIntRange(hero.天赋点数(Talent.SUNRAY,3), hero.天赋点数(Talent.SUNRAY,7)), Sunray.this);
+					ch.受伤时(Random.NormalIntRange(hero.天赋点数(Talent.SUNRAY,3), hero.天赋点数(Talent.SUNRAY,7)), Sunray.this);
 			}
 
 			if (ch.isAlive()) {

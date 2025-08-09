@@ -52,7 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
 import com.watabou.noosa.BitmapText;
@@ -248,7 +248,7 @@ public class QuickRecipe extends Component {
 		ArrayList<QuickRecipe> result = new ArrayList<>();
 		switch (pageIdx){
 			case 0: default:
-				result.add(new QuickRecipe( new Potion.SeedToPotion(), new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder().数量(3))), new WndBag.Placeholder(ItemSpriteSheet.POTION_HOLDER){
+				result.add(new QuickRecipe( new Potion.SeedToPotion(), new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder().数量(3))), new WndBag.Placeholder(物品表.POTION_HOLDER){
 					@Override
 					public String name() {
 						return Messages.get(Potion.SeedToPotion.class, "name");

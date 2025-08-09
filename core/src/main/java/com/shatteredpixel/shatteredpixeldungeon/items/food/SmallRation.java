@@ -3,12 +3,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class SmallRation extends Food {
 
 	{
-		image = ItemSpriteSheet.OVERPRICED;
+		image = 物品表.OVERPRICED;
 		energy = Hunger.HUNGRY/2f;
 	}
 	

@@ -5,12 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class FishingSpear extends MissileWeapon {
 	
 	{
-		image = ItemSpriteSheet.FISHING_SPEAR;
+		image = 物品表.FISHING_SPEAR;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.1f;
 		

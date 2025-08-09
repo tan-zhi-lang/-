@@ -88,7 +88,7 @@ public class Necromancer extends Mob {
 	}
 	
 	@Override
-	public void die(Object cause) {
+	public void 死亡时(Object cause) {
 		if (storedSkeletonID != -1){
 			Actor ch = Actor.findById(storedSkeletonID);
 			storedSkeletonID = -1;
@@ -98,10 +98,10 @@ public class Necromancer extends Mob {
 		}
 		
 		if (mySkeleton != null && mySkeleton.isAlive() && mySkeleton.alignment == alignment){
-			mySkeleton.die(null);
+			mySkeleton.死亡时(null);
 		}
 		
-		super.die(cause);
+		super.死亡时(cause);
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public class Necromancer extends Mob {
 
 				Char blocker = Actor.findChar(summoningPos);
 				if (blocker.alignment != alignment){
-					blocker.damage( Random.NormalIntRange(2, 10), new SummoningBlockDamage() );
+					blocker.受伤时( Random.NormalIntRange(2, 10), new SummoningBlockDamage() );
 					if (blocker == Dungeon.hero && !blocker.isAlive()){
 						Badges.validateDeathFromEnemyMagic();
 						Dungeon.fail(this);

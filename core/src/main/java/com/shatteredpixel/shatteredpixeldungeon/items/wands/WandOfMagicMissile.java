@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSpriteSheet;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
@@ -22,7 +22,7 @@ import com.watabou.utils.Random;
 public class WandOfMagicMissile extends DamageWand {
 
 	{
-		image = ItemSpriteSheet.WAND_MAGIC_MISSILE;
+		image = 物品表.WAND_MAGIC_MISSILE;
 	}
 
 	public int min(int lvl){
@@ -40,7 +40,7 @@ public class WandOfMagicMissile extends DamageWand {
 		if (ch != null) {
 
 			wandProc(ch, chargesPerCast());
-			ch.damage(damageRoll(), this);
+			ch.受伤时(damageRoll(), this);
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f) );
 
 			ch.sprite.burst(0xFFFFFFFF, buffedLvl() / 2 + 2);

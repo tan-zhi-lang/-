@@ -36,7 +36,7 @@ public class Corruption extends AllyBuff {
 		buildToDamage -= damage;
 
 		if (damage > 0)
-			target.damage(damage, this);
+			target.受伤时(damage, this);
 
 		spend(TICK);
 

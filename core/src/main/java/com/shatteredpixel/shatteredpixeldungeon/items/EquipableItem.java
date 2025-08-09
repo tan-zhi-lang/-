@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
@@ -122,7 +121,7 @@ public abstract class EquipableItem extends Item {
 		//temporarily keep this item so it can be collected
 		boolean wasKept = keptThoughLostInvent;
 		keptThoughLostInvent = true;
-		if (!collect || !collect( hero.belongings.backpack )) {
+		if (!collect || !放背包( hero.belongings.backpack )) {
 			onDetach();
 			Dungeon.quickslot.clearItem(this);
 			updateQuickslot();

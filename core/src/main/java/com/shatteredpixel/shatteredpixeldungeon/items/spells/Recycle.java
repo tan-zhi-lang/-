@@ -66,7 +66,7 @@ public class Recycle extends InventorySpell {
 		
 		item.detach(curUser.belongings.backpack);
 		GLog.p(Messages.get(this, "recycled", result.name()));
-		if (!result.collect()){
+		if (!result.放背包()){
 			Dungeon.level.drop(result, curUser.pos).sprite.drop();
 		}
 		Transmuting.show(curUser, item, result);

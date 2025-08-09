@@ -13,7 +13,7 @@ import java.util.Comparator;
 
 public abstract class ShieldBuff extends Buff {
 	
-	private int shielding;
+	public int shielding;
 
 	//higher priority shielding buffs are consumed first if multiple exist
 	//currently we have the following:

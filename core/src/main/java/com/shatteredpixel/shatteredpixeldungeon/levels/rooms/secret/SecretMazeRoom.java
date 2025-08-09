@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -95,7 +94,7 @@ public class SecretMazeRoom extends SecretRoom {
 		
 		//33% chance for an extra update.
 		if (Random.Int(3) == 0){
-			prize.upgrade();
+			prize.升级();
 		}
 		
 		level.drop(prize, level.pointToCell(bestDistP)).type = Heap.Type.CHEST;

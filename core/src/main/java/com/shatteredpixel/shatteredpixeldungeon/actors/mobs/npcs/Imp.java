@@ -62,7 +62,7 @@ public class Imp extends NPC {
 	}
 	
 	@Override
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 		return INFINITE_EVASION;
 	}
 
@@ -93,7 +93,7 @@ public class Imp extends NPC {
 		if (Quest.given) {
 			
 			DwarfToken tokens = Dungeon.hero.belongings.getItem( DwarfToken.class );
-			if (tokens != null && (tokens.quantity() >= 5 || (!Quest.alternative && tokens.quantity() >= 4))) {
+			if (tokens != null && (tokens.数量() >= 5 || (!Quest.alternative && tokens.数量() >= 4))) {
 				Game.runOnRenderThread(new Callback() {
 					@Override
 					public void call() {
@@ -233,7 +233,7 @@ public class Imp extends NPC {
 				do {
 					reward = (Ring)Generator.random( Generator.Category.RING );
 				} while (reward.cursed);
-				reward.upgrade( 2 );
+				reward.升级( 2 );
 				reward.cursed = true;
 			}
 		}

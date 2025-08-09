@@ -276,7 +276,7 @@ public abstract class Char extends Actor {
 		c.sprite.move( newPos, oldPos );
 		c.move( oldPos );
 		
-		c.spend( 1 / c.speed() );
+		c.spend( 1 / c.移速() );
 
 		if (c == Dungeon.hero){
 			if (Dungeon.hero.subClass == HeroSubClass.FREERUNNER){
@@ -400,7 +400,7 @@ public abstract class Char extends Actor {
 			if (enemy.buff(GuidingLight.Illuminated.class) != null){
 				enemy.buff(GuidingLight.Illuminated.class).detach();
 				if (this == Dungeon.hero && Dungeon.hero.有天赋(Talent.SEARING_LIGHT)){
-					dmg += Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,5);
+					dmg += Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,4);
 				}
 				if (this != Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.PRIEST){
 					enemy.damage(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
@@ -604,7 +604,7 @@ public abstract class Char extends Actor {
 
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ) {
 		float acuStat = attacker.最大命中( defender );
-		float defStat = defender.defenseSkill( attacker );
+		float defStat = defender.最大闪避( attacker );
 
 		if (defender instanceof Hero && ((Hero) defender).damageInterrupt){
 			((Hero) defender).interrupt();
@@ -676,7 +676,7 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 	
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 		return 0;
 	}
 	
@@ -715,7 +715,7 @@ public abstract class Char extends Actor {
 
 		ShieldOfLight.ShieldOfLightTracker shield = buff( ShieldOfLight.ShieldOfLightTracker.class);
 		if (shield != null && shield.object == enemy.id()){
-			damage -= Random.NormalIntRange(Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT,3), Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT,5));
+			damage -= Random.NormalIntRange(0, Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT,5));
 			damage = Math.max(damage, 0);
 		} else if (this == Dungeon.hero
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
@@ -752,7 +752,7 @@ public abstract class Char extends Actor {
 		}
 	}
 	
-	public float speed() {
+	public float 移速() {
 		float speed = baseSpeed;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;

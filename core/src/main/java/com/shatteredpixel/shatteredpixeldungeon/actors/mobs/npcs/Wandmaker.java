@@ -62,7 +62,7 @@ public class Wandmaker extends NPC {
 	}
 	
 	@Override
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 		return INFINITE_EVASION;
 	}
 
@@ -307,7 +307,7 @@ public class Wandmaker extends NPC {
 				given = false;
 				wand1 = (Wand) Generator.random(Generator.Category.WAND);
 				wand1.cursed = false;
-				wand1.upgrade();
+				wand1.升级();
 
 				wand2 = (Wand) Generator.random(Generator.Category.WAND);
 				ArrayList<Item> toUndo = new ArrayList<>();
@@ -319,7 +319,7 @@ public class Wandmaker extends NPC {
 					Generator.undoDrop(i);
 				}
 				wand2.cursed = false;
-				wand2.upgrade();
+				wand2.升级();
 				
 			}
 		}
@@ -384,7 +384,7 @@ public class Wandmaker extends NPC {
 				if (((RegularLevel) Dungeon.level).room(Dungeon.hero.pos) instanceof RitualSiteRoom) {
 					int candles = 0;
 					if (Dungeon.hero.belongings.getItem(CeremonialCandle.class) != null){
-						candles += Dungeon.hero.belongings.getItem(CeremonialCandle.class).quantity();
+						candles += Dungeon.hero.belongings.getItem(CeremonialCandle.class).数量();
 					}
 
 					if (candles >= 4){
@@ -395,7 +395,7 @@ public class Wandmaker extends NPC {
 						if (((RegularLevel) Dungeon.level).room(h.pos) instanceof RitualSiteRoom){
 							for (Item i : h.items){
 								if (i instanceof CeremonialCandle){
-									candles += i.quantity();
+									candles += i.数量();
 								}
 							}
 						}

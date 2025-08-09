@@ -206,8 +206,8 @@ public class Ring extends KindofMisc {
 	}
 	
 	@Override
-	public Item upgrade() {
-		super.upgrade();
+	public Item 升级() {
+		super.升级();
 		
 		if (Random.Int(3) == 0) {
 			cursed = false;

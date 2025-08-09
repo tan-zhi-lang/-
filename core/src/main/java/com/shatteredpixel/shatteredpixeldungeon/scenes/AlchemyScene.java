@@ -729,8 +729,8 @@ public class AlchemyScene extends PixelScene {
 		smokeEmitter.burst(Speck.factory( Speck.WOOL ), 10 );
 		Sample.INSTANCE.play( Assets.Sounds.PUFF );
 
-		int resultQuantity = result.quantity();
-		if (!result.collect()){
+		int resultQuantity = result.数量();
+		if (!result.放背包()){
 			Dungeon.level.drop(result, Dungeon.hero.pos);
 		}
 
@@ -750,7 +750,7 @@ public class AlchemyScene extends PixelScene {
 			for (int i = 0; i < inputs.length; i++) {
 				if (inputs[i] != null && inputs[i].item() != null) {
 					Item item = inputs[i].item();
-					if (item.quantity() <= 0) {
+					if (item.数量() <= 0) {
 						inputs[i].item(null);
 					} else {
 						inputs[i].slot.updateText();
@@ -761,7 +761,7 @@ public class AlchemyScene extends PixelScene {
 
 		updateState();
 		//we reset the quantity in case the result was merged into another stack in the backpack
-		result.quantity(resultQuantity);
+		result.数量(resultQuantity);
 		outputs[0].item(result);
 	}
 	
@@ -770,7 +770,7 @@ public class AlchemyScene extends PixelScene {
 		
 		int curslot = 0;
 		for (Item finding : toFind){
-			int needed = finding.quantity();
+			int needed = finding.数量();
 			ArrayList<Item> found = inventory.getAllSimilar(finding);
 			while (!found.isEmpty() && needed > 0){
 				Item detached;
@@ -781,7 +781,7 @@ public class AlchemyScene extends PixelScene {
 				}
 				inputs[curslot].item(detached);
 				curslot++;
-				needed -= detached.quantity();
+				needed -= detached.数量();
 				if (detached == found.get(0)) {
 					found.remove(0);
 				}
@@ -833,7 +833,7 @@ public class AlchemyScene extends PixelScene {
 			for (int i = 0; i < inputs.length; i++) {
 				if (inputs[i] != null && inputs[i].item() != null) {
 					Item item = inputs[i].item();
-					if (!item.collect()) {
+					if (!item.放背包()) {
 						Dungeon.level.drop(item, Dungeon.hero.pos);
 					}
 					inputs[i].item(null);
@@ -972,7 +972,7 @@ public class AlchemyScene extends PixelScene {
 					super.onClick();
 					Item item = InputButton.this.item;
 					if (item != null) {
-						if (!item.collect()) {
+						if (!item.放背包()) {
 							Dungeon.level.drop(item, Dungeon.hero.pos);
 						}
 						InputButton.this.item(null);

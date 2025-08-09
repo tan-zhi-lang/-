@@ -81,7 +81,7 @@ public class GoldenMimic extends Mimic {
 					((Armor) i).inscribe(null);
 				}
 				if (!(i instanceof Artifact) && i.等级() == 0 && Random.Int(2) == 0){
-					i.upgrade();
+					i.升级();
 				}
 			}
 		}

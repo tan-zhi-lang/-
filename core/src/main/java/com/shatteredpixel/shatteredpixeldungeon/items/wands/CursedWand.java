@@ -352,9 +352,9 @@ public class CursedWand {
 				wand = (Wand)Generator.randomUsingDefaults(Generator.Category.WAND);
 			}
 			if (origin instanceof Wand){
-				wand.upgrade(origin.等级());
+				wand.升级(origin.等级());
 			} else {
-				wand.upgrade(Dungeon.scalingDepth()/5);
+				wand.升级(Dungeon.scalingDepth()/5);
 			}
 			wand.levelKnown = false;
 			wand.onZap(bolt);
@@ -1150,7 +1150,7 @@ public class CursedWand {
 				result = Generator.randomUsingDefaults(Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR,
 						Generator.Category.RING, Generator.Category.ARTIFACT));
 			} while (result.cursed);
-			if (result.isUpgradable()) result.upgrade();
+			if (result.isUpgradable()) result.升级();
 			result.cursed = result.cursedKnown = true;
 			if (origin instanceof Wand){
 				GLog.w( Messages.get(CursedWand.class, "transmogrify_wand") );

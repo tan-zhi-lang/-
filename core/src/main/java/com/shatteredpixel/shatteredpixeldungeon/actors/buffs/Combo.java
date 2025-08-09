@@ -410,7 +410,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 			case CLOBBER:
 				clobberUsed = true;
 				if (getHighestMove() == null) ActionIndicator.clearAction(Combo.this);
-				hero.spendAndNext(hero.attackDelay());
+				hero.spendAndNext(hero.攻速());
 				break;
 
 			case PARRY:
@@ -432,14 +432,14 @@ public class Combo extends Buff implements ActionIndicator.Action {
 					detach();
 					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
 					ActionIndicator.clearAction(Combo.this);
-					hero.spendAndNext(hero.attackDelay());
+					hero.spendAndNext(hero.攻速());
 				}
 				break;
 
 			default:
 				detach();
 				ActionIndicator.clearAction(Combo.this);
-				hero.spendAndNext(hero.attackDelay());
+				hero.spendAndNext(hero.攻速());
 				break;
 		}
 

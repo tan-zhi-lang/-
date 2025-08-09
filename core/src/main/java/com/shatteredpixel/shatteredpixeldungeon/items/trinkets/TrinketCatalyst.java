@@ -105,9 +105,9 @@ public class TrinketCatalyst extends Item {
 			//we silently re-add the catalyst so that we can clear it when a trinket is selected
 			//this way player isn't totally screwed if they quit the game while selecting
 			TrinketCatalyst newCata = (TrinketCatalyst) ingredients.get(0).duplicate();
-			newCata.collect();
+			newCata.放背包();
 
-			ingredients.get(0).quantity(0);
+			ingredients.get(0).数量(0);
 
 			ShatteredPixelDungeon.scene().addToFront(new WndTrinket(newCata));
 			try {

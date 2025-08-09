@@ -564,7 +564,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 							}
 						}
 						Invisibility.dispel();
-						hero.spendAndNext(hero.attackDelay());
+						hero.spendAndNext(hero.攻速());
 						tracker.detach();
 						Buff.施加(hero, MonkEnergy.class).abilityUsed(DragonKick.this);
 

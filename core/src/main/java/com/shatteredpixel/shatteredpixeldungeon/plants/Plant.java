@@ -48,7 +48,7 @@ public abstract class Plant implements Bundlable {
 
 		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.有天赋(Talent.NATURES_AID)){
 			// 3/5 turns based on talent points spent
-			Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.天赋点数(Talent.NATURES_AID,5), Dungeon.hero.天赋点数(Talent.NATURES_AID));
+			Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.天赋点数(Talent.NATURES_AID,8),1);
 		}
 
 		wither();

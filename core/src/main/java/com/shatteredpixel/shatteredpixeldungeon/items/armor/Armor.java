@@ -175,7 +175,7 @@ public class Armor extends EquipableItem {
 			BrokenSeal detaching = detachSeal();
 			GLog.i( Messages.get(Armor.class, "detach_seal") );
 			hero.sprite.operate(hero.pos);
-			if (!detaching.collect()){
+			if (!detaching.放背包()){
 				Dungeon.level.drop(detaching, hero.pos);
 			}
 			updateQuickslot();
@@ -183,8 +183,8 @@ public class Armor extends EquipableItem {
 	}
 
 	@Override
-	public boolean collect(Bag container) {
-		if(super.collect(container)){
+	public boolean 放背包(Bag container) {
+		if(super.放背包(container)){
 			if (Dungeon.hero != null && Dungeon.hero.isAlive() && isIdentified() && glyph != null){
 				Catalog.setSeen(glyph.getClass());
 				Statistics.itemTypesDiscovered.add(glyph.getClass());
@@ -276,7 +276,7 @@ public class Armor extends EquipableItem {
 			
 		} else {
 			
-			collect( hero.belongings.backpack );
+			放背包( hero.belongings.backpack );
 			return false;
 			
 		}
@@ -435,11 +435,11 @@ public class Armor extends EquipableItem {
 	}
 	
 	@Override
-	public Item upgrade() {
-		return upgrade( false );
+	public Item 升级() {
+		return 升级( false );
 	}
 	
-	public Item upgrade( boolean inscribe ) {
+	public Item 升级(boolean inscribe ) {
 
 		if (inscribe){
 			if (glyph == null){
@@ -474,9 +474,9 @@ public class Armor extends EquipableItem {
 		cursed = false;
 
 		if (seal != null && seal.等级() == 0)
-			seal.upgrade();
+			seal.升级();
 
-		return super.upgrade();
+		return super.升级();
 	}
 	
 	public int proc( Char attacker, Char defender, int damage ) {

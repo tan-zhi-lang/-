@@ -364,9 +364,9 @@ public class FloatingText extends RenderedTextBlock {
 		if (arm != null && arm.evasionFactor(defender, 100) < 100) {
 			//we express armor's normally flat evasion boost as a %, yes this is very awkward
 			Armor.testingNoArmDefSkill = true;
-			int baseDef = defender.defenseSkill(attacker);
+			int baseDef = defender.最大闪避(attacker);
 			Armor.testingNoArmDefSkill = false;
-			hitReasons.put(HIT_ARM, defender.defenseSkill(attacker)/(float)baseDef);
+			hitReasons.put(HIT_ARM, defender.最大闪避(attacker)/(float)baseDef);
 		}
 		//hero specifically gets 1/2 eva when stunned, for mobs its a garunteed hit
 		if (defender.paralysed > 0)  {
@@ -438,13 +438,13 @@ public class FloatingText extends RenderedTextBlock {
 		if (arm != null && arm.evasionFactor(defender, 100) > 100) {
 			//we express armor's normally flat evasion boost as a %, yes this is very awkward
 			Armor.testingNoArmDefSkill = true;
-			int baseDef = defender.defenseSkill(attacker);
+			int baseDef = defender.最大闪避(attacker);
 			Armor.testingNoArmDefSkill = false;
 			if (defender.buff(Momentum.class) != null){
 				//this is cheating a little, as evasion aug gets wrapped into this too
-				missReasons.put(MISS_RUN, defender.defenseSkill(attacker) / (float) baseDef);
+				missReasons.put(MISS_RUN, defender.最大闪避(attacker) / (float) baseDef);
 			} else {
-				missReasons.put(MISS_ARM, defender.defenseSkill(attacker) / (float) baseDef);
+				missReasons.put(MISS_ARM, defender.最大闪避(attacker) / (float) baseDef);
 			}
 		}
 		if (defender.buff(Talent.LiquidAgilEVATracker.class) != null)   missReasons.put(MISS_LIQ, 3f);

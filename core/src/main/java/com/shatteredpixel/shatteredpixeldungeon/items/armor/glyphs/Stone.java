@@ -25,7 +25,7 @@ public class Stone extends Armor.Glyph {
 		
 		testing = true;
 		float accuracy = attacker.最大命中(defender);
-		float evasion = defender.defenseSkill(attacker);
+		float evasion = defender.最大闪避(attacker);
 		testing = false;
 
 		//FIXME this is duplicated here because these apply in hit(), not in attack/defenseskill

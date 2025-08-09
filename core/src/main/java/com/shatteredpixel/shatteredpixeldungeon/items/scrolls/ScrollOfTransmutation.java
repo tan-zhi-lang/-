@@ -64,7 +64,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 
 		//all regular or exotic scrolls, except itself (unless un-ided, in which case it was already consumed)
 		} else if (item instanceof Scroll) {
-			return item != this || item.quantity() > 1 || identifiedByUse;
+			return item != this || item.数量() > 1 || identifiedByUse;
 
 		//all non-unique artifacts (no holy tome or cloak of shadows, basically)
 		} else if (item instanceof Artifact) {
@@ -85,7 +85,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		if (result == null){
 			//This shouldn't ever trigger
 			GLog.n( Messages.get(this, "nothing") );
-			curItem.collect( curUser.belongings.backpack );
+			curItem.放背包( curUser.belongings.backpack );
 		} else {
 			if (result != item) {
 				int slot = Dungeon.quickslot.getSlot(item);
@@ -94,7 +94,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 					if (item instanceof Artifact && result instanceof Ring){
 						//if we turned an equipped artifact into a ring, ring goes into inventory
 						((EquipableItem) item).doUnequip(Dungeon.hero, false);
-						if (!result.collect()){
+						if (!result.放背包()){
 							Dungeon.level.drop(result, curUser.pos).sprite.drop();
 						}
 					} else if (item instanceof KindOfWeapon && Dungeon.hero.belongings.secondWep() == item){
@@ -111,7 +111,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 					} else {
 						item.detach(Dungeon.hero.belongings.backpack);
 					}
-					if (!result.collect()) {
+					if (!result.放背包()) {
 						Dungeon.level.drop(result, curUser.pos).sprite.drop();
 					} else if (result.stackable && Dungeon.hero.belongings.getSimilar(result) != null){
 						result = Dungeon.hero.belongings.getSimilar(result);
@@ -223,10 +223,10 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级(0);
-		n.quantity(w.quantity());
+		n.数量(w.数量());
 		int level = w.trueLevel();
 		if (level > 0) {
-			n.upgrade( level );
+			n.升级( level );
 		} else if (level < 0) {
 			n.degrade( -level );
 		}
@@ -261,7 +261,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		
 		int level = r.等级();
 		if (level > 0) {
-			n.upgrade( level );
+			n.升级( level );
 		} else if (level < 0) {
 			n.degrade( -level );
 		}
@@ -322,7 +322,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		
 		n.等级( 0 );
 		int level = w.trueLevel();
-		n.upgrade( level );
+		n.升级( level );
 
 		n.levelKnown = w.levelKnown;
 		n.curChargeKnown = w.curChargeKnown;

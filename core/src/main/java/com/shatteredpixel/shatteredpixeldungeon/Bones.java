@@ -119,9 +119,9 @@ public class Bones {
 			if (Random.Int(3) < items.size()) {
 				item = Random.element(items);
 				if (item.stackable){
-					item.quantity(Random.NormalIntRange(1, (item.quantity() + 1) / 2));
-					if (item.quantity() > 3){
-						item.quantity(3);
+					item.数量(Random.NormalIntRange(1, (item.数量() + 1) / 2));
+					if (item.数量() > 3){
+						item.数量(3);
 					}
 				}
 			} else {

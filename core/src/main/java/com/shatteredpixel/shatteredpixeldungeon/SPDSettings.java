@@ -38,7 +38,8 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_GRID 	    = "visual_grid";
 	public static final String KEY_CAMERA_FOLLOW= "camera_follow";
 	public static final String KEY_SCREEN_SHAKE = "screen_shake";
-	
+	public static final String 动画速度 = "动画速度";
+
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 		
@@ -114,7 +115,16 @@ public class SPDSettings extends GameSettings {
 	public static int 震屏强度() {
 		return getInt( KEY_SCREEN_SHAKE, 4, 0, 4 );
 	}
-	
+
+	public static void 动画速度(int value ){
+		put( 动画速度, value );
+	}
+
+	public static Float 动画速度() {
+		return getFloat( 动画速度, 1f, 1f, 10f );
+	}
+
+
 	//Interface
 
 	public static final String KEY_UI_SIZE 	    = "full_ui";
@@ -176,7 +186,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static String toolbarMode() {
-		return getString(KEY_BARMODE, PixelScene.landscape() ? "GROUP" : "SPLIT");
+		return getString(KEY_BARMODE,  "CENTER");
 	}
 
 	public static void quickslotWaterskin( boolean value ){

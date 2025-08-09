@@ -51,7 +51,7 @@ public class TormentedSpirit extends Wraith {
 		prize.cursedKnown = true;
 
 		if (prize.等级() == 0 && Random.Int(2) == 0){
-			prize.upgrade();
+			prize.升级();
 		}
 
 		Dungeon.level.drop(prize, pos).sprite.drop();

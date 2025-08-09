@@ -91,7 +91,7 @@ public class Smite extends TargetedClericSpell {
 
 				Invisibility.dispel();
 
-				hero.spendAndNext(hero.attackDelay());
+				hero.spendAndNext(hero.攻速());
 				onSpellCast(tome, hero);
 			}
 		});

@@ -76,7 +76,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	public void gainStack(){
 		movedLastTurn = true;
 		if (freerunCooldown <= 0 && !freerunning()){
-			postpone(target.cooldown()+(1/target.speed()));
+			postpone(target.cooldown()+(1/target.移速()));
 			momentumStacks = Math.min(momentumStacks + 1, 10);
 			ActionIndicator.setAction(this);
 			BuffIndicator.refreshHero();

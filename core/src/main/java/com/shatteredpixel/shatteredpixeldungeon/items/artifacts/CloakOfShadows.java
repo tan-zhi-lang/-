@@ -120,8 +120,8 @@ public class CloakOfShadows extends Artifact {
 	}
 
 	@Override
-	public boolean collect( Bag container ) {
-		if (super.collect(container)){
+	public boolean 放背包(Bag container ) {
+		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
 					&& ((Hero) container.owner).有天赋(Talent.LIGHT_CLOAK)){
@@ -180,9 +180,9 @@ public class CloakOfShadows extends Artifact {
 	}
 	
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 		chargeCap = Math.min(chargeCap + 1, 10);
-		return super.upgrade();
+		return super.升级();
 	}
 
 	private static final String STEALTHED = "stealthed";
@@ -322,7 +322,7 @@ public class CloakOfShadows extends Artifact {
 					}
 					
 					if (exp >= (等级() + 1) * 50 && 等级() < levelCap) {
-						upgrade();
+						升级();
 						Catalog.countUse(CloakOfShadows.class);
 						exp -= 等级() * 50;
 						GLog.p(Messages.get(this, "levelup"));

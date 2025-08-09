@@ -171,14 +171,15 @@ public class WndHero extends WndTabbed {
 			if (strBonus > 0)           statSlot( Messages.get(this, "str"), hero.力量 + " + " + strBonus );
 			else if (strBonus < 0)      statSlot( Messages.get(this, "str"), hero.力量 + " - " + -strBonus );
 			else                        statSlot( Messages.get(this, "str"), hero.力量() );
-			if (hero.shielding() > 0)   statSlot( Messages.get(this, "health"), hero.生命 + "+" + hero.shielding() + "/" + hero.最大生命);
-			else                        statSlot( Messages.get(this, "health"), (hero.生命) + "/" + hero.最大生命);
 			statSlot( Messages.get(this, "exp"), hero.当前经验 + "/" + hero.升级所需() );
+
+			statSlot( "命中", hero.最大命中(null) );
+			statSlot( "闪避", hero.最大闪避(null) );
+			statSlot( "攻速", hero.攻速()+"");
+			statSlot( "移速", hero.移速()+"");
 
 			pos += GAP;
 
-			statSlot( Messages.get(this, "gold"), Statistics.goldCollected );
-			statSlot( Messages.get(this, "depth"), Statistics.deepestFloor );
 			if (Dungeon.daily){
 				if (!Dungeon.dailyReplay) {
 					statSlot(Messages.get(this, "daily_for"), "_" + Dungeon.customSeedText + "_");

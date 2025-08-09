@@ -266,14 +266,14 @@ public class Dart extends MissileWeapon {
 			
 			if (item == null) return;
 			
-			final int maxToTip = Math.min(curItem.quantity(), item.quantity()*2);
+			final int maxToTip = Math.min(curItem.数量(), item.数量()*2);
 			final int maxSeedsToUse = (maxToTip+1)/2;
 			
 			final int singleSeedDarts;
 			
 			final String[] options;
 			
-			if (curItem.quantity() == 1){
+			if (curItem.数量() == 1){
 				singleSeedDarts = 1;
 				options = new String[]{
 						Messages.get(Dart.class, "tip_one"),
@@ -304,20 +304,20 @@ public class Dart extends MissileWeapon {
 					super.onSelect(index);
 					
 					if (index == 0 && options.length == 3){
-						if (item.quantity() <= maxSeedsToUse){
+						if (item.数量() <= maxSeedsToUse){
 							item.detachAll( curUser.belongings.backpack );
 						} else {
-							item.quantity(item.quantity() - maxSeedsToUse);
+							item.数量(item.数量() - maxSeedsToUse);
 						}
 						
-						if (maxToTip < curItem.quantity()){
-							curItem.quantity(curItem.quantity() - maxToTip);
+						if (maxToTip < curItem.数量()){
+							curItem.数量(curItem.数量() - maxToTip);
 						} else {
 							curItem.detachAll(curUser.belongings.backpack);
 						}
 						
 						TippedDart newDart = TippedDart.getTipped((Plant.Seed) item, maxToTip);
-						if (!newDart.collect()) Dungeon.level.drop(newDart, curUser.pos).sprite.drop();
+						if (!newDart.放背包()) Dungeon.level.drop(newDart, curUser.pos).sprite.drop();
 						
 						curUser.spend( 1f );
 						curUser.busy();
@@ -326,14 +326,14 @@ public class Dart extends MissileWeapon {
 					} else if ((index == 1 && options.length == 3) || (index == 0 && options.length == 2)){
 						item.detach( curUser.belongings.backpack );
 						
-						if (curItem.quantity() <= singleSeedDarts){
+						if (curItem.数量() <= singleSeedDarts){
 							curItem.detachAll( curUser.belongings.backpack );
 						} else {
-							curItem.quantity(curItem.quantity() - singleSeedDarts);
+							curItem.数量(curItem.数量() - singleSeedDarts);
 						}
 						
 						TippedDart newDart = TippedDart.getTipped((Plant.Seed) item, singleSeedDarts);
-						if (!newDart.collect()) Dungeon.level.drop(newDart, curUser.pos).sprite.drop();
+						if (!newDart.放背包()) Dungeon.level.drop(newDart, curUser.pos).sprite.drop();
 						
 						curUser.spend( 1f );
 						curUser.busy();

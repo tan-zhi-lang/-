@@ -43,7 +43,7 @@ public class SecretHoardRoom extends SecretRoom {
 				goldPos = level.pointToCell(random());
 			} while (level.heaps.get(goldPos) != null);
 			Item gold = new Gold().random();
-			gold.quantity(Math.round(gold.quantity() * goldRatio));
+			gold.数量(Math.round(gold.数量() * goldRatio));
 			level.drop(gold, goldPos);
 		}
 		

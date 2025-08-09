@@ -78,7 +78,7 @@ public class RunicBlade extends MeleeWeapon {
 				}
 				tracker.detach();
 				Invisibility.dispel();
-				hero.spendAndNext(hero.attackDelay());
+				hero.spendAndNext(hero.攻速());
 				afterAbilityUsed(hero);
 			}
 		});

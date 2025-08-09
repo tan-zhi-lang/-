@@ -95,7 +95,7 @@ public class KingsCrown extends Item {
 			} else {
 
 				armor.detach(hero.belongings.backpack);
-				classArmor.collect(hero.belongings.backpack);
+				classArmor.放背包(hero.belongings.backpack);
 
 			}
 		}

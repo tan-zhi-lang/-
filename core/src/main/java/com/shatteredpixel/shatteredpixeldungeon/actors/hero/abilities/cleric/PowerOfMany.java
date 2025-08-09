@@ -295,8 +295,8 @@ public class PowerOfMany extends ArmorAbility {
 		}
 
 		@Override
-		public float speed() {
-			float speed = super.speed();
+		public float 移速() {
+			float speed = super.移速();
 
 			//moves 2 tiles at a time when returning to the hero
 			if (state == WANDERING

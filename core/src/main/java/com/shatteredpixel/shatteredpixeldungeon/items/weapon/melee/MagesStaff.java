@@ -184,8 +184,8 @@ public class MagesStaff extends MeleeWeapon {
 	}
 
 	@Override
-	public boolean collect( Bag container ) {
-		if (super.collect(container)) {
+	public boolean 放背包(Bag container ) {
+		if (super.放背包(container)) {
 			if (container.owner != null) {
 				applyWandChargeBuff(container.owner);
 			}
@@ -209,7 +209,7 @@ public class MagesStaff extends MeleeWeapon {
 			if (counter.count() == 0){
 				counter.countUp(1);
 				this.wand.等级(Dungeon.hero.满天赋(Talent.WAND_PRESERVATION)?1:0);
-				if (!this.wand.collect()) {
+				if (!this.wand.放背包()) {
 					Dungeon.level.drop(this.wand, owner.pos);
 				}
 				GLog.newLine();
@@ -281,8 +281,8 @@ public class MagesStaff extends MeleeWeapon {
 	}
 
 	@Override
-	public Item upgrade(boolean enchant) {
-		super.upgrade( enchant );
+	public Item 升级(boolean enchant) {
+		super.升级( enchant );
 
 		updateWand(true);
 

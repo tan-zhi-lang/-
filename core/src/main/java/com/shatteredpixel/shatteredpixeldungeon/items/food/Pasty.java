@@ -96,7 +96,7 @@ public class Pasty extends Food {
 			case LUNAR_NEW_YEAR:
 				//...but it also awards an extra item that restores 150 hunger
 				FishLeftover left = new FishLeftover();
-				if (!left.collect()){
+				if (!left.放背包()){
 					Dungeon.level.drop(left, hero.pos).sprite.drop();
 				}
 				break;

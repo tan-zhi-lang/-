@@ -118,7 +118,7 @@ public class Artifact extends KindofMisc {
 
 	//transfers upgrades from another artifact, transfer level will equal the displayed level
 	public void transferUpgrade(int transferLvl) {
-		upgrade(Math.round((transferLvl*levelCap)/10f));
+		升级(Math.round((transferLvl*levelCap)/10f));
 	}
 
 	public void resetForTrinity(int visibleLevel){

@@ -203,12 +203,12 @@ public class SandalsOfNature extends Artifact {
 	}
 
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 		if (等级() < 0)        image = ItemSpriteSheet.ARTIFACT_SANDALS;
 		else if (等级() == 0)  image = ItemSpriteSheet.ARTIFACT_SHOES;
 		else if (等级() == 1)  image = ItemSpriteSheet.ARTIFACT_BOOTS;
 		else if (等级() >= 2)  image = ItemSpriteSheet.ARTIFACT_GREAVES;
-		return super.upgrade();
+		return super.升级();
 	}
 
 	public boolean canUseSeed(Item item){
@@ -297,7 +297,7 @@ public class SandalsOfNature extends Artifact {
 				hero.spend( Actor.TICK );
 				if (seeds.size() >= 3+(等级()*3)){
 					seeds.clear();
-					upgrade();
+					升级();
 					Catalog.countUses(SandalsOfNature.class, 等级() == 3 ? 4 : 3);
 					if (等级() >= 1 && 等级() <= 3) {
 						GLog.p( Messages.get(SandalsOfNature.class, "levelup") );

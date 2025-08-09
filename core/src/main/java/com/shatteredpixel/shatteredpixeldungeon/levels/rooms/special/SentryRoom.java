@@ -189,7 +189,7 @@ public class SentryRoom extends SpecialRoom {
 
 		//33% chance for an extra update.
 		if (Random.Int(3) == 0){
-			prize.upgrade();
+			prize.升级();
 		}
 
 		return prize;
@@ -295,7 +295,7 @@ public class SentryRoom extends SpecialRoom {
 		}
 
 		@Override
-		public int defenseSkill( Char enemy ) {
+		public int 最大闪避(Char enemy ) {
 			return INFINITE_EVASION;
 		}
 

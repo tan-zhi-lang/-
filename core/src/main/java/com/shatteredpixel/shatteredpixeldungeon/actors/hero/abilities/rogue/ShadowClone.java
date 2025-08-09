@@ -187,7 +187,7 @@ public class ShadowClone extends ArmorAbility {
 		public int 攻击() {
 			int damage = Random.NormalIntRange(10, 20);
 			int heroDamage = Dungeon.hero.攻击();
-			heroDamage /= Dungeon.hero.attackDelay(); //normalize hero damage based on atk speed
+			heroDamage /= Dungeon.hero.攻速(); //normalize hero damage based on atk speed
 			heroDamage = Math.round(0.08f * Dungeon.hero.天赋点数(Talent.SHADOW_BLADE) * heroDamage);
 			if (heroDamage > 0){
 				damage += heroDamage;
@@ -238,8 +238,8 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public float speed() {
-			float speed = super.speed();
+		public float 移速() {
+			float speed = super.移速();
 
 			//moves 2 tiles at a time when returning to the hero
 			if (state == WANDERING

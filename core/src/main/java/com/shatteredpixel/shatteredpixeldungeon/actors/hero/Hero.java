@@ -186,8 +186,8 @@ public class Hero extends Char {
 	public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
 	public LinkedHashMap<Talent, Talent> metamorphedTalents = new LinkedHashMap<>();
 	
-	private int 最大命中 = 10;
-	private int 最大闪避 = 5;
+	private int 最大命中 = 10+10;
+	private int 最大闪避 = 5+5;
 
 	public boolean ready = false;
 	public boolean damageInterrupt = true;
@@ -230,7 +230,7 @@ public class Hero extends Char {
 	public void 更新生命(boolean boostHP ){
 		int curHT = 最大生命;
 		
-		最大生命 = 30 + 5*(等级 -1) + HTBoost;
+		最大生命 = 30 + (5+1)*(等级 -1) + HTBoost;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		最大生命 = Math.round(multiplier * 最大生命);
 		
@@ -269,9 +269,6 @@ public class Hero extends Char {
 	private static final String SUBCLASS    = "subClass";
 	private static final String ABILITY     = "armorAbility";
 
-	private static final String ATTACK		= "attackSkill";
-	private static final String DEFENSE		= "defenseSkill";
-	private static final String STRENGTH	= "STR";
 	private static final String LEVEL		= "lvl";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
@@ -285,12 +282,7 @@ public class Hero extends Char {
 		bundle.put( SUBCLASS, subClass );
 		bundle.put( ABILITY, armorAbility );
 		Talent.storeTalentsInBundle( bundle, this );
-		
-		bundle.put( ATTACK, 最大命中);
-		bundle.put( DEFENSE, 最大闪避);
-		
-		bundle.put( STRENGTH, 力量);
-		
+
 		bundle.put( LEVEL, 等级);
 		bundle.put( EXPERIENCE, 当前经验);
 		
@@ -313,22 +305,15 @@ public class Hero extends Char {
 		subClass = bundle.getEnum( SUBCLASS, HeroSubClass.class );
 		armorAbility = (ArmorAbility)bundle.get( ABILITY );
 		Talent.restoreTalentsFromBundle( bundle, this );
-		
-		最大命中 = bundle.getInt( ATTACK );
-		最大闪避 = bundle.getInt( DEFENSE );
-		
-		力量 = bundle.getInt( STRENGTH );
+
+
 
 		belongings.restoreFromBundle( bundle );
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
 		info.level = bundle.getInt( LEVEL );
-		info.str = bundle.getInt( STRENGTH );
 		info.exp = bundle.getInt( EXPERIENCE );
-		info.hp = bundle.getInt( Char.TAG_HP );
-		info.ht = bundle.getInt( Char.TAG_HT );
-		info.shld = bundle.getInt( Char.TAG_SHLD );
 		info.heroClass = bundle.getEnum( CLASS, HeroClass.class );
 		info.subClass = bundle.getEnum( SUBCLASS, HeroSubClass.class );
 		Belongings.preview( info, bundle );
@@ -428,21 +413,16 @@ public class Hero extends Char {
 	}
 
 	public int bonusTalentPoints(int tier){
-		int x=0;
-		if (tier==1){
-			x=-3;
-		}else if (tier==2){
-			x=-1;
-		}
+
 		if (等级 < (Talent.天赋解锁[tier]-1)
 				|| (tier == 3 && subClass == HeroSubClass.NONE)
 				|| (tier == 4 && armorAbility == null)) {
-			return x;
+			return 0;
 		} else if (buff(PotionOfDivineInspiration.DivineInspirationTracker.class) != null
 					&& buff(PotionOfDivineInspiration.DivineInspirationTracker.class).isBoosted(tier)) {
-			return x+2;
+			return 2;
 		} else {
-			return x;
+			return 0;
 		}
 	}
 	
@@ -597,17 +577,17 @@ public class Hero extends Char {
 			accuracy *= 1.50f;
 		}
 		
-		if (!RingOfForce.fightingUnarmed(this)) {
-			return Math.max(1, Math.round(最大命中 * accuracy * wep.accuracyFactor( this, target )));
+		if (!RingOfForce.fightingUnarmed(this)&&target!=null) {
+			return Math.max(1, Math.round((最大命中+等级*2) * accuracy * wep.accuracyFactor( this, target )));
 		} else {
-			return Math.max(1, Math.round(最大命中 * accuracy));
+			return Math.max(1, Math.round((最大命中+等级*2) * accuracy));
 		}
 	}
 	
 	@Override
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 
-		if (buff(Combo.ParryTracker.class) != null){
+		if (buff(Combo.ParryTracker.class) != null&&enemy!=null){
 			if (canAttack(enemy) && !isCharmedBy(enemy)){
 				Buff.施加(this, Combo.RiposteTracker.class).enemy = enemy;
 			}
@@ -618,7 +598,7 @@ public class Hero extends Char {
 			return INFINITE_EVASION;
 		}
 		
-		float evasion = 最大闪避;
+		float evasion = (最大闪避+等级);
 		
 		evasion *= RingOfEvasion.evasionMultiplier( this );
 
@@ -750,9 +730,9 @@ public class Hero extends Char {
 	}
 	
 	@Override
-	public float speed() {
+	public float 移速() {
 
-		float speed = super.speed();
+		float speed = super.移速();
 
 		speed *= RingOfHaste.speedMultiplier(this);
 		
@@ -818,7 +798,7 @@ public class Hero extends Char {
 		}
 	}
 	
-	public float attackDelay() {
+	public float 攻速() {
 		if (buff(Talent.LethalMomentumTracker.class) != null){
 			buff(Talent.LethalMomentumTracker.class).detach();
 			return 0;
@@ -1029,7 +1009,7 @@ public class Hero extends Char {
 		} else if (pos == action.dst && canSelfTrample()){
 			canSelfTrample = false;
 			Dungeon.level.pressCell(pos);
-			spendAndNext( 1 / speed() );
+			spendAndNext( 1 / 移速() );
 			return false;
 		} else {
 			ready();
@@ -1139,10 +1119,10 @@ public class Hero extends Char {
 					} else if (item instanceof DarkGold) {
 						DarkGold existing = belongings.getItem(DarkGold.class);
 						if (existing != null){
-							if (existing.quantity() >= 40) {
-								GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.quantity()));
+							if (existing.数量() >= 40) {
+								GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
 							} else {
-								GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.quantity()));
+								GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
 							}
 						}
 					} else {
@@ -1319,11 +1299,11 @@ public class Hero extends Char {
 							DarkGold gold = new DarkGold();
 							if (gold.doPickUp( Dungeon.hero )) {
 								DarkGold existing = Dungeon.hero.belongings.getItem(DarkGold.class);
-								if (existing != null && existing.quantity()%5 == 0){
-									if (existing.quantity() >= 40) {
-										GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.quantity()));
+								if (existing != null && existing.数量()%5 == 0){
+									if (existing.数量() >= 40) {
+										GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
 									} else {
-										GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.quantity()));
+										GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
 									}
 								}
 								spend(-Actor.TICK); //picking up the gold doesn't spend a turn here
@@ -1862,7 +1842,7 @@ public class Hero extends Char {
 
 		if (step != -1) {
 
-			float delay = 1 / speed();
+			float delay = 1 / 移速();
 
 			if (buff(GreaterHaste.class) != null){
 				delay = 0;
@@ -2071,8 +2051,6 @@ public class Hero extends Char {
 		}
 
 		更新生命( true );
-		最大命中++;
-		最大闪避++;
 
 		if (sprite != null) {
 			GLog.newLine();
@@ -2342,7 +2320,7 @@ public class Hero extends Char {
 		boolean hit = attack(attackTarget);
 		
 		Invisibility.dispel();
-		spend( attackDelay() );
+		spend( 攻速() );
 
 		if (hit && subClass == HeroSubClass.GLADIATOR && wasEnemy){
 			Buff.施加( this, Combo.class ).hit(attackTarget);

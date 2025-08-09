@@ -78,12 +78,12 @@ public class Ghost extends NPC {
 	}
 
 	@Override
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 		return INFINITE_EVASION;
 	}
 	
 	@Override
-	public float speed() {
+	public float 移速() {
 		return 0.5f;
 	}
 	
@@ -328,8 +328,8 @@ public class Ghost extends NPC {
 				} else {
 					itemLevel = 3;
 				}
-				weapon.upgrade(itemLevel);
-				armor.upgrade(itemLevel);
+				weapon.升级(itemLevel);
+				armor.升级(itemLevel);
 
 				// 20% base chance to be enchanted, stored separately so status isn't revealed early
 				//we generate first so that the outcome doesn't affect the number of RNG rolls

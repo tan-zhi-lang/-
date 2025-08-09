@@ -80,9 +80,9 @@ public class CrystalGuardian extends Mob{
 	}
 
 	@Override
-	public int defenseSkill(Char enemy) {
+	public int 最大闪避(Char enemy) {
 		if (recovering) return 0;
-		else            return super.defenseSkill(enemy);
+		else            return super.最大闪避(enemy);
 	}
 
 	@Override
@@ -182,12 +182,12 @@ public class CrystalGuardian extends Mob{
 	}
 
 	@Override
-	public float speed() {
+	public float 移速() {
 		//crystal guardians take up to 4 turns when moving through an enclosed space
 		if (!Dungeon.level.openSpace[pos]) {
-			return Math.max(0.25f, super.speed() / 4f);
+			return Math.max(0.25f, super.移速() / 4f);
 		}
-		return super.speed();
+		return super.移速();
 	}
 
 	@Override
@@ -201,7 +201,7 @@ public class CrystalGuardian extends Mob{
 				Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 			}
 			//breaking a crystal costs an extra move, not affected by enclosed spaces though
-			spend(1/super.speed());
+			spend(1/super.移速());
 		}
 	}
 

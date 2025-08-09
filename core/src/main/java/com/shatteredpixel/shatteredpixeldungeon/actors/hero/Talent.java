@@ -45,7 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
@@ -203,8 +203,8 @@ public enum Talent {
 			//barrier every 2/1 turns, to a max of 3/5
 			if (((Hero)target).有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
 				Barrier barrier = Buff.施加(target, Barrier.class);
-				if (barrier.shielding() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,4)) {
-					barrierInc += 0.5f * ((Hero) target).天赋点数(Talent.PROTECTIVE_SHADOWS);
+				if (barrier.shielding() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,10)) {
+					barrierInc += 0.5f;
 				}
 				if (barrierInc >= 1){
 					barrierInc = 0;
@@ -409,7 +409,8 @@ public enum Talent {
 	int 最大点数;
 
 	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 => 2/8/15/24/35 6-3 7-1 9
-	public static int[] 天赋解锁 = new int[]{0, 1+1+0, 6+1+1, 12+1+2, 20+1+3, 30+1+4};
+	public static int[] 天赋解锁 = new int[]{0, 1+1+0, 3+1+1, 8+1+2, 16+1+3, 24+1+4};
+//	public static int[] 天赋解锁 = new int[]{0, 1+1+0, 6+1+1, 12+1+2, 20+1+3, 30+1+4};
 
 	Talent( int icon ){
 		this(icon, 2);
@@ -529,11 +530,11 @@ public enum Talent {
 
 		if (talent == UNENCUMBERED_SPIRIT && hero.满天赋(talent)){
 			Item toGive = new ClothArmor().鉴定();
-			if (!toGive.collect()){
+			if (!toGive.放背包()){
 				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
 			}
 			toGive = new Gloves().鉴定();
-			if (!toGive.collect()){
+			if (!toGive.放背包()){
 				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
 			}
 		}
@@ -558,6 +559,9 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}};
 
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
+		hero.生命 = Math.min(hero.生命 + 1, hero.最大生命);
+		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(1), FloatingText.HEALING);
+
 		if (hero.有天赋(HEARTY_MEAL)){
 			//4/6 HP healed, when hero is below 33% health (with a little rounding up)
 			if (hero.生命 /(float)hero.最大生命 < 0.334f) {
@@ -748,7 +752,7 @@ public enum Talent {
 			} else {
 				// 10/15%
 				if (Random.Int(99) < hero.天赋点数(RECALL_INSCRIPTION,10)){
-					Reflection.newInstance(cls).collect();
+					Reflection.newInstance(cls).放背包();
 					GLog.p("refunded!");
 				}
 			}
@@ -762,12 +766,12 @@ public enum Talent {
 			} else {
 
 				//don't trigger on 1st intuition use
-				if (cls.equals(StoneOfIntuition.class) && hero.buff(StoneOfIntuition.IntuitionUseTracker.class) != null){
+				if (cls.equals(感知符石.class) && hero.buff(感知符石.IntuitionUseTracker.class) != null){
 					return;
 				}
 				// 10/15%
 				if (Random.Int(99) < 1 + hero.天赋点数(RECALL_INSCRIPTION)){
-					Reflection.newInstance(cls).collect();
+					Reflection.newInstance(cls).放背包();
 					GLog.p("refunded!");
 				}
 			}
@@ -834,7 +838,7 @@ public enum Talent {
 			dmg += hero.天赋点数(Talent.SUCKER_PUNCH, 2);
 			Buff.施加(enemy, SuckerPunchTracker.class);
 		}
-		return dmg;
+		return dmg++;
 	}
 	public static int 攻击时(Hero hero, Char enemy, int dmg ){
 
@@ -858,7 +862,7 @@ public enum Talent {
 				Buff.延长(hero, FollowupStrikeTracker.class, 5f).object = enemy.id();
 			} else if (hero.buff(FollowupStrikeTracker.class) != null
 					&& hero.buff(FollowupStrikeTracker.class).object == enemy.id()){
-				dmg += hero.天赋点数(FOLLOWUP_STRIKE,3);
+				dmg += hero.天赋点数(FOLLOWUP_STRIKE,4);
 				hero.buff(FollowupStrikeTracker.class).detach();
 			}
 		}

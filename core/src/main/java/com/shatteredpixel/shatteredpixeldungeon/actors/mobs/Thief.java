@@ -54,9 +54,9 @@ public class Thief extends Mob {
 	}
 
 	@Override
-	public float speed() {
-		if (item != null) return (5*super.speed())/6;
-		else return super.speed();
+	public float 移速() {
+		if (item != null) return (5*super.移速())/6;
+		else return super.移速();
 	}
 
 	@Override

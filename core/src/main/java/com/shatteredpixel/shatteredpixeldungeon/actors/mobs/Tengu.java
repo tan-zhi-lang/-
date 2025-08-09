@@ -207,7 +207,7 @@ public class Tengu extends Mob {
 		
 		LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
 		if (beacon != null) {
-			beacon.upgrade();
+			beacon.升级();
 		}
 		
 		yell( Messages.get(this, "defeated") );

@@ -799,7 +799,7 @@ public class v0_6_X_Changes {
 				"_-_ Max charges reduced from 3-8 to 2-6\n\n" +
 				"_-_ Recharge speed has been reduced slightly" ));
 		
-		changes.addButton( new ChangeButton( new DriedRose().upgrade(10),
+		changes.addButton( new ChangeButton( new DriedRose().升级(10),
 				"The ghost hero summoned by the rose is now much more capable and is also much less temporary:\n\n" +
 				"_-_ Ghost can now be equipped with a weapon and armor and uses them just like the hero.\n" +
 				"_-_ Ghost no longer takes damage over time as long as the rose remains equipped.\n" +

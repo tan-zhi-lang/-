@@ -28,7 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDetectMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFear;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFlock;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -291,7 +291,7 @@ public abstract class Scroll extends Item {
 		
 		private static HashMap<Class<?extends Scroll>, Class<?extends Runestone>> stones = new HashMap<>();
 		static {
-			stones.put(ScrollOfIdentify.class,      StoneOfIntuition.class);
+			stones.put(ScrollOfIdentify.class,      感知符石.class);
 			stones.put(ScrollOfLullaby.class,       StoneOfDeepSleep.class);
 			stones.put(ScrollOfMagicMapping.class,  StoneOfClairvoyance.class);
 			stones.put(ScrollOfMirrorImage.class,   StoneOfFlock.class);
@@ -327,7 +327,7 @@ public abstract class Scroll extends Item {
 			
 			Scroll s = (Scroll) ingredients.get(0);
 			
-			s.quantity(s.quantity() - 1);
+			s.数量(s.数量() - 1);
 			if (ShatteredPixelDungeon.scene() instanceof AlchemyScene){
 				if (!s.isIdentified()){
 					((AlchemyScene) ShatteredPixelDungeon.scene()).showIdentify(s);
@@ -336,7 +336,7 @@ public abstract class Scroll extends Item {
 				s.鉴定();
 			}
 			
-			return Reflection.newInstance(stones.get(s.getClass())).quantity(2);
+			return Reflection.newInstance(stones.get(s.getClass())).数量(2);
 		}
 		
 		@Override
@@ -346,9 +346,9 @@ public abstract class Scroll extends Item {
 			Scroll s = (Scroll) ingredients.get(0);
 
 			if (!s.isKnown()){
-				return new Runestone.PlaceHolder().quantity(2);
+				return new Runestone.PlaceHolder().数量(2);
 			} else {
-				return Reflection.newInstance(stones.get(s.getClass())).quantity(2);
+				return Reflection.newInstance(stones.get(s.getClass())).数量(2);
 			}
 		}
 	}

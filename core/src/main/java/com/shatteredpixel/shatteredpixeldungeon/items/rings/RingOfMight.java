@@ -38,8 +38,8 @@ public class RingOfMight extends Ring {
 	}
 
 	@Override
-	public Item upgrade() {
-		super.upgrade();
+	public Item 升级() {
+		super.升级();
 		updateTargetHT();
 		return this;
 	}

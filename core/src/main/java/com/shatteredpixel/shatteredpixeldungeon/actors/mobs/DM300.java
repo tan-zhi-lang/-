@@ -327,8 +327,8 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public float speed() {
-		return super.speed() * (supercharged ? 2 : 1);
+	public float 移速() {
+		return super.移速() * (supercharged ? 2 : 1);
 	}
 
 	@Override
@@ -570,7 +570,7 @@ public class DM300 extends Mob {
 
 		LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
 		if (beacon != null) {
-			beacon.upgrade();
+			beacon.升级();
 		}
 
 		yell( Messages.get(this, "defeated") );

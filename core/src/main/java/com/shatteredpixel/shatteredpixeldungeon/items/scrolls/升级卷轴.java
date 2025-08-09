@@ -65,7 +65,7 @@ public class 升级卷轴 extends InventoryScroll {
 			boolean hadCursedEnchant = w.hasCurseEnchant();
 			boolean hadGoodEnchant = w.hasGoodEnchant();
 
-			item = w.upgrade();
+			item = w.升级();
 
 			if (w.cursedKnown && hadCursedEnchant && !w.hasCurseEnchant()){
 				removeCurse( Dungeon.hero );
@@ -85,7 +85,7 @@ public class 升级卷轴 extends InventoryScroll {
 			boolean hadCursedGlyph = a.hasCurseGlyph();
 			boolean hadGoodGlyph = a.hasGoodGlyph();
 
-			item = a.upgrade();
+			item = a.升级();
 
 			if (a.cursedKnown && hadCursedGlyph && !a.hasCurseGlyph()){
 				removeCurse( Dungeon.hero );
@@ -101,14 +101,14 @@ public class 升级卷轴 extends InventoryScroll {
 		} else if (item instanceof Wand || item instanceof Ring) {
 			boolean wasCursed = item.cursed;
 
-			item = item.upgrade();
+			item = item.升级();
 
 			if (item.cursedKnown && wasCursed && !item.cursed){
 				removeCurse( Dungeon.hero );
 			}
 
 		} else {
-			item = item.upgrade();
+			item = item.升级();
 		}
 
 		Badges.validateItemLevelAquired( item );

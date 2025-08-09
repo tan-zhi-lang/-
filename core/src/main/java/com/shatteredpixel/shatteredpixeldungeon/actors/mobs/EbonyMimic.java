@@ -92,7 +92,7 @@ public class EbonyMimic extends Mimic {
 					((Armor) i).inscribe(null);
 				}
 				if (!(i instanceof Artifact) && i.等级() == 0){
-					i.upgrade();
+					i.升级();
 				}
 			}
 		}

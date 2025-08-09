@@ -103,7 +103,7 @@ public class Sword extends MeleeWeapon {
 						Buff.延长(hero, CleaveTracker.class, 4f); //1 less as attack was instant
 					}
 				} else {
-					hero.spendAndNext(hero.attackDelay());
+					hero.spendAndNext(hero.攻速());
 					if (hero.buff(CleaveTracker.class) != null) {
 						hero.buff(CleaveTracker.class).detach();
 					}

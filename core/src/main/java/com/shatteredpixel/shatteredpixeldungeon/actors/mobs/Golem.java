@@ -171,7 +171,7 @@ public class Golem extends Mob {
 
 			int oldPos = pos;
 			if (target != -1 && getCloser( target )) {
-				spend( 1 / speed() );
+				spend( 1 / 移速() );
 				return moveSprite( oldPos, pos );
 			} else if (!Dungeon.bossLevel() && target != -1 && target != pos && selfTeleCooldown <= 0) {
 				((GolemSprite)sprite).teleParticles(true);
@@ -209,7 +209,7 @@ public class Golem extends Mob {
 					}
 
 				} else if (getCloser( target )) {
-					spend( 1 / speed() );
+					spend( 1 / 移速() );
 					return moveSprite( oldPos,  pos );
 
 				} else if (!Char.hasProp(enemy, Property.IMMOVABLE) && canTele(target)) {

@@ -75,7 +75,7 @@ public class ToxicGasRoom extends SpecialRoom {
 
 		goldPositions.remove((Integer) furthestPos);
 		Item mainGold = new Gold().random();
-		mainGold.quantity(mainGold.quantity()*2);
+		mainGold.数量(mainGold.数量()*2);
 		level.drop(mainGold, furthestPos).type = Heap.Type.SKELETON;
 
 		for (int i = 0; i < 2; i++){

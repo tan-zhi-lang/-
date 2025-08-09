@@ -31,8 +31,8 @@ public class MagicalHolster extends Bag {
 	}
 	
 	@Override
-	public boolean collect( Bag container ) {
-		if (super.collect( container )) {
+	public boolean 放背包(Bag container ) {
+		if (super.放背包( container )) {
 			if (owner != null) {
 				for (Item item : items) {
 					if (item instanceof Wand) {

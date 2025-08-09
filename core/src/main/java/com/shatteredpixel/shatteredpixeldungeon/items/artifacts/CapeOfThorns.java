@@ -93,7 +93,7 @@ public class CapeOfThorns extends Artifact {
 
 				if (exp >= (等级()+1)*5 && 等级() < levelCap){
 					exp -= (等级()+1)*5;
-					upgrade();
+					升级();
 					Catalog.countUse(CapeOfThorns.class);
 					GLog.p( Messages.get(this, "levelup") );
 				}

@@ -123,7 +123,7 @@ abstract public class MissileWeapon extends Weapon {
 		}
 	}
 
-	public Item upgrade( boolean enchant ) {
+	public Item 升级(boolean enchant ) {
 		if (!bundleRestoring) {
 			durability = MAX_DURABILITY;
 			extraThrownLeft = false;
@@ -132,7 +132,7 @@ abstract public class MissileWeapon extends Weapon {
 		}
 		//thrown weapons don't get curse weakened
 		boolean wasCursed = cursed;
-		super.upgrade( enchant );
+		super.升级( enchant );
 		if (wasCursed && hasCurseEnchant()){
 			cursed = wasCursed;
 		}
@@ -140,14 +140,14 @@ abstract public class MissileWeapon extends Weapon {
 	}
 	
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 		if (!bundleRestoring) {
 			durability = MAX_DURABILITY;
 			extraThrownLeft = false;
 			quantity = defaultQuantity();
 			Buff.施加(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
 		}
-		return super.upgrade();
+		return super.升级();
 	}
 
 	@Override
@@ -158,9 +158,9 @@ abstract public class MissileWeapon extends Weapon {
 	}
 	
 	@Override
-	public boolean collect(Bag container) {
+	public boolean 放背包(Bag container) {
 		if (container instanceof MagicalHolster) holster = true;
-		return super.collect(container);
+		return super.放背包(container);
 	}
 
 	public boolean isSimilar( Item item ) {
@@ -215,7 +215,7 @@ abstract public class MissileWeapon extends Weapon {
 	public void doThrow(Hero hero) {
 		parent = null; //reset parent before throwing, just in case
 		if (((levelKnown && 等级() > 0) || hasGoodEnchant() || masteryPotionBonus || enchantHardened)
-				&& !extraThrownLeft && quantity() == 1 && durabilityLeft() <= durabilityPerUse()){
+				&& !extraThrownLeft && 数量() == 1 && durabilityLeft() <= durabilityPerUse()){
 			GameScene.show(new WndOptions(new ItemSprite(this), Messages.titleCase(title()),
 					Messages.get(MissileWeapon.class, "break_upgraded_warn_desc"),
 					Messages.get(MissileWeapon.class, "break_upgraded_warn_yes"),
@@ -576,7 +576,7 @@ abstract public class MissileWeapon extends Weapon {
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
 			hero.spendAndNext( TIME_TO_PICK_UP );
 			GLog.w(Messages.get(this, "dust"));
-			quantity(0);
+			数量(0);
 			return true;
 		} else {
 			extraThrownLeft = false;

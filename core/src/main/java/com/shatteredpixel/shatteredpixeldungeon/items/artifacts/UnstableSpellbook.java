@@ -259,7 +259,7 @@ public class UnstableSpellbook extends Artifact {
 	}
 
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 		chargeCap = (int)((等级()+1)*0.6f)+2;
 
 		//for artifact transmutation.
@@ -267,7 +267,7 @@ public class UnstableSpellbook extends Artifact {
 			scrolls.remove(0);
 		}
 
-		return super.upgrade();
+		return super.升级();
 	}
 
 	@Override
@@ -384,7 +384,7 @@ public class UnstableSpellbook extends Artifact {
 						scrolls.remove(i);
 						item.detach(hero.belongings.backpack);
 
-						upgrade();
+						升级();
 						Catalog.countUse(UnstableSpellbook.class);
 						GLog.i( Messages.get(UnstableSpellbook.class, "infuse_scroll") );
 						return;

@@ -76,7 +76,7 @@ public class SacrificeRoom extends SpecialRoom {
 
 		//if it isn't already cursed, give it a free upgrade
 		if (!prize.cursed){
-			prize.upgrade();
+			prize.升级();
 			//curse the weapon, unless it has a glyph
 			if (!prize.hasGoodEnchant()){
 				prize.enchant(curse);

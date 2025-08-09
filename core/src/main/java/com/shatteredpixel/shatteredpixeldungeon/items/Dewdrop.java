@@ -131,7 +131,7 @@ public class Dewdrop extends Item {
 	}
 
 	@Override
-	public Item quantity(int value) {
+	public Item 数量(int value) {
 		quantity = Math.min( value, 1);
 		return this;
 	}

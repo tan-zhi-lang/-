@@ -325,11 +325,11 @@ public class Notes {
 		}
 
 		public int quantity(){
-			return key.quantity();
+			return key.数量();
 		}
 		
 		public void quantity(int num){
-			key.quantity(num);
+			key.数量(num);
 		}
 		
 		@Override
@@ -583,7 +583,7 @@ public class Notes {
 			return result;
 		} else {
 			k = (KeyRecord) records.get(records.indexOf(k));
-			k.quantity(k.quantity() + key.quantity());
+			k.quantity(k.quantity() + key.数量());
 			return true;
 		}
 	}
@@ -591,9 +591,9 @@ public class Notes {
 	public static boolean remove( Key key ){
 		KeyRecord k = new KeyRecord( key );
 		if (records.contains(k)){
-			Catalog.countUses(key.getClass(), key.quantity());
+			Catalog.countUses(key.getClass(), key.数量());
 			k = (KeyRecord) records.get(records.indexOf(k));
-			k.quantity(k.quantity() - key.quantity());
+			k.quantity(k.quantity() - key.数量());
 			if (k.quantity() <= 0){
 				records.remove(k);
 			}

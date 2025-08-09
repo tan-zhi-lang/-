@@ -96,14 +96,14 @@ public class AlchemistsToolkit extends Artifact {
 							Sample.INSTANCE.play(Assets.Sounds.DRINK);
 							Sample.INSTANCE.playDelayed(Assets.Sounds.PUFF, 0.5f);
 							Dungeon.hero.sprite.operate(Dungeon.hero.pos);
-							upgrade();
+							升级();
 							Catalog.countUse(AlchemistsToolkit.class);
 						} else if (index == 1){
 							Dungeon.energy -= 6*maxLevels;
 							Sample.INSTANCE.play(Assets.Sounds.DRINK);
 							Sample.INSTANCE.playDelayed(Assets.Sounds.PUFF, 0.5f);
 							Dungeon.hero.sprite.operate(Dungeon.hero.pos);
-							upgrade(maxLevels);
+							升级(maxLevels);
 							Catalog.countUses(AlchemistsToolkit.class, maxLevels);
 						}
 

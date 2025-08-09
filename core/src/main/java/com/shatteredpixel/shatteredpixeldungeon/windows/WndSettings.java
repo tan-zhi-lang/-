@@ -209,6 +209,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 		OptionSlider optVisGrid;
 		OptionSlider optFollowIntensity;
 		OptionSlider optScreenShake;
+		OptionSlider 动画速度;
 
 		@Override
 		protected void createChildren() {
@@ -327,6 +328,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 			optScreenShake.setSelectedValue(SPDSettings.震屏强度());
 			add(optScreenShake);
 
+			动画速度 = new OptionSlider("动画速度",
+					"慢", "快", 1, 10) {
+				@Override
+				protected void onChange() {
+					SPDSettings.动画速度(getSelectedValue());
+				}
+			};
+			动画速度.setSelectedValue(Math.round(SPDSettings.动画速度()));
+			add(动画速度);
+
 		}
 
 		@Override
@@ -374,15 +385,17 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 				optFollowIntensity.setRect(0, optVisGrid.bottom() + GAP, width/2-GAP/2, SLIDER_HEIGHT);
 				optScreenShake.setRect(optFollowIntensity.right() + GAP, optFollowIntensity.top(), width/2-GAP/2, SLIDER_HEIGHT);
+				动画速度.setRect(0, optFollowIntensity.bottom()+GAP, width, BTN_HEIGHT);
 			} else {
 				optBrightness.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
 				optVisGrid.setRect(0, optBrightness.bottom() + GAP, width, SLIDER_HEIGHT);
 
 				optFollowIntensity.setRect(0, optVisGrid.bottom() + GAP, width, SLIDER_HEIGHT);
 				optScreenShake.setRect(0, optFollowIntensity.bottom() + GAP, width, SLIDER_HEIGHT);
+				动画速度.setRect(0, optScreenShake.bottom() + GAP, width, SLIDER_HEIGHT);
 			}
 
-			height = optScreenShake.bottom();
+			height = 动画速度.bottom();
 		}
 
 	}

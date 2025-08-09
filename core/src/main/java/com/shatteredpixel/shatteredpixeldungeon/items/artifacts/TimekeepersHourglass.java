@@ -174,14 +174,14 @@ public class TimekeepersHourglass extends Artifact {
 	}
 
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 		chargeCap+= 1;
 
 		//for artifact transmutation.
 		while (等级()+1 > sandBags)
 			sandBags ++;
 
-		return super.upgrade();
+		return super.升级();
 	}
 
 	@Override
@@ -491,7 +491,7 @@ public class TimekeepersHourglass extends Artifact {
 			Statistics.itemTypesDiscovered.add(getClass());
 			TimekeepersHourglass hourglass = hero.belongings.getItem( TimekeepersHourglass.class );
 			if (hourglass != null && !hourglass.cursed) {
-				hourglass.upgrade();
+				hourglass.升级();
 				Catalog.countUses(hourglass.getClass(), 2);
 				Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
 				if (hourglass.等级() == hourglass.levelCap)

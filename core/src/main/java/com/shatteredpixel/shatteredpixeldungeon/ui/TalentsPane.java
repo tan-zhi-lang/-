@@ -49,7 +49,9 @@ public class TalentsPane extends ScrollPane {
 			}
 		} else {
 			while (tiersAvailable < Talent.MAX_TALENT_TIERS
-					&& Dungeon.hero.等级 +1 >= Talent.天赋解锁[tiersAvailable+1]){
+					&& Dungeon.hero.等级 +1 >= Talent.天赋解锁[tiersAvailable+1]
+					+(Dungeon.hero.等级<8?3:(Dungeon.hero.等级<15?4:(Dungeon.hero.等级<24?4:(Dungeon.hero.等级<35?6:0))))
+			){
 				tiersAvailable++;
 			}
 			if (tiersAvailable > 2 && Dungeon.hero.subClass == HeroSubClass.NONE){
@@ -182,6 +184,7 @@ public class TalentsPane extends ScrollPane {
 			}
 
 			int totStars = Talent.天赋解锁[tier+1] - Talent.天赋解锁[tier] + Dungeon.hero.bonusTalentPoints(tier);
+
 			int openStars = Dungeon.hero.talentPointsAvailable(tier);
 			int usedStars = Dungeon.hero.talentPointsSpent(tier);
 			for (int i = 0; i < totStars; i++){

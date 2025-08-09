@@ -152,13 +152,13 @@ public class SpiritHawk extends ArmorAbility {
 		private float timeRemaining = 100f;
 
 		@Override
-		public int defenseSkill(Char enemy) {
+		public int 最大闪避(Char enemy) {
 			if (Dungeon.hero.有天赋(Talent.SWIFT_SPIRIT) &&
 					dodgesUsed < 2*Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT)) {
 				dodgesUsed++;
 				return Char.INFINITE_EVASION;
 			}
-			return super.defenseSkill(enemy);
+			return super.最大闪避(enemy);
 		}
 
 		@Override
@@ -202,7 +202,7 @@ public class SpiritHawk extends ArmorAbility {
 			baseSpeed = 2f + Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT)/2f;
 			boolean result = super.act();
 			Dungeon.level.updateFieldOfView( this, fieldOfView );
-			GameScene.updateFog(pos, viewDistance+(int)Math.ceil(speed()));
+			GameScene.updateFog(pos, viewDistance+(int)Math.ceil(移速()));
 			return result;
 		}
 

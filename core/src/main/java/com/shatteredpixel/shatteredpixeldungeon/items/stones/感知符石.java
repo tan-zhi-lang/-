@@ -30,7 +30,7 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
-public class StoneOfIntuition extends InventoryStone {
+public class 感知符石 extends InventoryStone {
 	
 	{
 		image = ItemSpriteSheet.STONE_INTUITION;
@@ -109,14 +109,14 @@ public class StoneOfIntuition extends InventoryStone {
 						GLog.w( Messages.get(WndGuess.class, "incorrect") );
 					}
 					if (!anonymous) {
-						Catalog.countUse(StoneOfIntuition.class);
+						Catalog.countUse(感知符石.class);
 						if (curUser.buff(IntuitionUseTracker.class) == null) {
 							Buff.施加(curUser, IntuitionUseTracker.class);
 						} else {
 							curItem.detach(curUser.belongings.backpack);
 							curUser.buff(IntuitionUseTracker.class).detach();
 						}
-						Talent.onRunestoneUsed(curUser, curUser.pos, StoneOfIntuition.class);
+						Talent.onRunestoneUsed(curUser, curUser.pos, 感知符石.class);
 					}
 					curGuess = null;
 					hide();

@@ -48,6 +48,22 @@ public class GameSettings {
 			return defValue;
 		}
 	}
+	public static Float getFloat( String key, float defValue, float min, float max ) {
+		try {
+			float i = get().getFloat( key, defValue );
+			if (i < min || i > max){
+				float val = (float)GameMath.gate(min, i, max);
+				put(key, val);
+				return val;
+			} else {
+				return i;
+			}
+		} catch (Exception e) {
+			Game.reportException(e);
+			put(key, defValue);
+			return defValue;
+		}
+	}
 
 	public static long getLong( String key, long defValue ) {
 		return getLong(key, defValue, Long.MIN_VALUE, Long.MAX_VALUE);
@@ -101,6 +117,10 @@ public class GameSettings {
 	
 	public static void put( String key, int value ) {
 		get().putInteger(key, value);
+		get().flush();
+	}
+	public static void put( String key, float value ) {
+		get().putFloat(key, value);
 		get().flush();
 	}
 

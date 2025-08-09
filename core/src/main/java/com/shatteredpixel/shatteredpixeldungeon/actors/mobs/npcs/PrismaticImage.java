@@ -149,7 +149,7 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
-	public int defenseSkill(Char enemy) {
+	public int 最大闪避(Char enemy) {
 		if (hero != null) {
 			int baseEvasion = 4 + hero.等级;
 			int heroEvasion = (int)((4 + hero.等级) * RingOfEvasion.evasionMultiplier( hero ));
@@ -159,7 +159,7 @@ public class PrismaticImage extends NPC {
 
 			//if the hero has more/less evasion, 50% of it is applied
 			//includes ring of evasion and armor boosts
-			return super.defenseSkill(enemy) * (baseEvasion + heroEvasion) / 2;
+			return super.最大闪避(enemy) * (baseEvasion + heroEvasion) / 2;
 		} else {
 			return 0;
 		}

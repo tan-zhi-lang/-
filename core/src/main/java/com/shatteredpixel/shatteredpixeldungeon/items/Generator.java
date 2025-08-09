@@ -88,7 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDetectMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFear;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFlock;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfIntuition;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.DimensionalSundial;
@@ -358,7 +358,7 @@ public class Generator {
 			
 			STONE.classes = new Class<?>[]{
 					StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19
-					StoneOfIntuition.class,     //1 additional stone is also dropped on floors 1-3
+					感知符石.class,     //1 additional stone is also dropped on floors 1-3
 					StoneOfDetectMagic.class,
 					StoneOfFlock.class,
 					StoneOfShock.class,

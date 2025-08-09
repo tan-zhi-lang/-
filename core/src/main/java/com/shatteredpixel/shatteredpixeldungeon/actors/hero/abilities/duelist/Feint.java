@@ -171,7 +171,7 @@ public class Feint extends ArmorAbility {
 		}
 
 		@Override
-		public int defenseSkill(Char enemy) {
+		public int 最大闪避(Char enemy) {
 			if (enemy.alignment == Alignment.ENEMY) {
 				if (enemy instanceof Mob) {
 					((Mob) enemy).clearEnemy();

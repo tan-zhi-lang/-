@@ -82,14 +82,14 @@ public class Alchemize extends Spell {
 
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
-			ingredients.get(0).quantity(ingredients.get(0).quantity()-1);
-			ingredients.get(1).quantity(ingredients.get(1).quantity()-1);
+			ingredients.get(0).数量(ingredients.get(0).数量()-1);
+			ingredients.get(1).数量(ingredients.get(1).数量()-1);
 			return sampleOutput(null);
 		}
 
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
-			return new Alchemize().quantity(OUT_QUANTITY);
+			return new Alchemize().数量(OUT_QUANTITY);
 		}
 	}
 
@@ -132,7 +132,7 @@ public class Alchemize extends Spell {
 			float pos = height;
 
 			if (Shopkeeper.canSell(item)) {
-				if (item.quantity() == 1 || (item instanceof MissileWeapon && item.isUpgradable())) {
+				if (item.数量() == 1 || (item instanceof MissileWeapon && item.isUpgradable())) {
 
 					if (item instanceof MissileWeapon && ((MissileWeapon) item).extraThrownLeft){
 						RenderedTextBlock warn = PixelScene.renderTextBlock(Messages.get(WndUpgrade.class, "thrown_dust"), 6);
@@ -160,7 +160,7 @@ public class Alchemize extends Spell {
 				} else {
 
 					int priceAll = item.value();
-					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.quantity())) {
+					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.数量())) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sellOne(item);
@@ -189,7 +189,7 @@ public class Alchemize extends Spell {
 			}
 
 			if (item.energyVal() > 0) {
-				if (item.quantity() == 1) {
+				if (item.数量() == 1) {
 
 					RedButton btnEnergize = new RedButton(Messages.get(this, "energize", item.energyVal())) {
 						@Override
@@ -208,7 +208,7 @@ public class Alchemize extends Spell {
 				} else {
 
 					int energyAll = item.energyVal();
-					RedButton btnEnergize1 = new RedButton(Messages.get(this, "energize_1", energyAll / item.quantity())) {
+					RedButton btnEnergize1 = new RedButton(Messages.get(this, "energize_1", energyAll / item.数量())) {
 						@Override
 						protected void onClick() {
 							WndEnergizeItem.energizeOne(item);
@@ -242,7 +242,7 @@ public class Alchemize extends Spell {
 
 		private void consumeAlchemize(){
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-			if (curItem.quantity() <= 1){
+			if (curItem.数量() <= 1){
 				curItem.detachAll(Dungeon.hero.belongings.backpack);
 				if (owner != null) {
 					owner.hide();

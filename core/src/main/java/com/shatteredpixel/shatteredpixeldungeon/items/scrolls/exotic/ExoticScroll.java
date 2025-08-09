@@ -118,7 +118,7 @@ public abstract class ExoticScroll extends Scroll {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			for (Item i : ingredients){
-				i.quantity(i.quantity()-1);
+				i.数量(i.数量()-1);
 			}
 
 			return Reflection.newInstance(regToExo.get(ingredients.get(0).getClass()));

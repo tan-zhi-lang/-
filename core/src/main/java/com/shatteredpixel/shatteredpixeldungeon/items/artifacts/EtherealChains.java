@@ -337,7 +337,7 @@ public class EtherealChains extends Artifact {
 				exp -= 100+ 等级()*100;
 				GLog.p( Messages.get(this, "levelup") );
 				Catalog.countUses(EtherealChains.class, 2);
-				upgrade();
+				升级();
 			}
 
 		}

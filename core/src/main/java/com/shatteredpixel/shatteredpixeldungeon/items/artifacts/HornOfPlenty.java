@@ -198,8 +198,8 @@ public class HornOfPlenty extends Artifact {
 	}
 
 	@Override
-	public Item upgrade() {
-		super.upgrade();
+	public Item 升级() {
+		super.升级();
 		chargeCap = 5 + 等级()/2;
 		return this;
 	}
@@ -217,7 +217,7 @@ public class HornOfPlenty extends Artifact {
 		if (storedFoodEnergy >= Hunger.HUNGRY){
 			int upgrades = storedFoodEnergy / (int)Hunger.HUNGRY;
 			upgrades = Math.min(upgrades, 10 - 等级());
-			upgrade(upgrades);
+			升级(upgrades);
 			Catalog.countUse(HornOfPlenty.class);
 			storedFoodEnergy -= upgrades * Hunger.HUNGRY;
 			if (等级() == 10){

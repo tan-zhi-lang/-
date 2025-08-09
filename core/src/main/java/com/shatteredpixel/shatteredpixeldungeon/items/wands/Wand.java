@@ -145,8 +145,8 @@ public abstract class Wand extends Item {
 	}
 
 	@Override
-	public boolean collect( Bag container ) {
-		if (super.collect( container )) {
+	public boolean 放背包(Bag container ) {
+		if (super.放背包( container )) {
 			if (container.owner != null) {
 				if (container instanceof MagicalHolster)
 					charge( container.owner, ((MagicalHolster) container).HOLSTER_SCALE_FACTOR );
@@ -336,9 +336,9 @@ public abstract class Wand extends Item {
 	}
 	
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 
-		super.upgrade();
+		super.升级();
 
 		if (Random.Int(3) == 0) {
 			cursed = false;

@@ -557,7 +557,7 @@ public class DwarfKing extends Mob {
 
 		LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
 		if (beacon != null) {
-			beacon.upgrade();
+			beacon.升级();
 		}
 
 		//cleanses degrade that may have been applied by a DK warlock, mainly for convenience

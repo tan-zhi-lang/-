@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
@@ -87,13 +88,13 @@ public enum HeroClass {
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
 		i = new Food();
-		if (!Challenges.isItemBlocked(i)) i.collect();
+		if (!Challenges.isItemBlocked(i)) i.放背包();
 
-		new VelvetPouch().collect();
+		new VelvetPouch().放背包();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 
 		Waterskin waterskin = new Waterskin();
-		waterskin.collect();
+		waterskin.放背包();
 
 		new ScrollOfIdentify().鉴定();
 
@@ -155,7 +156,7 @@ public enum HeroClass {
 	private static void initWarrior( Hero hero ) {
 		(hero.belongings.weapon = new WornShortsword()).鉴定();
 		ThrowingStone stones = new ThrowingStone();
-		stones.鉴定().collect();
+		stones.鉴定().放背包();
 
 		Dungeon.quickslot.setSlot(0, stones);
 
@@ -190,7 +191,7 @@ public enum HeroClass {
 		hero.belongings.artifact.activate( hero );
 
 		ThrowingKnife knives = new ThrowingKnife();
-		knives.鉴定().collect();
+		knives.鉴定().放背包();
 
 		Dungeon.quickslot.setSlot(0, cloak);
 		Dungeon.quickslot.setSlot(1, knives);
@@ -203,7 +204,7 @@ public enum HeroClass {
 
 		(hero.belongings.weapon = new Gloves()).鉴定();
 		SpiritBow bow = new SpiritBow();
-		bow.鉴定().collect();
+		bow.鉴定().放背包();
 
 		Dungeon.quickslot.setSlot(0, bow);
 
@@ -217,7 +218,7 @@ public enum HeroClass {
 		hero.belongings.weapon.activate(hero);
 
 		ThrowingSpike spikes = new ThrowingSpike();
-		spikes.quantity(2).鉴定().collect(); //set quantity is 3, but Duelist starts with 2
+		spikes.数量(2).鉴定().放背包(); //set quantity is 3, but Duelist starts with 2
 
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, spikes);
@@ -292,20 +293,7 @@ public enum HeroClass {
 	}
 
 	public String splashArt(){
-		switch (this) {
-			case WARRIOR: default:
-				return Assets.Splashes.WARRIOR;
-			case MAGE:
-				return Assets.Splashes.MAGE;
-			case ROGUE:
-				return Assets.Splashes.ROGUE;
-			case HUNTRESS:
-				return Assets.Splashes.HUNTRESS;
-			case DUELIST:
-				return Assets.Splashes.DUELIST;
-			case CLERIC:
-				return Assets.Splashes.CLERIC;
-		}
+		return Assets.Splashes.时空;
 	}
 	
 	public boolean isUnlocked(){

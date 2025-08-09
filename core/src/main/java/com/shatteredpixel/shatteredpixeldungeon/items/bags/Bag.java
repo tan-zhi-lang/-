@@ -62,7 +62,7 @@ public class Bag extends Item implements Iterable<Item> {
 	}
 	
 	@Override
-	public boolean collect( Bag container ) {
+	public boolean 放背包(Bag container ) {
 
 		grabItems(container);
 
@@ -71,7 +71,7 @@ public class Bag extends Item implements Iterable<Item> {
 			Dungeon.quickslot.replacePlaceholder(item);
 		}
 
-		if (super.collect( container )) {
+		if (super.放背包( container )) {
 			
 			owner = container.owner;
 			
@@ -103,8 +103,8 @@ public class Bag extends Item implements Iterable<Item> {
 			if (canHold( item )) {
 				int slot = Dungeon.quickslot.getSlot(item);
 				item.detachAll(container);
-				if (!item.collect(this)) {
-					item.collect(container);
+				if (!item.放背包(this)) {
+					item.放背包(container);
 				}
 				if (slot != -1) {
 					Dungeon.quickslot.setSlot(slot, item);
@@ -151,7 +151,7 @@ public class Bag extends Item implements Iterable<Item> {
 		loading = true;
 		for (Bundlable item : bundle.getCollection( ITEMS )) {
 			if (item != null){
-				if (!((Item)item).collect( this )){
+				if (!((Item)item).放背包( this )){
 					//force-add the item if necessary, such as if its item category changed after an update
 					items.add((Item) item);
 				}

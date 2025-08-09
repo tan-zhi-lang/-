@@ -72,7 +72,7 @@ public abstract class Recipe {
 			ArrayList<Item> result = new ArrayList<>();
 			for (int i = 0; i < inputs.length; i++) {
 				Item ingredient = Reflection.newInstance(inputs[i]);
-				ingredient.quantity(inQuantity[i]);
+				ingredient.数量(inQuantity[i]);
 				result.add(ingredient);
 			}
 			return result;
@@ -87,7 +87,7 @@ public abstract class Recipe {
 				if (!ingredient.isIdentified()) return false;
 				for (int i = 0; i < inputs.length; i++){
 					if (ingredient.getClass() == inputs[i]){
-						needed[i] -= ingredient.quantity();
+						needed[i] -= ingredient.数量();
 						break;
 					}
 				}
@@ -115,12 +115,12 @@ public abstract class Recipe {
 			for (Item ingredient : ingredients){
 				for (int i = 0; i < inputs.length; i++) {
 					if (ingredient.getClass() == inputs[i] && needed[i] > 0) {
-						if (needed[i] <= ingredient.quantity()) {
-							ingredient.quantity(ingredient.quantity() - needed[i]);
+						if (needed[i] <= ingredient.数量()) {
+							ingredient.数量(ingredient.数量() - needed[i]);
 							needed[i] = 0;
 						} else {
-							needed[i] -= ingredient.quantity();
-							ingredient.quantity(0);
+							needed[i] -= ingredient.数量();
+							ingredient.数量(0);
 						}
 					}
 				}
@@ -134,7 +134,7 @@ public abstract class Recipe {
 		public Item sampleOutput(ArrayList<Item> ingredients){
 			try {
 				Item result = Reflection.newInstance(output);
-				result.quantity(outQuantity);
+				result.数量(outQuantity);
 				return result;
 			} catch (Exception e) {
 				ShatteredPixelDungeon.reportException( e );

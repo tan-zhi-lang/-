@@ -201,7 +201,7 @@ public class Ghoul extends Mob {
 				target = partner.pos;
 				int oldPos = pos;
 				if (getCloser( target )){
-					spend( 1 / speed() );
+					spend( 1 / 移速() );
 					return moveSprite( oldPos, pos );
 				} else {
 					spend( TICK );

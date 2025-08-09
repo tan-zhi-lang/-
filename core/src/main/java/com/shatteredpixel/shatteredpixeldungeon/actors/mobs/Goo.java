@@ -70,8 +70,8 @@ public class Goo extends Mob {
 	}
 
 	@Override
-	public int defenseSkill(Char enemy) {
-		return (int)(super.defenseSkill(enemy) * ((生命 *2 <= 最大生命)? 1.5 : 1));
+	public int 最大闪避(Char enemy) {
+		return (int)(super.最大闪避(enemy) * ((生命 *2 <= 最大生命)? 1.5 : 1));
 	}
 
 	@Override

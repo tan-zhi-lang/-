@@ -195,7 +195,7 @@ public class TalismanOfForesight extends Artifact {
 				exp += earnedExp;
 				if (exp >= 100 + 50* 等级() && 等级() < levelCap) {
 					exp -= 100 + 50* 等级();
-					upgrade();
+					升级();
 					Catalog.countUse(TalismanOfForesight.class);
 					GLog.p( Messages.get(TalismanOfForesight.class, "levelup") );
 				}

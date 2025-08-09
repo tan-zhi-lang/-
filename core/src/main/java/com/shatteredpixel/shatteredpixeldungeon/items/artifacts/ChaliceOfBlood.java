@@ -111,18 +111,18 @@ public class ChaliceOfBlood extends Artifact {
 			Dungeon.fail( this );
 			GLog.n( Messages.get(this, "ondeath") );
 		} else {
-			upgrade();
+			升级();
 			Catalog.countUse(getClass());
 		}
 	}
 
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 		if (等级() >= 6)
 			image = ItemSpriteSheet.ARTIFACT_CHALICE3;
 		else if (等级() >= 2)
 			image = ItemSpriteSheet.ARTIFACT_CHALICE2;
-		return super.upgrade();
+		return super.升级();
 	}
 
 	@Override

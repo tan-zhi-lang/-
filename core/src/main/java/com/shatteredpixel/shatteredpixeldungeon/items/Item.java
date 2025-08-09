@@ -103,7 +103,7 @@ public class Item implements Bundlable {
 	}
 
 	public boolean doPickUp(Hero hero, int pos) {
-		if (collect( hero.belongings.backpack )) {
+		if (放背包( hero.belongings.backpack )) {
 			
 			GameScene.pickUp( this, pos );
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
@@ -183,7 +183,7 @@ public class Item implements Bundlable {
 		return this;
 	}
 	
-	public boolean collect( Bag container ) {
+	public boolean 放背包(Bag container ) {
 
 		if (quantity <= 0){
 			return true;
@@ -197,7 +197,7 @@ public class Item implements Bundlable {
 
 		for (Item item:items) {
 			if (item instanceof Bag && ((Bag)item).canHold( this )) {
-				if (collect( (Bag)item )){
+				if (放背包( (Bag)item )){
 					return true;
 				}
 			}
@@ -222,9 +222,9 @@ public class Item implements Bundlable {
 					}
 					if (TippedDart.lostDarts > 0){
 						Dart d = new Dart();
-						d.quantity(TippedDart.lostDarts);
+						d.数量(TippedDart.lostDarts);
 						TippedDart.lostDarts = 0;
-						if (!d.collect()){
+						if (!d.放背包()){
 							//have to handle this in an actor as we can't manipulate the heap during pickup
 							Actor.add(new Actor() {
 								{ actPriority = VFX_PRIO; }
@@ -259,13 +259,13 @@ public class Item implements Bundlable {
 
 	}
 	
-	public final boolean collect() {
-		return collect( Dungeon.hero.belongings.backpack );
+	public final boolean 放背包() {
+		return 放背包( Dungeon.hero.belongings.backpack );
 	}
 	
 	//returns a new item if the split was sucessful and there are now 2 items, otherwise null
 	public Item split( int amount ){
-		if (amount <= 0 || amount >= quantity()) {
+		if (amount <= 0 || amount >= 数量()) {
 			return null;
 		} else {
 			//pssh, who needs copy constructors?
@@ -278,7 +278,7 @@ public class Item implements Bundlable {
 			Bundle copy = new Bundle();
 			this.storeInBundle(copy);
 			split.restoreFromBundle(copy);
-			split.quantity(amount);
+			split.数量(amount);
 			quantity -= amount;
 			
 			return split;
@@ -378,7 +378,7 @@ public class Item implements Bundlable {
 		updateQuickslot();
 	}
 	
-	public Item upgrade() {
+	public Item 升级() {
 		
 		this.level++;
 
@@ -387,9 +387,9 @@ public class Item implements Bundlable {
 		return this;
 	}
 	
-	final public Item upgrade( int n ) {
+	final public Item 升级(int n ) {
 		for (int i=0; i < n; i++) {
-			upgrade();
+			升级();
 		}
 		
 		return this;
@@ -515,11 +515,11 @@ public class Item implements Bundlable {
 		return Messages.get(this, "desc");
 	}
 	
-	public int quantity() {
+	public int 数量() {
 		return quantity;
 	}
 	
-	public Item quantity( int value ) {
+	public Item 数量(int value ) {
 		quantity = value;
 		return this;
 	}
@@ -586,7 +586,7 @@ public class Item implements Bundlable {
 		
 		int level = bundle.getInt( LEVEL );
 		if (level > 0) {
-			upgrade( level );
+			升级( level );
 		} else if (level < 0) {
 			degrade( -level );
 		}

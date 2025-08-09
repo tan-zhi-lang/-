@@ -70,8 +70,8 @@ abstract public class Weapon extends KindOfWeapon {
 	public int      RCH = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
-		SPEED   (1, 0.5f),
-		DAMAGE  (1.5f, 0.5f),
+		SPEED   (0.5f, 0.5f),
+		DAMAGE  (2, 2),
 		NONE	(1.0f, 1f);
 //		SPEED   (0.7f, 2/3f),
 //		DAMAGE  (1.5f, 5/3f),
@@ -238,8 +238,8 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	@Override
-	public boolean collect(Bag container) {
-		if(super.collect(container)){
+	public boolean 放背包(Bag container) {
+		if(super.放背包(container)){
 			if (Dungeon.hero != null && Dungeon.hero.isAlive() && isIdentified() && enchantment != null){
 				Catalog.setSeen(enchantment.getClass());
 				Statistics.itemTypesDiscovered.add(enchantment.getClass());
@@ -352,11 +352,11 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	@Override
-	public Item upgrade() {
-		return upgrade(false);
+	public Item 升级() {
+		return 升级(false);
 	}
 	
-	public Item upgrade(boolean enchant ) {
+	public Item 升级(boolean enchant ) {
 
 		if (enchant){
 			if (enchantment == null){
@@ -381,7 +381,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		cursed = false;
 
-		return super.upgrade();
+		return super.升级();
 	}
 	
 	@Override

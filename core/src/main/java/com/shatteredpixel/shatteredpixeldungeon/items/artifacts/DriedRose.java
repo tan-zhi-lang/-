@@ -315,7 +315,7 @@ public class DriedRose extends Artifact {
 	}
 	
 	@Override
-	public Item upgrade() {
+	public Item 升级() {
 		if (等级() >= 9)
 			image = ItemSpriteSheet.ARTIFACT_ROSE3;
 		else if (等级() >= 4)
@@ -328,7 +328,7 @@ public class DriedRose extends Artifact {
 			ghost.updateRose();
 		}
 
-		return super.upgrade();
+		return super.升级();
 	}
 	
 	public Weapon ghostWeapon(){
@@ -487,7 +487,7 @@ public class DriedRose extends Artifact {
 				return true;
 			} else {
 
-				rose.upgrade();
+				rose.升级();
 				Catalog.countUse(rose.getClass());
 				if (rose.等级() == rose.levelCap) {
 					GLog.p( Messages.get(this, "maxlevel") );
@@ -667,8 +667,8 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public float speed() {
-			float speed = super.speed();
+		public float 移速() {
+			float speed = super.移速();
 
 			//moves 2 tiles at a time when returning to the hero
 			if (state == WANDERING
@@ -681,8 +681,8 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int defenseSkill(Char enemy) {
-			int defense = super.defenseSkill(enemy);
+		public int 最大闪避(Char enemy) {
+			int defense = super.最大闪避(enemy);
 
 			if (defense != 0 && armor() != null ){
 				defense = Math.round(armor().evasionFactor( this, defense ));

@@ -238,7 +238,7 @@ public abstract class Mob extends Char {
 		//for updating hero FOV
 		if (buff(PowerOfMany.PowerBuff.class) != null){
 			Dungeon.level.updateFieldOfView( this, fieldOfView );
-			GameScene.updateFog(pos, viewDistance+(int)Math.ceil(speed()));
+			GameScene.updateFog(pos, viewDistance+(int)Math.ceil(移速()));
 		}
 
 		return result;
@@ -656,7 +656,7 @@ public abstract class Mob extends Char {
 	}
 	
 	@Override
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 		if (buff(GuidingLight.Illuminated.class) != null && Dungeon.hero.heroClass == HeroClass.CLERIC){
 			//if the attacker is the cleric, they must be using a weapon they have the str for
 			if (enemy instanceof Hero){
@@ -739,8 +739,8 @@ public abstract class Mob extends Char {
 	}
 
 	@Override
-	public float speed() {
-		return super.speed() * AscensionChallenge.enemySpeedModifier(this);
+	public float 移速() {
+		return super.移速() * AscensionChallenge.enemySpeedModifier(this);
 	}
 
 	public final boolean surprisedBy( Char enemy ){
@@ -1173,7 +1173,7 @@ public abstract class Mob extends Char {
 			
 			int oldPos = pos;
 			if (target != -1 && getCloser( target )) {
-				spend( 1 / speed() );
+				spend( 1 / 移速() );
 				return moveSprite( oldPos, pos );
 			} else {
 				target = randomDestination();
@@ -1243,7 +1243,7 @@ public abstract class Mob extends Char {
 				int oldPos = pos;
 				if (target != -1 && getCloser( target )) {
 					
-					spend( 1 / speed() );
+					spend( 1 / 移速() );
 					return moveSprite( oldPos,  pos );
 
 				} else {
@@ -1297,7 +1297,7 @@ public abstract class Mob extends Char {
 			int oldPos = pos;
 			if (target != -1 && getFurther( target )) {
 
-				spend( 1 / speed() );
+				spend( 1 / 移速() );
 				return moveSprite( oldPos, pos );
 
 			} else {

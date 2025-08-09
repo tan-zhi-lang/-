@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.DarkBlock;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
@@ -118,9 +119,13 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void play(Animation anim) {
 		//Shouldn't interrupt the dieing animation
 		if (curAnim == null || curAnim != die) {
-            if (true) {//TODO 设置添加加快动画按钮
-                anim.delay = 0.1f;
-            }
+            if (anim==idle) {
+				anim.delay = 1;
+            } else if (anim == run) {
+				anim.delay = 1;
+			} else{
+				anim.delay = 1f/10f/SPDSettings.动画速度();
+			}
             super.play(anim);
 		}
 	}

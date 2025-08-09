@@ -27,12 +27,12 @@ public class RatKing extends NPC {
 	}
 	
 	@Override
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 		return INFINITE_EVASION;
 	}
 	
 	@Override
-	public float speed() {
+	public float 移速() {
 		return 2f;
 	}
 	

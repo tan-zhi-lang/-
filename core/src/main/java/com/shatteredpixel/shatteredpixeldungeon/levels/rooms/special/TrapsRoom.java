@@ -131,7 +131,7 @@ public class TrapsRoom extends SpecialRoom {
 
 		//33% chance for an extra update.
 		if (Random.Int(3) == 0){
-			prize.upgrade();
+			prize.升级();
 		}
 		
 		return prize;

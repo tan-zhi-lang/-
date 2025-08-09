@@ -32,7 +32,7 @@ public class GreatCrab extends Crab {
 		WANDERING = new Wandering();
 		state = WANDERING;
 
-		loot = new MysteryMeat().quantity(2);
+		loot = new MysteryMeat().数量(2);
 		lootChance = 1f;
 
 		properties.add(Property.MINIBOSS);
@@ -73,7 +73,7 @@ public class GreatCrab extends Crab {
 	}
 
 	@Override
-	public int defenseSkill( Char enemy ) {
+	public int 最大闪避(Char enemy ) {
 		//crab blocks all melee attacks from its current target
 		if (enemySeen
 				&& state != SLEEPING
@@ -89,7 +89,7 @@ public class GreatCrab extends Crab {
 			}
 			return INFINITE_EVASION;
 		}
-		return super.defenseSkill( enemy );
+		return super.最大闪避( enemy );
 	}
 
 	@Override

@@ -134,7 +134,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			
 		} else {
 			isSwiftEquipping = false;
-			collect( hero.belongings.backpack );
+			放背包( hero.belongings.backpack );
 			return false;
 		}
 	}
@@ -181,7 +181,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 		} else {
 			isSwiftEquipping = false;
-			collect( hero.belongings.backpack );
+			放背包( hero.belongings.backpack );
 			return false;
 		}
 	}

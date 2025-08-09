@@ -39,7 +39,87 @@ import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;
 
-public class ChangesScene extends PixelScene {
+public class 改动界面 extends PixelScene {
+
+	/**
+	 天赋星
+	 移除一层和二层的一个天赋。
+	 天赋解锁从9/12 => 7/14
+	 天赋点数5/6/8=>3/6/9
+	 所有天赋增强。
+
+	 二层最大天赋点+1
+	 三层最大天赋点+1
+
+	 卷轴
+	 每5层升级卷轴数量+1
+
+	 强化符石
+	 效果
+	 增加伤害50%减少67%攻速
+	 增加33%攻速，减少30%伤害
+	 改成
+	 增加100%伤害减少50%攻速
+	 增加100%攻速，减少50%伤害
+
+	 最大等级-5
+	 最大生命+5
+	 每级所需经验+2和初始经验+2
+
+	 皇冠
+	 移除护甲技能
+
+	 开局还有赠送一瓶经验药剂
+
+	 命中增加10，闪避增加5
+	 升级提供额外1生命值
+	 伏击额外造成1伤害，吃饭恢复1生命值
+
+	 ---
+	 铠甲，2阶，力量需求-1
+	 法袍，1阶，法杖充能速度加快25%
+	 风衣，1阶，闪避+25%
+	 披风，1阶，移速+25%
+	 胸铠，1阶，但是最小防御级+阶+1
+	 牧师，1阶，等级+1，免疫降级
+	 除了战士都移除水袋
+	 法师魔杖关注焰浪
+
+	 盗贼武器变双刀
+
+	 法袍免疫火焰
+	 铠甲免疫寒意
+
+	 战士 斧头图标 力量+1
+	 法师 法杖充能图标 获得经验时提供4回合法杖充能
+	 牧师 星图标 所需经验-2-1
+
+	 投掷和弓在近处命中率增加50%，超过2格减半
+
+	 老兵直觉，装备/拾取护甲鉴定
+
+	 学者直觉，施法和拾取法杖鉴定
+
+	 窃贼直觉，装备和拾取戒指鉴定
+
+	 生存直觉
+	 命中和拾取投掷鉴定
+
+	 探险直觉
+	 装备和拾取鉴定
+
+	 神圣预知
+	 鉴定有无诅咒/鉴定，有诅咒净化/净化+鉴定
+
+
+	 所有英雄额外一个鉴定物
+	 额外一个感知符石
+	 //		SPEED   (0.7f, 2/3f),
+	 //		DAMAGE  (1.5f, 5/3f),
+	 //		NONE	(1.0f, 1f);
+
+	 升级提供的命中+1
+	 */
 	public static int changesSelected = 0;
 
 	private NinePatch rightPanel;
@@ -356,8 +436,8 @@ public class ChangesScene extends PixelScene {
 
 	public static void showChangeInfo(Image icon, String title, String... messages){
 		Scene s = ShatteredPixelDungeon.scene();
-		if (s instanceof ChangesScene){
-			((ChangesScene) s).updateChangesText(icon, title, messages);
+		if (s instanceof 改动界面){
+			((改动界面) s).updateChangesText(icon, title, messages);
 			return;
 		}
 		if (messages.length == 1) {

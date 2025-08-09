@@ -130,12 +130,7 @@ public class GamesInProgress {
 		info.dailyReplay = Dungeon.dailyReplay;
 		
 		info.level = Dungeon.hero.等级;
-		info.str = Dungeon.hero.力量;
-		info.strBonus = Dungeon.hero.力量() - Dungeon.hero.力量;
 		info.exp = Dungeon.hero.当前经验;
-		info.hp = Dungeon.hero.生命;
-		info.ht = Dungeon.hero.最大生命;
-		info.shld = Dungeon.hero.shielding();
 		info.heroClass = Dungeon.hero.heroClass;
 		info.subClass = Dungeon.hero.subClass;
 		info.armorTier = Dungeon.hero.tier();
@@ -168,12 +163,7 @@ public class GamesInProgress {
 		public long lastPlayed;
 
 		public int level;
-		public int str;
-		public int strBonus;
 		public int exp;
-		public int hp;
-		public int ht;
-		public int shld;
 		public HeroClass heroClass;
 		public HeroSubClass subClass;
 		public int armorTier;

@@ -110,14 +110,14 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public int defenseSkill(Char enemy) {
+	public int 最大闪避(Char enemy) {
 		if (hero != null) {
 			int baseEvasion = 4 + hero.等级;
 			int heroEvasion = (int)((4 + hero.等级) * RingOfEvasion.evasionMultiplier( hero ));
 			
 			//if the hero has more/less evasion, 50% of it is applied
 			//includes ring of evasion boost
-			return super.defenseSkill(enemy) * (baseEvasion + heroEvasion) / 2;
+			return super.最大闪避(enemy) * (baseEvasion + heroEvasion) / 2;
 		} else {
 			return 0;
 		}
@@ -125,7 +125,7 @@ public class MirrorImage extends NPC {
 	
 	@Override
 	public float attackDelay() {
-		return hero.attackDelay(); //handles ring of furor
+		return hero.攻速(); //handles ring of furor
 	}
 	
 	@Override

@@ -5,9 +5,9 @@ package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -31,8 +31,8 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(升级卷轴.class, ScrollOfEnchantment.class);
 		exoToReg.put(ScrollOfEnchantment.class, 升级卷轴.class);
 
-		regToExo.put(ScrollOfIdentify.class, ScrollOfDivination.class);
-		exoToReg.put(ScrollOfDivination.class, ScrollOfIdentify.class);
+		regToExo.put(鉴定卷轴.class, ScrollOfDivination.class);
+		exoToReg.put(ScrollOfDivination.class, 鉴定卷轴.class);
 		
 		regToExo.put(祛邪卷轴.class, ScrollOfAntiMagic.class);
 		exoToReg.put(ScrollOfAntiMagic.class, 祛邪卷轴.class);
@@ -49,8 +49,8 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(ScrollOfLullaby.class, ScrollOfSirensSong.class);
 		exoToReg.put(ScrollOfSirensSong.class, ScrollOfLullaby.class);
 
-		regToExo.put(ScrollOfMagicMapping.class, ScrollOfForesight.class);
-		exoToReg.put(ScrollOfForesight.class, ScrollOfMagicMapping.class);
+		regToExo.put(探地卷轴.class, ScrollOfForesight.class);
+		exoToReg.put(ScrollOfForesight.class, 探地卷轴.class);
 
 		regToExo.put(ScrollOfRage.class, ScrollOfChallenge.class);
 		exoToReg.put(ScrollOfChallenge.class, ScrollOfRage.class);

@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolki
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
@@ -898,7 +898,7 @@ public class v0_7_X_Changes {
 				"_-_ damage dealt now scales with missing player HP. At very low HP scroll is still an instakill on most enemies\n\n" +
 				"Scroll of psionic blast still exists however. It is now an exotic scroll!"));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(物品表.POTION_CRIMSON, null), new PotionOfHealing().trueName(),
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.POTION_CRIMSON, null), new 治疗药剂().trueName(),
 				"_-_ Speed of healing effects (e.g. potion of healing) have been reduced slightly. Overall heal amounts unchanged."));
 		
 		changes.addButton( new ChangeButton(new Honeypot(),

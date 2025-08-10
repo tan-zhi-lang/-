@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -102,7 +102,7 @@ public class Blandfruit extends Food {
 
 	@Override
 	public String name() {
-		if (potionAttrib instanceof PotionOfHealing)        return Messages.get(this, "sunfruit");
+		if (potionAttrib instanceof 治疗药剂)        return Messages.get(this, "sunfruit");
 		if (potionAttrib instanceof PotionOfStrength)       return Messages.get(this, "rotfruit");
 		if (potionAttrib instanceof PotionOfParalyticGas)   return Messages.get(this, "earthfruit");
 		if (potionAttrib instanceof PotionOfInvisibility)   return Messages.get(this, "blindfruit");
@@ -151,7 +151,7 @@ public class Blandfruit extends Food {
 
 		potionAttrib.image = 物品表.BLANDFRUIT;
 
-		if (potionAttrib instanceof PotionOfHealing)        potionGlow = new ItemSprite.Glowing( 0x2EE62E );
+		if (potionAttrib instanceof 治疗药剂)        potionGlow = new ItemSprite.Glowing( 0x2EE62E );
 		if (potionAttrib instanceof PotionOfStrength)       potionGlow = new ItemSprite.Glowing( 0xCC0022 );
 		if (potionAttrib instanceof PotionOfParalyticGas)   potionGlow = new ItemSprite.Glowing( 0x67583D );
 		if (potionAttrib instanceof PotionOfInvisibility)   potionGlow = new ItemSprite.Glowing( 0xD9D9D9 );

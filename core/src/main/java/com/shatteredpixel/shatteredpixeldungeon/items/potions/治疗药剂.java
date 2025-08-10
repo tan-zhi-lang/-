@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
-public class PotionOfHealing extends Potion {
+public class 治疗药剂 extends Potion {
 
 	{
 		icon = 物品表.Icons.POTION_HEALING;
@@ -45,7 +45,7 @@ public class PotionOfHealing extends Potion {
 			healing.setHeal((int) (0.8f * ch.最大生命 + 14), 0.25f, 0);
 			healing.applyVialEffect();
 			if (ch == Dungeon.hero){
-				GLog.p( Messages.get(PotionOfHealing.class, "heal") );
+				GLog.p( Messages.get(治疗药剂.class, "heal") );
 			}
 		}
 	}

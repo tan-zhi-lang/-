@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -47,7 +47,7 @@ public class UnstableBrew extends Brew {
 
 	private static HashMap<Class<? extends Potion>, Float> potionChances = new HashMap<>();
 	static {
-		potionChances.put(PotionOfHealing.class, 3f);
+		potionChances.put(治疗药剂.class, 3f);
 		potionChances.put(PotionOfMindVision.class, 2f);
 		potionChances.put(PotionOfFrost.class, 2f);
 		potionChances.put(PotionOfLiquidFlame.class, 2f);
@@ -64,7 +64,7 @@ public class UnstableBrew extends Brew {
 	public void apply(Hero hero) {
 		//Don't allow this to roll healing in pharma
 		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-			potionChances.put(PotionOfHealing.class, 0f);
+			potionChances.put(治疗药剂.class, 0f);
 		}
 
 		Potion p = Reflection.newInstance(Random.chances(potionChances));
@@ -78,7 +78,7 @@ public class UnstableBrew extends Brew {
 		p.apply(hero);
 
 		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-			potionChances.put(PotionOfHealing.class, 3f);
+			potionChances.put(治疗药剂.class, 3f);
 		}
 	}
 	

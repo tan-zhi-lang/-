@@ -37,10 +37,10 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class TimekeepersHourglass extends Artifact {
+public class 时光沙漏 extends Artifact {
 
 	{
-		image = 物品表.ARTIFACT_HOURGLASS;
+		image = 物品表.时光沙漏;
 
 		levelCap = 5;
 
@@ -101,7 +101,7 @@ public class TimekeepersHourglass extends Artifact {
 							@Override
 							protected void onSelect(int index) {
 								if (index == 0) {
-									GLog.i( Messages.get(TimekeepersHourglass.class, "onstasis") );
+									GLog.i( Messages.get(时光沙漏.class, "onstasis") );
 									GameScene.flash(0x80FFFFFF);
 									Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
@@ -117,7 +117,7 @@ public class TimekeepersHourglass extends Artifact {
 										}
 									}
 
-									GLog.i( Messages.get(TimekeepersHourglass.class, "onfreeze") );
+									GLog.i( Messages.get(时光沙漏.class, "onfreeze") );
 									GameScene.flash(0x80FFFFFF);
 									Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
@@ -489,7 +489,7 @@ public class TimekeepersHourglass extends Artifact {
 		public boolean doPickUp(Hero hero, int pos) {
 			Catalog.setSeen(getClass());
 			Statistics.itemTypesDiscovered.add(getClass());
-			TimekeepersHourglass hourglass = hero.belongings.getItem( TimekeepersHourglass.class );
+			时光沙漏 hourglass = hero.belongings.getItem( 时光沙漏.class );
 			if (hourglass != null && !hourglass.cursed) {
 				hourglass.升级();
 				Catalog.countUses(hourglass.getClass(), 2);

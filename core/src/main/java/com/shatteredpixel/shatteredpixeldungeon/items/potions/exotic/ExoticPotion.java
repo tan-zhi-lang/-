@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -34,8 +34,8 @@ public class ExoticPotion extends Potion {
 		regToExo.put(PotionOfStrength.class, PotionOfMastery.class);
 		exoToReg.put(PotionOfMastery.class, PotionOfStrength.class);
 
-		regToExo.put(PotionOfHealing.class, PotionOfShielding.class);
-		exoToReg.put(PotionOfShielding.class, PotionOfHealing.class);
+		regToExo.put(治疗药剂.class, PotionOfShielding.class);
+		exoToReg.put(PotionOfShielding.class, 治疗药剂.class);
 
 		regToExo.put(PotionOfMindVision.class, PotionOfMagicalSight.class);
 		exoToReg.put(PotionOfMagicalSight.class, PotionOfMindVision.class);

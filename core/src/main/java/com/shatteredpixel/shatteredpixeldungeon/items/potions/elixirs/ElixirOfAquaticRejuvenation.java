@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -31,7 +31,7 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 	@Override
 	public void apply(Hero hero) {
 		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-			PotionOfHealing.pharmacophobiaProc(hero);
+			治疗药剂.pharmacophobiaProc(hero);
 		} else {
 			Buff.施加(hero, AquaHealing.class).set(Math.round(hero.最大生命 * 1.5f));
 		}
@@ -133,7 +133,7 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{PotionOfHealing.class, GooBlob.class};
+			inputs =  new Class[]{治疗药剂.class, GooBlob.class};
 			inQuantity = new int[]{1, 1};
 			
 			cost = 6;

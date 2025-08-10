@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.EtherealChains;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -524,7 +524,7 @@ public class Trinity extends ArmorAbility {
 			if (cls.equals(DriedRose.class) || cls.equals(UnstableSpellbook.class)){
 				return 2*chargeUse; //50 charge
 			}
-			if (cls.equals(EtherealChains.class) || cls.equals(TalismanOfForesight.class) || cls.equals(TimekeepersHourglass.class)){
+			if (cls.equals(EtherealChains.class) || cls.equals(TalismanOfForesight.class) || cls.equals(时光沙漏.class)){
 				return 1.4f*chargeUse; //35 charge
 			}
 		}

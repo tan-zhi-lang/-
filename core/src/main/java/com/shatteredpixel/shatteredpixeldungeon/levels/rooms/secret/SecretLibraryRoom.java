@@ -3,9 +3,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -38,13 +38,13 @@ public class SecretLibraryRoom extends SecretRoom {
 	
 	private static HashMap<Class<? extends Scroll>, Float> scrollChances = new HashMap<>();
 	static{
-		scrollChances.put( ScrollOfIdentify.class,      1f );
+		scrollChances.put( 鉴定卷轴.class,      1f );
 		scrollChances.put( 祛邪卷轴.class,   2f );
 		scrollChances.put( ScrollOfMirrorImage.class,   3f );
 		scrollChances.put( ScrollOfRecharging.class,    3f );
 		scrollChances.put( ScrollOfTeleportation.class, 3f );
 		scrollChances.put( ScrollOfLullaby.class,       4f );
-		scrollChances.put( ScrollOfMagicMapping.class,  4f );
+		scrollChances.put( 探地卷轴.class,  4f );
 		scrollChances.put( ScrollOfRage.class,          4f );
 		scrollChances.put( ScrollOfRetribution.class,   4f );
 		scrollChances.put( ScrollOfTerror.class,        4f );

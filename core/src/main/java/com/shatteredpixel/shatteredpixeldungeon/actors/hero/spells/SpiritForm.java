@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
@@ -223,7 +223,7 @@ public class SpiritForm extends ClericSpell {
 		} else if (effect instanceof TalismanOfForesight){
 			GameScene.selectCell(((TalismanOfForesight) effect).scry);
 
-		} else if (effect instanceof TimekeepersHourglass){
+		} else if (effect instanceof 时光沙漏){
 			Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(artifactLevel());
 			Dungeon.hero.spendAndNext(1f);
 

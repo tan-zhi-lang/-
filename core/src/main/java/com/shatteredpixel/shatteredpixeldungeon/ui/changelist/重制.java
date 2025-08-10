@@ -54,11 +54,16 @@ public class 重制 {
 						,
 						"地牢相关\n\n" +
 						"第一层必定生成一瓶经验药剂，额外一个感知符石。\n" +
-						"每个区域生成的升级卷轴数量+1"
+						"每个区域生成的升级卷轴数量+1。\n" +
+						"每层额外生成一个小包口粮。\n"
 						,
 						"杂项相关\n\n" +
 						"投掷和弓在近距离+50%最大命中，非近距离-50%最大命中。\n" +
 						"优化信息面板，优化感知、视野范围计算。"
+						,
+						"商店相关\n\n" +
+						"商店的小包口粮 => 口粮。\n" +
+						"随机一个药剂或卷轴 => 两张随机卷轴+一瓶随机药剂。"
 		));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.CROWN), "护甲技能",
@@ -80,6 +85,8 @@ public class 重制 {
 						"二层和三层最大天赋点+1"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "根骨秘药",
 				"改成永久+1力量和+10最大生命。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.时光沙漏), "时光沙漏",
+				"攻击不会打断时间冻结。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_AUGMENTATION), "强化符石",
 				"对武器的增强 增加伤害50%减少67%攻速 => 增加100%伤害减少50%攻速\n" +
 						"对武器的增强 增加33%攻速，减少30%伤害 => 增加100%攻速，减少50%伤害"));

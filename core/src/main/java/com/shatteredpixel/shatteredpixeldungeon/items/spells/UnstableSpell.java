@@ -7,9 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -37,9 +37,9 @@ public class UnstableSpell extends Spell {
 	
 	private static HashMap<Class<? extends Scroll>, Float> scrollChances = new HashMap<>();
 	static{
-		scrollChances.put( ScrollOfIdentify.class,      3f );
+		scrollChances.put( 鉴定卷轴.class,      3f );
 		scrollChances.put( 祛邪卷轴.class,   2f );
-		scrollChances.put( ScrollOfMagicMapping.class,  2f );
+		scrollChances.put( 探地卷轴.class,  2f );
 		scrollChances.put( ScrollOfMirrorImage.class,   2f );
 		scrollChances.put( ScrollOfRecharging.class,    2f );
 		scrollChances.put( ScrollOfLullaby.class,       2f );
@@ -52,9 +52,9 @@ public class UnstableSpell extends Spell {
 
 	private static HashSet<Class<? extends Scroll>> nonCombatScrolls = new HashSet<>();
 	static {
-		nonCombatScrolls.add( ScrollOfIdentify.class );
+		nonCombatScrolls.add( 鉴定卷轴.class );
 		nonCombatScrolls.add( 祛邪卷轴.class );
-		nonCombatScrolls.add( ScrollOfMagicMapping.class );
+		nonCombatScrolls.add( 探地卷轴.class );
 		nonCombatScrolls.add( ScrollOfRecharging.class );
 		nonCombatScrolls.add( ScrollOfLullaby.class );
 		nonCombatScrolls.add( ScrollOfTeleportation.class );

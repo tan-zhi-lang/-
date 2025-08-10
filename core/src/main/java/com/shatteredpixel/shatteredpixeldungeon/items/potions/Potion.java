@@ -459,7 +459,7 @@ public class Potion extends Item {
 			types.put(Sorrowmoss.Seed.class,    PotionOfToxicGas.class);
 			types.put(Starflower.Seed.class,    经验药剂.class);
 			types.put(Stormvine.Seed.class,     PotionOfLevitation.class);
-			types.put(Sungrass.Seed.class,      PotionOfHealing.class);
+			types.put(Sungrass.Seed.class,      治疗药剂.class);
 			types.put(Swiftthistle.Seed.class,  极速药剂.class);
 		}
 		
@@ -515,13 +515,13 @@ public class Potion extends Item {
 				result.鉴定();
 			}
 
-			while (result instanceof PotionOfHealing
+			while (result instanceof 治疗药剂
 					&& Random.Int(10) < Dungeon.LimitedDrops.COOKING_HP.count) {
 
 				result = (Potion) Generator.randomUsingDefaults(Generator.Category.POTION);
 			}
 			
-			if (result instanceof PotionOfHealing) {
+			if (result instanceof 治疗药剂) {
 				Dungeon.LimitedDrops.COOKING_HP.count++;
 			}
 			

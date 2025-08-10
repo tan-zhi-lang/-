@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class HealingDart extends TippedDart {
@@ -24,7 +24,7 @@ public class HealingDart extends TippedDart {
 		}
 		
 		//heals 30 hp at base, scaling with enemy HT
-		PotionOfHealing.cure( defender );
+		治疗药剂.cure( defender );
 		Buff.施加( defender, Healing.class ).setHeal((int)(0.5f*defender.最大生命 + 30), 0.25f, 0);
 		
 		if (attacker.alignment == defender.alignment){

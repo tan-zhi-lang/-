@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -135,12 +135,12 @@ public class Warlock extends Mob implements Callback {
 		// 1/6 chance for healing, scaling to 0 over 8 drops
 		if (Random.Int(3) == 0 && Random.Int(8) > Dungeon.LimitedDrops.WARLOCK_HP.count ){
 			Dungeon.LimitedDrops.WARLOCK_HP.count++;
-			return new PotionOfHealing();
+			return new 治疗药剂();
 		} else {
 			Item i;
 			do {
 				i = Generator.randomUsingDefaults(Generator.Category.POTION);
-			} while (i instanceof PotionOfHealing);
+			} while (i instanceof 治疗药剂);
 			return i;
 		}
 

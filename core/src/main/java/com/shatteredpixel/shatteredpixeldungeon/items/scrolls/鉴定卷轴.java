@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
-public class ScrollOfIdentify extends InventoryScroll {
+public class 鉴定卷轴 extends InventoryScroll {
 
 	{
 		icon = 物品表.Icons.SCROLL_IDENTIFY;
@@ -57,7 +57,7 @@ public class ScrollOfIdentify extends InventoryScroll {
 		}
 
 		item.鉴定();
-		GLog.i(Messages.get(ScrollOfIdentify.class, "it_is", item.title()));
+		GLog.i(Messages.get(鉴定卷轴.class, "it_is", item.title()));
 		Badges.validateItemLevelAquired( item );
 	}
 	

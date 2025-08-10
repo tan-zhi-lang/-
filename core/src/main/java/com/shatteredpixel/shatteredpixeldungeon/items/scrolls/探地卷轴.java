@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
-public class ScrollOfMagicMapping extends Scroll {
+public class 探地卷轴 extends Scroll {
 
 	{
 		icon = 物品表.Icons.SCROLL_MAGICMAP;

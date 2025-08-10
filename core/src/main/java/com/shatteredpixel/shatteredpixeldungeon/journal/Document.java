@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -170,7 +170,7 @@ public enum Document {
 				case "Surprise_Attacks":
 					return Icons.get(Icons.SNAKE);
 				case "Identifying":
-					return new ItemSprite( new ScrollOfIdentify() );
+					return new ItemSprite( new 鉴定卷轴() );
 				case "Food":
 					return new ItemSprite( 物品表.PASTY );
 				case "Alchemy":

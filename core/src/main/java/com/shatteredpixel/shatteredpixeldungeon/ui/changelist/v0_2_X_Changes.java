@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -91,7 +91,7 @@ public class v0_2_X_Changes {
 				"\n" +
 				"Lastly, v0.2.3 brought the addition of the game's supporter system! While monetization isn't as exciting as new game content, the supporter system is the primary reason why I've been able to work on the game for so long."));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(new TimekeepersHourglass()), "Artifact Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(new 时光沙漏()), "Artifact Changes",
 				"Added 4 new artifacts:\n" +
 				"_-_ Alchemist's Toolkit\n" +
 				"_-_ Unstable Spellbook\n" +

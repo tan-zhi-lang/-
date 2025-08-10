@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
-import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -392,7 +392,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 							ch.sprite.flash();
 
 							if (!ch.isAlive() && hero.有天赋(Talent.LETHAL_DEFENSE)) {
-								Buff.施加(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
+								Buff.施加(hero, 破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
 							}
 						}
 					}
@@ -445,7 +445,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 
 		if (!enemy.isAlive() || (!wasAlly && enemy.alignment == target.alignment)) {
 			if (hero.有天赋(Talent.LETHAL_DEFENSE)){
-				Buff.施加(hero, BrokenSeal.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
+				Buff.施加(hero, 破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
 			}
 		}
 

@@ -31,7 +31,7 @@ import com.watabou.utils.GameMath;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BrokenSeal extends Item {
+public class 破损纹章 extends Item {
 
 	public static final String AC_AFFIX = "AFFIX";
 
@@ -49,6 +49,7 @@ public class BrokenSeal extends Item {
 	}
 
 	private Armor.Glyph glyph;
+	private int 转移等级 = 0;
 
 	public boolean canTransferGlyph(){
 		if (glyph == null){
@@ -107,25 +108,25 @@ public class BrokenSeal extends Item {
 	public void affixToArmor(Armor armor, Item outgoing){
 		if (armor != null) {
 			if (!armor.cursedKnown){
-				GLog.w(Messages.get(BrokenSeal.class, "unknown_armor"));
+				GLog.w(Messages.get(破损纹章.class, "unknown_armor"));
 
 			} else if (armor.cursed && (getGlyph() == null || !getGlyph().curse())){
-				GLog.w(Messages.get(BrokenSeal.class, "cursed_armor"));
+				GLog.w(Messages.get(破损纹章.class, "cursed_armor"));
 
 			}else if (armor.glyph != null && getGlyph() != null
 					&& canTransferGlyph()
 					&& armor.glyph.getClass() != getGlyph().getClass()) {
 
 				GameScene.show(new WndOptions(new ItemSprite(物品表.SEAL),
-						Messages.get(BrokenSeal.class, "choose_title"),
-						Messages.get(BrokenSeal.class, "choose_desc", armor.glyph.name(), getGlyph().name()),
+						Messages.get(破损纹章.class, "choose_title"),
+						Messages.get(破损纹章.class, "choose_desc", armor.glyph.name(), getGlyph().name()),
 						armor.glyph.name(),
 						getGlyph().name()){
 					@Override
 					protected void onSelect(int index) {
 						if (index == -1) return;
 
-						if (outgoing == BrokenSeal.this) {
+						if (outgoing == 破损纹章.this) {
 							detach(Dungeon.hero.belongings.backpack);
 						} else if (outgoing instanceof Armor){
 							((Armor) outgoing).detachSeal();
@@ -134,10 +135,10 @@ public class BrokenSeal extends Item {
 						if (index == 0) setGlyph(null);
 						//if index is 1, then the glyph transfer happens in affixSeal
 
-						GLog.p(Messages.get(BrokenSeal.class, "affix"));
+						GLog.p(Messages.get(破损纹章.class, "affix"));
 						Dungeon.hero.sprite.operate(Dungeon.hero.pos);
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
-						armor.affixSeal(BrokenSeal.this);
+						armor.affixSeal(破损纹章.this);
 					}
 
 					@Override
@@ -154,7 +155,7 @@ public class BrokenSeal extends Item {
 					((Armor) outgoing).detachSeal();
 				}
 
-				GLog.p(Messages.get(BrokenSeal.class, "affix"));
+				GLog.p(Messages.get(破损纹章.class, "affix"));
 				Dungeon.hero.sprite.operate(Dungeon.hero.pos);
 				Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 				armor.affixSeal(this);
@@ -181,14 +182,14 @@ public class BrokenSeal extends Item {
 	@Override
 	//scroll of upgrade can be used directly once, same as upgrading armor the seal is affixed to then removing it.
 	public boolean isUpgradable() {
-		return 等级() == 0;
+		return 等级() < 1;
 	}
 
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
 
 		@Override
 		public String textPrompt() {
-			return  Messages.get(BrokenSeal.class, "prompt");
+			return  Messages.get(破损纹章.class, "prompt");
 		}
 
 		@Override
@@ -204,24 +205,27 @@ public class BrokenSeal extends Item {
 		@Override
 		public void onSelect( Item item ) {
 			if (item instanceof Armor) {
-				BrokenSeal seal = (BrokenSeal) curItem;
+				破损纹章 seal = (破损纹章) curItem;
 				seal.affixToArmor((Armor)item, seal);
 			}
 		}
 	};
 
 	private static final String GLYPH = "glyph";
+	private static final String 转移等级x  = "转移等级";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(GLYPH, glyph);
+		bundle.put(转移等级x, 转移等级);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		glyph = (Armor.Glyph)bundle.get(GLYPH);
+		转移等级 = bundle.getInt(转移等级x);
 	}
 
 	public static class WarriorShield extends ShieldBuff {

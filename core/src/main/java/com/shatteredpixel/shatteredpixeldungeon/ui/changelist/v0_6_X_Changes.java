@@ -12,10 +12,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.EtherealChains;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
@@ -277,7 +277,7 @@ public class v0_6_X_Changes {
 		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(new TimekeepersHourglass(),
+		changes.addButton( new ChangeButton(new 时光沙漏(),
 				"The timekeeper's hourglass has been adjusted to cap at 10 charges, instead of 20, and to have a bit more power without upgrades:\n" +
 				"\n" +
 				"_-_ Number of charges halved\n" +
@@ -318,7 +318,7 @@ public class v0_6_X_Changes {
 				"\n" +
 				"_-_ Earthroot now blocks up to a certain amount of damage, based on depth, rather than 50% damage"));
 		
-		changes.addButton( new ChangeButton( new ItemSprite(物品表.POTION_CRIMSON, null), new PotionOfHealing().trueName(),
+		changes.addButton( new ChangeButton( new ItemSprite(物品表.POTION_CRIMSON, null), new 治疗药剂().trueName(),
 				"Heal potion drops have had their RNG bounded in shattered for a long time, but this bound was always fairly lax. This meant that people who wanted to slowly farm for potions could still amass large numbers of them. I have decided to reign this in more harshly.\n" +
 				"\n" +
 				"_-_ Health potion drops now lower in probability more quickly after potions have already been dropped from a given enemy type\n" +
@@ -727,7 +727,7 @@ public class v0_6_X_Changes {
 				"_-_ Now has a chance to generate extra loot when defeating enemies.\n\n" +
 				"I'm planning to make further tweaks to this item in future updates."));
 		
-		changes.addButton( new ChangeButton( new ItemSprite(物品表.POTION_CRIMSON, null), new PotionOfHealing().trueName(),
+		changes.addButton( new ChangeButton( new ItemSprite(物品表.POTION_CRIMSON, null), new 治疗药剂().trueName(),
 				"Health Potions are getting a changeup to make hoarding and chugging them less effective, and to encourage a bit more strategy than to just drink them on the verge of death.\n\n" +
 				"_-_ Health potions now heal in a burst that fades over time, rather than instantly.\n\n" +
 				"_-_ Health potions now heal more than max HP at low levels, and slightly less than max HP at high levels.\n\n" +

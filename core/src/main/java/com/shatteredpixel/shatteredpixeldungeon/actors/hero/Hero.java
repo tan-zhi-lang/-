@@ -98,17 +98,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
@@ -121,7 +121,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
@@ -518,7 +518,7 @@ public class Hero extends Char {
 		//TODO improve this!
 		belongings.thrownWeapon = wep;
 		boolean hit = attack( enemy );
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 		belongings.thrownWeapon = null;
 
 		if (hit && subClass == HeroSubClass.GLADIATOR && wasEnemy){
@@ -556,7 +556,7 @@ public class Hero extends Char {
 		
 		//precise assault and liquid agility
 		if (!(wep instanceof MissileWeapon)) {
-			if ((有天赋(Talent.PRECISE_ASSAULT) || 有天赋(Talent.LIQUID_AGILITY))
+			if ((有天赋(Talent.PRECISE_ASSAULT))
 					//does not trigger on ability attacks
 					&& belongings.abilityWeapon != wep && buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) == null){
 
@@ -582,24 +582,25 @@ public class Hero extends Char {
 						case 4:
 							accuracy *= Float.POSITIVE_INFINITY; break;
 					}
-				} else if (buff(Talent.LiquidAgilACCTracker.class) != null){
-					if (天赋点数(Talent.LIQUID_AGILITY) == 1){
-						accuracy *= 2;
-					} else if (天赋点数(Talent.LIQUID_AGILITY) == 2){
-						accuracy *= 4;
-					} else if (天赋点数(Talent.LIQUID_AGILITY) == 3){
-						accuracy *= 6;
-					} else if (天赋点数(Talent.LIQUID_AGILITY) == 4){
-						accuracy *= Float.POSITIVE_INFINITY;
-					}
-					Talent.LiquidAgilACCTracker buff = buff(Talent.LiquidAgilACCTracker.class);
-					buff.uses--;
 				}
 			}
 		} else {
 			if (buff(Momentum.class) != null && buff(Momentum.class).freerunning()){
 				accuracy *= 1f + 天赋点数(Talent.PROJECTILE_MOMENTUM);
 			}
+		}
+		if (buff(Talent.LiquidAgilACCTracker.class) != null){
+			if (天赋点数(Talent.灵动机敏) == 1){
+				accuracy *= 2;
+			} else if (天赋点数(Talent.灵动机敏) == 2){
+				accuracy *= 4;
+			} else if (天赋点数(Talent.灵动机敏) == 3){
+				accuracy *= 6;
+			} else if (天赋点数(Talent.灵动机敏) == 4){
+				accuracy *= Float.POSITIVE_INFINITY;
+			}
+			Talent.LiquidAgilACCTracker buff = buff(Talent.LiquidAgilACCTracker.class);
+			buff.uses--;
 		}
 
 		if (buff(Scimitar.SwordDance.class) != null){
@@ -635,13 +636,13 @@ public class Hero extends Char {
 		evasion *= RingOfEvasion.evasionMultiplier( this );
 
 		if (buff(Talent.LiquidAgilEVATracker.class) != null){
-			if (天赋点数(Talent.LIQUID_AGILITY) == 1){
+			if (天赋点数(Talent.灵动机敏) == 1){
 				evasion *= 2;
-			} else if (天赋点数(Talent.LIQUID_AGILITY) == 2){
+			} else if (天赋点数(Talent.灵动机敏) == 2){
 				evasion *= 4;
-			} else if (天赋点数(Talent.LIQUID_AGILITY) == 3){
+			} else if (天赋点数(Talent.灵动机敏) == 3){
 				evasion *= 6;
-			} else if (天赋点数(Talent.LIQUID_AGILITY) == 4){
+			} else if (天赋点数(Talent.灵动机敏) == 4){
 				return INFINITE_EVASION;
 			}
 		}
@@ -649,7 +650,9 @@ public class Hero extends Char {
 		if (buff(Quarterstaff.DefensiveStance.class) != null){
 			evasion *= 3;
 		}
-		
+		if(有天赋(Talent.灵动机敏)){
+			evasion*=天赋点数(Talent.灵动机敏,0.33f)+0.01f+1;
+		}
 		if (paralysed > 0) {
 			evasion /= 2;
 		}
@@ -1168,7 +1171,7 @@ public class Hero extends Char {
 					heap.pickUp();
 
 					if (item instanceof Dewdrop
-							|| item instanceof TimekeepersHourglass.sandBag
+							|| item instanceof 时光沙漏.sandBag
 							|| item instanceof DriedRose.Petal
 							|| item instanceof Key
 							|| item instanceof Guidebook
@@ -1210,7 +1213,7 @@ public class Hero extends Char {
 					}
 
 					if (item instanceof Dewdrop
-							|| item instanceof TimekeepersHourglass.sandBag
+							|| item instanceof 时光沙漏.sandBag
 							|| item instanceof DriedRose.Petal
 							|| item instanceof Key) {
 						//Do Nothing
@@ -1303,7 +1306,7 @@ public class Hero extends Char {
 				hasKey = true;
 
 			} else if (door == Terrain.LOCKED_EXIT
-					&& Notes.keyCount(new SkeletonKey(Dungeon.depth)) > 0) {
+					&& Notes.keyCount(new 骷髅钥匙(Dungeon.depth)) > 0) {
 
 				hasKey = true;
 				
@@ -1659,7 +1662,7 @@ public class Hero extends Char {
 
 	@Override
 	public void 受伤时(int dmg, Object src ) {
-		if (buff(TimekeepersHourglass.timeStasis.class) != null
+		if (buff(时光沙漏.timeStasis.class) != null
 				|| buff(TimeStasis.class) != null) {
 			return;
 		}
@@ -2165,7 +2168,7 @@ public class Hero extends Char {
 	@Override
 	public boolean add( Buff buff ) {
 		if (buff.type == Buff.buffType.NEGATIVE &&
-				(buff(TimekeepersHourglass.timeStasis.class) != null || buff(TimeStasis.class) != null)) {
+				(buff(时光沙漏.timeStasis.class) != null || buff(TimeStasis.class) != null)) {
 			return false;
 		}
 
@@ -2217,7 +2220,7 @@ public class Hero extends Char {
 			if (ankh.isBlessed()) {
 				this.生命 = 最大生命 / 4;
 
-				PotionOfHealing.cure(this);
+				治疗药剂.cure(this);
 				Buff.延长(this, Invulnerability.class, Invulnerability.DURATION);
 
 				SpellSprite.show(this, SpellSprite.ANKH);
@@ -2395,7 +2398,7 @@ public class Hero extends Char {
 
 		boolean hit = attack(attackTarget);
 		
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 		spend( 攻速() );
 
 		if (hit && subClass == HeroSubClass.GLADIATOR && wasEnemy){
@@ -2438,7 +2441,7 @@ public class Hero extends Char {
 						CellEmitter.get( doorCell ).start( Speck.factory( Speck.DISCOVER ), 0.025f, 20 );
 					}
 				} else {
-					hasKey = Notes.remove(new SkeletonKey(Dungeon.depth));
+					hasKey = Notes.remove(new 骷髅钥匙(Dungeon.depth));
 					if (hasKey) Level.set(doorCell, Terrain.UNLOCKED_EXIT);
 				}
 				
@@ -2614,7 +2617,7 @@ public class Hero extends Char {
 							
 							Dungeon.level.discover( curr );
 							
-							ScrollOfMagicMapping.discover( curr );
+							探地卷轴.discover( curr );
 							
 							if (fieldOfView[curr]) smthFound = true;
 	

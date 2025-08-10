@@ -19,17 +19,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
@@ -69,7 +69,7 @@ public class ShopRoom extends SpecialRoom {
 		// and then add 4 items in all cases, which is max number of sandbags that can be in the shop
 		int spacesNeeded = itemsToSpawn.size();
 		for (Item i : itemsToSpawn){
-			if (i instanceof TimekeepersHourglass.sandBag){
+			if (i instanceof 时光沙漏.sandBag){
 				spacesNeeded--;
 			}
 		}
@@ -260,22 +260,28 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add(bag);
 		}
 
-		itemsToSpawn.add( new PotionOfHealing() );
+		itemsToSpawn.add( new 治疗药剂() );
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 
-		itemsToSpawn.add( new ScrollOfIdentify() );
+		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
+
+		itemsToSpawn.add( new 鉴定卷轴() );
 		itemsToSpawn.add( new 祛邪卷轴() );
-		itemsToSpawn.add( new ScrollOfMagicMapping() );
 
-		for (int i=0; i < 2; i++)
-			itemsToSpawn.add( Random.Int(2) == 0 ?
-					Generator.randomUsingDefaults( Generator.Category.POTION ) :
-					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
+		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
+		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
+
+		itemsToSpawn.add( new 探地卷轴() );
+
+//		for (int i=0; i < 2; i++)
+//			itemsToSpawn.add( Random.Int(2) == 0 ?
+//					Generator.randomUsingDefaults( Generator.Category.POTION ) :
+//					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
 
 
-		itemsToSpawn.add( new SmallRation() );
-		itemsToSpawn.add( new SmallRation() );
+		itemsToSpawn.add( new Food() );
+		itemsToSpawn.add( new Food() );
 		
 		switch (Random.Int(4)){
 			case 0:
@@ -293,7 +299,7 @@ public class ShopRoom extends SpecialRoom {
 		itemsToSpawn.add( new Ankh() );
 		itemsToSpawn.add( new 强化符石() );
 
-		TimekeepersHourglass hourglass = Dungeon.hero.belongings.getItem(TimekeepersHourglass.class);
+		时光沙漏 hourglass = Dungeon.hero.belongings.getItem(时光沙漏.class);
 		if (hourglass != null && hourglass.isIdentified() && !hourglass.cursed){
 			int bags = 0;
 			//creates the given float percent of the remaining bags to be dropped.
@@ -310,7 +316,7 @@ public class ShopRoom extends SpecialRoom {
 			}
 
 			for(int i = 1; i <= bags; i++){
-				itemsToSpawn.add( new TimekeepersHourglass.sandBag());
+				itemsToSpawn.add( new 时光沙漏.sandBag());
 				hourglass.sandBags ++;
 			}
 		}

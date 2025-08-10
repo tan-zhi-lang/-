@@ -80,7 +80,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
@@ -92,7 +92,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
@@ -914,14 +914,14 @@ public abstract class Char extends Actor {
 			buff( Paralysis.class ).processDamage(dmg);
 		}
 
-		BrokenSeal.WarriorShield shield = buff(BrokenSeal.WarriorShield.class);
+		破损纹章.WarriorShield shield = buff(破损纹章.WarriorShield.class);
 		if (!(src instanceof Hunger)
 				&& dmg > 0
 				//either HP is already half or below (ignoring shield)
 				// or the hit will reduce it to half or below
 				&& (生命 <= 最大生命 /2 || 生命 + shielding() - dmg <= 最大生命 /2)
 				&& shield != null && !shield.coolingDown()){
-			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(buff(BrokenSeal.WarriorShield.class).maxShield()), FloatingText.SHIELDING);
+			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(buff(破损纹章.WarriorShield.class).maxShield()), FloatingText.SHIELDING);
 			shield.activate();
 		}
 
@@ -1083,7 +1083,7 @@ public abstract class Char extends Actor {
 
 	@Override
 	protected void spendConstant(float time) {
-		TimekeepersHourglass.timeFreeze freeze = buff(TimekeepersHourglass.timeFreeze.class);
+		时光沙漏.timeFreeze freeze = buff(时光沙漏.timeFreeze.class);
 		if (freeze != null) {
 			freeze.processTime(time);
 			return;

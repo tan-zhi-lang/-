@@ -61,7 +61,7 @@ public class Item implements Bundlable {
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;
 	
-	private int level = 0;
+	private int 等级 = 0;
 
 	public boolean levelKnown = false;
 	
@@ -352,12 +352,12 @@ public class Item implements Bundlable {
 
 	//returns the true level of the item, ignoring all modifiers aside from upgrades
 	public final int trueLevel(){
-		return level;
+		return 等级;
 	}
 
 	//returns the persistant level of the item, only affected by modifiers which are persistent (e.g. curse infusion)
 	public int 等级(){
-		return level;
+		return 等级;
 	}
 	
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions
@@ -373,14 +373,14 @@ public class Item implements Bundlable {
 	}
 
 	public void 等级(int value ){
-		level = value;
+		等级 = value;
 
 		updateQuickslot();
 	}
 	
 	public Item 升级() {
 		
-		this.level++;
+		this.等级++;
 
 		updateQuickslot();
 		
@@ -397,7 +397,7 @@ public class Item implements Bundlable {
 	
 	public Item degrade() {
 		
-		this.level--;
+		this.等级--;
 		
 		return this;
 	}
@@ -539,7 +539,7 @@ public class Item implements Bundlable {
 		if (item == null) return null;
 		
 		item.quantity = 0;
-		item.level = level;
+		item.等级 = 等级;
 		return item;
 	}
 	
@@ -567,7 +567,7 @@ public class Item implements Bundlable {
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		bundle.put( QUANTITY, quantity );
-		bundle.put( LEVEL, level );
+		bundle.put( LEVEL, 等级);
 		bundle.put( LEVEL_KNOWN, levelKnown );
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );

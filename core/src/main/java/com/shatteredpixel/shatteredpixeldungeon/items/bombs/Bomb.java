@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
@@ -337,7 +337,7 @@ public class Bomb extends Item {
 			validIngredients.put(PotionOfInvisibility.class,    SmokeBomb.class);
 			validIngredients.put(ScrollOfRecharging.class,      FlashBangBomb.class);
 			
-			validIngredients.put(PotionOfHealing.class,         RegrowthBomb.class);
+			validIngredients.put(治疗药剂.class,         RegrowthBomb.class);
 			validIngredients.put(祛邪卷轴.class,     HolyBomb.class);
 			
 			validIngredients.put(GooBlob.class,                 ArcaneBomb.class);

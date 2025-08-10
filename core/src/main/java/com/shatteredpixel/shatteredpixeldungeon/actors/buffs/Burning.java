@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
@@ -81,7 +81,7 @@ public class Burning extends Buff implements Hero.Doom {
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero
-					&& target.buff(TimekeepersHourglass.timeStasis.class) == null
+					&& target.buff(时光沙漏.timeStasis.class) == null
 					&& target.buff(TimeStasis.class) == null) {
 				
 				Hero hero = (Hero)target;

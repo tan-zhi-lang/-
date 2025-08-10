@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.AntiEntropy;
@@ -103,7 +103,7 @@ public class Armor extends EquipableItem {
 	public boolean curseInfusionBonus = false;
 	public boolean masteryPotionBonus = false;
 	
-	protected BrokenSeal seal;
+	protected 破损纹章 破损纹章;
 	
 	public int tier;
 	
@@ -121,7 +121,7 @@ public class Armor extends EquipableItem {
 	private static final String GLYPH_HARDENED	= "glyph_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
 	private static final String MASTERY_POTION_BONUS = "mastery_potion_bonus";
-	private static final String SEAL            = "seal";
+	private static final String 破损纹章x = "破损纹章";
 	private static final String AUGMENT			= "augment";
 
 	@Override
@@ -133,7 +133,7 @@ public class Armor extends EquipableItem {
 		bundle.put( GLYPH_HARDENED, glyphHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
-		bundle.put( SEAL, seal);
+		bundle.put(破损纹章x, 破损纹章);
 		bundle.put( AUGMENT, augment);
 	}
 
@@ -146,7 +146,7 @@ public class Armor extends EquipableItem {
 		glyphHardened = bundle.getBoolean(GLYPH_HARDENED);
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		masteryPotionBonus = bundle.getBoolean( MASTERY_POTION_BONUS );
-		seal = (BrokenSeal)bundle.get(SEAL);
+		破损纹章 = (破损纹章)bundle.get(破损纹章x);
 		
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
@@ -157,13 +157,13 @@ public class Armor extends EquipableItem {
 		usesLeftToID = USES_TO_ID;
 		availableUsesToID = USES_TO_ID/2f;
 		//armor can be kept in bones between runs, the seal cannot.
-		seal = null;
+		破损纹章 = null;
 	}
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (seal != null) actions.add(AC_DETACH);
+		if (破损纹章 != null) actions.add(AC_DETACH);
 		return actions;
 	}
 
@@ -172,8 +172,8 @@ public class Armor extends EquipableItem {
 
 		super.execute(hero, action);
 
-		if (action.equals(AC_DETACH) && seal != null){
-			BrokenSeal detaching = detachSeal();
+		if (action.equals(AC_DETACH) && 破损纹章 != null){
+			破损纹章 detaching = detachSeal();
 			GLog.i( Messages.get(Armor.class, "detach_seal") );
 			hero.sprite.operate(hero.pos);
 			if (!detaching.放背包()){
@@ -250,7 +250,7 @@ public class Armor extends EquipableItem {
 			hero.spend( timeToEquip( hero ) );
 
 			if (Dungeon.hero.heroClass == HeroClass.WARRIOR && checkSeal() == null){
-				BrokenSeal seal = oldArmor != null ? oldArmor.checkSeal() : null;
+				破损纹章 seal = oldArmor != null ? oldArmor.checkSeal() : null;
 				if (seal != null && (!cursed || (seal.getGlyph() != null && seal.getGlyph().curse()))){
 
 					GameScene.show(new WndOptions(new ItemSprite(物品表.SEAL),
@@ -291,14 +291,14 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public void activate(Char ch) {
-		if (seal != null) Buff.施加(ch, BrokenSeal.WarriorShield.class).setArmor(this);
+		if (破损纹章 != null) Buff.施加(ch, 破损纹章.WarriorShield.class).setArmor(this);
 	}
 
-	public void affixSeal(BrokenSeal seal){
-		this.seal = seal;
+	public void affixSeal(破损纹章 seal){
+		this.破损纹章 = seal;
 		if (seal.等级() > 0){
 			//doesn't trigger upgrading logic such as affecting curses/glyphs
-			int newLevel = trueLevel()+1;
+			int newLevel = trueLevel();
 			等级(newLevel);
 			Badges.validateItemLevelAquired(this);
 		}
@@ -306,22 +306,24 @@ public class Armor extends EquipableItem {
 			inscribe(seal.getGlyph());
 		}
 		if (isEquipped(Dungeon.hero)){
-			Buff.施加(Dungeon.hero, BrokenSeal.WarriorShield.class).setArmor(this);
+			Buff.施加(Dungeon.hero, 破损纹章.WarriorShield.class).setArmor(this);
 		}
 	}
 
-	public BrokenSeal detachSeal(){
-		if (seal != null){
+	public 破损纹章 detachSeal(){
+		if (破损纹章 != null){
 
 			if (isEquipped(Dungeon.hero)) {
-				BrokenSeal.WarriorShield sealBuff = Dungeon.hero.buff(BrokenSeal.WarriorShield.class);
+				破损纹章.WarriorShield sealBuff = Dungeon.hero.buff(破损纹章.WarriorShield.class);
 				if (sealBuff != null) sealBuff.setArmor(null);
 			}
 
-			BrokenSeal detaching = seal;
-			seal = null;
+			破损纹章 detaching = 破损纹章;
+			破损纹章 = null;
 
 			if (detaching.等级() > 0){
+//				detaching.等级();
+//				等级(0);
 				degrade();
 			}
 			if (detaching.canTransferGlyph()){
@@ -335,8 +337,8 @@ public class Armor extends EquipableItem {
 		}
 	}
 
-	public BrokenSeal checkSeal(){
-		return seal;
+	public 破损纹章 checkSeal(){
+		return 破损纹章;
 	}
 
 	@Override
@@ -346,7 +348,7 @@ public class Armor extends EquipableItem {
 			hero.belongings.armor = null;
 			((HeroSprite)hero.sprite).updateArmor();
 
-			BrokenSeal.WarriorShield sealBuff = hero.buff(BrokenSeal.WarriorShield.class);
+			破损纹章.WarriorShield sealBuff = hero.buff(破损纹章.WarriorShield.class);
 			if (sealBuff != null) sealBuff.setArmor(null);
 
 			return true;
@@ -480,8 +482,8 @@ public class Armor extends EquipableItem {
 		
 		cursed = false;
 
-		if (seal != null && seal.等级() == 0)
-			seal.升级();
+		if (破损纹章 != null && 破损纹章.等级() == 0)
+			破损纹章.升级();
 
 		return super.升级();
 	}
@@ -624,8 +626,8 @@ public class Armor extends EquipableItem {
 			}
 		}
 
-		if (seal != null) {
-			info += "\n\n" + Messages.get(Armor.class, "seal_attached", seal.maxShield(tier, 等级()));
+		if (破损纹章 != null) {
+			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier, 等级()));
 		}
 		
 		return info;
@@ -633,7 +635,7 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public Emitter emitter() {
-		if (seal == null) return super.emitter();
+		if (破损纹章 == null) return super.emitter();
 		Emitter emitter = new Emitter();
 		emitter.pos(物品表.film.width(image)/2f + 2f, 物品表.film.height(image)/3f);
 		emitter.fillTarget = false;
@@ -695,7 +697,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public int 金币() {
-		if (seal != null) return 0;
+		if (破损纹章 != null) return 0;
 
 		int price = 20 * tier;
 		if (hasGoodGlyph()) {
@@ -719,8 +721,8 @@ public class Armor extends EquipableItem {
 		updateQuickslot();
 		//the hero needs runic transference to actually transfer, but we still attach the glyph here
 		// in case they take that talent in the future
-		if (seal != null){
-			seal.setGlyph(glyph);
+		if (破损纹章 != null){
+			破损纹章.setGlyph(glyph);
 		}
 		if (glyph != null && isIdentified() && Dungeon.hero != null
 				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){

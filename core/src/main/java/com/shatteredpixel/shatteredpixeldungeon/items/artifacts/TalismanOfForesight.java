@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -158,7 +158,7 @@ public class TalismanOfForesight extends Artifact {
 						int oldValue = Dungeon.level.map[cell];
 						GameScene.discoverTile(cell, oldValue);
 						Dungeon.level.discover( cell );
-						ScrollOfMagicMapping.discover(cell);
+						探地卷轴.discover(cell);
 						noticed = true;
 
 						if (oldValue == Terrain.SECRET_TRAP){

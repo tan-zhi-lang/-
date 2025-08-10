@@ -19,9 +19,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
@@ -127,9 +127,9 @@ public class UnstableSpellbook extends Artifact {
 			scroll = (Scroll) Generator.randomUsingDefaults(Generator.Category.SCROLL);
 		} while (scroll == null
 				//reduce the frequency of these scrolls by half
-				||((scroll instanceof ScrollOfIdentify ||
+				||((scroll instanceof 鉴定卷轴 ||
 				scroll instanceof 祛邪卷轴 ||
-				scroll instanceof ScrollOfMagicMapping) && Random.Int(2) == 0)
+				scroll instanceof 探地卷轴) && Random.Int(2) == 0)
 				//cannot roll transmutation
 				|| (scroll instanceof ScrollOfTransmutation));
 

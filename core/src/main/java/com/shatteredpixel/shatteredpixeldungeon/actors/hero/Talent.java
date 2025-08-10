@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -139,7 +139,7 @@ public enum Talent {
 	//Duelist T1
 	STRENGTHENING_MEAL(128), ADVENTURERS_INTUITION(129), PATIENT_STRIKE(130), AGGRESSIVE_BARRIER(131),
 	//Duelist T2
-	FOCUSED_MEAL(132), LIQUID_AGILITY(133,3), WEAPON_RECHARGING(134,3), LETHAL_HASTE(135,3), SWIFT_EQUIP(136,3),
+	FOCUSED_MEAL(132), 灵动机敏(133,3), WEAPON_RECHARGING(134,3), LETHAL_HASTE(135,3), SWIFT_EQUIP(136,3),
 	//Duelist T3
 	PRECISE_ASSAULT(137, 4), DEADLY_FOLLOWUP(138, 4),
 	//Champion T3
@@ -199,8 +199,8 @@ public enum Talent {
 
 				if (barrierInc >= 1){
 					barrierInc = 0;
-					if (barrier.shielding() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,8)) {
-						barrier.incShield(1);
+					if (barrier.shielding() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,5)) {
+						barrier.incShield(5);
 					}
 					if (((Hero)target).有天赋(Talent.体生匿影)) {
 						((Hero)target).回血(((Hero)target).天赋点数(Talent.体生匿影));
@@ -470,7 +470,7 @@ public enum Talent {
 	public static void 获得天赋时(Hero hero, Talent talent ){
 		//for metamorphosis
 		if (talent == IRON_WILL && hero.heroClass != HeroClass.WARRIOR){
-			Buff.施加(hero, BrokenSeal.WarriorShield.class);
+			Buff.施加(hero, 破损纹章.WarriorShield.class);
 		}
 
 		if (talent == VETERANS_INTUITION && hero.天赋点数(VETERANS_INTUITION) == 1){
@@ -703,7 +703,7 @@ public enum Talent {
 			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			Buff.施加(hero, Barrier.class).setShield(shieldToGive);
 		}
-		if (hero.有天赋(LIQUID_AGILITY)){
+		if (false){//喝药加闪
 			Buff.延长(hero, LiquidAgilEVATracker.class, hero.cooldown() + Math.max(0, factor-1));
 			if (factor >= 0.5f){
 				Buff.延长(hero, LiquidAgilACCTracker.class, 5f).uses = Math.round(factor);
@@ -723,7 +723,7 @@ public enum Talent {
 		}
 		if (hero.有天赋(RECALL_INSCRIPTION) && Scroll.class.isAssignableFrom(cls) && cls != 升级卷轴.class){
 			if (hero.heroClass == HeroClass.CLERIC){
-				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION) == 2 ? 300 : 10).item = cls;
+				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION,100)).item = cls;
 			} else {
 				// 10/15%
 				if (Random.Int(99) < hero.天赋点数(RECALL_INSCRIPTION,10)){
@@ -737,7 +737,7 @@ public enum Talent {
 	public static void onRunestoneUsed( Hero hero, int pos, Class<?extends Item> cls ){
 		if (hero.有天赋(RECALL_INSCRIPTION) && Runestone.class.isAssignableFrom(cls)){
 			if (hero.heroClass == HeroClass.CLERIC){
-				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION) == 2 ? 300 : 10).item = cls;
+				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION,100)).item = cls;
 			} else {
 
 				//don't trigger on 1st intuition use
@@ -982,7 +982,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, /*INVIGORATING_MEAL,*/ 自然猎手, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
 				break;
 			case DUELIST:
-				Collections.addAll(tierTalents,/* FOCUSED_MEAL,*/ LIQUID_AGILITY, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);
+				Collections.addAll(tierTalents,/* FOCUSED_MEAL,*/ 灵动机敏, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);
 				break;
 			case CLERIC:
 				Collections.addAll(tierTalents, /*ENLIGHTENING_MEAL,*/ RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);

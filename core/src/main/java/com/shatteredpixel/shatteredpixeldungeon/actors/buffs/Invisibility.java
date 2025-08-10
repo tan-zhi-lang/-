@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -79,9 +79,40 @@ public class Invisibility extends FlavourBuff {
 		}
 
 		//these aren't forms of invisibility, but do dispel at the same time as it.
-		TimekeepersHourglass.timeFreeze timeFreeze = ch.buff( TimekeepersHourglass.timeFreeze.class );
+		时光沙漏.timeFreeze timeFreeze = ch.buff( 时光沙漏.timeFreeze.class );
 		if (timeFreeze != null) {
 			timeFreeze.detach();
+		}
+
+		Preparation prep = ch.buff( Preparation.class );
+		if (prep != null){
+			prep.detach();
+		}
+
+		Swiftthistle.TimeBubble bubble =  ch.buff( Swiftthistle.TimeBubble.class );
+		if (bubble != null){
+			bubble.detach();
+		}
+
+		RoundShield.GuardTracker guard = ch.buff(RoundShield.GuardTracker.class);
+		if (guard != null && guard.hasBlocked){
+			guard.detach();
+		}
+	}
+
+	public static void notimedispel() {
+		if (Dungeon.hero == null) return;
+
+		notimedispel(Dungeon.hero);
+	}
+	public static void notimedispel(Char ch){
+
+		for ( Buff invis : ch.buffs( Invisibility.class )){
+			invis.detach();
+		}
+		CloakOfShadows.cloakStealth cloakBuff = ch.buff( CloakOfShadows.cloakStealth.class );
+		if (cloakBuff != null) {
+			cloakBuff.dispel();
 		}
 
 		Preparation prep = ch.buff( Preparation.class );

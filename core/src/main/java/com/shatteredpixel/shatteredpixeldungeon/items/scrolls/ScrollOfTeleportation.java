@@ -182,7 +182,7 @@ public class ScrollOfTeleportation extends Scroll {
 				int oldValue = Dungeon.level.map[doorPos];
 				GameScene.discoverTile( doorPos, oldValue );
 				Dungeon.level.discover( doorPos );
-				ScrollOfMagicMapping.discover( doorPos );
+				探地卷轴.discover( doorPos );
 			}
 			Dungeon.observe();
 			GameScene.updateFog();

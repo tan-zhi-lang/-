@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bee;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
@@ -24,8 +24,8 @@ public class ElixirOfHoneyedHealing extends Elixir {
 	
 	@Override
 	public void apply(Hero hero) {
-		PotionOfHealing.cure(hero);
-		PotionOfHealing.heal(hero);
+		治疗药剂.cure(hero);
+		治疗药剂.heal(hero);
 		Buff.施加(hero, Hunger.class).satisfy(Hunger.HUNGRY/2f);
 		Talent.onFoodEaten(hero, Hunger.HUNGRY/2f, this);
 	}
@@ -39,8 +39,8 @@ public class ElixirOfHoneyedHealing extends Elixir {
 		
 		Char ch = Actor.findChar(cell);
 		if (ch != null){
-			PotionOfHealing.cure(ch);
-			PotionOfHealing.heal(ch);
+			治疗药剂.cure(ch);
+			治疗药剂.heal(ch);
 			if (ch instanceof Bee && ch.alignment != curUser.alignment){
 				ch.alignment = Char.Alignment.ALLY;
 				((Bee)ch).setPotInfo(-1, null);
@@ -51,7 +51,7 @@ public class ElixirOfHoneyedHealing extends Elixir {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{PotionOfHealing.class, Honeypot.ShatteredPot.class};
+			inputs =  new Class[]{治疗药剂.class, Honeypot.ShatteredPot.class};
 			inQuantity = new int[]{1, 1};
 			
 			cost = 4;

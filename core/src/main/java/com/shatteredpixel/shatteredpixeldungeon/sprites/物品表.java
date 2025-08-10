@@ -416,7 +416,7 @@ public class 物品表 {
 	public static final int ARTIFACT_ARMBAND    = ARTIFACTS+1;
 	public static final int ARTIFACT_CAPE       = ARTIFACTS+2;
 	public static final int ARTIFACT_TALISMAN   = ARTIFACTS+3;
-	public static final int ARTIFACT_HOURGLASS  = ARTIFACTS+4;
+	public static final int 时光沙漏 = ARTIFACTS+4;
 	public static final int ARTIFACT_TOOLKIT    = ARTIFACTS+5;
 	public static final int ARTIFACT_SPELLBOOK  = ARTIFACTS+6;
 	public static final int ARTIFACT_BEACON     = ARTIFACTS+7;
@@ -441,7 +441,7 @@ public class 物品表 {
 		assignItemRect(ARTIFACT_ARMBAND,    16, 13);
 		assignItemRect(ARTIFACT_CAPE,       16, 14);
 		assignItemRect(ARTIFACT_TALISMAN,   15, 13);
-		assignItemRect(ARTIFACT_HOURGLASS,  13, 16);
+		assignItemRect(时光沙漏,  13, 16);
 		assignItemRect(ARTIFACT_TOOLKIT,    15, 13);
 		assignItemRect(ARTIFACT_SPELLBOOK,  13, 16);
 		assignItemRect(ARTIFACT_BEACON,     16, 16);

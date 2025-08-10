@@ -27,7 +27,7 @@ public class HolyWeapon extends ClericSpell {
 
 	@Override
 	public float chargeUse(Hero hero) {
-		return 2;
+		return 1;
 	}
 
 	@Override

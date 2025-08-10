@@ -46,7 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
@@ -273,7 +273,7 @@ public class Hero extends Char {
 		if (有天赋(Talent.STRONGMAN)){
 			strBonus += (int)Math.floor(力量 * 天赋点数(Talent.STRONGMAN,0.08F));
 		}
-		if (HeroClass(HeroClass.WARRIOR)){
+		if (heroClass(HeroClass.WARRIOR)){
 			strBonus+= Math.round(力量*1.1f);
 		}
 
@@ -485,7 +485,7 @@ public class Hero extends Char {
 		for (Buff b : buffs()){
 			if (!b.revivePersists) b.detach();
 		}
-		Buff.施加( this, Regeneration.class );
+		Buff.施加( this, 再生.class );
 		Buff.施加( this, Hunger.class );
 	}
 
@@ -1545,6 +1545,9 @@ public class Hero extends Char {
 	public int 攻击时(final Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
 
+		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
+			damage++;
+		}
 		KindOfWeapon wep;
 		if (RingOfForce.fightingUnarmed(this) && !RingOfForce.unarmedGetsWeaponEnchantment(this)){
 			wep = null;
@@ -1608,7 +1611,13 @@ public class Hero extends Char {
 	
 	@Override
 	public int 防御时(Char enemy, int damage ) {
-		
+
+		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
+			damage--;
+		}
+		if (天赋概率(Talent.强魄意志,11)){
+			回血(天赋点数(Talent.强魄意志,2));
+		}
 		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
 			Berserk berserk = Buff.施加(this, Berserk.class);
 			berserk.damage(damage);
@@ -2038,7 +2047,7 @@ public class Hero extends Char {
 		if (source != AscensionChallenge.class) {
 			this.当前经验 += exp;
 
-			if (HeroClass(HeroClass.MAGE)){
+			if (heroClass(HeroClass.MAGE)){
 				Buff.延长( this, Recharging.class, 1 );
 				ScrollOfRecharging.charge( this );
 				SpellSprite.show(this, SpellSprite.CHARGE);
@@ -2143,7 +2152,7 @@ public class Hero extends Char {
 	
 	public int 升级所需(int lvl ){
 		lvl--;
-		if (HeroClass(HeroClass.CLERIC)){
+		if (heroClass(HeroClass.CLERIC)){
 			return 10 + lvl * 5;
 		}
 		return 12 + lvl * 6;
@@ -2697,7 +2706,7 @@ public class Hero extends Char {
 	public static interface Doom {
 		public void onDeath();
 	}
-	public boolean HeroClass(HeroClass hc){
+	public boolean heroClass(HeroClass hc){
 		return heroClass == hc;
 	}
 }

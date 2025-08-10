@@ -67,6 +67,7 @@ public enum Icons {
 	CATALOG,
 	ALCHEMY,
 	GRASS,
+	锁门,
 
 	上楼,
 	STAIRS_CHASM,
@@ -269,6 +270,9 @@ public enum Icons {
 				break;
 			case GRASS:
 				icon.frame( icon.texture.uvRectBySize( 112, 48, 16, 16 ) );
+				break;
+			case 锁门:
+				icon.frame( icon.texture.uvRectBySize( 128, 48, 16, 16 ) );
 				break;
 
 			case 上楼:

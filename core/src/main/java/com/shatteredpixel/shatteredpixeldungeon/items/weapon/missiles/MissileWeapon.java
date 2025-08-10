@@ -430,7 +430,7 @@ abstract public class MissileWeapon extends Weapon {
 
 		//+33%/50% durability
 		if (Dungeon.hero != null && Dungeon.hero.有天赋(Talent.DURABLE_PROJECTILES)){
-			usages *= 1f + Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES,0.3f);
+			usages *= 1f + Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES,0.33f)+0.01f;
 		}
 		if (holster) {
 			usages *= MagicalHolster.HOLSTER_DURABILITY_FACTOR;

@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
@@ -486,7 +487,7 @@ public class GameScene extends PixelScene {
 				GLog.h(Messages.get(this, "return"), Dungeon.depth);
 			}
 
-			if (Dungeon.hero.有天赋(Talent.ROGUES_FORESIGHT)
+			if (Dungeon.hero.heroClass(HeroClass.ROGUE)
 					&& Dungeon.level instanceof RegularLevel && Dungeon.branch == 0){
 				int reqSecrets = Dungeon.level.feeling == Level.Feeling.SECRETS ? 2 : 1;
 				for (Room r : ((RegularLevel) Dungeon.level).rooms()){
@@ -496,7 +497,7 @@ public class GameScene extends PixelScene {
 				//75%/100% chance, use level's seed so that we get the same result for the same level
 				//offset seed slightly to avoid output patterns
 				Random.pushGenerator(Dungeon.seedCurDepth()+1);
-					if (reqSecrets <= 0 && Random.Int(2) < Dungeon.hero.天赋点数(Talent.ROGUES_FORESIGHT)){
+					if (reqSecrets <= 0 && Dungeon.hero.heroClass(HeroClass.ROGUE)){
 						GLog.p(Messages.get(this, "secret_hint"));
 					}
 				Random.popGenerator();

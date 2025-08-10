@@ -213,7 +213,7 @@ public class ShopRoom extends SpecialRoom {
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[1]);
 			itemsToSpawn.add( new LeatherArmor().鉴定(false) );
-			if(Dungeon.hero()&&!Dungeon.hero.HeroClass(HeroClass.WARRIOR)) {
+			if(Dungeon.hero()&&!Dungeon.hero.heroClass(HeroClass.WARRIOR)) {
 				itemsToSpawn.add(new 水袋());
 			}
 			break;

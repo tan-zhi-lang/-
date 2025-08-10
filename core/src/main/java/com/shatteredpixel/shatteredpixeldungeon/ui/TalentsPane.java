@@ -49,8 +49,7 @@ public class TalentsPane extends ScrollPane {
 			}
 		} else {
 			while (tiersAvailable < Talent.MAX_TALENT_TIERS
-					&& Dungeon.hero.等级 +1 >= Talent.天赋解锁[tiersAvailable+1]
-					+(Dungeon.hero.等级<8?3:(Dungeon.hero.等级<15?4:(Dungeon.hero.等级<24?4:(Dungeon.hero.等级<35?6:0))))
+					&& Dungeon.hero.等级 +1 > Talent.天赋解锁[tiersAvailable+1]
 			){
 				tiersAvailable++;
 			}

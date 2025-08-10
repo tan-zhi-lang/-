@@ -125,7 +125,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 	public void gainEnergy(Mob enemy ){
 		if (target == null) return;
 
-		if (!Regeneration.regenOn()){
+		if (!再生.regenOn()){
 			return; //to prevent farming boss minions
 		}
 

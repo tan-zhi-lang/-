@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.Trinity;
@@ -315,7 +315,7 @@ abstract public class ClassArmor extends Armor {
 
 		@Override
 		public boolean act() {
-			if (Regeneration.regenOn()) {
+			if (再生.regenOn()) {
 				float chargeGain = 100 / 500f; //500 turns to full charge
 				chargeGain *= 能量之戒.armorChargeMultiplier(target);
 				charge += chargeGain;

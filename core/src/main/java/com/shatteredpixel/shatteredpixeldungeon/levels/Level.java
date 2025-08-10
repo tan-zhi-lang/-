@@ -24,11 +24,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
@@ -1131,7 +1130,7 @@ public abstract class Level implements Bundlable {
 					&& ch == Dungeon.hero && Dungeon.hero.有天赋(Talent.REJUVENATING_STEPS)
 					&& ch.buff(Talent.RejuvenatingStepsCooldown.class) == null){
 
-				if (!Regeneration.regenOn()){
+				if (!再生.regenOn()){
 					set(ch.pos, Terrain.FURROWED_GRASS);
 				} else if (ch.buff(Talent.RejuvenatingStepsFurrow.class) != null && ch.buff(Talent.RejuvenatingStepsFurrow.class).count() >= 200) {
 					set(ch.pos, Terrain.FURROWED_GRASS);

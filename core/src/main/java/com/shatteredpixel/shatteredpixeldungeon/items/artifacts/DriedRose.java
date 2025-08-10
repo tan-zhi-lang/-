@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -392,7 +392,7 @@ public class DriedRose extends Artifact {
 			if (ghost != null && !cursed && target.buff(MagicImmune.class) == null){
 				
 				//heals to full over 500 turns
-				if (ghost.生命 < ghost.最大生命 && Regeneration.regenOn()) {
+				if (ghost.生命 < ghost.最大生命 && 再生.regenOn()) {
 					partialCharge += (ghost.最大生命 / 500f) * 能量之戒.artifactChargeMultiplier(target);
 					updateQuickslot();
 					
@@ -410,7 +410,7 @@ public class DriedRose extends Artifact {
 			if (charge < chargeCap
 					&& !cursed
 					&& target.buff(MagicImmune.class) == null
-					&& Regeneration.regenOn()) {
+					&& 再生.regenOn()) {
 				//500 turns to a full charge
 				partialCharge += (1/5f * 能量之戒.artifactChargeMultiplier(target));
 				while (partialCharge > 1){

@@ -280,7 +280,7 @@ public class Potion extends Item {
 		if (!anonymous) {
 			Catalog.countUse(getClass());
 			if (Random.Float() < talentChance) {
-				Talent.onPotionUsed(curUser, curUser.pos, talentFactor);
+				Talent.喝药时(curUser, curUser.pos, talentFactor);
 			}
 		}
 	}
@@ -302,7 +302,7 @@ public class Potion extends Item {
 			if (!anonymous) {
 				Catalog.countUse(getClass());
 				if (Random.Float() < talentChance) {
-					Talent.onPotionUsed(curUser, cell, talentFactor);
+					Talent.喝药时(curUser, cell, talentFactor);
 				}
 			}
 			

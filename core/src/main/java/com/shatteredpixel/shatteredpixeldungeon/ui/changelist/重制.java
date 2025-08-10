@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -11,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.noosa.Image;
 
@@ -45,9 +47,10 @@ public class 重制 {
 				"英雄相关\n\n" +
 						"最大生命+10，最大命中+10，最大闪避+5。\n" +
 						"升级提升的命中+1。最大等级-5，升级所需经验+2/+1。\n" +
-						"伏击额外造成1伤害，吃饭恢复1生命值。\n"+
-						"各英雄都拥有特定的效果，一些武器装备更符合设定。\n"+
-						"除了战士都移除水袋，护甲都变成专属护甲。"
+						"伏击+1伤害，隐形伏击+1伤害，吃饭恢复1生命。\n"+
+						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
+						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
+						"再生额外恢复1%最大生命。"
 						,
 						"地牢相关\n\n" +
 						"第一层必定生成一瓶经验药剂，额外一个感知符石。\n" +
@@ -72,8 +75,8 @@ public class 重制 {
 
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "天赋系统",
 				"移除一层和二层的一个天赋，增强大部分。\n" +
-						"天赋解锁从9/12 => 7/14\n" +
-						"天赋点数5/6/8=>3/6/9\n" +
+						"天赋解锁从2/7/13 => 2/5/11\n" +
+						"天赋点数5/6/8 => 3/6/9\n" +
 						"二层和三层最大天赋点+1"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "根骨秘药",
 				"改成永久+1力量和+10最大生命。"));
@@ -84,10 +87,13 @@ public class 重制 {
 				"持续回合+5。"));
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.HASTE, true), "极速药剂",
 				"移速300% => 400%。"));
+
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
 		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new TalentIcon(Talent.无声步伐), "无声步伐",
+				"所有英雄的惊扰距离+1。"));
 
 	}
 

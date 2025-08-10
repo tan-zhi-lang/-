@@ -81,7 +81,7 @@ public class Food extends Item {
 	}
 
 	public float eatingTime(){
-		if (Dungeon.hero.HeroClass(HeroClass.WARRIOR)){
+		if (Dungeon.hero.heroClass(HeroClass.WARRIOR)){
 			return TIME_TO_EAT - 2;
 		}
 		if (Dungeon.hero.有天赋(Talent.IRON_STOMACH)

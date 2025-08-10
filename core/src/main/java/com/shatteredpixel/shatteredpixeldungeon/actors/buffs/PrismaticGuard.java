@@ -73,7 +73,7 @@ public class PrismaticGuard extends Buff {
 			spend(TICK);
 		}
 		
-		if (HP < maxHP() && Regeneration.regenOn()){
+		if (HP < maxHP() && 再生.regenOn()){
 			HP += 0.1f;
 		}
 		if (powerOfManyTurns > 0){

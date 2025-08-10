@@ -1141,8 +1141,8 @@ public abstract class Char extends Actor {
 		}
 		return null;
 	}
-	public boolean hasbuff(Buff c){
-		return buff(c.getClass())!= null;
+	public boolean hasbuff( Class c ){
+		return buff(c)!= null;
 	}
 
 	public synchronized boolean isCharmedBy( Char ch ) {
@@ -1332,7 +1332,7 @@ public abstract class Char extends Actor {
 		return buff(Challenge.SpectatorFreeze.class) != null || buff(Invulnerability.class) != null;
 	}
 
-	protected HashSet<Property> properties = new HashSet<>();
+	public HashSet<Property> properties = new HashSet<>();
 
 	public HashSet<Property> properties() {
 		HashSet<Property> props = new HashSet<>(properties);
@@ -1418,5 +1418,9 @@ public abstract class Char extends Actor {
 	}
 	public boolean 满血(){
 		return 生命==最大生命;
+	}
+	public void 回血(int x){
+		生命 = Math.min(生命 + x, 最大生命);
+		if(sprite!=null) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(x), FloatingText.HEALING);
 	}
 }

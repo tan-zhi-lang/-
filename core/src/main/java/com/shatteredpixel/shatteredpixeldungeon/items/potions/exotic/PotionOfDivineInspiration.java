@@ -119,7 +119,7 @@ public class PotionOfDivineInspiration extends ExoticPotion {
 					if (!anonymous) {
 						Catalog.countUse(PotionOfDivineInspiration.class);
 						if (Random.Float() < talentChance) {
-							Talent.onPotionUsed(curUser, curUser.pos, talentFactor);
+							Talent.喝药时(curUser, curUser.pos, talentFactor);
 						}
 					}
 

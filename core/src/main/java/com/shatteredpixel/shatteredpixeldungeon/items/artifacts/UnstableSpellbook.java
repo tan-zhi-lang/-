@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -328,7 +328,7 @@ public class UnstableSpellbook extends Artifact {
 			if (charge < chargeCap
 					&& !cursed
 					&& target.buff(MagicImmune.class) == null
-					&& Regeneration.regenOn()) {
+					&& 再生.regenOn()) {
 				//120 turns to charge at full, 80 turns to charge at 0/8
 				float chargeGain = 1 / (120f - (chargeCap - charge)*5f);
 				chargeGain *= 能量之戒.artifactChargeMultiplier(target);

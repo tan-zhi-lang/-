@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GreaterHaste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -212,7 +212,7 @@ public class MeleeWeapon extends Weapon {
 	public static void onAbilityKill( Hero hero, Char killed ){
 		if (killed.alignment == Char.Alignment.ENEMY && hero.有天赋(Talent.LETHAL_HASTE)){
 			//effectively 3/5 turns of greater haste
-			Buff.施加(hero, GreaterHaste.class).set(hero.天赋点数(Talent.LETHAL_HASTE,3));
+			Buff.施加(hero, GreaterHaste.class).set(hero.天赋点数(Talent.LETHAL_HASTE,2));
 		}
 	}
 
@@ -398,7 +398,7 @@ public class MeleeWeapon extends Weapon {
 		@Override
 		public boolean act() {
 			if (charges < chargeCap()){
-				if (Regeneration.regenOn()){
+				if (再生.regenOn()){
 					//60 to 45 turns per charge
 					float chargeToGain = 1/(60f-1.5f*(chargeCap()-charges));
 

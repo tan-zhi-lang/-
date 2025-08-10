@@ -828,6 +828,56 @@ public class Generator {
 		return w;
 	}
 
+	public static Ring randomRing() {
+
+		Category cat = Category.RING;
+
+		if (cat.defaultProbs != null && cat.seed != null){
+			Random.pushGenerator(cat.seed);
+			for (int i = 0; i < cat.dropped; i++) Random.Long();
+		}
+
+		int i = Random.chances( cat.probs );
+
+		if (cat.defaultProbs != null && cat.seed != null){
+			Random.popGenerator();
+			cat.dropped++;
+		}
+
+		//if no artifacts are left, return null
+		if (i == -1){
+			return null;
+		}
+
+		cat.probs[i]--;
+		return (Ring) Reflection.newInstance((Class<? extends Ring>) cat.classes[i]).random();
+
+	}
+	public static Wand randomWand() {
+
+		Category cat = Category.WAND;
+
+		if (cat.defaultProbs != null && cat.seed != null){
+			Random.pushGenerator(cat.seed);
+			for (int i = 0; i < cat.dropped; i++) Random.Long();
+		}
+
+		int i = Random.chances( cat.probs );
+
+		if (cat.defaultProbs != null && cat.seed != null){
+			Random.popGenerator();
+			cat.dropped++;
+		}
+
+		//if no artifacts are left, return null
+		if (i == -1){
+			return null;
+		}
+
+		cat.probs[i]--;
+		return (Wand) Reflection.newInstance((Class<? extends Wand>) cat.classes[i]).random();
+
+	}
 	//enforces uniqueness of artifacts throughout a run.
 	public static Artifact randomArtifact() {
 

@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.watabou.utils.Bundle;
 
-public class Regeneration extends Buff {
+public class 再生 extends Buff {
 	
 	{
 		//unlike other buffs, this one acts after the hero and takes priority against other effects
@@ -33,7 +33,7 @@ public class Regeneration extends Buff {
 				Buff.施加(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
 			}
 
-			if (regenOn() && target.生命 < regencap() && !((Hero)target).isStarving()) {
+			if (regenOn() && !target.满血() && !((Hero)target).isStarving()) {
 				boolean chaliceCursed = false;
 				int chaliceLevel = -1;
 				if (target.buff(MagicImmune.class) == null) {
@@ -65,10 +65,9 @@ public class Regeneration extends Buff {
 				partialRegen += 1f / delay;
 
 				if (partialRegen >= 1) {
-					target.生命 += (int)partialRegen;
+					target.回血(Math.round(partialRegen+target.生命(0.01f)));
 					partialRegen -= (int)partialRegen;
-					if (target.生命 >= regencap()) {
-						target.生命 = regencap();
+					if (target.满血()) {
 						((Hero) target).resting = false;
 					}
 				}
@@ -84,10 +83,6 @@ public class Regeneration extends Buff {
 		}
 		
 		return true;
-	}
-	
-	public int regencap(){
-		return target.最大生命;
 	}
 
 	public static boolean regenOn(){

@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -143,7 +143,7 @@ public class ChaoticCenser extends Trinket {
 			case 0: default:
 				do {
 					gasToSpawn = Random.element(COMMON_GASSES.keySet());
-				} while (!Regeneration.regenOn() && gasToSpawn == Regrowth.class);
+				} while (!再生.regenOn() && gasToSpawn == Regrowth.class);
 				gasQuantity = COMMON_GASSES.get(gasToSpawn);
 				break;
 			case 1:

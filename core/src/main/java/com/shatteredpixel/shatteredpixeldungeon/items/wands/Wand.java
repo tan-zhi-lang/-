@@ -11,11 +11,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -660,7 +661,7 @@ public abstract class Wand extends Item {
 				int cell = shot.collisionPos;
 				
 				if (target == curUser.pos || cell == curUser.pos) {
-					if (target == curUser.pos && curUser.有天赋(Talent.SHIELD_BATTERY)){
+					if (target == curUser.pos&&(curUser.有天赋(Talent.SHIELD_BATTERY)||curUser.有天赋(Talent.饱腹法术))){
 
 						if (curUser.buff(MagicImmune.class) != null){
 							GLog.w( Messages.get(Wand.class, "no_magic") );
@@ -671,13 +672,22 @@ public abstract class Wand extends Item {
 							GLog.w( Messages.get(Wand.class, "fizzles") );
 							return;
 						}
+						if(curUser.有天赋(Talent.SHIELD_BATTERY)) {
+							float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.025f) * curWand.curCharges);
+							Buff.施加(curUser, Barrier.class).setShield(Math.round(shield));
+							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.SHIELDING);
+							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
+						}
+						if(curUser.有天赋(Talent.饱腹法术)) {
+							float shield = curUser.天赋点数(Talent.SHIELD_BATTERY, 5) * curWand.curCharges;
+							Buff.施加(curUser, Hunger.class).satisfy(shield);
 
-						float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY,0.03f)*curWand.curCharges);
-						Buff.施加(curUser, Barrier.class).setShield(Math.round(shield));
-						curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.SHIELDING);
+							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.HUNGER);
+							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
+						}
+
 						curWand.curCharges = 0;
 						curUser.sprite.operate(curUser.pos);
-						Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						ScrollOfRecharging.charge(curUser);
 						updateQuickslot();
 						curUser.spendAndNext(Actor.TICK);
@@ -826,7 +836,7 @@ public abstract class Wand extends Item {
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 
-			if (Regeneration.regenOn())
+			if (再生.regenOn())
 				partialCharge += (1f/turnsToCharge) * 能量之戒.wandChargeMultiplier(target);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){

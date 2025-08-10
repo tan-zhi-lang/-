@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -75,7 +75,7 @@ public class BrokenSeal extends Item {
 
 	public int maxShield( int armTier, int armLvl ){
 		// 5-15, based on equip tier and iron will
-		return 3 + 2*armTier + Dungeon.hero.天赋点数(Talent.IRON_WILL,10)+ (Dungeon.hero.有天赋(Talent.RUNIC_TRANSFERENCE)?armTier:0);
+		return Math.round((3 + 2*armTier + Dungeon.hero.天赋点数(Talent.IRON_WILL,8)*(1+Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE)*0.75f)));
 	}
 
 	@Override
@@ -291,7 +291,7 @@ public class BrokenSeal extends Item {
 
 		@Override
 		public synchronized boolean act() {
-			if (cooldown > 0 && Regeneration.regenOn()){
+			if (cooldown > 0 && 再生.regenOn()){
 				cooldown--;
 			}
 
@@ -341,7 +341,7 @@ public class BrokenSeal extends Item {
 		public synchronized int maxShield() {
 			//metamorphed iron will logic
 			if (((Hero)target).heroClass != HeroClass.WARRIOR && ((Hero) target).有天赋(Talent.IRON_WILL)){
-				return ((Hero) target).天赋点数(Talent.IRON_WILL,10);
+				return ((Hero) target).天赋点数(Talent.IRON_WILL,8);
 			}
 
 			if (armor != null && armor.isEquipped((Hero)target) && armor.checkSeal() != null) {

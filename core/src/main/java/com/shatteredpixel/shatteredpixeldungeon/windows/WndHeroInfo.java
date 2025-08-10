@@ -173,6 +173,7 @@ public class WndHeroInfo extends WndTabbed {
 				case ROGUE:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.get(Icons.上楼),
+							Icons.锁门.get(),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case HUNTRESS:
@@ -184,12 +185,13 @@ public class WndHeroInfo extends WndTabbed {
 				case DUELIST:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.WAR_HAMMER),
-							new TalentIcon(Talent.LETHAL_MOMENTUM),
+							new TalentIcon(Talent.越战越勇),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case CLERIC:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.TALENT.get(),
+							new ItemSprite(物品表.REMAINS),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}

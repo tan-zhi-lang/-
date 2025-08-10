@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
@@ -43,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -64,6 +66,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -865,10 +868,46 @@ public abstract class Mob extends Char {
 			rollToDropLoot();
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
-				if (Dungeon.hero.有天赋(Talent.LETHAL_MOMENTUM)
-						&& Random.Float() < 0.5f +Dungeon.hero.天赋点数(Talent.LETHAL_MOMENTUM,0.5f)){
-					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
-					Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(1);
+
+				if (Dungeon.hero.有天赋(Talent.自然猎手)){
+					ArrayList<Integer> grassCells = new ArrayList<>();
+					for (int i : PathFinder.NEIGHBOURS9){
+						grassCells.add(pos+i);
+					}
+					Random.shuffle(grassCells);
+					for (int grassCell : grassCells){
+						Char ch = Actor.findChar(grassCell);
+						if (ch != null && ch.alignment == Char.Alignment.ENEMY){
+							//1/2 turns of roots
+							Buff.施加(ch, Roots.class, Dungeon.hero.天赋点数(Talent.自然猎手));
+						}
+						if (Dungeon.level.map[grassCell] == Terrain.EMPTY ||
+								Dungeon.level.map[grassCell] == Terrain.EMBERS ||
+								Dungeon.level.map[grassCell] == Terrain.EMPTY_DECO){
+							Level.set(grassCell, Terrain.GRASS);
+							GameScene.updateMap(grassCell);
+						}
+						CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC, 4);
+					}
+
+					int totalGrassCells = (Dungeon.hero.天赋点数(Talent.自然猎手));
+					while (grassCells.size() > totalGrassCells){
+						grassCells.remove(0);
+					}
+					for (int grassCell : grassCells){
+						int t = Dungeon.level.map[grassCell];
+						if ((t == Terrain.EMPTY || t == Terrain.EMPTY_DECO || t == Terrain.EMBERS
+								|| t == Terrain.GRASS || t == Terrain.FURROWED_GRASS)
+								&& Dungeon.level.plants.get(grassCell) == null){
+							Level.set(grassCell, Terrain.HIGH_GRASS);
+							GameScene.updateMap(grassCell);
+						}
+					}
+					Dungeon.observe();
+				}
+
+				if (Dungeon.hero.有天赋(Talent.越战越勇)){
+					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.越战越勇));
 				}
 				if (Dungeon.hero.heroClass == HeroClass.DUELIST
 						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
@@ -1079,8 +1118,8 @@ public abstract class Mob extends Char {
 						float chDist = ch.stealth() + distance(ch);
 						//silent steps rogue talent, which also applies to rogue's shadow clone
 						if ((ch instanceof Hero || ch instanceof ShadowClone.ShadowAlly)
-								&& Dungeon.hero.有天赋(Talent.SILENT_STEPS)){
-							if (distance(ch) >= 4 - Dungeon.hero.天赋点数(Talent.SILENT_STEPS)) {
+								&& Dungeon.hero.有天赋(Talent.无声步伐)){
+							if (distance(ch) >= 5 - Dungeon.hero.天赋点数(Talent.无声步伐)) {//4old
 								chDist = Float.POSITIVE_INFINITY;
 							}
 						}

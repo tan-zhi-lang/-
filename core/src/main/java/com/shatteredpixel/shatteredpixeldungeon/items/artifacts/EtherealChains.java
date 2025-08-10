@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
@@ -301,7 +301,7 @@ public class EtherealChains extends Artifact {
 			if (charge < chargeTarget
 					&& !cursed
 					&& target.buff(MagicImmune.class) == null
-					&& Regeneration.regenOn()) {
+					&& 再生.regenOn()) {
 				//gains a charge in 40 - 2*missingCharge turns
 				float chargeGain = (1 / (40f - (chargeTarget - charge)*2f));
 				chargeGain *= 能量之戒.artifactChargeMultiplier(target);

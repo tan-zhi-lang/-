@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
@@ -20,7 +19,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WandEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
@@ -28,11 +26,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.RecallInscription;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -53,10 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -64,7 +57,6 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
@@ -79,7 +71,7 @@ public enum Talent {
 	//Warrior T1
 	HEARTY_MEAL(0), VETERANS_INTUITION(1), PROVOKED_ANGER(2), IRON_WILL(3),
 	//Warrior T2
-	IRON_STOMACH(4), LIQUID_WILLPOWER(5,3), RUNIC_TRANSFERENCE(6,3), LETHAL_MOMENTUM(7,3), IMPROVISED_PROJECTILES(8,3),
+	IRON_STOMACH(4), 强魄意志(5,3), RUNIC_TRANSFERENCE(6,3), 越战越勇(7,3), IMPROVISED_PROJECTILES(8,3),
 	//Warrior T3
 	HOLD_FAST(9, 4), STRONGMAN(10, 4),
 	//Berserker T3
@@ -96,7 +88,7 @@ public enum Talent {
 	//Mage T1
 	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), LINGERING_MAGIC(34), BACKUP_BARRIER(35),
 	//Mage T2
-	ENERGIZING_MEAL(36), INSCRIBED_POWER(37,3), WAND_PRESERVATION(38,3), ARCANE_VISION(39,3), SHIELD_BATTERY(40,3),
+	ENERGIZING_MEAL(36), 饱腹法术(37,3), WAND_PRESERVATION(38,3), ARCANE_VISION(39,3), SHIELD_BATTERY(40,3),
 	//Mage T3
 	DESPERATE_POWER(41, 4), ALLY_WARP(42, 4),
 	//Battlemage T3
@@ -113,7 +105,7 @@ public enum Talent {
 	//Rogue T1
 	CACHED_RATIONS(64), THIEFS_INTUITION(65), SUCKER_PUNCH(66), PROTECTIVE_SHADOWS(67),
 	//Rogue T2
-	MYSTICAL_MEAL(68), INSCRIBED_STEALTH(69,3), WIDE_SEARCH(70,3), SILENT_STEPS(71,3), ROGUES_FORESIGHT(72,3),
+	MYSTICAL_MEAL(68), 体生匿影(69,3), WIDE_SEARCH(70,3), 无声步伐(71,3), 寻宝猎人(72,3),
 	//Rogue T3
 	ENHANCED_RINGS(73, 4), LIGHT_CLOAK(74, 4),
 	//Assassin T3
@@ -130,7 +122,7 @@ public enum Talent {
 	//Huntress T1
 	NATURES_BOUNTY(96), SURVIVALISTS_INTUITION(97), FOLLOWUP_STRIKE(98), NATURES_AID(99),
 	//Huntress T2
-	INVIGORATING_MEAL(100), LIQUID_NATURE(101,3), REJUVENATING_STEPS(102,3), HEIGHTENED_SENSES(103,3), DURABLE_PROJECTILES(104,3),
+	INVIGORATING_MEAL(100), 自然猎手(101,3), REJUVENATING_STEPS(102,3), HEIGHTENED_SENSES(103,3), DURABLE_PROJECTILES(104,3),
 	//Huntress T3
 	POINT_BLANK(105, 4), SEER_SHOT(106, 4),
 	//Sniper T3
@@ -203,12 +195,16 @@ public enum Talent {
 			//barrier every 2/1 turns, to a max of 3/5
 			if (((Hero)target).有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
 				Barrier barrier = Buff.施加(target, Barrier.class);
-				if (barrier.shielding() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,10)) {
 					barrierInc += 0.5f;
-				}
+
 				if (barrierInc >= 1){
 					barrierInc = 0;
-					barrier.incShield(1);
+					if (barrier.shielding() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,8)) {
+						barrier.incShield(1);
+					}
+					if (((Hero)target).有天赋(Talent.体生匿影)) {
+						((Hero)target).回血(((Hero)target).天赋点数(Talent.体生匿影));
+					}
 				} else {
 					barrier.incShield(0); //resets barrier decay
 				}
@@ -409,8 +405,8 @@ public enum Talent {
 	int 最大点数;
 
 	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 => 2/8/15/24/35 6-3 7-1 9
-	public static int[] 天赋解锁 = new int[]{0, 1+1+0, 3+1+1, 8+1+2, 16+1+3, 24+1+4};
-//	public static int[] 天赋解锁 = new int[]{0, 1+1+0, 6+1+1, 12+1+2, 20+1+3, 30+1+4};
+	public static int[] 天赋解锁 = new int[]{0, 2, 5, 11, 20, 25};
+//	public static int[] 天赋解锁 = new int[]{0, 2, 7, 13, 21, 30};
 
 	Talent( int icon ){
 		this(icon, 2);
@@ -592,17 +588,12 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}};
 
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
-		hero.生命 = Math.min(hero.生命 + 1, hero.最大生命);
-		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(1), FloatingText.HEALING);
+		hero.回血(1);
 
 		if (hero.有天赋(HEARTY_MEAL)){
-			//4/6 HP healed, when hero is below 33% health (with a little rounding up)
-			if (hero.生命 /(float)hero.最大生命 < 0.334f) {
-				int healing = hero.天赋点数(HEARTY_MEAL,4);
-				hero.生命 = Math.min(hero.生命 + healing, hero.最大生命);
-				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healing), FloatingText.HEALING);
-
-			}
+			int healing = hero.天赋点数(HEARTY_MEAL,8);
+			hero.生命 = Math.min(hero.生命 + healing, hero.最大生命);
+			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healing), FloatingText.HEALING);
 		}
 		if (hero.有天赋(IRON_STOMACH)){
 			if (hero.cooldown() > 0) {
@@ -705,48 +696,12 @@ public enum Talent {
 		return factor;
 	}
 
-	public static void onPotionUsed( Hero hero, int cell, float factor ){
-		if (hero.有天赋(LIQUID_WILLPOWER)){
+	public static void 喝药时(Hero hero, int cell, float factor ){
+		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
-			int shieldToGive = Math.round( factor * hero.最大生命 * hero.天赋点数(LIQUID_WILLPOWER,0.06f));
+			int shieldToGive = Math.round( factor * hero.最大生命);
 			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			Buff.施加(hero, Barrier.class).setShield(shieldToGive);
-		}
-		if (hero.有天赋(LIQUID_NATURE)){
-			ArrayList<Integer> grassCells = new ArrayList<>();
-			for (int i : PathFinder.NEIGHBOURS9){
-				grassCells.add(cell+i);
-			}
-			Random.shuffle(grassCells);
-			for (int grassCell : grassCells){
-				Char ch = Actor.findChar(grassCell);
-				if (ch != null && ch.alignment == Char.Alignment.ENEMY){
-					//1/2 turns of roots
-					Buff.施加(ch, Roots.class, factor * hero.天赋点数(LIQUID_NATURE));
-				}
-				if (Dungeon.level.map[grassCell] == Terrain.EMPTY ||
-						Dungeon.level.map[grassCell] == Terrain.EMBERS ||
-						Dungeon.level.map[grassCell] == Terrain.EMPTY_DECO){
-					Level.set(grassCell, Terrain.GRASS);
-					GameScene.updateMap(grassCell);
-				}
-				CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC, 4);
-			}
-			// 4/6 cells total
-			int totalGrassCells = (int) (factor * (hero.天赋点数(LIQUID_NATURE,2)));
-			while (grassCells.size() > totalGrassCells){
-				grassCells.remove(0);
-			}
-			for (int grassCell : grassCells){
-				int t = Dungeon.level.map[grassCell];
-				if ((t == Terrain.EMPTY || t == Terrain.EMPTY_DECO || t == Terrain.EMBERS
-						|| t == Terrain.GRASS || t == Terrain.FURROWED_GRASS)
-						&& Dungeon.level.plants.get(grassCell) == null){
-					Level.set(grassCell, Terrain.HIGH_GRASS);
-					GameScene.updateMap(grassCell);
-				}
-			}
-			Dungeon.observe();
 		}
 		if (hero.有天赋(LIQUID_AGILITY)){
 			Buff.延长(hero, LiquidAgilEVATracker.class, hero.cooldown() + Math.max(0, factor-1));
@@ -757,13 +712,13 @@ public enum Talent {
 	}
 
 	public static void onScrollUsed( Hero hero, int pos, float factor, Class<?extends Item> cls ){
-		if (hero.有天赋(INSCRIBED_POWER)){
+		if (false){//阅读法杖升级
 			// 2/3 empowered wand zaps
-			Buff.施加(hero, ScrollEmpower.class).reset((int) (factor * (hero.天赋点数(INSCRIBED_POWER))));
+			Buff.施加(hero, ScrollEmpower.class).reset((int) (factor));
 		}
-		if (hero.有天赋(INSCRIBED_STEALTH)){
+		if (false){//阅读隐身
 			// 3/5 turns of stealth
-			Buff.施加(hero, Invisibility.class, factor * hero.天赋点数(INSCRIBED_STEALTH,3));
+			Buff.施加(hero, Invisibility.class, factor);
 			Sample.INSTANCE.play( Assets.Sounds.MELD );
 		}
 		if (hero.有天赋(RECALL_INSCRIPTION) && Scroll.class.isAssignableFrom(cls) && cls != 升级卷轴.class){
@@ -868,12 +823,15 @@ public enum Talent {
 	}
 
 	public static int 伏击时(Hero hero, Char enemy, int dmg ){
-
+		dmg++;
+		if(hero.hasbuff(Invisibility.class)){
+			dmg++;
+		}
 		if(hero.有天赋(Talent.SUCKER_PUNCH) && enemy.buff(SuckerPunchTracker.class) == null) {
-			dmg += hero.天赋点数(Talent.SUCKER_PUNCH, 2);
+			dmg += hero.天赋点数(Talent.SUCKER_PUNCH, 4);
 			Buff.施加(enemy, SuckerPunchTracker.class);
 		}
-		return dmg++;
+		return dmg;
 	}
 	public static int 攻击时(Hero hero, Char enemy, int dmg ){
 
@@ -882,7 +840,7 @@ public enum Talent {
 		}
 		if (hero.有天赋(Talent.PROVOKED_ANGER)
 			&& hero.buff(ProvokedAngerTracker.class) != null){
-			dmg += hero.天赋点数(Talent.PROVOKED_ANGER,3);
+			dmg += hero.天赋点数(Talent.PROVOKED_ANGER,6);
 			hero.buff(ProvokedAngerTracker.class).detach();
 		}
 
@@ -1012,16 +970,16 @@ public enum Talent {
 		//tier 2
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, /*IRON_STOMACH,*/ LIQUID_WILLPOWER, RUNIC_TRANSFERENCE, LETHAL_MOMENTUM, IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, /*IRON_STOMACH,*/ 强魄意志, RUNIC_TRANSFERENCE, 越战越勇, IMPROVISED_PROJECTILES);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, /*ENERGIZING_MEAL,*/ INSCRIBED_POWER, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
+				Collections.addAll(tierTalents, /*ENERGIZING_MEAL,*/ 饱腹法术, WAND_PRESERVATION, ARCANE_VISION, SHIELD_BATTERY);
 				break;
 			case ROGUE:
-				Collections.addAll(tierTalents, /*MYSTICAL_MEAL,*/ INSCRIBED_STEALTH, WIDE_SEARCH, SILENT_STEPS, ROGUES_FORESIGHT);
+				Collections.addAll(tierTalents, /*MYSTICAL_MEAL,*/ 体生匿影, WIDE_SEARCH, 无声步伐, 寻宝猎人);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, /*INVIGORATING_MEAL,*/ LIQUID_NATURE, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, /*INVIGORATING_MEAL,*/ 自然猎手, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
 				break;
 			case DUELIST:
 				Collections.addAll(tierTalents,/* FOCUSED_MEAL,*/ LIQUID_AGILITY, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);

@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Regeneration;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -172,7 +172,7 @@ public class HallowedGround extends TargetedClericSpell {
 						int c = Dungeon.level.map[cell];
 						if (c == Terrain.GRASS && Dungeon.level.plants.get(c) == null) {
 							if (Random.Int(chance) == 0) {
-								if (!Regeneration.regenOn()
+								if (!再生.regenOn()
 										|| (Dungeon.hero.buff(HallowedFurrowTracker.class) != null && Dungeon.hero.buff(HallowedFurrowTracker.class).count() > 100)){
 									Level.set(cell, Terrain.FURROWED_GRASS);
 								} else {

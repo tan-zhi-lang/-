@@ -36,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -96,11 +97,12 @@ public enum HeroClass {
 		i = new Food();
 		if (!Challenges.isItemBlocked(i)) i.放背包();
 
+		new 经验药剂().数量(30).放背包();
 		new 绒布袋().放背包();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 
 		水袋 水袋 = new 水袋();
-		if(hero.HeroClass(WARRIOR)){
+		if(hero.heroClass(WARRIOR)){
 			水袋.放背包();
 		}
 
@@ -135,7 +137,7 @@ public enum HeroClass {
 		if (SPDSettings.quickslotWaterskin()) {
 			for (int s = 0; s < QuickSlot.SIZE; s++) {
 				if (Dungeon.quickslot.getItem(s) == null) {
-					if(hero.HeroClass(WARRIOR)) {
+					if(hero.heroClass(WARRIOR)) {
 						Dungeon.quickslot.setSlot(s, 水袋);
 						break;
 					}

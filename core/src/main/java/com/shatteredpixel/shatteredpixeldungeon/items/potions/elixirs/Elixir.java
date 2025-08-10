@@ -15,7 +15,7 @@ public abstract class Elixir extends Potion {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return quantity * 60;
 	}
 

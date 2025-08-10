@@ -1117,7 +1117,7 @@ public class GameScene extends PixelScene {
 						GLog.p(Messages.get(Guidebook.class, "hint_desktop", KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL, ControllerHandler.isControllerConnected()))));
 					}
 				}
-				Dungeon.hero.sprite.showStatus(CharSprite.POSITIVE, Messages.get(Guidebook.class, "hint_status"));
+				Dungeon.hero.sprite.showStatus(CharSprite.增强, Messages.get(Guidebook.class, "hint_status"));
 			}
 			scene.menu.flashForPage( doc, page );
 		}

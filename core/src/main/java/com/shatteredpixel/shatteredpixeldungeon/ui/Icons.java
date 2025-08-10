@@ -22,7 +22,7 @@ public enum Icons {
 	NEWS,
 	CHANGES,
 	PREFS,
-	SHPX,
+	EVAN图标,
 	JOURNAL,
 
 	//grey icons, mainly used for buttons, spacing for 16x16
@@ -144,7 +144,7 @@ public enum Icons {
 			case PREFS:
 				icon.frame( icon.texture.uvRectBySize( 102, 0, 14, 14 ) );
 				break;
-			case SHPX:
+			case EVAN图标:
 				icon.frame( icon.texture.uvRectBySize( 119, 0, 16, 16 ) );
 				break;
 			case JOURNAL:

@@ -94,13 +94,13 @@ public class LayOnHands extends TargetedClericSpell {
 			totalBarrier = Math.min(3*totalHeal - barrier.shielding(), totalBarrier);
 			totalBarrier = Math.max(0, totalBarrier);
 			Buff.施加(ch, Barrier.class).incShield(totalBarrier);
-			ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(totalBarrier), FloatingText.SHIELDING );
+			ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(totalBarrier), FloatingText.SHIELDING );
 		} else {
 			if (ch.最大生命 - ch.生命 < totalHeal){
 				totalBarrier = totalHeal - (ch.最大生命 - ch.生命);
 				if (ch.生命 != ch.最大生命) {
 					ch.生命 = ch.最大生命;
-					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalHeal - totalBarrier), FloatingText.HEALING);
+					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(totalHeal - totalBarrier), FloatingText.HEALING);
 				}
 				if (totalBarrier > 0) {
 					Barrier barrier = Buff.施加(ch, Barrier.class);
@@ -108,12 +108,12 @@ public class LayOnHands extends TargetedClericSpell {
 					totalBarrier = Math.max(0, totalBarrier);
 					if (totalBarrier > 0) {
 						barrier.incShield(totalBarrier);
-						ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalBarrier), FloatingText.SHIELDING);
+						ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(totalBarrier), FloatingText.SHIELDING);
 					}
 				}
 			} else {
 				ch.生命 = ch.生命 + totalHeal;
-				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(totalHeal), FloatingText.HEALING );
+				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(totalHeal), FloatingText.HEALING );
 			}
 		}
 	}

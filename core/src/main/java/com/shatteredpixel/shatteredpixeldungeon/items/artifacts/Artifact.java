@@ -207,7 +207,7 @@ public class Artifact extends KindofMisc {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		int price = 100;
 		if (等级() > 0)
 			price += 20*visiblyUpgraded();

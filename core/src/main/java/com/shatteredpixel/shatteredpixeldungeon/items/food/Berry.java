@@ -21,17 +21,8 @@ public class Berry extends Food {
 	}
 
 	@Override
-	protected float eatingTime(){
-		if (Dungeon.hero.有天赋(Talent.IRON_STOMACH)
-				|| Dungeon.hero.有天赋(Talent.ENERGIZING_MEAL)
-				|| Dungeon.hero.有天赋(Talent.MYSTICAL_MEAL)
-				|| Dungeon.hero.有天赋(Talent.INVIGORATING_MEAL)
-				|| Dungeon.hero.有天赋(Talent.FOCUSED_MEAL)
-				|| Dungeon.hero.有天赋(Talent.ENLIGHTENING_MEAL)){
-			return 0;
-		} else {
-			return 1;
-		}
+	public float eatingTime(){
+		return super.eatingTime()-1;
 	}
 
 	@Override
@@ -45,7 +36,7 @@ public class Berry extends Food {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return 5 * quantity;
 	}
 

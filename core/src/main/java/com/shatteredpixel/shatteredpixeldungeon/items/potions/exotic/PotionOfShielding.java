@@ -27,7 +27,7 @@ public class PotionOfShielding extends ExoticPotion {
 		} else {
 			//~75% of a potion of healing
 			Buff.施加(hero, Barrier.class).setShield((int) (0.6f * hero.最大生命 + 10));
-			hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString((int) (0.6f * hero.最大生命 + 10)), FloatingText.SHIELDING );
+			hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString((int) (0.6f * hero.最大生命 + 10)), FloatingText.SHIELDING );
 		}
 	}
 }

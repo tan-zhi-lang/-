@@ -109,7 +109,7 @@ public class Ankh extends Item {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 50 * quantity;
 	}
 }

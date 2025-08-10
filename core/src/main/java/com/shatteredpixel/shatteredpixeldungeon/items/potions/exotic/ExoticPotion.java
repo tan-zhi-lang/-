@@ -7,14 +7,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHaste;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
 import com.watabou.utils.Reflection;
@@ -49,8 +49,8 @@ public class ExoticPotion extends Potion {
 		regToExo.put(PotionOfToxicGas.class, PotionOfCorrosiveGas.class);
 		exoToReg.put(PotionOfCorrosiveGas.class, PotionOfToxicGas.class);
 
-		regToExo.put(PotionOfHaste.class, PotionOfStamina.class);
-		exoToReg.put(PotionOfStamina.class, PotionOfHaste.class);
+		regToExo.put(极速药剂.class, PotionOfStamina.class);
+		exoToReg.put(PotionOfStamina.class, 极速药剂.class);
 
 		regToExo.put(PotionOfInvisibility.class, PotionOfShroudingFog.class);
 		exoToReg.put(PotionOfShroudingFog.class, PotionOfInvisibility.class);
@@ -61,8 +61,8 @@ public class ExoticPotion extends Potion {
 		regToExo.put(PotionOfParalyticGas.class, PotionOfEarthenArmor.class);
 		exoToReg.put(PotionOfEarthenArmor.class, PotionOfParalyticGas.class);
 
-		regToExo.put(PotionOfPurity.class, PotionOfCleansing.class);
-		exoToReg.put(PotionOfCleansing.class, PotionOfPurity.class);
+		regToExo.put(净化药剂.class, PotionOfCleansing.class);
+		exoToReg.put(PotionOfCleansing.class, 净化药剂.class);
 
 		regToExo.put(经验药剂.class, PotionOfDivineInspiration.class);
 		exoToReg.put(PotionOfDivineInspiration.class, 经验药剂.class);
@@ -93,8 +93,8 @@ public class ExoticPotion extends Potion {
 	
 	@Override
 	//20 gold more than its none-exotic equivalent
-	public int value() {
-		return (Reflection.newInstance(exoToReg.get(getClass())).value() + 20) * quantity;
+	public int 金币() {
+		return (Reflection.newInstance(exoToReg.get(getClass())).金币() + 20) * quantity;
 	}
 
 	@Override

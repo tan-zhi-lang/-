@@ -308,7 +308,7 @@ public class ScrollOfTeleportation extends Scroll {
 	}
 	
 	@Override
-	public int value() {
-		return isKnown() ? 30 * quantity : super.value();
+	public int 金币() {
+		return isKnown() ? 30 * quantity : super.金币();
 	}
 }

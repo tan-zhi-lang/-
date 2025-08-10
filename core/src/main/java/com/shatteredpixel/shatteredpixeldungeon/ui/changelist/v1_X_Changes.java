@@ -51,7 +51,7 @@ public class v1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released October 4th, 2022\n" +
 				"_-_ 90 days after Shattered v1.3.0\n" +
 				"\n" +
@@ -155,7 +155,7 @@ public class v1_X_Changes {
 				"_-_ The controller pointer can now pan the game camera\n" +
 				"_-_ Heroes can now be renamed individually"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n\n" +
 				"_Highlights:_\n" +
 				"_-_ Victory and Champion badges not being awarded in some cases\n" +
@@ -235,7 +235,7 @@ public class v1_X_Changes {
 				"_-_ Some users seeing rankings dates in local format, instead of international"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_AMETHYST), new RingOfWealth().trueName(),
@@ -259,7 +259,7 @@ public class v1_X_Changes {
 				"_-_ Added 3 additional new lines that trigger rarely"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.EXOTIC_GYFU), new ScrollOfAntiMagic().trueName(),
@@ -276,7 +276,7 @@ public class v1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released July 6th, 2022\n" +
 				"_-_ 105 days after Shattered v1.2.0\n\n" +
 				"v1.3.0 was largely a followup update to v1.2, with an emphasis on adding features that better fleshed out the game for all the new players on desktop platforms.\n" +
@@ -373,7 +373,7 @@ public class v1_X_Changes {
 				"_-_ Boss health bars have been expanded to show current health and active buffs/debuffs.\n" +
 				"_-_ The Changes scene has been expanded on large enough displays. This is the first of several UI expansions I'd like to make over time."));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed\n" +
 				"_-_ Various minor textual and visual bugs\n" +
 				"_-_ Final boss's summons being slightly weaker than intended when badder bosses is enabled\n" +
@@ -390,7 +390,7 @@ public class v1_X_Changes {
 				"_-_ Gateway traps being able to teleport containers"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.CROWN), "Armor Ability Buffs",
@@ -423,7 +423,7 @@ public class v1_X_Changes {
 				"_- Cleansing Dart_ now clears positive buffs from enemies, and causes them to start wandering (note that they may immediately re-aggro if they are close enough)"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.CROWN), "Armor Ability Nerfs",
@@ -458,7 +458,7 @@ public class v1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released March 23rd, 2022\n" +
 				"_-_ 103 days after Shattered v1.1.0\n\n" +
 				"v1.2.0 focused on a number of improvements to try and make Shattered play just as well for desktop users as it does for phone users. While these changes weren't perfect right at launch, they played a major role in making Shattered feel like more than a mobile port and helped it have a successful launch on Steam.\n" +
@@ -516,7 +516,7 @@ public class v1_X_Changes {
 				"_-_ Added a new language: Galician!\n" +
 				"_-_ Removed the Catalan translation as it was below 70% complete"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various rare cases of save corruption on Android\n" +
 				"_-_ Various minor textual and visual errors\n\n" +
@@ -558,7 +558,7 @@ public class v1_X_Changes {
 				"_-_ Curse status of quickslot items not showing in rankings"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.FIRE_BOMB), "Recipe Cost Reductions",
@@ -608,7 +608,7 @@ public class v1_X_Changes {
 				"_- Shared Upgrades_ bugfixed to give the bonus damage stated in the description, instead of slightly less."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.MAGIC_INFUSE), "Alchemy Nerfs",
@@ -645,7 +645,7 @@ public class v1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released December 10th, 2021\n" +
 				"_-_ 115 days after Shattered v1.0.0\n\n" +
 				"v1.1.0 was the start of Shattered's alchemy system actually doing the job it was supposed to do way back in v0.7.0. Previously alchemical energy sort of sat on top of the alchemy system and acted as a hard cap on how many 'powerful' recipes the player could use in a run. Thanks to v1.1.0's changes, energy replaced specific ingredients in a huge number of recipes, which made the system massively more flexible. Lots of specific alchemy items also received big buffs or redesigns, making them much more worthwhile to create.\n" +
@@ -709,7 +709,7 @@ public class v1_X_Changes {
 				"\n" +
 				"_-_ Updated translations and translator credits"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various minor/rare visual and textual errors\n" +
 				"_-_ Cases where pausing/resuming the game at precise moments would cancel animations or attacks\n" +
@@ -753,7 +753,7 @@ public class v1_X_Changes {
 				"_-_ Remove curse stating nothing was cleansed when it removed the degrade debuff"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton( new ItemSprite(物品表.EXOTIC_AMBER), "Exotic Buffs",
@@ -791,7 +791,7 @@ public class v1_X_Changes {
 				"_- Shrug it Off_ now caps damage taken at 20% at +4, up from 25%."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new MagesStaff(),
@@ -820,7 +820,7 @@ public class v1_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released August 17th, 2021\n" +
 				"_-_ 71 days after Shattered v0.9.3\n" +
 				"_-_ 316 days after Shattered v0.9.0\n" +
@@ -894,7 +894,7 @@ public class v1_X_Changes {
 				"_-_ Becoming magic immune now also cleanses existing magical buffs and debuffs.\n" +
 				"_-_ Traps that spawn visible or that never deactivate can no longer appear in enclosed spaces"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various rare crash bugs\n" +
 				"_-_ Various minor visual and text errors\n" +
@@ -932,7 +932,7 @@ public class v1_X_Changes {
 				"_-_ wild magic using cursed wands as if they're normal"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.CROWN, null), "Armor Ability Buffs pt.1",
@@ -962,7 +962,7 @@ public class v1_X_Changes {
 				"_-_ Sheep duration up to 12-16 from 8-16"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new MagesStaff(),

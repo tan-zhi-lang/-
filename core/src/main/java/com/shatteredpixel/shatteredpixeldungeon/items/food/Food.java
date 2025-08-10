@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -79,7 +80,10 @@ public class Food extends Item {
 		Sample.INSTANCE.play( Assets.Sounds.EAT );
 	}
 
-	protected float eatingTime(){
+	public float eatingTime(){
+		if (Dungeon.hero.HeroClass(HeroClass.WARRIOR)){
+			return TIME_TO_EAT - 2;
+		}
 		if (Dungeon.hero.有天赋(Talent.IRON_STOMACH)
 			|| Dungeon.hero.有天赋(Talent.ENERGIZING_MEAL)
 			|| Dungeon.hero.有天赋(Talent.MYSTICAL_MEAL)
@@ -118,7 +122,7 @@ public class Food extends Item {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 10 * quantity;
 	}
 }

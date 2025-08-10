@@ -80,7 +80,7 @@ public class Sungrass extends Plant {
 				if (target.生命 < target.最大生命) {
 
 					target.生命 += healThisTurn;
-					target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healThisTurn), FloatingText.HEALING);
+					target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healThisTurn), FloatingText.HEALING);
 
 					if (target.生命 >= target.最大生命) {
 						target.生命 = target.最大生命;

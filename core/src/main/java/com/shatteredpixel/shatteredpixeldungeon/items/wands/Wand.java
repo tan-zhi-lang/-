@@ -462,7 +462,7 @@ public abstract class Wand extends Item {
 			if (Dungeon.hero.有天赋(Talent.EXCESS_CHARGE) && curCharges >= maxCharges){
 				int shieldToGive = Math.round(buffedLvl()*Dungeon.hero.天赋点数(Talent.EXCESS_CHARGE,0.5f));
 				Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
-				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			}
 		}
 		
@@ -554,7 +554,7 @@ public abstract class Wand extends Item {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		int price = 75;
 		if (cursed && cursedKnown) {
 			price /= 2;
@@ -674,7 +674,7 @@ public abstract class Wand extends Item {
 
 						float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY,0.03f)*curWand.curCharges);
 						Buff.施加(curUser, Barrier.class).setShield(Math.round(shield));
-						curUser.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(Math.round(shield)), FloatingText.SHIELDING);
+						curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.SHIELDING);
 						curWand.curCharges = 0;
 						curUser.sprite.operate(curUser.pos);
 						Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
@@ -710,7 +710,7 @@ public abstract class Wand extends Item {
 							//grants 3/5 shielding
 							int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,5);
 							Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
-							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 
 						//metamorphed. Triggers if wand is highest level hero has
 						} else if (curUser.heroClass != HeroClass.MAGE) {
@@ -724,7 +724,7 @@ public abstract class Wand extends Item {
 								//grants 3/5 shielding
 								int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,5);
 								Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
-								Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+								Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 							}
 						}
 					}

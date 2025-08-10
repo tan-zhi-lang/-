@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -19,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScrol
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfAntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlink;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfClairvoyance;
@@ -51,6 +52,13 @@ public abstract class Scroll extends Item {
 	
 	protected static final float TIME_TO_READ	= 1f;
 
+	public float readTime(){
+		if (Dungeon.hero.HeroClass(HeroClass.MAGE)){
+			return TIME_TO_READ-1;
+		} else {
+			return TIME_TO_READ;
+		}
+	}
 	private static final LinkedHashMap<String, Integer> runes = new LinkedHashMap<String, Integer>() {
 		{
 			put("KAUNAN", 物品表.SCROLL_KAUNAN);
@@ -177,7 +185,7 @@ public abstract class Scroll extends Item {
 	public void readAnimation() {
 		//if scroll is being created for its effect, depend on creating item to dispel
 		if (!anonymous) Invisibility.dispel();
-		curUser.spend( TIME_TO_READ );
+		curUser.spend( readTime() );
 		curUser.busy();
 		((HeroSprite)curUser.sprite).read();
 
@@ -257,7 +265,7 @@ public abstract class Scroll extends Item {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 30 * quantity;
 	}
 
@@ -301,7 +309,7 @@ public abstract class Scroll extends Item {
 			stones.put(祛邪卷轴.class,   StoneOfDetectMagic.class);
 			stones.put(ScrollOfTeleportation.class, StoneOfBlink.class);
 			stones.put(ScrollOfTerror.class,        StoneOfFear.class);
-			stones.put(ScrollOfTransmutation.class, StoneOfAugmentation.class);
+			stones.put(ScrollOfTransmutation.class, 强化符石.class);
 			stones.put(升级卷轴.class,       StoneOfEnchantment.class);
 		}
 		

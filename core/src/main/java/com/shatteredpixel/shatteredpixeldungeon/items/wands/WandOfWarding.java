@@ -310,7 +310,7 @@ public class WandOfWarding extends Wand {
 			} else {
 				生命 = Math.min(最大生命, 生命 + heal);
 			}
-			if (sprite != null) sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
+			if (sprite != null) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
 
 		}
 

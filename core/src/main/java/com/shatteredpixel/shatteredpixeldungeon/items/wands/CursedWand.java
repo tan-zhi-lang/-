@@ -468,7 +468,7 @@ public class CursedWand {
 				}
 				toHeal.生命 = Math.min(toHeal.最大生命, toHeal.生命 + damage/2);
 				toHeal.sprite.emitter().burst(Speck.factory(Speck.HEALING), 3);
-				toHeal.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(damage/2), FloatingText.HEALING );
+				toHeal.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(damage/2), FloatingText.HEALING );
 
 				toDamage.受伤时(damage, new CursedWand());
 				toDamage.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10);

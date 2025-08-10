@@ -55,7 +55,7 @@ public abstract class RemainsItem extends Item {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return 50;
 	}
 

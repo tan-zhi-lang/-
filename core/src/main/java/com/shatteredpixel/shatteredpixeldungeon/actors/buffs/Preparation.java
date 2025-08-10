@@ -232,7 +232,7 @@ public class Preparation extends Buff implements ActionIndicator.Action {
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
 		txt.text(Integer.toString(Math.min(9, turnsInvis)));
-		txt.hardlight(CharSprite.POSITIVE);
+		txt.hardlight(CharSprite.增强);
 		txt.measure();
 		return txt;
 	}

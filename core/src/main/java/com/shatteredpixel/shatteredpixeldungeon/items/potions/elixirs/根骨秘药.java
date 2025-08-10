@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
-public class ElixirOfMight extends Elixir {
+public class 根骨秘药 extends Elixir {
 
 	{
 		image = 物品表.ELIXIR_MIGHT;
@@ -31,11 +31,12 @@ public class ElixirOfMight extends Elixir {
 		鉴定();
 		
 		hero.力量++;
-		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, "1", FloatingText.STRENGTH);
+		hero.根骨++;
+		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
 		
-		Buff.施加(hero, HTBoost.class).reset();
-		HTBoost boost = Buff.施加(hero, HTBoost.class);
-		boost.reset();
+//		Buff.施加(hero, HTBoost.class).reset();
+//		HTBoost boost = Buff.施加(hero, HTBoost.class);
+//		boost.reset();
 		
 		hero.更新生命( true );
 		GLog.p( Messages.get(this, "msg", hero.力量()) );
@@ -56,7 +57,7 @@ public class ElixirOfMight extends Elixir {
 			
 			cost = 16;
 			
-			output = ElixirOfMight.class;
+			output = 根骨秘药.class;
 			outQuantity = 1;
 		}
 		

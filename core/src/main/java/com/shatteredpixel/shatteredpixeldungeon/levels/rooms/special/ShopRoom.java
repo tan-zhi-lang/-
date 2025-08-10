@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
@@ -31,10 +32,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Alchemize;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -211,6 +213,9 @@ public class ShopRoom extends SpecialRoom {
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[1]);
 			itemsToSpawn.add( new LeatherArmor().鉴定(false) );
+			if(Dungeon.hero()&&!Dungeon.hero.HeroClass(HeroClass.WARRIOR)) {
+				itemsToSpawn.add(new 水袋());
+			}
 			break;
 			
 		case 11:
@@ -286,7 +291,7 @@ public class ShopRoom extends SpecialRoom {
 		}
 
 		itemsToSpawn.add( new Ankh() );
-		itemsToSpawn.add( new StoneOfAugmentation() );
+		itemsToSpawn.add( new 强化符石() );
 
 		TimekeepersHourglass hourglass = Dungeon.hero.belongings.getItem(TimekeepersHourglass.class);
 		if (hourglass != null && hourglass.isIdentified() && !hourglass.cursed){

@@ -204,7 +204,7 @@ public class CloakOfShadows extends Artifact {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return 0;
 	}
 

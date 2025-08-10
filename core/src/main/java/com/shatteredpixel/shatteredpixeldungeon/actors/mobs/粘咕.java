@@ -29,7 +29,7 @@ import com.watabou.utils.GameMath;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class Goo extends Mob {
+public class 粘咕 extends Mob {
 
 	{
 		生命 = 最大生命 = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 120 : 100;
@@ -98,7 +98,7 @@ public class Goo extends Mob {
 			}
 
 			if (Dungeon.level.heroFOV[pos] ){
-				sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(healInc), FloatingText.HEALING );
+				sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(healInc), FloatingText.HEALING );
 			}
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) && healInc < 3) {
 				healInc++;

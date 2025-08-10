@@ -37,7 +37,7 @@ public class v3_X_Changes {
 		changes.hardlight(0xCCCCCC);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Overview and ETA",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Overview and ETA",
 				"The next major Shattered update will v3.3 (I may change the name to v4.0 but it's unlikely). This update will include an overhaul to the Ambitious Imp quest in the metropolis!\n" +
 				"\n" +
 				"The blacksmith quest overhaul ended up taking quite a bit of time, and so I expect v3.3 will as well. I will write some blog posts as I make progress though, so hopefully you'll hear from me as things start to take shape in October or November.\n" +
@@ -70,7 +70,7 @@ public class v3_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Dev Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Dev Commentary",
 				"**-** Released August 4th, 2025\n" +
 				"**-** 63 days after Shattered v3.1.0\n" +
 				"\n" +
@@ -146,7 +146,7 @@ public class v3_X_Changes {
 				"**-** Updated code libraries on iOS (Android and Desktop lib updates will come in a patch later)\n" +
 				"**-** Added dev commentary for v2.2.0\n"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"**Gameplay:**\n" +
 				"**-** Cases where sacrificial fire would not apply just after a character steps into it\n" +
@@ -161,7 +161,7 @@ public class v3_X_Changes {
 				"**-** Minor visual and textual bugs"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.PROJECTILE_MOMENTUM), "Thrown Weapon Talent Buffs",
@@ -196,7 +196,7 @@ public class v3_X_Changes {
 				"**- Staff of Warding** mildly changed, now heals level 2 and 3 wards in addition to sentries."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.TOMAHAWK), "Thrown Weapon Nerfs",
@@ -236,7 +236,7 @@ public class v3_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Dev Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Dev Commentary",
 				"**-** Released June 2nd, 2025\n" +
 				"**-** 95 days after v3.0.0\n" +
 				"\n" +
@@ -353,7 +353,7 @@ public class v3_X_Changes {
 				"\n" +
 				"**-** Increased the HP threshold for status pane blinking red to 33% from 30%, for consistency with hearty meal change."));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"**Highlights:**\n" +
 				"**-** Thrown weapons gaining or losing more accuracy than intended based on enemy adjacency\n" +
@@ -404,7 +404,7 @@ public class v3_X_Changes {
 				"**-** Indonesian language not working on desktop platforms"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(HeroSprite.avatar(HeroClass.CLERIC, 6), "Cleric Buffs",
@@ -436,7 +436,7 @@ public class v3_X_Changes {
 				"**- Life Link** duration up to 10/13/17/20 from 6/8/10/12"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(HeroSprite.avatar(HeroClass.CLERIC, 6), "Cleric Nerfs",
@@ -461,7 +461,7 @@ public class v3_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released February 27th, 2025\n" +
 				"_-_ 197 days after Shattered v2.5.0\n" +
 				"_-_ 548 days after Shattered v2.0.0\n\n" +
@@ -544,7 +544,7 @@ public class v3_X_Changes {
 				"**-** Improved number rounding logic when damage hero takes is affected by several modifiers at once\n" +
 				"**-** Updated translations and translator credits"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"**Highlights:**\n" +
 				"**-** Various issues with system gestures registering as game inputs on Android and iOS\n" +
@@ -608,7 +608,7 @@ public class v3_X_Changes {
 				"**-** Talisman of Foresight's scry ability not detecting hiding mimics"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.CHAOTIC_CENSER), "Trinket Buffs",
@@ -627,7 +627,7 @@ public class v3_X_Changes {
 				"**- Charged Shot** knockback +1, base bonus damage on untipped darts +1."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MOSSY_CLUMP), "Trinket Nerfs",

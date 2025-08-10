@@ -53,7 +53,7 @@ public abstract class AllyBuff extends Buff {
 
 			int exp = hero.等级 <= enemy.最大等级 ? enemy.经验 : 0;
 			if (exp > 0) {
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(exp), FloatingText.EXPERIENCE);
 			}
 			hero.经验(exp, enemy.getClass());
 

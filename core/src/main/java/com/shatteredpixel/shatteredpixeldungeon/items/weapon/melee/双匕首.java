@@ -29,14 +29,19 @@ public class 双匕首 extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 
 		tier = 1;
-		延迟 = 0.75f; //2x speed
+		延迟 = 0.67f; //2x speed
 		
 		bones = false;
 	}
 
 	@Override
+	public int 最小攻击(int lvl) {
+		return  1+tier +  //base
+				lvl;    //level scaling
+	}
+	@Override
 	public int 最大攻击(int lvl) {
-		return  3*(tier+1) +    //8 base, down from 10
+		return  1+3*(tier+1) +    //8 base, down from 10
 				lvl*(tier+1)/2*3;   //scaling unchanged
 	}
 	

@@ -25,7 +25,7 @@ public class PotionOfStrength extends Potion {
 		鉴定();
 
 		hero.力量++;
-		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, "1", FloatingText.STRENGTH);
+		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
 
 		GLog.p( Messages.get(this, "msg", hero.力量()) );
 		
@@ -34,8 +34,8 @@ public class PotionOfStrength extends Potion {
 	}
 
 	@Override
-	public int value() {
-		return isKnown() ? 50 * quantity : super.value();
+	public int 金币() {
+		return isKnown() ? 50 * quantity : super.金币();
 	}
 
 	@Override

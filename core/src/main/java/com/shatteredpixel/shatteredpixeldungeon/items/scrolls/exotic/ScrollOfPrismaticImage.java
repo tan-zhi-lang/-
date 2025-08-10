@@ -29,7 +29,7 @@ public class ScrollOfPrismaticImage extends ExoticScroll {
 			if (m instanceof PrismaticImage){
 				found = true;
 				m.生命 = m.最大生命;
-				m.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(m.最大生命), FloatingText.HEALING );
+				m.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(m.最大生命), FloatingText.HEALING );
 			}
 		}
 

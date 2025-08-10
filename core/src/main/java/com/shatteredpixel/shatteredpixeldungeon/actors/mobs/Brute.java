@@ -75,7 +75,7 @@ public class Brute extends Mob {
 	
 	protected void triggerEnrage(){
 		Buff.施加(this, BruteRage.class).setShield(最大生命 /2 + 4);
-		sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(最大生命 /2 + 4), FloatingText.SHIELDING );
+		sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(最大生命 /2 + 4), FloatingText.SHIELDING );
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
 		}

@@ -121,7 +121,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static Float 动画速度() {
-		return getFloat( 动画速度, 1f, 1f, 10f );
+		return getFloat( 动画速度, 1f, 1f, 3f );
 	}
 
 

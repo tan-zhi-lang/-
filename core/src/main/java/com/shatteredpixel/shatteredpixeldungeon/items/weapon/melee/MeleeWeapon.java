@@ -162,7 +162,7 @@ public class MeleeWeapon extends Weapon {
 				&& (hero.生命 / (float)hero.最大生命) <= 0.5f){
 			int shieldAmt = hero.天赋点数(Talent.AGGRESSIVE_BARRIER,4);
 			Buff.施加(hero, Barrier.class).setShield(shieldAmt);
-			hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldAmt), FloatingText.SHIELDING);
+			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 		}
 
 		updateQuickslot();
@@ -373,7 +373,7 @@ public class MeleeWeapon extends Weapon {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		int price = 20 * tier;
 		if (hasGoodEnchant()) {
 			price *= 1.5;

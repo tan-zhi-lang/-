@@ -508,7 +508,7 @@ public class TimekeepersHourglass extends Artifact {
 		}
 
 		@Override
-		public int value() {
+		public int 金币() {
 			return 30;
 		}
 

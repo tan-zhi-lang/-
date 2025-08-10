@@ -297,8 +297,8 @@ public class BuffIndicator extends Component {
 			} else if (!buff.iconTextDisplay().isEmpty()) {
 				text.visible = true;
 				grey.visible = false;
-				if (buff.type == Buff.buffType.POSITIVE)        text.hardlight(CharSprite.POSITIVE);
-				else if (buff.type == Buff.buffType.NEGATIVE)   text.hardlight(CharSprite.NEGATIVE);
+				if (buff.type == Buff.buffType.POSITIVE)        text.hardlight(CharSprite.增强);
+				else if (buff.type == Buff.buffType.NEGATIVE)   text.hardlight(CharSprite.削弱);
 				text.alpha(0.7f);
 
 				text.text(buff.iconTextDisplay());

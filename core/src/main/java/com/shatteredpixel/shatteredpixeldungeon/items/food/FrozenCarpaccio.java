@@ -28,7 +28,7 @@ public class FrozenCarpaccio extends Food {
 		effect(hero);
 	}
 	
-	public int value() {
+	public int 金币() {
 		return 10 * quantity;
 	}
 
@@ -49,7 +49,7 @@ public class FrozenCarpaccio extends Food {
 			case 3:
 				GLog.i( Messages.get(FrozenCarpaccio.class, "better") );
 				hero.生命 = Math.min( hero.生命 + hero.最大生命 / 4, hero.最大生命);
-				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.最大生命 / 4), FloatingText.HEALING );
+				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.最大生命 / 4), FloatingText.HEALING );
 				break;
 		}
 	}

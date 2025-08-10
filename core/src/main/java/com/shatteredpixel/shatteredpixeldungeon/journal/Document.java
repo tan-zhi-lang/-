@@ -180,7 +180,7 @@ public enum Document {
 				case Document.GUIDE_SEARCHING:
 					return Icons.get(Icons.MAGNIFY);
 				case "Strength":
-					return new ItemSprite( 物品表.GREATAXE );
+					return new ItemSprite( 物品表.巨斧);
 				case "Upgrades":
 					return new ItemSprite( 物品表.RING_EMERALD );
 				case "Looting":

@@ -370,7 +370,7 @@ public class WandOfLivingEarth extends DamageWand {
 				最大生命 = 16 + 8 * wandLevel;
 			}
 			if (生命 != 0 && sprite != null){
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healthToAdd), FloatingText.HEALING);
+				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healthToAdd), FloatingText.HEALING);
 			}
 			生命 = Math.min(最大生命, 生命 + healthToAdd);
 			//half of hero's evasion

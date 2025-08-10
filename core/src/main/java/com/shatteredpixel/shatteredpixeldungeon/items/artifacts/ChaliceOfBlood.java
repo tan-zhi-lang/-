@@ -153,7 +153,7 @@ public class ChaliceOfBlood extends Artifact {
 		}
 		if (heal >= 1f && target.生命 < target.最大生命) {
 			target.生命 = Math.min(target.最大生命, target.生命 + (int)heal);
-			target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString((int)heal), FloatingText.HEALING);
+			target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString((int)heal), FloatingText.HEALING);
 
 			if (target.生命 == target.最大生命 && target instanceof Hero) {
 				((Hero) target).resting = false;

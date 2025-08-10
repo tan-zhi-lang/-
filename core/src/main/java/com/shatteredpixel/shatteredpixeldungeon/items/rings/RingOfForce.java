@@ -288,7 +288,7 @@ public class RingOfForce extends Ring {
 		public void reset(){
 			if (!active){
 				//announce the buff
-				target.sprite.showStatus(CharSprite.POSITIVE, Messages.titleCase(name()));
+				target.sprite.showStatus(CharSprite.增强, Messages.titleCase(name()));
 			}
 			active = true;
 			minTurnsLeft = 50;

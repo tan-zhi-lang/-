@@ -694,7 +694,7 @@ public class Armor extends EquipableItem {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		if (seal != null) return 0;
 
 		int price = 20 * tier;

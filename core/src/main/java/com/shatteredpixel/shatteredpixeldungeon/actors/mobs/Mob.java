@@ -730,7 +730,7 @@ public abstract class Mob extends Char {
 				if (Dungeon.hero.生命 < Dungeon.hero.最大生命) {
 					int heal = (int)Math.ceil(restoration * 0.4f);
 					Dungeon.hero.生命 = Math.min(Dungeon.hero.最大生命, Dungeon.hero.生命 + heal);
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
+					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
 				}
 			}
 		}
@@ -836,7 +836,7 @@ public abstract class Mob extends Char {
 				}
 
 				if (exp > 0) {
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(exp), FloatingText.EXPERIENCE);
+					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(exp), FloatingText.EXPERIENCE);
 				}
 				Dungeon.hero.经验(exp, getClass());
 
@@ -867,6 +867,11 @@ public abstract class Mob extends Char {
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
 				if (Dungeon.hero.有天赋(Talent.LETHAL_MOMENTUM)
 						&& Random.Float() < 0.5f +Dungeon.hero.天赋点数(Talent.LETHAL_MOMENTUM,0.5f)){
+					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
+					Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(1);
+				}
+				if (Dungeon.hero.heroClass == HeroClass.DUELIST
+						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
 					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
 					Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(1);
 				}

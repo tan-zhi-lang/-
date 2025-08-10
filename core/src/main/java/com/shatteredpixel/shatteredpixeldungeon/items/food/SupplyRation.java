@@ -22,17 +22,8 @@ public class SupplyRation extends Food {
 	}
 
 	@Override
-	protected float eatingTime(){
-		if (Dungeon.hero.有天赋(Talent.IRON_STOMACH)
-				|| Dungeon.hero.有天赋(Talent.ENERGIZING_MEAL)
-				|| Dungeon.hero.有天赋(Talent.MYSTICAL_MEAL)
-				|| Dungeon.hero.有天赋(Talent.INVIGORATING_MEAL)
-				|| Dungeon.hero.有天赋(Talent.FOCUSED_MEAL)
-				|| Dungeon.hero.有天赋(Talent.ENLIGHTENING_MEAL)){
-			return 0;
-		} else {
-			return 1;
-		}
+	public float eatingTime(){
+		return super.eatingTime()-1;
 	}
 
 	@Override
@@ -40,7 +31,7 @@ public class SupplyRation extends Food {
 		super.satisfy(hero);
 
 		hero.生命 = Math.min(hero.生命 + 5, hero.最大生命);
-		hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, "5", FloatingText.HEALING );
+		hero.sprite.showStatusWithIcon( CharSprite.增强, "5", FloatingText.HEALING );
 
 		CloakOfShadows cloak = hero.belongings.getItem(CloakOfShadows.class);
 		if (cloak != null) {
@@ -50,7 +41,7 @@ public class SupplyRation extends Food {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return 10 * quantity;
 	}
 

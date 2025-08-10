@@ -10,14 +10,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHaste;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -111,9 +111,9 @@ public class Blandfruit extends Food {
 		if (potionAttrib instanceof PotionOfMindVision)     return Messages.get(this, "fadefruit");
 		if (potionAttrib instanceof PotionOfToxicGas)       return Messages.get(this, "sorrowfruit");
 		if (potionAttrib instanceof PotionOfLevitation)     return Messages.get(this, "stormfruit");
-		if (potionAttrib instanceof PotionOfPurity)         return Messages.get(this, "dreamfruit");
+		if (potionAttrib instanceof 净化药剂)         return Messages.get(this, "dreamfruit");
 		if (potionAttrib instanceof 经验药剂)     return Messages.get(this, "starfruit");
-		if (potionAttrib instanceof PotionOfHaste)          return Messages.get(this, "swiftfruit");
+		if (potionAttrib instanceof 极速药剂)          return Messages.get(this, "swiftfruit");
 		return super.name();
 	}
 
@@ -136,7 +136,7 @@ public class Blandfruit extends Food {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return 20 * quantity;
 	}
 
@@ -160,9 +160,9 @@ public class Blandfruit extends Food {
 		if (potionAttrib instanceof PotionOfMindVision)     potionGlow = new ItemSprite.Glowing( 0x919999 );
 		if (potionAttrib instanceof PotionOfToxicGas)       potionGlow = new ItemSprite.Glowing( 0xA15CE5 );
 		if (potionAttrib instanceof PotionOfLevitation)     potionGlow = new ItemSprite.Glowing( 0x1B5F79 );
-		if (potionAttrib instanceof PotionOfPurity)         potionGlow = new ItemSprite.Glowing( 0xC152AA );
+		if (potionAttrib instanceof 净化药剂)         potionGlow = new ItemSprite.Glowing( 0xC152AA );
 		if (potionAttrib instanceof 经验药剂)     potionGlow = new ItemSprite.Glowing( 0x404040 );
-		if (potionAttrib instanceof PotionOfHaste)          potionGlow = new ItemSprite.Glowing( 0xCCBB00 );
+		if (potionAttrib instanceof 极速药剂)          potionGlow = new ItemSprite.Glowing( 0xCCBB00 );
 
 		return this;
 	}
@@ -179,7 +179,7 @@ public class Blandfruit extends Food {
 				potionAttrib instanceof PotionOfParalyticGas ||
 				potionAttrib instanceof PotionOfFrost ||
 				potionAttrib instanceof PotionOfLevitation ||
-				potionAttrib instanceof PotionOfPurity) {
+				potionAttrib instanceof 净化药剂) {
 
 			Catalog.countUse(getClass());
 			potionAttrib.shatter( cell );

@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
@@ -61,7 +61,7 @@ public class v0_8_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released August 6th, 2020\n" +
 				"_-_ 40 days after Shattered v0.8.1\n" +
 				"\n" +
@@ -141,7 +141,7 @@ public class v0_8_X_Changes {
 				"_-_ Shortened text from well of awareness\n" +
 				"_-_ Tweaked the sprites of tipped vs. untipped darts"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various rare crash/freeze errors\n" +
 				"_-_ Various audiovisual errors\n" +
@@ -178,7 +178,7 @@ public class v0_8_X_Changes {
 				"_-_ Some immovable enemies not knocking items away"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_AMETHYST), Messages.get(RingOfWealth.class, "name"),
@@ -212,7 +212,7 @@ public class v0_8_X_Changes {
 				"_- Wand of Magic Missile_ can now empower other wands of magic missile (but this does not create an empower loop)"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new Quarterstaff(),
@@ -248,7 +248,7 @@ public class v0_8_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released June 27th, 2020\n" +
 				"_-_ 72 days after Shattered v0.8.0\n" +
 				"\n" +
@@ -341,7 +341,7 @@ public class v0_8_X_Changes {
 				"_-_ Cell checking visual effects have been improved.\n\n" +
 				"_-_ Updated translations."));
 
-		changes.addButton( new ChangeButton(new Image( Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image( Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various visual/textual errors\n" +
 				"_-_ Various rare crash bugs\n" +
@@ -362,7 +362,7 @@ public class v0_8_X_Changes {
 				"_-_ Update checker using data on metered networks"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.RING_AMETHYST), "Ring of Wealth and Lucky Enchant",
@@ -417,7 +417,7 @@ public class v0_8_X_Changes {
 				"_- Corrupting_ proc rate scaling increased by ~20%"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAND_CORRUPTION), "Various Item Nerfs",
@@ -436,7 +436,7 @@ public class v0_8_X_Changes {
 				"_- Swiftness_ now requires 2 tiles of space, up from 1\n" +
 				"_- Thorns_ proc rate scaling reduced by ~50%"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(物品表.GREATAXE), "Various Weapon Nerfs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.巨斧), "Various Weapon Nerfs",
 				"A few weapons are also being toned down:\n\n" +
 				"As warlocks no longer reduce hero strength, the greataxe is now much easier to use and is too strong as a result:\n" +
 				"_- Greataxe_ base dmg reduced to 5-45 from 5-50\n\n" +
@@ -458,7 +458,7 @@ public class v0_8_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released April 16th, 2020\n" +
 				"_-_ 197 days after Shattered v0.7.5\n" +
 				"_-_ 546 days after Shattered v0.7.0\n" +
@@ -623,7 +623,7 @@ public class v0_8_X_Changes {
 				"\n" +
 				"_-_ Updated translations and translator credits"));
 
-		changes.addButton( new ChangeButton(new Image( Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image( Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Rare freeze bugs when enemies make ranged attacks\n" +
 				"_-_ Loading screens very rarely freezing\n" +
@@ -656,7 +656,7 @@ public class v0_8_X_Changes {
 				"_-_ Many minor audio and visual bugs"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new SpiritBow(),
@@ -673,7 +673,7 @@ public class v0_8_X_Changes {
 		changes.addButton( new ChangeButton(new BuffIcon(BuffIndicator.BLESS, true), "Bless changes",
 				"Accuracy and evasion bonuses from blessed buff increased to 25% from 20%." ));
 
-		changes.addButton( new ChangeButton(new StoneOfAugmentation(),
+		changes.addButton( new ChangeButton(new 强化符石(),
 				"The Evasion armor augment has been underperforming verses the defence augment, so I'm adjusting the stat tradeoff they provide:\n" +
 				"_-_ Evasion now grants 33% more evasion\n" +
 				"_-_ Defense now costs 33% more evasion"));
@@ -683,10 +683,10 @@ public class v0_8_X_Changes {
 				"_-_ Necromancer evasion increased by ~18%"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new StoneOfAugmentation(),
+		changes.addButton( new ChangeButton(new 强化符石(),
 				"The Defense armor augment has been overperforming verses the evasion augment, so I'm adjusting the stat tradeoff they provide:\n" +
 				"_-_ Defense now costs 33% more evasion\n" +
 				"_-_ Evasion now grants 33% more evasion"));

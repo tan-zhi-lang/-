@@ -20,7 +20,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 
-public class Rapier extends MeleeWeapon {
+public class 配刺剑 extends MeleeWeapon {
 
 	{
 		image = 物品表.RAPIER;
@@ -28,13 +28,19 @@ public class Rapier extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 1;
+		延迟 = 0.75f;
 
 		bones = false;
 	}
 
 	@Override
+	public int 最小攻击(int lvl) {
+		return  1+tier +  //base
+				lvl;    //level scaling
+	}
+	@Override
 	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //8 base, down from 10
+		return  1+3*(tier+1) +    //8 base, down from 10
 				lvl*(tier+1);   //scaling unchanged
 	}
 
@@ -51,7 +57,7 @@ public class Rapier extends MeleeWeapon {
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		//+(5+1.5*lvl) damage, roughly +111% base damage, +100% scaling
-		int dmgBoost =  augment.damageFactor(5 + Math.round(1.5f*buffedLvl()));
+		int dmgBoost =  augment.damageFactor(6 + Math.round(1.75f*buffedLvl()));
 		lungeAbility(hero, target, 1, dmgBoost, this);
 	}
 
@@ -66,7 +72,7 @@ public class Rapier extends MeleeWeapon {
 	}
 
 	public String upgradeAbilityStat(int level){
-		int dmgBoost = 5 + Math.round(1.5f*level);
+		int dmgBoost = 6 + Math.round(1.75f*level);
 		return augment.damageFactor(最小攻击(level)+dmgBoost) + "-" + augment.damageFactor(this.最大攻击(level)+dmgBoost);
 	}
 
@@ -149,7 +155,7 @@ public class Rapier extends MeleeWeapon {
 						charger.partialCharge++;
 					}
 					updateQuickslot();
-					GLog.w(Messages.get(Rapier.class, "ability_no_target"));
+					GLog.w(Messages.get(配刺剑.class, "ability_no_target"));
 					hero.spendAndNext(1/hero.移速());
 				}
 			}

@@ -37,7 +37,7 @@ public class Blocking extends Weapon.Enchantment {
 			BlockBuff b = Buff.施加(attacker, BlockBuff.class);
 			int shield = Math.round(powerMulti * (2 + weapon.buffedLvl()));
 			b.setShield(shield);
-			attacker.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
+			attacker.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 			attacker.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 5);
 		}
 		

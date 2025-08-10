@@ -33,7 +33,7 @@ public class ArmoredBrute extends Brute {
 	@Override
 	protected void triggerEnrage () {
 		Buff.施加(this, ArmoredRage.class).setShield(最大生命 /2 + 1);
-		sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(最大生命 /2 + 1), FloatingText.SHIELDING );
+		sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(最大生命 /2 + 1), FloatingText.SHIELDING );
 		if (Dungeon.level.heroFOV[pos]) {
 			sprite.showStatus( CharSprite.WARNING, Messages.get(this, "enraged") );
 		}

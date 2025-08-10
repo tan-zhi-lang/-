@@ -295,7 +295,7 @@ abstract public class ClassArmor extends Armor {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 0;
 	}
 

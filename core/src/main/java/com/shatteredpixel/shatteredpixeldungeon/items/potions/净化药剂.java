@@ -20,7 +20,7 @@ import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;
 
-public class PotionOfPurity extends Potion {
+public class 净化药剂 extends Potion {
 	
 	private static final int DISTANCE	= 3;
 	
@@ -79,7 +79,7 @@ public class PotionOfPurity extends Potion {
 	}
 	
 	@Override
-	public int value() {
-		return isKnown() ? 40 * quantity : super.value();
+	public int 金币() {
+		return isKnown() ? 40 * quantity : super.金币();
 	}
 }

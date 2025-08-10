@@ -104,7 +104,7 @@ public class UnstableSpell extends Spell {
 
 	//lower values, as it's cheaper to make
 	@Override
-	public int value() {
+	public int 金币() {
 		return 40 * quantity;
 	}
 

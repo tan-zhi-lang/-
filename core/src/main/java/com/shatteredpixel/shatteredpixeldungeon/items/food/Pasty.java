@@ -130,14 +130,14 @@ public class Pasty extends Food {
 			case PD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
 				int expToGive = Math.max(2, hero.升级所需()/10);
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(expToGive), FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(expToGive), FloatingText.EXPERIENCE);
 				hero.经验(expToGive, 经验药剂.class);
 				break;
 			case HALLOWEEN:
 				//heals for 5% max hp, min of 3
 				int toHeal = Math.max(3, hero.最大生命 /20);
 				hero.生命 = Math.min(hero.生命 + toHeal, hero.最大生命);
-				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(toHeal), FloatingText.HEALING );
+				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toHeal), FloatingText.HEALING );
 				break;
 			case WINTER_HOLIDAYS:
 				hero.belongings.charge(0.5f); //2 turns worth
@@ -147,7 +147,7 @@ public class Pasty extends Food {
 				//shields for 10% of max hp, min of 5
 				int toShield = Math.max(5, hero.最大生命 /10);
 				Buff.施加(hero, Barrier.class).setShield(toShield);
-				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(toShield), FloatingText.SHIELDING );
+				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
 		}
 	}
@@ -205,7 +205,7 @@ public class Pasty extends Food {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 20 * quantity;
 	}
 
@@ -217,7 +217,7 @@ public class Pasty extends Food {
 		}
 
 		@Override
-		public int value() {
+		public int 金币() {
 			return 10 * quantity;
 		}
 	}

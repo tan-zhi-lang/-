@@ -374,8 +374,8 @@ public class ScrollOfTransmutation extends InventoryScroll {
 	}
 	
 	@Override
-	public int value() {
-		return isKnown() ? 50 * quantity : super.value();
+	public int 金币() {
+		return isKnown() ? 50 * quantity : super.金币();
 	}
 
 	@Override

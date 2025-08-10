@@ -179,7 +179,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 
 		int shieldAmount = currentShieldBoost();
 		setShield(shieldAmount);
-		target.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shieldAmount), FloatingText.SHIELDING );
+		target.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(shieldAmount), FloatingText.SHIELDING );
 
 		BuffIndicator.refreshHero();
 	}
@@ -248,7 +248,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
 		txt.text((int) (power * 100) + "%");
-		txt.hardlight(CharSprite.POSITIVE);
+		txt.hardlight(CharSprite.增强);
 		txt.measure();
 		return txt;
 	}

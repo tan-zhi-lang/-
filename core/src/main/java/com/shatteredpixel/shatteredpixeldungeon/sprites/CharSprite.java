@@ -46,8 +46,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	// Color constants for floating text
 	public static final int DEFAULT		= 0xFFFFFF;
-	public static final int POSITIVE	= 0x00FF00;
-	public static final int NEGATIVE	= 0xFF0000;
+	public static final int 增强 = 0x00FF00;
+	public static final int 削弱 = 0xFF0000;
 	public static final int WARNING		= 0xFF8800;
 	public static final int NEUTRAL		= 0xFFFF00;
 
@@ -124,7 +124,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
             } else if (anim == run) {
 				anim.delay = 1;
 			} else{
-				anim.delay = 1f/10f/SPDSettings.动画速度();
+				anim.delay = 1f/10f/(SPDSettings.动画速度()>1?SPDSettings.动画速度()*3.3f:1);
 			}
             super.play(anim);
 		}

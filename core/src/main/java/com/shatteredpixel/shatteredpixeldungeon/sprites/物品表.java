@@ -204,9 +204,9 @@ public class 物品表 {
 	static{
 		assignItemRect(WORN_SHORTSWORD, 13, 13);
 		assignItemRect(CUDGEL,          15, 15);
-		assignItemRect(GLOVES,          12, 16);
-		assignItemRect(RAPIER,          13, 14);
-		assignItemRect(DAGGER,          12, 13);
+		assignItemRect(GLOVES,          16, 16);
+		assignItemRect(RAPIER,          16, 16);
+		assignItemRect(DAGGER,          16, 16);
 		assignItemRect(MAGES_STAFF,     15, 16);
 	}
 
@@ -264,7 +264,7 @@ public class 物品表 {
 	public static final int GREATSWORD      = WEP_TIER5+0;
 	public static final int WAR_HAMMER      = WEP_TIER5+1;
 	public static final int GLAIVE          = WEP_TIER5+2;
-	public static final int GREATAXE        = WEP_TIER5+3;
+	public static final int 巨斧 = WEP_TIER5+3;
 	public static final int GREATSHIELD     = WEP_TIER5+4;
 	public static final int GAUNTLETS       = WEP_TIER5+5;
 	public static final int WAR_SCYTHE      = WEP_TIER5+6;
@@ -272,9 +272,9 @@ public class 物品表 {
 		assignItemRect(GREATSWORD,  16, 16);
 		assignItemRect(WAR_HAMMER,  16, 16);
 		assignItemRect(GLAIVE,      16, 16);
-		assignItemRect(GREATAXE,    12, 16);
+		assignItemRect(巨斧,    12, 16);
 		assignItemRect(GREATSHIELD, 12, 16);
-		assignItemRect(GAUNTLETS,   13, 15);
+		assignItemRect(GAUNTLETS,   16, 15);
 		assignItemRect(WAR_SCYTHE,  14, 15);
 	}
 
@@ -307,7 +307,7 @@ public class 物品表 {
 		assignItemRect(SPIRIT_BOW,      16, 16);
 		
 		assignItemRect(THROWING_SPIKE,  11, 10);
-		assignItemRect(THROWING_KNIFE,  12, 13);
+		assignItemRect(THROWING_KNIFE,  12, 12);
 		assignItemRect(THROWING_STONE,  12, 10);
 		
 		assignItemRect(FISHING_SPEAR,   11, 11);

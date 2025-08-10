@@ -28,7 +28,7 @@ public class MysteryMeat extends Food {
 		effect(hero);
 	}
 
-	public int value() {
+	public int 金币() {
 		return 5 * quantity;
 	}
 

@@ -505,7 +505,7 @@ public class WndKeyBindings extends Window {
 
 				if (event.code != 0 && (event.code == curKeyCode || event.code == otherBoundKey1 || event.code == otherBoundKey2)){
 					warnErr.text(Messages.get(this, "error"));
-					warnErr.hardlight(CharSprite.NEGATIVE);
+					warnErr.hardlight(CharSprite.削弱);
 					btnConfirm.enable(false);
 
 				} else if (event.code != 0 && changedBindings.get(changedKeyCode) != null){

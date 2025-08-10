@@ -57,7 +57,7 @@ public class CrystalGuardian extends Mob{
 			throwItems();
 			生命 = Math.min(最大生命, 生命 +5);
 			if (Dungeon.level.heroFOV[pos]) {
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, "5", FloatingText.HEALING);
+				sprite.showStatusWithIcon(CharSprite.增强, "5", FloatingText.HEALING);
 			}
 			if (生命 == 最大生命){
 				recovering = false;
@@ -122,7 +122,7 @@ public class CrystalGuardian extends Mob{
 	public int 防御时(Char enemy, int damage) {
 		if (recovering){
 			//this triggers before blocking, so the dmg as block-bypassing
-			sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(damage), FloatingText.PHYS_DMG_NO_BLOCK);
+			sprite.showStatusWithIcon(CharSprite.削弱, Integer.toString(damage), FloatingText.PHYS_DMG_NO_BLOCK);
 			生命 = Math.max(1, 生命 -damage);
 			damage = -1;
 		}

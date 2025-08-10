@@ -180,7 +180,7 @@ public class Shopkeeper extends NPC {
 
 	//shopkeepers are greedy!
 	public static int sellPrice(Item item){
-		return item.value() * 5 * (Dungeon.depth / 5 + 1);
+		return item.金币() * 5 * (Dungeon.depth / 5 + 1);
 	}
 	
 	public static WndBag sell() {
@@ -188,7 +188,7 @@ public class Shopkeeper extends NPC {
 	}
 
 	public static boolean canSell(Item item){
-		if (item.value() <= 0)                                              return false;
+		if (item.金币() <= 0)                                              return false;
 		if (item.unique && !item.stackable)                                 return false;
 		if (item instanceof Armor && ((Armor) item).checkSeal() != null)    return false;
 		if (item.isEquipped(Dungeon.hero) && item.cursed)                   return false;
@@ -229,7 +229,7 @@ public class Shopkeeper extends NPC {
 				options[i++] = Messages.get(Shopkeeper.this, "sell");
 				options[i++] = Messages.get(Shopkeeper.this, "talk");
 				for (Item item : buybackItems){
-					options[i] = Messages.get(Heap.class, "for_sale", item.value(), Messages.titleCase(item.title()));
+					options[i] = Messages.get(Heap.class, "for_sale", item.金币(), Messages.titleCase(item.title()));
 					if (options[i].length() > maxLen) options[i] = options[i].substring(0, maxLen-3) + "...";
 					i++;
 				}
@@ -245,8 +245,8 @@ public class Shopkeeper extends NPC {
 						} else if (index > 1){
 							GLog.i(Messages.get(Shopkeeper.this, "buyback"));
 							Item returned = buybackItems.remove(index-2);
-							Dungeon.gold -= returned.value();
-							Statistics.goldCollected -= returned.value();
+							Dungeon.gold -= returned.金币();
+							Statistics.goldCollected -= returned.金币();
 							if (returned instanceof MissileWeapon && returned.isUpgradable()){
 								Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) returned).setID, returned.等级());
 							}
@@ -259,7 +259,7 @@ public class Shopkeeper extends NPC {
 					@Override
 					protected boolean enabled(int index) {
 						if (index > 1){
-							return Dungeon.gold >= buybackItems.get(index-2).value();
+							return Dungeon.gold >= buybackItems.get(index-2).金币();
 						} else {
 							return super.enabled(index);
 						}

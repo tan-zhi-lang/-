@@ -56,7 +56,7 @@ public class v0_7_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released October 2nd, 2019\n" +
 				"_-_ 76 days after Shattered v0.7.4\n" +
 				"\n" +
@@ -104,7 +104,7 @@ public class v0_7_X_Changes {
 				"_-_ Various improvements to wording on the supporter menu for Google Play users.\n\n" +
 				"_-_ Various internal code improvements"));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various stability issues caused by the libGDX conversion\n" +
 				"_-_ Bolts from wand of lightning not spreading in many cases where they should\n" +
@@ -123,7 +123,7 @@ public class v0_7_X_Changes {
 				"Updated Translations and Translator Credits!"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAND_BLAST_WAVE, null), "Wand Buffs",
@@ -145,7 +145,7 @@ public class v0_7_X_Changes {
 				"_-_ Proc chance for glyph of affection increased by ~50% at +0, scaling to ~10% at +10"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new WandOfLivingEarth(),
@@ -172,7 +172,7 @@ public class v0_7_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released July 18th, 2019\n" +
 				"_-_ 56 days after Shattered v0.7.3\n" +
 				"\n" +
@@ -217,7 +217,7 @@ public class v0_7_X_Changes {
 				"_-_ Shattered Pixel Dungeon now requires Android 2.3+ to run, up from Android 2.2+.\n" +
 				"_-_ Google Play Games and sharing gameplay data now requires android 4.1+, up from 4.0+."));
 
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Talisman of foresight warn effect not being saved/loaded\n" +
 				"_-_ Level visuals (e.g. prison torches) rarely bugging out\n" +
@@ -236,7 +236,7 @@ public class v0_7_X_Changes {
 				"Updated Translations"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new DriedRose(),
@@ -270,7 +270,7 @@ public class v0_7_X_Changes {
 				"_-_ Allies are now healed by magical sleep, just like the hero."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton( new Image(Assets.Sprites.MAGE, 0, 90, 12, 15), "Subclass Adjustments",
@@ -302,7 +302,7 @@ public class v0_7_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released May 23rd, 2019\n" +
 				"_-_ 66 days after Shattered v0.7.2\n" +
 				"\n" +
@@ -348,7 +348,7 @@ public class v0_7_X_Changes {
 				"_-_ Scrolls of transmutation can now be used on thrown weapons.\n\n" +
 				"_-_ Improved the coloration of crystal keys. They should now be more distinct from iron keys."));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Prismatic images causing errors when falling into pits\n" +
 				"_-_ Secret rooms never spawning in the earlier parts of a region\n" +
@@ -365,7 +365,7 @@ public class v0_7_X_Changes {
 				"Updated Translations"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton( new Image(Assets.Sprites.WARRIOR, 0, 90, 12, 15), "Berserker & Gladiator",
@@ -396,7 +396,7 @@ public class v0_7_X_Changes {
 				"_-_ Potential no longer grants small amounts of partial charge on every hit, now has a chance to grant one full charge instead. Overall amount of charge given increased by ~20%."));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new Tomahawk(),
@@ -434,7 +434,7 @@ public class v0_7_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released Mar 18th, 2019\n" +
 				"_-_ 90 days after Shattered v0.7.1\n" +
 				"\n" +
@@ -498,7 +498,7 @@ public class v0_7_X_Changes {
 				"_-_ Improved how the game handles orientation changes and window resizing.\n" +
 				"_-_ Shocking enchantment no longer visually arcs lightning to the hero."));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various rare crash bugs\n" +
 				"_-_ Various minor visual bugs\n" +
@@ -536,7 +536,7 @@ public class v0_7_X_Changes {
 				"Updated Translator Credits"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new WandOfTransfusion(),
@@ -570,7 +570,7 @@ public class v0_7_X_Changes {
 				"Several bosses have lost their resistances to these effects as a result of this change."));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.DIRK, new ItemSprite.Glowing(0xFF4400)), "Nerfed Enchants",
@@ -589,7 +589,7 @@ public class v0_7_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released Dec 18th, 2018\n" +
 				"_-_ 61 days after Shattered v0.7.0\n" +
 				"\n" +
@@ -636,7 +636,7 @@ public class v0_7_X_Changes {
 				"Added item stats to the item catalog.\n\n" +
 				"Dropping an item now takes 1 turn, up from 0.5 turns."));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ various crash bugs\n" +
 				"_-_ various minor visual bugs\n" +
@@ -660,7 +660,7 @@ public class v0_7_X_Changes {
 				"Updated translator credits"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton( new Image(Assets.Sprites.ROGUE, 0, 15, 12, 15), "Hero Buffs",
@@ -690,7 +690,7 @@ public class v0_7_X_Changes {
 				"_-_ Dwarf King is now resistant to fire and toxic gas"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton( new Image(Assets.Sprites.WARRIOR, 0, 15, 12, 15), "Warrior Nerfs",
@@ -723,7 +723,7 @@ public class v0_7_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released Oct 18th, 2018\n" +
 				"_-_ 168 days after Shattered v0.6.5\n" +
 				"_-_ 501 days after Shattered v0.6.0\n" +
@@ -821,7 +821,7 @@ public class v0_7_X_Changes {
 				"_-_ Improved payment & sync functions on Google Play version.\n\n" +
 				"_-_ Adjusted bone pile functionality to make it more clear that a spawning wraith means an item is cursed."));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various rare crash and freeze bugs\n" +
 				"_-_ Various audio and visual bugs\n" +
@@ -857,7 +857,7 @@ public class v0_7_X_Changes {
 				"Updated Translations\n\nUpdated translator credits\n\nAdded new language: Basque!"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new WandOfTransfusion(),
@@ -884,7 +884,7 @@ public class v0_7_X_Changes {
 				"Charm now has it's duration reduced by 5 whenever damage is taken, rather than not losing any duration. Succubi have been given a life-drain ability in compensation, and various charming effects have had their durations adjusted."));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new WandOfRegrowth(),

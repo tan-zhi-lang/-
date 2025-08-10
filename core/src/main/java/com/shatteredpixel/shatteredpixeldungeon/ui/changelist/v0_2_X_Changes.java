@@ -40,7 +40,7 @@ public class v0_2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released February 23rd, 2015\n" +
 				"_-_ 48 days after Shattered v0.2.3\n" +
 				"\n" +
@@ -81,7 +81,7 @@ public class v0_2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released January 6th, 2015\n" +
 				"_-_ 64 days after Shattered v0.2.2\n" +
 				"\n" +
@@ -122,7 +122,7 @@ public class v0_2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released November 3rd, 2014\n" +
 				"_-_ 21 days after Shattered v0.2.1\n" +
 				"\n" +
@@ -168,7 +168,7 @@ public class v0_2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released October 13th, 2014\n" +
 				"_-_ 28 days after Shattered v0.2.0\n" +
 				"\n" +
@@ -195,7 +195,7 @@ public class v0_2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released September 15th, 2014\n" +
 				"_-_ 31 days after Shattered v0.1.1\n" +
 				"_-_ 41 days after Shattered v0.1.0\n" +

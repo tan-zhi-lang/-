@@ -98,7 +98,7 @@ public class TelekineticGrab extends TargetedSpell {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return (int)(50 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
 

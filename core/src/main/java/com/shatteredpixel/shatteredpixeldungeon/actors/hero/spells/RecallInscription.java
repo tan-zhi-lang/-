@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnc
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.InventoryStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -97,7 +97,7 @@ public class RecallInscription extends ClericSpell {
 					return 3;
 				}
 			} else if (Runestone.class.isAssignableFrom(item)){
-				if (item == StoneOfAugmentation.class || item == StoneOfEnchantment.class){
+				if (item == 强化符石.class || item == StoneOfEnchantment.class){
 					return 4;
 				} else {
 					return 2;

@@ -91,7 +91,7 @@ public class MagicalInfusion extends InventorySpell {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 60 * quantity;
 	}
 

@@ -254,14 +254,14 @@ public class DriedRose extends Artifact {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		if (weapon != null){
 			return -1;
 		}
 		if (armor != null){
 			return -1;
 		}
-		return super.value();
+		return super.金币();
 	}
 
 	@Override
@@ -308,7 +308,7 @@ public class DriedRose extends Artifact {
 			int heal = Math.round((1 + 等级()/3f)*amount);
 			ghost.生命 = Math.min( ghost.最大生命, ghost.生命 + heal);
 			if (ghost.sprite != null) {
-				ghost.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
+				ghost.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
 			}
 			updateQuickslot();
 		}

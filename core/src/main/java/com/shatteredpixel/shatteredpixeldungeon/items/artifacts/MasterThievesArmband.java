@@ -301,11 +301,11 @@ public class MasterThievesArmband extends Artifact {
 		public float stealChance(Item item){
 			int chargesUsed = chargesToUse(item);
 			float val = chargesUsed * (10 + 等级()/2f);
-			return Math.min(1f, val/item.value());
+			return Math.min(1f, val/item.金币());
 		}
 
 		public int chargesToUse(Item item){
-			int value = item.value();
+			int value = item.金币();
 			float valUsing = 0;
 			int chargesUsed = 0;
 			while (valUsing < value && chargesUsed < charge){

@@ -61,7 +61,7 @@ public class StoneOfEnchantment extends InventoryStone {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 30 * quantity;
 	}
 

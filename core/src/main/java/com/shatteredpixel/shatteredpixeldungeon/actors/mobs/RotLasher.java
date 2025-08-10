@@ -38,7 +38,7 @@ public class RotLasher extends Mob {
 	@Override
 	protected boolean act() {
 		if (生命 < 最大生命 && (enemy == null || !Dungeon.level.adjacent(pos, enemy.pos))) {
-			sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(Math.min(5, 最大生命 - 生命)), FloatingText.HEALING);
+			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.min(5, 最大生命 - 生命)), FloatingText.HEALING);
 			生命 = Math.min(最大生命, 生命 + 5);
 		}
 		return super.act();

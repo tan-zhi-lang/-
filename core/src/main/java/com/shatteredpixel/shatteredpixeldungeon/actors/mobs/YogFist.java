@@ -376,7 +376,7 @@ public abstract class YogFist extends Mob {
 			GameScene.add(Blob.seed(pos, 0, ToxicGas.class));
 
 			if (Dungeon.level.water[pos] && 生命 < 最大生命) {
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(最大生命 /50), FloatingText.HEALING);
+				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(最大生命 /50), FloatingText.HEALING);
 				生命 = Math.min(最大生命, 生命 + 最大生命 /50);
 			}
 

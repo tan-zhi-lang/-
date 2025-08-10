@@ -174,4 +174,8 @@ public class 水袋 extends Item {
 		return Messages.format( TXT_STATUS, volume, MAX_VOLUME );
 	}
 
+	@Override
+	public int 金币() {
+		return 40;
+	}
 }

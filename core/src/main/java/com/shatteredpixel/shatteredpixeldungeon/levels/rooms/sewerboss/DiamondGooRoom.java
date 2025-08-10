@@ -2,7 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Goo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.粘咕;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -42,7 +42,7 @@ public class DiamondGooRoom extends GooBossRoom {
 		
 		setupGooNest(level);
 		
-		Goo boss = new Goo();
+		粘咕 boss = new 粘咕();
 		boss.pos = level.pointToCell(center());
 		level.mobs.add( boss );
 	}

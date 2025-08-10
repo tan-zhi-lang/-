@@ -390,7 +390,7 @@ public class YogDzewa extends Mob {
 
 			updateVisibility(Dungeon.level);
 			GLog.n(Messages.get(this, "darkness"));
-			sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
+			sprite.showStatus(CharSprite.增强, Messages.get(this, "invulnerable"));
 
 			addFist((YogFist)Reflection.newInstance(fistSummons.remove(0)));
 

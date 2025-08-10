@@ -158,7 +158,7 @@ public enum Rankings {
 
 			if (Statistics.heldItemValue == 0) {
 				for (Item i : Dungeon.hero.belongings) {
-					Statistics.heldItemValue += i.value();
+					Statistics.heldItemValue += i.金币();
 					if (i instanceof CorpseDust && Statistics.deepestFloor >= 10){
 						// in case player kept the corpse dust, for a necromancer run
 						//we also override the score here, ignoring penalties

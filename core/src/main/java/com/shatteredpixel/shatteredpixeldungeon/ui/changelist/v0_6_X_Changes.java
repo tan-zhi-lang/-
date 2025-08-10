@@ -22,7 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAugmentation;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
@@ -30,7 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greataxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.巨斧;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -64,7 +64,7 @@ public class v0_6_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released May 3rd, 2018\n" +
 				"_-_ 32 days after Shattered v0.6.4\n" +
 				"\n" +
@@ -72,7 +72,7 @@ public class v0_6_X_Changes {
 				"\n" +
 				"I also made another attempt at designing the Berserker in v0.6.5. Prior to this update his death-defying rage would always trigger if it was available. That built-in safety net translated to a win rate that was hugely higher than the other subclasses, so I decided to make building rage and cheating death much harder to access. The Berserker retained his simple up-front gameplay, but started requiring investment in armor and rage management to access his power."));
 		
-		changes.addButton( new ChangeButton(new StoneOfAugmentation(),
+		changes.addButton( new ChangeButton(new 强化符石(),
 				"The weightstone is now the runestone of augmentation!\n\n" +
 				"Usability on weapons unchanged, can still be used to enhance either speed or damage at the cost of the other.\n\n" +
 				"Can now be used on armor! Armor can be modified to enhance either defense or evasion, at the cost of the other.\n\n" +
@@ -123,7 +123,7 @@ public class v0_6_X_Changes {
 				"_-_ Loading screen transitions are now faster in many cases\n\n" +
 				"_-_ Improved the layout of translator credits in landscape"));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various rare crash bugs\n" +
 				"_-_ Antimagic applying to elemental damage\n" +
@@ -144,7 +144,7 @@ public class v0_6_X_Changes {
 				"Updated Translations"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.SWORD, new Lucky().glowing()), "Lucky Enchantment",
@@ -163,7 +163,7 @@ public class v0_6_X_Changes {
 				"Huntress ranged weapon durability boost now stacks with magical holster durability boost, for a total of 180% durability."));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.SHORTSWORD, new Wayward().glowing()), "Wayward curse",
@@ -191,7 +191,7 @@ public class v0_6_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released April 1st, 2018\n" +
 				"_-_ 46 days after Shattered v0.6.3\n" +
 				"\n" +
@@ -259,7 +259,7 @@ public class v0_6_X_Changes {
 				"\n" +
 				"_-_ Made adjustments to sending gameplay data. Data use should be slightly reduced."));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Crashes involving corrupted mimics\n" +
 				"_-_ Various rare crash bugs\n" +
@@ -274,7 +274,7 @@ public class v0_6_X_Changes {
 				"Updated Translations"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new TimekeepersHourglass(),
@@ -292,7 +292,7 @@ public class v0_6_X_Changes {
 				"_-_ Charge gain when discovering traps unchanged"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new BuffIcon(BuffIndicator.PARALYSIS, true), "Paralysis changes",
@@ -335,7 +335,7 @@ public class v0_6_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released February 14th, 2018\n" +
 				"_-_ 113 days after Shattered v0.6.2\n" +
 				"\n" +
@@ -402,7 +402,7 @@ public class v0_6_X_Changes {
 				"_-_ Starting weapons can no longer appear in hero's remains\n\n" +
 				"_-_ The ghost hero is no longer unaffected by all buffs, and is also immune to corruption"));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various crash bugs\n" +
 				"_-_ Serious memory leaks on android 8.0+\n" +
@@ -421,7 +421,7 @@ public class v0_6_X_Changes {
 				"Updated Translations"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.RING_EMERALD, null), Messages.get(RingOfElements.class, "name"),
@@ -457,7 +457,7 @@ public class v0_6_X_Changes {
 				"_-_ Glyph of entanglement now gives more herbal armor, and root duration decreases at higher armor levels."));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new Image(Assets.Sprites.WARRIOR, 0, 90, 12, 15), "Berserker",
@@ -484,7 +484,7 @@ public class v0_6_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released October 24th, 2017\n" +
 				"_-_ 70 days after Shattered v0.6.1\n" +
 				"\n" +
@@ -581,7 +581,7 @@ public class v0_6_X_Changes {
 				"_-_ Improved older updates in the changes list.\n" +
 				"_-_ Game now mutes during phone calls on android 6.0+"));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various crash bugs\n" +
 				"_-_ Various exploits players could use to determine map shape\n" +
@@ -617,7 +617,7 @@ public class v0_6_X_Changes {
 				"_-_ New Language: _Czech_"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new CloakOfShadows(),
@@ -647,7 +647,7 @@ public class v0_6_X_Changes {
 				"_-_ Now creates a freezing field which lasts for several turns."));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton(new Image(Assets.Sprites.WARRIOR, 0, 90, 12, 15), "Berserker",
@@ -671,7 +671,7 @@ public class v0_6_X_Changes {
 		changes.hardlight( Window.TITLE_COLOR );
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released August 15th, 2017\n" +
 				"_-_ 72 days after Shattered v0.6.0\n" +
 				"\n" +
@@ -745,7 +745,7 @@ public class v0_6_X_Changes {
 				"_-_ Improvements to pathfinding. Characters are now more prone to take efficient paths to their targets, and will prefer to wait instead of taking a very inefficient path.\n\n" +
 				"_-_ Characters will now more consistently decide who to attack based on distance and who they are being attacked by."));
 		
-		changes.addButton( new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton( new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Issues with Android 7.0+ multi-window\n" +
 				"_-_ Rare stability issues on certain devices\n" +
@@ -789,7 +789,7 @@ public class v0_6_X_Changes {
 				"_-_ Various translation updates"));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight( CharSprite.POSITIVE );
+		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton( new UnstableSpellbook(),
@@ -816,7 +816,7 @@ public class v0_6_X_Changes {
 				"_-_ Gold indicator has been moved to the top-right of the inventory window to make room for the extra slot." ));
 		
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight( CharSprite.NEGATIVE );
+		changes.hardlight( CharSprite.削弱);
 		changeInfos.add(changes);
 		
 		changes.addButton( new ChangeButton( new HornOfPlenty(),
@@ -840,7 +840,7 @@ public class v0_6_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released June 4th, 2017\n" +
 				"_-_ 116 days after Shattered v0.5.0\n" +
 				"\n" +
@@ -868,7 +868,7 @@ public class v0_6_X_Changes {
 				"_-_ Meat and small rations are 50% more filling\n" +
 				"_-_ Pasties and blandfruit are 12.5% more filling"));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(new Greataxe()), "Tier-5 Weapon Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(new 巨斧()), "Tier-5 Weapon Buffs",
 				"_-_ Greataxe base damage increased by ~22%\n" +
 				"_-_ Greatshield base damage increased by ~17%"));
 		

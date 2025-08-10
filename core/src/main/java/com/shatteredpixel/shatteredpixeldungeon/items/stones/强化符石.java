@@ -19,7 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 
-public class StoneOfAugmentation extends InventoryStone {
+public class 强化符石 extends InventoryStone {
 	
 	{
 		preferredBag = Belongings.Backpack.class;
@@ -63,7 +63,7 @@ public class StoneOfAugmentation extends InventoryStone {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 30 * quantity;
 	}
 
@@ -100,7 +100,7 @@ public class StoneOfAugmentation extends InventoryStone {
 							@Override
 							protected void onClick() {
 								hide();
-								StoneOfAugmentation.this.apply( (Weapon)toAugment, aug );
+								强化符石.this.apply( (Weapon)toAugment, aug );
 							}
 						};
 						btnSpeed.setRect( MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT );
@@ -117,7 +117,7 @@ public class StoneOfAugmentation extends InventoryStone {
 							@Override
 							protected void onClick() {
 								hide();
-								StoneOfAugmentation.this.apply( (Armor) toAugment, aug );
+								强化符石.this.apply( (Armor) toAugment, aug );
 							}
 						};
 						btnSpeed.setRect( MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT );
@@ -132,7 +132,7 @@ public class StoneOfAugmentation extends InventoryStone {
 				@Override
 				protected void onClick() {
 					hide();
-					if (!anonymous) StoneOfAugmentation.this.放背包();
+					if (!anonymous) 强化符石.this.放背包();
 				}
 			};
 			btnCancel.setRect( MARGIN, pos + MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT );
@@ -143,7 +143,7 @@ public class StoneOfAugmentation extends InventoryStone {
 		
 		@Override
 		public void onBackPressed() {
-			if (!anonymous) StoneOfAugmentation.this.放背包();
+			if (!anonymous) 强化符石.this.放背包();
 			super.onBackPressed();
 		}
 	}

@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.Trinity;
-import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
+import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -24,7 +24,7 @@ public class WndChooseAbility extends Window {
 	private static final int WIDTH		= 130;
 	private static final float GAP		= 2;
 
-	public WndChooseAbility(final KingsCrown crown, final Armor armor, final Hero hero){
+	public WndChooseAbility(final 矮人国王的皇冠 crown, final Armor armor, final Hero hero){
 
 		super();
 
@@ -70,7 +70,7 @@ public class WndChooseAbility extends Window {
 								if (crown != null) {
 									crown.upgradeArmor(hero, armor, ability);
 								} else {
-									new KingsCrown().upgradeArmor(hero, null, ability);
+									new 矮人国王的皇冠().upgradeArmor(hero, null, ability);
 								}
 							}
 						}

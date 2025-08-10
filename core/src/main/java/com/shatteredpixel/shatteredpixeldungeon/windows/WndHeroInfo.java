@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -159,13 +160,14 @@ public class WndHeroInfo extends WndTabbed {
 			switch (cls){
 				case WARRIOR: default:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
-							new ItemSprite(物品表.GREATAXE),
+							new ItemSprite(物品表.巨斧),
+							new ItemSprite(物品表.RATION),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
-//							new TalentIcon(Talent.PRECISE_ASSAULT),
 							new BuffIcon(BuffIndicator.RECHARGING, true),
+							new ItemSprite(物品表.SCROLL_TIWAZ),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case ROGUE:
@@ -176,11 +178,13 @@ public class WndHeroInfo extends WndTabbed {
 				case HUNTRESS:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.GRASS.get(),
+							new TalentIcon(Talent.HEIGHTENED_SENSES),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case DUELIST:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.WAR_HAMMER),
+							new TalentIcon(Talent.LETHAL_MOMENTUM),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case CLERIC:

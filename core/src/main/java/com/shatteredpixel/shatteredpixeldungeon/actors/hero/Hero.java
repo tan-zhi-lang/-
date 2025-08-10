@@ -13,7 +13,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
@@ -107,7 +109,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.SkeletonKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfMight;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
@@ -214,7 +216,8 @@ public class Hero extends Char {
 	public Belongings belongings;
 	
 	public int 力量;
-	
+	public int 根骨=0;
+
 	public float awareness;
 	
 	public int 等级 = 1;
@@ -242,12 +245,12 @@ public class Hero extends Char {
 	public void 更新生命(boolean boostHP ){
 		int curHT = 最大生命;
 		
-		最大生命 = 30 + (5+1)*(等级 -1) + HTBoost;
+		最大生命 = 30 + (5+1)*(等级 -1)+根骨*10 + HTBoost;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		最大生命 = Math.round(multiplier * 最大生命);
 		
-		if (buff(ElixirOfMight.HTBoost.class) != null){
-			最大生命 += buff(ElixirOfMight.HTBoost.class).boost();
+		if (buff(根骨秘药.HTBoost.class) != null){
+			最大生命 += buff(根骨秘药.HTBoost.class).boost();
 		}
 		
 		if (boostHP){
@@ -271,7 +274,7 @@ public class Hero extends Char {
 			strBonus += (int)Math.floor(力量 * 天赋点数(Talent.STRONGMAN,0.08F));
 		}
 		if (HeroClass(HeroClass.WARRIOR)){
-			strBonus++;
+			strBonus+= Math.round(力量*1.1f);
 		}
 
 		return 力量 + strBonus;
@@ -282,6 +285,8 @@ public class Hero extends Char {
 	private static final String ABILITY     = "armorAbility";
 
 	private static final String LEVEL		= "lvl";
+	private static final String 力量x		= "力量";
+	private static final String 根骨x		= "根骨";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
 	
@@ -296,6 +301,8 @@ public class Hero extends Char {
 		Talent.storeTalentsInBundle( bundle, this );
 
 		bundle.put( LEVEL, 等级);
+		bundle.put( 力量x, 力量);
+		bundle.put( 根骨x, 根骨);
 		bundle.put( EXPERIENCE, 当前经验);
 		
 		bundle.put( HTBOOST, HTBoost );
@@ -307,6 +314,8 @@ public class Hero extends Char {
 	public void restoreFromBundle( Bundle bundle ) {
 
 		等级 = bundle.getInt( LEVEL );
+		力量 = bundle.getInt( 力量x );
+		根骨 = bundle.getInt( 根骨x );
 		当前经验 = bundle.getInt( EXPERIENCE );
 
 		HTBoost = bundle.getInt(HTBOOST);
@@ -401,7 +410,7 @@ public class Hero extends Char {
 				if (f == talent) tier.put(talent, tier.get(talent)+1);
 			}
 		}
-		Talent.onTalentUpgraded(this, talent);
+		Talent.获得天赋时(this, talent);
 	}
 
 	public int talentPointsSpent(int tier){
@@ -598,9 +607,9 @@ public class Hero extends Char {
 		}
 		
 		if (!RingOfForce.fightingUnarmed(this)&&target!=null) {
-			return Math.max(1, Math.round((最大命中+等级*2) * accuracy * wep.accuracyFactor( this, target )));
+			return Math.max(1, Math.round((最大命中+(等级-1)*2) * accuracy * wep.accuracyFactor( this, target )));
 		} else {
-			return Math.max(1, Math.round((最大命中+等级*2) * accuracy));
+			return Math.max(1, Math.round((最大命中+(等级-1)*2) * accuracy));
 		}
 	}
 	
@@ -618,7 +627,7 @@ public class Hero extends Char {
 			return INFINITE_EVASION;
 		}
 		
-		float evasion = (最大闪避+等级);
+		float evasion = (最大闪避+(等级-1));
 
 		if(belongings.armor instanceof 风衣){
 			evasion*=1.25f;
@@ -760,6 +769,9 @@ public class Hero extends Char {
 		if(belongings.armor instanceof 披风){
 			speed*=1.25f;
 		}
+//		if(HeroClass(HeroClass.ROGUE)){
+//			speed*=1.25f;
+//		}
 		speed *= RingOfHaste.speedMultiplier(this);
 		
 		if (belongings.armor() != null) {
@@ -884,6 +896,16 @@ public class Hero extends Char {
 			immunities.add( Chill.class );
 		}else{
 			immunities.remove( Chill.class );
+		}
+		if(belongings.armor instanceof 法袍){
+			immunities.add( Fire.class );
+		}else{
+			immunities.remove( Fire.class );
+		}
+		if(belongings.armor instanceof 风衣){
+			immunities.add( ToxicGas.class );
+		}else{
+			immunities.remove( ToxicGas.class );
 		}
 		if(belongings.armor instanceof 祭服){
 			immunities.add( Degrade.class );
@@ -1474,7 +1496,7 @@ public class Hero extends Char {
 					&& (生命 / (float) 最大生命) <= 0.5f){
 				int shieldAmt = 天赋点数(Talent.AGGRESSIVE_BARRIER,4);
 				Buff.施加(this, Barrier.class).setShield(shieldAmt);
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldAmt), FloatingText.SHIELDING);
+				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 				Buff.施加(this, Talent.AggressiveBarrierCooldown.class, 50f);
 
 			}
@@ -1979,7 +2001,7 @@ public class Hero extends Char {
 				curAction = new HeroAction.PickUp( cell );
 				break;
 			case FOR_SALE:
-				curAction = heap.size() == 1 && heap.peek().value() > 0 ?
+				curAction = heap.size() == 1 && heap.peek().金币() > 0 ?
 					new HeroAction.Buy( cell ) :
 					new HeroAction.PickUp( cell );
 				break;
@@ -2088,8 +2110,8 @@ public class Hero extends Char {
 
 		等级++;
 
-		if (buff(ElixirOfMight.HTBoost.class) != null){
-			buff(ElixirOfMight.HTBoost.class).onLevelUp();
+		if (buff(根骨秘药.HTBoost.class) != null){
+			buff(根骨秘药.HTBoost.class).onLevelUp();
 		}
 
 		更新生命( true );
@@ -2097,7 +2119,7 @@ public class Hero extends Char {
 		if (sprite != null) {
 			GLog.newLine();
 			GLog.p( Messages.get(this, "new_level") );
-			sprite.showStatus( CharSprite.POSITIVE, Messages.get(Hero.class, "level_up") );
+			sprite.showStatus( CharSprite.增强, Messages.get(Hero.class, "level_up") );
 			Sample.INSTANCE.play( Assets.Sounds.LEVELUP );
 			if (等级 < Talent.天赋解锁[Talent.MAX_TALENT_TIERS+1]){
 				GLog.newLine();
@@ -2120,6 +2142,7 @@ public class Hero extends Char {
 	}
 	
 	public int 升级所需(int lvl ){
+		lvl--;
 		if (HeroClass(HeroClass.CLERIC)){
 			return 10 + lvl * 5;
 		}
@@ -2457,7 +2480,7 @@ public class Hero extends Char {
 		return x;
 	}
 	public int 感知范围(){
-		int x=2;
+		int x=1;
 
 		if (buff(DivineSense.DivineSenseTracker.class) != null){
 			if (heroClass == HeroClass.CLERIC){
@@ -2465,6 +2488,9 @@ public class Hero extends Char {
 			} else {
 				x = 天赋点数(Talent.DIVINE_SENSE,2);
 			}
+		}
+		if (heroClass == HeroClass.HUNTRESS){
+			x++;
 		}
 		if (有天赋(Talent.HEIGHTENED_SENSES)){
 			x+= 天赋点数(Talent.HEIGHTENED_SENSES);

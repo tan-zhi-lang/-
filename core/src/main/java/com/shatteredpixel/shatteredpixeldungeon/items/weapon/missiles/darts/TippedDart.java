@@ -196,7 +196,7 @@ public abstract class TippedDart extends Dart {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		//value of regular dart plus half of the seed
 		return Math.round(7.5f * quantity);
 	}

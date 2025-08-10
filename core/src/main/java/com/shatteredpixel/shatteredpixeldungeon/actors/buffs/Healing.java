@@ -39,7 +39,7 @@ public class Healing extends Buff {
 			}
 		}
 
-		target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healingThisTick()), FloatingText.HEALING);
+		target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healingThisTick()), FloatingText.HEALING);
 		healingLeft -= healingThisTick();
 		
 		if (healingLeft <= 0){

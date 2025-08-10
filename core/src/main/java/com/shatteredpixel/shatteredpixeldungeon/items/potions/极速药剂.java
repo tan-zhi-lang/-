@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
-public class PotionOfHaste extends Potion {
+public class 极速药剂 extends Potion {
 	
 	{
 		icon = 物品表.Icons.POTION_HASTE;
@@ -26,7 +26,7 @@ public class PotionOfHaste extends Potion {
 	}
 	
 	@Override
-	public int value() {
-		return isKnown() ? 40 * quantity : super.value();
+	public int 金币() {
+		return isKnown() ? 40 * quantity : super.金币();
 	}
 }

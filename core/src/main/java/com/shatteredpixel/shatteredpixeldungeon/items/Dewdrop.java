@@ -92,13 +92,13 @@ public class Dewdrop extends Item {
 			} else {
 				hero.生命 += heal;
 				if (heal > 0){
-					hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(heal), FloatingText.HEALING);
+					hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
 				}
 			}
 
 			if (shield > 0) {
 				Buff.施加(hero, Barrier.class).incShield(shield);
-				hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING );
+				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING );
 			}
 
 		} else if (!force) {

@@ -525,7 +525,7 @@ public class Item implements Bundlable {
 	}
 
 	//item's value in gold coins
-	public int value() {
+	public int 金币() {
 		return 0;
 	}
 

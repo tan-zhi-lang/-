@@ -329,7 +329,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			add(optScreenShake);
 
 			动画速度 = new OptionSlider("动画速度",
-					"慢", "快", 1, 10) {
+					"慢", "快", 1, 3) {
 				@Override
 				protected void onChange() {
 					SPDSettings.动画速度(getSelectedValue());
@@ -1108,7 +1108,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			txtLangInfo.text(info);
 
 			if (currLang.status() == Languages.Status.__UNREVIEW) txtLangInfo.setHightlighting(true, CharSprite.WARNING);
-			else if (currLang.status() == Languages.Status.X_UNFINISH) txtLangInfo.setHightlighting(true, CharSprite.NEGATIVE);
+			else if (currLang.status() == Languages.Status.X_UNFINISH) txtLangInfo.setHightlighting(true, CharSprite.削弱);
 			add(txtLangInfo);
 
 			sep2 = new ColorBlock(1, 1, 0xFF000000);

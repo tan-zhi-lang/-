@@ -25,7 +25,7 @@ public class PhantomMeat extends Food {
 		effect(hero);
 	}
 
-	public int value() {
+	public int 金币() {
 		return 30 * quantity;
 	}
 
@@ -34,7 +34,7 @@ public class PhantomMeat extends Food {
 		Barkskin.conditionallyAppend( hero, hero.最大生命 / 4, 1 );
 		Buff.施加( hero, Invisibility.class, Invisibility.DURATION );
 		hero.生命 = Math.min( hero.生命 + hero.最大生命 / 4, hero.最大生命);
-		hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.最大生命 / 4), FloatingText.HEALING );
+		hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.最大生命 / 4), FloatingText.HEALING );
 		PotionOfHealing.cure(hero);
 
 	}

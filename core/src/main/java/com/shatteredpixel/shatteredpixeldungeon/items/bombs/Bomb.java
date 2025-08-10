@@ -218,7 +218,7 @@ public class Bomb extends Item {
 	}
 
 	@Override
-	public int value() {
+	public int 金币() {
 		return 15 * quantity;
 	}
 	

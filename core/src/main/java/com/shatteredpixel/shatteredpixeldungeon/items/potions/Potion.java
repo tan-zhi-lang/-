@@ -103,7 +103,7 @@ public class Potion extends Item {
 	
 	protected static final HashSet<Class<?extends Potion>> canThrowPots = new HashSet<>();
 	static{
-		canThrowPots.add(PotionOfPurity.class);
+		canThrowPots.add(净化药剂.class);
 		canThrowPots.add(PotionOfLevitation.class);
 		
 		//exotic
@@ -418,7 +418,7 @@ public class Potion extends Item {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 30 * quantity;
 	}
 
@@ -450,7 +450,7 @@ public class Potion extends Item {
 		public static HashMap<Class<?extends Plant.Seed>, Class<?extends Potion>> types = new HashMap<>();
 		static {
 			types.put(Blindweed.Seed.class,     PotionOfInvisibility.class);
-			types.put(Mageroyal.Seed.class,     PotionOfPurity.class);
+			types.put(Mageroyal.Seed.class,     净化药剂.class);
 			types.put(Earthroot.Seed.class,     PotionOfParalyticGas.class);
 			types.put(Fadeleaf.Seed.class,      PotionOfMindVision.class);
 			types.put(Firebloom.Seed.class,     PotionOfLiquidFlame.class);
@@ -460,7 +460,7 @@ public class Potion extends Item {
 			types.put(Starflower.Seed.class,    经验药剂.class);
 			types.put(Stormvine.Seed.class,     PotionOfLevitation.class);
 			types.put(Sungrass.Seed.class,      PotionOfHealing.class);
-			types.put(Swiftthistle.Seed.class,  PotionOfHaste.class);
+			types.put(Swiftthistle.Seed.class,  极速药剂.class);
 		}
 		
 		@Override

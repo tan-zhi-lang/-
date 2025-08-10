@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
-import com.shatteredpixel.shatteredpixeldungeon.items.KingsCrown;
+import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -101,7 +101,7 @@ public class RatKing extends NPC {
 			return super.interact(c);
 		}
 
-		KingsCrown crown = Dungeon.hero.belongings.getItem(KingsCrown.class);
+		矮人国王的皇冠 crown = Dungeon.hero.belongings.getItem(矮人国王的皇冠.class);
 		if (state == SLEEPING) {
 			notice();
 			yell( Messages.get(this, "not_sleeping") );

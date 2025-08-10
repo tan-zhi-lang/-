@@ -370,9 +370,9 @@ public class WndUpgrade extends Window {
 
 				if (toUpgrade.cursed && (toUpgrade instanceof MeleeWeapon && ((Weapon) toUpgrade).hasCurseEnchant())
 						|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph())){
-					bottom = addMessage(Messages.get(this, "cursed_weaken"), CharSprite.POSITIVE, bottom);
+					bottom = addMessage(Messages.get(this, "cursed_weaken"), CharSprite.增强, bottom);
 				} else {
-					bottom = addMessage(Messages.get(this, "cursed"), CharSprite.POSITIVE, bottom);
+					bottom = addMessage(Messages.get(this, "cursed"), CharSprite.增强, bottom);
 				}
 
 				if (curseInfused) {

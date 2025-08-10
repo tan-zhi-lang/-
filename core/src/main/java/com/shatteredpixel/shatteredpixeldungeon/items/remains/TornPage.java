@@ -19,7 +19,7 @@ public class TornPage extends RemainsItem {
 	protected void doEffect(Hero hero) {
 		int toHeal = Math.round(hero.最大生命 /10f);
 		hero.生命 = Math.min(hero.生命 + toHeal, hero.最大生命);
-		hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(toHeal), FloatingText.HEALING );
+		hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toHeal), FloatingText.HEALING );
 		Sample.INSTANCE.play( Assets.Sounds.READ );
 	}
 

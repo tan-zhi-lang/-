@@ -318,7 +318,7 @@ public class DM300 extends Mob {
 				}
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
 				sprite.emitter().start(SparkParticle.STATIC, 0.05f, 20);
-				sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(30 + (最大生命 - 生命)/10), FloatingText.SHIELDING);
+				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(30 + (最大生命 - 生命)/10), FloatingText.SHIELDING);
 			}
 
 			Buff.施加(this, Barrier.class).setShield( 30 + (最大生命 - 生命)/10);
@@ -502,7 +502,7 @@ public class DM300 extends Mob {
 
 		spend(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2f : 3f);
 		yell(Messages.get(this, "charging"));
-		sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
+		sprite.showStatus(CharSprite.增强, Messages.get(this, "invulnerable"));
 		((DM300Sprite)sprite).updateChargeState(true);
 		((DM300Sprite)sprite).charge();
 		chargeAnnounced = false;

@@ -471,7 +471,7 @@ public enum Talent {
 		return Messages.get(this, name() + ".desc");
 	}
 
-	public static void onTalentUpgraded( Hero hero, Talent talent ){
+	public static void 获得天赋时(Hero hero, Talent talent ){
 		//for metamorphosis
 		if (talent == IRON_WILL && hero.heroClass != HeroClass.WARRIOR){
 			Buff.施加(hero, BrokenSeal.WarriorShield.class);
@@ -489,15 +489,48 @@ public enum Talent {
 			if (hero.belongings.misc instanceof Ring && !ShardOfOblivion.passiveIDDisabled()) {
 				hero.belongings.misc.鉴定();
 			}
-			for (Item item : Dungeon.hero.belongings){
-				if (item instanceof Ring){
-					((Ring) item).setKnown();
-				}
-			}
 		}
 		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
 			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.setKnown();
 			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
+		}
+
+
+		if (hero.天赋点数(THIEFS_INTUITION) == 2){
+			for (Item item : Dungeon.hero.belongings){
+				if (item instanceof Ring){
+					((Ring) item).setKnown();
+					((Ring) item).鉴定();
+				}
+			}
+		}
+		if (hero.天赋点数(VETERANS_INTUITION) == 2){
+			for (Item item : Dungeon.hero.belongings){
+				if (item instanceof Armor){
+					((Armor) item).鉴定();
+				}
+			}
+		}
+		if (hero.天赋点数(SCHOLARS_INTUITION) == 2){
+			for (Item item : Dungeon.hero.belongings){
+				if (item instanceof Wand){
+					((Wand) item).鉴定();
+				}
+			}
+		}
+		if (hero.天赋点数(SURVIVALISTS_INTUITION) == 2){
+			for (Item item : Dungeon.hero.belongings){
+				if (item instanceof MissileWeapon){
+					((MissileWeapon) item).鉴定();
+				}
+			}
+		}
+		if (hero.天赋点数(ADVENTURERS_INTUITION) == 2){
+			for (Item item : Dungeon.hero.belongings){
+				if (item instanceof MeleeWeapon){
+					((MeleeWeapon) item).鉴定();
+				}
+			}
 		}
 		if (talent == ADVENTURERS_INTUITION && hero.天赋点数(ADVENTURERS_INTUITION) == 1){
 			if (hero.belongings.weapon() != null && !ShardOfOblivion.passiveIDDisabled()){
@@ -560,14 +593,14 @@ public enum Talent {
 
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
 		hero.生命 = Math.min(hero.生命 + 1, hero.最大生命);
-		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(1), FloatingText.HEALING);
+		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(1), FloatingText.HEALING);
 
 		if (hero.有天赋(HEARTY_MEAL)){
 			//4/6 HP healed, when hero is below 33% health (with a little rounding up)
 			if (hero.生命 /(float)hero.最大生命 < 0.334f) {
 				int healing = hero.天赋点数(HEARTY_MEAL,4);
 				hero.生命 = Math.min(hero.生命 + healing, hero.最大生命);
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(healing), FloatingText.HEALING);
+				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healing), FloatingText.HEALING);
 
 			}
 		}
@@ -676,7 +709,7 @@ public enum Talent {
 		if (hero.有天赋(LIQUID_WILLPOWER)){
 			// 6.5/10% of max HP
 			int shieldToGive = Math.round( factor * hero.最大生命 * hero.天赋点数(LIQUID_WILLPOWER,0.06f));
-			hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			Buff.施加(hero, Barrier.class).setShield(shieldToGive);
 		}
 		if (hero.有天赋(LIQUID_NATURE)){

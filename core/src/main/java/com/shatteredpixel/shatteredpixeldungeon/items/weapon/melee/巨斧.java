@@ -15,10 +15,10 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 
-public class Greataxe extends MeleeWeapon {
+public class 巨斧 extends MeleeWeapon {
 
 	{
-		image = 物品表.GREATAXE;
+		image = 物品表.巨斧;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1f;
 

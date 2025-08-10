@@ -46,7 +46,7 @@ public class Alchemize extends Spell {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		//lower value, as it's very cheap to make (and also sold at shops)
 		return (int)(20 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
@@ -143,7 +143,7 @@ public class Alchemize extends Spell {
 						pos = warn.bottom();
 					}
 
-					RedButton btnSell = new RedButton(Messages.get(this, "sell", item.value())) {
+					RedButton btnSell = new RedButton(Messages.get(this, "sell", item.金币())) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sell(item);
@@ -159,7 +159,7 @@ public class Alchemize extends Spell {
 
 				} else {
 
-					int priceAll = item.value();
+					int priceAll = item.金币();
 					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.数量())) {
 						@Override
 						protected void onClick() {

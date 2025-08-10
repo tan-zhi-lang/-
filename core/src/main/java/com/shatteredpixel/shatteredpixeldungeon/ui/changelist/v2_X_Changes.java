@@ -45,7 +45,7 @@ public class v2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released September 11th, 2024\n" +
 				"_-_ 119 days after v2.4.0\n" +
 				"\n" +
@@ -181,7 +181,7 @@ public class v2_X_Changes {
 				"_-_ Updated translations and translator credits\n" +
 				"_-_ Added dev commentary for v1.4.0"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"_Highlights:_\n" +
 				"_-_ Hall of Heroes pages 5-10 not syncing via Google Play Games on Google Play version\n" +
@@ -246,7 +246,7 @@ public class v2_X_Changes {
 				"_-_ Magic well note entries not being cleared if there are two wells in a level"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.CLOVER), "Trinket Buffs",
@@ -294,7 +294,7 @@ public class v2_X_Changes {
 				"_- Unstable Spell_ now guarantees an appropriate scroll effect based on nearby enemies, instead of making it more likely.\n"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.MOSSY_CLUMP), "Mossy Clump & Grassy Floors",
@@ -332,7 +332,7 @@ public class v2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released May 15th, 2024\n" +
 				"_-_ 118 days after Shattered v2.3.0\n\n" +
 				"Dev commentary will be added here in the future."));
@@ -431,7 +431,7 @@ public class v2_X_Changes {
 				"_-_ Removed the power saver setting on Android 4.4+ devices, if the user hadn't already enabled it.\n" +
 				"(Power saver was always meant for very old Android devices. It gives no real benefit for more modern ones.)"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"_Highlights:_\n" +
 				"_-_ Ruins rooms in the last region using incorrect wall shapes since v2.2.0\n" +
@@ -494,7 +494,7 @@ public class v2_X_Changes {
 				"_-_ View distance becoming 0 during final boss in specific cases"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.RAPIER), "Weapon Ability Buffs",
@@ -542,7 +542,7 @@ public class v2_X_Changes {
 				"_-_ Blacksmith smith reward enchant rate up to 30% from 0%"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "Alchemy Nerfs",
@@ -561,7 +561,7 @@ public class v2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released January 18th, 2024\n" +
 				"_-_ 92 days after Shattered v2.2.0\n\n" +
 				"v2.3.0 was originally going to contain two new variants for the caves quest, but after a longer than expected dev cycle plus the holidays, I opted to release v2.3.0 with just one more variant and move on to other content for a while, instead of spending even more time on the caves quest.\n\n" +
@@ -651,7 +651,7 @@ public class v2_X_Changes {
 				"_-_ Slightly improved the layout of shop rooms when many items are present\n" +
 				"_-_ Updated a link in the game's credits"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"_Highlights:_\n" +
 				"_-_ Enemies continuing to fight each other after amok expires in many cases\n" +
@@ -726,7 +726,7 @@ public class v2_X_Changes {
 				"_-_ Cases where grass and embers wouldn't appear on top of specific ground visuals"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(Icons.TALENT.get(), "Hero Abilities",
@@ -748,7 +748,7 @@ public class v2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released October 18th, 2023\n" +
 				"_-_ 138 days after Shattered v2.1.0\n" +
 				"\n" +
@@ -844,7 +844,7 @@ public class v2_X_Changes {
 				"_-_ Removed support for Android Instant Apps\n" +
 				"_-_ Updated some links in the game's credits"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"_Highlights:_\n" +
 				"_-_ Some items being incorrectly consumed when the game is closed while they are being used\n" +
@@ -899,7 +899,7 @@ public class v2_X_Changes {
 				"_-_ Rare crash errors caused by audio loading"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.DIRK), "Weapon Ability Buffs",
@@ -912,7 +912,7 @@ public class v2_X_Changes {
 				"_- Brawler's Stance_ ability (Ring of Force) charge use down to 1/6 per attack, from 1/4 per attack."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.KATANA), "Weapon & Curse Nerfs",
@@ -942,7 +942,7 @@ public class v2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released June 2nd, 2023\n" +
 				"_-_ 83 days after Shattered v2.0.0\n" +
 				"\n" +
@@ -1020,7 +1020,7 @@ public class v2_X_Changes {
 				"_-_ Heroes remains can now appear in more cases, but always contain 10 gold in challenge or seeded runs\n" +
 				"_-_ Added a setting for screen shake intensity"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"_Highlights:_\n" +
 				"_-_ Various rare crash errors\n" +
@@ -1098,7 +1098,7 @@ public class v2_X_Changes {
 				"_-_ Visual bugs when hiding mimics were magically slept"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new Whip(),
@@ -1151,7 +1151,7 @@ public class v2_X_Changes {
 				"_- Invigorating Victory_ base heal increased to 5/10/15/20 from 3/6/9/12"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(HeroSprite.avatar(HeroClass.DUELIST, 4), "Duelist Nerfs",
@@ -1172,7 +1172,7 @@ public class v2_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released March 13th, 2023\n" +
 				"_-_ 160 days after Shattered v1.4.0\n" +
 				"_-_ 413 days after Shattered v1.0.0\n" +
@@ -1282,7 +1282,7 @@ public class v2_X_Changes {
 				"_-_ The changes scene now shows a warning if the user is not viewing it in English.\n" +
 				"_-_ Liquid metal value increased to 1 from 0.5."));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed the following bugs:\n" +
 				"_Highlights:_\n" +
 				"_-_ Various rare crash and freeze errors\n" +
@@ -1372,7 +1372,7 @@ public class v2_X_Changes {
 				"_-_ Downed ghoul visuals sometimes staying visible in the fog of war"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.RING_TOPAZ), "Item Buffs",
@@ -1399,7 +1399,7 @@ public class v2_X_Changes {
 				"I expect the next update will include more hero balance changes, after the dust settles from the Duelist."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.ROUND_SHIELD), "Major Item Nerfs",

@@ -61,6 +61,7 @@ public class HeroSelectScene extends PixelScene {
 	private RenderedTextBlock heroDesc; //only on landscape
 	private StyledButton startBtn;
 	private IconButton infoButton;
+	private IconButton 改动按钮;
 	private IconButton btnOptions;
 	private GameOptions optionsPane;
 	private IconButton btnExit;
@@ -154,6 +155,20 @@ public class HeroSelectScene extends PixelScene {
 		infoButton.visible = infoButton.active = false;
 		infoButton.setSize(20, 21);
 		add(infoButton);
+
+		改动按钮 = new IconButton(Icons.get(Icons.CHANGES)){
+			@Override
+			protected void onClick() {
+				ShatteredPixelDungeon.switchNoFade( 改动界面.class );
+			}
+
+			@Override
+			protected String hoverText() {
+				return Messages.titleCase(Messages.get(TitleScene.class, "changes"));
+			}
+		};
+		改动按钮.setSize(20, 21);
+		add(改动按钮);
 
 		for (HeroClass cl : HeroClass.values()){
 			HeroBtn button = new HeroBtn(cl);
@@ -283,6 +298,7 @@ public class HeroSelectScene extends PixelScene {
 			add(btnFade);
 
 			btnOptions.setRect(startBtn.right(), startBtn.top(), 20, 21);
+			改动按钮.setRect(btnOptions.right(), startBtn.top(), 20, 21);
 			optionsPane.setPos(btnOptions.right(), btnOptions.top() - optionsPane.height() - 2);
 			align(optionsPane);
 		} else {
@@ -305,6 +321,7 @@ public class HeroSelectScene extends PixelScene {
 			title.setPos((Camera.main.width - title.width()) / 2f, (Camera.main.height - HeroBtn.HEIGHT - title.height() - 4));
 
 			btnOptions.setRect(heroBtns.get(0).left() + 16, Camera.main.height-HeroBtn.HEIGHT-16, 20, 21);
+			改动按钮.setRect(heroBtns.get(0).left() + 16+16, Camera.main.height-HeroBtn.HEIGHT-16, 20, 21);
 			optionsPane.setPos(heroBtns.get(0).left(), 0);
 		}
 

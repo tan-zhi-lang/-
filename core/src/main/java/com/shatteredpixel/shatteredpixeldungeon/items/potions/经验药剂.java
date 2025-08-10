@@ -21,14 +21,14 @@ public class 经验药剂 extends Potion {
 	@Override
 	public void apply( Hero hero ) {
 		鉴定();
-		hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(hero.升级所需(0.83f)), FloatingText.EXPERIENCE);
+		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(hero.升级所需(0.83f)), FloatingText.EXPERIENCE);
 		hero.经验( hero.升级所需(), getClass() );
 		new Flare( 6, 32 ).color(0xFFFF00, true).show( curUser.sprite, 2f );
 	}
 	
 	@Override
-	public int value() {
-		return isKnown() ? 50 * quantity : super.value();
+	public int 金币() {
+		return isKnown() ? 50 * quantity : super.金币();
 	}
 
 	@Override

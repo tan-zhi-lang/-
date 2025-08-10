@@ -45,7 +45,7 @@ public class v0_9_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released June 7th, 2021\n" +
 				"_-_ 101 days after Shattered v0.9.2\n" +
 				"\n" +
@@ -114,7 +114,7 @@ public class v0_9_X_Changes {
 				"_-_ Improved icons for several existing talents.\n" +
 				"_-_ Added little icons to the titles of various windows."));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various rare crash issues\n" +
 				"_-_ Various minor VFX/SFX/text issues\n" +
@@ -161,7 +161,7 @@ public class v0_9_X_Changes {
 				"_-_ Game log entries not appearing from alchemy scene"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new Image(new SpawnerSprite()), "Demon Spawner Buffs",
@@ -189,7 +189,7 @@ public class v0_9_X_Changes {
 				"_- Shared Upgrades_ damage boost increased to 10/20/30% from 7/12/20%." ));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(Icons.get(Icons.TALENT), "Talent Nerfs",
@@ -210,7 +210,7 @@ public class v0_9_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released February 26th, 2021\n" +
 				"_-_ 78 days after Shattered v0.9.1\n" +
 				"\n" +
@@ -266,7 +266,7 @@ public class v0_9_X_Changes {
 				"_-_ Reduced the intensity of white flash effects, should help photosensitive users\n" +
 				"_-_ The hero now hovers while idling if they are levitating, instead of appearing to stand"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ various rare crash bugs\n" +
 				"_-_ various rare errors with levelgen\n" +
@@ -304,7 +304,7 @@ public class v0_9_X_Changes {
 				"_-_ various rare VFX issues with Goo"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.TENGU, 0, 0, 14, 16), "Midgame Enemies",
@@ -335,7 +335,7 @@ public class v0_9_X_Changes {
 				"_- Mystical Upgrade_ cloak of shadows charges increased to 2/3 at +1/+2, up from 1/2 at +1/+2."));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new CloakOfShadows(),
@@ -364,7 +364,7 @@ public class v0_9_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released December 11th, 2020\n" +
 				"_-_ 68 days after Shattered v0.9.0\n" +
 				"\n" +
@@ -429,7 +429,7 @@ public class v0_9_X_Changes {
 				"_-_ Added some VFX to scroll of transmutation\n\n" +
 				"_-_ Updated translations and translator credits"));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various minor audiovisual errors\n" +
 				"_-_ Various rare crash and freeze bugs\n" +
@@ -465,7 +465,7 @@ public class v0_9_X_Changes {
 				"_-_ Talent points being spendable when the hero is dead"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
-		changes.hardlight(CharSprite.POSITIVE);
+		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton( new Image(Assets.Sprites.MAGE, 0, 90, 12, 15), HeroSubClass.BATTLEMAGE.title(),
@@ -491,7 +491,7 @@ public class v0_9_X_Changes {
 				"_-_ Bonus artifact charging increased from 10% to 15%"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
-		changes.hardlight(CharSprite.NEGATIVE);
+		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton( new TalentIcon(Talent.HEARTY_MEAL), Talent.HEARTY_MEAL.title(),
@@ -515,7 +515,7 @@ public class v0_9_X_Changes {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.SHPX), "Developer Commentary",
+		changes.addButton( new ChangeButton(Icons.get(Icons.EVAN图标), "Developer Commentary",
 				"_-_ Released October 5th, 2020\n" +
 				"_-_ 61 days after Shattered v0.8.2\n" +
 				"_-_ 173 days after Shattered v0.8.0\n" +
@@ -574,7 +574,7 @@ public class v0_9_X_Changes {
 				"_-_ Long pressing item slots in the alchemy screen now shows the item's description.\n\n" +
 				"_-_ Updated translations and translator credits."));
 
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.SPINNER, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				"Fixed:\n" +
 				"_-_ Various visual errors\n" +
 				"_-_ Various rare crash bugs\n" +

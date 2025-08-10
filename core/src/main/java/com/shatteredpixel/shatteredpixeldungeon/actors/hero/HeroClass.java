@@ -29,12 +29,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.BrokenSeal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -45,7 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfIdentify;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -59,7 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Rapier;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
@@ -202,6 +204,8 @@ public enum HeroClass {
 		Item i = new 风衣().鉴定();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (风衣)i;
 
+		new Torch().放背包();
+
 		(hero.belongings.weapon = new 双匕首()).鉴定();
 
 		CloakOfShadows cloak = new CloakOfShadows();
@@ -222,6 +226,8 @@ public enum HeroClass {
 		Item i = new 披风().鉴定();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (披风)i;
 
+		(hero.belongings.weapon = new 镶钉手套()).鉴定();
+
 		SpiritBow bow = new SpiritBow();
 		bow.鉴定().放背包();
 
@@ -235,7 +241,7 @@ public enum HeroClass {
 		Item i = new 胸铠().鉴定();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (胸铠)i;
 
-		(hero.belongings.weapon = new Rapier()).鉴定();
+		(hero.belongings.weapon = new 配刺剑()).鉴定();
 		hero.belongings.weapon.activate(hero);
 
 		ThrowingSpike spikes = new ThrowingSpike();
@@ -261,7 +267,7 @@ public enum HeroClass {
 
 		Dungeon.quickslot.setSlot(0, tome);
 
-		new PotionOfPurity().鉴定();
+		new 净化药剂().鉴定();
 		new 祛邪卷轴().鉴定();
 	}
 

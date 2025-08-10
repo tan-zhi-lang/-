@@ -113,7 +113,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		point( from );
 
 		PointF d = PointF.diff( to, from );
-		speed.set(d).normalize().scale(SPEED*SPDSettings.动画速度());
+		speed.set(d).normalize().scale(SPEED*(SPDSettings.动画速度()>1?SPDSettings.动画速度()*3.3f:1));
 		
 		angularSpeed = DEFAULT_ANGULAR_SPEED;
 		for (Class<?extends Item> cls : ANGULAR_SPEEDS.keySet()){
@@ -142,7 +142,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 			updateFrame();
 		}
 		
-		float speed = SPEED*SPDSettings.动画速度();
+		float speed = SPEED*(SPDSettings.动画速度()>1?SPDSettings.动画速度()*3.3f:1);
 		if (item instanceof Dart
 				&& (Dungeon.hero.belongings.weapon() instanceof Crossbow
 				|| Dungeon.hero.belongings.secondWep() instanceof Crossbow)){

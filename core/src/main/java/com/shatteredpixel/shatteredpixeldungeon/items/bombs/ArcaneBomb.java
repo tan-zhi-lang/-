@@ -78,7 +78,7 @@ public class ArcaneBomb extends Bomb {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		//prices of ingredients
 		return quantity * (20 + 30);
 	}

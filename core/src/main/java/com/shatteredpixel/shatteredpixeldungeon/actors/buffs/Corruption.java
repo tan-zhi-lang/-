@@ -19,7 +19,7 @@ public class Corruption extends AllyBuff {
 	//corrupted enemies are usually fully healed and cleansed of most debuffs
 	public static void corruptionHeal(Char target){
 		target.生命 = target.最大生命;
-		target.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(target.最大生命), FloatingText.HEALING);
+		target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(target.最大生命), FloatingText.HEALING);
 		for (Buff buff : target.buffs()) {
 			if (buff.type == Buff.buffType.NEGATIVE
 					&& !(buff instanceof SoulMark)) {

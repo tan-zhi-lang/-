@@ -17,18 +17,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChanges;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChangesTabbed;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_1_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_2_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_3_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_4_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_5_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_6_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_7_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_8_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v0_9_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v1_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v2_X_Changes;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.v3_X_Changes;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.停更;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.奇袭;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.缝合;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Image;
@@ -41,75 +33,6 @@ import java.util.ArrayList;
 
 public class 改动界面 extends PixelScene {
 
-	/**
-	 天赋星
-	 移除一层和二层的一个天赋。
-	 天赋解锁从9/12 => 7/14
-	 天赋点数5/6/8=>3/6/9
-	 所有天赋增强。
-
-	 二层最大天赋点+1
-	 三层最大天赋点+1
-
-	 卷轴
-	 每5层升级卷轴数量+1
-
-	 强化符石
-	 效果
-	 增加伤害50%减少67%攻速
-	 增加33%攻速，减少30%伤害
-	 改成
-	 增加100%伤害减少50%攻速
-	 增加100%攻速，减少50%伤害
-
-	 最大等级-5
-	 最大生命+5
-	 每级所需经验+2和初始经验+2
-
-	 皇冠
-	 移除护甲技能
-
-	 开局还有赠送一瓶经验药剂
-
-	 命中增加10，闪避增加5
-	 升级提供额外1生命值
-	 伏击额外造成1伤害，吃饭恢复1生命值
-
-	 ---
-	 铠甲，2阶，力量需求-1
-	 法袍，1阶，法杖充能速度加快25%
-	 风衣，1阶，闪避+25%
-	 披风，1阶，移速+25%
-	 胸铠，1阶，但是最小防御级+阶+1
-	 祭服，1阶，等级+1，免疫降级
-	 除了战士都移除水袋
-	 法师魔杖关注焰浪
-
-	 感知范围+2
-	 优化信息面板
-
-	 优化感知、视野范围计算
-
-	 盗贼武器变双刀
-
-	 法袍免疫火焰
-	 铠甲免疫寒意
-
-	 战士 斧头图标 力量+1
-	 法师 法杖充能图标 获得经验时提供4回合法杖充能
-	 牧师 星图标 所需经验-2-1
-
-	 投掷和弓在近处命中率增加50%，超过2格减半
-
-
-	 所有英雄额外一个鉴定物
-	 额外一个感知符石
-	 //		SPEED   (0.7f, 2/3f),
-	 //		DAMAGE  (1.5f, 5/3f),
-	 //		NONE	(1.0f, 1f);
-
-	 升级提供的命中+1
-	 */
 	public static int changesSelected = 0;
 
 	private NinePatch rightPanel;
@@ -197,32 +120,16 @@ public class 改动界面 extends PixelScene {
 		
 		switch (changesSelected){
 			case 0: default:
-				v3_X_Changes.addAllChanges(changeInfos);
+				重制.addAllChanges(changeInfos);
 				break;
 			case 1:
-				v2_X_Changes.addAllChanges(changeInfos);
+				停更.addAllChanges(changeInfos);
 				break;
 			case 2:
-				v1_X_Changes.addAllChanges(changeInfos);
+				缝合.addAllChanges(changeInfos);
 				break;
 			case 3:
-				v0_9_X_Changes.addAllChanges(changeInfos);
-				break;
-			case 4:
-				v0_8_X_Changes.addAllChanges(changeInfos);
-				break;
-			case 5:
-				v0_7_X_Changes.addAllChanges(changeInfos);
-				break;
-			case 6:
-				v0_6_X_Changes.addAllChanges(changeInfos);
-				break;
-			case 7:
-				v0_5_X_Changes.addAllChanges(changeInfos);
-				v0_4_X_Changes.addAllChanges(changeInfos);
-				v0_3_X_Changes.addAllChanges(changeInfos);
-				v0_2_X_Changes.addAllChanges(changeInfos);
-				v0_1_X_Changes.addAllChanges(changeInfos);
+				奇袭.addAllChanges(changeInfos);
 				break;
 		}
 
@@ -277,8 +184,8 @@ public class 改动界面 extends PixelScene {
 				panel.innerWidth() + 2,
 				panel.innerHeight() + 2);
 		list.scrollTo(0, 0);
-
-		StyledButton btn3_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "3.X", 8){
+		int w4=Math.round(pw/3.875f);
+		StyledButton 重制 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "重制", 8){
 			@Override
 			protected void onClick() {
 				super.onClick();
@@ -288,11 +195,11 @@ public class 改动界面 extends PixelScene {
 				}
 			}
 		};
-		if (changesSelected != 0) btn3_X.textColor( 0xBBBBBB );
-		btn3_X.setRect(list.left()-4f, list.bottom(), 19, changesSelected == 0 ? 19 : 15);
-		addToBack(btn3_X);
+		if (changesSelected != 0) 重制.textColor( 0xBBBBBB );
+		重制.setRect(list.left()-4f, list.bottom(), w4, changesSelected == 0 ? 19 : 15);
+		addToBack(重制);
 
-		StyledButton btn2_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "2.X", 8){
+		StyledButton 停更 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "停更", 8){
 			@Override
 			protected void onClick() {
 				super.onClick();
@@ -302,11 +209,11 @@ public class 改动界面 extends PixelScene {
 				}
 			}
 		};
-		if (changesSelected != 1) btn2_X.textColor( 0xBBBBBB );
-		btn2_X.setRect(btn3_X.right()-2, list.bottom(), 19, changesSelected == 1 ? 19 : 15);
-		addToBack(btn2_X);
+		if (changesSelected != 1) 停更.textColor( 0xBBBBBB );
+		停更.setRect(重制.right()-2, list.bottom(), w4, changesSelected == 1 ? 19 : 15);
+		addToBack(停更);
 
-		StyledButton btn1_X = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "1.X", 8){
+		StyledButton 缝合 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "缝合", 8){
 			@Override
 			protected void onClick() {
 				super.onClick();
@@ -316,11 +223,11 @@ public class 改动界面 extends PixelScene {
 				}
 			}
 		};
-		if (changesSelected != 2) btn1_X.textColor( 0xBBBBBB );
-		btn1_X.setRect(btn2_X.right()-2, list.bottom(), 19, changesSelected == 2 ? 19 : 15);
-		addToBack(btn1_X);
+		if (changesSelected != 2) 缝合.textColor( 0xBBBBBB );
+		缝合.setRect(停更.right()-2, list.bottom(), w4, changesSelected == 2 ? 19 : 15);
+		addToBack(缝合);
 
-		StyledButton btn0_9 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.9", 8){
+		StyledButton 奇袭 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "奇袭", 8){
 			@Override
 			protected void onClick() {
 				super.onClick();
@@ -330,65 +237,10 @@ public class 改动界面 extends PixelScene {
 				}
 			}
 		};
-		if (changesSelected != 3) btn0_9.textColor( 0xBBBBBB );
-		btn0_9.setRect(btn1_X.right()-2, list.bottom(), 19, changesSelected == 3 ? 19 : 15);
-		addToBack(btn0_9);
+		if (changesSelected != 3) 奇袭.textColor( 0xBBBBBB );
+		奇袭.setRect(缝合.right()-2, list.bottom(), w4, changesSelected == 3 ? 19 : 15);
+		addToBack(奇袭);
 
-		StyledButton btn0_8 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.8", 8){
-			@Override
-			protected void onClick() {
-				super.onClick();
-				if (changesSelected != 4) {
-					changesSelected = 4;
-					ShatteredPixelDungeon.seamlessResetScene();
-				}
-			}
-		};
-		if (changesSelected != 4) btn0_8.textColor( 0xBBBBBB );
-		btn0_8.setRect(btn0_9.right()-2, list.bottom(), 19, changesSelected == 4 ? 19 : 15);
-		addToBack(btn0_8);
-		
-		StyledButton btn0_7 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.7", 8){
-			@Override
-			protected void onClick() {
-				super.onClick();
-				if (changesSelected != 5) {
-					changesSelected = 5;
-					ShatteredPixelDungeon.seamlessResetScene();
-				}
-			}
-		};
-		if (changesSelected != 5) btn0_7.textColor( 0xBBBBBB );
-		btn0_7.setRect(btn0_8.right()-2, btn0_8.top(), 19, changesSelected == 5 ? 19 : 15);
-		addToBack(btn0_7);
-		
-		StyledButton btn0_6 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.6", 8){
-			@Override
-			protected void onClick() {
-				super.onClick();
-				if (changesSelected != 6) {
-					changesSelected = 6;
-					ShatteredPixelDungeon.seamlessResetScene();
-				}
-			}
-		};
-		if (changesSelected != 6) btn0_6.textColor( 0xBBBBBB );
-		btn0_6.setRect(btn0_7.right()-2, btn0_8.top(), 19, changesSelected == 6 ? 19 : 15);
-		addToBack(btn0_6);
-		
-		StyledButton btnOld = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "0.5-", 8){
-			@Override
-			protected void onClick() {
-				super.onClick();
-				if (changesSelected != 7) {
-					changesSelected = 7;
-					ShatteredPixelDungeon.seamlessResetScene();
-				}
-			}
-		};
-		if (changesSelected != 7) btnOld.textColor( 0xBBBBBB );
-		btnOld.setRect(btn0_6.right()-2, btn0_8.top(), 22, changesSelected == 7 ? 19 : 15);
-		addToBack(btnOld);
 
 		Archs archs = new Archs();
 		archs.setSize( Camera.main.width, Camera.main.height );

@@ -94,9 +94,9 @@ public class Assets {
 
 	public static class Music {
 		public static final String 夜航星              = "music/夜航星.mp3";
-		public static final String THEME_1              = "music/夜航星.ogg";
-		public static final String THEME_2              = "music/夜航星.ogg";
-		public static final String THEME_FINALE         = "music/夜航星.ogg";
+		public static final String THEME_1              = "music/夜航星.mp3";
+		public static final String THEME_2              = "music/夜航星.mp3";
+		public static final String THEME_FINALE         = "music/夜航星.mp3";
 
 		public static final String SEWERS_1             = "music/sewers_1.ogg";
 		public static final String SEWERS_2             = "music/sewers_2.ogg";
@@ -281,7 +281,7 @@ public class Assets {
 
 		public static final String RAT      = "sprites/rat.png";
 		public static final String BRUTE    = "sprites/brute.png";
-		public static final String SPINNER  = "sprites/spinner.png";
+		public static final String 修复 = "sprites/spinner.png";
 		public static final String DM300    = "sprites/dm300.png";
 		public static final String WRAITH   = "sprites/wraith.png";
 		public static final String UNDEAD   = "sprites/undead.png";

@@ -57,7 +57,7 @@ public class Bat extends Mob {
 		
 		if (reg > 0) {
 			生命 += reg;
-			sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(reg), FloatingText.HEALING);
+			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(reg), FloatingText.HEALING);
 		}
 		
 		return damage;

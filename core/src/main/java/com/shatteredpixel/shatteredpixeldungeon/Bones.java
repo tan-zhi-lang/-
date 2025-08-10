@@ -196,7 +196,7 @@ public class Bones {
 						item = artifact;
 						
 					} else {
-						item = new Gold(item.value());
+						item = new Gold(item.金币());
 					}
 				}
 

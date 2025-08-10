@@ -163,7 +163,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
 		txt.text( Integer.toString(count) );
-		txt.hardlight(CharSprite.POSITIVE);
+		txt.hardlight(CharSprite.增强);
 		txt.measure();
 		return txt;
 	}

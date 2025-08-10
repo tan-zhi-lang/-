@@ -18,7 +18,7 @@ public class SpinnerSprite extends MobSprite {
 
 		perspectiveRaise = 0f;
 
-		texture( Assets.Sprites.SPINNER );
+		texture( Assets.Sprites.修复);
 		
 		TextureFilm frames = new TextureFilm( texture, 16, 16 );
 		

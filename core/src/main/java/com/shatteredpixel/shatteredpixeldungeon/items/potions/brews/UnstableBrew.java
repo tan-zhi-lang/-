@@ -9,14 +9,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHaste;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfPurity;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
@@ -52,11 +52,11 @@ public class UnstableBrew extends Brew {
 		potionChances.put(PotionOfFrost.class, 2f);
 		potionChances.put(PotionOfLiquidFlame.class, 2f);
 		potionChances.put(PotionOfToxicGas.class, 2f);
-		potionChances.put(PotionOfHaste.class, 2f);
+		potionChances.put(极速药剂.class, 2f);
 		potionChances.put(PotionOfInvisibility.class, 2f);
 		potionChances.put(PotionOfLevitation.class, 2f);
 		potionChances.put(PotionOfParalyticGas.class, 2f);
-		potionChances.put(PotionOfPurity.class, 2f);
+		potionChances.put(净化药剂.class, 2f);
 		potionChances.put(经验药剂.class, 1f);
 	}
 	
@@ -103,7 +103,7 @@ public class UnstableBrew extends Brew {
 
 	//lower values, as it's cheaper to make
 	@Override
-	public int value() {
+	public int 金币() {
 		return 40 * quantity;
 	}
 

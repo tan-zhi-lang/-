@@ -14,7 +14,7 @@ public class StewedMeat extends Food {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 8 * quantity;
 	}
 	

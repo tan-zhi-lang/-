@@ -83,7 +83,7 @@ public class BlessSpell extends TargetedClericSpell {
 		if (ch == hero){
 			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,5));
 			Buff.施加(ch, Barrier.class).setShield(hero.天赋点数(Talent.BLESS,7));
-			ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(hero.天赋点数(Talent.BLESS,5)), FloatingText.SHIELDING );
+			ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.天赋点数(Talent.BLESS,5)), FloatingText.SHIELDING );
 		} else {
 			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,6));
 			int totalHeal = hero.天赋点数(Talent.BLESS,6);
@@ -92,15 +92,15 @@ public class BlessSpell extends TargetedClericSpell {
 				barrier = Math.max(barrier, 0);
 				if (ch.生命 != ch.最大生命) {
 					ch.生命 = ch.最大生命;
-					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(totalHeal - barrier), FloatingText.HEALING);
+					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(totalHeal - barrier), FloatingText.HEALING);
 				}
 				if (barrier > 0) {
 					Buff.施加(ch, Barrier.class).setShield(barrier);
-					ch.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(barrier), FloatingText.SHIELDING);
+					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(barrier), FloatingText.SHIELDING);
 				}
 			} else {
 				ch.生命 = ch.生命 + totalHeal;
-				ch.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString(totalHeal), FloatingText.HEALING );
+				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(totalHeal), FloatingText.HEALING );
 			}
 		}
 

@@ -122,7 +122,7 @@ public class ReclaimTrap extends TargetedSpell {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return (int)(60 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
 

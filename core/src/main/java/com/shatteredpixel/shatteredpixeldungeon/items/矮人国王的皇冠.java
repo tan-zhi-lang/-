@@ -22,7 +22,7 @@ import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
 
-public class KingsCrown extends Item {
+public class 矮人国王的皇冠 extends Item {
 	
 	private static final String AC_WEAR = "WEAR";
 	

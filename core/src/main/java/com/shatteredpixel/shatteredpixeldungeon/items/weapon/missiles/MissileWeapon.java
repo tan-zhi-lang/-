@@ -663,7 +663,7 @@ abstract public class MissileWeapon extends Weapon {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		int price = 5 * tier * quantity;
 		if (hasGoodEnchant()) {
 			price *= 1.5;

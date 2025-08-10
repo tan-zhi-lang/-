@@ -78,7 +78,7 @@ public class CurseInfusion extends InventorySpell {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return (int)(60 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
 

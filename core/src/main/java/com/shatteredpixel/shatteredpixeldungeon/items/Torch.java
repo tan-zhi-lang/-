@@ -70,7 +70,7 @@ public class Torch extends Item {
 	}
 	
 	@Override
-	public int value() {
+	public int 金币() {
 		return 8 * quantity;
 	}
 

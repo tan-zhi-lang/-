@@ -111,7 +111,7 @@ public class SupporterScene extends PixelScene {
 			text = PixelScene.renderTextBlock(message, 6);
 			add(text);
 
-			icon = Icons.get(Icons.SHPX);
+			icon = Icons.get(Icons.EVAN图标);
 			add(icon);
 
 		}

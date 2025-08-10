@@ -58,7 +58,7 @@ public class 蜕变秘卷 extends ExoticScroll {
 		Transmuting.show(curUser, oldTalent, newTalent);
 
 		if (Dungeon.hero.有天赋(newTalent)) {
-			Talent.onTalentUpgraded(Dungeon.hero, newTalent);
+			Talent.获得天赋时(Dungeon.hero, newTalent);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class 蜕变秘卷 extends ExoticScroll {
 			protected void onSelect( int index ) {
 				switch (index) {
 					case 0:
-						curUser.spendAndNext( TIME_TO_READ );
+						curUser.spendAndNext( readTime() );
 						identifiedByUse = false;
 						chooseWindow.hide();
 						break;

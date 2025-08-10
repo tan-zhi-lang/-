@@ -355,7 +355,7 @@ public abstract class Char extends Actor {
 		if (enemy.isInvulnerable(getClass())) {
 
 			if (visibleFight) {
-				enemy.sprite.showStatus( CharSprite.POSITIVE, Messages.get(this, "invulnerable") );
+				enemy.sprite.showStatus( CharSprite.增强, Messages.get(this, "invulnerable") );
 
 				Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1f, Random.Float(0.96f, 1.05f));
 			}
@@ -515,7 +515,7 @@ public abstract class Char extends Actor {
 					DeathMark.processFearTheReaper(enemy);
 				}
 				if (enemy.sprite != null) {
-					enemy.sprite.showStatus(CharSprite.NEGATIVE, Messages.get(Preparation.class, "assassinated"));
+					enemy.sprite.showStatus(CharSprite.削弱, Messages.get(Preparation.class, "assassinated"));
 				}
 			}
 
@@ -536,7 +536,7 @@ public abstract class Char extends Actor {
 						DeathMark.processFearTheReaper(enemy);
 					}
 					if (enemy.sprite != null) {
-						enemy.sprite.showStatus(CharSprite.NEGATIVE, Messages.get(Talent.CombinedLethalityAbilityTracker.class, "executed"));
+						enemy.sprite.showStatus(CharSprite.削弱, Messages.get(Talent.CombinedLethalityAbilityTracker.class, "executed"));
 					}
 				}
 				combinedLethality.detach();
@@ -757,7 +757,7 @@ public abstract class Char extends Actor {
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
-		if ( buff( Haste.class ) != null) speed *= 3f;
+		if ( buff( Haste.class ) != null) speed *= 4f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
 
 		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
@@ -796,7 +796,7 @@ public abstract class Char extends Actor {
 		}
 
 		if(isInvulnerable(src.getClass())){
-			sprite.showStatus(CharSprite.POSITIVE, Messages.get(this, "invulnerable"));
+			sprite.showStatus(CharSprite.增强, Messages.get(this, "invulnerable"));
 			return;
 		}
 
@@ -921,7 +921,7 @@ public abstract class Char extends Actor {
 				// or the hit will reduce it to half or below
 				&& (生命 <= 最大生命 /2 || 生命 + shielding() - dmg <= 最大生命 /2)
 				&& shield != null && !shield.coolingDown()){
-			sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(buff(BrokenSeal.WarriorShield.class).maxShield()), FloatingText.SHIELDING);
+			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(buff(BrokenSeal.WarriorShield.class).maxShield()), FloatingText.SHIELDING);
 			shield.activate();
 		}
 
@@ -1001,7 +1001,7 @@ public abstract class Char extends Actor {
 			}
 			hitMissIcon = -1;
 
-			sprite.showStatusWithIcon(CharSprite.NEGATIVE, Integer.toString(dmg + shielded), icon);
+			sprite.showStatusWithIcon(CharSprite.削弱, Integer.toString(dmg + shielded), icon);
 		}
 
 		if (生命 < 0) 生命 = 0;
@@ -1175,7 +1175,7 @@ public abstract class Char extends Actor {
 		if (sprite != null && buff.announced) {
 			switch (buff.type) {
 				case POSITIVE:
-					sprite.showStatus(CharSprite.POSITIVE, Messages.titleCase(buff.name()));
+					sprite.showStatus(CharSprite.增强, Messages.titleCase(buff.name()));
 					break;
 				case NEGATIVE:
 					sprite.showStatus(CharSprite.WARNING, Messages.titleCase(buff.name()));

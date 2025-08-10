@@ -233,7 +233,7 @@ public class ElementalStrike extends ArmorAbility {
 			if (targetsHit > 0){
 				int shield = Math.round(Math.round(6f*targetsHit*powerMulti));
 				Buff.施加(hero, Barrier.class).setShield(Math.round(6f*targetsHit*powerMulti));
-				hero.sprite.showStatusWithIcon(CharSprite.POSITIVE, Integer.toString(shield), FloatingText.SHIELDING);
+				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 			}
 
 		//*** Vampiric ***
@@ -243,7 +243,7 @@ public class ElementalStrike extends ArmorAbility {
 				heal = Math.min( heal, hero.最大生命 - hero.生命);
 				if (heal > 0){
 					hero.生命 += heal;
-					hero.sprite.showStatusWithIcon( CharSprite.POSITIVE, Integer.toString( heal ), FloatingText.HEALING );
+					hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString( heal ), FloatingText.HEALING );
 				}
 			}
 

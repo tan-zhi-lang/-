@@ -43,7 +43,7 @@ public class Archs extends Component {
 		};
 		arcsBg.autoAdjust = true;
 		arcsBg.offsetTo( 0,  offsB );
-		add( arcsBg );
+//		add( arcsBg );
 
 		arcsFg = new SkinnedBlock( 1, 1, Assets.Interfaces.ARCS_FG ){
 			@Override
@@ -53,7 +53,7 @@ public class Archs extends Component {
 		};
 		arcsFg.autoAdjust = true;
 		arcsFg.offsetTo( 0,  offsF );
-//		add( arcsFg );
+		add( arcsFg );
 
 		darkness= new Image(TextureCache.createGradient(0x00000000, 0x22000000, 0x55000000, 0x99000000, 0xEE000000));
 		darkness.angle = 90;
@@ -84,7 +84,7 @@ public class Archs extends Component {
 		}
 
 //		arcsBg.offset( 0, shift );
-		arcsFg.offset( 0, shift * 2 );
+//		arcsFg.offset( 0, shift * 2 );
 
 		offsB = arcsBg.offsetY();
 		offsF = arcsFg.offsetY();

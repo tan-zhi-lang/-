@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndSettings;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndVictoryCongrats;
+import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Blending;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
@@ -37,7 +38,7 @@ import com.watabou.utils.DeviceCompat;
 import java.util.Date;
 
 public class TitleScene extends PixelScene {
-	
+
 	@Override
 	public void create() {
 		
@@ -52,12 +53,11 @@ public class TitleScene extends PixelScene {
 		
 		int w = Camera.main.width;
 		int h = Camera.main.height;
-		
+
+
 		Archs archs = new Archs();
-		archs.setSize( w*2, h*2 );
+		archs.setSize( w, h );
 		add( archs );
-//		Image y = new Image(Assets.Interfaces.背景);
-//		add( y );
 
 		Image title = BannerSprites.get( 横屏() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
 //		add( title );

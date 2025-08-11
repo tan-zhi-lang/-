@@ -328,7 +328,7 @@ public class HeroSelectScene extends PixelScene {
 
 		btnExit = new ExitButton();
 		btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
-//		add( btnExit );
+		add( btnExit );
 		btnExit.visible = btnExit.active = !SPDSettings.intro();
 
 

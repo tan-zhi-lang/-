@@ -77,7 +77,7 @@ public class 巨斧 extends MeleeWeapon {
 				AttackIndicator.target(enemy);
 
 				//+(15+(2*lvl)) damage, roughly +60% base damage, +55% scaling
-				int dmgBoost = augment.damageFactor(15 + 2*buffedLvl());
+				int dmgBoost = augment.damageFactor(15 + 2* 强化等级());
 
 				if (hero.attack(enemy, 1, dmgBoost, Char.INFINITE_ACCURACY)){
 					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
@@ -97,7 +97,7 @@ public class 巨斧 extends MeleeWeapon {
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 15 + 2*buffedLvl() : 15;
+		int dmgBoost = levelKnown ? 15 + 2* 强化等级() : 15;
 		if (levelKnown){
 			return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()+dmgBoost), augment.damageFactor(最大攻击()+dmgBoost));
 		} else {

@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -42,7 +42,7 @@ public class BlessSpell extends TargetedClericSpell {
 	}
 
 	@Override
-	protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
+	protected void onTargetSelected(神圣法典 tome, Hero hero, Integer target) {
 		if (target == null){
 			return;
 		}
@@ -82,7 +82,7 @@ public class BlessSpell extends TargetedClericSpell {
 		new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
 		if (ch == hero){
 			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,5));
-			Buff.施加(ch, Barrier.class).setShield(hero.天赋点数(Talent.BLESS,7));
+			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.BLESS,7));
 			ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.天赋点数(Talent.BLESS,5)), FloatingText.SHIELDING );
 		} else {
 			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,6));
@@ -95,7 +95,7 @@ public class BlessSpell extends TargetedClericSpell {
 					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(totalHeal - barrier), FloatingText.HEALING);
 				}
 				if (barrier > 0) {
-					Buff.施加(ch, Barrier.class).setShield(barrier);
+					Buff.施加(ch, Barrier.class).设置(barrier);
 					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(barrier), FloatingText.SHIELDING);
 				}
 			} else {

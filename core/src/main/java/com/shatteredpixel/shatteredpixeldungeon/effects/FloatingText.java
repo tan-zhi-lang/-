@@ -345,7 +345,7 @@ public class FloatingText extends RenderedTextBlock {
 		if (attacker.buff(Scimitar.SwordDance.class) != null)   hitReasons.put(HIT_DANCE, 1.5f);
 		if (!(wep instanceof MissileWeapon)) {
 			if (attacker.buff(Talent.PreciseAssaultTracker.class) != null){
-				hitReasons.put(HIT_PRES, Dungeon.hero.天赋点数(Talent.PRECISE_ASSAULT,3f));
+				hitReasons.put(HIT_PRES, 1f);
 			} else if (attacker.buff(Talent.LiquidAgilACCTracker.class) != null) {
 				hitReasons.put(HIT_LIQ, 3f);
 			}

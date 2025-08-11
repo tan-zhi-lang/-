@@ -17,7 +17,7 @@ public class Fireball extends MovieClip {
 
 	public Fireball(boolean second) {
 
-		if (PixelScene.landscape()){
+		if (PixelScene.横屏()){
 			texture( "effects/fireball-tall.png" );
 			TextureFilm frames = new TextureFilm( texture, 61, 61 );
 			MovieClip.Animation anim = new MovieClip.Animation( 24, true );

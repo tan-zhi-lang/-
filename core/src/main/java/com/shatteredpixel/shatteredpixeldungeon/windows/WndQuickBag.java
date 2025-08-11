@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -39,7 +39,7 @@ public class WndQuickBag extends Window {
 		WndQuickBag.bag = bag;
 
 		float width = 0, height = 0;
-		int maxWidth = PixelScene.landscape() ? 240 : 135;
+		int maxWidth = PixelScene.横屏() ? 240 : 135;
 		int left = 0;
 		int top = 10;
 
@@ -55,7 +55,7 @@ public class WndQuickBag extends Window {
 			if (i instanceof Artifact
 					&& !i.isEquipped(Dungeon.hero)
 					&& (!(i instanceof CloakOfShadows) || !Dungeon.hero.有天赋(Talent.LIGHT_CLOAK))
-					&& (!(i instanceof HolyTome) || !Dungeon.hero.有天赋(Talent.LIGHT_READING))){
+					&& (!(i instanceof 神圣法典) || !Dungeon.hero.有天赋(Talent.LIGHT_READING))){
 				continue;
 			}
 			items.add(i);

@@ -36,7 +36,7 @@ public class Quarterstaff extends MeleeWeapon {
 	protected void duelistAbility(Hero hero, Integer target) {
 		beforeAbilityUsed(hero, null);
 		//1 turn less as using the ability is instant
-		Buff.延长(hero, DefensiveStance.class, 3 + buffedLvl());
+		Buff.延长(hero, DefensiveStance.class, 3 + 强化等级());
 		hero.sprite.operate(hero.pos);
 		hero.next();
 		afterAbilityUsed(hero);
@@ -45,7 +45,7 @@ public class Quarterstaff extends MeleeWeapon {
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 4+buffedLvl());
+			return Messages.get(this, "ability_desc", 4+ 强化等级());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 4);
 		}

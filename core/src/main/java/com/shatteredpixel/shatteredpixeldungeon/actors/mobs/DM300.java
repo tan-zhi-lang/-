@@ -321,7 +321,7 @@ public class DM300 extends Mob {
 				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(30 + (最大生命 - 生命)/10), FloatingText.SHIELDING);
 			}
 
-			Buff.施加(this, Barrier.class).setShield( 30 + (最大生命 - 生命)/10);
+			Buff.施加(this, Barrier.class).设置( 30 + (最大生命 - 生命)/10);
 
 		}
 	}
@@ -455,14 +455,14 @@ public class DM300 extends Mob {
 
 		int preHP = 生命;
 		super.受伤时(dmg, src);
-		if (isInvulnerable(src.getClass())){
+		if (是无敌(src.getClass())){
 			return;
 		}
 
 		int dmgTaken = preHP - 生命;
 		if (dmgTaken > 0) {
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-			if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+			if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
 				if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmgTaken/2f);
 				else                                                    lock.addTime(dmgTaken);
 			}
@@ -487,12 +487,12 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
+	public boolean 是无敌(Class effect) {
 		if (supercharged && !invulnWarned){
 			invulnWarned = true;
 			GLog.w(Messages.get(this, "charging_hint"));
 		}
-		return supercharged || super.isInvulnerable(effect);
+		return supercharged || super.是无敌(effect);
 	}
 
 	public void supercharge(){

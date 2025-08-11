@@ -283,7 +283,7 @@ public class 时光沙漏 extends Artifact {
 				//shouldn't punish the player for going into stasis frequently
 				Hunger hunger = Buff.施加(target, Hunger.class);
 				if (hunger != null && !hunger.isStarving()) {
-					hunger.satisfy(5 * usedCharge);
+					hunger.吃饭(5 * usedCharge);
 				}
 
 				charge -= usedCharge;

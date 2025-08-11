@@ -72,7 +72,7 @@ public class JournalScene extends PixelScene {
 
 		NinePatch panel = Chrome.get(Chrome.Type.TOAST);
 
-		int pw = (landscape() ? WIDTH_L : WIDTH_P) + panel.marginHor();
+		int pw = (横屏() ? WIDTH_L : WIDTH_P) + panel.marginHor();
 		int ph = h - 50 + panel.marginVer();
 
 		panel.size(pw, ph);

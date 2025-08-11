@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocking;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -18,28 +20,28 @@ public class Barrier extends ShieldBuff {
 	float partialLostShield;
 
 	@Override
-	public void incShield(int amt) {
-		super.incShield(amt);
+	public void 增加(int amt) {
+		super.增加(amt);
 		partialLostShield = 0;
 	}
 
 	@Override
-	public void setShield(int shield) {
-		super.setShield(shield);
-		if (shielding() == shield) partialLostShield = 0;
+	public void 设置(int shield) {
+		super.设置(shield);
+		if (护盾量() == shield) partialLostShield = 0;
 	}
 
 	@Override
 	public boolean act() {
 
-		partialLostShield += Math.min(1f, shielding()/20f) * HoldFast.buffDecayFactor(target);
+		partialLostShield += Math.min(1f, 护盾量()/((target instanceof Hero hero&&hero.heroClass(HeroClass.WARRIOR))?40:20f)) * HoldFast.buffDecayFactor(target);
 
 		if (partialLostShield >= 1f) {
 			absorbDamage(1);
 			partialLostShield = 0;
 		}
 		
-		if (shielding() <= 0){
+		if (护盾量() <= 0){
 			detach();
 		}
 		
@@ -69,12 +71,12 @@ public class Barrier extends ShieldBuff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(shielding());
+		return Integer.toString(护盾量());
 	}
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", shielding());
+		return Messages.get(this, "desc", 护盾量());
 	}
 
 	private static final String PARTIAL_LOST_SHIELD = "partial_lost_shield";

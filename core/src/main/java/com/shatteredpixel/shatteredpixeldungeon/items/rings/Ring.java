@@ -327,8 +327,8 @@ public class Ring extends KindofMisc {
 	}
 
 	@Override
-	public int buffedLvl() {
-		int lvl = super.buffedLvl();
+	public int 强化等级() {
+		int lvl = super.强化等级();
 		if (Dungeon.hero.buff(EnhancedRings.class) != null){
 			lvl+=Dungeon.hero.天赋点数(Talent.ENHANCED_RINGS);
 		}
@@ -378,9 +378,9 @@ public class Ring extends KindofMisc {
 	//just used for ring descriptions
 	public int soloBuffedBonus(){
 		if (cursed){
-			return Math.min( 0, Ring.this.buffedLvl()-2 );
+			return Math.min( 0, Ring.this.强化等级()-2 );
 		} else {
-			return Ring.this.buffedLvl()+1;
+			return Ring.this.强化等级()+1;
 		}
 	}
 

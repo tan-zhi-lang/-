@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -75,7 +75,7 @@ public class WandOfRegrowth extends Wand {
 		}
 
 		int chrgUsed = chargesPerCast();
-		int grassToPlace = Math.round((3.67f+buffedLvl()/3f)*chrgUsed);
+		int grassToPlace = Math.round((3.67f+ 强化等级()/3f)*chrgUsed);
 
 		//ignore cells which can't have anything grow in them.
 		for (Iterator<Integer> i = cells.iterator(); i.hasNext();) {
@@ -108,7 +108,7 @@ public class WandOfRegrowth extends Wand {
 
 		if (chargesPerCast() >= 3){
 			Lotus l = new Lotus();
-			l.setLevel(buffedLvl());
+			l.setLevel(强化等级());
 			if (cells.contains(target) && Actor.findChar(target) == null){
 				cells.remove((Integer)target);
 				l.pos = target;
@@ -197,7 +197,7 @@ public class WandOfRegrowth extends Wand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
 		//like pre-nerf vampiric enchantment, except with herbal healing buff, only in grass
 		boolean grass = false;
 		int terr = Dungeon.level.map[attacker.pos];
@@ -210,7 +210,7 @@ public class WandOfRegrowth extends Wand {
 		}
 
 		if (grass) {
-			int level = Math.max(0, staff.buffedLvl());
+			int level = Math.max(0, staff.强化等级());
 
 			// lvl 0 - 16%
 			// lvl 1 - 21%
@@ -290,7 +290,7 @@ public class WandOfRegrowth extends Wand {
 	}
 
 	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
+	public void staffFx(法师魔杖.StaffParticle particle) {
 		particle.color( ColorMath.random(0x004400, 0x88CC44) );
 		particle.am = 1f;
 		particle.setLifespan(1f);
@@ -457,7 +457,7 @@ public class WandOfRegrowth extends Wand {
 		}
 
 		@Override
-		public boolean isInvulnerable(Class effect) {
+		public boolean 是无敌(Class effect) {
 			return true;
 		}
 

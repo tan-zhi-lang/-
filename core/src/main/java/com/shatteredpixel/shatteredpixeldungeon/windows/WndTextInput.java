@@ -29,14 +29,14 @@ public class WndTextInput extends Window {
 		super();
 
 		//need to offset to give space for the soft keyboard
-		if (PixelScene.landscape()) {
+		if (PixelScene.横屏()) {
 			offset(0, -45);
 		} else {
 			offset(0, multiLine ? -60 : -45);
 		}
 
 		final int width;
-		if (PixelScene.landscape() && (multiLine || body != null)) {
+		if (PixelScene.横屏() && (multiLine || body != null)) {
 			width = W_LAND_EXTRA; //more space for landscape users
 		} else {
 			width = WIDTH;

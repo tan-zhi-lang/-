@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
@@ -136,8 +136,8 @@ public class ScrollOfTransmutation extends InventoryScroll {
 	}
 
 	public static Item changeItem( Item item ){
-		if (item instanceof MagesStaff) {
-			return changeStaff((MagesStaff) item);
+		if (item instanceof 法师魔杖) {
+			return changeStaff((法师魔杖) item);
 		}else if (item instanceof TippedDart){
 			return changeTippedDart( (TippedDart)item );
 		} else if (item instanceof MeleeWeapon || item instanceof MissileWeapon) {
@@ -181,7 +181,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		}
 	}
 	
-	private static MagesStaff changeStaff( MagesStaff staff ){
+	private static 法师魔杖 changeStaff(法师魔杖 staff ){
 		Class<?extends Wand> wandClass = staff.wandClass();
 		
 		if (wandClass == null){
@@ -224,11 +224,11 @@ public class ScrollOfTransmutation extends InventoryScroll {
 
 		n.等级(0);
 		n.数量(w.数量());
-		int level = w.trueLevel();
+		int level = w.真等级();
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
-			n.degrade( -level );
+			n.降级( -level );
 		}
 		
 		n.enchantment = w.enchantment;
@@ -263,7 +263,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
-			n.degrade( -level );
+			n.降级( -level );
 		}
 		
 		n.levelKnown = r.levelKnown;
@@ -306,7 +306,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 			n = (Trinket)Generator.random(Generator.Category.TRINKET);
 		} while ( Challenges.isItemBlocked(n) || n.getClass() == t.getClass());
 
-		n.等级(t.trueLevel());
+		n.等级(t.真等级());
 		n.levelKnown = t.levelKnown;
 		n.cursedKnown = t.cursedKnown;
 		n.cursed = t.cursed;
@@ -321,7 +321,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		} while ( Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 		
 		n.等级( 0 );
-		int level = w.trueLevel();
+		int level = w.真等级();
 		n.升级( level );
 
 		n.levelKnown = w.levelKnown;

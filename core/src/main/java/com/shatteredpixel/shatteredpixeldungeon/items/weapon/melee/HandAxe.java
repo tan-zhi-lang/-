@@ -32,13 +32,13 @@ public class HandAxe extends MeleeWeapon {
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		//+(4+1.5*lvl) damage, roughly +55% base dmg, +75% scaling
-		int dmgBoost = augment.damageFactor(4 + Math.round(1.5f*buffedLvl()));
+		int dmgBoost = augment.damageFactor(4 + Math.round(1.5f* 强化等级()));
 		Mace.heavyBlowAbility(hero, target, 1, dmgBoost, this);
 	}
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 4 + Math.round(1.5f*buffedLvl()) : 4;
+		int dmgBoost = levelKnown ? 4 + Math.round(1.5f* 强化等级()) : 4;
 		if (levelKnown){
 			return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()+dmgBoost), augment.damageFactor(最大攻击()+dmgBoost));
 		} else {

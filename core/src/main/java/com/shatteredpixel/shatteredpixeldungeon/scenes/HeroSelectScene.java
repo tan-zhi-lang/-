@@ -140,7 +140,7 @@ public class HeroSelectScene extends PixelScene {
 				HeroClass cls = GamesInProgress.selectedClass;
 				if (cls != null) {
 					Window w = new WndHeroInfo(GamesInProgress.selectedClass);
-					if (landscape()) {
+					if (横屏()) {
 						w.offset(Camera.main.width / 6, 0);
 					}
 					ShatteredPixelDungeon.scene().addToFront(w);
@@ -217,7 +217,7 @@ public class HeroSelectScene extends PixelScene {
 			SPDSettings.customSeed("");
 		}
 
-		if (landscape()){
+		if (横屏()){
 			float leftArea = Math.max(100, Camera.main.width/3f);
 			float uiHeight = Math.min(Camera.main.height-20, 300);
 			float uiSpacing = (uiHeight-120)/2f;
@@ -298,7 +298,8 @@ public class HeroSelectScene extends PixelScene {
 			add(btnFade);
 
 			btnOptions.setRect(startBtn.right(), startBtn.top(), 20, 21);
-			改动按钮.setRect(btnOptions.right(), startBtn.top(), 20, 21);
+			改动按钮.setRect(btnOptions.right(), startBtn.top(), 16, 16);
+
 			optionsPane.setPos(btnOptions.right(), btnOptions.top() - optionsPane.height() - 2);
 			align(optionsPane);
 		} else {
@@ -321,7 +322,7 @@ public class HeroSelectScene extends PixelScene {
 			title.setPos((Camera.main.width - title.width()) / 2f, (Camera.main.height - HeroBtn.HEIGHT - title.height() - 4));
 
 			btnOptions.setRect(heroBtns.get(0).left() + 16, Camera.main.height-HeroBtn.HEIGHT-16, 20, 21);
-			改动按钮.setRect(heroBtns.get(0).left() + 16+16, Camera.main.height-HeroBtn.HEIGHT-16, 20, 21);
+			改动按钮.setRect(btnOptions.left() + 16+12, Camera.main.height-HeroBtn.HEIGHT-16, 16, 16);
 			optionsPane.setPos(heroBtns.get(0).left(), 0);
 		}
 
@@ -345,7 +346,7 @@ public class HeroSelectScene extends PixelScene {
 			@Override
 			public boolean onSignal(PointerEvent event) {
 				if (event != null && event.type == PointerEvent.Type.UP){
-					if (uiAlpha == 0 && landscape()){
+					if (uiAlpha == 0 && 横屏()){
 						parent.add(new Tweener(parent, 0.5f) {
 							@Override
 							protected void updateValues(float progress) {
@@ -407,7 +408,7 @@ public class HeroSelectScene extends PixelScene {
 
 		float leftPortion = Math.max(100, Camera.main.width/3f);
 
-		if (landscape()) {
+		if (横屏()) {
 
 			heroName.text(Messages.titleCase(cl.title()));
 			heroName.hardlight(Window.TITLE_COLOR);
@@ -471,7 +472,7 @@ public class HeroSelectScene extends PixelScene {
 		for (Object v : members){
 			if (v instanceof Window) resetFade();
 		}
-		if (!PixelScene.landscape() && GamesInProgress.selectedClass != null) {
+		if (!PixelScene.横屏() && GamesInProgress.selectedClass != null) {
 			if (uiAlpha > 0f){
 				uiAlpha -= Game.elapsed/4f;
 			}
@@ -503,7 +504,7 @@ public class HeroSelectScene extends PixelScene {
 		infoButton.enable(alpha != 0);
 		infoButton.icon().alpha(alpha);
 
-		if (landscape()){
+		if (横屏()){
 
 			background.x = (Camera.main.width - background.width())/2f;
 
@@ -520,7 +521,7 @@ public class HeroSelectScene extends PixelScene {
 		fadeLeft.x = background.x-5;
 		fadeRight.x = background.x + background.width() + 5;
 
-		fadeLeft.visible = background.x > 0 || (alpha > 0 && landscape());
+		fadeLeft.visible = background.x > 0 || (alpha > 0 && 横屏());
 		fadeRight.visible = background.x + background.width() < Camera.main.width;
 	}
 
@@ -577,7 +578,7 @@ public class HeroSelectScene extends PixelScene {
 				ShatteredPixelDungeon.scene().addToFront( new WndMessage(cl.unlockMsg()));
 			} else if (GamesInProgress.selectedClass == cl) {
 				Window w = new WndHeroInfo(cl);
-				if (landscape()){
+				if (横屏()){
 					w.offset(Camera.main.width/6, 0);
 				}
 				ShatteredPixelDungeon.scene().addToFront(w);

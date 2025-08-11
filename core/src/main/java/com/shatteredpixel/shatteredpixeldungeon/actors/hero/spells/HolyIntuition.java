@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -32,7 +32,7 @@ public class HolyIntuition extends InventoryClericSpell {
 
 	@Override
 	public float chargeUse(Hero hero) {
-		return 3 - hero.天赋点数(Talent.HOLY_INTUITION);
+		return 1;
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class HolyIntuition extends InventoryClericSpell {
 	}
 
 	@Override
-	protected void onItemSelected(HolyTome tome, Hero hero, Item item) {
+	protected void onItemSelected(神圣法典 tome, Hero hero, Item item) {
 		if (item == null){
 			return;
 		}

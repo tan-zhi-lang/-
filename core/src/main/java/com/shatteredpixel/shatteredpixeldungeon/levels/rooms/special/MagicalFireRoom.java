@@ -197,7 +197,7 @@ public class MagicalFireRoom extends SpecialRoom {
 
 						//ignite adjacent chars
 						Char ch = Actor.findChar(cell);
-						if (ch != null && !ch.isImmune(getClass())) {
+						if (ch != null && !ch.免疫(getClass())) {
 							Buff.施加(ch, Burning.class).reignite(ch, 4f);
 						}
 

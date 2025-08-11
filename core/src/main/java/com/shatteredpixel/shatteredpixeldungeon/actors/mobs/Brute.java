@@ -74,7 +74,7 @@ public class Brute extends Mob {
 	}
 	
 	protected void triggerEnrage(){
-		Buff.施加(this, BruteRage.class).setShield(最大生命 /2 + 4);
+		Buff.施加(this, BruteRage.class).设置(最大生命 /2 + 4);
 		sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(最大生命 /2 + 4), FloatingText.SHIELDING );
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
@@ -113,7 +113,7 @@ public class Brute extends Mob {
 			
 			absorbDamage( Math.round(4*AscensionChallenge.statModifier(target)));
 			
-			if (shielding() <= 0){
+			if (护盾量() <= 0){
 				target.死亡时(null);
 			}
 			
@@ -129,7 +129,7 @@ public class Brute extends Mob {
 		
 		@Override
 		public String desc () {
-			return Messages.get(this, "desc", shielding());
+			return Messages.get(this, "desc", 护盾量());
 		}
 
 	}

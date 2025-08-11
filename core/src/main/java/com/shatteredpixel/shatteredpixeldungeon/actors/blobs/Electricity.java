@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.PathFinder;
@@ -50,7 +50,7 @@ public class Electricity extends Blob {
 				cell = i + j*Dungeon.level.width();
 				if (cur[cell] > 0) {
 					Char ch = Actor.findChar( cell );
-					if (ch != null && !ch.isImmune(this.getClass())) {
+					if (ch != null && !ch.免疫(this.getClass())) {
 						if (ch.buff(Paralysis.class) == null){
 							Buff.延长( ch, Paralysis.class, cur[cell]);
 						}
@@ -68,8 +68,8 @@ public class Electricity extends Blob {
 						Item toShock = h.peek();
 						if (toShock instanceof Wand){
 							((Wand) toShock).gainCharge(0.333f);
-						} else if (toShock instanceof MagesStaff){
-							((MagesStaff) toShock).gainCharge(0.333f);
+						} else if (toShock instanceof 法师魔杖){
+							((法师魔杖) toShock).gainCharge(0.333f);
 						}
 					}
 					

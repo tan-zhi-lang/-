@@ -351,7 +351,7 @@ public class Item implements Bundlable {
 	protected void onDetach(){}
 
 	//returns the true level of the item, ignoring all modifiers aside from upgrades
-	public final int trueLevel(){
+	public final int 真等级(){
 		return 等级;
 	}
 
@@ -362,7 +362,7 @@ public class Item implements Bundlable {
 	
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions
 	//note that not all item properties should care about buffs/debuffs! (e.g. str requirement)
-	public int buffedLvl(){
+	public int 强化等级(){
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
 			&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
@@ -395,16 +395,16 @@ public class Item implements Bundlable {
 		return this;
 	}
 	
-	public Item degrade() {
+	public Item 降级() {
 		
 		this.等级--;
 		
 		return this;
 	}
 	
-	final public Item degrade( int n ) {
+	final public Item 降级(int n ) {
 		for (int i=0; i < n; i++) {
-			degrade();
+			降级();
 		}
 		
 		return this;
@@ -415,7 +415,7 @@ public class Item implements Bundlable {
 	}
 
 	public int buffedVisiblyUpgraded() {
-		return levelKnown ? buffedLvl() : 0;
+		return levelKnown ? 强化等级() : 0;
 	}
 	
 	public boolean visiblyCursed() {
@@ -588,7 +588,7 @@ public class Item implements Bundlable {
 		if (level > 0) {
 			升级( level );
 		} else if (level < 0) {
-			degrade( -level );
+			降级( -level );
 		}
 		
 		cursed	= bundle.getBoolean( CURSED );

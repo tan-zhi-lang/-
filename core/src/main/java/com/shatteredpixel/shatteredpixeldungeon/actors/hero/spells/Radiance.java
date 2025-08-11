@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.watabou.noosa.audio.Sample;
@@ -37,7 +37,7 @@ public class Radiance extends ClericSpell {
 	}
 
 	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+	public void onCast(神圣法典 tome, Hero hero) {
 
 		GameScene.flash( 0x80FFFFFF );
 		Sample.INSTANCE.play(Assets.Sounds.BLAST);

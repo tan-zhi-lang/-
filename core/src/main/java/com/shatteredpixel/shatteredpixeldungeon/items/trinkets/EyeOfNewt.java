@@ -21,8 +21,8 @@ public class EyeOfNewt extends Trinket {
 	public String statsDesc() {
 		if (isIdentified()){
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", 100*(1f-visionRangeMultiplier(buffedLvl()))),
-					mindVisionRange(buffedLvl()));
+					Messages.decimalFormat("#.##", 100*(1f-visionRangeMultiplier(强化等级()))),
+					mindVisionRange(强化等级()));
 		} else {
 			return Messages.get(this, "typical_stats_desc",
 					Messages.decimalFormat("#.##", 100*(1f-visionRangeMultiplier(0))),

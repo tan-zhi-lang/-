@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -41,14 +41,14 @@ public class DivineIntervention extends ClericSpell {
 	}
 
 	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+	public void onCast(神圣法典 tome, Hero hero) {
 
 		Sample.INSTANCE.play(Assets.Sounds.CHARGEUP, 1, 1.2f);
 		hero.sprite.operate(hero.pos);
 
 		for (Char ch : Actor.chars()){
 			if (ch.alignment == Char.Alignment.ALLY && ch != hero){
-				Buff.施加(ch, DivineShield.class).setShield(100 + 50*hero.天赋点数(Talent.DIVINE_INTERVENTION));
+				Buff.施加(ch, DivineShield.class).设置(100 + 50*hero.天赋点数(Talent.DIVINE_INTERVENTION));
 				new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
 			}
 		}
@@ -57,7 +57,7 @@ public class DivineIntervention extends ClericSpell {
 		onSpellCast(tome, hero);
 
 		//we apply buffs here so that the 5 charge cost and shield boost do not stack
-		hero.buff(AscendedForm.AscendBuff.class).setShield(100 + 50*hero.天赋点数(Talent.DIVINE_INTERVENTION));
+		hero.buff(AscendedForm.AscendBuff.class).设置(100 + 50*hero.天赋点数(Talent.DIVINE_INTERVENTION));
 		new Flare(6, 32).color(0xFFFF00, true).show(hero.sprite, 2f);
 
 		hero.buff(AscendedForm.AscendBuff.class).divineInverventionCast = true;
@@ -90,11 +90,11 @@ public class DivineIntervention extends ClericSpell {
 		}
 
 		@Override
-		public int shielding() {
+		public int 护盾量() {
 			if (Dungeon.hero == null || Dungeon.hero.buff(AscendedForm.AscendBuff.class) == null){
 				return 0;
 			}
-			return super.shielding();
+			return super.护盾量();
 		}
 
 		@Override

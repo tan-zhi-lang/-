@@ -278,8 +278,8 @@ public class CrystalSpire extends Mob {
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
-		return super.isInvulnerable(effect) || effect != Pickaxe.class;
+	public boolean 是无敌(Class effect) {
+		return super.是无敌(effect) || effect != Pickaxe.class;
 	}
 
 	@Override

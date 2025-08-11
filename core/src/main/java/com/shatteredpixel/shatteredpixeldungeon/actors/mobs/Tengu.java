@@ -133,7 +133,7 @@ public class Tengu extends Mob {
 		dmg = beforeHitHP - 生命;
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(2*dmg/3f);
 			else                                                    lock.addTime(dmg);
 		}
@@ -849,7 +849,7 @@ public class Tengu extends Mob {
 
 							//similar to fire.burn(), but Tengu is immune, and hero loses score
 							Char ch = Actor.findChar( cell );
-							if (ch != null && !ch.isImmune(Fire.class) && !(ch instanceof Tengu)) {
+							if (ch != null && !ch.免疫(Fire.class) && !(ch instanceof Tengu)) {
 								Buff.施加( ch, Burning.class ).reignite( ch );
 							}
 							if (ch == Dungeon.hero){

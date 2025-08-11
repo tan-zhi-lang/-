@@ -224,7 +224,7 @@ public class Shopkeeper extends NPC {
 			@Override
 			public void call() {
 				String[] options = new String[2+ buybackItems.size()];
-				int maxLen = PixelScene.landscape() ? 30 : 25;
+				int maxLen = PixelScene.横屏() ? 30 : 25;
 				int i = 0;
 				options[i++] = Messages.get(Shopkeeper.this, "sell");
 				options[i++] = Messages.get(Shopkeeper.this, "talk");

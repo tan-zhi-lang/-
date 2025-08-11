@@ -18,7 +18,7 @@ public class Lucky extends Weapon.Enchantment {
 	
 	@Override
 	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
-		int level = Math.max( 0, weapon.buffedLvl() );
+		int level = Math.max( 0, weapon.强化等级() );
 
 		// lvl 0 - 10%
 		// lvl 1 ~ 12%

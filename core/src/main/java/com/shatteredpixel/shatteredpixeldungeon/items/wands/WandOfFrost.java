@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -72,7 +72,7 @@ public class WandOfFrost extends DamageWand {
 				float chillturns = Math.min(10, ch.buff(Chill.class).cooldown());
 				damage = (int)Math.round(damage * Math.pow(0.9333f, chillturns));
 			} else {
-				ch.sprite.burst( 0xFF99CCFF, buffedLvl() / 2 + 2 );
+				ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
 			}
 
 			wandProc(ch, chargesPerCast());
@@ -81,9 +81,9 @@ public class WandOfFrost extends DamageWand {
 
 			if (ch.isAlive()){
 				if (Dungeon.level.water[ch.pos])
-					Buff.施加(ch, Chill.class, 4+buffedLvl());
+					Buff.施加(ch, Chill.class, 4+ 强化等级());
 				else
-					Buff.施加(ch, Chill.class, 2+buffedLvl());
+					Buff.施加(ch, Chill.class, 2+ 强化等级());
 			}
 		} else {
 			Dungeon.level.pressCell(bolt.collisionPos);
@@ -106,7 +106,7 @@ public class WandOfFrost extends DamageWand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
 		Chill chill = defender.buff(Chill.class);
 
 		if (chill != null) {
@@ -135,7 +135,7 @@ public class WandOfFrost extends DamageWand {
 	}
 
 	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
+	public void staffFx(法师魔杖.StaffParticle particle) {
 		particle.color(0x88CCFF);
 		particle.am = 0.6f;
 		particle.setLifespan(2f);

@@ -61,7 +61,7 @@ public class WndChangesTabbed extends WndTabbed {
 			});
 		}
 
-		while (PixelScene.landscape()
+		while (PixelScene.横屏()
 				&& largest.bottom() > (PixelScene.MIN_HEIGHT_L - 20)
 				&& width < WIDTH_MAX){
 			width += 20;

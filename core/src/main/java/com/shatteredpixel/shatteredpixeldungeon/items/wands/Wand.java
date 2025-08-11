@@ -37,7 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -119,7 +119,7 @@ public abstract class Wand extends Item {
 
 	public abstract void onZap(Ballistica attack);
 
-	public abstract void onHit( MagesStaff staff, Char attacker, Char defender, int damage);
+	public abstract void onHit(法师魔杖 staff, Char attacker, Char defender, int damage);
 
 	//not affected by enchantment proc chance changers
 	public static float procChanceMultiplier( Char attacker ){
@@ -185,7 +185,7 @@ public abstract class Wand extends Item {
 	}
 
 	protected void wandProc(Char target, int chargesUsed){
-		wandProc(target, buffedLvl(), chargesUsed);
+		wandProc(target, 强化等级(), chargesUsed);
 	}
 
 	//TODO Consider externalizing char awareness buff
@@ -357,8 +357,8 @@ public abstract class Wand extends Item {
 	}
 	
 	@Override
-	public Item degrade() {
-		super.degrade();
+	public Item 降级() {
+		super.降级();
 		
 		updateLevel();
 		updateQuickslot();
@@ -367,8 +367,8 @@ public abstract class Wand extends Item {
 	}
 
 	@Override
-	public int buffedLvl() {
-		int lvl = super.buffedLvl();
+	public int 强化等级() {
+		int lvl = super.强化等级();
 
 		if (charger != null && charger.target != null) {
 
@@ -428,7 +428,7 @@ public abstract class Wand extends Item {
 		Sample.INSTANCE.play( Assets.Sounds.ZAP );
 	}
 
-	public void staffFx( MagesStaff.StaffParticle particle ){
+	public void staffFx( 法师魔杖.StaffParticle particle ){
 		particle.color(0xFFFFFF); particle.am = 0.3f;
 		particle.setLifespan( 1f);
 		particle.speed.polar( Random.Float(PointF.PI2), 2f );
@@ -461,8 +461,8 @@ public abstract class Wand extends Item {
 		//inside staff
 		if (charger != null && charger.target == Dungeon.hero && !Dungeon.hero.belongings.contains(this)){
 			if (Dungeon.hero.有天赋(Talent.EXCESS_CHARGE) && curCharges >= maxCharges){
-				int shieldToGive = Math.round(buffedLvl()*Dungeon.hero.天赋点数(Talent.EXCESS_CHARGE,0.5f));
-				Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+				int shieldToGive = Math.round(强化等级()*Dungeon.hero.天赋点数(Talent.EXCESS_CHARGE,0.5f));
+				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			}
 		}
@@ -474,8 +474,8 @@ public abstract class Wand extends Item {
 		WandOfMagicMissile.MagicCharge buff = curUser.buff(WandOfMagicMissile.MagicCharge.class);
 		if (buff != null
 				&& buff.wandJustApplied() != this
-				&& buff.level() == buffedLvl()
-				&& buffedLvl() > super.buffedLvl()){
+				&& buff.level() == 强化等级()
+				&& 强化等级() > super.强化等级()){
 			buff.detach();
 		} else {
 			ScrollEmpower empower = curUser.buff(ScrollEmpower.class);
@@ -633,7 +633,7 @@ public abstract class Wand extends Item {
 
 		@Override
 		public void onZap(Ballistica attack) {}
-		public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {}
+		public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {}
 
 		@Override
 		public String info() {
@@ -674,16 +674,16 @@ public abstract class Wand extends Item {
 						}
 						if(curUser.有天赋(Talent.SHIELD_BATTERY)) {
 							float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.025f) * curWand.curCharges);
-							Buff.施加(curUser, Barrier.class).setShield(Math.round(shield));
+							Buff.施加(curUser, Barrier.class).设置(Math.round(shield));
 							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.SHIELDING);
 							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						}
 						if(curUser.有天赋(Talent.饱腹法术)) {
 							float shield = curUser.天赋点数(Talent.SHIELD_BATTERY, 5) * curWand.curCharges;
-							Buff.施加(curUser, Hunger.class).satisfy(shield);
+							Buff.施加(curUser, Hunger.class).吃饭(shield);
 
 							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.HUNGER);
-							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
+							Sample.INSTANCE.play(Assets.Sounds.EAT);
 						}
 
 						curWand.curCharges = 0;
@@ -718,8 +718,8 @@ public abstract class Wand extends Item {
 						//regular. If hero owns wand but it isn't in belongings it must be in the staff
 						if (curUser.heroClass == HeroClass.MAGE && !curUser.belongings.contains(curWand)){
 							//grants 3/5 shielding
-							int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,5);
-							Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+							int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,4);
+							Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 
 						//metamorphed. Triggers if wand is highest level hero has
@@ -732,8 +732,8 @@ public abstract class Wand extends Item {
 							}
 							if (highest){
 								//grants 3/5 shielding
-								int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,5);
-								Buff.施加(Dungeon.hero, Barrier.class).setShield(shieldToGive);
+								int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,4);
+								Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 								Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 							}
 						}

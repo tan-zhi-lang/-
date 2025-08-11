@@ -111,8 +111,8 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
-		return super.isInvulnerable(effect)
+	public boolean 是无敌(Class effect) {
+		return super.是无敌(effect)
 				|| (buff(RockArmor.class) != null && effect != Pickaxe.class)
 				|| hasSapper();
 	}
@@ -192,7 +192,7 @@ public class GnollGeomancer extends Mob {
 					//ensure we don't do enough damage to break the armor at the start
 					if (wasSleeping) dmg = Math.min(dmg, 15);
 
-					dmg = Math.min(dmg, buff(RockArmor.class).shielding());
+					dmg = Math.min(dmg, buff(RockArmor.class).护盾量());
 
 					GnollGeomancer.this.受伤时(dmg, p);
 					sprite.bloodBurstA(Dungeon.hero.sprite.center(), dmg);
@@ -270,7 +270,7 @@ public class GnollGeomancer extends Mob {
 			BossHealthBar.bleed(newBracket <= 0);
 
 			carveRockAndDash();
-			Buff.施加(this, RockArmor.class).setShield(25);
+			Buff.施加(this, RockArmor.class).设置(25);
 		}
 	}
 

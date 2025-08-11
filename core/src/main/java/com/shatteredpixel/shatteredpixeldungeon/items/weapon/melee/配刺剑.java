@@ -57,13 +57,13 @@ public class 配刺剑 extends MeleeWeapon {
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		//+(5+1.5*lvl) damage, roughly +111% base damage, +100% scaling
-		int dmgBoost =  augment.damageFactor(6 + Math.round(1.75f*buffedLvl()));
+		int dmgBoost =  augment.damageFactor(6 + Math.round(1.75f* 强化等级()));
 		lungeAbility(hero, target, 1, dmgBoost, this);
 	}
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 5 + Math.round(1.5f*buffedLvl()) : 5;
+		int dmgBoost = levelKnown ? 5 + Math.round(1.5f* 强化等级()) : 5;
 		if (levelKnown){
 			return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()+dmgBoost), augment.damageFactor(最大攻击()+dmgBoost));
 		} else {

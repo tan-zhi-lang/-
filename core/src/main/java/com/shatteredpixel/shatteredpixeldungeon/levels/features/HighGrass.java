@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -17,12 +18,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Berry;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.地牢浆果;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.PetrifiedSeed;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Random;
 
 public class HighGrass {
@@ -52,17 +54,21 @@ public class HighGrass {
 			} else {
 				Level.set(pos, Terrain.GRASS);
 			}
-			
-			int naturalismLevel = 0;
+
+			if (Dungeon.hero.有天赋(Talent.自然猎手)) {
+				Buff.施加(Dungeon.hero, Haste.class, Dungeon.hero.天赋点数(Talent.自然猎手,0.5f));
+			}
+
+			int 自然层 = 0;
 			
 			if (ch != null) {
 				SandalsOfNature.Naturalism naturalism = ch.buff( SandalsOfNature.Naturalism.class );
 				if (naturalism != null) {
 					if (!naturalism.isCursed()) {
-						naturalismLevel = naturalism.itemLevel() + 1;
+						自然层 = naturalism.itemLevel() + 1;
 						naturalism.charge();
 					} else {
-						naturalismLevel = -1;
+						自然层 = -1;
 					}
 				}
 
@@ -86,7 +92,7 @@ public class HighGrass {
 
 						if (droppingBerry) {
 							dropped.countUp(1);
-							level.drop(new Berry(), pos).sprite.drop();
+							level.drop(new 地牢浆果(), pos).sprite.drop();
 						}
 					}
 
@@ -97,17 +103,17 @@ public class HighGrass {
 			if (Dungeon.level instanceof MiningLevel
 					&& Blacksmith.Quest.Type() == Blacksmith.Quest.FUNGI
 					&& Random.Int(3) != 0){
-				naturalismLevel = -1;
+				自然层 = -1;
 			}
 			
-			if (naturalismLevel >= 0) {
+			if (自然层 >= 0) {
 				// Seed, scales from 1/25 to 1/9
-				float lootChance = 1/(25f - naturalismLevel*4f);
+				float 概率 = 1/(25f - 自然层 *4f);
 
 				// absolute max drop rate is ~1/6.5 with footwear of nature, ~1/18 without
-				lootChance *= PetrifiedSeed.grassLootMultiplier();
+				概率 *= PetrifiedSeed.grassLootMultiplier();
 
-				if (Random.Float() < lootChance) {
+				if (Random.Float() < 概率) {
 					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
 						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite.drop();
 					} else {
@@ -116,15 +122,19 @@ public class HighGrass {
 				}
 				
 				// Dew, scales from 1/6 to 1/4
-				lootChance = 1/(6f -naturalismLevel/2f);
+				概率 = 1/(6f - 自然层 /2f);
 
 				//grassy levels spawn half as much dew
 				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
-					lootChance /= 2;
+					概率 /= 2;
 				}
 
-				if (Random.Float() < lootChance) {
+				if (Random.Float() < 概率) {
 					level.drop(new Dewdrop(), pos).sprite.drop();
+				}
+
+				if (算法.概率学(6)&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
+					level.drop(new 地牢浆果(), pos).sprite.drop();
 				}
 			}
 

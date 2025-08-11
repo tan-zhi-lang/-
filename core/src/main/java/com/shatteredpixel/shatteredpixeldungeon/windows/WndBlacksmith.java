@@ -42,7 +42,7 @@ public class WndBlacksmith extends Window {
 	public WndBlacksmith( Blacksmith troll, Hero hero ) {
 		super();
 
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		IconTitle titlebar = new IconTitle();
 		titlebar.icon( troll.sprite() );
@@ -238,7 +238,7 @@ public class WndBlacksmith extends Window {
 				protected void onClick() {
 
 					Item first, second;
-					if (btnItem1.item().trueLevel() >= btnItem2.item().trueLevel()) {
+					if (btnItem1.item().真等级() >= btnItem2.item().真等级()) {
 						first = btnItem1.item();
 						second = btnItem2.item();
 					} else {

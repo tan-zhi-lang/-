@@ -7,10 +7,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
@@ -40,16 +40,16 @@ public class LostBackpack extends Item {
 					((EquipableItem) i).activate(hero);
 				} else if ( i instanceof CloakOfShadows && hero.有天赋(Talent.LIGHT_CLOAK)){
 					((CloakOfShadows) i).activate(hero);
-				} else if ( i instanceof HolyTome && hero.有天赋(Talent.LIGHT_READING)){
-					((HolyTome) i).activate(hero);
+				} else if ( i instanceof 神圣法典 && hero.有天赋(Talent.LIGHT_READING)){
+					((神圣法典) i).activate(hero);
 				} else if (i instanceof Wand){
 					if (holster != null && holster.contains(i)){
 						((Wand) i).charge(hero, MagicalHolster.HOLSTER_SCALE_FACTOR);
 					} else {
 						((Wand) i).charge(hero);
 					}
-				} else if (i instanceof MagesStaff){
-					((MagesStaff) i).applyWandChargeBuff(hero);
+				} else if (i instanceof 法师魔杖){
+					((法师魔杖) i).applyWandChargeBuff(hero);
 				}
 			}
 		}

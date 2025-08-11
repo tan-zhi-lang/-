@@ -81,16 +81,16 @@ public class WndBag extends WndTabbed {
 		
 		lastBag = bag;
 
-		slotWidth = PixelScene.landscape() ? SLOT_WIDTH_L : SLOT_WIDTH_P;
-		slotHeight = PixelScene.landscape() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
+		slotWidth = PixelScene.横屏() ? SLOT_WIDTH_L : SLOT_WIDTH_P;
+		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
-		nCols = PixelScene.landscape() ? COLS_L : COLS_P;
+		nCols = PixelScene.横屏() ? COLS_L : COLS_P;
 		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
 		int windowHeight = TITLE_HEIGHT + slotHeight * nRows + SLOT_MARGIN * (nRows - 1);
 
-		if (PixelScene.landscape()){
+		if (PixelScene.横屏()){
 			while (slotHeight >= 24 && (windowHeight + 20 + chrome.marginTop()) > PixelScene.uiCamera.height){
 				slotHeight--;
 				windowHeight -= nRows;

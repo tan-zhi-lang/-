@@ -35,13 +35,13 @@ public class Longsword extends MeleeWeapon {
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		//+(6+lvl) damage, roughly +40% base dmg, +33% scaling
-		int dmgBoost = augment.damageFactor(6 + buffedLvl());
+		int dmgBoost = augment.damageFactor(6 + 强化等级());
 		Sword.cleaveAbility(hero, target, 1, dmgBoost, this);
 	}
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 6 + buffedLvl() : 6;
+		int dmgBoost = levelKnown ? 6 + 强化等级() : 6;
 		if (levelKnown){
 			return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()+dmgBoost), augment.damageFactor(最大攻击()+dmgBoost));
 		} else {

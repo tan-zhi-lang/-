@@ -23,7 +23,7 @@ public class WndMessage extends Window {
 		info.setPos(MARGIN, MARGIN);
 		add( info );
 
-		while (PixelScene.landscape()
+		while (PixelScene.横屏()
 				&& info.height() > 120
 				&& width < WIDTH_MAX){
 			width += 20;

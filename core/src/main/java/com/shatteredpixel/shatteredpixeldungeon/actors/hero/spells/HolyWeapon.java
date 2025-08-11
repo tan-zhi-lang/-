@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -31,7 +31,7 @@ public class HolyWeapon extends ClericSpell {
 	}
 
 	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+	public void onCast(神圣法典 tome, Hero hero) {
 
 		Buff.施加(hero, HolyWepBuff.class, 50f);
 		Item.updateQuickslot();

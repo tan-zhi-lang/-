@@ -178,7 +178,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 		}
 
 		int shieldAmount = currentShieldBoost();
-		setShield(shieldAmount);
+		设置(shieldAmount);
 		target.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(shieldAmount), FloatingText.SHIELDING );
 
 		BuffIndicator.refreshHero();
@@ -197,7 +197,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 
 		int baseShield = 8;
 		if (target instanceof Hero && ((Hero) target).belongings.armor() != null){
-			baseShield += 2*((Hero) target).belongings.armor().buffedLvl();
+			baseShield += 2*((Hero) target).belongings.armor().强化等级();
 		}
 		return Math.round(baseShield * shieldMultiplier);
 	}
@@ -206,7 +206,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	public int maxShieldBoost(){
 		int baseShield = 8;
 		if (target instanceof Hero && ((Hero) target).belongings.armor() != null){
-			baseShield += 2*((Hero) target).belongings.armor().buffedLvl();
+			baseShield += 2*((Hero) target).belongings.armor().强化等级();
 		}
 		return baseShield*3;
 	}
@@ -297,7 +297,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 				float maxPower = 1f + ((Hero)target).天赋点数(Talent.ENDLESS_RAGE,0.5f);
 				return (maxPower - power)/maxPower;
 			case BERSERK:
-				return 1f - shielding() / (float)maxShieldBoost();
+				return 1f - 护盾量() / (float)maxShieldBoost();
 			case RECOVERING:
 				if (levelRecovery > 0) {
 					return levelRecovery/(LEVEL_RECOVER_START-Dungeon.hero.天赋点数(Talent.DEATHLESS_FURY));
@@ -312,7 +312,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 			case NORMAL: default:
 				return (int)(power*100) + "%";
 			case BERSERK:
-				return Integer.toString(shielding());
+				return Integer.toString(护盾量());
 			case RECOVERING:
 				if (levelRecovery > 0) {
 					return Messages.decimalFormat("#.##", levelRecovery);
@@ -341,7 +341,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 			case NORMAL: default:
 				return Messages.get(this, "angered_desc", Math.floor(power * 100f), dispDamage, currentShieldBoost());
 			case BERSERK:
-				return Messages.get(this, "berserk_desc", shielding());
+				return Messages.get(this, "berserk_desc", 护盾量());
 			case RECOVERING:
 				if (levelRecovery > 0){
 					return Messages.get(this, "recovering_desc") + "\n\n" + Messages.get(this, "recovering_desc_levels", levelRecovery);

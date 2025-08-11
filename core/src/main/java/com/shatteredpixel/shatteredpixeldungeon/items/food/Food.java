@@ -108,7 +108,7 @@ public class Food extends Item {
 			GLog.n( Messages.get(Hunger.class, "cursedhorn") );
 		}
 
-		Buff.施加(hero, Hunger.class).satisfy(foodVal);
+		Buff.施加(hero, Hunger.class).吃饭(foodVal);
 	}
 	
 	@Override

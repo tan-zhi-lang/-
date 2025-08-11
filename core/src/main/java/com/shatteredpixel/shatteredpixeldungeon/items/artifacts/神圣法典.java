@@ -27,17 +27,17 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class HolyTome extends Artifact {
+public class 神圣法典 extends Artifact {
 
 	{
-		image = 物品表.ARTIFACT_TOME;
+		image = 物品表.神圣法典;
 
 		exp = 0;
 		levelCap = 10;
 
-		charge = Math.min(等级()+3, 10);
+		charge = Math.min(等级()+4, 10);
 		partialCharge = 0;
-		chargeCap = Math.min(等级()+3, 10);
+		chargeCap = Math.min(等级()+4, 10);
 
 		defaultAction = AC_CAST;
 
@@ -153,7 +153,7 @@ public class HolyTome extends Artifact {
 
 		if (exp >= (等级() + 1) * 50 && 等级() < levelCap) {
 			升级();
-			Catalog.countUse(HolyTome.class);
+			Catalog.countUse(神圣法典.class);
 			exp -= 等级() * 50;
 			GLog.p(Messages.get(this, "levelup"));
 
@@ -321,19 +321,19 @@ public class HolyTome extends Artifact {
 		@Override
 		public void doAction() {
 			if (cursed){
-				GLog.w(Messages.get(HolyTome.this, "cursed"));
+				GLog.w(Messages.get(神圣法典.this, "cursed"));
 				return;
 			}
 
 			if (!canCast(Dungeon.hero, quickSpell)){
-				GLog.w(Messages.get(HolyTome.this, "no_spell"));
+				GLog.w(Messages.get(神圣法典.this, "no_spell"));
 				return;
 			}
 
 			if (QuickSlotButton.targetingSlot != -1 &&
-					Dungeon.quickslot.getItem(QuickSlotButton.targetingSlot) == HolyTome.this) {
+					Dungeon.quickslot.getItem(QuickSlotButton.targetingSlot) == 神圣法典.this) {
 				targetingSpell = quickSpell;
-				int cell = QuickSlotButton.autoAim(QuickSlotButton.lastTarget, HolyTome.this);
+				int cell = QuickSlotButton.autoAim(QuickSlotButton.lastTarget, 神圣法典.this);
 
 				if (cell != -1){
 					GameScene.handleCell(cell);
@@ -342,11 +342,11 @@ public class HolyTome extends Artifact {
 					GameScene.handleCell( QuickSlotButton.lastTarget.pos );
 				}
 			} else {
-				quickSpell.onCast(HolyTome.this, Dungeon.hero);
+				quickSpell.onCast(神圣法典.this, Dungeon.hero);
 
-				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(HolyTome.this)){
+				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(神圣法典.this)){
 					targetingSpell = quickSpell;
-					QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(HolyTome.this));
+					QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(神圣法典.this));
 				}
 			}
 		}

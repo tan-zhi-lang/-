@@ -98,12 +98,12 @@ public abstract class YogFist extends Mob {
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
+	public boolean 是无敌(Class effect) {
 		if (isNearYog() && !invulnWarned){
 			invulnWarned = true;
 			GLog.w(Messages.get(this, "invuln_warn"));
 		}
-		return isNearYog() || super.isInvulnerable(effect);
+		return isNearYog() || super.是无敌(effect);
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public abstract class YogFist extends Mob {
 		int dmgTaken = preHP - 生命;
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (dmgTaken > 0 && lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+		if (dmgTaken > 0 && lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmgTaken/4f);
 			else                                                    lock.addTime(dmgTaken/2f);
 		}
@@ -385,7 +385,7 @@ public abstract class YogFist extends Mob {
 
 		@Override
 		public void 受伤时(int dmg, Object src) {
-			if (!isInvulnerable(src.getClass())
+			if (!是无敌(src.getClass())
 					&& !(src instanceof Bleeding)
 					&& buff(Sickle.HarvestBleedTracker.class) == null){
 				dmg = Math.round( dmg * resist( src.getClass() ));
@@ -445,7 +445,7 @@ public abstract class YogFist extends Mob {
 
 		@Override
 		public void 受伤时(int dmg, Object src) {
-			if (!isInvulnerable(src.getClass()) && !(src instanceof Viscosity.DeferedDamage)){
+			if (!是无敌(src.getClass()) && !(src instanceof Viscosity.DeferedDamage)){
 				dmg = Math.round( dmg * resist( src.getClass() ));
 				if (dmg >= 0) {
 					Buff.施加(this, Viscosity.DeferedDamage.class).extend(dmg);

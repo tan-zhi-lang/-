@@ -46,7 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -120,7 +120,7 @@ public class WandOfCorruption extends Wand {
 				Statistics.qualifiedForBossChallengeBadge = false;
 			}
 
-			float corruptingPower = 3 + buffedLvl()/3f;
+			float corruptingPower = 3 + 强化等级()/3f;
 			
 			//base enemy resistance is usually based on their exp, but in special cases it is based on other criteria
 			float enemyResist;
@@ -183,7 +183,7 @@ public class WandOfCorruption extends Wand {
 			}
 		}
 		for (Class<?extends Buff> toAssign : debuffs.keySet()){
-			 if (debuffs.get(toAssign) > 0 && enemy.isImmune(toAssign)){
+			 if (debuffs.get(toAssign) > 0 && enemy.免疫(toAssign)){
 			 	debuffs.put(toAssign, 0f);
 			 }
 		}
@@ -192,7 +192,7 @@ public class WandOfCorruption extends Wand {
 		Class<?extends FlavourBuff> debuffCls = (Class<? extends FlavourBuff>) Random.chances(debuffs);
 		
 		if (debuffCls != null){
-			Buff.新增(enemy, debuffCls, 6 + buffedLvl()*3);
+			Buff.新增(enemy, debuffCls, 6 + 强化等级()*3);
 		} else {
 			//if no debuff can be applied (all are present), then go up one tier
 			if (category == MINOR_DEBUFFS)          debuffEnemy( enemy, MAJOR_DEBUFFS);
@@ -207,7 +207,7 @@ public class WandOfCorruption extends Wand {
 			return;
 		}
 		
-		if (!enemy.isImmune(Corruption.class)){
+		if (!enemy.免疫(Corruption.class)){
 			Corruption.corruptionHeal(enemy);
 
 			AllyBuff.affectAndLoot(enemy, curUser, Corruption.class);
@@ -217,8 +217,8 @@ public class WandOfCorruption extends Wand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
-		int level = Math.max( 0, buffedLvl() );
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+		int level = Math.max( 0, 强化等级() );
 
 		// lvl 0 - 16%
 		// lvl 1 - 28.5%
@@ -253,7 +253,7 @@ public class WandOfCorruption extends Wand {
 	}
 
 	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
+	public void staffFx(法师魔杖.StaffParticle particle) {
 		particle.color( 0 );
 		particle.am = 0.6f;
 		particle.setLifespan(2f);

@@ -113,7 +113,7 @@ public class 物品表 {
 	private static final int MISC_CONSUMABLE =                              xy(1, 4);   //32 slots
 	public static final int ANKH            = MISC_CONSUMABLE +0;
 	public static final int STYLUS          = MISC_CONSUMABLE +1;
-	public static final int SEAL            = MISC_CONSUMABLE +2;
+	public static final int 破损纹章 = MISC_CONSUMABLE +2;
 	public static final int TORCH           = MISC_CONSUMABLE +3;
 	public static final int BEACON          = MISC_CONSUMABLE +4;
 	public static final int HONEYPOT        = MISC_CONSUMABLE +5;
@@ -139,7 +139,7 @@ public class 物品表 {
 		assignItemRect(ANKH,            10, 16);
 		assignItemRect(STYLUS,          12, 13);
 		
-		assignItemRect(SEAL,            13, 13);
+		assignItemRect(破损纹章,            13, 13);
 		assignItemRect(TORCH,           12, 15);
 		assignItemRect(BEACON,          16, 15);
 		
@@ -200,14 +200,14 @@ public class 物品表 {
 	public static final int GLOVES          = WEP_TIER1+2;
 	public static final int RAPIER          = WEP_TIER1+3;
 	public static final int DAGGER          = WEP_TIER1+4;
-	public static final int MAGES_STAFF     = WEP_TIER1+5;
+	public static final int 法师魔杖 = WEP_TIER1+5;
 	static{
 		assignItemRect(WORN_SHORTSWORD, 13, 13);
 		assignItemRect(CUDGEL,          15, 15);
 		assignItemRect(GLOVES,          16, 16);
 		assignItemRect(RAPIER,          16, 16);
 		assignItemRect(DAGGER,          16, 16);
-		assignItemRect(MAGES_STAFF,     15, 16);
+		assignItemRect(法师魔杖,     16, 16);
 	}
 
 	private static final int WEP_TIER2      =                               xy(9, 7);   //8 slots
@@ -281,7 +281,7 @@ public class 物品表 {
 	                                                                                    //8 free slots
 
 	private static final int MISSILE_WEP    =                               xy(1, 10);  //16 slots. 3 per tier + bow
-	public static final int SPIRIT_BOW      = MISSILE_WEP+0;
+	public static final int 灵能短弓 = MISSILE_WEP+0;
 	
 	public static final int THROWING_SPIKE  = MISSILE_WEP+1;
 	public static final int THROWING_KNIFE  = MISSILE_WEP+2;
@@ -304,7 +304,7 @@ public class 物品表 {
 	public static final int FORCE_CUBE      = MISSILE_WEP+15;
 	
 	static{
-		assignItemRect(SPIRIT_BOW,      16, 16);
+		assignItemRect(灵能短弓,      16, 16);
 		
 		assignItemRect(THROWING_SPIKE,  11, 10);
 		assignItemRect(THROWING_KNIFE,  12, 12);
@@ -366,7 +366,7 @@ public class 物品表 {
 		assignItemRect(ARMOR_PLATE,     12, 12);
 		assignItemRect(ARMOR_WARRIOR,   12, 12);
 		assignItemRect(ARMOR_MAGE,      15, 15);
-		assignItemRect(ARMOR_ROGUE,     14, 12);
+		assignItemRect(ARMOR_ROGUE,     14, 13);
 		assignItemRect(ARMOR_HUNTRESS,  13, 15);
 		assignItemRect(ARMOR_DUELIST,   12, 13);
 		assignItemRect(ARMOR_CLERIC,    13, 14);
@@ -435,7 +435,7 @@ public class 物品表 {
 	public static final int ARTIFACT_ROSE1      = ARTIFACTS+20;
 	public static final int ARTIFACT_ROSE2      = ARTIFACTS+21;
 	public static final int ARTIFACT_ROSE3      = ARTIFACTS+22;
-	public static final int ARTIFACT_TOME       = ARTIFACTS+23;
+	public static final int 神圣法典 = ARTIFACTS+23;
 	static{
 		assignItemRect(ARTIFACT_CLOAK,      9,  15);
 		assignItemRect(ARTIFACT_ARMBAND,    16, 13);
@@ -460,7 +460,7 @@ public class 物品表 {
 		assignItemRect(ARTIFACT_ROSE1,      14, 14);
 		assignItemRect(ARTIFACT_ROSE2,      14, 14);
 		assignItemRect(ARTIFACT_ROSE3,      14, 14);
-		assignItemRect(ARTIFACT_TOME,       14, 16);
+		assignItemRect(神圣法典,       14, 16);
 	}
 
 	private static final int TRINKETS        =                               xy(9, 17);  //24 slots
@@ -681,7 +681,7 @@ public class 物品表 {
 	public static final int MEAT_PIE        = FOOD+7;
 	public static final int BLANDFRUIT      = FOOD+8;
 	public static final int BLAND_CHUNKS    = FOOD+9;
-	public static final int BERRY           = FOOD+10;
+	public static final int 地牢浆果 = FOOD+10;
 	public static final int PHANTOM_MEAT    = FOOD+11;
 	public static final int SUPPLY_RATION   = FOOD+12;
 	static{
@@ -695,7 +695,7 @@ public class 物品表 {
 		assignItemRect(MEAT_PIE,        16, 12);
 		assignItemRect(BLANDFRUIT,      9,  12);
 		assignItemRect(BLAND_CHUNKS,    14,  6);
-		assignItemRect(BERRY,           9,  11);
+		assignItemRect(地牢浆果,           9,  11);
 		assignItemRect(PHANTOM_MEAT,    15, 11);
 		assignItemRect(SUPPLY_RATION,   16, 12);
 	}

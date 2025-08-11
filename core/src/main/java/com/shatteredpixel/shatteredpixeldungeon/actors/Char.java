@@ -352,7 +352,7 @@ public abstract class Char extends Actor {
 		
 		boolean visibleFight = Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[enemy.pos];
 
-		if (enemy.isInvulnerable(getClass())) {
+		if (enemy.是无敌(getClass())) {
 
 			if (visibleFight) {
 				enemy.sprite.showStatus( CharSprite.增强, Messages.get(this, "invulnerable") );
@@ -755,7 +755,7 @@ public abstract class Char extends Actor {
 	public float 移速() {
 		float speed = baseSpeed;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
-		if ( buff( Stamina.class ) != null) speed *= 1.5f;
+		if ( buff( Stamina.class ) != null) speed *= 2.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 4f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
@@ -783,7 +783,7 @@ public abstract class Char extends Actor {
 		
 		cachedShield = 0;
 		for (ShieldBuff s : buffs(ShieldBuff.class)){
-			cachedShield += s.shielding();
+			cachedShield += s.护盾量();
 		}
 		needsShieldUpdate = false;
 		return cachedShield;
@@ -795,7 +795,7 @@ public abstract class Char extends Actor {
 			return;
 		}
 
-		if(isInvulnerable(src.getClass())){
+		if(是无敌(src.getClass())){
 			sprite.showStatus(CharSprite.增强, Messages.get(this, "invulnerable"));
 			return;
 		}
@@ -863,7 +863,7 @@ public abstract class Char extends Actor {
 		if (this.buff(MagicalSleep.class) != null){
 			Buff.detach(this, MagicalSleep.class);
 		}
-		if (this.buff(Doom.class) != null && !isImmune(Doom.class)){
+		if (this.buff(Doom.class) != null && !免疫(Doom.class)){
 			damage *= 1.67f;
 		}
 		if (alignment != Alignment.ALLY && this.buff(DeathMark.DeathMarkTracker.class) != null){
@@ -873,7 +873,7 @@ public abstract class Char extends Actor {
 		if (buff(Sickle.HarvestBleedTracker.class) != null){
 			buff(Sickle.HarvestBleedTracker.class).detach();
 
-			if (!isImmune(Bleeding.class)){
+			if (!免疫(Bleeding.class)){
 				Bleeding b = buff(Bleeding.class);
 				if (b == null){
 					b = new Bleeding();
@@ -887,7 +887,7 @@ public abstract class Char extends Actor {
 		}
 
 		Class<?> srcClass = src.getClass();
-		if (isImmune( srcClass )) {
+		if (免疫( srcClass )) {
 			damage = 0;
 		} else {
 			damage *= resist( srcClass );
@@ -1306,7 +1306,7 @@ public abstract class Char extends Actor {
 	
 	protected final HashSet<Class> immunities = new HashSet<>();
 	
-	public boolean isImmune(Class effect ){
+	public boolean 免疫(Class effect ){
 		HashSet<Class> immunes = new HashSet<>(immunities);
 		for (Property p : properties()){
 			immunes.addAll(p.immunities());
@@ -1328,7 +1328,7 @@ public abstract class Char extends Actor {
 
 	//similar to isImmune, but only factors in damage.
 	//Is used in AI decision-making
-	public boolean isInvulnerable( Class effect ){
+	public boolean 是无敌(Class effect ){
 		return buff(Challenge.SpectatorFreeze.class) != null || buff(Invulnerability.class) != null;
 	}
 

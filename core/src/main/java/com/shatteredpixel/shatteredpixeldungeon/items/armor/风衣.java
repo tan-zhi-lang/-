@@ -13,4 +13,12 @@ public class 风衣 extends Armor {
 	public 风衣(){
 		super(1);
 	}
+	@Override
+	public int 力量(int lvl) {
+		int req = 力量(tier, lvl)-1;
+		if (masteryPotionBonus){
+			req -= 2;
+		}
+		return req;
+	}
 }

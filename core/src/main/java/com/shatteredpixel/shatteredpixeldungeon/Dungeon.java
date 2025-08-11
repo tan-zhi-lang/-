@@ -240,7 +240,7 @@ public class Dungeon {
 		QuickSlotButton.reset();
 		Toolbar.swappedQuickslots = false;
 		
-		depth = 1;
+		depth = 10;
 		branch = 0;
 		generatedLevels.clear();
 
@@ -475,10 +475,8 @@ public class Dungeon {
 				}
 			}
 		}
-		
-		Light light = hero.buff( Light.class );
-		hero.viewDistance = light == null ? level.viewDistance : Math.max( Light.DISTANCE, level.viewDistance );
-		
+
+		hero.viewDistance = hero.视野范围();
 		hero.curAction = hero.lastAction = null;
 
 		observe();

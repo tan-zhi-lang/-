@@ -171,9 +171,9 @@ public class Pylon extends Mob {
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
+	public boolean 是无敌(Class effect) {
 		//immune to damage when inactive
-		return alignment == Alignment.NEUTRAL || super.isInvulnerable(effect);
+		return alignment == Alignment.NEUTRAL || super.是无敌(effect);
 	}
 
 	@Override
@@ -184,7 +184,7 @@ public class Pylon extends Mob {
 		}
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/2f);
 			else                                                    lock.addTime(dmg);
 		}

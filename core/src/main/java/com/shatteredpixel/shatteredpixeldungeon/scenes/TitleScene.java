@@ -59,7 +59,7 @@ public class TitleScene extends PixelScene {
 //		Image y = new Image(Assets.Interfaces.背景);
 //		add( y );
 
-		Image title = BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
+		Image title = BannerSprites.get( 横屏() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
 //		add( title );
 
 		float topRegion = Math.max(title.height - 6, h*0.45f);
@@ -69,7 +69,7 @@ public class TitleScene extends PixelScene {
 
 		align(title);
 
-		if (landscape()){
+		if (横屏()){
 //			placeTorch(title.x + 30, title.y + 35);
 //			placeTorch(title.x + title.width - 30, title.y + 35);
 		} else {
@@ -77,7 +77,7 @@ public class TitleScene extends PixelScene {
 //			placeTorch(title.x + title.width - 16, title.y + 70);
 		}
 
-		Image signs = new Image(BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_GLOW_LAND : BannerSprites.Type.TITLE_GLOW_PORT)){
+		Image signs = new Image(BannerSprites.get( 横屏() ? BannerSprites.Type.TITLE_GLOW_LAND : BannerSprites.Type.TITLE_GLOW_PORT)){
 			private float time = 0;
 			@Override
 			public void update() {
@@ -171,13 +171,13 @@ public class TitleScene extends PixelScene {
 //		add(btnAbout);
 		
 		final int BTN_HEIGHT = 20;
-		int GAP = (int)(h - topRegion - (landscape() ? 3 : 4)*BTN_HEIGHT)/3;
-		GAP /= landscape() ? 3 : 5;
+		int GAP = (int)(h - topRegion - (横屏() ? 3 : 4)*BTN_HEIGHT)/3;
+		GAP /= 横屏() ? 3 : 5;
 		GAP = Math.max(GAP, 2);
 
-		float buttonAreaWidth = landscape() ? PixelScene.MIN_WIDTH_L-6 : PixelScene.MIN_WIDTH_P-2;
+		float buttonAreaWidth = 横屏() ? PixelScene.MIN_WIDTH_L-6 : PixelScene.MIN_WIDTH_P-2;
 		float btnAreaLeft = (Camera.main.width - buttonAreaWidth) / 2f;
-		if (landscape()) {
+		if (横屏()) {
 			btnPlay.setRect(btnAreaLeft, topRegion+GAP, (buttonAreaWidth/2)-1, BTN_HEIGHT);
 			align(btnPlay);
 			btnSupport.setRect(btnPlay.right()+2, btnPlay.top(), btnPlay.width(), BTN_HEIGHT);

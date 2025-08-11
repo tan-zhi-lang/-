@@ -26,8 +26,8 @@ public class DimensionalSundial extends Trinket {
 		if (isIdentified()){
 			return Messages.get(this,
 					"stats_desc",
-					(int)(100*(1f - enemySpawnMultiplierDaytime(buffedLvl()))),
-					(int)(100*(enemySpawnMultiplierNighttime(buffedLvl())-1f)));
+					(int)(100*(1f - enemySpawnMultiplierDaytime(强化等级()))),
+					(int)(100*(enemySpawnMultiplierNighttime(强化等级())-1f)));
 		} else {
 			return Messages.get(this, "typical_stats_desc",
 					(int)(100*(1f - enemySpawnMultiplierDaytime(0))),

@@ -79,7 +79,7 @@ public class Bones {
 					item = hero.belongings.weapon;
 					//if the hero has two weapons (champion), pick the stronger one
 					if (hero.belongings.secondWep != null &&
-							(item == null || hero.belongings.secondWep.trueLevel() > item.trueLevel())){
+							(item == null || hero.belongings.secondWep.真等级() > item.真等级())){
 						item = hero.belongings.secondWep;
 						break;
 					}
@@ -209,7 +209,7 @@ public class Bones {
 					if (item.isUpgradable()) {
 						//caps at +3
 						if (item.等级() > 3) {
-							item.degrade(item.等级() - 3);
+							item.降级(item.等级() - 3);
 						}
 						//thrown weapons are always IDed, otherwise set unknown
 						item.levelKnown = item instanceof MissileWeapon;

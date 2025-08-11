@@ -220,11 +220,11 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 
 	public int 最小攻击(){
-		return 最小攻击(buffedLvl());
+		return 最小攻击(强化等级());
 	}
 
 	public int 最大攻击(){
-		return 最大攻击(buffedLvl());
+		return 最大攻击(强化等级());
 	}
 
 	abstract public int 最小攻击(int lvl);

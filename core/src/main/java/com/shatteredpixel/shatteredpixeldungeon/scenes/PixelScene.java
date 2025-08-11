@@ -91,7 +91,7 @@ public class PixelScene extends Scene {
 			minWidth = MIN_WIDTH_FULL;
 			minHeight = MIN_HEIGHT_FULL;
 			scaleFactor = 3.75f;
-		} else if (landscape()) {
+		} else if (横屏()) {
 			minWidth = MIN_WIDTH_L;
 			minHeight = MIN_HEIGHT_L;
 			scaleFactor = 2.5f;
@@ -294,7 +294,7 @@ public class PixelScene extends Scene {
 		}
 	}
 
-	public static boolean landscape(){
+	public static boolean 横屏(){
 		return SPDSettings.interfaceSize() > 0 || Game.width > Game.height;
 	}
 

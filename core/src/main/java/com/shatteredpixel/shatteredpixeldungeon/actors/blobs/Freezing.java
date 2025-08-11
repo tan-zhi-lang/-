@@ -48,7 +48,7 @@ public class Freezing extends Blob {
 	
 	public static void freeze( int cell ){
 		Char ch = Actor.findChar( cell );
-		if (ch != null && !ch.isImmune(Freezing.class)) {
+		if (ch != null && !ch.免疫(Freezing.class)) {
 			if (ch.buff(Frost.class) != null){
 				Buff.施加(ch, Frost.class, 2f);
 			} else {
@@ -64,7 +64,7 @@ public class Freezing extends Blob {
 				}
 				if (chill != null
 						&& chill.cooldown() >= Chill.DURATION &&
-						!ch.isImmune(Frost.class)){
+						!ch.免疫(Frost.class)){
 					Buff.施加(ch, Frost.class, Frost.DURATION);
 				}
 			}

@@ -160,8 +160,8 @@ public class MeleeWeapon extends Weapon {
 		if (hero.heroClass == HeroClass.DUELIST
 				&& hero.有天赋(Talent.AGGRESSIVE_BARRIER)
 				&& (hero.生命 / (float)hero.最大生命) <= 0.5f){
-			int shieldAmt = hero.天赋点数(Talent.AGGRESSIVE_BARRIER,4);
-			Buff.施加(hero, Barrier.class).setShield(shieldAmt);
+			int shieldAmt = hero.天赋点数(Talent.AGGRESSIVE_BARRIER,5);
+			Buff.施加(hero, Barrier.class).设置(shieldAmt);
 			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 		}
 
@@ -170,8 +170,8 @@ public class MeleeWeapon extends Weapon {
 
 	protected void afterAbilityUsed( Hero hero ){
 		hero.belongings.abilityWeapon = null;
-		if (hero.有天赋(Talent.PRECISE_ASSAULT)){
-			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f-2+Dungeon.hero.天赋点数(Talent.PRECISE_ASSAULT,2));
+		if (false){//使用武技命中
+			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
 		}
 		if (hero.有天赋(Talent.VARIED_CHARGE)){
 			Talent.VariedChargeTracker tracker = hero.buff(Talent.VariedChargeTracker.class);
@@ -248,7 +248,7 @@ public class MeleeWeapon extends Weapon {
 
 	private static boolean evaluatingTwinUpgrades = false;
 	@Override
-	public int buffedLvl() {
+	public int 强化等级() {
 		if (!evaluatingTwinUpgrades && Dungeon.hero != null && isEquipped(Dungeon.hero) && Dungeon.hero.有天赋(Talent.TWIN_UPGRADES)){
 			KindOfWeapon other = null;
 			if (Dungeon.hero.belongings.weapon() != this) other = Dungeon.hero.belongings.weapon();
@@ -256,18 +256,18 @@ public class MeleeWeapon extends Weapon {
 
 			if (other instanceof MeleeWeapon) {
 				evaluatingTwinUpgrades = true;
-				int otherLevel = other.buffedLvl();
+				int otherLevel = other.强化等级();
 				evaluatingTwinUpgrades = false;
 
 				//weaker weapon needs to be 2/1/0 tiers lower, based on talent level
 				if ((tier + (4 - Dungeon.hero.天赋点数(Talent.TWIN_UPGRADES))) <= ((MeleeWeapon) other).tier
-						&& otherLevel > super.buffedLvl()) {
+						&& otherLevel > super.强化等级()) {
 					return otherLevel;
 				}
 
 			}
 		}
-		return super.buffedLvl();
+		return super.强化等级();
 	}
 
 	@Override
@@ -342,7 +342,7 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		//the mage's staff has no ability as it can only be gained by the mage
-		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST && !(this instanceof MagesStaff)){
+		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST && !(this instanceof 法师魔杖)){
 			info += "\n\n" + abilityInfo();
 		}
 		

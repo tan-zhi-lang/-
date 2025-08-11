@@ -28,7 +28,7 @@ public class ScrollOfDread extends ExoticScroll {
 
 		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 			if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-				if (!mob.isImmune(Dread.class)){
+				if (!mob.免疫(Dread.class)){
 					Buff.施加( mob, Dread.class ).object = curUser.id();
 				} else {
 					Buff.施加( mob, Terror.class, Terror.DURATION ).object = curUser.id();

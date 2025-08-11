@@ -35,12 +35,12 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
-public class SpiritBow extends Weapon {
+public class 灵能短弓 extends Weapon {
 	
 	public static final String AC_SHOOT		= "SHOOT";
 	
 	{
-		image = 物品表.SPIRIT_BOW;
+		image = 物品表.灵能短弓;
 		
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
@@ -118,7 +118,7 @@ public class SpiritBow extends Weapon {
 	public String info() {
 		String info = super.info();
 		
-		info += "\n\n" + Messages.get( SpiritBow.class, "stats",
+		info += "\n\n" + Messages.get( 灵能短弓.class, "stats",
 				Math.round(augment.damageFactor(最小攻击())),
 				Math.round(augment.damageFactor(最大攻击())),
 				力量());
@@ -167,7 +167,7 @@ public class SpiritBow extends Weapon {
 	
 	@Override
 	public int 最小攻击(int lvl) {
-		int dmg = 1 + Dungeon.hero.等级 /5
+		int dmg = 3 + Dungeon.hero.等级 /5
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
 				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级 /30 : 0);
 		return Math.max(0, dmg);
@@ -175,7 +175,7 @@ public class SpiritBow extends Weapon {
 	
 	@Override
 	public int 最大攻击(int lvl) {
-		int dmg = 6 + (int)(Dungeon.hero.等级 /2.5f)
+		int dmg = 7 + (int)(Dungeon.hero.等级 /2.5f)
 				+ 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
 				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级 /15 : 0);
 		return Math.max(0, dmg);
@@ -256,7 +256,7 @@ public class SpiritBow extends Weapon {
 	}
 
 	@Override
-	public int buffedLvl() {
+	public int 强化等级() {
 		//level isn't affected by buffs/debuffs
 		return this.等级();
 	}
@@ -300,27 +300,27 @@ public class SpiritBow extends Weapon {
 
 		@Override
 		public int damageRoll(Char owner) {
-			return SpiritBow.this.damageRoll(owner);
+			return 灵能短弓.this.damageRoll(owner);
 		}
 		
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
-			return SpiritBow.this.hasEnchant(type, owner);
+			return 灵能短弓.this.hasEnchant(type, owner);
 		}
 		
 		@Override
 		public int 攻击时(Char attacker, Char defender, int damage) {
-			return SpiritBow.this.攻击时(attacker, defender, damage);
+			return 灵能短弓.this.攻击时(attacker, defender, damage);
 		}
 		
 		@Override
 		public float delayFactor(Char user) {
-			return SpiritBow.this.delayFactor(user);
+			return 灵能短弓.this.delayFactor(user);
 		}
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			if (sniperSpecial && SpiritBow.this.augment == Augment.DAMAGE){
+			if (sniperSpecial && 灵能短弓.this.augment == Augment.DAMAGE){
 				return Float.POSITIVE_INFINITY;
 			} else {
 				return super.accuracyFactor(owner, target);
@@ -329,7 +329,7 @@ public class SpiritBow extends Weapon {
 		
 		@Override
 		public int 力量(int lvl) {
-			return SpiritBow.this.力量();
+			return 灵能短弓.this.力量();
 		}
 
 		@Override
@@ -342,7 +342,7 @@ public class SpiritBow extends Weapon {
 				if (!curUser.shoot( enemy, this )) {
 					Splash.at(cell, 0xCC99FFFF, 1);
 				}
-				if (sniperSpecial && SpiritBow.this.augment != Augment.SPEED) sniperSpecial = false;
+				if (sniperSpecial && 灵能短弓.this.augment != Augment.SPEED) sniperSpecial = false;
 			}
 		}
 
@@ -357,8 +357,8 @@ public class SpiritBow extends Weapon {
 		@Override
 		public void cast(final Hero user, final int dst) {
 			final int cell = throwPos( user, dst );
-			SpiritBow.this.targetPos = cell;
-			if (sniperSpecial && SpiritBow.this.augment == Augment.SPEED){
+			灵能短弓.this.targetPos = cell;
+			if (sniperSpecial && 灵能短弓.this.augment == Augment.SPEED){
 				if (flurryCount == -1) flurryCount = 3;
 				
 				final Char enemy = Actor.findChar( cell );
@@ -464,7 +464,7 @@ public class SpiritBow extends Weapon {
 		}
 		@Override
 		public String prompt() {
-			return Messages.get(SpiritBow.class, "prompt");
+			return Messages.get(灵能短弓.class, "prompt");
 		}
 	};
 }

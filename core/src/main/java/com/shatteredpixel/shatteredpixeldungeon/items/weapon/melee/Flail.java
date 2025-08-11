@@ -65,7 +65,7 @@ public class Flail extends MeleeWeapon {
 			spin.detach();
 			//+(8+2*lvl) damage per spin, roughly +40% base damage, +45% scaling
 			// so +120% base dmg, +135% scaling at 3 spins
-			spinBoost = spin.spins * augment.damageFactor(8 + 2*buffedLvl());
+			spinBoost = spin.spins * augment.damageFactor(8 + 2* 强化等级());
 			return Float.POSITIVE_INFINITY;
 		} else if (spinBoost != 0) {
 			return Float.POSITIVE_INFINITY;
@@ -109,7 +109,7 @@ public class Flail extends MeleeWeapon {
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 8 + 2*buffedLvl() : 8;
+		int dmgBoost = levelKnown ? 8 + 2* 强化等级() : 8;
 		if (levelKnown){
 			return Messages.get(this, "ability_desc", augment.damageFactor(dmgBoost));
 		} else {

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
@@ -245,6 +246,10 @@ public class 粘咕 extends Mob {
 			BossHealthBar.assignBoss( this );
 			Dungeon.level.seal();
 		}
+		if(src instanceof Fire){
+			dmg++;
+		}
+
 		boolean bleeding = (生命 *2 <= 最大生命);
 		super.受伤时(dmg, src);
 		if ((生命 *2 <= 最大生命) && !bleeding){
@@ -254,7 +259,7 @@ public class 粘咕 extends Mob {
 			yell(Messages.get(this, "gluuurp"));
 		}
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg);
 			else                                                    lock.addTime(dmg*1.5f);
 		}

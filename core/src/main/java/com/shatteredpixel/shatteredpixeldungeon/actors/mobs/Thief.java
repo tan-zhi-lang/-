@@ -55,7 +55,7 @@ public class Thief extends Mob {
 
 	@Override
 	public float 移速() {
-		if (item != null) return (5*super.移速())/6;
+		if (item != null) return super.移速()*0.75f;
 		else return super.移速();
 	}
 
@@ -118,7 +118,7 @@ public class Thief extends Mob {
 	@Override
 	public int 防御时(Char enemy, int damage) {
 		if (state == FLEEING) {
-			Dungeon.level.drop( new Gold(), pos ).sprite.drop();
+			Dungeon.level.drop( new Gold().数量(10), pos ).sprite.drop();
 		}
 
 		return super.防御时(enemy, damage);

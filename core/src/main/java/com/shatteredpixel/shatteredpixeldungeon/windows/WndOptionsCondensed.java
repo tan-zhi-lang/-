@@ -22,7 +22,7 @@ public class WndOptionsCondensed extends WndOptions {
 
 	@Override
 	protected void layoutBody(float pos, String message, String... options) {
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		RenderedTextBlock tfMesage = PixelScene.renderTextBlock( 6 );
 		tfMesage.text(message, width);

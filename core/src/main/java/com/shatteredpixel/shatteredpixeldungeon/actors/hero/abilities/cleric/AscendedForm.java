@@ -90,7 +90,7 @@ public class AscendedForm extends ArmorAbility {
 		public boolean divineInverventionCast = false;
 
 		public void reset(){
-			setShield(30);
+			设置(30);
 			left = (int)DURATION;
 		}
 
@@ -117,7 +117,7 @@ public class AscendedForm extends ArmorAbility {
 
 		@Override
 		public String desc() {
-			return Messages.get(this, "desc", shielding(), left);
+			return Messages.get(this, "desc", 护盾量(), left);
 		}
 
 		public static final String LEFT = "left";

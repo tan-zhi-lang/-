@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -135,7 +135,7 @@ public class 焰浪法杖 extends DamageWand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
 
 		//proc chance is initially 0..
 		float procChance = 0;
@@ -181,7 +181,7 @@ public class 焰浪法杖 extends DamageWand {
 						}
 						if (ch.alignment == Char.Alignment.ENEMY) {
 							//A 2-charge zap's base dmg with a 1-charge zap's scaling
-							ch.受伤时(Math.round(powerMulti*Random.NormalIntRange(2 + buffedLvl(), 8 + 2*buffedLvl())), this);
+							ch.受伤时(Math.round(powerMulti*Random.NormalIntRange(2 + 强化等级(), 8 + 2* 强化等级())), this);
 						}
 					}
 				}
@@ -269,7 +269,7 @@ public class 焰浪法杖 extends DamageWand {
 	}
 
 	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
+	public void staffFx(法师魔杖.StaffParticle particle) {
 		particle.color( 0xEE7722 );
 		particle.am = 0.5f;
 		particle.setLifespan(0.6f);

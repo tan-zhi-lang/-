@@ -38,7 +38,8 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_GRID 	    = "visual_grid";
 	public static final String KEY_CAMERA_FOLLOW= "camera_follow";
 	public static final String KEY_SCREEN_SHAKE = "screen_shake";
-	public static final String 动画速度 = "动画速度";
+	public static final String 动画加快x = "动画加快";
+	public static final String 固定移速x = "固定移速";
 
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
@@ -116,14 +117,24 @@ public class SPDSettings extends GameSettings {
 		return getInt( KEY_SCREEN_SHAKE, 4, 0, 4 );
 	}
 
-	public static void 动画速度(int value ){
-		put( 动画速度, value );
+	public static void 动画加快(boolean value ){
+		put(动画加快x, value );
 	}
 
-	public static Float 动画速度() {
-		return getFloat( 动画速度, 1f, 1f, 3f );
+	public static boolean 动画加快() {
+		return getBoolean(动画加快x, false );
 	}
 
+	public static float 加快(){
+		return 动画加快()?100f:1f;
+	}
+	public static void 固定移速(int value ){
+		put(固定移速x, value );
+	}
+
+	public static int 固定移速() {
+		return getInt(固定移速x, 5,1,5 );
+	}
 
 	//Interface
 
@@ -325,7 +336,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean news(){
-		return getBoolean(KEY_NEWS, true);
+		return getBoolean(KEY_NEWS, false);
 	}
 
 	public static void updates(boolean value){
@@ -333,7 +344,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean updates(){
-		return getBoolean(KEY_UPDATES, true);
+		return getBoolean(KEY_UPDATES, false);
 	}
 
 	public static void betas(boolean value){

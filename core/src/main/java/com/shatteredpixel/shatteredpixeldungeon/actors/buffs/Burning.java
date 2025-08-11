@@ -74,7 +74,7 @@ public class Burning extends Buff implements Hero.Doom {
 
 		if (acted && Dungeon.level.water[target.pos] && !target.flying){
 			detach();
-		} else if (target.isAlive() && !target.isImmune(getClass())) {
+		} else if (target.isAlive() && !target.免疫(getClass())) {
 
 			acted = true;
 			int damage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
@@ -160,7 +160,7 @@ public class Burning extends Buff implements Hero.Doom {
 	}
 	
 	public void reignite( Char ch, float duration ) {
-		if (ch.isImmune(Burning.class)){
+		if (ch.免疫(Burning.class)){
 			if (ch.glyphLevel(Brimstone.class) >= 0){
 				//generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
 				float shieldChance = 2*(Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);
@@ -169,8 +169,8 @@ public class Burning extends Buff implements Hero.Doom {
 				if (Random.Float() < shieldChance%1) shieldGain++;
 				if (shieldCap > 0 && shieldGain > 0){
 					Barrier barrier = Buff.施加(ch, Barrier.class);
-					if (barrier.shielding() < shieldCap){
-						barrier.incShield(Math.min(shieldGain, shieldCap - barrier.shielding()));
+					if (barrier.护盾量() < shieldCap){
+						barrier.增加(Math.min(shieldGain, shieldCap - barrier.护盾量()));
 					}
 				}
 			}

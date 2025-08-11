@@ -16,7 +16,7 @@ public class MagicalSleep extends Buff {
 
 	@Override
 	public boolean attachTo( Char target ) {
-		if (!target.isImmune(Sleep.class) && super.attachTo( target )) {
+		if (!target.免疫(Sleep.class) && super.attachTo( target )) {
 			
 			target.paralysed++;
 			

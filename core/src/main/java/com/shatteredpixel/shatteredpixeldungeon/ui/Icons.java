@@ -156,7 +156,7 @@ public enum Icons {
 				icon.frame( icon.texture.uvRectBySize( 0, 16, 15, 11 ) );
 				break;
 			case DISPLAY:
-				if (!PixelScene.landscape()){
+				if (!PixelScene.横屏()){
 					return get(DISPLAY_PORT);
 				} else {
 					return get(DISPLAY_LAND);
@@ -431,10 +431,10 @@ public enum Icons {
 	public static Image get( HeroClass cl ) {
 		switch (cl) {
 			case WARRIOR:
-				return new ItemSprite(物品表.SEAL);
+				return new ItemSprite(物品表.破损纹章);
 			case MAGE:
 				//mage's staff normally has 2 pixels extra at the top for particle effects, we chop that off here
-				Image result = new ItemSprite(物品表.MAGES_STAFF);
+				Image result = new ItemSprite(物品表.法师魔杖);
 				RectF frame = result.frame();
 				frame.top += frame.height()/8f;
 				result.frame(frame);
@@ -442,11 +442,11 @@ public enum Icons {
 			case ROGUE:
 				return new ItemSprite(物品表.ARTIFACT_CLOAK);
 			case HUNTRESS:
-				return new ItemSprite(物品表.SPIRIT_BOW);
+				return new ItemSprite(物品表.灵能短弓);
 			case DUELIST:
 				return new ItemSprite(物品表.RAPIER);
 			case CLERIC:
-				return new ItemSprite(物品表.ARTIFACT_TOME);
+				return new ItemSprite(物品表.神圣法典);
 			default:
 				return null;
 		}

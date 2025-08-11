@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -59,7 +59,7 @@ public class WallOfLight extends TargetedClericSpell {
 	}
 
 	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+	public void onCast(神圣法典 tome, Hero hero) {
 		if (Dungeon.level.blobs.get(LightWall.class) != null
 				&& Dungeon.level.blobs.get(LightWall.class).volume > 0){
 			Dungeon.level.blobs.get(LightWall.class).fullyClear();
@@ -70,7 +70,7 @@ public class WallOfLight extends TargetedClericSpell {
 	}
 
 	@Override
-	protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
+	protected void onTargetSelected(神圣法典 tome, Hero hero, Integer target) {
 		if (target == null){
 			return;
 		}

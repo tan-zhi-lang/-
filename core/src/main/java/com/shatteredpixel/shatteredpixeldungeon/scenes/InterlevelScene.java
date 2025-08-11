@@ -247,7 +247,7 @@ public class InterlevelScene extends PixelScene {
 		if (mode == Mode.DESCEND && lastRegion <= 5 && !DeviceCompat.isDebug()){
 			if (Dungeon.hero == null || (loadingDepth > Statistics.deepestFloor && loadingDepth % 5 == 1)){
 					storyMessage = PixelScene.renderTextBlock(Document.INTROS.pageBody(region), 6);
-					storyMessage.maxWidth( PixelScene.landscape() ? 180 : 125);
+					storyMessage.maxWidth( PixelScene.横屏() ? 180 : 125);
 					storyMessage.setPos((Camera.main.width-storyMessage.width())/2f, (Camera.main.height-storyMessage.height())/2f);
 
 					storyBG = new ShadowBox();

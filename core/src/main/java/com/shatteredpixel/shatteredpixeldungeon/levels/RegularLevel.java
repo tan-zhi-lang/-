@@ -536,10 +536,10 @@ public abstract class RegularLevel extends Level {
 			}
 
 			if (Dungeon.hero.有天赋(Talent.寻宝猎人)){
-				Talent.CachedRationsDropped dropped = Buff.施加(Dungeon.hero, Talent.CachedRationsDropped.class);
+				Talent.寻宝猎人 dropped = Buff.施加(Dungeon.hero, Talent.寻宝猎人.class);
 				int targetFloor = (int)(2 + dropped.count());
 				if (dropped.count() > 4) targetFloor++;
-				if (Dungeon.depth >= targetFloor && dropped.count() < Dungeon.hero.天赋点数(Talent.CACHED_RATIONS)){
+				if (Dungeon.depth >= targetFloor && dropped.count() < Dungeon.hero.天赋点数(Talent.寻宝猎人)){
 					int cell;
 					int tries = 100;
 					boolean valid;

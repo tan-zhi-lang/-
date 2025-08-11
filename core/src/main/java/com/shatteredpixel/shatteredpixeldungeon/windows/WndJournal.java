@@ -26,9 +26,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -92,8 +92,8 @@ public class WndJournal extends WndTabbed {
 			INSTANCE.hide();
 		}
 		
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
-		int height = PixelScene.landscape() ? HEIGHT_L : HEIGHT_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int height = PixelScene.横屏() ? HEIGHT_L : HEIGHT_P;
 		
 		resize(width, height);
 		
@@ -759,7 +759,7 @@ public class WndJournal extends WndTabbed {
 				} else {
 					title = Messages.titleCase( item.name() );
 					//some items don't include direct stats, generally when they're not applicable
-					if (item instanceof ClassArmor || item instanceof SpiritBow){
+					if (item instanceof ClassArmor || item instanceof 灵能短弓){
 						desc += item.desc();
 					} else {
 						desc += item.info();
@@ -780,7 +780,7 @@ public class WndJournal extends WndTabbed {
 					}
 
 					//mage's staff normally has 2 pixels extra at the top for particle effects, we chop that off here
-					if (item instanceof MagesStaff){
+					if (item instanceof 法师魔杖){
 						RectF frame = sprite.frame();
 						frame.top += frame.height()/8f;
 						sprite.frame(frame);

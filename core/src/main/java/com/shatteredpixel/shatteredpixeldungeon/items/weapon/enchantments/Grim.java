@@ -17,11 +17,11 @@ public class Grim extends Weapon.Enchantment {
 	@Override
 	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
 
-		if (defender.isImmune(Grim.class)) {
+		if (defender.免疫(Grim.class)) {
 			return damage;
 		}
 
-		int level = Math.max( 0, weapon.buffedLvl() );
+		int level = Math.max( 0, weapon.强化等级() );
 
 		//scales from 0 - 50% based on how low hp the enemy is, plus 0-5% per level
 		float maxChance = 0.5f + .05f*level;

@@ -58,7 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
@@ -302,7 +302,7 @@ public abstract class Mob extends Char {
 			if (enemy.alignment == Alignment.ALLY){
 				newEnemy = true;
 			//current enemy is invulnerable
-			} else if (enemy.isInvulnerable(getClass())){
+			} else if (enemy.是无敌(getClass())){
 				newEnemy = true;
 			}
 		}
@@ -341,7 +341,7 @@ public abstract class Mob extends Char {
 				//look for hostile mobs to attack
 				for (Mob mob : Dungeon.level.mobs)
 					if (mob.alignment == Alignment.ENEMY && fieldOfView[mob.pos]
-							&& mob.invisible <= 0 && !mob.isInvulnerable(getClass()))
+							&& mob.invisible <= 0 && !mob.是无敌(getClass()))
 						//do not target passive mobs
 						//intelligent allies also don't target mobs which are wandering or asleep
 						if (mob.state != mob.PASSIVE &&
@@ -696,7 +696,7 @@ public abstract class Mob extends Char {
 			Badges.validateRogueUnlock();
 			//TODO this is somewhat messy, it would be nicer to not have to manually handle delays here
 			// playing the strong hit sound might work best as another property of weapon?
-			if (Dungeon.hero.belongings.attackingWeapon() instanceof SpiritBow.SpiritArrow
+			if (Dungeon.hero.belongings.attackingWeapon() instanceof 灵能短弓.SpiritArrow
 				|| Dungeon.hero.belongings.attackingWeapon() instanceof Dart){
 				Sample.INSTANCE.playDelayed(Assets.Sounds.HIT_STRONG, 0.125f);
 			} else {
@@ -781,7 +781,7 @@ public abstract class Mob extends Char {
 	@Override
 	public void 受伤时(int dmg, Object src ) {
 
-		if (!isInvulnerable(src.getClass())) {
+		if (!是无敌(src.getClass())) {
 			if (state == SLEEPING) {
 				state = WANDERING;
 			}
@@ -869,7 +869,7 @@ public abstract class Mob extends Char {
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
 
-				if (Dungeon.hero.有天赋(Talent.自然猎手)){
+				if (false){//生成草
 					ArrayList<Integer> grassCells = new ArrayList<>();
 					for (int i : PathFinder.NEIGHBOURS9){
 						grassCells.add(pos+i);
@@ -879,7 +879,7 @@ public abstract class Mob extends Char {
 						Char ch = Actor.findChar(grassCell);
 						if (ch != null && ch.alignment == Char.Alignment.ENEMY){
 							//1/2 turns of roots
-							Buff.施加(ch, Roots.class, Dungeon.hero.天赋点数(Talent.自然猎手));
+							Buff.施加(ch, Roots.class, 2);
 						}
 						if (Dungeon.level.map[grassCell] == Terrain.EMPTY ||
 								Dungeon.level.map[grassCell] == Terrain.EMBERS ||
@@ -890,7 +890,7 @@ public abstract class Mob extends Char {
 						CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC, 4);
 					}
 
-					int totalGrassCells = (Dungeon.hero.天赋点数(Talent.自然猎手));
+					int totalGrassCells = 5;
 					while (grassCells.size() > totalGrassCells){
 						grassCells.remove(0);
 					}
@@ -913,6 +913,7 @@ public abstract class Mob extends Char {
 						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
 					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
 					Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(1);
+					Dungeon.hero.经验(1,getClass());
 				}
 				if (Dungeon.hero.heroClass != HeroClass.DUELIST
 						&& Dungeon.hero.有天赋(Talent.LETHAL_HASTE)

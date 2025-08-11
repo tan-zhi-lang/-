@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -43,11 +43,11 @@ public class WandOfMagicMissile extends DamageWand {
 			ch.受伤时(damageRoll(), this);
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f) );
 
-			ch.sprite.burst(0xFFFFFFFF, buffedLvl() / 2 + 2);
+			ch.sprite.burst(0xFFFFFFFF, 强化等级() / 2 + 2);
 
 			//apply the magic charge buff if we have another wand in inventory of a lower level, or already have the buff
 			for (Wand.Charger wandCharger : curUser.buffs(Wand.Charger.class)){
-				if (wandCharger.wand().buffedLvl() < buffedLvl() || curUser.buff(MagicCharge.class) != null){
+				if (wandCharger.wand().强化等级() < 强化等级() || curUser.buff(MagicCharge.class) != null){
 					Buff.延长(curUser, MagicCharge.class, MagicCharge.DURATION).setup(this);
 					break;
 				}
@@ -59,7 +59,7 @@ public class WandOfMagicMissile extends DamageWand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
 		SpellSprite.show(attacker, SpellSprite.CHARGE);
 		for (Wand.Charger c : attacker.buffs(Wand.Charger.class)){
 			if (c.wand() != this){
@@ -86,8 +86,8 @@ public class WandOfMagicMissile extends DamageWand {
 		private Wand wandJustApplied; //we don't bundle this as it's only used right as the buff is applied
 
 		public void setup(Wand wand){
-			if (level < wand.buffedLvl()){
-				this.level = wand.buffedLvl();
+			if (level < wand.强化等级()){
+				this.level = wand.强化等级();
 				this.wandJustApplied = wand;
 			}
 		}

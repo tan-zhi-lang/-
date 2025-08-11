@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -40,7 +41,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class MagesStaff extends MeleeWeapon {
+public class 法师魔杖 extends MeleeWeapon {
 
 	private Wand wand;
 
@@ -50,7 +51,7 @@ public class MagesStaff extends MeleeWeapon {
 	private static final float STAFF_SCALE_FACTOR = 0.75f;
 
 	{
-		image = 物品表.MAGES_STAFF;
+		image = 物品表.法师魔杖;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 
@@ -63,17 +64,27 @@ public class MagesStaff extends MeleeWeapon {
 		bones = false;
 	}
 
-	public MagesStaff() {
+	public 法师魔杖() {
 		wand = null;
 	}
 
+	@Override
+	public int 强化等级(){
+		//only the hero can be affected by Degradation
+		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
+				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
+			return Degrade.reduceLevel(等级())+1+Dungeon.hero.天赋点数(Talent.高级法杖);
+		} else {
+			return 等级()+1+Dungeon.hero.天赋点数(Talent.高级法杖);
+		}
+	}
 	@Override
 	public int 最大攻击(int lvl) {
 		return  Math.round(3f*(tier+1)) +   //6 base damage, down from 10
 				lvl*(tier+1);               //scaling unaffected
 	}
 
-	public MagesStaff(Wand wand){
+	public 法师魔杖(Wand wand){
 		this();
 		wand.鉴定();
 		wand.cursed = false;
@@ -204,11 +215,12 @@ public class MagesStaff extends MeleeWeapon {
 
 		int oldStaffcharges = this.wand != null ? this.wand.curCharges : 0;
 
-		if (owner == Dungeon.hero && Dungeon.hero.有天赋(Talent.WAND_PRESERVATION)){
+		if (owner == Dungeon.hero){
 			Talent.WandPreservationCounter counter = Buff.施加(Dungeon.hero, Talent.WandPreservationCounter.class);
 			if (counter.count() == 0){
 				counter.countUp(1);
-				this.wand.等级(Dungeon.hero.满天赋(Talent.WAND_PRESERVATION)?1:0);
+				升级(Math.round(this.wand.等级()/2f));
+				this.wand.等级(0);
 				if (!this.wand.放背包()) {
 					Dungeon.level.drop(this.wand, owner.pos);
 				}
@@ -222,13 +234,13 @@ public class MagesStaff extends MeleeWeapon {
 		wand.resinBonus = 0;
 		wand.updateLevel();
 
-		//syncs the level of the two items.
-		int targetLevel = Math.max(this.trueLevel(), wand.trueLevel());
-
-		//if the staff's level is being overridden by the wand, preserve 1 upgrade
-		if (wand.trueLevel() >= this.trueLevel() && this.trueLevel() > 0) targetLevel++;
-		
-		等级(targetLevel);
+//		//syncs the level of the two items.
+//		int targetLevel = Math.max(this.真等级(), wand.真等级());
+//
+//		//if the staff's level is being overridden by the wand, preserve 1 upgrade
+//		if (wand.真等级() >= this.真等级() && this.真等级() > 0) targetLevel++;
+//
+//		等级(targetLevel);
 		this.wand = wand;
 		wand.levelKnown = wand.curChargeKnown = true;
 		updateWand(false);
@@ -290,8 +302,8 @@ public class MagesStaff extends MeleeWeapon {
 	}
 
 	@Override
-	public Item degrade() {
-		super.degrade();
+	public Item 降级() {
+		super.降级();
 
 		updateWand(false);
 
@@ -387,7 +399,7 @@ public class MagesStaff extends MeleeWeapon {
 
 		@Override
 		public String textPrompt() {
-			return Messages.get(MagesStaff.class, "prompt");
+			return Messages.get(法师魔杖.class, "prompt");
 		}
 
 		@Override
@@ -408,38 +420,38 @@ public class MagesStaff extends MeleeWeapon {
 					applyWand((Wand)item);
 				} else {
 					int newLevel;
-					int itemLevel = item.trueLevel();
-					if (itemLevel >= trueLevel()){
-						if (trueLevel() > 0)    newLevel = itemLevel + 1;
+					int itemLevel = item.真等级();
+					if (itemLevel >= 真等级()){
+						if (真等级() > 0)    newLevel = itemLevel + 1;
 						else                    newLevel = itemLevel;
 					} else {
-						newLevel = trueLevel();
+						newLevel = 真等级();
 					}
 
-					String bodyText = Messages.get(MagesStaff.class, "imbue_desc");
+					String bodyText = Messages.get(法师魔杖.class, "imbue_desc");
 					if (item.isIdentified()){
-						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_level", newLevel);
+						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_level", newLevel);
 					} else {
-						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_unknown", trueLevel());
+						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_unknown", 真等级());
 					}
 
 					if (!item.cursedKnown || item.cursed){
-						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_cursed");
+						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_cursed");
 					}
 
-					if (Dungeon.hero.有天赋(Talent.WAND_PRESERVATION)
+					if (Dungeon.hero.有天赋(Talent.高级法杖)
 						&& Dungeon.hero.buff(Talent.WandPreservationCounter.class) == null){
-						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_talent");
+						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_talent");
 					} else {
-						bodyText += "\n\n" + Messages.get(MagesStaff.class, "imbue_lost");
+						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_lost");
 					}
 
 					GameScene.show(
 							new WndOptions(new ItemSprite(item),
 									Messages.titleCase(item.name()),
 									bodyText,
-									Messages.get(MagesStaff.class, "yes"),
-									Messages.get(MagesStaff.class, "no")) {
+									Messages.get(法师魔杖.class, "yes"),
+									Messages.get(法师魔杖.class, "no")) {
 								@Override
 								protected void onSelect(int index) {
 									if (index == 0) {
@@ -461,7 +473,7 @@ public class MagesStaff extends MeleeWeapon {
 
 			wand.detach(curUser.belongings.backpack);
 
-			GLog.p( Messages.get(MagesStaff.class, "imbue", wand.name()));
+			GLog.p( Messages.get(法师魔杖.class, "imbue", wand.name()));
 			imbueWand( wand, curUser );
 
 			updateQuickslot();

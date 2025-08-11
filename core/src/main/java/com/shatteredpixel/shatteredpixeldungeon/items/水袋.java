@@ -81,7 +81,7 @@ public class 水袋 extends Item {
 
 				//add extra drops if we can gain shielding
 				int curShield = 0;
-				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
+				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).护盾量();
 				int maxShield = Math.round(hero.最大生命 *hero.天赋点数(Talent.SHIELDING_DEW,0.25f));
 				if (hero.有天赋(Talent.SHIELDING_DEW)){
 					float missingShieldPercent = 1f - (curShield / (float)maxShield);

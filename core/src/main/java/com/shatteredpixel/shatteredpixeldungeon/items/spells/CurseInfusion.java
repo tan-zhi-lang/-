@@ -13,9 +13,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
@@ -32,7 +32,7 @@ public class CurseInfusion extends InventorySpell {
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-		return ((item instanceof EquipableItem && item.isUpgradable()) || item instanceof Wand || item instanceof SpiritBow);
+		return ((item instanceof EquipableItem && item.isUpgradable()) || item instanceof Wand || item instanceof 灵能短弓);
 	}
 
 	@Override
@@ -53,8 +53,8 @@ public class CurseInfusion extends InventorySpell {
 				w.enchant(Weapon.Enchantment.randomCurse());
 			}
 			w.curseInfusionBonus = true;
-			if (w instanceof MagesStaff){
-				((MagesStaff) w).updateWand(true);
+			if (w instanceof 法师魔杖){
+				((法师魔杖) w).updateWand(true);
 			}
 		} else if (item instanceof Armor){
 			Armor a = (Armor) item;

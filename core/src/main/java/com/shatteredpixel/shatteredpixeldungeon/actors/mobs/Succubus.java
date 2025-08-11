@@ -66,7 +66,7 @@ public class Succubus extends Mob {
 					sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(5-shield), FloatingText.HEALING);
 				}
 
-				Buff.施加(this, Barrier.class).setShield(shield);
+				Buff.施加(this, Barrier.class).设置(shield);
 				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 			} else {
 				生命 += 5 + damage;

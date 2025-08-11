@@ -236,7 +236,7 @@ public class Toolbar extends Component {
 					if ((Dungeon.level.heaps.get(Dungeon.hero.pos) != null || Dungeon.hero.canSelfTrample())
 						&& Dungeon.hero.handle(Dungeon.hero.pos)){
 						//trigger hold fast and patient strike here, even if the hero didn't specifically wait
-						if (Dungeon.hero.有天赋(Talent.HOLD_FAST)){
+						if (false){//不动如山
 							Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
 						}
 						if (Dungeon.hero.有天赋(Talent.PATIENT_STRIKE)){
@@ -542,7 +542,7 @@ public class Toolbar extends Component {
 			mode = Mode.valueOf(SPDSettings.toolbarMode());
 		} catch (Exception e){
 			Game.reportException(e);
-			mode = PixelScene.landscape() ? Mode.GROUP : Mode.SPLIT;
+			mode = PixelScene.横屏() ? Mode.GROUP : Mode.SPLIT;
 		}
 		switch(mode){
 			case SPLIT:

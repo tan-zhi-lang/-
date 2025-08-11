@@ -171,8 +171,8 @@ public class ArcaneResin extends Item {
 			int level = w.等级() - w.resinBonus;
 			int quantity = 2*(level+1);
 
-			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.有天赋(Talent.WAND_PRESERVATION)){
-				quantity += Dungeon.hero.天赋点数(Talent.WAND_PRESERVATION);
+			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.有天赋(Talent.高级法杖)){
+				quantity += Dungeon.hero.天赋点数(Talent.高级法杖);
 			}
 			return quantity;
 		}

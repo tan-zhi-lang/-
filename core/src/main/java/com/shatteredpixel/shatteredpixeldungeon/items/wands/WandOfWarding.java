@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -118,9 +118,9 @@ public class WandOfWarding extends Wand {
 		if (ch != null){
 			if (ch instanceof Ward){
 				if (wardAvailable) {
-					((Ward) ch).upgrade( buffedLvl() );
+					((Ward) ch).upgrade( 强化等级() );
 				} else {
-					((Ward) ch).wandHeal( buffedLvl() );
+					((Ward) ch).wandHeal( 强化等级() );
 				}
 				ch.sprite.emitter().burst(MagicMissile.WardParticle.UP, ((Ward) ch).tier);
 			} else {
@@ -135,7 +135,7 @@ public class WandOfWarding extends Wand {
 		} else {
 			Ward ward = new Ward();
 			ward.pos = target;
-			ward.wandLevel = buffedLvl();
+			ward.wandLevel = 强化等级();
 			GameScene.add(ward, 1f);
 			Dungeon.level.occupyCell(ward);
 			ward.sprite.emitter().burst(MagicMissile.WardParticle.UP, ward.tier);
@@ -159,8 +159,8 @@ public class WandOfWarding extends Wand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
-		int level = Math.max( 0, staff.buffedLvl() );
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+		int level = Math.max( 0, staff.强化等级() );
 
 		// lvl 0 - 20%
 		// lvl 1 - 33%
@@ -172,7 +172,7 @@ public class WandOfWarding extends Wand {
 
 			for (Char ch : Actor.chars()){
 				if (ch instanceof Ward){
-					((Ward) ch).wandHeal(staff.buffedLvl(), powerMulti);
+					((Ward) ch).wandHeal(staff.强化等级(), powerMulti);
 					ch.sprite.emitter().burst(MagicMissile.WardParticle.UP, ((Ward) ch).tier);
 				}
 			}
@@ -180,7 +180,7 @@ public class WandOfWarding extends Wand {
 	}
 
 	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
+	public void staffFx(法师魔杖.StaffParticle particle) {
 		particle.color( 0x8822FF );
 		particle.am = 0.3f;
 		particle.setLifespan(3f);

@@ -26,7 +26,7 @@ public class MossyClump extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (isIdentified()){
-			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(buffedLvl())));
+			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(强化等级())));
 		} else {
 			return Messages.get(this, "typical_stats_desc", (int)(100*overrideNormalLevelChance(0)));
 		}

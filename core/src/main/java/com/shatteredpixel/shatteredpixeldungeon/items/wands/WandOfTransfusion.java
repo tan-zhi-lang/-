@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BloodParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -73,18 +73,18 @@ public class WandOfTransfusion extends DamageWand {
 				// 5% of max hp
 				int selfDmg = Math.round(curUser.最大生命 *0.05f);
 				
-				int healing = selfDmg + 3*buffedLvl();
+				int healing = selfDmg + 3* 强化等级();
 				int shielding = (ch.生命 + healing) - ch.最大生命;
 				if (shielding > 0){
 					healing -= shielding;
-					Buff.施加(ch, Barrier.class).setShield(shielding);
+					Buff.施加(ch, Barrier.class).设置(shielding);
 				} else {
 					shielding = 0;
 				}
 				
 				ch.生命 += healing;
 				
-				ch.sprite.emitter().burst(Speck.factory(Speck.HEALING), 2 + buffedLvl() / 2);
+				ch.sprite.emitter().burst(Speck.factory(Speck.HEALING), 2 + 强化等级() / 2);
 				if (healing > 0) {
 					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healing), FloatingText.HEALING);
 				}
@@ -103,8 +103,8 @@ public class WandOfTransfusion extends DamageWand {
 			} else if (ch.alignment == Char.Alignment.ENEMY || ch instanceof Mimic) {
 
 				//grant a self-shield, and...
-				Buff.施加(curUser, Barrier.class).setShield((5 + buffedLvl()));
-				curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(5+buffedLvl()), FloatingText.SHIELDING);
+				Buff.施加(curUser, Barrier.class).设置((5 + 强化等级()));
+				curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(5+ 强化等级()), FloatingText.SHIELDING);
 				
 				//charms living enemies
 				if (!ch.properties().contains(Char.Property.UNDEAD)) {
@@ -116,7 +116,7 @@ public class WandOfTransfusion extends DamageWand {
 				//harms the undead
 				} else {
 					ch.受伤时(damageRoll(), this);
-					ch.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10 + buffedLvl());
+					ch.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10 + 强化等级());
 					Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				}
 
@@ -139,12 +139,12 @@ public class WandOfTransfusion extends DamageWand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
 		if (defender.buff(Charm.class) != null && defender.buff(Charm.class).object == attacker.id()){
 			//grants a free use of the staff and shields self
 			freeCharge = true;
-			int shieldToGive = Math.round((2*(5 + buffedLvl()))*procChanceMultiplier(attacker));
-			Buff.施加(attacker, Barrier.class).setShield(shieldToGive);
+			int shieldToGive = Math.round((2*(5 + 强化等级()))*procChanceMultiplier(attacker));
+			Buff.施加(attacker, Barrier.class).设置(shieldToGive);
 			attacker.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			GLog.p( Messages.get(this, "charged") );
 			attacker.sprite.emitter().burst(BloodParticle.BURST, 20);
@@ -159,7 +159,7 @@ public class WandOfTransfusion extends DamageWand {
 	}
 
 	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
+	public void staffFx(法师魔杖.StaffParticle particle) {
 		particle.color( 0xCC0000 );
 		particle.am = 0.6f;
 		particle.setLifespan(1f);
@@ -172,7 +172,7 @@ public class WandOfTransfusion extends DamageWand {
 	public String statsDesc() {
 		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3*buffedLvl(), 5+buffedLvl(), min(), max());
+			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3* 强化等级(), 5+ 强化等级(), min(), max());
 		else
 			return Messages.get(this, "stats_desc", selfDMG, selfDMG, 5, min(0), max(0));
 	}

@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -52,9 +52,9 @@ public class WandOfPrismaticLight extends DamageWand {
 		
 		if (Dungeon.level.viewDistance < 6 ){
 			if (Dungeon.isChallenged(Challenges.DARKNESS)){
-				Buff.延长( curUser, Light.class, 2f + buffedLvl());
+				Buff.延长( curUser, Light.class, 2f + 强化等级());
 			} else {
-				Buff.延长( curUser, Light.class, 10f+buffedLvl()*5);
+				Buff.延长( curUser, Light.class, 10f+ 强化等级()*5);
 			}
 		}
 		
@@ -69,18 +69,18 @@ public class WandOfPrismaticLight extends DamageWand {
 		int dmg = damageRoll();
 
 		//three in (5+lvl) chance of failing
-		if (Random.Int(5+buffedLvl()) >= 3) {
-			Buff.延长(ch, Blindness.class, 2f + (buffedLvl() * 0.333f));
+		if (Random.Int(5+ 强化等级()) >= 3) {
+			Buff.延长(ch, Blindness.class, 2f + (强化等级() * 0.333f));
 			ch.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6 );
 		}
 
 		if (ch.properties().contains(Char.Property.DEMONIC) || ch.properties().contains(Char.Property.UNDEAD)){
-			ch.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+buffedLvl() );
+			ch.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+ 强化等级() );
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 
 			ch.受伤时(Math.round(dmg*1.333f), this);
 		} else {
-			ch.sprite.centerEmitter().burst( RainbowParticle.BURST, 10+buffedLvl() );
+			ch.sprite.centerEmitter().burst( RainbowParticle.BURST, 10+ 强化等级() );
 
 			ch.受伤时(dmg, this);
 		}
@@ -141,13 +141,13 @@ public class WandOfPrismaticLight extends DamageWand {
 	}
 
 	@Override
-	public void onHit(MagesStaff staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
 		//cripples enemy
-		Buff.延长( defender, Cripple.class, Math.round((1+staff.buffedLvl())*procChanceMultiplier(attacker)));
+		Buff.延长( defender, Cripple.class, Math.round((1+staff.强化等级())*procChanceMultiplier(attacker)));
 	}
 
 	@Override
-	public void staffFx(MagesStaff.StaffParticle particle) {
+	public void staffFx(法师魔杖.StaffParticle particle) {
 		particle.color( Random.Int( 0x1000000 ) );
 		particle.am = 0.5f;
 		particle.setLifespan(1f);

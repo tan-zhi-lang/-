@@ -77,13 +77,13 @@ public class 双匕首 extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		sneakAbility(hero, target, 5, 2+buffedLvl(), this);
+		sneakAbility(hero, target, 5, 2+ 强化等级(), this);
 	}
 
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 2+buffedLvl());
+			return Messages.get(this, "ability_desc", 2+ 强化等级());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 2);
 		}

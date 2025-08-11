@@ -111,7 +111,7 @@ public class HornOfPlenty extends Artifact {
 			satietyPerCharge /= 3;
 		}
 
-		Buff.施加(hero, Hunger.class).satisfy(satietyPerCharge * chargesToUse);
+		Buff.施加(hero, Hunger.class).吃饭(satietyPerCharge * chargesToUse);
 
 		Statistics.foodEaten++;
 

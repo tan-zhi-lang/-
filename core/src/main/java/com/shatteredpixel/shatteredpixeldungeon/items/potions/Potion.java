@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -68,6 +69,13 @@ public class Potion extends Item {
 
 	private static final float TIME_TO_DRINK = 1f;
 
+	public float drinkTime(){
+		if (Dungeon.hero.heroClass(HeroClass.MAGE)){
+			return TIME_TO_DRINK-1;
+		} else {
+			return TIME_TO_DRINK;
+		}
+	}
 	private static final LinkedHashMap<String, Integer> colors = new LinkedHashMap<String, Integer>() {
 		{
 			put("crimson", 物品表.POTION_CRIMSON);
@@ -268,8 +276,8 @@ public class Potion extends Item {
 	protected void drink( Hero hero ) {
 		
 		detach( hero.belongings.backpack );
-		
-		hero.spend( TIME_TO_DRINK );
+
+		hero.spend( drinkTime() );
 		hero.busy();
 		apply( hero );
 		

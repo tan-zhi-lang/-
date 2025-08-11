@@ -11,8 +11,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bee;
+import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
@@ -26,7 +28,8 @@ public class ElixirOfHoneyedHealing extends Elixir {
 	public void apply(Hero hero) {
 		治疗药剂.cure(hero);
 		治疗药剂.heal(hero);
-		Buff.施加(hero, Hunger.class).satisfy(Hunger.HUNGRY/2f);
+		Buff.施加(hero, Hunger.class).吃饭(Hunger.HUNGRY/2f);
+		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(Hunger.HUNGRY/2f)), FloatingText.HUNGER);
 		Talent.onFoodEaten(hero, Hunger.HUNGRY/2f, this);
 	}
 	

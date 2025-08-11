@@ -25,7 +25,7 @@ public class AboutScene extends PixelScene {
 		super.create();
 
 		final float colWidth = 120;
-		final float fullWidth = colWidth * (landscape() ? 2 : 1);
+		final float fullWidth = colWidth * (横屏() ? 2 : 1);
 
 		int w = Camera.main.width;
 		int h = Camera.main.height;
@@ -51,7 +51,7 @@ public class AboutScene extends PixelScene {
 				"Developed by: _Evan Debenham_\nBased on Pixel Dungeon's open source",
 				"ShatteredPixel.com",
 				"https://ShatteredPixel.com");
-		if (landscape()){
+		if (横屏()){
 			shpx.setRect((w - fullWidth)/2f - 6, 10, 120, 0);
 		} else {
 			shpx.setRect((w - fullWidth)/2f, 6, 120, 0);
@@ -65,7 +65,7 @@ public class AboutScene extends PixelScene {
 				"akomitov.artstation.com",
 				"https://akomitov.artstation.com/");
 		alex.setSize(colWidth/2f, 0);
-		if (landscape()){
+		if (横屏()){
 			alex.setPos(shpx.right(), shpx.top() + (shpx.height() - alex.height()*2)/2f);
 		} else {
 			alex.setPos(w/2f - colWidth/2f, shpx.bottom()+5);
@@ -99,7 +99,7 @@ public class AboutScene extends PixelScene {
 				"Developed by: _Watabou_\nInspired by Brian Walker's Brogue",
 				"watabou.itch.io",
 				"https://watabou.itch.io/");
-		if (landscape()){
+		if (横屏()){
 			wata.setRect(shpx.left(), kristjan.bottom() + 8, colWidth, 0);
 		} else {
 			wata.setRect(shpx.left(), kristjan.bottom() + 8, colWidth, 0);
@@ -115,7 +115,7 @@ public class AboutScene extends PixelScene {
 				null,
 				null);
 		cube.setSize(colWidth/2f, 0);
-		if (landscape()){
+		if (横屏()){
 			cube.setPos(wata.right() + colWidth/4f, wata.top() + (wata.height() - cube.height())/2f);
 		} else {
 			cube.setPos(alex.left() + colWidth/4f, wata.bottom()+5);
@@ -132,7 +132,7 @@ public class AboutScene extends PixelScene {
 				"ShatteredPD is powered by _libGDX_!",
 				"libgdx.com",
 				"https://libgdx.com/");
-		if (landscape()){
+		if (横屏()){
 			gdx.setRect(wata.left(), wata.bottom() + 8, colWidth, 0);
 		} else {
 			gdx.setRect(wata.left(), cube.bottom() + 8, colWidth, 0);
@@ -148,7 +148,7 @@ public class AboutScene extends PixelScene {
 				"gamedev.place/@arcnor",
 				"https://mastodon.gamedev.place/@arcnor");
 		arcnor.setSize(colWidth/2f, 0);
-		if (landscape()){
+		if (横屏()){
 			arcnor.setPos(gdx.right(), gdx.top() + (gdx.height() - arcnor.height())/2f);
 		} else {
 			arcnor.setPos(alex.left(), gdx.bottom()+5);

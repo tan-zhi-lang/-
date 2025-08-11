@@ -32,7 +32,7 @@ public class HolyDart extends TippedDart {
 		}
 
 		if (Char.hasProp(defender, Char.Property.UNDEAD) || Char.hasProp(defender, Char.Property.DEMONIC)){
-			defender.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+buffedLvl() );
+			defender.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+ 强化等级() );
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 			defender.受伤时(Random.NormalIntRange(10 + Dungeon.scalingDepth()/3, 20 + Dungeon.scalingDepth()/3), this);
 		//also do not bless enemies if processing charged shot

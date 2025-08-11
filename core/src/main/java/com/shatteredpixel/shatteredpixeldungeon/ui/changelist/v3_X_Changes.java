@@ -242,7 +242,7 @@ public class v3_X_Changes {
 				"\n" +
 				"Dev commentary will be added here in the future"));
 
-		changes.addButton( new ChangeButton(new ItemSprite(物品表.SEAL), "Warrior Mini Rework",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.破损纹章), "Warrior Mini Rework",
 				"**The Warrior has had a mini overhaul to his broken seal ability, and new visuals for his splash art and broken seal!**\n" +
 				"\n" +
 				"The seal's shielding now triggers in bursts with a cooldown, when the Warrior is below 50% HP. It should feel more impactful and interactive while still being easy to use for new players.\n" +

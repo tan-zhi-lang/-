@@ -55,7 +55,7 @@ public class RunicBlade extends MeleeWeapon {
 
 		//we apply here because of projecting
 		RunicSlashTracker tracker = Buff.施加(hero, RunicSlashTracker.class);
-		tracker.boost = 3f + 0.50f*buffedLvl();
+		tracker.boost = 3f + 0.50f* 强化等级();
 		hero.belongings.abilityWeapon = this;
 		if (!hero.canAttack(enemy)){
 			GLog.w(Messages.get(this, "ability_target_range"));
@@ -87,7 +87,7 @@ public class RunicBlade extends MeleeWeapon {
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 300+50*buffedLvl());
+			return Messages.get(this, "ability_desc", 300+50* 强化等级());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 300);
 		}

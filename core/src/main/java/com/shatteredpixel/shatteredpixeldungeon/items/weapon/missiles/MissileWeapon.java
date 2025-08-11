@@ -20,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projecting;
@@ -79,9 +79,9 @@ abstract public class MissileWeapon extends Weapon {
 	@Override
 	public int 最小攻击() {
 		if (Dungeon.hero != null){
-			return Math.max(0, 最小攻击(buffedLvl() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero)));
+			return Math.max(0, 最小攻击(强化等级() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero)));
 		} else {
-			return Math.max(0 , 最小攻击( buffedLvl() ));
+			return Math.max(0 , 最小攻击( 强化等级() ));
 		}
 	}
 	
@@ -94,9 +94,9 @@ abstract public class MissileWeapon extends Weapon {
 	@Override
 	public int 最大攻击() {
 		if (Dungeon.hero != null){
-			return Math.max(0, 最大攻击( buffedLvl() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero) ));
+			return Math.max(0, 最大攻击( 强化等级() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero) ));
 		} else {
-			return Math.max(0 , 最大攻击( buffedLvl() ));
+			return Math.max(0 , 最大攻击( 强化等级() ));
 		}
 	}
 	
@@ -115,11 +115,11 @@ abstract public class MissileWeapon extends Weapon {
 	}
 
 	//use the parent item if this has been thrown from a parent
-	public int buffedLvl(){
+	public int 强化等级(){
 		if (parent != null) {
-			return parent.buffedLvl();
+			return parent.强化等级();
 		} else {
-			return super.buffedLvl();
+			return super.强化等级();
 		}
 	}
 
@@ -128,7 +128,7 @@ abstract public class MissileWeapon extends Weapon {
 			durability = MAX_DURABILITY;
 			extraThrownLeft = false;
 			quantity = defaultQuantity();
-			Buff.施加(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
+			Buff.施加(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, 真等级()+1);
 		}
 		//thrown weapons don't get curse weakened
 		boolean wasCursed = cursed;
@@ -145,7 +145,7 @@ abstract public class MissileWeapon extends Weapon {
 			durability = MAX_DURABILITY;
 			extraThrownLeft = false;
 			quantity = defaultQuantity();
-			Buff.施加(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, trueLevel()+1);
+			Buff.施加(Dungeon.hero, UpgradedSetTracker.class).levelThresholds.put(setID, 真等级()+1);
 		}
 		return super.升级();
 	}
@@ -164,7 +164,7 @@ abstract public class MissileWeapon extends Weapon {
 	}
 
 	public boolean isSimilar( Item item ) {
-		return trueLevel() == item.trueLevel() && getClass() == item.getClass() && setID == (((MissileWeapon) item).setID);
+		return 真等级() == item.真等级() && getClass() == item.getClass() && setID == (((MissileWeapon) item).setID);
 	}
 	
 	@Override
@@ -174,8 +174,8 @@ abstract public class MissileWeapon extends Weapon {
 		if (hasEnchant(Projecting.class, user)){
 			projecting += 4;
 		}
-		if ((!(this instanceof SpiritBow.SpiritArrow) && Random.Int(3) < user.天赋点数(Talent.SHARED_ENCHANTMENT))){
-			SpiritBow bow = Dungeon.hero.belongings.getItem(SpiritBow.class);
+		if ((!(this instanceof 灵能短弓.SpiritArrow) && Random.Int(3) < user.天赋点数(Talent.SHARED_ENCHANTMENT))){
+			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
 			if (bow != null && bow.hasEnchant(Projecting.class, user)) {
 				projecting += 4;
 			}
@@ -208,7 +208,7 @@ abstract public class MissileWeapon extends Weapon {
 			}
 		} else {
 			if (owner instanceof Hero){
-				return (0.5f + ((Hero) owner).天赋点数(Talent.POINT_BLANK,0.25f));
+				return 0.5f;
 			} else {
 				return 0.5f;
 			}
@@ -280,7 +280,7 @@ abstract public class MissileWeapon extends Weapon {
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage) {
 		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.天赋点数(Talent.SHARED_ENCHANTMENT)){
-			SpiritBow bow = Dungeon.hero.belongings.getItem(SpiritBow.class);
+			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
 			if (bow != null && bow.enchantment != null && Dungeon.hero.buff(MagicImmune.class) == null) {
 				damage = bow.enchantment.proc(this, attacker, defender, damage);
 			}
@@ -758,7 +758,7 @@ abstract public class MissileWeapon extends Weapon {
 			if (h.buff(UpgradedSetTracker.class) != null){
 				HashMap<Long, Integer> levelThresholds = h.buff(UpgradedSetTracker.class).levelThresholds;
 				if (levelThresholds.containsKey(w.setID)){
-					return w.trueLevel() >= levelThresholds.get(w.setID);
+					return w.真等级() >= levelThresholds.get(w.setID);
 				}
 				return true;
 			}

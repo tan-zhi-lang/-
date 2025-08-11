@@ -43,22 +43,22 @@ public class WndHeroInfo extends WndTabbed {
 		Image tabIcon;
 		switch (cl){
 			case WARRIOR: default:
-				tabIcon = new ItemSprite(物品表.SEAL, null);
+				tabIcon = new ItemSprite(物品表.破损纹章, null);
 				break;
 			case MAGE:
-				tabIcon = new ItemSprite(物品表.MAGES_STAFF, null);
+				tabIcon = new ItemSprite(物品表.法师魔杖, null);
 				break;
 			case ROGUE:
 				tabIcon = new ItemSprite(物品表.ARTIFACT_CLOAK, null);
 				break;
 			case HUNTRESS:
-				tabIcon = new ItemSprite(物品表.SPIRIT_BOW, null);
+				tabIcon = new ItemSprite(物品表.灵能短弓, null);
 				break;
 			case DUELIST:
 				tabIcon = new ItemSprite(物品表.RAPIER, null);
 				break;
 			case CLERIC:
-				tabIcon = new ItemSprite(物品表.ARTIFACT_TOME, null);
+				tabIcon = new ItemSprite(物品表.神圣法典, null);
 				break;
 		}
 
@@ -162,36 +162,42 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.巨斧),
 							new ItemSprite(物品表.RATION),
+							new TalentIcon(Talent.IRON_WILL),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.RECHARGING, true),
 							new ItemSprite(物品表.SCROLL_TIWAZ),
+							new ItemSprite(物品表.POTION_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case ROGUE:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.get(Icons.上楼),
 							Icons.锁门.get(),
+							new BuffIcon(BuffIndicator.HASTE, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case HUNTRESS:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.GRASS.get(),
 							new TalentIcon(Talent.HEIGHTENED_SENSES),
+							new ItemSprite(物品表.地牢浆果),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case DUELIST:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.WAR_HAMMER),
-							new TalentIcon(Talent.越战越勇),
+							new BuffIcon(BuffIndicator.CORRUPT, true),
+							Icons.TALENT.get(),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case CLERIC:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.TALENT.get(),
 							new ItemSprite(物品表.REMAINS),
+							new BuffIcon(BuffIndicator.LIGHT, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}

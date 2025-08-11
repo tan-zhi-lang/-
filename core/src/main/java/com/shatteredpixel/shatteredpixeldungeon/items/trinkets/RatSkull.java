@@ -20,7 +20,7 @@ public class RatSkull extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (isIdentified()){
-			return Messages.get(this, "stats_desc", (int)(exoticChanceMultiplier(buffedLvl())));
+			return Messages.get(this, "stats_desc", (int)(exoticChanceMultiplier(强化等级())));
 		} else {
 			return Messages.get(this, "typical_stats_desc", (int)(exoticChanceMultiplier(0)));
 		}

@@ -35,7 +35,7 @@ public class StenchGas extends Blob {
 			for (int j = area.top; j < area.bottom; j++){
 				cell = i + j*Dungeon.level.width();
 				if (cur[cell] > 0 && (ch = Actor.findChar( cell )) != null) {
-					if (!ch.isImmune(this.getClass())) {
+					if (!ch.免疫(this.getClass())) {
 						if (ch == Dungeon.hero && ch.buff(Paralysis.class) == null && fetidRatSpawned){
 							Statistics.questScores[0] -= 100;
 						}

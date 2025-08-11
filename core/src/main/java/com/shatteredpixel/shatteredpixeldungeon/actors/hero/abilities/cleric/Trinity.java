@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.EtherealChains;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
@@ -290,7 +290,7 @@ public class Trinity extends ArmorAbility {
 	public static class WndItemtypeSelect extends WndTitledMessage {
 
 		//probably want a callback here?
-		public WndItemtypeSelect(HolyTome tome, ClericSpell spell) {
+		public WndItemtypeSelect(神圣法典 tome, ClericSpell spell) {
 			super(new HeroIcon(spell), Messages.titleCase(spell.name()), Messages.get(WndItemtypeSelect.class, "text"));
 
 			//start by filtering and sorting
@@ -333,7 +333,7 @@ public class Trinity extends ArmorAbility {
 						discoveredClasses.add(cls);
 					}
 					//no tome specifically
-					discoveredClasses.remove(HolyTome.class);
+					discoveredClasses.remove(神圣法典.class);
 				}
 			}
 
@@ -407,7 +407,7 @@ public class Trinity extends ArmorAbility {
 
 	public static class WndItemConfirm extends WndTitledMessage {
 
-		public WndItemConfirm(Window parentWnd, Item item, HolyTome tome, ClericSpell spell){
+		public WndItemConfirm(Window parentWnd, Item item, 神圣法典 tome, ClericSpell spell){
 			super(new ItemSprite(item),  Messages.titleCase(getName(item)), getText(item));
 
 			String text;

@@ -9,13 +9,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BadgeBanner;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.WoollyBomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfAntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -65,7 +65,7 @@ public class v1_X_Changes {
 				"_30 pages of lore text have been added to the game, scattered around the regions of the dungeon!_\n\n" +
 				"These pages are found through the dungeon and go into a new tab in the journal window. Each region contains 6 pages that make up a short story that gives more details about that region and the people who have been there before the player."));
 
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_TOURMALINE), new RingOfArcana().trueName(),
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_TOURMALINE), new 奥术之戒().trueName(),
 				"_A new ring has been added that enhances enchantments and glyphs!_\n\n" +
 				"The Ring of Arcana lets the player directly power up their enchantments and glyphs, instead of only being able to power them up by upgrading the item they are attached to. This can lead to be some really potent enchant/glyph effects at high ring levels."));
 
@@ -407,7 +407,7 @@ public class v1_X_Changes {
 				"_- Go for the Eyes_ now cripples at ranks 3 and 4\n" +
 				"_- Swift Spirit_ now grants 2/4/6/8 dodges, up from 2/3/4/5"));
 
-		changes.addButton( new ChangeButton(new TalentIcon(Talent.WAND_PRESERVATION), Talent.WAND_PRESERVATION.title(),
+		changes.addButton( new ChangeButton(new TalentIcon(Talent.高级法杖), Talent.高级法杖.title(),
 				"Only one isolated talent change in this update:\n\n" +
 				"_- Wand Preservation_ chance to preserve at +1 reverted to 67% from 50%, still grants 1 arcane resin if it fails to preserve"));
 
@@ -794,7 +794,7 @@ public class v1_X_Changes {
 		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new MagesStaff(),
+		changes.addButton(new ChangeButton(new 法师魔杖(),
 				"The reduction to the Mage's starting melee damage in v1.0.0 had a good effect on his early game winrate, but it's still notably higher than other heroes. So, I'm nudging his early melee power down one more time:\n\n" +
 				"_- Mage's Staff_ base damage reduced to 1-6 from 1-7."));
 
@@ -965,7 +965,7 @@ public class v1_X_Changes {
 		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
-		changes.addButton(new ChangeButton(new MagesStaff(),
+		changes.addButton(new ChangeButton(new 法师魔杖(),
 				"The Mage continues to do too well in the early game since the talent changes in v0.9.1. Rather than weakening his talents and other magical abilities more, I've decided to make him more reliant on them instead by reducing his melee damage.\n\n" +
 				"_- Mage's Staff_ base damage reduced to 1-7 from 1-8."));
 

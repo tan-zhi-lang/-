@@ -49,7 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -131,8 +131,8 @@ public class ElementalBlast extends ArmorAbility {
 		}
 
 		Class<? extends Wand> wandCls = null;
-		if (hero.belongings.getItem(MagesStaff.class) != null) {
-			wandCls = hero.belongings.getItem(MagesStaff.class).wandClass();
+		if (hero.belongings.getItem(法师魔杖.class) != null) {
+			wandCls = hero.belongings.getItem(法师魔杖.class).wandClass();
 		}
 
 		if (wandCls == null){
@@ -320,7 +320,7 @@ public class ElementalBlast extends ArmorAbility {
 										int shielding = (mob.生命 + healing) - mob.最大生命;
 										if (shielding > 0){
 											healing -= shielding;
-											Buff.施加(mob, Barrier.class).setShield(shielding);
+											Buff.施加(mob, Barrier.class).设置(shielding);
 										} else {
 											shielding = 0;
 										}
@@ -402,7 +402,7 @@ public class ElementalBlast extends ArmorAbility {
 						if (charsHit > 0 && hero.有天赋(Talent.REACTIVE_BARRIER)){
 							int shielding = Math.round(charsHit*2.5f*hero.天赋点数(Talent.REACTIVE_BARRIER));
 							hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shielding), FloatingText.SHIELDING);
-							Buff.施加(hero, Barrier.class).setShield(shielding);
+							Buff.施加(hero, Barrier.class).设置(shielding);
 						}
 
 						hero.spendAndNext(Actor.TICK);
@@ -425,7 +425,7 @@ public class ElementalBlast extends ArmorAbility {
 	public String desc() {
 		String desc = Messages.get(this, "desc");
 		if (Game.scene() instanceof GameScene){
-			MagesStaff staff = Dungeon.hero.belongings.getItem(MagesStaff.class);
+			法师魔杖 staff = Dungeon.hero.belongings.getItem(法师魔杖.class);
 			if (staff != null && staff.wandClass() != null){
 				desc += "\n\n" + Messages.get(staff.wandClass(), "eleblast_desc");
 			} else {

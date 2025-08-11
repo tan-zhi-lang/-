@@ -17,7 +17,7 @@ import com.watabou.noosa.Image;
 public class WndVictoryCongrats extends Window {
 
 	public WndVictoryCongrats(){
-		int width = PixelScene.landscape() ? 180 : 120;
+		int width = PixelScene.横屏() ? 180 : 120;
 		int height = 0;
 
 		IconTitle title = new IconTitle( new ItemSprite(物品表.AMULET), Messages.get(this, "title"));

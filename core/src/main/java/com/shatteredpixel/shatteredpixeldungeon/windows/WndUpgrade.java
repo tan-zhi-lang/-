@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatshield;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
@@ -91,7 +91,7 @@ public class WndUpgrade extends Window {
 				|| (toUpgrade instanceof Wand && ((Wand) toUpgrade).curseInfusionBonus);
 
 		if (curseInfused){
-			if (toUpgrade.trueLevel()/6 < (toUpgrade.trueLevel()+1)/6){
+			if (toUpgrade.真等级()/6 < (toUpgrade.真等级()+1)/6){
 				//new level bracket for curse infusion bonus
 				levelTo++;
 			}
@@ -248,8 +248,8 @@ public class WndUpgrade extends Window {
 
 		//we use a separate reference for wand properties so that mage's staff can include them
 		Item wand = toUpgrade;
-		if (toUpgrade instanceof MagesStaff && ((MagesStaff) toUpgrade).wandClass() != null){
-			wand = Reflection.newInstance(((MagesStaff) toUpgrade).wandClass());
+		if (toUpgrade instanceof 法师魔杖 && ((法师魔杖) toUpgrade).wandClass() != null){
+			wand = Reflection.newInstance(((法师魔杖) toUpgrade).wandClass());
 		}
 
 		//Various wand stats (varies by wand)
@@ -276,7 +276,7 @@ public class WndUpgrade extends Window {
 
 		//max charges
 		if (wand instanceof Wand){
-			int chargeboost = levelFrom + (toUpgrade instanceof MagesStaff ? 1 : 0);
+			int chargeboost = levelFrom + (toUpgrade instanceof 法师魔杖 ? 1 : 0);
 			bottom = fillFields(Messages.get(this, "charges"),
 					Integer.toString(Math.min(10, ((Wand) wand).initialCharges() + chargeboost)),
 					Integer.toString(Math.min(10, ((Wand) wand).initialCharges() + chargeboost + 1)),

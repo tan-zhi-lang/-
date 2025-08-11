@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public abstract class ClericSpell {
 
-	public abstract void onCast(HolyTome tome, Hero hero);
+	public abstract void onCast(神圣法典 tome, Hero hero);
 
 	public float chargeUse( Hero hero ){
 		return 1;
@@ -54,14 +54,14 @@ public abstract class ClericSpell {
 		return HeroIcon.NONE;
 	}
 
-	public void onSpellCast(HolyTome tome, Hero hero){
+	public void onSpellCast(神圣法典 tome, Hero hero){
 		Invisibility.dispel();
 		if (hero.有天赋(Talent.SATIATED_SPELLS) && hero.buff(Talent.SatiatedSpellsTracker.class) != null){
 			int amount = hero.天赋点数(Talent.SATIATED_SPELLS,5);
-			Buff.施加(hero, Barrier.class).setShield(amount);
+			Buff.施加(hero, Barrier.class).设置(amount);
 			Char ally = PowerOfMany.getPoweredAlly();
 			if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-				Buff.施加(ally, Barrier.class).setShield(amount);
+				Buff.施加(ally, Barrier.class).设置(amount);
 			}
 			hero.buff(Talent.SatiatedSpellsTracker.class).detach();
 		}
@@ -78,7 +78,7 @@ public abstract class ClericSpell {
 
 		if (hero.buff(AscendedForm.AscendBuff.class) != null){
 			hero.buff(AscendedForm.AscendBuff.class).spellCasts++;
-			hero.buff(AscendedForm.AscendBuff.class).incShield((int)(10*chargeUse(hero)));
+			hero.buff(AscendedForm.AscendBuff.class).增加((int)(10*chargeUse(hero)));
 		}
 	}
 

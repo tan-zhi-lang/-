@@ -57,13 +57,13 @@ public class Dirk extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		双匕首.sneakAbility(hero, target, 4, 2+buffedLvl(), this);
+		双匕首.sneakAbility(hero, target, 4, 2+ 强化等级(), this);
 	}
 
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 2+buffedLvl());
+			return Messages.get(this, "ability_desc", 2+ 强化等级());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 2);
 		}

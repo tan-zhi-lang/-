@@ -47,7 +47,7 @@ public class Buff extends Actor {
 	
 	public boolean attachTo( Char target ) {
 
-		if (target.isImmune( getClass() )) {
+		if (target.免疫( getClass() )) {
 			return false;
 		}
 		

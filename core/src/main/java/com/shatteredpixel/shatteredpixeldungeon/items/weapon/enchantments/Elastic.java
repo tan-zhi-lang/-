@@ -4,7 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -17,7 +17,7 @@ public class Elastic extends Weapon.Enchantment {
 	
 	@Override
 	public int proc(Weapon weapon, Char attacker, Char defender, int damage ) {
-		int level = Math.max( 0, weapon.buffedLvl() );
+		int level = Math.max( 0, weapon.强化等级() );
 
 		// lvl 0 - 20%
 		// lvl 1 - 33%
@@ -35,7 +35,7 @@ public class Elastic extends Weapon.Enchantment {
 			WandOfBlastWave.throwChar(defender,
 					trajectory,
 					Math.round(2 * powerMulti),
-					!(weapon instanceof MissileWeapon || weapon instanceof SpiritBow),
+					!(weapon instanceof MissileWeapon || weapon instanceof 灵能短弓),
 					true,
 					this);
 		}

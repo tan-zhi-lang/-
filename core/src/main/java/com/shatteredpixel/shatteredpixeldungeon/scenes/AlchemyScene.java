@@ -474,7 +474,7 @@ public class AlchemyScene extends PixelScene {
 						{
 							WndJournal.AlchemyTab t = new WndJournal.AlchemyTab();
 							int w, h;
-							if (landscape()) {
+							if (横屏()) {
 								w = WndJournal.WIDTH_L;
 								h = WndJournal.HEIGHT_L+8;
 							} else {

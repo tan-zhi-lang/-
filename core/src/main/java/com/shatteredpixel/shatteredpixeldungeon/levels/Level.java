@@ -136,7 +136,7 @@ public abstract class Level implements Bundlable {
 	public boolean[] mapped;
 	public boolean[] discoverable;
 
-	public int viewDistance = Dungeon.isChallenged( Challenges.DARKNESS ) ? 2 : 8;
+	public int viewDistance = 8;
 	
 	public boolean[] heroFOV;
 	
@@ -1104,7 +1104,7 @@ public abstract class Level implements Bundlable {
 	}
 	
 	public void occupyCell( Char ch ){
-		if (!ch.isImmune(Web.class) && Blob.volumeAt(ch.pos, Web.class) > 0){
+		if (!ch.免疫(Web.class) && Blob.volumeAt(ch.pos, Web.class) > 0){
 			blobs.get(Web.class).clear(ch.pos);
 			Web.affectChar( ch );
 		}

@@ -30,7 +30,7 @@ public class WndStory extends Window {
 	public WndStory(Image icon, String title, String text ) {
 		super( 0, 0, Chrome.get( Chrome.Type.SCROLL ) );
 
-		int width = PixelScene.landscape() ? WIDTH_L - MARGIN * 2: WIDTH_P - MARGIN *2;
+		int width = PixelScene.横屏() ? WIDTH_L - MARGIN * 2: WIDTH_P - MARGIN *2;
 
 		float y = MARGIN;
 		if (icon != null && title != null){

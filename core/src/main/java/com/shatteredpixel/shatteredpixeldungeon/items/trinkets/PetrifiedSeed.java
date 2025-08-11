@@ -21,8 +21,8 @@ public class PetrifiedSeed extends Trinket {
 	public String statsDesc() {
 		if (isIdentified()){
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", 100*stoneInsteadOfSeedChance(buffedLvl())),
-					Messages.decimalFormat("#.##", 100*(grassLootMultiplier(buffedLvl())-1f)));
+					Messages.decimalFormat("#.##", 100*stoneInsteadOfSeedChance(强化等级())),
+					Messages.decimalFormat("#.##", 100*(grassLootMultiplier(强化等级())-1f)));
 		} else {
 			return Messages.get(this, "typical_stats_desc",
 					Messages.decimalFormat("#.##", 100*stoneInsteadOfSeedChance(0)),

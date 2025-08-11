@@ -49,7 +49,7 @@ public class AmuletScene extends PixelScene {
 		RenderedTextBlock text = null;
 		if (!noText) {
 			text = renderTextBlock( Messages.get(this, "text"), 8 );
-			text.maxWidth( PixelScene.landscape() ? 2*WIDTH-4 : WIDTH);
+			text.maxWidth( PixelScene.横屏() ? 2*WIDTH-4 : WIDTH);
 		}
 		
 		amulet = new Image( Assets.Sprites.AMULET );

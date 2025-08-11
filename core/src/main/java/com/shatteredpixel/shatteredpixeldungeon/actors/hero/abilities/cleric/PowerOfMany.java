@@ -145,7 +145,7 @@ public class PowerOfMany extends ArmorAbility {
 			}
 
 			Buff.施加(ch, PowerBuff.class, 100f);
-			Buff.施加(ch, Barrier.class).setShield(25);
+			Buff.施加(ch, Barrier.class).设置(25);
 
 			armor.charge -= chargeUse;
 			armor.updateQuickslot();

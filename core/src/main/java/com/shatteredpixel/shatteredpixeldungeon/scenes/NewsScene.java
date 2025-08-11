@@ -43,7 +43,7 @@ public class NewsScene extends PixelScene {
 		int w = Camera.main.width;
 		int h = Camera.main.height;
 
-		int fullWidth = PixelScene.landscape() ? 202 : 100;
+		int fullWidth = PixelScene.横屏() ? 202 : 100;
 		int left = (w - fullWidth)/2;
 
 		Archs archs = new Archs();
@@ -81,14 +81,14 @@ public class NewsScene extends PixelScene {
 
 			float articleSpace = h - top - 2;
 			int rows = articles.size();
-			if (PixelScene.landscape()){
+			if (PixelScene.横屏()){
 				rows /= 2;
 			}
 			rows++;
 
 			while ((articleSpace) / (BTN_HEIGHT+0.5f) < rows) {
 				articles.remove(articles.size() - 1);
-				if (PixelScene.landscape()) {
+				if (PixelScene.横屏()) {
 					articles.remove(articles.size() - 1);
 				}
 				rows--;
@@ -108,7 +108,7 @@ public class NewsScene extends PixelScene {
 				}
 				align(b);
 				add(b);
-				if (!PixelScene.landscape()) {
+				if (!PixelScene.横屏()) {
 					top += BTN_HEIGHT;
 				} else {
 					if (rightCol){

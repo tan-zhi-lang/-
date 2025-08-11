@@ -89,7 +89,7 @@ public class WndInfoItem extends Window {
 		info.maxWidth(width);
 
 		//window can go out of the screen on landscape, so widen it as appropriate
-		while (PixelScene.landscape()
+		while (PixelScene.横屏()
 				&& info.height() > 100
 				&& width < WIDTH_MAX){
 			width += 20;

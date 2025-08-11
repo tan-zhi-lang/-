@@ -115,7 +115,7 @@ public class CursedWand {
 
 	public static void tryForWandProc( Char target, Item origin ){
 		if (target != null && target != Dungeon.hero && origin instanceof Wand){
-			Wand.wandProc(target, origin.buffedLvl(), 1);
+			Wand.wandProc(target, origin.强化等级(), 1);
 		}
 	}
 

@@ -101,7 +101,7 @@ abstract public class ClassArmor extends Armor {
 				break;
 		}
 		
-		classArmor.等级(armor.trueLevel());
+		classArmor.等级(armor.真等级());
 		classArmor.tier = armor.tier;
 		classArmor.augment = armor.augment;
 		classArmor.inscribe(armor.glyph);
@@ -218,7 +218,7 @@ abstract public class ClassArmor extends Armor {
 										((HeroSprite) hero.sprite).updateArmor();
 									}
 								}
-								等级(armor.trueLevel());
+								等级(armor.真等级());
 								tier = armor.tier;
 								augment = armor.augment;
 								cursed = armor.cursed;
@@ -231,7 +231,7 @@ abstract public class ClassArmor extends Armor {
 									//automates the process of detaching the seal manually
 									// and re-affixing it to the new armor
 									if (破损纹章.等级() > 0){
-										int newLevel = trueLevel() + 1;
+										int newLevel = 真等级() + 1;
 										等级(newLevel);
 										Badges.validateItemLevelAquired(ClassArmor.this);
 									}

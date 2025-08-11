@@ -105,7 +105,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		return true;
 	}
 
-	public void satisfy( float energy ) {
+	public void 吃饭(float energy ) {
 		affectHunger( energy, false );
 	}
 

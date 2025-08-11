@@ -706,7 +706,7 @@ public class DriedRose extends Artifact {
 		@Override
 		public int glyphLevel(Class<? extends Armor.Glyph> cls) {
 			if (armor() != null && armor().hasGlyph(cls, this)){
-				return Math.max(super.glyphLevel(cls), armor().buffedLvl());
+				return Math.max(super.glyphLevel(cls), armor().强化等级());
 			} else {
 				return super.glyphLevel(cls);
 			}

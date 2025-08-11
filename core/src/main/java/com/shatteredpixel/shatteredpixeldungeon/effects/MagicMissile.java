@@ -105,10 +105,10 @@ public class MagicMissile extends Emitter {
 		height = 0;
 		
 		PointF d = PointF.diff( to, from );
-		PointF speed = new PointF( d ).normalize().scale( SPEED*(SPDSettings.动画速度()>1?SPDSettings.动画速度()*3.3f:1) );
+		PointF speed = new PointF( d ).normalize().scale( SPEED*SPDSettings.加快());
 		sx = speed.x;
 		sy = speed.y;
-		time = d.length() / SPEED/ (SPDSettings.动画速度()>1?SPDSettings.动画速度()*3.3f:1);
+		time = d.length() / SPEED/SPDSettings.加快();
 
 		//for now all specks share the same size and volume, this can easily be customized later if needed
 		if (type >= SPECK){

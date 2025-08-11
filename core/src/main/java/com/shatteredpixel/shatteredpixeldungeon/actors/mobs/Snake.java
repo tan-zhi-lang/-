@@ -28,7 +28,7 @@ public class Snake extends Mob {
 	
 	@Override
 	public int 攻击() {
-		return Random.NormalIntRange( 1, 4 );
+		return Random.NormalIntRange( 1, 6 );
 	}
 	
 	@Override

@@ -152,13 +152,13 @@ public class CrystalGuardian extends Mob{
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
+	public boolean 是无敌(Class effect) {
 		if (recovering){
 			//while recovering, immune to chars that aren't the hero or spire
 			// this is sort of a hack to prevent allies from attacking downed guardians
-			return super.isInvulnerable(effect) || (Char.class.isAssignableFrom(effect) && !Hero.class.isAssignableFrom(effect) && !CrystalSpire.class.isAssignableFrom(effect));
+			return super.是无敌(effect) || (Char.class.isAssignableFrom(effect) && !Hero.class.isAssignableFrom(effect) && !CrystalSpire.class.isAssignableFrom(effect));
 		}
-		return super.isInvulnerable(effect);
+		return super.是无敌(effect);
 	}
 
 	public CrystalGuardian(){

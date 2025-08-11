@@ -165,7 +165,7 @@ public class WndHero extends WndTabbed {
 			infoButton.setRect(title.right(), 0, 16, 16);
 			add(infoButton);
 
-			pos = title.bottom() + 2*GAP;
+			pos = title.bottom() + GAP;
 
 			int strBonus = hero.力量() - hero.力量;
 			if (strBonus > 0)           statSlot( Messages.get(this, "str"), hero.力量 + " + " + strBonus );

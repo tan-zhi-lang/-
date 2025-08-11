@@ -19,7 +19,7 @@ public class Affection extends Glyph {
 	@Override
 	public int proc( Armor armor, Char attacker, Char defender, int damage) {
 
-		int level = Math.max(0, armor.buffedLvl());
+		int level = Math.max(0, armor.强化等级());
 		
 		// lvl 0 - 15%
 		// lvl 1 ~ 19%

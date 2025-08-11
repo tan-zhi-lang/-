@@ -27,7 +27,7 @@ public class Greatshield extends MeleeWeapon {
 	}
 
 	public int DRMax(){
-		return DRMax(buffedLvl());
+		return DRMax(强化等级());
 	}
 
 	//6 extra defence, plus 2 per level
@@ -37,7 +37,7 @@ public class Greatshield extends MeleeWeapon {
 	
 	public String statsInfo(){
 		if (isIdentified()){
-			return Messages.get(this, "stats_desc", 6+2*buffedLvl());
+			return Messages.get(this, "stats_desc", 6+2* 强化等级());
 		} else {
 			return Messages.get(this, "typical_stats_desc", 6);
 		}
@@ -45,13 +45,13 @@ public class Greatshield extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		RoundShield.guardAbility(hero, 3+buffedLvl(), this);
+		RoundShield.guardAbility(hero, 3+ 强化等级(), this);
 	}
 
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 3+buffedLvl());
+			return Messages.get(this, "ability_desc", 3+ 强化等级());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 3);
 		}

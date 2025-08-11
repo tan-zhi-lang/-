@@ -79,7 +79,7 @@ public class Dewdrop extends Item {
 
 			int maxShield = Math.round(hero.最大生命*hero.天赋点数(Talent.SHIELDING_DEW,0.25f));
 			int curShield = 0;
-			if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).shielding();
+			if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).护盾量();
 			shield = Math.min(shield, maxShield-curShield);
 		}
 
@@ -97,7 +97,7 @@ public class Dewdrop extends Item {
 			}
 
 			if (shield > 0) {
-				Buff.施加(hero, Barrier.class).incShield(shield);
+				Buff.施加(hero, Barrier.class).增加(shield);
 				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING );
 			}
 

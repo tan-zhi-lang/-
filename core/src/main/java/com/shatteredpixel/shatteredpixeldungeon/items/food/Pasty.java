@@ -146,7 +146,7 @@ public class Pasty extends Food {
 			case NEW_YEARS:
 				//shields for 10% of max hp, min of 5
 				int toShield = Math.max(5, hero.最大生命 /10);
-				Buff.施加(hero, Barrier.class).setShield(toShield);
+				Buff.施加(hero, Barrier.class).设置(toShield);
 				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
 		}

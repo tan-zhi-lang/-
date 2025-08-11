@@ -120,11 +120,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		//Shouldn't interrupt the dieing animation
 		if (curAnim == null || curAnim != die) {
             if (anim==idle) {
-				anim.delay = 1;
+				anim.delay = 1f/(SPDSettings.加快()==100f?3f:1f);
             } else if (anim == run) {
-				anim.delay = 1;
+				anim.delay = 10f/SPDSettings.加快();
 			} else{
-				anim.delay = 1f/10f/(SPDSettings.动画速度()>1?SPDSettings.动画速度()*3.3f:1);
+				anim.delay = 1f/SPDSettings.加快();
 			}
             super.play(anim);
 		}

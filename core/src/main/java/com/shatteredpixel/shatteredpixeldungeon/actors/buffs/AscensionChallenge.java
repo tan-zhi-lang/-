@@ -232,7 +232,7 @@ public class AscensionChallenge extends Buff {
 			Statistics.highestAscent = Dungeon.depth;
 			justAscended = true;
 			if (Dungeon.bossLevel()){
-				Dungeon.hero.buff(Hunger.class).satisfy(Hunger.STARVING);
+				Dungeon.hero.buff(Hunger.class).吃饭(Hunger.STARVING);
 				Buff.施加(Dungeon.hero, Healing.class).setHeal(Dungeon.hero.最大生命, 0, 20);
 			} else {
 				stacks += 2f;

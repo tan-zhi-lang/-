@@ -42,7 +42,7 @@ public class Regrowth extends Blob {
 
 						Char ch = Actor.findChar( cell );
 						if (ch != null
-								&& !ch.isImmune(this.getClass())
+								&& !ch.免疫(this.getClass())
 								&& off[cell] > 1) {
 							Buff.延长( ch, Roots.class, TICK );
 						}

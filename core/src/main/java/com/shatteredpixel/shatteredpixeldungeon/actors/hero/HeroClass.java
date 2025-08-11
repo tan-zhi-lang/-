@@ -27,6 +27,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -41,7 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -58,10 +60,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双匕首;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
@@ -97,7 +99,9 @@ public enum HeroClass {
 		i = new Food();
 		if (!Challenges.isItemBlocked(i)) i.放背包();
 
-		new 经验药剂().数量(30).放背包();
+//		new 经验药剂().数量(30).放背包();
+//		new 极速药剂().数量(30).放背包();
+
 		new 绒布袋().放背包();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 
@@ -189,9 +193,9 @@ public enum HeroClass {
 		Item i = new 法袍().鉴定();
 		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (法袍)i;
 
-		MagesStaff staff;
+		法师魔杖 staff;
 
-		staff = new MagesStaff(new 焰浪法杖());
+		staff = new 法师魔杖(new 焰浪法杖());
 
 		(hero.belongings.weapon = staff).鉴定();
 		hero.belongings.weapon.activate(hero);
@@ -230,7 +234,7 @@ public enum HeroClass {
 
 		(hero.belongings.weapon = new 镶钉手套()).鉴定();
 
-		SpiritBow bow = new SpiritBow();
+		灵能短弓 bow = new 灵能短弓();
 		bow.鉴定().放背包();
 
 		Dungeon.quickslot.setSlot(0, bow);
@@ -253,7 +257,7 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(1, spikes);
 
 		new PotionOfStrength().鉴定();
-		new ScrollOfMirrorImage().鉴定();
+		new ScrollOfRetribution().鉴定();
 	}
 
 	private static void initCleric( Hero hero ) {
@@ -263,7 +267,7 @@ public enum HeroClass {
 		(hero.belongings.weapon = new Cudgel()).鉴定();
 		hero.belongings.weapon.activate(hero);
 
-		HolyTome tome = new HolyTome();
+		神圣法典 tome = new 神圣法典();
 		(hero.belongings.artifact = tome).鉴定();
 		hero.belongings.artifact.activate( hero );
 

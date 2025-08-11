@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -33,7 +33,7 @@ public class Cleanse extends ClericSpell {
 
 	@Override
 	public float chargeUse(Hero hero) {
-		return 2;
+		return 1;
 	}
 
 	public String desc(){
@@ -49,7 +49,7 @@ public class Cleanse extends ClericSpell {
 	}
 
 	@Override
-	public void onCast(HolyTome tome, Hero hero) {
+	public void onCast(神圣法典 tome, Hero hero) {
 
 		ArrayList<Char> affected = new ArrayList<>();
 		affected.add(hero);
@@ -78,7 +78,7 @@ public class Cleanse extends ClericSpell {
 
             Buff.延长(ch, PotionOfCleansing.Cleanse.class, (Dungeon.hero.天赋点数(Talent.CLEANSE,1.5f)));
 
-			Buff.施加(ch, Barrier.class).setShield(hero.天赋点数(Talent.CLEANSE,10));
+			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.CLEANSE,10));
 			new Flare( 6, 32 ).color(0xFF4CD2, true).show( ch.sprite, 2f );
 		}
 

@@ -20,7 +20,7 @@ public class Corrupting extends Weapon.Enchantment {
 	
 	@Override
 	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
-		int level = Math.max( 0, weapon.buffedLvl() );
+		int level = Math.max( 0, weapon.强化等级() );
 		
 		// lvl 0 - 20%
 		// lvl 1 ~ 23%
@@ -28,7 +28,7 @@ public class Corrupting extends Weapon.Enchantment {
 		float procChance = (level+5f)/(level+25f) * procChanceMultiplier(attacker);
 		if (damage >= defender.生命
 				&& Random.Float() < procChance
-				&& !defender.isImmune(Corruption.class)
+				&& !defender.免疫(Corruption.class)
 				&& defender.buff(Corruption.class) == null
 				&& defender instanceof Mob
 				&& defender.isAlive()){

@@ -83,7 +83,7 @@ public class WelcomeScene extends PixelScene {
 		//darkens the arches
 		add(new ColorBlock(w, h, 0x88000000));
 
-		Image title = BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
+		Image title = BannerSprites.get( 横屏() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
 //		add( title );
 
 		float topRegion = Math.max(title.height - 6, h*0.45f);
@@ -93,7 +93,7 @@ public class WelcomeScene extends PixelScene {
 
 		align(title);
 
-		if (landscape()){
+		if (横屏()){
 			placeTorch(title.x + 30, title.y + 35);
 			placeTorch(title.x + title.width - 30, title.y + 35);
 		} else {
@@ -101,7 +101,7 @@ public class WelcomeScene extends PixelScene {
 			placeTorch(title.x + title.width - 16, title.y + 70);
 		}
 
-		Image signs = new Image(BannerSprites.get( landscape() ? BannerSprites.Type.TITLE_GLOW_LAND : BannerSprites.Type.TITLE_GLOW_PORT)){
+		Image signs = new Image(BannerSprites.get( 横屏() ? BannerSprites.Type.TITLE_GLOW_LAND : BannerSprites.Type.TITLE_GLOW_PORT)){
 			private float time = 0;
 			@Override
 			public void update() {
@@ -146,9 +146,9 @@ public class WelcomeScene extends PixelScene {
 			}
 		};
 
-		float buttonY = Math.min(topRegion + (PixelScene.landscape() ? 60 : 120), h - 24);
+		float buttonY = Math.min(topRegion + (PixelScene.横屏() ? 60 : 120), h - 24);
 
-		float buttonAreaWidth = landscape() ? PixelScene.MIN_WIDTH_L-6 : PixelScene.MIN_WIDTH_P-2;
+		float buttonAreaWidth = 横屏() ? PixelScene.MIN_WIDTH_L-6 : PixelScene.MIN_WIDTH_P-2;
 		float btnAreaLeft = (Camera.main.width - buttonAreaWidth) / 2f;
 		if (previousVersion != 0 && !SPDSettings.intro()){
 			StyledButton changes = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(TitleScene.class, "changes")){

@@ -113,7 +113,6 @@ public class 升级卷轴 extends InventoryScroll {
 
 		Badges.validateItemLevelAquired( item );
 		Statistics.upgradesUsed++;
-		Badges.validateMageUnlock();
 
 		Catalog.countUse(item.getClass());
 

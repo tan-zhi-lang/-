@@ -188,7 +188,7 @@ public enum Document {
 				case "Levelling":
 					return Icons.get(Icons.TALENT);
 				case "Positioning":
-					return new ItemSprite( 物品表.SPIRIT_BOW );
+					return new ItemSprite( 物品表.灵能短弓);
 				case "Magic":
 					return new ItemSprite( 物品表.焰浪法杖);
 			}

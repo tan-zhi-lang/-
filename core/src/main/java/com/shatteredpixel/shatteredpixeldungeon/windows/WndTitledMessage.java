@@ -35,7 +35,7 @@ public class WndTitledMessage extends Window {
 		text.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );
 		add( text );
 
-		while (PixelScene.landscape()
+		while (PixelScene.横屏()
 				&& text.bottom() > targetHeight()
 				&& width < WIDTH_MAX){
 			width += 20;

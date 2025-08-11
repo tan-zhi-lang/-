@@ -43,8 +43,10 @@ public class WndSettings extends WndTabbed {//WndSettings
 	private static final int BTN_HEIGHT	    = 16;
 	private static final float GAP          = 1;
 
-	private DisplayTab  display;
-	private UITab       ui;
+	private DisplayTab 显示设置;
+	private UITab 界面设置;
+
+	private 游戏设置 游戏设置;
 	private InputTab    input;
 	private DataTab     data;
 	private AudioTab    audio;
@@ -57,33 +59,47 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 		float height;
 
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
-		display = new DisplayTab();
-		display.setSize(width, 0);
-		height = display.height();
-		add( display );
+		显示设置 = new DisplayTab();
+		显示设置.setSize(width, 0);
+		height = 显示设置.height();
+		add(显示设置);
 
 		add( new IconTab(Icons.get(Icons.DISPLAY)){
 			@Override
 			protected void select(boolean value) {
 				super.select(value);
-				display.visible = display.active = value;
+				显示设置.visible = 显示设置.active = value;
 				if (value) last_index = 0;
 			}
 		});
 
-		ui = new UITab();
-		ui.setSize(width, 0);
-		height = Math.max(height, ui.height());
-		add( ui );
+		界面设置 = new UITab();
+		界面设置.setSize(width, 0);
+		height = Math.max(height, 界面设置.height());
+		add(界面设置);
 
 		add( new IconTab(Icons.get(Icons.PREFS)){
 			@Override
 			protected void select(boolean value) {
 				super.select(value);
-				ui.visible = ui.active = value;
+				界面设置.visible = 界面设置.active = value;
 				if (value) last_index = 1;
+			}
+		});
+
+		游戏设置 = new 游戏设置();
+		游戏设置.setSize(width, 0);
+		height = Math.max(height, 游戏设置.height());
+		add(游戏设置);
+
+		add( new IconTab(Icons.get(Icons.CONTROLLER)){
+			@Override
+			protected void select(boolean value) {
+				super.select(value);
+				游戏设置.visible = 游戏设置.active = value;
+				if (value) last_index = 2;
 			}
 		});
 
@@ -104,7 +120,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void select(boolean value) {
 					super.select(value);
 					input.visible = input.active = value;
-					if (value) last_index = 2;
+					if (value) last_index = 3;
 				}
 			});
 		}
@@ -112,16 +128,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 		data = new DataTab();
 		data.setSize(width, 0);
 		height = Math.max(height, data.height());
-		add( data );
+//		add( data );
 
-		add( new IconTab(Icons.get(Icons.DATA)){
-			@Override
-			protected void select(boolean value) {
-				super.select(value);
-				data.visible = data.active = value;
-				if (value) last_index = 3;
-			}
-		});
+//		add( new IconTab(Icons.get(Icons.DATA)){
+//			@Override
+//			protected void select(boolean value) {
+//				super.select(value);
+//				data.visible = data.active = value;
+//				if (value) last_index = 3;
+//			}
+//		});
 
 		audio = new AudioTab();
 		audio.setSize(width, 0);
@@ -209,7 +225,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 		OptionSlider optVisGrid;
 		OptionSlider optFollowIntensity;
 		OptionSlider optScreenShake;
-		OptionSlider 动画速度;
+		CheckBox 动画加快;
 
 		@Override
 		protected void createChildren() {
@@ -328,15 +344,20 @@ public class WndSettings extends WndTabbed {//WndSettings
 			optScreenShake.setSelectedValue(SPDSettings.震屏强度());
 			add(optScreenShake);
 
-			动画速度 = new OptionSlider("动画速度",
-					"慢", "快", 1, 3) {
+			动画加快 = new CheckBox("动画加快") {
 				@Override
-				protected void onChange() {
-					SPDSettings.动画速度(getSelectedValue());
+				protected void onClick() {
+					super.onClick();
+					SPDSettings.动画加快(checked());
 				}
 			};
-			动画速度.setSelectedValue(Math.round(SPDSettings.动画速度()));
-			add(动画速度);
+			if (DeviceCompat.supportsFullScreen()){
+				动画加快.checked(SPDSettings.动画加快());
+			} else {
+				动画加快.checked(true);
+				动画加快.enable(false);
+			}
+			add(动画加快);
 
 		}
 
@@ -352,10 +373,14 @@ public class WndSettings extends WndTabbed {//WndSettings
 			bottom = sep1.y + 1;
 
 			if (width > 200 && chkSaver != null) {
+				动画加快.setRect(0, bottom + GAP, width/2-1, BTN_HEIGHT);
+				bottom = 动画加快.bottom();
 				chkFullscreen.setRect(0, bottom + GAP, width/2-1, BTN_HEIGHT);
 				chkSaver.setRect(chkFullscreen.right()+ GAP, bottom + GAP, width/2-1, BTN_HEIGHT);
 				bottom = chkFullscreen.bottom();
 			} else {
+				动画加快.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = 动画加快.bottom();
 				chkFullscreen.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 				bottom = chkFullscreen.bottom();
 
@@ -385,17 +410,15 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 				optFollowIntensity.setRect(0, optVisGrid.bottom() + GAP, width/2-GAP/2, SLIDER_HEIGHT);
 				optScreenShake.setRect(optFollowIntensity.right() + GAP, optFollowIntensity.top(), width/2-GAP/2, SLIDER_HEIGHT);
-				动画速度.setRect(0, optFollowIntensity.bottom()+GAP, width, BTN_HEIGHT);
 			} else {
 				optBrightness.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
 				optVisGrid.setRect(0, optBrightness.bottom() + GAP, width, SLIDER_HEIGHT);
 
 				optFollowIntensity.setRect(0, optVisGrid.bottom() + GAP, width, SLIDER_HEIGHT);
 				optScreenShake.setRect(0, optFollowIntensity.bottom() + GAP, width, SLIDER_HEIGHT);
-				动画速度.setRect(0, optScreenShake.bottom() + GAP, width, SLIDER_HEIGHT);
 			}
 
-			height = 动画速度.bottom();
+			height = optScreenShake.bottom();
 		}
 
 	}
@@ -405,8 +428,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 		RenderedTextBlock title;
 
 		ColorBlock sep1;
-		OptionSlider optUIMode;
-		OptionSlider optUIScale;
 		RedButton btnToolbarSettings;
 		CheckBox chkFlipTags;
 		ColorBlock sep2;
@@ -425,42 +446,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 			//add slider for UI size only if device has enough space to support it
 			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
 			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
-			if (Math.min(wMin, hMin) >= 2*Game.density){
-				optUIMode = new OptionSlider(
-						Messages.get(this, "ui_mode"),
-						Messages.get(this, "mobile"),
-						Messages.get(this, "full"),
-						0,
-						2
-				) {
-					@Override
-					protected void onChange() {
-						SPDSettings.interfaceSize(getSelectedValue());
-						ShatteredPixelDungeon.seamlessResetScene();
-					}
-				};
-				optUIMode.setSelectedValue(SPDSettings.interfaceSize());
-				add(optUIMode);
-			}
-
-			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
-				optUIScale = new OptionSlider(Messages.get(this, "scale"),
-						(int)Math.ceil(2* Game.density)+ "X",
-						PixelScene.maxDefaultZoom + "X",
-						(int)Math.ceil(2* Game.density),
-						PixelScene.maxDefaultZoom ) {
-					@Override
-					protected void onChange() {
-						if (getSelectedValue() != SPDSettings.scale()) {
-							SPDSettings.scale(getSelectedValue());
-							ShatteredPixelDungeon.seamlessResetScene();
-						}
-					}
-				};
-				optUIScale.setSelectedValue(PixelScene.defaultZoom);
-				add(optUIScale);
-			}
-
 			if (SPDSettings.interfaceSize() == 0) {
 				btnToolbarSettings = new RedButton(Messages.get(this, "toolbar_settings"), 9){
 					@Override
@@ -655,22 +640,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 			height = sep1.y + 1;
 
-			if (optUIMode != null && optUIScale != null && width > 200){
-				optUIMode.setRect(0, height + GAP, width/2-1, SLIDER_HEIGHT);
-				optUIScale.setRect(width/2+1, height + GAP, width/2-1, SLIDER_HEIGHT);
-				height = optUIScale.bottom();
-			} else {
-				if (optUIMode != null) {
-					optUIMode.setRect(0, height + GAP, width, SLIDER_HEIGHT);
-					height = optUIMode.bottom();
-				}
-
-				if (optUIScale != null) {
-					optUIScale.setRect(0, height + GAP, width, SLIDER_HEIGHT);
-					height = optUIScale.bottom();
-				}
-			}
-
 			if (btnToolbarSettings != null) {
 				btnToolbarSettings.setRect(0, height + GAP, width, BTN_HEIGHT);
 				height = btnToolbarSettings.bottom();
@@ -692,6 +661,107 @@ public class WndSettings extends WndTabbed {//WndSettings
 				chkVibrate.setRect(0, chkFont.bottom() + GAP, width, BTN_HEIGHT);
 				height = chkVibrate.bottom();
 			}
+		}
+
+	}
+	private static class 游戏设置 extends Component {
+
+		RenderedTextBlock title;
+
+		ColorBlock sep1;
+		RedButton 集合设;
+		ColorBlock sep2;
+		OptionSlider 固定移速;
+
+		@Override
+		protected void createChildren() {
+			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
+			title.hardlight(TITLE_COLOR);
+			add(title);
+
+			sep1 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep1);
+
+			//add slider for UI size only if device has enough space to support it
+			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
+			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
+
+			集合设 = new RedButton(Messages.get(this, "设置"), 9){
+				@Override
+				protected void onClick() {
+					ShatteredPixelDungeon.scene().addToFront(new Window(){
+
+						RenderedTextBlock swapperDesc;
+						CheckBox chkFlipTags;
+
+						{
+
+							swapperDesc = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "swapper_desc"), 5);
+							swapperDesc.hardlight(0x888888);
+							add(swapperDesc);
+
+
+							chkFlipTags = new CheckBox(Messages.get(WndSettings.游戏设置.this, "flip_indicators")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.flipTags(checked());
+									GameScene.layoutTags();
+								}
+							};
+							chkFlipTags.checked(SPDSettings.flipTags());
+							add(chkFlipTags);
+
+							//layout
+							resize(WIDTH_P, 0);
+
+
+							int btnWidth = (int) (width - 2 * GAP) / 3;
+
+							chkFlipTags.setRect(0,  GAP, width, BTN_HEIGHT);
+
+							swapperDesc.maxWidth(width);
+							swapperDesc.setPos(0, chkFlipTags.bottom()+1);
+							resize(WIDTH_P, (int)chkFlipTags.bottom());
+
+						}
+					});
+				}
+			};
+//			add(集合设);
+
+
+			sep2 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep2);
+
+			固定移速 = new OptionSlider("固定移速",
+					"1", "无限", 1, 5) {
+				@Override
+				protected void onChange() {
+					SPDSettings.固定移速(getSelectedValue());
+				}
+			};
+			固定移速.setSelectedValue(SPDSettings.固定移速());
+			add(固定移速);
+		}
+
+		@Override
+		protected void layout() {
+			title.setPos((width - title.width())/2, y + GAP);
+			sep1.size(width, 1);
+			sep1.y = title.bottom() + 3*GAP;
+
+			height = sep1.y + 1;
+//			集合设.setRect(0, height + GAP, width, BTN_HEIGHT);
+
+			固定移速.setRect(0, height + GAP, width, SLIDER_HEIGHT);
+//			固定移速.setRect(0, 集合设.bottom() + GAP, width, SLIDER_HEIGHT);
+
+			sep2.size(width, 1);
+			sep2.y = height + GAP;
+
+			height = 固定移速.bottom();
+
 		}
 
 	}
@@ -1217,7 +1287,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 						Window credits = new Window(0, 0, Chrome.get(Chrome.Type.TOAST));
 
-						int w = PixelScene.landscape() ? 120 : 80;
+						int w = PixelScene.横屏() ? 120 : 80;
 						if (totalCredits >= 25) w *= 1.5f;
 
 						RenderedTextBlock title = PixelScene.renderTextBlock(9);
@@ -1258,7 +1328,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep2.y = y;
 			y += 2;
 
-			int cols = PixelScene.landscape() ? COLS_L : COLS_P;
+			int cols = PixelScene.横屏() ? COLS_L : COLS_P;
 			int btnWidth = (int)Math.floor((width - (cols-1)) / cols);
 			for (RedButton btn : lanBtns){
 				btn.setRect(x, y, btnWidth, BTN_HEIGHT);

@@ -232,7 +232,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Blocking){
 			if (targetsHit > 0){
 				int shield = Math.round(Math.round(6f*targetsHit*powerMulti));
-				Buff.施加(hero, Barrier.class).setShield(Math.round(6f*targetsHit*powerMulti));
+				Buff.施加(hero, Barrier.class).设置(Math.round(6f*targetsHit*powerMulti));
 				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 			}
 
@@ -434,7 +434,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Corrupting){
 			for (Char ch : affected){
 				if (ch != primaryTarget
-						&& !ch.isImmune(Corruption.class)
+						&& !ch.免疫(Corruption.class)
 						&& ch.buff(Corruption.class) == null
 						&& ch instanceof Mob
 						&& ch.isAlive()) {

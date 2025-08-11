@@ -22,7 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -63,7 +63,7 @@ public class HallowedGround extends TargetedClericSpell {
 	}
 
 	@Override
-	protected void onTargetSelected(HolyTome tome, Hero hero, Integer target) {
+	protected void onTargetSelected(神圣法典 tome, Hero hero, Integer target) {
 
 		if (target == null){
 			return;
@@ -121,7 +121,7 @@ public class HallowedGround extends TargetedClericSpell {
 
 			if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
 				int barrierToGive = Math.min(15, 30 - ch.shielding());
-				Buff.施加(ch, Barrier.class).incShield(barrierToGive);
+				Buff.施加(ch, Barrier.class).增加(barrierToGive);
 				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(barrierToGive), FloatingText.SHIELDING );
 			} else {
 				int barrier = 15 - (ch.最大生命 - ch.生命);
@@ -129,7 +129,7 @@ public class HallowedGround extends TargetedClericSpell {
 				ch.生命 += 15 - barrier;
 				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(15-barrier), FloatingText.HEALING );
 				if (barrier > 0){
-					Buff.施加(ch, Barrier.class).incShield(barrier);
+					Buff.施加(ch, Barrier.class).增加(barrier);
 					ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(barrier), FloatingText.SHIELDING );
 				}
 			}
@@ -223,7 +223,7 @@ public class HallowedGround extends TargetedClericSpell {
 		private void affectChar( Char ch ){
 			if (ch.alignment == Char.Alignment.ALLY){
 				if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
-					Buff.施加(ch, Barrier.class).incShield(1);
+					Buff.施加(ch, Barrier.class).增加(1);
 					ch.sprite.showStatusWithIcon( CharSprite.增强, "1", FloatingText.SHIELDING );
 				} else {
 					ch.生命++;

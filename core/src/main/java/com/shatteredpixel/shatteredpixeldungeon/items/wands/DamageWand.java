@@ -14,19 +14,19 @@ import com.watabou.noosa.audio.Sample;
 public abstract class DamageWand extends Wand{
 
 	public int min(){
-		return min(buffedLvl());
+		return min(强化等级());
 	}
 
 	public abstract int min(int lvl);
 
 	public int max(){
-		return max(buffedLvl());
+		return max(强化等级());
 	}
 
 	public abstract int max(int lvl);
 
 	public int damageRoll(){
-		return damageRoll(buffedLvl());
+		return damageRoll(强化等级());
 	}
 
 	public int damageRoll(int lvl){

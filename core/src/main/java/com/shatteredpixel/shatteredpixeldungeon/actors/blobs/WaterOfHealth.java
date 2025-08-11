@@ -37,7 +37,7 @@ public class WaterOfHealth extends WellWater {
 
 		治疗药剂.cure( hero );
 		hero.belongings.uncurseEquipped();
-		hero.buff( Hunger.class ).satisfy( Hunger.STARVING );
+		hero.buff( Hunger.class ).吃饭( Hunger.STARVING );
 
 		if (VialOfBlood.delayBurstHealing()){
 			Healing healing = Buff.施加(hero, Healing.class);

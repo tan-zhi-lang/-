@@ -39,7 +39,7 @@ public class 破损纹章 extends Item {
 	public static final String AC_INFO = "INFO_WINDOW";
 
 	{
-		image = 物品表.SEAL;
+		image = 物品表.破损纹章;
 
 		cursedKnown = levelKnown = true;
 		unique = true;
@@ -55,11 +55,14 @@ public class 破损纹章 extends Item {
 		if (glyph == null){
 			return false;
 		}
-		if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 2){
+		if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 3){
 			return true;
-		} else if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 1
+		} else if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 2
 			&& (Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())
 				|| Arrays.asList(Armor.Glyph.uncommon).contains(glyph.getClass()))){
+			return true;
+		}else if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 1
+			&& Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())){
 			return true;
 		} else {
 			return false;
@@ -76,7 +79,7 @@ public class 破损纹章 extends Item {
 
 	public int maxShield( int armTier, int armLvl ){
 		// 5-15, based on equip tier and iron will
-		return Math.round((3 + 2*armTier + Dungeon.hero.天赋点数(Talent.IRON_WILL,8)*(1+Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE)*0.75f)));
+		return (1 + 2*armTier + Dungeon.hero.天赋点数(Talent.IRON_WILL,3));
 	}
 
 	@Override
@@ -117,7 +120,7 @@ public class 破损纹章 extends Item {
 					&& canTransferGlyph()
 					&& armor.glyph.getClass() != getGlyph().getClass()) {
 
-				GameScene.show(new WndOptions(new ItemSprite(物品表.SEAL),
+				GameScene.show(new WndOptions(new ItemSprite(物品表.破损纹章),
 						Messages.get(破损纹章.class, "choose_title"),
 						Messages.get(破损纹章.class, "choose_desc", armor.glyph.name(), getGlyph().name()),
 						armor.glyph.name(),
@@ -182,9 +185,11 @@ public class 破损纹章 extends Item {
 	@Override
 	//scroll of upgrade can be used directly once, same as upgrading armor the seal is affixed to then removing it.
 	public boolean isUpgradable() {
-		return 等级() < 1;
+		return 等级() < 最大等级();
 	}
-
+	public int 最大等级(){
+		return 2+Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE);
+	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
 
 		@Override
@@ -242,11 +247,11 @@ public class 破损纹章 extends Item {
 		private int cooldown = 0;
 		private float turnsSinceEnemies = 0;
 
-		private static int COOLDOWN_START = 150;
+		private static int COOLDOWN_START = 150/2-Dungeon.hero.天赋点数(Talent.纹章荣耀,4);
 
 		@Override
 		public int icon() {
-			if (coolingDown() || shielding() > 0){
+			if (coolingDown() || 护盾量() > 0){
 				return BuffIndicator.SEAL_SHIELD;
 			} else {
 				return BuffIndicator.NONE;
@@ -255,7 +260,7 @@ public class 破损纹章 extends Item {
 
 		@Override
 		public void tintIcon(Image icon) {
-			if (coolingDown() && shielding() == 0){
+			if (coolingDown() && 护盾量() == 0){
 				icon.brightness(0.3f);
 			} else {
 				icon.resetColor();
@@ -264,8 +269,8 @@ public class 破损纹章 extends Item {
 
 		@Override
 		public float iconFadePercent() {
-			if (shielding() > 0){
-				return GameMath.gate(0, 1f - shielding()/(float)maxShield(), 1);
+			if (护盾量() > 0){
+				return GameMath.gate(0, 1f - 护盾量()/(float)maxShield(), 1);
 			} else if (coolingDown()){
 				return GameMath.gate(0, cooldown / (float)COOLDOWN_START, 1);
 			} else {
@@ -275,8 +280,8 @@ public class 破损纹章 extends Item {
 
 		@Override
 		public String iconTextDisplay() {
-			if (shielding() > 0){
-				return Integer.toString(shielding());
+			if (护盾量() > 0){
+				return Integer.toString(护盾量());
 			} else if (coolingDown()){
 				return Integer.toString(cooldown);
 			} else {
@@ -286,8 +291,8 @@ public class 破损纹章 extends Item {
 
 		@Override
 		public String desc() {
-			if (shielding() > 0){
-				return Messages.get(this, "desc_active", shielding(), cooldown);
+			if (护盾量() > 0){
+				return Messages.get(this, "desc_active", 护盾量(), cooldown);
 			} else {
 				return Messages.get(this, "desc_cooldown", cooldown);
 			}
@@ -299,23 +304,23 @@ public class 破损纹章 extends Item {
 				cooldown--;
 			}
 
-			if (shielding() > 0){
+			if (护盾量() > 0){
 				if (Dungeon.hero.visibleEnemies() == 0 && Dungeon.hero.buff(Combo.class) == null){
 					turnsSinceEnemies += HoldFast.buffDecayFactor(target);
 					if (turnsSinceEnemies >= 5){
 						if (cooldown > 0) {
-							float percentLeft = shielding() / (float)maxShield();
+							float percentLeft = 护盾量() / (float)maxShield();
 							//max of 50% cooldown refund
 							cooldown = Math.max(0, (int)(cooldown - COOLDOWN_START * (percentLeft / 2f)));
 						}
-						decShield(shielding());
+						减少(护盾量());
 					}
 				} else {
 					turnsSinceEnemies = 0;
 				}
 			}
 			
-			if (shielding() <= 0 && maxShield() <= 0 && cooldown == 0){
+			if (护盾量() <= 0 && maxShield() <= 0 && cooldown == 0){
 				detach();
 			}
 			
@@ -324,7 +329,7 @@ public class 破损纹章 extends Item {
 		}
 
 		public synchronized void activate() {
-			incShield(maxShield());
+			增加(maxShield());
 			cooldown = Math.max(0, cooldown+COOLDOWN_START);
 			turnsSinceEnemies = 0;
 		}
@@ -345,7 +350,7 @@ public class 破损纹章 extends Item {
 		public synchronized int maxShield() {
 			//metamorphed iron will logic
 			if (((Hero)target).heroClass != HeroClass.WARRIOR && ((Hero) target).有天赋(Talent.IRON_WILL)){
-				return ((Hero) target).天赋点数(Talent.IRON_WILL,8);
+				return ((Hero) target).天赋点数(Talent.IRON_WILL,3);
 			}
 
 			if (armor != null && armor.isEquipped((Hero)target) && armor.checkSeal() != null) {
@@ -373,7 +378,7 @@ public class 破损纹章 extends Item {
 				turnsSinceEnemies = bundle.getFloat(TURNS_SINCE_ENEMIES);
 
 			//if we have shield from pre-3.1, have it last a bit
-			} else if (shielding() > 0) {
+			} else if (护盾量() > 0) {
 				turnsSinceEnemies = -100;
 			}
 		}

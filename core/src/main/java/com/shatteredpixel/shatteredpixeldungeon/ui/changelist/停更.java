@@ -11,11 +11,11 @@ import java.util.ArrayList;
 public class 停更 {
 
 	public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
-		add_v1_0_0_Changes(changeInfos);
+		addChanges(changeInfos);
 	}
 
 
-	public static void add_v1_0_0_Changes( ArrayList<ChangeInfo> changeInfos ) {
+	public static void addChanges(ArrayList<ChangeInfo> changeInfos ) {
 		ChangeInfo changes = new ChangeInfo("v3.2.0-v3.7.0", true, "");
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);

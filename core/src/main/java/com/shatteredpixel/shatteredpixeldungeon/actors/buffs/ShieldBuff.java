@@ -39,20 +39,20 @@ public abstract class ShieldBuff extends Buff {
 		super.detach();
 	}
 	
-	public int shielding(){
+	public int 护盾量(){
 		return shielding;
 	}
 	
-	public void setShield( int shield ) {
+	public void 设置(int shield ) {
 		if (this.shielding <= shield) this.shielding = shield;
 		if (target != null) target.needsShieldUpdate = true;
 	}
 	
-	public void incShield(){
-		incShield(1);
+	public void 增加(){
+		增加(1);
 	}
 
-	public void incShield( int amt ){
+	public void 增加(int amt ){
 		shielding += amt;
 		if (target != null) target.needsShieldUpdate = true;
 	}
@@ -62,11 +62,11 @@ public abstract class ShieldBuff extends Buff {
 		spend(value);
 	}
 	
-	public void decShield(){
-		decShield(1);
+	public void 减少(){
+		减少(1);
 	}
 
-	public void decShield( int amt ){
+	public void 减少(int amt ){
 		shielding -= amt;
 		if (target != null) target.needsShieldUpdate = true;
 	}
@@ -103,9 +103,9 @@ public abstract class ShieldBuff extends Buff {
 				}
 			});
 			for (ShieldBuff buff : buffs){
-				if (buff.shielding() <= 0) continue;
+				if (buff.护盾量() <= 0) continue;
 				damage = buff.absorbDamage(damage);
-				if (buff.shielding() <= 0){
+				if (buff.护盾量() <= 0){
 					if (target instanceof Hero && ((Hero) target).有天赋(Talent.PROVOKED_ANGER)){
 						Buff.施加(target, Talent.ProvokedAngerTracker.class, 5f);
 					}

@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
@@ -38,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
@@ -94,7 +96,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CapeOfThorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.EtherealChains;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HolyTome;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
@@ -128,11 +130,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MagesStaff;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
@@ -263,7 +265,7 @@ public class Hero extends Char {
 
 		int strBonus = 0;
 
-		strBonus += RingOfMight.strengthBonus( this );
+		strBonus += RingOfMight.strengthBonus( this )*2;
 		
 		AdrenalineSurge buff = buff(AdrenalineSurge.class);
 		if (buff != null){
@@ -274,7 +276,7 @@ public class Hero extends Char {
 			strBonus += (int)Math.floor(力量 * 天赋点数(Talent.STRONGMAN,0.08F));
 		}
 		if (heroClass(HeroClass.WARRIOR)){
-			strBonus+= Math.round(力量*1.1f);
+			strBonus+= Math.round(力量*0.1f);
 		}
 
 		return 力量 + strBonus;
@@ -556,14 +558,14 @@ public class Hero extends Char {
 		
 		//precise assault and liquid agility
 		if (!(wep instanceof MissileWeapon)) {
-			if ((有天赋(Talent.PRECISE_ASSAULT))
+			if (false//使用武技能命中+
 					//does not trigger on ability attacks
 					&& belongings.abilityWeapon != wep && buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) == null){
 
 				//non-duelist benefit for precise assault, can stack with liquid agility
 				if (heroClass != HeroClass.DUELIST) {
 					//persistent +10%/20%/30% ACC for other heroes
-					accuracy *= 1f + 天赋点数(Talent.PRECISE_ASSAULT,0.1f);
+					accuracy *= 2;
 				}
 
 				if (wep instanceof Flail && buff(Flail.SpinAbilityTracker.class) != null){
@@ -572,7 +574,7 @@ public class Hero extends Char {
 					//do nothing, this is not a regular attack so don't consume talent fx
 				} else if (buff(Talent.PreciseAssaultTracker.class) != null) {
 					// 2x/5x/inf. ACC for duelist if she just used a weapon ability
-					switch (天赋点数(Talent.PRECISE_ASSAULT)){
+					switch (2){
 						default: case 1:
 							accuracy *= 2; break;
 						case 2:
@@ -590,13 +592,13 @@ public class Hero extends Char {
 			}
 		}
 		if (buff(Talent.LiquidAgilACCTracker.class) != null){
-			if (天赋点数(Talent.灵动机敏) == 1){
+			if (天赋点数(Talent.灵敏机动) == 1){
 				accuracy *= 2;
-			} else if (天赋点数(Talent.灵动机敏) == 2){
+			} else if (天赋点数(Talent.灵敏机动) == 2){
 				accuracy *= 4;
-			} else if (天赋点数(Talent.灵动机敏) == 3){
+			} else if (天赋点数(Talent.灵敏机动) == 3){
 				accuracy *= 6;
-			} else if (天赋点数(Talent.灵动机敏) == 4){
+			} else if (天赋点数(Talent.灵敏机动) == 4){
 				accuracy *= Float.POSITIVE_INFINITY;
 			}
 			Talent.LiquidAgilACCTracker buff = buff(Talent.LiquidAgilACCTracker.class);
@@ -636,13 +638,13 @@ public class Hero extends Char {
 		evasion *= RingOfEvasion.evasionMultiplier( this );
 
 		if (buff(Talent.LiquidAgilEVATracker.class) != null){
-			if (天赋点数(Talent.灵动机敏) == 1){
+			if (天赋点数(Talent.灵敏机动) == 1){
 				evasion *= 2;
-			} else if (天赋点数(Talent.灵动机敏) == 2){
+			} else if (天赋点数(Talent.灵敏机动) == 2){
 				evasion *= 4;
-			} else if (天赋点数(Talent.灵动机敏) == 3){
+			} else if (天赋点数(Talent.灵敏机动) == 3){
 				evasion *= 6;
-			} else if (天赋点数(Talent.灵动机敏) == 4){
+			} else if (天赋点数(Talent.灵敏机动) == 4){
 				return INFINITE_EVASION;
 			}
 		}
@@ -650,8 +652,8 @@ public class Hero extends Char {
 		if (buff(Quarterstaff.DefensiveStance.class) != null){
 			evasion *= 3;
 		}
-		if(有天赋(Talent.灵动机敏)){
-			evasion*=天赋点数(Talent.灵动机敏,0.33f)+0.01f+1;
+		if(有天赋(Talent.灵敏机动)){
+			evasion*=天赋点数(Talent.灵敏机动,0.33f)+0.01f+1;
 		}
 		if (paralysed > 0) {
 			evasion /= 2;
@@ -772,6 +774,9 @@ public class Hero extends Char {
 		if(belongings.armor instanceof 披风){
 			speed*=1.25f;
 		}
+		if(heroClass(HeroClass.ROGUE)&&Dungeon.level.在水中(this)){
+			speed*=1.25f;
+		}
 //		if(HeroClass(HeroClass.ROGUE)){
 //			speed*=1.25f;
 //		}
@@ -795,7 +800,21 @@ public class Hero extends Char {
 		}
 
 		speed = AscensionChallenge.modifyHeroSpeed(speed);
-		
+		if(SPDSettings.固定移速()==5){
+			return speed;
+		}
+		if(SPDSettings.固定移速()==4){
+			return speed>=4?4:speed;
+		}
+		if(SPDSettings.固定移速()==3){
+			return speed>=3?3:speed;
+		}
+		if(SPDSettings.固定移速()==2){
+			return speed>=2?2:speed;
+		}
+		if(SPDSettings.固定移速()==1){
+			return speed>=1?1:speed;
+		}
 		return speed;
 		
 	}
@@ -895,6 +914,10 @@ public class Hero extends Char {
 	
 	@Override
 	public boolean act() {
+		if(Dungeon.level.在草丛(this)&&有天赋(Talent.自然丰收)){
+		float shield = 天赋点数(Talent.自然丰收,0.3f);
+		Buff.施加(this, Hunger.class).吃饭(shield);
+		}
 		if(belongings.armor instanceof 铠甲){
 			immunities.add( Chill.class );
 		}else{
@@ -1497,8 +1520,8 @@ public class Hero extends Char {
 					&& 有天赋(Talent.AGGRESSIVE_BARRIER)
 					&& buff(Talent.AggressiveBarrierCooldown.class) == null
 					&& (生命 / (float) 最大生命) <= 0.5f){
-				int shieldAmt = 天赋点数(Talent.AGGRESSIVE_BARRIER,4);
-				Buff.施加(this, Barrier.class).setShield(shieldAmt);
+				int shieldAmt = 天赋点数(Talent.AGGRESSIVE_BARRIER,5);
+				Buff.施加(this, Barrier.class).设置(shieldAmt);
 				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 				Buff.施加(this, Talent.AggressiveBarrierCooldown.class, 50f);
 
@@ -1530,7 +1553,7 @@ public class Hero extends Char {
 	
 	public void rest( boolean fullRest ) {
 		spendAndNextConstant( TIME_TO_REST );
-		if (有天赋(Talent.HOLD_FAST)){
+		if (false){//不动如山
 			Buff.施加(this, HoldFast.class).pos = pos;
 		}
 		if (有天赋(Talent.PATIENT_STRIKE)){
@@ -1581,7 +1604,7 @@ public class Hero extends Char {
 		
 		switch (subClass) {
 		case SNIPER:
-			if (wep instanceof MissileWeapon && !(wep instanceof SpiritBow.SpiritArrow) && enemy != this) {
+			if (wep instanceof MissileWeapon && !(wep instanceof 灵能短弓.SpiritArrow) && enemy != this) {
 				Actor.add(new Actor() {
 					
 					{
@@ -1592,7 +1615,7 @@ public class Hero extends Char {
 					protected boolean act() {
 						if (enemy.isAlive()) {
 							if (有天赋(Talent.SHARED_UPGRADES)){
-								int levelBonus = Math.min( 天赋点数(Talent.SHARED_UPGRADES), wep.buffedLvl() );
+								int levelBonus = Math.min( 天赋点数(Talent.SHARED_UPGRADES), wep.强化等级() );
 								// bonus dmg is 16.67% x weapon level, max of 2/4/6
 								float bonusDmg = levelBonus*0.3f+0.15f;
 								Buff.延长(Hero.this, SnipersMark.class, SnipersMark.DURATION + levelBonus).set(enemy.id(), bonusDmg);
@@ -1619,7 +1642,7 @@ public class Hero extends Char {
 			damage--;
 		}
 		if (天赋概率(Talent.强魄意志,11)){
-			回血(天赋点数(Talent.强魄意志,2));
+			回血(天赋点数(Talent.强魄意志));
 		}
 		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
 			Berserk berserk = Buff.施加(this, Berserk.class);
@@ -1650,11 +1673,11 @@ public class Hero extends Char {
 	@Override
 	public int glyphLevel(Class<? extends Armor.Glyph> cls) {
 		if (belongings.armor() != null && belongings.armor().hasGlyph(cls, this)){
-			return Math.max(super.glyphLevel(cls), belongings.armor.buffedLvl());
+			return Math.max(super.glyphLevel(cls), belongings.armor.强化等级());
 		} else if (buff(BodyForm.BodyFormBuff.class) != null
 				&& buff(BodyForm.BodyFormBuff.class).glyph() != null
 				&& buff(BodyForm.BodyFormBuff.class).glyph().getClass() == cls){
-			return belongings.armor() != null ? belongings.armor.buffedLvl() : 0;
+			return belongings.armor() != null ? belongings.armor.强化等级() : 0;
 		} else {
 			return super.glyphLevel(cls);
 		}
@@ -2100,8 +2123,7 @@ public class Hero extends Char {
 		while (this.当前经验 >= 升级所需()) {
 			this.当前经验 -= 升级所需();
 
-			if (buff(Talent.WandPreservationCounter.class) != null
-				&& 天赋点数(Talent.WAND_PRESERVATION) >= 2){
+			if (buff(Talent.WandPreservationCounter.class) != null){
 				buff(Talent.WandPreservationCounter.class).detach();
 			}
 
@@ -2510,12 +2532,22 @@ public class Hero extends Char {
 		return x;
 	}
 	public int 视野范围(){
-		int x=8;
+		int x=Dungeon.level.viewDistance;
 		if (Dungeon.hero.buff(MagicalSight.class) != null){
 			x = Math.max( x, MagicalSight.DISTANCE );
 		}
+		if(hasbuff( Light.class )) {
+			x+=Light.DISTANCE;
+		}
+		if(heroClass(HeroClass.CLERIC)){
+			x+= Light.DISTANCE/2;
+		}
 		x *= 1f + Dungeon.hero.天赋点数(Talent.FARSIGHT,0.25f);
 		x *= EyeOfNewt.visionRangeMultiplier();
+
+		if(Dungeon.isChallenged( Challenges.DARKNESS )){
+			x/=4;
+		}
 		return x;
 	}
 	public boolean search( boolean intentional ) {
@@ -2684,16 +2716,16 @@ public class Hero extends Char {
 				((EquipableItem) i).activate(this);
 			} else if (i instanceof CloakOfShadows && i.keptThroughLostInventory() && 有天赋(Talent.LIGHT_CLOAK)) {
 				((CloakOfShadows) i).activate(this);
-			} else if (i instanceof HolyTome  && i.keptThroughLostInventory() && 有天赋(Talent.LIGHT_READING)) {
-				((HolyTome) i).activate(this);
+			} else if (i instanceof 神圣法典 && i.keptThroughLostInventory() && 有天赋(Talent.LIGHT_READING)) {
+				((神圣法典) i).activate(this);
 			} else if (i instanceof Wand && i.keptThroughLostInventory()){
 				if (holster != null && holster.contains(i)){
 					((Wand) i).charge(this, MagicalHolster.HOLSTER_SCALE_FACTOR);
 				} else {
 					((Wand) i).charge(this);
 				}
-			} else if (i instanceof MagesStaff && i.keptThroughLostInventory()){
-				((MagesStaff) i).applyWandChargeBuff(this);
+			} else if (i instanceof 法师魔杖 && i.keptThroughLostInventory()){
+				((法师魔杖) i).applyWandChargeBuff(this);
 			}
 		}
 

@@ -21,7 +21,7 @@ public class WndOptions extends Window {
 	public WndOptions(Image icon, String title, String message, String... options) {
 		super();
 
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		float pos = 0;
 		if (title != null) {
@@ -38,7 +38,7 @@ public class WndOptions extends Window {
 	public WndOptions( String title, String message, String... options ) {
 		super();
 
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		float pos = MARGIN;
 		if (title != null) {
@@ -55,7 +55,7 @@ public class WndOptions extends Window {
 	}
 
 	protected void layoutBody(float pos, String message, String... options){
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		RenderedTextBlock tfMesage = PixelScene.renderTextBlock( 6 );
 		tfMesage.text(message, width);

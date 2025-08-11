@@ -360,8 +360,8 @@ public class YogDzewa extends Mob {
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
-		return phase == 0 || findFist() != null || super.isInvulnerable(effect);
+	public boolean 是无敌(Class effect) {
+		return phase == 0 || findFist() != null || super.是无敌(effect);
 	}
 
 	@Override
@@ -408,7 +408,7 @@ public class YogDzewa extends Mob {
 		}
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmgTaken/3f);
 			else                                                    lock.addTime(dmgTaken/2f);
 		}

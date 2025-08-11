@@ -95,7 +95,7 @@ public class Pickaxe extends MeleeWeapon {
 						|| enemy instanceof Spinner
 						|| enemy instanceof Scorpio) {
 					//+(8+2*lvl) damage, equivalent to +100% damage
-					damageBoost = augment.damageFactor(8 + 2*buffedLvl());
+					damageBoost = augment.damageFactor(8 + 2* 强化等级());
 				}
 				beforeAbilityUsed(hero, enemy);
 				AttackIndicator.target(enemy);
@@ -116,7 +116,7 @@ public class Pickaxe extends MeleeWeapon {
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = 8 + 2*buffedLvl();
+		int dmgBoost = 8 + 2* 强化等级();
 		return Messages.get(this, "ability_desc", augment.damageFactor(最小攻击()+dmgBoost), augment.damageFactor(最大攻击()+dmgBoost));
 	}
 

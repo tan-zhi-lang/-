@@ -36,7 +36,7 @@ public class RoundShield extends MeleeWeapon {
 	}
 
 	public int 最大防御(){
-		return 最大防御(buffedLvl());
+		return 最大防御(强化等级());
 	}
 
 	//4 extra defence, plus 1 per level
@@ -46,7 +46,7 @@ public class RoundShield extends MeleeWeapon {
 	
 	public String statsInfo(){
 		if (isIdentified()){
-			return Messages.get(this, "stats_desc", 4+buffedLvl());
+			return Messages.get(this, "stats_desc", 4+ 强化等级());
 		} else {
 			return Messages.get(this, "typical_stats_desc", 4);
 		}
@@ -54,13 +54,13 @@ public class RoundShield extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		RoundShield.guardAbility(hero, 5+buffedLvl(), this);
+		RoundShield.guardAbility(hero, 5+ 强化等级(), this);
 	}
 
 	@Override
 	public String abilityInfo() {
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", 5+buffedLvl());
+			return Messages.get(this, "ability_desc", 5+ 强化等级());
 		} else {
 			return Messages.get(this, "typical_ability_desc", 5);
 		}

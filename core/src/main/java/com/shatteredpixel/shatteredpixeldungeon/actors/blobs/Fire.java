@@ -79,7 +79,7 @@ public class Fire extends Blob {
 	
 	public static void burn( int pos ) {
 		Char ch = Actor.findChar( pos );
-		if (ch != null && !ch.isImmune(Fire.class)) {
+		if (ch != null && !ch.免疫(Fire.class)) {
 			Buff.施加( ch, Burning.class ).reignite( ch );
 		}
 		

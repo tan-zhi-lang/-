@@ -184,7 +184,7 @@ public class 改动界面 extends PixelScene {
 				panel.innerWidth() + 2,
 				panel.innerHeight() + 2);
 		list.scrollTo(0, 0);
-		int w4=Math.round(pw/3.875f);
+		int w4=Math.round(pw/3.8875f);
 		StyledButton 重制 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "重制", 8){
 			@Override
 			protected void onClick() {

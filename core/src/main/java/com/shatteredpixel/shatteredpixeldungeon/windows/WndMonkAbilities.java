@@ -22,7 +22,7 @@ public class WndMonkAbilities extends Window {
 	public WndMonkAbilities( MonkEnergy energyBuff ){
 		super();
 
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(this, "title")), 9);

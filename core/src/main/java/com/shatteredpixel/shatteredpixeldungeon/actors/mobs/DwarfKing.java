@@ -423,11 +423,11 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public boolean isInvulnerable(Class effect) {
+	public boolean 是无敌(Class effect) {
 		if (effect == KingDamager.class){
 			return false;
 		} else {
-			return phase == 2 || super.isInvulnerable(effect);
+			return phase == 2 || super.是无敌(effect);
 		}
 	}
 
@@ -443,7 +443,7 @@ public class DwarfKing extends Mob {
 			Statistics.qualifiedForBossChallengeBadge = false;
 		}
 
-		if (isInvulnerable(src.getClass())){
+		if (是无敌(src.getClass())){
 			super.受伤时(dmg, src);
 			return;
 		} else if (phase == 3 && !(src instanceof Viscosity.DeferedDamage)){
@@ -459,7 +459,7 @@ public class DwarfKing extends Mob {
 		super.受伤时(dmg, src);
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !isImmune(src.getClass()) && !isInvulnerable(src.getClass())){
+		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/5f);
 			else                                                    lock.addTime(dmg/3f);
 		}
@@ -476,7 +476,7 @@ public class DwarfKing extends Mob {
 				phase = 2;
 				summonsMade = 0;
 				sprite.idle();
-				Buff.施加(this, DKBarrior.class).setShield(最大生命);
+				Buff.施加(this, DKBarrior.class).设置(最大生命);
 				for (Summoning s : buffs(Summoning.class)) {
 					s.detach();
 				}
@@ -569,12 +569,12 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public boolean isImmune(Class effect) {
+	public boolean 免疫(Class effect) {
 		//immune to damage amplification from doomed in 2nd phase or later, but it can still be applied
 		if (phase > 1 && effect == Doom.class && buff(Doom.class) != null ){
 			return true;
 		}
-		return super.isImmune(effect);
+		return super.免疫(effect);
 	}
 
 	public static class DKGhoul extends Ghoul {
@@ -774,7 +774,7 @@ public class DwarfKing extends Mob {
 
 		@Override
 		public boolean act() {
-			incShield();
+			增加();
 			return super.act();
 		}
 

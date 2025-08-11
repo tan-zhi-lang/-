@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -46,7 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Thorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfArcana;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -253,7 +254,7 @@ public class Armor extends EquipableItem {
 				破损纹章 seal = oldArmor != null ? oldArmor.checkSeal() : null;
 				if (seal != null && (!cursed || (seal.getGlyph() != null && seal.getGlyph().curse()))){
 
-					GameScene.show(new WndOptions(new ItemSprite(物品表.SEAL),
+					GameScene.show(new WndOptions(new ItemSprite(物品表.破损纹章),
 							Messages.titleCase(seal.title()),
 							Messages.get(Armor.class, "seal_transfer"),
 							Messages.get(Armor.class, "seal_transfer_yes"),
@@ -293,15 +294,17 @@ public class Armor extends EquipableItem {
 	public void activate(Char ch) {
 		if (破损纹章 != null) Buff.施加(ch, 破损纹章.WarriorShield.class).setArmor(this);
 	}
-
-	public void affixSeal(破损纹章 seal){
-		this.破损纹章 = seal;
-		if (seal.等级() > 0){
-			//doesn't trigger upgrading logic such as affecting curses/glyphs
-			int newLevel = trueLevel();
-			等级(newLevel);
-			Badges.validateItemLevelAquired(this);
+	@Override
+	public int 强化等级(){
+		//only the hero can be affected by Degradation
+		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
+				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
+			return Degrade.reduceLevel(等级())+(破损纹章!=null?破损纹章.等级():0);
+		} else {
+			return 等级()+(破损纹章!=null?破损纹章.等级():0);
 		}
+	}
+	public void affixSeal(破损纹章 seal){
 		if (seal.getGlyph() != null){
 			inscribe(seal.getGlyph());
 		}
@@ -320,11 +323,13 @@ public class Armor extends EquipableItem {
 
 			破损纹章 detaching = 破损纹章;
 			破损纹章 = null;
-
-			if (detaching.等级() > 0){
-//				detaching.等级();
-//				等级(0);
-				degrade();
+			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
+			if(真等级()>转移量){
+				等级(真等级()-转移量);
+				破损纹章.等级(破损纹章.等级()+ 转移量);
+			}else{
+				破损纹章.等级(破损纹章.等级()+ 真等级());
+				等级(0);
 			}
 			if (detaching.canTransferGlyph()){
 				inscribe(null);
@@ -366,7 +371,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public final int 最大防御(){
-		return 最大防御(buffedLvl());
+		return 最大防御(强化等级());
 	}
 
 	public int 最大防御(int lvl){
@@ -383,7 +388,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public final int 最小防御(){
-		return 最小防御(buffedLvl());
+		return 最小防御(强化等级());
 	}
 
 	public int 最小防御(int lvl){
@@ -420,7 +425,7 @@ public class Armor extends EquipableItem {
 			}
 		}
 		
-		return evasion + augment.evasionFactor(buffedLvl());
+		return evasion + augment.evasionFactor(强化等级());
 	}
 	
 	public float speedFactor( Char owner, float speed ){
@@ -812,7 +817,7 @@ public class Armor extends EquipableItem {
 		}
 
 		public static float genericProcChanceMultiplier( Char defender ){
-			float multi = RingOfArcana.enchantPowerMultiplier(defender);
+			float multi = 奥术之戒.enchantPowerMultiplier(defender);
 
 			if (Dungeon.hero.alignment == defender.alignment
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null

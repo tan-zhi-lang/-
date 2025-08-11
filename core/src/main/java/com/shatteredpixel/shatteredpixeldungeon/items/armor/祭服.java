@@ -19,4 +19,12 @@ public class 祭服 extends Armor {
 		int level = super.等级()+1;
 		return level;
 	}
+	@Override
+	public int 力量(int lvl) {
+		int req = 力量(tier, lvl)-1;
+		if (masteryPotionBonus){
+			req -= 2;
+		}
+		return req;
+	}
 }

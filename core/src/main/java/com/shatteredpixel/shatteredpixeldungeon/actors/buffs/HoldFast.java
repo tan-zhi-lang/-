@@ -32,7 +32,7 @@ public class HoldFast extends Buff {
 
 	public int armorBonus(){
 		if (pos == target.pos && target instanceof Hero){
-			return Random.NormalIntRange(((Hero) target).天赋点数(Talent.HOLD_FAST,1), ((Hero) target).天赋点数(Talent.HOLD_FAST,3));
+			return 111;
 		} else {
 			detach();
 			return 0;
@@ -42,16 +42,16 @@ public class HoldFast extends Buff {
 	public static float buffDecayFactor(Char target){
 		HoldFast buff = target.buff(HoldFast.class);
 		if (buff != null && target.pos == buff.pos && target instanceof Hero){
-			switch (((Hero) target).天赋点数(Talent.HOLD_FAST)){
-				case 1:
-					return 0.75f;
-				case 2:
-					return 0.5f;
-				case 3:
-					return 0.25f;
-				case 4:
-					return 0;
-			}
+//			switch (){不动如山
+//				case 1:
+//					return 0.75f;
+//				case 2:
+//					return 0.5f;
+//				case 3:
+//					return 0.25f;
+//				case 4:
+//					return 0;
+//			}
 
 		} else if (buff != null) {
 			buff.detach();
@@ -72,9 +72,9 @@ public class HoldFast extends Buff {
 	@Override
 	public String desc() {
 		return Messages.get(this, "desc",
-				Dungeon.hero.天赋点数(Talent.HOLD_FAST,1),
-				Dungeon.hero.天赋点数(Talent.HOLD_FAST,3),
-				Dungeon.hero.天赋点数(Talent.HOLD_FAST,25));
+				1,
+				3,
+				25);
 	}
 
 	private static final String POS = "pos";

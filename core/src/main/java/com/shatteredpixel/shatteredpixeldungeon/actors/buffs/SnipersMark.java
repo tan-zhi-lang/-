@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.SpiritBow;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -71,7 +71,7 @@ public class SnipersMark extends FlavourBuff implements ActionIndicator.Action {
 
 	@Override
 	public String actionName() {
-		SpiritBow bow = Dungeon.hero.belongings.getItem(SpiritBow.class);
+		灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
 
 		if (bow == null) return null;
 
@@ -101,10 +101,10 @@ public class SnipersMark extends FlavourBuff implements ActionIndicator.Action {
 		Hero hero = Dungeon.hero;
 		if (hero == null) return;
 		
-		SpiritBow bow = hero.belongings.getItem(SpiritBow.class);
+		灵能短弓 bow = hero.belongings.getItem(灵能短弓.class);
 		if (bow == null) return;
 		
-		SpiritBow.SpiritArrow arrow = bow.knockArrow();
+		灵能短弓.SpiritArrow arrow = bow.knockArrow();
 		if (arrow == null) return;
 		
 		Char ch = (Char) Actor.findById(object);

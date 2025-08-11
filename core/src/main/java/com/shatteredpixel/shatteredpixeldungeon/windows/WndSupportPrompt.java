@@ -20,7 +20,7 @@ public class WndSupportPrompt extends Window {
 
 	public WndSupportPrompt(){
 
-		int width = PixelScene.landscape() ? WIDTH_L : WIDTH_P;
+		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		IconTitle title = new IconTitle(Icons.get(Icons.EVAN图标), Messages.get(WndSupportPrompt.class, "title"));
 		title.setRect( 0, 0, width, 0 );

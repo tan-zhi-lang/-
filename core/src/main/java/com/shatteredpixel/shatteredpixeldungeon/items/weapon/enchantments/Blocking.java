@@ -25,7 +25,7 @@ public class Blocking extends Weapon.Enchantment {
 	@Override
 	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
 		
-		int level = Math.max( 0, weapon.buffedLvl() );
+		int level = Math.max( 0, weapon.强化等级() );
 
 		// lvl 0 - 10%
 		// lvl 1 ~ 12%
@@ -35,8 +35,8 @@ public class Blocking extends Weapon.Enchantment {
 			float powerMulti = Math.max(1f, procChance);
 
 			BlockBuff b = Buff.施加(attacker, BlockBuff.class);
-			int shield = Math.round(powerMulti * (2 + weapon.buffedLvl()));
-			b.setShield(shield);
+			int shield = Math.round(powerMulti * (2 + weapon.强化等级()));
+			b.设置(shield);
 			attacker.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 			attacker.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 5);
 		}
@@ -71,8 +71,8 @@ public class Blocking extends Weapon.Enchantment {
 		}
 
 		@Override
-		public void setShield(int shield) {
-			super.setShield(shield);
+		public void 设置(int shield) {
+			super.设置(shield);
 			left = 5f;
 		}
 
@@ -107,7 +107,7 @@ public class Blocking extends Weapon.Enchantment {
 
 		@Override
 		public String desc() {
-			return Messages.get(this, "desc", shielding(), dispTurns(left));
+			return Messages.get(this, "desc", 护盾量(), dispTurns(left));
 		}
 
 		public static String LEFT = "left";

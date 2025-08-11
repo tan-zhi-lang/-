@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -40,8 +41,10 @@ public class StatusPane extends Component {
 
 	private Image rawShielding;
 	private Image shieldedHP;
-	private Image hp;
-	private BitmapText hpText;
+	private Image 血条;
+	private BitmapText 血条文本;
+	private Image 绿条;
+	private BitmapText 绿条文本;
 	private Button heroInfoOnBar;
 
 	private Image exp;
@@ -106,13 +109,21 @@ public class StatusPane extends Component {
 		else        shieldedHP = new Image(asset, 0, 40, 50, 4);
 		add(shieldedHP);
 
-		if (large)  hp = new Image(asset, 0, 103, 128, 9);
-		else        hp = new Image(asset, 0, 36, 50, 4);
-		add( hp );
+		if (large)  血条 = new Image(asset, 0, 103, 128, 9);
+		else        血条 = new Image(asset, 0, 36, 50, 4);
+		add(血条);
 
-		hpText = new BitmapText(PixelScene.pixelFont);
-		hpText.alpha(0.6f);
-		add(hpText);
+		血条文本 = new BitmapText(PixelScene.pixelFont);
+		血条文本.alpha(0.6f);
+		add(血条文本);
+
+		if (large)  绿条 = new Image(asset, 0, 103, 128, 9);
+		else        绿条 = new Image(asset, 0, 36, 50, 4);
+		add(绿条);
+
+		绿条文本 = new BitmapText(PixelScene.pixelFont);
+		绿条文本.alpha(0.6f);
+		add(绿条文本);
 
 		heroInfoOnBar = new Button(){
 			@Override
@@ -173,12 +184,12 @@ public class StatusPane extends Component {
 			exp.x = x + 30;
 			exp.y = y + 30;
 
-			hp.x = shieldedHP.x = rawShielding.x = x + 30;
-			hp.y = shieldedHP.y = rawShielding.y = y + 19;
+			血条.x = shieldedHP.x = rawShielding.x = x + 30;
+			血条.y = shieldedHP.y = rawShielding.y = y + 19;
 
-			hpText.x = hp.x + (128 - hpText.width())/2f;
-			hpText.y = hp.y + 1;
-			PixelScene.align(hpText);
+			血条文本.x = 血条.x + (128 - 血条文本.width())/2f;
+			血条文本.y = 血条.y + 1;
+			PixelScene.align(血条文本);
 
 			expText.x = exp.x + (128 - expText.width())/2f;
 			expText.y = exp.y;
@@ -194,14 +205,14 @@ public class StatusPane extends Component {
 			exp.x = x;
 			exp.y = y;
 
-			hp.x = shieldedHP.x = rawShielding.x = x + 30;
-			hp.y = shieldedHP.y = rawShielding.y = y + 3;
+			血条.x = shieldedHP.x = rawShielding.x = x + 30;
+			血条.y = shieldedHP.y = rawShielding.y = y + 3;
 
-			hpText.scale.set(PixelScene.align(0.5f));
-			hpText.x = hp.x + 1;
-			hpText.y = hp.y + (hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
-			hpText.y -= 0.001f; //prefer to be slightly higher
-			PixelScene.align(hpText);
+			血条文本.scale.set(PixelScene.align(0.5f));
+			血条文本.x = 血条.x + 1;
+			血条文本.y = 血条.y + (血条.height - (血条文本.baseLine()+ 血条文本.scale.y))/2f;
+			血条文本.y -= 0.001f; //prefer to be slightly higher
+			PixelScene.align(血条文本);
 
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 
@@ -225,6 +236,7 @@ public class StatusPane extends Component {
 		super.update();
 		
 		int health = Dungeon.hero.生命;
+		int hunger = Dungeon.hero.buff(Hunger.class).hunger();
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.最大生命;
 
@@ -241,7 +253,8 @@ public class StatusPane extends Component {
 			avatar.resetColor();
 		}
 
-		hp.scale.x = Math.max( 0, (health-shield)/(float)max);
+		血条.scale.x = Math.max( 0, (health-shield)/(float)max);
+		绿条.scale.x = Math.max( 0, (health-shield)/(float)max);
 		shieldedHP.scale.x = health/(float)max;
 
 		if (shield > health) {
@@ -252,24 +265,32 @@ public class StatusPane extends Component {
 
 		if (oldHP != health || oldShield != shield || oldMax != max){
 			if (shield <= 0) {
-				hpText.text(health + "/" + max);
+				血条文本.text(health + "/" + max);
 			} else {
-				hpText.text(health + "+" + shield + "/" + max);
+				血条文本.text(health + "+" + shield + "/" + max);
 			}
 			oldHP = health;
 			oldShield = shield;
 			oldMax = max;
 		}
 
+		if (shield <= 0) {
+			绿条文本.text(health + "/" + max);
+		} else {
+			绿条文本.text(health + "+" + shield + "/" + max);
+		}
 		if (large) {
 			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 
-			hpText.measure();
-			hpText.x = hp.x + (128 - hpText.width())/2f;
+			血条文本.measure();
+			血条文本.x = 血条.x + (128 - 血条文本.width())/2f;
+
+			绿条文本.measure();
+			绿条文本.x = 血条.x + (128 - 绿条文本.width())/2f;
 
 			expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
 			expText.measure();
-			expText.x = hp.x + (128 - expText.width())/2f;
+			expText.x = 血条.x + (128 - expText.width())/2f;
 
 		} else {
 			exp.scale.x = (width / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
@@ -316,8 +337,10 @@ public class StatusPane extends Component {
 		avatar.alpha(value);
 		rawShielding.alpha(0.5f*value);
 		shieldedHP.alpha(value);
-		hp.alpha(value);
-		hpText.alpha(0.6f*value);
+		血条.alpha(value);
+		血条文本.alpha(0.6f*value);
+		绿条.alpha(value);
+		绿条文本.alpha(0.6f*value);
 		exp.alpha(value);
 		if (expText != null) expText.alpha(0.6f*value);
 		level.alpha(value);

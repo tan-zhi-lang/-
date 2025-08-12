@@ -75,7 +75,7 @@ public class 重制 {
 				"移速50% => 34%。"));
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "升级相关",
 				"升级提升的命中和生命+1。最大等级-5，升级所需经验初始+2，每级+1。\n" ));
-		changes.addButton( new ChangeButton(new SnakeSprite(), "疯狂小偷",
+		changes.addButton( new ChangeButton(new ThiefSprite(), "疯狂小偷",
 				"偷后移速83% => 75%。\n" +
 						"防御时掉落金币1 => 10"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.CROWN), "护甲技能",
@@ -94,7 +94,7 @@ public class 重制 {
 
 		changes.addButton( new ChangeButton(new RatKingSprite(), "鼠王房间",
 				"金币数量x2。"));
-		changes.addButton( new ChangeButton(new ThiefSprite(), "下水道巨蛇",
+		changes.addButton( new ChangeButton(new SnakeSprite(), "下水道巨蛇",
 				"最大攻击+2。"));
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "天赋系统",
 				"移除一层和二层的一个天赋，增强大部分。\n" +

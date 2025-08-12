@@ -907,7 +907,7 @@ public abstract class Mob extends Char {
 				}
 
 				if (Dungeon.hero.有天赋(Talent.越战越勇)){
-					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.越战越勇));
+					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.越战越勇)+Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.越战越勇,0.01f)));
 				}
 				if (Dungeon.hero.heroClass == HeroClass.DUELIST
 						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
@@ -958,7 +958,7 @@ public abstract class Mob extends Char {
 			if (prep != null){
 				// 2/4/8/16% per prep level, multiplied by talent points
 				float bhBonus = 0.02f * (float)Math.pow(2, prep.attackLevel()-1);
-				bhBonus *= Dungeon.hero.天赋点数(Talent.BOUNTY_HUNTER);
+				bhBonus *= Dungeon.hero.天赋点数(Talent.BOUNTY_HUNTER)*2;
 				dropBonus += bhBonus;
 			}
 		}

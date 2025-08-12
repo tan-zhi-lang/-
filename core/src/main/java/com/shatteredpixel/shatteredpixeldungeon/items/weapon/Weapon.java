@@ -324,6 +324,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (owner instanceof Hero && owner.buff(AscendedForm.AscendBuff.class) != null){
 			reach += 2;
 		}
+		reach += 2;
 		if (hasEnchant(Projecting.class, owner)){
 			return reach + Math.round(Enchantment.genericProcChanceMultiplier(owner));
 		} else {

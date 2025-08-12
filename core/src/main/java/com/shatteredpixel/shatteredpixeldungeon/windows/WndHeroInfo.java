@@ -165,7 +165,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.巨斧),
 							new ItemSprite(物品表.RATION),
-							new TalentIcon(Talent.IRON_WILL),
+							new TalentIcon(Talent.钢铁意志),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case MAGE:

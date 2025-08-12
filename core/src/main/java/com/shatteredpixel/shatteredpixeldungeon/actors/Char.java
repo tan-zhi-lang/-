@@ -151,7 +151,9 @@ public abstract class Char extends Actor {
 	
 	public int 最大生命;
 	public int 生命;
-	
+	public boolean 第一次攻击=false;
+	public boolean 第一次防御 =false;
+
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
 
@@ -314,7 +316,9 @@ public abstract class Char extends Actor {
 	protected static final String TAG_HT    = "HT";
 	protected static final String TAG_SHLD  = "SHLD";
 	protected static final String BUFFS	    = "buffs";
-	
+	protected static final String 第一次攻击x 	    = "第一次攻击";
+	protected static final String 第一次防御x 	    = "第一次防御";
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		
@@ -324,6 +328,8 @@ public abstract class Char extends Actor {
 		bundle.put( TAG_HP, 生命);
 		bundle.put( TAG_HT, 最大生命);
 		bundle.put( BUFFS, buffs );
+		bundle.put( 第一次攻击x, 第一次攻击);
+		bundle.put( 第一次防御x, 第一次防御);
 	}
 	
 	@Override
@@ -334,7 +340,9 @@ public abstract class Char extends Actor {
 		pos = bundle.getInt( POS );
 		生命 = bundle.getInt( TAG_HP );
 		最大生命 = bundle.getInt( TAG_HT );
-		
+		第一次攻击 = bundle.getBoolean( 第一次攻击x );
+		第一次防御 = bundle.getBoolean( 第一次防御x );
+
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
 			if (b != null) {
 				((Buff)b).attachTo( this );
@@ -700,6 +708,7 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 	
 	public int 攻击时(Char enemy, int damage ) {
+		第一次攻击=true;
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			buff.onAttackProc( enemy );
 		}
@@ -707,7 +716,7 @@ public abstract class Char extends Actor {
 	}
 	
 	public int 防御时(Char enemy, int damage ) {
-
+		第一次防御 =true;
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (armor != null) {
 			damage = armor.absorb( damage );

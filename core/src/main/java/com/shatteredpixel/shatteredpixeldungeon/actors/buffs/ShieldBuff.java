@@ -106,7 +106,7 @@ public abstract class ShieldBuff extends Buff {
 				if (buff.护盾量() <= 0) continue;
 				damage = buff.absorbDamage(damage);
 				if (buff.护盾量() <= 0){
-					if (target instanceof Hero && ((Hero) target).有天赋(Talent.PROVOKED_ANGER)){
+					if (target instanceof Hero && ((Hero) target).有天赋(Talent.受衅怒火)){
 						Buff.施加(target, Talent.ProvokedAngerTracker.class, 5f);
 					}
 				}

@@ -73,9 +73,9 @@ import java.util.LinkedHashMap;
 public enum Talent {
 
 	//Warrior T1
-	VETERANS_INTUITION(0), PROVOKED_ANGER(1), IRON_WILL(2),
+	VETERANS_INTUITION(0), 受衅怒火(1), 钢铁意志(2),
 	//Warrior T2
-	强魄意志(4,3), 纹章升级(5,3), 越战越勇(6,3), IMPROVISED_PROJECTILES(7,3),
+	致命打击(4,3), 纹章升级(5,3), 越战越勇(6,3), IMPROVISED_PROJECTILES(7,3),
 	//Warrior T3
 	纹章荣耀(9, 4), STRONGMAN(10, 4),
 	//Berserker T3
@@ -472,7 +472,7 @@ public enum Talent {
 
 	public static void 获得天赋时(Hero hero, Talent talent ){
 		//for metamorphosis
-		if (talent == IRON_WILL && hero.heroClass != HeroClass.WARRIOR){
+		if (talent == 钢铁意志 && hero.heroClass != HeroClass.WARRIOR){
 			Buff.施加(hero, 破损纹章.WarriorShield.class);
 		}
 
@@ -824,9 +824,9 @@ public enum Talent {
 		if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)){
 			dmg=伏击时(hero,enemy,dmg);
 		}
-		if (hero.有天赋(Talent.PROVOKED_ANGER)
+		if (hero.有天赋(Talent.受衅怒火)
 			&& hero.buff(ProvokedAngerTracker.class) != null){
-			dmg += hero.天赋点数(Talent.PROVOKED_ANGER,6);
+			dmg += hero.天赋点数(Talent.受衅怒火,3)+Math.round(hero.力量()*hero.天赋点数(Talent.受衅怒火,0.1f));
 			hero.buff(ProvokedAngerTracker.class).detach();
 		}
 
@@ -927,7 +927,7 @@ public enum Talent {
 		//tier 1
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, VETERANS_INTUITION, PROVOKED_ANGER, IRON_WILL);
+				Collections.addAll(tierTalents, VETERANS_INTUITION, 受衅怒火, 钢铁意志);
 				break;
 			case MAGE:
 				Collections.addAll(tierTalents, SCHOLARS_INTUITION, LINGERING_MAGIC, BACKUP_BARRIER);
@@ -959,7 +959,7 @@ public enum Talent {
 		//tier 2
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, 强魄意志, 纹章升级, 越战越勇, IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, 致命打击, 纹章升级, 越战越勇, IMPROVISED_PROJECTILES);
 				break;
 			case MAGE:
 				Collections.addAll(tierTalents, 饱腹法术, 高级法杖, ARCANE_VISION, SHIELD_BATTERY);

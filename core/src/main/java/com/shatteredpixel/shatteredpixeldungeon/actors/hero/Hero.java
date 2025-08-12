@@ -1585,6 +1585,9 @@ public class Hero extends Char {
 		}
 		回血(Math.round(damage*吸血));
 
+		if (有天赋(Talent.致命打击)&&enemy.第一次防御){
+			damage+=天赋点数(Talent.致命打击,2)+enemy.最大生命(天赋点数(Talent.致命打击,0.02f));
+		}
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
 			damage++;
 		}
@@ -1654,9 +1657,6 @@ public class Hero extends Char {
 
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
 			damage--;
-		}
-		if (天赋概率(Talent.强魄意志,11)){
-			回血(天赋点数(Talent.强魄意志));
 		}
 		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
 			Berserk berserk = Buff.施加(this, Berserk.class);

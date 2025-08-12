@@ -29,8 +29,7 @@ public class 根骨秘药 extends Elixir {
 	@Override
 	public void apply( Hero hero ) {
 		鉴定();
-		
-		hero.力量++;
+
 		hero.根骨++;
 		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
 		

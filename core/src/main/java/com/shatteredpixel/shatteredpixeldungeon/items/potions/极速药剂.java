@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -21,7 +21,7 @@ public class 极速药剂 extends Potion {
 		鉴定();
 		
 		GLog.w( Messages.get(this, "energetic") );
-		Buff.延长( hero, Haste.class, Haste.DURATION);
+		Buff.延长( hero, 极速.class, 极速.DURATION);
 		SpellSprite.show(hero, SpellSprite.HASTE, 1, 1, 0);
 	}
 	

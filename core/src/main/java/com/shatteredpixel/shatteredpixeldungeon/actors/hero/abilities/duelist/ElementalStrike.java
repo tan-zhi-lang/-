@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
@@ -249,7 +249,7 @@ public class ElementalStrike extends ArmorAbility {
 
 		//*** Sacrificial ***
 		} else if (ench instanceof Sacrificial){
-			Buff.施加(hero, Bleeding.class).set(10 * powerMulti);
+			Buff.施加(hero, 流血.class).set(10 * powerMulti);
 		}
 
 	}
@@ -504,7 +504,7 @@ public class ElementalStrike extends ArmorAbility {
 		//*** Sacrificial ***
 		} else if (ench instanceof Sacrificial){
 			for (Char ch : affected){
-				Buff.施加(ch, Bleeding.class).set(12f*powerMulti);
+				Buff.施加(ch, 流血.class).set(12f*powerMulti);
 			}
 
 		//*** Wayward ***

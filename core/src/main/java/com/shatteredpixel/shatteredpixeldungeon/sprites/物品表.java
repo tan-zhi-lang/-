@@ -201,6 +201,7 @@ public class 物品表 {
 	public static final int RAPIER          = WEP_TIER1+3;
 	public static final int DAGGER          = WEP_TIER1+4;
 	public static final int 法师魔杖 = WEP_TIER1+5;
+	public static final int 血砍刀 = WEP_TIER1+6;
 	static{
 		assignItemRect(WORN_SHORTSWORD, 13, 13);
 		assignItemRect(CUDGEL,          15, 15);
@@ -208,6 +209,7 @@ public class 物品表 {
 		assignItemRect(RAPIER,          16, 16);
 		assignItemRect(DAGGER,          16, 16);
 		assignItemRect(法师魔杖,     16, 16);
+		assignItemRect(血砍刀,     16, 15);
 	}
 
 	private static final int WEP_TIER2      =                               xy(9, 7);   //8 slots
@@ -358,6 +360,7 @@ public class 物品表 {
 	public static final int ARMOR_HUNTRESS  = ARMOR+8;
 	public static final int ARMOR_DUELIST   = ARMOR+9;
 	public static final int ARMOR_CLERIC    = ARMOR+10;
+	public static final int 巫服    = ARMOR+1;
 	static{
 		assignItemRect(ARMOR_CLOTH,     15, 12);
 		assignItemRect(ARMOR_LEATHER,   14, 13);
@@ -370,6 +373,7 @@ public class 物品表 {
 		assignItemRect(ARMOR_HUNTRESS,  13, 15);
 		assignItemRect(ARMOR_DUELIST,   12, 13);
 		assignItemRect(ARMOR_CLERIC,    13, 14);
+		assignItemRect(巫服,    15, 14);
 	}
 
 	                                                                                    //16 free slots

@@ -84,7 +84,7 @@ abstract public class ClassArmor extends Armor {
 			case WARRIOR:
 				classArmor = new WarriorArmor();
 				break;
-			case ROGUE:
+			case 盗贼:
 				classArmor = new RogueArmor();
 				break;
 			case MAGE:
@@ -97,6 +97,9 @@ abstract public class ClassArmor extends Armor {
 				classArmor = new DuelistArmor();
 				break;
 			case CLERIC:
+				classArmor = new ClericArmor();
+				break;
+			case 巫女:
 				classArmor = new ClericArmor();
 				break;
 		}

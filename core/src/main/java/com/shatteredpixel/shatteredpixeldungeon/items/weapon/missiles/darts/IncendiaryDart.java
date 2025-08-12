@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -38,7 +38,7 @@ public class IncendiaryDart extends TippedDart {
 	public int 攻击时(Char attacker, Char defender, int damage ) {
 		//when processing charged shot, only burn enemies
 		if (!processingChargedShot || attacker.alignment != defender.alignment) {
-			Buff.施加(defender, Burning.class).reignite(defender);
+			Buff.施加(defender, 燃烧.class).reignite(defender);
 		}
 		return super.攻击时( attacker, defender, damage );
 	}

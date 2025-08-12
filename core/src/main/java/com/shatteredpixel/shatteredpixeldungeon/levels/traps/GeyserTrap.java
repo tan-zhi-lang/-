@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
@@ -71,8 +71,8 @@ public class GeyserTrap extends Trap {
 				}
 
 				if (ch.isAlive()) {
-					if (ch.buff(Burning.class) != null){
-						ch.buff(Burning.class).detach();
+					if (ch.buff(燃烧.class) != null){
+						ch.buff(燃烧.class).detach();
 					}
 
 					//trace a ballistica to our target (which will also extend past them)
@@ -119,8 +119,8 @@ public class GeyserTrap extends Trap {
 			}
 
 			if (ch.isAlive() && targetpos != -1){
-				if (ch.buff(Burning.class) != null){
-					ch.buff(Burning.class).detach();
+				if (ch.buff(燃烧.class) != null){
+					ch.buff(燃烧.class).detach();
 				}
 				//trace a ballistica in the direction of our target
 				Ballistica trajectory = new Ballistica(pos, targetpos, Ballistica.MAGIC_BOLT);

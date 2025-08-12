@@ -10,10 +10,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
@@ -81,8 +81,8 @@ public class WandOfCorruption extends Wand {
 		MINOR_DEBUFFS.put(Roots.class,          0f);
 		MINOR_DEBUFFS.put(Vertigo.class,        0f);
 		MINOR_DEBUFFS.put(Drowsy.class,         0f);
-		MINOR_DEBUFFS.put(Bleeding.class,       0f);
-		MINOR_DEBUFFS.put(Burning.class,        0f);
+		MINOR_DEBUFFS.put(流血.class,       0f);
+		MINOR_DEBUFFS.put(燃烧.class,        0f);
 		MINOR_DEBUFFS.put(Poison.class,         0f);
 	}
 

@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
@@ -414,7 +414,7 @@ public class CrystalSpire extends Mob {
 
 										//speeds up already woken guardians that aren't very close
 										if (PathFinder.distance[ch.pos] > 8){
-											Buff.施加(ch, Haste.class, Math.round((PathFinder.distance[ch.pos]-8)/2f));
+											Buff.施加(ch, 极速.class, Math.round((PathFinder.distance[ch.pos]-8)/2f));
 										}
 									}
 								}

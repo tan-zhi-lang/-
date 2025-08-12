@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -221,7 +221,7 @@ public abstract class Elemental extends Mob {
 		@Override
 		protected void meleeProc( Char enemy, int damage ) {
 			if (Random.Int( 2 ) == 0 && !Dungeon.level.water[enemy.pos]) {
-				Buff.施加( enemy, Burning.class ).reignite( enemy );
+				Buff.施加( enemy, 燃烧.class ).reignite( enemy );
 				if (enemy.sprite.visible) Splash.at( enemy.sprite.center(), sprite.blood(), 5);
 			}
 		}
@@ -229,7 +229,7 @@ public abstract class Elemental extends Mob {
 		@Override
 		protected void rangedProc( Char enemy ) {
 			if (!Dungeon.level.water[enemy.pos]) {
-				Buff.施加( enemy, Burning.class ).reignite( enemy, 4f );
+				Buff.施加( enemy, 燃烧.class ).reignite( enemy, 4f );
 			}
 			if (enemy.sprite.visible) Splash.at( enemy.sprite.center(), sprite.blood(), 5);
 		}
@@ -348,7 +348,7 @@ public abstract class Elemental extends Mob {
 
 						Char target = Actor.findChar(targetingPos + i);
 						if (target != null && target != this) {
-							Buff.施加(target, Burning.class).reignite(target);
+							Buff.施加(target, 燃烧.class).reignite(target);
 							if (target == Dungeon.hero){
 								Statistics.questScores[1] -= 200;
 							}
@@ -465,7 +465,7 @@ public abstract class Elemental extends Mob {
 			
 			properties.add( Property.ICY );
 			
-			harmfulBuffs.add( Burning.class );
+			harmfulBuffs.add( 燃烧.class );
 		}
 		
 		@Override

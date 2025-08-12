@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
@@ -119,7 +119,7 @@ public class 焰浪法杖 extends DamageWand {
 			wandProc(ch, chargesPerCast());
 			ch.受伤时(damageRoll(), this);
 			if (ch.isAlive()) {
-				Buff.施加(ch, Burning.class).reignite(ch);
+				Buff.施加(ch, 燃烧.class).reignite(ch);
 				switch (chargesPerCast()) {
 					case 1:
 						break; //no effects
@@ -144,7 +144,7 @@ public class 焰浪法杖 extends DamageWand {
 			//+25% proc chance per burning char within 3x3 of target
 			// this includes the attacker and defender
 			if (Actor.findChar(defender.pos + i) != null
-					&& Actor.findChar(defender.pos + i).buff(Burning.class) != null) {
+					&& Actor.findChar(defender.pos + i).buff(燃烧.class) != null) {
 				procChance += 0.25f;
 
 			//otherwise +5% proc chance per burning tile within 3x3 of target
@@ -176,8 +176,8 @@ public class 焰浪法杖 extends DamageWand {
 
 					Char ch = Actor.findChar(defender.pos + i);
 					if (ch != null) {
-						if (ch.buff(Burning.class) != null) {
-							ch.buff(Burning.class).detach();
+						if (ch.buff(燃烧.class) != null) {
+							ch.buff(燃烧.class).detach();
 						}
 						if (ch.alignment == Char.Alignment.ENEMY) {
 							//A 2-charge zap's base dmg with a 1-charge zap's scaling

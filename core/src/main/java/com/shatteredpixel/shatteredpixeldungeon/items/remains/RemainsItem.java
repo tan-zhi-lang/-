@@ -65,13 +65,15 @@ public abstract class RemainsItem extends Item {
 				return new SealShard();
 			case MAGE:
 				return new BrokenStaff();
-			case ROGUE:
+			case 盗贼:
 				return new CloakScrap();
 			case HUNTRESS:
 				return new BowFragment();
 			case DUELIST:
 				return new BrokenHilt();
 			case CLERIC:
+				return new TornPage();
+			case 巫女:
 				return new TornPage();
 		}
 	}

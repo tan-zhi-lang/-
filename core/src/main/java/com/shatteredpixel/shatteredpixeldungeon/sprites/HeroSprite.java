@@ -50,7 +50,9 @@ public class HeroSprite extends CharSprite {
 		texture( cls.spritesheet() );
 		updateArmor();
 	}
-	
+//	public HeroSprite set(){
+//
+//	}
 	public void updateArmor() {
 
 		TextureFilm film = new TextureFilm( tiers(), Dungeon.hero.tier(), FRAME_WIDTH, FRAME_HEIGHT );

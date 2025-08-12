@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
@@ -173,7 +173,7 @@ public class RipperDemon extends Mob {
 
 						if (leapVictim != null && alignment != leapVictim.alignment){
 							if (hit(RipperDemon.this, leapVictim, Char.INFINITE_ACCURACY, false)) {
-								Buff.施加(leapVictim, Bleeding.class).set(0.75f * 攻击());
+								Buff.施加(leapVictim, 流血.class).set(0.75f * 攻击());
 								leapVictim.sprite.flash();
 								Sample.INSTANCE.play(Assets.Sounds.HIT);
 							} else {

@@ -10,9 +10,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AdrenalineSurge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
@@ -156,8 +156,8 @@ public class MnemonicPrayer extends TargetedClericSpell {
 
 				//this might need a nerf of aggression vs bosses. (perhaps nerf the extension?)
 				if (b instanceof FlavourBuff)       Buff.施加(ch, (Class<?extends FlavourBuff>)b.getClass(), extension);
-				else if (b instanceof Bleeding)     ((Bleeding) b).extend( extension );
-				else if (b instanceof Burning)      ((Burning) b).extend( extension );
+				else if (b instanceof 流血)     ((流血) b).extend( extension );
+				else if (b instanceof 燃烧)      ((燃烧) b).extend( extension );
 				else if (b instanceof Corrosion)    ((Corrosion) b).extend( extension );
 				else if (b instanceof Dread)        ((Dread) b).extend( extension );
 				else if (b instanceof Ooze)         ((Ooze) b).extend( extension );

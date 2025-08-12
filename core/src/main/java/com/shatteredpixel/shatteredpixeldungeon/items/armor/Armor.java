@@ -475,8 +475,8 @@ public class Armor extends EquipableItem {
 
 				//the chance from +4/5, and then +6 can be set to 0% with metamorphed runic transference
 				int lossChanceStart = 4;
-				if (Dungeon.hero != null && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.有天赋(Talent.RUNIC_TRANSFERENCE)){
-					lossChanceStart += 1+Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE);
+				if (Dungeon.hero != null && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.有天赋(Talent.纹章升级)){
+					lossChanceStart += 1+Dungeon.hero.天赋点数(Talent.纹章升级);
 				}
 
 				if (等级() >= lossChanceStart && Random.Float(10) < Math.pow(2, 等级()-4)) {

@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
@@ -85,6 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
@@ -167,6 +169,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.Delayer;
@@ -196,7 +199,7 @@ public class Hero extends Char {
 	private static final float TIME_TO_SEARCH	    = 2f;
 	private static final float HUNGER_FOR_SEARCH	= 6f;
 	
-	public HeroClass heroClass = HeroClass.ROGUE;
+	public HeroClass heroClass = HeroClass.盗贼;
 	public HeroSubClass subClass = HeroSubClass.NONE;
 	public ArmorAbility armorAbility = null;
 	public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
@@ -247,14 +250,18 @@ public class Hero extends Char {
 	public void 更新生命(boolean boostHP ){
 		int curHT = 最大生命;
 		
-		最大生命 = 30 + (5+1)*(等级 -1)+根骨*10 + HTBoost;
+		最大生命 = 30 + Math.round((5+1.05f)*(等级 -1))+根骨*20 + HTBoost;
 		float multiplier = RingOfMight.HTMultiplier(this);
 		最大生命 = Math.round(multiplier * 最大生命);
 		
 		if (buff(根骨秘药.HTBoost.class) != null){
 			最大生命 += buff(根骨秘药.HTBoost.class).boost();
 		}
-		
+
+		if (belongings.armor() instanceof 巫服){
+			最大生命 *=1.25f;
+		}
+
 		if (boostHP){
 			生命 += Math.max(最大生命 - curHT, 0);
 		}
@@ -499,8 +506,9 @@ public class Hero extends Char {
 				armor instanceof 法袍||
 				armor instanceof 风衣||
 				armor instanceof 披风||
-				armor instanceof 胸铠 ||
-				armor instanceof 祭服
+				armor instanceof 胸铠||
+				armor instanceof 祭服||
+				armor instanceof 巫服
 		){
 			return 6;
 		} else if (armor != null){
@@ -774,7 +782,7 @@ public class Hero extends Char {
 		if(belongings.armor instanceof 披风){
 			speed*=1.25f;
 		}
-		if(heroClass(HeroClass.ROGUE)&&Dungeon.level.在水中(this)){
+		if(heroClass(HeroClass.盗贼)&&Dungeon.level.在水中(this)){
 			speed*=1.25f;
 		}
 //		if(HeroClass(HeroClass.ROGUE)){
@@ -1566,10 +1574,16 @@ public class Hero extends Char {
 		}
 		resting = fullRest;
 	}
-	
 	@Override
 	public int 攻击时(final Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
+
+		float 吸血=0;
+
+		if(heroClass(HeroClass.巫女)){
+			吸血+=0.01f;
+		}
+		回血(Math.round(damage*吸血));
 
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
 			damage++;
@@ -1704,6 +1718,10 @@ public class Hero extends Char {
 		//temporarily assign to a float to avoid rounding a bunch
 		float damage = dmg;
 
+		if(heroClass(HeroClass.巫女)&& 算法.概率学(dmg)){
+			经验(1,getClass());
+		}
+
 		Endure.EndureTracker endure = buff(Endure.EndureTracker.class);
 		if (!(src instanceof Char)){
 			//reduce damage here if it isn't coming from a character (if it is we already reduced it)
@@ -1727,11 +1745,8 @@ public class Hero extends Char {
 		}
 
 		if (buff(Talent.WarriorFoodImmunity.class) != null){
-			if (天赋点数(Talent.IRON_STOMACH) == 1)       damage *= 0.5;
-			else if (天赋点数(Talent.IRON_STOMACH) == 2)  damage = 0;
-			else if (天赋点数(Talent.IRON_STOMACH) == 3){
+			if(heroClass(HeroClass.WARRIOR)){
 				damage = 0f;
-				Buff.延长(this, Invulnerability.class, 1);
 			}
 		}
 
@@ -2287,7 +2302,9 @@ public class Hero extends Char {
 			}
 			return;
 		}
-		
+
+		Badges.解锁巫女();
+
 		Actor.fixTime();
 		super.死亡时( cause );
 		reallyDie( cause );
@@ -2509,7 +2526,7 @@ public class Hero extends Char {
 		if (buff(Foresight.class) != null) {
 			x = Foresight.DISTANCE;
 		}
-		x+=heroClass == HeroClass.ROGUE?2:1;
+		x+=heroClass == HeroClass.盗贼 ?2:1;
 		if (有天赋(Talent.WIDE_SEARCH)) x+=天赋点数(Talent.WIDE_SEARCH);
 		return x;
 	}
@@ -2537,6 +2554,9 @@ public class Hero extends Char {
 			x = Math.max( x, MagicalSight.DISTANCE );
 		}
 		if(hasbuff( Light.class )) {
+			x+=Light.DISTANCE;
+		}
+		if(hasbuff( 燃烧.class )) {
 			x+=Light.DISTANCE;
 		}
 		if(heroClass(HeroClass.CLERIC)){

@@ -508,33 +508,6 @@ public abstract class RegularLevel extends Level {
 		//cached rations try to drop in a special room on floors 2/4/7, to a max of 2/3
 		//we increment dropped by 2 for compatibility with old saves, when the talent dropped 4/6 items
 		Random.pushGenerator( Random.Long() );
-			if (Dungeon.hero.有天赋(Talent.CACHED_RATIONS)){
-				Talent.CachedRationsDropped dropped = Buff.施加(Dungeon.hero, Talent.CachedRationsDropped.class);
-				int targetFloor = (int)(2 + dropped.count());
-				if (dropped.count() > 4) targetFloor++;
-				if (Dungeon.depth >= targetFloor && dropped.count() < Dungeon.hero.天赋点数(Talent.CACHED_RATIONS,5)){
-					int cell;
-					int tries = 100;
-					boolean valid;
-					do {
-						cell = randomDropCell(SpecialRoom.class);
-						valid = cell != -1 && !(room(cell) instanceof SecretRoom)
-								&& !(room(cell) instanceof ShopRoom)
-								&& map[cell] != Terrain.EMPTY_SP
-								&& map[cell] != Terrain.WATER
-								&& map[cell] != Terrain.PEDESTAL;
-					} while (tries-- > 0 && !valid);
-					if (valid) {
-						if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
-							map[cell] = Terrain.GRASS;
-							losBlocking[cell] = false;
-						}
-						drop(new SupplyRation(), cell).type = Heap.Type.CHEST;
-						dropped.countUp(2);
-					}
-				}
-			}
-
 			if (Dungeon.hero.有天赋(Talent.寻宝猎人)){
 				Talent.寻宝猎人 dropped = Buff.施加(Dungeon.hero, Talent.寻宝猎人.class);
 				int targetFloor = (int)(2 + dropped.count());

@@ -40,7 +40,7 @@ public class StatusPane extends Component {
 	private int lastTier = 0;
 
 	private Image rawShielding;
-	private Image shieldedHP;
+	private Image 护盾;
 	private Image 血条;
 	private BitmapText 血条文本;
 	private Image 绿条;
@@ -60,16 +60,16 @@ public class StatusPane extends Component {
 	private BusyIndicator busy;
 	private CircleArc counter;
 
-	private boolean large;
+	private boolean 横屏;
 
-	public StatusPane( boolean large ){
+	public StatusPane( boolean 横屏){
 		super();
 
 		String asset = Assets.Interfaces.STATUS;
 
-		this.large = large;
+		this.横屏 = 横屏;
 
-		if (large)  bg = new NinePatch( asset, 0, 64, 41, 39, 33, 0, 4, 0 );
+		if (横屏)  bg = new NinePatch( asset, 0, 64, 41, 39, 33, 0, 4, 0 );
 		else        bg = new NinePatch( asset, 0, 0, 128, 36, 85, 0, 45, 0 );
 		add( bg );
 
@@ -100,16 +100,16 @@ public class StatusPane extends Component {
 		compass = new Compass( Statistics.amuletObtained ? Dungeon.level.entrance() : Dungeon.level.exit() );
 		add( compass );
 
-		if (large)  rawShielding = new Image(asset, 0, 112, 128, 9);
+		if (横屏)  rawShielding = new Image(asset, 0, 112, 128, 9);
 		else        rawShielding = new Image(asset, 0, 40, 50, 4);
 		rawShielding.alpha(0.5f);
 		add(rawShielding);
 
-		if (large)  shieldedHP = new Image(asset, 0, 112, 128, 9);
-		else        shieldedHP = new Image(asset, 0, 40, 50, 4);
-		add(shieldedHP);
+		if (横屏)  护盾 = new Image(asset, 0, 112, 128, 9);
+		else        护盾 = new Image(asset, 0, 40, 50, 4);
+		add(护盾);
 
-		if (large)  血条 = new Image(asset, 0, 103, 128, 9);
+		if (横屏)  血条 = new Image(asset, 0, 103, 128, 9);
 		else        血条 = new Image(asset, 0, 36, 50, 4);
 		add(血条);
 
@@ -117,8 +117,8 @@ public class StatusPane extends Component {
 		血条文本.alpha(0.6f);
 		add(血条文本);
 
-		if (large)  绿条 = new Image(asset, 0, 103, 128, 9);
-		else        绿条 = new Image(asset, 0, 36, 50, 4);
+		if (横屏)  绿条 = new Image(asset, 0, 121, 128, 9);
+		else        绿条 = new Image(asset, 0, 44, 50, 4);
 		add(绿条);
 
 		绿条文本 = new BitmapText(PixelScene.pixelFont);
@@ -134,11 +134,11 @@ public class StatusPane extends Component {
 		};
 		add(heroInfoOnBar);
 
-		if (large)  exp = new Image(asset, 0, 121, 128, 7);
-		else        exp = new Image(asset, 0, 44, 16, 1);
+		if (横屏)  exp = new Image(asset, 0, 130, 128, 7);
+		else        exp = new Image(asset, 0, 48, 16, 1);
 		add( exp );
 
-		if (large){
+		if (横屏){
 			expText = new BitmapText(PixelScene.pixelFont);
 			expText.hardlight( 0xFFFFAA );
 			expText.alpha(0.6f);
@@ -149,7 +149,7 @@ public class StatusPane extends Component {
 		level.hardlight( 0xFFFFAA );
 		add( level );
 
-		buffs = new BuffIndicator( Dungeon.hero, large );
+		buffs = new BuffIndicator( Dungeon.hero, 横屏);
 		add( buffs );
 
 		busy = new BusyIndicator();
@@ -163,33 +163,40 @@ public class StatusPane extends Component {
 	@Override
 	protected void layout() {
 
-		height = large ? 39 : 32;
+		height = 横屏 ? 39 : 32;
 
 		bg.x = x;
 		bg.y = y;
-		if (large)  bg.size( 160, bg.height ); //HP bars must be 128px wide atm
+		if (横屏)  bg.size( 160, bg.height ); //HP bars must be 128px wide atm
 		else        bg.size( width, bg.height );
 
 		avatar.x = bg.x - avatar.width / 2f + 15;
-		avatar.y = bg.y - avatar.height / 2f + (large ? 15 : 16);
+		avatar.y = bg.y - avatar.height / 2f + (横屏 ? 15 : 16);
 		PixelScene.align(avatar);
 
-		heroInfo.setRect( x, y+(large ? 0 : 1), 30, large ? 40 : 30 );
+		heroInfo.setRect( x, y+(横屏 ? 0 : 1), 30, 横屏 ? 40 : 30 );
 
 		compass.x = avatar.x + avatar.width / 2f - compass.origin.x;
 		compass.y = avatar.y + avatar.height / 2f - compass.origin.y;
 		PixelScene.align(compass);
 
-		if (large) {
+		if (横屏) {
 			exp.x = x + 30;
 			exp.y = y + 30;
 
-			血条.x = shieldedHP.x = rawShielding.x = x + 30;
-			血条.y = shieldedHP.y = rawShielding.y = y + 19;
+			血条.x = 护盾.x = rawShielding.x = x + 30;
+			血条.y = 护盾.y = rawShielding.y = y + 19;
 
 			血条文本.x = 血条.x + (128 - 血条文本.width())/2f;
 			血条文本.y = 血条.y + 1;
 			PixelScene.align(血条文本);
+
+			绿条.x = 血条.x;
+			绿条.y = 血条.y-绿条.height()-2;
+
+			绿条文本.x = 绿条.x + (128 - 绿条文本.width())/2f;
+			绿条文本.y = 绿条.y + 1;
+			PixelScene.align(绿条文本);
 
 			expText.x = exp.x + (128 - expText.width())/2f;
 			expText.y = exp.y;
@@ -205,14 +212,23 @@ public class StatusPane extends Component {
 			exp.x = x;
 			exp.y = y;
 
-			血条.x = shieldedHP.x = rawShielding.x = x + 30;
-			血条.y = shieldedHP.y = rawShielding.y = y + 3;
+			血条.x = 护盾.x = rawShielding.x = x + 30;
+			血条.y = 护盾.y = rawShielding.y = y + 3;
 
 			血条文本.scale.set(PixelScene.align(0.5f));
 			血条文本.x = 血条.x + 1;
 			血条文本.y = 血条.y + (血条.height - (血条文本.baseLine()+ 血条文本.scale.y))/2f;
 			血条文本.y -= 0.001f; //prefer to be slightly higher
 			PixelScene.align(血条文本);
+
+			绿条.x = 血条.x;
+			绿条.y = 血条.y + 绿条.height()+2;
+
+			绿条文本.scale.set(PixelScene.align(0.5f));
+			绿条文本.x = 绿条.x + 1;
+			绿条文本.y = 绿条.y + (绿条.height - (绿条文本.baseLine()+ 绿条文本.scale.y))/2f;
+			绿条文本.y -= 0.001f; //prefer to be slightly higher
+			PixelScene.align(绿条文本);
 
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 
@@ -236,7 +252,7 @@ public class StatusPane extends Component {
 		super.update();
 		
 		int health = Dungeon.hero.生命;
-		int hunger = Dungeon.hero.buff(Hunger.class).hunger();
+		int hunger = 450-Dungeon.hero.buff(Hunger.class).hunger();
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.最大生命;
 
@@ -254,8 +270,8 @@ public class StatusPane extends Component {
 		}
 
 		血条.scale.x = Math.max( 0, (health-shield)/(float)max);
-		绿条.scale.x = Math.max( 0, (health-shield)/(float)max);
-		shieldedHP.scale.x = health/(float)max;
+		绿条.scale.x = Math.max( 0, hunger/450f);
+		护盾.scale.x = health/(float)max;
 
 		if (shield > health) {
 			rawShielding.scale.x = Math.min(1, shield / (float) max);
@@ -274,19 +290,16 @@ public class StatusPane extends Component {
 			oldMax = max;
 		}
 
-		if (shield <= 0) {
-			绿条文本.text(health + "/" + max);
-		} else {
-			绿条文本.text(health + "+" + shield + "/" + max);
-		}
-		if (large) {
+		绿条文本.text(hunger + "/" + 450);
+
+		if (横屏) {
 			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 
 			血条文本.measure();
 			血条文本.x = 血条.x + (128 - 血条文本.width())/2f;
 
 			绿条文本.measure();
-			绿条文本.x = 血条.x + (128 - 绿条文本.width())/2f;
+			绿条文本.x = 绿条.x + (128 - 绿条文本.width())/2f;
 
 			expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
 			expText.measure();
@@ -304,7 +317,7 @@ public class StatusPane extends Component {
 
 			lastLvl = Dungeon.hero.等级;
 
-			if (large){
+			if (横屏){
 				level.text( "lv. " + lastLvl );
 				level.measure();
 				level.x = x + (30f - level.width()) / 2f;
@@ -336,7 +349,7 @@ public class StatusPane extends Component {
 		bg.alpha(value);
 		avatar.alpha(value);
 		rawShielding.alpha(0.5f*value);
-		shieldedHP.alpha(value);
+		护盾.alpha(value);
 		血条.alpha(value);
 		血条文本.alpha(0.6f*value);
 		绿条.alpha(value);

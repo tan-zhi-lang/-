@@ -65,7 +65,7 @@ public class FireImbue extends Buff {
 
 	public void proc(Char enemy){
 		if (Random.Int(2) == 0)
-			Buff.施加( enemy, Burning.class ).reignite( enemy );
+			Buff.施加( enemy, 燃烧.class ).reignite( enemy );
 
 		enemy.sprite.emitter().burst( FlameParticle.FACTORY, 2 );
 	}
@@ -96,13 +96,13 @@ public class FireImbue extends Buff {
 	}
 
 	{
-		immunities.add( Burning.class );
+		immunities.add( 燃烧.class );
 	}
 
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)){
-			Buff.detach(target, Burning.class);
+			Buff.detach(target, 燃烧.class);
 			return true;
 		} else {
 			return false;

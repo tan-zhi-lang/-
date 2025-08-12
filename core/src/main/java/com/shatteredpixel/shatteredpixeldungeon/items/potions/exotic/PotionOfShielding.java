@@ -30,4 +30,8 @@ public class PotionOfShielding extends ExoticPotion {
 			hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString((int) (0.75f * hero.最大生命 + 10)), FloatingText.SHIELDING );
 		}
 	}
+	@Override
+	public int 金币() {
+		return Math.round(super.金币()*1.25f);
+	}
 }

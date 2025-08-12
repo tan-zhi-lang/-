@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -21,7 +21,7 @@ public class Sacrificial extends Weapon.Enchantment {
 			float missingPercent = attacker.生命 /(float)attacker.最大生命;
 			float bleedAmt = (float)(Math.pow(missingPercent, 2) * attacker.最大生命)/8f;
 			if (Random.Float() < bleedAmt) {
-				Buff.施加(attacker, Bleeding.class).set(Math.max(1, bleedAmt), getClass());
+				Buff.施加(attacker, 流血.class).set(Math.max(1, bleedAmt), getClass());
 			}
 		}
 

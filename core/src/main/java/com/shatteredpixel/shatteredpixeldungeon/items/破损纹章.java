@@ -55,13 +55,13 @@ public class 破损纹章 extends Item {
 		if (glyph == null){
 			return false;
 		}
-		if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 3){
+		if (Dungeon.hero.天赋点数(Talent.纹章升级) == 3){
 			return true;
-		} else if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 2
+		} else if (Dungeon.hero.天赋点数(Talent.纹章升级) == 2
 			&& (Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())
 				|| Arrays.asList(Armor.Glyph.uncommon).contains(glyph.getClass()))){
 			return true;
-		}else if (Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE) == 1
+		}else if (Dungeon.hero.天赋点数(Talent.纹章升级) == 1
 			&& Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())){
 			return true;
 		} else {
@@ -188,7 +188,7 @@ public class 破损纹章 extends Item {
 		return 等级() < 最大等级();
 	}
 	public int 最大等级(){
-		return 2+Dungeon.hero.天赋点数(Talent.RUNIC_TRANSFERENCE);
+		return 2+Dungeon.hero.天赋点数(Talent.纹章升级);
 	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
 

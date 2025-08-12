@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -26,7 +26,7 @@ public class Thorns extends Armor.Glyph {
 
 			float powerMulti = Math.max(1f, procChance);
 
-			Buff.施加( attacker, Bleeding.class).set( Math.round((4 + level)*powerMulti) );
+			Buff.施加( attacker, 流血.class).set( Math.round((4 + level)*powerMulti) );
 
 		}
 

@@ -9,9 +9,11 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SnakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -41,8 +43,8 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(Icons.DISPLAY.get(), "动画速度",
-				"添加可调整动画速度按钮。"));
+		changes.addButton( new ChangeButton(Icons.DISPLAY.get(), "动画加快",
+				"添加可调整动画加快按钮。"));
 		changes.addButton( new ChangeButton(Icons.CONTROLLER.get(), "固定移速",
 				"可调整固定移速，例如在1.05移速时固定1。"));
 		changes.addButton( new ChangeButton(Icons.AUDIO.get(), "主题曲",
@@ -74,7 +76,7 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new GhostSprite(), "悲伤幽灵",
 				"移速50% => 34%。"));
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "升级相关",
-				"升级提升的命中和生命+1。最大等级-5，升级所需经验初始+2，每级+1。\n" ));
+				"升级提升的命中和生命+1.05。最大等级-5，升级所需经验初始+2，每级+1。\n" ));
 		changes.addButton( new ChangeButton(new ThiefSprite(), "疯狂小偷",
 				"偷后移速83% => 75%。\n" +
 						"防御时掉落金币1 => 10"));
@@ -84,6 +86,8 @@ public class 重制 {
 				"优化。"));
 		changes.addButton( new ChangeButton(Icons.LANGS.get(), "语言设置",
 				"移除。"));
+		changes.addButton( new ChangeButton(new SheepSprite(), "魔法绵羊",
+				"彩蛋。"));
 
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				""));
@@ -92,6 +96,8 @@ public class 重制 {
 		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
+//		changes.addButton( new ChangeButton(new HeroSprite(), "鼠王房间",
+//				"金币数量x2。"));
 		changes.addButton( new ChangeButton(new RatKingSprite(), "鼠王房间",
 				"金币数量x2。"));
 		changes.addButton( new ChangeButton(new SnakeSprite(), "下水道巨蛇",
@@ -102,18 +108,32 @@ public class 重制 {
 						"天赋点数5/6/8 => 3/6/9\n" +
 						"二层和三层最大天赋点+1"));
 		changes.addButton(new ChangeButton(Icons.get(Icons.下楼), "地牢生成",
-						"第一层必定生成一瓶经验药剂，额外一个感知符石。\n" +
+						"第一层必定生成一瓶经验药剂。额外一个感知符石。\n" +
 						"每个区域生成的升级卷轴数量+1。\n" +
 						"每层额外生成一个小包口粮。\n"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.Icons.SCROLL_ENCHANT), "注魔秘卷",
-				"还附带一次升级。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.Icons.POTION_STAMINA), "精力回复合剂",
-				"移速1.5 => 2.5。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.Icons.POTION_SHIELDING), "奥术护盾合剂",
-				"最大生命护盾60% => 75%。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.Icons.POTION_HEALING), "治疗药剂",
-				"最大生命80% => 90%。\n" +
-						"恢复速度25% => 34%。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
+					"注魔秘卷\n" +
+							"还附带一次升级。"
+				));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.POTION_HOLDER), "药剂",
+					"治疗药剂\n" +
+							"最大生命80% => 90%。\n" +
+							"恢复速度25% => 34%。",
+
+							"奥术护盾合剂\n"+
+							"最大生命护盾60% => 75%。",
+
+							"净化药剂\n"+
+							"持续回合+5。",
+
+							"极速药剂\n"+
+							"移速3 => 4。\n" +
+							"持续回合20 => 15",
+
+							"精力回复合剂\n" +
+							"移速1.5 => 2.5。\n" +
+							"持续回合100 => 60"
+				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
 				"吃饭恢复1+1%最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
@@ -124,9 +144,10 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.神圣法典), "神圣法典",
 				"+1最大充能。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "根骨秘药",
-				"改成永久+1力量和+10最大生命。"));
+				"+20最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.破损纹章), "破损纹章",
 				"初始护盾3 => 1。\n" +
+				"半血受伤获得 => 受伤获得。\n" +
 				"提升护甲的等级改成强化等级。\n" +
 							"可额外携带1级，冷却150 => 75。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
@@ -136,10 +157,8 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_AUGMENTATION), "强化符石",
 				"对武器的增强 增加伤害50%减少67%攻速 => 增加100%伤害减少50%攻速\n" +
 						"对武器的增强 增加33%攻速，减少30%伤害 => 增加100%攻速，减少50%伤害"));
-		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.IMMUNITY, true), "净化药剂",
-				"持续回合+5。"));
-		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.HASTE, true), "极速药剂",
-				"移速300% => 400%。"));
+		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.FIRE, true), "着火",
+				"这个状态提供火把效果。"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
 		changes.hardlight(CharSprite.削弱);

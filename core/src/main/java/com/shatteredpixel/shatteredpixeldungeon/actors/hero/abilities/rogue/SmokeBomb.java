@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
@@ -113,7 +113,7 @@ public class SmokeBomb extends ArmorAbility {
 				if (hero.有天赋(Talent.HASTY_RETREAT)){
 					//effectively 1/2/3/4 turns
 					float duration = 0.67f + hero.天赋点数(Talent.HASTY_RETREAT);
-					Buff.施加(hero, Haste.class, duration);
+					Buff.施加(hero, 极速.class, duration);
 					Buff.施加(hero, Invisibility.class, duration);
 				}
 			}

@@ -439,13 +439,15 @@ public enum Icons {
 				frame.top += frame.height()/8f;
 				result.frame(frame);
 				return result;
-			case ROGUE:
+			case 盗贼:
 				return new ItemSprite(物品表.ARTIFACT_CLOAK);
 			case HUNTRESS:
 				return new ItemSprite(物品表.灵能短弓);
 			case DUELIST:
 				return new ItemSprite(物品表.RAPIER);
 			case CLERIC:
+				return new ItemSprite(物品表.神圣法典);
+			case 巫女:
 				return new ItemSprite(物品表.神圣法典);
 			default:
 				return null;

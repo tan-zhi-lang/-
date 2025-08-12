@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -91,9 +91,9 @@ public class CrystalMimic extends Mimic {
 		if (sprite != null) sprite.idle();
 		//haste for 2 turns if attacking
 		if (alignment == Alignment.NEUTRAL){
-			Buff.施加(this, Haste.class, 2f);
+			Buff.施加(this, 极速.class, 2f);
 		} else {
-			Buff.施加(this, Haste.class, 1f);
+			Buff.施加(this, 极速.class, 1f);
 		}
 		if (Actor.chars().contains(this) && Dungeon.level.heroFOV[pos]) {
 			enemy = Dungeon.hero;

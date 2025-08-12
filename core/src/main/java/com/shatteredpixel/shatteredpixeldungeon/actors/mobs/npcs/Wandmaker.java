@@ -141,7 +141,7 @@ public class Wandmaker extends NPC {
 				case WARRIOR:
 					msg1 += Messages.get(this, "intro_warrior");
 					break;
-				case ROGUE:
+				case 盗贼:
 					msg1 += Messages.get(this, "intro_rogue");
 					break;
 				case MAGE:
@@ -155,6 +155,9 @@ public class Wandmaker extends NPC {
 					break;
 				case CLERIC:
 					msg1 += Messages.get(this, "intro_cleric");
+					break;
+				case 巫女:
+					msg1 += Messages.get(this, "巫女");
 					break;
 			}
 

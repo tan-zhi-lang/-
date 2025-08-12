@@ -56,15 +56,16 @@ public abstract class ClericSpell {
 
 	public void onSpellCast(神圣法典 tome, Hero hero){
 		Invisibility.dispel();
-		if (hero.有天赋(Talent.SATIATED_SPELLS) && hero.buff(Talent.SatiatedSpellsTracker.class) != null){
-			int amount = hero.天赋点数(Talent.SATIATED_SPELLS,5);
-			Buff.施加(hero, Barrier.class).设置(amount);
-			Char ally = PowerOfMany.getPoweredAlly();
-			if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-				Buff.施加(ally, Barrier.class).设置(amount);
-			}
-			hero.buff(Talent.SatiatedSpellsTracker.class).detach();
-		}
+		//施法获得护盾
+//		if (hero.buff(Talent.SatiatedSpellsTracker.class) != null){
+//			int amount = hero.天赋点数(Talent.,5);
+//			Buff.施加(hero, Barrier.class).设置(amount);
+//			Char ally = PowerOfMany.getPoweredAlly();
+//			if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
+//				Buff.施加(ally, Barrier.class).设置(amount);
+//			}
+//			hero.buff(Talent.SatiatedSpellsTracker.class).detach();
+//		}
 		tome.spendCharge(chargeUse(hero));
 		Talent.onArtifactUsed(hero);
 		if (hero.subClass == HeroSubClass.PALADIN){

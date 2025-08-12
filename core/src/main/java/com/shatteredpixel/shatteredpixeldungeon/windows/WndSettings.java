@@ -426,8 +426,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 	private static class UITab extends Component {
 
 		RenderedTextBlock title;
-
 		ColorBlock sep1;
+		OptionSlider optUIMode;
+		OptionSlider optUIScale;
 		RedButton btnToolbarSettings;
 		CheckBox chkFlipTags;
 		ColorBlock sep2;
@@ -445,7 +446,42 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 			//add slider for UI size only if device has enough space to support it
 			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
-			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
+			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;if (Math.min(wMin, hMin) >= 2*Game.density){
+				optUIMode = new OptionSlider(
+						Messages.get(this, "ui_mode"),
+						Messages.get(this, "mobile"),
+						Messages.get(this, "full"),
+						0,
+						2
+				) {
+					@Override
+					protected void onChange() {
+						SPDSettings.interfaceSize(getSelectedValue());
+						ShatteredPixelDungeon.seamlessResetScene();
+					}
+				};
+				optUIMode.setSelectedValue(SPDSettings.interfaceSize());
+				add(optUIMode);
+			}
+
+			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
+				optUIScale = new OptionSlider(Messages.get(this, "scale"),
+						(int)Math.ceil(2* Game.density)+ "X",
+						PixelScene.maxDefaultZoom + "X",
+						(int)Math.ceil(2* Game.density),
+						PixelScene.maxDefaultZoom ) {
+					@Override
+					protected void onChange() {
+						if (getSelectedValue() != SPDSettings.scale()) {
+							SPDSettings.scale(getSelectedValue());
+							ShatteredPixelDungeon.seamlessResetScene();
+						}
+					}
+				};
+				optUIScale.setSelectedValue(PixelScene.defaultZoom);
+				add(optUIScale);
+			}
+
 			if (SPDSettings.interfaceSize() == 0) {
 				btnToolbarSettings = new RedButton(Messages.get(this, "toolbar_settings"), 9){
 					@Override
@@ -639,7 +675,21 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep1.y = title.bottom() + 3*GAP;
 
 			height = sep1.y + 1;
+			if (optUIMode != null && optUIScale != null && width > 200){
+				optUIMode.setRect(0, height + GAP, width/2-1, SLIDER_HEIGHT);
+				optUIScale.setRect(width/2+1, height + GAP, width/2-1, SLIDER_HEIGHT);
+				height = optUIScale.bottom();
+			} else {
+				if (optUIMode != null) {
+					optUIMode.setRect(0, height + GAP, width, SLIDER_HEIGHT);
+					height = optUIMode.bottom();
+				}
 
+				if (optUIScale != null) {
+					optUIScale.setRect(0, height + GAP, width, SLIDER_HEIGHT);
+					height = optUIScale.bottom();
+				}
+			}
 			if (btnToolbarSettings != null) {
 				btnToolbarSettings.setRect(0, height + GAP, width, BTN_HEIGHT);
 				height = btnToolbarSettings.bottom();

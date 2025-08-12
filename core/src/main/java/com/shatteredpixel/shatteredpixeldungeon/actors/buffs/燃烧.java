@@ -29,7 +29,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Burning extends Buff implements Hero.Doom {
+public class 燃烧 extends Buff implements Hero.Doom {
 	
 	private static final float DURATION = 8f;
 	
@@ -160,7 +160,7 @@ public class Burning extends Buff implements Hero.Doom {
 	}
 	
 	public void reignite( Char ch, float duration ) {
-		if (ch.免疫(Burning.class)){
+		if (ch.免疫(燃烧.class)){
 			if (ch.glyphLevel(Brimstone.class) >= 0){
 				//generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
 				float shieldChance = 2*(Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);

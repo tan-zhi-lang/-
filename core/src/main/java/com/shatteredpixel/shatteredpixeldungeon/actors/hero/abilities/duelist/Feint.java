@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
@@ -179,7 +179,7 @@ public class Feint extends ArmorAbility {
 				Buff.施加(enemy, FeintConfusion.class, 1);
 				if (enemy.sprite != null) enemy.sprite.showLost();
 				if (Dungeon.hero.有天赋(Talent.FEIGNED_RETREAT)) {
-					Buff.延长(Dungeon.hero, Haste.class, 2f * Dungeon.hero.天赋点数(Talent.FEIGNED_RETREAT));
+					Buff.延长(Dungeon.hero, 极速.class, 2f * Dungeon.hero.天赋点数(Talent.FEIGNED_RETREAT));
 				}
 				if (Dungeon.hero.有天赋(Talent.EXPOSE_WEAKNESS)) {
 					Buff.延长(enemy, Vulnerable.class, 2f * Dungeon.hero.天赋点数(Talent.EXPOSE_WEAKNESS));

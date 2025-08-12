@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
@@ -850,7 +850,7 @@ public class Tengu extends Mob {
 							//similar to fire.burn(), but Tengu is immune, and hero loses score
 							Char ch = Actor.findChar( cell );
 							if (ch != null && !ch.免疫(Fire.class) && !(ch instanceof Tengu)) {
-								Buff.施加( ch, Burning.class ).reignite( ch );
+								Buff.施加( ch, 燃烧.class ).reignite( ch );
 							}
 							if (ch == Dungeon.hero){
 								Statistics.qualifiedForBossChallengeBadge = false;

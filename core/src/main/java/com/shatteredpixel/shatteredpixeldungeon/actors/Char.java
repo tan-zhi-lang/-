@@ -15,10 +15,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
@@ -32,7 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
@@ -757,7 +757,7 @@ public abstract class Char extends Actor {
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
 		if ( buff( Stamina.class ) != null) speed *= 2.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
-		if ( buff( Haste.class ) != null) speed *= 4f;
+		if ( buff( 极速.class ) != null) speed *= 4f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
 
 		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
@@ -873,10 +873,10 @@ public abstract class Char extends Actor {
 		if (buff(Sickle.HarvestBleedTracker.class) != null){
 			buff(Sickle.HarvestBleedTracker.class).detach();
 
-			if (!免疫(Bleeding.class)){
-				Bleeding b = buff(Bleeding.class);
+			if (!免疫(流血.class)){
+				流血 b = buff(流血.class);
 				if (b == null){
-					b = new Bleeding();
+					b = new 流血();
 				}
 				b.announced = false;
 				b.set(dmg, Sickle.HarvestBleedTracker.class);
@@ -919,7 +919,7 @@ public abstract class Char extends Actor {
 				&& dmg > 0
 				//either HP is already half or below (ignoring shield)
 				// or the hit will reduce it to half or below
-				&& (生命 <= 最大生命 /2 || 生命 + shielding() - dmg <= 最大生命 /2)
+//				&& (生命 <= 最大生命 /2 || 生命 + shielding() - dmg <= 最大生命 /2)
 				&& shield != null && !shield.coolingDown()){
 			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(buff(破损纹章.WarriorShield.class).maxShield()), FloatingText.SHIELDING);
 			shield.activate();
@@ -981,12 +981,12 @@ public abstract class Char extends Actor {
 			}
 
 			if (src instanceof Hunger)                                  icon = FloatingText.HUNGER;
-			if (src instanceof Burning)                                 icon = FloatingText.BURNING;
+			if (src instanceof 燃烧)                                 icon = FloatingText.BURNING;
 			if (src instanceof Chill || src instanceof Frost)           icon = FloatingText.FROST;
 			if (src instanceof GeyserTrap || src instanceof StormCloud) icon = FloatingText.WATER;
-			if (src instanceof Burning)                                 icon = FloatingText.BURNING;
+			if (src instanceof 燃烧)                                 icon = FloatingText.BURNING;
 			if (src instanceof Electricity)                             icon = FloatingText.SHOCKING;
-			if (src instanceof Bleeding)                                icon = FloatingText.BLEEDING;
+			if (src instanceof 流血)                                icon = FloatingText.BLEEDING;
 			if (src instanceof ToxicGas)                                icon = FloatingText.TOXIC;
 			if (src instanceof Corrosion)                               icon = FloatingText.CORROSION;
 			if (src instanceof Poison)                                  icon = FloatingText.POISON;
@@ -1315,7 +1315,7 @@ public abstract class Char extends Actor {
 			immunes.addAll(b.immunities());
 		}
 		if (glyphLevel(Brimstone.class) >= 0){
-			immunes.add(Burning.class);
+			immunes.add(燃烧.class);
 		}
 		
 		for (Class c : immunes){
@@ -1352,9 +1352,9 @@ public abstract class Char extends Actor {
 		UNDEAD,
 		DEMONIC,
 		INORGANIC ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class) )),
+				new HashSet<Class>( Arrays.asList(流血.class, ToxicGas.class, Poison.class) )),
 		FIERY ( new HashSet<Class>( Arrays.asList(焰浪法杖.class, Elemental.FireElemental.class)),
-				new HashSet<Class>( Arrays.asList(Burning.class, Blazing.class))),
+				new HashSet<Class>( Arrays.asList(燃烧.class, Blazing.class))),
 		ICY ( new HashSet<Class>( Arrays.asList(WandOfFrost.class, Elemental.FrostElemental.class)),
 				new HashSet<Class>( Arrays.asList(Frost.class, Chill.class))),
 		ACIDIC ( new HashSet<Class>( Arrays.asList(Corrosion.class)),
@@ -1421,6 +1421,6 @@ public abstract class Char extends Actor {
 	}
 	public void 回血(int x){
 		生命 = Math.min(生命 + x, 最大生命);
-		if(sprite!=null) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(x), FloatingText.HEALING);
+		if(sprite!=null&&x>0) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(x), FloatingText.HEALING);
 	}
 }

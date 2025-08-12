@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WellWater;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
@@ -1120,8 +1120,8 @@ public abstract class Level implements Bundlable {
 
 			//we call act here instead of detach in case the debuffs haven't managed to deal dmg once yet
 			if (map[ch.pos] == Terrain.WATER){
-				if (ch.buff(Burning.class) != null){
-					ch.buff(Burning.class).act();
+				if (ch.buff(燃烧.class) != null){
+					ch.buff(燃烧.class).act();
 				}
 				if (ch.buff(Ooze.class) != null){
 					ch.buff(Ooze.class).act();

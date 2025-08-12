@@ -27,8 +27,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -38,7 +38,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -55,7 +54,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
@@ -77,10 +75,11 @@ public enum HeroClass {
 
 	WARRIOR( HeroSubClass.BERSERKER, HeroSubClass.GLADIATOR ),
 	MAGE( HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK ),
-	ROGUE( HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
+	盗贼( HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
 	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
-	CLERIC( HeroSubClass.PRIEST, HeroSubClass.PALADIN );
+	CLERIC( HeroSubClass.PRIEST, HeroSubClass.PALADIN ),
+	巫女( HeroSubClass.NONE);
 
 	private HeroSubClass[] subClasses;
 
@@ -121,7 +120,7 @@ public enum HeroClass {
 				initMage( hero );
 				break;
 
-			case ROGUE:
+			case 盗贼:
 				initRogue( hero );
 				break;
 
@@ -135,6 +134,9 @@ public enum HeroClass {
 
 			case CLERIC:
 				initCleric( hero );
+				break;
+			case 巫女:
+				初始巫女( hero );
 				break;
 		}
 
@@ -157,7 +159,7 @@ public enum HeroClass {
 				return Badges.Badge.MASTERY_WARRIOR;
 			case MAGE:
 				return Badges.Badge.MASTERY_MAGE;
-			case ROGUE:
+			case 盗贼:
 				return Badges.Badge.MASTERY_ROGUE;
 			case HUNTRESS:
 				return Badges.Badge.MASTERY_HUNTRESS;
@@ -165,6 +167,8 @@ public enum HeroClass {
 				return Badges.Badge.MASTERY_DUELIST;
 			case CLERIC:
 				return Badges.Badge.MASTERY_CLERIC;
+			case 巫女:
+				return Badges.Badge.巫女;
 		}
 		return null;
 	}
@@ -276,6 +280,14 @@ public enum HeroClass {
 		new 净化药剂().鉴定();
 		new 祛邪卷轴().鉴定();
 	}
+	private static void 初始巫女(Hero hero ) {
+
+		(hero.belongings.weapon = new 血砍刀()).鉴定();
+		hero.belongings.weapon.activate(hero);
+
+		new ScrollOfLullaby().鉴定();
+		new 治疗药剂().鉴定();
+	}
 
 	public String title() {
 		return Messages.get(HeroClass.class, name());
@@ -299,13 +311,15 @@ public enum HeroClass {
 				return new ArmorAbility[]{new HeroicLeap(), new Shockwave(), new Endure()};
 			case MAGE:
 				return new ArmorAbility[]{new ElementalBlast(), new WildMagic(), new WarpBeacon()};
-			case ROGUE:
+			case 盗贼:
 				return new ArmorAbility[]{new SmokeBomb(), new DeathMark(), new ShadowClone()};
 			case HUNTRESS:
 				return new ArmorAbility[]{new SpectralBlades(), new NaturesPower(), new SpiritHawk()};
 			case DUELIST:
 				return new ArmorAbility[]{new Challenge(), new ElementalStrike(), new Feint()};
 			case CLERIC:
+				return new ArmorAbility[]{new AscendedForm(), new Trinity(), new PowerOfMany()};
+			case 巫女:
 				return new ArmorAbility[]{new AscendedForm(), new Trinity(), new PowerOfMany()};
 		}
 	}
@@ -316,7 +330,7 @@ public enum HeroClass {
 				return Assets.Sprites.WARRIOR;
 			case MAGE:
 				return Assets.Sprites.MAGE;
-			case ROGUE:
+			case 盗贼:
 				return Assets.Sprites.ROGUE;
 			case HUNTRESS:
 				return Assets.Sprites.HUNTRESS;
@@ -324,6 +338,8 @@ public enum HeroClass {
 				return Assets.Sprites.DUELIST;
 			case CLERIC:
 				return Assets.Sprites.CLERIC;
+			case 巫女:
+				return Assets.Sprites.巫女;
 		}
 	}
 
@@ -340,14 +356,16 @@ public enum HeroClass {
 				return true;
 			case MAGE:
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_MAGE);
-			case ROGUE:
-				return Badges.isUnlocked(Badges.Badge.UNLOCK_ROGUE);
+			case 盗贼:
+				return Badges.isUnlocked(Badges.Badge.解锁盗贼);
 			case HUNTRESS:
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_HUNTRESS);
 			case DUELIST:
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_DUELIST);
 			case CLERIC:
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_CLERIC);
+			case 巫女:
+				return Badges.isUnlocked(Badges.Badge.解锁巫女);
 		}
 	}
 	

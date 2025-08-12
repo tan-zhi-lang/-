@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -69,12 +69,12 @@ public class GnollTrickster extends Gnoll {
 
 		if (effect > 2) {
 
-			if (effect >=6 && enemy.buff(Burning.class) == null){
+			if (effect >=6 && enemy.buff(燃烧.class) == null){
 
 				if (Dungeon.level.flamable[enemy.pos]) {
 					GameScene.add(Blob.seed(enemy.pos, 4, Fire.class));
 				}
-				Buff.施加(enemy, Burning.class).reignite( enemy );
+				Buff.施加(enemy, 燃烧.class).reignite( enemy );
 
 			} else {
 				Buff.施加(enemy, Poison.class).set((effect - 2));

@@ -16,7 +16,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
-public class Bleeding extends Buff {
+public class 流血 extends Buff {
 
 	{
 		type = buffType.NEGATIVE;

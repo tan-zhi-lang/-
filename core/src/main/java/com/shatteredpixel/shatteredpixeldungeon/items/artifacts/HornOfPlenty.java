@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -124,12 +125,7 @@ public class HornOfPlenty extends Artifact {
 		Sample.INSTANCE.play(Assets.Sounds.EAT);
 		GLog.i( Messages.get(this, "eat") );
 
-		if (Dungeon.hero.有天赋(Talent.IRON_STOMACH)
-				|| Dungeon.hero.有天赋(Talent.ENERGIZING_MEAL)
-				|| Dungeon.hero.有天赋(Talent.MYSTICAL_MEAL)
-				|| Dungeon.hero.有天赋(Talent.INVIGORATING_MEAL)
-				|| Dungeon.hero.有天赋(Talent.FOCUSED_MEAL)
-				|| Dungeon.hero.有天赋(Talent.ENLIGHTENING_MEAL)){
+		if (Dungeon.hero.heroClass(HeroClass.WARRIOR)){
 			hero.spend(Food.TIME_TO_EAT - 2);
 		} else {
 			hero.spend(Food.TIME_TO_EAT);

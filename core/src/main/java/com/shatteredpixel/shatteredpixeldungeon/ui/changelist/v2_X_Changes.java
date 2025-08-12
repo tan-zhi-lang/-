@@ -1436,7 +1436,7 @@ public class v2_X_Changes {
 				"\n" +
 				"_- Wand of Fireblast_ base damage reduced to 1-2 from 1-6 when spending 1 charge, and 2-8 from 2-12 when spending 2 charges. This is to offset the relatively high amount of DOT the wand deals at low levels."));
 
-		changes.addButton( new ChangeButton(HeroSprite.avatar(HeroClass.ROGUE, 6), "Hero Nerfs",
+		changes.addButton( new ChangeButton(HeroSprite.avatar(HeroClass.盗贼, 6), "Hero Nerfs",
 				"T1 Talents:\n" +
 				"_-_ Warrior's T1 ID talent renamed from _Armsmaster's Intuition_ to _Veteran's Intuition_. The talent now focuses more on armor, to contrast with the Duelist.\n" +
 				"\n" +

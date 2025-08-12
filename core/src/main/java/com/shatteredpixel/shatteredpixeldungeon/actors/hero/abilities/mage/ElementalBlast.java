@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
@@ -269,7 +269,7 @@ public class ElementalBlast extends ArmorAbility {
 								//*** Wand of Fireblast ***
 								} else if (finalWandCls == 焰浪法杖.class){
 									if (mob.isAlive() && mob.alignment != Char.Alignment.ALLY) {
-										Buff.施加( mob, Burning.class ).reignite( mob );
+										Buff.施加( mob, 燃烧.class ).reignite( mob );
 									}
 
 								//*** Wand of Corrosion ***
@@ -384,8 +384,8 @@ public class ElementalBlast extends ArmorAbility {
 
 						//*** Wand of Frost ***
 						} else if (finalWandCls == WandOfFrost.class){
-							if ((hero.buff(Burning.class)) != null) {
-								hero.buff(Burning.class).detach();
+							if ((hero.buff(燃烧.class)) != null) {
+								hero.buff(燃烧.class).detach();
 							}
 
 						//*** Wand of Prismatic Light ***

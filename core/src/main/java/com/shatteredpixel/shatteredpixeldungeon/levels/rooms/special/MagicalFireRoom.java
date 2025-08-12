@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -198,7 +198,7 @@ public class MagicalFireRoom extends SpecialRoom {
 						//ignite adjacent chars
 						Char ch = Actor.findChar(cell);
 						if (ch != null && !ch.免疫(getClass())) {
-							Buff.施加(ch, Burning.class).reignite(ch, 4f);
+							Buff.施加(ch, 燃烧.class).reignite(ch, 4f);
 						}
 
 						//burn adjacent heaps, but only on outside and non-water cells

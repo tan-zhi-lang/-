@@ -83,14 +83,6 @@ public class Food extends Item {
 	public float eatingTime(){
 		if (Dungeon.hero.heroClass(HeroClass.WARRIOR)){
 			return TIME_TO_EAT - 2;
-		}
-		if (Dungeon.hero.有天赋(Talent.IRON_STOMACH)
-			|| Dungeon.hero.有天赋(Talent.ENERGIZING_MEAL)
-			|| Dungeon.hero.有天赋(Talent.MYSTICAL_MEAL)
-			|| Dungeon.hero.有天赋(Talent.INVIGORATING_MEAL)
-			|| Dungeon.hero.有天赋(Talent.FOCUSED_MEAL)
-			|| Dungeon.hero.有天赋(Talent.ENLIGHTENING_MEAL)){
-			return TIME_TO_EAT - 2;
 		} else {
 			return TIME_TO_EAT;
 		}

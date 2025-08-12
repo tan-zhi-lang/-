@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor.Glyph;
@@ -30,7 +30,7 @@ public class AntiEntropy extends Glyph {
 			}
 
 			if (!Dungeon.level.water[defender.pos]) {
-				Buff.施加(defender, Burning.class).reignite(defender, 4);
+				Buff.施加(defender, 燃烧.class).reignite(defender, 4);
 			}
 			defender.sprite.emitter().burst( FlameParticle.FACTORY, 5 );
 

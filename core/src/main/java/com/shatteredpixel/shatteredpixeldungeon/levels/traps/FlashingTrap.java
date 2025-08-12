@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
@@ -31,7 +31,7 @@ public class FlashingTrap extends Trap {
 		
 		if (c != null) {
 			int damage = Math.max( 0,  (4 + scalingDepth()/2) - c.drRoll()/2 );
-			Buff.施加( c, Bleeding.class ).set( damage );
+			Buff.施加( c, 流血.class ).set( damage );
 			Buff.延长( c, Blindness.class, Blindness.DURATION );
 			Buff.延长( c, Cripple.class, Cripple.DURATION*2f );
 			

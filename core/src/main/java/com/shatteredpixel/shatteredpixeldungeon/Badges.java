@@ -51,33 +51,35 @@ public class Badges {
 		MASTERY_HUNTRESS,
 		MASTERY_DUELIST,
 		MASTERY_CLERIC,
+		巫女,
 		FOUND_RATMOGRIFY,
 
 		//bronze
 		UNLOCK_MAGE                 ( 1 ),
-		UNLOCK_ROGUE                ( 2 ),
+		解锁盗贼( 2 ),
 		UNLOCK_HUNTRESS             ( 3 ),
 		UNLOCK_DUELIST              ( 4 ),
 		UNLOCK_CLERIC               ( 5 ),
-		MONSTERS_SLAIN_1            ( 6 ),
-		MONSTERS_SLAIN_2            ( 7 ),
-		GOLD_COLLECTED_1            ( 8 ),
-		GOLD_COLLECTED_2            ( 9 ),
-		ITEM_LEVEL_1                ( 10 ),
-		LEVEL_REACHED_1             ( 11 ),
-		STRENGTH_ATTAINED_1         ( 12 ),
-		FOOD_EATEN_1                ( 13 ),
-		ITEMS_CRAFTED_1             ( 14 ),
-		BOSS_SLAIN_1                ( 15 ),
-		CATALOG_ONE_EQUIPMENT       ( 16, BadgeType.JOURNAL ),
-		DEATH_FROM_FIRE             ( 17 ),
-		DEATH_FROM_POISON           ( 18 ),
-		DEATH_FROM_GAS              ( 19 ),
-		DEATH_FROM_HUNGER           ( 20 ),
-		DEATH_FROM_FALLING          ( 21 ),
-		RESEARCHER_1                ( 22, BadgeType.JOURNAL ),
-		GAMES_PLAYED_1              ( 23, BadgeType.GLOBAL ),
-		HIGH_SCORE_1                ( 24 ),
+		解锁巫女               ( 6 ),
+		MONSTERS_SLAIN_1            ( 9 ),
+		MONSTERS_SLAIN_2            ( 10 ),
+		GOLD_COLLECTED_1            ( 11 ),
+		GOLD_COLLECTED_2            ( 12 ),
+		ITEM_LEVEL_1                ( 13 ),
+		LEVEL_REACHED_1             ( 14 ),
+		STRENGTH_ATTAINED_1         ( 15 ),
+		FOOD_EATEN_1                ( 16 ),
+		ITEMS_CRAFTED_1             ( 17 ),
+		BOSS_SLAIN_1                ( 18 ),
+		CATALOG_ONE_EQUIPMENT       ( 19, BadgeType.JOURNAL ),
+		DEATH_FROM_FIRE             ( 20 ),
+		DEATH_FROM_POISON           ( 21 ),
+		DEATH_FROM_GAS              ( 22 ),
+		DEATH_FROM_HUNGER           ( 23 ),
+		DEATH_FROM_FALLING          ( 24 ),
+		RESEARCHER_1                ( 25, BadgeType.JOURNAL ),
+		GAMES_PLAYED_1              ( 26, BadgeType.GLOBAL ),
+		HIGH_SCORE_1                ( 27 ),
 
 		//silver
 		NO_MONSTERS_SLAIN           ( 32 ),
@@ -782,7 +784,7 @@ public class Badges {
 	static {
 		firstBossClassBadges.put(HeroClass.WARRIOR, Badge.BOSS_SLAIN_1_WARRIOR);
 		firstBossClassBadges.put(HeroClass.MAGE, Badge.BOSS_SLAIN_1_MAGE);
-		firstBossClassBadges.put(HeroClass.ROGUE, Badge.BOSS_SLAIN_1_ROGUE);
+		firstBossClassBadges.put(HeroClass.盗贼, Badge.BOSS_SLAIN_1_ROGUE);
 		firstBossClassBadges.put(HeroClass.HUNTRESS, Badge.BOSS_SLAIN_1_HUNTRESS);
 		firstBossClassBadges.put(HeroClass.DUELIST, Badge.BOSS_SLAIN_1_DUELIST);
 		firstBossClassBadges.put(HeroClass.CLERIC, Badge.BOSS_SLAIN_1_CLERIC);
@@ -792,7 +794,7 @@ public class Badges {
 	static {
 		victoryClassBadges.put(HeroClass.WARRIOR, Badge.VICTORY_WARRIOR);
 		victoryClassBadges.put(HeroClass.MAGE, Badge.VICTORY_MAGE);
-		victoryClassBadges.put(HeroClass.ROGUE, Badge.VICTORY_ROGUE);
+		victoryClassBadges.put(HeroClass.盗贼, Badge.VICTORY_ROGUE);
 		victoryClassBadges.put(HeroClass.HUNTRESS, Badge.VICTORY_HUNTRESS);
 		victoryClassBadges.put(HeroClass.DUELIST, Badge.VICTORY_DUELIST);
 		victoryClassBadges.put(HeroClass.CLERIC, Badge.VICTORY_CLERIC);
@@ -922,7 +924,7 @@ public class Badges {
 			case MAGE:
 				badge = Badge.MASTERY_MAGE;
 				break;
-			case ROGUE:
+			case 盗贼:
 				badge = Badge.MASTERY_ROGUE;
 				break;
 			case HUNTRESS:
@@ -933,6 +935,9 @@ public class Badges {
 				break;
 			case CLERIC:
 				badge = Badge.MASTERY_CLERIC;
+				break;
+			case 巫女:
+				badge = Badge.巫女;
 				break;
 		}
 		
@@ -950,8 +955,8 @@ public class Badges {
 	}
 	
 	public static void validateRogueUnlock(){
-		if (Statistics.sneakAttacks >= 10 && !isUnlocked(Badge.UNLOCK_ROGUE)){
-			displayBadge( Badge.UNLOCK_ROGUE );
+		if (Statistics.sneakAttacks >= 10 && !isUnlocked(Badge.解锁盗贼)){
+			displayBadge( Badge.解锁盗贼);
 		}
 	}
 	
@@ -981,6 +986,11 @@ public class Badges {
 	public static void validateClericUnlock(){
 		if (!isUnlocked(Badge.UNLOCK_CLERIC)){
 			displayBadge( Badge.UNLOCK_CLERIC );
+		}
+	}
+	public static void 解锁巫女(){
+		if (!isUnlocked(Badge.解锁巫女)){
+			displayBadge( Badge.解锁巫女 );
 		}
 	}
 	

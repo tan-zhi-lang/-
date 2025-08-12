@@ -11,10 +11,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -244,7 +244,7 @@ public abstract class YogFist extends Mob {
 				GameScene.updateMap( enemy.pos );
 				CellEmitter.get( enemy.pos ).burst( Speck.factory( Speck.STEAM ), 10 );
 			} else {
-				Buff.施加( enemy, Burning.class ).reignite( enemy );
+				Buff.施加( enemy, 燃烧.class ).reignite( enemy );
 			}
 
 			for (int i : PathFinder.NEIGHBOURS9){
@@ -315,7 +315,7 @@ public abstract class YogFist extends Mob {
 			if (grassCells > 0) dmg = Math.round(dmg * (6-grassCells)/6f);
 
 			//can be ignited, but takes no damage from burning
-			if (src.getClass() == Burning.class){
+			if (src.getClass() == 燃烧.class){
 				return;
 			}
 
@@ -386,15 +386,15 @@ public abstract class YogFist extends Mob {
 		@Override
 		public void 受伤时(int dmg, Object src) {
 			if (!是无敌(src.getClass())
-					&& !(src instanceof Bleeding)
+					&& !(src instanceof 流血)
 					&& buff(Sickle.HarvestBleedTracker.class) == null){
 				dmg = Math.round( dmg * resist( src.getClass() ));
 				if (dmg < 0){
 					return;
 				}
-				Bleeding b = buff(Bleeding.class);
+				流血 b = buff(流血.class);
 				if (b == null){
-					b = new Bleeding();
+					b = new 流血();
 				}
 				b.announced = false;
 				b.set(dmg*.6f);

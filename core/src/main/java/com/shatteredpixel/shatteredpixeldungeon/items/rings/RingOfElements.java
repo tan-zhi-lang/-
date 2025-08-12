@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
@@ -52,7 +52,7 @@ public class RingOfElements extends Ring {
 
 	public static final HashSet<Class> RESISTS = new HashSet<>();
 	static {
-		RESISTS.add( Burning.class );
+		RESISTS.add( 燃烧.class );
 		RESISTS.add( Chill.class );
 		RESISTS.add( Frost.class );
 		RESISTS.add( Ooze.class );

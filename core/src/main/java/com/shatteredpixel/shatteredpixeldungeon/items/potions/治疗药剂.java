@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
@@ -60,7 +60,7 @@ public class 治疗药剂 extends Potion {
 		Buff.detach( ch, Cripple.class );
 		Buff.detach( ch, Weakness.class );
 		Buff.detach( ch, Vulnerable.class );
-		Buff.detach( ch, Bleeding.class );
+		Buff.detach( ch, 流血.class );
 		Buff.detach( ch, Blindness.class );
 		Buff.detach( ch, Drowsy.class );
 		Buff.detach( ch, Slow.class );
@@ -69,6 +69,6 @@ public class 治疗药剂 extends Potion {
 
 	@Override
 	public int 金币() {
-		return isKnown() ? 30 * quantity : super.金币();
+		return Math.round((isKnown() ? 30 * quantity : super.金币())*1.125f);
 	}
 }

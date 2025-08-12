@@ -65,9 +65,9 @@ import java.util.Arrays;
 
 abstract public class Weapon extends KindOfWeapon {
 
-	public float    ACC = 1f;	// Accuracy modifier
+	public float 命中 = 1f;	// Accuracy modifier
 	public float 延迟 = 1f;	// Speed modifier
-	public int      RCH = 1;    // Reach modifier (only applies to melee hits)
+	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
 		SPEED   (0.5f, 0.5f),
@@ -276,7 +276,7 @@ abstract public class Weapon extends KindOfWeapon {
 			encumbrance = 力量() - ((Hero)owner).力量();
 		}
 
-		float ACC = this.ACC;
+		float ACC = this.命中;
 
 		if (owner.buff(Wayward.WaywardBuff.class) != null && enchantment instanceof Wayward){
 			ACC /= 5;
@@ -314,7 +314,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 	@Override
 	public int reachFactor(Char owner) {
-		int reach = RCH;
+		int reach = 范围;
 		if (owner instanceof Hero && RingOfForce.fightingUnarmed((Hero) owner)){
 			reach = 1; //brawlers stance benefits from enchantments, but not innate reach
 			if (!RingOfForce.unarmedGetsWeaponEnchantment((Hero) owner)){

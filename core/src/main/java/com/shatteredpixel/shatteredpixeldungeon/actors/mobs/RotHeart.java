@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -41,7 +41,7 @@ public class RotHeart extends Mob {
 	@Override
 	public void 受伤时(int dmg, Object src) {
 		//TODO: when effect properties are done, change this to FIRE
-		if (src instanceof Burning) {
+		if (src instanceof 燃烧) {
 			destroy();
 			sprite.die();
 		} else {

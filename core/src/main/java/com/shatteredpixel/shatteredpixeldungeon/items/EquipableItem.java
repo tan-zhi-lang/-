@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -103,9 +104,9 @@ public abstract class EquipableItem extends Item {
 
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 
-		if (cursed
+		if (!hero.heroClass(HeroClass.巫女)&&(cursed
 				&& hero.buff(MagicImmune.class) == null
-				&& (!hero.belongings.lostInventory() || keptThroughLostInventory())) {
+				&& (!hero.belongings.lostInventory() || keptThroughLostInventory()))) {
 			GLog.w(Messages.get(EquipableItem.class, "unequip_cursed"));
 			return false;
 		}

@@ -258,10 +258,10 @@ abstract public class MissileWeapon extends Weapon {
 					&& curUser.heroClass != HeroClass.HUNTRESS
 					&& curUser.buff(Talent.SeerShotCooldown.class) == null){
 				if (Actor.findChar(cell) == null) {
-					RevealedArea a = Buff.施加(curUser, RevealedArea.class, curUser.天赋点数(Talent.SEER_SHOT,5));
+					RevealedArea a = Buff.施加(curUser, RevealedArea.class, 25-curUser.天赋点数(Talent.SEER_SHOT,5));
 					a.depth = Dungeon.depth;
 					a.pos = cell;
-					Buff.施加(curUser, Talent.SeerShotCooldown.class, 20f);
+					Buff.施加(curUser, Talent.SeerShotCooldown.class,  curUser.天赋点数(Talent.SEER_SHOT,10));
 				}
 			}
 

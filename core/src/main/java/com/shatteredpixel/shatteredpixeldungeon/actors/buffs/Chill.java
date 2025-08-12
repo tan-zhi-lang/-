@@ -18,7 +18,7 @@ public class Chill extends FlavourBuff {
 
 	@Override
 	public boolean attachTo(Char target) {
-		Buff.detach( target, Burning.class );
+		Buff.detach( target, 燃烧.class );
 
 		return super.attachTo(target);
 	}

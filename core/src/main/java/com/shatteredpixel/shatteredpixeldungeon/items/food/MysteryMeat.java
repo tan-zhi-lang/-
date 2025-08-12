@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
@@ -36,7 +36,7 @@ public class MysteryMeat extends Food {
 		switch (Random.Int( 5 )) {
 			case 0:
 				GLog.w( Messages.get(MysteryMeat.class, "hot") );
-				Buff.施加( hero, Burning.class ).reignite( hero );
+				Buff.施加( hero, 燃烧.class ).reignite( hero );
 				break;
 			case 1:
 				GLog.w( Messages.get(MysteryMeat.class, "legs") );

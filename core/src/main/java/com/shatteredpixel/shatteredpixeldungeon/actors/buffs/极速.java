@@ -5,13 +5,13 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 
-public class Haste extends FlavourBuff {
+public class 极速 extends FlavourBuff {
 	
 	{
 		type = buffType.POSITIVE;
 	}
 	
-	public static final float DURATION	= 20f;
+	public static final float DURATION	= 15;
 	
 	@Override
 	public int icon() {

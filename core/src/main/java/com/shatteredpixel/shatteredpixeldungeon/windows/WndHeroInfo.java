@@ -48,7 +48,7 @@ public class WndHeroInfo extends WndTabbed {
 			case MAGE:
 				tabIcon = new ItemSprite(物品表.法师魔杖, null);
 				break;
-			case ROGUE:
+			case 盗贼:
 				tabIcon = new ItemSprite(物品表.ARTIFACT_CLOAK, null);
 				break;
 			case HUNTRESS:
@@ -59,6 +59,9 @@ public class WndHeroInfo extends WndTabbed {
 				break;
 			case CLERIC:
 				tabIcon = new ItemSprite(物品表.神圣法典, null);
+				break;
+			case 巫女:
+				tabIcon = new ItemSprite(物品表.血砍刀, null);
 				break;
 		}
 
@@ -168,11 +171,11 @@ public class WndHeroInfo extends WndTabbed {
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.RECHARGING, true),
-							new ItemSprite(物品表.SCROLL_TIWAZ),
+							new ItemSprite(物品表.SCROLL_HOLDER),
 							new ItemSprite(物品表.POTION_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
-				case ROGUE:
+				case 盗贼:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.get(Icons.上楼),
 							Icons.锁门.get(),
@@ -198,6 +201,14 @@ public class WndHeroInfo extends WndTabbed {
 							Icons.TALENT.get(),
 							new ItemSprite(物品表.REMAINS),
 							new BuffIcon(BuffIndicator.LIGHT, true),
+							new BuffIcon(BuffIndicator.HEALING, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 巫女:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.HEALING, true),
+							Icons.TALENT.get(),
+							new BuffIcon(BuffIndicator.HEX, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}

@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Regrowth;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GravityChaosTracker;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HeroDisguise;
@@ -203,10 +203,10 @@ public class CursedWand {
 			Char target = Actor.findChar(bolt.collisionPos);
 			//doesn't affect caster if positive only
 			if (Random.Int(2) == 0) {
-				if (target != null) Buff.施加(target, Burning.class).reignite(target);
+				if (target != null) Buff.施加(target, 燃烧.class).reignite(target);
 				if (!positiveOnly) Buff.施加(user, Frost.class, Frost.DURATION);
 			} else {
-				if (!positiveOnly)Buff.施加(user, Burning.class).reignite(user);
+				if (!positiveOnly)Buff.施加(user, 燃烧.class).reignite(user);
 				if (target != null) Buff.施加(target, Frost.class, Frost.DURATION);
 			}
 			tryForWandProc(target, origin);
@@ -794,10 +794,10 @@ public class CursedWand {
 					CellEmitter.get(i).burst(FlameParticle.FACTORY, 10);
 					if (Actor.findChar(i) != null){
 						Char ch = Actor.findChar(i);
-						Burning burning = Buff.施加(ch, Burning.class);
-						burning.reignite(ch);
+						燃烧 燃烧 = Buff.施加(ch, 燃烧.class);
+						燃烧.reignite(ch);
 						int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth()*2);
-						ch.受伤时(dmg, burning);
+						ch.受伤时(dmg, 燃烧);
 					}
 					if (Dungeon.level.flamable[i]){
 						GameScene.add(Blob.seed(i, 4, Fire.class));
@@ -879,9 +879,9 @@ public class CursedWand {
 					int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth()*2);
 					switch (Random.Int(5)){
 						case 0: default:
-							Burning burning = Buff.施加(ch, Burning.class);
-							burning.reignite(ch);
-							ch.受伤时(dmg, burning);
+							燃烧 燃烧 = Buff.施加(ch, 燃烧.class);
+							燃烧.reignite(ch);
+							ch.受伤时(dmg, 燃烧);
 							ch.sprite.emitter().burst(FlameParticle.FACTORY, 20);
 							break;
 						case 1:

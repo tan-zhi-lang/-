@@ -2,6 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x2;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x3;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x4;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x5;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x6;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
@@ -13,14 +19,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Haste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WandEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
@@ -69,9 +73,9 @@ import java.util.LinkedHashMap;
 public enum Talent {
 
 	//Warrior T1
-	HEARTY_MEAL(0), VETERANS_INTUITION(1), PROVOKED_ANGER(2), IRON_WILL(3),
+	VETERANS_INTUITION(0), PROVOKED_ANGER(1), IRON_WILL(2),
 	//Warrior T2
-	IRON_STOMACH(4), 强魄意志(5,3), RUNIC_TRANSFERENCE(6,3), 越战越勇(7,3), IMPROVISED_PROJECTILES(8,3),
+	强魄意志(4,3), 纹章升级(5,3), 越战越勇(6,3), IMPROVISED_PROJECTILES(7,3),
 	//Warrior T3
 	纹章荣耀(9, 4), STRONGMAN(10, 4),
 	//Berserker T3
@@ -86,9 +90,9 @@ public enum Talent {
 	SUSTAINED_RETRIBUTION(23, 4), SHRUG_IT_OFF(24, 4), EVEN_THE_ODDS(25, 4),
 
 	//Mage T1
-	EMPOWERING_MEAL(32), SCHOLARS_INTUITION(33), LINGERING_MAGIC(34), BACKUP_BARRIER(35),
+	SCHOLARS_INTUITION(x2), LINGERING_MAGIC(x2+1), BACKUP_BARRIER(x2+2),
 	//Mage T2
-	ENERGIZING_MEAL(36), 饱腹法术(37,3), 高级法杖(38,3), ARCANE_VISION(39,3), SHIELD_BATTERY(40,3),
+	饱腹法术(x2+4,3), 高级法杖(x2+5,3), ARCANE_VISION(x2+6,3), SHIELD_BATTERY(x2+7,3),
 	//Mage T3
 	DESPERATE_POWER(41, 4), ALLY_WARP(42, 4),
 	//Battlemage T3
@@ -103,9 +107,9 @@ public enum Talent {
 	TELEFRAG(55, 4), REMOTE_BEACON(56, 4), LONGRANGE_WARP(57, 4),
 
 	//Rogue T1
-	CACHED_RATIONS(64), THIEFS_INTUITION(65), SUCKER_PUNCH(66), PROTECTIVE_SHADOWS(67),
+	THIEFS_INTUITION(x3), SUCKER_PUNCH(x3+1), PROTECTIVE_SHADOWS(x3+2),
 	//Rogue T2
-	MYSTICAL_MEAL(68), 体生匿影(69,3), WIDE_SEARCH(70,3), 无声步伐(71,3), 寻宝猎人(72,3),
+	体生匿影(x3+4,3), WIDE_SEARCH(x3+5,3), 无声步伐(x3+6,3), 寻宝猎人(x3+7,3),
 	//Rogue T3
 	ENHANCED_RINGS(73, 4), LIGHT_CLOAK(74, 4),
 	//Assassin T3
@@ -120,9 +124,9 @@ public enum Talent {
 	SHADOW_BLADE(87, 4), CLONED_ARMOR(88, 4), PERFECT_COPY(89, 4),
 
 	//Huntress T1
-	NATURES_BOUNTY(96), SURVIVALISTS_INTUITION(97), FOLLOWUP_STRIKE(98), NATURES_AID(99),
+	NATURES_BOUNTY(x4), SURVIVALISTS_INTUITION(x4), FOLLOWUP_STRIKE(x4+1), NATURES_AID(x4+2),
 	//Huntress T2
-	INVIGORATING_MEAL(100), 自然猎手(101,3), REJUVENATING_STEPS(102,3), HEIGHTENED_SENSES(103,3), DURABLE_PROJECTILES(104,3),
+	自然猎手(x4+4,3), REJUVENATING_STEPS(x4+5,3), HEIGHTENED_SENSES(x4+6,3), DURABLE_PROJECTILES(x4+7,3),
 	//Huntress T3
 	自然丰收(105, 4), SEER_SHOT(106, 4),
 	//Sniper T3
@@ -137,9 +141,9 @@ public enum Talent {
 	EAGLE_EYE(119, 4), GO_FOR_THE_EYES(120, 4), SWIFT_SPIRIT(121, 4),
 
 	//Duelist T1
-	STRENGTHENING_MEAL(128), ADVENTURERS_INTUITION(129), PATIENT_STRIKE(130), AGGRESSIVE_BARRIER(131),
+	STRENGTHENING_MEAL(x5), ADVENTURERS_INTUITION(x5), PATIENT_STRIKE(x5+1), AGGRESSIVE_BARRIER(x5+2),
 	//Duelist T2
-	FOCUSED_MEAL(132), 灵敏机动(133,3), WEAPON_RECHARGING(134,3), LETHAL_HASTE(135,3), SWIFT_EQUIP(136,3),
+	灵敏机动(x5+4,3), WEAPON_RECHARGING(x5+5,3), LETHAL_HASTE(x5+6,3), SWIFT_EQUIP(x5+7,3),
 	//Duelist T3
 	附魔打击(137, 4), DEADLY_FOLLOWUP(138, 4),
 	//Champion T3
@@ -154,9 +158,9 @@ public enum Talent {
 	FEIGNED_RETREAT(151, 4), EXPOSE_WEAKNESS(152, 4), COUNTER_ABILITY(153, 4),
 
 	//Cleric T1
-	SATIATED_SPELLS(160), HOLY_INTUITION(161), SEARING_LIGHT(162), SHIELD_OF_LIGHT(163),
+	HOLY_INTUITION(x6), SEARING_LIGHT(x6+1), SHIELD_OF_LIGHT(x6+2),
 	//Cleric T2
-	ENLIGHTENING_MEAL(164), RECALL_INSCRIPTION(165,3), SUNRAY(166,3), DIVINE_SENSE(167,3), BLESS(168,3),
+	RECALL_INSCRIPTION(x6+4,3), SUNRAY(x6+5,3), DIVINE_SENSE(x6+6,3), BLESS(x6+7,3),
 	//Cleric T3
 	CLEANSE(169, 4), LIGHT_READING(170, 4),
 	//Priest T3
@@ -174,7 +178,6 @@ public enum Talent {
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
 	//Ratmogrify T4
 	RATSISTANCE(215, 4), RATLOMACY(216, 4), RATFORCEMENTS(217, 4);
-
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.15f, 0.2f, 0.5f); }
@@ -418,22 +421,24 @@ public enum Talent {
 	public int icon(){
 		if (this == HEROIC_ENERGY){
 			if (Ratmogrify.useRatroicEnergy){
-				return 218;
+				return 26*7;
 			}
 			HeroClass cls = Dungeon.hero != null ? Dungeon.hero.heroClass : GamesInProgress.selectedClass;
 			switch (cls){
 				case WARRIOR: default:
 					return 26;
 				case MAGE:
-					return 58;
-				case ROGUE:
-					return 90;
+					return 26*2;
+				case 盗贼:
+					return 26*3;
 				case HUNTRESS:
-					return 122;
+					return 26*4;
 				case DUELIST:
-					return 154;
+					return 26*5;
 				case CLERIC:
-					return 186;
+					return 26*6;
+				case 巫女:
+					return 26*7;
 			}
 		} else {
 			return icon;
@@ -536,7 +541,7 @@ public enum Talent {
 			Buff.施加(hero, Talent.ProtectiveShadowsTracker.class);
 		}
 
-		if (talent == LIGHT_CLOAK && hero.heroClass == HeroClass.ROGUE){
+		if (talent == LIGHT_CLOAK && hero.heroClass == HeroClass.盗贼){
 			for (Item item : Dungeon.hero.belongings.backpack){
 				if (item instanceof CloakOfShadows){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
@@ -589,77 +594,59 @@ public enum Talent {
 	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
 		hero.回血(1+hero.最大生命(0.01f));
 
-		if (hero.有天赋(HEARTY_MEAL)){
-			int healing = hero.天赋点数(HEARTY_MEAL,8);
-			hero.生命 = Math.min(hero.生命 + healing, hero.最大生命);
-			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healing), FloatingText.HEALING);
-		}
-		if (hero.有天赋(IRON_STOMACH)){
+		if (hero.heroClass(HeroClass.WARRIOR)){
 			if (hero.cooldown() > 0) {
 				Buff.施加(hero, WarriorFoodImmunity.class, hero.cooldown());
 			}
 		}
-		if (hero.有天赋(EMPOWERING_MEAL)){
-			//2/3 bonus wand damage for next 3 zaps
-			Buff.施加( hero, WandEmpower.class).set(hero.天赋点数(EMPOWERING_MEAL,6), 1);
-			ScrollOfRecharging.charge( hero );
-		}
+		//法杖伤害
+//			Buff.施加( hero, WandEmpower.class).set(5, 1);
+//			ScrollOfRecharging.charge( hero );
 		int wandChargeTurns = 0;
 
-		if (hero.有天赋(ENERGIZING_MEAL)){
-			//5/8 turns of recharging
-			wandChargeTurns += hero.天赋点数(ENERGIZING_MEAL,5);
-		}
 		int artifactChargeTurns = 0;
-		if (hero.有天赋(MYSTICAL_MEAL)){
-			//3/5 turns of recharging
-			artifactChargeTurns += hero.天赋点数(MYSTICAL_MEAL,3);
-		}
-		if (hero.有天赋(INVIGORATING_MEAL)){
-			//effectively 1/2 turns of haste
-			Buff.延长( hero, Haste.class, hero.天赋点数(INVIGORATING_MEAL));
-		}
 		if (hero.有天赋(STRENGTHENING_MEAL)){
 			//3 bonus physical damage for next 2/3 attacks
 			Buff.施加( hero, PhysicalEmpower.class).set(hero.天赋点数(STRENGTHENING_MEAL,5), 1);
 		}
-		if (hero.有天赋(FOCUSED_MEAL)){
-			if (hero.heroClass == HeroClass.DUELIST){
-				//0.67/1 charge for the duelist
-				Buff.施加( hero, MeleeWeapon.Charger.class ).gainCharge(hero.天赋点数(FOCUSED_MEAL,0.5f));
-				ScrollOfRecharging.charge( hero );
-			} else {
-				// lvl/3 / lvl/2 bonus dmg on next hit for other classes
-				Buff.施加( hero, PhysicalEmpower.class).set(Math.round(hero.等级 / (4f - hero.天赋点数(FOCUSED_MEAL))), 1);
-			}
-		}
-		if (hero.有天赋(SATIATED_SPELLS)){
-			if (hero.heroClass == HeroClass.CLERIC) {
-				Buff.施加(hero, SatiatedSpellsTracker.class);
-			} else {
-				//3/5 shielding, delayed up to 10 turns
-				int amount = hero.天赋点数(SATIATED_SPELLS,5);
-				Barrier b = Buff.施加(hero, Barrier.class);
-				if (b.护盾量() <= amount){
-					b.设置(amount);
-					b.delay(Math.max(10-b.cooldown(), 0));
-				}
-			}
-		}
-		if (hero.有天赋(ENLIGHTENING_MEAL)){
-			if (hero.heroClass == HeroClass.CLERIC) {
-				神圣法典 tome = hero.belongings.getItem(神圣法典.class);
-				if (tome != null) {
-					// 2/3 of a charge at +1, 1 full charge at +2
-					tome.directCharge( hero.天赋点数(ENLIGHTENING_MEAL,0.5f));
-					ScrollOfRecharging.charge(hero);
-				}
-			} else {
-				//2/3 turns of recharging, both kinds
-				wandChargeTurns += hero.天赋点数(ENLIGHTENING_MEAL,2);
-				artifactChargeTurns += hero.天赋点数(ENLIGHTENING_MEAL,2);
-			}
-		}
+		//武技充能
+//		if (hero.有天赋()){
+//			if (hero.heroClass == HeroClass.DUELIST){
+//				//0.67/1 charge for the duelist
+//				Buff.施加( hero, MeleeWeapon.Charger.class ).gainCharge(hero.天赋点数(,0.5f));
+//				ScrollOfRecharging.charge( hero );
+//			} else {
+//				// lvl/3 / lvl/2 bonus dmg on next hit for other classes
+//				Buff.施加( hero, PhysicalEmpower.class).set(Math.round(hero.等级 / (4f - hero.天赋点数())), 1);
+//			}
+//		}
+		//施法获得护盾
+//			if (hero.heroClass == HeroClass.CLERIC) {
+//				Buff.施加(hero, SatiatedSpellsTracker.class);
+//			} else {
+//				//3/5 shielding, delayed up to 10 turns
+//				int amount = hero.天赋点数(,5);
+//				Barrier b = Buff.施加(hero, Barrier.class);
+//				if (b.护盾量() <= amount){
+//					b.设置(amount);
+//					b.delay(Math.max(10-b.cooldown(), 0));
+//				}
+//			}
+		//法典充能
+//		if (hero.有天赋(ENLIGHTENING_MEAL)){
+//			if (hero.heroClass == HeroClass.CLERIC) {
+//				神圣法典 tome = hero.belongings.getItem(神圣法典.class);
+//				if (tome != null) {
+//					// 2/3 of a charge at +1, 1 full charge at +2
+//					tome.directCharge( hero.天赋点数(ENLIGHTENING_MEAL,0.5f));
+//					ScrollOfRecharging.charge(hero);
+//				}
+//			} else {
+//				//2/3 turns of recharging, both kinds
+//				wandChargeTurns += hero.天赋点数(ENLIGHTENING_MEAL,2);
+//				artifactChargeTurns += hero.天赋点数(ENLIGHTENING_MEAL,2);
+//			}
+//		}
 
 		//we process these at the end as they can stack together from some talents
 		if (wandChargeTurns > 0){
@@ -940,22 +927,25 @@ public enum Talent {
 		//tier 1
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, /*HEARTY_MEAL,*/ VETERANS_INTUITION, PROVOKED_ANGER, IRON_WILL);
+				Collections.addAll(tierTalents, VETERANS_INTUITION, PROVOKED_ANGER, IRON_WILL);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, /*EMPOWERING_MEAL,*/ SCHOLARS_INTUITION, LINGERING_MAGIC, BACKUP_BARRIER);
+				Collections.addAll(tierTalents, SCHOLARS_INTUITION, LINGERING_MAGIC, BACKUP_BARRIER);
 				break;
-			case ROGUE:
-				Collections.addAll(tierTalents, /*CACHED_RATIONS,*/ THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);
+			case 盗贼:
+				Collections.addAll(tierTalents, THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, /*NATURES_BOUNTY,*/ SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
+				Collections.addAll(tierTalents, SURVIVALISTS_INTUITION, FOLLOWUP_STRIKE, NATURES_AID);
 				break;
 			case DUELIST:
-				Collections.addAll(tierTalents, /*STRENGTHENING_MEAL,*/ ADVENTURERS_INTUITION, PATIENT_STRIKE, AGGRESSIVE_BARRIER);
+				Collections.addAll(tierTalents, ADVENTURERS_INTUITION, PATIENT_STRIKE, AGGRESSIVE_BARRIER);
 				break;
 			case CLERIC:
-				Collections.addAll(tierTalents, /*SATIATED_SPELLS,*/ HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
+				Collections.addAll(tierTalents, HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
+				break;
+			case 巫女:
+				Collections.addAll(tierTalents, HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -969,22 +959,25 @@ public enum Talent {
 		//tier 2
 		switch (cls){
 			case WARRIOR: default:
-				Collections.addAll(tierTalents, /*IRON_STOMACH,*/ 强魄意志, RUNIC_TRANSFERENCE, 越战越勇, IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents, 强魄意志, 纹章升级, 越战越勇, IMPROVISED_PROJECTILES);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, /*ENERGIZING_MEAL,*/ 饱腹法术, 高级法杖, ARCANE_VISION, SHIELD_BATTERY);
+				Collections.addAll(tierTalents, 饱腹法术, 高级法杖, ARCANE_VISION, SHIELD_BATTERY);
 				break;
-			case ROGUE:
-				Collections.addAll(tierTalents, /*MYSTICAL_MEAL,*/ 体生匿影, WIDE_SEARCH, 无声步伐, 寻宝猎人);
+			case 盗贼:
+				Collections.addAll(tierTalents, 体生匿影, WIDE_SEARCH, 无声步伐, 寻宝猎人);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, /*INVIGORATING_MEAL,*/ 自然猎手, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents, 自然猎手, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
 				break;
 			case DUELIST:
-				Collections.addAll(tierTalents,/* FOCUSED_MEAL,*/ 灵敏机动, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);
+				Collections.addAll(tierTalents, 灵敏机动, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);
 				break;
 			case CLERIC:
-				Collections.addAll(tierTalents, /*ENLIGHTENING_MEAL,*/ RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
+				Collections.addAll(tierTalents, RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
+				break;
+			case 巫女:
+				Collections.addAll(tierTalents, RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -1003,7 +996,7 @@ public enum Talent {
 			case MAGE:
 				Collections.addAll(tierTalents, DESPERATE_POWER, ALLY_WARP);
 				break;
-			case ROGUE:
+			case 盗贼:
 				Collections.addAll(tierTalents, ENHANCED_RINGS, LIGHT_CLOAK);
 				break;
 			case HUNTRESS:
@@ -1013,6 +1006,9 @@ public enum Talent {
 				Collections.addAll(tierTalents, 附魔打击, DEADLY_FOLLOWUP);
 				break;
 			case CLERIC:
+				Collections.addAll(tierTalents, CLEANSE, LIGHT_READING);
+				break;
+			case 巫女:
 				Collections.addAll(tierTalents, CLEANSE, LIGHT_READING);
 				break;
 		}

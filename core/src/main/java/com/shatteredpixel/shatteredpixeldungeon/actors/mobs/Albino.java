@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bleeding;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.AlbinoSprite;
@@ -25,7 +25,7 @@ public class Albino extends Rat {
 	public int 攻击时(Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (damage > 0 && Random.Int( 2 ) == 0) {
-			Buff.施加( enemy, Bleeding.class ).set( damage );
+			Buff.施加( enemy, 流血.class ).set( damage );
 		}
 		
 		return damage;

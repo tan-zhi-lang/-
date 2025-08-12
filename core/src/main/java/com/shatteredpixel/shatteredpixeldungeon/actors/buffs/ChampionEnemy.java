@@ -103,7 +103,7 @@ public abstract class ChampionEnemy extends Buff {
 		@Override
 		public void onAttackProc(Char enemy) {
 			if (!Dungeon.level.water[enemy.pos]) {
-				Buff.施加(enemy, Burning.class).reignite(enemy);
+				Buff.施加(enemy, 燃烧.class).reignite(enemy);
 			}
 		}
 
@@ -126,7 +126,7 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		{
-			immunities.add(Burning.class);
+			immunities.add(燃烧.class);
 		}
 	}
 

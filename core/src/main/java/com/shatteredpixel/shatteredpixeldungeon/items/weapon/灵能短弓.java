@@ -442,11 +442,11 @@ public class 灵能短弓 extends Weapon {
 						&& user.buff(Talent.SeerShotCooldown.class) == null){
 					int shotPos = throwPos(user, dst);
 					if (Actor.findChar(shotPos) == null) {
-						RevealedArea a = Buff.施加(user, RevealedArea.class, user.天赋点数(Talent.SEER_SHOT,5));
+						RevealedArea a = Buff.施加(user, RevealedArea.class, 25-user.天赋点数(Talent.SEER_SHOT,5));
 						a.depth = Dungeon.depth;
 						a.branch = Dungeon.branch;
 						a.pos = shotPos;
-						Buff.施加(user, Talent.SeerShotCooldown.class, 20f);
+						Buff.施加(user, Talent.SeerShotCooldown.class,  user.天赋点数(Talent.SEER_SHOT,10));
 					}
 				}
 

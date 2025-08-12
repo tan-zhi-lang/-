@@ -60,7 +60,7 @@ public class 能量之戒 extends Ring {
 	public static float artifactChargeMultiplier( Char target ){
 		float bonus = (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
 
-		if (target instanceof Hero && ((Hero) target).heroClass != HeroClass.ROGUE && ((Hero) target).有天赋(Talent.LIGHT_CLOAK)){
+		if (target instanceof Hero && ((Hero) target).heroClass != HeroClass.盗贼 && ((Hero) target).有天赋(Talent.LIGHT_CLOAK)){
 			bonus *= 1f + ((Hero) target).天赋点数(Talent.LIGHT_CLOAK,0.07f);
 		}
 

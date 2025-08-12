@@ -330,7 +330,7 @@ public class ShadowClone extends ArmorAbility {
 		public ShadowSprite() {
 			super();
 
-			texture( HeroClass.ROGUE.spritesheet() );
+			texture( HeroClass.盗贼.spritesheet() );
 
 			TextureFilm film = new TextureFilm( HeroSprite.tiers(), 6, 12, 15 );
 

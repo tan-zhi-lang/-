@@ -27,7 +27,7 @@ public class Spear extends MeleeWeapon {
 
 		tier = 2;
 		延迟 = 1.5f; //0.67x speed
-		RCH = 2;    //extra reach
+		范围 = 2;    //extra reach
 	}
 
 	@Override

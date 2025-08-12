@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Burning;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -80,7 +80,7 @@ public class Fire extends Blob {
 	public static void burn( int pos ) {
 		Char ch = Actor.findChar( pos );
 		if (ch != null && !ch.免疫(Fire.class)) {
-			Buff.施加( ch, Burning.class ).reignite( ch );
+			Buff.施加( ch, 燃烧.class ).reignite( ch );
 		}
 		
 		Heap heap = Dungeon.level.heaps.get( pos );

@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -315,7 +316,7 @@ public class 法师魔杖 extends MeleeWeapon {
 			int curCharges = wand.curCharges;
 			wand.等级(等级());
 			//gives the wand one additional max charge
-			wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
+			wand.maxCharges = Math.min(wand.maxCharges + 1, 10+curUser.天赋点数(Talent.DESPERATE_POWER));
 			wand.curCharges = Math.min(curCharges + (levelled ? 1 : 0), wand.maxCharges);
 			updateQuickslot();
 		}
@@ -365,11 +366,15 @@ public class 法师魔杖 extends MeleeWeapon {
 	}
 
 	private static final String WAND = "wand";
+	private static final String MAXCHARGES = "maxCharges";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(WAND, wand);
+		if (wand != null) {
+			bundle.put(MAXCHARGES, wand.maxCharges);
+		}
 	}
 
 	@Override
@@ -377,7 +382,7 @@ public class 法师魔杖 extends MeleeWeapon {
 		super.restoreFromBundle(bundle);
 		wand = (Wand) bundle.get(WAND);
 		if (wand != null) {
-			wand.maxCharges = Math.min(wand.maxCharges + 1, 10);
+			wand.maxCharges = bundle.getInt(MAXCHARGES);
 		}
 	}
 
@@ -418,7 +423,7 @@ public class 法师魔杖 extends MeleeWeapon {
 
 				if (wand == null){
 					applyWand((Wand)item);
-				} else {
+				} else if(!(item instanceof 灵月法杖)) {
 					int newLevel;
 					int itemLevel = item.真等级();
 					if (itemLevel >= 真等级()){

@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SnakeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -64,11 +65,6 @@ public class 重制 {
 						"根骨之戒力量+1 => +2。提升生命系数1.035 => 1.07。\n" +
 						"投掷和弓在近距离+50%最大命中，非近距离-50%最大命中。\n" +
 						"优化感知、视野范围、光照范围计算。"
-						,
-						"商店相关\n\n" +
-						"非战士在6层会卖水袋。\n" +
-						"商店的小包口粮 => 口粮。\n" +
-						"随机一个药剂或卷轴 => 两张随机卷轴+一瓶随机药剂。"
 		));
 
 		changes.addButton( new ChangeButton(new ImpSprite(), "野心勃勃的小恶魔",
@@ -98,6 +94,10 @@ public class 重制 {
 
 //		changes.addButton( new ChangeButton(new HeroSprite(), "鼠王房间",
 //				"金币数量x2。"));
+		changes.addButton( new ChangeButton(new ShopkeeperSprite(), "商人房间",
+						"非战士在6层会卖水袋。\n" +
+						"商店的小包口粮 => 口粮。\n" +
+						"随机一个药剂或卷轴 => 两张随机卷轴+一瓶随机药剂。"));
 		changes.addButton( new ChangeButton(new RatKingSprite(), "鼠王房间",
 				"金币数量x2。"));
 		changes.addButton( new ChangeButton(new SnakeSprite(), "下水道巨蛇",
@@ -108,9 +108,13 @@ public class 重制 {
 						"天赋点数5/6/8 => 3/6/9\n" +
 						"二层和三层最大天赋点+1"));
 		changes.addButton(new ChangeButton(Icons.get(Icons.下楼), "地牢生成",
-						"第一层必定生成一瓶经验药剂。额外一个感知符石。\n" +
+						"毒气房金币数量x2。\n" +
+						"第一层必定生成一瓶经验药剂。\n" +
 						"每个区域生成的升级卷轴数量+1。\n" +
-						"每层额外生成一个小包口粮。\n"));
+						"3/8/13/18/23层必定一瓶治疗药剂。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_INTUITION), "感知符石",
+					"额外生成一个感知符石。"
+				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
 					"注魔秘卷\n" +
 							"还附带一次升级。"
@@ -134,38 +138,51 @@ public class 重制 {
 							"移速1.5 => 2.5。\n" +
 							"持续回合100 => 60"
 				));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.OVERPRICED), "小包口粮",
+				"偶数层必定生成一个。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_FIREBLOOM), "烈焰花",
+				"4层必定生成。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
 				"吃饭恢复1+1%最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
 				"自带+1强化等级。\n" +
 						"自带法杖回收，且能吸收灌注法杖一半的等级。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.SUCKER_PUNCH), "伏击机制",
-				"伏击+1伤害，隐形伏击+1伤害。"));
+				"伏击+1+敌人1%最大生命伤害，隐形伏击+1+敌人1%最大生命伤害。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.神圣法典), "神圣法典",
 				"+1最大充能。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ANKH), "十字架",
+				"未祝福效果 => 残血无敌复活。\n" +
+						"祝福效果 => 满血无敌复活"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "根骨秘药",
-				"+20最大生命。"));
+				"+1力量+暂时生命 => +20最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.破损纹章), "破损纹章",
 				"初始护盾3 => 1。\n" +
 				"半血受伤获得 => 受伤获得。\n" +
 				"提升护甲的等级改成强化等级。\n" +
 							"可额外携带1级，冷却150 => 75。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
-				"最小攻击+2，最大攻击+1。"));
+				"最小攻击+2，最大攻击+1。\n" +
+						"能触发部分东西。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.时光沙漏), "时光沙漏",
 				"攻击不会打断时间冻结。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_AUGMENTATION), "强化符石",
-				"对武器的增强 增加伤害50%减少67%攻速 => 增加100%伤害减少50%攻速\n" +
-						"对武器的增强 增加33%攻速，减少30%伤害 => 增加100%攻速，减少50%伤害"));
+				"对武器的增强 增加伤害50%减少67%攻速 => 增加25%伤害\n" +
+						"对武器的增强 增加33%攻速减少30%伤害 => 增加34%攻速",
+				"对护甲的增强 增加100%防御减少200%闪避 => 增加25%防御\n" +
+						"对护甲的增强 增加200%闪避减少100%防御 => 增加50%闪避"));
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.FIRE, true), "着火",
 				"这个状态提供火把效果。"));
+		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.ANKH, true), "无敌",
+				"初始添加3回合 => 10回合。\n" +
+						"十字架 祝福3回合=> 未祝福5回合，祝福10回合。"));
 
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
 		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new GooSprite(), "粘咕",
-				"受到火焰伤害+1。"));
+				"受到火焰伤害+1+1%最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STEWED), "炖肉",
 				"3个合成时消耗能量2 => 3。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.无声步伐), "无声步伐",

@@ -191,7 +191,7 @@ public abstract class Wand extends Item {
 	//TODO Consider externalizing char awareness buff
 	protected static void wandProc(Char target, int wandLevel, int chargesUsed){
 		if (Dungeon.hero.有天赋(Talent.ARCANE_VISION)) {
-			int dur = Dungeon.hero.天赋点数(Talent.ARCANE_VISION,10);
+			int dur = Dungeon.hero.天赋点数(Talent.ARCANE_VISION,3);
 			Buff.新增(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = target.id();
 		}
 
@@ -383,10 +383,6 @@ public abstract class Wand extends Item {
 				lvl += 2;
 			}
 
-			if (curCharges == 1 && charger.target instanceof Hero && ((Hero)charger.target).有天赋(Talent.DESPERATE_POWER)){
-				lvl += ((Hero)charger.target).天赋点数(Talent.DESPERATE_POWER);
-			}
-
 			if (charger.target.buff(WildMagic.WildMagicTracker.class) != null){
 				int bonus = 4 + ((Hero)charger.target).天赋点数(Talent.WILD_POWER);
 				if (Random.Int(2) == 0) bonus++;
@@ -407,7 +403,7 @@ public abstract class Wand extends Item {
 	}
 
 	public void updateLevel() {
-		maxCharges = Math.min( initialCharges() + 等级(), 10 );
+		maxCharges = Math.min( initialCharges() + 等级(), 10+curUser.天赋点数(Talent.DESPERATE_POWER) );
 		curCharges = Math.min( curCharges, maxCharges );
 	}
 	
@@ -673,13 +669,13 @@ public abstract class Wand extends Item {
 							return;
 						}
 						if(curUser.有天赋(Talent.SHIELD_BATTERY)) {
-							float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.025f) * curWand.curCharges);
-							Buff.施加(curUser, Barrier.class).设置(Math.round(shield));
-							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.SHIELDING);
+							int shield = (curUser.天赋点数(Talent.SHIELD_BATTERY)+curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.015f)) * curWand.curCharges);
+							Buff.施加(curUser, Barrier.class).设置(shield);
+							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						}
 						if(curUser.有天赋(Talent.饱腹法术)) {
-							float shield = curUser.天赋点数(Talent.SHIELD_BATTERY, 5) * curWand.curCharges;
+							float shield = curUser.天赋点数(Talent.饱腹法术, 3) * curWand.curCharges;
 							Buff.施加(curUser, Hunger.class).吃饭(shield);
 
 							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.HUNGER);
@@ -711,14 +707,14 @@ public abstract class Wand extends Item {
 
 					//backup barrier logic
 					//This triggers before the wand zap, mostly so the barrier helps vs skeletons
-					if (curUser.有天赋(Talent.BACKUP_BARRIER)
+					if (curUser.有天赋(Talent.备用屏障)
 							&& curWand.curCharges == curWand.chargesPerCast()
 							&& curWand.charger != null && curWand.charger.target == curUser){
 
+						int shieldToGive = Dungeon.hero.天赋点数(Talent.备用屏障,4)+Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.备用屏障,0.03f));
 						//regular. If hero owns wand but it isn't in belongings it must be in the staff
 						if (curUser.heroClass == HeroClass.MAGE && !curUser.belongings.contains(curWand)){
 							//grants 3/5 shielding
-							int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,4);
 							Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 
@@ -731,8 +727,6 @@ public abstract class Wand extends Item {
 								}
 							}
 							if (highest){
-								//grants 3/5 shielding
-								int shieldToGive = Dungeon.hero.天赋点数(Talent.BACKUP_BARRIER,4);
 								Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 								Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 							}

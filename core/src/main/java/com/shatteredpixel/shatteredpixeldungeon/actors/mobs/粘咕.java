@@ -247,7 +247,7 @@ public class 粘咕 extends Mob {
 			Dungeon.level.seal();
 		}
 		if(src instanceof Fire){
-			dmg++;
+			dmg+=1+最大生命(0.01f);
 		}
 
 		boolean bleeding = (生命 *2 <= 最大生命);

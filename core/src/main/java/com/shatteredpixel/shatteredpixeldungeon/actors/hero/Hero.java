@@ -280,7 +280,7 @@ public class Hero extends Char {
 		}
 
 		if (有天赋(Talent.STRONGMAN)){
-			strBonus += (int)Math.floor(力量 * 天赋点数(Talent.STRONGMAN,0.08F));
+			strBonus += Math.round(力量 * 天赋点数(Talent.STRONGMAN,0.08F));
 		}
 		if (heroClass(HeroClass.WARRIOR)){
 			strBonus+= Math.round(力量*0.1f);
@@ -758,7 +758,7 @@ public class Hero extends Char {
 		if (heroClass != HeroClass.DUELIST
 				&& 有天赋(Talent.WEAPON_RECHARGING)
 				&& (buff(Recharging.class) != null || buff(ArtifactRecharge.class) != null)){
-			dmg = Math.round(dmg *天赋点数(Talent.WEAPON_RECHARGING,0.04f));
+			dmg = Math.round(dmg *天赋点数(Talent.WEAPON_RECHARGING,0.05f));
 		}
 
 		if (dmg < 0) dmg = 0;
@@ -849,7 +849,9 @@ public class Hero extends Char {
 		}
 
 		KindOfWeapon wep = Dungeon.hero.belongings.attackingWeapon();
-
+		if(enemy.hasbuff(TalismanOfForesight.CharAwareness.class)){
+			return true;
+		}
 		if (wep != null){
 			return wep.canReach(this, enemy.pos);
 		} else if (buff(AscendedForm.AscendBuff.class) != null) {
@@ -2239,6 +2241,8 @@ public class Hero extends Char {
 	
 	@Override
 	public void 死亡时(Object cause ) {
+
+		Badges.解锁巫女();
 		
 		curAction = null;
 
@@ -2254,11 +2258,12 @@ public class Hero extends Char {
 		if (ankh != null) {
 			interrupt();
 
-			if (ankh.isBlessed()) {
-				this.生命 = 最大生命 / 4;
+			if (true) {
+//			if (ankh.isBlessed()) {
+				生命 = ankh.isBlessed()?最大生命:最大生命(0.25f);
 
 				治疗药剂.cure(this);
-				Buff.延长(this, Invulnerability.class, Invulnerability.DURATION);
+				Buff.延长(this, Invulnerability.class, ankh.isBlessed()?Invulnerability.DURATION:Invulnerability.DURATION/2);
 
 				SpellSprite.show(this, SpellSprite.ANKH);
 				GameScene.flash(0x80FFFF40);
@@ -2302,8 +2307,6 @@ public class Hero extends Char {
 			}
 			return;
 		}
-
-		Badges.解锁巫女();
 
 		Actor.fixTime();
 		super.死亡时( cause );
@@ -2763,5 +2766,14 @@ public class Hero extends Char {
 	}
 	public boolean heroClass(HeroClass hc){
 		return heroClass == hc;
+	}
+	public int 等级(float x){
+		return Math.round(x*等级);
+	}
+	public int 力量(float x){
+		return Math.round(x*力量());
+	}
+	public int 视野范围(float x){
+		return Math.round(x*视野范围());
 	}
 }

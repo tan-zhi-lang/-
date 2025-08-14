@@ -535,11 +535,11 @@ public class DwarfKing extends Mob {
 			h.destroy();
 		}
 
-		if (pos == CityBossLevel.throne){
-			Dungeon.level.drop(new 矮人国王的皇冠(), pos + Dungeon.level.width()).sprite.drop(pos);
-		} else {
-			Dungeon.level.drop(new 矮人国王的皇冠(), pos).sprite.drop();
-		}
+//		if (pos == CityBossLevel.throne){
+//			Dungeon.level.drop(new 矮人国王的皇冠(), pos + Dungeon.level.width()).sprite.drop(pos);
+//		} else {
+//			Dungeon.level.drop(new 矮人国王的皇冠(), pos).sprite.drop();
+//		}
 
 		Badges.validateBossSlain();
 		if (Statistics.qualifiedForBossChallengeBadge){

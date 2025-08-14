@@ -30,7 +30,7 @@ public class ElixirOfHoneyedHealing extends Elixir {
 		治疗药剂.heal(hero);
 		Buff.施加(hero, Hunger.class).吃饭(Hunger.HUNGRY/2f);
 		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(Hunger.HUNGRY/2f)), FloatingText.HUNGER);
-		Talent.onFoodEaten(hero, Hunger.HUNGRY/2f, this);
+		Talent.吃饭时(hero, Hunger.HUNGRY/2f, this);
 	}
 	
 	@Override

@@ -215,7 +215,7 @@ public class TitleScene extends PixelScene {
 		Badges.loadGlobal();
 		if (Badges.isUnlocked(Badges.Badge.VICTORY) && !SPDSettings.victoryNagged()) {
 			SPDSettings.victoryNagged(true);
-			add(new WndVictoryCongrats());
+//			add(new WndVictoryCongrats());
 		}
 
 		fadeIn();

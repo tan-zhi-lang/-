@@ -90,7 +90,7 @@ public enum Talent {
 	SUSTAINED_RETRIBUTION(23, 4), SHRUG_IT_OFF(24, 4), EVEN_THE_ODDS(25, 4),
 
 	//Mage T1
-	SCHOLARS_INTUITION(x2), LINGERING_MAGIC(x2+1), BACKUP_BARRIER(x2+2),
+	SCHOLARS_INTUITION(x2), LINGERING_MAGIC(x2+1), 备用屏障(x2+2),
 	//Mage T2
 	饱腹法术(x2+4,3), 高级法杖(x2+5,3), ARCANE_VISION(x2+6,3), SHIELD_BATTERY(x2+7,3),
 	//Mage T3
@@ -124,7 +124,7 @@ public enum Talent {
 	SHADOW_BLADE(87, 4), CLONED_ARMOR(88, 4), PERFECT_COPY(89, 4),
 
 	//Huntress T1
-	NATURES_BOUNTY(x4), SURVIVALISTS_INTUITION(x4), FOLLOWUP_STRIKE(x4+1), NATURES_AID(x4+2),
+	SURVIVALISTS_INTUITION(x4), FOLLOWUP_STRIKE(x4+1), NATURES_AID(x4+2),
 	//Huntress T2
 	自然猎手(x4+4,3), REJUVENATING_STEPS(x4+5,3), HEIGHTENED_SENSES(x4+6,3), DURABLE_PROJECTILES(x4+7,3),
 	//Huntress T3
@@ -141,7 +141,7 @@ public enum Talent {
 	EAGLE_EYE(119, 4), GO_FOR_THE_EYES(120, 4), SWIFT_SPIRIT(121, 4),
 
 	//Duelist T1
-	STRENGTHENING_MEAL(x5), ADVENTURERS_INTUITION(x5), PATIENT_STRIKE(x5+1), AGGRESSIVE_BARRIER(x5+2),
+	ADVENTURERS_INTUITION(x5), PATIENT_STRIKE(x5+1), AGGRESSIVE_BARRIER(x5+2),
 	//Duelist T2
 	灵敏机动(x5+4,3), WEAPON_RECHARGING(x5+5,3), LETHAL_HASTE(x5+6,3), SWIFT_EQUIP(x5+7,3),
 	//Duelist T3
@@ -195,18 +195,19 @@ public enum Talent {
 
 		@Override
 		public boolean act() {
+			if(target instanceof Hero hero)
 			//barrier every 2/1 turns, to a max of 3/5
-			if (((Hero)target).有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
+			if (hero.有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
 				Barrier barrier = Buff.施加(target, Barrier.class);
 					barrierInc += 0.5f;
-
-				if (barrier.护盾量() < ((Hero)target).天赋点数(Talent.PROTECTIVE_SHADOWS,3)) {
-					barrier.设置(5);
+				int s = hero.天赋点数(Talent.PROTECTIVE_SHADOWS,3)+hero.已损失生命(hero.天赋点数(Talent.PROTECTIVE_SHADOWS,0.03f));
+				if (barrier.护盾量() < s) {
+					barrier.设置(s);
 				}
 				if (barrierInc >= 2.5){
 					barrierInc = 0;
-					if (((Hero)target).有天赋(Talent.体生匿影)) {
-						((Hero)target).回血(((Hero)target).天赋点数(Talent.体生匿影));
+					if (hero.有天赋(Talent.体生匿影)) {
+						hero.回血(hero.天赋点数(Talent.体生匿影)+hero.已损失生命(hero.天赋点数(Talent.体生匿影,0.007f)));
 					}
 				}
 			} else {
@@ -591,7 +592,7 @@ public enum Talent {
 	public static class 寻宝猎人 extends CounterBuff{{revivePersists = true;}};
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}};
 
-	public static void onFoodEaten( Hero hero, float foodVal, Item foodSource ){
+	public static void 吃饭时(Hero hero, float foodVal, Item foodSource ){
 		hero.回血(1+hero.最大生命(0.01f));
 
 		if (hero.heroClass(HeroClass.WARRIOR)){
@@ -605,10 +606,9 @@ public enum Talent {
 		int wandChargeTurns = 0;
 
 		int artifactChargeTurns = 0;
-		if (hero.有天赋(STRENGTHENING_MEAL)){
-			//3 bonus physical damage for next 2/3 attacks
-			Buff.施加( hero, PhysicalEmpower.class).set(hero.天赋点数(STRENGTHENING_MEAL,5), 1);
-		}
+		//加伤
+//			//3 bonus physical damage for next 2/3 attacks
+//			Buff.施加( hero, PhysicalEmpower.class).set(1, 1);
 		//武技充能
 //		if (hero.有天赋()){
 //			if (hero.heroClass == HeroClass.DUELIST){
@@ -809,13 +809,12 @@ public enum Talent {
 	}
 
 	public static int 伏击时(Hero hero, Char enemy, int dmg ){
-		dmg++;
+		dmg+=1+enemy.最大生命(0.01f);
 		if(hero.hasbuff(Invisibility.class)){
-			dmg++;
+			dmg+=1+enemy.最大生命(0.01f);
 		}
-		if(hero.有天赋(Talent.SUCKER_PUNCH) && enemy.buff(SuckerPunchTracker.class) == null) {
-			dmg += hero.天赋点数(Talent.SUCKER_PUNCH, 4);
-			Buff.施加(enemy, SuckerPunchTracker.class);
+		if(hero.有天赋(Talent.SUCKER_PUNCH) ) {
+			dmg += hero.天赋点数(Talent.SUCKER_PUNCH,2)+ hero.力量(hero.天赋点数(Talent.SUCKER_PUNCH,0.1f));
 		}
 		return dmg;
 	}
@@ -832,7 +831,7 @@ public enum Talent {
 
 		if (hero.有天赋(Talent.LINGERING_MAGIC)
 				&& hero.buff(LingeringMagicTracker.class) != null){
-			dmg += hero.天赋点数(Talent.LINGERING_MAGIC,3);
+			dmg += hero.天赋点数(Talent.LINGERING_MAGIC,3)+hero.等级(hero.天赋点数(Talent.LINGERING_MAGIC,0.2f));
 			hero.buff(LingeringMagicTracker.class).detach();
 		}
 
@@ -841,7 +840,7 @@ public enum Talent {
 				Buff.延长(hero, FollowupStrikeTracker.class, 5f).object = enemy.id();
 			} else if (hero.buff(FollowupStrikeTracker.class) != null
 					&& hero.buff(FollowupStrikeTracker.class).object == enemy.id()){
-				dmg += hero.天赋点数(FOLLOWUP_STRIKE,4);
+				dmg += hero.天赋点数(FOLLOWUP_STRIKE)+hero.力量(hero.天赋点数(FOLLOWUP_STRIKE,0.1f));
 				hero.buff(FollowupStrikeTracker.class).detach();
 			}
 		}
@@ -857,7 +856,7 @@ public enum Talent {
 			if (hero.buff(PatientStrikeTracker.class) != null
 					&& !(hero.belongings.attackingWeapon() instanceof MissileWeapon)){
 				hero.buff(PatientStrikeTracker.class).detach();
-				dmg += hero.天赋点数(Talent.PATIENT_STRIKE,3);
+				dmg += hero.天赋点数(Talent.PATIENT_STRIKE,4)+hero.力量( hero.天赋点数(Talent.PATIENT_STRIKE,0.2f));
 			}
 		}
 
@@ -868,7 +867,7 @@ public enum Talent {
 				}
 			} else if (hero.buff(DeadlyFollowupTracker.class) != null
 					&& hero.buff(DeadlyFollowupTracker.class).object == enemy.id()){
-				dmg = Math.round(dmg * (1.0f +hero.天赋点数(DEADLY_FOLLOWUP,0.1f)));
+				dmg = Math.round(dmg * (1.0f +hero.天赋点数(DEADLY_FOLLOWUP,0.15f)));
 			}
 		}
 
@@ -887,7 +886,6 @@ public enum Talent {
 		public void tintIcon(Image icon) { icon.hardlight(1.43f, 1.43f, 0f); }
 		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
 	}
-	public static class SuckerPunchTracker extends Buff{};
 	public static class FollowupStrikeTracker extends FlavourBuff{
 		public int object;
 		{ type = Buff.buffType.POSITIVE; }
@@ -930,7 +928,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, VETERANS_INTUITION, 受衅怒火, 钢铁意志);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, SCHOLARS_INTUITION, LINGERING_MAGIC, BACKUP_BARRIER);
+				Collections.addAll(tierTalents, SCHOLARS_INTUITION, LINGERING_MAGIC, 备用屏障);
 				break;
 			case 盗贼:
 				Collections.addAll(tierTalents, THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);

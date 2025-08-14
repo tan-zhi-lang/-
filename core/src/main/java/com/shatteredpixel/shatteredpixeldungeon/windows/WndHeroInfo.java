@@ -61,7 +61,7 @@ public class WndHeroInfo extends WndTabbed {
 				tabIcon = new ItemSprite(物品表.神圣法典, null);
 				break;
 			case 巫女:
-				tabIcon = new ItemSprite(物品表.血砍刀, null);
+				tabIcon = new ItemSprite(物品表.灵月法杖, null);
 				break;
 		}
 

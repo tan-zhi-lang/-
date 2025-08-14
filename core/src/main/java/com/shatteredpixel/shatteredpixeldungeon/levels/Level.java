@@ -55,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
@@ -76,6 +77,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -202,14 +204,28 @@ public abstract class Level implements Bundlable {
 		if (!Dungeon.bossLevel() && Dungeon.branch == 0) {
 
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
-			addItemToSpawn(new SmallRation());
+
+			if(Dungeon.depth%2==0) {
+				addItemToSpawn(new SmallRation());
+			}
 
 			if(Dungeon.depth==1){
 				addItemToSpawn( new 经验药剂());
 			}
+			if(Dungeon.depth==4){
+				addItemToSpawn( new Firebloom.Seed());
+			}
 			if (Dungeon.力量药剂掉落()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
 				addItemToSpawn( new PotionOfStrength() );
+			}
+			if (Dungeon.depth==3||
+			Dungeon.depth==8||
+			Dungeon.depth==13||
+			Dungeon.depth==18||
+			Dungeon.depth==23
+			) {
+				addItemToSpawn( new 治疗药剂() );
 			}
 			if (Dungeon.升级卷轴掉落()) {
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
@@ -231,8 +247,7 @@ public abstract class Level implements Bundlable {
 			}
 			if ( Dungeon.intStoneNeeded() ){
 				Dungeon.LimitedDrops.INT_STONE.drop();
-				addItemToSpawn( new 感知符石() );
-				addItemToSpawn( new 感知符石() );
+				addItemToSpawn( new 感知符石().数量(2));
 			}
 			if ( Dungeon.trinketCataNeeded() ){
 				Dungeon.LimitedDrops.TRINKET_CATA.drop();
@@ -1248,6 +1263,68 @@ public abstract class Level implements Bundlable {
 
 		if (hard && Blob.volumeAt(cell, Web.class) > 0){
 			blobs.get(Web.class).clear(cell);
+		}
+	}
+	public void pressCellmin( int cell) {
+
+		Trap trap = null;
+
+		switch (map[cell]) {
+
+		case Terrain.SECRET_TRAP:
+				trap = traps.get( cell );
+				GLog.i(Messages.get(Level.class, "hidden_trap", trap.name()));
+			break;
+
+		case Terrain.TRAP:
+			trap = traps.get( cell );
+			break;
+
+		case Terrain.WELL:
+			WellWater.affectCell( cell );
+			break;
+		}
+
+		时光沙漏.timeFreeze timeFreeze =
+				Dungeon.hero.buff(时光沙漏.timeFreeze.class);
+
+		Swiftthistle.TimeBubble bubble =
+				Dungeon.hero.buff(Swiftthistle.TimeBubble.class);
+
+		if (trap != null) {
+			if (bubble != null){
+				Sample.INSTANCE.play(Assets.Sounds.TRAP);
+				discover(cell);
+				bubble.setDelayedPress(cell);
+
+			} else if (timeFreeze != null){
+				Sample.INSTANCE.play(Assets.Sounds.TRAP);
+				discover(cell);
+				timeFreeze.setDelayedPress(cell);
+
+			} else {
+				if (Dungeon.hero.pos == cell) {
+					Dungeon.hero.interrupt();
+				}
+				trap.trigger();
+
+			}
+		}
+
+		Plant plant = plants.get( cell );
+		if (plant != null) {
+			if (bubble != null){
+				Sample.INSTANCE.play(Assets.Sounds.TRAMPLE, 1, Random.Float( 0.96f, 1.05f ) );
+				bubble.setDelayedPress(cell);
+
+			} else if (timeFreeze != null){
+				Sample.INSTANCE.play(Assets.Sounds.TRAMPLE, 1, Random.Float( 0.96f, 1.05f ) );
+				timeFreeze.setDelayedPress(cell);
+
+			} else {
+				plant.trigger();
+
+			}
 		}
 	}
 

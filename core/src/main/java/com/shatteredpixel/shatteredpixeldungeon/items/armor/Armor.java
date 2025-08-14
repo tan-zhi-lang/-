@@ -73,8 +73,8 @@ public class Armor extends EquipableItem {
 	protected static final String AC_DETACH       = "DETACH";
 	
 	public enum Augment {
-		EVASION (2f , -1f),
-		DEFENSE (-2f, 1f),
+		EVASION (0.5f , 0),
+		DEFENSE (0, 0.25f),
 		NONE	(0f   ,  0f);
 //		EVASION (2f , -1f),
 //		DEFENSE (-2f, 1f),
@@ -305,6 +305,7 @@ public class Armor extends EquipableItem {
 		}
 	}
 	public void affixSeal(破损纹章 seal){
+		this.破损纹章 = seal;
 		if (seal.getGlyph() != null){
 			inscribe(seal.getGlyph());
 		}

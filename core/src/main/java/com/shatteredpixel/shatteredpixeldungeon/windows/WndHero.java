@@ -167,10 +167,7 @@ public class WndHero extends WndTabbed {
 
 			pos = title.bottom() + GAP;
 
-			int strBonus = hero.力量() - hero.力量;
-			if (strBonus > 0)           statSlot( Messages.get(this, "str"), hero.力量 + " + " + strBonus );
-			else if (strBonus < 0)      statSlot( Messages.get(this, "str"), hero.力量 + " - " + -strBonus );
-			else                        statSlot( Messages.get(this, "str"), hero.力量() );
+			statSlot( Messages.get(this, "str"), hero.力量());
 			statSlot( Messages.get(this, "exp"), hero.当前经验 + "/" + hero.升级所需() );
 
 			statSlot( "命中/闪避", hero.最大命中(null)+"/"+hero.最大闪避(null));

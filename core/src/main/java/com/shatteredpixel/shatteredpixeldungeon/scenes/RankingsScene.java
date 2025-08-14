@@ -150,7 +150,7 @@ public class RankingsScene extends PixelScene {
 			addToFront(new WndDailies());
 		} else if (Badges.isUnlocked(Badges.Badge.VICTORY) && !SPDSettings.victoryNagged()) {
 			SPDSettings.victoryNagged(true);
-			add(new WndVictoryCongrats());
+//			add(new WndVictoryCongrats());
 		}
 
 		fadeIn();

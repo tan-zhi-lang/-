@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -334,6 +335,9 @@ public class 灵能短弓 extends Weapon {
 
 		@Override
 		protected void onThrow( int cell ) {
+			if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
+				Dungeon.level.pressCellmin( cell );
+			}
 			Char enemy = Actor.findChar( cell );
 			if (enemy == null || enemy == curUser) {
 				parent = null;

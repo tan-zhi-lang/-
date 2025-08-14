@@ -936,7 +936,7 @@ public class CursedWand {
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 
 			for (Char ch : Actor.chars()){
-				Buff.施加(ch, Invulnerability.class, 10f);
+				Buff.施加(ch, Invulnerability.class, Invulnerability.DURATION);
 				Buff.施加(ch, Bless.class, Bless.DURATION);
 			}
 

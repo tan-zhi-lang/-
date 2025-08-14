@@ -16,7 +16,7 @@ public class GreaterHaste extends Buff {
 		type = buffType.POSITIVE;
 	}
 
-	private int left;
+	private float left;
 
 	@Override
 	public boolean act() {
@@ -34,7 +34,7 @@ public class GreaterHaste extends Buff {
 		}
 	}
 
-	public void set(int time){
+	public void set(float time){
 		left = time;
 	}
 
@@ -61,7 +61,7 @@ public class GreaterHaste extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(left);
+		return Float.toString(left);
 	}
 
 	@Override

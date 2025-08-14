@@ -408,7 +408,7 @@ public abstract class Char extends Actor {
 			if (enemy.buff(GuidingLight.Illuminated.class) != null){
 				enemy.buff(GuidingLight.Illuminated.class).detach();
 				if (this == Dungeon.hero && Dungeon.hero.有天赋(Talent.SEARING_LIGHT)){
-					dmg += Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,4);
+					dmg += Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,2)+Dungeon.hero.视野范围(Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,0.2f));
 				}
 				if (this != Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.PRIEST){
 					enemy.受伤时(5+Dungeon.hero.等级, GuidingLight.INSTANCE);

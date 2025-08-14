@@ -70,9 +70,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
-		SPEED   (0.5f, 0.5f),
-		DAMAGE  (2, 2),
-		NONE	(1.0f, 1f);
+		SPEED   (1, 0.66f),
+		DAMAGE  (1.25f, 1),
+		NONE	(1f, 1f);
 //		SPEED   (0.7f, 2/3f),
 //		DAMAGE  (1.5f, 5/3f),
 //		NONE	(1.0f, 1f);
@@ -324,7 +324,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (owner instanceof Hero && owner.buff(AscendedForm.AscendBuff.class) != null){
 			reach += 2;
 		}
-		reach += 2;
+
 		if (hasEnchant(Projecting.class, owner)){
 			return reach + Math.round(Enchantment.genericProcChanceMultiplier(owner));
 		} else {
@@ -522,7 +522,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public static float genericProcChanceMultiplier( Char attacker ){
-			float multi = 奥术之戒.enchantPowerMultiplier(attacker)+(attacker instanceof Hero hero?hero.天赋点数(Talent.附魔打击,0.25f):0);
+			float multi = 奥术之戒.enchantPowerMultiplier(attacker)+(attacker instanceof Hero hero?hero.天赋点数(Talent.附魔打击,0.4f):0);
 			Berserk rage = attacker.buff(Berserk.class);
 			if (rage != null) {
 				multi = rage.enchantFactor(multi);

@@ -919,7 +919,7 @@ public abstract class Mob extends Char {
 						&& Dungeon.hero.有天赋(Talent.LETHAL_HASTE)
 						&& Dungeon.hero.buff(Talent.LethalHasteCooldown.class) == null){
 					Buff.施加(Dungeon.hero, Talent.LethalHasteCooldown.class, 100f);
-					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,3));
+					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,1.5f));
 				}
 			}
 
@@ -1002,7 +1002,7 @@ public abstract class Mob extends Char {
 		//soul eater talent
 		if (buff(SoulMark.class) != null &&
 				Random.Int(10) < Dungeon.hero.天赋点数(Talent.SOUL_EATER)){
-			Talent.onFoodEaten(Dungeon.hero, 0, null);
+			Talent.吃饭时(Dungeon.hero, 0, null);
 		}
 
 	}

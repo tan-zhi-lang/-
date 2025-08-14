@@ -171,6 +171,9 @@ public class HeroSelectScene extends PixelScene {
 		add(改动按钮);
 
 		for (HeroClass cl : HeroClass.values()){
+			if(cl==HeroClass.DUELIST||cl==HeroClass.CLERIC||cl==HeroClass.巫女){
+				break;
+			}
 			HeroBtn button = new HeroBtn(cl);
 			add(button);
 			heroBtns.add(button);
@@ -298,7 +301,7 @@ public class HeroSelectScene extends PixelScene {
 			add(btnFade);
 
 			btnOptions.setRect(startBtn.right(), startBtn.top(), 20, 21);
-			改动按钮.setRect(btnOptions.right(), startBtn.top(), 20, 21);
+			改动按钮.setRect(btnOptions.right()-改动按钮.width(), startBtn.top(), 20, 21);
 
 			optionsPane.setPos(btnOptions.right(), btnOptions.top() - optionsPane.height() - 2);
 			align(optionsPane);
@@ -375,7 +378,7 @@ public class HeroSelectScene extends PixelScene {
 
 		if (Badges.isUnlocked(Badges.Badge.VICTORY) && !SPDSettings.victoryNagged()) {
 			SPDSettings.victoryNagged(true);
-			add(new WndVictoryCongrats());
+//			add(new WndVictoryCongrats());
 		}
 
 		fadeIn();

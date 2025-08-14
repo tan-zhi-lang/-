@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -282,8 +283,15 @@ public enum HeroClass {
 	}
 	private static void 初始巫女(Hero hero ) {
 
-		(hero.belongings.weapon = new 血砍刀()).鉴定();
+		血砍刀 x = new 血砍刀();
+		(hero.belongings.weapon = x).鉴定();
 		hero.belongings.weapon.activate(hero);
+
+		灵月法杖 bow = new 灵月法杖();
+		bow.鉴定().放背包();
+
+		Dungeon.quickslot.setSlot(0, x);
+		Dungeon.quickslot.setSlot(1, bow);
 
 		new ScrollOfLullaby().鉴定();
 		new 治疗药剂().鉴定();

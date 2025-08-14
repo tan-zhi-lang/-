@@ -72,31 +72,31 @@ public class HighGrass {
 					}
 				}
 
-				//berries try to drop on floors 2/3/4/6/7/8, to a max of 4/6
-				if (ch instanceof Hero && ((Hero) ch).有天赋(Talent.NATURES_BOUNTY)){
-					int berriesAvailable = 2 + 2*((Hero) ch).天赋点数(Talent.NATURES_BOUNTY);
-
-					Talent.NatureBerriesDropped dropped = Buff.施加(ch, Talent.NatureBerriesDropped.class);
-					berriesAvailable -= dropped.count();
-
-					if (berriesAvailable > 0) {
-						int targetFloor = 2 + 2 * ((Hero) ch).天赋点数(Talent.NATURES_BOUNTY);
-						targetFloor -= berriesAvailable;
-						targetFloor += (targetFloor >= 5) ? 3 : 2;
-
-						//If we're behind: 1/10, if we're on page: 1/30, if we're ahead: 1/90
-						boolean droppingBerry = false;
-						if (Dungeon.depth > targetFloor) droppingBerry = Random.Int(10) == 0;
-						else if (Dungeon.depth == targetFloor) droppingBerry = Random.Int(30) == 0;
-						else if (Dungeon.depth < targetFloor) droppingBerry = Random.Int(90) == 0;
-
-						if (droppingBerry) {
-							dropped.countUp(1);
-							level.drop(new 地牢浆果(), pos).sprite.drop();
-						}
-					}
-
-				}
+//				//berries try to drop on floors 2/3/4/6/7/8, to a max of 4/6
+//				if (ch instanceof Hero ){
+//					int berriesAvailable = 2 + 2;
+//
+//					Talent.NatureBerriesDropped dropped = Buff.施加(ch, Talent.NatureBerriesDropped.class);
+//					berriesAvailable -= dropped.count();
+//
+//					if (berriesAvailable > 0) {
+//						int targetFloor = 2 + 2;
+//						targetFloor -= berriesAvailable;
+//						targetFloor += (targetFloor >= 5) ? 3 : 2;
+//
+//						//If we're behind: 1/10, if we're on page: 1/30, if we're ahead: 1/90
+//						boolean droppingBerry = false;
+//						if (Dungeon.depth > targetFloor) droppingBerry = Random.Int(10) == 0;
+//						else if (Dungeon.depth == targetFloor) droppingBerry = Random.Int(30) == 0;
+//						else if (Dungeon.depth < targetFloor) droppingBerry = Random.Int(90) == 0;
+//
+//						if (droppingBerry) {
+//							dropped.countUp(1);
+//							level.drop(new 地牢浆果(), pos).sprite.drop();
+//						}
+//					}
+//
+//				}
 			}
 
 			//grass gives 1/3 the normal amount of loot in fungi level

@@ -516,7 +516,7 @@ public class Dungeon {
 	
 	public static boolean 升级卷轴掉落() {
 		int souLeftThisSet;
-		//3 SOU each floor set
+		//4 SOU each floor set
 		souLeftThisSet = 4 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 4);
 		if (souLeftThisSet <= 0) return false;
 
@@ -524,7 +524,6 @@ public class Dungeon {
 		//chance is floors left / scrolls left
 		return Random.Int(5 - floorThisSet) < souLeftThisSet;
 	}
-	
 	public static boolean asNeeded() {
 		//1 AS each floor set
 		int asLeftThisSet = 1 - (LimitedDrops.ARCANE_STYLI.count - (depth / 5));

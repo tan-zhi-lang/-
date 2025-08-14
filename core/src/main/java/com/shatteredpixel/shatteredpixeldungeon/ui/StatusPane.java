@@ -204,7 +204,7 @@ public class StatusPane extends Component {
 
 			heroInfoOnBar.setRect(heroInfo.right(), y + 19, 130, 20);
 
-			buffs.setRect(x + 31, y, 128, 16);
+			buffs.setRect(x + 31, y-绿条.height()-2, 128, 16);
 
 			busy.x = x + bg.width + 1;
 			busy.y = y + bg.height - 9;
@@ -232,7 +232,7 @@ public class StatusPane extends Component {
 
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 
-			buffs.setRect( x + 31, y + 9, 50, 8 );
+			buffs.setRect( x + 31+3, y + 9+ 绿条.height()+1, 50, 8 );
 
 			busy.x = x + 1;
 			busy.y = y + 33;

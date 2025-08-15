@@ -56,7 +56,7 @@ public class WndTradeItem extends WndInfoItem {
 		}
 		final Shopkeeper finalShop = shop;
 
-		if (item.数量() == 1 || (item instanceof MissileWeapon && item.isUpgradable())) {
+		if (item.数量() == 1 || (item instanceof MissileWeapon && item.可升级())) {
 
 			if (item instanceof MissileWeapon && ((MissileWeapon) item).extraThrownLeft){
 				RenderedTextBlock warn = PixelScene.renderTextBlock(Messages.get(WndUpgrade.class, "thrown_dust"), 6);
@@ -225,7 +225,7 @@ public class WndTradeItem extends WndInfoItem {
 		}
 		item.detachAll( hero.belongings.backpack );
 
-		if (item instanceof MissileWeapon && item.isUpgradable()){
+		if (item instanceof MissileWeapon && item.可升级()){
 			Buff.施加(hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) item).setID, Integer.MAX_VALUE);
 		}
 

@@ -503,7 +503,7 @@ public class DriedRose extends Artifact {
 		}
 
 		@Override
-		public boolean isUpgradable() {
+		public boolean 可升级() {
 			return false;
 		}
 

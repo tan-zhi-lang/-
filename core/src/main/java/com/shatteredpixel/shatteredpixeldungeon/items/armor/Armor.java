@@ -323,7 +323,6 @@ public class Armor extends EquipableItem {
 			}
 
 			破损纹章 detaching = 破损纹章;
-			破损纹章 = null;
 			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
 			if(真等级()>转移量){
 				等级(真等级()-转移量);
@@ -332,6 +331,7 @@ public class Armor extends EquipableItem {
 				破损纹章.等级(破损纹章.等级()+ 真等级());
 				等级(0);
 			}
+			破损纹章 = null;
 			if (detaching.canTransferGlyph()){
 				inscribe(null);
 			} else {

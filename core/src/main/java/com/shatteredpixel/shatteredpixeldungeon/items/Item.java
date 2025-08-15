@@ -422,7 +422,7 @@ public class Item implements Bundlable {
 		return cursed && cursedKnown;
 	}
 	
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return true;
 	}
 	

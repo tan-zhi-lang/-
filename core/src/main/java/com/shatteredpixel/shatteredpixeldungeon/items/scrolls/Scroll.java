@@ -243,7 +243,7 @@ public abstract class Scroll extends Item {
 	}
 	
 	@Override
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return false;
 	}
 	

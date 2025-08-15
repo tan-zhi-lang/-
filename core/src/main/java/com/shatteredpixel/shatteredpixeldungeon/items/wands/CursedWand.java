@@ -1150,7 +1150,7 @@ public class CursedWand {
 				result = Generator.randomUsingDefaults(Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR,
 						Generator.Category.RING, Generator.Category.ARTIFACT));
 			} while (result.cursed);
-			if (result.isUpgradable()) result.升级();
+			if (result.可升级()) result.升级();
 			result.cursed = result.cursedKnown = true;
 			if (origin instanceof Wand){
 				GLog.w( Messages.get(CursedWand.class, "transmogrify_wand") );

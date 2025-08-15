@@ -198,6 +198,19 @@ public class 蜕变秘卷 extends ExoticScroll {
 
 				Set<Talent> clsTalentsAtTier = clsTalents.get(tier-1).keySet();
 				boolean replacingIsInSet = false;
+
+				clsTalentsAtTier.remove(Talent.祭鉴之术);
+				clsTalentsAtTier.remove(Talent.痛命之术);
+				clsTalentsAtTier.remove(Talent.死血之术);
+
+				clsTalentsAtTier.remove(Talent.血历之术);
+				clsTalentsAtTier.remove(Talent.血爆之术);
+				clsTalentsAtTier.remove(Talent.饮血之术);
+				clsTalentsAtTier.remove(Talent.换血之术);
+
+				clsTalentsAtTier.remove(Talent.顶福精华);
+				clsTalentsAtTier.remove(Talent.强能处消);
+
 				for (Talent talent : clsTalentsAtTier.toArray(new Talent[0])){
 					if (talent == replacing){
 						replacingIsInSet = true;

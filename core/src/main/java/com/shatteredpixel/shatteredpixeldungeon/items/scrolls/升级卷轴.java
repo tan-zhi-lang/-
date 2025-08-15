@@ -35,7 +35,7 @@ public class 升级卷轴 extends InventoryScroll {
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-		return item.isUpgradable();
+		return item.可升级();
 	}
 
 	@Override

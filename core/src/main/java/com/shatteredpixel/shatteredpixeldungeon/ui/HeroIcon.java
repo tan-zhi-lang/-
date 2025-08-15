@@ -95,6 +95,14 @@ public class HeroIcon extends Image {
 	public static final int WEAPON_SWAP     = 109;
 	public static final int MONK_ABILITIES  = 110;
 
+	public static final int 祭鉴之术  = 112;
+	public static final int 痛命之术  = 113;
+	public static final int 死血之术  = 114;
+	public static final int 血历之术  = 115;
+	public static final int 血爆之术  = 116;
+	public static final int 饮血之术  = 117;
+	public static final int 换血之术  = 118;
+
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){

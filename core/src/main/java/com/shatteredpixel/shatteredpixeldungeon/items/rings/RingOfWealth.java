@@ -273,7 +273,7 @@ public class RingOfWealth extends Ring {
 				break;
 		}
 		//minimum level is 1/2/3/4/5/6 when ring level is 1/3/5/7/9/11
-		if (result.isUpgradable()){
+		if (result.可升级()){
 			int minLevel = (level+1)/2;
 			if (result.等级() < minLevel){
 				result.等级(minLevel);

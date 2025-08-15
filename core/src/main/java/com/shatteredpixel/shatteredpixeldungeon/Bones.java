@@ -201,12 +201,12 @@ public class Bones {
 				}
 
 				if (item != null) {
-					if (item.isUpgradable() && !(item instanceof MissileWeapon)) {
+					if (item.可升级() && !(item instanceof MissileWeapon)) {
 						item.cursed = true;
 						item.cursedKnown = true;
 					}
 
-					if (item.isUpgradable()) {
+					if (item.可升级()) {
 						//caps at +3
 						if (item.等级() > 3) {
 							item.降级(item.等级() - 3);

@@ -90,7 +90,7 @@ public class 法师魔杖 extends MeleeWeapon {
 		wand.鉴定();
 		wand.cursed = false;
 		this.wand = wand;
-		updateWand(false);
+		updateWand();
 		wand.curCharges = wand.maxCharges;
 	}
 
@@ -130,7 +130,6 @@ public class 法师魔杖 extends MeleeWeapon {
 		super.execute(hero, action);
 
 		if (action.equals(AC_IMBUE)) {
-
 			curUser = hero;
 			GameScene.selectItem(itemSelector);
 
@@ -244,7 +243,7 @@ public class 法师魔杖 extends MeleeWeapon {
 //		等级(targetLevel);
 		this.wand = wand;
 		wand.levelKnown = wand.curChargeKnown = true;
-		updateWand(false);
+		updateWand();
 		wand.curCharges = Math.min(wand.maxCharges, wand.curCharges+oldStaffcharges);
 		if (owner != null){
 			applyWandChargeBuff(owner);
@@ -297,7 +296,7 @@ public class 法师魔杖 extends MeleeWeapon {
 	public Item 升级(boolean enchant) {
 		super.升级( enchant );
 
-		updateWand(true);
+		updateWand();
 
 		return this;
 	}
@@ -306,18 +305,18 @@ public class 法师魔杖 extends MeleeWeapon {
 	public Item 降级() {
 		super.降级();
 
-		updateWand(false);
+		updateWand();
 
 		return this;
 	}
 	
-	public void updateWand(boolean levelled){
+	public void updateWand(){
 		if (wand != null) {
 			int curCharges = wand.curCharges;
 			wand.等级(等级());
 			//gives the wand one additional max charge
-			wand.maxCharges = Math.min(wand.maxCharges + 1, 10+curUser.天赋点数(Talent.DESPERATE_POWER));
-			wand.curCharges = Math.min(curCharges + (levelled ? 1 : 0), wand.maxCharges);
+			wand.maxCharges = Math.min(wand.maxCharges + 1, 10+(curUser==null?0:curUser.天赋点数(Talent.DESPERATE_POWER)));
+			wand.curCharges = Math.min(curCharges + 1, wand.maxCharges);
 			updateQuickslot();
 		}
 	}
@@ -395,7 +394,7 @@ public class 法师魔杖 extends MeleeWeapon {
 	public Weapon enchant(Enchantment ench) {
 		if (curseInfusionBonus && (ench == null || !ench.curse())){
 			curseInfusionBonus = false;
-			updateWand(false);
+			updateWand();
 		}
 		return super.enchant(ench);
 	}

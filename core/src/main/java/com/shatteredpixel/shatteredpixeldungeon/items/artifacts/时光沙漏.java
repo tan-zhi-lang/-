@@ -513,7 +513,7 @@ public class 时光沙漏 extends Artifact {
 		}
 
 		@Override
-		public boolean isUpgradable() {
+		public boolean 可升级() {
 			return false;
 		}
 

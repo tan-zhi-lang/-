@@ -32,7 +32,7 @@ public class CurseInfusion extends InventorySpell {
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-		return ((item instanceof EquipableItem && item.isUpgradable()) || item instanceof Wand || item instanceof 灵能短弓);
+		return ((item instanceof EquipableItem && item.可升级()) || item instanceof Wand || item instanceof 灵能短弓);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class CurseInfusion extends InventorySpell {
 			}
 			w.curseInfusionBonus = true;
 			if (w instanceof 法师魔杖){
-				((法师魔杖) w).updateWand(true);
+				((法师魔杖) w).updateWand();
 			}
 		} else if (item instanceof Armor){
 			Armor a = (Armor) item;

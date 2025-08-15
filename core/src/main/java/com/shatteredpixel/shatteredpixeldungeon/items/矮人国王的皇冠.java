@@ -59,7 +59,7 @@ public class 矮人国王的皇冠 extends Item {
 	}
 	
 	@Override
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return false;
 	}
 	

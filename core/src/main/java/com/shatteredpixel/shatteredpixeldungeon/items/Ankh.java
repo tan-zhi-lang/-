@@ -30,7 +30,7 @@ public class Ankh extends Item {
 	private boolean blessed = false;
 	
 	@Override
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return false;
 	}
 	

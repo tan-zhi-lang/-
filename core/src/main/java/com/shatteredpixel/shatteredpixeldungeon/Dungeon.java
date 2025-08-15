@@ -113,6 +113,7 @@ public class Dungeon {
 
 		//containers
 		VELVET_POUCH,
+		杂物袋,
 		SCROLL_HOLDER,
 		POTION_BANDOLIER,
 		MAGICAL_HOLSTER,
@@ -122,7 +123,8 @@ public class Dungeon {
 		LORE_PRISON,
 		LORE_CAVES,
 		LORE_CITY,
-		LORE_HALLS;
+		LORE_HALLS,
+		JANE_PAGE;
 
 		public int count = 0;
 

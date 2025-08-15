@@ -40,6 +40,10 @@ public class 灵月法杖 extends Wand {
 	{
 		image = 物品表.灵月法杖;
 	}
+	@Override
+	public boolean 可升级() {
+		return false;
+	}
 	public boolean canCast( Hero hero, 巫术 spell ){
 		return hero.belongings.contains(this)
 				&& hero.buff(MagicImmune.class) == null

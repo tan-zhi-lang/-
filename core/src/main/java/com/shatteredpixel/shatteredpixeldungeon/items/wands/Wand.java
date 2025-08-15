@@ -403,8 +403,8 @@ public abstract class Wand extends Item {
 	}
 
 	public void updateLevel() {
-		maxCharges = Math.min( initialCharges() + 等级(), 10+curUser.天赋点数(Talent.DESPERATE_POWER) );
-		curCharges = Math.min( curCharges, maxCharges );
+		maxCharges = Math.min( initialCharges() + 等级(), 10+(curUser==null?0:curUser.天赋点数(Talent.DESPERATE_POWER)));
+		curCharges = Math.min( curCharges+1, maxCharges );
 	}
 	
 	public int initialCharges() {

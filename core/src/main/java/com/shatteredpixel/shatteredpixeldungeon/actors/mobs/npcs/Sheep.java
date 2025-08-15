@@ -16,7 +16,7 @@ import com.watabou.utils.Random;
 
 public class Sheep extends NPC {
 
-	private static final String[] LINE_KEYS = {"Baa!", "Baa?", "Baa.", "Baa...", "Baa"};
+	private static final String[] LINE_KEYS = {"Baa!", "Baa?", "Baa.", "Baa...", "Baba"};
 
 	{
 		spriteClass = SheepSprite.class;
@@ -59,7 +59,11 @@ public class Sheep extends NPC {
 	@Override
 	public boolean interact(Char c) {
 		Bestiary.setSeen(getClass());
-		sprite.showStatus( CharSprite.NEUTRAL, Messages.get(this, Random.element( LINE_KEYS )) );
+		String s = Random.element(LINE_KEYS);
+		sprite.showStatus( CharSprite.NEUTRAL, Messages.get(this,s) );
+		if(s.equals("Baba")){
+			Dungeon.hero.经验(20);
+		}
 		if (c == Dungeon.hero) {
 			Dungeon.hero.spendAndNext(1f);
 			Sample.INSTANCE.play(Assets.Sounds.SHEEP, 1, Random.Float(0.91f, 1.1f));

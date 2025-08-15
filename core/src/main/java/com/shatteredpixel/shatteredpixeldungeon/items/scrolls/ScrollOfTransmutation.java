@@ -241,7 +241,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		n.enchantHardened = w.enchantHardened;
 
 		//technically a new set, ensure old one is destroyed (except for darts)
-		if (w instanceof MissileWeapon && w.isUpgradable()){
+		if (w instanceof MissileWeapon && w.可升级()){
 			Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) w).setID, Integer.MAX_VALUE);
 			//also extra missile weapon properties
 			((MissileWeapon) n).damage(100 - ((MissileWeapon)w).durabilityLeft());

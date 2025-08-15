@@ -7,8 +7,10 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x3;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x4;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x5;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x6;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x7;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -21,7 +23,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
@@ -177,7 +178,12 @@ public enum Talent {
 	//universal T4
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
 	//Ratmogrify T4
-	RATSISTANCE(215, 4), RATLOMACY(216, 4), RATFORCEMENTS(217, 4);
+	RATSISTANCE(215, 4), RATLOMACY(216, 4), RATFORCEMENTS(217, 4),
+
+	祭鉴之术(x7),痛命之术(x7+1),死血之术(x7+2),
+	血历之术(x7+4,3),血爆之术(x7+5,3),饮血之术(x7+6,3),换血之术(x7+7,3),
+	顶福精华(x7+9,4),强能处消(x7+10,4)
+	;
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.15f, 0.2f, 0.5f); }
@@ -683,6 +689,10 @@ public enum Talent {
 	}
 
 	public static void 喝药时(Hero hero, int cell, float factor ){
+
+		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+			hero.受伤(hero.最大生命(0.05f));
+		}
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
 			int shieldToGive = Math.round( factor * hero.最大生命);
@@ -825,7 +835,7 @@ public enum Talent {
 		}
 		if (hero.有天赋(Talent.受衅怒火)
 			&& hero.buff(ProvokedAngerTracker.class) != null){
-			dmg += hero.天赋点数(Talent.受衅怒火,3)+Math.round(hero.力量()*hero.天赋点数(Talent.受衅怒火,0.1f));
+			dmg += hero.天赋点数(Talent.受衅怒火,5)+Math.round(hero.力量()*hero.天赋点数(Talent.受衅怒火,0.2f));
 			hero.buff(ProvokedAngerTracker.class).detach();
 		}
 
@@ -943,7 +953,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
 				break;
 			case 巫女:
-				Collections.addAll(tierTalents, HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
+				Collections.addAll(tierTalents, 祭鉴之术, 痛命之术, 死血之术);
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -975,7 +985,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
 				break;
 			case 巫女:
-				Collections.addAll(tierTalents, RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
+				Collections.addAll(tierTalents, 血历之术, 血爆之术, 饮血之术, 换血之术);
 				break;
 		}
 		for (Talent talent : tierTalents){
@@ -1007,7 +1017,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, CLEANSE, LIGHT_READING);
 				break;
 			case 巫女:
-				Collections.addAll(tierTalents, CLEANSE, LIGHT_READING);
+				Collections.addAll(tierTalents, 顶福精华, 强能处消);
 				break;
 		}
 		for (Talent talent : tierTalents){

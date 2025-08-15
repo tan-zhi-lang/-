@@ -79,7 +79,7 @@ public class 破损纹章 extends Item {
 
 	public int maxShield( int armTier, int armLvl ){
 		// 5-15, based on equip tier and iron will
-		return (1 + 2*armTier + Dungeon.hero.天赋点数(Talent.钢铁意志,3));
+		return (1 + 2*armTier + Dungeon.hero.天赋点数(Talent.钢铁意志,5)+Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.钢铁意志,0.03f)));
 	}
 
 	@Override
@@ -184,7 +184,7 @@ public class 破损纹章 extends Item {
 
 	@Override
 	//scroll of upgrade can be used directly once, same as upgrading armor the seal is affixed to then removing it.
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return 等级() < 最大等级();
 	}
 	public int 最大等级(){
@@ -247,7 +247,10 @@ public class 破损纹章 extends Item {
 		private int cooldown = 0;
 		private float turnsSinceEnemies = 0;
 
-		private static int COOLDOWN_START = 150/2-Dungeon.hero.天赋点数(Talent.纹章荣耀,4);
+		private static int COOLDOWN_START = 150/2;
+		public int cool(){
+			return COOLDOWN_START-(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.纹章荣耀,4):0);
+		}
 
 		@Override
 		public int icon() {
@@ -272,7 +275,7 @@ public class 破损纹章 extends Item {
 			if (护盾量() > 0){
 				return GameMath.gate(0, 1f - 护盾量()/(float)maxShield(), 1);
 			} else if (coolingDown()){
-				return GameMath.gate(0, cooldown / (float)COOLDOWN_START, 1);
+				return GameMath.gate(0, cooldown / (float)cool(), 1);
 			} else {
 				return 0;
 			}
@@ -311,7 +314,7 @@ public class 破损纹章 extends Item {
 						if (cooldown > 0) {
 							float percentLeft = 护盾量() / (float)maxShield();
 							//max of 50% cooldown refund
-							cooldown = Math.max(0, (int)(cooldown - COOLDOWN_START * (percentLeft / 2f)));
+							cooldown = Math.max(0, (int)(cooldown - cool() * (percentLeft / 2f)));
 						}
 						减少(护盾量());
 					}
@@ -330,7 +333,7 @@ public class 破损纹章 extends Item {
 
 		public synchronized void activate() {
 			增加(maxShield());
-			cooldown = Math.max(0, cooldown+COOLDOWN_START);
+			cooldown = Math.max(0, cooldown+cool());
 			turnsSinceEnemies = 0;
 		}
 
@@ -339,8 +342,8 @@ public class 破损纹章 extends Item {
 		}
 
 		public void reduceCooldown(float percentage){
-			cooldown -= Math.round(COOLDOWN_START*percentage);
-			cooldown = Math.max(cooldown, -COOLDOWN_START);
+			cooldown -= Math.round(cool()*percentage);
+			cooldown = Math.max(cooldown, -cool());
 		}
 
 		public synchronized void setArmor(Armor arm){
@@ -350,7 +353,7 @@ public class 破损纹章 extends Item {
 		public synchronized int maxShield() {
 			//metamorphed iron will logic
 			if (target instanceof Hero hero&&hero.heroClass != HeroClass.WARRIOR && hero.有天赋(Talent.钢铁意志)){
-				return hero.天赋点数(Talent.钢铁意志,3)+hero.已损失生命(hero.天赋点数(Talent.钢铁意志,0.3f));
+				return hero.天赋点数(Talent.钢铁意志,5)+hero.已损失生命(hero.天赋点数(Talent.钢铁意志,0.03f));
 			}
 
 			if (armor != null && armor.isEquipped((Hero)target) && armor.checkSeal() != null) {

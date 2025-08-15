@@ -24,7 +24,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.SupplyRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.DocumentPage;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.GuidePage;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.RegionLorePage;
@@ -405,7 +404,7 @@ public abstract class RegularLevel extends Level {
 			}
 
 			if ((toDrop instanceof Artifact && Random.Int(2) == 0) ||
-					(toDrop.isUpgradable() && Random.Int(4 - toDrop.等级()) == 0)){
+					(toDrop.可升级() && Random.Int(4 - toDrop.等级()) == 0)){
 
 				float mimicChance = 1/10f * MimicTooth.mimicChanceMultiplier();
 				if (Dungeon.depth > 1 && Random.Float() < mimicChance && findMob(cell) == null){
@@ -625,6 +624,68 @@ public abstract class RegularLevel extends Level {
 			}
 		Random.popGenerator();
 
+		//lore pages
+		//TODO a fair bit going on here, I might want to refactor/externalize this in the future
+		Random.pushGenerator( Random.Long() );
+			if (Document.ADVENTURERS_GUIDE.allPagesFound()){
+
+				int region = 1+(Dungeon.depth-1)/5;
+
+				Document regionDoc;
+				switch( region ){
+					default: regionDoc = null; break;
+					case 1: regionDoc = Document.JANE_PAGE; break;
+					case 2: regionDoc = Document.JANE_PAGE; break;
+					case 3: regionDoc = Document.JANE_PAGE; break;
+					case 4: regionDoc = Document.JANE_PAGE; break;
+					case 5: regionDoc = Document.JANE_PAGE; break;
+				}
+
+				if (regionDoc != null && !regionDoc.allPagesFound()) {
+
+					Dungeon.LimitedDrops limit = limitedDocs.get(regionDoc);
+
+					if (limit == null || !limit.dropped()) {
+
+						float totalPages = 0;
+						float pagesFound = 0;
+						String pageToDrop = null;
+						for (String page : regionDoc.pageNames()) {
+							totalPages++;
+							if (!regionDoc.isPageFound(page)) {
+								if (pageToDrop == null) {
+									pageToDrop = page;
+								}
+							} else {
+								pagesFound++;
+							}
+						}
+						float percentComplete = pagesFound / totalPages;
+
+						// initial value is the first floor in a region
+						int targetFloor = 5*(region-1) + 1;
+						targetFloor += Math.round(3*percentComplete);
+
+						//TODO maybe drop last page in boss floor with custom logic?
+						if (Dungeon.depth >= targetFloor){
+							DocumentPage page = RegionLorePage.pageForDoc(regionDoc);
+							page.page(pageToDrop);
+							int cell = randomDropCell();
+							if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
+								map[cell] = Terrain.GRASS;
+								losBlocking[cell] = false;
+							}
+							drop(page, cell);
+							if (limit != null) limit.drop();
+						}
+
+					}
+
+				}
+
+			}
+		Random.popGenerator();
+
 		//ebony mimics >:)
 		Random.pushGenerator(Random.Long());
 			if (Random.Float() < MimicTooth.ebonyMimicChance()){
@@ -665,6 +726,7 @@ public abstract class RegularLevel extends Level {
 		limitedDocs.put(Document.CAVES_EXPLORER, Dungeon.LimitedDrops.LORE_CAVES);
 		limitedDocs.put(Document.CITY_WARLOCK, Dungeon.LimitedDrops.LORE_CITY);
 		limitedDocs.put(Document.HALLS_KING, Dungeon.LimitedDrops.LORE_HALLS);
+		limitedDocs.put(Document.JANE_PAGE, Dungeon.LimitedDrops.JANE_PAGE);
 	}
 	
 	public ArrayList<Room> rooms() {

@@ -30,11 +30,11 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 	
 	@Override
 	public void apply(Hero hero) {
-		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-			治疗药剂.pharmacophobiaProc(hero);
-		} else {
+//		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+//			治疗药剂.pharmacophobiaProc(hero);
+//		} else {
 			Buff.施加(hero, AquaHealing.class).set(Math.round(hero.最大生命 * 1.5f));
-		}
+//		}
 	}
 	
 	public static class AquaHealing extends Buff {

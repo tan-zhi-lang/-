@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndVictoryCongrats;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
@@ -171,9 +172,9 @@ public class HeroSelectScene extends PixelScene {
 		add(改动按钮);
 
 		for (HeroClass cl : HeroClass.values()){
-			if(cl==HeroClass.DUELIST||cl==HeroClass.CLERIC||cl==HeroClass.巫女){
-				break;
-			}
+//			if(cl==HeroClass.巫女){
+//				break;
+//			}
 			HeroBtn button = new HeroBtn(cl);
 			add(button);
 			heroBtns.add(button);
@@ -214,7 +215,7 @@ public class HeroSelectScene extends PixelScene {
 			add(btnOptions);
 		}
 
-		if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()){
+		if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()){
 			Dungeon.challenges = 0;
 			SPDSettings.challenges(0);
 			SPDSettings.customSeed("");
@@ -301,7 +302,7 @@ public class HeroSelectScene extends PixelScene {
 			add(btnFade);
 
 			btnOptions.setRect(startBtn.right(), startBtn.top(), 20, 21);
-			改动按钮.setRect(btnOptions.right()-改动按钮.width(), startBtn.top(), 20, 21);
+			改动按钮.setRect(btnOptions.right()-改动按钮.width()*2, startBtn.top(), 20, 21);
 
 			optionsPane.setPos(btnOptions.right(), btnOptions.top() - optionsPane.height() - 2);
 			align(optionsPane);
@@ -609,14 +610,14 @@ public class HeroSelectScene extends PixelScene {
 			StyledButton seedButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "custom_seed"), 6){
 				@Override
 				protected void onClick() {
-					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()){
-						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
-								Icons.get(Icons.SEED),
-								Messages.get(HeroSelectScene.class, "custom_seed"),
-								Messages.get(HeroSelectScene.class, "custom_seed_nowin"))
-						);
-						return;
-					}
+//					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()){
+//						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
+//								Icons.get(Icons.SEED),
+//								Messages.get(HeroSelectScene.class, "custom_seed"),
+//								Messages.get(HeroSelectScene.class, "custom_seed_nowin"))
+//						);
+//						return;
+//					}
 
 					String existingSeedtext = SPDSettings.customSeed();
 					ShatteredPixelDungeon.scene().addToFront( new WndTextInput(Messages.get(HeroSelectScene.class, "custom_seed_title"),
@@ -670,7 +671,7 @@ public class HeroSelectScene extends PixelScene {
 				protected void onClick() {
 					super.onClick();
 
-					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()){
+					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()){
 						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
 								Icons.get(Icons.CALENDAR),
 								Messages.get(HeroSelectScene.class, "daily"),
@@ -768,7 +769,7 @@ public class HeroSelectScene extends PixelScene {
 			StyledButton challengeButton = new StyledButton(Chrome.Type.BLANK, Messages.get(WndChallenges.class, "title"), 6){
 				@Override
 				protected void onClick() {
-					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !DeviceCompat.isDebug()){
+					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()){
 						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
 								Icons.get(Icons.CHALLENGE_GREY),
 								Messages.get(WndChallenges.class, "title"),

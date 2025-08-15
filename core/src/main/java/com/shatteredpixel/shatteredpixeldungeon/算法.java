@@ -1,5 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.watabou.noosa.Game;
 import com.watabou.utils.Random;
 
 public class 算法 {
@@ -9,6 +11,383 @@ public class 算法 {
     public static int x4=96;
     public static int x5=128;
     public static int x6=160;
+    public static int x7=192;
+
+    public static void 种子(){
+    try {
+        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+SPDSettings.customSeed());
+
+        Object item = classn.newInstance();
+        ((Item)item).放背包();
+
+    } catch (Exception e) {
+        try {
+            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.armor."+SPDSettings.customSeed());
+
+            Object item = classn.newInstance();
+            ((Item)item).放背包();
+
+        } catch (Exception e1) {
+
+            try {
+                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.artifacts."+SPDSettings.customSeed());
+
+                Object item = classn.newInstance();
+                ((Item)item).放背包();
+
+            } catch (Exception e2) {
+
+                try {
+                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bags."+SPDSettings.customSeed());
+
+                    Object item = classn.newInstance();
+                    ((Item)item).放背包();
+
+                } catch (Exception e3) {
+
+                    try {
+                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bombs."+SPDSettings.customSeed());
+
+                        Object item = classn.newInstance();
+                        ((Item)item).放背包();
+
+                    } catch (Exception e4) {
+
+                        try {
+                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.food."+SPDSettings.customSeed());
+
+                            Object item = classn.newInstance();
+                            ((Item)item).放背包();
+
+                        } catch (Exception e5) {
+
+                            try {
+                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions."+SPDSettings.customSeed());
+
+                                Object item = classn.newInstance();
+                                ((Item)item).放背包();
+
+                            } catch (Exception e6) {
+
+                                try {
+                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.remains."+SPDSettings.customSeed());
+
+                                    Object item = classn.newInstance();
+                                    ((Item)item).放背包();
+
+                                } catch (Exception e7) {
+
+                                    try {
+                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.rings."+SPDSettings.customSeed());
+
+                                        Object item = classn.newInstance();
+                                        ((Item)item).放背包();
+
+                                    } catch (Exception e8) {
+
+                                        try {
+                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls."+SPDSettings.customSeed());
+
+                                            Object item = classn.newInstance();
+                                            ((Item)item).放背包();
+
+                                        } catch (Exception e9) {
+
+                                            try {
+                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.spells."+SPDSettings.customSeed());
+
+                                                Object item = classn.newInstance();
+                                                ((Item)item).放背包();
+
+                                            } catch (Exception e10) {
+
+                                                try {
+                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.stones."+SPDSettings.customSeed());
+
+                                                    Object item = classn.newInstance();
+                                                    ((Item)item).放背包();
+
+                                                } catch (Exception e11) {
+
+                                                    try {
+                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.trinkets."+SPDSettings.customSeed());
+
+                                                        Object item = classn.newInstance();
+                                                        ((Item)item).放背包();
+
+                                                    } catch (Exception e12) {
+
+                                                        try {
+                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.wands."+SPDSettings.customSeed());
+
+                                                            Object item = classn.newInstance();
+                                                            ((Item)item).放背包();
+
+                                                        } catch (Exception e13) {
+
+                                                            try {
+                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon."+SPDSettings.customSeed());
+
+                                                                Object item = classn.newInstance();
+                                                                ((Item)item).放背包();
+
+                                                            } catch (Exception e14) {
+
+                                                                try {
+                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee."+SPDSettings.customSeed());
+
+                                                                    Object item = classn.newInstance();
+                                                                    ((Item)item).放背包();
+
+                                                                } catch (Exception e15) {
+                                                                    try {
+                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles."+SPDSettings.customSeed());
+
+                                                                        Object item = classn.newInstance();
+                                                                        ((Item)item).放背包();
+
+                                                                    } catch (Exception e16) {
+                                                                        try {
+                                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic."+SPDSettings.customSeed());
+
+                                                                            Object item = classn.newInstance();
+                                                                            ((Item)item).放背包();
+
+                                                                        } catch (Exception e17) {
+                                                                            try {
+                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.brews."+SPDSettings.customSeed());
+
+                                                                                Object item = classn.newInstance();
+                                                                                ((Item)item).放背包();
+
+                                                                            } catch (Exception e18) {
+                                                                                try {
+                                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs."+SPDSettings.customSeed());
+
+                                                                                    Object item = classn.newInstance();
+                                                                                    ((Item)item).放背包();
+
+                                                                                } catch (Exception e19) {
+                                                                                    try {
+                                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."+SPDSettings.customSeed());
+
+                                                                                        Object item = classn.newInstance();
+                                                                                        ((Item)item).放背包();
+
+                                                                                    } catch (Exception e20) {
+
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    }
+    public static void 种子(String s){
+    try {
+        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+s);
+
+        Object item = classn.newInstance();
+        ((Item)item).放背包();
+
+    } catch (Exception e) {
+        try {
+            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.armor."+s);
+
+            Object item = classn.newInstance();
+            ((Item)item).放背包();
+
+        } catch (Exception e1) {
+
+            try {
+                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.artifacts."+s);
+
+                Object item = classn.newInstance();
+                ((Item)item).放背包();
+
+            } catch (Exception e2) {
+
+                try {
+                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bags."+s);
+
+                    Object item = classn.newInstance();
+                    ((Item)item).放背包();
+
+                } catch (Exception e3) {
+
+                    try {
+                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bombs."+s);
+
+                        Object item = classn.newInstance();
+                        ((Item)item).放背包();
+
+                    } catch (Exception e4) {
+
+                        try {
+                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.food."+s);
+
+                            Object item = classn.newInstance();
+                            ((Item)item).放背包();
+
+                        } catch (Exception e5) {
+
+                            try {
+                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions."+s);
+
+                                Object item = classn.newInstance();
+                                ((Item)item).放背包();
+
+                            } catch (Exception e6) {
+
+                                try {
+                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.remains."+s);
+
+                                    Object item = classn.newInstance();
+                                    ((Item)item).放背包();
+
+                                } catch (Exception e7) {
+
+                                    try {
+                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.rings."+s);
+
+                                        Object item = classn.newInstance();
+                                        ((Item)item).放背包();
+
+                                    } catch (Exception e8) {
+
+                                        try {
+                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls."+s);
+
+                                            Object item = classn.newInstance();
+                                            ((Item)item).放背包();
+
+                                        } catch (Exception e9) {
+
+                                            try {
+                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.spells."+s);
+
+                                                Object item = classn.newInstance();
+                                                ((Item)item).放背包();
+
+                                            } catch (Exception e10) {
+
+                                                try {
+                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.stones."+s);
+
+                                                    Object item = classn.newInstance();
+                                                    ((Item)item).放背包();
+
+                                                } catch (Exception e11) {
+
+                                                    try {
+                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.trinkets."+s);
+
+                                                        Object item = classn.newInstance();
+                                                        ((Item)item).放背包();
+
+                                                    } catch (Exception e12) {
+
+                                                        try {
+                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.wands."+s);
+
+                                                            Object item = classn.newInstance();
+                                                            ((Item)item).放背包();
+
+                                                        } catch (Exception e13) {
+
+                                                            try {
+                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon."+s);
+
+                                                                Object item = classn.newInstance();
+                                                                ((Item)item).放背包();
+
+                                                            } catch (Exception e14) {
+
+                                                                try {
+                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee."+s);
+
+                                                                    Object item = classn.newInstance();
+                                                                    ((Item)item).放背包();
+
+                                                                } catch (Exception e15) {
+                                                                    try {
+                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles."+s);
+
+                                                                        Object item = classn.newInstance();
+                                                                        ((Item)item).放背包();
+
+                                                                    } catch (Exception e16) {
+                                                                        try {
+                                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic."+s);
+
+                                                                            Object item = classn.newInstance();
+                                                                            ((Item)item).放背包();
+
+                                                                        } catch (Exception e17) {
+                                                                            try {
+                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.brews."+s);
+
+                                                                                Object item = classn.newInstance();
+                                                                                ((Item)item).放背包();
+
+                                                                            } catch (Exception e18) {
+                                                                                try {
+                                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs."+s);
+
+                                                                                    Object item = classn.newInstance();
+                                                                                    ((Item)item).放背包();
+
+                                                                                } catch (Exception e19) {
+                                                                                    try {
+                                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."+s);
+
+                                                                                        Object item = classn.newInstance();
+                                                                                        ((Item)item).放背包();
+
+                                                                                    } catch (Exception e20) {
+
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    }
+    public static boolean isDebug(){
+        return SPDSettings.customSeed().equals("调试")||Game.version.contains("INDEV");
+    }
     public static boolean 概率学(int x){
         return Random.Int(1,100)<= x;
     }

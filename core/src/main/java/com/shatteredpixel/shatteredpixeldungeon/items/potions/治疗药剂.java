@@ -37,9 +37,9 @@ public class 治疗药剂 extends Potion {
 	}
 
 	public static void heal( Char ch ){
-		if (ch == Dungeon.hero && Dungeon.isChallenged(Challenges.NO_HEALING)){
-			pharmacophobiaProc(Dungeon.hero);
-		} else {
+//		if (ch == Dungeon.hero && Dungeon.isChallenged(Challenges.NO_HEALING)){
+//			pharmacophobiaProc(Dungeon.hero);
+//		} else {
 			//starts out healing 30 hp, equalizes with hero health total at level 11
 			Healing healing = Buff.施加(ch, Healing.class);
 			healing.setHeal((int) (0.9f * ch.最大生命 + 14), 0.34f, 0);
@@ -47,7 +47,7 @@ public class 治疗药剂 extends Potion {
 			if (ch == Dungeon.hero){
 				GLog.p( Messages.get(治疗药剂.class, "heal") );
 			}
-		}
+//		}
 	}
 
 	public static void pharmacophobiaProc( Hero hero ){

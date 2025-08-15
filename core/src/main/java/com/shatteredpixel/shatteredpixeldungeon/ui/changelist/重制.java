@@ -44,6 +44,10 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.杂物袋), "杂物袋",
+				"商店出售杂物袋。"));
+		changes.addButton( new ChangeButton(Icons.SEED_POUCH.get(), "种子",
+				"现在输入代码名可以直接生成在背包。"));
 		changes.addButton( new ChangeButton(Icons.DISPLAY.get(), "动画加快",
 				"添加可调整动画加快按钮。"));
 		changes.addButton( new ChangeButton(Icons.CONTROLLER.get(), "固定移速",
@@ -55,13 +59,13 @@ public class 重制 {
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), Messages.get(ChangesScene.class, "misc"),
-				"英雄相关\n\n" +
+				"英雄\n\n" +
 						"最大生命+10，最大命中+10，最大闪避+5。\n"+
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
 						"再生额外恢复1%最大生命。\n"
 						,
-						"杂项相关\n\n" +
+						"杂项\n\n" +
 						"根骨之戒力量+1 => +2。提升生命系数1.035 => 1.07。\n" +
 						"投掷和弓在近距离+50%最大命中，非近距离-50%最大命中。\n" +
 						"优化感知、视野范围、光照范围计算。"
@@ -71,11 +75,21 @@ public class 重制 {
 				"不再半透明。"));
 		changes.addButton( new ChangeButton(new GhostSprite(), "悲伤幽灵",
 				"移速50% => 34%。"));
-		changes.addButton( new ChangeButton(Icons.TALENT.get(), "升级相关",
-				"升级提升的命中和生命+1.05。最大等级-5，升级所需经验初始+2，每级+1。\n" ));
+		changes.addButton( new ChangeButton(Icons.CHALLENGE_COLOR.get(), "挑战",
+				"恐药异症 => 喝药会受到5%最大生命伤害。\n" ));
+		changes.addButton( new ChangeButton(Icons.TALENT.get(), "升级",
+				"升级提升的命中和生命+1.05。最大等级-5，升级所需经验初始+4，每级+2。\n" ));
 		changes.addButton( new ChangeButton(new ThiefSprite(), "疯狂小偷",
 				"偷后移速83% => 75%。\n" +
 						"防御时掉落金币1 => 10"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.DUST), "尸尘",
+				"金币数量1 => 自然生成金币。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAR_HAMMER), "武技",
+				"武器充能最大充能8 => 10。\n" +
+						"勇士职业不改变武器最大充能。\n" +
+						"最大充能 2+根据英雄等级34% => 3+武器等级/2。",
+				"顺劈统一+34%伤害。\n" +
+				"连击统一攻速回合内攻击两次。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.CROWN), "护甲技能",
 				"矮人国王不掉落，护甲技能移除。"));
 		changes.addButton( new ChangeButton(Icons.INFO.get(), "信息面板",
@@ -115,6 +129,9 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_INTUITION), "感知符石",
 					"额外生成一个感知符石。"
 				));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
+					"升级获得1充能。"
+				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
 					"注魔秘卷\n" +
 							"还附带一次升级。"
@@ -145,6 +162,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
 				"吃饭恢复1+1%最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
+				"改变等级时获得1充能。\n" +
 				"自带+1强化等级。\n" +
 						"自带法杖回收，且能吸收灌注法杖一半的等级。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.SUCKER_PUNCH), "伏击机制",
@@ -164,6 +182,8 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
 				"最小攻击+2，最大攻击+1。\n" +
 						"能触发部分东西。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ALCHEMIZE), "炼金菱晶",
+				"商店卖数量x4，价格-75%。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.时光沙漏), "时光沙漏",
 				"攻击不会打断时间冻结。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_AUGMENTATION), "强化符石",

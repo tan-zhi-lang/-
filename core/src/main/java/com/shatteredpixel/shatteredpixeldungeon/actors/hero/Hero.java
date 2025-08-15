@@ -48,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
@@ -65,6 +66,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HallowedGroun
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
@@ -85,6 +87,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
@@ -131,6 +134,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfCha
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -143,6 +147,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Scimitar;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -161,6 +166,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -183,6 +189,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 public class Hero extends Char {
@@ -222,6 +229,7 @@ public class Hero extends Char {
 	
 	public int 力量;
 	public int 根骨=0;
+	public int 连击=0;
 
 	public float awareness;
 	
@@ -251,42 +259,43 @@ public class Hero extends Char {
 		int curHT = 最大生命;
 		
 		最大生命 = 30 + Math.round((5+1.05f)*(等级 -1))+根骨*20 + HTBoost;
-		float multiplier = RingOfMight.HTMultiplier(this);
-		最大生命 = Math.round(multiplier * 最大生命);
 		
 		if (buff(根骨秘药.HTBoost.class) != null){
 			最大生命 += buff(根骨秘药.HTBoost.class).boost();
 		}
 
+		if (boostHP){
+			生命 += Math.max(最大生命 - curHT, 0);
+		}
 		if (belongings.armor() instanceof 巫服){
 			最大生命 *=1.25f;
 		}
 
-		if (boostHP){
-			生命 += Math.max(最大生命 - curHT, 0);
-		}
+		float multiplier = RingOfMight.HTMultiplier(this);
+		multiplier*=综合属性();
+		最大生命 = Math.round(multiplier * 最大生命);
+
 		生命 = Math.min(生命, 最大生命);
 	}
 
 	public int 力量() {
 
-		int strBonus = 0;
+		int strBonus = 力量;
 
-		strBonus += RingOfMight.strengthBonus( this )*2;
-		
 		AdrenalineSurge buff = buff(AdrenalineSurge.class);
 		if (buff != null){
 			strBonus += buff.boost();
 		}
+		strBonus *=1+天赋点数(Talent.STRONGMAN,0.08f);
 
-		if (有天赋(Talent.STRONGMAN)){
-			strBonus += Math.round(力量 * 天赋点数(Talent.STRONGMAN,0.08F));
-		}
+
 		if (heroClass(HeroClass.WARRIOR)){
-			strBonus+= Math.round(力量*0.1f);
+			strBonus*= 1.1f;
 		}
 
-		return 力量 + strBonus;
+		strBonus*=综合属性();
+
+		return strBonus+RingOfMight.strengthBonus( this )*2;
 	}
 
 	private static final String CLASS       = "class";
@@ -296,6 +305,7 @@ public class Hero extends Char {
 	private static final String LEVEL		= "lvl";
 	private static final String 力量x		= "力量";
 	private static final String 根骨x		= "根骨";
+	private static final String 连击x		= "连击";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
 	
@@ -312,6 +322,7 @@ public class Hero extends Char {
 		bundle.put( LEVEL, 等级);
 		bundle.put( 力量x, 力量);
 		bundle.put( 根骨x, 根骨);
+		bundle.put( 连击x, 连击);
 		bundle.put( EXPERIENCE, 当前经验);
 		
 		bundle.put( HTBOOST, HTBoost );
@@ -325,6 +336,7 @@ public class Hero extends Char {
 		等级 = bundle.getInt( LEVEL );
 		力量 = bundle.getInt( 力量x );
 		根骨 = bundle.getInt( 根骨x );
+		连击 = bundle.getInt( 连击x );
 		当前经验 = bundle.getInt( EXPERIENCE );
 
 		HTBoost = bundle.getInt(HTBOOST);
@@ -562,6 +574,9 @@ public class Hero extends Char {
 		KindOfWeapon wep = belongings.attackingWeapon();
 		
 		float accuracy = 1;
+
+		accuracy*=综合属性();
+		accuracy*=1+天赋点数(Talent.顶福精华,0.2f);
 		accuracy *= RingOfAccuracy.accuracyMultiplier( this );
 		
 		//precise assault and liquid agility
@@ -639,6 +654,9 @@ public class Hero extends Char {
 		}
 		
 		float evasion = (最大闪避+(等级-1));
+
+		evasion*=综合属性();
+		evasion*=1+天赋点数(Talent.顶福精华,0.2f);
 
 		if(belongings.armor instanceof 风衣){
 			evasion*=1.25f;
@@ -779,6 +797,7 @@ public class Hero extends Char {
 
 		float speed = super.移速();
 
+		speed*=综合属性();
 		if(belongings.armor instanceof 披风){
 			speed*=1.25f;
 		}
@@ -875,6 +894,7 @@ public class Hero extends Char {
 		}
 
 		float delay = 1f;
+		delay/=综合属性();
 
 		if (!RingOfForce.fightingUnarmed(this)) {
 			
@@ -921,32 +941,48 @@ public class Hero extends Char {
 		spend( time );
 		next();
 	}
-	
+
+	@Override
+	public boolean 免疫(Class effect ){
+		HashSet<Class> immunes = new HashSet<>(immunities);
+
+		if(belongings.armor instanceof 铠甲){
+			immunes.add( Chill.class );
+		}
+		if(belongings.armor instanceof 法袍){
+			immunes.add( Fire.class );
+		}
+		if(belongings.armor instanceof 风衣){
+			immunes.add( ToxicGas.class );
+		}
+		if(belongings.armor instanceof 祭服){
+			immunes.add( Degrade.class );
+		}
+
+
+		for (Property p : properties()){
+			immunes.addAll(p.immunities());
+		}
+		for (Buff b : buffs()){
+			immunes.addAll(b.immunities());
+		}
+		if (glyphLevel(Brimstone.class) >= 0){
+			immunes.add(燃烧.class);
+		}
+
+		for (Class c : immunes){
+			if (c.isAssignableFrom(effect)){
+				return true;
+			}
+		}
+		return false;
+	}
 	@Override
 	public boolean act() {
+
 		if(Dungeon.level.在草丛(this)&&有天赋(Talent.自然丰收)){
 		float shield = 天赋点数(Talent.自然丰收,0.3f);
 		Buff.施加(this, Hunger.class).吃饭(shield);
-		}
-		if(belongings.armor instanceof 铠甲){
-			immunities.add( Chill.class );
-		}else{
-			immunities.remove( Chill.class );
-		}
-		if(belongings.armor instanceof 法袍){
-			immunities.add( Fire.class );
-		}else{
-			immunities.remove( Fire.class );
-		}
-		if(belongings.armor instanceof 风衣){
-			immunities.add( ToxicGas.class );
-		}else{
-			immunities.remove( ToxicGas.class );
-		}
-		if(belongings.armor instanceof 祭服){
-			immunities.add( Degrade.class );
-		}else{
-			immunities.remove( Degrade.class );
 		}
 
 		//calls to dungeon.observe will also update hero's local FOV.
@@ -1698,7 +1734,9 @@ public class Hero extends Char {
 			return super.glyphLevel(cls);
 		}
 	}
-
+	public void 受伤(int dmg){
+		受伤时(dmg,this);
+	}
 	@Override
 	public void 受伤时(int dmg, Object src ) {
 		if (buff(时光沙漏.timeStasis.class) != null
@@ -2083,6 +2121,9 @@ public class Hero extends Char {
 
 		return true;
 	}
+	public void 经验(int exp){
+		经验(exp,getClass());
+	}
 	
 	public void 经验(int exp, Class source ) {
 
@@ -2195,9 +2236,9 @@ public class Hero extends Char {
 	public int 升级所需(int lvl ){
 		lvl--;
 		if (heroClass(HeroClass.CLERIC)){
-			return 10 + lvl * 5;
+			return 12 + lvl * 6;
 		}
-		return 12 + lvl * 6;
+		return 14 + lvl * 7;
 	}
 	
 	public boolean isStarving() {
@@ -2775,5 +2816,36 @@ public class Hero extends Char {
 	}
 	public int 视野范围(float x){
 		return Math.round(x*视野范围());
+	}
+	public float 综合属性(){
+		float x=1;
+		x+=满天赋(Talent.ENHANCED_COMBO)?0.25f:0;
+		return x;
+	}
+	public boolean 连击(final Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
+
+		AttackIndicator.target(enemy);
+
+		boolean wasAlly = enemy.alignment == alignment;
+		boolean hit=attack(enemy, dmgMulti, dmgBonus, accMulti);
+
+		Invisibility.dispel();
+
+		连击--;
+		//fury attacks as many times as you have combo count
+		if (连击 > 0 && enemy.isAlive() && canAttack(enemy) &&
+				(wasAlly || enemy.alignment != alignment)){
+			sprite.attack(enemy.pos, new Callback() {
+				@Override
+				public void call() {
+					连击(enemy,dmgMulti,dmgBonus,accMulti);
+				}
+			});
+		} else {
+			Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
+			spendAndNext(攻速());
+		}
+		return hit;
+
 	}
 }

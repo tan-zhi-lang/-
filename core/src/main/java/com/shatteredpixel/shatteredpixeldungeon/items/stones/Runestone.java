@@ -47,7 +47,7 @@ public abstract class Runestone extends Item {
 	protected abstract void activate(int cell);
 	
 	@Override
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return false;
 	}
 	

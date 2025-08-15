@@ -88,22 +88,14 @@ public class Sai extends MeleeWeapon {
 				AttackIndicator.target(enemy);
 
 				int recentHits = 0;
-				ComboStrikeTracker buff = hero.buff(ComboStrikeTracker.class);
-				if (buff != null){
-					recentHits = buff.hits;
-					buff.detach();
-				}
-
-				boolean hit = hero.attack(enemy, 1f + multiPerHit*recentHits, boostPerHit*recentHits, Char.INFINITE_ACCURACY);
+				hero.连击=2;
+				boolean hit = hero.连击(enemy, 1f + multiPerHit*recentHits, boostPerHit*recentHits, Char.INFINITE_ACCURACY);
 				if (hit && !enemy.isAlive()){
 					wep.onAbilityKill(hero, enemy);
 				}
 
 				Invisibility.dispel();
 				hero.spendAndNext(hero.攻速());
-				if (recentHits >= 2 && hit){
-					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
-				}
 
 				wep.afterAbilityUsed(hero);
 			}

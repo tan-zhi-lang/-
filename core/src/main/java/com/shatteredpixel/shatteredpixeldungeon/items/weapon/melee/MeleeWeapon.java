@@ -49,6 +49,7 @@ public class MeleeWeapon extends Weapon {
 		super.activate(ch);
 		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.DUELIST){
 			Buff.施加(ch, Charger.class);
+			curItem=this;
 		}
 	}
 
@@ -392,7 +393,7 @@ public class MeleeWeapon extends Weapon {
 
 	public static class Charger extends Buff implements ActionIndicator.Action {
 
-		public int charges = 2;
+		public int charges = 3;
 		public float partialCharge;
 
 		@Override
@@ -452,12 +453,7 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		public int chargeCap(){
-			//caps at level 19 with 8 or 10 charges
-			if (Dungeon.hero.subClass == HeroSubClass.CHAMPION){
-				return Math.min(10, 4 + (Dungeon.hero.等级 - 1) / 3);
-			} else {
-				return Math.min(8, 2 + (Dungeon.hero.等级 - 1) / 3);
-			}
+			return Math.min(10, 3+ curItem.强化等级()/2);
 		}
 
 		public void gainCharge( float charge ){

@@ -188,11 +188,11 @@ public class Combo extends Buff implements ActionIndicator.Action {
 	}
 
 	public enum ComboMove {
-		CLOBBER(2 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0x00FF00),
-		SLAM   (4 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xCCFF00),
-		PARRY  (6 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xFFFF00),
-		CRUSH  (8 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xFFCC00),
-		FURY   (10 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0), 0xFF0000);
+		CLOBBER(2, 0x00FF00),
+		SLAM   (4, 0xCCFF00),
+		PARRY  (6, 0xFFFF00),
+		CRUSH  (8, 0xFFCC00),
+		FURY   (10, 0xFF0000);
 
 		public int comboReq, tintColor;
 
@@ -208,31 +208,31 @@ public class Combo extends Buff implements ActionIndicator.Action {
 		public String desc(int count){
 			switch (this){
 				case CLOBBER: default:
-					if (count >= 7 -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 1){
+					if (count >= 7&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 1){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case SLAM:
-					if (count >= 3  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*20);
 					} else {
 						return Messages.get(this, name() + ".desc", count*20);
 					}
 				case PARRY:
-					if (count >= 9  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 2){
+					if (count >= 9&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 2){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case CRUSH:
-					if (count >= 3  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*25);
 					} else {
 						return Messages.get(this,  name() + ".desc", count*25);
 					}
 				case FURY:
-					if (count >= 3  -(Dungeon.hero.满天赋(Talent.ENHANCED_COMBO)?1:0)&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
 						return Messages.get(this, name() + ".empower_desc", count/3);
 					} else {
 						return Messages.get(this,  name() + ".desc");

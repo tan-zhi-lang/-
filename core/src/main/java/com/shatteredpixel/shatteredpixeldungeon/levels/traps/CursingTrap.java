@@ -39,7 +39,7 @@ public class CursingTrap extends Trap {
 		Heap heap = Dungeon.level.heaps.get( pos );
 		if (heap != null){
 			for (Item item : heap.items){
-				if (item.isUpgradable() && !(item instanceof MissileWeapon))
+				if (item.可升级() && !(item instanceof MissileWeapon))
 					curse(item);
 			}
 		}

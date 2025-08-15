@@ -766,7 +766,7 @@ public class WndJournal extends WndTabbed {
 					}
 
 					if (Catalog.useCount(itemClass) > 1) {
-						if (item.isUpgradable() || item instanceof Artifact) {
+						if (item.可升级() || item instanceof Artifact) {
 							desc += "\n\n" + Messages.get(CatalogTab.class, "upgrade_count", Catalog.useCount(itemClass));
 						} else if (item instanceof Trinket) {
 							desc += "\n\n" + Messages.get(CatalogTab.class, "trinket_count", Catalog.useCount(itemClass));

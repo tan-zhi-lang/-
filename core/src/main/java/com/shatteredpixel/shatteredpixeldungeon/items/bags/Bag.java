@@ -114,7 +114,7 @@ public class Bag extends Item implements Iterable<Item> {
 	}
 
 	@Override
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return false;
 	}
 	

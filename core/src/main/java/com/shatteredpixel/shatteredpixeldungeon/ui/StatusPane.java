@@ -252,7 +252,9 @@ public class StatusPane extends Component {
 		super.update();
 		
 		int health = Dungeon.hero.生命;
-		int hunger = 450-Dungeon.hero.buff(Hunger.class).hunger();
+		int hunger = 450-
+				(Dungeon.hero.hasbuff(Hunger.class)?
+						Dungeon.hero.buff(Hunger.class).hunger():450);
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.最大生命;
 

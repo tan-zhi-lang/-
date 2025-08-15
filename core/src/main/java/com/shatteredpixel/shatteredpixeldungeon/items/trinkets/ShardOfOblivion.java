@@ -74,7 +74,7 @@ public class ShardOfOblivion extends Trinket {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return !item.isIdentified() && item.isUpgradable();
+			return !item.isIdentified() && item.可升级();
 		}
 
 		@Override

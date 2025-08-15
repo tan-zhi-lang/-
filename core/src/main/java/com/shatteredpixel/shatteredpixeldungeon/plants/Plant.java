@@ -178,7 +178,7 @@ public abstract class Plant implements Bundlable {
 		}
 		
 		@Override
-		public boolean isUpgradable() {
+		public boolean 可升级() {
 			return false;
 		}
 		

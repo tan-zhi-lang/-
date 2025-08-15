@@ -757,6 +757,7 @@ public class 物品表 {
 	public static final int BANDOLIER   = BAGS+4;
 	public static final int HOLSTER     = BAGS+5;
 	public static final int VIAL        = BAGS+6;
+	public static final int 杂物袋        = BAGS+7;
 	static{
 		assignItemRect(水袋,   16, 14);
 		assignItemRect(BACKPACK,    16, 16);
@@ -765,6 +766,7 @@ public class 物品表 {
 		assignItemRect(BANDOLIER,   15, 16);
 		assignItemRect(HOLSTER,     15, 16);
 		assignItemRect(VIAL,        12, 12);
+		assignItemRect(杂物袋,        13, 14);
 	}
 
 	private static final int DOCUMENTS  =                                   xy(1, 32);  //16 slots
@@ -775,6 +777,7 @@ public class 物品表 {
 	public static final int CAVES_PAGE  = DOCUMENTS+4;
 	public static final int CITY_PAGE   = DOCUMENTS+5;
 	public static final int HALLS_PAGE  = DOCUMENTS+6;
+	public static final int JANE_PAGE  = DOCUMENTS+7;
 	static{
 		assignItemRect(GUIDE_PAGE,  10, 11);
 		assignItemRect(ALCH_PAGE,   10, 11);
@@ -783,6 +786,7 @@ public class 物品表 {
 		assignItemRect(CAVES_PAGE,  10, 11);
 		assignItemRect(CITY_PAGE,   10, 11);
 		assignItemRect(HALLS_PAGE,  10, 11);
+		assignItemRect(JANE_PAGE,  10, 11);
 	}
 
 	//for smaller 8x8 icons that often accompany an item sprite

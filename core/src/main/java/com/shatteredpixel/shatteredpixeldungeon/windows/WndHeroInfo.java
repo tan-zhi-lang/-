@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
@@ -93,7 +94,7 @@ public class WndHeroInfo extends WndTabbed {
 			}
 		});
 
-		if (Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_2) || DeviceCompat.isDebug()) {
+		if (Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_2) || 算法.isDebug()) {
 			subclassInfo = new SubclassInfoTab(cl);
 			add(subclassInfo);
 			subclassInfo.setSize(WIDTH, MIN_HEIGHT);
@@ -108,7 +109,7 @@ public class WndHeroInfo extends WndTabbed {
 			});
 		}
 
-		if (Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4) || DeviceCompat.isDebug()) {
+		if (Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4) || 算法.isDebug()) {
 			abilityInfo = new ArmorAbilityInfoTab(cl);
 //			add(abilityInfo);
 // 护甲技能

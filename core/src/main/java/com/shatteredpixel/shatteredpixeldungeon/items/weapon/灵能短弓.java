@@ -263,7 +263,7 @@ public class 灵能短弓 extends Weapon {
 	}
 	
 	@Override
-	public boolean isUpgradable() {
+	public boolean 可升级() {
 		return false;
 	}
 	

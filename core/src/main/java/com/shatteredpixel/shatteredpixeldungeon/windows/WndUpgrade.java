@@ -414,7 +414,7 @@ public class WndUpgrade extends Window {
 
 				hide();
 
-				if (moreUpgradeItem != null && toUpgrade.isUpgradable()){
+				if (moreUpgradeItem != null && toUpgrade.可升级()){
 					GameScene.show(new WndUpgrade(moreUpgradeItem, upgraded, false));
 				}
 			}

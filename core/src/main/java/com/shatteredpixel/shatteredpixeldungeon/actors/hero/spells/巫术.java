@@ -53,36 +53,36 @@ public abstract class 巫术 {
 
 	public void onSpellCast(灵月法杖 tome, Hero hero){
 		Invisibility.dispel();
-		//施法获得护盾
-//		if (hero.buff(Talent.SatiatedSpellsTracker.class) != null){
-//			int amount = hero.天赋点数(Talent.,5);
-//			Buff.施加(hero, Barrier.class).设置(amount);
-//			Char ally = PowerOfMany.getPoweredAlly();
-//			if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-//				Buff.施加(ally, Barrier.class).设置(amount);
-//			}
-//			hero.buff(Talent.SatiatedSpellsTracker.class).detach();
-//		}
 		tome.wandUsed();
-		Talent.onArtifactUsed(hero);
-
-		if (hero.buff(AscendedForm.AscendBuff.class) != null){
-			hero.buff(AscendedForm.AscendBuff.class).spellCasts++;
-			hero.buff(AscendedForm.AscendBuff.class).增加((int)(10*chargeUse(hero)));
-		}
 	}
 
 	public static ArrayList<巫术> getSpellList(Hero cleric, int tier){
 		ArrayList<巫术> spells = new ArrayList<>();
 
 		if (tier == 1) {
-
-			spells.add(死血之术.INSTANCE);
+			if (cleric.有天赋(Talent.祭鉴之术)) {
+				spells.add(祭鉴之术.INSTANCE);
+			}
+			if (cleric.有天赋(Talent.痛命之术)) {
+				spells.add(痛命之术.INSTANCE);
+			}
+			if (cleric.有天赋(Talent.死血之术)) {
+				spells.add(死血之术.INSTANCE);
+			}
 		} else if (tier == 2) {
-
+			if (cleric.有天赋(Talent.血历之术)) {
+				spells.add(血历之术.INSTANCE);
+			}
+			if (cleric.有天赋(Talent.血爆之术)) {
+				spells.add(血爆之术.INSTANCE);
+			}
+			if (cleric.有天赋(Talent.饮血之术)) {
+				spells.add(饮血之术.INSTANCE);
+			}
+			if (cleric.有天赋(Talent.换血之术)) {
+				spells.add(换血之术.INSTANCE);
+			}
 		} else if (tier == 3){
-
-
 
 		} else if (tier == 4){
 
@@ -94,7 +94,14 @@ public abstract class 巫术 {
 
 	public static ArrayList<巫术> getAllSpells() {
 		ArrayList<巫术> spells = new ArrayList<>();
+		spells.add(祭鉴之术.INSTANCE);
 		spells.add(死血之术.INSTANCE);
+		spells.add(痛命之术.INSTANCE);
+
+		spells.add(血历之术.INSTANCE);
+		spells.add(血爆之术.INSTANCE);
+		spells.add(饮血之术.INSTANCE);
+		spells.add(换血之术.INSTANCE);
 		return spells;
 	}
 }

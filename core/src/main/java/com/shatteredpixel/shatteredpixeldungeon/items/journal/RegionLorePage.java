@@ -14,6 +14,7 @@ public class RegionLorePage {
 			case CAVES_EXPLORER:            return new RegionLorePage.Caves();
 			case CITY_WARLOCK:              return new RegionLorePage.City();
 			case HALLS_KING:                return new RegionLorePage.Halls();
+			case JANE_PAGE:                return new RegionLorePage.Jane();
 		}
 	}
 
@@ -69,6 +70,17 @@ public class RegionLorePage {
 		@Override
 		public Document document() {
 			return Document.HALLS_KING;
+		}
+	}
+
+	public static class Jane extends DocumentPage {
+		{
+			image = 物品表.JANE_PAGE;
+		}
+
+		@Override
+		public Document document() {
+			return Document.JANE_PAGE;
 		}
 	}
 

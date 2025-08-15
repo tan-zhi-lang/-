@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -22,6 +23,7 @@ public class 水袋 extends Item {
 	private static final int MAX_VOLUME	= 20;
 
 	private static final String AC_DRINK	= "DRINK";
+	private static final String AC_合成	= "合成";
 
 	private static final float TIME_TO_DRINK = 1f;
 
@@ -35,7 +37,7 @@ public class 水袋 extends Item {
 		unique = true;
 	}
 
-	private int volume = 0;
+	public int volume = 0;
 
 	private static final String VOLUME	= "volume";
 
@@ -56,6 +58,9 @@ public class 水袋 extends Item {
 		ArrayList<String> actions = super.actions( hero );
 		if (volume > 0) {
 			actions.add( AC_DRINK );
+		}
+		if (volume == MAX_VOLUME) {
+			actions.add( AC_合成 );
 		}
 		return actions;
 	}
@@ -109,6 +114,16 @@ public class 水袋 extends Item {
 				}
 
 
+			} else if (action.equals( AC_合成 )) {
+				volume=0;
+
+				new 治疗药剂().放背包();
+
+				hero.spend(TIME_TO_DRINK);
+				hero.busy();
+
+				hero.sprite.operate(hero.pos);
+				updateQuickslot();
 			} else {
 				GLog.w( Messages.get(this, "empty") );
 			}

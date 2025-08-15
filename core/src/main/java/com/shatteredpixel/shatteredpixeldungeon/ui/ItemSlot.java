@@ -7,10 +7,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -40,11 +43,14 @@ public class ItemSlot extends Button {
 	protected BitmapText extra;
 	protected Image      itemIcon;
 	protected BitmapText level;
-	
-	private static final String TXT_STRENGTH	= ":%d";
+
+	protected BitmapText center;
+
+	private static final String TXT_STRENGTH	= "%d";
 	private static final String TXT_TYPICAL_STR	= "%d?";
 
 	private static final String TXT_LEVEL	= "%+d";
+	private static final String TXT_CENTER	= "%d";
 
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
@@ -99,6 +105,9 @@ public class ItemSlot extends Button {
 		
 		level = new BitmapText( PixelScene.pixelFont);
 		add(level);
+
+		center = new BitmapText( PixelScene.pixelFont);
+		add(center);
 	}
 	
 	@Override
@@ -150,6 +159,11 @@ public class ItemSlot extends Button {
 			level.y = y + (height - level.baseLine() - 1) - margin.bottom;
 			PixelScene.align(level);
 		}
+		if (center != null) {
+			center.x = x + (width - center.width()) - margin.right/2;
+			center.y = y + (height - center.baseLine() - 1);
+			PixelScene.align(center);
+		}
 
 	}
 
@@ -160,6 +174,7 @@ public class ItemSlot extends Button {
 		if (status != null)     status.alpha(value);
 		if (itemIcon != null)   itemIcon.alpha(value);
 		if (level != null)      level.alpha(value);
+		if (center != null)      center.alpha(value);
 	}
 
 	public void clear(){
@@ -206,10 +221,10 @@ public class ItemSlot extends Button {
 		}
 
 		if (item == null){
-			status.visible = extra.visible = level.visible = false;
+			status.visible = extra.visible = level.visible = center.visible = false;
 			return;
 		} else {
-			status.visible = extra.visible = level.visible = true;
+			status.visible = extra.visible = level.visible = center.visible = true;
 		}
 
 		status.text( item.status() );
@@ -222,7 +237,6 @@ public class ItemSlot extends Button {
 		} else {
 			status.resetColor();
 		}
-
 		if (item.icon != -1 && (item.已鉴定() || (item instanceof Ring && ((Ring) item).isKnown()))){
 			extra.text( null );
 
@@ -252,9 +266,7 @@ public class ItemSlot extends Button {
 			extra.measure();
 
 		} else {
-
 			extra.text( null );
-
 		}
 
 		int trueLvl = item.visiblyUpgraded();
@@ -282,6 +294,15 @@ public class ItemSlot extends Button {
 			level.text( null );
 		}
 
+		if (item instanceof Food food){
+			center.text( Messages.format( TXT_CENTER, Math.round(food.energy)) );
+			center.measure();
+			center.hardlight( UPGRADED );
+		} else if (item instanceof 水袋 s) {
+			center.text( Messages.format( TXT_CENTER, Math.round(Dungeon.hero.生命(0.05f*s.volume))) );
+			center.measure();
+			center.hardlight( UPGRADED );
+		}
 		layout();
 	}
 	
@@ -301,6 +322,7 @@ public class ItemSlot extends Button {
 		status.alpha( alpha );
 		extra.alpha( alpha );
 		level.alpha( alpha );
+		center.alpha( alpha );
 		if (itemIcon != null) itemIcon.alpha( alpha );
 	}
 
@@ -319,10 +341,12 @@ public class ItemSlot extends Button {
 			add(status);
 			add(extra);
 			add(level);
+			add(center);
 		} else {
 			remove(status);
 			remove(extra);
 			remove(level);
+			remove(center);
 		}
 	}
 

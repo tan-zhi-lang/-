@@ -104,7 +104,7 @@ public class Armor extends EquipableItem {
 	public boolean curseInfusionBonus = false;
 	public boolean masteryPotionBonus = false;
 	
-	protected 破损纹章 破损纹章;
+	public 破损纹章 破损纹章;
 	
 	public int tier;
 	

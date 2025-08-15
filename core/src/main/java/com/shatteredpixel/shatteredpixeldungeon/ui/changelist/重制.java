@@ -44,6 +44,8 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "食物条",
+				"状态栏添加食物条。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.杂物袋), "杂物袋",
 				"商店出售杂物袋。"));
 		changes.addButton( new ChangeButton(Icons.SEED_POUCH.get(), "种子",
@@ -63,7 +65,8 @@ public class 重制 {
 						"最大生命+10，最大命中+10，最大闪避+5。\n"+
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
-						"再生额外恢复1%最大生命。\n"
+						"再生额外恢复1%最大生命。"
+//						"自动拾取金币、能量晶体、水珠。"
 						,
 						"杂项\n\n" +
 						"根骨之戒力量+1 => +2。提升生命系数1.035 => 1.07。\n" +
@@ -84,6 +87,8 @@ public class 重制 {
 						"防御时掉落金币1 => 10"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量晶体",
 				"武器和护甲可以提炼，法杖戒指可以提炼，提炼量是金币的15%。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.水袋), "水袋",
+				"灌满的水袋可以合成一瓶治疗药剂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.DUST), "尸尘",
 				"金币数量1 => 自然生成金币。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAR_HAMMER), "武技",

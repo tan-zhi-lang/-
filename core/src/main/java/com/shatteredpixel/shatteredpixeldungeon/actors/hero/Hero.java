@@ -78,6 +78,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap.Type;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -2024,6 +2025,12 @@ public class Hero extends Char {
 			spend( delay );
 			
 			search(false);
+
+//			Heap heap = Dungeon.level.heaps.get( target );
+//			heap.items;
+//			if(heap instanceof Gold){
+//
+//			}
 
 			return true;
 

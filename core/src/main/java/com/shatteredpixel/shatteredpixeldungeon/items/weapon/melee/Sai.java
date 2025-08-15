@@ -43,23 +43,21 @@ public class Sai extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		//+(4+lvl) damage, roughly +60% base damage, +67% scaling
-		int dmgBoost = augment.damageFactor(4 + 强化等级());
-		Sai.comboStrikeAbility(hero, target, 0, dmgBoost, this);
+		Sai.comboStrikeAbility(hero, target, 1f, 0, this);
 	}
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 4 + 强化等级() : 4;
+		int dmgBoost = levelKnown ? 2 + 强化等级()/3 : 2;
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", augment.damageFactor(dmgBoost));
+			return Messages.get(this, "ability_desc", dmgBoost);
 		} else {
-			return Messages.get(this, "typical_ability_desc", augment.damageFactor(dmgBoost));
+			return Messages.get(this, "typical_ability_desc", dmgBoost);
 		}
 	}
 
 	public String upgradeAbilityStat(int level){
-		return "+" + augment.damageFactor(4 + level);
+		return "+" + augment.damageFactor(2 + level);
 	}
 
 	public static void comboStrikeAbility(Hero hero, Integer target, float multiPerHit, int boostPerHit, MeleeWeapon wep){
@@ -87,9 +85,8 @@ public class Sai extends MeleeWeapon {
 				wep.beforeAbilityUsed(hero, enemy);
 				AttackIndicator.target(enemy);
 
-				int recentHits = 0;
-				hero.连击=2;
-				boolean hit = hero.连击(enemy, 1f + multiPerHit*recentHits, boostPerHit*recentHits, Char.INFINITE_ACCURACY);
+				hero.连击=2 + wep.强化等级()/3;
+				boolean hit = hero.连击(enemy, multiPerHit, boostPerHit, hero.最大命中(0.5f));
 				if (hit && !enemy.isAlive()){
 					wep.onAbilityKill(hero, enemy);
 				}

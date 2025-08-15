@@ -31,23 +31,20 @@ public class Gauntlet extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		//+(5+lvl) damage, roughly +50% base damage, +50% scaling
-		int dmgBoost = augment.damageFactor(5 + 强化等级());
-		Sai.comboStrikeAbility(hero, target, 0, dmgBoost, this);
+		Sai.comboStrikeAbility(hero, target, 1, 0, this);
 	}
 
 	@Override
 	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 5 + 强化等级() : 5;
+		int dmgBoost = levelKnown ? 2 + 强化等级()/3 : 2;
 		if (levelKnown){
-			return Messages.get(this, "ability_desc", augment.damageFactor(dmgBoost));
+			return Messages.get(this, "ability_desc", dmgBoost);
 		} else {
-			return Messages.get(this, "typical_ability_desc", augment.damageFactor(dmgBoost));
+			return Messages.get(this, "typical_ability_desc", dmgBoost);
 		}
 	}
 
 	public String upgradeAbilityStat(int level){
-		return "+" + augment.damageFactor(5 + level);
+		return "+" + augment.damageFactor(2 + level);
 	}
-
 }

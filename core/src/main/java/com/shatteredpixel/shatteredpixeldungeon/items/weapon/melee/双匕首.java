@@ -77,7 +77,7 @@ public class 双匕首 extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		sneakAbility(hero, target, 5, 2+ 强化等级(), this);
+		sneakAbility(hero, target, 5, 5, this);
 	}
 
 	@Override

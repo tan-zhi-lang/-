@@ -568,7 +568,9 @@ public class Hero extends Char {
 		}
 		return result;
 	}
-
+	public int 最大命中(float x){
+		return Math.round(最大命中(null)*x);
+	}
 	@Override
 	public int 最大命中(Char target ) {
 		KindOfWeapon wep = belongings.attackingWeapon();
@@ -638,7 +640,10 @@ public class Hero extends Char {
 			return Math.max(1, Math.round((最大命中+(等级-1)*2) * accuracy));
 		}
 	}
-	
+
+	public int 最大闪避(float x){
+		return Math.round(最大闪避(null)*x);
+	}
 	@Override
 	public int 最大闪避(Char enemy ) {
 

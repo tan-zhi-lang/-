@@ -134,7 +134,7 @@ public class 感知符石 extends InventoryStone {
 			int placed = 0;
 			
 			final ArrayList<Class<?extends Item>> unIDed = new ArrayList<>();
-			if (item.isIdentified()){
+			if (item.已鉴定()){
 				hide();
 				return;
 			} else if (item instanceof Potion){

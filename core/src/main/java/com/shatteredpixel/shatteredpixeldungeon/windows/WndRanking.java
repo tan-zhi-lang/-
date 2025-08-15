@@ -40,7 +40,6 @@ import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;
-import com.watabou.utils.DeviceCompat;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -469,7 +468,7 @@ public class WndRanking extends WndTabbed {
 				bg.ra = +0.3f;
 				bg.ga = -0.15f;
 				bg.ba = -0.15f;
-			} else if (!item.isIdentified()) {
+			} else if (!item.已鉴定()) {
 				if ((item instanceof EquipableItem || item instanceof Wand) && item.cursedKnown){
 					bg.ba = +0.3f;
 					bg.ra = -0.1f;
@@ -542,7 +541,7 @@ public class WndRanking extends WndTabbed {
 			if (item.cursed && item.cursedKnown) {
 				bg.ra = +0.2f;
 				bg.ga = -0.1f;
-			} else if (!item.isIdentified()) {
+			} else if (!item.已鉴定()) {
 				bg.ra = 0.1f;
 				bg.ba = 0.1f;
 			}

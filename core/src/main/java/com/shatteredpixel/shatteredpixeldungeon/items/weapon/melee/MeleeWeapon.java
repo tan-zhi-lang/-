@@ -334,7 +334,7 @@ public class MeleeWeapon extends Weapon {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!已鉴定() && cursedKnown){
 			if (enchantment != null && enchantment.curse()) {
 				info += "\n\n" + Messages.get(Weapon.class, "weak_cursed");
 			} else {
@@ -391,6 +391,11 @@ public class MeleeWeapon extends Weapon {
 		return price;
 	}
 
+
+	@Override
+	public int 能量() {
+		return Math.round(金币()*0.15f);
+	}
 	public static class Charger extends Buff implements ActionIndicator.Action {
 
 		public int charges = 3;

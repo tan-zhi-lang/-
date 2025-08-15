@@ -68,7 +68,7 @@ public class 强化符石 extends InventoryStone {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return 5 * quantity;
 	}
 	

@@ -15,7 +15,7 @@ public class RingOfSharpshooting extends Ring {
 	}
 
 	public String statsInfo() {
-		if (isIdentified()){
+		if (已鉴定()){
 			String info = Messages.get(this, "stats",
 					soloBuffedBonus(), Messages.decimalFormat("#.##", 100f * (Math.pow(1.2, soloBonus()) - 1f)));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){

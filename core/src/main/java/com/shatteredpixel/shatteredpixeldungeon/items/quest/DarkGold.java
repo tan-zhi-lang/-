@@ -20,7 +20,7 @@ public class DarkGold extends Item {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 }

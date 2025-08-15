@@ -101,7 +101,7 @@ public class RingOfForce extends Ring {
 	@Override
 	public String statsInfo() {
 		float tier = tier(Dungeon.hero != null ? Dungeon.hero.力量() : 10);
-		if (isIdentified()) {
+		if (已鉴定()) {
 			int level = soloBuffedBonus();
 			String info = Messages.get(this, "stats", min(level, tier), max(level, tier), level);
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
@@ -211,12 +211,12 @@ public class RingOfForce extends Ring {
 		String info = super.info();
 
 		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST
-			&& (anonymous || isIdentified() || isEquipped(Dungeon.hero))){
+			&& (anonymous || 已鉴定() || isEquipped(Dungeon.hero))){
 			//0 if unidentified, solo level if unequipped, combined level if equipped
-			int level = isIdentified() ? (isEquipped(Dungeon.hero) ? getBuffedBonus(Dungeon.hero, Force.class) : soloBuffedBonus()) : 0;
+			int level = 已鉴定() ? (isEquipped(Dungeon.hero) ? getBuffedBonus(Dungeon.hero, Force.class) : soloBuffedBonus()) : 0;
 			float tier = tier(Dungeon.hero.力量());
 			int dmgBoost = Math.round(3+tier+(level*((4+2*tier)/8f)));
-			if (isIdentified()) {
+			if (已鉴定()) {
 				info += "\n\n" + Messages.get(this, "ability_desc", min(level, tier)+dmgBoost, max(level, tier)+dmgBoost);
 			} else {
 				info += "\n\n" + Messages.get(this, "typical_ability_desc",  min(level, tier)+dmgBoost, max(level, tier)+dmgBoost);

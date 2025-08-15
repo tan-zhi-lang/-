@@ -518,7 +518,7 @@ public class 时光沙漏 extends Artifact {
 		}
 
 		@Override
-		public boolean isIdentified() {
+		public boolean 已鉴定() {
 			return true;
 		}
 	}

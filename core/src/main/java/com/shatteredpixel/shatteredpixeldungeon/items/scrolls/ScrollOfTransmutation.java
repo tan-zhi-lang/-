@@ -124,7 +124,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 					Dungeon.quickslot.setSlot(slot, result);
 				}
 			}
-			if (result.isIdentified()){
+			if (result.已鉴定()){
 				Catalog.setSeen(result.getClass());
 				Statistics.itemTypesDiscovered.add(result.getClass());
 			}
@@ -379,7 +379,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 	}
 
 	@Override
-	public int energyVal() {
-		return isKnown() ? 10 * quantity : super.energyVal();
+	public int 能量() {
+		return isKnown() ? 10 * quantity : super.能量();
 	}
 }

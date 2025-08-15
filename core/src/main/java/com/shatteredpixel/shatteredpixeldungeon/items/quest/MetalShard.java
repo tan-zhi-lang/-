@@ -18,7 +18,7 @@ public class MetalShard extends Item {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 	
@@ -28,7 +28,7 @@ public class MetalShard extends Item {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return quantity * 3;
 	}
 }

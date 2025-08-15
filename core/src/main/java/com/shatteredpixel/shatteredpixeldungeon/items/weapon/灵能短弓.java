@@ -152,7 +152,7 @@ public class 灵能短弓 extends Weapon {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!已鉴定() && cursedKnown){
 			info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
 		}
 		

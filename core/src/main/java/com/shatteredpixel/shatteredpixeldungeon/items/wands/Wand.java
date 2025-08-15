@@ -258,12 +258,12 @@ public abstract class Wand extends Item {
 	}
 
 	public boolean readyToIdentify(){
-		return !isIdentified() && usesLeftToID <= 0;
+		return !已鉴定() && usesLeftToID <= 0;
 	}
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){
 		levelPercent *= Talent.itemIDSpeedFactor(hero, this);
-		if (!isIdentified() && availableUsesToID <= USES_TO_ID/2f) {
+		if (!已鉴定() && availableUsesToID <= USES_TO_ID/2f) {
 			//gains enough uses to ID over 1 level
 			availableUsesToID = Math.min(USES_TO_ID/2f, availableUsesToID + levelPercent * USES_TO_ID/2f);
 		}
@@ -283,7 +283,7 @@ public abstract class Wand extends Item {
 
 		if (cursed && cursedKnown) {
 			desc += "\n\n" + Messages.get(Wand.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!已鉴定() && cursedKnown){
 			desc += "\n\n" + Messages.get(Wand.class, "not_cursed");
 		}
 
@@ -311,8 +311,8 @@ public abstract class Wand extends Item {
 	}
 	
 	@Override
-	public boolean isIdentified() {
-		return super.isIdentified() && curChargeKnown;
+	public boolean 已鉴定() {
+		return super.已鉴定() && curChargeKnown;
 	}
 	
 	@Override
@@ -433,7 +433,7 @@ public abstract class Wand extends Item {
 	}
 
 	public void wandUsed() {
-		if (!isIdentified()) {
+		if (!已鉴定()) {
 			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(Dungeon.hero, this) );
 			availableUsesToID -= uses;
 			usesLeftToID -= uses;
@@ -568,7 +568,12 @@ public abstract class Wand extends Item {
 		}
 		return price;
 	}
-	
+
+
+	@Override
+	public int 能量() {
+		return Math.round(金币()*0.15f);
+	}
 	private static final String USES_LEFT_TO_ID     = "uses_left_to_id";
 	private static final String AVAILABLE_USES      = "available_uses";
 	private static final String CUR_CHARGES         = "curCharges";

@@ -198,7 +198,7 @@ public class Bomb extends Item {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 	
@@ -368,7 +368,7 @@ public class Bomb extends Item {
 			boolean ingredient = false;
 			
 			for (Item i : ingredients){
-				if (!i.isIdentified()) return false;
+				if (!i.已鉴定()) return false;
 				if (i.getClass().equals(Bomb.class)){
 					bomb = true;
 				} else if (validIngredients.containsKey(i.getClass())){

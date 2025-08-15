@@ -49,7 +49,7 @@ public abstract class Trinket extends Item {
 
 	public abstract String statsDesc();
 
-	public int energyVal() {
+	public int 能量() {
 		return 5;
 	}
 

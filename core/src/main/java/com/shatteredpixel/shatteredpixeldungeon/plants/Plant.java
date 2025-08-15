@@ -183,7 +183,7 @@ public abstract class Plant implements Bundlable {
 		}
 		
 		@Override
-		public boolean isIdentified() {
+		public boolean 已鉴定() {
 			return true;
 		}
 		
@@ -193,7 +193,7 @@ public abstract class Plant implements Bundlable {
 		}
 
 		@Override
-		public int energyVal() {
+		public int 能量() {
 			return 2 * quantity;
 		}
 

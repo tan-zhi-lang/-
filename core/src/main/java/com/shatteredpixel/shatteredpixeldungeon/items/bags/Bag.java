@@ -119,7 +119,7 @@ public class Bag extends Item implements Iterable<Item> {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 	

@@ -157,7 +157,7 @@ public class Artifact extends KindofMisc {
 		if (cursed && cursedKnown && !isEquipped( Dungeon.hero )) {
 			return super.info() + "\n\n" + Messages.get(Artifact.class, "curse_known");
 			
-		} else if (!isIdentified() && cursedKnown && !isEquipped( Dungeon.hero)) {
+		} else if (!已鉴定() && cursedKnown && !isEquipped( Dungeon.hero)) {
 			return super.info() + "\n\n" + Messages.get(Artifact.class, "not_cursed");
 			
 		} else {
@@ -170,7 +170,7 @@ public class Artifact extends KindofMisc {
 	public String status() {
 		
 		//if the artifact isn't IDed, or is cursed, don't display anything
-		if (!isIdentified() || cursed){
+		if (!已鉴定() || cursed){
 			return null;
 		}
 

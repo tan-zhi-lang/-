@@ -159,7 +159,7 @@ public class SummonElemental extends Spell {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item.isIdentified() && (item instanceof PotionOfLiquidFlame
+			return item.已鉴定() && (item instanceof PotionOfLiquidFlame
 					|| item instanceof PotionOfFrost
 					|| item instanceof ScrollOfRecharging
 					|| item instanceof ScrollOfTransmutation);

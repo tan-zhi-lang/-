@@ -95,8 +95,8 @@ public abstract class ExoticScroll extends Scroll {
 
 	@Override
 	//6 more energy than its none-exotic equivalent
-	public int energyVal() {
-		return (Reflection.newInstance(exoToReg.get(getClass())).energyVal() + 6) * quantity;
+	public int 能量() {
+		return (Reflection.newInstance(exoToReg.get(getClass())).能量() + 6) * quantity;
 	}
 	
 	public static class ScrollToExotic extends Recipe {

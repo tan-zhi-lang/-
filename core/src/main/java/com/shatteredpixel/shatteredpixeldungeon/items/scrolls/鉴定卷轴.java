@@ -24,7 +24,7 @@ public class 鉴定卷轴 extends InventoryScroll {
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-		return !item.isIdentified();
+		return !item.已鉴定();
 	}
 
 	@Override

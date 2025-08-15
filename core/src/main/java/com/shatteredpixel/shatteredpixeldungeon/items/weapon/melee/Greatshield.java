@@ -36,7 +36,7 @@ public class Greatshield extends MeleeWeapon {
 	}
 	
 	public String statsInfo(){
-		if (isIdentified()){
+		if (已鉴定()){
 			return Messages.get(this, "stats_desc", 6+2* 强化等级());
 		} else {
 			return Messages.get(this, "typical_stats_desc", 6);

@@ -433,7 +433,7 @@ public class 法师魔杖 extends MeleeWeapon {
 					}
 
 					String bodyText = Messages.get(法师魔杖.class, "imbue_desc");
-					if (item.isIdentified()){
+					if (item.已鉴定()){
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_level", newLevel);
 					} else {
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_unknown", 真等级());

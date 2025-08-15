@@ -71,7 +71,7 @@ public class InventorySlot extends ItemSlot {
 				bg.ra = +0.3f;
 				bg.ga = -0.15f;
 				bg.ba = -0.15f;
-			} else if (!item.isIdentified()) {
+			} else if (!item.已鉴定()) {
 				if ((item instanceof EquipableItem || item instanceof Wand) && item.cursedKnown){
 					bg.ba = +0.3f;
 					bg.ra = -0.1f;

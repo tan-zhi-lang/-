@@ -19,7 +19,7 @@ public class WondrousResin extends Trinket {
 
 	@Override
 	public String statsDesc() {
-		if (isIdentified()){
+		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
 					Messages.decimalFormat("#.##", 100*positiveCurseEffectChance(强化等级())),
 					Messages.decimalFormat("#.##", 100*extraCurseEffectChance(强化等级())));

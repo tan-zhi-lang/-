@@ -314,7 +314,7 @@ abstract public class MissileWeapon extends Weapon {
 			}
 		}
 
-		if (!isIdentified() && ShardOfOblivion.passiveIDDisabled()){
+		if (!已鉴定() && ShardOfOblivion.passiveIDDisabled()){
 			Buff.延长(curUser, ShardOfOblivion.ThrownUseTracker.class, 50f);
 		}
 
@@ -589,7 +589,7 @@ abstract public class MissileWeapon extends Weapon {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return levelKnown && cursedKnown;
 	}
 	
@@ -624,7 +624,7 @@ abstract public class MissileWeapon extends Weapon {
 
 		if (cursedKnown && cursed) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!已鉴定() && cursedKnown){
 			info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
 		}
 
@@ -680,6 +680,11 @@ abstract public class MissileWeapon extends Weapon {
 		return price;
 	}
 
+
+	@Override
+	public int 能量() {
+		return Math.round(金币()*0.15f);
+	}
 	private static final String SET_ID = "set_id";
 
 	private static final String SPAWNED = "spawned";

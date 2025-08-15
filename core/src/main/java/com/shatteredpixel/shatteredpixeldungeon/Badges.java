@@ -972,11 +972,11 @@ public class Badges {
 				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).tier >= 2
 				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()){
 
-			if (Dungeon.hero.belongings.weapon.isIdentified() &&
+			if (Dungeon.hero.belongings.weapon.已鉴定() &&
 					((MeleeWeapon) Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()) {
 				displayBadge(Badge.UNLOCK_DUELIST);
 
-			} else if (!Dungeon.hero.belongings.weapon.isIdentified() &&
+			} else if (!Dungeon.hero.belongings.weapon.已鉴定() &&
 					((MeleeWeapon) Dungeon.hero.belongings.weapon).力量(0) <= Dungeon.hero.力量()){
 				displayBadge(Badge.UNLOCK_DUELIST);
 			}

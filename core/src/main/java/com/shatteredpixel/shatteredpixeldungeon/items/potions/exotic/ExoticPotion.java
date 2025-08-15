@@ -99,8 +99,8 @@ public class ExoticPotion extends Potion {
 
 	@Override
 	//4 more energy than its none-exotic equivalent
-	public int energyVal() {
-		return (Reflection.newInstance(exoToReg.get(getClass())).energyVal() + 4) * quantity;
+	public int 能量() {
+		return (Reflection.newInstance(exoToReg.get(getClass())).能量() + 4) * quantity;
 	}
 
 	public static class PotionToExotic extends Recipe{

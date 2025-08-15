@@ -248,7 +248,7 @@ public abstract class Scroll extends Item {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return isKnown();
 	}
 	
@@ -270,7 +270,7 @@ public abstract class Scroll extends Item {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return 6 * quantity;
 	}
 	
@@ -337,7 +337,7 @@ public abstract class Scroll extends Item {
 			
 			s.数量(s.数量() - 1);
 			if (ShatteredPixelDungeon.scene() instanceof AlchemyScene){
-				if (!s.isIdentified()){
+				if (!s.已鉴定()){
 					((AlchemyScene) ShatteredPixelDungeon.scene()).showIdentify(s);
 				}
 			} else {

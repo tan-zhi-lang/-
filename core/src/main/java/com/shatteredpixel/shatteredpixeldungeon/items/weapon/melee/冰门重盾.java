@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
-public class RoundShield extends MeleeWeapon {
+public class 冰门重盾 extends MeleeWeapon {
 
 	{
 		image = 物品表.ROUND_SHIELD;
@@ -54,7 +54,7 @@ public class RoundShield extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		RoundShield.guardAbility(hero, 5+ 强化等级(), this);
+		冰门重盾.guardAbility(hero, 5+ 强化等级(), this);
 	}
 
 	@Override

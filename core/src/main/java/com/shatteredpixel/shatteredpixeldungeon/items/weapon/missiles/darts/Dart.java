@@ -212,7 +212,7 @@ public class Dart extends MissileWeapon {
 	@Override
 	public String info() {
 		updateCrossbow();
-		if (bow != null && !bow.isIdentified()){
+		if (bow != null && !bow.已鉴定()){
 			Crossbow realBow = bow;
 			//create a temporary bow for IDing purposes
 			bow = new Crossbow();
@@ -230,7 +230,7 @@ public class Dart extends MissileWeapon {
 	}
 
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 

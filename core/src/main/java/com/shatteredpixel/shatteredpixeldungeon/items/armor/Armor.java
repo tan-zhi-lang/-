@@ -187,7 +187,7 @@ public class Armor extends EquipableItem {
 	@Override
 	public boolean 放背包(Bag container) {
 		if(super.放背包(container)){
-			if (Dungeon.hero != null && Dungeon.hero.isAlive() && isIdentified() && glyph != null){
+			if (Dungeon.hero != null && Dungeon.hero.isAlive() && 已鉴定() && glyph != null){
 				Catalog.setSeen(glyph.getClass());
 				Statistics.itemTypesDiscovered.add(glyph.getClass());
 			}
@@ -211,7 +211,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public boolean readyToIdentify(){
-		return !isIdentified() && usesLeftToID <= 0;
+		return !已鉴定() && usesLeftToID <= 0;
 	}
 
 	@Override
@@ -624,7 +624,7 @@ public class Armor extends EquipableItem {
 			info += "\n\n" + Messages.get(Armor.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
 			info += "\n\n" + Messages.get(Armor.class, "cursed");
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!已鉴定() && cursedKnown){
 			if (glyph != null && glyph.curse()) {
 				info += "\n\n" + Messages.get(Armor.class, "weak_cursed");
 			} else {
@@ -720,7 +720,10 @@ public class Armor extends EquipableItem {
 		}
 		return price;
 	}
-
+	@Override
+	public int 能量() {
+		return Math.round(金币()*0.15f);
+	}
 	public Armor inscribe( Glyph glyph ) {
 		if (glyph == null || !glyph.curse()) curseInfusionBonus = false;
 		this.glyph = glyph;
@@ -730,7 +733,7 @@ public class Armor extends EquipableItem {
 		if (破损纹章 != null){
 			破损纹章.setGlyph(glyph);
 		}
-		if (glyph != null && isIdentified() && Dungeon.hero != null
+		if (glyph != null && 已鉴定() && Dungeon.hero != null
 				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
 			Catalog.setSeen(glyph.getClass());
 			Statistics.itemTypesDiscovered.add(glyph.getClass());

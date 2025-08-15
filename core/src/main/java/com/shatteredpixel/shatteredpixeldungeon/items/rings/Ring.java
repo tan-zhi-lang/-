@@ -177,7 +177,7 @@ public class Ring extends KindofMisc {
 		} else if (cursed && cursedKnown) {
 			desc += "\n\n" + Messages.get(Ring.class, "curse_known");
 			
-		} else if (!isIdentified() && cursedKnown){
+		} else if (!已鉴定() && cursedKnown){
 			desc += "\n\n" + Messages.get(Ring.class, "not_cursed");
 			
 		}
@@ -217,8 +217,8 @@ public class Ring extends KindofMisc {
 	}
 	
 	@Override
-	public boolean isIdentified() {
-		return super.isIdentified() && isKnown();
+	public boolean 已鉴定() {
+		return super.已鉴定() && isKnown();
 	}
 	
 	@Override
@@ -233,7 +233,7 @@ public class Ring extends KindofMisc {
 	}
 
 	public boolean readyToIdentify(){
-		return !isIdentified() && levelsToID <= 0;
+		return !已鉴定() && levelsToID <= 0;
 	}
 	
 	@Override
@@ -288,7 +288,12 @@ public class Ring extends KindofMisc {
 		}
 		return price;
 	}
-	
+
+
+	@Override
+	public int 能量() {
+		return Math.round(金币()*0.15f);
+	}
 	protected RingBuff buff() {
 		return null;
 	}
@@ -308,7 +313,7 @@ public class Ring extends KindofMisc {
 	}
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){
-		if (isIdentified() || !isEquipped(hero)) return;
+		if (已鉴定() || !isEquipped(hero)) return;
 		levelPercent *= Talent.itemIDSpeedFactor(hero, this);
 		//becomes IDed after 1 level
 		levelsToID -= levelPercent;

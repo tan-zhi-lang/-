@@ -48,7 +48,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
@@ -66,7 +65,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HallowedGroun
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
@@ -134,7 +132,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfCha
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -147,7 +144,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Scimitar;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -166,7 +162,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -1263,7 +1258,7 @@ public class Hero extends Char {
 					} else {
 
 						//TODO make all unique items important? or just POS / SOU?
-						boolean important = item.unique && item.isIdentified() &&
+						boolean important = item.unique && item.已鉴定() &&
 								(item instanceof Scroll || item instanceof Potion);
 						if (important) {
 							GLog.p( Messages.capitalize(Messages.get(this, "you_now_have", item.name())) );

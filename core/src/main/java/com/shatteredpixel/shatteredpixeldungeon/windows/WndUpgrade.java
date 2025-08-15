@@ -79,7 +79,7 @@ public class WndUpgrade extends Window {
 
 		// *** Computing current and next level to display ***
 
-		int levelFrom = toUpgrade.isIdentified() ? toUpgrade.等级() : 0;
+		int levelFrom = toUpgrade.已鉴定() ? toUpgrade.等级() : 0;
 		int levelTo = levelFrom + 1;
 
 		if (toUpgrade instanceof Wand && ((Wand) toUpgrade).resinBonus > 0){
@@ -109,7 +109,7 @@ public class WndUpgrade extends Window {
 		bg2.y = message.bottom() + 2*GAP;
 		add(bg2);
 
-		if (!toUpgrade.isIdentified()){
+		if (!toUpgrade.已鉴定()){
 			if (!toUpgrade.cursed && toUpgrade.cursedKnown){
 				bg1.hardlight(1f, 1, 2f);
 				bg2.hardlight(1f, 1, 2f);
@@ -140,7 +140,7 @@ public class WndUpgrade extends Window {
 
 		BitmapText t1 = new BitmapText(PixelScene.pixelFont);
 		BitmapText t2 = new BitmapText(PixelScene.pixelFont);
-		if (toUpgrade.isIdentified()){
+		if (toUpgrade.已鉴定()){
 			if (levelFrom > 0){
 				t1.text("+" + levelFrom);
 			} else {
@@ -323,7 +323,7 @@ public class WndUpgrade extends Window {
 		// *** Various extra info texts that can appear underneath stats ***
 
 		//warning relating to identification
-		if (!toUpgrade.isIdentified()){
+		if (!toUpgrade.已鉴定()){
 			if (toUpgrade instanceof Ring && !((Ring) toUpgrade).isKnown()){
 				bottom = addMessage(Messages.get(this, "unknown_ring"), CharSprite.WARNING, bottom);
 			} else {

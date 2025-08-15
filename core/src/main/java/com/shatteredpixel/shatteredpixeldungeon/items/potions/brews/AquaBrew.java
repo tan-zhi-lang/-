@@ -37,7 +37,7 @@ public class AquaBrew extends Brew {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return (int)(12 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
 

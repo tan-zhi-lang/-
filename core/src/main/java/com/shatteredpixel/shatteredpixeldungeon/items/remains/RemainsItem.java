@@ -45,7 +45,7 @@ public abstract class RemainsItem extends Item {
 	protected abstract void doEffect(Hero hero);
 
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 

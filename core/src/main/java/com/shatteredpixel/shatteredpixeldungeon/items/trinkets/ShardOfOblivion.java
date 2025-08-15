@@ -41,7 +41,7 @@ public class ShardOfOblivion extends Trinket {
 
 	@Override
 	public String statsDesc() {
-		if (isIdentified()){
+		if (已鉴定()){
 			return Messages.get(this, "stats_desc", 强化等级()+1);
 		} else {
 			return Messages.get(this, "stats_desc", 1);
@@ -74,7 +74,7 @@ public class ShardOfOblivion extends Trinket {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return !item.isIdentified() && item.可升级();
+			return !item.已鉴定() && item.可升级();
 		}
 
 		@Override
@@ -178,16 +178,16 @@ public class ShardOfOblivion extends Trinket {
 		if (level < 0) return 1f;
 
 		int wornUnIDed = 0;
-		if (Dungeon.hero.belongings.weapon() != null && !Dungeon.hero.belongings.weapon().isIdentified()){
+		if (Dungeon.hero.belongings.weapon() != null && !Dungeon.hero.belongings.weapon().已鉴定()){
 			wornUnIDed++;
 		}
-		if (Dungeon.hero.belongings.armor() != null && !Dungeon.hero.belongings.armor().isIdentified()){
+		if (Dungeon.hero.belongings.armor() != null && !Dungeon.hero.belongings.armor().已鉴定()){
 			wornUnIDed++;
 		}
-		if (Dungeon.hero.belongings.ring() != null && !Dungeon.hero.belongings.ring().isIdentified()){
+		if (Dungeon.hero.belongings.ring() != null && !Dungeon.hero.belongings.ring().已鉴定()){
 			wornUnIDed++;
 		}
-		if (Dungeon.hero.belongings.misc() != null && !Dungeon.hero.belongings.misc().isIdentified()){
+		if (Dungeon.hero.belongings.misc() != null && !Dungeon.hero.belongings.misc().已鉴定()){
 			wornUnIDed++;
 		}
 		if (Dungeon.hero.buff(WandUseTracker.class) != null){

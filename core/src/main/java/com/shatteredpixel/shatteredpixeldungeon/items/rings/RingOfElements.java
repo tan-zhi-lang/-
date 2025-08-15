@@ -27,7 +27,7 @@ public class RingOfElements extends Ring {
 	}
 
 	public String statsInfo() {
-		if (isIdentified()){
+		if (已鉴定()){
 			String info = Messages.get(this, "stats",
 					Messages.decimalFormat("#.##", 100f * (1f - Math.pow(0.825f, soloBuffedBonus()))));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){

@@ -15,7 +15,7 @@ public class 奥术之戒 extends Ring {
 	}
 
 	public String statsInfo() {
-		if (isIdentified()){
+		if (已鉴定()){
 			String info = Messages.get(this, "stats",
 					Messages.decimalFormat("#.##", 100f * (Math.pow(1.175f, soloBuffedBonus()) - 1f)));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){

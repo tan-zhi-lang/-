@@ -32,7 +32,7 @@ public class 经验药剂 extends Potion {
 	}
 
 	@Override
-	public int energyVal() {
-		return isKnown() ? 10 * quantity : super.energyVal();
+	public int 能量() {
+		return isKnown() ? 10 * quantity : super.能量();
 	}
 }

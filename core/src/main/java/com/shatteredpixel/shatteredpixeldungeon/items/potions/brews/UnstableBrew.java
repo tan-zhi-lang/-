@@ -108,7 +108,7 @@ public class UnstableBrew extends Brew {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return 8 * quantity;
 	}
 

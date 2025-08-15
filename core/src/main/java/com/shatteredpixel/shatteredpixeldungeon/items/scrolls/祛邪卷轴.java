@@ -66,7 +66,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 	public static boolean uncursable( Item item ){
 		if (item.isEquipped(Dungeon.hero) && Dungeon.hero.buff(Degrade.class) != null) {
 			return true;
-		} if ((item instanceof EquipableItem || item instanceof Wand) && ((!item.isIdentified() && !item.cursedKnown) || item.cursed)){
+		} if ((item instanceof EquipableItem || item instanceof Wand) && ((!item.已鉴定() && !item.cursedKnown) || item.cursed)){
 			return true;
 		} else if (item instanceof Weapon){
 			return ((Weapon)item).hasCurseEnchant();

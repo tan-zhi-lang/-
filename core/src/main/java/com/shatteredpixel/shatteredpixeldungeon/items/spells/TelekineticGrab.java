@@ -103,7 +103,7 @@ public class TelekineticGrab extends TargetedSpell {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return (int)(10 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
 

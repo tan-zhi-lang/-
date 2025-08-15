@@ -27,11 +27,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.冰球;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -83,7 +87,8 @@ public enum HeroClass {
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
 	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
 	CLERIC( HeroSubClass.PRIEST, HeroSubClass.PALADIN ),
-	巫女( HeroSubClass.NONE);
+	巫女( HeroSubClass.NONE),
+	重武( HeroSubClass.NONE);
 
 	private HeroSubClass[] subClasses;
 
@@ -106,6 +111,8 @@ public enum HeroClass {
 		if(算法.isDebug()){
 			int x=100;
 			new 经验药剂().数量(x).放背包();
+			new 冰球().数量(x).放背包();
+
 			new 镶钉手套().放背包();
 		}
 
@@ -302,8 +309,23 @@ public enum HeroClass {
 		Dungeon.quickslot.setSlot(0, x);
 		Dungeon.quickslot.setSlot(1, bow);
 
-		new ScrollOfLullaby().鉴定();
+		new ScrollOfTerror().鉴定();
 		new 治疗药剂().鉴定();
+	}
+
+	private static void 初始重武(Hero hero ) {
+
+		冰门重盾 x = new 冰门重盾();
+		(hero.belongings.weapon = x).鉴定();
+		hero.belongings.weapon.activate(hero);
+
+
+		冰球 y = new 冰球();
+		y.鉴定().放背包();
+		Dungeon.quickslot.setSlot(0, y);
+
+		new ScrollOfLullaby().鉴定();
+		new PotionOfFrost().鉴定();
 	}
 
 	public String title() {

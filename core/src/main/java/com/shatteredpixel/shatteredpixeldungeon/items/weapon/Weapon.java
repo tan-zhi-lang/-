@@ -240,7 +240,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public boolean 放背包(Bag container) {
 		if(super.放背包(container)){
-			if (Dungeon.hero != null && Dungeon.hero.isAlive() && isIdentified() && enchantment != null){
+			if (Dungeon.hero != null && Dungeon.hero.isAlive() && 已鉴定() && enchantment != null){
 				Catalog.setSeen(enchantment.getClass());
 				Statistics.itemTypesDiscovered.add(enchantment.getClass());
 			}
@@ -264,7 +264,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public boolean readyToIdentify(){
-		return !isIdentified() && usesLeftToID <= 0;
+		return !已鉴定() && usesLeftToID <= 0;
 	}
 	
 	@Override
@@ -433,7 +433,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (ench == null || !ench.curse()) curseInfusionBonus = false;
 		enchantment = ench;
 		updateQuickslot();
-		if (ench != null && isIdentified() && Dungeon.hero != null
+		if (ench != null && 已鉴定() && Dungeon.hero != null
 				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
 			Catalog.setSeen(ench.getClass());
 			Statistics.itemTypesDiscovered.add(ench.getClass());

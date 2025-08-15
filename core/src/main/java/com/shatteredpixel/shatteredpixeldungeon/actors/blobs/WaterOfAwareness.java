@@ -55,7 +55,7 @@ public class WaterOfAwareness extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
-		if (item.isIdentified()) {
+		if (item.已鉴定()) {
 			return null;
 		} else {
 			鉴定卷轴.IDItem(item);

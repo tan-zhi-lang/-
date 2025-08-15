@@ -379,7 +379,7 @@ public class Potion extends Item {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return isKnown();
 	}
 	
@@ -431,7 +431,7 @@ public class Potion extends Item {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return 6 * quantity;
 	}
 

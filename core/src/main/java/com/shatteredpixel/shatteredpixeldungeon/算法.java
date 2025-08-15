@@ -1,6 +1,11 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Random;
 
@@ -384,6 +389,11 @@ public class 算法 {
         }
     }
 
+    }
+    public static void 修复效果(int a,int d,Class s){
+        final Ballistica shot = new Ballistica( a,d, Ballistica.MAGIC_BOLT);
+        Char enemy = Actor.findChar( shot.collisionPos );
+        Buff.施加(enemy, s, Frost.DURATION);
     }
     public static boolean isDebug(){
         return SPDSettings.customSeed().equals("调试")||Game.version.contains("INDEV");

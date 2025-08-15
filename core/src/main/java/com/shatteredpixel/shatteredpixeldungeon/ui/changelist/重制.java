@@ -82,6 +82,8 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new ThiefSprite(), "疯狂小偷",
 				"偷后移速83% => 75%。\n" +
 						"防御时掉落金币1 => 10"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量晶体",
+				"武器和护甲可以提炼，法杖戒指可以提炼，提炼量是金币的15%。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.DUST), "尸尘",
 				"金币数量1 => 自然生成金币。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAR_HAMMER), "武技",

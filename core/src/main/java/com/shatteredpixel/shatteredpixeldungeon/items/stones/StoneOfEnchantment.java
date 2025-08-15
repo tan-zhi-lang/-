@@ -66,7 +66,7 @@ public class StoneOfEnchantment extends InventoryStone {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return 5 * quantity;
 	}
 

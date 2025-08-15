@@ -52,7 +52,7 @@ public class 炼金菱晶 extends Spell {
 	}
 
 	@Override
-	public int energyVal() {
+	public int 能量() {
 		return (int)(4 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
 
@@ -102,7 +102,7 @@ public class 炼金菱晶 extends Spell {
 		@Override
 		public boolean itemSelectable(Item item) {
 			return !(item instanceof 炼金菱晶)
-					&& (Shopkeeper.canSell(item) || item.energyVal() > 0);
+					&& (Shopkeeper.canSell(item) || item.能量() > 0);
 		}
 
 		@Override
@@ -188,10 +188,10 @@ public class 炼金菱晶 extends Spell {
 				}
 			}
 
-			if (item.energyVal() > 0) {
+			if (item.能量() > 0) {
 				if (item.数量() == 1) {
 
-					RedButton btnEnergize = new RedButton(Messages.get(this, "energize", item.energyVal())) {
+					RedButton btnEnergize = new RedButton(Messages.get(this, "energize", item.能量())) {
 						@Override
 						protected void onClick() {
 							WndEnergizeItem.energizeAll(item);
@@ -207,7 +207,7 @@ public class 炼金菱晶 extends Spell {
 
 				} else {
 
-					int energyAll = item.energyVal();
+					int energyAll = item.能量();
 					RedButton btnEnergize1 = new RedButton(Messages.get(this, "energize_1", energyAll / item.数量())) {
 						@Override
 						protected void onClick() {

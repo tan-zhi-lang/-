@@ -215,7 +215,7 @@ public class Item implements Bundlable {
 					if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
 						Badges.validateItemLevelAquired( this );
 						Talent.拾取时(Dungeon.hero, item);
-						if (isIdentified()) {
+						if (已鉴定()) {
 							Catalog.setSeen(getClass());
 							Statistics.itemTypesDiscovered.add(getClass());
 						}
@@ -245,7 +245,7 @@ public class Item implements Bundlable {
 		if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
 			Badges.validateItemLevelAquired( this );
 			Talent.拾取时( Dungeon.hero, this );
-			if (isIdentified()){
+			if (已鉴定()){
 				Catalog.setSeen(getClass());
 				Statistics.itemTypesDiscovered.add(getClass());
 			}
@@ -426,7 +426,7 @@ public class Item implements Bundlable {
 		return true;
 	}
 	
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return levelKnown && cursedKnown;
 	}
 	
@@ -530,7 +530,7 @@ public class Item implements Bundlable {
 	}
 
 	//item's value in energy crystals
-	public int energyVal() {
+	public int 能量() {
 		return 0;
 	}
 	

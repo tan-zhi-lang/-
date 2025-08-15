@@ -84,7 +84,7 @@ public abstract class Recipe {
 			int[] needed = inQuantity.clone();
 			
 			for (Item ingredient : ingredients){
-				if (!ingredient.isIdentified()) return false;
+				if (!ingredient.已鉴定()) return false;
 				for (int i = 0; i < inputs.length; i++){
 					if (ingredient.getClass() == inputs[i]){
 						needed[i] -= ingredient.数量();

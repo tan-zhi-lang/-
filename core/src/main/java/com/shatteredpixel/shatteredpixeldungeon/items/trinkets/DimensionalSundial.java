@@ -23,7 +23,7 @@ public class DimensionalSundial extends Trinket {
 
 	@Override
 	public String statsDesc() {
-		if (isIdentified()){
+		if (已鉴定()){
 			return Messages.get(this,
 					"stats_desc",
 					(int)(100*(1f - enemySpawnMultiplierDaytime(强化等级()))),

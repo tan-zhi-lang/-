@@ -64,7 +64,7 @@ public class 矮人国王的皇冠 extends Item {
 	}
 	
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 	

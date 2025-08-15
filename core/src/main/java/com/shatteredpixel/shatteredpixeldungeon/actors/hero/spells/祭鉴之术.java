@@ -7,15 +7,11 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
-import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 public class 祭鉴之术 extends 背包巫术 {
@@ -29,7 +25,7 @@ public class 祭鉴之术 extends 背包巫术 {
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-		return !item.isIdentified();
+		return !item.已鉴定();
 	}
 
 	@Override

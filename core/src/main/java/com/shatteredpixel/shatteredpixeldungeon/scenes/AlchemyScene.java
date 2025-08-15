@@ -875,7 +875,7 @@ public class AlchemyScene extends PixelScene {
 	}
 
 	public void showIdentify(Item item){
-		if (item.isIdentified()) return;
+		if (item.已鉴定()) return;
 
 		NinePatch BG = Chrome.get(Chrome.Type.TOAST);
 

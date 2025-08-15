@@ -32,7 +32,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		if (item.数量() == 1) {
 
-			RedButton btnEnergize = new RedButton( Messages.get(this, "energize", item.energyVal()) ) {
+			RedButton btnEnergize = new RedButton( Messages.get(this, "energize", item.能量()) ) {
 				@Override
 				protected void onClick() {
 					energizeAll( item );
@@ -47,7 +47,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		} else {
 
-			int energyAll = item.energyVal();
+			int energyAll = item.能量();
 			RedButton btnEnergize1 = new RedButton( Messages.get(this, "energize_1", energyAll / item.数量()) ) {
 				@Override
 				protected void onClick() {
@@ -111,9 +111,9 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		if (ShatteredPixelDungeon.scene() instanceof AlchemyScene){
 
-			Dungeon.energy += item.energyVal();
+			Dungeon.energy += item.能量();
 			((AlchemyScene) ShatteredPixelDungeon.scene()).createEnergy();
-			if (!item.isIdentified()){
+			if (!item.已鉴定()){
 				((AlchemyScene) ShatteredPixelDungeon.scene()).showIdentify(item);
 			}
 
@@ -121,7 +121,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 			//energizing items doesn't spend time
 			hero.spend(-hero.cooldown());
-			new EnergyCrystal(item.energyVal()).doPickUp(hero);
+			new EnergyCrystal(item.能量()).doPickUp(hero);
 			item.鉴定();
 			GLog.h("You energized: " + item.name());
 
@@ -146,7 +146,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item.energyVal() > 0;
+			return item.能量() > 0;
 		}
 
 		@Override

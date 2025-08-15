@@ -301,7 +301,7 @@ public class ShopRoom extends SpecialRoom {
 		itemsToSpawn.add( new 强化符石() );
 
 		时光沙漏 hourglass = Dungeon.hero.belongings.getItem(时光沙漏.class);
-		if (hourglass != null && hourglass.isIdentified() && !hourglass.cursed){
+		if (hourglass != null && hourglass.已鉴定() && !hourglass.cursed){
 			int bags = 0;
 			//creates the given float percent of the remaining bags to be dropped.
 			//this way players who get the hourglass late can still max it, usually.

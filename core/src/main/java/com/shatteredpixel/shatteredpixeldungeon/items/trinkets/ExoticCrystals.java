@@ -19,7 +19,7 @@ public class ExoticCrystals extends Trinket {
 
 	@Override
 	public String statsDesc() {
-		if (isIdentified()){
+		if (已鉴定()){
 			return Messages.get(this, "stats_desc", Messages.decimalFormat("#.##", 100*consumableExoticChance(强化等级())));
 		} else {
 			return Messages.get(this, "typical_stats_desc", Messages.decimalFormat("#.##", 100*consumableExoticChance(0)));

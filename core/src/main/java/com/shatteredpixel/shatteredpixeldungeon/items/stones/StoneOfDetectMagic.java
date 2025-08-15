@@ -24,7 +24,7 @@ public class StoneOfDetectMagic extends InventoryStone {
 	@Override
 	public boolean usableOnItem(Item item){
 		return (item instanceof EquipableItem || item instanceof Wand)
-				&& (!item.isIdentified() || !item.cursedKnown);
+				&& (!item.已鉴定() || !item.cursedKnown);
 	}
 
 	@Override

@@ -107,7 +107,7 @@ public class DriedRose extends Artifact {
 		if (ghostID != 0){
 			actions.add(AC_DIRECT);
 		}
-		if (isIdentified() && !cursed){
+		if (已鉴定() && !cursed){
 			actions.add(AC_OUTFIT);
 		}
 		
@@ -508,7 +508,7 @@ public class DriedRose extends Artifact {
 		}
 
 		@Override
-		public boolean isIdentified() {
+		public boolean 已鉴定() {
 			return true;
 		}
 

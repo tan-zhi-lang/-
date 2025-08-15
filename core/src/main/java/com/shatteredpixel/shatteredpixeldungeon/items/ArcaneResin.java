@@ -62,7 +62,7 @@ public class ArcaneResin extends Item {
 	}
 
 	@Override
-	public boolean isIdentified() {
+	public boolean 已鉴定() {
 		return true;
 	}
 
@@ -85,7 +85,7 @@ public class ArcaneResin extends Item {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item instanceof Wand && item.isIdentified();
+			return item instanceof Wand && item.已鉴定();
 		}
 
 		@Override

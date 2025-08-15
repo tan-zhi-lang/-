@@ -172,9 +172,9 @@ public class HeroSelectScene extends PixelScene {
 		add(改动按钮);
 
 		for (HeroClass cl : HeroClass.values()){
-//			if(cl==HeroClass.巫女){
-//				break;
-//			}
+			if(cl==HeroClass.重武){
+				break;
+			}
 			HeroBtn button = new HeroBtn(cl);
 			add(button);
 			heroBtns.add(button);

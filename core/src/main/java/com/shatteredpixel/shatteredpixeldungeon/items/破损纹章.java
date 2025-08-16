@@ -80,7 +80,7 @@ public class 破损纹章 extends Item {
 
 	public int maxShield( int armTier, int armLvl ){
 		// 5-15, based on equip tier and iron will
-		return (1 + 2*armTier + Dungeon.hero.天赋点数(Talent.钢铁意志,5)+Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.钢铁意志,0.03f)));
+		return (1 + 2*armTier + Dungeon.hero.天赋点数(Talent.钢铁意志,6)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.钢铁意志,0.06f)));
 	}
 
 	@Override
@@ -354,7 +354,7 @@ public class 破损纹章 extends Item {
 		public synchronized int maxShield() {
 			//metamorphed iron will logic
 			if (target instanceof Hero hero&&hero.heroClass != HeroClass.WARRIOR && hero.有天赋(Talent.钢铁意志)){
-				return hero.天赋点数(Talent.钢铁意志,5)+hero.已损失生命(hero.天赋点数(Talent.钢铁意志,0.03f));
+				return hero.天赋点数(Talent.钢铁意志,6)+hero.最大生命(hero.天赋点数(Talent.钢铁意志,0.06f));
 			}
 
 			if (armor != null && armor.isEquipped((Hero)target) && armor.checkSeal() != null) {

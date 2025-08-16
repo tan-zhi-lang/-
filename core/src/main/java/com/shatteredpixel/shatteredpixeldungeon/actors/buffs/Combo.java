@@ -70,7 +70,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 	
 	public void hit( Char enemy ) {
 
-		count++;
+		count+=Dungeon.hero.有天赋(Talent.ENHANCED_COMBO)?2:1;
 		comboTime = 2+ ((Hero)target).天赋点数(Talent.CLEAVE,5);
 
 		if (!enemy.isAlive() || (enemy.buff(Corruption.class) != null && enemy.生命 == enemy.最大生命)){
@@ -208,31 +208,31 @@ public class Combo extends Buff implements ActionIndicator.Action {
 		public String desc(int count){
 			switch (this){
 				case CLOBBER: default:
-					if (count >= 7&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 1){
+					if (count >= 7&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 2){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case SLAM:
-					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 4){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*20);
 					} else {
 						return Messages.get(this, name() + ".desc", count*20);
 					}
 				case PARRY:
-					if (count >= 9&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 2){
+					if (count >= 9&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case CRUSH:
-					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 4){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*25);
 					} else {
 						return Messages.get(this,  name() + ".desc", count*25);
 					}
 				case FURY:
-					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 3){
+					if (count >= 3&& Dungeon.hero.天赋点数(Talent.ENHANCED_COMBO) >= 4){
 						return Messages.get(this, name() + ".empower_desc", count/3);
 					} else {
 						return Messages.get(this,  name() + ".desc");
@@ -356,7 +356,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 					trajectory = new Ballistica(trajectory.collisionPos, trajectory.path.get(trajectory.path.size() - 1), Ballistica.PROJECTILE);
 					//knock them back along that ballistica, ensuring they don't fall into a pit
 					int dist = 2;
-					if (enemy.isAlive() && count >= 7 && hero.天赋点数(Talent.ENHANCED_COMBO) >= 1) {
+					if (enemy.isAlive() && count >= 7 && hero.天赋点数(Talent.ENHANCED_COMBO) >= 2) {
 						dist++;
 						Buff.延长(enemy, Vertigo.class, 3);
 					} else if (!enemy.flying) {
@@ -464,7 +464,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 				GLog.w(Messages.get(Combo.class, "bad_target"));
 
 			} else if (!((Hero)target).canAttack(enemy)){
-				if (((Hero) target).天赋点数(Talent.ENHANCED_COMBO) < 3
+				if (((Hero) target).天赋点数(Talent.ENHANCED_COMBO) < 4
 					|| Dungeon.level.distance(target.pos, enemy.pos) > 1 + target.buff(Combo.class).count/3){
 					GLog.w(Messages.get(Combo.class, "bad_target"));
 				} else {

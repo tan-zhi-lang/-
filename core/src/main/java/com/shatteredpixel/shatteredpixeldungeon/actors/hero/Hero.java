@@ -896,7 +896,7 @@ public class Hero extends Char {
 
 		float delay = 1f;
 		delay/=综合属性();
-
+		delay/=1+天赋点数(Talent.DEATHLESS_FURY,0.5f);
 		if (!RingOfForce.fightingUnarmed(this)) {
 			
 			return delay * belongings.attackingWeapon().delayFactor( this );
@@ -1451,7 +1451,7 @@ public class Hero extends Char {
 
 						//4 hunger spent total
 						} else if (Dungeon.level.map[action.dst] == Terrain.WALL){
-							buff(Hunger.class).affectHunger(-3);
+							buff(Hunger.class).吃饭(-3);
 							PixelScene.shake(0.5f, 0.5f);
 							CellEmitter.get( action.dst ).burst( Speck.factory( Speck.ROCK ), 2 );
 							Sample.INSTANCE.play( Assets.Sounds.MINE );
@@ -1616,6 +1616,11 @@ public class Hero extends Char {
 	@Override
 	public int 攻击时(final Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
+
+		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
+			Berserk berserk = Buff.施加(this, Berserk.class);
+			berserk.damage(damage);
+		}
 		if(有天赋(Talent.星火符刃)){
 			enemy.受伤(天赋点数(Talent.星火符刃,3)+enemy.最大生命(天赋点数(Talent.星火符刃,0.03f)));
 		}
@@ -2748,9 +2753,9 @@ public class Hero extends Char {
 			if (!Dungeon.level.locked) {
 				if (cursed) {
 					GLog.n(Messages.get(this, "search_distracted"));
-					Buff.施加(this, Hunger.class).affectHunger(TIME_TO_SEARCH - (2 * HUNGER_FOR_SEARCH));
+					Buff.施加(this, Hunger.class).吃饭(TIME_TO_SEARCH - (2 * HUNGER_FOR_SEARCH));
 				} else {
-					Buff.施加(this, Hunger.class).affectHunger(TIME_TO_SEARCH - HUNGER_FOR_SEARCH);
+					Buff.施加(this, Hunger.class).吃饭(TIME_TO_SEARCH - HUNGER_FOR_SEARCH);
 				}
 			}
 			spendAndNext(TIME_TO_SEARCH);
@@ -2834,7 +2839,6 @@ public class Hero extends Char {
 	}
 	public float 综合属性(){
 		float x=1;
-		x+=满天赋(Talent.ENHANCED_COMBO)?0.25f:0;
 		return x;
 	}
 	public boolean 连击(final Char enemy, float dmgMulti, float dmgBonus, float accMulti) {

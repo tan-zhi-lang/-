@@ -457,7 +457,7 @@ public abstract class Wand extends Item {
 		//inside staff
 		if (charger != null && charger.target == Dungeon.hero && !Dungeon.hero.belongings.contains(this)){
 			if (Dungeon.hero.有天赋(Talent.EXCESS_CHARGE) && curCharges >= maxCharges){
-				int shieldToGive = Math.round(强化等级()*Dungeon.hero.天赋点数(Talent.EXCESS_CHARGE,0.5f));
+				int shieldToGive = Math.round(强化等级()*Dungeon.hero.天赋点数(Talent.EXCESS_CHARGE,0.75f));
 				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			}

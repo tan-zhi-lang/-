@@ -154,8 +154,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	public boolean berserking(){
 		if (target.生命 == 0
 				&& state == State.NORMAL
-				&& power >= 1f
-				&& ((Hero)target).有天赋(Talent.DEATHLESS_FURY)){
+				&& power >= 1f){
 			startBerserking();
 			ActionIndicator.clearAction(this);
 		}
@@ -173,7 +172,7 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 			turnRecovery = TURN_RECOVERY_START;
 			levelRecovery = 0;
 		} else {
-			levelRecovery = LEVEL_RECOVER_START - ((Hero)target).天赋点数(Talent.DEATHLESS_FURY);
+			levelRecovery = LEVEL_RECOVER_START;
 			turnRecovery = 0;
 		}
 
@@ -210,10 +209,12 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 		}
 		return baseShield*3;
 	}
-	
+	public float end(){
+		return 1f + ((Hero)target).天赋点数(Talent.ENDLESS_RAGE,0.15f);
+	}
 	public void damage(int damage){
 		if (state != State.NORMAL) return;
-		float maxPower = 1f + ((Hero)target).天赋点数(Talent.ENDLESS_RAGE,0.5f);
+		float maxPower = end();
 		power = Math.min(maxPower, power + (damage/(float)target.最大生命)/4f );
 		BuffIndicator.refreshHero(); //show new power immediately
 		powerLossBuffer = 3; //2 turns until rage starts dropping
@@ -294,13 +295,13 @@ public class Berserk extends ShieldBuff implements ActionIndicator.Action {
 	public float iconFadePercent() {
 		switch (state){
 			case NORMAL: default:
-				float maxPower = 1f + ((Hero)target).天赋点数(Talent.ENDLESS_RAGE,0.5f);
+				float maxPower = end();
 				return (maxPower - power)/maxPower;
 			case BERSERK:
 				return 1f - 护盾量() / (float)maxShieldBoost();
 			case RECOVERING:
 				if (levelRecovery > 0) {
-					return levelRecovery/(LEVEL_RECOVER_START-Dungeon.hero.天赋点数(Talent.DEATHLESS_FURY));
+					return levelRecovery/LEVEL_RECOVER_START;
 				} else {
 					return turnRecovery/(float)TURN_RECOVERY_START;
 				}

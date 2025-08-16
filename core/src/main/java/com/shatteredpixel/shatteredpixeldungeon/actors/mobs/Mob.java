@@ -725,10 +725,10 @@ public abstract class Mob extends Char {
 			
 			//physical damage that doesn't come from the hero is less effective
 			if (enemy != Dungeon.hero){
-				restoration = Math.round(restoration*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.12f));
+				restoration = Math.round(restoration*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
 			}
 			if (restoration > 0) {
-				Buff.施加(Dungeon.hero, Hunger.class).affectHunger(restoration*Dungeon.hero.天赋点数(Talent.SOUL_EATER)/3f);
+				Buff.施加(Dungeon.hero, Hunger.class).吃饭(restoration*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.4f));
 
 				if (Dungeon.hero.生命 < Dungeon.hero.最大生命) {
 					int heal = (int)Math.ceil(restoration * 0.4f);
@@ -1000,8 +1000,7 @@ public abstract class Mob extends Char {
 		}
 
 		//soul eater talent
-		if (buff(SoulMark.class) != null &&
-				Random.Int(10) < Dungeon.hero.天赋点数(Talent.SOUL_EATER)){
+		if (buff(SoulMark.class) != null && Dungeon.hero.天赋概率(Talent.SOUL_EATER,25)){
 			Talent.吃饭时(Dungeon.hero, 0, null);
 		}
 

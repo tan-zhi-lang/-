@@ -174,6 +174,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
 				"吃饭恢复1+1%最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
+				"最大充能+1 => +2。\n" +
 				"改变等级时获得1充能。\n" +
 				"自带+1强化等级。\n" +
 						"自带法杖回收，且能吸收灌注法杖一半的等级。"));

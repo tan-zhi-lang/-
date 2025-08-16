@@ -208,7 +208,7 @@ public enum Talent {
 			if (hero.有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
 				Barrier barrier = Buff.施加(target, Barrier.class);
 					barrierInc += 0.5f;
-				int s = hero.天赋点数(Talent.PROTECTIVE_SHADOWS,3)+hero.已损失生命(hero.天赋点数(Talent.PROTECTIVE_SHADOWS,0.03f));
+				int s = hero.天赋点数(Talent.PROTECTIVE_SHADOWS,3)+hero.最大生命(hero.天赋点数(Talent.PROTECTIVE_SHADOWS,0.03f));
 				if (barrier.护盾量() < s) {
 					barrier.设置(s);
 				}
@@ -837,7 +837,7 @@ public enum Talent {
 		}
 		if (hero.有天赋(Talent.受衅怒火)
 			&& hero.buff(ProvokedAngerTracker.class) != null){
-			dmg += hero.天赋点数(Talent.受衅怒火,5)+Math.round(hero.力量()*hero.天赋点数(Talent.受衅怒火,0.2f));
+			dmg += hero.天赋点数(Talent.受衅怒火,8)+Math.round(hero.力量()*hero.天赋点数(Talent.受衅怒火,0.25f));
 			hero.buff(ProvokedAngerTracker.class).detach();
 		}
 

@@ -108,11 +108,6 @@ public class Hunger extends Buff implements Hero.Doom {
 	public void 吃饭(float energy ) {
 		affectHunger( energy, false );
 	}
-
-	public void affectHunger(float energy ){
-		affectHunger( energy, false );
-	}
-
 	public void affectHunger(float energy, boolean overrideLimits ) {
 
 		if (energy < 0 && target.buff(WellFed.class) != null){

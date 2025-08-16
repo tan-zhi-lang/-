@@ -182,7 +182,9 @@ public enum Talent {
 
 	祭鉴之术(x7),痛命之术(x7+1),死血之术(x7+2),
 	血历之术(x7+4,3),血爆之术(x7+5,3),饮血之术(x7+6,3),换血之术(x7+7,3),
-	顶福精华(x7+9,4),强能处消(x7+10,4)
+	顶福精华(x7+9,4),强能处消(x7+10,4),
+	物到之术(x7+11,4),星火符刃(x7+12,4),高级血爆(x7+13,4),
+	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
 	;
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
@@ -1082,6 +1084,12 @@ public enum Talent {
 				break;
 			case PALADIN:
 				Collections.addAll(tierTalents, LAY_ON_HANDS, AURA_OF_PROTECTION, WALL_OF_LIGHT);
+				break;
+			case 神秘学者:
+				Collections.addAll(tierTalents, 物到之术, 星火符刃, 高级血爆);
+				break;
+			case 黑魔导师:
+				Collections.addAll(tierTalents, 高级痛命, 高级死血, 高级吸血);
 				break;
 		}
 		for (Talent talent : tierTalents){

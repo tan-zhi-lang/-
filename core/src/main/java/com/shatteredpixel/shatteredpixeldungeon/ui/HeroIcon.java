@@ -32,6 +32,8 @@ public class HeroIcon extends Image {
 	public static final int MONK        = 9;
 	public static final int PRIEST      = 10;
 	public static final int PALADIN     = 11;
+	public static final int 神秘学者     = 12;
+	public static final int 黑魔导师     = 13;
 
 	//abilities
 	public static final int HEROIC_LEAP     = 16;
@@ -102,6 +104,7 @@ public class HeroIcon extends Image {
 	public static final int 血爆之术  = 116;
 	public static final int 饮血之术  = 117;
 	public static final int 换血之术  = 118;
+	public static final int 物到之术  = 119;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );

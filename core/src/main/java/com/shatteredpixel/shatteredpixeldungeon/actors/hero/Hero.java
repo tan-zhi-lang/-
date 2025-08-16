@@ -1616,9 +1616,14 @@ public class Hero extends Char {
 	@Override
 	public int 攻击时(final Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
+		if(有天赋(Talent.星火符刃)){
+			enemy.受伤(天赋点数(Talent.星火符刃,3)+enemy.最大生命(天赋点数(Talent.星火符刃,0.03f)));
+		}
+		float 吸血=天赋点数(Talent.高级吸血,0.04f);
 
-		float 吸血=0;
-
+		if(heroSubClass(HeroSubClass.黑魔导师)){
+			吸血+=0.04f;
+		}
 		if(heroClass(HeroClass.巫女)){
 			吸血+=0.01f;
 		}
@@ -1735,9 +1740,6 @@ public class Hero extends Char {
 			return super.glyphLevel(cls);
 		}
 	}
-	public void 受伤(int dmg){
-		受伤时(dmg,this);
-	}
 	@Override
 	public void 受伤时(int dmg, Object src ) {
 		if (buff(时光沙漏.timeStasis.class) != null
@@ -1759,7 +1761,7 @@ public class Hero extends Char {
 		//temporarily assign to a float to avoid rounding a bunch
 		float damage = dmg;
 
-		if(heroClass(HeroClass.巫女)&& 算法.概率学(dmg)){
+		if(heroClass(HeroClass.巫女)&& 算法.概率学(25)){
 			经验(1,getClass());
 		}
 
@@ -2133,10 +2135,13 @@ public class Hero extends Char {
 	}
 	
 	public void 经验(int exp, Class source ) {
-
 		//xp granted by ascension challenge is only for on-exp gain effects
 		if (source != AscensionChallenge.class) {
 			this.当前经验 += exp;
+
+			if(heroSubClass(HeroSubClass.神秘学者)){
+				回血(exp);
+			}
 
 			if (heroClass(HeroClass.MAGE)){
 				Buff.延长( this, Recharging.class, 1 );
@@ -2814,6 +2819,9 @@ public class Hero extends Char {
 	}
 	public boolean heroClass(HeroClass hc){
 		return heroClass == hc;
+	}
+	public boolean heroSubClass(HeroSubClass sc){
+		return subClass == sc;
 	}
 	public int 等级(float x){
 		return Math.round(x*等级);

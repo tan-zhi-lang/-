@@ -29,7 +29,10 @@ public enum HeroSubClass {
 	MONK(HeroIcon.MONK),
 
 	PRIEST(HeroIcon.PRIEST),
-	PALADIN(HeroIcon.PALADIN);
+	PALADIN(HeroIcon.PALADIN),
+
+	神秘学者(HeroIcon.神秘学者),
+	黑魔导师(HeroIcon.黑魔导师);
 
 	int icon;
 
@@ -42,7 +45,7 @@ public enum HeroSubClass {
 	}
 
 	public String shortDesc() {
-		return Messages.get(this, name()+"_short_desc");
+		return title();
 	}
 
 	public String desc() {

@@ -122,4 +122,10 @@ public class MimicSprite extends MobSprite {
 		}
 	}
 
+	public static class 毒气 extends MimicSprite{
+		@Override
+		protected int texOffset() {
+			return 64;
+		}
+	}
 }

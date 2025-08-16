@@ -21,7 +21,8 @@ public enum Holiday {
 	//Nothing in Nov
 	PD_BIRTHDAY,            //Dec 1st to Dec 7th                                    (7 days)
 	WINTER_HOLIDAYS,        //Dec 15th to Dec 26th                                  (12 days)
-	NEW_YEARS;              //Dec 27th to Jan 2nd                                   (7 days)
+	NEW_YEARS,              //Dec 27th to Jan 2nd                                   (7 days)
+	奇袭节;
 
 	//total of 61-62 festive days each year, mainly concentrated in Late Oct to Early Feb
 
@@ -41,7 +42,9 @@ public enum Holiday {
 
 	//requires a gregorian calendar
 	public static Holiday getHolidayForDate(GregorianCalendar cal){
-
+		if (cal.get(Calendar.MONTH) == Calendar.JULY||cal.get(Calendar.MONTH) == Calendar.AUGUST){
+			return 奇袭节;//7-8月
+		}
 		//Lunar New Year
 		if (isLunarNewYear(cal.get(Calendar.YEAR),
 				cal.get(Calendar.DAY_OF_YEAR))){

@@ -130,7 +130,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			if (isSwiftEquipping) {
 				GLog.i(Messages.get(this, "swift_equip"));
 				if (hero.buff(Talent.SwiftEquipCooldown.class) == null){
-					Buff.施加(hero, Talent.SwiftEquipCooldown.class, 44-hero.天赋点数(Talent.SWIFT_EQUIP,15))
+					Buff.施加(hero, Talent.SwiftEquipCooldown.class, 120-hero.天赋点数(Talent.SWIFT_EQUIP,30))
 							.secondUse = true;
 				} else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
 					hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;
@@ -177,7 +177,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			if (isSwiftEquipping) {
 				GLog.i(Messages.get(this, "swift_equip"));
 				if (hero.buff(Talent.SwiftEquipCooldown.class) == null){
-					Buff.施加(hero, Talent.SwiftEquipCooldown.class, 44-hero.天赋点数(Talent.SWIFT_EQUIP,15))
+					Buff.施加(hero, Talent.SwiftEquipCooldown.class, 120-hero.天赋点数(Talent.SWIFT_EQUIP,30))
 							.secondUse = true;
 				} else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
 					hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;

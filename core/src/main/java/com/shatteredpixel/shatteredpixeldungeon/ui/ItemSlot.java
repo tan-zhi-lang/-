@@ -302,6 +302,8 @@ public class ItemSlot extends Button {
 			center.text( Messages.format( TXT_CENTER, Math.round(Dungeon.hero.生命(0.05f*s.volume))) );
 			center.measure();
 			center.hardlight( UPGRADED );
+		}else{
+			center.text(null);
 		}
 		layout();
 	}

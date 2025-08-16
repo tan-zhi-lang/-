@@ -40,6 +40,13 @@ public class 灵月法杖 extends Wand {
 	{
 		image = 物品表.灵月法杖;
 	}
+	public int initialCharges() {
+		return 4;
+	}
+	public void updateLevel() {
+		maxCharges = Math.min( initialCharges() + (Dungeon.hero.等级-1)/3+2, 10);
+		curCharges = Math.min( curCharges+1, maxCharges );
+	}
 	@Override
 	public boolean 可升级() {
 		return false;
@@ -81,9 +88,10 @@ public class 灵月法杖 extends Wand {
 			return;
 		}
 		if (action.equals( AC_ZAP )) {
-
 			curUser = hero;
 			curItem = this;
+
+			updateLevel();
 
 			GameScene.show(new Wnd巫术(this, hero, false));
 		}

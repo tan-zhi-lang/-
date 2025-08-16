@@ -14,12 +14,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.noosa.audio.Sample;
 
@@ -66,6 +68,9 @@ public class Pasty extends Food {
 				break;
 			case NEW_YEARS:
 				image = 物品表.SPARKLING_POTION;
+				break;
+			case 奇袭节:
+				image = 物品表.单身狗粮;
 				break;
 		}
 	}
@@ -149,6 +154,11 @@ public class Pasty extends Food {
 				Buff.施加(hero, Barrier.class).设置(toShield);
 				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
+			case 奇袭节:
+				hero.力量++;
+				hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
+				GLog.p( Messages.get(PotionOfStrength.class, "msg", hero.力量()) );
+				break;
 		}
 	}
 
@@ -175,6 +185,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "cane_name");
 			case NEW_YEARS:
 				return Messages.get(this, "sparkling_name");
+			case 奇袭节:
+				return Messages.get(this, "单身狗粮");
 		}
 	}
 
@@ -201,6 +213,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "cane_desc");
 			case NEW_YEARS:
 				return Messages.get(this, "sparkling_desc");
+			case 奇袭节:
+				return Messages.get(this, "单身狗粮_desc");
 		}
 	}
 	

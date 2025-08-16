@@ -201,16 +201,17 @@ abstract public class MissileWeapon extends Weapon {
 
 	protected float adjacentAccFactor(Char owner, Char target){
 		if (Dungeon.level.adjacent( owner.pos, target.pos )) {
+			//抵近射击
 			if (owner instanceof Hero){
-				return 1.5f;
+				return 1;
 			} else {
-				return 1.5f;
+				return 1;
 			}
 		} else {
 			if (owner instanceof Hero){
-				return 0.5f;
+				return 0.67f;
 			} else {
-				return 0.5f;
+				return 0.67f;
 			}
 		}
 	}

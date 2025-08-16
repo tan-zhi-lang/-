@@ -35,7 +35,11 @@ public class 死血之术 extends 巫术 {
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
-		hero.回血(hero.天赋点数(Talent.死血之术,Random.Int(4,6)));
+		hero.回血(hero.天赋点数(Talent.死血之术,Random.Int(
+				Dungeon.hero.天赋点数(Talent.死血之术,4)+Dungeon.hero.天赋点数(Talent.高级死血,10)
+				,
+				Dungeon.hero.天赋点数(Talent.死血之术,6)+Dungeon.hero.天赋点数(Talent.高级死血,15)
+		)));
 		Item.updateQuickslot();
 
 		hero.sprite.operate(hero.pos);
@@ -46,7 +50,10 @@ public class 死血之术 extends 巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.死血之术,4),Dungeon.hero.天赋点数(Talent.死血之术,6));
+		String desc = Messages.get(this, "desc",
+				Dungeon.hero.天赋点数(Talent.死血之术,4)+Dungeon.hero.天赋点数(Talent.高级死血,10),
+				Dungeon.hero.天赋点数(Talent.死血之术,6)+Dungeon.hero.天赋点数(Talent.高级死血,15)
+		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

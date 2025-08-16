@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatKingSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
@@ -44,11 +45,15 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton( new ChangeButton(new MimicSprite.毒气(), "毒气宝箱怪房",
+				"新增房间。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.单身狗粮), "单身狗粮",
+				"7-8月掉落单身狗粮。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "食物条",
 				"状态栏添加食物条。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.杂物袋), "杂物袋",
 				"商店出售杂物袋。"));
-		changes.addButton( new ChangeButton(Icons.SEED_POUCH.get(), "种子",
+		changes.addButton( new ChangeButton(Icons.SEED.get(), "种子",
 				"现在输入代码名可以直接生成在背包。"));
 		changes.addButton( new ChangeButton(Icons.DISPLAY.get(), "动画加快",
 				"添加可调整动画加快按钮。"));
@@ -70,7 +75,7 @@ public class 重制 {
 						,
 						"杂项\n\n" +
 						"根骨之戒力量+1 => +2。提升生命系数1.035 => 1.07。\n" +
-						"投掷和弓在近距离+50%最大命中，非近距离-50%最大命中。\n" +
+						"投掷和弓在近距离最大命中不变，非近距离-33%最大命中。\n" +
 						"优化感知、视野范围、光照范围计算。"
 		));
 

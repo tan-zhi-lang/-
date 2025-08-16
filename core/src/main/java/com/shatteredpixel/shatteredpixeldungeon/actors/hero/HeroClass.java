@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
@@ -87,7 +88,7 @@ public enum HeroClass {
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
 	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
 	CLERIC( HeroSubClass.PRIEST, HeroSubClass.PALADIN ),
-	巫女( HeroSubClass.NONE),
+	巫女( HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
 	重武( HeroSubClass.NONE);
 
 	private HeroSubClass[] subClasses;
@@ -298,6 +299,8 @@ public enum HeroClass {
 		new 祛邪卷轴().鉴定();
 	}
 	private static void 初始巫女(Hero hero ) {
+		Item i = new 巫服().鉴定();
+		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (巫服)i;
 
 		血砍刀 x = new 血砍刀();
 		(hero.belongings.weapon = x).鉴定();

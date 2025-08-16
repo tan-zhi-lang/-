@@ -83,7 +83,9 @@ public abstract class 巫术 {
 				spells.add(换血之术.INSTANCE);
 			}
 		} else if (tier == 3){
-
+			if (cleric.有天赋(Talent.物到之术)) {
+				spells.add(物到之术.INSTANCE);
+			}
 		} else if (tier == 4){
 
 
@@ -102,6 +104,8 @@ public abstract class 巫术 {
 		spells.add(血爆之术.INSTANCE);
 		spells.add(饮血之术.INSTANCE);
 		spells.add(换血之术.INSTANCE);
+
+		spells.add(物到之术.INSTANCE);
 		return spells;
 	}
 }

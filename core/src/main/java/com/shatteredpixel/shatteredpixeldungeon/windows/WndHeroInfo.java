@@ -202,7 +202,6 @@ public class WndHeroInfo extends WndTabbed {
 							Icons.TALENT.get(),
 							new ItemSprite(物品表.REMAINS),
 							new BuffIcon(BuffIndicator.LIGHT, true),
-							new BuffIcon(BuffIndicator.HEALING, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 巫女:
@@ -225,7 +224,7 @@ public class WndHeroInfo extends WndTabbed {
 
 			title.setPos((width-title.width())/2, MARGIN);
 
-			float pos = title.bottom()+4*MARGIN;
+			float pos = title.bottom()+5*MARGIN;
 
 			for (int i = 0; i < info.length; i++){
 				info[i].maxWidth((int)width - 20);
@@ -235,10 +234,10 @@ public class WndHeroInfo extends WndTabbed {
 				icons[i].y = info[i].top() + (info[i].height() - icons[i].height())/2;
 				PixelScene.align(icons[i]);
 
-				pos = info[i].bottom() + 4*MARGIN;
+				pos = info[i].bottom() + 5*MARGIN;
 			}
 
-			height = Math.max(height, pos - 4*MARGIN);
+			height = Math.max(height, pos - 5*MARGIN);
 
 		}
 	}
@@ -272,7 +271,7 @@ public class WndHeroInfo extends WndTabbed {
 
 			title.setPos((width-title.width())/2, MARGIN);
 			message.maxWidth((int)width);
-			message.setPos(0, title.bottom()+4*MARGIN);
+			message.setPos(0, title.bottom()+5*MARGIN);
 
 			talentPane.setRect(0, message.bottom() + 3*MARGIN, width, 85);
 
@@ -322,9 +321,9 @@ public class WndHeroInfo extends WndTabbed {
 
 			title.setPos((width-title.width())/2, MARGIN);
 			message.maxWidth((int)width);
-			message.setPos(0, title.bottom()+4*MARGIN);
+			message.setPos(0, title.bottom()+5*MARGIN);
 
-			float pos = message.bottom()+4*MARGIN;
+			float pos = message.bottom()+5*MARGIN;
 
 			for (int i = 0; i < subClsDescs.length; i++){
 				subClsDescs[i].maxWidth((int)width - 20);
@@ -332,10 +331,10 @@ public class WndHeroInfo extends WndTabbed {
 
 				subClsInfos[i].setRect(width-20, subClsDescs[i].top() + (subClsDescs[i].height()-20)/2, 20, 20);
 
-				pos = subClsDescs[i].bottom() + 4*MARGIN;
+				pos = subClsDescs[i].bottom() + 5*MARGIN;
 			}
 
-			height = Math.max(height, pos - 4*MARGIN);
+			height = Math.max(height, pos - 5*MARGIN);
 
 		}
 	}
@@ -382,9 +381,9 @@ public class WndHeroInfo extends WndTabbed {
 
 			title.setPos((width-title.width())/2, MARGIN);
 			message.maxWidth((int)width);
-			message.setPos(0, title.bottom()+4*MARGIN);
+			message.setPos(0, title.bottom()+5*MARGIN);
 
-			float pos = message.bottom()+4*MARGIN;
+			float pos = message.bottom()+5*MARGIN;
 
 			for (int i = 0; i < abilityDescs.length; i++){
 				abilityDescs[i].maxWidth((int)width - 20);
@@ -392,10 +391,10 @@ public class WndHeroInfo extends WndTabbed {
 
 				abilityInfos[i].setRect(width-20, abilityDescs[i].top() + (abilityDescs[i].height()-20)/2, 20, 20);
 
-				pos = abilityDescs[i].bottom() + 4*MARGIN;
+				pos = abilityDescs[i].bottom() + 5*MARGIN;
 			}
 
-			height = Math.max(height, pos - 4*MARGIN);
+			height = Math.max(height, pos - 5*MARGIN);
 
 		}
 	}

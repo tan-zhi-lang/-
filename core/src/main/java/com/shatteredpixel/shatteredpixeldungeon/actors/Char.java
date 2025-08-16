@@ -797,7 +797,10 @@ public abstract class Char extends Actor {
 		needsShieldUpdate = false;
 		return cachedShield;
 	}
-	
+
+	public void 受伤(int dmg){
+		受伤时(dmg,this);
+	}
 	public void 受伤时(int dmg, Object src ) {
 		
 		if (!isAlive() || dmg < 0) {

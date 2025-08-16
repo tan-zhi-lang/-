@@ -34,11 +34,6 @@ public class 祭鉴之术 extends 背包巫术 {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.HOLY_INTUITION);
-	}
-
-	@Override
 	protected void onItemSelected(灵月法杖 tome, Hero hero, Item item) {
 		if (item == null){
 			return;

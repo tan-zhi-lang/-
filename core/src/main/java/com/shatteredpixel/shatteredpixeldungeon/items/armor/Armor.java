@@ -109,8 +109,8 @@ public class Armor extends EquipableItem {
 	public int tier;
 	
 	private static final int USES_TO_ID = 10;
-	private float usesLeftToID = USES_TO_ID;
-	private float availableUsesToID = USES_TO_ID/2f;
+	public float usesLeftToID = USES_TO_ID;
+	public float availableUsesToID = USES_TO_ID/2f;
 	
 	public Armor( int tier ) {
 		this.tier = tier;
@@ -177,9 +177,7 @@ public class Armor extends EquipableItem {
 			破损纹章 detaching = detachSeal();
 			GLog.i( Messages.get(Armor.class, "detach_seal") );
 			hero.sprite.operate(hero.pos);
-			if (!detaching.放背包()){
-				Dungeon.level.drop(detaching, hero.pos);
-			}
+			detaching.放背包();
 			updateQuickslot();
 		}
 	}
@@ -416,9 +414,9 @@ public class Armor extends EquipableItem {
 			return 0;
 		}
 		
-		if (owner instanceof Hero){
-			int aEnc = 力量() - ((Hero) owner).力量();
-			if (aEnc > 0) evasion /= Math.pow(1.5, aEnc);
+		if (owner instanceof Hero hero){
+			int aEnc = 力量() - hero.力量();
+			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
 			
 			Momentum momentum = owner.buff(Momentum.class);
 			if (momentum != null){
@@ -431,8 +429,8 @@ public class Armor extends EquipableItem {
 	
 	public float speedFactor( Char owner, float speed ){
 		
-		if (owner instanceof Hero) {
-			int aEnc = 力量() - ((Hero) owner).力量();
+		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
+			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
 		}
 		
@@ -494,7 +492,7 @@ public class Armor extends EquipableItem {
 		return super.升级();
 	}
 	
-	public int proc( Char attacker, Char defender, int damage ) {
+	public int 防御时(Char attacker, Char defender, int damage ) {
 
 		if (defender.buff(MagicImmune.class) == null) {
 			Glyph trinityGlyph = null;
@@ -691,6 +689,7 @@ public class Armor extends EquipableItem {
 		if (masteryPotionBonus){
 			req -= 2;
 		}
+		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.1f);
 		return req;
 	}
 

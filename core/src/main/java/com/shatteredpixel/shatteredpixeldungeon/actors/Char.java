@@ -372,7 +372,7 @@ public abstract class Char extends Actor {
 
 		} else if (hit( this, enemy, accMulti, false )) {
 			
-			int dr = Math.round(enemy.drRoll() * AscensionChallenge.statModifier(enemy));
+			int dr = Math.round(enemy.防御() * AscensionChallenge.statModifier(enemy));
 			
 			if (this instanceof Hero){
 				Hero h = (Hero)this;
@@ -411,7 +411,7 @@ public abstract class Char extends Actor {
 					dmg += Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,2)+Dungeon.hero.视野范围(Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,0.2f));
 				}
 				if (this != Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.PRIEST){
-					enemy.受伤时(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
+					enemy.受伤时(Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,2)+Dungeon.hero.视野范围(Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,0.2f)), GuidingLight.INSTANCE);
 				}
 			}
 
@@ -649,7 +649,7 @@ public abstract class Char extends Actor {
 				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& attacker.alignment == Alignment.ALLY){
 			// + 3%/5%
-			acuRoll *= 1.01f + 0.02f*Dungeon.hero.天赋点数(Talent.BLESS);
+			acuRoll *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
 		acuRoll *= accMulti;
 
@@ -665,7 +665,7 @@ public abstract class Char extends Actor {
 				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& defender.alignment == Alignment.ALLY){
 			// + 3%/5%
-			defRoll *= 1.01f + 0.02f*Dungeon.hero.天赋点数(Talent.BLESS);
+			defRoll *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
 		defRoll *= FerretTuft.evasionMultiplier();
 
@@ -692,7 +692,7 @@ public abstract class Char extends Actor {
 		return Messages.get(this, "def_verb");
 	}
 	
-	public int drRoll() {
+	public int 防御() {
 		int dr = 0;
 
 		dr += Random.NormalIntRange( 0 , Barkskin.currentLevel(this) );
@@ -731,8 +731,8 @@ public abstract class Char extends Actor {
 				&& Dungeon.hero.有天赋(Talent.SHIELD_OF_LIGHT)
 				&& TargetHealthIndicator.instance.target() == enemy){
 			//33/50%
-			if (Random.Int(1) < 1+Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT)){
-				damage -= 1;
+			if (Dungeon.hero.有天赋(Talent.SHIELD_OF_LIGHT)){
+				damage -= Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT);
 			}
 		}
 
@@ -741,7 +741,7 @@ public abstract class Char extends Actor {
 			if (Dungeon.hero.alignment == alignment && Dungeon.hero.belongings.armor() != null
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 					&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
-				damage = Dungeon.hero.belongings.armor().proc( enemy, this, damage );
+				damage = Dungeon.hero.belongings.armor().防御时( enemy, this, damage );
 			}
 		}
 

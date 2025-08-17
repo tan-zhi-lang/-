@@ -28,10 +28,7 @@ public class 祭鉴之术 extends 背包巫术 {
 		return !item.已鉴定();
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	@Override
 	protected void onItemSelected(灵月法杖 tome, Hero hero, Item item) {

@@ -47,8 +47,8 @@ public class GnollExile extends Gnoll {
 	}
 
 	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 1);
+	public int 防御() {
+		return super.防御() + Random.NormalIntRange(0, 1);
 	}
 
 	@Override

@@ -44,10 +44,6 @@ public class MindForm extends ClericSpell {
 		return 3;
 	}
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.MIND_FORM);
-	}
 
 	public static int effectLevel(){
 		return 2 + Dungeon.hero.天赋点数(Talent.MIND_FORM);

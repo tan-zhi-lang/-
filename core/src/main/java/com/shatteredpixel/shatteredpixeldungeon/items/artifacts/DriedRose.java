@@ -653,7 +653,7 @@ public class DriedRose extends Artifact {
 		@Override
 		public int 防御时(Char enemy, int damage) {
 			if (armor() != null) {
-				damage = armor().proc( enemy, this, damage );
+				damage = armor().防御时( enemy, this, damage );
 			}
 			return super.防御时(enemy, damage);
 		}
@@ -692,8 +692,8 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int drRoll() {
-			int dr = super.drRoll();
+		public int 防御() {
+			int dr = super.防御();
 			if (armor() != null){
 				dr += Random.NormalIntRange( armor().最小防御(), armor().最大防御());
 			}

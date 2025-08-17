@@ -30,15 +30,8 @@ public class HolyIntuition extends InventoryClericSpell {
 		return (item instanceof EquipableItem || item instanceof Wand) && !item.已鉴定() && !item.cursedKnown;
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.HOLY_INTUITION);
-	}
 
 	@Override
 	protected void onItemSelected(神圣法典 tome, Hero hero, Item item) {

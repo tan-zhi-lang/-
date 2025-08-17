@@ -34,12 +34,7 @@ public class AuraOfProtection extends ClericSpell {
 
 	@Override
 	public float chargeUse(Hero hero) {
-		return 2f;
-	}
-
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.AURA_OF_PROTECTION);
+		return 2;
 	}
 
 	@Override

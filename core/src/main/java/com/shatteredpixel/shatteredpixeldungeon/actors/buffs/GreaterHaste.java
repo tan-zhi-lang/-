@@ -55,7 +55,7 @@ public class GreaterHaste extends Buff {
 	@Override
 	public float iconFadePercent() {
 		//currently tied to the lethal haste talent, as that's the only source
-		float duration = Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,3);
+		float duration = Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,1.3f);
 		return Math.max(0, (duration - left) / duration);
 	}
 

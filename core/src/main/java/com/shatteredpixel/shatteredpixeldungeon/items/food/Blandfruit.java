@@ -243,8 +243,8 @@ public class Blandfruit extends Food {
 			Blandfruit fruit = (Blandfruit) ingredients.get(0);
 			Seed seed = (Seed) ingredients.get(1);
 			
-			if (fruit.数量() >= 1 && fruit.potionAttrib == null
-				&& seed.数量() >= 1){
+			if (fruit.get数量() >= 1 && fruit.potionAttrib == null
+				&& seed.get数量() >= 1){
 
 				return true;
 			}
@@ -261,8 +261,8 @@ public class Blandfruit extends Food {
 		public Item brew(ArrayList<Item> ingredients) {
 			if (!testIngredients(ingredients)) return null;
 			
-			ingredients.get(0).数量(ingredients.get(0).数量() - 1);
-			ingredients.get(1).数量(ingredients.get(1).数量() - 1);
+			ingredients.get(0).get数量(ingredients.get(0).get数量() - 1);
+			ingredients.get(1).get数量(ingredients.get(1).get数量() - 1);
 			
 			
 			return new Blandfruit().cook((Seed) ingredients.get(1));

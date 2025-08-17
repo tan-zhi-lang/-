@@ -119,9 +119,9 @@ public class Bones {
 			if (Random.Int(3) < items.size()) {
 				item = Random.element(items);
 				if (item.stackable){
-					item.数量(Random.NormalIntRange(1, (item.数量() + 1) / 2));
-					if (item.数量() > 3){
-						item.数量(3);
+					item.get数量(Random.NormalIntRange(1, (item.get数量() + 1) / 2));
+					if (item.get数量() > 3){
+						item.get数量(3);
 					}
 				}
 			} else {
@@ -221,7 +221,10 @@ public class Bones {
 				ArrayList<Item> result = new ArrayList<>();
 
 				if (heroClass != null) {
-					result.add(RemainsItem.get(heroClass));
+					Item i=RemainsItem.get(heroClass);
+					if(i!=null){
+						result.add(i);
+					}
 					if (Dungeon.bossLevel()){
 						Statistics.qualifiedForBossRemainsBadge = true;
 					}

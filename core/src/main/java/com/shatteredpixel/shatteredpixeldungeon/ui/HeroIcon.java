@@ -34,6 +34,8 @@ public class HeroIcon extends Image {
 	public static final int PALADIN     = 11;
 	public static final int 神秘学者     = 12;
 	public static final int 黑魔导师     = 13;
+	public static final int 盾之勇者     = 14;
+	public static final int 巨神兵     = 15;
 
 	//abilities
 	public static final int HEROIC_LEAP     = 16;

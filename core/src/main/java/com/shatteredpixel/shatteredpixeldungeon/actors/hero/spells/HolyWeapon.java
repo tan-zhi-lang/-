@@ -25,10 +25,7 @@ public class HolyWeapon extends ClericSpell {
 		return HeroIcon.HOLY_WEAPON;
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	@Override
 	public void onCast(神圣法典 tome, Hero hero) {

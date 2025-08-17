@@ -126,18 +126,18 @@ public class LiquidMetal extends Item {
 				if (toUse == 0 ||
 						Math.ceil(m.durabilityLeft()/ m.durabilityPerUse()) >= Math.ceil(m.MAX_DURABILITY/ m.durabilityPerUse()) ){
 
-					if (m.数量() < m.defaultQuantity()){
-						if (数量()*durabilityPerMetal >= m.durabilityPerUse()){
-							m.数量(m.数量()+1);
-							if (maxToUse < 数量()){
+					if (m.get数量() < m.defaultQuantity()){
+						if (get数量()*durabilityPerMetal >= m.durabilityPerUse()){
+							m.get数量(m.get数量()+1);
+							if (maxToUse < get数量()){
 								Catalog.countUses(LiquidMetal.class, (int)Math.ceil(maxToUse));
 								GLog.i(Messages.get(LiquidMetal.class, "apply", (int)Math.ceil(maxToUse)));
 								quantity -= (int)Math.ceil(maxToUse);
 							} else {
-								Catalog.countUses(LiquidMetal.class, 数量());
+								Catalog.countUses(LiquidMetal.class, get数量());
 								m.damage(100f);
-								m.repair(数量()*durabilityPerMetal-1);
-								GLog.i(Messages.get(LiquidMetal.class, "apply", 数量()));
+								m.repair(get数量()*durabilityPerMetal-1);
+								GLog.i(Messages.get(LiquidMetal.class, "apply", get数量()));
 								detachAll(Dungeon.hero.belongings.backpack);
 							}
 						} else {
@@ -148,16 +148,16 @@ public class LiquidMetal extends Item {
 						GLog.w(Messages.get(LiquidMetal.class, "already_fixed"));
 						return;
 					}
-				} else if (toUse < 数量()) {
+				} else if (toUse < get数量()) {
 					Catalog.countUses(LiquidMetal.class, toUse);
 					m.repair(maxToUse*durabilityPerMetal);
-					数量(数量()-toUse);
+					get数量(get数量()-toUse);
 					GLog.i(Messages.get(LiquidMetal.class, "apply", toUse));
 
 				} else {
-					Catalog.countUses(LiquidMetal.class, 数量());
-					m.repair(数量()*durabilityPerMetal);
-					GLog.i(Messages.get(LiquidMetal.class, "apply", 数量()));
+					Catalog.countUses(LiquidMetal.class, get数量());
+					m.repair(get数量()*durabilityPerMetal);
+					GLog.i(Messages.get(LiquidMetal.class, "apply", get数量()));
 					detachAll(Dungeon.hero.belongings.backpack);
 				}
 
@@ -189,10 +189,10 @@ public class LiquidMetal extends Item {
 			Item result = sampleOutput(ingredients);
 			MissileWeapon m = (MissileWeapon) ingredients.get(0);
 			if (!m.levelKnown){
-				result.数量(metalQuantity(m));
+				result.get数量(metalQuantity(m));
 			}
 
-			m.数量(0);
+			m.get数量(0);
 			Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(m.setID, Integer.MAX_VALUE);
 
 			return result;
@@ -203,7 +203,7 @@ public class LiquidMetal extends Item {
 			MissileWeapon m = (MissileWeapon) ingredients.get(0);
 
 			if (m.levelKnown){
-				return new LiquidMetal().数量(metalQuantity(m));
+				return new LiquidMetal().get数量(metalQuantity(m));
 			} else {
 				return new LiquidMetal();
 			}
@@ -216,7 +216,7 @@ public class LiquidMetal extends Item {
 			}
 			quantityPerWeapon *= Math.pow(1.33f, Math.min(5, m.等级()));
 
-			float quantity = m.数量()-1;
+			float quantity = m.get数量()-1;
 			quantity += 0.25f + 0.0075f*m.durabilityLeft();
 
 			return Math.round(quantity * quantityPerWeapon);

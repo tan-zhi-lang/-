@@ -3,11 +3,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -17,17 +19,21 @@ import com.watabou.utils.Bundle;
 public class 冰门重盾 extends MeleeWeapon {
 
 	{
-		image = 物品表.ROUND_SHIELD;
+		image = 物品表.冰门重盾;
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1f;
 
-		tier = 3;
+		tier = 1;
 	}
-
+	@Override
+	public int 最小攻击(int lvl) {
+		return  Math.round((tier+1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5F)) +   //12 base, down from 20
+				lvl*(tier-1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5F)));               //+2 per level, down from +4
+	}
 	@Override
 	public int 最大攻击(int lvl) {
-		return  Math.round(3f*(tier+1)) +   //12 base, down from 20
-				lvl*(tier-1);               //+2 per level, down from +4
+		return  Math.round(4*(tier+1+Dungeon.hero.天赋点数(Talent.冰门高攻)) +   //12 base, down from 20
+				lvl*(tier-1+Dungeon.hero.天赋点数(Talent.冰门高攻)));               //+2 per level, down from +4
 	}
 
 	@Override
@@ -41,14 +47,14 @@ public class 冰门重盾 extends MeleeWeapon {
 
 	//4 extra defence, plus 1 per level
 	public int 最大防御(int lvl){
-		return 4 + lvl;
+		return 2 + lvl;
 	}
 	
 	public String statsInfo(){
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", 4+ 强化等级());
+			return Messages.get(this, "stats_desc", 2+ 强化等级());
 		} else {
-			return Messages.get(this, "typical_stats_desc", 4);
+			return Messages.get(this, "typical_stats_desc", 2);
 		}
 	}
 

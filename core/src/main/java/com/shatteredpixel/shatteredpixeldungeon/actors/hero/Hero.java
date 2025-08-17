@@ -78,7 +78,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap.Type;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -134,6 +133,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
@@ -263,12 +264,16 @@ public class Hero extends Char {
 		if (boostHP){
 			生命 += Math.max(最大生命 - curHT, 0);
 		}
-		if (belongings.armor() instanceof 巫服){
-			最大生命 *=1.25f;
-		}
 
 		float multiplier = RingOfMight.HTMultiplier(this);
 		multiplier*=综合属性();
+
+		if (belongings.armor() instanceof 巫服){
+			multiplier *=1.25f;
+		}
+		if(heroClass(HeroClass.重武)){
+			multiplier *=1.25f;
+		}
 		最大生命 = Math.round(multiplier * 最大生命);
 
 		生命 = Math.min(生命, 最大生命);
@@ -276,22 +281,25 @@ public class Hero extends Char {
 
 	public int 力量() {
 
-		int strBonus = 力量;
+		int str = 力量+RingOfMight.strengthBonus( this )*2;
 
 		AdrenalineSurge buff = buff(AdrenalineSurge.class);
 		if (buff != null){
-			strBonus += buff.boost();
+			str += buff.boost();
 		}
-		strBonus *=1+天赋点数(Talent.STRONGMAN,0.08f);
+		str *=1+天赋点数(Talent.STRONGMAN,0.08f);
 
 
 		if (heroClass(HeroClass.WARRIOR)){
-			strBonus*= 1.1f;
+			str *= 1.1f;
 		}
 
-		strBonus*=综合属性();
+		str *=综合属性();
 
-		return strBonus+RingOfMight.strengthBonus( this )*2;
+		if(str>=15){
+			Badges.解锁重武();
+		}
+		return str;
 	}
 
 	private static final String CLASS       = "class";
@@ -401,6 +409,7 @@ public class Hero extends Char {
 	public boolean 天赋概率(Talent talent,int x){
 		return Random.Int(1,100)<=天赋点数(talent)*x+(x==33?1:0);
 	}
+
 	public float 天赋点数(Talent talent ,float x){
 		for (LinkedHashMap<Talent, Integer> tier : talents){
 			for (Talent f : tier.keySet()){
@@ -574,7 +583,7 @@ public class Hero extends Char {
 		float accuracy = 1;
 
 		accuracy*=综合属性();
-		accuracy*=1+天赋点数(Talent.顶福精华,0.2f);
+		accuracy*=1+天赋点数(Talent.顶福精华,0.13f);
 		accuracy *= RingOfAccuracy.accuracyMultiplier( this );
 		
 		//precise assault and liquid agility
@@ -631,9 +640,9 @@ public class Hero extends Char {
 		}
 		
 		if (!RingOfForce.fightingUnarmed(this)&&target!=null) {
-			return Math.max(1, Math.round((最大命中+(等级-1)*2) * accuracy * wep.accuracyFactor( this, target )));
+			return Math.max(1, 天赋点数(Talent.顶福精华,10)+Math.round((最大命中+(等级-1)*2) * accuracy * wep.accuracyFactor( this, target )));
 		} else {
-			return Math.max(1, Math.round((最大命中+(等级-1)*2) * accuracy));
+			return Math.max(1, 天赋点数(Talent.顶福精华,10)+Math.round((最大命中+(等级-1)*2) * accuracy));
 		}
 	}
 
@@ -656,8 +665,9 @@ public class Hero extends Char {
 		
 		float evasion = (最大闪避+(等级-1));
 
+		evasion+=天赋点数(Talent.顶福精华,5);
+		evasion*=1+天赋点数(Talent.顶福精华,0.08f);
 		evasion*=综合属性();
-		evasion*=1+天赋点数(Talent.顶福精华,0.2f);
 
 		if(belongings.armor instanceof 风衣){
 			evasion*=1.25f;
@@ -723,19 +733,19 @@ public class Hero extends Char {
 	}
 
 	@Override
-	public int drRoll() {
-		int dr = super.drRoll();
+	public int 防御() {
+		int dr = super.防御();
 
 		if (belongings.armor() != null) {
 			int armDr = Random.NormalIntRange( belongings.armor().最小防御(), belongings.armor().最大防御());
-			if (力量() < belongings.armor().力量()){
+			if (力量() < belongings.armor().力量()&&!heroClass(HeroClass.重武)){
 				armDr -= 2*(belongings.armor().力量() - 力量());
 			}
 			if (armDr > 0) dr += armDr;
 		}
 		if (belongings.weapon() != null && !RingOfForce.fightingUnarmed(this))  {
 			int wepDr = Random.NormalIntRange( 0 , belongings.weapon().defenseFactor( this ) );
-			if (力量() < ((Weapon)belongings.weapon()).力量()){
+			if (力量() < ((Weapon)belongings.weapon()).力量()&&!heroClass(HeroClass.重武)){
 				wepDr -= 2*(((Weapon)belongings.weapon()).力量() - 力量());
 			}
 			if (wepDr > 0) dr += wepDr;
@@ -744,7 +754,9 @@ public class Hero extends Char {
 		if (buff(HoldFast.class) != null){
 			dr += buff(HoldFast.class).armorBonus();
 		}
-		
+		if(有天赋(Talent.冰门高攻)){
+			dr*=1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.08f);
+		}
 		return dr;
 	}
 	
@@ -777,7 +789,7 @@ public class Hero extends Char {
 		if (heroClass != HeroClass.DUELIST
 				&& 有天赋(Talent.WEAPON_RECHARGING)
 				&& (buff(Recharging.class) != null || buff(ArtifactRecharge.class) != null)){
-			dmg = Math.round(dmg *天赋点数(Talent.WEAPON_RECHARGING,0.05f));
+			dmg = Math.round(dmg *天赋点数(Talent.WEAPON_RECHARGING,0.08f));
 		}
 
 		if (dmg < 0) dmg = 0;
@@ -947,6 +959,9 @@ public class Hero extends Char {
 	public boolean 免疫(Class effect ){
 		HashSet<Class> immunes = new HashSet<>(immunities);
 
+		if(heroClass(HeroClass.重武)){
+			immunes.add( Chill.class );
+		}
 		if(belongings.armor instanceof 铠甲){
 			immunes.add( Chill.class );
 		}
@@ -1250,10 +1265,10 @@ public class Hero extends Char {
 					} else if (item instanceof DarkGold) {
 						DarkGold existing = belongings.getItem(DarkGold.class);
 						if (existing != null){
-							if (existing.数量() >= 40) {
-								GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
+							if (existing.get数量() >= 40) {
+								GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
 							} else {
-								GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
+								GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
 							}
 						}
 					} else {
@@ -1430,11 +1445,11 @@ public class Hero extends Char {
 							DarkGold gold = new DarkGold();
 							if (gold.doPickUp( Dungeon.hero )) {
 								DarkGold existing = Dungeon.hero.belongings.getItem(DarkGold.class);
-								if (existing != null && existing.数量()%5 == 0){
-									if (existing.数量() >= 40) {
-										GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
+								if (existing != null && existing.get数量()%5 == 0){
+									if (existing.get数量() >= 40) {
+										GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
 									} else {
-										GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
+										GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
 									}
 								}
 								spend(-Actor.TICK); //picking up the gold doesn't spend a turn here
@@ -1567,7 +1582,7 @@ public class Hero extends Char {
 					&& 有天赋(Talent.AGGRESSIVE_BARRIER)
 					&& buff(Talent.AggressiveBarrierCooldown.class) == null
 					&& (生命 / (float) 最大生命) <= 0.5f){
-				int shieldAmt = 天赋点数(Talent.AGGRESSIVE_BARRIER,5);
+				int shieldAmt = 天赋点数(Talent.AGGRESSIVE_BARRIER,5)+最大生命(天赋点数(Talent.AGGRESSIVE_BARRIER,0.5f));
 				Buff.施加(this, Barrier.class).设置(shieldAmt);
 				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 				Buff.施加(this, Talent.AggressiveBarrierCooldown.class, 50f);
@@ -1600,8 +1615,9 @@ public class Hero extends Char {
 	
 	public void rest( boolean fullRest ) {
 		spendAndNextConstant( TIME_TO_REST );
-		if (false){//不动如山
+		if (有天赋(Talent.捍守可拘)){//不动如山
 			Buff.施加(this, HoldFast.class).pos = pos;
+			Buff.施加(this, Barrier.class).设置(天赋点数(Talent.捍守可拘,3)+最大生命(天赋点数(Talent.血爆之术,0.05f)));
 		}
 		if (有天赋(Talent.PATIENT_STRIKE)){
 			Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;
@@ -1616,6 +1632,17 @@ public class Hero extends Char {
 	@Override
 	public int 攻击时(final Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
+
+
+		if (buff(Kinetic.ConservedDamage.class) != null) {
+			int conservedDamage = 0;
+			conservedDamage = buff(Kinetic.ConservedDamage.class).damageBonus();
+			buff(Kinetic.ConservedDamage.class).detach();
+			//use a tracker so that we can know the true final damage
+			Buff.施加(this, Kinetic.KineticTracker.class).conservedDamage = conservedDamage;
+			damage+=conservedDamage;
+		}
+
 
 		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
 			Berserk berserk = Buff.施加(this, Berserk.class);
@@ -1636,6 +1663,9 @@ public class Hero extends Char {
 
 		if (有天赋(Talent.致命打击)&&enemy.第一次防御){
 			damage+=天赋点数(Talent.致命打击,2)+enemy.最大生命(天赋点数(Talent.致命打击,0.02f));
+		}
+		if (有天赋(Talent.盾举冲击)){
+			damage+=天赋点数(Talent.盾举冲击)+力量(天赋点数(Talent.盾举冲击,0.1f));
 		}
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
 			damage++;
@@ -1681,9 +1711,9 @@ public class Hero extends Char {
 					protected boolean act() {
 						if (enemy.isAlive()) {
 							if (有天赋(Talent.SHARED_UPGRADES)){
-								int levelBonus = Math.min( 天赋点数(Talent.SHARED_UPGRADES), wep.强化等级() );
+								int levelBonus = Math.min( 天赋点数(Talent.SHARED_UPGRADES,3), wep.强化等级() );
 								// bonus dmg is 16.67% x weapon level, max of 2/4/6
-								float bonusDmg = levelBonus*0.3f+0.15f;
+								float bonusDmg = levelBonus*0.1f+0.1f;
 								Buff.延长(Hero.this, SnipersMark.class, SnipersMark.DURATION + levelBonus).set(enemy.id(), bonusDmg);
 							} else {
 								Buff.延长(Hero.this, SnipersMark.class, SnipersMark.DURATION).set(enemy.id(), 0);
@@ -1704,6 +1734,36 @@ public class Hero extends Char {
 	@Override
 	public int 防御时(Char enemy, int damage ) {
 
+		if(有天赋(Talent.严傲之意)) {
+			Buff.施加(this, Kinetic.ConservedDamage.class);
+
+			int dmgToAdd = damage;
+			dmgToAdd -= buff(Kinetic.KineticTracker.class).conservedDamage;
+			dmgToAdd = Math.round(dmgToAdd * 天赋点数(Talent.严傲之意,0.08f));
+			if (dmgToAdd > 0) {
+				Buff.施加(this, Kinetic.ConservedDamage.class).setBonus(dmgToAdd);
+			}
+		}
+		if(有天赋(Talent.坚守鉴定)){
+			for (Item item : Dungeon.hero.belongings){
+				if (item instanceof Armor a){
+					a.usesLeftToID-=天赋点数(Talent.坚守鉴定);
+					a.availableUsesToID-=天赋点数(Talent.坚守鉴定);
+				}
+				if (item instanceof Wand a){
+					a.usesLeftToID-=天赋点数(Talent.坚守鉴定);
+					a.availableUsesToID-=天赋点数(Talent.坚守鉴定);
+				}
+				if (item instanceof MeleeWeapon a){
+					a.usesLeftToID-=天赋点数(Talent.坚守鉴定);
+					a.availableUsesToID-=天赋点数(Talent.坚守鉴定);
+				}
+				if (item instanceof MissileWeapon a){
+					a.usesLeftToID-=天赋点数(Talent.坚守鉴定);
+					a.availableUsesToID-=天赋点数(Talent.坚守鉴定);
+				}
+			}
+		}
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
 			damage--;
 		}
@@ -1713,7 +1773,7 @@ public class Hero extends Char {
 		}
 		
 		if (belongings.armor() != null) {
-			damage = belongings.armor().proc( enemy, this, damage );
+			damage = belongings.armor().防御时( enemy, this, damage );
 		} else {
 			if (buff(BodyForm.BodyFormBuff.class) != null
 				&& buff(BodyForm.BodyFormBuff.class).glyph() != null){
@@ -1837,7 +1897,6 @@ public class Hero extends Char {
 			}
 		}
 	}
-	
 	public void checkVisibleMobs() {
 		ArrayList<Mob> visible = new ArrayList<>();
 
@@ -1919,6 +1978,9 @@ public class Hero extends Char {
 	
 	public int visibleEnemies() {
 		return visibleEnemies.size();
+	}
+	public boolean 视野敌人() {
+		return visibleEnemies.size()>0;
 	}
 	
 	public Mob visibleEnemy( int index ) {

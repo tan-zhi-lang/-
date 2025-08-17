@@ -64,6 +64,9 @@ public class WndHeroInfo extends WndTabbed {
 			case 巫女:
 				tabIcon = new ItemSprite(物品表.灵月法杖, null);
 				break;
+			case 重武:
+				tabIcon = new ItemSprite(物品表.冰门重盾, null);
+				break;
 		}
 
 		int finalHeight = MIN_HEIGHT;
@@ -209,6 +212,13 @@ public class WndHeroInfo extends WndTabbed {
 							new BuffIcon(BuffIndicator.HEALING, true),
 							Icons.TALENT.get(),
 							new BuffIcon(BuffIndicator.HEX, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 重武:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.HEALING, true),
+							new BuffIcon(BuffIndicator.FROST, true),
+							new ItemSprite(物品表.巨斧),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}

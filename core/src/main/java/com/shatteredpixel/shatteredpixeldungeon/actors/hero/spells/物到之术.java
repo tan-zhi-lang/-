@@ -23,12 +23,12 @@ public class 物到之术 extends 巫术 {
 
 	@Override
 	public float chargeUse(Hero hero) {
-		return 1;
+		return 2;
 	}
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
-		hero.受伤(hero.最大生命(0.5f-hero.天赋点数(Talent.物到之术,0.1f)));
+		hero.受伤(50-hero.天赋点数(Talent.物到之术,10)+hero.最大生命(0.5f-hero.天赋点数(Talent.物到之术,0.1f)));
 		Item item = Generator.random();
 		item.放背包();
 		Item.updateQuickslot();
@@ -41,7 +41,7 @@ public class 物到之术 extends 巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血历之术,0.15f)));
+		String desc = Messages.get(this, "desc",50-Dungeon.hero.天赋点数(Talent.物到之术,10)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血历之术,0.15f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

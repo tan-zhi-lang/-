@@ -73,8 +73,8 @@ public abstract class Wand extends Item {
 	public int resinBonus = 0;
 
 	private static final int USES_TO_ID = 10;
-	private float usesLeftToID = USES_TO_ID;
-	private float availableUsesToID = USES_TO_ID/2f;
+	public float usesLeftToID = USES_TO_ID;
+	public float availableUsesToID = USES_TO_ID/2f;
 
 	protected int collisionProperties = Ballistica.MAGIC_BOLT;
 	
@@ -220,7 +220,7 @@ public abstract class Wand extends Item {
 				&& Dungeon.hero.有天赋(Talent.SUNRAY)){
 			// 15/25% chance
 			if (Dungeon.hero.天赋概率(Talent.SUNRAY,15)){
-				Buff.延长(target, Blindness.class, 4f);
+				Buff.延长(target, Blindness.class, Dungeon.hero.天赋点数(Talent.SUNRAY,2));
 			}
 		}
 	}

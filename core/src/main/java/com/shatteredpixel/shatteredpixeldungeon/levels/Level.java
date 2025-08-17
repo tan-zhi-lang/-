@@ -247,7 +247,7 @@ public abstract class Level implements Bundlable {
 			}
 			if ( Dungeon.intStoneNeeded() ){
 				Dungeon.LimitedDrops.INT_STONE.drop();
-				addItemToSpawn( new 感知符石().数量(2));
+				addItemToSpawn( new 感知符石().get数量(2));
 			}
 			if ( Dungeon.trinketCataNeeded() ){
 				Dungeon.LimitedDrops.TRINKET_CATA.drop();
@@ -1153,7 +1153,7 @@ public abstract class Level implements Bundlable {
 					set(ch.pos, Terrain.FURROWED_GRASS);
 				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
-					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 4 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS));
+					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 12 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,3));
 				}
 				GameScene.updateMap(ch.pos);
 				Buff.施加(ch, Talent.RejuvenatingStepsCooldown.class, 12 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,3));

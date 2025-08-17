@@ -51,8 +51,8 @@ public class ArmoredStatue extends Statue {
 	}
 
 	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange( armor.最小防御(), armor.最大防御());
+	public int 防御() {
+		return super.防御() + Random.NormalIntRange( armor.最小防御(), armor.最大防御());
 	}
 
 	//used in some glyph calculations
@@ -62,7 +62,7 @@ public class ArmoredStatue extends Statue {
 
 	@Override
 	public int 防御时(Char enemy, int damage) {
-		damage = armor.proc(enemy, this, damage);
+		damage = armor.防御时(enemy, this, damage);
 		return super.防御时(enemy, damage);
 	}
 

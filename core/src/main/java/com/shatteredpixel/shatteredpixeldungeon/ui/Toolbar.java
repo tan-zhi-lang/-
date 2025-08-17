@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
@@ -236,8 +237,9 @@ public class Toolbar extends Component {
 					if ((Dungeon.level.heaps.get(Dungeon.hero.pos) != null || Dungeon.hero.canSelfTrample())
 						&& Dungeon.hero.handle(Dungeon.hero.pos)){
 						//trigger hold fast and patient strike here, even if the hero didn't specifically wait
-						if (false){//不动如山
+						if (Dungeon.hero.有天赋(Talent.捍守可拘)){//不动如山
 							Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
+							Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋点数(Talent.捍守可拘,3)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血爆之术,0.05f)));
 						}
 						if (Dungeon.hero.有天赋(Talent.PATIENT_STRIKE)){
 							Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;

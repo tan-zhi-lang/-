@@ -246,8 +246,8 @@ public class Ratmogrify extends ArmorAbility {
 			return original.最大命中(target);
 		}
 
-		public int drRoll() {
-			return original.drRoll();
+		public int 防御() {
+			return original.防御();
 		}
 
 		@Override

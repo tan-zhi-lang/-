@@ -29,7 +29,7 @@ public class MineSecretRoom extends SecretRoom {
 			Painter.fill(level, this, 1, Terrain.MINE_CRYSTAL);
 		} else if (Blacksmith.Quest.Type() == Blacksmith.Quest.GNOLL) {
 			Painter.fill( level, this, 1, Terrain.EMPTY_SP );
-			level.drop(new DarkGold().数量(Random.NormalIntRange(3, 5)), level.pointToCell(center())).type = Heap.Type.CHEST;
+			level.drop(new DarkGold().get数量(Random.NormalIntRange(3, 5)), level.pointToCell(center())).type = Heap.Type.CHEST;
 			return;
 		} else if (Blacksmith.Quest.Type() == Blacksmith.Quest.FUNGI) {
 			Painter.fill(level, this, 1, Terrain.HIGH_GRASS);

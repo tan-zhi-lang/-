@@ -28,8 +28,8 @@ public class HermitCrab extends Crab {
 	}
 
 	@Override
-	public int drRoll() {
-		return super.drRoll() + 2; //2-6 DR total, up from 0-4
+	public int 防御() {
+		return super.防御() + 2; //2-6 DR total, up from 0-4
 	}
 
 }

@@ -30,17 +30,12 @@ public class LayOnHands extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.LAY_ON_HANDS,10)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.LAY_ON_HANDS,7)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
 	public int targetingFlags(){
 		return -1; //auto-targeting behaviour is often wrong, so we don't use it
-	}
-
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.LAY_ON_HANDS);
 	}
 
 	@Override
@@ -86,7 +81,7 @@ public class LayOnHands extends TargetedClericSpell {
 	}
 
 	private void affectChar(Hero hero, Char ch){
-		int totalHeal = hero.天赋点数(Talent.LAY_ON_HANDS,10);
+		int totalHeal = hero.天赋点数(Talent.LAY_ON_HANDS,7)+hero.最大生命(hero.天赋点数(Talent.LAY_ON_HANDS,0.4f));
 		int totalBarrier = 0;
 		if (ch == hero){
 			Barrier barrier = Buff.施加(ch, Barrier.class);

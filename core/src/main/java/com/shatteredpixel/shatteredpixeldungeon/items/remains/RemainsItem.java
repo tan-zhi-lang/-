@@ -59,7 +59,7 @@ public abstract class RemainsItem extends Item {
 		return 50;
 	}
 
-	public static RemainsItem get(HeroClass cls){
+	public static RemainsItem get(HeroClass cls){//遗物
 		switch (cls){
 			case WARRIOR: default:
 				return new SealShard();
@@ -72,8 +72,6 @@ public abstract class RemainsItem extends Item {
 			case DUELIST:
 				return new BrokenHilt();
 			case CLERIC:
-				return new TornPage();
-			case 巫女:
 				return new TornPage();
 		}
 	}

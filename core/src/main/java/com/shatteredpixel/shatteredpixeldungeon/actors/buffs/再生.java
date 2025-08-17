@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -65,7 +66,16 @@ public class 再生 extends Buff {
 				partialRegen += 1f / delay;
 
 				if (partialRegen >= 1) {
-					target.回血(Math.round(partialRegen+target.生命(0.01f)));
+					int x =0;
+					if(target instanceof Hero hero){
+						if(hero.有天赋(Talent.孤立无援)&&!hero.视野敌人()){
+							x+=hero.天赋点数(Talent.孤立无援)+hero.生命(hero.天赋点数(Talent.孤立无援,0.01f));
+						}
+						x+=hero.天赋点数(Talent.钢铁之盾)+hero.生命(hero.天赋点数(Talent.钢铁之盾,0.01f));
+					}
+					target.回血(Math.round(partialRegen+
+							target.生命(0.01f)+x
+					));
 					partialRegen -= (int)partialRegen;
 					if (target.满血()) {
 						((Hero) target).resting = false;

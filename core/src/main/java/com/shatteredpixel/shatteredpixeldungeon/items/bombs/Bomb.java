@@ -171,7 +171,7 @@ public class Bomb extends Item {
 				}
 
 				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
-				dmg -= ch.drRoll();
+				dmg -= ch.防御();
 
 				if (dmg > 0) {
 					ch.受伤时(dmg, this);
@@ -313,7 +313,7 @@ public class Bomb extends Item {
 		@Override
 		public boolean doPickUp(Hero hero, int pos) {
 			Bomb bomb = new Bomb();
-			bomb.数量(2);
+			bomb.get数量(2);
 			if (bomb.doPickUp(hero, pos)) {
 				//isaaaaac.... (don't bother doing this when not in english)
 				if (SPDSettings.language() == Languages.ENGLISH)
@@ -394,7 +394,7 @@ public class Bomb extends Item {
 			Item result = null;
 			
 			for (Item i : ingredients){
-				i.数量(i.数量()-1);
+				i.get数量(i.get数量()-1);
 				if (validIngredients.containsKey(i.getClass())){
 					result = Reflection.newInstance(validIngredients.get(i.getClass()));
 				}

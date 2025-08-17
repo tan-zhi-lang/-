@@ -41,21 +41,20 @@ public class HolyLance extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,20);
-		int max = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,30);
+		int min = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,5);
+		int max = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,10);
 		return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.有天赋(Talent.HOLY_LANCE)
 				&& hero.buff(LanceCooldown.class) == null;
 	}
 
 	@Override
 	public float chargeUse(Hero hero) {
-		return 4;
+		return 2;
 	}
 
 	@Override
@@ -96,8 +95,8 @@ public class HolyLance extends TargetedClericSpell {
 							new Callback() {
 								@Override
 								public void call() {
-									int min = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,20);
-									int max = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,30);
+									int min = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,5)+enemy.最大生命(Dungeon.hero.天赋点数(Talent.HOLY_LANCE,0.02f));
+									int max = Dungeon.hero.天赋点数(Talent.HOLY_LANCE,10)+enemy.最大生命(Dungeon.hero.天赋点数(Talent.HOLY_LANCE,0.04f));
 									if (Char.hasProp(enemy, Char.Property.UNDEAD) || Char.hasProp(enemy, Char.Property.DEMONIC)){
 										min = max;
 									}

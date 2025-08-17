@@ -147,7 +147,7 @@ public class Artifact extends KindofMisc {
 				&& Dungeon.hero.有天赋(Talent.SUNRAY)){
 			// 15/25% chance
 			if (Dungeon.hero.天赋概率(Talent.SUNRAY,15)){
-				Buff.延长(target, Blindness.class, 4f);
+				Buff.延长(target, Blindness.class, Dungeon.hero.天赋点数(Talent.SUNRAY,2));
 			}
 		}
 	}

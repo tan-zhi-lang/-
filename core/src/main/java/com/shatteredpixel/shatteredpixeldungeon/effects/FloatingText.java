@@ -338,7 +338,7 @@ public class FloatingText extends RenderedTextBlock {
 				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& attacker.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
-			blessBoost *= 1.01f + 0.02f*Dungeon.hero.天赋点数(Talent.BLESS);
+			blessBoost *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
 		if (blessBoost > 1f) hitReasons.put(HIT_BLS, blessBoost);
 		if (RingOfAccuracy.accuracyMultiplier(attacker) > 1)    hitReasons.put(HIT_ACC, RingOfAccuracy.accuracyMultiplier(attacker));
@@ -429,7 +429,7 @@ public class FloatingText extends RenderedTextBlock {
 				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& defender.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
-			blessBoost *= 1.01f + 0.02f*Dungeon.hero.天赋点数(Talent.BLESS);
+			blessBoost *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
 		if (blessBoost > 1f)                                    missReasons.put(MISS_BLS, blessBoost);
 		if (FerretTuft.evasionMultiplier() > 1)                 missReasons.put(MISS_TUFT, FerretTuft.evasionMultiplier());

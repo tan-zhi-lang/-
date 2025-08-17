@@ -56,7 +56,7 @@ public class WndTradeItem extends WndInfoItem {
 		}
 		final Shopkeeper finalShop = shop;
 
-		if (item.数量() == 1 || (item instanceof MissileWeapon && item.可升级())) {
+		if (item.get数量() == 1 || (item instanceof MissileWeapon && item.可升级())) {
 
 			if (item instanceof MissileWeapon && ((MissileWeapon) item).extraThrownLeft){
 				RenderedTextBlock warn = PixelScene.renderTextBlock(Messages.get(WndUpgrade.class, "thrown_dust"), 6);
@@ -83,7 +83,7 @@ public class WndTradeItem extends WndInfoItem {
 		} else {
 
 			int priceAll= item.金币();
-			RedButton btnSell1 = new RedButton( Messages.get(this, "sell_1", priceAll / item.数量()) ) {
+			RedButton btnSell1 = new RedButton( Messages.get(this, "sell_1", priceAll / item.get数量()) ) {
 				@Override
 				protected void onClick() {
 					sellOne( item, finalShop );
@@ -248,7 +248,7 @@ public class WndTradeItem extends WndInfoItem {
 
 	public static void sellOne( Item item, Shopkeeper shop ) {
 		
-		if (item.数量() <= 1) {
+		if (item.get数量() <= 1) {
 			sell( item, shop );
 		} else {
 			

@@ -62,7 +62,7 @@ public class 饮血之术 extends 目标巫术 {
 				if (ch != null&&!ch.满血()&&(ch.properties.contains(Char.Property.MINIBOSS)||ch.properties.contains(Char.Property.BOSS_MINION)||ch.properties.contains(Char.Property.BOSS))) {
 					ch.生命=1;
 					Buff.延长(ch, Invulnerability.class, Invulnerability.DURATION/2);
-					hero.回血(hero.已损失生命(hero.天赋点数(Talent.饮血之术,0.12f)));
+					hero.回血(hero.天赋点数(Talent.饮血之术,10)+hero.已损失生命(hero.天赋点数(Talent.饮血之术,0.12f)));
 					Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 
 				} else {
@@ -78,14 +78,11 @@ public class 饮血之术 extends 目标巫术 {
 		});
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.饮血之术,12)*100);
+		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.饮血之术,10)+Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.饮血之术,0.12f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

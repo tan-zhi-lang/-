@@ -32,11 +32,6 @@ public class Radiance extends ClericSpell {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.subClass == HeroSubClass.PRIEST;
-	}
-
-	@Override
 	public void onCast(神圣法典 tome, Hero hero) {
 
 		GameScene.flash( 0x80FFFFFF );

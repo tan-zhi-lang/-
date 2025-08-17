@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
@@ -17,10 +18,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Shad
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
@@ -99,8 +102,8 @@ abstract public class Weapon extends KindOfWeapon {
 	protected int usesToID(){
 		return 20;
 	}
-	protected float usesLeftToID = usesToID();
-	protected float availableUsesToID = usesToID()/2f;
+	public float usesLeftToID = usesToID();
+	public float availableUsesToID = usesToID()/2f;
 	
 	public Enchantment enchantment;
 	public boolean enchantHardened = false;
@@ -272,8 +275,8 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		int encumbrance = 0;
 		
-		if( owner instanceof Hero ){
-			encumbrance = 力量() - ((Hero)owner).力量();
+		if( owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)){
+			encumbrance = 力量() - hero.力量();
 		}
 
 		float ACC = this.命中;
@@ -294,7 +297,7 @@ abstract public class Weapon extends KindOfWeapon {
 		float delay = augment.delayFactor(this.延迟);
 		if (owner instanceof Hero) {
 			int encumbrance = 力量() - ((Hero)owner).力量();
-			if (encumbrance > 0){
+			if (encumbrance > 0&&owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 		}
@@ -315,6 +318,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int reachFactor(Char owner) {
 		int reach = 范围;
+			reach += RingOfAccuracy.getBuffedBonus(owner, RingOfAccuracy.Accuracy.class)/2;
 		if (owner instanceof Hero && RingOfForce.fightingUnarmed((Hero) owner)){
 			reach = 1; //brawlers stance benefits from enchantments, but not innate reach
 			if (!RingOfForce.unarmedGetsWeaponEnchantment((Hero) owner)){
@@ -522,7 +526,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public static float genericProcChanceMultiplier( Char attacker ){
-			float multi = 奥术之戒.enchantPowerMultiplier(attacker)+(attacker instanceof Hero hero?hero.天赋点数(Talent.附魔打击,0.4f):0);
+			float multi = 奥术之戒.enchantPowerMultiplier(attacker)+(attacker instanceof Hero hero?hero.天赋点数(Talent.附魔打击,0.25f):0);
 			Berserk rage = attacker.buff(Berserk.class);
 			if (rage != null) {
 				multi = rage.enchantFactor(multi);

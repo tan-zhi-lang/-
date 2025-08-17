@@ -192,7 +192,7 @@ public class RingOfWealth extends Ring {
 		switch (Random.Int(4)){
 			case 0: default:
 				Item i = new Gold().random();
-				return i.数量(i.数量()/2);
+				return i.get数量(i.get数量()/2);
 			case 1:
 				return Generator.randomUsingDefaults(Generator.Category.STONE);
 			case 2:
@@ -206,7 +206,7 @@ public class RingOfWealth extends Ring {
 		switch (Random.Int(6)){
 			case 0: default:
 				Item i = genLowValueConsumable();
-				return i.数量(i.数量()*2);
+				return i.get数量(i.get数量()*2);
 			case 1:
 				i = Generator.randomUsingDefaults(Generator.Category.POTION);
 				if (!(i instanceof ExoticPotion)) {
@@ -237,7 +237,7 @@ public class RingOfWealth extends Ring {
 				if (i instanceof Bomb){
 					return new Bomb.DoubleBomb();
 				} else {
-					return i.数量(i.数量()*2);
+					return i.get数量(i.get数量()*2);
 				}
 			case 1:
 				return new StoneOfEnchantment();

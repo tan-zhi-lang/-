@@ -58,11 +58,6 @@ public class HallowedGround extends TargetedClericSpell {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.HALLOWED_GROUND);
-	}
-
-	@Override
 	protected void onTargetSelected(神圣法典 tome, Hero hero, Integer target) {
 
 		if (target == null){
@@ -118,16 +113,17 @@ public class HallowedGround extends TargetedClericSpell {
 
 	private void affectChar( Char ch ){
 		if (ch.alignment == Char.Alignment.ALLY){
+			int x=ch.最大生命(Dungeon.hero.天赋点数(Talent.HALLOWED_GROUND,0.03f))+Dungeon.hero.天赋点数(Talent.HALLOWED_GROUND,3);
 
 			if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
-				int barrierToGive = Math.min(15, 30 - ch.shielding());
+				int barrierToGive = Math.min(x, x*x - ch.shielding());
 				Buff.施加(ch, Barrier.class).增加(barrierToGive);
 				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(barrierToGive), FloatingText.SHIELDING );
 			} else {
-				int barrier = 15 - (ch.最大生命 - ch.生命);
+				int barrier = x - (ch.最大生命 - ch.生命);
 				barrier = Math.max(barrier, 0);
-				ch.生命 += 15 - barrier;
-				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(15-barrier), FloatingText.HEALING );
+				ch.生命 += x - barrier;
+				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(x-barrier), FloatingText.HEALING );
 				if (barrier > 0){
 					Buff.施加(ch, Barrier.class).增加(barrier);
 					ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(barrier), FloatingText.SHIELDING );
@@ -135,7 +131,7 @@ public class HallowedGround extends TargetedClericSpell {
 			}
 		} else if (!ch.flying) {
 			Buff.施加(ch, GuidingLight.Illuminated.class);
-			Buff.施加(ch, Roots.class, 2f);
+			Buff.施加(ch, Roots.class, Dungeon.hero.天赋点数(Talent.HALLOWED_GROUND,1));
 		}
 	}
 

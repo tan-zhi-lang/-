@@ -82,14 +82,14 @@ public class 炼金菱晶 extends Spell {
 
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
-			ingredients.get(0).数量(ingredients.get(0).数量()-1);
-			ingredients.get(1).数量(ingredients.get(1).数量()-1);
+			ingredients.get(0).get数量(ingredients.get(0).get数量()-1);
+			ingredients.get(1).get数量(ingredients.get(1).get数量()-1);
 			return sampleOutput(null);
 		}
 
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
-			return new 炼金菱晶().数量(OUT_QUANTITY);
+			return new 炼金菱晶().get数量(OUT_QUANTITY);
 		}
 	}
 
@@ -132,7 +132,7 @@ public class 炼金菱晶 extends Spell {
 			float pos = height;
 
 			if (Shopkeeper.canSell(item)) {
-				if (item.数量() == 1 || (item instanceof MissileWeapon && item.可升级())) {
+				if (item.get数量() == 1 || (item instanceof MissileWeapon && item.可升级())) {
 
 					if (item instanceof MissileWeapon && ((MissileWeapon) item).extraThrownLeft){
 						RenderedTextBlock warn = PixelScene.renderTextBlock(Messages.get(WndUpgrade.class, "thrown_dust"), 6);
@@ -160,7 +160,7 @@ public class 炼金菱晶 extends Spell {
 				} else {
 
 					int priceAll = item.金币();
-					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.数量())) {
+					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.get数量())) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sellOne(item);
@@ -189,7 +189,7 @@ public class 炼金菱晶 extends Spell {
 			}
 
 			if (item.能量() > 0) {
-				if (item.数量() == 1) {
+				if (item.get数量() == 1) {
 
 					RedButton btnEnergize = new RedButton(Messages.get(this, "energize", item.能量())) {
 						@Override
@@ -208,7 +208,7 @@ public class 炼金菱晶 extends Spell {
 				} else {
 
 					int energyAll = item.能量();
-					RedButton btnEnergize1 = new RedButton(Messages.get(this, "energize_1", energyAll / item.数量())) {
+					RedButton btnEnergize1 = new RedButton(Messages.get(this, "energize_1", energyAll / item.get数量())) {
 						@Override
 						protected void onClick() {
 							WndEnergizeItem.energizeOne(item);
@@ -242,7 +242,7 @@ public class 炼金菱晶 extends Spell {
 
 		private void consumeAlchemize(){
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-			if (curItem.数量() <= 1){
+			if (curItem.get数量() <= 1){
 				curItem.detachAll(Dungeon.hero.belongings.backpack);
 				if (owner != null) {
 					owner.hide();

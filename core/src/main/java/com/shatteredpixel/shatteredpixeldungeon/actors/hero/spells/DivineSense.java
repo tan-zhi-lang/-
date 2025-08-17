@@ -27,15 +27,8 @@ public class DivineSense extends ClericSpell {
 		return HeroIcon.DIVINE_SENSE;
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.DIVINE_SENSE);
-	}
 
 	@Override
 	public void onCast(神圣法典 tome, Hero hero) {

@@ -323,8 +323,8 @@ public class WandOfWarding extends Wand {
 		}
 
 		@Override
-		public int drRoll() {
-			int dr = super.drRoll();
+		public int 防御() {
+			int dr = super.防御();
 			if (tier > 3){
 				return dr + Math.round(Random.NormalIntRange(0, 3 + Dungeon.scalingDepth()/2) / (7f - tier));
 			} else {

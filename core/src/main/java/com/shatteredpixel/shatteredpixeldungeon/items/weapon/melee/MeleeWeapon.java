@@ -213,7 +213,7 @@ public class MeleeWeapon extends Weapon {
 	public static void onAbilityKill( Hero hero, Char killed ){
 		if (killed.alignment == Char.Alignment.ENEMY && hero.有天赋(Talent.LETHAL_HASTE)){
 			//effectively 3/5 turns of greater haste
-			Buff.施加(hero, GreaterHaste.class).set(hero.天赋点数(Talent.LETHAL_HASTE,1.5f));
+			Buff.施加(hero, GreaterHaste.class).set(hero.天赋点数(Talent.LETHAL_HASTE,1.3f));
 		}
 	}
 
@@ -244,6 +244,7 @@ public class MeleeWeapon extends Weapon {
 		if (masteryPotionBonus){
 			req -= 2;
 		}
+		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.1f);
 		return req;
 	}
 
@@ -417,7 +418,9 @@ public class MeleeWeapon extends Weapon {
 					if (Dungeon.hero.buff(RingOfForce.BrawlersStance.class) != null){
 						chargeToGain *= 0.50f;
 					}
-					chargeToGain*=1+((Hero)target).天赋点数(Talent.WEAPON_RECHARGING,0.25f);
+					if(((Hero)target).有天赋(Talent.WEAPON_RECHARGING)) {
+						chargeToGain *= 0.01f+((Hero)target).天赋点数(Talent.WEAPON_RECHARGING,0.33f);
+					}
 					partialCharge += chargeToGain;
 				}
 

@@ -76,8 +76,8 @@ public class 粘咕 extends Mob {
 	}
 
 	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 2);
+	public int 防御() {
+		return super.防御() + Random.NormalIntRange(0, 2);
 	}
 
 	@Override

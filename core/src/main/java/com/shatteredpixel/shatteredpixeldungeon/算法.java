@@ -17,6 +17,7 @@ public class 算法 {
     public static int x5=128;
     public static int x6=160;
     public static int x7=192;
+    public static int x8=224;
 
     public static void 种子(){
     try {

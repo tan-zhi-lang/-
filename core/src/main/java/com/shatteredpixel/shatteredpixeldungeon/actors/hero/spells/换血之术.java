@@ -76,10 +76,7 @@ public class 换血之术 extends 目标巫术 {
 		});
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	@Override
 	public String desc(){

@@ -138,8 +138,15 @@ public class 重制 {
 						"第一层必定生成一瓶经验药剂。\n" +
 						"每个区域生成的升级卷轴数量+1。\n" +
 						"3/8/13/18/23层必定一瓶治疗药剂。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ORE), "暗金矿",
+					"可以出售和提炼。"
+				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_INTUITION), "感知符石",
 					"额外生成一个感知符石。"
+				));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
+					"精准之戒\n" +
+							"+50%等级的攻击范围。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
 					"升级获得1充能。"

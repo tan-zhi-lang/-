@@ -159,6 +159,9 @@ public class Wandmaker extends NPC {
 				case 巫女:
 					msg1 += Messages.get(this, "巫女");
 					break;
+				case 重武:
+					msg1 += Messages.get(this, "重武");
+					break;
 			}
 
 			msg1 += Messages.get(this, "intro_1");
@@ -387,7 +390,7 @@ public class Wandmaker extends NPC {
 				if (((RegularLevel) Dungeon.level).room(Dungeon.hero.pos) instanceof RitualSiteRoom) {
 					int candles = 0;
 					if (Dungeon.hero.belongings.getItem(CeremonialCandle.class) != null){
-						candles += Dungeon.hero.belongings.getItem(CeremonialCandle.class).数量();
+						candles += Dungeon.hero.belongings.getItem(CeremonialCandle.class).get数量();
 					}
 
 					if (candles >= 4){
@@ -398,7 +401,7 @@ public class Wandmaker extends NPC {
 						if (((RegularLevel) Dungeon.level).room(h.pos) instanceof RitualSiteRoom){
 							for (Item i : h.items){
 								if (i instanceof CeremonialCandle){
-									candles += i.数量();
+									candles += i.get数量();
 								}
 							}
 						}

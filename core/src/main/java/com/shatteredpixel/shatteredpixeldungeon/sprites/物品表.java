@@ -202,6 +202,7 @@ public class 物品表 {
 	public static final int DAGGER          = WEP_TIER1+4;
 	public static final int 法师魔杖 = WEP_TIER1+5;
 	public static final int 血砍刀 = WEP_TIER1+6;
+	public static final int 冰门重盾 = WEP_TIER1+7;
 	static{
 		assignItemRect(WORN_SHORTSWORD, 13, 13);
 		assignItemRect(CUDGEL,          15, 15);
@@ -210,6 +211,7 @@ public class 物品表 {
 		assignItemRect(DAGGER,          16, 16);
 		assignItemRect(法师魔杖,     16, 16);
 		assignItemRect(血砍刀,     16, 15);
+		assignItemRect(冰门重盾,     15, 16);
 	}
 
 	private static final int WEP_TIER2      =                               xy(9, 7);   //8 slots

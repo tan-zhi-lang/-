@@ -21,15 +21,12 @@ public class 血历之术 extends 巫术 {
 		return HeroIcon.血历之术;
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
-		hero.受伤(hero.最大生命(0.6f-hero.天赋点数(Talent.血历之术,0.15f)));
-		hero.经验(hero.最大生命(hero.天赋点数(Talent.血历之术,0.15f)));
+		hero.受伤(20-hero.天赋点数(Talent.血历之术,5)+hero.最大生命(0.6f-hero.天赋点数(Talent.血历之术,0.15f)));
+		hero.经验(hero.天赋点数(Talent.血历之术,10)+hero.最大生命(hero.天赋点数(Talent.血历之术,0.15f)));
 		Item.updateQuickslot();
 
 		hero.sprite.operate(hero.pos);
@@ -41,8 +38,8 @@ public class 血历之术 extends 巫术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-				60-Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血历之术,15)),
-				Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血历之术,0.15f))
+				20-Dungeon.hero.天赋点数(Talent.血历之术,5)+Dungeon.hero.最大生命(0.6f-Dungeon.hero.天赋点数(Talent.血历之术,0.15f)),
+				Dungeon.hero.天赋点数(Talent.血历之术,10)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血历之术,0.15f))
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}

@@ -64,8 +64,8 @@ public class RipperDemon extends Mob {
 	}
 
 	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 4);
+	public int 防御() {
+		return super.防御() + Random.NormalIntRange(0, 4);
 	}
 
 	private static final String LAST_ENEMY_POS = "last_enemy_pos";

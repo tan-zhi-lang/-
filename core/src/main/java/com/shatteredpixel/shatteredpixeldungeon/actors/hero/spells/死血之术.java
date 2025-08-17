@@ -28,17 +28,16 @@ public class 死血之术 extends 巫术 {
 		return HeroIcon.死血之术;
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
 		hero.回血(hero.天赋点数(Talent.死血之术,Random.Int(
-				Dungeon.hero.天赋点数(Talent.死血之术,4)+Dungeon.hero.天赋点数(Talent.高级死血,10)
+				hero.天赋点数(Talent.死血之术,3)+hero.最大生命(hero.天赋点数(Talent.死血之术,0.03f))+
+				hero.天赋点数(Talent.高级死血,2)+hero.最大生命(hero.天赋点数(Talent.高级死血,0.02f))
 				,
-				Dungeon.hero.天赋点数(Talent.死血之术,6)+Dungeon.hero.天赋点数(Talent.高级死血,15)
+				hero.天赋点数(Talent.死血之术,4)+hero.最大生命(hero.天赋点数(Talent.死血之术,0.04f))+
+				hero.天赋点数(Talent.高级死血,3)+hero.最大生命(hero.天赋点数(Talent.高级死血,0.03f))
 		)));
 		Item.updateQuickslot();
 
@@ -51,8 +50,11 @@ public class 死血之术 extends 巫术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-				Dungeon.hero.天赋点数(Talent.死血之术,4)+Dungeon.hero.天赋点数(Talent.高级死血,10),
-				Dungeon.hero.天赋点数(Talent.死血之术,6)+Dungeon.hero.天赋点数(Talent.高级死血,15)
+				Dungeon.hero.天赋点数(Talent.死血之术,3)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.死血之术,0.03f))+
+						Dungeon.hero.天赋点数(Talent.高级死血,2)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.高级死血,0.02f)),
+
+				Dungeon.hero.天赋点数(Talent.死血之术,4)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.死血之术,0.04f))+
+						Dungeon.hero.天赋点数(Talent.高级死血,3)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.高级死血,0.03f))
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}

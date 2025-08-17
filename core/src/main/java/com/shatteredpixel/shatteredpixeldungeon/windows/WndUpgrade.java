@@ -60,11 +60,11 @@ public class WndUpgrade extends Window {
 		title.setRect(0, 0, WIDTH, 0);
 		add(title);
 
-		int quantity = upgrader.数量();
+		int quantity = upgrader.get数量();
 		Item moreUpgradeItem = Dungeon.hero.belongings.getItem(upgrader.getClass());
 
 		if (moreUpgradeItem != null && moreUpgradeItem != upgrader){
-			quantity += moreUpgradeItem.数量();
+			quantity += moreUpgradeItem.get数量();
 		}
 
 		String mainText = Messages.get(this, "desc");
@@ -240,7 +240,7 @@ public class WndUpgrade extends Window {
 					bottom);
 
 			bottom = fillFields(Messages.get(this, "quantity"),
-					Integer.toString(toUpgrade.数量()),
+					Integer.toString(toUpgrade.get数量()),
 					Integer.toString(((MissileWeapon) toUpgrade).defaultQuantity()),
 					bottom);
 

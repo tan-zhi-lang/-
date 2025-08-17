@@ -166,10 +166,10 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
-	public int drRoll() {
-		int dr = super.drRoll();
+	public int 防御() {
+		int dr = super.防御();
 		if (hero != null){
-			return dr + hero.drRoll();
+			return dr + hero.防御();
 		} else {
 			return dr;
 		}
@@ -178,7 +178,7 @@ public class PrismaticImage extends NPC {
 	@Override
 	public int 防御时(Char enemy, int damage) {
 		if (hero != null && hero.belongings.armor() != null){
-			damage = hero.belongings.armor().proc( enemy, this, damage );
+			damage = hero.belongings.armor().防御时( enemy, this, damage );
 		}
 		return super.防御时(enemy, damage);
 	}

@@ -78,6 +78,7 @@ public class Blacksmith extends NPC {
 				case DUELIST:   msg1 += Messages.get(Blacksmith.this, "intro_quest_duelist"); break;
 				case CLERIC:    msg1 += Messages.get(Blacksmith.this, "intro_quest_cleric"); break;
 				case 巫女:    msg1 += Messages.get(Blacksmith.this, "巫女"); break;
+				case 重武:    msg1 += Messages.get(Blacksmith.this, "重武"); break;
 			}
 
 			msg1 += "\n\n" + Messages.get(Blacksmith.this, "intro_quest_start");
@@ -435,7 +436,7 @@ public class Blacksmith extends NPC {
 			favor = 0;
 			DarkGold gold = Dungeon.hero.belongings.getItem(DarkGold.class);
 			if (gold != null){
-				favor += Math.min(2000, gold.数量()*50);
+				favor += Math.min(2000, gold.get数量()*50);
 				gold.detachAll(Dungeon.hero.belongings.backpack);
 			}
 

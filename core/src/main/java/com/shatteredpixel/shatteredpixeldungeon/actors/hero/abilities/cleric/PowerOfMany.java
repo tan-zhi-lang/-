@@ -290,8 +290,8 @@ public class PowerOfMany extends ArmorAbility {
 		}
 
 		@Override
-		public int drRoll() {
-			return super.drRoll() + Random.NormalIntRange(1, 5); //+0 plate
+		public int 防御() {
+			return super.防御() + Random.NormalIntRange(1, 5); //+0 plate
 		}
 
 		@Override

@@ -15,20 +15,11 @@ import com.watabou.utils.Bundle;
 public class Kinetic extends Weapon.Enchantment {
 	
 	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF00 );
-	
+
 	@Override
 	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
-		
-		int conservedDamage = 0;
-		if (attacker.buff(ConservedDamage.class) != null) {
-			conservedDamage = attacker.buff(ConservedDamage.class).damageBonus();
-			attacker.buff(ConservedDamage.class).detach();
-		}
 
-		//use a tracker so that we can know the true final damage
-		Buff.施加(attacker, KineticTracker.class).conservedDamage = conservedDamage;
-		
-		return damage + conservedDamage;
+		return damage;
 	}
 	
 	@Override

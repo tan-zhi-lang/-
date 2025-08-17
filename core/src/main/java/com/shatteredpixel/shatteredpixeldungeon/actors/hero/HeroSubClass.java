@@ -32,7 +32,9 @@ public enum HeroSubClass {
 	PALADIN(HeroIcon.PALADIN),
 
 	神秘学者(HeroIcon.神秘学者),
-	黑魔导师(HeroIcon.黑魔导师);
+	黑魔导师(HeroIcon.黑魔导师),
+	盾之勇者(HeroIcon.盾之勇者),
+	巨神兵(HeroIcon.巨神兵);
 
 	int icon;
 

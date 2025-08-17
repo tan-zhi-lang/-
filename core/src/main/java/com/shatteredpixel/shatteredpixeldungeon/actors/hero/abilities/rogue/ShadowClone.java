@@ -207,9 +207,9 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int drRoll() {
-			int dr = super.drRoll();
-			int heroRoll = Dungeon.hero.drRoll();
+		public int 防御() {
+			int dr = super.防御();
+			int heroRoll = Dungeon.hero.防御();
 			heroRoll = Math.round(0.12f * Dungeon.hero.天赋点数(Talent.CLONED_ARMOR) * heroRoll);
 			if (heroRoll > 0){
 				dr += heroRoll;
@@ -231,7 +231,7 @@ public class ShadowClone extends ArmorAbility {
 			damage = super.防御时(enemy, damage);
 			if (Random.Int(4) < Dungeon.hero.天赋点数(Talent.CLONED_ARMOR)
 					&& Dungeon.hero.belongings.armor() != null){
-				return Dungeon.hero.belongings.armor().proc( enemy, this, damage );
+				return Dungeon.hero.belongings.armor().防御时( enemy, this, damage );
 			} else {
 				return damage;
 			}

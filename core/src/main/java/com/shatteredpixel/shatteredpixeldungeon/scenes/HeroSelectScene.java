@@ -172,9 +172,10 @@ public class HeroSelectScene extends PixelScene {
 		add(改动按钮);
 
 		for (HeroClass cl : HeroClass.values()){
-			if(cl==HeroClass.重武){
-				break;
-			}
+			//隐藏
+//			if(cl==HeroClass.DUELIST){
+//				break;
+//			}
 			HeroBtn button = new HeroBtn(cl);
 			add(button);
 			heroBtns.add(button);
@@ -326,7 +327,7 @@ public class HeroSelectScene extends PixelScene {
 			title.setPos((Camera.main.width - title.width()) / 2f, (Camera.main.height - HeroBtn.HEIGHT - title.height() - 4));
 
 			btnOptions.setRect(heroBtns.get(0).left() + 16, Camera.main.height-HeroBtn.HEIGHT-16, 20, 21);
-			改动按钮.setRect(btnOptions.left()-改动按钮.width(), btnOptions.top(), 20, 21);
+			改动按钮.setRect(heroBtns.get(0).left(), btnOptions.top(), 20, 21);
 			optionsPane.setPos(heroBtns.get(0).left(), 0);
 		}
 

@@ -41,7 +41,7 @@ public class Stone extends Armor.Glyph {
 				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& attacker.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
-			accuracy *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.03f);
+			accuracy *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
 
 		if (defender.buff(Bless.class) != null) evasion *= 1.25f;
@@ -55,7 +55,7 @@ public class Stone extends Armor.Glyph {
 				&& Dungeon.hero.有天赋(Talent.BLESS)
 				&& defender.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
-			evasion *= 1 + Dungeon.hero.天赋点数(Talent.BLESS,0.03f);
+			evasion *= 1 + Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
 		evasion *= FerretTuft.evasionMultiplier();
 

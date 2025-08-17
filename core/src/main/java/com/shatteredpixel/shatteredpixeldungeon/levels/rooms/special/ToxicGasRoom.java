@@ -75,13 +75,13 @@ public class ToxicGasRoom extends SpecialRoom {
 
 		goldPositions.remove((Integer) furthestPos);
 		Item mainGold = new Gold().random();
-		mainGold.数量(mainGold.数量()*2*2);
+		mainGold.get数量(mainGold.get数量()*2*2);
 		level.drop(mainGold, furthestPos).type = Heap.Type.SKELETON;
 
 		for (int i = 0; i < 2; i++){
 			Item item = level.findPrizeItem(TrinketCatalyst.class);
 			if (item == null) item = new Gold().random();
-			level.drop(item.数量(item.数量()*2), goldPositions.remove(0)).type = Heap.Type.CHEST;
+			level.drop(item.get数量(item.get数量()*2), goldPositions.remove(0)).type = Heap.Type.CHEST;
 		}
 
 		level.addItemToSpawn(new 净化药剂());

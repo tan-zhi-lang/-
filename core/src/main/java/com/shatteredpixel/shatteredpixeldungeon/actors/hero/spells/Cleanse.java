@@ -31,21 +31,13 @@ public class Cleanse extends ClericSpell {
 		return HeroIcon.CLEANSE;
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	public String desc(){
 		int immunity = 2 * (Dungeon.hero.天赋点数(Talent.CLEANSE)-1);
 		if (immunity > 0) immunity++;
-		int shield = 10 * Dungeon.hero.天赋点数(Talent.CLEANSE);
+		int shield = Dungeon.hero.天赋点数(Talent.CLEANSE,6)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.CLEANSE,0.03f));
 		return Messages.get(this, "desc", immunity, shield) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
-
-	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.CLEANSE);
 	}
 
 	@Override
@@ -78,7 +70,7 @@ public class Cleanse extends ClericSpell {
 
             Buff.延长(ch, PotionOfCleansing.Cleanse.class, (Dungeon.hero.天赋点数(Talent.CLEANSE,1.5f)));
 
-			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.CLEANSE,10));
+			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.CLEANSE,6)+hero.最大生命(hero.天赋点数(Talent.CLEANSE,0.03f)));
 			new Flare( 6, 32 ).color(0xFF4CD2, true).show( ch.sprite, 2f );
 		}
 

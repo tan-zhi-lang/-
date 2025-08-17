@@ -59,10 +59,9 @@ public class MnemonicPrayer extends TargetedClericSpell {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.MNEMONIC_PRAYER);
+	public float chargeUse(Hero hero) {
+		return 2;
 	}
-
 	@Override
 	@SuppressWarnings("unchecked")
 	protected void onTargetSelected(神圣法典 tome, Hero hero, Integer target) {
@@ -79,7 +78,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 
 		QuickSlotButton.target(ch);
 
-		float extension = hero.天赋点数(Talent.MNEMONIC_PRAYER,2);
+		float extension = hero.天赋点数(Talent.MNEMONIC_PRAYER,3);
 		affectChar(ch, extension);
 
 		Char ally = PowerOfMany.getPoweredAlly();
@@ -172,7 +171,7 @@ public class MnemonicPrayer extends TargetedClericSpell {
 	}
 
 	public String desc(){
-		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.MNEMONIC_PRAYER,2)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.MNEMONIC_PRAYER,3)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 }

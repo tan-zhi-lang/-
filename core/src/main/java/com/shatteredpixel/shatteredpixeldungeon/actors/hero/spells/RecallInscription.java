@@ -37,7 +37,7 @@ public class RecallInscription extends ClericSpell {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.RECALL_INSCRIPTION,100)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.RECALL_INSCRIPTION,10)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
@@ -110,7 +110,6 @@ public class RecallInscription extends ClericSpell {
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.有天赋(Talent.RECALL_INSCRIPTION)
 				&& hero.buff(UsedItemTracker.class) != null;
 	}
 
@@ -129,7 +128,7 @@ public class RecallInscription extends ClericSpell {
 
 		@Override
 		public float iconFadePercent() {
-			float duration =Dungeon.hero.天赋点数(Talent.RECALL_INSCRIPTION,100);
+			float duration =Dungeon.hero.天赋点数(Talent.RECALL_INSCRIPTION,10);
 			return Math.max(0, (duration - visualcooldown()) / duration);
 		}
 

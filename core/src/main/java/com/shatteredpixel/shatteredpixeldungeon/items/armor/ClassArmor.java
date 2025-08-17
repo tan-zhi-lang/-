@@ -98,10 +98,7 @@ abstract public class ClassArmor extends Armor {
 				break;
 			case CLERIC:
 				classArmor = new ClericArmor();
-				break;
-			case 巫女:
-				classArmor = new ClericArmor();
-				break;
+				break;//护甲技能
 		}
 		
 		classArmor.等级(armor.真等级());

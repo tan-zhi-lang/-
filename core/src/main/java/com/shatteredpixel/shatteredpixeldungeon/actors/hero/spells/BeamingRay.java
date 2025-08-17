@@ -49,7 +49,6 @@ public class BeamingRay extends TargetedClericSpell {
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.有天赋(Talent.BEAMING_RAY)
 				&& (PowerOfMany.getPoweredAlly() != null || Stasis.getStasisAlly() != null);
 	}
 

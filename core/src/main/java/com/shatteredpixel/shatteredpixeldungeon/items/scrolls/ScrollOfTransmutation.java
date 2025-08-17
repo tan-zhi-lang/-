@@ -64,7 +64,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 
 		//all regular or exotic scrolls, except itself (unless un-ided, in which case it was already consumed)
 		} else if (item instanceof Scroll) {
-			return item != this || item.数量() > 1 || identifiedByUse;
+			return item != this || item.get数量() > 1 || identifiedByUse;
 
 		//all non-unique artifacts (no holy tome or cloak of shadows, basically)
 		} else if (item instanceof Artifact) {
@@ -94,9 +94,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 					if (item instanceof Artifact && result instanceof Ring){
 						//if we turned an equipped artifact into a ring, ring goes into inventory
 						((EquipableItem) item).doUnequip(Dungeon.hero, false);
-						if (!result.放背包()){
-							Dungeon.level.drop(result, curUser.pos).sprite.drop();
-						}
+						result.放背包();
 					} else if (item instanceof KindOfWeapon && Dungeon.hero.belongings.secondWep() == item){
 						((EquipableItem) item).doUnequip(Dungeon.hero, false);
 						((KindOfWeapon) result).equipSecondary(Dungeon.hero);
@@ -223,7 +221,7 @@ public class ScrollOfTransmutation extends InventoryScroll {
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级(0);
-		n.数量(w.数量());
+		n.get数量(w.get数量());
 		int level = w.真等级();
 		if (level > 0) {
 			n.升级( level );

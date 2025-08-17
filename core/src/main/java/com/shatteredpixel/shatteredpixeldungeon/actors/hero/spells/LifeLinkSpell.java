@@ -35,7 +35,6 @@ public class LifeLinkSpell extends ClericSpell {
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.有天赋(Talent.LIFE_LINK)
 				&& (PowerOfMany.getPoweredAlly() != null || Stasis.getStasisAlly() != null);
 	}
 

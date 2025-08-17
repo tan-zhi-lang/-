@@ -49,11 +49,6 @@ public class Smite extends TargetedClericSpell {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.subClass == HeroSubClass.PALADIN;
-	}
-
-	@Override
 	protected void onTargetSelected(神圣法典 tome, Hero hero, Integer target) {
 		if (target == null) {
 			return;

@@ -2,8 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions.brews;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
@@ -141,7 +139,7 @@ public class UnstableBrew extends Brew {
 		public Item brew(ArrayList<Item> ingredients) {
 
 			for (Item i : ingredients){
-				i.数量(i.数量()-1);
+				i.get数量(i.get数量()-1);
 			}
 			
 			return sampleOutput(null);

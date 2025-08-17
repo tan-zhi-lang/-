@@ -63,9 +63,11 @@ public class 痛命之术 extends 目标巫术 {
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
 					ch.受伤时(hero.天赋点数(Talent.死血之术,Random.NormalIntRange(
-							hero.天赋点数(Talent.痛命之术,6)+hero.天赋点数(Talent.高级痛命,5)
+							hero.天赋点数(Talent.痛命之术,3)+ch.最大生命(hero.天赋点数(Talent.痛命之术,0.02f))+
+							hero.天赋点数(Talent.高级痛命,3)+ch.最大生命(hero.天赋点数(Talent.高级痛命,0.02f))
 							,
-							hero.天赋点数(Talent.痛命之术,10)+hero.天赋点数(Talent.高级痛命,25)
+							hero.天赋点数(Talent.痛命之术,8)+ch.最大生命(hero.天赋点数(Talent.痛命之术,0.03f))+
+							hero.天赋点数(Talent.高级痛命,5)+ch.最大生命(hero.天赋点数(Talent.高级痛命,0.04f))
 					)), 痛命之术.this);
 					Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 
@@ -82,15 +84,12 @@ public class 痛命之术 extends 目标巫术 {
 		});
 	}
 
-	@Override
-	public float chargeUse(Hero hero) {
-		return 1;
-	}
+	
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.痛命之术,6)+Dungeon.hero.天赋点数(Talent.高级痛命,5),
-				Dungeon.hero.天赋点数(Talent.痛命之术,10)+Dungeon.hero.天赋点数(Talent.高级痛命,25));
+		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.痛命之术,3)+Dungeon.hero.天赋点数(Talent.高级痛命,3),
+				Dungeon.hero.天赋点数(Talent.痛命之术,8)+Dungeon.hero.天赋点数(Talent.高级痛命,5));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

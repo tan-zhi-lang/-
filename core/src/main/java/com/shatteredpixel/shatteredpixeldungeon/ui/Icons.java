@@ -454,6 +454,8 @@ public enum Icons {
 				return new ItemSprite(物品表.神圣法典);
 			case 巫女:
 				return new ItemSprite(物品表.灵月法杖);
+			case 重武:
+				return new ItemSprite(物品表.灵月法杖);
 			default:
 				return null;
 		}

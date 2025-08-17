@@ -8,6 +8,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x4;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x5;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x6;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x7;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x8;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -185,6 +186,12 @@ public enum Talent {
 	顶福精华(x7+9,4),强能处消(x7+10,4),
 	物到之术(x7+11,4),星火符刃(x7+12,4),高级血爆(x7+13,4),
 	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
+
+
+	坚守鉴定(x8),盾举冲击(x8+1),钢铁之盾(x8+2),
+
+	强力适应(x8+4,3),捍守可拘(x8+5,3),孤立无援(x8+6,3),严傲之意(x8+7,3),
+	冰门高攻(x8+9,4),最佳防御(x8+10,4),
 	;
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
@@ -448,6 +455,8 @@ public enum Talent {
 					return 26*6;
 				case 巫女:
 					return 26*7;
+				case 重武:
+					return 26*8;
 			}
 		} else {
 			return icon;
@@ -567,17 +576,6 @@ public enum Talent {
 		if (talent == TWIN_UPGRADES || talent == DESPERATE_POWER
 				|| talent == STRONGMAN || talent == DURABLE_PROJECTILES){
 			Item.updateQuickslot();
-		}
-
-		if (talent == UNENCUMBERED_SPIRIT && hero.满天赋(talent)){
-			Item toGive = new ClothArmor().鉴定();
-			if (!toGive.放背包()){
-				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
-			}
-			toGive = new 镶钉手套().鉴定();
-			if (!toGive.放背包()){
-				Dungeon.level.drop(toGive, hero.pos).sprite.drop();
-			}
 		}
 
 		if (talent == LIGHT_READING && hero.heroClass == HeroClass.CLERIC){
@@ -721,7 +719,7 @@ public enum Talent {
 		}
 		if (hero.有天赋(RECALL_INSCRIPTION) && Scroll.class.isAssignableFrom(cls) && cls != 升级卷轴.class){
 			if (hero.heroClass == HeroClass.CLERIC){
-				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION,100)).item = cls;
+				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION,10)).item = cls;
 			} else {
 				// 10/15%
 				if (Random.Int(99) < hero.天赋点数(RECALL_INSCRIPTION,10)){
@@ -735,7 +733,7 @@ public enum Talent {
 	public static void onRunestoneUsed( Hero hero, int pos, Class<?extends Item> cls ){
 		if (hero.有天赋(RECALL_INSCRIPTION) && Runestone.class.isAssignableFrom(cls)){
 			if (hero.heroClass == HeroClass.CLERIC){
-				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION,100)).item = cls;
+				Buff.延长(hero, RecallInscription.UsedItemTracker.class, hero.天赋点数(RECALL_INSCRIPTION,10)).item = cls;
 			} else {
 
 				//don't trigger on 1st intuition use
@@ -879,7 +877,7 @@ public enum Talent {
 				}
 			} else if (hero.buff(DeadlyFollowupTracker.class) != null
 					&& hero.buff(DeadlyFollowupTracker.class).object == enemy.id()){
-				dmg = Math.round(dmg * (1.0f +hero.天赋点数(DEADLY_FOLLOWUP,0.15f)));
+				dmg = Math.round(dmg * (1.0f +hero.天赋点数(DEADLY_FOLLOWUP,0.12f)));
 			}
 		}
 
@@ -957,6 +955,9 @@ public enum Talent {
 			case 巫女:
 				Collections.addAll(tierTalents, 祭鉴之术, 痛命之术, 死血之术);
 				break;
+			case 重武:
+				Collections.addAll(tierTalents, 坚守鉴定, 盾举冲击, 钢铁之盾);
+				break;
 		}
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
@@ -989,6 +990,9 @@ public enum Talent {
 			case 巫女:
 				Collections.addAll(tierTalents, 血历之术, 血爆之术, 饮血之术, 换血之术);
 				break;
+			case 重武:
+				Collections.addAll(tierTalents, 强力适应,捍守可拘,孤立无援,严傲之意);
+				break;
 		}
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
@@ -1020,6 +1024,8 @@ public enum Talent {
 				break;
 			case 巫女:
 				Collections.addAll(tierTalents, 顶福精华, 强能处消);
+			case 重武:
+				Collections.addAll(tierTalents, 冰门高攻, 最佳防御);
 				break;
 		}
 		for (Talent talent : tierTalents){

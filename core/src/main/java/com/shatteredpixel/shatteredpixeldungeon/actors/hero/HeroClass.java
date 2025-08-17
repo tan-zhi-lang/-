@@ -33,7 +33,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.冰球;
@@ -78,7 +77,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSt
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
-import com.watabou.utils.DeviceCompat;
 
 public enum HeroClass {
 
@@ -86,10 +84,11 @@ public enum HeroClass {
 	MAGE( HeroSubClass.BATTLEMAGE, HeroSubClass.WARLOCK ),
 	盗贼( HeroSubClass.ASSASSIN, HeroSubClass.FREERUNNER ),
 	HUNTRESS( HeroSubClass.SNIPER, HeroSubClass.WARDEN ),
+
 	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
 	CLERIC( HeroSubClass.PRIEST, HeroSubClass.PALADIN ),
 	巫女( HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
-	重武( HeroSubClass.NONE);
+	重武( HeroSubClass.盾之勇者);
 
 	private HeroSubClass[] subClasses;
 
@@ -103,7 +102,7 @@ public enum HeroClass {
 		Talent.initClassTalents(hero);
 
 		Item i = new ClothArmor().鉴定();
-		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
+//		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
 		i = new Food();
 		if (!Challenges.isItemBlocked(i)) i.放背包();
@@ -111,8 +110,8 @@ public enum HeroClass {
 
 		if(算法.isDebug()){
 			int x=100;
-			new 经验药剂().数量(x).放背包();
-			new 冰球().数量(x).放背包();
+			new 经验药剂().get数量(x).放背包();
+			new 冰球().get数量(x).放背包();
 
 			new 镶钉手套().放背包();
 		}
@@ -156,6 +155,9 @@ public enum HeroClass {
 			case 巫女:
 				初始巫女( hero );
 				break;
+			case 重武:
+				初始重武( hero );
+				break;
 		}
 
 		if (SPDSettings.quickslotWaterskin()) {
@@ -187,6 +189,8 @@ public enum HeroClass {
 				return Badges.Badge.MASTERY_CLERIC;
 			case 巫女:
 				return Badges.Badge.巫女;
+			case 重武:
+				return Badges.Badge.重武;
 		}
 		return null;
 	}
@@ -273,7 +277,7 @@ public enum HeroClass {
 		hero.belongings.weapon.activate(hero);
 
 		ThrowingSpike spikes = new ThrowingSpike();
-		spikes.数量(2).鉴定().放背包(); //set quantity is 3, but Duelist starts with 2
+		spikes.get数量(2).鉴定().放背包(); //set quantity is 3, but Duelist starts with 2
 
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, spikes);
@@ -347,7 +351,7 @@ public enum HeroClass {
 		return subClasses;
 	}
 
-	public ArmorAbility[] armorAbilities(){
+	public ArmorAbility[] armorAbilities(){//护甲技能
 		switch (this) {
 			case WARRIOR: default:
 				return new ArmorAbility[]{new HeroicLeap(), new Shockwave(), new Endure()};
@@ -360,8 +364,6 @@ public enum HeroClass {
 			case DUELIST:
 				return new ArmorAbility[]{new Challenge(), new ElementalStrike(), new Feint()};
 			case CLERIC:
-				return new ArmorAbility[]{new AscendedForm(), new Trinity(), new PowerOfMany()};
-			case 巫女:
 				return new ArmorAbility[]{new AscendedForm(), new Trinity(), new PowerOfMany()};
 		}
 	}
@@ -382,6 +384,8 @@ public enum HeroClass {
 				return Assets.Sprites.CLERIC;
 			case 巫女:
 				return Assets.Sprites.巫女;
+			case 重武:
+				return Assets.Sprites.重武;
 		}
 	}
 
@@ -408,6 +412,8 @@ public enum HeroClass {
 				return Badges.isUnlocked(Badges.Badge.UNLOCK_CLERIC);
 			case 巫女:
 				return Badges.isUnlocked(Badges.Badge.解锁巫女);
+			case 重武:
+				return Badges.isUnlocked(Badges.Badge.解锁重武);
 		}
 	}
 	

@@ -37,11 +37,6 @@ public class BlessSpell extends TargetedClericSpell {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.BLESS);
-	}
-
-	@Override
 	protected void onTargetSelected(神圣法典 tome, Hero hero, Integer target) {
 		if (target == null){
 			return;
@@ -80,13 +75,12 @@ public class BlessSpell extends TargetedClericSpell {
 
 	private void affectChar(Hero hero, Char ch){
 		new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
+		Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,5));
 		if (ch == hero){
-			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,5));
-			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.BLESS,7));
+			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.BLESS,5)+hero.最大生命(hero.天赋点数(Talent.BLESS,0.05f)));
 			ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.天赋点数(Talent.BLESS,5)), FloatingText.SHIELDING );
 		} else {
-			Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,6));
-			int totalHeal = hero.天赋点数(Talent.BLESS,6);
+			int totalHeal = hero.天赋点数(Talent.BLESS,5)+ch.最大生命(hero.天赋点数(Talent.BLESS,0.05f));
 			if (ch.最大生命 - ch.生命 < totalHeal){
 				int barrier = totalHeal - (ch.最大生命 - ch.生命);
 				barrier = Math.max(barrier, 0);

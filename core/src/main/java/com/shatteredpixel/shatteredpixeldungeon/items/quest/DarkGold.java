@@ -23,4 +23,14 @@ public class DarkGold extends Item {
 	public boolean 已鉴定() {
 		return true;
 	}
+
+	@Override
+	public int 金币() {
+		int price = 25* quantity;
+		return price;
+	}
+	@Override
+	public int 能量() {
+		return Math.round(金币()*0.15f);
+	}
 }

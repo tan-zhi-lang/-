@@ -54,11 +54,6 @@ public class WallOfLight extends TargetedClericSpell {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.WALL_OF_LIGHT);
-	}
-
-	@Override
 	public void onCast(神圣法典 tome, Hero hero) {
 		if (Dungeon.level.blobs.get(LightWall.class) != null
 				&& Dungeon.level.blobs.get(LightWall.class).volume > 0){
@@ -212,7 +207,7 @@ public class WallOfLight extends TargetedClericSpell {
 
 	private void placeWall( int pos, int knockbackDIR){
 		if (!Dungeon.level.solid[pos]) {
-			GameScene.add(Blob.seed(pos, 20, LightWall.class));
+			GameScene.add(Blob.seed(pos, 15, LightWall.class));
 
 			Char ch = Actor.findChar(pos);
 			if (ch != null && ch.alignment == Char.Alignment.ENEMY){

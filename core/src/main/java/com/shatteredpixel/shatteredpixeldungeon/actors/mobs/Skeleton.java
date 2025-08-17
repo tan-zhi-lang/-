@@ -73,7 +73,7 @@ public class Skeleton extends Mob {
 				}
 
 				//apply DR twice (with 2 rolls for more consistency)
-				damage = Math.max( 0,  damage - (ch.drRoll() + ch.drRoll()) );
+				damage = Math.max( 0,  damage - (ch.防御() + ch.防御()) );
 				ch.受伤时( damage, this );
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;
@@ -110,8 +110,8 @@ public class Skeleton extends Mob {
 	}
 	
 	@Override
-	public int drRoll() {
-		return super.drRoll() + Random.NormalIntRange(0, 5);
+	public int 防御() {
+		return super.防御() + Random.NormalIntRange(0, 5);
 	}
 
 }

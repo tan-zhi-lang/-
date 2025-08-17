@@ -334,7 +334,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 				dmgMulti = 0;
 				break;
 			case SLAM:
-				dmgBonus = Math.round(target.drRoll() * count / 5f);
+				dmgBonus = Math.round(target.防御() * count / 5f);
 				break;
 			case CRUSH:
 				dmgMulti = 0.25f * count;
@@ -380,7 +380,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 								&& PathFinder.distance[ch.pos] < Integer.MAX_VALUE) {
 							int aoeHit = Math.round(target.攻击() * 0.25f * count);
 							aoeHit /= 2;
-							aoeHit -= ch.drRoll();
+							aoeHit -= ch.防御();
 							if (ch.buff(Vulnerable.class) != null) aoeHit *= 1.33f;
 							if (ch instanceof DwarfKing){
 								//change damage type for DK so that crush AOE doesn't count for DK's challenge badge

@@ -52,6 +52,7 @@ public class Badges {
 		MASTERY_DUELIST,
 		MASTERY_CLERIC,
 		巫女,
+		重武,
 		FOUND_RATMOGRIFY,
 
 		//bronze
@@ -61,25 +62,26 @@ public class Badges {
 		UNLOCK_DUELIST              ( 4 ),
 		UNLOCK_CLERIC               ( 5 ),
 		解锁巫女               ( 6 ),
-		MONSTERS_SLAIN_1            ( 9 ),
-		MONSTERS_SLAIN_2            ( 10 ),
-		GOLD_COLLECTED_1            ( 11 ),
-		GOLD_COLLECTED_2            ( 12 ),
-		ITEM_LEVEL_1                ( 13 ),
-		LEVEL_REACHED_1             ( 14 ),
-		STRENGTH_ATTAINED_1         ( 15 ),
-		FOOD_EATEN_1                ( 16 ),
-		ITEMS_CRAFTED_1             ( 17 ),
-		BOSS_SLAIN_1                ( 18 ),
-		CATALOG_ONE_EQUIPMENT       ( 19, BadgeType.JOURNAL ),
-		DEATH_FROM_FIRE             ( 20 ),
-		DEATH_FROM_POISON           ( 21 ),
-		DEATH_FROM_GAS              ( 22 ),
-		DEATH_FROM_HUNGER           ( 23 ),
-		DEATH_FROM_FALLING          ( 24 ),
-		RESEARCHER_1                ( 25, BadgeType.JOURNAL ),
-		GAMES_PLAYED_1              ( 26, BadgeType.GLOBAL ),
-		HIGH_SCORE_1                ( 27 ),
+		解锁重武               ( 7 ),
+		MONSTERS_SLAIN_1            ( 8 ),
+		MONSTERS_SLAIN_2            ( 9 ),
+		GOLD_COLLECTED_1            ( 10 ),
+		GOLD_COLLECTED_2            ( 11 ),
+		ITEM_LEVEL_1                ( 12 ),
+		LEVEL_REACHED_1             ( 13 ),
+		STRENGTH_ATTAINED_1         ( 14 ),
+		FOOD_EATEN_1                ( 15 ),
+		ITEMS_CRAFTED_1             ( 16 ),
+		BOSS_SLAIN_1                ( 17 ),
+		CATALOG_ONE_EQUIPMENT       ( 18, BadgeType.JOURNAL ),
+		DEATH_FROM_FIRE             ( 19 ),
+		DEATH_FROM_POISON           ( 20 ),
+		DEATH_FROM_GAS              ( 21 ),
+		DEATH_FROM_HUNGER           ( 22 ),
+		DEATH_FROM_FALLING          ( 23 ),
+		RESEARCHER_1                ( 24, BadgeType.JOURNAL ),
+		GAMES_PLAYED_1              ( 25, BadgeType.GLOBAL ),
+		HIGH_SCORE_1                ( 26 ),
 
 		//silver
 		NO_MONSTERS_SLAIN           ( 32 ),
@@ -180,6 +182,9 @@ public class Badges {
 		BOSS_SLAIN_3_MONK,
 		BOSS_SLAIN_3_PRIEST,
 		BOSS_SLAIN_3_PALADIN,
+		BOSS_SLAIN_3_神秘学者,
+		BOSS_SLAIN_3_黑魔导师,
+		BOSS_SLAIN_3_盾之勇者,
 		BOSS_SLAIN_3_ALL_SUBCLASSES ( 104, BadgeType.GLOBAL ),
 		BOSS_CHALLENGE_3            ( 105 ),
 		BOSS_CHALLENGE_4            ( 106 ),
@@ -814,6 +819,9 @@ public class Badges {
 		thirdBossSubclassBadges.put(HeroSubClass.MONK, Badge.BOSS_SLAIN_3_MONK);
 		thirdBossSubclassBadges.put(HeroSubClass.PRIEST, Badge.BOSS_SLAIN_3_PRIEST);
 		thirdBossSubclassBadges.put(HeroSubClass.PALADIN, Badge.BOSS_SLAIN_3_PALADIN);
+		thirdBossSubclassBadges.put(HeroSubClass.神秘学者, Badge.BOSS_SLAIN_3_神秘学者);
+		thirdBossSubclassBadges.put(HeroSubClass.黑魔导师, Badge.BOSS_SLAIN_3_黑魔导师);
+		thirdBossSubclassBadges.put(HeroSubClass.盾之勇者, Badge.BOSS_SLAIN_3_盾之勇者);
 	}
 	
 	public static void validateBossSlain() {
@@ -939,6 +947,9 @@ public class Badges {
 			case 巫女:
 				badge = Badge.巫女;
 				break;
+			case 重武:
+				badge = Badge.重武;
+				break;
 		}
 		
 		unlock(badge);
@@ -991,6 +1002,11 @@ public class Badges {
 	public static void 解锁巫女(){
 		if (!isUnlocked(Badge.解锁巫女)){
 			displayBadge( Badge.解锁巫女 );
+		}
+	}
+	public static void 解锁重武(){
+		if (!isUnlocked(Badge.解锁重武)){
+			displayBadge( Badge.解锁重武 );
 		}
 	}
 	

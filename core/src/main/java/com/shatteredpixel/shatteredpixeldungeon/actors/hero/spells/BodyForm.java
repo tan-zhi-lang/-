@@ -38,11 +38,6 @@ public class BodyForm extends ClericSpell {
 	}
 
 	@Override
-	public boolean canCast(Hero hero) {
-		return super.canCast(hero) && hero.有天赋(Talent.BODY_FORM);
-	}
-
-	@Override
 	public void onCast(神圣法典 tome, Hero hero) {
 
 		GameScene.show(new Trinity.WndItemtypeSelect(tome, this));

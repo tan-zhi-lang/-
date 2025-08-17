@@ -222,7 +222,7 @@ public class Item implements Bundlable {
 					}
 					if (TippedDart.lostDarts > 0){
 						Dart d = new Dart();
-						d.数量(TippedDart.lostDarts);
+						d.get数量(TippedDart.lostDarts);
 						TippedDart.lostDarts = 0;
 						if (!d.放背包()){
 							//have to handle this in an actor as we can't manipulate the heap during pickup
@@ -230,7 +230,6 @@ public class Item implements Bundlable {
 								{ actPriority = VFX_PRIO; }
 								@Override
 								protected boolean act() {
-									Dungeon.level.drop(d, Dungeon.hero.pos).sprite.drop();
 									Actor.remove(this);
 									return true;
 								}
@@ -260,12 +259,16 @@ public class Item implements Bundlable {
 	}
 	
 	public final boolean 放背包() {
-		return 放背包( Dungeon.hero.belongings.backpack );
+		boolean 放=放背包( Dungeon.hero.belongings.backpack );
+		if(!放){
+			Dungeon.level.drop(this, Dungeon.hero.pos).sprite.drop();
+		}
+		return 放;
 	}
 	
 	//returns a new item if the split was sucessful and there are now 2 items, otherwise null
 	public Item split( int amount ){
-		if (amount <= 0 || amount >= 数量()) {
+		if (amount <= 0 || amount >= get数量()) {
 			return null;
 		} else {
 			//pssh, who needs copy constructors?
@@ -278,7 +281,7 @@ public class Item implements Bundlable {
 			Bundle copy = new Bundle();
 			this.storeInBundle(copy);
 			split.restoreFromBundle(copy);
-			split.数量(amount);
+			split.get数量(amount);
 			quantity -= amount;
 			
 			return split;
@@ -515,11 +518,14 @@ public class Item implements Bundlable {
 		return Messages.get(this, "desc");
 	}
 	
-	public int 数量() {
+	public int get数量() {
 		return quantity;
 	}
+	public Item 数量() {
+		return this;
+	}
 	
-	public Item 数量(int value ) {
+	public Item get数量(int value ) {
 		quantity = value;
 		return this;
 	}

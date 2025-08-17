@@ -35,7 +35,6 @@ public class DivineIntervention extends ClericSpell {
 	@Override
 	public boolean canCast(Hero hero) {
 		return super.canCast(hero)
-				&& hero.有天赋(Talent.DIVINE_INTERVENTION)
 				&& hero.buff(AscendedForm.AscendBuff.class) != null
 				&& !hero.buff(AscendedForm.AscendBuff.class).divineInverventionCast;
 	}

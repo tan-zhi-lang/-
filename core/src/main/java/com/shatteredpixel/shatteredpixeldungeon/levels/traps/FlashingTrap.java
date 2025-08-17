@@ -30,7 +30,7 @@ public class FlashingTrap extends Trap {
 		Char c = Actor.findChar( pos );
 		
 		if (c != null) {
-			int damage = Math.max( 0,  (4 + scalingDepth()/2) - c.drRoll()/2 );
+			int damage = Math.max( 0,  (4 + scalingDepth()/2) - c.防御()/2 );
 			Buff.施加( c, 流血.class ).set( damage );
 			Buff.延长( c, Blindness.class, Blindness.DURATION );
 			Buff.延长( c, Cripple.class, Cripple.DURATION*2f );

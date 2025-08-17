@@ -38,7 +38,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
@@ -52,7 +51,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -192,6 +190,7 @@ public enum Talent {
 
 	强力适应(x8+4,3),捍守可拘(x8+5,3),孤立无援(x8+6,3),严傲之意(x8+7,3),
 	冰门高攻(x8+9,4),最佳防御(x8+10,4),
+	强壮体魄(x8+11,4), 勇士之证(x8+12,4), 用盾诀窍(x8+13,4),
 	;
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
@@ -1096,6 +1095,9 @@ public enum Talent {
 				break;
 			case 黑魔导师:
 				Collections.addAll(tierTalents, 高级痛命, 高级死血, 高级吸血);
+				break;
+			case 盾之勇者:
+				Collections.addAll(tierTalents, 强壮体魄, 勇士之证, 用盾诀窍);
 				break;
 		}
 		for (Talent talent : tierTalents){

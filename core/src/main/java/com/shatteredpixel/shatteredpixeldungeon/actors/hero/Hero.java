@@ -274,7 +274,8 @@ public class Hero extends Char {
 		if(heroClass(HeroClass.重武)){
 			multiplier *=1.25f;
 		}
-		最大生命 = Math.round(multiplier * 最大生命);
+		multiplier *=1+天赋点数(Talent.强壮体魄,0.15f);
+		最大生命 = Math.round(最大生命*multiplier);
 
 		生命 = Math.min(生命, 最大生命);
 	}
@@ -638,6 +639,8 @@ public class Hero extends Char {
 		if (buff(Scimitar.SwordDance.class) != null){
 			accuracy *= 1.50f;
 		}
+
+		accuracy*=1+天赋点数(Talent.用盾诀窍,0.35f);
 		
 		if (!RingOfForce.fightingUnarmed(this)&&target!=null) {
 			return Math.max(1, 天赋点数(Talent.顶福精华,10)+Math.round((最大命中+(等级-1)*2) * accuracy * wep.accuracyFactor( this, target )));
@@ -792,6 +795,7 @@ public class Hero extends Char {
 			dmg = Math.round(dmg *天赋点数(Talent.WEAPON_RECHARGING,0.08f));
 		}
 
+		dmg*=1+天赋点数(Talent.勇士之证,0.15f);
 		if (dmg < 0) dmg = 0;
 		return dmg;
 	}

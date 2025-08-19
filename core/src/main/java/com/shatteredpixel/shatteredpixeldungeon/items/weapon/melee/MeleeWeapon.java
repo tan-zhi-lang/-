@@ -161,7 +161,7 @@ public class MeleeWeapon extends Weapon {
 		if (hero.heroClass == HeroClass.DUELIST
 				&& hero.有天赋(Talent.AGGRESSIVE_BARRIER)
 				&& (hero.生命 / (float)hero.最大生命) <= 0.5f){
-			int shieldAmt = hero.天赋点数(Talent.AGGRESSIVE_BARRIER,5);
+			int shieldAmt = hero.天赋生命力(Talent.AGGRESSIVE_BARRIER,0.8f);
 			Buff.施加(hero, Barrier.class).设置(shieldAmt);
 			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 		}
@@ -395,7 +395,7 @@ public class MeleeWeapon extends Weapon {
 
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.15f);
+		return Math.round(金币()*0.025f+1);
 	}
 	public static class Charger extends Buff implements ActionIndicator.Action {
 

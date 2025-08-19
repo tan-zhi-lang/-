@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.InventoryScroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -161,7 +161,7 @@ public class ScrollOfEnchantment extends ExoticScroll {
 		protected void onSelect(int index) {
 			if (index < 3) {
 				wep.enchant(enchantments[index]);
-				GLog.p(Messages.get(StoneOfEnchantment.class, "weapon"));
+				GLog.p(Messages.get(附魔符石.class, "weapon"));
 				((ScrollOfEnchantment)curItem).readAnimation();
 
 				Sample.INSTANCE.play( Assets.Sounds.READ );
@@ -223,7 +223,7 @@ public class ScrollOfEnchantment extends ExoticScroll {
 		protected void onSelect(int index) {
 			if (index < 3) {
 				arm.inscribe(glyphs[index]);
-				GLog.p(Messages.get(StoneOfEnchantment.class, "armor"));
+				GLog.p(Messages.get(附魔符石.class, "armor"));
 				((ScrollOfEnchantment) curItem).readAnimation();
 
 				Sample.INSTANCE.play(Assets.Sounds.READ);

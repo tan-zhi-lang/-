@@ -5,6 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -40,6 +44,18 @@ public abstract class InventoryScroll extends Scroll {
 			protected void onSelect( int index ) {
 				switch (index) {
 				case 0:
+					if(curItem instanceof 升级卷轴){
+						new 附魔符石().放背包();
+					}
+					if(curItem instanceof 鉴定卷轴){
+						new 感知符石().放背包();
+					}
+					if(curItem instanceof 嬗变卷轴){
+						new 强化符石().放背包();
+					}
+					if(curItem instanceof 祛邪卷轴){
+						new 探魔符石().放背包();
+					}
 					curUser.spendAndNext( readTime() );
 					identifiedByUse = false;
 					break;

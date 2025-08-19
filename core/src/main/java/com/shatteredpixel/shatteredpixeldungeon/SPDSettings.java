@@ -40,6 +40,7 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_SCREEN_SHAKE = "screen_shake";
 	public static final String 动画加快x = "动画加快";
 	public static final String 固定移速x = "固定移速";
+	public static final String 休息速度x = "休息速度";
 
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
@@ -134,6 +135,13 @@ public class SPDSettings extends GameSettings {
 
 	public static int 固定移速() {
 		return getInt(固定移速x, 5,1,5 );
+	}
+	public static void 休息速度(int value ){
+		put(休息速度x, value );
+	}
+
+	public static int 休息速度() {
+		return getInt(休息速度x, 5,1,10 );
 	}
 
 	//Interface

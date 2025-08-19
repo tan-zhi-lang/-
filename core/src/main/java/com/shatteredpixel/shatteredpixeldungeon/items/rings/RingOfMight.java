@@ -20,7 +20,7 @@ public class RingOfMight extends Ring {
 	@Override
 	public boolean doEquip(Hero hero) {
 		if (super.doEquip(hero)){
-			hero.更新生命( false );
+			hero.更新生命();
 			return true;
 		} else {
 			return false;
@@ -30,7 +30,7 @@ public class RingOfMight extends Ring {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			hero.更新生命( false );
+			hero.更新生命();
 			return true;
 		} else {
 			return false;
@@ -52,7 +52,7 @@ public class RingOfMight extends Ring {
 	
 	private void updateTargetHT(){
 		if (buff != null && buff.target instanceof Hero){
-			((Hero) buff.target).更新生命( false );
+			((Hero) buff.target).更新生命();
 		}
 	}
 	

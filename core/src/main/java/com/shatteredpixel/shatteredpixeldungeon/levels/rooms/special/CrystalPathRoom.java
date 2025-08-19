@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
@@ -152,7 +152,7 @@ public class CrystalPathRoom extends SpecialRoom {
 		if (Random.Int(2) == 0){
 			addRewardItem(Generator.Category.POTION, potions, duplicates);
 			scrolls.add(Random.Float() < ExoticCrystals.consumableExoticChance()
-					? new 蜕变秘卷() : new ScrollOfTransmutation());
+					? new 蜕变秘卷() : new 嬗变卷轴());
 		} else {
 			potions.add(Random.Float() < ExoticCrystals.consumableExoticChance()
 					? new PotionOfDivineInspiration() : new 经验药剂());

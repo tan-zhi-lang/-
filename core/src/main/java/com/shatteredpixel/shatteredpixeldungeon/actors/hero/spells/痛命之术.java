@@ -70,7 +70,6 @@ public class 痛命之术 extends 目标巫术 {
 							hero.天赋点数(Talent.高级痛命,5)+ch.最大生命(hero.天赋点数(Talent.高级痛命,0.04f))
 					)), 痛命之术.this);
 					Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
-
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
 				}

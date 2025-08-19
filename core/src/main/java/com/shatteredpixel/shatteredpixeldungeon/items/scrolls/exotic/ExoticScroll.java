@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.watabou.utils.Reflection;
 
@@ -61,8 +61,8 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(ScrollOfTerror.class, ScrollOfDread.class);
 		exoToReg.put(ScrollOfDread.class, ScrollOfTerror.class);
 		
-		regToExo.put(ScrollOfTransmutation.class, 蜕变秘卷.class);
-		exoToReg.put(蜕变秘卷.class, ScrollOfTransmutation.class);
+		regToExo.put(嬗变卷轴.class, 蜕变秘卷.class);
+		exoToReg.put(蜕变秘卷.class, 嬗变卷轴.class);
 	}
 	
 	@Override

@@ -59,10 +59,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.DimensionalSundial;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.MossyClump;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrapMechanism;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
@@ -205,10 +204,12 @@ public abstract class Level implements Bundlable {
 
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
 
-			if(Dungeon.depth%2==0) {
+			if(Dungeon.区域层(4)) {
 				addItemToSpawn(new SmallRation());
 			}
-
+			if (Dungeon.区域层(3)) {
+				addItemToSpawn( new 治疗药剂() );
+			}
 			if(Dungeon.depth==1){
 				addItemToSpawn( new 经验药剂());
 			}
@@ -218,14 +219,6 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.力量药剂掉落()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
 				addItemToSpawn( new PotionOfStrength() );
-			}
-			if (Dungeon.depth==3||
-			Dungeon.depth==8||
-			Dungeon.depth==13||
-			Dungeon.depth==18||
-			Dungeon.depth==23
-			) {
-				addItemToSpawn( new 治疗药剂() );
 			}
 			if (Dungeon.升级卷轴掉落()) {
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
@@ -243,7 +236,7 @@ public abstract class Level implements Bundlable {
 			}
 			if ( Dungeon.附魔符石掉落() ){
 				Dungeon.LimitedDrops.ENCH_STONE.drop();
-				addItemToSpawn( new StoneOfEnchantment() );
+				addItemToSpawn( new 附魔符石() );
 			}
 			if ( Dungeon.intStoneNeeded() ){
 				Dungeon.LimitedDrops.INT_STONE.drop();
@@ -1153,10 +1146,10 @@ public abstract class Level implements Bundlable {
 					set(ch.pos, Terrain.FURROWED_GRASS);
 				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
-					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 12 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,3));
+					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 20 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,5));
 				}
 				GameScene.updateMap(ch.pos);
-				Buff.施加(ch, Talent.RejuvenatingStepsCooldown.class, 12 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,3));
+				Buff.施加(ch, Talent.RejuvenatingStepsCooldown.class, 20 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,5));
 			}
 			
 			if (pit[ch.pos]){
@@ -1461,7 +1454,6 @@ public abstract class Level implements Bundlable {
 			} else {
 
 				int mindVisRange = ((Hero) c).感知范围();
-				mindVisRange = Math.max(mindVisRange, EyeOfNewt.mindVisionRange());
 
 				//power of many's life link spell allows allies to get divine sense
 				Char ally = PowerOfMany.getPoweredAlly();

@@ -1060,4 +1060,20 @@ public class Dungeon {
 	public static boolean hero(){
 		return hero!=null;
 	}
+	public static boolean 区域层(int x){
+		if(x==1){
+			return depth==5-4||depth==10-4||depth==15-4||depth==20-4||depth==25-4;
+		}
+		if(x==2){
+			return depth==5-3||depth==10-3||depth==15-3||depth==20-3||depth==25-3;
+		}
+		if(x==3){
+			return depth==5-2||depth==10-2||depth==15-2||depth==20-2||depth==25-2;
+		}
+		if(x==4){
+			return depth==5-1||depth==10-1||depth==15-1||depth==20-1||depth==25-1;
+		}
+
+		return false;
+	}
 }

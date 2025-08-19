@@ -55,7 +55,16 @@ public class 血砍刀 extends MeleeWeapon {
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 	}
-
+	@Override
+	public int 最小攻击(int lvl) {
+		return  1+tier +  //base
+				lvl;    //level scaling
+	}
+	@Override
+	public int 最大攻击(int lvl) {
+		return  1+3*(tier+1) +    //8 base, down from 10
+				lvl*(tier+1)/2*3;   //scaling unchanged
+	}
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
 		damage = super.攻击时(attacker,defender,damage);

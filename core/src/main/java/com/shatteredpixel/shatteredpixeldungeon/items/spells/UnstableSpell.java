@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -47,7 +47,7 @@ public class UnstableSpell extends Spell {
 		scrollChances.put( ScrollOfRage.class,          2f );
 		scrollChances.put( ScrollOfTeleportation.class, 2f );
 		scrollChances.put( ScrollOfTerror.class,        2f );
-		scrollChances.put( ScrollOfTransmutation.class, 1f );
+		scrollChances.put( 嬗变卷轴.class, 1f );
 	}
 
 	private static HashSet<Class<? extends Scroll>> nonCombatScrolls = new HashSet<>();
@@ -58,7 +58,7 @@ public class UnstableSpell extends Spell {
 		nonCombatScrolls.add( ScrollOfRecharging.class );
 		nonCombatScrolls.add( ScrollOfLullaby.class );
 		nonCombatScrolls.add( ScrollOfTeleportation.class );
-		nonCombatScrolls.add( ScrollOfTransmutation.class );
+		nonCombatScrolls.add( 嬗变卷轴.class );
 	}
 
 	private static HashSet<Class<? extends Scroll>> combatScrolls = new HashSet<>();

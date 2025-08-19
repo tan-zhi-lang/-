@@ -685,7 +685,7 @@ abstract public class MissileWeapon extends Weapon {
 
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.15f);
+		return Math.round(金币()*0.025f+1);
 	}
 	private static final String SET_ID = "set_id";
 

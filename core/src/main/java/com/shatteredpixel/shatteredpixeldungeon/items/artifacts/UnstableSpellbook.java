@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -82,7 +82,7 @@ public class UnstableSpellbook extends Artifact {
 
 			i = Random.chances(probs);
 		}
-		scrolls.remove(ScrollOfTransmutation.class);
+		scrolls.remove(嬗变卷轴.class);
 	}
 
 	@Override
@@ -131,7 +131,7 @@ public class UnstableSpellbook extends Artifact {
 				scroll instanceof 祛邪卷轴 ||
 				scroll instanceof 探地卷轴) && Random.Int(2) == 0)
 				//cannot roll transmutation
-				|| (scroll instanceof ScrollOfTransmutation));
+				|| (scroll instanceof 嬗变卷轴));
 
 		scroll.anonymize();
 		curItem = scroll;

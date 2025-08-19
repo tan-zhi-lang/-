@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
@@ -30,7 +31,7 @@ public class ShatteredPixelDungeon extends Game {
 
 		//pre-v2.5.3
 		com.watabou.utils.Bundle.addAlias(
-				com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDetectMagic.class,
+				探魔符石.class,
 				"com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDisarming" );
 
 		//pre-v2.5.2

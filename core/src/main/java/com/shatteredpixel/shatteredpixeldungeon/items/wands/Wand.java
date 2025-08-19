@@ -480,6 +480,35 @@ public abstract class Wand extends Item {
 			}
 		}
 
+
+		if (curUser.有天赋(Talent.保护屏障)) {
+
+			int shieldToGive = Dungeon.hero.天赋生命力(Talent.保护屏障, 0.3f);
+			//regular. If hero owns wand but it isn't in belongings it must be in the staff
+			final Wand curWand;
+			if (curItem instanceof Wand) {
+				curWand = (Wand) Wand.curItem;
+				if (curUser.heroClass == HeroClass.MAGE && !curUser.belongings.contains(curWand)) {
+					//grants 3/5 shielding
+					Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
+					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+
+					//metamorphed. Triggers if wand is highest level hero has
+				} else if (curUser.heroClass != HeroClass.MAGE) {
+					boolean highest = true;
+					for (Item i : curUser.belongings.getAllItems(Wand.class)) {
+						if (i.等级() > curWand.等级()) {
+							highest = false;
+						}
+					}
+					if (highest) {
+						Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
+						Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+					}
+				}
+			}
+		}
+
 		//If hero owns wand but it isn't in belongings it must be in the staff
 		if (Dungeon.hero.有天赋(Talent.EMPOWERED_STRIKE)
 				&& charger != null && charger.target == Dungeon.hero
@@ -572,7 +601,7 @@ public abstract class Wand extends Item {
 
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.15f);
+		return Math.round(金币()*0.025f+1);
 	}
 	private static final String USES_LEFT_TO_ID     = "uses_left_to_id";
 	private static final String AVAILABLE_USES      = "available_uses";
@@ -674,7 +703,7 @@ public abstract class Wand extends Item {
 							return;
 						}
 						if(curUser.有天赋(Talent.SHIELD_BATTERY)) {
-							int shield = (curUser.天赋点数(Talent.SHIELD_BATTERY)+curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.015f)) * curWand.curCharges);
+							int shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.015f)) * curWand.curCharges;
 							Buff.施加(curUser, Barrier.class).设置(shield);
 							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
@@ -712,31 +741,10 @@ public abstract class Wand extends Item {
 
 					//backup barrier logic
 					//This triggers before the wand zap, mostly so the barrier helps vs skeletons
-					if (curUser.有天赋(Talent.备用屏障)
-							&& curWand.curCharges == curWand.chargesPerCast()
-							&& curWand.charger != null && curWand.charger.target == curUser){
-
-						int shieldToGive = Dungeon.hero.天赋点数(Talent.备用屏障,4)+Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.备用屏障,0.03f));
-						//regular. If hero owns wand but it isn't in belongings it must be in the staff
-						if (curUser.heroClass == HeroClass.MAGE && !curUser.belongings.contains(curWand)){
-							//grants 3/5 shielding
-							Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
-							Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-
-						//metamorphed. Triggers if wand is highest level hero has
-						} else if (curUser.heroClass != HeroClass.MAGE) {
-							boolean highest = true;
-							for (Item i : curUser.belongings.getAllItems(Wand.class)){
-								if (i.等级() > curWand.等级()){
-									highest = false;
-								}
-							}
-							if (highest){
-								Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
-								Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-							}
-						}
-					}
+//					if (curWand.curCharges == curWand.chargesPerCast()
+//							&& curWand.charger != null && curWand.charger.target == curUser){
+//
+//					}
 					
 					if (curWand.cursed){
 						if (!curWand.cursedKnown){

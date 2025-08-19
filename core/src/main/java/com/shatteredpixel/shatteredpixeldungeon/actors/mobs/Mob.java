@@ -907,7 +907,7 @@ public abstract class Mob extends Char {
 				}
 
 				if (Dungeon.hero.有天赋(Talent.越战越勇)){
-					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.越战越勇)+Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.越战越勇,0.01f)));
+					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.越战越勇,0.2f));
 				}
 				if (Dungeon.hero.heroClass == HeroClass.DUELIST
 						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){

@@ -31,6 +31,6 @@ public class DarkGold extends Item {
 	}
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.15f);
+		return Math.round(金币()*0.025f+1);
 	}
 }

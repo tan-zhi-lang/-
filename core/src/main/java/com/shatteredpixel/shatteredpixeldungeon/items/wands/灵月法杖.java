@@ -91,8 +91,6 @@ public class 灵月法杖 extends Wand {
 			curUser = hero;
 			curItem = this;
 
-			updateLevel();
-
 			GameScene.show(new Wnd巫术(this, hero, false));
 		}
 	}

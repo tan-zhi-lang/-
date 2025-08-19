@@ -327,7 +327,7 @@ public class HeroSelectScene extends PixelScene {
 			title.setPos((Camera.main.width - title.width()) / 2f, (Camera.main.height - HeroBtn.HEIGHT - title.height() - 4));
 
 			btnOptions.setRect(heroBtns.get(0).left() + 16, Camera.main.height-HeroBtn.HEIGHT-16, 20, 21);
-			改动按钮.setRect(heroBtns.get(0).left(), btnOptions.top(), 20, 21);
+			改动按钮.setRect((Camera.main.width - 1.5f*title.width()) / 2f, btnOptions.top(), 20, 21);
 			optionsPane.setPos(heroBtns.get(0).left(), 0);
 		}
 

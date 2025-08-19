@@ -38,7 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Reflection;
 
-public class ScrollOfTransmutation extends InventoryScroll {
+public class 嬗变卷轴 extends InventoryScroll {
 	
 	{
 		icon = 物品表.Icons.SCROLL_TRANSMUTE;

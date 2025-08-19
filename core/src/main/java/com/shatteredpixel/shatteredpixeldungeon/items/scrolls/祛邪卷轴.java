@@ -128,7 +128,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 		if (procced) {
 			if (hero != null) {
 				hero.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10);
-				hero.更新生命(false); //for ring of might
+				hero.更新生命(); //for ring of might
 				updateQuickslot();
 			}
 

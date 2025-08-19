@@ -90,7 +90,7 @@ public enum Talent {
 	SUSTAINED_RETRIBUTION(23, 4), SHRUG_IT_OFF(24, 4), EVEN_THE_ODDS(25, 4),
 
 	//Mage T1
-	SCHOLARS_INTUITION(x2), LINGERING_MAGIC(x2+1), 备用屏障(x2+2),
+	SCHOLARS_INTUITION(x2), LINGERING_MAGIC(x2+1), 保护屏障(x2+2),
 	//Mage T2
 	饱腹法术(x2+4,3), 高级法杖(x2+5,3), ARCANE_VISION(x2+6,3), SHIELD_BATTERY(x2+7,3),
 	//Mage T3
@@ -213,15 +213,15 @@ public enum Talent {
 			//barrier every 2/1 turns, to a max of 3/5
 			if (hero.有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
 				Barrier barrier = Buff.施加(target, Barrier.class);
-					barrierInc += 0.5f;
+					barrierInc += 1;
 				int s = hero.天赋点数(Talent.PROTECTIVE_SHADOWS,3)+hero.最大生命(hero.天赋点数(Talent.PROTECTIVE_SHADOWS,0.03f));
 				if (barrier.护盾量() < s) {
 					barrier.设置(s);
 				}
-				if (barrierInc >= 2.5){
+				if (barrierInc >= 2){
 					barrierInc = 0;
 					if (hero.有天赋(Talent.体生匿影)) {
-						hero.回血(hero.天赋点数(Talent.体生匿影)+hero.已损失生命(hero.天赋点数(Talent.体生匿影,0.007f)));
+						hero.回血(hero.天赋生命力(Talent.体生匿影,0.2f));
 					}
 				}
 			} else {
@@ -248,7 +248,7 @@ public enum Talent {
 	public static class RejuvenatingStepsCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0f, 0.35f, 0.15f); }
-		public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / (15 - 5*Dungeon.hero.天赋点数(REJUVENATING_STEPS)), 1); }
+		public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / (20 - Dungeon.hero.天赋点数(REJUVENATING_STEPS,5)), 1); }
 	};
 	public static class RejuvenatingStepsFurrow extends CounterBuff{{revivePersists = true;}};
 	public static class SeerShotCooldown extends FlavourBuff{
@@ -589,7 +589,7 @@ public enum Talent {
 
 		//if we happen to have spirit form applied with a ring of might
 		if (talent == SPIRIT_FORM){
-			Dungeon.hero.更新生命(false);
+			Dungeon.hero.更新生命();
 		}
 	}
 
@@ -598,7 +598,7 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}};
 
 	public static void 吃饭时(Hero hero, float foodVal, Item foodSource ){
-		hero.回血(1+hero.最大生命(0.01f));
+		hero.回血(1+hero.生命力(0.25f));
 
 		if (hero.heroClass(HeroClass.WARRIOR)){
 			if (hero.cooldown() > 0) {
@@ -818,12 +818,12 @@ public enum Talent {
 	}
 
 	public static int 伏击时(Hero hero, Char enemy, int dmg ){
-		dmg+=1+enemy.最大生命(0.01f);
+		dmg+=Random.NormalIntRange(0,enemy.生命力(0.25f));
 		if(hero.hasbuff(Invisibility.class)){
-			dmg+=1+enemy.最大生命(0.01f);
+			dmg+=Random.NormalIntRange(0,enemy.生命力(0.25f));
 		}
 		if(hero.有天赋(Talent.SUCKER_PUNCH) ) {
-			dmg += hero.天赋点数(Talent.SUCKER_PUNCH,2)+ hero.力量(hero.天赋点数(Talent.SUCKER_PUNCH,0.1f));
+			dmg += hero.天赋生命力(Talent.SUCKER_PUNCH,0.2f);
 		}
 		return dmg;
 	}
@@ -834,13 +834,13 @@ public enum Talent {
 		}
 		if (hero.有天赋(Talent.受衅怒火)
 			&& hero.buff(ProvokedAngerTracker.class) != null){
-			dmg += hero.天赋点数(Talent.受衅怒火,8)+Math.round(hero.力量()*hero.天赋点数(Talent.受衅怒火,0.25f));
+			dmg +=Random.NormalIntRange(hero.天赋生命力(Talent.受衅怒火,0.3f),hero.天赋生命力(Talent.受衅怒火,0.6f));
 			hero.buff(ProvokedAngerTracker.class).detach();
 		}
 
 		if (hero.有天赋(Talent.LINGERING_MAGIC)
 				&& hero.buff(LingeringMagicTracker.class) != null){
-			dmg += hero.天赋点数(Talent.LINGERING_MAGIC,3)+hero.等级(hero.天赋点数(Talent.LINGERING_MAGIC,0.2f));
+			dmg += hero.天赋生命力(Talent.LINGERING_MAGIC,0.2f);
 			hero.buff(LingeringMagicTracker.class).detach();
 		}
 
@@ -849,7 +849,7 @@ public enum Talent {
 				Buff.延长(hero, FollowupStrikeTracker.class, 5f).object = enemy.id();
 			} else if (hero.buff(FollowupStrikeTracker.class) != null
 					&& hero.buff(FollowupStrikeTracker.class).object == enemy.id()){
-				dmg += hero.天赋点数(FOLLOWUP_STRIKE)+hero.力量(hero.天赋点数(FOLLOWUP_STRIKE,0.1f));
+				dmg += hero.天赋生命力(FOLLOWUP_STRIKE,0.2f);
 				hero.buff(FollowupStrikeTracker.class).detach();
 			}
 		}
@@ -865,7 +865,7 @@ public enum Talent {
 			if (hero.buff(PatientStrikeTracker.class) != null
 					&& !(hero.belongings.attackingWeapon() instanceof MissileWeapon)){
 				hero.buff(PatientStrikeTracker.class).detach();
-				dmg += hero.天赋点数(Talent.PATIENT_STRIKE,4)+hero.力量( hero.天赋点数(Talent.PATIENT_STRIKE,0.2f));
+				dmg += hero.天赋生命力(Talent.PATIENT_STRIKE,0.5f);
 			}
 		}
 
@@ -937,7 +937,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, VETERANS_INTUITION, 受衅怒火, 钢铁意志);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents, SCHOLARS_INTUITION, LINGERING_MAGIC, 备用屏障);
+				Collections.addAll(tierTalents, SCHOLARS_INTUITION, LINGERING_MAGIC, 保护屏障);
 				break;
 			case 盗贼:
 				Collections.addAll(tierTalents, THIEFS_INTUITION, SUCKER_PUNCH, PROTECTIVE_SHADOWS);

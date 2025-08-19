@@ -114,20 +114,22 @@ public class 水袋 extends Item {
 				}
 
 
-			} else if (action.equals( AC_合成 )) {
-				volume=0;
-
-				new 治疗药剂().放背包();
-
-				hero.spend(TIME_TO_DRINK);
-				hero.busy();
-
-				hero.sprite.operate(hero.pos);
-				updateQuickslot();
 			} else {
 				GLog.w( Messages.get(this, "empty") );
 			}
 
+		}
+
+		if (action.equals( AC_合成 )) {
+			volume = 0;
+
+			new 治疗药剂().放背包();
+
+			hero.spend(TIME_TO_DRINK);
+			hero.busy();
+
+			hero.sprite.operate(hero.pos);
+			updateQuickslot();
 		}
 	}
 

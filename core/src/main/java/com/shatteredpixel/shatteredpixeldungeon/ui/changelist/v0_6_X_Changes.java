@@ -23,7 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
@@ -872,7 +872,7 @@ public class v0_6_X_Changes {
 				"_-_ Greataxe base damage increased by ~22%\n" +
 				"_-_ Greatshield base damage increased by ~17%"));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(new StoneOfEnchantment()), "Enchant and Glyph Balance Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(new 附魔符石()), "Enchant and Glyph Balance Changes",
 				"_-_ Vampiric enchant lifesteal reduced by 20%\n\n" +
 				"Lucky enchant rebalanced:\n" +
 				"_-_ now deals 2x/0x damage, instead of min/max\n" +

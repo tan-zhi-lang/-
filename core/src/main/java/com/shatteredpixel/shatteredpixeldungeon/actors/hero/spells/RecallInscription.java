@@ -11,14 +11,14 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfEnchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.InventoryStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -91,13 +91,13 @@ public class RecallInscription extends ClericSpell {
 					return 4;
 				}
 			} else if (Scroll.class.isAssignableFrom(item)){
-				if (item == ScrollOfTransmutation.class){
+				if (item == 嬗变卷轴.class){
 					return 6;
 				} else {
 					return 3;
 				}
 			} else if (Runestone.class.isAssignableFrom(item)){
-				if (item == 强化符石.class || item == StoneOfEnchantment.class){
+				if (item == 强化符石.class || item == 附魔符石.class){
 					return 4;
 				} else {
 					return 2;

@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
-public class StoneOfEnchantment extends InventoryStone {
+public class 附魔符石 extends InventoryStone {
 	
 	{
 		preferredBag = Belongings.Backpack.class;

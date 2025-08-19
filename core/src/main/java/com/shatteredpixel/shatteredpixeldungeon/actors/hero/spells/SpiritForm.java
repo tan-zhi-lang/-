@@ -110,7 +110,7 @@ public class SpiritForm extends ClericSpell {
 			this.effect = effect;
 			if (effect instanceof RingOfMight){
 				((Ring) effect).等级(ringLevel());
-				Dungeon.hero.更新生命( false );
+				Dungeon.hero.更新生命();
 			}
 		}
 
@@ -118,7 +118,7 @@ public class SpiritForm extends ClericSpell {
 		public void detach() {
 			super.detach();
 			if (effect instanceof RingOfMight){
-				Dungeon.hero.更新生命( false );
+				Dungeon.hero.更新生命();
 			}
 		}
 

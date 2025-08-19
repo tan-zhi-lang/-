@@ -77,7 +77,9 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap.Type;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -133,6 +135,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
@@ -159,6 +162,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -195,6 +199,7 @@ public class Hero extends Char {
 		actPriority = HERO_PRIO;
 		
 		alignment = Alignment.ALLY;
+		viewDistance = 8;
 	}
 	
 	public static final int 最大等级 = 25;
@@ -209,8 +214,9 @@ public class Hero extends Char {
 	public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
 	public LinkedHashMap<Talent, Talent> metamorphedTalents = new LinkedHashMap<>();
 	
-	private int 最大命中 = 10+10;
-	private int 最大闪避 = 5+5;
+	private int 最大命中 = 10;
+	private int 最大闪避 = 5;
+	public boolean 单身 = false;
 
 	public boolean ready = false;
 	public boolean damageInterrupt = true;
@@ -244,7 +250,7 @@ public class Hero extends Char {
 	public Hero() {
 		super();
 
-		生命 = 最大生命 = 30;
+		生命 = 最大生命 = 16;
 		力量 = 10;
 		
 		belongings = new Belongings( this );
@@ -252,18 +258,14 @@ public class Hero extends Char {
 		visibleEnemies = new ArrayList<>();
 	}
 	
-	public void 更新生命(boolean boostHP ){
-		int curHT = 最大生命;
+	public void 更新生命(){
 		
-		最大生命 = 30 + Math.round((5+1.05f)*(等级 -1))+根骨*20 + HTBoost;
+		最大生命 = 16 + Math.round((5+0.6f)*(等级 -1))+根骨*20 + HTBoost;
 		
 		if (buff(根骨秘药.HTBoost.class) != null){
 			最大生命 += buff(根骨秘药.HTBoost.class).boost();
 		}
 
-		if (boostHP){
-			生命 += Math.max(最大生命 - curHT, 0);
-		}
 
 		float multiplier = RingOfMight.HTMultiplier(this);
 		multiplier*=综合属性();
@@ -282,20 +284,23 @@ public class Hero extends Char {
 
 	public int 力量() {
 
-		int str = 力量+RingOfMight.strengthBonus( this )*2;
+		int str = 力量+RingOfMight.strengthBonus( this )*2+(单身?1:0);
 
 		AdrenalineSurge buff = buff(AdrenalineSurge.class);
 		if (buff != null){
 			str += buff.boost();
 		}
-		str *=1+天赋点数(Talent.STRONGMAN,0.08f);
-
+		float x=1;
+		x *=1+天赋点数(Talent.STRONGMAN,0.1f);
 
 		if (heroClass(HeroClass.WARRIOR)){
-			str *= 1.1f;
+			x *= 1.1f;
 		}
 
-		str *=综合属性();
+		x *=综合属性();
+
+		//最后结算
+		str=Math.round(str*x);
 
 		if(str>=15){
 			Badges.解锁重武();
@@ -311,6 +316,8 @@ public class Hero extends Char {
 	private static final String 力量x		= "力量";
 	private static final String 根骨x		= "根骨";
 	private static final String 连击x		= "连击";
+
+	private static final String 单身x		= "单身";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
 	
@@ -328,6 +335,8 @@ public class Hero extends Char {
 		bundle.put( 力量x, 力量);
 		bundle.put( 根骨x, 根骨);
 		bundle.put( 连击x, 连击);
+
+		bundle.put( 单身x, 单身);
 		bundle.put( EXPERIENCE, 当前经验);
 		
 		bundle.put( HTBOOST, HTBoost );
@@ -342,6 +351,7 @@ public class Hero extends Char {
 		力量 = bundle.getInt( 力量x );
 		根骨 = bundle.getInt( 根骨x );
 		连击 = bundle.getInt( 连击x );
+		单身 = bundle.getBoolean( 单身x );
 		当前经验 = bundle.getInt( EXPERIENCE );
 
 		HTBoost = bundle.getInt(HTBOOST);
@@ -378,7 +388,12 @@ public class Hero extends Char {
 		}
 		return 0;
 	}
-
+	public int 天赋生命力(Talent talent){
+		return 生命力(天赋点数(talent));
+	}
+	public int 天赋生命力(Talent talent,float x){
+		return 生命力(天赋点数(talent,x));
+	}
 	public boolean 满天赋(Talent talent ){
 		for (LinkedHashMap<Talent, Integer> tier : talents){
 			for (Talent f : tier.keySet()){
@@ -643,9 +658,9 @@ public class Hero extends Char {
 		accuracy*=1+天赋点数(Talent.用盾诀窍,0.35f);
 		
 		if (!RingOfForce.fightingUnarmed(this)&&target!=null) {
-			return Math.max(1, 天赋点数(Talent.顶福精华,10)+Math.round((最大命中+(等级-1)*2) * accuracy * wep.accuracyFactor( this, target )));
+			return Math.max(1, 天赋点数(Talent.顶福精华,10)+Math.round((最大命中+(等级-1)*1.21f) * accuracy * wep.accuracyFactor( this, target )));
 		} else {
-			return Math.max(1, 天赋点数(Talent.顶福精华,10)+Math.round((最大命中+(等级-1)*2) * accuracy));
+			return Math.max(1, 天赋点数(Talent.顶福精华,10)+Math.round((最大命中+(等级-1)*1.21f) * accuracy));
 		}
 	}
 
@@ -666,7 +681,7 @@ public class Hero extends Char {
 			return INFINITE_EVASION;
 		}
 		
-		float evasion = (最大闪避+(等级-1));
+		float evasion = (最大闪避+Math.round((等级-1)*1.21f));
 
 		evasion+=天赋点数(Talent.顶福精华,5);
 		evasion*=1+天赋点数(Talent.顶福精华,0.08f);
@@ -999,11 +1014,13 @@ public class Hero extends Char {
 	}
 	@Override
 	public boolean act() {
+		更新生命();
 
 		if(Dungeon.level.在草丛(this)&&有天赋(Talent.自然丰收)){
-		float shield = 天赋点数(Talent.自然丰收,0.3f);
-		Buff.施加(this, Hunger.class).吃饭(shield);
+		float shield = 天赋点数(Talent.自然丰收,0.275f);
+			Buff.施加(this, Hunger.class).吃饭(shield);
 		}
+
 
 		//calls to dungeon.observe will also update hero's local FOV.
 		fieldOfView = Dungeon.level.heroFOV;
@@ -1038,7 +1055,7 @@ public class Hero extends Char {
 		if (curAction == null) {
 			
 			if (resting) {
-				spendConstant( TIME_TO_REST );
+				spendConstant( TIME_TO_REST*SPDSettings.休息速度());
 				next();
 			} else {
 				ready();
@@ -1584,9 +1601,8 @@ public class Hero extends Char {
 
 			if (heroClass != HeroClass.DUELIST
 					&& 有天赋(Talent.AGGRESSIVE_BARRIER)
-					&& buff(Talent.AggressiveBarrierCooldown.class) == null
-					&& (生命 / (float) 最大生命) <= 0.5f){
-				int shieldAmt = 天赋点数(Talent.AGGRESSIVE_BARRIER,5)+最大生命(天赋点数(Talent.AGGRESSIVE_BARRIER,0.5f));
+					&& buff(Talent.AggressiveBarrierCooldown.class) == null){
+				int shieldAmt = 天赋生命力(Talent.AGGRESSIVE_BARRIER,0.8f);
 				Buff.施加(this, Barrier.class).设置(shieldAmt);
 				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldAmt), FloatingText.SHIELDING);
 				Buff.施加(this, Talent.AggressiveBarrierCooldown.class, 50f);
@@ -1666,7 +1682,7 @@ public class Hero extends Char {
 		回血(Math.round(damage*吸血));
 
 		if (有天赋(Talent.致命打击)&&enemy.第一次防御){
-			damage+=天赋点数(Talent.致命打击,2)+enemy.最大生命(天赋点数(Talent.致命打击,0.02f));
+			damage+=天赋生命力(Talent.致命打击,0.25f);
 		}
 		if (有天赋(Talent.盾举冲击)){
 			damage+=天赋点数(Talent.盾举冲击)+力量(天赋点数(Talent.盾举冲击,0.1f));
@@ -2063,7 +2079,23 @@ public class Hero extends Char {
 		}
 
 		if (step != -1) {
-
+			for (int n : PathFinder.NEIGHBOURS9){
+				Heap heap = Dungeon.level.heaps.get( pos+n);
+				if (heap != null) {
+					Item item = heap.peek();
+					if(item instanceof Plant.Seed||
+					item instanceof Gold||
+					item instanceof EnergyCrystal ||
+					item instanceof Dewdrop
+					){
+						if (item.doPickUp( this )) {
+							heap.pickUp();
+						}else{
+							heap.sprite.drop();
+						}
+					}
+				}
+			}
 			float delay = 1 / 移速();
 
 			if (buff(GreaterHaste.class) != null){
@@ -2282,14 +2314,18 @@ public class Hero extends Char {
 		}
 	}
 	public void 升级(){
-
+		for (Item item : Dungeon.hero.belongings){
+			if (item instanceof 灵月法杖 x){
+				x.updateLevel();;
+			}
+		}
 		等级++;
 
 		if (buff(根骨秘药.HTBoost.class) != null){
 			buff(根骨秘药.HTBoost.class).onLevelUp();
 		}
 
-		更新生命( true );
+		更新生命();
 
 		if (sprite != null) {
 			GLog.newLine();
@@ -2317,11 +2353,13 @@ public class Hero extends Char {
 	}
 	
 	public int 升级所需(int lvl ){
+		int x=10+10;
+		int y=5+20;
 		lvl--;
 		if (heroClass(HeroClass.CLERIC)){
-			return 12 + lvl * 6;
+			return Math.round((x + lvl * y)*0.9f);
 		}
-		return 14 + lvl * 7;
+		return x + lvl * y;
 	}
 	
 	public boolean isStarving() {
@@ -2675,8 +2713,9 @@ public class Hero extends Char {
 		}
 		return x;
 	}
+	@Override
 	public int 视野范围(){
-		int x=Dungeon.level.viewDistance;
+		int x=super.视野范围();
 		if (Dungeon.hero.buff(MagicalSight.class) != null){
 			x = Math.max( x, MagicalSight.DISTANCE );
 		}
@@ -2695,6 +2734,7 @@ public class Hero extends Char {
 		if(Dungeon.isChallenged( Challenges.DARKNESS )){
 			x/=4;
 		}
+		x*=EyeOfNewt.visionRangeMultiplier();
 		return x;
 	}
 	public boolean search( boolean intentional ) {
@@ -2876,7 +2916,7 @@ public class Hero extends Char {
 			}
 		}
 
-		更新生命(false);
+		更新生命();
 	}
 
 	@Override
@@ -2899,9 +2939,6 @@ public class Hero extends Char {
 	}
 	public int 力量(float x){
 		return Math.round(x*力量());
-	}
-	public int 视野范围(float x){
-		return Math.round(x*视野范围());
 	}
 	public float 综合属性(){
 		float x=1;

@@ -722,6 +722,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 		RedButton 集合设;
 		ColorBlock sep2;
 		OptionSlider 固定移速;
+		OptionSlider 休息速度;
 
 		@Override
 		protected void createChildren() {
@@ -793,6 +794,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 			};
 			固定移速.setSelectedValue(SPDSettings.固定移速());
 			add(固定移速);
+
+			休息速度 = new OptionSlider("休息速度",
+					"1", "10", 1, 10) {
+				@Override
+				protected void onChange() {
+					SPDSettings.休息速度(getSelectedValue());
+				}
+			};
+			休息速度.setSelectedValue(SPDSettings.休息速度());
+			add(休息速度);
 		}
 
 		@Override
@@ -805,12 +816,13 @@ public class WndSettings extends WndTabbed {//WndSettings
 //			集合设.setRect(0, height + GAP, width, BTN_HEIGHT);
 
 			固定移速.setRect(0, height + GAP, width, SLIDER_HEIGHT);
+			休息速度.setRect(0, 固定移速.bottom() + GAP, width, SLIDER_HEIGHT);
 //			固定移速.setRect(0, 集合设.bottom() + GAP, width, SLIDER_HEIGHT);
 
 			sep2.size(width, 1);
 			sep2.y = height + GAP;
 
-			height = 固定移速.bottom();
+			height = 休息速度.bottom();
 
 		}
 

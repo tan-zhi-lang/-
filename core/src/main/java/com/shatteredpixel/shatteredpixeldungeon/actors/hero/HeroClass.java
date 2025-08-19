@@ -29,9 +29,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
@@ -97,7 +100,6 @@ public enum HeroClass {
 	}
 
 	public void initHero( Hero hero ) {
-
 		hero.heroClass = this;
 		Talent.initClassTalents(hero);
 
@@ -111,9 +113,19 @@ public enum HeroClass {
 		if(算法.isDebug()){
 			int x=100;
 			new 经验药剂().get数量(x).放背包();
-			new 冰球().get数量(x).放背包();
+			new 治疗药剂().get数量(x).放背包();
+			new 极速药剂().get数量(x).放背包();
+			new 净化药剂().get数量(x).放背包();
 
-			new 镶钉手套().放背包();
+			new 升级卷轴().get数量(x).放背包();
+			new 鉴定卷轴().get数量(x).放背包();
+			new 嬗变卷轴().get数量(x).放背包();
+			new 祛邪卷轴().get数量(x).放背包();
+
+			
+			for (Item item : Dungeon.hero.belongings){
+				item.鉴定();
+			}
 		}
 
 		算法.种子();

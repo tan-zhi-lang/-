@@ -23,7 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -162,7 +162,7 @@ public class SummonElemental extends Spell {
 			return item.已鉴定() && (item instanceof PotionOfLiquidFlame
 					|| item instanceof PotionOfFrost
 					|| item instanceof ScrollOfRecharging
-					|| item instanceof ScrollOfTransmutation);
+					|| item instanceof 嬗变卷轴);
 		}
 
 		@Override
@@ -188,7 +188,7 @@ public class SummonElemental extends Spell {
 				curUser.sprite.emitter().burst( ShaftParticle.FACTORY, 12 );
 				summonClass = Elemental.ShockElemental.class;
 
-			} else if (item instanceof ScrollOfTransmutation){
+			} else if (item instanceof 嬗变卷轴){
 				Sample.INSTANCE.play(Assets.Sounds.READ);
 				curUser.sprite.emitter().burst( RainbowParticle.BURST, 12 );
 				summonClass = Elemental.ChaosElemental.class;

@@ -721,7 +721,7 @@ public class Armor extends EquipableItem {
 	}
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.15f);
+		return Math.round(金币()*0.025f+1);
 	}
 	public Armor inscribe( Glyph glyph ) {
 		if (glyph == null || !glyph.curse()) curseInfusionBonus = false;

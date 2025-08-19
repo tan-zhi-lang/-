@@ -18,11 +18,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.UnstableBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -240,11 +240,11 @@ public class RingOfWealth extends Ring {
 					return i.get数量(i.get数量()*2);
 				}
 			case 1:
-				return new StoneOfEnchantment();
+				return new 附魔符石();
 			case 2:
 				return Random.Float() < ExoticCrystals.consumableExoticChance() ? new PotionOfDivineInspiration() : new 经验药剂();
 			case 3:
-				return Random.Float() < ExoticCrystals.consumableExoticChance() ? new 蜕变秘卷() : new ScrollOfTransmutation();
+				return Random.Float() < ExoticCrystals.consumableExoticChance() ? new 蜕变秘卷() : new 嬗变卷轴();
 		}
 	}
 

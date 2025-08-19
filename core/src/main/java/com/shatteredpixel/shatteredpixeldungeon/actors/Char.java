@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
@@ -15,6 +16,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -80,6 +83,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -408,10 +412,10 @@ public abstract class Char extends Actor {
 			if (enemy.buff(GuidingLight.Illuminated.class) != null){
 				enemy.buff(GuidingLight.Illuminated.class).detach();
 				if (this == Dungeon.hero && Dungeon.hero.有天赋(Talent.SEARING_LIGHT)){
-					dmg += Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,2)+Dungeon.hero.视野范围(Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,0.2f));
+					dmg += Dungeon.hero.天赋生命力(Talent.SEARING_LIGHT,0.6f);
 				}
 				if (this != Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.PRIEST){
-					enemy.受伤时(Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,2)+Dungeon.hero.视野范围(Dungeon.hero.天赋点数(Talent.SEARING_LIGHT,0.2f)), GuidingLight.INSTANCE);
+					enemy.受伤时(Dungeon.hero.天赋生命力(Talent.SEARING_LIGHT,0.6f), GuidingLight.INSTANCE);
 				}
 			}
 
@@ -724,7 +728,7 @@ public abstract class Char extends Actor {
 
 		ShieldOfLight.ShieldOfLightTracker shield = buff( ShieldOfLight.ShieldOfLightTracker.class);
 		if (shield != null && shield.object == enemy.id()){
-			damage -= Random.NormalIntRange(0, Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT,5));
+			damage -= Random.NormalIntRange(0, Dungeon.hero.天赋生命力(Talent.SHIELD_OF_LIGHT,0.3f));
 			damage = Math.max(damage, 0);
 		} else if (this == Dungeon.hero
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
@@ -1407,6 +1411,12 @@ public abstract class Char extends Actor {
 	public static boolean hasProp( Char ch, Property p){
 		return (ch != null && ch.properties().contains(p));
 	}
+	public int 生命力(){
+		return (int) Math.round(Math.sqrt(最大生命));
+	}
+	public int 生命力(float x){
+		return Math.round(生命力()*x);
+	}
 	public int 已损失生命(){
 		return 最大生命-生命;
 	}
@@ -1434,5 +1444,13 @@ public abstract class Char extends Actor {
 	public void 回血(int x){
 		生命 = Math.min(生命 + x, 最大生命);
 		if(sprite!=null&&x>0) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(x), FloatingText.HEALING);
+	}
+
+	public int 视野范围(){
+		int x=viewDistance;
+		return x;
+	}
+	public int 视野范围(float x){
+		return Math.round(x*视野范围());
 	}
 }

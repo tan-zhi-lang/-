@@ -48,7 +48,7 @@ public class 炼金菱晶 extends Spell {
 	@Override
 	public int 金币() {
 		//lower value, as it's very cheap to make (and also sold at shops)
-		return (int)(5 * (quantity/(float)Recipe.OUT_QUANTITY));
+		return (int)(20 * (quantity/(float)Recipe.OUT_QUANTITY));
 	}
 
 	@Override

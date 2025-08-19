@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTransmutation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -48,7 +48,7 @@ public class SecretLibraryRoom extends SecretRoom {
 		scrollChances.put( ScrollOfRage.class,          4f );
 		scrollChances.put( ScrollOfRetribution.class,   4f );
 		scrollChances.put( ScrollOfTerror.class,        4f );
-		scrollChances.put( ScrollOfTransmutation.class, 6f );
+		scrollChances.put( 嬗变卷轴.class, 6f );
 	}
 	
 	public void paint( Level level ) {

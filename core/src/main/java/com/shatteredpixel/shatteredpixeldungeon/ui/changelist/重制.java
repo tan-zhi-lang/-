@@ -4,6 +4,14 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -67,11 +75,12 @@ public class 重制 {
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), Messages.get(ChangesScene.class, "misc"),
 				"英雄\n\n" +
-						"最大生命+10，最大命中+10，最大闪避+5。\n"+
+						"最大生命-4。\n"+
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
-						"再生额外恢复1%最大生命。"
-//						"自动拾取金币、能量晶体、水珠。"
+						"再生恢复生命1=>25%生命力。"+
+						"新增生命力=根号最大生命，大部分天赋等都被此数值影响。"+
+						"自动拾取金币、能量晶体、水珠、种子。"
 						,
 						"杂项\n\n" +
 						"根骨之戒力量+1 => +2。提升生命系数1.035 => 1.07。\n" +
@@ -86,10 +95,10 @@ public class 重制 {
 		changes.addButton( new ChangeButton(Icons.CHALLENGE_COLOR.get(), "挑战",
 				"恐药异症 => 喝药会受到5%最大生命伤害。\n" ));
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "升级",
-				"升级提升的命中和生命+1.05。最大等级-5，升级所需经验初始+4，每级+2。\n" ));
+				"升级提升的生命+0.6，命中和闪避+0.21。最大等级-5，升级所需经验初始+10，每级+20。\n" ));
 		changes.addButton( new ChangeButton(new ThiefSprite(), "疯狂小偷",
 				"偷后移速83% => 75%。\n" +
-						"防御时掉落金币1 => 10"));
+						"物理防御时掉落金币1 => 10"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量晶体",
 				"武器和护甲可以提炼，法杖戒指可以提炼，提炼量是金币的15%。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.水袋), "水袋",
@@ -118,8 +127,6 @@ public class 重制 {
 		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
-//		changes.addButton( new ChangeButton(new HeroSprite(), "鼠王房间",
-//				"金币数量x2。"));
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(), "商人房间",
 						"非战士在6层会卖水袋。\n" +
 						"商店的小包口粮 => 口粮。\n" +
@@ -137,7 +144,7 @@ public class 重制 {
 						"毒气房金币数量x2。\n" +
 						"第一层必定生成一瓶经验药剂。\n" +
 						"每个区域生成的升级卷轴数量+1。\n" +
-						"3/8/13/18/23层必定一瓶治疗药剂。"));
+						"每个区域第3层必定一瓶治疗药剂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ORE), "暗金矿",
 					"可以出售和提炼。"
 				));
@@ -152,9 +159,15 @@ public class 重制 {
 					"升级获得1充能。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
-					"注魔秘卷\n" +
+					"选择物品使用的卷轴在取消时获得对应符石：\n" +
+							"升级卷轴=>附魔符石。\n"+
+							"鉴定卷轴=>感知符石。\n"+
+							"嬗变卷轴=>强化符石。\n"+
+							"祛邪卷轴=>探魔符石。",
+							"注魔秘卷\n" +
 							"还附带一次升级。"
 				));
+
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.POTION_HOLDER), "药剂",
 					"治疗药剂\n" +
 							"最大生命80% => 90%。\n" +
@@ -175,18 +188,18 @@ public class 重制 {
 							"持续回合100 => 60"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.OVERPRICED), "小包口粮",
-				"偶数层必定生成一个。"));
+				"每区域第4层必定生成一个。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_FIREBLOOM), "烈焰花",
 				"4层必定生成。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
-				"吃饭恢复1+1%最大生命。"));
+				"吃饭恢复25%生命力。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
 				"最大充能+1 => +2。\n" +
 				"改变等级时获得1充能。\n" +
 				"自带+1强化等级。\n" +
 						"自带法杖回收，且能吸收灌注法杖一半的等级。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.SUCKER_PUNCH), "伏击机制",
-				"伏击+1+敌人1%最大生命伤害，隐形伏击+1+敌人1%最大生命伤害。"));
+				"伏击+0~25%敌人生命力，隐形伏击+0~25%敌人生命力。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.神圣法典), "神圣法典",
 				"+1最大充能。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ANKH), "十字架",
@@ -195,15 +208,15 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "根骨秘药",
 				"+1力量+暂时生命 => +20最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.破损纹章), "破损纹章",
-				"初始护盾3 => 1。\n" +
+				"初始护盾3，并计算护甲阶级 => 1，并计算护甲阶级。\n" +
 				"半血受伤获得 => 受伤获得。\n" +
 				"提升护甲的等级改成强化等级。\n" +
-							"可额外携带1级，冷却150 => 75。"));
+							"可额外携带1级，冷却150 => 50。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
-				"最小攻击+2，最大攻击+1。\n" +
-						"能触发部分东西。"));
+				"最小攻击成长20%=>4%，最大攻击-1。\n" +
+						"箭矢能触发部分东西。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ALCHEMIZE), "炼金菱晶",
-				"商店卖数量x4，价格-75%。"));
+				"商店卖数量x4。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.时光沙漏), "时光沙漏",
 				"攻击不会打断时间冻结。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_AUGMENTATION), "强化符石",
@@ -222,7 +235,7 @@ public class 重制 {
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new GooSprite(), "粘咕",
-				"受到火焰伤害+1+1%最大生命。"));
+				"受到火焰伤害+20%生命力。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STEWED), "炖肉",
 				"3个合成时消耗能量2 => 3。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.无声步伐), "无声步伐",

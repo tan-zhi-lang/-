@@ -25,8 +25,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlink;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfClairvoyance;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDeepSleep;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDetectMagic;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfEnchantment;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFear;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFlock;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
@@ -306,11 +306,11 @@ public abstract class Scroll extends Item {
 			stones.put(ScrollOfRetribution.class,   StoneOfBlast.class);
 			stones.put(ScrollOfRage.class,          StoneOfAggression.class);
 			stones.put(ScrollOfRecharging.class,    StoneOfShock.class);
-			stones.put(祛邪卷轴.class,   StoneOfDetectMagic.class);
+			stones.put(祛邪卷轴.class,   探魔符石.class);
 			stones.put(ScrollOfTeleportation.class, StoneOfBlink.class);
 			stones.put(ScrollOfTerror.class,        StoneOfFear.class);
-			stones.put(ScrollOfTransmutation.class, 强化符石.class);
-			stones.put(升级卷轴.class,       StoneOfEnchantment.class);
+			stones.put(嬗变卷轴.class, 强化符石.class);
+			stones.put(升级卷轴.class,       附魔符石.class);
 		}
 		
 		@Override

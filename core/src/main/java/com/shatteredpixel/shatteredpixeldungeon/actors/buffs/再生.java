@@ -74,7 +74,7 @@ public class 再生 extends Buff {
 						x+=hero.天赋点数(Talent.钢铁之盾)+hero.生命(hero.天赋点数(Talent.钢铁之盾,0.01f));
 					}
 					target.回血(Math.round(partialRegen+
-							target.生命(0.01f)+x
+							target.生命力(0.25f)+x
 					));
 					partialRegen -= (int)partialRegen;
 					if (target.满血()) {

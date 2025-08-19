@@ -458,7 +458,7 @@ public abstract class Char extends Actor {
 			if (Dungeon.hero.alignment == enemy.alignment
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 					&& (Dungeon.level.distance(enemy.pos, Dungeon.hero.pos) <= 2 || enemy.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)){
-				dmg *= 0.9f - 0.1f*Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION);
+				dmg *= 0.9f - Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,0.12f);
 			}
 
 			if (enemy.buff(MonkEnergy.MonkAbility.Meditate.MeditateResistance.class) != null){
@@ -849,7 +849,7 @@ public abstract class Char extends Actor {
 			if (Dungeon.hero.alignment == alignment
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 					&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
-				damage *= 1f - Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,0.15f);
+				damage *= 1f - Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,0.12f);
 			}
 		}
 

@@ -36,7 +36,7 @@ public class Cleanse extends ClericSpell {
 	public String desc(){
 		int immunity = 2 * (Dungeon.hero.天赋点数(Talent.CLEANSE)-1);
 		if (immunity > 0) immunity++;
-		int shield = Dungeon.hero.天赋点数(Talent.CLEANSE,6)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.CLEANSE,0.03f));
+		int shield = Dungeon.hero.天赋生命力(Talent.CLEANSE,0.9f);
 		return Messages.get(this, "desc", immunity, shield) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -70,7 +70,7 @@ public class Cleanse extends ClericSpell {
 
             Buff.延长(ch, PotionOfCleansing.Cleanse.class, (Dungeon.hero.天赋点数(Talent.CLEANSE,1.5f)));
 
-			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.CLEANSE,6)+hero.最大生命(hero.天赋点数(Talent.CLEANSE,0.03f)));
+			Buff.施加(ch, Barrier.class).设置(hero.天赋生命力(Talent.CLEANSE,0.9f));
 			new Flare( 6, 32 ).color(0xFF4CD2, true).show( ch.sprite, 2f );
 		}
 

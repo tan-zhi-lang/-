@@ -271,10 +271,10 @@ public class Hero extends Char {
 		multiplier*=综合属性();
 
 		if (belongings.armor() instanceof 巫服){
-			multiplier *=1.25f;
+			multiplier *=1.1f;
 		}
 		if(heroClass(HeroClass.重武)){
-			multiplier *=1.25f;
+			multiplier *=1.1f;
 		}
 		multiplier *=1+天赋点数(Talent.强壮体魄,0.15f);
 		最大生命 = Math.round(最大生命*multiplier);
@@ -831,14 +831,11 @@ public class Hero extends Char {
 
 		speed*=综合属性();
 		if(belongings.armor instanceof 披风){
-			speed*=1.25f;
+			speed*=1.1f;
 		}
 		if(heroClass(HeroClass.盗贼)&&Dungeon.level.在水中(this)){
-			speed*=1.25f;
+			speed*=1.1f;
 		}
-//		if(HeroClass(HeroClass.ROGUE)){
-//			speed*=1.25f;
-//		}
 		speed *= RingOfHaste.speedMultiplier(this);
 		
 		if (belongings.armor() != null) {
@@ -927,7 +924,7 @@ public class Hero extends Char {
 
 		float delay = 1f;
 		delay/=综合属性();
-		delay/=1+天赋点数(Talent.DEATHLESS_FURY,0.5f);
+		delay/=1+天赋点数(Talent.DEATHLESS_FURY,0.3f);
 		if (!RingOfForce.fightingUnarmed(this)) {
 			
 			return delay * belongings.attackingWeapon().delayFactor( this );
@@ -1688,7 +1685,7 @@ public class Hero extends Char {
 			damage+=天赋点数(Talent.盾举冲击)+力量(天赋点数(Talent.盾举冲击,0.1f));
 		}
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
-			damage++;
+			damage=Math.round(damage*1.1f);
 		}
 		KindOfWeapon wep;
 		if (RingOfForce.fightingUnarmed(this) && !RingOfForce.unarmedGetsWeaponEnchantment(this)){
@@ -1785,7 +1782,7 @@ public class Hero extends Char {
 			}
 		}
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
-			damage--;
+			damage=Math.round(damage*0.9f);
 		}
 		if (damage > 0 && subClass == HeroSubClass.BERSERKER){
 			Berserk berserk = Buff.施加(this, Berserk.class);
@@ -1843,12 +1840,12 @@ public class Hero extends Char {
 			GLog.w( Messages.get(this, "pain_resist") );
 		}
 
+		if(heroClass(HeroClass.巫女)){
+			经验(算法.固衰(dmg),getClass());
+		}
+
 		//temporarily assign to a float to avoid rounding a bunch
 		float damage = dmg;
-
-		if(heroClass(HeroClass.巫女)&& 算法.概率学(25)){
-			经验(1,getClass());
-		}
 
 		Endure.EndureTracker endure = buff(Endure.EndureTracker.class);
 		if (!(src instanceof Char)){

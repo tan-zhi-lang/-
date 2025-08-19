@@ -113,7 +113,7 @@ public class HallowedGround extends TargetedClericSpell {
 
 	private void affectChar( Char ch ){
 		if (ch.alignment == Char.Alignment.ALLY){
-			int x=ch.最大生命(Dungeon.hero.天赋点数(Talent.HALLOWED_GROUND,0.03f))+Dungeon.hero.天赋点数(Talent.HALLOWED_GROUND,3);
+			int x=Dungeon.hero.天赋生命力(Talent.HALLOWED_GROUND,0.4f);
 
 			if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
 				int barrierToGive = Math.min(x, x*x - ch.shielding());

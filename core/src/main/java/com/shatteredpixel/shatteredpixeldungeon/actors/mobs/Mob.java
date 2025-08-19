@@ -63,6 +63,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -906,6 +907,9 @@ public abstract class Mob extends Char {
 					Dungeon.observe();
 				}
 
+				if (!isAlive() && Dungeon.hero.有天赋(Talent.LETHAL_DEFENSE)) {
+					Buff.施加(Dungeon.hero, 破损纹章.WarriorShield.class).reduceCooldown(Dungeon.hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
+				}
 				if (Dungeon.hero.有天赋(Talent.越战越勇)){
 					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.越战越勇,0.2f));
 				}
@@ -913,7 +917,7 @@ public abstract class Mob extends Char {
 						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
 					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
 					Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(1);
-					Dungeon.hero.经验(1,getClass());
+					Dungeon.hero.经验(生命力(),getClass());
 				}
 				if (Dungeon.hero.heroClass != HeroClass.DUELIST
 						&& Dungeon.hero.有天赋(Talent.LETHAL_HASTE)

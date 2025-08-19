@@ -77,10 +77,10 @@ public class BlessSpell extends TargetedClericSpell {
 		new Flare(6, 32).color(0xFFFF00, true).show(ch.sprite, 2f);
 		Buff.延长(ch, Bless.class, hero.天赋点数(Talent.BLESS,5));
 		if (ch == hero){
-			Buff.施加(ch, Barrier.class).设置(hero.天赋点数(Talent.BLESS,5)+hero.最大生命(hero.天赋点数(Talent.BLESS,0.05f)));
-			ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.天赋点数(Talent.BLESS,5)), FloatingText.SHIELDING );
+			Buff.施加(ch, Barrier.class).设置(hero.天赋生命力(Talent.BLESS,0.7f));
+			ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.天赋生命力(Talent.BLESS,0.7f)), FloatingText.SHIELDING );
 		} else {
-			int totalHeal = hero.天赋点数(Talent.BLESS,5)+ch.最大生命(hero.天赋点数(Talent.BLESS,0.05f));
+			int totalHeal = hero.天赋生命力(Talent.BLESS,0.7f);
 			if (ch.最大生命 - ch.生命 < totalHeal){
 				int barrier = totalHeal - (ch.最大生命 - ch.生命);
 				barrier = Math.max(barrier, 0);

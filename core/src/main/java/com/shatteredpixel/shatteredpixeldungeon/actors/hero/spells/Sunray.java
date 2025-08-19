@@ -36,8 +36,8 @@ public class Sunray extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = Dungeon.hero.天赋点数(Talent.SUNRAY,2);
-		int max = Dungeon.hero.天赋点数(Talent.SUNRAY,6);
+		int min = Dungeon.hero.天赋生命力(Talent.SUNRAY,0.4f);
+		int max = Dungeon.hero.天赋生命力(Talent.SUNRAY,0.6f);
 		int dur = Dungeon.hero.天赋点数(Talent.SUNRAY,2);
 		return Messages.get(this, "desc", min, max, dur) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
@@ -73,11 +73,11 @@ public class Sunray extends TargetedClericSpell {
 			ch.sprite.burst(0xFFFFFF44, 5);
 
 			if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)){
-				ch.受伤时(hero.天赋点数(Talent.SUNRAY,6)+ch.最大生命(hero.天赋点数(Talent.SUNRAY,0.05f)), Sunray.this);
+				ch.受伤时(hero.天赋生命力(Talent.SUNRAY,0.6f), Sunray.this);
 			} else {
 					ch.受伤时(Random.NormalIntRange(
-							hero.天赋点数(Talent.SUNRAY,2)+ch.最大生命(hero.天赋点数(Talent.SUNRAY,0.02f)),
-							hero.天赋点数(Talent.SUNRAY,6)+ch.最大生命(hero.天赋点数(Talent.SUNRAY,0.05f))
+							hero.天赋生命力(Talent.SUNRAY,0.4f),
+							hero.天赋生命力(Talent.SUNRAY,0.6f)
 							), Sunray.this);
 			}
 

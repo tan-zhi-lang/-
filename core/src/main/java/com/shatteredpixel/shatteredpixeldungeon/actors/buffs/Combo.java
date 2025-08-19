@@ -391,9 +391,6 @@ public class Combo extends Buff implements ActionIndicator.Action {
 							ch.sprite.bloodBurstA(target.sprite.center(), aoeHit);
 							ch.sprite.flash();
 
-							if (!ch.isAlive() && hero.有天赋(Talent.LETHAL_DEFENSE)) {
-								Buff.施加(hero, 破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
-							}
 						}
 					}
 					break;
@@ -444,9 +441,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 		}
 
 		if (!enemy.isAlive() || (!wasAlly && enemy.alignment == target.alignment)) {
-			if (hero.有天赋(Talent.LETHAL_DEFENSE)){
-				Buff.施加(hero, 破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
-			}
+
 		}
 
 	}

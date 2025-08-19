@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
@@ -53,6 +54,10 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton( new ChangeButton((new Image(HeroClass.重武.spritesheet(), 0, 90, 12, 15)), "重武",
+				"新增英雄。"));
+		changes.addButton( new ChangeButton((new Image(HeroClass.巫女.spritesheet(), 0, 90, 12, 15)), "巫女",
+				"新增英雄。"));
 		changes.addButton( new ChangeButton(new MimicSprite.毒气(), "毒气宝箱怪房",
 				"新增房间。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.单身狗粮), "单身狗粮",
@@ -159,11 +164,11 @@ public class 重制 {
 					"升级获得1充能。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
-					"选择物品使用的卷轴在取消时获得对应符石：\n" +
-							"升级卷轴=>附魔符石。\n"+
-							"鉴定卷轴=>感知符石。\n"+
-							"嬗变卷轴=>强化符石。\n"+
-							"祛邪卷轴=>探魔符石。",
+//					"选择物品使用的卷轴在取消时获得对应符石：\n" +
+//							"升级卷轴=>附魔符石。\n"+
+//							"鉴定卷轴=>感知符石。\n"+
+//							"嬗变卷轴=>强化符石。\n"+
+//							"祛邪卷轴=>探魔符石。",
 							"注魔秘卷\n" +
 							"还附带一次升级。"
 				));
@@ -226,6 +231,8 @@ public class 重制 {
 						"对护甲的增强 增加200%闪避减少100%防御 => 增加50%闪避"));
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.FIRE, true), "着火",
 				"这个状态提供火把效果。"));
+		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.FIRE, true), "燃烧",
+				"燃烧获得火把效果。"));
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.ANKH, true), "无敌",
 				"初始添加3回合 => 10回合。\n" +
 						"十字架 祝福3回合=> 未祝福5回合，祝福10回合。"));
@@ -235,7 +242,7 @@ public class 重制 {
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new GooSprite(), "粘咕",
-				"受到火焰伤害+20%生命力。"));
+				"受到燃烧伤害+20%生命力。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STEWED), "炖肉",
 				"3个合成时消耗能量2 => 3。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.无声步伐), "无声步伐",

@@ -173,9 +173,6 @@ public class HeroSelectScene extends PixelScene {
 
 		for (HeroClass cl : HeroClass.values()){
 			//隐藏
-//			if(cl==HeroClass.DUELIST){
-//				break;
-//			}
 			HeroBtn button = new HeroBtn(cl);
 			add(button);
 			heroBtns.add(button);
@@ -311,17 +308,32 @@ public class HeroSelectScene extends PixelScene {
 			background.visible = false;
 
 			int btnWidth = HeroBtn.MIN_WIDTH;
+			int btnWidth2 = HeroBtn.MIN_WIDTH;
 
-			float curX = (Camera.main.width - btnWidth * heroBtns.size()) / 2f;
+			float curX= (Camera.main.width - btnWidth * 4) / 2f;
+			float curXX= (Camera.main.width - btnWidth * 4) / 2f;
+
 			if (curX > 0) {
-				btnWidth += Math.min(curX / (heroBtns.size() / 2f), 15);
-				curX = (Camera.main.width - btnWidth * heroBtns.size()) / 2f;
+				btnWidth += Math.min(curX / (4 / 2f), 15);
+				curX = (Camera.main.width - btnWidth * 4) / 2f;
+			}
+			if (curXX > 0) {
+				btnWidth2 += Math.min(curXX / (4 / 2f), 15);
+				curXX = (Camera.main.width - btnWidth2 * 4) / 2f;
 			}
 			float curY = Camera.main.height - HeroBtn.HEIGHT + 3;
+			float curY2 = 0;
 
+			int count=0;
 			for (StyledButton button : heroBtns) {
-				button.setRect(curX, curY, btnWidth, HeroBtn.HEIGHT);
-				curX += btnWidth;
+				count++;
+				if(count>4){
+					button.setRect(curXX, curY2, btnWidth2, HeroBtn.HEIGHT);
+					curXX += btnWidth2;
+				}else{
+					button.setRect(curX, curY, btnWidth, HeroBtn.HEIGHT);
+					curX += btnWidth;
+				}
 			}
 
 			title.setPos((Camera.main.width - title.width()) / 2f, (Camera.main.height - HeroBtn.HEIGHT - title.height() - 4));

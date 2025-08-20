@@ -42,8 +42,9 @@ public class 重制 {
 	public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
 		add_v1_0_0_Changes(changeInfos);
 	}
+	/*
 
-
+	 */
 	public static void add_v1_0_0_Changes( ArrayList<ChangeInfo> changeInfos ) {
 
 		ChangeInfo changes = new ChangeInfo("v1.0.0", true, "");
@@ -105,7 +106,7 @@ public class 重制 {
 				"偷后移速83% => 75%。\n" +
 						"物理防御时掉落金币1 => 10"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量晶体",
-				"武器和护甲可以提炼，法杖戒指可以提炼，提炼量是金币的15%。"));
+				"武器和护甲可以提炼，法杖戒指可以提炼，提炼量是金币的2.5%+1。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.水袋), "水袋",
 				"灌满的水袋可以合成一瓶治疗药剂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.DUST), "尸尘",
@@ -229,8 +230,6 @@ public class 重制 {
 						"对武器的增强 增加33%攻速减少30%伤害 => 增加34%攻速",
 				"对护甲的增强 增加100%防御减少200%闪避 => 增加25%防御\n" +
 						"对护甲的增强 增加200%闪避减少100%防御 => 增加50%闪避"));
-		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.FIRE, true), "着火",
-				"这个状态提供火把效果。"));
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.FIRE, true), "燃烧",
 				"燃烧获得火把效果。"));
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.ANKH, true), "无敌",

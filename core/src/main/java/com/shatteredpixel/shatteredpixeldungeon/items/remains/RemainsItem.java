@@ -73,6 +73,10 @@ public abstract class RemainsItem extends Item {
 				return new BrokenHilt();
 			case CLERIC:
 				return new TornPage();
+			case 巫女:
+				return new 残缺灵杖();
+			case 重武:
+				return new 残缺重盾();
 		}
 	}
 

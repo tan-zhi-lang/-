@@ -239,7 +239,7 @@ public class Toolbar extends Component {
 						//trigger hold fast and patient strike here, even if the hero didn't specifically wait
 						if (Dungeon.hero.有天赋(Talent.捍守可拘)){//不动如山
 							Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
-							Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋点数(Talent.捍守可拘,3)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血爆之术,0.05f)));
+							Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋生命力(Talent.血爆之术,0.7f));
 						}
 						if (Dungeon.hero.有天赋(Talent.PATIENT_STRIKE)){
 							Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;

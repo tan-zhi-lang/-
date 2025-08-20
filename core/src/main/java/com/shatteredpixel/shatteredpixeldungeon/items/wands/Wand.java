@@ -47,6 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -462,6 +463,28 @@ public abstract class Wand extends Item {
 				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			}
 		}
+		if (Dungeon.hero.有天赋(Talent.保护屏障)) {
+			int shieldToGive = Dungeon.hero.天赋生命力(Talent.保护屏障, 0.4f);
+			if (Dungeon.hero.heroClass == HeroClass.MAGE ) {
+				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
+				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+
+				//metamorphed. Triggers if wand is highest level hero has
+			} else {
+				final Wand curWand;
+				curWand = (Wand) Wand.curItem;
+				boolean highest = true;
+				for (Item i : Dungeon.hero.belongings.getAllItems(Wand.class)) {
+					if (i.等级() > curWand.等级()) {
+						highest = false;
+					}
+				}
+				if (highest) {
+					Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
+					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
+				}
+			}
+		}
 		
 		curCharges -= cursed ? 1 : chargesPerCast();
 
@@ -477,35 +500,6 @@ public abstract class Wand extends Item {
 			ScrollEmpower empower = curUser.buff(ScrollEmpower.class);
 			if (empower != null){
 				empower.use();
-			}
-		}
-
-
-		if (curUser.有天赋(Talent.保护屏障)) {
-
-			int shieldToGive = Dungeon.hero.天赋生命力(Talent.保护屏障, 0.3f);
-			//regular. If hero owns wand but it isn't in belongings it must be in the staff
-			final Wand curWand;
-			if (curItem instanceof Wand) {
-				curWand = (Wand) Wand.curItem;
-				if (curUser.heroClass == HeroClass.MAGE && !curUser.belongings.contains(curWand)) {
-					//grants 3/5 shielding
-					Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-
-					//metamorphed. Triggers if wand is highest level hero has
-				} else if (curUser.heroClass != HeroClass.MAGE) {
-					boolean highest = true;
-					for (Item i : curUser.belongings.getAllItems(Wand.class)) {
-						if (i.等级() > curWand.等级()) {
-							highest = false;
-						}
-					}
-					if (highest) {
-						Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
-						Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-					}
-				}
 			}
 		}
 

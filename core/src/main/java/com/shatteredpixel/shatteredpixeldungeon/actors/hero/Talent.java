@@ -213,8 +213,8 @@ public enum Talent {
 			//barrier every 2/1 turns, to a max of 3/5
 			if (hero.有天赋(Talent.PROTECTIVE_SHADOWS) && target.invisible > 0){
 				Barrier barrier = Buff.施加(target, Barrier.class);
-					barrierInc += 1;
-				int s = hero.天赋点数(Talent.PROTECTIVE_SHADOWS,3)+hero.最大生命(hero.天赋点数(Talent.PROTECTIVE_SHADOWS,0.03f));
+				barrierInc += 1;
+				int s = hero.天赋生命力(Talent.PROTECTIVE_SHADOWS,0.4f);
 				if (barrier.护盾量() < s) {
 					barrier.设置(s);
 				}

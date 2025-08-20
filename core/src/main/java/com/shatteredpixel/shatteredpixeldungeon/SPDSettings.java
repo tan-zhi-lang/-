@@ -49,7 +49,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static boolean fullscreen() {
-		return getBoolean( KEY_FULLSCREEN, DeviceCompat.isDesktop() );
+		return getBoolean( KEY_FULLSCREEN, 算法.isDebug()?false:DeviceCompat.isDesktop());
 	}
 	
 	public static void landscape( boolean value ){

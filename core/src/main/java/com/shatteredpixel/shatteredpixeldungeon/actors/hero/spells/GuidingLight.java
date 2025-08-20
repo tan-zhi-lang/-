@@ -64,7 +64,7 @@ public class GuidingLight extends TargetedClericSpell {
 
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
-					ch.受伤时(Random.NormalIntRange(2, 8), GuidingLight.this);
+					ch.受伤时(Random.NormalIntRange(Dungeon.hero.生命力(0.25f), Dungeon.hero.生命力(2)), GuidingLight.this);
 					Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 					ch.sprite.burst(0xFFFFFF44, 3);
 					if (ch.isAlive()){
@@ -99,9 +99,9 @@ public class GuidingLight extends TargetedClericSpell {
 	}
 
 	public String desc(){
-		String desc = Messages.get(this, "desc");
+		String desc = Messages.get(this, "desc",Dungeon.hero.生命力(0.25f),Dungeon.hero.生命力(2f));
 		if (Dungeon.hero.subClass == HeroSubClass.PRIEST){
-			desc += "\n\n" + Messages.get(this, "desc_priest");
+			desc += "\n\n" + Messages.get(this, "desc_priest",Dungeon.hero.生命力(0.5f),Dungeon.hero.生命力(4f));
 		}
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}

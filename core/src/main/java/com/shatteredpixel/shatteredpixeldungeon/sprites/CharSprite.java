@@ -567,6 +567,10 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			finished = true;
 		}
 
+		if(ch!=null){
+			scale.x=ch.大小;
+			scale.y=ch.大小;
+		}
 		super.update();
 
 		if (flashTime > 0 && (flashTime -= Game.elapsed) <= 0) {

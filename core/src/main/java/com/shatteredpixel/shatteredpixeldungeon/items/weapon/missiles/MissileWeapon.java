@@ -111,7 +111,7 @@ abstract public class MissileWeapon extends Weapon {
 		if (masteryPotionBonus){
 			req -= 2;
 		}
-		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.1f);
+		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.15f);
 		return req;
 	}
 

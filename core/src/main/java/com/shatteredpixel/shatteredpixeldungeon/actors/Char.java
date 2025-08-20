@@ -155,6 +155,8 @@ public abstract class Char extends Actor {
 	
 	public int 最大生命;
 	public int 生命;
+
+	public float 大小=1;
 	public boolean 第一次攻击=false;
 	public boolean 第一次防御 =false;
 

@@ -43,9 +43,9 @@ public class HolyWeapon extends ClericSpell {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc");
+		String desc = Messages.get(this, "desc",Dungeon.hero.生命力(0.5f));
 		if (Dungeon.hero.subClass == HeroSubClass.PALADIN){
-			desc += "\n\n" + Messages.get(this, "desc_paladin");
+			desc += "\n\n" + Messages.get(this, "desc_paladin",Dungeon.hero.生命力());
 		}
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}

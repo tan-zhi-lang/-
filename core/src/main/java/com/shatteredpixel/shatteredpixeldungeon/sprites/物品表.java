@@ -134,6 +134,8 @@ public class 物品表 {
 	public static final int BROKEN_HILT     = MISC_CONSUMABLE +20;
 	public static final int TORN_PAGE       = MISC_CONSUMABLE +21;
 	public static final int TRINKET_CATA    = MISC_CONSUMABLE +22;
+	public static final int 残缺灵杖    = MISC_CONSUMABLE +23;
+	public static final int 残缺重盾    = MISC_CONSUMABLE +24;
 
 	static{
 		assignItemRect(ANKH,            10, 16);
@@ -163,6 +165,8 @@ public class 物品表 {
 		assignItemRect(TORN_PAGE,       11, 13);
 
 		assignItemRect(TRINKET_CATA,    12, 11);
+		assignItemRect(残缺灵杖,    9, 11);
+		assignItemRect(残缺重盾,    11, 15);
 	}
 	
 	private static final int BOMBS          =                               xy(1, 6);   //16 slots

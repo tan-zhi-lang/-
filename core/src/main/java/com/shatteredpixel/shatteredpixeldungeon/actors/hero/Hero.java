@@ -403,15 +403,18 @@ public class Hero extends Char {
 		return false;
 	}
 
+	public boolean 天赋概率(Talent talent,int x){
+		return Random.Int(1,100)<=天赋点数(talent)*x+(x==33?1:0);
+	}
 	public int 天赋点数(Talent talent ,int x){
 		for (LinkedHashMap<Talent, Integer> tier : talents){
 			for (Talent f : tier.keySet()){
 				if (f == talent){
 					if (f.最大点数()==2){
 						if (tier.get(f)==1){
-							return Math.round(tier.get(f)*x);
+							return x;
 						}else if (tier.get(f)==2){
-							return Math.round(tier.get(f)*1.5f);
+							return Math.round(x*1.5f);
 						}
 					}
 					if (f.最大点数()>=3){
@@ -422,9 +425,6 @@ public class Hero extends Char {
 		}
 		return 0;
 	}
-	public boolean 天赋概率(Talent talent,int x){
-		return Random.Int(1,100)<=天赋点数(talent)*x+(x==33?1:0);
-	}
 
 	public float 天赋点数(Talent talent ,float x){
 		for (LinkedHashMap<Talent, Integer> tier : talents){
@@ -432,13 +432,13 @@ public class Hero extends Char {
 				if (f == talent){
 					if (f.最大点数()==2){
 						if (tier.get(f)==1){
-							return Math.round(tier.get(f)*x);
+							return x;
 						}else if (tier.get(f)==2){
-							return Math.round(tier.get(f)*1.5f);
+							return 1.5f*x;
 						}
 					}
 					if (f.最大点数()>=3){
-						return Math.round(tier.get(f)*x);
+						return tier.get(f)*x;
 					}
 				}
 			}
@@ -755,14 +755,14 @@ public class Hero extends Char {
 		int dr = super.防御();
 
 		if (belongings.armor() != null) {
-			int armDr = Random.NormalIntRange( belongings.armor().最小防御(), belongings.armor().最大防御());
+			int armDr = Random.NormalIntRange( belongings.armor().最小防御(), Math.round(belongings.armor().最大防御()*(1+天赋点数(Talent.最佳防御,0.12f))));
 			if (力量() < belongings.armor().力量()&&!heroClass(HeroClass.重武)){
 				armDr -= 2*(belongings.armor().力量() - 力量());
 			}
 			if (armDr > 0) dr += armDr;
 		}
 		if (belongings.weapon() != null && !RingOfForce.fightingUnarmed(this))  {
-			int wepDr = Random.NormalIntRange( 0 , belongings.weapon().defenseFactor( this ) );
+			int wepDr = Random.NormalIntRange( 0 , Math.round(belongings.weapon().defenseFactor( this ) *(1+天赋点数(Talent.最佳防御,0.12f))));
 			if (力量() < ((Weapon)belongings.weapon()).力量()&&!heroClass(HeroClass.重武)){
 				wepDr -= 2*(((Weapon)belongings.weapon()).力量() - 力量());
 			}
@@ -1634,7 +1634,7 @@ public class Hero extends Char {
 		spendAndNextConstant( TIME_TO_REST );
 		if (有天赋(Talent.捍守可拘)){//不动如山
 			Buff.施加(this, HoldFast.class).pos = pos;
-			Buff.施加(this, Barrier.class).设置(天赋点数(Talent.捍守可拘,3)+最大生命(天赋点数(Talent.血爆之术,0.05f)));
+			Buff.施加(this, Barrier.class).设置(天赋生命力(Talent.血爆之术,0.7f));
 		}
 		if (有天赋(Talent.PATIENT_STRIKE)){
 			Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;
@@ -1666,7 +1666,7 @@ public class Hero extends Char {
 			berserk.damage(damage);
 		}
 		if(有天赋(Talent.星火符刃)){
-			enemy.受伤(天赋点数(Talent.星火符刃,3)+enemy.最大生命(天赋点数(Talent.星火符刃,0.03f)));
+			enemy.受伤(天赋生命力(Talent.星火符刃,0.7f));
 		}
 		float 吸血=天赋点数(Talent.高级吸血,0.04f);
 
@@ -1682,7 +1682,7 @@ public class Hero extends Char {
 			damage+=天赋生命力(Talent.致命打击,0.25f);
 		}
 		if (有天赋(Talent.盾举冲击)){
-			damage+=天赋点数(Talent.盾举冲击)+力量(天赋点数(Talent.盾举冲击,0.1f));
+			damage+=天赋生命力(Talent.盾举冲击,0.2f);
 		}
 		if(enemy.properties.contains(Property.UNDEAD)&&heroClass(HeroClass.CLERIC)){
 			damage=Math.round(damage*1.1f);
@@ -1706,7 +1706,7 @@ public class Hero extends Char {
 			}
 			if (!wasEnemy || enemy.alignment == Alignment.ENEMY) {
 				if (buff(HolyWeapon.HolyWepBuff.class) != null) {
-					int dmg = subClass == HeroSubClass.PALADIN ? 6 : 2;
+					int dmg = subClass == HeroSubClass.PALADIN ? Dungeon.hero.生命力() : Dungeon.hero.生命力(0.5f);
 					enemy.受伤时(Math.round(dmg * Weapon.Enchantment.genericProcChanceMultiplier(this)), HolyWeapon.INSTANCE);
 				}
 				if (buff(Smite.SmiteTracker.class) != null) {
@@ -1756,7 +1756,7 @@ public class Hero extends Char {
 
 			int dmgToAdd = damage;
 			dmgToAdd -= buff(Kinetic.KineticTracker.class).conservedDamage;
-			dmgToAdd = Math.round(dmgToAdd * 天赋点数(Talent.严傲之意,0.08f));
+			dmgToAdd = Math.round(dmgToAdd * 天赋点数(Talent.严傲之意,0.12f));
 			if (dmgToAdd > 0) {
 				Buff.施加(this, Kinetic.ConservedDamage.class).setBonus(dmgToAdd);
 			}
@@ -1797,7 +1797,7 @@ public class Hero extends Char {
 				damage = buff(BodyForm.BodyFormBuff.class).glyph().proc(new ClothArmor(), enemy, this, damage);
 			}
 			if (buff(HolyWard.HolyArmBuff.class) != null){
-				int blocking = subClass == HeroSubClass.PALADIN ? 3 : 1;
+				int blocking = subClass == HeroSubClass.PALADIN ? 生命力(0.5f) : 生命力(0.25f);
 				damage -= Math.round(blocking * Armor.Glyph.genericProcChanceMultiplier(enemy));
 			}
 		}
@@ -2779,7 +2779,15 @@ public class Hero extends Char {
 			for (curr = left + y * Dungeon.level.width(); curr <= right + y * Dungeon.level.width(); curr++){
 
 				if ((foresight || fieldOfView[curr]) && curr != pos) {
-
+					Heap heap = Dungeon.level.heaps.get( curr);
+					if (heap != null) {
+						Item item = heap.peek();
+						if (item.doPickUp( this )) {
+							heap.pickUp();
+						}else{
+							heap.sprite.drop();
+						}
+					}
 					if ((foresight && (!Dungeon.level.mapped[curr] || foresightScan))){
 						GameScene.effectOverFog(new CheckedCell(curr, foresightScan ? pos : curr));
 					} else if (intentional) {

@@ -44,7 +44,11 @@ public class 灵月法杖 extends Wand {
 		return 4;
 	}
 	public void updateLevel() {
-		maxCharges = Math.min( initialCharges() + (Dungeon.hero.等级-1)/3+2, 10);
+		if(Dungeon.hero()){
+			maxCharges = Math.min( initialCharges() + (Dungeon.hero.等级-1)/3+2, 10);
+		}else{
+			maxCharges = Math.min( initialCharges() + 2, 10);
+		}
 		curCharges = Math.min( curCharges+1, maxCharges );
 	}
 	@Override

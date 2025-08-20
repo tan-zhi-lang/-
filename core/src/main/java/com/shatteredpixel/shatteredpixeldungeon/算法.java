@@ -4,9 +4,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.watabou.noosa.Game;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 public class 算法 {
@@ -18,7 +20,14 @@ public class 算法 {
     public static int x6=160;
     public static int x7=192;
     public static int x8=224;
-
+    public static void 修复Buff(Char a,Integer i,Callback c){
+        final Ballistica shot = new Ballistica( a.pos, i, Ballistica.PROJECTILE);
+        MagicMissile.boltFromChar( a.sprite.parent,
+                MagicMissile.WARD_CONE,
+                a.sprite,
+                shot.collisionPos,
+                c);
+    }
     public static void 种子(){
     try {
         Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+SPDSettings.customSeed());

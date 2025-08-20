@@ -283,6 +283,8 @@ public class Assets {
 		public static final String 机器   = "sprites/机器.png";
 		public static final String 女忍   = "sprites/女忍.png";
 		public static final String 戒老   = "sprites/戒老.png";
+		public static final String 逐姝   = "sprites/逐姝.png";
+		public static final String 罗兰   = "sprites/罗兰.png";
 		public static final String AVATARS  = "sprites/avatars.png";
 		public static final String PET      = "sprites/pet.png";
 		public static final String AMULET   = "sprites/amulet.png";

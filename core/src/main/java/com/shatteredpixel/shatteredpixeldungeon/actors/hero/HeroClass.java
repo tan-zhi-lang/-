@@ -97,7 +97,9 @@ public enum HeroClass {
 	兽灵( HeroSubClass.潜能觉醒),
 	机器( HeroSubClass.潜能觉醒),
 	女忍( HeroSubClass.潜能觉醒),
-	戒老( HeroSubClass.潜能觉醒)
+	戒老( HeroSubClass.潜能觉醒),
+	逐姝( HeroSubClass.潜能觉醒),
+	罗兰( HeroSubClass.潜能觉醒)
 	;
 
 	private HeroSubClass[] subClasses;
@@ -419,6 +421,10 @@ public enum HeroClass {
 				return Assets.Sprites.女忍;
 			case 戒老:
 				return Assets.Sprites.戒老;
+			case 逐姝:
+				return Assets.Sprites.逐姝;
+			case 罗兰:
+				return Assets.Sprites.罗兰;
 		}
 	}
 

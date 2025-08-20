@@ -204,6 +204,8 @@ public class 重制 {
 				"改变等级时获得1充能。\n" +
 				"自带+1强化等级。\n" +
 						"自带法杖回收，且能吸收灌注法杖一半的等级。"));
+		changes.addButton(new ChangeButton(new TalentIcon(Talent.WIDE_SEARCH), "搜索机制",
+				"搜索会在搜索范围内拾取打开物品。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.SUCKER_PUNCH), "伏击机制",
 				"伏击+0~25%敌人生命力，隐形伏击+0~25%敌人生命力。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.神圣法典), "神圣法典",

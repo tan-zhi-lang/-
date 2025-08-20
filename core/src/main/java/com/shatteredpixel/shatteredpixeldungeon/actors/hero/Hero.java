@@ -2682,7 +2682,7 @@ public class Hero extends Char {
 		}
 	}
 
-	public int 探索范围(){
+	public int 搜索范围(){
 		int x=0;
 
 		if (buff(Foresight.class) != null) {
@@ -2742,7 +2742,7 @@ public class Hero extends Char {
 
 		boolean circular = false;//圆探索
 		
-		int distance =探索范围();
+		int distance =搜索范围();
 		boolean foresight = buff(Foresight.class) != null;
 		if(foresight) {
 			circular = true;

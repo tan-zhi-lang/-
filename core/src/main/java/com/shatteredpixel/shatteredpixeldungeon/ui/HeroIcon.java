@@ -17,7 +17,7 @@ public class HeroIcon extends Image {
 	private static final int SIZE = 16;
 
 	//transparent icon
-	public static final int NONE    = 127;
+	public static final int NONE    = 111;
 
 	//subclasses
 	public static final int BERSERKER   = 0;

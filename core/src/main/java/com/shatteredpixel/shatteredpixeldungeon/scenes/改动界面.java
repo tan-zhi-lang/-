@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.奇袭;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.缝合;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.Scene;
@@ -61,7 +62,16 @@ public class 改动界面 extends PixelScene {
 		align(title);
 		add(title);
 
-		ExitButton btnExit = new ExitButton();
+		ExitButton btnExit = new ExitButton(){
+			@Override
+			protected void onClick() {
+				if (Game.scene() instanceof HeroSelectScene) {
+					Game.instance.finish();
+				} else {
+					ShatteredPixelDungeon.switchNoFade( HeroSelectScene.class );
+				}
+			}
+		};
 		btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
 		add( btnExit );
 

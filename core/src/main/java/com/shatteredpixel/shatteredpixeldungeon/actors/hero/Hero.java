@@ -216,7 +216,7 @@ public class Hero extends Char {
 	
 	private int 最大命中 = 10;
 	private int 最大闪避 = 5;
-	public boolean 单身 = false;
+	public int 神力 = 0;
 
 	public boolean ready = false;
 	public boolean damageInterrupt = true;
@@ -284,7 +284,7 @@ public class Hero extends Char {
 
 	public int 力量() {
 
-		int str = 力量+RingOfMight.strengthBonus( this )*2+(单身?1:0);
+		int str = 力量+RingOfMight.strengthBonus( this )*2;
 
 		AdrenalineSurge buff = buff(AdrenalineSurge.class);
 		if (buff != null){
@@ -298,6 +298,7 @@ public class Hero extends Char {
 		}
 
 		x *=综合属性();
+		x*=1+神力*0.1f;
 
 		//最后结算
 		str=Math.round(str*x);
@@ -317,7 +318,7 @@ public class Hero extends Char {
 	private static final String 根骨x		= "根骨";
 	private static final String 连击x		= "连击";
 
-	private static final String 单身x		= "单身";
+	private static final String 神力x = "神力";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
 	
@@ -336,7 +337,7 @@ public class Hero extends Char {
 		bundle.put( 根骨x, 根骨);
 		bundle.put( 连击x, 连击);
 
-		bundle.put( 单身x, 单身);
+		bundle.put(神力x, 神力);
 		bundle.put( EXPERIENCE, 当前经验);
 		
 		bundle.put( HTBOOST, HTBoost );
@@ -351,7 +352,7 @@ public class Hero extends Char {
 		力量 = bundle.getInt( 力量x );
 		根骨 = bundle.getInt( 根骨x );
 		连击 = bundle.getInt( 连击x );
-		单身 = bundle.getBoolean( 单身x );
+		神力 = bundle.getInt(神力x);
 		当前经验 = bundle.getInt( EXPERIENCE );
 
 		HTBoost = bundle.getInt(HTBOOST);
@@ -2947,7 +2948,10 @@ public class Hero extends Char {
 		return Math.round(x*力量());
 	}
 	public float 综合属性(){
-		float x=1;
+		float x=1+天赋点数(Talent.任督二脉,0.1f);
+		if(heroSubClass(HeroSubClass.潜能觉醒)){
+			x+=0.1f;
+		}
 		return x;
 	}
 	public boolean 连击(final Char enemy, float dmgMulti, float dmgBonus, float accMulti) {

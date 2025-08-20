@@ -138,6 +138,9 @@ public class Wandmaker extends NPC {
 			String msg1 = "";
 			String msg2 = "";
 			switch(Dungeon.hero.heroClass){
+				default:
+					msg1 += Messages.get(this, "英雄");
+					break;
 				case WARRIOR:
 					msg1 += Messages.get(this, "intro_warrior");
 					break;

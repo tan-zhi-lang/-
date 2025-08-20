@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.utils;
 
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.Signal;
@@ -24,7 +25,7 @@ public class GLog {
 	}
 	
 	public static void i( String text, Object... args ) {
-		
+		if(!SPDSettings.游戏提示())return;
 		if (args.length > 0) {
 			text = Messages.format( text, args );
 		}

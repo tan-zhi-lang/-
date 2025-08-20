@@ -191,6 +191,7 @@ public enum Talent {
 	强力适应(x8+4,3),捍守可拘(x8+5,3),孤立无援(x8+6,3),严傲之意(x8+7,3),
 	冰门高攻(x8+9,4),最佳防御(x8+10,4),
 	强壮体魄(x8+11,4), 勇士之证(x8+12,4), 用盾诀窍(x8+13,4),
+	任督二脉(26*8, 3+6+9+2+2+2)
 	;
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
@@ -968,7 +969,9 @@ public enum Talent {
 
 		//tier 2
 		switch (cls){
-			case WARRIOR: default:
+			default:
+				Collections.addAll(tierTalents, 任督二脉);
+			case WARRIOR:
 				Collections.addAll(tierTalents, 致命打击, 纹章升级, 越战越勇, IMPROVISED_PROJECTILES);
 				break;
 			case MAGE:
@@ -1003,7 +1006,9 @@ public enum Talent {
 
 		//tier 3
 		switch (cls){
-			case WARRIOR: default:
+			default:
+				Collections.addAll(tierTalents, 任督二脉);
+			case WARRIOR:
 				Collections.addAll(tierTalents, 纹章荣耀, STRONGMAN);
 				break;
 			case MAGE:
@@ -1054,7 +1059,10 @@ public enum Talent {
 
 		//tier 3
 		switch (cls){
-			case BERSERKER: default:
+			case 潜能觉醒: default:
+				Collections.addAll(tierTalents, 任督二脉);
+				break;
+			case BERSERKER:
 				Collections.addAll(tierTalents, ENDLESS_RAGE, DEATHLESS_FURY, ENRAGED_CATALYST);
 				break;
 			case GLADIATOR:

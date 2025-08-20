@@ -41,13 +41,22 @@ public class SPDSettings extends GameSettings {
 	public static final String 动画加快x = "动画加快";
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
+	public static final String 游戏提示x = "游戏提示";
 
-	public static void fullscreen( boolean value ) {
-		put( KEY_FULLSCREEN, value );
-		
-		ShatteredPixelDungeon.updateSystemUI();
+	public static void 游戏提示( boolean value ) {
+		put( 游戏提示x, value );
+
 	}
 	
+	public static boolean 游戏提示() {
+		return getBoolean( 游戏提示x, true);
+	}
+	public static void fullscreen( boolean value ) {
+		put( KEY_FULLSCREEN, value );
+
+		ShatteredPixelDungeon.updateSystemUI();
+	}
+
 	public static boolean fullscreen() {
 		return getBoolean( KEY_FULLSCREEN, 算法.isDebug()?false:DeviceCompat.isDesktop());
 	}

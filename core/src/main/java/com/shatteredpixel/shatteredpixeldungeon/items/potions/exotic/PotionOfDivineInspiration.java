@@ -44,14 +44,14 @@ public class PotionOfDivineInspiration extends ExoticPotion {
 			identifiedByUse = false;
 		}
 
-		boolean[] enabled = new boolean[5];
-		enabled[1] = enabled[2] = enabled[3] = enabled[4] = true;
+		boolean[] enabled = new boolean[4];
+		enabled[1] = enabled[2] = enabled[3]  = true;
 
 		DivineInspirationTracker tracker = hero.buff(DivineInspirationTracker.class);
 
 		if (tracker != null){
 			boolean allBoosted = true;
-			for (int i = 1; i <= 4; i++){
+			for (int i = 1; i <= 3; i++){
 				if (tracker.isBoosted(i)){
 					enabled[i] = false;
 				} else {
@@ -71,8 +71,7 @@ public class PotionOfDivineInspiration extends ExoticPotion {
 				Messages.get(PotionOfDivineInspiration.class, "select_tier"),
 				Messages.titleCase(Messages.get(TalentsPane.class, "tier", 1)),
 				Messages.titleCase(Messages.get(TalentsPane.class, "tier", 2)),
-				Messages.titleCase(Messages.get(TalentsPane.class, "tier", 3)),
-				Messages.titleCase(Messages.get(TalentsPane.class, "tier", 4))
+				Messages.titleCase(Messages.get(TalentsPane.class, "tier", 3))
 		){
 			@Override
 			protected boolean enabled(int index) {

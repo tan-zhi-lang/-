@@ -31,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
@@ -91,7 +90,15 @@ public enum HeroClass {
 	DUELIST( HeroSubClass.CHAMPION, HeroSubClass.MONK ),
 	CLERIC( HeroSubClass.PRIEST, HeroSubClass.PALADIN ),
 	巫女( HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
-	重武( HeroSubClass.盾之勇者);
+	重武( HeroSubClass.盾之勇者),
+	镜魔( HeroSubClass.潜能觉醒),
+	道士( HeroSubClass.潜能觉醒),
+	行僧( HeroSubClass.潜能觉醒),
+	兽灵( HeroSubClass.潜能觉醒),
+	机器( HeroSubClass.潜能觉醒),
+	女忍( HeroSubClass.潜能觉醒),
+	戒老( HeroSubClass.潜能觉醒)
+	;
 
 	private HeroSubClass[] subClasses;
 
@@ -398,6 +405,20 @@ public enum HeroClass {
 				return Assets.Sprites.巫女;
 			case 重武:
 				return Assets.Sprites.重武;
+			case 镜魔:
+				return Assets.Sprites.镜魔;
+			case 道士:
+				return Assets.Sprites.道士;
+			case 行僧:
+				return Assets.Sprites.行僧;
+			case 兽灵:
+				return Assets.Sprites.兽灵;
+			case 机器:
+				return Assets.Sprites.机器;
+			case 女忍:
+				return Assets.Sprites.女忍;
+			case 戒老:
+				return Assets.Sprites.戒老;
 		}
 	}
 

@@ -12,6 +12,7 @@ import com.watabou.noosa.Game;
 public enum HeroSubClass {
 
 	NONE(HeroIcon.NONE),
+	潜能觉醒(HeroIcon.NONE),
 
 	BERSERKER(HeroIcon.BERSERKER),
 	GLADIATOR(HeroIcon.GLADIATOR),

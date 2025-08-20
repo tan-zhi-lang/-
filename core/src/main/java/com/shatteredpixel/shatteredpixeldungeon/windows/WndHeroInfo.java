@@ -43,7 +43,10 @@ public class WndHeroInfo extends WndTabbed {
 
 		Image tabIcon;
 		switch (cl){
-			case WARRIOR: default:
+			default:
+				tabIcon = new ItemSprite(物品表.BACKPACK, null);
+				break;
+			case WARRIOR:
 				tabIcon = new ItemSprite(物品表.破损纹章, null);
 				break;
 			case MAGE:
@@ -165,7 +168,12 @@ public class WndHeroInfo extends WndTabbed {
 			}
 
 			switch (cls){
-				case WARRIOR: default:
+				default:
+					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
+
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case WARRIOR:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.巨斧),
 							new ItemSprite(物品表.RATION),

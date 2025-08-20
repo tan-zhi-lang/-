@@ -61,6 +61,8 @@ public class 重制 {
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new MimicSprite.毒气(), "毒气宝箱怪房",
 				"新增房间。"));
+		changes.addButton( new ChangeButton(Icons.神力之泉.get(), "神力之泉",
+				"新增神力之泉，英雄战上面可以获得永久力量和生命，物品在上面可以永久减少2力量需求和升级一次。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.单身狗粮), "单身狗粮",
 				"7-8月掉落单身狗粮。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "食物条",
@@ -134,6 +136,7 @@ public class 重制 {
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(), "商人房间",
+						"1层有商店。\n" +
 						"非战士在6层会卖水袋。\n" +
 						"商店的小包口粮 => 口粮。\n" +
 						"随机一个药剂或卷轴 => 两张随机卷轴+一瓶随机药剂。"));

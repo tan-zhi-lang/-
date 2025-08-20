@@ -50,9 +50,12 @@ public class TalentButton extends Button {
 		this.talent = talent;
 		this.pointsInTalent = points;
 		this.mode = mode;
+		if(talent.最大点数()==1||talent.最大点数()>4){
 
-		bg.frame(20*(talent.最大点数()-1), 0, WIDTH, HEIGHT);
-
+			bg.frame(0, 0, WIDTH, HEIGHT);
+		}else {
+			bg.frame(20 * (talent.最大点数() - 1), 0, WIDTH, HEIGHT);
+		}
 		icon = new TalentIcon( talent );
 		add(icon);
 	}

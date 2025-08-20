@@ -153,7 +153,7 @@ public class Pasty extends Food {
 				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
 			case 奇袭节:
-				hero.单身=true;
+				if(hero.神力==0) hero.神力++;
 				hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
 				GLog.p( Messages.get(PotionOfStrength.class, "msg", hero.力量()) );
 				break;

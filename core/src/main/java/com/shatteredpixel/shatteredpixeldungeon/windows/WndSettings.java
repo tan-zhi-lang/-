@@ -719,7 +719,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 		RenderedTextBlock title;
 
 		ColorBlock sep1;
-		RedButton 集合设;
+		RedButton 集合设置;
 		ColorBlock sep2;
 		OptionSlider 固定移速;
 		OptionSlider 休息速度;
@@ -737,49 +737,47 @@ public class WndSettings extends WndTabbed {//WndSettings
 			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
 			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
 
-			集合设 = new RedButton(Messages.get(this, "设置"), 9){
+			集合设置 = new RedButton(Messages.get(this, "设置"), 9){
 				@Override
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 
-						RenderedTextBlock swapperDesc;
-						CheckBox chkFlipTags;
+						RenderedTextBlock 游戏提示str;
+						CheckBox 游戏提示;
 
 						{
 
-							swapperDesc = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "swapper_desc"), 5);
-							swapperDesc.hardlight(0x888888);
-							add(swapperDesc);
+							游戏提示str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "游戏提示str"), 5);
+							游戏提示str.hardlight(0x888888);
+							add(游戏提示str);
 
 
-							chkFlipTags = new CheckBox(Messages.get(WndSettings.游戏设置.this, "flip_indicators")){
+							游戏提示 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "游戏提示")){
 								@Override
 								protected void onClick() {
 									super.onClick();
-									SPDSettings.flipTags(checked());
+									SPDSettings.游戏提示(checked());
 									GameScene.layoutTags();
 								}
 							};
-							chkFlipTags.checked(SPDSettings.flipTags());
-							add(chkFlipTags);
+							游戏提示.checked(SPDSettings.游戏提示());
+							add(游戏提示);
 
 							//layout
 							resize(WIDTH_P, 0);
 
+							游戏提示.setRect(0,  GAP, width, BTN_HEIGHT);
 
-							int btnWidth = (int) (width - 2 * GAP) / 3;
+							游戏提示str.maxWidth(width);
+							游戏提示str.setPos(0, 游戏提示.bottom()+1);
 
-							chkFlipTags.setRect(0,  GAP, width, BTN_HEIGHT);
-
-							swapperDesc.maxWidth(width);
-							swapperDesc.setPos(0, chkFlipTags.bottom()+1);
-							resize(WIDTH_P, (int)chkFlipTags.bottom());
+							resize(WIDTH_P, (int) 游戏提示str.bottom());
 
 						}
 					});
 				}
 			};
-//			add(集合设);
+			add(集合设置);
 
 
 			sep2 = new ColorBlock(1, 1, 0xFF000000);
@@ -813,14 +811,12 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep1.y = title.bottom() + 3*GAP;
 
 			height = sep1.y + 1;
-//			集合设.setRect(0, height + GAP, width, BTN_HEIGHT);
-
-			固定移速.setRect(0, height + GAP, width, SLIDER_HEIGHT);
+			集合设置.setRect(0, height + GAP, width, BTN_HEIGHT);
+			sep2.y = 集合设置.bottom() + GAP;
+			固定移速.setRect(0, 集合设置.bottom()+ GAP + GAP, width, SLIDER_HEIGHT);
 			休息速度.setRect(0, 固定移速.bottom() + GAP, width, SLIDER_HEIGHT);
-//			固定移速.setRect(0, 集合设.bottom() + GAP, width, SLIDER_HEIGHT);
 
 			sep2.size(width, 1);
-			sep2.y = height + GAP;
 
 			height = 休息速度.bottom();
 

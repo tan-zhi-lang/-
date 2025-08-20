@@ -27,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndVictoryCongrats;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
@@ -39,7 +38,6 @@ import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.PointerArea;
 import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.noosa.ui.Component;
-import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 
@@ -307,29 +305,55 @@ public class HeroSelectScene extends PixelScene {
 		} else {
 			background.visible = false;
 
+			//1
 			int btnWidth = HeroBtn.MIN_WIDTH;
-			int btnWidth2 = HeroBtn.MIN_WIDTH;
 
 			float curX= (Camera.main.width - btnWidth * 4) / 2f;
-			float curXX= (Camera.main.width - btnWidth * 4) / 2f;
-
 			if (curX > 0) {
 				btnWidth += Math.min(curX / (4 / 2f), 15);
 				curX = (Camera.main.width - btnWidth * 4) / 2f;
 			}
-			if (curXX > 0) {
-				btnWidth2 += Math.min(curXX / (4 / 2f), 15);
-				curXX = (Camera.main.width - btnWidth2 * 4) / 2f;
-			}
 			float curY = Camera.main.height - HeroBtn.HEIGHT + 3;
+			//2
+			int btnWidth2 = HeroBtn.MIN_WIDTH;
+			float curX2 = (Camera.main.width - btnWidth * 4) / 2f;
+
+			if (curX2 > 0) {
+				btnWidth2 += Math.min(curX2 / (4 / 2f), 15);
+				curX2 = (Camera.main.width - btnWidth2 * 4) / 2f;
+			}
 			float curY2 = 0;
+			//3
+			int btnWidth3 = HeroBtn.MIN_WIDTH;
+			float curX3 = (Camera.main.width - btnWidth3 * 4) / 2f;
+
+			if (curX3 > 0) {
+				btnWidth3 += Math.min(curX3 / (4 / 2f), 15);
+				curX3 = (Camera.main.width - btnWidth3 * 4) / 2f;
+			}
+			float curY3 = HeroBtn.HEIGHT;
+			//4
+			int btnWidth4 = HeroBtn.MIN_WIDTH;
+			float curX4 = (Camera.main.width - btnWidth4 * 4) / 2f;
+
+			if (curX4 > 0) {
+				btnWidth4 += Math.min(curX3 / (4 / 2f), 15);
+				curX4 = (Camera.main.width - btnWidth4 * 4) / 2f;
+			}
+			float curY4 = HeroBtn.HEIGHT*2;
 
 			int count=0;
 			for (StyledButton button : heroBtns) {
 				count++;
-				if(count>4){
-					button.setRect(curXX, curY2, btnWidth2, HeroBtn.HEIGHT);
-					curXX += btnWidth2;
+				if(count>12){
+					button.setRect(curX4, curY4, btnWidth4, HeroBtn.HEIGHT);
+					curX4 += btnWidth4;
+				}else if(count>8){
+					button.setRect(curX3, curY3, btnWidth3, HeroBtn.HEIGHT);
+					curX3 += btnWidth3;
+				}else if(count>4){
+					button.setRect(curX2, curY2, btnWidth2, HeroBtn.HEIGHT);
+					curX2 += btnWidth2;
 				}else{
 					button.setRect(curX, curY, btnWidth, HeroBtn.HEIGHT);
 					curX += btnWidth;

@@ -80,6 +80,7 @@ public enum Icons {
 	STAIRS_SECRETS,
 	WELL_HEALTH,
 	WELL_AWARENESS,
+	神力之泉,
 	SACRIFICE_ALTAR,
 	DISTANT_WELL,
 
@@ -307,11 +308,14 @@ public enum Icons {
 			case WELL_AWARENESS:
 				icon.frame( icon.texture.uvRectBySize( 144, 64, 16, 16 ) );
 				break;
-			case SACRIFICE_ALTAR:
+			case 神力之泉:
 				icon.frame( icon.texture.uvRectBySize( 160, 64, 16, 16 ) );
 				break;
-			case DISTANT_WELL:
+			case SACRIFICE_ALTAR:
 				icon.frame( icon.texture.uvRectBySize( 176, 64, 16, 16 ) );
+				break;
+			case DISTANT_WELL:
+				icon.frame( icon.texture.uvRectBySize( 192, 64, 16, 16 ) );
 				break;
 
 			case SKULL:
@@ -435,6 +439,8 @@ public enum Icons {
 	
 	public static Image get( HeroClass cl ) {
 		switch (cl) {
+			default:
+				return new ItemSprite(物品表.SOMETHING);
 			case WARRIOR:
 				return new ItemSprite(物品表.破损纹章);
 			case MAGE:
@@ -456,8 +462,6 @@ public enum Icons {
 				return new ItemSprite(物品表.灵月法杖);
 			case 重武:
 				return new ItemSprite(物品表.冰门重盾);
-			default:
-				return null;
 		}
 	}
 

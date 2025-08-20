@@ -2777,8 +2777,7 @@ public class Hero extends Char {
 			right = Math.min(Dungeon.level.width()-1, c.x + c.x - left);
 			left = Math.max(0, left);
 			for (curr = left + y * Dungeon.level.width(); curr <= right + y * Dungeon.level.width(); curr++){
-
-				if ((foresight || fieldOfView[curr]) && curr != pos) {
+				if(intentional){
 					Heap heap = Dungeon.level.heaps.get( curr);
 					if (heap != null) {
 						Item item = heap.peek();
@@ -2788,6 +2787,8 @@ public class Hero extends Char {
 							heap.sprite.drop();
 						}
 					}
+				}
+				if ((foresight || fieldOfView[curr]) && curr != pos) {
 					if ((foresight && (!Dungeon.level.mapped[curr] || foresightScan))){
 						GameScene.effectOverFog(new CheckedCell(curr, foresightScan ? pos : curr));
 					} else if (intentional) {

@@ -51,6 +51,7 @@ abstract public class MissileWeapon extends Weapon {
 
 		defaultAction = AC_THROW;
 		usesTargeting = true;
+		炼金全放 = true;
 	}
 
 	//TODO maybe make this like actor IDs, instead of random? collisions unlikely, but it's messy
@@ -685,7 +686,7 @@ abstract public class MissileWeapon extends Weapon {
 
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.025f+1);
+		return Math.max(Math.round(金币()*0.025f/quantity+1),1)* quantity;
 	}
 	private static final String SET_ID = "set_id";
 

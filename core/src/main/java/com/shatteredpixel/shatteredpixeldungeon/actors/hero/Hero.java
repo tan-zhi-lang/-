@@ -578,14 +578,14 @@ public class Hero extends Char {
     }
 
     public static int tier(HeroClass hs) {
-        if(hs==HeroClass.灵猫||hs==HeroClass.凌云){
-            return 0;
+        if(hs==HeroClass.灵猫){
+            return 1;
         }
-        if(hs==HeroClass.鼠弟){
+        if(hs==HeroClass.鼠弟||hs==HeroClass.凌云){
             return 1;
         }
         if(hs==HeroClass.血鬼||hs==HeroClass.枪手){
-            return 5;
+            return 0;
         }
         return 6;
     }

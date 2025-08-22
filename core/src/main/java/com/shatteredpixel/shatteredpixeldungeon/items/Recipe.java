@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
@@ -20,12 +21,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfDr
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFeatherFall;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIcyTouch;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
@@ -36,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -56,17 +57,17 @@ public abstract class Recipe {
 	
 	//subclass for the common situation of a recipe with static inputs and outputs
 	public static abstract class SimpleRecipe extends Recipe {
-		
+
 		//*** These elements must be filled in by subclasses
 		protected Class<?extends Item>[] inputs; //each class should be unique
 		protected int[] inQuantity;
-		
-		protected int cost;
-		
+
+		protected int cost=1;
+
 		protected Class<?extends Item> output;
-		protected int outQuantity;
+		protected int outQuantity=1;
 		//***
-		
+
 		//gets a simple list of items based on inputs
 		public ArrayList<Item> getIngredients() {
 			ArrayList<Item> result = new ArrayList<>();
@@ -77,12 +78,12 @@ public abstract class Recipe {
 			}
 			return result;
 		}
-		
+
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
-			
+
 			int[] needed = inQuantity.clone();
-			
+
 			for (Item ingredient : ingredients){
 				if (!ingredient.已鉴定()) return false;
 				for (int i = 0; i < inputs.length; i++){
@@ -92,26 +93,26 @@ public abstract class Recipe {
 					}
 				}
 			}
-			
+
 			for (int i : needed){
 				if (i > 0){
 					return false;
 				}
 			}
-			
+
 			return true;
 		}
-		
+
 		public int cost(ArrayList<Item> ingredients){
 			return cost;
 		}
-		
+
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			if (!testIngredients(ingredients)) return null;
-			
+
 			int[] needed = inQuantity.clone();
-			
+
 			for (Item ingredient : ingredients){
 				for (int i = 0; i < inputs.length; i++) {
 					if (ingredient.getClass() == inputs[i] && needed[i] > 0) {
@@ -125,11 +126,11 @@ public abstract class Recipe {
 					}
 				}
 			}
-			
+
 			//sample output and real output are identical in this case.
 			return sampleOutput(null);
 		}
-		
+
 		//ingredients are ignored, as output doesn't vary
 		public Item sampleOutput(ArrayList<Item> ingredients){
 			try {
@@ -149,7 +150,8 @@ public abstract class Recipe {
 	//*******
 
 	private static Recipe[] variableRecipes = new Recipe[]{
-			//none for now
+			new LiquidMetal.Recipe(),
+			new StewedMeat.Recipe(),
 	};
 	
 	private static Recipe[] oneIngredientRecipes = new Recipe[]{
@@ -157,7 +159,6 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new ArcaneResin.Recipe(),
-		new LiquidMetal.Recipe(),
 		new BlizzardBrew.Recipe(),
 		new InfernalBrew.Recipe(),
 		new AquaBrew.Recipe(),
@@ -173,7 +174,6 @@ public abstract class Recipe {
 		new Recycle.Recipe(),
 		new TelekineticGrab.Recipe(),
 		new SummonElemental.Recipe(),
-		new StewedMeat.oneMeat(),
 		new TrinketCatalyst.Recipe(),
 		new Trinket.UpgradeTrinket()
 	};
@@ -191,13 +191,21 @@ public abstract class Recipe {
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
-		new StewedMeat.twoMeat()
+			new PhantomMeat.R()
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
-		new StewedMeat.threeMeat(),
 		new MeatPie.Recipe()
+	};
+	private static Recipe[] x4IngredientRecipes = new Recipe[]{
+
+	};
+	private static Recipe[] x5IngredientRecipes = new Recipe[]{
+
+	};
+	private static Recipe[] x6IngredientRecipes = new Recipe[]{
+
 	};
 	
 	public static ArrayList<Recipe> findRecipes(ArrayList<Item> ingredients){
@@ -226,6 +234,24 @@ public abstract class Recipe {
 			
 		} else if (ingredients.size() == 3){
 			for (Recipe recipe : threeIngredientRecipes){
+				if (recipe.testIngredients(ingredients)){
+					result.add(recipe);
+				}
+			}
+		}else if (ingredients.size() == 4){
+			for (Recipe recipe : x4IngredientRecipes){
+				if (recipe.testIngredients(ingredients)){
+					result.add(recipe);
+				}
+			}
+		}else if (ingredients.size() == 5){
+			for (Recipe recipe : x5IngredientRecipes){
+				if (recipe.testIngredients(ingredients)){
+					result.add(recipe);
+				}
+			}
+		}else if (ingredients.size() == 6){
+			for (Recipe recipe : x6IngredientRecipes){
 				if (recipe.testIngredients(ingredients)){
 					result.add(recipe);
 				}

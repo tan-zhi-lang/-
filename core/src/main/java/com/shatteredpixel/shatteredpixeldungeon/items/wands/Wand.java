@@ -16,9 +16,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -47,7 +47,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -370,7 +369,6 @@ public abstract class Wand extends Item {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-
 		if (charger != null && charger.target != null) {
 
 			//inside staff, still need to apply degradation
@@ -378,6 +376,9 @@ public abstract class Wand extends Item {
 					&& !Dungeon.hero.belongings.contains(this)
 					&& Dungeon.hero.buff( Degrade.class ) != null){
 				lvl = Degrade.reduceLevel(lvl);
+			}
+			if(charger.target == Dungeon.hero&&Dungeon.hero.heroClass(HeroClass.MAGE)){
+				lvl++;
 			}
 
 			if (charger.target.buff(ScrollEmpower.class) != null){

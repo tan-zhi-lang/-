@@ -15,8 +15,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.CausticBrew;
@@ -270,9 +272,13 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 2:
-				result.add(new QuickRecipe( new StewedMeat.oneMeat() ));
-				result.add(new QuickRecipe( new StewedMeat.twoMeat() ));
-				result.add(new QuickRecipe( new StewedMeat.threeMeat() ));
+				result.add(new QuickRecipe( new StewedMeat.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolderC())),
+						new StewedMeat()));
+				result.add(null);
+				result.add(new QuickRecipe( new PhantomMeat.R(),
+						new ArrayList<Item>(Arrays.asList(new MysteryMeat(), new PotionOfInvisibility())),
+						new PhantomMeat()));
 				result.add(null);
 				result.add(new QuickRecipe( new MeatPie.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Pasty(), new Food(), new MysteryMeat.PlaceHolder())),

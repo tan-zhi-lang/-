@@ -150,7 +150,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 休息速度() {
-		return getInt(休息速度x, 5,1,10 );
+		return getInt(休息速度x, 2,1,5 );
 	}
 
 	//Interface

@@ -36,6 +36,7 @@ public class LiquidMetal extends Item {
 		defaultAction = AC_APPLY;
 
 		bones = true;
+		炼金全放 = true;
 	}
 
 	private static final String AC_APPLY = "APPLY";
@@ -181,7 +182,11 @@ public class LiquidMetal extends Item {
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 3;
+			MissileWeapon m = (MissileWeapon) ingredients.get(0);
+			if(m!=null){
+				return metalQuantity(m);
+			}
+			return 1;
 		}
 
 		@Override

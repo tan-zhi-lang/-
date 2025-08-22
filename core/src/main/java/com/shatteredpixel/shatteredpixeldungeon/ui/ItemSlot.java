@@ -269,6 +269,7 @@ public class ItemSlot extends Button {
 
 		} else {
 			extra.text( null );
+			extra.resetColor();
 		}
 
 		if (item instanceof Food food){
@@ -278,7 +279,7 @@ public class ItemSlot extends Button {
 		}else if (item instanceof Armor a&&a.破损纹章!=null) {
 			center.text( Messages.format( TXT, Math.round(a.破损纹章.maxShield(a.tier,a.强化等级()))) );
 			center.measure();
-			center.hardlight( UPGRADED );
+			center.resetColor();
 		}else if (item instanceof 水袋 s) {
 			center.text( Messages.format( TXT, Math.round(Dungeon.hero.生命(0.05f*s.volume))) );
 			center.measure();
@@ -289,33 +290,12 @@ public class ItemSlot extends Button {
 			center.hardlight( UPGRADED );
 		}else{
 			center.text(null);
+			center.resetColor();
 		}
 
 		int trueLvl = item.visiblyUpgraded();
 		int buffedLvl = item.buffedVisiblyUpgraded();
-		if(item instanceof Ring){
-			if (trueLvl != 0 || buffedLvl != 0) {
-				extra.text(Messages.format(TXT_LEVEL, buffedLvl));
-				extra.measure();
-				if (trueLvl == buffedLvl || buffedLvl <= 0) {
-					if (buffedLvl > 0) {
-						if ((item instanceof Weapon && ((Weapon) item).curseInfusionBonus)
-								|| (item instanceof Armor && ((Armor) item).curseInfusionBonus)
-								|| (item instanceof Wand && ((Wand) item).curseInfusionBonus)) {
-							extra.hardlight(CURSE_INFUSED);
-						} else {
-							extra.hardlight(UPGRADED);
-						}
-					} else {
-						extra.hardlight(DEGRADED);
-					}
-				} else {
-					extra.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
-				}
-			} else {
-				extra.text(null);
-			}
-		}else if(item instanceof 法师魔杖 ||item instanceof MissileWeapon||item instanceof Wand||item instanceof Artifact){
+		if(item instanceof 法师魔杖 ||item instanceof Ring ||item instanceof MissileWeapon||item instanceof Wand||item instanceof Artifact){
 			if (trueLvl != 0 || buffedLvl != 0) {
 				center.text(Messages.format(TXT_LEVEL, buffedLvl));
 				center.measure();

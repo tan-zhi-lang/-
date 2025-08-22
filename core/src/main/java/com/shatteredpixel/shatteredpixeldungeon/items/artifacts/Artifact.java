@@ -220,7 +220,10 @@ public class Artifact extends KindofMisc {
 		return price;
 	}
 
-
+	@Override
+	public int 能量() {
+		return Math.round(金币()*0.025f+1);
+	}
 	protected ArtifactBuff passiveBuff() {
 		return null;
 	}

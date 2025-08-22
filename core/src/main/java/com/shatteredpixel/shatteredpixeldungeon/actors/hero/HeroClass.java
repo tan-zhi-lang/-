@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
@@ -40,9 +39,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -138,11 +139,15 @@ public enum HeroClass {
 			new 净化药剂().get数量(x).放背包();
 			new PotionOfToxicGas().get数量(x).放背包();
 
+			new MysteryMeat().get数量(x).放背包();
+
 			new 升级卷轴().get数量(x).放背包();
 			new 鉴定卷轴().get数量(x).放背包();
 			new 嬗变卷轴().get数量(x).放背包();
 			new 祛邪卷轴().get数量(x).放背包();
+
 			new TengusMask().放背包();
+			new AlchemistsToolkit().放背包();
 
 			
 			for (Item item : Dungeon.hero.belongings){

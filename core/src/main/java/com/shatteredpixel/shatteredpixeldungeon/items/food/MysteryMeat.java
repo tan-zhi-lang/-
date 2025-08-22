@@ -20,6 +20,7 @@ public class MysteryMeat extends Food {
 	{
 		image = 物品表.MEAT;
 		energy = Hunger.HUNGRY/2f;
+		炼金全放 = true;
 	}
 	
 	@Override
@@ -65,6 +66,22 @@ public class MysteryMeat extends Food {
 					|| item instanceof ChargrilledMeat || item instanceof FrozenCarpaccio;
 		}
 		
+		@Override
+		public String info() {
+			return "";
+		}
+	}
+	public static class PlaceHolderC extends MysteryMeat {
+
+		{
+			image = 物品表.MEAT;
+		}
+
+		@Override
+		public boolean isSimilar(Item item) {
+			return item instanceof MysteryMeat;
+		}
+
 		@Override
 		public String info() {
 			return "";

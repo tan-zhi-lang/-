@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -37,6 +38,16 @@ public class PhantomMeat extends Food {
 		hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.最大生命 / 4), FloatingText.HEALING );
 		治疗药剂.cure(hero);
 
+	}
+	public static class R extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+		{
+			inputs =  new Class[]{MysteryMeat.class, PotionOfInvisibility.class};
+			inQuantity = new int[]{1,1};
+
+			cost = 5;
+
+			output = StewedMeat.class;
+		}
 	}
 
 

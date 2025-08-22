@@ -14,12 +14,10 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
@@ -67,9 +65,9 @@ import java.util.ArrayList;
 public class AlchemyScene extends PixelScene {
 
 	//max of 3 inputs, and 3 potential recipe outputs
-	private static final InputButton[] inputs = new InputButton[3];
-	private static final CombineButton[] combines = new CombineButton[3];
-	private static final OutputSlot[] outputs = new OutputSlot[3];
+	private static final InputButton[] inputs = new InputButton[6];
+	private static final CombineButton[] combines = new CombineButton[6];
+	private static final OutputSlot[] outputs = new OutputSlot[6];
 
 	private IconButton cancel;
 	private IconButton repeat;
@@ -193,13 +191,13 @@ public class AlchemyScene extends PixelScene {
 		pos += desc.height() + 6;
 
 		NinePatch inputBG = Chrome.get(Chrome.Type.TOAST_TR);
-		inputBG.x = left + 6;
+		inputBG.x = left + 6-10;
 		inputBG.y = pos;
-		inputBG.size(BTN_SIZE+8, 3*BTN_SIZE + 4 + 8);
+		inputBG.size(BTN_SIZE*2+2+8, 3*BTN_SIZE + 4 + 8);
 		add(inputBG);
 
 		pos += 4;
-
+		int pos2=pos;
 		synchronized (inputs) {
 			for (int i = 0; i < inputs.length; i++) {
 				if (inputs[i] == null) {
@@ -212,9 +210,15 @@ public class AlchemyScene extends PixelScene {
 						inputs[i].item(item);
 					}
 				}
-				inputs[i].setRect(left + 10, pos, BTN_SIZE, BTN_SIZE);
-				add(inputs[i]);
-				pos += BTN_SIZE + 2;
+				if(i>2){
+					inputs[i].setRect(left +BTN_SIZE+2, pos2, BTN_SIZE, BTN_SIZE);
+					add(inputs[i]);
+					pos2 += BTN_SIZE + 2;
+				}else{
+					inputs[i].setRect(left, pos, BTN_SIZE, BTN_SIZE);
+					add(inputs[i]);
+					pos += BTN_SIZE + 2;
+				}
 			}
 		}
 
@@ -281,7 +285,7 @@ public class AlchemyScene extends PixelScene {
 												if (item != null && inputs[0] != null) {
 													for (int i = 0; i < inputs.length; i++) {
 														if (inputs[i].item() == null) {
-															if (item instanceof LiquidMetal || item instanceof MissileWeapon){
+															if (item.炼金全放){
 																inputs[i].item(item.detachAll(Dungeon.hero.belongings.backpack));
 															} else {
 																inputs[i].item(item.detach(Dungeon.hero.belongings.backpack));
@@ -325,7 +329,7 @@ public class AlchemyScene extends PixelScene {
 				return Messages.get(AlchemyScene.class, "cancel");
 			}
 		};
-		cancel.setRect(left + 8, pos + 2, 16, 16);
+		cancel.setRect(left + 8-2, pos + 2, 16, 16);
 		cancel.enable(false);
 		add(cancel);
 
@@ -348,7 +352,7 @@ public class AlchemyScene extends PixelScene {
 				return Messages.get(AlchemyScene.class, "repeat");
 			}
 		};
-		repeat.setRect(left + 24, pos + 2, 16, 16);
+		repeat.setRect(left + 24+12, pos + 2, 16, 16);
 		repeat.enable(false);
 		add(repeat);
 
@@ -364,7 +368,7 @@ public class AlchemyScene extends PixelScene {
 
 			if (i == 0){
 				//first ones are always visible
-				combines[i].setRect(left + (w-30)/2f, inputs[1].top()+5, 30, inputs[1].height()-10);
+				combines[i].setRect(left + (w-30)/2f+10, inputs[1].top()+5, 30, inputs[1].height()-10);
 				outputs[i].setRect(left + w - BTN_SIZE - 10, inputs[1].top(), BTN_SIZE, BTN_SIZE);
 			} else {
 				combines[i].visible = false;
@@ -552,7 +556,7 @@ public class AlchemyScene extends PixelScene {
 				if (item != null && inputs[0] != null) {
 					for (int i = 0; i < inputs.length; i++) {
 						if (inputs[i].item() == null) {
-							if (item instanceof LiquidMetal || item instanceof MissileWeapon){
+							if (item.炼金全放){
 								inputs[i].item(item.detachAll(Dungeon.hero.belongings.backpack));
 							} else {
 								inputs[i].item(item.detach(Dungeon.hero.belongings.backpack));
@@ -771,7 +775,7 @@ public class AlchemyScene extends PixelScene {
 			ArrayList<Item> found = inventory.getAllSimilar(finding);
 			while (!found.isEmpty() && needed > 0){
 				Item detached;
-				if (finding instanceof LiquidMetal || finding instanceof MissileWeapon) {
+				if (finding.炼金全放) {
 					detached = found.get(0).detachAll(inventory.backpack);
 				} else {
 					detached = found.get(0).detach(inventory.backpack);

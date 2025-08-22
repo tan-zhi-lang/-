@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -74,9 +75,13 @@ public class 法师魔杖 extends MeleeWeapon {
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
 				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
-			return Degrade.reduceLevel(等级())+1+Dungeon.hero.天赋点数(Talent.高级法杖);
+			return Degrade.reduceLevel(等级())+
+					(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0)
+					+Dungeon.hero.天赋点数(Talent.高级法杖);
 		} else {
-			return 等级()+1+Dungeon.hero.天赋点数(Talent.高级法杖);
+			return 等级()+
+			(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0)
+					+Dungeon.hero.天赋点数(Talent.高级法杖);
 		}
 	}
 	@Override

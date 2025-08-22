@@ -185,7 +185,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.RECHARGING, true),
 							new ItemSprite(物品表.SCROLL_HOLDER),
-							new ItemSprite(物品表.POTION_HOLDER),
+							new ItemSprite(物品表.WAND_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 盗贼:
@@ -237,7 +237,7 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case 行僧:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							new BuffIcon(BuffIndicator.IMMUNITY, true),
+							new BuffIcon(BuffIndicator.HASTE, true),
 							new TalentIcon(Talent.HEIGHTENED_SENSES),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;

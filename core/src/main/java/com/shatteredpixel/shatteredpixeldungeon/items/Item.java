@@ -58,6 +58,7 @@ public class Item implements Bundlable {
 	public int icon = -1; //used as an identifier for items with randomized images
 	
 	public boolean stackable = false;
+	public boolean 炼金全放 = false;
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;
 	

@@ -49,6 +49,10 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.PHANTOM_MEAT), "幻影鱼肉",
+				"生肉+隐形药剂消耗5能量合成。"));
+		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(), "炼金",
+				"配方3=>6。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.枪手, tier(HeroClass.枪手))), "枪手",
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.血鬼, tier(HeroClass.血鬼))), "血鬼",
@@ -66,7 +70,7 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.逐姝, tier(HeroClass.逐姝))), "逐姝",
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.戒老, tier(HeroClass.戒老))), "戒老",
-				"新增英雄。"));
+				"新增i英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.女忍, tier(HeroClass.女忍))), "女忍",
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.机器, tier(HeroClass.机器))), "机器",
@@ -134,11 +138,15 @@ public class 重制 {
 				"偷后移速83% => 75%。\n" +
 						"物理防御时掉落金币1 => 10"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量晶体",
-				"武器和护甲可以提炼，法杖戒指可以提炼，提炼量是金币的2.5%+1。"));
+				"武器和护甲、神器、法杖和戒指可以提炼，提炼量是金币的2.5%+1，投掷武器是金币的(2.5%/数量+1)x数量。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.AMULET), "Yendor护符",
 				"结算时的英雄贴图采用另一种。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.水袋), "水袋",
 				"灌满的水袋可以合成一瓶治疗药剂。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.LIQUID_METAL), "液金",
+				"不管合成多少，都只消耗3能量=>多少数量消耗多少能量。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.STEWED), "炖肉",
+				"改成类似合成液金配方。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.DUST), "尸尘",
 				"金币数量1 => 自然生成金币。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAR_HAMMER), "武技",
@@ -185,7 +193,8 @@ public class 重制 {
 						"每个区域第3层必定一瓶治疗药剂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SOMETHING), "物品",
 					"更好的物品图标数值显示。\n" +
-							"走到金币、能量晶体、水珠、种子、钥匙和背包有的且可堆叠物品，自动拾取。"
+							"走到金币、能量晶体、水珠、种子、钥匙和背包有的且可堆叠物品，自动拾取。\n" +
+							"饰品提炼能量5=>4+等级x3"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ORE), "暗金矿",
 					"可以出售和提炼。"

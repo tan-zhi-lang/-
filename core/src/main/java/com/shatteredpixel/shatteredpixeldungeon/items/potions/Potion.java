@@ -70,11 +70,7 @@ public class Potion extends Item {
 	private static final float TIME_TO_DRINK = 1f;
 
 	public float drinkTime(){
-		if (Dungeon.hero.heroClass(HeroClass.MAGE)){
-			return TIME_TO_DRINK-1;
-		} else {
-			return TIME_TO_DRINK;
-		}
+		return TIME_TO_DRINK;
 	}
 	private static final LinkedHashMap<String, Integer> colors = new LinkedHashMap<String, Integer>() {
 		{

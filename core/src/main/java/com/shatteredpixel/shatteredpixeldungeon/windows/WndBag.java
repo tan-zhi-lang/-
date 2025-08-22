@@ -222,9 +222,9 @@ public class WndBag extends WndTabbed {
 		Belongings stuff = Dungeon.hero.belongings;
 		placeItem( stuff.weapon != null ? stuff.weapon : new Placeholder( 物品表.WEAPON_HOLDER ) );
 		placeItem( stuff.armor != null ? stuff.armor : new Placeholder( 物品表.ARMOR_HOLDER ) );
-		placeItem( stuff.artifact != null ? stuff.artifact : new Placeholder( 物品表.ARTIFACT_HOLDER ) );
 		placeItem( stuff.misc != null ? stuff.misc : new Placeholder( 物品表.SOMETHING ) );
-		placeItem( stuff.ring != null ? stuff.ring : new Placeholder( 物品表.RING_HOLDER ) );
+		placeItem( stuff.misc2 != null ? stuff.misc2 : new Placeholder( 物品表.SOMETHING ) );
+		placeItem( stuff.misc3 != null ? stuff.misc3 : new Placeholder( 物品表.SOMETHING ) );
 
 		int equipped = 5;
 

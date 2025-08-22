@@ -113,6 +113,7 @@ public class 重制 {
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), Messages.get(ChangesScene.class, "misc"),
 				"英雄\n\n" +
+						"神器和戒指栏位=>两个杂项栏位。\n"+
 						"最大生命-4。\n"+
 						"英雄初始不携带口粮。\n"+
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+

@@ -331,14 +331,14 @@ public class WndRanking extends WndTabbed {
 			if (stuff.armor != null) {
 				addItem( stuff.armor );
 			}
-			if (stuff.artifact != null) {
-				addItem( stuff.artifact );
-			}
 			if (stuff.misc != null) {
 				addItem( stuff.misc );
 			}
-			if (stuff.ring != null) {
-				addItem( stuff.ring );
+			if (stuff.misc2 != null) {
+				addItem( stuff.misc2 );
+			}
+			if (stuff.misc3 != null) {
+				addItem( stuff.misc3 );
 			}
 
 			pos = 0;

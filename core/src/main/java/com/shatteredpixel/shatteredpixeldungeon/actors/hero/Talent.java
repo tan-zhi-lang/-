@@ -500,16 +500,22 @@ public enum Talent {
 			}
 		}
 		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
-			if (hero.belongings.ring instanceof Ring && !ShardOfOblivion.passiveIDDisabled()) {
-				hero.belongings.ring.鉴定();
-			}
-			if (hero.belongings.misc instanceof Ring && !ShardOfOblivion.passiveIDDisabled()) {
-				hero.belongings.misc.鉴定();
+			if(!ShardOfOblivion.passiveIDDisabled()) {
+				if (hero.belongings.misc instanceof Ring) {
+					hero.belongings.misc.鉴定();
+				}
+				if (hero.belongings.misc2 instanceof Ring) {
+					hero.belongings.misc2.鉴定();
+				}
+				if (hero.belongings.misc3 instanceof Ring) {
+					hero.belongings.misc3.鉴定();
+				}
 			}
 		}
 		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
-			if (hero.belongings.ring instanceof Ring) hero.belongings.ring.setKnown();
 			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
+			if (hero.belongings.misc2 instanceof Ring) ((Ring) hero.belongings.misc2).setKnown();
+			if (hero.belongings.misc3 instanceof Ring) ((Ring) hero.belongings.misc3).setKnown();
 		}
 
 

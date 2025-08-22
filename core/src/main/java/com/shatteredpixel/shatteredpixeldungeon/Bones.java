@@ -88,13 +88,13 @@ public class Bones {
 					item = hero.belongings.armor;
 					break;
 				case 2:
-					item = hero.belongings.artifact;
-					break;
-				case 3:
 					item = hero.belongings.misc;
 					break;
+				case 3:
+					item = hero.belongings.misc2;
+					break;
 				case 4:
-					item = hero.belongings.ring;
+					item = hero.belongings.misc3;
 					break;
 				case 5: case 6:
 					item = Dungeon.quickslot.randomNonePlaceholder();

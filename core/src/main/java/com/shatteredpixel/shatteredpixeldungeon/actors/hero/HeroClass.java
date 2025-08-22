@@ -54,6 +54,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
@@ -148,6 +150,8 @@ public enum HeroClass {
 
 			new TengusMask().放背包();
 			new AlchemistsToolkit().放背包();
+			new 奥术之戒().放背包();
+			new 能量之戒().放背包();
 
 			
 			for (Item item : Dungeon.hero.belongings){
@@ -285,8 +289,8 @@ public enum HeroClass {
 		(hero.belongings.weapon = new 双匕首()).鉴定();
 
 		CloakOfShadows cloak = new CloakOfShadows();
-		(hero.belongings.artifact = cloak).鉴定();
-		hero.belongings.artifact.activate( hero );
+		(hero.belongings.misc = cloak).鉴定();
+		hero.belongings.misc.activate( hero );
 
 		ThrowingKnife knives = new ThrowingKnife();
 		knives.鉴定().放背包();
@@ -338,8 +342,8 @@ public enum HeroClass {
 		hero.belongings.weapon.activate(hero);
 
 		神圣法典 tome = new 神圣法典();
-		(hero.belongings.artifact = tome).鉴定();
-		hero.belongings.artifact.activate( hero );
+		(hero.belongings.misc = tome).鉴定();
+		hero.belongings.misc.activate( hero );
 
 		Dungeon.quickslot.setSlot(0, tome);
 

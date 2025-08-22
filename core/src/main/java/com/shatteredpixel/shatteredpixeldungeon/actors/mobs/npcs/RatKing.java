@@ -33,7 +33,7 @@ public class RatKing extends NPC {
 	
 	@Override
 	public float 移速() {
-		return 2f;
+		return 1.5f;
 	}
 	
 	@Override

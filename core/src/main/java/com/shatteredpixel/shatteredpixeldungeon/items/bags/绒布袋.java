@@ -26,7 +26,7 @@ public class 绒布袋 extends Bag {
 	}
 
 	public int capacity(){
-		return 19;
+		return 29;
 	}
 	
 	@Override

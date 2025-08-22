@@ -279,13 +279,19 @@ public class Assets {
 		public static final String 镜魔   = "sprites/镜魔.png";
 		public static final String 道士   = "sprites/道士.png";
 		public static final String 行僧   = "sprites/行僧.png";
+		public static final String 近卫   = "sprites/近卫.png";
 		public static final String 兽灵   = "sprites/兽灵.png";
 		public static final String 机器   = "sprites/机器.png";
 		public static final String 女忍   = "sprites/女忍.png";
 		public static final String 戒老   = "sprites/戒老.png";
 		public static final String 逐姝   = "sprites/逐姝.png";
 		public static final String 罗兰   = "sprites/罗兰.png";
-		public static final String AVATARS  = "sprites/avatars.png";
+		public static final String 学士   = "sprites/学士.png";
+		public static final String 灵猫   = "sprites/灵猫.png";
+		public static final String 鼠弟   = "sprites/鼠弟.png";
+		public static final String 凌云   = "sprites/凌云.png";
+		public static final String 血鬼   = "sprites/血鬼.png";
+		public static final String 枪手   = "sprites/枪手.png";
 		public static final String PET      = "sprites/pet.png";
 		public static final String AMULET   = "sprites/amulet.png";
 

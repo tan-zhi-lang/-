@@ -65,12 +65,12 @@ public class WandOfFrost extends DamageWand {
 			int damage = damageRoll();
 
 			if (ch.buff(Frost.class) != null){
-				return; //do nothing, can't affect a frozen target
+				//6.67% less damage per turn of chill remaining, to a max of 10 turns (50% dmg)
+				float chillturns = Math.min(10, ch.buff(Frost.class).cooldown());
+				damage = (int)Math.round(damage * Math.pow(0.9333f, chillturns));
 			}
 			if (ch.buff(Chill.class) != null){
-				//6.67% less damage per turn of chill remaining, to a max of 10 turns (50% dmg)
-				float chillturns = Math.min(10, ch.buff(Chill.class).cooldown());
-				damage = (int)Math.round(damage * Math.pow(0.9333f, chillturns));
+				Buff.施加(ch, Frost.class, 2+ 强化等级());
 			} else {
 				ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
 			}
@@ -80,10 +80,12 @@ public class WandOfFrost extends DamageWand {
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 1.1f * Random.Float(0.87f, 1.15f) );
 
 			if (ch.isAlive()){
-				if (Dungeon.level.water[ch.pos])
-					Buff.施加(ch, Chill.class, 4+ 强化等级());
-				else
-					Buff.施加(ch, Chill.class, 2+ 强化等级());
+				if (Dungeon.level.water[ch.pos]) {
+					Buff.施加(ch, Chill.class, 2 + 强化等级());
+					Buff.施加(ch, Frost.class, 2 + 强化等级());
+				} else {
+					Buff.施加(ch, Chill.class, 2 + 强化等级());
+				}
 			}
 		} else {
 			Dungeon.level.pressCell(bolt.collisionPos);

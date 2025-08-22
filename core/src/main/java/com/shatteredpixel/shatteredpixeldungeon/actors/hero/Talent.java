@@ -934,7 +934,10 @@ public enum Talent {
 
 		//tier 1
 		switch (cls){
-			case WARRIOR: default:
+			default:
+				Collections.addAll(tierTalents, 任督二脉);
+				break;
+			case WARRIOR:
 				Collections.addAll(tierTalents, VETERANS_INTUITION, 受衅怒火, 钢铁意志);
 				break;
 			case MAGE:
@@ -1008,6 +1011,7 @@ public enum Talent {
 		switch (cls){
 			default:
 				Collections.addAll(tierTalents, 任督二脉);
+				break;
 			case WARRIOR:
 				Collections.addAll(tierTalents, 纹章荣耀, STRONGMAN);
 				break;
@@ -1060,7 +1064,6 @@ public enum Talent {
 		//tier 3
 		switch (cls){
 			case 潜能觉醒: default:
-				Collections.addAll(tierTalents, 任督二脉);
 				break;
 			case BERSERKER:
 				Collections.addAll(tierTalents, ENDLESS_RAGE, DEATHLESS_FURY, ENRAGED_CATALYST);

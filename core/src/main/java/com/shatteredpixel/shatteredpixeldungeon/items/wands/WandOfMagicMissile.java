@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
@@ -26,10 +25,12 @@ public class WandOfMagicMissile extends DamageWand {
 	}
 
 	public int min(int lvl){
+		lvl*=2;
 		return 2+lvl;
 	}
 
 	public int max(int lvl){
+		lvl*=2;
 		return 8+2*lvl;
 	}
 	
@@ -46,12 +47,12 @@ public class WandOfMagicMissile extends DamageWand {
 			ch.sprite.burst(0xFFFFFFFF, 强化等级() / 2 + 2);
 
 			//apply the magic charge buff if we have another wand in inventory of a lower level, or already have the buff
-			for (Wand.Charger wandCharger : curUser.buffs(Wand.Charger.class)){
-				if (wandCharger.wand().强化等级() < 强化等级() || curUser.buff(MagicCharge.class) != null){
-					Buff.延长(curUser, MagicCharge.class, MagicCharge.DURATION).setup(this);
-					break;
-				}
-			}
+//			for (Wand.Charger wandCharger : curUser.buffs(Wand.Charger.class)){
+//				if (wandCharger.wand().强化等级() < 强化等级() || curUser.buff(MagicCharge.class) != null){
+//					Buff.延长(curUser, MagicCharge.class, MagicCharge.DURATION).setup(this);
+//					break;
+//				}
+//			}
 
 		} else {
 			Dungeon.level.pressCell(bolt.collisionPos);

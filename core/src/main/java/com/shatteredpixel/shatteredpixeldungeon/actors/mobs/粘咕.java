@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
@@ -274,7 +273,7 @@ public class 粘咕 extends Mob {
 		Dungeon.level.unseal();
 		
 		GameScene.bossSlain();
-		Dungeon.level.drop( new 骷髅钥匙( Dungeon.depth ), pos ).sprite.drop();
+		new 骷髅钥匙( Dungeon.depth ).放背包();
 		
 		//60% chance of 2 blobs, 30% chance of 3, 10% chance for 4. Average of 2.5
 		int blobs = Random.chances(new float[]{0, 0, 6, 3, 1});

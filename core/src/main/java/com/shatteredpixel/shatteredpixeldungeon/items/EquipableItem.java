@@ -55,9 +55,6 @@ public abstract class EquipableItem extends Item {
 		super.execute( hero, action );
 
 		if (action.equals( AC_EQUIP )) {
-			if(this instanceof 冰门重盾&&!hero.heroSubClass(HeroSubClass.盾之勇者)){
-				return;
-			}
 			//In addition to equipping itself, item reassigns itself to the quickslot
 			//This is a special case as the item is being removed from inventory, but is staying with the hero.
 			int slot = Dungeon.quickslot.getSlot( this );

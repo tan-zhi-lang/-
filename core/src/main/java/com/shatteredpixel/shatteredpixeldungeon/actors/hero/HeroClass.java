@@ -8,6 +8,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
@@ -27,55 +30,55 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.冰球;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
-import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.冰球;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
@@ -94,12 +97,19 @@ public enum HeroClass {
 	镜魔( HeroSubClass.潜能觉醒),
 	道士( HeroSubClass.潜能觉醒),
 	行僧( HeroSubClass.潜能觉醒),
+	近卫( HeroSubClass.潜能觉醒),
 	兽灵( HeroSubClass.潜能觉醒),
 	机器( HeroSubClass.潜能觉醒),
 	女忍( HeroSubClass.潜能觉醒),
 	戒老( HeroSubClass.潜能觉醒),
 	逐姝( HeroSubClass.潜能觉醒),
-	罗兰( HeroSubClass.潜能觉醒)
+	罗兰( HeroSubClass.潜能觉醒),
+	学士( HeroSubClass.潜能觉醒),
+	灵猫( HeroSubClass.潜能觉醒),
+	鼠弟( HeroSubClass.潜能觉醒),
+	凌云( HeroSubClass.潜能觉醒),
+	血鬼( HeroSubClass.潜能觉醒),
+	枪手( HeroSubClass.潜能觉醒)
 	;
 
 	private HeroSubClass[] subClasses;
@@ -112,11 +122,11 @@ public enum HeroClass {
 		hero.heroClass = this;
 		Talent.initClassTalents(hero);
 
-		Item i = new ClothArmor().鉴定();
+//		Item i = new ClothArmor().鉴定();
 //		if (!Challenges.isItemBlocked(i)) hero.belongings.armor = (ClothArmor)i;
 
-		i = new Food();
-		if (!Challenges.isItemBlocked(i)) i.放背包();
+//		i = new Food();
+//		if (!Challenges.isItemBlocked(i)) i.放背包();
 
 
 		if(算法.isDebug()){
@@ -124,12 +134,15 @@ public enum HeroClass {
 			new 经验药剂().get数量(x).放背包();
 			new 治疗药剂().get数量(x).放背包();
 			new 极速药剂().get数量(x).放背包();
+			new 极速药剂().get数量(x).放背包();
 			new 净化药剂().get数量(x).放背包();
+			new PotionOfToxicGas().get数量(x).放背包();
 
 			new 升级卷轴().get数量(x).放背包();
 			new 鉴定卷轴().get数量(x).放背包();
 			new 嬗变卷轴().get数量(x).放背包();
 			new 祛邪卷轴().get数量(x).放背包();
+			new TengusMask().放背包();
 
 			
 			for (Item item : Dungeon.hero.belongings){
@@ -178,6 +191,11 @@ public enum HeroClass {
 				break;
 			case 重武:
 				初始重武( hero );
+				break;
+			case 行僧:
+				Buff.延长( hero, BlobImmunity.class, 450*25);
+				break;
+			case 凌云:
 				break;
 		}
 
@@ -413,6 +431,8 @@ public enum HeroClass {
 				return Assets.Sprites.道士;
 			case 行僧:
 				return Assets.Sprites.行僧;
+			case 近卫:
+				return Assets.Sprites.近卫;
 			case 兽灵:
 				return Assets.Sprites.兽灵;
 			case 机器:
@@ -425,6 +445,18 @@ public enum HeroClass {
 				return Assets.Sprites.逐姝;
 			case 罗兰:
 				return Assets.Sprites.罗兰;
+			case 学士:
+				return Assets.Sprites.学士;
+			case 灵猫:
+				return Assets.Sprites.灵猫;
+			case 鼠弟:
+				return Assets.Sprites.鼠弟;
+			case 凌云:
+				return Assets.Sprites.凌云;
+			case 血鬼:
+				return Assets.Sprites.血鬼;
+			case 枪手:
+				return Assets.Sprites.枪手;
 		}
 	}
 

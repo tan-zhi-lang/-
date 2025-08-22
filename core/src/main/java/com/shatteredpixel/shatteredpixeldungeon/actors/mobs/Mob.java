@@ -58,11 +58,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -661,7 +661,10 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public int 最大闪避(Char enemy ) {
-		if (buff(GuidingLight.Illuminated.class) != null && Dungeon.hero.heroClass == HeroClass.CLERIC){
+		if(properties.contains(Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
+			return 0;
+		}
+		if (buff(GuidingLight.Illuminated.class) != null && Dungeon.hero.heroClass(HeroClass.CLERIC)){
 			//if the attacker is the cleric, they must be using a weapon they have the str for
 			if (enemy instanceof Hero){
 				Hero h = (Hero) enemy;
@@ -781,7 +784,6 @@ public abstract class Mob extends Char {
 
 	@Override
 	public void 受伤时(int dmg, Object src ) {
-
 		if (!是无敌(src.getClass())) {
 			if (state == SLEEPING) {
 				state = WANDERING;

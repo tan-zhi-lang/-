@@ -54,9 +54,9 @@ public class ChaliceOfBlood extends Artifact {
 
 		if (action.equals(AC_PRICK)){
 
-			int damage = 5 + 3*(等级()* 等级());
+			int damage = 3*等级()* 等级();
 
-			if (damage > hero.生命 *0.75) {
+			if (damage > hero.最大生命(0.9f)) {
 
 				GameScene.show(
 					new WndOptions(new ItemSprite(this),

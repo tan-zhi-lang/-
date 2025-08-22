@@ -28,10 +28,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
@@ -254,7 +255,7 @@ public class ShopRoom extends SpecialRoom {
 		
 		itemsToSpawn.add( TippedDart.randomTipped(2) );
 
-		itemsToSpawn.add( new 炼金菱晶().get数量(Random.IntRange(2, 3)*4));
+		itemsToSpawn.add( new 炼金菱晶().get数量(Random.IntRange(2, 3)*3));
 
 		Bag bag = ChooseBag(Dungeon.hero.belongings);
 		if (bag != null) {
@@ -282,7 +283,7 @@ public class ShopRoom extends SpecialRoom {
 
 
 		itemsToSpawn.add( new Food() );
-		itemsToSpawn.add( new Food() );
+		itemsToSpawn.add( new SmallRation() );
 		
 		switch (Random.Int(4)){
 			case 0:

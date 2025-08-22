@@ -53,6 +53,7 @@ public class SPDAction extends GameAction {
 	public static final GameAction BAG_3        = new SPDAction("bag_3");
 	public static final GameAction BAG_4        = new SPDAction("bag_4");
 	public static final GameAction BAG_5        = new SPDAction("bag_5");
+	public static final GameAction BAG_6        = new SPDAction("bag_6");
 
 	public static final GameAction EXAMINE      = new SPDAction("examine");
 	public static final GameAction WAIT         = new SPDAction("wait");

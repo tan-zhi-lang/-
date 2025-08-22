@@ -93,10 +93,10 @@ public class ArcaneResin extends Item {
 			if (item != null && item instanceof Wand) {
 				Wand w = (Wand)item;
 
-				if (w.等级() >= 3){
-					GLog.w(Messages.get(ArcaneResin.class, "level_too_high"));
-					return;
-				}
+//				if (w.等级() >= 3){
+//					GLog.w(Messages.get(ArcaneResin.class, "level_too_high"));
+//					return;
+//				}
 
 				int resinToUse = w.等级()+1;
 

@@ -172,8 +172,9 @@ public class WndHero extends WndTabbed {
 			statSlot( Messages.get(this, "exp"), hero.当前经验 + "/" + hero.升级所需() );
 
 			statSlot( "命中/闪避", hero.最大命中(null)+"/"+hero.最大闪避(null));
-			statSlot( "攻速/移速", 1/hero.攻速()+"/"+hero.移速());
-			statSlot( "感知/探索", hero.感知范围()+"/"+hero.搜索范围());
+			statSlot( "攻速/移速", String.format("%.2f",1/hero.攻速())
+					+"/"+String.format("%.2f",hero.移速()));
+			statSlot( "感知/搜索", hero.感知范围()+"/"+hero.搜索范围());
 			statSlot( "视野范围", hero.视野范围()+"");
 
 //			pos += GAP;

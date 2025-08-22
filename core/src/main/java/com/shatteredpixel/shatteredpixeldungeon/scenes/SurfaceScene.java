@@ -2,9 +2,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero.tier;
+import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
@@ -31,7 +33,6 @@ import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NoosaScript;
 import com.watabou.noosa.PointerArea;
-import com.watabou.noosa.TextureFilm;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.Point;
@@ -125,8 +126,10 @@ public class SurfaceScene extends PixelScene {
 			window.add( patch );
 		}
 		
-		Avatar a = new Avatar( Dungeon.hero.heroClass );
+		Image a = new Image(avatar(Dungeon.hero.heroClass, tier(Dungeon.hero.heroClass)));
 		// Removing semitransparent contour
+		a.scale.x=2;
+		a.scale.y=2;
 		a.am = 2; a.aa = -1;
 		a.x = (SKY_WIDTH - a.width) / 2;
 		a.y = SKY_HEIGHT - a.height;
@@ -384,17 +387,6 @@ public class SurfaceScene extends PixelScene {
 			} else if (speed.x < 0 && x < -width()) {
 				x = SKY_WIDTH;
 			}
-		}
-	}
-
-	private static class Avatar extends Image {
-		
-		private static final int WIDTH	= 24;
-		private static final int HEIGHT	= 32;
-		
-		public Avatar( HeroClass cl ) {
-			super( Assets.Sprites.AVATARS );
-			frame( new TextureFilm( texture, WIDTH, HEIGHT ).get( cl.ordinal() ) );
 		}
 	}
 	

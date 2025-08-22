@@ -297,7 +297,7 @@ public class Armor extends EquipableItem {
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
 				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
-			return Degrade.reduceLevel(等级())+(破损纹章!=null?破损纹章.等级():0);
+			return Degrade.reduceLevel(等级()+(破损纹章!=null?破损纹章.等级():0));
 		} else {
 			return 等级()+(破损纹章!=null?破损纹章.等级():0);
 		}
@@ -322,11 +322,11 @@ public class Armor extends EquipableItem {
 
 			破损纹章 detaching = 破损纹章;
 			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
-			if(真等级()>转移量){
+			if(真等级()>=转移量){
 				等级(真等级()-转移量);
 				破损纹章.等级(破损纹章.等级()+ 转移量);
-			}else{
-				破损纹章.等级(破损纹章.等级()+ 真等级());
+			}else if(真等级()>1){
+				破损纹章.等级(破损纹章.等级()+ 转移量);
 				等级(0);
 			}
 			破损纹章 = null;
@@ -486,10 +486,13 @@ public class Armor extends EquipableItem {
 		
 		cursed = false;
 
-		if (破损纹章 != null && 破损纹章.等级() == 0)
-			破损纹章.升级();
+		if (破损纹章 != null && 破损纹章.等级() < 破损纹章.最大等级()) {
+			破损纹章.升级();//优先纹章
+		}else{
+			super.升级();
+		}
 
-		return super.升级();
+		return this;
 	}
 	
 	public int 防御时(Char attacker, Char defender, int damage ) {
@@ -631,7 +634,7 @@ public class Armor extends EquipableItem {
 		}
 
 		if (破损纹章 != null) {
-			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier, 等级()));
+			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier, 强化等级()));
 		}
 		
 		return info;

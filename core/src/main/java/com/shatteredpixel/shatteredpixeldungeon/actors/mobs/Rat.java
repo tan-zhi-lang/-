@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.watabou.utils.Bundle;
@@ -22,11 +23,19 @@ public class Rat extends Mob {
 
 	@Override
 	protected boolean act() {
-		if (alignment == Alignment.ENEMY
-				&& Dungeon.level.heroFOV[pos]
-				&& Dungeon.hero.armorAbility instanceof Ratmogrify){
-			alignment = Alignment.NEUTRAL;
-			if (state == SLEEPING) state = WANDERING;
+		alignment = Dungeon.hero.heroClass(HeroClass.鼠弟)?Alignment.NEUTRAL:Alignment.ENEMY;
+		if (alignment == Alignment.NEUTRAL&&Dungeon.hero.heroClass(HeroClass.鼠弟)){
+			if(Dungeon.level.heroFOV[pos]){
+				if (state == SLEEPING) state = WANDERING;
+			}
+		}
+		if(Dungeon.hero.armorAbility instanceof Ratmogrify){
+			if(alignment == Alignment.ENEMY) {
+				alignment = Alignment.NEUTRAL;
+			}
+			if(Dungeon.level.heroFOV[pos]){
+				if (state == SLEEPING) state = WANDERING;
+			}
 		}
 		return super.act();
 	}

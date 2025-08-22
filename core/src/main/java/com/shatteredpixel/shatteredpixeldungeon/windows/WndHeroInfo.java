@@ -10,6 +10,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -23,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
-import com.watabou.utils.DeviceCompat;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -227,6 +228,55 @@ public class WndHeroInfo extends WndTabbed {
 							new BuffIcon(BuffIndicator.HEALING, true),
 							new BuffIcon(BuffIndicator.FROST, true),
 							new ItemSprite(物品表.巨斧),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 道士:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new WraithSprite(),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 行僧:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.IMMUNITY, true),
+							new TalentIcon(Talent.HEIGHTENED_SENSES),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 机器:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.BLEEDING, true),
+							new BuffIcon(BuffIndicator.POISON, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 戒老:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new TalentIcon(Talent.HEIGHTENED_SENSES),
+							new TalentIcon(Talent.FARSIGHT),
+							new BuffIcon(BuffIndicator.BLINDNESS, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 灵猫:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new ItemSprite(物品表.ARMOR_HOLDER),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 鼠弟:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new ItemSprite(物品表.ARMOR_HOLDER),
+							new RatSprite(),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 凌云:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new ItemSprite(物品表.ARMOR_HOLDER),
+							new BuffIcon(BuffIndicator.LEVITATION, true),
+							new TalentIcon(Talent.灵敏机动),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 血鬼:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.HEALING, true),
+							new BuffIcon(BuffIndicator.BLEEDING, true),
+							new BuffIcon(BuffIndicator.HEALING, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}

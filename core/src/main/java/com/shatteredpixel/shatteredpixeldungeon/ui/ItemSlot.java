@@ -7,13 +7,15 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -46,11 +48,10 @@ public class ItemSlot extends Button {
 
 	protected BitmapText center;
 
-	private static final String TXT_STRENGTH	= "%d";
-	private static final String TXT_TYPICAL_STR	= "%d?";
+	private static final String TXT	= "%d";
+	private static final String TXT_TYPICAL_STR	= "?%d";
 
-	private static final String TXT_LEVEL	= "%+d";
-	private static final String TXT_CENTER	= "%d";
+	private static final String TXT_LEVEL	= "+%d";
 
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
@@ -144,23 +145,23 @@ public class ItemSlot extends Button {
 
 		if (itemIcon != null){
 			//center the icon slightly if there is enough room
-			if (width >= 24 || height >= 24) {
-				itemIcon.x = x + width - (物品表.Icons.SIZE + itemIcon.width()) / 2f - margin.right;
-				itemIcon.y = y + (物品表.Icons.SIZE - itemIcon.height) / 2f + margin.top;
-			} else {
+//			if (width >= 24 || height >= 24) {
+//				itemIcon.x = x + width - (物品表.Icons.SIZE + itemIcon.width()) / 2f - margin.right;
+//				itemIcon.y = y + (物品表.Icons.SIZE - itemIcon.height) / 2f + margin.top;
+//			} else {
 				itemIcon.x = x + width - itemIcon.width() - margin.right;
 				itemIcon.y = y + margin.top;
-			}
+//			}
 			PixelScene.align(itemIcon);
 		}
 		
 		if (level != null) {
-			level.x = x + (width - level.width()) - margin.right;
-			level.y = y + (height - level.baseLine() - 1) - margin.bottom;
+			level.x = x - margin.right;
+			level.y = y;
 			PixelScene.align(level);
 		}
 		if (center != null) {
-			center.x = x + (width - center.width()) - margin.right/2;
+			center.x = x + (width - center.width()) - margin.right;
 			center.y = y + (height - center.baseLine() - 1);
 			PixelScene.align(center);
 		}
@@ -248,7 +249,7 @@ public class ItemSlot extends Button {
 
 			if (item.levelKnown){
 				int str = item instanceof Weapon ? ((Weapon)item).力量() : ((Armor)item).力量();
-				extra.text( Messages.format( TXT_STRENGTH, str ) );
+				extra.text( Messages.format( TXT, str ) );
 				if (Dungeon.hero != null && str > Dungeon.hero.力量()) {
 					extra.hardlight( DEGRADED );
 				} else if (item instanceof Weapon && ((Weapon) item).masteryPotionBonus){
@@ -256,6 +257,7 @@ public class ItemSlot extends Button {
 				} else if (item instanceof Armor && ((Armor) item).masteryPotionBonus) {
 					extra.hardlight( MASTERED );
 				} else {
+					extra.text(null);
 					extra.resetColor();
 				}
 			} else {
@@ -269,42 +271,96 @@ public class ItemSlot extends Button {
 			extra.text( null );
 		}
 
-		int trueLvl = item.visiblyUpgraded();
-		int buffedLvl = item.buffedVisiblyUpgraded();
-
-		if (trueLvl != 0 || buffedLvl != 0) {
-			level.text( Messages.format( TXT_LEVEL, buffedLvl ) );
-			level.measure();
-			if (trueLvl == buffedLvl || buffedLvl <= 0) {
-				if (buffedLvl > 0){
-					if ((item instanceof Weapon && ((Weapon) item).curseInfusionBonus)
-						|| (item instanceof Armor && ((Armor) item).curseInfusionBonus)
-							|| (item instanceof Wand && ((Wand) item).curseInfusionBonus)){
-						level.hardlight(CURSE_INFUSED);
-					} else {
-						level.hardlight(UPGRADED);
-					}
-				} else {
-					level.hardlight( DEGRADED );
-				}
-			} else {
-				level.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
-			}
-		} else {
-			level.text( null );
-		}
-
 		if (item instanceof Food food){
-			center.text( Messages.format( TXT_CENTER, Math.round(food.energy)) );
+			center.text( Messages.format( TXT, Math.round(food.energy)) );
 			center.measure();
 			center.hardlight( UPGRADED );
-		} else if (item instanceof 水袋 s) {
-			center.text( Messages.format( TXT_CENTER, Math.round(Dungeon.hero.生命(0.05f*s.volume))) );
+		}else if (item instanceof Armor a&&a.破损纹章!=null) {
+			center.text( Messages.format( TXT, Math.round(a.破损纹章.maxShield(a.tier,a.强化等级()))) );
+			center.measure();
+			center.hardlight( UPGRADED );
+		}else if (item instanceof 水袋 s) {
+			center.text( Messages.format( TXT, Math.round(Dungeon.hero.生命(0.05f*s.volume))) );
+			center.measure();
+			center.hardlight( UPGRADED );
+		}else if (item instanceof ChaliceOfBlood i) {
+			center.text( Messages.format( TXT, Math.round(3*i.等级()*i.等级())) );
 			center.measure();
 			center.hardlight( UPGRADED );
 		}else{
 			center.text(null);
 		}
+
+		int trueLvl = item.visiblyUpgraded();
+		int buffedLvl = item.buffedVisiblyUpgraded();
+		if(item instanceof Ring){
+			if (trueLvl != 0 || buffedLvl != 0) {
+				extra.text(Messages.format(TXT_LEVEL, buffedLvl));
+				extra.measure();
+				if (trueLvl == buffedLvl || buffedLvl <= 0) {
+					if (buffedLvl > 0) {
+						if ((item instanceof Weapon && ((Weapon) item).curseInfusionBonus)
+								|| (item instanceof Armor && ((Armor) item).curseInfusionBonus)
+								|| (item instanceof Wand && ((Wand) item).curseInfusionBonus)) {
+							extra.hardlight(CURSE_INFUSED);
+						} else {
+							extra.hardlight(UPGRADED);
+						}
+					} else {
+						extra.hardlight(DEGRADED);
+					}
+				} else {
+					extra.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
+				}
+			} else {
+				extra.text(null);
+			}
+		}else if(item instanceof 法师魔杖 ||item instanceof MissileWeapon||item instanceof Wand||item instanceof Artifact){
+			if (trueLvl != 0 || buffedLvl != 0) {
+				center.text(Messages.format(TXT_LEVEL, buffedLvl));
+				center.measure();
+				if (trueLvl == buffedLvl || buffedLvl <= 0) {
+					if (buffedLvl > 0) {
+						if ((item instanceof Weapon && ((Weapon) item).curseInfusionBonus)
+								|| (item instanceof Armor && ((Armor) item).curseInfusionBonus)
+								|| (item instanceof Wand && ((Wand) item).curseInfusionBonus)) {
+							center.hardlight(CURSE_INFUSED);
+						} else {
+							center.hardlight(UPGRADED);
+						}
+					} else {
+						center.hardlight(DEGRADED);
+					}
+				} else {
+					center.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
+				}
+			} else {
+				center.text(null);
+			}
+		}else {
+			if (trueLvl != 0 || buffedLvl != 0) {
+				level.text(Messages.format(TXT_LEVEL, buffedLvl));
+				level.measure();
+				if (trueLvl == buffedLvl || buffedLvl <= 0) {
+					if (buffedLvl > 0) {
+						if ((item instanceof Weapon && ((Weapon) item).curseInfusionBonus)
+								|| (item instanceof Armor && ((Armor) item).curseInfusionBonus)
+								|| (item instanceof Wand && ((Wand) item).curseInfusionBonus)) {
+							level.hardlight(CURSE_INFUSED);
+						} else {
+							level.hardlight(UPGRADED);
+						}
+					} else {
+						level.hardlight(DEGRADED);
+					}
+				} else {
+					level.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
+				}
+			} else {
+				level.text(null);
+			}
+		}
+
 		layout();
 	}
 	

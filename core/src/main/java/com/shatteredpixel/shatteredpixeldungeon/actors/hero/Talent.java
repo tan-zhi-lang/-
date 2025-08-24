@@ -980,6 +980,7 @@ public enum Talent {
 		switch (cls){
 			default:
 				Collections.addAll(tierTalents, 任督二脉);
+				break;
 			case WARRIOR:
 				Collections.addAll(tierTalents, 致命打击, 纹章升级, 越战越勇, IMPROVISED_PROJECTILES);
 				break;

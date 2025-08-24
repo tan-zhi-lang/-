@@ -176,7 +176,7 @@ public class Armor extends EquipableItem {
 		if (action.equals(AC_DETACH) && 破损纹章 != null){
 			破损纹章 detaching = detachSeal();
 			GLog.i( Messages.get(Armor.class, "detach_seal") );
-			hero.sprite.operate(hero.pos);
+			hero.sprite.operate();
 			detaching.放背包();
 			updateQuickslot();
 		}

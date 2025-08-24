@@ -9,14 +9,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -27,25 +28,22 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class 血砍刀 extends MeleeWeapon {
+public class 手枪 extends MeleeWeapon {
 	public static final String AC_SHOOT		= "SHOOT";
-	
+	public static final String AC_换弹		= "换弹";
+
 	{
-		image = 物品表.血砍刀;
+		image = 物品表.手枪;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.2f;
 
 		tier = 1;
 
-		bones = false;
-
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
-		红色 = true;
 	}
 	@Override
 	public int 最小攻击(int lvl) {
@@ -54,62 +52,203 @@ public class 血砍刀 extends MeleeWeapon {
 	}
 	@Override
 	public int 最大攻击(int lvl) {
-		return  2+3*(tier+1) +    //8 base, down from 10
+		return  -1+3*(tier+1) +    //8 base, down from 10
 				lvl*(tier+1)/2*3;   //scaling unchanged
-	}
-	@Override
-	public int 攻击时(Char attacker, Char defender, int damage ) {
-		damage = super.攻击时(attacker,defender,damage);
-		Buff.施加( defender, 流血.class ).set( Math.round(augment.damageFactor(Random.NormalIntRange(最小攻击(), 最大攻击()))/3f) );
-		return damage;
 	}
 	@Override
 	public int 金币() {
 		return Math.round(super.金币()*1.34f);
 	}
-
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.add(AC_SHOOT);
+		actions.add(AC_换弹);
 		return actions;
 	}
-
+	@Override
+	public String status() {
+		if (levelKnown) {
+			return curCharges + "/" + maxCharges;
+		} else {
+			return null;
+		}
+	}
 	@Override
 	public void execute(Hero hero, String action) {
-
 		super.execute(hero, action);
+		curUser = hero;
+		curItem = this;
+		if(!isEquipped(curUser)){
+				GLog.w("你需要装备枪械！");
+		}
+		if (action.equals(AC_换弹)) {
+			if(curCharges==0){
+				Sample.INSTANCE.play( Assets.Sounds.换弹 );
 
-		if (action.equals(AC_SHOOT)&&isEquipped(hero)) {
+				curUser.spend(1f);
+				curUser.busy();
+				(curUser.sprite).operate();
+				curCharges=maxCharges;
+				updateQuickslot();
+				return;
+			}
+		}
+		if (action.equals(AC_SHOOT)&&isEquipped(curUser)) {
+			if(curCharges==0){
+//				GLog.w("子弹不足！");
+				Sample.INSTANCE.play( Assets.Sounds.换弹 );
 
-			curUser = hero;
-			curItem = this;
+				curUser.spend(1f);
+				curUser.busy();
+				(curUser.sprite).operate();
+				curCharges=maxCharges;
+				updateQuickslot();
+				return;
+			}
 			GameScene.selectCell( shooter );
+		}
+	}
+	public int maxCharges = initialCharges();
+	public int initialCharges() {
+		return 5;
+	}
+	protected int chargesPerCast() {
+		return 1;
+	}
+	public int curCharges = maxCharges;
+	public float partialCharge = 0f;
 
+	protected 手枪.Charger charger;
+	public void gainCharge( float amt ){
+		gainCharge( amt, false );
+	}
+
+	public void gainCharge( float amt, boolean overcharge ){
+		partialCharge += amt;
+		while (partialCharge >= 1) {
+			if (overcharge) curCharges = Math.min(maxCharges+(int)amt, curCharges+1);
+			else curCharges = Math.min(maxCharges, curCharges+1);
+			partialCharge--;
+			updateQuickslot();
+		}
+	}
+
+	public void charge( Char owner ) {
+		if (charger == null) charger = new Charger();
+		charger.attachTo( owner );
+	}
+
+	public void charge( Char owner, float chargeScaleFactor ){
+		charge( owner );
+		charger.setScaleFactor( chargeScaleFactor );
+	}
+	public class Charger extends Buff {
+
+		private static final float BASE_CHARGE_DELAY = 10f;
+		private static final float SCALING_CHARGE_ADDITION = 40f;
+		private static final float NORMAL_SCALE_FACTOR = 0.875f;
+
+		private static final float CHARGE_BUFF_BONUS = 0.25f;
+
+		float scalingFactor = NORMAL_SCALE_FACTOR;
+
+		@Override
+		public boolean attachTo( Char target ) {
+			if (super.attachTo( target )) {
+				//if we're loading in and the hero has partially spent a turn, delay for 1 turn
+				if (target instanceof Hero && Dungeon.hero == null && cooldown() == 0 && target.cooldown() > 0) {
+					spend(TICK);
+				}
+				return true;
+			}
+			return false;
+		}
+
+		@Override
+		public boolean act() {
+			if (curCharges < maxCharges && target.buff(MagicImmune.class) == null)
+				recharge();
+
+			while (partialCharge >= 1 && curCharges < maxCharges) {
+				partialCharge--;
+				curCharges++;
+				updateQuickslot();
+			}
+
+			if (curCharges == maxCharges){
+				partialCharge = 0;
+			}
+
+			spend( TICK );
+
+			return true;
+		}
+
+		private void recharge(){
+			int missingCharges = maxCharges - curCharges;
+			missingCharges = Math.max(0, missingCharges);
+
+			float turnsToCharge = (float) (BASE_CHARGE_DELAY
+					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
+
+			if (再生.regenOn())
+				partialCharge += (1f/turnsToCharge) * 能量之戒.wandChargeMultiplier(target)*(1+Dungeon.hero.天赋点数(Talent.强能处消,0.25f));
+
+			for (Recharging bonus : target.buffs(Recharging.class)){
+				if (bonus != null && bonus.remainder() > 0f) {
+					partialCharge += CHARGE_BUFF_BONUS * bonus.remainder();
+				}
+			}
+		}
+
+		public 手枪 枪(){
+			return 手枪.this;
+		}
+
+		public void gainCharge(float charge){
+			if (curCharges < maxCharges) {
+				partialCharge += charge;
+				while (partialCharge >= 1f) {
+					curCharges++;
+					partialCharge--;
+				}
+				if (curCharges >= maxCharges){
+					partialCharge = 0;
+					curCharges = maxCharges;
+				}
+				updateQuickslot();
+			}
+		}
+
+		private void setScaleFactor(float value){
+			this.scalingFactor = value;
 		}
 	}
 	private CellSelector.Listener shooter = new CellSelector.Listener() {
 		@Override
 		public void onSelect( Integer target ) {
 			if (target != null) {
+				curCharges = Math.max(curCharges-chargesPerCast(),0);
 				knockArrow().cast(curUser, target);
 			}
 		}
 		@Override
 		public String prompt() {
-			return Messages.get(血砍刀.class, "prompt");
+			return Messages.get(手枪.class, "prompt");
 		}
 	};
-	public 血砍刀.Spirit knockArrow(){
-		return new 血砍刀.Spirit();
+	public 子弹 knockArrow(){
+		return new 子弹();
 	}
 	private int targetPos;
-	public class Spirit extends MissileWeapon {
+	public class 子弹 extends MissileWeapon {
 
 		{
-			image = 物品表.血砍刀;
+			image = 物品表.子弹;
 
-			hitSound = Assets.Sounds.HIT_SLASH;
+			hitSound = Assets.Sounds.手枪;
+			item_Miss = Assets.Sounds.手枪;
 
 			setID = 0;
 		}
@@ -121,78 +260,51 @@ public class 血砍刀 extends MeleeWeapon {
 
 		@Override
 		public int damageRoll(Char owner) {
-			return 血砍刀.this.damageRoll(owner);
+			return 手枪.this.damageRoll(owner);
 		}
 
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
-			return 血砍刀.this.hasEnchant(type, owner);
+			return 手枪.this.hasEnchant(type, owner);
 		}
 
 		@Override
 		public int 攻击时(Char attacker, Char defender, int damage) {
-			return 血砍刀.this.攻击时(attacker, defender, damage);
+			return 手枪.this.攻击时(attacker, defender, damage);
 		}
 
 		@Override
 		public float delayFactor(Char user) {
-			return 血砍刀.this.delayFactor(user);
+			return 手枪.this.delayFactor(user);
 		}
 
 		@Override
 		public int 力量(int lvl) {
-			return 血砍刀.this.力量();
+			return 手枪.this.力量();
 		}
 
 		@Override
 		protected void onThrow( int cell ) {
+			if (Dungeon.level.heroFOV[cell]) {
+				CellEmitter.center(cell).burst(BlastParticle.FACTORY, 4);
+			}
 			if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
 				Dungeon.level.pressCell( cell );
 			}
 			Char enemy = Actor.findChar( cell );
 			if (enemy == null || enemy == curUser) {
 				parent = null;
-				//metamorphed seer shot logic
-				if (curUser.有天赋(Talent.SEER_SHOT)
-						&& curUser.heroClass != HeroClass.HUNTRESS
-						&& curUser.buff(Talent.SeerShotCooldown.class) == null){
-					if (Actor.findChar(cell) == null) {
-						RevealedArea a = Buff.施加(curUser, RevealedArea.class, 25-curUser.天赋点数(Talent.SEER_SHOT,5));
-						a.depth = Dungeon.depth;
-						a.pos = cell;
-						Buff.施加(curUser, Talent.SeerShotCooldown.class,  curUser.天赋点数(Talent.SEER_SHOT,10));
-					}
-				}
-				if (!spawnedForEffect) {
-					Dungeon.hero.belongings.weapon=null;
-					Dungeon.hero.belongings.backpack.items.remove(血砍刀.this);
-					updateQuickslot();
-					Heap heap = Dungeon.level.drop( 血砍刀.this, cell );
-					if (!heap.isEmpty()) {
-						heap.sprite.drop( cell );
-					}
-				}
+
 			} else {
 				if (!curUser.shoot( enemy, this )) {
-
-				} else {
 
 				}
 			}
 		}
-
-		protected void rangedHit( Char enemy, int cell ){
-			Dungeon.level.drop( this, cell ).sprite.drop();
-		}
-
-		protected void rangedMiss( int cell ) {
-			parent = null;
-			if (!spawnedForEffect) super.onThrow(cell);
-		}
 		@Override
 		public void cast(final Hero user, final int dst) {
 			final int cell = throwPos( user, dst );
-			血砍刀.this.targetPos = cell;
+			手枪.this.targetPos = cell;
 				super.cast(user, dst);
 		}
 	}

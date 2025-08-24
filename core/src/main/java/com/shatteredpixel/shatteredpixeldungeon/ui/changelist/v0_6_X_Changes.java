@@ -28,7 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双匕首;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.巨斧;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -628,7 +628,7 @@ public class v0_6_X_Changes {
 				"_-_ Cloak levelling progression changed, it is now much more dependant on hero level\n\n" +
 				"These changes should let the rogue go invisible more often, and with more flexibility."));
 		
-		changes.addButton( new ChangeButton(new 双匕首(),
+		changes.addButton( new ChangeButton(new 双刃(),
 				"As part of the rogue rework, sneak attack weapons have been buffed:\n\n" +
 				"_-_ Dagger sneak attack minimum damage increased to 75% from 50%.\n" +
 				"_-_ Dirk sneak attack minimum damage increased to 67% from 50%\n" +

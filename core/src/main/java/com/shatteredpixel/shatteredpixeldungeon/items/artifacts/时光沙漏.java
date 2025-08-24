@@ -121,7 +121,7 @@ public class 时光沙漏 extends Artifact {
 									GameScene.flash(0x80FFFFFF);
 									Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
-									Invisibility.dispel(Dungeon.hero);
+									Invisibility.dispel();
 									activeBuff = new timeFreeze();
 									Talent.onArtifactUsed(Dungeon.hero);
 									activeBuff.attachTo(Dungeon.hero);

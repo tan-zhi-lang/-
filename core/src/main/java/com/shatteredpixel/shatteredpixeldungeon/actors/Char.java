@@ -153,8 +153,8 @@ public abstract class Char extends Actor {
 	public int 生命;
 
 	public float 大小=1;
-	public boolean 第一次攻击=false;
-	public boolean 第一次防御 =false;
+	public boolean 第一次攻击=true;
+	public boolean 第一次防御 =true;
 
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
@@ -710,7 +710,7 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 	
 	public int 攻击时(Char enemy, int damage ) {
-		第一次攻击=true;
+		第一次攻击=false;
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			buff.onAttackProc( enemy );
 		}
@@ -718,7 +718,7 @@ public abstract class Char extends Actor {
 	}
 	
 	public int 防御时(Char enemy, int damage ) {
-		第一次防御 =true;
+		第一次防御 =false;
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (armor != null) {
 			damage = armor.absorb( damage );
@@ -1411,7 +1411,7 @@ public abstract class Char extends Actor {
 		return (ch != null && ch.properties().contains(p));
 	}
 	public int 生命力(){
-		return (int) Math.round(Math.sqrt(最大生命));
+		return (int) Math.round(Math.sqrt(最大生命+(this instanceof Hero hero?hero.力量():0)));
 	}
 	public int 生命力(float x){
 		return Math.round(生命力()*x);
@@ -1451,5 +1451,14 @@ public abstract class Char extends Actor {
 	}
 	public int 视野范围(float x){
 		return Math.round(x*视野范围());
+	}
+
+	public boolean 在水中(){
+		return Dungeon.level.map[pos] == Terrain.WATER;
+	}
+	public boolean 在草丛(){
+		return Dungeon.level.map[pos] == Terrain.GRASS||
+				Dungeon.level.map[pos] == Terrain.HIGH_GRASS||
+				Dungeon.level.map[pos] == Terrain.FURROWED_GRASS;
 	}
 }

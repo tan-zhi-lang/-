@@ -14,6 +14,6 @@ public class SmallRation extends Food {
 	
 	@Override
 	public int 金币() {
-		return 10 * quantity;
+		return super.金币()/2;
 	}
 }

@@ -27,7 +27,7 @@ public class NaturesPower extends ArmorAbility {
 
 		Buff.延长(hero, naturesPowerTracker.class, naturesPowerTracker.DURATION);
 		hero.buff(naturesPowerTracker.class).extensionsLeft = 2;
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 		hero.sprite.emitter().burst(LeafParticle.GENERAL, 10);
 

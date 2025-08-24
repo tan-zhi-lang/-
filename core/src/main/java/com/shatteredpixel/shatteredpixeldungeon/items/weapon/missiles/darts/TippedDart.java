@@ -85,7 +85,7 @@ public abstract class TippedDart extends Dart {
 						
 						hero.spend( 1f );
 						hero.busy();
-						hero.sprite.operate(hero.pos);
+						hero.sprite.operate();
 					} else if (index == 1 && get数量() > 1){
 						detach(hero.belongings.backpack);
 						if (!new Dart().get数量(1).放背包()) Dungeon.level.drop(new Dart().get数量(1), hero.pos).sprite.drop();
@@ -95,7 +95,7 @@ public abstract class TippedDart extends Dart {
 						
 						hero.spend( 1f );
 						hero.busy();
-						hero.sprite.operate(hero.pos);
+						hero.sprite.operate();
 					}
 				}
 			});

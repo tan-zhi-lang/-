@@ -35,12 +35,13 @@ public class 神圣法典 extends Artifact {
 		exp = 0;
 		levelCap = 10;
 
-		charge = Math.min(等级()+4, 10);
+		charge = Math.min(等级()+3, 10);
 		partialCharge = 0;
-		chargeCap = Math.min(等级()+4, 10);
+		chargeCap = Math.min(等级()+3, 10);
 
 		defaultAction = AC_CAST;
 
+		黄色 = true;
 		unique = true;
 		bones = false;
 	}

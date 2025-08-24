@@ -18,7 +18,7 @@ public class ElixirOfFeatherFall extends Elixir {
 	{
 		image = 物品表.ELIXIR_FEATHER;
 
-		talentChance = 1/(float)Recipe.OUT_QUANTITY;
+		talentChance = 1;
 	}
 
 	@Override
@@ -62,17 +62,16 @@ public class ElixirOfFeatherFall extends Elixir {
 
 	@Override
 	public int 金币() {
-		return (int)(60 * (quantity/(float) Recipe.OUT_QUANTITY));
+		return 60 * quantity;
 	}
 
 	@Override
 	public int 能量() {
-		return (int)(12 * (quantity/(float) Recipe.OUT_QUANTITY));
+		return 12 * quantity;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
-		private static final int OUT_QUANTITY = 1;
 
 		{
 			inputs =  new Class[]{PotionOfLevitation.class};
@@ -81,7 +80,6 @@ public class ElixirOfFeatherFall extends Elixir {
 			cost = 10;
 
 			output = ElixirOfFeatherFall.class;
-			outQuantity = OUT_QUANTITY;
 		}
 
 	}

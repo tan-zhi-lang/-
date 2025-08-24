@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.watabou.utils.Random;
 
@@ -13,6 +12,7 @@ public class 毒气宝箱怪 extends Mimic {
 
 	{
 		spriteClass = MimicSprite.毒气.class;
+		生命 = 最大生命 = 1;
 	}
 
 	@Override
@@ -33,7 +33,6 @@ public class 毒气宝箱怪 extends Mimic {
 	protected void generatePrize( boolean useDecks ) {
 		super.generatePrize( useDecks );
 		items.add(Random.oneOf(Generator.randomArtifact(),Generator.randomWand(),Generator.randomRing()));
-		for (Item i : items){
-		}
+
 	}
 }

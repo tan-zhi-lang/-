@@ -32,6 +32,7 @@ public class LiquidMetal extends Item {
 		image = 物品表.LIQUID_METAL;
 
 		stackable = true;
+		白色 = true;
 
 		defaultAction = AC_APPLY;
 
@@ -162,7 +163,7 @@ public class LiquidMetal extends Item {
 					detachAll(Dungeon.hero.belongings.backpack);
 				}
 
-				curUser.sprite.operate(curUser.pos);
+				curUser.sprite.operate();
 				Sample.INSTANCE.play(Assets.Sounds.DRINK);
 				updateQuickslot();
 				curUser.sprite.emitter().start(Speck.factory(Speck.LIGHT), 0.1f, 10);

@@ -77,7 +77,7 @@ public class HeavyBoomerang extends MissileWeapon {
 			this.returnPos = returnPos;
 			this.returnDepth = returnDepth;
 			this.returnBranch = returnBranch;
-			left = 3;
+			left = 1;
 		}
 		
 		public int returnPos(){

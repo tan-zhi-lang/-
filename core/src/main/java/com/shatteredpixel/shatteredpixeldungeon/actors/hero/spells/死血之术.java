@@ -41,7 +41,7 @@ public class 死血之术 extends 巫术 {
 		));
 		Item.updateQuickslot();
 
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		if (hero.belongings.weapon() != null) Enchanting.show(hero, hero.belongings.weapon());
 
 		onSpellCast(tome, hero);

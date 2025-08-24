@@ -51,7 +51,7 @@ public class RecallInscription extends ClericSpell {
 
 		item.setCurrent(hero);
 
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		Enchanting.show(hero, item);
 
 		if (item instanceof Scroll){

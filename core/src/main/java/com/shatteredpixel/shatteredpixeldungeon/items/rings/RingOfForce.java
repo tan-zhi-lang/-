@@ -50,37 +50,81 @@ public class RingOfForce extends Ring {
 	
 	// *** Weapon-like properties ***
 
-	private static float tier(int str){
-		float tier = Math.max(1, (str - 8)/2f);
+	public static int tier(){
+		int str=Dungeon.hero != null ? Dungeon.hero.力量() : 10;
+		int tier = Math.round(Math.max(1, (str - 8)/2f));
 		//each str point after 18 is half as effective
 		if (tier > 5){
-			tier = 5 + (tier - 5) / 2f;
+			tier = 5 + Math.round((tier - 5) / 2f);
+		}
+		return tier;
+	}
+	public static int notier(){
+		int str=10;
+		int tier = Math.round(Math.max(1, (str - 8)/2f));
+		//each str point after 18 is half as effective
+		if (tier > 5){
+			tier = 5 + Math.round((tier - 5) / 2f);
 		}
 		return tier;
 	}
 
 	public static int damageRoll( Hero hero ){
-		if (hero.buff(Force.class) != null
-				&& hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) == null) {
-			int level = getBuffedBonus(hero, Force.class);
-			float tier = tier(hero.力量());
-			int dmg = Hero.heroDamageIntRange(min(level, tier), max(level, tier));
-			if (hero.buff(BrawlersStance.class) != null
-				&& hero.buff(BrawlersStance.class).active){
-				// 3+tier base dmg, roughly +60%->45% dmg at T1->5
-				// lvl*((4+2*tier)/8) scaling, +50% dmg
-				dmg += Math.round(3+tier+(level*((4+2*tier)/8f)));
-			}
-			return dmg;
-		} else {
-			//attack without any ring of force influence
-			return Hero.heroDamageIntRange(1, Math.max(hero.力量()-8, 1));
+		int dmgd = 0;
+		if (hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null) {
+			dmgd = Hero.heroDamageIntRange(2, Math.round(1.5f*(Dungeon.hero.力量()-8)));
 		}
-	}
+		int level = getBuffedBonus(hero, Force.class);
+		int tier = tier();
+		boolean buff =hero.hasbuff(RingOfForce.Force.class);
+		boolean 拳套 =hero.belongings.weapon!=null&&hero.belongings.weapon.拳套;
 
-	//same as equivalent tier weapon
-	private static int min(int lvl, float tier){
-		if (lvl <= 0) tier = 1; //tier is forced to 1 if cursed
+		int dmg =dmgd;
+		if(拳套){
+			dmg+=Math.round(0.75f*Hero.heroDamageIntRange(heromin(),heromax()));
+			if(buff) {
+				dmg += Math.round(0.5f*Hero.heroDamageIntRange(min(level, tier), max(level, tier)));
+			}
+		}else{
+			dmg+=Hero.heroDamageIntRange(heromin(),heromax());
+			if(buff) {
+				dmg += Hero.heroDamageIntRange(min(level, tier), max(level, tier));
+			}
+		}
+		if (hero.buff(BrawlersStance.class) != null
+				&& hero.buff(BrawlersStance.class).active) {
+			// 3+tier base dmg, roughly +60%->45% dmg at T1->5
+			// lvl*((4+2*tier)/8) scaling, +50% dmg
+			dmg += Math.round(3 + tier + (level * ((4 + 2 * tier) / 8f)));
+		}
+		return dmg;
+	}
+	public static int heromin(){
+		return Dungeon.hero.生命力(0.25f);
+	}
+	public static int heromax(){
+		return Dungeon.hero.生命力(0.75f);
+	}
+	public static int min(){
+		int x=0;
+		if(Dungeon.hero()){
+			if(Dungeon.hero.hasbuff(Force.class)){
+				x=Dungeon.hero.buff(Force.class).buffedLvl();
+			}
+		}
+		return min(x,tier());
+	}
+	public static int max(){
+		int x=0;
+		if(Dungeon.hero()){
+			if(Dungeon.hero.hasbuff(Force.class)){
+				x=Dungeon.hero.buff(Force.class).buffedLvl();
+			}
+		}
+		return max(x,tier());
+	}
+	public static int min(int lvl, float tier){
+		if (lvl <= 0) lvl = 0;
 
 		return Math.max( 0, Math.round(
 				tier +  //base
@@ -89,8 +133,8 @@ public class RingOfForce extends Ring {
 	}
 
 	//same as equivalent tier weapon
-	private static int max(int lvl, float tier){
-		if (lvl <= 0) tier = 1; //tier is forced to 1 if cursed
+	public static int max(int lvl, float tier){
+		if (lvl <= 0) lvl = 0;
 
 		return Math.max( 0, Math.round(
 				5*(tier+1) +    //base
@@ -100,24 +144,27 @@ public class RingOfForce extends Ring {
 
 	@Override
 	public String statsInfo() {
-		float tier = tier(Dungeon.hero != null ? Dungeon.hero.力量() : 10);
+		float tier = tier();
 		if (已鉴定()) {
 			int level = soloBuffedBonus();
-			String info = Messages.get(this, "stats", min(level, tier), max(level, tier), level);
+			String info = Messages.get(this, "stats", min(level, tier)+heromin(),
+					max(level, tier)+heromax(),
+					level+ min(level, tier)+heromin());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				level = combinedBuffedBonus(Dungeon.hero);
-				info += "\n\n" + Messages.get(this, "combined_stats", min(level, tier), max(level, tier), level);
+				info += "\n\n" + Messages.get(this, "combined_stats", min(level, tier)+heromin(), max(level, tier)+heromax(), level);
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", min(1, tier), max(1, tier), 1);
+			return Messages.get(this, "typical_stats", min(0, tier)+heromin(),
+					max(0, tier), 1)+heromax();
 		}
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		float tier = tier(Dungeon.hero != null ? Dungeon.hero.力量() : 10);
+		int tier = tier();
 		return min(level+1, tier) + "-" + max(level+1, tier);
 	}
 
@@ -131,7 +178,7 @@ public class RingOfForce extends Ring {
 	public String upgradeStat3(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
 		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST){
-			float tier = tier(Dungeon.hero != null ? Dungeon.hero.力量() : 10);
+			int tier = tier();
 			int bonus = Math.round(3+tier+(level*((4+2*tier)/8f)));
 			return (min(level+1, tier) + bonus) + "-" + (max(level+1, tier) + bonus);
 		} else {
@@ -192,14 +239,14 @@ public class RingOfForce extends Ring {
 				}
 				BuffIndicator.refreshHero();
 				AttackIndicator.updateState();
-				hero.sprite.operate(hero.pos);
+				hero.sprite.operate();
 			} else if (!isEquipped(hero)) {
 				GLog.w(Messages.get(MeleeWeapon.class, "ability_need_equip"));
 
 			} else {
 				Buff.施加(hero, BrawlersStance.class).reset();
 				AttackIndicator.updateState();
-				hero.sprite.operate(hero.pos);
+				hero.sprite.operate();
 			}
 		} else {
 			super.execute(hero, action);
@@ -214,12 +261,14 @@ public class RingOfForce extends Ring {
 			&& (anonymous || 已鉴定() || isEquipped(Dungeon.hero))){
 			//0 if unidentified, solo level if unequipped, combined level if equipped
 			int level = 已鉴定() ? (isEquipped(Dungeon.hero) ? getBuffedBonus(Dungeon.hero, Force.class) : soloBuffedBonus()) : 0;
-			float tier = tier(Dungeon.hero.力量());
+			int tier = 已鉴定()?tier():notier();
 			int dmgBoost = Math.round(3+tier+(level*((4+2*tier)/8f)));
 			if (已鉴定()) {
-				info += "\n\n" + Messages.get(this, "ability_desc", min(level, tier)+dmgBoost, max(level, tier)+dmgBoost);
+				info += "\n\n" + Messages.get(this, "ability_desc", min(level, tier)+heromin()+dmgBoost,
+						max(level, tier)+heromax()+dmgBoost);
 			} else {
-				info += "\n\n" + Messages.get(this, "typical_ability_desc",  min(level, tier)+dmgBoost, max(level, tier)+dmgBoost);
+				info += "\n\n" + Messages.get(this, "typical_ability_desc",  min(level, tier)+heromin()+dmgBoost,
+						max(level, tier))+heromax()+dmgBoost;
 			}
 		}
 

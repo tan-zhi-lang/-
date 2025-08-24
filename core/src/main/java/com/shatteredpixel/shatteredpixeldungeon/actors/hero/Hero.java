@@ -235,7 +235,10 @@ public class Hero extends Char {
     public int 力量;
     public int 根骨 = 0;
     public int 连击 = 0;
-    public int 流血 = 0;
+    public int 流血 = 1;
+    public int 水伤 = 1;
+    public int 法力;
+    public int 最大法力;
 
     public float awareness;
 
@@ -254,6 +257,7 @@ public class Hero extends Char {
         super();
 
         生命 = 最大生命 = 16;
+        法力 = 最大法力 = 4;
         力量 = 10;
 
         belongings = new Belongings(this);
@@ -264,6 +268,7 @@ public class Hero extends Char {
     public void 更新生命() {
 
         最大生命 = 16 + Math.round((5 + 0.6f) * (等级 - 1)) + 根骨 * 15 + HTBoost;
+        最大法力 = 4 + Math.round(4 * (等级 - 1)) ;
 
         if (buff(根骨秘药.HTBoost.class) != null) {
             最大生命 += buff(根骨秘药.HTBoost.class).boost();
@@ -324,6 +329,9 @@ public class Hero extends Char {
     private static final String 根骨x = "根骨";
     private static final String 连击x = "连击";
     private static final String 流血x = "流血";
+    private static final String 水伤x = "水伤";
+    private static final String 法力x = "法力";
+    private static final String 最大法力x = "法力";
 
     private static final String 神力x = "神力";
     private static final String EXPERIENCE = "exp";
@@ -344,6 +352,9 @@ public class Hero extends Char {
         bundle.put(根骨x, 根骨);
         bundle.put(连击x, 连击);
         bundle.put(流血x, 流血);
+        bundle.put(水伤x, 水伤);
+        bundle.put(法力x, 法力);
+        bundle.put(最大法力x, 最大法力);
 
         bundle.put(神力x, 神力);
         bundle.put(EXPERIENCE, 当前经验);
@@ -361,6 +372,10 @@ public class Hero extends Char {
         根骨 = bundle.getInt(根骨x);
         连击 = bundle.getInt(连击x);
         流血 = bundle.getInt(流血x);
+        水伤 = bundle.getInt(水伤x);
+        法力 = bundle.getInt(法力x);
+        最大法力 = bundle.getInt(最大法力x);
+
         神力 = bundle.getInt(神力x);
         当前经验 = bundle.getInt(EXPERIENCE);
 
@@ -581,10 +596,10 @@ public class Hero extends Char {
         if(hs==HeroClass.灵猫){
             return 1;
         }
-        if(hs==HeroClass.鼠弟||hs==HeroClass.凌云){
+        if(hs==HeroClass.鼠弟){
             return 1;
         }
-        if(hs==HeroClass.血鬼||hs==HeroClass.枪手){
+        if(hs==HeroClass.血鬼||hs==HeroClass.枪手||hs==HeroClass.凌云){
             return 0;
         }
         return 6;
@@ -835,15 +850,18 @@ public class Hero extends Char {
         KindOfWeapon wep = belongings.attackingWeapon();
         int dmg;
 
-        if (!RingOfForce.fightingUnarmed(this)) {
-            dmg = wep.damageRoll(this);
-
-            if (!(wep instanceof MissileWeapon)) dmg += RingOfForce.armedDamageBonus(this);
-        } else {
+        if (RingOfForce.fightingUnarmed(this)) {//空手
             dmg = RingOfForce.damageRoll(this);
             if (RingOfForce.unarmedGetsWeaponAugment(this)) {
                 dmg = ((Weapon) belongings.attackingWeapon()).augment.damageFactor(dmg);
             }
+        } else {
+            dmg = wep.damageRoll(this);
+            if(wep.拳套){
+                dmg+=RingOfForce.damageRoll(this);
+            }
+            if(hasbuff(RingOfForce.Force.class))
+           dmg += RingOfForce.armedDamageBonus(this)+RingOfForce.min()+RingOfForce.heromin();
         }
 
         PhysicalEmpower emp = buff(PhysicalEmpower.class);
@@ -888,7 +906,7 @@ public class Hero extends Char {
         if (heroClass(HeroClass.行僧)) {
             speed *= 1.25f;
         }
-        if (heroClass(HeroClass.盗贼) && Dungeon.level.在水中(this)) {
+        if (heroClass(HeroClass.盗贼) && 在水中()) {
             speed *= 1.1f;
         }
         speed *= RingOfHaste.speedMultiplier(this);
@@ -1075,18 +1093,58 @@ public class Hero extends Char {
         if(heroClass(HeroClass.血鬼)){
             流血++;
             if(流血==10) {
-                流血=0;
-                受伤(1);
+                流血=1;
+                受伤(生命力(0.25f));
+            }
+        }
+        if(heroClass(HeroClass.机器)&&在水中()){
+            水伤++;
+            if(水伤==3) {
+                水伤=1;
+                受伤(生命力(0.25f));
             }
         }
         if(heroClass(HeroClass.凌云)){
             flying=true;
         }
-        if (Dungeon.level.在草丛(this) && 有天赋(Talent.自然丰收)) {
+        if(heroClass(HeroClass.鼠弟)){
+            for (int n : PathFinder.NEIGHBOURS8){
+                Char c= Actor.findChar(pos+n);
+                if(c.alignment == Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
+                    c.受伤(heroDamageIntRange(1,2));
+                }
+            }
+        }
+        if (在草丛() && 有天赋(Talent.自然丰收)) {
             float shield = 天赋点数(Talent.自然丰收, 0.275f);
             Buff.施加(this, Hunger.class).吃饭(shield);
         }
 
+        for (int n : PathFinder.NEIGHBOURS8){
+            Heap heap = Dungeon.level.heaps.get(pos+n);
+            if (heap != null && heap.type == Heap.Type.HEAP) {
+                Item item = heap.peek();
+                boolean ok=false;
+                for (Item i : belongings){
+                    if (belongings.contains(i)){
+                        ok=true;
+                        break;
+                    }
+                }
+                if (ok||item instanceof Plant.Seed ||
+                        item instanceof Key ||
+                        item instanceof Gold ||
+                        item instanceof EnergyCrystal ||
+                        item instanceof Dewdrop
+                ) {
+                    if (item.doPickUp(this)) {
+                        heap.pickUp();
+                    } else {
+                        heap.sprite.drop();
+                    }
+                }
+            }
+        }
 
         //calls to dungeon.observe will also update hero's local FOV.
         fieldOfView = Dungeon.level.heroFOV;
@@ -1234,31 +1292,6 @@ public class Hero extends Char {
     }
 
     private boolean actMove(HeroAction.Move action) {
-//		for (int n : PathFinder.NEIGHBOURS9){
-        Heap heap = Dungeon.level.heaps.get(action.dst);
-        if (heap != null && heap.type == Heap.Type.HEAP) {
-            Item item = heap.peek();
-            boolean ok=false;
-            for (Item i : belongings){
-                if (i.stackable &&i.getClass() != item.getClass()){
-                    ok=true;
-                    break;
-                }
-            }
-            if (ok||item instanceof Plant.Seed ||
-                    item instanceof Key ||
-                    item instanceof Gold ||
-                    item instanceof EnergyCrystal ||
-                    item instanceof Dewdrop
-            ) {
-                if (item.doPickUp(this)) {
-                    heap.pickUp();
-                } else {
-                    heap.sprite.drop();
-                }
-            }
-        }
-//		}
 
         if (getCloser(action.dst)) {
             canSelfTrample = false;
@@ -2114,8 +2147,17 @@ public class Hero extends Char {
 
     private boolean getCloser(final int target) {
 
-        if (target == pos)
+        if (target == pos){
+            if(Dungeon.level.pit[target] && !Dungeon.level.solid[target]){
+                if (flying || buff(Levitation.class) != null) {
+                    if (!Chasm.jumpConfirmed) {
+                        Chasm.heroJump(this);
+                        interrupt();
+                    }
+                }
+            }
             return false;
+        }
 
         if (rooted) {
             PixelScene.shake(1, 1f);
@@ -2207,6 +2249,7 @@ public class Hero extends Char {
             }
 
             sprite.move(pos, step);
+
             move(step);
 
             spend(delay);
@@ -2824,7 +2867,7 @@ public class Hero extends Char {
         if (Dungeon.isChallenged(Challenges.DARKNESS)) {
             x /= 4;
         }
-        return x;
+        return Math.max(x,2);
     }
 
     public boolean search(boolean intentional) {
@@ -3059,7 +3102,7 @@ public class Hero extends Char {
         boolean wasAlly = enemy.alignment == alignment;
         boolean hit = attack(enemy, dmgMulti, dmgBonus, accMulti);
 
-        Invisibility.dispel();
+        Invisibility.notimedispel();
 
         连击--;
         //fury attacks as many times as you have combo count

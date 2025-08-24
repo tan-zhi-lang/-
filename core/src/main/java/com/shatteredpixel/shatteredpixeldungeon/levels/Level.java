@@ -240,7 +240,7 @@ public abstract class Level implements Bundlable {
 			}
 			if ( Dungeon.intStoneNeeded() ){
 				Dungeon.LimitedDrops.INT_STONE.drop();
-				addItemToSpawn( new 感知符石().get数量(2));
+				addItemToSpawn( new 感知符石());
 			}
 			if ( Dungeon.trinketCataNeeded() ){
 				Dungeon.LimitedDrops.TRINKET_CATA.drop();
@@ -1682,11 +1682,5 @@ public abstract class Level implements Bundlable {
 			default:
 				return "";
 		}
-	}
-	public boolean 在水中(Char ch){
-		return map[ch.pos] == Terrain.WATER;
-	}
-	public boolean 在草丛(Char ch){
-		return map[ch.pos] == Terrain.GRASS||map[ch.pos] == Terrain.HIGH_GRASS||map[ch.pos] == Terrain.FURROWED_GRASS;
 	}
 }

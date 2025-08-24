@@ -96,7 +96,7 @@ public class PotionOfMastery extends ExoticPotion {
 				updateQuickslot();
 
 				Sample.INSTANCE.play( Assets.Sounds.DRINK );
-				curUser.sprite.operate(curUser.pos);
+				curUser.sprite.operate();
 
 				if (!identifiedByUse) {
 					curItem.detach(curUser.belongings.backpack);

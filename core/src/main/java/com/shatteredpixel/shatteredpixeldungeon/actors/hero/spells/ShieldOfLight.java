@@ -54,7 +54,7 @@ public class ShieldOfLight extends TargetedClericSpell {
 		QuickSlotButton.target(ch);
 
 		Sample.INSTANCE.play(Assets.Sounds.READ);
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 
 		//1 turn less as the casting is instant
 		Buff.延长( hero, ShieldOfLightTracker.class, 4f).object = ch.id();
@@ -64,7 +64,7 @@ public class ShieldOfLight extends TargetedClericSpell {
 		}
 
 		hero.busy();
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		hero.sprite.emitter().start(Speck.factory(Speck.LIGHT), 0.15f, 6);
 
 		Char ally = PowerOfMany.getPoweredAlly();

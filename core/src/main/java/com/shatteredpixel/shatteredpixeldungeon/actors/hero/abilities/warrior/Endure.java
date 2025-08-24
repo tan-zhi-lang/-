@@ -41,7 +41,7 @@ public class Endure extends ArmorAbility {
 		if (combo != null){
 			combo.addTime(3f);
 		}
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 
 		armor.charge -= chargeUse(hero);
 		armor.updateQuickslot();

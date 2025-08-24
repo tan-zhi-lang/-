@@ -70,7 +70,7 @@ public class Whip extends MeleeWeapon {
 						onAbilityKill(hero, ch);
 					}
 				}
-				Invisibility.dispel();
+				Invisibility.notimedispel();
 				hero.spendAndNext(hero.攻速());
 				afterAbilityUsed(hero);
 			}

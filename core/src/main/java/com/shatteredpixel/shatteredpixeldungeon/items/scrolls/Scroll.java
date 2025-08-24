@@ -53,7 +53,7 @@ public abstract class Scroll extends Item {
 	protected static final float TIME_TO_READ	= 1f;
 
 	public float readTime(){
-		if (Dungeon.hero.heroClass(HeroClass.MAGE)){
+		if (Dungeon.hero.heroClass(HeroClass.MAGE)||Dungeon.hero.heroClass(HeroClass.学士)){
 			return TIME_TO_READ-1;
 		} else {
 			return TIME_TO_READ;

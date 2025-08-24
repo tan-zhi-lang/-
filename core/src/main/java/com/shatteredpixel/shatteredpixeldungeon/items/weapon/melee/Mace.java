@@ -102,7 +102,7 @@ public class Mace extends MeleeWeapon {
 						wep.onAbilityKill(hero, enemy);
 					}
 				}
-				Invisibility.dispel();
+				Invisibility.notimedispel();
 				hero.spendAndNext(hero.攻速());
 				wep.afterAbilityUsed(hero);
 			}

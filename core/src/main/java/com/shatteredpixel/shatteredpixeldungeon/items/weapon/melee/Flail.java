@@ -100,7 +100,7 @@ public class Flail extends MeleeWeapon {
 		spin.spins++;
 		Buff.延长(hero, SpinAbilityTracker.class, 3f);
 		Sample.INSTANCE.play(Assets.Sounds.CHAINS, 1, 1, 0.9f + 0.1f*spin.spins);
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		hero.spendAndNext(Actor.TICK);
 		BuffIndicator.refreshHero();
 

@@ -120,11 +120,6 @@ public class Invisibility extends FlavourBuff {
 			prep.detach();
 		}
 
-		Swiftthistle.TimeBubble bubble =  ch.buff( Swiftthistle.TimeBubble.class );
-		if (bubble != null){
-			bubble.detach();
-		}
-
 		RoundShield.GuardTracker guard = ch.buff(RoundShield.GuardTracker.class);
 		if (guard != null && guard.hasBlocked){
 			guard.detach();

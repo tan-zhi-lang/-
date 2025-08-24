@@ -106,7 +106,7 @@ public class ShardOfOblivion extends Trinket {
 			if (ready){
 				item.鉴定();
 				Badges.validateItemLevelAquired(item);
-				curUser.sprite.operate(curUser.pos);
+				curUser.sprite.operate();
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 				curUser.sprite.parent.add( new Identification( curUser.sprite.center().offset( 0, -16 ) ) );
 				GLog.p(Messages.get(ShardOfOblivion.class, "identify"));

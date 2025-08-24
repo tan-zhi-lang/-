@@ -3,6 +3,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
@@ -10,50 +12,40 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.watabou.utils.PathFinder;
 
-public class Quarterstaff extends MeleeWeapon {
+public class 半月刃 extends MeleeWeapon {
 
 	{
-		image = 物品表.QUARTERSTAFF;
-		hitSound = Assets.Sounds.HIT_CRUSH;
-		hitSoundPitch = 1f;
+		image = 物品表.半月刃;
+		hitSound = Assets.Sounds.HIT_SLASH;
 
-		tier = 2;
+		tier = 3;
+		延迟 = 1.25f;
 	}
 
 	@Override
 	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //12 base, down from 15
+		return  4*(tier+1) +    //16 base, down from 20
 				lvl*(tier+1);   //scaling unchanged
 	}
 
-
 	@Override
-	public int defenseFactor( Char owner ) {
-		return 最大防御();
-	}
-
-	public int 最大防御(){
-		return 最大防御(强化等级());
-	}
-
-	//4 extra defence, plus 1 per level
-	public int 最大防御(int lvl){
-		return 2 + lvl;
-	}
-
-	public String statsInfo(){
-		if (已鉴定()){
-			return Messages.get(this, "stats_desc", 2+ 强化等级());
-		} else {
-			return Messages.get(this, "typical_stats_desc", 2);
+	public int 攻击时(Char attacker, Char defender, int damage) {
+		for (int n : PathFinder.NEIGHBOURS8){
+			Char c= Actor.findChar(attacker.pos+n);
+			if(c.alignment == Char.Alignment.ENEMY&& Dungeon.level.heroFOV[c.pos]){
+				c.受伤(damage);
+			}
 		}
+		return super.攻击时(attacker, defender, damage);
 	}
+
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		beforeAbilityUsed(hero, null);
 		//1 turn less as using the ability is instant
-		Buff.延长(hero, DefensiveStance.class, 2 + 强化等级());
+		Buff.延长(hero, SwordDance.class, 3+ 强化等级());
 		hero.sprite.operate();
 		hero.next();
 		afterAbilityUsed(hero);
@@ -73,7 +65,7 @@ public class Quarterstaff extends MeleeWeapon {
 		return Integer.toString(4+level);
 	}
 
-	public static class DefensiveStance extends FlavourBuff {
+	public static class SwordDance extends FlavourBuff {
 
 		{
 			announced = true;
@@ -82,7 +74,7 @@ public class Quarterstaff extends MeleeWeapon {
 
 		@Override
 		public int icon() {
-			return BuffIndicator.DUEL_EVASIVE;
+			return BuffIndicator.DUEL_DANCE;
 		}
 
 		@Override

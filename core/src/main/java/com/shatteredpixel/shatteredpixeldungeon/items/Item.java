@@ -49,7 +49,7 @@ public class Item implements Bundlable {
 	
 	public static final String AC_DROP		= "DROP";
 	public static final String AC_THROW		= "THROW";
-	
+
 	protected String defaultAction;
 	public boolean usesTargeting;
 
@@ -61,11 +61,20 @@ public class Item implements Bundlable {
 	public boolean 炼金全放 = false;
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;
-	
+
+	public String item_Miss		= Assets.Sounds.MISS;
 	private int 等级 = 0;
 
+	public boolean 白色 = false;
+	public boolean 黑色 = false;
+	public boolean 黄色 = false;
+	public boolean 青色 = false;
+	public boolean 紫色 = false;
+	public boolean 红色 = false;
+	public boolean 绿色 = false;
+	public boolean 蓝色 = false;
 	public boolean levelKnown = false;
-	
+
 	public boolean cursed;
 	public boolean cursedKnown;
 	
@@ -99,6 +108,10 @@ public class Item implements Bundlable {
 		return Messages.get(this, "ac_" + action);
 	}
 
+	public final boolean doPickUp() {
+
+		return doPickUp( Dungeon.hero, Dungeon.hero.pos );
+	}
 	public final boolean doPickUp( Hero hero ) {
 		return doPickUp( hero, hero.pos );
 	}
@@ -620,7 +633,7 @@ public class Item implements Bundlable {
 	}
 
 	public void throwSound(){
-		Sample.INSTANCE.play(Assets.Sounds.MISS, 0.6f, 0.6f, 1.5f);
+		Sample.INSTANCE.play(item_Miss, 0.6f, 0.6f, 1.5f);
 	}
 	
 	public void cast( final Hero user, final int dst ) {

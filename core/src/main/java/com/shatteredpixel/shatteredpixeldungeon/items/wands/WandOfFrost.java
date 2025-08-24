@@ -69,21 +69,19 @@ public class WandOfFrost extends DamageWand {
 				float chillturns = Math.min(10, ch.buff(Frost.class).cooldown());
 				damage = (int)Math.round(damage * Math.pow(0.9333f, chillturns));
 			}
-			if (ch.buff(Chill.class) != null){
-				Buff.施加(ch, Frost.class, 2+ 强化等级());
-			} else {
-				ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
-			}
 
 			wandProc(ch, chargesPerCast());
 			ch.受伤时(damage, this);
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 1.1f * Random.Float(0.87f, 1.15f) );
 
 			if (ch.isAlive()){
+				if (ch.buff(Chill.class) != null){
+					Buff.施加(ch, Frost.class, 2+ 强化等级());
+				}
 				if (Dungeon.level.water[ch.pos]) {
-					Buff.施加(ch, Chill.class, 2 + 强化等级());
 					Buff.施加(ch, Frost.class, 2 + 强化等级());
 				} else {
+					ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
 					Buff.施加(ch, Chill.class, 2 + 强化等级());
 				}
 			}

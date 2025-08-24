@@ -538,7 +538,7 @@ public abstract class Wand extends Item {
 			if (removed) new Flare( 6, 32 ).color(0xFF4CD2, true).show( Dungeon.hero.sprite, 2f );
 		}
 
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 		updateQuickslot();
 
 		curUser.spendAndNext( TIME_TO_ZAP );
@@ -712,7 +712,7 @@ public abstract class Wand extends Item {
 						}
 
 						curWand.curCharges = 0;
-						curUser.sprite.operate(curUser.pos);
+						curUser.sprite.operate();
 						ScrollOfRecharging.charge(curUser);
 						updateQuickslot();
 						curUser.spendAndNext(Actor.TICK);

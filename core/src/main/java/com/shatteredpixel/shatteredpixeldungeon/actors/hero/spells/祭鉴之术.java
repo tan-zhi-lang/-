@@ -46,7 +46,7 @@ public class 祭鉴之术 extends 背包巫术 {
 		hero.spend( 1f );
 		hero.busy();
 
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		hero.sprite.parent.add( new Identification( hero.sprite.center().offset( 0, -16 ) ) );
 
 		Sample.INSTANCE.play( Assets.Sounds.READ );

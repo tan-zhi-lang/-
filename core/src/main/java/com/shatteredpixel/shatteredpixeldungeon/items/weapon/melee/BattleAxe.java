@@ -15,13 +15,12 @@ public class BattleAxe extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 4;
-		命中 = 1.24f; //24% boost to accuracy
 	}
 
 	@Override
 	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //20 base, down from 25
-				lvl*(tier+1);   //scaling unchanged
+		return  4*(tier+2) +    //20 base, down from 25
+				lvl*(tier+2);   //scaling unchanged
 	}
 
 	@Override

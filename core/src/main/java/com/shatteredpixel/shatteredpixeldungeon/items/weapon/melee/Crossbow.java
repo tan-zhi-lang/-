@@ -99,7 +99,7 @@ public class Crossbow extends MeleeWeapon {
 
 		beforeAbilityUsed(hero, null);
 		Buff.施加(hero, ChargedShot.class);
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		hero.next();
 		afterAbilityUsed(hero);
 	}

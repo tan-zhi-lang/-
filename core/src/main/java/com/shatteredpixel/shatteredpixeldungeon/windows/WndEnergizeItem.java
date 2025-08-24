@@ -146,6 +146,9 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		@Override
 		public boolean itemSelectable(Item item) {
+			if(item instanceof EquipableItem e){
+				return !e.isEquipped(Dungeon.hero);
+			}
 			return item.能量() > 0;
 		}
 

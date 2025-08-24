@@ -484,25 +484,25 @@ public abstract class RegularLevel extends Level {
 		Random.popGenerator();
 
 		Random.pushGenerator( Random.Long() );
-			DriedRose rose = Dungeon.hero.belongings.getItem( DriedRose.class );
-			if (rose != null && rose.已鉴定() && !rose.cursed && Ghost.Quest.completed()){
-				//aim to drop 1 petal every 2 floors
-				int petalsNeeded = (int) Math.ceil((float)((Dungeon.depth / 2) - rose.droppedPetals) / 3);
+		DriedRose rose = Dungeon.hero.belongings.getItem( DriedRose.class );
+		if (rose != null && rose.已鉴定() && !rose.cursed && Ghost.Quest.completed()){
+			//aim to drop 1 petal every 2 floors
+			int petalsNeeded = (int) Math.ceil((float)((Dungeon.depth / 2) - rose.droppedPetals) / 3);
 
-				for (int i=1; i <= petalsNeeded; i++) {
-					//the player may miss a single petal and still max their rose.
-					if (rose.droppedPetals < 11) {
-						Item item = new DriedRose.Petal();
-						int cell = randomDropCell();
-						drop( item, cell ).type = Heap.Type.HEAP;
-						if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
-							map[cell] = Terrain.GRASS;
-							losBlocking[cell] = false;
-						}
-						rose.droppedPetals++;
+			for (int i=1; i <= petalsNeeded; i++) {
+				//the player may miss a single petal and still max their rose.
+				if (rose.droppedPetals < 11) {
+					Item item = new DriedRose.Petal();
+					int cell = randomDropCell();
+					drop( item, cell ).type = Heap.Type.HEAP;
+					if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
+						map[cell] = Terrain.GRASS;
+						losBlocking[cell] = false;
 					}
+					rose.droppedPetals++;
 				}
 			}
+		}
 		Random.popGenerator();
 
 		//cached rations try to drop in a special room on floors 2/4/7, to a max of 2/3

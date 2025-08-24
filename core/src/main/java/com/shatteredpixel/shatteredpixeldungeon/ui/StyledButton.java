@@ -13,7 +13,7 @@ import com.watabou.noosa.audio.Sample;
 public class StyledButton extends Button {
 	
 	public NinePatch bg;
-	protected RenderedTextBlock text;
+	public RenderedTextBlock text;
 	protected Image icon;
 	public boolean leftJustify = false;
 

@@ -362,7 +362,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 								@Override
 								public void call() {
 									hero.attack(enemy, 1.5f, 0, Char.INFINITE_ACCURACY);
-									Invisibility.dispel();
+									Invisibility.notimedispel();
 									hero.next();
 									tracker.detach();
 									Buff.施加(hero, MonkEnergy.class).abilityUsed(Flurry.this);
@@ -373,7 +373,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 								}
 							});
 						} else {
-							Invisibility.dispel();
+							Invisibility.notimedispel();
 							hero.next();
 							tracker.detach();
 							Buff.施加(hero, MonkEnergy.class).abilityUsed(Flurry.this);
@@ -563,7 +563,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 								Buff.施加(enemy, Paralysis.class, Math.min( 6, trajectory.dist));
 							}
 						}
-						Invisibility.dispel();
+						Invisibility.notimedispel();
 						hero.spendAndNext(hero.攻速());
 						tracker.detach();
 						Buff.施加(hero, MonkEnergy.class).abilityUsed(DragonKick.this);
@@ -601,7 +601,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 			@Override
 			public void doAbility(Hero hero, Integer target) {
 
-				hero.sprite.operate(hero.pos);
+				hero.sprite.operate();
 				GameScene.flash(0x88000000, false);
 				Sample.INSTANCE.play(Assets.Sounds.SCAN);
 

@@ -422,7 +422,7 @@ public class CrystalSpire extends Mob {
 						}
 					}
 
-					Invisibility.dispel(Dungeon.hero);
+					Invisibility.dispel();
 					Dungeon.hero.spendAndNext(p.delayFactor(CrystalSpire.this));
 				}
 			});

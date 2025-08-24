@@ -52,7 +52,7 @@ public abstract class 巫术 {
 	}
 
 	public void onSpellCast(灵月法杖 tome, Hero hero){
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 		tome.wandUsed();
 	}
 

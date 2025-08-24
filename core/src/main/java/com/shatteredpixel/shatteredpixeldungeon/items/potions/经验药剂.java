@@ -22,7 +22,7 @@ public class 经验药剂 extends Potion {
 	public void apply( Hero hero ) {
 		鉴定();
 		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(hero.升级所需(0.83f)), FloatingText.EXPERIENCE);
-		hero.经验( hero.升级所需(), getClass() );
+		hero.经验( hero.升级所需(0.83f), getClass() );
 		new Flare( 6, 32 ).color(0xFFFF00, true).show( curUser.sprite, 2f );
 	}
 	

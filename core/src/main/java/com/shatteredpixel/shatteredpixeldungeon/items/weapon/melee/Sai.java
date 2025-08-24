@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 
@@ -30,6 +29,11 @@ public class Sai extends MeleeWeapon {
 		延迟 = 0.5f; //2x speed
 	}
 
+	@Override
+	public int 最小攻击(int lvl) {
+		return  1+tier +  //base
+				lvl;    //level scaling
+	}
 	@Override
 	public int 最大攻击(int lvl) {
 		return  Math.round(2.5f*(tier+1)) +     //10 base, down from 20
@@ -91,7 +95,7 @@ public class Sai extends MeleeWeapon {
 					wep.onAbilityKill(hero, enemy);
 				}
 
-				Invisibility.dispel();
+				Invisibility.notimedispel();
 				hero.spendAndNext(hero.攻速());
 
 				wep.afterAbilityUsed(hero);

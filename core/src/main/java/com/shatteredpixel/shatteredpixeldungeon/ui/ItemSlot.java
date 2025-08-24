@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
@@ -295,7 +296,12 @@ public class ItemSlot extends Button {
 
 		int trueLvl = item.visiblyUpgraded();
 		int buffedLvl = item.buffedVisiblyUpgraded();
-		if(item instanceof 法师魔杖 ||item instanceof Ring ||item instanceof MissileWeapon||item instanceof Wand||item instanceof Artifact){
+		if(item instanceof 法师魔杖 ||
+				item instanceof 手枪 ||
+				item instanceof Ring ||
+				item instanceof MissileWeapon||
+				item instanceof Wand||
+				item instanceof Artifact){
 			if (trueLvl != 0 || buffedLvl != 0) {
 				center.text(Messages.format(TXT_LEVEL, buffedLvl));
 				center.measure();

@@ -58,7 +58,7 @@ public class LifeLinkSpell extends ClericSpell {
 			Buff.延长(hero, LifeLink.class, duration).object = ally.id();
 		} else {
 			ally = Stasis.getStasisAlly();
-			hero.sprite.operate(hero.pos);
+			hero.sprite.operate();
 			hero.sprite.parent.add(
 					new Beam.HealthRay(DungeonTilemap.tileCenterToWorld(hero.pos), hero.sprite.center()));
 		}

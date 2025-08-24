@@ -461,7 +461,7 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		public int chargeCap(){
-			return Math.min(10, 3+ curItem.强化等级()/2);
+			return Math.min(10, 3+ Dungeon.hero.等级(0.34f));
 		}
 
 		public void gainCharge( float charge ){
@@ -551,7 +551,7 @@ public class MeleeWeapon extends Weapon {
 			Dungeon.hero.belongings.weapon = Dungeon.hero.belongings.secondWep;
 			Dungeon.hero.belongings.secondWep = temp;
 
-			Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+			Dungeon.hero.sprite.operate();
 			Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
 			ActionIndicator.setAction(this);

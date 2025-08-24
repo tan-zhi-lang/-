@@ -97,8 +97,8 @@ public class SummonElemental extends Spell {
 			elemental.setSummonedALly();
 			elemental.生命 = elemental.最大生命;
 			ScrollOfTeleportation.appear( elemental, Random.element(spawnPoints) );
-			Invisibility.dispel(curUser);
-			curUser.sprite.operate(curUser.pos);
+			Invisibility.dispel();
+			curUser.sprite.operate();
 			curUser.spendAndNext(Actor.TICK);
 
 			detach(Dungeon.hero.belongings.backpack);
@@ -194,7 +194,7 @@ public class SummonElemental extends Spell {
 				summonClass = Elemental.ChaosElemental.class;
 			}
 
-			curUser.sprite.operate(curUser.pos);
+			curUser.sprite.operate();
 
 			updateQuickslot();
 		}

@@ -43,7 +43,7 @@ public class DivineIntervention extends ClericSpell {
 	public void onCast(神圣法典 tome, Hero hero) {
 
 		Sample.INSTANCE.play(Assets.Sounds.CHARGEUP, 1, 1.2f);
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 
 		for (Char ch : Actor.chars()){
 			if (ch.alignment == Char.Alignment.ALLY && ch != hero){

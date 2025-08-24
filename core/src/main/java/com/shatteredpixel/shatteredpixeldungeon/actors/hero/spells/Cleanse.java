@@ -76,7 +76,7 @@ public class Cleanse extends ClericSpell {
 
 		hero.spend( 1f );
 		hero.busy();
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		Sample.INSTANCE.play(Assets.Sounds.READ);
 
 		onSpellCast(tome, hero);

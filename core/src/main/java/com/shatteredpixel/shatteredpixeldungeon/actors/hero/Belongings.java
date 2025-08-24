@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -222,7 +223,7 @@ public class Belongings implements Iterable<Item> {
 
 		boolean lostInvent = lostInventory();
 
-		for (Item item : this) {
+		for (Item item : this.backpack.items) {
 			if (itemClass.isInstance( item )) {
 				if (!lostInvent || item.keptThroughLostInventory()) {
 					return (T) item;
@@ -238,7 +239,7 @@ public class Belongings implements Iterable<Item> {
 
 		boolean lostInvent = lostInventory();
 
-		for (Item item : this) {
+		for (Item item : this.backpack.items) {
 			if (itemClass.isInstance( item )) {
 				if (!lostInvent || item.keptThroughLostInventory()) {
 					result.add((T) item);
@@ -377,6 +378,10 @@ public class Belongings implements Iterable<Item> {
 		int count = 0;
 		
 		for (Wand.Charger charger : owner.buffs(Wand.Charger.class)){
+			charger.gainCharge(charge);
+			count++;
+		}
+		for (手枪.Charger charger : owner.buffs(手枪.Charger.class)){
 			charger.gainCharge(charge);
 			count++;
 		}

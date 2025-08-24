@@ -140,9 +140,7 @@ public abstract class KindofMisc extends EquipableItem {
 			return true;
 
 		} else {
-
 			return false;
-
 		}
 	}
 

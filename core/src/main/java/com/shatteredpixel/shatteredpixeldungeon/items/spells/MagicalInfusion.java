@@ -52,7 +52,7 @@ public class MagicalInfusion extends InventorySpell {
 	public void useAnimation(){
 		curUser.spend(1f);
 		curUser.busy();
-		(curUser.sprite).operate(curUser.pos);
+		(curUser.sprite).operate();
 
 		Sample.INSTANCE.play(Assets.Sounds.READ);
 		Invisibility.dispel();

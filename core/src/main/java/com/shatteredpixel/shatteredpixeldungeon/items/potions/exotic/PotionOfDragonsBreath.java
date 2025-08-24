@@ -107,7 +107,7 @@ public class PotionOfDragonsBreath extends ExoticPotion {
 				identifiedByUse = false;
 				curUser.busy();
 				Sample.INSTANCE.play( Assets.Sounds.DRINK );
-				curUser.sprite.operate(curUser.pos, new Callback() {
+				curUser.sprite.operate( new Callback() {
 					@Override
 					public void call() {
 

@@ -80,7 +80,7 @@ public class CloakOfShadows extends Artifact {
 					activeBuff = activeBuff();
 					activeBuff.attachTo(hero);
 					Talent.onArtifactUsed(Dungeon.hero);
-					hero.sprite.operate(hero.pos);
+					hero.sprite.operate();
 				}
 			} else {
 				activeBuff.detach();

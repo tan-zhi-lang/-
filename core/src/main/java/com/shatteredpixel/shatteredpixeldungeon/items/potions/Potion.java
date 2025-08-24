@@ -8,9 +8,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -70,7 +71,11 @@ public class Potion extends Item {
 	private static final float TIME_TO_DRINK = 1f;
 
 	public float drinkTime(){
-		return TIME_TO_DRINK;
+		if (Dungeon.hero.heroClass(HeroClass.学士)){
+			return TIME_TO_DRINK-1;
+		} else {
+			return TIME_TO_DRINK;
+		}
 	}
 	private static final LinkedHashMap<String, Integer> colors = new LinkedHashMap<String, Integer>() {
 		{
@@ -276,6 +281,9 @@ public class Potion extends Item {
 		hero.spend( drinkTime() );
 		hero.busy();
 		apply( hero );
+		if (hero.heroClass(HeroClass.学士)){
+			Buff.施加(hero, Swiftthistle.TimeBubble.class).reset(2);
+		}
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
 		
@@ -404,6 +412,10 @@ public class Potion extends Item {
 		Fire fire = (Fire)Dungeon.level.blobs.get( Fire.class );
 		if (fire != null) {
 			fire.clear(cell);
+		}
+		SacrificialFire sacrificialfire = (SacrificialFire)Dungeon.level.blobs.get( SacrificialFire.class );
+		if (sacrificialfire != null) {
+			sacrificialfire.sacrifice(Dungeon.hero);
 		}
 
 		Char ch = Actor.findChar(cell);

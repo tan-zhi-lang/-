@@ -155,11 +155,11 @@ public class SacrificialFire extends Blob {
 				}
 				exp *= Random.IntRange( 2, 3 );
 			} else if (ch instanceof Hero) {
-				exp = 1_000_000; //always enough to activate the reward, if you can somehow get it
+				exp = 1_000; //always enough to activate the reward, if you can somehow get it
 				Badges.validateDeathFromSacrifice();
 			}
 
-			if (exp > 0) {
+			if (exp*10 > 0) {//献祭
 
 				int volumeLeft = cur[firePos] - exp;
 				if (volumeLeft > 0) {

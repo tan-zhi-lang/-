@@ -32,7 +32,7 @@ public abstract class RemainsItem extends Item {
 		super.execute(hero, action);
 
 		if (action.equals(AC_USE)){
-			hero.sprite.operate(hero.pos);
+			hero.sprite.operate();
 
 			Catalog.countUse(getClass());
 			doEffect(hero);

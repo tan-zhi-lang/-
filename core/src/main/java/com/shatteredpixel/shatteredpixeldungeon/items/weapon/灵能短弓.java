@@ -46,6 +46,7 @@ public class 灵能短弓 extends Weapon {
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 		
+		绿色 = true;
 		unique = true;
 		bones = false;
 	}
@@ -67,7 +68,6 @@ public class 灵能短弓 extends Weapon {
 		super.execute(hero, action);
 		
 		if (action.equals(AC_SHOOT)) {
-			
 			curUser = hero;
 			curItem = this;
 			GameScene.selectCell( shooter );

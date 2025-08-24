@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CapeOfThorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
@@ -70,7 +71,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双匕首;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
@@ -152,6 +154,8 @@ public enum HeroClass {
 			new AlchemistsToolkit().放背包();
 			new 奥术之戒().放背包();
 			new 能量之戒().放背包();
+			new 手枪().放背包();
+			new CapeOfThorns().放背包();
 
 			
 			for (Item item : Dungeon.hero.belongings){
@@ -205,6 +209,13 @@ public enum HeroClass {
 				Buff.延长( hero, BlobImmunity.class, 450*25);
 				break;
 			case 凌云:
+				break;
+			case 枪手:
+				手枪 x = new 手枪();
+				(hero.belongings.weapon = x).鉴定();
+				hero.belongings.weapon.activate(hero);
+
+				Dungeon.quickslot.setSlot(0, x);
 				break;
 		}
 
@@ -286,7 +297,7 @@ public enum HeroClass {
 
 		new Torch().放背包();
 
-		(hero.belongings.weapon = new 双匕首()).鉴定();
+		(hero.belongings.weapon = new 双刃()).鉴定();
 
 		CloakOfShadows cloak = new CloakOfShadows();
 		(hero.belongings.misc = cloak).鉴定();

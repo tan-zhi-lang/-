@@ -24,6 +24,7 @@ public class Torch extends Item {
 		image = 物品表.TORCH;
 		
 		stackable = true;
+		黄色 = true;
 		
 		defaultAction = AC_LIGHT;
 	}

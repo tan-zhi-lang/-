@@ -38,7 +38,7 @@ public class DivineSense extends ClericSpell {
 		Sample.INSTANCE.play(Assets.Sounds.READ);
 
 		SpellSprite.show(hero, SpellSprite.VISION);
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 
 		Char ally = PowerOfMany.getPoweredAlly();
 		if (ally != null && ally.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){

@@ -27,11 +27,12 @@ import java.util.ArrayList;
 public class CorpseDust extends Item {
 	
 	{
-		image = 物品表.DUST;
+		image = 物品表.尸尘;
 		
 		cursed = true;
 		cursedKnown = true;
-		
+
+		黑色 = true;
 		unique = true;
 	}
 

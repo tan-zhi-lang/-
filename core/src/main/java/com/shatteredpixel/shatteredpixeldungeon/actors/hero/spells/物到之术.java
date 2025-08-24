@@ -33,7 +33,7 @@ public class 物到之术 extends 巫术 {
 		item.放背包();
 		Item.updateQuickslot();
 
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		if (hero.belongings.weapon() != null) Enchanting.show(hero, hero.belongings.weapon());
 
 		onSpellCast(tome, hero);

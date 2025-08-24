@@ -182,6 +182,8 @@ public class Assets {
 		public static final String TRAMPLE  = "sounds/trample.mp3";
 		public static final String STURDY   = "sounds/sturdy.mp3";
 
+		public static final String 换弹              = "sounds/换弹.mp3";
+		public static final String 手枪              = "sounds/手枪.mp3";
 		public static final String HIT              = "sounds/hit.mp3";
 		public static final String MISS             = "sounds/miss.mp3";
 		public static final String HIT_SLASH        = "sounds/hit_slash.mp3";
@@ -244,6 +246,7 @@ public class Assets {
 
 				OPEN, UNLOCK, ITEM, DEWDROP, STEP, WATER, GRASS, TRAMPLE, STURDY,
 
+				换弹,手枪,
 				HIT, MISS, HIT_SLASH, HIT_STAB, HIT_CRUSH, HIT_MAGIC, HIT_STRONG, HIT_PARRY,
 				HIT_ARROW, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL,
 

@@ -29,6 +29,7 @@ public class Stylus extends Item {
 		image = 物品表.STYLUS;
 		
 		stackable = true;
+		紫色 = true;
 
 		defaultAction = AC_INSCRIBE;
 
@@ -82,7 +83,7 @@ public class Stylus extends Item {
 
 		armor.inscribe();
 		
-		curUser.sprite.operate(curUser.pos);
+		curUser.sprite.operate();
 		curUser.sprite.centerEmitter().start(PurpleParticle.BURST, 0.05f, 10);
 		Enchanting.show(curUser, armor);
 		Sample.INSTANCE.play(Assets.Sounds.BURNING);

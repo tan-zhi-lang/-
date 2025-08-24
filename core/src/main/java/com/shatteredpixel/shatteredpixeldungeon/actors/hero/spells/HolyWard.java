@@ -33,7 +33,7 @@ public class HolyWard extends ClericSpell {
 
 		Sample.INSTANCE.play(Assets.Sounds.READ);
 
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		if (hero.belongings.armor() != null) Enchanting.show(hero, hero.belongings.armor());
 
 		onSpellCast(tome, hero);

@@ -245,6 +245,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.BLEEDING, true),
 							new BuffIcon(BuffIndicator.POISON, true),
+							new BuffIcon(BuffIndicator.FROST, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 戒老:
@@ -252,6 +253,12 @@ public class WndHeroInfo extends WndTabbed {
 							new TalentIcon(Talent.HEIGHTENED_SENSES),
 							new TalentIcon(Talent.FARSIGHT),
 							new BuffIcon(BuffIndicator.BLINDNESS, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 学士:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new ItemSprite(物品表.POTION_HOLDER),
+							new ItemSprite(物品表.SCROLL_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 灵猫:
@@ -263,6 +270,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.ARMOR_HOLDER),
 							new RatSprite(),
+							new ItemSprite(物品表.DIRK),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 凌云:

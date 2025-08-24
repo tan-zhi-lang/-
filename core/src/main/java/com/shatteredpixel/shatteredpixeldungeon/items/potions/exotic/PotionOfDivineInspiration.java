@@ -91,7 +91,7 @@ public class PotionOfDivineInspiration extends ExoticPotion {
 					identifiedByUse = false;
 
 					curUser.busy();
-					curUser.sprite.operate(curUser.pos);
+					curUser.sprite.operate();
 
 					curUser.spendAndNext(1f);
 

@@ -7,16 +7,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class Gauntlet extends MeleeWeapon {
-	
+public class 爪 extends MeleeWeapon {
+
 	{
-		image = 物品表.GAUNTLETS;
-		hitSound = Assets.Sounds.HIT_CRUSH;
-		hitSoundPitch = 1.2f;
+		image = 物品表.HAND_AXE;
+		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSoundPitch = 1.3f;
 		拳套=true;
-		tier = 5;
-		延迟 = 0.5f; //2x speed
+		延迟 = 0.25f;
+		tier = 2;
 	}
+
 	@Override
 	public int 最小攻击(int lvl) {
 		return  1+tier +  //base
@@ -24,8 +25,8 @@ public class Gauntlet extends MeleeWeapon {
 	}
 	@Override
 	public int 最大攻击(int lvl) {
-		return  Math.round(2*(tier+1)) +     //15 base, down from 30
-				lvl*Math.round(0.4f*(tier+1));  //+3 per level, down from +6
+		return  Math.round(1.33f*(tier+1) +
+				lvl*(tier+1)*0.26f);
 	}
 
 	@Override
@@ -51,4 +52,6 @@ public class Gauntlet extends MeleeWeapon {
 	public String upgradeAbilityStat(int level){
 		return "+" + augment.damageFactor(2 + level);
 	}
+
+
 }

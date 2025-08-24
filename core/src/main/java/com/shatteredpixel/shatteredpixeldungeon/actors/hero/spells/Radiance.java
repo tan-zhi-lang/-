@@ -56,7 +56,7 @@ public class Radiance extends ClericSpell {
 
 		hero.spend( 1f );
 		hero.busy();
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 
 		onSpellCast(tome, hero);
 

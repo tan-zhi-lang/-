@@ -119,7 +119,7 @@ public class HornOfPlenty extends Artifact {
 		charge -= chargesToUse;
 		Talent.onArtifactUsed(hero);
 
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		hero.busy();
 		SpellSprite.show(hero, SpellSprite.FOOD);
 		Sample.INSTANCE.play(Assets.Sounds.EAT);

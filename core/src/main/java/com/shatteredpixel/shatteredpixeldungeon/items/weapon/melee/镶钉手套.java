@@ -16,14 +16,20 @@ public class 镶钉手套 extends MeleeWeapon {
 
 		tier = 1;
 		延迟 = 0.5f; //2x speed
-		
+
+		拳套=true;
 		bones = false;
 	}
 
 	@Override
+	public int 最小攻击(int lvl) {
+		return  1+tier +  //base
+				lvl;    //level scaling
+	}
+	@Override
 	public int 最大攻击(int lvl) {
-		return  Math.round(2.5f*(tier+1)) +     //5 base, down from 10
-				lvl*Math.round(0.5f*(tier+1));  //+1 per level, down from +2
+		return  Math.round(2*(tier+1)) +     //5 base, down from 10
+				lvl*Math.round(0.4f*(tier+1));  //+1 per level, down from +2
 	}
 
 	@Override
@@ -49,6 +55,5 @@ public class 镶钉手套 extends MeleeWeapon {
 	public String upgradeAbilityStat(int level){
 		return "+" + augment.damageFactor(2 + level);
 	}
-
 
 }

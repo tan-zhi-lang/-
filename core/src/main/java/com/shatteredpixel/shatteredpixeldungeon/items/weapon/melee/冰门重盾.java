@@ -26,6 +26,8 @@ public class 冰门重盾 extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1f;
 
+		unique = true;
+		bones = false;
 		tier = 1;
 	}
 	@Override
@@ -36,7 +38,10 @@ public class 冰门重盾 extends MeleeWeapon {
 		}
 		return actions;
 	}
-
+	@Override
+	public int 金币() {
+		return 0;
+	}
 	@Override
 	public int 最小攻击(int lvl) {
 		return  Math.round((tier+1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5F)) +   //12 base, down from 20
@@ -92,7 +97,7 @@ public class 冰门重盾 extends MeleeWeapon {
 	public static void guardAbility(Hero hero, int duration, MeleeWeapon wep){
 		wep.beforeAbilityUsed(hero, null);
 		Buff.延长(hero, GuardTracker.class, duration).hasBlocked = false;
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		hero.spendAndNext(Actor.TICK);
 		wep.afterAbilityUsed(hero);
 	}

@@ -252,8 +252,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		play( attack );
 	}
 
+	public void operate() {
+		operate( ch.pos, null );
+	}
 	public void operate( int cell ) {
 		operate( cell, null );
+	}
+	public void operate(Callback callback) {
+		operate( ch.pos, callback );
 	}
 
 	public synchronized void operate( int cell, Callback callback ) {

@@ -72,7 +72,7 @@ public abstract class InventorySpell extends Spell {
 				if (!(curItem instanceof MagicalInfusion)) {
 					curUser.spend(1f);
 					curUser.busy();
-					(curUser.sprite).operate(curUser.pos);
+					(curUser.sprite).operate();
 
 					Sample.INSTANCE.play(Assets.Sounds.READ);
 					Invisibility.dispel();

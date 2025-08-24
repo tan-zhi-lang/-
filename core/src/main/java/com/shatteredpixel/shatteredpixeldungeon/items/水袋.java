@@ -108,7 +108,7 @@ public class 水袋 extends Item {
 					hero.busy();
 
 					Sample.INSTANCE.play(Assets.Sounds.DRINK);
-					hero.sprite.operate(hero.pos);
+					hero.sprite.operate();
 
 					updateQuickslot();
 				}
@@ -128,7 +128,7 @@ public class 水袋 extends Item {
 			hero.spend(TIME_TO_DRINK);
 			hero.busy();
 
-			hero.sprite.operate(hero.pos);
+			hero.sprite.operate();
 			updateQuickslot();
 		}
 	}

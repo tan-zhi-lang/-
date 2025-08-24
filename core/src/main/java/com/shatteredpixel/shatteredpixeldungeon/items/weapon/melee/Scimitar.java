@@ -32,7 +32,7 @@ public class Scimitar extends MeleeWeapon {
 		beforeAbilityUsed(hero, null);
 		//1 turn less as using the ability is instant
 		Buff.延长(hero, SwordDance.class, 3+ 强化等级());
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		hero.next();
 		afterAbilityUsed(hero);
 	}

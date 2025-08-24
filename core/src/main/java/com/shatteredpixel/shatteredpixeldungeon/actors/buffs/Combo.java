@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -269,7 +268,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 		if (move == ComboMove.PARRY){
 			parryUsed = true;
 			comboTime = 5f;
-			Invisibility.dispel();
+			Invisibility.notimedispel();
 			Buff.施加(target, ParryTracker.class, Actor.TICK);
 			((Hero)target).spendAndNext(Actor.TICK);
 			Dungeon.hero.busy();
@@ -400,7 +399,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 			}
 		}
 
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 
 		//Post-attack behaviour
 		switch(moveBeingUsed){

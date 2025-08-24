@@ -57,7 +57,7 @@ public class AssassinsBlade extends MeleeWeapon {
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
-		双匕首.sneakAbility(hero, target, 3, 2+ 强化等级(), this);
+		双刃.sneakAbility(hero, target, 3, 2+ 强化等级(), this);
 	}
 
 	@Override

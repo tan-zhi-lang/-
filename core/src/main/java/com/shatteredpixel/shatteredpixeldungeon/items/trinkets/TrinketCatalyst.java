@@ -38,6 +38,7 @@ public class TrinketCatalyst extends Item {
 	{
 		image = 物品表.TRINKET_CATA;
 
+		黄色 = true;
 		unique = true;
 	}
 

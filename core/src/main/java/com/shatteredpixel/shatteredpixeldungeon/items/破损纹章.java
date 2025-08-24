@@ -139,7 +139,7 @@ public class 破损纹章 extends Item {
 						//if index is 1, then the glyph transfer happens in affixSeal
 
 						GLog.p(Messages.get(破损纹章.class, "affix"));
-						Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+						Dungeon.hero.sprite.operate();
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 						armor.affixSeal(破损纹章.this);
 					}
@@ -159,7 +159,7 @@ public class 破损纹章 extends Item {
 				}
 
 				GLog.p(Messages.get(破损纹章.class, "affix"));
-				Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+				Dungeon.hero.sprite.operate();
 				Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 				armor.affixSeal(this);
 				Dungeon.hero.next();

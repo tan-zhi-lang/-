@@ -30,6 +30,7 @@ public class Honeypot extends Item {
 		defaultAction = AC_THROW;
 		usesTargeting = true;
 
+		黄色 = true;
 		stackable = true;
 	}
 	

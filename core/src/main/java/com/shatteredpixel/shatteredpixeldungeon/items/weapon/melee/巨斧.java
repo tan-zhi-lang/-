@@ -83,7 +83,7 @@ public class 巨斧 extends MeleeWeapon {
 					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
 				}
 
-				Invisibility.dispel();
+				Invisibility.notimedispel();
 				if (!enemy.isAlive()){
 					hero.next();
 					onAbilityKill(hero, enemy);

@@ -95,7 +95,7 @@ public class WndBag extends WndTabbed {
 		if (PixelScene.横屏()){
 			while (slotHeight >= 24 && (windowHeight + 20 + chrome.marginTop()) > PixelScene.uiCamera.height){
 				slotHeight--;
-				windowHeight -= nRows;
+				windowHeight -= 7;
 			}
 		} else {
 			while (slotWidth >= 26 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){

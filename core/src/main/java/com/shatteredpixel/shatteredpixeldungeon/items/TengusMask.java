@@ -31,6 +31,7 @@ public class TengusMask extends Item {
 		image = 物品表.MASK;
 
 		defaultAction = AC_WEAR;
+		白色 = true;
 
 		unique = true;
 	}
@@ -87,7 +88,7 @@ public class TengusMask extends Item {
 			Buff.施加(curUser, Preparation.class);
 		}
 		
-		curUser.sprite.operate( curUser.pos );
+		curUser.sprite.operate(  );
 		Sample.INSTANCE.play( Assets.Sounds.MASTERY );
 		
 		Emitter e = curUser.sprite.centerEmitter();

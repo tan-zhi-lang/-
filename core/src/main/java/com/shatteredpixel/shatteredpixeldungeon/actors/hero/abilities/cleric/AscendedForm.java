@@ -31,7 +31,7 @@ public class AscendedForm extends ArmorAbility {
 	protected void activate(ClassArmor armor, Hero hero, Integer target) {
 
 		Buff.施加(hero, AscendBuff.class).reset();
-		hero.sprite.operate(hero.pos);
+		hero.sprite.operate();
 		Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 		new Flare(6, 48).color(0xFFFF00, true).show(hero.sprite, 2f);
 

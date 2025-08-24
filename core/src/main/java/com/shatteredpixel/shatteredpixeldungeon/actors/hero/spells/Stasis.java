@@ -63,7 +63,7 @@ public class Stasis extends ClericSpell {
 		onSpellCast(tome, hero);
 
 		if (hero.buff(StasisBuff.class) != null){
-			hero.sprite.operate(hero.pos);
+			hero.sprite.operate();
 			hero.buff(StasisBuff.class).act();
 			return;
 		}

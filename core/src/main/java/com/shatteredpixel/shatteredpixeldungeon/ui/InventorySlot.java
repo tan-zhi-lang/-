@@ -68,16 +68,40 @@ public class InventorySlot extends ItemSlot {
 			bg.texture( TextureCache.createSolid( equipped ? EQUIPPED : NORMAL ) );
 			bg.resetColor();
 			if (item.cursed && item.cursedKnown) {
-				bg.ra = +0.3f;
-				bg.ga = -0.15f;
-				bg.ba = -0.15f;
+				bg.诅咒();
 			} else if (!item.已鉴定()) {
 				if ((item instanceof EquipableItem || item instanceof Wand) && item.cursedKnown){
-					bg.ba = +0.3f;
-					bg.ra = -0.1f;
+					bg.诅咒已知();
 				} else {
-					bg.ra = +0.35f;
-					bg.ba = +0.35f;
+					bg.诅咒未知();
+				}
+			}
+			if(item.已鉴定()){
+				if(item.黑色){
+					bg.黑色();
+				}
+				if(item.白色){
+					bg.白色();
+				}
+				if(item.黄色){
+					bg.黄色();
+				}
+				if(item.红色){
+					bg.红色();
+				}
+				if(item.绿色){
+					bg.绿色();
+				}
+				if(item.蓝色){
+					bg.蓝色();
+				}
+
+				if(item.紫色){
+					bg.紫色();
+				}
+
+				if(item.青色){
+					bg.青色();
 				}
 			}
 

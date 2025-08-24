@@ -27,7 +27,9 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	protected String hitSound = Assets.Sounds.HIT;
 	protected float hitSoundPitch = 1f;
-	
+	public boolean 拳套 =false;
+	public boolean 投矛 =false;
+
 	@Override
 	public void execute(Hero hero, String action) {
 		if (hero.subClass == HeroSubClass.CHAMPION && action.equals(AC_EQUIP)){
@@ -231,7 +233,11 @@ abstract public class KindOfWeapon extends EquipableItem {
 	abstract public int 最大攻击(int lvl);
 
 	public int damageRoll( Char owner ) {
-		if (owner instanceof Hero){
+		if (owner instanceof Hero hero){
+			Char enemy = hero.attackTarget();
+			if(enemy.第一次防御&&投矛){
+				return 最大攻击();
+			}
 			return Hero.heroDamageIntRange(最小攻击(), 最大攻击());
 		} else {
 			return Random.NormalIntRange(最小攻击(), 最大攻击());

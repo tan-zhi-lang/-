@@ -159,7 +159,7 @@ public class DriedRose extends Artifact {
 
 					hero.spend(1f);
 					hero.busy();
-					hero.sprite.operate(hero.pos);
+					hero.sprite.operate();
 
 					if (!firstSummon) {
 						ghost.yell( Messages.get(GhostHero.class, "hello", Messages.titleCase(Dungeon.hero.name())) );

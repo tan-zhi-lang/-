@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -21,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 
 public class ScrollOfEnchantment extends ExoticScroll {
@@ -93,7 +95,9 @@ public class ScrollOfEnchantment extends ExoticScroll {
 
 		@Override
 		public void onSelect(final Item item) {
-			item.升级();
+			if(!Dungeon.炼狱(炼狱设置.诅咒装备)){
+				item.升级();
+			}
 			if (item instanceof Weapon){
 				if (!identifiedByUse) {
 					curItem.detach(curUser.belongings.backpack);

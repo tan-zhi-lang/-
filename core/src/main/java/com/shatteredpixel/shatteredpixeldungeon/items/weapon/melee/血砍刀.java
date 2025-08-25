@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
@@ -121,6 +122,9 @@ public class 血砍刀 extends MeleeWeapon {
 
 		@Override
 		public int damageRoll(Char owner) {
+			if(Dungeon.炼狱(炼狱设置.诅咒投掷)){
+				return 0;
+			}
 			return 血砍刀.this.damageRoll(owner);
 		}
 

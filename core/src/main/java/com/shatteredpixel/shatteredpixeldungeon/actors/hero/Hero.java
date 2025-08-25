@@ -151,6 +151,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortswor
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -178,6 +179,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
@@ -258,7 +260,7 @@ public class Hero extends Char {
     public Hero() {
         super();
 
-        生命 = 最大生命 = 16;
+        生命 = 最大生命 = 15;
         法力 = 最大法力 = 4;
         力量 = 10;
 
@@ -269,7 +271,7 @@ public class Hero extends Char {
 
     public void 更新生命() {
 
-        最大生命 = 16 + Math.round((5 + 0.6f) * (等级 - 1)) + 根骨 * 15 + HTBoost;
+        最大生命 = 15 + Math.round((5 + 0.625f) * (等级 - 1)) + 根骨 * 15 + HTBoost;
         最大法力 = 4 + Math.round(4 * (等级 - 1)) ;
 
         if (buff(根骨秘药.HTBoost.class) != null) {
@@ -668,6 +670,13 @@ public class Hero extends Char {
         if(heroClass(HeroClass.戒老)){
             accuracy*=0.75f;
         }
+        if(Dungeon.炼狱(炼狱设置.诅咒之戒)){
+            accuracy*=0.67f;
+        }
+        if(wep==null){
+            accuracy*=1+Math.sqrt(力量())/10f;
+        }
+        
         //precise assault and liquid agility
         if (!(wep instanceof MissileWeapon)) {
             if (false//使用武技能命中+
@@ -758,6 +767,9 @@ public class Hero extends Char {
         evasion += 天赋点数(Talent.顶福精华, 5);
         evasion *= 1 + 天赋点数(Talent.顶福精华, 0.08f);
         evasion *= 综合属性();
+        if(belongings.armor==null){
+            evasion*=1+Math.sqrt(力量())/10f;
+        }
 
         if (belongings.armor instanceof 风衣) {
             evasion *= 1.25f;
@@ -856,7 +868,7 @@ public class Hero extends Char {
     @Override
     public int 攻击() {
         KindOfWeapon wep = belongings.attackingWeapon();
-        int dmg;
+        int dmg=0;
 
         if (RingOfForce.fightingUnarmed(this)) {//空手
             dmg = RingOfForce.damageRoll(this);
@@ -864,7 +876,15 @@ public class Hero extends Char {
                 dmg = ((Weapon) belongings.attackingWeapon()).augment.damageFactor(dmg);
             }
         } else {
-            dmg = wep.damageRoll(this);
+            if(Dungeon.炼狱(炼狱设置.诅咒投掷)){
+                if(wep instanceof MissileWeapon||
+                   wep instanceof 灵能短弓){
+                }else{
+                    dmg = wep.damageRoll(this);
+                }
+            }else{
+                dmg = wep.damageRoll(this);
+            }
             if(wep.拳套){
                 dmg+=RingOfForce.damageRoll(this);
             }
@@ -908,6 +928,9 @@ public class Hero extends Char {
         float speed = super.移速();
 
         speed *= 综合属性();
+        if(belongings.armor==null){
+            speed*=1+Math.sqrt(力量())/10f;
+        }
         if (belongings.armor instanceof 披风) {
             speed *= 1.1f;
         }
@@ -1006,6 +1029,9 @@ public class Hero extends Char {
         float delay = 1f;
         delay /= 综合属性();
         delay /= 1 + 天赋点数(Talent.DEATHLESS_FURY, 0.3f);
+        if(belongings.weapon==null){
+            delay/=1+Math.sqrt(力量())/10f;
+        }
         if (!RingOfForce.fightingUnarmed(this)) {
 
             return delay * belongings.attackingWeapon().delayFactor(this);
@@ -1158,6 +1184,11 @@ public class Hero extends Char {
                         item instanceof EnergyCrystal ||
                         item instanceof Dewdrop
                 ) {
+                    
+                    水袋 flask = belongings.getItem(水袋.class);
+                    if (item instanceof Dewdrop&&flask != null && !flask.isFull()){
+                        flask.collectDew((Dewdrop)item);
+                    }
                     if (item.doPickUp(this)) {
                         heap.pickUp();
                     } else {
@@ -2932,6 +2963,10 @@ public class Hero extends Char {
                     Heap heap = Dungeon.level.heaps.get(curr);
                     if (heap != null && (heap.type == Heap.Type.HEAP || heap.type == Heap.Type.CHEST)) {
                         Item item = heap.peek();
+                        水袋 flask = belongings.getItem(水袋.class);
+                        if (item instanceof Dewdrop&&flask != null && !flask.isFull()){
+                            flask.collectDew((Dewdrop)item);
+                        }
                         if (item.doPickUp(this)) {
                             heap.pickUp();
                         } else {

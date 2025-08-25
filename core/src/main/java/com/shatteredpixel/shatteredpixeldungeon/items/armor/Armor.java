@@ -22,7 +22,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.AntiEntropy;
@@ -51,6 +50,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -59,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -165,9 +166,12 @@ public class Armor extends EquipableItem {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (破损纹章 != null) actions.add(AC_DETACH);
+		if(Dungeon.炼狱(炼狱设置.诅咒装备)&&(等级()>5||tier>3)) {
+			actions.remove(AC_EQUIP);
+		}
 		return actions;
 	}
-
+	
 	@Override
 	public void execute(Hero hero, String action) {
 
@@ -417,6 +421,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero){
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
+			if (aEnc < 0) evasion /= 1+Math.sqrt(aEnc)/10f;
 			
 			Momentum momentum = owner.buff(Momentum.class);
 			if (momentum != null){
@@ -432,6 +437,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
+			if (aEnc < 0) speed /= 1+Math.sqrt(aEnc)/10f;
 		}
 		
 		return speed;

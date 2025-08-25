@@ -38,6 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -47,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -87,8 +89,12 @@ public abstract class Wand extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (curCharges > 0 || !curChargeKnown) {
-			actions.add( AC_ZAP );
+		if(Dungeon.炼狱(炼狱设置.诅咒法杖)&&!(this instanceof 灵月法杖)){
+		
+		}else{
+			if (curCharges > 0 || !curChargeKnown) {
+				actions.add( AC_ZAP );
+			}
 		}
 
 		return actions;
@@ -98,13 +104,14 @@ public abstract class Wand extends Item {
 	public void execute( Hero hero, String action ) {
 
 		super.execute( hero, action );
-
-		if (action.equals( AC_ZAP )) {
-			
-			curUser = hero;
-			curItem = this;
-			GameScene.selectCell( zapper );
-			
+		if(Dungeon.炼狱(炼狱设置.诅咒法杖)&&!(this instanceof 灵月法杖)){
+		
+		}else{
+			if (action.equals( AC_ZAP )) {
+				curUser = hero;
+				curItem = this;
+				GameScene.selectCell( zapper );
+			}
 		}
 	}
 

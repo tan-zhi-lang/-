@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -16,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -74,8 +76,17 @@ public class Artifact extends KindofMisc {
 			if (passiveBuff.target != null) passiveBuff.detach();
 			passiveBuff = null;
 		}
-		passiveBuff = passiveBuff();
-		passiveBuff.attachTo(ch);
+		if(Dungeon.炼狱(炼狱设置.诅咒神器)&&!(
+				this instanceof CloakOfShadows||
+				this instanceof 神圣法典
+				)){
+			if(ch.nobuff(Vertigo.class)){
+				Buff.延长(ch,Vertigo.class,2);
+			}
+		}else{
+			passiveBuff = passiveBuff();
+			passiveBuff.attachTo(ch);
+		}
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 
 public class 升级卷轴 extends InventoryScroll {
 	
@@ -55,7 +56,9 @@ public class 升级卷轴 extends InventoryScroll {
 		upgrade( curUser );
 
 		Degrade.detach( curUser, Degrade.class );
-
+		if(Dungeon.炼狱(炼狱设置.诅咒装备)){
+			return this;
+		}
 		//logic for telling the user when item properties change from upgrades
 		//...yes this is rather messy
 		if (item instanceof Weapon){

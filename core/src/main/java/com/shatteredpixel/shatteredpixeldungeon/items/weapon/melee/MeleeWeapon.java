@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
@@ -68,6 +69,9 @@ public class MeleeWeapon extends Weapon {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero) && hero.heroClass == HeroClass.DUELIST){
 			actions.add(AC_ABILITY);
+		}
+		if(Dungeon.炼狱(炼狱设置.诅咒装备)&&(等级()>5||tier>3)) {
+			actions.remove(AC_EQUIP);
 		}
 		return actions;
 	}

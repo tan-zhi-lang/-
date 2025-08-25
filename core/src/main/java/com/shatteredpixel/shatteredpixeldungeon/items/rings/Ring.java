@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -110,8 +111,10 @@ public class Ring extends KindofMisc {
 			buff.detach();
 			buff = null;
 		}
-		buff = buff();
-		buff.attachTo( ch );
+		if(!Dungeon.炼狱(炼狱设置.诅咒之戒)){
+			buff=buff();
+			buff.attachTo(ch);
+		}
 	}
 
 	@Override

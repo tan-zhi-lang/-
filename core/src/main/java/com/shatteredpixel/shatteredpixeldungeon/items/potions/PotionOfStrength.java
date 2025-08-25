@@ -3,12 +3,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 
 public class PotionOfStrength extends Potion {
 
@@ -23,8 +25,10 @@ public class PotionOfStrength extends Potion {
 	@Override
 	public void apply( Hero hero ) {
 		鉴定();
-
-		hero.力量++;
+		
+		if(!Dungeon.炼狱(炼狱设置.体弱多病)){
+			hero.力量++;
+		}
 		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
 
 		GLog.p( Messages.get(this, "msg", hero.力量()) );

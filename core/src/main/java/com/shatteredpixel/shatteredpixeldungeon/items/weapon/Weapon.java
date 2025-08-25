@@ -283,8 +283,10 @@ abstract public class Weapon extends KindOfWeapon {
 		if (owner.buff(Wayward.WaywardBuff.class) != null && enchantment instanceof Wayward){
 			ACC /= 5;
 		}
-
-		return encumbrance > 0 ? (float)(ACC / Math.pow( 1.5, encumbrance )) : ACC;
+		if(encumbrance > 0 )ACC/=Math.pow( 1.5, encumbrance );
+		if(encumbrance < 0 )ACC/=1+Math.sqrt(encumbrance)/10f;
+		
+		return ACC;
 	}
 	
 	@Override
@@ -299,6 +301,10 @@ abstract public class Weapon extends KindOfWeapon {
 			if (encumbrance > 0&&owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
+			if (encumbrance < 0){
+				delay*=1+Math.sqrt(encumbrance)/10f;
+			}
+			
 		}
 
 		return delay;

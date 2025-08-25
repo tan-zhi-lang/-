@@ -79,7 +79,7 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.逐姝, tier(HeroClass.逐姝))), "逐姝",
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.戒老, tier(HeroClass.戒老))), "戒老",
-				"新增i英雄。"));
+				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.女忍, tier(HeroClass.女忍))), "女忍",
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.机器, tier(HeroClass.机器))), "机器",
@@ -101,7 +101,7 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new MimicSprite.毒气(), "毒气宝箱怪房",
 				"新增房间。"));
 		changes.addButton( new ChangeButton(Icons.神力之泉.get(), "神力之泉",
-				"新增神力之泉，英雄战上面可以获得永久+10%力量和生命，物品在上面可以永久减少2力量需求和升级一次。"));
+				"新增神力之泉，英雄站上面可以获得永久+10%力量和生命，物品在上面可以永久减少2力量需求和升级一次。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.单身狗粮), "单身狗粮",
 				"7-8月掉落单身狗粮。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.杂物袋), "杂物袋",
@@ -136,7 +136,7 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new GhostSprite(), "悲伤幽灵",
 				"移速50% => 43%。"));
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "升级",
-				"升级提升的生命+0.6，命中和闪避+0.21。最大等级-5，升级所需经验初始+10，每级+20。\n" ));
+				"升级提升的生命+0.625，命中和闪避+0.21。最大等级-5，升级所需经验初始+10，每级+20。\n" ));
 		changes.addButton( new ChangeButton(new ThiefSprite(), "疯狂小偷",
 				"偷后移速83% => 75%。\n" +
 						"物理防御时掉落金币1 => 10"));
@@ -191,7 +191,8 @@ public class 重制 {
 				"英雄\n\n" +
 						"浮空状态在深渊点击自身可以无伤掉下去。\n"+
 						"神器和戒指栏位=>两个杂项栏位。\n"+
-						"最大生命-4。\n"+
+						"空手增加攻速和命中，裸衣增加移速和闪避，转换效率为根号力量的10%加成。\n"+
+						"最大生命-5。\n"+
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
 						"再生恢复生命1=>25%生命力。"+
@@ -275,8 +276,11 @@ public class 重制 {
 							"飞槌和投掷锤\n" +
 							"在命中的敌人还会眩晕2回合。"
 				));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
-					"升级获得1充能。"
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "武器",
+					"武器反超力增加移速和命中，转换效率为根号武器力量-力量的10%加成。"
+				));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "护甲",
+					"护甲反超力增加移速和闪避，转换效率为根号武器力量-力量的10%加成。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
 //					"选择物品使用的卷轴在取消时获得对应符石：\n" +

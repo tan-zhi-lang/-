@@ -71,6 +71,12 @@ public class WndHeroInfo extends WndTabbed {
 			case 重武:
 				tabIcon = new ItemSprite(物品表.冰门重盾, null);
 				break;
+			case 镜魔:
+				tabIcon = new ItemSprite(物品表.镜刃, null);
+				break;
+			case 枪手:
+				tabIcon = new ItemSprite(物品表.手枪, null);
+				break;
 		}
 
 		int finalHeight = MIN_HEIGHT;
@@ -183,8 +189,8 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case MAGE:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
+							new ItemSprite(物品表.WAND_HOLDER),
 							new BuffIcon(BuffIndicator.RECHARGING, true),
-							new ItemSprite(物品表.SCROLL_HOLDER),
 							new ItemSprite(物品表.WAND_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
@@ -250,7 +256,6 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case 戒老:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							new TalentIcon(Talent.HEIGHTENED_SENSES),
 							new TalentIcon(Talent.FARSIGHT),
 							new BuffIcon(BuffIndicator.BLINDNESS, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};

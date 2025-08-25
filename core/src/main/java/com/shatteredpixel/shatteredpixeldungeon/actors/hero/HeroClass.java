@@ -76,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
@@ -136,7 +137,7 @@ public enum HeroClass {
 
 		if(算法.isDebug()){
 			int x=100;
-			new 经验药剂().get数量(x).放背包();
+			new 经验药剂().get数量(x).鉴定(true).放背包();
 			new 治疗药剂().get数量(x).放背包();
 			new 极速药剂().get数量(x).放背包();
 			new 极速药剂().get数量(x).放背包();
@@ -158,9 +159,9 @@ public enum HeroClass {
 			new CapeOfThorns().放背包();
 
 			
-			for (Item item : Dungeon.hero.belongings){
-				item.鉴定();
-			}
+//			for (Item item : Dungeon.hero.belongings){
+//				item.鉴定();
+//			}
 		}
 
 		算法.种子();
@@ -204,6 +205,9 @@ public enum HeroClass {
 				break;
 			case 重武:
 				初始重武( hero );
+				break;
+			case 镜魔:
+				(hero.belongings.weapon = new 镜刃()).鉴定();
 				break;
 			case 行僧:
 				Buff.延长( hero, BlobImmunity.class, 450*25);

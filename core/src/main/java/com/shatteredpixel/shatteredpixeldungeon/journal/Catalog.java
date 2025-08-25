@@ -16,6 +16,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -183,6 +190,11 @@ public enum Catalog {
 		MELEE_WEAPONS.addItems(Generator.Category.WEP_T5.classes);
 
 		ARMOR.addItems(Generator.Category.ARMOR.classes);
+		ARMOR.addItems(铠甲.class, 法袍.class,
+				风衣.class, 披风.class,
+				胸铠.class, 祭服.class,
+				巫服.class
+		);
 
 		THROWN_WEAPONS.addItems(Generator.Category.MIS_T1.classes);
 		THROWN_WEAPONS.addItems(Generator.Category.MIS_T2.classes);

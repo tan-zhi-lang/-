@@ -15,7 +15,7 @@ public class Gauntlet extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 		拳套=true;
 		tier = 5;
-		延迟 = 0.5f; //2x speed
+		间隔= 0.5f; //2x speed
 	}
 	@Override
 	public int 最小攻击(int lvl) {

@@ -101,4 +101,7 @@ public class SmartTexture extends Texture {
 	public RectF uvRectBySize(float left, float top, float width, float height){
 		return uvRect(left, top, left+width, top+height);
 	}
+	public RectF uvRectBySizeXY(float left, float top){
+		return uvRect(left*16, top*16, left*16+16, top*16+16);
+	}
 }

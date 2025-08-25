@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -44,6 +45,7 @@ public class MenuPane extends Component {
 	private Toolbar.PickedUpItem pickedUp;
 
 	private BitmapText version;
+	private BitmapText fps;
 
 	private DangerIndicator danger;
 
@@ -91,12 +93,12 @@ public class MenuPane extends Component {
 
 		if (Challenges.activeChallenges() > 0){
 			challengeIcon = Icons.get(Icons.CHAL_COUNT);
-			add(challengeIcon);
+//			add(challengeIcon);
 
 			challengeText = new BitmapText( Integer.toString( Challenges.activeChallenges() ), PixelScene.pixelFont);
 			challengeText.hardlight( 0xCACFC2 );
 			challengeText.measure();
-			add( challengeText );
+//			add( challengeText );
 
 			challengeButton = new Button(){
 				@Override
@@ -109,7 +111,7 @@ public class MenuPane extends Component {
 					return Messages.get(WndChallenges.class, "title");
 				}
 			};
-			add(challengeButton);
+//			add(challengeButton);
 		}
 
 		btnJournal = new JournalButton();
@@ -119,9 +121,10 @@ public class MenuPane extends Component {
 		add( btnMenu );
 
 		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
-		version.alpha( 0.5f );
 		add(version);
-
+		fps = new BitmapText( "FPS:" + Gdx.graphics.getFramesPerSecond(), PixelScene.pixelFont);
+		add(fps);
+		
 		danger = new DangerIndicator();
 		add( danger );
 
@@ -162,7 +165,7 @@ public class MenuPane extends Component {
 			challengeText.y = challengeIcon.y + challengeIcon.height();
 			PixelScene.align(challengeText);
 
-			challengeButton.setRect(challengeIcon.x, challengeIcon.y, challengeIcon.width(), challengeIcon.height() + challengeText.height());
+//			challengeButton.setRect(challengeIcon.x, challengeIcon.y, challengeIcon.width(), challengeIcon.height() + challengeText.height());
 		}
 
 		version.scale.set(PixelScene.align(0.5f));
@@ -170,11 +173,23 @@ public class MenuPane extends Component {
 		version.x = x + WIDTH - version.width();
 		version.y = y + bg.height() + (3 - version.baseLine());
 		PixelScene.align(version);
+		
+		fps.scale.set(PixelScene.align(0.5f));
+		fps.measure();
+		fps.x = x + WIDTH - fps.width();
+		fps.y = y + bg.height()+ version.height() + (3 - fps.baseLine());
+		PixelScene.align(fps);
 
-		danger.setPos( x + WIDTH - danger.width(), y + bg.height + 3 );
+		danger.setPos( x + WIDTH - danger.width(), y + bg.height+danger.height() + 3 );
 	}
-
-	public void pickup(Item item, int cell) {
+	
+	@Override
+	public synchronized void update(){
+		fps = new BitmapText( "FPS:" + Gdx.graphics.getFramesPerSecond(), PixelScene.pixelFont);
+		super.update();
+	}
+	
+	public void pickup(Item item,int cell) {
 		pickedUp.reset( item,
 				cell,
 				btnJournal.centerX(),

@@ -8,13 +8,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
@@ -162,6 +159,10 @@ public class Dungeon {
 	}
 
 	public static int challenges;
+	public static int 炼狱;
+	public static int 解压;
+	public static int 系统;
+	public static int 玩法;
 	public static int mobsToChampion;
 
 	public static Hero hero;
@@ -216,6 +217,10 @@ public class Dungeon {
 
 		initialVersion = version = Game.versionCode;
 		challenges = SPDSettings.challenges();
+		炼狱 = SPDSettings.炼狱();
+		解压 = SPDSettings.解压();
+		系统 = SPDSettings.系统();
+		玩法 = SPDSettings.玩法();
 		mobsToChampion = -1;
 
 		Actor.clear();
@@ -270,6 +275,19 @@ public class Dungeon {
 
 	public static boolean isChallenged( int mask ) {
 		return (challenges & mask) != 0;
+	}
+
+	public static boolean 炼狱( int mask ) {
+		return (炼狱 & mask) != 0;
+	}
+	public static boolean 解压( int mask ) {
+		return (解压 & mask) != 0;
+	}
+	public static boolean 系统( int mask ) {
+		return (系统 & mask) != 0;
+	}
+	public static boolean 玩法( int mask ) {
+		return (玩法 & mask) != 0;
 	}
 
 	public static boolean levelHasBeenGenerated(int depth, int branch){
@@ -579,6 +597,10 @@ public class Dungeon {
 	private static final String DAILY_REPLAY= "daily_replay";
 	private static final String LAST_PLAYED = "last_played";
 	private static final String CHALLENGES	= "challenges";
+	private static final String 炼狱x	= "炼狱";
+	private static final String 解压x	= "解压";
+	private static final String 系统x	= "系统";
+	private static final String 玩法x	= "玩法";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -606,6 +628,10 @@ public class Dungeon {
 			bundle.put( DAILY_REPLAY, dailyReplay );
 			bundle.put( LAST_PLAYED, lastPlayed = Game.realTime);
 			bundle.put( CHALLENGES, challenges );
+			bundle.put( 炼狱x, 炼狱 );
+			bundle.put( 解压x, 解压 );
+			bundle.put( 系统x, 系统 );
+			bundle.put( 玩法x, 玩法 );
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
@@ -713,6 +739,10 @@ public class Dungeon {
 		Toolbar.swappedQuickslots = false;
 
 		Dungeon.challenges = bundle.getInt( CHALLENGES );
+		Dungeon.炼狱 = bundle.getInt( 炼狱x );
+		Dungeon.解压 = bundle.getInt( 解压x );
+		Dungeon.系统 = bundle.getInt( 系统x );
+		Dungeon.玩法 = bundle.getInt( 玩法x );
 		Dungeon.mobsToChampion = bundle.getInt( MOBS_TO_CHAMPION );
 		
 		Dungeon.level = null;
@@ -832,6 +862,10 @@ public class Dungeon {
 		info.depth = bundle.getInt( DEPTH );
 		info.version = bundle.getInt( VERSION );
 		info.challenges = bundle.getInt( CHALLENGES );
+		info.炼狱 = bundle.getInt( 炼狱x );
+		info.解压 = bundle.getInt( 解压x );
+		info.系统 = bundle.getInt( 系统x );
+		info.玩法 = bundle.getInt( 玩法x );
 		info.seed = bundle.getLong( SEED );
 		info.customSeed = bundle.getString( CUSTOM_SEED );
 		info.daily = bundle.getBoolean( DAILY );
@@ -1059,6 +1093,27 @@ public class Dungeon {
 	}
 	public static boolean hero(){
 		return hero!=null;
+	}
+	public static int depth(float x){
+		return Math.round(depth*x);
+	}
+	public static int depth(){
+		if(depth<=5){
+			return 1;
+		}
+		if(depth<=10){
+			return 2;
+		}
+		if(depth<=15){
+			return 3;
+		}
+		if(depth<=20){
+			return 4;
+		}
+		if(depth<=25){
+			return 5;
+		}
+		return 0;
 	}
 	public static boolean 区域层(int x){
 		if(x==1){

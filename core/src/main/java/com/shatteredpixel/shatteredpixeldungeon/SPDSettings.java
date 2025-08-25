@@ -42,15 +42,8 @@ public class SPDSettings extends GameSettings {
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
 	public static final String 游戏提示x = "游戏提示";
-
-	public static void 游戏提示( boolean value ) {
-		put( 游戏提示x, value );
-
-	}
-	
-	public static boolean 游戏提示() {
-		return getBoolean( 游戏提示x, true);
-	}
+	public static final String 画面同步x = "画面同步";
+	public static final String 游戏帧率x = "游戏帧率x";
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 
@@ -99,7 +92,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static int 亮度() {
-		return getInt( KEY_BRIGHTNESS, 1, -1, 1 );
+		return getInt( KEY_BRIGHTNESS, -1, -1, 1 );
 	}
 	
 	public static void 网格可视度(int value ){
@@ -126,7 +119,7 @@ public class SPDSettings extends GameSettings {
 	public static int 震屏强度() {
 		return getInt( KEY_SCREEN_SHAKE, 4, 0, 4 );
 	}
-
+	
 	public static void 动画加快(boolean value ){
 		put(动画加快x, value );
 	}
@@ -150,7 +143,29 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 休息速度() {
-		return getInt(休息速度x, 2,1,5 );
+		return getInt(休息速度x, 1,1,4 );
+	}
+	
+	public static void 游戏提示( boolean value ) {
+		put( 游戏提示x, value );
+		
+	}
+	public static boolean 游戏提示() {
+		return getBoolean( 游戏提示x, true);
+	}
+	public static void 画面同步(boolean value ){
+		put(画面同步x, value );
+	}
+	
+	public static boolean 画面同步() {
+		return getBoolean(画面同步x, true );
+	}
+	public static void 游戏帧率(int value ){
+		put(游戏帧率x, value );
+	}
+
+	public static int 游戏帧率() {
+		return getInt(游戏帧率x, 2,1,4 );
 	}
 
 	//Interface
@@ -255,6 +270,10 @@ public class SPDSettings extends GameSettings {
 	
 	public static final String KEY_LAST_CLASS	= "last_class";
 	public static final String KEY_CHALLENGES	= "challenges";
+	public static final String 炼狱x	= "炼狱";
+	public static final String 解压x	= "解压";
+	public static final String 系统x	= "系统";
+	public static final String 玩法x	= "玩法";
 	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_LAST_DAILY	= "last_daily";
 	public static final String KEY_INTRO		= "intro";
@@ -284,6 +303,35 @@ public class SPDSettings extends GameSettings {
 	
 	public static int challenges() {
 		return getInt( KEY_CHALLENGES, 0, 0, Challenges.MAX_VALUE );
+	}
+	public static void 炼狱( int value ) {
+		put( 炼狱x, value );
+	}
+
+	public static int 炼狱() {
+		return getInt( 炼狱x, 0, 0, 炼狱设置.MAX_VALUE );
+	}
+	public static void 解压( int value ) {
+		put( 解压x, value );
+	}
+
+	public static int 解压() {
+		return getInt( 解压x, 0, 0, 解压设置.MAX_VALUE );
+	}
+
+	public static void 系统( int value ) {
+		put( 系统x, value );
+	}
+
+	public static int 系统() {
+		return getInt( 系统x, 0, 0, 系统设置.MAX_VALUE );
+	}
+	public static void 玩法( int value ) {
+		put( 玩法x, value );
+	}
+
+	public static int 玩法() {
+		return getInt( 玩法x, 0, 0, 玩法设置.MAX_VALUE );
 	}
 
 	public static void customSeed( String value ){

@@ -26,7 +26,7 @@ public class Spear extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 2;
-		延迟 = 1.5f; //0.67x speed
+		间隔= 1.5f; //0.67x speed
 		范围 = 2;    //extra reach
 	}
 

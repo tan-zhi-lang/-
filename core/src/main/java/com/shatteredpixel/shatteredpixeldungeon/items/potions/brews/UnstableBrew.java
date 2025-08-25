@@ -2,21 +2,23 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions.brews;
 
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
@@ -61,9 +63,9 @@ public class UnstableBrew extends Brew {
 	@Override
 	public void apply(Hero hero) {
 		//Don't allow this to roll healing in pharma
-//		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-//			potionChances.put(治疗药剂.class, 0f);
-//		}
+		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+			potionChances.put(治疗药剂.class, 0f);
+		}
 
 		Potion p = Reflection.newInstance(Random.chances(potionChances));
 
@@ -75,9 +77,9 @@ public class UnstableBrew extends Brew {
 		p.anonymize();
 		p.apply(hero);
 
-//		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-//			potionChances.put(治疗药剂.class, 3f);
-//		}
+		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
+			potionChances.put(治疗药剂.class, 3f);
+		}
 	}
 	
 	@Override

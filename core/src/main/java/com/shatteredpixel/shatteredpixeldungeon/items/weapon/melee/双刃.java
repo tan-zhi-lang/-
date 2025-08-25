@@ -29,7 +29,7 @@ public class 双刃 extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 
 		tier = 1;
-		延迟 = 0.75f; //2x speed
+		间隔= 0.75f; //2x speed
 		
 		bones = false;
 	}

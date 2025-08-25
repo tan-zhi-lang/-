@@ -321,7 +321,7 @@ public class 法师魔杖 extends MeleeWeapon {
 			wand.等级(等级());
 			//gives the wand one additional max charge
 			wand.maxCharges = Math.min(wand.maxCharges + 2, 10+(curUser==null?0:curUser.天赋点数(Talent.DESPERATE_POWER)));
-			wand.curCharges = Math.min(curCharges + 1, wand.maxCharges);
+			wand.curCharges = Math.min(curCharges + (curUser!=null&&curUser.heroClass(HeroClass.MAGE)?1:0), wand.maxCharges);
 			updateQuickslot();
 		}
 	}

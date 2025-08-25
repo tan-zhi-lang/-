@@ -18,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Shad
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
@@ -69,7 +68,7 @@ import java.util.Arrays;
 abstract public class Weapon extends KindOfWeapon {
 
 	public float 命中 = 1f;	// Accuracy modifier
-	public float 延迟 = 1f;	// Speed modifier
+	public float 间隔= 1f;	// Speed modifier
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
@@ -294,7 +293,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	protected float baseDelay( Char owner ){
-		float delay = augment.delayFactor(this.延迟);
+		float delay = augment.delayFactor(this.间隔);
 		if (owner instanceof Hero) {
 			int encumbrance = 力量() - ((Hero)owner).力量();
 			if (encumbrance > 0&&owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)){

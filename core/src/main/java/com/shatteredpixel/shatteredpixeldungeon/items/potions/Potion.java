@@ -281,9 +281,6 @@ public class Potion extends Item {
 		hero.spend( drinkTime() );
 		hero.busy();
 		apply( hero );
-		if (hero.heroClass(HeroClass.学士)){
-			Buff.施加(hero, Swiftthistle.TimeBubble.class).reset(2);
-		}
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
 		

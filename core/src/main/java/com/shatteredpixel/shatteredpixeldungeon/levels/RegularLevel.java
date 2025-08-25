@@ -59,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -193,14 +194,20 @@ public abstract class RegularLevel extends Level {
 		if (feeling == Feeling.LARGE){
 			mobs = (int)Math.ceil(mobs * 1.33f);
 		}
+		if(Dungeon.玩法(玩法设置.修罗血场)){
+			mobs*=2;
+		}
 		return mobs;
 	}
 	
 	@Override
 	protected void createMobs() {
 		//on floor 1, 8 pre-set mobs are created so the player can get level 2.
-		int mobsToSpawn = Dungeon.depth == 1 ? 8 : mobLimit();
-
+		int mobsToSpawn = Dungeon.depth == 1 ? 10 : mobLimit();
+		
+		if(Dungeon.玩法(玩法设置.修罗血场)){
+			mobsToSpawn*=2;
+		}
 		ArrayList<Room> stdRooms = new ArrayList<>();
 		for (Room room : rooms) {
 			if (room instanceof StandardRoom) {
@@ -529,7 +536,13 @@ public abstract class RegularLevel extends Level {
 							map[cell] = Terrain.GRASS;
 							losBlocking[cell] = false;
 						}
-						drop(Generator.randomRing(), cell).type = Heap.Type.CHEST;
+						if(Dungeon.hero.满天赋(Talent.寻宝猎人)){
+							drop(Generator.randomRing(), cell).type = Heap.Type.CHEST;
+						}else if(Dungeon.hero.天赋点数(Talent.寻宝猎人)==2){
+							drop(Generator.randomWand(), cell).type = Heap.Type.CHEST;
+						}else if(Dungeon.hero.天赋点数(Talent.寻宝猎人)==1){
+							drop(Generator.randomArmor(), cell).type = Heap.Type.CHEST;
+						}
 						dropped.countUp(2);
 					}
 				}

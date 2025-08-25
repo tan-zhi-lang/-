@@ -123,6 +123,10 @@ public class GamesInProgress {
 		
 		info.depth = Dungeon.depth;
 		info.challenges = Dungeon.challenges;
+		info.炼狱 = Dungeon.炼狱;
+		info.解压 = Dungeon.解压;
+		info.系统 = Dungeon.系统;
+		info.玩法 = Dungeon.玩法;
 
 		info.seed = Dungeon.seed;
 		info.customSeed = Dungeon.customSeedText;
@@ -155,6 +159,10 @@ public class GamesInProgress {
 		public int depth;
 		public int version;
 		public int challenges;
+		public int 炼狱;
+		public int 解压;
+		public int 系统;
+		public int 玩法;
 
 		public long seed;
 		public String customSeed;

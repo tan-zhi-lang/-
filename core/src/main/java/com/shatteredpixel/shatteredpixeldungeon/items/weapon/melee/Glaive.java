@@ -15,7 +15,7 @@ public class Glaive extends MeleeWeapon {
 		hitSoundPitch = 0.8f;
 
 		tier = 5;
-		延迟 = 1.5f; //0.67x speed
+		间隔= 1.5f; //0.67x speed
 		范围 = 2;    //extra reach
 	}
 

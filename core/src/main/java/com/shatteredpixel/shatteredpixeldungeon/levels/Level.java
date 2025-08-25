@@ -84,6 +84,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
@@ -730,6 +731,9 @@ public abstract class Level implements Bundlable {
 			cooldown = 2*TIME_TO_RESPAWN/3f;
 		} else {
 			cooldown = TIME_TO_RESPAWN;
+		}
+		if(Dungeon.玩法(玩法设置.修罗血场)){
+			cooldown/=2;
 		}
 		return cooldown / DimensionalSundial.spawnMultiplierAtCurrentTime();
 	}

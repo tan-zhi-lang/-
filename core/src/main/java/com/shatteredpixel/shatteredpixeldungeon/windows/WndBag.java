@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RightClickMenu;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.input.GameAction;
 import com.watabou.input.KeyBindings;
 import com.watabou.input.KeyEvent;
@@ -86,7 +87,7 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.横屏() ? COLS_L : COLS_P;
-		nRows = PixelScene.横屏() ? 5 :7;//(int)Math.ceil(25/(float)nCols)
+		nRows = PixelScene.横屏() ? 5 :(Dungeon.解压(解压设置.超级背包)?7:5);//(int)Math.ceil(25/(float)nCols)
 		//we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
@@ -95,7 +96,7 @@ public class WndBag extends WndTabbed {
 		if (PixelScene.横屏()){
 			while (slotHeight >= 24 && (windowHeight + 20 + chrome.marginTop()) > PixelScene.uiCamera.height){
 				slotHeight--;
-				windowHeight -= 7;
+				windowHeight -= Dungeon.解压(解压设置.超级背包)?7:5;
 			}
 		} else {
 			while (slotWidth >= 26 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){

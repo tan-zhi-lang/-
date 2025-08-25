@@ -178,7 +178,9 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.Delayer;
@@ -273,7 +275,7 @@ public class Hero extends Char {
         if (buff(根骨秘药.HTBoost.class) != null) {
             最大生命 += buff(根骨秘药.HTBoost.class).boost();
         }
-
+        最大生命+=Math.round(生命成长);
 
         float multiplier = RingOfMight.HTMultiplier(this);
         multiplier *= 综合属性();
@@ -287,7 +289,11 @@ public class Hero extends Char {
         if (heroClass(HeroClass.血鬼)) {
             multiplier *= 1.25f;
         }
+        multiplier *= 1 + 神力 * 0.1f;
         multiplier *= 1 + 天赋点数(Talent.强壮体魄, 0.15f);
+        if(Dungeon.玩法(玩法设置.修罗血场)){
+            multiplier *=1.3f;
+        }
         最大生命 = Math.round(最大生命 * multiplier);
 
         生命 = Math.min(生命, 最大生命);
@@ -557,6 +563,8 @@ public class Hero extends Char {
         }
         Buff.施加(this, 再生.class);
         Buff.施加(this, Hunger.class);
+        
+        更新生命();
     }
 
     public int tier() {
@@ -1089,7 +1097,19 @@ public class Hero extends Char {
 
     @Override
     public boolean act() {
-        更新生命();
+//        if(){
+//            Dungeon.hero.interrupt();
+//            PixelScene.shake( 5, 1f );
+//            Sample.INSTANCE.play(Assets.Sounds.ROCKS);
+//        }
+        if(生命流动>=1){
+            回血();
+            生命流动=生命流动-1;
+        }else if(生命流动<0){
+            int x=Math.round(生命流动);
+            生命流动+=x;
+            受伤(x);
+        }
         if(heroClass(HeroClass.血鬼)){
             流血++;
             if(流血==10) {
@@ -1115,14 +1135,15 @@ public class Hero extends Char {
                 }
             }
         }
+        更新生命();
         if (在草丛() && 有天赋(Talent.自然丰收)) {
             float shield = 天赋点数(Talent.自然丰收, 0.275f);
             Buff.施加(this, Hunger.class).吃饭(shield);
         }
-
-        for (int n : PathFinder.NEIGHBOURS8){
-            Heap heap = Dungeon.level.heaps.get(pos+n);
+//        for (int n : PathFinder.NEIGHBOURS8){
+            Heap heap = Dungeon.level.heaps.get(pos);
             if (heap != null && heap.type == Heap.Type.HEAP) {
+                //自动拾取
                 Item item = heap.peek();
                 boolean ok=false;
                 for (Item i : belongings){
@@ -1144,7 +1165,7 @@ public class Hero extends Char {
                     }
                 }
             }
-        }
+//        }
 
         //calls to dungeon.observe will also update hero's local FOV.
         fieldOfView = Dungeon.level.heroFOV;
@@ -1778,7 +1799,9 @@ public class Hero extends Char {
     @Override
     public int 攻击时(final Char enemy, int damage) {
         damage = super.攻击时(enemy, damage);
-
+        if(Dungeon.系统(系统设置.生命成长)){
+            生命成长+=Dungeon.depth/100f;
+        }
 
         if (buff(Kinetic.ConservedDamage.class) != null) {
             int conservedDamage = 0;
@@ -1797,18 +1820,6 @@ public class Hero extends Char {
         if (有天赋(Talent.星火符刃)) {
             enemy.受伤(天赋生命力(Talent.星火符刃, 0.7f));
         }
-        float 吸血 = 天赋点数(Talent.高级吸血, 0.04f);
-
-        if (heroSubClass(HeroSubClass.黑魔导师)) {
-            吸血 += 0.04f;
-        }
-        if (heroClass(HeroClass.巫女)) {
-            吸血 += 0.01f;
-        }
-        if (heroClass(HeroClass.血鬼)) {
-            吸血 += 0.05f;
-        }
-        回血(Math.round(damage * 吸血));
 
         if (有天赋(Talent.致命打击) && enemy.第一次防御) {
             damage += 天赋生命力(Talent.致命打击, 0.25f);
@@ -2358,6 +2369,10 @@ public class Hero extends Char {
     }
 
     public void 经验(int exp, Class source) {
+        if(Dungeon.玩法(玩法设置.修罗血场)){
+            exp=Dungeon.depth();
+        }
+        
         //xp granted by ascension challenge is only for on-exp gain effects
         if (source != AscensionChallenge.class) {
             this.当前经验 += exp;
@@ -2821,7 +2836,7 @@ public class Hero extends Char {
     }
 
     public int 感知范围() {
-        int x = 1;
+        int x = 8/视野范围();
 
         if (buff(DivineSense.DivineSenseTracker.class) != null) {
             if (heroClass == HeroClass.CLERIC) {
@@ -3057,8 +3072,6 @@ public class Hero extends Char {
                 ((法师魔杖) i).applyWandChargeBuff(this);
             }
         }
-
-        更新生命();
     }
 
     @Override
@@ -3095,6 +3108,26 @@ public class Hero extends Char {
         return x;
     }
 
+    @Override
+    public float 吸血() {
+
+        float 吸血 = 天赋点数(Talent.高级吸血, 0.04f);
+
+        if (heroSubClass(HeroSubClass.黑魔导师)) {
+            吸血 += 0.04f;
+        }
+        if (heroClass(HeroClass.巫女)) {
+            吸血 += 0.01f;
+        }
+        if (heroClass(HeroClass.血鬼)) {
+            吸血 += 0.05f;
+        }
+        if(Dungeon.玩法(玩法设置.修罗血场)){
+            吸血 += 0.05f;
+        }
+        return 吸血+super.吸血();
+    }
+
     public boolean 连击(final Char enemy, float dmgMulti, float dmgBonus, float accMulti) {
 
         AttackIndicator.target(enemy);
@@ -3119,6 +3152,5 @@ public class Hero extends Char {
             spendAndNext(攻速());
         }
         return hit;
-
     }
 }

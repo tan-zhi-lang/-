@@ -21,7 +21,7 @@ public class 半月刃 extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 
 		tier = 3;
-		延迟 = 1.25f;
+		间隔= 1.25f;
 	}
 
 	@Override

@@ -17,6 +17,25 @@ public class ColorBlock extends Image implements Resizable {
 		scale.set( width, height );
 	}
 	
+	public float left() {
+		return x;
+	}
+	
+	public float right() {
+		return x + width;
+	}
+	
+	public float centerX() {
+		return x + width / 2;
+	}
+	
+	public float top() {
+		return y;
+	}
+	
+	public float bottom() {
+		return y + height;
+	}
 	@Override
 	public float width() {
 		return scale.x;

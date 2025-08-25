@@ -18,7 +18,7 @@ public class Scimitar extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 
 		tier = 3;
-		延迟 = 0.8f; //1.25x speed
+		间隔= 0.8f; //1.25x speed
 	}
 
 	@Override

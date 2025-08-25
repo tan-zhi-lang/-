@@ -65,6 +65,62 @@ public class WndGameInProgress extends Window {
 			
 			pos = btnChallenges.bottom() + GAP;
 		}
+		if (info.炼狱 > 0) {
+			RedButton btnChallenges = new RedButton( Messages.get(this, "炼狱") ) {
+				@Override
+				protected void onClick() {
+					Game.scene().add( new 炼狱( info.炼狱, false ) );
+				}
+			};
+			btnChallenges.icon(Icons.get(Icons.炼狱开));
+			float btnW = btnChallenges.reqWidth() + 2;
+			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
+			add( btnChallenges );
+			
+			pos = btnChallenges.bottom() + GAP;
+		}
+		if (info.解压 > 0) {
+			RedButton btnChallenges = new RedButton( Messages.get(this, "解压") ) {
+				@Override
+				protected void onClick() {
+					Game.scene().add( new 解压( info.解压, false ) );
+				}
+			};
+			btnChallenges.icon(Icons.get(Icons.解压开));
+			float btnW = btnChallenges.reqWidth() + 2;
+			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
+			add( btnChallenges );
+			
+			pos = btnChallenges.bottom() + GAP;
+		}
+		if (info.系统 > 0) {
+			RedButton btnChallenges = new RedButton( Messages.get(this, "系统") ) {
+				@Override
+				protected void onClick() {
+					Game.scene().add( new 系统( info.系统, false ) );
+				}
+			};
+			btnChallenges.icon(Icons.get(Icons.系统开));
+			float btnW = btnChallenges.reqWidth() + 2;
+			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
+			add( btnChallenges );
+			
+			pos = btnChallenges.bottom() + GAP;
+		}
+		if (info.玩法 > 0) {
+			RedButton btnChallenges = new RedButton( Messages.get(this, "玩法") ) {
+				@Override
+				protected void onClick() {
+					Game.scene().add( new 玩法( info.玩法, false ) );
+				}
+			};
+			btnChallenges.icon(Icons.get(Icons.玩法开));
+			float btnW = btnChallenges.reqWidth() + 2;
+			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
+			add( btnChallenges );
+			
+			pos = btnChallenges.bottom() + GAP;
+		}
 		
 		pos += GAP;
 

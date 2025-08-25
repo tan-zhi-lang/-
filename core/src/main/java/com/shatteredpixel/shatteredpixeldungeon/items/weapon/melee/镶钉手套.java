@@ -15,7 +15,7 @@ public class 镶钉手套 extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 1;
-		延迟 = 0.5f; //2x speed
+		间隔= 0.5f; //2x speed
 
 		拳套=true;
 		bones = false;

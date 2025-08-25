@@ -2,11 +2,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.bags;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 
 public class MagicalHolster extends Bag {
 
@@ -27,7 +29,7 @@ public class MagicalHolster extends Bag {
 	}
 
 	public int capacity(){
-		return 29;
+		return 19+(Dungeon.解压(解压设置.超级背包)?10:0);
 	}
 	
 	@Override

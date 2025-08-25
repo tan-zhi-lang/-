@@ -12,7 +12,7 @@ public class ThrowingSpear extends MissileWeapon {
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1f;
 		投矛=true;
-		延迟=1.5f;
+		间隔=1.5f;
 		
 		tier = 3;
 	}

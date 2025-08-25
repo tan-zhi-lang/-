@@ -11,7 +11,6 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x7;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x8;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -35,12 +34,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -49,10 +47,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -500,6 +499,9 @@ public enum Talent {
 			}
 		}
 		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
+			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
+			if (hero.belongings.misc2 instanceof Ring) ((Ring) hero.belongings.misc2).setKnown();
+			if (hero.belongings.misc3 instanceof Ring) ((Ring) hero.belongings.misc3).setKnown();
 			if(!ShardOfOblivion.passiveIDDisabled()) {
 				if (hero.belongings.misc instanceof Ring) {
 					hero.belongings.misc.鉴定();
@@ -511,11 +513,6 @@ public enum Talent {
 					hero.belongings.misc3.鉴定();
 				}
 			}
-		}
-		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
-			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
-			if (hero.belongings.misc2 instanceof Ring) ((Ring) hero.belongings.misc2).setKnown();
-			if (hero.belongings.misc3 instanceof Ring) ((Ring) hero.belongings.misc3).setKnown();
 		}
 
 
@@ -696,9 +693,6 @@ public enum Talent {
 
 	public static void 喝药时(Hero hero, int cell, float factor ){
 
-		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
-			hero.受伤(hero.最大生命(0.05f));
-		}
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
 			int shieldToGive = Math.round( factor * hero.最大生命);

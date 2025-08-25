@@ -12,7 +12,9 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
 public class 算法 {
+    /*
 
+    * */
     public static int x2=32;
     public static int x3=64;
     public static int x4=96;

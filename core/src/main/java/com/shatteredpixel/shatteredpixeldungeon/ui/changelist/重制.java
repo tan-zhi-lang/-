@@ -48,16 +48,20 @@ public class 重制 {
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
-
+		changes.addButton( new ChangeButton(Icons.玩法开.get(), "玩法",
+				"新增选项。"));
+		changes.addButton( new ChangeButton(Icons.系统开.get(), "系统",
+				"新增选项。"));
+		changes.addButton( new ChangeButton(Icons.解压开.get(), "解压",
+				"新增选项。"));
+		changes.addButton( new ChangeButton(Icons.炼狱开.get(), "炼狱",
+				"新增选项。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.爪), "爪",
 				"新增2阶近战武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.半月刃), "半月刃",
 				"新增3阶近战武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.PHANTOM_MEAT), "幻影鱼肉",
 				"生肉+隐形药剂消耗5能量合成。"));
-		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(), "炼金",
-				"配方3=>6。\n" +
-						"现在正装备的装备不能放入炼金和提炼。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.枪手, tier(HeroClass.枪手))), "枪手",
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.血鬼, tier(HeroClass.血鬼))), "血鬼",
@@ -97,28 +101,36 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new MimicSprite.毒气(), "毒气宝箱怪房",
 				"新增房间。"));
 		changes.addButton( new ChangeButton(Icons.神力之泉.get(), "神力之泉",
-				"新增神力之泉，英雄战上面可以获得永久力量和生命，物品在上面可以永久减少2力量需求和升级一次。"));
+				"新增神力之泉，英雄战上面可以获得永久+10%力量和生命，物品在上面可以永久减少2力量需求和升级一次。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.单身狗粮), "单身狗粮",
 				"7-8月掉落单身狗粮。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "食物条",
-				"状态栏添加食物条。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.杂物袋), "杂物袋",
 				"商店出售杂物袋。"));
-		changes.addButton( new ChangeButton(Icons.SEED.get(), "种子",
-				"现在输入代码名可以直接生成在背包。"));
-		changes.addButton( new ChangeButton(Icons.DISPLAY.get(), "动画加快",
-				"添加可调整动画加快按钮。"));
+		changes.addButton( new ChangeButton(Icons.DISPLAY.get(), "显示设置",
+				"添加可调整动画加快按钮。\n" +
+				"新增可调整画面同步按钮，关了才不会锁帧。"));
 		changes.addButton( new ChangeButton(Icons.CONTROLLER.get(), "固定移速",
 				"可调整固定移速，例如在1.05移速时固定1。"));
-		changes.addButton( new ChangeButton(Icons.AUDIO.get(), "主题曲",
-				"我的三体《夜航星》。"));
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new TalentIcon(Talent.HEIGHTENED_SENSES), "视野和感知",
+				"视野算法优化。\n" +
+						"感知为8/视野。"));
+		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(), "炼金",
+				"配方3=>6。\n" +
+						"现在正装备的装备不能放入炼金和提炼。"));
+
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_CAPE), "荆棘斗篷",
 				"回归。"));
 
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "食物条",
+				"状态栏添加食物条。"));
+		changes.addButton( new ChangeButton(Icons.SEED.get(), "种子",
+				"现在输入代码名可以直接生成在背包。"));
+		changes.addButton( new ChangeButton(Icons.AUDIO.get(), "主题曲",
+				"我的三体《夜航星》。"));
 		changes.addButton( new ChangeButton(new ImpSprite(), "野心勃勃的小恶魔",
 				"不再半透明。"));
 		changes.addButton( new ChangeButton(new GhostSprite(), "悲伤幽灵",
@@ -133,7 +145,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.AMULET), "Yendor护符",
 				"结算时的英雄贴图采用另一种。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RAPIER), "配刺剑",
-				"最小伤害+1，最大伤害+1，最大伤害4x(阶+1)=5x(阶+1)，攻击延迟1=>0.75。\n" +
+				"最小伤害+1，最大伤害+1，最大伤害4x(阶+1)=5x(阶+1)，攻击间隔1=>0.75。\n" +
 						"每级可以提升1格挡量。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.KATANA), "武士刀",
 				"每级可以提升1格挡量。"));
@@ -142,10 +154,10 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.DAGGER), "双钗",
 				"最小伤害+1。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SAI), "双刃",
-				"最小伤害+1，最大伤害4x(阶+1)=3x(阶+1)，攻击延迟1=>0.75。"));
+				"最小伤害+1，最大伤害4x(阶+1)=3x(阶+1)，攻击间隔1=>0.75。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.GLOVES), "镶钉手套",
 				"最小伤害+1，最大伤害2.5x(阶+1)+0.5x(阶=1)=2x(阶+1)+0.4x(阶=1。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.GLOVES), "GAUNTLETS",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.GAUNTLETS), "魔岩拳套",
 				"最小伤害+1，最大伤害2.5x(阶+1)+0.5x(阶=1=2x(阶+1)+0.4x(阶=1。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.水袋), "水袋",
 				"灌满的水袋可以合成一瓶治疗药剂。"));
@@ -186,8 +198,7 @@ public class 重制 {
 						"新增生命力=根号(最大生命+是英雄则额外+力量)，大部分天赋等都被此数值影响。"
 				,
 				"杂项\n\n" +
-						"投掷和弓在近距离最大命中不变，非近距离-33%最大命中。\n" +
-						"优化感知、视野范围、光照范围计算。"
+						"投掷和弓在近距离最大命中不变，非近距离-33%最大命中。"
 		));
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				""));
@@ -218,6 +229,7 @@ public class 重制 {
 						"毒气房\n" +
 						"金币数量x2。\n" ,
 
+						"第一层怪物数量+2。\n" +
 						"第一层必定生成一瓶经验药剂。\n" +
 						"每个区域生成的升级卷轴数量+1。\n" +
 						"每个区域第3层必定一瓶治疗药剂。"));

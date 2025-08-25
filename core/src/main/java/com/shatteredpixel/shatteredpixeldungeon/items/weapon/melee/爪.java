@@ -14,7 +14,7 @@ public class 爪 extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.3f;
 		拳套=true;
-		延迟 = 0.25f;
+		间隔= 0.25f;
 		tier = 2;
 	}
 

@@ -237,17 +237,17 @@ public class StartScene extends PixelScene {
 				level.text(Integer.toString(info.level));
 				level.measure();
 				
-				if (info.challenges > 0){
-					name.hardlight(Window.TITLE_COLOR);
-					lastPlayed.hardlight(Window.TITLE_COLOR);
-					depth.hardlight(Window.TITLE_COLOR);
-					level.hardlight(Window.TITLE_COLOR);
-				} else {
-					name.resetColor();
-					lastPlayed.resetColor();
-					depth.resetColor();
-					level.resetColor();
-				}
+//				if (info.challenges > 0){
+				name.hardlight(Window.TITLE_COLOR);
+				lastPlayed.hardlight(Window.TITLE_COLOR);
+				depth.hardlight(Window.TITLE_COLOR);
+				level.hardlight(Window.TITLE_COLOR);
+//				} else {
+//					name.resetColor();
+//					lastPlayed.resetColor();
+//					depth.resetColor();
+//					level.resetColor();
+//				}
 
 				if (info.daily){
 					if (info.dailyReplay){

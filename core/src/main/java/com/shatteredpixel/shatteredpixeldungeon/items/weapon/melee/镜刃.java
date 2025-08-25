@@ -20,52 +20,38 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 
-public class 配刺剑 extends MeleeWeapon {
+public class 镜刃 extends MeleeWeapon {
 
 	{
-		image = 物品表.RAPIER;
+		image = 物品表.WORN_SHORTSWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1.3f;
+		hitSoundPitch = 1.1f;
 
 		tier = 1;
-		间隔= 0.75f;
-
+		间隔= 0.67f;
+		
 		bones = false;
-	}
-
-	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
 	}
 	@Override
 	public int 最大攻击(int lvl) {
-		return  1+5*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1);   //scaling unchanged
+		return  4*(tier+1) +    //base
+				lvl*(tier+1);   //level scaling
 	}
-
 
 	@Override
-	public int defenseFactor( Char owner ) {
-		return 最大防御();
+	public int 能量() {
+		return Math.round(super.能量()*5);
 	}
 
-	public int 最大防御(){
-		return 最大防御(强化等级());
-	}
-
-	//4 extra defence, plus 1 per level
-	public int 最大防御(int lvl){
-		return 1 + lvl;
-	}
-
-	public String statsInfo(){
-		if (已鉴定()){
-			return Messages.get(this, "stats_desc", 1+ 强化等级());
+	@Override
+	protected int baseChargeUse(Hero hero, Char target){
+		if (hero.buff(Sword.CleaveTracker.class) != null){
+			return 0;
 		} else {
-			return Messages.get(this, "typical_stats_desc", 1);
+			return 1;
 		}
 	}
+
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");
@@ -178,4 +164,5 @@ public class 配刺剑 extends MeleeWeapon {
 			}
 		});
 	}
+
 }

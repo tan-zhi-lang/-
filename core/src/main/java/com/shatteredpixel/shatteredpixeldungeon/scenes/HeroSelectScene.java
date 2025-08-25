@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.scenes;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero.tier;
 import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar;
 
+import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -30,6 +31,10 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
+import com.shatteredpixel.shatteredpixeldungeon.windows.炼狱;
+import com.shatteredpixel.shatteredpixeldungeon.windows.玩法;
+import com.shatteredpixel.shatteredpixeldungeon.windows.系统;
+import com.shatteredpixel.shatteredpixeldungeon.windows.解压;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
@@ -867,6 +872,58 @@ public class HeroSelectScene extends PixelScene {
             add(dailyButton);
             buttons.add(dailyButton);
 
+            StyledButton 解压 = new StyledButton(Chrome.Type.BLANK, Messages.get(解压.class, "title"), 6) {
+                @Override
+                protected void onClick() {
+                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                Icons.get(Icons.解压关),
+                                Messages.get(解压.class, "title"),
+                                Messages.get(HeroSelectScene.class, "解压")
+                        ));
+                        return;
+                    }
+
+                    ShatteredPixelDungeon.scene().addToFront(new 解压(SPDSettings.解压(), true) {
+                        public void onBackPressed() {
+                            super.onBackPressed();
+                            icon(Icons.get(SPDSettings.解压() > 0 ? Icons.解压开 : Icons.解压关));
+                            updateOptionsColor();
+                        }
+                    });
+                }
+            };
+            解压.leftJustify = true;
+            解压.icon(Icons.get(SPDSettings.解压() > 0 ? Icons.解压开 : Icons.解压关));
+            add(解压);
+            buttons.add(解压);
+            
+            StyledButton 系统 = new StyledButton(Chrome.Type.BLANK,Messages.get(系统.class,"title"),6) {
+                @Override
+                protected void onClick() {
+                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                Icons.get(Icons.系统关),
+                                Messages.get(系统.class, "title"),
+                                Messages.get(HeroSelectScene.class, "系统")
+                        ));
+                        return;
+                    }
+
+                    ShatteredPixelDungeon.scene().addToFront(new 系统(SPDSettings.系统(), true) {
+                        public void onBackPressed() {
+                            super.onBackPressed();
+                            icon(Icons.get(SPDSettings.系统() > 0 ? Icons.系统开 : Icons.系统关));
+                            updateOptionsColor();
+                        }
+                    });
+                }
+            };
+            系统.leftJustify = true;
+            系统.icon(Icons.get(SPDSettings.系统() > 0 ? Icons.系统开 : Icons.系统关));
+            add(系统);
+            buttons.add(系统);
+            
             StyledButton challengeButton = new StyledButton(Chrome.Type.BLANK, Messages.get(WndChallenges.class, "title"), 6) {
                 @Override
                 protected void onClick() {
@@ -892,7 +949,61 @@ public class HeroSelectScene extends PixelScene {
             challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
             add(challengeButton);
             buttons.add(challengeButton);
-
+            
+            
+            StyledButton 炼狱 = new StyledButton(Chrome.Type.BLANK,Messages.get(炼狱.class,"title"),6) {
+                @Override
+                protected void onClick() {
+                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                Icons.get(Icons.炼狱关),
+                                Messages.get(炼狱.class, "title"),
+                                Messages.get(HeroSelectScene.class, "炼狱")
+                        ));
+                        return;
+                    }
+                    
+                    ShatteredPixelDungeon.scene().addToFront(new 炼狱(SPDSettings.炼狱(), true) {
+                        public void onBackPressed() {
+                            super.onBackPressed();
+                            icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
+                            updateOptionsColor();
+                        }
+                    });
+                }
+            };
+            炼狱.leftJustify = true;
+            炼狱.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
+            add(炼狱);
+            buttons.add(炼狱);
+            
+            StyledButton 玩法 = new StyledButton(Chrome.Type.BLANK,Messages.get(玩法.class,"title"),6) {
+                @Override
+                protected void onClick() {
+                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                Icons.get(Icons.玩法关),
+                                Messages.get(玩法.class, "title"),
+                                Messages.get(HeroSelectScene.class, "玩法")
+                        ));
+                        return;
+                    }
+                    
+                    ShatteredPixelDungeon.scene().addToFront(new 玩法(SPDSettings.玩法(), true) {
+                        public void onBackPressed() {
+                            super.onBackPressed();
+                            icon(Icons.get(SPDSettings.玩法() > 0 ? Icons.玩法开 : Icons.玩法关));
+                            updateOptionsColor();
+                        }
+                    });
+                }
+            };
+            玩法.leftJustify = true;
+            玩法.icon(Icons.get(SPDSettings.玩法() > 0 ? Icons.玩法开 : Icons.玩法关));
+            add(玩法);
+            buttons.add(玩法);
+            
+            
             for (int i = 1; i < buttons.size(); i++) {
                 ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
                 add(spc);

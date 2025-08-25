@@ -17,7 +17,7 @@ public class Kunai extends MissileWeapon {
 		image = 物品表.KUNAI;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.1f;
-		延迟=0.67f;
+		间隔=0.67f;
 		tier = 3;
 		baseUses = 5;
 	}

@@ -26,7 +26,7 @@ public class Sai extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 3;
-		延迟 = 0.5f; //2x speed
+		间隔= 0.5f; //2x speed
 	}
 
 	@Override

@@ -53,6 +53,46 @@ public class WndGame extends Window {
 			} );
 			curBtn.icon(Icons.get(Icons.CHALLENGE_COLOR));
 		}
+		if (Dungeon.炼狱 > 0) {
+			addButton( curBtn = new RedButton( Messages.get(this, "炼狱") ) {
+				@Override
+				protected void onClick() {
+					hide();
+					GameScene.show( new 炼狱( Dungeon.炼狱, false ) );
+				}
+			} );
+			curBtn.icon(Icons.get(Icons.炼狱开));
+		}
+		if (Dungeon.解压 > 0) {
+			addButton( curBtn = new RedButton( Messages.get(this, "解压") ) {
+				@Override
+				protected void onClick() {
+					hide();
+					GameScene.show( new 解压( Dungeon.解压, false ) );
+				}
+			} );
+			curBtn.icon(Icons.get(Icons.解压开));
+		}
+		if (Dungeon.系统 > 0) {
+			addButton( curBtn = new RedButton( Messages.get(this, "系统") ) {
+				@Override
+				protected void onClick() {
+					hide();
+					GameScene.show( new 系统( Dungeon.系统, false ) );
+				}
+			} );
+			curBtn.icon(Icons.get(Icons.系统开));
+		}
+		if (Dungeon.玩法 > 0) {
+			addButton( curBtn = new RedButton( Messages.get(this, "玩法") ) {
+				@Override
+				protected void onClick() {
+					hide();
+					GameScene.show( new 玩法( Dungeon.玩法, false ) );
+				}
+			} );
+			curBtn.icon(Icons.get(Icons.玩法开));
+		}
 
 		// Restart
 		if (Dungeon.hero == null || !Dungeon.hero.isAlive()) {

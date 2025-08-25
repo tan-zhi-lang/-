@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuickBag;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 
@@ -33,7 +34,7 @@ public class Bag extends Item implements Iterable<Item> {
 	public ArrayList<Item> items = new ArrayList<>();
 
 	public int capacity(){
-		return 30; // default container size
+		return 20+(Dungeon.解压(解压设置.超级背包)?10:0); // default container size
 	}
 
 	//if an item is being quick-used from the bag, the bag should take on its targeting properties

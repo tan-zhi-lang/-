@@ -17,7 +17,7 @@ public class Shuriken extends MissileWeapon {
 		image = 物品表.SHURIKEN;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.2f;
-		延迟=0.67f;
+		间隔=0.67f;
 		
 		tier = 2;
 		baseUses = 5;

@@ -406,7 +406,7 @@ public abstract class Wand extends Item {
 
 	public void updateLevel() {
 		maxCharges = Math.min( initialCharges() + 等级(), 10+(curUser==null?0:curUser.天赋点数(Talent.DESPERATE_POWER)));
-		curCharges = Math.min( curCharges+1, maxCharges );
+		curCharges = Math.min( curCharges+(curUser!=null&&curUser.heroClass(HeroClass.MAGE)?1:0), maxCharges );
 	}
 	
 	public int initialCharges() {
@@ -601,6 +601,7 @@ public abstract class Wand extends Item {
 	private static final String USES_LEFT_TO_ID     = "uses_left_to_id";
 	private static final String AVAILABLE_USES      = "available_uses";
 	private static final String CUR_CHARGES         = "curCharges";
+	private static final String MAX_CHARGES         = "maxcharges";
 	private static final String CUR_CHARGE_KNOWN    = "curChargeKnown";
 	private static final String PARTIALCHARGE       = "partialCharge";
 	private static final String CURSE_INFUSION_BONUS= "curse_infusion_bonus";
@@ -612,6 +613,7 @@ public abstract class Wand extends Item {
 		bundle.put( USES_LEFT_TO_ID, usesLeftToID );
 		bundle.put( AVAILABLE_USES, availableUsesToID );
 		bundle.put( CUR_CHARGES, curCharges );
+		bundle.put( MAX_CHARGES, maxCharges );
 		bundle.put( CUR_CHARGE_KNOWN, curChargeKnown );
 		bundle.put( PARTIALCHARGE , partialCharge );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
@@ -625,10 +627,8 @@ public abstract class Wand extends Item {
 		availableUsesToID = bundle.getInt( AVAILABLE_USES );
 		curseInfusionBonus = bundle.getBoolean(CURSE_INFUSION_BONUS);
 		resinBonus = bundle.getInt(RESIN_BONUS);
-
-		updateLevel();
-
 		curCharges = bundle.getInt( CUR_CHARGES );
+		maxCharges = bundle.getInt( MAX_CHARGES );
 		curChargeKnown = bundle.getBoolean( CUR_CHARGE_KNOWN );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );
 	}

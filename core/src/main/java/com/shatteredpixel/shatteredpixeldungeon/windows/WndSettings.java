@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
@@ -25,6 +26,7 @@ import com.watabou.input.ControllerHandler;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.DeviceCompat;
@@ -44,7 +46,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 	private static final float GAP          = 1;
 
 	private DisplayTab 显示设置;
-	private UITab 界面设置;
 
 	private 游戏设置 游戏设置;
 	private InputTab    input;
@@ -72,20 +73,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 				super.select(value);
 				显示设置.visible = 显示设置.active = value;
 				if (value) last_index = 0;
-			}
-		});
-
-		界面设置 = new UITab();
-		界面设置.setSize(width, 0);
-		height = Math.max(height, 界面设置.height());
-		add(界面设置);
-
-		add( new IconTab(Icons.get(Icons.PREFS)){
-			@Override
-			protected void select(boolean value) {
-				super.select(value);
-				界面设置.visible = 界面设置.active = value;
-				if (value) last_index = 1;
 			}
 		});
 
@@ -216,17 +203,19 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 		RenderedTextBlock title;
 		ColorBlock sep1;
-		CheckBox chkFullscreen;
-		OptionSlider optScale;
+		RedButton 所有开关;
+		ColorBlock sep2;
+		RedButton 所有拖条;
+		ColorBlock sep3;
+		RedButton btnToolbarSettings;
+		ColorBlock sep4;
+		CheckBox chkFlipTags;
+		
 		CheckBox chkSaver;
 		RedButton btnOrientation;
-		ColorBlock sep2;
-		OptionSlider optBrightness;
-		OptionSlider optVisGrid;
-		OptionSlider optFollowIntensity;
-		OptionSlider optScreenShake;
-		CheckBox 动画加快;
-
+		OptionSlider optUIMode;
+		OptionSlider optUIScale;
+		
 		@Override
 		protected void createChildren() {
 			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
@@ -235,55 +224,205 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
-
-			chkFullscreen = new CheckBox( Messages.get(this, "fullscreen") ) {
+			所有开关= new RedButton("所有开关",9){
 				@Override
 				protected void onClick() {
-					super.onClick();
-					SPDSettings.fullscreen(checked());
-				}
-			};
-			if (DeviceCompat.supportsFullScreen()){
-				chkFullscreen.checked(SPDSettings.fullscreen());
-			} else {
-				chkFullscreen.checked(true);
-				chkFullscreen.enable(false);
-			}
-			add(chkFullscreen);
-
-			//power saver is being slowly phased out, only show it on old (4.3-) android devices
-			// this is being phased out as the setting is useless on all but very old devices anyway
-			// and support is going to be dropped for 4.3- in the forseeable future
-			if (DeviceCompat.isAndroid() && PixelScene.maxScreenZoom >= 2
-				&& (SPDSettings.powerSaver() || !DeviceCompat.supportsFullScreen())) {
-				chkSaver = new CheckBox(Messages.get(this, "saver")) {
-					@Override
-					protected void onClick() {
-						super.onClick();
-						if (checked()) {
-							checked(!checked());
-							ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.DISPLAY),
-									Messages.get(DisplayTab.class, "saver"),
-									Messages.get(DisplayTab.class, "saver_desc"),
-									Messages.get(DisplayTab.class, "okay"),
-									Messages.get(DisplayTab.class, "cancel")) {
+					ShatteredPixelDungeon.scene().addToFront(new Window(){
+						CheckBox chkFullscreen;
+						CheckBox 动画加快;
+						CheckBox chkFont;
+						CheckBox chkVibrate;
+						RenderedTextBlock 画面同步str;
+						CheckBox 画面同步;
+						
+						{
+							
+							chkFullscreen = new CheckBox( Messages.get(DisplayTab.class, "fullscreen") ) {
 								@Override
-								protected void onSelect(int index) {
-									if (index == 0) {
-										checked(!checked());
-										SPDSettings.powerSaver(checked());
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.fullscreen(checked());
+								}
+							};
+							if (DeviceCompat.supportsFullScreen()){
+								chkFullscreen.checked(SPDSettings.fullscreen());
+							} else {
+								chkFullscreen.checked(true);
+								chkFullscreen.enable(false);
+							}
+							add(chkFullscreen);
+							
+							resize(WIDTH_P, 0);
+							动画加快 = new CheckBox("动画加快") {
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.动画加快(checked());
+								}
+							};
+							if (DeviceCompat.supportsFullScreen()){
+								动画加快.checked(SPDSettings.动画加快());
+							} else {
+								动画加快.checked(true);
+								动画加快.enable(false);
+							}
+							add(动画加快);
+							
+							chkFont = new CheckBox(Messages.get(DisplayTab.class, "system_font")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									ShatteredPixelDungeon.seamlessResetScene(new Game.SceneChangeCallback() {
+										@Override
+										public void beforeCreate() {
+											SPDSettings.systemFont(checked());
+										}
+										
+										@Override
+										public void afterCreate() {
+											//do nothing
+										}
+									});
+								}
+							};
+							chkFont.checked(SPDSettings.systemFont());
+							add(chkFont);
+							
+							chkVibrate = new CheckBox(Messages.get(DisplayTab.class, "vibration")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.vibration(checked());
+									if (checked()){
+										Game.vibrate(250);
 									}
 								}
-							});
-						} else {
-							SPDSettings.powerSaver(checked());
+							};
+							chkVibrate.enable(Game.platform.supportsVibration());
+							if (chkVibrate.active) {
+								chkVibrate.checked(SPDSettings.vibration());
+							}
+							add(chkVibrate);
+							
+							画面同步 = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "画面同步")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.画面同步(checked());
+									Gdx.graphics.setVSync(checked());
+								}
+							};
+							画面同步.checked(SPDSettings.画面同步());
+							add(画面同步);
+							画面同步str = PixelScene.renderTextBlock(Messages.get(WndSettings.DisplayTab.this, "画面同步str"), 5);
+							画面同步str.hardlight(0x888888);
+							add(画面同步str);
+							
+							//layout
+							resize(WIDTH_P, 0);
+							chkFullscreen.setRect(0,  GAP, width, BTN_HEIGHT);
+							动画加快.setRect(0,  chkFullscreen.bottom()+GAP, width, BTN_HEIGHT);
+							chkFont.setRect(0,  动画加快.bottom()+GAP, width, BTN_HEIGHT);
+							chkVibrate.setRect(0,  chkFont.bottom()+GAP, width, BTN_HEIGHT);
+							画面同步.setRect(0,  chkVibrate.bottom()+GAP, width, BTN_HEIGHT);
+							画面同步str.maxWidth(width);
+							画面同步str.setPos(0, 画面同步.bottom()+1);
+							
+							resize(WIDTH_P, (int) 画面同步str.bottom());
+							
 						}
-					}
-				};
-				chkSaver.checked( SPDSettings.powerSaver() );
-				add( chkSaver );
-			}
-
+					});
+				}
+			};
+			add(所有开关);
+			
+			sep2 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep2);
+			
+			所有拖条= new RedButton("所有拖条",9){
+				@Override
+				protected void onClick() {
+					ShatteredPixelDungeon.scene().addToFront(new Window(){
+						OptionSlider optBrightness;
+						OptionSlider optVisGrid;
+						OptionSlider optFollowIntensity;
+						OptionSlider optScreenShake;
+						OptionSlider 游戏帧率;
+						
+						{
+							
+							
+							optBrightness = new OptionSlider(Messages.get(DisplayTab.class, "brightness"),
+															 Messages.get(DisplayTab.class, "dark"), Messages.get(DisplayTab.class, "bright"), -1, 1) {
+								@Override
+								protected void onChange() {
+									SPDSettings.亮度(getSelectedValue());
+								}
+							};
+							optBrightness.setSelectedValue(SPDSettings.亮度());
+							add(optBrightness);
+							
+							optVisGrid = new OptionSlider(Messages.get(DisplayTab.class, "visual_grid"),
+														  Messages.get(DisplayTab.class, "off"), Messages.get(DisplayTab.class, "high"), -1, 2) {
+								@Override
+								protected void onChange() {
+									SPDSettings.网格可视度(getSelectedValue());
+								}
+							};
+							optVisGrid.setSelectedValue(SPDSettings.网格可视度());
+							add(optVisGrid);
+							
+							
+							optFollowIntensity = new OptionSlider(Messages.get(DisplayTab.class, "camera_follow"),
+																  Messages.get(DisplayTab.class, "low"), Messages.get(DisplayTab.class, "high"), 1, 4) {
+								@Override
+								protected void onChange() {
+									SPDSettings.镜头追踪强度(getSelectedValue());
+								}
+							};
+							optFollowIntensity.setSelectedValue(SPDSettings.镜头追踪强度());
+							add(optFollowIntensity);
+							
+							optScreenShake = new OptionSlider(Messages.get(DisplayTab.class, "screenshake"),
+															  Messages.get(DisplayTab.class, "off"), Messages.get(DisplayTab.class, "high"), 0, 4) {
+								@Override
+								protected void onChange() {
+									SPDSettings.震屏强度(getSelectedValue());
+								}
+							};
+							optScreenShake.setSelectedValue(SPDSettings.震屏强度());
+							add(optScreenShake);
+							
+							
+							游戏帧率 = new OptionSlider("游戏帧率",
+														"30", "120", 1, 4) {//30 60 90 120
+								@Override
+								protected void onChange() {
+									SPDSettings.游戏帧率(getSelectedValue());
+									Gdx.graphics.setForegroundFPS(getSelectedValue()*30);
+								}
+							};
+							游戏帧率.setSelectedValue(SPDSettings.游戏帧率());
+							add(游戏帧率);
+							
+							//layout
+							resize(WIDTH_P, 0);
+							optBrightness.setRect(0,  GAP, width, BTN_HEIGHT);
+							optVisGrid.setRect(0,  optBrightness.bottom()+GAP, width, BTN_HEIGHT);
+							optFollowIntensity.setRect(0,  optVisGrid.bottom()+GAP, width, BTN_HEIGHT);
+							optScreenShake.setRect(0,  optFollowIntensity.bottom()+GAP, width, BTN_HEIGHT);
+							游戏帧率.setRect(0,  optScreenShake.bottom()+GAP, width, BTN_HEIGHT);
+							
+							resize(WIDTH_P, (int) 游戏帧率.bottom());
+						}
+					});
+				}
+			};
+			add(所有拖条);
+			
+			sep3 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep3);
+			
 			if (DeviceCompat.isAndroid()) {
 				Boolean landscape = SPDSettings.landscape();
 				if (landscape == null){
@@ -291,8 +430,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 				}
 				Boolean finalLandscape = landscape;
 				btnOrientation = new RedButton(finalLandscape ?
-						Messages.get(this, "portrait")
-						: Messages.get(this, "landscape")) {
+													   Messages.get(this, "portrait")
+													   : Messages.get(this, "landscape")) {
 					@Override
 					protected void onClick() {
 						SPDSettings.landscape(!finalLandscape);
@@ -300,206 +439,21 @@ public class WndSettings extends WndTabbed {//WndSettings
 				};
 				add(btnOrientation);
 			}
-
-			sep2 = new ColorBlock(1, 1, 0xFF000000);
-			add(sep2);
-
-			optBrightness = new OptionSlider(Messages.get(this, "brightness"),
-					Messages.get(this, "dark"), Messages.get(this, "bright"), -1, 1) {
-				@Override
-				protected void onChange() {
-					SPDSettings.亮度(getSelectedValue());
-				}
-			};
-			optBrightness.setSelectedValue(SPDSettings.亮度());
-			add(optBrightness);
-
-			optVisGrid = new OptionSlider(Messages.get(this, "visual_grid"),
-					Messages.get(this, "off"), Messages.get(this, "high"), -1, 2) {
-				@Override
-				protected void onChange() {
-					SPDSettings.网格可视度(getSelectedValue());
-				}
-			};
-			optVisGrid.setSelectedValue(SPDSettings.网格可视度());
-			add(optVisGrid);
-
-			optFollowIntensity = new OptionSlider(Messages.get(this, "camera_follow"),
-					Messages.get(this, "low"), Messages.get(this, "high"), 1, 4) {
-				@Override
-				protected void onChange() {
-					SPDSettings.镜头追踪强度(getSelectedValue());
-				}
-			};
-			optFollowIntensity.setSelectedValue(SPDSettings.镜头追踪强度());
-			add(optFollowIntensity);
-
-			optScreenShake = new OptionSlider(Messages.get(this, "screenshake"),
-					Messages.get(this, "off"), Messages.get(this, "high"), 0, 4) {
-				@Override
-				protected void onChange() {
-					SPDSettings.震屏强度(getSelectedValue());
-				}
-			};
-			optScreenShake.setSelectedValue(SPDSettings.震屏强度());
-			add(optScreenShake);
-
-			动画加快 = new CheckBox("动画加快") {
-				@Override
-				protected void onClick() {
-					super.onClick();
-					SPDSettings.动画加快(checked());
-				}
-			};
-			if (DeviceCompat.supportsFullScreen()){
-				动画加快.checked(SPDSettings.动画加快());
-			} else {
-				动画加快.checked(true);
-				动画加快.enable(false);
-			}
-			add(动画加快);
-
-		}
-
-		@Override
-		protected void layout() {
-
-			float bottom = y;
-
-			title.setPos((width - title.width())/2, bottom + GAP);
-			sep1.size(width, 1);
-			sep1.y = title.bottom() + 3*GAP;
-
-			bottom = sep1.y + 1;
-
-			if (width > 200 && chkSaver != null) {
-				动画加快.setRect(0, bottom + GAP, width/2-1, BTN_HEIGHT);
-				bottom = 动画加快.bottom();
-				chkFullscreen.setRect(0, bottom + GAP, width/2-1, BTN_HEIGHT);
-				chkSaver.setRect(chkFullscreen.right()+ GAP, bottom + GAP, width/2-1, BTN_HEIGHT);
-				bottom = chkFullscreen.bottom();
-			} else {
-				动画加快.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = 动画加快.bottom();
-				chkFullscreen.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = chkFullscreen.bottom();
-
-				if (chkSaver != null) {
-					chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-					bottom = chkSaver.bottom();
-				}
-			}
-
-			if (btnOrientation != null) {
-				btnOrientation.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = btnOrientation.bottom();
-			}
-
-			if (optScale != null){
-				optScale.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
-				bottom = optScale.bottom();
-			}
-
-			sep2.size(width, 1);
-			sep2.y = bottom + GAP;
-			bottom = sep2.y + 1;
-
-			if (width > 200){
-				optBrightness.setRect(0, bottom + GAP, width/2-GAP/2, SLIDER_HEIGHT);
-				optVisGrid.setRect(optBrightness.right() + GAP, optBrightness.top(), width/2-GAP/2, SLIDER_HEIGHT);
-
-				optFollowIntensity.setRect(0, optVisGrid.bottom() + GAP, width/2-GAP/2, SLIDER_HEIGHT);
-				optScreenShake.setRect(optFollowIntensity.right() + GAP, optFollowIntensity.top(), width/2-GAP/2, SLIDER_HEIGHT);
-			} else {
-				optBrightness.setRect(0, bottom + GAP, width, SLIDER_HEIGHT);
-				optVisGrid.setRect(0, optBrightness.bottom() + GAP, width, SLIDER_HEIGHT);
-
-				optFollowIntensity.setRect(0, optVisGrid.bottom() + GAP, width, SLIDER_HEIGHT);
-				optScreenShake.setRect(0, optFollowIntensity.bottom() + GAP, width, SLIDER_HEIGHT);
-			}
-
-			height = optScreenShake.bottom();
-		}
-
-	}
-
-	private static class UITab extends Component {
-
-		RenderedTextBlock title;
-		ColorBlock sep1;
-		OptionSlider optUIMode;
-		OptionSlider optUIScale;
-		RedButton btnToolbarSettings;
-		CheckBox chkFlipTags;
-		ColorBlock sep2;
-		CheckBox chkFont;
-		CheckBox chkVibrate;
-
-		@Override
-		protected void createChildren() {
-			title = PixelScene.renderTextBlock(Messages.get(this, "title"), 9);
-			title.hardlight(TITLE_COLOR);
-			add(title);
-
-			sep1 = new ColorBlock(1, 1, 0xFF000000);
-			add(sep1);
-
-			//add slider for UI size only if device has enough space to support it
-			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
-			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;if (Math.min(wMin, hMin) >= 2*Game.density){
-				optUIMode = new OptionSlider(
-						Messages.get(this, "ui_mode"),
-						Messages.get(this, "mobile"),
-						Messages.get(this, "full"),
-						0,
-						2
-				) {
-					@Override
-					protected void onChange() {
-						SPDSettings.interfaceSize(getSelectedValue());
-						ShatteredPixelDungeon.seamlessResetScene();
-					}
-				};
-				optUIMode.setSelectedValue(SPDSettings.interfaceSize());
-				add(optUIMode);
-			}
-
-			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
-				optUIScale = new OptionSlider(Messages.get(this, "scale"),
-						(int)Math.ceil(2* Game.density)+ "X",
-						PixelScene.maxDefaultZoom + "X",
-						(int)Math.ceil(2* Game.density),
-						PixelScene.maxDefaultZoom ) {
-					@Override
-					protected void onChange() {
-						if (getSelectedValue() != SPDSettings.scale()) {
-							SPDSettings.scale(getSelectedValue());
-							ShatteredPixelDungeon.seamlessResetScene();
-						}
-					}
-				};
-				optUIScale.setSelectedValue(PixelScene.defaultZoom);
-				add(optUIScale);
-			}
-
+			
 			if (SPDSettings.interfaceSize() == 0) {
-				btnToolbarSettings = new RedButton(Messages.get(this, "toolbar_settings"), 9){
+				btnToolbarSettings = new RedButton(Messages.get(DisplayTab.class, "toolbar_settings"), 9){
 					@Override
 					protected void onClick() {
 						ShatteredPixelDungeon.scene().addToFront(new Window(){
-
-							RenderedTextBlock barDesc;
+							
 							RedButton btnSplit; RedButton btnGrouped; RedButton btnCentered;
 							CheckBox chkQuickSwapper;
 							RenderedTextBlock swapperDesc;
 							CheckBox chkFlipToolbar;
 							CheckBox chkFlipTags;
-
+							
 							{
-								barDesc = PixelScene.renderTextBlock(Messages.get(WndSettings.UITab.this, "mode"), 9);
-								add(barDesc);
-
-								btnSplit = new RedButton(Messages.get(WndSettings.UITab.this, "split")) {
+								btnSplit = new RedButton(Messages.get(WndSettings.DisplayTab.this, "split")) {
 									@Override
 									protected void onClick() {
 										textColor(TITLE_COLOR);
@@ -513,8 +467,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 									btnSplit.textColor(TITLE_COLOR);
 								}
 								add(btnSplit);
-
-								btnGrouped = new RedButton(Messages.get(WndSettings.UITab.this, "group")) {
+								
+								btnGrouped = new RedButton(Messages.get(WndSettings.DisplayTab.this, "group")) {
 									@Override
 									protected void onClick() {
 										btnSplit.textColor(WHITE);
@@ -528,8 +482,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 									btnGrouped.textColor(TITLE_COLOR);
 								}
 								add(btnGrouped);
-
-								btnCentered = new RedButton(Messages.get(WndSettings.UITab.this, "center")) {
+								
+								btnCentered = new RedButton(Messages.get(WndSettings.DisplayTab.this, "center")) {
 									@Override
 									protected void onClick() {
 										btnSplit.textColor(WHITE);
@@ -543,8 +497,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 									btnCentered.textColor(TITLE_COLOR);
 								}
 								add(btnCentered);
-
-								chkQuickSwapper = new CheckBox(Messages.get(WndSettings.UITab.this, "quickslot_swapper")) {
+								
+								chkQuickSwapper = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "quickslot_swapper")) {
 									@Override
 									protected void onClick() {
 										super.onClick();
@@ -554,12 +508,12 @@ public class WndSettings extends WndTabbed {//WndSettings
 								};
 								chkQuickSwapper.checked(SPDSettings.quickSwapper());
 								add(chkQuickSwapper);
-
-								swapperDesc = PixelScene.renderTextBlock(Messages.get(WndSettings.UITab.this, "swapper_desc"), 5);
+								
+								swapperDesc = PixelScene.renderTextBlock(Messages.get(WndSettings.DisplayTab.this, "swapper_desc"), 5);
 								swapperDesc.hardlight(0x888888);
 								add(swapperDesc);
-
-								chkFlipToolbar = new CheckBox(Messages.get(WndSettings.UITab.this, "flip_toolbar")) {
+								
+								chkFlipToolbar = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "flip_toolbar")) {
 									@Override
 									protected void onClick() {
 										super.onClick();
@@ -569,8 +523,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 								};
 								chkFlipToolbar.checked(SPDSettings.flipToolbar());
 								add(chkFlipToolbar);
-
-								chkFlipTags = new CheckBox(Messages.get(WndSettings.UITab.this, "flip_indicators")){
+								
+								chkFlipTags = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "flip_indicators")){
 									@Override
 									protected void onClick() {
 										super.onClick();
@@ -580,23 +534,20 @@ public class WndSettings extends WndTabbed {//WndSettings
 								};
 								chkFlipTags.checked(SPDSettings.flipTags());
 								add(chkFlipTags);
-
+								
 								//layout
 								resize(WIDTH_P, 0);
-
-								barDesc.setPos((width - barDesc.width()) / 2f, GAP);
-								PixelScene.align(barDesc);
-
+								
 								int btnWidth = (int) (width - 2 * GAP) / 3;
-								btnSplit.setRect(0, barDesc.bottom() + GAP, btnWidth, BTN_HEIGHT-2);
+								btnSplit.setRect(0, GAP, btnWidth, BTN_HEIGHT-2);
 								btnGrouped.setRect(btnSplit.right() + GAP, btnSplit.top(), btnWidth, BTN_HEIGHT-2);
 								btnCentered.setRect(btnGrouped.right() + GAP, btnSplit.top(), btnWidth, BTN_HEIGHT-2);
-
+								
 								chkQuickSwapper.setRect(0, btnGrouped.bottom() + GAP, width, BTN_HEIGHT);
-
+								
 								swapperDesc.maxWidth(width);
 								swapperDesc.setPos(0, chkQuickSwapper.bottom()+1);
-
+								
 								if (width > 200) {
 									chkFlipToolbar.setRect(0, swapperDesc.bottom() + GAP, width / 2 - 1, BTN_HEIGHT);
 									chkFlipTags.setRect(chkFlipToolbar.right() + GAP, chkFlipToolbar.top(), width / 2 - 1, BTN_HEIGHT);
@@ -604,18 +555,18 @@ public class WndSettings extends WndTabbed {//WndSettings
 									chkFlipToolbar.setRect(0, swapperDesc.bottom() + GAP, width, BTN_HEIGHT);
 									chkFlipTags.setRect(0, chkFlipToolbar.bottom() + GAP, width, BTN_HEIGHT);
 								}
-
+								
 								resize(WIDTH_P, (int)chkFlipTags.bottom());
-
+								
 							}
 						});
 					}
 				};
 				add(btnToolbarSettings);
-
+				
 			} else {
-
-				chkFlipTags = new CheckBox(Messages.get(this, "flip_indicators")) {
+				
+				chkFlipTags = new CheckBox(Messages.get(DisplayTab.class, "flip_indicators")) {
 					@Override
 					protected void onClick() {
 						super.onClick();
@@ -625,104 +576,157 @@ public class WndSettings extends WndTabbed {//WndSettings
 				};
 				chkFlipTags.checked(SPDSettings.flipTags());
 				add(chkFlipTags);
-
+				
 			}
-
-			sep2 = new ColorBlock(1, 1, 0xFF000000);
-			add(sep2);
-
-			chkFont = new CheckBox(Messages.get(this, "system_font")){
-				@Override
-				protected void onClick() {
-					super.onClick();
-					ShatteredPixelDungeon.seamlessResetScene(new Game.SceneChangeCallback() {
-						@Override
-						public void beforeCreate() {
-							SPDSettings.systemFont(checked());
+			
+			sep4 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep4);
+			
+			//region 省电
+			//power saver is being slowly phased out, only show it on old (4.3-) android devices
+			// this is being phased out as the setting is useless on all but very old devices anyway
+			// and support is going to be dropped for 4.3- in the forseeable future
+			
+			if (DeviceCompat.isAndroid() && PixelScene.maxScreenZoom >= 2
+				&& (SPDSettings.powerSaver() || !DeviceCompat.supportsFullScreen())){
+				chkSaver=new CheckBox(Messages.get(this,"saver")){
+					@Override
+					protected void onClick(){
+						super.onClick();
+						if(checked()){
+							checked(!checked());
+							ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.DISPLAY),Messages.get(DisplayTab.class,"saver"),Messages.get(DisplayTab.class,"saver_desc"),Messages.get(DisplayTab.class,"okay"),Messages.get(DisplayTab.class,"cancel")){
+								@Override
+								protected void onSelect(int index){
+									if(index==0){
+										checked(!checked());
+										SPDSettings.powerSaver(checked());
+									}
+								}
+							});
+						}else{
+							SPDSettings.powerSaver(checked());
 						}
-
-						@Override
-						public void afterCreate() {
-							//do nothing
-						}
-					});
-				}
-			};
-			chkFont.checked(SPDSettings.systemFont());
-			add(chkFont);
-
-			chkVibrate = new CheckBox(Messages.get(this, "vibration")){
-				@Override
-				protected void onClick() {
-					super.onClick();
-					SPDSettings.vibration(checked());
-					if (checked()){
-						Game.vibrate(250);
 					}
-				}
-			};
-			chkVibrate.enable(Game.platform.supportsVibration());
-			if (chkVibrate.active) {
-				chkVibrate.checked(SPDSettings.vibration());
+				};
+				chkSaver.checked(SPDSettings.powerSaver());
+				add(chkSaver);
 			}
-			add(chkVibrate);
+			
+			//endregion
+			
+			//region 可能关闭
+			//add slider for UI size only if device has enough space to support it
+			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
+			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
+			
+			if (Math.min(wMin, hMin) >= 2*Game.density){
+				optUIMode = new OptionSlider(
+						Messages.get(DisplayTab.class, "ui_mode"),
+						Messages.get(DisplayTab.class, "mobile"),
+						Messages.get(DisplayTab.class, "full"),
+						0,
+						2
+				) {
+					@Override
+					protected void onChange() {
+						SPDSettings.interfaceSize(getSelectedValue());
+						ShatteredPixelDungeon.seamlessResetScene();
+					}
+				};
+				optUIMode.setSelectedValue(SPDSettings.interfaceSize());
+				add(optUIMode);
+			}
+			
+			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
+				optUIScale = new OptionSlider(Messages.get(DisplayTab.class, "scale"),
+											  (int)Math.ceil(2* Game.density)+ "X",
+											  PixelScene.maxDefaultZoom + "X",
+											  (int)Math.ceil(2* Game.density),
+											  PixelScene.maxDefaultZoom ) {
+					@Override
+					protected void onChange() {
+						if (getSelectedValue() != SPDSettings.scale()) {
+							SPDSettings.scale(getSelectedValue());
+							ShatteredPixelDungeon.seamlessResetScene();
+						}
+					}
+				};
+				optUIScale.setSelectedValue(PixelScene.defaultZoom);
+				add(optUIScale);
+			}
+			//endregion
+			
 		}
 
 		@Override
 		protected void layout() {
-			title.setPos((width - title.width())/2, y + GAP);
+
+			float bottom = y;
+
+			title.setPos((width - title.width())/2, bottom + GAP);
 			sep1.size(width, 1);
 			sep1.y = title.bottom() + 3*GAP;
 
-			height = sep1.y + 1;
-			if (optUIMode != null && optUIScale != null && width > 200){
-				optUIMode.setRect(0, height + GAP, width/2-1, SLIDER_HEIGHT);
-				optUIScale.setRect(width/2+1, height + GAP, width/2-1, SLIDER_HEIGHT);
-				height = optUIScale.bottom();
-			} else {
-				if (optUIMode != null) {
-					optUIMode.setRect(0, height + GAP, width, SLIDER_HEIGHT);
-					height = optUIMode.bottom();
-				}
-
-				if (optUIScale != null) {
-					optUIScale.setRect(0, height + GAP, width, SLIDER_HEIGHT);
-					height = optUIScale.bottom();
-				}
+			bottom = sep1.y + 1;
+			
+			if (所有开关!=null) {
+				所有开关.setRect(0,bottom+GAP,width,BTN_HEIGHT);
+				bottom = 所有开关.bottom();
 			}
-			if (btnToolbarSettings != null) {
-				btnToolbarSettings.setRect(0, height + GAP, width, BTN_HEIGHT);
-				height = btnToolbarSettings.bottom();
-			} else {
-				chkFlipTags.setRect(0, height + GAP, width, BTN_HEIGHT);
-				height = chkFlipTags.bottom();
-			}
-
 			sep2.size(width, 1);
-			sep2.y = height + GAP;
-
-			if (width > 200) {
-				chkFont.setRect(0, sep2.y + 1 + GAP, width/2-1, BTN_HEIGHT);
-				chkVibrate.setRect(chkFont.right()+2, chkFont.top(), width/2-1, BTN_HEIGHT);
-				height = chkVibrate.bottom();
-
-			} else {
-				chkFont.setRect(0, sep2.y + 1 + GAP, width, BTN_HEIGHT);
-				chkVibrate.setRect(0, chkFont.bottom() + GAP, width, BTN_HEIGHT);
-				height = chkVibrate.bottom();
+			sep2.y = bottom + GAP;
+			bottom = sep2.y + 1;
+			
+			if (所有拖条!=null) {
+				所有拖条.setRect(0,bottom+GAP,width,BTN_HEIGHT);
+				bottom = 所有拖条.bottom();
 			}
+			sep3.size(width, 1);
+			sep3.y = bottom + GAP;
+			bottom = sep3.y + 1;
+			
+			if (btnToolbarSettings != null) {
+				btnToolbarSettings.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = btnToolbarSettings.bottom();
+			}
+			if (chkFlipTags != null) {
+				chkFlipTags.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkFlipTags.bottom();
+			}
+			sep4.size(width, 1);
+			sep4.y = bottom + GAP;
+			bottom = sep4.y + 1;
+			
+			if (chkSaver != null) {
+				chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = chkSaver.bottom();
+			}
+			if (btnOrientation != null) {
+				btnOrientation.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = btnOrientation.bottom();
+			}
+			if (optUIMode != null) {
+				optUIMode.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = optUIMode.bottom();
+			}
+			if (optUIScale != null) {
+				optUIScale.setRect(0, bottom + GAP, width, BTN_HEIGHT);
+				bottom = optUIScale.bottom();
+			}
+			height = bottom;
 		}
 
 	}
+
 	private static class 游戏设置 extends Component {
 
 		RenderedTextBlock title;
 
 		ColorBlock sep1;
-		RedButton 集合设置;
+		RedButton 所有开关;
 		ColorBlock sep2;
-		OptionSlider 固定移速;
-		OptionSlider 休息速度;
+		RedButton 所有拖条;
 
 		@Override
 		protected void createChildren() {
@@ -733,11 +737,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
 
-			//add slider for UI size only if device has enough space to support it
-			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
-			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
-
-			集合设置 = new RedButton(Messages.get(this, "设置"), 9){
+			所有开关= new RedButton(Messages.get(this,"所有开关"),9){
 				@Override
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
@@ -747,78 +747,95 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 						{
 
-							游戏提示str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "游戏提示str"), 5);
-							游戏提示str.hardlight(0x888888);
-							add(游戏提示str);
-
-
 							游戏提示 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "游戏提示")){
 								@Override
 								protected void onClick() {
 									super.onClick();
 									SPDSettings.游戏提示(checked());
-									GameScene.layoutTags();
 								}
 							};
 							游戏提示.checked(SPDSettings.游戏提示());
 							add(游戏提示);
-
-							//layout
+							游戏提示str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "游戏提示str"), 5);
+							游戏提示str.hardlight(0x888888);
+							add(游戏提示str);
+							
+							
 							resize(WIDTH_P, 0);
-
 							游戏提示.setRect(0,  GAP, width, BTN_HEIGHT);
-
 							游戏提示str.maxWidth(width);
 							游戏提示str.setPos(0, 游戏提示.bottom()+1);
-
+							
 							resize(WIDTH_P, (int) 游戏提示str.bottom());
 
 						}
 					});
 				}
 			};
-			add(集合设置);
-
+			add(所有开关);
 
 			sep2 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep2);
-
-			固定移速 = new OptionSlider("固定移速",
-					"1", "无限", 1, 5) {
+			
+			所有拖条= new RedButton("所有拖条",9){
 				@Override
-				protected void onChange() {
-					SPDSettings.固定移速(getSelectedValue());
+				protected void onClick() {
+					ShatteredPixelDungeon.scene().addToFront(new Window(){
+						
+						OptionSlider 固定移速;
+						OptionSlider 休息速度;
+						{
+							
+							固定移速 = new OptionSlider("固定移速",
+														"1", "无限", 1, 5) {
+								@Override
+								protected void onChange() {
+									SPDSettings.固定移速(getSelectedValue());
+								}
+							};
+							固定移速.setSelectedValue(SPDSettings.固定移速());
+							add(固定移速);
+							
+							休息速度 = new OptionSlider("休息速度",
+														"1", "5", 1, 5) {
+								@Override
+								protected void onChange() {
+									SPDSettings.休息速度(getSelectedValue());
+								}
+							};
+							休息速度.setSelectedValue(SPDSettings.休息速度());
+							add(休息速度);
+							
+							resize(WIDTH_P, 0);
+							固定移速.setRect(0,  GAP, width, BTN_HEIGHT);
+							休息速度.setRect(0,  固定移速.bottom()+GAP, width, BTN_HEIGHT);
+							resize(WIDTH_P, (int) 休息速度.bottom());
+							
+						}
+					});
 				}
 			};
-			固定移速.setSelectedValue(SPDSettings.固定移速());
-			add(固定移速);
-
-			休息速度 = new OptionSlider("休息速度",
-					"1", "5", 1, 5) {
-				@Override
-				protected void onChange() {
-					SPDSettings.休息速度(getSelectedValue());
-				}
-			};
-			休息速度.setSelectedValue(SPDSettings.休息速度());
-			add(休息速度);
+			add(所有拖条);
+			
 		}
 
 		@Override
 		protected void layout() {
 			title.setPos((width - title.width())/2, y + GAP);
+			
 			sep1.size(width, 1);
 			sep1.y = title.bottom() + 3*GAP;
-
 			height = sep1.y + 1;
-			集合设置.setRect(0, height + GAP, width, BTN_HEIGHT);
-			sep2.y = 集合设置.bottom() + GAP;
-			固定移速.setRect(0, 集合设置.bottom()+ GAP + GAP, width, SLIDER_HEIGHT);
-			休息速度.setRect(0, 固定移速.bottom() + GAP, width, SLIDER_HEIGHT);
-
+			
+			所有开关.setRect(0,height+GAP,width,BTN_HEIGHT);
+			
+			sep2.y =所有开关.bottom()+GAP;
 			sep2.size(width, 1);
+			height = sep2.y + 1;
+			
+			所有拖条.setRect(0,sep2.bottom()+GAP,width,BTN_HEIGHT);
 
-			height = 休息速度.bottom();
+			height = 所有拖条.bottom();
 
 		}
 
@@ -1085,7 +1102,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void onClick() {
 					super.onClick();
 					SPDSettings.music(!checked());
-					Sample.INSTANCE.play(Random.oneOf(Assets.Music.allBGM));
+					Music.INSTANCE.volume( SPDSettings.musicVol()*SPDSettings.musicVol()/100f );
+					Music.INSTANCE.enable( SPDSettings.music() );
 				}
 			};
 			chkMusicMute.checked(!SPDSettings.music());
@@ -1098,6 +1116,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 				@Override
 				protected void onChange() {
 					SPDSettings.SFXVol(getSelectedValue());
+					Sample.INSTANCE.enable( SPDSettings.soundFx() );
+					Sample.INSTANCE.volume( SPDSettings.SFXVol()*SPDSettings.SFXVol()/100f );
 					Sample.INSTANCE.play(Random.oneOf(Assets.Sounds.all));
 				}
 			};

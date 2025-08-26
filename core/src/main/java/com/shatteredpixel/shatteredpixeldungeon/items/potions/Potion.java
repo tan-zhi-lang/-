@@ -484,7 +484,7 @@ public class Potion extends Item {
 			
 			for (Item ingredient : ingredients){
 				if (!(ingredient instanceof Plant.Seed
-						&& ingredient.get数量() >= 1
+						&&ingredient.set数量()>=1
 						&& types.containsKey(ingredient.getClass()))){
 					return false;
 				}
@@ -502,7 +502,7 @@ public class Potion extends Item {
 			if (!testIngredients(ingredients)) return null;
 			
 			for (Item ingredient : ingredients){
-				ingredient.get数量(ingredient.get数量() - 1);
+				ingredient.set数量(ingredient.set数量()-1);
 			}
 			
 			ArrayList<Class<?extends Plant.Seed>> seeds = new ArrayList<>();

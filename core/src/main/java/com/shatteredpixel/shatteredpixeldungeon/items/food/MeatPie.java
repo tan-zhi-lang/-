@@ -38,7 +38,7 @@ public class MeatPie extends Food {
 			boolean meat = false;
 			
 			for (Item ingredient : ingredients){
-				if (ingredient.get数量() > 0) {
+				if (ingredient.set数量()>0) {
 					if (ingredient instanceof Pasty || ingredient instanceof PhantomMeat) {
 						pasty = true;
 					} else if (ingredient.getClass() == Food.class) {
@@ -65,7 +65,7 @@ public class MeatPie extends Food {
 			if (!testIngredients(ingredients)) return null;
 			
 			for (Item ingredient : ingredients){
-				ingredient.get数量(ingredient.get数量() - 1);
+				ingredient.set数量(ingredient.set数量()-1);
 			}
 			
 			return sampleOutput(null);

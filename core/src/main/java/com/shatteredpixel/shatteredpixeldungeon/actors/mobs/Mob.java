@@ -51,9 +51,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -75,6 +77,8 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -855,7 +859,12 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public void 死亡时(Object cause ) {
-
+		if( Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验)){
+			Dungeon.level.drop(new 升级卷轴(),pos).sprite.drop();
+		}
+		if( Dungeon.解压(解压设置.血源迸发)&&算法.概率学(经验)){
+			Dungeon.level.drop(new 治疗药剂(),pos).sprite.drop();
+		}
 		if (cause == Chasm.class){
 			//50% chance to round up, 50% to round down
 			if (经验 % 2 == 1) 经验 += Random.Int(2);
@@ -918,7 +927,6 @@ public abstract class Mob extends Char {
 				if (Dungeon.hero.heroClass == HeroClass.DUELIST
 						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
 					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
-					Buff.施加(Dungeon.hero, Swiftthistle.TimeBubble.class).reset(1);
 					Dungeon.hero.经验(生命力(),getClass());
 				}
 				if (Dungeon.hero.heroClass != HeroClass.DUELIST

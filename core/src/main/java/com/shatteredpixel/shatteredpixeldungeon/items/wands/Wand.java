@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -38,7 +39,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -49,6 +49,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.系统设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -462,6 +464,10 @@ public abstract class Wand extends Item {
 				Buff.延长(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
 			}
 		}
+		
+		if(Dungeon.系统(系统设置.虔诚物到)){
+			Generator.random().放背包();
+		}
 
 		//inside staff
 		if (charger != null && charger.target == Dungeon.hero && !Dungeon.hero.belongings.contains(this)){
@@ -557,10 +563,28 @@ public abstract class Wand extends Item {
 		//+1: 26.67% (4/15)
 		//+2: 6.67%  (1/15)
 		int n = 0;
-		if (Random.Int(3) == 0) {
-			n++;
-			if (Random.Int(5) == 0){
+		if(Dungeon.解压(解压设置.持之以恒)){
+			if (Random.Int(1) == 0){
 				n++;
+				if (Random.Int(2) == 0){
+					n++;
+					if (Random.Int(3) == 0){
+						n++;
+						if (Random.Int(4) == 0){
+							n++;
+							if (Random.Int(5) == 0){
+								n++;
+							}
+						}
+					}
+				}
+			}
+		}else{
+			if (Random.Int(3) == 0) {
+				n++;
+				if (Random.Int(5) == 0){
+					n++;
+				}
 			}
 		}
 		等级(n);

@@ -69,7 +69,7 @@ public class ArcaneResin extends Item {
 
 	@Override
 	public int 金币() {
-		return 30* get数量();
+		return 30*set数量();
 	}
 
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
@@ -101,14 +101,14 @@ public class ArcaneResin extends Item {
 
 				int resinToUse = w.等级()+1;
 
-				if (get数量() < resinToUse){
+				if (set数量()<resinToUse){
 					GLog.w(Messages.get(ArcaneResin.class, "not_enough"));
 
 				} else {
 
 					Catalog.countUses(ArcaneResin.class, resinToUse);
-					if (resinToUse < get数量()){
-						get数量(get数量()-resinToUse);
+					if (resinToUse<set数量()){
+						set数量(set数量()-resinToUse);
 					} else {
 						detachAll(Dungeon.hero.belongings.backpack);
 					}
@@ -150,9 +150,9 @@ public class ArcaneResin extends Item {
 			Wand w = (Wand)ingredients.get(0);
 
 			if (!w.levelKnown){
-				result.get数量(resinQuantity(w));
+				result.set数量(resinQuantity(w));
 			}
-			w.get数量(0);
+			w.set数量(0);
 
 			return result;
 		}
@@ -162,7 +162,7 @@ public class ArcaneResin extends Item {
 			Wand w = (Wand)ingredients.get(0);
 
 			if (w.levelKnown){
-				return new ArcaneResin().get数量(resinQuantity(w));
+				return new ArcaneResin().set数量(resinQuantity(w));
 			} else {
 				return new ArcaneResin();
 			}

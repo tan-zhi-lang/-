@@ -131,6 +131,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
@@ -150,7 +152,6 @@ public abstract class Char extends Actor {
 	public CharSprite sprite;
 	
 	public int 最大生命;
-	public float 生命成长;
 	public int 生命;
 
 	public float 大小=1;
@@ -182,6 +183,7 @@ public abstract class Char extends Actor {
 	
 	@Override
 	protected boolean act() {
+		Dungeon.level.落石(this);
 		if(生命流动>=1){
 			回血();
 			生命流动=生命流动-1;
@@ -326,7 +328,6 @@ public abstract class Char extends Actor {
 	protected static final String POS       = "pos";
 	protected static final String TAG_HP    = "HP";
 	protected static final String TAG_HT    = "HT";
-	protected static final String 生命成长x    = "生命成长";
 	protected static final String BUFFS	    = "buffs";
 	protected static final String 第一次攻击x 	    = "第一次攻击";
 	protected static final String 第一次防御x 	    = "第一次防御";
@@ -340,7 +341,6 @@ public abstract class Char extends Actor {
 		bundle.put( POS, pos );
 		bundle.put( TAG_HP, 生命);
 		bundle.put( TAG_HT, 最大生命);
-		bundle.put( 生命成长x, 生命成长);
 		bundle.put( BUFFS, buffs );
 		bundle.put( 第一次攻击x, 第一次攻击);
 		bundle.put( 第一次防御x, 第一次防御);
@@ -355,7 +355,6 @@ public abstract class Char extends Actor {
 		pos = bundle.getInt( POS );
 		生命 = bundle.getInt( TAG_HP );
 		最大生命 = bundle.getInt( TAG_HT );
-		生命成长 = bundle.getFloat( 生命成长x );
 		第一次攻击 = bundle.getBoolean( 第一次攻击x );
 		第一次防御 = bundle.getBoolean( 第一次防御x );
 		生命流动 = bundle.getFloat( 生命流动x );
@@ -391,16 +390,18 @@ public abstract class Char extends Actor {
 			
 			int dr = Math.round(enemy.防御() * AscensionChallenge.statModifier(enemy));
 			
-			if (this instanceof Hero){
-				Hero h = (Hero)this;
-				if (h.belongings.attackingWeapon() instanceof MissileWeapon
-						&& h.subClass == HeroSubClass.SNIPER
-						&& !Dungeon.level.adjacent(h.pos, enemy.pos)){
+			if (this instanceof Hero hero){
+				if (hero.belongings.attackingWeapon() instanceof MissileWeapon
+					&&hero.subClass==HeroSubClass.SNIPER
+					&&!Dungeon.level.adjacent(hero.pos,enemy.pos)){
 					dr = 0;
 				}
 
-				if (h.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null){
+				if (hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 					dr = 0;
+				}
+				if(Dungeon.解压(解压设置.真实伤害)){
+					dr=0;
 				}
 			}
 
@@ -630,7 +631,9 @@ public abstract class Char extends Actor {
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ) {
 		float acuStat = attacker.最大命中( defender );
 		float defStat = defender.最大闪避( attacker );
-
+		if(Dungeon.玩法(玩法设置.简单战斗)){
+			acuStat=0;
+		}
 		if (defender instanceof Hero && ((Hero) defender).damageInterrupt){
 			((Hero) defender).interrupt();
 		}
@@ -711,7 +714,6 @@ public abstract class Char extends Actor {
 	
 	public int 防御() {
 		int dr = 0;
-
 		dr += Random.NormalIntRange( 0 , Barkskin.currentLevel(this) );
 
 		return dr;

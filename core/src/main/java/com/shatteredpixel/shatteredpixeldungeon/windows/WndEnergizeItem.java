@@ -30,7 +30,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		float pos = height;
 
-		if (item.get数量() == 1) {
+		if (item.set数量()==1) {
 
 			RedButton btnEnergize = new RedButton( Messages.get(this, "energize", item.能量()) ) {
 				@Override
@@ -48,7 +48,7 @@ public class WndEnergizeItem extends WndInfoItem {
 		} else {
 
 			int energyAll = item.能量();
-			RedButton btnEnergize1 = new RedButton( Messages.get(this, "energize_1", energyAll / item.get数量()) ) {
+			RedButton btnEnergize1 = new RedButton( Messages.get(this, "energize_1", energyAll / item.set数量()) ) {
 				@Override
 				protected void onClick() {
 					energizeOne( item );
@@ -99,7 +99,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 	public static void energizeOne( Item item ) {
 
-		if (item.get数量() <= 1) {
+		if (item.set数量()<=1) {
 			energizeAll( item );
 		} else {
 			energize(item.detach( Dungeon.hero.belongings.backpack ));

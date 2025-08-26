@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -88,6 +89,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.watabou.utils.Random;
 
 public enum HeroClass {
 
@@ -133,23 +136,29 @@ public enum HeroClass {
 
 //		i = new Food();
 //		if (!Challenges.isItemBlocked(i)) i.放背包();
-
-
+		
+		if(Dungeon.解压(解压设置.宝物空投)){
+			Random.oneOf(Generator.randomWeapon(),
+						 Generator.randomArmor(),
+						 Generator.randomRing(),
+						 Generator.randomArtifact(),
+						 Generator.randomWand() ).放背包();
+		}
 		if(算法.isDebug()){
 			int x=100;
-			new 经验药剂().get数量(x).鉴定(true).放背包();
-			new 治疗药剂().get数量(x).放背包();
-			new 极速药剂().get数量(x).放背包();
-			new 极速药剂().get数量(x).放背包();
-			new 净化药剂().get数量(x).放背包();
-			new PotionOfToxicGas().get数量(x).放背包();
+			new 经验药剂().set数量(x).鉴定(true).放背包();
+			new 治疗药剂().set数量(x).放背包();
+			new 极速药剂().set数量(x).放背包();
+			new 极速药剂().set数量(x).放背包();
+			new 净化药剂().set数量(x).放背包();
+			new PotionOfToxicGas().set数量(x).放背包();
 
-			new MysteryMeat().get数量(x).放背包();
+			new MysteryMeat().set数量(x).放背包();
 
-			new 升级卷轴().get数量(x).放背包();
-			new 鉴定卷轴().get数量(x).放背包();
-			new 嬗变卷轴().get数量(x).放背包();
-			new 祛邪卷轴().get数量(x).放背包();
+			new 升级卷轴().set数量(x).放背包();
+			new 鉴定卷轴().set数量(x).放背包();
+			new 嬗变卷轴().set数量(x).放背包();
+			new 祛邪卷轴().set数量(x).放背包();
 
 			new TengusMask().放背包();
 			new AlchemistsToolkit().放背包();
@@ -340,7 +349,7 @@ public enum HeroClass {
 		hero.belongings.weapon.activate(hero);
 
 		ThrowingSpike spikes = new ThrowingSpike();
-		spikes.get数量(2).鉴定().放背包(); //set quantity is 3, but Duelist starts with 2
+		spikes.set数量(2).鉴定().放背包(); //set quantity is 3, but Duelist starts with 2
 
 		Dungeon.quickslot.setSlot(0, hero.belongings.weapon);
 		Dungeon.quickslot.setSlot(1, spikes);

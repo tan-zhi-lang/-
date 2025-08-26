@@ -15,6 +15,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
@@ -43,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -210,52 +213,89 @@ public class ShopRoom extends SpecialRoom {
 
 		MeleeWeapon w;
 		MissileWeapon m;
+		Armor a;
 		switch (Dungeon.depth) {
-		case 6: default:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
-			m = (MissileWeapon) Generator.random(Generator.misTiers[1]);
-			itemsToSpawn.add( new LeatherArmor().鉴定(false) );
+		case 1: default:
+			w = (MeleeWeapon) Generator.random(Generator.wepTiers[0]);
+			m = (MissileWeapon) Generator.random(Generator.misTiers[0]);
+			a=new ClothArmor();
 			if(Dungeon.hero()&&!Dungeon.hero.heroClass(HeroClass.WARRIOR)) {
 				itemsToSpawn.add(new 水袋());
 			}
+			break;
+		case 6:
+			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
+			m = (MissileWeapon) Generator.random(Generator.misTiers[1]);
+			a=new LeatherArmor();
 			break;
 			
 		case 11:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[2]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[2]);
-			itemsToSpawn.add( new MailArmor().鉴定(false) );
+			a=new MailArmor();
 			break;
 			
 		case 16:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[3]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[3]);
-			itemsToSpawn.add( new ScaleArmor().鉴定(false) );
+			a=new ScaleArmor();
 			break;
 
 		case 20: case 21:
 			w = (MeleeWeapon) Generator.random(Generator.wepTiers[4]);
 			m = (MissileWeapon) Generator.random(Generator.misTiers[4]);
-			itemsToSpawn.add( new PlateArmor().鉴定(false) );
+			a = new PlateArmor();
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
 			break;
 		}
+		int n = 1;
+		if(Dungeon.解压(解压设置.持之以恒)){
+			if (Random.Int(1) == 0){
+				n++;
+				if(Random.Int(2)==0){
+					n++;
+					if(Random.Int(3)==0){
+						n++;
+						if(Random.Int(4)==0){
+							n++;
+							if(Random.Int(5)==0){
+								n++;
+							}
+						}
+					}
+				}
+			}
+		}else{
+			if(Random.Int(4)==0){
+				n++;
+				if(Random.Int(5)==0){
+					n++;
+				}
+			}
+		}
 		w.enchant(null);
 		w.cursed = false;
-		w.等级(0);
-		w.鉴定(false);
+		w.等级(n);
+		w.鉴定(true);
 		itemsToSpawn.add(w);
 
 		m.enchant(null);
 		m.cursed = false;
-		m.等级(0);
-		m.鉴定(false);
+		m.等级(n);
+		m.鉴定(true);
 		itemsToSpawn.add(m);
+
+		a.inscribe(null);
+		a.cursed = false;
+		a.等级(n);
+		a.鉴定(true);
+		itemsToSpawn.add( a);
 		
 		itemsToSpawn.add( TippedDart.randomTipped(2) );
 
-		itemsToSpawn.add( new 炼金菱晶().get数量(Random.IntRange(2, 3)*3));
+		itemsToSpawn.add( new 炼金菱晶().set数量(Random.IntRange(2,3)*3));
 
 		Bag bag = ChooseBag(Dungeon.hero.belongings);
 		if (bag != null) {
@@ -324,14 +364,39 @@ public class ShopRoom extends SpecialRoom {
 		}
 
 		Item rare;
+		int l = 1;
+		if(Dungeon.解压(解压设置.持之以恒)){
+			if (Random.Int(1) == 0){
+				l++;
+				if(Random.Int(2)==0){
+					l++;
+					if(Random.Int(3)==0){
+						l++;
+						if(Random.Int(4)==0){
+							l++;
+							if(Random.Int(5)==0){
+								l++;
+							}
+						}
+					}
+				}
+			}
+		}else{
+			if(Random.Int(3)==0){
+				l++;
+				if(Random.Int(5)==0){
+					l++;
+				}
+			}
+		}
 		switch (Random.Int(10)){
 			case 0:
 				rare = Generator.random( Generator.Category.WAND );
-				rare.等级( 0 );
+				rare.等级( l );
 				break;
 			case 1:
 				rare = Generator.random(Generator.Category.RING);
-				rare.等级( 0 );
+				rare.等级( l );
 				break;
 			case 2:
 				rare = Generator.random( Generator.Category.ARTIFACT );

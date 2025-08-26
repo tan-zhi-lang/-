@@ -158,7 +158,7 @@ public class Heap implements Bundlable {
 
 		if (TippedDart.lostDarts > 0){
 			Dart d = new Dart();
-			d.get数量(TippedDart.lostDarts);
+			d.set数量(TippedDart.lostDarts);
 			TippedDart.lostDarts = 0;
 			drop(d);
 		}

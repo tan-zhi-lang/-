@@ -42,7 +42,7 @@ public class StewedMeat extends Food {
 		public Item brew(ArrayList<Item> ingredients) {
 			Item result = sampleOutput(ingredients);
 			MysteryMeat m = (MysteryMeat) ingredients.get(0);
-			result.get数量(metalQuantity(m));
+			result.set数量(metalQuantity(m));
 			return result;
 		}
 
@@ -50,11 +50,11 @@ public class StewedMeat extends Food {
 		public Item sampleOutput(ArrayList<Item> ingredients) {
 			MysteryMeat m = (MysteryMeat) ingredients.get(0);
 
-				return new StewedMeat().get数量(metalQuantity(m));
+				return new StewedMeat().set数量(metalQuantity(m));
 		}
 
 		private int metalQuantity(MysteryMeat m){
-			int quantity = m.get数量();
+			int quantity = m.set数量();
 			return quantity;
 		}
 	}

@@ -183,6 +183,7 @@ import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.Delayer;
@@ -223,6 +224,8 @@ public class Hero extends Char {
     private int 最大命中 = 10;
     private int 最大闪避 = 5;
     public int 神力 = 0;
+    public float 生命成长 = 0;
+    public float 防御成长 = 0;
 
     public boolean ready = false;
     public boolean damageInterrupt = true;
@@ -342,6 +345,8 @@ public class Hero extends Char {
     private static final String 最大法力x = "法力";
 
     private static final String 神力x = "神力";
+    protected static final String 生命成长x    = "生命成长";
+    protected static final String 防御成长x    = "防御成长";
     private static final String EXPERIENCE = "exp";
     private static final String HTBOOST = "htboost";
 
@@ -365,6 +370,8 @@ public class Hero extends Char {
         bundle.put(最大法力x, 最大法力);
 
         bundle.put(神力x, 神力);
+        bundle.put( 生命成长x, 生命成长);
+        bundle.put( 防御成长x, 防御成长);
         bundle.put(EXPERIENCE, 当前经验);
 
         bundle.put(HTBOOST, HTBoost);
@@ -383,8 +390,10 @@ public class Hero extends Char {
         水伤 = bundle.getInt(水伤x);
         法力 = bundle.getInt(法力x);
         最大法力 = bundle.getInt(最大法力x);
-
+        
         神力 = bundle.getInt(神力x);
+        生命成长 = bundle.getFloat( 生命成长x );
+        防御成长 = bundle.getFloat( 防御成长x );
         当前经验 = bundle.getInt(EXPERIENCE);
 
         HTBoost = bundle.getInt(HTBOOST);
@@ -512,16 +521,22 @@ public class Hero extends Char {
     }
 
     public int bonusTalentPoints(int tier) {
+        int x=0;
+        
+        if(Dungeon.解压(解压设置.天赋武神)){
+            x++;
+        }
+        if (buff(PotionOfDivineInspiration.DivineInspirationTracker.class) != null
+             && buff(PotionOfDivineInspiration.DivineInspirationTracker.class).isBoosted(tier)) {
+            x+=2;
+        }
 
         if (等级 < (Talent.天赋解锁[tier] - 1)
                 || (tier == 3 && subClass == HeroSubClass.NONE)
                 || (tier == 4 && armorAbility == null)) {
-            return 0;
-        } else if (buff(PotionOfDivineInspiration.DivineInspirationTracker.class) != null
-                && buff(PotionOfDivineInspiration.DivineInspirationTracker.class).isBoosted(tier)) {
-            return 2;
+            return x;
         } else {
-            return 0;
+            return x;
         }
     }
 
@@ -565,8 +580,6 @@ public class Hero extends Char {
         }
         Buff.施加(this, 再生.class);
         Buff.施加(this, Hunger.class);
-        
-        更新生命();
     }
 
     public int tier() {
@@ -839,28 +852,41 @@ public class Hero extends Char {
 
     @Override
     public int 防御() {
-        int dr = super.防御();
+        int dr = super.防御()+Random.NormalIntRange(0,Math.round(防御成长));
 
         if (belongings.armor() != null) {
-            int armDr = Random.NormalIntRange(belongings.armor().最小防御(), Math.round(belongings.armor().最大防御() * (1 + 天赋点数(Talent.最佳防御, 0.12f))));
+            int armDr = Random.NormalIntRange(belongings.armor().最小防御(),
+                                  belongings.armor().最大防御()
+                                );
+            if(Dungeon.玩法(玩法设置.简单战斗)){
+                armDr=0;
+                armDr=(Math.round((belongings.armor().最小防御()+
+                                                  belongings.armor().最大防御()
+                                                 )/2f));
+            }
             if (力量() < belongings.armor().力量() && !heroClass(HeroClass.重武)) {
                 armDr -= 2 * (belongings.armor().力量() - 力量());
             }
             if (armDr > 0) dr += armDr;
         }
         if (belongings.weapon() != null && !RingOfForce.fightingUnarmed(this)) {
-            int wepDr = Random.NormalIntRange(0, Math.round(belongings.weapon().defenseFactor(this) * (1 + 天赋点数(Talent.最佳防御, 0.12f))));
+            int wepDr = Random.NormalIntRange(0,
+                      Math.round(belongings.weapon().defenseFactor(this)));
+            
+            if(Dungeon.玩法(玩法设置.简单战斗)){
+                wepDr=0;
+                wepDr=(Math.round(belongings.weapon().defenseFactor(this)/2f));
+            }
             if (力量() < ((Weapon) belongings.weapon()).力量() && !heroClass(HeroClass.重武)) {
                 wepDr -= 2 * (((Weapon) belongings.weapon()).力量() - 力量());
             }
             if (wepDr > 0) dr += wepDr;
         }
-
         if (buff(HoldFast.class) != null) {
             dr += buff(HoldFast.class).armorBonus();
         }
-        if (有天赋(Talent.冰门高攻)) {
-            dr *= 1 + Dungeon.hero.天赋点数(Talent.冰门高攻, 0.08f);
+        if (有天赋(Talent.最佳防御)) {
+            dr *=1 + 天赋点数(Talent.最佳防御, 0.12f);
         }
         return dr;
     }
@@ -891,6 +917,9 @@ public class Hero extends Char {
             if(hasbuff(RingOfForce.Force.class))
            dmg += RingOfForce.armedDamageBonus(this)+RingOfForce.min()+RingOfForce.heromin();
         }
+        if(Dungeon.系统(系统设置.金币能力)){
+            dmg+=heroDamageIntRange(0, Math.round(Dungeon.gold/100));
+        }
 
         PhysicalEmpower emp = buff(PhysicalEmpower.class);
         if (emp != null) {
@@ -909,6 +938,7 @@ public class Hero extends Char {
         }
 
         dmg *= 1 + 天赋点数(Talent.勇士之证, 0.15f);
+        
         if (dmg < 0) dmg = 0;
         return dmg;
     }
@@ -1063,6 +1093,9 @@ public class Hero extends Char {
 
     @Override
     public void spendConstant(float time) {
+        if(Dungeon.系统(系统设置.时间能力)){
+            time/=3f;
+        }
         super.spendConstant(time);
     }
 
@@ -1123,11 +1156,7 @@ public class Hero extends Char {
 
     @Override
     public boolean act() {
-//        if(){
-//            Dungeon.hero.interrupt();
-//            PixelScene.shake( 5, 1f );
-//            Sample.INSTANCE.play(Assets.Sounds.ROCKS);
-//        }
+        Dungeon.level.落石(this);
         if(生命流动>=1){
             回血();
             生命流动=生命流动-1;
@@ -1463,10 +1492,10 @@ public class Hero extends Char {
                     } else if (item instanceof DarkGold) {
                         DarkGold existing = belongings.getItem(DarkGold.class);
                         if (existing != null) {
-                            if (existing.get数量() >= 40) {
-                                GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
+                            if (existing.set数量()>=40) {
+                                GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
                             } else {
-                                GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
+                                GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
                             }
                         }
                     } else {
@@ -1643,11 +1672,11 @@ public class Hero extends Char {
                             DarkGold gold = new DarkGold();
                             if (gold.doPickUp(Dungeon.hero)) {
                                 DarkGold existing = Dungeon.hero.belongings.getItem(DarkGold.class);
-                                if (existing != null && existing.get数量() % 5 == 0) {
-                                    if (existing.get数量() >= 40) {
-                                        GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
+                                if (existing != null &&existing.set数量()%5==0) {
+                                    if (existing.set数量()>=40) {
+                                        GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
                                     } else {
-                                        GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.get数量()));
+                                        GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
                                     }
                                 }
                                 spend(-Actor.TICK); //picking up the gold doesn't spend a turn here
@@ -1830,8 +1859,15 @@ public class Hero extends Char {
     @Override
     public int 攻击时(final Char enemy, int damage) {
         damage = super.攻击时(enemy, damage);
+        
         if(Dungeon.系统(系统设置.生命成长)){
             生命成长+=Dungeon.depth/100f;
+        }
+        if(Dungeon.系统(系统设置.防御成长)){
+            防御成长+=Dungeon.depth/100f;
+        }
+        if(Dungeon.系统(系统设置.经验成长)){
+            经验(Dungeon.depth());
         }
 
         if (buff(Kinetic.ConservedDamage.class) != null) {
@@ -2017,6 +2053,9 @@ public class Hero extends Char {
 
         if (heroClass(HeroClass.巫女)) {
             经验(算法.固衰(dmg), getClass());
+        }
+        if(Dungeon.系统(系统设置.波罗神盾)&&dmg<=3){
+            Buff.施加(this, Barrier.class).设置(5);
         }
 
         //temporarily assign to a float to avoid rounding a bunch
@@ -2413,7 +2452,7 @@ public class Hero extends Char {
             }
 
             if (heroClass(HeroClass.MAGE)) {
-                Buff.延长(this, Recharging.class, 1);
+                Buff.延长(this, Recharging.class, 2);
                 ScrollOfRecharging.charge(this);
                 SpellSprite.show(this, SpellSprite.CHARGE);
             }
@@ -3139,6 +3178,9 @@ public class Hero extends Char {
         float x = 1 + 天赋点数(Talent.任督二脉, 0.1f);
         if (heroSubClass(HeroSubClass.潜能觉醒)) {
             x += 0.1f;
+        }
+        if(Dungeon.系统(系统设置.钢铁超人)){
+            x+=等级/12.5f;
         }
         return x;
     }

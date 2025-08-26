@@ -737,7 +737,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
 
-			所有开关= new RedButton(Messages.get(this,"所有开关"),9){
+			所有开关= new RedButton("所有开关",9){
 				@Override
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){

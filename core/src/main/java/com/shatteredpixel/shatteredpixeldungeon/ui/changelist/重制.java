@@ -209,8 +209,9 @@ public class 重制 {
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(), "商人房间",
-						"1层有商店。\n" +
+						"1层有商店，卖1阶武器和护甲。\n" +
 						"非战士在6层会卖水袋。\n" +
+						"商店的武器和护甲，戒指和法杖有概率拥有等级，且必定拥有1级。\n" +
 						"商店的小包口粮x2 => 口粮+小包口粮。\n" +
 						"随机一个药剂或卷轴 => 两张随机卷轴+一瓶随机药剂。"));
 		changes.addButton( new ChangeButton(new RatKingSprite(), "鼠王房间",

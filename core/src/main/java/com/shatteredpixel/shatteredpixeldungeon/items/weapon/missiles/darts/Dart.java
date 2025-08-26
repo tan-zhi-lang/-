@@ -266,14 +266,14 @@ public class Dart extends MissileWeapon {
 			
 			if (item == null) return;
 			
-			final int maxToTip = Math.min(curItem.get数量(), item.get数量()*2);
+			final int maxToTip = Math.min(curItem.set数量(),item.set数量()*2);
 			final int maxSeedsToUse = (maxToTip+1)/2;
 			
 			final int singleSeedDarts;
 			
 			final String[] options;
 			
-			if (curItem.get数量() == 1){
+			if (curItem.set数量()==1){
 				singleSeedDarts = 1;
 				options = new String[]{
 						Messages.get(Dart.class, "tip_one"),
@@ -304,14 +304,14 @@ public class Dart extends MissileWeapon {
 					super.onSelect(index);
 					
 					if (index == 0 && options.length == 3){
-						if (item.get数量() <= maxSeedsToUse){
+						if (item.set数量()<=maxSeedsToUse){
 							item.detachAll( curUser.belongings.backpack );
 						} else {
-							item.get数量(item.get数量() - maxSeedsToUse);
+							item.set数量(item.set数量()-maxSeedsToUse);
 						}
 						
-						if (maxToTip < curItem.get数量()){
-							curItem.get数量(curItem.get数量() - maxToTip);
+						if (maxToTip < curItem.set数量()){
+							curItem.set数量(curItem.set数量()-maxToTip);
 						} else {
 							curItem.detachAll(curUser.belongings.backpack);
 						}
@@ -326,10 +326,10 @@ public class Dart extends MissileWeapon {
 					} else if ((index == 1 && options.length == 3) || (index == 0 && options.length == 2)){
 						item.detach( curUser.belongings.backpack );
 						
-						if (curItem.get数量() <= singleSeedDarts){
+						if (curItem.set数量()<=singleSeedDarts){
 							curItem.detachAll( curUser.belongings.backpack );
 						} else {
-							curItem.get数量(curItem.get数量() - singleSeedDarts);
+							curItem.set数量(curItem.set数量()-singleSeedDarts);
 						}
 						
 						TippedDart newDart = TippedDart.getTipped((Plant.Seed) item, singleSeedDarts);

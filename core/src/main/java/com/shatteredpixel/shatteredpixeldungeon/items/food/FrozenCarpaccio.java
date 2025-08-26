@@ -56,7 +56,7 @@ public class FrozenCarpaccio extends Food {
 	
 	public static Food cook( MysteryMeat ingredient ) {
 		FrozenCarpaccio result = new FrozenCarpaccio();
-		result.quantity = ingredient.get数量();
+		result.quantity = ingredient.set数量();
 		return result;
 	}
 }

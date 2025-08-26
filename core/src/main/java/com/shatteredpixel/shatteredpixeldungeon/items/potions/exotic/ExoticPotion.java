@@ -122,7 +122,7 @@ public class ExoticPotion extends Potion {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			for (Item i : ingredients){
-				i.get数量(i.get数量()-1);
+				i.set数量(i.set数量()-1);
 			}
 
 			return Reflection.newInstance(regToExo.get(ingredients.get(0).getClass()));

@@ -243,7 +243,7 @@ public class Item implements Bundlable {
 					}
 					if (TippedDart.lostDarts > 0){
 						Dart d = new Dart();
-						d.get数量(TippedDart.lostDarts);
+						d.set数量(TippedDart.lostDarts);
 						TippedDart.lostDarts = 0;
 						if (!d.放背包()){
 							//have to handle this in an actor as we can't manipulate the heap during pickup
@@ -289,7 +289,7 @@ public class Item implements Bundlable {
 	
 	//returns a new item if the split was sucessful and there are now 2 items, otherwise null
 	public Item split( int amount ){
-		if (amount <= 0 || amount >= get数量()) {
+		if (amount <= 0 ||amount>=set数量()) {
 			return null;
 		} else {
 			//pssh, who needs copy constructors?
@@ -302,7 +302,7 @@ public class Item implements Bundlable {
 			Bundle copy = new Bundle();
 			this.storeInBundle(copy);
 			split.restoreFromBundle(copy);
-			split.get数量(amount);
+			split.set数量(amount);
 			quantity -= amount;
 			
 			return split;
@@ -539,14 +539,14 @@ public class Item implements Bundlable {
 		return Messages.get(this, "desc");
 	}
 	
-	public int get数量() {
+	public int set数量() {
 		return quantity;
 	}
 	public Item 数量() {
 		return this;
 	}
 	
-	public Item get数量(int value ) {
+	public Item set数量(int value) {
 		quantity = value;
 		return this;
 	}

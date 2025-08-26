@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
@@ -235,8 +236,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public int damageRoll( Char owner ) {
 		if (owner instanceof Hero hero){
 			Char enemy = hero.attackTarget();
-			if(enemy.第一次防御&&投矛){
+			if(enemy!=null&&enemy.第一次防御&&投矛){
 				return 最大攻击();
+			}
+			
+			if(Dungeon.玩法(玩法设置.简单战斗)){
+				return Math.round((最小攻击()+ 最大攻击())/2f);
 			}
 			return Hero.heroDamageIntRange(最小攻击(), 最大攻击());
 		} else {

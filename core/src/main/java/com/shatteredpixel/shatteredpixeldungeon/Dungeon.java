@@ -250,9 +250,13 @@ public class Dungeon {
 		depth = 1;
 		branch = 0;
 		generatedLevels.clear();
-
+		
 		gold = 0;
 		energy = 0;
+		if(Dungeon.系统(系统设置.资产破亿)||算法.isDebug()){
+			gold = 10_0000_0000;
+			energy = 10_0000_0000;
+		}
 
 		droppedItems = new SparseArray<>();
 
@@ -267,6 +271,7 @@ public class Dungeon {
 
 		hero = new Hero();
 		hero.live();
+		hero.更新生命();
 		
 		Badges.reset();
 		

@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -284,7 +285,7 @@ abstract public class Weapon extends KindOfWeapon {
 			ACC /= 5;
 		}
 		if(encumbrance > 0 )ACC/=Math.pow( 1.5, encumbrance );
-		if(encumbrance < 0 )ACC/=1+Math.sqrt(encumbrance)/10f;
+		if(encumbrance < 0 )ACC*=1+Math.sqrt(-encumbrance)/10f;
 		
 		return ACC;
 	}
@@ -302,7 +303,7 @@ abstract public class Weapon extends KindOfWeapon {
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
-				delay*=1+Math.sqrt(encumbrance)/10f;
+				delay/=1+Math.sqrt(-encumbrance)/10f;
 			}
 			
 		}
@@ -411,10 +412,28 @@ abstract public class Weapon extends KindOfWeapon {
 		//+1: 20% (4/20)
 		//+2: 5%  (1/20)
 		int n = 0;
-		if (Random.Int(4) == 0) {
-			n++;
-			if (Random.Int(5) == 0) {
+		if(Dungeon.解压(解压设置.持之以恒)){
+			if (Random.Int(1) == 0){
 				n++;
+				if (Random.Int(2) == 0){
+					n++;
+					if (Random.Int(3) == 0){
+						n++;
+						if (Random.Int(4) == 0){
+							n++;
+							if (Random.Int(5) == 0){
+								n++;
+							}
+						}
+					}
+				}
+			}
+		}else{
+			if(Random.Int(4)==0){
+				n++;
+				if(Random.Int(5)==0){
+					n++;
+				}
 			}
 		}
 		等级(n);

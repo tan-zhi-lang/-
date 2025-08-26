@@ -22,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -245,10 +246,28 @@ public class Ring extends KindofMisc {
 		//+1: 26.67% (4/15)
 		//+2: 6.67%  (1/15)
 		int n = 0;
-		if (Random.Int(3) == 0) {
-			n++;
-			if (Random.Int(5) == 0){
+		if(Dungeon.解压(解压设置.持之以恒)){
+			if (Random.Int(1) == 0){
 				n++;
+				if (Random.Int(2) == 0){
+					n++;
+					if (Random.Int(3) == 0){
+						n++;
+						if (Random.Int(4) == 0){
+							n++;
+							if (Random.Int(5) == 0){
+								n++;
+							}
+						}
+					}
+				}
+			}
+		}else{
+			if (Random.Int(3) == 0) {
+				n++;
+				if (Random.Int(5) == 0){
+					n++;
+				}
 			}
 		}
 		等级(n);

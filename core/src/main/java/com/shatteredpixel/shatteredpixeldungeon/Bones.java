@@ -26,12 +26,14 @@ public class Bones {
 	private static final String LEVEL	= "level";
 	private static final String BRANCH	= "branch";
 	private static final String ITEM	= "item";
+	private static final String ITEMS	= "items";
 	private static final String HERO_CLASS	= "hero_class";
 
 	private static int depth = -1;
 	private static int branch = -1;
 
 	private static Item item;
+	public static ArrayList<Item> items = new ArrayList<>();
 	private static HeroClass heroClass;
 
 	public static void leave() {
@@ -49,12 +51,18 @@ public class Bones {
 		}
 
 		item = pickItem(Dungeon.hero);
+//		for(Item item :Dungeon.hero.belongings.backpack.items){
+//			if(!item.bones&&!(item instanceof Bag)){
+//				items.add(item);
+//			}
+//		}
 		heroClass = Dungeon.hero.heroClass;
 
 		Bundle bundle = new Bundle();
 		bundle.put( LEVEL, depth );
 		bundle.put( BRANCH, branch );
 		bundle.put( ITEM, item );
+//		bundle.put( ITEMS, items );
 		bundle.put( HERO_CLASS, heroClass );
 
 		try {
@@ -119,9 +127,9 @@ public class Bones {
 			if (Random.Int(3) < items.size()) {
 				item = Random.element(items);
 				if (item.stackable){
-					item.get数量(Random.NormalIntRange(1, (item.get数量() + 1) / 2));
-					if (item.get数量() > 3){
-						item.get数量(3);
+					item.set数量(Random.NormalIntRange(1,(item.set数量()+1)/2));
+					if (item.set数量()>3){
+						item.set数量(3);
 					}
 				}
 			} else {
@@ -142,6 +150,7 @@ public class Bones {
 
 			try {
 				Bundle bundle = FileUtils.bundleFromFile(BONES_FILE);
+//				items =new ArrayList<Item>((Collection<? extends Item>)bundle.getCollection(ITEMS));
 
 				depth = bundle.getInt( LEVEL );
 				branch = bundle.getInt( BRANCH );

@@ -17,16 +17,16 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WellWater;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -57,10 +57,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.DimensionalSundial;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.MossyClump;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrapMechanism;
@@ -68,6 +68,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.HeavyBoomerang;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
@@ -81,10 +82,13 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
@@ -124,8 +128,33 @@ public abstract class Level implements Bundlable {
 			return Messages.get(this, name()+"_desc");
 		}
 	}
-
+	public void 落石(Char c){
+		if(Dungeon.玩法(玩法设置.摇曳落石)){
+			int x=PathFinder.范围8[Random.Int(0,PathFinder.范围8.length)];
+			if(x!=-1){
+				try{
+					if(!Dungeon.level.solid[c.pos+x]){
+						if(算法.概率学(1)){
+							Dungeon.level.drop(new ThrowingStone(),c.pos+x).sprite.drop();
+						}
+						if(算法.概率学(3)){
+							Char cx=Actor.findChar(c.pos);
+							if(cx!=null){
+								cx.受伤(Random.NormalIntRange(2,5));
+							}
+						}
+						PixelScene.shake(3,1f);
+						Sample.INSTANCE.play(Assets.Sounds.ROCKS);
+					}
+				}catch(Exception e){
+				
+				}
+			}
+			
+		}
+	}
 	protected int width;
+	
 	protected int height;
 	protected int length;
 	
@@ -204,9 +233,14 @@ public abstract class Level implements Bundlable {
 		if (!Dungeon.bossLevel() && Dungeon.branch == 0) {
 
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
-
+			
+			if(Dungeon.解压(解压设置.探索口粮))
+				addItemToSpawn(Generator.random(Generator.Category.FOOD));
+			
 			if(Dungeon.区域层(4)) {
 				addItemToSpawn(new SmallRation());
+				if(Dungeon.解压(解压设置.探索口粮))
+					addItemToSpawn(new SmallRation());
 			}
 			if (Dungeon.区域层(3)) {
 				addItemToSpawn( new 治疗药剂() );
@@ -268,6 +302,8 @@ public abstract class Level implements Bundlable {
 					case 4:
 						feeling = Feeling.LARGE;
 						addItemToSpawn(Generator.random(Generator.Category.FOOD));
+						if(Dungeon.解压(解压设置.探索口粮))
+							addItemToSpawn(Generator.random(Generator.Category.FOOD));
 						break;
 					case 5:
 						feeling = Feeling.TRAPS;

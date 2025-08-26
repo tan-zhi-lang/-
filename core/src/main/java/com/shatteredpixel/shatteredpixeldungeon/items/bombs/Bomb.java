@@ -313,7 +313,7 @@ public class Bomb extends Item {
 		@Override
 		public boolean doPickUp(Hero hero, int pos) {
 			Bomb bomb = new Bomb();
-			bomb.get数量(2);
+			bomb.set数量(2);
 			if (bomb.doPickUp(hero, pos)) {
 				//isaaaaac.... (don't bother doing this when not in english)
 				if (SPDSettings.language() == Languages.ENGLISH)
@@ -394,7 +394,7 @@ public class Bomb extends Item {
 			Item result = null;
 			
 			for (Item i : ingredients){
-				i.get数量(i.get数量()-1);
+				i.set数量(i.set数量()-1);
 				if (validIngredients.containsKey(i.getClass())){
 					result = Reflection.newInstance(validIngredients.get(i.getClass()));
 				}

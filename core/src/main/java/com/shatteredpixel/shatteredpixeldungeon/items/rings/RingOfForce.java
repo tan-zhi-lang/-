@@ -15,96 +15,116 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class RingOfForce extends Ring {
-
+public class RingOfForce extends Ring{
+	
 	{
-		icon = 物品表.Icons.RING_FORCE;
-		buffClass = Force.class;
+		icon=物品表.Icons.RING_FORCE;
+		buffClass=Force.class;
 	}
-
+	
 	@Override
-	protected RingBuff buff( ) {
+	protected RingBuff buff(){
 		return new Force();
 	}
 	
-	public static int armedDamageBonus( Char ch ){
-		return getBuffedBonus( ch, Force.class);
+	public static int armedDamageBonus(Char ch){
+		return getBuffedBonus(ch,Force.class);
 	}
-
+	
 	@Override
-	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
-		if (super.doUnequip(hero, collect, single)){
-			if (hero.buff(BrawlersStance.class) != null && hero.buff(Force.class) == null){
+	public boolean doUnequip(Hero hero,boolean collect,boolean single){
+		if(super.doUnequip(hero,collect,single)){
+			if(hero.buff(BrawlersStance.class)!=null&&hero.buff(Force.class)==null){
 				//clear brawler's stance if no ring of force is equipped
-				hero.buff(BrawlersStance.class).active = false;
+				hero.buff(BrawlersStance.class).active=false;
 			}
 			return true;
-		} else {
+		}else{
 			return false;
 		}
 	}
 	
 	// *** Weapon-like properties ***
-
+	
 	public static int tier(){
-		int str=Dungeon.hero != null ? Dungeon.hero.力量() : 10;
-		int tier = Math.round(Math.max(1, (str - 8)/2f));
+		int str=Dungeon.hero!=null?
+				Dungeon.hero.力量():
+				10;
+		int tier=Math.round(Math.max(1,(str-8)/2f));
 		//each str point after 18 is half as effective
-		if (tier > 5){
-			tier = 5 + Math.round((tier - 5) / 2f);
+		if(tier>5){
+			tier=5+Math.round((tier-5)/2f);
 		}
 		return tier;
 	}
+	
 	public static int notier(){
 		int str=10;
-		int tier = Math.round(Math.max(1, (str - 8)/2f));
+		int tier=Math.round(Math.max(1,(str-8)/2f));
 		//each str point after 18 is half as effective
-		if (tier > 5){
-			tier = 5 + Math.round((tier - 5) / 2f);
+		if(tier>5){
+			tier=5+Math.round((tier-5)/2f);
 		}
 		return tier;
 	}
-
-	public static int damageRoll( Hero hero ){
-		int dmgd = 0;
-		if (hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null) {
-			dmgd = Hero.heroDamageIntRange(2, Math.round(1.5f*(Dungeon.hero.力量()-8)));
+	
+	public static int damageRoll(Hero hero){
+		int dmgd=0;
+		if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
+			dmgd=Hero.heroDamageIntRange(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
 		}
-		int level = getBuffedBonus(hero, Force.class);
-		int tier = tier();
-		boolean buff =hero.hasbuff(RingOfForce.Force.class);
-		boolean 拳套 =hero.belongings.weapon!=null&&hero.belongings.weapon.拳套;
-
-		int dmg =dmgd;
+		int level=getBuffedBonus(hero,Force.class);
+		int tier=tier();
+		boolean buff=hero.hasbuff(RingOfForce.Force.class);
+		boolean 拳套=hero.belongings.weapon!=null&&hero.belongings.weapon.拳套;
+		
+		int dmg=dmgd;
 		if(拳套){
-			dmg+=Math.round(0.75f*Hero.heroDamageIntRange(heromin(),heromax()));
-			if(buff) {
-				dmg += Math.round(0.5f*Hero.heroDamageIntRange(min(level, tier), max(level, tier)));
+			if(Dungeon.玩法(玩法设置.简单战斗)){
+				dmg+=Math.round((heromin()+heromax())/2f*0.75f);
+				if(buff){
+					dmg+=Math.round((min(level,tier)+max(level,tier))/2f*0.5f);
+				}
+			}else{
+				dmg+=Math.round(0.75f*Hero.heroDamageIntRange(heromin(),heromax()));
+				if(buff){
+					dmg+=Math.round(0.5f*Hero.heroDamageIntRange(min(level,tier),max(level,tier)));
+				}
 			}
 		}else{
-			dmg+=Hero.heroDamageIntRange(heromin(),heromax());
-			if(buff) {
-				dmg += Hero.heroDamageIntRange(min(level, tier), max(level, tier));
+			if(Dungeon.玩法(玩法设置.简单战斗)){
+				dmg+=Math.round((heromin()+heromax())/2f);
+				if(buff){
+					dmg+=Math.round((min(level,tier)+max(level,tier))/2f);
+				}
+			}else{
+				dmg+=Hero.heroDamageIntRange(heromin(),heromax());
+				if(buff){
+					dmg+=Hero.heroDamageIntRange(min(level,tier),max(level,tier));
+				}
 			}
 		}
-		if (hero.buff(BrawlersStance.class) != null
-				&& hero.buff(BrawlersStance.class).active) {
+		if(hero.buff(BrawlersStance.class)!=null&&hero.buff(BrawlersStance.class).active){
 			// 3+tier base dmg, roughly +60%->45% dmg at T1->5
 			// lvl*((4+2*tier)/8) scaling, +50% dmg
-			dmg += Math.round(3 + tier + (level * ((4 + 2 * tier) / 8f)));
+			dmg+=Math.round(3+tier+(level*((4+2*tier)/8f)));
 		}
 		return dmg;
 	}
+	
 	public static int heromin(){
 		return Dungeon.hero.生命力(0.25f);
 	}
+	
 	public static int heromax(){
 		return Dungeon.hero.生命力(0.75f);
 	}
+	
 	public static int min(){
 		int x=0;
 		if(Dungeon.hero()){
@@ -114,6 +134,7 @@ public class RingOfForce extends Ring {
 		}
 		return min(x,tier());
 	}
+	
 	public static int max(){
 		int x=0;
 		if(Dungeon.hero()){
@@ -123,258 +144,266 @@ public class RingOfForce extends Ring {
 		}
 		return max(x,tier());
 	}
-	public static int min(int lvl, float tier){
-		if (lvl <= 0) lvl = 0;
-
-		return Math.max( 0, Math.round(
-				tier +  //base
-				lvl     //level scaling
-		));
+	
+	public static int min(int lvl,float tier){
+		if(lvl<=0){
+			lvl=0;
+		}
+		
+		return Math.max(0,Math.round(tier+  //base
+									 lvl     //level scaling
+									));
 	}
-
+	
 	//same as equivalent tier weapon
-	public static int max(int lvl, float tier){
-		if (lvl <= 0) lvl = 0;
-
-		return Math.max( 0, Math.round(
-				5*(tier+1) +    //base
-				lvl*(tier+1)    //level scaling
-		));
+	public static int max(int lvl,float tier){
+		if(lvl<=0){
+			lvl=0;
+		}
+		
+		return Math.max(0,Math.round(5*(tier+1)+    //base
+									 lvl*(tier+1)    //level scaling
+									));
 	}
-
+	
 	@Override
-	public String statsInfo() {
-		float tier = tier();
-		if (已鉴定()) {
-			int level = soloBuffedBonus();
-			String info = Messages.get(this, "stats", min(level, tier)+heromin(),
-					max(level, tier)+heromax(),
-					level+ min(level, tier)+heromin());
-			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
-				level = combinedBuffedBonus(Dungeon.hero);
-				info += "\n\n" + Messages.get(this, "combined_stats", min(level, tier)+heromin(), max(level, tier)+heromax(), level);
+	public String statsInfo(){
+		float tier=tier();
+		if(已鉴定()){
+			int level=soloBuffedBonus();
+			String info=Messages.get(this,"stats",min(level,tier)+heromin(),max(level,tier)+heromax(),level+min(level,tier)+heromin());
+			if(isEquipped(Dungeon.hero)&&soloBuffedBonus()!=combinedBuffedBonus(Dungeon.hero)){
+				level=combinedBuffedBonus(Dungeon.hero);
+				info+="\n\n"+Messages.get(this,"combined_stats",min(level,tier)+heromin(),max(level,tier)+heromax(),level);
 			}
 			return info;
-		} else {
-			return Messages.get(this, "typical_stats", min(0, tier)+heromin(),
-					max(0, tier), 1)+heromax();
+		}else{
+			return Messages.get(this,"typical_stats",min(0,tier)+heromin(),max(0,tier),1)+heromax();
 		}
 	}
-
+	
 	@Override
-	public String upgradeStat1(int level) {
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		int tier = tier();
-		return min(level+1, tier) + "-" + max(level+1, tier);
+	public String upgradeStat1(int level){
+		if(cursed&&cursedKnown){
+			level=Math.min(-1,level-3);
+		}
+		int tier=tier();
+		return min(level+1,tier)+"-"+max(level+1,tier);
 	}
-
+	
 	@Override
-	public String upgradeStat2(int level) {
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
+	public String upgradeStat2(int level){
+		if(cursed&&cursedKnown){
+			level=Math.min(-1,level-3);
+		}
 		return Integer.toString(level+1);
 	}
-
+	
 	@Override
-	public String upgradeStat3(int level) {
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST){
-			int tier = tier();
-			int bonus = Math.round(3+tier+(level*((4+2*tier)/8f)));
-			return (min(level+1, tier) + bonus) + "-" + (max(level+1, tier) + bonus);
-		} else {
+	public String upgradeStat3(int level){
+		if(cursed&&cursedKnown){
+			level=Math.min(-1,level-3);
+		}
+		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST){
+			int tier=tier();
+			int bonus=Math.round(3+tier+(level*((4+2*tier)/8f)));
+			return (min(level+1,tier)+bonus)+"-"+(max(level+1,tier)+bonus);
+		}else{
 			return null;
 		}
 	}
-
-	public class Force extends RingBuff {
-	}
-
+	
+	public class Force extends RingBuff{}
+	
 	//Duelist stuff
-
-	public static String AC_ABILITY = "ABILITY";
-
+	
+	public static String AC_ABILITY="ABILITY";
+	
 	@Override
-	public void activate(Char ch) {
+	public void activate(Char ch){
 		super.activate(ch);
-		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.DUELIST){
-			Buff.施加(ch, MeleeWeapon.Charger.class);
+		if(ch instanceof Hero&&((Hero)ch).heroClass==HeroClass.DUELIST){
+			Buff.施加(ch,MeleeWeapon.Charger.class);
 		}
 	}
-
+	
 	@Override
-	public String defaultAction() {
-		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST){
+	public String defaultAction(){
+		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST){
 			return AC_ABILITY;
-		} else {
+		}else{
 			return super.defaultAction();
 		}
 	}
-
+	
 	@Override
-	public ArrayList<String> actions(Hero hero) {
-		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && hero.heroClass == HeroClass.DUELIST){
+	public ArrayList<String> actions(Hero hero){
+		ArrayList<String> actions=super.actions(hero);
+		if(isEquipped(hero)&&hero.heroClass==HeroClass.DUELIST){
 			actions.add(AC_ABILITY);
 		}
 		return actions;
 	}
-
+	
 	@Override
-	public String actionName(String action, Hero hero) {
-		if (action.equals(AC_ABILITY)){
-			return Messages.upperCase(Messages.get(this, "ability_name"));
-		} else {
-			return super.actionName(action, hero);
+	public String actionName(String action,Hero hero){
+		if(action.equals(AC_ABILITY)){
+			return Messages.upperCase(Messages.get(this,"ability_name"));
+		}else{
+			return super.actionName(action,hero);
 		}
 	}
-
+	
 	@Override
-	public void execute(Hero hero, String action) {
-		if (action.equals(AC_ABILITY)){
-			if (hero.buff(BrawlersStance.class) != null){
-				if (!hero.buff(BrawlersStance.class).active){
+	public void execute(Hero hero,String action){
+		if(action.equals(AC_ABILITY)){
+			if(hero.buff(BrawlersStance.class)!=null){
+				if(!hero.buff(BrawlersStance.class).active){
 					hero.buff(BrawlersStance.class).reset();
-				} else {
-					hero.buff(BrawlersStance.class).active = false;
+				}else{
+					hero.buff(BrawlersStance.class).active=false;
 				}
 				BuffIndicator.refreshHero();
 				AttackIndicator.updateState();
 				hero.sprite.operate();
-			} else if (!isEquipped(hero)) {
-				GLog.w(Messages.get(MeleeWeapon.class, "ability_need_equip"));
-
-			} else {
-				Buff.施加(hero, BrawlersStance.class).reset();
+			}else if(!isEquipped(hero)){
+				GLog.w(Messages.get(MeleeWeapon.class,"ability_need_equip"));
+				
+			}else{
+				Buff.施加(hero,BrawlersStance.class).reset();
 				AttackIndicator.updateState();
 				hero.sprite.operate();
 			}
-		} else {
-			super.execute(hero, action);
+		}else{
+			super.execute(hero,action);
 		}
 	}
-
+	
 	@Override
-	public String info() {
-		String info = super.info();
-
-		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST
-			&& (anonymous || 已鉴定() || isEquipped(Dungeon.hero))){
+	public String info(){
+		String info=super.info();
+		
+		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST&&(anonymous||已鉴定()||isEquipped(Dungeon.hero))){
 			//0 if unidentified, solo level if unequipped, combined level if equipped
-			int level = 已鉴定() ? (isEquipped(Dungeon.hero) ? getBuffedBonus(Dungeon.hero, Force.class) : soloBuffedBonus()) : 0;
-			int tier = 已鉴定()?tier():notier();
-			int dmgBoost = Math.round(3+tier+(level*((4+2*tier)/8f)));
-			if (已鉴定()) {
-				info += "\n\n" + Messages.get(this, "ability_desc", min(level, tier)+heromin()+dmgBoost,
-						max(level, tier)+heromax()+dmgBoost);
-			} else {
-				info += "\n\n" + Messages.get(this, "typical_ability_desc",  min(level, tier)+heromin()+dmgBoost,
-						max(level, tier))+heromax()+dmgBoost;
+			int level=已鉴定()?
+					(isEquipped(Dungeon.hero)?
+							 getBuffedBonus(Dungeon.hero,Force.class):
+							 soloBuffedBonus()):
+					0;
+			int tier=已鉴定()?
+					tier():
+					notier();
+			int dmgBoost=Math.round(3+tier+(level*((4+2*tier)/8f)));
+			if(已鉴定()){
+				info+="\n\n"+Messages.get(this,"ability_desc",min(level,tier)+heromin()+dmgBoost,max(level,tier)+heromax()+dmgBoost);
+			}else{
+				info+="\n\n"+Messages.get(this,"typical_ability_desc",min(level,tier)+heromin()+dmgBoost,max(level,tier))+heromax()+dmgBoost;
 			}
 		}
-
+		
 		return info;
 	}
-
-	public static boolean fightingUnarmed( Hero hero ){
-		if (hero.belongings.attackingWeapon() == null
-			|| hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null){
+	
+	public static boolean fightingUnarmed(Hero hero){
+		if(hero.belongings.attackingWeapon()==null||hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 			return true;
 		}
-		if (hero.belongings.thrownWeapon != null || hero.belongings.abilityWeapon != null){
+		if(hero.belongings.thrownWeapon!=null||hero.belongings.abilityWeapon!=null){
 			return false;
 		}
-		BrawlersStance stance = hero.buff(BrawlersStance.class);
-		if (stance != null && stance.active){
+		BrawlersStance stance=hero.buff(BrawlersStance.class);
+		if(stance!=null&&stance.active){
 			//clear the buff if no ring of force is equipped
-			if (hero.buff(RingOfForce.Force.class) == null){
-				stance.active = false;
+			if(hero.buff(RingOfForce.Force.class)==null){
+				stance.active=false;
 				AttackIndicator.updateState();
 				return false;
-			} else {
+			}else{
 				return true;
 			}
 		}
 		return false;
 	}
-
-	public static boolean unarmedGetsWeaponEnchantment( Hero hero ){
-		if (hero.belongings.attackingWeapon() == null){
+	
+	public static boolean unarmedGetsWeaponEnchantment(Hero hero){
+		if(hero.belongings.attackingWeapon()==null){
 			return false;
 		}
-		if (hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null){
-			return hero.buff(MonkEnergy.MonkAbility.FlurryEmpowerTracker.class) != null;
+		if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
+			return hero.buff(MonkEnergy.MonkAbility.FlurryEmpowerTracker.class)!=null;
 		}
-		BrawlersStance stance = hero.buff(BrawlersStance.class);
-		if (stance != null && stance.active){
+		BrawlersStance stance=hero.buff(BrawlersStance.class);
+		if(stance!=null&&stance.active){
 			return true;
 		}
 		return false;
 	}
-
-	public static boolean unarmedGetsWeaponAugment(Hero hero ){
-		if (hero.belongings.attackingWeapon() == null
-			|| hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null){
+	
+	public static boolean unarmedGetsWeaponAugment(Hero hero){
+		if(hero.belongings.attackingWeapon()==null||hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 			return false;
 		}
-		BrawlersStance stance = hero.buff(BrawlersStance.class);
-		if (stance != null && stance.active){
+		BrawlersStance stance=hero.buff(BrawlersStance.class);
+		if(stance!=null&&stance.active){
 			return true;
 		}
 		return false;
 	}
-
-	public static class BrawlersStance extends Buff {
-
+	
+	public static class BrawlersStance extends Buff{
+		
 		{
-			announced = true;
-			type = buffType.POSITIVE;
+			announced=true;
+			type=buffType.POSITIVE;
 		}
-
+		
 		//buff must be active for at least 50 turns, to discourage micro-managing for max charges
-		public boolean active = true;
+		public boolean active=true;
 		private int minTurnsLeft;
-
+		
 		public void reset(){
-			if (!active){
+			if(!active){
 				//announce the buff
-				target.sprite.showStatus(CharSprite.增强, Messages.titleCase(name()));
+				target.sprite.showStatus(CharSprite.增强,Messages.titleCase(name()));
 			}
-			active = true;
-			minTurnsLeft = 50;
+			active=true;
+			minTurnsLeft=50;
 		}
-
+		
 		@Override
-		public int icon() {
-			return active ? BuffIndicator.DUEL_BRAWL : BuffIndicator.NONE;
+		public int icon(){
+			return active?
+					BuffIndicator.DUEL_BRAWL:
+					BuffIndicator.NONE;
 		}
-
+		
 		@Override
-		public boolean act() {
-			minTurnsLeft --;
-
-			if (!active && minTurnsLeft <= 0){
+		public boolean act(){
+			minTurnsLeft--;
+			
+			if(!active&&minTurnsLeft<=0){
 				detach();
 			}
-
+			
 			spend(TICK);
 			return true;
 		}
-
-		public static final String ACTIVE = "active";
-		public static final String MIN_TURNS_LEFT = "min_turns_left";
-
+		
+		public static final String ACTIVE="active";
+		public static final String MIN_TURNS_LEFT="min_turns_left";
+		
 		@Override
-		public void storeInBundle(Bundle bundle) {
+		public void storeInBundle(Bundle bundle){
 			super.storeInBundle(bundle);
-			bundle.put(ACTIVE, active);
-			bundle.put(MIN_TURNS_LEFT, minTurnsLeft);
+			bundle.put(ACTIVE,active);
+			bundle.put(MIN_TURNS_LEFT,minTurnsLeft);
 		}
-
+		
 		@Override
-		public void restoreFromBundle(Bundle bundle) {
+		public void restoreFromBundle(Bundle bundle){
 			super.restoreFromBundle(bundle);
-			active = bundle.getBoolean(ACTIVE);
-			minTurnsLeft = bundle.getInt(MIN_TURNS_LEFT);
+			active=bundle.getBoolean(ACTIVE);
+			minTurnsLeft=bundle.getInt(MIN_TURNS_LEFT);
 		}
 	}
 }

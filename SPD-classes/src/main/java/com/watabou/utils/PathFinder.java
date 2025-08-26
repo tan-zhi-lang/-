@@ -16,6 +16,9 @@ public class PathFinder {
 	
 	private static int size = 0;
 	private static int width = 0;
+	public static int width(){
+		return width;
+	}
 
 	private static int[] dir;
 	private static int[] dirLR;
@@ -25,6 +28,7 @@ public class PathFinder {
 	public static int[] NEIGHBOURS4;
 	public static int[] NEIGHBOURS8;
 	public static int[] NEIGHBOURS9;
+	public static int[] 范围8;
 
 	//similar to their equivalent neighbour arrays, but the order is clockwise.
 	//Useful for some logic functions, but is slower due to lack of array-access order.
@@ -50,9 +54,20 @@ public class PathFinder {
 		NEIGHBOURS4 = new int[]{-width, -1, +1, +width};
 		NEIGHBOURS8 = new int[]{-width-1, -width, -width+1, -1, +1, +width-1, +width, +width+1};
 		NEIGHBOURS9 = new int[]{-width-1, -width, -width+1, -1, 0, +1, +width-1, +width, +width+1};
-
+		范围8=x格(width,8);
 		CIRCLE4 = new int[]{-width, +1, +width, -1};
 		CIRCLE8 = new int[]{-width-1, -width, -width+1, +1, +width+1, +width, +width-1, -1};
+	}
+	public static int[] x格(int width,int range) {
+		int[] S= new int[1 + 4 * range * (range + 1)];
+		int n=0;
+		for (int i = -range; i <= range; i++) {
+			for (int j = -range; j <= range; j++) {
+				S[n]=i * width + j;
+				n++;
+			}
+		}
+		return S;
 	}
 
 	public static Path find( int from, int to, boolean[] passable ) {

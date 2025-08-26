@@ -141,7 +141,7 @@ public class UnstableBrew extends Brew {
 		public Item brew(ArrayList<Item> ingredients) {
 
 			for (Item i : ingredients){
-				i.get数量(i.get数量()-1);
+				i.set数量(i.set数量()-1);
 			}
 			
 			return sampleOutput(null);

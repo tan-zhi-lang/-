@@ -413,6 +413,15 @@ public class 算法 {
     public static boolean 概率学(int x){
         return Random.Int(1,100)<= x;
     }
+    public static boolean 概率学(float x){
+        return Random.Float()<= x;
+    }
+    public static boolean 概率概率学(int x){
+        return 概率学(x)&&概率学(x);
+    }
+    public static boolean 概率概率学(float x){
+        return 概率学(x)&&概率学(x);
+    }
     public static int 固衰(int x){
         x = 4 + (int)(Math.sqrt(8*(x - 4) + 1) - 1)/2;
         return x;

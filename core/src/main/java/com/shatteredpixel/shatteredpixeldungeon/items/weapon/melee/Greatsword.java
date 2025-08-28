@@ -13,7 +13,7 @@ public class Greatsword extends MeleeWeapon {
 	{
 		image = 物品表.GREATSWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 5;
 	}

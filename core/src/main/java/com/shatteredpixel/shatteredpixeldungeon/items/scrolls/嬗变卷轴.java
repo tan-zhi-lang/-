@@ -64,7 +64,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 
 		//all regular or exotic scrolls, except itself (unless un-ided, in which case it was already consumed)
 		} else if (item instanceof Scroll) {
-			return item != this||item.set数量()>1||identifiedByUse;
+			return item != this||item.数量()>1||identifiedByUse;
 
 		//all non-unique artifacts (no holy tome or cloak of shadows, basically)
 		} else if (item instanceof Artifact) {
@@ -221,7 +221,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级(0);
-		n.set数量(w.set数量());
+		n.数量(w.数量());
 		int level = w.真等级();
 		if (level > 0) {
 			n.升级( level );

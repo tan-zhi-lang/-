@@ -60,10 +60,10 @@ public class MassGraveRoom extends SpecialRoom {
 		ArrayList<Item> items = new ArrayList<>();
 		//100% corpse dust, 2x100% 1 coin, 2x30% coins, 1x60% random item, 1x30% armor
 		items.add(new CorpseDust());
-		items.add(new Gold());
-		items.add(new Gold());
-		if (Random.Float() <= 0.3f) items.add(new Gold());
-		if (Random.Float() <= 0.3f) items.add(new Gold());
+		items.add(new Gold().random());
+		items.add(new Gold().random());
+		if (Random.Float() <= 0.3f) items.add(new Gold().random());
+		if (Random.Float() <= 0.3f) items.add(new Gold().random());
 		if (Random.Float() <= 0.6f) items.add(Generator.random());
 		if (Random.Float() <= 0.3f) items.add(Generator.randomArmor());
 

@@ -16,6 +16,7 @@ public class Albino extends Rat {
 		
 		生命 = 最大生命 = 15;
 		经验 = 2;
+		普通=false;
 		
 		loot = MysteryMeat.class;
 		lootChance = 1f;

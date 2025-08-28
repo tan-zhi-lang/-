@@ -247,6 +247,16 @@ public class WndHeroInfo extends WndTabbed {
 							new TalentIcon(Talent.HEIGHTENED_SENSES),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
+				case 近卫:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.BERSERK, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 兽灵:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.HEART, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
 				case 机器:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.BLEEDING, true),
@@ -254,10 +264,27 @@ public class WndHeroInfo extends WndTabbed {
 							new BuffIcon(BuffIndicator.FROST, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
+				case 女忍:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.HASTE, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
 				case 戒老:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new TalentIcon(Talent.FARSIGHT),
 							new BuffIcon(BuffIndicator.BLINDNESS, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 逐姝:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							  new BuffIcon(BuffIndicator.SEAL_SHIELD, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 罗兰:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							  new BuffIcon(BuffIndicator.HUNGER, true),
+									  new ItemSprite(物品表.ANKH),
+										  new BuffIcon(BuffIndicator.VULNERABLE, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 学士:

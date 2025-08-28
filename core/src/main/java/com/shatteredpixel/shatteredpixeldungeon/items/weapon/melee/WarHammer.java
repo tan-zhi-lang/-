@@ -12,7 +12,7 @@ public class WarHammer extends MeleeWeapon {
 	{
 		image = 物品表.WAR_HAMMER;
 		hitSound = Assets.Sounds.HIT_CRUSH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 5;
 		命中 = 1.20f; //20% boost to accuracy

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.能袍;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -53,7 +54,6 @@ public class 能量之戒 extends Ring {
 		if (target instanceof Hero && ((Hero) target).belongings.armor instanceof 法袍){
 			bonus *= 1.25f;
 		}
-
 		return bonus;
 	}
 
@@ -62,6 +62,11 @@ public class 能量之戒 extends Ring {
 
 		if (target instanceof Hero && ((Hero) target).heroClass != HeroClass.盗贼 && ((Hero) target).有天赋(Talent.LIGHT_CLOAK)){
 			bonus *= 1f + ((Hero) target).天赋点数(Talent.LIGHT_CLOAK,0.12f);
+		}
+		
+		
+		if (target instanceof Hero && ((Hero) target).belongings.armor instanceof 能袍){
+			bonus *= 1.25f;
 		}
 
 		return bonus;

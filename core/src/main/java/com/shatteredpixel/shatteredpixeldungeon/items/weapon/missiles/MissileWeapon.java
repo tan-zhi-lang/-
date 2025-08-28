@@ -222,7 +222,7 @@ abstract public class MissileWeapon extends Weapon {
 	public void doThrow(Hero hero) {
 		parent = null; //reset parent before throwing, just in case
 		if (((levelKnown && 等级() > 0) || hasGoodEnchant() || masteryPotionBonus || enchantHardened)
-			&&!extraThrownLeft&&set数量()==1&&durabilityLeft()<=durabilityPerUse()){
+			&&!extraThrownLeft&&数量()==1&&durabilityLeft()<=durabilityPerUse()){
 			GameScene.show(new WndOptions(new ItemSprite(this), Messages.titleCase(title()),
 					Messages.get(MissileWeapon.class, "break_upgraded_warn_desc"),
 					Messages.get(MissileWeapon.class, "break_upgraded_warn_yes"),
@@ -581,7 +581,7 @@ abstract public class MissileWeapon extends Weapon {
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
 			hero.spendAndNext( TIME_TO_PICK_UP );
 			GLog.w(Messages.get(this, "dust"));
-			set数量(0);
+			数量(0);
 			return true;
 		} else {
 			extraThrownLeft = false;

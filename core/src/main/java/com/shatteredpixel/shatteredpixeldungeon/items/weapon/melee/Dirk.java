@@ -14,7 +14,7 @@ public class Dirk extends MeleeWeapon {
 	{
 		image = 物品表.DIRK;
 		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1f;
+		
 
 		tier = 2;
 	}

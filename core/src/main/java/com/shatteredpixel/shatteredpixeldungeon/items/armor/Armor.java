@@ -167,6 +167,16 @@ public class Armor extends EquipableItem {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (破损纹章 != null) actions.add(AC_DETACH);
+		if(hero.heroClass(HeroClass.灵猫)){
+			actions.remove(AC_EQUIP);
+		}
+		if(hero.heroClass(HeroClass.鼠弟)){
+			
+			actions.remove(AC_EQUIP);
+		}
+		if(hero.heroClass(HeroClass.凌云)){
+			actions.remove(AC_EQUIP);
+		}
 		if(Dungeon.炼狱(炼狱设置.诅咒装备)&&(等级()>5||tier>3)) {
 			actions.remove(AC_EQUIP);
 		}

@@ -115,16 +115,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 		data = new DataTab();
 		data.setSize(width, 0);
 		height = Math.max(height, data.height());
-//		add( data );
+		add( data );
 
-//		add( new IconTab(Icons.get(Icons.DATA)){
-//			@Override
-//			protected void select(boolean value) {
-//				super.select(value);
-//				data.visible = data.active = value;
-//				if (value) last_index = 3;
-//			}
-//		});
+		add( new IconTab(Icons.get(Icons.DATA)){
+			@Override
+			protected void select(boolean value) {
+				super.select(value);
+				data.visible = data.active = value;
+				if (value) last_index = 3;
+			}
+		});
 
 		audio = new AudioTab();
 		audio.setSize(width, 0);
@@ -232,8 +232,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox 动画加快;
 						CheckBox chkFont;
 						CheckBox chkVibrate;
-						RenderedTextBlock 画面同步str;
 						CheckBox 画面同步;
+						RenderedTextBlock 画面同步str;
 						
 						{
 							
@@ -742,9 +742,10 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 
-						RenderedTextBlock 游戏提示str;
 						CheckBox 游戏提示;
-
+						RenderedTextBlock 游戏提示str;
+						CheckBox 自动拾取;
+						RenderedTextBlock 自动拾取str;
 						{
 
 							游戏提示 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "游戏提示")){
@@ -760,13 +761,30 @@ public class WndSettings extends WndTabbed {//WndSettings
 							游戏提示str.hardlight(0x888888);
 							add(游戏提示str);
 							
+							自动拾取 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "自动拾取")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.自动拾取(checked());
+								}
+							};
+							自动拾取.checked(SPDSettings.自动拾取());
+							add(自动拾取);
+							自动拾取str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "自动拾取str"), 5);
+							自动拾取str.hardlight(0x888888);
+							add(自动拾取str);
+							
 							
 							resize(WIDTH_P, 0);
 							游戏提示.setRect(0,  GAP, width, BTN_HEIGHT);
 							游戏提示str.maxWidth(width);
 							游戏提示str.setPos(0, 游戏提示.bottom()+1);
 							
-							resize(WIDTH_P, (int) 游戏提示str.bottom());
+							自动拾取.setRect(0,  游戏提示str.bottom()+GAP, width, BTN_HEIGHT);
+							自动拾取str.maxWidth(width);
+							自动拾取str.setPos(0, 自动拾取.bottom()+1);
+							
+							resize(WIDTH_P, (int) 自动拾取str.bottom());
 
 						}
 					});

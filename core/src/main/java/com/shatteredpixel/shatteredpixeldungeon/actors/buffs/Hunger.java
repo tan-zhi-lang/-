@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -51,10 +52,15 @@ public class Hunger extends Buff implements Hero.Doom {
 			return true;
 		}
 
-		if (target.isAlive() && target instanceof Hero) {
-
-			Hero hero = (Hero)target;
-
+		if (target.isAlive() && target instanceof Hero hero) {
+			
+			if (level < STARVING&&hero.heroClass(HeroClass.罗兰)) {
+				if(hero.nobuff(Vulnerable.class))
+				Buff.延长(hero, Vulnerable.class, 10);
+				if(hero.nobuff(Weakness.class))
+				Buff.延长(hero, Weakness.class, 10);
+				
+			}
 			if (isStarving()) {
 
 				partialDamage += target.最大生命 /1000f;
@@ -93,7 +99,6 @@ public class Hunger extends Buff implements Hero.Doom {
 				level = newLevel;
 
 			}
-			
 			spend( TICK );
 
 		} else {

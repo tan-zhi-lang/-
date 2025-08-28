@@ -1033,6 +1033,7 @@ public enum Talent {
 				break;
 			case 巫女:
 				Collections.addAll(tierTalents, 顶福精华, 强能处消);
+				break;
 			case 重武:
 				Collections.addAll(tierTalents, 冰门高攻, 最佳防御);
 				break;
@@ -1108,9 +1109,9 @@ public enum Talent {
 			case 黑魔导师:
 				Collections.addAll(tierTalents, 高级痛命, 高级死血, 高级吸血);
 				break;
-			case 盾之勇者:
-				Collections.addAll(tierTalents, 强壮体魄, 勇士之证, 用盾诀窍);
-				break;
+//			case 盾之勇者:
+//				Collections.addAll(tierTalents, 强壮体魄, 勇士之证, 用盾诀窍);
+//				break;
 		}
 		for (Talent talent : tierTalents){
 			talents.get(2).put(talent, 0);

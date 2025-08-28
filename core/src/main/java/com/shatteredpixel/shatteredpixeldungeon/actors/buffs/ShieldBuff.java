@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.watabou.utils.Bundle;
 
@@ -44,6 +45,9 @@ public abstract class ShieldBuff extends Buff {
 	}
 	
 	public void 设置(int shield ) {
+		if(target instanceof Hero hero&&hero.heroClass(HeroClass.逐姝)){
+			shield*=2;
+		}
 		if (this.shielding <= shield) this.shielding = shield;
 		if (target != null) target.needsShieldUpdate = true;
 	}
@@ -53,6 +57,9 @@ public abstract class ShieldBuff extends Buff {
 	}
 
 	public void 增加(int amt ){
+		if(target instanceof Hero hero&&hero.heroClass(HeroClass.逐姝)){
+			amt*=2;
+		}
 		shielding += amt;
 		if (target != null) target.needsShieldUpdate = true;
 	}

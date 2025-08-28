@@ -22,6 +22,7 @@ public class FetidRat extends Rat {
 
 		生命 = 最大生命 = 20;
 		defenseSkill = 5;
+		普通=false;
 
 		经验 = 4;
 

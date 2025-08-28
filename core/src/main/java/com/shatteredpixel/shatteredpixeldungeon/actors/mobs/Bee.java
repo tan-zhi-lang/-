@@ -63,6 +63,11 @@ public class Bee extends Mob {
 	@Override
 	public void 死亡时(Object cause) {
 		flying = false;
+		if(cause instanceof Bee bee){
+			bee.level++;
+			bee.spawn(bee.level);
+			bee.回血(bee.最大生命);
+		}
 		super.死亡时(cause);
 	}
 	

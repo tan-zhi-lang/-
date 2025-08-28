@@ -114,7 +114,7 @@ public class GnollTrickster extends Gnoll {
 		drop.cursed = false;
 		drop.鉴定(false);
 		//half quantity, rounded up
-		drop.set数量((drop.set数量()+1)/2);
+		drop.数量((drop.数量()+1)/2);
 		return drop;
 	}
 	

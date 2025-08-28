@@ -665,9 +665,6 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public int 最大闪避(Char enemy ) {
-		if(properties.contains(Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
-			return 0;
-		}
 		if (buff(GuidingLight.Illuminated.class) != null && Dungeon.hero.heroClass(HeroClass.CLERIC)){
 			//if the attacker is the cleric, they must be using a weapon they have the str for
 			if (enemy instanceof Hero){
@@ -1021,7 +1018,7 @@ public abstract class Mob extends Char {
 	}
 	
 	protected Object loot = null;
-	protected float lootChance = 0;
+	protected float lootChance = 1;//0
 	
 	@SuppressWarnings("unchecked")
 	public Item createLoot() {
@@ -1228,7 +1225,6 @@ public abstract class Mob extends Char {
 		
 		protected boolean continueWandering(){
 			enemySeen = false;
-			
 			int oldPos = pos;
 			if (target != -1 && getCloser( target )) {
 				spend( 1 / 移速() );

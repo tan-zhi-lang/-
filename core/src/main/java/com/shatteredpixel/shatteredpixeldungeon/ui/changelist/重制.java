@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
@@ -181,7 +182,7 @@ public class 重制 {
 						"连击统\n" +
 						"一攻速回合内攻击两次。"));
 		changes.addButton( new ChangeButton(new SheepSprite(), "魔法绵羊",
-				"彩蛋。"));
+				"交互有彩蛋，还能获得经验。"));
 		changes.addButton( new ChangeButton(Icons.INFO.get(), "信息面板",
 				"优化。"));
 		changes.addButton( new ChangeButton(Icons.LANGS.get(), "语言设置",
@@ -196,10 +197,11 @@ public class 重制 {
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
 						"再生恢复生命1=>25%生命力。"+
-						"新增生命力=根号(最大生命+是英雄则额外+力量)，大部分天赋等都被此数值影响。"
+						"新增生命力=根号(最大生命)，大部分天赋等都被此数值影响。"
 				,
 				"杂项\n\n" +
-						"投掷和弓在近距离最大命中不变，非近距离-33%最大命中。"
+						"投掷和弓在近距离最大命中不变，非近距离-33%最大命中。\n" +
+				"设置UI更新，且添加和移除部分按钮。"
 		));
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
 				""));
@@ -209,11 +211,13 @@ public class 重制 {
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(), "商人房间",
-						"1层有商店，卖1阶武器和护甲。\n" +
-						"非战士在6层会卖水袋。\n" +
+						"1区域也有商店，卖1阶武器和护甲。\n" +
+						"非战士在第一个商店会卖水袋。\n" +
 						"商店的武器和护甲，戒指和法杖有概率拥有等级，且必定拥有1级。\n" +
 						"商店的小包口粮x2 => 口粮+小包口粮。\n" +
 						"随机一个药剂或卷轴 => 两张随机卷轴+一瓶随机药剂。"));
+		changes.addButton( new ChangeButton(new BlacksmithSprite(),"巨魔铁匠",
+				"任务要求数量40 => 20。"));
 		changes.addButton( new ChangeButton(new RatKingSprite(), "鼠王房间",
 				"移速2=>1.5\n" +
 						"金币数量x2。"));
@@ -238,7 +242,6 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SOMETHING), "物品",
 					"一些物品图片更新。\n" +
 					"更好的物品图标和底色数值显示。\n" +
-							"走到金币、能量晶体、水珠、种子、钥匙和背包有的且可堆叠物品，自动拾取。\n" +
 							"饰品提炼能量5=>4+等级x3"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ORE), "暗金矿",

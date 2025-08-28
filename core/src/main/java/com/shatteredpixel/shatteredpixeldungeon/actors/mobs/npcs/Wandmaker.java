@@ -393,7 +393,7 @@ public class Wandmaker extends NPC {
 				if (((RegularLevel) Dungeon.level).room(Dungeon.hero.pos) instanceof RitualSiteRoom) {
 					int candles = 0;
 					if (Dungeon.hero.belongings.getItem(CeremonialCandle.class) != null){
-						candles += Dungeon.hero.belongings.getItem(CeremonialCandle.class).set数量();
+						candles += Dungeon.hero.belongings.getItem(CeremonialCandle.class).数量();
 					}
 
 					if (candles >= 4){
@@ -404,7 +404,7 @@ public class Wandmaker extends NPC {
 						if (((RegularLevel) Dungeon.level).room(h.pos) instanceof RitualSiteRoom){
 							for (Item i : h.items){
 								if (i instanceof CeremonialCandle){
-									candles += i.set数量();
+									candles += i.数量();
 								}
 							}
 						}

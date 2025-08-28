@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
@@ -13,8 +14,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PiranhaSprite;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
@@ -162,6 +170,7 @@ public class Piranha extends Mob {
 	private class Wandering extends Mob.Wandering{
 		@Override
 		public boolean act(boolean enemyInFOV, boolean justAlerted) {
+			寻找肉();
 			if (enemyInFOV) {
 				PathFinder.buildDistanceMap(enemy.pos, Dungeon.level.water, viewDistance);
 				enemyInFOV = PathFinder.distance[pos] != Integer.MAX_VALUE;
@@ -175,6 +184,7 @@ public class Piranha extends Mob {
 		
 		@Override
 		public boolean act(boolean enemyInFOV, boolean justAlerted) {
+			寻找肉();
 			if (enemyInFOV) {
 				PathFinder.buildDistanceMap(enemy.pos, Dungeon.level.water, viewDistance);
 				enemyInFOV = PathFinder.distance[pos] != Integer.MAX_VALUE;
@@ -183,7 +193,43 @@ public class Piranha extends Mob {
 			return super.act(enemyInFOV, justAlerted);
 		}
 	}
-
+	public void 寻找肉(){
+		try{
+			for(int n: PathFinder.范围4){
+				Heap heap=Dungeon.level.heaps.get(pos+n);
+				if(heap!=null&&heap.type==Heap.Type.HEAP){
+					Item item=heap.peek();
+					if(item instanceof MysteryMeat||item instanceof StewedMeat||item instanceof ChargrilledMeat||item instanceof FrozenCarpaccio){
+						target=heap.pos;
+						if(pos==heap.pos){
+							heap.destroy();
+							
+							try{
+								boolean newp = true;
+								for (int nx : PathFinder.范围4){
+									if(newp){
+										Piranha piranha = Piranha.random();
+										piranha.pos=pos+nx;
+										if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&
+										   Dungeon.level.findMob( piranha.pos )==null){
+											newp=false;
+											GameScene.add(piranha,1);
+											Actor.add(piranha);
+											Dungeon.level.occupyCell(piranha);
+										}
+									}
+								}
+							}catch(Exception e){
+							
+							}
+						}
+					}
+				}
+			}
+		}catch(Exception e){
+		
+		}
+	}
 	public static Piranha random(){
 		float altChance = 1/50f * RatSkull.exoticChanceMultiplier();
 		if (Random.Float() < altChance){

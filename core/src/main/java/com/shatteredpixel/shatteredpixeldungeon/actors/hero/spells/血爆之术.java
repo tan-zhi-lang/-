@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.watabou.utils.Random;
 
 public class 血爆之术 extends 巫术 {
 
@@ -34,7 +33,7 @@ public class 血爆之术 extends 巫术 {
 			float shield = hero.天赋点数(Talent.高级血爆, 100);
 			Buff.施加(hero, Hunger.class).吃饭(shield);
 		}
-		hero.受伤(hero.生命力(5)-hero.天赋生命力(Talent.物到之术,1));
+		hero.受伤(hero.生命力(4)-hero.天赋生命力(Talent.物到之术,1));
 		Buff.施加(hero, Barrier.class).设置(hero.最大生命(hero.天赋点数(Talent.血爆之术,0.2f)));
 		hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.最大生命(hero.天赋点数(Talent.血爆之术,0.2f))), FloatingText.SHIELDING );
 
@@ -49,7 +48,7 @@ public class 血爆之术 extends 巫术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-				Dungeon.hero.生命力(5)-Dungeon.hero.天赋生命力(Talent.物到之术,1),
+				Dungeon.hero.生命力(4)-Dungeon.hero.天赋生命力(Talent.物到之术,1),
 				Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血爆之术,0.2f)),
 				Dungeon.hero.有天赋(Talent.高级血爆)?Dungeon.hero.天赋点数(Talent.高级血爆,100):""
 		);

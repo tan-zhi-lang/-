@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
@@ -12,8 +11,6 @@ public class Bolas extends MissileWeapon {
 	
 	{
 		image = 物品表.BOLAS;
-		hitSound = Assets.Sounds.HIT;
-		hitSoundPitch = 1f;
 		
 		tier = 3;
 		baseUses = 5;

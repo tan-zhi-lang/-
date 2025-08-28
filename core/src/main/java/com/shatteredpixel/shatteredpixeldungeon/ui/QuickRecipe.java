@@ -104,9 +104,9 @@ public class QuickRecipe extends Component {
 				for (Item sim : similar) {
 					//if we are looking for a specific item, it must be IDed
 					if (sim.getClass() != in.getClass() || sim.已鉴定())
-						quantity += sim.set数量();
+						quantity += sim.数量();
 				}
-				if (quantity < in.set数量()) {
+				if (quantity < in.数量()) {
 					curr.sprite.alpha(0.3f);
 					hasInputs = false;
 				}
@@ -249,7 +249,7 @@ public class QuickRecipe extends Component {
 		ArrayList<QuickRecipe> result = new ArrayList<>();
 		switch (pageIdx){
 			case 0: default:
-				result.add(new QuickRecipe(new Potion.SeedToPotion(),new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder().set数量(3))),new WndBag.Placeholder(物品表.POTION_HOLDER){
+				result.add(new QuickRecipe(new Potion.SeedToPotion(),new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder().数量(3))),new WndBag.Placeholder(物品表.POTION_HOLDER){
 					@Override
 					public String name() {
 						return Messages.get(Potion.SeedToPotion.class, "name");
@@ -360,7 +360,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new PhaseShift.Recipe()));
 				if (!PixelScene.横屏()) result.add(null);
 				result.add(null);
-				result.add(new QuickRecipe(new 炼金菱晶.Recipe(), new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder(), new Runestone.PlaceHolder())), new 炼金菱晶().set数量(8)));
+				result.add(new QuickRecipe(new 炼金菱晶.Recipe(), new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder(), new Runestone.PlaceHolder())), new 炼金菱晶().数量(8)));
 				result.add(new QuickRecipe(new CurseInfusion.Recipe()));
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
 				result.add(new QuickRecipe(new Recycle.Recipe()));

@@ -54,7 +54,6 @@ public class 法师魔杖 extends MeleeWeapon {
 
 	{
 		image = 物品表.法师魔杖;
-		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 
 		tier = 1;

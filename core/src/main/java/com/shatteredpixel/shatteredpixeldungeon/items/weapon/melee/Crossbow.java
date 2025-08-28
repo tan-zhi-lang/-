@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -19,8 +18,6 @@ public class Crossbow extends MeleeWeapon {
 	
 	{
 		image = 物品表.CROSSBOW;
-		hitSound = Assets.Sounds.HIT;
-		hitSoundPitch = 1f;
 		
 		//check Dart.class for additional properties
 		

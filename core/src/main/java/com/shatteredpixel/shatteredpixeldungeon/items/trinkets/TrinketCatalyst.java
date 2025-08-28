@@ -108,7 +108,7 @@ public class TrinketCatalyst extends Item {
 			TrinketCatalyst newCata = (TrinketCatalyst) ingredients.get(0).duplicate();
 			newCata.放背包();
 
-			ingredients.get(0).set数量(0);
+			ingredients.get(0).数量(0);
 
 			ShatteredPixelDungeon.scene().addToFront(new WndTrinket(newCata));
 			try {

@@ -13,7 +13,7 @@ public class Longsword extends MeleeWeapon {
 	{
 		image = 物品表.LONGSWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 4;
 	}

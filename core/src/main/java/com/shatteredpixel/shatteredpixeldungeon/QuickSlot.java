@@ -51,11 +51,11 @@ public class QuickSlot {
 	}
 
 	public Boolean isPlaceholder(int slot){
-		return getItem(slot) != null &&getItem(slot).set数量()==0;
+		return getItem(slot) != null &&getItem(slot).数量()==0;
 	}
 
 	public Boolean isNonePlaceholder(int slot){
-		return getItem(slot) != null &&getItem(slot).set数量()>0;
+		return getItem(slot) != null &&getItem(slot).数量()>0;
 	}
 
 	public void clearItem(Item item){

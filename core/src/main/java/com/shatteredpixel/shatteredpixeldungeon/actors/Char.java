@@ -90,6 +90,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Obfuscation;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
@@ -403,6 +404,9 @@ public abstract class Char extends Actor {
 				if(Dungeon.解压(解压设置.真实伤害)){
 					dr=0;
 				}
+				if (hero.heroClass(HeroClass.罗兰)) {
+					dr=0;
+				}
 			}
 
 			//we use a float here briefly so that we don't have to constantly round while
@@ -636,6 +640,12 @@ public abstract class Char extends Actor {
 		}
 		if (defender instanceof Hero && ((Hero) defender).damageInterrupt){
 			((Hero) defender).interrupt();
+		}
+		if(defender.properties.contains(Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
+			defStat=0;
+		}
+		if(attacker.properties.contains(Property.UNDEAD)&&defender instanceof Hero hero&&hero.belongings.armor() instanceof 道袍){
+			acuStat/=2;
 		}
 
 		//invisible chars always hit (for the hero this is surprise attacking)
@@ -1444,7 +1454,7 @@ public abstract class Char extends Actor {
 		return (ch != null && ch.properties().contains(p));
 	}
 	public int 生命力(){
-		return (int) Math.round(Math.sqrt(最大生命+(this instanceof Hero hero?hero.力量():0)));
+		return (int) Math.round(Math.sqrt(最大生命));
 	}
 	public int 生命力(float x){
 		return Math.round(生命力()*x);

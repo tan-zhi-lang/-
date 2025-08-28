@@ -42,6 +42,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
 	public static final String 游戏提示x = "游戏提示";
+	public static final String 自动拾取x = "自动拾取";
 	public static final String 画面同步x = "画面同步";
 	public static final String 游戏帧率x = "游戏帧率x";
 	public static void fullscreen( boolean value ) {
@@ -92,7 +93,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static int 亮度() {
-		return getInt( KEY_BRIGHTNESS, -1, -1, 1 );
+		return getInt( KEY_BRIGHTNESS, 1, -1, 1 );
 	}
 	
 	public static void 网格可视度(int value ){
@@ -152,6 +153,13 @@ public class SPDSettings extends GameSettings {
 	}
 	public static boolean 游戏提示() {
 		return getBoolean( 游戏提示x, true);
+	}
+	public static void 自动拾取( boolean value ) {
+		put( 自动拾取x, value );
+		
+	}
+	public static boolean 自动拾取() {
+		return getBoolean( 自动拾取x, false);
 	}
 	public static void 画面同步(boolean value ){
 		put(画面同步x, value );

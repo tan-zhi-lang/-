@@ -41,7 +41,7 @@ public class MiningLevelPainter extends CavesPainter {
 		}
 		for (Heap h : level.heaps.valueList()){
 			for (Item i : h.items){
-				if (i instanceof DarkGold) goldToAdd -= i.set数量();
+				if (i instanceof DarkGold) goldToAdd -= i.数量();
 			}
 		}
 

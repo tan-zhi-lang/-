@@ -16,13 +16,23 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.勇装;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.忍服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.战甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.武服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.背心;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.能袍;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.训服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.连裙;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -103,10 +113,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.简易弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
@@ -190,11 +204,16 @@ public enum Catalog {
 		MELEE_WEAPONS.addItems(Generator.Category.WEP_T5.classes);
 
 		ARMOR.addItems(Generator.Category.ARMOR.classes);
-		ARMOR.addItems(铠甲.class, 法袍.class,
-				风衣.class, 披风.class,
-				胸铠.class, 祭服.class,
-				巫服.class
-		);
+		ARMOR.addItems(铠甲.class,法袍.class,
+					   风衣.class,披风.class,
+					   胸铠.class,祭服.class,
+					   巫服.class,武服.class,
+					   道袍.class,战甲.class,
+					   忍服.class,能袍.class,
+					   勇装.class,连裙.class,
+					   训服.class,背心.class,
+					   魔披.class
+					   );
 
 		THROWN_WEAPONS.addItems(Generator.Category.MIS_T1.classes);
 		THROWN_WEAPONS.addItems(Generator.Category.MIS_T2.classes);
@@ -220,9 +239,11 @@ public enum Catalog {
 
 		TRINKETS.addItems(Generator.Category.TRINKET.classes);
 
-		MISC_EQUIPMENT.addItems(破损纹章.class,  法师魔杖.class, CloakOfShadows.class,灵能短弓.class, 神圣法典.class, 血砍刀.class, 灵月法杖.class, 冰门重盾.class,
-				Pickaxe.class,水袋.class, 杂物袋.class,绒布袋.class,
-				PotionBandolier.class, ScrollHolder.class, MagicalHolster.class, Amulet.class);
+		MISC_EQUIPMENT.addItems(破损纹章.class,法师魔杖.class,CloakOfShadows.class,灵能短弓.class,
+								神圣法典.class,血砍刀.class,灵月法杖.class,冰门重盾.class,修理扳手.class,金玫苦无.class,简易弩.class,
+								吸血飞刀.class,
+								Pickaxe.class,水袋.class,杂物袋.class,绒布袋.class,
+								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class,Amulet.class);
 
 
 

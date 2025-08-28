@@ -179,8 +179,26 @@ public class Dungeon {
 	//keeps track of what levels the game should try to load instead of creating fresh
 	public static ArrayList<Integer> generatedLevels = new ArrayList<>();
 
-	public static int gold;
-	public static int energy;
+	public static int gold=0;
+	public static int energy=0;
+	public static int gold(int x){
+		if(x>0){
+			gold+=x;
+		}
+		if(x<0){
+			gold+=x;
+		}
+		return gold;
+	}
+	public static int energy(int x){
+		if(x>0){
+			energy+=x;
+		}
+		if(x<0){
+			energy+=x;
+		}
+		return energy;
+	}
 	
 	public static HashSet<Integer> chapters;
 
@@ -251,11 +269,9 @@ public class Dungeon {
 		branch = 0;
 		generatedLevels.clear();
 		
-		gold = 0;
-		energy = 0;
 		if(Dungeon.系统(系统设置.资产破亿)||算法.isDebug()){
-			gold = 10_0000_0000;
-			energy = 10_0000_0000;
+			gold(10_0000_0000);
+			energy(10_0000_0000);
 		}
 
 		droppedItems = new SparseArray<>();
@@ -430,6 +446,7 @@ public class Dungeon {
 	}
 	
 	public static boolean shopOnLevel() {
+		
 		return depth == 1 || depth == 6 || depth == 11 || depth == 16;
 	}
 	
@@ -438,7 +455,7 @@ public class Dungeon {
 	}
 	
 	public static boolean bossLevel( int depth ) {
-		return depth == 5 || depth == 10 || depth == 15 || depth == 20 || depth == 25;
+		return 区域层(5);
 	}
 
 	//value used for scaling of damage values and other effects.
@@ -1132,6 +1149,9 @@ public class Dungeon {
 		}
 		if(x==4){
 			return depth==5-1||depth==10-1||depth==15-1||depth==20-1||depth==25-1;
+		}
+		if(x==5){
+			return depth==5||depth==10||depth==15||depth==20||depth==25;
 		}
 
 		return false;

@@ -61,12 +61,12 @@ public class SecretLaboratoryRoom extends SecretRoom {
 		do {
 			pos = level.pointToCell(random());
 		} while (level.map[pos] != Terrain.EMPTY_SP || level.heaps.get( pos ) != null);
-		level.drop(new EnergyCrystal().set数量(Random.IntRange(3,5)),pos);
+		level.drop(new EnergyCrystal().数量(Random.IntRange(3,5)),pos);
 
 		do {
 			pos = level.pointToCell(random());
 		} while (level.map[pos] != Terrain.EMPTY_SP || level.heaps.get( pos ) != null);
-		level.drop(new EnergyCrystal().set数量(Random.IntRange(3,5)),pos);
+		level.drop(new EnergyCrystal().数量(Random.IntRange(3,5)),pos);
 
 		int n = Random.IntRange( 2, 3 );
 		HashMap<Class<? extends Potion>, Float> chances = new HashMap<>(potionChances);

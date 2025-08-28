@@ -13,6 +13,8 @@ public class 毒气宝箱怪 extends Mimic {
 	{
 		spriteClass = MimicSprite.毒气.class;
 		生命 = 最大生命 = 1;
+		loot = Random.oneOf(Generator.randomArtifact(),
+							Generator.randomWand(),Generator.randomRing());
 	}
 
 	@Override
@@ -28,11 +30,5 @@ public class 毒气宝箱怪 extends Mimic {
 			dmg=0;
 		}
 		super.受伤时(dmg,src);
-	}
-	@Override
-	protected void generatePrize( boolean useDecks ) {
-		super.generatePrize( useDecks );
-		items.add(Random.oneOf(Generator.randomArtifact(),Generator.randomWand(),Generator.randomRing()));
-
 	}
 }

@@ -23,7 +23,7 @@ public class Sword extends MeleeWeapon {
 	{
 		image = 物品表.SWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 3;
 	}

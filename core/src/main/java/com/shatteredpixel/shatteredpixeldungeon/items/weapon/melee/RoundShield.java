@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -18,8 +17,7 @@ public class RoundShield extends MeleeWeapon {
 
 	{
 		image = 物品表.ROUND_SHIELD;
-		hitSound = Assets.Sounds.HIT;
-		hitSoundPitch = 1f;
+		
 
 		tier = 3;
 	}

@@ -36,7 +36,6 @@ public class Dewdrop extends Item {
 		水袋 flask = hero.belongings.getItem( 水袋.class );
 		Catalog.setSeen(getClass());
 		Statistics.itemTypesDiscovered.add(getClass());
-		
 		if (flask != null && !flask.isFull()){
 
 			flask.collectDew( this );
@@ -131,7 +130,7 @@ public class Dewdrop extends Item {
 	}
 
 	@Override
-	public Item set数量(int value) {
+	public Item 数量(int value) {
 		quantity = Math.min( value, 1);
 		return this;
 	}

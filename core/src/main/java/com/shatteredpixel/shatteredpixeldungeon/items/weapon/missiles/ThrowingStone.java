@@ -9,7 +9,6 @@ public class ThrowingStone extends MissileWeapon {
 	
 	{
 		image = 物品表.THROWING_STONE;
-		hitSound = Assets.Sounds.HIT;
 		hitSoundPitch = 1.1f;
 		
 		bones = false;

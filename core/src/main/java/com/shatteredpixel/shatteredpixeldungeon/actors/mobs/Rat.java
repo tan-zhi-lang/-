@@ -20,17 +20,24 @@ public class Rat extends Mob {
 
 		最大等级 = 5;
 	}
-
+	public boolean 普通=true;
 	@Override
 	protected boolean act() {
-		alignment = Dungeon.hero.heroClass(HeroClass.鼠弟)?Alignment.NEUTRAL:Alignment.ENEMY;
-		if (alignment == Alignment.NEUTRAL&&Dungeon.hero.heroClass(HeroClass.鼠弟)){
-			if(Dungeon.level.heroFOV[pos]){
-				if(alignment == Alignment.ENEMY) {
-					alignment = Alignment.NEUTRAL;
+		if(普通){
+			alignment=Dungeon.hero.heroClass(HeroClass.鼠弟)?
+					Alignment.NEUTRAL:
+					Alignment.ENEMY;
+			if(alignment==Alignment.NEUTRAL&&Dungeon.hero.heroClass(HeroClass.鼠弟)){
+				if(Dungeon.level.heroFOV[pos]){
+					if(alignment==Alignment.ENEMY){
+						alignment=Alignment.NEUTRAL;
+					}
+					if(state==SLEEPING)
+						state=WANDERING;
 				}
-				if (state == SLEEPING) state = WANDERING;
 			}
+		}else{
+			alignment=Alignment.ENEMY;
 		}
 		if(Dungeon.hero.armorAbility instanceof Ratmogrify){
 			if(Dungeon.level.heroFOV[pos]){

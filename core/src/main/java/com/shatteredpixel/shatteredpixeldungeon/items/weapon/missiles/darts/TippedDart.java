@@ -60,7 +60,7 @@ public abstract class TippedDart extends Dart {
 		if (action.equals( AC_CLEAN )){
 
 			String[] options;
-			if (set数量()>1){
+			if (数量()>1){
 				options = new String[]{
 					Messages.get(this, "clean_all"),
 					Messages.get(this, "clean_one"),
@@ -81,14 +81,14 @@ public abstract class TippedDart extends Dart {
 				protected void onSelect(int index) {
 					if (index == 0){
 						detachAll(hero.belongings.backpack);
-						new Dart().set数量(quantity).放背包();
+						new Dart().数量(quantity).放背包();
 						
 						hero.spend( 1f );
 						hero.busy();
 						hero.sprite.operate();
-					} else if (index == 1&&set数量()>1){
+					} else if (index == 1&&数量()>1){
 						detach(hero.belongings.backpack);
-						if (!new Dart().set数量(1).放背包()) Dungeon.level.drop(new Dart().set数量(1),hero.pos).sprite.drop();
+						if (!new Dart().数量(1).放背包()) Dungeon.level.drop(new Dart().数量(1),hero.pos).sprite.drop();
 
 						//reset durability if there are darts left in the stack
 						durability = MAX_DURABILITY;
@@ -114,7 +114,7 @@ public abstract class TippedDart extends Dart {
 		if (durability <= 0 && !spawnedForEffect){
 			//attempt to stick the dart to the enemy, just drop it if we can't.
 			Dart d = new Dart();
-			d.set数量(1);
+			d.数量(1);
 			Catalog.countUse(getClass());
 			if (sticky && enemy != null && enemy.isAlive() && enemy.alignment != Char.Alignment.ALLY){
 				PinCushion p = Buff.施加(enemy, PinCushion.class);
@@ -132,9 +132,9 @@ public abstract class TippedDart extends Dart {
 
 	@Override
 	public Item merge(Item other) {
-		int total =set数量()+other.set数量();
+		int total =数量()+other.数量();
 		super.merge(other);
-		int extra =total-set数量();
+		int extra =total-数量();
 
 		//need to spawn waste tipped darts as regular darts
 		if (extra > 0){
@@ -218,7 +218,7 @@ public abstract class TippedDart extends Dart {
 	}
 	
 	public static TippedDart getTipped( Plant.Seed s, int quantity ){
-		return (TippedDart) Reflection.newInstance(types.get(s.getClass())).set数量(quantity);
+		return (TippedDart) Reflection.newInstance(types.get(s.getClass())).数量(quantity);
 	}
 	
 	public static TippedDart randomTipped( int quantity ){

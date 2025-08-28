@@ -10,7 +10,7 @@ public class Javelin extends MissileWeapon {
 	{
 		image = 物品表.JAVELIN;
 		hitSound = Assets.Sounds.HIT_STAB;
-		hitSoundPitch = 1f;
+		
 		投矛=true;
 		间隔=1.5f;
 		

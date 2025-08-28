@@ -22,7 +22,7 @@ public class RunicBlade extends MeleeWeapon {
 	{
 		image = 物品表.RUNIC_BLADE;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 4;
 	}

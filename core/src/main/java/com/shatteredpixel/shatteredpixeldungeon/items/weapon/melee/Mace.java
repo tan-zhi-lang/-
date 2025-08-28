@@ -23,7 +23,7 @@ public class Mace extends MeleeWeapon {
 	{
 		image = 物品表.MACE;
 		hitSound = Assets.Sounds.HIT_CRUSH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 3;
 		命中 = 1.28f; //28% boost to accuracy

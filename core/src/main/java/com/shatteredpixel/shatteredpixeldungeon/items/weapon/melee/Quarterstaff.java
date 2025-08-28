@@ -16,7 +16,7 @@ public class Quarterstaff extends MeleeWeapon {
 	{
 		image = 物品表.QUARTERSTAFF;
 		hitSound = Assets.Sounds.HIT_CRUSH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 2;
 	}

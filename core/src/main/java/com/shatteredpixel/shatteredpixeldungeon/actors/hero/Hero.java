@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
@@ -52,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
@@ -91,13 +93,23 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.勇装;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.忍服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.战甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.武服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.背心;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.能袍;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.训服;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.连裙;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CapeOfThorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
@@ -224,6 +236,7 @@ public class Hero extends Char {
     private int 最大命中 = 10;
     private int 最大闪避 = 5;
     public int 神力 = 0;
+    public boolean 单身 = false;
     public float 生命成长 = 0;
     public float 防御成长 = 0;
 
@@ -312,16 +325,21 @@ public class Hero extends Char {
         if (buff != null) {
             str += buff.boost();
         }
+        if(heroClass(HeroClass.兽灵)){
+            str+=生命力(0.25f);
+        }
         float x = 1;
         x *= 1 + 天赋点数(Talent.STRONGMAN, 0.1f);
-
+        
         if (heroClass(HeroClass.WARRIOR)) {
             x *= 1.1f;
         }
 
         x *= 综合属性();
         x *= 1 + 神力 * 0.1f;
-
+        if(单身){
+            x*=1.1f;
+        }
         //最后结算
         str = Math.round(str * x);
 
@@ -345,6 +363,7 @@ public class Hero extends Char {
     private static final String 最大法力x = "法力";
 
     private static final String 神力x = "神力";
+    private static final String 单身x = "单身";
     protected static final String 生命成长x    = "生命成长";
     protected static final String 防御成长x    = "防御成长";
     private static final String EXPERIENCE = "exp";
@@ -370,6 +389,7 @@ public class Hero extends Char {
         bundle.put(最大法力x, 最大法力);
 
         bundle.put(神力x, 神力);
+        bundle.put(单身x, 单身);
         bundle.put( 生命成长x, 生命成长);
         bundle.put( 防御成长x, 防御成长);
         bundle.put(EXPERIENCE, 当前经验);
@@ -392,6 +412,7 @@ public class Hero extends Char {
         最大法力 = bundle.getInt(最大法力x);
         
         神力 = bundle.getInt(神力x);
+        单身 = bundle.getBoolean(单身x);
         生命成长 = bundle.getFloat( 生命成长x );
         防御成长 = bundle.getFloat( 防御成长x );
         当前经验 = bundle.getInt(EXPERIENCE);
@@ -599,13 +620,24 @@ public class Hero extends Char {
             }
             return 0;
         }
-        if (armor instanceof 铠甲 ||
-                armor instanceof 法袍 ||
-                armor instanceof 风衣 ||
-                armor instanceof 披风 ||
-                armor instanceof 胸铠 ||
-                armor instanceof 祭服 ||
-                armor instanceof 巫服
+        if (armor instanceof 铠甲||
+            armor instanceof 法袍||
+            armor instanceof 风衣||
+            armor instanceof 披风||
+            armor instanceof 胸铠||
+            armor instanceof 祭服||
+            armor instanceof 巫服||
+            armor instanceof 武服||
+            armor instanceof 道袍||
+            armor instanceof 战甲||
+            armor instanceof 忍服||
+            armor instanceof 能袍||
+            armor instanceof 勇装||
+            armor instanceof 连裙||
+            armor instanceof 训服||
+            armor instanceof 背心||
+            armor instanceof 魔披
+            
         ) {
             return 6;
         } else if (armor != null) {
@@ -678,6 +710,9 @@ public class Hero extends Char {
         float accuracy = 1;
 
         accuracy *= 综合属性();
+        if (belongings.armor() instanceof 武服) {
+            accuracy *= 1.25f;
+        }
         accuracy *= 1 + 天赋点数(Talent.顶福精华, 0.13f);
         accuracy *= RingOfAccuracy.accuracyMultiplier(this);
         if(heroClass(HeroClass.戒老)){
@@ -959,10 +994,16 @@ public class Hero extends Char {
 
         speed *= 综合属性();
         if(belongings.armor==null){
-            speed*=1+Math.sqrt(力量())/10f;
+            speed*=1f+0.1f*Math.sqrt(力量());
         }
         if (belongings.armor instanceof 披风) {
             speed *= 1.1f;
+        }
+        if (belongings.armor instanceof 忍服) {
+            speed *= 1.25f;
+        }
+        if (heroClass(HeroClass.女忍)) {
+            speed*=1+0.33f*生命/最大生命;
         }
         if (heroClass(HeroClass.行僧)) {
             speed *= 1.25f;
@@ -1096,6 +1137,9 @@ public class Hero extends Char {
         if(Dungeon.系统(系统设置.时间能力)){
             time/=3f;
         }
+        if(belongings.armor() instanceof 魔披){
+            time*=0.9f;
+        }
         super.spendConstant(time);
     }
 
@@ -1133,6 +1177,13 @@ public class Hero extends Char {
         if (heroClass(HeroClass.机器)) {
             immunes.add(流血.class);
             immunes.add(Poison.class);
+        }
+        if(belongings.armor() instanceof 训服){
+            immunes.add(Cripple.class);
+            immunes.add(Vulnerable.class);
+        }
+        if(belongings.armor() instanceof 连裙){
+            immunes.add(Charm.class);
         }
 
 
@@ -1179,53 +1230,50 @@ public class Hero extends Char {
                 受伤(生命力(0.25f));
             }
         }
+        更新生命();
         if(heroClass(HeroClass.凌云)){
             flying=true;
         }
         if(heroClass(HeroClass.鼠弟)){
             for (int n : PathFinder.NEIGHBOURS8){
                 Char c= Actor.findChar(pos+n);
-                if(c.alignment == Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
+                if(c!=null&&c.alignment == Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
                     c.受伤(heroDamageIntRange(1,2));
                 }
             }
         }
-        更新生命();
         if (在草丛() && 有天赋(Talent.自然丰收)) {
             float shield = 天赋点数(Talent.自然丰收, 0.275f);
             Buff.施加(this, Hunger.class).吃饭(shield);
         }
-//        for (int n : PathFinder.NEIGHBOURS8){
-            Heap heap = Dungeon.level.heaps.get(pos);
-            if (heap != null && heap.type == Heap.Type.HEAP) {
-                //自动拾取
-                Item item = heap.peek();
-                boolean ok=false;
-                for (Item i : belongings){
-                    if (belongings.contains(i)){
-                        ok=true;
-                        break;
-                    }
+		if(SPDSettings.自动拾取()){
+			Heap heap = Dungeon.level.heaps.get(pos);
+			if (heap != null && heap.type == Type.HEAP) {
+				//自动拾取
+				Item item = heap.peek();
+				boolean ok=false;
+                if (belongings.contains(item)){
+                    ok=true;
                 }
-                if (ok||item instanceof Plant.Seed ||
-                        item instanceof Key ||
-                        item instanceof Gold ||
-                        item instanceof EnergyCrystal ||
-                        item instanceof Dewdrop
-                ) {
+				if (ok||item instanceof Plant.Seed ||
+						item instanceof Key ||
+						item instanceof Gold ||
+						item instanceof EnergyCrystal ||
+						item instanceof Dewdrop
+				) {
                     
-                    水袋 flask = belongings.getItem(水袋.class);
-                    if (item instanceof Dewdrop&&flask != null && !flask.isFull()){
-                        flask.collectDew((Dewdrop)item);
-                    }
                     if (item.doPickUp(this)) {
                         heap.pickUp();
+                        水袋 flask = belongings.getItem(水袋.class);
+                        if (item instanceof Dewdrop&&flask != null && !flask.isFull()){
+                            flask.collectDew((Dewdrop)item);
+                        }
                     } else {
                         heap.sprite.drop();
                     }
-                }
-            }
-//        }
+				}
+			}
+		}
 
         //calls to dungeon.observe will also update hero's local FOV.
         fieldOfView = Dungeon.level.heroFOV;
@@ -1358,6 +1406,7 @@ public class Hero extends Char {
         lastAction = null;
         damageInterrupt = false;
         next();
+        Chasm.heroFall(pos);
     }
 
     private boolean canSelfTrample = false;
@@ -1492,10 +1541,10 @@ public class Hero extends Char {
                     } else if (item instanceof DarkGold) {
                         DarkGold existing = belongings.getItem(DarkGold.class);
                         if (existing != null) {
-                            if (existing.set数量()>=40) {
-                                GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
+                            if (existing.数量()>=20) {
+                                GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
                             } else {
-                                GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
+                                GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
                             }
                         }
                     } else {
@@ -1672,11 +1721,11 @@ public class Hero extends Char {
                             DarkGold gold = new DarkGold();
                             if (gold.doPickUp(Dungeon.hero)) {
                                 DarkGold existing = Dungeon.hero.belongings.getItem(DarkGold.class);
-                                if (existing != null &&existing.set数量()%5==0) {
-                                    if (existing.set数量()>=40) {
-                                        GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
+                                if (existing != null &&existing.数量()%5==0) {
+                                    if (existing.数量()>=20) {
+                                        GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
                                     } else {
-                                        GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.set数量()));
+                                        GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
                                     }
                                 }
                                 spend(-Actor.TICK); //picking up the gold doesn't spend a turn here
@@ -1860,6 +1909,9 @@ public class Hero extends Char {
     public int 攻击时(final Char enemy, int damage) {
         damage = super.攻击时(enemy, damage);
         
+        if(heroClass(HeroClass.近卫)&&算法.概率学(15)){
+            damage*=2;
+        }
         if(Dungeon.系统(系统设置.生命成长)){
             生命成长+=Dungeon.depth/100f;
         }
@@ -2060,7 +2112,7 @@ public class Hero extends Char {
 
         //temporarily assign to a float to avoid rounding a bunch
         float damage = dmg;
-
+        
         Endure.EndureTracker endure = buff(Endure.EndureTracker.class);
         if (!(src instanceof Char)) {
             //reduce damage here if it isn't coming from a character (if it is we already reduced it)
@@ -2625,7 +2677,10 @@ public class Hero extends Char {
                 ankh = i;
             }
         }
-
+        
+        if (heroClass(HeroClass.罗兰)) {
+            ankh=null;
+        }
         if (ankh != null) {
             interrupt();
 

@@ -245,7 +245,7 @@ public class Shopkeeper extends NPC {
 						} else if (index > 1){
 							GLog.i(Messages.get(Shopkeeper.this, "buyback"));
 							Item returned = buybackItems.remove(index-2);
-							Dungeon.gold -= returned.金币();
+							Dungeon.gold(-returned.金币());
 							Statistics.goldCollected -= returned.金币();
 							if (returned instanceof MissileWeapon && returned.可升级()){
 								Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) returned).setID, returned.等级());

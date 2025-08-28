@@ -28,6 +28,12 @@ public class PathFinder {
 	public static int[] NEIGHBOURS4;
 	public static int[] NEIGHBOURS8;
 	public static int[] NEIGHBOURS9;
+	public static int[] 范围2;
+	public static int[] 范围3;
+	public static int[] 范围4;
+	public static int[] 范围5;
+	public static int[] 范围6;
+	public static int[] 范围7;
 	public static int[] 范围8;
 
 	//similar to their equivalent neighbour arrays, but the order is clockwise.
@@ -54,6 +60,13 @@ public class PathFinder {
 		NEIGHBOURS4 = new int[]{-width, -1, +1, +width};
 		NEIGHBOURS8 = new int[]{-width-1, -width, -width+1, -1, +1, +width-1, +width, +width+1};
 		NEIGHBOURS9 = new int[]{-width-1, -width, -width+1, -1, 0, +1, +width-1, +width, +width+1};
+		
+		范围2=x格(width,2);
+		范围3=x格(width,3);
+		范围4=x格(width,4);
+		范围5=x格(width,5);
+		范围6=x格(width,6);
+		范围7=x格(width,7);
 		范围8=x格(width,8);
 		CIRCLE4 = new int[]{-width, +1, +width, -1};
 		CIRCLE8 = new int[]{-width-1, -width, -width+1, +1, +width+1, +width, +width-1, -1};

@@ -24,9 +24,11 @@ public class 灵月法杖 extends Wand {
 
 	{
 		image = 物品表.灵月法杖;
+		unique = true;
+		bones = false;
 	}
 	public int initialCharges() {
-		return 4;
+		return 2;
 	}
 
 	@Override
@@ -35,9 +37,9 @@ public class 灵月法杖 extends Wand {
 	}
 	public void updateLevel() {
 		if(Dungeon.hero()){
-			maxCharges = Math.min( initialCharges() + (Dungeon.hero.等级-1)/3+2, 10);
+			maxCharges = Math.min( initialCharges() + Dungeon.hero.等级(0.33f), 10);
 		}else{
-			maxCharges = Math.min( initialCharges() + 2, 10);
+			maxCharges = Math.min( initialCharges(), 10);
 		}
 		curCharges = Math.min( curCharges+1, maxCharges );
 	}

@@ -118,7 +118,7 @@ public class Thief extends Mob {
 	@Override
 	public int 防御时(Char enemy, int damage) {
 		if (state == FLEEING) {
-			Dungeon.level.drop(new Gold().set数量(10),pos).sprite.drop();
+			Dungeon.level.drop(new Gold().数量(10),pos).sprite.drop();
 		}
 
 		return super.防御时(enemy, damage);

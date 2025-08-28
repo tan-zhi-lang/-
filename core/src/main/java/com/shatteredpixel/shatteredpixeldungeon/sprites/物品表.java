@@ -7,7 +7,7 @@ import com.watabou.noosa.TextureFilm;
 
 public class 物品表 {
 
-    private static final int WIDTH = 16;
+    private static final int WIDTH = 32;
     public static final int SIZE = 16;
 
     public static TextureFilm film = new TextureFilm(Assets.Sprites.ITEMS, SIZE, SIZE);
@@ -184,7 +184,7 @@ public class 物品表 {
     public static final int 残缺灵杖 = TRINKET_CATA + 7;
     public static final int 残缺重盾 = TRINKET_CATA + 8;
 
-    {
+    static {
         assignItemRect(TRINKET_CATA, 12, 11);
 
         assignItemRect(SEAL_SHARD, 12);
@@ -250,6 +250,7 @@ public class 物品表 {
     public static final int 灵鞭 = WORN_SHORTSWORD + 11;
     public static final int 血姬 = WORN_SHORTSWORD + 12;
     public static final int 书包 = WORN_SHORTSWORD + 13;
+    public static final int 吸血飞刀 = WORN_SHORTSWORD + 14;
 
     static {
         assignItemRect(WORN_SHORTSWORD, 13);
@@ -269,6 +270,7 @@ public class 物品表 {
         assignItemRect(血姬, 14);
         assignItemRect(灵鞭, 15,14);
         assignItemRect(书包, 14,16);
+        assignItemRect(吸血飞刀,11);
 
     }
 
@@ -357,7 +359,7 @@ public class 物品表 {
     public static final int 血砍刀 = x + 2;
     public static final int 灵月法杖 = x + 3;
     public static final int 冰门重盾 = x + 4;
-    public static final int 扳手 = x + 5;
+    public static final int 修理扳手=x+5;
     public static final int 金玫苦无 = x + 6;
     public static final int 简易驽 = x + 7;
     public static final int 手枪 = x + 8;
@@ -372,15 +374,36 @@ public class 物品表 {
 
         assignItemRect(冰门重盾, 15, 16);
 
-        assignItemRect(扳手, 16);
+        assignItemRect(修理扳手,16);
         assignItemRect(金玫苦无, 15, 16);
         assignItemRect(简易驽, 7, 11);
 
         assignItemRect(手枪, 13, 7);
     }
 
-    private static final int 传说 = xy(1, 13);  //16 slots
+    public static final int 英雄断剑 = xy(1, 13);  //16 slots
+    public static final int 草剃 = 英雄断剑+1;
+    public static final int 死神镰刀 = 英雄断剑+2;
+    public static final int 碎缘剑 = 英雄断剑+3;
+    public static final int 臻冰刃 = 英雄断剑+4;
+    public static final int 神农锄 = 英雄断剑+5;
+    public static final int 黄金雷鞭 = 英雄断剑+6;
+    public static final int 黄金冰镖 = 英雄断剑+7;
+    public static final int 黄金地镰 = 英雄断剑+8;
+    public static final int 黄金火剑 = 英雄断剑+9;
+    public static final int 流火 = 英雄断剑+10;
     static {
+        assignItemRect(英雄断剑, 12, 13);
+        assignItemRect(草剃, 15, 16);
+        assignItemRect(死神镰刀, 16);
+        assignItemRect(碎缘剑, 15, 16);
+        assignItemRect(臻冰刃, 15, 16);
+        assignItemRect(神农锄, 14, 16);
+        assignItemRect(黄金雷鞭, 15, 16);
+        assignItemRect(黄金冰镖, 16);
+        assignItemRect(黄金地镰, 15, 16);
+        assignItemRect(黄金火剑, 15, 16);
+        assignItemRect(流火, 16);
 
     }
     //endregion
@@ -399,6 +422,18 @@ public class 物品表 {
     public static final int ARMOR_DUELIST = ARMOR + 9;
     public static final int ARMOR_CLERIC = ARMOR + 10;
     public static final int 巫服 = ARMOR + 11;
+    public static final int 武服 = ARMOR + 12;
+    public static final int 道袍 = ARMOR+13;
+    public static final int 战甲 = ARMOR + 14;
+    
+    public static final int 忍服 = ARMOR + 15;
+    public static final int 能袍 = ARMOR + 16;
+    public static final int 勇装 = ARMOR + 17;
+    public static final int 连裙 = ARMOR + 18;
+    
+    public static final int 训服 = ARMOR + 19;
+    public static final int 背心 = ARMOR + 20;
+    public static final int 魔披 = ARMOR + 21;
 
     static {
         assignItemRect(ARMOR_CLOTH, 15, 12);
@@ -413,6 +448,16 @@ public class 物品表 {
         assignItemRect(ARMOR_DUELIST, 12, 13);
         assignItemRect(ARMOR_CLERIC, 13, 14);
         assignItemRect(巫服, 15, 14);
+        assignItemRect(武服, 13, 16);
+        assignItemRect(道袍,15);
+        assignItemRect(战甲, 12);
+        assignItemRect(忍服, 14,13);
+        assignItemRect(能袍, 15);
+        assignItemRect(勇装, 14,12);
+        assignItemRect(连裙, 16);
+        assignItemRect(训服, 14,12);
+        assignItemRect(背心, 16,14);
+        assignItemRect(魔披, 13,12);
     }
     //endregion
 
@@ -870,27 +915,32 @@ public class 物品表 {
     public static final int THROWING_SPIKE = xy(1, 33);//1
     public static final int THROWING_KNIFE = THROWING_SPIKE + 1;
     public static final int THROWING_STONE = THROWING_SPIKE + 2;
+    public static final int 雪球=THROWING_SPIKE+3;
 
 
     static {
         assignItemRect(THROWING_SPIKE, 11, 10);
         assignItemRect(THROWING_KNIFE, 11);
         assignItemRect(THROWING_STONE, 12, 10);
+        assignItemRect(雪球,7,7);
     }
 
     public static final int FISHING_SPEAR = xy(1, 34);//2
     public static final int SHURIKEN = FISHING_SPEAR + 1;
     public static final int THROWING_CLUB = FISHING_SPEAR + 2;
+    public static final int 投骨 = FISHING_SPEAR + 3;
 
     static {
         assignItemRect(FISHING_SPEAR, 11);
         assignItemRect(SHURIKEN, 12);
         assignItemRect(THROWING_CLUB, 12);
+        assignItemRect(投骨, 10);
     }
 
     public static final int THROWING_SPEAR = xy(1, 35);//3
     public static final int BOLAS = THROWING_SPEAR + 1;
     public static final int KUNAI = THROWING_SPEAR + 2;
+    public static final int 回旋镖 = THROWING_SPEAR + 3;
 
     static {
 
@@ -899,11 +949,13 @@ public class 物品表 {
         assignItemRect(BOLAS, 15, 14);
 
         assignItemRect(KUNAI, 15);
+        assignItemRect(回旋镖, 9,16);
     }
 
     public static final int JAVELIN = xy(1, 36);//4
     public static final int TOMAHAWK = JAVELIN + 1;
     public static final int BOOMERANG = JAVELIN + 2;
+    public static final int 毒性飞刀 = JAVELIN + 3;
 
     static {
         assignItemRect(JAVELIN);
@@ -911,16 +963,19 @@ public class 物品表 {
         assignItemRect(TOMAHAWK, 13);
 
         assignItemRect(BOOMERANG, 14);
+        assignItemRect(毒性飞刀, 7,14);
     }
 
     public static final int TRIDENT = xy(1, 37);//5
     public static final int THROWING_HAMMER = TRIDENT + 1;
     public static final int FORCE_CUBE = TRIDENT + 2;
+    public static final int 星刺=TRIDENT+3;
 
     static {
         assignItemRect(TRIDENT);
         assignItemRect(THROWING_HAMMER, 12);
         assignItemRect(FORCE_CUBE, 11, 12);
+        assignItemRect(星刺,11);
     }
     //endregion
 

@@ -335,7 +335,7 @@ public abstract class Scroll extends Item {
 			
 			Scroll s = (Scroll) ingredients.get(0);
 			
-			s.set数量(s.set数量()-1);
+			s.数量(s.数量()-1);
 			if (ShatteredPixelDungeon.scene() instanceof AlchemyScene){
 				if (!s.已鉴定()){
 					((AlchemyScene) ShatteredPixelDungeon.scene()).showIdentify(s);
@@ -344,7 +344,7 @@ public abstract class Scroll extends Item {
 				s.鉴定();
 			}
 			
-			return Reflection.newInstance(stones.get(s.getClass())).set数量(2);
+			return Reflection.newInstance(stones.get(s.getClass())).数量(2);
 		}
 		
 		@Override
@@ -354,9 +354,9 @@ public abstract class Scroll extends Item {
 			Scroll s = (Scroll) ingredients.get(0);
 
 			if (!s.isKnown()){
-				return new Runestone.PlaceHolder().set数量(2);
+				return new Runestone.PlaceHolder().数量(2);
 			} else {
-				return Reflection.newInstance(stones.get(s.getClass())).set数量(2);
+				return Reflection.newInstance(stones.get(s.getClass())).数量(2);
 			}
 		}
 	}

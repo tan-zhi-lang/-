@@ -29,6 +29,7 @@ public class 镜刃 extends MeleeWeapon {
 
 		tier = 1;
 		间隔= 0.67f;
+		unique = true;
 		
 		bones = false;
 	}

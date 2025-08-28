@@ -19,7 +19,7 @@ public class HeavyBoomerang extends MissileWeapon {
 	{
 		image = 物品表.BOOMERANG;
 		hitSound = Assets.Sounds.HIT_CRUSH;
-		hitSoundPitch = 1f;
+		
 		
 		tier = 4;
 		sticky = false;

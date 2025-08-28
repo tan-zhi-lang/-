@@ -130,9 +130,8 @@ public abstract class Level implements Bundlable {
 	}
 	public void 落石(Char c){
 		if(Dungeon.玩法(玩法设置.摇曳落石)){
-			int x=PathFinder.范围8[Random.Int(0,PathFinder.范围8.length)];
-			if(x!=-1){
 				try{
+					int x=PathFinder.范围4[Random.Int(0,PathFinder.范围4.length)];
 					if(!Dungeon.level.solid[c.pos+x]){
 						if(算法.概率学(1)){
 							Dungeon.level.drop(new ThrowingStone(),c.pos+x).sprite.drop();
@@ -149,8 +148,6 @@ public abstract class Level implements Bundlable {
 				}catch(Exception e){
 				
 				}
-			}
-			
 		}
 	}
 	protected int width;

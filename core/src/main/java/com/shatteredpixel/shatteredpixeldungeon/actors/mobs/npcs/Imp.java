@@ -93,7 +93,7 @@ public class Imp extends NPC {
 		if (Quest.given) {
 			
 			DwarfToken tokens = Dungeon.hero.belongings.getItem( DwarfToken.class );
-			if (tokens != null && (tokens.set数量()>=5||(!Quest.alternative&&tokens.set数量()>=4))) {
+			if (tokens != null && (tokens.数量()>=5||(!Quest.alternative&&tokens.数量()>=4))) {
 				Game.runOnRenderThread(new Callback() {
 					@Override
 					public void call() {

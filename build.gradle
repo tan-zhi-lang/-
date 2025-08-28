@@ -2,10 +2,6 @@ buildscript {
     repositories {
 
         // 保留中央仓库
-        mavenCentral()
-
-        // 保留Google仓库(备选)
-        google()
 
         // 阿里云镜像
         maven { url 'https://maven.aliyun.com/repository/public' }
@@ -24,7 +20,11 @@ buildscript {
 
         // 首都在线
         maven { url 'https://maven.oscs.oschina.net/content/groups/public/' }
-    }
+
+        mavenCentral()
+
+        // 保留Google仓库(备选)
+        google()}
     dependencies {
         classpath 'com.android.tools.build:gradle:8.11.1'
     }

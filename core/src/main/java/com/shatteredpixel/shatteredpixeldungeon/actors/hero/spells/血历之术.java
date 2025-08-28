@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.watabou.utils.Random;
 
 public class 血历之术 extends 巫术 {
 
@@ -25,7 +24,7 @@ public class 血历之术 extends 巫术 {
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
-		hero.受伤(hero.生命力(5)-hero.天赋生命力(Talent.物到之术,1));
+		hero.受伤(hero.生命力(4)-hero.天赋生命力(Talent.物到之术,1));
 		hero.经验(hero.最大生命(hero.天赋点数(Talent.血历之术,0.2f)));
 		Item.updateQuickslot();
 
@@ -38,7 +37,7 @@ public class 血历之术 extends 巫术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-				Dungeon.hero.生命力(5)-Dungeon.hero.天赋生命力(Talent.物到之术,1),
+				Dungeon.hero.生命力(4)-Dungeon.hero.天赋生命力(Talent.物到之术,1),
 				Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血历之术,0.2f))
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));

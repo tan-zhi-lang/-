@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.scenes;
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero.tier;
 import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar;
 
-import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -351,6 +350,11 @@ public class HeroSelectScene extends PixelScene {
 
             optionsPane.setPos(btnOptions.right(), btnOptions.top() - optionsPane.height() - 2);
             align(optionsPane);
+            
+            btnExit = new ExitButton();
+            btnExit.setPos(Camera.main.width - btnExit.width(), 0);
+            add(btnExit);
+            btnExit.visible = btnExit.active = !SPDSettings.intro();
         } else {
             background.visible = false;
 
@@ -437,12 +441,13 @@ public class HeroSelectScene extends PixelScene {
             btnOptions.setRect(heroBtns.get(0).left() + 16, Camera.main.height - HeroBtn.HEIGHT - 16, 20, 21);
             改动按钮.setRect((Camera.main.width - 1.5f * title.width()) / 2f-4, btnOptions.top()-3, 20, 21);
             optionsPane.setPos(heroBtns.get(0).left(), 0);
+            
+            btnExit = new ExitButton();
+            btnExit.setPos((Camera.main.width - 1.5f * title.width()) / 2f + infoButton.width()*3+
+                           btnExit.width()*2, btnOptions.top()-4);
+            add(btnExit);
+//            btnExit.visible = btnExit.active = !SPDSettings.intro();
         }
-
-        btnExit = new ExitButton();
-        btnExit.setPos(Camera.main.width - btnExit.width(), 0);
-        add(btnExit);
-        btnExit.visible = btnExit.active = !SPDSettings.intro();
 
 
 //		IconButton 进入游戏 = new IconButton(Icons.get(Icons.JOURNAL)){
@@ -560,7 +565,7 @@ public class HeroSelectScene extends PixelScene {
             PixelScene.align(startBtn);
 
             infoButton.visible = infoButton.active = true;
-            infoButton.setPos(startBtn.right(), startBtn.top());
+            infoButton.setPos(startBtn.right(), startBtn.top()-1);
 
             btnOptions.visible = btnOptions.active = !SPDSettings.intro();
             btnOptions.setPos(startBtn.left() - btnOptions.width(), startBtn.top());
@@ -578,7 +583,7 @@ public class HeroSelectScene extends PixelScene {
         if (SPDSettings.intro() && Rankings.INSTANCE.totalNumber > 0) {
             SPDSettings.intro(false);
         }
-        btnExit.visible = btnExit.active = !SPDSettings.intro();
+//        btnExit.visible = btnExit.active = !SPDSettings.intro();
         //do not fade when a window is open
         for (Object v : members) {
             if (v instanceof Window) resetFade();
@@ -606,8 +611,8 @@ public class HeroSelectScene extends PixelScene {
         }
         startBtn.enable(alpha != 0);
         startBtn.alpha(alpha);
-        btnExit.enable(btnExit.visible && alpha != 0);
-        btnExit.icon().alpha(alpha);
+//        btnExit.enable(btnExit.visible && alpha != 0);
+//        btnExit.icon().alpha(alpha);
         optionsPane.active = optionsPane.visible && alpha != 0;
         optionsPane.alpha(alpha);
         btnOptions.enable(alpha != 0);

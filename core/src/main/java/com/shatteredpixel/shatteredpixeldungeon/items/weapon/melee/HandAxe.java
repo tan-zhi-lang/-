@@ -12,7 +12,7 @@ public class HandAxe extends MeleeWeapon {
 	{
 		image = 物品表.HAND_AXE;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		hitSoundPitch = 1f;
+		
 
 		tier = 2;
 		命中 = 1.32f; //32% boost to accuracy

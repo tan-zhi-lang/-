@@ -142,11 +142,20 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarScythe;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.半月刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.巨斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.爪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.白带;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.矛盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.碧蓝巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.臂铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血姬;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
@@ -165,6 +174,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSt
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Trident;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
@@ -392,9 +402,24 @@ public class Generator {
 					双刃.class,
 					镶钉手套.class,
 					配刺剑.class,
+					
 					Cudgel.class,
+					镜刃.class,
+					铜钱剑.class,
+					白带.class,
+					
+					臂铠.class,
+					碧蓝巨剑.class,
+					灵鞭.class,
+					
+					血姬.class,
+					书包.class,
 			};
-			WEP_T1.defaultProbs = new float[]{ 2, 2, 2, 2, 2 };
+			WEP_T1.defaultProbs = new float[]{ 2, 2, 2, 2,
+											   2, 2,  0, 2,
+											   2, 2 ,0 ,
+											   0,0
+			};
 			WEP_T1.probs = WEP_T1.defaultProbs.clone();
 			
 			WEP_T2.classes = new Class<?>[]{
@@ -404,9 +429,10 @@ public class Generator {
 					Quarterstaff.class,
 					Dirk.class,
 					Sickle.class,
-					爪.class
+					爪.class,
+					矛盾.class,
 			};
-			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
+			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2,0 };
 			WEP_T2.probs = WEP_T2.defaultProbs.clone();
 			
 			WEP_T3.classes = new Class<?>[]{
@@ -464,9 +490,10 @@ public class Generator {
 					ThrowingStone.class,
 					ThrowingKnife.class,
 					ThrowingSpike.class,
+					雪球.class,
 					Dart.class
 			};
-			MIS_T1.defaultProbs = new float[]{ 3, 3, 3, 0 };
+			MIS_T1.defaultProbs = new float[]{ 3, 3, 3, 3, 0 };
 			MIS_T1.probs = MIS_T1.defaultProbs.clone();
 			
 			MIS_T2.classes = new Class<?>[]{
@@ -539,7 +566,7 @@ public class Generator {
 					时光沙漏.class,
 					UnstableSpellbook.class
 			};
-			ARTIFACT.defaultProbs = new float[]{ 1, 1, 1,1,
+			ARTIFACT.defaultProbs = new float[]{ 1, 1, 0,1,
 					1, 1, 1, 1,
 					1, 1,1 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();

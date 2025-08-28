@@ -217,7 +217,9 @@ public class Belongings implements Iterable<Item> {
 
 		return result;
 	}
-	
+	public boolean hasItem(Class itemClass){
+		return getItem(itemClass)!=null;
+	}
 	@SuppressWarnings("unchecked")
 	public<T extends Item> T getItem( Class<T> itemClass ) {
 

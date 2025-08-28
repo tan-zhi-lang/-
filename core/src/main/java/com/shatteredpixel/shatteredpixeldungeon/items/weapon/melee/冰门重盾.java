@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -14,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
@@ -24,9 +22,7 @@ public class 冰门重盾 extends MeleeWeapon {
 
 	{
 		image = 物品表.冰门重盾;
-		hitSound = Assets.Sounds.HIT;
-		hitSoundPitch = 1f;
-
+		
 		unique = true;
 		bones = false;
 		间隔=1.25f;
@@ -47,12 +43,12 @@ public class 冰门重盾 extends MeleeWeapon {
 	@Override
 	public int 最小攻击(int lvl) {
 		return  Math.round((tier +   //12 base, down from 20
-				lvl*tier)*Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f));               //+2 per level, down from +4
+				lvl*tier)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));               //+2 per level, down from +4
 	}
 	@Override
 	public int 最大攻击(int lvl) {
 		return  Math.round((4*(tier+1) +   //12 base, down from 20
-				lvl*(tier+1))*Dungeon.hero.天赋点数(Talent.冰门高攻));               //+2 per level, down from +4
+				lvl*(tier+1))*(1+Dungeon.hero.天赋点数(Talent.冰门高攻)));               //+2 per level, down from +4
 	}
 
 	@Override

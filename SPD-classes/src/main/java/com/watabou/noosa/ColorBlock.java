@@ -65,7 +65,7 @@ public class ColorBlock extends Image implements Resizable {
 	}
 	public void 紫色(){
 		ra = +0.3f;
-		ga = +0.3f;
+		ba = +0.3f;
 	}
 	public void 青色(){
 		ga = +0.3f;

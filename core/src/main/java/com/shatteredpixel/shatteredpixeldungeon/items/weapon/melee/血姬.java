@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -30,7 +29,8 @@ public class 血姬 extends MeleeWeapon {
 
 		tier = 1;
 		间隔= 0.5f; //2x speed
-		
+		伏击=true;
+		伏击率=1;
 		unique = true;
 		bones = false;
 	}
@@ -51,26 +51,6 @@ public class 血姬 extends MeleeWeapon {
 		damage = super.攻击时(attacker,defender,damage);
 		Buff.施加( defender, 流血.class).set(Math.round(augment.damageFactor(Random.NormalIntRange(最小攻击(),最大攻击()))/3f));
 		return damage;
-	}
-	@Override
-	public int damageRoll(Char owner) {
-		if (owner instanceof Hero) {
-			Hero hero = (Hero)owner;
-			Char enemy = hero.attackTarget();
-			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
-				//deals 75% toward max to max on surprise, instead of min to max.
-				int diff = 最大攻击() - 最小攻击();
-				int damage = augment.damageFactor(Hero.heroDamageIntRange(
-						最小攻击() + Math.round(diff*0.75f),
-						最大攻击()));
-				int exStr = hero.力量() - 力量();
-				if (exStr > 0) {
-					damage += Hero.heroDamageIntRange(0, exStr);
-				}
-				return damage;
-			}
-		}
-		return super.damageRoll(owner);
 	}
 
 	@Override

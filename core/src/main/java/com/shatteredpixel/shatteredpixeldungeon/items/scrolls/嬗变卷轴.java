@@ -50,6 +50,9 @@ public class 嬗变卷轴 extends InventoryScroll {
 
 	@Override
 	protected boolean usableOnItem(Item item) {
+		if(item instanceof EquipableItem e&&e.isEquipped(curUser)){
+			return false;
+		}
 		//all melee weapons, except pickaxe when in a mining level
 		if (item instanceof MeleeWeapon){
 			return !(item instanceof Pickaxe && Dungeon.level instanceof MiningLevel);

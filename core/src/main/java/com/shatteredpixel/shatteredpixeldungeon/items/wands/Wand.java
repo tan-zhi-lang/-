@@ -202,7 +202,7 @@ public abstract class Wand extends Item {
 		if (Dungeon.hero.有天赋(Talent.ARCANE_VISION)) {
 			int dur = Dungeon.hero.天赋点数(Talent.ARCANE_VISION,3);
 			Buff.新增(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = target.id();
-		}
+			}
 
 		if (target != Dungeon.hero &&
 				Dungeon.hero.subClass == HeroSubClass.WARLOCK &&

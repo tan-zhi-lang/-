@@ -33,7 +33,7 @@ public class Dewdrop extends Item {
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {
 		
-		水袋 flask = hero.belongings.getItem( 水袋.class );
+		水袋 flask = hero.belongings.getItem( 水袋.class );//为什么找不到？
 		Catalog.setSeen(getClass());
 		Statistics.itemTypesDiscovered.add(getClass());
 		if (flask != null && !flask.isFull()){

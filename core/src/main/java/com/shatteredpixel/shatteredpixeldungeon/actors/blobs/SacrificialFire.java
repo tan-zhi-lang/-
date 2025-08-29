@@ -158,8 +158,9 @@ public class SacrificialFire extends Blob {
 				exp = 1_000; //always enough to activate the reward, if you can somehow get it
 				Badges.validateDeathFromSacrifice();
 			}
+			exp*=10;
 
-			if (exp*10 > 0) {//献祭
+			if (exp > 0) {//献祭
 
 				int volumeLeft = cur[firePos] - exp;
 				if (volumeLeft > 0) {

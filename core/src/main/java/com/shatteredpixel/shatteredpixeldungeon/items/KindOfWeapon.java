@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -30,6 +31,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 	protected float hitSoundPitch = 1f;
 	public boolean 拳套 =false;
 	public boolean 投矛 =false;
+	public boolean 伏击 =false;
+	public float 伏击率 =0;
 
 	@Override
 	public void execute(Hero hero, String action) {
@@ -239,11 +242,15 @@ abstract public class KindOfWeapon extends EquipableItem {
 			if(enemy!=null&&enemy.第一次防御&&投矛){
 				return 最大攻击();
 			}
+			int dmgdiff=0;
+			if (伏击&&enemy instanceof Mob&&((Mob) enemy).surprisedBy(hero)) {
+				dmgdiff = Math.round((最大攻击() - 最小攻击())*伏击率);
+			}
 			
 			if(Dungeon.玩法(玩法设置.简单战斗)){
-				return Math.round((最小攻击()+ 最大攻击())/2f);
+				return Math.round((最小攻击()+dmgdiff+ 最大攻击())/2f);
 			}
-			return Hero.heroDamageIntRange(最小攻击(), 最大攻击());
+			return Hero.heroDamageIntRange(最小攻击()+dmgdiff, 最大攻击());
 		} else {
 			return Random.NormalIntRange(最小攻击(), 最大攻击());
 		}

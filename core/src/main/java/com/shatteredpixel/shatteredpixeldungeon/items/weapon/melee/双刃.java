@@ -5,11 +5,9 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -30,7 +28,8 @@ public class 双刃 extends MeleeWeapon {
 
 		tier = 1;
 		间隔= 0.75f; //2x speed
-		
+		伏击=true;
+		伏击率=0.75f;
 		bones = false;
 	}
 
@@ -40,27 +39,6 @@ public class 双刃 extends MeleeWeapon {
 				lvl*(tier+1)/2*3;   //scaling unchanged
 	}
 	
-	@Override
-	public int damageRoll(Char owner) {
-		if (owner instanceof Hero) {
-			Hero hero = (Hero)owner;
-			Char enemy = hero.attackTarget();
-			if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)) {
-				//deals 75% toward max to max on surprise, instead of min to max.
-				int diff = 最大攻击() - 最小攻击();
-				int damage = augment.damageFactor(Hero.heroDamageIntRange(
-						最小攻击() + Math.round(diff*0.75f),
-						最大攻击()));
-				int exStr = hero.力量() - 力量();
-				if (exStr > 0) {
-					damage += Hero.heroDamageIntRange(0, exStr);
-				}
-				return damage;
-			}
-		}
-		return super.damageRoll(owner);
-	}
-
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");

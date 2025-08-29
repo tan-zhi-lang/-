@@ -22,27 +22,10 @@ public class Greatshield extends MeleeWeapon {
 	}
 
 	@Override
-	public int defenseFactor( Char owner ) {
-		return DRMax();
-	}
-
-	public int DRMax(){
-		return DRMax(强化等级());
-	}
-
-	//6 extra defence, plus 2 per level
-	public int DRMax(int lvl){
+	public int 最大防御(int lvl){
 		return 6 + 2*lvl;
 	}
 	
-	public String statsInfo(){
-		if (已鉴定()){
-			return Messages.get(this, "stats_desc", 6+2* 强化等级());
-		} else {
-			return Messages.get(this, "typical_stats_desc", 6);
-		}
-	}
-
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		RoundShield.guardAbility(hero, 3+ 强化等级(), this);

@@ -630,7 +630,8 @@ abstract public class MissileWeapon extends Weapon {
 		}
 
 		info += "\n\n";
-		String statsInfo = Messages.get(this, "stats_desc");
+		String statsInfo = Messages.get(this, "stats_desc",命中,间隔,
+									Math.round(伏击率*100));
 		if (!statsInfo.equals("")) info += statsInfo + " ";
 		info += Messages.get(MissileWeapon.class, "distance");
 

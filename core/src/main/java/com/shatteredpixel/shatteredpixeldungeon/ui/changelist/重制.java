@@ -196,7 +196,7 @@ public class 重制 {
 						"最大生命-5。\n"+
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
-						"再生恢复生命1=>25%生命力。"+
+						"再生恢复生命1=>15%生命力。"+
 						"新增生命力=根号(最大生命)，大部分天赋等都被此数值影响。"
 				,
 				"杂项\n\n" +
@@ -240,19 +240,30 @@ public class 重制 {
 						"每个区域生成的升级卷轴数量+1。\n" +
 						"每个区域第3层必定一瓶治疗药剂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SOMETHING), "物品",
-					"一些物品图片更新。\n" +
-					"更好的物品图标和底色数值显示。\n" +
+					"物品可以重命名。\n" +
+					"一些物品图片更好。\n" +
+					"更好的物品图标和底色，数值显示。\n" +
 							"饰品提炼能量5=>4+等级x3"
+				));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.FLAIL), "链枷",
+					"可以伏击。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ORE), "暗金矿",
 					"可以出售和提炼。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
-			"根骨之戒\n" +
+			"部分描述更好。",
+				   "根骨之戒\n" +
 					"力量+1 => +2。提升生命系数1.035 => 1.1。",
+
+					"狂怒之戒\n" +
+					"1.09051=>1.091。",
 
 					"精准之戒\n" +
 					"+50%等级的攻击范围。",
+
+					"能量之戒\n" +
+					"护甲充能=>武器充能。",
 
 					"武力之戒\n" +
 					"空手伤害1~力量-8=>25%生命力~75%生命力+100%的武力之戒的最小~最大伤害。\n" +
@@ -262,10 +273,10 @@ public class 重制 {
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_HOLDER), "种子",
 					"速行蓟\n" +
-							"的时间气泡攻击不会打断时间冻结。\n" ,
+							"时间气泡攻击不会打断。\n" ,
 
 							"冰冠花\n" +
-							"不会被燃烧，且在踩踏能消灭火墙。"
+							"不会被燃烧，且在触发能消灭火墙。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FISHING_SPEAR), "投掷武器",
 					"捕鱼矛、投矛、标枪、三叉戟\n" +
@@ -281,7 +292,8 @@ public class 重制 {
 							"在命中的敌人还会眩晕2回合。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "武器",
-					"武器反超力增加移速和命中，转换效率为根号武器力量-力量的10%加成。"
+					"武器反超力增加移速和命中，转换效率为根号武器力量-力量的10%加成。\n" +
+					"描述命中、间隔、范围、伏击率和格挡量"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "护甲",
 					"护甲反超力增加移速和闪避，转换效率为根号武器力量-力量的10%加成。"
@@ -298,8 +310,8 @@ public class 重制 {
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.POTION_HOLDER), "药剂",
 					"治疗药剂\n" +
-							"最大生命80% => 90%。\n" +
-							"恢复速度25% => 34%。",
+							"最大生命80%+14 => 90%。\n" +
+							"恢复速度25% => 20%。",
 
 							"奥术护盾合剂\n"+
 							"最大生命护盾60% => 75%。",
@@ -354,7 +366,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.BACKPACK), "背包",
 				"背包格子+10。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ALCHEMIZE), "炼金菱晶",
-				"商店卖数量x3。"));
+				"商店卖数量x2。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.时光沙漏), "时光沙漏",
 				"攻击不会打断时间冻结。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARCANE_RESIN), "奥术树脂",

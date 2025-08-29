@@ -29,26 +29,10 @@ public class Quarterstaff extends MeleeWeapon {
 
 
 	@Override
-	public int defenseFactor( Char owner ) {
-		return 最大防御();
-	}
-
-	public int 最大防御(){
-		return 最大防御(强化等级());
-	}
-
-	//4 extra defence, plus 1 per level
 	public int 最大防御(int lvl){
 		return 2 + lvl;
 	}
 
-	public String statsInfo(){
-		if (已鉴定()){
-			return Messages.get(this, "stats_desc", 2+ 强化等级());
-		} else {
-			return Messages.get(this, "typical_stats_desc", 2);
-		}
-	}
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		beforeAbilityUsed(hero, null);

@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -279,7 +280,7 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
-
+		
 		if (owner instanceof Hero) {
 			int exStr = ((Hero)owner).力量() - 力量();
 			if (exStr > 0) {
@@ -354,9 +355,24 @@ public class MeleeWeapon extends Weapon {
 		
 		return info;
 	}
+	@Override
+	public int defenseFactor( Char owner ) {
+		return 最大防御();
+	}
+	public int 最大防御(){
+		return 最大防御(强化等级());
+	}
 	
+	//4 extra defence, plus 1 per level
+	public int 最大防御(int lvl){
+		return 0;
+	}
 	public String statsInfo(){
-		return Messages.get(this, "stats_desc");
+		if (已鉴定()){
+			return Messages.get(this, "stats_desc",命中,间隔,范围,Math.round(伏击率*100),最大防御());
+		} else {
+			return Messages.get(this, "stats_desc",命中,间隔,范围,Math.round(伏击率*100),最大防御(0));
+		}
 	}
 
 	public String abilityInfo() {
@@ -417,7 +433,7 @@ public class MeleeWeapon extends Weapon {
 					if (Dungeon.hero.subClass == HeroSubClass.CHAMPION){
 						chargeToGain *= 1.5f;
 					}
-
+					chargeToGain*=能量之戒.weaponChargeMultiplier(target);
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
 					if (Dungeon.hero.buff(RingOfForce.BrawlersStance.class) != null){
 						chargeToGain *= 0.50f;

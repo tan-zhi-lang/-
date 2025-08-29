@@ -54,11 +54,13 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		if (target.isAlive() && target instanceof Hero hero) {
 			
-			if (level < STARVING&&hero.heroClass(HeroClass.罗兰)) {
-				if(hero.nobuff(Vulnerable.class))
+			if (level > HUNGRY&&hero.heroClass(HeroClass.罗兰)) {
+				if(hero.nobuff(Vulnerable.class)){
 				Buff.延长(hero, Vulnerable.class, 10);
-				if(hero.nobuff(Weakness.class))
+				}
+				if(hero.nobuff(Weakness.class)){
 				Buff.延长(hero, Weakness.class, 10);
+				}
 				
 			}
 			if (isStarving()) {

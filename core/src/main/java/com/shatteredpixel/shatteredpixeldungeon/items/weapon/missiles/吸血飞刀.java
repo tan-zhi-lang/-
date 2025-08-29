@@ -13,8 +13,10 @@ public class 吸血飞刀 extends MissileWeapon {
 		image = 物品表.吸血飞刀;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
+		红色 = true;
 		unique = true;
 		bones = false;
+		间隔=0.67f;
 		
 		tier = 1;
 		baseUses = 1000;

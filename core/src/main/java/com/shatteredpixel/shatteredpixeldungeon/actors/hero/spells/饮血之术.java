@@ -7,22 +7,15 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
-import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -50,27 +43,22 @@ public class 饮血之术 extends 目标巫术 {
 		} else {
 			QuickSlotButton.target(Actor.findChar(target));
 		}
+		Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC,1,Random.Float(0.87f,1.15f));
 
-		hero.busy();
-		Sample.INSTANCE.play( Assets.Sounds.ZAP );
 		hero.sprite.zap(target);
 		MagicMissile.boltFromChar(hero.sprite.parent, MagicMissile.SHADOW, hero.sprite, aim.collisionPos, new Callback() {
 			@Override
 			public void call() {
 
 				Char ch = Actor.findChar( aim.collisionPos );
-				if (ch != null&&!ch.满血()&&(ch.properties.contains(Char.Property.MINIBOSS)||ch.properties.contains(Char.Property.BOSS_MINION)||ch.properties.contains(Char.Property.BOSS))) {
+				if (ch != null&&!ch.满血()&&!(ch.properties.contains(Char.Property.MINIBOSS)||ch.properties.contains(Char.Property.BOSS_MINION)||ch.properties.contains(Char.Property.BOSS))) {
 					ch.生命=1;
 					Buff.延长(ch, Invulnerability.class, Invulnerability.DURATION/2);
 					hero.回血(hero.已损失生命(hero.天赋点数(Talent.饮血之术,0.15f)));
-					Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
-
+					
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
 				}
-
-				hero.spend( 1f );
-				hero.next();
 
 				onSpellCast(tome, hero);
 

@@ -17,20 +17,20 @@ public class RingOfAccuracy extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.##", 100f * (Math.pow(1.3f, soloBuffedBonus()) - 1f)),soloBuffedBonus()/2);
+					Messages.decimalFormat("#.##", Math.pow(1.3f, soloBuffedBonus()) - 1f),soloBuffedBonus()/2);
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.##", 100f * (Math.pow(1.3f, combinedBuffedBonus(Dungeon.hero)) - 1f)),0);
+						Messages.decimalFormat("#.##", Math.pow(1.3f, combinedBuffedBonus(Dungeon.hero)) - 1f),0);
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 30f),0);
+			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 0.30f),0);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.##", 100f * (Math.pow(1.3f, level+1)-1f)) + "%"+"\n"+level/2;
+		return Messages.decimalFormat("#.##", Math.pow(1.3f, level+1)-1f) + "倍"+"\n"+level/2;
 	}
 	
 	@Override

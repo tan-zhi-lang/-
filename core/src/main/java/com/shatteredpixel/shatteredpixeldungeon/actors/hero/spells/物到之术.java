@@ -22,11 +22,6 @@ public class 物到之术 extends 巫术 {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
-		return 2;
-	}
-
-	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
 		hero.受伤(hero.生命力(10)-hero.天赋生命力(Talent.物到之术,2));
 		Item item = Generator.random();

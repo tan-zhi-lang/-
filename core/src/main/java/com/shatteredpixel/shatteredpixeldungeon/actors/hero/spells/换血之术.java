@@ -50,9 +50,8 @@ public class 换血之术 extends 目标巫术 {
 		} else {
 			QuickSlotButton.target(Actor.findChar(target));
 		}
+		Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 
-		hero.busy();
-		Sample.INSTANCE.play( Assets.Sounds.ZAP );
 		hero.sprite.zap(target);
 		MagicMissile.boltFromChar(hero.sprite.parent, MagicMissile.SHADOW, hero.sprite, aim.collisionPos, new Callback() {
 			@Override
@@ -62,13 +61,10 @@ public class 换血之术 extends 目标巫术 {
 				if (ch != null) {
 					Buff.施加( ch, 流血.class ).set(ch.最大生命(Dungeon.hero.天赋点数(Talent.换血之术,0.5f)));
 					Buff.施加( hero, 流血.class ).set(hero.最大生命(0.6f-Dungeon.hero.天赋点数(Talent.换血之术,0.15f)));
-					Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
+					
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
 				}
-
-				hero.spend( 1f );
-				hero.next();
 
 				onSpellCast(tome, hero);
 

@@ -295,7 +295,7 @@ public class ShopRoom extends SpecialRoom {
 		
 		itemsToSpawn.add( TippedDart.randomTipped(2) );
 
-		itemsToSpawn.add( new 炼金菱晶().数量(Random.IntRange(2,3)*3));
+		itemsToSpawn.add( new 炼金菱晶().数量(Random.IntRange(2,3)*2));
 
 		Bag bag = ChooseBag(Dungeon.hero.belongings);
 		if (bag != null) {

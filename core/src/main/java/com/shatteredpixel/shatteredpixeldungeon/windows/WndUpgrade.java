@@ -12,10 +12,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatshield;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -198,15 +196,10 @@ public class WndUpgrade extends Window {
 					((Armor) toUpgrade).最小防御(levelFrom) + "-" + (((Armor) toUpgrade).最大防御(levelFrom)),
 					((Armor) toUpgrade).最小防御(levelTo) + "-" +  (((Armor) toUpgrade).最大防御(levelTo)),
 					bottom);
-		} else if (toUpgrade instanceof RoundShield){
+		} else if (toUpgrade instanceof MeleeWeapon m&&m.最大防御()>0){
 			bottom = fillFields(Messages.get(this, "blocking"),
-					0 + "-" + ((RoundShield) toUpgrade).最大防御(levelFrom),
-					0 + "-" + ((RoundShield) toUpgrade).最大防御(levelTo),
-					bottom);
-		} else if (toUpgrade instanceof Greatshield){
-			bottom = fillFields(Messages.get(this, "blocking"),
-					0 + "-" + ((Greatshield) toUpgrade).DRMax(levelFrom),
-					0 + "-" + ((Greatshield) toUpgrade).DRMax(levelTo),
+					0 + "-" + m.最大防御(levelFrom),
+					0 + "-" + m.最大防御(levelTo),
 					bottom);
 		}
 

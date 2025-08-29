@@ -35,6 +35,10 @@ public class 灵月法杖 extends Wand {
 	public int 金币() {
 		return 0;
 	}
+	@Override
+	public int 能量() {
+		return 0;
+	}
 	public void updateLevel() {
 		if(Dungeon.hero()){
 			maxCharges = Math.min( initialCharges() + Dungeon.hero.等级(0.33f), 10);

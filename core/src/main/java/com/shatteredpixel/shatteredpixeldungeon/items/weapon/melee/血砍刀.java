@@ -31,7 +31,10 @@ public class 血砍刀 extends MeleeWeapon {
 
 		tier = 1;
 		
+		伏击 = true;
+		伏击率=0.67f;
 		unique = true;
+		
 		bones = false;
 
 		红色 = true;

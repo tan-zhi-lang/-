@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Smok
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
+import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
@@ -87,7 +88,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.书包;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
@@ -101,14 +101,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.臂铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血姬;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
@@ -187,6 +188,7 @@ public enum HeroClass{
 			new 手枪().放背包();
 			new TrinketCatalyst().放背包();
 			new CapeOfThorns().放背包();
+			new Amulet().放背包();
 			
 			for (Item item : Dungeon.hero.belongings){
 				item.鉴定();
@@ -491,20 +493,17 @@ public enum HeroClass{
 	
 	private static void 初始机器(Hero hero){
 		
-		修理扳手 x=new 修理扳手();
-		(hero.belongings.weapon=x).鉴定();
-		hero.belongings.weapon.activate(hero);
+		修理扳手 y=new 修理扳手();
+		y.鉴定().数量(3).放背包();
+		Dungeon.quickslot.setSlot(0,y);
 		
-		Dungeon.quickslot.setSlot(0,x);
 	}
 	
 	private static void 初始女忍(Hero hero){
 		
-		金玫苦无 x=new 金玫苦无();
-		(hero.belongings.weapon=x).鉴定();
-		hero.belongings.weapon.activate(hero);
-		
-		Dungeon.quickslot.setSlot(0,x);
+		金玫苦无 y=new 金玫苦无();
+		y.鉴定().数量(3).放背包();
+		Dungeon.quickslot.setSlot(0,y);
 		(hero.belongings.armor=new 忍服()).鉴定();
 	}
 	
@@ -551,7 +550,7 @@ public enum HeroClass{
 	private static void 初始血鬼(Hero hero){
 		
 		吸血飞刀 y=new 吸血飞刀();
-		y.鉴定().放背包();
+		y.鉴定().数量(3).放背包();
 		Dungeon.quickslot.setSlot(0,y);
 	}
 	

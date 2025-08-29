@@ -1056,7 +1056,6 @@ public class Hero extends Char {
         if (!(w instanceof Weapon)) return true;
         if (RingOfForce.fightingUnarmed(this)) return true;
         if (力量() < ((Weapon) w).力量()) return false;
-        if (w instanceof Flail) return false;
 
         return super.canSurpriseAttack();
     }
@@ -1134,6 +1133,9 @@ public class Hero extends Char {
 
     @Override
     public void spendConstant(float time) {
+        if(算法.isDebug()){
+            time/=3f;
+        }
         if(Dungeon.系统(系统设置.时间能力)){
             time/=3f;
         }
@@ -1406,7 +1408,6 @@ public class Hero extends Char {
         lastAction = null;
         damageInterrupt = false;
         next();
-        Chasm.heroFall(pos);
     }
 
     private boolean canSelfTrample = false;
@@ -1910,7 +1911,7 @@ public class Hero extends Char {
         damage = super.攻击时(enemy, damage);
         
         if(heroClass(HeroClass.近卫)&&算法.概率学(15)){
-            damage*=2;
+            damage=Math.round(damage*1.75f);
         }
         if(Dungeon.系统(系统设置.生命成长)){
             生命成长+=Dungeon.depth/100f;
@@ -2985,9 +2986,21 @@ public class Hero extends Char {
 
     @Override
     public int 视野范围() {
-        int x = super.视野范围();
+        float x = super.视野范围();
         if (Dungeon.hero.buff(MagicalSight.class) != null) {
             x = Math.max(x, MagicalSight.DISTANCE);
+        }
+        if (heroClass(HeroClass.戒老)) {
+            x/=4;
+        }
+        if(Dungeon.isChallenged(Challenges.DARKNESS)){
+            x/=4;
+        }
+        x *= 1f + Dungeon.hero.天赋点数(Talent.FARSIGHT, 0.25f);
+        x *= EyeOfNewt.visionRangeMultiplier();
+        
+        if (heroClass(HeroClass.CLERIC)) {
+            x += Light.DISTANCE / 2f;
         }
         if (hasbuff(Light.class)) {
             x += Light.DISTANCE;
@@ -2995,19 +3008,7 @@ public class Hero extends Char {
         if (hasbuff(燃烧.class)) {
             x += Light.DISTANCE;
         }
-        if (heroClass(HeroClass.CLERIC)) {
-            x += Light.DISTANCE / 2;
-        }
-        if (heroClass(HeroClass.戒老)) {
-            x/=4;
-        }
-        x *= 1f + Dungeon.hero.天赋点数(Talent.FARSIGHT, 0.25f);
-        x *= EyeOfNewt.visionRangeMultiplier();
-
-        if (Dungeon.isChallenged(Challenges.DARKNESS)) {
-            x /= 4;
-        }
-        return Math.max(x,2);
+        return Math.max(Math.round(x),2);
     }
 
     public boolean search(boolean intentional) {
@@ -3243,13 +3244,10 @@ public class Hero extends Char {
     @Override
     public float 吸血() {
 
-        float 吸血 = 天赋点数(Talent.高级吸血, 0.04f);
+        float 吸血 = 天赋点数(Talent.高级吸血, 0.03f);
 
         if (heroSubClass(HeroSubClass.黑魔导师)) {
-            吸血 += 0.04f;
-        }
-        if (heroClass(HeroClass.巫女)) {
-            吸血 += 0.01f;
+            吸血 += 0.03f;
         }
         if (heroClass(HeroClass.血鬼)) {
             吸血 += 0.05f;

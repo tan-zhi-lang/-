@@ -47,20 +47,20 @@ public class RingOfWealth extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.##", 100f * (Math.pow(1.20f, soloBuffedBonus()) - 1f)));
+					Messages.decimalFormat("#.##", Math.pow(1.20f, soloBuffedBonus()) - 1f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.##", 100f * (Math.pow(1.20f, combinedBuffedBonus(Dungeon.hero)) - 1f)));
+						Messages.decimalFormat("#.##", Math.pow(1.20f, combinedBuffedBonus(Dungeon.hero)) - 1f));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 20f));
+			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 0.20f));
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.##", 100f * (Math.pow(1.2f, level+1)-1f)) + "%";
+		return Messages.decimalFormat("#.##", Math.pow(1.2f, level+1)-1f) + "倍";
 	}
 
 	private static final String TRIES_TO_DROP = "tries_to_drop";

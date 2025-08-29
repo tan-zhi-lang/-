@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
@@ -51,6 +52,7 @@ public class Item implements Bundlable {
 	
 	public static final String AC_DROP		= "DROP";
 	public static final String AC_THROW		= "THROW";
+	public static final String AC_RENAME		= "RENAME";
 
 	protected String defaultAction;
 	public boolean usesTargeting;
@@ -58,6 +60,7 @@ public class Item implements Bundlable {
 	//TODO should these be private and accessed through methods?
 	public int image = 0;
 	public int icon = -1; //used as an identifier for items with randomized images
+	public String name = "";
 	
 	public boolean stackable = false;
 	public boolean 炼金全放 = false;
@@ -103,6 +106,7 @@ public class Item implements Bundlable {
 		ArrayList<String> actions = new ArrayList<>();
 		actions.add( AC_DROP );
 		actions.add( AC_THROW );
+		actions.add( AC_RENAME );
 		return actions;
 	}
 
@@ -172,6 +176,22 @@ public class Item implements Bundlable {
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doThrow(hero);
 			}
+			
+		} else if (action.equals( AC_RENAME )) {
+			GameScene.show(new WndTextInput("物品重命名",
+											"",
+											"",
+											50,
+											false,
+											"确定",
+											"取消"){
+				@Override
+				public void onSelect(boolean positive, String text) {
+					if (positive && !text.isEmpty()){
+						name=text;
+					}
+				}
+			});
 			
 		}
 	}
@@ -503,6 +523,9 @@ public class Item implements Bundlable {
 	}
 	
 	public final String trueName() {
+		if(!name.equals("")){
+			return name;
+		}
 		return Messages.get(this, "name");
 	}
 	
@@ -590,6 +613,7 @@ public class Item implements Bundlable {
 	private static final String QUICKSLOT		= "quickslotpos";
 	private static final String KEPT_LOST       = "kept_lost";
 	private static final String CUSTOM_NOTE_ID = "custom_note_id";
+	private static final String NAME = "name";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -598,6 +622,7 @@ public class Item implements Bundlable {
 		bundle.put( LEVEL_KNOWN, levelKnown );
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
+		bundle.put( NAME, name );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
 		}
@@ -610,6 +635,7 @@ public class Item implements Bundlable {
 		quantity	= bundle.getInt( QUANTITY );
 		levelKnown	= bundle.getBoolean( LEVEL_KNOWN );
 		cursedKnown	= bundle.getBoolean( CURSED_KNOWN );
+		name	= bundle.getString( NAME );
 		
 		int level = bundle.getInt( LEVEL );
 		if (level > 0) {

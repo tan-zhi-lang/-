@@ -546,8 +546,8 @@ public class 物品表 {
         assignItemRect(ARTIFACT_CHALICE1, 12, 15);
         assignItemRect(ARTIFACT_CHALICE2, 12, 15);
         assignItemRect(ARTIFACT_CHALICE3, 12, 15);
-        assignItemRect(ARTIFACT_SANDALS, 16);
-        assignItemRect(ARTIFACT_SHOES, 16);
+        assignItemRect(ARTIFACT_SANDALS, 16,12);
+        assignItemRect(ARTIFACT_SHOES, 16,12);
         assignItemRect(ARTIFACT_BOOTS, 16, 9);
         assignItemRect(ARTIFACT_GREAVES, 16, 14);
         assignItemRect(ARTIFACT_ROSE1, 14);

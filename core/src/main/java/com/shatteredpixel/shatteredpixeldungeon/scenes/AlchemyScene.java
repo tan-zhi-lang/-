@@ -191,7 +191,7 @@ public class AlchemyScene extends PixelScene {
 		pos += desc.height() + 6;
 
 		NinePatch inputBG = Chrome.get(Chrome.Type.TOAST_TR);
-		inputBG.x = left + 6-10;
+		inputBG.x = left + 6-10-2;
 		inputBG.y = pos;
 		inputBG.size(BTN_SIZE*2+2+8, 3*BTN_SIZE + 4 + 8);
 		add(inputBG);
@@ -211,11 +211,11 @@ public class AlchemyScene extends PixelScene {
 					}
 				}
 				if(i>2){
-					inputs[i].setRect(left +BTN_SIZE+2, pos2, BTN_SIZE, BTN_SIZE);
+					inputs[i].setRect(left +BTN_SIZE+2-2, pos2, BTN_SIZE, BTN_SIZE);
 					add(inputs[i]);
 					pos2 += BTN_SIZE + 2;
 				}else{
-					inputs[i].setRect(left, pos, BTN_SIZE, BTN_SIZE);
+					inputs[i].setRect(left-2, pos, BTN_SIZE, BTN_SIZE);
 					add(inputs[i]);
 					pos += BTN_SIZE + 2;
 				}
@@ -329,7 +329,7 @@ public class AlchemyScene extends PixelScene {
 				return Messages.get(AlchemyScene.class, "cancel");
 			}
 		};
-		cancel.setRect(left + 8-2, pos + 2, 16, 16);
+		cancel.setRect(left + 4, pos + 2, 16, 16);
 		cancel.enable(false);
 		add(cancel);
 
@@ -352,7 +352,7 @@ public class AlchemyScene extends PixelScene {
 				return Messages.get(AlchemyScene.class, "repeat");
 			}
 		};
-		repeat.setRect(left + 24+12, pos + 2, 16, 16);
+		repeat.setRect(left + 24+10, pos + 2, 16, 16);
 		repeat.enable(false);
 		add(repeat);
 
@@ -368,8 +368,8 @@ public class AlchemyScene extends PixelScene {
 
 			if (i == 0){
 				//first ones are always visible
-				combines[i].setRect(left + (w-30)/2f+10, inputs[1].top()+5, 30, inputs[1].height()-10);
-				outputs[i].setRect(left + w - BTN_SIZE - 10, inputs[1].top(), BTN_SIZE, BTN_SIZE);
+				combines[i].setRect(left + (w-30)/2f+18, inputs[1].top()+5, 30, inputs[1].height()-10);
+				outputs[i].setRect(left + w - BTN_SIZE + 5, inputs[1].top(), BTN_SIZE, BTN_SIZE);
 			} else {
 				combines[i].visible = false;
 				outputs[i].visible = false;

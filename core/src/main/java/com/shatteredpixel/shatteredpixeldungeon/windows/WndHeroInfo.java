@@ -224,7 +224,7 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case 巫女:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							new BuffIcon(BuffIndicator.HEALING, true),
+							  new BuffIcon(BuffIndicator.RECHARGING, true),
 							Icons.TALENT.get(),
 							new BuffIcon(BuffIndicator.HEX, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};

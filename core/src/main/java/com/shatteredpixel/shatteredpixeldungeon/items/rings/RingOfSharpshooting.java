@@ -17,14 +17,14 @@ public class RingOfSharpshooting extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					soloBuffedBonus(), Messages.decimalFormat("#.##", 100f * (Math.pow(1.2, soloBonus()) - 1f)));
+					soloBuffedBonus(), Messages.decimalFormat("#.##", Math.pow(1.2, soloBonus()) - 1f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						combinedBuffedBonus(Dungeon.hero), Messages.decimalFormat("#.##", 100f * (Math.pow(1.2, combinedBonus(Dungeon.hero)) - 1f)));
+						combinedBuffedBonus(Dungeon.hero), Messages.decimalFormat("#.##", Math.pow(1.2, combinedBonus(Dungeon.hero)) - 1f));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", 1, Messages.decimalFormat("#.##", 20f));
+			return Messages.get(this, "typical_stats", 1, Messages.decimalFormat("#.##", 0.20f));
 		}
 	}
 
@@ -37,7 +37,7 @@ public class RingOfSharpshooting extends Ring {
 	@Override
 	public String upgradeStat2(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.##", 100f * (Math.pow(1.2, level+1)-1f)) + "%";
+		return Messages.decimalFormat("#.##", Math.pow(1.2, level+1)-1f) + "倍";
 	}
 	
 	@Override

@@ -11,23 +11,14 @@ public class 镶钉手套 extends MeleeWeapon {
 	{
 		image = 物品表.GLOVES;
 		hitSoundPitch = 1.3f;
-
 		tier = 1;
-		间隔= 0.5f; //2x speed
+		最小 = 1;
+		命中=1.2f;
+		间隔= 0.5f;
+		伤害= 0.4f;
 
 		拳套=true;
 		bones = false;
-	}
-
-	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(2*(tier+1)) +     //5 base, down from 10
-				lvl*Math.round(0.4f*(tier+1));  //+1 per level, down from +2
 	}
 
 	@Override

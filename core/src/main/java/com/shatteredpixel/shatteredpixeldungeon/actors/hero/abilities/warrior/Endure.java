@@ -85,7 +85,7 @@ public class Endure extends ArmorAbility {
 				damageBonus += damage/2;
 
 				float damageMulti = 0.5f;
-				if (Dungeon.hero.有天赋(Talent.SHRUG_IT_OFF)){
+				if (Dungeon.hero.天赋(Talent.SHRUG_IT_OFF)){
 					//total damage reduction is 60%/68%/74%/80%, based on points in talent
 					damageMulti *= Math.pow(0.8f, Dungeon.hero.天赋点数(Talent.SHRUG_IT_OFF));
 				}

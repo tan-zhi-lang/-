@@ -98,7 +98,7 @@ public class SPDAction extends GameAction {
 		defaultBindings.put( Input.Keys.NUMPAD_3,       SPDAction.SE );
 		defaultBindings.put( Input.Keys.NUMPAD_5,       SPDAction.WAIT_OR_PICKUP );
 
-		defaultBindings.put( Input.Keys.F,              SPDAction.INVENTORY );
+		defaultBindings.put( Input.Keys.B,              SPDAction.INVENTORY );
 		defaultBindings.put( Input.Keys.I,              SPDAction.INVENTORY );
 		defaultBindings.put( Input.Keys.NUM_1,          SPDAction.QUICKSLOT_1 );
 		defaultBindings.put( Input.Keys.NUM_2,          SPDAction.QUICKSLOT_2 );
@@ -116,7 +116,7 @@ public class SPDAction extends GameAction {
 		defaultBindings.put( Input.Keys.E,              SPDAction.EXAMINE );
 		defaultBindings.put( Input.Keys.Z,              SPDAction.REST );
 
-		defaultBindings.put( Input.Keys.Q,              SPDAction.TAG_ATTACK );
+		defaultBindings.put( Input.Keys.F,              SPDAction.TAG_ATTACK );
 		defaultBindings.put( Input.Keys.TAB,            SPDAction.CYCLE);
 		defaultBindings.put( Input.Keys.X,              SPDAction.TAG_ACTION );
 		defaultBindings.put( Input.Keys.C,              SPDAction.TAG_LOOT );

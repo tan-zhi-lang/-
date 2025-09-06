@@ -93,7 +93,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static int 亮度() {
-		return getInt( KEY_BRIGHTNESS, 1, -1, 1 );
+		return getInt( KEY_BRIGHTNESS, 0, -1, 1 );
 	}
 	
 	public static void 网格可视度(int value ){

@@ -88,7 +88,7 @@ public class WndRanking extends WndTabbed {
 	
 	private void createControls() {
 
-		if (Dungeon.hero != null) {
+		if (Dungeon.hero()) {
 			Icons[] icons =
 					{Icons.RANKINGS, Icons.TALENT, Icons.BACKPACK_LRG, Icons.BADGES, Icons.CHALLENGE_COLOR};
 			Group[] pages =
@@ -144,7 +144,7 @@ public class WndRanking extends WndTabbed {
 			super();
 			
 			String heroClass = record.heroClass.name();
-			if (Dungeon.hero != null){
+			if (Dungeon.hero()){
 				heroClass = Dungeon.hero.className();
 			}
 			
@@ -155,7 +155,7 @@ public class WndRanking extends WndTabbed {
 			title.setRect( 0, 0, WIDTH, 0 );
 			add( title );
 
-			if (Dungeon.hero != null && Dungeon.seed != -1){
+			if (Dungeon.hero() && Dungeon.seed != -1){
 				GAP--;
 			}
 			
@@ -244,7 +244,7 @@ public class WndRanking extends WndTabbed {
 
 			int buttontop = HEIGHT - 16;
 
-			if (Dungeon.hero != null && Dungeon.seed != -1 && !Dungeon.daily &&
+			if (Dungeon.hero() && Dungeon.seed != -1 && !Dungeon.daily &&
 					(算法.isDebug() || Badges.isUnlocked(Badges.Badge.VICTORY))){
 				final Image icon = Icons.get(Icons.SEED);
 				RedButton btnSeed = new RedButton(Messages.get(this, "copy_seed")){

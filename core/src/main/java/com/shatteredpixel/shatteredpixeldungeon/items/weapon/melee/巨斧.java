@@ -20,21 +20,20 @@ public class 巨斧 extends MeleeWeapon {
 	{
 		image = 物品表.巨斧;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		
+		命中=0.6f;
+		间隔=1.6f;
+		伤害=2;
 
 		tier = 5;
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  5*(tier+4) +    //45 base, up from 30
-				lvl*(tier+1);   //scaling unchanged
 	}
 
 	@Override
 	public int 力量(int lvl) {
 		int req = 力量(tier+1, lvl); //20 base strength req, up from 18
 		if (masteryPotionBonus){
+			req -= 2;
+		}
+		if (神力){
 			req -= 2;
 		}
 		return req;

@@ -50,7 +50,7 @@ public class WandOfPrismaticLight extends DamageWand {
 	public void onZap(Ballistica beam) {
 		affectMap(beam);
 		
-		if (Dungeon.level.viewDistance < 6 ){
+		if (Dungeon.level.视野范围<6 ){
 			if (Dungeon.isChallenged(Challenges.DARKNESS)){
 				Buff.延长( curUser, Light.class, 2f + 强化等级());
 			} else {

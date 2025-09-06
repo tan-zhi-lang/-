@@ -78,7 +78,7 @@ public class SnipersMark extends FlavourBuff implements ActionIndicator.Action {
 		switch (bow.augment){
 			case NONE: default:
 				return Messages.get(this, "action_name_snapshot");
-			case SPEED:
+			case DELAY:
 				return Messages.get(this, "action_name_volley");
 			case DAMAGE:
 				return Messages.get(this, "action_name_sniper");

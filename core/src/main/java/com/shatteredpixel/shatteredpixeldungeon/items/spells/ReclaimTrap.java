@@ -93,7 +93,7 @@ public class ReclaimTrap extends TargetedSpell {
 		String desc = super.desc();
 		if (storedTrap != null){
 			desc += "\n\n" + Messages.get(this, "desc_trap", Messages.get(storedTrap, "name"));
-		} else if (Dungeon.hero != null && Dungeon.hero.belongings.contains(this) && Dungeon.hero.buff(ReclaimedTrap.class) != null){
+		} else if (Dungeon.hero() && Dungeon.hero.belongings.contains(this) && Dungeon.hero.buff(ReclaimedTrap.class) != null){
 			desc += "\n\n" + Messages.get(this, "desc_trap", Messages.get(Dungeon.hero.buff(ReclaimedTrap.class).trap, "name"));
 		}
 		return desc;
@@ -115,7 +115,7 @@ public class ReclaimTrap extends TargetedSpell {
 	public ItemSprite.Glowing glowing() {
 		if (storedTrap != null){
 			return COLORS[Reflection.newInstance(storedTrap).color];
-		} else if (Dungeon.hero != null && Dungeon.hero.belongings.contains(this) && Dungeon.hero.buff(ReclaimedTrap.class) != null){
+		} else if (Dungeon.hero() && Dungeon.hero.belongings.contains(this) && Dungeon.hero.buff(ReclaimedTrap.class) != null){
 			return COLORS[Reflection.newInstance(Dungeon.hero.buff(ReclaimedTrap.class).trap).color];
 		}
 		return null;

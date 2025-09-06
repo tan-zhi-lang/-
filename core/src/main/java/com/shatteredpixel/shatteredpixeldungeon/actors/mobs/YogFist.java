@@ -48,8 +48,8 @@ public abstract class YogFist extends Mob {
 	{
 		生命 = 最大生命 = 300;
 		defenseSkill = 20;
-
-		viewDistance = Light.DISTANCE;
+		
+		viewDistance = 6;
 
 		//for doomed resistance
 		经验 = 25;

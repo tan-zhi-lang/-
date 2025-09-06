@@ -10,23 +10,15 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 爪 extends MeleeWeapon {
 
 	{
-		image = 物品表.HAND_AXE;
+		image = 物品表.爪;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.3f;
 		拳套=true;
-		间隔= 0.25f;
+		最小 = 1;
+		命中=1.3f;
+		间隔= 0.4f;
+		伤害= 0.3f;
 		tier = 2;
-	}
-
-	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(1.33f*(tier+1) +
-				lvl*(tier+1)*0.26f);
 	}
 
 	@Override

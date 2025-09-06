@@ -1064,7 +1064,7 @@ public class WndJournal extends WndTabbed {
 		@Override
 		protected void createChildren() {
 
-			if (Dungeon.hero != null) {
+			if (Dungeon.hero()) {
 				btnLocal = new RedButton(Messages.get(this, "this_run")) {
 					@Override
 					protected void onClick() {

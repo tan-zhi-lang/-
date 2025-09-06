@@ -13,18 +13,13 @@ public class Glaive extends MeleeWeapon {
 		image = 物品表.GLAIVE;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 0.8f;
-
+		
+		命中=0.8f;
+		间隔=1.3f;
+		伤害=1.3f;
 		tier = 5;
-		间隔= 1.5f; //0.67x speed
 		范围 = 2;    //extra reach
 	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(6.67f*(tier+1)) +    //40 base, up from 30
-				lvl*Math.round(1.33f*(tier+1)); //+8 per level, up from +6
-	}
-
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");

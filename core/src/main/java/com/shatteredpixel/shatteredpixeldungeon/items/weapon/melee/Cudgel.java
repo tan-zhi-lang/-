@@ -3,9 +3,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.watabou.utils.Random;
 
 public class Cudgel extends MeleeWeapon {
 
@@ -15,17 +19,18 @@ public class Cudgel extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 
 		tier = 1;
-		命中 = 1.40f; //40% boost to accuracy
-
+		间隔=1.2f;
+		伤害=0.6f;
 		bones = false;
 	}
-
+	
 	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1);   //scaling unchanged
+	public int 攻击时(Char attacker,Char defender,int damage) {
+		if(Random.Int(2)==0){
+			Buff.延长(defender,Vertigo.class,1);
+		}
+		return super.攻击时( attacker, defender, damage );
 	}
-
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");

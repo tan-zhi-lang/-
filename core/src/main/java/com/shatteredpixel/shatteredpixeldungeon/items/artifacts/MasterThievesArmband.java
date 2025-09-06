@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -140,7 +139,7 @@ public class MasterThievesArmband extends Artifact {
 								GLog.w(Messages.get(MasterThievesArmband.class, "no_steal"));
 							} else if (Random.Float() <= lootChance){
 								Item loot = ((Mob) ch).createLoot();
-								if (Challenges.isItemBlocked(loot)){
+								if (loot==null){//Evan没写空的情况
 									GLog.i(Messages.get(MasterThievesArmband.class, "failed_steal"));
 									Buff.施加(ch, StolenTracker.class).setItemStolen(false);
 								} else {

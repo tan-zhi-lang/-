@@ -81,7 +81,7 @@ public class DeathMark extends ArmorAbility {
 
 		if (hero.buff(DoubleMarkTracker.class) != null){
 			hero.buff(DoubleMarkTracker.class).detach();
-		} else if (hero.有天赋(Talent.DOUBLE_MARK)) {
+		} else if (hero.天赋(Talent.DOUBLE_MARK)) {
 			Buff.施加(hero, DoubleMarkTracker.class, 0.01f);
 		}
 
@@ -92,7 +92,7 @@ public class DeathMark extends ArmorAbility {
 			return;
 		}
 
-		if (Dungeon.hero.有天赋(Talent.FEAR_THE_REAPER)) {
+		if (Dungeon.hero.天赋(Talent.FEAR_THE_REAPER)) {
 			if (Dungeon.hero.天赋点数(Talent.FEAR_THE_REAPER) >= 2) {
 				Buff.延长(ch, Terror.class, 5f).object = Dungeon.hero.id();
 			}

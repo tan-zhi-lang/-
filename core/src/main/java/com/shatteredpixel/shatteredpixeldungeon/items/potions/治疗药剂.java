@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -34,6 +35,7 @@ public class 治疗药剂 extends Potion {
 		鉴定();
 		cure( hero );
 		heal( hero );
+		Badges.解锁血鬼();
 	}
 
 	public static void heal( Char ch ){
@@ -42,7 +44,7 @@ public class 治疗药剂 extends Potion {
 		} else {
 			//starts out healing 30 hp, equalizes with hero health total at level 11
 			Healing healing = Buff.施加(ch, Healing.class);
-			healing.setHeal(ch.最大生命(0.9f), 0.2f, 0);
+			healing.setHeal(ch.最大生命(0.9f), 0.3f, 0);
 			healing.applyVialEffect();
 			if (ch == Dungeon.hero){
 				GLog.p( Messages.get(治疗药剂.class, "heal") );

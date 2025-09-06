@@ -56,7 +56,7 @@ public class PrisonBossLevel extends Level {
 		color2 = 0x88924c;
 		
 		//the player should be able to see all of Tengu's arena
-		viewDistance = 12;
+		视野范围= 12;
 	}
 	
 	public enum State {

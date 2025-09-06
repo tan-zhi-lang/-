@@ -68,13 +68,13 @@ public class 再生 extends Buff {
 				if (partialRegen >= 1) {
 					int x =0;
 					if(target instanceof Hero hero){
-						if(hero.有天赋(Talent.孤立无援)&&!hero.视野敌人()){
+						if(hero.天赋(Talent.孤立无援)&&!hero.视野敌人()){
 							x+=hero.天赋生命力(Talent.孤立无援,0.25f);
 						}
 						x+=hero.天赋生命力(Talent.钢铁之盾,0.2f);
 					}
 					target.回血(Math.round(partialRegen+
-							target.生命力(0.15f)+x
+							target.生命力(0.13f)+x
 					));
 					partialRegen -= (int)partialRegen;
 					if (target.满血()) {

@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd巫术;
 import com.watabou.noosa.audio.Sample;
@@ -26,9 +27,6 @@ public class 灵月法杖 extends Wand {
 		image = 物品表.灵月法杖;
 		unique = true;
 		bones = false;
-	}
-	public int initialCharges() {
-		return 2;
 	}
 
 	@Override
@@ -57,6 +55,10 @@ public class 灵月法杖 extends Wand {
 				&& curCharges >= spell.chargeUse(hero)
 				&& spell.canCast(hero);
 	}
+	public void charge( Char owner ) {
+		if (charger == null) charger = new 灵月法杖.Charger();
+		charger.attachTo( owner );
+	}
 	public 巫术 targetingSpell = null;
 
 	private 巫术 quickSpell = null;
@@ -73,6 +75,81 @@ public class 灵月法杖 extends Wand {
 			}
 		}
 	}
+	
+	public class Charger extends Wand.Charger implements ActionIndicator.Action{
+		
+		@Override
+		public boolean attachTo( Char target ) {
+			if (super.attachTo( target )) {
+				//if we're loading in and the hero has partially spent a turn, delay for 1 turn
+				if (target instanceof Hero && Dungeon.hero == null && cooldown() == 0 && target.cooldown() > 0) {
+					spend(TICK);
+				}
+				if (quickSpell != null) ActionIndicator.setAction(this);
+				return true;
+			}
+			return false;
+		}
+		
+		@Override
+		public void detach() {
+			super.detach();
+			ActionIndicator.clearAction(this);
+		}
+		
+		@Override
+		public String actionName() {
+			return quickSpell.name();
+		}
+		
+		@Override
+		public int actionIcon() {
+			return quickSpell.icon()+8;
+		}
+		
+		@Override
+		public int indicatorColor() {
+			return 0x651f66;
+		}
+		
+		public 灵月法杖 灵月法杖(){
+			return 灵月法杖.this;
+		}
+		@Override
+		public void doAction() {
+			if (cursed){
+				GLog.w(Messages.get(灵月法杖.class,"cursed"));
+				return;
+			}
+			
+			if (!canCast(Dungeon.hero, quickSpell)){
+				GLog.w(Messages.get(灵月法杖.class, "fizzles"));
+				return;
+			}
+			
+			if (QuickSlotButton.targetingSlot!=-1&&
+				Dungeon.quickslot.getItem(QuickSlotButton.targetingSlot) == 灵月法杖.this) {
+				targetingSpell = quickSpell;
+				int cell = QuickSlotButton.autoAim(QuickSlotButton.lastTarget, 灵月法杖.this);
+				
+				if (cell != -1){
+					GameScene.handleCell(cell);
+				} else {
+					//couldn't auto-aim, just target the position and hope for the best.
+					GameScene.handleCell( QuickSlotButton.lastTarget.pos );
+				}
+			} else {
+				quickSpell.onCast(灵月法杖.this,Dungeon.hero);
+				
+				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(灵月法杖.this)){
+					targetingSpell = quickSpell;
+					QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(灵月法杖.this));
+				}
+			}
+		}
+	}
+	
+	
 	@Override
 	public void execute(Hero hero, String action ) {
 

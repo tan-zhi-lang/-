@@ -50,9 +50,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CapeOfThorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
@@ -70,8 +69,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -82,7 +79,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -98,6 +96,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.矛盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.碧蓝巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.简易弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.臂铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血姬;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
@@ -112,10 +111,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞�
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Random;
@@ -181,13 +182,15 @@ public enum HeroClass{
 			new 嬗变卷轴().数量(x).放背包();
 			new 祛邪卷轴().数量(x).放背包();
 			
+			new WandOfCorrosion().放背包();
+			new MasterThievesArmband().放背包();
 			new TengusMask().放背包();
-			new AlchemistsToolkit().放背包();
-			new 奥术之戒().放背包();
-			new 能量之戒().放背包();
-			new 手枪().放背包();
-			new TrinketCatalyst().放背包();
-			new CapeOfThorns().放背包();
+//			new AlchemistsToolkit().放背包();
+//			new 奥术之戒().放背包();
+//			new 能量之戒().放背包();
+//			new 手枪().放背包();
+//			new TrinketCatalyst().放背包();
+//			new CapeOfThorns().放背包();
 			new Amulet().放背包();
 			
 			for (Item item : Dungeon.hero.belongings){
@@ -196,7 +199,9 @@ public enum HeroClass{
 		}
 		
 		算法.种子();
-		
+		if(Holiday.getCurrentHoliday()==Holiday.国庆){
+			new 中国国旗().放背包();
+		}
 		new 绒布袋().放背包();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();
 		
@@ -362,6 +367,7 @@ public enum HeroClass{
 		Item i=new 风衣().鉴定();
 			hero.belongings.armor=(风衣)i;
 		
+		new 英雄断剑().放背包();
 		new Torch().放背包();
 		
 		(hero.belongings.weapon=new 双刃()).鉴定();
@@ -494,7 +500,7 @@ public enum HeroClass{
 	private static void 初始机器(Hero hero){
 		
 		修理扳手 y=new 修理扳手();
-		y.鉴定().数量(3).放背包();
+		y.鉴定().数量(2).放背包();
 		Dungeon.quickslot.setSlot(0,y);
 		
 	}
@@ -502,7 +508,7 @@ public enum HeroClass{
 	private static void 初始女忍(Hero hero){
 		
 		金玫苦无 y=new 金玫苦无();
-		y.鉴定().数量(3).放背包();
+		y.鉴定().数量(5).放背包();
 		Dungeon.quickslot.setSlot(0,y);
 		(hero.belongings.armor=new 忍服()).鉴定();
 	}
@@ -550,7 +556,7 @@ public enum HeroClass{
 	private static void 初始血鬼(Hero hero){
 		
 		吸血飞刀 y=new 吸血飞刀();
-		y.鉴定().数量(3).放背包();
+		y.鉴定().放背包();
 		Dungeon.quickslot.setSlot(0,y);
 	}
 	
@@ -559,6 +565,7 @@ public enum HeroClass{
 		手枪 x=new 手枪();
 		(hero.belongings.weapon=x).鉴定();
 		hero.belongings.weapon.activate(hero);
+		new 手枪子弹().数量(70).放背包();
 		
 		Dungeon.quickslot.setSlot(0,x);
 	}
@@ -691,6 +698,38 @@ public enum HeroClass{
 				return Badges.isUnlocked(Badges.Badge.解锁巫女);
 			case 重武:
 				return Badges.isUnlocked(Badges.Badge.解锁重武);
+			case 镜魔:
+				return Badges.isUnlocked(Badges.Badge.解锁镜魔);
+			case 道士:
+				return Badges.isUnlocked(Badges.Badge.解锁道士);
+			case 行僧:
+				return Badges.isUnlocked(Badges.Badge.解锁行僧);
+			case 近卫:
+				return Badges.isUnlocked(Badges.Badge.解锁近卫);
+			case 兽灵:
+				return Badges.isUnlocked(Badges.Badge.解锁兽灵);
+			case 机器:
+				return Badges.isUnlocked(Badges.Badge.解锁机器);
+			case 女忍:
+				return Badges.isUnlocked(Badges.Badge.解锁女忍);
+			case 戒老:
+				return Badges.isUnlocked(Badges.Badge.解锁戒老);
+			case 逐姝:
+				return Badges.isUnlocked(Badges.Badge.解锁逐姝);
+			case 罗兰:
+				return Badges.isUnlocked(Badges.Badge.解锁罗兰);
+			case 学士:
+				return Badges.isUnlocked(Badges.Badge.解锁学士);
+			case 灵猫:
+				return Badges.isUnlocked(Badges.Badge.解锁灵猫);
+			case 鼠弟:
+				return Badges.isUnlocked(Badges.Badge.解锁鼠弟);
+			case 凌云:
+				return Badges.isUnlocked(Badges.Badge.解锁凌云);
+			case 血鬼:
+				return Badges.isUnlocked(Badges.Badge.解锁血鬼);
+			case 枪手:
+				return Badges.isUnlocked(Badges.Badge.解锁枪手);
 		}
 	}
 	

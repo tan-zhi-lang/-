@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bee;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -30,7 +29,6 @@ public class ElixirOfHoneyedHealing extends Elixir {
 		治疗药剂.heal(hero);
 		Buff.施加(hero, Hunger.class).吃饭(Hunger.HUNGRY/2f);
 		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(Hunger.HUNGRY/2f)), FloatingText.HUNGER);
-		Talent.吃饭时(hero, Hunger.HUNGRY/2f, this);
 	}
 	
 	@Override

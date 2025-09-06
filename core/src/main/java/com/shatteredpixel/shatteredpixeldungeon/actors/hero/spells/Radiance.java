@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -37,7 +36,7 @@ public class Radiance extends ClericSpell {
 		GameScene.flash( 0x80FFFFFF );
 		Sample.INSTANCE.play(Assets.Sounds.BLAST);
 
-		if (Dungeon.level.viewDistance < 6 ){
+		if (Dungeon.level.视野范围<6 ){
 			Buff.延长(hero, Light.class, Dungeon.isChallenged(Challenges.DARKNESS) ? 20 : 100);
 		}
 

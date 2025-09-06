@@ -26,20 +26,11 @@ public class Ankh extends Item {
 		//I'm not sure if that's enthusiasm or passive-aggression.
 		黄色 = true;
 		bones = true;
+		物品 = true;
 	}
 
 	private boolean blessed = false;
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
-
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions(hero);
@@ -70,6 +61,14 @@ public class Ankh extends Item {
 				hero.sprite.operate( hero.pos );
 			}
 		}
+	}
+	
+	@Override
+	public String name(){
+		if (blessed)
+			return "祝福"+super.name();
+		else
+			return super.name();
 	}
 	
 	@Override

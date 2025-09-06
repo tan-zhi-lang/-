@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
@@ -79,7 +78,7 @@ public class 破损纹章 extends Item {
 	}
 
 	public int maxShield( int armTier, int armLvl ){
-		return 1 + armTier+armLvl + Dungeon.hero.天赋生命力(Talent.钢铁意志,0.6f);
+		return 1 + armTier+armLvl + Dungeon.hero.天赋生命力(Talent.钢铁意志,0.7f);
 	}
 
 	@Override
@@ -352,7 +351,7 @@ public class 破损纹章 extends Item {
 
 		public synchronized int maxShield() {
 			//metamorphed iron will logic
-			if (target instanceof Hero hero&&hero.heroClass != HeroClass.WARRIOR && hero.有天赋(Talent.钢铁意志)){
+			if (target instanceof Hero hero&&hero.heroClass != HeroClass.WARRIOR && hero.天赋(Talent.钢铁意志)){
 				return 1+hero.天赋生命力(Talent.钢铁意志,0.8f);
 			}
 

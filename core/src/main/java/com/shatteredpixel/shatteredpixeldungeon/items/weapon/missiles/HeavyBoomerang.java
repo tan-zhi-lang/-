@@ -21,17 +21,13 @@ public class HeavyBoomerang extends MissileWeapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
 		
+		命中=0.7f;
+		间隔=1.5f;
+		伤害=1.6f;
 		tier = 4;
 		sticky = false;
 		baseUses = 5;
 	}
-	
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4 * tier +                  //16 base, down from 20
-				(tier) * lvl;               //scaling unchanged
-	}
-
 	boolean circleBackhit = false;
 
 	@Override

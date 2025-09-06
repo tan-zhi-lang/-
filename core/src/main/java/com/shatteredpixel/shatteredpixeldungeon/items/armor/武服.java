@@ -22,11 +22,14 @@ public class 武服 extends Armor {
 			return tier+1;
 		}
 
-		int max = 最大防御(lvl);
-		if (lvl >= max){
-			return (lvl - max)+tier+1;
-		} else {
-			return lvl+tier+1;
-		}
+		return lvl+tier+1;
+	}
+	@Override
+	public int 金币() {
+		return Math.round(super.金币()*1.34f);
+	}
+	@Override
+	public int 能量() {
+		return Math.round(super.能量()*1.34f);
 	}
 }

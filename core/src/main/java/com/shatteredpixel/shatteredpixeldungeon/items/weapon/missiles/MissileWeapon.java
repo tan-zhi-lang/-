@@ -79,7 +79,7 @@ abstract public class MissileWeapon extends Weapon {
 	
 	@Override
 	public int 最小攻击() {
-		if (Dungeon.hero != null){
+		if (Dungeon.hero()){
 			return Math.max(0, 最小攻击(强化等级() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero)));
 		} else {
 			return Math.max(0 , 最小攻击( 强化等级() ));
@@ -88,13 +88,12 @@ abstract public class MissileWeapon extends Weapon {
 	
 	@Override
 	public int 最小攻击(int lvl) {
-		return  2 * tier +                      //base
-				lvl;                            //level scaling
+		return Math.round(最小+(2*tier+lvl)*伤害);
 	}
 	
 	@Override
 	public int 最大攻击() {
-		if (Dungeon.hero != null){
+		if (Dungeon.hero()){
 			return Math.max(0, 最大攻击( 强化等级() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero) ));
 		} else {
 			return Math.max(0 , 最大攻击( 强化等级() ));
@@ -103,13 +102,15 @@ abstract public class MissileWeapon extends Weapon {
 	
 	@Override
 	public int 最大攻击(int lvl) {
-		return  5 * tier +                      //base
-				tier*lvl;                       //level scaling
+		return Math.round(最大+(5 * tier +tier*lvl )*伤害);
 	}
 	
 	public int 力量(int lvl){
 		int req = 力量(tier, lvl) - 1; //1 less str than normal for their tier
 		if (masteryPotionBonus){
+			req -= 2;
+		}
+		if (神力){
 			req -= 2;
 		}
 		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.15f);
@@ -211,9 +212,9 @@ abstract public class MissileWeapon extends Weapon {
 			}
 		} else {
 			if (owner instanceof Hero){
-				return 0.67f;
+				return 0.75f;
 			} else {
-				return 0.67f;
+				return 0.75f;
 			}
 		}
 	}
@@ -257,7 +258,7 @@ abstract public class MissileWeapon extends Weapon {
 			parent = null;
 
 			//metamorphed seer shot logic
-			if (curUser.有天赋(Talent.SEER_SHOT)
+			if (curUser.天赋(Talent.SEER_SHOT)
 					&& curUser.heroClass != HeroClass.HUNTRESS
 					&& curUser.buff(Talent.SeerShotCooldown.class) == null){
 				if (Actor.findChar(cell) == null) {
@@ -430,7 +431,7 @@ abstract public class MissileWeapon extends Weapon {
 		float usages = baseUses * (float)(Math.pow(1.5f, level));
 
 		//+33%/50% durability
-		if (Dungeon.hero != null && Dungeon.hero.有天赋(Talent.DURABLE_PROJECTILES)){
+		if (Dungeon.hero() && Dungeon.hero.天赋(Talent.DURABLE_PROJECTILES)){
 			usages *= 1f + Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES,0.33f)+0.01f;
 		}
 		if (holster) {
@@ -438,9 +439,9 @@ abstract public class MissileWeapon extends Weapon {
 		}
 
 		//+50% durability on speed aug, -33% durability on damage aug
-		usages /= augment.delayFactor(1f);
+//		usages /= augment.delayFactor(1f);
 
-		if (Dungeon.hero != null) usages *= RingOfSharpshooting.durabilityMultiplier( Dungeon.hero );
+		if (Dungeon.hero()) usages *= RingOfSharpshooting.durabilityMultiplier( Dungeon.hero );
 
 		//at 100 uses, items just last forever.
 		if (usages >= 100f) return 0;
@@ -487,10 +488,16 @@ abstract public class MissileWeapon extends Weapon {
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
 		
-		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).力量() - 力量();
-			if (exStr > 0) {
-				damage += Hero.heroDamageIntRange( 0, exStr );
+		if (owner instanceof Hero hero) {
+			int exStr = hero.力量() - 力量();
+			if (hero.heroClass(HeroClass.WARRIOR)) {
+				if (exStr > 0) {
+					damage += exStr;
+				}
+			}else{
+				if (exStr > 0) {
+					damage += Hero.heroDamageIntRange( 0, exStr );
+				}
 			}
 			if (owner.buff(Momentum.class) != null && owner.buff(Momentum.class).freerunning()) {
 				damage = Math.round(damage * (1f + ((Hero) owner).天赋点数(Talent.PROJECTILE_MOMENTUM,0.1f)));
@@ -526,6 +533,7 @@ abstract public class MissileWeapon extends Weapon {
 			}
 
 			masteryPotionBonus = masteryPotionBonus || ((MissileWeapon) other).masteryPotionBonus;
+			神力 = 神力 || ((MissileWeapon) other).神力;
 			levelKnown = levelKnown || other.levelKnown;
 			cursedKnown = cursedKnown || other.cursedKnown;
 			enchantHardened = enchantHardened || ((MissileWeapon) other).enchantHardened;
@@ -601,7 +609,7 @@ abstract public class MissileWeapon extends Weapon {
 
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_known", tier, augment.damageFactor(最小攻击()), augment.damageFactor(最大攻击()), 力量());
-			if (Dungeon.hero != null) {
+			if (Dungeon.hero()) {
 				if (力量() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
 				} else if (Dungeon.hero.力量() > 力量()) {
@@ -610,7 +618,7 @@ abstract public class MissileWeapon extends Weapon {
 			}
 		} else {
 			info += "\n\n" + Messages.get(MissileWeapon.class, "stats_unknown", tier, 最小攻击(0), 最大攻击(0), 力量(0));
-			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
+			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MissileWeapon.class, "probably_too_heavy");
 			}
 		}
@@ -630,13 +638,17 @@ abstract public class MissileWeapon extends Weapon {
 		}
 
 		info += "\n\n";
-		String statsInfo = Messages.get(this, "stats_desc",命中,间隔,
-									Math.round(伏击率*100));
+		String statsInfo;
+		if (已鉴定()){
+			statsInfo= Messages.get(this, "stats_desc",命中,间隔,伤害,(!伏击?"":"，伏击率是"+Math.round(伏击率*100)+"%"));
+		} else {
+			statsInfo= Messages.get(this, "stats_desc",命中,间隔,伤害,(!伏击?"":"，伏击率是"+Math.round(伏击率*100)+"%"));
+		}
 		if (!statsInfo.equals("")) info += statsInfo + " ";
 		info += Messages.get(MissileWeapon.class, "distance");
 
 		switch (augment) {
-			case SPEED:
+			case DELAY:
 				info += " " + Messages.get(Weapon.class, "faster");
 				break;
 			case DAMAGE:

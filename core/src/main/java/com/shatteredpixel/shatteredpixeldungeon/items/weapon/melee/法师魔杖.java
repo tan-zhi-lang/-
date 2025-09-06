@@ -57,6 +57,8 @@ public class 法师魔杖 extends MeleeWeapon {
 		hitSoundPitch = 1.1f;
 
 		tier = 1;
+		间隔=1.2f;
+		伤害=0.6f;
 
 		defaultAction = AC_ZAP;
 		usesTargeting = true;
@@ -68,25 +70,23 @@ public class 法师魔杖 extends MeleeWeapon {
 	public 法师魔杖() {
 		wand = null;
 	}
-
-	@Override
-	public int 强化等级(){
-		//only the hero can be affected by Degradation
-		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
-				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
-			return Degrade.reduceLevel(等级())+
-					(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0)
-					+Dungeon.hero.天赋点数(Talent.高级法杖);
-		} else {
-			return 等级()+
-			(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0)
-					+Dungeon.hero.天赋点数(Talent.高级法杖);
-		}
+	public int 转移=0;
+	public int 最大转移(){
+		return 2+(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.高级魔杖):0);
 	}
 	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(3f*(tier+1)) +   //6 base damage, down from 10
-				lvl*(tier+1);               //scaling unaffected
+	public int 强化等级(){
+		int l=转移;
+		if(Dungeon.hero()){
+			l+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
+		}
+		//only the hero can be affected by Degradation
+		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
+				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
+			return Degrade.reduceLevel(等级()+l);
+		} else {
+			return 等级()+l;
+		}
 	}
 
 	public 法师魔杖(Wand wand){
@@ -161,7 +161,7 @@ public class 法师魔杖 extends MeleeWeapon {
 
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage) {
-		if (attacker instanceof Hero && ((Hero) attacker).有天赋(Talent.MYSTICAL_CHARGE)){
+		if (attacker instanceof Hero && ((Hero) attacker).天赋(Talent.MYSTICAL_CHARGE)){
 			Hero hero = (Hero) attacker;
 			ArtifactRecharge.chargeArtifacts(hero, hero.天赋点数(Talent.MYSTICAL_CHARGE,0.5f));
 		}
@@ -221,16 +221,20 @@ public class 法师魔杖 extends MeleeWeapon {
 
 		if (owner == Dungeon.hero){
 			Talent.WandPreservationCounter counter = Buff.施加(Dungeon.hero, Talent.WandPreservationCounter.class);
-			if (counter.count() == 0){
-				counter.countUp(1);
-				升级(Math.round(this.wand.等级()/2f));
-				this.wand.等级(0);
+//			if (counter.count() == 0){
+//				counter.countUp(1);
+				
+				int 转移量 = 最大转移()- 转移;
+				if(转移量>0&&this.wand.等级()>0){
+					this.wand.等级(this.wand.等级()-转移量);
+					转移+=转移量;
+				}
 				if (!this.wand.放背包()) {
 					Dungeon.level.drop(this.wand, owner.pos);
 				}
 				GLog.newLine();
 				GLog.p(Messages.get(this, "preserved"));
-			}
+//			}
 		}
 
 		this.wand = null;
@@ -318,8 +322,13 @@ public class 法师魔杖 extends MeleeWeapon {
 		if (wand != null) {
 			int curCharges = wand.curCharges;
 			wand.等级(等级());
+			int max=0;
+			if(curUser!=null){
+				if(curUser.heroSubClass(HeroSubClass.BATTLEMAGE))max++;
+				 max+=curUser.天赋点数(Talent.DESPERATE_POWER);
+			}
 			//gives the wand one additional max charge
-			wand.maxCharges = Math.min(wand.maxCharges + 2, 10+(curUser==null?0:curUser.天赋点数(Talent.DESPERATE_POWER)));
+			wand.maxCharges = Math.min(wand.maxCharges + 1, 10+max);
 			wand.curCharges = Math.min(curCharges + (curUser!=null&&curUser.heroClass(HeroClass.MAGE)?1:0), wand.maxCharges);
 			updateQuickslot();
 		}
@@ -370,11 +379,13 @@ public class 法师魔杖 extends MeleeWeapon {
 
 	private static final String WAND = "wand";
 	private static final String MAXCHARGES = "maxCharges";
+	private static final String 转移x = "转移";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(WAND, wand);
+		bundle.put(转移x, 转移);
 		if (wand != null) {
 			bundle.put(MAXCHARGES, wand.maxCharges);
 		}
@@ -384,6 +395,7 @@ public class 法师魔杖 extends MeleeWeapon {
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		wand = (Wand) bundle.get(WAND);
+		转移 = bundle.getInt(转移x);
 		if (wand != null) {
 			wand.maxCharges = bundle.getInt(MAXCHARGES);
 		}
@@ -447,7 +459,7 @@ public class 法师魔杖 extends MeleeWeapon {
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_cursed");
 					}
 
-					if (Dungeon.hero.有天赋(Talent.高级法杖)
+					if (Dungeon.hero.天赋(Talent.高级魔杖)
 						&& Dungeon.hero.buff(Talent.WandPreservationCounter.class) == null){
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_talent");
 					} else {

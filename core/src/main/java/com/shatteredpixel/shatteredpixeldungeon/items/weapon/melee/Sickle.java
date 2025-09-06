@@ -25,13 +25,8 @@ public class Sickle extends MeleeWeapon {
 		
 
 		tier = 2;
-		命中 = 0.68f; //32% penalty to accuracy
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(6.67f*(tier+1)) +    //20 base, up from 15
-				lvl*(tier+1);                   //scaling unchanged
+		命中=1.1f;
+		间隔=0.9f;
 	}
 
 	@Override

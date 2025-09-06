@@ -12,15 +12,7 @@ public class DwarfToken extends Item {
 		
 		stackable = true;
 		unique = true;
+		物品 = true;
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 }

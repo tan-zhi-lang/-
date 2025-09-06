@@ -56,7 +56,7 @@ public class SmokeBomb extends ArmorAbility {
 
 	@Override
 	public float chargeUse(Hero hero) {
-		if (!hero.有天赋(Talent.SHADOW_STEP) || hero.invisible <= 0){
+		if (!hero.天赋(Talent.SHADOW_STEP)||hero.invisible<=0){
 			return super.chargeUse(hero);
 		} else {
 			//reduced charge use by 16%/30%/41%/50%
@@ -86,7 +86,7 @@ public class SmokeBomb extends ArmorAbility {
 			armor.charge -= chargeUse(hero);
 			Item.updateQuickslot();
 
-			boolean shadowStepping = hero.invisible > 0 && hero.有天赋(Talent.SHADOW_STEP);
+			boolean shadowStepping = hero.invisible > 0 && hero.天赋(Talent.SHADOW_STEP);
 
 			if (!shadowStepping) {
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
@@ -97,7 +97,7 @@ public class SmokeBomb extends ArmorAbility {
 					}
 				}
 
-				if (hero.有天赋(Talent.BODY_REPLACEMENT)) {
+				if (hero.天赋(Talent.BODY_REPLACEMENT)) {
 					for (Char ch : Actor.chars()){
 						if (ch instanceof NinjaLog){
 							ch.死亡时(null);
@@ -110,7 +110,7 @@ public class SmokeBomb extends ArmorAbility {
 					Dungeon.level.occupyCell(n);
 				}
 
-				if (hero.有天赋(Talent.HASTY_RETREAT)){
+				if (hero.天赋(Talent.HASTY_RETREAT)){
 					//effectively 1/2/3/4 turns
 					float duration = 0.67f + hero.天赋点数(Talent.HASTY_RETREAT);
 					Buff.施加(hero, 极速.class, duration);
@@ -154,7 +154,7 @@ public class SmokeBomb extends ArmorAbility {
 			alignment = Alignment.ALLY;
 
 			最大生命 = 20;
-			if (Dungeon.hero != null) 最大生命 *= Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT);
+			if (Dungeon.hero()) 最大生命 *= Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT);
 			生命 = 最大生命;
 		}
 

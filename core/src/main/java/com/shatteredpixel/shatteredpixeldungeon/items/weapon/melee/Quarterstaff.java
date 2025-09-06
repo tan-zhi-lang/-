@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -17,7 +16,10 @@ public class Quarterstaff extends MeleeWeapon {
 		image = 物品表.QUARTERSTAFF;
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
-
+		
+		命中=0.9f;
+		间隔= 1.1f;
+		伤害= 1.2f;
 		tier = 2;
 	}
 

@@ -79,13 +79,13 @@ public class HeroicLeap extends ArmorAbility {
 					for (int i : PathFinder.NEIGHBOURS8) {
 						Char mob = Actor.findChar(hero.pos + i);
 						if (mob != null && mob != hero && mob.alignment != Char.Alignment.ALLY) {
-							if (hero.有天赋(Talent.BODY_SLAM)){
+							if (hero.天赋(Talent.BODY_SLAM)){
 								int damage = Hero.heroDamageIntRange(hero.天赋点数(Talent.BODY_SLAM), 4*hero.天赋点数(Talent.BODY_SLAM));
 								damage += Math.round(hero.防御()*0.25f*hero.天赋点数(Talent.BODY_SLAM));
 								damage -= mob.防御();
 								mob.受伤时(damage, hero);
 							}
-							if (mob.pos == hero.pos + i && hero.有天赋(Talent.IMPACT_WAVE)){
+							if (mob.pos == hero.pos + i && hero.天赋(Talent.IMPACT_WAVE)){
 								Ballistica trajectory = new Ballistica(mob.pos, mob.pos + i, Ballistica.MAGIC_BOLT);
 								int strength = 1+hero.天赋点数(Talent.IMPACT_WAVE);
 								WandOfBlastWave.throwChar(mob, trajectory, strength, true, true, HeroicLeap.this);
@@ -105,7 +105,7 @@ public class HeroicLeap extends ArmorAbility {
 					if (hero.buff(DoubleJumpTracker.class) != null){
 						hero.buff(DoubleJumpTracker.class).detach();
 					} else {
-						if (hero.有天赋(Talent.DOUBLE_JUMP)) {
+						if (hero.天赋(Talent.DOUBLE_JUMP)) {
 							Buff.施加(hero, DoubleJumpTracker.class, 3);
 						}
 					}

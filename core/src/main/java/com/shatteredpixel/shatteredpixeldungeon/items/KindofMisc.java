@@ -86,7 +86,7 @@ public abstract class KindofMisc extends EquipableItem {
 		} else {
 
 			// 15/25% chance
-			if (hero.heroClass != HeroClass.CLERIC && hero.有天赋(Talent.HOLY_INTUITION)
+			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.HOLY_INTUITION)
 					&& cursed && !cursedKnown
 					&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
 				cursedKnown = true;

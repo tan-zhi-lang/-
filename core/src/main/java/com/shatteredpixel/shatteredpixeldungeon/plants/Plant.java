@@ -46,9 +46,9 @@ public abstract class Plant implements Bundlable {
 			((Hero) ch).interrupt();
 		}
 
-		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.有天赋(Talent.NATURES_AID)){
+		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.天赋(Talent.NATURES_AID)){
 			// 3/5 turns based on talent points spent
-			Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.天赋生命力(Talent.NATURES_AID,0.3f),2);
+			Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.天赋生命力(Talent.NATURES_AID,0.4f),2);
 		}
 
 		wither();
@@ -102,7 +102,7 @@ public abstract class Plant implements Bundlable {
 
 	public String desc() {
 		String desc = Messages.get(this, "desc");
-		if (Dungeon.hero != null && Dungeon.hero.subClass == HeroSubClass.WARDEN){
+		if (Dungeon.hero() && Dungeon.hero.subClass == HeroSubClass.WARDEN){
 			desc += "\n\n" + Messages.get(this, "warden_desc");
 		}
 		return desc;
@@ -200,7 +200,7 @@ public abstract class Plant implements Bundlable {
 		@Override
 		public String desc() {
 			String desc = Messages.get(plantClass, "desc");
-			if (Dungeon.hero != null && Dungeon.hero.subClass == HeroSubClass.WARDEN){
+			if (Dungeon.hero() && Dungeon.hero.subClass == HeroSubClass.WARDEN){
 				desc += "\n\n" + Messages.get(plantClass, "warden_desc");
 			}
 			return desc;

@@ -24,7 +24,7 @@ public class Scorpio extends Mob {
 		
 		生命 = 最大生命 = 110;
 		defenseSkill = 24;
-		viewDistance = Light.DISTANCE;
+		viewDistance = 6;
 		
 		经验 = 14;
 		最大等级 = 27;

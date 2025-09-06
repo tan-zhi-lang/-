@@ -133,6 +133,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
@@ -158,7 +159,10 @@ public abstract class Char extends Actor {
 	public float 大小=1;
 	public boolean 第一次攻击=true;
 	public boolean 第一次防御 =true;
+	public boolean 必中 =false;
+	public boolean 必闪 =false;
 	public float 生命流动 =0;
+	public float 属性增幅 = 0.03f;
 
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
@@ -265,7 +269,7 @@ public abstract class Char extends Actor {
 		}
 
 		//warp instantly with allies in this case
-		if (c == Dungeon.hero && Dungeon.hero.有天赋(Talent.ALLY_WARP)){
+		if (c == Dungeon.hero && Dungeon.hero.天赋(Talent.ALLY_WARP)){
 			PathFinder.buildDistanceMap(c.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
 			if (PathFinder.distance[pos] == Integer.MAX_VALUE){
 				return true;
@@ -415,7 +419,7 @@ public abstract class Char extends Actor {
 			Preparation prep = buff(Preparation.class);
 			if (prep != null){
 				dmg = prep.damageRoll(this);
-				if (this == Dungeon.hero && Dungeon.hero.有天赋(Talent.BOUNTY_HUNTER)) {
+				if (this == Dungeon.hero && Dungeon.hero.天赋(Talent.BOUNTY_HUNTER)) {
 					Buff.施加(Dungeon.hero, Talent.BountyHunterTracker.class, 0.0f);
 				}
 			} else {
@@ -429,7 +433,7 @@ public abstract class Char extends Actor {
 
 			if (enemy.buff(GuidingLight.Illuminated.class) != null){
 				enemy.buff(GuidingLight.Illuminated.class).detach();
-				if (this == Dungeon.hero && Dungeon.hero.有天赋(Talent.SEARING_LIGHT)){
+				if (this == Dungeon.hero && Dungeon.hero.天赋(Talent.SEARING_LIGHT)){
 					dmg += Dungeon.hero.天赋生命力(Talent.SEARING_LIGHT,0.6f);
 				}
 				if (this != Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.PRIEST){
@@ -635,22 +639,32 @@ public abstract class Char extends Actor {
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ) {
 		float acuStat = attacker.最大命中( defender );
 		float defStat = defender.最大闪避( attacker );
+		if(attacker.properties.contains(Property.UNDEAD)&&defender instanceof Hero hero&&hero.belongings.armor() instanceof 道袍){
+			acuStat*=0.7f;
+		}
 		if(Dungeon.玩法(玩法设置.简单战斗)){
 			acuStat=0;
 		}
-		if (defender instanceof Hero && ((Hero) defender).damageInterrupt){
-			((Hero) defender).interrupt();
+		if ( defender instanceof Hero hero&&hero.heroClass(HeroClass.凌云)&&算法.概率学(15)) {
+			acuStat=0;
+		}
+		if (defender instanceof Hero hero&& hero.damageInterrupt){
+			hero.interrupt();
 		}
 		if(defender.properties.contains(Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
 			defStat=0;
 		}
-		if(attacker.properties.contains(Property.UNDEAD)&&defender instanceof Hero hero&&hero.belongings.armor() instanceof 道袍){
-			acuStat/=2;
+		if(attacker.必中){
+			defStat=0;
+			attacker.必中=false;
 		}
-
+		if(defender.必闪){
+			acuStat=0;
+			defender.必闪=false;
+		}
 		//invisible chars always hit (for the hero this is surprise attacking)
 		if (attacker.invisible > 0 && attacker.canSurpriseAttack()){
-			acuStat = INFINITE_ACCURACY;
+			defStat=0;
 		}
 
 		if (defender.buff(MonkEnergy.MonkAbility.Focus.FocusBuff.class) != null){
@@ -659,10 +673,10 @@ public abstract class Char extends Actor {
 
 		//if accuracy or evasion are large enough, treat them as infinite.
 		//note that infinite evasion beats infinite accuracy
-		if (defStat >= INFINITE_EVASION){
+		if (defStat >= INFINITE_EVASION||acuStat==0){
 			hitMissIcon = FloatingText.getMissReasonIcon(attacker, acuStat, defender, INFINITE_EVASION);
 			return false;
-		} else if (acuStat >= INFINITE_ACCURACY){
+		} else if (acuStat >= INFINITE_ACCURACY||defStat==0){
 			hitMissIcon = FloatingText.getHitReasonIcon(attacker, INFINITE_ACCURACY, defender, defStat);
 			return true;
 		}
@@ -676,7 +690,7 @@ public abstract class Char extends Actor {
 		}
 		acuRoll *= AscensionChallenge.statModifier(attacker);
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.BLESS)
+				&& Dungeon.hero.天赋(Talent.BLESS)
 				&& attacker.alignment == Alignment.ALLY){
 			// + 3%/5%
 			acuRoll *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
@@ -692,7 +706,7 @@ public abstract class Char extends Actor {
 		}
 		defRoll *= AscensionChallenge.statModifier(defender);
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.BLESS)
+				&& Dungeon.hero.天赋(Talent.BLESS)
 				&& defender.alignment == Alignment.ALLY){
 			// + 3%/5%
 			defRoll *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
@@ -768,10 +782,10 @@ public abstract class Char extends Actor {
 			damage = Math.max(damage, 0);
 		} else if (this == Dungeon.hero
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.SHIELD_OF_LIGHT)
+				&& Dungeon.hero.天赋(Talent.SHIELD_OF_LIGHT)
 				&& TargetHealthIndicator.instance.target() == enemy){
 			//33/50%
-			if (Dungeon.hero.有天赋(Talent.SHIELD_OF_LIGHT)){
+			if (Dungeon.hero.天赋(Talent.SHIELD_OF_LIGHT)){
 				damage -= Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT);
 			}
 		}
@@ -791,7 +805,7 @@ public abstract class Char extends Actor {
 	//Returns the level a glyph is at for a char, or -1 if they are not benefitting from that glyph
 	//This function is needed as (unlike enchantments) many glyphs trigger in a variety of cases
 	public int glyphLevel(Class<? extends Armor.Glyph> cls){
-		if (Dungeon.hero != null && Dungeon.level != null
+		if (Dungeon.hero() && Dungeon.level != null
 				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment
 				&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 				&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {

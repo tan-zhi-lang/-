@@ -22,17 +22,15 @@ public class ForceCube extends MissileWeapon {
 	{
 		image = 物品表.FORCE_CUBE;
 		
+		命中=0.9f;
+		间隔=1.1f;
+		伤害=1.2f;
 		tier = 5;
 		baseUses = 5;
 		
 		sticky = false;
 	}
 
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4 * tier +                  //20 base, down from 25
-				(tier) * lvl;               //scaling unchanged
-	}
 
 	@Override
 	public void hitSound(float pitch) {

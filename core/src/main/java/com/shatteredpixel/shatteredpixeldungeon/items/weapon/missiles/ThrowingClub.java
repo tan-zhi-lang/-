@@ -15,6 +15,9 @@ public class ThrowingClub extends MissileWeapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		hitSoundPitch = 1.1f;
 		
+		命中=0.9f;
+		间隔=1.1f;
+		伤害=1.2f;
 		tier = 2;
 		baseUses = 12;
 		sticky = false;
@@ -27,7 +30,7 @@ public class ThrowingClub extends MissileWeapon {
 	}
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
-		Buff.延长(defender, Vertigo.class, 2);
+		Buff.延长(defender, Vertigo.class, 1);
 		return super.攻击时( attacker, defender, damage );
 	}
 }

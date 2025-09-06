@@ -73,19 +73,19 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
-		SPEED   (1, 0.66f),
-		DAMAGE  (1.25f, 1),
-		NONE	(1f, 1f);
-//		SPEED   (0.7f, 2/3f),
-//		DAMAGE  (1.5f, 5/3f),
-//		NONE	(1.0f, 1f);
+		DELAY(1,0.8f,1),
+		DAMAGE  (1.1f, 1,1),
+		ACCURACY  (1, 1,1.3f),
+		NONE	(1,1,1);
 
 		private float damageFactor;
 		private float delayFactor;
+		private float accuracyfactor;
 
-		Augment(float dmg, float dly){
+		Augment(float dmg, float dly, float acc){
 			damageFactor = dmg;
 			delayFactor = dly;
+			accuracyfactor = acc;
 		}
 
 		public int damageFactor(int dmg){
@@ -94,6 +94,9 @@ abstract public class Weapon extends KindOfWeapon {
 
 		public float delayFactor(float dly){
 			return dly * delayFactor;
+		}
+		public float accuracyFactor(float acc){
+			return acc * accuracyfactor;
 		}
 	}
 	
@@ -109,6 +112,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean enchantHardened = false;
 	public boolean curseInfusionBonus = false;
 	public boolean masteryPotionBonus = false;
+	public boolean 神力 = false;
 	
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
@@ -171,7 +175,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		if (!levelKnown && attacker == Dungeon.hero) {
-			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(Dungeon.hero, this) );
+			float uses = Math.min( availableUsesToID, Talent.鉴定速度(Dungeon.hero,this));
 			availableUsesToID -= uses;
 			usesLeftToID -= uses;
 			if (usesLeftToID <= 0) {
@@ -192,7 +196,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){
-		levelPercent *= Talent.itemIDSpeedFactor(hero, this);
+		levelPercent *= Talent.鉴定速度(hero,this);
 		if (!levelKnown && (isEquipped(hero) || this instanceof MissileWeapon)
 				&& availableUsesToID <= usesToID()/2f) {
 			//gains enough uses to ID over 0.5 levels
@@ -206,6 +210,7 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final String ENCHANT_HARDENED = "enchant_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
 	private static final String MASTERY_POTION_BONUS = "mastery_potion_bonus";
+	private static final String 神力x = "神力";
 	private static final String AUGMENT	        = "augment";
 
 	@Override
@@ -217,6 +222,7 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( ENCHANT_HARDENED, enchantHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
+		bundle.put( 神力x, 神力 );
 		bundle.put( AUGMENT, augment );
 	}
 	
@@ -229,6 +235,7 @@ abstract public class Weapon extends KindOfWeapon {
 		enchantHardened = bundle.getBoolean( ENCHANT_HARDENED );
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		masteryPotionBonus = bundle.getBoolean( MASTERY_POTION_BONUS );
+		神力 = bundle.getBoolean( 神力x );
 
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
@@ -243,7 +250,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public boolean 放背包(Bag container) {
 		if(super.放背包(container)){
-			if (Dungeon.hero != null && Dungeon.hero.isAlive() && 已鉴定() && enchantment != null){
+			if (Dungeon.hero() && Dungeon.hero.isAlive() && 已鉴定() && enchantment != null){
 				Catalog.setSeen(enchantment.getClass());
 				Statistics.itemTypesDiscovered.add(enchantment.getClass());
 			}
@@ -255,7 +262,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 	@Override
 	public Item 鉴定(boolean byHero) {
-		if (enchantment != null && byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){
+		if (enchantment != null && byHero && Dungeon.hero() && Dungeon.hero.isAlive()){
 			Catalog.setSeen(enchantment.getClass());
 			Statistics.itemTypesDiscovered.add(enchantment.getClass());
 		}
@@ -275,7 +282,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		int encumbrance = 0;
 		
-		if( owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)){
+		if( owner instanceof Hero hero&&!hero.heroClass(HeroClass.DUELIST)){
 			encumbrance = 力量() - hero.力量();
 		}
 
@@ -285,9 +292,9 @@ abstract public class Weapon extends KindOfWeapon {
 			ACC /= 5;
 		}
 		if(encumbrance > 0 )ACC/=Math.pow( 1.5, encumbrance );
-		if(encumbrance < 0 )ACC*=1+Math.sqrt(-encumbrance)/10f;
+		if(encumbrance < 0 )ACC*=1+Math.sqrt(-encumbrance)*owner.属性增幅;
 		
-		return ACC;
+		return augment.accuracyFactor(ACC);
 	}
 	
 	@Override
@@ -299,11 +306,11 @@ abstract public class Weapon extends KindOfWeapon {
 		float delay = augment.delayFactor(this.间隔);
 		if (owner instanceof Hero) {
 			int encumbrance = 力量() - ((Hero)owner).力量();
-			if (encumbrance > 0&&owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)){
+			if (encumbrance > 0&&owner instanceof Hero hero&&!hero.heroClass(HeroClass.DUELIST)){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
-				delay/=1+Math.sqrt(-encumbrance)/10f;
+				delay/=1+Math.sqrt(-encumbrance)*owner.属性增幅;
 			}
 			
 		}
@@ -461,7 +468,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (ench == null || !ench.curse()) curseInfusionBonus = false;
 		enchantment = ench;
 		updateQuickslot();
-		if (ench != null && 已鉴定() && Dungeon.hero != null
+		if (ench != null && 已鉴定() && Dungeon.hero()
 				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
 			Catalog.setSeen(ench.getClass());
 			Statistics.itemTypesDiscovered.add(ench.getClass());

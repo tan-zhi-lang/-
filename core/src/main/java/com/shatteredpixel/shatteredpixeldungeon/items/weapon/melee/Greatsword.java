@@ -14,7 +14,10 @@ public class Greatsword extends MeleeWeapon {
 		image = 物品表.GREATSWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
-
+		
+		命中=0.7f;
+		间隔=1.5f;
+		伤害=1.8f;
 		tier = 5;
 	}
 

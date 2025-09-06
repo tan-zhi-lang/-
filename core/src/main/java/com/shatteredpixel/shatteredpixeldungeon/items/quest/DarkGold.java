@@ -12,18 +12,9 @@ public class DarkGold extends Item {
 		
 		stackable = true;
 		unique = true;
+		物品 = true;
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
-
 	@Override
 	public int 金币() {
 		int price = 25* quantity;

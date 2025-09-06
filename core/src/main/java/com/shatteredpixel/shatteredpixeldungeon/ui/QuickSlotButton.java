@@ -127,7 +127,7 @@ public class QuickSlotButton extends Button {
 				}
 			}
 		};
-		slot.showExtraInfo( false );
+//		slot.showExtraInfo( false );
 		add( slot );
 		
 		crossB = Icons.TARGET.get();

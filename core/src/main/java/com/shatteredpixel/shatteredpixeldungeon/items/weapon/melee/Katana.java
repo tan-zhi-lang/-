@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -14,14 +13,10 @@ public class Katana extends MeleeWeapon {
 		image = 物品表.KATANA;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 1.1f;
-
+		命中=1.1f;
+		间隔=0.9f;
+		伤害=1.1f;
 		tier = 4;
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //20 base, down from 25
-				lvl*(tier+1);   //scaling unchanged
 	}
 	@Override
 	public int 最大防御(int lvl){

@@ -16,6 +16,7 @@ public abstract class Runestone extends Item {
 	{
 		stackable = true;
 		defaultAction = AC_THROW;
+		物品 = true;
 	}
 
 	//anonymous stones don't count as consumed, do not drop, etc.
@@ -46,15 +47,6 @@ public abstract class Runestone extends Item {
 	
 	protected abstract void activate(int cell);
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 	
 	@Override
 	public int 金币() {

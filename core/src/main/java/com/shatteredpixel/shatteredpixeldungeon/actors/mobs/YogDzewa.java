@@ -455,10 +455,10 @@ public class YogDzewa extends Mob {
 		if (Dungeon.isChallenged(Challenges.DARKNESS)) {
 			viewDistance = Math.min(viewDistance, 2);
 		}
-		level.viewDistance = viewDistance;
-		if (Dungeon.hero != null) {
+		level.视野范围= viewDistance;
+		if (Dungeon.hero()) {
 			if (Dungeon.hero.buff(Light.class) == null) {
-				Dungeon.hero.viewDistance = level.viewDistance;
+				Dungeon.hero.viewDistance = level.视野范围;
 			}
 			Dungeon.observe();
 		}
@@ -621,7 +621,7 @@ public class YogDzewa extends Mob {
 
 			生命 = 最大生命 = 20;
 			defenseSkill = 12;
-			viewDistance = Light.DISTANCE;
+			viewDistance = 6;
 
 			经验 = 5;
 			最大等级 = -2;

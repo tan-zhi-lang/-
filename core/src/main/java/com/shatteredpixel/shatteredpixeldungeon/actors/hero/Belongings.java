@@ -27,6 +27,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class Belongings implements Iterable<Item> {
 
@@ -43,7 +44,7 @@ public class Belongings implements Iterable<Item> {
 					cap++;
 				}
 			}
-			if (Dungeon.hero != null && Dungeon.hero.belongings.secondWep != null){
+			if (Dungeon.hero() && Dungeon.hero.belongings.secondWep != null){
 				//secondary weapons still occupy an inv. slot
 				cap--;
 			}
@@ -52,7 +53,34 @@ public class Belongings implements Iterable<Item> {
 	}
 
 	public Backpack backpack;
-	
+	/**
+	 
+	 if(算法.概率学(33)){
+	 LinkedList<Item> items = new LinkedList<>();
+	 for(Item item:belongings){
+	 items.add(item);
+	 }
+	 GLog.p("b"+items);
+	 }
+	 else if(算法.概率学(50)){
+	 LinkedList<Item> items = new LinkedList<>();
+	 for(Item item:belongings.backpack){
+	 items.add(item);
+	 }
+	 GLog.p("bb"+items);
+	 }
+	 else{
+	 LinkedList<Item> items = new LinkedList<>();
+	 for(Item item:belongings.backpack.items){
+	 items.add(item);
+	 }
+	 GLog.p("bbi"+items);
+	 }
+	 
+	 belonings所有物品
+	 belonings.backpack背包物品
+	 belonings.backpack.items主背包物品
+	*/
 	public Belongings( Hero owner ) {
 		this.owner = owner;
 		
@@ -65,6 +93,15 @@ public class Belongings implements Iterable<Item> {
 	public KindofMisc misc = null;
 	public KindofMisc misc2 = null;
 	public KindofMisc misc3 = null;
+	public LinkedList<Item> 装备(){
+		LinkedList<Item> items = new LinkedList<>();
+		items.add(weapon());
+		items.add(armor());
+		items.add(misc());
+		items.add(misc2());
+		items.add(misc3());
+		return items;
+	}
 
 	//used when thrown weapons temporary become the current weapon
 	public KindOfWeapon thrownWeapon = null;
@@ -225,7 +262,7 @@ public class Belongings implements Iterable<Item> {
 
 		boolean lostInvent = lostInventory();
 
-		for (Item item : this.backpack.items) {
+		for (Item item : this) {
 			if (itemClass.isInstance( item )) {
 				if (!lostInvent || item.keptThroughLostInventory()) {
 					return (T) item;
@@ -241,7 +278,7 @@ public class Belongings implements Iterable<Item> {
 
 		boolean lostInvent = lostInventory();
 
-		for (Item item : this.backpack.items) {
+		for (Item item : this) {
 			if (itemClass.isInstance( item )) {
 				if (!lostInvent || item.keptThroughLostInventory()) {
 					result.add((T) item);

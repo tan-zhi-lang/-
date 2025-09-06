@@ -26,21 +26,27 @@ public class 矛盾 extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 0.9f;
 		
-		tier = 2;
-		间隔= 1.5f; //0.67x speed
+		tier = 1;
+		命中= 0.6f;
+		间隔= 1.5f;
+		伤害= 1.8f;
 		范围 = 2;    //extra reach
 		
 		bones = false;
 	}
-
+	
 	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(6.67f*(tier+1)) +    //20 base, up from 15
-				lvl*Math.round(1.33f*(tier+1)); //+4 per level, up from +3
+	public int 力量(int lvl) {
+		int req = 力量(tier, lvl)+1;
+		if (masteryPotionBonus){
+			req -= 2;
+		}
+		if (神力){
+			req -= 2;
+		}
+		return req;
 	}
-	
 	@Override
-	
 	public int 最大防御(int lvl){
 		return 2 + lvl;
 	}

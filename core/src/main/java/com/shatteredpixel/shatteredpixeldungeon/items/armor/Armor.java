@@ -75,27 +75,30 @@ public class Armor extends EquipableItem {
 	protected static final String AC_DETACH       = "DETACH";
 	
 	public enum Augment {
-		EVASION (0.5f , 0),
-		DEFENSE (0, 0.25f),
-		NONE	(0f   ,  0f);
-//		EVASION (2f , -1f),
-//		DEFENSE (-2f, 1f),
-//		NONE	(0f   ,  0f);
+		EVASION (1.3f , 1,1),
+		DEFENSE (1, 1.1f,1),
+		SPEED (1, 1,1.2f),
+		NONE	(1,1,1);
 		
 		private float evasionFactor;
 		private float defenceFactor;
+		private float speedFactor;
 		
-		Augment(float eva, float df){
+		Augment(float eva, float df, float sp){
 			evasionFactor = eva;
 			defenceFactor = df;
+			speedFactor = sp;
 		}
 		
-		public int evasionFactor(int level){
-			return Math.round((2 + level) * evasionFactor);
+		public float evasionFactor(float evasion){
+			return evasion*evasionFactor;
 		}
 		
-		public int defenseFactor(int level){
-			return Math.round((2 + level) * defenceFactor);
+		public int defenseFactor(int defense){
+			return Math.round(defense*defenceFactor);
+		}
+		public float speedFactor(float speed){
+			return speed*speedFactor;
 		}
 	}
 	
@@ -105,6 +108,7 @@ public class Armor extends EquipableItem {
 	public boolean glyphHardened = false;
 	public boolean curseInfusionBonus = false;
 	public boolean masteryPotionBonus = false;
+	public boolean 神力 = false;
 	
 	public 破损纹章 破损纹章;
 	
@@ -124,6 +128,7 @@ public class Armor extends EquipableItem {
 	private static final String GLYPH_HARDENED	= "glyph_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
 	private static final String MASTERY_POTION_BONUS = "mastery_potion_bonus";
+	private static final String 神力x = "神力";
 	private static final String 破损纹章x = "破损纹章";
 	private static final String AUGMENT			= "augment";
 
@@ -136,6 +141,7 @@ public class Armor extends EquipableItem {
 		bundle.put( GLYPH_HARDENED, glyphHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
+		bundle.put( 神力x, 神力 );
 		bundle.put(破损纹章x, 破损纹章);
 		bundle.put( AUGMENT, augment);
 	}
@@ -149,6 +155,7 @@ public class Armor extends EquipableItem {
 		glyphHardened = bundle.getBoolean(GLYPH_HARDENED);
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		masteryPotionBonus = bundle.getBoolean( MASTERY_POTION_BONUS );
+		神力 = bundle.getBoolean( 神力x );
 		破损纹章 = (破损纹章)bundle.get(破损纹章x);
 		
 		augment = bundle.getEnum(AUGMENT, Augment.class);
@@ -200,7 +207,7 @@ public class Armor extends EquipableItem {
 	@Override
 	public boolean 放背包(Bag container) {
 		if(super.放背包(container)){
-			if (Dungeon.hero != null && Dungeon.hero.isAlive() && 已鉴定() && glyph != null){
+			if (Dungeon.hero() && Dungeon.hero.isAlive() && 已鉴定() && glyph != null){
 				Catalog.setSeen(glyph.getClass());
 				Statistics.itemTypesDiscovered.add(glyph.getClass());
 			}
@@ -212,7 +219,7 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public Item 鉴定(boolean byHero) {
-		if (glyph != null && byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){
+		if (glyph != null && byHero && Dungeon.hero() && Dungeon.hero.isAlive()){
 			Catalog.setSeen(glyph.getClass());
 			Statistics.itemTypesDiscovered.add(glyph.getClass());
 		}
@@ -231,7 +238,7 @@ public class Armor extends EquipableItem {
 	public boolean doEquip( Hero hero ) {
 
 		// 15/25% chance
-		if (hero.heroClass != HeroClass.CLERIC && hero.有天赋(Talent.HOLY_INTUITION)
+		if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.HOLY_INTUITION)
 				&& cursed && !cursedKnown
 				&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
 			cursedKnown = true;
@@ -310,7 +317,7 @@ public class Armor extends EquipableItem {
 	@Override
 	public int 强化等级(){
 		//only the hero can be affected by Degradation
-		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
+		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
 			return Degrade.reduceLevel(等级()+(破损纹章!=null?破损纹章.等级():0));
 		} else {
@@ -337,12 +344,9 @@ public class Armor extends EquipableItem {
 
 			破损纹章 detaching = 破损纹章;
 			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
-			if(真等级()>=转移量){
+			if(转移量>0&&真等级()>0){
 				等级(真等级()-转移量);
-				破损纹章.等级(破损纹章.等级()+ 转移量);
-			}else if(真等级()>1){
-				破损纹章.等级(破损纹章.等级()+ 转移量);
-				等级(0);
+				破损纹章.升级(转移量);
 			}
 			破损纹章 = null;
 			if (detaching.canTransferGlyph()){
@@ -390,15 +394,10 @@ public class Armor extends EquipableItem {
 
 	public int 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 1 + tier + lvl + augment.defenseFactor(lvl);
+			return augment.defenseFactor(1 + tier + lvl);
 		}
 
-		int max = tier * (2 + lvl) + augment.defenseFactor(lvl);
-		if (lvl > max){
-			return ((lvl - max)+1)/2;
-		} else {
-			return max;
-		}
+		return augment.defenseFactor(tier * (2 + lvl));
 	}
 
 	public final int 最小防御(){
@@ -409,13 +408,7 @@ public class Armor extends EquipableItem {
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 0;
 		}
-
-		int max = 最大防御(lvl);
-		if (lvl >= max){
-			return (lvl - max);
-		} else {
-			return lvl;
-		}
+		return augment.defenseFactor(lvl);
 	}
 
 	//This exists so we can test what a char's base evasion would be without armor affecting it
@@ -432,7 +425,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero){
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
-			if (aEnc < 0) evasion *= 1+Math.sqrt(-aEnc)/10f;
+			if (aEnc < 0) evasion *= 1+Math.sqrt(-aEnc)*owner.属性增幅;
 			
 			Momentum momentum = owner.buff(Momentum.class);
 			if (momentum != null){
@@ -440,7 +433,7 @@ public class Armor extends EquipableItem {
 			}
 		}
 		
-		return evasion + augment.evasionFactor(强化等级());
+		return augment.evasionFactor(evasion);
 	}
 	
 	public float speedFactor( Char owner, float speed ){
@@ -448,10 +441,10 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
-			if (aEnc < 0) speed *= 1+Math.sqrt(-aEnc)/10f;
+			if (aEnc < 0) speed *= 1+Math.sqrt(-aEnc)*owner.属性增幅;
 		}
 		
-		return speed;
+		return augment.speedFactor(speed);
 		
 	}
 	
@@ -491,7 +484,7 @@ public class Armor extends EquipableItem {
 
 				//the chance from +4/5, and then +6 can be set to 0% with metamorphed runic transference
 				int lossChanceStart = 4;
-				if (Dungeon.hero != null && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.有天赋(Talent.纹章升级)){
+				if (Dungeon.hero() && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.天赋(Talent.纹章升级)){
 					lossChanceStart += 1+Dungeon.hero.天赋点数(Talent.纹章升级);
 				}
 
@@ -557,7 +550,7 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (!levelKnown && defender == Dungeon.hero) {
-			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(Dungeon.hero, this) );
+			float uses = Math.min( availableUsesToID, Talent.鉴定速度(Dungeon.hero,this));
 			availableUsesToID -= uses;
 			usesLeftToID -= uses;
 			if (usesLeftToID <= 0) {
@@ -579,7 +572,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public void onHeroGainExp(float levelPercent, Hero hero) {
-		levelPercent *= Talent.itemIDSpeedFactor(hero, this);
+		levelPercent *= Talent.鉴定速度(hero,this);
 		if (!levelKnown && isEquipped(hero) && availableUsesToID <= USES_TO_ID/2f) {
 			//gains enough uses to ID over 0.5 levels
 			availableUsesToID = Math.min(USES_TO_ID/2f, availableUsesToID + levelPercent * USES_TO_ID);
@@ -605,13 +598,13 @@ public class Armor extends EquipableItem {
 
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", tier, 最小防御(), 最大防御(), 力量());
 			
-			if (Dungeon.hero != null && 力量() > Dungeon.hero.力量()) {
+			if (Dungeon.hero() && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
 			}
 		} else {
 			info += "\n\n" + Messages.get(Armor.class, "avg_absorb", tier, 最小防御(0), 最大防御(0), 力量(0));
 
-			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
+			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "probably_too_heavy");
 			}
 		}
@@ -619,6 +612,9 @@ public class Armor extends EquipableItem {
 		switch (augment) {
 			case EVASION:
 				info += " " + Messages.get(Armor.class, "evasion");
+				break;
+			case SPEED:
+				info += " " + Messages.get(Armor.class, "speed");
 				break;
 			case DEFENSE:
 				info += " " + Messages.get(Armor.class, "defense");
@@ -729,6 +725,9 @@ public class Armor extends EquipableItem {
 		if (masteryPotionBonus){
 			req -= 2;
 		}
+		if (神力){
+			req -= 2;
+		}
 		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.15f);
 		return req;
 	}
@@ -772,7 +771,7 @@ public class Armor extends EquipableItem {
 		if (破损纹章 != null){
 			破损纹章.setGlyph(glyph);
 		}
-		if (glyph != null && 已鉴定() && Dungeon.hero != null
+		if (glyph != null && 已鉴定() && Dungeon.hero()
 				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
 			Catalog.setSeen(glyph.getClass());
 			Statistics.itemTypesDiscovered.add(glyph.getClass());

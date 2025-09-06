@@ -22,6 +22,7 @@ public class Gold extends Item {
 	{
 		image = 物品表.GOLD;
 		stackable = true;
+		物品=true;
 	}
 	
 	public Gold() {
@@ -54,16 +55,6 @@ public class Gold extends Item {
 		Sample.INSTANCE.play( Assets.Sounds.GOLD, 1, 1, Random.Float( 0.9f, 1.1f ) );
 		updateQuickslot();
 		
-		return true;
-	}
-	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
 		return true;
 	}
 	

@@ -99,7 +99,7 @@ public class Stasis extends ClericSpell {
 	}
 
 	public static Char getStasisAlly(){
-		if (Dungeon.hero != null && Dungeon.hero.buff(StasisBuff.class) != null){
+		if (Dungeon.hero() && Dungeon.hero.buff(StasisBuff.class) != null){
 			return Dungeon.hero.buff(StasisBuff.class).stasisAlly;
 		}
 		return null;

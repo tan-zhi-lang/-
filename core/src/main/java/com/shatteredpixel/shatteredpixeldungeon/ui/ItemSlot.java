@@ -10,9 +10,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
@@ -26,14 +30,14 @@ import com.watabou.noosa.Image;
 import com.watabou.utils.Rect;
 
 public class ItemSlot extends Button {
-
-	public static final int DEGRADED	= 0xFF4444;
-	public static final int UPGRADED	= 0x44FF44;
-	public static final int FADED       = 0x999999;
-	public static final int WARNING		= 0xFF8800;
-	public static final int ENHANCED	= 0x3399FF;
-	public static final int MASTERED	= 0xFFFF44;
-	public static final int CURSE_INFUSED	= 0x8800FF;
+	public static final int DEGRADED    = 0xFF4444; // 深红色
+	public static final int UPGRADED    = 0x44FF44; // 亮绿色
+	public static final int FADED       = 0x999999; // 灰色
+	public static final int WARNING     = 0xFF8800; // 橙色
+	public static final int ENHANCED    = 0x3399FF; // 蓝色
+	public static final int MASTERED    = 0xFFFF44; // 黄色
+	public static final int CURSE_INFUSED = 0x8800FF; // 紫色
+	
 	
 	private static final float ENABLED	= 1.0f;
 	private static final float DISABLED	= 0.3f;
@@ -251,11 +255,11 @@ public class ItemSlot extends Button {
 			if (item.levelKnown){
 				int str = item instanceof Weapon ? ((Weapon)item).力量() : ((Armor)item).力量();
 				extra.text( Messages.format( TXT, str ) );
-				if (Dungeon.hero != null && str > Dungeon.hero.力量()) {
+				if (Dungeon.hero() && str > Dungeon.hero.力量()) {
 					extra.hardlight( DEGRADED );
-				} else if (item instanceof Weapon && ((Weapon) item).masteryPotionBonus){
+				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&& (((Weapon) item).masteryPotionBonus ||((Weapon) item).神力)){
 					extra.hardlight( MASTERED );
-				} else if (item instanceof Armor && ((Armor) item).masteryPotionBonus) {
+				} else if (item instanceof Armor && str > Dungeon.hero.力量()&& (((Armor) item).masteryPotionBonus||((Armor) item).神力)) {
 					extra.hardlight( MASTERED );
 				} else {
 					extra.text(null);
@@ -272,36 +276,54 @@ public class ItemSlot extends Button {
 			extra.text( null );
 			extra.resetColor();
 		}
-
-		if (item instanceof Food food){
-			center.text( Messages.format( TXT, Math.round(food.energy)) );
-			center.measure();
-			center.hardlight( UPGRADED );
-		}else if (item instanceof Armor a&&a.破损纹章!=null) {
-			center.text( Messages.format( TXT, Math.round(a.破损纹章.maxShield(a.tier,a.强化等级()))) );
-			center.measure();
-			center.resetColor();
-		}else if (item instanceof 水袋 s) {
-			center.text( Messages.format( TXT, Math.round(Dungeon.hero.生命(0.05f*s.volume))) );
-			center.measure();
-			center.hardlight( UPGRADED );
-		}else if (item instanceof ChaliceOfBlood i) {
-			center.text( Messages.format( TXT, Math.round(3*i.等级()*i.等级())) );
-			center.measure();
-			center.hardlight( UPGRADED );
-		}else{
-			center.text(null);
-			center.resetColor();
+		if(item.已鉴定()){
+			if (item instanceof Food food){
+				center.text( Messages.format( TXT, Math.round(food.energy)) );
+				center.measure();
+				center.hardlight( UPGRADED );
+				extra.text( Messages.format( TXT, Dungeon.hero.生命力(0.13f)) );
+				extra.measure();
+				extra.hardlight( UPGRADED );
+			}else if (item instanceof Armor a&&a.破损纹章!=null) {
+				center.text( Messages.format( TXT, a.破损纹章.maxShield(a.tier,a.强化等级())) );
+				center.measure();
+				center.hardlight( FADED );
+			}else if (item instanceof 水袋 s) {
+				center.text( Messages.format( TXT, Dungeon.hero.最大生命(0.05f*s.volume)) );
+				center.measure();
+				center.hardlight( UPGRADED );
+			}else if (item instanceof 治疗药剂) {
+				center.text( Messages.format( TXT, Dungeon.hero.最大生命(0.9f)) );
+				center.measure();
+				center.hardlight( UPGRADED );
+			}else if (item instanceof PotionOfShielding ) {
+				center.text( Messages.format( TXT, Dungeon.hero.最大生命(0.75f)) );
+				center.measure();
+				center.hardlight( FADED );
+			}else if (item instanceof ChaliceOfBlood x) {
+				level.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
+				level.measure();
+				level.hardlight( WARNING );
+			}else if (item instanceof RingOfForce x) {
+				level.text( Messages.format( TXT, x.soloBuffedBonus()+x.min()/2) );
+				level.measure();
+				level.hardlight( WARNING );
+			}else{
+				center.text(null);
+				center.resetColor();
+			}
 		}
+		//装备图标
 
 		int trueLvl = item.visiblyUpgraded();
 		int buffedLvl = item.buffedVisiblyUpgraded();
-		if(item instanceof 法师魔杖 ||
-				item instanceof 手枪 ||
-				item instanceof Ring ||
-				item instanceof MissileWeapon||
-				item instanceof Wand||
-				item instanceof Artifact){
+		if(item instanceof 法师魔杖||
+		   item instanceof 手枪||
+		   item instanceof Ring||
+		   item instanceof MeleeWeapon||
+		   item instanceof MissileWeapon||
+		   item instanceof Wand||
+		   item instanceof Artifact){
 			if (trueLvl != 0 || buffedLvl != 0) {
 				center.text(Messages.format(TXT_LEVEL, buffedLvl));
 				center.measure();

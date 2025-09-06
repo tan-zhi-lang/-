@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfAwareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfHealth;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WellWater;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.天赋之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.神力之泉;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -15,7 +16,7 @@ import com.watabou.utils.Random;
 public class MagicWellRoom extends SpecialRoom {
 
 	private static final Class<?>[] WATERS =
-		{WaterOfAwareness.class, WaterOfHealth.class, 神力之泉.class};
+		{WaterOfAwareness.class, WaterOfHealth.class, 神力之泉.class, 天赋之泉.class};
 	
 	public Class<?extends WellWater> overrideWater = null;
 	

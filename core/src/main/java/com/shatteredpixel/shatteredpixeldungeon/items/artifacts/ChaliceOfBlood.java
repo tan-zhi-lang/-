@@ -30,7 +30,7 @@ public class ChaliceOfBlood extends Artifact {
 
 	{
 		image = 物品表.ARTIFACT_CHALICE1;
-
+		defaultAction=AC_PRICK;
 		levelCap = 10;
 	}
 
@@ -79,7 +79,7 @@ public class ChaliceOfBlood extends Artifact {
 	}
 
 	private void prick(Hero hero){
-		int damage = 5 + 3*(等级()* 等级());
+		int damage = 3*(等级()* 等级());
 
 		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);
 		if (armor != null) {

@@ -26,15 +26,15 @@ public class RatKingSprite extends MobSprite {
 			default:
 				c = 0;
 				break;
-			case APRIL_FOOLS:
+			case 愚人节:
 				c = 8;
 				break;
-			case WINTER_HOLIDAYS:
+			case 圣诞节:
 				c = 16;
 				break;
 		}
 
-		if (Dungeon.hero != null && Dungeon.hero.armorAbility instanceof Ratmogrify){
+		if (Dungeon.hero() && Dungeon.hero.armorAbility instanceof Ratmogrify){
 			c = 24;
 			if (parent != null) aura(0xFFFF00, 5);
 		}
@@ -63,7 +63,7 @@ public class RatKingSprite extends MobSprite {
 	@Override
 	public void link(Char ch) {
 		super.link(ch);
-		if (Dungeon.hero != null && Dungeon.hero.armorAbility instanceof Ratmogrify){
+		if (Dungeon.hero() && Dungeon.hero.armorAbility instanceof Ratmogrify){
 			aura(0xFFFF00, 5);
 		}
 	}

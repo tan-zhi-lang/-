@@ -28,20 +28,12 @@ public class 配刺剑 extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 1;
-		间隔= 0.75f;
+		最小 = 1;
+		命中= 1.1f;
+		间隔= 0.9f;
+		伤害= 0.8f;
 
 		bones = false;
-	}
-
-	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  1+5*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1);   //scaling unchanged
 	}
 	
 	@Override

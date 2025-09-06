@@ -99,7 +99,7 @@ public class QuickRecipe extends Component {
 			};
 
 			int quantity = 0;
-			if (Dungeon.hero != null) {
+			if (Dungeon.hero()) {
 				ArrayList<Item> similar = Dungeon.hero.belongings.getAllSimilar(in);
 				for (Item sim : similar) {
 					//if we are looking for a specific item, it must be IDed
@@ -143,7 +143,7 @@ public class QuickRecipe extends Component {
 				ShatteredPixelDungeon.scene().addToFront(new WndInfoItem(output));
 			}
 		};
-		if (Dungeon.hero != null && !hasInputs){
+		if (Dungeon.hero() && !hasInputs){
 			this.output.sprite.alpha(0.3f);
 		}
 		this.output.showExtraInfo(false);

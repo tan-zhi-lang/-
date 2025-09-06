@@ -69,7 +69,7 @@ public class Combo extends Buff implements ActionIndicator.Action {
 	
 	public void hit( Char enemy ) {
 
-		count+=Dungeon.hero.有天赋(Talent.ENHANCED_COMBO)?2:1;
+		count+=Dungeon.hero.天赋(Talent.ENHANCED_COMBO)?2:1;
 		comboTime = 2+ ((Hero)target).天赋点数(Talent.CLEAVE,5);
 
 		if (!enemy.isAlive() || (enemy.buff(Corruption.class) != null && enemy.生命 == enemy.最大生命)){

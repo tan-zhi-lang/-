@@ -24,7 +24,10 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 
 public class 蜕变秘卷 extends ExoticScroll {
@@ -57,7 +60,7 @@ public class 蜕变秘卷 extends ExoticScroll {
 		curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 10);
 		Transmuting.show(curUser, oldTalent, newTalent);
 
-		if (Dungeon.hero.有天赋(newTalent)) {
+		if (Dungeon.hero.天赋(newTalent)) {
 			Talent.获得天赋时(Dungeon.hero, newTalent);
 		}
 	}
@@ -190,15 +193,23 @@ public class 蜕变秘卷 extends ExoticScroll {
 
 			LinkedHashMap<Talent, Integer> options = new LinkedHashMap<>();
 			Set<Talent> curTalentsAtTier = Dungeon.hero.talents.get(tier-1).keySet();
-
-			for (HeroClass cls : HeroClass.values()){
-
+			int count=0;
+			List<HeroClass> heroClasses = Arrays.asList(HeroClass.values());
+			// 打乱列表中的元素顺序
+			Collections.shuffle(heroClasses);
+			for (HeroClass cls : heroClasses){
+				if(count>=4)break;
+				count++;
 				ArrayList<LinkedHashMap<Talent, Integer>> clsTalents = new ArrayList<>();
 				Talent.initClassTalents(cls, clsTalents);
 
 				Set<Talent> clsTalentsAtTier = clsTalents.get(tier-1).keySet();
 				boolean replacingIsInSet = false;
 
+				clsTalentsAtTier.remove(Talent.纹章荣耀);
+				clsTalentsAtTier.remove(Talent.DESPERATE_POWER);//绝境迫能
+				clsTalentsAtTier.remove(Talent.高级魔杖);
+				
 				clsTalentsAtTier.remove(Talent.祭鉴之术);
 				clsTalentsAtTier.remove(Talent.痛命之术);
 				clsTalentsAtTier.remove(Talent.死血之术);
@@ -210,6 +221,10 @@ public class 蜕变秘卷 extends ExoticScroll {
 
 				clsTalentsAtTier.remove(Talent.顶福精华);
 				clsTalentsAtTier.remove(Talent.强能处消);
+				
+				clsTalentsAtTier.remove(Talent.冰门高攻);
+				
+				clsTalentsAtTier.remove(Talent.任督二脉);
 
 				for (Talent talent : clsTalentsAtTier.toArray(new Talent[0])){
 					if (talent == replacing){

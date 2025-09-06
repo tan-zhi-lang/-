@@ -165,7 +165,7 @@ public abstract class Actor implements Bundlable {
 			a.time -= min;
 		}
 
-		if (Dungeon.hero != null && all.contains( Dungeon.hero )) {
+		if (Dungeon.hero() && all.contains( Dungeon.hero )) {
 			Statistics.duration += min;
 		}
 		now -= min;

@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
@@ -31,6 +32,7 @@ public class WaterOfHealth extends WellWater {
 	@Override
 	protected boolean affectHero( Hero hero ) {
 		
+		Badges.解锁逐姝();
 		if (!hero.isAlive()) return false;
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
@@ -77,7 +79,7 @@ public class WaterOfHealth extends WellWater {
 			Sample.INSTANCE.play( Assets.Sounds.DRINK );
 			return item;
 		}
-		return null;
+		return item;
 	}
 	
 	@Override

@@ -52,7 +52,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.全知之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.心力之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.时间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -100,6 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
@@ -149,7 +154,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.巨斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.白带;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.矛盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.碧蓝巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.臂铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血姬;
@@ -173,7 +177,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSp
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Trident;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.修理扳手;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
@@ -404,20 +410,21 @@ public class Generator {
 					
 					Cudgel.class,
 					镜刃.class,
-					铜钱剑.class,
-					白带.class,
 					
+					铜钱剑.class,
+					
+					白带.class,
 					臂铠.class,
 					碧蓝巨剑.class,
-					灵鞭.class,
 					
+					灵鞭.class,
 					血姬.class,
 					书包.class,
 			};
 			WEP_T1.defaultProbs = new float[]{ 2, 2, 2, 2,
-											   2, 2,  0, 2,
-											   2, 2 ,0 ,
-											   0,0
+											   2, 2,2,
+											   2,2, 2 ,
+											   0 ,0,0
 			};
 			WEP_T1.probs = WEP_T1.defaultProbs.clone();
 			
@@ -429,9 +436,8 @@ public class Generator {
 					Dirk.class,
 					Sickle.class,
 					爪.class,
-					矛盾.class,
 			};
-			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2,0 };
+			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
 			WEP_T2.probs = WEP_T2.defaultProbs.clone();
 			
 			WEP_T3.classes = new Class<?>[]{
@@ -440,7 +446,6 @@ public class Generator {
 					Scimitar.class,
 					RoundShield.class,
 					Sai.class,
-					Whip.class,
 					Whip.class,
 					半月刃.class
 			};
@@ -489,9 +494,11 @@ public class Generator {
 					ThrowingStone.class,
 					ThrowingKnife.class,
 					ThrowingSpike.class,
-					Dart.class
-			};
-			MIS_T1.defaultProbs = new float[]{ 3, 3, 3, 3, };
+					雪球.class,
+					修理扳手.class,
+					金玫苦无.class,
+					};
+			MIS_T1.defaultProbs = new float[]{ 3, 3, 3, 3,3, 3, };
 			MIS_T1.probs = MIS_T1.defaultProbs.clone();
 			
 			MIS_T2.classes = new Class<?>[]{
@@ -537,16 +544,32 @@ public class Generator {
 					RingOfAccuracy.class,
 					奥术之戒.class,
 					RingOfElements.class,
+					
 					能量之戒.class,
 					RingOfEvasion.class,
 					RingOfForce.class,
+					
 					RingOfFuror.class,
 					RingOfHaste.class,
 					RingOfMight.class,
+					
 					RingOfSharpshooting.class,
 					RingOfTenacity.class,
-					RingOfWealth.class};
-			RING.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
+					RingOfWealth.class,
+					
+					心力之戒.class,
+					全知之戒.class,
+					时间之戒.class,
+					
+					六神之戒.class
+			
+			};
+			RING.defaultProbs = new float[]{ 3, 3, 3,
+											 3, 3, 3,
+											 3, 3, 3,
+											 3, 3, 3,
+											 3 , 3 ,3 ,
+											 0};
 			RING.probs = RING.defaultProbs.clone();
 			
 			ARTIFACT.classes = new Class<?>[]{
@@ -587,9 +610,10 @@ public class Generator {
 					VialOfBlood.class,
 					ShardOfOblivion.class,
 					ChaoticCenser.class,
-					FerretTuft.class
+					FerretTuft.class,
+					中国国旗.class
 			};
-			TRINKET.defaultProbs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+			TRINKET.defaultProbs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,0 };
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 
 			for (Category cat : Category.values()){

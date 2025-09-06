@@ -322,7 +322,7 @@ public class CellSelector extends ScrollArea {
 				}
 
 				return true;
-			} else if (Dungeon.hero != null && Dungeon.hero.resting){
+			} else if (Dungeon.hero() && Dungeon.hero.resting){
 				Dungeon.hero.resting = false;
 				return true;
 			}

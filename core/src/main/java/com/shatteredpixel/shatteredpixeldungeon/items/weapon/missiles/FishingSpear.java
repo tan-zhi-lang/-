@@ -14,7 +14,9 @@ public class FishingSpear extends MissileWeapon {
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.1f;
 		投矛=true;
-		间隔=1.5f;
+		命中=0.8f;
+		间隔=1.3f;
+		伤害=1.3f;
 		tier = 2;
 	}
 	

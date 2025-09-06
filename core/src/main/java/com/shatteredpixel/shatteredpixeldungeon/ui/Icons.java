@@ -4,13 +4,9 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.Image;
-import com.watabou.utils.RectF;
 
 public enum Icons {
 
@@ -68,6 +64,7 @@ public enum Icons {
     ALCHEMY,
     GRASS,
     锁门,
+    深渊,
 
     上楼,
     STAIRS_CHASM,
@@ -80,6 +77,7 @@ public enum Icons {
     WELL_HEALTH,
     WELL_AWARENESS,
     神力之泉,
+    天赋之泉,
     SACRIFICE_ALTAR,
     DISTANT_WELL,
 
@@ -282,6 +280,9 @@ public enum Icons {
             case 锁门:
                 icon.frame(icon.texture.uvRectBySize(128, 48, 16, 16));
                 break;
+            case 深渊:
+                icon.frame(icon.texture.uvRectBySize(144, 48, 16, 16));
+                break;
 
             case 上楼:
                 icon.frame(icon.texture.uvRectBySize(0, 64, 15, 16));
@@ -316,11 +317,14 @@ public enum Icons {
             case 神力之泉:
                 icon.frame(icon.texture.uvRectBySize(160, 64, 16, 16));
                 break;
-            case SACRIFICE_ALTAR:
+            case 天赋之泉:
                 icon.frame(icon.texture.uvRectBySize(176, 64, 16, 16));
                 break;
-            case DISTANT_WELL:
+            case SACRIFICE_ALTAR:
                 icon.frame(icon.texture.uvRectBySize(192, 64, 16, 16));
+                break;
+            case DISTANT_WELL:
+                icon.frame(icon.texture.uvRectBySize(208, 64, 16, 16));
                 break;
 
             case SKULL:
@@ -462,38 +466,6 @@ public enum Icons {
             return 8;
         } else {
             return 0;
-        }
-    }
-
-    public static Image get(HeroClass cl) {
-        switch (cl) {
-            default:
-                return new ItemSprite(物品表.SOMETHING);
-            case WARRIOR:
-                return new ItemSprite(物品表.破损纹章);
-            case MAGE:
-                //mage's staff normally has 2 pixels extra at the top for particle effects, we chop that off here
-                Image result = new ItemSprite(物品表.法师魔杖);
-                RectF frame = result.frame();
-                frame.top += frame.height() / 8f;
-                result.frame(frame);
-                return result;
-            case 盗贼:
-                return new ItemSprite(物品表.ARTIFACT_CLOAK);
-            case HUNTRESS:
-                return new ItemSprite(物品表.灵能短弓);
-            case DUELIST:
-                return new ItemSprite(物品表.RAPIER);
-            case CLERIC:
-                return new ItemSprite(物品表.神圣法典);
-            case 巫女:
-                return new ItemSprite(物品表.灵月法杖);
-            case 重武:
-                return new ItemSprite(物品表.冰门重盾);
-            case 镜魔:
-                return new ItemSprite(物品表.镜刃);
-            case 枪手:
-                return new ItemSprite(物品表.手枪);
         }
     }
 

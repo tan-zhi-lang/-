@@ -32,6 +32,7 @@ public class 矮人国王的皇冠 extends Item {
 		defaultAction = AC_WEAR;
 
 		unique = true;
+		物品 = true;
 	}
 	
 	@Override
@@ -56,16 +57,6 @@ public class 矮人国王的皇冠 extends Item {
 			}
 			
 		}
-	}
-	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
 	}
 	
 	public void upgradeArmor(Hero hero, Armor armor, ArmorAbility ability) {

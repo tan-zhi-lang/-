@@ -101,7 +101,7 @@ public class Toolbar extends Component {
 					return;
 				}
 
-				if (Dungeon.hero != null && Dungeon.hero.ready && !GameScene.cancel()) {
+				if (Dungeon.hero() && Dungeon.hero.ready && !GameScene.cancel()) {
 
 					String[] slotNames = new String[6];
 					Image[] slotIcons = new Image[6];
@@ -180,7 +180,7 @@ public class Toolbar extends Component {
 		add(btnWait = new Tool(24, 0, 20, 26) {
 			@Override
 			protected void onClick() {
-				if (Dungeon.hero != null &&  Dungeon.hero.ready && !GameScene.cancel()) {
+				if (Dungeon.hero() &&  Dungeon.hero.ready && !GameScene.cancel()) {
 					examining = false;
 					Dungeon.hero.rest(false);
 				}
@@ -202,7 +202,7 @@ public class Toolbar extends Component {
 			}
 
 			protected boolean onLongClick() {
-				if (Dungeon.hero != null && Dungeon.hero.ready && !GameScene.cancel()) {
+				if (Dungeon.hero() && Dungeon.hero.ready && !GameScene.cancel()) {
 					examining = false;
 					Dungeon.hero.rest(true);
 				}
@@ -215,7 +215,7 @@ public class Toolbar extends Component {
 		add(new Button(){
 			@Override
 			protected void onClick() {
-				if (Dungeon.hero != null && Dungeon.hero.ready && !GameScene.cancel()) {
+				if (Dungeon.hero() && Dungeon.hero.ready && !GameScene.cancel()) {
 					examining = false;
 					Dungeon.hero.rest(true);
 				}
@@ -232,16 +232,16 @@ public class Toolbar extends Component {
 		add(new Button(){
 			@Override
 			protected void onClick() {
-				if (Dungeon.hero != null && Dungeon.hero.ready && !GameScene.cancel()) {
+				if (Dungeon.hero() && Dungeon.hero.ready && !GameScene.cancel()) {
 					Dungeon.hero.waitOrPickup = true;
 					if ((Dungeon.level.heaps.get(Dungeon.hero.pos) != null || Dungeon.hero.canSelfTrample())
 						&& Dungeon.hero.handle(Dungeon.hero.pos)){
 						//trigger hold fast and patient strike here, even if the hero didn't specifically wait
-						if (Dungeon.hero.有天赋(Talent.捍守可拘)){//不动如山
+						if (Dungeon.hero.天赋(Talent.捍守可拘)){//不动如山
 							Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
 							Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋生命力(Talent.血爆之术,0.7f));
 						}
-						if (Dungeon.hero.有天赋(Talent.PATIENT_STRIKE)){
+						if (Dungeon.hero.天赋(Talent.PATIENT_STRIKE)){
 							Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;
 						}
 						Dungeon.hero.next();
@@ -253,7 +253,7 @@ public class Toolbar extends Component {
 			}
 
 			protected boolean onLongClick() {
-				if (Dungeon.hero != null && Dungeon.hero.ready && !GameScene.cancel()) {
+				if (Dungeon.hero() && Dungeon.hero.ready && !GameScene.cancel()) {
 					examining = false;
 					Dungeon.hero.rest(true);
 				}
@@ -270,7 +270,7 @@ public class Toolbar extends Component {
 		add(btnSearch = new Tool(44, 0, 20, 26) {
 			@Override
 			protected void onClick() {
-				if (Dungeon.hero != null && Dungeon.hero.ready) {
+				if (Dungeon.hero() && Dungeon.hero.ready) {
 					if (!examining && !GameScene.cancel()) {
 						GameScene.selectCell(informer);
 						examining = true;
@@ -306,7 +306,7 @@ public class Toolbar extends Component {
 
 			@Override
 			protected void onClick() {
-				if (Dungeon.hero != null && (Dungeon.hero.ready || !Dungeon.hero.isAlive())) {
+				if (Dungeon.hero() && (Dungeon.hero.ready || !Dungeon.hero.isAlive())) {
 					if (SPDSettings.interfaceSize() == 2) {
 						GameScene.toggleInvPane();
 					} else {
@@ -376,7 +376,7 @@ public class Toolbar extends Component {
 		add(new Button(){
 			@Override
 			protected void onClick() {
-				if (Dungeon.hero != null && Dungeon.hero.ready && !GameScene.cancel()) {
+				if (Dungeon.hero() && Dungeon.hero.ready && !GameScene.cancel()) {
 					ArrayList<Bag> bags = Dungeon.hero.belongings.getBags();
 					String[] names = new String[bags.size()];
 					Image[] images = new Image[bags.size()];

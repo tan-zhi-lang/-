@@ -23,9 +23,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndDailies;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndRanking;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndVictoryCongrats;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Music;
 import com.watabou.utils.GameMath;
@@ -122,7 +122,16 @@ public class RankingsScene extends PixelScene {
 			
 		}
 
-		ExitButton btnExit = new ExitButton();
+		ExitButton btnExit = new ExitButton(){
+			@Override
+			protected void onClick() {
+				if (Game.scene() instanceof HeroSelectScene) {
+					Game.instance.finish();
+				} else {
+					ShatteredPixelDungeon.switchNoFade( HeroSelectScene.class );
+				}
+			}
+		};
 		btnExit.setPos( Camera.main.width - btnExit.width(), 0 );
 		add( btnExit );
 
@@ -165,7 +174,7 @@ public class RankingsScene extends PixelScene {
 
 	@Override
 	protected void onBackPressed() {
-		ShatteredPixelDungeon.switchNoFade(TitleScene.class);
+		ShatteredPixelDungeon.switchNoFade(HeroSelectScene.class);
 	}
 	
 	public static class Record extends Button {
@@ -252,7 +261,7 @@ public class RankingsScene extends PixelScene {
 				add(level);
 			}
 			
-			classIcon.copy( Icons.get( rec.heroClass ) );
+			classIcon.copy(Icons.TALENT.get());
 			if (rec.heroClass == HeroClass.盗贼){
 				//cloak of shadows needs to be brightened a bit
 				classIcon.brightness(2f);

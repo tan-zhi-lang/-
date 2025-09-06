@@ -33,6 +33,9 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean 投矛 =false;
 	public boolean 伏击 =false;
 	public float 伏击率 =0;
+	public int 最小= 0;
+	public int 最大= 0;
+	public float 伤害= 1f;
 
 	@Override
 	public void execute(Hero hero, String action) {
@@ -94,7 +97,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean doEquip( Hero hero ) {
 
 		isSwiftEquipping = false;
-		if (hero.belongings.contains(this) && hero.有天赋(Talent.SWIFT_EQUIP)){
+		if (hero.belongings.contains(this) && hero.天赋(Talent.SWIFT_EQUIP)){
 			if (hero.buff(Talent.SwiftEquipCooldown.class) == null
 					|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
 				isSwiftEquipping = true;
@@ -102,7 +105,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		}
 
 		// 15/25% chance
-		if (hero.heroClass != HeroClass.CLERIC && hero.有天赋(Talent.HOLY_INTUITION)
+		if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.HOLY_INTUITION)
 				&& cursed && !cursedKnown
 				&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
 			cursedKnown = true;
@@ -155,7 +158,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean equipSecondary( Hero hero ){
 
 		isSwiftEquipping = false;
-		if (hero.belongings.contains(this) && hero.有天赋(Talent.SWIFT_EQUIP)){
+		if (hero.belongings.contains(this) && hero.天赋(Talent.SWIFT_EQUIP)){
 			if (hero.buff(Talent.SwiftEquipCooldown.class) == null
 					|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
 				isSwiftEquipping = true;

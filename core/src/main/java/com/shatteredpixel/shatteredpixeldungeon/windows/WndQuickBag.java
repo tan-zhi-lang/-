@@ -54,8 +54,8 @@ public class WndQuickBag extends Window {
 			}
 			if (i instanceof Artifact
 					&& !i.isEquipped(Dungeon.hero)
-					&& (!(i instanceof CloakOfShadows) || !Dungeon.hero.有天赋(Talent.LIGHT_CLOAK))
-					&& (!(i instanceof 神圣法典) || !Dungeon.hero.有天赋(Talent.LIGHT_READING))){
+					&& (!(i instanceof CloakOfShadows) || !Dungeon.hero.天赋(Talent.LIGHT_CLOAK))
+					&& (!(i instanceof 神圣法典) || !Dungeon.hero.天赋(Talent.LIGHT_READING))){
 				continue;
 			}
 			items.add(i);
@@ -106,7 +106,7 @@ public class WndQuickBag extends Window {
 					return null; //no tooltips here
  				}
 			};
-			slot.showExtraInfo(false);
+//			slot.showExtraInfo(false);
 			slot.setRect(left, top, btnWidth, btnHeight);
 			add(slot);
 

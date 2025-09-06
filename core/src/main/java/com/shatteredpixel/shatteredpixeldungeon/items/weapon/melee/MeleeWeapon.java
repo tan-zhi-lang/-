@@ -57,8 +57,8 @@ public class MeleeWeapon extends Weapon {
 
 	@Override
 	public String defaultAction() {
-		if (Dungeon.hero != null && (Dungeon.hero.heroClass == HeroClass.DUELIST
-			|| Dungeon.hero.有天赋(Talent.SWIFT_EQUIP))){
+		if (Dungeon.hero() && (Dungeon.hero.heroClass == HeroClass.DUELIST
+			|| Dungeon.hero.天赋(Talent.SWIFT_EQUIP))){
 			return AC_ABILITY;
 		} else {
 			return super.defaultAction();
@@ -93,7 +93,7 @@ public class MeleeWeapon extends Weapon {
 		if (action.equals(AC_ABILITY)){
 			usesTargeting = false;
 			if (!isEquipped(hero)) {
-				if (hero.有天赋(Talent.SWIFT_EQUIP)){
+				if (hero.天赋(Talent.SWIFT_EQUIP)){
 					if (hero.buff(Talent.SwiftEquipCooldown.class) == null
 						|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
 						execute(hero, AC_EQUIP);
@@ -164,7 +164,7 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		if (hero.heroClass == HeroClass.DUELIST
-				&& hero.有天赋(Talent.AGGRESSIVE_BARRIER)
+				&& hero.天赋(Talent.AGGRESSIVE_BARRIER)
 				&& (hero.生命 / (float)hero.最大生命) <= 0.5f){
 			int shieldAmt = hero.天赋生命力(Talent.AGGRESSIVE_BARRIER,0.8f);
 			Buff.施加(hero, Barrier.class).设置(shieldAmt);
@@ -179,7 +179,7 @@ public class MeleeWeapon extends Weapon {
 		if (false){//使用武技命中
 			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
 		}
-		if (hero.有天赋(Talent.VARIED_CHARGE)){
+		if (hero.天赋(Talent.VARIED_CHARGE)){
 			Talent.VariedChargeTracker tracker = hero.buff(Talent.VariedChargeTracker.class);
 			if (tracker == null || tracker.weapon == getClass() || tracker.weapon == null){
 				Buff.施加(hero, Talent.VariedChargeTracker.class).weapon = getClass();
@@ -190,7 +190,7 @@ public class MeleeWeapon extends Weapon {
 				ScrollOfRecharging.charge(hero);
 			}
 		}
-		if (hero.有天赋(Talent.COMBINED_LETHALITY)) {
+		if (hero.天赋(Talent.COMBINED_LETHALITY)) {
 			Talent.CombinedLethalityAbilityTracker tracker = hero.buff(Talent.CombinedLethalityAbilityTracker.class);
 			if (tracker == null || tracker.weapon == this || tracker.weapon == null){
 				Buff.施加(hero, Talent.CombinedLethalityAbilityTracker.class, hero.cooldown()).weapon = this;
@@ -199,7 +199,7 @@ public class MeleeWeapon extends Weapon {
 				tracker.detach();
 			}
 		}
-		if (hero.有天赋(Talent.COMBINED_ENERGY)){
+		if (hero.天赋(Talent.COMBINED_ENERGY)){
 			Talent.CombinedEnergyAbilityTracker tracker = hero.buff(Talent.CombinedEnergyAbilityTracker.class);
 			if (tracker == null || !tracker.monkAbilused){
 				Buff.延长(hero, Talent.CombinedEnergyAbilityTracker.class, 5f).wepAbilUsed = true;
@@ -216,7 +216,7 @@ public class MeleeWeapon extends Weapon {
 	}
 
 	public static void onAbilityKill( Hero hero, Char killed ){
-		if (killed.alignment == Char.Alignment.ENEMY && hero.有天赋(Talent.LETHAL_HASTE)){
+		if (killed.alignment == Char.Alignment.ENEMY && hero.天赋(Talent.LETHAL_HASTE)){
 			//effectively 3/5 turns of greater haste
 			Buff.施加(hero, GreaterHaste.class).set(hero.天赋点数(Talent.LETHAL_HASTE,1.3f));
 		}
@@ -234,14 +234,12 @@ public class MeleeWeapon extends Weapon {
 
 	@Override
 	public int 最小攻击(int lvl) {
-		return  tier +  //base
-				lvl;    //level scaling
+		return Math.round(最小+(tier+lvl)*伤害);
 	}
 
 	@Override
 	public int 最大攻击(int lvl) {
-		return  5*(tier+1) +    //base
-				lvl*(tier+1);   //level scaling
+		return Math.round(最大+(5*(tier+1) +lvl*(tier+1))*伤害);
 	}
 
 	public int 力量(int lvl){
@@ -256,7 +254,7 @@ public class MeleeWeapon extends Weapon {
 	private static boolean evaluatingTwinUpgrades = false;
 	@Override
 	public int 强化等级() {
-		if (!evaluatingTwinUpgrades && Dungeon.hero != null && isEquipped(Dungeon.hero) && Dungeon.hero.有天赋(Talent.TWIN_UPGRADES)){
+		if (!evaluatingTwinUpgrades && Dungeon.hero() && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
 			KindOfWeapon other = null;
 			if (Dungeon.hero.belongings.weapon() != this) other = Dungeon.hero.belongings.weapon();
 			if (Dungeon.hero.belongings.secondWep() != this) other = Dungeon.hero.belongings.secondWep();
@@ -281,10 +279,16 @@ public class MeleeWeapon extends Weapon {
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll( owner ));
 		
-		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).力量() - 力量();
-			if (exStr > 0) {
-				damage += Hero.heroDamageIntRange( 0, exStr );
+		if (owner instanceof Hero hero) {
+			int exStr = hero.力量() - 力量();
+			if (hero.heroClass(HeroClass.WARRIOR)) {
+				if (exStr > 0) {
+					damage += exStr;
+				}
+			}else{
+				if (exStr > 0) {
+					damage += Hero.heroDamageIntRange( 0, exStr );
+				}
 			}
 		}
 		return damage;
@@ -297,16 +301,16 @@ public class MeleeWeapon extends Weapon {
 
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_known", tier, augment.damageFactor(最小攻击()), augment.damageFactor(最大攻击()), 力量());
-			if (Dungeon.hero != null) {
+			if (Dungeon.hero()) {
 				if (力量() > Dungeon.hero.力量()) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
 				} else if (Dungeon.hero.力量() > 力量()) {
-					info += " " + Messages.get(Weapon.class, "excess_str", Dungeon.hero.力量() - 力量());
+					info += " " + Messages.get(Weapon.class, "excess_str",Dungeon.hero.力量() - 力量());
 				}
 			}
 		} else {
 			info += "\n\n" + Messages.get(MeleeWeapon.class, "stats_unknown", tier, 最小攻击(0), 最大攻击(0), 力量(0));
-			if (Dungeon.hero != null && 力量(0) > Dungeon.hero.力量()) {
+			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(MeleeWeapon.class, "probably_too_heavy");
 			}
 		}
@@ -315,11 +319,14 @@ public class MeleeWeapon extends Weapon {
 		if (!statsInfo.equals("")) info += "\n\n" + statsInfo;
 
 		switch (augment) {
-			case SPEED:
-				info += " " + Messages.get(Weapon.class, "faster");
+			case DELAY:
+				info += " " + Messages.get(Weapon.class, "delay");
+				break;
+			case ACCURACY:
+				info += " " + Messages.get(Weapon.class, "accuracy");
 				break;
 			case DAMAGE:
-				info += " " + Messages.get(Weapon.class, "stronger");
+				info += " " + Messages.get(Weapon.class, "damage");
 				break;
 			case NONE:
 		}
@@ -349,7 +356,7 @@ public class MeleeWeapon extends Weapon {
 		}
 
 		//the mage's staff has no ability as it can only be gained by the mage
-		if (Dungeon.hero != null && Dungeon.hero.heroClass == HeroClass.DUELIST && !(this instanceof 法师魔杖)){
+		if (Dungeon.hero() && Dungeon.hero.heroClass == HeroClass.DUELIST && !(this instanceof 法师魔杖)){
 			info += "\n\n" + abilityInfo();
 		}
 		
@@ -369,9 +376,9 @@ public class MeleeWeapon extends Weapon {
 	}
 	public String statsInfo(){
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc",命中,间隔,范围,Math.round(伏击率*100),最大防御());
+			return Messages.get(this, "stats_desc",命中,间隔,伤害,范围,(!伏击?"":"，伏击率是"+Math.round(伏击率*100)+"%"),(最大防御()==0?"":"，格挡量0~"+最大防御()));
 		} else {
-			return Messages.get(this, "stats_desc",命中,间隔,范围,Math.round(伏击率*100),最大防御(0));
+			return Messages.get(this, "stats_desc",命中,间隔,伤害,范围,(!伏击?"":"，伏击率是"+Math.round(伏击率*100)+"%"),(最大防御(0)==0?"":"，格挡量0~"+最大防御(0)));
 		}
 	}
 
@@ -438,8 +445,8 @@ public class MeleeWeapon extends Weapon {
 					if (Dungeon.hero.buff(RingOfForce.BrawlersStance.class) != null){
 						chargeToGain *= 0.50f;
 					}
-					if(((Hero)target).有天赋(Talent.WEAPON_RECHARGING)) {
-						chargeToGain *= 0.01f+((Hero)target).天赋点数(Talent.WEAPON_RECHARGING,0.33f);
+					if(((Hero)target).天赋(Talent.WEAPON_RECHARGING)) {
+						chargeToGain *= 1+((Hero)target).天赋点数(Talent.WEAPON_RECHARGING,0.2f);
 					}
 					partialCharge += chargeToGain;
 				}

@@ -23,6 +23,9 @@ public class 简易弩 extends MeleeWeapon {
 		
 		bones = false;
 		tier = 1;
+		命中= 1.1f;
+		间隔= 0.9f;
+		伤害= 0.8f;
 	}
 
 	@Override
@@ -80,12 +83,6 @@ public class 简易弩 extends MeleeWeapon {
 			attacker.buff(简易弩.ChargedShot.class).detach();
 		}
 		return dmg;
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //20 base, down from 25
-				lvl*(tier);     //+4 per level, down from +5
 	}
 
 	@Override

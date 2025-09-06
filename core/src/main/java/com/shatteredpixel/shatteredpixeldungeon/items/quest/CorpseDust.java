@@ -34,6 +34,7 @@ public class CorpseDust extends Item {
 
 		黑色 = true;
 		unique = true;
+		物品 = true;
 	}
 
 	@Override
@@ -41,15 +42,6 @@ public class CorpseDust extends Item {
 		return new ArrayList<>(); //yup, no dropping this one
 	}
 
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {

@@ -26,14 +26,10 @@ public class Spear extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 2;
-		间隔= 1.5f; //0.67x speed
+		命中=0.8f;
+		间隔= 1.3f;
+		伤害= 1.3f;
 		范围 = 2;    //extra reach
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(6.67f*(tier+1)) +    //20 base, up from 15
-				lvl*Math.round(1.33f*(tier+1)); //+4 per level, up from +3
 	}
 
 	@Override

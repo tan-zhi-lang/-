@@ -1462,7 +1462,7 @@ public class GameScene extends PixelScene {
 	
 	public static boolean cancel() {
 		cellSelector.resetKeyHold();
-		if (Dungeon.hero != null && (Dungeon.hero.curAction != null || Dungeon.hero.resting)) {
+		if (Dungeon.hero() && (Dungeon.hero.curAction != null || Dungeon.hero.resting)) {
 			
 			Dungeon.hero.curAction = null;
 			Dungeon.hero.resting = false;

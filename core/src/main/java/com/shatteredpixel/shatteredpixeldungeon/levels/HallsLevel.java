@@ -44,7 +44,7 @@ public class HallsLevel extends RegularLevel {
 
 	{
 		
-		viewDistance = Math.min( 26 - Dungeon.depth, viewDistance );
+		视野范围= Math.min(26-Dungeon.depth,视野范围);
 		
 		color1 = 0x801500;
 		color2 = 0xa68521;

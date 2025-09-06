@@ -13,17 +13,15 @@ public class 修理扳手 extends MissileWeapon {
 		image = 物品表.吸血飞刀;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
+		命中=0.9f;
+		间隔=1.1f;
+		伤害=1.2f;
 		红色 = true;
 		unique = true;
 		bones = false;
 		
 		tier = 1;
-		baseUses = 1000;
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  3 * tier +                      //base
-				tier*lvl;                       //level scaling
+		baseUses = 12;
 	}
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {

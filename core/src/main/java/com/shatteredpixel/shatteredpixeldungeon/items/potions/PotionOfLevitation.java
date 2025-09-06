@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ConfusionGas;
@@ -37,6 +38,7 @@ public class PotionOfLevitation extends Potion {
 	
 	@Override
 	public void apply( Hero hero ) {
+		Badges.解锁凌云();
 		鉴定();
 		Buff.延长( hero, Levitation.class, Levitation.DURATION );
 		GLog.i( Messages.get(this, "float") );

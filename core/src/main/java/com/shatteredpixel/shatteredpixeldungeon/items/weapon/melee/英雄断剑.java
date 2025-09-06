@@ -15,22 +15,6 @@ public class 英雄断剑 extends MeleeWeapon {
 		tier=5;
 	}
 	@Override
-	public int 最小攻击(int lvl) {
-		return  tier +
-				lvl+传说min();
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +
-				lvl*(tier+1)+传说max();
-	}
-	public int 传说min(){
-		return (tier+1)*3;
-	}
-	public int 传说max(){
-		return (tier+1)*3;
-	}
-	@Override
 	protected int baseChargeUse(Hero hero,Char target){
 		if (hero.buff(Sword.CleaveTracker.class) != null){
 			return 0;

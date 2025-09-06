@@ -3,9 +3,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.watabou.utils.Random;
 
 public class WarHammer extends MeleeWeapon {
 
@@ -13,17 +17,21 @@ public class WarHammer extends MeleeWeapon {
 		image = 物品表.WAR_HAMMER;
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
+		命中=0.7f;
+		间隔=1.5f;
+		伤害=1.6f;
 
 		tier = 5;
-		命中 = 1.20f; //20% boost to accuracy
 	}
-
+	
+	
 	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //24 base, down from 30
-				lvl*(tier+1);   //scaling unchanged
+	public int 攻击时(Char attacker,Char defender,int damage) {
+		if(Random.Int(2)==0){
+			Buff.延长(defender,Vertigo.class,1);
+		}
+		return super.攻击时( attacker, defender, damage );
 	}
-
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");

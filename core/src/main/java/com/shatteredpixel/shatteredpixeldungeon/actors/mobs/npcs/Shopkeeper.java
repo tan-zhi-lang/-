@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CurrencyIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
@@ -180,7 +181,14 @@ public class Shopkeeper extends NPC {
 
 	//shopkeepers are greedy!
 	public static int sellPrice(Item item){
-		return item.金币() * 5 * (Dungeon.depth / 5 + 1);
+		float 打折=10;
+		if(Holiday.getCurrentHoliday()==Holiday._618){
+			打折=9;
+		}
+		if(Holiday.getCurrentHoliday()==Holiday._1111){
+			打折=8;
+		}
+		return Math.round(item.金币() * 打折/2 * (Dungeon.depth / 5f + 1));
 	}
 	
 	public static WndBag sell() {

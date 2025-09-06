@@ -148,7 +148,7 @@ public class Artifact extends KindofMisc {
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.SEARING_LIGHT)
+				&& Dungeon.hero.天赋(Talent.SEARING_LIGHT)
 				&& Dungeon.hero.buff(Talent.SearingLightCooldown.class) == null){
 			Buff.施加(target, GuidingLight.Illuminated.class);
 			Buff.施加(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
@@ -156,7 +156,7 @@ public class Artifact extends KindofMisc {
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.SUNRAY)){
+				&& Dungeon.hero.天赋(Talent.SUNRAY)){
 			// 15/25% chance
 			if (Dungeon.hero.天赋概率(Talent.SUNRAY,15)){
 				Buff.延长(target, Blindness.class, Dungeon.hero.天赋点数(Talent.SUNRAY,2));

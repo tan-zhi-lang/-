@@ -14,15 +14,12 @@ public class AssassinsBlade extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 0.9f;
 		
+		命中= 1.1f;
+		间隔= 0.9f;
+		伤害= 0.8f;
 		伏击=true;
 		伏击率=0.5f;
 		tier = 4;
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //20 base, down from 25
-				lvl*(tier+1);   //scaling unchanged
 	}
 
 	@Override

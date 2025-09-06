@@ -23,24 +23,20 @@ public class RunicBlade extends MeleeWeapon {
 		image = 物品表.RUNIC_BLADE;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
-
+		伤害=1.1f;
 		tier = 4;
-	}
-
-	//Essentially it's a tier 4 weapon, with tier 3 base max damage, and tier 5 scaling.
-	//equal to tier 4 in damage at +5
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  5*(tier) +                	//20 base, down from 25
-				Math.round(lvl*(tier+2));	//+6 per level, up from +5
 	}
 
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");
 	}
-
+	
+	@Override
+	public int 强化等级(){
+		return super.强化等级()+Math.round(0.1f*等级());
+	}
+	
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 		if (target == null) {

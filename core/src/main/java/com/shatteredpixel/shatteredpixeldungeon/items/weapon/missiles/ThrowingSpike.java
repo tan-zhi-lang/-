@@ -13,6 +13,9 @@ public class ThrowingSpike extends MissileWeapon {
 		hitSoundPitch = 1.2f;
 
 		bones = false;
+		命中=1.3f;
+		间隔=0.7f;
+		伤害=0.6f;
 
 		baseUses = 12;
 		tier = 1;

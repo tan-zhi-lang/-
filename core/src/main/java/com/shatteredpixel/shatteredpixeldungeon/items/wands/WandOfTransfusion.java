@@ -170,7 +170,7 @@ public class WandOfTransfusion extends DamageWand {
 
 	@Override
 	public String statsDesc() {
-		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
+		int selfDMG = Dungeon.hero() ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
 		if (levelKnown)
 			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3* 强化等级(), 5+ 强化等级(), min(), max());
 		else
@@ -179,7 +179,7 @@ public class WandOfTransfusion extends DamageWand {
 
 	@Override
 	public String upgradeStat1(int level) {
-		int selfDMG = Dungeon.hero != null ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
+		int selfDMG = Dungeon.hero() ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
 		return Integer.toString(selfDMG + 3*level);
 	}
 

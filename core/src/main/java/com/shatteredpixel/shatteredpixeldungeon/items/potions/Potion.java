@@ -410,8 +410,8 @@ public class Potion extends Item {
 		if (fire != null) {
 			fire.clear(cell);
 		}
-		SacrificialFire sacrificialfire = (SacrificialFire)Dungeon.level.blobs.get( SacrificialFire.class );
-		if (sacrificialfire != null) {
+		SacrificialFire sacrificialfire = (SacrificialFire) Dungeon.level.blobs.get(SacrificialFire.class);
+		if (this instanceof 治疗药剂&&sacrificialfire != null) {
 			sacrificialfire.sacrifice(Dungeon.hero);
 		}
 

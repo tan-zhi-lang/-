@@ -269,9 +269,11 @@ public class Dungeon {
 		branch = 0;
 		generatedLevels.clear();
 		
+		gold=0;
+		energy=0;
 		if(Dungeon.系统(系统设置.资产破亿)||算法.isDebug()){
-			gold(10_0000_0000);
-			energy(10_0000_0000);
+			gold(1_0000_0000);
+			energy(1_0000_0000);
 		}
 
 		droppedItems = new SparseArray<>();
@@ -461,7 +463,7 @@ public class Dungeon {
 	//value used for scaling of damage values and other effects.
 	//is usually the dungeon depth, but can be set to 26 when ascending
 	public static int scalingDepth(){
-		if (Dungeon.hero != null && Dungeon.hero.buff(AscensionChallenge.class) != null){
+		if (Dungeon.hero() && Dungeon.hero.buff(AscensionChallenge.class) != null){
 			return 26;
 		} else {
 			return depth;
@@ -471,7 +473,7 @@ public class Dungeon {
 	public static boolean interfloorTeleportAllowed(){
 		if (Dungeon.level.locked
 				|| Dungeon.level instanceof MiningLevel
-				|| (Dungeon.hero != null && Dungeon.hero.belongings.getItem(Amulet.class) != null)){
+				|| (Dungeon.hero() && Dungeon.hero.belongings.getItem(Amulet.class) != null)){
 			return false;
 		}
 		return true;
@@ -518,7 +520,7 @@ public class Dungeon {
 			}
 		}
 
-		hero.viewDistance = hero.视野范围();
+		hero.viewDistance = level.视野范围;
 		hero.curAction = hero.lastAction = null;
 
 		observe();
@@ -559,7 +561,7 @@ public class Dungeon {
 	public static boolean 升级卷轴掉落() {
 		int souLeftThisSet;
 		//4 SOU each floor set
-		souLeftThisSet = 4 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 4);
+		souLeftThisSet = 2 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -924,9 +926,8 @@ public class Dungeon {
 
 	//default to recomputing based on max hero vision, in case vision just shrank/grew
 	public static void observe(){
-		int dist = Math.max(Dungeon.hero.viewDistance, 8);
-		dist = Dungeon.hero.视野范围();
-		observe( dist+1 );
+		int dist = Dungeon.hero.视野范围();//原来最小8
+		observe( dist );//原来+1
 	}
 	
 	public static void observe( int dist ) {

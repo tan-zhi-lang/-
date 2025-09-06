@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -68,6 +69,7 @@ public class Sheep extends NPC {
 		String s = Random.element(LINE_KEYS);
 		sprite.showStatus( CharSprite.NEUTRAL, Messages.get(this,s) );
 		
+		Badges.解锁兽灵();
 		if(s.equals("Baba")){
 			Dungeon.hero.经验(20);
 		}

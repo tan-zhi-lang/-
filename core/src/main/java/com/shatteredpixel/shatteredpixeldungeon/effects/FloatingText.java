@@ -335,7 +335,7 @@ public class FloatingText extends RenderedTextBlock {
 		}
 		if (attacker.buff(Bless.class) != null) blessBoost *= 1.25f;
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.BLESS)
+				&& Dungeon.hero.天赋(Talent.BLESS)
 				&& attacker.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
 			blessBoost *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
@@ -352,7 +352,7 @@ public class FloatingText extends RenderedTextBlock {
 		} else {
 			if (attacker.buff(Momentum.class) != null
 					&& attacker.buff(Momentum.class).freerunning()
-					&& ((Hero)attacker).有天赋(Talent.PROJECTILE_MOMENTUM)) {
+					&& ((Hero)attacker).天赋(Talent.PROJECTILE_MOMENTUM)) {
 				hitReasons.put(HIT_MOMEN, 1f + ((Hero) attacker).天赋点数(Talent.PROJECTILE_MOMENTUM,0.5f));
 			}
 		}
@@ -426,7 +426,7 @@ public class FloatingText extends RenderedTextBlock {
 		}
 		if (defender.buff(Bless.class) != null) blessBoost *= 1.25f;
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.BLESS)
+				&& Dungeon.hero.天赋(Talent.BLESS)
 				&& defender.alignment == Char.Alignment.ALLY){
 			// + 3%/5%
 			blessBoost *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);

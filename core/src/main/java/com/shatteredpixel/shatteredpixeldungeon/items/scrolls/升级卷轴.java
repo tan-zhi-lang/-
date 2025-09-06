@@ -54,7 +54,7 @@ public class 升级卷轴 extends InventoryScroll {
 
 	public Item upgradeItem( Item item ){
 		upgrade( curUser );
-
+		Badges.解锁学士();
 		Degrade.detach( curUser, Degrade.class );
 		if(Dungeon.炼狱(炼狱设置.诅咒装备)){
 			return this;

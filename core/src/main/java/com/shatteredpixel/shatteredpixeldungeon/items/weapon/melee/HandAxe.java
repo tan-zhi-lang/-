@@ -15,14 +15,11 @@ public class HandAxe extends MeleeWeapon {
 		
 
 		tier = 2;
-		命中 = 1.32f; //32% boost to accuracy
+		命中= 1.1f;
+		间隔= 0.9f;
+		伤害= 0.8f;
 	}
 
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //12 base, down from 15
-				lvl*(tier+1);   //scaling unchanged
-	}
 
 	@Override
 	public String targetingPrompt() {

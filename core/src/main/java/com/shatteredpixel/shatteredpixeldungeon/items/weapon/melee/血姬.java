@@ -20,7 +20,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 public class 血姬 extends MeleeWeapon {
 	
@@ -28,7 +27,11 @@ public class 血姬 extends MeleeWeapon {
 		image = 物品表.血姬;
 
 		tier = 1;
-		间隔= 0.5f; //2x speed
+		最小 = 1;
+		命中=1.3f;
+		间隔= 0.4f;
+		伤害= 0.3f;
+		拳套=true;
 		伏击=true;
 		伏击率=1;
 		unique = true;
@@ -36,20 +39,9 @@ public class 血姬 extends MeleeWeapon {
 	}
 	
 	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(1.5f*(tier+1)) +     //5 base, down from 10
-				lvl*Math.round(0.3f*(tier+1));  //+1 per level, down from +2
-	}
-	
-	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
 		damage = super.攻击时(attacker,defender,damage);
-		Buff.施加( defender, 流血.class).set(Math.round(augment.damageFactor(Random.NormalIntRange(最小攻击(),最大攻击()))/3f));
+		Buff.施加( defender, 流血.class).set(Math.round(damageRoll(attacker)/3f));
 		return damage;
 	}
 

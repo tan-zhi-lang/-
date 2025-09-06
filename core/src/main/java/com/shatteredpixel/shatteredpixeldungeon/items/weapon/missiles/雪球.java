@@ -17,14 +17,10 @@ public class 雪球 extends MissileWeapon {
 		bones = false;
 		蓝色=true;
 		
+		伤害=1.1f;
 		tier = 1;
 		baseUses = 1;
 		sticky = false;
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  3 * tier +                      //base
-				tier*lvl;                       //level scaling
 	}
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {

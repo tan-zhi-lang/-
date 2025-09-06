@@ -15,6 +15,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
@@ -68,6 +70,7 @@ public class HeroSelectScene extends PixelScene {
     private StyledButton startBtn;
     private IconButton infoButton;
     private IconButton 改动按钮;
+    private IconButton 排行榜;
     private IconButton btnOptions;
     private GameOptions optionsPane;
     private IconButton btnExit;
@@ -176,6 +179,20 @@ public class HeroSelectScene extends PixelScene {
         };
         改动按钮.setSize(20, 21);
         add(改动按钮);
+        
+        排行榜 = new IconButton(new ItemSprite(物品表.REMAINS)) {
+            @Override
+            protected void onClick() {
+                ShatteredPixelDungeon.switchNoFade(RankingsScene.class);
+            }
+
+            @Override
+            protected String hoverText() {
+                return Messages.titleCase(Messages.get(TitleScene.class, "rankings"));
+            }
+        };
+        排行榜.setSize(20, 21);
+        add(排行榜);
 
         for (HeroClass cl : HeroClass.values()) {
             //隐藏
@@ -347,6 +364,7 @@ public class HeroSelectScene extends PixelScene {
 
             btnOptions.setRect(startBtn.right(), startBtn.top(), 20, 21);
             改动按钮.setRect(btnOptions.right(), startBtn.top(), 20, 21);
+            排行榜.setRect(改动按钮.right(), startBtn.top(), 20, 21);
 
             optionsPane.setPos(btnOptions.right(), btnOptions.top() - optionsPane.height() - 2);
             align(optionsPane);
@@ -440,6 +458,7 @@ public class HeroSelectScene extends PixelScene {
 
             btnOptions.setRect(heroBtns.get(0).left() + 16, Camera.main.height - HeroBtn.HEIGHT - 16, 20, 21);
             改动按钮.setRect((Camera.main.width - 1.5f * title.width()) / 2f-4, btnOptions.top()-3, 20, 21);
+            排行榜.setRect((Camera.main.width - title.width()) / 2f+排行榜.width()*1.5f, (Camera.main.height - HeroBtn.HEIGHT - title.height() -改动按钮.height()*1.5f), 20, 21);
             optionsPane.setPos(heroBtns.get(0).left(), 0);
             
             btnExit = new ExitButton();

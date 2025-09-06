@@ -130,7 +130,7 @@ public class SpiritHawk extends ArmorAbility {
 			defenseSkill = 60;
 
 			flying = true;
-			if (Dungeon.hero != null) {
+			if (Dungeon.hero()) {
 				viewDistance = (int) GameMath.gate(6, 6 + Dungeon.hero.天赋点数(Talent.EAGLE_EYE), 8);
 				baseSpeed = 2f + Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT) / 2f;
 			} else {
@@ -153,7 +153,7 @@ public class SpiritHawk extends ArmorAbility {
 
 		@Override
 		public int 最大闪避(Char enemy) {
-			if (Dungeon.hero.有天赋(Talent.SWIFT_SPIRIT) &&
+			if (Dungeon.hero.天赋(Talent.SWIFT_SPIRIT)&&
 					dodgesUsed < 2*Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT)) {
 				dodgesUsed++;
 				return Char.INFINITE_EVASION;

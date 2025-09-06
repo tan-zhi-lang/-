@@ -134,9 +134,10 @@ public class ArcaneResin extends Item {
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			return ingredients.size() == 1
-					&& ingredients.get(0) instanceof Wand
-					&& ingredients.get(0).cursedKnown
-					&& !ingredients.get(0).cursed;
+					&& ingredients.get(0) instanceof Wand w
+					&& w.cursedKnown
+					&& w.等级-w.resinBonus+1>0
+					&& !w.cursed;
 		}
 
 		@Override
@@ -169,11 +170,11 @@ public class ArcaneResin extends Item {
 		}
 
 		private int resinQuantity(Wand w){
-			int level = w.等级() - w.resinBonus;
-			int quantity = 2*(level+1);
+			int level = w.等级();
+			int quantity = level-w.resinBonus+1;
 
-			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.有天赋(Talent.高级法杖)){
-				quantity += Dungeon.hero.天赋点数(Talent.高级法杖);
+			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.天赋(Talent.高级魔杖)){
+				quantity += Dungeon.hero.天赋点数(Talent.高级魔杖);
 			}
 			return quantity;
 		}

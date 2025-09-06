@@ -122,7 +122,8 @@ public class Messages {
 			if (c != null && c.getSuperclass() != null){
 				return get(c.getSuperclass(), k, args);
 			} else {
-				return key;//NO_TEXT_FOUND !!!NO TEXT FOUND!!!
+				return "没找到"+c.getName();
+//				return NO_TEXT_FOUND;
 			}
 		}
 	}

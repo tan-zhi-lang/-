@@ -46,7 +46,7 @@ public abstract class ShieldBuff extends Buff {
 	
 	public void 设置(int shield ) {
 		if(target instanceof Hero hero&&hero.heroClass(HeroClass.逐姝)){
-			shield*=2;
+			shield=Math.round(1.15f*shield);
 		}
 		if (this.shielding <= shield) this.shielding = shield;
 		if (target != null) target.needsShieldUpdate = true;
@@ -58,7 +58,7 @@ public abstract class ShieldBuff extends Buff {
 
 	public void 增加(int amt ){
 		if(target instanceof Hero hero&&hero.heroClass(HeroClass.逐姝)){
-			amt*=2;
+			amt=Math.round(1.15f*amt);
 		}
 		shielding += amt;
 		if (target != null) target.needsShieldUpdate = true;
@@ -113,7 +113,8 @@ public abstract class ShieldBuff extends Buff {
 				if (buff.护盾量() <= 0) continue;
 				damage = buff.absorbDamage(damage);
 				if (buff.护盾量() <= 0){
-					if (target instanceof Hero && ((Hero) target).有天赋(Talent.受衅怒火)){
+					if (target instanceof Hero hero&& hero.天赋(Talent.受衅怒火)){
+						hero.必中=true;
 						Buff.施加(target, Talent.ProvokedAngerTracker.class, 5f);
 					}
 				}

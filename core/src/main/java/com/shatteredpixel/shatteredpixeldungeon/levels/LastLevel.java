@@ -29,8 +29,8 @@ public class LastLevel extends Level {
 	{
 		color1 = 0x801500;
 		color2 = 0xa68521;
-
-		viewDistance = Math.min(4, viewDistance);
+		
+		视野范围= Math.min(4,视野范围);
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class LastLevel extends Level {
 		Painter.fill( this, MID - 3, 10, 7, 5, Terrain.EMPTY);
 
 		feeling = Feeling.NONE;
-		viewDistance = 4;
+		视野范围= 4;
 
 		CustomTilemap vis = new CustomFloor();
 		vis.setRect( 5, 0, 7, height - ROOM_TOP);

@@ -15,14 +15,11 @@ public class WarScythe extends MeleeWeapon {
 		hitSoundPitch = 0.9f;
 
 		tier = 5;
-		命中 = 0.8f; //20% penalty to accuracy
+		命中 = 0.6f;
+		间隔=1.6f;
+		伤害=1.6f;
 	}
 
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(6.67f*(tier+1)) +    //40 base, up from 30
-				lvl*(tier+1);                   //scaling unchanged
-	}
 
 	@Override
 	public String targetingPrompt() {

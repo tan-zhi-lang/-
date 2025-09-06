@@ -238,7 +238,7 @@ public class SentryRoom extends SpecialRoom {
 				throwItems();
 			}
 
-			if (Dungeon.hero != null){
+			if (Dungeon.hero()){
 				if (fieldOfView[Dungeon.hero.pos]
 						&& Dungeon.level.map[Dungeon.hero.pos] == Terrain.EMPTY_SP
 						&& room.inside(Dungeon.level.cellToPoint(Dungeon.hero.pos))

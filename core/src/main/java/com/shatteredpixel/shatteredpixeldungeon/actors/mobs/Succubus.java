@@ -38,7 +38,7 @@ public class Succubus extends Mob {
 		
 		生命 = 最大生命 = 80;
 		defenseSkill = 25;
-		viewDistance = Light.DISTANCE;
+		viewDistance = 6;
 		
 		经验 = 12;
 		最大等级 = 25;

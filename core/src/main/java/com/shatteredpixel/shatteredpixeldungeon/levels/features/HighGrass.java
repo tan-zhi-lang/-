@@ -55,7 +55,7 @@ public class HighGrass {
 				Level.set(pos, Terrain.GRASS);
 			}
 
-			if (Dungeon.hero.有天赋(Talent.自然猎手)) {
+			if (Dungeon.hero.天赋(Talent.自然猎手)) {
 				Buff.施加(Dungeon.hero, 极速.class, Dungeon.hero.天赋点数(Talent.自然猎手,0.25f));
 			}
 

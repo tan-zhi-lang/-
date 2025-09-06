@@ -399,7 +399,7 @@ public class ElementalBlast extends ArmorAbility {
 						}
 
 						charsHit = Math.min(4 + hero.天赋点数(Talent.REACTIVE_BARRIER), charsHit);
-						if (charsHit > 0 && hero.有天赋(Talent.REACTIVE_BARRIER)){
+						if (charsHit > 0 && hero.天赋(Talent.REACTIVE_BARRIER)){
 							int shielding = Math.round(charsHit*2.5f*hero.天赋点数(Talent.REACTIVE_BARRIER));
 							hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shielding), FloatingText.SHIELDING);
 							Buff.施加(hero, Barrier.class).设置(shielding);

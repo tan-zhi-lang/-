@@ -34,6 +34,7 @@ public class Stylus extends Item {
 		defaultAction = AC_INSCRIBE;
 
 		bones = true;
+		物品 = true;
 	}
 	
 	@Override
@@ -56,15 +57,6 @@ public class Stylus extends Item {
 		}
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 	
 	private void inscribe( Armor armor ) {
 

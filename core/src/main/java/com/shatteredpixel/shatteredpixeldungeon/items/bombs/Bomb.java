@@ -53,6 +53,7 @@ public class Bomb extends Item {
 		usesTargeting = true;
 
 		stackable = true;
+		物品 = true;
 	}
 
 	public Fuse fuse;
@@ -100,6 +101,7 @@ public class Bomb extends Item {
 
 	@Override
 	protected void onThrow( int cell ) {
+		Badges.解锁枪手();
 		if (!Dungeon.level.pit[ cell ] && lightingFuse) {
 			Actor.addDelayed(fuse = createFuse().ignite(this), 2);
 		}
@@ -192,15 +194,6 @@ public class Bomb extends Item {
 		}
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 	
 	@Override
 	public Item random() {

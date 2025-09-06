@@ -49,6 +49,10 @@ public class Ring extends KindofMisc {
 			put("quartz", 物品表.RING_QUARTZ);
 			put("agate", 物品表.RING_AGATE);
 			put("diamond", 物品表.RING_DIAMOND);
+			put("黑曜石", 物品表.黑曜石);
+			put("月亮石", 物品表.月亮石);
+			put("黄金", 物品表.黄金);
+			put("虚无", 物品表.虚无);
 		}
 	};
 	
@@ -336,7 +340,7 @@ public class Ring extends KindofMisc {
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){
 		if (已鉴定() || !isEquipped(hero)) return;
-		levelPercent *= Talent.itemIDSpeedFactor(hero, this);
+		levelPercent *= Talent.鉴定速度(hero,this);
 		//becomes IDed after 1 level
 		levelsToID -= levelPercent;
 		if (levelsToID <= 0){

@@ -12,10 +12,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.骷髅钥匙;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
@@ -63,12 +66,19 @@ public class Item implements Bundlable {
 	public String name = "";
 	
 	public boolean stackable = false;
+	public boolean 物品 = false;
 	public boolean 炼金全放 = false;
+	public boolean 学者直觉 = false;
+	public boolean 生存直觉 = false;
+	public boolean 净除道法 = false;
+	public boolean 戒指察觉 = false;
+	public boolean 赌博高手 = false;
+	public boolean 未来知识 = false;
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;
 
 	public String item_Miss		= Assets.Sounds.MISS;
-	private int 等级 = 0;
+	protected int 等级 = 0;
 
 	public boolean 白色 = false;
 	public boolean 黑色 = false;
@@ -80,8 +90,8 @@ public class Item implements Bundlable {
 	public boolean 蓝色 = false;
 	public boolean levelKnown = false;
 
-	public boolean cursed;
-	public boolean cursedKnown;
+	public boolean cursed=false;
+	public boolean cursedKnown=false;
 	
 	// Unique items persist through revival
 	public boolean unique = false;
@@ -253,7 +263,7 @@ public class Item implements Bundlable {
 				if (isSimilar( item )) {
 					item.merge( this );
 					item.updateQuickslot();
-					if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
+					if (Dungeon.hero() && Dungeon.hero.isAlive()) {
 						Badges.validateItemLevelAquired( this );
 						Talent.拾取时(Dungeon.hero, item);
 						if (已鉴定()) {
@@ -282,7 +292,7 @@ public class Item implements Bundlable {
 			}
 		}
 
-		if (Dungeon.hero != null && Dungeon.hero.isAlive()) {
+		if (Dungeon.hero() && Dungeon.hero.isAlive()) {
 			Badges.validateItemLevelAquired( this );
 			Talent.拾取时( Dungeon.hero, this );
 			if (已鉴定()){
@@ -407,12 +417,19 @@ public class Item implements Bundlable {
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions
 	//note that not all item properties should care about buffs/debuffs! (e.g. str requirement)
 	public int 强化等级(){
+		int x=0;
+		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.逐姝)&&this instanceof MeleeWeapon){
+			x++;
+		}
+		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.女忍)&&this instanceof MissileWeapon){
+			x++;
+		}
 		//only the hero can be affected by Degradation
-		if (Dungeon.hero != null && Dungeon.hero.buff( Degrade.class ) != null
+		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 			&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
-			return Degrade.reduceLevel(等级());
+			return Degrade.reduceLevel(等级()+x);
 		} else {
-			return 等级();
+			return 等级()+x;
 		}
 	}
 
@@ -422,8 +439,38 @@ public class Item implements Bundlable {
 		updateQuickslot();
 	}
 	
-	public Item 升级() {
+	public Item 特殊升级() {
+		if(!生存直觉&&Dungeon.hero.天赋(Talent.SCHOLARS_INTUITION)){
+			this.等级++;
+			生存直觉=true;
+		}
+		if(!学者直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
+			this.等级++;
+			学者直觉=true;
+		}
+		if(!净除道法&&Dungeon.hero.天赋(Talent.净除道法)){
+			this.等级++;
+			净除道法=true;
+		}
+
+		if(!戒指察觉&&Dungeon.hero.天赋(Talent.戒指察觉)){
+			this.等级++;
+			戒指察觉=true;
+		}
+		if(!赌博高手&&Dungeon.hero.天赋(Talent.赌博高手)){
+			this.等级++;
+			赌博高手=true;
+		}
+		if(!未来知识&&Dungeon.hero.天赋(Talent.未来知识)){
+			this.等级++;
+			未来知识=true;
+		}
+
+		updateQuickslot();
 		
+		return this;
+	}
+	public Item 升级() {
 		this.等级++;
 
 		updateQuickslot();
@@ -467,10 +514,16 @@ public class Item implements Bundlable {
 	}
 	
 	public boolean 可升级() {
+		if(物品){
+			return false;
+		}
 		return true;
 	}
 	
 	public boolean 已鉴定() {
+		if(物品){
+			return true;
+		}
 		return levelKnown && cursedKnown;
 	}
 	
@@ -483,10 +536,17 @@ public class Item implements Bundlable {
 	}
 
 	public Item 鉴定(boolean byHero ) {
-
-		if (byHero && Dungeon.hero != null && Dungeon.hero.isAlive()){
+		if(byHero){
+		if(Dungeon.hero()&&Dungeon.hero.满天赋(Talent.未来知识)){
+			祛邪卷轴.净化(Dungeon.hero,特殊升级());
+		}else if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.未来知识)){
+			
+			祛邪卷轴.净化(Dungeon.hero,this);
+		}
+		if (Dungeon.hero()&& Dungeon.hero.isAlive()){
 			Catalog.setSeen(getClass());
 			Statistics.itemTypesDiscovered.add(getClass());
+		}
 		}
 
 		levelKnown = true;
@@ -541,7 +601,7 @@ public class Item implements Bundlable {
 	
 	public String info() {
 
-		if (Dungeon.hero != null) {
+		if (Dungeon.hero()) {
 			Notes.CustomRecord note = Notes.findCustomRecord(customNoteID);
 			if (note != null) {
 				//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
@@ -614,6 +674,12 @@ public class Item implements Bundlable {
 	private static final String KEPT_LOST       = "kept_lost";
 	private static final String CUSTOM_NOTE_ID = "custom_note_id";
 	private static final String NAME = "name";
+	private static final String 学者直觉x = "学者直觉";
+	private static final String 生存直觉x = "生存直觉";
+	private static final String 净除道法x = "净除道法";
+	private static final String 戒指察觉x = "戒指察觉";
+	private static final String 赌博高手x = "赌博高手";
+	private static final String 未来知识x = "未来知识";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -623,6 +689,12 @@ public class Item implements Bundlable {
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
 		bundle.put( NAME, name );
+		bundle.put( 学者直觉x, 学者直觉 );
+		bundle.put( 生存直觉x, 生存直觉 );
+		bundle.put( 净除道法x, 净除道法 );
+		bundle.put( 戒指察觉x, 戒指察觉 );
+		bundle.put( 赌博高手x, 赌博高手 );
+		bundle.put( 未来知识x, 未来知识 );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
 		}
@@ -636,6 +708,12 @@ public class Item implements Bundlable {
 		levelKnown	= bundle.getBoolean( LEVEL_KNOWN );
 		cursedKnown	= bundle.getBoolean( CURSED_KNOWN );
 		name	= bundle.getString( NAME );
+		学者直觉	= bundle.getBoolean( 学者直觉x );
+		生存直觉	= bundle.getBoolean( 生存直觉x );
+		净除道法	= bundle.getBoolean( 净除道法x );
+		戒指察觉	= bundle.getBoolean( 戒指察觉x );
+		赌博高手	= bundle.getBoolean( 赌博高手x );
+		未来知识	= bundle.getBoolean( 未来知识x );
 		
 		int level = bundle.getInt( LEVEL );
 		if (level > 0) {
@@ -693,13 +771,13 @@ public class Item implements Bundlable {
 							curUser = user;
 							Item i = Item.this.detach(user.belongings.backpack);
 							if (i != null) i.onThrow(cell);
-							if (curUser.有天赋(Talent.IMPROVISED_PROJECTILES)
+							if (curUser.天赋(Talent.IMPROVISED_PROJECTILES)
 									&& !(Item.this instanceof MissileWeapon)
 									&& curUser.buff(Talent.ImprovisedProjectileCooldown.class) == null){
 								if (enemy != null && enemy.alignment != curUser.alignment){
 									Sample.INSTANCE.play(Assets.Sounds.HIT);
 									Buff.施加(enemy, Blindness.class, curUser.天赋点数(Talent.IMPROVISED_PROJECTILES,2));
-									Buff.施加(curUser, Talent.ImprovisedProjectileCooldown.class, 120-curUser.天赋点数(Talent.IMPROVISED_PROJECTILES,30));
+									Buff.施加(curUser, Talent.ImprovisedProjectileCooldown.class, 100-curUser.天赋点数(Talent.IMPROVISED_PROJECTILES,25));
 								}
 							}
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){
@@ -732,8 +810,8 @@ public class Item implements Bundlable {
 		return TIME_TO_THROW;
 	}
 	
-	protected static Hero curUser = null;
-	protected static Item curItem = null;
+	public static Hero curUser = null;
+	public static Item curItem = null;
 	public void setCurrent( Hero hero ){
 		curUser = hero;
 		curItem = this;

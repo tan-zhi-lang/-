@@ -915,22 +915,25 @@ public abstract class Mob extends Char {
 					Dungeon.observe();
 				}
 
-				if (!isAlive() && Dungeon.hero.有天赋(Talent.LETHAL_DEFENSE)) {
+				if (!isAlive() && Dungeon.hero.天赋(Talent.LETHAL_DEFENSE)) {
 					Buff.施加(Dungeon.hero, 破损纹章.WarriorShield.class).reduceCooldown(Dungeon.hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
 				}
-				if (Dungeon.hero.有天赋(Talent.越战越勇)){
+				if (Dungeon.hero.天赋(Talent.越战越勇)){
 					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.越战越勇,0.2f));
 				}
-				if (Dungeon.hero.heroClass == HeroClass.DUELIST
-						&& Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
-					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
-					Dungeon.hero.经验(生命力(),getClass());
+				if (Dungeon.hero.heroClass(HeroClass.道士)){
+					Dungeon.hero.回血(Dungeon.hero.生命力(0.25f));
 				}
-				if (Dungeon.hero.heroClass != HeroClass.DUELIST
-						&& Dungeon.hero.有天赋(Talent.LETHAL_HASTE)
+				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
+					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
+				}
+				if (Dungeon.hero.heroClass == HeroClass.DUELIST){
+					Dungeon.hero.经验(生命力(0.13f),getClass());
+					if (Dungeon.hero.天赋(Talent.LETHAL_HASTE)
 						&& Dungeon.hero.buff(Talent.LethalHasteCooldown.class) == null){
-					Buff.施加(Dungeon.hero, Talent.LethalHasteCooldown.class, 100f);
-					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,1.5f));
+						Buff.施加(Dungeon.hero, Talent.LethalHasteCooldown.class, 100f);
+						Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,1.5f));
+					}
 				}
 			}
 
@@ -1127,17 +1130,24 @@ public abstract class Mob extends Char {
 				for (Char ch : Actor.chars()){
 					if (fieldOfView[ch.pos] && ch.invisible == 0 && ch.alignment != alignment && ch.alignment != Alignment.NEUTRAL){
 						float chDist = ch.stealth() + distance(ch);
-						//silent steps rogue talent, which also applies to rogue's shadow clone
-						if ((ch instanceof Hero || ch instanceof ShadowClone.ShadowAlly)
-								&& Dungeon.hero.有天赋(Talent.无声步伐)){
-							if (distance(ch) >= 5 - Dungeon.hero.天赋点数(Talent.无声步伐)) {//4old
-								chDist = Float.POSITIVE_INFINITY;
+						if(ch instanceof Hero hero){
+							int x=5-Dungeon.hero.天赋点数(Talent.无声步伐);
+							
+							if(hero.heroClass(HeroClass.镜魔))
+							x--;
+							
+							//silent steps rogue talent, which also applies to rogue's shadow clone
+							if (ch instanceof Hero||ch instanceof ShadowClone.ShadowAlly){
+								if (distance(ch) >= x) {//4old
+									chDist = Float.POSITIVE_INFINITY;
+								}
 							}
 						}
 						//flying characters are naturally stealthy
 						if (ch.flying && distance(ch) >= 2){
 							chDist = Float.POSITIVE_INFINITY;
 						}
+						
 						if (chDist < closestHostileDist){
 							closestHostileDist = chDist;
 						}

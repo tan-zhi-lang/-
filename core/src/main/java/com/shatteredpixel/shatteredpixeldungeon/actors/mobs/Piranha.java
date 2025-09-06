@@ -206,7 +206,7 @@ public class Piranha extends Mob {
 							
 							try{
 								boolean newp = true;
-								for (int nx : PathFinder.范围4){
+								for (int nx : PathFinder.NEIGHBOURS8){
 									if(newp){
 										Piranha piranha = Piranha.random();
 										piranha.pos=pos+nx;

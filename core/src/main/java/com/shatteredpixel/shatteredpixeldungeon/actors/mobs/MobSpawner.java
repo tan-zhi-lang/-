@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Random;
 
@@ -194,6 +195,9 @@ public class MobSpawner extends Actor {
 
 	//has a chance to add a rarely spawned mobs to the rotation
 	public static void addRareMobs( int depth, ArrayList<Class<?extends Mob>> rotation ){
+		if(Holiday.getCurrentHoliday()==Holiday.中元节){
+			rotation.add(Wraith.class);
+		}
 		if(Dungeon.解压(解压设置.纯正怪物)){
 			return;
 		}
@@ -225,11 +229,11 @@ public class MobSpawner extends Actor {
 
 	//switches out regular mobs for their alt versions when appropriate
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation) {
-		if(Dungeon.解压(解压设置.纯正怪物)){
-			return;
-		}
 		float altChance = 1 / 50f * RatSkull.exoticChanceMultiplier();
 		for (int i = 0; i < rotation.size(); i++) {
+			if(Dungeon.解压(解压设置.纯正怪物)){
+				return;
+			}
 			if (Random.Float() < altChance) {
 				Class<? extends Mob> cl = rotation.get(i);
 				if (cl == Rat.class)                cl = Albino.class;
@@ -247,7 +251,10 @@ public class MobSpawner extends Actor {
 				//chaos elemental spawning happens in Elemental.Random
 
 				else if (cl == Scorpio.class)       cl = Acidic.class;
-
+				
+				if(Holiday.getCurrentHoliday()==Holiday.中元节){
+					cl = Wraith.class;
+				}
 				rotation.set(i, cl);
 			}
 		}

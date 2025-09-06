@@ -21,6 +21,9 @@ public class Crossbow extends MeleeWeapon {
 		
 		//check Dart.class for additional properties
 		
+		命中= 1.1f;
+		间隔= 0.9f;
+		伤害= 0.8f;
 		tier = 4;
 	}
 

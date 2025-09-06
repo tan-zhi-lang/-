@@ -225,7 +225,7 @@ public class AlchemyScene extends PixelScene {
 		Button invSelector = new Button(){
 			@Override
 			protected void onClick() {
-						if (Dungeon.hero != null) {
+						if (Dungeon.hero()) {
 							ArrayList<Bag> bags = Dungeon.hero.belongings.getBags();
 
 							String[] names = new String[bags.size()];

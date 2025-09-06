@@ -13,21 +13,12 @@ public class 白带 extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 1;
-		间隔= 0.34f; //2x speed
-
+		命中=1.2f;
+		最小 = 1;
+		间隔= 0.4f;
+		伤害= 0.3f;
 		拳套=true;
 		bones = false;
-	}
-
-	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(1.5f*(tier+1)) +     //5 base, down from 10
-				lvl*Math.round(0.3f*(tier+1));  //+1 per level, down from +2
 	}
 
 	@Override

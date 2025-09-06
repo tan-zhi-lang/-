@@ -35,6 +35,8 @@ public class Dart extends MissileWeapon {
 		hitSound = Assets.Sounds.HIT_ARROW;
 		hitSoundPitch = 1.3f;
 		
+		命中=0.9f;
+		间隔=0.8f;
 		tier = 1;
 		
 		//infinite, even with penalties

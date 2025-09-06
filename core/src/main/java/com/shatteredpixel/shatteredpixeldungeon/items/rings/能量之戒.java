@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.能袍;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -47,15 +48,22 @@ public class 能量之戒 extends Ring {
 	public static float wandChargeMultiplier( Char target ){
 		float bonus = (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
 
-		if (target instanceof Hero && ((Hero) target).heroClass != HeroClass.CLERIC && ((Hero) target).有天赋(Talent.LIGHT_READING)){
-			bonus *= 1f + ((Hero) target).天赋点数(Talent.LIGHT_READING,0.07f);
-		}
-
-		if (target instanceof Hero && ((Hero) target).belongings.armor instanceof 法袍){
-			bonus *= 1.25f;
-		}
-		if(target instanceof Hero hero&&hero.heroClass(HeroClass.巫女)){
-			bonus/=2f;
+		if (target instanceof Hero hero){
+			
+			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.LIGHT_READING)){
+				bonus *= 1f + hero.天赋点数(Talent.LIGHT_READING,0.07f);
+			}
+			
+			if (hero.belongings.armor instanceof 法袍){
+				bonus *= 1.1f;
+			}
+			if(hero.heroClass(HeroClass.巫女)){
+				float c=1;
+				for(Item item:hero.belongings){
+					if(item.cursed)c+=0.07f;
+				}
+				bonus*=c;
+			}
 		}
 		return bonus;
 	}
@@ -63,14 +71,15 @@ public class 能量之戒 extends Ring {
 	public static float artifactChargeMultiplier( Char target ){
 		float bonus = (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
 
-		if (target instanceof Hero && ((Hero) target).heroClass != HeroClass.盗贼 && ((Hero) target).有天赋(Talent.LIGHT_CLOAK)){
-			bonus *= 1f + ((Hero) target).天赋点数(Talent.LIGHT_CLOAK,0.12f);
+		if (target instanceof Hero hero){
+			if(hero.heroClass != HeroClass.盗贼 && hero.天赋(Talent.LIGHT_CLOAK)){
+				bonus *= 1f + hero.天赋点数(Talent.LIGHT_CLOAK,0.12f);
+			}
+			if (hero.belongings.armor instanceof 能袍){
+				bonus *= 1.1f;
+			}
 		}
 		
-		
-		if (target instanceof Hero && ((Hero) target).belongings.armor instanceof 能袍){
-			bonus *= 1.25f;
-		}
 
 		return bonus;
 	}

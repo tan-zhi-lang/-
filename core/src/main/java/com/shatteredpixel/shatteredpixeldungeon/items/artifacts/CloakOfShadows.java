@@ -51,7 +51,7 @@ public class CloakOfShadows extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.有天赋(Talent.LIGHT_CLOAK))
+		if ((isEquipped( hero ) || hero.天赋(Talent.LIGHT_CLOAK))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null
 				&& (charge > 0 || activeBuff != null)) {
@@ -70,7 +70,7 @@ public class CloakOfShadows extends Artifact {
 		if (action.equals( AC_STEALTH )) {
 
 			if (activeBuff == null){
-				if (!isEquipped(hero) && !hero.有天赋(Talent.LIGHT_CLOAK)) GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+				if (!isEquipped(hero) && !hero.天赋(Talent.LIGHT_CLOAK)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
 				else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 				else if (charge <= 0)  GLog.i( Messages.get(this, "no_charge") );
 				else {
@@ -105,7 +105,7 @@ public class CloakOfShadows extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (!collect || !hero.有天赋(Talent.LIGHT_CLOAK)){
+			if (!collect || !hero.天赋(Talent.LIGHT_CLOAK)){
 				if (activeBuff != null){
 					activeBuff.detach();
 					activeBuff = null;
@@ -124,7 +124,7 @@ public class CloakOfShadows extends Artifact {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).有天赋(Talent.LIGHT_CLOAK)){
+					&& ((Hero) container.owner).天赋(Talent.LIGHT_CLOAK)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -288,7 +288,7 @@ public class CloakOfShadows extends Artifact {
 				if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.ASSASSIN){
 					Buff.施加(target, Preparation.class);
 				}
-				if (target instanceof Hero && ((Hero) target).有天赋(Talent.PROTECTIVE_SHADOWS)){
+				if (target instanceof Hero && ((Hero) target).天赋(Talent.PROTECTIVE_SHADOWS)){
 					Buff.施加(target, Talent.ProtectiveShadowsTracker.class);
 				}
 				return true;

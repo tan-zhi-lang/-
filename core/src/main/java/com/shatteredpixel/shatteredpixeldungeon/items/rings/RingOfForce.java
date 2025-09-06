@@ -86,14 +86,14 @@ public class RingOfForce extends Ring{
 		int dmg=dmgd;
 		if(拳套){
 			if(Dungeon.玩法(玩法设置.简单战斗)){
-				dmg+=Math.round((heromin()+heromax())/2f*0.75f);
+				dmg+=Math.round((heromin()+heromax())/2f*0.5f);
 				if(buff){
-					dmg+=Math.round((min(level,tier)+max(level,tier))/2f*0.5f);
+					dmg+=Math.round((min(level,tier)+max(level,tier))/2f*0.25f);
 				}
 			}else{
-				dmg+=Math.round(0.75f*Hero.heroDamageIntRange(heromin(),heromax()));
+				dmg+=Math.round(0.5f*Hero.heroDamageIntRange(heromin(),heromax()));
 				if(buff){
-					dmg+=Math.round(0.5f*Hero.heroDamageIntRange(min(level,tier),max(level,tier)));
+					dmg+=Math.round(0.25f*Hero.heroDamageIntRange(min(level,tier),max(level,tier)));
 				}
 			}
 		}else{
@@ -118,11 +118,11 @@ public class RingOfForce extends Ring{
 	}
 	
 	public static int heromin(){
-		return Dungeon.hero.生命力(0.25f);
+		return Dungeon.hero.生命力(0.1f);
 	}
 	
 	public static int heromax(){
-		return Dungeon.hero.生命力(0.75f);
+		return Dungeon.hero.生命力(0.2f);
 	}
 	
 	public static int min(){
@@ -161,9 +161,9 @@ public class RingOfForce extends Ring{
 			lvl=0;
 		}
 		
-		return Math.max(0,Math.round(5*(tier+1)+    //base
-									 lvl*(tier+1)    //level scaling
-									));
+		return Math.max(0,Math.round((5*(tier+1)+    //base
+									  lvl*(tier+1)    //level scaling
+									 )*0.4f));
 	}
 	
 	@Override
@@ -171,14 +171,19 @@ public class RingOfForce extends Ring{
 		float tier=tier();
 		if(已鉴定()){
 			int level=soloBuffedBonus();
-			String info=Messages.get(this,"stats",min(level,tier)+heromin(),max(level,tier)+heromax(),level+min(level,tier)+heromin());
+			String info=Messages.get(this,"stats",min(level,tier)+heromin(),
+									 max(level,tier)+heromax(),
+									 level+min(level,tier)/2);
 			if(isEquipped(Dungeon.hero)&&soloBuffedBonus()!=combinedBuffedBonus(Dungeon.hero)){
 				level=combinedBuffedBonus(Dungeon.hero);
-				info+="\n\n"+Messages.get(this,"combined_stats",min(level,tier)+heromin(),max(level,tier)+heromax(),level);
+				info+="\n\n"+Messages.get(this,"combined_stats",min(level,tier)+heromin(),
+										  max(level,tier)+heromax(),
+										  level+min(level,tier)/2);
 			}
 			return info;
 		}else{
-			return Messages.get(this,"typical_stats",min(0,tier)+heromin(),max(0,tier),1)+heromax();
+			return Messages.get(this,"typical_stats",min(0,tier)+heromin(),
+								max(0,tier)+heromax(),1);
 		}
 	}
 	
@@ -196,7 +201,7 @@ public class RingOfForce extends Ring{
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-3);
 		}
-		return Integer.toString(level+1);
+		return Integer.toString(level+1+min(level+1,tier())/2);
 	}
 	
 	@Override

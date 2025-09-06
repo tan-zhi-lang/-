@@ -46,7 +46,7 @@ public class LootIndicator extends Tag {
 				return SPDAction.WAIT_OR_PICKUP;
 			}
 		};
-		slot.showExtraInfo( false );
+//		slot.showExtraInfo( false );
 		add( slot );
 	}
 	

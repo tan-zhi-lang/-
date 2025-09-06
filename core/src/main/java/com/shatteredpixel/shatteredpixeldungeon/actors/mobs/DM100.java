@@ -64,7 +64,8 @@ public class DM100 extends Mob implements Callback {
 	
 	@Override
 	protected boolean doAttack( Char enemy ) {
-
+		
+		Badges.解锁机器();
 		if (Dungeon.level.adjacent( pos, enemy.pos )
 				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos != enemy.pos) {
 			

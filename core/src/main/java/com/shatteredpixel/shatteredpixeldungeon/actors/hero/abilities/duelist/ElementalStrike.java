@@ -215,7 +215,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 		}
 
-		if (hero.有天赋(Talent.DIRECTED_POWER)){
+		if (hero.天赋(Talent.DIRECTED_POWER)){
 			float enchBoost = 0.30f * targetsHit * hero.天赋点数(Talent.DIRECTED_POWER);
 			Buff.施加(hero, DirectedPowerTracker.class, 0f).enchBoost = enchBoost;
 		}

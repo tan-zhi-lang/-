@@ -19,16 +19,14 @@ public class Whip extends MeleeWeapon {
 	{
 		image = 物品表.WHIP;
 		hitSoundPitch = 1.1f;
-
+		
+		命中=0.7f;
+		间隔= 1.2f;
+		伤害= 1.4f;
 		tier = 3;
 		范围 = 3;    //lots of extra reach
 	}
 
-	@Override
-	public int 最大攻击(int lvl) {
-		return  5*(tier) +      //15 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
-	}
 
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {

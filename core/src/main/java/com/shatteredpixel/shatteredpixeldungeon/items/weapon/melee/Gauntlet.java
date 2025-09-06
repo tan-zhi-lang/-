@@ -15,17 +15,10 @@ public class Gauntlet extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 		拳套=true;
 		tier = 5;
-		间隔= 0.5f; //2x speed
-	}
-	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(2*(tier+1)) +     //15 base, down from 30
-				lvl*Math.round(0.4f*(tier+1));  //+3 per level, down from +6
+		最小 = 1;
+		命中=1.1f;
+		间隔= 0.5f;
+		伤害= 0.5f;
 	}
 
 	@Override

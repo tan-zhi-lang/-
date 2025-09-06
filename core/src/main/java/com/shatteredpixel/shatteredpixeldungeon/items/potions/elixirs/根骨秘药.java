@@ -6,13 +6,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
@@ -31,21 +28,19 @@ public class 根骨秘药 extends Elixir {
 		鉴定();
 
 		hero.根骨++;
-		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
 		
 //		Buff.施加(hero, HTBoost.class).reset();
 //		HTBoost boost = Buff.施加(hero, HTBoost.class);
 //		boost.reset();
 		
 		hero.更新生命();
-		GLog.p( Messages.get(this, "msg", hero.力量()) );
 
 		Badges.validateStrengthAttained();
 		Badges.validateDuelistUnlock();
 	}
 	
 	public String desc() {
-		return Messages.get(this, "desc", HTBoost.boost(Dungeon.hero != null ? Dungeon.hero.最大生命 : 20));
+		return Messages.get(this, "desc", HTBoost.boost(Dungeon.hero() ? Dungeon.hero.最大生命 : 20));
 	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

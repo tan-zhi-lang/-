@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -18,15 +17,13 @@ public class RoundShield extends MeleeWeapon {
 	{
 		image = 物品表.ROUND_SHIELD;
 		
+		命中= 0.7f;
+		间隔= 1.2f;
+		伤害= 1.4f;
 
 		tier = 3;
 	}
 
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(3f*(tier+1)) +   //12 base, down from 20
-				lvl*(tier-1);               //+2 per level, down from +4
-	}
 
 	@Override
 	public int 最大防御(int lvl){

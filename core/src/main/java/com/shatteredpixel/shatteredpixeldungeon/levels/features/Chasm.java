@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFeatherFall;
@@ -81,6 +82,7 @@ public class Chasm implements Hero.Doom {
 	
 	public static void heroFall( int pos ) {
 		
+		Badges.解锁灵猫();
 		jumpConfirmed = false;
 				
 		Sample.INSTANCE.play( Assets.Sounds.FALLING );
@@ -126,7 +128,16 @@ public class Chasm implements Hero.Doom {
 		PixelScene.shake( 4, 1f );
 
 		Dungeon.level.occupyCell(hero );
-		if(hero.flying || hero.buff(Levitation.class) != null)return;
+		
+		
+		if(hero.heroClass(HeroClass.灵猫)
+		   ||hero.flying
+		   || hero.buff(Levitation.class) != null){
+			return;
+		}
+		
+		
+		
 		Buff.延长( hero, Cripple.class, Cripple.DURATION );
 
 		//The lower the hero's HP, the more bleed and the less upfront damage.

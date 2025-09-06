@@ -10,17 +10,9 @@ public class MetalShard extends Item {
 	{
 		image = 物品表.SHARD;
 		stackable = true;
+		物品 = true;
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 	
 	@Override
 	public int 金币() {

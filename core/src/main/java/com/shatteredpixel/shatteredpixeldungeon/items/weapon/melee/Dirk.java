@@ -12,15 +12,12 @@ public class Dirk extends MeleeWeapon {
 	{
 		image = 物品表.DIRK;
 		hitSound = Assets.Sounds.HIT_STAB;
+		命中= 1.3f;
+		间隔= 0.7f;
+		伤害= 0.6f;
 		伏击=true;
 		伏击率=0.67f;
 		tier = 2;
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //12 base, down from 15
-				lvl*(tier+1);   //scaling unchanged
 	}
 	
 	@Override

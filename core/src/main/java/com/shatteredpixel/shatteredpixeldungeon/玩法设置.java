@@ -6,7 +6,7 @@ public class 玩法设置 {
 
 	//Some of these internal IDs are outdated and don't represent what these challenges do
 	public static final int 修罗血场				= 1;
-	public static final int 摇曳落石				= 2;
+	public static final int 从不过节= 2;
 public static final int 鬼怨地牢				= 4;
 	public static final int 转生怪物				= 8;
 	public static final int 规则怪谈				= 16;
@@ -18,7 +18,7 @@ public static final int 鬼怨地牢				= 4;
 
 	public static final String[] NAME_IDS = {
 			"修罗血场",
-			"摇曳落石",
+			"从不过节",
 			"鬼怨地牢",
 			"转生怪物",
 			"规则怪谈",
@@ -30,7 +30,7 @@ public static final int 鬼怨地牢				= 4;
 
 	public static final int[] MASKS = {
 			修罗血场,
-			摇曳落石,
+			从不过节,
 			鬼怨地牢,
 			转生怪物,
 			规则怪谈,

@@ -22,6 +22,7 @@ public abstract class Key extends Item {
 	{
 		stackable = true;
 		unique = true;
+		物品 = true;
 	}
 
 	//TODO currently keys can only appear on branch = 0, add branch support here if that changes
@@ -60,14 +61,5 @@ public abstract class Key extends Item {
 		depth = bundle.getInt( DEPTH );
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 
 }

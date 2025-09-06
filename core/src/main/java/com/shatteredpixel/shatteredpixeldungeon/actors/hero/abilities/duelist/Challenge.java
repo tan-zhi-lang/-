@@ -95,7 +95,7 @@ public class Challenge extends ArmorAbility {
 		int[] reachable = PathFinder.distance.clone();
 
 		int blinkpos = hero.pos;
-		if (hero.有天赋(Talent.CLOSE_THE_GAP) && !hero.rooted){
+		if (hero.天赋(Talent.CLOSE_THE_GAP)&&!hero.rooted){
 
 			int blinkrange = 1 + hero.天赋点数(Talent.CLOSE_THE_GAP);
 			PathFinder.buildDistanceMap(hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null), blinkrange);
@@ -238,7 +238,7 @@ public class Challenge extends ArmorAbility {
 				if (!target.isAlive() || target.alignment == Dungeon.hero.alignment){
 					Sample.INSTANCE.play(Assets.Sounds.BOSS);
 
-					if (Dungeon.hero.有天赋(Talent.INVIGORATING_VICTORY)){
+					if (Dungeon.hero.天赋(Talent.INVIGORATING_VICTORY)){
 						DuelParticipant heroBuff = Dungeon.hero.buff(DuelParticipant.class);
 
 						int hpToHeal = 0;
@@ -262,7 +262,7 @@ public class Challenge extends ArmorAbility {
 				if (Dungeon.hero.isAlive()) {
 					GameScene.flash(0x80FFFFFF);
 
-					if (Dungeon.hero.有天赋(Talent.ELIMINATION_MATCH)){
+					if (Dungeon.hero.天赋(Talent.ELIMINATION_MATCH)){
 						Buff.施加(target, EliminationMatchTracker.class, 3);
 					}
 				}

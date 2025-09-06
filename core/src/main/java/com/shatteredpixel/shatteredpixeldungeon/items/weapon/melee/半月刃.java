@@ -21,20 +21,16 @@ public class 半月刃 extends MeleeWeapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 
 		tier = 3;
-		间隔= 1.25f;
+		间隔= 1.1f;
+		伤害= 1.2f;
 	}
 
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //16 base, down from 20
-				lvl*(tier+1);   //scaling unchanged
-	}
 
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage) {
 		for (int n : PathFinder.NEIGHBOURS8){
 			Char c= Actor.findChar(attacker.pos+n);
-			if(c.alignment == Char.Alignment.ENEMY&& Dungeon.level.heroFOV[c.pos]){
+			if(c!=null&&c.alignment == Char.Alignment.ENEMY&& Dungeon.level.heroFOV[c.pos]){
 				c.受伤(damage);
 			}
 		}

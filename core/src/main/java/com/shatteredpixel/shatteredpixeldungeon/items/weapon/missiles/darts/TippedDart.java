@@ -153,7 +153,7 @@ public abstract class TippedDart extends Dart {
 	public float durabilityPerUse(int level) {
 		float use = super.durabilityPerUse(level);
 
-		if (Dungeon.hero != null) {
+		if (Dungeon.hero()) {
 			use /= (1 + Dungeon.hero.天赋点数(Talent.DURABLE_TIPS));
 
 			//checks both destination and source position
@@ -184,7 +184,7 @@ public abstract class TippedDart extends Dart {
 		float usages = Math.round(MAX_DURABILITY/use);
 
 		//grants 3+lvl extra uses with charged shot
-		if (bow != null && Dungeon.hero != null && Dungeon.hero.buff(Crossbow.ChargedShot.class) != null){
+		if (bow != null && Dungeon.hero() && Dungeon.hero.buff(Crossbow.ChargedShot.class) != null){
 			usages += 3 + bow.强化等级();
 		}
 

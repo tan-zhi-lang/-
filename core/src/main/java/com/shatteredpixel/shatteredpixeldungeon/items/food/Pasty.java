@@ -17,7 +17,9 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticl
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
@@ -42,35 +44,35 @@ public class Pasty extends Food {
 			case NONE: default:
 				image = 物品表.PASTY;
 				break;
-			case LUNAR_NEW_YEAR:
+			case 元旦:
+				image = 物品表.SPARKLING_POTION;
+				break;
+			case 春节:
 				image = 物品表.STEAMED_FISH;
 				break;
-			case APRIL_FOOLS:
-				image = 物品表.CHOC_AMULET;
-				break;
-			case EASTER:
+			case 复活节:
 				image = 物品表.EASTER_EGG;
 				break;
-			case PRIDE:
+			case 愚人节:
+				image = 物品表.CHOC_AMULET;
+				break;
+			case 彩虹节:
 				image = 物品表.RAINBOW_POTION;
+				break;
+			case 七夕节:
+				image = 物品表.单身狗粮;
 				break;
 			case SHATTEREDPD_BIRTHDAY:
 				image = 物品表.SHATTERED_CAKE;
 				break;
-			case HALLOWEEN:
+			case 万圣节:
 				image = 物品表.PUMPKIN_PIE;
 				break;
 			case PD_BIRTHDAY:
 				image = 物品表.VANILLA_CAKE;
 				break;
-			case WINTER_HOLIDAYS:
+			case 圣诞节:
 				image = 物品表.CANDY_CANE;
-				break;
-			case NEW_YEARS:
-				image = 物品表.SPARKLING_POTION;
-				break;
-			case 奇袭节:
-				image = 物品表.单身狗粮;
 				break;
 		}
 	}
@@ -78,8 +80,8 @@ public class Pasty extends Food {
 	@Override
 	protected void eatSFX() {
 		switch(Holiday.getCurrentHoliday()){
-			case PRIDE:
-			case NEW_YEARS:
+			case 彩虹节:
+			case 元旦:
 				Sample.INSTANCE.play( Assets.Sounds.DRINK );
 				return;
 		}
@@ -88,76 +90,84 @@ public class Pasty extends Food {
 
 	@Override
 	protected void satisfy(Hero hero) {
-		if (Holiday.getCurrentHoliday() == Holiday.LUNAR_NEW_YEAR){
+		if (Holiday.getCurrentHoliday() == Holiday.春节){
 			//main item only clears 300 hunger on lunar new year...
 			energy = Hunger.HUNGRY;
 		}
 
 		super.satisfy(hero);
+		if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_CHEVRON)){
+			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.GUIDE_CHEVRON);
+		}
 		
 		switch(Holiday.getCurrentHoliday()){
 			default:
 				break; //do nothing extra
-			case LUNAR_NEW_YEAR:
-				//...but it also awards an extra item that restores 150 hunger
-				FishLeftover left = new FishLeftover();
-				left.放背包();
-				break;
-			case APRIL_FOOLS:
-				Sample.INSTANCE.play(Assets.Sounds.MIMIC);
-			case EASTER:
-				ArtifactRecharge.chargeArtifacts(hero, 2f);
-				ScrollOfRecharging.charge( hero );
-				break;
-			case PRIDE:
-				Char target = null;
-
-				//charms an adjacent non-boss enemy, prioritizing the one the hero is focusing on
-				for (Char ch : Actor.chars()){
-					if (!Char.hasProp(ch, Char.Property.BOSS)
-							&& !Char.hasProp(ch, Char.Property.MINIBOSS)
-							&& ch.alignment == Char.Alignment.ENEMY
-							&& Dungeon.level.adjacent(hero.pos, ch.pos)){
-						if (target == null || ch == TargetHealthIndicator.instance.target()){
-							target = ch;
-						}
-					}
-				}
-
-				if (target != null){
-					Buff.施加(target, Charm.class, 5f).object = hero.id();
-				}
-				hero.sprite.emitter().burst(RainbowParticle.BURST, 15);
-				break;
-			case SHATTEREDPD_BIRTHDAY:
-			case PD_BIRTHDAY:
-				//gives 10% of level in exp, min of 2
-				int expToGive = Math.max(2, hero.升级所需()/10);
-				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(expToGive), FloatingText.EXPERIENCE);
-				hero.经验(expToGive, 经验药剂.class);
-				break;
-			case HALLOWEEN:
-				//heals for 5% max hp, min of 3
-				int toHeal = Math.max(3, hero.最大生命 /20);
-				hero.生命 = Math.min(hero.生命 + toHeal, hero.最大生命);
-				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toHeal), FloatingText.HEALING );
-				break;
-			case WINTER_HOLIDAYS:
-				hero.belongings.charge(0.5f); //2 turns worth
-				ScrollOfRecharging.charge( hero );
-				break;
-			case NEW_YEARS:
+			case 元旦:
 				//shields for 10% of max hp, min of 5
 				int toShield = Math.max(5, hero.最大生命 /10);
 				Buff.施加(hero, Barrier.class).设置(toShield);
 				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
-			case 奇袭节:
+			case 春节:
+				//...but it also awards an extra item that restores 150 hunger
+				FishLeftover left = new FishLeftover();
+				left.放背包();
+				break;
+			case 复活节:
+				ArtifactRecharge.chargeArtifacts(hero, 2f);
+				ScrollOfRecharging.charge( hero );
+				break;
+			case 愚人节:
+				Sample.INSTANCE.play(Assets.Sounds.MIMIC);
+			case 彩虹节:
+				Char target = null;
+				
+				//charms an adjacent non-boss enemy, prioritizing the one the hero is focusing on
+				for (Char ch : Actor.chars()){
+					if (!Char.hasProp(ch, Char.Property.BOSS)
+						&&!Char.hasProp(ch, Char.Property.MINIBOSS)
+						&& ch.alignment == Char.Alignment.ENEMY
+						&&Dungeon.level.adjacent(hero.pos,ch.pos)){
+						if (target == null ||ch==TargetHealthIndicator.instance.target()){
+							target = ch;
+						}
+					}
+				}
+				
+				if (target != null){
+					Buff.施加(target,Charm.class,5f).object = hero.id();
+				}
+				hero.sprite.emitter().burst(RainbowParticle.BURST,15);
+				break;
+			
+			case 七夕节:
 				if(!hero.单身) {
 					hero.单身=true;
 					hero.sprite.showStatusWithIcon(CharSprite.增强, "10%", FloatingText.STRENGTH);
 					GLog.p( Messages.get(PotionOfStrength.class, "msg", hero.力量()) );
 				}
+				break;
+			case SHATTEREDPD_BIRTHDAY:
+				//gives 10% of level in exp, min of 2
+				int expToGive = Math.max(2, hero.升级所需()/10);
+				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(expToGive), FloatingText.EXPERIENCE);
+				hero.经验(expToGive, 经验药剂.class);
+				break;
+			case 万圣节:
+				//heals for 5% max hp, min of 3
+				int toHeal = Math.max(3, hero.最大生命 /20);
+				hero.生命 = Math.min(hero.生命 + toHeal, hero.最大生命);
+				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toHeal), FloatingText.HEALING );
+				break;
+			case PD_BIRTHDAY:
+				//gives 10% of level in exp, min of 2
+				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.max(2, hero.升级所需()/10)), FloatingText.EXPERIENCE);
+				hero.经验(Math.max(2, hero.升级所需()/10), 经验药剂.class);
+				break;
+			case 圣诞节:
+				hero.belongings.charge(0.5f); //2 turns worth
+				ScrollOfRecharging.charge( hero );
 				break;
 		}
 	}
@@ -167,26 +177,26 @@ public class Pasty extends Food {
 		switch(Holiday.getCurrentHoliday()){
 			case NONE: default:
 				return super.name();
-			case LUNAR_NEW_YEAR:
+			case 元旦:
+				return Messages.get(this, "sparkling_name");
+			case 春节:
 				return Messages.get(this, "fish_name");
-			case APRIL_FOOLS:
-				return Messages.get(this, "amulet_name");
-			case EASTER:
+			case 复活节:
 				return Messages.get(this, "egg_name");
-			case PRIDE:
+			case 愚人节:
+				return Messages.get(this, "amulet_name");
+			case 彩虹节:
 				return Messages.get(this, "rainbow_name");
+			case 七夕节:
+				return Messages.get(this, "单身狗粮");
 			case SHATTEREDPD_BIRTHDAY:
 				return Messages.get(this, "shattered_name");
-			case HALLOWEEN:
+			case 万圣节:
 				return Messages.get(this, "pie_name");
 			case PD_BIRTHDAY:
 				return Messages.get(this, "vanilla_name");
-			case WINTER_HOLIDAYS:
+			case 圣诞节:
 				return Messages.get(this, "cane_name");
-			case NEW_YEARS:
-				return Messages.get(this, "sparkling_name");
-			case 奇袭节:
-				return Messages.get(this, "单身狗粮");
 		}
 	}
 
@@ -195,26 +205,26 @@ public class Pasty extends Food {
 		switch(Holiday.getCurrentHoliday()){
 			case NONE: default:
 				return super.desc();
-			case LUNAR_NEW_YEAR:
+			case 元旦:
+				return Messages.get(this, "sparkling_desc");
+			case 春节:
 				return Messages.get(this, "fish_desc");
-			case APRIL_FOOLS:
-				return Messages.get(this, "amulet_desc");
-			case EASTER:
+			case 复活节:
 				return Messages.get(this, "egg_desc");
-			case PRIDE:
+			case 愚人节:
+				return Messages.get(this, "amulet_desc");
+			case 彩虹节:
 				return Messages.get(this, "rainbow_desc");
+			case 七夕节:
+				return Messages.get(this, "单身狗粮_desc");
 			case SHATTEREDPD_BIRTHDAY:
 				return Messages.get(this, "shattered_desc");
-			case HALLOWEEN:
+			case 万圣节:
 				return Messages.get(this, "pie_desc");
 			case PD_BIRTHDAY:
 				return Messages.get(this, "vanilla_desc");
-			case WINTER_HOLIDAYS:
+			case 圣诞节:
 				return Messages.get(this, "cane_desc");
-			case NEW_YEARS:
-				return Messages.get(this, "sparkling_desc");
-			case 奇袭节:
-				return Messages.get(this, "单身狗粮_desc");
 		}
 	}
 	

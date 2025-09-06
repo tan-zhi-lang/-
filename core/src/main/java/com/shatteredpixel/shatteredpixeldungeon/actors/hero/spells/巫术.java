@@ -5,10 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -60,30 +57,30 @@ public abstract class 巫术 {
 		ArrayList<巫术> spells = new ArrayList<>();
 
 		if (tier == 1) {
-			if (cleric.有天赋(Talent.祭鉴之术)) {
+			if (cleric.天赋(Talent.祭鉴之术)) {
 				spells.add(祭鉴之术.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.痛命之术)) {
+			if (cleric.天赋(Talent.痛命之术)) {
 				spells.add(痛命之术.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.死血之术)) {
+			if (cleric.天赋(Talent.死血之术)) {
 				spells.add(死血之术.INSTANCE);
 			}
 		} else if (tier == 2) {
-			if (cleric.有天赋(Talent.血历之术)) {
+			if (cleric.天赋(Talent.血历之术)) {
 				spells.add(血历之术.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.血爆之术)) {
+			if (cleric.天赋(Talent.血爆之术)) {
 				spells.add(血爆之术.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.饮血之术)) {
+			if (cleric.天赋(Talent.饮血之术)) {
 				spells.add(饮血之术.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.换血之术)) {
+			if (cleric.天赋(Talent.换血之术)) {
 				spells.add(换血之术.INSTANCE);
 			}
 		} else if (tier == 3){
-			if (cleric.有天赋(Talent.物到之术)) {
+			if (cleric.天赋(Talent.物到之术)) {
 				spells.add(物到之术.INSTANCE);
 			}
 		} else if (tier == 4){

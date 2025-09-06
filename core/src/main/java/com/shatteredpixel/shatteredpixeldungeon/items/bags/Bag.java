@@ -27,6 +27,7 @@ public class Bag extends Item implements Iterable<Item> {
 		defaultAction = AC_OPEN;
 
 		unique = true;
+		物品 = true;
 	}
 	
 	public Char owner;
@@ -112,16 +113,6 @@ public class Bag extends Item implements Iterable<Item> {
 				}
 			}
 		}
-	}
-
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
 	}
 	
 	public void clear() {

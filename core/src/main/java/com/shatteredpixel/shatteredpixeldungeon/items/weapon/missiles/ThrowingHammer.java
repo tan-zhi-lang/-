@@ -15,19 +15,17 @@ public class ThrowingHammer extends MissileWeapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		hitSoundPitch = 0.8f;
 		
+		命中=0.9f;
+		间隔=1.1f;
+		伤害=1.2f;
 		tier = 5;
 		baseUses = 12;
 		sticky = false;
 	}
 	
 	@Override
-	public int 最大攻击(int lvl) {
-		return  4 * tier +                  //20 base, down from 25
-				(tier) * lvl;               //scaling unchanged
-	}
-	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
-		Buff.延长(defender, Vertigo .class, 2);
+		Buff.延长(defender, Vertigo.class, 1);
 		return super.攻击时( attacker, defender, damage );
 	}
 }

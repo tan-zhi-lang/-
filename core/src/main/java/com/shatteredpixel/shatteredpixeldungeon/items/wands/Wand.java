@@ -199,7 +199,7 @@ public abstract class Wand extends Item {
 
 	//TODO Consider externalizing char awareness buff
 	protected static void wandProc(Char target, int wandLevel, int chargesUsed){
-		if (Dungeon.hero.有天赋(Talent.ARCANE_VISION)) {
+		if (Dungeon.hero.天赋(Talent.ARCANE_VISION)) {
 			int dur = Dungeon.hero.天赋点数(Talent.ARCANE_VISION,3);
 			Buff.新增(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = target.id();
 			}
@@ -218,7 +218,7 @@ public abstract class Wand extends Item {
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.SEARING_LIGHT)
+				&& Dungeon.hero.天赋(Talent.SEARING_LIGHT)
 				&& Dungeon.hero.buff(Talent.SearingLightCooldown.class) == null){
 			Buff.施加(target, GuidingLight.Illuminated.class);
 			Buff.施加(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
@@ -226,7 +226,7 @@ public abstract class Wand extends Item {
 
 		if (target.alignment != Char.Alignment.ALLY
 				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.SUNRAY)){
+				&& Dungeon.hero.天赋(Talent.SUNRAY)){
 			// 15/25% chance
 			if (Dungeon.hero.天赋概率(Talent.SUNRAY,15)){
 				Buff.延长(target, Blindness.class, Dungeon.hero.天赋点数(Talent.SUNRAY,2));
@@ -271,7 +271,7 @@ public abstract class Wand extends Item {
 	}
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){
-		levelPercent *= Talent.itemIDSpeedFactor(hero, this);
+		levelPercent *= Talent.鉴定速度(hero,this);
 		if (!已鉴定() && availableUsesToID <= USES_TO_ID/2f) {
 			//gains enough uses to ID over 1 level
 			availableUsesToID = Math.min(USES_TO_ID/2f, availableUsesToID + levelPercent * USES_TO_ID/2f);
@@ -296,7 +296,7 @@ public abstract class Wand extends Item {
 			desc += "\n\n" + Messages.get(Wand.class, "not_cursed");
 		}
 
-		if (Dungeon.hero != null && Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE){
+		if (Dungeon.hero() && Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE){
 			desc += "\n\n" + Messages.get(this, "bmage_desc");
 		}
 
@@ -445,7 +445,7 @@ public abstract class Wand extends Item {
 
 	public void wandUsed() {
 		if (!已鉴定()) {
-			float uses = Math.min( availableUsesToID, Talent.itemIDSpeedFactor(Dungeon.hero, this) );
+			float uses = Math.min( availableUsesToID, Talent.鉴定速度(Dungeon.hero,this));
 			availableUsesToID -= uses;
 			usesLeftToID -= uses;
 			if (usesLeftToID <= 0 || Dungeon.hero.天赋点数(Talent.SCHOLARS_INTUITION) == 1) {
@@ -471,13 +471,13 @@ public abstract class Wand extends Item {
 
 		//inside staff
 		if (charger != null && charger.target == Dungeon.hero && !Dungeon.hero.belongings.contains(this)){
-			if (Dungeon.hero.有天赋(Talent.EXCESS_CHARGE) && curCharges >= maxCharges){
+			if (Dungeon.hero.天赋(Talent.EXCESS_CHARGE)&&curCharges>=maxCharges){
 				int shieldToGive = 强化等级()*Dungeon.hero.天赋生命力(Talent.EXCESS_CHARGE,0.6f);
 				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			}
 		}
-		if (Dungeon.hero.有天赋(Talent.保护屏障)) {
+		if (Dungeon.hero.天赋(Talent.保护屏障)) {
 			int shieldToGive = Dungeon.hero.天赋生命力(Talent.保护屏障, 0.4f);
 			if (Dungeon.hero.heroClass == HeroClass.MAGE ) {
 				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
@@ -518,27 +518,27 @@ public abstract class Wand extends Item {
 		}
 
 		//If hero owns wand but it isn't in belongings it must be in the staff
-		if (Dungeon.hero.有天赋(Talent.EMPOWERED_STRIKE)
+		if (Dungeon.hero.天赋(Talent.EMPOWERED_STRIKE)
 				&& charger != null && charger.target == Dungeon.hero
 				&& !Dungeon.hero.belongings.contains(this)){
 
 			Buff.延长(Dungeon.hero, Talent.EmpoweredStrikeTracker.class, 10f);
 		}
 
-		if (Dungeon.hero.有天赋(Talent.LINGERING_MAGIC)
+		if (Dungeon.hero.天赋(Talent.LINGERING_MAGIC)
 				&& charger != null && charger.target == Dungeon.hero){
 
 			Buff.延长(Dungeon.hero, Talent.LingeringMagicTracker.class, 5f);
 		}
 
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.DIVINE_SENSE)){
+				&& Dungeon.hero.天赋(Talent.DIVINE_SENSE)){
 			Buff.延长(Dungeon.hero, DivineSense.DivineSenseTracker.class, Dungeon.hero.cooldown()+1);
 		}
 
 		// 10/20/30%
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.有天赋(Talent.CLEANSE)
+				&& Dungeon.hero.天赋(Talent.CLEANSE)
 				&& Dungeon.hero.天赋概率(Talent.CLEANSE,10)){
 			boolean removed = false;
 			for (Buff b : Dungeon.hero.buffs()) {
@@ -717,7 +717,7 @@ public abstract class Wand extends Item {
 				int cell = shot.collisionPos;
 				
 				if (target == curUser.pos || cell == curUser.pos) {
-					if (target == curUser.pos&&(curUser.有天赋(Talent.SHIELD_BATTERY)||curUser.有天赋(Talent.饱腹法术))){
+					if (target == curUser.pos&&(curUser.天赋(Talent.SHIELD_BATTERY)||curUser.天赋(Talent.饱腹法术))){
 
 						if (curUser.buff(MagicImmune.class) != null){
 							GLog.w( Messages.get(Wand.class, "no_magic") );
@@ -728,13 +728,13 @@ public abstract class Wand extends Item {
 							GLog.w( Messages.get(Wand.class, "fizzles") );
 							return;
 						}
-						if(curUser.有天赋(Talent.SHIELD_BATTERY)) {
+						if(curUser.天赋(Talent.SHIELD_BATTERY)) {
 							int shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.015f)) * curWand.curCharges;
 							Buff.施加(curUser, Barrier.class).设置(shield);
 							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						}
-						if(curUser.有天赋(Talent.饱腹法术)) {
+						if(curUser.天赋(Talent.饱腹法术)) {
 							float shield = curUser.天赋点数(Talent.饱腹法术, 3) * curWand.curCharges;
 							Buff.施加(curUser, Hunger.class).吃饭(shield);
 
@@ -773,6 +773,7 @@ public abstract class Wand extends Item {
 //					}
 					
 					if (curWand.cursed){
+						Badges.解锁巫女();
 						if (!curWand.cursedKnown){
 							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
 						}
@@ -862,7 +863,7 @@ public abstract class Wand extends Item {
 			return true;
 		}
 
-		private void recharge(){
+		public void recharge(){
 			int missingCharges = maxCharges - curCharges;
 			missingCharges = Math.max(0, missingCharges);
 

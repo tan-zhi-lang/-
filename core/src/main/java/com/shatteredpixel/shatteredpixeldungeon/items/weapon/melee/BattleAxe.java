@@ -13,7 +13,10 @@ public class BattleAxe extends MeleeWeapon {
 		image = 物品表.BATTLE_AXE;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		hitSoundPitch = 0.9f;
-
+		
+		命中= 0.7f;
+		间隔= 1.5f;
+		伤害=1.8f;
 		tier = 4;
 	}
 

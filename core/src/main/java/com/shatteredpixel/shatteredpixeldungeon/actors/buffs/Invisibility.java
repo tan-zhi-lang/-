@@ -30,7 +30,7 @@ public class Invisibility extends FlavourBuff {
 			if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.ASSASSIN){
 				Buff.施加(target, Preparation.class);
 			}
-			if (target instanceof Hero && ((Hero) target).有天赋(Talent.PROTECTIVE_SHADOWS)){
+			if (target instanceof Hero && ((Hero) target).天赋(Talent.PROTECTIVE_SHADOWS)){
 				Buff.施加(target, Talent.ProtectiveShadowsTracker.class);
 			}
 			return true;

@@ -29,7 +29,7 @@ public class 血爆之术 extends 巫术 {
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
-		if(hero.有天赋(Talent.高级血爆)){
+		if(hero.天赋(Talent.高级血爆)){
 			float shield = hero.天赋点数(Talent.高级血爆, 100);
 			Buff.施加(hero, Hunger.class).吃饭(shield);
 		}
@@ -50,7 +50,7 @@ public class 血爆之术 extends 巫术 {
 		String desc = Messages.get(this, "desc",
 				Dungeon.hero.生命力(4)-Dungeon.hero.天赋生命力(Talent.物到之术,1),
 				Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血爆之术,0.2f)),
-				Dungeon.hero.有天赋(Talent.高级血爆)?Dungeon.hero.天赋点数(Talent.高级血爆,100):""
+				Dungeon.hero.天赋(Talent.高级血爆)?Dungeon.hero.天赋点数(Talent.高级血爆,100):""
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}

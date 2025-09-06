@@ -13,7 +13,9 @@ public class 书包 extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 1;
-		间隔= 1.25f; //2x speed
+		命中=1.1f;
+		间隔=0.9f;
+		伤害=1.1f;
 		
 		bones = false;
 	}
@@ -22,11 +24,10 @@ public class 书包 extends MeleeWeapon {
 	public int 最大攻击(int lvl) {
 		int d=0;
 		if(curUser!=null){
-			for(Item i:curUser.belongings.backpack.items){
+			for(Item i:curUser.belongings){
 				if(i instanceof Scroll s)d+=s.数量(0.5f);
 			}
 		}
-		return  2*(tier+1) +     //5 base, down from 10
-				lvl*(tier+1)+d;  //+1 per level, down from +2
+		return  super.最大攻击(lvl)+d;
 	}
 }

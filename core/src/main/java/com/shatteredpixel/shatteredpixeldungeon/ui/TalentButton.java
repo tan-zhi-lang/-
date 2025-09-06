@@ -96,7 +96,7 @@ public class TalentButton extends Button {
 
 		Window toAdd;
 		if (mode == Mode.UPGRADE
-				&& Dungeon.hero != null
+				&& Dungeon.hero()
 				&& Dungeon.hero.isAlive()
 				&& Dungeon.hero.talentPointsAvailable(tier) > 0
 				&& Dungeon.hero.天赋点数(talent) < talent.最大点数()){
@@ -112,7 +112,7 @@ public class TalentButton extends Button {
 					upgradeTalent();
 				}
 			});
-		} else if (mode == Mode.METAMORPH_CHOOSE && Dungeon.hero != null && Dungeon.hero.isAlive()) {
+		} else if (mode == Mode.METAMORPH_CHOOSE && Dungeon.hero() && Dungeon.hero.isAlive()) {
 			toAdd = new WndInfoTalent(talent, pointsInTalent, new WndInfoTalent.TalentButtonCallback() {
 
 				@Override
@@ -133,7 +133,7 @@ public class TalentButton extends Button {
 					GameScene.show(new 蜕变秘卷.WndMetamorphReplace(talent, tier));
 				}
 			});
-		} else if (mode == Mode.METAMORPH_REPLACE && Dungeon.hero != null && Dungeon.hero.isAlive()) {
+		} else if (mode == Mode.METAMORPH_REPLACE && Dungeon.hero() && Dungeon.hero.isAlive()) {
 			toAdd = new WndInfoTalent(talent, pointsInTalent, new WndInfoTalent.TalentButtonCallback() {
 
 				@Override

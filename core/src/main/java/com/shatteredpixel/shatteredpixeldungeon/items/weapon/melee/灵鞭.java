@@ -21,15 +21,12 @@ public class 灵鞭 extends MeleeWeapon {
 		hitSoundPitch = 1.1f;
 
 		tier = 1;
+		命中=0.7f;
+		间隔= 1.2f;
+		伤害= 1.4f;
 		范围 = 3;    //lots of extra reach
 		unique = true;
 		bones = false;
-	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  5*(tier) +      //15 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.watabou.noosa.Game;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -16,12 +15,28 @@ public class 算法 {
 
     * */
     public static int x2=32;
-    public static int x3=64;
-    public static int x4=96;
-    public static int x5=128;
-    public static int x6=160;
-    public static int x7=192;
-    public static int x8=224;
+    public static int x3=32*2;
+    public static int x4=32*3;
+    public static int x5=32*4;
+    public static int x6=32*5;
+    public static int x7=32*6;
+    public static int x8=32*7;
+    public static int x9=32*8;
+    public static int x10=32*9;
+    public static int x11=32*10;
+    public static int x12=32*11;
+    public static int x13=32*12;
+    public static int x14=32*13;
+    public static int x15=32*14;
+    public static int x16=32*15;
+    public static int x17=32*16;
+    public static int x18=32*17;
+    public static int x19=32*18;
+    public static int x20=32*19;
+    public static int x21=32*20;
+    public static int x22=32*21;
+    public static int x23=32*22;
+    public static int x24=32*23;
     public static void 修复Buff(Char a,Integer i,Callback c){
         final Ballistica shot = new Ballistica( a.pos, i, Ballistica.PROJECTILE);
         MagicMissile.boltFromChar( a.sprite.parent,
@@ -408,7 +423,11 @@ public class 算法 {
         Buff.施加(enemy, s, Frost.DURATION);
     }
     public static boolean isDebug(){
-        return SPDSettings.customSeed().equals("调试")||Game.version.contains("INDEV");
+//        Game.version.contains("INDEV")
+        if(SPDSettings.customSeed().equals("")){
+            return false;
+        }
+        return SPDSettings.customSeed().equals("调试");
     }
     public static boolean 概率学(int x){
         return Random.Int(1,100)<= x;
@@ -432,5 +451,14 @@ public class 算法 {
             x = 4 + (int)(Math.sqrt(8*(x - 4) + 1) - 1)/2;
         }
         return x;
+    }
+    public static int 取大小( int min, int value, int max ) {
+        if (value < min) {
+            return min;
+        } else if (value > max) {
+            return max;
+        } else {
+            return value;
+        }
     }
 }

@@ -17,18 +17,19 @@ public class 碧蓝巨剑 extends MeleeWeapon {
 
 		tier = 1;
 		
+		命中=0.7f;
+		间隔= 1.5f;
+		伤害= 1.8f;
 		bones = false;
 	}
 	
 	@Override
-	public int 最大攻击(int lvl) {
-		return  6*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1);   //scaling unchanged
-	}
-	@Override
 	public int 力量(int lvl) {
-		int req = 力量(tier, lvl)-1;
+		int req = 力量(tier, lvl)+1;
 		if (masteryPotionBonus){
+			req -= 2;
+		}
+		if (神力){
 			req -= 2;
 		}
 		return req;

@@ -25,6 +25,7 @@ public class Torch extends Item {
 		
 		stackable = true;
 		黄色 = true;
+		物品 = true;
 		
 		defaultAction = AC_LIGHT;
 	}
@@ -60,15 +61,6 @@ public class Torch extends Item {
 		}
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 	
 	@Override
 	public int 金币() {

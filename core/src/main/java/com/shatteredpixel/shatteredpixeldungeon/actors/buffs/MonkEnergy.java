@@ -143,7 +143,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 		float enGainMulti = 1f;
 		if (target instanceof Hero) {
 			Hero hero = (Hero) target;
-			if (hero.有天赋(Talent.UNENCUMBERED_SPIRIT)) {
+			if (hero.天赋(Talent.UNENCUMBERED_SPIRIT)) {
 				int points = hero.天赋点数(Talent.UNENCUMBERED_SPIRIT);
 
 				if (hero.belongings.armor() != null){
@@ -190,7 +190,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 	public void abilityUsed( MonkAbility abil ){
 		energy -= abil.energyCost();
 
-		if (target instanceof Hero && ((Hero) target).有天赋(Talent.COMBINED_ENERGY)
+		if (target instanceof Hero && ((Hero) target).天赋(Talent.COMBINED_ENERGY)
 				&& abil.energyCost() >= 5-((Hero) target).天赋点数(Talent.COMBINED_ENERGY)) {
 			Talent.CombinedEnergyAbilityTracker tracker = target.buff(Talent.CombinedEnergyAbilityTracker.class);
 			if (tracker == null || !tracker.wepAbilUsed){

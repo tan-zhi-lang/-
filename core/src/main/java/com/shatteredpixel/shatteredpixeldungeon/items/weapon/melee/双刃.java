@@ -27,18 +27,14 @@ public class 双刃 extends MeleeWeapon {
 		hitSoundPitch = 1.2f;
 
 		tier = 1;
-		间隔= 0.75f; //2x speed
+		命中= 1.3f;
+		间隔= 0.7f;
+		伤害= 0.6f;
+		最小=1;
 		伏击=true;
 		伏击率=0.75f;
 		bones = false;
 	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  3*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1)/2*3;   //scaling unchanged
-	}
-	
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");

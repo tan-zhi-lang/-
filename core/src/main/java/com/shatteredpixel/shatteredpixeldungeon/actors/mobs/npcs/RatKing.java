@@ -100,6 +100,7 @@ public class RatKing extends NPC {
 		if (c != Dungeon.hero){
 			return super.interact(c);
 		}
+		Badges.解锁鼠弟();
 
 		矮人国王的皇冠 crown = Dungeon.hero.belongings.getItem(矮人国王的皇冠.class);
 		if (state == SLEEPING) {
@@ -148,11 +149,11 @@ public class RatKing extends NPC {
 	
 	@Override
 	public String description() {
-		if (Dungeon.hero != null && Dungeon.hero.armorAbility instanceof Ratmogrify){
+		if (Dungeon.hero() && Dungeon.hero.armorAbility instanceof Ratmogrify){
 			return Messages.get(this, "desc_crown");
-		} else if (Holiday.getCurrentHoliday() == Holiday.APRIL_FOOLS){
+		} else if (Holiday.getCurrentHoliday() == Holiday.愚人节){
 			return Messages.get(this, "desc_birthday");
-		} else if (Holiday.getCurrentHoliday() == Holiday.WINTER_HOLIDAYS){
+		} else if (Holiday.getCurrentHoliday() == Holiday.圣诞节){
 			return Messages.get(this, "desc_winter");
 		} else {
 			return super.description();

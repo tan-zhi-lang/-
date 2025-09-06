@@ -515,7 +515,7 @@ public abstract class RegularLevel extends Level {
 		//cached rations try to drop in a special room on floors 2/4/7, to a max of 2/3
 		//we increment dropped by 2 for compatibility with old saves, when the talent dropped 4/6 items
 		Random.pushGenerator( Random.Long() );
-			if (Dungeon.hero.有天赋(Talent.寻宝猎人)){
+			if (Dungeon.hero.天赋(Talent.寻宝猎人)){
 				Talent.寻宝猎人 dropped = Buff.施加(Dungeon.hero, Talent.寻宝猎人.class);
 				int targetFloor = (int)(2 + dropped.count());
 				if (dropped.count() > 4) targetFloor++;

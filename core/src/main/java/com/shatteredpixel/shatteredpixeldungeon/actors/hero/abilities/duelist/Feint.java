@@ -178,14 +178,14 @@ public class Feint extends ArmorAbility {
 				}
 				Buff.施加(enemy, FeintConfusion.class, 1);
 				if (enemy.sprite != null) enemy.sprite.showLost();
-				if (Dungeon.hero.有天赋(Talent.FEIGNED_RETREAT)) {
+				if (Dungeon.hero.天赋(Talent.FEIGNED_RETREAT)) {
 					Buff.延长(Dungeon.hero, 极速.class, 2f * Dungeon.hero.天赋点数(Talent.FEIGNED_RETREAT));
 				}
-				if (Dungeon.hero.有天赋(Talent.EXPOSE_WEAKNESS)) {
+				if (Dungeon.hero.天赋(Talent.EXPOSE_WEAKNESS)) {
 					Buff.延长(enemy, Vulnerable.class, 2f * Dungeon.hero.天赋点数(Talent.EXPOSE_WEAKNESS));
 					Buff.延长(enemy, Weakness.class, 2f * Dungeon.hero.天赋点数(Talent.EXPOSE_WEAKNESS));
 				}
-				if (Dungeon.hero.有天赋(Talent.COUNTER_ABILITY)) {
+				if (Dungeon.hero.天赋(Talent.COUNTER_ABILITY)) {
 					Buff.延长(Dungeon.hero, Talent.CounterAbilityTacker.class, 3f);
 				}
 			}

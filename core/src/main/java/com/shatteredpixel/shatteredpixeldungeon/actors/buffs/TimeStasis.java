@@ -23,7 +23,7 @@ public class TimeStasis extends FlavourBuff {
 			target.paralysed++;
 			target.next();
 
-			if (Dungeon.hero != null) {
+			if (Dungeon.hero()) {
 				Dungeon.observe();
 			}
 

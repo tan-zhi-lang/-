@@ -407,7 +407,7 @@ public class v1_X_Changes {
 				"_- Go for the Eyes_ now cripples at ranks 3 and 4\n" +
 				"_- Swift Spirit_ now grants 2/4/6/8 dodges, up from 2/3/4/5"));
 
-		changes.addButton( new ChangeButton(new TalentIcon(Talent.高级法杖), Talent.高级法杖.title(),
+		changes.addButton( new ChangeButton(new TalentIcon(Talent.高级魔杖),Talent.高级魔杖.title(),
 				"Only one isolated talent change in this update:\n\n" +
 				"_- Wand Preservation_ chance to preserve at +1 reverted to 67% from 50%, still grants 1 arcane resin if it fails to preserve"));
 

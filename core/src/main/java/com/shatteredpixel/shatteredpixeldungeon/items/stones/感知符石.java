@@ -58,7 +58,7 @@ public class 感知符石 extends InventoryStone {
 	@Override
 	public String desc() {
 		String text = super.desc();
-		if (Dungeon.hero != null){
+		if (Dungeon.hero()){
 			if (Dungeon.hero.buff(IntuitionUseTracker.class) == null){
 				text += "\n\n" + Messages.get(this, "break_info");
 			} else {

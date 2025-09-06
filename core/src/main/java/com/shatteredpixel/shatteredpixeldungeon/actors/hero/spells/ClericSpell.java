@@ -3,15 +3,11 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -92,29 +88,29 @@ public abstract class ClericSpell {
 			spells.add(HolyWeapon.INSTANCE);
 			spells.add(HolyWard.INSTANCE);
 
-			if (cleric.有天赋(Talent.HOLY_INTUITION)) {
+			if (cleric.天赋(Talent.HOLY_INTUITION)) {
 				spells.add(HolyIntuition.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.SHIELD_OF_LIGHT)) {
+			if (cleric.天赋(Talent.SHIELD_OF_LIGHT)) {
 				spells.add(ShieldOfLight.INSTANCE);
 			}
 
 		} else if (tier == 2) {
 
-			if (cleric.有天赋(Talent.RECALL_INSCRIPTION)){
+			if (cleric.天赋(Talent.RECALL_INSCRIPTION)){
 				spells.add(RecallInscription.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.SUNRAY)){
+			if (cleric.天赋(Talent.SUNRAY)){
 				spells.add(Sunray.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.DIVINE_SENSE)) {
+			if (cleric.天赋(Talent.DIVINE_SENSE)) {
 				spells.add(DivineSense.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.BLESS)){
+			if (cleric.天赋(Talent.BLESS)){
 				spells.add(BlessSpell.INSTANCE);
 			}
 
@@ -127,59 +123,59 @@ public abstract class ClericSpell {
 				spells.add(Smite.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.CLEANSE)){
+			if (cleric.天赋(Talent.CLEANSE)){
 				spells.add(Cleanse.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.HOLY_LANCE)){
+			if (cleric.天赋(Talent.HOLY_LANCE)){
 				spells.add(HolyLance.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.HALLOWED_GROUND)){
+			if (cleric.天赋(Talent.HALLOWED_GROUND)){
 				spells.add(HallowedGround.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.MNEMONIC_PRAYER)){
+			if (cleric.天赋(Talent.MNEMONIC_PRAYER)){
 				spells.add(MnemonicPrayer.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.LAY_ON_HANDS)){
+			if (cleric.天赋(Talent.LAY_ON_HANDS)){
 				spells.add(LayOnHands.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.AURA_OF_PROTECTION)){
+			if (cleric.天赋(Talent.AURA_OF_PROTECTION)){
 				spells.add(AuraOfProtection.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.WALL_OF_LIGHT)){
+			if (cleric.天赋(Talent.WALL_OF_LIGHT)){
 				spells.add(WallOfLight.INSTANCE);
 			}
 
 		} else if (tier == 4){
 
-			if (cleric.有天赋(Talent.DIVINE_INTERVENTION)){
+			if (cleric.天赋(Talent.DIVINE_INTERVENTION)){
 				spells.add(DivineIntervention.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.JUDGEMENT)){
+			if (cleric.天赋(Talent.JUDGEMENT)){
 				spells.add(Judgement.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.FLASH)){
+			if (cleric.天赋(Talent.FLASH)){
 				spells.add(Flash.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.BODY_FORM)){
+			if (cleric.天赋(Talent.BODY_FORM)){
 				spells.add(BodyForm.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.MIND_FORM)){
+			if (cleric.天赋(Talent.MIND_FORM)){
 				spells.add(MindForm.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.SPIRIT_FORM)){
+			if (cleric.天赋(Talent.SPIRIT_FORM)){
 				spells.add(SpiritForm.INSTANCE);
 			}
 
-			if (cleric.有天赋(Talent.BEAMING_RAY)){
+			if (cleric.天赋(Talent.BEAMING_RAY)){
 				spells.add(BeamingRay.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.LIFE_LINK)){
+			if (cleric.天赋(Talent.LIFE_LINK)){
 				spells.add(LifeLinkSpell.INSTANCE);
 			}
-			if (cleric.有天赋(Talent.STASIS)){
+			if (cleric.天赋(Talent.STASIS)){
 				spells.add(Stasis.INSTANCE);
 			}
 

@@ -34,6 +34,7 @@ public class TengusMask extends Item {
 		白色 = true;
 
 		unique = true;
+		物品 = true;
 	}
 	
 	@Override
@@ -61,16 +62,6 @@ public class TengusMask extends Item {
 	public boolean doPickUp(Hero hero, int pos) {
 		Badges.validateMastery();
 		return super.doPickUp( hero, pos );
-	}
-	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
 	}
 	
 	public void choose( HeroSubClass way ) {

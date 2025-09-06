@@ -92,6 +92,7 @@ public class 物品表 {
     public static final int GEO_BOULDER = UNCOLLECTIBLE + 7;
     public static final int SPIRIT_ARROW = UNCOLLECTIBLE + 8;
     public static final int 子弹 = UNCOLLECTIBLE + 9;
+    public static final int 手枪子弹 = UNCOLLECTIBLE + 10;
 
     static {
         assignItemRect(GOLD, 15, 13);
@@ -107,6 +108,7 @@ public class 物品表 {
 
         assignItemRect(SPIRIT_ARROW, 11);
         assignItemRect(子弹, 5);
+        assignItemRect(手枪子弹, 6,10);
     }
     //endregion
 
@@ -495,10 +497,15 @@ public class 物品表 {
     public static final int RING_QUARTZ = RINGS + 9;
     public static final int RING_AGATE = RINGS + 10;
     public static final int RING_DIAMOND = RINGS + 11;
+    public static final int 黑曜石=RINGS+12;
+    public static final int 月亮石=RINGS+13;
+    public static final int 黄金=RINGS+14;
+    public static final int 虚无=RINGS+15;
 
     static {
-        for (int i = RINGS; i < RINGS + 16; i++)
-            assignItemRect(i, 8, 10);
+        for (int i = RINGS; i < RINGS + 30; i++){
+            assignItemRect(i,8,10);
+        }
     }
     //endregion
 
@@ -546,8 +553,8 @@ public class 物品表 {
         assignItemRect(ARTIFACT_CHALICE1, 12, 15);
         assignItemRect(ARTIFACT_CHALICE2, 12, 15);
         assignItemRect(ARTIFACT_CHALICE3, 12, 15);
-        assignItemRect(ARTIFACT_SANDALS, 16,12);
-        assignItemRect(ARTIFACT_SHOES, 16,12);
+        assignItemRect(ARTIFACT_SANDALS, 16,6);
+        assignItemRect(ARTIFACT_SHOES, 16,6);
         assignItemRect(ARTIFACT_BOOTS, 16, 9);
         assignItemRect(ARTIFACT_GREAVES, 16, 14);
         assignItemRect(ARTIFACT_ROSE1, 14);
@@ -581,6 +588,7 @@ public class 物品表 {
     public static final int OBLIVION_SHARD = TRINKETS + 13;
     public static final int CHAOTIC_CENSER = TRINKETS + 14;
     public static final int FERRET_TUFT = TRINKETS + 15;
+    public static final int 中国国旗 = TRINKETS + 16;
 
     static {
         assignItemRect(RAT_SKULL, 16, 11);
@@ -599,6 +607,7 @@ public class 物品表 {
         assignItemRect(OBLIVION_SHARD, 7, 14);
         assignItemRect(CHAOTIC_CENSER, 13, 15);
         assignItemRect(FERRET_TUFT, 16, 15);
+        assignItemRect(中国国旗, 16);
     }
     //endregion
 
@@ -1174,6 +1183,17 @@ public class 物品表 {
             assignIconRect(POTION_EARTHARMR, 6);
             assignIconRect(POTION_CLEANSE, 7);
             assignIconRect(POTION_DIVINE, 7);
+        }
+        public static final int 六神之戒 = xy(1, 9);  //16 slots
+        public static final int 心力之戒 = 六神之戒 + 1;
+        public static final int 全知之戒 = 六神之戒 + 2;
+        public static final int 时间之戒 = 六神之戒 + 3;
+
+        static {
+            assignIconRect(六神之戒, 7);
+            assignIconRect(心力之戒, 7,6);
+            assignIconRect(全知之戒, 7,5);
+            assignIconRect(时间之戒, 5);
         }
 
         //16 free slots

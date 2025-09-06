@@ -44,7 +44,7 @@ public class WarpBeacon extends ArmorAbility {
 	@Override
 	public String targetingPrompt() {
 		if (Dungeon.hero.buff(WarpBeaconTracker.class) == null
-				&& Dungeon.hero.有天赋(Talent.REMOTE_BEACON)){
+				&& Dungeon.hero.天赋(Talent.REMOTE_BEACON)){
 			return Messages.get(this, "prompt");
 		}
 		return super.targetingPrompt();
@@ -76,7 +76,7 @@ public class WarpBeacon extends ArmorAbility {
 				protected void onSelect(int index) {
 					if (index == 0){
 
-						if (tracker.depth != Dungeon.depth && !hero.有天赋(Talent.LONGRANGE_WARP)){
+						if (tracker.depth != Dungeon.depth && !hero.天赋(Talent.LONGRANGE_WARP)){
 							GLog.w( Messages.get(WarpBeacon.class, "depths") );
 							return;
 						}
@@ -99,7 +99,7 @@ public class WarpBeacon extends ArmorAbility {
 							Char existing = Actor.findChar(tracker.pos);
 
 							if (existing != null && existing != hero){
-								if (hero.有天赋(Talent.TELEFRAG)){
+								if (hero.天赋(Talent.TELEFRAG)){
 									int heroHP = hero.生命 + hero.shielding();
 									int heroDmg = 5 * hero.天赋点数(Talent.TELEFRAG);
 									hero.受伤时(Math.min(heroDmg, heroHP-1), WarpBeacon.this);

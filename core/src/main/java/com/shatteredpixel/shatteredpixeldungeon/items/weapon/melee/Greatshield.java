@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -11,16 +10,12 @@ public class Greatshield extends MeleeWeapon {
 
 	{
 		image = 物品表.GREATSHIELD;
-
+		
+		命中= 0.7f;
+		间隔= 1.2f;
+		伤害= 1.4f;
 		tier = 5;
 	}
-
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(3f*(tier+1)) +   //18 base, down from 20
-				lvl*(tier-1);               //+3 per level, down from +6
-	}
-
 	@Override
 	public int 最大防御(int lvl){
 		return 6 + 2*lvl;

@@ -66,7 +66,7 @@ public class Ratmogrify extends ArmorAbility {
 			GLog.w(Messages.get(this, "no_target"));
 			return;
 		} else if (ch == hero){
-			if (!hero.有天赋(Talent.RATFORCEMENTS)){
+			if (!hero.天赋(Talent.RATFORCEMENTS)){
 				GLog.w(Messages.get(this, "self_target"));
 				return;
 			} else {
@@ -100,7 +100,7 @@ public class Ratmogrify extends ArmorAbility {
 			GLog.w(Messages.get(this, "cant_transform"));
 			return;
 		} else if (ch instanceof TransmogRat){
-			if (((TransmogRat) ch).allied || !hero.有天赋(Talent.RATLOMACY)){
+			if (((TransmogRat) ch).allied || !hero.天赋(Talent.RATLOMACY)){
 				GLog.w(Messages.get(this, "cant_transform"));
 				return;
 			} else {
@@ -253,7 +253,7 @@ public class Ratmogrify extends ArmorAbility {
 		@Override
 		public int 攻击() {
 			int damage = original.攻击();
-			if (!allied && Dungeon.hero.有天赋(Talent.RATSISTANCE)){
+			if (!allied && Dungeon.hero.天赋(Talent.RATSISTANCE)){
 				damage *= Math.pow(0.9f, Dungeon.hero.天赋点数(Talent.RATSISTANCE));
 			}
 			return damage;

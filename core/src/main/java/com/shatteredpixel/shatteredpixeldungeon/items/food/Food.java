@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
@@ -40,6 +39,7 @@ public class Food extends Item {
 		defaultAction = AC_EAT;
 
 		bones = true;
+		物品 = true;
 	}
 	
 	@Override
@@ -69,8 +69,6 @@ public class Food extends Item {
 			eatSFX();
 			
 			hero.spend( eatingTime() );
-
-			Talent.吃饭时(hero, energy, this);
 			
 			Statistics.foodEaten++;
 			Badges.validateFoodEaten();
@@ -103,16 +101,6 @@ public class Food extends Item {
 		}
 
 		Buff.施加(hero, Hunger.class).吃饭(foodVal);
-	}
-	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
 	}
 	
 	@Override

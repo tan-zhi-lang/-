@@ -28,17 +28,13 @@ public class 镜刃 extends MeleeWeapon {
 		hitSoundPitch = 1.1f;
 
 		tier = 1;
-		间隔= 0.67f;
+		命中= 1.1f;
+		间隔= 0.9f;
+		伤害= 1.1f;
 		unique = true;
 		
 		bones = false;
 	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //base
-				lvl*(tier+1);   //level scaling
-	}
-
 	@Override
 	public int 能量() {
 		return Math.round(super.能量()*5);

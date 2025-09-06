@@ -6,9 +6,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -30,7 +29,7 @@ public class RipperDemon extends Mob {
 
 		生命 = 最大生命 = 60;
 		defenseSkill = 22;
-		viewDistance = Light.DISTANCE;
+		viewDistance = 6;
 
 		经验 = 9; //for corrupting
 		最大等级 = -2;
@@ -141,15 +140,25 @@ public class RipperDemon extends Mob {
 					//attempt to bounce in free passable space
 					for (int i : PathFinder.NEIGHBOURS8){
 						if ((bouncepos == -1 || Dungeon.level.trueDistance(pos, leapPos+i) < Dungeon.level.trueDistance(pos, bouncepos))
-								&& Actor.findChar(leapPos+i) == null && Dungeon.level.passable[leapPos+i]){
+								&& Actor.findChar(leapPos+i) == null
+							&&!Dungeon.level.pit[leapPos+i]//不是深渊
+							&& Dungeon.level.passable[leapPos+i]){
+							if(bouncepos!=-1){
+								continue;
+							}
 							bouncepos = leapPos+i;
 						}
 					}
 					//try again, allowing a bounce into any non-solid terrain
-					if (bouncepos == -1){
+					if(bouncepos==-1){
 						for (int i : PathFinder.NEIGHBOURS8){
 							if ((bouncepos == -1 || Dungeon.level.trueDistance(pos, leapPos+i) < Dungeon.level.trueDistance(pos, bouncepos))
-									&& Actor.findChar(leapPos+i) == null && !Dungeon.level.solid[leapPos+i]){
+								&& Actor.findChar(leapPos+i) == null
+								&&!Dungeon.level.pit[leapPos+i]//不是深渊
+								&& Dungeon.level.passable[leapPos+i]){
+								if(bouncepos!=-1){
+									continue;
+								}
 								bouncepos = leapPos+i;
 							}
 						}

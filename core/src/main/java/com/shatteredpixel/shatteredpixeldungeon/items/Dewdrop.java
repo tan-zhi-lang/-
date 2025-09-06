@@ -66,7 +66,7 @@ public class Dewdrop extends Item {
 		int heal = Math.min( hero.最大生命 - hero.生命, effect );
 
 		int shield = 0;
-		if (hero.有天赋(Talent.SHIELDING_DEW)){
+		if (hero.天赋(Talent.SHIELDING_DEW)){
 
 			//When vial is present, this allocates exactly as much of the effect as is needed
 			// to get to 100% HP, and the rest is then given as shielding (without the vial boost)

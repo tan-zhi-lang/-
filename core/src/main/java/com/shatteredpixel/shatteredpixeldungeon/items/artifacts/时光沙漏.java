@@ -294,7 +294,7 @@ public class 时光沙漏 extends Artifact {
 
 				updateQuickslot();
 
-				if (Dungeon.hero != null) {
+				if (Dungeon.hero()) {
 					Dungeon.observe();
 				}
 

@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -22,23 +23,23 @@ public class Hunger extends Buff implements Hero.Doom {
 	public static final float STARVING	= 450f;
 
 	private float level;
-	private float partialDamage;
+	private float partial=1;
 
 	private static final String LEVEL			= "level";
-	private static final String PARTIALDAMAGE 	= "partialDamage";
+	private static final String PARTIAL 	= "partial";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		bundle.put( LEVEL, level );
-		bundle.put( PARTIALDAMAGE, partialDamage );
+		bundle.put( PARTIAL, partial );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		level = bundle.getFloat( LEVEL );
-		partialDamage = bundle.getFloat(PARTIALDAMAGE);
+		partial = bundle.getFloat(PARTIAL);
 	}
 
 	@Override
@@ -64,12 +65,12 @@ public class Hunger extends Buff implements Hero.Doom {
 				
 			}
 			if (isStarving()) {
+				
+				partial++;
 
-				partialDamage += target.最大生命 /1000f;
-
-				if (partialDamage > 1){
-					target.受伤时( (int)partialDamage, this);
-					partialDamage -= (int)partialDamage;
+				if (partial >= 10){
+					target.受伤时( target.生命力(0.13f), this);
+					partial=1;
 				}
 				
 			} else {
@@ -116,7 +117,14 @@ public class Hunger extends Buff implements Hero.Doom {
 		affectHunger( energy, false );
 	}
 	public void affectHunger(float energy, boolean overrideLimits ) {
-
+		if(target instanceof Hero hero){
+			hero.吃饭触发+=energy;
+			hero.污蔑狂宴+=energy;
+			if(hero.吃饭触发>=150){
+				hero.吃饭触发-=150;
+				Talent.吃饭时(hero,energy,null);
+			}
+		}
 		if (energy < 0 && target.buff(WellFed.class) != null){
 			target.buff(WellFed.class).left += energy;
 			BuffIndicator.refreshHero();
@@ -129,13 +137,8 @@ public class Hunger extends Buff implements Hero.Doom {
 		if (level < 0 && !overrideLimits) {
 			level = 0;
 		} else if (level > STARVING) {
-			float excess = level - STARVING;
 			level = STARVING;
-			partialDamage += excess * (target.最大生命 /1000f);
-			if (partialDamage > 1f){
-				target.受伤时( (int)partialDamage, this );
-				partialDamage -= (int)partialDamage;
-			}
+			target.受伤时( target.生命力(0.18f), this );
 		}
 
 		if (oldLevel < HUNGRY && level >= HUNGRY){

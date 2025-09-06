@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -14,22 +13,13 @@ public class 臂铠 extends MeleeWeapon {
 		hitSoundPitch = 1.3f;
 
 		tier = 1;
-		间隔= 0.67f; //2x speed
+		命中=1.2f;
+		最小 = 1;
+		间隔= 0.8f;
+		伤害= 0.5f;
 		
 		bones = false;
 	}
-
-	@Override
-	public int 最小攻击(int lvl) {
-		return  1+tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  Math.round(3f*(tier+1)) +     //5 base, down from 10
-				lvl*Math.round(0.6f*(tier+1));  //+1 per level, down from +2
-	}
-	
 	@Override
 	public int 最大防御(int lvl){
 		return 2 + lvl;

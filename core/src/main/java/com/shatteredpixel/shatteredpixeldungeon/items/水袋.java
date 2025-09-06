@@ -88,7 +88,7 @@ public class 水袋 extends Item {
 				int curShield = 0;
 				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).护盾量();
 				int maxShield = Math.round(hero.最大生命 *hero.天赋点数(Talent.SHIELDING_DEW,0.25f));
-				if (hero.有天赋(Talent.SHIELDING_DEW)){
+				if (hero.天赋(Talent.SHIELDING_DEW)){
 					float missingShieldPercent = 1f - (curShield / (float)maxShield);
 					missingShieldPercent *= hero.天赋点数(Talent.SHIELDING_DEW,0.25f);
 					if (missingShieldPercent > 0){

@@ -224,6 +224,7 @@ abstract public class ClassArmor extends Armor {
 								cursed = armor.cursed;
 								curseInfusionBonus = armor.curseInfusionBonus;
 								masteryPotionBonus = armor.masteryPotionBonus;
+								神力 = armor.神力;
 								if (armor.checkSeal() != null) {
 									inscribe(armor.glyph);
 									破损纹章 = armor.checkSeal();
@@ -277,7 +278,7 @@ abstract public class ClassArmor extends Armor {
 	public String desc() {
 		String desc = super.desc();
 
-		if (Dungeon.hero != null && Dungeon.hero.belongings.contains(this)) {
+		if (Dungeon.hero() && Dungeon.hero.belongings.contains(this)) {
 			ArmorAbility ability = Dungeon.hero.armorAbility;
 			if (ability != null) {
 				desc += "\n\n" + ability.shortDesc();

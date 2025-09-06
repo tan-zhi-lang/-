@@ -192,6 +192,8 @@ public enum Document {
 					return new ItemSprite( 物品表.灵能短弓);
 				case "Magic":
 					return new ItemSprite( 物品表.焰浪法杖);
+				case Document.GUIDE_CHEVRON:
+					return Icons.get(Icons.CHEVRON);
 			}
 		}
 	}
@@ -234,6 +236,7 @@ public enum Document {
 	public static final String GUIDE_DIEING         = "Dieing";
 
 	public static final String GUIDE_SEARCHING      = "Searching";
+	public static final String GUIDE_CHEVRON      = "chevron";
 
 	public static final String KING_ATTRITION       = "attrition";
 
@@ -256,6 +259,7 @@ public enum Document {
 		ADVENTURERS_GUIDE.pagesStates.put("Levelling",          debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put("Positioning",        debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put("Magic",              debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_CHEVRON,              debug ? READ : NOT_FOUND);
 		
 		//given in sewers
 		ALCHEMY_GUIDE.pagesStates.put("Potions",                debug ? READ : NOT_FOUND);

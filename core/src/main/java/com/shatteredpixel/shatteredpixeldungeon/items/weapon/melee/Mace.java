@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Daze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -17,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 
 public class Mace extends MeleeWeapon {
 
@@ -26,15 +28,19 @@ public class Mace extends MeleeWeapon {
 		
 
 		tier = 3;
-		命中 = 1.28f; //28% boost to accuracy
+		命中= 0.9f;
+		间隔= 1.1f;
+		伤害= 1.2f;
 	}
-
+	
+	
 	@Override
-	public int 最大攻击(int lvl) {
-		return  4*(tier+1) +    //16 base, down from 20
-				lvl*(tier+1);   //scaling unchanged
+	public int 攻击时(Char attacker,Char defender,int damage) {
+		if(Random.Int(2)==0){
+			Buff.延长(defender,Vertigo.class,1);
+		}
+		return super.攻击时( attacker, defender, damage );
 	}
-
 	@Override
 	public String targetingPrompt() {
 		return Messages.get(this, "prompt");

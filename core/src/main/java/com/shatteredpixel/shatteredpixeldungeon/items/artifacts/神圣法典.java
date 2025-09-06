@@ -19,7 +19,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndClericSpells;
@@ -51,7 +50,7 @@ public class 神圣法典 extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.有天赋(Talent.LIGHT_READING))
+		if ((isEquipped( hero ) || hero.天赋(Talent.LIGHT_READING))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
@@ -68,7 +67,7 @@ public class 神圣法典 extends Artifact {
 
 		if (action.equals(AC_CAST)) {
 
-			if (!isEquipped(hero) && !hero.有天赋(Talent.LIGHT_READING)) GLog.i(Messages.get(Artifact.class, "need_to_equip"));
+			if (!isEquipped(hero) && !hero.天赋(Talent.LIGHT_READING)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
 			else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 			else {
 
@@ -94,7 +93,7 @@ public class 神圣法典 extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (collect && hero.有天赋(Talent.LIGHT_READING)){
+			if (collect && hero.天赋(Talent.LIGHT_READING)){
 				activate(hero);
 			}
 
@@ -108,7 +107,7 @@ public class 神圣法典 extends Artifact {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).有天赋(Talent.LIGHT_READING)){
+					&& ((Hero) container.owner).天赋(Talent.LIGHT_READING)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -126,7 +125,7 @@ public class 神圣法典 extends Artifact {
 	}
 
 	public boolean canCast( Hero hero, ClericSpell spell ){
-		return (isEquipped(hero) || (Dungeon.hero.有天赋(Talent.LIGHT_READING) && hero.belongings.contains(this)))
+		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.LIGHT_READING)&&hero.belongings.contains(this)))
 				&& hero.buff(MagicImmune.class) == null
 				&& charge >= spell.chargeUse(hero)
 				&& spell.canCast(hero);
@@ -307,7 +306,7 @@ public class 神圣法典 extends Artifact {
 
 		@Override
 		public int actionIcon() {
-			return quickSpell.icon() + HeroIcon.SPELL_ACTION_OFFSET;
+			return quickSpell.icon() + 32;
 		}
 
 		@Override

@@ -8,53 +8,43 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.BArray;
-import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;
 
 public class 手枪 extends MeleeWeapon {
 	public static final String AC_SHOOT		= "SHOOT";
 	public static final String AC_换弹		= "换弹";
-
+	
 	{
 		image = 物品表.手枪;
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.2f;
 
 		tier = 1;
+		命中= 1.1f;
+		间隔= 0.9f;
+		伤害= 0.8f;
 
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
-	}
-	@Override
-	public int 最小攻击(int lvl) {
-		return  tier +  //base
-				lvl;    //level scaling
-	}
-	@Override
-	public int 最大攻击(int lvl) {
-		return  -1+3*(tier+1) +    //8 base, down from 10
-				lvl*(tier+1)/2*3;   //scaling unchanged
 	}
 	@Override
 	public int 金币() {
@@ -81,33 +71,51 @@ public class 手枪 extends MeleeWeapon {
 		curUser = hero;
 		curItem = this;
 		if(!isEquipped(curUser)){
-				GLog.w("你需要装备枪械！");
+			GLog.w("你需要装备枪械！");
 		}
 		if (action.equals(AC_换弹)) {
 			if(curCharges==0){
-				Sample.INSTANCE.play( Assets.Sounds.换弹 );
-
-				curUser.spend(1f);
-				curUser.busy();
-				(curUser.sprite).operate();
-				curCharges=maxCharges;
-				updateQuickslot();
+				换弹();
 				return;
 			}
 		}
 		if (action.equals(AC_SHOOT)&&isEquipped(curUser)) {
 			if(curCharges==0){
-//				GLog.w("子弹不足！");
-				Sample.INSTANCE.play( Assets.Sounds.换弹 );
-
-				curUser.spend(1f);
-				curUser.busy();
-				(curUser.sprite).operate();
-				curCharges=maxCharges;
-				updateQuickslot();
+				换弹();
 				return;
 			}
 			GameScene.selectCell( shooter );
+		}
+	}
+	public void 换弹(){
+		Item 子弹=curUser.belongings.getItem(手枪子弹.class);
+		if(子弹!=null&&子弹.数量()>0){
+			int 消耗=maxCharges-curCharges;
+			if(子弹.数量()<消耗){
+				if(curCharges==0){
+					curCharges=Math.min(maxCharges,子弹.数量());
+				}else if(curCharges>0){
+					curCharges+=Math.min(maxCharges-curCharges,子弹.数量());
+				}
+				子弹.detachAll(curUser.belongings.backpack);
+			}else{
+				if(子弹.数量()==消耗){
+					子弹.detachAll(curUser.belongings.backpack);
+				}else{
+					if(curCharges==0){
+						curCharges=Math.min(maxCharges,子弹.数量());
+					}else if(curCharges>0){
+						curCharges+=Math.min(maxCharges-curCharges,子弹.数量());
+					}
+					子弹.split(消耗).detachAll(curUser.belongings.backpack);
+				}
+			}
+			Sample.INSTANCE.play( Assets.Sounds.换弹 );
+			
+			curUser.spend(4);
+			curUser.busy();
+			(curUser.sprite).operate();
+			updateQuickslot();
 		}
 	}
 	public int maxCharges = initialCharges();
@@ -158,8 +166,10 @@ public class 手枪 extends MeleeWeapon {
 		public boolean attachTo( Char target ) {
 			if (super.attachTo( target )) {
 				//if we're loading in and the hero has partially spent a turn, delay for 1 turn
-				if (target instanceof Hero && Dungeon.hero == null && cooldown() == 0 && target.cooldown() > 0) {
-					spend(TICK);
+				if(target instanceof Hero){
+					if (Dungeon.hero == null && cooldown() == 0 && target.cooldown() > 0) {
+						spend(TICK);
+					}
 				}
 				return true;
 			}
@@ -242,6 +252,17 @@ public class 手枪 extends MeleeWeapon {
 	public 子弹 knockArrow(){
 		return new 子弹();
 	}
+	
+	public String statsInfo(){
+		if (已鉴定()){
+			return Messages.get(this, "stats_desc",命中,间隔,伤害,范围,(!伏击?"":"，伏击率是"+Math.round(伏击率*100)+"%"),
+								(最大防御()==0?"":"，格挡量0~"+最大防御()))+
+				   "\n"+knockArrow().命中+"命中"+knockArrow().间隔+"回合"+"子弹能造成"+knockArrow().最小攻击()+"~"+knockArrow().最大攻击()+"伤害。";
+		} else {
+			return Messages.get(this, "stats_desc",命中,间隔,伤害,范围,(!伏击?"":"，伏击率是"+Math.round(伏击率*100)+"%"),(最大防御(0)==0?"":"，格挡量0~"+最大防御(0)))+
+				   "\n"+knockArrow().命中+"命中"+knockArrow().间隔+"回合"+"子弹能造成"+knockArrow().最小攻击(0)+"~"+knockArrow().最大攻击(0)+"伤害。";
+		}
+	}
 	private int targetPos;
 	public class 子弹 extends MissileWeapon {
 
@@ -250,10 +271,11 @@ public class 手枪 extends MeleeWeapon {
 
 			hitSound = Assets.Sounds.手枪;
 			item_Miss = Assets.Sounds.手枪;
-
+			命中=0.7f;
+			间隔=0.5f;
+			伤害=1.5f;
 			setID = 0;
 		}
-
 		@Override
 		public int defaultQuantity() {
 			return 1;
@@ -264,7 +286,7 @@ public class 手枪 extends MeleeWeapon {
 			if(Dungeon.炼狱(炼狱设置.诅咒投掷)){
 				return 0;
 			}
-			return 手枪.this.damageRoll(owner);
+			return super.damageRoll(owner);
 		}
 
 		@Override
@@ -275,11 +297,6 @@ public class 手枪 extends MeleeWeapon {
 		@Override
 		public int 攻击时(Char attacker, Char defender, int damage) {
 			return 手枪.this.攻击时(attacker, defender, damage);
-		}
-
-		@Override
-		public float delayFactor(Char user) {
-			return 手枪.this.delayFactor(user);
 		}
 
 		@Override
@@ -312,66 +329,5 @@ public class 手枪 extends MeleeWeapon {
 				super.cast(user, dst);
 		}
 	}
-	@Override
-	public String targetingPrompt() {
-		return Messages.get(this, "prompt");
-	}
 
-	public boolean useTargeting(){
-		return false;
-	}
-
-	@Override
-	protected void duelistAbility(Hero hero, Integer target) {
-		sneakAbility(hero, target, 5, 2+ 强化等级(), this);
-	}
-
-	@Override
-	public String abilityInfo() {
-		if (levelKnown){
-			return Messages.get(this, "ability_desc", 2+ 强化等级());
-		} else {
-			return Messages.get(this, "typical_ability_desc", 2);
-		}
-	}
-
-	@Override
-	public String upgradeAbilityStat(int level) {
-		return Integer.toString(2+level);
-	}
-
-	public static void sneakAbility(Hero hero, Integer target, int maxDist, int invisTurns, MeleeWeapon wep){
-		if (target == null) {
-			return;
-		}
-
-		PathFinder.buildDistanceMap(Dungeon.hero.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null), maxDist);
-		if (PathFinder.distance[target] == Integer.MAX_VALUE || !Dungeon.level.heroFOV[target] || hero.rooted) {
-			GLog.w(Messages.get(wep, "ability_target_range"));
-			if (Dungeon.hero.rooted) PixelScene.shake( 1, 1f );
-			return;
-		}
-
-		if (Actor.findChar(target) != null) {
-			GLog.w(Messages.get(wep, "ability_occupied"));
-			return;
-		}
-
-		wep.beforeAbilityUsed(hero, null);
-		Buff.延长(hero, Invisibility.class, invisTurns-1); //1 fewer turns as ability is instant
-
-		Dungeon.hero.sprite.turnTo( Dungeon.hero.pos, target);
-		Dungeon.hero.pos = target;
-		Dungeon.level.occupyCell(Dungeon.hero);
-		Dungeon.observe();
-		GameScene.updateFog();
-		Dungeon.hero.checkVisibleMobs();
-
-		Dungeon.hero.sprite.place( Dungeon.hero.pos );
-		CellEmitter.get( Dungeon.hero.pos ).burst( Speck.factory( Speck.WOOL ), 6 );
-		Sample.INSTANCE.play( Assets.Sounds.PUFF );
-
-		hero.next();
-		wep.afterAbilityUsed(hero);
-	}
 }

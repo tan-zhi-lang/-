@@ -129,7 +129,7 @@ public abstract class Level implements Bundlable {
 		}
 	}
 	public void 落石(Char c){
-		if(Dungeon.玩法(玩法设置.摇曳落石)){
+		if(false){
 				try{
 					int x=PathFinder.范围4[Random.Int(0,PathFinder.范围4.length)];
 					if(!Dungeon.level.solid[c.pos+x]){
@@ -164,7 +164,7 @@ public abstract class Level implements Bundlable {
 	public boolean[] mapped;
 	public boolean[] discoverable;
 
-	public int viewDistance = 8;
+	public int 视野范围= 8;
 	
 	public boolean[] heroFOV;
 	
@@ -228,7 +228,6 @@ public abstract class Level implements Bundlable {
 
 		//TODO maybe just make this part of RegularLevel?
 		if (!Dungeon.bossLevel() && Dungeon.branch == 0) {
-
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
 			
 			if(Dungeon.解压(解压设置.探索口粮))
@@ -294,7 +293,7 @@ public abstract class Level implements Bundlable {
 						break;
 					case 3:
 						feeling = Feeling.DARK;
-						viewDistance = Math.round(5*viewDistance/8f);
+						视野范围/=2;
 						break;
 					case 4:
 						feeling = Feeling.LARGE;
@@ -466,7 +465,7 @@ public abstract class Level implements Bundlable {
 
 		feeling = bundle.getEnum( FEELING, Feeling.class );
 		if (feeling == Feeling.DARK) {
-			viewDistance = Math.round(5 * viewDistance / 8f);
+			视野范围/=2;
 		}
 
 		if (bundle.contains( "mobs_to_spawn" )) {
@@ -793,6 +792,23 @@ public abstract class Level implements Bundlable {
 		} else {
 			return false;
 		}
+	}
+	
+	public int randomCell() {
+		int cell;
+		int count = 0;
+		do {
+
+			if (++count > 30) {
+				return -1;
+			}
+
+			cell = Random.Int( length() );
+
+		} while (!passable[cell]
+				|| heaps.get(cell)==null
+				|| Actor.findChar( cell ) != null);
+		return cell;
 	}
 	
 	public int randomRespawnCell( Char ch ) {
@@ -1174,7 +1190,7 @@ public abstract class Level implements Bundlable {
 			}
 
 			if ( (map[ch.pos] == Terrain.GRASS || map[ch.pos] == Terrain.EMBERS)
-					&& ch == Dungeon.hero && Dungeon.hero.有天赋(Talent.REJUVENATING_STEPS)
+					&& ch == Dungeon.hero && Dungeon.hero.天赋(Talent.REJUVENATING_STEPS)
 					&& ch.buff(Talent.RejuvenatingStepsCooldown.class) == null){
 
 				if (!再生.regenOn()){
@@ -1412,10 +1428,7 @@ public abstract class Level implements Bundlable {
 				blocking = Dungeon.level.losBlocking;
 			}
 
-			float viewDist = c.viewDistance;
-			if (c instanceof Hero){
-				viewDist= ((Hero) c).视野范围();
-			}
+			float viewDist = c.视野范围();
 			
 			ShadowCaster.castShadow( cx, cy, width(), fieldOfView, blocking, Math.round(viewDist) );
 		} else {

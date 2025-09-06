@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
@@ -131,11 +132,14 @@ public class 灵能短弓 extends Weapon {
 		}
 		
 		switch (augment) {
-			case SPEED:
-				info += "\n\n" + Messages.get(Weapon.class, "faster");
+			case DELAY:
+				info += " " + Messages.get(Weapon.class, "delay");
+				break;
+			case ACCURACY:
+				info += " " + Messages.get(Weapon.class, "accuracy");
 				break;
 			case DAMAGE:
-				info += "\n\n" + Messages.get(Weapon.class, "stronger");
+				info += " " + Messages.get(Weapon.class, "damage");
 				break;
 			case NONE:
 		}
@@ -193,10 +197,16 @@ public class 灵能短弓 extends Weapon {
 	public int damageRoll(Char owner) {
 		int damage = augment.damageFactor(super.damageRoll(owner));
 		
-		if (owner instanceof Hero) {
-			int exStr = ((Hero)owner).力量() - 力量();
-			if (exStr > 0) {
-				damage += Hero.heroDamageIntRange( 0, exStr );
+		if (owner instanceof Hero hero) {
+			int exStr = hero.力量() - 力量();
+			if (hero.heroClass(HeroClass.WARRIOR)) {
+				if (exStr > 0) {
+					damage += exStr;
+				}
+			}else{
+				if (exStr > 0) {
+					damage += Hero.heroDamageIntRange( 0, exStr );
+				}
 			}
 		}
 
@@ -205,10 +215,12 @@ public class 灵能短弓 extends Weapon {
 
 			switch (augment){
 				case NONE:
-					damage = Math.round(damage * 0.667f);
 					break;
-				case SPEED:
+				case DELAY:
 					damage = Math.round(damage * 0.5f);
+					break;
+				case ACCURACY:
+					damage = Math.round(damage * 1.2f);
 					break;
 				case DAMAGE:
 					//as distance increases so does damage, capping at 3x:
@@ -229,10 +241,12 @@ public class 灵能短弓 extends Weapon {
 			switch (augment){
 				case NONE: default:
 					return 0f;
-				case SPEED:
+				case ACCURACY:
 					return 1f;
+				case DELAY:
+					return 2;
 				case DAMAGE:
-					return 2f;
+					return 3;
 			}
 		} else{
 			return super.baseDelay(owner);
@@ -321,7 +335,7 @@ public class 灵能短弓 extends Weapon {
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			if (sniperSpecial && 灵能短弓.this.augment == Augment.DAMAGE){
+			if (sniperSpecial && 灵能短弓.this.augment == Augment.ACCURACY){
 				return Float.POSITIVE_INFINITY;
 			} else {
 				return super.accuracyFactor(owner, target);
@@ -346,7 +360,7 @@ public class 灵能短弓 extends Weapon {
 				if (!curUser.shoot( enemy, this )) {
 					Splash.at(cell, 0xCC99FFFF, 1);
 				}
-				if (sniperSpecial && 灵能短弓.this.augment != Augment.SPEED) sniperSpecial = false;
+				if (sniperSpecial && 灵能短弓.this.augment != Augment.DELAY) sniperSpecial = false;
 			}
 		}
 
@@ -362,7 +376,7 @@ public class 灵能短弓 extends Weapon {
 		public void cast(final Hero user, final int dst) {
 			final int cell = throwPos( user, dst );
 			灵能短弓.this.targetPos = cell;
-			if (sniperSpecial && 灵能短弓.this.augment == Augment.SPEED){
+			if (sniperSpecial && 灵能短弓.this.augment == Augment.DELAY){
 				if (flurryCount == -1) flurryCount = 3;
 				
 				final Char enemy = Actor.findChar( cell );
@@ -442,7 +456,7 @@ public class 灵能短弓 extends Weapon {
 				
 			} else {
 
-				if (user.有天赋(Talent.SEER_SHOT)
+				if (user.天赋(Talent.SEER_SHOT)
 						&& user.buff(Talent.SeerShotCooldown.class) == null){
 					int shotPos = throwPos(user, dst);
 					if (Actor.findChar(shotPos) == null) {

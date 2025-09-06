@@ -36,6 +36,7 @@ public class Honeypot extends Item {
 
 		黄色 = true;
 		stackable = true;
+		物品 = true;
 	}
 	
 	@Override
@@ -120,15 +121,6 @@ public class Honeypot extends Item {
 		}
 	}
 	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
 	
 	@Override
 	public int 金币() {
@@ -148,7 +140,6 @@ public class Honeypot extends Item {
 		@Override
 		public ArrayList<String> actions( Hero hero ) {
 			ArrayList<String> actions = super.actions( hero );
-			actions.add( AC_SHATTER );
 			if(hero.heroSubClass(HeroSubClass.养殖专家)&&Dungeon.energy>=6){
 				actions.add( AC_修复 );
 			}

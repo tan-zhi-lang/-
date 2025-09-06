@@ -24,7 +24,9 @@ public class 冰门重盾 extends MeleeWeapon {
 		
 		unique = true;
 		bones = false;
-		间隔=1.25f;
+		命中= 0.7f;
+		间隔= 1.2f;
+		伤害= 1.4f;
 		tier = 1;
 	}
 	@Override
@@ -41,13 +43,11 @@ public class 冰门重盾 extends MeleeWeapon {
 	}
 	@Override
 	public int 最小攻击(int lvl) {
-		return  Math.round((tier +   //12 base, down from 20
-				lvl*tier)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));               //+2 per level, down from +4
+		return  Math.round(super.最小攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));               //+2 per level, down from +4
 	}
 	@Override
 	public int 最大攻击(int lvl) {
-		return  Math.round((4*(tier+1) +   //12 base, down from 20
-				lvl*(tier+1))*(1+Dungeon.hero.天赋点数(Talent.冰门高攻)));               //+2 per level, down from +4
+		return  Math.round(super.最大攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻)));
 	}
 
 	@Override

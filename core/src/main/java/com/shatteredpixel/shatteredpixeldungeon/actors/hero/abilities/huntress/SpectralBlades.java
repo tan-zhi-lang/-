@@ -57,7 +57,7 @@ public class SpectralBlades extends ArmorAbility {
 
 		targets.add(enemy);
 
-		if (hero.有天赋(Talent.FAN_OF_BLADES)){
+		if (hero.天赋(Talent.FAN_OF_BLADES)){
 			ConeAOE cone = new ConeAOE(b, 30*hero.天赋点数(Talent.FAN_OF_BLADES));
 			for (Ballistica ray : cone.rays){
 				Char toAdd = findChar(ray, hero, 2*hero.天赋点数(Talent.PROJECTING_BLADES), targets);
@@ -92,7 +92,7 @@ public class SpectralBlades extends ArmorAbility {
 				public void call() {
 					float dmgMulti = ch == enemy ? 1f : 0.5f;
 					float accmulti = 1f + 0.25f*hero.天赋点数(Talent.PROJECTING_BLADES);
-					if (hero.有天赋(Talent.SPIRIT_BLADES)){
+					if (hero.天赋(Talent.SPIRIT_BLADES)){
 						Buff.施加(hero, Talent.SpiritBladesTracker.class, 0f);
 					}
 					hero.attack( ch, dmgMulti, 0, accmulti );

@@ -2,27 +2,39 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.utils;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.watabou.utils.Random;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public enum Holiday {
 
 	NONE,
-
-	LUNAR_NEW_YEAR,         //Varies, sometime in late Jan to Late Feb              (7 days)
-	APRIL_FOOLS,            //April 1st, can override easter                        (1 day)
-	EASTER,                 //Varies, sometime in Late Mar to Late Apr              (6-7 days)
-	//Nothing in May
-	PRIDE,                  //Jun 24th to Jun 30th                                  (7 days)
-	//Nothing in Jul
-	SHATTEREDPD_BIRTHDAY,   //Aug 1st to Aug 7th                                    (7 days)
-	//Nothing in Sept
-	HALLOWEEN,              //Oct 24th to Oct 31st                                  (7 days)
-	//Nothing in Nov
-	PD_BIRTHDAY,            //Dec 1st to Dec 7th                                    (7 days)
-	WINTER_HOLIDAYS,        //Dec 15th to Dec 26th                                  (12 days)
-	NEW_YEARS,              //Dec 27th to Jan 2nd                                   (7 days)
-	奇袭节;
+	元旦,
+	春节,
+	元宵节,
+	妇女节,
+	植树节,
+	复活节,
+	清明节,愚人节,
+	端午节,
+	游戏周年,
+	_520,
+	_618,
+	彩虹节,
+	七夕节,
+	中元节,
+	SHATTEREDPD_BIRTHDAY,
+	中秋节,
+	国庆,_1024,
+	万圣节,
+	_1111,
+	感恩节,
+	PD_BIRTHDAY,
+	圣诞节
+	;
 
 	//total of 61-62 festive days each year, mainly concentrated in Late Oct to Early Feb
 
@@ -39,67 +51,79 @@ public enum Holiday {
 		}
 		return cached;
 	}
-
 	//requires a gregorian calendar
 	public static Holiday getHolidayForDate(GregorianCalendar cal){
-		if (cal.get(Calendar.MONTH) == Calendar.JULY||cal.get(Calendar.MONTH) == Calendar.AUGUST){
-			return 奇袭节;//7-8月
+		
+		if(Dungeon.玩法(玩法设置.从不过节))return NONE;
+		int monthday=7;
+		if (cal.get(Calendar.MONTH) == Calendar.JANUARY){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday||cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+			return 元旦;//1月第1、2个星期
+			if(cal.get(Calendar.DAY_OF_MONTH)<=3*monthday||cal.get(Calendar.DAY_OF_MONTH)<=4*monthday)
+			return 春节;//1月第3、4个星期
 		}
-		//Lunar New Year
-		if (isLunarNewYear(cal.get(Calendar.YEAR),
-				cal.get(Calendar.DAY_OF_YEAR))){
-			return LUNAR_NEW_YEAR;
+		if (cal.get(Calendar.MONTH) == Calendar.FEBRUARY){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday||cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+				return 元宵节;//3月第1、2个星期
 		}
-
-		//April Fools
-		if (cal.get(Calendar.MONTH) == Calendar.APRIL
-				&& cal.get(Calendar.DAY_OF_MONTH) == 1){
-			return APRIL_FOOLS;
+		if (cal.get(Calendar.MONTH) == Calendar.MARCH){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday||cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+				return 妇女节;//3月第1、2个星期
+			if(cal.get(Calendar.DAY_OF_MONTH)<=3*monthday)
+				return 植树节;//3月第3个星期
+			if(cal.get(Calendar.DAY_OF_MONTH)<=4*monthday)
+				return 复活节;//3月第4个星期
 		}
-
-		//Easter
-		if (isEaster(cal.get(Calendar.YEAR),
-				cal.get(Calendar.DAY_OF_YEAR),
-				cal.getActualMaximum(Calendar.DAY_OF_YEAR) == 366)){
-			return EASTER;
+		if (cal.get(Calendar.MONTH) == Calendar.APRIL){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday||cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+				return Random.oneOf(清明节,愚人节);//4月第1、2个星期
 		}
-
-		//Pride
-		if (cal.get(Calendar.MONTH) == Calendar.JUNE
-				&& cal.get(Calendar.DAY_OF_MONTH) >= 24){
-			return PRIDE;
+		if (cal.get(Calendar.MONTH) == Calendar.MAY){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday)
+				return 端午节;//11月第1个星期
+			if(cal.get(Calendar.DAY_OF_MONTH)<=2*monthday||cal.get(Calendar.DAY_OF_MONTH)<=3*monthday)
+				return Random.oneOf(端午节,游戏周年,_520);//5月第2、3个星期
+			if(cal.get(Calendar.DAY_OF_MONTH)<=4*monthday)
+				return _520;//5月第4个星期
 		}
-
-		//Shattered's Birthday
-		if (cal.get(Calendar.MONTH) == Calendar.AUGUST
-				&& cal.get(Calendar.DAY_OF_MONTH) <= 7){
-			return SHATTEREDPD_BIRTHDAY;
+		if (cal.get(Calendar.MONTH) == Calendar.JUNE){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=2*monthday||cal.get(Calendar.DAY_OF_MONTH)<=3*monthday)
+			return _618;//6月第2、3个星期
 		}
-
-		//Halloween
-		if (cal.get(Calendar.MONTH) == Calendar.OCTOBER
-				&& cal.get(Calendar.DAY_OF_MONTH) >= 24){
-			return HALLOWEEN;
+		if (cal.get(Calendar.MONTH) == Calendar.JULY){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday)
+			return 七夕节;//7月第1个星期
+			
+			if (cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+			return 中元节;//7月第2个星期
 		}
-
-		//Pixel Dungeon's Birthday
-		if (cal.get(Calendar.MONTH) == Calendar.DECEMBER
-				&& cal.get(Calendar.DAY_OF_MONTH) <= 7){
-			return PD_BIRTHDAY;
+		if (cal.get(Calendar.MONTH) == Calendar.AUGUST){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday||cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+			return Random.oneOf(中秋节,SHATTEREDPD_BIRTHDAY);//8月第1、2个星期
 		}
-
-		//Winter Holidays
-		if (cal.get(Calendar.MONTH) == Calendar.DECEMBER
-				&& cal.get(Calendar.DAY_OF_MONTH) >= 15
-				&& cal.get(Calendar.DAY_OF_MONTH) <= 26){
-			return WINTER_HOLIDAYS;
+		if (cal.get(Calendar.MONTH) == Calendar.OCTOBER){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday||cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+			return 国庆;//10月第1、2个星期
 		}
-
-		//New Years
-		if ((cal.get(Calendar.MONTH) == Calendar.DECEMBER && cal.get(Calendar.DAY_OF_MONTH) >= 27)
-				|| (cal.get(Calendar.MONTH) == Calendar.JANUARY && cal.get(Calendar.DAY_OF_MONTH) <= 2)){
-			return NEW_YEARS;
+		if (cal.get(Calendar.MONTH) == Calendar.OCTOBER){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=3*monthday||cal.get(Calendar.DAY_OF_MONTH)<=4*monthday)
+			return _1024;//10月第1、2个星期
 		}
+		if (cal.get(Calendar.MONTH) == Calendar.NOVEMBER){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday)
+			return 万圣节;//11月第1、2个星期
+			if(cal.get(Calendar.DAY_OF_MONTH)<=2*monthday||cal.get(Calendar.DAY_OF_MONTH)<=3*monthday)
+			return Random.oneOf(万圣节,_1111,感恩节);
+			if(cal.get(Calendar.DAY_OF_MONTH)<=4*monthday)
+			return 感恩节;//11月第1、2个星期
+		}
+		if (cal.get(Calendar.MONTH) == Calendar.DECEMBER){
+			if(cal.get(Calendar.DAY_OF_MONTH)<=1*monthday||cal.get(Calendar.DAY_OF_MONTH)<=2*monthday)
+			return PD_BIRTHDAY;//12月第1、2个星期
+			if(cal.get(Calendar.DAY_OF_MONTH)<=3*monthday||cal.get(Calendar.DAY_OF_MONTH)<=4*monthday)
+			return 圣诞节;//12月第3、4个星期
+		}
+		//破碎和像素地牢游戏周年原先1个星期
 
 		return NONE;
 	}

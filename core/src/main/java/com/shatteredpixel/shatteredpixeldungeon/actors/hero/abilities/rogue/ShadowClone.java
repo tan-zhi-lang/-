@@ -219,7 +219,7 @@ public class ShadowClone extends ArmorAbility {
 
 		@Override
 		public int glyphLevel(Class<? extends Armor.Glyph> cls) {
-			if (Dungeon.hero != null && Random.Int(4) < Dungeon.hero.天赋点数(Talent.CLONED_ARMOR)){
+			if (Dungeon.hero() && Random.Int(4) < Dungeon.hero.天赋点数(Talent.CLONED_ARMOR)){
 				return Math.max(super.glyphLevel(cls), Dungeon.hero.glyphLevel(cls));
 			} else {
 				return super.glyphLevel(cls);
@@ -264,7 +264,7 @@ public class ShadowClone extends ArmorAbility {
 
 		@Override
 		public boolean interact(Char c) {
-			if (!Dungeon.hero.有天赋(Talent.PERFECT_COPY)){
+			if (!Dungeon.hero.天赋(Talent.PERFECT_COPY)){
 				return super.interact(c);
 			}
 

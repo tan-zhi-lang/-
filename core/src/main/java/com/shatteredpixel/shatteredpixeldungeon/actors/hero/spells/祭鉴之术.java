@@ -35,10 +35,9 @@ public class 祭鉴之术 extends 背包巫术 {
 		if (item == null){
 			return;
 		}
-		hero.受伤(1);
+		hero.受伤(hero.生命力());
 		if(hero.满天赋(Talent.祭鉴之术)){
-			item.鉴定();
-			祛邪卷轴.净化(hero,item);
+			祛邪卷轴.净化(hero,item.鉴定().特殊升级());
 		}else{
 			item.鉴定();
 		}

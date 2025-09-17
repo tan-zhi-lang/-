@@ -20,7 +20,7 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class RingOfForce extends Ring{
+public class 武力之戒 extends Ring{
 	
 	{
 		icon=物品表.Icons.RING_FORCE;
@@ -80,32 +80,24 @@ public class RingOfForce extends Ring{
 		}
 		int level=getBuffedBonus(hero,Force.class);
 		int tier=tier();
-		boolean buff=hero.hasbuff(RingOfForce.Force.class);
+		boolean buff=hero.hasbuff(武力之戒.Force.class);
 		boolean 拳套=hero.belongings.weapon!=null&&hero.belongings.weapon.拳套;
 		
 		int dmg=dmgd;
 		if(拳套){
-			if(Dungeon.玩法(玩法设置.简单战斗)){
-				dmg+=Math.round((heromin()+heromax())/2f*0.5f);
-				if(buff){
-					dmg+=Math.round((min(level,tier)+max(level,tier))/2f*0.25f);
-				}
-			}else{
-				dmg+=Math.round(0.5f*Hero.heroDamageIntRange(heromin(),heromax()));
-				if(buff){
-					dmg+=Math.round(0.25f*Hero.heroDamageIntRange(min(level,tier),max(level,tier)));
-				}
-			}
+		
 		}else{
 			if(Dungeon.玩法(玩法设置.简单战斗)){
-				dmg+=Math.round((heromin()+heromax())/2f);
 				if(buff){
 					dmg+=Math.round((min(level,tier)+max(level,tier))/2f);
+				}else{
+					dmg+=Math.round((heromin()+heromax())/2f);
 				}
 			}else{
-				dmg+=Hero.heroDamageIntRange(heromin(),heromax());
 				if(buff){
 					dmg+=Hero.heroDamageIntRange(min(level,tier),max(level,tier));
+				}else{
+					dmg+=Hero.heroDamageIntRange(heromin(),heromax());
 				}
 			}
 		}
@@ -118,11 +110,11 @@ public class RingOfForce extends Ring{
 	}
 	
 	public static int heromin(){
-		return Dungeon.hero.生命力(0.1f);
+		return Dungeon.hero.力量(0.1f);
 	}
 	
 	public static int heromax(){
-		return Dungeon.hero.生命力(0.2f);
+		return Dungeon.hero.力量(0.2f);
 	}
 	
 	public static int min(){
@@ -161,9 +153,9 @@ public class RingOfForce extends Ring{
 			lvl=0;
 		}
 		
-		return Math.max(0,Math.round((5*(tier+1)+    //base
+		return Math.max(0,Math.round(5*(tier+1)+    //base
 									  lvl*(tier+1)    //level scaling
-									 )*0.4f));
+									 ));
 	}
 	
 	@Override
@@ -171,19 +163,19 @@ public class RingOfForce extends Ring{
 		float tier=tier();
 		if(已鉴定()){
 			int level=soloBuffedBonus();
-			String info=Messages.get(this,"stats",min(level,tier)+heromin(),
-									 max(level,tier)+heromax(),
+			String info=Messages.get(this,"stats",min(level,tier),
+									 max(level,tier),
 									 level+min(level,tier)/2);
 			if(isEquipped(Dungeon.hero)&&soloBuffedBonus()!=combinedBuffedBonus(Dungeon.hero)){
 				level=combinedBuffedBonus(Dungeon.hero);
-				info+="\n\n"+Messages.get(this,"combined_stats",min(level,tier)+heromin(),
-										  max(level,tier)+heromax(),
-										  level+min(level,tier)/2);
+				info+="\n\n"+Messages.get(this,"combined_stats",min(level,tier),
+										  max(level,tier),
+										  level+heromin());
 			}
 			return info;
 		}else{
-			return Messages.get(this,"typical_stats",min(0,tier)+heromin(),
-								max(0,tier)+heromax(),1);
+			return Messages.get(this,"typical_stats",min(0,tier),
+								max(0,tier),2);
 		}
 	}
 	
@@ -201,7 +193,7 @@ public class RingOfForce extends Ring{
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-3);
 		}
-		return Integer.toString(level+1+min(level+1,tier())/2);
+		return Integer.toString(level+1+heromin());
 	}
 	
 	@Override
@@ -300,9 +292,9 @@ public class RingOfForce extends Ring{
 					notier();
 			int dmgBoost=Math.round(3+tier+(level*((4+2*tier)/8f)));
 			if(已鉴定()){
-				info+="\n\n"+Messages.get(this,"ability_desc",min(level,tier)+heromin()+dmgBoost,max(level,tier)+heromax()+dmgBoost);
+				info+="\n\n"+Messages.get(this,"ability_desc",min(level,tier)+dmgBoost,max(level,tier)+dmgBoost);
 			}else{
-				info+="\n\n"+Messages.get(this,"typical_ability_desc",min(level,tier)+heromin()+dmgBoost,max(level,tier))+heromax()+dmgBoost;
+				info+="\n\n"+Messages.get(this,"typical_ability_desc",min(level,tier)+dmgBoost,max(level,tier))+dmgBoost;
 			}
 		}
 		
@@ -319,7 +311,7 @@ public class RingOfForce extends Ring{
 		BrawlersStance stance=hero.buff(BrawlersStance.class);
 		if(stance!=null&&stance.active){
 			//clear the buff if no ring of force is equipped
-			if(hero.buff(RingOfForce.Force.class)==null){
+			if(hero.buff(武力之戒.Force.class)==null){
 				stance.active=false;
 				AttackIndicator.updateState();
 				return false;

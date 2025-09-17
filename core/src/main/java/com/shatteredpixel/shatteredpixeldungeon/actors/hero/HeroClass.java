@@ -29,7 +29,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.En
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.HeroicLeap;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -51,7 +50,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.召唤物品;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
@@ -81,6 +82,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -118,8 +120,6 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.watabou.utils.Random;
 
 public enum HeroClass{
 	
@@ -157,9 +157,6 @@ public enum HeroClass{
 		//		i = new Food();
 		//		if (!Challenges.isItemBlocked(i)) i.放背包();
 		
-		if(Dungeon.解压(解压设置.宝物空投)){
-			Random.oneOf(Generator.randomWeapon(),Generator.randomArmor(),Generator.randomRing(),Generator.randomArtifact(),Generator.randomWand()).放背包();
-		}
 		if(算法.isDebug()){
 			
 			new PotionBandolier().放背包();
@@ -192,6 +189,8 @@ public enum HeroClass{
 //			new TrinketCatalyst().放背包();
 //			new CapeOfThorns().放背包();
 			new Amulet().放背包();
+			new WandOfLivingEarth().放背包();
+			new 召唤物品().放背包();
 			
 			for (Item item : Dungeon.hero.belongings){
 				item.鉴定();
@@ -199,8 +198,11 @@ public enum HeroClass{
 		}
 		
 		算法.种子();
-		if(Holiday.getCurrentHoliday()==Holiday.国庆){
+		if(Holiday.getCurrentHoliday()==Holiday.国庆节){
 			new 中国国旗().放背包();
+		}
+		if(Holiday.getCurrentHoliday()==Holiday.感恩节){
+			new HornOfPlenty().放背包();
 		}
 		new 绒布袋().放背包();
 		Dungeon.LimitedDrops.VELVET_POUCH.drop();

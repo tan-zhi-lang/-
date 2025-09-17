@@ -72,7 +72,7 @@ public class 法师魔杖 extends MeleeWeapon {
 	}
 	public int 转移=0;
 	public int 最大转移(){
-		return 2+(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.高级魔杖):0);
+		return 1+(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.高级魔杖):0);
 	}
 	@Override
 	public int 强化等级(){
@@ -241,12 +241,6 @@ public class 法师魔杖 extends MeleeWeapon {
 
 		wand.resinBonus = 0;
 		wand.updateLevel();
-
-//		//syncs the level of the two items.
-//		int targetLevel = Math.max(this.真等级(), wand.真等级());
-//
-//		//if the staff's level is being overridden by the wand, preserve 1 upgrade
-//		if (wand.真等级() >= this.真等级() && this.真等级() > 0) targetLevel++;
 //
 //		等级(targetLevel);
 		this.wand = wand;
@@ -439,20 +433,18 @@ public class 法师魔杖 extends MeleeWeapon {
 				if (wand == null){
 					applyWand((Wand)item);
 				} else if(!(item instanceof 灵月法杖)) {
-					int newLevel;
-					int itemLevel = item.真等级();
-					if (itemLevel >= 真等级()){
-						if (真等级() > 0)    newLevel = itemLevel + 1;
-						else                    newLevel = itemLevel;
-					} else {
-						newLevel = 真等级();
+					int newLevel=0;
+					int 转移量 = 最大转移()- 转移;
+					if(转移量>0&&item.等级()>0){
+						newLevel=item.等级()-转移量;
+						转移+=转移量;
 					}
 
 					String bodyText = Messages.get(法师魔杖.class, "imbue_desc");
 					if (item.已鉴定()){
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_level", newLevel);
 					} else {
-						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_unknown", 真等级());
+						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_unknown", 转移量);
 					}
 
 					if (!item.cursedKnown || item.cursed){

@@ -95,10 +95,15 @@ public class Belongings implements Iterable<Item> {
 	public KindofMisc misc3 = null;
 	public LinkedList<Item> 装备(){
 		LinkedList<Item> items = new LinkedList<>();
+		if(weapon()!=null)
 		items.add(weapon());
+		if(armor()!=null)
 		items.add(armor());
+		if(misc()!=null)
 		items.add(misc());
+		if(misc2()!=null)
 		items.add(misc2());
+		if(misc3()!=null)
 		items.add(misc3());
 		return items;
 	}

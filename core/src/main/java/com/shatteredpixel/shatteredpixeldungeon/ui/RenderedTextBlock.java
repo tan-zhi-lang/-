@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -100,8 +101,20 @@ public class RenderedTextBlock extends Component {
 
 			//if highlighting is enabled, '_' or '**' is used to toggle highlighting on or off
 			// the actual symbols are not rendered
-			if ((str.equals("_") || str.equals("**")) && highlightingEnabled){
+			if ((str.equals("_")) && highlightingEnabled){
 				highlighting = !highlighting;
+			} else if (str.equals("**")){
+				color=0xFF4444;//深红色
+			}else if (str.equals("~~")){
+				color=0x3399FF;//蓝色
+			}else if (str.equals("++")){
+				color=0x44FF44;//亮绿色
+			}else if (str.equals("##")){
+				color=0x8800FF;//紫色
+			}else if (str.equals("--")){
+				color=0x999999;//灰色
+			}else if (str.equals("==")){
+				color=0xFF8800;//橙色
 			} else if (str.equals("\n")){
 				words.add(NEWLINE);
 			} else if (str.equals(" ")){
@@ -111,7 +124,7 @@ public class RenderedTextBlock extends Component {
 				
 				if (highlighting) word.hardlight(hightlightColor);
 				else if (color != -1) word.hardlight(color);
-				word.scale.set(zoom);
+				word.scale.set(zoom*(1+SPDSettings.字体大小()*0.25f));
 				
 				words.add(word);
 				add(word);

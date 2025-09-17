@@ -187,7 +187,7 @@ public class 破损纹章 extends Item {
 		return 等级() < 最大等级();
 	}
 	public int 最大等级(){
-		return 2+Dungeon.hero.天赋点数(Talent.纹章升级);
+		return 1+Dungeon.hero.天赋点数(Talent.纹章升级);
 	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
 

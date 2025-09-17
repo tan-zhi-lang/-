@@ -26,11 +26,12 @@ public class TextureFilm {
 		
 		add( null, FULL );
 	}
-	
+	public TextureFilm( SmartTexture texture ) {
+		this( texture, 16, 16 );
+	}
 	public TextureFilm( SmartTexture texture, int width ) {
 		this( texture, width, texture.height );
 	}
-	
 	public TextureFilm( Object tx, int width, int height ) {
 
 		SmartTexture texture = TextureCache.get( tx );

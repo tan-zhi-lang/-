@@ -51,11 +51,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -77,8 +75,6 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -255,7 +251,7 @@ public abstract class Mob extends Char {
 	//FIXME this is sort of a band-aid correction for allies needing more intelligent behaviour
 	protected boolean intelligentAlly = false;
 	
-	protected Char chooseEnemy() {
+	public Char chooseEnemy() {
 
 		Dread dread = buff( Dread.class );
 		if (dread != null) {
@@ -856,12 +852,6 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public void 死亡时(Object cause ) {
-		if( Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验)){
-			Dungeon.level.drop(new 升级卷轴(),pos).sprite.drop();
-		}
-		if( Dungeon.解压(解压设置.血源迸发)&&算法.概率学(经验)){
-			Dungeon.level.drop(new 治疗药剂(),pos).sprite.drop();
-		}
 		if (cause == Chasm.class){
 			//50% chance to round up, 50% to round down
 			if (经验 % 2 == 1) 经验 += Random.Int(2);
@@ -877,64 +867,66 @@ public abstract class Mob extends Char {
 			rollToDropLoot();
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
-
-				if (false){//生成草
-					ArrayList<Integer> grassCells = new ArrayList<>();
-					for (int i : PathFinder.NEIGHBOURS9){
+				
+				if(false){//生成草
+					ArrayList<Integer> grassCells=new ArrayList<>();
+					for(int i: PathFinder.NEIGHBOURS9){
 						grassCells.add(pos+i);
 					}
 					Random.shuffle(grassCells);
-					for (int grassCell : grassCells){
-						Char ch = Actor.findChar(grassCell);
-						if (ch != null && ch.alignment == Char.Alignment.ENEMY){
+					for(int grassCell: grassCells){
+						Char ch=Actor.findChar(grassCell);
+						if(ch!=null&&ch.alignment==Char.Alignment.ENEMY){
 							//1/2 turns of roots
-							Buff.施加(ch, Roots.class, 2);
+							Buff.施加(ch,Roots.class,2);
 						}
-						if (Dungeon.level.map[grassCell] == Terrain.EMPTY ||
-								Dungeon.level.map[grassCell] == Terrain.EMBERS ||
-								Dungeon.level.map[grassCell] == Terrain.EMPTY_DECO){
-							Level.set(grassCell, Terrain.GRASS);
+						if(Dungeon.level.map[grassCell]==Terrain.EMPTY||Dungeon.level.map[grassCell]==Terrain.EMBERS||Dungeon.level.map[grassCell]==Terrain.EMPTY_DECO){
+							Level.set(grassCell,Terrain.GRASS);
 							GameScene.updateMap(grassCell);
 						}
-						CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC, 4);
+						CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC,4);
 					}
-
-					int totalGrassCells = 5;
-					while (grassCells.size() > totalGrassCells){
+					
+					int totalGrassCells=5;
+					while(grassCells.size()>totalGrassCells){
 						grassCells.remove(0);
 					}
-					for (int grassCell : grassCells){
-						int t = Dungeon.level.map[grassCell];
-						if ((t == Terrain.EMPTY || t == Terrain.EMPTY_DECO || t == Terrain.EMBERS
-								|| t == Terrain.GRASS || t == Terrain.FURROWED_GRASS)
-								&& Dungeon.level.plants.get(grassCell) == null){
-							Level.set(grassCell, Terrain.HIGH_GRASS);
+					for(int grassCell: grassCells){
+						int t=Dungeon.level.map[grassCell];
+						if((t==Terrain.EMPTY||t==Terrain.EMPTY_DECO||t==Terrain.EMBERS||t==Terrain.GRASS||t==Terrain.FURROWED_GRASS)&&Dungeon.level.plants.get(grassCell)==null){
+							Level.set(grassCell,Terrain.HIGH_GRASS);
 							GameScene.updateMap(grassCell);
 						}
 					}
 					Dungeon.observe();
 				}
-
-				if (!isAlive() && Dungeon.hero.天赋(Talent.LETHAL_DEFENSE)) {
-					Buff.施加(Dungeon.hero, 破损纹章.WarriorShield.class).reduceCooldown(Dungeon.hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
+				
+				if(Dungeon.hero.天赋概率(Talent.DURABLE_PROJECTILES,33)&&cause instanceof MissileWeapon m){
+					m.耐久(Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES));
 				}
-				if (Dungeon.hero.天赋(Talent.越战越勇)){
+				
+				if(!isAlive()){
+					if(Dungeon.hero.天赋(Talent.LETHAL_DEFENSE)){
+						Buff.施加(Dungeon.hero,破损纹章.WarriorShield.class).reduceCooldown(Dungeon.hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
+					}
+				
+				if(Dungeon.hero.天赋(Talent.越战越勇)){
 					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.越战越勇,0.2f));
 				}
-				if (Dungeon.hero.heroClass(HeroClass.道士)){
+				if(Dungeon.hero.heroClass(HeroClass.道士)){
 					Dungeon.hero.回血(Dungeon.hero.生命力(0.25f));
 				}
-				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class) == null){
-					Buff.施加(Dungeon.hero, Talent.LethalMomentumTracker.class, 0f);
+				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
+					Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
 				}
-				if (Dungeon.hero.heroClass == HeroClass.DUELIST){
+				if(Dungeon.hero.heroClass==HeroClass.DUELIST){
 					Dungeon.hero.经验(生命力(0.13f),getClass());
-					if (Dungeon.hero.天赋(Talent.LETHAL_HASTE)
-						&& Dungeon.hero.buff(Talent.LethalHasteCooldown.class) == null){
-						Buff.施加(Dungeon.hero, Talent.LethalHasteCooldown.class, 100f);
-						Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,1.5f));
+					if(Dungeon.hero.天赋(Talent.LETHAL_HASTE)&&Dungeon.hero.buff(Talent.LethalHasteCooldown.class)==null){
+						Buff.施加(Dungeon.hero,Talent.LethalHasteCooldown.class,100f);
+						Buff.施加(Dungeon.hero,GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,1.5f));
 					}
 				}
+			}
 			}
 
 		}

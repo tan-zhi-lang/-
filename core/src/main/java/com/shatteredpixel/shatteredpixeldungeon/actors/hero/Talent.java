@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护甲;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
@@ -210,22 +211,22 @@ public enum Talent {
 	强力适应(x8+4,3),捍守可拘(x8+5,3),孤立无援(x8+6,3),严傲之意(x8+7,3),
 	冰门高攻(x8+9,4),最佳防御(x8+10,4),
 	强壮体魄(x8+11,4), 勇士之证(x8+12,4), 用盾诀窍(x8+13,4),
-	急中生镜(x9),
+	急中生镜(x9),誓死捍卫(x9+1),凝结心神(x9+2),
 	净除道法(x10),
-	行路知里(x11),
+	行路知里(x11),接连攻击(x11+1),雨后春笋(x11+2),
 	孤注一掷(x12),
-	赌博高手(x13),
-	探测仪器(x14),
-	忍者直觉(x15),
-	戒指察觉(x16),
+	赌博高手(x13),自然灵体(x13+2),
+	探测仪器(x14),额外计算(x14+1),测试对象(x14+2),
+	忍者直觉(x15),持久忍战(x15+1),痛忍觉悟(x15+2),
+	戒指察觉(x16),声之一型(x16+2),
 	万变魁斗(x17),
-	污蔑狂宴(x18),
+	污蔑狂宴(x18),奏绝独唱(x18+1),
 	熟能生巧(x19),
 	猫咪知觉(x20),
 	敏锐嗅觉(x21),
 	外裹透析(x22),
-	血液侵透(x23),
-	未来知识(x24),
+	侵血向受(x23),狂暴血气(x23+1),血液凝聚(x23+2),
+	未来知识(x24),精准射击(x24+1),快速备战(x24+2),
 	;
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
@@ -718,7 +719,7 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}}
 	
 	public static void 吃饭时(Hero hero, float foodVal, Item foodSource ){
-		hero.回血(hero.生命力(0.26f));
+		hero.回血(hero.生命力(0.3f));
 
 		if (hero.heroClass(HeroClass.WARRIOR)){
 			if (hero.cooldown() > 0) {
@@ -1056,6 +1057,10 @@ public enum Talent {
 			}
 		}
 
+		if (hero.天赋(Talent.快速备战)&&enemy.isAlive()&&enemy.alignment==Char.Alignment.ENEMY) {
+			护甲.conditionallyAppend(hero,hero.天赋生命力(Talent.快速备战,0.2f),2);
+		}
+
 		if (hero.buff(Talent.SpiritBladesTracker.class) != null
 				&& Random.Int(10) < 3*hero.天赋点数(Talent.SPIRIT_BLADES)){
 			灵能短弓 bow = hero.belongings.getItem(灵能短弓.class);
@@ -1067,7 +1072,7 @@ public enum Talent {
 			if (hero.buff(PatientStrikeTracker.class) != null
 					&& !(hero.belongings.attackingWeapon() instanceof MissileWeapon)){
 				hero.buff(PatientStrikeTracker.class).detach();
-				dmg += hero.天赋生命力(Talent.PATIENT_STRIKE,0.5f);
+				dmg += hero.天赋生命力(Talent.PATIENT_STRIKE,0.3f);
 			}
 		}
 
@@ -1163,13 +1168,13 @@ public enum Talent {
 				Collections.addAll(tierTalents, 坚守鉴定, 盾举冲击, 钢铁之盾);
 				break;
 			case 镜魔:
-				Collections.addAll(tierTalents, 急中生镜);
+				Collections.addAll(tierTalents, 急中生镜,誓死捍卫,凝结心神);
 				break;
 			case 道士:
 				Collections.addAll(tierTalents, 净除道法);
 				break;
 			case 行僧:
-				Collections.addAll(tierTalents, 行路知里);
+				Collections.addAll(tierTalents, 行路知里,接连攻击,雨后春笋);
 				break;
 			case 近卫:
 				Collections.addAll(tierTalents, 孤注一掷);
@@ -1178,10 +1183,10 @@ public enum Talent {
 				Collections.addAll(tierTalents, 赌博高手);
 				break;
 			case 机器:
-				Collections.addAll(tierTalents, 探测仪器);
+				Collections.addAll(tierTalents, 探测仪器,额外计算,测试对象);
 				break;
 			case 女忍:
-				Collections.addAll(tierTalents, 忍者直觉);
+				Collections.addAll(tierTalents, 忍者直觉,持久忍战,痛忍觉悟);
 				break;
 			case 戒老:
 				Collections.addAll(tierTalents, 戒指察觉);
@@ -1205,10 +1210,10 @@ public enum Talent {
 				Collections.addAll(tierTalents, 外裹透析);
 				break;
 			case 血鬼:
-				Collections.addAll(tierTalents, 血液侵透);
+				Collections.addAll(tierTalents,侵血向受,狂暴血气,血液凝聚);
 				break;
 			case 枪手:
-				Collections.addAll(tierTalents, 未来知识);
+				Collections.addAll(tierTalents, 未来知识,精准射击,快速备战);
 				break;
 		}
 		for (Talent talent : tierTalents){

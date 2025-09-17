@@ -191,7 +191,7 @@ public class BadgeBanner extends Image {
 	public static Image image( int index ) {
 		Image image = new Image( Assets.Interfaces.BADGES );
 		if (atlas == null) {
-			atlas = new TextureFilm( image.texture, 16, 16 );
+			atlas = new TextureFilm( image.texture );
 		}
 		image.frame( atlas.get( index ) );
 		return image;

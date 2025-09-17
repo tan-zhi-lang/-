@@ -21,7 +21,7 @@ public class SpectralNecromancerSprite extends MobSprite {
 		super();
 
 		texture( Assets.Sprites.NECRO );
-		TextureFilm film = new TextureFilm( texture, 16, 16 );
+		TextureFilm film = new TextureFilm( texture );
 
 		int c = 16;
 

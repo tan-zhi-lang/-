@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
@@ -70,6 +71,7 @@ public class Item implements Bundlable {
 	public boolean 炼金全放 = false;
 	public boolean 学者直觉 = false;
 	public boolean 生存直觉 = false;
+	public boolean 祭鉴之术 = false;
 	public boolean 净除道法 = false;
 	public boolean 戒指察觉 = false;
 	public boolean 赌博高手 = false;
@@ -134,8 +136,12 @@ public class Item implements Bundlable {
 
 	public boolean doPickUp(Hero hero, int pos) {
 		if(Dungeon.炼狱(炼狱设置.遗失钥匙)){
-			if(!(this instanceof 骷髅钥匙)){
+			if(this instanceof 骷髅钥匙){
+				return true;
+			}else if(this instanceof Key){
 				return false;
+			}else{
+				return true;
 			}
 		}
 		if (放背包( hero.belongings.backpack )) {
@@ -440,13 +446,17 @@ public class Item implements Bundlable {
 	}
 	
 	public Item 特殊升级() {
+		if(!学者直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
+			this.等级++;
+			学者直觉=true;
+		}
 		if(!生存直觉&&Dungeon.hero.天赋(Talent.SCHOLARS_INTUITION)){
 			this.等级++;
 			生存直觉=true;
 		}
-		if(!学者直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
+		if(!祭鉴之术&&Dungeon.hero.天赋(Talent.祭鉴之术)){
 			this.等级++;
-			学者直觉=true;
+			祭鉴之术=true;
 		}
 		if(!净除道法&&Dungeon.hero.天赋(Talent.净除道法)){
 			this.等级++;
@@ -537,16 +547,19 @@ public class Item implements Bundlable {
 
 	public Item 鉴定(boolean byHero ) {
 		if(byHero){
-		if(Dungeon.hero()&&Dungeon.hero.满天赋(Talent.未来知识)){
-			祛邪卷轴.净化(Dungeon.hero,特殊升级());
-		}else if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.未来知识)){
-			
-			祛邪卷轴.净化(Dungeon.hero,this);
-		}
-		if (Dungeon.hero()&& Dungeon.hero.isAlive()){
-			Catalog.setSeen(getClass());
-			Statistics.itemTypesDiscovered.add(getClass());
-		}
+			if (Dungeon.hero()&& Dungeon.hero.isAlive()){
+				if(Dungeon.hero.天赋(Talent.测试对象)){
+					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.测试对象,0.66f));
+				}
+				if(Dungeon.hero.满天赋(Talent.未来知识)){
+					祛邪卷轴.净化(Dungeon.hero,特殊升级());
+				}else if(Dungeon.hero.天赋(Talent.未来知识)){
+					
+					祛邪卷轴.净化(Dungeon.hero,this);
+				}
+				Catalog.setSeen(getClass());
+				Statistics.itemTypesDiscovered.add(getClass());
+			}
 		}
 
 		levelKnown = true;
@@ -676,6 +689,7 @@ public class Item implements Bundlable {
 	private static final String NAME = "name";
 	private static final String 学者直觉x = "学者直觉";
 	private static final String 生存直觉x = "生存直觉";
+	private static final String 祭鉴之术x = "祭鉴之术";
 	private static final String 净除道法x = "净除道法";
 	private static final String 戒指察觉x = "戒指察觉";
 	private static final String 赌博高手x = "赌博高手";
@@ -691,6 +705,7 @@ public class Item implements Bundlable {
 		bundle.put( NAME, name );
 		bundle.put( 学者直觉x, 学者直觉 );
 		bundle.put( 生存直觉x, 生存直觉 );
+		bundle.put( 祭鉴之术x, 祭鉴之术 );
 		bundle.put( 净除道法x, 净除道法 );
 		bundle.put( 戒指察觉x, 戒指察觉 );
 		bundle.put( 赌博高手x, 赌博高手 );
@@ -710,6 +725,7 @@ public class Item implements Bundlable {
 		name	= bundle.getString( NAME );
 		学者直觉	= bundle.getBoolean( 学者直觉x );
 		生存直觉	= bundle.getBoolean( 生存直觉x );
+		祭鉴之术	= bundle.getBoolean( 祭鉴之术x );
 		净除道法	= bundle.getBoolean( 净除道法x );
 		戒指察觉	= bundle.getBoolean( 戒指察觉x );
 		赌博高手	= bundle.getBoolean( 赌博高手x );

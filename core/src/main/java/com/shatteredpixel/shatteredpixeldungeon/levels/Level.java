@@ -238,6 +238,11 @@ public abstract class Level implements Bundlable {
 				if(Dungeon.解压(解压设置.探索口粮))
 					addItemToSpawn(new SmallRation());
 			}
+			if (Dungeon.区域层(2)) {
+				if(Dungeon.解压(解压设置.宝物空投)){
+					Random.oneOf(Generator.randomWeapon(),Generator.randomArmor(),Generator.randomRing(),Generator.randomArtifact(),Generator.randomWand()).放背包();
+				}
+			}
 			if (Dungeon.区域层(3)) {
 				addItemToSpawn( new 治疗药剂() );
 			}

@@ -12,7 +12,7 @@ public class 铠甲 extends Armor {
 		image = 物品表.ARMOR_WARRIOR;
 	}
 	public 铠甲(){
-        super(2);
+        super(1);
     }
 	
 	

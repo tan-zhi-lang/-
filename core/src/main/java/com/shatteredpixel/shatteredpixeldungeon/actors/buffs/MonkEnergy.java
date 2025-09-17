@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RipperDemon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -159,8 +159,8 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 				}
 
 				if (hero.belongings.weapon() instanceof MeleeWeapon
-						&& (hero.buff(RingOfForce.BrawlersStance.class) == null
-						|| !hero.buff(RingOfForce.BrawlersStance.class).active)){
+						&& (hero.buff(武力之戒.BrawlersStance.class)==null
+						|| !hero.buff(武力之戒.BrawlersStance.class).active)){
 					if (((MeleeWeapon) hero.belongings.weapon()).tier <= 1 && points >= 3){
 						enGainMulti += 1.00f;
 					} else if (((MeleeWeapon) hero.belongings.weapon()).tier <= 2 && points >= 2){

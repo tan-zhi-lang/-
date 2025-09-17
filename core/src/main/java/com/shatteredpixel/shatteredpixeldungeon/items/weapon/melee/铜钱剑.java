@@ -17,9 +17,9 @@ public class 铜钱剑 extends MeleeWeapon {
 		hitSoundPitch = 1.1f;
 
 		tier = 1;
-		命中= 1.2f;
+		命中= 1.3f;
 		间隔= 0.7f;
-		伤害= 0.5f;
+		伤害= 0.6f;
 		
 		bones = false;
 	}

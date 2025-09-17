@@ -20,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -442,7 +442,7 @@ public class MeleeWeapon extends Weapon {
 					}
 					chargeToGain*=能量之戒.weaponChargeMultiplier(target);
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
-					if (Dungeon.hero.buff(RingOfForce.BrawlersStance.class) != null){
+					if (Dungeon.hero.buff(武力之戒.BrawlersStance.class)!=null){
 						chargeToGain *= 0.50f;
 					}
 					if(((Hero)target).天赋(Talent.WEAPON_RECHARGING)) {

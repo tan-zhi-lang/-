@@ -16,9 +16,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
+import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -41,6 +45,12 @@ public class WandOfLivingEarth extends DamageWand {
 	}
 	
 	@Override
+	public int collisionProperties(int target) {
+		if (cursed)                                 return super.collisionProperties(target);
+		else if (!Dungeon.level.heroFOV[target])    return Ballistica.PROJECTILE;
+		else                                        return Ballistica.STOP_TARGET;
+	}
+	@Override
 	public int min(int lvl) {
 		return 4;
 	}
@@ -52,6 +62,11 @@ public class WandOfLivingEarth extends DamageWand {
 	
 	@Override
 	public void onZap(Ballistica bolt) {
+		if(Dungeon.level.map[bolt.collisionPos]==Terrain.CHASM){
+			Level.set(bolt.collisionPos,Terrain.EMPTY);
+			GameScene.updateMap(bolt.collisionPos);
+			CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.STEAM),10);
+		}
 		Char ch = Actor.findChar(bolt.collisionPos);
 		int damage = damageRoll();
 		int armorToAdd = damage;

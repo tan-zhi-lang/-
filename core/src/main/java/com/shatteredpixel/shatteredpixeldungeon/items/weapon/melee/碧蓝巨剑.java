@@ -24,17 +24,6 @@ public class 碧蓝巨剑 extends MeleeWeapon {
 	}
 	
 	@Override
-	public int 力量(int lvl) {
-		int req = 力量(tier, lvl)+1;
-		if (masteryPotionBonus){
-			req -= 2;
-		}
-		if (神力){
-			req -= 2;
-		}
-		return req;
-	}
-	@Override
 	protected int baseChargeUse(Hero hero, Char target){
 		if (hero.buff(Sword.CleaveTracker.class) != null){
 			return 0;

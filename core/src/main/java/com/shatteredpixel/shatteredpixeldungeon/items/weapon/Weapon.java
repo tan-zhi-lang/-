@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -332,9 +332,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public int reachFactor(Char owner) {
 		int reach = 范围;
 			reach += RingOfAccuracy.getBuffedBonus(owner, RingOfAccuracy.Accuracy.class)/2;
-		if (owner instanceof Hero && RingOfForce.fightingUnarmed((Hero) owner)){
+		if (owner instanceof Hero&&武力之戒.fightingUnarmed((Hero) owner)){
 			reach = 1; //brawlers stance benefits from enchantments, but not innate reach
-			if (!RingOfForce.unarmedGetsWeaponEnchantment((Hero) owner)){
+			if (!武力之戒.unarmedGetsWeaponEnchantment((Hero) owner)){
 				return reach;
 			}
 		}

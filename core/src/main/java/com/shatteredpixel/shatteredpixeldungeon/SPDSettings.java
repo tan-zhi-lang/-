@@ -39,12 +39,14 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_CAMERA_FOLLOW= "camera_follow";
 	public static final String KEY_SCREEN_SHAKE = "screen_shake";
 	public static final String 动画加快x = "动画加快";
+	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
 	public static final String 游戏提示x = "游戏提示";
 	public static final String 自动拾取x = "自动拾取";
 	public static final String 画面同步x = "画面同步";
-	public static final String 游戏帧率x = "游戏帧率x";
+	public static final String 游戏帧率x = "游戏帧率";
+	public static final String 字体大小x = "字体大小";
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 
@@ -132,6 +134,13 @@ public class SPDSettings extends GameSettings {
 	public static float 加快(){
 		return 动画加快()?100f:1f;
 	}
+	public static void 固定攻速(int value ){
+		put(固定攻速x, value );
+	}
+
+	public static int 固定攻速() {
+		return getInt(固定攻速x, 5,1,5 );
+	}
 	public static void 固定移速(int value ){
 		put(固定移速x, value );
 	}
@@ -174,6 +183,13 @@ public class SPDSettings extends GameSettings {
 
 	public static int 游戏帧率() {
 		return getInt(游戏帧率x, 2,1,4 );
+	}
+	public static void 字体大小(int value ){
+		put(字体大小x, value );
+	}
+
+	public static int 字体大小() {
+		return getInt(字体大小x, 0,-2,2 );
 	}
 
 	//Interface

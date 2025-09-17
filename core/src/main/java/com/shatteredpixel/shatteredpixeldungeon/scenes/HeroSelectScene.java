@@ -522,7 +522,7 @@ public class HeroSelectScene extends PixelScene {
     private void updateOptionsColor() {
         if (!SPDSettings.customSeed().isEmpty()) {
             btnOptions.icon().hardlight(1f, 1.5f, 0.67f);
-        } else if (SPDSettings.challenges() != 0) {
+        } else if (SPDSettings.解压() != 0||SPDSettings.系统() != 0||SPDSettings.challenges() != 0||SPDSettings.炼狱()!=0||SPDSettings.玩法()!=0) {
             btnOptions.icon().hardlight(2f, 1.33f, 0.5f);
         } else {
             btnOptions.icon().resetColor();

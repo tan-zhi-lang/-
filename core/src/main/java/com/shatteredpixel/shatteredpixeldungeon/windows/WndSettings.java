@@ -348,6 +348,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider optFollowIntensity;
 						OptionSlider optScreenShake;
 						OptionSlider 游戏帧率;
+						OptionSlider 字体大小;
 						
 						{
 							
@@ -405,6 +406,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 							游戏帧率.setSelectedValue(SPDSettings.游戏帧率());
 							add(游戏帧率);
 							
+							字体大小 = new OptionSlider("字体大小",
+														"50%", "150%", -2, 2) {
+								@Override
+								protected void onChange() {
+									SPDSettings.字体大小(getSelectedValue());
+								}
+							};
+							字体大小.setSelectedValue(SPDSettings.字体大小());
+							add(字体大小);
+							
 							//layout
 							resize(WIDTH_P, 0);
 							optBrightness.setRect(0,  GAP, width, BTN_HEIGHT);
@@ -412,8 +423,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 							optFollowIntensity.setRect(0,  optVisGrid.bottom()+GAP, width, BTN_HEIGHT);
 							optScreenShake.setRect(0,  optFollowIntensity.bottom()+GAP, width, BTN_HEIGHT);
 							游戏帧率.setRect(0,  optScreenShake.bottom()+GAP, width, BTN_HEIGHT);
+							字体大小.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
 							
-							resize(WIDTH_P, (int) 游戏帧率.bottom());
+							resize(WIDTH_P, (int) 字体大小.bottom());
 						}
 					});
 				}
@@ -640,10 +652,10 @@ public class WndSettings extends WndTabbed {//WndSettings
 			
 			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
 				optUIScale = new OptionSlider(Messages.get(DisplayTab.class, "scale"),
-											  (int)Math.ceil(2* Game.density)+ "X",
-											  PixelScene.maxDefaultZoom + "X",
+											  "X"+(int)Math.ceil(2* Game.density),
+											   "X"+PixelScene.maxDefaultZoom,
 											  (int)Math.ceil(2* Game.density),
-											  PixelScene.maxDefaultZoom ) {
+											  PixelScene.maxDefaultZoom) {
 					@Override
 					protected void onChange() {
 						if (getSelectedValue() != SPDSettings.scale()) {
@@ -800,10 +812,20 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 						
+						OptionSlider 固定攻速;
 						OptionSlider 固定移速;
 						OptionSlider 休息速度;
 						{
 							
+							固定攻速 = new OptionSlider("固定攻速",
+														"1", "无限", 1, 5) {
+								@Override
+								protected void onChange() {
+									SPDSettings.固定攻速(getSelectedValue());
+								}
+							};
+							固定攻速.setSelectedValue(SPDSettings.固定攻速());
+							add(固定攻速);
 							固定移速 = new OptionSlider("固定移速",
 														"1", "无限", 1, 5) {
 								@Override
@@ -825,7 +847,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(休息速度);
 							
 							resize(WIDTH_P, 0);
-							固定移速.setRect(0,  GAP, width, BTN_HEIGHT);
+							固定攻速.setRect(0,  GAP, width, BTN_HEIGHT);
+							固定移速.setRect(0,  固定攻速.bottom()+GAP, width, BTN_HEIGHT);
 							休息速度.setRect(0,  固定移速.bottom()+GAP, width, BTN_HEIGHT);
 							resize(WIDTH_P, (int) 休息速度.bottom());
 							

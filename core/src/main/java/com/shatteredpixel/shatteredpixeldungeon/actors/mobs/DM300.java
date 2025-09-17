@@ -291,7 +291,7 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	protected Char chooseEnemy() {
+	public Char chooseEnemy() {
 		Char enemy = super.chooseEnemy();
 		if (supercharged && enemy == null){
 			enemy = Dungeon.hero;

@@ -45,7 +45,6 @@ public class Food extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if(!Dungeon.炼狱(炼狱设置.诅咒之嘴))
 		actions.add( AC_EAT );
 		return actions;
 	}
@@ -55,7 +54,7 @@ public class Food extends Item {
 
 		super.execute( hero, action );
 
-		if (action.equals( AC_EAT )&&!Dungeon.炼狱(炼狱设置.诅咒之嘴)) {
+		if (action.equals( AC_EAT )) {
 			
 			detach( hero.belongings.backpack );
 			Catalog.countUse(getClass());

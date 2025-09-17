@@ -109,18 +109,21 @@ public class 重制 {
 				"新增神力之泉，英雄站上面永久+10%力量，物品在上面永久减少2力量需求。"));
 		changes.addButton( new ChangeButton(Icons.天赋之泉.get(), "天赋之泉",
 				"新增天赋之泉，英雄站上面永久+1天赋点，物品在上面升级一次。"));
-		changes.addButton( new ChangeButton(Icons.CHEVRON.get(), "日历",
-				"地牢探索指南新增日历节日。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.单身狗粮), "单身狗粮",
-				"7-8月掉落单身狗粮。"));
+		changes.addButton( new ChangeButton(Icons.CALENDAR.get(), "日历",
+				"地牢探索指南新增日历节日。\n" +
+				"新增妇女节、植树节、清明节、游戏周年、520、端午节618、七夕(奇袭)节、中元节、中秋节、国庆节、程序员(1024)节，双十一。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.杂物袋), "杂物袋",
 				"商店出售杂物袋。"));
 		changes.addButton( new ChangeButton(Icons.DISPLAY.get(), "显示设置",
 				"界面重构。\n" +
 				"添加可调整动画加快按钮。\n" +
+				"添加调整帧率和字体大小。\n" +
 				"新增可调整画面同步按钮，关了才不会锁帧。"));
-		changes.addButton( new ChangeButton(Icons.CONTROLLER.get(), "固定移速",
-				"可调整固定移速，例如在1.05移速时固定1。"));
+		changes.addButton( new ChangeButton(Icons.CONTROLLER.get(), "游戏设置",
+							"界面重构。\n" +
+					"可调整自动拾取、游戏提示。\n" +
+					"可调整固定移速，例如在1.05移速时固定1。\n" +
+				"可调整休息时间倍率。"));
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
@@ -168,6 +171,8 @@ public class 重制 {
 
 						"顺劈\n" +
 						"统一+34%伤害。\n" ,
+						"剑舞\n" +
+						"攻速+60%=>x160%。\n" ,
 
 						"连击统\n" +
 						"一攻速回合内攻击两次。"));
@@ -186,7 +191,7 @@ public class 重制 {
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
 						"饥饿首次受伤450*最大生命/1000，后续受伤最大生命/1000=>首次受伤18%生命力，后续受伤13%。"+
-						"再生恢复生命1=>13%生命力。"+
+						"再生恢复生命1=>14%生命力。"+
 						"新增生命力=根号(最大生命)，大部分天赋等都被此数值影响。"
 				,
 				"杂项\n\n" +
@@ -231,19 +236,19 @@ public class 重制 {
 						"二层和三层最大天赋点+1"));
 		changes.addButton(new ChangeButton(Icons.get(Icons.下楼), "地牢",
 				"献祭房\n" +
-						"所需经验减少90%，并且可以站在祭坛上扔治疗药剂直接献祭完成。\n" ,
+						"房间大小-1，且没有深渊。\n" +
+				"所需经验减少90%，并且可以站在祭坛上扔治疗药剂直接献祭完成。\n" ,
 
 						"毒气房\n" +
 						"金币数量x2。\n" ,
 
 						"第一层怪物数量+2。\n" +
 						"第一层必定生成一瓶经验药剂。\n" +
-						"每个区域生成的升级卷轴数量-1。\n" +
 						"每个区域第3层必定一瓶治疗药剂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ORE), "暗金矿",
 										   "可以出售和提炼。"
 		));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.SOMETHING), "物品",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ITEM),"物品",
 					"物品可以重命名。\n" +
 					"一些物品图片更好。\n" +
 					"更好的物品图标和底色，数值显示。\n" +
@@ -255,7 +260,7 @@ public class 重制 {
 					"力量+1=>+2。提升生命系数1.035=>1.1。",
 
 					"狂怒之戒\n" +
-					"1.09051=>1.091。",
+					"1.09051=>1.091。且所有情况都能使用。",
 
 					"精准之戒\n" +
 					"+50%等级的攻击范围。",
@@ -264,10 +269,10 @@ public class 重制 {
 					"护甲充能=>武器充能。",
 
 					"武力之戒\n" +
-					"空手伤害1~力量-8=>10%生命力~20%生命力+40%的武力之戒的最小~最大伤害。\n" +
-					"拳套武器+25%效果的武力之戒的最小~最大伤害和50%效果的空手最小~最大伤害。\n" +
+					"空手伤害1~力量-8=>10%力量~20%力量。\n" +
 					"最小和最大伤害不会因为等级为0不取最大阶伤。\n" +
-					"只对近战武器生效=>投掷武器也生效，且额外增加50%戒指的最小伤害。"
+					"没有空手的攻速加成。\n" +
+					"只对近战武器生效=>投掷武器也生效，且额外+空手最小伤害。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_HOLDER), "种子",
 					"速行蓟\n" +
@@ -294,7 +299,7 @@ public class 重制 {
 										   "武器反超力增加命中，转换效率为根号武器力量-力量的3%加成。\n" +
 										   "武器反超力增加攻速，转换效率为根号武器力量-力量的3%加成。\n" +
 										   "空手增加命中，转换效率为根号力量的3%加成。\n" +
-										   "空手增加攻速，转换效率为根号力量的25%加成。" ,
+										   "空手增加攻速，转换效率为根号力量的24%加成。" ,
 										   
 										   "描述命中率、攻击间隔、伤害倍率、攻击范围、伏击率和格挡量。"
 		));
@@ -415,7 +420,7 @@ public class 重制 {
 					"护甲反超力增加闪避，转换效率为根号武器力量-力量的3%加成。\n"+
 					"护甲反超力增加移速，转换效率为根号武器力量-力量的3%加成。\n"+
 										   "裸衣增加闪避，转换效率为根号力量的3%加成。\n"+
-										   "裸衣增加移速，转换效率为根号力量的25%加成。"
+										   "裸衣增加移速，转换效率为根号力量的24%加成。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
 //					"选择物品使用的卷轴在取消时获得对应符石：\n" +
@@ -450,6 +455,9 @@ public class 重制 {
 							"持续回合100=>60"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
+					"灵壤法杖\n" +
+							"对深渊目标地施法如果是深渊那么就接壤。",
+					
 					"魔弹法杖\n" +
 							"升级则会暂时强化其他法杖=>从升级获得额外一次等级。",
 
@@ -463,7 +471,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_FIREBLOOM), "烈焰花",
 				"4层必定生成。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
-				"吃饭恢复26%生命力。"));
+				"吃饭恢复30%生命力。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
 				"攻击间隔1=>1.2。\n" +
 				"升级获得1充能。\n" +
@@ -521,6 +529,8 @@ public class 重制 {
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
 		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.AMULET, true), "护符诡咒",
+										   "移除后续对英雄的减速和伤害。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "口粮",
 				"英雄初始不携带口粮。"));
 		changes.addButton( new ChangeButton(new GooSprite(), "粘咕",

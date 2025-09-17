@@ -20,7 +20,7 @@ public class FungalSpinnerSprite extends MobSprite {
 
 		texture( Assets.Sprites.FUNGAL_SPINNER );
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+		TextureFilm frames = new TextureFilm( texture );
 
 		idle = new MovieClip.Animation( 10, true );
 		idle.frames( frames, 0, 0, 0, 0, 0, 1, 0, 1 );

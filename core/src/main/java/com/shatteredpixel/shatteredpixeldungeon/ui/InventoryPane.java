@@ -281,9 +281,9 @@ public class InventoryPane extends Component {
 
 		equipped.get(0).item(stuff.weapon == null ? new WndBag.Placeholder( 物品表.WEAPON_HOLDER ) : stuff.weapon);
 		equipped.get(1).item(stuff.armor == null ? new WndBag.Placeholder( 物品表.ARMOR_HOLDER ) : stuff.armor);
-		equipped.get(2).item(stuff.misc == null ? new WndBag.Placeholder( 物品表.SOMETHING ) : stuff.misc);
-		equipped.get(3).item(stuff.misc2 == null ? new WndBag.Placeholder( 物品表.SOMETHING ) : stuff.misc2);
-		equipped.get(4).item(stuff.misc3 == null ? new WndBag.Placeholder( 物品表.SOMETHING ) : stuff.misc3);
+		equipped.get(2).item(stuff.misc == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc);
+		equipped.get(3).item(stuff.misc2 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc2);
+		equipped.get(4).item(stuff.misc3 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc3);
 
 		ArrayList<Item> items = (ArrayList<Item>) lastBag.items.clone();
 

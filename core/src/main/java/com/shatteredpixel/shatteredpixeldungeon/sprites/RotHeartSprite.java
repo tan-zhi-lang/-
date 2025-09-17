@@ -20,7 +20,7 @@ public class RotHeartSprite extends MobSprite {
 
 		texture( Assets.Sprites.ROT_HEART );
 
-		TextureFilm frames = new TextureFilm( texture, 16, 16 );
+		TextureFilm frames = new TextureFilm( texture );
 
 		idle = new MovieClip.Animation( 1, true );
 		idle.frames( frames, 0);

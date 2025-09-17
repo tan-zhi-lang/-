@@ -201,28 +201,32 @@ public class MobSpawner extends Actor {
 		if(Dungeon.解压(解压设置.纯正怪物)){
 			return;
 		}
+		float x=0.025f;
+		if(Holiday.getCurrentHoliday()==Holiday._1024){
+			x*=2;
+		}
 		switch (depth){
 
 			// Sewers
 			default:
 				return;
 			case 4:
-				if (Random.Float() < 0.025f) rotation.add(Thief.class);
+				if (Random.Float() < x) rotation.add(Thief.class);
 				return;
 
 			// Prison
 			case 9:
-				if (Random.Float() < 0.025f) rotation.add(Bat.class);
+				if (Random.Float() < x) rotation.add(Bat.class);
 				return;
 
 			// Caves
 			case 14:
-				if (Random.Float() < 0.025f) rotation.add(Ghoul.class);
+				if (Random.Float() < x) rotation.add(Ghoul.class);
 				return;
 
 			// City
 			case 19:
-				if (Random.Float() < 0.025f) rotation.add(Succubus.class);
+				if (Random.Float() < x) rotation.add(Succubus.class);
 				return;
 		}
 	}
@@ -230,6 +234,10 @@ public class MobSpawner extends Actor {
 	//switches out regular mobs for their alt versions when appropriate
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation) {
 		float altChance = 1 / 50f * RatSkull.exoticChanceMultiplier();
+		
+		if(Holiday.getCurrentHoliday()==Holiday._1024){
+			altChance*=2;
+		}
 		for (int i = 0; i < rotation.size(); i++) {
 			if(Dungeon.解压(解压设置.纯正怪物)){
 				return;

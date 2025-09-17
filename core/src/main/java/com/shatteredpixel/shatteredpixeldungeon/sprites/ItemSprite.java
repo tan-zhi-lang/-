@@ -57,7 +57,7 @@ public class ItemSprite extends MovieClip {
 	protected float shadowOffset    = 0.5f;
 	
 	public ItemSprite() {
-		this( 物品表.SOMETHING, null );
+		this(物品表.ITEM,null);
 	}
 	
 	public ItemSprite( Heap heap ){

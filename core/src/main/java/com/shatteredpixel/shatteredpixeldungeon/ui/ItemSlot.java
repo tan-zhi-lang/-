@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
@@ -187,7 +187,7 @@ public class ItemSlot extends Button {
 		item(null);
 		enable(true);
 		sprite.visible(true);
-		sprite.view(物品表.SOMETHING, null);
+		sprite.view(物品表.ITEM,null);
 		layout();
 	}
 	
@@ -304,7 +304,7 @@ public class ItemSlot extends Button {
 				level.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
 				level.measure();
 				level.hardlight( WARNING );
-			}else if (item instanceof RingOfForce x) {
+			}else if (item instanceof 武力之戒 x) {
 				level.text( Messages.format( TXT, x.soloBuffedBonus()+x.min()/2) );
 				level.measure();
 				level.hardlight( WARNING );

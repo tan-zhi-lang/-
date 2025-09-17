@@ -128,7 +128,7 @@ public class TrinketCatalyst extends Item {
 	public static class RandomTrinket extends Item {
 
 		{
-			image = 物品表.SOMETHING;
+			image = 物品表.ITEM;
 		}
 
 	}

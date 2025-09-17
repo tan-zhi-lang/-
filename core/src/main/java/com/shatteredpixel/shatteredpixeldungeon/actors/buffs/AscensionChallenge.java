@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -36,7 +35,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -294,23 +292,23 @@ public class AscensionChallenge extends Buff {
 	public boolean act() {
 
 		beckonEnemies();
-
+		//护符中涌动的黑暗能量已极为强大，它正在_直接对你造成伤害_！
 		//hero starts progressively taking damage over time at 8+ stacks
-		if (stacks >= 8 && !Dungeon.bossLevel()){
-			damageInc += (stacks-4)/4f;
-			if (damageInc >= 1){
-				target.受伤时((int)damageInc, this);
-				damageInc -= (int)damageInc;
-
-				if (target == Dungeon.hero && !target.isAlive()){
-					Badges.validateDeathFromFriendlyMagic();
-					GLog.n(Messages.get(this, "on_kill"));
-					Dungeon.fail(Amulet.class);
-				}
-			}
-		} else {
-			damageInc = 0;
-		}
+//		if (stacks >= 8 && !Dungeon.bossLevel()){
+//			damageInc += (stacks-4)/4f;
+//			if (damageInc >= 1){
+//				target.受伤时((int)damageInc, this);
+//				damageInc -= (int)damageInc;
+//
+//				if (target == Dungeon.hero && !target.isAlive()){
+//					Badges.validateDeathFromFriendlyMagic();
+//					GLog.n(Messages.get(this, "on_kill"));
+//					Dungeon.fail(Amulet.class);
+//				}
+//			}
+//		} else {
+//			damageInc = 0;
+//		}
 
 		spend(TICK);
 		return true;
@@ -323,17 +321,28 @@ public class AscensionChallenge extends Buff {
 
 	@Override
 	public void tintIcon(Image icon) {
-		if (stacks < 2){
+		if (stacks < 1){
 			icon.hardlight(0.5f, 1, 0);
-		} else if (stacks < 4) {
+		} else if (stacks < 2) {
 			icon.hardlight(1, 1, 0);
-		} else if (stacks < 6){
+		} else if (stacks < 3){
 			icon.hardlight(1, 0.67f, 0);
-		} else if (stacks < 8){
+		} else if (stacks < 4){
 			icon.hardlight(1, 0.33f, 0);
 		} else {
 			icon.hardlight(1, 0, 0);
 		}
+//		if (stacks < 2){
+//			icon.hardlight(0.5f, 1, 0);
+//		} else if (stacks < 4) {
+//			icon.hardlight(1, 1, 0);
+//		} else if (stacks < 6){
+//			icon.hardlight(1, 0.67f, 0);
+//		} else if (stacks < 8){
+//			icon.hardlight(1, 0.33f, 0);
+//		} else {
+//			icon.hardlight(1, 0, 0);
+//		}
 	}
 
 	@Override
@@ -348,8 +357,9 @@ public class AscensionChallenge extends Buff {
 
 			if (stacks >= 2)    desc += "\n" + Messages.get(this, "desc_beckon");
 			if (stacks >= 4)    desc += "\n" + Messages.get(this, "desc_haste");
-			if (stacks >= 6)    desc += "\n" + Messages.get(this, "desc_slow");
-			if (stacks >= 8)    desc += "\n" + Messages.get(this, "desc_damage");
+			//伤害和移速
+//			if (stacks >= 6)    desc += "\n" + Messages.get(this, "desc_slow");
+//			if (stacks >= 8)    desc += "\n" + Messages.get(this, "desc_damage");
 
 		}
 

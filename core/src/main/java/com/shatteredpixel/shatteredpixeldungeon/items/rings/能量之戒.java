@@ -57,6 +57,7 @@ public class 能量之戒 extends Ring {
 			if (hero.belongings.armor instanceof 法袍){
 				bonus *= 1.1f;
 			}
+			bonus*=1-hero.天赋点数(Talent.凝结心神,0.06f);
 			if(hero.heroClass(HeroClass.巫女)){
 				float c=1;
 				for(Item item:hero.belongings){

@@ -1042,7 +1042,7 @@ public class AlchemyScene extends PixelScene {
 		public void item( Item item ) {
 			if (item == null){
 				this.item = null;
-				slot.item(new WndBag.Placeholder(物品表.SOMETHING));
+				slot.item(new WndBag.Placeholder(物品表.ITEM));
 			} else {
 				slot.item(this.item = item);
 			}

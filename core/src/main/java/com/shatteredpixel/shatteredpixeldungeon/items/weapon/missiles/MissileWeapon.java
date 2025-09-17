@@ -205,14 +205,14 @@ abstract public class MissileWeapon extends Weapon {
 	protected float adjacentAccFactor(Char owner, Char target){
 		if (Dungeon.level.adjacent( owner.pos, target.pos )) {
 			//抵近射击
-			if (owner instanceof Hero){
+			if (owner instanceof Hero hero){
 				return 1;
 			} else {
 				return 1;
 			}
 		} else {
-			if (owner instanceof Hero){
-				return 0.75f;
+			if (owner instanceof Hero hero){
+				return 0.75f+hero.天赋点数(Talent.精准射击,0.25f);
 			} else {
 				return 0.75f;
 			}
@@ -426,13 +426,17 @@ abstract public class MissileWeapon extends Weapon {
 
 	//classes that add steps onto durabilityPerUse can turn rounding off, to do their own rounding after more logic
 	protected boolean useRoundingInDurabilityCalc = true;
-
+	public void 耐久(int x){
+		baseUses=Math.min(MAX_DURABILITY,baseUses+x);
+	}
 	public float durabilityPerUse( int level ){
 		float usages = baseUses * (float)(Math.pow(1.5f, level));
 
-		//+33%/50% durability
-		if (Dungeon.hero() && Dungeon.hero.天赋(Talent.DURABLE_PROJECTILES)){
-			usages *= 1f + Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES,0.33f)+0.01f;
+		if (Dungeon.hero()){
+			usages *= 1f + Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES,0.33f);
+			
+			//+33%/50% durability
+			usages *= 1f + Dungeon.hero.天赋点数(Talent.持久忍战,0.3f);
 		}
 		if (holster) {
 			usages *= MagicalHolster.HOLSTER_DURABILITY_FACTOR;

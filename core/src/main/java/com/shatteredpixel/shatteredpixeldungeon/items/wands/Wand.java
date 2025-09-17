@@ -386,9 +386,6 @@ public abstract class Wand extends Item {
 					&& Dungeon.hero.buff( Degrade.class ) != null){
 				lvl = Degrade.reduceLevel(lvl);
 			}
-			if(charger.target == Dungeon.hero&&Dungeon.hero.heroClass(HeroClass.MAGE)){
-				lvl++;
-			}
 
 			if (charger.target.buff(ScrollEmpower.class) != null){
 				lvl += 2;
@@ -672,7 +669,7 @@ public abstract class Wand extends Item {
 	}
 
 	public int collisionProperties(int target){
-		if (cursed)     return Ballistica.MAGIC_BOLT;
+		if (cursed)     return Ballistica.PROJECTILE;
 		else            return collisionProperties;
 	}
 
@@ -866,10 +863,13 @@ public abstract class Wand extends Item {
 		public void recharge(){
 			int missingCharges = maxCharges - curCharges;
 			missingCharges = Math.max(0, missingCharges);
-
+			int x=0;
+			if(target instanceof Hero hero){
+			
+			}
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
-					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
-
+					+ ((SCALING_CHARGE_ADDITION-x) * Math.pow(scalingFactor, missingCharges)));
+			
 			if (再生.regenOn())
 				partialCharge += (1f/turnsToCharge) * 能量之戒.wandChargeMultiplier(target)*(1+Dungeon.hero.天赋点数(Talent.强能处消,0.25f));
 

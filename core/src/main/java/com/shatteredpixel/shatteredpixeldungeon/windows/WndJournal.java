@@ -305,7 +305,7 @@ public class WndJournal extends WndTabbed {
 				if (Document.ALCHEMY_GUIDE.isPageFound(i)) {
 					pageButtons[i].icon(new ItemSprite(sprites[i], null));
 				} else {
-					pageButtons[i].icon(new ItemSprite(物品表.SOMETHING, null));
+					pageButtons[i].icon(new ItemSprite(物品表.ITEM,null));
 					pageButtons[i].enable(false);
 				}
 				add( pageButtons[i] );

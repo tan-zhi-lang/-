@@ -114,7 +114,7 @@ public class Toolbar extends Component {
 							slotIcons[i] = new ItemSprite(item);
 						} else {
 							slotNames[i] = Messages.get(Toolbar.class, "quickslot_assign");
-							slotIcons[i] = new ItemSprite(物品表.SOMETHING);
+							slotIcons[i] = new ItemSprite(物品表.ITEM);
 						}
 					}
 
@@ -239,7 +239,7 @@ public class Toolbar extends Component {
 						//trigger hold fast and patient strike here, even if the hero didn't specifically wait
 						if (Dungeon.hero.天赋(Talent.捍守可拘)){//不动如山
 							Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
-							Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋生命力(Talent.血爆之术,0.7f));
+							Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋生命力(Talent.捍守可拘,0.33f));
 						}
 						if (Dungeon.hero.天赋(Talent.PATIENT_STRIKE)){
 							Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;

@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Random;
 
@@ -111,6 +112,9 @@ public class HighGrass {
 				float 概率 = 1/(25f - 自然层 *4f);
 				// absolute max drop rate is ~1/6.5 with footwear of nature, ~1/18 without
 				概率 *= PetrifiedSeed.grassLootMultiplier();
+				if(Holiday.getCurrentHoliday()==Holiday.植树节){
+					概率 *=2;
+				}
 				if(算法.isDebug()){
 					概率=1;
 				}

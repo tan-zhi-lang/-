@@ -39,7 +39,7 @@ public class 物品表 {
     //region 预备和物品堆
     private static final int PLACEHOLDERS = xy(1, 1);   //18 slots
     //SOMETHING is the default item sprite at position 0. May show up ingame if there are bugs.
-    public static final int SOMETHING = PLACEHOLDERS + 0;
+    public static final int ITEM=PLACEHOLDERS+0;
     public static final int WEAPON_HOLDER = PLACEHOLDERS + 1;
     public static final int ARMOR_HOLDER = PLACEHOLDERS + 2;
     public static final int MISSILE_HOLDER = PLACEHOLDERS + 3;
@@ -59,7 +59,7 @@ public class 物品表 {
     public static final int DOCUMENT_HOLDER = PLACEHOLDERS + 17;
 
     static {
-        assignItemRect(SOMETHING, 8, 13);
+        assignItemRect(ITEM,8,13);
         assignItemRect(WEAPON_HOLDER, 14);
         assignItemRect(ARMOR_HOLDER, 14, 12);
         assignItemRect(MISSILE_HOLDER, 15);
@@ -838,7 +838,9 @@ public class 物品表 {
     public static final int VANILLA_CAKE = HOLIDAY_FOOD + 7;
     public static final int CANDY_CANE = HOLIDAY_FOOD + 8;
     public static final int SPARKLING_POTION = HOLIDAY_FOOD + 9;
-    public static final int 单身狗粮 = HOLIDAY_FOOD + 10;
+    public static final int 粽子 = HOLIDAY_FOOD + 10;
+    public static final int 单身狗粮 = HOLIDAY_FOOD + 11;
+    public static final int 月饼 = HOLIDAY_FOOD + 12;
 
     static {
         assignItemRect(STEAMED_FISH, 16, 12);
@@ -851,7 +853,9 @@ public class 物品表 {
         assignItemRect(VANILLA_CAKE, 14, 13);
         assignItemRect(CANDY_CANE, 13, 16);
         assignItemRect(SPARKLING_POTION, 7, 16);
+        assignItemRect(粽子, 16, 15);
         assignItemRect(单身狗粮, 12, 14);
+        assignItemRect(月饼, 12);
     }
     //endregion
 

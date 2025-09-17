@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfForce;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
@@ -433,7 +433,7 @@ public class DwarfKing extends Mob {
 	@Override
 	public void 受伤时(int dmg, Object src) {
 		//hero counts as unarmed if they aren't attacking with a weapon and aren't benefiting from force
-		if (src == Dungeon.hero && (!RingOfForce.fightingUnarmed(Dungeon.hero) || Dungeon.hero.buff(RingOfForce.Force.class) != null)){
+		if (src == Dungeon.hero && (!武力之戒.fightingUnarmed(Dungeon.hero)||Dungeon.hero.buff(武力之戒.Force.class)!=null)){
 			Statistics.qualifiedForBossChallengeBadge = false;
 		//Corrosion, corruption, and regrowth do no direct damage and so have their own custom logic
 		//Transfusion damages DK and so doesn't need custom logic

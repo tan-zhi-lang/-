@@ -73,6 +73,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalSpire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
@@ -155,6 +156,8 @@ public abstract class Char extends Actor {
 	
 	public int 最大生命;
 	public int 生命;
+	public int 每2次攻击=1;
+	public int 每3次攻击=1;
 
 	public float 大小=1;
 	public boolean 第一次攻击=true;
@@ -334,6 +337,8 @@ public abstract class Char extends Actor {
 	protected static final String TAG_HP    = "HP";
 	protected static final String TAG_HT    = "HT";
 	protected static final String BUFFS	    = "buffs";
+	protected static final String 每2次攻击x 	    = "每2次攻击";
+	protected static final String 每3次攻击x 	    = "每3次攻击";
 	protected static final String 第一次攻击x 	    = "第一次攻击";
 	protected static final String 第一次防御x 	    = "第一次防御";
 	protected static final String 生命流动x 	    = "生命流动";
@@ -347,6 +352,8 @@ public abstract class Char extends Actor {
 		bundle.put( TAG_HP, 生命);
 		bundle.put( TAG_HT, 最大生命);
 		bundle.put( BUFFS, buffs );
+		bundle.put( 每2次攻击x, 每2次攻击);
+		bundle.put( 每3次攻击x, 每3次攻击);
 		bundle.put( 第一次攻击x, 第一次攻击);
 		bundle.put( 第一次防御x, 第一次防御);
 		bundle.put( 生命流动x, 生命流动);
@@ -360,6 +367,8 @@ public abstract class Char extends Actor {
 		pos = bundle.getInt( POS );
 		生命 = bundle.getInt( TAG_HP );
 		最大生命 = bundle.getInt( TAG_HT );
+		每2次攻击 = bundle.getInt( 每2次攻击x );
+		每3次攻击 = bundle.getInt( 每3次攻击x );
 		第一次攻击 = bundle.getBoolean( 第一次攻击x );
 		第一次防御 = bundle.getBoolean( 第一次防御x );
 		生命流动 = bundle.getFloat( 生命流动x );
@@ -751,6 +760,24 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 	
 	public int 攻击时(Char enemy, int damage ) {
+		boolean 视野敌人=false;
+		if(this instanceof Mob mob){
+			视野敌人=mob.chooseEnemy()!=null;
+		}
+		if(this instanceof Hero hero){
+			视野敌人=hero.视野敌人();
+		}
+		if(每2次攻击>=3||视野敌人){
+			每2次攻击=1;
+		}else {
+			每2次攻击++;
+		}
+		if(每3次攻击>=4||视野敌人){
+			每3次攻击=1;
+		}else {
+			每3次攻击++;
+		}
+		
 		if(吸血()>0){
 			float x =damage * 吸血();
 			if(x>0){
@@ -1501,9 +1528,11 @@ public abstract class Char extends Actor {
 		生命 = Math.min(生命 + 1, 最大生命);
 		if(sprite!=null) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(1), FloatingText.HEALING);
 	}
-	public void 回血(int x){
-		生命 = Math.min(生命 + x, 最大生命);
-		if(sprite!=null&&x>0) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(x), FloatingText.HEALING);
+	public void 回血(float x){
+		int x2=Math.round(x);
+		生命 = Math.min(生命 + x2, 最大生命);
+		生命流动+=x-x2;
+		if(sprite!=null&&x2>0) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(x2), FloatingText.HEALING);
 	}
 
 	public int 视野范围(){

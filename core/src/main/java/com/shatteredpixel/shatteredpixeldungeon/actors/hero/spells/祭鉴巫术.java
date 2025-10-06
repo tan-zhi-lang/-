@@ -14,13 +14,13 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.watabou.noosa.audio.Sample;
 
-public class 祭鉴之术 extends 背包巫术 {
+public class 祭鉴巫术 extends 背包巫术 {
 
-	public static final 祭鉴之术 INSTANCE = new 祭鉴之术();
+	public static final 祭鉴巫术 INSTANCE = new 祭鉴巫术();
 
 	@Override
 	public int icon() {
-		return HeroIcon.祭鉴之术;
+		return HeroIcon.祭鉴巫术;
 	}
 
 	@Override
@@ -32,11 +32,11 @@ public class 祭鉴之术 extends 背包巫术 {
 
 	@Override
 	protected void onItemSelected(灵月法杖 tome, Hero hero, Item item) {
-		if (item == null){
+		if (item == null||!item.已鉴定()){
 			return;
 		}
-		hero.受伤(hero.生命力());
-		if(hero.满天赋(Talent.祭鉴之术)){
+		hero.受伤(hero.天赋生命力(Talent.祭鉴巫术,1f));
+		if(hero.满天赋(Talent.祭鉴巫术)){
 			祛邪卷轴.净化(hero,item.鉴定().特殊升级());
 		}else{
 			item.鉴定();
@@ -55,7 +55,7 @@ public class 祭鉴之术 extends 背包巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.祭鉴之术)==2?"鉴定、净化":"鉴定");
+		String desc = Messages.get(this, "desc",Dungeon.hero.天赋生命力(Talent.祭鉴巫术,1f),Dungeon.hero.天赋点数(Talent.祭鉴巫术)==2?"鉴定、祛邪、升级":"鉴定");
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

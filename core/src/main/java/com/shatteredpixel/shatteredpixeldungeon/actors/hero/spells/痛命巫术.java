@@ -18,13 +18,13 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class 痛命之术 extends 目标巫术 {
+public class 痛命巫术 extends 目标巫术 {
 
-	public static final 痛命之术 INSTANCE = new 痛命之术();
+	public static final 痛命巫术 INSTANCE = new 痛命巫术();
 
 	@Override
 	public int icon() {
-		return HeroIcon.痛命之术;
+		return HeroIcon.痛命巫术;
 	}
 
 	@Override
@@ -50,14 +50,14 @@ public class 痛命之术 extends 目标巫术 {
 
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
-					hero.受伤(hero.天赋生命力(Talent.痛命之术,0.2f));
+					hero.受伤(hero.天赋生命力(Talent.痛命巫术,0.2f));
 					ch.受伤时(Random.NormalIntRange(
-							hero.天赋生命力(Talent.痛命之术,0.7f)+
+							hero.天赋生命力(Talent.痛命巫术,0.7f)+
 							hero.天赋生命力(Talent.高级痛命,0.7f)
 							,
-							hero.天赋生命力(Talent.痛命之术,2)+
+							hero.天赋生命力(Talent.痛命巫术,2)+
 							hero.天赋生命力(Talent.高级痛命,1.2f)
-					), 痛命之术.this);
+					), 痛命巫术.this);
 				
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
@@ -73,9 +73,9 @@ public class 痛命之术 extends 目标巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.天赋生命力(Talent.痛命之术,0.2f)
-				,Dungeon.hero.天赋生命力(Talent.痛命之术,0.7f)+Dungeon.hero.天赋生命力(Talent.高级痛命,0.7f),
-				Dungeon.hero.天赋生命力(Talent.痛命之术,2)+Dungeon.hero.天赋生命力(Talent.高级痛命,1.2f));
+		String desc = Messages.get(this, "desc",Dungeon.hero.天赋生命力(Talent.痛命巫术,0.2f)
+				,Dungeon.hero.天赋生命力(Talent.痛命巫术,0.7f)+Dungeon.hero.天赋生命力(Talent.高级痛命,0.7f),
+								   Dungeon.hero.天赋生命力(Talent.痛命巫术,2)+Dungeon.hero.天赋生命力(Talent.高级痛命,1.2f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

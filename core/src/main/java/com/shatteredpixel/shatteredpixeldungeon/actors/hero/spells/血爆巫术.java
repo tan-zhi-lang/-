@@ -16,13 +16,13 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 
-public class 血爆之术 extends 巫术 {
+public class 血爆巫术 extends 巫术 {
 
-	public static final 血爆之术 INSTANCE = new 血爆之术();
+	public static final 血爆巫术 INSTANCE = new 血爆巫术();
 
 	@Override
 	public int icon() {
-		return HeroIcon.血爆之术;
+		return HeroIcon.血爆巫术;
 	}
 
 	
@@ -33,9 +33,9 @@ public class 血爆之术 extends 巫术 {
 			float shield = hero.天赋点数(Talent.高级血爆, 100);
 			Buff.施加(hero, Hunger.class).吃饭(shield);
 		}
-		hero.受伤(hero.生命力(4)-hero.天赋生命力(Talent.物到之术,1));
-		Buff.施加(hero, Barrier.class).设置(hero.最大生命(hero.天赋点数(Talent.血爆之术,0.2f)));
-		hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.最大生命(hero.天赋点数(Talent.血爆之术,0.2f))), FloatingText.SHIELDING );
+		hero.受伤(hero.生命力(4)-hero.天赋生命力(Talent.物到巫术,1));
+		Buff.施加(hero, Barrier.class).设置(hero.最大生命(hero.天赋点数(Talent.血爆巫术,0.2f)));
+		hero.sprite.showStatusWithIcon(CharSprite.增强,Integer.toString(hero.最大生命(hero.天赋点数(Talent.血爆巫术,0.2f))),FloatingText.SHIELDING);
 
 		Item.updateQuickslot();
 
@@ -48,8 +48,8 @@ public class 血爆之术 extends 巫术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-				Dungeon.hero.生命力(4)-Dungeon.hero.天赋生命力(Talent.物到之术,1),
-				Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血爆之术,0.2f)),
+				Dungeon.hero.生命力(4)-Dungeon.hero.天赋生命力(Talent.物到巫术,1),
+				Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血爆巫术,0.2f)),
 				Dungeon.hero.天赋(Talent.高级血爆)?Dungeon.hero.天赋点数(Talent.高级血爆,100):""
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));

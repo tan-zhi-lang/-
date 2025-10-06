@@ -20,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -49,7 +50,9 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public void activate(Char ch) {
 		super.activate(ch);
-		if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.DUELIST){
+		if (ch instanceof Hero hero && hero.heroClass(HeroClass.DUELIST)){
+			if (charger == null) charger = new Charger();
+			charger.attachTo( hero );
 			Buff.施加(ch, Charger.class);
 			curItem=this;
 		}
@@ -57,10 +60,9 @@ public class MeleeWeapon extends Weapon {
 
 	@Override
 	public String defaultAction() {
-		if (Dungeon.hero() && (Dungeon.hero.heroClass == HeroClass.DUELIST
-			|| Dungeon.hero.天赋(Talent.SWIFT_EQUIP))){
+		if (Dungeon.hero() &&Dungeon.hero.heroClass(HeroClass.DUELIST)){
 			return AC_ABILITY;
-		} else {
+		}else {
 			return super.defaultAction();
 		}
 	}
@@ -68,7 +70,8 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (isEquipped(hero) && hero.heroClass == HeroClass.DUELIST){
+		
+		if (isEquipped(hero)&&hero.heroClass(HeroClass.DUELIST)){
 			actions.add(AC_ABILITY);
 		}
 		if(Dungeon.炼狱(炼狱设置.诅咒装备)&&(等级()>5||tier>3)) {
@@ -107,7 +110,7 @@ public class MeleeWeapon extends Weapon {
 				//do nothing
 			} else if (力量() > hero.力量()){
 				GLog.w(Messages.get(this, "ability_low_str"));
-			} else if ((Buff.施加(hero, Charger.class).charges + Buff.施加(hero, Charger.class).partialCharge) < abilityChargeUse(hero, null)) {
+			} else if (charger.charges + charger.partialCharge < abilityChargeUse(hero, null)) {
 				GLog.w(Messages.get(this, "ability_no_charge"));
 			} else {
 
@@ -153,9 +156,8 @@ public class MeleeWeapon extends Weapon {
 		//do nothing by default
 	}
 
-	protected void beforeAbilityUsed(Hero hero, Char target){
+	public void beforeAbilityUsed(Hero hero,Char target){
 		hero.belongings.abilityWeapon = this;
-		Charger charger = Buff.施加(hero, Charger.class);
 
 		charger.partialCharge -= abilityChargeUse(hero, target);
 		while (charger.partialCharge < 0 && charger.charges > 0) {
@@ -185,7 +187,6 @@ public class MeleeWeapon extends Weapon {
 				Buff.施加(hero, Talent.VariedChargeTracker.class).weapon = getClass();
 			} else {
 				tracker.detach();
-				Charger charger = Buff.施加(hero, Charger.class);
 				charger.gainCharge(hero.天赋点数(Talent.VARIED_CHARGE,0.15f));
 				ScrollOfRecharging.charge(hero);
 			}
@@ -209,7 +210,6 @@ public class MeleeWeapon extends Weapon {
 			}
 		}
 		if (hero.buff(Talent.CounterAbilityTacker.class) != null){
-			Charger charger = Buff.施加(hero, Charger.class);
 			charger.gainCharge(hero.天赋点数(Talent.COUNTER_ABILITY)*0.375f);
 			hero.buff(Talent.CounterAbilityTacker.class).detach();
 		}
@@ -393,9 +393,8 @@ public class MeleeWeapon extends Weapon {
 	@Override
 	public String status() {
 		if (isEquipped(Dungeon.hero)
-				&& Dungeon.hero.buff(Charger.class) != null) {
-			Charger buff = Dungeon.hero.buff(Charger.class);
-			return buff.charges + "/" + buff.chargeCap();
+			&&charger!= null) {
+			return charger.charges + "/" + charger.chargeCap();
 		} else {
 			return super.status();
 		}
@@ -424,6 +423,19 @@ public class MeleeWeapon extends Weapon {
 	public int 能量() {
 		return Math.round(金币()*0.025f+1);
 	}
+	@Override
+	public boolean 放背包(Bag container) {
+		if (super.放背包( container )) {
+			if (container.owner != null) {
+				activate( container.owner);
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public Charger charger;
 	public static class Charger extends Buff implements ActionIndicator.Action {
 
 		public int charges = 3;

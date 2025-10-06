@@ -281,7 +281,7 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Math.round(food.energy)) );
 				center.measure();
 				center.hardlight( UPGRADED );
-				extra.text( Messages.format( TXT, Dungeon.hero.生命力(0.13f)) );
+				extra.text( Messages.format( TXT, Dungeon.hero.生命力(0.25f)) );
 				extra.measure();
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof Armor a&&a.破损纹章!=null) {
@@ -305,7 +305,7 @@ public class ItemSlot extends Button {
 				level.measure();
 				level.hardlight( WARNING );
 			}else if (item instanceof 武力之戒 x) {
-				level.text( Messages.format( TXT, x.soloBuffedBonus()+x.min()/2) );
+				level.text( Messages.format( TXT, x.soloBuffedBonus()+x.heromin()) );
 				level.measure();
 				level.hardlight( WARNING );
 			}else{

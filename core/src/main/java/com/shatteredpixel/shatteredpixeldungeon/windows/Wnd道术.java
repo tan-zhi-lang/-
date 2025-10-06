@@ -7,10 +7,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.痛命巫术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.净除道术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -32,13 +32,13 @@ import com.watabou.utils.PointF;
 
 import java.util.ArrayList;
 
-public class Wnd巫术 extends Window {
+public class Wnd道术 extends Window {
 
 	protected static final int WIDTH    = 120;
 
 	public static int BTN_SIZE = 20;
 
-	public Wnd巫术(灵月法杖 tome, Hero cleric, boolean info){
+	public Wnd道术(铜钱剑 tome,Hero cleric,boolean info){
 
 		IconTitle title;
 		if (!info){
@@ -53,7 +53,7 @@ public class Wnd巫术 extends Window {
 		IconButton btnInfo = new IconButton(info ? new ItemSprite(tome) : Icons.INFO.get()){
 			@Override
 			protected void onClick() {
-				GameScene.show(new Wnd巫术(tome, cleric, !info));
+				GameScene.show(new Wnd道术(tome,cleric,!info));
 				hide();
 			}
 		};
@@ -76,7 +76,7 @@ public class Wnd巫术 extends Window {
 
 		for (int i = 1; i <= Talent.MAX_TALENT_TIERS; i++) {
 
-			ArrayList<巫术> spells = 巫术.getSpellList(cleric, i);
+			ArrayList<道术> spells = 道术.getSpellList(cleric, i);
 
 			if (!spells.isEmpty() && i != 1){
 				top += BTN_SIZE + 2;
@@ -88,7 +88,7 @@ public class Wnd巫术 extends Window {
 
 			ArrayList<IconButton> spellBtns = new ArrayList<>();
 
-			for (巫术 spell : spells) {
+			for (道术 spell : spells) {
 				IconButton spellBtn = new SpellButton(spell, tome, info);
 				add(spellBtn);
 				spellBtns.add(spellBtn);
@@ -113,13 +113,13 @@ public class Wnd巫术 extends Window {
 
 	public class SpellButton extends IconButton {
 
-		巫术 spell;
-		灵月法杖 tome;
+		道术 spell;
+		铜钱剑 tome;
 		boolean info;
 
 		NinePatch bg;
 
-		public SpellButton(巫术 spell, 灵月法杖 tome, boolean info){
+		public SpellButton(道术 spell,铜钱剑 tome,boolean info){
 			super(new HeroIcon(spell));
 
 			this.spell = spell;
@@ -128,7 +128,7 @@ public class Wnd巫术 extends Window {
 
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==痛命巫术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell==净除道术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 
@@ -139,7 +139,7 @@ public class Wnd巫术 extends Window {
 		@Override
 		protected void onPointerDown() {
 			super.onPointerDown();
-			if (spell==痛命巫术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			if (spell==净除道术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(4);
 			}
 		}
@@ -149,7 +149,7 @@ public class Wnd巫术 extends Window {
 			super.onPointerUp();
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==痛命巫术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell==净除道术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 		}
@@ -199,9 +199,9 @@ public class Wnd巫术 extends Window {
 			super.onRightClick();
 			RightClickMenu r = new RightClickMenu(new Image(icon),
 					Messages.titleCase(spell.name()),
-					Messages.get(Wnd巫术.class, "cast"),
-					Messages.get(Wnd巫术.class, "info"),
-					Messages.get(Wnd巫术.class, "quick_cast")){
+					Messages.get(Wnd道术.class,"cast"),
+					Messages.get(Wnd道术.class,"info"),
+					Messages.get(Wnd道术.class,"quick_cast")){
 				@Override
 				public void onSelect(int index) {
 					switch (index){

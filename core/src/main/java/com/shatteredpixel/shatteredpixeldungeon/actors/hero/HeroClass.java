@@ -82,7 +82,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -113,6 +112,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞�
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
@@ -132,7 +132,7 @@ public enum HeroClass{
 	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
 	巫女(HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
 	重武(HeroSubClass.盾之勇者),镜魔(HeroSubClass.潜能觉醒),
-	道士(HeroSubClass.潜能觉醒),行僧(HeroSubClass.潜能觉醒),
+	道士(HeroSubClass.鬼师),行僧(HeroSubClass.潜能觉醒),
 	近卫(HeroSubClass.潜能觉醒),兽灵(HeroSubClass.养殖专家),
 	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.潜能觉醒),
 	戒老(HeroSubClass.潜能觉醒),逐姝(HeroSubClass.潜能觉醒),
@@ -189,7 +189,7 @@ public enum HeroClass{
 //			new TrinketCatalyst().放背包();
 //			new CapeOfThorns().放背包();
 			new Amulet().放背包();
-			new WandOfLivingEarth().放背包();
+			new 商人信标().放背包();
 			new 召唤物品().放背包();
 			
 			for (Item item : Dungeon.hero.belongings){
@@ -478,6 +478,7 @@ public enum HeroClass{
 		(hero.belongings.weapon=new 铜钱剑()).鉴定();
 		hero.belongings.weapon.activate(hero);
 		(hero.belongings.armor=new 道袍()).鉴定();
+		Dungeon.quickslot.setSlot(0,hero.belongings.weapon);
 	}
 	
 	private static void 初始行僧(Hero hero){

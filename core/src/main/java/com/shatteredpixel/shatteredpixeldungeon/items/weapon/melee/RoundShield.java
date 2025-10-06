@@ -75,7 +75,7 @@ public class RoundShield extends MeleeWeapon {
 		@Override
 		public void tintIcon(Image icon) {
 			if (hasBlocked){
-				icon.tint(0x651f66, 0.5f);
+				icon.tint(0x806e33, 0.5f);
 			} else {
 				icon.resetColor();
 			}

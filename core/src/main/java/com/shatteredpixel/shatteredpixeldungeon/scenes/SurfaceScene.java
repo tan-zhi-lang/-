@@ -132,7 +132,7 @@ public class SurfaceScene extends PixelScene {
 		a.scale.y=2;
 		a.am = 2; a.aa = -1;
 		a.x = (SKY_WIDTH - a.width) / 2;
-		a.y = SKY_HEIGHT - a.height;
+		a.y = SKY_HEIGHT - a.height*2;
 		align(a);
 
 		if (Dungeon.hero.armorAbility instanceof Ratmogrify) {

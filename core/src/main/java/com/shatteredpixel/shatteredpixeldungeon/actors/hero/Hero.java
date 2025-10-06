@@ -317,9 +317,7 @@ public class Hero extends Char {
         if (heroClass(HeroClass.重武)) {
             multiplier *= 1.1f;
         }
-        multiplier *= 1 + 神力 * 0.1f;
         multiplier *= 1 + 天赋点数(Talent.强壮体魄, 0.12f);
-        multiplier *= 1 - 天赋点数(Talent.奏绝独唱, 0.1f);
         multiplier *= 1 - 天赋点数(Talent.声之一型, 0.06f);
         if(Dungeon.玩法(玩法设置.修罗血场)){
             multiplier *=1.25f;
@@ -342,7 +340,10 @@ public class Hero extends Char {
             str += buff.boost();
         }
         if(heroClass(HeroClass.兽灵)){
-            str+=生命力(0.13f);
+            str+=Math.round(Math.sqrt(最大生命)*0.13f);
+        }
+        if(heroClass(HeroClass.近卫)){
+            str+=2;
         }
         float x = 1;
         x *= 1 + 天赋点数(Talent.STRONGMAN, 0.1f);
@@ -361,7 +362,7 @@ public class Hero extends Char {
         }
 
         x *= 综合属性();
-        x *= 1 + 神力 * 0.1f;
+        x *= 1 + 神力 * 0.05f;
         if(单身){
             x*=1.1f;
         }
@@ -527,18 +528,19 @@ public class Hero extends Char {
             for (Talent f : tier.keySet()) {
                 if (f == talent) {
                     if (f.最大点数() == 2) {
-                        if(x==0.66f)
+                        if(x==0.66f){
                             if (tier.get(f) == 1) {
                                 return x;
                             } else if (tier.get(f) == 2) {
                                 return 1.5f * x+0.01f;
                             }
-                        else
+                        }else{
                             if (tier.get(f) == 1) {
                                 return x;
                             } else if (tier.get(f) == 2) {
                                 return 1.5f * x;
                             }
+                        }
                     }
                     if (f.最大点数() >= 3) {
                         if(x==0.33f)
@@ -1005,6 +1007,7 @@ public class Hero extends Char {
             dmg+=heroDamageIntRange(0, Math.round(Dungeon.gold/100));
         }
         dmg+=heroDamageIntRange(0,天赋生命力(Talent.誓死捍卫,0.2f));
+        dmg+=heroDamageIntRange(0,天赋生命力(Talent.矢量重击,0.3f));
 
         PhysicalEmpower emp = buff(PhysicalEmpower.class);
         if (emp != null) {
@@ -1054,13 +1057,21 @@ public class Hero extends Char {
             speed *= 1.05f;
         }
         if (heroClass(HeroClass.女忍)) {
-            speed*=1+0.2f*已损失生命()/最大生命;
+            speed*=1+0.2f*根据已损失生命();
         }
         if (heroClass(HeroClass.行僧)) {
             speed *= 1.1f;
         }
-        if (heroClass(HeroClass.盗贼) && 在水中()) {
-            speed *= 1.1f;
+        if (在水中()) {
+            if (heroClass(HeroClass.盗贼)) {
+                speed *= 1.1f;
+            }
+            speed*=1+天赋点数(Talent.雨露均沾,0.2f);
+        }
+        if (天赋(Talent.窄区突围)){
+            if(在狭窄()){
+               speed*=1+天赋点数(Talent.窄区突围,0.16f);
+            }
         }
         speed *= RingOfHaste.speedMultiplier(this);
 
@@ -1158,7 +1169,12 @@ public class Hero extends Char {
             delay/=1+天赋点数(Talent.接连攻击,0.2f);
         }
         delay/=1-天赋点数(Talent.额外计算,0.1f);
+        delay/=1-天赋点数(Talent.矢量重击,0.06f);
+        
         delay /= 1 + 天赋点数(Talent.DEATHLESS_FURY, 0.15f);
+        if (天赋(Talent.暴性猎食)&&attackTarget!=null){
+            delay*=1+attackTarget.根据已损失生命()*天赋点数(Talent.暴性猎食,0.3f);
+        }
         if(belongings.weapon==null&&nobuff(武力之戒.BrawlersStance.class)){
             delay/=1+Math.sqrt(力量())*属性增幅*8;
         }
@@ -2029,13 +2045,37 @@ public class Hero extends Char {
         }
         resting = fullRest;
     }
-
+    public int 暴击(final Char enemy,int dmg){
+        int 暴击率=0;
+        暴击率+=天赋点数(Talent.英勇战斗);
+        if(heroClass(HeroClass.近卫)){
+            暴击率+=15;
+        }
+        if(算法.概率学(暴击率)){
+            dmg=Math.round(dmg*1.75f);
+        }
+        return dmg;
+    }
     @Override
     public int 攻击时(final Char enemy, int damage) {
         damage = super.攻击时(enemy, damage);
+        damage = 暴击(enemy, damage);
         
+        if(天赋概率(Talent.误打误撞,20)){
+            damage=Math.round(damage*(1+天赋生命力(Talent.误打误撞,0.2f)));
+        }
+        if(enemy.第一次防御&&天赋(Talent.锋利爪击)){
+            damage+=天赋生命力(Talent.锋利爪击,0.3f);
+        }
         if(每2次攻击==2){
             damage+=天赋生命力(Talent.接连攻击,0.14f);
+        }
+        if (天赋(Talent.辟路先锋)){
+            if(在狭窄()){
+                int shieldToGive=Dungeon.hero.天赋生命力(Talent.辟路先锋,0.3f);
+                Buff.施加(this,Barrier.class).设置(shieldToGive);
+                sprite.showStatusWithIcon(CharSprite.增强,Integer.toString(shieldToGive),FloatingText.SHIELDING);
+            }
         }
         if (天赋(Talent.狂暴血气)){
             Buff.施加(enemy,流血.class).set(生命力(天赋点数(Talent.狂暴血气,0.16f)));
@@ -2060,9 +2100,6 @@ public class Hero extends Char {
                     a.availableUsesToID -= x;
                 }
             }
-        }
-        if(heroClass(HeroClass.近卫)&&算法.概率学(15)){
-            damage=Math.round(damage*1.75f);
         }
         if(Dungeon.系统(系统设置.生命成长)){
             生命成长+=Dungeon.depth/100f;
@@ -2119,7 +2156,7 @@ public class Hero extends Char {
         if (天赋(Talent.盾举冲击)) {
             damage += 天赋生命力(Talent.盾举冲击, 0.14f);
         }
-        if (enemy.properties.contains(Property.UNDEAD) && heroClass(HeroClass.CLERIC)) {
+        if (enemy.properties().contains(Property.UNDEAD) && heroClass(HeroClass.CLERIC)) {
             damage = Math.round(damage * 1.1f);
         }
         if (天赋(Talent.额外计算))
@@ -2225,7 +2262,7 @@ public class Hero extends Char {
                 }
             }
         }
-        if (enemy.properties.contains(Property.UNDEAD) && heroClass(HeroClass.CLERIC)) {
+        if (enemy.properties().contains(Property.UNDEAD) && heroClass(HeroClass.CLERIC)) {
             damage = Math.round(damage * 0.9f);
         }
         if (damage > 0 && subClass == HeroSubClass.BERSERKER) {
@@ -2288,6 +2325,9 @@ public class Hero extends Char {
         
         }else{
             dmg-=Random.NormalIntRange(0,天赋点数(Talent.痛忍觉悟));
+        }
+        if(天赋(Talent.绝望安息)){
+            dmg=Math.round(dmg*(1-天赋点数(Talent.绝望安息,0.06f)));
         }
         if (天赋(Talent.侵血向受)) {
             for (Item item : Dungeon.hero.belongings) {
@@ -3188,7 +3228,6 @@ public class Hero extends Char {
         }
         x += heroClass == HeroClass.盗贼 ? 2 : 1;
         x += 天赋点数(Talent.WIDE_SEARCH);
-        x += 天赋点数(Talent.奏绝独唱);
         return x;
     }
 
@@ -3205,7 +3244,6 @@ public class Hero extends Char {
             x++;
         }
         x += 天赋点数(Talent.声之一型,3);
-        x += 天赋点数(Talent.奏绝独唱,2);
         if (天赋(Talent.HEIGHTENED_SENSES)) {
             x += 天赋点数(Talent.HEIGHTENED_SENSES);
         }
@@ -3244,12 +3282,13 @@ public class Hero extends Char {
         if (heroClass(HeroClass.CLERIC)) {
             限制*=1.38f;
         }
-        限制 *= 1f + Dungeon.hero.天赋点数(Talent.FARSIGHT, 0.25f);
+        限制 *= 1f + 天赋点数(Talent.FARSIGHT, 0.25f);
         限制 *= EyeOfNewt.visionRangeMultiplier();
         x*=限制;
         
         if (!heroClass(HeroClass.戒老)) x+=光照范围();
         
+        x+= 天赋点数(Talent.惊觉一现);
         x+=全知之戒.全知之力(this);
         if (Dungeon.hero.buff(MagicalSight.class) != null) {
             x= MagicalSight.DISTANCE;
@@ -3499,7 +3538,7 @@ public class Hero extends Char {
     @Override
     public float 吸血() {
 
-        float 吸血 = 天赋点数(Talent.高级吸血, 0.03f);
+        float 吸血 = 0;
 
         if (heroSubClass(HeroSubClass.黑魔导师)) {
             吸血 += 0.03f;
@@ -3510,6 +3549,9 @@ public class Hero extends Char {
         if(Dungeon.玩法(玩法设置.修罗血场)){
             吸血 += 0.05f;
         }
+        吸血 += 天赋点数(Talent.高级吸血, 0.03f);
+        吸血 += 天赋点数(Talent.志矢不渝, 0.05f)*根据已损失生命();
+        
         return 吸血+super.吸血();
     }
 
@@ -3544,6 +3586,8 @@ public class Hero extends Char {
         if (heroClass(HeroClass.血鬼)) {
             x *= 1.3f;
         }
-        return (int) Math.round(Math.sqrt(最大生命)*x+根骨);
+        int x2=根骨;
+        x2+=天赋点数(Talent.兽灵之力,0.1f)*力量();
+        return (int) Math.round(Math.sqrt(最大生命)*x+x2);
     }
 }

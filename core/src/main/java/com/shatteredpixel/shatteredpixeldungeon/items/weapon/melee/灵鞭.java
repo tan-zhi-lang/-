@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -28,7 +29,17 @@ public class 灵鞭 extends MeleeWeapon {
 		unique = true;
 		bones = false;
 	}
-
+	@Override
+	public int 最小攻击(int lvl) {
+		int dmg =super.最小攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.放逐之鞭,0.04f));
+		return Math.max(0, dmg);
+	}
+	
+	@Override
+	public int 最大攻击(int lvl) {
+		int dmg =super.最大攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.放逐之鞭,0.4f));
+		return Math.max(0, dmg);
+	}
 	@Override
 	protected void duelistAbility(Hero hero, Integer target) {
 

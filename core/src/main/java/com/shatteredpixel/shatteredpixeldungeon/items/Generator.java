@@ -411,8 +411,6 @@ public class Generator {
 					Cudgel.class,
 					镜刃.class,
 					
-					铜钱剑.class,
-					
 					白带.class,
 					臂铠.class,
 					碧蓝巨剑.class,
@@ -422,7 +420,7 @@ public class Generator {
 					书包.class,
 			};
 			WEP_T1.defaultProbs = new float[]{ 2, 2, 2, 2,
-											   2, 2,2,
+											   2, 2,
 											   2,2, 2 ,
 											   0 ,0,0
 			};

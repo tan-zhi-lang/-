@@ -23,7 +23,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.EyeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Eye extends Mob {
@@ -216,15 +215,7 @@ public class Eye extends Mob {
 		switch(Random.Int(4)){
 			case 0: case 1: default:
 				loot = new Dewdrop();
-				int ofs;
-				do {
-					ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
-				} while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
-				if (Dungeon.level.heaps.get(pos+ofs) == null) {
-					Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos);
-				} else {
-					Dungeon.level.drop(new Dewdrop(), pos + ofs).sprite.drop(pos + ofs);
-				}
+					Dungeon.level.dropRandomCell(new Dewdrop(), pos);
 				break;
 			case 2:
 				loot = Generator.randomUsingDefaults(Generator.Category.SEED);

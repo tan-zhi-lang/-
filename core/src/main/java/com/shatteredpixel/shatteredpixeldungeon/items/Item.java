@@ -318,7 +318,7 @@ public class Item implements Bundlable {
 	public final boolean 放背包() {
 		boolean 放=放背包( Dungeon.hero.belongings.backpack );
 		if(!放){
-			Dungeon.level.drop(this, Dungeon.hero.pos).sprite.drop();
+			Dungeon.level.dropRandomCell(this,Dungeon.hero.pos);
 		}
 		return 放;
 	}
@@ -447,32 +447,32 @@ public class Item implements Bundlable {
 	
 	public Item 特殊升级() {
 		if(!学者直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
-			this.等级++;
+			升级();
 			学者直觉=true;
 		}
 		if(!生存直觉&&Dungeon.hero.天赋(Talent.SCHOLARS_INTUITION)){
-			this.等级++;
+			升级();
 			生存直觉=true;
 		}
-		if(!祭鉴之术&&Dungeon.hero.天赋(Talent.祭鉴之术)){
-			this.等级++;
+		if(!祭鉴之术&&Dungeon.hero.天赋(Talent.祭鉴巫术)){
+			升级();
 			祭鉴之术=true;
 		}
-		if(!净除道法&&Dungeon.hero.天赋(Talent.净除道法)){
-			this.等级++;
+		if(!净除道法&&Dungeon.hero.天赋(Talent.净除道术)){
+			升级();
 			净除道法=true;
 		}
 
 		if(!戒指察觉&&Dungeon.hero.天赋(Talent.戒指察觉)){
-			this.等级++;
+			升级();
 			戒指察觉=true;
 		}
 		if(!赌博高手&&Dungeon.hero.天赋(Talent.赌博高手)){
-			this.等级++;
+			升级();
 			赌博高手=true;
 		}
 		if(!未来知识&&Dungeon.hero.天赋(Talent.未来知识)){
-			this.等级++;
+			升级();
 			未来知识=true;
 		}
 

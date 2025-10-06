@@ -174,7 +174,7 @@ public class 灵能短弓 extends Weapon {
 	public int 最小攻击(int lvl) {
 		int dmg = 1 + Dungeon.hero.等级(0.04f)
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级 /30 : 0);
+				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级(0.04f) : 0);
 		return Math.max(0, dmg);
 	}
 	
@@ -182,7 +182,7 @@ public class 灵能短弓 extends Weapon {
 	public int 最大攻击(int lvl) {
 		int dmg = 5 + Dungeon.hero.等级(0.4f)
 				+ 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级 /15 : 0);
+				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级(0.08f) : 0);
 		return Math.max(0, dmg);
 	}
 

@@ -162,6 +162,7 @@ public abstract class Char extends Actor {
 	public float 大小=1;
 	public boolean 第一次攻击=true;
 	public boolean 第一次防御 =true;
+	public boolean 第一次背袭 =true;
 	public boolean 必中 =false;
 	public boolean 必闪 =false;
 	public float 生命流动 =0;
@@ -341,6 +342,7 @@ public abstract class Char extends Actor {
 	protected static final String 每3次攻击x 	    = "每3次攻击";
 	protected static final String 第一次攻击x 	    = "第一次攻击";
 	protected static final String 第一次防御x 	    = "第一次防御";
+	protected static final String 第一次背袭x 	    = "第一次背袭";
 	protected static final String 生命流动x 	    = "生命流动";
 
 	@Override
@@ -356,6 +358,7 @@ public abstract class Char extends Actor {
 		bundle.put( 每3次攻击x, 每3次攻击);
 		bundle.put( 第一次攻击x, 第一次攻击);
 		bundle.put( 第一次防御x, 第一次防御);
+		bundle.put( 第一次背袭x, 第一次背袭);
 		bundle.put( 生命流动x, 生命流动);
 	}
 	
@@ -371,6 +374,7 @@ public abstract class Char extends Actor {
 		每3次攻击 = bundle.getInt( 每3次攻击x );
 		第一次攻击 = bundle.getBoolean( 第一次攻击x );
 		第一次防御 = bundle.getBoolean( 第一次防御x );
+		第一次背袭 = bundle.getBoolean( 第一次背袭x );
 		生命流动 = bundle.getFloat( 生命流动x );
 
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
@@ -510,8 +514,8 @@ public abstract class Char extends Actor {
 					dmg *= 0.5f;
 				}
 			}
-			
-			int effectiveDamage = enemy.防御时( this, Math.round(dmg) );
+			//原版是先防御时后攻击时
+			int effectiveDamage = 攻击时(enemy, Math.round(dmg));
 			//do not trigger on-hit logic if defenseProc returned a negative value
 			if (effectiveDamage >= 0) {
 				effectiveDamage = Math.max(effectiveDamage - dr, 0);
@@ -526,7 +530,7 @@ public abstract class Char extends Actor {
 					effectiveDamage *= 1.33f;
 				}
 
-				effectiveDamage = 攻击时(enemy, effectiveDamage);
+				effectiveDamage = enemy.防御时( this, effectiveDamage );
 			}
 			if (visibleFight) {
 				if (effectiveDamage > 0 || !enemy.blockSound(Random.Float(0.96f, 1.05f))) {
@@ -648,21 +652,30 @@ public abstract class Char extends Actor {
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ) {
 		float acuStat = attacker.最大命中( defender );
 		float defStat = defender.最大闪避( attacker );
-		if(attacker.properties.contains(Property.UNDEAD)&&defender instanceof Hero hero&&hero.belongings.armor() instanceof 道袍){
-			acuStat*=0.7f;
-		}
+		
 		if(Dungeon.玩法(玩法设置.简单战斗)){
 			acuStat=0;
 		}
-		if ( defender instanceof Hero hero&&hero.heroClass(HeroClass.凌云)&&算法.概率学(15)) {
+		if ( attacker instanceof Hero hero) {
+			if(hero.heroClass(HeroClass.道士)){
+				defStat=0;
+			}
+		}
+		if ( defender instanceof Hero hero) {
+			if(attacker.properties().contains(Property.UNDEAD)&&hero.belongings.armor() instanceof 道袍){
+				acuStat*=0.7f;
+			}
+			if(hero.heroClass(HeroClass.凌云)&&算法.概率学(15)){
 			acuStat=0;
+			}
+			if(hero.天赋概率(Talent.学者预判,10)){
+			acuStat=0;
+			}
+			if(hero.damageInterrupt){
+				hero.interrupt();
+			}
 		}
-		if (defender instanceof Hero hero&& hero.damageInterrupt){
-			hero.interrupt();
-		}
-		if(defender.properties.contains(Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
-			defStat=0;
-		}
+		
 		if(attacker.必中){
 			defStat=0;
 			attacker.必中=false;
@@ -1176,7 +1189,10 @@ public abstract class Char extends Actor {
 	public boolean isActive() {
 		return isAlive();
 	}
-
+	
+	public void spendConstant() {
+		spendConstant(1);
+	}
 	@Override
 	protected void spendConstant(float time) {
 		时光沙漏.timeFreeze freeze = buff(时光沙漏.timeFreeze.class);
@@ -1193,7 +1209,10 @@ public abstract class Char extends Actor {
 
 		super.spendConstant(time);
 	}
-
+	
+	public void spend() {
+		spend(1);
+	}
 	@Override
 	protected void spend( float time ) {
 
@@ -1503,6 +1522,9 @@ public abstract class Char extends Actor {
 	public int 已损失生命(){
 		return 最大生命-生命;
 	}
+	public float 根据已损失生命(){
+		return 已损失生命()/最大生命;
+	}
 	public int 已损失生命(float x){
 		return Math.round(已损失生命()*x);
 	}
@@ -1550,6 +1572,18 @@ public abstract class Char extends Actor {
 		return Dungeon.level.map[pos] == Terrain.GRASS||
 				Dungeon.level.map[pos] == Terrain.HIGH_GRASS||
 				Dungeon.level.map[pos] == Terrain.FURROWED_GRASS;
+	}
+	public boolean 在狭窄(){
+		int 墙 = 0;
+		for (int i : PathFinder.NEIGHBOURS8) {
+			if (Dungeon.level.solid[pos + i]) {
+				墙 ++;
+			}
+		}
+		if(墙>=5){
+			return true;
+		}
+		return false;
 	}
 	public float 吸血(){
 		return 0;

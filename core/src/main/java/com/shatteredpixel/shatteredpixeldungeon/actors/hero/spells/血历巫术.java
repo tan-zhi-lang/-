@@ -10,31 +10,22 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.watabou.utils.Random;
 
-public class 死血之术 extends 巫术 {
+public class 血历巫术 extends 巫术 {
 
-	public static final 死血之术 INSTANCE = new 死血之术();
+	public static final 血历巫术 INSTANCE = new 血历巫术();
 
 	@Override
 	public int icon() {
-		return HeroIcon.死血之术;
+		return HeroIcon.血历巫术;
 	}
 
 	
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
-		hero.回血(Random.InvNormalIntRange(
-				hero.天赋生命力(Talent.死血之术,0.2f)+
-				hero.天赋生命力(Talent.高级死血,0.3f)
-				,
-				hero.天赋生命力(Talent.死血之术,0.4f)+
-				hero.天赋生命力(Talent.高级死血,0.6f)));
-				
-//		Buff.施加(hero, Barrier.class).设置(hero.最大生命(hero.天赋生命力(Talent.死血之术,0.2f)));
-//		hero.sprite.showStatusWithIcon(CharSprite.增强,Integer.toString(hero.最大生命(hero.天赋点数(Talent.死血之术,0.2f))),FloatingText.SHIELDING);
-		
+		hero.受伤(hero.生命力(4)-hero.天赋生命力(Talent.血历巫术,1));
+		hero.经验(hero.最大生命(hero.天赋点数(Talent.血历巫术,0.2f)));
 		Item.updateQuickslot();
 
 		hero.sprite.operate();
@@ -46,11 +37,8 @@ public class 死血之术 extends 巫术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-				Dungeon.hero.天赋生命力(Talent.死血之术,0.2f)+
-						Dungeon.hero.天赋生命力(Talent.高级死血,0.3f),
-
-				Dungeon.hero.天赋生命力(Talent.死血之术,0.4f)+
-						Dungeon.hero.天赋生命力(Talent.高级死血,0.6f)
+				Dungeon.hero.生命力(4)-Dungeon.hero.天赋生命力(Talent.血历巫术,1),
+				Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血历巫术,0.2f))
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}

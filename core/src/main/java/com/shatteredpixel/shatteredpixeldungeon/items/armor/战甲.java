@@ -10,19 +10,12 @@ public class 战甲 extends Armor {
 		image = 物品表.战甲;
 	}
 	public 战甲(){
-        super(2);
+        super(1);
     }
-
+	
 	@Override
-	public int 力量(int lvl) {
-		int req = 力量(tier, lvl)-1;
-		if (masteryPotionBonus){
-			req -= 2;
-		}
-		if (神力){
-			req -= 2;
-		}
-		return req;
+	public int 最大防御(int lvl){
+		return super.最大防御(lvl)+tier+1;
 	}
 	@Override
 	public int 金币() {

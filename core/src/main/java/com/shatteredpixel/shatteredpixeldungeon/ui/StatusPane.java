@@ -221,8 +221,8 @@ public class StatusPane extends Component {
 			血条文本.y -= 0.001f; //prefer to be slightly higher
 			PixelScene.align(血条文本);
 
-			绿条.x = 血条.x;
-			绿条.y = 血条.y + 绿条.height()+2;
+			绿条.x= 血条.x;
+			绿条.y  = 血条.y + 绿条.height()+2;
 
 			绿条文本.scale.set(PixelScene.align(0.5f));
 			绿条文本.x = 绿条.x + 1;
@@ -243,9 +243,11 @@ public class StatusPane extends Component {
 	
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
 
-	private int oldHP = 0;
-	private int oldShield = 0;
-	private int oldMax = 0;
+	private float oldHP = 0;
+	private float old绿 = 0;
+	private float HP缓冲=0;
+	private float 绿缓冲=0;
+	private float 时间=0;
 
 	@Override
 	public void update() {
@@ -270,30 +272,47 @@ public class StatusPane extends Component {
 		} else {
 			avatar.resetColor();
 		}
-
-		血条.scale.x = Math.max( 0, (health-shield)/(float)max);
-		绿条.scale.x = Math.max( 0, hunger/450f);
-		护盾.scale.x = health/(float)max;
+		
+		if (oldHP ==0)
+			oldHP = health;
+		if (old绿 ==0)
+			old绿 = hunger;
+		
+		HP缓冲=oldHP-health;
+		绿缓冲=old绿-hunger;
+		if((时间+=Game.elapsed)>=0.33f){
+			if(HP缓冲>0){
+				oldHP-=HP缓冲/1.11f;
+			}
+			if(HP缓冲<0){
+				oldHP-=HP缓冲/1.11f;
+			}
+			if(绿缓冲>0){
+				old绿-=绿缓冲/1.11f;
+			}
+			if(绿缓冲<0){
+				old绿-=绿缓冲/1.11f;
+			}
+			
+			血条.scale.x = Math.max( 0, oldHP/(float)max);
+			绿条.scale.x = Math.max( 0, old绿/450f);
+			护盾.scale.x = Math.min( 1, shield/(float)max);
+			
+			时间=0;
+		}
 
 		if (shield > health) {
 			rawShielding.scale.x = Math.min(1, shield / (float) max);
 		} else {
 			rawShielding.scale.x = 0;
 		}
-
-		if (oldHP != health || oldShield != shield || oldMax != max){
-			if (shield <= 0) {
-				血条文本.text(health + "/" + max);
-			} else {
-				血条文本.text(health + "+" + shield + "/" + max);
-			}
-			oldHP = health;
-			oldShield = shield;
-			oldMax = max;
+		
+		if (shield <= 0) {
+			血条文本.text(health + "/" + max);
+		} else {
+			血条文本.text(health + "+" + shield + "/" + max);
 		}
-
 		绿条文本.text(hunger + "/" + 450);
-
 		if (横屏) {
 			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 

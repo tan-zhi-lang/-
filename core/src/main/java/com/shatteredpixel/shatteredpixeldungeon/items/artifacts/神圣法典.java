@@ -17,11 +17,16 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndClericSpells;
+import com.watabou.noosa.Image;
+import com.watabou.noosa.Visual;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -308,7 +313,19 @@ public class 神圣法典 extends Artifact {
 		public int actionIcon() {
 			return quickSpell.icon() + 32;
 		}
-
+		@Override
+		public Visual primaryVisual() {
+			Image ico= new HeroIcon(this);;
+			ico.width += 4; //shift slightly to the left to separate from smaller icon
+			return ico;
+		}
+		@Override
+		public Visual secondaryVisual() {
+			Image ico= new ItemSprite(new 神圣法典());
+			ico.scale.set(PixelScene.align(0.51f));
+			ico.brightness(0.6f);
+			return ico;
+		}
 		@Override
 		public int indicatorColor() {
 			if (quickSpell == GuidingLight.INSTANCE && quickSpell.chargeUse(Dungeon.hero) == 0){

@@ -47,7 +47,14 @@ public class GnollTrickster extends Gnoll {
 	public int 最大命中(Char target ) {
 		return 16;
 	}
-
+	
+	@Override
+	public float 移速() {
+		if(Dungeon.level.adjacent( pos, enemy.pos ))
+		return 0.83f;
+		else
+		return 1;
+	}
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return !Dungeon.level.adjacent( pos, enemy.pos )

@@ -34,6 +34,7 @@ public class 冰门重盾 extends MeleeWeapon {
 		ArrayList<String> actions = super.actions( hero );
 		if(!hero.heroSubClass(HeroSubClass.盾之勇者)) {
 			actions.remove(AC_UNEQUIP);
+			actions.remove(AC_THROW);
 		}
 		return actions;
 	}
@@ -99,7 +100,7 @@ public class 冰门重盾 extends MeleeWeapon {
 		@Override
 		public void tintIcon(Image icon) {
 			if (hasBlocked){
-				icon.tint(0x651f66, 0.5f);
+				icon.tint(0x007786, 0.5f);
 			} else {
 				icon.resetColor();
 			}

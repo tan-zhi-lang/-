@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.watabou.noosa.ColorBlock;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.ui.Component;
 
 public class HealthBar extends Component {
@@ -19,6 +20,9 @@ public class HealthBar extends Component {
 	private ColorBlock Hp;
 	
 	private float health;
+	private float oldhp=0;
+	private float HP缓冲=0;
+	private float 时间=0;
 	private float shield;
 	
 	@Override
@@ -33,6 +37,33 @@ public class HealthBar extends Component {
 		add( Hp );
 		
 		height = HEIGHT;
+	}
+	
+	@Override
+	public synchronized void update(){
+		Bg.x = Shld.x = Hp.x = x;
+		Bg.y = Shld.y = Hp.y = y;
+		
+		Bg.size( width, height );
+		
+		if(oldhp==0)
+			oldhp = health;
+		
+		HP缓冲=oldhp-health;
+		if((时间+=Game.elapsed)>=0.33f){
+			if(HP缓冲>0){
+				oldhp-=HP缓冲/1.11f;
+			}
+			if(HP缓冲<0){
+				oldhp-=HP缓冲/1.11f;
+			}
+		}
+		//logic here rounds up to the nearest pixel
+		float pixelWidth = width;
+		if (camera() != null) pixelWidth *= camera().zoom;
+		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
+		Hp.size( width * (float)Math.ceil(oldhp * pixelWidth)/pixelWidth, height );
+		super.update();
 	}
 	
 	@Override

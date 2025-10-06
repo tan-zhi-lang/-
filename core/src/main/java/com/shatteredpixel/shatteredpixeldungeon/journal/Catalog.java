@@ -118,6 +118,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.矛盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.简易弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞刀;
@@ -240,7 +241,7 @@ public enum Catalog {
 		TRINKETS.addItems(Generator.Category.TRINKET.classes);
 
 		MISC_EQUIPMENT.addItems(破损纹章.class,法师魔杖.class,CloakOfShadows.class,灵能短弓.class,
-								神圣法典.class,血砍刀.class,灵月法杖.class,冰门重盾.class,
+								神圣法典.class,血砍刀.class,灵月法杖.class,冰门重盾.class,铜钱剑.class,
 								矛盾.class,简易弩.class,
 								Dart.class,吸血飞刀.class,
 								Pickaxe.class,水袋.class,杂物袋.class,绒布袋.class,

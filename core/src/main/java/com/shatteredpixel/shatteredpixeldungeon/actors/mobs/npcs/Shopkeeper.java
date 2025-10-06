@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -45,7 +46,8 @@ public class Shopkeeper extends NPC {
 
 	{
 		spriteClass = ShopkeeperSprite.class;
-
+		
+		loot = new 商人信标();
 		properties.add(Property.IMMOVABLE);
 	}
 
@@ -53,6 +55,7 @@ public class Shopkeeper extends NPC {
 	public ArrayList<Item> buybackItems = new ArrayList<>();
 
 	private int turnsSinceHarmed = -1;
+	public boolean 商人信标 = true;
 
 	@Override
 	public Notes.Landmark landmark() {
@@ -228,6 +231,9 @@ public class Shopkeeper extends NPC {
 		if (c != Dungeon.hero) {
 			return true;
 		}
+		if(buybackItems.size()>=20){
+			Messages.get(Shopkeeper.this, "商人信标");
+		}
 		Game.runOnRenderThread(new Callback() {
 			@Override
 			public void call() {
@@ -316,12 +322,14 @@ public class Shopkeeper extends NPC {
 	public static String BUYBACK_ITEMS = "buyback_items";
 
 	public static String TURNS_SINCE_HARMED = "turns_since_harmed";
+	public static String 商人信标x = "商人信标";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(BUYBACK_ITEMS, buybackItems);
 		bundle.put(TURNS_SINCE_HARMED, turnsSinceHarmed);
+		bundle.put(商人信标x, 商人信标);
 	}
 
 	@Override
@@ -334,5 +342,6 @@ public class Shopkeeper extends NPC {
 			}
 		}
 		turnsSinceHarmed = bundle.contains(TURNS_SINCE_HARMED) ? bundle.getInt(TURNS_SINCE_HARMED) : -1;
+		商人信标 = bundle.getBoolean(商人信标x);
 	}
 }

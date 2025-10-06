@@ -20,13 +20,13 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
-public class 饮血之术 extends 目标巫术 {
+public class 饮血巫术 extends 目标巫术 {
 
-	public static final 饮血之术 INSTANCE = new 饮血之术();
+	public static final 饮血巫术 INSTANCE = new 饮血巫术();
 
 	@Override
 	public int icon() {
-		return HeroIcon.饮血之术;
+		return HeroIcon.饮血巫术;
 	}
 
 	@Override
@@ -51,10 +51,10 @@ public class 饮血之术 extends 目标巫术 {
 			public void call() {
 
 				Char ch = Actor.findChar( aim.collisionPos );
-				if (ch != null&&!ch.满血()&&!(ch.properties.contains(Char.Property.MINIBOSS)||ch.properties.contains(Char.Property.BOSS_MINION)||ch.properties.contains(Char.Property.BOSS))) {
+				if (ch != null&&!ch.满血()&&!(ch.properties().contains(Char.Property.MINIBOSS)||ch.properties().contains(Char.Property.BOSS_MINION)||ch.properties().contains(Char.Property.BOSS))) {
 					ch.生命=1;
 					Buff.延长(ch, Invulnerability.class, Invulnerability.DURATION/2);
-					hero.回血(hero.已损失生命(hero.天赋点数(Talent.饮血之术,0.15f)));
+					hero.回血(hero.已损失生命(hero.天赋点数(Talent.饮血巫术,0.15f)));
 					
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
@@ -70,7 +70,7 @@ public class 饮血之术 extends 目标巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.饮血之术,0.15f)));
+		String desc = Messages.get(this, "desc",Dungeon.hero.已损失生命(Dungeon.hero.天赋点数(Talent.饮血巫术,0.15f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

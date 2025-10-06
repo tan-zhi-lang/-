@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoMob;
 import com.watabou.noosa.BitmapText;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Component;
@@ -130,7 +131,9 @@ public class BossHealthBar extends Component {
 		skull.x = bar.x+5;
 		skull.y = bar.y+5;
 	}
-
+	int oldhp=0;
+	private float HP缓冲=0;
+	float 时间=0;
 	@Override
 	public void update() {
 		super.update();
@@ -147,11 +150,23 @@ public class BossHealthBar extends Component {
 			} else {
 
 				int health = boss.生命;
+				if(oldhp==0)
+				oldhp = boss.生命;
+				
 				int shield = boss.shielding();
 				int max = boss.最大生命;
-
-				hp.scale.x = Math.max( 0, (health-shield)/(float)max);
-				shieldedHP.scale.x = health/(float)max;
+				
+				HP缓冲=oldhp-health;
+				if((时间+=Game.elapsed)>=0.33f){
+					if(HP缓冲>0){
+						oldhp-=HP缓冲/1.11f;
+					}
+					if(HP缓冲<0){
+						oldhp-=HP缓冲/1.11f;
+					}
+				}
+				hp.scale.x = Math.max( 0, oldhp/(float)max);
+				shieldedHP.scale.x = oldhp/(float)max;
 				rawShielding.scale.x = shield/(float)max;
 
 				if (bleeding != blood.on){

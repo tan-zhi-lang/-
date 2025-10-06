@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollTricksterSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -151,8 +152,10 @@ public class 重制 {
 				"升级提升的生命+0.625，命中和闪避+0.21。最大等级-5。\n" +
 				"升级所需经验初始10+5/(级-1)=>10+10/级。\n" ));
 		changes.addButton( new ChangeButton(new ThiefSprite(), "疯狂小偷",
-				"偷后移速83%=>75%。\n" +
-						"物理防御时掉落金币1=>10"));
+				"移速83.33%=>83%。\n" +
+				"物理防御时掉落金币1=>10。"));
+		changes.addButton( new ChangeButton(new GnollTricksterSprite(),"豺狼诡术师",
+											"接近它后只有一时，移速会只有83%。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量晶体",
 				"武器和护甲、神器、法杖和戒指可以提炼，提炼量是金币的2.5%+1，投掷武器是金币的(2.5%/数量+1)x数量。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.AMULET), "Yendor护符",
@@ -195,6 +198,9 @@ public class 重制 {
 						"新增生命力=根号(最大生命)，大部分天赋等都被此数值影响。"
 				,
 				"杂项\n\n" +
+				"先处理物理防御时然后处理物理攻击时=>先处理物理攻击时然后处理物理防御时。\n" +
+				"物品掉落位置更好。\n" +
+				"英雄属性条动画更好。\n" +
 				"投掷和弓在近距离最大命中不变，非近距离-25%最大命中。\n" +
 				"设置UI更新，且添加和移除部分按钮。"
 		));
@@ -218,6 +224,7 @@ public class 重制 {
 
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(), "商人房间",
 						"1区域也有商店，卖1阶武器和护甲。\n" +
+						"卖给商人20件物品以上会免费赠送一个商人信标。\n" +
 						"非战士在第一个商店会卖水袋。\n" +
 						"商店的武器和护甲，戒指和法杖有概率拥有等级，且必定拥有1级。\n" +
 						"商店的小包口粮x2=>口粮+小包口粮。\n" +
@@ -428,6 +435,9 @@ public class 重制 {
 //							"鉴定卷轴=>感知符石。\n"+
 //							"嬗变卷轴=>强化符石。\n"+
 //							"祛邪卷轴=>探魔符石。",
+							"蜕变秘卷\n" +
+							"部分天赋不能变出来。" ,
+							
 							"注魔秘卷\n" +
 							"还附带一次升级。"
 				));
@@ -471,7 +481,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_FIREBLOOM), "烈焰花",
 				"4层必定生成。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
-				"吃饭恢复30%生命力。"));
+				"吃饭恢复25%生命力。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
 				"攻击间隔1=>1.2。\n" +
 				"升级获得1充能。\n" +
@@ -497,6 +507,12 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_HOLDER), "神器",
 				"蓄血圣杯\n" +
 							"血祭消耗生命-5。",
+							
+				"神偷袖章\n" +
+							"可以窃取商人的商人信标。\n" +
+							"可以窃取魔法绵羊的随机种子。\n" +
+				"移除等级大于目标时不能窃取。\n" +
+				"不是敌人也能偷取。",
 									
 						   "时光沙漏\n" +
 						   "攻击不会打断时间冻结。"

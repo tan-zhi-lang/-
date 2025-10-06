@@ -837,7 +837,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(固定移速);
 							
 							休息速度 = new OptionSlider("休息速度",
-														"1", "5", 1, 5) {
+														"1", "7", 1, 5) {
 								@Override
 								protected void onChange() {
 									SPDSettings.休息速度(getSelectedValue());

@@ -913,7 +913,7 @@ public abstract class Mob extends Char {
 				if(Dungeon.hero.天赋(Talent.越战越勇)){
 					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.越战越勇,0.2f));
 				}
-				if(Dungeon.hero.heroClass(HeroClass.道士)){
+				if(properties().contains(Char.Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
 					Dungeon.hero.回血(Dungeon.hero.生命力(0.25f));
 				}
 				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
@@ -990,8 +990,8 @@ public abstract class Mob extends Char {
 		//ring of wealth logic
 		if (Ring.getBuffedBonus(Dungeon.hero, RingOfWealth.Wealth.class) > 0) {
 			int rolls = 1;
-			if (properties.contains(Property.BOSS)) rolls = 15;
-			else if (properties.contains(Property.MINIBOSS)) rolls = 5;
+			if (properties().contains(Property.BOSS)) rolls = 15;
+			else if (properties().contains(Property.MINIBOSS)) rolls = 5;
 			ArrayList<Item> bonus = RingOfWealth.tryForBonusDrop(Dungeon.hero, rolls);
 			if (bonus != null && !bonus.isEmpty()) {
 				for (Item b : bonus) Dungeon.level.drop(b, pos).sprite.drop();
@@ -1123,10 +1123,12 @@ public abstract class Mob extends Char {
 					if (fieldOfView[ch.pos] && ch.invisible == 0 && ch.alignment != alignment && ch.alignment != Alignment.NEUTRAL){
 						float chDist = ch.stealth() + distance(ch);
 						if(ch instanceof Hero hero){
-							int x=5-Dungeon.hero.天赋点数(Talent.无声步伐);
+							int x=5-Dungeon.hero.天赋点数(Talent.无声步伐)-Dungeon.hero.天赋点数(Talent.惊觉一现);
 							
 							if(hero.heroClass(HeroClass.镜魔))
 							x--;
+							
+							x=Math.max(1,x);
 							
 							//silent steps rogue talent, which also applies to rogue's shadow clone
 							if (ch instanceof Hero||ch instanceof ShadowClone.ShadowAlly){

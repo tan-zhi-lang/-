@@ -1010,6 +1010,20 @@ public abstract class Level implements Bundlable {
 		}
 	}
 	
+	public void dropRandomCell( Item item, int cell) {
+		
+		for (int i = 1; i <= item.数量(); i++){
+			int ofs;
+			do {
+				ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
+			} while (solid[cell + ofs] &&!passable[cell + ofs]);
+			if (heaps.get(cell+ofs) == null) {
+				drop(item,cell+ofs).sprite.drop(cell);
+			} else {
+				drop(item, cell + ofs).sprite.drop(cell + ofs);
+			}
+		}
+	}
 	public Heap drop( Item item, int cell ) {
 
 		if (item == null || Challenges.isItemBlocked(item)){

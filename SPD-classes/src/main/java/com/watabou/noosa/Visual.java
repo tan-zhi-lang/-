@@ -173,12 +173,12 @@ public class Visual extends Gizmo {
 		return am + aa;
 	}
 	
-	public void invert() {
+	public void invert() {//反转颜色
 		rm = gm = bm = -1f;
 		ra = ga = ba = +1f;
 	}
 	
-	public void lightness( float value ) {
+	public void lightness( float value ) {//反转颜色通道
 		if (value < 0.5f) {
 			rm = gm = bm = value * 2f;
 			ra = ga = ba = 0;
@@ -190,6 +190,13 @@ public class Visual extends Gizmo {
 	
 	public void brightness( float value ) {
 		rm = gm = bm = value;
+	}
+	
+	public void tint(float strength ) {
+		rm = gm = bm = 1f - strength;
+		ra *= strength;
+		ga *= strength;
+		ba *= strength;
 	}
 	
 	public void tint( float r, float g, float b, float strength ) {

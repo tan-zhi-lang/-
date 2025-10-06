@@ -224,6 +224,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.BERSERK, true),
 							  new TalentIcon(Talent.钢铁意志),
+							  new ItemSprite(物品表.巨斧),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 兽灵:

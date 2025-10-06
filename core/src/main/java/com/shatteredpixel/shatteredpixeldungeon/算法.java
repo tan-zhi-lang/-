@@ -424,16 +424,13 @@ public class 算法 {
     }
     public static boolean isDebug(){
 //        Game.version.contains("INDEV")
-        if(SPDSettings.customSeed().equals("")){
-            return false;
-        }
         return SPDSettings.customSeed().equals("调试");
     }
     public static boolean 概率学(int x){
-        return Random.Int(1,100)<= x;
+        return Random.Int(1,100)<= x+ (x == 33 ? 1 : 0);
     }
     public static boolean 概率学(float x){
-        return Random.Float()<= x;
+        return Random.Float()<= x+ (x == 0.33f ? 0.01f : 0);
     }
     public static boolean 概率概率学(int x){
         return 概率学(x)&&概率学(x);

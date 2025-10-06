@@ -200,10 +200,10 @@ public enum Talent {
 	
 	任督二脉(x8+26, 3+6+9+2+2+2+2),
 	
-	祭鉴之术(x7),痛命之术(x7+1),死血之术(x7+2),
-	血历之术(x7+4,3),血爆之术(x7+5,3),饮血之术(x7+6,3),换血之术(x7+7,3),
+	祭鉴巫术(x7),痛命巫术(x7+1),死血巫术(x7+2),
+	血历巫术(x7+4,3),血爆巫术(x7+5,3),饮血巫术(x7+6,3),换血巫术(x7+7,3),
 	顶福精华(x7+9,4),强能处消(x7+10,4),
-	物到之术(x7+11,4),星火符刃(x7+12,4),高级血爆(x7+13,4),
+	物到巫术(x7+11,4),星火符刃(x7+12,4),高级血爆(x7+13,4),
 	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
 
 
@@ -212,22 +212,24 @@ public enum Talent {
 	冰门高攻(x8+9,4),最佳防御(x8+10,4),
 	强壮体魄(x8+11,4), 勇士之证(x8+12,4), 用盾诀窍(x8+13,4),
 	急中生镜(x9),誓死捍卫(x9+1),凝结心神(x9+2),
-	净除道法(x10),
+	净除道术(x10),
 	行路知里(x11),接连攻击(x11+1),雨后春笋(x11+2),
-	孤注一掷(x12),
-	赌博高手(x13),自然灵体(x13+2),
+	孤注一掷(x12),英勇战斗(x12+1),志矢不渝(x12+1),
+	赌博高手(x13),兽灵之力(x13+1),自然灵体(x13+2),
 	探测仪器(x14),额外计算(x14+1),测试对象(x14+2),
 	忍者直觉(x15),持久忍战(x15+1),痛忍觉悟(x15+2),
-	戒指察觉(x16),声之一型(x16+2),
-	万变魁斗(x17),
-	污蔑狂宴(x18),奏绝独唱(x18+1),
-	熟能生巧(x19),
-	猫咪知觉(x20),
-	敏锐嗅觉(x21),
-	外裹透析(x22),
+	戒指察觉(x16),矢量重击(x16+1),声之一型(x16+2),
+	万变魁斗(x17),放逐之鞭(x17+1),辟路先锋(x17+2),
+	污蔑狂宴(x18),绝命痛击(x18+1),绝望安息(x18+2),
+	熟能生巧(x19),误打误撞(x19+1),学者预判(x19+2),
+	猫咪知觉(x20),锋利爪击(x20+1),惊觉一现(x20+2),
+	敏锐嗅觉(x21),暴性猎食(x21+1),窄区突围(x21+2),
+	外裹透析(x22),意语云缺(x22+1),雨露均沾(x22+2),
 	侵血向受(x23),狂暴血气(x23+1),血液凝聚(x23+2),
 	未来知识(x24),精准射击(x24+1),快速备战(x24+2),
 	;
+	
+	//region Buff
 	public static class ImprovisedProjectileCooldown extends FlavourBuff{
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0.15f, 0.2f, 0.5f); }
@@ -467,6 +469,7 @@ public enum Talent {
 		public void tintIcon(Image icon) { icon.hardlight(0f, 0f, 1f); }
 		public float iconFadePercent() { return Math.max(0, visualcooldown() / 20); }
 	}
+	//endregion
 
 	int icon;
 	int 最大点数;
@@ -597,20 +600,6 @@ public enum Talent {
 			}
 		}
 		
-		if(talent==净除道法)
-		if(hero.满天赋(净除道法)){
-			for(Item item:hero.belongings){
-				if (item.cursed){
-					祛邪卷轴.净化(hero,item.鉴定().特殊升级());
-				}
-			}
-		}else if (hero.天赋点数(净除道法) == 1){
-			for(Item item:hero.belongings.装备()){
-				if (item!=null&&item.cursed){
-					祛邪卷轴.净化(hero,item.鉴定());
-				}
-			}
-		}
 		if(talent==外裹透析)
 		if(hero.满天赋(外裹透析)){
 			for(Item item:hero.belongings){
@@ -719,7 +708,7 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}}
 	
 	public static void 吃饭时(Hero hero, float foodVal, Item foodSource ){
-		hero.回血(hero.生命力(0.3f));
+		hero.回血(hero.生命力(0.25f));
 
 		if (hero.heroClass(HeroClass.WARRIOR)){
 			if (hero.cooldown() > 0) {
@@ -812,12 +801,6 @@ public enum Talent {
 		// Affected by both Warrior(2.5x/inst.) and Duelist(1.75x/2.5x) talents
 		if (item instanceof Armor){
 			factor += hero.天赋点数(ADVENTURERS_INTUITION,2);
-		}
-		if (hero.天赋(急中生镜)&&item.等级()<=hero.天赋点数(急中生镜,2)){
-			factor += hero.天赋点数(急中生镜);
-		}
-		if(hero.天赋(净除道法)&&item.cursed){
-		factor += hero.天赋点数(净除道法);
 		}
 		if(hero.天赋(行路知里)){
 		factor += hero.天赋点数(行路知里,3)*hero.移速();
@@ -925,13 +908,6 @@ public enum Talent {
 				祛邪卷轴.净化(hero,item);
 			}
 		}
-		if (hero.天赋(净除道法)&&item.cursed){
-			identify = true;
-			祛邪卷轴.净化(hero,item);
-			if(hero.满天赋(净除道法)){
-				item.特殊升级();
-			}
-		}
 		if (hero.天赋(外裹透析)){
 			identify = true;
 			if(hero.满天赋(外裹透析)){
@@ -1004,9 +980,6 @@ public enum Talent {
 		if (hero.满天赋(急中生镜) && item.等级()<=hero.天赋点数(急中生镜,2)){
 			祛邪卷轴.净化(hero,item.鉴定());
 		}
-		if(hero.满天赋(净除道法)&&item.cursed){
-			祛邪卷轴.净化(hero,item.鉴定().特殊升级());
-		}
 		if(hero.满天赋(外裹透析)){
 			祛邪卷轴.净化(hero,item.鉴定());
 			hero.受伤(3-hero.天赋点数(外裹透析));
@@ -1026,6 +999,12 @@ public enum Talent {
 		}
 		if(hero.天赋(Talent.SUCKER_PUNCH) ) {
 			dmg += hero.天赋生命力(Talent.SUCKER_PUNCH,0.2f);
+		}
+		if(enemy.第一次背袭&&hero.天赋(Talent.意语云缺) ) {
+			dmg += hero.天赋生命力(Talent.意语云缺,0.4f);
+		}
+		if(enemy.第一次背袭){
+			enemy.第一次背袭=false;
 		}
 		return dmg;
 	}
@@ -1162,7 +1141,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
 				break;
 			case 巫女:
-				Collections.addAll(tierTalents, 祭鉴之术, 痛命之术, 死血之术);
+				Collections.addAll(tierTalents,祭鉴巫术,痛命巫术,死血巫术);
 				break;
 			case 重武:
 				Collections.addAll(tierTalents, 坚守鉴定, 盾举冲击, 钢铁之盾);
@@ -1171,16 +1150,16 @@ public enum Talent {
 				Collections.addAll(tierTalents, 急中生镜,誓死捍卫,凝结心神);
 				break;
 			case 道士:
-				Collections.addAll(tierTalents, 净除道法);
+				Collections.addAll(tierTalents,净除道术);
 				break;
 			case 行僧:
 				Collections.addAll(tierTalents, 行路知里,接连攻击,雨后春笋);
 				break;
 			case 近卫:
-				Collections.addAll(tierTalents, 孤注一掷);
+				Collections.addAll(tierTalents, 孤注一掷,英勇战斗,志矢不渝);
 				break;
 			case 兽灵:
-				Collections.addAll(tierTalents, 赌博高手);
+				Collections.addAll(tierTalents, 赌博高手,兽灵之力,自然灵体);
 				break;
 			case 机器:
 				Collections.addAll(tierTalents, 探测仪器,额外计算,测试对象);
@@ -1189,25 +1168,25 @@ public enum Talent {
 				Collections.addAll(tierTalents, 忍者直觉,持久忍战,痛忍觉悟);
 				break;
 			case 戒老:
-				Collections.addAll(tierTalents, 戒指察觉);
+				Collections.addAll(tierTalents, 戒指察觉,矢量重击,声之一型);
 				break;
 			case 逐姝:
-				Collections.addAll(tierTalents, 万变魁斗);
+				Collections.addAll(tierTalents, 万变魁斗,放逐之鞭,辟路先锋);
 				break;
 			case 罗兰:
-				Collections.addAll(tierTalents, 污蔑狂宴);
+				Collections.addAll(tierTalents, 污蔑狂宴,绝命痛击,绝望安息);
 				break;
 			case 学士:
-				Collections.addAll(tierTalents, 熟能生巧);
+				Collections.addAll(tierTalents, 熟能生巧,误打误撞,学者预判);
 				break;
 			case 灵猫:
-				Collections.addAll(tierTalents, 猫咪知觉);
+				Collections.addAll(tierTalents, 猫咪知觉,锋利爪击,惊觉一现);
 				break;
 			case 鼠弟:
-				Collections.addAll(tierTalents, 敏锐嗅觉);
+				Collections.addAll(tierTalents, 敏锐嗅觉,暴性猎食,窄区突围);
 				break;
 			case 凌云:
-				Collections.addAll(tierTalents, 外裹透析);
+				Collections.addAll(tierTalents, 外裹透析,意语云缺,雨露均沾);
 				break;
 			case 血鬼:
 				Collections.addAll(tierTalents,侵血向受,狂暴血气,血液凝聚);
@@ -1248,7 +1227,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, RECALL_INSCRIPTION, SUNRAY, DIVINE_SENSE, BLESS);
 				break;
 			case 巫女:
-				Collections.addAll(tierTalents, 血历之术, 血爆之术, 饮血之术, 换血之术);
+				Collections.addAll(tierTalents,血历巫术,血爆巫术,饮血巫术,换血巫术);
 				break;
 			case 重武:
 				Collections.addAll(tierTalents, 强力适应,捍守可拘,孤立无援,严傲之意);
@@ -1359,14 +1338,14 @@ public enum Talent {
 				Collections.addAll(tierTalents, LAY_ON_HANDS, AURA_OF_PROTECTION, WALL_OF_LIGHT);
 				break;
 			case 神秘学者:
-				Collections.addAll(tierTalents, 物到之术, 星火符刃, 高级血爆);
+				Collections.addAll(tierTalents,物到巫术,星火符刃,高级血爆);
 				break;
 			case 黑魔导师:
 				Collections.addAll(tierTalents, 高级痛命, 高级死血, 高级吸血);
 				break;
-//			case 盾之勇者:
-//				Collections.addAll(tierTalents, 强壮体魄, 勇士之证, 用盾诀窍);
-//				break;
+			case 盾之勇者:
+				Collections.addAll(tierTalents, 强壮体魄, 勇士之证, 用盾诀窍);
+				break;
 		}
 		for (Talent talent : tierTalents){
 			talents.get(2).put(talent, 0);

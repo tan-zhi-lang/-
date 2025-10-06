@@ -101,10 +101,9 @@ public class MasterThievesArmband extends Artifact {
 				GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
 			} else {
 				Char ch = Actor.findChar(target);
-				if (ch instanceof Shopkeeper){
-					GLog.w( Messages.get(MasterThievesArmband.class, "steal_shopkeeper") );
-				} else if (ch.alignment != Char.Alignment.ENEMY
-						&& !(ch instanceof Mimic && ch.alignment == Char.Alignment.NEUTRAL)){
+				//不是敌人不是宝箱，不是中立
+				//ch.alignment != Char.Alignment.ENEMY &&
+				if (!(ch instanceof Mimic && ch.alignment == Char.Alignment.NEUTRAL)){
 					GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
 				} else if (ch instanceof Mob) {
 					curUser.busy();
@@ -129,9 +128,10 @@ public class MasterThievesArmband extends Artifact {
 
 							float lootChance = ((Mob) ch).lootChance() * lootMultiplier;
 
-							if (Dungeon.hero.等级 > ((Mob) ch).最大等级 + 2) {
-								lootChance = 0;
-							} else if (ch.buff(StolenTracker.class) != null){
+//							if (Dungeon.hero.等级 > ((Mob) ch).最大等级 + 2) {
+//								lootChance = 0;
+//							} else
+							if (ch.buff(StolenTracker.class) != null){
 								lootChance = 0;
 							}
 
@@ -139,7 +139,15 @@ public class MasterThievesArmband extends Artifact {
 								GLog.w(Messages.get(MasterThievesArmband.class, "no_steal"));
 							} else if (Random.Float() <= lootChance){
 								Item loot = ((Mob) ch).createLoot();
-								if (loot==null){//Evan没写空的情况
+								boolean 有偷的=true;
+								if (ch instanceof Shopkeeper s&&s.商人信标){
+									s.商人信标=false;
+								}else{
+									有偷的=false;
+//									GLog.w( Messages.get(MasterThievesArmband.class, "steal_shopkeeper") );
+								}
+								
+								if (loot==null||!有偷的){//Evan没写空的情况
 									GLog.i(Messages.get(MasterThievesArmband.class, "failed_steal"));
 									Buff.施加(ch, StolenTracker.class).setItemStolen(false);
 								} else {

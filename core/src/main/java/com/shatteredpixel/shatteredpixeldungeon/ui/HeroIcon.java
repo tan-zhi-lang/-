@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
 
@@ -98,14 +99,15 @@ public class HeroIcon extends Image {
 	public static final int WEAPON_SWAP     = 109;
 	public static final int MONK_ABILITIES  = 110;
 
-	public static final int 祭鉴之术  = 112;
-	public static final int 痛命之术  = 113;
-	public static final int 死血之术  = 114;
-	public static final int 血历之术  = 115;
-	public static final int 血爆之术  = 116;
-	public static final int 饮血之术  = 117;
-	public static final int 换血之术  = 118;
-	public static final int 物到之术  = 119;
+	public static final int 祭鉴巫术= 112;
+	public static final int 痛命巫术= 113;
+	public static final int 死血巫术= 114;
+	public static final int 血历巫术= 115;
+	public static final int 血爆巫术= 116;
+	public static final int 饮血巫术= 117;
+	public static final int 换血巫术= 118;
+	public static final int 物到巫术= 119;
+	public static final int 净除道术= 128;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );
@@ -140,6 +142,13 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(巫术 spell){
+		super( Assets.Interfaces.HERO_ICONS );
+		if (film == null){
+			film = new TextureFilm(texture, SIZE, SIZE);
+		}
+		frame(film.get(spell.icon()));
+	}
+	public HeroIcon(道术 spell){
 		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);

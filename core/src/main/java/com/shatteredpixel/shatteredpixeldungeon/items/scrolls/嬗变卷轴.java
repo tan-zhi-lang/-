@@ -43,8 +43,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
@@ -68,9 +69,10 @@ public class 嬗变卷轴 extends InventoryScroll {
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-//		if(item instanceof EquipableItem e&&e.isEquipped(curUser)){
-//			return false;
-//		}
+		
+		if(item instanceof 冰门重盾){
+			return false;
+		}
 		if(item instanceof 铠甲||
 		   item instanceof 法袍||
 		   item instanceof 风衣||

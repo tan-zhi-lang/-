@@ -273,9 +273,9 @@ public class AscensionChallenge extends Buff {
 			if (Dungeon.depth == 1){
 				GLog.n(Messages.get(this, "almost"));
 			} else if (stacks >= 8f){
-				GLog.n(Messages.get(this, "damage"));
+//				GLog.n(Messages.get(this, "damage"));
 			} else if (stacks >= 6f){
-				GLog.n(Messages.get(this, "slow"));
+//				GLog.n(Messages.get(this, "slow"));
 			} else if (stacks >= 4f){
 				GLog.n(Messages.get(this, "haste"));
 			} else if (stacks >= 2f){

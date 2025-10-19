@@ -126,7 +126,7 @@ public class v0_7_X_Changes {
 		changes.hardlight( CharSprite.增强);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAND_BLAST_WAVE, null), "Wand Buffs",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.WAND_BLAST_WAVE), "Wand Buffs",
 				"Blast wave is an excellent sidearm wand, but not as good when invested in. I'm making the wand a bit stronger and less risky to hopefully make it more worthy of upgrades.\n" +
 				"_-_ Increased AOE damage from 67% to 100%, AOE knockback force is unchanged\n" +
 				"_-_ AOE no longer damages hero/allies, but still knocks them back\n\n" +

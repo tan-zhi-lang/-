@@ -289,7 +289,7 @@ public class Dungeon {
 
 		hero = new Hero();
 		hero.live();
-		hero.更新生命();
+		hero.更新属性();
 		
 		Badges.reset();
 		

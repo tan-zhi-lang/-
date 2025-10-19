@@ -7,9 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -237,13 +234,8 @@ public class Toolbar extends Component {
 					if ((Dungeon.level.heaps.get(Dungeon.hero.pos) != null || Dungeon.hero.canSelfTrample())
 						&& Dungeon.hero.handle(Dungeon.hero.pos)){
 						//trigger hold fast and patient strike here, even if the hero didn't specifically wait
-						if (Dungeon.hero.天赋(Talent.捍守可拘)){//不动如山
-							Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
-							Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋生命力(Talent.捍守可拘,0.33f));
-						}
-						if (Dungeon.hero.天赋(Talent.PATIENT_STRIKE)){
-							Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;
-						}
+						
+						Talent.休息时(Dungeon.hero,Dungeon.hero.pos);
 						Dungeon.hero.next();
 					} else {
 						examining = false;

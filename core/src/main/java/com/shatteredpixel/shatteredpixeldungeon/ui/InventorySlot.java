@@ -70,12 +70,17 @@ public class InventorySlot extends ItemSlot {
 			if (item.cursed && item.cursedKnown) {
 				bg.诅咒();
 			} else if (!item.已鉴定()) {
-				if ((item instanceof EquipableItem || item instanceof Wand) && item.cursedKnown){
-					bg.诅咒已知();
-				} else {
-					bg.诅咒未知();
+				if((item instanceof EquipableItem || item instanceof Wand)){
+					if (item.cursedKnown){
+						bg.无诅咒();
+					} else {
+						bg.诅咒未知();
+					}
+				}else{
+					bg.无诅咒();//非装备是必定无诅咒
 				}
 			}
+			//底色
 			if(item.已鉴定()){
 				if(item.黑色){
 					bg.黑色();
@@ -95,11 +100,9 @@ public class InventorySlot extends ItemSlot {
 				if(item.蓝色){
 					bg.蓝色();
 				}
-
 				if(item.紫色){
 					bg.紫色();
 				}
-
 				if(item.青色){
 					bg.青色();
 				}

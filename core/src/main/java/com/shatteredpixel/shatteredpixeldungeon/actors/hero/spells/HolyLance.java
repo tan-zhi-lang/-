@@ -53,7 +53,7 @@ public class HolyLance extends TargetedClericSpell {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
+	public int chargeUse(Hero hero) {
 		return 2;
 	}
 

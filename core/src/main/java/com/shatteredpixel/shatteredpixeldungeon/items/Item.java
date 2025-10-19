@@ -446,6 +446,9 @@ public class Item implements Bundlable {
 	}
 	
 	public Item 特殊升级() {
+		if(!可升级()){
+			return this;
+		}
 		if(!学者直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
 			升级();
 			学者直觉=true;
@@ -557,6 +560,7 @@ public class Item implements Bundlable {
 					
 					祛邪卷轴.净化(Dungeon.hero,this);
 				}
+				
 				Catalog.setSeen(getClass());
 				Statistics.itemTypesDiscovered.add(getClass());
 			}

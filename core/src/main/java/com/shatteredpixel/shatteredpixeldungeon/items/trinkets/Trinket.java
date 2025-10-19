@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public abstract class Trinket extends Item {
 
 	{
-		levelKnown = true;
+		物品 = true;
 
 		unique = true;
 	}

@@ -172,7 +172,7 @@ public class v0_3_X_Changes {
 				"_-_ Thieves can escape with a stolen item\n" +
 				"_-_ Gnoll shaman attack speed increased"));
 		
-		changes.addButton( new ChangeButton(new ItemSprite(物品表.MASTERY, null), "Balance Changes",
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.MASTERY), "Balance Changes",
 				"_-_ Mastery Book now always at floor 10, even when unlocked\n" +
 				"_-_ Hunger damage now increases with hero level, starts lower\n" +
 				"\n" +

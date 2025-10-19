@@ -33,7 +33,7 @@ public class 根骨秘药 extends Elixir {
 //		HTBoost boost = Buff.施加(hero, HTBoost.class);
 //		boost.reset();
 		
-		hero.更新生命();
+		hero.更新属性();
 
 		Badges.validateStrengthAttained();
 		Badges.validateDuelistUnlock();

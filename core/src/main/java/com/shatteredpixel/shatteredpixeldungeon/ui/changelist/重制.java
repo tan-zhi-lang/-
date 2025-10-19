@@ -50,8 +50,14 @@ public class 重制 {
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.中国国旗), "中国国旗",
-		"新增中国国旗饰物，在国庆开局自带。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x111111 )), "诅咒刻印",
+		"虐待\n" +
+		"受到的物理伤害x2.5，如果没有死亡，则恢复受到的伤害。",
+		
+		"焦灼\n" +
+		"防御过程1/10的概率产生火团。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.MASK), "天狗的面具",
+		"所有英雄都拥有潜能觉醒天赋。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
 		"新增心力之戒、全知之戒、时间之戒。"));
 		changes.addButton( new ChangeButton(Icons.玩法开.get(), "玩法",
@@ -128,7 +134,10 @@ public class 重制 {
 		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
-
+		
+		changes.addButton( new ChangeButton(new RatKingSprite(), "鼠王房间",
+											"移速2=>1.5\n" +
+											"金币数量x2。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.HEIGHTENED_SENSES), "视野和感知",
 				"视野算法优化，视野范围+光照范围不得超过视野范围，除非增加视野范围。"));
 		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(), "炼金",
@@ -139,7 +148,7 @@ public class 重制 {
 				"回归。"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "食物条",
-				"状态栏添加食物条。"));
+				"状态栏添加食物条。并且不显示Buff图标"));
 		changes.addButton( new ChangeButton(Icons.SEED.get(), "种子",
 				"现在输入代码名可以直接生成在背包。"));
 		changes.addButton( new ChangeButton(Icons.AUDIO.get(), "主题曲",
@@ -155,7 +164,7 @@ public class 重制 {
 				"移速83.33%=>83%。\n" +
 				"物理防御时掉落金币1=>10。"));
 		changes.addButton( new ChangeButton(new GnollTricksterSprite(),"豺狼诡术师",
-											"接近它后只有一时，移速会只有83%。"));
+											"接近它后，移速会只有83%。其他情况的移速100%=>125%。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量晶体",
 				"武器和护甲、神器、法杖和戒指可以提炼，提炼量是金币的2.5%+1，投掷武器是金币的(2.5%/数量+1)x数量。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.AMULET), "Yendor护符",
@@ -231,9 +240,6 @@ public class 重制 {
 						"随机一个药剂或卷轴=>两张随机卷轴+一瓶随机药剂。"));
 		changes.addButton( new ChangeButton(new BlacksmithSprite(),"巨魔铁匠",
 				"任务要求数量40=>20。"));
-		changes.addButton( new ChangeButton(new RatKingSprite(), "鼠王房间",
-				"移速2=>1.5\n" +
-						"金币数量x2。"));
 		changes.addButton( new ChangeButton(new SnakeSprite(), "下水道巨蛇",
 				"最大攻击+2。"));
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "天赋系统",
@@ -246,6 +252,12 @@ public class 重制 {
 						"房间大小-1，且没有深渊。\n" +
 				"所需经验减少90%，并且可以站在祭坛上扔治疗药剂直接献祭完成。\n" ,
 
+						"种子掉落\n" +
+						"根据地牢层1/25~1/9的概率=>1/9。\n" ,
+						
+						"种子掉落\n" +
+						"根据地牢层1/6~1/4的概率=>1/4~1/6。\n" ,
+						
 						"毒气房\n" +
 						"金币数量x2。\n" ,
 
@@ -517,6 +529,8 @@ public class 重制 {
 						   "时光沙漏\n" +
 						   "攻击不会打断时间冻结。"
 										   ));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.DEWDROP), "露珠",
+				"遇冰霜变成雪球。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.BACKPACK), "背包",
 				"背包格子+10。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ALCHEMIZE), "炼金菱晶",

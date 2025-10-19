@@ -59,6 +59,7 @@ public class HornOfPlenty extends Artifact {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if (hero.buff(MagicImmune.class) != null) return actions;
+		if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云)))
 		if (isEquipped( hero ) && charge > 0) {
 			actions.add(AC_SNACK);
 			actions.add(AC_EAT);

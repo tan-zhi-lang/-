@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
@@ -108,6 +109,8 @@ public class HeroIcon extends Image {
 	public static final int 换血巫术= 118;
 	public static final int 物到巫术= 119;
 	public static final int 净除道术= 128;
+	
+	public static final int 风切忍术= 137;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );
@@ -149,6 +152,13 @@ public class HeroIcon extends Image {
 		frame(film.get(spell.icon()));
 	}
 	public HeroIcon(道术 spell){
+		super( Assets.Interfaces.HERO_ICONS );
+		if (film == null){
+			film = new TextureFilm(texture, SIZE, SIZE);
+		}
+		frame(film.get(spell.icon()));
+	}
+	public HeroIcon(忍术 spell){
 		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);

@@ -16,7 +16,7 @@ public abstract class 巫术 {
 
 	public abstract void onCast(灵月法杖 tome, Hero hero);
 
-	public float chargeUse( Hero hero ){
+	public int chargeUse( Hero hero ){
 		return 1;
 	}
 
@@ -29,11 +29,11 @@ public abstract class 巫术 {
 	}
 
 	public String shortDesc(){
-		return Messages.get(this, "short_desc") + " " + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "short_desc") + " " + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}
 
 	public String desc(){
-		return Messages.get(this, "desc") + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc") + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}
 
 	public boolean usesTargeting(){

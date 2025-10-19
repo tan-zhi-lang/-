@@ -51,15 +51,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.召唤物品;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
@@ -70,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -81,7 +79,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
@@ -112,7 +109,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞�
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
-import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
+import com.shatteredpixel.shatteredpixeldungeon.items.修改器;
 import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
@@ -123,17 +120,17 @@ import com.shatteredpixel.shatteredpixeldungeon.算法;
 
 public enum HeroClass{
 	
-	WARRIOR(HeroSubClass.BERSERKER,HeroSubClass.GLADIATOR),
-	MAGE(HeroSubClass.BATTLEMAGE,HeroSubClass.WARLOCK),
-	盗贼(HeroSubClass.ASSASSIN,HeroSubClass.FREERUNNER),
-	HUNTRESS(HeroSubClass.SNIPER,HeroSubClass.WARDEN),
+	WARRIOR(HeroSubClass.BERSERKER,HeroSubClass.GLADIATOR,HeroSubClass.潜能觉醒),
+	MAGE(HeroSubClass.BATTLEMAGE,HeroSubClass.WARLOCK,HeroSubClass.潜能觉醒),
+	盗贼(HeroSubClass.ASSASSIN,HeroSubClass.FREERUNNER,HeroSubClass.潜能觉醒),
+	HUNTRESS(HeroSubClass.SNIPER,HeroSubClass.WARDEN,HeroSubClass.潜能觉醒),
 	
-	DUELIST(HeroSubClass.CHAMPION,HeroSubClass.MONK),
-	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
-	巫女(HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
-	重武(HeroSubClass.盾之勇者),镜魔(HeroSubClass.潜能觉醒),
-	道士(HeroSubClass.鬼师),行僧(HeroSubClass.潜能觉醒),
-	近卫(HeroSubClass.潜能觉醒),兽灵(HeroSubClass.养殖专家),
+	DUELIST(HeroSubClass.CHAMPION,HeroSubClass.MONK,HeroSubClass.潜能觉醒),
+	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN,HeroSubClass.潜能觉醒),
+	巫女(HeroSubClass.神秘学者,HeroSubClass.黑魔导师,HeroSubClass.潜能觉醒),
+	重武(HeroSubClass.盾之勇者,HeroSubClass.潜能觉醒),镜魔(HeroSubClass.潜能觉醒),
+	道士(HeroSubClass.鬼师,HeroSubClass.潜能觉醒),行僧(HeroSubClass.潜能觉醒),
+	近卫(HeroSubClass.潜能觉醒),兽灵(HeroSubClass.养殖专家,HeroSubClass.潜能觉醒),
 	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.潜能觉醒),
 	戒老(HeroSubClass.潜能觉醒),逐姝(HeroSubClass.潜能觉醒),
 	罗兰(HeroSubClass.潜能觉醒),学士(HeroSubClass.潜能觉醒),
@@ -172,16 +169,19 @@ public enum HeroClass{
 			new PotionOfInvisibility().数量(x).放背包();
 			new PotionOfToxicGas().数量(x).放背包();
 			
-			new MysteryMeat().数量(x).放背包();
+//			new MysteryMeat().数量(x).放背包();
 			
 			new 升级卷轴().数量(x).放背包();
 			new 鉴定卷轴().数量(x).放背包();
 			new 嬗变卷轴().数量(x).放背包();
 			new 祛邪卷轴().数量(x).放背包();
+			new ScrollOfRetribution().数量(x).放背包();
 			
-			new WandOfCorrosion().放背包();
-			new MasterThievesArmband().放背包();
+//			new WandOfCorrosion().放背包();
+//			new MasterThievesArmband().放背包();
 			new TengusMask().放背包();
+			new RingOfMight().放背包();
+			new RingOfMight().放背包();
 //			new AlchemistsToolkit().放背包();
 //			new 奥术之戒().放背包();
 //			new 能量之戒().放背包();
@@ -189,8 +189,9 @@ public enum HeroClass{
 //			new TrinketCatalyst().放背包();
 //			new CapeOfThorns().放背包();
 			new Amulet().放背包();
-			new 商人信标().放背包();
-			new 召唤物品().放背包();
+//			new 商人信标().放背包();
+//			new 召唤物品().放背包();
+			new 修改器().放背包();
 			
 			for (Item item : Dungeon.hero.belongings){
 				item.鉴定();

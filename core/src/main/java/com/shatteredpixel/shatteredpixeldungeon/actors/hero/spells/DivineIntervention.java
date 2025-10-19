@@ -28,7 +28,7 @@ public class DivineIntervention extends ClericSpell {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
+	public int chargeUse(Hero hero) {
 		return 5;
 	}
 

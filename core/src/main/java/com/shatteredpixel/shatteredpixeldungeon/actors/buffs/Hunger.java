@@ -52,6 +52,10 @@ public class Hunger extends Buff implements Hero.Doom {
 			spend(TICK);
 			return true;
 		}
+		if(target instanceof Hero hero&&(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
+			spend(TICK);
+			return true;
+		}
 
 		if (target.isAlive() && target instanceof Hero hero) {
 			
@@ -159,16 +163,16 @@ public class Hunger extends Buff implements Hero.Doom {
 		return (int)Math.ceil(level);
 	}
 
-	@Override
-	public int icon() {
-		if (level < HUNGRY) {
-			return BuffIndicator.NONE;
-		} else if (level < STARVING) {
-			return BuffIndicator.HUNGER;
-		} else {
-			return BuffIndicator.STARVATION;
-		}
-	}
+//	@Override
+//	public int icon() {
+//		if (level < HUNGRY) {
+//			return BuffIndicator.NONE;
+//		} else if (level < STARVING) {
+//			return BuffIndicator.HUNGER;
+//		} else {
+//			return BuffIndicator.STARVATION;
+//		}
+//	}
 
 	@Override
 	public String name() {

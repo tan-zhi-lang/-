@@ -81,7 +81,7 @@ public class ColorBlock extends Image implements Resizable {
 		ga = -0.15f;
 		ba = -0.15f;
 	}
-	public void 诅咒已知(){
+	public void 无诅咒(){
 		ba = +0.3f;
 		ra = -0.1f;
 	}

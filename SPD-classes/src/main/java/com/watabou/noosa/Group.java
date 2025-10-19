@@ -102,7 +102,7 @@ public class Group extends Gizmo {
 		return g;
 	}
 	
-	public synchronized Gizmo addToFront( Gizmo g){
+	public synchronized Gizmo addToFront( Gizmo g){//后渲染
 
 		if (g.parent == this) {
 			return g;
@@ -132,7 +132,7 @@ public class Group extends Gizmo {
 		return g;
 	}
 	
-	public synchronized Gizmo addToBack( Gizmo g ) {
+	public synchronized Gizmo addToBack( Gizmo g ) {//先渲染
 		
 		if (g.parent == this) {
 			sendToBack( g );

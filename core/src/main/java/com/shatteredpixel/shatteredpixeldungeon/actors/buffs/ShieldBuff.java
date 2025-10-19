@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -112,12 +111,6 @@ public abstract class ShieldBuff extends Buff {
 			for (ShieldBuff buff : buffs){
 				if (buff.护盾量() <= 0) continue;
 				damage = buff.absorbDamage(damage);
-				if (buff.护盾量() <= 0){
-					if (target instanceof Hero hero&& hero.天赋(Talent.受衅怒火)){
-						hero.必中=true;
-						Buff.施加(target, Talent.ProvokedAngerTracker.class, 5f);
-					}
-				}
 				if (damage == 0) break;
 			}
 		}

@@ -32,6 +32,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Metabolism;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Multiplicity;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Overgrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Stench;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.焦灼;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.虐待;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Affection;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
@@ -849,7 +851,7 @@ public class Armor extends EquipableItem {
 
 		public static final Class<?>[] curses = new Class<?>[]{
 				AntiEntropy.class, Corrosion.class, Displacement.class, Metabolism.class,
-				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class
+				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class, 虐待.class, 焦灼.class
 		};
 		
 		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );

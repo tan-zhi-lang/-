@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -43,8 +44,12 @@ public class StatusPane extends Component {
 	private Image 护盾;
 	private Image 血条;
 	private BitmapText 血条文本;
+	private Image 绿条框;
 	private Image 绿条;
 	private BitmapText 绿条文本;
+	private Image 法力框;
+	private Image 法力条;
+	private BitmapText 法力文本;
 	private Button heroInfoOnBar;
 
 	private Image exp;
@@ -70,7 +75,7 @@ public class StatusPane extends Component {
 		this.横屏 = 横屏;
 
 		if (横屏)  bg = new NinePatch( asset, 0, 64, 41, 39, 33, 0, 4, 0 );
-		else        bg = new NinePatch( asset, 0, 0, 128, 36, 85, 0, 45, 0 );
+		else        bg = new NinePatch( asset, 0, 0, 128, 34, 85, 0, 45, 0 );
 		add( bg );
 
 		heroInfo = new Button(){
@@ -120,11 +125,22 @@ public class StatusPane extends Component {
 		if (横屏)  绿条 = new Image(asset, 0, 121, 128, 9);
 		else        绿条 = new Image(asset, 0, 44, 50, 4);
 		add(绿条);
-
+		绿条框 = new Image(asset, 0, 52, 53, 8);
+		addToBack(绿条框);
+		
 		绿条文本 = new BitmapText(PixelScene.pixelFont);
 		绿条文本.alpha(0.6f);
 		add(绿条文本);
-
+		
+		法力条= new Image(asset,0,48,50,4);
+		add(法力条);
+		法力框= new Image(asset,0,52,53,8);
+		addToBack(法力框);
+		
+		法力文本= new BitmapText(PixelScene.pixelFont);
+		法力文本.alpha(0.6f);
+		add(法力文本);
+		
 		heroInfoOnBar = new Button(){
 			@Override
 			protected void onClick () {
@@ -135,7 +151,7 @@ public class StatusPane extends Component {
 		add(heroInfoOnBar);
 
 		if (横屏)  exp = new Image(asset, 0, 130, 128, 7);
-		else        exp = new Image(asset, 0, 48, 16, 1);
+		else        exp = new Image(asset, 0, 35, 16, 1);
 		add( exp );
 
 		if (横屏){
@@ -179,7 +195,7 @@ public class StatusPane extends Component {
 		compass.x = avatar.x + avatar.width / 2f - compass.origin.x;
 		compass.y = avatar.y + avatar.height / 2f - compass.origin.y;
 		PixelScene.align(compass);
-
+		
 		if (横屏) {
 			exp.x = x + 30;
 			exp.y = y + 30;
@@ -220,7 +236,9 @@ public class StatusPane extends Component {
 			血条文本.y = 血条.y + (血条.height - (血条文本.baseLine()+ 血条文本.scale.y))/2f;
 			血条文本.y -= 0.001f; //prefer to be slightly higher
 			PixelScene.align(血条文本);
-
+			
+			绿条框.x= 血条.x-1;
+			绿条框.y= 血条.y-2+ 绿条.height()+3;
 			绿条.x= 血条.x;
 			绿条.y  = 血条.y + 绿条.height()+2;
 
@@ -229,10 +247,43 @@ public class StatusPane extends Component {
 			绿条文本.y = 绿条.y + (绿条.height - (绿条文本.baseLine()+ 绿条文本.scale.y))/2f;
 			绿条文本.y -= 0.001f; //prefer to be slightly higher
 			PixelScene.align(绿条文本);
-
+			
+			if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+				法力框.x= 血条.x-1;
+				法力框.y= 血条.y-2+ 法力条.height()+3;
+				法力条.x= 血条.x;
+				法力条.y = 血条.y + 法力条.height()+2;
+				
+				法力文本.scale.set(PixelScene.align(0.5f));
+				法力文本.x = 法力条.x + 1;
+				法力文本.y = 法力条.y + (法力条.height - (法力文本.baseLine()+ 法力文本.scale.y))/2f;
+				法力文本.y -= 0.001f; //prefer to be slightly higher
+				PixelScene.align(法力文本);
+			}else{
+				法力框.x=绿条框.x;
+				法力框.y=绿条框.y-2+绿条框.height();
+				法力条.x=绿条.x;
+				法力条.y=绿条.y+法力条.height()+2;
+				
+				法力文本.scale.set(PixelScene.align(0.5f));
+				法力文本.x=法力条.x+1;
+				法力文本.y=
+						法力条.y+(法力条.height-(法力文本.baseLine()+法力文本.scale.y))/2f;
+				法力文本.y-=0.001f; //prefer to be slightly higher
+				PixelScene.align(法力文本);
+			}
+			if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+				绿条.alpha0();
+				绿条文本.alpha0();
+				绿条框.alpha0();
+			}else{
+				法力条.alpha0();
+				法力文本.alpha0();
+				法力框.alpha0();
+			}
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 
-			buffs.setRect( x + 31+3, y + 9+ 绿条.height()+1, 50, 8 );
+			buffs.setRect( x + 31+3+1, y + 9+9+ 绿条.height()+1, 50, 8 );
 
 			busy.x = x + 1;
 			busy.y = y + 33;
@@ -244,9 +295,11 @@ public class StatusPane extends Component {
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
 
 	private float oldHP = 0;
-	private float old绿 = 0;
 	private float HP缓冲=0;
+	private float old绿 = 0;
 	private float 绿缓冲=0;
+	private float old法力 = 0;
+	private float 法力缓冲=0;
 	private float 时间=0;
 
 	@Override
@@ -259,7 +312,8 @@ public class StatusPane extends Component {
 						Dungeon.hero.buff(Hunger.class).hunger():450);
 		int shield = Dungeon.hero.shielding();
 		int max = Dungeon.hero.最大生命;
-
+		int 法力=Dungeon.hero.法力;
+		int 法力max=Dungeon.hero.最大法力;
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);
 		} else if ((health/(float)max) < 0.334f) {
@@ -277,9 +331,12 @@ public class StatusPane extends Component {
 			oldHP = health;
 		if (old绿 ==0)
 			old绿 = hunger;
+		if (old法力 ==0)
+			old法力 = 法力;
 		
 		HP缓冲=oldHP-health;
 		绿缓冲=old绿-hunger;
+		法力缓冲=old法力-法力;
 		if((时间+=Game.elapsed)>=0.33f){
 			if(HP缓冲>0){
 				oldHP-=HP缓冲/1.11f;
@@ -293,9 +350,16 @@ public class StatusPane extends Component {
 			if(绿缓冲<0){
 				old绿-=绿缓冲/1.11f;
 			}
+			if(法力缓冲>0){
+				old法力=法力缓冲/1.11f;
+			}
+			if(法力缓冲<0){
+				old法力-=法力缓冲/1.11f;
+			}
 			
 			血条.scale.x = Math.max( 0, oldHP/(float)max);
 			绿条.scale.x = Math.max( 0, old绿/450f);
+			法力条.scale.x = Math.max(0,old法力/(float)法力max);
 			护盾.scale.x = Math.min( 1, shield/(float)max);
 			
 			时间=0;
@@ -313,14 +377,12 @@ public class StatusPane extends Component {
 			血条文本.text(health + "+" + shield + "/" + max);
 		}
 		绿条文本.text(hunger + "/" + 450);
+		法力文本.text(法力+"/"+法力max);
 		if (横屏) {
 			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 
 			血条文本.measure();
 			血条文本.x = 血条.x + (128 - 血条文本.width())/2f;
-
-			绿条文本.measure();
-			绿条文本.x = 绿条.x + (128 - 绿条文本.width())/2f;
 
 			expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
 			expText.measure();
@@ -374,13 +436,18 @@ public class StatusPane extends Component {
 		血条.alpha(value);
 		血条文本.alpha(0.6f*value);
 		绿条.alpha(value);
+		绿条框.alpha(value);
 		绿条文本.alpha(0.6f*value);
+		法力条.alpha(value);
+		法力框.alpha(value);
+		法力文本.alpha(0.6f*value);
 		exp.alpha(value);
 		if (expText != null) expText.alpha(0.6f*value);
 		level.alpha(value);
 		compass.alpha(value);
 		busy.alpha(value);
 		counter.alpha(value);
+		
 	}
 
 	public void showStarParticles(){

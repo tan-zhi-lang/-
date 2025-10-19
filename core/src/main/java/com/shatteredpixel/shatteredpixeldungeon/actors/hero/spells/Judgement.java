@@ -29,7 +29,7 @@ public class Judgement extends ClericSpell {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
+	public int chargeUse(Hero hero) {
 		return 3;
 	}
 

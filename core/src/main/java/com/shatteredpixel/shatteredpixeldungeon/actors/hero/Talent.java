@@ -37,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
@@ -707,6 +708,15 @@ public enum Talent {
 	
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}}
 	
+	public static void 休息时(Hero hero, int pos){
+		if (hero.天赋(Talent.捍守可拘)){//不动如山
+			Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
+			Buff.施加(Dungeon.hero, Barrier.class).设置(Dungeon.hero.天赋生命力(Talent.捍守可拘,0.2f));
+		}
+		if (hero.天赋(Talent.PATIENT_STRIKE)){
+			Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;
+		}
+	}
 	public static void 吃饭时(Hero hero, float foodVal, Item foodSource ){
 		hero.回血(hero.生命力(0.25f));
 
@@ -1141,7 +1151,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, HOLY_INTUITION, SEARING_LIGHT, SHIELD_OF_LIGHT);
 				break;
 			case 巫女:
-				Collections.addAll(tierTalents,祭鉴巫术,痛命巫术,死血巫术);
+				Collections.addAll(tierTalents, 祭鉴巫术,痛命巫术,死血巫术);
 				break;
 			case 重武:
 				Collections.addAll(tierTalents, 坚守鉴定, 盾举冲击, 钢铁之盾);
@@ -1150,7 +1160,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, 急中生镜,誓死捍卫,凝结心神);
 				break;
 			case 道士:
-				Collections.addAll(tierTalents,净除道术);
+				Collections.addAll(tierTalents, 净除道术);
 				break;
 			case 行僧:
 				Collections.addAll(tierTalents, 行路知里,接连攻击,雨后春笋);
@@ -1189,7 +1199,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, 外裹透析,意语云缺,雨露均沾);
 				break;
 			case 血鬼:
-				Collections.addAll(tierTalents,侵血向受,狂暴血气,血液凝聚);
+				Collections.addAll(tierTalents, 侵血向受,狂暴血气,血液凝聚);
 				break;
 			case 枪手:
 				Collections.addAll(tierTalents, 未来知识,精准射击,快速备战);

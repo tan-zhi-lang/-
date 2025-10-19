@@ -89,7 +89,7 @@ public class GuidingLight extends TargetedClericSpell {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
+	public int chargeUse(Hero hero) {
 		if (hero.subClass == HeroSubClass.PRIEST
 			&& hero.buff(GuidingLightPriestCooldown.class) == null){
 			return 0;

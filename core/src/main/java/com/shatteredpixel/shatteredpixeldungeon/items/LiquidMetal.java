@@ -185,7 +185,7 @@ public class LiquidMetal extends Item {
 		public int cost(ArrayList<Item> ingredients) {
 			MissileWeapon m = (MissileWeapon) ingredients.get(0);
 			if(m!=null){
-				return metalQuantity(m);
+				return m.quantity;
 			}
 			return 1;
 		}

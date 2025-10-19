@@ -193,9 +193,11 @@ public class HeroSelectScene extends PixelScene {
         };
         排行榜.setSize(20, 21);
         add(排行榜);
-
+        int x=1;
         for (HeroClass cl : HeroClass.values()) {
-            //隐藏
+            //隐藏英雄
+            if(x>=10)break;
+            x++;
             HeroBtn button = new HeroBtn(cl);
             add(button);
             heroBtns.add(button);

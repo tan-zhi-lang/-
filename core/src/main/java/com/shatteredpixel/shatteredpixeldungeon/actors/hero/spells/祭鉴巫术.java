@@ -32,15 +32,15 @@ public class 祭鉴巫术 extends 背包巫术 {
 
 	@Override
 	protected void onItemSelected(灵月法杖 tome, Hero hero, Item item) {
-		if (item == null||!item.已鉴定()){
+		if (item == null){
 			return;
 		}
-		hero.受伤(hero.天赋生命力(Talent.祭鉴巫术,1f));
 		if(hero.满天赋(Talent.祭鉴巫术)){
 			祛邪卷轴.净化(hero,item.鉴定().特殊升级());
 		}else{
 			item.鉴定();
 		}
+		hero.受伤(hero.天赋生命力(Talent.祭鉴巫术,1f));
 
 		hero.spend( 1f );
 		hero.busy();

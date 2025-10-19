@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
@@ -73,13 +74,15 @@ public class 再生 extends Buff {
 						}
 						x+=hero.天赋生命力(Talent.钢铁之盾,0.16f);
 						x+=hero.天赋生命力(Talent.绝望安息,0.14f);
-					}
-					target.回血(Math.round(partialRegen+
-							target.生命力(0.14f)+x
+						
+						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云)))
+						hero.回血(Math.round(partialRegen+
+										   hero.生命力(0.14f)+x
 					));
 					partialRegen -= (int)partialRegen;
-					if (target.满血()) {
-						((Hero) target).resting = false;
+					if (hero.满血()) {
+						hero.resting = false;
+					}
 					}
 				}
 

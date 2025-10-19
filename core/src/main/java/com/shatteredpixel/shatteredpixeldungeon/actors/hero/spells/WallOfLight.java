@@ -45,12 +45,12 @@ public class WallOfLight extends TargetedClericSpell {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
+	public int chargeUse(Hero hero) {
 		if (Dungeon.level.blobs.get(LightWall.class) != null
 			&& Dungeon.level.blobs.get(LightWall.class).volume > 0){
-			return 0f;
+			return 0;
 		}
-		return 3f;
+		return 3;
 	}
 
 	@Override

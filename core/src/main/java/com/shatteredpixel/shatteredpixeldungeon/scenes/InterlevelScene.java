@@ -37,7 +37,6 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.utils.BArray;
-import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
 import com.watabou.utils.Signal;
@@ -308,7 +307,7 @@ public class InterlevelScene extends PixelScene {
 					btnContinue.setPos((Camera.main.width - btnContinue.width())/2f, storyMessage.bottom()+10);
 					add(btnContinue);
 
-					btnHideStory = new IconButton(Icons.CHEVRON.get()){
+					btnHideStory = new IconButton(Icons.CALENDAR.get()){
 						@Override
 						protected void onClick() {
 							if (btnContinue.alpha() != 0 && btnContinue.alpha() != 1){

@@ -103,8 +103,8 @@ public class Pasty extends Food {
 		}
 
 		super.satisfy(hero);
-		if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_CHEVRON)){
-			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.GUIDE_CHEVRON);
+		if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_CALENDAR)){
+			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.GUIDE_CALENDAR);
 		}
 		
 		switch(Holiday.getCurrentHoliday()){

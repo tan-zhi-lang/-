@@ -19,7 +19,6 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
@@ -45,6 +44,7 @@ public class Food extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
+		if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云)))
 		actions.add( AC_EAT );
 		return actions;
 	}

@@ -14,8 +14,11 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择天赋层;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 
 public class 天赋之泉 extends WellWater {
@@ -27,8 +30,9 @@ public class 天赋之泉 extends WellWater {
 		if (!hero.isAlive()) return false;
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
-
-		hero.天赋=true;
+		Game.runOnRenderThread(()->{
+			GameScene.show(new Wnd选择天赋层());
+		});
 		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.EXPERIENCE);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 

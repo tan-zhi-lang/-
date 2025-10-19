@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
@@ -304,7 +305,10 @@ public class Heap implements Bundlable {
 		
 		boolean frozen = false;
 		for (Item item : items.toArray( new Item[0] )) {
-			if (item instanceof MysteryMeat) {
+			if (item instanceof Dewdrop) {
+				replace( item, new 雪球().数量(item.quantity));
+				frozen = true;
+			}else if (item instanceof MysteryMeat) {
 				replace( item, FrozenCarpaccio.cook( (MysteryMeat)item ) );
 				frozen = true;
 			} else if (item instanceof Potion && !item.unique) {

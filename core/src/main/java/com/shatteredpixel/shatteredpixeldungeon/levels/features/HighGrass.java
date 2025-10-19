@@ -110,6 +110,8 @@ public class HighGrass {
 			if (自然层 >= 0) {
 				// Seed, scales from 1/25 to 1/9
 				float 概率 = 1/(25f - 自然层 *4f);
+				
+//				float 概率 = 1/(9f + 自然层 *4f);
 				// absolute max drop rate is ~1/6.5 with footwear of nature, ~1/18 without
 				概率 *= PetrifiedSeed.grassLootMultiplier();
 				if(Holiday.getCurrentHoliday()==Holiday.植树节){
@@ -128,6 +130,7 @@ public class HighGrass {
 				
 				// Dew, scales from 1/6 to 1/4
 				概率 = 1/(6f - 自然层 /2f);
+//				概率 = 1/(4f + 自然层 /2f);
 				//grassy levels spawn half as much dew
 				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
 					概率 /= 2;

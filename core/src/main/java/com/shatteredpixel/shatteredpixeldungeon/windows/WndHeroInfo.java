@@ -235,7 +235,7 @@ public class WndHeroInfo extends WndTabbed {
 				case 机器:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.BLEEDING, true),
-							new BuffIcon(BuffIndicator.POISON, true),
+							new BuffIcon(BuffIndicator.HUNGER, true),
 							new BuffIcon(BuffIndicator.FROST, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
@@ -290,7 +290,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.ARMOR_HOLDER),
 							new BuffIcon(BuffIndicator.LEVITATION, true),
-							new TalentIcon(Talent.灵敏机动),
+										  new BuffIcon(BuffIndicator.HUNGER, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 血鬼:

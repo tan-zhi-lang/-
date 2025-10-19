@@ -4,10 +4,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -299,7 +301,16 @@ public class 破损纹章 extends Item {
 				return Messages.get(this, "desc_cooldown", cooldown);
 			}
 		}
-
+		
+		@Override
+		public boolean attachTo(Char target){
+			if (target instanceof Hero hero&& hero.天赋(Talent.受衅怒火)){
+				hero.必中=true;
+				Buff.施加(target,Talent.ProvokedAngerTracker.class,5f);
+			}
+			return super.attachTo(target);
+		}
+		
 		@Override
 		public synchronized boolean act() {
 			if (cooldown > 0 && 再生.regenOn()){

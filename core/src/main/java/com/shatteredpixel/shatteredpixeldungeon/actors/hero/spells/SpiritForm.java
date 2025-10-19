@@ -62,7 +62,7 @@ public class SpiritForm extends ClericSpell {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
+	public int chargeUse(Hero hero) {
 		return 4;
 	}
 
@@ -110,7 +110,7 @@ public class SpiritForm extends ClericSpell {
 			this.effect = effect;
 			if (effect instanceof RingOfMight){
 				((Ring) effect).等级(ringLevel());
-				Dungeon.hero.更新生命();
+				Dungeon.hero.更新属性();
 			}
 		}
 
@@ -118,7 +118,7 @@ public class SpiritForm extends ClericSpell {
 		public void detach() {
 			super.detach();
 			if (effect instanceof RingOfMight){
-				Dungeon.hero.更新生命();
+				Dungeon.hero.更新属性();
 			}
 		}
 

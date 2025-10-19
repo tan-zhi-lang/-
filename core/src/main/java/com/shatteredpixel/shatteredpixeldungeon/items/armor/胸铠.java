@@ -15,18 +15,6 @@ public class 胸铠 extends Armor {
 	public 胸铠(){
 		super(1);
 	}
-	@Override
-	public int 力量(int lvl) {
-		int req = 力量(tier, lvl)-1;
-		if (masteryPotionBonus){
-			req -= 2;
-		}
-		if (神力){
-			req -= 2;
-		}
-		return req;
-	}
-	
 	public int 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return tier + lvl + augment.defenseFactor(lvl);

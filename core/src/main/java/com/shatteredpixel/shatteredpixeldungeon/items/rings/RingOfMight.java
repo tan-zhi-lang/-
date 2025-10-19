@@ -20,7 +20,7 @@ public class RingOfMight extends Ring {
 	@Override
 	public boolean doEquip(Hero hero) {
 		if (super.doEquip(hero)){
-			hero.更新生命();
+			hero.更新属性();
 			return true;
 		} else {
 			return false;
@@ -30,7 +30,7 @@ public class RingOfMight extends Ring {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			hero.更新生命();
+			hero.更新属性();
 			return true;
 		} else {
 			return false;
@@ -52,17 +52,17 @@ public class RingOfMight extends Ring {
 	
 	private void updateTargetHT(){
 		if (buff != null && buff.target instanceof Hero){
-			((Hero) buff.target).更新生命();
+			((Hero) buff.target).更新属性();
 		}
 	}
 	
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					soloBonus(), Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, soloBuffedBonus()) - 1f)));
+					soloBonus()*2, Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, soloBuffedBonus()) - 1f)));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						getBonus(Dungeon.hero, Might.class), Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, combinedBuffedBonus(Dungeon.hero)) - 1f)));
+						getBonus(Dungeon.hero, Might.class)*2, Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, combinedBuffedBonus(Dungeon.hero)) - 1f)));
 			}
 			return info;
 		} else {

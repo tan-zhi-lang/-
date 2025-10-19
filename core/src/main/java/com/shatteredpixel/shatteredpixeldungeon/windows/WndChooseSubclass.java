@@ -63,7 +63,7 @@ public class WndChooseSubclass extends Window {
 			btnCls.multiline = true;
 			btnCls.text.setSize(1.5f,1.5f);
 			btnCls.setSize(WIDTH-20, btnCls.reqHeight()+2);
-			btnCls.setRect( 0, pos, WIDTH-20, btnCls.reqHeight()+2+2);
+			btnCls.setRect( 0, pos, WIDTH-20, btnCls.reqHeight()+6);
 			add( btnCls );
 
 			IconButton clsInfo = new IconButton(Icons.get(Icons.INFO)){

@@ -50,7 +50,7 @@ public class Stasis extends ClericSpell {
 	}
 
 	@Override
-	public float chargeUse(Hero hero) {
+	public int chargeUse(Hero hero) {
 		if (hero.buff(StasisBuff.class) != null){
 			return 0;
 		}

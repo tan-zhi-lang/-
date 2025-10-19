@@ -53,6 +53,6 @@ public class 净除道术 extends 背包道术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.净除道术)==2?"祛邪、鉴定、升级":"祛邪");
-		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return desc + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}
 }

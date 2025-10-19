@@ -54,7 +54,7 @@ public class LostBackpack extends Item {
 			}
 		}
 
-		hero.更新生命();
+		hero.更新属性();
 
 		Item.updateQuickslot();
 		Sample.INSTANCE.play( Assets.Sounds.DEWDROP );

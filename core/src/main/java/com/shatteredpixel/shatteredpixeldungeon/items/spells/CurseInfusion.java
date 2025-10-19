@@ -71,7 +71,7 @@ public class CurseInfusion extends InventorySpell {
 			((Wand) item).curseInfusionBonus = true;
 			((Wand) item).updateLevel();
 		} else if (item instanceof RingOfMight){
-			curUser.更新生命();
+			curUser.更新属性();
 		}
 		Badges.validateItemLevelAquired(item);
 		updateQuickslot();

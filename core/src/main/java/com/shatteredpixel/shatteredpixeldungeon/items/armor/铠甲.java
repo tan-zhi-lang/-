@@ -13,7 +13,17 @@ public class 铠甲 extends Armor {
         super(1);
     }
 	
-	
+	@Override
+	public int 力量(int lvl) {
+		int req = 力量(tier, lvl)-1;
+		if (masteryPotionBonus){
+			req -= 2;
+		}
+		if (神力){
+			req -= 2;
+		}
+		return req;
+	}
 	@Override
 	public int 最小防御(int lvl){
 		return super.最小防御(lvl)+tier+1;

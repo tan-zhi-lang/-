@@ -169,6 +169,12 @@ public class Visual extends Gizmo {
 		aa = 0;
 	}
 	
+	public void alpha1() {
+		alpha(1);
+	}
+	public void alpha0() {
+		alpha(0);
+	}
 	public float alpha() {
 		return am + aa;
 	}

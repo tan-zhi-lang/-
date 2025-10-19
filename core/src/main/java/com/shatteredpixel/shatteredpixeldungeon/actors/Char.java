@@ -665,9 +665,6 @@ public abstract class Char extends Actor {
 			if(attacker.properties().contains(Property.UNDEAD)&&hero.belongings.armor() instanceof 道袍){
 				acuStat*=0.7f;
 			}
-			if(hero.heroClass(HeroClass.凌云)&&算法.概率学(15)){
-			acuStat=0;
-			}
 			if(hero.天赋概率(Talent.学者预判,10)){
 			acuStat=0;
 			}

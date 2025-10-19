@@ -5,16 +5,14 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 
 import java.util.ArrayList;
 
-public abstract class 道术{
+public abstract class 忍术{
 
-	public abstract void onCast(铜钱剑 tome,Hero hero);
+	public abstract void onCast(Hero hero);
 
 	public int chargeUse( Hero hero ){
 		return 1;
@@ -48,18 +46,17 @@ public abstract class 道术{
 		return HeroIcon.NONE;
 	}
 
-	public void onSpellCast(铜钱剑 tome, Hero hero){
+	public void onSpellCast(Hero hero){
 		Invisibility.notimedispel();
-		tome.beforeAbilityUsed(hero,null);
 	}
 
-	public static ArrayList<道术> getSpellList(Hero cleric,int tier){
-		ArrayList<道术> spells = new ArrayList<>();
+	public static ArrayList<忍术> getSpellList(Hero cleric,int tier){
+		ArrayList<忍术> spells = new ArrayList<>();
 
 		if (tier == 1) {
-			if (cleric.天赋(Talent.净除道术)) {
-				spells.add(净除道术.INSTANCE);
-			}
+//			if (cleric.天赋(Talent.净除道术)) {
+				spells.add(风切忍术.INSTANCE);
+//			}
 //			if (cleric.天赋(Talent.痛命之术)) {
 //				spells.add(痛命之术.INSTANCE);
 //			}
@@ -91,9 +88,9 @@ public abstract class 道术{
 		return spells;
 	}
 
-	public static ArrayList<道术> getAllSpells() {
-		ArrayList<道术> spells = new ArrayList<>();
-		spells.add(净除道术.INSTANCE);
+	public static ArrayList<忍术> getAllSpells() {
+		ArrayList<忍术> spells = new ArrayList<>();
+//		spells.add(净除道术.INSTANCE);
 //		spells.add(死血之术.INSTANCE);
 //		spells.add(痛命之术.INSTANCE);
 //

@@ -18,7 +18,7 @@ public class EnhancedRings extends FlavourBuff {
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)){
-			if (target == Dungeon.hero) ((Hero) target).更新生命();
+			if (target == Dungeon.hero) ((Hero) target).更新属性();
 			return true;
 		}
 		return false;
@@ -27,7 +27,7 @@ public class EnhancedRings extends FlavourBuff {
 	@Override
 	public void detach() {
 		super.detach();
-		if (target == Dungeon.hero) ((Hero) target).更新生命();
+		if (target == Dungeon.hero) ((Hero) target).更新属性();
 	}
 
 	@Override

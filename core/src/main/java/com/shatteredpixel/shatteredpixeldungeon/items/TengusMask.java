@@ -57,7 +57,7 @@ public class TengusMask extends Item {
 			if(Dungeon.炼狱(炼狱设置.诅咒面具)){
 				return;
 			}
-			GameScene.show( new WndChooseSubclass( this, hero ) );
+			GameScene.show(new WndChooseSubclass(this,hero ));
 			
 		}
 	}

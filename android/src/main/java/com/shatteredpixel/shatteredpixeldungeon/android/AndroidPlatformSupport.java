@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 public class AndroidPlatformSupport extends PlatformSupport {
 	
 	public void updateDisplaySize(){
-		if (SPDSettings.landscape() != null) {
+		if (SPDSettings.landscape()==true||SPDSettings.landscape()==false) {
 			AndroidLauncher.instance.setRequestedOrientation( SPDSettings.landscape() ?
 					ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE :
 					ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT );
@@ -46,7 +46,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		boolean fullscreen = Build.VERSION.SDK_INT < Build.VERSION_CODES.N
 				|| !AndroidLauncher.instance.isInMultiWindowMode();
 
-		if (fullscreen && SPDSettings.landscape() != null
+		if (fullscreen && SPDSettings.landscape()==true||SPDSettings.landscape()==false
 				&& (Game.dispWidth >= Game.dispHeight) != SPDSettings.landscape()){
 			int tmp = Game.dispWidth;
 			Game.dispWidth = Game.dispHeight;

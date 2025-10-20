@@ -104,7 +104,7 @@ public class AndroidLauncher extends AndroidApplication {
 		}
 
 		//set desired orientation (if it exists) before initializing the app.
-		if (SPDSettings.landscape() != null) {
+		if (SPDSettings.landscape()==true||SPDSettings.landscape()==false) {
 			instance.setRequestedOrientation( SPDSettings.landscape() ?
 					ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE :
 					ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT );

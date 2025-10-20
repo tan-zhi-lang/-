@@ -56,14 +56,19 @@ public class SPDSettings extends GameSettings {
 	public static boolean fullscreen() {
 		return getBoolean( KEY_FULLSCREEN, 算法.isDebug()?false:DeviceCompat.isDesktop());
 	}
-	
 	public static void powerSaver( boolean value ){
 		put( KEY_POWER_SAVER, value );
+		}
+	
+	public static void landscape( boolean value ){
+		put( KEY_LANDSCAPE, value );
 		((ShatteredPixelDungeon)ShatteredPixelDungeon.instance).updateDisplaySize();
 	}
-	
 	public static boolean powerSaver(){
 		return getBoolean( KEY_POWER_SAVER, false );
+		}
+	public static boolean landscape(){
+		return getBoolean(KEY_LANDSCAPE, false);
 	}
 	
 	public static void zoom( int value ) {

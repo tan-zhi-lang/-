@@ -914,7 +914,7 @@ public class Hero extends Char {
             evasion = belongings.armor().evasionFactor(this, evasion);
         }
         //stone specifically overrides to 0 always, guaranteed hit
-        if (belongings.armor().hasGlyph(Stone.class, this) && !Stone.testingEvasion()){
+        if (belongings.armor() != null&&belongings.armor().hasGlyph(Stone.class, this) && !Stone.testingEvasion()){
             return 0;
         }
         return Math.max(1, Math.round(evasion));

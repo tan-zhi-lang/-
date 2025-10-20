@@ -80,7 +80,7 @@ public class ShieldOfLight extends TargetedClericSpell {
 	@Override
 	public String desc() {
 		int min = 0;
-		int max = Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT,5)+Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT,0.03f));
+		int max = Dungeon.hero.天赋生命力(Talent.SHIELD_OF_LIGHT,0.3f);
 		return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

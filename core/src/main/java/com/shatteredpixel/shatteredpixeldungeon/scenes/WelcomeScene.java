@@ -15,10 +15,10 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Fireball;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndError;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHardNotification;
 import com.watabou.glwrap.Blending;
@@ -75,13 +75,11 @@ public class WelcomeScene extends PixelScene {
 
 		int w = Camera.main.width;
 		int h = Camera.main.height;
-
-		Archs archs = new Archs();
-		archs.setSize( w, h );
-//		add( archs );
+		TitleBackground BG = new TitleBackground(w,h);
+		add(BG);
 
 		//darkens the arches
-		add(new ColorBlock(w, h, 0x88000000));
+		add(new ColorBlock(w, h, 0x44000000));
 
 		Image title = BannerSprites.get( 横屏() ? BannerSprites.Type.TITLE_LAND : BannerSprites.Type.TITLE_PORT);
 //		add( title );
@@ -156,7 +154,7 @@ public class WelcomeScene extends PixelScene {
 				protected void onClick() {
 					super.onClick();
 					updateVersion(previousVersion);
-					ShatteredPixelDungeon.switchScene(ChangesScene.class);
+					ShatteredPixelDungeon.switchScene(改动界面.class);
 				}
 			};
 			okay.setRect(btnAreaLeft, buttonY, (buttonAreaWidth/2)-1, 20);

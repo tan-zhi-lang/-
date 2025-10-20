@@ -212,9 +212,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 		CheckBox chkFlipTags;
 		
 		CheckBox chkSaver;
-		RedButton btnOrientation;
 		OptionSlider optUIMode;
-		OptionSlider optUIScale;
 		
 		@Override
 		protected void createChildren() {
@@ -260,12 +258,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 									SPDSettings.动画加快(checked());
 								}
 							};
-							if (DeviceCompat.supportsFullScreen()){
-								动画加快.checked(SPDSettings.动画加快());
-							} else {
-								动画加快.checked(true);
-								动画加快.enable(false);
-							}
+							动画加快.checked(SPDSettings.动画加快());
 							add(动画加快);
 							
 							chkFont = new CheckBox(Messages.get(DisplayTab.class, "system_font")){
@@ -435,22 +428,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep3 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep3);
 			
-			if (DeviceCompat.isAndroid()) {
-				Boolean landscape = SPDSettings.landscape();
-				if (landscape == null){
-					landscape = Game.width > Game.height;
-				}
-				Boolean finalLandscape = landscape;
-				btnOrientation = new RedButton(finalLandscape ?
-													   Messages.get(this, "portrait")
-													   : Messages.get(this, "landscape")) {
-					@Override
-					protected void onClick() {
-						SPDSettings.landscape(!finalLandscape);
-					}
-				};
-				add(btnOrientation);
-			}
 			
 			if (SPDSettings.interfaceSize() == 0) {
 				btnToolbarSettings = new RedButton(Messages.get(DisplayTab.class, "toolbar_settings"), 9){
@@ -650,24 +627,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 				add(optUIMode);
 			}
 			
-			if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
-				optUIScale = new OptionSlider(Messages.get(DisplayTab.class, "scale"),
-											  "X"+(int)Math.ceil(2* Game.density),
-											   "X"+PixelScene.maxDefaultZoom,
-											  (int)Math.ceil(2* Game.density),
-											  PixelScene.maxDefaultZoom) {
-					@Override
-					protected void onChange() {
-						if (getSelectedValue() != SPDSettings.scale()) {
-							SPDSettings.scale(getSelectedValue());
-							ShatteredPixelDungeon.seamlessResetScene();
-						}
-					}
-				};
-				optUIScale.setSelectedValue(PixelScene.defaultZoom);
-				add(optUIScale);
-			}
-			//endregion
 			
 		}
 
@@ -714,17 +673,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 				chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 				bottom = chkSaver.bottom();
 			}
-			if (btnOrientation != null) {
-				btnOrientation.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = btnOrientation.bottom();
-			}
 			if (optUIMode != null) {
 				optUIMode.setRect(0, bottom + GAP, width, BTN_HEIGHT);
 				bottom = optUIMode.bottom();
-			}
-			if (optUIScale != null) {
-				optUIScale.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = optUIScale.bottom();
 			}
 			height = bottom;
 		}

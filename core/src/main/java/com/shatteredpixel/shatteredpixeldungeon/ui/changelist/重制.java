@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.改动界面;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
@@ -47,7 +47,7 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "new"), false, null);
+		changes = new ChangeInfo(Messages.get(改动界面.class, "new"), false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x111111 )), "诅咒刻印",
@@ -131,7 +131,7 @@ public class 重制 {
 					"可调整自动拾取、游戏提示。\n" +
 					"可调整固定移速，例如在1.05移速时固定1。\n" +
 				"可调整休息时间倍率。"));
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "changes"), false, null);
+		changes = new ChangeInfo(Messages.get(改动界面.class, "changes"), false, null);
 		changes.hardlight(CharSprite.WARNING);
 		changeInfos.add(changes);
 		
@@ -195,7 +195,7 @@ public class 重制 {
 		changes.addButton( new ChangeButton(Icons.LANGS.get(), "语言设置",
 				"移除。"));
 
-		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), Messages.get(ChangesScene.class, "misc"),
+		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), Messages.get(改动界面.class, "misc"),
 				"英雄\n\n" +
 						"浮空状态在深渊点击自身可以无伤掉下去。\n"+
 						"神器和戒指栏位=>两个杂项栏位。\n"+
@@ -213,7 +213,7 @@ public class 重制 {
 				"投掷和弓在近距离最大命中不变，非近距离-25%最大命中。\n" +
 				"设置UI更新，且添加和移除部分按钮。"
 		));
-		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(ChangesScene.class, "bugfixes"),
+		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复, 144, 0, 16, 16), Messages.get(改动界面.class, "bugfixes"),
 				
 				"武器伤害调整\n" +
 				"所有武器伤害倍率大于和小于1的最小和最大伤害，能从升级正确分配伤害。" +
@@ -227,7 +227,7 @@ public class 重制 {
 				"武器部分格挡量不能根据等级提升。\n" +
 				"修复护甲使用强化符石最小防御和最大防御没有正确分配。"));
 
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "buffs"), false, null);
+		changes = new ChangeInfo(Messages.get(改动界面.class, "buffs"), false, null);
 		changes.hardlight(CharSprite.增强);
 		changeInfos.add(changes);
 
@@ -405,7 +405,7 @@ public class 重制 {
 							"都拥有对第一次防御该武器的第一必定最大攻击。\n" ,
 
 							"苦无\n" +
-							"伤害倍率0.8=>1。\n" ,
+							"伤害倍率1=>1.2。\n" ,
 							
 							"飞刺\n" +
 							"命中率1=>0.9，攻击间隔1=>1.1，伤害倍率0.6=>1.2。\n" ,
@@ -422,10 +422,13 @@ public class 重制 {
 										   "攻击间隔1=>0.9，攻击间隔1=>0.8。\n" ,
 										   
 										   "重型回旋镖\n" +
-										   "攻击间隔1=>0.7，攻击间隔1=>1.5，伤害倍率0.8=>1.6。\n" ,
+										   "攻击间隔1=>0.7，攻击间隔1=>1.5，伤害倍率1=>1.8。\n" ,
 										   
-										   "流星索和震爆方石\n" +
+										   "流星索\n" +
 										   "命中率1=>0.9，攻击间隔1=>1.1，伤害倍率1=>1.2。流星索施加残废时间10=>5。\n" ,
+										   
+										   "震爆方石\n" +
+										   "命中率1=>0.9，攻击间隔1=>1.1。\n" ,
 										   
 										   "飞刀\n" +
 										   "命中率1=>1.1，攻击间隔1=>0.9，伤害倍率1.2=>0.8。\n" ,
@@ -556,7 +559,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.ANKH, true), "无敌",
 				"初始添加3回合=>10回合。\n" +
 						"重生十字架 祝福3回合=> 未祝福5回合，祝福10回合。"));
-		changes = new ChangeInfo(Messages.get(ChangesScene.class, "nerfs"), false, null);
+		changes = new ChangeInfo(Messages.get(改动界面.class, "nerfs"), false, null);
 		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.AMULET, true), "护符诡咒",

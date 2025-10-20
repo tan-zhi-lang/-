@@ -336,7 +336,12 @@ public enum Talent {
 		public float iconFadePercent() { return Math.max(0, visualcooldown() / 50); }
 	}
 	
-	public static class LiquidAgilEVATracker extends FlavourBuff{}
+	public static class LiquidAgilEVATracker extends FlavourBuff{
+		{
+			//detaches after hero acts, not after mobs act
+			actPriority = HERO_PRIO+1;
+		}
+	};
 	
 	public static class LiquidAgilACCTracker extends FlavourBuff{
 		public int uses;
@@ -854,7 +859,7 @@ public enum Talent {
 				// 10/15%
 				if (Random.Int(99) < hero.天赋点数(RECALL_INSCRIPTION,10)){
 					Reflection.newInstance(cls).放背包();
-					GLog.p("refunded!");
+					GLog.p(Messages.get(Talent.class, RECALL_INSCRIPTION.name() + ".refunded"));
 				}
 			}
 		}
@@ -873,7 +878,7 @@ public enum Talent {
 				// 10/15%
 				if (Random.Int(99) < 1 + hero.天赋点数(RECALL_INSCRIPTION)){
 					Reflection.newInstance(cls).放背包();
-					GLog.p("refunded!");
+					GLog.p(Messages.get(Talent.class, RECALL_INSCRIPTION.name() + ".refunded"));
 				}
 			}
 		}
@@ -947,8 +952,18 @@ public enum Talent {
 				item.鉴定();
 			}
 		}
-		if (identify && !ShardOfOblivion.passiveIDDisabled()){
-			item.鉴定();
+		if (identify){
+			if(ShardOfOblivion.passiveIDDisabled()){
+				if(item instanceof Weapon){
+					((Weapon)item).setIDReady();
+				}else if(item instanceof Armor){
+					((Armor)item).setIDReady();
+				}else if(item instanceof Ring){
+					((Ring)item).setIDReady();
+				}
+			}else{
+				item.鉴定();
+			}
 		}
 	}
 

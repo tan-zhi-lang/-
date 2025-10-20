@@ -57,21 +57,6 @@ public class SPDSettings extends GameSettings {
 		return getBoolean( KEY_FULLSCREEN, 算法.isDebug()?false:DeviceCompat.isDesktop());
 	}
 	
-	public static void landscape( boolean value ){
-		put( KEY_LANDSCAPE, value );
-		((ShatteredPixelDungeon)ShatteredPixelDungeon.instance).updateDisplaySize();
-	}
-	
-	//can return null because we need to directly handle the case of landscape not being set
-	// as there are different defaults for different devices
-	public static Boolean landscape(){
-		if (contains(KEY_LANDSCAPE)){
-			return getBoolean(KEY_LANDSCAPE, false);
-		} else {
-			return null;
-		}
-	}
-	
 	public static void powerSaver( boolean value ){
 		put( KEY_POWER_SAVER, value );
 		((ShatteredPixelDungeon)ShatteredPixelDungeon.instance).updateDisplaySize();
@@ -253,7 +238,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static String toolbarMode() {
-		return getString(KEY_BARMODE,  "CENTER");
+		return getString(KEY_BARMODE,  "GROUP");
 	}
 
 	public static void quickslotWaterskin( boolean value ){

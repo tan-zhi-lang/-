@@ -6,6 +6,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ShieldOfLight;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -13,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SkeletonSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -70,6 +74,21 @@ public class Skeleton extends Mob {
 					int preDmg = damage;
 					damage = armor.absorb( damage );
 					damage -= (preDmg - damage); //apply the flat reduction twice
+				}
+				ShieldOfLight.ShieldOfLightTracker shield = ch.buff( ShieldOfLight.ShieldOfLightTracker.class);
+				if (shield != null && shield.object == id()){
+					int max = Dungeon.hero.天赋生命力(Talent.SHIELD_OF_LIGHT,0.3f);
+					damage -= Random.NormalIntRange(0, max);
+					damage -= Random.NormalIntRange(0, max); //apply twice
+					damage = Math.max(damage, 0);
+				} else if (ch == Dungeon.hero
+						   &&Dungeon.hero.heroClass!=HeroClass.CLERIC
+						   &&Dungeon.hero.天赋(Talent.SHIELD_OF_LIGHT)
+						   &&TargetHealthIndicator.instance.target()==this){
+					//33/50%
+					if (Dungeon.hero.天赋(Talent.SHIELD_OF_LIGHT)){
+						damage -= Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT);
+					}
 				}
 
 				//apply DR twice (with 2 rolls for more consistency)

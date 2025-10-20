@@ -4,8 +4,8 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.ChangesScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.改动界面;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
@@ -61,15 +61,15 @@ public class ChangeButton extends Component {
 	
 	protected void onClick() {
 		if(icon!=null) {
-			ChangesScene.showChangeInfo(new Image(icon), title, messages);
+			改动界面.showChangeInfo(new Image(icon),title,messages);
 		}
 
 		if(charsprite!=null) {
-			ChangesScene.showChangeInfo(new Image(charsprite), title, messages);
+			改动界面.showChangeInfo(new Image(charsprite), title, messages);
 		}
 
 		if(mobsprite!=null) {
-			ChangesScene.showChangeInfo(new Image(mobsprite), title, messages);
+			改动界面.showChangeInfo(new Image(mobsprite), title, messages);
 		}
 	}
 	

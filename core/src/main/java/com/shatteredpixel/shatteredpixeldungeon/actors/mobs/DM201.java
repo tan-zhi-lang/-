@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM201Sprite;
@@ -33,9 +34,11 @@ public class DM201 extends DM200 {
 
 	@Override
 	public void 受伤时(int dmg, Object src) {
-		if ((src instanceof Char && !Dungeon.level.adjacent(pos, ((Char)src).pos))
-				|| enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)){
-			threatened = true;
+		if (!(src instanceof Corruption)) {
+			if ((src instanceof Char && !Dungeon.level.adjacent(pos, ((Char) src).pos))
+				|| enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)) {
+				threatened = true;
+			}
 		}
 		super.受伤时(dmg, src);
 	}

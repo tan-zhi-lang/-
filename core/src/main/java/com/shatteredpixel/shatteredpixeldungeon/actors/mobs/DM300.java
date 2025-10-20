@@ -655,17 +655,25 @@ public class DM300 extends Mob {
 		resistances.add(Slow.class);
 	}
 
-	public static class FallingRockBuff extends DelayedRockFall {
-
+	public static class FallingRockBuff extends DelayedRockFall{
+		
 		@Override
-		public void affectChar(Char ch) {
-			if (!(ch instanceof DM300)){
-				Buff.延长(ch, Paralysis.class, Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 5 : 3);
-				if (ch == Dungeon.hero) {
-					Statistics.bossScores[2] -= 100;
+		public void affectChar(Char ch){
+			if(!(ch instanceof DM300||ch instanceof Pylon)){
+				if(Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
+					ch.受伤时(Random.NormalIntRange(10,20),this);
+				}else{
+					ch.受伤时(Random.NormalIntRange(6,12),this);
+				}
+				if(ch.isAlive()){
+					Buff.延长(ch,Paralysis.class,Dungeon.isChallenged(Challenges.STRONGER_BOSSES)?
+							5:
+							3);
+				}else if(ch==Dungeon.hero){
+					Dungeon.fail(target);
+					GLog.n(Messages.get(GnollGeomancer.class,"rockfall_kill"));
 				}
 			}
 		}
-
 	}
 }

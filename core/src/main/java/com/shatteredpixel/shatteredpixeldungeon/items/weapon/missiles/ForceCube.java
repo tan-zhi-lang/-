@@ -24,7 +24,6 @@ public class ForceCube extends MissileWeapon {
 		
 		命中=0.9f;
 		间隔=1.1f;
-		伤害=1.2f;
 		tier = 5;
 		baseUses = 5;
 		

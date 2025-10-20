@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndError;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.gltextures.TextureCache;
@@ -142,6 +143,7 @@ public class InterlevelScene extends PixelScene {
 		int region = (int)Math.ceil(loadingDepth / 5f);
 		if (region != lastRegion){
 			TextureCache.clear();
+			TitleBackground.reset();
 			lastRegion = region;
 		}
 
@@ -245,7 +247,7 @@ public class InterlevelScene extends PixelScene {
 		align(loadingText);
 		add(loadingText);
 
-		if (mode == Mode.DESCEND && lastRegion <= 5 && !算法.isDebug()){
+		if (mode == Mode.DESCEND && lastRegion <= 5 && !算法.isDebug()&&SPDSettings.加快()!=100f){
 			if (Dungeon.hero == null || (loadingDepth > Statistics.deepestFloor && loadingDepth % 5 == 1)){
 					storyMessage = PixelScene.renderTextBlock(Document.INTROS.pageBody(region), 6);
 					storyMessage.maxWidth( PixelScene.横屏() ? 180 : 125);
@@ -307,7 +309,7 @@ public class InterlevelScene extends PixelScene {
 					btnContinue.setPos((Camera.main.width - btnContinue.width())/2f, storyMessage.bottom()+10);
 					add(btnContinue);
 
-					btnHideStory = new IconButton(Icons.CALENDAR.get()){
+					btnHideStory = new IconButton(Icons.CHEVRON.get()){
 						@Override
 						protected void onClick() {
 							if (btnContinue.alpha() != 0 && btnContinue.alpha() != 1){

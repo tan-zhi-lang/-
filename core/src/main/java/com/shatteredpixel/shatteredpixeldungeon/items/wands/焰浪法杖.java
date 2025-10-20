@@ -180,8 +180,8 @@ public class 焰浪法杖 extends DamageWand {
 							ch.buff(燃烧.class).detach();
 						}
 						if (ch.alignment == Char.Alignment.ENEMY) {
-							//A 2-charge zap's base dmg with a 1-charge zap's scaling
-							ch.受伤时(Math.round(powerMulti*Random.NormalIntRange(2 + 强化等级(), 8 + 2* 强化等级())), this);
+							//damage of a 2-charge zap
+							ch.受伤时(Math.round(powerMulti*Random.NormalIntRange(2 + 2*强化等级(), 8 + 4* 强化等级())), this);
 						}
 					}
 				}

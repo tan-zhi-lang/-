@@ -326,6 +326,7 @@ public class DriedRose extends Artifact {
 		
 		if (ghost != null){
 			ghost.updateRose();
+			ghost.生命 = Math.min(ghost.生命+8, ghost.最大生命);
 		}
 
 		return super.升级();

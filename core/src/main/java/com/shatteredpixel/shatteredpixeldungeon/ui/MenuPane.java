@@ -121,6 +121,7 @@ public class MenuPane extends Component {
 		add( btnMenu );
 
 		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
+		version.hardlight( 0xCACFC2 );
 		add(version);
 		fps = new BitmapText( "FPS:" + Gdx.graphics.getFramesPerSecond(), PixelScene.pixelFont);
 		add(fps);

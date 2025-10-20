@@ -19,8 +19,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.EarthGuardianSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WardSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.glwrap.Matrix;
@@ -77,11 +77,8 @@ public class SurfaceScene extends PixelScene {
 		
 		int w = Camera.main.width;
 		int h = Camera.main.height;
-		
-		Archs archs = new Archs();
-		archs.reversed = true;
-		archs.setSize( w, h );
-//		add( archs );
+		TitleBackground BG = new TitleBackground(w,h);
+		add(BG);
 
 		float vx = align((w - SKY_WIDTH) / 2f);
 		float vy = align((h - SKY_HEIGHT - BUTTON_HEIGHT) / 2f);

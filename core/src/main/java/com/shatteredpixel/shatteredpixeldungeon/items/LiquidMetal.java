@@ -220,7 +220,7 @@ public class LiquidMetal extends Item {
 			if (m.defaultQuantity() != 3){
 				quantityPerWeapon = 3f / m.defaultQuantity();
 			}
-			quantityPerWeapon *= Math.pow(1.33f, Math.min(5, m.等级()));
+			quantityPerWeapon *= Math.pow(1.35f, Math.min(5, m.等级()));
 
 			float quantity =m.数量()-1;
 			quantity += 0.25f + 0.0075f*m.durabilityLeft();

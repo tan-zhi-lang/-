@@ -24,10 +24,13 @@ public class Explosive extends Weapon.Enchantment {
 	private static ItemSprite.Glowing WARM = new ItemSprite.Glowing( 0x000000, 0.5f );
 	private static ItemSprite.Glowing HOT = new ItemSprite.Glowing( 0x000000, 0.25f );
 	private int durability = 100;
-
 	@Override
 	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
 
+		if (weapon instanceof MissileWeapon
+				&& ((MissileWeapon)weapon).parent != null && ((MissileWeapon) weapon).parent.enchantment instanceof Explosive){
+			durability = ((Explosive) ((MissileWeapon) weapon).parent.enchantment).durability;
+		}
 		//average value of 5, or 20 hits to an explosion
 		int durToReduce = Math.round(Random.IntRange(0, 10) * procChanceMultiplier(attacker));
 		int currentDurability = durability;
@@ -58,9 +61,9 @@ public class Explosive extends Weapon.Enchantment {
 				explosionPos = defender.pos;
 			}
 
-			new Bomb.ConjuredBomb().explode(explosionPos);
+			new ExplosiveCurseBomb().explode(explosionPos);
 
-			durability = 100;
+			durability += 100;
 			Item.updateQuickslot();
 
 			if (weapon instanceof MissileWeapon){
@@ -72,15 +75,19 @@ public class Explosive extends Weapon.Enchantment {
 		if (weapon instanceof MissileWeapon
 				&& ((MissileWeapon)weapon).parent != null && ((MissileWeapon) weapon).parent.enchantment instanceof Explosive){
 			((Explosive) ((MissileWeapon) weapon).parent.enchantment).durability = durability;
+			durability = 100;
 		}
 
 		return damage;
 	}
 
 	public void merge(Explosive other){
-		if (other.durability < durability){
-			durability = other.durability;
+		int diff = 100 - other.durability;
+		durability -= diff;
+		//this can make durability negative, in which case many explosions can happen in succession.
 		}
+	public void clear(){
+		durability = 100;
 	}
 
 	@Override
@@ -128,4 +135,5 @@ public class Explosive extends Weapon.Enchantment {
 		bundle.put(DURABILITY, durability);
 	}
 
+	public static class ExplosiveCurseBomb extends Bomb.ConjuredBomb {}
 }

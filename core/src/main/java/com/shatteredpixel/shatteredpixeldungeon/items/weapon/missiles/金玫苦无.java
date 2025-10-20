@@ -20,9 +20,11 @@ public class 金玫苦无 extends MissileWeapon {
 		
 		unique = true;
 		bones = false;
+		间隔=0.67f;
+		伤害=1.2f;
 		
 		tier = 1;
-		baseUses = 5;
+		baseUses = 8;
 	}
 	@Override
 	public int damageRoll(Char owner) {
@@ -54,15 +56,15 @@ public class 金玫苦无 extends MissileWeapon {
 	@Override
 	protected void onThrow(int cell) {
 		super.onThrow(cell);
-		if (curUser.buff(Kunai.KunaiInstantTracker.class) == null) {
+		if (curUser.buff(KunaiInstantTracker.class) == null) {
 			//1 less turn as the attack will be instant
-			FlavourBuff.施加(curUser,Kunai.KunaiInstantTracker.class,Kunai.KunaiInstantTracker.DURATION-1);
+			FlavourBuff.施加(curUser,KunaiInstantTracker.class,KunaiInstantTracker.DURATION-1);
 		}
 	}
 	
 	@Override
 	public float castDelay(Char user, int cell) {
-		return user.buff(Kunai.KunaiInstantTracker.class) != null ? super.castDelay(user, cell) : 0;
+		return user.buff(KunaiInstantTracker.class) != null ? super.castDelay(user, cell) : 0;
 	}
 	public static class KunaiInstantTracker extends FlavourBuff {
 		

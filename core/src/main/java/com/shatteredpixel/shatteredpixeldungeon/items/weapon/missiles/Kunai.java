@@ -20,8 +20,9 @@ public class Kunai extends MissileWeapon {
 		hitSound = Assets.Sounds.HIT_STAB;
 		hitSoundPitch = 1.1f;
 		间隔=0.67f;
+		伤害=1.2f;
 		tier = 3;
-		baseUses = 5;
+		baseUses = 8;
 	}
 
 	@Override

@@ -39,8 +39,6 @@ public class StatusPane extends Component {
 	public static final float FLASH_RATE = (float)(Math.PI*1.5f); //1.5 blinks per second
 
 	private int lastTier = 0;
-
-	private Image rawShielding;
 	private Image 护盾;
 	private Image 血条;
 	private BitmapText 血条文本;
@@ -73,9 +71,8 @@ public class StatusPane extends Component {
 		String asset = Assets.Interfaces.STATUS;
 
 		this.横屏 = 横屏;
-
-		if (横屏)  bg = new NinePatch( asset, 0, 64, 41, 39, 33, 0, 4, 0 );
-		else        bg = new NinePatch( asset, 0, 0, 128, 34, 85, 0, 45, 0 );
+		
+		bg = new NinePatch( asset, 0, 0, 128, 38, 85, 0, 45, 0 );
 		add( bg );
 
 		heroInfo = new Button(){
@@ -104,37 +101,30 @@ public class StatusPane extends Component {
 
 		compass = new Compass( Statistics.amuletObtained ? Dungeon.level.entrance() : Dungeon.level.exit() );
 		add( compass );
+		
+		血条 = new Image(asset, 0, 42, 50, 4);
+		add(血条);
 
-		if (横屏)  rawShielding = new Image(asset, 0, 112, 128, 9);
-		else        rawShielding = new Image(asset, 0, 40, 50, 4);
-		rawShielding.alpha(0.5f);
-		add(rawShielding);
-
-		if (横屏)  护盾 = new Image(asset, 0, 112, 128, 9);
-		else        护盾 = new Image(asset, 0, 40, 50, 4);
+		护盾 = new Image(asset, 0, 46, 50, 4);
 		add(护盾);
 
-		if (横屏)  血条 = new Image(asset, 0, 103, 128, 9);
-		else        血条 = new Image(asset, 0, 36, 50, 4);
-		add(血条);
 
 		血条文本 = new BitmapText(PixelScene.pixelFont);
 		血条文本.alpha(0.6f);
 		add(血条文本);
 
-		if (横屏)  绿条 = new Image(asset, 0, 121, 128, 9);
-		else        绿条 = new Image(asset, 0, 44, 50, 4);
+		绿条 = new Image(asset, 0, 50, 50, 4);
 		add(绿条);
-		绿条框 = new Image(asset, 0, 52, 53, 8);
+		绿条框 = new Image(asset, 0, 58, 53, 8);
 		addToBack(绿条框);
 		
 		绿条文本 = new BitmapText(PixelScene.pixelFont);
 		绿条文本.alpha(0.6f);
 		add(绿条文本);
 		
-		法力条= new Image(asset,0,48,50,4);
+		法力条= new Image(asset,0,54,50,4);
 		add(法力条);
-		法力框= new Image(asset,0,52,53,8);
+		法力框= new Image(asset,0,58,53,8);
 		addToBack(法力框);
 		
 		法力文本= new BitmapText(PixelScene.pixelFont);
@@ -150,16 +140,13 @@ public class StatusPane extends Component {
 		};
 		add(heroInfoOnBar);
 
-		if (横屏)  exp = new Image(asset, 0, 130, 128, 7);
-		else        exp = new Image(asset, 0, 35, 16, 1);
+		exp = new Image(asset, 0, 38, 16, 4);
 		add( exp );
-
-		if (横屏){
-			expText = new BitmapText(PixelScene.pixelFont);
-			expText.hardlight( 0xFFFFAA );
-			expText.alpha(0.6f);
-			add(expText);
-		}
+		
+		expText = new BitmapText(PixelScene.pixelFont);
+		expText.hardlight( 0xFFFFAA );
+		expText.alpha(0.6f);
+		add(expText);
 
 		level = new BitmapText( PixelScene.pixelFont);
 		level.hardlight( 0xFFFFAA );
@@ -179,7 +166,7 @@ public class StatusPane extends Component {
 	@Override
 	protected void layout() {
 
-		height = 横屏 ? 39 : 32;
+		height = 横屏 ? 39 : 35;
 
 		bg.x = x;
 		bg.y = y;
@@ -187,49 +174,20 @@ public class StatusPane extends Component {
 		else        bg.size( width, bg.height );
 
 		avatar.x = bg.x - avatar.width / 2f + 15;
-		avatar.y = bg.y - avatar.height / 2f + (横屏 ? 15 : 16);
+		avatar.y = bg.y - avatar.height / 2f + (横屏 ? 15 : 14);
 		PixelScene.align(avatar);
-
-		heroInfo.setRect( x, y+(横屏 ? 0 : 1), 30, 横屏 ? 40 : 30 );
+		
+		heroInfo.setRect( x, y, 30, 横屏 ? 40 : 35 );
 
 		compass.x = avatar.x + avatar.width / 2f - compass.origin.x;
 		compass.y = avatar.y + avatar.height / 2f - compass.origin.y;
 		PixelScene.align(compass);
 		
-		if (横屏) {
-			exp.x = x + 30;
-			exp.y = y + 30;
+			exp.x = x+2;
+			exp.y = y+30;
 
-			血条.x = 护盾.x = rawShielding.x = x + 30;
-			血条.y = 护盾.y = rawShielding.y = y + 19;
-
-			血条文本.x = 血条.x + (128 - 血条文本.width())/2f;
-			血条文本.y = 血条.y + 1;
-			PixelScene.align(血条文本);
-
-			绿条.x = 血条.x;
-			绿条.y = 血条.y-绿条.height()-2;
-
-			绿条文本.x = 绿条.x + (128 - 绿条文本.width())/2f;
-			绿条文本.y = 绿条.y + 1;
-			PixelScene.align(绿条文本);
-
-			expText.x = exp.x + (128 - expText.width())/2f;
-			expText.y = exp.y;
-			PixelScene.align(expText);
-
-			heroInfoOnBar.setRect(heroInfo.right(), y + 19, 130, 20);
-
-			buffs.setRect(x + 31, y-绿条.height()-2, 128, 16);
-
-			busy.x = x + bg.width + 1;
-			busy.y = y + bg.height - 9;
-		} else {
-			exp.x = x;
-			exp.y = y;
-
-			血条.x = 护盾.x = rawShielding.x = x + 30;
-			血条.y = 护盾.y = rawShielding.y = y + 3;
+			血条.x = 护盾.x = x + 30;
+			血条.y = 护盾.y  = y+2;
 
 			血条文本.scale.set(PixelScene.align(0.5f));
 			血条文本.x = 血条.x + 1;
@@ -238,7 +196,7 @@ public class StatusPane extends Component {
 			PixelScene.align(血条文本);
 			
 			绿条框.x= 血条.x-1;
-			绿条框.y= 血条.y-2+ 绿条.height()+3;
+			绿条框.y= 血条.y+ 绿条.height()+1;
 			绿条.x= 血条.x;
 			绿条.y  = 血条.y + 绿条.height()+2;
 
@@ -282,12 +240,17 @@ public class StatusPane extends Component {
 				法力框.alpha0();
 			}
 			heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
+			
+		expText.scale.set(PixelScene.align(0.5f));
+		expText.x = exp.x + 1;
+		expText.y = exp.y + (exp.height - (expText.baseLine()+expText.scale.y))/2f;
+		expText.y -= 0.001f; //prefer to be slightly higher
+		PixelScene.align(expText);
+		
+		buffs.setRect( x + 31+3+1, y + 7+9+ 绿条.height()+1, 50, 8 );
 
-			buffs.setRect( x + 31+3+1, y + 9+9+ 绿条.height()+1, 50, 8 );
-
-			busy.x = x + 1;
-			busy.y = y + 33;
-		}
+		busy.x = x + 1;
+		busy.y = y + 37;
 
 		counter.point(busy.center());
 	}
@@ -364,12 +327,6 @@ public class StatusPane extends Component {
 			
 			时间=0;
 		}
-
-		if (shield > health) {
-			rawShielding.scale.x = Math.min(1, shield / (float) max);
-		} else {
-			rawShielding.scale.x = 0;
-		}
 		
 		if (shield <= 0) {
 			血条文本.text(health + "/" + max);
@@ -377,20 +334,10 @@ public class StatusPane extends Component {
 			血条文本.text(health + "+" + shield + "/" + max);
 		}
 		绿条文本.text(hunger + "/" + 450);
-		法力文本.text(法力+"/"+法力max);
-		if (横屏) {
-			exp.scale.x = (128 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
-
-			血条文本.measure();
-			血条文本.x = 血条.x + (128 - 血条文本.width())/2f;
-
-			expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
-			expText.measure();
-			expText.x = 血条.x + (128 - expText.width())/2f;
-
-		} else {
-			exp.scale.x = (width / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
-		}
+	法力文本.text(法力+"/"+法力max);
+	
+		exp.scale.x = (17 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
+		expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
 
 		if (Dungeon.hero.等级 != lastLvl) {
 
@@ -399,18 +346,12 @@ public class StatusPane extends Component {
 			}
 
 			lastLvl = Dungeon.hero.等级;
-
-			if (横屏){
-				level.text( "lv. " + lastLvl );
-				level.measure();
-				level.x = x + (30f - level.width()) / 2f;
-				level.y = y + 33f - level.baseLine() / 2f;
-			} else {
+			
 				level.text( Integer.toString( lastLvl ) );
 				level.measure();
-				level.x = x + 27.5f - level.width() / 2f;
-				level.y = y + 28.0f - level.baseLine() / 2f;
-			}
+				level.x = x + 25.5f - level.width() / 2f;
+				level.y = y + 31 - level.baseLine() / 2f;
+			
 			PixelScene.align(level);
 		}
 
@@ -431,7 +372,6 @@ public class StatusPane extends Component {
 		value = GameMath.gate(0, value, 1f);
 		bg.alpha(value);
 		avatar.alpha(value);
-		rawShielding.alpha(0.5f*value);
 		护盾.alpha(value);
 		血条.alpha(value);
 		血条文本.alpha(0.6f*value);

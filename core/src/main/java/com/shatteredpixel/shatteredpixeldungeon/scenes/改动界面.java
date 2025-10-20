@@ -8,19 +8,19 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.Archs;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ExitButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
+import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChanges;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChangesTabbed;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.停更;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.奇袭;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.缝合;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -250,11 +250,9 @@ public class 改动界面 extends PixelScene {
 		if (changesSelected != 3) 奇袭.textColor( 0xBBBBBB );
 		奇袭.setRect(缝合.right()-2, list.bottom(), w4, changesSelected == 3 ? 19 : 15);
 		addToBack(奇袭);
-
-
-		Archs archs = new Archs();
-		archs.setSize( Camera.main.width, Camera.main.height );
-		addToBack( archs );
+		
+		TitleBackground BG = new TitleBackground(w,h);
+		addToBack( BG );
 
 		fadeIn();
 	}

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BeeSprite;
 import com.watabou.utils.Bundle;
@@ -139,6 +140,22 @@ public class Bee extends Mob {
 		//if the pot is on the ground
 		}else {
 			
+			//copypasta from regular mob logic for aggression with added limit for pot distance
+			if ((alignment == Alignment.ENEMY || buff(Amok.class) != null ) && state != PASSIVE && state != SLEEPING) {
+				if (enemy != null
+						&& enemy.buff(StoneOfAggression.Aggression.class) != null
+						&& Dungeon.level.distance(enemy.pos, potPos) <= 3){
+					state = HUNTING;
+					return enemy;
+				}
+				for (Char ch : Actor.chars()) {
+					if (ch != this && fieldOfView[ch.pos] && Dungeon.level.distance(ch.pos, potPos) <= 3
+							&& ch.buff(StoneOfAggression.Aggression.class) != null) {
+						state = HUNTING;
+						return ch;
+					}
+				}
+			}
 			//try to find a new enemy in these circumstances
 			if (enemy == null || !enemy.isAlive() || !Actor.chars().contains(enemy) || state == WANDERING
 					|| Dungeon.level.distance(enemy.pos, potPos) > 3

@@ -24,14 +24,13 @@ public class Rat extends Mob {
 	@Override
 	protected boolean act() {
 		if(普通){
-			alignment=Dungeon.hero.heroClass(HeroClass.鼠弟)?
-					Alignment.NEUTRAL:
-					Alignment.ENEMY;
-			if(alignment==Alignment.NEUTRAL&&Dungeon.hero.heroClass(HeroClass.鼠弟)){
+		
+		if(Dungeon.hero.heroClass(HeroClass.鼠弟)){
 				if(Dungeon.level.heroFOV[pos]){
-					if(alignment==Alignment.ENEMY){
+					if(alignment != Alignment.ALLY) {
 						alignment=Alignment.NEUTRAL;
 					}
+					if (enemy == Dungeon.hero) enemy = null;
 					if(state==SLEEPING)
 						state=WANDERING;
 				}
@@ -39,11 +38,13 @@ public class Rat extends Mob {
 		}else{
 			alignment=Alignment.ENEMY;
 		}
+		
 		if(Dungeon.hero.armorAbility instanceof Ratmogrify){
 			if(Dungeon.level.heroFOV[pos]){
-				if(alignment == Alignment.ENEMY) {
+				if(alignment != Alignment.ALLY) {
 					alignment = Alignment.NEUTRAL;
 				}
+				if (enemy == Dungeon.hero) enemy = null;
 				if (state == SLEEPING) state = WANDERING;
 			}
 		}

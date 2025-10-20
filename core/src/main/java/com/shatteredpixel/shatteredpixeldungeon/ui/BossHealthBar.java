@@ -18,8 +18,6 @@ import com.watabou.noosa.ui.Component;
 public class BossHealthBar extends Component {
 
 	private Image bar;
-
-	private Image rawShielding;
 	private Image shieldedHP;
 	private Image hp;
 	private BitmapText hpText;
@@ -58,9 +56,6 @@ public class BossHealthBar extends Component {
 		width = bar.width;
 		height = bar.height;
 
-		rawShielding = new Image(asset, 15, 25, 47, 4);
-		rawShielding.alpha(0.5f);
-		add(rawShielding);
 
 		shieldedHP = new Image(asset, 15, 25, 47, 4);
 		add(shieldedHP);
@@ -113,8 +108,8 @@ public class BossHealthBar extends Component {
 		bar.x = x;
 		bar.y = y;
 
-		hp.x = shieldedHP.x = rawShielding.x = bar.x+15;
-		hp.y = shieldedHP.y = rawShielding.y = bar.y+3;
+		hp.x = shieldedHP.x = bar.x+15;
+		hp.y = shieldedHP.y  = bar.y+3;
 
 		hpText.scale.set(PixelScene.align(0.5f));
 		hpText.x = hp.x + 1;
@@ -167,7 +162,6 @@ public class BossHealthBar extends Component {
 				}
 				hp.scale.x = Math.max( 0, oldhp/(float)max);
 				shieldedHP.scale.x = oldhp/(float)max;
-				rawShielding.scale.x = shield/(float)max;
 
 				if (bleeding != blood.on){
 					if (bleeding)   skull.tint( 0xcc0000, 0.6f );

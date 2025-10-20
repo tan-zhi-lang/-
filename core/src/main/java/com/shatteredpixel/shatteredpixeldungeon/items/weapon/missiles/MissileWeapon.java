@@ -536,10 +536,14 @@ abstract public class MissileWeapon extends Weapon {
 				durability = MAX_DURABILITY;
 			}
 
-			masteryPotionBonus = masteryPotionBonus || ((MissileWeapon) other).masteryPotionBonus;
 			神力 = 神力 || ((MissileWeapon) other).神力;
 			levelKnown = levelKnown || other.levelKnown;
 			cursedKnown = cursedKnown || other.cursedKnown;
+			if (((Weapon)other).readyToIdentify()){
+				setIDReady();
+			}
+			
+			masteryPotionBonus = masteryPotionBonus || ((MissileWeapon) other).masteryPotionBonus;
 			enchantHardened = enchantHardened || ((MissileWeapon) other).enchantHardened;
 
 			//if other has a curse/enchant status that's a higher priority, copy it. in the following order:
@@ -580,7 +584,10 @@ abstract public class MissileWeapon extends Weapon {
 			MissileWeapon m = (MissileWeapon)split;
 			m.durability = MAX_DURABILITY;
 			m.parent = this;
-			extraThrownLeft = m.extraThrownLeft = true;
+			extraThrownLeft = m.extraThrownLeft = true;//explosive durability is tracked only in the parent
+			if (m.enchantment instanceof Explosive){
+				((Explosive) m.enchantment).clear();
+			}
 		}
 		
 		return split;
@@ -591,7 +598,7 @@ abstract public class MissileWeapon extends Weapon {
 		parent = null;
 		if (!UpgradedSetTracker.pickupValid(hero, this)){
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
-			hero.spendAndNext( TIME_TO_PICK_UP );
+			hero.spendAndNext( pickupDelay() );
 			GLog.w(Messages.get(this, "dust"));
 			数量(0);
 			return true;
@@ -628,7 +635,7 @@ abstract public class MissileWeapon extends Weapon {
 		}
 
 		if (enchantment != null && (cursedKnown || !enchantment.curse())){
-			info += "\n\n" + Messages.get(Weapon.class, "enchanted", enchantment.name());
+			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", enchantment.name()));
 			if (enchantHardened) info += " " + Messages.get(Weapon.class, "enchant_hardened");
 			info += " " + enchantment.desc();
 		} else if (enchantHardened){

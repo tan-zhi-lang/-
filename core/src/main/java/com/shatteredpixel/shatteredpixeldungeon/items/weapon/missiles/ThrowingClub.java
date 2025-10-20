@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ThrowingClub extends MissileWeapon {
@@ -22,7 +23,9 @@ public class ThrowingClub extends MissileWeapon {
 		baseUses = 12;
 		sticky = false;
 	}
-	
+	public float pickupDelay() {
+		return 0; //picked up instantly
+	}
 	@Override
 	public int 最大攻击(int lvl) {
 		return  4 * tier +                  //8 base, down from 10

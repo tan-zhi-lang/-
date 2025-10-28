@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
@@ -75,10 +75,10 @@ public class WornDartTrap extends Trap {
 					final Char finalTarget = target;
 					if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[target.pos]) {
 						((MissileSprite) ShatteredPixelDungeon.scene().recycle(MissileSprite.class)).
-								reset(pos, finalTarget.sprite, new Dart(), new Callback() {
+								reset(pos,finalTarget.sprite,new 飞镖(),new Callback() {
 									@Override
 									public void call() {
-										int dmg = Random.NormalIntRange(4, 8) - finalTarget.防御();
+										int dmg = Random.NormalIntRange(4, 8) - finalTarget.最大防御();
 										finalTarget.受伤时(dmg, WornDartTrap.this);
 										if (finalTarget == Dungeon.hero && !finalTarget.isAlive()){
 											Dungeon.fail( WornDartTrap.this  );
@@ -93,7 +93,7 @@ public class WornDartTrap extends Trap {
 								});
 						return false;
 					} else {
-						finalTarget.受伤时(Random.NormalIntRange(4, 8) - finalTarget.防御(), WornDartTrap.this);
+						finalTarget.受伤时(Random.NormalIntRange(4, 8) - finalTarget.最大防御(),WornDartTrap.this);
 						return true;
 					}
 				} else {

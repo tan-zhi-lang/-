@@ -29,8 +29,8 @@ public class ScrollOfEnchantment extends ExoticScroll {
 	
 	{
 		icon = 物品表.Icons.SCROLL_ENCHANT;
-
-		unique = true;
+		
+		特别= true;
 
 		talentFactor = 2f;
 	}

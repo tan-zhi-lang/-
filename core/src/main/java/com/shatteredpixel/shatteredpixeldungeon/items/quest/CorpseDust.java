@@ -33,7 +33,7 @@ public class CorpseDust extends Item {
 		cursedKnown = true;
 
 		黑色 = true;
-		unique = true;
+		特别= true;
 		物品 = true;
 	}
 

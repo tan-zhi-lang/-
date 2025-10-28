@@ -36,7 +36,7 @@ public class 祭鉴巫术 extends 背包巫术 {
 			return;
 		}
 		if(hero.满天赋(Talent.祭鉴巫术)){
-			祛邪卷轴.净化(hero,item.鉴定().特殊升级());
+			祛邪卷轴.祛邪(hero,item.鉴定().特殊升级());
 		}else{
 			item.鉴定();
 		}

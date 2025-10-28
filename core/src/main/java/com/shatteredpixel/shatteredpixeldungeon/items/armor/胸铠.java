@@ -10,6 +10,8 @@ public class 胸铠 extends Armor {
 
 	{
 		image = 物品表.ARMOR_DUELIST;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 胸铠(){
@@ -17,10 +19,10 @@ public class 胸铠 extends Armor {
 	}
 	public int 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return tier + lvl + augment.defenseFactor(lvl);
+			return augment.defenseFactor(tier + lvl);
 		}
 		
-		int max = tier * (2 + lvl) + augment.defenseFactor(lvl)-1;
+		int max = augment.defenseFactor(Math.round(tier * (2 + lvl)*1.5f) );
 		if (lvl > max){
 			return ((lvl - max)+1)/2;
 		} else {

@@ -8,6 +8,8 @@ public class 祭服 extends Armor {
 
 	{
 		image = 物品表.ARMOR_CLERIC;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 祭服(){

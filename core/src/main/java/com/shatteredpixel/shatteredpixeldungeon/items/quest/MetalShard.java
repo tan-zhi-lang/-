@@ -9,7 +9,7 @@ public class MetalShard extends Item {
 	
 	{
 		image = 物品表.SHARD;
-		stackable = true;
+		可堆叠= true;
 		物品 = true;
 	}
 	

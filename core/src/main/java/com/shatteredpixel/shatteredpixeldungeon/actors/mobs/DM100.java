@@ -39,8 +39,13 @@ public class DM100 extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 2, 8 );
+	public int 最小攻击() {
+		return 2;
+	}
+	
+	@Override
+	public int 最大攻击() {
+		return 8;
 	}
 	
 	@Override
@@ -49,8 +54,8 @@ public class DM100 extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 4);
+	public int 最大防御() {
+		return super.最大防御()+4;
 	}
 
 	@Override

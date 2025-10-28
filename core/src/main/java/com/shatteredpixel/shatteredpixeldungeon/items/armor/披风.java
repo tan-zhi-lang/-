@@ -8,6 +8,8 @@ public class 披风 extends Armor {
 
 	{
 		image = 物品表.ARMOR_HUNTRESS;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 披风(){

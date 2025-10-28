@@ -25,8 +25,8 @@ public class Bag extends Item implements Iterable<Item> {
 		image = 11;
 		
 		defaultAction = AC_OPEN;
-
-		unique = true;
+		
+		特别= true;
 		物品 = true;
 	}
 	
@@ -121,7 +121,7 @@ public class Bag extends Item implements Iterable<Item> {
 	
 	public void resurrect() {
 		for (Item item : items.toArray(new Item[0])){
-			if (!item.unique) items.remove(item);
+			if (!item.特别) items.remove(item);
 		}
 	}
 	
@@ -171,7 +171,7 @@ public class Bag extends Item implements Iterable<Item> {
 
 		if (items.contains(item) || item instanceof Bag || items.size() < capacity()){
 			return true;
-		} else if (item.stackable) {
+		} else if (item.可堆叠) {
 			for (Item i : items) {
 				if (item.isSimilar( i )) {
 					return true;

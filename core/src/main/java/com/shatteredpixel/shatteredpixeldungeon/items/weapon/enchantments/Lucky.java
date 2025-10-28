@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
@@ -45,11 +45,11 @@ public class Lucky extends Weapon.Enchantment {
 	
 	public static Item genLoot(){
 		//80% common, 20% uncommon, 0% rare
-		return RingOfWealth.genConsumableDrop(-5);
+		return 财富之戒.genConsumableDrop(-5);
 	}
 
 	public static void showFlare( Visual vis ){
-		RingOfWealth.showFlareForBonusDrop(vis);
+		财富之戒.showFlareForBonusDrop(vis);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class Lucky extends Weapon.Enchantment {
 
 		public Item genLoot(){
 			detach();
-			return RingOfWealth.genConsumableDrop(ringLevel);
+			return 财富之戒.genConsumableDrop(ringLevel);
 		}
 	}
 	

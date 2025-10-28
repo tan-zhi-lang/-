@@ -124,10 +124,8 @@ public class Hunger extends Buff implements Hero.Doom {
 		if(target instanceof Hero hero){
 			hero.吃饭触发+=energy;
 			hero.污蔑狂宴+=energy;
-			if(hero.吃饭触发>=150){
-				hero.吃饭触发-=150;
-				Talent.吃饭时(hero,energy,null);
-			}
+			
+			Talent.吃饭时(hero,energy/150f);
 		}
 		if (energy < 0 && target.buff(WellFed.class) != null){
 			target.buff(WellFed.class).left += energy;

@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -79,13 +79,12 @@ public class MindForm extends ClericSpell {
 			return null;
 		}
 
-		private MissileWeapon thrown(){
-			if (effect instanceof MissileWeapon){
-				((MissileWeapon) effect).等级(effectLevel());
-				((MissileWeapon) effect).repair(100);
-				((MissileWeapon) effect).鉴定(false);
-				((MissileWeapon) effect).spawnedForEffect = true;
-				return (MissileWeapon) effect;
+		private Weapon thrown(){
+			if (effect instanceof Weapon){
+				((Weapon) effect).等级(effectLevel());
+				((Weapon) effect).鉴定(false);
+				((Weapon) effect).spawnedForEffect = true;
+				return (Weapon) effect;
 			}
 			return null;
 		}
@@ -135,7 +134,7 @@ public class MindForm extends ClericSpell {
 					});
 				}
 			} else if (thrown() != null){
-				MissileWeapon thrown = thrown();
+				Weapon thrown = thrown();
 				thrown.cast(Dungeon.hero, target);
 				((ClassArmor)Dungeon.hero.belongings.armor()).charge -= Trinity.trinityChargeUsePerEffect(thrown.getClass());
 			}

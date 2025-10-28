@@ -8,14 +8,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -73,33 +72,12 @@ public class 武力之戒 extends Ring{
 		return tier;
 	}
 	
-	public static int damageRoll(Hero hero){
-		int dmgd=0;
-		if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
-			dmgd=Hero.heroDamageIntRange(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
-		}
+	public static int 额外(Hero hero){
+		int dmg=0;
 		int level=getBuffedBonus(hero,Force.class);
 		int tier=tier();
-		boolean buff=hero.hasbuff(武力之戒.Force.class);
-		boolean 拳套=hero.belongings.weapon!=null&&hero.belongings.weapon.拳套;
-		
-		int dmg=dmgd;
-		if(拳套){
-		
-		}else{
-			if(Dungeon.玩法(玩法设置.简单战斗)){
-				if(buff){
-					dmg+=Math.round((min(level,tier)+max(level,tier))/2f);
-				}else{
-					dmg+=Math.round((heromin()+heromax())/2f);
-				}
-			}else{
-				if(buff){
-					dmg+=Hero.heroDamageIntRange(min(level,tier),max(level,tier));
-				}else{
-					dmg+=Hero.heroDamageIntRange(heromin(),heromax());
-				}
-			}
+		if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
+			dmg+=Hero.heroDamageIntRange(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
 		}
 		if(hero.buff(BrawlersStance.class)!=null&&hero.buff(BrawlersStance.class).active){
 			// 3+tier base dmg, roughly +60%->45% dmg at T1->5
@@ -220,7 +198,7 @@ public class 武力之戒 extends Ring{
 	public void activate(Char ch){
 		super.activate(ch);
 		if(ch instanceof Hero&&((Hero)ch).heroClass==HeroClass.DUELIST){
-			Buff.施加(ch,MeleeWeapon.Charger.class);
+//			Buff.施加(ch,MeleeWeapon.Charger.class);
 		}
 	}
 	
@@ -264,7 +242,7 @@ public class 武力之戒 extends Ring{
 				AttackIndicator.updateState();
 				hero.sprite.operate();
 			}else if(!isEquipped(hero)){
-				GLog.w(Messages.get(MeleeWeapon.class,"ability_need_equip"));
+				GLog.w(Messages.get(Weapon.class,"ability_need_equip"));
 				
 			}else{
 				Buff.施加(hero,BrawlersStance.class).reset();

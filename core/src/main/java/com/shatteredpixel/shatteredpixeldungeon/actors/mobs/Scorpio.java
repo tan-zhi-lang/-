@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
@@ -36,8 +35,12 @@ public class Scorpio extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 30, 40 );
+	public int 最小攻击() {
+		return 30;
+	}
+	@Override
+	public int 最大攻击() {
+		return 40;
 	}
 	
 	@Override
@@ -46,8 +49,8 @@ public class Scorpio extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 16);
+	public int 最大防御() {
+		return super.最大防御()+16;
 	}
 	
 	@Override

@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 
@@ -21,7 +21,7 @@ public class MagicalHolster extends Bag {
 	
 	@Override
 	public boolean canHold( Item item ) {
-		if (item instanceof Wand || item instanceof MissileWeapon || item instanceof Bomb){
+		if (item instanceof Wand||item instanceof Weapon||item instanceof Bomb){
 			return super.canHold(item);
 		} else {
 			return false;
@@ -39,8 +39,6 @@ public class MagicalHolster extends Bag {
 				for (Item item : items) {
 					if (item instanceof Wand) {
 						((Wand) item).charge(owner, HOLSTER_SCALE_FACTOR);
-					} else if (item instanceof MissileWeapon){
-						((MissileWeapon) item).holster = true;
 					}
 				}
 			}
@@ -56,8 +54,6 @@ public class MagicalHolster extends Bag {
 		for (Item item : items) {
 			if (item instanceof Wand) {
 				((Wand)item).stopCharging();
-			} else if (item instanceof MissileWeapon){
-				((MissileWeapon) item).holster = false;
 			}
 		}
 	}

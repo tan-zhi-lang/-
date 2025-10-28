@@ -16,10 +16,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -235,14 +233,6 @@ public class ItemSlot extends Button {
 
 		status.text( item.status() );
 
-		//thrown weapons on their last use show quantity in orange, unless they are single-use
-		if (item instanceof MissileWeapon
-				&& ((MissileWeapon) item).durabilityLeft() <= 50f
-				&& ((MissileWeapon) item).durabilityLeft() <= ((MissileWeapon) item).durabilityPerUse()){
-			status.hardlight(WARNING);
-		} else {
-			status.resetColor();
-		}
 		if (item.icon != -1 && (item.已鉴定() || (item instanceof Ring && ((Ring) item).isKnown()))){
 			extra.text( null );
 
@@ -281,7 +271,7 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Math.round(food.energy)) );
 				center.measure();
 				center.hardlight( UPGRADED );
-				extra.text( Messages.format( TXT, Dungeon.hero.生命力(0.25f)) );
+				extra.text( Messages.format( TXT, Math.round(food.energy*0.01f)) );
 				extra.measure();
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof Armor a&&a.破损纹章!=null) {
@@ -320,8 +310,7 @@ public class ItemSlot extends Button {
 		if(item instanceof 法师魔杖||
 		   item instanceof 手枪||
 		   item instanceof Ring||
-		   item instanceof MeleeWeapon||
-		   item instanceof MissileWeapon||
+		   item instanceof Weapon||
 		   item instanceof Wand||
 		   item instanceof Artifact){
 			if (trueLvl != 0 || buffedLvl != 0) {
@@ -396,8 +385,10 @@ public class ItemSlot extends Button {
 
 		if (show){
 			add(extra);
+			add(level);
 		} else {
 			remove(extra);
+			remove(level);
 		}
 
 	}

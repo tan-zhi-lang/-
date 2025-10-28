@@ -32,12 +32,12 @@ public class Food extends Item {
 	public float energy = Hunger.HUNGRY;
 	
 	{
-		stackable = true;
+		可堆叠= true;
 		image = 物品表.RATION;
 
 		defaultAction = AC_EAT;
-
-		bones = true;
+		
+		遗产= true;
 		物品 = true;
 	}
 	

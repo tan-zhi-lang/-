@@ -19,7 +19,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
 public class Guard extends Mob {
 
@@ -44,8 +43,12 @@ public class Guard extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange(4, 12);
+	public int 最小攻击() {
+		return 4;
+	}
+	@Override
+	public int 最大攻击() {
+		return 12;
 	}
 
 	private boolean chain(int target){
@@ -121,8 +124,8 @@ public class Guard extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 7);
+	public int 最大防御() {
+		return super.最大防御()+7;
 	}
 
 	@Override

@@ -8,6 +8,8 @@ public class 巫服 extends Armor {
 
 	{
 		image = 物品表.巫服;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 巫服(){

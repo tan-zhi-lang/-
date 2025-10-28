@@ -7,21 +7,45 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyLance;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.HeavyBoomerang;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Javelin;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Kunai;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Shuriken;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Trident;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.符文之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.捕鱼矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.标枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.矛盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.tweeners.PosTweener;
@@ -75,15 +99,40 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 	
 	private static final HashMap<Class<?extends Item>, Integer> ANGULAR_SPEEDS = new HashMap<>();
 	static {
-		ANGULAR_SPEEDS.put(Dart.class,          0);
-		ANGULAR_SPEEDS.put(ThrowingKnife.class, 0);
-		ANGULAR_SPEEDS.put(ThrowingSpike.class, 0);
-		ANGULAR_SPEEDS.put(FishingSpear.class,  0);
-		ANGULAR_SPEEDS.put(ThrowingSpear.class, 0);
-		ANGULAR_SPEEDS.put(Kunai.class,         0);
-		ANGULAR_SPEEDS.put(Javelin.class,       0);
-		ANGULAR_SPEEDS.put(Trident.class,       0);
-		ANGULAR_SPEEDS.put(吸血飞刀.class,0);
+		ANGULAR_SPEEDS.put(飞镖.class,0);
+		ANGULAR_SPEEDS.put(小刀.class,0);
+		ANGULAR_SPEEDS.put(小刺.class,0);
+		ANGULAR_SPEEDS.put(捕鱼矛.class,0);
+		ANGULAR_SPEEDS.put(投矛.class,0);
+		ANGULAR_SPEEDS.put(苦无.class,0);
+		ANGULAR_SPEEDS.put(标枪.class,0);
+		ANGULAR_SPEEDS.put(三叉戟.class,0);
+		ANGULAR_SPEEDS.put(吸血刀.class,0);
+		
+		ANGULAR_SPEEDS.put(短剑.class,0);
+		ANGULAR_SPEEDS.put(法师魔杖.class,0);
+		ANGULAR_SPEEDS.put(镜刃.class,0);
+		ANGULAR_SPEEDS.put(铜钱剑.class,0);
+		ANGULAR_SPEEDS.put(匕首.class,0);
+		ANGULAR_SPEEDS.put(碧蓝巨剑.class,0);
+		ANGULAR_SPEEDS.put(英雄断剑.class,0);
+		ANGULAR_SPEEDS.put(矛盾.class,0);
+		ANGULAR_SPEEDS.put(单手剑.class,0);
+		ANGULAR_SPEEDS.put(长剑.class,0);
+		ANGULAR_SPEEDS.put(双剑.class,0);
+		ANGULAR_SPEEDS.put(巨剑.class,0);
+		ANGULAR_SPEEDS.put(长矛.class,0);
+		ANGULAR_SPEEDS.put(关刀.class,0);
+		ANGULAR_SPEEDS.put(战斧.class,0);
+		ANGULAR_SPEEDS.put(硬头锤.class,0);
+		ANGULAR_SPEEDS.put(权杖.class,0);
+		ANGULAR_SPEEDS.put(战锤.class,0);
+		ANGULAR_SPEEDS.put(短柄镰.class,0);
+		ANGULAR_SPEEDS.put(巨斧.class,0);
+		ANGULAR_SPEEDS.put(武士刀.class,0);
+		ANGULAR_SPEEDS.put(小剑.class,0);
+		ANGULAR_SPEEDS.put(符文之刃.class,0);
+		ANGULAR_SPEEDS.put(暗杀之刃.class,0);
 		
 		ANGULAR_SPEEDS.put(灵能短弓.SpiritArrow.class,       0);
 		ANGULAR_SPEEDS.put(ScorpioSprite.ScorpioShot.class,   0);
@@ -94,10 +143,10 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
 		ANGULAR_SPEEDS.put(GnollGeomancer.Boulder.class,   90);
 		
-		ANGULAR_SPEEDS.put(HeavyBoomerang.class,1440);
-		ANGULAR_SPEEDS.put(Bolas.class,         1440);
+		ANGULAR_SPEEDS.put(回旋镖.class,1440);
+		ANGULAR_SPEEDS.put(流星索.class,1440);
 		
-		ANGULAR_SPEEDS.put(Shuriken.class,                  2160);
+		ANGULAR_SPEEDS.put(手里剑.class,2160);
 		ANGULAR_SPEEDS.put(TenguSprite.TenguShuriken.class, 2160);
 	}
 
@@ -147,9 +196,9 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		}
 		
 		float speed = SPEED*SPDSettings.加快();
-		if (item instanceof Dart
-				&& (Dungeon.hero.belongings.weapon() instanceof Crossbow
-				|| Dungeon.hero.belongings.secondWep() instanceof Crossbow)){
+		if (item instanceof 飞镖
+				&& (Dungeon.hero.belongings.weapon() instanceof 十字弩
+				|| Dungeon.hero.belongings.secondWep() instanceof 十字弩)){
 			speed *= 3f;
 			
 		} else if (item instanceof 灵能短弓.SpiritArrow

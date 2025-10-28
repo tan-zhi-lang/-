@@ -26,8 +26,8 @@ public class 治疗药剂 extends Potion {
 
 	{
 		icon = 物品表.Icons.POTION_HEALING;
-
-		bones = true;
+		
+		遗产= true;
 	}
 	
 	@Override

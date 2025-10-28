@@ -59,14 +59,14 @@ public class RingOfMight extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					soloBonus()*2, Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, soloBuffedBonus()) - 1f)));
+					soloBonus(), Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, soloBuffedBonus()) - 1f)));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						getBonus(Dungeon.hero, Might.class)*2, Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, combinedBuffedBonus(Dungeon.hero)) - 1f)));
+						getBonus(Dungeon.hero, Might.class), Messages.decimalFormat("#.##", 100f * (Math.pow(1.1f, combinedBuffedBonus(Dungeon.hero)) - 1f)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", 2, Messages.decimalFormat("#.##", 10f));
+			return Messages.get(this, "typical_stats", 1, Messages.decimalFormat("#.##", 10f));
 		}
 	}
 

@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
@@ -17,8 +16,8 @@ public class 根骨秘药 extends Elixir {
 
 	{
 		image = 物品表.ELIXIR_MIGHT;
-
-		unique = true;
+		
+		特别= true;
 
 		talentFactor = 2f;
 	}
@@ -37,10 +36,6 @@ public class 根骨秘药 extends Elixir {
 
 		Badges.validateStrengthAttained();
 		Badges.validateDuelistUnlock();
-	}
-	
-	public String desc() {
-		return Messages.get(this, "desc", HTBoost.boost(Dungeon.hero() ? Dungeon.hero.最大生命 : 20));
 	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

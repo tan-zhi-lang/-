@@ -40,13 +40,13 @@ public class Blandfruit extends Food {
 	public ItemSprite.Glowing potionGlow = null;
 
 	{
-		stackable = true;
+		可堆叠= true;
 		image = 物品表.BLANDFRUIT;
 
 		//only applies when blandfruit is cooked
 		energy = Hunger.STARVING;
-
-		bones = true;
+		
+		遗产= true;
 	}
 
 	@Override
@@ -78,10 +78,8 @@ public class Blandfruit extends Food {
 	public void execute( Hero hero, String action ) {
 
 		if (action.equals( Potion.AC_CHOOSE )){
-
 			GameScene.show(new WndUseItem(null, this) );
 			return;
-
 		}
 
 		if (action.equals( AC_EAT ) && potionAttrib == null) {
@@ -279,12 +277,12 @@ public class Blandfruit extends Food {
 	public static class Chunks extends Food {
 
 		{
-			stackable = true;
+			可堆叠= true;
 			image = 物品表.BLAND_CHUNKS;
 
 			energy = Hunger.STARVING;
-
-			bones = true;
+			
+			遗产= true;
 		}
 
 	}

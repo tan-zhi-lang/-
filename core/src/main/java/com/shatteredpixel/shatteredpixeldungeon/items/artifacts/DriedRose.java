@@ -11,10 +11,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -33,7 +33,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
@@ -82,7 +81,7 @@ public class DriedRose extends Artifact {
 	private GhostHero ghost = null;
 	private int ghostID = 0;
 	
-	private MeleeWeapon weapon = null;
+	private Weapon weapon = null;
 	private Armor armor = null;
 
 	public int droppedPetals = 0;
@@ -370,7 +369,7 @@ public class DriedRose extends Artifact {
 		ghostID = bundle.getInt( GHOSTID );
 		droppedPetals = bundle.getInt( PETALS );
 		
-		if (bundle.contains(WEAPON)) weapon = (MeleeWeapon)bundle.get( WEAPON );
+		if (bundle.contains(WEAPON)) weapon = (Weapon)bundle.get( WEAPON );
 		if (bundle.contains(ARMOR))  armor = (Armor)bundle.get( ARMOR );
 	}
 
@@ -467,7 +466,7 @@ public class DriedRose extends Artifact {
 	public static class Petal extends Item {
 
 		{
-			stackable = true;
+			可堆叠= true;
 			dropsDownHeap = true;
 			
 			image = 物品表.PETAL;
@@ -484,7 +483,7 @@ public class DriedRose extends Artifact {
 				return false;
 			} if ( rose.等级() >= rose.levelCap ){
 				GLog.i( Messages.get(this, "no_room") );
-				hero.spendAndNext(TIME_TO_PICK_UP);
+				hero.spendAndNext(hero.攻击延迟());
 				return true;
 			} else {
 
@@ -497,7 +496,7 @@ public class DriedRose extends Artifact {
 
 				Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
 				GameScene.pickUp(this, pos);
-				hero.spendAndNext(TIME_TO_PICK_UP);
+				hero.spendAndNext(hero.攻击延迟());
 				return true;
 
 			}
@@ -611,8 +610,8 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public float attackDelay() {
-			float delay = super.attackDelay();
+		public float 攻击延迟() {
+			float delay = super.攻击延迟();
 			if (weapon() != null){
 				delay *= weapon().delayFactor(this);
 			}
@@ -625,12 +624,21 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int 攻击() {
-			int dmg = 0;
+		public int 最小攻击() {
+			int dmg = 1;
 			if (weapon() != null){
-				dmg += weapon().damageRoll(this);
+				dmg += weapon().最小攻击();
+			}
+			
+			return dmg;
+		}
+		@Override
+		public int 最大攻击() {
+			int dmg = 1;
+			if (weapon() != null){
+				dmg += weapon().最大攻击();
 			} else {
-				dmg += Random.NormalIntRange(0, 5);
+				dmg += 5;
 			}
 			
 			return dmg;
@@ -693,13 +701,21 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int 防御() {
-			int dr = super.防御();
+		public int 最小防御() {
+			int dr = super.最小防御();
 			if (armor() != null){
-				dr += Random.NormalIntRange( armor().最小防御(), armor().最大防御());
+				dr += armor().最小防御();
+			}
+			return dr;
+		}
+		@Override
+		public int 最大防御() {
+			int dr = super.最大防御();
+			if (armor() != null){
+				dr += armor().最大防御();
 			}
 			if (weapon() != null){
-				dr += Random.NormalIntRange( 0, weapon().defenseFactor( this ));
+				dr += weapon().defenseFactor( this );
 			}
 			return dr;
 		}
@@ -885,32 +901,32 @@ public class DriedRose extends Artifact {
 
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item instanceof MeleeWeapon;
+								return item instanceof Weapon;
 							}
 
 							@Override
 							public void onSelect(Item item) {
-								if (!(item instanceof MeleeWeapon)) {
+								if (!(item instanceof Weapon)) {
 									//do nothing, should only happen when window is cancelled
-								} else if (item.unique) {
+								} else if (item.特别) {
 									GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));
 									hide();
 								} else if (item.cursed || !item.cursedKnown) {
 									GLog.w(Messages.get(WndGhostHero.class, "cant_cursed"));
 									hide();
-								}  else if (!item.levelKnown && ((MeleeWeapon)item).力量(0) > rose.ghostStrength()){
+								}  else if (!item.levelKnown && ((Weapon)item).力量(0) > rose.ghostStrength()){
 									GLog.w( Messages.get(WndGhostHero.class, "cant_strength_unknown"));
 									hide();
-								} else if (((MeleeWeapon)item).力量() > rose.ghostStrength()) {
+								} else if (((Weapon)item).力量() > rose.ghostStrength()) {
 									GLog.w( Messages.get(WndGhostHero.class, "cant_strength"));
 									hide();
 								} else {
 									if (item.isEquipped(Dungeon.hero)){
-										((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+										((Weapon) item).doUnequip(Dungeon.hero, false, false);
 									} else {
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
-									rose.weapon = (MeleeWeapon) item;
+									rose.weapon = (Weapon) item;
 									item(rose.weapon);
 								}
 								
@@ -967,7 +983,7 @@ public class DriedRose extends Artifact {
 							public void onSelect(Item item) {
 								if (!(item instanceof Armor)) {
 									//do nothing, should only happen when window is cancelled
-								} else if (item.unique || ((Armor) item).checkSeal() != null) {
+								} else if (item.特别||((Armor) item).checkSeal()!=null) {
 									GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));
 									hide();
 								} else if (item.cursed || !item.cursedKnown) {

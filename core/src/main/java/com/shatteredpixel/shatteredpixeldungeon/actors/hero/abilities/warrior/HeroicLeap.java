@@ -81,8 +81,8 @@ public class HeroicLeap extends ArmorAbility {
 						if (mob != null && mob != hero && mob.alignment != Char.Alignment.ALLY) {
 							if (hero.天赋(Talent.BODY_SLAM)){
 								int damage = Hero.heroDamageIntRange(hero.天赋点数(Talent.BODY_SLAM), 4*hero.天赋点数(Talent.BODY_SLAM));
-								damage += Math.round(hero.防御()*0.25f*hero.天赋点数(Talent.BODY_SLAM));
-								damage -= mob.防御();
+								damage += Math.round(hero.最大防御()*0.25f*hero.天赋点数(Talent.BODY_SLAM));
+								damage -= mob.最大防御();
 								mob.受伤时(damage, hero);
 							}
 							if (mob.pos == hero.pos + i && hero.天赋(Talent.IMPACT_WAVE)){

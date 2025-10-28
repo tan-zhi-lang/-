@@ -36,8 +36,12 @@ public abstract class Shaman extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 5, 10 );
+	public int 最小攻击() {
+		return 5;
+	}
+	@Override
+	public int 最大攻击() {
+		return 10;
 	}
 	
 	@Override
@@ -46,8 +50,8 @@ public abstract class Shaman extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 6);
+	public int 最大防御() {
+		return super.最大防御()+6;
 	}
 
 	@Override

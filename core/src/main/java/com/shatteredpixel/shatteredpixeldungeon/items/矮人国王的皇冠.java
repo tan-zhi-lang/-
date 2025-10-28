@@ -30,8 +30,8 @@ public class 矮人国王的皇冠 extends Item {
 		image = 物品表.CROWN;
 
 		defaultAction = AC_WEAR;
-
-		unique = true;
+		
+		特别= true;
 		物品 = true;
 	}
 	

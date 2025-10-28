@@ -4,9 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -34,8 +32,7 @@ public class Elastic extends Weapon.Enchantment {
 			//knock them back along that ballistica
 			WandOfBlastWave.throwChar(defender,
 					trajectory,
-					Math.round(2 * powerMulti),
-					!(weapon instanceof MissileWeapon || weapon instanceof 灵能短弓),
+					Math.round(2 * powerMulti),true,
 					true,
 					this);
 		}

@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -158,14 +158,14 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 					}
 				}
 
-				if (hero.belongings.weapon() instanceof MeleeWeapon
+				if (hero.belongings.weapon() instanceof Weapon
 						&& (hero.buff(武力之戒.BrawlersStance.class)==null
 						|| !hero.buff(武力之戒.BrawlersStance.class).active)){
-					if (((MeleeWeapon) hero.belongings.weapon()).tier <= 1 && points >= 3){
+					if (((Weapon) hero.belongings.weapon()).tier <= 1 && points >= 3){
 						enGainMulti += 1.00f;
-					} else if (((MeleeWeapon) hero.belongings.weapon()).tier <= 2 && points >= 2){
+					} else if (((Weapon) hero.belongings.weapon()).tier<=2&&points>=2){
 						enGainMulti += 0.75f;
-					} else if (((MeleeWeapon) hero.belongings.weapon()).tier <= 3 && points >= 1){
+					} else if (((Weapon) hero.belongings.weapon()).tier <= 3 && points >= 1){
 						enGainMulti += 0.50f;
 					}
 				}
@@ -322,7 +322,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 			@Override
 			public String targetingPrompt() {
-				return Messages.get(MeleeWeapon.class, "prompt");
+				return Messages.get(Weapon.class, "prompt");
 			}
 
 			@Override
@@ -333,7 +333,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				Char enemy = Actor.findChar(target);
 				if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_no_target"));
+					GLog.w(Messages.get(Weapon.class, "ability_no_target"));
 					return;
 				}
 
@@ -343,7 +343,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				UnarmedAbilityTracker tracker = Buff.施加(hero, UnarmedAbilityTracker.class);
 				if (!hero.canAttack(enemy)){
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_target_range"));
+					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
 					tracker.detach();
 					if (hero.buff(FlurryEmpowerTracker.class) != null){
 						hero.buff(FlurryEmpowerTracker.class).detach();
@@ -457,17 +457,17 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				if (Dungeon.hero.rooted){
 					PixelScene.shake( 1, 1f );
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_target_range"));
+					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
 					return;
 				}
 
 				if (Dungeon.level.distance(hero.pos, target) > range){
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_target_range"));
+					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
 					return;
 				}
 
 				if (Actor.findChar(target) != null){
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_occupied"));
+					GLog.w(Messages.get(Weapon.class, "ability_occupied"));
 					return;
 				}
 
@@ -475,7 +475,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				if (!dash.collisionPos.equals(target)
 						|| (Dungeon.level.solid[target] && !Dungeon.level.passable[target])){
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_target_range"));
+					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
 					return;
 				}
 
@@ -518,7 +518,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 			@Override
 			public String targetingPrompt() {
-				return Messages.get(MeleeWeapon.class, "prompt");
+				return Messages.get(Weapon.class, "prompt");
 			}
 
 			@Override
@@ -529,13 +529,13 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				Char enemy = Actor.findChar(target);
 				if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_no_target"));
+					GLog.w(Messages.get(Weapon.class, "ability_no_target"));
 					return;
 				}
 
 				UnarmedAbilityTracker tracker = Buff.施加(hero, UnarmedAbilityTracker.class);
 				if (!hero.canAttack(enemy)){
-					GLog.w(Messages.get(MeleeWeapon.class, "ability_target_range"));
+					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
 					tracker.detach();
 					return;
 				}
@@ -564,7 +564,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 							}
 						}
 						Invisibility.notimedispel();
-						hero.spendAndNext(hero.攻速());
+						hero.spendAndNext(hero.攻击延迟());
 						tracker.detach();
 						Buff.施加(hero, MonkEnergy.class).abilityUsed(DragonKick.this);
 

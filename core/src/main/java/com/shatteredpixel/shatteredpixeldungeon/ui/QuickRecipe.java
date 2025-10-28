@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
@@ -30,12 +29,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfAr
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfDragonsBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIcyTouch;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
@@ -46,9 +45,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
@@ -328,9 +327,9 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 6:
-				result.add(new QuickRecipe( new LiquidMetal.Recipe(),
-						new ArrayList<Item>(Arrays.asList(new MissileWeapon.PlaceHolder())),
-						new LiquidMetal()));
+//				result.add(new QuickRecipe( new LiquidMetal.Recipe(),
+//						new ArrayList<Item>(Arrays.asList(new MissileWeapon.PlaceHolder())),
+//						new LiquidMetal()));
 				result.add(new QuickRecipe( new ArcaneResin.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
 						new ArcaneResin()));
@@ -352,6 +351,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new ElixirOfDragonsBlood.Recipe()));
 //				result.add(new QuickRecipe(new ElixirOfFeatherFall.Recipe()));
 				result.add(new QuickRecipe(new 根骨秘药.Recipe()));
+				result.add(new QuickRecipe(new 永生秘药.Recipe()));
 				return result;
 			case 8:
 				result.add(new QuickRecipe(new UnstableSpell.Recipe(), new ArrayList<>(Arrays.asList(new Scroll.PlaceHolder(), new  Runestone.PlaceHolder())), new UnstableSpell()));

@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM201Sprite;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 public class DM201 extends DM200 {
 
@@ -26,8 +25,8 @@ public class DM201 extends DM200 {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 15, 25 );
+	public int 最小攻击() {
+		return 15;
 	}
 
 	private boolean threatened = false;

@@ -31,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
@@ -41,7 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护甲;
@@ -52,16 +50,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.RecallInscrip
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
-import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
@@ -69,10 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -95,13 +87,13 @@ public enum Talent {
 	//Warrior T1
 	VETERANS_INTUITION(0), 受衅怒火(1), 钢铁意志(2),
 	//Warrior T2
-	致命打击(4,3), 纹章升级(5,3), 越战越勇(6,3), IMPROVISED_PROJECTILES(7,3),
+	致命打击(4,3), 纹章升级(5,3), 丰盛就餐(6,3), 即兴投掷(7,3),
 	//Warrior T3
-	纹章荣耀(9, 4), STRONGMAN(10, 4),
+	纹章荣耀(9, 4), 力大无穷(10,4),
 	//Berserker T3
-	ENDLESS_RAGE(11, 4), DEATHLESS_FURY(12, 4), ENRAGED_CATALYST(13, 4),
+	洪荒之怒(11,4), 血气旺盛(12,4), 嗜血成性(13,4),
 	//Gladiator T3
-	CLEAVE(14, 4), LETHAL_DEFENSE(15, 4), ENHANCED_COMBO(16, 4),
+	连战热忱(14,4), 以战养战(15,4), 连击强化(16,4),
 	//Heroic Leap T4
 	BODY_SLAM(17, 4), IMPACT_WAVE(18, 4), DOUBLE_JUMP(19, 4),
 	//Shockwave T4
@@ -116,7 +108,7 @@ public enum Talent {
 	//Mage T3
 	DESPERATE_POWER(41, 4), ALLY_WARP(42, 4),
 	//Battlemage T3
-	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), EXCESS_CHARGE(45, 4),
+	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), 盈能附魔(45,4),
 	//Warlock T3
 	SOUL_EATER(46, 4), SOUL_SIPHON(47, 4), NECROMANCERS_MINIONS(48, 4),
 	//Elemental Blast T4
@@ -146,13 +138,13 @@ public enum Talent {
 	//Huntress T1
 	SURVIVALISTS_INTUITION(x4), FOLLOWUP_STRIKE(x4+1), NATURES_AID(x4+2),
 	//Huntress T2
-	自然猎手(x4+4,3), REJUVENATING_STEPS(x4+5,3), HEIGHTENED_SENSES(x4+6,3), DURABLE_PROJECTILES(x4+7,3),
+	自然猎手(x4+4,3), REJUVENATING_STEPS(x4+5,3), HEIGHTENED_SENSES(x4+6,3), 矢石升级(x4+7,3),
 	//Huntress T3
 	自然丰收(105, 4), SEER_SHOT(106, 4),
 	//Sniper T3
-	FARSIGHT(107, 4), SHARED_ENCHANTMENT(108, 4), SHARED_UPGRADES(109, 4),
+	FARSIGHT(107, 4), SHARED_ENCHANTMENT(108, 4), 狙击弱点(109,4),
 	//Warden T3
-	DURABLE_TIPS(110, 4), BARKSKIN(111, 4), SHIELDING_DEW(112, 4),
+	消受投掷(110,4), 丛林法则(111,4), SHIELDING_DEW(112,4),
 	//Spectral Blades T4
 	FAN_OF_BLADES(113, 4), PROJECTING_BLADES(114, 4), SPIRIT_BLADES(115, 4),
 	//Natures Power T4
@@ -240,10 +232,6 @@ public enum Talent {
 	public static class LethalMomentumTracker extends FlavourBuff{}
 	public static class StrikingWaveTracker extends FlavourBuff{}
 	public static class WandPreservationCounter extends CounterBuff{{revivePersists = true;}}
-	public static class EmpoweredStrikeTracker extends FlavourBuff{
-		//blast wave on-hit doesn't resolve instantly, so we delay detaching for it
-		public boolean delayedDetach = false;
-	}
 	
 	public static class ProtectiveShadowsTracker extends Buff {
 		float barrierInc = 0.5f;
@@ -254,15 +242,16 @@ public enum Talent {
 			//barrier every 2/1 turns, to a max of 3/5
 			if (hero.天赋(Talent.PROTECTIVE_SHADOWS)&&target.invisible>0){
 				Barrier barrier = Buff.施加(target, Barrier.class);
-				barrierInc += 1;
-				int s = hero.天赋生命力(Talent.PROTECTIVE_SHADOWS,0.4f);
+				int s = hero.最大生命(hero.天赋点数(Talent.PROTECTIVE_SHADOWS,0.1f));
 				if (barrier.护盾量() < s) {
 					barrier.设置(s);
 				}
-				if (barrierInc >= 2){
+				
+				barrierInc += 1;
+				if (barrierInc >= 4){
 					barrierInc = 0;
 					if (hero.天赋(Talent.体生匿影)) {
-						hero.回血(hero.天赋生命力(Talent.体生匿影,0.2f));
+						hero.回血(hero.最大生命(hero.天赋点数(Talent.体生匿影,0.02f)));
 					}
 				}
 			} else {
@@ -335,14 +324,6 @@ public enum Talent {
 		public void tintIcon(Image icon) { icon.hardlight(0.35f, 0f, 0.7f); }
 		public float iconFadePercent() { return Math.max(0, visualcooldown() / 50); }
 	}
-	
-	public static class LiquidAgilEVATracker extends FlavourBuff{
-		{
-			//detaches after hero acts, not after mobs act
-			actPriority = HERO_PRIO+1;
-		}
-	};
-	
 	public static class LiquidAgilACCTracker extends FlavourBuff{
 		public int uses;
 
@@ -437,7 +418,7 @@ public enum Talent {
 		}
 	}
 	public static class CombinedLethalityAbilityTracker extends FlavourBuff{
-		public MeleeWeapon weapon;
+		public Weapon weapon;
 	}
 	
 	public static class CombinedEnergyAbilityTracker extends FlavourBuff{
@@ -545,141 +526,6 @@ public enum Talent {
 	}
 
 	public static void 获得天赋时(Hero hero, Talent talent ){
-		//for metamorphosis
-		if (talent == 钢铁意志 && hero.heroClass != HeroClass.WARRIOR){
-			Buff.施加(hero, 破损纹章.WarriorShield.class);
-		}
-
-		if (talent == VETERANS_INTUITION && hero.天赋点数(VETERANS_INTUITION) == 1){
-			if (hero.belongings.armor() != null && !ShardOfOblivion.passiveIDDisabled())  {
-				hero.belongings.armor.鉴定();
-			}
-		}
-		if (talent == THIEFS_INTUITION && hero.天赋点数(THIEFS_INTUITION) == 1){
-			if (hero.belongings.misc instanceof Ring) ((Ring) hero.belongings.misc).setKnown();
-			if (hero.belongings.misc2 instanceof Ring) ((Ring) hero.belongings.misc2).setKnown();
-			if (hero.belongings.misc3 instanceof Ring) ((Ring) hero.belongings.misc3).setKnown();
-			if(!ShardOfOblivion.passiveIDDisabled()) {
-				if (hero.belongings.misc instanceof Ring) {
-					hero.belongings.misc.鉴定();
-				}
-				if (hero.belongings.misc2 instanceof Ring) {
-					hero.belongings.misc2.鉴定();
-				}
-				if (hero.belongings.misc3 instanceof Ring) {
-					hero.belongings.misc3.鉴定();
-				}
-			}
-		}
-		
-		
-		if(talent==THIEFS_INTUITION)
-		if (hero.天赋点数(THIEFS_INTUITION) == 2){
-			for (Item item : Dungeon.hero.belongings){
-				if (item instanceof Ring){
-					((Ring) item).setKnown();
-					((Ring) item).鉴定();
-				}
-			}
-		}
-		if(talent==VETERANS_INTUITION)
-		if (hero.天赋点数(VETERANS_INTUITION) == 2){
-			for (Item item : Dungeon.hero.belongings){
-				if (item instanceof Armor){
-					((Armor) item).鉴定();
-				}
-			}
-		}
-		
-		if(talent==急中生镜)
-		if(hero.满天赋(急中生镜)){
-			for(Item item:hero.belongings){
-				if (item.等级()<=hero.天赋点数(急中生镜,2)){
-					祛邪卷轴.净化(hero,item.鉴定());
-				}
-			}
-		}else if (hero.天赋点数(急中生镜)==1){
-			for(Item item:hero.belongings.装备()){
-				if (item.等级()<=hero.天赋点数(急中生镜,2)){
-					item.鉴定();
-				}
-			}
-		}
-		
-		if(talent==外裹透析)
-		if(hero.满天赋(外裹透析)){
-			for(Item item:hero.belongings){
-				祛邪卷轴.净化(hero,item.鉴定().特殊升级());
-				hero.受伤(3-hero.天赋点数(外裹透析));
-			}
-		}else if (hero.天赋点数(外裹透析) == 1){
-			for(Item item:hero.belongings.装备()){
-				item.鉴定();
-				hero.受伤(3-hero.天赋点数(外裹透析));
-			}
-		}
-		if(talent==赌博高手)
-		if(hero.满天赋(赌博高手)){
-			for(Item item:hero.belongings){
-				祛邪卷轴.净化(hero,item.鉴定().特殊升级());
-			}
-		}else if (hero.天赋点数(赌博高手) == 1){
-			for(Item item:hero.belongings.装备()){
-				祛邪卷轴.净化(hero,item.鉴定().特殊升级());
-			}
-		}
-		if(talent==猫咪知觉)
-		if(hero.满天赋(猫咪知觉)){
-			for(Item item:hero.belongings){
-				item.鉴定();
-			}
-		}else if (hero.天赋点数(猫咪知觉) == 1){
-			for(Item item:hero.belongings.装备()){
-				item.鉴定();
-			}
-		}
-		
-		if(talent==戒指察觉)
-		if(hero.天赋(戒指察觉)){
-			for(Item item:hero.belongings){
-				if (item instanceof Ring){
-					祛邪卷轴.净化(hero,item.鉴定());
-					if(hero.满天赋(戒指察觉)){
-						item.特殊升级();
-					}
-				}
-			}
-		}
-		
-		if(talent==SCHOLARS_INTUITION)
-		if (hero.天赋点数(SCHOLARS_INTUITION) == 2){
-			for (Item item : Dungeon.hero.belongings.backpack){
-				if (item instanceof Wand){
-					((Wand) item).鉴定().特殊升级();
-				}
-			}
-		}
-		if(talent==SURVIVALISTS_INTUITION)
-		if (hero.天赋点数(SURVIVALISTS_INTUITION) == 2){
-			for (Item item : Dungeon.hero.belongings){
-				if (item instanceof MissileWeapon){
-					((MissileWeapon) item).鉴定().特殊升级();
-				}
-			}
-		}
-		if(talent==ADVENTURERS_INTUITION)
-		if (hero.天赋点数(ADVENTURERS_INTUITION) == 2){
-			for (Item item : Dungeon.hero.belongings){
-				if (item instanceof MeleeWeapon){
-					((MeleeWeapon) item).鉴定();
-				}
-			}
-		}
-		if (talent == ADVENTURERS_INTUITION && hero.天赋点数(ADVENTURERS_INTUITION) == 1){
-			if (hero.belongings.weapon() != null && !ShardOfOblivion.passiveIDDisabled()){
-				hero.belongings.weapon().鉴定();
-			}
-		}
 
 		if (talent == PROTECTIVE_SHADOWS && hero.invisible > 0){
 			Buff.施加(hero, Talent.ProtectiveShadowsTracker.class);
@@ -722,9 +568,12 @@ public enum Talent {
 			Buff.施加(Dungeon.hero, Talent.PatientStrikeTracker.class).pos = Dungeon.hero.pos;
 		}
 	}
-	public static void 吃饭时(Hero hero, float foodVal, Item foodSource ){
-		hero.回血(hero.生命力(0.25f));
-
+	public static void 吃饭时(Hero hero, float foodVal ){
+		hero.回血(Math.round(foodVal));
+		
+		if(Dungeon.hero.天赋(Talent.丰盛就餐)){
+			Dungeon.hero.回血(Dungeon.hero.已损失生命(foodVal*Dungeon.hero.天赋点数(Talent.丰盛就餐,0.025f)));
+		}
 		if (hero.heroClass(HeroClass.WARRIOR)){
 			if (hero.cooldown() > 0) {
 				Buff.施加(hero, WarriorFoodImmunity.class, hero.cooldown());
@@ -733,9 +582,6 @@ public enum Talent {
 		//法杖伤害
 //			Buff.施加( hero, WandEmpower.class).set(5, 1);
 //			ScrollOfRecharging.charge( hero );
-		int wandChargeTurns = 0;
-
-		int artifactChargeTurns = 0;
 		//加伤
 //			//3 bonus physical damage for next 2/3 attacks
 //			Buff.施加( hero, PhysicalEmpower.class).set(1, 1);
@@ -743,7 +589,7 @@ public enum Talent {
 //		if (hero.有天赋()){
 //			if (hero.heroClass == HeroClass.DUELIST){
 //				//0.67/1 charge for the duelist
-//				Buff.施加( hero, MeleeWeapon.Charger.class ).gainCharge(hero.天赋点数(,0.5f));
+//				Buff.施加( hero, Weapon.Charger.class ).gainCharge(hero.天赋点数(,0.5f));
 //				ScrollOfRecharging.charge( hero );
 //			} else {
 //				// lvl/3 / lvl/2 bonus dmg on next hit for other classes
@@ -779,19 +625,19 @@ public enum Talent {
 //		}
 
 		//we process these at the end as they can stack together from some talents
-		if (wandChargeTurns > 0){
-			Buff.延长( hero, Recharging.class, wandChargeTurns );
-			ScrollOfRecharging.charge( hero );
-			SpellSprite.show(hero, SpellSprite.CHARGE);
-		}
-		if (artifactChargeTurns > 0){
-			ArtifactRecharge buff = Buff.施加( hero, ArtifactRecharge.class);
-			if (buff.left() < artifactChargeTurns){
-				buff.set(artifactChargeTurns).ignoreHornOfPlenty = foodSource instanceof HornOfPlenty;
-			}
-			ScrollOfRecharging.charge( hero );
-			SpellSprite.show(hero, SpellSprite.CHARGE, 0, 1, 1);
-		}
+//		if (wandChargeTurns > 0){
+//			Buff.延长( hero, Recharging.class, wandChargeTurns );
+//			ScrollOfRecharging.charge( hero );
+//			SpellSprite.show(hero, SpellSprite.CHARGE);
+//		}
+//		if (artifactChargeTurns > 0){
+//			ArtifactRecharge buff = Buff.施加( hero, ArtifactRecharge.class);
+//			if (buff.left() < artifactChargeTurns){
+//				buff.set(artifactChargeTurns).ignoreHornOfPlenty = foodSource instanceof HornOfPlenty;
+//			}
+//			ScrollOfRecharging.charge( hero );
+//			SpellSprite.show(hero, SpellSprite.CHARGE, 0, 1, 1);
+//		}
 	}
 
 	public static class WarriorFoodImmunity extends FlavourBuff{
@@ -810,7 +656,7 @@ public enum Talent {
 			factor+=(450f-hero.buff(Hunger.class).hunger())/hero.天赋点数(敏锐嗅觉,1f);
 		}
 		// Affected by both Warrior(1.75x/2.5x) and Duelist(2.5x/inst.) talents
-		if (item instanceof MeleeWeapon){
+		if (item instanceof Weapon){
 			factor += hero.天赋点数(VETERANS_INTUITION,2);
 		}
 		// Affected by both Warrior(2.5x/inst.) and Duelist(1.75x/2.5x) talents
@@ -835,7 +681,6 @@ public enum Talent {
 			Buff.施加(hero, Barrier.class).设置(shieldToGive);
 		}
 		if (false){//喝药加闪
-			Buff.延长(hero, LiquidAgilEVATracker.class, hero.cooldown() + Math.max(0, factor-1));
 			if (factor >= 0.5f){
 				Buff.延长(hero, LiquidAgilACCTracker.class, 5f).uses = Math.round(factor);
 			}
@@ -920,13 +765,13 @@ public enum Talent {
 		if (hero.天赋点数(急中生镜) == 1 && item.等级()<=hero.天赋点数(急中生镜,2)){
 			identify = true;
 			if(hero.满天赋(急中生镜)){
-				祛邪卷轴.净化(hero,item);
+				祛邪卷轴.祛邪(hero,item);
 			}
 		}
 		if (hero.天赋(外裹透析)){
 			identify = true;
 			if(hero.满天赋(外裹透析)){
-				祛邪卷轴.净化(hero,item);
+				祛邪卷轴.祛邪(hero,item);
 			}
 			hero.受伤(3-hero.天赋点数(外裹透析));
 		}
@@ -997,20 +842,20 @@ public enum Talent {
 			if (item instanceof Wand) ((Wand) item).鉴定().特殊升级();
 		}
 		if (hero.天赋点数(SURVIVALISTS_INTUITION) == 2){
-			if (item instanceof MissileWeapon) ((MissileWeapon) item).鉴定().特殊升级();
+			if (item instanceof Weapon) ((Weapon) item).鉴定().特殊升级();
 		}
 		if (hero.天赋点数(ADVENTURERS_INTUITION) == 2){
-			if (item instanceof MeleeWeapon) ((MeleeWeapon) item).鉴定();
+			if (item instanceof Weapon) item.鉴定();
 		}
 		if (hero.满天赋(急中生镜) && item.等级()<=hero.天赋点数(急中生镜,2)){
-			祛邪卷轴.净化(hero,item.鉴定());
+			祛邪卷轴.祛邪(hero,item.鉴定());
 		}
 		if(hero.满天赋(外裹透析)){
-			祛邪卷轴.净化(hero,item.鉴定());
+			祛邪卷轴.祛邪(hero,item.鉴定());
 			hero.受伤(3-hero.天赋点数(外裹透析));
 		}
 		if(hero.天赋(戒指察觉)&&item instanceof Ring){
-			祛邪卷轴.净化(hero,item.鉴定());
+			祛邪卷轴.祛邪(hero,item.鉴定());
 			if(hero.满天赋(戒指察觉)){
 				item.特殊升级();
 			}
@@ -1022,8 +867,8 @@ public enum Talent {
 		if(hero.hasbuff(Invisibility.class)){
 			dmg+=Random.NormalIntRange(0,enemy.生命力(0.25f));
 		}
-		if(hero.天赋(Talent.SUCKER_PUNCH) ) {
-			dmg += hero.天赋生命力(Talent.SUCKER_PUNCH,0.2f);
+		if(hero.天赋(Talent.SUCKER_PUNCH)&&enemy.第一次背袭) {
+			dmg += Math.round(hero.天赋点数(Talent.SUCKER_PUNCH,0.12f)*dmg);
 		}
 		if(enemy.第一次背袭&&hero.天赋(Talent.意语云缺) ) {
 			dmg += hero.天赋生命力(Talent.意语云缺,0.4f);
@@ -1038,27 +883,13 @@ public enum Talent {
 		if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)){
 			dmg=伏击时(hero,enemy,dmg);
 		}
-		if (hero.天赋(Talent.受衅怒火)
-			&& hero.buff(ProvokedAngerTracker.class) != null){
-			dmg +=Random.NormalIntRange(hero.天赋生命力(Talent.受衅怒火,0.2f),hero.天赋生命力(Talent.受衅怒火,0.5f));
-			hero.buff(ProvokedAngerTracker.class).detach();
-		}
-
 		if (hero.天赋(Talent.LINGERING_MAGIC)
-				&& hero.buff(LingeringMagicTracker.class) != null){
-			dmg += hero.天赋生命力(Talent.LINGERING_MAGIC,0.2f);
-			hero.buff(LingeringMagicTracker.class).detach();
+				&& hero.必中){
+			dmg += Math.round(hero.天赋点数(Talent.LINGERING_MAGIC,0.05f)*dmg);
 		}
 
-		if (hero.天赋(Talent.FOLLOWUP_STRIKE)&&enemy.isAlive()&&enemy.alignment==Char.Alignment.ENEMY) {
-			if (hero.belongings.attackingWeapon() instanceof MissileWeapon) {
-				Buff.延长(hero, FollowupStrikeTracker.class, 5f).object = enemy.id();
-				hero.必中=true;
-			} else if (hero.buff(FollowupStrikeTracker.class) != null
-					&& hero.buff(FollowupStrikeTracker.class).object == enemy.id()){
-				dmg += hero.天赋生命力(FOLLOWUP_STRIKE,0.14f);
-				hero.buff(FollowupStrikeTracker.class).detach();
-			}
+		if (hero.天赋(Talent.FOLLOWUP_STRIKE)&&hero.必中){
+			dmg += Math.round(dmg*hero.天赋点数(FOLLOWUP_STRIKE,0.05f));
 		}
 
 		if (hero.天赋(Talent.快速备战)&&enemy.isAlive()&&enemy.alignment==Char.Alignment.ENEMY) {
@@ -1074,14 +905,14 @@ public enum Talent {
 
 		if (hero.天赋(PATIENT_STRIKE)){
 			if (hero.buff(PatientStrikeTracker.class) != null
-					&& !(hero.belongings.attackingWeapon() instanceof MissileWeapon)){
+					&& !(hero.belongings.attackingWeapon() instanceof Weapon)){
 				hero.buff(PatientStrikeTracker.class).detach();
 				dmg += hero.天赋生命力(Talent.PATIENT_STRIKE,0.3f);
 			}
 		}
 
 		if (hero.天赋(DEADLY_FOLLOWUP)&&enemy.alignment==Char.Alignment.ENEMY) {
-			if (hero.belongings.attackingWeapon() instanceof MissileWeapon) {
+			if (hero.belongings.attackingWeapon() instanceof Weapon) {
 				if (!(hero.belongings.attackingWeapon() instanceof 灵能短弓.SpiritArrow)) {
 					Buff.延长(hero, DeadlyFollowupTracker.class, 5f).object = enemy.id();
 				}
@@ -1092,37 +923,6 @@ public enum Talent {
 		}
 
 		return dmg;
-	}
-
-	public static class ProvokedAngerTracker extends FlavourBuff{
-		{ type = Buff.buffType.POSITIVE; }
-		public int icon() { return BuffIndicator.WEAPON; }
-		public void tintIcon(Image icon) { icon.hardlight(1.43f, 1.43f, 1.43f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
-	}
-	public static class LingeringMagicTracker extends FlavourBuff{
-		{ type = Buff.buffType.POSITIVE; }
-		public int icon() { return BuffIndicator.WEAPON; }
-		public void tintIcon(Image icon) { icon.hardlight(1.43f, 1.43f, 0f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
-	}
-	public static class FollowupStrikeTracker extends FlavourBuff{
-		public int object;
-		{ type = Buff.buffType.POSITIVE; }
-		public int icon() { return BuffIndicator.INVERT_MARK; }
-		public void tintIcon(Image icon) { icon.hardlight(0f, 0.75f, 1f); }
-		public float iconFadePercent() { return Math.max(0, 1f - (visualcooldown() / 5)); }
-		private static final String OBJECT    = "object";
-		@Override
-		public void storeInBundle(Bundle bundle) {
-			super.storeInBundle(bundle);
-			bundle.put(OBJECT, object);
-		}
-		@Override
-		public void restoreFromBundle(Bundle bundle) {
-			super.restoreFromBundle(bundle);
-			object = bundle.getInt(OBJECT);
-		}
 	}
 	
 	public static final int MAX_TALENT_TIERS = 4;
@@ -1216,7 +1016,7 @@ public enum Talent {
 			case 血鬼:
 				Collections.addAll(tierTalents, 侵血向受,狂暴血气,血液凝聚);
 				break;
-			case 枪手:
+			case 来世:
 				Collections.addAll(tierTalents, 未来知识,精准射击,快速备战);
 				break;
 		}
@@ -1234,7 +1034,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, 任督二脉);
 				break;
 			case WARRIOR:
-				Collections.addAll(tierTalents, 致命打击, 纹章升级, 越战越勇, IMPROVISED_PROJECTILES);
+				Collections.addAll(tierTalents,致命打击,纹章升级,丰盛就餐,即兴投掷);
 				break;
 			case MAGE:
 				Collections.addAll(tierTalents,饱腹法术,高级魔杖,ARCANE_VISION,SHIELD_BATTERY);
@@ -1243,7 +1043,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, 体生匿影, WIDE_SEARCH, 无声步伐, 寻宝猎人);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents, 自然猎手, REJUVENATING_STEPS, HEIGHTENED_SENSES, DURABLE_PROJECTILES);
+				Collections.addAll(tierTalents,自然猎手,REJUVENATING_STEPS,HEIGHTENED_SENSES,矢石升级);
 				break;
 			case DUELIST:
 				Collections.addAll(tierTalents, 灵敏机动, WEAPON_RECHARGING, LETHAL_HASTE, SWIFT_EQUIP);
@@ -1272,7 +1072,7 @@ public enum Talent {
 				Collections.addAll(tierTalents, 任督二脉);
 				break;
 			case WARRIOR:
-				Collections.addAll(tierTalents, 纹章荣耀, STRONGMAN);
+				Collections.addAll(tierTalents,纹章荣耀,力大无穷);
 				break;
 			case MAGE:
 				Collections.addAll(tierTalents, DESPERATE_POWER, ALLY_WARP);
@@ -1326,29 +1126,29 @@ public enum Talent {
 			case 潜能觉醒: default:
 				Collections.addAll(tierTalents, 任督二脉);
 				break;
-			case BERSERKER:
-				Collections.addAll(tierTalents, ENDLESS_RAGE, DEATHLESS_FURY, ENRAGED_CATALYST);
+			case 狂战士:
+				Collections.addAll(tierTalents,洪荒之怒,血气旺盛,嗜血成性);
 				break;
-			case GLADIATOR:
-				Collections.addAll(tierTalents, CLEAVE, LETHAL_DEFENSE, ENHANCED_COMBO);
+			case 角斗士:
+				Collections.addAll(tierTalents,连战热忱,以战养战,连击强化);
 				break;
 			case BATTLEMAGE:
-				Collections.addAll(tierTalents, EMPOWERED_STRIKE, MYSTICAL_CHARGE, EXCESS_CHARGE);
+				Collections.addAll(tierTalents,EMPOWERED_STRIKE,MYSTICAL_CHARGE,盈能附魔);
 				break;
-			case WARLOCK:
+			case 术士:
 				Collections.addAll(tierTalents, SOUL_EATER, SOUL_SIPHON, NECROMANCERS_MINIONS);
 				break;
-			case ASSASSIN:
+			case 刺客:
 				Collections.addAll(tierTalents, ENHANCED_LETHALITY, ASSASSINS_REACH, BOUNTY_HUNTER);
 				break;
 			case FREERUNNER:
 				Collections.addAll(tierTalents, EVASIVE_ARMOR, PROJECTILE_MOMENTUM, SPEEDY_STEALTH);
 				break;
 			case SNIPER:
-				Collections.addAll(tierTalents, FARSIGHT, SHARED_ENCHANTMENT, SHARED_UPGRADES);
+				Collections.addAll(tierTalents,FARSIGHT,SHARED_ENCHANTMENT,狙击弱点);
 				break;
 			case WARDEN:
-				Collections.addAll(tierTalents, DURABLE_TIPS, BARKSKIN, SHIELDING_DEW);
+				Collections.addAll(tierTalents,消受投掷,丛林法则,SHIELDING_DEW);
 				break;
 			case CHAMPION:
 				Collections.addAll(tierTalents, VARIED_CHARGE, TWIN_UPGRADES, COMBINED_LETHALITY);

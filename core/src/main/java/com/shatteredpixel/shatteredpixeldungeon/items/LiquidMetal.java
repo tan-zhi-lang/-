@@ -4,15 +4,14 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -30,13 +29,13 @@ public class LiquidMetal extends Item {
 
 	{
 		image = 物品表.LIQUID_METAL;
-
-		stackable = true;
+		
+		可堆叠= true;
 		白色 = true;
 
 		defaultAction = AC_APPLY;
-
-		bones = true;
+		
+		遗产= true;
 		炼金全放 = true;
 	}
 
@@ -95,138 +94,95 @@ public class LiquidMetal extends Item {
 		return quantity;
 	}
 
-	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
-
+	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector(){
+		
 		@Override
-		public String textPrompt() {
-			return Messages.get(LiquidMetal.class, "prompt");
+		public String textPrompt(){
+			return Messages.get(LiquidMetal.class,"prompt");
 		}
-
+		
 		@Override
-		public Class<?extends Bag> preferredBag(){
+		public Class<? extends Bag> preferredBag(){
 			return MagicalHolster.class;
 		}
-
+		
 		@Override
-		public boolean itemSelectable(Item item) {
-			return item instanceof MissileWeapon && !(item instanceof Dart);
+		public boolean itemSelectable(Item item){
+			return item instanceof Weapon&&!(item instanceof 飞镖);
 		}
-
+		
 		@Override
-		public void onSelect( Item item ) {
-			if (item != null && item instanceof MissileWeapon) {
-				MissileWeapon m = (MissileWeapon)item;
-
-				float maxToUse = 5*(m.tier+1);
-				maxToUse *= Math.pow(1.35f, m.等级());
-
-				float durabilityPerMetal = 100 / maxToUse;
-
-				//we remove a tiny amount here to account for rounding errors
-				float percentDurabilityLost = 0.999f - (m.durabilityLeft()/100f);
-				int toUse = (int)Math.ceil(maxToUse*percentDurabilityLost);
-				if (toUse == 0 ||
-						Math.ceil(m.durabilityLeft()/ m.durabilityPerUse()) >= Math.ceil(m.MAX_DURABILITY/ m.durabilityPerUse()) ){
-
-					if (m.数量()<m.defaultQuantity()){
-						if (数量()*durabilityPerMetal>=m.durabilityPerUse()){
-							m.数量(m.数量()+1);
-							if (maxToUse<数量()){
-								Catalog.countUses(LiquidMetal.class, (int)Math.ceil(maxToUse));
-								GLog.i(Messages.get(LiquidMetal.class, "apply", (int)Math.ceil(maxToUse)));
-								quantity -= (int)Math.ceil(maxToUse);
-							} else {
-								Catalog.countUses(LiquidMetal.class,数量());
-								m.damage(100f);
-								m.repair(数量()*durabilityPerMetal-1);
-								GLog.i(Messages.get(LiquidMetal.class,"apply",数量()));
-								detachAll(Dungeon.hero.belongings.backpack);
-							}
-						} else {
-							GLog.w(Messages.get(LiquidMetal.class, "already_fixed"));
-							return;
-						}
-					} else {
-						GLog.w(Messages.get(LiquidMetal.class, "already_fixed"));
+		public void onSelect(Item item){
+			if(item!=null&&item instanceof Weapon){
+				Weapon m=(Weapon)item;
+				
+				int maxToUse=10*m.tier;
+				maxToUse*=m.等级()+1;
+				
+				float percentDurabilityLost=1;
+				if(true){
+					if(m.数量()<2){
+						GLog.w(Messages.get(LiquidMetal.class,"already_fixed"));
 						return;
 					}
-				} else if (toUse<数量()) {
-					Catalog.countUses(LiquidMetal.class, toUse);
-					m.repair(maxToUse*durabilityPerMetal);
-					数量(数量()-toUse);
-					GLog.i(Messages.get(LiquidMetal.class, "apply", toUse));
-
-				} else {
+				}else if(2<数量()){
+					Catalog.countUses(LiquidMetal.class,maxToUse);
+					数量(数量()-maxToUse);
+					GLog.i(Messages.get(LiquidMetal.class,"apply",maxToUse));
+					
+				}else{
 					Catalog.countUses(LiquidMetal.class,数量());
-					m.repair(数量()*durabilityPerMetal);
 					GLog.i(Messages.get(LiquidMetal.class,"apply",数量()));
 					detachAll(Dungeon.hero.belongings.backpack);
 				}
-
+				
 				curUser.sprite.operate();
 				Sample.INSTANCE.play(Assets.Sounds.DRINK);
 				updateQuickslot();
-				curUser.sprite.emitter().start(Speck.factory(Speck.LIGHT), 0.1f, 10);
+				curUser.sprite.emitter().start(Speck.factory(Speck.LIGHT),0.1f,10);
 			}
 		}
 	};
-
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
-
-		@Override
-		public boolean testIngredients(ArrayList<Item> ingredients) {
-			return ingredients.size() == 1
-					&& ingredients.get(0) instanceof MissileWeapon
-					&& ingredients.get(0).cursedKnown
-					&& !ingredients.get(0).cursed;
-		}
-
-		@Override
-		public int cost(ArrayList<Item> ingredients) {
-			MissileWeapon m = (MissileWeapon) ingredients.get(0);
-			if(m!=null){
-				return m.quantity;
+	
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe{
+			
+			@Override
+			public boolean testIngredients(ArrayList<Item> ingredients){
+				return ingredients.size()==1&&ingredients.get(0) instanceof Weapon&&ingredients.get(0).cursedKnown&&!ingredients.get(0).cursed;
 			}
-			return 1;
-		}
-
-		@Override
-		public Item brew(ArrayList<Item> ingredients) {
-			Item result = sampleOutput(ingredients);
-			MissileWeapon m = (MissileWeapon) ingredients.get(0);
-			if (!m.levelKnown){
+			
+			@Override
+			public int cost(ArrayList<Item> ingredients){
+				Weapon m=(Weapon)ingredients.get(0);
+				if(m!=null){
+					return m.quantity;
+				}
+				return 1;
+			}
+			
+			@Override
+			public Item brew(ArrayList<Item> ingredients){
+				Item result=sampleOutput(ingredients);
+				Weapon m=(Weapon)ingredients.get(0);
 				result.数量(metalQuantity(m));
+				
+				return result;
 			}
-
-			m.数量(0);
-			Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(m.setID, Integer.MAX_VALUE);
-
-			return result;
-		}
-
-		@Override
-		public Item sampleOutput(ArrayList<Item> ingredients) {
-			MissileWeapon m = (MissileWeapon) ingredients.get(0);
-
-			if (m.levelKnown){
-				return new LiquidMetal().数量(metalQuantity(m));
-			} else {
-				return new LiquidMetal();
+			
+			@Override
+			public Item sampleOutput(ArrayList<Item> ingredients){
+				Weapon m=(Weapon)ingredients.get(0);
+				
+				if(m.levelKnown){
+					return new LiquidMetal().数量(metalQuantity(m));
+				}else{
+					return new LiquidMetal().数量(metalQuantity(m));
+				}
+			}
+			
+			private int metalQuantity(Weapon m){
+				return 10*m.tier+10*m.等级();
 			}
 		}
-
-		private int metalQuantity(MissileWeapon m){
-			float quantityPerWeapon = 5*(m.tier+1);
-			if (m.defaultQuantity() != 3){
-				quantityPerWeapon = 3f / m.defaultQuantity();
-			}
-			quantityPerWeapon *= Math.pow(1.35f, Math.min(5, m.等级()));
-
-			float quantity =m.数量()-1;
-			quantity += 0.25f + 0.0075f*m.durabilityLeft();
-
-			return Math.round(quantity * quantityPerWeapon);
-		}
-	}
-
+	
 }

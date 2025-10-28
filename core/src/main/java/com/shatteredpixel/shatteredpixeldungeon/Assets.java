@@ -300,7 +300,7 @@ public class Assets {
 		public static final String 鼠弟   = "sprites/鼠弟.png";
 		public static final String 凌云   = "sprites/凌云.png";
 		public static final String 血鬼   = "sprites/血鬼.png";
-		public static final String 枪手   = "sprites/枪手.png";
+		public static final String 来世= "sprites/来世.png";
 		public static final String PET      = "sprites/pet.png";
 		public static final String AMULET   = "sprites/amulet.png";
 

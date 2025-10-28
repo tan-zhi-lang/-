@@ -21,7 +21,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
-import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
@@ -45,18 +44,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.全知之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.心力之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.时间之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
@@ -119,67 +115,52 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.AssassinsBlade;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.BattleAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Crossbow;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Cudgel;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Dirk;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Flail;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Gauntlet;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Glaive;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatshield;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Greatsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.HandAxe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Katana;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Longsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Mace;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RunicBlade;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sai;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Scimitar;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Shortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sickle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Spear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarHammer;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WarScythe;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Whip;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.书包;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.半月刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.双刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.巨斧;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.灵鞭;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.爪;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.白带;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.碧蓝巨剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.臂铠;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血姬;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.配刺剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镜刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.镶钉手套;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Bolas;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.FishingSpear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ForceCube;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.HeavyBoomerang;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Javelin;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Kunai;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Shuriken;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingClub;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingHammer;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingKnife;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpear;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingSpike;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Tomahawk;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Trident;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.修理扳手;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.半月刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圆盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨型方盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.弯刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投石;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.捕鱼矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.标枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.槌;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.符文之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.轮刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铁头棍;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链枷;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镶钉手套;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长鞭;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.震爆方石;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
@@ -208,21 +189,14 @@ public class Generator {
 	public enum Category {
 		TRINKET ( 0, 0, Trinket.class),
 
-		WEAPON	( 2, 2, MeleeWeapon.class),
-		WEP_T1	( 0, 0, MeleeWeapon.class),
-		WEP_T2	( 0, 0, MeleeWeapon.class),
-		WEP_T3	( 0, 0, MeleeWeapon.class),
-		WEP_T4	( 0, 0, MeleeWeapon.class),
-		WEP_T5	( 0, 0, MeleeWeapon.class),
+		WEAPON	( 2, 2, Weapon.class),
+		WEP_T1	( 0, 0, Weapon.class),
+		WEP_T2	( 0, 0, Weapon.class),
+		WEP_T3	( 0, 0, Weapon.class),
+		WEP_T4	( 0, 0, Weapon.class),
+		WEP_T5	( 0, 0, Weapon.class),
 		
 		ARMOR	( 2, 1, Armor.class ),
-		
-		MISSILE ( 1, 2, MissileWeapon.class ),
-		MIS_T1  ( 0, 0, MissileWeapon.class ),
-		MIS_T2  ( 0, 0, MissileWeapon.class ),
-		MIS_T3  ( 0, 0, MissileWeapon.class ),
-		MIS_T4  ( 0, 0, MissileWeapon.class ),
-		MIS_T5  ( 0, 0, MissileWeapon.class ),
 		
 		WAND	( 1, 1, Wand.class ),
 		RING	( 1, 0, Ring.class ),
@@ -278,8 +252,7 @@ public class Generator {
 		private static HashMap<Class, ArrayList<Class>> subOrderings = new HashMap<>();
 		static {
 			subOrderings.put(Trinket.class, new ArrayList<>(Arrays.asList(Trinket.class, TrinketCatalyst.class)));
-			subOrderings.put(MissileWeapon.class, new ArrayList<>(Arrays.asList(MissileWeapon.class, Bomb.class)));
-			subOrderings.put(Potion.class, new ArrayList<>(Arrays.asList(水袋.class, Potion.class, ExoticPotion.class, Brew.class, Elixir.class, LiquidMetal.class)));
+			subOrderings.put(Potion.class, new ArrayList<>(Arrays.asList(水袋.class, Potion.class, ExoticPotion.class, Brew.class, Elixir.class)));
 			subOrderings.put(Scroll.class, new ArrayList<>(Arrays.asList(Scroll.class, ExoticScroll.class, Spell.class, ArcaneResin.class)));
 		}
 
@@ -403,75 +376,87 @@ public class Generator {
 			WEAPON.probs = new float[]{};
 			
 			WEP_T1.classes = new Class<?>[]{
-					WornShortsword.class,
-					双刃.class,
 					镶钉手套.class,
-					配刺剑.class,
+					双刃.class,
 					
-					Cudgel.class,
-					镜刃.class,
+					投石.class,
+					小刀.class,
+					小刺.class,
 					
-					白带.class,
-					臂铠.class,
-					碧蓝巨剑.class,
-					
-					灵鞭.class,
-					血姬.class,
-					书包.class,
 			};
-			WEP_T1.defaultProbs = new float[]{ 2, 2, 2, 2,
-											   2, 2,
-											   2,2, 2 ,
-											   0 ,0,0
+			WEP_T1.defaultProbs = new float[]{ 2,2,
+											   2,2,2,
 			};
 			WEP_T1.probs = WEP_T1.defaultProbs.clone();
 			
 			WEP_T2.classes = new Class<?>[]{
-					Shortsword.class,
-					HandAxe.class,
-					Spear.class,
-					Quarterstaff.class,
-					Dirk.class,
-					Sickle.class,
+					小剑.class,
+					手斧.class,
+					长矛.class,
+					铁头棍.class,
+					匕首.class,
+					短柄镰.class,
 					爪.class,
+					
+					捕鱼矛.class,
+					槌.class,
+					手里剑.class
 			};
-			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
+			WEP_T2.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 ,
+											   2,2,2};
 			WEP_T2.probs = WEP_T2.defaultProbs.clone();
 			
 			WEP_T3.classes = new Class<?>[]{
-					Sword.class,
-					Mace.class,
-					Scimitar.class,
-					RoundShield.class,
-					Sai.class,
-					Whip.class,
-					半月刃.class
+					单手剑.class,
+					硬头锤.class,
+					弯刀.class,
+					圆盾.class,
+					双剑.class,
+					长鞭.class,
+					半月刃.class,
+					
+					投矛.class,
+					苦无.class,
+					流星索.class
 			};
-			WEP_T3.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
+			WEP_T3.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2,
+											   2,2,2};
 			WEP_T3.probs = WEP_T1.defaultProbs.clone();
 			
 			WEP_T4.classes = new Class<?>[]{
-					Longsword.class,
-					BattleAxe.class,
-					Flail.class,
-					RunicBlade.class,
-					AssassinsBlade.class,
-					Crossbow.class,
-					Katana.class
+					长剑.class,
+					战斧.class,
+					链枷.class,
+					符文之刃.class,
+					暗杀之刃.class,
+					轮刃.class,
+					武士刀.class,
+					
+					标枪.class,
+					斧.class,
+					回旋镖.class
+					
 			};
-			WEP_T4.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
+			WEP_T4.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2,
+											   2,2,2};
 			WEP_T4.probs = WEP_T4.defaultProbs.clone();
 			
 			WEP_T5.classes = new Class<?>[]{
-					Greatsword.class,
-					WarHammer.class,
-					Glaive.class,
+					巨剑.class,
+					战锤.class,
+					关刀.class,
 					巨斧.class,
-					Greatshield.class,
-					Gauntlet.class,
-					WarScythe.class
+					巨型方盾.class,
+					魔岩拳套.class,
+					战镰.class,
+					
+					三叉戟.class,
+					小锤.class,
+					震爆方石.class
+					
 			};
-			WEP_T5.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2 };
+			WEP_T5.defaultProbs = new float[]{ 2, 2, 2, 2, 2, 2, 2,
+											   2,2,2};
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
 			//see Generator.randomArmor
@@ -483,53 +468,6 @@ public class Generator {
 					PlateArmor.class,
 			};
 			ARMOR.probs = new float[]{ 1, 1, 1, 1, 1,  };
-			
-			//see Generator.randomMissile
-			MISSILE.classes = new Class<?>[]{};
-			MISSILE.probs = new float[]{};
-			
-			MIS_T1.classes = new Class<?>[]{
-					ThrowingStone.class,
-					ThrowingKnife.class,
-					ThrowingSpike.class,
-					雪球.class,
-					修理扳手.class,
-					金玫苦无.class,
-					};
-			MIS_T1.defaultProbs = new float[]{ 3, 3, 3, 3,3, 3, };
-			MIS_T1.probs = MIS_T1.defaultProbs.clone();
-			
-			MIS_T2.classes = new Class<?>[]{
-					FishingSpear.class,
-					ThrowingClub.class,
-					Shuriken.class
-			};
-			MIS_T2.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T2.probs = MIS_T2.defaultProbs.clone();
-			
-			MIS_T3.classes = new Class<?>[]{
-					ThrowingSpear.class,
-					Kunai.class,
-					Bolas.class
-			};
-			MIS_T3.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T3.probs = MIS_T3.defaultProbs.clone();
-			
-			MIS_T4.classes = new Class<?>[]{
-					Javelin.class,
-					Tomahawk.class,
-					HeavyBoomerang.class
-			};
-			MIS_T4.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T4.probs = MIS_T4.defaultProbs.clone();
-			
-			MIS_T5.classes = new Class<?>[]{
-					Trident.class,
-					ThrowingHammer.class,
-					ForceCube.class
-			};
-			MIS_T5.defaultProbs = new float[]{ 3, 3, 3 };
-			MIS_T5.probs = MIS_T5.defaultProbs.clone();
 			
 			FOOD.classes = new Class<?>[]{
 					Food.class,
@@ -553,11 +491,11 @@ public class Generator {
 					
 					RingOfSharpshooting.class,
 					RingOfTenacity.class,
-					RingOfWealth.class,
+					财富之戒.class,
 					
-					心力之戒.class,
-					全知之戒.class,
-					时间之戒.class,
+//					心力之戒.class,
+//					全知之戒.class,
+//					时间之戒.class,
 					
 					六神之戒.class
 			
@@ -566,7 +504,7 @@ public class Generator {
 											 3, 3, 3,
 											 3, 3, 3,
 											 3, 3, 3,
-											 3 , 3 ,3 ,
+//											 3 , 3 ,3 ,
 											 0};
 			RING.probs = RING.defaultProbs.clone();
 			
@@ -716,8 +654,6 @@ public class Generator {
 				return randomArmor();
 			case WEAPON:
 				return randomWeapon();
-			case MISSILE:
-				return randomMissile();
 			case ARTIFACT:
 				Item item = randomArtifact();
 				//if we're out of artifacts, return a ring instead.
@@ -760,9 +696,7 @@ public class Generator {
 	public static Item randomUsingDefaults( Category cat ){
 		if (cat == Category.WEAPON){
 			return randomWeapon(true);
-		} else if (cat == Category.MISSILE){
-			return randomMissile(true);
-		} else if (cat.defaultProbs == null || cat == Category.ARTIFACT) {
+		}  else if (cat.defaultProbs == null || cat == Category.ARTIFACT) {
 			return random(cat);
 		} else if (cat.defaultProbsTotal != null){
 			return ((Item) Reflection.newInstance(cat.classes[Random.chances(cat.defaultProbsTotal)])).random();
@@ -808,64 +742,31 @@ public class Generator {
 			Category.WEP_T5
 	};
 
-	public static MeleeWeapon randomWeapon(){
+	public static Weapon randomWeapon(){
 		return randomWeapon(Dungeon.depth / 5);
 	}
 
-	public static MeleeWeapon randomWeapon(int floorSet) {
+	public static Weapon randomWeapon(int floorSet) {
 		return randomWeapon(floorSet, false);
 	}
 
-	public static MeleeWeapon randomWeapon(boolean useDefaults) {
+	public static Weapon randomWeapon(boolean useDefaults) {
 		return randomWeapon(Dungeon.depth / 5, useDefaults);
 	}
 	
-	public static MeleeWeapon randomWeapon(int floorSet, boolean useDefaults) {
+	public static Weapon randomWeapon(int floorSet, boolean useDefaults) {
 
 		floorSet = (int)GameMath.gate(0, floorSet, floorSetTierProbs.length-1);
-
-		MeleeWeapon w;
-		if (useDefaults){
-			w = (MeleeWeapon) randomUsingDefaults(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
-		} else {
-			w = (MeleeWeapon) random(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
-		}
-		return w;
-	}
-	
-	public static final Category[] misTiers = new Category[]{
-			Category.MIS_T1,
-			Category.MIS_T2,
-			Category.MIS_T3,
-			Category.MIS_T4,
-			Category.MIS_T5
-	};
-	
-	public static MissileWeapon randomMissile(){
-		return randomMissile(Dungeon.depth / 5);
-	}
-
-	public static MissileWeapon randomMissile(int floorSet) {
-		return randomMissile(floorSet, false);
-	}
-
-	public static MissileWeapon randomMissile(boolean useDefaults) {
-		return randomMissile(Dungeon.depth / 5, useDefaults);
-	}
-
-	public static MissileWeapon randomMissile(int floorSet, boolean useDefaults) {
 		
-		floorSet = (int)GameMath.gate(0, floorSet, floorSetTierProbs.length-1);
-
-		MissileWeapon w;
+		Weapon w;
 		if (useDefaults){
-			w = (MissileWeapon)randomUsingDefaults(misTiers[Random.chances(floorSetTierProbs[floorSet])]);
+			w = (Weapon) randomUsingDefaults(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
 		} else {
-			w = (MissileWeapon)random(misTiers[Random.chances(floorSetTierProbs[floorSet])]);
+			w = (Weapon) random(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
 		}
 		return w;
 	}
-
+	
 	public static Ring randomRing() {
 
 		Category cat = Category.RING;

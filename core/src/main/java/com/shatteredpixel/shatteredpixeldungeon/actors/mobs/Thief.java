@@ -60,13 +60,13 @@ public class Thief extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 1, 10 );
+	public int 最大攻击() {
+		return 10;
 	}
 
 	@Override
-	public float attackDelay() {
-		return super.attackDelay()*0.5f;
+	public float 攻击延迟() {
+		return super.攻击延迟()*0.5f;
 	}
 
 	@Override
@@ -99,8 +99,8 @@ public class Thief extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 3);
+	public int 最大防御() {
+		return super.最大防御()+3;
 	}
 
 	@Override
@@ -128,10 +128,10 @@ public class Thief extends Mob {
 
 		Item toSteal = hero.belongings.randomUnequipped();
 
-		if (toSteal != null && !toSteal.unique && toSteal.等级() < 1 ) {
+		if (toSteal != null&&!toSteal.特别&&toSteal.等级()<1 ) {
 
 			GLog.w( Messages.get(Thief.class, "stole", toSteal.name()) );
-			if (!toSteal.stackable) {
+			if (!toSteal.可堆叠) {
 				Dungeon.quickslot.convertToPlaceholder(toSteal);
 			}
 			Item.updateQuickslot();

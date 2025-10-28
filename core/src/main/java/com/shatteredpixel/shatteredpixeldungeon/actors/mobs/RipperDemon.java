@@ -48,8 +48,12 @@ public class RipperDemon extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 15, 25 );
+	public int 最小攻击() {
+		return 15;
+	}
+	@Override
+	public int 最大攻击() {
+		return 25;
 	}
 
 	@Override
@@ -58,13 +62,13 @@ public class RipperDemon extends Mob {
 	}
 
 	@Override
-	public float attackDelay() {
-		return super.attackDelay()*0.5f;
+	public float 攻击延迟() {
+		return super.攻击延迟()*0.5f;
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 4);
+	public int 最大防御() {
+		return super.最大防御()+4;
 	}
 
 	private static final String LAST_ENEMY_POS = "last_enemy_pos";
@@ -182,7 +186,7 @@ public class RipperDemon extends Mob {
 
 						if (leapVictim != null && alignment != leapVictim.alignment){
 							if (hit(RipperDemon.this, leapVictim, Char.INFINITE_ACCURACY, false)) {
-								Buff.施加(leapVictim, 流血.class).set(0.75f * 攻击());
+								Buff.施加(leapVictim, 流血.class).set(0.75f*最大攻击());
 								leapVictim.sprite.flash();
 								Sample.INSTANCE.play(Assets.Sounds.HIT);
 							} else {
@@ -247,7 +251,7 @@ public class RipperDemon extends Mob {
 						//get ready to leap
 						leapPos = targetPos;
 						//don't want to overly punish players with slow move or attack speed
-						spend(GameMath.gate(attackDelay(), (int)Math.ceil(enemy.cooldown()), 3*attackDelay()));
+						spend(GameMath.gate(攻击延迟(),(int)Math.ceil(enemy.cooldown()),3*攻击延迟()));
 						if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[leapPos]){
 							GLog.w(Messages.get(RipperDemon.this, "leap"));
 							sprite.parent.addToBack(new TargetedCell(leapPos, 0xFF0000));

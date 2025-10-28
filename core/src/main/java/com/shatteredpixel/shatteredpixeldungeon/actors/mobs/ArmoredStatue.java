@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.StatueSprite;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class ArmoredStatue extends Statue {
 
@@ -51,8 +50,12 @@ public class ArmoredStatue extends Statue {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange( armor.最小防御(), armor.最大防御());
+	public int 最小防御() {
+		return super.最小防御()+armor.最小防御();
+	}
+	@Override
+	public int 最大防御() {
+		return super.最大防御()+armor.最大防御();
 	}
 
 	//used in some glyph calculations

@@ -7,13 +7,12 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RotLasherSprite;
-import com.watabou.utils.Random;
 
 public class RotLasher extends Mob {
 
@@ -85,8 +84,12 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange(10, 20);
+	public int 最小攻击() {
+		return 10;
+	}
+	@Override
+	public int 最大攻击() {
+		return 20;
 	}
 
 	@Override
@@ -95,8 +98,8 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 8);
+	public int 最大防御() {
+		return super.最大防御()+8;
 	}
 	
 	{

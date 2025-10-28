@@ -86,7 +86,7 @@ public abstract class Scroll extends Item {
 	protected float talentChance = 1;
 	
 	{
-		stackable = true;
+		可堆叠= true;
 		defaultAction = AC_READ;
 	}
 	

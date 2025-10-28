@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -62,7 +61,7 @@ public class DisarmingTrap extends Trap{
 		if (Dungeon.hero.pos == pos && !Dungeon.hero.flying){
 			Hero hero = Dungeon.hero;
 			KindOfWeapon weapon = hero.belongings.weapon;
-			if(weapon instanceof 冰门重盾){
+			if(!weapon.缴械){
 				return;
 			}
 			if (weapon != null && !weapon.cursed) {
@@ -81,7 +80,7 @@ public class DisarmingTrap extends Trap{
 				}
 
 				hero.belongings.weapon = null;
-				Dungeon.quickslot.clearItem(weapon);
+				Dungeon.quickslot.alphaItem(weapon,true);
 				weapon.updateQuickslot();
 
 				Dungeon.level.drop(weapon, cell).seen = true;

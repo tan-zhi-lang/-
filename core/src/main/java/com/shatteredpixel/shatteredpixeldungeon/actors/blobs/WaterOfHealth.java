@@ -73,7 +73,7 @@ public class WaterOfHealth extends WellWater {
 			Sample.INSTANCE.play( Assets.Sounds.DRINK );
 			return item;
 		} else if (祛邪卷轴.uncursable(item)) {
-			if (祛邪卷轴.净化( null, item )){
+			if (祛邪卷轴.祛邪(null,item)){
 				CellEmitter.get( pos ).start( ShadowParticle.UP, 0.05f, 10 );
 			}
 			Sample.INSTANCE.play( Assets.Sounds.DRINK );

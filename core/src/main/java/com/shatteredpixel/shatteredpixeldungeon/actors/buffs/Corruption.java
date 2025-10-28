@@ -22,7 +22,7 @@ public class Corruption extends AllyBuff {
 		target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(target.最大生命), FloatingText.HEALING);
 		for (Buff buff : target.buffs()) {
 			if (buff.type == Buff.buffType.NEGATIVE
-					&& !(buff instanceof SoulMark)) {
+					&& !(buff instanceof 灵魂标记)) {
 				buff.detach();
 			}
 		}

@@ -51,8 +51,8 @@ public class Bomb extends Item {
 
 		defaultAction = AC_LIGHTTHROW;
 		usesTargeting = true;
-
-		stackable = true;
+		
+		可堆叠= true;
 		物品 = true;
 	}
 
@@ -101,7 +101,6 @@ public class Bomb extends Item {
 
 	@Override
 	protected void onThrow( int cell ) {
-		Badges.解锁枪手();
 		if (!Dungeon.level.pit[ cell ] && lightingFuse) {
 			Actor.addDelayed(fuse = createFuse().ignite(this), 2);
 		}
@@ -173,7 +172,7 @@ public class Bomb extends Item {
 				}
 
 				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
-				dmg -= ch.防御();
+				dmg -= ch.最大防御();
 
 				if (dmg > 0) {
 					ch.受伤时(dmg, this);
@@ -300,7 +299,7 @@ public class Bomb extends Item {
 
 		{
 			image = 物品表.DBL_BOMB;
-			stackable = false;
+			可堆叠= false;
 		}
 
 		@Override

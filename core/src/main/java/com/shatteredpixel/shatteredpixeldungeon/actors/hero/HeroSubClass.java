@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -14,13 +14,13 @@ public enum HeroSubClass {
 	NONE(HeroIcon.NONE),
 	潜能觉醒(HeroIcon.NONE),
 
-	BERSERKER(HeroIcon.BERSERKER),
-	GLADIATOR(HeroIcon.GLADIATOR),
+	狂战士(HeroIcon.BERSERKER),
+	角斗士(HeroIcon.GLADIATOR),
 
 	BATTLEMAGE(HeroIcon.BATTLEMAGE),
-	WARLOCK(HeroIcon.WARLOCK),
+	术士(HeroIcon.WARLOCK),
 	
-	ASSASSIN(HeroIcon.ASSASSIN),
+	刺客(HeroIcon.ASSASSIN),
 	FREERUNNER(HeroIcon.FREERUNNER),
 	
 	SNIPER(HeroIcon.SNIPER),

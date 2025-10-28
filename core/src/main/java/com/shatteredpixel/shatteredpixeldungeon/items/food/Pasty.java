@@ -34,8 +34,8 @@ public class Pasty extends Food {
 		reset();
 
 		energy = Hunger.STARVING;
-
-		bones = true;
+		
+		遗产= true;
 	}
 	
 	@Override
@@ -60,9 +60,9 @@ public class Pasty extends Food {
 			case 彩虹节:
 				image = 物品表.RAINBOW_POTION;
 				break;
-			case 端午节:
-				image = 物品表.粽子;
-				break;
+//			case 端午节:
+//				image = 物品表.粽子;
+//				break;
 			case 七夕节:
 				image = 物品表.单身狗粮;
 				break;
@@ -199,8 +199,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "amulet_name");
 			case 彩虹节:
 				return Messages.get(this, "rainbow_name");
-			case 端午节:
-				return Messages.get(this, "粽子");
+//			case 端午节:
+//				return Messages.get(this, "粽子");
 			case 七夕节:
 				return Messages.get(this, "单身狗粮");
 			case 中秋节:
@@ -231,8 +231,8 @@ public class Pasty extends Food {
 				return Messages.get(this, "amulet_desc");
 			case 彩虹节:
 				return Messages.get(this, "rainbow_desc");
-			case 端午节:
-				return Messages.get(this, "粽子_desc");
+//			case 端午节:
+//				return Messages.get(this, "粽子_desc");
 			case 七夕节:
 				return Messages.get(this, "单身狗粮_desc");
 			case 中秋节:

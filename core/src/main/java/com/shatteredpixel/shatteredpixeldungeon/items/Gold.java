@@ -21,7 +21,7 @@ public class Gold extends Item {
 
 	{
 		image = 物品表.GOLD;
-		stackable = true;
+		可堆叠= true;
 		物品=true;
 	}
 	

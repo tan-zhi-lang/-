@@ -8,12 +8,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollTricksterSprite;
@@ -35,7 +35,7 @@ public class GnollTrickster extends Gnoll {
 		state = WANDERING;
 
 		//at quantity of 1 and no upgrades
-		loot = Generator.Category.MISSILE;
+		loot = Generator.Category.WEAPON;
 		lootChance = 1f;
 
 		properties.add(Property.MINIBOSS);
@@ -113,7 +113,7 @@ public class GnollTrickster extends Gnoll {
 	
 	@Override
 	public Item createLoot() {
-		MissileWeapon drop = (MissileWeapon)super.createLoot();
+		Weapon drop = (Weapon)super.createLoot();
 		drop.等级(0);
 		if (drop.hasCurseEnchant()){
 			drop.enchant(null);

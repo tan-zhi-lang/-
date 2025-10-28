@@ -34,7 +34,7 @@ public class Wnd选择天赋层 extends Window {
 				@Override
 				protected void onClick(){
 					super.onClick();
-					Dungeon.hero.天赋[(int)(x-1)]=true;
+					Dungeon.hero.天赋[(int)x]=true;
 					hide();
 				}
 			};

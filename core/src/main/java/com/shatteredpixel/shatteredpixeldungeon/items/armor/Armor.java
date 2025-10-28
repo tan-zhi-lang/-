@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -235,7 +234,10 @@ public class Armor extends EquipableItem {
 	public boolean readyToIdentify(){
 		return !已鉴定() && usesLeftToID <= 0;
 	}
-
+	@Override
+	protected float timeToEquip( Hero hero ) {
+		return hero.攻击延迟()*1/hero.移速()*6f;
+	}
 	@Override
 	public boolean doEquip( Hero hero ) {
 
@@ -246,7 +248,7 @@ public class Armor extends EquipableItem {
 			cursedKnown = true;
 			if(hero.满天赋(Talent.HOLY_INTUITION)){
 				鉴定();
-				祛邪卷轴.净化(hero,this);
+				祛邪卷轴.祛邪(hero,this);
 			}else{
 				鉴定();
 			}
@@ -346,7 +348,7 @@ public class Armor extends EquipableItem {
 
 			破损纹章 detaching = 破损纹章;
 			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
-			if(转移量>0&&真等级()>0){
+			if(转移量>0&&真等级()>0&&真等级()-转移量>0){
 				等级(真等级()-转移量);
 				破损纹章.升级(转移量);
 			}
@@ -429,10 +431,6 @@ public class Armor extends EquipableItem {
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
 			if (aEnc < 0) evasion *= 1+Math.sqrt(-aEnc)*owner.属性增幅;
 			
-			Momentum momentum = owner.buff(Momentum.class);
-			if (momentum != null){
-				evasion += momentum.evasionBonus(((Hero) owner).等级, Math.max(0, -aEnc));
-			}
 		}
 		
 		return augment.evasionFactor(evasion);
@@ -486,9 +484,6 @@ public class Armor extends EquipableItem {
 
 				//the chance from +4/5, and then +6 can be set to 0% with metamorphed runic transference
 				int lossChanceStart = 4;
-				if (Dungeon.hero() && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.天赋(Talent.纹章升级)){
-					lossChanceStart += 1+Dungeon.hero.天赋点数(Talent.纹章升级);
-				}
 
 				if (等级() >= lossChanceStart && Random.Float(10) < Math.pow(2, 等级()-4)) {
 					inscribe(null);

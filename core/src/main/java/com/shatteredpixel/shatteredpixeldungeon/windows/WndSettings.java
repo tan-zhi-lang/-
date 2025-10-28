@@ -307,6 +307,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							画面同步.checked(SPDSettings.画面同步());
 							add(画面同步);
+							
 							画面同步str = PixelScene.renderTextBlock(Messages.get(WndSettings.DisplayTab.this, "画面同步str"), 5);
 							画面同步str.hardlight(0x888888);
 							add(画面同步str);
@@ -709,6 +710,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 						RenderedTextBlock 游戏提示str;
 						CheckBox 自动拾取;
 						RenderedTextBlock 自动拾取str;
+						CheckBox 装备武器;
+						RenderedTextBlock 装备武器str;
 						{
 
 							游戏提示 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "游戏提示")){
@@ -737,6 +740,19 @@ public class WndSettings extends WndTabbed {//WndSettings
 							自动拾取str.hardlight(0x888888);
 							add(自动拾取str);
 							
+							装备武器 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "装备武器")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.装备武器(checked());
+								}
+							};
+							装备武器.checked(SPDSettings.装备武器());
+							add(装备武器);
+							装备武器str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "装备武器str"), 5);
+							装备武器str.hardlight(0x888888);
+							add(装备武器str);
+							
 							
 							resize(WIDTH_P, 0);
 							游戏提示.setRect(0,  GAP, width, BTN_HEIGHT);
@@ -747,7 +763,11 @@ public class WndSettings extends WndTabbed {//WndSettings
 							自动拾取str.maxWidth(width);
 							自动拾取str.setPos(0, 自动拾取.bottom()+1);
 							
-							resize(WIDTH_P, (int) 自动拾取str.bottom());
+							装备武器.setRect(0,  自动拾取str.bottom()+GAP, width, BTN_HEIGHT);
+							装备武器str.maxWidth(width);
+							装备武器str.setPos(0, 装备武器.bottom()+1);
+							
+							resize(WIDTH_P, (int) 装备武器str.bottom());
 
 						}
 					});

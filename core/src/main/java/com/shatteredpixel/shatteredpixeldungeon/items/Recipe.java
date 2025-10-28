@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfHo
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIcyTouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
@@ -40,7 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public abstract class Recipe {
 	//*******
 
 	private static Recipe[] variableRecipes = new Recipe[]{
-			new LiquidMetal.Recipe(),
+//			new LiquidMetal.Recipe(),
 			new StewedMeat.Recipe(),
 	};
 	
@@ -167,6 +168,7 @@ public abstract class Recipe {
 		new ElixirOfIcyTouch.Recipe(),
 		new ElixirOfToxicEssence.Recipe(),
 		new 根骨秘药.Recipe(),
+		new 永生秘药.Recipe(),
 //		new ElixirOfFeatherFall.Recipe(),
 		new MagicalInfusion.Recipe(),
 		new BeaconOfReturning.Recipe(),
@@ -265,8 +267,8 @@ public abstract class Recipe {
 		//only upgradeable thrown weapons and wands allowed among equipment items
 		if (item instanceof EquipableItem){
 			if(item.isEquipped(Dungeon.hero));
-			return item.cursedKnown && !item.cursed &&
-					item instanceof MissileWeapon && item.可升级();
+			return item.cursedKnown&&!item.cursed&&
+				   item instanceof Weapon&&item.可升级();
 		} else if (item instanceof Wand) {
 			return item.cursedKnown && !item.cursed;
 		} else {

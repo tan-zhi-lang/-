@@ -184,10 +184,10 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int 攻击() {
+		public int 最大攻击() {
 			int damage = Random.NormalIntRange(10, 20);
-			int heroDamage = Dungeon.hero.攻击();
-			heroDamage /= Dungeon.hero.攻速(); //normalize hero damage based on atk speed
+			int heroDamage = Dungeon.hero.最大攻击();
+			heroDamage /= Dungeon.hero.攻击延迟(); //normalize hero damage based on atk speed
 			heroDamage = Math.round(0.08f * Dungeon.hero.天赋点数(Talent.SHADOW_BLADE) * heroDamage);
 			if (heroDamage > 0){
 				damage += heroDamage;
@@ -207,9 +207,9 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int 防御() {
-			int dr = super.防御();
-			int heroRoll = Dungeon.hero.防御();
+		public int 最大防御() {
+			int dr = super.最大防御();
+			int heroRoll = Dungeon.hero.最大防御();
 			heroRoll = Math.round(0.12f * Dungeon.hero.天赋点数(Talent.CLONED_ARMOR) * heroRoll);
 			if (heroRoll > 0){
 				dr += heroRoll;
@@ -249,17 +249,6 @@ public class ShadowClone extends ArmorAbility {
 			}
 
 			return speed;
-		}
-
-		@Override
-		public boolean canInteract(Char c) {
-			if (super.canInteract(c)){
-				return true;
-			} else if (Dungeon.level.distance(pos, c.pos) <= Dungeon.hero.天赋点数(Talent.PERFECT_COPY)) {
-				return true;
-			} else {
-				return false;
-			}
 		}
 
 		@Override

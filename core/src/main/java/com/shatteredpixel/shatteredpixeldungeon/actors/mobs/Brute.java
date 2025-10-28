@@ -16,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.BruteSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class Brute extends Mob {
 	
@@ -36,10 +35,17 @@ public class Brute extends Mob {
 	protected boolean hasRaged = false;
 	
 	@Override
-	public int 攻击() {
+	public int 最小攻击() {
 		return buff(BruteRage.class) != null ?
-				Random.NormalIntRange( 15, 40 ) :
-				Random.NormalIntRange( 5, 25 );
+				15 :
+				5;
+	}
+	
+	@Override
+	public int 最大攻击() {
+		return buff(BruteRage.class) != null ?
+				40 :
+				25;
 	}
 	
 	@Override
@@ -48,8 +54,8 @@ public class Brute extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 8);
+	public int 最大防御() {
+		return super.最大防御()+8;
 	}
 
 	@Override

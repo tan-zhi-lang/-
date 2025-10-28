@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.RoundShield;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -27,8 +26,8 @@ public class Invisibility extends FlavourBuff {
 	public boolean attachTo( Char target ) {
 		if (super.attachTo( target )) {
 			target.invisible++;
-			if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.ASSASSIN){
-				Buff.施加(target, Preparation.class);
+			if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.刺客){
+				Buff.施加(target, 潜伏.class);
 			}
 			if (target instanceof Hero && ((Hero) target).天赋(Talent.PROTECTIVE_SHADOWS)){
 				Buff.施加(target, Talent.ProtectiveShadowsTracker.class);
@@ -84,7 +83,7 @@ public class Invisibility extends FlavourBuff {
 			timeFreeze.detach();
 		}
 
-		Preparation prep = ch.buff( Preparation.class );
+		潜伏 prep = ch.buff(潜伏.class);
 		if (prep != null){
 			prep.detach();
 		}
@@ -94,10 +93,10 @@ public class Invisibility extends FlavourBuff {
 			bubble.detach();
 		}
 
-		RoundShield.GuardTracker guard = ch.buff(RoundShield.GuardTracker.class);
-		if (guard != null && guard.hasBlocked){
-			guard.detach();
-		}
+//		圆盾.GuardTracker guard = ch.buff(圆盾.GuardTracker.class);
+//		if (guard != null && guard.hasBlocked){
+//			guard.detach();
+//		}
 	}
 
 	public static void notimedispel() {
@@ -115,14 +114,14 @@ public class Invisibility extends FlavourBuff {
 			cloakBuff.dispel();
 		}
 
-		Preparation prep = ch.buff( Preparation.class );
+		潜伏 prep = ch.buff(潜伏.class);
 		if (prep != null){
 			prep.detach();
 		}
 
-		RoundShield.GuardTracker guard = ch.buff(RoundShield.GuardTracker.class);
-		if (guard != null && guard.hasBlocked){
-			guard.detach();
-		}
+//		圆盾.GuardTracker guard = ch.buff(圆盾.GuardTracker.class);
+//		if (guard != null && guard.hasBlocked){
+//			guard.detach();
+//		}
 	}
 }

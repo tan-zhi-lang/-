@@ -285,13 +285,13 @@ public class PowerOfMany extends ArmorAbility {
 		}
 
 		@Override
-		public int 攻击() {
+		public int 最大攻击() {
 			return Random.NormalIntRange(5, 30); //+0 greatsword
 		}
 
 		@Override
-		public int 防御() {
-			return super.防御() + Random.NormalIntRange(1, 5); //+0 plate
+		public int 最大防御() {
+			return super.最大防御()+Random.NormalIntRange(1,5); //+0 plate
 		}
 
 		@Override

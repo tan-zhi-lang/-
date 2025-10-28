@@ -38,6 +38,7 @@ public class WndHero extends WndTabbed {
 	private static final int HEIGHT		= 120;
 	
 	private StatsTab stats;
+	private StatsTab2 stats2;
 
 	private TalentsTab talents;
 	private BuffsTab buffs;
@@ -52,6 +53,9 @@ public class WndHero extends WndTabbed {
 		
 		stats = new StatsTab();
 		add( stats );
+		
+		stats2 = new StatsTab2();
+		add( stats2 );
 
 		talents = new TalentsTab();
 		add(talents);
@@ -62,7 +66,7 @@ public class WndHero extends WndTabbed {
 		buffs.setRect(0, 0, WIDTH, HEIGHT);
 		buffs.setupList();
 		
-		add( new IconTab( Icons.get(Icons.RANKINGS) ) {
+		add( new IconTab( Icons.get(Icons.JOURNAL) ) {
 			protected void select( boolean value ) {
 				super.select( value );
 				if (selected) {
@@ -72,6 +76,18 @@ public class WndHero extends WndTabbed {
 					}
 				}
 				stats.visible = stats.active = selected;
+			}
+		} );
+		add( new IconTab( Icons.get(Icons.RANKINGS) ) {
+			protected void select( boolean value ) {
+				super.select( value );
+				if (selected) {
+					lastIdx = 0;
+					if (!stats2.visible) {
+						stats2.initialize();
+					}
+				}
+				stats2.visible = stats2.active = selected;
 			}
 		} );
 		add( new IconTab( Icons.get(Icons.TALENT) ) {
@@ -168,27 +184,87 @@ public class WndHero extends WndTabbed {
 			pos = title.bottom() + GAP;
 
 			statSlot( Messages.get(this, "str"), hero.力量());
-			statSlot( "生命力", hero.生命力());
-			statSlot( Messages.get(this, "exp"), hero.当前经验 + "/" + hero.升级所需() );
+//			statSlot( Messages.get(this, "exp"), hero.当前经验 + "/" + hero.升级所需() );
+			
+			statSlot( "攻击力", hero.最小攻击()+"~"+hero.最大攻击());
+			statSlot( "防御力", hero.最小防御()+"~"+hero.最大防御());
+			pos += GAP;
 
 			statSlot( "命中/闪避", hero.最大命中(null)+"/"+hero.最大闪避(null));
-			statSlot( "攻速/移速", String.format("%.2f",1/hero.攻速())
+			statSlot( "攻速/移速", String.format("%.2f",1/hero.攻击延迟())
 					+"/"+String.format("%.2f",hero.移速()));
-			statSlot( "感知/搜索", hero.感知范围()+"/"+hero.搜索范围());
-			statSlot( "视野范围", hero.视野范围()+"");
+			
+			pos += GAP;
+			statSlot( "暴击率", hero.暴击率());
+			statSlot( "暴击伤害", Math.round(hero.暴击伤害()*100)+"%");
+			
+			pos += GAP;
+		}
 
-//			pos += GAP;
+		private void statSlot( String label, String value ) {
+			
+			RenderedTextBlock txt = PixelScene.renderTextBlock( label, 8 );
+			txt.setPos(0, pos);
+			add( txt );
+			int size = 8;
+			if (value.length() >= 14) size -=2;
+			if (value.length() >= 18) size -=1;
+			txt = PixelScene.renderTextBlock( value, size );
+			txt.setPos(WIDTH * (0.55f-0.05f), pos);
+			PixelScene.align(txt);
+			add( txt );
+			
+			pos += GAP + txt.height();
+		}
+		
+		private void statSlot( String label, int value ) {
+			statSlot( label, Integer.toString( value ) );
+		}
+		
+		public float height() {
+			return pos;
+		}
+	}
+	private class StatsTab2 extends Group {
+		
+		private static final int GAP = 6;
+		
+		private float pos;
+		
+		public StatsTab2() {
+			initialize();
+		}
 
+		public void initialize(){
+
+			for (Gizmo g : members){
+				if (g != null) g.destroy();
+			}
+			clear();
+			
+			Hero hero = Dungeon.hero;
+			
+			pos = GAP*2;
+			
+			statSlot( "搜索范围", +hero.搜索范围());
+			statSlot( "感知范围", hero.感知范围());
+			statSlot( "惊醒距离", hero.惊醒距离());
+			pos += GAP;
+			
+			statSlot( "地牢视野", Dungeon.level.视野范围);
+			statSlot( "视野范围", hero.视野范围());
+			statSlot( "光照范围", hero.光照范围());
+			pos += GAP;
 			if (Dungeon.daily){
 				if (!Dungeon.dailyReplay) {
-					statSlot(Messages.get(this, "daily_for"), "_" + Dungeon.customSeedText + "_");
+					statSlot(Messages.get(StatsTab.class, "daily_for"), "_" + Dungeon.customSeedText + "_");
 				} else {
-					statSlot(Messages.get(this, "replay_for"), "_" + Dungeon.customSeedText + "_");
+					statSlot(Messages.get(StatsTab.class, "replay_for"), "_" + Dungeon.customSeedText + "_");
 				}
 			} else if (!Dungeon.customSeedText.isEmpty()){
-				statSlot( Messages.get(this, "custom_seed"), "_" + Dungeon.customSeedText + "_" );
+				statSlot( Messages.get(StatsTab.class, "custom_seed"), "_" + Dungeon.customSeedText + "_" );
 			} else {
-				statSlot( Messages.get(this, "dungeon_seed"), DungeonSeed.convertToCode(Dungeon.seed) );
+				statSlot( Messages.get(StatsTab.class, "dungeon_seed"), DungeonSeed.convertToCode(Dungeon.seed) );
 			}
 
 			pos += GAP;

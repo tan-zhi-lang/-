@@ -162,7 +162,7 @@ public class SpiritHawk extends ArmorAbility {
 		}
 
 		@Override
-		public int 攻击() {
+		public int 最大攻击() {
 			return Random.NormalIntRange(5, 10);
 		}
 

@@ -18,7 +18,7 @@ public class EnergyCrystal extends Item {
 
 	{
 		image = 物品表.ENERGY;
-		stackable = true;
+		可堆叠= true;
 	}
 
 	public EnergyCrystal() {

@@ -28,8 +28,8 @@ public class 升级卷轴 extends InventoryScroll {
 	{
 		icon = 物品表.Icons.SCROLL_UPGRADE;
 		preferredBag = Belongings.Backpack.class;
-
-		unique = true;
+		
+		特别= true;
 
 		talentFactor = 2f;
 	}

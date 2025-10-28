@@ -19,10 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -50,10 +47,6 @@ public class Item implements Bundlable {
 	protected static final String TXT_TO_STRING_LVL		= "%s %+d";
 	protected static final String TXT_TO_STRING_X		= "%s x%d";
 	
-	protected static final float TIME_TO_THROW		= 1.0f;
-	protected static final float TIME_TO_PICK_UP	= 1.0f;
-	protected static final float TIME_TO_DROP		= 1.0f;
-	
 	public static final String AC_DROP		= "DROP";
 	public static final String AC_THROW		= "THROW";
 	public static final String AC_RENAME		= "RENAME";
@@ -66,7 +59,7 @@ public class Item implements Bundlable {
 	public int icon = -1; //used as an identifier for items with randomized images
 	public String name = "";
 	
-	public boolean stackable = false;
+	public boolean 可堆叠= false;
 	public boolean 物品 = false;
 	public boolean 炼金全放 = false;
 	public boolean 学者直觉 = false;
@@ -80,6 +73,7 @@ public class Item implements Bundlable {
 	public boolean dropsDownHeap = false;
 
 	public String item_Miss		= Assets.Sounds.MISS;
+	public boolean alpha = false;
 	protected int 等级 = 0;
 
 	public boolean 白色 = false;
@@ -96,14 +90,19 @@ public class Item implements Bundlable {
 	public boolean cursedKnown=false;
 	
 	// Unique items persist through revival
-	public boolean unique = false;
+	public boolean 特别= false;
+	public boolean 缴械= true;
+	public boolean 嬗变= true;
+	public boolean 专属 = false;
+	
+	public boolean 投掷消失 = true;
 
 	// These items are preserved even if the hero's inventory is lost via unblessed ankh
 	// this is largely set by the resurrection window, items can override this to always be kept
 	public boolean keptThoughLostInvent = false;
 
 	// whether an item can be included in heroes remains
-	public boolean bones = false;
+	public boolean 遗产= false;
 
 	public int customNoteID = -1;
 	
@@ -156,10 +155,10 @@ public class Item implements Bundlable {
 		}
 	}
 	public float pickupDelay(){
-		return TIME_TO_PICK_UP;
+		return Dungeon.hero.攻击延迟();
 	}
 	public void doDrop( Hero hero ) {
-		hero.spendAndNext(TIME_TO_DROP);
+		hero.spendAndNext(Dungeon.hero.攻击延迟());
 		int pos = hero.pos;
 		Dungeon.level.drop(detachAll(hero.belongings.backpack), pos).sprite.drop(pos);
 	}
@@ -227,10 +226,13 @@ public class Item implements Bundlable {
 	}
 	
 	protected void onThrow( int cell ) {
-		Heap heap = Dungeon.level.drop( this, cell );
-		if (!heap.isEmpty()) {
-			heap.sprite.drop( cell );
+		if(投掷消失){
+			Heap heap = Dungeon.level.drop( this, cell );
+			if (!heap.isEmpty()) {
+				heap.sprite.drop( cell );
+			}
 		}
+		投掷消失=true;
 	}
 	
 	//takes two items and merges them (if possible)
@@ -266,7 +268,7 @@ public class Item implements Bundlable {
 			return false;
 		}
 		
-		if (stackable) {
+		if (可堆叠) {
 			for (Item item:items) {
 				if (isSimilar( item )) {
 					item.merge( this );
@@ -277,22 +279,6 @@ public class Item implements Bundlable {
 						if (已鉴定()) {
 							Catalog.setSeen(getClass());
 							Statistics.itemTypesDiscovered.add(getClass());
-						}
-					}
-					if (TippedDart.lostDarts > 0){
-						Dart d = new Dart();
-						d.数量(TippedDart.lostDarts);
-						TippedDart.lostDarts = 0;
-						if (!d.放背包()){
-							//have to handle this in an actor as we can't manipulate the heap during pickup
-							Actor.add(new Actor() {
-								{ actPriority = VFX_PRIO; }
-								@Override
-								protected boolean act() {
-									Actor.remove(this);
-									return true;
-								}
-							});
 						}
 					}
 					return true;
@@ -308,7 +294,8 @@ public class Item implements Bundlable {
 				Statistics.itemTypesDiscovered.add(getClass());
 			}
 		}
-
+		
+		Dungeon.quickslot.alphaItem( this ,false);
 		items.add( this );
 		Dungeon.quickslot.replacePlaceholder(this);
 		Collections.sort( items, itemComparator );
@@ -367,7 +354,7 @@ public class Item implements Bundlable {
 		} else
 		if (quantity == 1) {
 
-			if (stackable){
+			if (可堆叠){
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
 
@@ -385,7 +372,7 @@ public class Item implements Bundlable {
 	}
 	
 	public final Item detachAll( Bag container ) {
-		Dungeon.quickslot.clearItem( this );
+		Dungeon.quickslot.alphaItem( this ,true);
 
 		for (Item item : container.items) {
 			if (item == this) {
@@ -426,10 +413,7 @@ public class Item implements Bundlable {
 	//note that not all item properties should care about buffs/debuffs! (e.g. str requirement)
 	public int 强化等级(){
 		int x=0;
-		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.逐姝)&&this instanceof MeleeWeapon){
-			x++;
-		}
-		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.女忍)&&this instanceof MissileWeapon){
+		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.逐姝)&&this instanceof Weapon){
 			x++;
 		}
 		//only the hero can be affected by Degradation
@@ -451,11 +435,11 @@ public class Item implements Bundlable {
 		if(!可升级()){
 			return this;
 		}
-		if(!学者直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
+		if(!学者直觉&&Dungeon.hero.天赋(Talent.SCHOLARS_INTUITION)){
 			升级();
 			学者直觉=true;
 		}
-		if(!生存直觉&&Dungeon.hero.天赋(Talent.SCHOLARS_INTUITION)){
+		if(!生存直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
 			升级();
 			生存直觉=true;
 		}
@@ -557,10 +541,10 @@ public class Item implements Bundlable {
 					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.测试对象,0.66f));
 				}
 				if(Dungeon.hero.满天赋(Talent.未来知识)){
-					祛邪卷轴.净化(Dungeon.hero,特殊升级());
+					祛邪卷轴.祛邪(Dungeon.hero,特殊升级());
 				}else if(Dungeon.hero.天赋(Talent.未来知识)){
 					
-					祛邪卷轴.净化(Dungeon.hero,this);
+					祛邪卷轴.祛邪(Dungeon.hero,this);
 				}
 				
 				Catalog.setSeen(getClass());
@@ -700,6 +684,7 @@ public class Item implements Bundlable {
 	private static final String 戒指察觉x = "戒指察觉";
 	private static final String 赌博高手x = "赌博高手";
 	private static final String 未来知识x = "未来知识";
+	private static final String ALPHA = "alpha";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -716,6 +701,7 @@ public class Item implements Bundlable {
 		bundle.put( 戒指察觉x, 戒指察觉 );
 		bundle.put( 赌博高手x, 赌博高手 );
 		bundle.put( 未来知识x, 未来知识 );
+		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
 		}
@@ -736,6 +722,7 @@ public class Item implements Bundlable {
 		戒指察觉	= bundle.getBoolean( 戒指察觉x );
 		赌博高手	= bundle.getBoolean( 赌博高手x );
 		未来知识	= bundle.getBoolean( 未来知识x );
+		alpha	= bundle.getBoolean( ALPHA );
 		
 		int level = bundle.getInt( LEVEL );
 		if (level > 0) {
@@ -791,15 +778,23 @@ public class Item implements Bundlable {
 						@Override
 						public void call() {
 							curUser = user;
-							Item i = Item.this.detach(user.belongings.backpack);
+							Item i;
+							if(true){
+								投掷消失=false;
+								i=Item.this;
+								Dungeon.quickslot.alphaItem(Item.this,false);
+								updateQuickslot();
+								
+							}else{
+								i=Item.this.detach(user.belongings.backpack);
+							}
 							if (i != null) i.onThrow(cell);
-							if (curUser.天赋(Talent.IMPROVISED_PROJECTILES)
-									&& !(Item.this instanceof MissileWeapon)
+							if (curUser.天赋(Talent.即兴投掷)
 									&& curUser.buff(Talent.ImprovisedProjectileCooldown.class) == null){
 								if (enemy != null && enemy.alignment != curUser.alignment){
 									Sample.INSTANCE.play(Assets.Sounds.HIT);
-									Buff.施加(enemy, Blindness.class, curUser.天赋点数(Talent.IMPROVISED_PROJECTILES,2));
-									Buff.施加(curUser, Talent.ImprovisedProjectileCooldown.class, 100-curUser.天赋点数(Talent.IMPROVISED_PROJECTILES,25));
+									Buff.施加(enemy, Blindness.class, curUser.天赋点数(Talent.即兴投掷,2));
+									Buff.施加(curUser, Talent.ImprovisedProjectileCooldown.class, 100-curUser.天赋点数(Talent.即兴投掷,25));
 								}
 							}
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){
@@ -819,7 +814,16 @@ public class Item implements Bundlable {
 						@Override
 						public void call() {
 							curUser = user;
-							Item i = Item.this.detach(user.belongings.backpack);
+							Item i;
+							if(true){
+								投掷消失=false;
+								i=Item.this;
+								Dungeon.quickslot.alphaItem(Item.this,false);
+								updateQuickslot();
+								
+							}else{
+								i=Item.this.detach(user.belongings.backpack);
+							}
 							user.spend(delay);
 							if (i != null) i.onThrow(cell);
 							user.next();
@@ -829,7 +833,7 @@ public class Item implements Bundlable {
 	}
 	
 	public float castDelay( Char user, int cell ){
-		return TIME_TO_THROW;
+		return Dungeon.hero.攻击延迟();
 	}
 	
 	public static Hero curUser = null;

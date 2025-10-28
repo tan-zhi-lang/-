@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public abstract class Runestone extends Item {
 	
 	{
-		stackable = true;
+		可堆叠= true;
 		defaultAction = AC_THROW;
 		物品 = true;
 	}

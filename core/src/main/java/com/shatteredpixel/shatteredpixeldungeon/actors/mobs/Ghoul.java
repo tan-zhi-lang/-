@@ -43,8 +43,12 @@ public class Ghoul extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 16, 22 );
+	public int 最小攻击() {
+		return 16;
+	}
+	@Override
+	public int 最大攻击() {
+		return 22;
 	}
 
 	@Override
@@ -53,8 +57,8 @@ public class Ghoul extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 4);
+	public int 最大防御() {
+		return super.最大防御()+4;
 	}
 
 	@Override

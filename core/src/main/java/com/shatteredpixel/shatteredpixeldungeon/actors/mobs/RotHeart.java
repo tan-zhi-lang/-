@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RotHeartSprite;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 public class RotHeart extends Mob {
 
@@ -100,7 +99,11 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
+	public int 最小攻击() {
+		return 0;
+	}
+	@Override
+	public int 最大攻击() {
 		return 0;
 	}
 
@@ -110,8 +113,8 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 5);
+	public int 最大防御() {
+		return super.最大防御()+5;
 	}
 	
 	{

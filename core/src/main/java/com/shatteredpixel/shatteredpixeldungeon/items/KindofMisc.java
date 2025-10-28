@@ -22,8 +22,8 @@ public abstract class KindofMisc extends EquipableItem {
 
 		boolean equipFull = false;
 
-		if(hero.belongings.misc3 != null){
-			equipFull=true;
+		if(hero.belongings.misc != null&&hero.belongings.misc2 != null&&hero.belongings.misc3 != null){
+			equipFull=true;//三个时才选择一件取下
 		}
 		if (equipFull) {
 
@@ -92,7 +92,7 @@ public abstract class KindofMisc extends EquipableItem {
 				cursedKnown = true;
 				if(hero.满天赋(Talent.HOLY_INTUITION)){
 					鉴定();
-					祛邪卷轴.净化(hero,this);
+					祛邪卷轴.祛邪(hero,this);
 				}else{
 					鉴定();
 				}

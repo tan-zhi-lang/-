@@ -37,7 +37,7 @@ public class ArmoryRoom extends SpecialRoom {
 		}
 		
 		int n = Random.IntRange( 2, 3 );
-		prizeCats = new float[]{1,1,1,1};
+		prizeCats = new float[]{1,1,1};
 		for (int i=0; i < n; i++) {
 			int pos;
 			do {
@@ -65,14 +65,12 @@ public class ArmoryRoom extends SpecialRoom {
 		int index = Random.chances(prizeCats);
 		prizeCats[index] = 0;
 		switch (index){
-			case 0:
+			case 0:default:
 				return new Bomb().random();
 			case 1:
 				return Generator.randomWeapon();
 			case 2:
 				return Generator.randomArmor();
-			case 3: default:
-				return Generator.randomMissile();
 		}
 	}
 }

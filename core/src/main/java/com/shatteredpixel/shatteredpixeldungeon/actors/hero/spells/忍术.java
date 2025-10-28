@@ -5,6 +5,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍之额;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 
 public abstract class 忍术{
 
-	public abstract void onCast(Hero hero);
+	public abstract void onCast(叛忍之额 tome,Hero hero);
 
 	public int chargeUse( Hero hero ){
 		return 1;
@@ -46,10 +48,11 @@ public abstract class 忍术{
 		return HeroIcon.NONE;
 	}
 
-	public void onSpellCast(Hero hero){
-		Invisibility.notimedispel();
+	public void onSpellCast(叛忍之额 tome, Hero hero){
+		Invisibility.dispel();
+		tome.spendCharge(chargeUse(hero));
+		Talent.onArtifactUsed(hero);
 	}
-
 	public static ArrayList<忍术> getSpellList(Hero cleric,int tier){
 		ArrayList<忍术> spells = new ArrayList<>();
 

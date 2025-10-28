@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class Rat extends Mob {
 
@@ -52,8 +51,8 @@ public class Rat extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 1, 4 );
+	public int 最大攻击() {
+		return 4;
 	}
 	
 	@Override
@@ -62,8 +61,8 @@ public class Rat extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 1);
+	public int 最大防御() {
+		return super.最大防御()+1;
 	}
 
 	private static final String RAT_ALLY = "rat_ally";

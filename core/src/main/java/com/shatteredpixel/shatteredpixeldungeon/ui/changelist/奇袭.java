@@ -20,7 +20,7 @@ public class 奇袭 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.TOMB), "奇袭",
-				"致遗失的版本更新。"));
+				"致古老的版本更新。"));
 	}
 
 }

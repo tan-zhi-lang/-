@@ -16,8 +16,8 @@ public class PotionOfStrength extends Potion {
 
 	{
 		icon = 物品表.Icons.POTION_STRENGTH;
-
-		unique = true;
+		
+		特别= true;
 
 		talentFactor = 2f;
 	}

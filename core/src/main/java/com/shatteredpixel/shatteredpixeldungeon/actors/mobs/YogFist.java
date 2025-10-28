@@ -11,10 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -23,13 +21,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sickle;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
@@ -162,13 +161,17 @@ public abstract class YogFist extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 18, 36 );
+	public int 最小攻击() {
+		return 18;
+	}
+	@Override
+	public int 最大攻击() {
+		return 36;
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 15);
+	public int 最大防御() {
+		return super.最大防御()+15;
 	}
 
 	{
@@ -387,7 +390,8 @@ public abstract class YogFist extends Mob {
 		public void 受伤时(int dmg, Object src) {
 			if (!是无敌(src.getClass())
 					&& !(src instanceof 流血)
-					&& buff(Sickle.HarvestBleedTracker.class) == null){
+//					&&buff(短柄镰.HarvestBleedTracker.class)==null
+			){
 				dmg = Math.round( dmg * resist( src.getClass() ));
 				if (dmg < 0){
 					return;
@@ -439,7 +443,7 @@ public abstract class YogFist extends Mob {
 		}
 
 		@Override
-		public int 攻击() {
+		public int 最大攻击() {
 			return Random.NormalIntRange( 22, 44 );
 		}
 

@@ -23,7 +23,7 @@ public class Torch extends Item {
 	{
 		image = 物品表.TORCH;
 		
-		stackable = true;
+		可堆叠= true;
 		黄色 = true;
 		物品 = true;
 		

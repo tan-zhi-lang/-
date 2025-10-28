@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -67,8 +66,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrapMechanism;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.HeavyBoomerang;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.ThrowingStone;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投石;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
@@ -134,7 +133,7 @@ public abstract class Level implements Bundlable {
 					int x=PathFinder.范围4[Random.Int(0,PathFinder.范围4.length)];
 					if(!Dungeon.level.solid[c.pos+x]){
 						if(算法.概率学(1)){
-							Dungeon.level.drop(new ThrowingStone(),c.pos+x).sprite.drop();
+							Dungeon.level.drop(new 投石(),c.pos+x).sprite.drop();
 						}
 						if(算法.概率学(3)){
 							Char cx=Actor.findChar(c.pos);
@@ -680,7 +679,7 @@ public abstract class Level implements Bundlable {
 				items.addAll(b.getStuckItems());
 			}
 		}
-		for (HeavyBoomerang.CircleBack b : Dungeon.hero.buffs(HeavyBoomerang.CircleBack.class)){
+		for (回旋镖.CircleBack b : Dungeon.hero.buffs(回旋镖.CircleBack.class)){
 			if (b.activeDepth() == Dungeon.depth) items.add(b.cancel());
 		}
 		return items;
@@ -1212,14 +1211,14 @@ public abstract class Level implements Bundlable {
 					&& ch == Dungeon.hero && Dungeon.hero.天赋(Talent.REJUVENATING_STEPS)
 					&& ch.buff(Talent.RejuvenatingStepsCooldown.class) == null){
 
-				if (!再生.regenOn()){
-					set(ch.pos, Terrain.FURROWED_GRASS);
-				} else if (ch.buff(Talent.RejuvenatingStepsFurrow.class) != null && ch.buff(Talent.RejuvenatingStepsFurrow.class).count() >= 200) {
-					set(ch.pos, Terrain.FURROWED_GRASS);
-				} else {
+//				if (!再生.regenOn()){
+//					set(ch.pos, Terrain.FURROWED_GRASS);
+//				} else if (ch.buff(Talent.RejuvenatingStepsFurrow.class) != null && ch.buff(Talent.RejuvenatingStepsFurrow.class).count() >= 200) {
+//					set(ch.pos, Terrain.FURROWED_GRASS);
+//				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
 					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 20 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,5));
-				}
+//				}
 				GameScene.updateMap(ch.pos);
 				Buff.施加(ch, Talent.RejuvenatingStepsCooldown.class, 20 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,5));
 			}
@@ -1581,7 +1580,13 @@ public abstract class Level implements Bundlable {
 
 			for (RevealedArea a : c.buffs(RevealedArea.class)){
 				if (Dungeon.depth != a.depth || Dungeon.branch != a.branch) continue;
-				for (int i : PathFinder.NEIGHBOURS9) heroMindFov[a.pos+i] = true;
+				if(Dungeon.hero.满天赋(Talent.SEER_SHOT)){
+					for (int i : PathFinder.范围3) heroMindFov[a.pos+i] = true;
+				}else if(Dungeon.hero.天赋点数(Talent.SEER_SHOT)==2){
+					for (int i : PathFinder.范围2) heroMindFov[a.pos+i] = true;
+				}else if(Dungeon.hero.天赋(Talent.SEER_SHOT)){
+					for (int i : PathFinder.NEIGHBOURS9) heroMindFov[a.pos+i] = true;
+				}
 			}
 
 			//set mind vision chars

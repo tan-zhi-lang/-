@@ -48,7 +48,7 @@ public abstract class Plant implements Bundlable {
 
 		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.天赋(Talent.NATURES_AID)){
 			// 3/5 turns based on talent points spent
-			Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.天赋生命力(Talent.NATURES_AID,0.4f),2);
+			Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.NATURES_AID,0.1f)),1);
 		}
 
 		wither();
@@ -115,7 +115,7 @@ public abstract class Plant implements Bundlable {
 		private static final float TIME_TO_PLANT = 1f;
 		
 		{
-			stackable = true;
+			可堆叠= true;
 			defaultAction = AC_THROW;
 		}
 		

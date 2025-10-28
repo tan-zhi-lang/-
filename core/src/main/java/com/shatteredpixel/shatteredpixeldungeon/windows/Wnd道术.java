@@ -9,8 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.净除道术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -38,7 +37,7 @@ public class Wnd道术 extends Window {
 
 	public static int BTN_SIZE = 20;
 
-	public Wnd道术(铜钱剑 tome,Hero cleric,boolean info){
+	public Wnd道术(本命玉佩 tome,Hero cleric,boolean info){
 
 		IconTitle title;
 		if (!info){
@@ -114,12 +113,12 @@ public class Wnd道术 extends Window {
 	public class SpellButton extends IconButton {
 
 		道术 spell;
-		铜钱剑 tome;
+		本命玉佩 tome;
 		boolean info;
 
 		NinePatch bg;
 
-		public SpellButton(道术 spell,铜钱剑 tome,boolean info){
+		public SpellButton(道术 spell, 本命玉佩 tome, boolean info){
 			super(new HeroIcon(spell));
 
 			this.spell = spell;
@@ -139,7 +138,7 @@ public class Wnd道术 extends Window {
 		@Override
 		protected void onPointerDown() {
 			super.onPointerDown();
-			if (spell==净除道术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			if (spell == 净除道术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
 				icon.brightness(4);
 			}
 		}
@@ -149,7 +148,7 @@ public class Wnd道术 extends Window {
 			super.onPointerUp();
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==净除道术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell == 净除道术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
 				icon.brightness(3);
 			}
 		}
@@ -174,7 +173,7 @@ public class Wnd道术 extends Window {
 
 
 				if(!tome.canCast(Dungeon.hero, spell)){
-					GLog.w(Messages.get(神圣法典.class, "no_spell"));
+					GLog.w(Messages.get(本命玉佩.class, "no_spell"));
 				} else {
 					spell.onCast(tome, Dungeon.hero);
 
@@ -211,7 +210,7 @@ public class Wnd道术 extends Window {
 						case 0:
 							hide();
 							if(!tome.canCast(Dungeon.hero, spell)){
-								GLog.w(Messages.get(神圣法典.class, "no_spell"));
+								GLog.w(Messages.get(本命玉佩.class, "no_spell"));
 							} else {
 								spell.onCast(tome, Dungeon.hero);
 

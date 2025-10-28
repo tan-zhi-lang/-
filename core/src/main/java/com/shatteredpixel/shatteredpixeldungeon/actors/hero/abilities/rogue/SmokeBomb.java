@@ -159,8 +159,8 @@ public class SmokeBomb extends ArmorAbility {
 		}
 
 		@Override
-		public int 防御() {
-			int dr = super.防御();
+		public int 最大防御() {
+			int dr = super.最大防御();
 
 			dr += Random.NormalIntRange(Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT),
 					3*Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT));

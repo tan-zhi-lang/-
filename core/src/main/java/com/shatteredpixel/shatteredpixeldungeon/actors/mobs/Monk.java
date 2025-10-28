@@ -33,8 +33,12 @@ public class Monk extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 12, 25 );
+	public int 最小攻击() {
+		return 12;
+	}
+	@Override
+	public int 最大攻击() {
+		return 25;
 	}
 	
 	@Override
@@ -43,13 +47,13 @@ public class Monk extends Mob {
 	}
 	
 	@Override
-	public float attackDelay() {
-		return super.attackDelay()*0.5f;
+	public float 攻击延迟() {
+		return super.攻击延迟()*0.5f;
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 2);
+	public int 最大防御() {
+		return super.最大防御()+2;
 	}
 	
 	@Override

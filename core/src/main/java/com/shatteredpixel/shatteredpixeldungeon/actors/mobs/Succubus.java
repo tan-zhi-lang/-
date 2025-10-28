@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -50,8 +49,12 @@ public class Succubus extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 25, 30 );
+	public int 最小攻击() {
+		return 25;
+	}
+	@Override
+	public int 最大攻击() {
+		return 30;
 	}
 	
 	@Override
@@ -146,8 +149,8 @@ public class Succubus extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 10);
+	public int 最大防御() {
+		return super.最大防御()+10;
 	}
 
 	@Override

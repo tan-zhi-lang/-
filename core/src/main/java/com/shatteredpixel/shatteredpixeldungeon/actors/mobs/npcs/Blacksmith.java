@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -102,7 +102,7 @@ public class Blacksmith extends NPC {
 
 							Quest.given = true;
 							Quest.completed = false;
-							Item pick = Quest.pickaxe != null ? Quest.pickaxe : new Pickaxe();
+							Item pick = Quest.pickaxe != null ? Quest.pickaxe : new 镐子();
 							if (pick.doPickUp( Dungeon.hero )) {
 								GLog.i( Messages.capitalize(Messages.get(Dungeon.hero, "you_now_have", pick.name()) ));
 							} else {
@@ -219,7 +219,7 @@ public class Blacksmith extends NPC {
 			completed	= false;
 
 			favor       = 0;
-			pickaxe     = new Pickaxe().鉴定();
+			pickaxe     = new 镐子().鉴定();
 			freePickaxe = false;
 			reforges    = 0;
 			hardens     = 0;
@@ -364,7 +364,7 @@ public class Blacksmith extends NPC {
 			for (Item i : toUndo){
 				Generator.undoDrop(i);
 			}
-			smithRewards.add(Generator.randomMissile(3, useDecks));
+			
 			smithRewards.add(Generator.randomArmor(3));
 
 			//30%:+0, 45%:+1, 20%:+2, 5%:+3
@@ -441,7 +441,7 @@ public class Blacksmith extends NPC {
 				gold.detachAll(Dungeon.hero.belongings.backpack);
 			}
 
-			Pickaxe pick = Dungeon.hero.belongings.getItem(Pickaxe.class);
+			镐子 pick = Dungeon.hero.belongings.getItem(镐子.class);
 			if (pick.isEquipped(Dungeon.hero)) {
 				boolean wasCursed = pick.cursed;
 				pick.cursed = false; //so that it can always be removed

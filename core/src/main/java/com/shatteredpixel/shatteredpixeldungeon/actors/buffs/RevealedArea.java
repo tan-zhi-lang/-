@@ -20,7 +20,7 @@ public class RevealedArea extends FlavourBuff{
 
 	@Override
 	public void detach() {
-		GameScene.updateFog(pos, 2);
+		GameScene.updateFog(pos, 1+Dungeon.hero.天赋点数(Talent.SEER_SHOT));
 		super.detach();
 	}
 

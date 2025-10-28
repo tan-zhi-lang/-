@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollSprite;
-import com.watabou.utils.Random;
 
 public class Gnoll extends Mob {
 	
@@ -23,8 +22,8 @@ public class Gnoll extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 1, 6 );
+	public int 最大攻击() {
+		return 6;
 	}
 	
 	@Override
@@ -33,7 +32,7 @@ public class Gnoll extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 2);
+	public int 最大防御() {
+		return super.最大防御()+2;
 	}
 }

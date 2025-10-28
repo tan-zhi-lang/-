@@ -12,8 +12,8 @@ public class 经验药剂 extends Potion {
 
 	{
 		icon = 物品表.Icons.POTION_EXP;
-
-		bones = true;
+		
+		遗产= true;
 
 		talentFactor = 2f;
 	}

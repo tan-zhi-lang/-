@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.Builder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.FigureEightBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
@@ -221,7 +221,7 @@ public class MiningLevel extends CavesLevel {
 		if (transition.type == LevelTransition.Type.BRANCH_ENTRANCE
 				&& !Blacksmith.Quest.completed()) {
 
-			if (hero.belongings.getItem(Pickaxe.class) == null){
+			if (hero.belongings.getItem(镐子.class)==null){
 				Game.runOnRenderThread(new Callback() {
 					@Override
 					public void call() {

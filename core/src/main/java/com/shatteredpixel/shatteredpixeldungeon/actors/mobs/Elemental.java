@@ -60,12 +60,21 @@ public abstract class Elemental extends Mob {
 	protected boolean summonedALly;
 	
 	@Override
-	public int 攻击() {
+	public int 最小攻击() {
 		if (!summonedALly) {
-			return Random.NormalIntRange(20, 25);
+			return 20;
 		} else {
 			int regionScale = Math.max(2, (1 + Dungeon.scalingDepth()/5));
-			return Random.NormalIntRange(5*regionScale, 5 + 5*regionScale);
+			return 5*regionScale;
+		}
+	}
+	@Override
+	public int 最大攻击() {
+		if (!summonedALly) {
+			return 25;
+		} else {
+			int regionScale = Math.max(2, (1 + Dungeon.scalingDepth()/5));
+			return 5 + 5*regionScale;
 		}
 	}
 	
@@ -88,8 +97,8 @@ public abstract class Elemental extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 5);
+	public int 最大防御() {
+		return super.最大防御()+5;
 	}
 	
 	protected int rangedCooldown = Random.NormalIntRange( 3, 5 );
@@ -308,7 +317,7 @@ public abstract class Elemental extends Mob {
 					}
 
 					GLog.n(Messages.get(this, "charging"));
-					spend(GameMath.gate(attackDelay(), (int)Math.ceil(Dungeon.hero.cooldown()), 3*attackDelay()));
+					spend(GameMath.gate(攻击延迟(),(int)Math.ceil(Dungeon.hero.cooldown()),3*攻击延迟()));
 					Dungeon.hero.interrupt();
 					return true;
 				} else {
@@ -372,11 +381,11 @@ public abstract class Elemental extends Mob {
 		}
 
 		@Override
-		public int 攻击() {
+		public int 最大攻击() {
 			if (!summonedALly) {
 				return Random.NormalIntRange(10, 12);
 			} else {
-				return super.攻击();
+				return super.最大攻击();
 			}
 		}
 

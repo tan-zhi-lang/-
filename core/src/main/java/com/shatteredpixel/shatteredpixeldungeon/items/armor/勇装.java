@@ -8,6 +8,8 @@ public class 勇装 extends Armor {
 
 	{
 		image = 物品表.勇装;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 勇装(){

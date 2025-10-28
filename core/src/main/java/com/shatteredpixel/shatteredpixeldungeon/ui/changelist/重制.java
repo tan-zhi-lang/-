@@ -56,6 +56,8 @@ public class 重制 {
 		
 		"焦灼\n" +
 		"防御过程1/10的概率产生火团。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.永生秘药), "永生秘药",
+		"新增永生秘药。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MASK), "天狗的面具",
 		"所有英雄都拥有潜能觉醒天赋。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
@@ -68,14 +70,16 @@ public class 重制 {
 				"新增游戏选项。"));
 		changes.addButton( new ChangeButton(Icons.炼狱开.get(), "炼狱",
 				"新增游戏选项。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.轮刃), "轮刃",
+				"新增4阶武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.爪), "爪",
-				"新增2阶近战武器。"));
+				"新增2阶武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.半月刃), "半月刃",
-				"新增3阶近战武器。"));
+				"新增3阶武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.PHANTOM_MEAT), "幻影鱼肉",
 				"生肉+隐形药剂消耗5能量合成。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.枪手, tier(HeroClass.枪手))), "枪手",
-				"新增英雄。"));
+		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.来世,tier(HeroClass.来世))),"来世",
+											"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.血鬼, tier(HeroClass.血鬼))), "血鬼",
 				"新增英雄。"));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.凌云, tier(HeroClass.凌云))), "凌云",
@@ -144,8 +148,14 @@ public class 重制 {
 				"配方3=>6。\n" +
 						"现在正装备的装备不能放入炼金和提炼。"));
 
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.十字弩), "十字弩",
+				"4阶=>1。"));
+
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_CAPE), "荆棘斗篷",
-				"回归。"));
+				"回归。\n" +
+				"吸收伤害充能倍率50%+5%x神器等级=>500%+25%x神器等级。\n" +
+				"减伤和反伤为0~受伤=>(200%+10%x神器等级)。\n" +
+				"移除反伤距离限制和冷却机制。"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "食物条",
 				"状态栏添加食物条。并且不显示Buff图标"));
@@ -170,9 +180,9 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.AMULET), "Yendor护符",
 				"结算时的英雄贴图采用另一种。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.水袋), "水袋",
-				"灌满的水袋可以合成一瓶治疗药剂。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.LIQUID_METAL), "液金",
-				"不管合成多少，都只消耗3能量=>多少数量消耗多少能量。"));
+				"灌满的水袋可以合成一瓶永生秘药。"));
+//		changes.addButton(new ChangeButton(new ItemSprite(物品表.LIQUID_METAL), "液金",
+//				"液金可以升级武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STEWED), "炖肉",
 				"改成类似合成液金配方。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.尸尘), "尸尘",
@@ -191,20 +201,25 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new SheepSprite(), "魔法绵羊",
 				"交互有彩蛋，还能获得经验。"));
 		changes.addButton( new ChangeButton(Icons.INFO.get(), "信息面板",
-				"优化。"));
+				"优化以及显示更多内容。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.CROWN), "护甲技能",
+										   "矮人国王不掉落，护甲技能移除。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_FEATHER), "羽落秘药",
+										   "移除。"));
 		changes.addButton( new ChangeButton(Icons.LANGS.get(), "语言设置",
 				"移除。"));
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), Messages.get(改动界面.class, "misc"),
 				"英雄\n\n" +
+					"新增生命力=根号(最大生命)，大部分天赋等都被此数值影响。"+
+						"新增暴击率和暴击伤害，默认4%暴击率，和175%暴击伤害。\n"+
 						"浮空状态在深渊点击自身可以无伤掉下去。\n"+
 						"神器和戒指栏位=>两个杂项栏位。\n"+
 						"最大生命-5。\n"+
 						"各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 						"除了战士都移除水袋，护甲都变成专属护甲。\n"+
 						"饥饿首次受伤450*最大生命/1000，后续受伤最大生命/1000=>首次受伤18%生命力，后续受伤13%。"+
-						"再生恢复生命1=>14%生命力。"+
-						"新增生命力=根号(最大生命)，大部分天赋等都被此数值影响。"
+						"再生恢复生命1=>14%生命力。"
 				,
 				"杂项\n\n" +
 				"先处理物理防御时然后处理物理攻击时=>先处理物理攻击时然后处理物理防御时。\n" +
@@ -222,6 +237,7 @@ public class 重制 {
 				
 				"修复酸蚀法杖高等级的施法会导致低等级的施法伤害没有正确分配，同时气体量50+10x级=>30+15x级。\n" +
 				"修复神偷袖章偷取没有掉落物的敌人崩溃。\n" +
+				"修复灵能短弓最大攻击获得神射之戒效果2倍。\n" +
 				"修复恶魔撕裂者有概率自己跳入深渊。\n" +
 				"修复潜在存在的背包物品寻找问题。\n" +
 				"武器部分格挡量不能根据等级提升。\n" +
@@ -234,12 +250,13 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(), "商人房间",
 						"1区域也有商店，卖1阶武器和护甲。\n" +
 						"卖给商人20件物品以上会免费赠送一个商人信标。\n" +
+						"不卖飞镖，但是必卖净化药剂和嬗变卷轴。\n" +
 						"非战士在第一个商店会卖水袋。\n" +
 						"商店的武器和护甲，戒指和法杖有概率拥有等级，且必定拥有1级。\n" +
 						"商店的小包口粮x2=>口粮+小包口粮。\n" +
 						"随机一个药剂或卷轴=>两张随机卷轴+一瓶随机药剂。"));
 		changes.addButton( new ChangeButton(new BlacksmithSprite(),"巨魔铁匠",
-				"任务要求数量40=>20。"));
+				"任务要求数量40=>20，携带的数量越多，增加的好感度越多。"));
 		changes.addButton( new ChangeButton(new SnakeSprite(), "下水道巨蛇",
 				"最大攻击+2。"));
 		changes.addButton( new ChangeButton(Icons.TALENT.get(), "天赋系统",
@@ -251,12 +268,6 @@ public class 重制 {
 				"献祭房\n" +
 						"房间大小-1，且没有深渊。\n" +
 				"所需经验减少90%，并且可以站在祭坛上扔治疗药剂直接献祭完成。\n" ,
-
-						"种子掉落\n" +
-						"根据地牢层1/25~1/9的概率=>1/9。\n" ,
-						
-						"种子掉落\n" +
-						"根据地牢层1/6~1/4的概率=>1/4~1/6。\n" ,
 						
 						"毒气房\n" +
 						"金币数量x2。\n" ,
@@ -269,14 +280,16 @@ public class 重制 {
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ITEM),"物品",
 					"物品可以重命名。\n" +
+					"扔出、拾取、丢下花费时间1=>攻速。\n" +
 					"一些物品图片更好。\n" +
 					"更好的物品图标和底色，数值显示。\n" +
 							"饰品提炼能量5=>4+等级x3"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
-			"部分描述更好。",
+			"部分描述更好。\n" +
+			"装备和卸下花费时间1=>攻速",
 				   "根骨之戒\n" +
-					"力量+1=>+2。提升生命系数1.035=>1.1。",
+					"提升生命系数1.035=>1.1。",
 
 					"狂怒之戒\n" +
 					"1.09051=>1.091。且所有情况都能使用。",
@@ -291,7 +304,7 @@ public class 重制 {
 					"空手伤害1~力量-8=>10%力量~20%力量。\n" +
 					"最小和最大伤害不会因为等级为0不取最大阶伤。\n" +
 					"没有空手的攻速加成。\n" +
-					"只对近战武器生效=>投掷武器也生效，且额外+空手最小伤害。"
+					"武器额外伤害+空手最小伤害。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_HOLDER), "种子",
 					"速行蓟\n" +
@@ -301,144 +314,147 @@ public class 重制 {
 							"不会被燃烧，且在触发能消灭火墙。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "近战武器1",
+										   "装备和卸下时间1=>攻速\n" +
+										   "扔出装备的戒指和武器时，只花费扔出的时间，不花费卸下的时间。\n\n",
+										   
 										   "权杖\n"+
-										   "在命中的敌人34%概率还会眩晕1回合。\n" +
+										   "首次攻击还会眩晕1回合。\n" +
+										   
 										   "命中率140%=>100%。\n" +
 										   "攻击间隔1=>1.2。\n" +
 										   "伤害倍率0.8=>1.3",
 										   
-										   "魔岩拳套\n" +
-										   "最小伤害+1，命中率1=>1.1。",
+										   "长矛\n" +
+										   "伤害倍率1.3=>1.5。",
 										   
-										   "长矛和关刀\n" +
-										   "命中率1=>0.8，攻击间隔1.5=>1.3。",
+										   "关刀\n" +
+										   "伤害倍率1.3=>1.75。",
 										   
 										   "链枷可以伏击。",
 										   
 										   "武器反超力增加命中，转换效率为根号武器力量-力量的3%加成。\n" +
-										   "武器反超力增加攻速，转换效率为根号武器力量-力量的3%加成。\n" +
-										   "空手增加命中，转换效率为根号力量的3%加成。\n" +
-										   "空手增加攻速，转换效率为根号力量的24%加成。" ,
+										   "武器反超力增加攻速，转换效率为根号武器力量-力量的3%加成。\n" ,
+										   "空手攻速1=>1.5\n\n" +
+										   "根据力量增加命中，转换效率为根号力量的3%加成。\n" +
+										   "根据力量增加攻速，转换效率为根号力量的24%加成。" ,
 										   
 										   "描述命中率、攻击间隔、伤害倍率、攻击范围、伏击率和格挡量。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "近战武器2",
 										   "硬头锤\n" +
-										   "命中率1.28=>0.9，攻击间隔1=>1.1，伤害倍率0.8=>1.2。在命中的敌人34%概率还会眩晕1回合。",
+										   "命中率1.28=>1，攻击间隔1=>1.25，伤害倍率1=>1.25。首次攻击还会眩晕1回合。",
 										   
 										   "短柄镰\n" +
 										   "命中率0.68=>0.9，攻击间隔1=>0.9，伤害倍率1.3=>1。",
 										   
-										   "镶钉手套\n" +
-										   "最小伤害+1，伤害倍率0.5=>0.4，命中率1=>1.2。",
+										   "圆盾\n" +
+										   "最大防御4+等级=>3+等级。攻击间隔1=>1.25，伤害倍率0.6=>1.25。",
 										   
-										   "圆盾和巨型方盾\n" +
-										   "命中率1=>0.7，攻击间隔1=>1.2，伤害倍率0.6=>1.4。",
+										   "巨型方盾\n" +
+										   "最大防御6+2x等级=>5+等级。攻击间隔1=>1.25，伤害倍率0.6=>1.25。",
 										   
 										   "战锤\n" +
-										   "命中率1.2=>0.7，攻击间隔1=>1.5，伤害倍率0.8=>1.6。在命中的敌人34%概率还会眩晕1回合。"
+										   "命中率1.2=>1，攻击间隔1=>1.25，伤害倍率0.8=>1.25。首次攻击还会眩晕1回合。"
 										   ));
 		
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "近战武器3",
 										   
-										   "配刺剑\n" +
-										   "最小伤害+1，命中率1=>1.1，攻击间隔1=>0.8。",
-										   
-										   "巨剑\n" +
-										   "命中率1=>0.7，攻击间隔1=>1.5，伤害倍率1=>1.8。",
-										   
 										   "巨斧\n" +
-										   "命中率1=>0.6，攻击间隔1=>1.6，伤害倍率1.8=>2。",
+										   "攻击间隔1=>1.5，伤害倍率1.8=>1.75。",
 										   
-										   "十字弩\n" +
-										   "命中率1=>1.1，攻击间隔1=>0.9，伤害倍率1=>0.8。",
+										   "链枷\n" +
+										   "攻击间隔1=>1.25，伤害倍率1=>1.25。",
 										   
 										   "战镰\n" +
-										   "命中率0.8=>0.6，攻击间隔1=>1.6，伤害倍率1.3=>1.6。"));
+										   "攻击间隔1=>1.34，伤害倍率1.3=>1.5。"));
 		
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "近战武器4",
 										   
 										   "战斧\n" +
-										   "命中率1=>0.7，攻击间隔1=>1.5，伤害倍率0.8=>1.8。",
+										   "攻击间隔1=>1.34，伤害倍率0.8=>1.5。",
 										   
 										   "长鞭\n" +
-										   "命中率1=>0.7，攻击间隔1=>1.2，伤害倍率1=>1.4。",
+										   "攻击间隔1=>1.25，伤害倍率1=>1.5。",
 										   
-										   "双钗\n" +
-										   "最小伤害+1，命中率1=>1.2，伤害倍率0.5=>0.4。",
+										   "双剑\n" +
+										   "伤害倍率0.5=>0.64。",
 										   
 										   "手斧\n" +
-										   "命中率1.32=>1.1，攻击间隔1=>0.9，伤害倍率1=>0.8。",
+										   "命中率1.32=>1，攻击间隔1=>1.25，伤害倍率1=>1.25。",
 										   
 										   "链枷\n" +
 										   "攻击间隔1=>1.3，伤害倍率1.4>1.3。"));
 		
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "近战武器5",
 										   
-										   "暗杀之刃\n" +
-										   "命中率1=>1.1，攻击间隔1=>0.9。",
-										   
 										   "符文之刃\n" +
-										   "等级获得额外伤害=>伤害倍率1.1和额外获得10%的等级。",
-										   
-										   "匕首\n" +
-										   "命中率1=>1.3，攻击间隔1=>0.7，伤害倍率0.8=>0.6。",
+										   "等级获得额外伤害=>额外获得25%的等级。",
 										   
 										   "双刃\n" +
-										   "最小伤害+1，命中率1=>1.3，攻击间隔1=>0.7，伤害倍率0.8=>0.6。",
+										   "攻击间隔1=>0.5，伤害倍率0.8=>0.64。",
 										   
 										   "弯刀\n" +
-										   "命中率1=>1.1，攻击间隔0.8=>0.9，伤害倍率1=>0.8。"));
+										   "命中率1=>1.259，伤害倍率1=>1.25。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "近战武器6",
 										   "武士刀\n" +
-										   "命中率1=>1.1，攻击间隔1=>0.9，伤害倍率0.8=>1.1。",
+										   "最大防御3=>4。",
 										   
-										   "破旧短剑和短剑\n" +
-										   "命中率1=>1.1，攻击间隔1=>0.9，伤害倍率1=>0.8。",
 										   
 										   "铁头棍\n" +
-										   "命中率1=>0.9，攻击间隔1=>1.1，伤害倍率0.8=>1.2。"));
+										   "攻击间隔1=>1.25，伤害倍率0.8=>1.25。"));
 		
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MISSILE_HOLDER), "投掷武器1",
-					"捕鱼矛、投矛、标枪、三叉戟\n" +
-							"命中率1=>0.8，攻击间隔1=>1.3，伤害倍率1=>1.3。" +
+					"最小攻击2x阶+等级=>(阶+等级)x0.9。\n" ,
+"捕鱼矛、投矛、标枪\n" +
+							"攻击间隔1=>1.5，伤害倍率1=>1.5。" +
 							"都拥有对第一次防御该武器的第一必定最大攻击。\n" ,
-
-							"苦无\n" +
-							"伤害倍率1=>1.2。\n" ,
+							
+"三叉戟\n" +
+							"攻击间隔1=>1.34，伤害倍率1=>1.5。" +
+							"都拥有对第一次防御该武器的第一必定最大攻击。\n" ,
 							
 							"飞刺\n" +
-							"命中率1=>0.9，攻击间隔1=>1.1，伤害倍率0.6=>1.2。\n" ,
+							"伤害倍率0.6=>1。\n" ,
 							
-							"飞斧头\n" +
-							"攻击间隔1=>1.1，最小伤害倍率1.5最大伤害倍率0.8=>1.2。\n" ,
+							"斧\n" +
+							"攻击间隔1=>1.25，最小伤害倍率1.5最大伤害倍率0.8=>1.34。\n" ,
 
-							"投石、飞槌和投掷锤\n" +
-							"手里剑命中率1=>0.9，攻击间隔1=>1.1，伤害0.8=>1.2(投石伤害倍率1=>1.2)。在命中的敌人还会眩晕1回合。"
+							"投石\n" +
+							"攻击间隔1=>0.5，投石伤害倍率1=>0.4。首次攻击敌人还会眩晕1回合。",
+
+							"槌\n" +
+							"攻击间隔1=>1.25，伤害倍率0.8=>1.25。首次攻击敌人还会眩晕1回合。",
+
+							"小锤\n" +
+							"攻击间隔1=>1.25，最小伤害倍率1最大伤害倍率0.8=>1.25。首次攻击敌人还会眩晕1回合。",
+
+							"投掷锤\n" +
+							"命中率1=>0.9，攻击间隔1=>1.1，最小伤害倍率1最大伤害倍率0.8=>1.2。首次攻击敌人还会眩晕1回合。"
 				));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MISSILE_HOLDER), "投掷武器2",
 										   
 										   "飞镖\n" +
 										   "攻击间隔1=>0.9，攻击间隔1=>0.8。\n" ,
 										   
-										   "重型回旋镖\n" +
-										   "攻击间隔1=>0.7，攻击间隔1=>1.5，伤害倍率1=>1.8。\n" ,
+										   "回旋镖\n" +
+										   "伤害倍率1=>0.6，回来时间瞬发。\n" ,
 										   
 										   "流星索\n" +
 										   "命中率1=>0.9，攻击间隔1=>1.1，伤害倍率1=>1.2。流星索施加残废时间10=>5。\n" ,
 										   
 										   "震爆方石\n" +
-										   "命中率1=>0.9，攻击间隔1=>1.1。\n" ,
+										   "攻击间隔1=>0.5，伤害倍率1=>0.5。\n" ,
 										   
-										   "飞刀\n" +
-										   "命中率1=>1.1，攻击间隔1=>0.9，伤害倍率1.2=>0.8。\n" ,
+										   "小刀\n" +
+										   "伤害倍率1.2=>0.8。\n" ,
 										   
 										   "手里剑和苦无\n" +
-										   "手里剑命中率1=>0.8，攻击间隔1=>0.6，伤害倍率1=>0.6。都拥有回合冷却后不消耗回合的投掷和伏击伤害加成。\n" ,
+										   "伤害倍率1=>1.2。都拥有回合冷却后不消耗回合的投掷和67%伏击伤害加成。\n" ,
 										   
 										   "重型回旋镖\n" +
 										   "回来的时间3回合=>1回合。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "护甲",
+					"护甲装备和卸下时间1=>攻速x移速x6。\n"+
 					"护甲反超力增加闪避，转换效率为根号武器力量-力量的3%加成。\n"+
 					"护甲反超力增加移速，转换效率为根号武器力量-力量的3%加成。\n"+
 										   "裸衣增加闪避，转换效率为根号力量的3%加成。\n"+
@@ -495,13 +511,12 @@ public class 重制 {
 						"金币价值减半"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_FIREBLOOM), "烈焰花",
 				"4层必定生成。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "吃饭机制",
-				"吃饭恢复25%生命力。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.RATION), "食物",
+				"吃饭回血食物填充/150的生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
-				"攻击间隔1=>1.2。\n" +
 				"升级获得1充能。\n" +
 				"自带+1强化等级。\n" +
-				"自带法杖回收，且能吸收灌注法杖一半的等级。"));
+				"自带法杖回收，且能转移灌注法杖等级。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.WIDE_SEARCH), "搜索机制",
 				"搜索会在搜索范围内拾取非陷阱上的物品和打开箱子。"));
 		changes.addButton(new ChangeButton(new TalentIcon(Talent.SUCKER_PUNCH), "伏击机制",
@@ -510,16 +525,20 @@ public class 重制 {
 				"未祝福效果=>残血无敌复活。\n" +
 						"祝福效果=>满血无敌复活"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_MIGHT), "根骨秘药",
-				"+1力量+暂时最大生命=>+15永久最大生命和1生命力。"));
+				"+暂时最大生命=>+15永久最大生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.破损纹章), "破损纹章",
-				"初始护盾3，并计算护甲阶级=>1，并计算护甲阶级。\n" +
+				"初始护盾3+2x护甲阶级=>1+2x(护甲阶级+护甲等级)。\n" +
 				"半血受伤获得=>受伤获得。\n" +
 				"提升护甲的等级改成强化等级。\n" +
-				"可额外携带1级，冷却150=>50。"));
+				"可额外携带1级，冷却150=>80。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
-				"最小攻击成长20%=>4%，最大攻击-1。\n" +
-						"箭矢能触发部分东西。"));
+				"箭矢能触发部分东西。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_HOLDER), "神器",
+				"装备和卸下花费1=>攻速x2。\n\n",
+				
+				"虚空锁链\n" +
+							"拉扯敌人会残废4回合。",
+							
 				"蓄血圣杯\n" +
 							"血祭消耗生命-5。",
 							
@@ -533,7 +552,7 @@ public class 重制 {
 						   "攻击不会打断时间冻结。"
 										   ));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.DEWDROP), "露珠",
-				"遇冰霜变成雪球。"));
+				"遇冰霜变成千年雪。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.BACKPACK), "背包",
 				"背包格子+10。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ALCHEMIZE), "炼金菱晶",
@@ -555,10 +574,8 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.FIRE, true), "燃烧",
 				"燃烧获得火把效果。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "口粮",
-										   "任何填充饱腹都能触发吃饭效果，不过是叠加到150才会，并且能够堆叠触发。"));
-		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.ANKH, true), "无敌",
-				"初始添加3回合=>10回合。\n" +
-						"重生十字架 祝福3回合=> 未祝福5回合，祝福10回合。"));
+										   "任何饱腹填充都能触发吃饭天赋，不过效果会/150。"));
+		
 		changes = new ChangeInfo(Messages.get(改动界面.class, "nerfs"), false, null);
 		changes.hardlight(CharSprite.削弱);
 		changeInfos.add(changes);
@@ -567,15 +584,9 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.FOOD_HOLDER), "口粮",
 				"英雄初始不携带口粮。"));
 		changes.addButton( new ChangeButton(new GooSprite(), "粘咕",
-				"受到燃烧伤害+20%生命力。"));
+				"受到燃烧伤害+2。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STEWED), "炖肉",
 				"3个合成时消耗能量2=>3。"));
-		changes.addButton(new ChangeButton(new TalentIcon(Talent.无声步伐), "无声步伐",
-				"所有英雄的惊扰距离+1。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.CROWN), "护甲技能",
-				"矮人国王不掉落，护甲技能移除。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ELIXIR_FEATHER), "羽落秘药",
-				"移除。"));
 
 	}
 

@@ -8,6 +8,8 @@ public class 能袍 extends Armor {
 
 	{
 		image = 物品表.能袍;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 能袍(){

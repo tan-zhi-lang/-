@@ -37,8 +37,8 @@ public class GnollExile extends Gnoll {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 1, 10 );
+	public int 最大攻击() {
+		return 10;
 	}
 
 	@Override
@@ -47,8 +47,8 @@ public class GnollExile extends Gnoll {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 1);
+	public int 最大防御() {
+		return super.最大防御()+1;
 	}
 
 	@Override

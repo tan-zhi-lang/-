@@ -15,8 +15,8 @@ public class 地牢浆果 extends Food {
 	{
 		image = 物品表.地牢浆果;
 		energy = Hunger.HUNGRY/3f; //100 food value
-
-		bones = false;
+		
+		遗产= false;
 	}
 
 	@Override

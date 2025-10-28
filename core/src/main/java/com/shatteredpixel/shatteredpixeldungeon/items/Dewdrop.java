@@ -25,8 +25,6 @@ public class Dewdrop extends Item {
 	
 	{
 		image = 物品表.DEWDROP;
-		
-		stackable = true;
 		dropsDownHeap = true;
 	}
 	
@@ -65,26 +63,14 @@ public class Dewdrop extends Item {
 
 		int heal = Math.min( hero.最大生命 - hero.生命, effect );
 
-		int shield = 0;
-		if (hero.天赋(Talent.SHIELDING_DEW)){
-
-			//When vial is present, this allocates exactly as much of the effect as is needed
-			// to get to 100% HP, and the rest is then given as shielding (without the vial boost)
-			if (quantity > 1 && heal < effect && VialOfBlood.delayBurstHealing()){
-				heal = Math.round(heal/VialOfBlood.totalHealMultiplier());
-			}
-
-			shield = effect - heal;
-
-			int maxShield = Math.round(hero.最大生命*hero.天赋点数(Talent.SHIELDING_DEW,0.25f));
-			int curShield = 0;
-			if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).护盾量();
-			shield = Math.min(shield, maxShield-curShield);
+		if (quantity > 1 &&hero.天赋(Talent.SHIELDING_DEW)){
+			int shield = hero.最大生命(hero.天赋点数(Talent.SHIELDING_DEW,0.25f)*quantity);
+			Buff.施加(hero, Barrier.class).增加(shield);
+			hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING );
 		}
 
-		if (heal > 0 || shield > 0) {
-
-			if (heal > 0 && quantity > 1 && VialOfBlood.delayBurstHealing()){
+		if (heal > 0 ) {
+			if (quantity > 1 && VialOfBlood.delayBurstHealing()){
 				Healing healing = Buff.施加(hero, Healing.class);
 				healing.setHeal(heal, 0, VialOfBlood.maxHealPerTurn());
 				healing.applyVialEffect();
@@ -94,12 +80,7 @@ public class Dewdrop extends Item {
 					hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
 				}
 			}
-
-			if (shield > 0) {
-				Buff.施加(hero, Barrier.class).增加(shield);
-				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING );
-			}
-
+			
 		} else if (!force) {
 			GLog.i( Messages.get(Dewdrop.class, "already_full") );
 			return false;

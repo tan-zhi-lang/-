@@ -23,11 +23,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -52,18 +53,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArm
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -630,8 +629,8 @@ public abstract class Mob extends Char {
 				|| Dungeon.hero.buff(Swiftthistle.TimeBubble.class) != null)
 			sprite.add( CharSprite.State.PARALYSED );
 	}
-	
-	public float attackDelay() {
+	@Override
+	public float 攻击延迟() {
 		float delay = 1f;
 		if ( buff(Adrenaline.class) != null) delay /= 1.5f;
 		return delay;
@@ -646,7 +645,7 @@ public abstract class Mob extends Char {
 		} else {
 			attack( enemy );
 			Invisibility.dispel(this);
-			spend( attackDelay() );
+			spend(攻击延迟());
 			return true;
 		}
 	}
@@ -655,7 +654,7 @@ public abstract class Mob extends Char {
 	public void onAttackComplete() {
 		attack( enemy );
 		Invisibility.dispel(this);
-		spend( attackDelay() );
+		spend(攻击延迟());
 		super.onAttackComplete();
 	}
 	
@@ -687,7 +686,7 @@ public abstract class Mob extends Char {
 	public int 防御时(Char enemy, int damage ) {
 		
 		if (enemy instanceof Hero
-				&& ((Hero) enemy).belongings.attackingWeapon() instanceof MissileWeapon){
+				&& ((Hero) enemy).belongings.attackingWeapon() instanceof Weapon){
 			Statistics.thrownAttacks++;
 			Badges.validateHuntressUnlock();
 		}
@@ -698,12 +697,12 @@ public abstract class Mob extends Char {
 			//TODO this is somewhat messy, it would be nicer to not have to manually handle delays here
 			// playing the strong hit sound might work best as another property of weapon?
 			if (Dungeon.hero.belongings.attackingWeapon() instanceof 灵能短弓.SpiritArrow
-				|| Dungeon.hero.belongings.attackingWeapon() instanceof Dart){
+				|| Dungeon.hero.belongings.attackingWeapon() instanceof 飞镖){
 				Sample.INSTANCE.playDelayed(Assets.Sounds.HIT_STRONG, 0.125f);
 			} else {
 				Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
 			}
-			if (enemy.buff(Preparation.class) != null) {
+			if (enemy.buff(潜伏.class)!=null) {
 				Wound.hit(this);
 			} else {
 				Surprise.hit(this);
@@ -721,22 +720,13 @@ public abstract class Mob extends Char {
 			}
 		}
 
-		if (buff(SoulMark.class) != null) {
-			int restoration = Math.min(damage, 生命 +shielding());
-			
-			//physical damage that doesn't come from the hero is less effective
+		if (buff(灵魂标记.class)!=null) {
+			Dungeon.hero.回血(damage/3f);
 			if (enemy != Dungeon.hero){
-				restoration = Math.round(restoration*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
+				Dungeon.hero.回血(damage/3f*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
 			}
-			if (restoration > 0) {
-				Buff.施加(Dungeon.hero, Hunger.class).吃饭(restoration*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.4f));
+			Buff.施加(Dungeon.hero, Hunger.class).吃饭(damage/3f*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.2f));
 
-				if (Dungeon.hero.生命 < Dungeon.hero.最大生命) {
-					int heal = (int)Math.ceil(restoration * 0.4f);
-					Dungeon.hero.生命 = Math.min(Dungeon.hero.最大生命, Dungeon.hero.生命 + heal);
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
-				}
-			}
 		}
 
 		return super.防御时(enemy, damage);
@@ -901,18 +891,13 @@ public abstract class Mob extends Char {
 					Dungeon.observe();
 				}
 				
-				if(Dungeon.hero.天赋概率(Talent.DURABLE_PROJECTILES,33)&&cause instanceof MissileWeapon m){
-					m.耐久(Dungeon.hero.天赋点数(Talent.DURABLE_PROJECTILES));
-				}
 				
 				if(!isAlive()){
-					if(Dungeon.hero.天赋(Talent.LETHAL_DEFENSE)){
-						Buff.施加(Dungeon.hero,破损纹章.WarriorShield.class).reduceCooldown(Dungeon.hero.天赋点数(Talent.LETHAL_DEFENSE)/4f);
+					if (Dungeon.hero.SubClass(HeroSubClass.狂战士)) {
+						怒气 怒气= Buff.施加(this,怒气.class);
+						怒气.damage();
 					}
 				
-				if(Dungeon.hero.天赋(Talent.越战越勇)){
-					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.越战越勇,0.2f));
-				}
 				if(properties().contains(Char.Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
 					Dungeon.hero.回血(Dungeon.hero.生命力(0.25f));
 				}
@@ -935,7 +920,7 @@ public abstract class Mob extends Char {
 			GLog.i( Messages.get(this, "died") );
 		}
 
-		boolean soulMarked = buff(SoulMark.class) != null;
+		boolean soulMarked =buff(灵魂标记.class)!=null;
 
 		super.死亡时( cause );
 
@@ -956,11 +941,11 @@ public abstract class Mob extends Char {
 	public float lootChance(){
 		float lootChance = this.lootChance;
 
-		float dropBonus = RingOfWealth.dropChanceMultiplier( Dungeon.hero );
+		float dropBonus = 财富之戒.dropChanceMultiplier(Dungeon.hero);
 
 		Talent.BountyHunterTracker bhTracker = Dungeon.hero.buff(Talent.BountyHunterTracker.class);
 		if (bhTracker != null){
-			Preparation prep = Dungeon.hero.buff(Preparation.class);
+			潜伏 prep = Dungeon.hero.buff(潜伏.class);
 			if (prep != null){
 				// 2/4/8/16% per prep level, multiplied by talent points
 				float bhBonus = 0.02f * (float)Math.pow(2, prep.attackLevel()-1);
@@ -988,14 +973,14 @@ public abstract class Mob extends Char {
 		}
 		
 		//ring of wealth logic
-		if (Ring.getBuffedBonus(Dungeon.hero, RingOfWealth.Wealth.class) > 0) {
+		if (Ring.getBuffedBonus(Dungeon.hero, 财富之戒.Wealth.class)>0) {
 			int rolls = 1;
 			if (properties().contains(Property.BOSS)) rolls = 15;
 			else if (properties().contains(Property.MINIBOSS)) rolls = 5;
-			ArrayList<Item> bonus = RingOfWealth.tryForBonusDrop(Dungeon.hero, rolls);
+			ArrayList<Item> bonus = 财富之戒.tryForBonusDrop(Dungeon.hero,rolls);
 			if (bonus != null && !bonus.isEmpty()) {
 				for (Item b : bonus) Dungeon.level.drop(b, pos).sprite.drop();
-				RingOfWealth.showFlareForBonusDrop(sprite);
+				财富之戒.showFlareForBonusDrop(sprite);
 			}
 		}
 		
@@ -1003,11 +988,6 @@ public abstract class Mob extends Char {
 		if (buff(Lucky.LuckProc.class) != null){
 			Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(), pos).sprite.drop();
 			Lucky.showFlare(sprite);
-		}
-
-		//soul eater talent
-		if (buff(SoulMark.class) != null && Dungeon.hero.天赋概率(Talent.SOUL_EATER,25)){
-			Talent.吃饭时(Dungeon.hero, 0, null);
 		}
 
 	}
@@ -1073,7 +1053,12 @@ public abstract class Mob extends Char {
 		for (Buff b : buffs(ChampionEnemy.class)){
 			desc += "\n\n_" + Messages.titleCase(b.name()) + "_\n" + b.desc();
 		}
-
+		desc+="\n\n\n";
+		desc+="生命值"+生命+"/"+最大生命+"\n\n";
+		desc+="攻击力"+最小攻击()+"~"+最大攻击()+"\n\n";
+		desc+="防御力"+最小防御()+"~"+最大防御()+"\n\n";
+		desc+="命中/闪避"+最大命中()+"/"+最大闪避()+"\n\n";
+		desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速());
 		return desc;
 	}
 	
@@ -1123,12 +1108,9 @@ public abstract class Mob extends Char {
 					if (fieldOfView[ch.pos] && ch.invisible == 0 && ch.alignment != alignment && ch.alignment != Alignment.NEUTRAL){
 						float chDist = ch.stealth() + distance(ch);
 						if(ch instanceof Hero hero){
-							int x=5-Dungeon.hero.天赋点数(Talent.无声步伐)-Dungeon.hero.天赋点数(Talent.惊觉一现);
+							int x=0;
 							
-							if(hero.heroClass(HeroClass.镜魔))
-							x--;
-							
-							x=Math.max(1,x);
+							x=Math.max(1,hero.惊醒距离());
 							
 							//silent steps rogue talent, which also applies to rogue's shadow clone
 							if (ch instanceof Hero||ch instanceof ShadowClone.ShadowAlly){

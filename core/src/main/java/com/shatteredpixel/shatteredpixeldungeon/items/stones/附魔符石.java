@@ -20,8 +20,8 @@ public class 附魔符石 extends InventoryStone {
 	{
 		preferredBag = Belongings.Backpack.class;
 		image = 物品表.STONE_ENCHANT;
-
-		unique = true;
+		
+		特别= true;
 	}
 
 	@Override

@@ -2,15 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd忍术;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 
@@ -68,7 +65,7 @@ public class 忍术技能 extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public void doAction() {
-		GameScene.show(new Wnd忍术(Dungeon.hero,false));
+//		GameScene.show(new Wnd忍术(Dungeon.hero,false));
 	}
 
 }

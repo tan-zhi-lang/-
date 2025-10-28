@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.keys;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -11,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
@@ -20,8 +18,8 @@ public abstract class Key extends Item {
 	public static final float TIME_TO_UNLOCK = 1f;
 	
 	{
-		stackable = true;
-		unique = true;
+		可堆叠= true;
+		特别= true;
 		物品 = true;
 	}
 

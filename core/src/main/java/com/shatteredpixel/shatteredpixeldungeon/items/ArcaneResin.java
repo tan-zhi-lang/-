@@ -26,13 +26,13 @@ public class ArcaneResin extends Item {
 
 	{
 		image = 物品表.ARCANE_RESIN;
-
-		stackable = true;
+		
+		可堆叠= true;
 		紫色 = true;
 
 		defaultAction = AC_APPLY;
-
-		bones = true;
+		
+		遗产= true;
 	}
 
 	private static final String AC_APPLY = "APPLY";
@@ -172,10 +172,6 @@ public class ArcaneResin extends Item {
 		private int resinQuantity(Wand w){
 			int level = w.等级();
 			int quantity = level-w.resinBonus+1;
-
-			if (Dungeon.hero.heroClass != HeroClass.MAGE && Dungeon.hero.天赋(Talent.高级魔杖)){
-				quantity += Dungeon.hero.天赋点数(Talent.高级魔杖);
-			}
 			return quantity;
 		}
 	}

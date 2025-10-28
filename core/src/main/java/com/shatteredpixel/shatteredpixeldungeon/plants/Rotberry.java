@@ -48,8 +48,8 @@ public class Rotberry extends Plant {
 			image = 物品表.SEED_ROTBERRY;
 
 			plantClass = Rotberry.class;
-
-			unique = true;
+			
+			特别= true;
 		}
 		
 		@Override

@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -37,9 +37,9 @@ public class Endure extends ArmorAbility {
 		}
 		Buff.延长(hero, EndureTracker.class, 12f);
 
-		Combo combo = hero.buff(Combo.class);
-		if (combo != null){
-			combo.addTime(3f);
+		连击 连击= hero.buff(连击.class);
+		if (连击!=null){
+			连击.addTime(3f);
 		}
 		hero.sprite.operate();
 

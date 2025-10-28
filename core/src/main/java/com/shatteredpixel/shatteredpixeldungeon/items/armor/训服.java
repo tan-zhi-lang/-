@@ -8,6 +8,8 @@ public class 训服 extends Armor {
 
 	{
 		image = 物品表.训服;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 训服(){

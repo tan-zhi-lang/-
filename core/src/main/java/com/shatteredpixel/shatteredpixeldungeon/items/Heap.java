@@ -21,12 +21,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.DocumentPage;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfWealth;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.雪球;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.千年雪;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
@@ -90,10 +88,10 @@ public class Heap implements Bundlable {
 		}
 
 		type = Type.HEAP;
-		ArrayList<Item> bonus = RingOfWealth.tryForBonusDrop(hero, 1);
+		ArrayList<Item> bonus = 财富之戒.tryForBonusDrop(hero,1);
 		if (bonus != null && !bonus.isEmpty()) {
 			items.addAll(0, bonus);
-			RingOfWealth.showFlareForBonusDrop(sprite);
+			财富之戒.showFlareForBonusDrop(sprite);
 		}
 		sprite.link();
 		sprite.drop();
@@ -136,7 +134,7 @@ public class Heap implements Bundlable {
 	
 	public void drop( Item item ) {
 		
-		if (item.stackable && type != Type.FOR_SALE) {
+		if (item.可堆叠&&type!=Type.FOR_SALE) {
 			
 			for (Item i : items) {
 				if (i.isSimilar( item )) {
@@ -159,12 +157,6 @@ public class Heap implements Bundlable {
 			sprite.view(this).place( pos );
 		}
 
-		if (TippedDart.lostDarts > 0){
-			Dart d = new Dart();
-			d.数量(TippedDart.lostDarts);
-			TippedDart.lostDarts = 0;
-			drop(d);
-		}
 	}
 	
 	public void replace( Item a, Item b ) {
@@ -203,7 +195,7 @@ public class Heap implements Bundlable {
 			if(item instanceof Icecap.Seed){
 				continue;
 			}
-			if (item instanceof Scroll && !item.unique) {
+			if (item instanceof Scroll && !item.特别) {
 				items.remove( item );
 				burnt = true;
 			} else if (item instanceof Dewdrop) {
@@ -263,7 +255,7 @@ public class Heap implements Bundlable {
 			for (Item item : items.toArray( new Item[0] )) {
 
 				//unique items and equipment aren't affect by explosions
-				if (item.unique || item.可升级() || item instanceof EquipableItem){
+				if (item.特别||item.可升级()||item instanceof EquipableItem){
 					continue;
 				}
 
@@ -306,12 +298,12 @@ public class Heap implements Bundlable {
 		boolean frozen = false;
 		for (Item item : items.toArray( new Item[0] )) {
 			if (item instanceof Dewdrop) {
-				replace( item, new 雪球().数量(item.quantity));
+				replace( item, new 千年雪());
 				frozen = true;
 			}else if (item instanceof MysteryMeat) {
 				replace( item, FrozenCarpaccio.cook( (MysteryMeat)item ) );
 				frozen = true;
-			} else if (item instanceof Potion && !item.unique) {
+			} else if (item instanceof Potion && !item.特别) {
 				items.remove(item);
 				((Potion) item).shatter(pos);
 				frozen = true;

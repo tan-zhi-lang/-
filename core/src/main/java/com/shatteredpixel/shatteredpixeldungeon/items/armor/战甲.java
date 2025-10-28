@@ -8,6 +8,8 @@ public class 战甲 extends Armor {
 
 	{
 		image = 物品表.战甲;
+		嬗变= false;
+		专属=true;
 	}
 	public 战甲(){
         super(1);

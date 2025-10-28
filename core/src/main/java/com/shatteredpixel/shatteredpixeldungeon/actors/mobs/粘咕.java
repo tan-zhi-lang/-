@@ -46,7 +46,7 @@ public class 粘咕 extends Mob {
 	private int healInc = 1;
 
 	@Override
-	public int 攻击() {
+	public int 最小攻击() {
 		int min = 1;
 		int max = (生命 *2 <= 最大生命) ? 12 : 8;
 		if (pumpedUp > 0) {
@@ -55,9 +55,24 @@ public class 粘咕 extends Mob {
 				Statistics.qualifiedForBossChallengeBadge = false;
 				Statistics.bossScores[0] -= 100;
 			}
-			return Random.NormalIntRange( min*3, max*3 );
+			return min*3;
 		} else {
-			return Random.NormalIntRange( min, max );
+			return min;
+		}
+	}
+	@Override
+	public int 最大攻击() {
+		int min = 1;
+		int max = (生命 *2 <= 最大生命) ? 12 : 8;
+		if (pumpedUp > 0) {
+			pumpedUp = 0;
+			if (enemy == Dungeon.hero) {
+				Statistics.qualifiedForBossChallengeBadge = false;
+				Statistics.bossScores[0] -= 100;
+			}
+			return max*3;
+		} else {
+			return max;
 		}
 	}
 
@@ -75,8 +90,8 @@ public class 粘咕 extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 2);
+	public int 最大防御() {
+		return super.最大防御()+2;
 	}
 
 	@Override
@@ -162,7 +177,7 @@ public class 粘咕 extends Mob {
 			pumpedUp++;
 			((GooSprite)sprite).pumpUp( pumpedUp );
 
-			spend( attackDelay() );
+			spend(攻击延迟());
 
 			return true;
 		} else if (pumpedUp >= 2 || Random.Int( (生命 *2 <= 最大生命) ? 2 : 5 ) > 0) {
@@ -181,7 +196,7 @@ public class 粘咕 extends Mob {
 				}
 				attack( enemy );
 				Invisibility.dispel(this);
-				spend( attackDelay() );
+				spend(攻击延迟());
 			}
 
 			return !visible;
@@ -191,10 +206,10 @@ public class 粘咕 extends Mob {
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 				pumpedUp += 2;
 				//don't want to overly punish players with slow move or attack speed
-				spend(GameMath.gate(attackDelay(), (int)Math.ceil(enemy.cooldown()), 3*attackDelay()));
+				spend(GameMath.gate(攻击延迟(),(int)Math.ceil(enemy.cooldown()),3*攻击延迟()));
 			} else {
 				pumpedUp++;
-				spend( attackDelay() );
+				spend(攻击延迟());
 			}
 
 			((GooSprite)sprite).pumpUp( pumpedUp );
@@ -246,7 +261,7 @@ public class 粘咕 extends Mob {
 			Dungeon.level.seal();
 		}
 		if(src instanceof 燃烧){
-			dmg+=生命力(0.2f);
+			dmg+=2;
 		}
 
 		boolean bleeding = (生命 *2 <= 最大生命);

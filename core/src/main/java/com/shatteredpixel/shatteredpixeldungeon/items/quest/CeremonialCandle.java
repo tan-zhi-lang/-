@@ -35,9 +35,9 @@ public class CeremonialCandle extends Item {
 		image = 物品表.CANDLE;
 
 		defaultAction = AC_THROW;
-
-		unique = true;
-		stackable = true;
+		
+		特别= true;
+		可堆叠= true;
 	}
 
 	@Override

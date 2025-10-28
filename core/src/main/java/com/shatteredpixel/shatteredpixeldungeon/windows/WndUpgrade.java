@@ -13,9 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -183,10 +181,10 @@ public class WndUpgrade extends Window {
 		}
 
 		if (Dungeon.hero() && Dungeon.hero.heroClass == HeroClass.DUELIST
-				&& toUpgrade instanceof MeleeWeapon && ((MeleeWeapon) toUpgrade).upgradeAbilityStat(levelFrom) != null){
+				&& toUpgrade instanceof Weapon && ((Weapon) toUpgrade).upgradeAbilityStat(levelFrom) != null){
 			bottom = fillFields(Messages.get(toUpgrade, "upgrade_ability_stat_name"),
-					((MeleeWeapon) toUpgrade).upgradeAbilityStat(levelFrom),
-					((MeleeWeapon) toUpgrade).upgradeAbilityStat(levelTo),
+					((Weapon) toUpgrade).upgradeAbilityStat(levelFrom),
+					((Weapon) toUpgrade).upgradeAbilityStat(levelTo),
 					bottom);
 		}
 
@@ -197,7 +195,7 @@ public class WndUpgrade extends Window {
 					((Armor) toUpgrade).最小防御(levelFrom) + "-" + (((Armor) toUpgrade).最大防御(levelFrom)),
 					((Armor) toUpgrade).最小防御(levelTo) + "-" +  (((Armor) toUpgrade).最大防御(levelTo)),
 					bottom);
-		} else if (toUpgrade instanceof MeleeWeapon m&&m.最大防御()>0){
+		} else if (toUpgrade instanceof Weapon m&&m.最大防御()>0){
 			bottom = fillFields(Messages.get(this, "blocking"),
 					0 + "-" + m.最大防御(levelFrom),
 					0 + "-" + m.最大防御(levelTo),
@@ -215,29 +213,6 @@ public class WndUpgrade extends Window {
 					Integer.toString((((Armor) toUpgrade).力量(levelFrom))),
 					Integer.toString((((Armor) toUpgrade).力量(levelTo))),
 					bottom);
-		}
-
-		//durability
-		if (toUpgrade instanceof MissileWeapon){
-			//missile weapons are always IDed currently, so we always use true level
-			int uses1, uses2;
-			if (toUpgrade.levelKnown) {
-				uses1 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(toUpgrade.等级()));
-				uses2 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(toUpgrade.等级()+1));
-			} else {
-				uses1 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(0));
-				uses2 = (int) Math.ceil(100f / ((MissileWeapon) toUpgrade).durabilityPerUse(1));
-			}
-			bottom = fillFields(Messages.get(this, "durability"),
-					uses1 >= 100 ? "∞" : Integer.toString(uses1),
-					uses2 >= 100 ? "∞" : Integer.toString(uses2),
-					bottom);
-
-			bottom = fillFields(Messages.get(this, "quantity"),
-					Integer.toString(toUpgrade.数量()),
-					Integer.toString(((MissileWeapon) toUpgrade).defaultQuantity()),
-					bottom);
-
 		}
 
 		//we use a separate reference for wand properties so that mage's staff can include them
@@ -336,11 +311,6 @@ public class WndUpgrade extends Window {
 					lossChance = Math.min(100, 10 * (int) Math.pow(2, levelFrom - 6));
 				} else {
 					lossChance = Math.min(100, 10 * (int) Math.pow(2, levelFrom - 4));
-					if (Dungeon.hero != null && Dungeon.hero.heroClass != HeroClass.WARRIOR && Dungeon.hero.天赋(Talent.纹章升级)){
-						if (levelFrom < 5+Dungeon.hero.天赋点数(Talent.纹章升级)){
-							lossChance = 0;
-						}
-					}
 				}
 
 				if (lossChance >= 10) {
@@ -367,7 +337,7 @@ public class WndUpgrade extends Window {
 					|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph()))
 					&& toUpgrade.cursedKnown) {
 
-				if (toUpgrade.cursed && (toUpgrade instanceof MeleeWeapon && ((Weapon) toUpgrade).hasCurseEnchant())
+				if (toUpgrade.cursed && (toUpgrade instanceof Weapon && ((Weapon) toUpgrade).hasCurseEnchant())
 						|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph())){
 					bottom = addMessage(Messages.get(this, "cursed_weaken"), CharSprite.增强, bottom);
 				} else {
@@ -383,10 +353,6 @@ public class WndUpgrade extends Window {
 		//warning relating to arcane resin
 		if (toUpgrade instanceof Wand && ((Wand) toUpgrade).resinBonus > 0){
 			bottom = addMessage(Messages.get(this, "resin"), CharSprite.WARNING, bottom);
-		}
-
-		if (toUpgrade instanceof MissileWeapon && ((MissileWeapon) toUpgrade).extraThrownLeft){
-			bottom = addMessage(Messages.get(this, "thrown_dust"), CharSprite.WARNING, bottom);
 		}
 
 		// *** Buttons for confirming/cancelling ***

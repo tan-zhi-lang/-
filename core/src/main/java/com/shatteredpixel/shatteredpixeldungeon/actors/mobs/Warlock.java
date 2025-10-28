@@ -43,8 +43,12 @@ public class Warlock extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 12, 18 );
+	public int 最小攻击() {
+		return 12;
+	}
+	@Override
+	public int 最大攻击() {
+		return 18;
 	}
 	
 	@Override
@@ -53,8 +57,8 @@ public class Warlock extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 8);
+	public int 最大防御() {
+		return super.最大防御()+8;
 	}
 	
 	@Override

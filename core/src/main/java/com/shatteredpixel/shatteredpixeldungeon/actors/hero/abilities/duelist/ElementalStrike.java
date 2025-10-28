@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
@@ -23,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
@@ -60,7 +60,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projec
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -143,11 +142,11 @@ public class ElementalStrike extends ArmorAbility {
 				dist,
 				65 + 10*hero.天赋点数(Talent.ELEMENTAL_REACH),
 				Ballistica.STOP_SOLID | Ballistica.STOP_TARGET);
-
-		KindOfWeapon w = hero.belongings.weapon();
+		
+		Weapon w = hero.belongings.weapon();
 		Weapon.Enchantment enchantment = null;
-		if (w instanceof MeleeWeapon) {
-			enchantment = ((MeleeWeapon) w).enchantment;
+		if (w instanceof Weapon) {
+			enchantment = ((Weapon) w).enchantment;
 		}
 		Class<?extends Weapon.Enchantment> enchCls = null;
 		if (enchantment != null){
@@ -196,7 +195,7 @@ public class ElementalStrike extends ArmorAbility {
 				perCharEffect(cone, hero, enemy, finalEnchantment);
 
 				Invisibility.dispel();
-				hero.spendAndNext(hero.攻速());
+				hero.spendAndNext(hero.攻击延迟());
 			}
 		});
 
@@ -415,7 +414,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Projecting){
 			for (Char ch : affected){
 				if (ch != primaryTarget) {
-					ch.受伤时(Math.round(hero.攻击() * 0.3f * powerMulti), ench);
+					ch.受伤时(Math.round(hero.最大攻击()*0.3f*powerMulti),ench);
 				}
 			}
 
@@ -425,7 +424,7 @@ public class ElementalStrike extends ArmorAbility {
 			if (w instanceof Weapon) {
 				for (Char ch : affected){
 					if (ch != primaryTarget) {
-						ench.proc((Weapon) w, hero, ch, w.damageRoll(hero));
+//						ench.proc((Weapon) w, hero, ch, w.damageRoll(hero));
 					}
 				}
 			}
@@ -538,9 +537,9 @@ public class ElementalStrike extends ArmorAbility {
 	public String desc() {
 		String desc = Messages.get(this, "desc");
 		if (Game.scene() instanceof GameScene){
-			KindOfWeapon w = Dungeon.hero.belongings.weapon();
-			if (w instanceof MeleeWeapon && ((MeleeWeapon) w).enchantment != null){
-				desc += "\n\n" + Messages.get(((MeleeWeapon) w).enchantment, "elestrike_desc");
+			Weapon w = Dungeon.hero.belongings.weapon();
+			if (w instanceof Weapon && ((Weapon) w).enchantment != null){
+				desc += "\n\n" + Messages.get(((Weapon) w).enchantment, "elestrike_desc");
 			} else {
 				desc += "\n\n" + Messages.get(this, "generic_desc");
 			}

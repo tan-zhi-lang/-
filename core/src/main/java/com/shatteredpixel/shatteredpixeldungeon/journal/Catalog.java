@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
-import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
@@ -89,7 +88,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.DwarfToken;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.BowFragment;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.BrokenHilt;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.BrokenStaff;
@@ -113,16 +111,30 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.矛盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.简易弩;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.血砍刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.吸血飞刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.矛盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血姬;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血砍刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.配刺剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
@@ -142,7 +154,6 @@ public enum Catalog {
 	ARMOR,
 	ENCHANTMENTS,
 	GLYPHS,
-	THROWN_WEAPONS,
 	WANDS,
 	RINGS,
 	ARTIFACTS,
@@ -216,12 +227,6 @@ public enum Catalog {
 					   魔披.class
 					   );
 
-		THROWN_WEAPONS.addItems(Generator.Category.MIS_T1.classes);
-		THROWN_WEAPONS.addItems(Generator.Category.MIS_T2.classes);
-		THROWN_WEAPONS.addItems(Generator.Category.MIS_T3.classes);
-		THROWN_WEAPONS.addItems(Generator.Category.MIS_T4.classes);
-		THROWN_WEAPONS.addItems(Generator.Category.MIS_T5.classes);
-
 		ENCHANTMENTS.addItems(Weapon.Enchantment.common);
 		ENCHANTMENTS.addItems(Weapon.Enchantment.uncommon);
 		ENCHANTMENTS.addItems(Weapon.Enchantment.rare);
@@ -240,11 +245,30 @@ public enum Catalog {
 
 		TRINKETS.addItems(Generator.Category.TRINKET.classes);
 
-		MISC_EQUIPMENT.addItems(破损纹章.class,法师魔杖.class,CloakOfShadows.class,灵能短弓.class,
+		MISC_EQUIPMENT.addItems(破损纹章.class,
+								
+								短剑.class,
+								法师魔杖.class,
+								双刃.class,CloakOfShadows.class,灵能短弓.class,
+								配刺剑.class,
+								
+								权杖.class,
+								镜刃.class,
+								
+								白带.class,
+								臂铠.class,
+								修理扳手.class,
+								金玫苦无.class,
+								碧蓝巨剑.class,
 								神圣法典.class,血砍刀.class,灵月法杖.class,冰门重盾.class,铜钱剑.class,
-								矛盾.class,简易弩.class,
-								Dart.class,吸血飞刀.class,
-								Pickaxe.class,水袋.class,杂物袋.class,绒布袋.class,
+								矛盾.class,
+								灵鞭.class,
+								血姬.class,
+								书包.class,十字弩.class,
+								飞镖.class,
+								
+								吸血刀.class,
+								镐子.class,水袋.class,杂物袋.class,绒布袋.class,
 								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class,Amulet.class);
 
 
@@ -284,7 +308,7 @@ public enum Catalog {
 				TrinketCatalyst.class, Stylus.class, Torch.class, Honeypot.class, Ankh.class,
 				CorpseDust.class, Embers.class, CeremonialCandle.class, DarkGold.class, DwarfToken.class,
 				GooBlob.class, TengusMask.class, MetalShard.class, 矮人国王的皇冠.class,
-				LiquidMetal.class, ArcaneResin.class,
+				 ArcaneResin.class,
 				SealShard.class, BrokenStaff.class, CloakScrap.class, BowFragment.class, BrokenHilt.class,
 				残缺灵杖.class,
 				残缺重盾.class,
@@ -310,7 +334,6 @@ public enum Catalog {
 		equipmentCatalogs.add(ARMOR);
 		equipmentCatalogs.add(ENCHANTMENTS);
 		equipmentCatalogs.add(GLYPHS);
-		equipmentCatalogs.add(THROWN_WEAPONS);
 		equipmentCatalogs.add(WANDS);
 		equipmentCatalogs.add(RINGS);
 		equipmentCatalogs.add(ARTIFACTS);

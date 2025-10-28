@@ -207,17 +207,26 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
+	public int 最小攻击() {
 		if (alignment == Alignment.NEUTRAL){
-			return Random.NormalIntRange( 2 + 2*level, 2 + 2*level);
+			return 2 + 2*level;
 		} else {
-			return Random.NormalIntRange( 1 + level, 2 + 2*level);
+			return 1 + level;
 		}
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 1 + level/2);
+	public int 最大攻击() {
+		if (alignment == Alignment.NEUTRAL){
+			return 2 + 2*level;
+		} else {
+			return 2 + 2*level;
+		}
+	}
+
+	@Override
+	public int 最大防御() {
+		return super.最大防御()+1+level/2;
 	}
 
 	@Override
@@ -312,20 +321,17 @@ public class Mimic extends Mob {
 	protected void generatePrize( boolean useDecks ){
 		Item reward = null;
 		do {
-			switch (Random.Int(5)) {
+			switch (Random.Int(4)) {
 				case 0:
 					reward = new Gold().random();
 					break;
 				case 1:
-					reward = Generator.randomMissile(!useDecks);
-					break;
-				case 2:
 					reward = Generator.randomArmor();
 					break;
-				case 3:
+				case 2:
 					reward = Generator.randomWeapon(!useDecks);
 					break;
-				case 4:
+				case 3:
 					reward = useDecks ? Generator.random(Generator.Category.RING) : Generator.randomUsingDefaults(Generator.Category.RING);
 					break;
 			}

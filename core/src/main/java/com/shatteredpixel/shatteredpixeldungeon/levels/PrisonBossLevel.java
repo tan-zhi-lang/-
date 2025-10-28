@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.HeavyBoomerang;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
@@ -324,7 +324,7 @@ public class PrisonBossLevel extends Level {
 			}
 		}
 		
-		for (HeavyBoomerang.CircleBack b : Dungeon.hero.buffs(HeavyBoomerang.CircleBack.class)){
+		for (回旋镖.CircleBack b : Dungeon.hero.buffs(回旋镖.CircleBack.class)){
 			if (b.activeDepth() == Dungeon.depth
 					&& (safeArea == null || !safeArea.inside(cellToPoint(b.returnPos())))){
 				storedItems.add(b.cancel());

@@ -75,14 +75,14 @@ public class CrystalMimic extends Mimic {
 
 	//does not deal bonus damage, steals instead. See attackProc
 	@Override
-	public int 攻击() {
+	public int 最大攻击() {
 		if (alignment == Alignment.NEUTRAL) {
 			alignment = Alignment.ENEMY;
-			int dmg = super.攻击();
+			int dmg = super.最大攻击();
 			alignment = Alignment.NEUTRAL;
 			return dmg;
 		} else {
-			return super.攻击();
+			return super.最大攻击();
 		}
 	}
 
@@ -132,12 +132,12 @@ public class CrystalMimic extends Mimic {
 		Item item;
 		do {
 			item = hero.belongings.randomUnequipped();
-		} while (tries-- > 0 && (item == null || item.unique || item.等级() > 0));
+		} while (tries-- > 0 && (item == null||item.特别||item.等级()>0));
 
-		if (item != null && !item.unique && item.等级() < 1 ) {
+		if (item != null&&!item.特别&&item.等级()<1 ) {
 
 			GLog.w( Messages.get(this, "ate", item.name()) );
-			if (!item.stackable) {
+			if (!item.可堆叠) {
 				Dungeon.quickslot.convertToPlaceholder(item);
 			}
 			item.updateQuickslot();

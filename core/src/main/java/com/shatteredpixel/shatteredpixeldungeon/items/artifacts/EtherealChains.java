@@ -182,6 +182,7 @@ public class EtherealChains extends Artifact {
 						updateQuickslot();
 
 						Dungeon.level.occupyCell(enemy);
+						Cripple.延长(enemy, Cripple.class, 4f);
 						Dungeon.observe();
 						GameScene.updateFog();
 						hero.spendAndNext(1f);

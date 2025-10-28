@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public abstract class RemainsItem extends Item {
 
 	{
-		bones = false;
+		遗产= false;
 
 		defaultAction = AC_USE;
 	}

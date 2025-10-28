@@ -59,7 +59,6 @@ public class PitRoom extends SpecialRoom {
 					mainLoot = Generator.random(Random.oneOf(
 							Generator.Category.WEAPON,
 							Generator.Category.WEAPON,
-							Generator.Category.MISSILE,
 							Generator.Category.ARMOR,
 							Generator.Category.ARMOR));
 					break;

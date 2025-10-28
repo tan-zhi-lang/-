@@ -6,7 +6,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍之额;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 
@@ -22,14 +23,14 @@ public class 风切忍术 extends 忍术 {
 	
 
 	@Override
-	public void onCast( Hero hero) {
+	public void onCast(叛忍之额 tome, Hero hero) {
 		
 		Item.updateQuickslot();
 
 		hero.sprite.operate();
 		Enchanting.show(hero, new 金玫苦无());
-
-		onSpellCast(hero);
+		
+		onSpellCast(tome, hero);
 	}
 
 	@Override

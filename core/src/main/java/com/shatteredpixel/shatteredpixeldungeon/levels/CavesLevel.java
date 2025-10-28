@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.CavesPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -110,7 +110,7 @@ public class CavesLevel extends RegularLevel {
 			if (smith == null || !Blacksmith.Quest.given() || Blacksmith.Quest.completed()) {
 				GLog.w(Messages.get(Blacksmith.class, "entrance_blocked"));
 			} else {
-				final Pickaxe pick = hero.belongings.getItem(Pickaxe.class);
+				final 镐子 pick = hero.belongings.getItem(镐子.class);
 				Game.runOnRenderThread(new Callback() {
 					@Override
 					public void call() {

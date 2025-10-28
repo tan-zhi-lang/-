@@ -35,7 +35,7 @@ public class Honeypot extends Item {
 		usesTargeting = true;
 
 		黄色 = true;
-		stackable = true;
+		可堆叠= true;
 		物品 = true;
 	}
 	
@@ -132,7 +132,7 @@ public class Honeypot extends Item {
 
 		{
 			image = 物品表.SHATTPOT;
-			stackable = true;
+			可堆叠= true;
 			defaultAction = AC_THROW;
 		}
 		
@@ -140,7 +140,7 @@ public class Honeypot extends Item {
 		@Override
 		public ArrayList<String> actions( Hero hero ) {
 			ArrayList<String> actions = super.actions( hero );
-			if(hero.heroSubClass(HeroSubClass.养殖专家)&&Dungeon.energy>=6){
+			if(hero.SubClass(HeroSubClass.养殖专家)&&Dungeon.energy>=6){
 				actions.add( AC_修复 );
 			}
 			return actions;

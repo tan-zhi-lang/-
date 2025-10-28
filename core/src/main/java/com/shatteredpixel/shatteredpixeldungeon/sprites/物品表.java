@@ -255,7 +255,7 @@ public class 物品表 {
     public static final int 灵鞭 = WORN_SHORTSWORD + 11;
     public static final int 血姬 = WORN_SHORTSWORD + 12;
     public static final int 书包 = WORN_SHORTSWORD + 13;
-    public static final int 吸血飞刀 = WORN_SHORTSWORD + 14;
+    public static final int 吸血刀=WORN_SHORTSWORD+14;
 
     static {
         assignItemRect(WORN_SHORTSWORD, 13);
@@ -275,7 +275,7 @@ public class 物品表 {
         assignItemRect(血姬, 14);
         assignItemRect(灵鞭, 15,14);
         assignItemRect(书包, 14,16);
-        assignItemRect(吸血飞刀,11);
+        assignItemRect(吸血刀,11);
 
     }
 
@@ -324,7 +324,7 @@ public class 物品表 {
     public static final int FLAIL = WEP_TIER4 + 2;
     public static final int RUNIC_BLADE = WEP_TIER4 + 3;
     public static final int ASSASSINS_BLADE = WEP_TIER4 + 4;
-    public static final int CROSSBOW = WEP_TIER4 + 5;
+    public static final int 轮刃=WEP_TIER4+5;
     public static final int KATANA = WEP_TIER4 + 6;
 
     static {
@@ -333,7 +333,7 @@ public class 物品表 {
         assignItemRect(FLAIL, 14);
         assignItemRect(RUNIC_BLADE, 14);
         assignItemRect(ASSASSINS_BLADE, 14, 15);
-        assignItemRect(CROSSBOW, 15);
+        assignItemRect(轮刃,16);
         assignItemRect(KATANA, 15, 16);
     }
 
@@ -366,7 +366,7 @@ public class 物品表 {
     public static final int 冰门重盾 = x + 4;
     public static final int 修理扳手=x+5;
     public static final int 金玫苦无 = x + 6;
-    public static final int 简易驽 = x + 7;
+    public static final int 十字弩=x+7;
     public static final int 手枪 = x + 8;
 
     static {
@@ -381,7 +381,7 @@ public class 物品表 {
 
         assignItemRect(修理扳手,16);
         assignItemRect(金玫苦无, 15, 16);
-        assignItemRect(简易驽, 7, 11);
+        assignItemRect(十字弩,15);
 
         assignItemRect(手枪, 13, 7);
     }
@@ -538,6 +538,8 @@ public class 物品表 {
     public static final int ARTIFACT_ROSE2 = ARTIFACTS + 21;
     public static final int ARTIFACT_ROSE3 = ARTIFACTS + 22;
     public static final int 神圣法典 = ARTIFACTS + 23;
+    public static final int 本命玉佩 = ARTIFACTS + 24;
+    public static final int 叛忍之额 = ARTIFACTS + 25;
 
     static {
         assignItemRect(ARTIFACT_CLOAK, 9, 15);
@@ -564,6 +566,8 @@ public class 物品表 {
         assignItemRect(ARTIFACT_ROSE2, 14);
         assignItemRect(ARTIFACT_ROSE3, 14);
         assignItemRect(神圣法典, 14, 16);
+        assignItemRect(本命玉佩, 10, 16);
+        assignItemRect(叛忍之额, 10, 13);
     }
 
     public static final int 虫箭 = xy(1, 18);
@@ -747,7 +751,9 @@ public class 物品表 {
     public static final int BREW_AQUA = BREWS + 4;
     public static final int BREW_UNSTABLE = BREWS + 5;
 
-    private static final int ELIXIRS = xy(9, 26);  //8 slots
+    public static final int ELIXIRS = xy(9,26);  //8 slots
+    
+    public static final int 永生秘药 = ELIXIRS -1;
     public static final int ELIXIR_HONEY = ELIXIRS + 0;
     public static final int ELIXIR_AQUA = ELIXIRS + 1;
     public static final int ELIXIR_MIGHT = ELIXIRS + 2;
@@ -893,6 +899,8 @@ public class 物品表 {
 
     public static final int 水袋 = BAGS + 6;
     public static final int VIAL = BAGS + 7;
+    public static final int 空间之戒 = BAGS + 8;
+    public static final int 未来空间器 = BAGS + 9;
 
     static {
         assignItemRect(BACKPACK, 16);
@@ -904,6 +912,8 @@ public class 物品表 {
 
         assignItemRect(水袋, 16, 14);
         assignItemRect(VIAL, 12);
+        assignItemRect(空间之戒, 8);
+        assignItemRect(未来空间器, 16);
     }
     private static final int DOCUMENTS = xy(1, 32);  //16 slots
     public static final int GUIDE_PAGE = DOCUMENTS + 0;
@@ -931,14 +941,14 @@ public class 物品表 {
     public static final int THROWING_SPIKE = xy(1, 33);//1
     public static final int THROWING_KNIFE = THROWING_SPIKE + 1;
     public static final int THROWING_STONE = THROWING_SPIKE + 2;
-    public static final int 雪球=THROWING_SPIKE+3;
+    public static final int 千年雪=THROWING_SPIKE+3;
 
 
     static {
         assignItemRect(THROWING_SPIKE, 11, 10);
         assignItemRect(THROWING_KNIFE, 11);
         assignItemRect(THROWING_STONE, 12, 10);
-        assignItemRect(雪球,7,7);
+        assignItemRect(千年雪,7,7);
     }
 
     public static final int FISHING_SPEAR = xy(1, 34);//2

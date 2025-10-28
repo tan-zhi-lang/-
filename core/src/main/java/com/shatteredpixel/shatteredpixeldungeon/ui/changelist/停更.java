@@ -20,7 +20,7 @@ public class 停更 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.TOMB), "停更",
-				"致停更的版本更新。"));
+				"致遗失的版本更新。"));
 	}
 
 }

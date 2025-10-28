@@ -18,8 +18,8 @@ public class 鉴定卷轴 extends InventoryScroll {
 
 	{
 		icon = 物品表.Icons.SCROLL_IDENTIFY;
-
-		bones = true;
+		
+		遗产= true;
 	}
 
 	@Override

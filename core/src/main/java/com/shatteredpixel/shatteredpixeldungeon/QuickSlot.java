@@ -63,6 +63,9 @@ public class QuickSlot {
 			clearSlot(getSlot(item));
 		}
 	}
+	public void alphaItem(Item item,boolean 不显示){
+		item.alpha=不显示;
+	}
 
 	public boolean contains(Item item){
 		return getSlot(item) != -1;
@@ -125,7 +128,6 @@ public class QuickSlot {
 	public void restorePlaceholders(Bundle bundle){
 		Collection<Bundlable> placeholders = bundle.getCollection(PLACEHOLDERS);
 		boolean[] placements = bundle.getBooleanArray( PLACEMENTS );
-
 		int i = 0;
 		for (Bundlable item : placeholders){
 			while (!placements[i]){

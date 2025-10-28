@@ -9,8 +9,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
@@ -19,14 +19,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MirrorSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class MirrorImage extends NPC {
 	
@@ -88,12 +87,22 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public int 攻击() {
+	public int 最小攻击() {
 		int damage;
 		if (hero.belongings.weapon() != null){
-			damage = hero.belongings.weapon().damageRoll(this);
+			damage = hero.belongings.weapon().最小攻击();
 		} else {
-			damage = hero.攻击(); //handles ring of force
+			damage = hero.最小攻击(); //handles ring of force
+		}
+		return (damage+1)/2; //half hero damage, rounded up
+	}
+	@Override
+	public int 最大攻击() {
+		int damage;
+		if (hero.belongings.weapon() != null){
+			damage = hero.belongings.weapon().最大攻击();
+		} else {
+			damage = hero.最大攻击(); //handles ring of force
 		}
 		return (damage+1)/2; //half hero damage, rounded up
 	}
@@ -124,8 +133,8 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public float attackDelay() {
-		return hero.攻速(); //handles ring of furor
+	public float 攻击延迟() {
+		return hero.攻击延迟(); //handles ring of furor
 	}
 	
 	@Override
@@ -134,10 +143,19 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public int 防御() {
-		int dr = super.防御();
+	public int 最小防御() {
+		int dr = super.最小防御();
 		if (hero != null && hero.belongings.weapon() != null){
-			return dr + Random.NormalIntRange(0, hero.belongings.weapon().defenseFactor(this)/2);
+			return dr ;
+		} else {
+			return dr;
+		}
+	}
+	@Override
+	public int 最大防御() {
+		int dr = super.最大防御();
+		if (hero != null && hero.belongings.weapon() != null){
+			return dr +hero.belongings.weapon().defenseFactor(this)/2;
 		} else {
 			return dr;
 		}
@@ -167,7 +185,7 @@ public class MirrorImage extends NPC {
 			boolean wasEnemy = enemy.alignment == Alignment.ENEMY;
 			if (hero.buff(BodyForm.BodyFormBuff.class) != null
 					&& hero.buff(BodyForm.BodyFormBuff.class).enchant() != null){
-				damage = hero.buff(BodyForm.BodyFormBuff.class).enchant().proc(new WornShortsword(), this, enemy, damage);
+				damage = hero.buff(BodyForm.BodyFormBuff.class).enchant().proc(new 短剑(),this,enemy,damage);
 			}
 			if (!wasEnemy || enemy.alignment == Alignment.ENEMY) {
 				if (hero.buff(HolyWeapon.HolyWepBuff.class) != null) {

@@ -60,10 +60,6 @@ public class PhantomPiranha extends Piranha {
 		}
 	}
 
-	@Override
-	public int 防御时(Char enemy, int damage) {
-		return super.防御时(enemy, damage);
-	}
 
 	@Override
 	public void dieOnLand() {

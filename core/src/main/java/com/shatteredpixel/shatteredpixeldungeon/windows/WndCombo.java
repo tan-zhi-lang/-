@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -21,7 +21,7 @@ public class WndCombo extends Window {
 
 	private static final int MARGIN  = 2;
 
-	public WndCombo( Combo combo ){
+	public WndCombo( 连击 连击){
 		super();
 
 		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
@@ -42,22 +42,22 @@ public class WndCombo extends Window {
 			icon = new ItemSprite(new Item(){ {image = 物品表.WEAPON_HOLDER; }});
 		}
 
-		for (Combo.ComboMove move : Combo.ComboMove.values()) {
+		for (连击.ComboMove move : com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击.ComboMove.values()) {
 
-			String text = "_" + Messages.titleCase(move.title()) + " " + Messages.get(this, "combo_req", move.comboReq) + ":_ " + move.desc(combo.getComboCount());
+			String text = "_" + Messages.titleCase(move.title()) + " "  + ":_ " + move.desc(连击.getComboCount());
 			RedButton moveBtn = new RedButton(text, 6){
 				@Override
 				protected void onClick() {
 					super.onClick();
 					hide();
-					combo.useMove(move);
+					连击.useMove(move);
 				}
 			};
 			moveBtn.leftJustify = true;
 			moveBtn.multiline = true;
 			moveBtn.setSize(width, moveBtn.reqHeight());
 			moveBtn.setRect(0, pos, width, moveBtn.reqHeight());
-			moveBtn.enable(combo.canUseMove(move));
+			moveBtn.enable(连击.canUseMove(move));
 			add(moveBtn);
 			pos = moveBtn.bottom() + MARGIN;
 		}

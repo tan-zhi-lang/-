@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -41,9 +41,9 @@ public class CloakOfShadows extends Artifact {
 		chargeCap = Math.min(等级()+3, 10);
 
 		defaultAction = AC_STEALTH;
-
-		unique = true;
-		bones = false;
+		
+		特别= true;
+		遗产= false;
 	}
 
 	public static final String AC_STEALTH = "STEALTH";
@@ -85,8 +85,8 @@ public class CloakOfShadows extends Artifact {
 			} else {
 				activeBuff.detach();
 				activeBuff = null;
-				if (hero.invisible <= 0 && hero.buff(Preparation.class) != null){
-					hero.buff(Preparation.class).detach();
+				if (hero.invisible <= 0 &&hero.buff(潜伏.class)!=null){
+					hero.buff(潜伏.class).detach();
 				}
 				hero.sprite.operate( hero.pos );
 			}
@@ -285,8 +285,8 @@ public class CloakOfShadows extends Artifact {
 		public boolean attachTo( Char target ) {
 			if (super.attachTo( target )) {
 				target.invisible++;
-				if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.ASSASSIN){
-					Buff.施加(target, Preparation.class);
+				if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.刺客){
+					Buff.施加(target, 潜伏.class);
 				}
 				if (target instanceof Hero && ((Hero) target).天赋(Talent.PROTECTIVE_SHADOWS)){
 					Buff.施加(target, Talent.ProtectiveShadowsTracker.class);

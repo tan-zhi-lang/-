@@ -48,8 +48,13 @@ public class Eye extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange(20, 30);
+	public int 最小攻击() {
+		return 20;
+	}
+
+	@Override
+	public int 最大攻击() {
+		return 30;
 	}
 
 	@Override
@@ -58,8 +63,8 @@ public class Eye extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 10);
+	public int 最大防御() {
+		return super.最大防御()+10;
 	}
 	
 	private Ballistica beam;
@@ -110,12 +115,12 @@ public class Eye extends Mob {
 			return super.doAttack(enemy);
 		} else if (!beamCharged){
 			((EyeSprite)sprite).charge( enemy.pos );
-			spend( attackDelay()*2f );
+			spend(攻击延迟()*2f);
 			beamCharged = true;
 			return true;
 		} else {
 
-			spend( attackDelay() );
+			spend(攻击延迟());
 			
 			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
 				sprite.zap( beam.collisionPos );

@@ -5,12 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.watabou.utils.Random;
 
 public class Bat extends Mob {
 
@@ -31,8 +29,12 @@ public class Bat extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 5, 18 );
+	public int 最小攻击() {
+		return 5;
+	}
+	@Override
+	public int 最大攻击() {
+		return 18;
 	}
 	
 	@Override
@@ -41,8 +43,8 @@ public class Bat extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 4);
+	public int 最大防御() {
+		return super.最大防御()+4;
 	}
 
 	@Override

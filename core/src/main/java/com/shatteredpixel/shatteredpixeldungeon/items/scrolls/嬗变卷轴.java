@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Transmuting;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
@@ -13,42 +12,21 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.勇装;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.忍服;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.战甲;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.武服;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.祭服;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.背心;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.胸铠;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.能袍;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.训服;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.连裙;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.Dart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -62,7 +40,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 	{
 		icon = 物品表.Icons.SCROLL_TRANSMUTE;
 		
-		bones = true;
+		遗产= true;
 
 		talentFactor = 2f;
 	}
@@ -70,38 +48,14 @@ public class 嬗变卷轴 extends InventoryScroll {
 	@Override
 	protected boolean usableOnItem(Item item) {
 		
-		if(item instanceof 冰门重盾){
+		if(!item.嬗变){
 			return false;
 		}
-		if(item instanceof 铠甲||
-		   item instanceof 法袍||
-		   item instanceof 风衣||
-		   item instanceof 披风||
-		   item instanceof 胸铠||
-		   item instanceof 祭服||
-		   item instanceof 巫服||
-		   item instanceof 武服||
-		   item instanceof 道袍||
-		   item instanceof 战甲||
-		   item instanceof 忍服||
-		   item instanceof 能袍||
-		   item instanceof 勇装||
-		   item instanceof 连裙||
-		   item instanceof 训服||
-		   item instanceof 背心||
-		   item instanceof 魔披
-		){
-			return false;
-		}
-		 if (item instanceof MeleeWeapon){
+		 if (item instanceof Weapon){
 			//all melee weapons, except pickaxe when in a mining level
-			return !(item instanceof Pickaxe && Dungeon.level instanceof MiningLevel);
+			return !(item instanceof 镐子&&Dungeon.level instanceof MiningLevel);
 
 		//all missile weapons except untipped darts
-		} else if (item instanceof MissileWeapon){
-			return item.getClass() != Dart.class;
-
-		//all regular or exotic potions. No brews or elixirs
 		} else if (item instanceof Potion){
 			return !(item instanceof Elixir || item instanceof Brew);
 
@@ -111,7 +65,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 
 		//all non-unique artifacts (no holy tome or cloak of shadows, basically)
 		} else if (item instanceof Artifact) {
-			return !item.unique;
+			return !item.特别;
 
 		//all rings, wands, trinkets, seeds, and runestones
 		} else {
@@ -147,14 +101,10 @@ public class 嬗变卷轴 extends InventoryScroll {
 					}
 					Dungeon.hero.spend(-Dungeon.hero.cooldown()); //cancel equip/unequip time
 				} else {
-					if (item instanceof MissileWeapon){
-						item.detachAll(Dungeon.hero.belongings.backpack);
-					} else {
 						item.detach(Dungeon.hero.belongings.backpack);
-					}
 					if (!result.放背包()) {
 						Dungeon.level.drop(result, curUser.pos).sprite.drop();
-					} else if (result.stackable && Dungeon.hero.belongings.getSimilar(result) != null){
+					} else if (result.可堆叠&&Dungeon.hero.belongings.getSimilar(result)!=null){
 						result = Dungeon.hero.belongings.getSimilar(result);
 					}
 				}
@@ -181,7 +131,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 			return changeStaff((法师魔杖) item);
 		}else if (item instanceof TippedDart){
 			return changeTippedDart( (TippedDart)item );
-		} else if (item instanceof MeleeWeapon || item instanceof MissileWeapon) {
+		} else if (item instanceof Weapon ) {
 			return changeWeapon( (Weapon)item );
 		} else if (item instanceof Scroll) {
 			return changeScroll( (Scroll)item );
@@ -252,19 +202,13 @@ public class 嬗变卷轴 extends InventoryScroll {
 	
 	private static Weapon changeWeapon( Weapon w ) {
 		Weapon n;
-		Generator.Category c;
-		if (w instanceof MeleeWeapon) {
-			c = Generator.wepTiers[((MeleeWeapon)w).tier - 1];
-		} else {
-			c = Generator.misTiers[((MissileWeapon)w).tier - 1];
-		}
+		Generator.Category c= Generator.wepTiers[w.tier - 1];
 		
 		do {
 			n = (Weapon)Generator.randomUsingDefaults(c);
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级(0);
-		n.数量(w.数量());
 		int level = w.真等级();
 		if (level > 0) {
 			n.升级( level );
@@ -282,13 +226,6 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.augment = w.augment;
 		n.enchantHardened = w.enchantHardened;
 
-		//technically a new set, ensure old one is destroyed (except for darts)
-		if (w instanceof MissileWeapon && w.可升级()){
-			Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) w).setID, Integer.MAX_VALUE);
-			//also extra missile weapon properties
-			((MissileWeapon) n).damage(100 - ((MissileWeapon)w).durabilityLeft());
-		}
-		
 		return n;
 		
 	}

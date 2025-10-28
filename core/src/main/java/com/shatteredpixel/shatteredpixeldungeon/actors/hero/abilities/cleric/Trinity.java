@@ -25,18 +25,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.EtherealChains;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.WornShortsword;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -111,7 +109,7 @@ public class Trinity extends ArmorAbility {
 							} else {
 								Buff.延长(Dungeon.hero, BodyForm.BodyFormBuff.class, BodyForm.duration()).setEffect(bodyForm);
 								Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-								Weapon w = new WornShortsword();
+								Weapon w = new 短剑();
 								if (Dungeon.hero.belongings.weapon() != null) {
 									w.image = Dungeon.hero.belongings.weapon().image;
 								}
@@ -312,11 +310,6 @@ public class Trinity extends ArmorAbility {
 						discoveredClasses.add(cls);
 					}
 				}
-				for (Class<?> cls : Catalog.THROWN_WEAPONS.items()) {
-					if (Statistics.itemTypesDiscovered.contains(cls)) {
-						discoveredClasses.add(cls);
-					}
-				}
 				for (Class<?> cls : Catalog.TIPPED_DARTS.items()) {
 					if (Statistics.itemTypesDiscovered.contains(cls)) {
 						discoveredClasses.add(cls);
@@ -340,7 +333,7 @@ public class Trinity extends ArmorAbility {
 			ArrayList<Item> options = new ArrayList<>();
 			for (Class<?> cls : discoveredClasses){
 				if (Weapon.Enchantment.class.isAssignableFrom(cls)){
-					MeleeWeapon w = new WornShortsword(){
+					Weapon w = new 短剑(){
 						@Override
 						public String name() {
 							//for button tooltips
@@ -425,11 +418,11 @@ public class Trinity extends ArmorAbility {
 					parentWnd.hide();
 					WndItemConfirm.this.hide();
 
-					if (item instanceof MeleeWeapon) {
-						((Trinity)Dungeon.hero.armorAbility).bodyForm = ((MeleeWeapon) item).enchantment;
+					if (item instanceof Weapon) {
+						((Trinity)Dungeon.hero.armorAbility).bodyForm = ((Weapon) item).enchantment;
 					} else if (item instanceof Armor) {
 						((Trinity)Dungeon.hero.armorAbility).bodyForm = ((Armor) item).glyph;
-					} else if (item instanceof Wand || item instanceof MissileWeapon){
+					} else if (item instanceof Wand || item instanceof Weapon){
 						((Trinity)Dungeon.hero.armorAbility).mindForm = item;
 					} else {
 						((Trinity)Dungeon.hero.armorAbility).spiritForm = item;
@@ -449,8 +442,8 @@ public class Trinity extends ArmorAbility {
 		}
 
 		private static String getName(Item item){
-			if (item instanceof MeleeWeapon){
-				return ((MeleeWeapon) item).enchantment.name();
+			if (item instanceof Weapon){
+				return ((Weapon) item).enchantment.name();
 			} else if (item instanceof Armor){
 				return (((Armor) item).glyph.name());
 			}
@@ -458,8 +451,8 @@ public class Trinity extends ArmorAbility {
 		}
 
 		private static String getText(Item item){
-			if (item instanceof MeleeWeapon){
-				return ((MeleeWeapon) item).enchantment.desc() + "\n\n" + trinityItemUseText(((MeleeWeapon) item).enchantment.getClass());
+			if (item instanceof Weapon){
+				return ((Weapon) item).enchantment.desc() + "\n\n" + trinityItemUseText(((Weapon) item).enchantment.getClass());
 			} else if (item instanceof Armor){
 				return ((Armor) item).glyph.desc() + "\n\n" + trinityItemUseText(((Armor) item).glyph.getClass());
 			} else {
@@ -484,7 +477,7 @@ public class Trinity extends ArmorAbility {
 			}
 			return Messages.get(Trinity.class, "ench_glyph_use", BodyForm.duration(), Messages.decimalFormat("#.##", chargeUse));
 		}
-		if (MissileWeapon.class.isAssignableFrom(cls)){
+		if (Weapon.class.isAssignableFrom(cls)){
 			return Messages.get(Trinity.class, "thrown_use", MindForm.itemLevel(), Messages.decimalFormat("#.##", chargeUse));
 		}
 		if (Wand.class.isAssignableFrom(cls)){

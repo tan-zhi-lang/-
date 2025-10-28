@@ -12,6 +12,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
@@ -294,6 +296,14 @@ public class Dungeon {
 		Badges.reset();
 		
 		GamesInProgress.selectedClass.initHero( hero );
+		
+		
+		if(hero.heroClass(HeroClass.来世)){
+			if(Dungeon.gold==0)
+				Dungeon.gold=Bones.金币;
+			if(Dungeon.energy==0)
+				Dungeon.energy=Bones.能量;
+		}
 	}
 
 	public static boolean isChallenged( int mask ) {
@@ -1006,10 +1016,10 @@ public class Dungeon {
 
 		for (RevealedArea a : hero.buffs(RevealedArea.class)){
 			if (Dungeon.depth != a.depth || Dungeon.branch != a.branch) continue;
-			BArray.or( level.visited, level.heroFOV, a.pos - 1 - level.width(), 3, level.visited );
-			BArray.or( level.visited, level.heroFOV, a.pos - 1, 3, level.visited );
-			BArray.or( level.visited, level.heroFOV, a.pos - 1 + level.width(), 3, level.visited );
-			GameScene.updateFog(a.pos, 2);
+			BArray.or( level.visited, level.heroFOV, a.pos - 1 - level.width(), 2+Dungeon.hero.天赋点数(Talent.SEER_SHOT), level.visited );
+			BArray.or( level.visited, level.heroFOV, a.pos - 1, 2+Dungeon.hero.天赋点数(Talent.SEER_SHOT), level.visited );
+			BArray.or( level.visited, level.heroFOV, a.pos - 1 + level.width(), 2+Dungeon.hero.天赋点数(Talent.SEER_SHOT), level.visited );
+			GameScene.updateFog(a.pos, 1+Dungeon.hero.天赋点数(Talent.SEER_SHOT));
 		}
 
 		for (Char ch : Actor.chars()){

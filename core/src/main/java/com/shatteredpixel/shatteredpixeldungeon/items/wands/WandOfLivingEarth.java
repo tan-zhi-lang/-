@@ -20,7 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -405,13 +405,13 @@ public class WandOfLivingEarth extends DamageWand {
 		}
 
 		@Override
-		public int 攻击() {
+		public int 最大攻击() {
 			return Random.NormalIntRange(2, 4 + Dungeon.scalingDepth()/2);
 		}
 
 		@Override
-		public int 防御() {
-			int dr = super.防御();
+		public int 最大防御() {
+			int dr = super.最大防御();
 			if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 				return dr + Random.NormalIntRange(wandLevel, 2 + wandLevel);
 			} else {

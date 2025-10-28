@@ -10,8 +10,8 @@ public class DarkGold extends Item {
 	{
 		image = 物品表.ORE;
 		
-		stackable = true;
-		unique = true;
+		可堆叠= true;
+		特别= true;
 		物品 = true;
 	}
 	

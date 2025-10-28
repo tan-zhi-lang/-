@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
@@ -18,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.手枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -88,7 +87,7 @@ public class Belongings implements Iterable<Item> {
 		backpack.owner = owner;
 	}
 
-	public KindOfWeapon weapon = null;
+	public Weapon weapon = null;
 	public Armor armor = null;
 	public KindofMisc misc = null;
 	public KindofMisc misc2 = null;
@@ -109,20 +108,20 @@ public class Belongings implements Iterable<Item> {
 	}
 
 	//used when thrown weapons temporary become the current weapon
-	public KindOfWeapon thrownWeapon = null;
+	public Weapon thrownWeapon = null;
 
 	//used to ensure that the duelist always uses the weapon she's using the ability of
-	public KindOfWeapon abilityWeapon = null;
+	public Weapon abilityWeapon = null;
 
 	//used by the champion subclass
-	public KindOfWeapon secondWep = null;
+	public Weapon secondWep = null;
 
 	//*** these accessor methods are so that worn items can be affected by various effects/debuffs
 	// we still want to access the raw equipped items in cases where effects should be ignored though,
 	// such as when equipping something, showing an interface, or dealing with items from a dead hero
 
 	//normally the primary equipped weapon, but can also be a thrown weapon or an ability's weapon
-	public KindOfWeapon attackingWeapon(){
+	public Weapon attackingWeapon(){
 		if (thrownWeapon != null) return thrownWeapon;
 		if (abilityWeapon != null) return abilityWeapon;
 		return weapon();
@@ -138,7 +137,7 @@ public class Belongings implements Iterable<Item> {
 		return lostInvent;
 	}
 
-	public KindOfWeapon weapon(){
+	public Weapon weapon(){
 		if (!lostInventory() || (weapon != null && weapon.keptThroughLostInventory())){
 			return weapon;
 		} else {
@@ -176,7 +175,7 @@ public class Belongings implements Iterable<Item> {
 		}
 	}
 
-	public KindOfWeapon secondWep(){
+	public Weapon secondWep(){
 		if (!lostInventory() || (secondWep != null && secondWep.keptThroughLostInventory())){
 			return secondWep;
 		} else {
@@ -211,7 +210,7 @@ public class Belongings implements Iterable<Item> {
 		backpack.clear();
 		backpack.restoreFromBundle( bundle );
 		
-		weapon = (KindOfWeapon) bundle.get(WEAPON);
+		weapon = (Weapon) bundle.get(WEAPON);
 		if (weapon() != null)       weapon().activate(owner);
 		
 		armor = (Armor)bundle.get( ARMOR );
@@ -228,7 +227,7 @@ public class Belongings implements Iterable<Item> {
 		misc3 = (KindofMisc) bundle.get(MISC3);
 		if (misc3() != null)         misc3().activate( owner );
 
-		secondWep = (KindOfWeapon) bundle.get(SECOND_WEP);
+		secondWep = (Weapon) bundle.get(SECOND_WEP);
 		if (secondWep() != null)    secondWep().activate(owner);
 	}
 	
@@ -408,7 +407,7 @@ public class Belongings implements Iterable<Item> {
 	}
 	
 	public void uncurseEquipped() {
-		祛邪卷轴.净化( owner, armor(), weapon(), misc(), misc2(), misc3(), secondWep());
+		祛邪卷轴.祛邪(owner,armor(),weapon(),misc(),misc2(),misc3(),secondWep());
 	}
 	
 	public Item randomUnequipped() {

@@ -10,14 +10,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -271,7 +272,7 @@ public class CrystalSpire extends Mob {
 
 	@Override
 	public void 受伤时(int dmg, Object src) {
-		if (!(src instanceof Pickaxe) ){
+		if (!(src instanceof 镐子) ){
 			dmg = 0;
 		}
 		super.受伤时(dmg, src);
@@ -279,7 +280,7 @@ public class CrystalSpire extends Mob {
 
 	@Override
 	public boolean 是无敌(Class effect) {
-		return super.是无敌(effect) || effect != Pickaxe.class;
+		return super.是无敌(effect) || effect != 镐子.class;
 	}
 
 	@Override
@@ -292,7 +293,7 @@ public class CrystalSpire extends Mob {
 	@Override
 	public boolean interact(Char c) {
 		if (c == Dungeon.hero){
-			final Pickaxe p = Dungeon.hero.belongings.getItem(Pickaxe.class);
+			final 镐子 p = Dungeon.hero.belongings.getItem(镐子.class);
 
 			if (p == null){
 				return true;
@@ -303,7 +304,7 @@ public class CrystalSpire extends Mob {
 				public void call() {
 					//does its own special damage calculation that's only influenced by pickaxe level and augment
 					//we pretend the spire is the owner here so that properties like hero str or or other equipment do not factor in
-					int dmg = p.damageRoll(CrystalSpire.this);
+					int dmg = Hero.heroDamageIntRange(p.最小攻击(),p.最大攻击());
 
 					CrystalSpire.this.受伤时(dmg, p);
 					abilityCooldown -= dmg/10f;

@@ -3,10 +3,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -33,8 +31,8 @@ public class 水袋 extends Item {
 		image = 物品表.水袋;
 
 		defaultAction = AC_DRINK;
-
-		unique = true;
+		
+		特别= true;
 	}
 
 	public int volume = 0;
@@ -84,18 +82,6 @@ public class 水袋 extends Item {
 					dropsNeeded /= VialOfBlood.totalHealMultiplier();
 				}
 
-				//add extra drops if we can gain shielding
-				int curShield = 0;
-				if (hero.buff(Barrier.class) != null) curShield = hero.buff(Barrier.class).护盾量();
-				int maxShield = Math.round(hero.最大生命 *hero.天赋点数(Talent.SHIELDING_DEW,0.25f));
-				if (hero.天赋(Talent.SHIELDING_DEW)){
-					float missingShieldPercent = 1f - (curShield / (float)maxShield);
-					missingShieldPercent *= hero.天赋点数(Talent.SHIELDING_DEW,0.25f);
-					if (missingShieldPercent > 0){
-						dropsNeeded += missingShieldPercent / 0.05f;
-					}
-				}
-
 				//trimming off 0.01 drops helps with floating point errors
 				int dropsToConsume = (int)Math.ceil(dropsNeeded - 0.01f);
 				dropsToConsume = (int)GameMath.gate(1, dropsToConsume, volume);
@@ -123,7 +109,7 @@ public class 水袋 extends Item {
 		if (action.equals( AC_合成 )) {
 			volume = 0;
 
-			new 治疗药剂().放背包();
+			new 永生秘药().放背包();
 
 			hero.spend(TIME_TO_DRINK);
 			hero.busy();

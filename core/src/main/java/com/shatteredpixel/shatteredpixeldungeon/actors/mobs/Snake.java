@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SnakeSprite;
-import com.watabou.utils.Random;
 
 public class Snake extends Mob {
 	
@@ -27,8 +26,8 @@ public class Snake extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 1, 6 );
+	public int 最大攻击() {
+		return 6;
 	}
 	
 	@Override

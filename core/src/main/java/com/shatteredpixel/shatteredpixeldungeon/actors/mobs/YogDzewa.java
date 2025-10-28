@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -20,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -55,7 +57,8 @@ public class YogDzewa extends Mob {
 
 		//so that allies can attack it. States are never actually used.
 		state = HUNTING;
-
+		
+		loot = Dungeon.hero.heroClass(HeroClass.戒老)?new 空间之戒():null;
 		viewDistance = 12;
 
 		properties.add(Property.BOSS);
@@ -636,13 +639,18 @@ public class YogDzewa extends Mob {
 		}
 
 		@Override
-		public int 攻击() {
-			return Random.NormalIntRange( 15, 25 );
+		public int 最小攻击() {
+			return 15;
 		}
 
 		@Override
-		public int 防御() {
-			return super.防御() + Random.NormalIntRange(0, 4);
+		public int 最大攻击() {
+			return 25;
+		}
+
+		@Override
+		public int 最大防御() {
+			return super.最大防御()+4;
 		}
 
 	}

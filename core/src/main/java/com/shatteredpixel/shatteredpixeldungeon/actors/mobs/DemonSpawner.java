@@ -42,8 +42,8 @@ public class DemonSpawner extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 12);
+	public int 最大防御() {
+		return super.最大防御()+12;
 	}
 
 	@Override

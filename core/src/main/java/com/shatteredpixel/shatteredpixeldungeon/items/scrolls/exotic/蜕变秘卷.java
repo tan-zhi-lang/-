@@ -208,7 +208,9 @@ public class 蜕变秘卷 extends ExoticScroll {
 
 				clsTalentsAtTier.remove(Talent.受衅怒火);
 				clsTalentsAtTier.remove(Talent.钢铁意志);
+				clsTalentsAtTier.remove(Talent.纹章升级);
 				clsTalentsAtTier.remove(Talent.纹章荣耀);
+				
 				clsTalentsAtTier.remove(Talent.DESPERATE_POWER);//绝境迫能
 				clsTalentsAtTier.remove(Talent.高级魔杖);
 				

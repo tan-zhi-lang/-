@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
@@ -21,8 +21,8 @@ public class LostBackpack extends Item {
 
 	{
 		image = 物品表.BACKPACK;
-
-		unique = true;
+		
+		特别= true;
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class LostBackpack extends Item {
 
 		Item.updateQuickslot();
 		Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
-		hero.spendAndNext(TIME_TO_PICK_UP);
+		hero.spendAndNext(hero.攻击延迟());
 		GameScene.pickUp( this, pos );
 		((HeroSprite)hero.sprite).updateArmor();
 

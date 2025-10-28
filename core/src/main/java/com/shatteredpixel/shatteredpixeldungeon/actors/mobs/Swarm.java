@@ -61,8 +61,8 @@ public class Swarm extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 1, 4 );
+	public int 最大攻击() {
+		return 4;
 	}
 	
 	@Override

@@ -5,19 +5,14 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
 
 import java.util.ArrayList;
 
@@ -130,17 +125,7 @@ public class 商人信标 extends Item {
 			float pos = height;
 			
 			if (Shopkeeper.canSell(item)) {
-				if (item.数量()==1||(item instanceof MissileWeapon&&item.可升级())) {
-					
-					if (item instanceof MissileWeapon && ((MissileWeapon) item).extraThrownLeft){
-						RenderedTextBlock
-								warn = PixelScene.renderTextBlock(Messages.get(WndUpgrade.class,"thrown_dust"),6);
-						warn.hardlight(CharSprite.WARNING);
-						warn.maxWidth(this.width);
-						warn.setPos(0, pos + GAP);
-						add(warn);
-						pos = warn.bottom();
-					}
+				if (item.数量()==1) {
 					
 					RedButton
 							btnSell = new RedButton(Messages.get(this,"sell",item.金币())) {

@@ -81,7 +81,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 	protected void onItemSelected(Item item) {
 		new Flare( 6, 32 ).show( curUser.sprite, 2f );
 
-		boolean procced = 净化( curUser, item );
+		boolean procced = 祛邪(curUser,item);
 
 		if (curUser.buff(Degrade.class) != null) {
 			Degrade.detach(curUser, Degrade.class);
@@ -95,7 +95,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 		}
 	}
 
-	public static boolean 净化(Hero hero, Item... items ) {
+	public static boolean 祛邪(Hero hero,Item... items) {
 		
 		boolean procced = false;
 		for (Item item : items) {

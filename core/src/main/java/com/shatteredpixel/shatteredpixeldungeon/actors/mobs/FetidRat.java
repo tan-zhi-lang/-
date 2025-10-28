@@ -39,8 +39,8 @@ public class FetidRat extends Rat {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 2);
+	public int 最大防御() {
+		return super.最大防御()+2;
 	}
 
 	@Override

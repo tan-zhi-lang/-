@@ -80,8 +80,12 @@ public class Tengu extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 6, 12 );
+	public int 最小攻击() {
+		return 6;
+	}
+	@Override
+	public int 最大攻击() {
+		return 12;
 	}
 	
 	@Override
@@ -94,8 +98,8 @@ public class Tengu extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 5);
+	public int 最大防御() {
+		return super.最大防御()+5;
 	}
 
 	boolean loading = false;
@@ -612,7 +616,7 @@ public class Tengu extends Mob {
 						Char ch = Actor.findChar(cell);
 						if (ch != null && !(ch instanceof Tengu)) {
 							int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth() * 2);
-							dmg -= ch.防御();
+							dmg -= ch.最大防御();
 
 							if (dmg > 0) {
 								ch.受伤时(dmg, Bomb.class);
@@ -688,7 +692,7 @@ public class Tengu extends Mob {
 			
 			{
 				dropsDownHeap = true;
-				unique = true;
+				特别= true;
 				
 				image = 物品表.TENGU_BOMB;
 			}
@@ -1082,7 +1086,7 @@ public class Tengu extends Mob {
 			
 			{
 				dropsDownHeap = true;
-				unique = true;
+				特别= true;
 				
 				image = 物品表.TENGU_SHOCKER;
 			}

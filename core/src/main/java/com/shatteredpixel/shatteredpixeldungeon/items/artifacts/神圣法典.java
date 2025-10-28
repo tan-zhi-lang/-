@@ -46,8 +46,8 @@ public class 神圣法典 extends Artifact {
 		defaultAction = AC_CAST;
 
 		黄色 = true;
-		unique = true;
-		bones = false;
+		特别= true;
+		遗产= false;
 	}
 
 	public static final String AC_CAST = "CAST";

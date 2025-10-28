@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.Shuriken;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ConeAOE;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -82,7 +82,7 @@ public class SpectralBlades extends ArmorAbility {
 		armor.charge -= chargeUse(hero);
 		Item.updateQuickslot();
 
-		Item proto = new Shuriken();
+		Item proto = new 手里剑();
 
 		final HashSet<Callback> callbacks = new HashSet<>();
 
@@ -99,7 +99,7 @@ public class SpectralBlades extends ArmorAbility {
 					callbacks.remove( this );
 					if (callbacks.isEmpty()) {
 						Invisibility.dispel();
-						hero.spendAndNext( hero.攻速() );
+						hero.spendAndNext( hero.攻击延迟());
 					}
 				}
 			};

@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BeeSprite;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 //FIXME the AI for these things is becoming a complete mess, should refactor
 public class Bee extends Mob {
@@ -101,8 +100,13 @@ public class Bee extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 最大生命 / 10, 最大生命 / 4 );
+	public int 最小攻击() {
+		return 最大生命 / 10;
+	}
+	
+	@Override
+	public int 最大攻击() {
+		return 最大生命 / 4;
 	}
 	
 	@Override

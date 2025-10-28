@@ -29,7 +29,7 @@ public class GrippingTrap extends Trap {
 			if (c instanceof Mob) {
 				Buff.延长(c, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 			}
-			int damage = Math.max( 0,  (2 + scalingDepth()/2) - c.防御()/2 );
+			int damage = Math.max( 0,  (2 + scalingDepth()/2) -c.最大防御()/2);
 			Buff.施加( c, 流血.class ).set( damage );
 			Buff.延长( c, Cripple.class, Cripple.DURATION);
 			Wound.hit( c );

@@ -166,19 +166,12 @@ public class 算法 {
                                                             } catch (Exception e14) {
 
                                                                 try {
-                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee."+SPDSettings.customSeed());
+                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts."+SPDSettings.customSeed());
 
                                                                     Object item = classn.newInstance();
                                                                     ((Item)item).放背包();
 
                                                                 } catch (Exception e15) {
-                                                                    try {
-                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles."+SPDSettings.customSeed());
-
-                                                                        Object item = classn.newInstance();
-                                                                        ((Item)item).放背包();
-
-                                                                    } catch (Exception e16) {
                                                                         try {
                                                                             Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic."+SPDSettings.customSeed());
 
@@ -207,13 +200,19 @@ public class 算法 {
                                                                                         ((Item)item).放背包();
 
                                                                                     } catch (Exception e20) {
-
+                                                                                            try{
+                                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.mm."+SPDSettings.customSeed());
+                                                                                                
+                                                                                                Object item = classn.newInstance();
+                                                                                                ((Item)item).放背包();
+                                                                                            } catch (Exception e21) {
+                                                                                            
+                                                                                            }
                                                                                     }
                                                                                 }
+                                                                                }
                                                                             }
-                                                                        }
                                                                     }
-                                                                }
                                                             }
                                                         }
                                                     }

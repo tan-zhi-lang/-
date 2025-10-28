@@ -11,11 +11,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -78,7 +78,7 @@ public class Badges {
 		解锁鼠弟               ( 20 ),
 		解锁凌云               ( 21 ),
 		解锁血鬼               ( 22 ),
-		解锁枪手               ( 23 ),
+		解锁来世(23 ),
 		MONSTERS_SLAIN_1            ( 24 ),
 		MONSTERS_SLAIN_2            ( 25 ),
 		GOLD_COLLECTED_1            ( 26 ),
@@ -552,7 +552,7 @@ public class Badges {
 			return;
 		}
 
-		if (item instanceof MeleeWeapon){
+		if (item instanceof Weapon){
 			validateDuelistUnlock();
 		}
 		
@@ -969,16 +969,16 @@ public class Badges {
 
 	public static void validateDuelistUnlock(){
 		if (!isUnlocked(Badge.UNLOCK_DUELIST) && Dungeon.hero()
-				&& Dungeon.hero.belongings.weapon instanceof MeleeWeapon
-				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).tier >= 2
-				&& ((MeleeWeapon) Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()){
+				&& Dungeon.hero.belongings.weapon instanceof Weapon
+				&& (Dungeon.hero.belongings.weapon).tier >= 2
+				&& (Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()){
 
 			if (Dungeon.hero.belongings.weapon.已鉴定() &&
-					((MeleeWeapon) Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()) {
+					(Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()) {
 				displayBadge(Badge.UNLOCK_DUELIST);
 
 			} else if (!Dungeon.hero.belongings.weapon.已鉴定() &&
-					((MeleeWeapon) Dungeon.hero.belongings.weapon).力量(0) <= Dungeon.hero.力量()){
+					(Dungeon.hero.belongings.weapon).力量(0) <= Dungeon.hero.力量()){
 				displayBadge(Badge.UNLOCK_DUELIST);
 			}
 		}
@@ -1074,9 +1074,9 @@ public class Badges {
 			displayBadge( Badge.解锁血鬼 );
 		}
 	}
-	public static void 解锁枪手(){
-		if (!isUnlocked(Badge.解锁枪手)){
-			displayBadge( Badge.解锁枪手 );
+	public static void 解锁来世(){
+		if (!isUnlocked(Badge.解锁来世)){
+			displayBadge( Badge.解锁来世);
 		}
 	}
 	
@@ -1115,7 +1115,7 @@ public class Badges {
 	public static void validateTakingTheMick(Object cause){
 		if ((cause == Dungeon.hero || cause instanceof Explosive.ExplosiveCurseBomb)
 			&&
-				Dungeon.hero.belongings.attackingWeapon() instanceof Pickaxe
+				Dungeon.hero.belongings.attackingWeapon() instanceof 镐子
 				&& Dungeon.hero.belongings.attackingWeapon().等级() >= 20){
 			local.add( Badge.TAKING_THE_MICK );
 			displayBadge(Badge.TAKING_THE_MICK);

@@ -5,14 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Combo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -44,8 +42,8 @@ public class 破损纹章 extends Item {
 		image = 物品表.破损纹章;
 
 		cursedKnown = levelKnown = true;
-		unique = true;
-		bones = false;
+		特别= true;
+		遗产= false;
 
 		defaultAction = AC_INFO;
 	}
@@ -80,7 +78,11 @@ public class 破损纹章 extends Item {
 	}
 
 	public int maxShield( int armTier, int armLvl ){
-		return 1 + armTier+armLvl + Dungeon.hero.天赋生命力(Talent.钢铁意志,0.7f);
+		float x=1;
+		if(Dungeon.hero.天赋(Talent.钢铁意志)){
+			x+=Dungeon.hero.根据已损失生命()*Dungeon.hero.天赋点数(Talent.钢铁意志,0.3f);
+		}
+		return Math.round((1 + 2*(armTier+armTier))*x);
 	}
 
 	@Override
@@ -189,7 +191,7 @@ public class 破损纹章 extends Item {
 		return 等级() < 最大等级();
 	}
 	public int 最大等级(){
-		return 1+Dungeon.hero.天赋点数(Talent.纹章升级);
+		return 1+Dungeon.hero.天赋点数(Talent.纹章荣耀);
 	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
 
@@ -248,7 +250,7 @@ public class 破损纹章 extends Item {
 		private int cooldown = 0;
 		private float turnsSinceEnemies = 0;
 
-		private static int COOLDOWN_START = 150/3;
+		private static int COOLDOWN_START = 80;
 		public int cool(){
 			return COOLDOWN_START-(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.纹章荣耀,5):0);
 		}
@@ -305,8 +307,7 @@ public class 破损纹章 extends Item {
 		@Override
 		public boolean attachTo(Char target){
 			if (target instanceof Hero hero&& hero.天赋(Talent.受衅怒火)){
-				hero.必中=true;
-				Buff.施加(target,Talent.ProvokedAngerTracker.class,5f);
+				hero.必暴=true;
 			}
 			return super.attachTo(target);
 		}
@@ -318,7 +319,7 @@ public class 破损纹章 extends Item {
 			}
 
 			if (护盾量() > 0){
-				if (Dungeon.hero.visibleEnemies() == 0 && Dungeon.hero.buff(Combo.class) == null){
+				if (Dungeon.hero.visibleEnemies() == 0 &&Dungeon.hero.buff(连击.class)==null){
 					turnsSinceEnemies += HoldFast.buffDecayFactor(target);
 					if (turnsSinceEnemies >= 5){
 						if (cooldown > 0) {
@@ -361,10 +362,6 @@ public class 破损纹章 extends Item {
 		}
 
 		public synchronized int maxShield() {
-			//metamorphed iron will logic
-			if (target instanceof Hero hero&&hero.heroClass != HeroClass.WARRIOR && hero.天赋(Talent.钢铁意志)){
-				return 1+hero.天赋生命力(Talent.钢铁意志,0.8f);
-			}
 
 			if (armor != null && armor.isEquipped((Hero)target) && armor.checkSeal() != null) {
 				return armor.checkSeal().maxShield(armor.tier, armor.等级());

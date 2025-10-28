@@ -8,7 +8,7 @@ public class 手枪子弹 extends Item {
 
 	{
 		image = 物品表.手枪子弹;
-		stackable = true;
+		可堆叠= true;
 		物品 = true;
 	}
 }

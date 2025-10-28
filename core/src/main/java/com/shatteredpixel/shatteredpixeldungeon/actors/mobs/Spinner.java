@@ -38,8 +38,12 @@ public class Spinner extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange(10, 20);
+	public int 最小攻击() {
+		return 10;
+	}
+	@Override
+	public int 最大攻击() {
+		return 20;
 	}
 
 	@Override
@@ -48,8 +52,8 @@ public class Spinner extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 6);
+	public int 最大防御() {
+		return super.最大防御()+6;
 	}
 
 	private int webCoolDown = 0;

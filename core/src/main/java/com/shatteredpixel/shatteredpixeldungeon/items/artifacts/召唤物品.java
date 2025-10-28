@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -56,14 +56,13 @@ public class 召唤物品 extends Artifact {
 		charge = 100;
 		chargeCap = 100;
 		
-		bones = true;
+		遗产= true;
 		物品 = true;
 		defaultAction = AC_SUMMON;
 	}
 	
 	private 随从 召唤= null;
 	private int 随从ID= 0;
-	
 	private Item item= null;
 	private Item item2= null;
 	private Item item3= null;
@@ -467,8 +466,8 @@ public class 召唤物品 extends Artifact {
 		}
 		
 		@Override
-		public float attackDelay() {
-			float delay = super.attackDelay();
+		public float 攻击延迟() {
+			float delay = super.攻击延迟();
 			return delay;
 		}
 		
@@ -478,7 +477,7 @@ public class 召唤物品 extends Artifact {
 		}
 		
 		@Override
-		public int 攻击() {
+		public int 最大攻击() {
 			int dmg = 0;
 				dmg += Random.NormalIntRange(0, 5);
 			
@@ -529,8 +528,8 @@ public class 召唤物品 extends Artifact {
 		}
 		
 		@Override
-		public int 防御() {
-			int dr = super.防御();
+		public int 最大防御() {
+			int dr = super.最大防御();
 			
 			return dr;
 		}
@@ -638,7 +637,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 									if (item!=null&&item.isEquipped(Dungeon.hero)){
-										((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+										((Weapon) item).doUnequip(Dungeon.hero, false, false);
 									} else {
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -698,7 +697,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 									if (item!=null&&item.isEquipped(Dungeon.hero)){
-										((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+										((Weapon) item).doUnequip(Dungeon.hero, false, false);
 									} else {
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -758,7 +757,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 									if (item!=null&&item.isEquipped(Dungeon.hero)){
-										((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+										((Weapon) item).doUnequip(Dungeon.hero, false, false);
 									} else {
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -819,7 +818,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+									((Weapon) item).doUnequip(Dungeon.hero, false, false);
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
@@ -879,7 +878,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+									((Weapon) item).doUnequip(Dungeon.hero, false, false);
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
@@ -939,7 +938,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+									((Weapon) item).doUnequip(Dungeon.hero, false, false);
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
@@ -999,7 +998,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+									((Weapon) item).doUnequip(Dungeon.hero, false, false);
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
@@ -1059,7 +1058,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+									((Weapon) item).doUnequip(Dungeon.hero, false, false);
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
@@ -1119,7 +1118,7 @@ public class 召唤物品 extends Artifact {
 							@Override
 							public void onSelect(Item item) {
 								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((MeleeWeapon) item).doUnequip(Dungeon.hero, false, false);
+									((Weapon) item).doUnequip(Dungeon.hero, false, false);
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}

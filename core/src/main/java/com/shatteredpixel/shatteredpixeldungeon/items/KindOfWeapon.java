@@ -14,12 +14,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
@@ -29,10 +29,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	protected String hitSound = Assets.Sounds.HIT;
 	protected float hitSoundPitch = 1f;
+	public boolean 双手 =false;
 	public boolean 拳套 =false;
 	public boolean 投矛 =false;
-	public boolean 伏击 =false;
-	public float 伏击率 =0;
+	public float 伏击=0;
+	public float 流血 =0;
+	public float 吸血 =0;
 	public int 最小= 0;
 	public int 最大= 0;
 	public float 伤害= 1f;
@@ -111,7 +113,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			cursedKnown = true;
 			if(hero.满天赋(Talent.HOLY_INTUITION)){
 				鉴定();
-				祛邪卷轴.净化(hero,this);
+				祛邪卷轴.祛邪(hero,this);
 			}else{
 				鉴定();
 			}
@@ -123,7 +125,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		
 		if (hero.belongings.weapon == null || hero.belongings.weapon.doUnequip( hero, true )) {
 			
-			hero.belongings.weapon = this;
+			hero.belongings.weapon = (Weapon)this;
 			activate( hero );
 			Talent.装备时(hero, this);
 			Badges.validateDuelistUnlock();
@@ -134,7 +136,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 				equipCursed( hero );
 				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
 			}
-
+			
 			hero.spendAndNext( timeToEquip(hero) );
 			if (isSwiftEquipping) {
 				GLog.i(Messages.get(this, "swift_equip"));
@@ -170,7 +172,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 		if (hero.belongings.secondWep == null || hero.belongings.secondWep.doUnequip( hero, true )) {
 
-			hero.belongings.secondWep = this;
+			hero.belongings.secondWep = (Weapon)this;
 			activate( hero );
 			Talent.装备时(hero, this);
 			Badges.validateDuelistUnlock();
@@ -221,7 +223,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		} else {
 
 			if (second){
-				hero.belongings.secondWep = this;
+				hero.belongings.secondWep = (Weapon)this;
 			}
 			return false;
 
@@ -235,29 +237,18 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public int 最大攻击(){
 		return 最大攻击(强化等级());
 	}
+	public int 最小投掷攻击(){
+		return 最小投掷攻击(强化等级());
+	}
+
+	public int 最大投掷攻击(){
+		return 最大投掷攻击(强化等级());
+	}
 
 	abstract public int 最小攻击(int lvl);
 	abstract public int 最大攻击(int lvl);
-
-	public int damageRoll( Char owner ) {
-		if (owner instanceof Hero hero){
-			Char enemy = hero.attackTarget();
-			if(enemy!=null&&enemy.第一次防御&&投矛){
-				return 最大攻击();
-			}
-			int dmgdiff=0;
-			if (伏击&&enemy instanceof Mob&&((Mob) enemy).surprisedBy(hero)) {
-				dmgdiff = Math.round((最大攻击() - 最小攻击())*伏击率);
-			}
-			
-			if(Dungeon.玩法(玩法设置.简单战斗)){
-				return Math.round((最小攻击()+dmgdiff+ 最大攻击())/2f);
-			}
-			return Hero.heroDamageIntRange(最小攻击()+dmgdiff, 最大攻击());
-		} else {
-			return Random.NormalIntRange(最小攻击(), 最大攻击());
-		}
-	}
+	abstract public int 最小投掷攻击(int lvl);
+	abstract public int 最大投掷攻击(int lvl);
 	
 	public float accuracyFactor( Char owner, Char target ) {
 		return 1f;
@@ -292,6 +283,30 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	
 	public int 攻击时(Char attacker, Char defender, int damage ) {
+		
+		if (attacker instanceof Hero hero){
+			Char enemy=hero.attackTarget();
+			if(enemy!=null&&enemy.第一次防御&&投矛){
+				return 最大投掷攻击();
+			}
+			int dmgdiff=0;
+			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
+				dmgdiff=Math.round((最大攻击()-最小攻击())*伏击);
+			}
+		}
+		return damage;
+	}
+	public int 投掷攻击时(Char attacker, Char defender, int damage ) {
+		if (attacker instanceof Hero hero){
+			Char enemy=hero.attackTarget();
+			if(enemy!=null&&enemy.第一次防御&&投矛){
+				return 最大投掷攻击();
+			}
+			int dmgdiff=0;
+			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
+				dmgdiff=Math.round((最大投掷攻击()-最小投掷攻击())*伏击);
+			}
+		}
 		return damage;
 	}
 

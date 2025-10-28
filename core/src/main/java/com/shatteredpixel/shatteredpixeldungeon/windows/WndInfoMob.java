@@ -41,7 +41,7 @@ public class WndInfoMob extends WndTitledMessage {
 			health.level(mob);
 			add( health );
 
-			buffs = new BuffIndicator( mob, false );
+			buffs = new BuffIndicator( mob );
 			add( buffs );
 		}
 		

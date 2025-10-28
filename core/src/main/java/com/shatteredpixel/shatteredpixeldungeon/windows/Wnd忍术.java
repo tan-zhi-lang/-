@@ -9,8 +9,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风切忍术;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍之额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -18,12 +18,17 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RightClickMenu;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.input.PointerEvent;
 import com.watabou.noosa.ColorBlock;
+import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.PointF;
 
 import java.util.ArrayList;
 
@@ -33,8 +38,8 @@ public class Wnd忍术 extends Window {
 
 	public static int BTN_SIZE = 20;
 
-	public Wnd忍术(Hero cleric,boolean info){
-		金玫苦无 tome=new 金玫苦无();
+	public Wnd忍术(叛忍之额 tome,Hero cleric,boolean info){
+
 		IconTitle title;
 		if (!info){
 			title = new IconTitle(new ItemSprite(tome), Messages.titleCase(Messages.get(this, "cast_title")));
@@ -48,7 +53,7 @@ public class Wnd忍术 extends Window {
 		IconButton btnInfo = new IconButton(info ? new ItemSprite(tome) : Icons.INFO.get()){
 			@Override
 			protected void onClick() {
-				GameScene.show(new Wnd忍术(cleric,!info));
+				GameScene.show(new Wnd忍术(tome,cleric,!info));
 				hide();
 			}
 		};
@@ -84,7 +89,7 @@ public class Wnd忍术 extends Window {
 			ArrayList<IconButton> spellBtns = new ArrayList<>();
 
 			for (忍术 spell : spells) {
-				IconButton spellBtn = new SpellButton(spell, info);
+				IconButton spellBtn = new SpellButton(spell, tome, info);
 				add(spellBtn);
 				spellBtns.add(spellBtn);
 			}
@@ -109,19 +114,21 @@ public class Wnd忍术 extends Window {
 	public class SpellButton extends IconButton {
 		
 		忍术 spell;
+		叛忍之额 tome;
 		boolean info;
 
 		NinePatch bg;
 
-		public SpellButton(忍术 spell,boolean info){
+		public SpellButton(忍术 spell, 叛忍之额 tome, boolean info){
 			super(new HeroIcon(spell));
 
 			this.spell = spell;
+			this.tome = tome;
 			this.info = info;
 
-			if (!Dungeon.hero.canCast(spell)){
+			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==风切忍术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell == 风切忍术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
 				icon.brightness(3);
 			}
 
@@ -132,7 +139,7 @@ public class Wnd忍术 extends Window {
 		@Override
 		protected void onPointerDown() {
 			super.onPointerDown();
-			if (spell==风切忍术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			if (spell == 风切忍术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
 				icon.brightness(4);
 			}
 		}
@@ -140,9 +147,9 @@ public class Wnd忍术 extends Window {
 		@Override
 		protected void onPointerUp() {
 			super.onPointerUp();
-			if (!Dungeon.hero.canCast(spell)){
+			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==风切忍术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell == 风切忍术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
 				icon.brightness(3);
 			}
 		}
@@ -166,16 +173,71 @@ public class Wnd忍术 extends Window {
 				hide();
 
 
-				if(!Dungeon.hero.canCast(spell)){
+				if(!tome.canCast(Dungeon.hero, spell)){
 					GLog.w(Messages.get(神圣法典.class, "no_spell"));
 				} else {
-					spell.onCast(Dungeon.hero);
+					spell.onCast(tome, Dungeon.hero);
 
+					if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(tome)){
+						tome.targetingSpell = spell;
+						QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(tome));
+					}
 				}
 
 			}
 		}
-		
+
+		@Override
+		protected boolean onLongClick() {
+			hide();
+			tome.setQuickSpell(spell);
+			return true;
+		}
+
+		@Override
+		protected void onRightClick() {
+			super.onRightClick();
+			RightClickMenu r = new RightClickMenu(new Image(icon),
+					Messages.titleCase(spell.name()),
+					Messages.get(Wnd忍术.class,"cast"),
+					Messages.get(Wnd忍术.class,"info"),
+					Messages.get(Wnd忍术.class,"quick_cast")){
+				@Override
+				public void onSelect(int index) {
+					switch (index){
+						default:
+							//do nothing
+							break;
+						case 0:
+							hide();
+							if(!tome.canCast(Dungeon.hero, spell)){
+								GLog.w(Messages.get(神圣法典.class, "no_spell"));
+							} else {
+								spell.onCast(tome, Dungeon.hero);
+
+								if (spell.targetingFlags() != -1 && Dungeon.quickslot.contains(tome)){
+									tome.targetingSpell = spell;
+									QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(tome));
+								}
+							}
+							break;
+						case 1:
+							GameScene.show(new WndTitledMessage(new HeroIcon(spell), Messages.titleCase(spell.name()), spell.desc()));
+							break;
+						case 2:
+							hide();
+							tome.setQuickSpell(spell);
+							break;
+					}
+				}
+			};
+			parent.addToFront(r);
+			r.camera = camera();
+			PointF mousePos = PointerEvent.currentHoverPos();
+			mousePos = camera.screenToCamera((int)mousePos.x, (int)mousePos.y);
+			r.setPos(mousePos.x-3, mousePos.y-3);
+		}
+
 		@Override
 		protected String hoverText() {
 			return "_" + Messages.titleCase(spell.name()) + "_\n" + spell.shortDesc();

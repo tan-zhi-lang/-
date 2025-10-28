@@ -8,6 +8,8 @@ public class 魔披 extends Armor {
 
 	{
 		image = 物品表.魔披;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 魔披(){

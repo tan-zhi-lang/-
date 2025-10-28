@@ -25,7 +25,7 @@ public class Amulet extends Item {
 	{
 		image = 物品表.AMULET;
 		黄色 = true;
-		unique = true;
+		特别= true;
 	}
 	
 	@Override

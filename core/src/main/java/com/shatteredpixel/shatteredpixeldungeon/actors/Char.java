@@ -14,7 +14,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Berserk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
@@ -41,7 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Preparation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
@@ -54,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -93,9 +92,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
@@ -109,14 +108,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Sickle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.ShockingDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
@@ -163,6 +160,7 @@ public abstract class Char extends Actor {
 	public boolean 第一次攻击=true;
 	public boolean 第一次防御 =true;
 	public boolean 第一次背袭 =true;
+	public boolean 必暴 =false;
 	public boolean 必中 =false;
 	public boolean 必闪 =false;
 	public float 生命流动 =0;
@@ -406,12 +404,13 @@ public abstract class Char extends Actor {
 
 		} else if (hit( this, enemy, accMulti, false )) {
 			
-			int dr = Math.round(enemy.防御() * AscensionChallenge.statModifier(enemy));
+			int dr = Math.round(
+					
+					Random.NormalIntRange( enemy.最小防御(), enemy.最大防御())
+					*AscensionChallenge.statModifier(enemy));
 			
 			if (this instanceof Hero hero){
-				if (hero.belongings.attackingWeapon() instanceof MissileWeapon
-					&&hero.subClass==HeroSubClass.SNIPER
-					&&!Dungeon.level.adjacent(hero.pos,enemy.pos)){
+				if (hero.subClass==HeroSubClass.SNIPER){
 					dr = 0;
 				}
 
@@ -429,14 +428,18 @@ public abstract class Char extends Actor {
 			//we use a float here briefly so that we don't have to constantly round while
 			// potentially applying various multiplier effects
 			float dmg;
-			Preparation prep = buff(Preparation.class);
+			潜伏 prep = buff(潜伏.class);
 			if (prep != null){
 				dmg = prep.damageRoll(this);
 				if (this == Dungeon.hero && Dungeon.hero.天赋(Talent.BOUNTY_HUNTER)) {
 					Buff.施加(Dungeon.hero, Talent.BountyHunterTracker.class, 0.0f);
 				}
 			} else {
-				dmg = 攻击();
+				if(this instanceof Hero hero){
+					dmg=hero.heroDamageIntRange(最小攻击(),最大攻击());
+				}else{
+					dmg=Random.NormalIntRange(最小攻击(),最大攻击());
+				}
 			}
 
 			dmg = dmg*dmgMulti;
@@ -453,9 +456,6 @@ public abstract class Char extends Actor {
 					enemy.受伤时(Dungeon.hero.天赋生命力(Talent.SEARING_LIGHT,0.6f), GuidingLight.INSTANCE);
 				}
 			}
-
-			Berserk berserk = buff(Berserk.class);
-			if (berserk != null) dmg = berserk.damageFactor(dmg);
 
 			if (buff( Fury.class ) != null) {
 				dmg *= 1.5f;
@@ -562,12 +562,12 @@ public abstract class Char extends Actor {
 					DeathMark.processFearTheReaper(enemy);
 				}
 				if (enemy.sprite != null) {
-					enemy.sprite.showStatus(CharSprite.削弱, Messages.get(Preparation.class, "assassinated"));
+					enemy.sprite.showStatus(CharSprite.削弱, Messages.get(潜伏.class,"assassinated"));
 				}
 			}
 
 			Talent.CombinedLethalityAbilityTracker combinedLethality = buff(Talent.CombinedLethalityAbilityTracker.class);
-			if (combinedLethality != null && this instanceof Hero && ((Hero) this).belongings.attackingWeapon() instanceof MeleeWeapon && combinedLethality.weapon != ((Hero) this).belongings.attackingWeapon()){
+			if (combinedLethality != null && this instanceof Hero && ((Hero) this).belongings.attackingWeapon() instanceof Weapon && combinedLethality.weapon != ((Hero) this).belongings.attackingWeapon()){
 				if ( enemy.isAlive() && enemy.alignment != alignment && !Char.hasProp(enemy, Property.BOSS)
 						&& !Char.hasProp(enemy, Property.MINIBOSS) &&
 						(enemy.生命 /(float)enemy.最大生命) <= ((Hero)this).天赋点数(Talent.COMBINED_LETHALITY,0.13f)) {
@@ -660,6 +660,9 @@ public abstract class Char extends Actor {
 			if(hero.heroClass(HeroClass.道士)){
 				defStat=0;
 			}
+			if (defender.hasbuff(TalismanOfForesight.CharAwareness.class)){
+				defStat=0;
+			}
 		}
 		if ( defender instanceof Hero hero) {
 			if(attacker.properties().contains(Property.UNDEAD)&&hero.belongings.armor() instanceof 道袍){
@@ -743,7 +746,28 @@ public abstract class Char extends Actor {
 
 	private static int hitMissIcon = -1;
 
-	public int 最大命中(Char target ) {
+	public int 最小命中(Char target ) {
+		return 0;
+	}
+	
+	public int 最大命中(Char enemy ) {
+		return 0;
+	}
+	
+	public int 最小命中() {
+		return 最小命中(null);
+	}
+	public int 最大命中() {
+		return 最大命中(null);
+	}
+	
+	public int 最小命中(float x) {
+		return Math.round(最小命中() * x);
+	}
+	public int 最大命中(float x) {
+		return Math.round(最大命中() * x);
+	}
+	public int 最小闪避(Char enemy ) {
 		return 0;
 	}
 	
@@ -751,24 +775,60 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 	
+	public int 最小闪避() {
+		return 最小闪避(null);
+	}
+	public int 最大闪避() {
+		return 最大闪避(null);
+	}
+	
+	
+	public int 最小闪避(float x) {
+		return Math.round(最小闪避() * x);
+	}
+	public int 最大闪避(float x) {
+		return Math.round(最大闪避() * x);
+	}
+	
 	public String defenseVerb() {
 		return Messages.get(this, "def_verb");
 	}
 	
-	public int 防御() {
+	public int 最小防御() {
 		int dr = 0;
-		dr += Random.NormalIntRange( 0 , Barkskin.currentLevel(this) );
+
+		return dr;
+	}
+	public int 最大防御() {
+		int dr = 0;
+		dr += Barkskin.currentLevel(this);
 
 		return dr;
 	}
 	
-	public int 攻击() {
+	public int 最小攻击() {
+		return 1;
+	}
+	public int 最大攻击() {
 		return 1;
 	}
 	
 	//TODO it would be nice to have a pre-armor and post-armor proc.
 	// atm attack is always post-armor and defence is already pre-armor
 	
+	public int 暴击率(){
+		return 0;
+	}
+	public float 暴击伤害(){
+		return 1.75f;
+	}
+	public int 暴击(final Char enemy,int dmg){
+		if(必暴||算法.概率学(暴击率())){
+			dmg=Math.round(dmg*暴击伤害());
+			必暴=false;
+		}
+		return dmg;
+	}
 	public int 攻击时(Char enemy, int damage ) {
 		boolean 视野敌人=false;
 		if(this instanceof Mob mob){
@@ -787,6 +847,7 @@ public abstract class Char extends Actor {
 		}else {
 			每3次攻击++;
 		}
+		damage=暴击(enemy,damage);
 		
 		if(吸血()>0){
 			float x =damage * 吸血();
@@ -976,21 +1037,21 @@ public abstract class Char extends Actor {
 			damage *= 1.25f;
 		}
 
-		if (buff(Sickle.HarvestBleedTracker.class) != null){
-			buff(Sickle.HarvestBleedTracker.class).detach();
-
-			if (!免疫(流血.class)){
-				流血 b = buff(流血.class);
-				if (b == null){
-					b = new 流血();
-				}
-				b.announced = false;
-				b.set(dmg, Sickle.HarvestBleedTracker.class);
-				b.attachTo(this);
-				sprite.showStatus(CharSprite.WARNING, Messages.titleCase(b.name()) + " " + (int)b.level());
-				return;
-			}
-		}
+//		if (buff(短柄镰.HarvestBleedTracker.class)!=null){
+//			buff(短柄镰.HarvestBleedTracker.class).detach();
+//
+//			if (!免疫(流血.class)){
+//				流血 b = buff(流血.class);
+//				if (b == null){
+//					b = new 流血();
+//				}
+//				b.announced = false;
+//				b.set(dmg, 短柄镰.HarvestBleedTracker.class);
+//				b.attachTo(this);
+//				sprite.showStatus(CharSprite.WARNING, Messages.titleCase(b.name()) + " " + (int)b.level());
+//				return;
+//			}
+//		}
 
 		Class<?> srcClass = src.getClass();
 		if (免疫( srcClass )) {
@@ -1070,13 +1131,11 @@ public abstract class Char extends Actor {
 			int                                                         icon = FloatingText.PHYS_DMG;
 			if (NO_ARMOR_PHYSICAL_SOURCES.contains(src.getClass()))     icon = FloatingText.PHYS_DMG_NO_BLOCK;
 			if (AntiMagic.RESISTS.contains(src.getClass()))             icon = FloatingText.MAGIC_DMG;
-			if (src instanceof Pickaxe)                                 icon = FloatingText.PICK_DMG;
+			if (src instanceof 镐子) icon = FloatingText.PICK_DMG;
 
 			//special case for sniper when using ranged attacks
 			if (src == Dungeon.hero
-					&& Dungeon.hero.subClass == HeroSubClass.SNIPER
-					&& !Dungeon.level.adjacent(Dungeon.hero.pos, pos)
-					&& Dungeon.hero.belongings.attackingWeapon() instanceof MissileWeapon){
+					&& Dungeon.hero.subClass == HeroSubClass.SNIPER){
 				icon = FloatingText.PHYS_DMG_NO_BLOCK;
 			}
 
@@ -1153,10 +1212,6 @@ public abstract class Char extends Actor {
 			if (ch.buff(SnipersMark.class) != null && ch.buff(SnipersMark.class).object == id()){
 				ch.buff(SnipersMark.class).detach();
 			}
-			if (ch.buff(Talent.FollowupStrikeTracker.class) != null
-					&& ch.buff(Talent.FollowupStrikeTracker.class).object == id()){
-				ch.buff(Talent.FollowupStrikeTracker.class).detach();
-			}
 			if (ch.buff(Talent.DeadlyFollowupTracker.class) != null
 					&& ch.buff(Talent.DeadlyFollowupTracker.class).object == id()){
 				ch.buff(Talent.DeadlyFollowupTracker.class).detach();
@@ -1210,6 +1265,12 @@ public abstract class Char extends Actor {
 	public void spend() {
 		spend(1);
 	}
+	
+	public float 攻击延迟() {
+		float delay = 1f;
+		return delay;
+	}
+	
 	@Override
 	protected void spend( float time ) {
 

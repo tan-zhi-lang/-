@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍之额;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -11,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 public abstract class 目标忍术 extends 忍术 {
 
 	@Override
-	public void onCast(Hero hero){
+	public void onCast(叛忍之额 tome,Hero hero){
 		GameScene.selectCell(new CellSelector.Listener() {
 			@Override
 			public void onSelect(Integer cell) {

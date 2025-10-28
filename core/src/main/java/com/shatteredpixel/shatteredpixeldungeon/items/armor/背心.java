@@ -10,6 +10,8 @@ public class 背心 extends Armor {
 
 	{
 		image = 物品表.背心;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 背心(){
@@ -27,12 +29,16 @@ public class 背心 extends Armor {
 		return req;
 	}
 	
+	@Override
+	public int 最小防御(int lvl){
+		return super.最小防御(lvl)-augment.defenseFactor(tier + lvl);
+	}
 	public int 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return tier + lvl + augment.defenseFactor(lvl);
+			return augment.defenseFactor(tier + lvl);
 		}
 		
-		int max = tier * (2 + lvl) + augment.defenseFactor(lvl)-1;
+		int max = augment.defenseFactor(Math.round(tier * (2 + lvl)*1.25f));
 		if (lvl > max){
 			return ((lvl - max)+1)/2;
 		} else {

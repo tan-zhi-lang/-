@@ -248,13 +248,13 @@ public class Ratmogrify extends ArmorAbility {
 			return original.最大命中(target);
 		}
 
-		public int 防御() {
-			return original.防御();
+		public int 最大防御() {
+			return original.最大防御();
 		}
 
 		@Override
-		public int 攻击() {
-			int damage = original.攻击();
+		public int 最大攻击() {
+			int damage = original.最大攻击();
 			if (!allied && Dungeon.hero.天赋(Talent.RATSISTANCE)){
 				damage *= Math.pow(0.9f, Dungeon.hero.天赋点数(Talent.RATSISTANCE));
 			}
@@ -262,8 +262,8 @@ public class Ratmogrify extends ArmorAbility {
 		}
 
 		@Override
-		public float attackDelay() {
-			return original.attackDelay();
+		public float 攻击延迟() {
+			return original.攻击延迟();
 		}
 
 		@Override

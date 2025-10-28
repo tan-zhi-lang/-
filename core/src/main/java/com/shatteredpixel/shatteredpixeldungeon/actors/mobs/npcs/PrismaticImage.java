@@ -130,7 +130,7 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
-	public int 攻击() {
+	public int 最大攻击() {
 		if (hero != null) {
 			return Random.NormalIntRange( 2 + hero.等级 /4, 4 + hero.等级 /2 );
 		} else {
@@ -166,10 +166,10 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
-	public int 防御() {
-		int dr = super.防御();
+	public int 最大防御() {
+		int dr = super.最大防御();
 		if (hero != null){
-			return dr + hero.防御();
+			return dr + hero.最大防御();
 		} else {
 			return dr;
 		}

@@ -9,7 +9,7 @@ public class GooBlob extends Item {
 	
 	{
 		image = 物品表.BLOB;
-		stackable = true;
+		可堆叠= true;
 		物品 = true;
 	}
 	

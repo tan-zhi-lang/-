@@ -17,7 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -200,7 +199,7 @@ public class Shopkeeper extends NPC {
 
 	public static boolean canSell(Item item){
 		if (item.金币() <= 0)                                              return false;
-		if (item.unique && !item.stackable)                                 return false;
+		if (item.特别&&!item.可堆叠)                                 return false;
 		if (item instanceof Armor && ((Armor) item).checkSeal() != null)    return false;
 		if (item.isEquipped(Dungeon.hero) && item.cursed)                   return false;
 		return true;
@@ -261,9 +260,6 @@ public class Shopkeeper extends NPC {
 							Item returned = buybackItems.remove(index-2);
 							Dungeon.gold(-returned.金币());
 							Statistics.goldCollected -= returned.金币();
-							if (returned instanceof MissileWeapon && returned.可升级()){
-								Buff.施加(Dungeon.hero, MissileWeapon.UpgradedSetTracker.class).levelThresholds.put(((MissileWeapon) returned).setID, returned.等级());
-							}
 							if (!returned.doPickUp(Dungeon.hero)){
 								Dungeon.level.drop(returned, Dungeon.hero.pos);
 							}

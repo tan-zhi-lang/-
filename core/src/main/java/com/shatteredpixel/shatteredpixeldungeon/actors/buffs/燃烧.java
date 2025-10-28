@@ -98,7 +98,7 @@ public class 燃烧 extends Buff implements Hero.Doom {
 					//does not reach inside of containers
 					if (!hero.belongings.lostInventory()) {
 						for (Item i : hero.belongings.backpack.items) {
-							if (!i.unique && (i instanceof Scroll || i instanceof MysteryMeat || i instanceof FrozenCarpaccio)) {
+							if (!i.特别&&(i instanceof Scroll||i instanceof MysteryMeat||i instanceof FrozenCarpaccio)) {
 								burnable.add(i);
 							}
 						}
@@ -125,7 +125,7 @@ public class 燃烧 extends Buff implements Hero.Doom {
 
 				Item item = ((Thief) target).item;
 
-				if (!item.unique && item instanceof Scroll) {
+				if (!item.特别&&item instanceof Scroll) {
 					target.sprite.emitter().burst( ElmoParticle.FACTORY, 6 );
 					((Thief)target).item = null;
 				} else if (item instanceof MysteryMeat) {

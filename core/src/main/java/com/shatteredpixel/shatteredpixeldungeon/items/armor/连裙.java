@@ -8,6 +8,8 @@ public class 连裙 extends Armor {
 
 	{
 		image = 物品表.连裙;
+		嬗变= false;
+		专属=true;
 	}
 
 	public 连裙(){

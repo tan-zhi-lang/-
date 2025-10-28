@@ -17,8 +17,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SoulMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -38,7 +38,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -85,7 +85,7 @@ public abstract class Wand extends Item {
 	{
 		defaultAction = AC_ZAP;
 		usesTargeting = true;
-		bones = true;
+		遗产= true;
 	}
 	
 	@Override
@@ -132,12 +132,9 @@ public abstract class Wand extends Item {
 
 	//not affected by enchantment proc chance changers
 	public static float procChanceMultiplier( Char attacker ){
-		if (attacker.buff(Talent.EmpoweredStrikeTracker.class) != null){
-			return 1f + ((Hero)attacker).天赋点数(Talent.EMPOWERED_STRIKE,0.5f);
-		}
-		return 1f;
+		
+		return 1f+Dungeon.hero.天赋点数(Talent.盈能附魔,0.12f);
 	}
-
 	public boolean tryToZap( Hero owner, int target ){
 
 		if (owner.buff(WildMagic.WildMagicTracker.class) == null && owner.buff(MagicImmune.class) != null){
@@ -204,11 +201,9 @@ public abstract class Wand extends Item {
 			Buff.新增(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = target.id();
 			}
 
-		if (target != Dungeon.hero &&
-				Dungeon.hero.subClass == HeroSubClass.WARLOCK &&
-				//standard 1 - 0.92^x chance, plus 7%. Starts at 15%
-				Random.Float() > (Math.pow(0.92f, (wandLevel*chargesUsed)+1) - 0.07f)){
-			SoulMark.延长(target, SoulMark.class, SoulMark.DURATION + wandLevel);
+		if (target != Dungeon.hero&&
+				Dungeon.hero.subClass == HeroSubClass.术士){
+			灵魂标记.延长(target,灵魂标记.class,灵魂标记.DURATION);
 		}
 
 		if (Dungeon.hero.subClass == HeroSubClass.PRIEST && target.buff(GuidingLight.Illuminated.class) != null) {
@@ -378,8 +373,10 @@ public abstract class Wand extends Item {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-		if (charger != null && charger.target != null) {
-
+		if (charger != null && charger.target instanceof Hero hero) {
+			if(hero.天赋(Talent.DESPERATE_POWER)&&curCharges<=1){
+				lvl+=hero.天赋点数(Talent.DESPERATE_POWER,2);
+			}
 			//inside staff, still need to apply degradation
 			if (charger.target == Dungeon.hero
 					&& !Dungeon.hero.belongings.contains(this)
@@ -411,7 +408,7 @@ public abstract class Wand extends Item {
 	}
 
 	public void updateLevel() {
-		maxCharges = Math.min( initialCharges() + 等级(), 10+(curUser==null?0:curUser.天赋点数(Talent.DESPERATE_POWER)));
+		maxCharges = Math.min( initialCharges() + 等级(), 10);
 		curCharges = Math.min( curCharges+(curUser!=null&&curUser.heroClass(HeroClass.MAGE)?1:0), maxCharges );
 	}
 	
@@ -466,34 +463,16 @@ public abstract class Wand extends Item {
 			Generator.random().放背包();
 		}
 
-		//inside staff
-		if (charger != null && charger.target == Dungeon.hero && !Dungeon.hero.belongings.contains(this)){
-			if (Dungeon.hero.天赋(Talent.EXCESS_CHARGE)&&curCharges>=maxCharges){
-				int shieldToGive = 强化等级()*Dungeon.hero.天赋生命力(Talent.EXCESS_CHARGE,0.6f);
-				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
-				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-			}
-		}
 		if (Dungeon.hero.天赋(Talent.保护屏障)) {
-			int shieldToGive = Dungeon.hero.天赋生命力(Talent.保护屏障, 0.4f);
+			int shieldToGive = Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.保护屏障, 0.08f));
 			if (Dungeon.hero.heroClass == HeroClass.MAGE ) {
 				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
 				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 
 				//metamorphed. Triggers if wand is highest level hero has
 			} else {
-				final Wand curWand;
-				curWand = (Wand) Wand.curItem;
-				boolean highest = true;
-				for (Item i : Dungeon.hero.belongings.getAllItems(Wand.class)) {
-					if (i.等级() > curWand.等级()) {
-						highest = false;
-					}
-				}
-				if (highest) {
-					Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
-				}
+				Buff.施加(Dungeon.hero, Barrier.class).设置(shieldToGive);
+				Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			}
 		}
 		
@@ -514,18 +493,9 @@ public abstract class Wand extends Item {
 			}
 		}
 
-		//If hero owns wand but it isn't in belongings it must be in the staff
-		if (Dungeon.hero.天赋(Talent.EMPOWERED_STRIKE)
-				&& charger != null && charger.target == Dungeon.hero
-				&& !Dungeon.hero.belongings.contains(this)){
-
-			Buff.延长(Dungeon.hero, Talent.EmpoweredStrikeTracker.class, 10f);
-		}
-
 		if (Dungeon.hero.天赋(Talent.LINGERING_MAGIC)
 				&& charger != null && charger.target == Dungeon.hero){
-
-			Buff.延长(Dungeon.hero, Talent.LingeringMagicTracker.class, 5f);
+			Dungeon.hero.必中=true;
 		}
 
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
@@ -726,13 +696,13 @@ public abstract class Wand extends Item {
 							return;
 						}
 						if(curUser.天赋(Talent.SHIELD_BATTERY)) {
-							int shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.015f)) * curWand.curCharges;
+							int shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.025f)) * curWand.curCharges;
 							Buff.施加(curUser, Barrier.class).设置(shield);
 							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						}
 						if(curUser.天赋(Talent.饱腹法术)) {
-							float shield = curUser.天赋点数(Talent.饱腹法术, 3) * curWand.curCharges;
+							float shield = curUser.天赋点数(Talent.饱腹法术, 7.5f) * curWand.curCharges;
 							Buff.施加(curUser, Hunger.class).吃饭(shield);
 
 							curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(shield)), FloatingText.HUNGER);

@@ -31,15 +31,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -211,39 +211,39 @@ public class ShopRoom extends SpecialRoom {
 
 		ArrayList<Item> itemsToSpawn = new ArrayList<>();
 
-		MeleeWeapon w;
-		MissileWeapon m;
+		Weapon w;
+		Weapon w2;
 		Armor a;
 		switch (Dungeon.depth) {
 		case 1: default:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[0]);
-			m = (MissileWeapon) Generator.random(Generator.misTiers[0]);
+			w = (Weapon) Generator.random(Generator.wepTiers[0]);
+			w2 = (Weapon) Generator.random(Generator.wepTiers[0]);
 			a=new ClothArmor();
 			if(Dungeon.hero()&&!Dungeon.hero.heroClass(HeroClass.WARRIOR)) {
 				itemsToSpawn.add(new 水袋());
 			}
 			break;
 		case 6:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[1]);
-			m = (MissileWeapon) Generator.random(Generator.misTiers[1]);
+			w = (Weapon) Generator.random(Generator.wepTiers[1]);
+			w2 = (Weapon) Generator.random(Generator.wepTiers[1]);
 			a=new LeatherArmor();
 			break;
 			
 		case 11:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[2]);
-			m = (MissileWeapon) Generator.random(Generator.misTiers[2]);
+			w = (Weapon) Generator.random(Generator.wepTiers[2]);
+			w2 = (Weapon) Generator.random(Generator.wepTiers[2]);
 			a=new MailArmor();
 			break;
 			
 		case 16:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[3]);
-			m = (MissileWeapon) Generator.random(Generator.misTiers[3]);
+			w = (Weapon) Generator.random(Generator.wepTiers[3]);
+			w2 = (Weapon) Generator.random(Generator.wepTiers[3]);
 			a=new ScaleArmor();
 			break;
 
 		case 20: case 21:
-			w = (MeleeWeapon) Generator.random(Generator.wepTiers[4]);
-			m = (MissileWeapon) Generator.random(Generator.misTiers[4]);
+			w = (Weapon) Generator.random(Generator.wepTiers[4]);
+			w2 = (Weapon) Generator.random(Generator.wepTiers[4]);
 			a = new PlateArmor();
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
@@ -275,26 +275,48 @@ public class ShopRoom extends SpecialRoom {
 				}
 			}
 		}
+		int n2 = 1;
+		if(Dungeon.解压(解压设置.持之以恒)){
+			if (Random.Int(1) == 0){
+				n2++;
+				if(Random.Int(2)==0){
+					n2++;
+					if(Random.Int(3)==0){
+						n2++;
+						if(Random.Int(4)==0){
+							n2++;
+							if(Random.Int(5)==0){
+								n2++;
+							}
+						}
+					}
+				}
+			}
+		}else{
+			if(Random.Int(4)==0){
+				n2++;
+				if(Random.Int(5)==0){
+					n2++;
+				}
+			}
+		}
 		w.enchant(null);
 		w.cursed = false;
 		w.等级(n);
 		w.鉴定(true);
 		itemsToSpawn.add(w);
 
-		m.enchant(null);
-		m.cursed = false;
-		m.等级(n);
-		m.鉴定(true);
-		itemsToSpawn.add(m);
+		w2.enchant(null);
+		w2.cursed = false;
+		w2.等级(n);
+		w2.鉴定(true);
+		itemsToSpawn.add(w2);
 
 		a.inscribe(null);
 		a.cursed = false;
 		a.等级(n);
 		a.鉴定(true);
 		itemsToSpawn.add( a);
-		
-		itemsToSpawn.add( TippedDart.randomTipped(2) );
-
 		itemsToSpawn.add( new 炼金菱晶().数量(Random.IntRange(2,3)*2));
 
 		Bag bag = ChooseBag(Dungeon.hero.belongings);
@@ -303,12 +325,14 @@ public class ShopRoom extends SpecialRoom {
 		}
 
 		itemsToSpawn.add( new 治疗药剂() );
+		itemsToSpawn.add( new 净化药剂());
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 
 		itemsToSpawn.add( new 鉴定卷轴() );
+		itemsToSpawn.add( new 嬗变卷轴());
 		itemsToSpawn.add( new 祛邪卷轴() );
 
 		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.SCROLL ) );

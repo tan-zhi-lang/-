@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
 import com.watabou.utils.Random;
@@ -26,13 +26,32 @@ public class Bones {
 	private static final String LEVEL	= "level";
 	private static final String BRANCH	= "branch";
 	private static final String ITEM	= "item";
-	private static final String ITEMS	= "items";
+	private static final String ITEM2=        "item2";
+	private static final String ITEM3=        "item3";
+	private static final String ITEM4=        "item4";
+	private static final String ITEM5=        "item5";
+	private static final String ITEM6=        "item6";
+	private static final String ITEM7=        "item7";
+	private static final String ITEM8=        "item8";
+	private static final String ITEM9=        "item9";
 	private static final String HERO_CLASS	= "hero_class";
 
 	private static int depth = -1;
 	private static int branch = -1;
 
-	private static Item item;
+	private static Item bone;
+	
+	public static int 金币;
+	public static int 能量;
+	public static Item item;
+	public static Item item2;
+	public static Item item3;
+	public static Item item4;
+	public static Item item5;
+	public static Item item6;
+	public static Item item7;
+	public static Item item8;
+	public static Item item9;
 	public static ArrayList<Item> items = new ArrayList<>();
 	private static HeroClass heroClass;
 
@@ -49,20 +68,25 @@ public class Bones {
 			depth = branch = -1;
 			return;
 		}
-
-		item = pickItem(Dungeon.hero);
-//		for(Item item :Dungeon.hero.belongings.backpack.items){
-//			if(!item.bones&&!(item instanceof Bag)){
-//				items.add(item);
-//			}
-//		}
+		
+		金币=Dungeon.gold;
+		能量=Dungeon.energy;
+		bone = pickItem(Dungeon.hero);
+		
 		heroClass = Dungeon.hero.heroClass;
 
 		Bundle bundle = new Bundle();
 		bundle.put( LEVEL, depth );
 		bundle.put( BRANCH, branch );
-		bundle.put( ITEM, item );
-//		bundle.put( ITEMS, items );
+		if (item!=null) bundle.put(ITEM,item);
+		if (item2!=null) bundle.put(ITEM2,item2);
+		if (item3!=null) bundle.put(ITEM3,item3);
+		if (item4!=null) bundle.put(ITEM4,item4);
+		if (item5!=null) bundle.put(ITEM5,item5);
+		if (item6!=null) bundle.put(ITEM6,item6);
+		if (item7!=null) bundle.put(ITEM7,item7);
+		if (item8!=null) bundle.put(ITEM8,item8);
+		if (item9!=null) bundle.put(ITEM9,item9);
 		bundle.put( HERO_CLASS, heroClass );
 
 		try {
@@ -108,7 +132,7 @@ public class Bones {
 					item = Dungeon.quickslot.randomNonePlaceholder();
 					break;
 			}
-			if (item == null || !item.bones) {
+			if (item == null || !item.遗产) {
 				return pickItem(hero);
 			}
 		} else {
@@ -118,7 +142,7 @@ public class Bones {
 			ArrayList<Item> items = new ArrayList<>();
 			while (iterator.hasNext()){
 				curItem = iterator.next();
-				if (curItem.bones) {
+				if (curItem.遗产) {
 					items.add(curItem);
 				}
 			}
@@ -126,7 +150,7 @@ public class Bones {
 			//if there are few items, there is an increasingly high chance of leaving nothing
 			if (Random.Int(3) < items.size()) {
 				item = Random.element(items);
-				if (item.stackable){
+				if (item.可堆叠){
 					item.数量(Random.NormalIntRange(1,(item.数量()+1)/2));
 					if (item.数量()>3){
 						item.数量(3);
@@ -141,6 +165,8 @@ public class Bones {
 	}
 
 	public static ArrayList<Item> get() {
+		
+		Badges.解锁来世();
 		//daily runs do not interact with remains
 		if (Dungeon.daily){
 			return null;
@@ -155,11 +181,15 @@ public class Bones {
 				depth = bundle.getInt( LEVEL );
 				branch = bundle.getInt( BRANCH );
 				if (depth > 0) {
-					if (bundle.contains(ITEM)) {
-						item = (Item) bundle.get(ITEM);
-					} else {
-						item = null;
-					}
+					if (bundle.contains(ITEM)) item= (Item)bundle.get(ITEM);
+					if (bundle.contains(ITEM2)) item2= (Item)bundle.get(ITEM2);
+					if (bundle.contains(ITEM3)) item3= (Item)bundle.get(ITEM3);
+					if (bundle.contains(ITEM4)) item4= (Item)bundle.get(ITEM4);
+					if (bundle.contains(ITEM5)) item5= (Item)bundle.get(ITEM5);
+					if (bundle.contains(ITEM6)) item6= (Item)bundle.get(ITEM6);
+					if (bundle.contains(ITEM7)) item7= (Item)bundle.get(ITEM7);
+					if (bundle.contains(ITEM8)) item8= (Item)bundle.get(ITEM8);
+					if (bundle.contains(ITEM9)) item9= (Item)bundle.get(ITEM9);
 					if (bundle.contains(HERO_CLASS)){
 						heroClass = bundle.getEnum(HERO_CLASS, HeroClass.class);
 					} else {
@@ -187,44 +217,44 @@ public class Bones {
 
 				//challenged or seeded runs don't get items from prior runs
 				if (Dungeon.challenges != 0 || !Dungeon.customSeedText.isEmpty()){
-					item = null;
+					bone = null;
 				}
 
 				//Enforces artifact uniqueness
-				if (item instanceof Artifact){
-					if (Generator.removeArtifact(((Artifact)item).getClass())) {
+				if (bone instanceof Artifact){
+					if (Generator.removeArtifact(((Artifact)bone).getClass())) {
 						
 						//generates a new artifact of the same type, always +0
-						Artifact artifact = Reflection.newInstance(((Artifact)item).getClass());
+						Artifact artifact = Reflection.newInstance(((Artifact)bone).getClass());
 						
 						if (artifact != null){
 							artifact.cursed = true;
 							artifact.cursedKnown = true;
 						}
-
-						item = artifact;
+						
+						bone = artifact;
 						
 					} else {
-						item = new Gold(item.金币());
+						bone = new Gold(bone.金币());
 					}
 				}
 
-				if (item != null) {
-					if (item.可升级() && !(item instanceof MissileWeapon)) {
-						item.cursed = true;
-						item.cursedKnown = true;
+				if (bone != null) {
+					if (bone.可升级() && !(bone instanceof Weapon)) {
+						bone.cursed = true;
+						bone.cursedKnown = true;
 					}
 
-					if (item.可升级()) {
+					if (bone.可升级()) {
 						//caps at +3
-						if (item.等级() > 3) {
-							item.降级(item.等级() - 3);
+						if (bone.等级() > 3) {
+							bone.降级(bone.等级() - 3);
 						}
 						//thrown weapons are always IDed, otherwise set unknown
-						item.levelKnown = item instanceof MissileWeapon;
+						bone.levelKnown = bone instanceof Weapon;
 					}
-
-					item.reset();
+					
+					bone.reset();
 				}
 
 				ArrayList<Item> result = new ArrayList<>();
@@ -239,8 +269,8 @@ public class Bones {
 					}
 				}
 
-				if (item != null) {
-					result.add(item);
+				if (bone != null) {
+					result.add(bone);
 				}
 
 				return result.isEmpty() ? null : result;

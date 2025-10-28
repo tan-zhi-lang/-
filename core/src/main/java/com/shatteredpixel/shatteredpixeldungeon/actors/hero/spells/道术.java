@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.铜钱剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public abstract class 道术{
 
-	public abstract void onCast(铜钱剑 tome,Hero hero);
+	public abstract void onCast(本命玉佩 tome,Hero hero);
 
 	public int chargeUse( Hero hero ){
 		return 1;
@@ -48,9 +48,10 @@ public abstract class 道术{
 		return HeroIcon.NONE;
 	}
 
-	public void onSpellCast(铜钱剑 tome, Hero hero){
-		Invisibility.notimedispel();
-		tome.beforeAbilityUsed(hero,null);
+	public void onSpellCast(本命玉佩 tome,Hero hero){
+		Invisibility.dispel();
+		tome.spendCharge(chargeUse(hero));
+		Talent.onArtifactUsed(hero);
 	}
 
 	public static ArrayList<道术> getSpellList(Hero cleric,int tier){

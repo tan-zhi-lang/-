@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SeniorSprite;
-import com.watabou.utils.Random;
 
 public class Senior extends Monk {
 
@@ -24,8 +23,12 @@ public class Senior extends Monk {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 16, 25 );
+	public int 最小攻击() {
+		return 16;
+	}
+	@Override
+	public int 最大攻击() {
+		return 26;
 	}
 	
 }

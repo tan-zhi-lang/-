@@ -10,8 +10,8 @@ public class Embers extends Item {
 
 	{
 		image = 物品表.EMBER;
-
-		unique = true;
+		
+		特别= true;
 	}
 
 	@Override

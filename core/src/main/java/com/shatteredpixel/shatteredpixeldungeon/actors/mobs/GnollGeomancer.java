@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
@@ -20,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.Pickaxe;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -113,7 +114,7 @@ public class GnollGeomancer extends Mob {
 	@Override
 	public boolean 是无敌(Class effect) {
 		return super.是无敌(effect)
-				|| (buff(RockArmor.class) != null && effect != Pickaxe.class)
+				|| (buff(RockArmor.class) != null && effect != 镐子.class)
 				|| hasSapper();
 	}
 
@@ -128,8 +129,12 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 3, 6 );
+	public int 最小攻击() {
+		return 3;
+	}
+	@Override
+	public int 最大攻击() {
+		return 6;
 	}
 
 	@Override
@@ -138,8 +143,8 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 6);
+	public int 最大防御() {
+		return super.最大防御()+6;
 	}
 
 	@Override
@@ -174,7 +179,7 @@ public class GnollGeomancer extends Mob {
 		if (c != Dungeon.hero || buff(RockArmor.class) == null) {
 			return super.interact(c);
 		} else {
-			final Pickaxe p = Dungeon.hero.belongings.getItem(Pickaxe.class);
+			final 镐子 p = Dungeon.hero.belongings.getItem(镐子.class);
 
 			if (p == null){
 				return true;
@@ -185,7 +190,7 @@ public class GnollGeomancer extends Mob {
 				public void call() {
 					//does its own special damage calculation that's only influenced by pickaxe level and augment
 					//we pretend the geomancer is the owner here so that properties like hero str or or other equipment do not factor in
-					int dmg = p.damageRoll(GnollGeomancer.this);
+					int dmg = Hero.heroDamageIntRange(p.最小攻击(),p.最大攻击());
 
 					boolean wasSleeping = state == SLEEPING;
 

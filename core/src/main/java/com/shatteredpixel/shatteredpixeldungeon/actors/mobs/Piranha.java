@@ -70,8 +70,13 @@ public class Piranha extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( Dungeon.depth, 4 + Dungeon.depth * 2 );
+	public int 最小攻击() {
+		return Dungeon.depth;
+	}
+	
+	@Override
+	public int 最大攻击() {
+		return  4 + Dungeon.depth * 2 ;
 	}
 	
 	@Override
@@ -80,8 +85,8 @@ public class Piranha extends Mob {
 	}
 	
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, Dungeon.depth);
+	public int 最大防御() {
+		return super.最大防御()+Dungeon.depth;
 	}
 
 	@Override

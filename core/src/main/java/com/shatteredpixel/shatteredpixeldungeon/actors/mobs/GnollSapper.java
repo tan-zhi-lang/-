@@ -76,8 +76,8 @@ public class GnollSapper extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 1, 6 );
+	public int 最大攻击() {
+		return 6;
 	}
 
 	@Override
@@ -92,8 +92,8 @@ public class GnollSapper extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 6);
+	public int 最大防御() {
+		return super.最大防御()+6;
 	}
 
 	@Override

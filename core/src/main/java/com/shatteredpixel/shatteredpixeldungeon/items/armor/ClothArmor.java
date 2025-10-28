@@ -8,8 +8,8 @@ public class ClothArmor extends Armor {
 
 	{
 		image = 物品表.ARMOR_CLOTH;
-
-		bones = false; //Finding them in bones would be semi-frequent and disappointing.
+		
+		遗产= false; //Finding them in bones would be semi-frequent and disappointing.
 	}
 	
 	public ClothArmor() {

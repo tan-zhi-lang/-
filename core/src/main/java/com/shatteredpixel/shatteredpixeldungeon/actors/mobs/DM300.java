@@ -72,8 +72,13 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 15, 25 );
+	public int 最小攻击() {
+		return 15;
+	}
+
+	@Override
+	public int 最大攻击() {
+		return 25;
 	}
 
 	@Override
@@ -82,8 +87,8 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 10);
+	public int 最大防御() {
+		return super.最大防御()+10;
 	}
 
 	public int pylonsActivated = 0;

@@ -130,11 +130,10 @@ public class BuffIndicator extends Component {
 
 	private boolean large = false;
 	
-	public BuffIndicator( Char ch, boolean large ) {
+	public BuffIndicator( Char ch ) {
 		super();
 		
 		this.ch = ch;
-		this.large = large;
 		if (ch == Dungeon.hero) {
 			heroInstance = this;
 		}

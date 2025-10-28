@@ -15,8 +15,8 @@ public abstract class Trinket extends Item {
 
 	{
 		物品 = true;
-
-		unique = true;
+		
+		特别= true;
 	}
 
 	@Override

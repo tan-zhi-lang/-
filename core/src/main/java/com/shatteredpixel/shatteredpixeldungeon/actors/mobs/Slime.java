@@ -7,9 +7,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
-import com.watabou.utils.Random;
 
 public class Slime extends Mob {
 	
@@ -26,8 +25,12 @@ public class Slime extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return Random.NormalIntRange( 2, 5 );
+	public int 最小攻击() {
+		return 2;
+	}
+	@Override
+	public int 最大攻击() {
+		return 5;
 	}
 	
 	@Override
@@ -58,7 +61,7 @@ public class Slime extends Mob {
 	public Item createLoot() {
 		Dungeon.LimitedDrops.SLIME_WEP.count++;
 		Generator.Category c = Generator.Category.WEP_T2;
-		MeleeWeapon w = (MeleeWeapon)Generator.randomUsingDefaults(Generator.Category.WEP_T2);
+		Weapon w = (Weapon)Generator.randomUsingDefaults(Generator.Category.WEP_T2);
 		w.等级(0);
 		return w;
 	}

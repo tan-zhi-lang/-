@@ -8,9 +8,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.冰门重盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -25,8 +26,9 @@ public abstract class EquipableItem extends Item {
 	public static final String AC_UNEQUIP	= "UNEQUIP";
 
 	{
-		bones = true;
+		遗产= true;
 	}
+	public boolean 不花费= false;
 
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
@@ -60,6 +62,7 @@ public abstract class EquipableItem extends Item {
 			int slot = Dungeon.quickslot.getSlot( this );
 			slotOfUnequipped = -1;
 			doEquip(hero);
+			Dungeon.quickslot.alphaItem(this,false);
 			if (slot != -1) {
 				Dungeon.quickslot.setSlot( slot, this );
 				updateQuickslot();
@@ -85,6 +88,13 @@ public abstract class EquipableItem extends Item {
 	public void cast( final Hero user, int dst ) {
 
 		if (isEquipped( user )) {
+			if(this instanceof Weapon||this instanceof Ring){//戒指和武器不花费卸下时间
+				不花费=true;
+			}
+			if(投掷消失){
+				super.cast( user, dst );
+				return;
+			}
 			if (quantity == 1 && !this.doUnequip( user, false, false )) {
 				return;
 			}
@@ -99,7 +109,13 @@ public abstract class EquipableItem extends Item {
 	}
 
 	protected float timeToEquip( Hero hero ) {
-		return 1f;
+		if(不花费){
+			return 0;
+		}
+		if(this instanceof Artifact){
+			return hero.攻击延迟()*2;
+		}
+		return hero.攻击延迟();
 	}
 
 	public abstract boolean doEquip( Hero hero );
@@ -126,7 +142,7 @@ public abstract class EquipableItem extends Item {
 		keptThoughLostInvent = true;
 		if (!collect || !放背包( hero.belongings.backpack )) {
 			onDetach();
-			Dungeon.quickslot.clearItem(this);
+			Dungeon.quickslot.alphaItem(this,true);
 			updateQuickslot();
 			if (collect) Dungeon.level.drop( this, hero.pos ).sprite.drop();
 		}

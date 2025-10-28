@@ -24,8 +24,8 @@ public class PotionOfMastery extends ExoticPotion {
 	
 	{
 		icon = 物品表.Icons.POTION_MASTERY;
-
-		unique = true;
+		
+		特别= true;
 
 		talentFactor = 2f;
 	}

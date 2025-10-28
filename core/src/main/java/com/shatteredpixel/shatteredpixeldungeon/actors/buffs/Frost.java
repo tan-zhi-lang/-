@@ -44,7 +44,7 @@ public class Frost extends FlavourBuff {
 				//does not reach inside of containers
 				if (!hero.belongings.lostInventory()) {
 					for (Item i : hero.belongings.backpack.items) {
-						if (!i.unique && (i instanceof Potion || i instanceof MysteryMeat)) {
+						if (!i.特别&&(i instanceof Potion||i instanceof MysteryMeat)) {
 							freezable.add(i);
 						}
 					}
@@ -67,7 +67,7 @@ public class Frost extends FlavourBuff {
 
 				Item item = ((Thief) target).item;
 
-				if (item instanceof Potion && !item.unique) {
+				if (item instanceof Potion && !item.特别) {
 					((Potion) ((Thief) target).item).shatter(target.pos);
 					((Thief) target).item = null;
 				} else if (item instanceof MysteryMeat){

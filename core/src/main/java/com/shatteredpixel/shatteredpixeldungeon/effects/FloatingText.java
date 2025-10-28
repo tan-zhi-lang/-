@@ -26,9 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Quarterstaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Scimitar;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -346,20 +343,20 @@ public class FloatingText extends RenderedTextBlock {
 		}
 		if (blessBoost > 1f) hitReasons.put(HIT_BLS, blessBoost);
 		if (RingOfAccuracy.accuracyMultiplier(attacker) > 1)    hitReasons.put(HIT_ACC, RingOfAccuracy.accuracyMultiplier(attacker));
-		if (attacker.buff(Scimitar.SwordDance.class) != null)   hitReasons.put(HIT_DANCE, 1.5f);
-		if (!(wep instanceof MissileWeapon)) {
+//		if (attacker.buff(弯刀.SwordDance.class)!=null)   hitReasons.put(HIT_DANCE,1.5f);
+//		if (!(wep instanceof MissileWeapon)) {
 			if (attacker.buff(Talent.PreciseAssaultTracker.class) != null){
 				hitReasons.put(HIT_PRES, 1f);
 			} else if (attacker.buff(Talent.LiquidAgilACCTracker.class) != null) {
 				hitReasons.put(HIT_LIQ, 3f);
 			}
-		} else {
-			if (attacker.buff(Momentum.class) != null
-					&& attacker.buff(Momentum.class).freerunning()
-					&& ((Hero)attacker).天赋(Talent.PROJECTILE_MOMENTUM)) {
-				hitReasons.put(HIT_MOMEN, 1f + ((Hero) attacker).天赋点数(Talent.PROJECTILE_MOMENTUM,0.5f));
-			}
-		}
+//		} else {
+//			if (attacker.buff(Momentum.class) != null
+//					&& attacker.buff(Momentum.class).freerunning()
+//					&& ((Hero)attacker).天赋(Talent.PROJECTILE_MOMENTUM)) {
+//				hitReasons.put(HIT_MOMEN, 1f + ((Hero) attacker).天赋点数(Talent.PROJECTILE_MOMENTUM,0.5f));
+//			}
+//		}
 
 		//evasion reductions (always < 1)
 		if (defender.buff(Hex.class) != null)                   hitReasons.put(HIT_HEX, 0.8f);
@@ -406,9 +403,9 @@ public class FloatingText extends RenderedTextBlock {
 		HashMap<Integer, Float> missReasons = new HashMap<>();
 
 		//some guaranteed dodged first
-		if (defRoll == Char.INFINITE_EVASION && defender.buff(Talent.LiquidAgilEVATracker.class) != null){
-			return MISS_LIQ;
-		}
+//		if (defRoll == Char.INFINITE_EVASION ){
+//			return MISS_LIQ;
+//		}
 
 		KindOfWeapon wep = null;
 		if (attacker instanceof Hero) wep = ((Hero) attacker).belongings.attackingWeapon();
@@ -438,7 +435,7 @@ public class FloatingText extends RenderedTextBlock {
 		if (blessBoost > 1f)                                    missReasons.put(MISS_BLS, blessBoost);
 		if (FerretTuft.evasionMultiplier() > 1)                 missReasons.put(MISS_TUFT, FerretTuft.evasionMultiplier());
 		if (RingOfEvasion.evasionMultiplier(defender) > 1)      missReasons.put(MISS_EVA, RingOfEvasion.evasionMultiplier(defender));
-		if (defender.buff(Quarterstaff.DefensiveStance.class) != null)  missReasons.put(MISS_DEF, 3f);
+//		if (defender.buff(铁头棍.DefensiveStance.class)!=null)  missReasons.put(MISS_DEF,3f);
 		if (arm != null && arm.evasionFactor(defender, 100) > 100) {
 			//we express armor's normally flat evasion boost as a %, yes this is very awkward
 			Armor.testingNoArmDefSkill = true;
@@ -451,7 +448,7 @@ public class FloatingText extends RenderedTextBlock {
 				missReasons.put(MISS_ARM, defender.最大闪避(attacker) / (float) baseDef);
 			}
 		}
-		if (defender.buff(Talent.LiquidAgilEVATracker.class) != null)   missReasons.put(MISS_LIQ, 3f);
+//		if (defender.buff(Talent.LiquidAgilEVATracker.class) != null)   missReasons.put(MISS_LIQ, 3f);
 
 		//accuracy reductions (always < 1)
 		if (wep != null && wep.accuracyFactor(attacker, defender) < 1){

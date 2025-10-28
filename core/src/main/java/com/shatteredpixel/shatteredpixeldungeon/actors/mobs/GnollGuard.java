@@ -5,13 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.Spear;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollGuardSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class GnollGuard extends Mob {
 
@@ -24,7 +23,7 @@ public class GnollGuard extends Mob {
 		经验 = 7;
 		最大等级 = -2;
 
-		loot = Spear.class;
+		loot = 长矛.class;
 		lootChance = 0.1f;
 
 		WANDERING = new Wandering();
@@ -61,11 +60,19 @@ public class GnollGuard extends Mob {
 	}
 
 	@Override
-	public int 攻击() {
+	public int 最小攻击() {
 		if (enemy != null && !Dungeon.level.adjacent(pos, enemy.pos)){
-			return Random.NormalIntRange( 16, 22 );
+			return 16;
 		} else {
-			return Random.NormalIntRange( 6, 12 );
+			return 6;
+		}
+	}
+	@Override
+	public int 最大攻击() {
+		if (enemy != null && !Dungeon.level.adjacent(pos, enemy.pos)){
+			return 22;
+		} else {
+			return 12;
 		}
 	}
 
@@ -84,8 +91,8 @@ public class GnollGuard extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, 6);
+	public int 最大防御() {
+		return super.最大防御()+6;
 	}
 
 	@Override

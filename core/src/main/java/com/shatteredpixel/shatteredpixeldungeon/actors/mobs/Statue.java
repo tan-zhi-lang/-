@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon.Enchantment;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.StatueSprite;
@@ -42,9 +41,9 @@ public class Statue extends Mob {
 
 	public void createWeapon( boolean useDecks ){
 		if (useDecks) {
-			weapon = (MeleeWeapon) Generator.random(Generator.Category.WEAPON);
+			weapon = (Weapon) Generator.random(Generator.Category.WEAPON);
 		} else {
-			weapon = (MeleeWeapon) Generator.randomUsingDefaults(Generator.Category.WEAPON);
+			weapon = (Weapon) Generator.randomUsingDefaults(Generator.Category.WEAPON);
 		}
 		levelGenStatue = useDecks;
 		weapon.cursed = false;
@@ -70,18 +69,23 @@ public class Statue extends Mob {
 	}
 	
 	@Override
-	public int 攻击() {
-		return weapon.damageRoll(this);
+	public int 最小攻击() {
+		return weapon.最小攻击();
+	}
+	//变相削弱 因为最小和最大
+	@Override
+	public int 最大攻击() {
+		return weapon.最大攻击();
 	}
 	
 	@Override
 	public int 最大命中(Char target ) {
-		return (int)((9 + Dungeon.depth) * weapon.accuracyFactor( this, target ));
+		return Math.round((9 + Dungeon.depth) * weapon.accuracyFactor( this, target ));
 	}
 	
 	@Override
-	public float attackDelay() {
-		return super.attackDelay()*weapon.delayFactor( this );
+	public float 攻击延迟() {
+		return super.攻击延迟()*weapon.delayFactor(this);
 	}
 
 	@Override
@@ -90,8 +94,8 @@ public class Statue extends Mob {
 	}
 
 	@Override
-	public int 防御() {
-		return super.防御() + Random.NormalIntRange(0, Dungeon.depth + weapon.defenseFactor(this));
+	public int 最大防御() {
+		return super.最大防御()+Dungeon.depth+weapon.defenseFactor(this);
 	}
 	
 	@Override

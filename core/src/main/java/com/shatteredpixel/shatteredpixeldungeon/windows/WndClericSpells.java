@@ -127,7 +127,7 @@ public class WndClericSpells extends Window {
 
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell == GuidingLight.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
+			} else if (spell==GuidingLight.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 

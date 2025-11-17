@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -27,14 +26,14 @@ public class RingOfSharpshooting extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", 1);
+			return Messages.get(this, "stats", 1);
 		}
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Integer.toString(level+1);
+		return Integer.toString(level);
 	}
 	@Override
 	protected RingBuff buff( ) {
@@ -46,12 +45,6 @@ public class RingOfSharpshooting extends Ring {
 		if(target instanceof Hero hero){
 			if(hero.heroClass(HeroClass.女忍)){
 				x++;
-			}
-			if(hero.天赋(Talent.绝命痛击)){
-				x+=hero.天赋点数(Talent.绝命痛击);
-			}
-			if(hero.天赋(Talent.矢石升级)){
-				x+=hero.天赋点数(Talent.矢石升级);
 			}
 		}
 		return getBuffedBonus(target, RingOfSharpshooting.Aim.class)+x;

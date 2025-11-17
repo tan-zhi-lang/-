@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
@@ -171,8 +171,7 @@ public class Bomb extends Item {
 					continue;
 				}
 
-				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
-				dmg -= ch.最大防御();
+				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth())*2;
 
 				if (dmg > 0) {
 					ch.受伤时(dmg, this);
@@ -184,6 +183,73 @@ public class Bomb extends Item {
 					}
 					GLog.n(Messages.get(this, "ondeath"));
 					Dungeon.fail(this);
+				}
+			}
+			
+			if (terrainAffected) {
+				Dungeon.observe();
+			}
+		}
+	}
+	public void heroexplode(int cell){
+		//We're blowing up, so no need for a fuse anymore.
+		this.fuse = null;
+
+		Sample.INSTANCE.play( Assets.Sounds.BLAST );
+
+		if (explodesDestructively()) {
+
+			ArrayList<Integer> affectedCells = new ArrayList<>();
+			ArrayList<Char> affectedChars = new ArrayList<>();
+			
+			if (Dungeon.level.heroFOV[cell]) {
+				CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
+			}
+			
+			boolean terrainAffected = false;
+			boolean[] explodable = new boolean[Dungeon.level.length()];
+			BArray.not( Dungeon.level.solid, explodable);
+			BArray.or( Dungeon.level.flamable, explodable, explodable);
+			PathFinder.buildDistanceMap( cell, explodable, explosionRange() );
+			for (int i = 0; i < PathFinder.distance.length; i++) {
+				if (PathFinder.distance[i] != Integer.MAX_VALUE) {
+					affectedCells.add(i);
+					Char ch = Actor.findChar(i);
+					if (ch != null) {
+						affectedChars.add(ch);
+					}
+				}
+			}
+
+			for (int i : affectedCells){
+				if (Dungeon.level.heroFOV[i]) {
+					CellEmitter.get(i).burst(SmokeParticle.FACTORY, 4);
+				}
+
+				if (Dungeon.level.flamable[i]) {
+					Dungeon.level.destroy(i);
+					GameScene.updateMap(i);
+					terrainAffected = true;
+				}
+
+				//destroys items / triggers bombs caught in the blast.
+				Heap heap = Dungeon.level.heaps.get(i);
+				if (heap != null) {
+					heap.explode();
+				}
+			}
+			
+			for (Char ch : affectedChars){
+
+				//if they have already been killed by another bomb
+				if(!ch.isAlive()){
+					continue;
+				}
+
+				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth())*2;
+
+				if (ch != Dungeon.hero &&dmg > 0) {
+					ch.受伤时(dmg, this);
 				}
 			}
 			
@@ -326,7 +392,7 @@ public class Bomb extends Item {
 			validIngredients.put(PotionOfLiquidFlame.class,     Firebomb.class);
 			validIngredients.put(ScrollOfRage.class,            Noisemaker.class);
 			
-			validIngredients.put(PotionOfInvisibility.class,    SmokeBomb.class);
+			validIngredients.put(隐形药剂.class,SmokeBomb.class);
 			validIngredients.put(ScrollOfRecharging.class,      FlashBangBomb.class);
 			
 			validIngredients.put(治疗药剂.class,         RegrowthBomb.class);

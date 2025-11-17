@@ -5,11 +5,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.watabou.noosa.audio.Sample;
@@ -33,11 +31,6 @@ public class 净除道术 extends 背包道术 {
 		if (item == null){
 			return;
 		}
-		if(hero.满天赋(Talent.净除道术)){
-			祛邪卷轴.祛邪(hero,item.鉴定().特殊升级());
-		}else{
-			祛邪卷轴.祛邪(hero,item.鉴定());
-		}
 
 		hero.spend( 1f );
 		hero.busy();
@@ -52,7 +45,7 @@ public class 净除道术 extends 背包道术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.天赋点数(Talent.净除道术)==2?"祛邪、鉴定、升级":"祛邪");
+		String desc = Messages.get(this, "desc");
 		return desc + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}
 }

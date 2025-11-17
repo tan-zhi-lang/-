@@ -14,7 +14,7 @@ import java.nio.FloatBuffer;
 
 public class BitmapText extends Visual {
 
-	protected String text;
+	public String text;
 	protected Font font;
 
 	protected float[] vertices = new float[16];

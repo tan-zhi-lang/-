@@ -9,6 +9,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -52,7 +54,7 @@ public class ItemSlot extends Button {
 	protected BitmapText center;
 
 	private static final String TXT	= "%d";
-	private static final String TXT_TYPICAL_STR	= "?%d";
+	private static final String TXT_TYPICAL_STR	= "%d";
 
 	private static final String TXT_LEVEL	= "+%d";
 
@@ -231,6 +233,10 @@ public class ItemSlot extends Button {
 			status.visible = extra.visible = level.visible = center.visible = true;
 		}
 
+		status.text(null);
+		extra.text(null);
+		center.text(null);
+		level.text(null);
 		status.text( item.status() );
 
 		if (item.icon != -1 && (item.已鉴定() || (item instanceof Ring && ((Ring) item).isKnown()))){
@@ -246,26 +252,52 @@ public class ItemSlot extends Button {
 				int str = item instanceof Weapon ? ((Weapon)item).力量() : ((Armor)item).力量();
 				extra.text( Messages.format( TXT, str ) );
 				if (Dungeon.hero() && str > Dungeon.hero.力量()) {
-					extra.hardlight( DEGRADED );
+					if(str == Dungeon.hero.力量()){
+						extra.hardlight( WARNING );
+					}else{
+						extra.hardlight( DEGRADED );
+					}
 				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&& (((Weapon) item).masteryPotionBonus ||((Weapon) item).神力)){
 					extra.hardlight( MASTERED );
 				} else if (item instanceof Armor && str > Dungeon.hero.力量()&& (((Armor) item).masteryPotionBonus||((Armor) item).神力)) {
 					extra.hardlight( MASTERED );
 				} else {
-					extra.text(null);
-					extra.resetColor();
+					if(extra.text!=null){
+						extra.text(null);
+						extra.resetColor();
+					}
 				}
 			} else {
 				int str = item instanceof Weapon ? ((Weapon)item).力量(0) : ((Armor)item).力量(0);
+			
 				extra.text( Messages.format( TXT_TYPICAL_STR, str ) );
-				extra.hardlight( WARNING );
+				if (Dungeon.hero() && str > Dungeon.hero.力量()) {
+					if(str == Dungeon.hero.力量()){
+						extra.hardlight( WARNING );
+					}else{
+						extra.hardlight( DEGRADED );
+					}
+				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&& (((Weapon) item).masteryPotionBonus ||((Weapon) item).神力)){
+					extra.hardlight( MASTERED );
+				} else if (item instanceof Armor && str > Dungeon.hero.力量()&& (((Armor) item).masteryPotionBonus||((Armor) item).神力)) {
+					extra.hardlight( MASTERED );
+				} else {
+					if(extra.text!=null){
+						extra.text(null);
+						extra.resetColor();
+					}
+				}
 			}
 			extra.measure();
 
 		} else {
-			extra.text( null );
-			extra.resetColor();
+			if(extra.text!=null){
+				extra.text(null);
+				extra.resetColor();
+			}
 		}
+		
+		//装备图标
 		if(item.已鉴定()){
 			if (item instanceof Food food){
 				center.text( Messages.format( TXT, Math.round(food.energy)) );
@@ -290,21 +322,33 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Dungeon.hero.最大生命(0.75f)) );
 				center.measure();
 				center.hardlight( FADED );
-			}else if (item instanceof ChaliceOfBlood x) {
+			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
 				level.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
 				level.measure();
 				level.hardlight( WARNING );
+			}else if (item instanceof 荆棘斗篷 x) {
+				extra.text( Messages.format( TXT, x.等级()+5) );
+				extra.measure();
+				extra.hardlight( FADED );
+			}else if (item instanceof 心之钢 x) {
+				extra.text( Messages.format( TXT, Dungeon.hero.最大生命(0.1f)+x.等级()+1) );
+				extra.measure();
+				extra.hardlight( WARNING );
+				center.text( Messages.format( TXT, x.心之钢生命));
+				center.measure();
+				center.hardlight( UPGRADED );
 			}else if (item instanceof 武力之戒 x) {
-				level.text( Messages.format( TXT, x.soloBuffedBonus()+x.heromin()) );
+				level.text( Messages.format( TXT, x.soloBuffedBonus()+1) );
 				level.measure();
 				level.hardlight( WARNING );
 			}else{
-				center.text(null);
-				center.resetColor();
+				if(center.text!=null){
+					center.text(null);
+					center.resetColor();
+				}
 			}
 		}
-		//装备图标
-
+		
 		int trueLvl = item.visiblyUpgraded();
 		int buffedLvl = item.buffedVisiblyUpgraded();
 		if(item instanceof 法师魔杖||
@@ -332,7 +376,10 @@ public class ItemSlot extends Button {
 					center.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
 				}
 			} else {
-				center.text(null);
+				if(center.text!=null){
+					center.text(null);
+					center.resetColor();
+				}
 			}
 		}else {
 			if (trueLvl != 0 || buffedLvl != 0) {
@@ -354,10 +401,13 @@ public class ItemSlot extends Button {
 					level.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
 				}
 			} else {
-				level.text(null);
+				if(level.text!=null){
+					level.text(null);
+					level.resetColor();
+				}
 			}
 		}
-
+		
 		layout();
 	}
 	

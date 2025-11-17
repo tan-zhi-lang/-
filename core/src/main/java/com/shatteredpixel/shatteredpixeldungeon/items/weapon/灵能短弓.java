@@ -44,9 +44,13 @@ public class 灵能短弓 extends Weapon {
 		tier=1;
 		物品 = true;
 		绿色 = true;
-		伤害=0.4f;
+		伤害=0.5f;
 		特别= true;
 		遗产= false;
+	}
+	@Override
+	public String defaultAction() {
+		return defaultAction;
 	}
 	
 	public boolean sniperSpecial = false;
@@ -115,9 +119,9 @@ public class 灵能短弓 extends Weapon {
 		return 最小弓箭攻击(强化等级());
 	}
 	public int 最小弓箭攻击(int lvl) {
-		int dmg = 1 + Dungeon.hero.等级(0.2f)
+		int dmg = 1 + Math.round(Dungeon.hero.等级(0.1f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f)))
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级(0.2f) : 0);
+				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级(0.1f) : 0);
 		return Math.max(0, dmg);
 	}
 	
@@ -125,9 +129,9 @@ public class 灵能短弓 extends Weapon {
 		return 最大弓箭攻击(强化等级());
 	}
 	public int 最大弓箭攻击(int lvl) {
-		int dmg = 6 + Dungeon.hero.等级(0.4f)
-				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级(0.2f) : 0);
+		int dmg = 6 + Math.round(Dungeon.hero.等级(0.2f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f)))
+				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)*2
+				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级(0.1f) : 0);
 		return Math.max(0, dmg);
 	}
 	@Override

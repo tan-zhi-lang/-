@@ -16,8 +16,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PrismaticSprite;
@@ -139,27 +139,41 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
+	public int 最小命中(Char target ) {
+		if (hero != null) {
+			return 命中之戒.getBuffedBonus(hero,命中之戒.Accuracy.class)*2;
+		}else{
+			return 0;
+		}
+	}
+	@Override
 	public int 最大命中(Char target ) {
 		if (hero != null) {
 			//same base attack skill as hero, benefits from accuracy ring
-			return (int)((9 + hero.等级) * RingOfAccuracy.accuracyMultiplier(hero));
+			return 9 + Math.round(hero.等级*1.25f);
 		} else {
 			return 0;
 		}
 	}
-	
+	@Override
+	public int 最小闪避(Char target ) {
+		if (hero != null) {
+			return 闪避之戒.getBuffedBonus(hero,闪避之戒.Evasion.class)*2;
+		} else {
+			return 0;
+		}
+	}
 	@Override
 	public int 最大闪避(Char enemy) {
 		if (hero != null) {
-			int baseEvasion = 4 + hero.等级;
-			int heroEvasion = (int)((4 + hero.等级) * RingOfEvasion.evasionMultiplier( hero ));
+			int baseEvasion = 4 + Math.round(hero.等级*1.25f);
 			if (hero.belongings.armor() != null){
-				heroEvasion = (int)hero.belongings.armor().evasionFactor(this, heroEvasion);
+				baseEvasion = (int)hero.belongings.armor().evasionFactor(this, baseEvasion);
 			}
 
 			//if the hero has more/less evasion, 50% of it is applied
 			//includes ring of evasion and armor boosts
-			return super.最大闪避(enemy) * (baseEvasion + heroEvasion) / 2;
+			return baseEvasion;
 		} else {
 			return 0;
 		}

@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -34,7 +35,7 @@ public class ScrollOfMirrorImage extends Scroll {
 			GLog.i(Messages.get(this, "no_copies"));
 		}
 		鉴定();
-		
+		Badges.解锁镜魔();
 		Sample.INSTANCE.play( Assets.Sounds.READ );
 		
 		readAnimation();

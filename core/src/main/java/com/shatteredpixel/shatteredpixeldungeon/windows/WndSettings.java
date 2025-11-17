@@ -343,6 +343,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider optScreenShake;
 						OptionSlider 游戏帧率;
 						OptionSlider 字体大小;
+						OptionSlider optUIScale;
 						
 						{
 							
@@ -410,6 +411,24 @@ public class WndSettings extends WndTabbed {//WndSettings
 							字体大小.setSelectedValue(SPDSettings.字体大小());
 							add(字体大小);
 							
+							if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
+								optUIScale = new OptionSlider("界面尺寸",
+															  (int)Math.ceil(2* Game.density)+ "X",
+															  PixelScene.maxDefaultZoom + "X",
+															  (int)Math.ceil(2* Game.density),
+															  PixelScene.maxDefaultZoom ) {
+									@Override
+									protected void onChange() {
+										if (getSelectedValue() != SPDSettings.scale()) {
+											SPDSettings.scale(getSelectedValue());
+											ShatteredPixelDungeon.seamlessResetScene();
+										}
+									}
+								};
+								optUIScale.setSelectedValue(PixelScene.defaultZoom);
+								add(optUIScale);
+							}
+							
 							//layout
 							resize(WIDTH_P, 0);
 							optBrightness.setRect(0,  GAP, width, BTN_HEIGHT);
@@ -418,8 +437,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 							optScreenShake.setRect(0,  optFollowIntensity.bottom()+GAP, width, BTN_HEIGHT);
 							游戏帧率.setRect(0,  optScreenShake.bottom()+GAP, width, BTN_HEIGHT);
 							字体大小.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
+							optUIScale.setRect(0,  字体大小.bottom()+GAP, width, BTN_HEIGHT);
 							
-							resize(WIDTH_P, (int) 字体大小.bottom());
+							resize(WIDTH_P, (int) optUIScale.bottom());
 						}
 					});
 				}
@@ -610,7 +630,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
 			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
 			
-			if (Math.min(wMin, hMin) >= 2*Game.density){
+			if (Math.min(wMin, hMin) >= 2*Game.density&&false){
 				optUIMode = new OptionSlider(
 						Messages.get(DisplayTab.class, "ui_mode"),
 						Messages.get(DisplayTab.class, "mobile"),
@@ -706,6 +726,10 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 
+						CheckBox 物品命名;
+						RenderedTextBlock 物品命名str;
+						CheckBox 受伤打断;
+						RenderedTextBlock 受伤打断str;
 						CheckBox 游戏提示;
 						RenderedTextBlock 游戏提示str;
 						CheckBox 自动拾取;
@@ -713,7 +737,33 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox 装备武器;
 						RenderedTextBlock 装备武器str;
 						{
-
+							
+							物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.物品命名(checked());
+								}
+							};
+							物品命名.checked(SPDSettings.物品命名());
+							add(物品命名);
+							物品命名str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "物品命名str"), 5);
+							物品命名str.hardlight(0x888888);
+							add(物品命名str);
+							
+							受伤打断 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "受伤打断")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.受伤打断(checked());
+								}
+							};
+							受伤打断.checked(SPDSettings.受伤打断());
+							add(受伤打断);
+							受伤打断str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "受伤打断str"), 5);
+							受伤打断str.hardlight(0x888888);
+							add(受伤打断str);
+							
 							游戏提示 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "游戏提示")){
 								@Override
 								protected void onClick() {
@@ -726,6 +776,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							游戏提示str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "游戏提示str"), 5);
 							游戏提示str.hardlight(0x888888);
 							add(游戏提示str);
+							
 							
 							自动拾取 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "自动拾取")){
 								@Override
@@ -755,7 +806,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 							
 							
 							resize(WIDTH_P, 0);
-							游戏提示.setRect(0,  GAP, width, BTN_HEIGHT);
+							
+							物品命名.setRect(0,  GAP, width, BTN_HEIGHT);
+							物品命名str.maxWidth(width);
+							物品命名str.setPos(0, 物品命名.bottom()+1);
+							
+							受伤打断.setRect(0,  物品命名str.bottom()+GAP, width, BTN_HEIGHT);
+							受伤打断str.maxWidth(width);
+							受伤打断str.setPos(0, 受伤打断.bottom()+1);
+							
+							游戏提示.setRect(0,  受伤打断str.bottom()+GAP, width, BTN_HEIGHT);
 							游戏提示str.maxWidth(width);
 							游戏提示str.setPos(0, 游戏提示.bottom()+1);
 							
@@ -808,7 +868,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(固定移速);
 							
 							休息速度 = new OptionSlider("休息速度",
-														"1", "7", 1, 5) {
+														"1", "2", 1, 3) {
 								@Override
 								protected void onChange() {
 									SPDSettings.休息速度(getSelectedValue());

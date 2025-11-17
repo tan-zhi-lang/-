@@ -82,15 +82,10 @@ public class WandOfTransfusion extends DamageWand {
 					shielding = 0;
 				}
 				
-				ch.生命 += healing;
+				ch.回血(healing);
 				
 				ch.sprite.emitter().burst(Speck.factory(Speck.HEALING), 2 + 强化等级() / 2);
-				if (healing > 0) {
-					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healing), FloatingText.HEALING);
-				}
-				if (shielding > 0){
-					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shielding), FloatingText.SHIELDING);
-				}
+				
 				
 				if (!freeCharge) {
 					damageHero(selfDmg);
@@ -104,7 +99,7 @@ public class WandOfTransfusion extends DamageWand {
 
 				//grant a self-shield, and...
 				Buff.施加(curUser, Barrier.class).设置((5 + 强化等级()));
-				curUser.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(5+ 强化等级()), FloatingText.SHIELDING);
+				
 				
 				//charms living enemies
 				if (!ch.properties().contains(Char.Property.UNDEAD)) {
@@ -145,7 +140,6 @@ public class WandOfTransfusion extends DamageWand {
 			freeCharge = true;
 			int shieldToGive = Math.round((2*(5 + 强化等级()))*procChanceMultiplier(attacker));
 			Buff.施加(attacker, Barrier.class).设置(shieldToGive);
-			attacker.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shieldToGive), FloatingText.SHIELDING);
 			GLog.p( Messages.get(this, "charged") );
 			attacker.sprite.emitter().burst(BloodParticle.BURST, 20);
 		}

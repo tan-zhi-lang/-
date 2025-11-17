@@ -5,6 +5,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public abstract class ShieldBuff extends Buff {
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)) {
+			
 			target.needsShieldUpdate = true;
 			return true;
 		} else {
@@ -45,8 +49,9 @@ public abstract class ShieldBuff extends Buff {
 	
 	public void 设置(int shield ) {
 		if(target instanceof Hero hero&&hero.heroClass(HeroClass.逐姝)){
-			shield=Math.round(1.15f*shield);
+			shield=Math.round(1.25f*shield);
 		}
+		target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
 		if (this.shielding <= shield) this.shielding = shield;
 		if (target != null) target.needsShieldUpdate = true;
 	}
@@ -57,8 +62,9 @@ public abstract class ShieldBuff extends Buff {
 
 	public void 增加(int amt ){
 		if(target instanceof Hero hero&&hero.heroClass(HeroClass.逐姝)){
-			amt=Math.round(1.15f*amt);
+			amt=Math.round(1.25f*amt);
 		}
+		target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
 		shielding += amt;
 		if (target != null) target.needsShieldUpdate = true;
 	}

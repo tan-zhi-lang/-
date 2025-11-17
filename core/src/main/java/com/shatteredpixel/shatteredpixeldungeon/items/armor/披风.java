@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 披风 extends Armor {
@@ -24,6 +26,7 @@ public class 披风 extends Armor {
 		if (神力){
 			req -= 2;
 		}
+		
 		return req;
 	}
 	@Override

@@ -43,8 +43,8 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(ScrollOfRecharging.class, ScrollOfMysticalEnergy.class);
 		exoToReg.put(ScrollOfMysticalEnergy.class, ScrollOfRecharging.class);
 
-		regToExo.put(ScrollOfTeleportation.class, ScrollOfPassage.class);
-		exoToReg.put(ScrollOfPassage.class, ScrollOfTeleportation.class);
+		regToExo.put(ScrollOfTeleportation.class, 来去秘卷.class);
+		exoToReg.put(来去秘卷.class,ScrollOfTeleportation.class);
 
 		regToExo.put(ScrollOfLullaby.class, ScrollOfSirensSong.class);
 		exoToReg.put(ScrollOfSirensSong.class, ScrollOfLullaby.class);

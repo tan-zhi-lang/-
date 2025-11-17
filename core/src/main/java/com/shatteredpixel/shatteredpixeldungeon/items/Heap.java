@@ -21,10 +21,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.DocumentPage;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.千年雪;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
@@ -182,7 +183,7 @@ public class Heap implements Bundlable {
 		}
 	}
 	
-	public void burn() {
+	public void burn() {//烧灭
 
 		if (type != Type.HEAP) {
 			return;
@@ -192,7 +193,7 @@ public class Heap implements Bundlable {
 		boolean evaporated = false;
 		
 		for (Item item : items.toArray( new Item[0] )) {
-			if(item instanceof Icecap.Seed){
+			if(item instanceof Icecap.Seed||item instanceof PotionOfFrost||item instanceof BlizzardBrew){
 				continue;
 			}
 			if (item instanceof Scroll && !item.特别) {
@@ -255,7 +256,7 @@ public class Heap implements Bundlable {
 			for (Item item : items.toArray( new Item[0] )) {
 
 				//unique items and equipment aren't affect by explosions
-				if (item.特别||item.可升级()||item instanceof EquipableItem){
+				if (item.特别||item.等级()>0||item instanceof Artifact){
 					continue;
 				}
 
@@ -297,10 +298,11 @@ public class Heap implements Bundlable {
 		
 		boolean frozen = false;
 		for (Item item : items.toArray( new Item[0] )) {
-			if (item instanceof Dewdrop) {
-				replace( item, new 千年雪());
-				frozen = true;
-			}else if (item instanceof MysteryMeat) {
+//			if (item instanceof Dewdrop) {
+//				replace( item, new 千年雪());
+//				frozen = true;
+//			}else
+				if (item instanceof MysteryMeat) {
 				replace( item, FrozenCarpaccio.cook( (MysteryMeat)item ) );
 				frozen = true;
 			} else if (item instanceof Potion && !item.特别) {

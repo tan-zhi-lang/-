@@ -254,10 +254,7 @@ public class 召唤物品 extends Artifact {
 			}
 		} else if (召唤.生命<召唤.最大生命) {
 			int heal = Math.round((1 + 等级()/3f)*amount);
-			召唤.生命 = Math.min(召唤.最大生命,召唤.生命+heal);
-			if (召唤.sprite!=null) {
-				召唤.sprite.showStatusWithIcon(CharSprite.增强,Integer.toString(heal),FloatingText.HEALING);
-			}
+			召唤.回血(heal);
 			updateQuickslot();
 		}
 	}

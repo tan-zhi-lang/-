@@ -42,6 +42,8 @@ public class SPDSettings extends GameSettings {
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
+	public static final String 物品命名x = "物品命名";
+	public static final String 受伤打断x = "受伤打断";
 	public static final String 游戏提示x = "游戏提示";
 	public static final String 自动拾取x = "自动拾取";
 	public static final String 装备武器x = "装备武器";
@@ -144,9 +146,23 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 休息速度() {
-		return getInt(休息速度x, 1,1,7 );
+		return getInt(休息速度x, 1,2,3 );
 	}
 	
+	public static void 物品命名( boolean value ) {
+		put( 物品命名x, value );
+		
+	}
+	public static boolean 物品命名() {
+		return getBoolean( 物品命名x, false);
+	}
+	public static void 受伤打断( boolean value ) {
+		put( 受伤打断x, value );
+		
+	}
+	public static boolean 受伤打断() {
+		return getBoolean( 受伤打断x, true);
+	}
 	public static void 游戏提示( boolean value ) {
 		put( 游戏提示x, value );
 		
@@ -227,7 +243,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int scale() {
-		return getInt( KEY_SCALE, 0 );
+		return getInt( KEY_SCALE, 7 );
 	}
 	
 	public static void quickSwapper(boolean value ){ put( KEY_QUICK_SWAP, value ); }

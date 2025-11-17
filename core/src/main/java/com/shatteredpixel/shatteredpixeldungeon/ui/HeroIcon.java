@@ -62,55 +62,54 @@ public class HeroIcon extends Image {
 	//cleric spells
 	public static final int GUIDING_LIGHT   = 40;
 	public static final int HOLY_WEAPON     = 41;
-	public static final int HOLY_WARD       = 42;
-	public static final int HOLY_INTUITION  = 43;
-	public static final int SHIELD_OF_LIGHT = 44;
-	public static final int RECALL_GLYPH    = 45;
-	public static final int SUNRAY          = 46;
-	public static final int DIVINE_SENSE    = 47;
-	public static final int BLESS           = 48;
-	public static final int CLEANSE         = 49;
-	public static final int RADIANCE        = 50;
-	public static final int HOLY_LANCE      = 51;
-	public static final int HALLOWED_GROUND = 52;
-	public static final int MNEMONIC_PRAYER = 53;
-	public static final int SMITE           = 54;
-	public static final int LAY_ON_HANDS    = 55;
-	public static final int AURA_OF_PROTECTION = 56;
-	public static final int WALL_OF_LIGHT   = 57;
-	public static final int DIVINE_INTERVENTION = 58;
-	public static final int JUDGEMENT       = 59;
-	public static final int FLASH           = 60;
-	public static final int BODY_FORM       = 61;
-	public static final int MIND_FORM       = 62;
-	public static final int SPIRIT_FORM     = 63;
-	public static final int BEAMING_RAY     = 64;
-	public static final int LIFE_LINK       = 65;
-	public static final int STASIS          = 66;
+	public static final int HOLY_INTUITION  = 42;
+	public static final int SUNRAY          = 43;
+	public static final int DIVINE_SENSE    = 44;
+	public static final int BLESS           = 45;
+	public static final int CLEANSE         = 46;
+	
+	public static final int RADIANCE        = 47;
+	public static final int HOLY_LANCE      = 48;
+	public static final int HALLOWED_GROUND = 49;
+	public static final int MNEMONIC_PRAYER = 50;
+	public static final int SMITE           = 51;
+	public static final int LAY_ON_HANDS    = 52;
+	public static final int AURA_OF_PROTECTION = 53;
+	public static final int WALL_OF_LIGHT   = 54;
+	public static final int DIVINE_INTERVENTION = 55;
+	public static final int JUDGEMENT       = 56;
+	public static final int FLASH           = 57;
+	public static final int BODY_FORM       = 58;
+	public static final int MIND_FORM       = 59;
+	public static final int SPIRIT_FORM     = 60;
+	public static final int BEAMING_RAY     = 61;
+	public static final int LIFE_LINK       = 62;
+	public static final int STASIS          = 63;
 
 	//all cleric spells have a separate icon with no background for the action indicator
 	public static final int SPELL_ACTION_OFFSET      = 32;
 
 	//action indicator visuals
-	public static final int BERSERK         = 104;
-	public static final int COMBO           = 105;
-	public static final int PREPARATION     = 106;
-	public static final int MOMENTUM        = 107;
-	public static final int SNIPERS_MARK    = 108;
-	public static final int WEAPON_SWAP     = 109;
-	public static final int MONK_ABILITIES  = 110;
+	public static final int BERSERK         = 88;
+	public static final int COMBO           = 89;
+	public static final int PREPARATION     = 90;
+	public static final int MOMENTUM        = 91;
+	public static final int SNIPERS_MARK    = 92;
+	public static final int WEAPON_SWAP     = 93;
+	public static final int MONK_ABILITIES  = 94;
 
-	public static final int 祭鉴巫术= 112;
-	public static final int 痛命巫术= 113;
-	public static final int 死血巫术= 114;
-	public static final int 血历巫术= 115;
-	public static final int 血爆巫术= 116;
-	public static final int 饮血巫术= 117;
-	public static final int 换血巫术= 118;
-	public static final int 物到巫术= 119;
-	public static final int 净除道术= 128;
+	public static final int 祭鉴巫术= 96;
+	public static final int 痛命巫术= 97;
+	public static final int 死血巫术= 98;
+	public static final int 血历巫术= 99;
+	public static final int 血爆巫术= 100;
+	public static final int 饮血巫术= 101;
+	public static final int 换血巫术= 102;
+	public static final int 物到巫术= 103;
 	
-	public static final int 风切忍术= 137;
+	public static final int 净除道术= 112;
+	
+	public static final int 风切忍术= 128;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );

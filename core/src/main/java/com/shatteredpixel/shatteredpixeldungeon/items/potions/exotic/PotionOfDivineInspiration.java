@@ -110,8 +110,7 @@ public class PotionOfDivineInspiration extends ExoticPotion {
 					GameScene.showlevelUpStars();
 
 					Sample.INSTANCE.play( Assets.Sounds.DRINK );
-					Sample.INSTANCE.playDelayed(Assets.Sounds.LEVELUP, 0.3f, 0.7f, 1.2f);
-					Sample.INSTANCE.playDelayed(Assets.Sounds.LEVELUP, 0.6f, 0.7f, 1.2f);
+					Sample.INSTANCE.playDelayed(Assets.Sounds.LEVELUP, 0.45f, 0.7f, 1.2f);
 					new Flare( 6, 32 ).color(0xFFFF00, true).show( curUser.sprite, 2f );
 					GLog.p(Messages.get(PotionOfDivineInspiration.class, "bonus"));
 

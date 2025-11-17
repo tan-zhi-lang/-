@@ -39,8 +39,8 @@ public class MimicSprite extends MobSprite {
 		hiding = new Animation( 1, true );
 		hiding.frames( frames, 1+c, 1+c, 1+c, 1+c, 1+c, 2+c);
 
-		idle = new Animation( 5, true );
-		idle.frames( frames, 3+c, 3+c, 3+c, 4+c, 4+c );
+		idle = new Animation( 0, false );//5
+		idle.frames( frames, 0+c);//3+c, 3+c, 3+c, 4+c, 4+c
 
 		run = new Animation( 10, true );
 		run.frames( frames, 3+c, 4+c, 5+c, 6+c, 6+c, 5+c, 4+c );

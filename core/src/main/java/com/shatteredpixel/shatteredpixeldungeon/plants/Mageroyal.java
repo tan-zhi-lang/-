@@ -25,13 +25,11 @@ public class Mageroyal extends Plant {
 		if (ch != null) {
 			治疗药剂.cure(ch);
 
-			if (ch instanceof Hero) {
 				GLog.i( Messages.get(this, "refreshed") );
-
-				if (((Hero) ch).subClass == HeroSubClass.WARDEN){
+				
+				if (ch instanceof Hero hero&&hero.精通&& hero.subClass == HeroSubClass.守望者){
 					Buff.施加(ch, BlobImmunity.class, BlobImmunity.DURATION/2f);
 				}
-			}
 		}
 	}
 

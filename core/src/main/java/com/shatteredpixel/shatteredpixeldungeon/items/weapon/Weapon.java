@@ -5,13 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GreaterHaste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
@@ -31,17 +30,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
@@ -71,8 +67,8 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -82,8 +78,10 @@ import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
@@ -95,16 +93,152 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	//region MeleeWeapon
 	
-	boolean 技能=true;
+	boolean 技能=false;
+	boolean circlingBack = false;
+	boolean 回旋镖=true;
 	public static String AC_ABILITY = "ABILITY";
 	
+	@Override
+	public float pickupDelay() {
+		//pickup is instant when circling back
+		return circlingBack ? 0f : super.pickupDelay();
+	}
+	public static class CircleBack extends Buff {
+		
+		{
+			revivePersists = true;
+		}
+		
+		private Weapon boomerang;
+		private int thrownPos;
+		private int returnPos;
+		private int returnDepth;
+		private int returnBranch;
+		
+		private float left;
+		
+		public void setup(Weapon boomerang,int thrownPos,int returnPos,int returnDepth,int returnBranch){
+			this.boomerang = boomerang;
+			this.thrownPos = thrownPos;
+			this.returnPos = returnPos;
+			this.returnDepth = returnDepth;
+			this.returnBranch = returnBranch;
+			left = target.攻击延迟()*2;
+		}
+		
+		public int returnPos(){
+			return returnPos;
+		}
+		
+		public Weapon cancel(){
+			detach();
+			return boomerang;
+		}
+		
+		public int activeDepth(){
+			return returnDepth;
+		}
+		
+		@Override
+		public boolean act() {
+			if (returnDepth == Dungeon.depth && returnBranch == Dungeon.branch){
+				left--;
+				if (left <= 0){
+					final Char returnTarget = Actor.findChar(returnPos);
+					final Char target = this.target;
+					MissileSprite
+							visual = ((MissileSprite) Dungeon.hero.sprite.parent.recycle(MissileSprite.class));
+					visual.reset( thrownPos,
+								  returnPos,
+								  boomerang,
+								  new Callback() {
+									  @Override
+									  public void call() {
+										  detach();
+										  boomerang.circlingBack = true;
+										  if (returnTarget == target){
+											  if (!boomerang.spawnedForEffect) {
+												  if (target instanceof Hero hero){
+													  if(SPDSettings.装备武器()){
+														  //自动拾取
+														  if(hero.belongings.weapon==null){
+															  boomerang.doEquip(hero);
+															  Dungeon.quickslot.alphaItem(boomerang,false);
+															  boomerang.updateQuickslot();
+														  }else{
+															  if(!boomerang.doPickUp((Hero) target)){
+																  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+															  }
+														  }
+														  
+													  }else{
+														  if(!boomerang.doPickUp((Hero) target)){
+															  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+														  }
+													  }
+												  }else{
+													  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+												  }
+											  }
+											  
+										  } else if (returnTarget != null){
+											  if (((Hero)target).shoot( returnTarget, boomerang )) {
+												 
+											  }
+											  if (!boomerang.spawnedForEffect) {
+												  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+											  }
+											  
+										  } else if (!boomerang.spawnedForEffect) {
+											  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+										  }
+										  boomerang.circlingBack = false;
+										  CircleBack.this.next();
+									  }
+								  });
+					visual.alpha(0f);
+					float duration = Dungeon.level.trueDistance(thrownPos, returnPos) / 20f;
+					target.sprite.parent.add(new AlphaTweener(visual,1f,duration));
+					return false;
+				}
+			}
+			spend( TICK );
+			return true;
+		}
+		
+		private static final String BOOMERANG = "boomerang";
+		private static final String THROWN_POS = "thrown_pos";
+		private static final String RETURN_POS = "return_pos";
+		private static final String RETURN_DEPTH = "return_depth";
+		private static final String RETURN_BRANCH = "return_branch";
+		
+		@Override
+		public void storeInBundle(Bundle bundle) {
+			super.storeInBundle(bundle);
+			bundle.put(BOOMERANG, boomerang);
+			bundle.put(THROWN_POS, thrownPos);
+			bundle.put(RETURN_POS, returnPos);
+			bundle.put(RETURN_DEPTH, returnDepth);
+			bundle.put(RETURN_BRANCH, returnBranch);
+		}
+		
+		@Override
+		public void restoreFromBundle(Bundle bundle) {
+			super.restoreFromBundle(bundle);
+			boomerang = (回旋镖) bundle.get(BOOMERANG);
+			thrownPos = bundle.getInt(THROWN_POS);
+			returnPos = bundle.getInt(RETURN_POS);
+			returnDepth = bundle.getInt(RETURN_DEPTH);
+			returnBranch = bundle.contains(RETURN_BRANCH) ? bundle.getInt(RETURN_BRANCH) : 0;
+		}
+	}
 	@Override
 	public String defaultAction() {
 		if (Dungeon.hero() &&Dungeon.hero.heroClass(HeroClass.DUELIST)&&技能){
 			return AC_ABILITY;
-		}else if(defaultAction!=null){
-			return defaultAction;
-		}else{
+		}else if(cursed&&isEquipped(Dungeon.hero)){
+			return null;
+		}else {
 			return AC_THROW;
 		}
 	}
@@ -138,16 +272,9 @@ abstract public class Weapon extends KindOfWeapon {
 		if (action.equals(AC_ABILITY)&&技能){
 			usesTargeting = false;
 			if (!isEquipped(hero)) {
-				if (hero.天赋(Talent.SWIFT_EQUIP)){
-					if (hero.buff(Talent.SwiftEquipCooldown.class) == null
-						|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
-						execute(hero, AC_EQUIP);
-					} else if (hero.heroClass == HeroClass.DUELIST) {
-						GLog.w(Messages.get(this,"ability_need_equip"));
-					}
-				} else if (hero.heroClass == HeroClass.DUELIST) {
-					GLog.w(Messages.get(this, "ability_need_equip"));
-				}
+//				if (hero.heroClass == HeroClass.DUELIST) {//武技
+//					GLog.w(Messages.get(this, "ability_need_equip"));
+//				}
 			} else if (hero.heroClass != HeroClass.DUELIST){
 				//do nothing
 			} else if (力量() > hero.力量()){
@@ -209,13 +336,6 @@ abstract public class Weapon extends KindOfWeapon {
 			charger.partialCharge++;
 		}
 		
-		if (hero.heroClass == HeroClass.DUELIST
-			&& hero.天赋(Talent.AGGRESSIVE_BARRIER)
-			&& (hero.生命 / (float)hero.最大生命) <= 0.5f){
-			int shieldAmt = hero.天赋生命力(Talent.AGGRESSIVE_BARRIER,0.8f);
-			Buff.施加(hero, Barrier.class).设置(shieldAmt);
-			hero.sprite.showStatusWithIcon(CharSprite.增强,Integer.toString(shieldAmt),FloatingText.SHIELDING);
-		}
 		
 		updateQuickslot();
 	}
@@ -224,25 +344,6 @@ abstract public class Weapon extends KindOfWeapon {
 		hero.belongings.abilityWeapon = null;
 		if (false){//使用武技命中
 			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
-		}
-		if (hero.天赋(Talent.VARIED_CHARGE)){
-			Talent.VariedChargeTracker tracker = hero.buff(Talent.VariedChargeTracker.class);
-			if (tracker == null || tracker.weapon == getClass() || tracker.weapon == null){
-				Buff.施加(hero, Talent.VariedChargeTracker.class).weapon = getClass();
-			} else {
-				tracker.detach();
-				charger.gainCharge(hero.天赋点数(Talent.VARIED_CHARGE,0.15f));
-				ScrollOfRecharging.charge(hero);
-			}
-		}
-		if (hero.天赋(Talent.COMBINED_LETHALITY)) {
-			Talent.CombinedLethalityAbilityTracker tracker = hero.buff(Talent.CombinedLethalityAbilityTracker.class);
-			if (tracker == null || tracker.weapon == this || tracker.weapon == null){
-				Buff.施加(hero, Talent.CombinedLethalityAbilityTracker.class, hero.cooldown()).weapon = this;
-			} else {
-				//we triggered the talent, so remove the tracker
-				tracker.detach();
-			}
 		}
 		if (hero.天赋(Talent.COMBINED_ENERGY)){
 			Talent.CombinedEnergyAbilityTracker tracker = hero.buff(Talent.CombinedEnergyAbilityTracker.class);
@@ -260,10 +361,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	public static void onAbilityKill( Hero hero, Char killed ){
-		if (killed.alignment == Char.Alignment.ENEMY && hero.天赋(Talent.LETHAL_HASTE)){
-			//effectively 3/5 turns of greater haste
-			Buff.施加(hero, GreaterHaste.class).set(hero.天赋点数(Talent.LETHAL_HASTE,1.3f));
-		}
+	
 	}
 	
 	protected int baseChargeUse(Hero hero, Char target){
@@ -294,14 +392,14 @@ abstract public class Weapon extends KindOfWeapon {
 		if (神力){
 			req -= 2;
 		}
-		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.15f);
+		
 		return req;
 	}
 	
 	private static boolean evaluatingTwinUpgrades = false;
 	@Override
 	public int 强化等级() {
-		if (!evaluatingTwinUpgrades && Dungeon.hero() && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
+		if (!evaluatingTwinUpgrades && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
 			KindOfWeapon other = null;
 			if (Dungeon.hero.belongings.weapon() != this) other = Dungeon.hero.belongings.weapon();
 			if (Dungeon.hero.belongings.secondWep() != this) other = Dungeon.hero.belongings.secondWep();
@@ -319,7 +417,14 @@ abstract public class Weapon extends KindOfWeapon {
 				
 			}
 		}
-		return super.强化等级();
+		int x=0;
+		if(isEquipped(Dungeon.hero)){
+			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
+			if(Dungeon.hero.heroClass(HeroClass.逐姝)){
+				x++;
+			}
+		}
+		return super.强化等级()+x;
 	}
 	
 	
@@ -331,18 +436,22 @@ abstract public class Weapon extends KindOfWeapon {
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(), tier, 最小攻击(), 最大攻击(), 最小投掷攻击(), 最大投掷攻击());
 			if (Dungeon.hero()) {
-				if (力量() > Dungeon.hero.力量()) {
+				if (力量() > Dungeon.hero.力量()&&!Dungeon.hero.heroClass(HeroClass.DUELIST)) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
 				} else if (Dungeon.hero.力量() > 力量()) {
-					info += " " + Messages.get(Weapon.class, "excess_str",Dungeon.hero.力量() - 力量());
+					info += " " + Messages.get(Weapon.class, "excess_str",
+											   (Dungeon.hero.heroClass(HeroClass.DUELIST)?"":"0~")
+							,Dungeon.hero.力量() - 力量());
 				}
 			}
 		} else {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(0), tier, 最小攻击(0), 最大攻击(0), 最小投掷攻击(0), 最大投掷攻击(0));
-			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
+			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()&&!Dungeon.hero.heroClass(HeroClass.DUELIST)) {
 				info += " " + Messages.get(Weapon.class, "probably_too_heavy");
 			} else if (Dungeon.hero.力量() > 力量()) {
-				info += " " + Messages.get(Weapon.class, "excess_str",Dungeon.hero.力量() - 力量());
+				info += " " + Messages.get(Weapon.class, "excess_str",
+										   (Dungeon.hero.heroClass(HeroClass.DUELIST)?"":"0~"),
+										   Dungeon.hero.力量() - 力量());
 			}
 		}
 		
@@ -350,14 +459,14 @@ abstract public class Weapon extends KindOfWeapon {
 		if (!statsInfo.equals("")) info += "\n\n" + statsInfo;
 		
 		switch (augment) {
+			case DAMAGE:
+				info += " " + Messages.get(Weapon.class, "damage");
+				break;
 			case DELAY:
 				info += " " + Messages.get(Weapon.class, "delay");
 				break;
 			case ACCURACY:
 				info += " " + Messages.get(Weapon.class, "accuracy");
-				break;
-			case DAMAGE:
-				info += " " + Messages.get(Weapon.class, "damage");
 				break;
 			case NONE:
 		}
@@ -418,7 +527,7 @@ abstract public class Weapon extends KindOfWeapon {
 		return 0;
 	}
 	public int 最小防御(){
-		return 最大防御(强化等级());
+		return 最小防御(强化等级());
 	}
 	
 	public int 最小防御(int lvl){
@@ -505,17 +614,9 @@ abstract public class Weapon extends KindOfWeapon {
 					//60 to 45 turns per charge
 					float chargeToGain = 1/(60f-1.5f*(chargeCap()-charges));
 					
-					//40 to 30 turns per charge for champion
-					if (Dungeon.hero.subClass == HeroSubClass.CHAMPION){
-						chargeToGain *= 1.5f;
-					}
-					chargeToGain*=能量之戒.weaponChargeMultiplier(target);
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
 					if (Dungeon.hero.buff(武力之戒.BrawlersStance.class)!=null){
 						chargeToGain *= 0.50f;
-					}
-					if(((Hero)target).天赋(Talent.WEAPON_RECHARGING)) {
-						chargeToGain *= 1+((Hero)target).天赋点数(Talent.WEAPON_RECHARGING,0.2f);
 					}
 					partialCharge += chargeToGain;
 				}
@@ -535,7 +636,7 @@ abstract public class Weapon extends KindOfWeapon {
 				partialCharge = 0;
 			}
 			
-			if (ActionIndicator.action != this && Dungeon.hero.subClass == HeroSubClass.CHAMPION) {
+			if (ActionIndicator.action != this && Dungeon.hero.subClass == HeroSubClass.勇士) {
 				ActionIndicator.setAction(this);
 			}
 			
@@ -545,7 +646,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		@Override
 		public void fx(boolean on) {
-			if (on && Dungeon.hero.subClass == HeroSubClass.CHAMPION) {
+			if (on && Dungeon.hero.subClass == HeroSubClass.勇士) {
 				ActionIndicator.setAction(this);
 			}
 		}
@@ -634,7 +735,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		@Override
 		public void doAction() {
-			if (Dungeon.hero.subClass != HeroSubClass.CHAMPION){
+			if (Dungeon.hero.subClass != HeroSubClass.勇士){
 				return;
 			}
 			
@@ -675,7 +776,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 最小投掷攻击(int lvl) {
-		return augment.damageFactor(Math.round(最小+(tier+lvl)*(伤害+0.5f)));
+		return augment.damageFactor(Math.round(最小+(tier+lvl)*(伤害+0.45f)));
 //		return Math.round(最小+(2*tier+lvl)*(伤害+));
 	}
 	
@@ -690,7 +791,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 最大投掷攻击(int lvl) {
-		return augment.damageFactor(Math.round(最大+(5 * tier +tier*lvl )*(伤害+0.5f)));
+		return augment.damageFactor(Math.round(最大+(5 * tier +tier*lvl )*(伤害+0.45f)));
 //		return Math.round(最大+(5 * tier +tier*lvl )*(伤害));
 	}
 	
@@ -720,19 +821,18 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	
 	protected float adjacentAccFactor(Char owner, Char target){
+		float x=0;
+		if (owner instanceof Hero hero){
+			x+=hero.天赋点数(Talent.鹰眼远视,0.15f);
+		}
+		
+		if (circlingBack){
+			return 1.5f;
+		}
 		if (target!=null&&Dungeon.level.distance(owner.pos,target.pos)<=范围) {
-			//抵近射击
-			if (owner instanceof Hero hero){
-				return 1;
-			} else {
-				return 1;
-			}
+			return 1;
 		} else {
-			if (owner instanceof Hero hero){
-				return 0.75f+hero.天赋点数(Talent.精准射击,0.25f);
-			} else {
-				return 0.75f;
-			}
+			return 0.75f+x;	//抵近射击
 		}
 	}
 	@Override
@@ -750,22 +850,31 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	boolean sticky = true;//默认吸在敌人身上
 	protected void rangedHit( Char enemy, int cell ){
-		if(投掷消失){
-			if(!spawnedForEffect){
-				if(sticky&&enemy!=null&&enemy.isActive()&&enemy.alignment!=Char.Alignment.ALLY){
-					PinCushion p=Buff.施加(enemy,PinCushion.class);
-					if(p.target==enemy){
-						p.stick(this);
-						return;
-					}
-				}
-				Dungeon.level.drop(this,cell).sprite.drop();
-			}
+		if(消受投掷){
+			消受投掷=false;
+			return;
 		}
-		投掷消失=true;
+		if(回旋镖){
+			Buff.新增(Dungeon.hero, CircleBack.class).setup(this, cell, Dungeon.hero.pos, Dungeon.depth, Dungeon.branch);
+			return;
+		}
+		if(!spawnedForEffect){
+			if(sticky&&enemy!=null&&enemy.isActive()&&enemy.alignment!=Char.Alignment.ALLY){
+				PinCushion p=Buff.施加(enemy,PinCushion.class);
+				if(p.target==enemy){
+					p.stick(this);
+					return;
+				}
+			}
+			Dungeon.level.drop(this,cell).sprite.drop();
+		}
 	}
 	
 	protected void rangedMiss( int cell ) {
+		if(回旋镖){
+			Buff.新增(Dungeon.hero, CircleBack.class).setup(this, cell, Dungeon.hero.pos, Dungeon.depth, Dungeon.branch);
+			return;
+		}
 		if(!spawnedForEffect)
 			super.onThrow(cell);
 	}
@@ -775,7 +884,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		if (attacker instanceof Hero hero) {
 			int exStr = hero.力量() - 力量();
-			if (hero.heroClass(HeroClass.WARRIOR)) {
+			if (hero.heroClass(HeroClass.DUELIST)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
@@ -783,9 +892,6 @@ abstract public class Weapon extends KindOfWeapon {
 				if (exStr > 0) {
 					damage += Hero.heroDamageIntRange( 0, exStr );
 				}
-			}
-			if (hero.天赋(Talent.FOLLOWUP_STRIKE)) {
-				hero.必中=true;
 			}
 		}
 		if(流血>0)
@@ -804,10 +910,8 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		if (attacker instanceof Hero hero) {
 			
-			damage+=hero.heroDamageIntRange(hero.天赋生命力(Talent.精准射击,0.05f),hero.天赋生命力(Talent.精准射击,0.12f));
-			damage+=hero.heroDamageIntRange(hero.天赋生命力(Talent.持久忍战,0.04f),hero.天赋生命力(Talent.持久忍战,0.1f));
 			int exStr = hero.力量() - 力量();
-			if (hero.heroClass(HeroClass.WARRIOR)) {
+			if (hero.heroClass(HeroClass.DUELIST)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
@@ -817,7 +921,7 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 			if (hero.buff(Momentum.class)!=null&&hero.buff(Momentum.class).freerunning()) {
-				damage = Math.round(damage * (1f + hero.天赋点数(Talent.PROJECTILE_MOMENTUM,0.1f)));
+				damage = Math.round(damage * (1f + hero.buff(Momentum.class).freerunTurns*hero.天赋点数(Talent.PROJECTILE_MOMENTUM,0.1f)));
 			}
 		}
 		if ((cursed || hasCurseEnchant()) && !cursedKnown){
@@ -827,17 +931,14 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		int result = super.投掷攻击时(attacker, defender, damage);
 		
-		//handle ID progress over parent/child
-		if (usesLeftToID > usesLeftToID){
-			float diff = usesLeftToID - usesLeftToID;
-			diff = Math.min( diff, Talent.鉴定速度(Dungeon.hero,this));
-			if (attacker instanceof Hero hero && hero.天赋(Talent.SURVIVALISTS_INTUITION)){
-				diff*=hero.天赋点数(Talent.SURVIVALISTS_INTUITION,4);
-			}
-			usesLeftToID -= diff;
-			availableUsesToID -= diff;
+		if (!已鉴定()&& attacker == Dungeon.hero) {
+			float uses =  Talent.鉴定速度(Dungeon.hero,this);
+			usesLeftToID -= uses;
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
+					if (usesLeftToID > -1){
+						GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
+					}
 					setIDReady();
 				} else {
 					鉴定();
@@ -860,15 +961,13 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public void cast(Hero user,int dst){
-		if (user.天赋(Talent.SEER_SHOT)
-			&& user.buff(Talent.SeerShotCooldown.class) == null){
+		if (user.天赋(Talent.SEER_SHOT)){
 			int shotPos = throwPos(user, dst);
 			if (Actor.findChar(shotPos) == null) {
 				RevealedArea a = Buff.施加(user, RevealedArea.class, 20);
 				a.depth = Dungeon.depth;
 				a.branch = Dungeon.branch;
 				a.pos = shotPos;
-				Buff.施加(user, Talent.SeerShotCooldown.class,  20);
 			}
 		}
 		super.cast(user,dst);
@@ -883,8 +982,8 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
-		DELAY(1,0.8f,1),
 		DAMAGE  (1.1f, 1,1),
+		DELAY(1,0.8f,1),
 		ACCURACY  (1, 1,1.3f),
 		NONE	(1,1,1);
 
@@ -916,7 +1015,6 @@ abstract public class Weapon extends KindOfWeapon {
 		return 20;
 	}
 	public float usesLeftToID = usesToID();
-	public float availableUsesToID = usesToID()/2f;
 	
 	public Enchantment enchantment;
 	public boolean enchantHardened = false;
@@ -929,7 +1027,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		if (attacker instanceof Hero hero) {
 			int exStr = hero.力量() - 力量();
-			if (hero.heroClass(HeroClass.WARRIOR)) {
+			if (hero.heroClass(HeroClass.DUELIST)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
@@ -994,9 +1092,8 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 		
-		if (!levelKnown && attacker == Dungeon.hero) {
-			float uses = Math.min( availableUsesToID, Talent.鉴定速度(Dungeon.hero,this));
-			availableUsesToID -= uses;
+		if (!已鉴定()&& attacker == Dungeon.hero) {
+			float uses =  Talent.鉴定速度(Dungeon.hero,this);
 			usesLeftToID -= uses;
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
@@ -1016,15 +1113,10 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){
-		levelPercent *= Talent.鉴定速度(hero,this);
-		if (!levelKnown && availableUsesToID <= usesToID()/2f) {
-			//gains enough uses to ID over 0.5 levels
-			availableUsesToID = Math.min(usesToID()/2f, availableUsesToID + levelPercent * usesToID());
-		}
+	
 	}
 	
 	private static final String USES_LEFT_TO_ID = "uses_left_to_id";
-	private static final String AVAILABLE_USES  = "available_uses";
 	private static final String ENCHANTMENT	    = "enchantment";
 	private static final String ENCHANT_HARDENED = "enchant_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
@@ -1036,7 +1128,6 @@ abstract public class Weapon extends KindOfWeapon {
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( USES_LEFT_TO_ID, usesLeftToID );
-		bundle.put( AVAILABLE_USES, availableUsesToID );
 		bundle.put( ENCHANTMENT, enchantment );
 		bundle.put( ENCHANT_HARDENED, enchantHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
@@ -1049,7 +1140,6 @@ abstract public class Weapon extends KindOfWeapon {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		usesLeftToID = bundle.getFloat( USES_LEFT_TO_ID );
-		availableUsesToID = bundle.getFloat( AVAILABLE_USES );
 		enchantment = (Enchantment)bundle.get( ENCHANTMENT );
 		enchantHardened = bundle.getBoolean( ENCHANT_HARDENED );
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
@@ -1063,7 +1153,6 @@ abstract public class Weapon extends KindOfWeapon {
 	public void reset() {
 		super.reset();
 		usesLeftToID = usesToID();
-		availableUsesToID = usesToID()/2f;
 	}
 
 	@Override
@@ -1139,7 +1228,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int reachFactor(Char owner) {
 		int reach = 范围;
-			reach += RingOfAccuracy.getBuffedBonus(owner, RingOfAccuracy.Accuracy.class)/2;
+			reach +=命中之戒.getBuffedBonus(owner,命中之戒.Accuracy.class);
 		if (owner instanceof Hero&&武力之戒.fightingUnarmed((Hero) owner)){
 			reach = 1; //brawlers stance benefits from enchantments, but not innate reach
 			if (!武力之戒.unarmedGetsWeaponEnchantment((Hero) owner)){
@@ -1365,6 +1454,9 @@ abstract public class Weapon extends KindOfWeapon {
 		public static float genericProcChanceMultiplier( Char attacker ){
 			float multi = 奥术之戒.enchantPowerMultiplier(attacker);
 			if(attacker instanceof Hero hero){
+				if(hero.belongings.weapon() instanceof 符文之刃){
+					multi+=0.5f;
+				}
 				multi+=hero.天赋点数(Talent.附魔打击,0.25f);
 				multi+=hero.天赋点数(Talent.盈能附魔,0.12f);
 				multi+=hero.天赋点数(Talent.SHARED_ENCHANTMENT,0.12f);

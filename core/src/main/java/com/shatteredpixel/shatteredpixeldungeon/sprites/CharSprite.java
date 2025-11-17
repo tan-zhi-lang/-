@@ -185,6 +185,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		showStatusWithIcon(color, text, FloatingText.NO_ICON, args);
 	}
 
+	public void showStatusWithIcon( int color, int text, int icon, Object... args ){
+		showStatusWithIcon(color,text+"",icon,args);
+	}
 	public void showStatusWithIcon( int color, String text, int icon, Object... args ) {
 		if (visible) {
 			if (args.length > 0) {

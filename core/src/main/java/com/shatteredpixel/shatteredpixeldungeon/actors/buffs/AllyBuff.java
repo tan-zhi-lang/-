@@ -57,7 +57,7 @@ public abstract class AllyBuff extends Buff {
 			}
 			hero.经验(exp, enemy.getClass());
 
-			if (hero.subClass == HeroSubClass.MONK){
+			if (hero.subClass == HeroSubClass.武者){
 				Buff.施加(hero, MonkEnergy.class).gainEnergy(enemy);
 			}
 		}

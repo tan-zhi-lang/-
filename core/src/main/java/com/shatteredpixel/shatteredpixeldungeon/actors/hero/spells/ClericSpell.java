@@ -68,9 +68,6 @@ public abstract class ClericSpell {
 			if (this != HolyWeapon.INSTANCE && hero.buff(HolyWeapon.HolyWepBuff.class) != null){
 				hero.buff(HolyWeapon.HolyWepBuff.class).extend(10*chargeUse(hero));
 			}
-			if (this != HolyWard.INSTANCE && hero.buff(HolyWard.HolyArmBuff.class) != null){
-				hero.buff(HolyWard.HolyArmBuff.class).extend(10*chargeUse(hero));
-			}
 		}
 
 		if (hero.buff(AscendedForm.AscendBuff.class) != null){
@@ -86,27 +83,15 @@ public abstract class ClericSpell {
 
 			spells.add(GuidingLight.INSTANCE);
 			spells.add(HolyWeapon.INSTANCE);
-			spells.add(HolyWard.INSTANCE);
-
-			if (cleric.天赋(Talent.HOLY_INTUITION)) {
-				spells.add(HolyIntuition.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.SHIELD_OF_LIGHT)) {
-				spells.add(ShieldOfLight.INSTANCE);
-			}
 
 		} else if (tier == 2) {
 
-			if (cleric.天赋(Talent.RECALL_INSCRIPTION)){
-				spells.add(RecallInscription.INSTANCE);
-			}
 
-			if (cleric.天赋(Talent.SUNRAY)){
+			if (cleric.天赋(Talent.日耀射线)){
 				spells.add(Sunray.INSTANCE);
 			}
 
-			if (cleric.天赋(Talent.DIVINE_SENSE)) {
+			if (cleric.天赋(Talent.神圣感知)) {
 				spells.add(DivineSense.INSTANCE);
 			}
 
@@ -188,10 +173,7 @@ public abstract class ClericSpell {
 		ArrayList<ClericSpell> spells = new ArrayList<>();
 		spells.add(GuidingLight.INSTANCE);
 		spells.add(HolyWeapon.INSTANCE);
-		spells.add(HolyWard.INSTANCE);
 		spells.add(HolyIntuition.INSTANCE);
-		spells.add(ShieldOfLight.INSTANCE);
-		spells.add(RecallInscription.INSTANCE);
 		spells.add(Sunray.INSTANCE);
 		spells.add(DivineSense.INSTANCE);
 		spells.add(BlessSpell.INSTANCE);

@@ -20,13 +20,13 @@ import com.watabou.utils.Random;
 public class SacrificeRoom extends SpecialRoom {
 
 	@Override
-	public int minWidth() { return 6; }
-	public int minHeight() { return 6; }
+	public int minWidth() { return 7; }
+	public int minHeight() { return 7; }
 
 	@Override
 	public void paint(Level level) {
-		Painter.fill( level, this, Terrain.WALL );
-//		Painter.fill( level, this, 1, Terrain.CHASM );
+//		Painter.fill( level, this, Terrain.WALL );
+		Painter.fill( level, this, 1, Terrain.CHASM );
 
 		Point c = center();
 		Door door = entrance();

@@ -18,12 +18,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GreaterHaste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
@@ -38,35 +36,38 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.Pow
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -74,6 +75,8 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -660,18 +663,6 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public int 最大闪避(Char enemy ) {
-		if (buff(GuidingLight.Illuminated.class) != null && Dungeon.hero.heroClass(HeroClass.CLERIC)){
-			//if the attacker is the cleric, they must be using a weapon they have the str for
-			if (enemy instanceof Hero){
-				Hero h = (Hero) enemy;
-				if (!(h.belongings.attackingWeapon() instanceof Weapon)
-						|| ((Weapon) h.belongings.attackingWeapon()).力量() <= h.力量()){
-					return 0;
-				}
-			} else {
-				return 0;
-			}
-		}
 
 		if ( !surprisedBy(enemy)
 				&& paralysed == 0
@@ -684,7 +675,12 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public int 防御时(Char enemy, int damage ) {
-		
+		if(enemy instanceof Hero&&!enemySeen){//防止惊醒距离被打不惊醒
+			enemySeen = true;
+			notice();
+			state = HUNTING;
+			target = enemy.pos;
+		}
 		if (enemy instanceof Hero
 				&& ((Hero) enemy).belongings.attackingWeapon() instanceof Weapon){
 			Statistics.thrownAttacks++;
@@ -833,7 +829,7 @@ public abstract class Mob extends Char {
 				}
 				Dungeon.hero.经验(exp, getClass());
 
-				if (Dungeon.hero.subClass == HeroSubClass.MONK){
+				if (Dungeon.hero.subClass == HeroSubClass.武者){
 					Buff.施加(Dungeon.hero, MonkEnergy.class).gainEnergy(this);
 				}
 			}
@@ -857,40 +853,19 @@ public abstract class Mob extends Char {
 			rollToDropLoot();
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
-				
-				if(false){//生成草
-					ArrayList<Integer> grassCells=new ArrayList<>();
-					for(int i: PathFinder.NEIGHBOURS9){
-						grassCells.add(pos+i);
-					}
-					Random.shuffle(grassCells);
-					for(int grassCell: grassCells){
-						Char ch=Actor.findChar(grassCell);
-						if(ch!=null&&ch.alignment==Char.Alignment.ENEMY){
-							//1/2 turns of roots
-							Buff.施加(ch,Roots.class,2);
-						}
-						if(Dungeon.level.map[grassCell]==Terrain.EMPTY||Dungeon.level.map[grassCell]==Terrain.EMBERS||Dungeon.level.map[grassCell]==Terrain.EMPTY_DECO){
-							Level.set(grassCell,Terrain.GRASS);
-							GameScene.updateMap(grassCell);
-						}
-						CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC,4);
-					}
-					
-					int totalGrassCells=5;
-					while(grassCells.size()>totalGrassCells){
-						grassCells.remove(0);
-					}
-					for(int grassCell: grassCells){
-						int t=Dungeon.level.map[grassCell];
-						if((t==Terrain.EMPTY||t==Terrain.EMPTY_DECO||t==Terrain.EMBERS||t==Terrain.GRASS||t==Terrain.FURROWED_GRASS)&&Dungeon.level.plants.get(grassCell)==null){
-							Level.set(grassCell,Terrain.HIGH_GRASS);
-							GameScene.updateMap(grassCell);
+				if(cause== Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
+					if(Dungeon.hero.belongings.attackingWeapon()instanceof 草剃){
+						for(int n: PathFinder.NEIGHBOURS8){
+							Blooming.plantGrass(pos+n);
 						}
 					}
-					Dungeon.observe();
+					if(Dungeon.hero.belongings.attackingWeapon()instanceof 日炎链刃){
+						new Bomb.ConjuredBomb().heroexplode(pos);
+					}
 				}
-				
+				if( Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级)){
+					Dungeon.level.drop(new 升级卷轴(),pos).sprite.drop();
+				}
 				
 				if(!isAlive()){
 					if (Dungeon.hero.SubClass(HeroSubClass.狂战士)) {
@@ -904,15 +879,14 @@ public abstract class Mob extends Char {
 				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
 					Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
 				}
-				if(Dungeon.hero.heroClass==HeroClass.DUELIST){
-					Dungeon.hero.经验(生命力(0.13f),getClass());
-					if(Dungeon.hero.天赋(Talent.LETHAL_HASTE)&&Dungeon.hero.buff(Talent.LethalHasteCooldown.class)==null){
-						Buff.施加(Dungeon.hero,Talent.LethalHasteCooldown.class,100f);
-						Buff.施加(Dungeon.hero,GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE,1.5f));
-					}
+				if(Dungeon.hero.heroClass(HeroClass.WARRIOR)){
+					Dungeon.hero.回已损失血(0.05f);
 				}
+					//击杀瞬移
+//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
+			
 			}
-			}
+		}
 
 		}
 
@@ -1053,12 +1027,17 @@ public abstract class Mob extends Char {
 		for (Buff b : buffs(ChampionEnemy.class)){
 			desc += "\n\n_" + Messages.titleCase(b.name()) + "_\n" + b.desc();
 		}
-		desc+="\n\n\n";
-		desc+="生命值"+生命+"/"+最大生命+"\n\n";
-		desc+="攻击力"+最小攻击()+"~"+最大攻击()+"\n\n";
-		desc+="防御力"+最小防御()+"~"+最大防御()+"\n\n";
-		desc+="命中/闪避"+最大命中()+"/"+最大闪避()+"\n\n";
-		desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速());
+		if(!(this instanceof NPC||this instanceof Mimic)){
+			desc+="\n\n\n";
+			desc+="生命值"+生命+"/"+最大生命+"\n\n";
+			desc+="攻击力"+最小攻击()+"~"+最大攻击()+"\n\n";
+			desc+="防御力"+最小防御()+"~"+最大防御()+"\n\n";
+			desc+="命中"+最小命中(null)+"/"+最大命中(null)+"\n\n";
+			desc+="闪避"+最小闪避(null)+"/"+最大闪避(null)+"\n\n";
+			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
+			desc+="经验/最大等级经验"+经验+"/"+最大等级+"\n\n";
+			desc+="战利品/掉落几率"+loot+"/"+String.format("%.2f",lootChance()*100)+"%";
+		}
 		return desc;
 	}
 	
@@ -1110,7 +1089,7 @@ public abstract class Mob extends Char {
 						if(ch instanceof Hero hero){
 							int x=0;
 							
-							x=Math.max(1,hero.惊醒距离());
+							x=hero.惊醒距离();
 							
 							//silent steps rogue talent, which also applies to rogue's shadow clone
 							if (ch instanceof Hero||ch instanceof ShadowClone.ShadowAlly){
@@ -1131,6 +1110,7 @@ public abstract class Mob extends Char {
 				}
 
 				if (Random.Float( closestHostileDist ) < 1) {
+					
 					awaken(enemyInFOV);
 					if (state == SLEEPING){
 						spend(TICK); //wait if we can't wake up for some reason

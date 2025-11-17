@@ -20,7 +20,7 @@ public class 焦灼 extends Armor.Glyph {
 		if (Random.Float()<procChance ) {
 			GameScene.add(Blob.seed(defender.pos,250,Fire.class));
 		}
-		return 0;
+		return damage;
 	}
 
 	@Override

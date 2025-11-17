@@ -32,14 +32,13 @@ public class Healing extends Buff {
 	public boolean act(){
 
 		if (target.生命 < target.最大生命) {
-			target.生命 = Math.min(target.最大生命, target.生命 + healingThisTick());
+			target.回血(healingThisTick());
 
 			if (target.生命 == target.最大生命 && target instanceof Hero) {
 				((Hero) target).resting = false;
 			}
 		}
 
-		target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healingThisTick()), FloatingText.HEALING);
 		healingLeft -= healingThisTick();
 		
 		if (healingLeft <= 0){

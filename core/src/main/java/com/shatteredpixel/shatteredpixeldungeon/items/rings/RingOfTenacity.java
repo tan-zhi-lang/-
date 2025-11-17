@@ -24,7 +24,7 @@ public class RingOfTenacity extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 15f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.##", 15f));
 		}
 	}
 

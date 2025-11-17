@@ -14,6 +14,7 @@ public class 铜钱剑 extends Weapon{
 		image = 物品表.铜钱剑;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		tier = 1;
+		间隔= 0.8f;
 		伤害= 0.8f;
 		伏击=0.75f;
 		

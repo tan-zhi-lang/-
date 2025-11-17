@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
@@ -38,7 +38,7 @@ public class SecretLaboratoryRoom extends SecretRoom {
 		potionChances.put(PotionOfLiquidFlame.class,    3f);
 		potionChances.put(PotionOfToxicGas.class,       3f);
 		potionChances.put(极速药剂.class,          4f);
-		potionChances.put(PotionOfInvisibility.class,   4f);
+		potionChances.put(隐形药剂.class,4f);
 		potionChances.put(PotionOfLevitation.class,     4f);
 		potionChances.put(PotionOfParalyticGas.class,   4f);
 		potionChances.put(净化药剂.class,         4f);

@@ -14,7 +14,7 @@ public class 魔岩拳套 extends Weapon {
 		
 		双手=true;
 		拳套=true;
-		tier = 5;
+		tier = 4;
 		间隔= 0.5f;
 		伤害= 0.5f;
 	}

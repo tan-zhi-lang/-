@@ -7,9 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.EnhancedRings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -61,7 +61,7 @@ public class Ring extends KindofMisc {
 	private String gem;
 	
 	//rings cannot be 'used' like other equipment, so they ID purely based on exp
-	private float levelsToID = 1;
+	private float levelsToID = 10;
 	
 	@SuppressWarnings("unchecked")
 	public static void initGems() {
@@ -101,7 +101,7 @@ public class Ring extends KindofMisc {
 	
 	public void reset() {
 		super.reset();
-		levelsToID = 1;
+		levelsToID = 10;
 		if (handler != null && handler.contains(this)){
 			image = handler.image(this);
 			gem = handler.label(this);
@@ -339,14 +339,15 @@ public class Ring extends KindofMisc {
 	}
 	
 	public void onHeroGainExp( float levelPercent, Hero hero ){
-		if (已鉴定() || !isEquipped(hero)) return;
-		levelPercent *= Talent.鉴定速度(hero,this);
-		//becomes IDed after 1 level
-		levelsToID -= levelPercent;
+	
+	}
+	public void 鉴定戒指(Hero hero ){
+		if (!已鉴定()&&isEquipped(hero)){
+		levelsToID -= Talent.鉴定速度(hero,this)/45f;
 		if (levelsToID <= 0){
 			if (ShardOfOblivion.passiveIDDisabled()){
 				if (levelsToID > -1){
-					GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
+					GLog.p(Messages.get(ShardOfOblivion.class,"identify_ready"),name());
 				}
 				setIDReady();
 			} else {
@@ -355,13 +356,14 @@ public class Ring extends KindofMisc {
 				Badges.validateItemLevelAquired(this);
 			}
 		}
+		}
 	}
 
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-		if (Dungeon.hero.buff(EnhancedRings.class) != null){
-			lvl+=Dungeon.hero.天赋点数(Talent.ENHANCED_RINGS);
+		if(Dungeon.hero.heroClass(HeroClass.戒老)){
+			lvl++;
 		}
 		return lvl;
 	}
@@ -444,7 +446,7 @@ public class Ring extends KindofMisc {
 		}
 		return bonus;
 	}
-
+	
 	public class RingBuff extends Buff {
 
 		@Override
@@ -461,6 +463,9 @@ public class Ring extends KindofMisc {
 
 		@Override
 		public boolean act() {
+			if(target instanceof Hero hero){
+				鉴定戒指(hero);
+			}
 			spend( TICK );
 			return true;
 		}

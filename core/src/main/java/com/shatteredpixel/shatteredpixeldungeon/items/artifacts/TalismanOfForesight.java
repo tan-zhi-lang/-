@@ -350,7 +350,8 @@ public class TalismanOfForesight extends Artifact {
 	}
 
 	public static class CharAwareness extends FlavourBuff {
-
+		//奥术感知
+//			Buff.新增(Dungeon.hero, TalismanOfForesight.CharAwareness.class, dur).charID = target.id();
 		public int charID;
 
 		private static final String CHAR_ID = "char_id";

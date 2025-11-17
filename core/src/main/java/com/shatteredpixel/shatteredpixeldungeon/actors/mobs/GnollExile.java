@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -12,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollExileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -50,7 +52,11 @@ public class GnollExile extends Gnoll {
 	public int 最大防御() {
 		return super.最大防御()+1;
 	}
-
+	@Override
+	public int 攻击时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.狗叫);
+		return super.攻击时(enemy,damage);
+	}
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		if (Dungeon.level.adjacent( pos, enemy.pos )){

@@ -64,9 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.Deat
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.AuraOfProtection;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BeamingRay;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ShieldOfLight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Brute;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalSpire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
@@ -78,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -128,7 +127,6 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
@@ -192,7 +190,7 @@ public abstract class Char extends Actor {
 	protected boolean act() {
 		Dungeon.level.落石(this);
 		if(生命流动>=1){
-			回血();
+			回血(1);
 			生命流动=生命流动-1;
 		}else if(生命流动<0){
 			int x=Math.round(生命流动);
@@ -238,7 +236,7 @@ public abstract class Char extends Actor {
 		} else if (c instanceof Hero
 				&& alignment == Alignment.ALLY
 				&& !hasProp(this, Property.IMMOVABLE)
-				&& Dungeon.level.distance(pos, c.pos) <= Dungeon.hero.天赋点数(Talent.ALLY_WARP,2)){
+				&& Dungeon.level.distance(pos, c.pos) <= 2){//移形换位
 			return true;
 		} else {
 			return false;
@@ -271,7 +269,7 @@ public abstract class Char extends Actor {
 		}
 
 		//warp instantly with allies in this case
-		if (c == Dungeon.hero && Dungeon.hero.天赋(Talent.ALLY_WARP)){
+		if (c == Dungeon.hero && false){//移形换位
 			PathFinder.buildDistanceMap(c.pos, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
 			if (PathFinder.distance[pos] == Integer.MAX_VALUE){
 				return true;
@@ -302,7 +300,7 @@ public abstract class Char extends Actor {
 		c.spend( 1 / c.移速() );
 
 		if (c == Dungeon.hero){
-			if (Dungeon.hero.subClass == HeroSubClass.FREERUNNER){
+			if (Dungeon.hero.subClass == HeroSubClass.疾行者){
 				Buff.施加(Dungeon.hero, Momentum.class).gainStack();
 			}
 
@@ -342,6 +340,7 @@ public abstract class Char extends Actor {
 	protected static final String 第一次防御x 	    = "第一次防御";
 	protected static final String 第一次背袭x 	    = "第一次背袭";
 	protected static final String 生命流动x 	    = "生命流动";
+	protected static final String 大小x 	    = "大小";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -358,6 +357,7 @@ public abstract class Char extends Actor {
 		bundle.put( 第一次防御x, 第一次防御);
 		bundle.put( 第一次背袭x, 第一次背袭);
 		bundle.put( 生命流动x, 生命流动);
+		bundle.put( 大小x, 大小);
 	}
 	
 	@Override
@@ -374,6 +374,7 @@ public abstract class Char extends Actor {
 		第一次防御 = bundle.getBoolean( 第一次防御x );
 		第一次背袭 = bundle.getBoolean( 第一次背袭x );
 		生命流动 = bundle.getFloat( 生命流动x );
+		大小 = bundle.getFloat( 大小x );
 
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
 			if (b != null) {
@@ -410,7 +411,7 @@ public abstract class Char extends Actor {
 					*AscensionChallenge.statModifier(enemy));
 			
 			if (this instanceof Hero hero){
-				if (hero.subClass==HeroSubClass.SNIPER){
+				if (hero.subClass==HeroSubClass.狙击手){
 					dr = 0;
 				}
 
@@ -446,16 +447,6 @@ public abstract class Char extends Actor {
 
 			//flat damage bonus is affected by multipliers
 			dmg += dmgBonus;
-
-			if (enemy.buff(GuidingLight.Illuminated.class) != null){
-				enemy.buff(GuidingLight.Illuminated.class).detach();
-				if (this == Dungeon.hero && Dungeon.hero.天赋(Talent.SEARING_LIGHT)){
-					dmg += Dungeon.hero.天赋生命力(Talent.SEARING_LIGHT,0.6f);
-				}
-				if (this != Dungeon.hero && Dungeon.hero.subClass == HeroSubClass.PRIEST){
-					enemy.受伤时(Dungeon.hero.天赋生命力(Talent.SEARING_LIGHT,0.6f), GuidingLight.INSTANCE);
-				}
-			}
 
 			if (buff( Fury.class ) != null) {
 				dmg *= 1.5f;
@@ -558,7 +549,7 @@ public abstract class Char extends Actor {
 					enemy.死亡时(this);
 				} else {
 					//helps with triggering any on-damage effects that need to activate
-					enemy.受伤时(-1, this);
+					enemy.受伤时(-1,this);
 					DeathMark.processFearTheReaper(enemy);
 				}
 				if (enemy.sprite != null) {
@@ -566,28 +557,6 @@ public abstract class Char extends Actor {
 				}
 			}
 
-			Talent.CombinedLethalityAbilityTracker combinedLethality = buff(Talent.CombinedLethalityAbilityTracker.class);
-			if (combinedLethality != null && this instanceof Hero && ((Hero) this).belongings.attackingWeapon() instanceof Weapon && combinedLethality.weapon != ((Hero) this).belongings.attackingWeapon()){
-				if ( enemy.isAlive() && enemy.alignment != alignment && !Char.hasProp(enemy, Property.BOSS)
-						&& !Char.hasProp(enemy, Property.MINIBOSS) &&
-						(enemy.生命 /(float)enemy.最大生命) <= ((Hero)this).天赋点数(Talent.COMBINED_LETHALITY,0.13f)) {
-					enemy.生命 = 0;
-					if (enemy.buff(Brute.BruteRage.class) != null){
-						enemy.buff(Brute.BruteRage.class).detach();
-					}
-					if (!enemy.isAlive()) {
-						enemy.死亡时(this);
-					} else {
-						//helps with triggering any on-damage effects that need to activate
-						enemy.受伤时(-1, this);
-						DeathMark.processFearTheReaper(enemy);
-					}
-					if (enemy.sprite != null) {
-						enemy.sprite.showStatus(CharSprite.削弱, Messages.get(Talent.CombinedLethalityAbilityTracker.class, "executed"));
-					}
-				}
-				combinedLethality.detach();
-			}
 
 			if (enemy.sprite != null) {
 				enemy.sprite.bloodBurstA(sprite.center(), effectiveDamage);
@@ -602,7 +571,7 @@ public abstract class Char extends Actor {
 					}
 
 					if (this instanceof WandOfLivingEarth.EarthGuardian
-							|| this instanceof MirrorImage || this instanceof PrismaticImage){
+							|| this instanceof MirrorImage || this instanceof PrismaticImage|| this instanceof 白猫){
 						Badges.validateDeathFromFriendlyMagic();
 					}
 					Dungeon.fail( this );
@@ -650,8 +619,8 @@ public abstract class Char extends Actor {
 	}
 
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ) {
-		float acuStat = attacker.最大命中( defender );
-		float defStat = defender.最大闪避( attacker );
+		float acuStat = Random.Float(attacker.最小命中( attacker ),attacker.最大命中( defender ));
+		float defStat = Random.Float(defender.最小闪避( attacker ),defender.最大闪避( attacker ));
 		
 		if(Dungeon.玩法(玩法设置.简单战斗)){
 			acuStat=0;
@@ -668,9 +637,7 @@ public abstract class Char extends Actor {
 			if(attacker.properties().contains(Property.UNDEAD)&&hero.belongings.armor() instanceof 道袍){
 				acuStat*=0.7f;
 			}
-			if(hero.天赋概率(Talent.学者预判,10)){
-			acuStat=0;
-			}
+			
 			if(hero.damageInterrupt){
 				hero.interrupt();
 			}
@@ -702,71 +669,71 @@ public abstract class Char extends Actor {
 			hitMissIcon = FloatingText.getHitReasonIcon(attacker, INFINITE_ACCURACY, defender, defStat);
 			return true;
 		}
-
-		float acuRoll = Random.Float( acuStat );
-		if (attacker.buff(Bless.class) != null) acuRoll *= 1.25f;
-		if (attacker.buff(  Hex.class) != null) acuRoll *= 0.8f;
-		if (attacker.buff( Daze.class) != null) acuRoll *= 0.5f;
+		
+		//region 命中
+		if (attacker.buff(Bless.class) != null) acuStat *= 1.25f;
+		if (attacker.buff(  Hex.class) != null) acuStat *= 0.8f;
+		if (attacker.buff( Daze.class) != null) acuStat *= 0.5f;
 		for (ChampionEnemy buff : attacker.buffs(ChampionEnemy.class)){
-			acuRoll *= buff.evasionAndAccuracyFactor();
+			acuStat *= buff.evasionAndAccuracyFactor();
 		}
-		acuRoll *= AscensionChallenge.statModifier(attacker);
+		acuStat *= AscensionChallenge.statModifier(attacker);
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
 				&& Dungeon.hero.天赋(Talent.BLESS)
 				&& attacker.alignment == Alignment.ALLY){
 			// + 3%/5%
-			acuRoll *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
+			acuStat *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
-		acuRoll *= accMulti;
-
-		float defRoll = Random.Float( defStat );
-		if (defender.buff(Bless.class) != null) defRoll *= 1.25f;
-		if (defender.buff(  Hex.class) != null) defRoll *= 0.8f;
-		if (defender.buff( Daze.class) != null) defRoll *= 0.5f;
+		acuStat *= accMulti;
+		//endregion
+		
+		//region 闪避
+		if (defender.buff(Bless.class) != null) defStat *= 1.25f;
+		if (defender.buff(  Hex.class) != null) defStat *= 0.8f;
+		if (defender.buff( Daze.class) != null) defStat *= 0.5f;
 		for (ChampionEnemy buff : defender.buffs(ChampionEnemy.class)){
-			defRoll *= buff.evasionAndAccuracyFactor();
+			defStat *= buff.evasionAndAccuracyFactor();
 		}
-		defRoll *= AscensionChallenge.statModifier(defender);
+		defStat *= AscensionChallenge.statModifier(defender);
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
 				&& Dungeon.hero.天赋(Talent.BLESS)
 				&& defender.alignment == Alignment.ALLY){
 			// + 3%/5%
-			defRoll *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
+			defStat *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
-		defRoll *= FerretTuft.evasionMultiplier();
+		defStat *= FerretTuft.evasionMultiplier();
+		//endregion
 
-		if (acuRoll >= defRoll){
-			hitMissIcon = FloatingText.getHitReasonIcon(attacker, acuRoll, defender, defRoll);
+		if (acuStat >= defStat){
+			hitMissIcon = FloatingText.getHitReasonIcon(attacker, acuStat, defender, defStat);
 			return true;
 		} else {
-			hitMissIcon = FloatingText.getMissReasonIcon(attacker, acuRoll, defender, defRoll);
+			hitMissIcon = FloatingText.getMissReasonIcon(attacker, acuStat, defender, defStat);
 			return false;
 		}
 	}
 
 	private static int hitMissIcon = -1;
+	public float 增加命中(Char target){
+		float x=1;
+		return x;
+	}
+	public float 增加闪避(Char enemy){
+		float x=1;
+		return x;
+	}
 
 	public int 最小命中(Char target ) {
 		return 0;
 	}
+	public float 增加命中() {
+		return 1;
+	}
 	
-	public int 最大命中(Char enemy ) {
+	public int 最大命中(Char target ) {
 		return 0;
 	}
 	
-	public int 最小命中() {
-		return 最小命中(null);
-	}
-	public int 最大命中() {
-		return 最大命中(null);
-	}
-	
-	public int 最小命中(float x) {
-		return Math.round(最小命中() * x);
-	}
-	public int 最大命中(float x) {
-		return Math.round(最大命中() * x);
-	}
 	public int 最小闪避(Char enemy ) {
 		return 0;
 	}
@@ -774,20 +741,8 @@ public abstract class Char extends Actor {
 	public int 最大闪避(Char enemy ) {
 		return 0;
 	}
-	
-	public int 最小闪避() {
-		return 最小闪避(null);
-	}
-	public int 最大闪避() {
-		return 最大闪避(null);
-	}
-	
-	
-	public int 最小闪避(float x) {
-		return Math.round(最小闪避() * x);
-	}
-	public int 最大闪避(float x) {
-		return Math.round(最大闪避() * x);
+	public float 增加闪避() {
+		return 1;
 	}
 	
 	public String defenseVerb() {
@@ -799,11 +754,19 @@ public abstract class Char extends Actor {
 
 		return dr;
 	}
+	public float 增加防御(){
+		float x=1;
+		return x;
+	}
 	public int 最大防御() {
 		int dr = 0;
 		dr += Barkskin.currentLevel(this);
 
 		return dr;
+	}
+	public float 增加攻击(){
+		float x=1;
+		return x;
 	}
 	
 	public int 最小攻击() {
@@ -874,22 +837,8 @@ public abstract class Char extends Actor {
 			damage = armor.absorb( damage );
 		}
 
-		ShieldOfLight.ShieldOfLightTracker shield = buff( ShieldOfLight.ShieldOfLightTracker.class);
-		if (shield != null && shield.object == enemy.id()){
-			damage -= Random.NormalIntRange(0, Dungeon.hero.天赋生命力(Talent.SHIELD_OF_LIGHT,0.3f));
-			damage = Math.max(damage, 0);
-		} else if (this == Dungeon.hero
-				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.SHIELD_OF_LIGHT)
-				&& TargetHealthIndicator.instance.target() == enemy){
-			//33/50%
-			if (Dungeon.hero.天赋(Talent.SHIELD_OF_LIGHT)){
-				damage -= Dungeon.hero.天赋点数(Talent.SHIELD_OF_LIGHT);
-			}
-		}
-
 		// hero and pris images skip this as they already benefit from hero's armor glyph proc
-		if (!(this instanceof Hero || this instanceof PrismaticImage)) {
+		if (!(this instanceof Hero || this instanceof PrismaticImage|| this instanceof 白猫)) {
 			if (Dungeon.hero.alignment == alignment && Dungeon.hero.belongings.armor() != null
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 					&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
@@ -916,9 +865,9 @@ public abstract class Char extends Actor {
 	public float 移速() {
 		float speed = baseSpeed;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
-		if ( buff( Stamina.class ) != null) speed *= 2.5f;
+		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
-		if ( buff( 极速.class ) != null) speed *= 4f;
+		if ( buff( 极速.class ) != null) speed *= 3f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
 
 		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
@@ -1084,11 +1033,7 @@ public abstract class Char extends Actor {
 		破损纹章.WarriorShield shield = buff(破损纹章.WarriorShield.class);
 		if (!(src instanceof Hunger)
 				&& dmg > 0
-				//either HP is already half or below (ignoring shield)
-				// or the hit will reduce it to half or below
-//				&& (生命 <= 最大生命 /2 || 生命 + shielding() - dmg <= 最大生命 /2)
 				&& shield != null && !shield.coolingDown()){
-			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(buff(破损纹章.WarriorShield.class).maxShield()), FloatingText.SHIELDING);
 			shield.activate();
 		}
 
@@ -1135,7 +1080,7 @@ public abstract class Char extends Actor {
 
 			//special case for sniper when using ranged attacks
 			if (src == Dungeon.hero
-					&& Dungeon.hero.subClass == HeroSubClass.SNIPER){
+					&& Dungeon.hero.subClass == HeroSubClass.狙击手){
 				icon = FloatingText.PHYS_DMG_NO_BLOCK;
 			}
 
@@ -1165,7 +1110,7 @@ public abstract class Char extends Actor {
 				icon = hitMissIcon;
 			}
 			hitMissIcon = -1;
-
+			if(dmg + shielded>0)
 			sprite.showStatusWithIcon(CharSprite.削弱, Integer.toString(dmg + shielded), icon);
 		}
 
@@ -1212,10 +1157,7 @@ public abstract class Char extends Actor {
 			if (ch.buff(SnipersMark.class) != null && ch.buff(SnipersMark.class).object == id()){
 				ch.buff(SnipersMark.class).detach();
 			}
-			if (ch.buff(Talent.DeadlyFollowupTracker.class) != null
-					&& ch.buff(Talent.DeadlyFollowupTracker.class).object == id()){
-				ch.buff(Talent.DeadlyFollowupTracker.class).detach();
-			}
+			
 		}
 	}
 	
@@ -1598,21 +1540,36 @@ public abstract class Char extends Actor {
 	public boolean 半血(){
 		return (float)生命/最大生命>0.33f&&(float)生命/最大生命<=0.66f;
 	}
+	public boolean 半血以下(){
+		return (float)生命/最大生命<=0.5f;
+	}
 	public boolean 康血(){
 		return (float)生命/最大生命>=0.66f;
 	}
 	public boolean 满血(){
 		return 生命==最大生命;
 	}
-	public void 回血(){
-		生命 = Math.min(生命 + 1, 最大生命);
-		if(sprite!=null) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(1), FloatingText.HEALING);
+	public void 回满血(){
+		回血(最大生命);
+	}
+	public void 回百分比血(float x){
+		回血(最大生命(x));
+	}
+	public void 回已损失血(float x){
+		回血(已损失生命(x));
+	}
+	public float 治疗效果(){
+		return 1;
 	}
 	public void 回血(float x){
-		int x2=Math.round(x);
+		int x2=Math.round(x*治疗效果());
 		生命 = Math.min(生命 + x2, 最大生命);
 		生命流动+=x-x2;
-		if(sprite!=null&&x2>0) sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(x2), FloatingText.HEALING);
+		if (Dungeon.level.heroFOV[pos]){
+			if(sprite!=null&&sprite.visible&&生命>0&&x2>0){
+				sprite.showStatusWithIcon(CharSprite.增强,x2,FloatingText.HEALING);
+			}
+		}
 	}
 
 	public int 视野范围(){

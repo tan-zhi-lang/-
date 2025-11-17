@@ -28,7 +28,7 @@ public class TrapMechanism extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(强化等级())), (int)(100*revealHiddenTrapChance(强化等级())));
 		} else {
-			return Messages.get(this, "typical_stats_desc", (int)(100*overrideNormalLevelChance(0)), (int)(100*revealHiddenTrapChance(0)));
+			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(0)), (int)(100*revealHiddenTrapChance(0)));
 		}
 	}
 

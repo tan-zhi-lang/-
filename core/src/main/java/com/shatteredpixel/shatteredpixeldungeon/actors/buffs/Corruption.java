@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
@@ -18,8 +17,8 @@ public class Corruption extends AllyBuff {
 
 	//corrupted enemies are usually fully healed and cleansed of most debuffs
 	public static void corruptionHeal(Char target){
-		target.生命 = target.最大生命;
-		target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(target.最大生命), FloatingText.HEALING);
+		target.回满血();
+		
 		for (Buff buff : target.buffs()) {
 			if (buff.type == Buff.buffType.NEGATIVE
 					&& !(buff instanceof 灵魂标记)) {

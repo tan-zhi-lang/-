@@ -30,5 +30,16 @@ public class 半月刃 extends Weapon{
 		return super.攻击时(attacker, defender, damage);
 	}
 
+	@Override
+	public int 投掷攻击时(Char attacker, Char defender, int damage) {
+		for (int n : PathFinder.NEIGHBOURS8){
+			Char c= Actor.findChar(attacker.pos+n);
+			if(c!=null&&c.alignment == Char.Alignment.ENEMY&& Dungeon.level.heroFOV[c.pos]){
+				c.受伤(damage);
+			}
+		}
+		return super.投掷攻击时(attacker, defender, damage);
+	}
+
 
 }

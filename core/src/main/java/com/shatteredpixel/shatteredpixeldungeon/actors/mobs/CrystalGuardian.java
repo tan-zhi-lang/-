@@ -55,10 +55,7 @@ public class CrystalGuardian extends Mob{
 				buff(PinCushion.class).detach();
 			}
 			throwItems();
-			生命 = Math.min(最大生命, 生命 +5);
-			if (Dungeon.level.heroFOV[pos]) {
-				sprite.showStatusWithIcon(CharSprite.增强, "5", FloatingText.HEALING);
-			}
+			回血(5);
 			if (生命 == 最大生命){
 				recovering = false;
 				if (sprite instanceof CrystalGuardianSprite) ((CrystalGuardianSprite) sprite).endCrumple();

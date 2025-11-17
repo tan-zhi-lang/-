@@ -11,8 +11,10 @@ public class 长剑 extends Weapon{
 		image = 物品表.LONGSWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
-
-		tier = 4;
+		
+		间隔= 1.34f;
+		伤害= 1.34f;
+		tier = 3;
 	}
 
 }

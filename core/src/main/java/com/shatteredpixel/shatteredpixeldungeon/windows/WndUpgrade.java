@@ -179,14 +179,14 @@ public class WndUpgrade extends Window {
 					aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo)),
 					bottom);
 		}
-
-		if (Dungeon.hero() && Dungeon.hero.heroClass == HeroClass.DUELIST
-				&& toUpgrade instanceof Weapon && ((Weapon) toUpgrade).upgradeAbilityStat(levelFrom) != null){
-			bottom = fillFields(Messages.get(toUpgrade, "upgrade_ability_stat_name"),
-					((Weapon) toUpgrade).upgradeAbilityStat(levelFrom),
-					((Weapon) toUpgrade).upgradeAbilityStat(levelTo),
-					bottom);
-		}
+//升级武技
+//		if (Dungeon.hero() && Dungeon.hero.heroClass == HeroClass.DUELIST
+//				&& toUpgrade instanceof Weapon && ((Weapon) toUpgrade).upgradeAbilityStat(levelFrom) != null){
+//			bottom = fillFields(Messages.get(toUpgrade, "upgrade_ability_stat_name"),
+//					((Weapon) toUpgrade).upgradeAbilityStat(levelFrom),
+//					((Weapon) toUpgrade).upgradeAbilityStat(levelTo),
+//					bottom);
+//		}
 
 		//blocking (armor and shields)
 		if (toUpgrade instanceof Armor){

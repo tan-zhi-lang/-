@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
@@ -141,6 +142,7 @@ public class Badges {
 		BAG_BOUGHT_SCROLL_HOLDER,
 		BAG_BOUGHT_POTION_BANDOLIER,
 		BAG_BOUGHT_MAGICAL_HOLSTER,
+		BAG_杂物袋,
 		ALL_BAGS_BOUGHT             ( 83 ),
 		MASTERY_COMBO               ( 84 ),
 		MONSTERS_SLAIN_5            ( 85 ),
@@ -596,6 +598,8 @@ public class Badges {
 			badge = Badge.BAG_BOUGHT_POTION_BANDOLIER;
 		} else if (bag instanceof MagicalHolster) {
 			badge = Badge.BAG_BOUGHT_MAGICAL_HOLSTER;
+		}else if (bag instanceof 杂物袋) {
+			badge = Badge.BAG_杂物袋;
 		}
 		
 		if (badge != null) {
@@ -606,7 +610,8 @@ public class Badges {
 				local.contains( Badge.BAG_BOUGHT_VELVET_POUCH ) &&
 				local.contains( Badge.BAG_BOUGHT_SCROLL_HOLDER ) &&
 				local.contains( Badge.BAG_BOUGHT_POTION_BANDOLIER ) &&
-				local.contains( Badge.BAG_BOUGHT_MAGICAL_HOLSTER )) {
+				local.contains( Badge.BAG_BOUGHT_MAGICAL_HOLSTER )&&
+				local.contains( Badge.BAG_杂物袋 )) {
 						
 					badge = Badge.ALL_BAGS_BOUGHT;
 					local.add( badge );
@@ -1237,7 +1242,10 @@ public class Badges {
 	
 	private static void displayBadge( Badge badge ) {
 
-		if (badge == null || (badge.type != BadgeType.JOURNAL && !Dungeon.customSeedText.isEmpty())) {
+		if (badge == null ||badge.type == BadgeType.JOURNAL
+//							  && !Dungeon.customSeedText.isEmpty()
+							  //种子不能解锁勋章
+		) {
 			return;
 		}
 		
@@ -1274,7 +1282,11 @@ public class Badges {
 	}
 	
 	public static void unlock( Badge badge ){
-		if (!isUnlocked(badge) && (badge.type == BadgeType.JOURNAL || Dungeon.customSeedText.isEmpty())){
+		if (!isUnlocked(badge)
+//			&& badge.type != BadgeType.JOURNAL
+//								   || Dungeon.customSeedText.isEmpty()
+								   //种子不能解锁勋章
+		){
 			global.add( badge );
 			saveNeeded = true;
 		}

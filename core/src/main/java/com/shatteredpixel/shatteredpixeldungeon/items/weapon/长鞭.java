@@ -12,7 +12,7 @@ public class 长鞭 extends Weapon {
 		
 		
 		间隔= 1.25f;
-		伤害= 1.5f;
+		伤害= 1.25f;
 		tier = 3;
 		范围 = 3;    //lots of extra reach
 	}

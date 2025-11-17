@@ -33,7 +33,7 @@ public class DemonSpawner extends Mob {
 		state = PASSIVE;
 
 		loot = 治疗药剂.class;
-		lootChance = 1f;
+		
 
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.MINIBOSS);

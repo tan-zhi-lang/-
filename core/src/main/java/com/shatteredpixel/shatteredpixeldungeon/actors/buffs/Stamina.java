@@ -7,7 +7,7 @@ import com.watabou.noosa.Image;
 
 public class Stamina extends FlavourBuff {
 
-	public static final float DURATION = 60;
+	public static final float DURATION = 100;
 	
 	{
 		type = buffType.POSITIVE;

@@ -547,7 +547,7 @@ public abstract class Elemental extends Mob {
 			spriteClass = ElementalSprite.Chaos.class;
 			
 			loot = 嬗变卷轴.class;
-			lootChance = 1f;
+			
 		}
 		
 		@Override

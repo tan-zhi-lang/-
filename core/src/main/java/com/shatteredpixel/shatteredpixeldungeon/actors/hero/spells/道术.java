@@ -58,9 +58,7 @@ public abstract class 道术{
 		ArrayList<道术> spells = new ArrayList<>();
 
 		if (tier == 1) {
-			if (cleric.天赋(Talent.净除道术)) {
 				spells.add(净除道术.INSTANCE);
-			}
 //			if (cleric.天赋(Talent.痛命之术)) {
 //				spells.add(痛命之术.INSTANCE);
 //			}

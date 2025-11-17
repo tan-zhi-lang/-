@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
@@ -53,7 +53,7 @@ public class UnstableBrew extends Brew {
 		potionChances.put(PotionOfLiquidFlame.class, 2f);
 		potionChances.put(PotionOfToxicGas.class, 2f);
 		potionChances.put(极速药剂.class, 2f);
-		potionChances.put(PotionOfInvisibility.class, 2f);
+		potionChances.put(隐形药剂.class,2f);
 		potionChances.put(PotionOfLevitation.class, 2f);
 		potionChances.put(PotionOfParalyticGas.class, 2f);
 		potionChances.put(净化药剂.class, 2f);

@@ -31,9 +31,7 @@ public class WellFed extends Buff {
 			}
 			return true;
 		} else if (left % 18 == 0 && target.生命 < target.最大生命){
-			target.生命 += 1;
-			target.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.HEALING);
-
+			target.回血(1);
 			if (target.生命 == target.最大生命 && target instanceof Hero) {
 				((Hero) target).resting = false;
 			}

@@ -118,15 +118,12 @@ public class HallowedGround extends TargetedClericSpell {
 			if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
 				int barrierToGive = Math.min(x, x*x - ch.shielding());
 				Buff.施加(ch, Barrier.class).增加(barrierToGive);
-				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(barrierToGive), FloatingText.SHIELDING );
 			} else {
 				int barrier = x - (ch.最大生命 - ch.生命);
 				barrier = Math.max(barrier, 0);
-				ch.生命 += x - barrier;
-				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(x-barrier), FloatingText.HEALING );
+				ch.回血(x - barrier);
 				if (barrier > 0){
 					Buff.施加(ch, Barrier.class).增加(barrier);
-					ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(barrier), FloatingText.SHIELDING );
 				}
 			}
 		} else if (!ch.flying) {
@@ -220,10 +217,8 @@ public class HallowedGround extends TargetedClericSpell {
 			if (ch.alignment == Char.Alignment.ALLY){
 				if (ch == Dungeon.hero || ch.生命 == ch.最大生命){
 					Buff.施加(ch, Barrier.class).增加(1);
-					ch.sprite.showStatusWithIcon( CharSprite.增强, "1", FloatingText.SHIELDING );
 				} else {
 					ch.生命++;
-					ch.sprite.showStatusWithIcon( CharSprite.增强, "1", FloatingText.HEALING );
 				}
 			} else if (!ch.flying && ch.buff(Roots.class) == null){
 				Buff.延长(ch, Cripple.class, 1f);

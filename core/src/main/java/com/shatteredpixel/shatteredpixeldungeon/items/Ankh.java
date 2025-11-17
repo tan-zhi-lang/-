@@ -18,18 +18,18 @@ import java.util.ArrayList;
 public class Ankh extends Item {
 
 	public static final String AC_BLESS = "BLESS";
+	private boolean blessed = false;
 
 	{
 		image = 物品表.ANKH;
 
 		//You tell the ankh no, don't revive me, and then it comes back to revive you again in another run.
 		//I'm not sure if that's enthusiasm or passive-aggression.
-		黄色 = true;
+		黄色 = blessed;
 		遗产= true;
 		物品 = true;
 	}
 
-	private boolean blessed = false;
 	
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -110,6 +110,6 @@ public class Ankh extends Item {
 	
 	@Override
 	public int 金币() {
-		return 50 * quantity;
+		return 50;
 	}
 }

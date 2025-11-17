@@ -36,7 +36,7 @@ public class GnollTrickster extends Gnoll {
 
 		//at quantity of 1 and no upgrades
 		loot = Generator.Category.WEAPON;
-		lootChance = 1f;
+		
 
 		properties.add(Property.MINIBOSS);
 	}
@@ -50,8 +50,8 @@ public class GnollTrickster extends Gnoll {
 	
 	@Override
 	public float 移速() {
-		if(enemy!=null&&Dungeon.level.adjacent( pos, enemy.pos ))
-		return 0.83f;
+		if(enemy!=null&&Dungeon.level.distance( enemy.pos, pos )<=2)
+		return 0.75f;
 		else
 		return 1.25f;
 	}

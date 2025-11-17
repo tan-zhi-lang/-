@@ -70,8 +70,25 @@ public class 飞镖 extends Weapon{
 			bow = null;
 		}
 	}
-
-	public boolean crossbowHasEnchant( Char owner ){
+	
+	@Override
+	public int 最小投掷攻击(int lvl) {
+		updateCrossbow();
+		if(bow!=null){
+			return super.最小投掷攻击(lvl)*3;
+		}
+		return super.最小投掷攻击(lvl);
+	}
+	@Override
+	public int 最大投掷攻击(int lvl) {
+		updateCrossbow();
+		if(bow!=null){
+			return super.最大投掷攻击(lvl)*3;
+		}
+		return super.最大投掷攻击(lvl);
+	}
+	
+	public boolean crossbowHasEnchant(Char owner){
 		return bow != null && bow.enchantment != null && owner.buff(MagicImmune.class) == null;
 	}
 	

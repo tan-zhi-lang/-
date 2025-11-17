@@ -154,10 +154,7 @@ public class Necromancer extends Mob {
 				sprite.parent.add(new Beam.HealthRay(sprite.center(), mySkeleton.sprite.center()));
 			}
 			
-			mySkeleton.生命 = Math.min(mySkeleton.生命 + mySkeleton.最大生命 /5, mySkeleton.最大生命);
-			if (mySkeleton.sprite.visible) {
-				mySkeleton.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString( mySkeleton.最大生命 /5 ), FloatingText.HEALING );
-			}
+			mySkeleton.回血(mySkeleton.最大生命(0.2f));
 			
 		//otherwise give it adrenaline
 		} else if (mySkeleton.buff(Adrenaline.class) == null) {

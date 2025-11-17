@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -13,7 +14,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
@@ -103,7 +104,7 @@ public class 粘咕 extends Mob {
 		}
 
 		if (!flying && Dungeon.level.water[pos] && 生命 < 最大生命) {
-			生命 += healInc;
+			回血(healInc);
 			Statistics.qualifiedForBossChallengeBadge = false;
 
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
@@ -112,9 +113,6 @@ public class 粘咕 extends Mob {
 				else                                                    lock.removeTime(healInc*1.5f);
 			}
 
-			if (Dungeon.level.heroFOV[pos] ){
-				sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(healInc), FloatingText.HEALING );
-			}
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) && healInc < 3) {
 				healInc++;
 			}
@@ -282,6 +280,7 @@ public class 粘咕 extends Mob {
 	@Override
 	public void 死亡时(Object cause ) {
 		
+		Sample.INSTANCE.play(Assets.Sounds.史莱姆);
 		super.死亡时( cause );
 		
 		Dungeon.level.unseal();

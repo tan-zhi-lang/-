@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
@@ -40,7 +41,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.watabou.utils.Reflection;
 
@@ -263,14 +263,15 @@ public abstract class Recipe {
 		return result;
 	}
 	
-	public static boolean usableInRecipe(Item item){
+	public static boolean usableInRecipe(Item item){//可以放入 炼金条件
 		//only upgradeable thrown weapons and wands allowed among equipment items
+		if(item instanceof Bag) {
+			return false;
+		}
 		if (item instanceof EquipableItem){
-			if(item.isEquipped(Dungeon.hero));
-			return item.cursedKnown&&!item.cursed&&
+			if(item.isEquipped(Dungeon.hero))return false;
+			return !item.cursed&&
 				   item instanceof Weapon&&item.可升级();
-		} else if (item instanceof Wand) {
-			return item.cursedKnown && !item.cursed;
 		} else {
 			//other items can be unidentified, but not cursed
 			return !item.cursed;

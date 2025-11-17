@@ -15,12 +15,12 @@ public class 铁头棍 extends Weapon {
 		
 		间隔= 1.25f;
 		伤害= 1.25f;
-		tier = 2;
+		tier = 1;
 	}
 
 	@Override
 	public int 最大防御(int lvl){
-		return 2 + lvl;
+		return 1 + lvl;
 	}
 
 }

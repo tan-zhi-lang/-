@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -84,9 +83,6 @@ public class 燃烧 extends Buff implements Hero.Doom {
 			if (target instanceof Hero hero
 					&& target.buff(时光沙漏.timeStasis.class) == null
 					&& target.buff(TimeStasis.class) == null) {
-				if(hero.天赋(Talent.自然灵体)){
-					damage*=2;
-				}
 				hero.受伤时( damage, this );
 				burnIncrement++;
 

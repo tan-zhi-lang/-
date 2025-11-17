@@ -89,26 +89,20 @@ public class LayOnHands extends TargetedClericSpell {
 			totalBarrier = Math.min(3*totalHeal - barrier.护盾量(), totalBarrier);
 			totalBarrier = Math.max(0, totalBarrier);
 			Buff.施加(ch, Barrier.class).增加(totalBarrier);
-			ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(totalBarrier), FloatingText.SHIELDING );
 		} else {
 			if (ch.最大生命 - ch.生命 < totalHeal){
 				totalBarrier = totalHeal - (ch.最大生命 - ch.生命);
-				if (ch.生命 != ch.最大生命) {
-					ch.生命 = ch.最大生命;
-					ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(totalHeal - totalBarrier), FloatingText.HEALING);
-				}
+				ch.回满血();
 				if (totalBarrier > 0) {
 					Barrier barrier = Buff.施加(ch, Barrier.class);
 					totalBarrier = Math.min(3 * totalHeal - barrier.护盾量(), totalBarrier);
 					totalBarrier = Math.max(0, totalBarrier);
 					if (totalBarrier > 0) {
 						barrier.增加(totalBarrier);
-						ch.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(totalBarrier), FloatingText.SHIELDING);
 					}
 				}
 			} else {
-				ch.生命 = ch.生命 + totalHeal;
-				ch.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(totalHeal), FloatingText.HEALING );
+				ch.回血(totalHeal);
 			}
 		}
 	}

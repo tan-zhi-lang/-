@@ -328,7 +328,7 @@ public class 神圣法典 extends Artifact {
 		}
 		@Override
 		public int indicatorColor() {
-			if (quickSpell == GuidingLight.INSTANCE && quickSpell.chargeUse(Dungeon.hero) == 0){
+			if (quickSpell==GuidingLight.INSTANCE&&quickSpell.chargeUse(Dungeon.hero)==0){
 				return 0x0063ff;
 			} else {
 				return 0x002157;

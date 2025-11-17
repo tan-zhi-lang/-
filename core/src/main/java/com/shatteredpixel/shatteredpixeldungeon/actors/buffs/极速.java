@@ -11,7 +11,7 @@ public class 极速 extends FlavourBuff {
 		type = buffType.POSITIVE;
 	}
 	
-	public static final float DURATION	= 15;
+	public static final float DURATION	= 20;
 	
 	@Override
 	public int icon() {

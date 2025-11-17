@@ -29,7 +29,6 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class 破损纹章 extends Item {
 
@@ -55,18 +54,18 @@ public class 破损纹章 extends Item {
 		if (glyph == null){
 			return false;
 		}
-		if (Dungeon.hero.天赋点数(Talent.纹章升级) == 3){
+//		if (Dungeon.hero.天赋点数(Talent.纹章刻印)==3){
 			return true;
-		} else if (Dungeon.hero.天赋点数(Talent.纹章升级) == 2
-			&& (Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())
-				|| Arrays.asList(Armor.Glyph.uncommon).contains(glyph.getClass()))){
-			return true;
-		}else if (Dungeon.hero.天赋点数(Talent.纹章升级) == 1
-			&& Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())){
-			return true;
-		} else {
-			return false;
-		}
+//		} else if (Dungeon.hero.天赋点数(Talent.纹章刻印)==2
+//			&& (Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())
+//				|| Arrays.asList(Armor.Glyph.uncommon).contains(glyph.getClass()))){
+//			return true;
+//		}else if (Dungeon.hero.天赋点数(Talent.纹章刻印)==1
+//			&& Arrays.asList(Armor.Glyph.common).contains(glyph.getClass())){
+//			return true;
+//		} else {
+//			return false;
+//		}
 	}
 
 	public Armor.Glyph getGlyph(){
@@ -78,11 +77,11 @@ public class 破损纹章 extends Item {
 	}
 
 	public int maxShield( int armTier, int armLvl ){
-		float x=1;
-		if(Dungeon.hero.天赋(Talent.钢铁意志)){
-			x+=Dungeon.hero.根据已损失生命()*Dungeon.hero.天赋点数(Talent.钢铁意志,0.3f);
+		float x=0.5f;
+		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.纹章荣耀)){
+			x+=Dungeon.hero.天赋点数(Talent.纹章荣耀,0.5f);
 		}
-		return Math.round((1 + 2*(armTier+armTier))*x);
+		return Math.round((2*armTier*(1+armLvl))*x);
 	}
 
 	@Override
@@ -250,9 +249,9 @@ public class 破损纹章 extends Item {
 		private int cooldown = 0;
 		private float turnsSinceEnemies = 0;
 
-		private static int COOLDOWN_START = 80;
+		private static int COOLDOWN_START = 100;
 		public int cool(){
-			return COOLDOWN_START-(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.纹章荣耀,5):0);
+			return COOLDOWN_START;
 		}
 
 		@Override
@@ -306,9 +305,7 @@ public class 破损纹章 extends Item {
 		
 		@Override
 		public boolean attachTo(Char target){
-			if (target instanceof Hero hero&& hero.天赋(Talent.受衅怒火)){
-				hero.必暴=true;
-			}
+			
 			return super.attachTo(target);
 		}
 		

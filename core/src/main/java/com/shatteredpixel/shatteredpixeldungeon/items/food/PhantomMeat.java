@@ -7,10 +7,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class PhantomMeat extends Food {
@@ -34,14 +32,13 @@ public class PhantomMeat extends Food {
 
 		Barkskin.conditionallyAppend( hero, hero.最大生命 / 4, 1 );
 		Buff.施加( hero, Invisibility.class, Invisibility.DURATION );
-		hero.生命 = Math.min( hero.生命 + hero.最大生命 / 4, hero.最大生命);
-		hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hero.最大生命 / 4), FloatingText.HEALING );
+		hero.回血(0.25f);
 		治疗药剂.cure(hero);
 
 	}
 	public static class R extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		{
-			inputs =  new Class[]{MysteryMeat.class, PotionOfInvisibility.class};
+			inputs =  new Class[]{MysteryMeat.class, 隐形药剂.class};
 			inQuantity = new int[]{1,1};
 
 			cost = 5;

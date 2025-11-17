@@ -13,7 +13,7 @@ public class 链枷 extends Weapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
 
-		tier = 4;
+		tier = 3;
 		间隔 = 1.25f;
 		伤害 = 1.25f;
 	}

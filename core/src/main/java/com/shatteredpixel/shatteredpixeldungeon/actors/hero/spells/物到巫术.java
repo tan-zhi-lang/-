@@ -23,7 +23,7 @@ public class 物到巫术 extends 巫术 {
 
 	@Override
 	public void onCast(灵月法杖 tome, Hero hero) {
-		hero.受伤(hero.生命力(10)-hero.天赋生命力(Talent.物到巫术,2));
+		hero.受伤(30);
 		Item item = Generator.random();
 		item.放背包();
 
@@ -35,7 +35,7 @@ public class 物到巫术 extends 巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.生命力(10)-Dungeon.hero.天赋生命力(Talent.物到巫术,2));
+		String desc = Messages.get(this, "desc");
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

@@ -18,7 +18,7 @@ public class Acidic extends Scorpio {
 		properties.add(Property.ACIDIC);
 
 		loot = 经验药剂.class;
-		lootChance = 1f;
+		
 	}
 	@Override
 	public int 攻击时(Char enemy, int damage) {

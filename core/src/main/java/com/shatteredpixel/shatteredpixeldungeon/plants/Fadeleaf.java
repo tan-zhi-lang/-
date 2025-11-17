@@ -27,17 +27,17 @@ public class Fadeleaf extends Plant {
 	@Override
 	public void activate( final Char ch ) {
 		
-		if (ch instanceof Hero) {
+		if (ch instanceof Hero hero) {
 			
-			((Hero)ch).curAction = null;
+			hero.curAction = null;
 			
-			if (((Hero) ch).subClass == HeroSubClass.WARDEN && Dungeon.interfloorTeleportAllowed()){
+			if (hero.精通&&hero.subClass == HeroSubClass.守望者&&Dungeon.interfloorTeleportAllowed()){
 
 				Level.beforeTransition();
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;
 				InterlevelScene.returnDepth = Math.max(1, (Dungeon.depth - 1));
 				InterlevelScene.returnBranch = 0;
-				InterlevelScene.returnPos = -2;
+				InterlevelScene.returnPos = 2;
 				Game.switchScene( InterlevelScene.class );
 				
 			} else {

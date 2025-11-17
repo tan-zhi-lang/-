@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -17,9 +18,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.AuraOfProtection;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -48,7 +49,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Thorns;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
@@ -62,6 +62,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -74,11 +75,12 @@ import java.util.Arrays;
 public class Armor extends EquipableItem {
 
 	protected static final String AC_DETACH       = "DETACH";
+	protected String 换甲 = Assets.Sounds.布甲;
 	
 	public enum Augment {
-		EVASION (1.3f , 1,1),
 		DEFENSE (1, 1.1f,1),
 		SPEED (1, 1,1.2f),
+		EVASION (1.3f , 1,1),
 		NONE	(1,1,1);
 		
 		private float evasionFactor;
@@ -117,14 +119,12 @@ public class Armor extends EquipableItem {
 	
 	private static final int USES_TO_ID = 10;
 	public float usesLeftToID = USES_TO_ID;
-	public float availableUsesToID = USES_TO_ID/2f;
 	
 	public Armor( int tier ) {
 		this.tier = tier;
 	}
 	
 	private static final String USES_LEFT_TO_ID = "uses_left_to_id";
-	private static final String AVAILABLE_USES  = "available_uses";
 	private static final String GLYPH			= "glyph";
 	private static final String GLYPH_HARDENED	= "glyph_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
@@ -137,7 +137,6 @@ public class Armor extends EquipableItem {
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( USES_LEFT_TO_ID, usesLeftToID );
-		bundle.put( AVAILABLE_USES, availableUsesToID );
 		bundle.put( GLYPH, glyph );
 		bundle.put( GLYPH_HARDENED, glyphHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
@@ -151,7 +150,6 @@ public class Armor extends EquipableItem {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
 		usesLeftToID = bundle.getInt( USES_LEFT_TO_ID );
-		availableUsesToID = bundle.getInt( AVAILABLE_USES );
 		inscribe((Glyph) bundle.get(GLYPH));
 		glyphHardened = bundle.getBoolean(GLYPH_HARDENED);
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
@@ -166,7 +164,6 @@ public class Armor extends EquipableItem {
 	public void reset() {
 		super.reset();
 		usesLeftToID = USES_TO_ID;
-		availableUsesToID = USES_TO_ID/2f;
 		//armor can be kept in bones between runs, the seal cannot.
 		破损纹章 = null;
 	}
@@ -236,28 +233,18 @@ public class Armor extends EquipableItem {
 	}
 	@Override
 	protected float timeToEquip( Hero hero ) {
+		换甲();
 		return hero.攻击延迟()*1/hero.移速()*6f;
+	}
+	public void 换甲(){
+		Sample.INSTANCE.play(换甲);
 	}
 	@Override
 	public boolean doEquip( Hero hero ) {
-
-		// 15/25% chance
-		if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.HOLY_INTUITION)
-				&& cursed && !cursedKnown
-				&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
-			cursedKnown = true;
-			if(hero.满天赋(Talent.HOLY_INTUITION)){
-				鉴定();
-				祛邪卷轴.祛邪(hero,this);
-			}else{
-				鉴定();
-			}
-			GLog.p(Messages.get(this, "curse_detected"));
-			return false;
-		}
-
+		
+		
+		
 		detach(hero.belongings.backpack);
-
 		Armor oldArmor = hero.belongings.armor;
 		if (hero.belongings.armor == null || hero.belongings.armor.doUnequip( hero, true, false )) {
 			
@@ -508,26 +495,12 @@ public class Armor extends EquipableItem {
 			Glyph trinityGlyph = null;
 			//only when it's the hero or a char that uses the hero's armor
 			if (Dungeon.hero.buff(BodyForm.BodyFormBuff.class) != null
-					&& (defender == Dungeon.hero || defender instanceof PrismaticImage || defender instanceof ShadowClone.ShadowAlly)){
+					&& (defender == Dungeon.hero||defender instanceof PrismaticImage||defender instanceof 白猫||defender instanceof ShadowClone.ShadowAlly)){
 				trinityGlyph = Dungeon.hero.buff(BodyForm.BodyFormBuff.class).glyph();
 				if (glyph != null && trinityGlyph != null && trinityGlyph.getClass() == glyph.getClass()){
 					trinityGlyph = null;
 				}
 			}
-
-			if (defender instanceof Hero && isEquipped((Hero) defender)
-					&& defender.buff(HolyWard.HolyArmBuff.class) != null){
-				if (glyph != null &&
-						(((Hero) defender).subClass == HeroSubClass.PALADIN || hasCurseGlyph())){
-					damage = glyph.proc( this, attacker, defender, damage );
-				}
-				if (trinityGlyph != null){
-					damage = trinityGlyph.proc( this, attacker, defender, damage );
-				}
-				int blocking = ((Hero) defender).subClass == HeroSubClass.PALADIN ? 3 : 1;
-				damage -= Math.round(blocking * Glyph.genericProcChanceMultiplier(defender));
-
-			} else {
 				if (glyph != null) {
 					damage = glyph.proc(this, attacker, defender, damage);
 				}
@@ -538,18 +511,15 @@ public class Armor extends EquipableItem {
 				if (defender.alignment == Dungeon.hero.alignment
 						&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 						&& (Dungeon.level.distance(defender.pos, Dungeon.hero.pos) <= 2 || defender.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)
-						&& Dungeon.hero.buff(HolyWard.HolyArmBuff.class) != null) {
+						) {
 					int blocking = Dungeon.hero.subClass == HeroSubClass.PALADIN ? 3 : 1;
 					damage -= Math.round(blocking * Glyph.genericProcChanceMultiplier(defender));
 				}
-			}
 			damage = Math.max(damage, 0);
 		}
 		
-		if (!levelKnown && defender == Dungeon.hero) {
-			float uses = Math.min( availableUsesToID, Talent.鉴定速度(Dungeon.hero,this));
-			availableUsesToID -= uses;
-			usesLeftToID -= uses;
+		if (!已鉴定() && defender == Dungeon.hero) {
+			usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){
@@ -569,22 +539,12 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public void onHeroGainExp(float levelPercent, Hero hero) {
-		levelPercent *= Talent.鉴定速度(hero,this);
-		if (!levelKnown && isEquipped(hero) && availableUsesToID <= USES_TO_ID/2f) {
-			//gains enough uses to ID over 0.5 levels
-			availableUsesToID = Math.min(USES_TO_ID/2f, availableUsesToID + levelPercent * USES_TO_ID);
-		}
+	
 	}
 	
 	@Override
 	public String name() {
-		if (isEquipped(Dungeon.hero) && !hasCurseGlyph() && Dungeon.hero.buff(HolyWard.HolyArmBuff.class) != null
-			&& (Dungeon.hero.subClass != HeroSubClass.PALADIN || glyph == null)){
-				return Messages.get(HolyWard.class, "glyph_name", super.name());
-			} else {
 				return glyph != null && (cursedKnown || !glyph.curse()) ? glyph.name( super.name() ) : super.name();
-
-		}
 	}
 	
 	@Override
@@ -593,13 +553,13 @@ public class Armor extends EquipableItem {
 		
 		if (levelKnown) {
 
-			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", tier, 最小防御(), 最大防御(), 力量());
+			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(), tier, 最小防御(), 最大防御());
 			
 			if (Dungeon.hero() && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
 			}
 		} else {
-			info += "\n\n" + Messages.get(Armor.class, "avg_absorb", tier, 最小防御(0), 最大防御(0), 力量(0));
+			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(0), tier, 最小防御(0), 最大防御(0));
 
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "probably_too_heavy");
@@ -607,23 +567,18 @@ public class Armor extends EquipableItem {
 		}
 
 		switch (augment) {
-			case EVASION:
-				info += " " + Messages.get(Armor.class, "evasion");
+			case DEFENSE:
+				info += " " + Messages.get(Armor.class, "defense");
 				break;
 			case SPEED:
 				info += " " + Messages.get(Armor.class, "speed");
 				break;
-			case DEFENSE:
-				info += " " + Messages.get(Armor.class, "defense");
+			case EVASION:
+				info += " " + Messages.get(Armor.class, "evasion");
 				break;
 			case NONE:
 		}
-
-		if (isEquipped(Dungeon.hero) && !hasCurseGlyph() && Dungeon.hero.buff(HolyWard.HolyArmBuff.class) != null
-				&& (Dungeon.hero.subClass != HeroSubClass.PALADIN || glyph == null)){
-			info += "\n\n" + Messages.capitalize(Messages.get(Armor.class, "inscribed", Messages.get(HolyWard.class, "glyph_name", Messages.get(Glyph.class, "glyph"))));
-			info += " " + Messages.get(HolyWard.class, "glyph_desc");
-		} else if (glyph != null  && (cursedKnown || !glyph.curse())) {
+		if (glyph != null  && (cursedKnown || !glyph.curse())) {
 			info += "\n\n" +  Messages.capitalize(Messages.get(Armor.class, "inscribed", glyph.name()));
 			if (glyphHardened) info += " " + Messages.get(Armor.class, "glyph_hardened");
 			info += " " + glyph.desc();
@@ -725,7 +680,7 @@ public class Armor extends EquipableItem {
 		if (神力){
 			req -= 2;
 		}
-		req*=1-Dungeon.hero.天赋点数(Talent.强力适应,0.15f);
+		
 		return req;
 	}
 
@@ -787,13 +742,6 @@ public class Armor extends EquipableItem {
 	public boolean hasGlyph(Class<?extends Glyph> type, Char owner) {
 		if (owner.buff(MagicImmune.class) != null) {
 			return false;
-		} else if (glyph != null
-				&& !glyph.curse()
-				&& owner instanceof Hero
-				&& isEquipped((Hero) owner)
-				&& owner.buff(HolyWard.HolyArmBuff.class) != null
-				&& ((Hero) owner).subClass != HeroSubClass.PALADIN){
-			return false;
 		} else if (owner.buff(BodyForm.BodyFormBuff.class) != null
 				&& owner.buff(BodyForm.BodyFormBuff.class).glyph() != null
 				&& owner.buff(BodyForm.BodyFormBuff.class).glyph().getClass().equals(type)){
@@ -818,12 +766,7 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public ItemSprite.Glowing glowing() {
-		if (isEquipped(Dungeon.hero) && !hasCurseGlyph() && Dungeon.hero.buff(HolyWard.HolyArmBuff.class) != null
-				&& (Dungeon.hero.subClass != HeroSubClass.PALADIN || glyph == null)){
-			return HOLY;
-		} else {
 			return glyph != null && (cursedKnown || !glyph.curse()) ? glyph.glowing() : null;
-		}
 	}
 	
 	public static abstract class Glyph implements Bundlable {

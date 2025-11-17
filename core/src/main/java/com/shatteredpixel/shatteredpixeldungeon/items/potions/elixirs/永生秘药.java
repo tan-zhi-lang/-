@@ -48,7 +48,7 @@ public class 永生秘药 extends Elixir {
 		} else {
 			//starts out healing 30 hp, equalizes with hero health total at level 11
 			Healing healing = Buff.施加(ch,Healing.class);
-			healing.setHeal(ch.最大生命, 0, 0);
+			healing.setHeal(ch.最大生命, 1, 0);
 			healing.applyVialEffect();
 			if (ch == Dungeon.hero){
 				GLog.p(Messages.get(治疗药剂.class,"heal"));

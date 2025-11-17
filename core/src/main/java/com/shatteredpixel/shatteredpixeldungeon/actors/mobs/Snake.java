@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -9,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SnakeSprite;
+import com.watabou.noosa.audio.Sample;
 
 public class Snake extends Mob {
 	
@@ -36,9 +38,15 @@ public class Snake extends Mob {
 	}
 
 	private static int dodges = 0;
-
+	
+	@Override
+	public int 攻击时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.蛇叫);
+		return super.攻击时(enemy,damage);
+	}
 	@Override
 	public String defenseVerb() {
+		Sample.INSTANCE.play(Assets.Sounds.蛇叫);
 		if (Dungeon.level.heroFOV[pos]) {
 			dodges++;
 		}

@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
@@ -56,10 +57,20 @@ public class MobSpawner extends Actor {
 			// Sewers
 			case 1: default:
 				//3x rat, 1x snake
+				if(Dungeon.hero.heroClass(HeroClass.鼠弟)){
+					return new ArrayList<>(Arrays.asList(
+							Albino.class, Snake.class, Snake.class,
+							Snake.class));
+				}
 				return new ArrayList<>(Arrays.asList(
 						Rat.class, Rat.class, Rat.class,
 						Snake.class));
 			case 2:
+				if(Dungeon.hero.heroClass(HeroClass.鼠弟)){
+					return new ArrayList<>(Arrays.asList(Albino.class, Snake.class,
+														 Snake.class,
+														 Gnoll.class, Gnoll.class));
+				}
 				//2x rat, 1x snake, 2x gnoll
 				return new ArrayList<>(Arrays.asList(Rat.class, Rat.class,
 						Snake.class,
@@ -249,6 +260,7 @@ public class MobSpawner extends Actor {
 				else if (cl == Crab.class)          cl = HermitCrab.class;
 				else if (cl == Slime.class)         cl = CausticSlime.class;
 
+				else if (cl == Skeleton.class)         cl = 骷髅战士.class;
 				else if (cl == Thief.class)         cl = Bandit.class;
 				else if (cl == Necromancer.class)   cl = SpectralNecromancer.class;
 

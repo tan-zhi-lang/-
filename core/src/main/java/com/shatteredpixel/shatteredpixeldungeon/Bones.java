@@ -25,15 +25,6 @@ public class Bones {
 	
 	private static final String LEVEL	= "level";
 	private static final String BRANCH	= "branch";
-	private static final String ITEM	= "item";
-	private static final String ITEM2=        "item2";
-	private static final String ITEM3=        "item3";
-	private static final String ITEM4=        "item4";
-	private static final String ITEM5=        "item5";
-	private static final String ITEM6=        "item6";
-	private static final String ITEM7=        "item7";
-	private static final String ITEM8=        "item8";
-	private static final String ITEM9=        "item9";
 	private static final String HERO_CLASS	= "hero_class";
 
 	private static int depth = -1;
@@ -41,17 +32,6 @@ public class Bones {
 
 	private static Item bone;
 	
-	public static int 金币;
-	public static int 能量;
-	public static Item item;
-	public static Item item2;
-	public static Item item3;
-	public static Item item4;
-	public static Item item5;
-	public static Item item6;
-	public static Item item7;
-	public static Item item8;
-	public static Item item9;
 	public static ArrayList<Item> items = new ArrayList<>();
 	private static HeroClass heroClass;
 
@@ -69,8 +49,6 @@ public class Bones {
 			return;
 		}
 		
-		金币=Dungeon.gold;
-		能量=Dungeon.energy;
 		bone = pickItem(Dungeon.hero);
 		
 		heroClass = Dungeon.hero.heroClass;
@@ -78,15 +56,6 @@ public class Bones {
 		Bundle bundle = new Bundle();
 		bundle.put( LEVEL, depth );
 		bundle.put( BRANCH, branch );
-		if (item!=null) bundle.put(ITEM,item);
-		if (item2!=null) bundle.put(ITEM2,item2);
-		if (item3!=null) bundle.put(ITEM3,item3);
-		if (item4!=null) bundle.put(ITEM4,item4);
-		if (item5!=null) bundle.put(ITEM5,item5);
-		if (item6!=null) bundle.put(ITEM6,item6);
-		if (item7!=null) bundle.put(ITEM7,item7);
-		if (item8!=null) bundle.put(ITEM8,item8);
-		if (item9!=null) bundle.put(ITEM9,item9);
 		bundle.put( HERO_CLASS, heroClass );
 
 		try {
@@ -181,15 +150,6 @@ public class Bones {
 				depth = bundle.getInt( LEVEL );
 				branch = bundle.getInt( BRANCH );
 				if (depth > 0) {
-					if (bundle.contains(ITEM)) item= (Item)bundle.get(ITEM);
-					if (bundle.contains(ITEM2)) item2= (Item)bundle.get(ITEM2);
-					if (bundle.contains(ITEM3)) item3= (Item)bundle.get(ITEM3);
-					if (bundle.contains(ITEM4)) item4= (Item)bundle.get(ITEM4);
-					if (bundle.contains(ITEM5)) item5= (Item)bundle.get(ITEM5);
-					if (bundle.contains(ITEM6)) item6= (Item)bundle.get(ITEM6);
-					if (bundle.contains(ITEM7)) item7= (Item)bundle.get(ITEM7);
-					if (bundle.contains(ITEM8)) item8= (Item)bundle.get(ITEM8);
-					if (bundle.contains(ITEM9)) item9= (Item)bundle.get(ITEM9);
 					if (bundle.contains(HERO_CLASS)){
 						heroClass = bundle.getEnum(HERO_CLASS, HeroClass.class);
 					} else {

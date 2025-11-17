@@ -205,43 +205,24 @@ public class 蜕变秘卷 extends ExoticScroll {
 
 				Set<Talent> clsTalentsAtTier = clsTalents.get(tier-1).keySet();
 				boolean replacingIsInSet = false;
-
-				clsTalentsAtTier.remove(Talent.受衅怒火);
-				clsTalentsAtTier.remove(Talent.钢铁意志);
-				clsTalentsAtTier.remove(Talent.纹章升级);
-				clsTalentsAtTier.remove(Talent.纹章荣耀);
-				
-				clsTalentsAtTier.remove(Talent.DESPERATE_POWER);//绝境迫能
-				clsTalentsAtTier.remove(Talent.高级魔杖);
-				
-				clsTalentsAtTier.remove(Talent.HOLY_INTUITION);
-				clsTalentsAtTier.remove(Talent.SEARING_LIGHT);
-				clsTalentsAtTier.remove(Talent.SHIELD_OF_LIGHT);
-				
-				clsTalentsAtTier.remove(Talent.RECALL_INSCRIPTION);
-				clsTalentsAtTier.remove(Talent.SUNRAY);
-				clsTalentsAtTier.remove(Talent.DIVINE_SENSE);
-				clsTalentsAtTier.remove(Talent.BLESS);
-				clsTalentsAtTier.remove(Talent.CLEANSE);
-				clsTalentsAtTier.remove(Talent.LIGHT_READING);
-				
-				clsTalentsAtTier.remove(Talent.祭鉴巫术);
-				clsTalentsAtTier.remove(Talent.痛命巫术);
-				clsTalentsAtTier.remove(Talent.死血巫术);
-
-				clsTalentsAtTier.remove(Talent.血历巫术);
-				clsTalentsAtTier.remove(Talent.血爆巫术);
-				clsTalentsAtTier.remove(Talent.饮血巫术);
-				clsTalentsAtTier.remove(Talent.换血巫术);
-
-				clsTalentsAtTier.remove(Talent.顶福精华);
-				clsTalentsAtTier.remove(Talent.强能处消);
-				
-				clsTalentsAtTier.remove(Talent.冰门高攻);
-				
-				clsTalentsAtTier.remove(Talent.净除道术);
 				
 				clsTalentsAtTier.remove(Talent.任督二脉);
+				
+				clsTalentsAtTier.remove(Talent.纹章荣耀);
+				clsTalentsAtTier.remove(Talent.力大无穷);
+				
+				clsTalentsAtTier.remove(Talent.高级魔杖);
+				
+				clsTalentsAtTier.remove(Talent.LIGHT_CLOAK);
+				
+				clsTalentsAtTier.remove(Talent.日耀射线);
+				clsTalentsAtTier.remove(Talent.神圣感知);
+				clsTalentsAtTier.remove(Talent.BLESS);
+				
+				clsTalentsAtTier.remove(Talent.CLEANSE);
+				clsTalentsAtTier.remove(Talent.LIGHT_READING);
+				clsTalentsAtTier.remove(Talent.血爆巫术);
+				
 
 				for (Talent talent : clsTalentsAtTier.toArray(new Talent[0])){
 					if (talent == replacing){

@@ -462,7 +462,7 @@ public class Potion extends Item {
 		
 		public static HashMap<Class<?extends Plant.Seed>, Class<?extends Potion>> types = new HashMap<>();
 		static {
-			types.put(Blindweed.Seed.class,     PotionOfInvisibility.class);
+			types.put(Blindweed.Seed.class,     隐形药剂.class);
 			types.put(Mageroyal.Seed.class,     净化药剂.class);
 			types.put(Earthroot.Seed.class,     PotionOfParalyticGas.class);
 			types.put(Fadeleaf.Seed.class,      PotionOfMindVision.class);

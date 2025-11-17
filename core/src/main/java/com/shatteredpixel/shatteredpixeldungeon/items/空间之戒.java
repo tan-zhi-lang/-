@@ -30,6 +30,7 @@ public class 空间之戒 extends Item {
 	
 	{
 		image = 物品表.空间之戒;
+		特别 = true;
 		物品 = true;
 		
 		defaultAction = AC_使用;
@@ -582,7 +583,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return !(item instanceof 空间之戒||item instanceof Bag);
 							}
 							
 							@Override

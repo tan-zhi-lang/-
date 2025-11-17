@@ -90,7 +90,11 @@ public class DM300 extends Mob {
 	public int 最大防御() {
 		return super.最大防御()+10;
 	}
-
+	@Override
+	public int 防御时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.金属受伤);
+		return super.防御时(enemy,damage);
+	}
 	public int pylonsActivated = 0;
 	public boolean supercharged = false;
 	public boolean chargeAnnounced = false;

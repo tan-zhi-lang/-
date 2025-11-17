@@ -2,19 +2,19 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BruteSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 public class Brute extends Mob {
@@ -47,7 +47,11 @@ public class Brute extends Mob {
 				40 :
 				25;
 	}
-	
+	@Override
+	public int 攻击时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.狗叫);
+		return super.攻击时(enemy,damage);
+	}
 	@Override
 	public int 最大命中(Char target ) {
 		return 20;
@@ -81,7 +85,6 @@ public class Brute extends Mob {
 	
 	protected void triggerEnrage(){
 		Buff.施加(this, BruteRage.class).设置(最大生命 /2 + 4);
-		sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(最大生命 /2 + 4), FloatingText.SHIELDING );
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
 		}

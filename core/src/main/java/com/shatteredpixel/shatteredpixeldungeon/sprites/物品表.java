@@ -9,7 +9,7 @@ public class 物品表 {
 
     public static final int SIZE = 16;
     private static final int TX_WIDTH = 512;
-    private static final int TX_HEIGHT = 608;
+    private static final int TX_HEIGHT = 512;
     
     private static final int WIDTH = TX_WIDTH / SIZE;
     
@@ -99,7 +99,7 @@ public class 物品表 {
 
     static {
         assignItemRect(GOLD, 15, 13);
-        assignItemRect(ENERGY, 16);
+        assignItemRect(ENERGY);
 
         assignItemRect(DEWDROP, 10);
         assignItemRect(PETAL, 8, 8);
@@ -154,6 +154,8 @@ public class 物品表 {
     public static final int AMULET = MISC_CONSUMABLE + 13;
     public static final int MASTERY = MISC_CONSUMABLE + 14;
     public static final int KIT = MISC_CONSUMABLE + 15;
+    public static final int 生命水晶 = MISC_CONSUMABLE + 16;
+    public static final int 生命果 = MISC_CONSUMABLE + 17;
 
 
     static {
@@ -175,6 +177,8 @@ public class 物品表 {
         assignItemRect(AMULET);
         assignItemRect(MASTERY, 13, 16);
         assignItemRect(KIT, 16, 15);
+        assignItemRect(生命水晶);
+        assignItemRect(生命果, 14, 13);
     }
     //endregion
 
@@ -238,178 +242,227 @@ public class 物品表 {
         assignItemRect(SHRAPNEL_BOMB, 10, 13);
     }
     //endregion
-
-
-    //region 近战武器
-    public static final int WORN_SHORTSWORD = xy(1, 7);   //8 slots
-    public static final int DAGGER = WORN_SHORTSWORD + 1;
-    public static final int GLOVES = WORN_SHORTSWORD + 2;
-    public static final int RAPIER = WORN_SHORTSWORD + 3;
-    public static final int CUDGEL = WORN_SHORTSWORD + 4;
-    public static final int 镜刃 = WORN_SHORTSWORD + 5;
-    public static final int 铜钱剑 = WORN_SHORTSWORD + 6;
-    public static final int 白带 = WORN_SHORTSWORD + 7;
-    public static final int 矛盾 = WORN_SHORTSWORD + 8;
-    public static final int 臂铠 = WORN_SHORTSWORD + 9;
-    public static final int 碧蓝巨剑 = WORN_SHORTSWORD + 10;
-    public static final int 灵鞭 = WORN_SHORTSWORD + 11;
-    public static final int 血姬 = WORN_SHORTSWORD + 12;
-    public static final int 书包 = WORN_SHORTSWORD + 13;
-    public static final int 吸血刀=WORN_SHORTSWORD+14;
-
+    
+    
+    public static final int 英雄初始 = xy(1, 7);
+    public static final int WORN_SHORTSWORD = 英雄初始 ;
+    public static final int 法师魔杖 = 英雄初始 + 1;
+    public static final int 小匕 = 英雄初始 + 2;
+    public static final int 灵能短弓 = 英雄初始 + 3;
+    public static final int RAPIER = 英雄初始 + 4;
+    public static final int CUDGEL = 英雄初始 + 5;
+    public static final int 血砍刀 = 英雄初始 + 6;
+    public static final int 灵月法杖 = 英雄初始 + 7;
+    public static final int 冰门重盾 = 英雄初始 + 8;
+    public static final int 镜刃 = 英雄初始 + 9;
+    public static final int 铜钱剑 = 英雄初始 + 10;
+    public static final int 白带 = 英雄初始 + 11;
+    public static final int 矛盾 = 英雄初始 + 12;
+    public static final int 臂铠 = 英雄初始 + 13;
+    public static final int 修理扳手 = 英雄初始 + 14;
+    public static final int 金玫苦无 = 英雄初始 + 15;
+    public static final int 碧蓝巨剑 = 英雄初始 + 16;
+    public static final int 灵鞭 = 英雄初始 + 17;
+    public static final int 血姬= 英雄初始 + 18;
+    public static final int 书包 = 英雄初始 + 19;
+    public static final int 十字弩 = 英雄初始 + 20;
+    public static final int 吸血刀 = 英雄初始 + 21;
+    public static final int 手枪 = 英雄初始 + 22;
     static {
+        
+        
         assignItemRect(WORN_SHORTSWORD, 13);
-        assignItemRect(DAGGER);
-        assignItemRect(GLOVES, 16);
+        assignItemRect(法师魔杖,16);
+        assignItemRect(小匕, 12,13);
+        assignItemRect(灵能短弓, 16);
         assignItemRect(RAPIER, 16);
         assignItemRect(CUDGEL, 15);
+        assignItemRect(血砍刀, 16);
+        assignItemRect(灵月法杖, 16);
+        assignItemRect(冰门重盾, 15, 16);
         assignItemRect(镜刃, 15, 16);
         assignItemRect(铜钱剑, 15);
         assignItemRect(白带, 15,16);
-
         assignItemRect(矛盾, 16);
         assignItemRect(臂铠, 16);
-
+        assignItemRect(修理扳手,16);
+        assignItemRect(金玫苦无, 15, 16);
         assignItemRect(碧蓝巨剑, 16);
         assignItemRect(灵鞭, 14);
         assignItemRect(血姬, 14);
-        assignItemRect(灵鞭, 15,14);
         assignItemRect(书包, 14,16);
+        assignItemRect(十字弩,15);
         assignItemRect(吸血刀,11);
-
+        assignItemRect(手枪, 13, 7);
     }
-
-
-    private static final int WEP_TIER2 = xy(1, 8);   //8 slots
-    public static final int SHORTSWORD = WEP_TIER2 + 0;
-    public static final int HAND_AXE = WEP_TIER2 + 1;
-    public static final int SPEAR = WEP_TIER2 + 2;
-    public static final int QUARTERSTAFF = WEP_TIER2 + 3;
-    public static final int DIRK = WEP_TIER2 + 4;
-    public static final int SICKLE = WEP_TIER2 + 5;
-    public static final int 爪 = WEP_TIER2 + 6;
+    //region 近战武器
+    public static final int WEP_TIER1 = xy(1, 8);   //8 slots
+    public static final int DAGGER = WEP_TIER1;
+    public static final int GLOVES = WEP_TIER1 + 1;
+    public static final int HAND_AXE = WEP_TIER1 + 2;
+    public static final int SPEAR = WEP_TIER1 + 3;
+    public static final int QUARTERSTAFF = WEP_TIER1 + 4;
+    public static final int SICKLE = WEP_TIER1 + 5;
+    public static final int ROUND_SHIELD = WEP_TIER1 + 6;
+    public static final int THROWING_SPIKE = WEP_TIER1 + 7;
+    public static final int THROWING_STONE = WEP_TIER1 + 9;
 
     static {
-        assignItemRect(SHORTSWORD, 13);
+        
+        assignItemRect(DAGGER,16);
+        assignItemRect(GLOVES, 16);
         assignItemRect(HAND_AXE, 12, 14);
         assignItemRect(SPEAR);
         assignItemRect(QUARTERSTAFF);
-        assignItemRect(DIRK, 13, 14);
         assignItemRect(SICKLE, 15);
-        assignItemRect(爪, 16);
+        assignItemRect(ROUND_SHIELD);
+        
+        assignItemRect(THROWING_SPIKE, 11, 10);
+        assignItemRect(THROWING_STONE, 12, 10);
+
     }
 
-    private static final int WEP_TIER3 = xy(1, 9);   //8 slots
-    public static final int SWORD = WEP_TIER3 + 0;
-    public static final int MACE = WEP_TIER3 + 1;
-    public static final int SCIMITAR = WEP_TIER3 + 2;
-    public static final int ROUND_SHIELD = WEP_TIER3 + 3;
-    public static final int SAI = WEP_TIER3 + 4;
-    public static final int WHIP = WEP_TIER3 + 5;
-    public static final int 半月刃 = WEP_TIER3 + 6;
+
+    private static final int WEP_TIER2 = xy(1, 9);   //8 slots
+    public static final int SWORD = WEP_TIER2 ;
+    public static final int DIRK = WEP_TIER2 + 1;
+    public static final int MACE = WEP_TIER2 +2;
+    public static final int SCIMITAR = WEP_TIER2 +3;
+    public static final int WHIP = WEP_TIER2 +4;
+    public static final int 爪 = WEP_TIER2 + 5;
+    public static final int KATANA = WEP_TIER2 + 6;
+    public static final int SHURIKEN = WEP_TIER2 + 7;
+    public static final int BOOMERANG = WEP_TIER2 + 8;
 
     static {
         assignItemRect(SWORD, 14);
+        assignItemRect(DIRK, 13, 14);
         assignItemRect(MACE, 15);
         assignItemRect(SCIMITAR, 13, 16);
-        assignItemRect(ROUND_SHIELD);
-        assignItemRect(SAI);
         assignItemRect(WHIP, 14);
-        assignItemRect(半月刃, 15);
+        assignItemRect(爪, 16);
+        assignItemRect(KATANA, 15, 16);
+        
+        assignItemRect(SHURIKEN, 12);
+        assignItemRect(BOOMERANG, 14);
     }
 
-    private static final int WEP_TIER4 = xy(1, 10);   //8 slots
-    public static final int LONGSWORD = WEP_TIER4 + 0;
-    public static final int BATTLE_AXE = WEP_TIER4 + 1;
-    public static final int FLAIL = WEP_TIER4 + 2;
-    public static final int RUNIC_BLADE = WEP_TIER4 + 3;
-    public static final int ASSASSINS_BLADE = WEP_TIER4 + 4;
-    public static final int 轮刃=WEP_TIER4+5;
-    public static final int KATANA = WEP_TIER4 + 6;
+    private static final int WEP_TIER3 = xy(1, 10);   //8 slots
+    public static final int LONGSWORD = WEP_TIER3 ;
+    public static final int BATTLE_AXE = WEP_TIER3 +1;
+    public static final int FLAIL = WEP_TIER3 +2;
+    public static final int GREATSHIELD = WEP_TIER3 + 3;
+    public static final int SAI = WEP_TIER3 + 4;
+    public static final int 半月刃 = WEP_TIER3 + 5;
+    public static final int 破甲锥 = WEP_TIER3 + 6;
+    public static final int BOLAS = WEP_TIER3 + 7;
+    public static final int KUNAI = WEP_TIER3 + 8;
 
     static {
         assignItemRect(LONGSWORD, 15);
         assignItemRect(BATTLE_AXE);
         assignItemRect(FLAIL, 14);
-        assignItemRect(RUNIC_BLADE, 14);
-        assignItemRect(ASSASSINS_BLADE, 14, 15);
-        assignItemRect(轮刃,16);
-        assignItemRect(KATANA, 15, 16);
+        assignItemRect(GREATSHIELD, 12, 16);
+        assignItemRect(SAI);
+        assignItemRect(半月刃, 15);
+        assignItemRect(破甲锥);
+        
+        assignItemRect(BOLAS, 15, 14);
+        assignItemRect(KUNAI, 15);
     }
 
-    private static final int WEP_TIER5 = xy(1, 11);   //8 slots
-    public static final int GREATSWORD = WEP_TIER5 + 0;
-    public static final int WAR_HAMMER = WEP_TIER5 + 1;
-    public static final int GLAIVE = WEP_TIER5 + 2;
-    public static final int 巨斧 = WEP_TIER5 + 3;
-    public static final int GREATSHIELD = WEP_TIER5 + 4;
-    public static final int GAUNTLETS = WEP_TIER5 + 5;
-    public static final int WAR_SCYTHE = WEP_TIER5 + 6;
+    private static final int WEP_TIER4 = xy(1, 11);   //8 slots
+    public static final int GREATSWORD = WEP_TIER4 ;
+    public static final int WAR_HAMMER = WEP_TIER4+1;
+    public static final int TRIDENT = WEP_TIER4+2;
+    public static final int 巨斧 = WEP_TIER4+3;
+    public static final int GAUNTLETS = WEP_TIER4 + 4;
+    public static final int 轮刃=WEP_TIER4+5;
+    public static final int WAR_SCYTHE = WEP_TIER4 + 6;
+    public static final int FORCE_CUBE = WEP_TIER4 + 7;
+    public static final int 寒冰鱼剑 = WEP_TIER4 + 8;
 
     static {
         assignItemRect(GREATSWORD);
+        
         assignItemRect(WAR_HAMMER);
-        assignItemRect(GLAIVE);
+        assignItemRect(TRIDENT);
         assignItemRect(巨斧, 12, 16);
-        assignItemRect(GREATSHIELD, 12, 16);
         assignItemRect(GAUNTLETS, 16, 15);
+        
+        assignItemRect(轮刃);
         assignItemRect(WAR_SCYTHE, 14, 16);
-    }
-    //endregion
-
-    //region 特殊和传说武器
-    private static final int x = xy(1, 12);
-    public static final int 法师魔杖 = x;
-    public static final int 灵能短弓 = x + 1;
-    public static final int 血砍刀 = x + 2;
-    public static final int 灵月法杖 = x + 3;
-    public static final int 冰门重盾 = x + 4;
-    public static final int 修理扳手=x+5;
-    public static final int 金玫苦无 = x + 6;
-    public static final int 十字弩=x+7;
-    public static final int 手枪 = x + 8;
-
-    static {
-
-        assignItemRect(法师魔杖);
-        assignItemRect(灵能短弓, 16);
-
-        assignItemRect(血砍刀, 16);
-        assignItemRect(灵月法杖, 16);
-
-        assignItemRect(冰门重盾, 15, 16);
-
-        assignItemRect(修理扳手,16);
-        assignItemRect(金玫苦无, 15, 16);
-        assignItemRect(十字弩,15);
-
-        assignItemRect(手枪, 13, 7);
+        
+        assignItemRect(FORCE_CUBE,11,12);
+        assignItemRect(寒冰鱼剑);
     }
 
-    public static final int 英雄断剑 = xy(1, 13);  //16 slots
-    public static final int 草剃 = 英雄断剑+1;
-    public static final int 死神镰刀 = 英雄断剑+2;
-    public static final int 碎缘剑 = 英雄断剑+3;
-    public static final int 臻冰刃 = 英雄断剑+4;
-    public static final int 神农锄 = 英雄断剑+5;
-    public static final int 黄金雷鞭 = 英雄断剑+6;
-    public static final int 黄金冰镖 = 英雄断剑+7;
-    public static final int 黄金地镰 = 英雄断剑+8;
-    public static final int 黄金火剑 = 英雄断剑+9;
-    public static final int 流火 = 英雄断剑+10;
+    private static final int WEP_TIER5 = xy(1, 12);   //8 slots
+    public static final int 英雄断剑 = WEP_TIER5 ;
+    public static final int RUNIC_BLADE = WEP_TIER5 + 1;
+    public static final int ASSASSINS_BLADE = WEP_TIER5 + 2;
+    public static final int GLAIVE = WEP_TIER5 + 3;
+    public static final int 金纹拐 = WEP_TIER5 + 4;
+    public static final int 草剃 = WEP_TIER5 + 5;
+    public static final int 碎缘剑 = WEP_TIER5 + 6;
+    public static final int 臻冰刃 = WEP_TIER5 + 7;
+    public static final int 锈右斧 = WEP_TIER5 + 8;
+    public static final int 无尽之刃 = WEP_TIER5 + 9;
+    public static final int 饮血之剑 = WEP_TIER5 + 10;
+    public static final int 死神镰刀 = WEP_TIER5 + 11;
+    public static final int 神农锄 = WEP_TIER5 + 12;
+    public static final int 日炎链刃 = WEP_TIER5 + 13;
+    public static final int 流火 = WEP_TIER5 + 14;
+    public static final int 蜜剑 = WEP_TIER5 + 15;
+
     static {
         assignItemRect(英雄断剑, 12, 13);
+        assignItemRect(RUNIC_BLADE, 14);
+        assignItemRect(ASSASSINS_BLADE, 14, 15);
+        assignItemRect(GLAIVE);
+        
+        assignItemRect(金纹拐);
         assignItemRect(草剃, 15, 16);
-        assignItemRect(死神镰刀, 16);
         assignItemRect(碎缘剑, 15, 16);
         assignItemRect(臻冰刃, 15, 16);
-        assignItemRect(神农锄, 14, 16);
-        assignItemRect(黄金雷鞭, 15, 16);
-        assignItemRect(黄金冰镖, 16);
-        assignItemRect(黄金地镰, 15, 16);
-        assignItemRect(黄金火剑, 15, 16);
-        assignItemRect(流火, 16);
-
+        assignItemRect(锈右斧, 16, 14);
+        assignItemRect(无尽之刃);
+        assignItemRect(饮血之剑);
+        assignItemRect(死神镰刀);
+        assignItemRect(神农锄,14,16);
+        assignItemRect(日炎链刃);
+        assignItemRect(流火);
+        assignItemRect(蜜剑);
+        
+//        assignItemRect(死神镰刀, 16);
+//        assignItemRect(神农锄, 14, 16);
+//        assignItemRect(黄金雷鞭, 15, 16);
+//        assignItemRect(黄金冰镖, 16);
+//        assignItemRect(黄金地镰, 15, 16);
+//        assignItemRect(黄金火剑, 15, 16);
+//        assignItemRect(流火, 16);
+    }
+    //endregion
+    
+    //region 飞镖
+    public static final int DARTS = xy(1, 13);  //16 slots
+    public static final int DART = DARTS ;
+    public static final int ROT_DART = DARTS + 1;
+    public static final int INCENDIARY_DART = DARTS + 2;
+    public static final int ADRENALINE_DART = DARTS + 3;
+    public static final int HEALING_DART = DARTS + 4;
+    public static final int CHILLING_DART = DARTS + 5;
+    public static final int SHOCKING_DART = DARTS + 6;
+    public static final int POISON_DART = DARTS + 7;
+    public static final int CLEANSING_DART = DARTS + 8;
+    public static final int PARALYTIC_DART = DARTS + 9;
+    public static final int HOLY_DART = DARTS + 10;
+    public static final int DISPLACING_DART = DARTS + 11;
+    public static final int BLINDING_DART = DARTS + 12;
+    
+    static {
+        for (int i = DARTS; i < DARTS + 16; i++)
+            assignItemRect(i, 15);
     }
     //endregion
 
@@ -573,10 +626,12 @@ public class 物品表 {
     public static final int 虫箭 = xy(1, 18);
     public static final int 虫箭2 = 虫箭+1;
     public static final int 虫箭3 = 虫箭+2;
+    public static final int 心之钢 = 虫箭+3;
     static {
         assignItemRect(虫箭,16);
         assignItemRect(虫箭2,16);
         assignItemRect(虫箭3,16);
+        assignItemRect(心之钢,16,15);
     }
     private static final int TRINKETS = xy(1, 19);  //24 slots
     public static final int RAT_SKULL = TRINKETS + 0;
@@ -819,6 +874,7 @@ public class 物品表 {
     public static final int 地牢浆果 = FOOD + 10;
     public static final int PHANTOM_MEAT = FOOD + 11;
     public static final int SUPPLY_RATION = FOOD + 12;
+    public static final int 蜂蜜 = FOOD + 13;
 
     static {
         assignItemRect(MEAT, 15, 11);
@@ -834,6 +890,7 @@ public class 物品表 {
         assignItemRect(地牢浆果, 9, 11);
         assignItemRect(PHANTOM_MEAT, 15, 11);
         assignItemRect(SUPPLY_RATION, 16, 12);
+        assignItemRect(蜂蜜, 16, 10);
     }
 
     private static final int HOLIDAY_FOOD = xy(1, 29);  //16 slots
@@ -937,95 +994,6 @@ public class 物品表 {
     }
     //endregion
 
-    //region 投掷
-    public static final int THROWING_SPIKE = xy(1, 33);//1
-    public static final int THROWING_KNIFE = THROWING_SPIKE + 1;
-    public static final int THROWING_STONE = THROWING_SPIKE + 2;
-    public static final int 千年雪=THROWING_SPIKE+3;
-
-
-    static {
-        assignItemRect(THROWING_SPIKE, 11, 10);
-        assignItemRect(THROWING_KNIFE, 11);
-        assignItemRect(THROWING_STONE, 12, 10);
-        assignItemRect(千年雪,7,7);
-    }
-
-    public static final int FISHING_SPEAR = xy(1, 34);//2
-    public static final int SHURIKEN = FISHING_SPEAR + 1;
-    public static final int THROWING_CLUB = FISHING_SPEAR + 2;
-    public static final int 投骨 = FISHING_SPEAR + 3;
-
-    static {
-        assignItemRect(FISHING_SPEAR, 11);
-        assignItemRect(SHURIKEN, 12);
-        assignItemRect(THROWING_CLUB, 12);
-        assignItemRect(投骨, 10);
-    }
-
-    public static final int THROWING_SPEAR = xy(1, 35);//3
-    public static final int BOLAS = THROWING_SPEAR + 1;
-    public static final int KUNAI = THROWING_SPEAR + 2;
-    public static final int 回旋镖 = THROWING_SPEAR + 3;
-
-    static {
-
-        assignItemRect(THROWING_SPEAR, 13);
-
-        assignItemRect(BOLAS, 15, 14);
-
-        assignItemRect(KUNAI, 15);
-        assignItemRect(回旋镖, 9,16);
-    }
-
-    public static final int JAVELIN = xy(1, 36);//4
-    public static final int TOMAHAWK = JAVELIN + 1;
-    public static final int BOOMERANG = JAVELIN + 2;
-    public static final int 毒性飞刀 = JAVELIN + 3;
-
-    static {
-        assignItemRect(JAVELIN);
-
-        assignItemRect(TOMAHAWK, 13);
-
-        assignItemRect(BOOMERANG, 14);
-        assignItemRect(毒性飞刀, 7,14);
-    }
-
-    public static final int TRIDENT = xy(1, 37);//5
-    public static final int THROWING_HAMMER = TRIDENT + 1;
-    public static final int FORCE_CUBE = TRIDENT + 2;
-    public static final int 星刺=TRIDENT+3;
-
-    static {
-        assignItemRect(TRIDENT);
-        assignItemRect(THROWING_HAMMER, 12);
-        assignItemRect(FORCE_CUBE, 11, 12);
-        assignItemRect(星刺,11);
-    }
-    //endregion
-
-    //region 飞镖
-    public static final int DARTS = xy(1, 38);  //16 slots
-    public static final int DART = DARTS + 0;
-    public static final int ROT_DART = DARTS + 1;
-    public static final int INCENDIARY_DART = DARTS + 2;
-    public static final int ADRENALINE_DART = DARTS + 3;
-    public static final int HEALING_DART = DARTS + 4;
-    public static final int CHILLING_DART = DARTS + 5;
-    public static final int SHOCKING_DART = DARTS + 6;
-    public static final int POISON_DART = DARTS + 7;
-    public static final int CLEANSING_DART = DARTS + 8;
-    public static final int PARALYTIC_DART = DARTS + 9;
-    public static final int HOLY_DART = DARTS + 10;
-    public static final int DISPLACING_DART = DARTS + 11;
-    public static final int BLINDING_DART = DARTS + 12;
-
-    static {
-        for (int i = DARTS; i < DARTS + 16; i++)
-            assignItemRect(i, 15);
-    }
-    //endregion
 
     //region 8x8 Icon
     public static class Icons {
@@ -1202,15 +1170,13 @@ public class 物品表 {
             assignIconRect(POTION_DIVINE, 7);
         }
         public static final int 六神之戒 = xy(1, 9);  //16 slots
-        public static final int 心力之戒 = 六神之戒 + 1;
-        public static final int 全知之戒 = 六神之戒 + 2;
-        public static final int 时间之戒 = 六神之戒 + 3;
+        public static final int 魔攻之戒=六神之戒+1;
+        public static final int 装甲之戒=六神之戒+2;
 
         static {
             assignIconRect(六神之戒, 7);
-            assignIconRect(心力之戒, 7,6);
-            assignIconRect(全知之戒, 7,5);
-            assignIconRect(时间之戒, 5);
+            assignIconRect(魔攻之戒,8,7);
+            assignIconRect(装甲之戒,8);
         }
 
         //16 free slots

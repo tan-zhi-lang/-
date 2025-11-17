@@ -36,9 +36,9 @@ public class Sunray extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = Dungeon.hero.天赋生命力(Talent.SUNRAY,0.4f);
-		int max = Dungeon.hero.天赋生命力(Talent.SUNRAY,0.6f);
-		int dur = Dungeon.hero.天赋点数(Talent.SUNRAY,2);
+		int min = Dungeon.hero.天赋点数(Talent.日耀射线,4);
+		int max = Dungeon.hero.天赋点数(Talent.日耀射线,8);
+		int dur = Dungeon.hero.天赋点数(Talent.日耀射线);
 		return Messages.get(this, "desc", min, max, dur) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -73,21 +73,21 @@ public class Sunray extends TargetedClericSpell {
 			ch.sprite.burst(0xFFFFFF44, 5);
 
 			if (Char.hasProp(ch, Char.Property.UNDEAD) || Char.hasProp(ch, Char.Property.DEMONIC)){
-				ch.受伤时(hero.天赋生命力(Talent.SUNRAY,0.6f), Sunray.this);
+				ch.受伤时(hero.天赋点数(Talent.日耀射线,8),Sunray.this);
 			} else {
 					ch.受伤时(Random.NormalIntRange(
-							hero.天赋生命力(Talent.SUNRAY,0.4f),
-							hero.天赋生命力(Talent.SUNRAY,0.6f)
+							hero.天赋点数(Talent.日耀射线,4),
+							hero.天赋点数(Talent.日耀射线,8)
 							), Sunray.this);
 			}
 
 			if (ch.isAlive()) {
 				if (ch.buff(Blindness.class) != null && ch.buff(SunRayRecentlyBlindedTracker.class) != null) {
-					Buff.延长(ch, Paralysis.class, hero.天赋点数(Talent.SUNRAY,2));
+					Buff.延长(ch, Paralysis.class, hero.天赋点数(Talent.日耀射线));
 					ch.buff(SunRayRecentlyBlindedTracker.class).detach();
 				} else if (ch.buff(SunRayUsedTracker.class) == null) {
-					Buff.延长(ch, Blindness.class, hero.天赋点数(Talent.SUNRAY,2));
-					Buff.延长(ch, SunRayRecentlyBlindedTracker.class, hero.天赋点数(Talent.SUNRAY,2));
+					Buff.延长(ch, Blindness.class, hero.天赋点数(Talent.日耀射线));
+					Buff.延长(ch, SunRayRecentlyBlindedTracker.class, hero.天赋点数(Talent.日耀射线));
 					Buff.施加(ch, SunRayUsedTracker.class);
 				}
 				if (hero.subClass == HeroSubClass.PRIEST){

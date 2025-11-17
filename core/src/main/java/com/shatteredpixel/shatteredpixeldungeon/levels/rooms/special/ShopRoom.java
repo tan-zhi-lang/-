@@ -32,12 +32,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
@@ -212,12 +213,10 @@ public class ShopRoom extends SpecialRoom {
 		ArrayList<Item> itemsToSpawn = new ArrayList<>();
 
 		Weapon w;
-		Weapon w2;
 		Armor a;
 		switch (Dungeon.depth) {
 		case 1: default:
 			w = (Weapon) Generator.random(Generator.wepTiers[0]);
-			w2 = (Weapon) Generator.random(Generator.wepTiers[0]);
 			a=new ClothArmor();
 			if(Dungeon.hero()&&!Dungeon.hero.heroClass(HeroClass.WARRIOR)) {
 				itemsToSpawn.add(new 水袋());
@@ -225,32 +224,28 @@ public class ShopRoom extends SpecialRoom {
 			break;
 		case 6:
 			w = (Weapon) Generator.random(Generator.wepTiers[1]);
-			w2 = (Weapon) Generator.random(Generator.wepTiers[1]);
 			a=new LeatherArmor();
 			break;
 			
 		case 11:
 			w = (Weapon) Generator.random(Generator.wepTiers[2]);
-			w2 = (Weapon) Generator.random(Generator.wepTiers[2]);
 			a=new MailArmor();
 			break;
 			
 		case 16:
 			w = (Weapon) Generator.random(Generator.wepTiers[3]);
-			w2 = (Weapon) Generator.random(Generator.wepTiers[3]);
 			a=new ScaleArmor();
 			break;
 
 		case 20: case 21:
 			w = (Weapon) Generator.random(Generator.wepTiers[4]);
-			w2 = (Weapon) Generator.random(Generator.wepTiers[4]);
 			a = new PlateArmor();
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
 			itemsToSpawn.add( new Torch() );
 			break;
 		}
-		int n = 1;
+		int n = 0;
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (Random.Int(1) == 0){
 				n++;
@@ -275,7 +270,7 @@ public class ShopRoom extends SpecialRoom {
 				}
 			}
 		}
-		int n2 = 1;
+		int n2 = 0;
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (Random.Int(1) == 0){
 				n2++;
@@ -300,24 +295,42 @@ public class ShopRoom extends SpecialRoom {
 				}
 			}
 		}
+		int n3 = 0;
+		if(Dungeon.解压(解压设置.持之以恒)){
+			if (Random.Int(1) == 0){
+				n3++;
+				if(Random.Int(2)==0){
+					n3++;
+					if(Random.Int(3)==0){
+						n3++;
+						if(Random.Int(4)==0){
+							n3++;
+							if(Random.Int(5)==0){
+								n3++;
+							}
+						}
+					}
+				}
+			}
+		}else{
+			if(Random.Int(4)==0){
+				n3++;
+				if(Random.Int(5)==0){
+					n3++;
+				}
+			}
+		}
 		w.enchant(null);
 		w.cursed = false;
 		w.等级(n);
 		w.鉴定(true);
 		itemsToSpawn.add(w);
 
-		w2.enchant(null);
-		w2.cursed = false;
-		w2.等级(n);
-		w2.鉴定(true);
-		itemsToSpawn.add(w2);
-
 		a.inscribe(null);
 		a.cursed = false;
-		a.等级(n);
+		a.等级(n3);
 		a.鉴定(true);
 		itemsToSpawn.add( a);
-		itemsToSpawn.add( new 炼金菱晶().数量(Random.IntRange(2,3)*2));
 
 		Bag bag = ChooseBag(Dungeon.hero.belongings);
 		if (bag != null) {
@@ -325,19 +338,16 @@ public class ShopRoom extends SpecialRoom {
 		}
 
 		itemsToSpawn.add( new 治疗药剂() );
+		itemsToSpawn.add( new 治疗药剂() );
 		itemsToSpawn.add( new 净化药剂());
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
+		itemsToSpawn.add( new 隐形药剂());
+		itemsToSpawn.add( new 极速药剂());
 
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.POTION ) );
 
+		itemsToSpawn.add( new 鉴定卷轴() );
 		itemsToSpawn.add( new 鉴定卷轴() );
 		itemsToSpawn.add( new 嬗变卷轴());
 		itemsToSpawn.add( new 祛邪卷轴() );
-
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-		itemsToSpawn.add( Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
 		itemsToSpawn.add( new 探地卷轴() );
 
 //		for (int i=0; i < 2; i++)
@@ -445,8 +455,8 @@ public class ShopRoom extends SpecialRoom {
 
 		//generate a hashmap of all valid bags.
 		HashMap<Bag, Integer> bags = new HashMap<>();
-		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new 绒布袋(), 1);
-		if (!Dungeon.LimitedDrops.杂物袋.dropped()) bags.put(new 杂物袋(), 0);
+		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new 绒布袋(), 3);
+		if (!Dungeon.LimitedDrops.杂物袋.dropped()) bags.put(new 杂物袋(), 2);//优先级
 		if (!Dungeon.LimitedDrops.SCROLL_HOLDER.dropped()) bags.put(new ScrollHolder(), 0);
 		if (!Dungeon.LimitedDrops.POTION_BANDOLIER.dropped()) bags.put(new PotionBandolier(), 0);
 		if (!Dungeon.LimitedDrops.MAGICAL_HOLSTER.dropped()) bags.put(new MagicalHolster(), 0);
@@ -474,10 +484,10 @@ public class ShopRoom extends SpecialRoom {
 
 		if (bestBag instanceof 绒布袋){
 			Dungeon.LimitedDrops.VELVET_POUCH.drop();
-		} else if (bestBag instanceof ScrollHolder) {
-			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
 		}else if (bestBag instanceof 杂物袋){
 			Dungeon.LimitedDrops.杂物袋.drop();
+		} else if (bestBag instanceof ScrollHolder) {
+			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
 		} else if (bestBag instanceof PotionBandolier){
 			Dungeon.LimitedDrops.POTION_BANDOLIER.drop();
 		} else if (bestBag instanceof MagicalHolster){

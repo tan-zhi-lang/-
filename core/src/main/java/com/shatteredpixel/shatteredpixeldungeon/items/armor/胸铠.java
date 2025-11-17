@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -10,6 +11,7 @@ public class 胸铠 extends Armor {
 
 	{
 		image = 物品表.ARMOR_DUELIST;
+		换甲=Assets.Sounds.板甲;
 		嬗变= false;
 		专属=true;
 	}
@@ -17,12 +19,13 @@ public class 胸铠 extends Armor {
 	public 胸铠(){
 		super(1);
 	}
+	@Override
 	public int 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(tier + lvl);
+			return augment.defenseFactor(tier + lvl+tier);
 		}
 		
-		int max = augment.defenseFactor(Math.round(tier * (2 + lvl)*1.5f) );
+		int max = augment.defenseFactor(tier * (2 + lvl)+tier);
 		if (lvl > max){
 			return ((lvl - max)+1)/2;
 		} else {

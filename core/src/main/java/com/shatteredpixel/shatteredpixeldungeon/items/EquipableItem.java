@@ -34,6 +34,11 @@ public abstract class EquipableItem extends Item {
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+		if(isEquipped(hero)&&cursed&&cursedKnown){
+			actions.remove(AC_UNEQUIP);//正装备的诅咒移除扔出和卸下
+			actions.remove(AC_DROP);
+			actions.remove(AC_THROW);
+		}
 		return actions;
 	}
 
@@ -91,7 +96,7 @@ public abstract class EquipableItem extends Item {
 			if(this instanceof Weapon||this instanceof Ring){//戒指和武器不花费卸下时间
 				不花费=true;
 			}
-			if(投掷消失){
+			if(消受投掷){
 				super.cast( user, dst );
 				return;
 			}

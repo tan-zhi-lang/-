@@ -66,7 +66,6 @@ public class Dewdrop extends Item {
 		if (quantity > 1 &&hero.天赋(Talent.SHIELDING_DEW)){
 			int shield = hero.最大生命(hero.天赋点数(Talent.SHIELDING_DEW,0.25f)*quantity);
 			Buff.施加(hero, Barrier.class).增加(shield);
-			hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING );
 		}
 
 		if (heal > 0 ) {
@@ -75,10 +74,7 @@ public class Dewdrop extends Item {
 				healing.setHeal(heal, 0, VialOfBlood.maxHealPerTurn());
 				healing.applyVialEffect();
 			} else {
-				hero.生命 += heal;
-				if (heal > 0){
-					hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
-				}
+				hero.回血(heal);
 			}
 			
 		} else if (!force) {

@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -10,6 +11,7 @@ public class 背心 extends Armor {
 
 	{
 		image = 物品表.背心;
+		换甲=Assets.Sounds.皮甲;
 		嬗变= false;
 		专属=true;
 	}
@@ -26,19 +28,16 @@ public class 背心 extends Armor {
 		if (神力){
 			req -= 2;
 		}
+		
 		return req;
 	}
-	
 	@Override
-	public int 最小防御(int lvl){
-		return super.最小防御(lvl)-augment.defenseFactor(tier + lvl);
-	}
 	public int 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(tier + lvl);
+			return augment.defenseFactor(tier - tier);
 		}
 		
-		int max = augment.defenseFactor(Math.round(tier * (2 + lvl)*1.25f));
+		int max = augment.defenseFactor(tier * (2 + lvl)-tier);
 		if (lvl > max){
 			return ((lvl - max)+1)/2;
 		} else {

@@ -136,7 +136,11 @@ public class GnollGeomancer extends Mob {
 	public int 最大攻击() {
 		return 6;
 	}
-
+	@Override
+	public int 攻击时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.狗叫);
+		return super.攻击时(enemy,damage);
+	}
 	@Override
 	public int 最大命中(Char target ) {
 		return 20;

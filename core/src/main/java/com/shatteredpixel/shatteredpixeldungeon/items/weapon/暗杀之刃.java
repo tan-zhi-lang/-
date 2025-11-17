@@ -14,8 +14,8 @@ public class 暗杀之刃 extends Weapon {
 		
 		伤害= 0.8f;
 		
-		伏击=0.5f;
-		tier = 4;
+		伏击=1f;
+		tier = 5;
 	}
 
 

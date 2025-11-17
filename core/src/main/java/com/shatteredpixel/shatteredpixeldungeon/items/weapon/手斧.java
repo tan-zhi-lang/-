@@ -13,9 +13,10 @@ public class 手斧 extends Weapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 
-		tier = 2;
-		间隔= 1.25f;
-		伤害= 1.25f;
+		tier = 1;
+		间隔=2;
+		伤害=2;
+		流血=0.34f;
 	}
 	
 

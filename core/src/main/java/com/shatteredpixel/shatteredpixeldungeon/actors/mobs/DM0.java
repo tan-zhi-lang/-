@@ -2,10 +2,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
+import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 public class DM0 extends Mob {
 
@@ -18,7 +21,8 @@ public class DM0 extends Mob {
 		state = SLEEPING;
 		flying = true;
 		
-		loot = Generator.random();
+		loot = Random.oneOf(Generator.randomUsingDefaults( Generator.Category.POTION ),
+							Generator.randomUsingDefaults( Generator.Category.SCROLL ));
 	}
 	@Override
 	public int 最大闪避(Char enemy ) {
@@ -31,7 +35,11 @@ public class DM0 extends Mob {
 		}
 		return 6;
 	}
-	
+	@Override
+	public int 防御时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.金属受伤);
+		return super.防御时(enemy,damage);
+	}
 	@Override
 	public Char chooseEnemy() {
 		return null;
@@ -41,7 +49,7 @@ public class DM0 extends Mob {
 	public void 受伤时(int dmg, Object src ) {
 		
 		if(src instanceof Paralysis){
-			dmg=最大生命;
+			dmg=最大生命/3;
 		}else{
 			dmg=0;
 		}

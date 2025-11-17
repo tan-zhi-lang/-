@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
@@ -68,6 +69,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投石;
+import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
@@ -228,26 +230,39 @@ public abstract class Level implements Bundlable {
 		//TODO maybe just make this part of RegularLevel?
 		if (!Dungeon.bossLevel() && Dungeon.branch == 0) {
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
-			
 			if(Dungeon.解压(解压设置.探索口粮))
 				addItemToSpawn(Generator.random(Generator.Category.FOOD));
 			
-			if(Dungeon.区域层(4)) {
+			if(Dungeon.区域层数(4)) {
 				addItemToSpawn(new SmallRation());
 				if(Dungeon.解压(解压设置.探索口粮))
 					addItemToSpawn(new SmallRation());
 			}
-			if (Dungeon.区域层(2)) {
+			if (Dungeon.区域层数(2)) {
 				if(Dungeon.解压(解压设置.宝物空投)){
 					Random.oneOf(Generator.randomWeapon(),Generator.randomArmor(),Generator.randomRing(),Generator.randomArtifact(),Generator.randomWand()).放背包();
 				}
 			}
-			if (Dungeon.区域层(3)) {
-				addItemToSpawn( new 治疗药剂() );
+			if (Dungeon.区域层数(3)) {
+				addItemToSpawn(new 治疗药剂());
 			}
-			if(Dungeon.depth==1){
+			if(Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count==0){
+				addItemToSpawn(new 生命水晶());
+				Dungeon.LimitedDrops.生命水晶.count++;
+			}
+			if(Dungeon.玩法(玩法设置.速通地牢))
+			if (Dungeon.区域层数(1)) {
+				addItemToSpawn( new 来去秘卷());
+				addItemToSpawn( new 来去秘卷());
+				addItemToSpawn( new 升级卷轴());
+				addItemToSpawn( new 升级卷轴());
+				
 				addItemToSpawn( new 经验药剂());
+				addItemToSpawn( new 经验药剂());
+				addItemToSpawn( new PotionOfStrength());
+				addItemToSpawn( new PotionOfStrength());
 			}
+			
 			if(Dungeon.depth==4){
 				addItemToSpawn( new Firebloom.Seed());
 			}
@@ -1208,7 +1223,7 @@ public abstract class Level implements Bundlable {
 			}
 
 			if ( (map[ch.pos] == Terrain.GRASS || map[ch.pos] == Terrain.EMBERS)
-					&& ch == Dungeon.hero && Dungeon.hero.天赋(Talent.REJUVENATING_STEPS)
+					&& ch == Dungeon.hero && false//复春步伐
 					&& ch.buff(Talent.RejuvenatingStepsCooldown.class) == null){
 
 //				if (!再生.regenOn()){
@@ -1217,10 +1232,10 @@ public abstract class Level implements Bundlable {
 //					set(ch.pos, Terrain.FURROWED_GRASS);
 //				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
-					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 20 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,5));
+					Buff.count(ch, Talent.RejuvenatingStepsFurrow.class, 20);
 //				}
 				GameScene.updateMap(ch.pos);
-				Buff.施加(ch, Talent.RejuvenatingStepsCooldown.class, 20 - Dungeon.hero.天赋点数(Talent.REJUVENATING_STEPS,5));
+				Buff.施加(ch, Talent.RejuvenatingStepsCooldown.class, 20);
 			}
 			
 			if (pit[ch.pos]){
@@ -1403,6 +1418,9 @@ public abstract class Level implements Bundlable {
 		
 		boolean sighted = c.buff( Blindness.class ) == null && c.buff( Shadows.class ) == null
 						&& c.isAlive();
+		if(c instanceof Hero){
+			sighted=true;
+		}
 		if (sighted) {
 			boolean[] blocking = null;
 
@@ -1412,7 +1430,7 @@ public abstract class Level implements Bundlable {
 
 			//grass is see-through by some specific entities, but not during the fungi quest
 			if (!(Dungeon.level instanceof  MiningLevel) || Blacksmith.Quest.Type() != Blacksmith.Quest.FUNGI){
-				if ((c instanceof Hero && ((Hero) c).subClass == HeroSubClass.WARDEN)
+				if ((c instanceof Hero && ((Hero) c).subClass == HeroSubClass.守望者)
 						|| c instanceof YogFist.SoiledFist || c instanceof GnollGeomancer) {
 					if (blocking == null) {
 						System.arraycopy(Dungeon.level.losBlocking, 0, modifiableBlocking, 0, modifiableBlocking.length);

@@ -56,7 +56,7 @@ public class ChaliceOfBlood extends Artifact {
 
 			int damage = 3*等级()* 等级();
 
-			if (damage > hero.最大生命(0.9f)) {
+			if (damage > hero.最大生命(0.95f)) {
 
 				GameScene.show(
 					new WndOptions(new ItemSprite(this),
@@ -152,11 +152,9 @@ public class ChaliceOfBlood extends Artifact {
 			heal++;
 		}
 		if (heal >= 1f && target.生命 < target.最大生命) {
-			target.生命 = Math.min(target.最大生命, target.生命 + (int)heal);
-			target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString((int)heal), FloatingText.HEALING);
-
-			if (target.生命 == target.最大生命 && target instanceof Hero) {
-				((Hero) target).resting = false;
+			target.回血(Math.round(heal));
+			if (target.生命 == target.最大生命) {
+				target.resting = false;
 			}
 		}
 	}

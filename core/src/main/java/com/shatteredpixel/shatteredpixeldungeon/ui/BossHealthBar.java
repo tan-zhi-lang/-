@@ -57,11 +57,11 @@ public class BossHealthBar extends Component {
 		width = bar.width;
 		height = bar.height;
 		
-		shieldedHP = new Image(asset, 71, 5, 47, 4);
-		add(shieldedHP);
-
-		hp = new Image(asset, 71, 0, 47, 4);
+		
+		hp = new Image(asset, 15, 19, 47, 4);
 		add(hp);
+		shieldedHP = new Image(asset, 15, 25, 47, 4);
+		add(shieldedHP);
 
 		hpText = new BitmapText(PixelScene.pixelFont);
 		hpText.alpha(0.6f);
@@ -93,7 +93,7 @@ public class BossHealthBar extends Component {
 		}
 
 		
-		skull = new Image(asset, 64, 0, 6, 6);
+		skull = new Image(asset, 5, 18, 6, 6);
 		
 		add(skull);
 
@@ -107,8 +107,8 @@ public class BossHealthBar extends Component {
 
 	@Override
 	protected void layout() {
-		bar.x = x;
-		bar.y = y;
+		bar.x = x-5;
+		bar.y = y+20;
 
 		hp.x = shieldedHP.x = bar.x+15;
 		hp.y = shieldedHP.y  = bar.y+3;
@@ -130,7 +130,9 @@ public class BossHealthBar extends Component {
 		skull.y = bar.y + (paneSize - skull.height())/2f;
 	}
 	int oldhp=0;
+	int oldshield=0;
 	private float HP缓冲=0;
+	private float SHI缓冲=0;
 	float 时间=0;
 	@Override
 	public void update() {
@@ -148,13 +150,17 @@ public class BossHealthBar extends Component {
 			} else {
 
 				int health = boss.生命;
-				if(oldhp==0)
-				oldhp = boss.生命;
 				
 				int shield = boss.shielding();
 				int max = boss.最大生命;
 				
+				if(oldhp==0)
+					oldhp = health;
+				if(oldshield==0)
+					oldshield = shield;
+				
 				HP缓冲=oldhp-health;
+				SHI缓冲=oldshield-shield;
 				if((时间+=Game.elapsed)>=0.33f){
 					if(HP缓冲>0){
 						oldhp-=HP缓冲/1.11f;
@@ -162,10 +168,15 @@ public class BossHealthBar extends Component {
 					if(HP缓冲<0){
 						oldhp-=HP缓冲/1.11f;
 					}
+					if(SHI缓冲>0){
+						oldshield-=SHI缓冲/1.11f;
+					}
+					if(SHI缓冲<0){
+						oldshield-=SHI缓冲/1.11f;
+					}
 				}
 				hp.scale.x = Math.max( 0, oldhp/(float)max);
-				shieldedHP.scale.x = oldhp/(float)max;
-
+				shieldedHP.scale.x = Math.min( 1, oldshield/(float)max);
 				if (bleeding != blood.on){
 					if (bleeding)   skull.tint( 0xcc0000, 0.6f );
 					else            skull.resetColor();

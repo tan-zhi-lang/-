@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
@@ -29,7 +30,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	}
 	
 	private int momentumStacks = 0;
-	private int freerunTurns = 0;
+	public int freerunTurns = 0;
 
 	private boolean movedLastTurn = true;
 
@@ -43,6 +44,9 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	public boolean act() {
 
 		if (!freerunning() && target.invisible > 0 ){
+			if(target instanceof Hero hero&&hero.精通){
+				momentumStacks -=0.5;
+			}
 			momentumStacks = Math.min(momentumStacks + 2, 10);
 			movedLastTurn = true;
 			ActionIndicator.setAction(this);
@@ -83,7 +87,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	}
 	
 	public float speedMultiplier(){
-		float x=Dungeon.hero.天赋点数(Talent.SPEEDY_STEALTH,0.15f);
+		float x=freerunTurns*Dungeon.hero.天赋点数(Talent.SPEEDY_STEALTH,0.15f);
 		if (freerunning()){
 			return 1.5f+x;
 		} else if (target.invisible > 0 ){
@@ -95,7 +99,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	
 	public float evasionBonus(){
 		if (freerunTurns > 0) {
-			return 1+Dungeon.hero.天赋点数(Talent.EVASIVE_ARMOR,0.3f);
+			return 1+freerunTurns*Dungeon.hero.天赋点数(Talent.EVASIVE_ARMOR,0.03f);
 		} else {
 			return 1;
 		}
@@ -119,7 +123,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	@Override
 	public float iconFadePercent() {
 		if (freerunTurns > 0){
-			return (20 - freerunTurns) / 20f;
+			return (10f - freerunTurns) / 10f;
 		}else {
 			return 0;
 		}
@@ -199,7 +203,11 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public void doAction() {
-		freerunTurns = 2*momentumStacks;
+		if(target instanceof Hero hero&&hero.精通){
+			freerunTurns = momentumStacks*2;
+		}else{
+			freerunTurns = momentumStacks;
+		}
 		//cooldown is functionally 10+2*stacks when active effect ends
 		Sample.INSTANCE.play(Assets.Sounds.MISS, 1f, 0.8f);
 		target.sprite.emitter().burst(Speck.factory(Speck.JET), 5+ momentumStacks);

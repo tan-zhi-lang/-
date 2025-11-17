@@ -25,11 +25,12 @@ import java.util.ArrayList;
 public class 矮人国王的皇冠 extends Item {
 	
 	private static final String AC_WEAR = "WEAR";
+	private static final String AC_精通 = "精通";
 	
 	{
 		image = 物品表.CROWN;
 
-		defaultAction = AC_WEAR;
+		defaultAction = AC_精通;
 		
 		特别= true;
 		物品 = true;
@@ -38,7 +39,8 @@ public class 矮人国王的皇冠 extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_WEAR );
+//		actions.add( AC_WEAR );
+		actions.add( AC_精通 );
 		return actions;
 	}
 	
@@ -47,9 +49,13 @@ public class 矮人国王的皇冠 extends Item {
 
 		super.execute( hero, action );
 
+		if (action.equals(AC_精通)) {
+			detach(hero.belongings.backpack);
+			hero.精通=true;
+			GLog.p(Messages.get(this, "精通"));
+		}
 		if (action.equals(AC_WEAR)) {
 
-			curUser = hero;
 			if (hero.belongings.armor() != null){
 				GameScene.show( new WndChooseAbility(this, hero.belongings.armor(), hero));
 			} else {

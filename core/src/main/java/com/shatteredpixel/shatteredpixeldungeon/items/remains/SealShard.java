@@ -20,7 +20,6 @@ public class SealShard extends RemainsItem {
 	@Override
 	protected void doEffect(Hero hero) {
 		Buff.施加(hero, Barrier.class).增加(Math.round(hero.最大生命 /5f));
-		hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(Math.round(hero.最大生命 /5f)), FloatingText.SHIELDING );
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 	}
 

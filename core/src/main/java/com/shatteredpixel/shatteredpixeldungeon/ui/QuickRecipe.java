@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.CausticBrew;
@@ -275,7 +275,7 @@ public class QuickRecipe extends Component {
 						new StewedMeat()));
 				result.add(null);
 				result.add(new QuickRecipe( new PhantomMeat.R(),
-						new ArrayList<Item>(Arrays.asList(new MysteryMeat(), new PotionOfInvisibility())),
+						new ArrayList<Item>(Arrays.asList(new MysteryMeat(), new 隐形药剂())),
 						new PhantomMeat()));
 				result.add(null);
 				result.add(new QuickRecipe( new MeatPie.Recipe(),

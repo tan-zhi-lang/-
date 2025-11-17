@@ -36,7 +36,7 @@ public class RingOfElements extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 17.5f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.##", 17.5f));
 		}
 	}
 

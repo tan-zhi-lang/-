@@ -4,15 +4,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -141,27 +136,8 @@ public class Artifact extends KindofMisc {
 	}
 
 	public static void artifactProc(Char target, int artifLevel, int chargesUsed){
-		if (Dungeon.hero.subClass == HeroSubClass.PRIEST && target.buff(GuidingLight.Illuminated.class) != null) {
-			target.buff(GuidingLight.Illuminated.class).detach();
-			target.受伤时(5+Dungeon.hero.等级, GuidingLight.INSTANCE);
-		}
+	
 
-		if (target.alignment != Char.Alignment.ALLY
-				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.SEARING_LIGHT)
-				&& Dungeon.hero.buff(Talent.SearingLightCooldown.class) == null){
-			Buff.施加(target, GuidingLight.Illuminated.class);
-			Buff.施加(Dungeon.hero, Talent.SearingLightCooldown.class, 20f);
-		}
-
-		if (target.alignment != Char.Alignment.ALLY
-				&& Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.SUNRAY)){
-			// 15/25% chance
-			if (Dungeon.hero.天赋概率(Talent.SUNRAY,15)){
-				Buff.延长(target, Blindness.class, Dungeon.hero.天赋点数(Talent.SUNRAY,2));
-			}
-		}
 	}
 
 	@Override
@@ -271,7 +247,6 @@ public class Artifact extends KindofMisc {
 		public void charge(Hero target, float amount){
 			Artifact.this.charge(target, amount);
 		}
-
 	}
 	
 	private static final String EXP = "exp";

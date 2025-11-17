@@ -24,7 +24,7 @@ public class WondrousResin extends Trinket {
 					Messages.decimalFormat("#.##", 100*positiveCurseEffectChance(强化等级())),
 					Messages.decimalFormat("#.##", 100*extraCurseEffectChance(强化等级())));
 		} else {
-			return Messages.get(this, "typical_stats_desc",
+			return Messages.get(this, "stats_desc",
 					Messages.decimalFormat("#.##", 100*positiveCurseEffectChance(0)),
 					Messages.decimalFormat("#.##", 100*extraCurseEffectChance(0)));
 		}

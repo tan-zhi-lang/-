@@ -13,7 +13,7 @@ public class 弯刀 extends Weapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 
-		tier = 3;
+		tier = 2;
 		命中= 1.25f;
 		伤害= 1.25f;
 	}

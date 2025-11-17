@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -41,7 +40,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (hero.subClass == HeroSubClass.CHAMPION && action.equals(AC_EQUIP)){
+		if (hero.subClass == HeroSubClass.勇士&&action.equals(AC_EQUIP)){
 			usesTargeting = false;
 			String primaryName = Messages.titleCase(hero.belongings.weapon != null ? hero.belongings.weapon.trueName() : Messages.get(KindOfWeapon.class, "empty"));
 			String secondaryName = Messages.titleCase(hero.belongings.secondWep != null ? hero.belongings.secondWep.trueName() : Messages.get(KindOfWeapon.class, "empty"));
@@ -92,35 +91,16 @@ abstract public class KindOfWeapon extends EquipableItem {
 	private static boolean isSwiftEquipping = false;
 
 	protected float timeToEquip( Hero hero ) {
+		
+		if (hero.heroClass(HeroClass.DUELIST)) {
+			return 0;
+		}
 		return isSwiftEquipping ? 0f : super.timeToEquip(hero);
 	}
 	
 	@Override
 	public boolean doEquip( Hero hero ) {
-
-		isSwiftEquipping = false;
-		if (hero.belongings.contains(this) && hero.天赋(Talent.SWIFT_EQUIP)){
-			if (hero.buff(Talent.SwiftEquipCooldown.class) == null
-					|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
-				isSwiftEquipping = true;
-			}
-		}
-
-		// 15/25% chance
-		if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.HOLY_INTUITION)
-				&& cursed && !cursedKnown
-				&& Random.Int(3) < hero.天赋点数(Talent.HOLY_INTUITION)){
-			cursedKnown = true;
-			if(hero.满天赋(Talent.HOLY_INTUITION)){
-				鉴定();
-				祛邪卷轴.祛邪(hero,this);
-			}else{
-				鉴定();
-			}
-			GLog.p(Messages.get(this, "curse_detected"));
-			return false;
-		}
-
+		
 		detachAll( hero.belongings.backpack );
 		
 		if (hero.belongings.weapon == null || hero.belongings.weapon.doUnequip( hero, true )) {
@@ -138,20 +118,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 			}
 			
 			hero.spendAndNext( timeToEquip(hero) );
-			if (isSwiftEquipping) {
+			if (hero.heroClass(HeroClass.DUELIST)) {
 				GLog.i(Messages.get(this, "swift_equip"));
-				if (hero.buff(Talent.SwiftEquipCooldown.class) == null){
-					Buff.施加(hero, Talent.SwiftEquipCooldown.class, 120-hero.天赋点数(Talent.SWIFT_EQUIP,30))
-							.secondUse = true;
-				} else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
-					hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;
-				}
-				isSwiftEquipping = false;
 			}
 			return true;
 			
 		} else {
-			isSwiftEquipping = false;
 			放背包( hero.belongings.backpack );
 			return false;
 		}
@@ -159,13 +131,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	public boolean equipSecondary( Hero hero ){
 
-		isSwiftEquipping = false;
-		if (hero.belongings.contains(this) && hero.天赋(Talent.SWIFT_EQUIP)){
-			if (hero.buff(Talent.SwiftEquipCooldown.class) == null
-					|| hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()){
-				isSwiftEquipping = true;
-			}
-		}
 
 		boolean wasInInv = hero.belongings.contains(this);
 		detachAll( hero.belongings.backpack );
@@ -185,16 +150,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 			}
 
 			hero.spendAndNext( timeToEquip(hero) );
-			if (isSwiftEquipping) {
-				GLog.i(Messages.get(this, "swift_equip"));
-				if (hero.buff(Talent.SwiftEquipCooldown.class) == null){
-					Buff.施加(hero, Talent.SwiftEquipCooldown.class, 120-hero.天赋点数(Talent.SWIFT_EQUIP,30))
-							.secondUse = true;
-				} else if (hero.buff(Talent.SwiftEquipCooldown.class).hasSecondUse()) {
-					hero.buff(Talent.SwiftEquipCooldown.class).secondUse = false;
-				}
-				isSwiftEquipping = false;
-			}
 			return true;
 
 		} else {

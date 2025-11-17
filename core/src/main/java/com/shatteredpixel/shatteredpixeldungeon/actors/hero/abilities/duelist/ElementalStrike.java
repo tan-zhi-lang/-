@@ -241,8 +241,8 @@ public class ElementalStrike extends ArmorAbility {
 				int heal = Math.round(2.5f*targetsHit*powerMulti);
 				heal = Math.min( heal, hero.最大生命 - hero.生命);
 				if (heal > 0){
-					hero.生命 += heal;
-					hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString( heal ), FloatingText.HEALING );
+					hero.回血(heal);
+					
 				}
 			}
 

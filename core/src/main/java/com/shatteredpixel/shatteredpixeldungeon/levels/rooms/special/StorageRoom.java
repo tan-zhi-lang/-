@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlam
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.watabou.utils.Random;
 
 public class StorageRoom extends SpecialRoom {
@@ -36,6 +37,7 @@ public class StorageRoom extends SpecialRoom {
 		
 		entrance().set( Door.Type.BARRICADE );
 		level.addItemToSpawn( new PotionOfLiquidFlame() );
+		level.addItemToSpawn( new Icecap.Seed());
 	}
 	
 	private static Item prize( Level level ) {

@@ -70,11 +70,14 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 	
 	public void hit( Char enemy ) {
 		if(target instanceof Hero hero){
-			count=Math.min(10,count+hero.天赋点数(Talent.连战热忱));
-			comboTime=4+hero.天赋点数(Talent.连战热忱,2);
+			if(hero.天赋概率(Talent.连战热忱,25)){
+				count++;
+			}
+			count=Math.min(10,count+1);
+			comboTime=4+hero.天赋点数(Talent.连战热忱,2)+(hero.精通?3:0);
 			
 			if(hero.天赋(Talent.以战养战)){
-				Buff.施加(hero,破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.以战养战,0.05f));
+				Buff.施加(hero,破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.以战养战,0.08f));
 			}
 			
 			initialComboTime=comboTime;
@@ -208,31 +211,31 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 		public String desc(int count){
 			switch (this){
 				case 冲击: default:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.连击强化)){
+					if (count >= 6&&Dungeon.hero.精通){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case 撞击:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.连击强化)){
+					if (count >= 6&&Dungeon.hero.精通){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*20);
 					} else {
 						return Messages.get(this, name() + ".desc", count*20);
 					}
 				case 招架:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.连击强化)){
+					if (count >= 6&&Dungeon.hero.精通){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case 横扫:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.连击强化)){
+					if (count >= 6&&Dungeon.hero.精通){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*25);
 					} else {
 						return Messages.get(this,  name() + ".desc", count*25);
 					}
 				case 暴雨:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.连击强化)){
+					if (count >= 6&&Dungeon.hero.精通){
 						return Messages.get(this, name() + ".empower_desc", count/3);
 					} else {
 						return Messages.get(this,  name() + ".desc");

@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.白猫动画;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
@@ -149,8 +150,8 @@ public class WndHeroInfo extends WndTabbed {
 				case WARRIOR:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.巨斧),
-							new ItemSprite(物品表.RATION),
-							new TalentIcon(Talent.致命打击),
+							new ItemSprite(物品表.WEAPON_HOLDER),
+							 new BuffIcon(BuffIndicator.HEALING, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case MAGE:
@@ -170,21 +171,21 @@ public class WndHeroInfo extends WndTabbed {
 				case HUNTRESS:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							Icons.GRASS.get(),
-							new TalentIcon(Talent.HEIGHTENED_SENSES),
+										  new BuffIcon(BuffIndicator.MIND_VISION, true),
 							new ItemSprite(物品表.地牢浆果),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case DUELIST:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							new ItemSprite(物品表.WAR_HAMMER),
-							Icons.TALENT.get(),
+							new ItemSprite(物品表.英雄断剑),
+							  new ItemSprite(物品表.巨斧),
 						  new ItemSprite(物品表.WEAPON_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case CLERIC:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-						  new TalentIcon(Talent.SEARING_LIGHT),
-						  new TalentIcon(Talent.SHIELD_OF_LIGHT),
+										  new ItemSprite(物品表.WEAPON_HOLDER),
+										  new ItemSprite(物品表.ARMOR_HOLDER),
 							new BuffIcon(BuffIndicator.LIGHT, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
@@ -197,7 +198,7 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case 重武:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							new BuffIcon(BuffIndicator.HEALING, true),
+										  new ItemSprite(物品表.WEAPON_HOLDER),
 							new BuffIcon(BuffIndicator.FROST, true),
 							new ItemSprite(物品表.ARMOR_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
@@ -205,7 +206,8 @@ public class WndHeroInfo extends WndTabbed {
 				case 镜魔:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 						  new BuffIcon(BuffIndicator.CORRUPT, true),
-							  new TalentIcon(Talent.无声步伐),
+						  new BuffIcon(BuffIndicator.HASTE, true),
+						  new BuffIcon(BuffIndicator.INVERT_MARK, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 道士:
@@ -218,12 +220,13 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.IMMUNITY, true),
 							new BuffIcon(BuffIndicator.HASTE, true),
+							new ItemSprite(物品表.WEAPON_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 近卫:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.BERSERK, true),
-							  new TalentIcon(Talent.钢铁意志),
+							new BuffIcon(BuffIndicator.ARMOR, true),
 							  new ItemSprite(物品表.巨斧),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
@@ -243,14 +246,14 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.HASTE, true),
 						  new ItemSprite(物品表.MISSILE_HOLDER),
-							  new TalentIcon(Talent.灵敏机动),
+										  new BuffIcon(BuffIndicator.TERROR, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 戒老:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							new TalentIcon(Talent.FARSIGHT),
-							new BuffIcon(BuffIndicator.BLINDNESS, true),
-										  new TalentIcon(Talent.HEIGHTENED_SENSES),
+							new TalentIcon(Talent.鹰眼远视),
+										  new ItemSprite(物品表.RING_HOLDER),
+										  new BuffIcon(BuffIndicator.MIND_VISION, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 逐姝:
@@ -271,12 +274,14 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.POTION_HOLDER),
 							new ItemSprite(物品表.SCROLL_HOLDER),
+							  new ItemSprite(物品表.RATION),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 灵猫:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.ARMOR_HOLDER),
-										  Icons.深渊.get(),
+									  new 白猫动画(),
+									  new RatSprite(),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 鼠弟:
@@ -297,7 +302,14 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.HEALING, true),
 							new BuffIcon(BuffIndicator.BLEEDING, true),
-							  new ItemSprite(物品表.巨斧),
+							  new BuffIcon(BuffIndicator.HEART, true),
+							new ItemSprite(物品表.SCROLL_ISAZ)};
+					break;
+				case 来世:
+					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							  new ItemSprite(物品表.GOLD),
+										  new TalentIcon(Talent.任督二脉),
+							  new ItemSprite(物品表.ENERGY),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}

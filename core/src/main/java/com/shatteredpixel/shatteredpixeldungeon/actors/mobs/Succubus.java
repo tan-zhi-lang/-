@@ -64,16 +64,11 @@ public class Succubus extends Mob {
 		if (enemy.buff(Charm.class) != null ){
 			int shield = (生命 - 最大生命) + (5 + damage);
 			if (shield > 0){
-				生命 = 最大生命;
-				if (shield < 5){
-					sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(5-shield), FloatingText.HEALING);
-				}
+				回满血();
 
 				Buff.施加(this, Barrier.class).设置(shield);
-				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
 			} else {
-				生命 += 5 + damage;
-				sprite.showStatusWithIcon(CharSprite.增强, "5", FloatingText.HEALING);
+				回血(5);
 			}
 			if (Dungeon.level.heroFOV[pos]) {
 				Sample.INSTANCE.play( Assets.Sounds.CHARMS );

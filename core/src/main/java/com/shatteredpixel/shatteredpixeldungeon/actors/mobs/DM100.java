@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -15,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM100Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -57,7 +59,13 @@ public class DM100 extends Mob implements Callback {
 	public int 最大防御() {
 		return super.最大防御()+4;
 	}
-
+	
+	@Override
+	public int 防御时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.金属受伤);
+		return super.防御时(enemy,damage);
+	}
+	
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return super.canAttack(enemy)

@@ -2,9 +2,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
+import com.watabou.noosa.audio.Sample;
 
 public class Crab extends Mob {
 
@@ -31,6 +33,11 @@ public class Crab extends Mob {
 		return 7;
 	}
 	
+	@Override
+	public int 攻击时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.螃蟹);
+		return super.攻击时(enemy,damage);
+	}
 	@Override
 	public int 最大命中(Char target ) {
 		return 12;

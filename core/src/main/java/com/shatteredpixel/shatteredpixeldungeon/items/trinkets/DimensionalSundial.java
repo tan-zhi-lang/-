@@ -2,12 +2,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class DimensionalSundial extends Trinket {
 
@@ -29,7 +27,7 @@ public class DimensionalSundial extends Trinket {
 					(int)(100*(1f - enemySpawnMultiplierDaytime(强化等级()))),
 					(int)(100*(enemySpawnMultiplierNighttime(强化等级())-1f)));
 		} else {
-			return Messages.get(this, "typical_stats_desc",
+			return Messages.get(this, "stats_desc",
 					(int)(100*(1f - enemySpawnMultiplierDaytime(0))),
 					(int)(100*(enemySpawnMultiplierNighttime(0)-1f)));
 		}
@@ -39,8 +37,8 @@ public class DimensionalSundial extends Trinket {
 
 	public static float spawnMultiplierAtCurrentTime(){
 		if (trinketLevel(DimensionalSundial.class) != -1) {
-			Calendar cal = GregorianCalendar.getInstance();
-			if (cal.get(Calendar.HOUR_OF_DAY) >= 20 || cal.get(Calendar.HOUR_OF_DAY) <= 7) {
+			//8x60 20x60
+			if (Dungeon.地牢时间>=480&&Dungeon.地牢时间<=1200) {//小时x分钟=
 				if (!sundialWarned){
 					GLog.w(Messages.get(DimensionalSundial.class, "warning"));
 					sundialWarned = true;

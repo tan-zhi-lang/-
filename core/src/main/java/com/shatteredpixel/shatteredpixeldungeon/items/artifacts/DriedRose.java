@@ -305,10 +305,7 @@ public class DriedRose extends Artifact {
 			}
 		} else if (ghost.生命 < ghost.最大生命) {
 			int heal = Math.round((1 + 等级()/3f)*amount);
-			ghost.生命 = Math.min( ghost.最大生命, ghost.生命 + heal);
-			if (ghost.sprite != null) {
-				ghost.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(heal), FloatingText.HEALING);
-			}
+			ghost.回血(heal);
 			updateQuickslot();
 		}
 	}
@@ -625,7 +622,7 @@ public class DriedRose extends Artifact {
 		
 		@Override
 		public int 最小攻击() {
-			int dmg = 1;
+			int dmg = 0;
 			if (weapon() != null){
 				dmg += weapon().最小攻击();
 			}
@@ -634,7 +631,7 @@ public class DriedRose extends Artifact {
 		}
 		@Override
 		public int 最大攻击() {
-			int dmg = 1;
+			int dmg = 0;
 			if (weapon() != null){
 				dmg += weapon().最大攻击();
 			} else {

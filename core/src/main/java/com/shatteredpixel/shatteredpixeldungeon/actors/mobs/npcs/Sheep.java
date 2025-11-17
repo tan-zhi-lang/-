@@ -73,7 +73,7 @@ public class Sheep extends NPC {
 		
 		Badges.解锁兽灵();
 		if(s.equals("Baba")){
-			Dungeon.hero.经验(20);
+			Dungeon.hero.经验(Dungeon.层数(0.5f));
 		}
 		if (c == Dungeon.hero) {
 			Dungeon.hero.spendAndNext(1f);

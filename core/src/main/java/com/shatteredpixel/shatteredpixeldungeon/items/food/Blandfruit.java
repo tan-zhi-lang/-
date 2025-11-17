@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfInvisibility;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
@@ -103,7 +103,7 @@ public class Blandfruit extends Food {
 		if (potionAttrib instanceof 治疗药剂)        return Messages.get(this, "sunfruit");
 		if (potionAttrib instanceof PotionOfStrength)       return Messages.get(this, "rotfruit");
 		if (potionAttrib instanceof PotionOfParalyticGas)   return Messages.get(this, "earthfruit");
-		if (potionAttrib instanceof PotionOfInvisibility)   return Messages.get(this, "blindfruit");
+		if (potionAttrib instanceof 隐形药剂)   return Messages.get(this,"blindfruit");
 		if (potionAttrib instanceof PotionOfLiquidFlame)    return Messages.get(this, "firefruit");
 		if (potionAttrib instanceof PotionOfFrost)          return Messages.get(this, "icefruit");
 		if (potionAttrib instanceof PotionOfMindVision)     return Messages.get(this, "fadefruit");
@@ -152,7 +152,7 @@ public class Blandfruit extends Food {
 		if (potionAttrib instanceof 治疗药剂)        potionGlow = new ItemSprite.Glowing( 0x2EE62E );
 		if (potionAttrib instanceof PotionOfStrength)       potionGlow = new ItemSprite.Glowing( 0xCC0022 );
 		if (potionAttrib instanceof PotionOfParalyticGas)   potionGlow = new ItemSprite.Glowing( 0x67583D );
-		if (potionAttrib instanceof PotionOfInvisibility)   potionGlow = new ItemSprite.Glowing( 0xD9D9D9 );
+		if (potionAttrib instanceof 隐形药剂) potionGlow = new ItemSprite.Glowing(0xD9D9D9 );
 		if (potionAttrib instanceof PotionOfLiquidFlame)    potionGlow = new ItemSprite.Glowing( 0xFF7F00 );
 		if (potionAttrib instanceof PotionOfFrost)          potionGlow = new ItemSprite.Glowing( 0x66B3FF );
 		if (potionAttrib instanceof PotionOfMindVision)     potionGlow = new ItemSprite.Glowing( 0x919999 );

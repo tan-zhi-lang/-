@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
@@ -9,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
+import com.watabou.noosa.audio.Sample;
 
 public class Slime extends Mob {
 	
@@ -38,6 +40,11 @@ public class Slime extends Mob {
 		return 12;
 	}
 	
+	@Override
+	public void 死亡时(Object cause){
+		Sample.INSTANCE.play(Assets.Sounds.史莱姆);
+		super.死亡时(cause);
+	}
 	@Override
 	public void 受伤时(int dmg, Object src) {
 		float scaleFactor = AscensionChallenge.statModifier(this);

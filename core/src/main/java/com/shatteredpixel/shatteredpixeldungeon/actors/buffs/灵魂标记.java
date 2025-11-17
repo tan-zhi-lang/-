@@ -8,7 +8,7 @@ import com.watabou.noosa.Image;
 
 public class 灵魂标记 extends FlavourBuff {
 
-	public static final float DURATION	= 15f;
+	public static final float DURATION	= 5f;
 
 	{
 		type = buffType.NEGATIVE;

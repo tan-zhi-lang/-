@@ -15,7 +15,7 @@ public class 灵鞭 extends Weapon{
 		tier = 1;
 		
 		间隔= 1.25f;
-		伤害= 1.5f;
+		伤害= 1.25f;
 		范围 = 3;    //lots of extra reach
 		
 		特别= true;
@@ -23,13 +23,13 @@ public class 灵鞭 extends Weapon{
 	}
 	@Override
 	public int 最小攻击(int lvl) {
-		int dmg =super.最小攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.放逐之鞭,0.25f));
+		int dmg =super.最小攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.任督二脉,0.03f));
 		return Math.max(0, dmg);
 	}
 	
 	@Override
 	public int 最大攻击(int lvl) {
-		int dmg =super.最大攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.放逐之鞭,0.5f));
+		int dmg =super.最大攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.任督二脉,0.3f));
 		return Math.max(0, dmg);
 	}
 }

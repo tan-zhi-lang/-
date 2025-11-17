@@ -24,7 +24,7 @@ public class PhantomPiranha extends Piranha {
 		spriteClass = PhantomPiranhaSprite.class;
 
 		loot = PhantomMeat.class;
-		lootChance = 1f;
+		
 	}
 
 	@Override

@@ -45,11 +45,7 @@ public abstract class Plant implements Bundlable {
 		if (ch instanceof Hero){
 			((Hero) ch).interrupt();
 		}
-
-		if (Dungeon.level.heroFOV[pos] && Dungeon.hero.天赋(Talent.NATURES_AID)){
-			// 3/5 turns based on talent points spent
-			Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.NATURES_AID,0.1f)),1);
-		}
+		//视野内植物触发
 
 		wither();
 		activate( ch );
@@ -102,7 +98,7 @@ public abstract class Plant implements Bundlable {
 
 	public String desc() {
 		String desc = Messages.get(this, "desc");
-		if (Dungeon.hero() && Dungeon.hero.subClass == HeroSubClass.WARDEN){
+		if (Dungeon.hero() &&Dungeon.hero.精通&& Dungeon.hero.subClass == HeroSubClass.守望者){
 			desc += "\n\n" + Messages.get(this, "warden_desc");
 		}
 		return desc;
@@ -138,7 +134,7 @@ public abstract class Plant implements Bundlable {
 			} else {
 				Catalog.countUse(getClass());
 				Dungeon.level.plant( this, cell );
-				if (Dungeon.hero.subClass == HeroSubClass.WARDEN) {
+				if (Dungeon.hero.subClass == HeroSubClass.守望者) {
 					for (int i : PathFinder.NEIGHBOURS8) {
 						int c = Dungeon.level.map[cell + i];
 						if ( c == Terrain.EMPTY || c == Terrain.EMPTY_DECO
@@ -200,7 +196,7 @@ public abstract class Plant implements Bundlable {
 		@Override
 		public String desc() {
 			String desc = Messages.get(plantClass, "desc");
-			if (Dungeon.hero() && Dungeon.hero.subClass == HeroSubClass.WARDEN){
+			if (Dungeon.hero() &&Dungeon.hero.精通&& Dungeon.hero.subClass == HeroSubClass.守望者){
 				desc += "\n\n" + Messages.get(plantClass, "warden_desc");
 			}
 			return desc;

@@ -28,8 +28,7 @@ public class SupplyRation extends Food {
 	protected void satisfy(Hero hero) {
 		super.satisfy(hero);
 
-		hero.生命 = Math.min(hero.生命 + 5, hero.最大生命);
-		hero.sprite.showStatusWithIcon( CharSprite.增强, "5", FloatingText.HEALING );
+		hero.回血(5);
 
 		CloakOfShadows cloak = hero.belongings.getItem(CloakOfShadows.class);
 		if (cloak != null) {

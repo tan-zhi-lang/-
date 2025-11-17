@@ -384,10 +384,7 @@ public class WandOfLivingEarth extends DamageWand {
 				this.wandLevel = wandLevel;
 				最大生命 = 16 + 8 * wandLevel;
 			}
-			if (生命 != 0 && sprite != null){
-				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healthToAdd), FloatingText.HEALING);
-			}
-			生命 = Math.min(最大生命, 生命 + healthToAdd);
+			回血(healthToAdd);
 			//half of hero's evasion
 			defenseSkill = (hero.等级 + 4)/2;
 		}

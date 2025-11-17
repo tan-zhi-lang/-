@@ -30,7 +30,7 @@ public class 能量之戒 extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats",
+			return Messages.get(this, "stats",
 					Messages.decimalFormat("#.##", 0.175f));
 		}
 	}
@@ -57,11 +57,10 @@ public class 能量之戒 extends Ring {
 			if (hero.belongings.armor instanceof 法袍){
 				bonus *= 1.1f;
 			}
-			bonus*=1-hero.天赋点数(Talent.凝结心神,0.06f);
 			if(hero.heroClass(HeroClass.巫女)){
 				float c=1;
 				for(Item item:hero.belongings){
-					if(item.cursed)c+=0.07f;
+					if(item.cursed)c+=0.1f;
 				}
 				bonus*=c;
 			}
@@ -73,25 +72,19 @@ public class 能量之戒 extends Ring {
 		float bonus = (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
 
 		if (target instanceof Hero hero){
-			if(hero.heroClass != HeroClass.盗贼 && hero.天赋(Talent.LIGHT_CLOAK)){
-				bonus *= 1f + hero.天赋点数(Talent.LIGHT_CLOAK,0.12f);
-			}
 			if (hero.belongings.armor instanceof 能袍){
 				bonus *= 1.1f;
 			}
+			if(hero.heroClass(HeroClass.巫女)){
+				float c=1;
+				for(Item item:hero.belongings){
+					if(item.cursed)c+=0.1f;
+				}
+				bonus*=c;
+			}
 		}
-		
 
 		return bonus;
-	}
-
-	public static float armorChargeMultiplier( Char target ){
-		return (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
-	}
-	
-
-	public static float weaponChargeMultiplier( Char target ){
-		return (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
 	}
 	
 	public class Energy extends RingBuff {

@@ -64,7 +64,10 @@ public class 法师魔杖 extends Weapon{
 		嬗变= false;
 		专属=true;
 	}
-
+	@Override
+	public String defaultAction() {
+		return defaultAction;
+	}
 	public 法师魔杖() {
 		wand = null;
 	}
@@ -161,9 +164,11 @@ public class 法师魔杖 extends Weapon{
 			damage += Math.round(damage*wand.curCharges*Dungeon.hero.天赋点数(Talent.EMPOWERED_STRIKE,0.075f));
 		
 		if (wand != null &&
-				attacker instanceof Hero && ((Hero)attacker).subClass == HeroSubClass.BATTLEMAGE) {
-			if (wand.curCharges < wand.maxCharges) wand.partialCharge += 0.5f;
-			ScrollOfRecharging.charge((Hero)attacker);
+				attacker instanceof Hero hero && hero.SubClass(HeroSubClass.战斗法师)) {
+			if (wand.curCharges < wand.maxCharges&&hero.精通){
+				wand.partialCharge+=0.5f;
+				ScrollOfRecharging.charge(hero);
+			}
 			wand.onHit(this, attacker, defender, damage);
 		}
 
@@ -175,7 +180,7 @@ public class 法师魔杖 extends Weapon{
 		int reach = super.reachFactor(owner);
 		if (owner instanceof Hero
 				&& wand instanceof WandOfDisintegration
-				&& ((Hero)owner).subClass == HeroSubClass.BATTLEMAGE){
+				&& ((Hero)owner).subClass == HeroSubClass.战斗法师){
 			reach += Math.round(Wand.procChanceMultiplier(owner));
 		}
 		return reach;
@@ -335,7 +340,7 @@ public class 法师魔杖 extends Weapon{
 			if ((!cursed && !hasCurseEnchant()) || !cursedKnown)    info += " " + wand.statsDesc();
 			else                                                    info += " " + Messages.get(this, "cursed_wand");
 
-			if (Dungeon.hero.subClass == HeroSubClass.BATTLEMAGE){
+			if (Dungeon.hero.subClass == HeroSubClass.战斗法师){
 				info += "\n\n" + Messages.get(wand, "bmage_desc");
 			}
 		}

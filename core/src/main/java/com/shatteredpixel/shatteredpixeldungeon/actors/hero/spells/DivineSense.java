@@ -50,7 +50,7 @@ public class DivineSense extends ClericSpell {
 	}
 
 	public String desc(){
-		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.DIVINE_SENSE,5)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", Dungeon.hero.天赋点数(Talent.神圣感知,5))+"\n\n"+Messages.get(this,"charge_cost",(int)chargeUse(Dungeon.hero));
 	}
 
 	public static class DivineSenseTracker extends FlavourBuff {

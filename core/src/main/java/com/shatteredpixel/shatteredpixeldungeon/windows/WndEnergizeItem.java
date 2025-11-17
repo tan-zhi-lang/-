@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -90,9 +91,9 @@ public class WndEnergizeItem extends WndInfoItem {
 
 	public static void energizeAll(Item item ) {
 
-		if (item.isEquipped( Dungeon.hero ) && !((EquipableItem)item).doUnequip( Dungeon.hero, false )) {
-			return;
-		}
+//		if (item.isEquipped( Dungeon.hero ) && !((EquipableItem)item).doUnequip( Dungeon.hero, false )) {
+//			return;
+//		}
 		item.detachAll( Dungeon.hero.belongings.backpack );
 		energize(item);
 	}
@@ -146,8 +147,11 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			if(item instanceof EquipableItem e){
-				return !e.isEquipped(Dungeon.hero);
+			if(item instanceof Bag) {
+				return false;
+			}
+			if(item instanceof EquipableItem e&&e.isEquipped(Dungeon.hero)){
+				return false;
 			}
 			return item.能量() > 0;
 		}

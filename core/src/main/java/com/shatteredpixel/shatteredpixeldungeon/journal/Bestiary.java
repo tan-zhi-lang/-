@@ -40,8 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollSapper;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GoldenMimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Golem;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.毒气宝箱怪;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.粘咕;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GreatCrab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.HermitCrab;
@@ -82,6 +80,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RatKing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.毒气宝箱怪;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.粘咕;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.骷髅战士;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -204,12 +206,12 @@ public enum Bestiary {
 
 		UNIVERSAL.addEntities(Wraith.class, Piranha.class, Mimic.class, GoldenMimic.class, EbonyMimic.class, 毒气宝箱怪.class, Statue.class, GuardianTrap.Guardian.class, SentryRoom.Sentry.class);
 
-		RARE.addEntities(Albino.class, GnollExile.class, HermitCrab.class, CausticSlime.class,
-				Bandit.class, SpectralNecromancer.class,
-				ArmoredBrute.class, DM201.class,
-				Elemental.ChaosElemental.class, Senior.class,
-				Acidic.class,
-				TormentedSpirit.class, PhantomPiranha.class, CrystalMimic.class, ArmoredStatue.class);
+		RARE.addEntities(Albino.class,GnollExile.class,HermitCrab.class,CausticSlime.class,
+						 骷髅战士.class,Bandit.class,SpectralNecromancer.class,
+						 ArmoredBrute.class,DM201.class,
+						 Elemental.ChaosElemental.class,Senior.class,
+						 Acidic.class,
+						 TormentedSpirit.class,PhantomPiranha.class,CrystalMimic.class,ArmoredStatue.class);
 
 		QUEST.addEntities(FetidRat.class, GnollTrickster.class, GreatCrab.class,
 				Elemental.NewbornFireElemental.class, RotLasher.class, RotHeart.class,
@@ -217,10 +219,10 @@ public enum Bestiary {
 
 		NEUTRAL.addEntities(Ghost.class, RatKing.class, Shopkeeper.class, Wandmaker.class, Blacksmith.class, Imp.class, Sheep.class, Bee.class);
 
-		ALLY.addEntities(MirrorImage.class, PrismaticImage.class,
-				DriedRose.GhostHero.class,
-				WandOfWarding.Ward.class, WandOfWarding.Ward.WardSentry.class, WandOfLivingEarth.EarthGuardian.class,
-				ShadowClone.ShadowAlly.class, SmokeBomb.NinjaLog.class, SpiritHawk.HawkAlly.class, PowerOfMany.LightAlly.class);
+		ALLY.addEntities(MirrorImage.class,PrismaticImage.class,白猫.class,
+						 DriedRose.GhostHero.class,
+						 WandOfWarding.Ward.class,WandOfWarding.Ward.WardSentry.class,WandOfLivingEarth.EarthGuardian.class,
+						 ShadowClone.ShadowAlly.class,SmokeBomb.NinjaLog.class,SpiritHawk.HawkAlly.class,PowerOfMany.LightAlly.class);
 
 		TRAP.addEntities(WornDartTrap.class, PoisonDartTrap.class, DisintegrationTrap.class, GatewayTrap.class,
 				ChillingTrap.class, BurningTrap.class, ShockingTrap.class, AlarmTrap.class, GrippingTrap.class, TeleportationTrap.class, OozeTrap.class,

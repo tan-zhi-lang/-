@@ -190,7 +190,8 @@ public class Shopkeeper extends NPC {
 		if(Holiday.getCurrentHoliday()==Holiday._1111){
 			打折=8;
 		}
-		return Math.round(item.金币() * 打折/2 * (Dungeon.depth / 5f + 1));
+		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
+//		return Math.round(item.金币() * 打折/2 * (Dungeon.depth / 5f + 1));
 	}
 	
 	public static WndBag sell() {
@@ -230,7 +231,9 @@ public class Shopkeeper extends NPC {
 		if (c != Dungeon.hero) {
 			return true;
 		}
-		if(buybackItems.size()>=20){
+		if(buybackItems.size()>=20&&商人信标){
+			商人信标=false;
+			new 商人信标().放背包();
 			Messages.get(Shopkeeper.this, "商人信标");
 		}
 		Game.runOnRenderThread(new Callback() {

@@ -24,7 +24,7 @@ public class 中国国旗 extends Trinket {
 					Messages.decimalFormat("#.##", 100*受伤(强化等级())),
 								Messages.decimalFormat("#.##",100*移速(强化等级())));
 		} else {
-			return Messages.get(this, "typical_stats_desc",
+			return Messages.get(this, "stats_desc",
 					Messages.decimalFormat("#.##", 100*受伤(0)),
 								Messages.decimalFormat("#.##",100*移速(0)));
 		}

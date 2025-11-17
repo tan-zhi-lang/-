@@ -22,7 +22,7 @@ public class ArmoredBrute extends Brute {
 		
 		//see rollToDropLoot
 		loot = Generator.Category.ARMOR;
-		lootChance = 1f;
+		
 	}
 	
 	@Override
@@ -33,7 +33,7 @@ public class ArmoredBrute extends Brute {
 	@Override
 	protected void triggerEnrage () {
 		Buff.施加(this, ArmoredRage.class).设置(最大生命 /2 + 1);
-		sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(最大生命 /2 + 1), FloatingText.SHIELDING );
+		
 		if (Dungeon.level.heroFOV[pos]) {
 			sprite.showStatus( CharSprite.WARNING, Messages.get(this, "enraged") );
 		}

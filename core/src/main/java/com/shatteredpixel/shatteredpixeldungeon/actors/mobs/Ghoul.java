@@ -2,19 +2,19 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -103,6 +103,7 @@ public class Ghoul extends Mob {
 			}
 			
 			if (!candidates.isEmpty()){
+				Sample.INSTANCE.play(Assets.Sounds.尸群);
 				Ghoul child = new Ghoul();
 				child.partnerID = this.id();
 				this.partnerID = child.id();
@@ -271,14 +272,13 @@ public class Ghoul extends Mob {
 						return true;
 					}
 				}
-				ghoul.生命 = Math.round(ghoul.最大生命 /10f);
+				ghoul.回血(ghoul.最大生命(0.1f));
 				ghoul.beingLifeLinked = false;
 				Actor.add(ghoul);
 				ghoul.timeToNow();
 				Dungeon.level.mobs.add(ghoul);
 				Dungeon.level.occupyCell( ghoul );
 				ghoul.sprite.idle();
-				ghoul.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(ghoul.最大生命 /10f)), FloatingText.HEALING);
 				if (ghoul.enemy != null && ghoul.enemy.alignment == ghoul.alignment){
 					ghoul.enemy = null; //reset enemy
 				}

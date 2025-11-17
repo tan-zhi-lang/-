@@ -23,7 +23,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -82,6 +81,8 @@ public class Dungeon {
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
 	public static enum LimitedDrops {
 		//limited world drops
+		生命水晶,
+		生命果,
 		STRENGTH_POTIONS,
 		UPGRADE_SCROLLS,
 		ARCANE_STYLI,
@@ -165,6 +166,7 @@ public class Dungeon {
 	public static int 解压;
 	public static int 系统;
 	public static int 玩法;
+	public static int 地牢时间;
 	public static int mobsToChampion;
 
 	public static Hero hero;
@@ -190,6 +192,8 @@ public class Dungeon {
 		if(x<0){
 			gold+=x;
 		}
+		if(hero()&&hero.heroClass(HeroClass.来世))
+			Statistics.金币=Dungeon.gold;
 		return gold;
 	}
 	public static int energy(int x){
@@ -199,6 +203,8 @@ public class Dungeon {
 		if(x<0){
 			energy+=x;
 		}
+		if(hero()&&hero.heroClass(HeroClass.来世))
+		Statistics.能量=Dungeon.energy;
 		return energy;
 	}
 	
@@ -226,7 +232,12 @@ public class Dungeon {
 			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
 		} else if (!SPDSettings.customSeed().isEmpty()){
 			customSeedText = SPDSettings.customSeed();
-			seed = DungeonSeed.convertFromText(customSeedText);
+			if(算法.种子() instanceof Item){
+				customSeedText = "";
+				seed = DungeonSeed.randomSeed();
+			}else{
+				seed = DungeonSeed.convertFromText(customSeedText);
+			}
 		} else {
 			customSeedText = "";
 			seed = DungeonSeed.randomSeed();
@@ -241,6 +252,7 @@ public class Dungeon {
 		解压 = SPDSettings.解压();
 		系统 = SPDSettings.系统();
 		玩法 = SPDSettings.玩法();
+		地牢时间= 360;
 		mobsToChampion = -1;
 
 		Actor.clear();
@@ -274,8 +286,8 @@ public class Dungeon {
 		gold=0;
 		energy=0;
 		if(Dungeon.系统(系统设置.资产破亿)||算法.isDebug()){
-			gold(1_0000_0000);
-			energy(1_0000_0000);
+			gold(1_0000);
+			energy(1_0000);
 		}
 
 		droppedItems = new SparseArray<>();
@@ -297,13 +309,6 @@ public class Dungeon {
 		
 		GamesInProgress.selectedClass.initHero( hero );
 		
-		
-		if(hero.heroClass(HeroClass.来世)){
-			if(Dungeon.gold==0)
-				Dungeon.gold=Bones.金币;
-			if(Dungeon.energy==0)
-				Dungeon.energy=Bones.能量;
-		}
 	}
 
 	public static boolean isChallenged( int mask ) {
@@ -321,6 +326,29 @@ public class Dungeon {
 	}
 	public static boolean 玩法( int mask ) {
 		return (玩法 & mask) != 0;
+	}
+	public static String 地牢时间() {
+		int 小时=0;
+		int 分钟=0;
+		float 时间=地牢时间*1.6f;
+		boolean 时间计算=true;
+		while(时间计算){
+			if(时间>=60){
+				时间-=60;
+				小时++;
+				分钟=0;
+				if(小时>=24){
+					小时=0;
+				}
+			}else{
+				分钟=Math.round(时间);
+				时间计算=false;
+			}
+		}
+		if(小时<=9){
+			return "0"+小时+":"+(分钟<=9?"0"+分钟:分钟);
+		}
+		return 小时+":"+(分钟<=9?"0"+分钟:分钟);
 	}
 
 	public static boolean levelHasBeenGenerated(int depth, int branch){
@@ -467,7 +495,7 @@ public class Dungeon {
 	}
 	
 	public static boolean bossLevel( int depth ) {
-		return 区域层(5);
+		return 区域层数(5);
 	}
 
 	//value used for scaling of damage values and other effects.
@@ -483,7 +511,12 @@ public class Dungeon {
 	public static boolean interfloorTeleportAllowed(){
 		if (Dungeon.level.locked
 				|| Dungeon.level instanceof MiningLevel
-				|| (Dungeon.hero() && Dungeon.hero.belongings.getItem(Amulet.class) != null)){
+				|| Dungeon.bossLevel(Dungeon.depth-1)
+				|| Dungeon.bossLevel(Dungeon.depth)
+				|| Dungeon.bossLevel(Dungeon.depth+1)
+				|| Dungeon.depth==1
+				|| Dungeon.depth==26
+		){
 			return false;
 		}
 		return true;
@@ -492,8 +525,12 @@ public class Dungeon {
 	public static void switchLevel( final Level level, int pos ) {
 
 		//Position of -2 specifically means trying to place the hero the exit
-		if (pos == -2){
+		if (pos == 2){
 			LevelTransition t = level.getTransition(LevelTransition.Type.REGULAR_EXIT);
+			if (t != null) pos = t.cell();
+		}
+		if (pos == -2){
+			LevelTransition t = level.getTransition(LevelTransition.Type.REGULAR_ENTRANCE);
 			if (t != null) pos = t.cell();
 		}
 
@@ -635,6 +672,7 @@ public class Dungeon {
 	private static final String 解压x	= "解压";
 	private static final String 系统x	= "系统";
 	private static final String 玩法x	= "玩法";
+	private static final String 时间x	= "时间";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -666,6 +704,7 @@ public class Dungeon {
 			bundle.put( 解压x, 解压 );
 			bundle.put( 系统x, 系统 );
 			bundle.put( 玩法x, 玩法 );
+			bundle.put(时间x,地牢时间);
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
@@ -777,6 +816,7 @@ public class Dungeon {
 		Dungeon.解压 = bundle.getInt( 解压x );
 		Dungeon.系统 = bundle.getInt( 系统x );
 		Dungeon.玩法 = bundle.getInt( 玩法x );
+		Dungeon.地牢时间= bundle.getInt(时间x);
 		Dungeon.mobsToChampion = bundle.getInt( MOBS_TO_CHAMPION );
 		
 		Dungeon.level = null;
@@ -936,8 +976,8 @@ public class Dungeon {
 
 	//default to recomputing based on max hero vision, in case vision just shrank/grew
 	public static void observe(){
-		int dist = Dungeon.hero.视野范围();//原来最小8
-		observe( dist );//原来+1
+		int dist = Math.min(8,Dungeon.hero.视野范围());
+		observe( dist+1);
 	}
 	
 	public static void observe( int dist ) {
@@ -1127,10 +1167,10 @@ public class Dungeon {
 	public static boolean hero(){
 		return hero!=null;
 	}
-	public static int depth(float x){
-		return Math.round(depth*x);
+	public static int 层数(float x){
+		return Math.round(scalingDepth()*x);
 	}
-	public static int depth(){
+	public static int 区域(){
 		if(depth<=5){
 			return 1;
 		}
@@ -1148,7 +1188,7 @@ public class Dungeon {
 		}
 		return 0;
 	}
-	public static boolean 区域层(int x){
+	public static boolean 区域层数(int x){
 		if(x==1){
 			return depth==5-4||depth==10-4||depth==15-4||depth==20-4||depth==25-4;
 		}

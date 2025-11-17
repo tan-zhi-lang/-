@@ -74,7 +74,7 @@ public class ScorpioSprite extends MobSprite {
 	
 	public class ScorpioShot extends Item {
 		{
-			image = 物品表.FISHING_SPEAR;
+			image = 物品表.THROWING_SPIKE;
 		}
 	}
 }

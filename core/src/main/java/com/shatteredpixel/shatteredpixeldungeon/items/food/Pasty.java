@@ -114,7 +114,6 @@ public class Pasty extends Food {
 				//shields for 10% of max hp, min of 5
 				int toShield = Math.max(5, hero.最大生命 /10);
 				Buff.施加(hero, Barrier.class).设置(toShield);
-				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toShield), FloatingText.SHIELDING );
 				break;
 			case 春节:
 				//...but it also awards an extra item that restores 150 hunger
@@ -169,8 +168,7 @@ public class Pasty extends Food {
 			case 万圣节:
 				//heals for 5% max hp, min of 3
 				int toHeal = Math.max(3, hero.最大生命 /20);
-				hero.生命 = Math.min(hero.生命 + toHeal, hero.最大生命);
-				hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(toHeal), FloatingText.HEALING );
+				hero.回血(toHeal);
 				break;
 			case PD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2

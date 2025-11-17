@@ -57,27 +57,10 @@ public abstract class 巫术 {
 		ArrayList<巫术> spells = new ArrayList<>();
 
 		if (tier == 1) {
-			if (cleric.天赋(Talent.祭鉴巫术)) {
-				spells.add(祭鉴巫术.INSTANCE);
-			}
-			if (cleric.天赋(Talent.痛命巫术)) {
-				spells.add(痛命巫术.INSTANCE);
-			}
-			if (cleric.天赋(Talent.死血巫术)) {
-				spells.add(死血巫术.INSTANCE);
-			}
+			spells.add(痛命巫术.INSTANCE);
 		} else if (tier == 2) {
-			if (cleric.天赋(Talent.血历巫术)) {
-				spells.add(血历巫术.INSTANCE);
-			}
 			if (cleric.天赋(Talent.血爆巫术)) {
 				spells.add(血爆巫术.INSTANCE);
-			}
-			if (cleric.天赋(Talent.饮血巫术)) {
-				spells.add(饮血巫术.INSTANCE);
-			}
-			if (cleric.天赋(Talent.换血巫术)) {
-				spells.add(换血巫术.INSTANCE);
 			}
 		} else if (tier == 3){
 			if (cleric.天赋(Talent.物到巫术)) {
@@ -93,14 +76,9 @@ public abstract class 巫术 {
 
 	public static ArrayList<巫术> getAllSpells() {
 		ArrayList<巫术> spells = new ArrayList<>();
-		spells.add(祭鉴巫术.INSTANCE);
-		spells.add(死血巫术.INSTANCE);
 		spells.add(痛命巫术.INSTANCE);
 
-		spells.add(血历巫术.INSTANCE);
 		spells.add(血爆巫术.INSTANCE);
-		spells.add(饮血巫术.INSTANCE);
-		spells.add(换血巫术.INSTANCE);
 
 		spells.add(物到巫术.INSTANCE);
 		return spells;

@@ -17,17 +17,17 @@ public enum HeroSubClass {
 	狂战士(HeroIcon.BERSERKER),
 	角斗士(HeroIcon.GLADIATOR),
 
-	BATTLEMAGE(HeroIcon.BATTLEMAGE),
+	战斗法师(HeroIcon.BATTLEMAGE),
 	术士(HeroIcon.WARLOCK),
 	
 	刺客(HeroIcon.ASSASSIN),
-	FREERUNNER(HeroIcon.FREERUNNER),
+	疾行者(HeroIcon.FREERUNNER),
 	
-	SNIPER(HeroIcon.SNIPER),
-	WARDEN(HeroIcon.WARDEN),
+	狙击手(HeroIcon.SNIPER),
+	守望者(HeroIcon.WARDEN),
 
-	CHAMPION(HeroIcon.CHAMPION),
-	MONK(HeroIcon.MONK),
+	勇士(HeroIcon.CHAMPION),
+	武者(HeroIcon.MONK),
 
 	PRIEST(HeroIcon.PRIEST),
 	PALADIN(HeroIcon.PALADIN),
@@ -54,7 +54,7 @@ public enum HeroSubClass {
 
 	public String desc() {
 		//Include the staff effect description in the battlemage's desc if possible
-		if (this == BATTLEMAGE){
+		if (this==战斗法师){
 			String desc = Messages.get(this, name() + "_desc");
 			if (Game.scene() instanceof GameScene){
 				法师魔杖 staff = Dungeon.hero.belongings.getItem(法师魔杖.class);

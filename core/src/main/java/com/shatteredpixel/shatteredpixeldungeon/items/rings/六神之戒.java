@@ -17,20 +17,20 @@ public class 六神之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					7*soloBuffedBonus());
+									   .07f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						7*combinedBuffedBonus(Dungeon.hero));
+						0.07f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats",7);
+			return Messages.get(this, "stats",.07f);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return 7*level + "%";
+		return .07f*level + "倍";
 	}
 	
 	@Override

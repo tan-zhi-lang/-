@@ -13,18 +13,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredStatue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Stone;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfAccuracy;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfEvasion;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -292,9 +292,6 @@ public class FloatingText extends RenderedTextBlock {
 		HashMap<Integer, Float> hitReasons = new HashMap<>();
 
 		//go through some garunteed hit interactions first
-		if (defRoll == 0 && defender.buff(GuidingLight.Illuminated.class) != null){
-			return HIT_BLS;
-		}
 		if (accRoll == Char.INFINITE_ACCURACY && attacker.invisible > 0){
 			return HIT_SUPR;
 		}
@@ -319,6 +316,7 @@ public class FloatingText extends RenderedTextBlock {
 		Armor arm = null;
 		if (defender instanceof Hero) arm = ((Hero) defender).belongings.armor();
 		if (defender instanceof PrismaticImage) arm = Dungeon.hero.belongings.armor();
+		if (defender instanceof 白猫) arm = Dungeon.hero.belongings.armor();
 		if (defender instanceof ArmoredStatue) arm = ((ArmoredStatue)defender).armor();
 		if (defender instanceof DriedRose.GhostHero) arm = ((DriedRose.GhostHero)defender).armor();
 		
@@ -342,7 +340,7 @@ public class FloatingText extends RenderedTextBlock {
 			blessBoost *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
 		}
 		if (blessBoost > 1f) hitReasons.put(HIT_BLS, blessBoost);
-		if (RingOfAccuracy.accuracyMultiplier(attacker) > 1)    hitReasons.put(HIT_ACC, RingOfAccuracy.accuracyMultiplier(attacker));
+		if (命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2>0)    hitReasons.put(HIT_ACC,命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2f);
 //		if (attacker.buff(弯刀.SwordDance.class)!=null)   hitReasons.put(HIT_DANCE,1.5f);
 //		if (!(wep instanceof MissileWeapon)) {
 			if (attacker.buff(Talent.PreciseAssaultTracker.class) != null){
@@ -361,7 +359,7 @@ public class FloatingText extends RenderedTextBlock {
 		//evasion reductions (always < 1)
 		if (defender.buff(Hex.class) != null)                   hitReasons.put(HIT_HEX, 0.8f);
 		if (defender.buff(Daze.class) != null)                  hitReasons.put(HIT_DAZE, 0.5f);
-		if (RingOfEvasion.evasionMultiplier(defender) < 1)      hitReasons.put(HIT_EVA, RingOfEvasion.evasionMultiplier(defender));
+		if (闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2>0)      hitReasons.put(HIT_EVA,闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2f);
 		if (arm != null && arm.evasionFactor(defender, 100) < 100) {
 			//we express armor's normally flat evasion boost as a %, yes this is very awkward
 			Armor.testingNoArmDefSkill = true;
@@ -416,6 +414,7 @@ public class FloatingText extends RenderedTextBlock {
 		Armor arm = null;
 		if (defender instanceof Hero) arm = ((Hero) defender).belongings.armor();
 		if (defender instanceof PrismaticImage) arm = Dungeon.hero.belongings.armor();
+		if (defender instanceof 白猫) arm = Dungeon.hero.belongings.armor();
 		if (defender instanceof ArmoredStatue) arm = ((ArmoredStatue)defender).armor();
 		if (defender instanceof DriedRose.GhostHero) arm = ((DriedRose.GhostHero)defender).armor();
 
@@ -434,7 +433,7 @@ public class FloatingText extends RenderedTextBlock {
 		}
 		if (blessBoost > 1f)                                    missReasons.put(MISS_BLS, blessBoost);
 		if (FerretTuft.evasionMultiplier() > 1)                 missReasons.put(MISS_TUFT, FerretTuft.evasionMultiplier());
-		if (RingOfEvasion.evasionMultiplier(defender) > 1)      missReasons.put(MISS_EVA, RingOfEvasion.evasionMultiplier(defender));
+		if (闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2>0)      missReasons.put(MISS_EVA,闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2f);
 //		if (defender.buff(铁头棍.DefensiveStance.class)!=null)  missReasons.put(MISS_DEF,3f);
 		if (arm != null && arm.evasionFactor(defender, 100) > 100) {
 			//we express armor's normally flat evasion boost as a %, yes this is very awkward
@@ -456,7 +455,7 @@ public class FloatingText extends RenderedTextBlock {
 		}
 		if (attacker.buff(Hex.class) != null)                   missReasons.put(MISS_HEX, 0.8f);
 		if (attacker.buff(Daze.class) != null)                  missReasons.put(MISS_DAZE, 0.5f);
-		if (RingOfAccuracy.accuracyMultiplier(attacker) < 1)    missReasons.put(MISS_ACC, RingOfAccuracy.accuracyMultiplier(attacker));
+		if (命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2>0)    missReasons.put(MISS_ACC,命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2f);
 
 		//sort from largest modifier to smallest one
 		ArrayList<Integer> sortedReasons = new ArrayList<>(missReasons.keySet());

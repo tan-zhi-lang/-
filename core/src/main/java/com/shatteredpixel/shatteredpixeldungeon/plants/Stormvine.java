@@ -23,7 +23,7 @@ public class Stormvine extends Plant {
 	public void activate( Char ch ) {
 
 		if (ch != null) {
-			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
+			if (ch instanceof Hero hero&&hero.精通&& hero.subClass == HeroSubClass.守望者){
 				Buff.施加(ch, Levitation.class, Levitation.DURATION/2f);
 			} else {
 				if (ch instanceof Mob){

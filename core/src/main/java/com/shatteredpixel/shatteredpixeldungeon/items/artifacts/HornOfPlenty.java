@@ -126,7 +126,7 @@ public class HornOfPlenty extends Artifact {
 		Sample.INSTANCE.play(Assets.Sounds.EAT);
 		GLog.i( Messages.get(this, "eat") );
 
-		if (Dungeon.hero.heroClass(HeroClass.WARRIOR)){
+		if (Dungeon.hero.heroClass(HeroClass.学士)){
 			hero.spend(Food.TIME_TO_EAT - 2);
 		} else {
 			hero.spend(Food.TIME_TO_EAT);

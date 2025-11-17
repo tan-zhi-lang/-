@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -68,6 +69,8 @@ public class Electricity extends Blob {
 						Item toShock = h.peek();
 						if (toShock instanceof Wand){
 							((Wand) toShock).gainCharge(0.333f);
+						} else if (toShock instanceof 魔攻之戒){
+							((魔攻之戒) toShock).gainCharge(0.333f);
 						} else if (toShock instanceof 法师魔杖){
 							((法师魔杖) toShock).gainCharge(0.333f);
 						}

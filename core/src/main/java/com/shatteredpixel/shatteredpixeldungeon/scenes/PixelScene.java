@@ -103,7 +103,7 @@ public class PixelScene extends Scene {
 			scaleFactor = 2.5f;
 		}
 
-		maxDefaultZoom = (int)Math.min(Game.width/minWidth, Game.height/minHeight);
+		maxDefaultZoom = (int)Math.min(Game.width/minWidth, Game.height/minHeight)+1;
 		maxScreenZoom = (int)Math.min(Game.dispWidth/minWidth, Game.dispHeight/minHeight);
 		defaultZoom = SPDSettings.scale();
 

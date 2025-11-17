@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EmptyRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
@@ -91,6 +92,7 @@ public class MagicalFireRoom extends SpecialRoom {
 		}
 
 		level.addItemToSpawn(new PotionOfFrost());
+		level.addItemToSpawn( new Firebloom.Seed());
 
 	}
 

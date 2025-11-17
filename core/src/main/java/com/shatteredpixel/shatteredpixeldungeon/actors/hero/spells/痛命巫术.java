@@ -50,13 +50,13 @@ public class 痛命巫术 extends 目标巫术 {
 
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
-					hero.受伤(hero.天赋生命力(Talent.痛命巫术,0.2f));
+					hero.受伤(2);
 					ch.受伤时(Random.NormalIntRange(
-							hero.天赋生命力(Talent.痛命巫术,0.7f)+
-							hero.天赋生命力(Talent.高级痛命,0.7f)
+							5+
+							hero.天赋点数(Talent.高级痛命,10)
 							,
-							hero.天赋生命力(Talent.痛命巫术,2)+
-							hero.天赋生命力(Talent.高级痛命,1.2f)
+							8+
+							hero.天赋点数(Talent.高级痛命,16)
 					), 痛命巫术.this);
 				
 				} else {
@@ -73,9 +73,8 @@ public class 痛命巫术 extends 目标巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.天赋生命力(Talent.痛命巫术,0.2f)
-				,Dungeon.hero.天赋生命力(Talent.痛命巫术,0.7f)+Dungeon.hero.天赋生命力(Talent.高级痛命,0.7f),
-								   Dungeon.hero.天赋生命力(Talent.痛命巫术,2)+Dungeon.hero.天赋生命力(Talent.高级痛命,1.2f));
+		String desc = Messages.get(this, "desc",5+Dungeon.hero.天赋点数(Talent.高级痛命,10),
+								   8+Dungeon.hero.天赋点数(Talent.高级痛命,16));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

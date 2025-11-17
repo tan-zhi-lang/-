@@ -15,7 +15,7 @@ public class 爪 extends Weapon{
 		拳套=true;
 		
 		间隔= 0.5f;
-		伤害= 0.6f;
+		伤害= 0.64f;
 		tier = 2;
 	}
 

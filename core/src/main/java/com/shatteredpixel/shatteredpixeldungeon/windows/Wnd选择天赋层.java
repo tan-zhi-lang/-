@@ -49,6 +49,5 @@ public class Wnd选择天赋层 extends Window {
 		resize(width, (int)pos);
 
 	}
-
-
+	
 }

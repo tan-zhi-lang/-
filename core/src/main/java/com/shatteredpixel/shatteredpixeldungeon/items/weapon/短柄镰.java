@@ -13,8 +13,8 @@ public class 短柄镰 extends Weapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 
-		tier = 2;
-		命中=1.34f;
-		间隔=1.5f;
+		tier = 1;
+		间隔= 1.5f;
+		伤害= 1.75f;
 	}
 }

@@ -36,7 +36,6 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.炼狱;
 import com.shatteredpixel.shatteredpixeldungeon.windows.玩法;
 import com.shatteredpixel.shatteredpixeldungeon.windows.系统;
 import com.shatteredpixel.shatteredpixeldungeon.windows.解压;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
@@ -197,7 +196,11 @@ public class HeroSelectScene extends PixelScene {
         for (HeroClass cl : HeroClass.values()) {
             //隐藏英雄
             ++x;
-            if(x>4)break;
+            if(x==6)continue;
+            if(x==7)continue;
+            if(x==10)continue;
+            if(x==15)continue;
+            if(x>24)break;
             HeroBtn button = new HeroBtn(cl);
             add(button);
             heroBtns.add(button);
@@ -238,7 +241,7 @@ public class HeroSelectScene extends PixelScene {
             add(btnOptions);
         }
 
-        if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+        if (false) {
             Dungeon.challenges = 0;
             SPDSettings.challenges(0);
             SPDSettings.customSeed("");
@@ -742,7 +745,7 @@ public class HeroSelectScene extends PixelScene {
             StyledButton seedButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "custom_seed"), 6) {
                 @Override
                 protected void onClick() {
-//					if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()){
+//					if (true){
 //						ShatteredPixelDungeon.scene().addToFront( new WndTitledMessage(
 //								Icons.get(Icons.SEED),
 //								Messages.get(HeroSelectScene.class, "custom_seed"),
@@ -810,7 +813,7 @@ public class HeroSelectScene extends PixelScene {
                 protected void onClick() {
                     super.onClick();
 
-                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                    if (false) {
                         ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
                                 Icons.get(Icons.CALENDAR),
                                 Messages.get(HeroSelectScene.class, "daily"),
@@ -901,7 +904,7 @@ public class HeroSelectScene extends PixelScene {
             StyledButton 解压 = new StyledButton(Chrome.Type.BLANK, Messages.get(解压.class, "title"), 6) {
                 @Override
                 protected void onClick() {
-                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                    if (false) {
                         ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
                                 Icons.get(Icons.解压关),
                                 Messages.get(解压.class, "title"),
@@ -927,7 +930,7 @@ public class HeroSelectScene extends PixelScene {
             StyledButton 系统 = new StyledButton(Chrome.Type.BLANK,Messages.get(系统.class,"title"),6) {
                 @Override
                 protected void onClick() {
-                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                    if (false) {
                         ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
                                 Icons.get(Icons.系统关),
                                 Messages.get(系统.class, "title"),
@@ -953,7 +956,7 @@ public class HeroSelectScene extends PixelScene {
             StyledButton challengeButton = new StyledButton(Chrome.Type.BLANK, Messages.get(WndChallenges.class, "title"), 6) {
                 @Override
                 protected void onClick() {
-                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                    if (false) {
                         ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
                                 Icons.get(Icons.CHALLENGE_GREY),
                                 Messages.get(WndChallenges.class, "title"),
@@ -980,7 +983,7 @@ public class HeroSelectScene extends PixelScene {
             StyledButton 炼狱 = new StyledButton(Chrome.Type.BLANK,Messages.get(炼狱.class,"title"),6) {
                 @Override
                 protected void onClick() {
-                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                    if (false) {
                         ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
                                 Icons.get(Icons.炼狱关),
                                 Messages.get(炼狱.class, "title"),
@@ -1006,7 +1009,7 @@ public class HeroSelectScene extends PixelScene {
             StyledButton 玩法 = new StyledButton(Chrome.Type.BLANK,Messages.get(玩法.class,"title"),6) {
                 @Override
                 protected void onClick() {
-                    if (!Badges.isUnlocked(Badges.Badge.VICTORY) && !算法.isDebug()) {
+                    if (false) {
                         ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
                                 Icons.get(Icons.玩法关),
                                 Messages.get(玩法.class, "title"),

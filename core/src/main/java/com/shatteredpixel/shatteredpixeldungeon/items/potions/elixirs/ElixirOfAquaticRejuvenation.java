@@ -65,10 +65,9 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 				} else {
 					healAmt = (float)Math.floor(healAmt);
 				}
-				target.生命 += (int)healAmt;
+				target.回血(healAmt);
 				left -= (int)healAmt;
-				target.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString((int)healAmt), FloatingText.HEALING );
-
+				
 				if (target.生命 >= target.最大生命) {
 					target.生命 = target.最大生命;
 					if (target instanceof Hero) {

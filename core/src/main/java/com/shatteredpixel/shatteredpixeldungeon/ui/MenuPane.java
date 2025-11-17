@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -45,7 +44,6 @@ public class MenuPane extends Component {
 	private Toolbar.PickedUpItem pickedUp;
 
 	private BitmapText version;
-	private BitmapText fps;
 
 	private DangerIndicator danger;
 
@@ -121,10 +119,8 @@ public class MenuPane extends Component {
 		add( btnMenu );
 
 		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
-		version.hardlight( 0xCACFC2 );
+//		version.hardlight( 0xCACFC2 );
 		add(version);
-		fps = new BitmapText( "FPS:" + Gdx.graphics.getFramesPerSecond(), PixelScene.pixelFont);
-		add(fps);
 		
 		danger = new DangerIndicator();
 		add( danger );
@@ -169,24 +165,16 @@ public class MenuPane extends Component {
 //			challengeButton.setRect(challengeIcon.x, challengeIcon.y, challengeIcon.width(), challengeIcon.height() + challengeText.height());
 		}
 
-		version.scale.set(PixelScene.align(0.5f));
+		version.scale.set(PixelScene.align(0.67f));
 		version.measure();
-		version.x = x + WIDTH - version.width();
+		version.x = x-1 + WIDTH-0.5f - version.width();
 		version.y = y + bg.height() + (3 - version.baseLine());
 		PixelScene.align(version);
-		
-		fps.scale.set(PixelScene.align(0.5f));
-		fps.measure();
-		fps.x = x + WIDTH - fps.width();
-		fps.y = y + bg.height()+ version.height() + (3 - fps.baseLine());
-		PixelScene.align(fps);
-
 		danger.setPos( x + WIDTH - danger.width(), y + bg.height+danger.height() + 3 );
 	}
 	
 	@Override
 	public synchronized void update(){
-		fps = new BitmapText( "FPS:" + Gdx.graphics.getFramesPerSecond(), PixelScene.pixelFont);
 		super.update();
 	}
 	

@@ -5,21 +5,37 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.骷髅钥匙;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -62,13 +78,7 @@ public class Item implements Bundlable {
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
 	public boolean 炼金全放 = false;
-	public boolean 学者直觉 = false;
-	public boolean 生存直觉 = false;
-	public boolean 祭鉴之术 = false;
-	public boolean 净除道法 = false;
-	public boolean 戒指察觉 = false;
-	public boolean 赌博高手 = false;
-	public boolean 未来知识 = false;
+	public boolean 升级物品 = true;
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;
 
@@ -94,8 +104,7 @@ public class Item implements Bundlable {
 	public boolean 缴械= true;
 	public boolean 嬗变= true;
 	public boolean 专属 = false;
-	
-	public boolean 投掷消失 = true;
+	public boolean 消受投掷 = false;
 
 	// These items are preserved even if the hero's inventory is lost via unblessed ankh
 	// this is largely set by the resurrection window, items can override this to always be kept
@@ -117,6 +126,7 @@ public class Item implements Bundlable {
 		ArrayList<String> actions = new ArrayList<>();
 		actions.add( AC_DROP );
 		actions.add( AC_THROW );
+		if(SPDSettings.物品命名())
 		actions.add( AC_RENAME );
 		return actions;
 	}
@@ -148,6 +158,9 @@ public class Item implements Bundlable {
 			GameScene.pickUp( this, pos );
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
 			hero.spendAndNext( pickupDelay() );
+			if(hero.heroClass(HeroClass.盗贼)){
+				Buff.施加(hero,极速.class,1);
+			}
 			return true;
 			
 		} else {
@@ -155,6 +168,7 @@ public class Item implements Bundlable {
 		}
 	}
 	public float pickupDelay(){
+		
 		return Dungeon.hero.攻击延迟();
 	}
 	public void doDrop( Hero hero ) {
@@ -173,6 +187,9 @@ public class Item implements Bundlable {
 	}
 
 	public void doThrow( Hero hero ) {
+		if( hero.天赋概率(Talent.消受投掷,25)){
+			消受投掷=true;
+		}
 		GameScene.selectCell(thrower);
 	}
 	
@@ -226,13 +243,14 @@ public class Item implements Bundlable {
 	}
 	
 	protected void onThrow( int cell ) {
-		if(投掷消失){
-			Heap heap = Dungeon.level.drop( this, cell );
-			if (!heap.isEmpty()) {
-				heap.sprite.drop( cell );
-			}
+		if(消受投掷){
+			消受投掷=false;
+			return;
 		}
-		投掷消失=true;
+		Heap heap = Dungeon.level.drop( this, cell );
+		if (!heap.isEmpty()) {
+			heap.sprite.drop( cell );
+		}
 	}
 	
 	//takes two items and merges them (if possible)
@@ -427,7 +445,6 @@ public class Item implements Bundlable {
 
 	public void 等级(int value ){
 		等级 = value;
-
 		updateQuickslot();
 	}
 	
@@ -435,34 +452,9 @@ public class Item implements Bundlable {
 		if(!可升级()){
 			return this;
 		}
-		if(!学者直觉&&Dungeon.hero.天赋(Talent.SCHOLARS_INTUITION)){
+		if(升级物品){
 			升级();
-			学者直觉=true;
-		}
-		if(!生存直觉&&Dungeon.hero.天赋(Talent.SURVIVALISTS_INTUITION)){
-			升级();
-			生存直觉=true;
-		}
-		if(!祭鉴之术&&Dungeon.hero.天赋(Talent.祭鉴巫术)){
-			升级();
-			祭鉴之术=true;
-		}
-		if(!净除道法&&Dungeon.hero.天赋(Talent.净除道术)){
-			升级();
-			净除道法=true;
-		}
-
-		if(!戒指察觉&&Dungeon.hero.天赋(Talent.戒指察觉)){
-			升级();
-			戒指察觉=true;
-		}
-		if(!赌博高手&&Dungeon.hero.天赋(Talent.赌博高手)){
-			升级();
-			赌博高手=true;
-		}
-		if(!未来知识&&Dungeon.hero.天赋(Talent.未来知识)){
-			升级();
-			未来知识=true;
+			升级物品=false;
 		}
 
 		updateQuickslot();
@@ -537,15 +529,6 @@ public class Item implements Bundlable {
 	public Item 鉴定(boolean byHero ) {
 		if(byHero){
 			if (Dungeon.hero()&& Dungeon.hero.isAlive()){
-				if(Dungeon.hero.天赋(Talent.测试对象)){
-					Dungeon.hero.回血(Dungeon.hero.天赋生命力(Talent.测试对象,0.66f));
-				}
-				if(Dungeon.hero.满天赋(Talent.未来知识)){
-					祛邪卷轴.祛邪(Dungeon.hero,特殊升级());
-				}else if(Dungeon.hero.天赋(Talent.未来知识)){
-					
-					祛邪卷轴.祛邪(Dungeon.hero,this);
-				}
 				
 				Catalog.setSeen(getClass());
 				Statistics.itemTypesDiscovered.add(getClass());
@@ -617,8 +600,72 @@ public class Item implements Bundlable {
 				}
 			}
 		}
+		String s="物品";
+		if(this instanceof Bag){
+			s+="、"+"背包";
+		}
+		if(this instanceof Bomb){
+			s+="、"+"炸弹";
+		}
+		if(this instanceof Food){
+			s+="、"+"食物";
+		}
+		if(this instanceof Key){
+			s+="、"+"钥匙";
+		}
+		if(this instanceof RemainsItem){
+			s+="、"+"遗物";
+		}
+		if(this instanceof Trinket){
+			s+="、"+"饰品";
+		}
+		if(this instanceof Potion){
+			s+="、"+"药剂";
+		}
+		if(this instanceof Elixir){
+			s+="、"+"秘药";
+		}
+		if(this instanceof Brew){
+			s+="、"+"魔药";
+		}
+		if(this instanceof ExoticPotion){
+			s+="、"+"合剂";
+		}
+		if(this instanceof Scroll){
+			s+="、"+"卷轴";
+		}
+		if(this instanceof ExoticScroll){
+			s+="、"+"秘卷";
+		}
+		if(this instanceof Runestone){
+			s+="、"+"符石";
+		}
+		if(this instanceof ExoticScroll){
+			s+="、"+"秘卷";
+		}
+		if(this instanceof EquipableItem){
+			s+="、"+"装备";
+		}
+		if(this instanceof Weapon){
+			s+="、"+"武器";
+		}
+		if(this instanceof 飞镖){
+			s+="、"+"飞镖";
+		}
+		if(this instanceof Armor){
+			s+="、"+"护甲";
+		}
+		if(this instanceof Artifact){
+			s+="、"+"神器";
+		}
+		if(this instanceof Ring){
+			s+="、"+"神器";
+		}
+		if(this instanceof Wand){
+			s+="、"+"法杖";
+		}
 
-		return desc();
+		return desc()+"\n\n"+s;
 	}
 	
 	public String desc() {
@@ -677,13 +724,7 @@ public class Item implements Bundlable {
 	private static final String KEPT_LOST       = "kept_lost";
 	private static final String CUSTOM_NOTE_ID = "custom_note_id";
 	private static final String NAME = "name";
-	private static final String 学者直觉x = "学者直觉";
-	private static final String 生存直觉x = "生存直觉";
-	private static final String 祭鉴之术x = "祭鉴之术";
-	private static final String 净除道法x = "净除道法";
-	private static final String 戒指察觉x = "戒指察觉";
-	private static final String 赌博高手x = "赌博高手";
-	private static final String 未来知识x = "未来知识";
+	private static final String 升级物品x = "升级物品";
 	private static final String ALPHA = "alpha";
 	
 	@Override
@@ -694,13 +735,7 @@ public class Item implements Bundlable {
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
 		bundle.put( NAME, name );
-		bundle.put( 学者直觉x, 学者直觉 );
-		bundle.put( 生存直觉x, 生存直觉 );
-		bundle.put( 祭鉴之术x, 祭鉴之术 );
-		bundle.put( 净除道法x, 净除道法 );
-		bundle.put( 戒指察觉x, 戒指察觉 );
-		bundle.put( 赌博高手x, 赌博高手 );
-		bundle.put( 未来知识x, 未来知识 );
+		bundle.put( 升级物品x, 升级物品 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
@@ -715,13 +750,7 @@ public class Item implements Bundlable {
 		levelKnown	= bundle.getBoolean( LEVEL_KNOWN );
 		cursedKnown	= bundle.getBoolean( CURSED_KNOWN );
 		name	= bundle.getString( NAME );
-		学者直觉	= bundle.getBoolean( 学者直觉x );
-		生存直觉	= bundle.getBoolean( 生存直觉x );
-		祭鉴之术	= bundle.getBoolean( 祭鉴之术x );
-		净除道法	= bundle.getBoolean( 净除道法x );
-		戒指察觉	= bundle.getBoolean( 戒指察觉x );
-		赌博高手	= bundle.getBoolean( 赌博高手x );
-		未来知识	= bundle.getBoolean( 未来知识x );
+		升级物品	= bundle.getBoolean( 升级物品x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
 		int level = bundle.getInt( LEVEL );
@@ -779,24 +808,15 @@ public class Item implements Bundlable {
 						public void call() {
 							curUser = user;
 							Item i;
-							if(true){
-								投掷消失=false;
+							if(消受投掷){
 								i=Item.this;
 								Dungeon.quickslot.alphaItem(Item.this,false);
 								updateQuickslot();
-								
 							}else{
 								i=Item.this.detach(user.belongings.backpack);
 							}
 							if (i != null) i.onThrow(cell);
-							if (curUser.天赋(Talent.即兴投掷)
-									&& curUser.buff(Talent.ImprovisedProjectileCooldown.class) == null){
-								if (enemy != null && enemy.alignment != curUser.alignment){
-									Sample.INSTANCE.play(Assets.Sounds.HIT);
-									Buff.施加(enemy, Blindness.class, curUser.天赋点数(Talent.即兴投掷,2));
-									Buff.施加(curUser, Talent.ImprovisedProjectileCooldown.class, 100-curUser.天赋点数(Talent.即兴投掷,25));
-								}
-							}
+							//给效果
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){
 								user.buff(Talent.LethalMomentumTracker.class).detach();
 								user.next();
@@ -815,8 +835,7 @@ public class Item implements Bundlable {
 						public void call() {
 							curUser = user;
 							Item i;
-							if(true){
-								投掷消失=false;
+							if(消受投掷){
 								i=Item.this;
 								Dungeon.quickslot.alphaItem(Item.this,false);
 								updateQuickslot();

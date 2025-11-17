@@ -24,7 +24,7 @@ public class RingOfHaste extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 0.175f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.##", 0.175f));
 		}
 	}
 

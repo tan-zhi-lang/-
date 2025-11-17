@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -19,7 +20,7 @@ public class Albino extends Rat {
 		普通=false;
 		
 		loot = MysteryMeat.class;
-		lootChance = 1f;
+		
 	}
 	
 	@Override
@@ -30,5 +31,12 @@ public class Albino extends Rat {
 		}
 		
 		return damage;
+	}
+	
+	@Override
+	public void 死亡时(Object cause){
+		
+		Badges.解锁鼠弟();
+		super.死亡时(cause);
 	}
 }

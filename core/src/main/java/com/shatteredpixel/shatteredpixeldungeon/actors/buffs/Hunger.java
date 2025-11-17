@@ -23,7 +23,7 @@ public class Hunger extends Buff implements Hero.Doom {
 	public static final float STARVING	= 450f;
 
 	private float level;
-	private float partial=1;
+	public float partial=0;
 
 	private static final String LEVEL			= "level";
 	private static final String PARTIAL 	= "partial";
@@ -61,20 +61,20 @@ public class Hunger extends Buff implements Hero.Doom {
 			
 			if (level > HUNGRY&&hero.heroClass(HeroClass.罗兰)) {
 				if(hero.nobuff(Vulnerable.class)){
-				Buff.延长(hero, Vulnerable.class, 10);
+				Buff.延长(hero, Vulnerable.class, 2);
 				}
 				if(hero.nobuff(Weakness.class)){
-				Buff.延长(hero, Weakness.class, 10);
+				Buff.延长(hero, Weakness.class, 2);
 				}
 				
 			}
 			if (isStarving()) {
 				
-				partial++;
+				partial+=1/10f;
 
-				if (partial >= 10){
-					target.受伤时( target.生命力(0.13f), this);
-					partial=1;
+				if (partial >= 1){
+					hero.受伤时(1, this);
+					partial=0;
 				}
 				
 			} else {
@@ -123,7 +123,6 @@ public class Hunger extends Buff implements Hero.Doom {
 	public void affectHunger(float energy, boolean overrideLimits ) {
 		if(target instanceof Hero hero){
 			hero.吃饭触发+=energy;
-			hero.污蔑狂宴+=energy;
 			
 			Talent.吃饭时(hero,energy/150f);
 		}
@@ -140,7 +139,9 @@ public class Hunger extends Buff implements Hero.Doom {
 			level = 0;
 		} else if (level > STARVING) {
 			level = STARVING;
-			target.受伤时( target.生命力(0.18f), this );
+			if(target instanceof Hero hero){
+				target.受伤时(1,this);
+			}
 		}
 
 		if (oldLevel < HUNGRY && level >= HUNGRY){
@@ -152,7 +153,6 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		BuffIndicator.refreshHero();
 	}
-
 	public boolean isStarving() {
 		return level >= STARVING;
 	}

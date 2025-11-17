@@ -7,6 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -16,7 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Game;
-import com.watabou.utils.Callback;
+import com.watabou.utils.Bundle;
 
 public class RatKing extends NPC {
 
@@ -33,7 +36,7 @@ public class RatKing extends NPC {
 	
 	@Override
 	public float 移速() {
-		return 1.5f;
+		return 2;
 	}
 	
 	@Override
@@ -92,7 +95,21 @@ public class RatKing extends NPC {
 	}
 
 	//***
-
+	public static boolean 库存=true;
+	private static final String 库存x=        "库存";
+	
+	@Override
+	public void storeInBundle( Bundle bundle) {
+		super.storeInBundle(bundle);
+		
+		bundle.put(库存x,库存);
+	}
+	
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle(bundle);
+		库存= bundle.getBoolean(库存x);
+	}
 	@Override
 	public boolean interact(Char c) {
 		sprite.turnTo( pos, c.pos );
@@ -100,47 +117,44 @@ public class RatKing extends NPC {
 		if (c != Dungeon.hero){
 			return super.interact(c);
 		}
-		Badges.解锁鼠弟();
 
 		矮人国王的皇冠 crown = Dungeon.hero.belongings.getItem(矮人国王的皇冠.class);
-		if (state == SLEEPING) {
+		if (Dungeon.hero.belongings.armor() == null){
+			yell(Messages.get(RatKing.class,"crown_clothes"));
+		}else if (state == SLEEPING) {
 			notice();
 			yell( Messages.get(this, "not_sleeping") );
 			state = WANDERING;
 		} else if (crown != null){
-			if (Dungeon.hero.belongings.armor() == null){
-				yell( Messages.get(RatKing.class, "crown_clothes") );
-			} else {
+			if (库存){
+				库存=false;
+				for(int x=0;x<=100;x++){
+					Item i=Generator.random();
+					Dungeon.level.drop(i,pos);
+				}
+				Dungeon.level.drop(new Gold(5000),pos);
+				yell("国库都归你你了！皇冠归我！而且我的子民也不会攻击你了，除了可恶的变异白鼠！");
 				Badges.validateRatmogrify();
-				Game.runOnRenderThread(new Callback() {
-					@Override
-					public void call() {
-						GameScene.show(new WndOptions(
-								sprite(),
-								Messages.titleCase(name()),
-								Messages.get(RatKing.class, "crown_desc"),
-								Messages.get(RatKing.class, "crown_yes"),
-								Messages.get(RatKing.class, "crown_info"),
-								Messages.get(RatKing.class, "crown_no")
-						){
-							@Override
-							protected void onSelect(int index) {
-								if (index == 0){
-									crown.upgradeArmor(Dungeon.hero, Dungeon.hero.belongings.armor(), new Ratmogrify());
-									((RatKingSprite)sprite).resetAnims();
-									yell(Messages.get(RatKing.class, "crown_thankyou"));
-								} else if (index == 1) {
-									GameScene.show(new WndInfoArmorAbility(Dungeon.hero.heroClass, new Ratmogrify()));
-								} else {
-									yell(Messages.get(RatKing.class, "crown_fine"));
-								}
+				
+				if(false){
+					Game.runOnRenderThread(()->GameScene.show(new WndOptions(sprite(),Messages.titleCase(name()),Messages.get(RatKing.class,"crown_desc"),Messages.get(RatKing.class,"crown_yes"),Messages.get(RatKing.class,"crown_info"),Messages.get(RatKing.class,"crown_no")){
+						@Override
+						protected void onSelect(int index){
+							if(index==0){
+								crown.upgradeArmor(Dungeon.hero,Dungeon.hero.belongings.armor(),new Ratmogrify());
+								((RatKingSprite)sprite).resetAnims();
+								yell(Messages.get(RatKing.class,"crown_thankyou"));
+							}else if(index==1){
+								GameScene.show(new WndInfoArmorAbility(Dungeon.hero.heroClass,new Ratmogrify()));
+							}else{
+								yell(Messages.get(RatKing.class,"crown_fine"));
 							}
-						});
-					}
-				});
+						}
+					}));
+				}
 			}
-		} else if (Dungeon.hero.armorAbility instanceof Ratmogrify) {
-			yell( Messages.get(RatKing.class, "crown_after") );
+		} else if (!库存) {
+			yell( Messages.get(RatKing.class, "crown_item") );
 		} else {
 			yell( Messages.get(this, "what_is_it") );
 		}

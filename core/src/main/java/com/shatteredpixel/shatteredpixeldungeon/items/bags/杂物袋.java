@@ -4,8 +4,11 @@ package com.shatteredpixel.shatteredpixeldungeon.items.bags;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
@@ -18,7 +21,11 @@ public class 杂物袋 extends Bag {
 
 	@Override
 	public boolean canHold( Item item ) {
-		if (item instanceof Food || item instanceof Trinket|| item instanceof RemainsItem){
+		if (item instanceof Food||
+			item instanceof Artifact||
+			item instanceof Ring||
+			item instanceof Armor||
+			item instanceof Trinket||item instanceof RemainsItem){
 			return super.canHold(item);
 		} else {
 			return false;

@@ -24,7 +24,7 @@ public class EyeOfNewt extends Trinket {
 					Messages.decimalFormat("#.##", 100*(1f-visionRangeMultiplier(强化等级()))),
 					mindVisionRange(强化等级()));
 		} else {
-			return Messages.get(this, "typical_stats_desc",
+			return Messages.get(this, "stats_desc",
 					Messages.decimalFormat("#.##", 100*(1f-visionRangeMultiplier(0))),
 					mindVisionRange(0));
 		}

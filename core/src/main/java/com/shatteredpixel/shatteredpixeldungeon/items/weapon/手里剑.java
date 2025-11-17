@@ -15,7 +15,8 @@ public class 手里剑 extends Weapon{
 		image = 物品表.SHURIKEN;
 		hitSound = Assets.Sounds.HIT_STAB;
 		
-		伤害=0.7f;
+		间隔=0.8f;
+		伤害=0.8f;
 		伏击=0.67f;
 		tier = 2;
 	}

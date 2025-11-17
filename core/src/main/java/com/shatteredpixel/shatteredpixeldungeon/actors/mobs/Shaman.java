@@ -74,7 +74,8 @@ public abstract class Shaman extends Mob {
 	}
 
 	protected boolean doAttack(Char enemy ) {
-
+		
+		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		if (Dungeon.level.adjacent( pos, enemy.pos )
 				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos != enemy.pos) {
 			

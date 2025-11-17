@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.watabou.utils.Point;
 
 public class SecretRunestoneRoom extends SecretRoom {
@@ -43,6 +44,7 @@ public class SecretRunestoneRoom extends SecretRoom {
 		}
 		
 		level.addItemToSpawn(new PotionOfLiquidFlame());
+		level.addItemToSpawn( new Icecap.Seed());
 		
 		int dropPos;
 		

@@ -3,8 +3,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.ui.Component;
 
 public class HealthBar extends Component {
@@ -18,11 +19,12 @@ public class HealthBar extends Component {
 	private ColorBlock Bg;
 	private ColorBlock Shld;
 	private ColorBlock Hp;
+	private BitmapText hpText;
 	
 	private float health;
-	private float oldhp=0;
-	private float HP缓冲=0;
-	private float 时间=0;
+	private float 生命;
+	private float 护盾;
+	private float max;
 	private float shield;
 	
 	@Override
@@ -36,6 +38,11 @@ public class HealthBar extends Component {
 		Hp = new ColorBlock( 1, 1, COLOR_HP );
 		add( Hp );
 		
+		
+		hpText = new BitmapText(PixelScene.pixelFont);
+		hpText.alpha(0.6f);
+		add(hpText);
+		
 		height = HEIGHT;
 	}
 	
@@ -46,23 +53,21 @@ public class HealthBar extends Component {
 		
 		Bg.size( width, height );
 		
-		if(oldhp==0)
-			oldhp = health;
 		
-		HP缓冲=oldhp-health;
-		if((时间+=Game.elapsed)>=0.33f){
-			if(HP缓冲>0){
-				oldhp-=HP缓冲/1.11f;
-			}
-			if(HP缓冲<0){
-				oldhp-=HP缓冲/1.11f;
-			}
-		}
 		//logic here rounds up to the nearest pixel
 		float pixelWidth = width;
 		if (camera() != null) pixelWidth *= camera().zoom;
 		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
-		Hp.size( width * (float)Math.ceil(oldhp * pixelWidth)/pixelWidth, height );
+		Hp.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
+		if (护盾 <= 0){
+			hpText.text(Math.round(生命) + "/" + Math.round(max));
+		} else {
+			hpText.text(Math.round(生命) + "+" + Math.round(护盾) +  "/" + Math.round(max));
+		}
+		hpText.measure();
+		hpText.x = Hp.x + 1;
+		hpText.y = Hp.y + (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f+1;
+		
 		super.update();
 	}
 	
@@ -79,23 +84,32 @@ public class HealthBar extends Component {
 		if (camera() != null) pixelWidth *= camera().zoom;
 		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
 		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height );
+		
+		hpText.scale.set(PixelScene.align(0.34f));
+		hpText.x = Hp.x + 1;
+		hpText.y = Hp.y + (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
+		
 	}
 	
 	public void level( float value ) {
-		level( value, 0f );
+		level( value, 0f ,0f,0f,0f);
 	}
 
-	public void level( float health, float shield ){
+	public void level( float health, float shield , float health2, float shield2 , float max ){
 		this.health = health;
+		this.生命 = health2;
+		this.护盾 = shield2;
+		this.max = max;
 		this.shield = shield;
 		layout();
 	}
 
 	public void level(Char c){
 		float health = c.生命;
+		float maxx = c.最大生命;
 		float shield = c.shielding();
 		float max = Math.max(health+shield, c.最大生命);
 
-		level(health/max, (health+shield)/max);
+		level(health/max, (health+shield)/max,health,shield,maxx);
 	}
 }

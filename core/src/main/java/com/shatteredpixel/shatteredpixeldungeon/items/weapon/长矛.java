@@ -3,6 +3,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 长矛 extends Weapon{
@@ -13,10 +15,25 @@ public class 长矛 extends Weapon{
 		
 		
 		投矛=true;
-		tier = 2;
+		tier = 1;
 		间隔= 1.5f;
 		伤害= 1.5f;
 		范围 = 2;
+	}
+	
+	@Override
+	public int 攻击时(Char attacker,Char defender,int damage) {
+		if(defender instanceof Piranha){
+			damage+=defender.生命(0.5f);
+		}
+		return super.攻击时( attacker, defender, damage );
+	}
+	@Override
+	public int 投掷攻击时(Char attacker,Char defender,int damage) {
+		if(defender instanceof Piranha){
+			damage+=defender.生命(0.5f);
+		}
+		return super.投掷攻击时( attacker, defender, damage );
 	}
 
 }

@@ -2,12 +2,16 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene.uiCamera;
+
+import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -42,6 +46,7 @@ public class StatusPane extends Component {
 	private Image 护盾;
 	private Image 血条;
 	private BitmapText 血条文本;
+	private BitmapText 护盾文本;
 	
 	private Image 法力条框;
 	private Image 法力条;
@@ -53,6 +58,8 @@ public class StatusPane extends Component {
 
 	private Image exp;
 	private BitmapText expText;
+	private BitmapText fps;
+	private BitmapText time;
 
 	private int lastLvl = -1;
 
@@ -62,6 +69,8 @@ public class StatusPane extends Component {
 	private Compass compass;
 
 	private BusyIndicator busy;
+	
+	private BitmapText busytime;
 	private CircleArc counter;
 
 	private boolean 横屏;
@@ -113,6 +122,9 @@ public class StatusPane extends Component {
 		血条文本 = new BitmapText(PixelScene.pixelFont);
 		血条文本.alpha(0.6f);
 		add(血条文本);
+		护盾文本 = new BitmapText(PixelScene.pixelFont);
+		护盾文本.alpha(0.6f);
+		add(护盾文本);
 		
 		法力条= new Image(asset,0,46,50,4);
 		add(法力条);
@@ -132,6 +144,7 @@ public class StatusPane extends Component {
 		绿条文本.alpha(0.6f);
 		add(绿条文本);
 		
+		
 		heroInfoOnBar = new Button(){
 			@Override
 			protected void onClick () {
@@ -148,6 +161,10 @@ public class StatusPane extends Component {
 		expText.hardlight( 0xFFFFAA );
 		expText.alpha(0.6f);
 		add(expText);
+		fps = new BitmapText("FPS:"+Gdx.graphics.getFramesPerSecond(),PixelScene.pixelFont);
+		add(fps);
+		time = new BitmapText( Dungeon.地牢时间(), PixelScene.pixelFont);
+		add(time);
 
 		level = new BitmapText( PixelScene.pixelFont);
 		level.hardlight( 0xFFFFAA );
@@ -158,6 +175,8 @@ public class StatusPane extends Component {
 
 		busy = new BusyIndicator();
 		add( busy );
+		busytime = new BitmapText( String.format("%.2f",(1f - Actor.now()%1f)%1f), PixelScene.pixelFont);
+		add(busytime);
 
 		counter = new CircleArc(18, 4.25f);
 		counter.color( 0x808080, true );
@@ -186,44 +205,53 @@ public class StatusPane extends Component {
 			exp.x = x+2;
 			exp.y = y+30;
 
-			血条.x = 护盾.x = x + 30;
-			血条.y = 护盾.y  = y+2;
+		血条.x = 护盾.x = x + 30;
+		血条.y = 护盾.y  = y+2;
 
-			血条文本.scale.set(PixelScene.align(0.5f));
-			血条文本.x = 血条.x + 1;
-			血条文本.y = 血条.y + (血条.height - (血条文本.baseLine()+ 血条文本.scale.y))/2f;
-			血条文本.y -= 0.001f; //prefer to be slightly higher
-			PixelScene.align(血条文本);
+		血条文本.scale.set(PixelScene.align(0.5f));
+		血条文本.x = 血条.x + 1;
+		血条文本.y = 血条.y + (血条.height - (血条文本.baseLine()+ 血条文本.scale.y))/2f;
+		血条文本.y -= 0.001f; //prefer to be slightly higher
+		PixelScene.align(血条文本);
 		
-			法力条框.x= 血条.x-1;
-			法力条框.y= 血条.y+ 法力条.height()+1;
-			法力条.x= 血条.x;
-			法力条.y  = 血条.y + 法力条.height()+2;
+		护盾文本.scale.set(PixelScene.align(0.5f));
+		护盾文本.x = 血条.x + 血条.width-护盾文本.width()-3;
+		护盾文本.y = 血条.y + (血条.height - (护盾文本.baseLine()+ 护盾文本.scale.y))/2f;
+		护盾文本.y -= 0.001f; //prefer to be slightly higher
+		PixelScene.align(护盾文本);
+	
+		绿条框.x= 血条.x-1;
+		绿条框.y= 血条.y+ 绿条.height()+1;
+		绿条.x= 血条.x;
+		绿条.y  = 血条.y + 绿条.height()+2;
 
-			法力条文本.scale.set(PixelScene.align(0.5f));
-			法力条文本.x = 法力条.x + 1;
-			法力条文本.y = 法力条.y + (法力条.height - (法力条文本.baseLine()+ 法力条文本.scale.y))/2f;
-			法力条文本.y -= 0.001f; //prefer to be slightly higher
-			PixelScene.align(法力条文本);
-		
-		
-		
-		绿条框.x=法力条框.x;
-		绿条框.y=法力条框.y-2+绿条框.height();
-		绿条.x=法力条.x;
-		绿条.y=法力条.y+绿条.height()+2;
-		
 		绿条文本.scale.set(PixelScene.align(0.5f));
-		绿条文本.x=绿条.x+1;
-		绿条文本.y=绿条.y+(绿条.height-(绿条文本.baseLine()+绿条文本.scale.y))/2f;
-		绿条文本.y-=0.001f; //prefer to be slightly higher
+		绿条文本.x = 绿条.x + 1;
+		绿条文本.y = 绿条.y + (绿条.height - (绿条文本.baseLine()+ 绿条文本.scale.y))/2f;
+		绿条文本.y -= 0.001f; //prefer to be slightly higher
 		PixelScene.align(绿条文本);
+	
+	
+		
+//		绿条框.x=法力条框.x;
+//		绿条框.y=法力条框.y-2+绿条框.height();
+//		绿条.x=法力条.x;
+//		绿条.y=法力条.y+绿条.height()+2;
+//		
+//		绿条文本.scale.set(PixelScene.align(0.5f));
+//		绿条文本.x=绿条.x+1;
+//		绿条文本.y=绿条.y+(绿条.height-(绿条文本.baseLine()+绿条文本.scale.y))/2f;
+//		绿条文本.y-=0.001f; //prefer to be slightly higher
+//		PixelScene.align(绿条文本);
 			
-			if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
-				绿条.alpha0();
-				绿条文本.alpha0();
-				绿条框.alpha0();
-			}
+		if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+			绿条.alpha0();
+			绿条文本.alpha0();
+			绿条框.alpha0();
+		}
+		法力条.alpha0();
+		法力条文本.alpha0();
+		法力条框.alpha0();
 		heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 			
 		expText.scale.set(PixelScene.align(0.5f));
@@ -232,18 +260,31 @@ public class StatusPane extends Component {
 		expText.y -= 0.001f; //prefer to be slightly higher
 		PixelScene.align(expText);
 		
+		
+		fps.scale.set(PixelScene.align(0.67f));
+		fps.measure();
+		PixelScene.align(fps);
+		
+		time.scale.set(PixelScene.align(0.75f));
+		time.measure();
+		PixelScene.align(time);
+		
 		buffs.setRect( x + 31+3+1, y + 7+9+ 绿条.height()+1, 50, 8 );
-
+		
 		busy.x = x + 1;
 		busy.y = y + 37;
-
+		
+		busytime.scale.set(PixelScene.align(0.67f));
+		busytime.measure();
+		PixelScene.align(busytime);
+		
+		
 		counter.point(busy.center());
 	}
 	
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
 
 	private float oldHP = 0;
-	private float HP缓冲=0;
 	private float old绿 = 0;
 	private float 绿缓冲=0;
 	private float old法力 = 0;
@@ -282,7 +323,7 @@ public class StatusPane extends Component {
 		if (old法力 ==0)
 			old法力 = 法力;
 		
-		HP缓冲=oldHP-health;
+		float HP缓冲=oldHP-health;
 		绿缓冲=old绿-hunger;
 		法力缓冲=old法力-法力;
 		if((时间+=Game.elapsed)>=0.33f){
@@ -314,16 +355,48 @@ public class StatusPane extends Component {
 		}
 		
 		if (shield <= 0) {
-			血条文本.text(health + "/" + max);
+			护盾文本.text(shield+"");
 		} else {
-			血条文本.text(health + "+" + shield + "/" + max);
+			护盾文本.text(shield+"");
 		}
-	法力条文本.text(法力+"/"+法力max);
-		绿条文本.text(hunger + "/" + 450);
+		float 血量变化=0;
+		if(Dungeon.hero.hasbuff(Hunger.class)){
+			if(Dungeon.hero.buff(Hunger.class).isStarving()){
+				血量变化-=Dungeon.hero.buff(Hunger.class).partial;
+			}else{
+				血量变化+=Dungeon.hero.buff(再生.class).partialRegen;
+			}
+		}
+		if(!(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云))){
+			if(血量变化>0){
+				血条文本.text(health+"+"+String.format("%.2f",血量变化)+"/"+max);
+			}else if(血量变化==0){
+				血条文本.text(health+"/"+max);
+			}else{
+				血条文本.text(health+String.format("%.2f",血量变化)+"/"+max);
+			}
+		}
+		法力条文本.text(法力+"/"+法力max);
+		绿条文本.text(hunger+"-1" + "/" + 450);
 	
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
-
+		
+		fps.text("FPS:" + Gdx.graphics.getFramesPerSecond());
+		fps.measure();
+		fps.x = uiCamera.width-MenuPane.WIDTH + 23.5f - fps.width() / 2f;
+		fps.y = y + 17 + fps.height();
+		
+		time.text(Dungeon.地牢时间());
+		time.measure();
+		time.x = x + 25.5f - time.width() / 2f;
+		time.y = y + 35 + time.height();
+		
+		busytime.text(String.format("%.2f",(1f - Actor.now()%1f)%1f));
+		busytime.measure();
+		busytime.x = counter.x + busytime.width()/2;
+		busytime.y = counter.y+counter.height() -busytime.height()/2 + (3 - busytime.baseLine());
+		
 		if (Dungeon.hero.等级 != lastLvl) {
 
 			if (lastLvl != -1) {
@@ -360,6 +433,7 @@ public class StatusPane extends Component {
 		护盾.alpha(value);
 		血条.alpha(value);
 		血条文本.alpha(0.6f*value);
+		护盾文本.alpha(0.6f*value);
 		绿条.alpha(value);
 		绿条框.alpha(value);
 		绿条文本.alpha(0.6f*value);

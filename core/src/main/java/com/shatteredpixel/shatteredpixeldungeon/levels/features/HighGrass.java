@@ -6,11 +6,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
@@ -20,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.地牢浆果;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.PetrifiedSeed;
+import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -54,10 +52,6 @@ public class HighGrass {
 				freezeTrample = true;
 			} else {
 				Level.set(pos, Terrain.GRASS);
-			}
-
-			if (Dungeon.hero.天赋(Talent.自然猎手)) {
-				Buff.施加(Dungeon.hero, 极速.class, Dungeon.hero.天赋点数(Talent.自然猎手,0.33f));
 			}
 
 			int 自然层 = 0;
@@ -128,6 +122,10 @@ public class HighGrass {
 					}
 				}
 				
+				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
+					level.drop(new 地牢浆果(), pos).sprite.drop();
+				}
+				
 				// Dew, scales from 1/6 to 1/4
 				概率 = 1/(6f - 自然层 /2f);
 //				概率 = 1/(4f + 自然层 /2f);
@@ -142,10 +140,11 @@ public class HighGrass {
 				if (Random.Float() < 概率) {
 					level.drop(new Dewdrop(), pos).sprite.drop();
 				}
-
-				if (算法.概率学(6)&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					level.drop(new 地牢浆果(), pos).sprite.drop();
+				if (Random.Float() < 1/100f&&Dungeon.LimitedDrops.生命果.count==0) {
+					Dungeon.LimitedDrops.生命果.count++;
+					level.drop(new 生命果(),pos).sprite.drop();
 				}
+				
 			}
 
 			if (ch != null) {

@@ -28,7 +28,7 @@ public class Sungrass extends Plant {
 	public void activate( Char ch ) {
 		
 		if (ch != null){
-			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN) {
+			if (ch instanceof Hero hero&&hero.精通&& hero.subClass == HeroSubClass.守望者){
 				Buff.施加(ch, Healing.class).setHeal(ch.最大生命, 0, 1);
 			} else {
 				Buff.施加(ch, Health.class).boost(ch.最大生命);
@@ -79,9 +79,7 @@ public class Sungrass extends Plant {
 
 				if (target.生命 < target.最大生命) {
 
-					target.生命 += healThisTurn;
-					target.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healThisTurn), FloatingText.HEALING);
-
+					target.回血(healThisTurn);
 					if (target.生命 >= target.最大生命) {
 						target.生命 = target.最大生命;
 						if (target instanceof Hero) {

@@ -2,14 +2,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 铠甲 extends Armor {
 
 	{
 		image = 物品表.ARMOR_WARRIOR;
+		换甲=Assets.Sounds.板甲;
 		嬗变= false;
 		专属=true;
 	}
@@ -27,24 +27,13 @@ public class 铠甲 extends Armor {
 		if (神力){
 			req -= 2;
 		}
+		
 		return req;
 	}
 	
 	@Override
 	public int 最小防御(int lvl){
 		return super.最小防御(lvl)+augment.defenseFactor(tier + lvl);
-	}
-	public int 最大防御(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(tier + lvl);
-		}
-		
-		int max = augment.defenseFactor(Math.round(tier * (2 + lvl)*1.25f) );
-		if (lvl > max){
-			return ((lvl - max)+1)/2;
-		} else {
-			return max;
-		}
 	}
 	@Override
 	public int 金币() {

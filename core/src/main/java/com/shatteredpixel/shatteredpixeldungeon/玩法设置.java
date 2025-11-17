@@ -10,7 +10,7 @@ public class 玩法设置 {
 public static final int 鬼怨地牢				= 4;
 	public static final int 转生怪物				= 8;
 	public static final int 规则怪谈				= 16;
-	public static final int 时空逃离			= 32;
+	public static final int 速通地牢			= 32;
 	public static final int 苏死坚挺		    = 64;
 		public static final int 奇袭地牢	= 128;
 		public static final int 简单战斗 	= 256;
@@ -22,7 +22,7 @@ public static final int 鬼怨地牢				= 4;
 			"鬼怨地牢",
 			"转生怪物",
 			"规则怪谈",
-			"时空逃离",
+			"速通地牢",
 			"苏死坚挺",
 			"奇袭地牢",
 			"简单战斗",
@@ -34,7 +34,7 @@ public static final int 鬼怨地牢				= 4;
 			鬼怨地牢,
 			转生怪物,
 			规则怪谈,
-			时空逃离,
+			速通地牢,
 			苏死坚挺,
 			奇袭地牢,
 			简单战斗,

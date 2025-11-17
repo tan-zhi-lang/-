@@ -32,7 +32,7 @@ public class Swiftthistle extends Plant {
 	public void activate( Char ch ) {
 		if (ch != null) {
 			Buff.施加(ch, TimeBubble.class).reset();
-			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
+			if (ch instanceof Hero hero&&hero.精通&& hero.subClass == HeroSubClass.守望者){
 				Buff.施加(ch, 极速.class, 1f);
 			}
 		}

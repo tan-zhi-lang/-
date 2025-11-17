@@ -324,16 +324,9 @@ public class ElementalBlast extends ArmorAbility {
 										} else {
 											shielding = 0;
 										}
-										mob.生命 += healing;
-
+										mob.回血(healing);
 										mob.sprite.emitter().burst(Speck.factory(Speck.HEALING), 4);
 
-										if (healing > 0) {
-											mob.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(healing), FloatingText.HEALING);
-										}
-										if (shielding > 0){
-											mob.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shielding), FloatingText.SHIELDING);
-										}
 									} else {
 										if (!mob.properties().contains(Char.Property.UNDEAD)) {
 											Charm charm = Buff.施加(mob, Charm.class, effectMulti*Charm.DURATION/2f);
@@ -401,7 +394,6 @@ public class ElementalBlast extends ArmorAbility {
 						charsHit = Math.min(4 + hero.天赋点数(Talent.REACTIVE_BARRIER), charsHit);
 						if (charsHit > 0 && hero.天赋(Talent.REACTIVE_BARRIER)){
 							int shielding = Math.round(charsHit*2.5f*hero.天赋点数(Talent.REACTIVE_BARRIER));
-							hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shielding), FloatingText.SHIELDING);
 							Buff.施加(hero, Barrier.class).设置(shielding);
 						}
 

@@ -38,7 +38,7 @@ public class 手枪 extends Weapon{
 		hitSound = Assets.Sounds.HIT_STAB;
 		
 		tier = 1;
-		伤害= 0.6f;
+		伤害=0.6f;
 
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;

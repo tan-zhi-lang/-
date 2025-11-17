@@ -184,7 +184,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 	//10 at base, 20 at level 30
 	public int energyCap(){
-		return Math.max(10, 5 + Dungeon.hero.等级 /2);
+		return Math.max(10, 5 + (Dungeon.hero.精通?5:0));
 	}
 
 	public void abilityUsed( MonkAbility abil ){

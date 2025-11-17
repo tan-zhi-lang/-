@@ -121,15 +121,15 @@ public class Tengu extends Mob {
 
 		PrisonBossLevel.State state = ((PrisonBossLevel)Dungeon.level).state();
 		
-		int hpBracket = 最大生命 / 8;
+		int hpBracket = 最大生命(0.125f);
 
-		int curbracket = 生命 / hpBracket;
+		int curbracket = 生命 / hpBracket;//当前生命能承受1/8多少次
 
 		int beforeHitHP = 生命;
 		super.受伤时(dmg, src);
 
 		//cannot be hit through multiple brackets at a time
-		if (生命 <= (curbracket-1)*hpBracket){
+		if (生命 <= (curbracket-1)*hpBracket){//生命小于1/8那么就多一点
 			生命 = (curbracket-1)*hpBracket + 1;
 		}
 

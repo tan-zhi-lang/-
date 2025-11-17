@@ -251,9 +251,9 @@ public class Challenge extends ArmorAbility {
 						hpToHeal += 5*Dungeon.hero.天赋点数(Talent.INVIGORATING_VICTORY);
 						hpToHeal = Math.min(hpToHeal, Dungeon.hero.最大生命 - Dungeon.hero.生命);
 						if (hpToHeal > 0){
-							Dungeon.hero.生命 += hpToHeal;
+							Dungeon.hero.回血(hpToHeal);
 							Dungeon.hero.sprite.emitter().start( Speck.factory( Speck.HEALING ), 0.33f, 6 );
-							Dungeon.hero.sprite.showStatusWithIcon( CharSprite.增强, Integer.toString(hpToHeal), FloatingText.HEALING );
+						
 						}
 					}
 				}

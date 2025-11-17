@@ -2,13 +2,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.watabou.noosa.audio.Sample;
 
 public class Bat extends Mob {
 
@@ -49,20 +49,17 @@ public class Bat extends Mob {
 
 	@Override
 	public void 死亡时(Object cause) {
+		Sample.INSTANCE.play(Assets.Sounds.BAT);
 		flying = false;
 		super.死亡时(cause);
 	}
-
+	
 	@Override
 	public int 攻击时(Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
 		int reg = Math.min( damage - 4, 最大生命 - 生命);
 		
-		if (reg > 0) {
-			生命 += reg;
-			sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(reg), FloatingText.HEALING);
-		}
-		
+		回血(reg);
 		return damage;
 	}
 	

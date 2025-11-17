@@ -2,11 +2,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RatKing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 public class Rat extends Mob {
@@ -38,7 +41,7 @@ public class Rat extends Mob {
 			alignment=Alignment.ENEMY;
 		}
 		
-		if(Dungeon.hero.armorAbility instanceof Ratmogrify){
+		if(!RatKing.库存||Dungeon.hero.armorAbility instanceof Ratmogrify){
 			if(Dungeon.level.heroFOV[pos]){
 				if(alignment != Alignment.ALLY) {
 					alignment = Alignment.NEUTRAL;
@@ -53,6 +56,13 @@ public class Rat extends Mob {
 	@Override
 	public int 最大攻击() {
 		return 4;
+	}
+	
+	
+	@Override
+	public void 死亡时(Object cause){
+		Sample.INSTANCE.play(Assets.Sounds.RAT);
+		super.死亡时(cause);
 	}
 	
 	@Override

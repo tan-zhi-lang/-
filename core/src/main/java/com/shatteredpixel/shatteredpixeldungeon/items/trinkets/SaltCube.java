@@ -26,7 +26,7 @@ public class SaltCube extends Trinket {
 					Messages.decimalFormat("#.##", 100*(1f-healthRegenMultiplier(强化等级()))));
 		} else {
 			return Messages.get(this,
-					"typical_stats_desc",
+					"stats_desc",
 					Messages.decimalFormat("#.##", 100*((1f/hungerGainMultiplier(0))-1f)),
 					Messages.decimalFormat("#.##", 100*(1f-healthRegenMultiplier(0))));
 		}

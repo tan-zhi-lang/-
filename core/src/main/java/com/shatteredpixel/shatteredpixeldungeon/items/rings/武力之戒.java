@@ -92,9 +92,8 @@ public class 武力之戒 extends Ring{
 	}
 	
 	public static int heromax(){
-		return Dungeon.hero.力量(0.2f);
+		return Dungeon.hero.力量()-8;
 	}
-	
 	public static int min(){
 		int x=0;
 		if(Dungeon.hero()){
@@ -131,7 +130,7 @@ public class 武力之戒 extends Ring{
 			lvl=0;
 		}
 		
-		return Math.max(0,Math.round(5*(tier+1)+    //base
+		return Math.max(0,Math.round(2.5f*(tier+1)+    //base
 									  lvl*(tier+1)    //level scaling
 									 ));
 	}
@@ -143,17 +142,17 @@ public class 武力之戒 extends Ring{
 			int level=soloBuffedBonus();
 			String info=Messages.get(this,"stats",min(level,tier),
 									 max(level,tier),
-									 level+min(level,tier)/2);
+									 1,level*2+1);
 			if(isEquipped(Dungeon.hero)&&soloBuffedBonus()!=combinedBuffedBonus(Dungeon.hero)){
 				level=combinedBuffedBonus(Dungeon.hero);
 				info+="\n\n"+Messages.get(this,"combined_stats",min(level,tier),
 										  max(level,tier),
-										  level+heromin());
+										  1,1+2*level);
 			}
 			return info;
 		}else{
-			return Messages.get(this,"typical_stats",min(0,tier),
-								max(0,tier),2);
+			return Messages.get(this,"stats",min(0,tier),
+								max(0,tier),1,1);
 		}
 	}
 	
@@ -171,7 +170,7 @@ public class 武力之戒 extends Ring{
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-3);
 		}
-		return Integer.toString(level+1+heromin());
+		return Integer.toString(level*2+1);
 	}
 	
 	@Override

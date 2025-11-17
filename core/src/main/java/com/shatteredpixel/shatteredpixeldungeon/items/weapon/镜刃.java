@@ -8,8 +8,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 镜刃 extends Weapon{
 
 	{
-		image = 物品表.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		image = 物品表.镜刃;
+		hitSound = Assets.Sounds.镜刃;
 		
 
 		tier = 1;

@@ -10,8 +10,8 @@ public class 符文之刃 extends Weapon {
 
 	{
 		image = 物品表.RUNIC_BLADE;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		tier = 4;
+		hitSound = Assets.Sounds.镜刃;
+		tier = 5;
 	}
 	@Override
 	public int 强化等级(){

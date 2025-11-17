@@ -24,7 +24,7 @@ public class Rotberry extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
-		if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
+		if (ch instanceof Hero hero&&hero.精通&& hero.subClass == HeroSubClass.守望者){
 			Buff.施加(ch, AdrenalineSurge.class).reset(1, AdrenalineSurge.DURATION);
 		} else {
 			GameScene.add( Blob.seed( pos, 100, ToxicGas.class ) );

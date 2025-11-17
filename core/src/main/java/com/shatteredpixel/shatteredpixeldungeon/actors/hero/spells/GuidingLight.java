@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -17,12 +16,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -64,7 +61,7 @@ public class GuidingLight extends TargetedClericSpell {
 
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
-					ch.受伤时(Random.NormalIntRange(Dungeon.hero.生命力(0.25f), Dungeon.hero.生命力(2)), GuidingLight.this);
+					ch.受伤时(Random.NormalIntRange(2, 8), GuidingLight.this);
 					Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 					ch.sprite.burst(0xFFFFFF44, 3);
 					if (ch.isAlive()){
@@ -79,10 +76,6 @@ public class GuidingLight extends TargetedClericSpell {
 				hero.next();
 
 				onSpellCast(tome, hero);
-				if (hero.subClass == HeroSubClass.PRIEST && hero.buff(GuidingLightPriestCooldown.class) == null) {
-					Buff.延长(hero, GuidingLightPriestCooldown.class, 50f);
-					ActionIndicator.refresh();
-				}
 
 			}
 		});
@@ -90,41 +83,15 @@ public class GuidingLight extends TargetedClericSpell {
 
 	@Override
 	public int chargeUse(Hero hero) {
-		if (hero.subClass == HeroSubClass.PRIEST
-			&& hero.buff(GuidingLightPriestCooldown.class) == null){
-			return 0;
-		} else {
-			return 1;
-		}
+		return 1;
 	}
 
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.生命力(0.25f),Dungeon.hero.生命力(2f));
+		String desc = Messages.get(this, "desc",2,8);
 		if (Dungeon.hero.subClass == HeroSubClass.PRIEST){
 			desc += "\n\n" + Messages.get(this, "desc_priest",Dungeon.hero.生命力(0.5f),Dungeon.hero.生命力(4f));
 		}
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
-	}
-
-	public static class GuidingLightPriestCooldown extends FlavourBuff {
-
-		@Override
-		public int icon() {
-			return BuffIndicator.ILLUMINATED;
-		}
-
-		@Override
-		public void tintIcon(Image icon) {
-			icon.brightness(0.5f);
-		}
-
-		public float iconFadePercent() { return Math.max(0, visualcooldown() / 50); }
-
-		@Override
-		public void detach() {
-			super.detach();
-			ActionIndicator.refresh();
-		}
 	}
 
 	public static class Illuminated extends Buff {

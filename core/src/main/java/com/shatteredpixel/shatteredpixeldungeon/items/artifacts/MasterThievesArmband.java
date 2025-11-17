@@ -97,15 +97,17 @@ public class MasterThievesArmband extends Artifact {
 
 			if (target == null) {
 				return;
-			} else if (!Dungeon.level.adjacent(curUser.pos, target) || Actor.findChar(target) == null){
+			} else if (Actor.findChar(target) == null){
+			
+			} else if (Dungeon.level.distance(curUser.pos, target)<=curUser.攻击范围()){
 				GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
 			} else {
 				Char ch = Actor.findChar(target);
-				//不是敌人不是宝箱，不是中立
-				//ch.alignment != Char.Alignment.ENEMY &&
-				if (!(ch instanceof Mimic && ch.alignment == Char.Alignment.NEUTRAL)){
-					GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
-				} else if (ch instanceof Mob) {
+				 if (ch instanceof Mob) {
+					 //不是敌人不是宝箱，不是中立
+				 if (ch instanceof Mimic&&ch.alignment==Char.Alignment.NEUTRAL){
+					 return;
+				 }
 					curUser.busy();
 					curUser.sprite.attack(target, new Callback() {
 						@Override
@@ -140,11 +142,13 @@ public class MasterThievesArmband extends Artifact {
 							} else if (Random.Float() <= lootChance){
 								Item loot = ((Mob) ch).createLoot();
 								boolean 有偷的=true;
-								if (ch instanceof Shopkeeper s&&s.商人信标){
-									s.商人信标=false;
-								}else{
-									有偷的=false;
-//									GLog.w( Messages.get(MasterThievesArmband.class, "steal_shopkeeper") );
+								if(ch instanceof Shopkeeper s){
+									if(s.商人信标){
+										s.商人信标=false;
+									}else{
+										有偷的=false;
+										//									GLog.w( Messages.get(MasterThievesArmband.class, "steal_shopkeeper") );
+									}
 								}
 								
 								if (loot==null||!有偷的){//Evan没写空的情况

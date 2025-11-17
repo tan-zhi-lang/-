@@ -11,4 +11,12 @@ public class 英雄断剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		tier=5;
 	}
+	@Override
+	public int 金币() {
+		return Math.round(super.金币()*10);
+	}
+	@Override
+	public int 能量() {
+		return Math.round(super.能量()*5);
+	}
 }

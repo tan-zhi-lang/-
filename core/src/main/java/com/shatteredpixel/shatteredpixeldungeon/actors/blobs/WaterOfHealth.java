@@ -46,9 +46,9 @@ public class WaterOfHealth extends WellWater {
 			healing.setHeal(hero.最大生命, 0, VialOfBlood.maxHealPerTurn());
 			healing.applyVialEffect();
 		} else {
-			hero.生命 = hero.最大生命;
+			hero.回满血();
 			hero.sprite.emitter().start(Speck.factory(Speck.HEALING), 0.4f, 4);
-			hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(hero.最大生命), FloatingText.HEALING);
+			
 		}
 		
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );

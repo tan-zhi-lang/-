@@ -2,7 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Bones;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -29,7 +29,8 @@ public class 未来空间器 extends Item {
 	public static final String AC_使用	= "使用";
 	
 	{
-		image = 物品表.空间之戒;
+		image = 物品表.未来空间器;
+		特别 = true;
 		物品 = true;
 		
 		defaultAction = AC_使用;
@@ -91,12 +92,12 @@ public class 未来空间器 extends Item {
 			btnitem= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item!=null){
+					if (Statistics.item!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item,Dungeon.hero.pos);
+						if (!Statistics.item.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item,Dungeon.hero.pos);
 						}
-						Bones.item= null;
+						Statistics.item= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -112,7 +113,7 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return !(item instanceof 未来空间器||item instanceof Bag);
 							}
 							
 							@Override
@@ -122,8 +123,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item= item;
-								item(Bones.item);
+								Statistics.item= item;
+								item(Statistics.item);
 							}
 						});
 					}
@@ -139,8 +140,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem.setRect(GAP/2+3,message.top()+message.height()+GAP*4,BTN_SIZE,BTN_SIZE);
-			if (Bones.item!=null) {
-				btnitem.item(Bones.item);
+			if (Statistics.item!=null) {
+				btnitem.item(Statistics.item);
 			} else {
 				btnitem.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -151,12 +152,12 @@ public class 未来空间器 extends Item {
 			btnitem2= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item2!=null){
+					if (Statistics.item2!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item2.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item2,Dungeon.hero.pos);
+						if (!Statistics.item2.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item2,Dungeon.hero.pos);
 						}
-						Bones.item2= null;
+						Statistics.item2= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -182,8 +183,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item2= item;
-								item(Bones.item2);
+								Statistics.item2= item;
+								item(Statistics.item2);
 							}
 						});
 					}
@@ -199,8 +200,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem2.setRect( btnitem.right() + BTN_GAP/3, btnitem.top(), BTN_SIZE, BTN_SIZE );
-			if (Bones.item2!=null) {
-				btnitem2.item(Bones.item2);
+			if (Statistics.item2!=null) {
+				btnitem2.item(Statistics.item2);
 			} else {
 				btnitem2.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -211,12 +212,12 @@ public class 未来空间器 extends Item {
 			btnitem3= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item3!=null){
+					if (Statistics.item3!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item3.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item3,Dungeon.hero.pos);
+						if (!Statistics.item3.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item3,Dungeon.hero.pos);
 						}
-						Bones.item3= null;
+						Statistics.item3= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -242,8 +243,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item3= item;
-								item(Bones.item3);
+								Statistics.item3= item;
+								item(Statistics.item3);
 							}
 						});
 					}
@@ -259,8 +260,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem3.setRect( btnitem2.right() + BTN_GAP/3, btnitem2.top(), BTN_SIZE, BTN_SIZE );
-			if (Bones.item3!=null) {
-				btnitem3.item(Bones.item3);
+			if (Statistics.item3!=null) {
+				btnitem3.item(Statistics.item3);
 			} else {
 				btnitem3.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -272,12 +273,12 @@ public class 未来空间器 extends Item {
 			btnitem4= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item4!=null){
+					if (Statistics.item4!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item4.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item4,Dungeon.hero.pos);
+						if (!Statistics.item4.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item4,Dungeon.hero.pos);
 						}
-						Bones.item4= null;
+						Statistics.item4= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -303,8 +304,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item4= item;
-								item(Bones.item4);
+								Statistics.item4= item;
+								item(Statistics.item4);
 							}
 						});
 					}
@@ -320,8 +321,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem4.setRect(GAP/2+3,message.top()+message.height()+GAP*6+btnitem.height(),BTN_SIZE,BTN_SIZE);
-			if (Bones.item4!=null) {
-				btnitem4.item(Bones.item4);
+			if (Statistics.item4!=null) {
+				btnitem4.item(Statistics.item4);
 			} else {
 				btnitem4.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -332,12 +333,12 @@ public class 未来空间器 extends Item {
 			btnitem5= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item5!=null){
+					if (Statistics.item5!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item5.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item5,Dungeon.hero.pos);
+						if (!Statistics.item5.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item5,Dungeon.hero.pos);
 						}
-						Bones.item5= null;
+						Statistics.item5= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -363,8 +364,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item5= item;
-								item(Bones.item5);
+								Statistics.item5= item;
+								item(Statistics.item5);
 							}
 						});
 					}
@@ -380,8 +381,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem5.setRect( btnitem4.right() + BTN_GAP/3, btnitem4.top(), BTN_SIZE, BTN_SIZE );
-			if (Bones.item5!=null) {
-				btnitem5.item(Bones.item5);
+			if (Statistics.item5!=null) {
+				btnitem5.item(Statistics.item5);
 			} else {
 				btnitem5.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -392,12 +393,12 @@ public class 未来空间器 extends Item {
 			btnitem6= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item6!=null){
+					if (Statistics.item6!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item6.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item6,Dungeon.hero.pos);
+						if (!Statistics.item6.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item6,Dungeon.hero.pos);
 						}
-						Bones.item6= null;
+						Statistics.item6= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -423,8 +424,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item6= item;
-								item(Bones.item6);
+								Statistics.item6= item;
+								item(Statistics.item6);
 							}
 						});
 					}
@@ -440,8 +441,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem6.setRect( btnitem5.right() + BTN_GAP/3, btnitem4.top(), BTN_SIZE, BTN_SIZE );
-			if (Bones.item6!=null) {
-				btnitem6.item(Bones.item6);
+			if (Statistics.item6!=null) {
+				btnitem6.item(Statistics.item6);
 			} else {
 				btnitem6.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -452,12 +453,12 @@ public class 未来空间器 extends Item {
 			btnitem7= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item7!=null){
+					if (Statistics.item7!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item7.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item7,Dungeon.hero.pos);
+						if (!Statistics.item7.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item7,Dungeon.hero.pos);
 						}
-						Bones.item7= null;
+						Statistics.item7= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -483,8 +484,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item7= item;
-								item(Bones.item7);
+								Statistics.item7= item;
+								item(Statistics.item7);
 							}
 						});
 					}
@@ -500,8 +501,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem7.setRect(GAP/2+3,message.top()+message.height()+GAP*8+btnitem4.height()*2,BTN_SIZE,BTN_SIZE);
-			if (Bones.item7!=null) {
-				btnitem7.item(Bones.item7);
+			if (Statistics.item7!=null) {
+				btnitem7.item(Statistics.item7);
 			} else {
 				btnitem7.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -512,12 +513,12 @@ public class 未来空间器 extends Item {
 			btnitem8= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item8!=null){
+					if (Statistics.item8!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item8.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item8,Dungeon.hero.pos);
+						if (!Statistics.item8.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item8,Dungeon.hero.pos);
 						}
-						Bones.item8= null;
+						Statistics.item8= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -543,8 +544,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item8= item;
-								item(Bones.item8);
+								Statistics.item8= item;
+								item(Statistics.item8);
 							}
 						});
 					}
@@ -560,8 +561,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem8.setRect( btnitem4.right() + BTN_GAP/3, btnitem7.top(), BTN_SIZE, BTN_SIZE );
-			if (Bones.item5!=null) {
-				btnitem8.item(Bones.item5);
+			if (Statistics.item5!=null) {
+				btnitem8.item(Statistics.item5);
 			} else {
 				btnitem8.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -572,12 +573,12 @@ public class 未来空间器 extends Item {
 			btnitem9= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Bones.item9!=null){
+					if (Statistics.item9!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Bones.item9.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Bones.item9,Dungeon.hero.pos);
+						if (!Statistics.item9.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item9,Dungeon.hero.pos);
 						}
-						Bones.item9= null;
+						Statistics.item9= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -603,8 +604,8 @@ public class 未来空间器 extends Item {
 								} else {
 									item.detach(Dungeon.hero.belongings.backpack);
 								}
-								Bones.item9= item;
-								item(Bones.item9);
+								Statistics.item9= item;
+								item(Statistics.item9);
 							}
 						});
 					}
@@ -620,8 +621,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem9.setRect( btnitem8.right() + BTN_GAP/3, btnitem7.top(), BTN_SIZE, BTN_SIZE );
-			if (Bones.item9!=null) {
-				btnitem9.item(Bones.item9);
+			if (Statistics.item9!=null) {
+				btnitem9.item(Statistics.item9);
 			} else {
 				btnitem9.item(new WndBag.Placeholder(物品表.ITEM));
 			}

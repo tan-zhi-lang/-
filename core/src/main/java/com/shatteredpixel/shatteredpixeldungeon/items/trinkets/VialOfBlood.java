@@ -27,7 +27,7 @@ public class VialOfBlood extends Trinket {
 					Integer.toString(maxHealPerTurn(强化等级())));
 		} else {
 			return Messages.get(this,
-					"typical_stats_desc",
+					"stats_desc",
 					Messages.decimalFormat("#.##", 100*(totalHealMultiplier(0)-1f)),
 					Integer.toString(maxHealPerTurn(0)));
 		}

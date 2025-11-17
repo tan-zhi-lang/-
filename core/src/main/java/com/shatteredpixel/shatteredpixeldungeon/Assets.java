@@ -181,12 +181,19 @@ public class Assets {
 		public static final String GRASS    = "sounds/grass.mp3";
 		public static final String TRAMPLE  = "sounds/trample.mp3";
 		public static final String STURDY   = "sounds/sturdy.mp3";
+		public static final String 布甲   = "sounds/布甲.mp3";
+		public static final String 皮甲   = "sounds/皮甲.mp3";
+		public static final String 链甲   = "sounds/链甲.mp3";
+		public static final String 鳞甲   = "sounds/鳞甲.mp3";
+		public static final String 板甲   = "sounds/板甲.mp3";
 
+		public static final String 心之钢              = "sounds/心之钢.mp3";
 		public static final String 换弹              = "sounds/换弹.mp3";
 		public static final String 手枪              = "sounds/手枪.mp3";
 		public static final String HIT              = "sounds/hit.mp3";
 		public static final String MISS             = "sounds/miss.mp3";
 		public static final String HIT_SLASH        = "sounds/hit_slash.mp3";
+		public static final String 镜刃        = "sounds/镜刃.mp3";
 		public static final String HIT_STAB         = "sounds/hit_stab.mp3";
 		public static final String HIT_CRUSH        = "sounds/hit_crush.mp3";
 		public static final String HIT_MAGIC        = "sounds/hit_magic.mp3";
@@ -212,6 +219,12 @@ public class Assets {
 		public static final String CURSED   = "sounds/cursed.mp3";
 		public static final String TRAP     = "sounds/trap.mp3";
 		public static final String EVOKE    = "sounds/evoke.mp3";
+		public static final String 叶子    = "sounds/叶子.mp3";
+		public static final String 日炎链刃    = "sounds/日炎链刃.mp3";
+		public static final String 死神镰刀    = "sounds/死神镰刀.mp3";
+		public static final String 挖爆    = "sounds/挖爆.mp3";
+		public static final String 挖矿    = "sounds/挖矿.mp3";
+		public static final String 生命水晶   = "sounds/生命水晶.mp3";
 		public static final String TOMB     = "sounds/tomb.mp3";
 		public static final String ALERT    = "sounds/alert.mp3";
 		public static final String MELD     = "sounds/meld.mp3";
@@ -222,6 +235,22 @@ public class Assets {
 		public static final String BEACON   = "sounds/beacon.mp3";
 		public static final String TELEPORT = "sounds/teleport.mp3";
 		public static final String CHARMS   = "sounds/charms.mp3";
+		public static final String RAT   = "sounds/rat.mp3";
+		public static final String 古神   = "sounds/古神.mp3";
+		public static final String 骷髅   = "sounds/骷髅.mp3";
+		public static final String 金属受伤   = "sounds/金属受伤.mp3";
+		public static final String 狗叫   = "sounds/狗叫.mp3";
+		public static final String 鬼叫   = "sounds/鬼叫.mp3";
+		public static final String 蛇叫   = "sounds/蛇叫.mp3";
+		public static final String 苍蝇   = "sounds/苍蝇.mp3";
+		public static final String 史莱姆= "sounds/史莱姆.mp3";
+		public static final String 尸群= "sounds/尸群.mp3";
+		public static final String BAT= "sounds/bat.mp3";
+		public static final String 鱼叫= "sounds/鱼叫.mp3";
+		public static final String 蜘蛛叫= "sounds/蜘蛛叫.mp3";
+		public static final String 螃蟹= "sounds/螃蟹.mp3";
+		public static final String 猫= "sounds/猫.mp3";
+		public static final String 哈气猫= "sounds/哈气猫.mp3";
 		public static final String MASTERY  = "sounds/mastery.mp3";
 		public static final String PUFF     = "sounds/puff.mp3";
 		public static final String ROCKS    = "sounds/rocks.mp3";
@@ -245,14 +274,40 @@ public class Assets {
 				CLICK, BADGE, GOLD,
 
 				OPEN, UNLOCK, ITEM, DEWDROP, STEP, WATER, GRASS, TRAMPLE, STURDY,
-
-				换弹,手枪,
+				
+				心之钢,换弹,手枪,镜刃,布甲,皮甲,链甲,鳞甲,板甲,
 				HIT, MISS, HIT_SLASH, HIT_STAB, HIT_CRUSH, HIT_MAGIC, HIT_STRONG, HIT_PARRY,
 				HIT_ARROW, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL,
 
 				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
-				CHALLENGE, CURSED, TRAP, EVOKE, TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
-				TELEPORT, CHARMS, MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,
+				CHALLENGE, CURSED, TRAP,
+				EVOKE,
+				挖爆,
+				叶子,
+				日炎链刃,
+				死神镰刀,
+				生命水晶,
+				挖矿,
+				TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
+				TELEPORT,
+				CHARMS,
+				RAT,
+				古神,
+				骷髅,
+				金属受伤,
+				狗叫,
+				鬼叫,
+				蛇叫,
+				苍蝇,
+				史莱姆,
+				尸群,
+				BAT,
+				鱼叫,
+				蜘蛛叫,
+				螃蟹,
+				猫,
+				哈气猫,
+				MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,
 				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE
 		};
 	}
@@ -304,6 +359,7 @@ public class Assets {
 		public static final String PET      = "sprites/pet.png";
 		public static final String AMULET   = "sprites/amulet.png";
 
+		public static final String 白猫      = "sprites/白猫.png";
 		public static final String RAT      = "sprites/rat.png";
 		public static final String BRUTE    = "sprites/brute.png";
 		public static final String 修复 = "sprites/spinner.png";
@@ -318,6 +374,7 @@ public class Assets {
 		public static final String GOO      = "sprites/goo.png";
 		public static final String SWARM    = "sprites/swarm.png";
 		public static final String SKELETON = "sprites/skeleton.png";
+		public static final String 骷髅战士 = "sprites/骷髅战士.png";
 		public static final String SHAMAN   = "sprites/shaman.png";
 		public static final String THIEF    = "sprites/thief.png";
 		public static final String TENGU    = "sprites/tengu.png";

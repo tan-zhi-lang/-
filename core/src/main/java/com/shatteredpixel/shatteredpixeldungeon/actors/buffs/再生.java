@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
@@ -29,7 +28,7 @@ public class 再生 extends Buff implements ActionIndicator.Action {
 		actPriority = HERO_PRIO - 1;
 	}
 
-	private float partialRegen = 0f;
+	public float partialRegen = 0f;
 
 	private static final float REGENERATION_DELAY = 10; //1HP every 10 turns
 	
@@ -206,25 +205,16 @@ public class 再生 extends Buff implements ActionIndicator.Action {
 				partialRegen += 1f / delay;
 
 				if (partialRegen >= 1) {
-					int x =0;
 					if(target instanceof Hero hero){
-						if(hero.天赋(Talent.孤立无援)&&!hero.视野敌人()){
-							x+=hero.天赋生命力(Talent.孤立无援,0.15f);
+						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
+							hero.回血(1);
 						}
-						x+=hero.天赋生命力(Talent.钢铁之盾,0.16f);
-						x+=hero.天赋生命力(Talent.绝望安息,0.14f);
-						
-						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云)))
-						hero.回血(Math.round(partialRegen+
-										   hero.生命力(0.14f)+x
-					));
-					partialRegen -= (int)partialRegen;
-					if (hero.满血()) {
-						hero.resting = false;
-					}
+						partialRegen -= (int)partialRegen;
+						if (hero.满血()) {
+							hero.resting = false;
+						}
 					}
 				}
-
 			}
 
 			spend( TICK );

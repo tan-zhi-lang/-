@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
+import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -538,11 +539,11 @@ public class DwarfKing extends Mob {
 			h.destroy();
 		}
 
-//		if (pos == CityBossLevel.throne){
-//			Dungeon.level.drop(new 矮人国王的皇冠(), pos + Dungeon.level.width()).sprite.drop(pos);
-//		} else {
-//			Dungeon.level.drop(new 矮人国王的皇冠(), pos).sprite.drop();
-//		}
+		if (pos == CityBossLevel.throne){
+			Dungeon.level.drop(new 矮人国王的皇冠(),pos+Dungeon.level.width()).sprite.drop(pos);
+		} else {
+			Dungeon.level.drop(new 矮人国王的皇冠(), pos).sprite.drop();
+		}
 
 		Badges.validateBossSlain();
 		if (Statistics.qualifiedForBossChallengeBadge){

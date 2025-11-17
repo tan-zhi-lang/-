@@ -55,7 +55,7 @@ public class 财富之戒 extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "typical_stats", Messages.decimalFormat("#.##", 0.20f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.##", 0.20f));
 		}
 	}
 
@@ -88,7 +88,7 @@ public class 财富之戒 extends Ring {
 	
 	@Override
 	public int 强化等级(){
-		int l=curUser.天赋点数(Talent.寻宝猎人);
+		int l=0;
 		return super.强化等级()+l;
 	}
 	public static float dropChanceMultiplier( Char target ){

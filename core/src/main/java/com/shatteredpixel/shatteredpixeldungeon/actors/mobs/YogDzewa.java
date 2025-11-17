@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.GameMath;
@@ -388,7 +389,8 @@ public class YogDzewa extends Mob {
 		}
 
 		if (phase < 4 && 生命 <= 最大生命 - 300*phase){
-
+			
+			Sample.INSTANCE.play(Assets.Sounds.古神);
 			phase++;
 
 			updateVisibility(Dungeon.level);
@@ -496,7 +498,7 @@ public class YogDzewa extends Mob {
 			}
 		}
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void 死亡时(Object cause ) {

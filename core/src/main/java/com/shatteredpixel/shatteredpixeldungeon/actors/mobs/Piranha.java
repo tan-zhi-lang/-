@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -24,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PiranhaSprite;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -38,7 +40,7 @@ public class Piranha extends Mob {
 		经验 = 0;
 		
 		loot = MysteryMeat.class;
-		lootChance = 1f;
+		
 		
 		SLEEPING = new Sleeping();
 		WANDERING = new Wandering();
@@ -69,6 +71,11 @@ public class Piranha extends Mob {
 		}
 	}
 	
+	@Override
+	public int 攻击时(Char enemy,int damage){
+		Sample.INSTANCE.play(Assets.Sounds.鱼叫);
+		return super.攻击时(enemy,damage);
+	}
 	@Override
 	public int 最小攻击() {
 		return Dungeon.depth;
@@ -199,6 +206,9 @@ public class Piranha extends Mob {
 		}
 	}
 	public void 寻找肉(){
+		if(true){
+			return;
+		}
 		try{
 			for(int n: PathFinder.范围4){
 				Heap heap=Dungeon.level.heaps.get(pos+n);

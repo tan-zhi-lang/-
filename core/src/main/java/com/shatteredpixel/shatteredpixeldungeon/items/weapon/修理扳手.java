@@ -12,11 +12,12 @@ public class 修理扳手 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		吸血=0.03f;
-		伤害=0.5f;
-		红色 = true;
+		伤害=0.6f;
 		特别= true;
 		遗产= false;
+		回旋镖=true;
 		
 		tier = 1;
 	}
+	
 }

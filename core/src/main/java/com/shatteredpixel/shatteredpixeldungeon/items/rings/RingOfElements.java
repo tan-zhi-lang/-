@@ -13,6 +13,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -67,15 +69,19 @@ public class RingOfElements extends Ring {
 	}
 	
 	public static float resist( Char target, Class effect ){
-		if (getBuffedBonus(target, Resistance.class) == 0) return 1f;
+		float x=1;
+		if(target instanceof Hero hero){
+			x*=1-hero.天赋点数(Talent.神圣净化,0.15f);
+		}
+		if (getBuffedBonus(target, Resistance.class) == 0) return x;
 		
 		for (Class c : RESISTS){
 			if (c.isAssignableFrom(effect)){
-				return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class));
+				return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class))*x;
 			}
 		}
 		
-		return 1f;
+		return x;
 	}
 	
 	public class Resistance extends RingBuff {

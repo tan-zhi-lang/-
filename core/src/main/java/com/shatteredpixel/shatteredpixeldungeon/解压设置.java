@@ -10,7 +10,7 @@ public class 解压设置 {
 	public static final int 天赋武神				= 4;
 	public static final int 纯正怪物				= 8;
 	public static final int 宝物空投				= 16;
-	public static final int 真实伤害			= 32;
+	public static final int 掉落几率			= 32;
 	public static final int 血源迸发		    = 64;
 	public static final int 持之以恒= 128;
 	public static final int 探索口粮 	= 256;
@@ -22,7 +22,7 @@ public class 解压设置 {
 			"天赋武神",
 			"纯正怪物",
 			"宝物空投",
-			"真实伤害",
+			"掉落几率",
 			"血源迸发",
 			"持之以恒",
 			"探索口粮",
@@ -34,7 +34,7 @@ public class 解压设置 {
 			天赋武神,
 			纯正怪物,
 			宝物空投,
-			真实伤害,
+			掉落几率,
 			血源迸发,
 			持之以恒,
 			探索口粮,

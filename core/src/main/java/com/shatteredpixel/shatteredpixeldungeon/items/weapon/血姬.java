@@ -10,7 +10,7 @@ public class 血姬 extends Weapon{
 		image = 物品表.血姬;
 
 		tier = 1;
-		间隔= 0.4f;
+		延迟= 0.4f;
 		伤害= 0.5f;
 		流血= 0.3f;
 		拳套=true;

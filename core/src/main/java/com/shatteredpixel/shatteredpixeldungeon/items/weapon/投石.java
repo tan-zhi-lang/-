@@ -12,7 +12,7 @@ public class 投石 extends Weapon{
 	{
 		image = 物品表.THROWING_STONE;
 		tier = 1;
-		间隔=0.5f;
+		延迟=0.5f;
 		伤害=0.5f;
 	}
 	@Override

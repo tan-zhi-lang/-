@@ -196,10 +196,10 @@ public class HeroSelectScene extends PixelScene {
         for (HeroClass cl : HeroClass.values()) {
             //隐藏英雄
             ++x;
-            if(x==6)continue;
-            if(x==7)continue;
-            if(x==10)continue;
-            if(x==15)continue;
+//            if(x==6)continue;
+//            if(x==7)continue;
+//            if(x==10)continue;
+//            if(x==15)continue;
             if(x>24)break;
             HeroBtn button = new HeroBtn(cl);
             add(button);

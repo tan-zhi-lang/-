@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.GuidingLight;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -55,7 +55,7 @@ public class 神圣法典 extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.天赋(Talent.LIGHT_READING))
+		if ((isEquipped( hero ) || hero.天赋(Talent.轻量阅读))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
@@ -72,7 +72,7 @@ public class 神圣法典 extends Artifact {
 
 		if (action.equals(AC_CAST)) {
 
-			if (!isEquipped(hero) && !hero.天赋(Talent.LIGHT_READING)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
+			if (!isEquipped(hero) && !hero.天赋(Talent.轻量阅读)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
 			else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 			else {
 
@@ -98,7 +98,7 @@ public class 神圣法典 extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (collect && hero.天赋(Talent.LIGHT_READING)){
+			if (collect && hero.天赋(Talent.轻量阅读)){
 				activate(hero);
 			}
 
@@ -112,7 +112,7 @@ public class 神圣法典 extends Artifact {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).天赋(Talent.LIGHT_READING)){
+					&& ((Hero) container.owner).天赋(Talent.轻量阅读)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -130,7 +130,7 @@ public class 神圣法典 extends Artifact {
 	}
 
 	public boolean canCast( Hero hero, ClericSpell spell ){
-		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.LIGHT_READING)&&hero.belongings.contains(this)))
+		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.轻量阅读)&&hero.belongings.contains(this)))
 				&& hero.buff(MagicImmune.class) == null
 				&& charge >= spell.chargeUse(hero)
 				&& spell.canCast(hero);
@@ -199,7 +199,7 @@ public class 神圣法典 extends Artifact {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
-			if (!isEquipped(target)) amount *= target.天赋点数(Talent.LIGHT_READING,0.25f);
+			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻量阅读,0.25f);
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1f) {
 				charge++;
@@ -280,7 +280,7 @@ public class 神圣法典 extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.LIGHT_READING,025f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻量阅读,025f);
 					}
 					partialCharge += chargeToGain;
 				}
@@ -311,7 +311,7 @@ public class 神圣法典 extends Artifact {
 
 		@Override
 		public int actionIcon() {
-			return quickSpell.icon() + 32;
+			return quickSpell.icon() + 1;
 		}
 		@Override
 		public Visual primaryVisual() {
@@ -328,7 +328,7 @@ public class 神圣法典 extends Artifact {
 		}
 		@Override
 		public int indicatorColor() {
-			if (quickSpell==GuidingLight.INSTANCE&&quickSpell.chargeUse(Dungeon.hero)==0){
+			if (quickSpell==圣光.INSTANCE&&quickSpell.chargeUse(Dungeon.hero)==0){
 				return 0x0063ff;
 			} else {
 				return 0x002157;

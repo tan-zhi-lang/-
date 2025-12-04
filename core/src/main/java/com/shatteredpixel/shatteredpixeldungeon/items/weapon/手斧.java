@@ -14,7 +14,7 @@ public class 手斧 extends Weapon {
 		
 
 		tier = 1;
-		间隔=2;
+		延迟=2;
 		伤害=2;
 		流血=0.34f;
 	}

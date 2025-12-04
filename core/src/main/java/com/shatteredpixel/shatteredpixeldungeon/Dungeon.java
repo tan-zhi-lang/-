@@ -327,6 +327,9 @@ public class Dungeon {
 	public static boolean 玩法( int mask ) {
 		return (玩法 & mask) != 0;
 	}
+	public static boolean 地牢时间(int min,int max) {
+		return 地牢时间>=min*60*1.6f&&地牢时间<=max*60*1.6f;
+	}
 	public static String 地牢时间() {
 		int 小时=0;
 		int 分钟=0;

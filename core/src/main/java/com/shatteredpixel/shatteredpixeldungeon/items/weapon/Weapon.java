@@ -535,15 +535,15 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	public String statsInfo(){
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御()+"~"+最大防御()+"_，"),
-								命中,间隔,伤害,范围,
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御()+"~"+最大防御()+"_，"),
+								命中,延迟,伤害,范围,
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
 							   );
 		} else {
-			return Messages.get(this, "stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御(0)+"~"+最大防御(0)+"_，"),
-								命中,间隔,伤害,范围,
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御(0)+"~"+最大防御(0)+"_，"),
+								命中,延迟,伤害,范围,
 								(流血==0?"":"，伏击_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
@@ -978,7 +978,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	
 	public float 命中 = 1f;	// Accuracy modifier
-	public float 间隔= 1f;	// Speed modifier
+	public float 延迟= 1f;	// Speed modifier
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
@@ -1040,8 +1040,9 @@ abstract public class Weapon extends KindOfWeapon {
 		if(流血>0)
 		Buff.施加( defender, 流血.class).set(damage*流血);
 		
-		if(吸血>0&&attacker instanceof Hero hero){
-			hero.生命流动+=damage * 吸血;
+		if(吸血>0){
+			attacker.回血((int)Math.ceil(damage * 吸血));
+			attacker.生命流动+=damage * 吸血-(int)Math.ceil(damage * 吸血);
 		}
 		boolean becameAlly = false;
 		boolean wasAlly = defender.alignment == Char.Alignment.ALLY;
@@ -1200,7 +1201,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	protected float baseDelay( Char owner ){
-		float delay = augment.delayFactor(this.间隔);
+		float delay = augment.delayFactor(this.延迟);
 		if (owner instanceof Hero) {
 			int encumbrance = 力量() - ((Hero)owner).力量();
 			if (encumbrance > 0&&owner instanceof Hero hero&&!hero.heroClass(HeroClass.DUELIST)){

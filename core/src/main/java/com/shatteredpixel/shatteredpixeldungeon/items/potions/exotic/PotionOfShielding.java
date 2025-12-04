@@ -4,12 +4,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class PotionOfShielding extends ExoticPotion {
@@ -26,7 +24,7 @@ public class PotionOfShielding extends ExoticPotion {
 			治疗药剂.pharmacophobiaProc(hero);
 		} else {
 			//~75% of a potion of healing
-			Buff.施加(hero, Barrier.class).设置(hero.最大生命(0.75f));
+			Buff.施加(hero, 护盾.class).设置(hero.最大生命(0.05f));
 		}
 	}
 	@Override

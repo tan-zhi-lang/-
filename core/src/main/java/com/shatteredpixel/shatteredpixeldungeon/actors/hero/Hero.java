@@ -40,7 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
@@ -55,6 +54,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.死舞;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
@@ -70,7 +70,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HallowedGround;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
@@ -148,6 +147,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
@@ -257,10 +257,8 @@ public class Hero extends Char {
     public int 血气 = 0;
     public int 根骨 = 0;
     public int 连击 = 0;
-    public int 流血 = 1;
-    public int 水伤 = 1;
-    public int 法力;
-    public int 最大法力;
+    public int 饥荒= 0;
+    public int 护甲恢复= 0;
     public float 造成伤害=1;
     public float 受到伤害=1;
 
@@ -279,8 +277,7 @@ public class Hero extends Char {
         super();
         大小=1;
         生命 = 最大生命 = 20;
-        法力 = 0;
-        最大法力 = 30;
+        护甲=最大护甲();
         力量 = 10;
 
         belongings = new Belongings(this);
@@ -291,9 +288,8 @@ public class Hero extends Char {
     public void 更新属性() {
 
         最大生命 = 20 + Math.round(5 * (等级 - 1)) + HTBoost;
-        最大法力 = 30 + Math.round(2.8f * (等级 - 1));
         
-        最大生命+=根骨 * 15;
+        最大生命+=根骨 * 30;
         最大生命+=血气*5;
         if(精通){
             最大生命+=Math.round(精通(2.5f));
@@ -325,12 +321,11 @@ public class Hero extends Char {
         最大生命 *= 综合属性();
 
         生命 = Math.min(生命, 最大生命);
-        法力 = Math.min(法力, 最大法力);
     }
 
     public int 力量() {
 
-        int str = 力量 + RingOfMight.strengthBonus(this) +根骨/2+神力;
+        int str = 力量 + RingOfMight.strengthBonus(this)+神力;
         
         str+=天赋点数(Talent.杀伐果决);
         AdrenalineSurge buff = buff(AdrenalineSurge.class);
@@ -339,9 +334,6 @@ public class Hero extends Char {
         }
         if(heroClass(HeroClass.兽灵)){
             str+=最大生命(0.04f);
-        }
-        if(heroClass(HeroClass.近卫)){
-            str++;
         }
         float x = 1;
         x *= 1 + 天赋点数(Talent.力大无穷,0.1f);
@@ -377,10 +369,8 @@ public class Hero extends Char {
     private static final String 血气x = "血气";
     private static final String 根骨x = "根骨";
     private static final String 连击x = "连击";
-    private static final String 流血x = "流血";
-    private static final String 水伤x = "水伤";
-    private static final String 法力x = "法力";
-    private static final String 最大法力x = "法力";
+    private static final String 饥荒x= "饥荒";
+    private static final String 护甲恢复x= "护甲恢复";
     private static final String 造成伤害x = "造成伤害";
     private static final String 受到伤害x = "受到伤害";
 
@@ -410,10 +400,8 @@ public class Hero extends Char {
         bundle.put(血气x, 血气);
         bundle.put(根骨x, 根骨);
         bundle.put(连击x, 连击);
-        bundle.put(流血x, 流血);
-        bundle.put(水伤x, 水伤);
-        bundle.put(法力x, 法力);
-        bundle.put(最大法力x, 最大法力);
+        bundle.put(饥荒x,饥荒);
+        bundle.put(护甲恢复x,护甲恢复);
         bundle.put(造成伤害x, 造成伤害);
         bundle.put(受到伤害x, 受到伤害);
 
@@ -440,10 +428,8 @@ public class Hero extends Char {
         血气 = bundle.getInt(血气x);
         根骨 = bundle.getInt(根骨x);
         连击 = bundle.getInt(连击x);
-        流血 = bundle.getInt(流血x);
-        水伤 = bundle.getInt(水伤x);
-        法力 = bundle.getInt(法力x);
-        最大法力 = bundle.getInt(最大法力x);
+        饥荒= bundle.getInt(饥荒x);
+        护甲恢复= bundle.getInt(护甲恢复x);
         造成伤害 = bundle.getFloat(造成伤害x);
         受到伤害 = bundle.getFloat(受到伤害x);
         
@@ -1048,10 +1034,10 @@ public class Hero extends Char {
     public float 增加攻击(){
         float x=1;
         if(精通&&SubClass(HeroSubClass.狂战士)){
-            x+=Buff.施加(this,怒气.class).怒气*精通(0.003f);
+            x+=Buff.施加(this,怒气.class).怒气*精通(0.0025f);
         }
         if(heroClass(HeroClass.行僧)){
-            x+=(移速()-1)/4f;
+            x+=(移速()-1)*0.15f;
         }
         return x;
     }
@@ -1133,6 +1119,9 @@ public class Hero extends Char {
         if (在水中()) {
             if (heroClass(HeroClass.盗贼)) {
                 speed *= 1.1f;
+            }
+            if (heroClass(HeroClass.机器)) {
+                speed *= 0.7f;
             }
         }
         speed *= RingOfHaste.speedMultiplier(this);
@@ -1292,7 +1281,7 @@ public float 攻击延迟() {
             time/=3f;
         }
         if(Dungeon.系统(系统设置.时间能力)){
-            time/=3f;
+            time/=4f;
         }
         if(belongings.armor() instanceof 魔披){
             time*=0.9f;
@@ -1322,6 +1311,10 @@ public float 攻击延迟() {
     public boolean 免疫(Class effect) {
         HashSet<Class> immunes = new HashSet<>(immunities);
 
+        if (heroClass(HeroClass.机器)) {
+            immunities.addAll(Property.ELECTRIC.resistances());
+            回血(1);
+        }
         if (heroClass(HeroClass.重武)) {
             immunes.add(Chill.class);
             immunes.add(Frost.class);
@@ -1386,28 +1379,30 @@ public float 攻击延迟() {
     @Override
     public boolean act() {
         Dungeon.地牢时间++;
-        
         Dungeon.level.落石(this);
         
         if(生命流动>=1){
-            回血(Math.round(生命流动));
-            生命流动-=Math.round(生命流动);
-        }else if(生命流动<0){
-            受伤(Math.round(生命流动));
-            生命流动+=Math.round(生命流动);
+            回血((int)Math.ceil(生命流动));
+            生命流动-=(int)Math.ceil(生命流动);
+        }else if(-生命流动>=1){
+            受伤((int)Math.ceil(生命流动));
+            生命流动+=(int)Math.ceil(生命流动);
+        }
+        if(-饥荒>=1){
+            受伤时((int)Math.ceil(饥荒),Hunger.class);
+            饥荒+=(int)Math.ceil(饥荒);
         }
         if(heroClass(HeroClass.血鬼)){
-            流血++;
-            if(流血==18) {
-                流血=1;
-                受伤(生命力(0.2f));
-            }
+            生命流动-=0.03f;
         }
         if(heroClass(HeroClass.机器)&&在水中()){
-            水伤++;
-            if(水伤==7) {
-                水伤=1;
-                受伤(生命力(0.2f));
+            生命流动-=0.1f;
+        }
+        if(heroClass(HeroClass.WARRIOR)){
+            护甲恢复+=根据已损失生命()*10;
+            if(护甲恢复>=100){
+                护甲(1);
+                护甲恢复=0;
             }
         }
         
@@ -2284,10 +2279,14 @@ public float 攻击延迟() {
 		//endregion
 		
 		//region x
-        
+        if(hasbuff(Hunger.class)){
+            if(buff(Hunger.class).饥饿()&&heroClass(HeroClass.罗兰)){
+                damage*=0.67f;
+            }
+        }
         damage*=造成伤害;
         
-        if (enemy.properties().contains(Property.UNDEAD) && heroClass(HeroClass.CLERIC)) {
+        if (enemy.恶魔亡灵() && heroClass(HeroClass.CLERIC)) {
             damage *=1.1f;
         }
         if (enemy instanceof Rat&&heroClass(HeroClass.灵猫)) {
@@ -2313,7 +2312,14 @@ public float 攻击延迟() {
         Badges.解锁重武();
         
         damage-=天赋点数(Talent.防御强化);
+        
 		//region 附带效果
+        
+        if(hasbuff(Hunger.class)){
+            if(buff(Hunger.class).饥饿()&&heroClass(HeroClass.罗兰)){
+                damage*=0.67f;
+            }
+        }
 		if (subClass == HeroSubClass.狂战士) {
             怒气 怒气= Buff.施加(this,怒气.class);
             怒气.damage();
@@ -2340,15 +2346,29 @@ public float 攻击延迟() {
         //endregion
         
         
-        if(heroClass(HeroClass.近卫)){
-            damage*=0.9f;
+        if(heroClass(HeroClass.近卫)&&damage*0.3f>0){
+            死舞 deferred = Buff.施加(this,死舞.class);
+            deferred.extend( damage*0.3f);
+            
+            sprite.showStatus( CharSprite.WARNING, Messages.get(死舞.class, "deferred", Math.round(damage*0.3f)) );
+            damage*=0.7f;
         }
-        if (enemy.properties().contains(Property.UNDEAD) && heroClass(HeroClass.CLERIC)) {
+        if (enemy.恶魔亡灵() && heroClass(HeroClass.CLERIC)) {
             damage *=0.9f;
         }
         damage*=中国国旗.受伤();
         damage *= RingOfTenacity.damageMultiplier(this);
         damage*=受到伤害;
+        
+        for (int n : PathFinder.NEIGHBOURS8){
+            Char c=Actor.findChar(pos+n);
+            int x=0;
+            if(c!=null){
+                x++;
+                if(x>=2)
+                damage*=传奇肛塞.受伤();
+            }
+        }
         return super.防御时(enemy, damage);
     }
 
@@ -2389,7 +2409,7 @@ public float 攻击延迟() {
             经验(算法.固衰(dmg,5), getClass());
         }
         if(Dungeon.系统(系统设置.波罗神盾)&&dmg<=3){
-            Buff.施加(this, Barrier.class).设置(5);
+            护甲(5);
         }
         
 		//endregion
@@ -2775,6 +2795,7 @@ public float 攻击延迟() {
     public void 回血(float x){
         
         if(belongings.attackingWeapon() instanceof 饮血之剑&&满血()){
+            护甲((int)Math.ceil(x));
             if(hasbuff(Barrier.class)){
                 if(Buff.施加(this, Barrier.class).shielding+Math.round(x)<=最大生命(0.15f))
                 Buff.施加(this, Barrier.class).增加(Math.round(x));
@@ -2884,7 +2905,7 @@ public float 攻击延迟() {
                     GLog.p("最大命中+！最大生命+！"+"综合属性+10%。");
                     break;
                 case 狂战士:
-                    GLog.p("最大命中+！最大生命+！"+"每点怒气+0.03%攻击力。");
+                    GLog.p("最大命中+！最大生命+！"+"每点怒气+0.25%攻击力。");
                     break;
                 case 角斗士:
                     GLog.p("最大命中+！最大生命+！"+"连击重置回合+3，6+连击时连击技获得强化。");
@@ -3507,7 +3528,7 @@ public float 攻击延迟() {
 
     public void resurrect() {
         生命 = 最大生命;
-        法力=0;
+        护甲=最大护甲();
         live();
 
         MagicalHolster holster = belongings.getItem(MagicalHolster.class);
@@ -3525,9 +3546,9 @@ public float 攻击延迟() {
             }
             if (i instanceof EquipableItem && i.isEquipped(this)) {
                 ((EquipableItem) i).activate(this);
-            } else if (i instanceof CloakOfShadows&&i.keptThroughLostInventory()&&天赋(Talent.LIGHT_CLOAK)) {
+            } else if (i instanceof CloakOfShadows&&i.keptThroughLostInventory()&&天赋(Talent.轻便斗篷)) {
                 ((CloakOfShadows) i).activate(this);
-            } else if (i instanceof 神圣法典&&i.keptThroughLostInventory()&&天赋(Talent.LIGHT_READING)) {
+            } else if (i instanceof 神圣法典&&i.keptThroughLostInventory()&&天赋(Talent.轻量阅读)) {
                 ((神圣法典) i).activate(this);
             } else if (i instanceof Wand && i.keptThroughLostInventory()) {
                 if (holster != null && holster.contains(i)) {
@@ -3612,7 +3633,7 @@ public float 攻击延迟() {
             吸血 += 0.04f;
         }
         if (heroClass(HeroClass.血鬼)) {
-            吸血 += 0.05f;
+            吸血 += 0.08f;
         }
         if(Dungeon.玩法(玩法设置.修罗血场)){
             吸血 += 0.05f;
@@ -3647,21 +3668,14 @@ public float 攻击延迟() {
         }
         return hit;
     }
-    public int 生命力(){
-        float x=1;
-        
-        return (int) Math.round(Math.sqrt(最大生命)*x);
-    }
-    public boolean canCast(忍术 spell){
-        return buff(MagicImmune.class)==null
-               && 法力 >= spell.chargeUse(this)
-               && spell.canCast(this);
-    }
     
-    public void 法力(int x){
-        法力 = Math.min(法力 + x, 最大法力);
+    public int 术提升(int x){
+        return 术提升()*x;
     }
-    public boolean 法力(){
-        return 法力>=10;
+    public float 术提升(float x){
+        return 术提升()*x;
+    }
+    public int 术提升(){
+        return 等级/5;
     }
 }

@@ -13,7 +13,7 @@ public class 铁头棍 extends Weapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
 		
-		间隔= 1.25f;
+		延迟= 1.25f;
 		伤害= 1.25f;
 		tier = 1;
 	}

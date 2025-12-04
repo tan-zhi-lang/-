@@ -153,7 +153,7 @@ public class 物品表 {
     public static final int CROWN = MISC_CONSUMABLE + 12;
     public static final int AMULET = MISC_CONSUMABLE + 13;
     public static final int MASTERY = MISC_CONSUMABLE + 14;
-    public static final int KIT = MISC_CONSUMABLE + 15;
+    public static final int 护甲修理工具包=MISC_CONSUMABLE+15;
     public static final int 生命水晶 = MISC_CONSUMABLE + 16;
     public static final int 生命果 = MISC_CONSUMABLE + 17;
 
@@ -176,7 +176,7 @@ public class 物品表 {
         assignItemRect(CROWN, 13, 7);
         assignItemRect(AMULET);
         assignItemRect(MASTERY, 13, 16);
-        assignItemRect(KIT, 16, 15);
+        assignItemRect(护甲修理工具包,16,15);
         assignItemRect(生命水晶);
         assignItemRect(生命果, 14, 13);
     }
@@ -257,7 +257,7 @@ public class 物品表 {
     public static final int 镜刃 = 英雄初始 + 9;
     public static final int 铜钱剑 = 英雄初始 + 10;
     public static final int 白带 = 英雄初始 + 11;
-    public static final int 矛盾 = 英雄初始 + 12;
+    public static final int SHURIKEN = 英雄初始 + 12;
     public static final int 臂铠 = 英雄初始 + 13;
     public static final int 修理扳手 = 英雄初始 + 14;
     public static final int 金玫苦无 = 英雄初始 + 15;
@@ -283,7 +283,7 @@ public class 物品表 {
         assignItemRect(镜刃, 15, 16);
         assignItemRect(铜钱剑, 15);
         assignItemRect(白带, 15,16);
-        assignItemRect(矛盾, 16);
+        assignItemRect(SHURIKEN, 12);
         assignItemRect(臂铠, 16);
         assignItemRect(修理扳手,16);
         assignItemRect(金玫苦无, 15, 16);
@@ -331,8 +331,8 @@ public class 物品表 {
     public static final int WHIP = WEP_TIER2 +4;
     public static final int 爪 = WEP_TIER2 + 5;
     public static final int KATANA = WEP_TIER2 + 6;
-    public static final int SHURIKEN = WEP_TIER2 + 7;
-    public static final int BOOMERANG = WEP_TIER2 + 8;
+    public static final int BOOMERANG = WEP_TIER2 + 7;
+    public static final int 斩马刀 = WEP_TIER2 + 8;
 
     static {
         assignItemRect(SWORD, 14);
@@ -343,8 +343,8 @@ public class 物品表 {
         assignItemRect(爪, 16);
         assignItemRect(KATANA, 15, 16);
         
-        assignItemRect(SHURIKEN, 12);
         assignItemRect(BOOMERANG, 14);
+        assignItemRect(斩马刀);
     }
 
     private static final int WEP_TIER3 = xy(1, 10);   //8 slots
@@ -380,7 +380,7 @@ public class 物品表 {
     public static final int 轮刃=WEP_TIER4+5;
     public static final int WAR_SCYTHE = WEP_TIER4 + 6;
     public static final int FORCE_CUBE = WEP_TIER4 + 7;
-    public static final int 寒冰鱼剑 = WEP_TIER4 + 8;
+    public static final int GLAIVE = WEP_TIER4 + 8;
 
     static {
         assignItemRect(GREATSWORD);
@@ -394,14 +394,14 @@ public class 物品表 {
         assignItemRect(WAR_SCYTHE, 14, 16);
         
         assignItemRect(FORCE_CUBE,11,12);
-        assignItemRect(寒冰鱼剑);
+        assignItemRect(GLAIVE);
     }
 
     private static final int WEP_TIER5 = xy(1, 12);   //8 slots
     public static final int 英雄断剑 = WEP_TIER5 ;
     public static final int RUNIC_BLADE = WEP_TIER5 + 1;
     public static final int ASSASSINS_BLADE = WEP_TIER5 + 2;
-    public static final int GLAIVE = WEP_TIER5 + 3;
+    public static final int 寒冰鱼剑 = WEP_TIER5 + 3;
     public static final int 金纹拐 = WEP_TIER5 + 4;
     public static final int 草剃 = WEP_TIER5 + 5;
     public static final int 碎缘剑 = WEP_TIER5 + 6;
@@ -419,8 +419,8 @@ public class 物品表 {
         assignItemRect(英雄断剑, 12, 13);
         assignItemRect(RUNIC_BLADE, 14);
         assignItemRect(ASSASSINS_BLADE, 14, 15);
-        assignItemRect(GLAIVE);
         
+        assignItemRect(寒冰鱼剑);
         assignItemRect(金纹拐);
         assignItemRect(草剃, 15, 16);
         assignItemRect(碎缘剑, 15, 16);
@@ -592,7 +592,7 @@ public class 物品表 {
     public static final int ARTIFACT_ROSE3 = ARTIFACTS + 22;
     public static final int 神圣法典 = ARTIFACTS + 23;
     public static final int 本命玉佩 = ARTIFACTS + 24;
-    public static final int 叛忍之额 = ARTIFACTS + 25;
+    public static final int 叛忍护额=ARTIFACTS+25;
 
     static {
         assignItemRect(ARTIFACT_CLOAK, 9, 15);
@@ -620,7 +620,7 @@ public class 物品表 {
         assignItemRect(ARTIFACT_ROSE3, 14);
         assignItemRect(神圣法典, 14, 16);
         assignItemRect(本命玉佩, 10, 16);
-        assignItemRect(叛忍之额, 10, 13);
+        assignItemRect(叛忍护额,16,13);
     }
 
     public static final int 虫箭 = xy(1, 18);
@@ -651,6 +651,7 @@ public class 物品表 {
     public static final int CHAOTIC_CENSER = TRINKETS + 14;
     public static final int FERRET_TUFT = TRINKETS + 15;
     public static final int 中国国旗 = TRINKETS + 16;
+    public static final int 传奇肛塞=TRINKETS+17;
 
     static {
         assignItemRect(RAT_SKULL, 16, 11);
@@ -670,6 +671,7 @@ public class 物品表 {
         assignItemRect(CHAOTIC_CENSER, 13, 15);
         assignItemRect(FERRET_TUFT, 16, 15);
         assignItemRect(中国国旗, 16);
+        assignItemRect(传奇肛塞,9,13);
     }
     //endregion
 

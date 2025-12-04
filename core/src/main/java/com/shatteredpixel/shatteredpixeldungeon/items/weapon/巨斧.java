@@ -10,7 +10,7 @@ public class 巨斧 extends Weapon{
 	{
 		image = 物品表.巨斧;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		间隔=2;
+		延迟=2;
 		伤害=2;
 		流血=0.25f;
 		双手=true;

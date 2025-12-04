@@ -47,7 +47,7 @@ public class 心之钢 extends Artifact {
 	
 	@Override
 	public String desc() {
-		String desc = Messages.get(this, "desc",Dungeon.hero.最大生命(0.1f)+等级()+1,Dungeon.hero.大小,心之钢生命);
+		String desc = Messages.get(this, "desc",Dungeon.hero.最大生命(0.1f)+等级()+1,String.format("%.2f",Dungeon.hero.大小),心之钢生命);
 
 		return desc;
 	}
@@ -65,10 +65,11 @@ public class 心之钢 extends Artifact {
 		public int proc(int damage, Char attacker, Char defender){
 			if(charge>=chargeCap){
 				if(attacker instanceof Hero hero){
-					GLog.p("你的心之钢为你增加了"+attacker.最大生命(0.1f)+等级()+1+"这次物理攻击伤害，并增加了1最大生命。");
+					GLog.p("你的心之钢为你增加了"+(attacker.最大生命(0.1f)+等级()+1)+"这次物理攻击伤害，并增加了1最大生命。");
 					hero.大小=1+0.05f+等级()*0.025f;
 					damage+=attacker.最大生命(0.1f)+等级()+1;
 					心之钢生命++;
+					hero.更新属性();
 					exp+=Math.round(damage*(2f+等级()*0.1f));
 					charge=0;
 					Sample.INSTANCE.play(Assets.Sounds.心之钢);

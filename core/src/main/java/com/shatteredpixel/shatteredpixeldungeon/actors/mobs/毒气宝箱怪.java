@@ -13,7 +13,7 @@ public class 毒气宝箱怪 extends Mimic {
 
 	{
 		spriteClass = MimicSprite.毒气.class;
-		生命 = 最大生命 = 1;
+		生命 = 最大生命 = 10;
 		loot = Random.oneOf(Generator.randomArtifact(),
 							Generator.randomWand(),Generator.randomRing());
 	}
@@ -26,7 +26,7 @@ public class 毒气宝箱怪 extends Mimic {
 	@Override
 	public void 受伤时(int dmg, Object src ) {
 		if(src instanceof ToxicGas){
-			dmg=最大生命;
+			dmg=最大生命/2;
 		}else{
 			dmg=0;
 		}

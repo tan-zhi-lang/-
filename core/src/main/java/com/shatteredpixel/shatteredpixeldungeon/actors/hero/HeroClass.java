@@ -54,7 +54,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolki
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍之额;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
@@ -103,7 +103,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.矛盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
@@ -114,6 +113,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.配刺剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
@@ -132,8 +132,10 @@ public enum HeroClass{
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
 	DUELIST(HeroSubClass.勇士,HeroSubClass.武者),
-	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
-	巫女(HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
+	CLERIC(),
+//	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
+	巫女(),
+//	巫女(HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
 	重武(),镜魔(),
 	道士(HeroSubClass.鬼师),行僧(),
 	近卫(),兽灵(HeroSubClass.养殖专家),
@@ -486,7 +488,7 @@ public enum HeroClass{
 	
 	private static void 初始近卫(Hero hero){
 		
-		(hero.belongings.weapon=new 矛盾()).鉴定();
+		(hero.belongings.weapon=new 长矛()).鉴定();
 		(hero.belongings.armor=new 战甲()).鉴定();
 	}
 	
@@ -510,7 +512,7 @@ public enum HeroClass{
 		(hero.belongings.armor=new 忍服()).鉴定();
 		
 		
-		叛忍之额 tome=new 叛忍之额();
+		叛忍护额 tome=new 叛忍护额();
 		(hero.belongings.misc=tome).鉴定();
 		hero.belongings.misc.activate(hero);
 		

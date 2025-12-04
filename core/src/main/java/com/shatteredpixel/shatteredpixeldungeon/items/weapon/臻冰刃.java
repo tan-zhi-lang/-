@@ -15,7 +15,7 @@ public class 臻冰刃 extends Weapon {
 		image = 物品表.臻冰刃;
 		hitSound = Assets.Sounds.HIT_STAB;
 		
-		间隔=0.8f;
+		延迟=0.8f;
 		伤害=0.8f;
 		
 		伏击=0.5f;

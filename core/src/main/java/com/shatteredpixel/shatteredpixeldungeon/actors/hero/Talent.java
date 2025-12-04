@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x10;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x23;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x25;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x6;
@@ -35,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -80,7 +83,7 @@ public enum Talent {
 	TELEFRAG(55, 4), REMOTE_BEACON(56, 4), LONGRANGE_WARP(57, 4),
 
 	
-	体生匿影(73, 4), LIGHT_CLOAK(74, 4),
+	体生匿影(73, 4), 轻便斗篷(74,4),
 	//Assassin T3
 	ENHANCED_LETHALITY(75, 4), ASSASSINS_REACH(76, 4), BOUNTY_HUNTER(77, 4),
 	//Freerunner T3
@@ -120,7 +123,8 @@ public enum Talent {
 	//Cleric T2
 	符文复制(x6+4,3), 日耀射线(x6+5,3), 神圣感知(x6+6,3), BLESS(x6+7,3),
 	//Cleric T3
-	CLEANSE(169, 4), LIGHT_READING(170, 4),
+	CLEANSE(169, 4),
+	神圣净化(169,4), 轻量阅读(170,4),
 	//Priest T3
 	HOLY_LANCE(171, 4), HALLOWED_GROUND(172, 4), MNEMONIC_PRAYER(173, 4),
 	//Paladin T3
@@ -144,8 +148,13 @@ public enum Talent {
 	物到巫术(x7+11,4),星火符刃(x7+12,4),高级血爆(x7+13,4),
 	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
 	
-	冰门高攻(x8+5,4),最佳防御(x8+5,4),
-	死亡抗拒(x23+5,3),
+	冰门高攻(x8+9,4),最佳防御(x8+10,4),
+	
+	轻便玉佩(x10+10,4),
+	
+	轻便护额(x15+10,4),
+	
+	死亡抗拒(x23+5,4),
 	
 	鉴定速度(x25),攻击强化(x25+1),防御强化(x25+2),
 	杀伐果决(x25+4,3),技巧敏捷(x25+5,3),杀意感知(x25+6,3),随风而动(x25+7,3),
@@ -329,7 +338,7 @@ public enum Talent {
 
 	public static void 获得天赋时(Hero hero, Talent talent ){
 
-		if (talent == LIGHT_CLOAK && hero.heroClass == HeroClass.盗贼){
+		if (talent==轻便斗篷&&hero.heroClass==HeroClass.盗贼){
 			for (Item item : Dungeon.hero.belongings.backpack.items){
 				if (item instanceof CloakOfShadows){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
@@ -339,7 +348,7 @@ public enum Talent {
 			}
 		}
 
-		if (talent == LIGHT_READING && hero.heroClass == HeroClass.CLERIC){
+		if (talent==轻量阅读&&hero.heroClass==HeroClass.CLERIC){
 			for (Item item : Dungeon.hero.belongings.backpack.items){
 				if (item instanceof 神圣法典){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
@@ -542,6 +551,7 @@ public enum Talent {
 		if(enemy.第一次背袭){
 			enemy.第一次背袭=false;
 		}
+		dmg*=传奇肛塞.伏击();
 		return dmg;
 	}
 	public static int 攻击时(Hero hero, Char enemy, int dmg ){
@@ -621,7 +631,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,高级魔杖,SHIELD_BATTERY);
 				break;
 			case 盗贼:
-				Collections.addAll(tierTalents,体生匿影,LIGHT_CLOAK);
+				Collections.addAll(tierTalents,体生匿影,轻便斗篷);
 				break;
 			case HUNTRESS:
 				Collections.addAll(tierTalents,弓箭强化,SEER_SHOT);
@@ -630,13 +640,19 @@ public enum Talent {
 				Collections.addAll(tierTalents,附魔打击,高阶配装);
 				break;
 			case CLERIC:
-				Collections.addAll(tierTalents,CLEANSE,LIGHT_READING);
+				Collections.addAll(tierTalents,神圣净化,轻量阅读);
 				break;
 			case 巫女:
 				Collections.addAll(tierTalents,顶福精华,强能处消);
 				break;
 			case 重武:
-				Collections.addAll(tierTalents);
+				Collections.addAll(tierTalents,冰门高攻,最佳防御);
+				break;
+			case 道士:
+				Collections.addAll(tierTalents,轻便玉佩);
+				break;
+			case 女忍:
+				Collections.addAll(tierTalents,轻便护额);
 				break;
 	}
 		for (Talent talent : tierTalents){

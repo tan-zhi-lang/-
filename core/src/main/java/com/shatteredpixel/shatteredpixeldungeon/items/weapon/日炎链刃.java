@@ -13,7 +13,7 @@ public class 日炎链刃 extends Weapon {
 		hitSound = Assets.Sounds.日炎链刃;
 		
 		
-		间隔= 1.25f;
+		延迟= 1.25f;
 		伤害= 1.25f;
 		tier = 3;
 		范围 = 5;    //lots of extra reach

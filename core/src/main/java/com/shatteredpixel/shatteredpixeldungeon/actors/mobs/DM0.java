@@ -18,7 +18,7 @@ public class DM0 extends Mob {
 		生命 = 最大生命 = 1;
 		
 		经验 = 0;
-		state = SLEEPING;
+		state = WANDERING;
 		flying = true;
 		
 		loot = Random.oneOf(Generator.randomUsingDefaults( Generator.Category.POTION ),
@@ -33,7 +33,7 @@ public class DM0 extends Mob {
 		if(hasbuff(Paralysis.class)){
 			return 0;
 		}
-		return 6;
+		return 2;
 	}
 	@Override
 	public int 防御时(Char enemy,int damage){
@@ -49,7 +49,7 @@ public class DM0 extends Mob {
 	public void 受伤时(int dmg, Object src ) {
 		
 		if(src instanceof Paralysis){
-			dmg=最大生命/3;
+			dmg=最大生命;
 		}else{
 			dmg=0;
 		}

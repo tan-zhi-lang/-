@@ -81,88 +81,11 @@ public abstract class ClericSpell {
 
 		if (tier == 1) {
 
-			spells.add(GuidingLight.INSTANCE);
-			spells.add(HolyWeapon.INSTANCE);
+			spells.add(圣光.INSTANCE);
 
 		} else if (tier == 2) {
-
-
-			if (cleric.天赋(Talent.日耀射线)){
-				spells.add(Sunray.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.神圣感知)) {
-				spells.add(DivineSense.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.BLESS)){
-				spells.add(BlessSpell.INSTANCE);
-			}
-
 		} else if (tier == 3){
-
-			if (cleric.subClass == HeroSubClass.PRIEST) {
-				spells.add(Radiance.INSTANCE);
-
-			} else if (cleric.subClass == HeroSubClass.PALADIN){
-				spells.add(Smite.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.CLEANSE)){
-				spells.add(Cleanse.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.HOLY_LANCE)){
-				spells.add(HolyLance.INSTANCE);
-			}
-			if (cleric.天赋(Talent.HALLOWED_GROUND)){
-				spells.add(HallowedGround.INSTANCE);
-			}
-			if (cleric.天赋(Talent.MNEMONIC_PRAYER)){
-				spells.add(MnemonicPrayer.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.LAY_ON_HANDS)){
-				spells.add(LayOnHands.INSTANCE);
-			}
-			if (cleric.天赋(Talent.AURA_OF_PROTECTION)){
-				spells.add(AuraOfProtection.INSTANCE);
-			}
-			if (cleric.天赋(Talent.WALL_OF_LIGHT)){
-				spells.add(WallOfLight.INSTANCE);
-			}
-
 		} else if (tier == 4){
-
-			if (cleric.天赋(Talent.DIVINE_INTERVENTION)){
-				spells.add(DivineIntervention.INSTANCE);
-			}
-			if (cleric.天赋(Talent.JUDGEMENT)){
-				spells.add(Judgement.INSTANCE);
-			}
-			if (cleric.天赋(Talent.FLASH)){
-				spells.add(Flash.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.BODY_FORM)){
-				spells.add(BodyForm.INSTANCE);
-			}
-			if (cleric.天赋(Talent.MIND_FORM)){
-				spells.add(MindForm.INSTANCE);
-			}
-			if (cleric.天赋(Talent.SPIRIT_FORM)){
-				spells.add(SpiritForm.INSTANCE);
-			}
-
-			if (cleric.天赋(Talent.BEAMING_RAY)){
-				spells.add(BeamingRay.INSTANCE);
-			}
-			if (cleric.天赋(Talent.LIFE_LINK)){
-				spells.add(LifeLinkSpell.INSTANCE);
-			}
-			if (cleric.天赋(Talent.STASIS)){
-				spells.add(Stasis.INSTANCE);
-			}
 
 		}
 
@@ -171,30 +94,7 @@ public abstract class ClericSpell {
 
 	public static ArrayList<ClericSpell> getAllSpells() {
 		ArrayList<ClericSpell> spells = new ArrayList<>();
-		spells.add(GuidingLight.INSTANCE);
-		spells.add(HolyWeapon.INSTANCE);
-		spells.add(HolyIntuition.INSTANCE);
-		spells.add(Sunray.INSTANCE);
-		spells.add(DivineSense.INSTANCE);
-		spells.add(BlessSpell.INSTANCE);
-		spells.add(Cleanse.INSTANCE);
-		spells.add(Radiance.INSTANCE);
-		spells.add(Smite.INSTANCE);
-		spells.add(LayOnHands.INSTANCE);
-		spells.add(AuraOfProtection.INSTANCE);
-		spells.add(WallOfLight.INSTANCE);
-		spells.add(HolyLance.INSTANCE);
-		spells.add(HallowedGround.INSTANCE);
-		spells.add(MnemonicPrayer.INSTANCE);
-		spells.add(DivineIntervention.INSTANCE);
-		spells.add(Judgement.INSTANCE);
-		spells.add(Flash.INSTANCE);
-		spells.add(BodyForm.INSTANCE);
-		spells.add(MindForm.INSTANCE);
-		spells.add(SpiritForm.INSTANCE);
-		spells.add(BeamingRay.INSTANCE);
-		spells.add(LifeLinkSpell.INSTANCE);
-		spells.add(Stasis.INSTANCE);
+		spells.add(圣光.INSTANCE);
 		return spells;
 	}
 }

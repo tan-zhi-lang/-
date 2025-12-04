@@ -150,8 +150,8 @@ public class WndHeroInfo extends WndTabbed {
 				case WARRIOR:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.巨斧),
-							new ItemSprite(物品表.WEAPON_HOLDER),
-							 new BuffIcon(BuffIndicator.HEALING, true),
+							new ItemSprite(物品表.ARMOR_HOLDER),
+							 new BuffIcon(BuffIndicator.SEAL_SHIELD, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case MAGE:
@@ -227,7 +227,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.BERSERK, true),
 							new BuffIcon(BuffIndicator.ARMOR, true),
-							  new ItemSprite(物品表.巨斧),
+							  new BuffIcon(BuffIndicator.HEALING, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 兽灵:

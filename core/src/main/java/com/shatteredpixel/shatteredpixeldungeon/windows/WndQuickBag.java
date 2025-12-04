@@ -54,8 +54,8 @@ public class WndQuickBag extends Window {
 			}
 			if (i instanceof Artifact
 					&& !i.isEquipped(Dungeon.hero)
-					&& (!(i instanceof CloakOfShadows) || !Dungeon.hero.天赋(Talent.LIGHT_CLOAK))
-					&& (!(i instanceof 神圣法典) || !Dungeon.hero.天赋(Talent.LIGHT_READING))){
+					&& (!(i instanceof CloakOfShadows) || !Dungeon.hero.天赋(Talent.轻便斗篷))
+					&& (!(i instanceof 神圣法典) || !Dungeon.hero.天赋(Talent.轻量阅读))){
 				continue;
 			}
 			items.add(i);

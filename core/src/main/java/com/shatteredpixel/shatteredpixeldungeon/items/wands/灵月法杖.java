@@ -109,7 +109,7 @@ public class 灵月法杖 extends Wand {
 		
 		@Override
 		public int actionIcon() {
-			return quickSpell.icon()+8;
+			return quickSpell.icon()+1;
 		}
 		@Override
 		public Visual primaryVisual() {

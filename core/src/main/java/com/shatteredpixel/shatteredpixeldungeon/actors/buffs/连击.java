@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -77,7 +76,8 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 			comboTime=4+hero.天赋点数(Talent.连战热忱,2)+(hero.精通?3:0);
 			
 			if(hero.天赋(Talent.以战养战)){
-				Buff.施加(hero,破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.以战养战,0.08f));
+				hero.护甲(hero.天赋点数(Talent.以战养战));
+//				Buff.施加(hero,破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.以战养战,0.08f));
 			}
 			
 			initialComboTime=comboTime;

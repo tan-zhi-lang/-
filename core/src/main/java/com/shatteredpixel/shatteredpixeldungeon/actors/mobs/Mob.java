@@ -45,10 +45,12 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
@@ -65,6 +67,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -110,7 +114,7 @@ public abstract class Mob extends Char {
 	public int defenseSkill = 0;
 	
 	public int 经验 = 1;
-	public int 最大等级 = Hero.最大等级-1;
+	public int 最大等级 = 经验==0?0:Hero.最大等级-1;
 	
 	protected Char enemy;
 	protected int enemyID = -1; //used for save/restore
@@ -862,6 +866,12 @@ public abstract class Mob extends Char {
 					if(Dungeon.hero.belongings.attackingWeapon()instanceof 日炎链刃){
 						new Bomb.ConjuredBomb().heroexplode(pos);
 					}
+					if(Dungeon.hero.belongings.attackingWeapon()instanceof 金纹拐){
+						Dungeon.level.drop(new Gold().random(),pos).sprite.drop();
+					}
+					if(Dungeon.hero.belongings.attackingWeapon()instanceof 蜜剑){
+						Dungeon.level.drop(new 蜂蜜(),pos).sprite.drop();
+					}
 				}
 				if( Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级)){
 					Dungeon.level.drop(new 升级卷轴(),pos).sprite.drop();
@@ -873,13 +883,16 @@ public abstract class Mob extends Char {
 						怒气.damage();
 					}
 				
-				if(properties().contains(Char.Property.UNDEAD)&&Dungeon.hero.heroClass(HeroClass.道士)){
-					Dungeon.hero.回血(Dungeon.hero.生命力(0.25f));
+				if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
+					Dungeon.hero.回血(Dungeon.hero.最大生命(0.05f));
 				}
 				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
 					Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
 				}
 				if(Dungeon.hero.heroClass(HeroClass.WARRIOR)){
+					Dungeon.hero.护甲(1);
+				}
+				if(Dungeon.hero.heroClass(HeroClass.近卫)){
 					Dungeon.hero.回已损失血(0.05f);
 				}
 					//击杀瞬移
@@ -914,7 +927,10 @@ public abstract class Mob extends Char {
 
 	public float lootChance(){
 		float lootChance = this.lootChance;
-
+		
+		if(Dungeon.解压(解压设置.掉落几率)){
+			lootChance*=3;
+		}
 		float dropBonus = 财富之戒.dropChanceMultiplier(Dungeon.hero);
 
 		Talent.BountyHunterTracker bhTracker = Dungeon.hero.buff(Talent.BountyHunterTracker.class);
@@ -922,8 +938,7 @@ public abstract class Mob extends Char {
 			潜伏 prep = Dungeon.hero.buff(潜伏.class);
 			if (prep != null){
 				// 2/4/8/16% per prep level, multiplied by talent points
-				float bhBonus = 0.02f * (float)Math.pow(2, prep.attackLevel()-1);
-				bhBonus *= Dungeon.hero.天赋点数(Talent.BOUNTY_HUNTER)*2;
+				float bhBonus = Dungeon.hero.天赋点数(Talent.BOUNTY_HUNTER,0.1f)*prep.attackLevel();
 				dropBonus += bhBonus;
 			}
 		}

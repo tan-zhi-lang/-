@@ -12,7 +12,7 @@ public class 圆盾 extends Weapon {
 		
 		双手=true;
 		伤害= 0.8f;
-		间隔= 1.25f;
+		延迟= 1.25f;
 
 		tier = 1;
 	}

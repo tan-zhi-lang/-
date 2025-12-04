@@ -13,9 +13,9 @@ public class 关刀 extends Weapon{
 		
 		
 		投矛=true;
-		间隔=1.5f;
+		延迟=1.5f;
 		伤害=1.75f;
-		tier = 5;
+		tier = 4;
 		范围 = 2;    //extra reach
 	}
 }

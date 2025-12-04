@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -358,6 +359,8 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add( new Food() );
 		itemsToSpawn.add( new SmallRation() );
+		
+		itemsToSpawn.add( new 护甲修理工具包().数量(3));
 		
 		switch (Random.Int(4)){
 			case 0:

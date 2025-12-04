@@ -16,7 +16,7 @@ public class 硬头锤 extends Weapon{
 		
 
 		tier = 2;
-		间隔=1.25f;
+		延迟=1.25f;
 		伤害=1.5f;
 	}
 	

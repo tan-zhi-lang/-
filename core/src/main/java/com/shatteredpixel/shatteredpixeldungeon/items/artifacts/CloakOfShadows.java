@@ -51,7 +51,7 @@ public class CloakOfShadows extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.天赋(Talent.LIGHT_CLOAK))
+		if ((isEquipped( hero ) || hero.天赋(Talent.轻便斗篷))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null
 				&& (charge > 0 || activeBuff != null)) {
@@ -70,7 +70,7 @@ public class CloakOfShadows extends Artifact {
 		if (action.equals( AC_STEALTH )) {
 
 			if (activeBuff == null){
-				if (!isEquipped(hero) && !hero.天赋(Talent.LIGHT_CLOAK)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
+				if (!isEquipped(hero) && !hero.天赋(Talent.轻便斗篷)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
 				else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 				else if (charge <= 0)  GLog.i( Messages.get(this, "no_charge") );
 				else {
@@ -105,7 +105,7 @@ public class CloakOfShadows extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (!collect || !hero.天赋(Talent.LIGHT_CLOAK)){
+			if (!collect || !hero.天赋(Talent.轻便斗篷)){
 				if (activeBuff != null){
 					activeBuff.detach();
 					activeBuff = null;
@@ -124,7 +124,7 @@ public class CloakOfShadows extends Artifact {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).天赋(Talent.LIGHT_CLOAK)){
+					&& ((Hero) container.owner).天赋(Talent.轻便斗篷)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -160,7 +160,7 @@ public class CloakOfShadows extends Artifact {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
-			if (!isEquipped(target)) amount *= target.天赋点数(Talent.LIGHT_CLOAK,0.25f);
+			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便斗篷,0.25f);
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1f) {
 				charge++;
@@ -219,7 +219,7 @@ public class CloakOfShadows extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.LIGHT_CLOAK,0.25f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便斗篷,0.25f);
 					}
 					partialCharge += chargeToGain;
 				}

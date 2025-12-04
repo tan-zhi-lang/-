@@ -104,6 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
@@ -139,6 +140,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投石;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
@@ -165,7 +167,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锈右斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.震爆方石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
@@ -388,7 +389,8 @@ public class Generator {
 					双刃.class,
 					镶钉手套.class,
 					手斧.class,
-					长矛.class,
+					
+					手里剑.class,
 					铁头棍.class,
 					短柄镰.class,
 					圆盾.class,
@@ -397,8 +399,9 @@ public class Generator {
 					小刺.class,
 					
 			};
-			WEP_T1.defaultProbs = new float[]{ 2,2,2,2,2,2,
-											   2,2,2,
+			WEP_T1.defaultProbs = new float[]{ 2,2,2,
+											   2,2,2,2,
+											   2,2,
 			};
 			WEP_T1.probs = WEP_T1.defaultProbs.clone();
 			
@@ -413,9 +416,8 @@ public class Generator {
 					爪.class,
 					武士刀.class,
 					
-					手里剑.class,
-					
 					回旋镖.class,
+					斩马刀.class,
 			};
 			WEP_T2.defaultProbs = new float[]{  2, 2, 2,
 												2,2,2,2
@@ -451,7 +453,7 @@ public class Generator {
 					战镰.class,
 					
 					震爆方石.class,
-					寒冰鱼剑.class
+					关刀.class
 					
 			};
 			WEP_T4.defaultProbs = new float[]{ 2, 2, 2,
@@ -463,7 +465,7 @@ public class Generator {
 					符文之刃.class,
 					暗杀之刃.class,
 					英雄断剑.class,
-					关刀.class,
+					寒冰鱼剑.class,
 					
 					金纹拐.class,
 					草剃.class,
@@ -564,22 +566,33 @@ public class Generator {
 					RatSkull.class,
 					ParchmentScrap.class,
 					PetrifiedSeed.class,
+					
 					ExoticCrystals.class,
 					MossyClump.class,
 					DimensionalSundial.class,
+					
 					ThirteenLeafClover.class,
 					TrapMechanism.class,
 					MimicTooth.class,
+					
 					WondrousResin.class,
 					EyeOfNewt.class,
 					SaltCube.class,
+					
 					VialOfBlood.class,
 					ShardOfOblivion.class,
 					ChaoticCenser.class,
+					
 					FerretTuft.class,
+					传奇肛塞.class,
 					中国国旗.class
 			};
-			TRINKET.defaultProbs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,0 };
+			TRINKET.defaultProbs = new float[]{ 1, 1, 1,
+												1, 1, 1,
+												1, 1, 1,
+												1, 1, 1,
+												1, 1, 1,
+												1,1,0 };
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 
 			for (Category cat : Category.values()){

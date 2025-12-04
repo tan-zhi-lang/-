@@ -110,8 +110,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
@@ -123,7 +123,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.矛盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
@@ -134,6 +133,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
@@ -260,7 +260,7 @@ public enum Catalog {
 								金玫苦无.class,
 								碧蓝巨剑.class,
 								神圣法典.class,血砍刀.class,灵月法杖.class,冰门重盾.class,铜钱剑.class,
-								矛盾.class,
+								长矛.class,
 								灵鞭.class,
 								血姬.class,
 								书包.class,十字弩.class,

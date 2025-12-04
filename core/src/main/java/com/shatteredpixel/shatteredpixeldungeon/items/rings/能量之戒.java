@@ -50,8 +50,8 @@ public class 能量之戒 extends Ring {
 
 		if (target instanceof Hero hero){
 			
-			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.LIGHT_READING)){
-				bonus *= 1f + hero.天赋点数(Talent.LIGHT_READING,0.07f);
+			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.轻量阅读)){
+				bonus *= 1f + hero.天赋点数(Talent.轻量阅读,0.07f);
 			}
 			
 			if (hero.belongings.armor instanceof 法袍){

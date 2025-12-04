@@ -38,9 +38,9 @@ public class LostBackpack extends Item {
 			} else {
 				if (i instanceof EquipableItem && i.isEquipped(hero)){
 					((EquipableItem) i).activate(hero);
-				} else if ( i instanceof CloakOfShadows && hero.天赋(Talent.LIGHT_CLOAK)){
+				} else if ( i instanceof CloakOfShadows && hero.天赋(Talent.轻便斗篷)){
 					((CloakOfShadows) i).activate(hero);
-				} else if ( i instanceof 神圣法典 && hero.天赋(Talent.LIGHT_READING)){
+				} else if ( i instanceof 神圣法典 && hero.天赋(Talent.轻量阅读)){
 					((神圣法典) i).activate(hero);
 				} else if (i instanceof Wand){
 					if (holster != null && holster.contains(i)){

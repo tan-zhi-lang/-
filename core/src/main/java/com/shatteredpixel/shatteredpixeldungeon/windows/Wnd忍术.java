@@ -8,8 +8,8 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风切忍术;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍之额;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -38,7 +38,7 @@ public class Wnd忍术 extends Window {
 
 	public static int BTN_SIZE = 20;
 
-	public Wnd忍术(叛忍之额 tome,Hero cleric,boolean info){
+	public Wnd忍术(叛忍护额 tome,Hero cleric,boolean info){
 
 		IconTitle title;
 		if (!info){
@@ -114,12 +114,12 @@ public class Wnd忍术 extends Window {
 	public class SpellButton extends IconButton {
 		
 		忍术 spell;
-		叛忍之额 tome;
+		叛忍护额 tome;
 		boolean info;
 
 		NinePatch bg;
 
-		public SpellButton(忍术 spell, 叛忍之额 tome, boolean info){
+		public SpellButton(忍术 spell,叛忍护额 tome,boolean info){
 			super(new HeroIcon(spell));
 
 			this.spell = spell;
@@ -128,7 +128,7 @@ public class Wnd忍术 extends Window {
 
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell == 风切忍术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
+			} else if (spell==风刃.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 
@@ -139,7 +139,7 @@ public class Wnd忍术 extends Window {
 		@Override
 		protected void onPointerDown() {
 			super.onPointerDown();
-			if (spell == 风切忍术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
+			if (spell==风刃.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(4);
 			}
 		}
@@ -149,7 +149,7 @@ public class Wnd忍术 extends Window {
 			super.onPointerUp();
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell == 风切忍术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
+			} else if (spell==风刃.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 		}

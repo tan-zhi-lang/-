@@ -58,30 +58,9 @@ public abstract class 道术{
 		ArrayList<道术> spells = new ArrayList<>();
 
 		if (tier == 1) {
-				spells.add(净除道术.INSTANCE);
-//			if (cleric.天赋(Talent.痛命之术)) {
-//				spells.add(痛命之术.INSTANCE);
-//			}
-//			if (cleric.天赋(Talent.死血之术)) {
-//				spells.add(死血之术.INSTANCE);
-//			}
+				spells.add(符咒.INSTANCE);
 		} else if (tier == 2) {
-//			if (cleric.天赋(Talent.血历之术)) {
-//				spells.add(血历之术.INSTANCE);
-//			}
-//			if (cleric.天赋(Talent.血爆之术)) {
-//				spells.add(血爆之术.INSTANCE);
-//			}
-//			if (cleric.天赋(Talent.饮血之术)) {
-//				spells.add(饮血之术.INSTANCE);
-//			}
-//			if (cleric.天赋(Talent.换血之术)) {
-//				spells.add(换血之术.INSTANCE);
-//			}
 		} else if (tier == 3){
-//			if (cleric.天赋(Talent.物到之术)) {
-//				spells.add(物到之术.INSTANCE);
-//			}
 		} else if (tier == 4){
 
 
@@ -92,16 +71,7 @@ public abstract class 道术{
 
 	public static ArrayList<道术> getAllSpells() {
 		ArrayList<道术> spells = new ArrayList<>();
-		spells.add(净除道术.INSTANCE);
-//		spells.add(死血之术.INSTANCE);
-//		spells.add(痛命之术.INSTANCE);
-//
-//		spells.add(血历之术.INSTANCE);
-//		spells.add(血爆之术.INSTANCE);
-//		spells.add(饮血之术.INSTANCE);
-//		spells.add(换血之术.INSTANCE);
-//
-//		spells.add(物到之术.INSTANCE);
+		spells.add(符咒.INSTANCE);
 		return spells;
 	}
 }

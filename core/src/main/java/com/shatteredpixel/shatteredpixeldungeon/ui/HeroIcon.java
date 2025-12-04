@@ -88,28 +88,25 @@ public class HeroIcon extends Image {
 
 	//all cleric spells have a separate icon with no background for the action indicator
 	public static final int SPELL_ACTION_OFFSET      = 32;
-
-	//action indicator visuals
-	public static final int BERSERK         = 88;
-	public static final int COMBO           = 89;
-	public static final int PREPARATION     = 90;
-	public static final int MOMENTUM        = 91;
-	public static final int SNIPERS_MARK    = 92;
-	public static final int WEAPON_SWAP     = 93;
-	public static final int MONK_ABILITIES  = 94;
-
-	public static final int 祭鉴巫术= 96;
-	public static final int 痛命巫术= 97;
-	public static final int 死血巫术= 98;
-	public static final int 血历巫术= 99;
+	
+	
 	public static final int 血爆巫术= 100;
-	public static final int 饮血巫术= 101;
-	public static final int 换血巫术= 102;
 	public static final int 物到巫术= 103;
+	//action indicator visuals
+	public static final int BERSERK         = 0;
+	public static final int COMBO           = 1;
+	public static final int PREPARATION     = 2;
+	public static final int MOMENTUM        = 3;
+	public static final int SNIPERS_MARK    = 4;
+	public static final int WEAPON_SWAP     = 5;
+	public static final int MONK_ABILITIES  = 6;
 	
-	public static final int 净除道术= 112;
+	public static final int 圣光   = 8;
+	public static final int 痛命= 16;
 	
-	public static final int 风切忍术= 128;
+	public static final int 符咒= 24;
+	
+	public static final int 风刃= 32;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );
@@ -120,7 +117,7 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(ArmorAbility abil){
-		super( Assets.Interfaces.HERO_ICONS );
+		super( Assets.Interfaces.HERO_SPELL );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
@@ -128,7 +125,7 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(ActionIndicator.Action action){
-		super( Assets.Interfaces.HERO_ICONS );
+		super( Assets.Interfaces.HERO_SPELL );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
@@ -136,7 +133,7 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(ClericSpell spell){
-		super( Assets.Interfaces.HERO_ICONS );
+		super( Assets.Interfaces.HERO_SPELL );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
@@ -144,21 +141,21 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(巫术 spell){
-		super( Assets.Interfaces.HERO_ICONS );
+		super( Assets.Interfaces.HERO_SPELL );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
 		frame(film.get(spell.icon()));
 	}
 	public HeroIcon(道术 spell){
-		super( Assets.Interfaces.HERO_ICONS );
+		super( Assets.Interfaces.HERO_SPELL );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
 		frame(film.get(spell.icon()));
 	}
 	public HeroIcon(忍术 spell){
-		super( Assets.Interfaces.HERO_ICONS );
+		super( Assets.Interfaces.HERO_SPELL );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}

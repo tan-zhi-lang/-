@@ -209,21 +209,22 @@ public class 蜕变秘卷 extends ExoticScroll {
 				clsTalentsAtTier.remove(Talent.任督二脉);
 				
 				clsTalentsAtTier.remove(Talent.纹章荣耀);
-				clsTalentsAtTier.remove(Talent.力大无穷);
-				
 				clsTalentsAtTier.remove(Talent.高级魔杖);
+				clsTalentsAtTier.remove(Talent.轻便斗篷);
+				clsTalentsAtTier.remove(Talent.弓箭强化);
 				
-				clsTalentsAtTier.remove(Talent.LIGHT_CLOAK);
+				clsTalentsAtTier.remove(Talent.CLEANSE);
+				clsTalentsAtTier.remove(Talent.轻量阅读);
+				clsTalentsAtTier.remove(Talent.轻便玉佩);
+				clsTalentsAtTier.remove(Talent.轻便护额);
+				
+				clsTalentsAtTier.remove(Talent.血爆巫术);
+				
 				
 				clsTalentsAtTier.remove(Talent.日耀射线);
 				clsTalentsAtTier.remove(Talent.神圣感知);
 				clsTalentsAtTier.remove(Talent.BLESS);
 				
-				clsTalentsAtTier.remove(Talent.CLEANSE);
-				clsTalentsAtTier.remove(Talent.LIGHT_READING);
-				clsTalentsAtTier.remove(Talent.血爆巫术);
-				
-
 				for (Talent talent : clsTalentsAtTier.toArray(new Talent[0])){
 					if (talent == replacing){
 						replacingIsInSet = true;

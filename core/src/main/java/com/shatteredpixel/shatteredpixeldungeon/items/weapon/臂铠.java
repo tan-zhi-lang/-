@@ -10,7 +10,7 @@ public class 臂铠 extends Weapon{
 		image = 物品表.臂铠;
 
 		tier = 1;
-		间隔= 0.5f;
+		延迟= 0.5f;
 		伤害= 0.5f;
 		
 		遗产= false;

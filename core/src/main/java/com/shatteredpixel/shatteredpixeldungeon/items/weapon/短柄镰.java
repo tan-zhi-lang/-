@@ -14,7 +14,7 @@ public class 短柄镰 extends Weapon {
 		
 
 		tier = 1;
-		间隔= 1.5f;
+		延迟= 1.5f;
 		伤害= 1.75f;
 	}
 }

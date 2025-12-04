@@ -14,7 +14,7 @@ public class 链枷 extends Weapon {
 		
 
 		tier = 3;
-		间隔 = 1.25f;
+		延迟= 1.25f;
 		伤害 = 1.25f;
 	}
 

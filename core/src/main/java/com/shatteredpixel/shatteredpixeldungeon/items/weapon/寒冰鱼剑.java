@@ -14,7 +14,7 @@ public class 寒冰鱼剑 extends Weapon {
 	{
 		image = 物品表.寒冰鱼剑;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		tier = 4;
+		tier = 5;
 	}
 	@Override
 	public int 攻击时(Char attacker,Char defender,int damage) {

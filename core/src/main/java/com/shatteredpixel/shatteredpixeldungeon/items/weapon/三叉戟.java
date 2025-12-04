@@ -14,7 +14,7 @@ public class 三叉戟 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		投矛=true;
-		间隔= 1.34f;
+		延迟= 1.34f;
 		伤害= 1.34f;
 		范围 = 2;
 		

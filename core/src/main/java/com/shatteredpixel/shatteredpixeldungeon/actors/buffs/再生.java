@@ -29,7 +29,7 @@ public class 再生 extends Buff implements ActionIndicator.Action {
 	}
 
 	public float partialRegen = 0f;
-
+	
 	private static final float REGENERATION_DELAY = 10; //1HP every 10 turns
 	
 	
@@ -93,12 +93,6 @@ public class 再生 extends Buff implements ActionIndicator.Action {
 			}
 		}
 	}
-	public boolean canCast( Hero hero, 道术 spell){
-		return hero.buff(MagicImmune.class)==null
-			   && hero.法力>=10
-			   && spell.canCast(hero);
-	}
-	
 	@Override
 	public int indicatorColor() {
 		return 0x5500BB;
@@ -166,7 +160,7 @@ public class 再生 extends Buff implements ActionIndicator.Action {
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-
+		
 			//if other trinkets ever get buffs like this should probably make the buff attaching
 			// behaviour more like wands/rings/artifacts
 			if (ChaoticCenser.averageTurnsUntilGas() != -1){
@@ -174,35 +168,35 @@ public class 再生 extends Buff implements ActionIndicator.Action {
 			}
 
 			if (regenOn() && !target.满血() && !((Hero)target).isStarving()) {
-				boolean chaliceCursed = false;
-				int chaliceLevel = -1;
-				if (target.buff(MagicImmune.class) == null) {
-					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class) != null) {
-						chaliceCursed = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed();
-						chaliceLevel = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel();
-					} else if (Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class) != null
-							&& Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class).artifact() instanceof ChaliceOfBlood) {
-						chaliceLevel = SpiritForm.artifactLevel();
-					}
-				}
+		boolean chaliceCursed = false;
+		int chaliceLevel = -1;
+		if (target.buff(MagicImmune.class) == null) {
+			if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class) != null) {
+				chaliceCursed = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed();
+				chaliceLevel = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel();
+			} else if (Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class) != null
+					   && Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class).artifact() instanceof ChaliceOfBlood) {
+				chaliceLevel = SpiritForm.artifactLevel();
+			}
+		}
 
-				float delay = REGENERATION_DELAY;
-				if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
-					if (chaliceCursed) {
-						delay *= 1.5f;
-					} else {
-						//15% boost at +0, scaling to a 500% boost at +10
-						delay -= 1.33f + chaliceLevel*0.667f;
-						delay /= 能量之戒.artifactChargeMultiplier(target);
-					}
-				}
+				float 延迟= REGENERATION_DELAY;
+		if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
+			if (chaliceCursed) {
+				延迟*= 1.5f;
+			} else {
+				//15% boost at +0, scaling to a 500% boost at +10
+				延迟-=1.33f+chaliceLevel*0.667f;
+				延迟/= 能量之戒.artifactChargeMultiplier(target);
+			}
+		}
+		
+		//salt cube is turned off while regen is disabled.
+		if (target.buff(LockedFloor.class) == null) {
+			延迟/= SaltCube.healthRegenMultiplier();
+		}
 
-				//salt cube is turned off while regen is disabled.
-				if (target.buff(LockedFloor.class) == null) {
-					delay /= SaltCube.healthRegenMultiplier();
-				}
-
-				partialRegen += 1f / delay;
+				partialRegen +=1f/延迟;
 
 				if (partialRegen >= 1) {
 					if(target instanceof Hero hero){

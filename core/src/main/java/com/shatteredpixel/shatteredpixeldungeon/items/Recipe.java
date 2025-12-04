@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
@@ -160,6 +161,7 @@ public abstract class Recipe {
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
 		new ArcaneResin.Recipe(),
+		new 护甲修理工具包.Recipe(),
 		new BlizzardBrew.Recipe(),
 		new InfernalBrew.Recipe(),
 		new AquaBrew.Recipe(),
@@ -270,8 +272,9 @@ public abstract class Recipe {
 		}
 		if (item instanceof EquipableItem){
 			if(item.isEquipped(Dungeon.hero))return false;
+			
 			return !item.cursed&&
-				   item instanceof Weapon&&item.可升级();
+				   (item instanceof Weapon||item instanceof Armor)&&item.可升级();
 		} else {
 			//other items can be unidentified, but not cursed
 			return !item.cursed;

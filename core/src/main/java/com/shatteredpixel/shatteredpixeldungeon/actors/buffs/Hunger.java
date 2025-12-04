@@ -21,8 +21,8 @@ public class Hunger extends Buff implements Hero.Doom {
 
 	public static final float HUNGRY	= 300f;
 	public static final float STARVING	= 450f;
-
-	private float level;
+	
+	public float level;
 	public float partial=0;
 
 	private static final String LEVEL			= "level";
@@ -59,15 +59,6 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		if (target.isAlive() && target instanceof Hero hero) {
 			
-			if (level > HUNGRY&&hero.heroClass(HeroClass.罗兰)) {
-				if(hero.nobuff(Vulnerable.class)){
-				Buff.延长(hero, Vulnerable.class, 2);
-				}
-				if(hero.nobuff(Weakness.class)){
-				Buff.延长(hero, Weakness.class, 2);
-				}
-				
-			}
 			if (isStarving()) {
 				
 				partial+=1/10f;
@@ -202,5 +193,8 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		Dungeon.fail( this );
 		GLog.n( Messages.get(this, "ondeath") );
+	}
+	public boolean 饥饿(){
+		return level > HUNGRY;
 	}
 }

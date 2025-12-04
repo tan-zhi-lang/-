@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.净除道术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.符咒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -127,7 +127,7 @@ public class Wnd道术 extends Window {
 
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==净除道术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell==符咒.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 
@@ -138,7 +138,7 @@ public class Wnd道术 extends Window {
 		@Override
 		protected void onPointerDown() {
 			super.onPointerDown();
-			if (spell == 净除道术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
+			if (spell==符咒.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(4);
 			}
 		}
@@ -148,7 +148,7 @@ public class Wnd道术 extends Window {
 			super.onPointerUp();
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell == 净除道术.INSTANCE && spell.chargeUse(Dungeon.hero) == 0){
+			} else if (spell==符咒.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 		}

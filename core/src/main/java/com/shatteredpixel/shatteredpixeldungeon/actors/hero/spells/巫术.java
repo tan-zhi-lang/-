@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -57,15 +56,9 @@ public abstract class 巫术 {
 		ArrayList<巫术> spells = new ArrayList<>();
 
 		if (tier == 1) {
-			spells.add(痛命巫术.INSTANCE);
+			spells.add(痛命.INSTANCE);
 		} else if (tier == 2) {
-			if (cleric.天赋(Talent.血爆巫术)) {
-				spells.add(血爆巫术.INSTANCE);
-			}
 		} else if (tier == 3){
-			if (cleric.天赋(Talent.物到巫术)) {
-				spells.add(物到巫术.INSTANCE);
-			}
 		} else if (tier == 4){
 
 
@@ -76,11 +69,7 @@ public abstract class 巫术 {
 
 	public static ArrayList<巫术> getAllSpells() {
 		ArrayList<巫术> spells = new ArrayList<>();
-		spells.add(痛命巫术.INSTANCE);
-
-		spells.add(血爆巫术.INSTANCE);
-
-		spells.add(物到巫术.INSTANCE);
+		spells.add(痛命.INSTANCE);
 		return spells;
 	}
 }

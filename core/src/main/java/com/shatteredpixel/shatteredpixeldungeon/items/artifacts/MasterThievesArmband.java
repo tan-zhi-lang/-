@@ -99,7 +99,7 @@ public class MasterThievesArmband extends Artifact {
 				return;
 			} else if (Actor.findChar(target) == null){
 			
-			} else if (Dungeon.level.distance(curUser.pos, target)<=curUser.攻击范围()){
+			} else if (Dungeon.level.distance(curUser.pos, target)>curUser.攻击范围()){
 				GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
 			} else {
 				Char ch = Actor.findChar(target);

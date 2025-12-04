@@ -12,7 +12,7 @@ public class 长剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		
-		间隔= 1.34f;
+		延迟= 1.34f;
 		伤害= 1.34f;
 		tier = 3;
 	}

@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -303,7 +302,7 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public void activate(Char ch) {
-		if (破损纹章 != null) Buff.施加(ch, 破损纹章.WarriorShield.class).setArmor(this);
+//		if (破损纹章 != null) Buff.施加(ch, 破损纹章.WarriorShield.class).setArmor(this);
 	}
 	@Override
 	public int 强化等级(){
@@ -320,18 +319,18 @@ public class Armor extends EquipableItem {
 		if (seal.getGlyph() != null){
 			inscribe(seal.getGlyph());
 		}
-		if (isEquipped(Dungeon.hero)){
-			Buff.施加(Dungeon.hero, 破损纹章.WarriorShield.class).setArmor(this);
-		}
+//		if (isEquipped(Dungeon.hero)){
+//			Buff.施加(Dungeon.hero, 破损纹章.WarriorShield.class).setArmor(this);
+//		}
 	}
 
 	public 破损纹章 detachSeal(){
 		if (破损纹章 != null){
 
-			if (isEquipped(Dungeon.hero)) {
-				破损纹章.WarriorShield sealBuff = Dungeon.hero.buff(破损纹章.WarriorShield.class);
-				if (sealBuff != null) sealBuff.setArmor(null);
-			}
+//			if (isEquipped(Dungeon.hero)) {
+//				破损纹章.WarriorShield sealBuff = Dungeon.hero.buff(破损纹章.WarriorShield.class);
+//				if (sealBuff != null) sealBuff.setArmor(null);
+//			}
 
 			破损纹章 detaching = 破损纹章;
 			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
@@ -362,8 +361,8 @@ public class Armor extends EquipableItem {
 			hero.belongings.armor = null;
 			((HeroSprite)hero.sprite).updateArmor();
 
-			破损纹章.WarriorShield sealBuff = hero.buff(破损纹章.WarriorShield.class);
-			if (sealBuff != null) sealBuff.setArmor(null);
+//			破损纹章.WarriorShield sealBuff = hero.buff(破损纹章.WarriorShield.class);
+//			if (sealBuff != null) sealBuff.setArmor(null);
 
 			return true;
 
@@ -597,11 +596,11 @@ public class Armor extends EquipableItem {
 				info += "\n\n" + Messages.get(Armor.class, "not_cursed");
 			}
 		}
-
-		if (破损纹章 != null) {
-			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier, 强化等级()));
-		}
-		
+//
+//		if (破损纹章 != null) {
+//			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier, 强化等级()));
+//		}
+//
 		return info;
 	}
 
@@ -895,5 +894,28 @@ public class Armor extends EquipableItem {
 			}
 		}
 		
+	}
+	
+	
+	
+	public static class PlaceHolder extends Armor{
+		
+		{
+			image = 物品表.ARMOR_HOLDER;
+		}
+		
+		public PlaceHolder(){
+			super(0);
+		}
+		
+		@Override
+		public boolean isSimilar(Item item) {
+			return item instanceof Armor;
+		}
+		
+		@Override
+		public String info() {
+			return "";
+		}
 	}
 }

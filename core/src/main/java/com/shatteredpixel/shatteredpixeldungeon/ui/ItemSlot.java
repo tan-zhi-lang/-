@@ -306,10 +306,6 @@ public class ItemSlot extends Button {
 				extra.text( Messages.format( TXT, Math.round(food.energy*0.01f)) );
 				extra.measure();
 				extra.hardlight( UPGRADED );
-			}else if (item instanceof Armor a&&a.破损纹章!=null) {
-				center.text( Messages.format( TXT, a.破损纹章.maxShield(a.tier,a.强化等级())) );
-				center.measure();
-				center.hardlight( FADED );
 			}else if (item instanceof 水袋 s) {
 				center.text( Messages.format( TXT, Dungeon.hero.最大生命(0.05f*s.volume)) );
 				center.measure();
@@ -319,7 +315,7 @@ public class ItemSlot extends Button {
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof PotionOfShielding ) {
-				center.text( Messages.format( TXT, Dungeon.hero.最大生命(0.75f)) );
+				center.text( Messages.format( TXT, Dungeon.hero.最大生命(0.05f)) );
 				center.measure();
 				center.hardlight( FADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {

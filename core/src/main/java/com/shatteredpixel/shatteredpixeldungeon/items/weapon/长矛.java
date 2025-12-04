@@ -16,7 +16,7 @@ public class 长矛 extends Weapon{
 		
 		投矛=true;
 		tier = 1;
-		间隔= 1.5f;
+		延迟= 1.5f;
 		伤害= 1.5f;
 		范围 = 2;
 	}

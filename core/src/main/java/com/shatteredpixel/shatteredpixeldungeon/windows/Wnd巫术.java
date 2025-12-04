@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.痛命巫术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.痛命;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -128,7 +128,7 @@ public class Wnd巫术 extends Window {
 
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==痛命巫术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell==痛命.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 
@@ -139,7 +139,7 @@ public class Wnd巫术 extends Window {
 		@Override
 		protected void onPointerDown() {
 			super.onPointerDown();
-			if (spell==痛命巫术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			if (spell==痛命.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(4);
 			}
 		}
@@ -149,7 +149,7 @@ public class Wnd巫术 extends Window {
 			super.onPointerUp();
 			if (!tome.canCast(Dungeon.hero, spell)){
 				icon.alpha( 0.3f );
-			} else if (spell==痛命巫术.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
+			} else if (spell==痛命.INSTANCE&&spell.chargeUse(Dungeon.hero)==0){
 				icon.brightness(3);
 			}
 		}

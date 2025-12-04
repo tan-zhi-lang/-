@@ -130,7 +130,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
@@ -151,6 +150,7 @@ public abstract class Char extends Actor {
 	
 	public int 最大生命;
 	public int 生命;
+	public int 护甲;
 	public int 每2次攻击=1;
 	public int 每3次攻击=1;
 
@@ -191,11 +191,10 @@ public abstract class Char extends Actor {
 		Dungeon.level.落石(this);
 		if(生命流动>=1){
 			回血(1);
-			生命流动=生命流动-1;
-		}else if(生命流动<0){
-			int x=Math.round(生命流动);
-			生命流动+=x;
-			受伤(x);
+			生命流动-=(int)Math.ceil(生命流动);
+		}else if(-生命流动>=1){
+			受伤((int)Math.ceil(生命流动));
+			生命流动+=(int)Math.ceil(生命流动);
 		}
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
 			fieldOfView = new boolean[Dungeon.level.length()];
@@ -333,6 +332,7 @@ public abstract class Char extends Actor {
 	protected static final String POS       = "pos";
 	protected static final String TAG_HP    = "HP";
 	protected static final String TAG_HT    = "HT";
+	protected static final String 护甲x    = "护甲";
 	protected static final String BUFFS	    = "buffs";
 	protected static final String 每2次攻击x 	    = "每2次攻击";
 	protected static final String 每3次攻击x 	    = "每3次攻击";
@@ -350,6 +350,7 @@ public abstract class Char extends Actor {
 		bundle.put( POS, pos );
 		bundle.put( TAG_HP, 生命);
 		bundle.put( TAG_HT, 最大生命);
+		bundle.put( 护甲x, 护甲);
 		bundle.put( BUFFS, buffs );
 		bundle.put( 每2次攻击x, 每2次攻击);
 		bundle.put( 每3次攻击x, 每3次攻击);
@@ -368,6 +369,7 @@ public abstract class Char extends Actor {
 		pos = bundle.getInt( POS );
 		生命 = bundle.getInt( TAG_HP );
 		最大生命 = bundle.getInt( TAG_HT );
+		护甲 = bundle.getInt( 护甲x );
 		每2次攻击 = bundle.getInt( 每2次攻击x );
 		每3次攻击 = bundle.getInt( 每3次攻击x );
 		第一次攻击 = bundle.getBoolean( 第一次攻击x );
@@ -417,9 +419,6 @@ public abstract class Char extends Actor {
 
 				if (hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 					dr = 0;
-				}
-				if(Dungeon.解压(解压设置.真实伤害)){
-					dr=0;
 				}
 				if (hero.heroClass(HeroClass.罗兰)) {
 					dr=0;
@@ -509,6 +508,8 @@ public abstract class Char extends Actor {
 			int effectiveDamage = 攻击时(enemy, Math.round(dmg));
 			//do not trigger on-hit logic if defenseProc returned a negative value
 			if (effectiveDamage >= 0) {
+				//LOL护甲
+//				effectiveDamage = Math.max(Math.round(effectiveDamage*(1-enemy.最大防御()/(enemy.最大防御()+10f))), 0);
 				effectiveDamage = Math.max(effectiveDamage - dr, 0);
 
 				if (enemy.buff(Viscosity.ViscosityTracker.class) != null) {
@@ -626,7 +627,7 @@ public abstract class Char extends Actor {
 			acuStat=0;
 		}
 		if ( attacker instanceof Hero hero) {
-			if(hero.heroClass(HeroClass.道士)){
+			if(defender.恶魔亡灵()&&hero.heroClass(HeroClass.道士)){
 				defStat=0;
 			}
 			if (defender.hasbuff(TalismanOfForesight.CharAwareness.class)){
@@ -813,14 +814,9 @@ public abstract class Char extends Actor {
 		damage=暴击(enemy,damage);
 		
 		if(吸血()>0){
-			float x =damage * 吸血();
-			if(x>0){
-				float y = x;
-				y-=Math.round(x);
-				if(y>0){
-					生命流动+=y;
-				}
-				回血(Math.round(x));
+			if(damage * 吸血()>0){
+				回血((int)Math.ceil(damage * 吸血()));
+				生命流动+=damage * 吸血()-(int)Math.ceil(damage * 吸血());
 			}
 		}
 		第一次攻击=false;
@@ -845,6 +841,8 @@ public abstract class Char extends Actor {
 				damage = Dungeon.hero.belongings.armor().防御时( enemy, this, damage );
 			}
 		}
+		
+		damage=护甲伤害(damage);
 
 		return damage;
 	}
@@ -1519,11 +1517,35 @@ public abstract class Char extends Actor {
 	public int 生命力(float x){
 		return Math.round(生命力()*x);
 	}
+	public int 护甲(int x){
+		护甲=Math.min(Math.max(护甲+x,0),最大护甲());
+		return 护甲;
+	}
+	public int 护甲伤害(int dmg){
+		if(dmg>0&&护甲>0){
+			if(护甲>=dmg){
+				护甲(-dmg);
+				dmg=0;
+			}else{
+				dmg-=护甲;
+				护甲=0;
+			}
+		}
+		return dmg;
+	}
+	public int 回满护甲(){
+		护甲=最大护甲();
+		return 护甲;
+	}
+	public int 最大护甲(){
+		int 最大护甲=最大生命(0.15f);
+		return 最大护甲;
+	}
 	public int 已损失生命(){
 		return 最大生命-生命;
 	}
 	public float 根据已损失生命(){
-		return 已损失生命()/最大生命;
+		return (float)已损失生命()/最大生命;
 	}
 	public int 已损失生命(float x){
 		return Math.round(已损失生命()*x);
@@ -1562,12 +1584,17 @@ public abstract class Char extends Actor {
 		return 1;
 	}
 	public void 回血(float x){
-		int x2=Math.round(x*治疗效果());
-		生命 = Math.min(生命 + x2, 最大生命);
-		生命流动+=x-x2;
+		float x2=x*治疗效果();
+		if(x2>=1){
+			生命=Math.min(生命+(int)Math.ceil(x2),最大生命);
+			生命流动-=(int)Math.ceil(x2);
+		}else if(-x2>=1){
+			受伤();
+			生命流动+=(int)Math.ceil(x2);
+		}
 		if (Dungeon.level.heroFOV[pos]){
 			if(sprite!=null&&sprite.visible&&生命>0&&x2>0){
-				sprite.showStatusWithIcon(CharSprite.增强,x2,FloatingText.HEALING);
+				sprite.showStatusWithIcon(CharSprite.增强,(int)Math.ceil(x2),FloatingText.HEALING);
 			}
 		}
 	}
@@ -1602,5 +1629,8 @@ public abstract class Char extends Actor {
 	}
 	public float 吸血(){
 		return 0;
+	}
+	public boolean 恶魔亡灵(){
+		return properties().contains(Property.UNDEAD)||properties().contains(Property.DEMONIC);
 	}
 }

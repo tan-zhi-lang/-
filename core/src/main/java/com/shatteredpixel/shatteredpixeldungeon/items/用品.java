@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class 用品 extends Item {
 	
-	protected static final String AC_USE = "WEAR";
+	protected static final String AC_USE = "USE";
 	
 	{
 		defaultAction = AC_USE;

@@ -14,7 +14,7 @@ public class 灵鞭 extends Weapon{
 
 		tier = 1;
 		
-		间隔= 1.25f;
+		延迟= 1.25f;
 		伤害= 1.25f;
 		范围 = 3;    //lots of extra reach
 		

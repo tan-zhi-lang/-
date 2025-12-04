@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风切忍术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -31,10 +31,10 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class 叛忍之额 extends Artifact {
+public class 叛忍护额 extends Artifact {
 
 	{
-		image = 物品表.叛忍之额;
+		image = 物品表.叛忍护额;
 
 		exp = 0;
 		levelCap = 10;
@@ -45,7 +45,6 @@ public class 叛忍之额 extends Artifact {
 
 		defaultAction = AC_CAST;
 
-		黄色 = true;
 		特别= true;
 		遗产= false;
 	}
@@ -55,7 +54,7 @@ public class 叛忍之额 extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.天赋(Talent.LIGHT_READING))
+		if ((isEquipped( hero ) || hero.天赋(Talent.轻便护额))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
@@ -72,7 +71,7 @@ public class 叛忍之额 extends Artifact {
 
 		if (action.equals(AC_CAST)) {
 
-			if (!isEquipped(hero) && !hero.天赋(Talent.LIGHT_READING)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
+			if (!isEquipped(hero) && !hero.天赋(Talent.轻便护额)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
 			else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 			else {
 
@@ -98,7 +97,7 @@ public class 叛忍之额 extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (collect && hero.天赋(Talent.LIGHT_READING)){
+			if (collect && hero.天赋(Talent.轻便护额)){
 				activate(hero);
 			}
 
@@ -112,7 +111,7 @@ public class 叛忍之额 extends Artifact {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).天赋(Talent.LIGHT_READING)){
+					&& ((Hero) container.owner).天赋(Talent.轻便护额)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -130,7 +129,7 @@ public class 叛忍之额 extends Artifact {
 	}
 
 	public boolean canCast( Hero hero, 忍术 spell){
-		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.LIGHT_READING)&&hero.belongings.contains(this)))
+		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.轻便护额)&&hero.belongings.contains(this)))
 				&& hero.buff(MagicImmune.class) == null
 				&& charge >= spell.chargeUse(hero)
 				&& spell.canCast(hero);
@@ -158,7 +157,7 @@ public class 叛忍之额 extends Artifact {
 
 		if (exp >= (等级() + 1) * 50 && 等级() < levelCap) {
 			升级();
-			Catalog.countUse(叛忍之额.class);
+			Catalog.countUse(叛忍护额.class);
 			exp -= 等级() * 50;
 			GLog.p(Messages.get(this, "levelup"));
 
@@ -199,7 +198,7 @@ public class 叛忍之额 extends Artifact {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
-			if (!isEquipped(target)) amount *= target.天赋点数(Talent.LIGHT_READING,0.25f);
+			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便护额,0.25f);
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1f) {
 				charge++;
@@ -280,7 +279,7 @@ public class 叛忍之额 extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.LIGHT_READING,025f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便护额,025f);
 					}
 					partialCharge += chargeToGain;
 				}
@@ -311,7 +310,7 @@ public class 叛忍之额 extends Artifact {
 
 		@Override
 		public int actionIcon() {
-			return quickSpell.icon() + 32;
+			return quickSpell.icon() + 1;
 		}
 		@Override
 		public Visual primaryVisual() {
@@ -321,14 +320,14 @@ public class 叛忍之额 extends Artifact {
 		}
 		@Override
 		public Visual secondaryVisual() {
-			Image ico= new ItemSprite(new 叛忍之额());
+			Image ico= new ItemSprite(new 叛忍护额());
 			ico.scale.set(PixelScene.align(0.51f));
 			ico.brightness(0.6f);
 			return ico;
 		}
 		@Override
 		public int indicatorColor() {
-			if (quickSpell==风切忍术.INSTANCE&&quickSpell.chargeUse(Dungeon.hero)==0){
+			if (quickSpell==风刃.INSTANCE&&quickSpell.chargeUse(Dungeon.hero)==0){
 				return 0x0063ff;
 			} else {
 				return 0x002157;
@@ -338,19 +337,19 @@ public class 叛忍之额 extends Artifact {
 		@Override
 		public void doAction() {
 			if (cursed){
-				GLog.w(Messages.get(叛忍之额.this,"cursed"));
+				GLog.w(Messages.get(叛忍护额.this,"cursed"));
 				return;
 			}
 
 			if (!canCast(Dungeon.hero, quickSpell)){
-				GLog.w(Messages.get(叛忍之额.this,"no_spell"));
+				GLog.w(Messages.get(叛忍护额.this,"no_spell"));
 				return;
 			}
 
 			if (QuickSlotButton.targetingSlot != -1 &&
-					Dungeon.quickslot.getItem(QuickSlotButton.targetingSlot) == 叛忍之额.this) {
+					Dungeon.quickslot.getItem(QuickSlotButton.targetingSlot) == 叛忍护额.this) {
 				targetingSpell = quickSpell;
-				int cell = QuickSlotButton.autoAim(QuickSlotButton.lastTarget, 叛忍之额.this);
+				int cell = QuickSlotButton.autoAim(QuickSlotButton.lastTarget, 叛忍护额.this);
 
 				if (cell != -1){
 					GameScene.handleCell(cell);
@@ -359,11 +358,11 @@ public class 叛忍之额 extends Artifact {
 					GameScene.handleCell( QuickSlotButton.lastTarget.pos );
 				}
 			} else {
-				quickSpell.onCast(叛忍之额.this,Dungeon.hero);
+				quickSpell.onCast(叛忍护额.this,Dungeon.hero);
 
-				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(叛忍之额.this)){
+				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(叛忍护额.this)){
 					targetingSpell = quickSpell;
-					QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(叛忍之额.this));
+					QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(叛忍护额.this));
 				}
 			}
 		}

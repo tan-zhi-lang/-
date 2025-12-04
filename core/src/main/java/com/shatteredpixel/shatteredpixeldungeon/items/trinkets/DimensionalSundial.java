@@ -37,8 +37,7 @@ public class DimensionalSundial extends Trinket {
 
 	public static float spawnMultiplierAtCurrentTime(){
 		if (trinketLevel(DimensionalSundial.class) != -1) {
-			//8x60 20x60
-			if (Dungeon.地牢时间>=480&&Dungeon.地牢时间<=1200) {//小时x分钟=
+			if (Dungeon.地牢时间(8,20)) {
 				if (!sundialWarned){
 					GLog.w(Messages.get(DimensionalSundial.class, "warning"));
 					sundialWarned = true;

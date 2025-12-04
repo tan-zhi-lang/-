@@ -11,7 +11,7 @@ public class 单手剑 extends Weapon{
 		image = 物品表.SWORD;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
-		间隔= 1.25f;
+		延迟= 1.25f;
 		伤害= 1.25f;
 		tier = 2;
 	}

@@ -13,7 +13,7 @@ public class 锈右斧 extends Weapon{
 	{
 		image = 物品表.锈右斧;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		间隔=2;
+		延迟=2;
 		伤害=2;
 		双手=true;
 

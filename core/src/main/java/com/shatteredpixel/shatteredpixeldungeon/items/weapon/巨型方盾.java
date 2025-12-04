@@ -12,7 +12,7 @@ public class 巨型方盾 extends Weapon {
 		
 		双手=true;
 		伤害= 0.8f;
-		间隔= 1.25f;
+		延迟= 1.25f;
 		tier = 3;
 	}
 	@Override

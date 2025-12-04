@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
@@ -211,6 +212,9 @@ public class AlchemistsToolkit extends Artifact {
 				} else if (!cursed && target.buff(MagicImmune.class) == null) {
 					float turnsToWarmUp = (int) Math.pow(10 - 等级(), 2);
 					warmUpDelay -= 100 / turnsToWarmUp;
+					if(算法.isDebug()){
+						warmUpDelay -= 100f;
+					}
 				}
 				updateQuickslot();
 			}

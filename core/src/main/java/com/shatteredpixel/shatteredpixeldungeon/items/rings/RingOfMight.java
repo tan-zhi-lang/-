@@ -59,14 +59,14 @@ public class RingOfMight extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   soloBuffedBonus(), soloBuffedBonus()*15);
+									   soloBuffedBonus(), soloBuffedBonus()*25);
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
 											  combinedBuffedBonus(Dungeon.hero), combinedBuffedBonus(Dungeon.hero)*15);
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 1, 15);
+			return Messages.get(this, "stats", 1, 25);
 		}
 	}
 
@@ -79,7 +79,7 @@ public class RingOfMight extends Ring {
 	@Override
 	public String upgradeStat2(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return ""+level*15;
+		return ""+level*25;
 	}
 
 	@Override

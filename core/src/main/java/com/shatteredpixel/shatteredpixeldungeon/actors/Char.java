@@ -1538,7 +1538,7 @@ public abstract class Char extends Actor {
 		return 护甲;
 	}
 	public int 最大护甲(){
-		int 最大护甲=最大生命(0.15f);
+		int 最大护甲=最大生命(0.2f);
 		return 最大护甲;
 	}
 	public int 已损失生命(){

@@ -257,7 +257,7 @@ public class 物品表 {
     public static final int 镜刃 = 英雄初始 + 9;
     public static final int 铜钱剑 = 英雄初始 + 10;
     public static final int 白带 = 英雄初始 + 11;
-    public static final int SHURIKEN = 英雄初始 + 12;
+    public static final int SPEAR = 英雄初始 + 12;
     public static final int 臂铠 = 英雄初始 + 13;
     public static final int 修理扳手 = 英雄初始 + 14;
     public static final int 金玫苦无 = 英雄初始 + 15;
@@ -283,7 +283,7 @@ public class 物品表 {
         assignItemRect(镜刃, 15, 16);
         assignItemRect(铜钱剑, 15);
         assignItemRect(白带, 15,16);
-        assignItemRect(SHURIKEN, 12);
+        assignItemRect(SPEAR);
         assignItemRect(臂铠, 16);
         assignItemRect(修理扳手,16);
         assignItemRect(金玫苦无, 15, 16);
@@ -300,7 +300,7 @@ public class 物品表 {
     public static final int DAGGER = WEP_TIER1;
     public static final int GLOVES = WEP_TIER1 + 1;
     public static final int HAND_AXE = WEP_TIER1 + 2;
-    public static final int SPEAR = WEP_TIER1 + 3;
+    public static final int SHURIKEN = WEP_TIER1 + 3;
     public static final int QUARTERSTAFF = WEP_TIER1 + 4;
     public static final int SICKLE = WEP_TIER1 + 5;
     public static final int ROUND_SHIELD = WEP_TIER1 + 6;
@@ -312,7 +312,7 @@ public class 物品表 {
         assignItemRect(DAGGER,16);
         assignItemRect(GLOVES, 16);
         assignItemRect(HAND_AXE, 12, 14);
-        assignItemRect(SPEAR);
+        assignItemRect(SHURIKEN, 12);
         assignItemRect(QUARTERSTAFF);
         assignItemRect(SICKLE, 15);
         assignItemRect(ROUND_SHIELD);

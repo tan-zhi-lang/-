@@ -15,6 +15,7 @@ public class 解压设置 {
 	public static final int 持之以恒= 128;
 	public static final int 探索口粮 	= 256;
 	public static final int MAX_VALUE           = 511;
+	public static final int MAX_CHALS           = 9;
 
 	public static final String[] NAME_IDS = {
 			"超级背包",
@@ -39,11 +40,15 @@ public class 解压设置 {
 			持之以恒,
 			探索口粮,
 	};
-
+	
 	public static int 使用(){
+		return 使用(Dungeon.解压);
+	}
+	
+	public static int 使用(int mask){
 		int chCount = 0;
 		for (int ch : 解压设置.MASKS){
-			if ((Dungeon.解压 & ch) != 0) chCount++;
+			if ((mask & ch) != 0) chCount++;
 		}
 		return chCount;
 	}

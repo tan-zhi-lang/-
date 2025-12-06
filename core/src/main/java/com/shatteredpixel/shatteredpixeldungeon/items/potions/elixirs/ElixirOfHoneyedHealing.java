@@ -48,6 +48,15 @@ public class ElixirOfHoneyedHealing extends Elixir {
 			}
 		}
 	}
+	@Override
+	public int 金币() {
+		return 40 * quantity;
+	}
+	
+	@Override
+	public int 能量() {
+		return 8 * quantity;
+	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
@@ -55,7 +64,7 @@ public class ElixirOfHoneyedHealing extends Elixir {
 			inputs =  new Class[]{治疗药剂.class, Honeypot.ShatteredPot.class};
 			inQuantity = new int[]{1, 1};
 			
-			cost = 4;
+			cost = 2;
 			
 			output = ElixirOfHoneyedHealing.class;
 			outQuantity = 1;

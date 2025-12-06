@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
@@ -19,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndEnergizeItem;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTradeItem;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -208,9 +210,30 @@ public class 炼金菱晶 extends Spell {
 					RedButton btnEnergizeAll = new RedButton(Messages.get(this, "energize_all", energyAll)) {
 						@Override
 						protected void onClick() {
-							WndEnergizeItem.energizeAll(item);
-							hide();
-							consumeAlchemize();
+							if (item instanceof Trinket){
+								GameScene.show(new WndOptions(new ItemSprite(item),Messages.titleCase(item.name()),
+															  Messages.get(WndEnergizeItem.class, "trinket_warn"),
+															  Messages.get(WndEnergizeItem.class, "trinket_yes"),
+															  Messages.get(WndEnergizeItem.class, "trinket_no")){
+									
+									@Override
+									protected void onSelect(int index) {
+										if (index == 0) {
+											WndEnergizeItem.energizeAll(item);
+										}
+									}
+									
+									@Override
+									public void hide() {
+										super.hide();
+										WndAlchemizeItem.this.hide();
+									}
+								});
+							} else {
+								WndEnergizeItem.energizeAll(item);
+								hide();
+								consumeAlchemize();
+							}
 						}
 					};
 					btnEnergizeAll.setRect(0, btnEnergize1.bottom() + 1, width, BTN_HEIGHT);

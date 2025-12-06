@@ -20,17 +20,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScrol
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfAntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.震爆符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlink;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfClairvoyance;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDeepSleep;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFear;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfFlock;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.震爆符石;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
@@ -81,9 +81,9 @@ public abstract class Scroll extends Item {
 	protected String rune;
 
 	//affects how strongly on-scroll talents trigger from this scroll
-	protected float talentFactor = 1;
+	public float talentFactor = 1;
 	//the chance (0-1) of whether on-scroll talents trigger from this potion
-	protected float talentChance = 1;
+	public float talentChance = 1;
 	
 	{
 		可堆叠= true;
@@ -183,17 +183,16 @@ public abstract class Scroll extends Item {
 	public abstract void doRead();
 
 	public void readAnimation() {
-		//if scroll is being created for its effect, depend on creating item to dispel
-		if (!anonymous) Invisibility.dispel();
+		Invisibility.dispel();
 		curUser.spend( readTime() );
 		curUser.busy();
 		((HeroSprite)curUser.sprite).read();
 
-		if (!anonymous) {
+		if (!anonymous){
 			Catalog.countUse(getClass());
-			if (Random.Float() < talentChance) {
-				Talent.onScrollUsed(curUser, curUser.pos, talentFactor, getClass());
-			}
+		}
+		if (Random.Float()<talentChance) {
+			Talent.onScrollUsed(curUser,curUser.pos,talentFactor,getClass());
 		}
 
 	}

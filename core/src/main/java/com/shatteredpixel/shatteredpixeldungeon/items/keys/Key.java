@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -42,6 +43,12 @@ public abstract class Key extends Item {
 		Sample.INSTANCE.play( Assets.Sounds.ITEM );
 		hero.spendAndNext( pickupDelay() );
 		GameScene.updateKeyDisplay();
+		
+		
+		if (hero.buff(骷髅钥匙.KeyReplacementTracker.class)!=null){
+			hero.buff(骷髅钥匙.KeyReplacementTracker.class).processExcessKeys();
+		}
+		
 		return true;
 	}
 

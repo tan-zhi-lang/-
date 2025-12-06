@@ -15,6 +15,7 @@ public class 炼狱设置 {
 	public static final int 体弱多病	= 128;
 	public static final int STRONGER_BOSSES 	= 256;
 	public static final int MAX_VALUE           = 511;
+	public static final int MAX_CHALS           = 9;
 
 	public static final String[] NAME_IDS = {
 			"遗失钥匙",
@@ -37,14 +38,17 @@ public class 炼狱设置 {
 			诅咒装备,
 			体弱多病,
 	};
-
+	
 	public static int 使用(){
+		return 使用(Dungeon.炼狱);
+	}
+	
+	public static int 使用(int mask){
 		int chCount = 0;
 		for (int ch : 炼狱设置.MASKS){
-			if ((Dungeon.炼狱 & ch) != 0) chCount++;
+			if ((mask & ch) != 0) chCount++;
 		}
 		return chCount;
 	}
-
 
 }

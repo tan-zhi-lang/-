@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
@@ -52,34 +53,49 @@ public class ChaliceOfBlood extends Artifact {
 
 		if (action.equals(AC_PRICK)
 			&& 等级() < levelCap){
-
-			int damage = 3*等级()* 等级();
-
-			if (damage > hero.最大生命(0.95f)) {
-
-				GameScene.show(
-					new WndOptions(new ItemSprite(this),
-							Messages.titleCase(name()),
-							Messages.get(this, "prick_warn"),
-							Messages.get(this, "yes"),
-							Messages.get(this, "no")) {
-						@Override
-						protected void onSelect(int index) {
-							if (index == 0)
-								prick(Dungeon.hero);
-						}
-					}
-				);
-
-			} else {
-				prick(hero);
+			
+			int minDmg=minPrickDmg();
+			int maxDmg=maxPrickDmg();
+			
+			int totalHeroHP=hero.生命+hero.shielding();
+			
+			float deathChance=0;
+			
+			if(totalHeroHP<maxDmg){
+				deathChance=(maxDmg-totalHeroHP)/(float)(maxDmg-minDmg);
+				if(deathChance<0.5f){
+					deathChance=(float)Math.pow(2*deathChance,2)/2f;
+				}else if(deathChance<1f){
+					deathChance=1f-deathChance;
+					deathChance=(float)Math.pow(2*deathChance,2)/2f;
+					deathChance=1f-deathChance;
+				}else{
+					deathChance=1;
+				}
 			}
+			
+			GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,Messages.decimalFormat("#.##",100*deathChance)),Messages.get(this,"yes"),Messages.get(this,"no")){
+				@Override
+				protected void onSelect(int index){
+					if(index==0)
+						prick(Dungeon.hero);
+				}
+				
+			});
 		}
+	}
+	
+	private int minPrickDmg(){
+		return (int)Math.round(2.5f*(等级()*等级()));
+	}
+	private int maxPrickDmg(){
+		return (int)Math.round(3.5f*(等级()*等级()));
 	}
 
 	private void prick(Hero hero){
-		int damage = 3*(等级()* 等级());
+		int damage = Random.NormalIntRange(minPrickDmg(), maxPrickDmg());
 
+		//need to process on-hit effects manually
 		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);
 		if (armor != null) {
 			damage = armor.absorb(damage);
@@ -94,7 +110,7 @@ public class ChaliceOfBlood extends Artifact {
 
 		hero.sprite.operate( hero.pos );
 		hero.busy();
-		hero.spend(3f);
+		hero.spend(Actor.TICK);
 		GLog.w( Messages.get(this, "onprick") );
 		if (damage <= 0){
 			damage = 1;

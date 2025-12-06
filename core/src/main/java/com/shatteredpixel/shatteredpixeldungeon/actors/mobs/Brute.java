@@ -8,11 +8,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
+import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BruteSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -70,21 +72,29 @@ public class Brute extends Mob {
 			hasRaged = true; //don't let enrage trigger for chasm deaths
 		}
 	}
-
+	//cache this buff to prevent having to call buff(...) a bunch in isAlive
+	private BruteRage rage;
 	@Override
-	public synchronized boolean isAlive() {
+	public boolean isAlive() {
 		if (super.isAlive()){
 			return true;
 		} else {
 			if (!hasRaged){
 				triggerEnrage();
 			}
-			return !buffs(BruteRage.class).isEmpty();
+			if (rage == null){
+				for (BruteRage b : buffs(BruteRage.class)){
+					rage = b;
+				}
+			}
+			return rage != null && rage.护盾量() > 0;
 		}
 	}
 	
 	protected void triggerEnrage(){
-		Buff.施加(this, BruteRage.class).设置(最大生命 /2 + 4);
+		rage = Buff.施加(this, BruteRage.class);
+		rage.设置(最大生命/2 + 4);
+		sprite.showStatusWithIcon(CharSprite.增强,Integer.toString(最大生命/2+4),FloatingText.SHIELDING);
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
 		}
@@ -131,6 +141,11 @@ public class Brute extends Mob {
 			return true;
 		}
 		
+		@Override
+		public void detach() {
+			super.detach();
+			减少(护盾量()); //clear shielding to track that this was detached
+		}
 		@Override
 		public int icon () {
 			return BuffIndicator.FURY;

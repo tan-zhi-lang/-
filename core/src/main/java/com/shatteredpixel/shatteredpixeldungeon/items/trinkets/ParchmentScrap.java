@@ -20,7 +20,7 @@ public class ParchmentScrap extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", (int)enchantChanceMultiplier(强化等级()), Messages.decimalFormat("#.##", curseChanceMultiplier(强化等级())));
+			return Messages.get(this, "stats_desc", (int)enchantChanceMultiplier(等级()), Messages.decimalFormat("#.##", curseChanceMultiplier(等级())));
 		} else {
 			return Messages.get(this, "stats_desc", (int)enchantChanceMultiplier(0), Messages.decimalFormat("#.##", curseChanceMultiplier(0)));
 		}

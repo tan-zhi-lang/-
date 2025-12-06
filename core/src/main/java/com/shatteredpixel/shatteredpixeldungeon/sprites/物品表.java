@@ -148,7 +148,7 @@ public class 物品表 {
     public static final int IRON_KEY = MISC_CONSUMABLE + 7;
     public static final int GOLDEN_KEY = MISC_CONSUMABLE + 8;
     public static final int CRYSTAL_KEY = MISC_CONSUMABLE + 9;
-    public static final int SKELETON_KEY = MISC_CONSUMABLE + 10;
+    public static final int 磨损钥匙=MISC_CONSUMABLE+10;
     public static final int MASK = MISC_CONSUMABLE + 11;
     public static final int CROWN = MISC_CONSUMABLE + 12;
     public static final int AMULET = MISC_CONSUMABLE + 13;
@@ -171,7 +171,7 @@ public class 物品表 {
         assignItemRect(IRON_KEY, 8, 14);
         assignItemRect(GOLDEN_KEY, 8, 14);
         assignItemRect(CRYSTAL_KEY, 8, 14);
-        assignItemRect(SKELETON_KEY, 8, 14);
+        assignItemRect(磨损钥匙,8,14);
         assignItemRect(MASK, 11, 9);
         assignItemRect(CROWN, 13, 7);
         assignItemRect(AMULET);
@@ -590,9 +590,10 @@ public class 物品表 {
     public static final int ARTIFACT_ROSE1 = ARTIFACTS + 20;
     public static final int ARTIFACT_ROSE2 = ARTIFACTS + 21;
     public static final int ARTIFACT_ROSE3 = ARTIFACTS + 22;
-    public static final int 神圣法典 = ARTIFACTS + 23;
-    public static final int 本命玉佩 = ARTIFACTS + 24;
-    public static final int 叛忍护额=ARTIFACTS+25;
+    public static final int 神圣法典 = ARTIFACTS + 24;
+    public static final int 骷髅钥匙 = ARTIFACTS + 23;
+    public static final int 本命玉佩 = ARTIFACTS + 25;
+    public static final int 叛忍护额=ARTIFACTS+26;
 
     static {
         assignItemRect(ARTIFACT_CLOAK, 9, 15);
@@ -618,6 +619,7 @@ public class 物品表 {
         assignItemRect(ARTIFACT_ROSE1, 14);
         assignItemRect(ARTIFACT_ROSE2, 14);
         assignItemRect(ARTIFACT_ROSE3, 14);
+        assignItemRect(骷髅钥匙, 8, 16);
         assignItemRect(神圣法典, 14, 16);
         assignItemRect(本命玉佩, 10, 16);
         assignItemRect(叛忍护额,16,13);
@@ -650,8 +652,9 @@ public class 物品表 {
     public static final int OBLIVION_SHARD = TRINKETS + 13;
     public static final int CHAOTIC_CENSER = TRINKETS + 14;
     public static final int FERRET_TUFT = TRINKETS + 15;
-    public static final int 中国国旗 = TRINKETS + 16;
-    public static final int 传奇肛塞=TRINKETS+17;
+    public static final int SPYGLASS = TRINKETS + 16;
+    public static final int 中国国旗 = TRINKETS + 17;
+    public static final int 传奇肛塞=TRINKETS+18;
 
     static {
         assignItemRect(RAT_SKULL, 16, 11);
@@ -670,6 +673,7 @@ public class 物品表 {
         assignItemRect(OBLIVION_SHARD, 7, 14);
         assignItemRect(CHAOTIC_CENSER, 13, 15);
         assignItemRect(FERRET_TUFT, 16, 15);
+        assignItemRect(SPYGLASS, 15);
         assignItemRect(中国国旗, 16);
         assignItemRect(传奇肛塞,9,13);
     }
@@ -937,6 +941,7 @@ public class 物品表 {
     public static final int TOKEN = QUEST + 5;
     public static final int BLOB = QUEST + 6;
     public static final int SHARD = QUEST + 7;
+    public static final int ESCAPE = QUEST + 8;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -947,6 +952,7 @@ public class 物品表 {
         assignItemRect(TOKEN, 12);
         assignItemRect(BLOB, 10, 9);
         assignItemRect(SHARD, 8, 10);
+        assignItemRect(ESCAPE,   8, 16);
     }
     private static final int BAGS = xy(1, 31);  //16 slots
     public static final int BACKPACK = BAGS;

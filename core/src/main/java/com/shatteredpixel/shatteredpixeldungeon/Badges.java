@@ -172,8 +172,9 @@ public class Badges {
 		ITEM_LEVEL_5                ( 105 ),
 		LEVEL_REACHED_5             ( 106 ),
 		HAPPY_END                   ( 107 ),
-		HAPPY_END_REMAINS           ( 108 ),
-		RODNEY                      ( 109, BadgeType.JOURNAL ),
+		VICTORY_RANDOM              ( 108 ),
+		HAPPY_END_REMAINS           ( 109 ),
+		RODNEY                      ( 110, BadgeType.JOURNAL ),
 		ALL_WEAPONS_IDENTIFIED      , //still exists internally for pre-2.5 saves
 		ALL_ARMOR_IDENTIFIED        , //still exists internally for pre-2.5 saves
 		ALL_WANDS_IDENTIFIED        , //still exists internally for pre-2.5 saves
@@ -182,19 +183,19 @@ public class Badges {
 		VICTORY_MAGE,
 		VICTORY_ROGUE,
 		VICTORY_HUNTRESS,
-		VICTORY_ALL_CLASSES         ( 110, BadgeType.GLOBAL ),
-		DEATH_FROM_ALL              ( 111, BadgeType.GLOBAL ),
+		VICTORY_ALL_CLASSES         ( 111, BadgeType.GLOBAL ),
+		DEATH_FROM_ALL              ( 112, BadgeType.GLOBAL ),
 		BOSS_SLAIN_3_WARRIOR,
 		BOSS_SLAIN_3_MAGE,
 		BOSS_SLAIN_3_ROGUE,
 		BOSS_SLAIN_3_HUNTRESS,
-		BOSS_SLAIN_3_ALL_SUBCLASSES ( 112, BadgeType.GLOBAL ),
-		BOSS_CHALLENGE_3            ( 113 ),
-		BOSS_CHALLENGE_4            ( 114 ),
-		RESEARCHER_4                ( 115, BadgeType.JOURNAL ),
-		GAMES_PLAYED_4              ( 116, BadgeType.GLOBAL ),
-		HIGH_SCORE_4                ( 117 ),
-		CHAMPION_1                  ( 118 ),
+		BOSS_SLAIN_3_ALL_SUBCLASSES ( 113, BadgeType.GLOBAL ),
+		BOSS_CHALLENGE_3            ( 114 ),
+		BOSS_CHALLENGE_4            ( 115 ),
+		RESEARCHER_4                ( 116, BadgeType.JOURNAL ),
+		GAMES_PLAYED_4              ( 117, BadgeType.GLOBAL ),
+		HIGH_SCORE_4                ( 118 ),
+		CHAMPION_1                  ( 119 ),
 
 		//diamond
 		PACIFIST_ASCENT             ( 120 ),
@@ -1098,7 +1099,15 @@ public class Badges {
 		Badge badge = Badge.VICTORY;
 		local.add( badge );
 		displayBadge( badge );
-
+		
+		//technically player can also not spend talent points if they want for some reason
+		if (Statistics.qualifiedForRandomVictoryBadge
+			&& Dungeon.hero.subClass != null){
+			badge = Badge.VICTORY_RANDOM;
+			local.add( badge );
+			displayBadge( badge );
+		}
+		
 		badge = victoryClassBadges.get(Dungeon.hero.heroClass);
 		if (badge == null) return;
 		local.add( badge );
@@ -1121,7 +1130,7 @@ public class Badges {
 		if ((cause == Dungeon.hero || cause instanceof Explosive.ExplosiveCurseBomb)
 			&&
 				Dungeon.hero.belongings.attackingWeapon() instanceof 镐子
-				&& Dungeon.hero.belongings.attackingWeapon().等级() >= 20){
+				&& Dungeon.hero.belongings.attackingWeapon().等级() >= 10){
 			local.add( Badge.TAKING_THE_MICK );
 			displayBadge(Badge.TAKING_THE_MICK);
 		}

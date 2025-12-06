@@ -137,19 +137,8 @@ public class 连击 extends 武技{
 		@Override
 		public void restoreFromBundle(Bundle bundle) {
 			super.restoreFromBundle(bundle);
-			if (bundle.contains(TIME)){
-				comboTime = bundle.getInt(TIME);
-				hits = bundle.getInt(RECENT_HITS);
-			} else {
-				//pre-2.4.0 saves
-				comboTime = 5f;
-				hits = 0;
-				if (bundle.contains(RECENT_HITS)) {
-					for (int i : bundle.getIntArray(RECENT_HITS)) {
-						hits += i;
-					}
-				}
-			}
+			comboTime = bundle.getInt(TIME);
+			hits = bundle.getInt(RECENT_HITS);
 		}
 	}
 

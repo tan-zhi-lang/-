@@ -256,7 +256,7 @@ public class 破损纹章 extends Item {
 
 		@Override
 		public int icon() {
-			if (coolingDown() || 护盾量() > 0){
+			if (coolingDown() || 护盾量() > 0|| cooldown < 0){
 				return BuffIndicator.SEAL_SHIELD;
 			} else {
 				return BuffIndicator.NONE;
@@ -265,10 +265,11 @@ public class 破损纹章 extends Item {
 
 		@Override
 		public void tintIcon(Image icon) {
+			icon.resetColor();
 			if (coolingDown() && 护盾量() == 0){
 				icon.brightness(0.3f);
-			} else {
-				icon.resetColor();
+			} else if (cooldown < 0) {
+				icon.invert();
 			}
 		}
 
@@ -278,6 +279,8 @@ public class 破损纹章 extends Item {
 				return GameMath.gate(0, 1f - 护盾量()/(float)maxShield(), 1);
 			} else if (coolingDown()){
 				return GameMath.gate(0, cooldown / (float)cool(), 1);
+			} else if (cooldown < 0) {
+				return GameMath.gate(0, (COOLDOWN_START+cooldown) / (float)COOLDOWN_START, 1);
 			} else {
 				return 0;
 			}
@@ -287,7 +290,7 @@ public class 破损纹章 extends Item {
 		public String iconTextDisplay() {
 			if (护盾量() > 0){
 				return Integer.toString(护盾量());
-			} else if (coolingDown()){
+			} else if (coolingDown()|| cooldown < 0){
 				return Integer.toString(cooldown);
 			} else {
 				return "";
@@ -298,6 +301,8 @@ public class 破损纹章 extends Item {
 		public String desc() {
 			if (护盾量() > 0){
 				return Messages.get(this, "desc_active", 护盾量(), cooldown);
+			} else if (cooldown < 0) {
+				return Messages.get(this, "desc_negative_cooldown", cooldown);
 			} else {
 				return Messages.get(this, "desc_cooldown", cooldown);
 			}

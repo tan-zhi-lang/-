@@ -15,7 +15,7 @@ public class Albino extends Rat {
 	{
 		spriteClass = AlbinoSprite.class;
 		
-		生命 = 最大生命 = 15;
+		生命 = 最大生命 = 12;
 		经验 = 2;
 		普通=false;
 		
@@ -27,7 +27,7 @@ public class Albino extends Rat {
 	public int 攻击时(Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (damage > 0 && Random.Int( 2 ) == 0) {
-			Buff.施加( enemy, 流血.class ).set( damage );
+			Buff.施加( enemy, 流血.class ).set( Random.NormalFloat(2, 3) );
 		}
 		
 		return damage;

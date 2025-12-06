@@ -21,8 +21,8 @@ public class 传奇肛塞 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", 100*伏击(强化等级())),
-								Messages.decimalFormat("#.##",100*受伤(强化等级())));
+					Messages.decimalFormat("#.##", 100*伏击(等级())),
+								Messages.decimalFormat("#.##",100*受伤(等级())));
 		} else {
 			return Messages.get(this, "stats_desc",
 					Messages.decimalFormat("#.##", 100*伏击(0)),

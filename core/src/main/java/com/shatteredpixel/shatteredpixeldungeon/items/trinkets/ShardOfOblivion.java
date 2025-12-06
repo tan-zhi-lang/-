@@ -42,7 +42,7 @@ public class ShardOfOblivion extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", 强化等级()+1);
+			return Messages.get(this, "stats_desc", 等级()+1);
 		} else {
 			return Messages.get(this, "stats_desc", 1);
 		}

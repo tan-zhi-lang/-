@@ -150,7 +150,7 @@ public abstract class Char extends Actor {
 	
 	public int 最大生命;
 	public int 生命;
-	public int 护甲;
+	public int 护甲=0;
 	public int 每2次攻击=1;
 	public int 每3次攻击=1;
 

@@ -34,7 +34,7 @@ public abstract class Trinket extends Item {
 		Trinket trinket = Dungeon.hero.belongings.getItem(trinketType);
 
 		if (trinket != null){
-			return trinket.强化等级();
+			return trinket.等级();
 		} else {
 			return -1;
 		}

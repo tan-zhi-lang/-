@@ -73,7 +73,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 				count++;
 			}
 			count=Math.min(10,count+1);
-			comboTime=4+hero.天赋点数(Talent.连战热忱,2)+(hero.精通?3:0);
+			comboTime = Math.max(4+hero.天赋点数(Talent.连战热忱,2)+(hero.精通?3:0), 4f);
 			
 			if(hero.天赋(Talent.以战养战)){
 				hero.护甲(hero.天赋点数(Talent.以战养战));

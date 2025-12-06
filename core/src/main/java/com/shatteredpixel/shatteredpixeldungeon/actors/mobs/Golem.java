@@ -197,6 +197,9 @@ public class Golem extends Mob {
 			if (!enemyInFOV || canAttack(enemy)) {
 				return super.act(enemyInFOV, justAlerted);
 			} else {
+				if (handleRecentAttackers()){
+					return act( true, justAlerted );
+				}
 				enemySeen = true;
 				target = enemy.pos;
 
@@ -226,8 +229,9 @@ public class Golem extends Mob {
 					}
 
 				} else {
-					spend( TICK );
-					return true;
+					//attempt to swap targets if the current one can't be reached or vented at
+					
+					return handleUnreachableTarget(enemyInFOV, justAlerted);
 				}
 
 			}

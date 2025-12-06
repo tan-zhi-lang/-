@@ -75,7 +75,7 @@ public class 飞镖 extends Weapon{
 	public int 最小投掷攻击(int lvl) {
 		updateCrossbow();
 		if(bow!=null){
-			return super.最小投掷攻击(lvl)*3;
+			return super.最小投掷攻击(lvl)*2;
 		}
 		return super.最小投掷攻击(lvl);
 	}
@@ -83,7 +83,7 @@ public class 飞镖 extends Weapon{
 	public int 最大投掷攻击(int lvl) {
 		updateCrossbow();
 		if(bow!=null){
-			return super.最大投掷攻击(lvl)*3;
+			return super.最大投掷攻击(lvl)*2;
 		}
 		return super.最大投掷攻击(lvl);
 	}

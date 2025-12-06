@@ -15,6 +15,7 @@ public static final int 鬼怨地牢				= 4;
 		public static final int 奇袭地牢	= 128;
 		public static final int 简单战斗 	= 256;
 	public static final int MAX_VALUE           = 511;
+	public static final int MAX_CHALS           = 9;
 
 	public static final String[] NAME_IDS = {
 			"修罗血场",
@@ -39,14 +40,17 @@ public static final int 鬼怨地牢				= 4;
 			奇袭地牢,
 			简单战斗,
 	};
-
+	
 	public static int 使用(){
+		return 使用(Dungeon.玩法);
+	}
+	
+	public static int 使用(int mask){
 		int chCount = 0;
 		for (int ch : 玩法设置.MASKS){
-			if ((Dungeon.玩法 & ch) != 0) chCount++;
+			if ((mask & ch) != 0) chCount++;
 		}
 		return chCount;
 	}
-
 
 }

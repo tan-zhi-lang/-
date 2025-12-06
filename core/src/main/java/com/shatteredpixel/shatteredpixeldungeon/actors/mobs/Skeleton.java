@@ -8,8 +8,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SkeletonSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -61,9 +63,25 @@ public class Skeleton extends Mob {
 			if (ch != null && ch.isAlive()) {
 				int damage = Random.NormalIntRange(6, 12);
 				damage = Math.round( damage * AscensionChallenge.statModifier(this));
-				damage=ch.防御时(this,damage- Random.NormalIntRange(ch.最小防御(),ch.最大防御()));
+				//all sources of DR are 2x effective vs. bone explosion
+				//this does not consume extra uses of rock armor and earthroot armor
+
+				WandOfLivingEarth.RockArmor rockArmor = ch.buff(WandOfLivingEarth.RockArmor.class);
+				if (rockArmor != null) {
+					int preDmg = damage;
+					damage = rockArmor.absorb(damage);
+					damage *= Math.round(damage/(float)preDmg); //apply the % reduction twice
+				}
+
+				Earthroot.Armor armor = ch.buff(Earthroot.Armor.class);
+				if (damage > 0 && armor != null) {
+					int preDmg = damage;
+					damage = armor.absorb( damage );
+					damage -= (preDmg - damage); //apply the flat reduction twice
+				}
+
 				//apply DR twice (with 2 rolls for more consistency)
-				damage = Math.max( 0,  damage );
+				damage = Math.max( 0,  damage - (ch.最大防御()+ch.最大防御()));
 				ch.受伤时( damage, this );
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;

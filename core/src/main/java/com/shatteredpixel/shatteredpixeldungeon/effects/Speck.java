@@ -51,6 +51,8 @@ public class Speck extends Image {
 	public static final int STORM       = 117;
 	public static final int INFERNO     = 118;
 	public static final int BLIZZARD    = 119;
+	public static final int YELLOW_LIGHT= 120;
+	public static final int BLUE_LIGHT  = 121;
 	
 	private static final int SIZE = 7;
 	
@@ -185,12 +187,28 @@ public class Speck extends Image {
 
 		case RED_LIGHT:
 			tint(0xFFCC0000);
+			angle = Random.Float( 360 );
+			angularSpeed = 90;
+			lifespan = 1f;
+			break;
 		case LIGHT:
 			angle = Random.Float( 360 );
 			angularSpeed = 90;
 			lifespan = 1f;
 			break;
-			
+		case YELLOW_LIGHT:
+			tint(0xFFDDDD00);
+			angle = Random.Float( 360 );
+			angularSpeed = 90;
+			lifespan = 1f;
+			break;
+		
+		case BLUE_LIGHT:
+			tint(0xFF00CCFF);
+			angle = Random.Float( 360 );
+			angularSpeed = 90;
+			lifespan = 1f;
+			break;
 		case DISCOVER:
 			angle = Random.Float( 360 );
 			angularSpeed = 90;
@@ -401,6 +419,8 @@ public class Speck extends Image {
 				break;
 
 			case RED_LIGHT:
+			case YELLOW_LIGHT:
+			case BLUE_LIGHT:
 			case LIGHT:
 				am = scale.set( p < 0.2f ? p * 5f : (1 - p) * 1.25f ).x;
 				break;

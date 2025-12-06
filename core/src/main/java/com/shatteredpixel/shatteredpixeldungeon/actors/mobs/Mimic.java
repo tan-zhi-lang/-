@@ -159,6 +159,7 @@ public class Mimic extends Mob {
 		if (alignment == Alignment.NEUTRAL){
 			alignment = Alignment.ENEMY;
 			Dungeon.hero.spendAndNext(1f);
+			enemySeen = true;
 		}
 	}
 

@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
@@ -32,7 +31,7 @@ public class ArmoredBrute extends Brute {
 	
 	@Override
 	protected void triggerEnrage () {
-		Buff.施加(this, ArmoredRage.class).设置(最大生命 /2 + 1);
+		Buff.施加(this, ArmoredRage.class).设置(最大生命 /2);
 		
 		if (Dungeon.level.heroFOV[pos]) {
 			sprite.showStatus( CharSprite.WARNING, Messages.get(this, "enraged") );

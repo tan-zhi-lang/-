@@ -162,8 +162,8 @@ public class FloatingText extends RenderedTextBlock {
 			} else {
 				icon.x = left() + width() - icon.width();
 			}
-			icon.y = top();
-			PixelScene.align(icon);
+			icon.x = PixelScene.align(Camera.main, icon.x);
+			icon.y = PixelScene.align(Camera.main, top());
 		}
 	}
 
@@ -343,6 +343,7 @@ public class FloatingText extends RenderedTextBlock {
 		if (命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2>0)    hitReasons.put(HIT_ACC,命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2f);
 //		if (attacker.buff(弯刀.SwordDance.class)!=null)   hitReasons.put(HIT_DANCE,1.5f);
 //		if (!(wep instanceof MissileWeapon)) {
+		
 			if (attacker.buff(Talent.PreciseAssaultTracker.class) != null){
 				hitReasons.put(HIT_PRES, 1f);
 			} else if (attacker.buff(Talent.LiquidAgilACCTracker.class) != null) {

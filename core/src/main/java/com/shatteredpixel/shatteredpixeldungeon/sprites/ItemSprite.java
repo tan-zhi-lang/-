@@ -197,22 +197,27 @@ public class ItemSprite extends MovieClip {
 		
 		switch (heap.type) {
 			case HEAP: case FOR_SALE:
-				return view( heap.peek() );
+				view( heap.peek() ); break;
 			case CHEST:
-				return view( 物品表.CHEST, null );
+				view( 物品表.CHEST, null ); break;
 			case LOCKED_CHEST:
-				return view( 物品表.LOCKED_CHEST, null );
+				view( 物品表.LOCKED_CHEST, null ); break;
 			case CRYSTAL_CHEST:
-				return view( 物品表.CRYSTAL_CHEST, null );
+				view( 物品表.CRYSTAL_CHEST, null ); break;
 			case TOMB:
-				return view( 物品表.TOMB, null );
+				view( 物品表.TOMB, null ); break;
 			case SKELETON:
-				return view( 物品表.BONES, null );
+				view( 物品表.BONES, null ); break;
 			case REMAINS:
-				return view( 物品表.REMAINS, null );
+				view( 物品表.REMAINS, null ); break;
 			default:
-				return view( 0, null );
+				view( 0, null );
 		}
+		if (heap.hidden){
+			alpha(0.15f);
+		}
+
+		return this;
 	}
 	
 	public ItemSprite view( int image, Glowing glowing ) {

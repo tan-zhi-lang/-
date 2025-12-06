@@ -253,7 +253,10 @@ public enum Rankings {
 
 		//remove all buffs (ones tied to equipment will be re-applied)
 		for(Buff b : Dungeon.hero.buffs()){
-			Dungeon.hero.remove(b);
+			//except Duelist's melee weapon charge buff
+//			if (!(b instanceof MeleeWeapon.Charger)) {
+			Dungeon.hero.remove(b);//排名可能显示充能数量
+			//			}
 		}
 
 		rec.gameData.put( HERO, Dungeon.hero );

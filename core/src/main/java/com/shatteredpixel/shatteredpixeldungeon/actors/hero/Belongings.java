@@ -205,8 +205,10 @@ public class Belongings implements Iterable<Item> {
 		bundle.put( SECOND_WEP, secondWep );
 	}
 	
+	public static boolean bundleRestoring = false;
 	public void restoreFromBundle( Bundle bundle ) {
 		
+		bundleRestoring = true;
 		backpack.clear();
 		backpack.restoreFromBundle( bundle );
 		
@@ -229,6 +231,16 @@ public class Belongings implements Iterable<Item> {
 
 		secondWep = (Weapon) bundle.get(SECOND_WEP);
 		if (secondWep() != null)    secondWep().activate(owner);
+		bundleRestoring = false;
+	}
+
+	public void clear(){
+		backpack.clear();
+		weapon = secondWep = null;
+		armor = null;
+		misc = null;
+		misc2 = null;
+		misc3 = null;
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {

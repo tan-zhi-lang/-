@@ -18,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -32,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.暗影士兵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -154,7 +152,7 @@ public class 召唤物品 extends Artifact {
 
 					hero.spend(1f);
 					hero.busy();
-					hero.sprite.operate();
+					hero.sprite.operate(hero.pos);
 
 
 					Invisibility.dispel(hero);
@@ -425,6 +423,10 @@ public class 召唤物品 extends Artifact {
 		private void 更新数据(){
 			if (召唤物品==null) {
 				召唤物品= Dungeon.hero.belongings.getItem(召唤物品.class);
+				if (召唤物品 != null) {
+					召唤物品.召唤 = this;
+					召唤物品.随从ID = id();
+				}
 			}
 			
 			//same dodge as the hero
@@ -443,7 +445,7 @@ public class 召唤物品 extends Artifact {
 			更新数据();
 			if (召唤物品==null
 				|| Dungeon.hero.buff(MagicImmune.class) != null){
-				this.受伤时(1, new 类());
+				受伤时(1, new 类());
 			}
 			
 			if (!isAlive()) {

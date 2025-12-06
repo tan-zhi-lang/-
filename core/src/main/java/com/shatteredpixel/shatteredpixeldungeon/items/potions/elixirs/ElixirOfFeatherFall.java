@@ -29,45 +29,35 @@ public class ElixirOfFeatherFall extends Elixir {
 		GLog.p(Messages.get(this, "light"));
 	}
 
-	public static class FeatherBuff extends FlavourBuff {
+	public static class FeatherBuff extends FlavourBuff{
 		//does nothing, just waits to be triggered by chasm falling
 		{
-			type = buffType.POSITIVE;
+			type=buffType.POSITIVE;
 		}
-
+		
 		public void processFall(){
 			spend(-10f);
-			if (cooldown() <= 0) {
+			if(cooldown()<=0){
 				detach();
 			}
 		}
-
-		public static final float DURATION	= 50f;
-
+		
+		public static final float DURATION=50f;
+		
 		@Override
-		public int icon() {
+		public int icon(){
 			return BuffIndicator.LEVITATION;
 		}
-
+		
 		@Override
-		public void tintIcon(Image icon) {
-			icon.hardlight(1f, 2f, 1.25f);
+		public void tintIcon(Image icon){
+			icon.hardlight(1f,2f,1.25f);
 		}
-
+		
 		@Override
-		public float iconFadePercent() {
-			return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+		public float iconFadePercent(){
+			return Math.max(0,(DURATION-visualcooldown())/DURATION);
 		}
-	}
-
-	@Override
-	public int 金币() {
-		return 60 * quantity;
-	}
-
-	@Override
-	public int 能量() {
-		return 12 * quantity;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

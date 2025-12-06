@@ -21,7 +21,7 @@ public class ThirteenLeafClover extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", Math.round(MAX_CHANCE * 100*alterHeroDamageChance(强化等级())), Math.round((1f-MAX_CHANCE) * 100*alterHeroDamageChance(强化等级())));
+			return Messages.get(this, "stats_desc", Math.round(MAX_CHANCE * 100*alterHeroDamageChance(等级())), Math.round((1f-MAX_CHANCE) * 100*alterHeroDamageChance(等级())));
 		} else {
 			return Messages.get(this, "stats_desc", Math.round(MAX_CHANCE * 100*alterHeroDamageChance(0)), Math.round((1f-MAX_CHANCE) * 100*alterHeroDamageChance(0)));
 		}

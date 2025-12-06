@@ -12,17 +12,17 @@ import com.watabou.utils.Callback;
 
 import java.io.IOException;
 
-public class 骷髅钥匙 extends Key {
+public class 磨损钥匙 extends Key {
 	
 	{
-		image = 物品表.SKELETON_KEY;
+		image = 物品表.磨损钥匙;
 	}
 	
-	public 骷髅钥匙() {
+	public 磨损钥匙() {
 		this( 0 );
 	}
 	
-	public 骷髅钥匙(int depth ) {
+	public 磨损钥匙(int depth) {
 		super();
 		this.depth = depth;
 	}

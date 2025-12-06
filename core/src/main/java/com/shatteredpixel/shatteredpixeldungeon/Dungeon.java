@@ -48,6 +48,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.PrisonLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
+import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
@@ -167,7 +168,7 @@ public class Dungeon {
 	public static int 系统;
 	public static int 玩法;
 	public static int 地牢时间;
-	public static int mobsToChampion;
+	public static float mobsToChampion;
 
 	public static Hero hero;
 	public static Level level;
@@ -253,7 +254,7 @@ public class Dungeon {
 		系统 = SPDSettings.系统();
 		玩法 = SPDSettings.玩法();
 		地牢时间= 360;
-		mobsToChampion = -1;
+		mobsToChampion = 1;
 
 		Actor.clear();
 		Actor.resetNextID();
@@ -425,15 +426,22 @@ public class Dungeon {
 				case 14:
 					level = new MiningLevel();
 					break;
+				
+				case 16:
+				case 17:
+				case 18:
+				case 19:
+					level = new VaultLevel();
+					break;
 				default:
 					level = new DeadEndLevel();
 			}
 		} else {
 			level = new DeadEndLevel();
 		}
-
-		//dead end levels get cleared, don't count as generated
-		if (!(level instanceof DeadEndLevel)){
+		
+		//dead end levels (and vault levels for now!) get cleared, don't count as generated
+		if (!(level instanceof DeadEndLevel || level instanceof VaultLevel)){
 			//this assumes that we will never have a depth value outside the range 0 to 999
 			// or -500 to 499, etc.
 			if (!generatedLevels.contains(depth + 1000*branch)) {
@@ -820,7 +828,7 @@ public class Dungeon {
 		Dungeon.系统 = bundle.getInt( 系统x );
 		Dungeon.玩法 = bundle.getInt( 玩法x );
 		Dungeon.地牢时间= bundle.getInt(时间x);
-		Dungeon.mobsToChampion = bundle.getInt( MOBS_TO_CHAMPION );
+		Dungeon.mobsToChampion = bundle.getFloat( MOBS_TO_CHAMPION );
 		
 		Dungeon.level = null;
 		Dungeon.depth = -1;

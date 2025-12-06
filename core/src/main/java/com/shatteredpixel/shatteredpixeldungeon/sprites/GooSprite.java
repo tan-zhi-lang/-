@@ -24,6 +24,8 @@ public class GooSprite extends MobSprite {
 	private Animation pumpAttack;
 
 	private Emitter spray;
+	private int pumpUpEmitterDist = 0;
+	private int lastPumpUpPos = -1;
 	private ArrayList<Emitter> pumpUpEmitters = new ArrayList<>();
 
 	public GooSprite() {
@@ -69,18 +71,25 @@ public class GooSprite extends MobSprite {
 	}
 
 	public void pumpUp( int warnDist ) {
-		if (warnDist == 0){
-			clearEmitters();
-		} else {
+		pumpUpEmitterDist = warnDist;
+		if (warnDist > 0){
 			play(pump);
 			Sample.INSTANCE.play( Assets.Sounds.CHARGEUP, 1f, warnDist == 1 ? 0.8f : 1f );
+		}
+		updateEmitters();
+	}
+
+	public void updateEmitters( ){
+		clearEmitters();
+		if (pumpUpEmitterDist > 0 && ch != null) {
+			lastPumpUpPos = ch.pos;
 			if (ch.fieldOfView == null || ch.fieldOfView.length != Dungeon.level.length()){
 				ch.fieldOfView = new boolean[Dungeon.level.length()];
 				Dungeon.level.updateFieldOfView( ch, ch.fieldOfView );
 			}
 			for (int i = 0; i < Dungeon.level.length(); i++){
 				if (ch.fieldOfView != null && ch.fieldOfView[i]
-						&& Dungeon.level.distance(i, ch.pos) <= warnDist
+						&& Dungeon.level.distance(i, ch.pos) <= pumpUpEmitterDist
 						&& new Ballistica( ch.pos, i, Ballistica.STOP_TARGET | Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID).collisionPos == i
 						&& new Ballistica( i, ch.pos, Ballistica.STOP_TARGET | Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID).collisionPos == ch.pos){
 					Emitter e = CellEmitter.get(i);
@@ -103,6 +112,7 @@ public class GooSprite extends MobSprite {
 			e.burst(ElmoParticle.FACTORY, 10);
 		}
 		Sample.INSTANCE.play( Assets.Sounds.BURNING );
+		pumpUpEmitterDist = 0;
 		pumpUpEmitters.clear();
 	}
 
@@ -111,6 +121,7 @@ public class GooSprite extends MobSprite {
 	@Override
 	public void play(Animation anim) {
 		if (anim != pump && anim != pumpAttack){
+			pumpUpEmitterDist = 0;
 			clearEmitters();
 		}
 		super.play(anim);
@@ -131,6 +142,9 @@ public class GooSprite extends MobSprite {
 		if (spray != null) {
 			spray.pos(center());
 			spray.visible = visible;
+		}
+		if (pumpUpEmitterDist > 0 && ch != null && ch.pos != lastPumpUpPos){
+			updateEmitters();
 		}
 	}
 

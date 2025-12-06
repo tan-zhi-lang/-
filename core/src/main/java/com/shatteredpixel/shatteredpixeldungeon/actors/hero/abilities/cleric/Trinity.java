@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
@@ -514,7 +515,7 @@ public class Trinity extends ArmorAbility {
 			return 2*chargeUse;
 		}
 		if (Artifact.class.isAssignableFrom(cls)){
-			if (cls.equals(DriedRose.class) || cls.equals(UnstableSpellbook.class)){
+			if (cls.equals(DriedRose.class) || cls.equals(UnstableSpellbook.class)|| cls.equals(骷髅钥匙.class)){
 				return 2*chargeUse; //50 charge
 			}
 			if (cls.equals(EtherealChains.class) || cls.equals(TalismanOfForesight.class) || cls.equals(时光沙漏.class)){

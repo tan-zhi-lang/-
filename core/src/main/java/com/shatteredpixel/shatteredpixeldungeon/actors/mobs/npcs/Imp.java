@@ -14,9 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DwarfToken;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
-import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.AmbitiousImpRoom;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
@@ -25,8 +24,9 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
+
+import java.util.ArrayList;
 
 public class Imp extends NPC {
 
@@ -190,30 +190,13 @@ public class Imp extends NPC {
 			}
 		}
 		
-		public static void spawn( CityLevel level ) {
+		public static ArrayList<Room> spawn(ArrayList<Room> rooms) {
 			if (!spawned && Dungeon.depth > 16 && Random.Int( 20 - Dungeon.depth ) == 0) {
 
-				Imp npc = new Imp();
-				int tries = 30;
-				do {
-					npc.pos = level.randomRespawnCell( npc );
-					tries--;
-				} while (
-						npc.pos == -1 ||
-						//visibility issues on these tiles, try to avoid them
-						(tries > 0 && level.map[ npc.pos ] == Terrain.EMPTY_SP) ||
-						level.heaps.get( npc.pos ) != null ||
-						level.traps.get( npc.pos) != null ||
-						level.findMob( npc.pos ) != null ||
-						//don't place the imp against solid terrain
-						!level.passable[npc.pos + PathFinder.CIRCLE4[0]] || !level.passable[npc.pos + PathFinder.CIRCLE4[1]] ||
-						!level.passable[npc.pos + PathFinder.CIRCLE4[2]] || !level.passable[npc.pos + PathFinder.CIRCLE4[3]]);
-				level.mobs.add( npc );
+				rooms.add(new AmbitiousImpRoom());
 				
 				spawned = true;
 
-				//imp always spawns on an empty tile, for better visibility
-				Level.set( npc.pos, Terrain.EMPTY, level);
 
 				//always assigns monks on floor 17, golems on floor 19, and 50/50 between either on 18
 				switch (Dungeon.depth){
@@ -236,6 +219,11 @@ public class Imp extends NPC {
 				reward.升级( 2 );
 				reward.cursed = true;
 			}
+			return rooms;
+		}
+
+		public static boolean given(){
+			return given;
 		}
 		
 		public static void process( Mob mob ) {

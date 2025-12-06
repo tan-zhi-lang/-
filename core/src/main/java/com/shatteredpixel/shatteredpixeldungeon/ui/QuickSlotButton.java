@@ -54,6 +54,7 @@ public class QuickSlotButton extends Button {
 		instance = new QuickSlotButton[QuickSlot.SIZE];
 
 		lastTarget = null;
+		targetingSlot = -1;
 	}
 	
 	@Override
@@ -66,7 +67,7 @@ public class QuickSlotButton extends Button {
 				if (!Dungeon.hero.isAlive() || !Dungeon.hero.ready){
 					return;
 				}
-				if (targetingSlot == slotNum) {
+				if (targetingSlot == slotNum && lastTarget != null) {
 					int cell = autoAim(lastTarget, select(slotNum));
 
 					if (cell != -1){
@@ -156,13 +157,6 @@ public class QuickSlotButton extends Button {
 	@Override
 	public void update() {
 		super.update();
-		if(slot.item!=null){
-			if(slot.item.alpha){
-				slot.alpha(0.29f);
-			}else{
-				slot.alpha(1);
-			}
-		}
 		if (targetingSlot != -1 && lastTarget != null && lastTarget.sprite != null){
 			crossM.point(lastTarget.sprite.center(crossM));
 		}
@@ -338,6 +332,9 @@ public class QuickSlotButton extends Button {
 
 	//FIXME: this is currently very expensive, should either optimize ballistica or this, or both
 	public static int autoAim(Char target, Item item){
+		if (Dungeon.hero == null || target == null){
+			return -1;
+		}
 
 		//first try to directly target
 		if (item.targetingPos(Dungeon.hero, target.pos) == target.pos) {

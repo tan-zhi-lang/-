@@ -152,7 +152,15 @@ public class Feint extends ArmorAbility {
 			//fades just before the hero's next action
 			actPriority = Actor.HERO_PRIO+1;
 		}
-
+		@Override
+		public String name() {
+			return ""; //shouldn't be examinable
+		}
+		
+		@Override
+		public String description() {
+			return ""; //shouldn't be examinable
+		}
 		@Override
 		public boolean canInteract(Char c) {
 			return false;

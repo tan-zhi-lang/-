@@ -23,8 +23,8 @@ public class VialOfBlood extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,
 					"stats_desc",
-					Messages.decimalFormat("#.##", 100*(totalHealMultiplier(强化等级())-1f)),
-					Integer.toString(maxHealPerTurn(强化等级())));
+					Messages.decimalFormat("#.##", 100*(totalHealMultiplier(等级())-1f)),
+					Integer.toString(maxHealPerTurn(等级())));
 		} else {
 			return Messages.get(this,
 					"stats_desc",

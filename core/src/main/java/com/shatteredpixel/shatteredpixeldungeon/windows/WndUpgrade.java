@@ -4,8 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
@@ -179,6 +177,7 @@ public class WndUpgrade extends Window {
 					aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo)),
 					bottom);
 		}
+		
 //升级武技
 //		if (Dungeon.hero() && Dungeon.hero.heroClass == HeroClass.DUELIST
 //				&& toUpgrade instanceof Weapon && ((Weapon) toUpgrade).upgradeAbilityStat(levelFrom) != null){

@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.骷髅钥匙;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
@@ -38,7 +38,7 @@ public class KeyDisplay extends Visual {
 	//and the order they will be truncated if there is no space (higher first, larger counts first)
 	private static final LinkedHashMap<Class<? extends Key>, Integer> keyMap = new LinkedHashMap<>();
 	static {
-		keyMap.put(骷髅钥匙.class, 1);
+		keyMap.put(磨损钥匙.class,1);
 		keyMap.put(CrystalKey.class, 2);
 		keyMap.put(GoldenKey.class, 3);
 		keyMap.put(IronKey.class, 4);

@@ -50,7 +50,7 @@ public class ChaoticCenser extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", averageTurnsUntilGas(强化等级()));
+			return Messages.get(this, "stats_desc", averageTurnsUntilGas(等级()));
 		} else {
 			return Messages.get(this, "stats_desc", averageTurnsUntilGas(0));
 		}

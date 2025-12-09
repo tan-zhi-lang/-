@@ -68,7 +68,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投石;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
@@ -135,7 +135,7 @@ public abstract class Level implements Bundlable {
 					int x=PathFinder.范围4[Random.Int(0,PathFinder.范围4.length)];
 					if(!Dungeon.level.solid[c.pos+x]){
 						if(算法.概率学(1)){
-							Dungeon.level.drop(new 投石(),c.pos+x).sprite.drop();
+							Dungeon.level.drop(new 石头(),c.pos+x).sprite.drop();
 						}
 						if(算法.概率学(3)){
 							Char cx=Actor.findChar(c.pos);
@@ -246,7 +246,7 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.区域层数(3)) {
 				addItemToSpawn(new 治疗药剂());
 			}
-			if(Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count==0){
+			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count==0){
 				addItemToSpawn(new 生命水晶());
 				Dungeon.LimitedDrops.生命水晶.count++;
 			}

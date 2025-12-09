@@ -14,6 +14,8 @@ public class 寒冰鱼剑 extends Weapon {
 	{
 		image = 物品表.寒冰鱼剑;
 		hitSound = Assets.Sounds.HIT_SLASH;
+		延迟=1.35f;
+		伤害=1.15f;
 		tier = 5;
 	}
 	@Override

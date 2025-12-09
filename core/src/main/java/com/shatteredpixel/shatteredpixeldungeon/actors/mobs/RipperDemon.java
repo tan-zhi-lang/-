@@ -185,7 +185,7 @@ public class RipperDemon extends Mob {
 					public void call() {
 
 						if (leapVictim != null && alignment != leapVictim.alignment){
-							if (hit(RipperDemon.this, leapVictim, Char.INFINITE_ACCURACY, false)) {
+							if (hit(RipperDemon.this,leapVictim,Char.INFINITE,false)) {
 								Buff.施加(leapVictim, 流血.class).set(0.75f*最大攻击());
 								leapVictim.sprite.flash();
 								Sample.INSTANCE.play(Assets.Sounds.HIT);

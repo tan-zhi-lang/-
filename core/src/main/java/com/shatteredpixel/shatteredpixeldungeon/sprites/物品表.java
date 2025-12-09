@@ -184,18 +184,20 @@ public class 物品表 {
 
     //region 炸弹遗物
     public static final int TRINKET_CATA = xy(1, 5);
-    public static final int SEAL_SHARD = TRINKET_CATA + 1;
-    public static final int BROKEN_STAFF = TRINKET_CATA + 2;
-    public static final int CLOAK_SCRAP = TRINKET_CATA + 3;
-    public static final int BOW_FRAGMENT = TRINKET_CATA + 4;
-    public static final int BROKEN_HILT = TRINKET_CATA + 5;
-    public static final int TORN_PAGE = TRINKET_CATA + 6;
-    public static final int 残缺灵杖 = TRINKET_CATA + 7;
-    public static final int 残缺重盾 = TRINKET_CATA + 8;
+    public static final int 破损短剑 = TRINKET_CATA + 1;
+    public static final int SEAL_SHARD = TRINKET_CATA + 2;
+    public static final int BROKEN_STAFF = TRINKET_CATA + 3;
+    public static final int CLOAK_SCRAP = TRINKET_CATA + 4;
+    public static final int BOW_FRAGMENT = TRINKET_CATA + 5;
+    public static final int BROKEN_HILT = TRINKET_CATA + 6;
+    public static final int TORN_PAGE = TRINKET_CATA + 7;
+    public static final int 残缺灵杖 = TRINKET_CATA + 8;
+    public static final int 残缺重盾 = TRINKET_CATA + 9;
 
     static {
         assignItemRect(TRINKET_CATA, 12, 11);
 
+        assignItemRect(破损短剑, 13);
         assignItemRect(SEAL_SHARD, 12);
 
         assignItemRect(BROKEN_STAFF, 14, 10);
@@ -305,7 +307,7 @@ public class 物品表 {
     public static final int SICKLE = WEP_TIER1 + 5;
     public static final int ROUND_SHIELD = WEP_TIER1 + 6;
     public static final int THROWING_SPIKE = WEP_TIER1 + 7;
-    public static final int THROWING_STONE = WEP_TIER1 + 9;
+    public static final int THROWING_STONE = WEP_TIER1 + 8;
 
     static {
         
@@ -655,6 +657,13 @@ public class 物品表 {
     public static final int SPYGLASS = TRINKETS + 16;
     public static final int 中国国旗 = TRINKETS + 17;
     public static final int 传奇肛塞=TRINKETS+18;
+    public static final int 优惠卡=TRINKETS+19;
+    public static final int 圣金之沙=TRINKETS+20;
+    public static final int 精神支柱=TRINKETS+21;
+    public static final int 虚无透纱=TRINKETS+22;
+    public static final int 幸运硬币=TRINKETS+23;
+    public static final int 磨刀石=TRINKETS+24;
+    public static final int 角斗链枷=TRINKETS+25;
 
     static {
         assignItemRect(RAT_SKULL, 16, 11);
@@ -676,6 +685,13 @@ public class 物品表 {
         assignItemRect(SPYGLASS, 15);
         assignItemRect(中国国旗, 16);
         assignItemRect(传奇肛塞,9,13);
+        assignItemRect(优惠卡,16,14);
+        assignItemRect(圣金之沙,14,11);
+        assignItemRect(精神支柱,8,16);
+        assignItemRect(虚无透纱,12);
+        assignItemRect(幸运硬币,11,13);
+        assignItemRect(磨刀石,15,12);
+        assignItemRect(角斗链枷,15,16);
     }
     //endregion
 
@@ -942,6 +958,7 @@ public class 物品表 {
     public static final int BLOB = QUEST + 6;
     public static final int SHARD = QUEST + 7;
     public static final int ESCAPE = QUEST + 8;
+    public static final int 锻造锤 = QUEST + 9;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -953,6 +970,7 @@ public class 物品表 {
         assignItemRect(BLOB, 10, 9);
         assignItemRect(SHARD, 8, 10);
         assignItemRect(ESCAPE,   8, 16);
+        assignItemRect(锻造锤,   13, 12);
     }
     private static final int BAGS = xy(1, 31);  //16 slots
     public static final int BACKPACK = BAGS;

@@ -163,7 +163,7 @@ public class Blacksmith extends NPC {
 
 	@Override
 	public int 最大闪避(Char enemy ) {
-		return INFINITE_EVASION;
+		return Char.INFINITE;
 	}
 	
 	@Override
@@ -199,6 +199,7 @@ public class Blacksmith extends NPC {
 		public static int favor;
 		public static Item pickaxe;
 		public static boolean freePickaxe;
+		public static int 修理;
 		public static int reforges;
 		public static int hardens;
 		public static int upgrades;
@@ -221,6 +222,7 @@ public class Blacksmith extends NPC {
 			favor       = 0;
 			pickaxe     = new 镐子().鉴定();
 			freePickaxe = false;
+			修理    = 0;
 			reforges    = 0;
 			hardens     = 0;
 			upgrades    = 0;
@@ -245,6 +247,7 @@ public class Blacksmith extends NPC {
 		private static final String FAVOR	    = "favor";
 		private static final String PICKAXE	    = "pickaxe";
 		private static final String FREE_PICKAXE= "free_pickaxe";
+		private static final String 修理x	= "修理";
 		private static final String REFORGES	= "reforges";
 		private static final String HARDENS	    = "hardens";
 		private static final String UPGRADES	= "upgrades";
@@ -270,6 +273,7 @@ public class Blacksmith extends NPC {
 				node.put( FAVOR, favor );
 				if (pickaxe != null) node.put( PICKAXE, pickaxe );
 				node.put( FREE_PICKAXE, freePickaxe );
+				node.put( 修理x, 修理 );
 				node.put( REFORGES, reforges );
 				node.put( HARDENS, hardens );
 				node.put( UPGRADES, upgrades );
@@ -315,6 +319,7 @@ public class Blacksmith extends NPC {
 						freePickaxe = false;
 					}
 				}
+				修理 = node.getInt( 修理x );
 				reforges = node.getInt( REFORGES );
 				hardens = node.getInt( HARDENS );
 				upgrades = node.getInt( UPGRADES );

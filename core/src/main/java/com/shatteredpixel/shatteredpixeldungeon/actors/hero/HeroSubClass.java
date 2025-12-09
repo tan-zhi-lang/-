@@ -34,9 +34,15 @@ public enum HeroSubClass {
 
 	神秘学者(HeroIcon.神秘学者),
 	黑魔导师(HeroIcon.黑魔导师),
+	
+	健身猛男(HeroIcon.NONE),
 	盾之勇者(HeroIcon.盾之勇者),
+	
 	鬼师(HeroIcon.NONE),
-	养殖专家(HeroIcon.NONE);
+	
+	养殖专家(HeroIcon.NONE),
+	
+	元素忍者(HeroIcon.NONE);
 
 	int icon;
 

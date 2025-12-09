@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
+import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -190,7 +191,11 @@ public class 破损纹章 extends Item {
 		return 等级() < 最大等级();
 	}
 	public int 最大等级(){
-		return 1+Dungeon.hero.天赋点数(Talent.纹章荣耀);
+		int x=1;
+		if(Dungeon.系统(系统设置.独自变强)){
+			x+=Dungeon.hero.等级/2;
+		}
+		return x+Dungeon.hero.天赋点数(Talent.纹章荣耀);
 	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
 

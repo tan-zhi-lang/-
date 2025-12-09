@@ -761,12 +761,8 @@ public abstract class Wand extends Item {
 		public void recharge(){
 			int missingCharges = maxCharges - curCharges;
 			missingCharges = Math.max(0, missingCharges);
-			int x=0;
-			if(target instanceof Hero hero){
-			
-			}
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
-					+ ((SCALING_CHARGE_ADDITION-x) * Math.pow(scalingFactor, missingCharges)));
+					+ ((SCALING_CHARGE_ADDITION) * Math.pow(scalingFactor, missingCharges)));
 			
 			if (再生.regenOn())
 				partialCharge += (1f/turnsToCharge) * 能量之戒.wandChargeMultiplier(target)*(1+Dungeon.hero.天赋点数(Talent.强能处消,0.25f));

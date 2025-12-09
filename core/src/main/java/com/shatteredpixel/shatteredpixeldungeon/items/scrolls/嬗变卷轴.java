@@ -133,6 +133,8 @@ public class 嬗变卷轴 extends InventoryScroll {
 			return changeTippedDart( (TippedDart)item );
 		} else if (item instanceof Weapon ) {
 			return changeWeapon( (Weapon)item );
+		} else if (item instanceof Armor ) {
+			return changeArmor( (Armor)item );
 		} else if (item instanceof Scroll) {
 			return changeScroll( (Scroll)item );
 		} else if (item instanceof Potion) {
@@ -218,13 +220,36 @@ public class 嬗变卷轴 extends InventoryScroll {
 		
 		n.enchantment = w.enchantment;
 		n.curseInfusionBonus = w.curseInfusionBonus;
-		n.masteryPotionBonus = w.masteryPotionBonus;
 		n.神力 = w.神力;
 		n.levelKnown = w.levelKnown;
 		n.cursedKnown = w.cursedKnown;
 		n.cursed = w.cursed;
 		n.augment = w.augment;
 		n.enchantHardened = w.enchantHardened;
+
+		return n;
+		
+	}
+	
+	private static Armor changeArmor( Armor a) {
+		Armor n = Generator.randomArmor();
+
+		n.等级(0);
+		int level = a.真等级();
+		if (level > 0) {
+			n.升级( level );
+		} else if (level < 0) {
+			n.降级( -level );
+		}
+		
+		n.glyph = a.glyph;
+		n.curseInfusionBonus = a.curseInfusionBonus;
+		n.神力 = a.神力;
+		n.levelKnown = a.levelKnown;
+		n.cursedKnown = a.cursedKnown;
+		n.cursed = a.cursed;
+		n.augment = a.augment;
+		n.破损纹章 = a.破损纹章;
 
 		return n;
 		

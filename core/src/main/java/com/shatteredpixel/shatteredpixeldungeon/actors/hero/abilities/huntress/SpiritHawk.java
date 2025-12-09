@@ -156,7 +156,7 @@ public class SpiritHawk extends ArmorAbility {
 			if (Dungeon.hero.天赋(Talent.SWIFT_SPIRIT)&&
 					dodgesUsed < 2*Dungeon.hero.天赋点数(Talent.SWIFT_SPIRIT)) {
 				dodgesUsed++;
-				return Char.INFINITE_EVASION;
+				return Char.INFINITE;
 			}
 			return super.最大闪避(enemy);
 		}

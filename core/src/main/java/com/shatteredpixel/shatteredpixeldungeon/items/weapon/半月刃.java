@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.大杀四方;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.PathFinder;
 
@@ -14,7 +15,9 @@ public class 半月刃 extends Weapon{
 	{
 		image = 物品表.半月刃;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		伤害=0.8f;
+		延迟=1.15f;
+		伤害=0.85f;
+		技能=new 大杀四方();
 		tier = 3;
 	}
 

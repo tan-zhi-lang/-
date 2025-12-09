@@ -142,7 +142,7 @@ public class Honeypot extends Item {
 		@Override
 		public ArrayList<String> actions( Hero hero ) {
 			ArrayList<String> actions = super.actions( hero );
-			if(hero.SubClass(HeroSubClass.养殖专家)&&Dungeon.energy>=6){
+			if(hero.subClass(HeroSubClass.养殖专家)&&Dungeon.energy>=6){
 				actions.add( AC_修复 );
 			}
 			return actions;

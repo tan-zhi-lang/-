@@ -22,7 +22,7 @@ public class 生命果 extends 用品 {
 		if (action.equals(AC_USE)) {
 			Sample.INSTANCE.play(Assets.Sounds.生命水晶);
 			detach(hero.belongings.backpack);
-			hero.血气++;
+			hero.根骨++;
 			hero.更新属性();
 		}
 	}

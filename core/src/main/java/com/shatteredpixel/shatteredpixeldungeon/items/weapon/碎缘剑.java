@@ -19,8 +19,8 @@ public class 碎缘剑 extends Weapon{
 	{
 		image = 物品表.碎缘剑;
 		hitSound = Assets.Sounds.镜刃;
-		延迟= 1.25f;
-		伤害= 1.25f;
+		延迟= 1.35f;
+		伤害= 1.15f;
 		tier=5;
 	}
 	@Override

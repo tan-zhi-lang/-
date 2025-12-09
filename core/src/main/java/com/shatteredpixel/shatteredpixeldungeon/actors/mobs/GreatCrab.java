@@ -90,7 +90,7 @@ public class GreatCrab extends Crab {
 			if (enemy == Dungeon.hero){
 				Statistics.questScores[0] -= 50;
 			}
-			return INFINITE_EVASION;
+			return Char.INFINITE;
 		}
 		return super.最大闪避( enemy );
 	}

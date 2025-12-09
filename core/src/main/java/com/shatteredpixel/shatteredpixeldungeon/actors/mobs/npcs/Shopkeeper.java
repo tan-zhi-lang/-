@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -183,12 +184,12 @@ public class Shopkeeper extends NPC {
 
 	//shopkeepers are greedy!
 	public static int sellPrice(Item item){
-		float 打折=10;
+		float 打折=优惠卡.打折();
 		if(Holiday.getCurrentHoliday()==Holiday._618){
-			打折=9;
+			打折*=.9f;
 		}
 		if(Holiday.getCurrentHoliday()==Holiday._1111){
-			打折=8;
+			打折*=.8f;
 		}
 		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.depth / 5f + 1));

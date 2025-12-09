@@ -53,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollingGridPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollingListPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.input.KeyBindings;
 import com.watabou.input.KeyEvent;
 import com.watabou.noosa.BitmapText;
@@ -756,6 +757,9 @@ public class WndJournal extends WndTabbed {
 					title = "???";
 					desc = Messages.get(CatalogTab.class, "not_seen_item");
 					desc += "\n\n" + Messages.get(item, "discover_hint");
+					if(item instanceof Weapon w&&算法.isDebug()){
+						desc+="\n\n"+w.DPS();
+					}
 				} else {
 					title = Messages.titleCase( item.name() );
 					//some items don't include direct stats, generally when they're not applicable

@@ -26,7 +26,7 @@ public class DM0 extends Mob {
 	}
 	@Override
 	public int 最大闪避(Char enemy ) {
-		return INFINITE_EVASION;
+		return Char.INFINITE;
 	}
 	@Override
 	public float 移速() {

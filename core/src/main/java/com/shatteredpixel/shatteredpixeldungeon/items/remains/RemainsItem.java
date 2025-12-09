@@ -60,24 +60,24 @@ public abstract class RemainsItem extends Item {
 	}
 
 	public static RemainsItem get(HeroClass cls){//遗物
-		switch (cls){
-			case WARRIOR: default:
-				return new SealShard();
-			case MAGE:
-				return new BrokenStaff();
-			case 盗贼:
-				return new CloakScrap();
-			case HUNTRESS:
-				return new BowFragment();
-			case DUELIST:
-				return new BrokenHilt();
-			case CLERIC:
-				return new TornPage();
-			case 巫女:
-				return new 残缺灵杖();
-			case 重武:
-				return new 残缺重盾();
-		}
+		
+		return new 破损短剑();
+//		switch (cls){
+//			case WARRIOR: default:
+//				return new 破损短剑();
+//			case MAGE:
+//				return new BrokenStaff();
+//			case 盗贼:
+//				return new CloakScrap();
+//			case HUNTRESS:
+//				return new BowFragment();
+//			case DUELIST:
+//				return new BrokenHilt();
+//			case CLERIC:
+//				return new TornPage();
+//			case 巫女:
+//				return new 残缺灵杖();
+//		}
 	}
 
 }

@@ -30,11 +30,16 @@ public class 水袋 extends Item {
 	{
 		image = 物品表.水袋;
 
-		defaultAction = AC_DRINK;
 		
 		特别= true;
 	}
-
+	@Override
+	public String defaultAction(){
+		if (volume == MAX_VOLUME) {
+			return AC_合成;
+		}
+		return AC_DRINK;
+	}
 	public int volume = 0;
 
 	private static final String VOLUME	= "volume";
@@ -107,6 +112,7 @@ public class 水袋 extends Item {
 		}
 
 		if (action.equals( AC_合成 )) {
+			GLog.p( Messages.get(this, "合成") );
 			volume = 0;
 
 			new 永生秘药().放背包();

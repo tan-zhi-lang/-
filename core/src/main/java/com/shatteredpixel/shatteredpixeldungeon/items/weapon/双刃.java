@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.剑舞;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 双刃 extends Weapon{
@@ -11,6 +12,7 @@ public class 双刃 extends Weapon{
 		image = 物品表.DAGGER;
 		hitSound = Assets.Sounds.HIT_STAB;
 		
+		技能=new 剑舞();
 
 		tier = 1;
 		延迟=0.5f;

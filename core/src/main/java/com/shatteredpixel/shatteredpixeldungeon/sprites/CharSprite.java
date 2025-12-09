@@ -181,6 +181,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		point( worldToCamera( cell ) );
 	}
 
+	public void 说(String text) {
+		showStatus(CharSprite.增强,text);
+	}
 	public void showStatus( int color, String text, Object... args ) {
 		showStatusWithIcon(color, text, FloatingText.NO_ICON, args);
 	}

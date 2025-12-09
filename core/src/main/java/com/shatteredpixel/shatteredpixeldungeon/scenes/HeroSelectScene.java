@@ -50,7 +50,6 @@ import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.PointerArea;
 import com.watabou.noosa.tweeners.Tweener;
 import com.watabou.noosa.ui.Component;
-import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
@@ -1043,35 +1042,29 @@ public class HeroSelectScene extends PixelScene {
             add(玩法);
             buttons.add(玩法);
             
-            int unlockedCount = 0;
-            for (HeroClass cls : HeroClass.values()){
-                if (cls.isUnlocked()) unlockedCount++;
-            }
-            
-            if (unlockedCount >= 2) {
-                StyledButton randomButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "randomize"), 6) {
-                    @Override
-                    protected void onClick() {
+            StyledButton randomButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "randomize"), 6) {
+                @Override
+                protected void onClick() {
+                
+//                        if (Badges.isUnlocked(Badges.Badge.VICTORY)||DeviceCompat.isDebug()){
+                        ShatteredPixelDungeon.scene().addToFront(new WndRandomize());
                         
-                        if (Badges.isUnlocked(Badges.Badge.VICTORY)||DeviceCompat.isDebug()){
-                            ShatteredPixelDungeon.scene().addToFront(new WndRandomize());
-                            
-                        } else {
-                            
-                            HeroClass randomCls;
-                            do {
-                                randomCls = Random.oneOf(HeroClass.values());
-                            } while (!randomCls.isUnlocked());
-                            setSelectedHero(randomCls);
-                            GamesInProgress.randomizedClass = true;
-                        }
-                    }
-                };
-                randomButton.leftJustify = true;
-                randomButton.icon(Icons.SHUFFLE.get());
-                buttons.add(randomButton);
-                add(randomButton);
-            }
+//                        } else {
+//
+//                            HeroClass randomCls;
+//                            do {
+//                                randomCls = Random.oneOf(HeroClass.values());
+//                            } while (!randomCls.isUnlocked());
+//                            setSelectedHero(randomCls);
+//                            GamesInProgress.randomizedClass = true;
+//                        }
+                }
+            };
+            randomButton.leftJustify = true;
+            randomButton.icon(Icons.SHUFFLE.get());
+            buttons.add(randomButton);
+            add(randomButton);
+            
             for (int i = 1; i < buttons.size(); i++) {
                 ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
                 add(spc);
@@ -1159,7 +1152,7 @@ public class HeroSelectScene extends PixelScene {
                             HeroClass randomCls;
                             do {
                                 randomCls = Random.oneOf(HeroClass.values());
-                            } while (!randomCls.isUnlocked());
+                            } while (!randomCls.isUnlocked()||randomCls == HeroClass.英雄);
                             setSelectedHero(randomCls);
                             GamesInProgress.randomizedClass = true;
                         } else {

@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
@@ -78,6 +79,7 @@ public class EscapeCrystal extends Item {
 					if (b instanceof Wand.Charger
 							|| b instanceof Artifact.ArtifactBuff
 							|| b instanceof Ring.RingBuff
+							|| b instanceof Weapon.Charger
 							|| b instanceof ClassArmor.Charger){
 						b.detach();
 					}

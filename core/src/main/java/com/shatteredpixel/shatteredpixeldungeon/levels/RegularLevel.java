@@ -186,7 +186,7 @@ public abstract class RegularLevel extends Level {
 	public int mobLimit() {
 		if (Dungeon.depth <= 1){
 			if (!Statistics.amuletObtained) return 0;
-			else                            return 10;
+			else                            return 9;
 		}
 
 		int mobs = 3 + Dungeon.depth % 5 + Random.Int(3);
@@ -202,7 +202,7 @@ public abstract class RegularLevel extends Level {
 	@Override
 	protected void createMobs() {
 		//on floor 1, 8 pre-set mobs are created so the player can get level 2.
-		int mobsToSpawn = Dungeon.depth == 1 ? 10 : mobLimit();
+		int mobsToSpawn = Dungeon.depth == 1 ? 9 : mobLimit();
 		
 		if(Dungeon.玩法(玩法设置.修罗血场)){
 			mobsToSpawn*=2;

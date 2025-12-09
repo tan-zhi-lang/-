@@ -21,13 +21,13 @@ public class 冰门重盾 extends Weapon{
 		嬗变= false;
 		专属=true;
 		双手=true;
-		伤害= 0.8f;
-		伤害= 1.25f;
+		延迟= 1.25f;
+		伤害= 0.85f;
 		tier = 1;
 	}
 	@Override
 	public String defaultAction() {
-		if(Dungeon.hero.SubClass(HeroSubClass.盾之勇者)){
+		if(Dungeon.hero.subClass(HeroSubClass.盾之勇者)){
 			return super.defaultAction();
 		}
 		return defaultAction;
@@ -35,7 +35,7 @@ public class 冰门重盾 extends Weapon{
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if(!hero.SubClass(HeroSubClass.盾之勇者)) {
+		if(!hero.subClass(HeroSubClass.盾之勇者)) {
 			actions.remove(AC_UNEQUIP);
 			actions.remove(AC_THROW);
 		}
@@ -60,6 +60,6 @@ public class 冰门重盾 extends Weapon{
 
 	@Override
 	public int 最大防御(int lvl){
-		return 2 + lvl;
+		return 2 + lvl*2;
 	}
 }

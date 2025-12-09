@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
+import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
@@ -66,7 +67,7 @@ public class WndWandmaker extends Window {
 			}
 		};
 		btnWand1.item(Wandmaker.Quest.wand1);
-		btnWand1.setRect( (WIDTH - BTN_GAP) / 2 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE );
+		btnWand1.setRect( (WIDTH - BTN_GAP) / 3 - BTN_SIZE, message.top() + message.height() + BTN_GAP, BTN_SIZE, BTN_SIZE );
 		add( btnWand1 );
 		
 		ItemButton btnWand2 = new ItemButton(){
@@ -83,7 +84,21 @@ public class WndWandmaker extends Window {
 		btnWand2.setRect( btnWand1.right() + BTN_GAP, btnWand1.top(), BTN_SIZE, BTN_SIZE );
 		add(btnWand2);
 		
-		resize(WIDTH, (int) btnWand2.bottom());
+		ItemButton btnWand3 = new ItemButton(){
+			@Override
+			protected void onClick() {
+				if (Dungeon.hero.belongings.contains(questItem) && item() != null) {
+					GameScene.show(new RewardWindow(item()));
+				} else {
+					hide();
+				}
+			}
+		};
+		btnWand3.item(new ArcaneResin().数量(3));
+		btnWand3.setRect( btnWand2.right() + BTN_GAP, btnWand2.top(), BTN_SIZE, BTN_SIZE );
+		add(btnWand3);
+		
+		resize(WIDTH, (int) btnWand3.bottom());
 	}
 	
 	private void selectReward( Item reward ) {

@@ -136,9 +136,9 @@ public enum HeroClass{
 //	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
 	巫女(),
 //	巫女(HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
-	重武(),镜魔(),
-	道士(HeroSubClass.鬼师),行僧(),
-	近卫(),兽灵(HeroSubClass.养殖专家),
+	重武(HeroSubClass.健身猛男),镜魔(),
+	道士(),行僧(),
+	近卫(),兽灵(),
 	机器(),女忍(),
 	戒老(),逐姝(),
 	罗兰(),学士(),
@@ -307,6 +307,18 @@ public enum HeroClass{
 				初始来世(hero);
 				break;
 		}
+		if(hero.belongings.weapon!=null)
+		hero.belongings.weapon.activate(hero);
+		
+		if(hero.belongings.armor!=null)
+		hero.belongings.armor.activate(hero);
+		
+		if(hero.belongings.misc!=null)
+		hero.belongings.misc.activate(hero);
+		if(hero.belongings.misc2!=null)
+		hero.belongings.misc2.activate(hero);
+		if(hero.belongings.misc3!=null)
+		hero.belongings.misc3.activate(hero);
 		//endregion
 		
 		new 鉴定卷轴().鉴定();
@@ -370,7 +382,6 @@ public enum HeroClass{
 		staff=new 法师魔杖(new 焰浪法杖());
 		
 		(hero.belongings.weapon=staff).鉴定();
-		hero.belongings.weapon.activate(hero);	
 		
 		Dungeon.quickslot.setSlot(0,staff);
 		
@@ -389,7 +400,6 @@ public enum HeroClass{
 		
 		CloakOfShadows cloak=new CloakOfShadows();
 		(hero.belongings.misc=cloak).鉴定();
-		hero.belongings.misc.activate(hero);
 		
 		
 		Dungeon.quickslot.setSlot(0,cloak);
@@ -411,9 +421,7 @@ public enum HeroClass{
 	private static void initDuelist(Hero hero){
 		Item i=new 胸铠().鉴定();
 			hero.belongings.armor=(胸铠)i;
-		
 		(hero.belongings.weapon=new 配刺剑()).鉴定();
-		hero.belongings.weapon.activate(hero);
 		
 		
 		new PotionOfStrength().鉴定();
@@ -425,11 +433,9 @@ public enum HeroClass{
 			hero.belongings.armor=(祭服)i;
 		
 		(hero.belongings.weapon=new 权杖()).鉴定();
-		hero.belongings.weapon.activate(hero);
 		
 		神圣法典 tome=new 神圣法典();
 		(hero.belongings.misc=tome).鉴定();
-		hero.belongings.misc.activate(hero);
 		
 		Dungeon.quickslot.setSlot(0,tome);
 		
@@ -443,7 +449,6 @@ public enum HeroClass{
 		
 		血砍刀 x=new 血砍刀();
 		(hero.belongings.weapon=x).鉴定();
-		hero.belongings.weapon.activate(hero);
 		
 		灵月法杖 bow=new 灵月法杖();
 		bow.鉴定().放背包();
@@ -458,7 +463,6 @@ public enum HeroClass{
 		
 		冰门重盾 x=new 冰门重盾();
 		(hero.belongings.weapon=x).鉴定();
-		hero.belongings.weapon.activate(hero);
 		
 		
 		new ScrollOfLullaby().鉴定();
@@ -476,7 +480,6 @@ public enum HeroClass{
 		
 		本命玉佩 tome=new 本命玉佩();
 		(hero.belongings.misc=tome).鉴定();
-		hero.belongings.misc.activate(hero);
 		
 		Dungeon.quickslot.setSlot(0,tome);
 	}
@@ -495,7 +498,6 @@ public enum HeroClass{
 	private static void 初始兽灵(Hero hero){
 		
 		(hero.belongings.weapon=new 臂铠()).鉴定();
-		hero.belongings.weapon.activate(hero);
 	}
 	
 	private static void 初始机器(Hero hero){
@@ -514,7 +516,6 @@ public enum HeroClass{
 		
 		叛忍护额 tome=new 叛忍护额();
 		(hero.belongings.misc=tome).鉴定();
-		hero.belongings.misc.activate(hero);
 		
 		Dungeon.quickslot.setSlot(0,tome);
 	}

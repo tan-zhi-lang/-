@@ -59,6 +59,7 @@ public class StatusPane extends Component {
 	private BitmapText expText;
 	private BitmapText fps;
 	private BitmapText time;
+	private BitmapText day;
 
 	private int lastLvl = -1;
 
@@ -161,6 +162,9 @@ public class StatusPane extends Component {
 		add(fps);
 		time = new BitmapText( Dungeon.地牢时间(), PixelScene.pixelFont);
 		add(time);
+		
+		day = new BitmapText( Dungeon.地牢天数+"Day", PixelScene.pixelFont);
+		add(day);
 
 		level = new BitmapText( PixelScene.pixelFont);
 		level.hardlight( 0xFFFFAA );
@@ -254,6 +258,10 @@ public class StatusPane extends Component {
 		time.scale.set(PixelScene.align(0.75f));
 		time.measure();
 		PixelScene.align(time);
+		
+		day.scale.set(PixelScene.align(0.85f));
+		day.measure();
+		PixelScene.align(day);
 		
 		buffs.setRect( x + 31+3+1, y + 7+9+ 绿条.height()+1, 50, 8 );
 		
@@ -374,6 +382,11 @@ public class StatusPane extends Component {
 		time.measure();
 		time.x = x + 25.5f - time.width() / 2f;
 		time.y = y + 35 + time.height();
+		
+		day.text(Dungeon.地牢天数+"Day");
+		day.measure();
+		day.x = counter.x + day.width() / 2f;
+		day.y = y + 41.5f + day.height();
 		
 		busytime.text(String.format("%.2f",(1f - Actor.now()%1f)%1f));
 		busytime.measure();

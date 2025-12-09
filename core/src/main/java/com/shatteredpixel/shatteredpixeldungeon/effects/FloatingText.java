@@ -292,17 +292,17 @@ public class FloatingText extends RenderedTextBlock {
 		HashMap<Integer, Float> hitReasons = new HashMap<>();
 
 		//go through some garunteed hit interactions first
-		if (accRoll == Char.INFINITE_ACCURACY && attacker.invisible > 0){
+		if (accRoll == Char.INFINITE&&attacker.invisible>0){
 			return HIT_SUPR;
 		}
 		if (defRoll == 0 && defender instanceof Mob && ((Mob) defender).surprisedBy(attacker)){
 			return HIT_SUPR;
 		}
-		if (accRoll == Char.INFINITE_ACCURACY
+		if (accRoll == Char.INFINITE
 				&& attacker.buff(Talent.PreciseAssaultTracker.class) != null){
 			return HIT_PRES;
 		}
-		if (accRoll == Char.INFINITE_ACCURACY
+		if (accRoll == Char.INFINITE
 				&& attacker.buff(Talent.LiquidAgilACCTracker.class) != null){
 			return HIT_LIQ;
 		}
@@ -402,7 +402,7 @@ public class FloatingText extends RenderedTextBlock {
 		HashMap<Integer, Float> missReasons = new HashMap<>();
 
 		//some guaranteed dodged first
-//		if (defRoll == Char.INFINITE_EVASION ){
+//		if (defRoll == Char.Char.INFINITE_ACCURACY ){
 //			return MISS_LIQ;
 //		}
 
@@ -435,7 +435,6 @@ public class FloatingText extends RenderedTextBlock {
 		if (blessBoost > 1f)                                    missReasons.put(MISS_BLS, blessBoost);
 		if (FerretTuft.evasionMultiplier() > 1)                 missReasons.put(MISS_TUFT, FerretTuft.evasionMultiplier());
 		if (闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2>0)      missReasons.put(MISS_EVA,闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2f);
-//		if (defender.buff(铁头棍.DefensiveStance.class)!=null)  missReasons.put(MISS_DEF,3f);
 		if (arm != null && arm.evasionFactor(defender, 100) > 100) {
 			//we express armor's normally flat evasion boost as a %, yes this is very awkward
 			Armor.testingNoArmDefSkill = true;

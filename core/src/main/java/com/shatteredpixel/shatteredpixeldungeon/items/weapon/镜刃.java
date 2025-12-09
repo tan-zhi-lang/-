@@ -11,7 +11,7 @@ public class 镜刃 extends Weapon{
 		image = 物品表.镜刃;
 		hitSound = Assets.Sounds.镜刃;
 		
-
+		伤害=0.85f;
 		tier = 1;
 		特别= true;
 		遗产= false;

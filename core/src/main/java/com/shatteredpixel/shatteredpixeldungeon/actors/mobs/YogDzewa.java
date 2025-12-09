@@ -138,7 +138,7 @@ public class YogDzewa extends Mob {
 
 	@Override
 	public int 最大命中(Char target) {
-		return INFINITE_ACCURACY;
+		return INFINITE;
 	}
 
 	@Override

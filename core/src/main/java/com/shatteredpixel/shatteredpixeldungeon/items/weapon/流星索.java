@@ -13,7 +13,8 @@ public class 流星索 extends Weapon{
 		image = 物品表.BOLAS;
 		
 		延迟=1.25f;
-		伤害=1.25f;
+		伤害=1.35f;
+		命中=0.85f;
 		tier = 3;
 	}
 	

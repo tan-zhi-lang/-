@@ -29,7 +29,7 @@ public class Snake extends Mob {
 	
 	@Override
 	public int 最大攻击() {
-		return 6;
+		return 5;
 	}
 	
 	@Override

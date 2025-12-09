@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.潜行;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 臻冰刃 extends Weapon {
@@ -15,10 +16,12 @@ public class 臻冰刃 extends Weapon {
 		image = 物品表.臻冰刃;
 		hitSound = Assets.Sounds.HIT_STAB;
 		
-		延迟=0.8f;
+		延迟=1.2f;
 		伤害=0.8f;
+		技能=new 潜行();
 		
-		伏击=0.5f;
+		命中=0.85f;
+		伏击=0.35f;
 		tier = 5;
 	}
 	

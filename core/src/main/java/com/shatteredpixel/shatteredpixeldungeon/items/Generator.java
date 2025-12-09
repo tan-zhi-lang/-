@@ -105,7 +105,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
@@ -140,7 +147,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投石;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
@@ -396,7 +403,7 @@ public class Generator {
 					短柄镰.class,
 					圆盾.class,
 					
-					投石.class,
+					石头.class,
 					小刺.class,
 					
 			};
@@ -587,14 +594,27 @@ public class Generator {
 					
 					FerretTuft.class,
 					传奇肛塞.class,
-					中国国旗.class
+					
+					中国国旗.class,
+					
+					优惠卡.class,
+					圣金之沙.class,
+					精神支柱.class,
+					虚无透纱.class,
+					幸运硬币.class,
+					磨刀石.class,
+					角斗链枷.class,
 			};
 			TRINKET.defaultProbs = new float[]{ 1, 1, 1,
 												1, 1, 1,
 												1, 1, 1,
 												1, 1, 1,
 												1, 1, 1,
-												1,1,0 };
+												1,1,
+												0,
+												1,1,1,1,
+												1,1,1,
+												};
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 
 			for (Category cat : Category.values()){

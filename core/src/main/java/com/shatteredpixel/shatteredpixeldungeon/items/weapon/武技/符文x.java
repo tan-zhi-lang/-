@@ -1,6 +1,12 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技;
 
-public class 符文 extends 武技{
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+
+public class 符文x extends 武技{
+	@Override
+	public void 武技(Hero hero,Weapon wep) {
+	}
 	/*
 	
 	@Override
@@ -14,7 +20,7 @@ public class 符文 extends 武技{
 	}
 	
 	@Override
-	protected void 使用武技(Hero hero,Integer target) {
+	protected void 使用武技(Hero hero,Weapon wep) {
 		if (target == null) {
 			return;
 		}

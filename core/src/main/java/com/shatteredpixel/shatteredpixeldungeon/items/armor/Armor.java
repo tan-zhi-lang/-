@@ -8,8 +8,11 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.组间休息;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.隔天休息;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -109,7 +112,6 @@ public class Armor extends EquipableItem {
 	public Glyph glyph;
 	public boolean glyphHardened = false;
 	public boolean curseInfusionBonus = false;
-	public boolean masteryPotionBonus = false;
 	public boolean 神力 = false;
 	
 	public 破损纹章 破损纹章;
@@ -127,7 +129,6 @@ public class Armor extends EquipableItem {
 	private static final String GLYPH			= "glyph";
 	private static final String GLYPH_HARDENED	= "glyph_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
-	private static final String MASTERY_POTION_BONUS = "mastery_potion_bonus";
 	private static final String 神力x = "神力";
 	private static final String 破损纹章x = "破损纹章";
 	private static final String AUGMENT			= "augment";
@@ -139,7 +140,6 @@ public class Armor extends EquipableItem {
 		bundle.put( GLYPH, glyph );
 		bundle.put( GLYPH_HARDENED, glyphHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
-		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
 		bundle.put( 神力x, 神力 );
 		bundle.put(破损纹章x, 破损纹章);
 		bundle.put( AUGMENT, augment);
@@ -152,7 +152,6 @@ public class Armor extends EquipableItem {
 		inscribe((Glyph) bundle.get(GLYPH));
 		glyphHardened = bundle.getBoolean(GLYPH_HARDENED);
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
-		masteryPotionBonus = bundle.getBoolean( MASTERY_POTION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 		破损纹章 = (破损纹章)bundle.get(破损纹章x);
 		
@@ -489,7 +488,20 @@ public class Armor extends EquipableItem {
 	}
 	
 	public int 防御时(Char attacker, Char defender, int damage ) {
-
+		if(defender instanceof Hero hero){
+			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
+				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
+					hero.现在健身-=0.01f;
+				}else{
+					if(hero.现在健身>=3){
+						Buff.施加(hero,隔天休息.class,900);
+					}else{
+						hero.现在健身+=0.01f;
+						Buff.施加(hero,组间休息.class,1);
+					}
+				}
+			}
+		}
 		if (defender.buff(MagicImmune.class) == null) {
 			Glyph trinityGlyph = null;
 			//only when it's the hero or a char that uses the hero's armor
@@ -673,11 +685,11 @@ public class Armor extends EquipableItem {
 
 	public int 力量(int lvl){
 		int req = 力量(tier, lvl);
-		if (masteryPotionBonus){
-			req -= 2;
-		}
+		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
+            req-=Dungeon.hero.护甲力量;
+        }
 		if (神力){
-			req -= 2;
+			req -= 3;
 		}
 		
 		return req;
@@ -685,7 +697,6 @@ public class Armor extends EquipableItem {
 
 	protected static int 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
-
 		//strength req decreases at +1,+3,+6,+10,etc.
 		return (8 + Math.round(tier * 2)) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
 	}

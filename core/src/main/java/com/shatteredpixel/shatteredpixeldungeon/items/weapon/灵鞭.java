@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.大杀四方;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 灵鞭 extends Weapon{
@@ -11,11 +12,11 @@ public class 灵鞭 extends Weapon{
 	{
 		image = 物品表.灵鞭;
 		
-
+		
+		技能=new 大杀四方();
 		tier = 1;
 		
 		延迟= 1.25f;
-		伤害= 1.25f;
 		范围 = 3;    //lots of extra reach
 		
 		特别= true;

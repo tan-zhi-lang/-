@@ -257,9 +257,9 @@ public class ItemSlot extends Button {
 					}else{
 						extra.hardlight( DEGRADED );
 					}
-				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&& (((Weapon) item).masteryPotionBonus ||((Weapon) item).神力)){
+				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&& ((Weapon) item).神力){
 					extra.hardlight( MASTERED );
-				} else if (item instanceof Armor && str > Dungeon.hero.力量()&& (((Armor) item).masteryPotionBonus||((Armor) item).神力)) {
+				} else if (item instanceof Armor && str > Dungeon.hero.力量()&& ((Armor) item).神力) {
 					extra.hardlight( MASTERED );
 				} else {
 					if(extra.text!=null){
@@ -277,9 +277,9 @@ public class ItemSlot extends Button {
 					}else{
 						extra.hardlight( DEGRADED );
 					}
-				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&& (((Weapon) item).masteryPotionBonus ||((Weapon) item).神力)){
+				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&&((Weapon) item).神力){
 					extra.hardlight( MASTERED );
-				} else if (item instanceof Armor && str > Dungeon.hero.力量()&& (((Armor) item).masteryPotionBonus||((Armor) item).神力)) {
+				} else if (item instanceof Armor && str > Dungeon.hero.力量()&&((Armor) item).神力) {
 					extra.hardlight( MASTERED );
 				} else {
 					if(extra.text!=null){

@@ -348,7 +348,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 		}
 
 		int oldPos = enemy.pos;
-		if (hero.attack(enemy, dmgMulti, dmgBonus, Char.INFINITE_ACCURACY)){
+		if (hero.attack(enemy, dmgMulti, dmgBonus, Char.INFINITE)){
 			//special on-hit effects
 			switch (moveBeingUsed) {
 				case 冲击:

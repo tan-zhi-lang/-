@@ -9,7 +9,7 @@ public class 十字弩 extends Weapon{
 	
 	{
 		image = 物品表.十字弩;
-		伤害= 0.8f;
+		伤害= 0.68f;
 		tier = 1;
 	}
 

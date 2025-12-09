@@ -257,23 +257,23 @@ public class 武力之戒 extends Ring{
 	public String info(){
 		String info=super.info();
 		
-		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST&&(anonymous||已鉴定()||isEquipped(Dungeon.hero))){
-			//0 if unidentified, solo level if unequipped, combined level if equipped
-			int level=已鉴定()?
-					(isEquipped(Dungeon.hero)?
-							 getBuffedBonus(Dungeon.hero,Force.class):
-							 soloBuffedBonus()):
-					0;
-			int tier=已鉴定()?
-					tier():
-					notier();
-			int dmgBoost=Math.round(3+tier+(level*((4+2*tier)/8f)));
-			if(已鉴定()){
-				info+="\n\n"+Messages.get(this,"ability_desc",min(level,tier)+dmgBoost,max(level,tier)+dmgBoost);
-			}else{
-				info+="\n\n"+Messages.get(this,"typical_ability_desc",min(level,tier)+dmgBoost,max(level,tier))+dmgBoost;
-			}
-		}
+//		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST&&(anonymous||已鉴定()||isEquipped(Dungeon.hero))){
+//			//0 if unidentified, solo level if unequipped, combined level if equipped
+//			int level=已鉴定()?
+//					(isEquipped(Dungeon.hero)?
+//							 getBuffedBonus(Dungeon.hero,Force.class):
+//							 soloBuffedBonus()):
+//					0;
+//			int tier=已鉴定()?
+//					tier():
+//					notier();
+//			int dmgBoost=Math.round(3+tier+(level*((4+2*tier)/8f)));
+//			if(已鉴定()){
+//				info+="\n\n"+Messages.get(this,"ability_desc",min(level,tier)+dmgBoost,max(level,tier)+dmgBoost);
+//			}else{
+//				info+="\n\n"+Messages.get(this,"typical_ability_desc",min(level,tier)+dmgBoost,max(level,tier))+dmgBoost;
+//			}
+//		}
 		
 		return info;
 	}

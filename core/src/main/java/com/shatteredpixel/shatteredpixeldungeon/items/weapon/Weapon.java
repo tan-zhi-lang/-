@@ -9,16 +9,16 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.组间休息;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.隔天休息;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -38,8 +38,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Dazzling;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Displacing;
@@ -64,8 +66,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampir
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
@@ -74,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
@@ -89,11 +90,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 abstract public class Weapon extends KindOfWeapon {
-	
-	
 	//region MeleeWeapon
-	
-	boolean 技能=false;
+	武技 技能=null;
 	boolean circlingBack = false;
 	boolean 回旋镖=true;
 	public static String AC_ABILITY = "ABILITY";
@@ -234,7 +232,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String defaultAction() {
-		if (Dungeon.hero() &&Dungeon.hero.heroClass(HeroClass.DUELIST)&&技能){
+		if (Dungeon.hero() &&isEquipped(Dungeon.hero)&&技能!=null){
 			return AC_ABILITY;
 		}else if(cursed&&isEquipped(Dungeon.hero)){
 			return null;
@@ -247,7 +245,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		
-		if (hero.heroClass(HeroClass.DUELIST)&&技能){
+		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&技能!=null){
 			actions.add(AC_ABILITY);
 		}
 		if(Dungeon.炼狱(炼狱设置.诅咒装备)&&(等级()>5||tier>3)) {
@@ -257,9 +255,17 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	@Override
+	public String status() {
+		if (技能!=null&&levelKnown&&charger!=null&&Dungeon.hero()&&isEquipped(Dungeon.hero)) {
+			return charger.charges + "/" + charger.chargeCap();
+		} else {
+			return null;
+		}
+	}
+	@Override
 	public String actionName(String action, Hero hero) {
 		if (action.equals(AC_ABILITY)){
-			return Messages.upperCase(Messages.get(this,"ability_name"));
+			return 技能.name();
 		} else {
 			return super.actionName(action, hero);
 		}
@@ -269,78 +275,40 @@ abstract public class Weapon extends KindOfWeapon {
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
 		
-		if (action.equals(AC_ABILITY)&&技能){
-			usesTargeting = false;
+		if (action.equals(AC_ABILITY)&&技能!=null){
 			if (!isEquipped(hero)) {
-//				if (hero.heroClass == HeroClass.DUELIST) {//武技
-//					GLog.w(Messages.get(this, "ability_need_equip"));
-//				}
-			} else if (hero.heroClass != HeroClass.DUELIST){
-				//do nothing
+				GLog.w(Messages.get(this, "ability_need_equip"));
 			} else if (力量() > hero.力量()){
 				GLog.w(Messages.get(this, "ability_low_str"));
-			} else if (charger.charges + charger.partialCharge < abilityChargeUse(hero, null)) {
+			}else if (charger.charges + charger.partialCharge < 技能.消耗) {
 				GLog.w(Messages.get(this, "ability_no_charge"));
-			} else {
-				
-				if (targetingPrompt() == null){
-					使用武技(hero,hero.pos);
-					updateQuickslot();
-				} else {
-					usesTargeting = useTargeting();
-					GameScene.selectCell(new CellSelector.Listener() {
-						@Override
-						public void onSelect(Integer cell) {
-							if (cell != null) {
-								使用武技(hero,cell);
-								updateQuickslot();
-							}
-						}
-						
-						@Override
-						public String prompt() {
-							return targetingPrompt();
-						}
-					});
-				}
+			}else {
+				usesTargeting=技能!=null&&技能.目标;
+				技能.武技(hero,this);
 			}
 		}
-	}
-	
-	//leave null for no targeting
-	public String targetingPrompt(){
-		return null;
-	}
-	
-	public boolean useTargeting(){
-		return targetingPrompt() != null;
 	}
 	
 	@Override
 	public int targetingPos(Hero user, int dst) {
 		return dst; //weapon abilities do not use projectile logic, no autoaim
 	}
-	武技 武技;
-	protected void 使用武技(Hero hero,Integer target){
-		//do nothing by default
-		武技.wep=this;
-		武技.武技(hero,target);
+	public void 消耗(Hero hero){
+		消耗(hero,技能.消耗);
 	}
-	
-	public void beforeAbilityUsed(Hero hero,Char target){
+	public void 消耗(Hero hero,int 消耗){
+		if(算法.isDebug())return;
 		hero.belongings.abilityWeapon = this;
 		
-		charger.partialCharge -= abilityChargeUse(hero, target);
+		charger.partialCharge -= 消耗;
 		while (charger.partialCharge < 0 && charger.charges > 0) {
-			charger.charges--;
+			charger.charges-=消耗;
 			charger.partialCharge++;
 		}
-		
-		
 		updateQuickslot();
 	}
 	
-	public void afterAbilityUsed(Hero hero){
+	public void 技能使用(Hero hero){
 		hero.belongings.abilityWeapon = null;
 		if (false){//使用武技命中
 			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
@@ -360,18 +328,6 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 	}
 	
-	public static void onAbilityKill( Hero hero, Char killed ){
-	
-	}
-	
-	protected int baseChargeUse(Hero hero, Char target){
-		return 1; //abilities use 1 charge by default
-	}
-	
-	public final float abilityChargeUse(Hero hero, Char target){
-		return baseChargeUse(hero, target);
-	}
-	
 	public int tier;
 	
 	@Override
@@ -386,11 +342,11 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	public int 力量(int lvl){
 		int req = 力量(tier, lvl);
-		if (masteryPotionBonus){
-			req -= 2;
-		}
+		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
+            req-=Dungeon.hero.武器力量;
+        }
 		if (神力){
-			req -= 2;
+			req -= 3;
 		}
 		
 		return req;
@@ -496,21 +452,8 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		//the mage's staff has no ability as it can only be gained by the mage
-		if (Dungeon.hero() && Dungeon.hero.heroClass(HeroClass.DUELIST)&&技能){
-//			info += "\n\n" + abilityInfo();
-//			@Override
-//			public String abilityInfo() {
-//				if (levelKnown){
-//					return Messages.get(this, "ability_desc", 2+ 强化等级());
-//				} else {
-//					return Messages.get(this, "typical_ability_desc", 2);
-//				}
-//			}
-//
-//			@Override
-//			public String upgradeAbilityStat(int level) {
-//				return Integer.toString(2+level);
-//			}
+		if (Dungeon.hero() &&技能!=null){
+			info += "\n\n" + 技能.desc();
 		}
 		
 		return info;
@@ -536,29 +479,25 @@ abstract public class Weapon extends KindOfWeapon {
 	public String statsInfo(){
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御()+"~"+最大防御()+"_，"),
-								命中,延迟,伤害,范围,
+								命中,延迟,伤害,DPS(),范围,
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御(0)+"~"+最大防御(0)+"_，"),
-								命中,延迟,伤害,范围,
-								(流血==0?"":"，伏击_"+Math.round(流血*100)+"%_"),
+								命中,延迟,伤害,DPS(),范围,
+								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
 							   );
 		}
 	}
-	
-	public String abilityInfo() {
-		return Messages.get(this, "ability_desc");
+	public int DPS(){
+		return Math.round(
+				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?(Dungeon.hero.力量()-力量())/2f:0)+
+				(augment.damageFactor(最小攻击()+最大攻击()))/2f*伤害/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f));
 	}
-	
-	public String upgradeAbilityStat(int level){
-		return null;
-	}
-	
 	@Override
 	public int 金币() {
 		int price = 20 * tier;
@@ -597,35 +536,72 @@ abstract public class Weapon extends KindOfWeapon {
 			return false;
 		}
 	}
+	@Override
+	public void activate( Char ch ) {
+		if(技能!=null)
+		charge(ch);
+	}
+	@Override
+	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
+		if (super.doUnequip( hero, collect, single )) {
+			stopCharging();
+			
+			return true;
+			
+		} else {
+			
+			return false;
+			
+		}
+	}
+	public void stopCharging() {
+		if (charger != null) {
+			charger.detach();
+			charger = null;
+		}
+	}
+	public void charge( Char owner ) {
+		if (charger == null) charger = new Charger();
+		charger.attachTo( owner );
+	}
 	
+	public void charge( Char owner, float chargeScaleFactor ){
+		charge( owner );
+		charger.setScaleFactor( chargeScaleFactor );
+	}
 	public Weapon.Charger charger;
 	public static class Charger extends Buff implements ActionIndicator.Action {
 		{
 			//so that duelist keeps weapon charge on ankh revive
 			revivePersists = true;
 		}
-		public int charges = 3;
+		public int charges = 1;
 		public float partialCharge;
 		
+		float scalingFactor = 0.875f;
 		@Override
 		public boolean act() {
 			if (charges < chargeCap()){
 				if (再生.regenOn()){
+					int mwepCharges=chargeCap()-charges;
+					mwepCharges= Math.max(0,mwepCharges);
 					//60 to 45 turns per charge
-					float chargeToGain = 1/(60f-1.5f*(chargeCap()-charges));
+					float chargeToGain = (float) (10
+												  + ((40) * Math.pow(0.875f,mwepCharges)));
 					
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
 					if (Dungeon.hero.buff(武力之戒.BrawlersStance.class)!=null){
 						chargeToGain *= 0.50f;
 					}
-					partialCharge += chargeToGain;
+					partialCharge += (1f/chargeToGain)/2f*能量之戒.weaponChargeMultiplier(target);
+					
 				}
 				
-				int points = 0;
-				if (points > 0 &&target.buff(Recharging.class)!=null||target.buff(ArtifactRecharge.class)!=null){
-					//1 every 15 turns at +1, 10 turns at +2
-					partialCharge += 1/(20f - 5f*points);
-				}
+//				int points = 0;
+//				if (points > 0 &&target.buff(Recharging.class)!=null||target.buff(ArtifactRecharge.class)!=null){
+//					//1 every 15 turns at +1, 10 turns at +2
+//					partialCharge += 1/(20f - 5f*points);
+//				}
 				
 				if (partialCharge >= 1){
 					charges++;
@@ -658,7 +634,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		public int chargeCap(){
-			return Math.min(10, 3+ Dungeon.hero.等级(0.34f));
+			return Math.min(7, 1+ Dungeon.hero.等级(0.25f));
 		}
 		
 		public void gainCharge( float charge ){
@@ -676,6 +652,9 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 		
+		private void setScaleFactor(float value){
+			this.scalingFactor = value;
+		}
 		public static final String CHARGES          = "charges";
 		private static final String PARTIALCHARGE   = "partialCharge";
 		
@@ -760,9 +739,6 @@ abstract public class Weapon extends KindOfWeapon {
 	//endregion
 	
 	//region MissileWeapon
-	{
-		usesTargeting = true;
-	}
 	public boolean spawnedForEffect = false;
 	
 	@Override
@@ -883,6 +859,18 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 投掷攻击时(Char attacker, Char defender, int damage) {
 		
 		if (attacker instanceof Hero hero) {
+			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
+				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
+					hero.现在健身-=0.01f;
+				}else{
+					if(hero.现在健身>=3){
+						Buff.施加(hero,隔天休息.class,900);
+					}else{
+						hero.现在健身+=0.01f;
+						Buff.施加(hero,组间休息.class,1);
+					}
+				}
+			}
 			int exStr = hero.力量() - 力量();
 			if (hero.heroClass(HeroClass.DUELIST)) {
 				if (exStr > 0) {
@@ -998,6 +986,9 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public int damageFactor(int dmg){
+			if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
+				dmg*=磨刀石.增加();
+			}
 			return Math.round(dmg * damageFactor);
 		}
 
@@ -1019,13 +1010,25 @@ abstract public class Weapon extends KindOfWeapon {
 	public Enchantment enchantment;
 	public boolean enchantHardened = false;
 	public boolean curseInfusionBonus = false;
-	public boolean masteryPotionBonus = false;
 	public boolean 神力 = false;
 	
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
 		
 		if (attacker instanceof Hero hero) {
+			
+			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
+				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
+					hero.现在健身-=0.01f;
+				}else{
+					if(hero.现在健身>=3){
+						Buff.施加(hero,隔天休息.class,900);
+					}else{
+						hero.现在健身+=0.01f;
+						Buff.施加(hero,组间休息.class,1);
+					}
+				}
+			}
 			int exStr = hero.力量() - 力量();
 			if (hero.heroClass(HeroClass.DUELIST)) {
 				if (exStr > 0) {
@@ -1121,7 +1124,6 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final String ENCHANTMENT	    = "enchantment";
 	private static final String ENCHANT_HARDENED = "enchant_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
-	private static final String MASTERY_POTION_BONUS = "mastery_potion_bonus";
 	private static final String 神力x = "神力";
 	private static final String AUGMENT	        = "augment";
 
@@ -1132,7 +1134,6 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( ENCHANTMENT, enchantment );
 		bundle.put( ENCHANT_HARDENED, enchantHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
-		bundle.put( MASTERY_POTION_BONUS, masteryPotionBonus );
 		bundle.put( 神力x, 神力 );
 		bundle.put( AUGMENT, augment );
 	}
@@ -1144,7 +1145,6 @@ abstract public class Weapon extends KindOfWeapon {
 		enchantment = (Enchantment)bundle.get( ENCHANTMENT );
 		enchantHardened = bundle.getBoolean( ENCHANT_HARDENED );
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
-		masteryPotionBonus = bundle.getBoolean( MASTERY_POTION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 
 		augment = bundle.getEnum(AUGMENT, Augment.class);
@@ -1253,9 +1253,12 @@ abstract public class Weapon extends KindOfWeapon {
 
 	protected static int 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
-
+		int str=0;
+		if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
+			str+=磨刀石.力量();;
+		}
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return (8 + tier * 2) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
+		return str+(8 + tier * 2) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
 	}
 
 	@Override

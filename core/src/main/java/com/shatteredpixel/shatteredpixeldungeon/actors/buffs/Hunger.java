@@ -63,11 +63,11 @@ public class Hunger extends Buff implements Hero.Doom {
 			
 			if (isStarving()) {
 				
-				partial+=1/10f;
+				partial+=0.1f;
 
 				if (partial >= 1){
-					hero.受伤时(1, this);
 					partial=0;
+					hero.受伤时(1, this);
 				}
 				
 			} else {

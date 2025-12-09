@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -168,6 +169,7 @@ public class Dungeon {
 	public static int 系统;
 	public static int 玩法;
 	public static int 地牢时间;
+	public static int 地牢天数;
 	public static float mobsToChampion;
 
 	public static Hero hero;
@@ -188,6 +190,7 @@ public class Dungeon {
 	public static int energy=0;
 	public static int gold(int x){
 		if(x>0){
+			energy(Math.round(圣金之沙.获得()*x));
 			gold+=x;
 		}
 		if(x<0){
@@ -199,6 +202,7 @@ public class Dungeon {
 	}
 	public static int energy(int x){
 		if(x>0){
+			gold(Math.round(圣金之沙.减少()*x));
 			energy+=x;
 		}
 		if(x<0){
@@ -254,6 +258,7 @@ public class Dungeon {
 		系统 = SPDSettings.系统();
 		玩法 = SPDSettings.玩法();
 		地牢时间= 360;
+		地牢天数= 1;
 		mobsToChampion = 1;
 
 		Actor.clear();
@@ -619,7 +624,7 @@ public class Dungeon {
 	public static boolean 升级卷轴掉落() {
 		int souLeftThisSet;
 		//4 SOU each floor set
-		souLeftThisSet = 2 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 2);
+		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -683,7 +688,8 @@ public class Dungeon {
 	private static final String 解压x	= "解压";
 	private static final String 系统x	= "系统";
 	private static final String 玩法x	= "玩法";
-	private static final String 时间x	= "时间";
+	private static final String 地牢时间x= "地牢时间";
+	private static final String 地牢天数x= "地牢天数";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -715,7 +721,8 @@ public class Dungeon {
 			bundle.put( 解压x, 解压 );
 			bundle.put( 系统x, 系统 );
 			bundle.put( 玩法x, 玩法 );
-			bundle.put(时间x,地牢时间);
+			bundle.put(地牢时间x,地牢时间);
+			bundle.put(地牢天数x,地牢天数);
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
@@ -827,7 +834,8 @@ public class Dungeon {
 		Dungeon.解压 = bundle.getInt( 解压x );
 		Dungeon.系统 = bundle.getInt( 系统x );
 		Dungeon.玩法 = bundle.getInt( 玩法x );
-		Dungeon.地牢时间= bundle.getInt(时间x);
+		Dungeon.地牢时间= bundle.getInt(地牢时间x);
+		Dungeon.地牢天数= bundle.getInt(地牢天数x);
 		Dungeon.mobsToChampion = bundle.getFloat( MOBS_TO_CHAMPION );
 		
 		Dungeon.level = null;
@@ -1180,6 +1188,9 @@ public class Dungeon {
 	}
 	public static int 层数(float x){
 		return Math.round(scalingDepth()*x);
+	}
+	public static int 区域(float x){
+		return Math.round(区域()*x);
 	}
 	public static int 区域(){
 		if(depth<=5){

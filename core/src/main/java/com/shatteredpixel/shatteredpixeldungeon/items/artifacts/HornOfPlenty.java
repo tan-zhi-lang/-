@@ -45,8 +45,13 @@ public class HornOfPlenty extends Artifact {
 		charge = 0;
 		partialCharge = 0;
 		chargeCap = 5 + 等级()/2;
-
-		defaultAction = AC_SNACK;
+	}
+	@Override
+	public String defaultAction(){
+		if (charge==0) {
+			return AC_STORE;
+		}
+		return AC_SNACK;
 	}
 
 	private int storedFoodEnergy = 0;

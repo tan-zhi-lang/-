@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.EscapeCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.CityPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -145,6 +146,7 @@ public class CityLevel extends RegularLevel {
 									if (b instanceof Wand.Charger
 											|| b instanceof Artifact.ArtifactBuff
 											|| b instanceof Ring.RingBuff
+												|| b instanceof Weapon.Charger
 											|| b instanceof ClassArmor.Charger){
 										b.detach();
 									}

@@ -16,6 +16,7 @@ public class 镐子 extends Weapon {
 
 		物品 = true;
 		
+		双手=true;
 		特别= true;
 		遗产= false;
 

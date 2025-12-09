@@ -290,7 +290,7 @@ public class SentryRoom extends SpecialRoom {
 
 		@Override
 		public int 最大闪避(Char enemy ) {
-			return INFINITE_EVASION;
+			return Char.INFINITE;
 		}
 
 		@Override

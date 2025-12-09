@@ -222,7 +222,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
-			所有开关= new RedButton("所有开关",9){
+			所有开关= new RedButton("所有开关"){
 				@Override
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
@@ -333,7 +333,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep2 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep2);
 			
-			所有拖条= new RedButton("所有拖条",9){
+			所有拖条= new RedButton("所有拖条"){
 				@Override
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
@@ -721,7 +721,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep1 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep1);
 
-			所有开关= new RedButton("所有开关",9){
+			所有开关= new RedButton("所有开关"){
 				@Override
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
@@ -838,7 +838,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep2 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep2);
 			
-			所有拖条= new RedButton("所有拖条",9){
+			所有拖条= new RedButton("所有拖条"){
 				@Override
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){

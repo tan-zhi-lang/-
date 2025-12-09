@@ -93,10 +93,6 @@ public class Invisibility extends FlavourBuff {
 			bubble.detach();
 		}
 
-//		圆盾.GuardTracker guard = ch.buff(圆盾.GuardTracker.class);
-//		if (guard != null && guard.hasBlocked){
-//			guard.detach();
-//		}
 	}
 
 	public static void notimedispel() {
@@ -119,9 +115,5 @@ public class Invisibility extends FlavourBuff {
 			prep.detach();
 		}
 
-//		圆盾.GuardTracker guard = ch.buff(圆盾.GuardTracker.class);
-//		if (guard != null && guard.hasBlocked){
-//			guard.detach();
-//		}
 	}
 }

@@ -20,7 +20,7 @@ public class 毒气宝箱怪 extends Mimic {
 
 	@Override
 	public int 最大闪避(Char enemy ) {
-		return INFINITE_EVASION;
+		return Char.INFINITE;
 	}
 
 	@Override

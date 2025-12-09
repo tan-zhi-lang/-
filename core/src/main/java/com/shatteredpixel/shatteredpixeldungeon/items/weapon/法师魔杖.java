@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
+import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
@@ -54,7 +55,7 @@ public class 法师魔杖 extends Weapon{
 		image = 物品表.法师魔杖;
 		
 		tier = 1;
-		伤害=0.6f;
+		伤害=0.68f;
 
 		defaultAction = AC_ZAP;
 		usesTargeting = true;
@@ -73,7 +74,11 @@ public class 法师魔杖 extends Weapon{
 	}
 	public int 转移=0;
 	public int 最大转移(){
-		return 1+(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.高级魔杖):0);
+		int x=1;
+		if(Dungeon.系统(系统设置.独自变强)){
+			x+=Dungeon.hero.等级/2;
+		}
+		return x+(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.高级魔杖):0);
 	}
 	@Override
 	public int 强化等级(){
@@ -164,7 +169,7 @@ public class 法师魔杖 extends Weapon{
 			damage += Math.round(damage*wand.curCharges*Dungeon.hero.天赋点数(Talent.EMPOWERED_STRIKE,0.075f));
 		
 		if (wand != null &&
-				attacker instanceof Hero hero && hero.SubClass(HeroSubClass.战斗法师)) {
+				attacker instanceof Hero hero && hero.subClass(HeroSubClass.战斗法师)) {
 			if (wand.curCharges < wand.maxCharges&&hero.精通){
 				wand.partialCharge+=0.5f;
 				ScrollOfRecharging.charge(hero);

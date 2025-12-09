@@ -17,8 +17,9 @@ public class 金玫苦无 extends Weapon{
 		
 		特别= true;
 		遗产= false;
-		伤害=0.7f;
+		伤害=0.8f;
 		伏击=0.67f;
+		命中=0.85f;
 		
 		tier = 1;
 	}

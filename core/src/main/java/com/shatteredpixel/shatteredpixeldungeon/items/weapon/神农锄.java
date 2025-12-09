@@ -20,7 +20,6 @@ public class 神农锄 extends Weapon{
 		双手=true;
 		tier = 5;
 		延迟= 1.25f;
-		伤害= 1.5f;
 	}
 	
 	@Override

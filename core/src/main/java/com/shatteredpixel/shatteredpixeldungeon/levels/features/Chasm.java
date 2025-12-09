@@ -142,8 +142,16 @@ public class Chasm implements Hero.Doom {
 
 		//The lower the hero's HP, the more bleed and the less upfront damage.
 		//Hero has a 50% chance to bleed out at 66% HP, and begins to risk instant-death at 25%
-		Buff.施加( hero, 流血.class).set( Math.round(hero.最大生命 / (6f + (6f*(hero.生命 /(float)hero.最大生命)))), Chasm.class);
-		hero.受伤时( Math.max( hero.生命 / 2, Random.NormalIntRange( hero.生命 / 2, hero.最大生命 / 4 )), new Chasm() );
+		
+		int 流血= Math.round(hero.最大生命 / (6f + (6f*(hero.生命 /(float)hero.最大生命))));
+		int 受伤=Math.max( hero.生命 / 2, Random.NormalIntRange( hero.生命 / 2, hero.最大生命 / 4 ));
+		
+		int 护甲=hero.护甲;
+		hero.护甲(-受伤);
+		受伤-=护甲;
+		
+		Buff.施加( hero, 流血.class).set(流血, Chasm.class);
+		hero.受伤时( 受伤, new Chasm() );
 	}
 
 	public static void mobFall( Mob mob ) {

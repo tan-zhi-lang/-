@@ -612,8 +612,7 @@ public abstract class Char extends Actor {
 
 	}
 
-	public static int INFINITE_ACCURACY = 1_000_000;
-	public static int INFINITE_EVASION = 1_000_000;
+	public static int INFINITE= 1_000_000;
 
 	final public static boolean hit( Char attacker, Char defender, boolean magic ) {
 		return hit(attacker, defender, magic ? 2f : 1f, magic);
@@ -658,16 +657,16 @@ public abstract class Char extends Actor {
 		}
 
 		if (defender.buff(MonkEnergy.MonkAbility.Focus.FocusBuff.class) != null){
-			defStat = INFINITE_EVASION;
+			defStat =INFINITE;
 		}
 
 		//if accuracy or evasion are large enough, treat them as infinite.
 		//note that infinite evasion beats infinite accuracy
-		if (defStat >= INFINITE_EVASION||acuStat==0){
-			hitMissIcon = FloatingText.getMissReasonIcon(attacker, acuStat, defender, INFINITE_EVASION);
+		if (defStat>=INFINITE||acuStat==0){
+			hitMissIcon = FloatingText.getMissReasonIcon(attacker,acuStat,defender,INFINITE);
 			return false;
-		} else if (acuStat >= INFINITE_ACCURACY||defStat==0){
-			hitMissIcon = FloatingText.getHitReasonIcon(attacker, INFINITE_ACCURACY, defender, defStat);
+		} else if (acuStat>=INFINITE||defStat==0){
+			hitMissIcon = FloatingText.getHitReasonIcon(attacker,INFINITE,defender,defStat);
 			return true;
 		}
 		
@@ -814,10 +813,7 @@ public abstract class Char extends Actor {
 		damage=暴击(enemy,damage);
 		
 		if(吸血()>0){
-			if(damage * 吸血()>0){
-				回血((int)Math.ceil(damage * 吸血()));
-				生命流动+=damage * 吸血()-(int)Math.ceil(damage * 吸血());
-			}
+			回血(damage * 吸血());
 		}
 		第一次攻击=false;
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
@@ -1538,7 +1534,7 @@ public abstract class Char extends Actor {
 		return 护甲;
 	}
 	public int 最大护甲(){
-		int 最大护甲=最大生命(0.2f);
+		int 最大护甲=最大生命(0.25f);
 		return 最大护甲;
 	}
 	public int 已损失生命(){
@@ -1628,6 +1624,9 @@ public abstract class Char extends Actor {
 		return false;
 	}
 	public float 吸血(){
+		return 0;
+	}
+	public float 全能吸血(){
 		return 0;
 	}
 	public boolean 恶魔亡灵(){

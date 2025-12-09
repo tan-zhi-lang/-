@@ -240,7 +240,7 @@ public class Mimic extends Mob {
 	@Override
 	public int 最大命中(Char target ) {
 		if (target != null && alignment == Alignment.NEUTRAL && target.invisible <= 0){
-			return INFINITE_ACCURACY;
+			return INFINITE;
 		} else {
 			return 6 + level;
 		}

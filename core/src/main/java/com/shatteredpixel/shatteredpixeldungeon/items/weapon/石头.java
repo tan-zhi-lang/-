@@ -5,15 +5,17 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.重击;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 投石 extends Weapon{
+public class 石头 extends Weapon{
 	
 	{
 		image = 物品表.THROWING_STONE;
 		tier = 1;
 		延迟=0.5f;
 		伤害=0.5f;
+		技能=new 重击();
 	}
 	@Override
 	public float pickupDelay() {

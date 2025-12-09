@@ -91,7 +91,7 @@ public class Monk extends Mob {
 	@Override
 	public int 最大闪避(Char enemy ) {
 		if (buff(Focus.class) != null && paralysed == 0 && state != SLEEPING){
-			return INFINITE_EVASION;
+			return Char.INFINITE;
 		}
 		return super.最大闪避( enemy );
 	}

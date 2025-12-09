@@ -110,7 +110,6 @@ abstract public class ClassArmor extends Armor {
 		classArmor.glyphHardened = armor.glyphHardened;
 		classArmor.cursed = armor.cursed;
 		classArmor.curseInfusionBonus = armor.curseInfusionBonus;
-		classArmor.masteryPotionBonus = armor.masteryPotionBonus;
 		if (armor.levelKnown && armor.cursedKnown) {
 			classArmor.鉴定();
 		} else {
@@ -222,7 +221,6 @@ abstract public class ClassArmor extends Armor {
 								augment = armor.augment;
 								cursed = armor.cursed;
 								curseInfusionBonus = armor.curseInfusionBonus;
-								masteryPotionBonus = armor.masteryPotionBonus;
 								神力 = armor.神力;
 								if (armor.checkSeal() != null) {
 									inscribe(armor.glyph);

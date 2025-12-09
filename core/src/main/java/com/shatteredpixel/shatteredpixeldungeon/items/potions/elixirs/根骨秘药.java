@@ -26,7 +26,7 @@ public class 根骨秘药 extends Elixir {
 	public void apply( Hero hero ) {
 		鉴定();
 
-		hero.根骨++;
+		hero.根骨+=5;
 		
 //		Buff.施加(hero, HTBoost.class).reset();
 //		HTBoost boost = Buff.施加(hero, HTBoost.class);

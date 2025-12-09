@@ -17,8 +17,7 @@ public class 权杖 extends Weapon {
 		
 
 		tier = 1;
-		延迟=0.6f;
-		伤害=0.6f;
+		伤害=0.68f;
 		遗产= false;
 	}
 	

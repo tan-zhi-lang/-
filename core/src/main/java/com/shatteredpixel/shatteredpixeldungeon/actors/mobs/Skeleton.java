@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -79,9 +80,13 @@ public class Skeleton extends Mob {
 					damage = armor.absorb( damage );
 					damage -= (preDmg - damage); //apply the flat reduction twice
 				}
-
+				if(ch instanceof Hero hero){
+					int 护甲=hero.护甲;
+					hero.护甲(-damage);
+					damage-=护甲;
+				}
 				//apply DR twice (with 2 rolls for more consistency)
-				damage = Math.max( 0,  damage - (ch.最大防御()+ch.最大防御()));
+				damage = Math.max( 0,  damage - (2*ch.最大防御()));
 				ch.受伤时( damage, this );
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;

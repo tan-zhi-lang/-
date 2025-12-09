@@ -1,146 +1,57 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+
 public class 连击 extends 武技{
-	/*
-	
+	{
+		目标=true;
+		desc="对攻击范围内的一个目标进行三次47%伤害的物理攻击，并花费攻击延迟的回合";
+	}
 	@Override
-	public String targetingPrompt() {
-		return Messages.get(this, "prompt");
+	public void 武技(Hero hero,Weapon wep){
+		this.hero=hero;
+		this.wep=wep;
+		GameScene.selectCell(attack);
 	}
-
-	@Override
-	protected void 使用武技(Hero hero,Integer target) {
-		Sai.comboStrikeAbility(hero, target, 1f, 0, this);
-	}
-
-	@Override
-	public String abilityInfo() {
-		int dmgBoost = levelKnown ? 2 + 强化等级()/3 : 2;
-		if (levelKnown){
-			return Messages.get(this, "ability_desc", dmgBoost);
-		} else {
-			return Messages.get(this, "typical_ability_desc", dmgBoost);
-		}
-	}
-
-	public String upgradeAbilityStat(int level){
-		return "+" + augment.damageFactor(2 + level);
-	}
-
-	public static void comboStrikeAbility(Hero hero, Integer target, float multiPerHit, int boostPerHit, MeleeWeapon wep){
-		if (target == null) {
-			return;
-		}
-
-		Char enemy = Actor.findChar(target);
-		if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
-			GLog.w(Messages.get(wep, "ability_no_target"));
-			return;
-		}
-
-		hero.belongings.abilityWeapon = wep;
-		if (!hero.canAttack(enemy)){
-			GLog.w(Messages.get(wep, "ability_target_range"));
+	protected CellSelector.Listener attack = new  CellSelector.Listener() {
+		
+		@Override
+		public void onSelect(Integer target) {
+			if (target == null) {
+				return;
+			}
+			
+			Char enemy = Actor.findChar(target);
+			if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
+				GLog.w(Messages.get(Weapon.class,"ability_no_target"));
+				return;
+			}
+			
+			hero.belongings.abilityWeapon = wep;
+			if (!hero.canAttack(enemy)){
+				GLog.w(Messages.get(Weapon.class, "ability_target_range"));
+				hero.belongings.abilityWeapon = null;
+				return;
+			}
 			hero.belongings.abilityWeapon = null;
-			return;
+			
+			wep.消耗(hero);
+			hero.连击=3;
+			hero.连击(enemy,伤害143/3f,0,1,wep);
+			wep.技能使用(hero);
 		}
-		hero.belongings.abilityWeapon = null;
-
-		hero.sprite.attack(enemy.pos, new Callback() {
-			@Override
-			public void call() {
-				wep.beforeAbilityUsed(hero, enemy);
-				AttackIndicator.target(enemy);
-
-				hero.连击=2 + wep.强化等级()/3;
-				boolean hit = hero.连击(enemy, multiPerHit, boostPerHit, hero.最大命中(0.5f));
-				if (hit && !enemy.isAlive()){
-					wep.onAbilityKill(hero, enemy);
-				}
-
-				Invisibility.notimedispel();
-				hero.spendAndNext(hero.攻速());
-
-				wep.afterAbilityUsed(hero);
-			}
-		});
-	}
-
-	public static class ComboStrikeTracker extends Buff {
-
-		{
-			type = buffType.POSITIVE;
-		}
-
-		public static int DURATION = 5;
-		private float comboTime = 0f;
-		public int hits = 0;
-
+		
 		@Override
-		public int icon() {
-			if (Dungeon.hero.belongings.weapon() instanceof 镶钉手套
-					|| Dungeon.hero.belongings.weapon() instanceof Sai
-					|| Dungeon.hero.belongings.weapon() instanceof Gauntlet
-					|| Dungeon.hero.belongings.secondWep() instanceof 镶钉手套
-					|| Dungeon.hero.belongings.secondWep() instanceof Sai
-					|| Dungeon.hero.belongings.secondWep() instanceof Gauntlet) {
-				return BuffIndicator.DUEL_COMBO;
-			} else {
-				return BuffIndicator.NONE;
-			}
+		public String prompt() {
+			return Messages.get(Weapon.class, "prompt");
 		}
-
-		@Override
-		public boolean act() {
-			comboTime-=TICK;
-			spend(TICK);
-			if (comboTime <= 0) {
-				detach();
-			}
-			return true;
-		}
-
-		public void addHit(){
-			hits++;
-			comboTime = 5f;
-
-			if (hits >= 2 && icon() != BuffIndicator.NONE){
-				GLog.p( Messages.get(Combo.class, "combo", hits) );
-			}
-		}
-
-		@Override
-		public float iconFadePercent() {
-			return Math.max(0, (DURATION - comboTime)/ DURATION);
-		}
-
-		@Override
-		public String iconTextDisplay() {
-			return Integer.toString((int)comboTime);
-		}
-
-		@Override
-		public String desc() {
-			return Messages.get(this, "desc", hits, dispTurns(comboTime));
-		}
-
-		private static final String TIME  = "combo_time";
-		public static String RECENT_HITS = "recent_hits";
-
-		@Override
-		public void storeInBundle(Bundle bundle) {
-			super.storeInBundle(bundle);
-			bundle.put(TIME, comboTime);
-			bundle.put(RECENT_HITS, hits);
-		}
-
-		@Override
-		public void restoreFromBundle(Bundle bundle) {
-			super.restoreFromBundle(bundle);
-			comboTime = bundle.getInt(TIME);
-			hits = bundle.getInt(RECENT_HITS);
-		}
-	}
-
-	 */
+	};
 }

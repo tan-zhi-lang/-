@@ -88,13 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.DwarfToken;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.BowFragment;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.BrokenHilt;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.BrokenStaff;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.CloakScrap;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.SealShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.remains.TornPage;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.残缺灵杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
@@ -131,9 +125,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血砍刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.配刺剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锻造锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
@@ -267,7 +263,10 @@ public enum Catalog {
 								飞镖.class,
 								
 								吸血刀.class,
-								镐子.class,水袋.class,杂物袋.class,绒布袋.class,
+								镐子.class,
+								锻造锤.class,
+								商人信标.class,
+								水袋.class,杂物袋.class,绒布袋.class,
 								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class,Amulet.class);
 
 
@@ -308,8 +307,8 @@ public enum Catalog {
 				CorpseDust.class, Embers.class, CeremonialCandle.class, DarkGold.class, DwarfToken.class,
 				GooBlob.class, TengusMask.class, MetalShard.class, 矮人国王的皇冠.class,
 				 ArcaneResin.class,
-				SealShard.class, BrokenStaff.class, CloakScrap.class, BowFragment.class, BrokenHilt.class,
-				残缺灵杖.class,
+//				SealShard.class, BrokenStaff.class, CloakScrap.class, BowFragment.class, BrokenHilt.class,
+//				残缺灵杖.class,
 				TornPage.class);
 
 	}

@@ -9,9 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -48,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
@@ -159,9 +158,6 @@ public class Item implements Bundlable {
 			GameScene.pickUp( this, pos );
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
 			hero.spendAndNext( pickupDelay() );
-			if(hero.heroClass(HeroClass.盗贼)){
-				Buff.施加(hero,极速.class,1);
-			}
 			return true;
 			
 		} else {
@@ -170,6 +166,9 @@ public class Item implements Bundlable {
 	}
 	public float pickupDelay(){
 		
+		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.盗贼)){
+			return 0;
+		}
 		return Dungeon.hero.攻击延迟();
 	}
 	public void doDrop( Hero hero ) {
@@ -649,12 +648,15 @@ public class Item implements Bundlable {
 		}
 		if(this instanceof Weapon){
 			s+="、"+"武器";
+			if( this instanceof Weapon w&&算法.isDebug()){
+				s+="\n\n"+w.DPS();
+			}
 		}
 		if(this instanceof 飞镖){
 			s+="、"+"飞镖";
 		}
 		if(this instanceof Armor){
-			s+="、"+"护甲";
+			s+="、"+"防具";
 		}
 		if(this instanceof Artifact){
 			s+="、"+"神器";

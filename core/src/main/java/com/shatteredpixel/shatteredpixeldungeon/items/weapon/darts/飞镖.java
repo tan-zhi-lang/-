@@ -146,7 +146,7 @@ public class 飞镖 extends Weapon{
 						@Override
 						protected boolean act() {
 							if (!ch.isAlive()){
-								bow.onAbilityKill(Dungeon.hero, ch);
+							
 							}
 							Actor.remove(this);
 							return true;

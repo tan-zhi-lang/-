@@ -62,6 +62,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
@@ -778,6 +779,16 @@ public abstract class Mob extends Char {
 			if (state == SLEEPING) {
 				state = WANDERING;
 			}
+			
+			if (src == Dungeon.hero
+//				||!(src instanceof Mob)
+				|| src instanceof Weapon || src instanceof Weapon.Enchantment||src instanceof Wand
+				||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术||src instanceof ArmorAbility){
+				
+				if(Dungeon.hero()&&全能吸血()>0){
+					Dungeon.hero.回血(dmg * 吸血());
+				}
+			}
 			if (!(src instanceof Corruption) && state != FLEEING) {
 				if (state != HUNTING) {
 					alerted = true;
@@ -881,7 +892,7 @@ public abstract class Mob extends Char {
 				}
 				
 				if(!isAlive()){
-					if (Dungeon.hero.SubClass(HeroSubClass.狂战士)) {
+					if (Dungeon.hero.subClass(HeroSubClass.狂战士)) {
 						怒气 怒气= Buff.施加(this,怒气.class);
 						怒气.damage();
 					}
@@ -956,9 +967,14 @@ public abstract class Mob extends Char {
 
 		MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
 		if (stolen == null || !stolen.itemWasStolen()) {
-			if (Random.Float() < lootChance()) {
-				Item loot = createLoot();
-				if (loot != null) {
+			Item loot = createLoot();
+			float 几率=1;
+			if (loot != null) {
+				if(loot.可堆叠){
+					loot.数量(幸运硬币.增加());
+					几率*=幸运硬币.减少();
+				}
+				if (Random.Float() < lootChance()*几率) {
 					Dungeon.level.drop(loot, pos).sprite.drop();
 				}
 			}

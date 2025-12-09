@@ -470,7 +470,7 @@ public enum Talent {
 			// 2/3 empowered wand zaps
 			Buff.施加(hero, ScrollEmpower.class).reset((int) (factor));
 		}
-		if (false){//阅读隐身
+		if (false){//阅读隐形
 			// 3/5 turns of stealth
 			Buff.施加(hero, Invisibility.class, factor);
 			Sample.INSTANCE.play( Assets.Sounds.MELD );

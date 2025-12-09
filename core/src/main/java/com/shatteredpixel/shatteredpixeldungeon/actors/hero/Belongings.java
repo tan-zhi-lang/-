@@ -436,7 +436,8 @@ public class Belongings implements Iterable<Item> {
 			charger.gainCharge(charge);
 			count++;
 		}
-		for (手枪.Charger charger : owner.buffs(手枪.Charger.class)){
+		
+		for (Weapon.Charger charger : owner.buffs(Weapon.Charger.class)){
 			charger.gainCharge(charge);
 			count++;
 		}

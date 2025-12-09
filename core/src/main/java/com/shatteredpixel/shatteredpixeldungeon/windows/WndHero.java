@@ -183,7 +183,7 @@ public class WndHero extends WndTabbed {
 
 			pos = title.bottom() + GAP;
 
-			statSlot( Messages.get(this, "str"), hero.力量());
+			statSlot( Messages.get(this, "str")+"/攻击范围", hero.力量()+"/"+hero.攻击范围());
 			statSlot( "攻击力", hero.最小攻击()+"~"+hero.最大攻击());
 			statSlot( "防御力", hero.最小防御()+"~"+hero.最大防御());
 			pos += GAP;
@@ -254,13 +254,14 @@ public class WndHero extends WndTabbed {
 			
 			pos = GAP*2;
 			
-			statSlot( "搜索/感知范围", +hero.搜索范围()+"/"+hero.感知范围());
 			statSlot( "惊醒距离", hero.惊醒距离());
-			pos += GAP;
-			
 			statSlot( "地牢视野", Dungeon.level.视野范围);
-			statSlot( "视野>光照范围", hero.视野范围()+"+"+hero.光照范围());
-			statSlot( "攻击范围",hero.攻击范围());
+			pos += GAP;
+			statSlot( "视野+光照范围", hero.视野范围()+"+"+hero.光照范围());
+			statSlot( "搜索/感知范围", +hero.搜索范围()+"/"+hero.感知范围());
+			pos += GAP;
+			statSlot( "吸血/全能吸血",Math.round(hero.吸血()*100)+"%"+"/"
+									  +Math.round(hero.全能吸血()*100)+"%");
 			pos += GAP;
 			if (Dungeon.daily){
 				if (!Dungeon.dailyReplay) {

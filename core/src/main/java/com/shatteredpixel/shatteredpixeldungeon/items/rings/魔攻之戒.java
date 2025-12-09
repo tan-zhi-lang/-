@@ -367,15 +367,11 @@ public class 魔攻之戒 extends Ring {
 		public void recharge(){
 			int missingCharges = maxCharges - curCharges;
 			missingCharges = Math.max(0, missingCharges);
-			int x=0;
-			if(target instanceof Hero hero){
-			
-			}
 			float turnsToCharge = (float) (BASE_CHARGE_DELAY
-										   + ((SCALING_CHARGE_ADDITION-x) * Math.pow(scalingFactor, missingCharges)));
+										   + ((SCALING_CHARGE_ADDITION) * Math.pow(scalingFactor, missingCharges)));
 			
 			if (再生.regenOn())
-				partialCharge += 1f/turnsToCharge;
+				partialCharge += 1f/turnsToCharge/2f;
 			
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {

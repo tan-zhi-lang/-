@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 忍服 extends Armor {
@@ -20,11 +21,11 @@ public class 忍服 extends Armor {
 	@Override
 	public int 力量(int lvl) {
 		int req = 力量(tier, lvl)-1;
-		if (masteryPotionBonus){
-			req -= 2;
-		}
+		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
+            req-=Dungeon.hero.护甲力量;
+        }
 		if (神力){
-			req -= 2;
+			req -= 3;
 		}
 		
 		return req;

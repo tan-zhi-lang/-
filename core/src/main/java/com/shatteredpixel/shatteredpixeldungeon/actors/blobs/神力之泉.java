@@ -32,7 +32,7 @@ public class 神力之泉 extends WellWater {
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
 
-		hero.神力++;
+		hero.力量++;
 		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(1), FloatingText.STRENGTH);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 

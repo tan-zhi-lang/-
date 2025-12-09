@@ -110,7 +110,6 @@ public class Messages {
 			key += "." + k;
 		} else
 			key = k;
-
 		String value = getFromBundle(key.toLowerCase(Locale.ENGLISH));
 		if (value != null){
 			if (args.length > 0) return format(value, args);
@@ -122,8 +121,11 @@ public class Messages {
 			if (c != null && c.getSuperclass() != null){
 				return get(c.getSuperclass(), k, args);
 			} else {
-				return "没找到"+c.getName();
-//				return NO_TEXT_FOUND;
+				if(k.equals("name")){
+					return c.getSimpleName();
+				}
+				return key;
+//				return NO_TEXT_FOUND;//找不到文本
 			}
 		}
 	}

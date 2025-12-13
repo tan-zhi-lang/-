@@ -17,20 +17,20 @@ public class RingOfFuror extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.##", Math.pow(1.091f, soloBuffedBonus()) - 1f));
+					Messages.decimalFormat("#.2", Math.pow(1.15f, soloBuffedBonus()) - 1f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.##", Math.pow(1.091f, combinedBuffedBonus(Dungeon.hero)) - 1f));
+						Messages.decimalFormat("#.2", Math.pow(1.15f, combinedBuffedBonus(Dungeon.hero)) - 1f));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.##", 0.091f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.15f));
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.##", Math.pow(1.091f, level+1)-1f) + "倍";
+		return Messages.decimalFormat("#.2f", Math.pow(1.15f, level+1)-1f) + "倍";
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class RingOfFuror extends Ring {
 	}
 	
 	public static float attackSpeedMultiplier(Char target ){
-		return (float)Math.pow(1.091, getBuffedBonus(target, Furor.class));
+		return (float)Math.pow(1.15f, getBuffedBonus(target, Furor.class));
 	}
 
 	public class Furor extends RingBuff {

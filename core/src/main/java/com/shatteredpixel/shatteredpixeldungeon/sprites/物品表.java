@@ -558,7 +558,8 @@ public class 物品表 {
     public static final int 黑曜石=RINGS+12;
     public static final int 月亮石=RINGS+13;
     public static final int 黄金=RINGS+14;
-    public static final int 虚无=RINGS+15;
+    public static final int 暗淡=RINGS+15;
+    public static final int 虚空=RINGS+16;
 
     static {
         for (int i = RINGS; i < RINGS + 30; i++){
@@ -1198,11 +1199,13 @@ public class 物品表 {
         public static final int 六神之戒 = xy(1, 9);  //16 slots
         public static final int 魔攻之戒=六神之戒+1;
         public static final int 装甲之戒=六神之戒+2;
+        public static final int 恢复之戒=六神之戒+3;
 
         static {
             assignIconRect(六神之戒, 7);
-            assignIconRect(魔攻之戒,8,7);
-            assignIconRect(装甲之戒,8);
+            assignIconRect(魔攻之戒,6);
+            assignIconRect(装甲之戒,6);
+            assignIconRect(恢复之戒,6,7);
         }
 
         //16 free slots

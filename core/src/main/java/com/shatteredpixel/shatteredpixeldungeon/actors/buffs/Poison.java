@@ -64,7 +64,7 @@ public class Poison extends Buff implements Hero.Doom {
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns(left));
 	}
-
+	
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target) && target.sprite != null){

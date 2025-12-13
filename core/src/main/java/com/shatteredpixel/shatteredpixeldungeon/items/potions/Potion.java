@@ -225,6 +225,10 @@ public class Potion extends Item {
 			
 		} else if (action.equals( AC_DRINK )) {
 			
+			if(this instanceof 治疗药剂&&已鉴定()&&hero.康血()){
+				GLog.n("生命健康，不推荐治疗，收益不高。");
+				return;
+			}
 			if (isKnown() && mustThrowPots.contains(getClass())) {
 				
 					GameScene.show(

@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -40,7 +41,6 @@ public class 怒气 extends Buff implements ActionIndicator.Action {
 			ActionIndicator.setAction(this);
 		}
 	}
-
 	@Override
 	public boolean act() {
 		float x=1;
@@ -60,20 +60,25 @@ public class 怒气 extends Buff implements ActionIndicator.Action {
 		spend(TICK);
 		return true;
 	}
-
+	
+	@Override
+	public boolean attachTo(Char target) {
+		ActionIndicator.setAction(this);
+		return super.attachTo(target);
+	}
+	
 	@Override
 	public void detach() {
 		super.detach();
 		ActionIndicator.clearAction(this);
 	}
-	
 
 	public void damage(){
-		怒气= Math.min(100,怒气+5);
-		BuffIndicator.refreshHero(); //show new power immediately
+		怒气= Math.min(100,怒气+10);
 		if (怒气>0){
 			ActionIndicator.setAction(this);
 		}
+		BuffIndicator.refreshHero(); //show new power immediately
 	}
 
 
@@ -117,13 +122,13 @@ public class 怒气 extends Buff implements ActionIndicator.Action {
 	
 	@Override
 	public void tintIcon(Image icon) {
-		if (怒气>=75){
-			icon.hardlight(1f,0.5f,0f);
-		}else if(怒气>50){
+//		if (怒气>=75){
+//			icon.hardlight(1f,0.5f,0f);
+//		}else if(怒气>50){
 			icon.hardlight(1f, 0f, 0f);
-		}else{
-			icon.hardlight(0, 0, 1f);
-		}
+//		}else{
+//			icon.hardlight(0, 0, 1f);
+//		}
 	}
 	
 	@Override

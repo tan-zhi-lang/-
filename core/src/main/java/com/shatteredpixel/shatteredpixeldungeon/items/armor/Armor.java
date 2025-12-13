@@ -333,7 +333,7 @@ public class Armor extends EquipableItem {
 
 			破损纹章 detaching = 破损纹章;
 			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
-			if(转移量>0&&真等级()>0&&真等级()-转移量>0){
+			if(转移量>0&&真等级()>0&&真等级()-转移量>=0){
 				等级(真等级()-转移量);
 				破损纹章.升级(转移量);
 			}
@@ -394,10 +394,11 @@ public class Armor extends EquipableItem {
 	}
 
 	public int 最小防御(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 0;
-		}
-		return augment.defenseFactor(lvl);
+		return 0;
+//		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+//			return 0;
+//		}
+//		return augment.defenseFactor(lvl);
 	}
 
 	//This exists so we can test what a char's base evasion would be without armor affecting it
@@ -414,7 +415,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero){
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
-			if (aEnc < 0) evasion *= 1+Math.sqrt(-aEnc)*owner.属性增幅;
+			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅*2;
 			
 		}
 		
@@ -426,7 +427,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
-			if (aEnc < 0) speed *= 1+Math.sqrt(-aEnc)*owner.属性增幅;
+			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅;
 		}
 		
 		return augment.speedFactor(speed);

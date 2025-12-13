@@ -338,8 +338,8 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add(bag);
 		}
 
-		itemsToSpawn.add( new 治疗药剂() );
-		itemsToSpawn.add( new 治疗药剂() );
+		itemsToSpawn.add( new 治疗药剂());
+		itemsToSpawn.add( new 治疗药剂());
 		itemsToSpawn.add( new 净化药剂());
 		itemsToSpawn.add( new 隐形药剂());
 		itemsToSpawn.add( new 极速药剂());
@@ -360,7 +360,8 @@ public class ShopRoom extends SpecialRoom {
 		itemsToSpawn.add( new Food() );
 		itemsToSpawn.add( new SmallRation() );
 		
-		itemsToSpawn.add( new 护甲修理工具包().数量(3));
+		
+		itemsToSpawn.add( new 护甲修理工具包().数量(2+Dungeon.区域()));
 		
 		switch (Random.Int(4)){
 			case 0:

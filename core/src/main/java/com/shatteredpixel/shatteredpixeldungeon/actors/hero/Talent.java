@@ -597,7 +597,7 @@ public enum Talent {
 				default:
 					Collections.addAll(tierTalents, 鉴定速度, 攻击强化, 防御强化);
 					break;
-				case 英雄:
+				case NONE:
 					break;
 			}
 		for (Talent talent : tierTalents){
@@ -621,7 +621,7 @@ public enum Talent {
 		//tier 3
 		switch(cls){
 			default:
-			case 英雄:
+			case NONE:
 				Collections.addAll(tierTalents,任督二脉);
 				break;
 			case WARRIOR:

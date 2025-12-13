@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 
 public class Slime extends Mob {
@@ -49,10 +50,11 @@ public class Slime extends Mob {
 	public void 受伤时(int dmg, Object src) {
 		float scaleFactor = AscensionChallenge.statModifier(this);
 		int scaledDmg = Math.round(dmg/scaleFactor);
-		if (scaledDmg >= 5){
-			//takes 5/6/7/8/9/10 dmg at 5/7/10/14/19/25 incoming dmg
-			scaledDmg = 4 + (int)(Math.sqrt(8*(scaledDmg - 4) + 1) - 1)/2;
-		}
+//		if (scaledDmg >= 5){
+//			//takes 5/6/7/8/9/10 dmg at 5/7/10/14/19/25 incoming dmg
+//			scaledDmg = 4 + (int)(Math.sqrt(8*(scaledDmg - 4) + 1) - 1)/2;
+//		}
+		dmg=算法.固衰(dmg,5);
 		dmg = (int)(scaledDmg*AscensionChallenge.statModifier(this));
 		super.受伤时(dmg, src);
 	}

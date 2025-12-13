@@ -52,7 +52,8 @@ public class Ring extends KindofMisc {
 			put("黑曜石", 物品表.黑曜石);
 			put("月亮石", 物品表.月亮石);
 			put("黄金", 物品表.黄金);
-			put("虚无", 物品表.虚无);
+			put("暗淡", 物品表.暗淡);
+			put("空气", 物品表.虚空);
 		}
 	};
 	

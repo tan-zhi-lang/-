@@ -408,10 +408,14 @@ public abstract class Char extends Actor {
 		} else if (hit( this, enemy, accMulti, false )) {
 			
 			int dr = Math.round(
-					
 					Random.NormalIntRange( enemy.最小防御(), enemy.最大防御())
 					*AscensionChallenge.statModifier(enemy));
 			
+			if(Dungeon.玩法(玩法设置.奇袭地牢)){
+				dr=Math.round(
+						( enemy.最小防御()+enemy.最大防御())/2f
+						*AscensionChallenge.statModifier(enemy));
+			}
 			if (this instanceof Hero hero){
 				if (hero.subClass==HeroSubClass.狙击手){
 					dr = 0;
@@ -439,6 +443,9 @@ public abstract class Char extends Actor {
 					dmg=hero.heroDamageIntRange(最小攻击(),最大攻击());
 				}else{
 					dmg=Random.NormalIntRange(最小攻击(),最大攻击());
+				}
+				if(Dungeon.玩法(玩法设置.奇袭地牢)){
+					dmg=(最小攻击()+最大攻击())/2f;
 				}
 			}
 
@@ -823,6 +830,7 @@ public abstract class Char extends Actor {
 	}
 	
 	public int 防御时(Char enemy, int damage ) {
+		damage++;
 		第一次防御 =false;
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (armor != null) {
@@ -1535,6 +1543,7 @@ public abstract class Char extends Actor {
 	}
 	public int 最大护甲(){
 		int 最大护甲=最大生命(0.25f);
+		
 		return 最大护甲;
 	}
 	public int 已损失生命(){

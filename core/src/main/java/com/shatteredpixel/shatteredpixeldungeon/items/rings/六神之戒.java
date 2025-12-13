@@ -17,10 +17,10 @@ public class 六神之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   .07f*soloBuffedBonus());
+									   Messages.decimalFormat("#.2", Math.pow(1.07f, soloBuffedBonus()) - 1f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						0.07f*combinedBuffedBonus(Dungeon.hero));
+											  Messages.decimalFormat("#.2", Math.pow(1.07f, combinedBuffedBonus(Dungeon.hero)) - 1f));
 			}
 			return info;
 		} else {
@@ -30,7 +30,7 @@ public class 六神之戒 extends Ring {
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return .07f*level + "倍";
+		return Messages.decimalFormat("#.2", Math.pow(1.07f, level+1)-1f) + "倍";
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public class 六神之戒 extends Ring {
 	}
 
 	public static float 六神之力( Char target ){
-		return 0.07f*getBuffedBonus(target, 六神.class);
+		return (float)Math.pow(1.07f, getBuffedBonus(target, 六神.class));
 	}
 	
 	public class 六神 extends RingBuff {

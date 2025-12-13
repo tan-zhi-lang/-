@@ -42,8 +42,8 @@ public class 来去秘卷 extends ExoticScroll {
 			InterlevelScene.returnBranch = 0;
 			InterlevelScene.returnPos = 2;
 			
-			Buff.施加(Dungeon.hero,Invulnerability.class,1);
-			Buff.施加(Dungeon.hero,BlobImmunity.class,1);
+			Buff.施加(Dungeon.hero,Invulnerability.class,3);
+			Buff.施加(Dungeon.hero,BlobImmunity.class,3);
 			Game.switchScene( InterlevelScene.class );
 		}else if(Dungeon.level.map[Dungeon.hero.pos]==Terrain.EXIT){
 			Level.beforeTransition();

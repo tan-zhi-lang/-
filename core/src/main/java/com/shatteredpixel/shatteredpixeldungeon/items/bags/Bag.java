@@ -26,6 +26,7 @@ public class Bag extends Item implements Iterable<Item> {
 		
 		defaultAction = AC_OPEN;
 		
+		可以空间=false;
 		特别= true;
 		物品 = true;
 	}

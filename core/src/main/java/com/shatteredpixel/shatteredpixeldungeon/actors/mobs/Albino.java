@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -15,8 +16,8 @@ public class Albino extends Rat {
 	{
 		spriteClass = AlbinoSprite.class;
 		
-		生命 = 最大生命 = 12;
-		经验 = 2;
+		生命 = 最大生命 = Dungeon.老鼠蝙蝠?60:12;
+		经验 = Dungeon.老鼠蝙蝠?8:2;
 		普通=false;
 		
 		loot = MysteryMeat.class;
@@ -27,7 +28,7 @@ public class Albino extends Rat {
 	public int 攻击时(Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (damage > 0 && Random.Int( 2 ) == 0) {
-			Buff.施加( enemy, 流血.class ).set( Random.NormalFloat(2, 3) );
+			Buff.施加( enemy, 流血.class ).set( Random.NormalFloat(Dungeon.老鼠蝙蝠?8:2, Dungeon.老鼠蝙蝠?12:3) );
 		}
 		
 		return damage;

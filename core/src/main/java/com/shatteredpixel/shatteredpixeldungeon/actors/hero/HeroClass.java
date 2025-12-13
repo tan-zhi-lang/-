@@ -145,7 +145,7 @@ public enum HeroClass{
 	灵猫(),鼠弟(),
 	凌云(),血鬼(),
 	来世(),
-	英雄();
+	NONE();
 	
 	private HeroSubClass[] subClasses;
 	

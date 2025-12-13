@@ -32,6 +32,7 @@ public class 未来空间器 extends Item {
 		image = 物品表.未来空间器;
 		特别 = true;
 		物品 = true;
+		可以空间=false;
 		
 		defaultAction = AC_使用;
 	}
@@ -113,7 +114,7 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 未来空间器||item instanceof Bag);
+								return item.可以空间;
 							}
 							
 							@Override

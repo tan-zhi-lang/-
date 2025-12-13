@@ -17,10 +17,11 @@ public class Rat extends Mob {
 	{
 		spriteClass = RatSprite.class;
 		
-		生命 = 最大生命 = 8;
-		defenseSkill = 2;
-
-		最大等级 = 5;
+		生命 = 最大生命 = Dungeon.老鼠蝙蝠?50:8;
+		defenseSkill = Dungeon.老鼠蝙蝠?16:2;
+		经验=Dungeon.老鼠蝙蝠?7:1;
+		baseSpeed = Dungeon.老鼠蝙蝠?2:1;
+		最大等级 = Dungeon.老鼠蝙蝠?15:5;
 	}
 	public boolean 普通=true;
 	@Override
@@ -52,10 +53,14 @@ public class Rat extends Mob {
 		}
 		return super.act();
 	}
-
+	
+	@Override
+	public int 最小攻击() {
+		return Dungeon.老鼠蝙蝠?5:1;
+	}
 	@Override
 	public int 最大攻击() {
-		return 4;
+		return Dungeon.老鼠蝙蝠?18:4;
 	}
 	
 	
@@ -67,12 +72,12 @@ public class Rat extends Mob {
 	
 	@Override
 	public int 最大命中(Char target ) {
-		return 8;
+		return Dungeon.老鼠蝙蝠?16:8;
 	}
 	
 	@Override
 	public int 最大防御() {
-		return super.最大防御()+1;
+		return super.最大防御()+(Dungeon.老鼠蝙蝠?4:1);
 	}
 
 	private static final String RAT_ALLY = "rat_ally";

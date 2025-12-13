@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
@@ -147,7 +148,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
@@ -158,6 +158,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破甲锥;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
@@ -441,12 +443,13 @@ public class Generator {
 					巨型方盾.class,
 					双剑.class,
 					半月刃.class,
+					破甲锥.class,
 					
 					流星索.class,
 					苦无.class,
 			};
 			WEP_T3.defaultProbs = new float[]{ 2, 2, 2,
-											   2, 2,2,
+											   2, 2,2,2,
 											   2,2};
 			WEP_T3.probs = WEP_T1.defaultProbs.clone();
 			
@@ -531,6 +534,7 @@ public class Generator {
 					
 					魔攻之戒.class,
 					装甲之戒.class,
+					恢复之戒.class,
 					
 					六神之戒.class
 			
@@ -539,7 +543,8 @@ public class Generator {
 											 3, 3, 3,
 											 3, 3, 3,
 											 3, 3, 3,
-											 3 , 3 ,
+											 
+											 3,3 ,3,
 											 0};
 			RING.probs = RING.defaultProbs.clone();
 			
@@ -601,6 +606,7 @@ public class Generator {
 					圣金之沙.class,
 					精神支柱.class,
 					虚无透纱.class,
+					
 					幸运硬币.class,
 					磨刀石.class,
 					角斗链枷.class,

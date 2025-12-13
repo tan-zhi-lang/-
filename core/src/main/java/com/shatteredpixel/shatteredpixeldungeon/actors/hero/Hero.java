@@ -74,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -143,6 +144,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
@@ -230,7 +232,7 @@ public class Hero extends Char {
     private static final float TIME_TO_SEARCH = 2f;
     private static final float HUNGER_FOR_SEARCH = 6f;
 
-    public HeroClass heroClass = HeroClass.盗贼;
+    public HeroClass heroClass = HeroClass.NONE;
     public HeroSubClass subClass = HeroSubClass.NONE;
     public ArmorAbility armorAbility = null;
     public ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
@@ -243,6 +245,7 @@ public class Hero extends Char {
     public boolean[] 天赋 = {false,false,false,false,false,};
     public boolean 单身 = false;
     public boolean 精通 = false;
+    public boolean 进阶 = false;
     public float 生命成长 = 0;
     public float 防御成长 = 0;
     public float 吃饭触发 = 0;
@@ -265,6 +268,7 @@ public class Hero extends Char {
     public int 连击 = 0;
     public int 护甲力量= 0;
     public int 护甲恢复= 0;
+    public int 蛇皮走位=0;
     public float 造成伤害=1;
     public float 受到伤害=1;
 
@@ -338,7 +342,7 @@ public class Hero extends Char {
 
     public int 力量() {
 
-        int str = 力量 + RingOfMight.strengthBonus(this);
+        int str = 力量 + RingOfMight.strengthBonus(this)*2;
         
         str+=天赋点数(Talent.杀伐果决);
         AdrenalineSurge buff = buff(AdrenalineSurge.class);
@@ -393,6 +397,7 @@ public class Hero extends Char {
     private static final String 连击x = "连击";
     private static final String 护甲力量x= "护甲力量";
     private static final String 护甲恢复x= "护甲恢复";
+    private static final String 蛇皮走位x= "蛇皮走位";
     private static final String 造成伤害x = "造成伤害";
     private static final String 受到伤害x = "受到伤害";
 
@@ -400,6 +405,7 @@ public class Hero extends Char {
     private static final String 现在健身x= "现在健身";
     private static final String 单身x = "单身";
     private static final String 精通x = "精通";
+    private static final String 进阶x = "进阶";
     private static final String 天赋x = "天赋";
     protected static final String 生命成长x    = "生命成长";
     protected static final String 防御成长x    = "防御成长";
@@ -424,6 +430,7 @@ public class Hero extends Char {
         bundle.put(连击x, 连击);
         bundle.put(护甲力量x,护甲力量);
         bundle.put(护甲恢复x,护甲恢复);
+        bundle.put(蛇皮走位x,蛇皮走位);
         bundle.put(造成伤害x, 造成伤害);
         bundle.put(受到伤害x, 受到伤害);
 
@@ -431,6 +438,7 @@ public class Hero extends Char {
         bundle.put(现在健身x,现在健身);
         bundle.put(单身x, 单身);
         bundle.put(精通x, 精通);
+        bundle.put(进阶x, 进阶);
         bundle.put(天赋x, 天赋);
         bundle.put( 生命成长x, 生命成长);
         bundle.put( 防御成长x, 防御成长);
@@ -452,6 +460,7 @@ public class Hero extends Char {
         连击 = bundle.getInt(连击x);
         护甲力量= bundle.getInt(护甲力量x);
         护甲恢复= bundle.getInt(护甲恢复x);
+        蛇皮走位= bundle.getInt(蛇皮走位x);
         造成伤害 = bundle.getFloat(造成伤害x);
         受到伤害 = bundle.getFloat(受到伤害x);
         
@@ -459,6 +468,7 @@ public class Hero extends Char {
         现在健身= bundle.getFloat(现在健身x);
         单身 = bundle.getBoolean(单身x);
         精通 = bundle.getBoolean(精通x);
+        进阶 = bundle.getBoolean(进阶x);
         天赋 = bundle.getBooleanArray(天赋x);
         生命成长 = bundle.getFloat( 生命成长x );
         防御成长 = bundle.getFloat( 防御成长x );
@@ -798,8 +808,10 @@ public class Hero extends Char {
     public int 最小命中(Char target ) {
         int x=0;
         if(heroClass(HeroClass.镜魔))x+=2;
+        x+=蛇皮走位;
         x+=命中之戒.getBuffedBonus(this,命中之戒.Accuracy.class)*2;
         x*=增加命中();
+        
         return x;
     }
     @Override
@@ -812,7 +824,7 @@ public class Hero extends Char {
     @Override
     public int 最大命中(Char target) {
         KindOfWeapon wep = belongings.attackingWeapon();
-        int x=Math.round((最大命中 + (等级 - 1) * 1.25f));
+        int x=Math.round((最大命中 + (等级 - 1) * 1.2f));
         x+=天赋点数(Talent.顶福精华, 10);
         x+=命中之戒.getBuffedBonus(this,命中之戒.Accuracy.class)*2;
         if(精通)
@@ -828,7 +840,7 @@ public class Hero extends Char {
             accuracy*=0.67f;
         }
         if(wep==null){
-            accuracy*=1+Math.sqrt(力量()-8)*属性增幅;
+            accuracy*=1+(力量()-10)*属性增幅*2;
         }
         
         //precise assault and liquid agility
@@ -917,7 +929,7 @@ public class Hero extends Char {
 //            return Char.INFINITE_ACCURACY;
 //        }
 
-        float evasion = (最大闪避 + Math.round((等级 - 1) * 1.25f));
+        float evasion = (最大闪避 + Math.round((等级 - 1) * 1.2f));
         
         evasion+=闪避之戒.getBuffedBonus(this,闪避之戒.Evasion.class)*2;
         evasion += 天赋点数(Talent.顶福精华, 5);
@@ -927,9 +939,7 @@ public class Hero extends Char {
             evasion *= buff(Momentum.class).evasionBonus();
         }
         if(belongings.armor==null){
-            if(Math.sqrt(力量())>=1){
-                evasion*=1+Math.sqrt(力量()-8)*属性增幅;
-            }
+            evasion*=1+(力量()-10)*属性增幅*2;
         }
         if(heroClass(HeroClass.女忍)){
             evasion*=1.1f;
@@ -998,11 +1008,7 @@ public class Hero extends Char {
         if (buff(HoldFast.class) != null) {
             dr += buff(HoldFast.class).armorBonus();
         }
-        if(hasbuff(装甲之戒.装甲.class)){
-            if(belongings.armor()==null){
-                dr+=装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class);
-            }
-        }
+        
         dr*=增加防御();
         return dr;
     }
@@ -1044,10 +1050,11 @@ public class Hero extends Char {
         }
         
         if(hasbuff(装甲之戒.装甲.class)){
+            
             if(belongings.armor()==null){
-                dr+=(1+装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class))*装甲之戒.tier();
+                dr+=装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class)*装甲之戒.tier()*2;
             }else{
-                dr+=装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class);
+                dr+=装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class)*2;
             }
         }
         
@@ -1060,9 +1067,6 @@ public class Hero extends Char {
         Weapon wep = belongings.attackingWeapon();
         int dmg=0;
         
-        if (heroClass(HeroClass.WARRIOR)) {
-            dmg++;
-        }
         if (武力之戒.fightingUnarmed(this)) {//空手
             dmg += 武力之戒.heromin();
             if (武力之戒.unarmedGetsWeaponAugment(this)) {
@@ -1082,10 +1086,12 @@ public class Hero extends Char {
                     dmg += belongings.secondWep.最小攻击()*(0.5+(精通?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
                 }
                 if(wep.拳套){
-                    dmg += 武力之戒.min()+武力之戒.heromin();
+                    dmg += 武力之戒.heromin();
                 }
-                if(hasbuff(武力之戒.Force.class))
-                    dmg ++;
+                if(hasbuff(武力之戒.Force.class)){
+                    dmg += 武力之戒.min();
+                    dmg++;
+                }
             }else{
                 dmg += 武力之戒.min()+武力之戒.heromin();
             }
@@ -1132,10 +1138,12 @@ public class Hero extends Char {
                     dmg += belongings.secondWep.最大攻击()*(0.5+(精通?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
                 }
                 if(wep.拳套){
-                    dmg+= 武力之戒.max()+武力之戒.heromax();
+                    dmg+= 武力之戒.heromax();
                 }
-                if(hasbuff(武力之戒.Force.class))
+                if(hasbuff(武力之戒.Force.class)){
+                    dmg +=武力之戒.max();
                     dmg +=武力之戒.getBuffedBonus(this,武力之戒.Force.class)*2+1;
+                }
             }else{
                 dmg+= 武力之戒.max()+武力之戒.heromax();
             }
@@ -1168,8 +1176,8 @@ public class Hero extends Char {
         speed *= 综合属性();
         speed*=中国国旗.移速();
         speed*=1+天赋点数(Talent.技巧敏捷,0.05f);
-        if(belongings.armor==null){
-            speed*=1+Math.sqrt(力量()-8)*属性增幅;
+        if(belongings.armor==null){//裸衣
+            speed*=1+(力量()-10)*属性增幅;
         }
         if (belongings.armor instanceof 披风) {
             speed *= 1.1f;
@@ -1288,7 +1296,7 @@ public float 攻击延迟() {
         delay/=1+天赋点数(Talent.技巧敏捷,0.05f);
         
         if(belongings.weapon==null&&nobuff(武力之戒.BrawlersStance.class)){
-            delay/=2+Math.sqrt(力量()-8)*属性增幅;
+            delay/=2+(力量()-10)*属性增幅;
         }
             if (!武力之戒.fightingUnarmed(this)) {
                 delay *=belongings.attackingWeapon().delayFactor(this);
@@ -1380,7 +1388,7 @@ public float 攻击延迟() {
 
         if (heroClass(HeroClass.机器)) {
             immunities.addAll(Property.ELECTRIC.resistances());
-            回血(1);
+            回百分比血(0.05f);
         }
         if (heroClass(HeroClass.重武)) {
             immunes.add(Chill.class);
@@ -1446,7 +1454,7 @@ public float 攻击延迟() {
     @Override
     public boolean act() {
         Dungeon.地牢时间++;
-        
+        蛇皮走位=Math.min(3,蛇皮走位);
         Dungeon.地牢天数=Dungeon.地牢时间/900+1;
         Dungeon.level.落石(this);
         
@@ -1463,12 +1471,10 @@ public float 攻击延迟() {
         if(heroClass(HeroClass.机器)&&在水中()){
             生命流动-=0.1f;
         }
-        if(heroClass(HeroClass.WARRIOR)){
-            护甲恢复+=根据已损失生命()*10;
-            if(护甲恢复>=100){
-                护甲(1);
-                护甲恢复=0;
-            }
+        护甲恢复+=heroClass(HeroClass.WARRIOR)?5:3;
+        if(护甲恢复>=100){
+            护甲(1);
+            护甲恢复=0;
         }
         
         
@@ -1516,7 +1522,7 @@ public float 攻击延迟() {
 		if(SPDSettings.自动拾取()){
 			Heap heap = Dungeon.level.heaps.get(pos);
 			if (heap != null && heap.type == Type.HEAP) {
-                Buff.施加(this, Hunger.class).吃饭(TIME_TO_SEARCH - HUNGER_FOR_SEARCH);
+//                Buff.施加(this, Hunger.class).吃饭(TIME_TO_SEARCH - HUNGER_FOR_SEARCH);
 				Item item = heap.peek();
 				boolean ok=false;
                 if (belongings.contains(item)){
@@ -1653,7 +1659,12 @@ public float 攻击延迟() {
 
         return actResult;
     }
-
+    @Override
+    public int 最大护甲(){
+        int 最大护甲=最大生命(heroClass(HeroClass.逐姝)?0.35f:0.25f);
+        
+        return 最大护甲;
+    }
     public void busy() {
         ready = false;
     }
@@ -1820,11 +1831,7 @@ public float 攻击延迟() {
                     } else if (item instanceof DarkGold) {
                         DarkGold existing = belongings.getItem(DarkGold.class);
                         if (existing != null) {
-                            if (existing.数量()>=20) {
-                                GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
-                            } else {
-                                GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
-                            }
+							GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
                         }
                     } else {
 
@@ -2009,12 +2016,8 @@ public float 攻击延迟() {
                             DarkGold gold = new DarkGold();
                             if (gold.doPickUp(Dungeon.hero)) {
                                 DarkGold existing = belongings.getItem(DarkGold.class);
-                                if (existing != null &&existing.数量()%5==0) {
-                                    if (existing.数量()>=20) {
-                                        GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
-                                    } else {
-                                        GLog.i(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
-                                    }
+                                if (existing != null) {
+									GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
                                 }
                                 spend(-Actor.TICK); //picking up the gold doesn't spend a turn here
                             } else {
@@ -2031,7 +2034,7 @@ public float 攻击延迟() {
 
                             //4 hunger spent total
                         } else if (Dungeon.level.map[action.dst] == Terrain.WALL) {
-                            buff(Hunger.class).吃饭(-3);
+//                            buff(Hunger.class).吃饭(-3);
                             PixelScene.shake(0.5f, 0.5f);
                             CellEmitter.get(action.dst).burst(Speck.factory(Speck.ROCK), 2);
                             Sample.INSTANCE.play(Assets.Sounds.挖矿);
@@ -2198,6 +2201,7 @@ public float 攻击延迟() {
         if (在草丛()) {
             暴击率+=天赋点数(Talent.丛林法则,8);
         }
+        暴击率+=财富之戒.暴击率(this);
         return 暴击率;
     }
     @Override
@@ -2217,8 +2221,7 @@ public float 攻击延迟() {
         if(必暴||算法.概率学(暴击率())){
             dmg=Math.round(dmg*暴击伤害());
             if (subClass == HeroSubClass.狂战士) {
-                怒气 怒气= Buff.施加(this,怒气.class);
-                怒气.damage();
+                Buff.施加(this,怒气.class).damage();
             }
             必暴=false;
         }
@@ -2240,10 +2243,6 @@ public float 攻击延迟() {
     }
     @Override
     public int 攻击时(final Char enemy, int damage) {
-        if (enemy instanceof Rat&&heroClass(HeroClass.灵猫)) {
-            必中=true;
-            必暴=true;
-        }
         damage = super.攻击时(enemy, damage);
         
 		//region +
@@ -2266,6 +2265,11 @@ public float 攻击延迟() {
 		//endregion
 		
 		//region 附加效果
+        蛇皮走位=0;
+        if ((enemy instanceof Rat||enemy instanceof Piranha)&&heroClass(HeroClass.灵猫)) {
+            必中=true;
+            必暴=true;
+        }
         心之钢.心 钢 = buff(心之钢.心.class);
         if (钢 != null) {
             damage = 钢.proc(damage, this, enemy);
@@ -2273,8 +2277,7 @@ public float 攻击延迟() {
         
         
         if (damage > 0 && subClass == HeroSubClass.狂战士) {
-            怒气 怒气= Buff.施加(this,怒气.class);
-            怒气.damage();
+           Buff.施加(this,怒气.class).damage();
         }
         if (enemy.isAlive()&&天赋(Talent.星火符刃)&&enemy.第一次防御) {
             enemy.受伤(enemy.最大生命(天赋点数(Talent.星火符刃, 0.1f)));
@@ -2365,7 +2368,7 @@ public float 攻击延迟() {
         if (enemy.恶魔亡灵() && heroClass(HeroClass.CLERIC)) {
             damage *=1.1f;
         }
-        if (enemy instanceof Rat&&heroClass(HeroClass.灵猫)) {
+        if ((enemy instanceof Rat||enemy instanceof Piranha)&&heroClass(HeroClass.灵猫)) {
             damage *=2.5f;
             必中=false;
             必暴=false;
@@ -2397,8 +2400,7 @@ public float 攻击延迟() {
             }
         }
 		if (subClass == HeroSubClass.狂战士) {
-            怒气 怒气= Buff.施加(this,怒气.class);
-            怒气.damage();
+            Buff.施加(this,怒气.class).damage();
         }
         
         荆棘斗篷.Thorns thorns = buff(荆棘斗篷.Thorns.class);
@@ -2422,9 +2424,9 @@ public float 攻击延迟() {
         //endregion
         
         
-        if(heroClass(HeroClass.近卫)&&damage*0.3f>0){
+        if(heroClass(HeroClass.近卫)&&damage*0.1f>0){
             死舞 deferred = Buff.施加(this,死舞.class);
-            deferred.extend( damage*0.3f);
+            deferred.extend( damage*0.1f);
             
             sprite.showStatus( CharSprite.WARNING, Messages.get(死舞.class, "deferred", Math.round(damage*0.3f)) );
             damage*=0.7f;
@@ -2977,61 +2979,7 @@ public float 攻击延迟() {
         if (buff(根骨秘药.HTBoost.class) != null) {
             buff(根骨秘药.HTBoost.class).onLevelUp();
         }
-        if(等级>21){
-            switch(subClass){
-                case 潜能觉醒: default:
-                    GLog.p("最大命中+！"+"综合属性+10%。");
-                    break;
-                case 狂战士:
-                    GLog.p("最大命中+！"+"每点怒气+0.25%攻击力。");
-                    break;
-                case 角斗士:
-                    GLog.p("最大命中+！"+"连击重置回合+3，6+连击时连击技获得强化。");
-                    break;
-                case 战斗法师:
-                    GLog.p("最大命中+！"+"魔杖物理攻击会恢复0.5充能。");
-                    break;
-                case 术士:
-                    GLog.p("最大命中+！"+"灵魂标记+10回合。");
-                    break;
-                case 刺客:
-                    GLog.p("最大命中+！"+"每回合隐形会额外获得1阶段潜伏。");
-                    break;
-                case 疾行者:
-                    GLog.p("最大命中+！"+"每点动能额外提供1逸动回合。");
-                    break;
-                case 狙击手:
-                    GLog.p("最大命中+！"+"除灵能短弓外的物理攻击会施加狙击标记，灵能短弓对狙击标记敌人攻击取决于不同的强化方式。");
-                    break;
-                case 守望者:
-                    GLog.p("最大命中+！"+"踩踏植物会获得额外效果取代原本效果，所有植株对其无害。");
-                    break;
-                case 勇士:
-                    GLog.p("最大命中+！"+"主武器和副武器攻击效率+10%。");
-                    break;
-                case 武者:
-                    GLog.p("最大命中+！"+"最大内力+5。");
-                    break;
-                case PRIEST:
-                    GLog.p("最大命中+！"+"综合属性+15%");
-                    break;
-                case PALADIN:
-                    GLog.p("最大命中+！"+"综合属性+15%");
-                    break;
-                case 神秘学者:
-                    GLog.p("最大命中+！"+"综合属性+15%");
-                    break;
-                case 黑魔导师:
-                    GLog.p("最大命中+！"+"综合属性+15%");
-                    break;
-                case 健身猛男:
-                    GLog.p("最大命中+！"+"力量+20%。");
-                    break;
-                case 盾之勇者:
-                    GLog.p("最大命中+！"+"综合属性+15%");
-                    break;
-            }
-        }
+        
         更新数据();
 
         if (sprite != null) {
@@ -3062,7 +3010,7 @@ public float 攻击延迟() {
 
     public int 升级所需(int lvl) {
         int x = 10;
-        int y = 5 + 5;
+        int y = 5 + 1;
         lvl--;
 //        if (heroClass(HeroClass.CLERIC)) {
 //            return Math.round((x + lvl * y) * 0.9f);
@@ -3334,7 +3282,7 @@ public float 攻击延迟() {
             if (skele != null && skele.isCursed() && Random.Int(6) != 0){
                 GLog.n(Messages.get(this, "key_distracted"));
                 spendAndNext(2*Key.TIME_TO_UNLOCK);
-                Buff.施加(this, Hunger.class).吃饭(-4);
+//                Buff.施加(this, Hunger.class).吃饭(-4);
             } else if (Dungeon.level.distance(pos, doorCell) <= 1) {
                 boolean hasKey = true;
                 if (door == Terrain.LOCKED_DOOR) {
@@ -3387,7 +3335,7 @@ public float 攻击延迟() {
                 && Random.Int(6) != 0){
                 GLog.n(Messages.get(this, "key_distracted"));
                 spend(2*Key.TIME_TO_UNLOCK);
-                Buff.施加(this, Hunger.class).吃饭(-4);
+//                Buff.施加(this, Hunger.class).吃饭(-4);
             } else if (Dungeon.level.distance(pos, heap.pos) <= 1){
                 boolean hasKey = true;
                 if (heap.type == Type.SKELETON || heap.type == Type.REMAINS) {
@@ -3526,8 +3474,8 @@ public float 攻击延迟() {
             left = Math.max(0, left);
             for (curr = left + y * Dungeon.level.width(); curr <= right + y * Dungeon.level.width(); curr++) {
                 if (intentional) {
-                    if(Dungeon.level.map[curr]!=Terrain.SECRET_TRAP){
-                        Heap heap = Dungeon.level.heaps.get(curr);
+                    if(Dungeon.level.map[curr]!=Terrain.SECRET_TRAP&&Dungeon.level.map[curr]!=Terrain.TRAP){
+                        Heap heap = Dungeon.level.heaps.get(curr);//搜索拾取
                         if (heap != null && (heap.type == Heap.Type.HEAP || heap.type == Heap.Type.CHEST)) {
                             Item item = heap.peek();
                             
@@ -3537,6 +3485,10 @@ public float 攻击延迟() {
                                 heap.sprite.drop();
                             }
                         }
+                    }
+                    
+                    if(true){//踩踏草
+                        Dungeon.level.pressCellgrass(curr);
                     }
                 }
                 if ((foresight || fieldOfView[curr]) && curr != pos) {
@@ -3734,7 +3686,6 @@ public float 攻击延迟() {
         if(belongings.hasItem(三叉戟.class)&&在水中()){
             x+=0.1f;
         }
-        x+=六神之戒.六神之力(this);
         if(heroClass(HeroClass.来世)){
             x+=0.1f;
         }
@@ -3745,6 +3696,10 @@ public float 攻击延迟() {
             }
             x+=精通(0.15f);
         }
+        if(进阶){
+            x+=0.1f;
+        }
+        x*=六神之戒.六神之力(this);
         return x;
     }
 

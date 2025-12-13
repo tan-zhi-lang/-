@@ -496,7 +496,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public int DPS(){
 		return Math.round(
 				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?(Dungeon.hero.力量()-力量())/2f:0)+
-				(augment.damageFactor(最小攻击()+最大攻击()))/2f*伤害/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f));
+				(augment.damageFactor(最小攻击()+最大攻击()))/2f
+//				*伤害
+				/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f));
 	}
 	@Override
 	public int 金币() {
@@ -752,7 +754,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 最小投掷攻击(int lvl) {
-		return augment.damageFactor(Math.round(最小+(tier+lvl)*(伤害+0.45f)));
+		return augment.damageFactor(Math.round(最小+(2*tier+lvl)*(伤害*0.5f)));
 //		return Math.round(最小+(2*tier+lvl)*(伤害+));
 	}
 	
@@ -767,7 +769,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 最大投掷攻击(int lvl) {
-		return augment.damageFactor(Math.round(最大+(5 * tier +tier*lvl )*(伤害+0.45f)));
+		return augment.damageFactor(Math.round(最大+(5 * tier +tier*lvl )*(伤害*1.2f)));
 //		return Math.round(最大+(5 * tier +tier*lvl )*(伤害));
 	}
 	
@@ -1188,7 +1190,7 @@ abstract public class Weapon extends KindOfWeapon {
 			ACC /= 5;
 		}
 		if(encumbrance > 0 )ACC/=Math.pow( 1.5, encumbrance );
-		if(encumbrance < 0 )ACC*=1+Math.sqrt(-encumbrance)*owner.属性增幅;
+		if(encumbrance < 0 )ACC*=1-encumbrance*owner.属性增幅*2;
 		
 		
 		ACC *= adjacentAccFactor(owner, target);
@@ -1202,13 +1204,13 @@ abstract public class Weapon extends KindOfWeapon {
 
 	protected float baseDelay( Char owner ){
 		float delay = augment.delayFactor(this.延迟);
-		if (owner instanceof Hero) {
-			int encumbrance = 力量() - ((Hero)owner).力量();
-			if (encumbrance > 0&&owner instanceof Hero hero&&!hero.heroClass(HeroClass.DUELIST)){
+		if (owner instanceof Hero hero) {
+			int encumbrance = 力量() - hero.力量();
+			if (encumbrance > 0&&!hero.heroClass(HeroClass.DUELIST)){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
-				delay/=1+Math.sqrt(-encumbrance)*owner.属性增幅;
+				delay/=1-encumbrance*hero.属性增幅;
 			}
 			
 		}

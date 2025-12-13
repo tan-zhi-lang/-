@@ -51,11 +51,27 @@ public class QuickSlot {
 	}
 
 	public Boolean isPlaceholder(int slot){
-		return getItem(slot) != null &&getItem(slot).数量()==0;
+		if(getItem(slot) != null){
+			if(Dungeon.hero()&&Dungeon.hero.belongings.hasItem(getItem(slot).getClass())){
+				return true;
+			}else{
+				return false;
+			}
+//			return getItem(slot).数量()==0;
+		}
+		return false;
 	}
 
 	public Boolean isNonePlaceholder(int slot){
-		return getItem(slot) != null &&getItem(slot).数量()>0;
+		if(getItem(slot) != null){
+			if(Dungeon.hero()&&Dungeon.hero.belongings.hasItem(getItem(slot).getClass())){
+				return true;
+			}else{
+				return false;
+			}
+//			return getItem(slot).数量()>0;
+		}
+		return false;
 	}
 
 	public void clearItem(Item item){

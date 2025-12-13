@@ -87,21 +87,25 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.横屏() ? COLS_L : COLS_P;
-		nRows = PixelScene.横屏() ? 5 :(Dungeon.解压(解压设置.超级背包)?7:5);//(int)Math.ceil(25/(float)nCols)
-		//we expect to lay out 25 slots in all cases
+		nRows = (Dungeon.解压(解压设置.超级背包)?7:COLS_P); //we expect to lay out 25 slots in all cases
+//		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
 		int windowHeight = TITLE_HEIGHT + slotHeight * nRows + SLOT_MARGIN * (nRows - 1);
 
 		if (PixelScene.横屏()){
 			while (slotHeight >= 24 && (windowHeight + 20 + chrome.marginTop()) > PixelScene.uiCamera.height){
-				slotHeight--;
-				windowHeight -= Dungeon.解压(解压设置.超级背包)?7:5;
+//				slotHeight--;
+				slotHeight--;slotWidth--;
+				windowHeight -= nRows;
+				windowWidth -= nCols;//
 			}
 		} else {
 			while (slotWidth >= 26 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){
-				slotWidth--;
+//				slotWidth--;
+				slotWidth--;slotHeight--;
 				windowWidth -= nCols;
+				windowHeight -= nRows;//
 			}
 		}
 

@@ -24,6 +24,9 @@ public class GLog {
 		update.dispatch( NEW_LINE );
 	}
 	
+	/**
+	 @return 白
+	 */
 	public static void i( String text, Object... args ) {
 		if(!SPDSettings.游戏提示())return;
 		if (args.length > 0) {
@@ -33,19 +36,30 @@ public class GLog {
 		DeviceCompat.log( TAG, text );
 		update.dispatch( text );
 	}
-	
+	/**
+	@return 绿
+	 */
 	public static void p( String text, Object... args ) {
 		i( POSITIVE + text, args );
 	}
 	
+	/**
+	 @return 红
+	 */
 	public static void n( String text, Object... args ) {
 		i( NEGATIVE + text, args );
 	}
 	
+	/**
+	 @return 橙
+	 */
 	public static void w( String text, Object... args ) {
 		i( WARNING + text, args );
 	}
 	
+	/**
+	 @return 黄
+	 */
 	public static void h( String text, Object... args ) {
 		i( HIGHLIGHT + text, args );
 	}

@@ -7,42 +7,41 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 奥术之戒 extends Ring {
+public class 恢复之戒 extends Ring {
 
 	{
-		icon = 物品表.Icons.RING_ARCANA;
-		buffClass = Arcana.class;
+		icon = 物品表.Icons.恢复之戒;
+		buffClass = 恢复.class;
 	}
-
+	
+	
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", Math.pow(1.175f, soloBuffedBonus()) - 1f));
+									   Messages.decimalFormat("#.2", Math.pow(1.2f, soloBuffedBonus()) - 1f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", Math.pow(1.175f, combinedBuffedBonus(Dungeon.hero)) - 1f));
+											  Messages.decimalFormat("#.2", Math.pow(1.2f, combinedBuffedBonus(Dungeon.hero)) - 1f));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.175f));
+			return Messages.get(this, "stats",.2f);
 		}
 	}
-
+	
+	
 	public String upgradeStat1(int level){
-		if (cursed) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.2", Math.pow(1.175f, level+1)-1f) + "倍";
+		if (cursed && cursedKnown) level = Math.min(-1, level-3);
+		return Messages.decimalFormat("#.2", Math.pow(1.2f, level+1)-1f) + "倍";
 	}
-
+	public static float 恢复( Char target){
+		return (float)Math.pow(1.2f, getBuffedBonus(target, 恢复.class));
+	}
 	@Override
 	protected RingBuff buff( ) {
-		return new Arcana();
+		return new 恢复();
 	}
-
-	public static float enchantPowerMultiplier(Char target ){
-		return (float)Math.pow(1.175f, getBuffedBonus(target, Arcana.class));
+	
+	public class 恢复 extends RingBuff {
 	}
-
-	public class Arcana extends RingBuff {
-	}
-
 }

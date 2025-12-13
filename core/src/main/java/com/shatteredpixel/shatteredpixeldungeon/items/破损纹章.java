@@ -79,9 +79,7 @@ public class 破损纹章 extends Item {
 
 	public int maxShield( int armTier, int armLvl ){
 		float x=0.5f;
-		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.纹章荣耀)){
-			x+=Dungeon.hero.天赋点数(Talent.纹章荣耀,0.5f);
-		}
+		
 		return Math.round((2*armTier*(1+armLvl))*x);
 	}
 

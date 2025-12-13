@@ -34,6 +34,7 @@ public class TengusMask extends Item {
 		defaultAction = AC_WEAR;
 		白色 = true;
 		
+		可以空间=false;
 		特别= true;
 		物品 = true;
 	}

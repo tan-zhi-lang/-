@@ -170,6 +170,7 @@ public class Dungeon {
 	public static int 玩法;
 	public static int 地牢时间;
 	public static int 地牢天数;
+	public static boolean 老鼠蝙蝠;
 	public static float mobsToChampion;
 
 	public static Hero hero;
@@ -259,6 +260,7 @@ public class Dungeon {
 		玩法 = SPDSettings.玩法();
 		地牢时间= 360;
 		地牢天数= 1;
+		老鼠蝙蝠= Random.oneOf(true,false);
 		mobsToChampion = 1;
 
 		Actor.clear();
@@ -690,6 +692,7 @@ public class Dungeon {
 	private static final String 玩法x	= "玩法";
 	private static final String 地牢时间x= "地牢时间";
 	private static final String 地牢天数x= "地牢天数";
+	private static final String 老鼠蝙蝠x= "老鼠蝙蝠";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -723,6 +726,7 @@ public class Dungeon {
 			bundle.put( 玩法x, 玩法 );
 			bundle.put(地牢时间x,地牢时间);
 			bundle.put(地牢天数x,地牢天数);
+			bundle.put(老鼠蝙蝠x,老鼠蝙蝠);
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
@@ -836,6 +840,7 @@ public class Dungeon {
 		Dungeon.玩法 = bundle.getInt( 玩法x );
 		Dungeon.地牢时间= bundle.getInt(地牢时间x);
 		Dungeon.地牢天数= bundle.getInt(地牢天数x);
+		Dungeon.老鼠蝙蝠= bundle.getBoolean(老鼠蝙蝠x);
 		Dungeon.mobsToChampion = bundle.getFloat( MOBS_TO_CHAMPION );
 		
 		Dungeon.level = null;
@@ -1209,6 +1214,9 @@ public class Dungeon {
 			return 5;
 		}
 		return 0;
+	}
+	public static boolean 偶数层(){
+		return Dungeon.depth%2==0;
 	}
 	public static boolean 区域层数(int x){
 		if(x==1){

@@ -21,7 +21,7 @@ import com.watabou.utils.PathFinder;
 public class 潜行 extends 武技{
 	
 	{
-		desc="瞬移至攻击范围+1的一个目的地，并隐形2回合";
+		desc="瞬移至攻击范围+2的一个目的地，并隐形3回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -36,7 +36,7 @@ public class 潜行 extends 武技{
 			if (target == null) {
 				return;
 			}
-			PathFinder.buildDistanceMap(Dungeon.hero.pos,BArray.or(Dungeon.level.passable,Dungeon.level.avoid,null),wep.范围+1);
+			PathFinder.buildDistanceMap(Dungeon.hero.pos,BArray.or(Dungeon.level.passable,Dungeon.level.avoid,null),wep.范围+2);
 			if (PathFinder.distance[target]==Integer.MAX_VALUE||!Dungeon.level.heroFOV[target]||hero.rooted) {
 				GLog.w(Messages.get(wep,"ability_target_range"));
 				if (Dungeon.hero.rooted) PixelScene.shake(1,1f);
@@ -49,7 +49,7 @@ public class 潜行 extends 武技{
 			}
 			
 			wep.消耗(hero);
-			Buff.延长(hero,Invisibility.class,1);
+			Buff.延长(hero,Invisibility.class,2);
 
 			Dungeon.hero.sprite.turnTo( Dungeon.hero.pos, target);
 			Dungeon.hero.pos = target;

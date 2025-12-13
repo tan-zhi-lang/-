@@ -31,7 +31,9 @@ public class WndInfoMob extends WndTitledMessage {
 		public MobTitle( Mob mob ) {
 			
 			name = PixelScene.renderTextBlock( Messages.titleCase( mob.name() ), 9 );
-			name.hardlight( TITLE_COLOR );
+//			name.hardlight( TITLE_COLOR );
+			name.hardlight( 0xFFFFFF );
+			
 			add( name );
 			
 			image = mob.sprite();

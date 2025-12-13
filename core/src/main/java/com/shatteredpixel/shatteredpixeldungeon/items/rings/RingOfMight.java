@@ -59,38 +59,38 @@ public class RingOfMight extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   soloBuffedBonus(), soloBuffedBonus()*25);
+									   2*soloBuffedBonus(), soloBuffedBonus()*25);
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  combinedBuffedBonus(Dungeon.hero), combinedBuffedBonus(Dungeon.hero)*15);
+											  2+2*combinedBuffedBonus(Dungeon.hero), 25+combinedBuffedBonus(Dungeon.hero)*25);
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 1, 25);
+			return Messages.get(this, "stats", 2, 25);
 		}
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return ""+level;
+		return ""+2+2*level;
 	}
 
 	@Override
 	public String upgradeStat2(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return ""+level*25;
-	}
-
-	@Override
-	protected RingBuff buff( ) {
-		return new Might();
+		return ""+25+level*25;
 	}
 	
 	public static int strengthBonus( Char target ){
 		return getBuffedBonus( target, Might.class );
 	}
-
+	
+	
+	@Override
+	protected RingBuff buff( ) {
+		return new Might();
+	}
 	public class Might extends RingBuff {
 	}
 }

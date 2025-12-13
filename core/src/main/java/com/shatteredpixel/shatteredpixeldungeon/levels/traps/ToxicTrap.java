@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.traps;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
@@ -21,8 +22,13 @@ public class ToxicTrap extends Trap{
 
 	@Override
 	public void activate() {
-
-		GameScene.add( Blob.seed( pos, 300 + 20 * scalingDepth(), ToxicGas.class ) );
+		
+		for (int offset : PathFinder.NEIGHBOURS9){
+			if (!Dungeon.level.solid[pos+offset]) {
+				GameScene.add( Blob.seed( pos+offset, 33 + 2 * scalingDepth()/*300 + 20 * scalingDepth()*/, ToxicGas.class));
+			}
+		}
+		
 		Sample.INSTANCE.play(Assets.Sounds.GAS);
 
 		for( int i : PathFinder.NEIGHBOURS9) {

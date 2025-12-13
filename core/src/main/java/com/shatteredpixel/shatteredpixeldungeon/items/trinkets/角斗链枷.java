@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 角斗链枷 extends Trinket {
 
 	{
-		image = 物品表.磨刀石;
+		image = 物品表.角斗链枷;
 	}
 
 	@Override

@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ItemSlot;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 
@@ -59,7 +58,8 @@ public class WndInfoItem extends Window {
 	private void fillFields(Heap heap ) {
 		
 		IconTitle titlebar = new IconTitle( heap );
-		titlebar.color( TITLE_COLOR );
+//		titlebar.color( TITLE_COLOR );
+		titlebar.color( 0xFFFFFF );
 		
 		RenderedTextBlock txtInfo = PixelScene.renderTextBlock( heap.info(), 6 );
 
@@ -68,16 +68,21 @@ public class WndInfoItem extends Window {
 	
 	private void fillFields( Item item ) {
 		
-		int color = TITLE_COLOR;
-		if (item.levelKnown && item.等级() > 0) {
-			color = ItemSlot.UPGRADED;
-		} else if (item.levelKnown && item.等级() < 0) {
-			color = ItemSlot.DEGRADED;
-		}
+//		int color = TITLE_COLOR;
+//		if (item.levelKnown && item.等级() > 0) {
+//			color = ItemSlot.UPGRADED;
+//		} else if (item.levelKnown && item.等级() < 0) {
+//			color = ItemSlot.DEGRADED;
+//		}
 
 		IconTitle titlebar = new IconTitle( item );
-		titlebar.color( color );
-		
+//		titlebar.color( color );
+
+		if(item.cursed&&item.cursedKnown){
+			titlebar.color( 0xFF4444 );//诅咒红文本
+		}else{
+			titlebar.color( 0xFFFFFF );
+		}
 		RenderedTextBlock txtInfo = PixelScene.renderTextBlock( item.info(), 6 );
 		
 		layoutFields(titlebar, txtInfo);

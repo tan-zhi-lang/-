@@ -218,7 +218,7 @@ public class 法师魔杖 extends Weapon{
 //				counter.countUp(1);
 				
 				int 转移量 = 最大转移()- 转移;
-				if(转移量>0&&this.wand.等级()>0&&this.wand.等级()-转移量>0){
+				if(转移量>0&&this.wand.等级()>0&&this.wand.等级()-转移量>=0){
 					this.wand.等级(this.wand.等级()-转移量);
 					转移+=转移量;
 				}

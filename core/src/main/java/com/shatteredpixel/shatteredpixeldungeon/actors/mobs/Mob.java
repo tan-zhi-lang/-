@@ -893,8 +893,9 @@ public abstract class Mob extends Char {
 				
 				if(!isAlive()){
 					if (Dungeon.hero.subClass(HeroSubClass.狂战士)) {
-						怒气 怒气= Buff.施加(this,怒气.class);
-						怒气.damage();
+						算法.修复效果(()->{
+							Buff.施加(this,怒气.class).damage();
+						});
 					}
 				
 				if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
@@ -1066,11 +1067,11 @@ public abstract class Mob extends Char {
 			desc+="生命值"+生命+"/"+最大生命+"\n\n";
 			desc+="攻击力"+最小攻击()+"~"+最大攻击()+"\n\n";
 			desc+="防御力"+最小防御()+"~"+最大防御()+"\n\n";
-			desc+="命中"+最小命中(null)+"/"+最大命中(null)+"\n\n";
-			desc+="闪避"+最小闪避(null)+"/"+最大闪避(null)+"\n\n";
+			desc+="命中"+最小命中(null)+"~"+最大命中(null)+"\n\n";
+			desc+="闪避"+最小闪避(null)+"~"+最大闪避(null)+"\n\n";
 			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
-			desc+="经验/最大等级经验"+经验+"/"+最大等级+"\n\n";
-			desc+="战利品/掉落几率"+loot+"/"+String.format("%.2f",lootChance()*100)+"%";
+			desc+="经验/最大等级经验"+经验+"/"+最大等级;
+//			desc+="战利品/掉落几率"+loot+"/"+String.format("%.2f",lootChance()*100)+"%";
 		}
 		return desc;
 	}

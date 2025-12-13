@@ -89,8 +89,8 @@ public class WndBlacksmith extends Window {
 		pickaxe.enable(Blacksmith.Quest.pickaxe != null && Blacksmith.Quest.favor >= pickaxeCost);
 		buttons.add(pickaxe);
 
-		int 修理人情 = 250 + 500*Blacksmith.Quest.修理;
-		RedButton 修理 = new RedButton(Messages.get(this, "reforge", 修理人情), 6){
+		int 修理人情 = 50 + 100*Blacksmith.Quest.修理;
+		RedButton 修理 = new RedButton(Messages.get(this, "修理", 修理人情), 6){
 			@Override
 			protected void onClick() {
 				hero.回满护甲();
@@ -162,14 +162,14 @@ public class WndBlacksmith extends Window {
 			@Override
 			protected void onClick() {
 				GLog.p(Messages.get(this, "人情"));
-				if(Dungeon.gold>=5000&&Dungeon.energy>=50){
+				if(Dungeon.gold>=2500&&Dungeon.energy>=25){
 					Dungeon.level.drop(Blacksmith.Quest.pickaxe,Dungeon.hero.pos).sprite.drop();
 					GLog.p("正好这有一把我曾经一直使用的锻造锤，非常好用，送给你了。");
 				}
 				Blacksmith.Quest.favor -= 5000;
-				if(Dungeon.gold>=5000&&Dungeon.energy>=50){
-					Dungeon.gold(-5000);
-					Dungeon.energy(-50);
+				if(Dungeon.gold>=2500&&Dungeon.energy>=25){
+					Dungeon.gold(-2500);
+					Dungeon.energy(-25);
 				}
 				WndBlacksmith.this.hide();
 			}

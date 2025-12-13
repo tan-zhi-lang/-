@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,10 @@ public class 护甲修理工具包 extends 用品 {
 		super.execute( hero, action );
 
 		if (action.equals(AC_USE)) {
+			if(hero.护甲>=hero.最大护甲()*2/3){
+				GLog.n("护甲没有破损，不推荐修复护甲，收益不高。");
+				return;
+			}
 			detach(hero.belongings.backpack);
 			hero.回满护甲();
 		}
@@ -28,7 +33,7 @@ public class 护甲修理工具包 extends 用品 {
 	
 	@Override
 	public int 金币() {
-		return 10 * quantity;
+		return 7 * quantity;
 	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
@@ -38,7 +43,7 @@ public class 护甲修理工具包 extends 用品 {
 			return ingredients.size() == 1
 				   && ingredients.get(0) instanceof Armor a
 				   && a.破损纹章==null
-				   && a.等级+1>0
+				   && a.tier+a.等级+1>0
 				   && !a.cursed;
 		}
 		
@@ -71,8 +76,8 @@ public class 护甲修理工具包 extends 用品 {
 			}
 		}
 		
-		private int resinQuantity(Armor w){
-			int level = w.等级();
+		private int resinQuantity(Armor a){
+			int level = a.等级()+a.tier;
 			int quantity = level+1;
 			return quantity;
 		}

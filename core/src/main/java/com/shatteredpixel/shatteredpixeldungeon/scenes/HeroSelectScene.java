@@ -1152,7 +1152,7 @@ public class HeroSelectScene extends PixelScene {
                             HeroClass randomCls;
                             do {
                                 randomCls = Random.oneOf(HeroClass.values());
-                            } while (!randomCls.isUnlocked()||randomCls == HeroClass.英雄);
+                            } while (!randomCls.isUnlocked()||randomCls == HeroClass.NONE);
                             setSelectedHero(randomCls);
                             GamesInProgress.randomizedClass = true;
                         } else {

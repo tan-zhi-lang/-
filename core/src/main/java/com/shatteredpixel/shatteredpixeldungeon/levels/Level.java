@@ -70,6 +70,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
@@ -233,7 +234,7 @@ public abstract class Level implements Bundlable {
 			if(Dungeon.解压(解压设置.探索口粮))
 				addItemToSpawn(Generator.random(Generator.Category.FOOD));
 			
-			if(Dungeon.区域层数(4)) {
+			if(Dungeon.偶数层()) {
 				addItemToSpawn(new SmallRation());
 				if(Dungeon.解压(解压设置.探索口粮))
 					addItemToSpawn(new SmallRation());
@@ -246,6 +247,9 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.区域层数(3)) {
 				addItemToSpawn(new 治疗药剂());
 			}
+			if(Dungeon.区域()==5&&Dungeon.区域层数(1)){
+				addItemToSpawn(new 进阶宝典());
+			}
 			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count==0){
 				addItemToSpawn(new 生命水晶());
 				Dungeon.LimitedDrops.生命水晶.count++;
@@ -254,6 +258,8 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.区域层数(1)) {
 				addItemToSpawn( new 来去秘卷());
 				addItemToSpawn( new 来去秘卷());
+				addItemToSpawn( new 来去秘卷());
+				addItemToSpawn( new 升级卷轴());
 				addItemToSpawn( new 升级卷轴());
 				addItemToSpawn( new 升级卷轴());
 				
@@ -1404,6 +1410,15 @@ public abstract class Level implements Bundlable {
 				plant.trigger();
 
 			}
+		}
+	}
+	public void pressCellgrass(int cell) {
+		switch (map[cell]) {
+			
+			case Terrain.HIGH_GRASS:
+			case Terrain.FURROWED_GRASS:
+				HighGrass.trample( this, cell);
+				break;
 		}
 	}
 

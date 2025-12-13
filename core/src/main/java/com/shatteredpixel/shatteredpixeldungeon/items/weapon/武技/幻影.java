@@ -10,10 +10,10 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
-public class 剑舞 extends 武技{
+public class 幻影 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行五次31%伤害的物理攻击，并花费攻击延迟的回合";
+		desc="对攻击范围内的一个目标进行十次20%伤害的物理攻击，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -45,7 +45,7 @@ public class 剑舞 extends 武技{
 			
 			wep.消耗(hero);
 			hero.连击=5;
-			hero.连击(enemy,伤害156/5f,0,1,wep);
+			hero.连击(enemy,伤害156/10f+伤害156/5f/6f,0,1,wep);
 			wep.技能使用(hero);
 		}
 		

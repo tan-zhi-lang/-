@@ -189,7 +189,6 @@ public class 燃烧 extends Buff implements Hero.Doom {
 	public float iconFadePercent() {
 		return Math.max(0, (DURATION - left) / DURATION);
 	}
-
 	@Override
 	public String iconTextDisplay() {
 		return Integer.toString((int)left);

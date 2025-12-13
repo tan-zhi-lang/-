@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.召唤物品;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -32,6 +31,7 @@ public class 空间之戒 extends Item {
 		image = 物品表.空间之戒;
 		特别 = true;
 		物品 = true;
+		可以空间=false;
 		
 		defaultAction = AC_使用;
 	}
@@ -162,7 +162,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
@@ -222,7 +222,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
@@ -282,7 +282,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
@@ -343,7 +343,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
@@ -403,7 +403,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
@@ -463,7 +463,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
@@ -523,7 +523,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
@@ -583,7 +583,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 空间之戒||item instanceof Bag);
+								return !(item instanceof 空间之戒||item instanceof Bag||item instanceof Bag);
 							}
 							
 							@Override
@@ -643,7 +643,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override

@@ -130,8 +130,7 @@ public class Chasm implements Hero.Doom {
 		Dungeon.level.occupyCell(hero );
 		
 		
-		if(hero.heroClass(HeroClass.灵猫)
-		   ||hero.flying
+		if(hero.flying
 		   || hero.buff(Levitation.class) != null){
 			return;
 		}

@@ -757,7 +757,7 @@ public class PrisonBossLevel extends Level {
 		
 		private float fadeDuration = 1f;
 		private float initialAlpha = .4f;
-		private float fadeDelay = 4;//陷阱显示2
+		private float fadeDelay = 3.5f;//陷阱显示2
 		
 		public void setCoveringArea(Rect area){
 			tileX = area.left;

@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
@@ -48,22 +47,31 @@ public class 财富之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.##", Math.pow(1.20f, soloBuffedBonus()) - 1f));
+					Messages.decimalFormat("#.2", Math.pow(1.20f, soloBuffedBonus()) - 1f),2*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.##", Math.pow(1.20f, combinedBuffedBonus(Dungeon.hero)) - 1f));
+						Messages.decimalFormat("#.2", Math.pow(1.20f, combinedBuffedBonus(Dungeon.hero)) - 1f),2+2*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.##", 0.20f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.20f),2);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.##", Math.pow(1.2f, level+1)-1f) + "倍";
+		return Messages.decimalFormat("#.2", Math.pow(1.2f, level+1)-1f) + "倍";
 	}
-
+	
+	@Override
+	public String upgradeStat2(int level) {
+		if (cursed && cursedKnown) level = Math.min(-1, level-3);
+		return ""+2+level*2;
+	}
+	
+	public static int 暴击率( Char target ){
+		return getBuffedBonus( target, 财富之戒.Wealth.class);
+	}
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";
 

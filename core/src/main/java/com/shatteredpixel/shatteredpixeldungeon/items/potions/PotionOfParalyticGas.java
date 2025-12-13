@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ParalyticGas;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 
 public class PotionOfParalyticGas extends Potion {
 
@@ -26,8 +27,11 @@ public class PotionOfParalyticGas extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 			Sample.INSTANCE.play( Assets.Sounds.GAS );
 		}
-
-		GameScene.add( Blob.seed( cell, 1000, ParalyticGas.class ) );
+		for (int offset : PathFinder.NEIGHBOURS9){
+			if (!Dungeon.level.solid[cell+offset]) {
+				GameScene.add( Blob.seed( cell+offset, 111/*1000*/, ParalyticGas.class ) );
+			}
+		}
 	}
 	
 	@Override

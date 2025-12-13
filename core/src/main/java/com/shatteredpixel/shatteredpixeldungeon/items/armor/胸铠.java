@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -20,18 +19,19 @@ public class 胸铠 extends Armor {
 		super(1);
 	}
 	@Override
-	public int 最大防御(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(tier + lvl+tier);
+	public int 力量(int lvl) {
+		int req = 力量(tier, lvl)-1;
+		
+		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
+			req-=Dungeon.hero.护甲力量;
+		}
+		if (神力){
+			req -= 3;
 		}
 		
-		int max = augment.defenseFactor(tier * (2 + lvl)+tier);
-		if (lvl > max){
-			return ((lvl - max)+1)/2;
-		} else {
-			return max;
-		}
+		return req;
 	}
+	
 	@Override
 	public int 金币() {
 		return Math.round(super.金币()*1.34f);

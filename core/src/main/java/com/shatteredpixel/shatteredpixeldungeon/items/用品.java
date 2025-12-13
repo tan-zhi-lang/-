@@ -14,6 +14,7 @@ public class 用品 extends Item {
 		defaultAction = AC_USE;
 		
 		特别= true;
+		可堆叠=true;
 		物品 = true;
 	}
 	

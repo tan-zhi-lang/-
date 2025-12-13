@@ -17,8 +17,9 @@ public class 长矛 extends Weapon{
 		技能=new 刺退();
 		投矛=true;
 		tier = 1;
-		延迟= 1.5f;
+		延迟= 1.35f;
 		伤害= 1.35f;
+		命中=0.85f;
 		范围 = 2;
 	}
 	

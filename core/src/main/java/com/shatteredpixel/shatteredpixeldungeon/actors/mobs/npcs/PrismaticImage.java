@@ -3,14 +3,15 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PrismaticGuard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -71,6 +72,14 @@ public class PrismaticImage extends NPC {
 			sprite.resetColor();
 		}
 		
+		if(!Dungeon.level.heroFOV[pos]){
+			Buff.施加(hero, PrismaticGuard.class).set( PrismaticImage.this );
+			destroy();
+			CellEmitter.get(pos).start( Speck.factory(Speck.LIGHT), 0.2f, 3 );
+			sprite.die();
+			Sample.INSTANCE.play( Assets.Sounds.TELEPORT );
+			return true;
+		}
 		if ( hero == null ){
 			hero = (Hero) Actor.findById(heroID);
 			if ( hero == null ){

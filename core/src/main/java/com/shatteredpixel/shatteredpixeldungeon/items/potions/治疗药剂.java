@@ -44,7 +44,7 @@ public class 治疗药剂 extends Potion {
 		} else {
 			//starts out healing 30 hp, equalizes with hero health total at level 11
 			Healing healing = Buff.施加(ch, Healing.class);
-			healing.setHeal(ch.最大生命(0.9f), 0.3f, 0);
+			healing.setHeal(ch.最大生命(0.9f), 0.45f, 0);
 			healing.applyVialEffect();
 			if (ch == Dungeon.hero){
 				GLog.p( Messages.get(治疗药剂.class, "heal") );

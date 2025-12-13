@@ -254,7 +254,7 @@ public class SandalsOfNature extends Artifact {
 			if (cursed || target.buff(MagicImmune.class) != null) return;
 			if (charge < chargeCap){
 				//0.5 charge per grass at +0, up to 1 at +10
-				float chargeGain = (3f + 等级())/6f;
+				float chargeGain = (3f + 等级())/3f;
 				chargeGain *= 能量之戒.artifactChargeMultiplier(target);
 				partialCharge += Math.max(0, chargeGain);
 				while (partialCharge >= 1){

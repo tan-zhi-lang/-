@@ -24,21 +24,21 @@ public class 能量之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.##", Math.pow(1.175f, soloBuffedBonus()) - 1f));
+					Messages.decimalFormat("#.2", Math.pow(1.175f, soloBuffedBonus()) - 1f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.##", Math.pow(1.175f, combinedBuffedBonus(Dungeon.hero)) - 1f));
+						Messages.decimalFormat("#.2", Math.pow(1.175f, combinedBuffedBonus(Dungeon.hero)) - 1f));
 			}
 			return info;
 		} else {
 			return Messages.get(this, "stats",
-					Messages.decimalFormat("#.##", 0.175f));
+					Messages.decimalFormat("#.2", 0.175f));
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.##", Math.pow(1.175f, level+1)-1f) + "倍";
+		return Messages.decimalFormat("#.2", Math.pow(1.175f, level+1)-1f) + "倍";
 	}
 	
 	@Override

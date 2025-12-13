@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
@@ -44,6 +45,14 @@ public class 白猫 extends NPC {
 			return true;
 		}
 		
+		if(!Dungeon.level.heroFOV[pos]){
+			Buff.施加(hero, 白猫保护.class);
+			destroy();
+			CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT),0.2f,3);
+			sprite.die();
+			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+			return true;
+		}
 		
 		if ( hero==null){
 			hero = (Hero) Actor.findById(heroID);
@@ -103,7 +112,7 @@ public class 白猫 extends NPC {
 	@Override
 	public int 最小攻击() {
 		if (hero != null) {
-			return hero.最大攻击();
+			return hero.最小攻击();
 		} else {
 			return 0;
 		}
@@ -191,7 +200,7 @@ public class 白猫 extends NPC {
 	public void 受伤时(int dmg,Object src){
 		if (hero != null){
 			Sample.INSTANCE.play(Assets.Sounds.哈气猫);
-			hero.受伤时(Math.round(dmg*0.6f),src);
+//			hero.受伤时(Math.round(dmg*0.6f),src);
 		}
 	}
 	
@@ -219,6 +228,7 @@ public class 白猫 extends NPC {
 		
 		@Override
 		public boolean act(boolean enemyInFOV, boolean justAlerted) {
+			
 			if (!enemyInFOV){
 				Buff.施加(hero, 白猫保护.class);
 				destroy();

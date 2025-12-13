@@ -23,7 +23,7 @@ import com.watabou.utils.PathFinder;
 public class 突刺 extends 武技{
 	{
 		目标=true;
-		desc="瞬移至一个距离攻击范围+1的目标并进行一次118%伤害必中的物理攻击，并花费攻击延迟的回合";
+		desc="瞬移至一个距离攻击范围+1的目标并进行一次131%伤害必中的物理攻击，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -91,7 +91,7 @@ public class 突刺 extends 武技{
 							public void call() {
 								
 								AttackIndicator.target(enemy);
-								if (hero.attack(enemy, 伤害118,0,Char.INFINITE)) {
+								if (hero.attack(enemy, 伤害131,0,Char.INFINITE)) {
 									Sample.INSTANCE.play(wep.hitSound);
 								}
 								Invisibility.notimedispel();

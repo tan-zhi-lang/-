@@ -56,28 +56,22 @@ public class MobSpawner extends Actor {
 
 			// Sewers
 			case 1: default:
-				//3x rat, 1x snake
-				if(Dungeon.hero.heroClass(HeroClass.鼠弟)){
+				//3x rat, 1x snake\
 					return new ArrayList<>(Arrays.asList(
-							Albino.class, Snake.class, Snake.class,
+							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
+							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
+							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 							Snake.class));
-				}
-				return new ArrayList<>(Arrays.asList(
-						Rat.class, Rat.class, Rat.class,
-						Snake.class));
 			case 2:
-				if(Dungeon.hero.heroClass(HeroClass.鼠弟)){
-					return new ArrayList<>(Arrays.asList(Albino.class, Snake.class,
+					//2x rat, 1x snake, 2x gnoll
+					return new ArrayList<>(Arrays.asList(Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
+														 Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 														 Snake.class,
 														 Gnoll.class, Gnoll.class));
-				}
-				//2x rat, 1x snake, 2x gnoll
-				return new ArrayList<>(Arrays.asList(Rat.class, Rat.class,
-						Snake.class,
-						Gnoll.class, Gnoll.class));
+				
 			case 3:
 				//1x rat, 1x snake, 3x gnoll, 1x swarm, 1x crab
-				return new ArrayList<>(Arrays.asList(Rat.class,
+				return new ArrayList<>(Arrays.asList(Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 						Snake.class,
 						Gnoll.class, Gnoll.class, Gnoll.class,
 						Swarm.class,
@@ -120,20 +114,23 @@ public class MobSpawner extends Actor {
 			case 11:
 				//3x bat, 1x brute, 1x shaman
 				return new ArrayList<>(Arrays.asList(
-						Bat.class, Bat.class, Bat.class,
+						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
+						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
+						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
 						Brute.class,
 						Shaman.random()));
 			case 12:
 				//2x bat, 2x brute, 1x shaman, 1x spinner
 				return new ArrayList<>(Arrays.asList(
-						Bat.class, Bat.class,
+						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
+						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(),
 						Spinner.class));
 			case 13:
 				//1x bat, 2x brute, 2x shaman, 2x spinner, 1x DM-200
 				return new ArrayList<>(Arrays.asList(
-						Bat.class,
+						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
 						Brute.class, Brute.class,
 						Shaman.random(), Shaman.random(),
 						Spinner.class, Spinner.class,
@@ -141,7 +138,7 @@ public class MobSpawner extends Actor {
 			case 14: case 15:
 				//1x bat, 1x brute, 2x shaman, 2x spinner, 2x DM-300
 				return new ArrayList<>(Arrays.asList(
-						Bat.class,
+						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
 						Brute.class,
 						Shaman.random(), Shaman.random(),
 						Spinner.class, Spinner.class,
@@ -227,7 +224,7 @@ public class MobSpawner extends Actor {
 
 			// Prison
 			case 9:
-				if (Random.Float() < x) rotation.add(Bat.class);
+				if (Random.Float() < x) rotation.add(Dungeon.老鼠蝙蝠?Rat.class:Bat.class);
 				return;
 
 			// Caves
@@ -245,11 +242,17 @@ public class MobSpawner extends Actor {
 	//switches out regular mobs for their alt versions when appropriate
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation) {
 		float altChance = 1 / 50f * RatSkull.exoticChanceMultiplier();
-		
 		if(Holiday.getCurrentHoliday()==Holiday._1024){
 			altChance*=2;
 		}
 		for (int i = 0; i < rotation.size(); i++) {
+			if(Dungeon.hero.heroClass(HeroClass.鼠弟)){
+				Class<? extends Mob> cl = rotation.get(i);
+				if (cl == Rat.class){
+					cl = Albino.class;
+					rotation.set(i, cl);
+				}
+			}
 			if(Dungeon.解压(解压设置.纯正怪物)){
 				return;
 			}

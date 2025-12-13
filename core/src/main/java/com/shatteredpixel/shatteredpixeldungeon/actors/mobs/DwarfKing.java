@@ -30,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
@@ -45,9 +44,11 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.KingSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.UndeadSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -196,8 +197,8 @@ public class DwarfKing extends Mob {
 						Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
 						yell(Messages.get(this, "wave_1"));
 					}
-					summonSubject(3, DKGhoul.class);
-					summonSubject(3, DKGhoul.class);
+					summonSubject(3, DKSkeleton.class);
+					summonSubject(3, DKGhoul.class);//2
 					spend(3 * TICK);
 					summonsMade += 2;
 					return true;
@@ -207,8 +208,8 @@ public class DwarfKing extends Mob {
 						Sample.INSTANCE.play(Assets.Sounds.CHALLENGE);
 						yell(Messages.get(this, "wave_2"));
 					}
-					summonSubject(3, DKGhoul.class);
-					summonSubject(3, DKGhoul.class);
+					summonSubject(3, DKSkeleton.class);
+					summonSubject(3, DKGhoul.class);//2
 					if (summonsMade == 6) {
 						summonSubject(3, DKMonk.class);
 					} else {
@@ -224,8 +225,8 @@ public class DwarfKing extends Mob {
 						yell(Messages.get(this, "wave_3"));
 						summonSubject(3, DKWarlock.class);
 						summonSubject(3, DKMonk.class);
-						summonSubject(3, DKGhoul.class);
-						summonSubject(3, DKGhoul.class);
+						summonSubject(3, DKSkeleton.class);
+						summonSubject(3, DKGhoul.class);//2
 						summonsMade += 4;
 						spend(3*TICK);
 					} else {
@@ -271,8 +272,8 @@ public class DwarfKing extends Mob {
 					yell(Messages.get(this, "wave_3"));
 					summonSubject(4, DKWarlock.class);
 					summonSubject(4, DKMonk.class);
-					summonSubject(4, DKGhoul.class);
-					summonSubject(4, DKGhoul.class);
+					summonSubject(4, DKSkeleton.class);
+					summonSubject(4, DKGhoul.class);//2
 					summonsMade = 12;
 					spend(TICK);
 					return true;
@@ -457,14 +458,14 @@ public class DwarfKing extends Mob {
 		if (是无敌(src.getClass())){
 			super.受伤时(dmg, src);
 			return;
-		} else if (phase == 3 && !(src instanceof Viscosity.DeferedDamage)){
+		} else if (phase == 3 ){//&& !(src instanceof Viscosity.DeferedDamage)
 			if (dmg >= 0) {
-				Viscosity.DeferedDamage deferred = Buff.施加( this, Viscosity.DeferedDamage.class );
-				deferred.extend( dmg );
-
-				sprite.showStatus( CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg) );
+				dmg=算法.固衰(dmg,5);
+//				Viscosity.DeferedDamage deferred = Buff.施加( this, Viscosity.DeferedDamage.class );
+//				deferred.extend( dmg );
+//				sprite.showStatus( CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg) );
 			}
-			return;
+//			return;
 		}
 		int preHP = 生命;
 		super.受伤时(dmg, src);
@@ -588,6 +589,13 @@ public class DwarfKing extends Mob {
 		return super.免疫(effect);
 	}
 
+	public static class DKSkeleton extends Skeleton {
+		{
+			spriteClass = UndeadSprite.class;
+			properties.add(Property.BOSS_MINION);
+			state = HUNTING;
+		}
+	}
 	public static class DKGhoul extends Ghoul {
 		{
 			properties.add(Property.BOSS_MINION);

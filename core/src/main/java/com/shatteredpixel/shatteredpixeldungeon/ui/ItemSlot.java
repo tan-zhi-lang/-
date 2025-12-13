@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
@@ -53,11 +52,9 @@ public class ItemSlot extends Button {
 
 	protected BitmapText center;
 
-	private static final String TXT	= "%d";
-	private static final String TXT_TYPICAL_STR	= "%d";
-
-	private static final String TXT_LEVEL	= "+%d";
-
+	private static final String TXT	= "%s";
+	private static final String FLOAT	= "%.2f";
+	private static final String ADD_TXT= "+%s";
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
 		public int image() { return 物品表.CHEST; }
@@ -270,7 +267,7 @@ public class ItemSlot extends Button {
 			} else {
 				int str = item instanceof Weapon ? ((Weapon)item).力量(0) : ((Armor)item).力量(0);
 			
-				extra.text( Messages.format( TXT_TYPICAL_STR, str ) );
+				extra.text( Messages.format( TXT, str ) );
 				if (Dungeon.hero() && str > Dungeon.hero.力量()) {
 					if(str == Dungeon.hero.力量()){
 						extra.hardlight( WARNING );
@@ -323,7 +320,7 @@ public class ItemSlot extends Button {
 				level.measure();
 				level.hardlight( WARNING );
 			}else if (item instanceof 荆棘斗篷 x) {
-				extra.text( Messages.format( TXT, x.等级()+5) );
+				extra.text( Messages.format( FLOAT, x.等级()*0.2f+0.5f) );
 				extra.measure();
 				extra.hardlight( FADED );
 			}else if (item instanceof 心之钢 x) {
@@ -333,10 +330,6 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, x.心之钢生命));
 				center.measure();
 				center.hardlight( UPGRADED );
-			}else if (item instanceof 武力之戒 x) {
-				level.text( Messages.format( TXT, x.soloBuffedBonus()+1) );
-				level.measure();
-				level.hardlight( WARNING );
 			}else{
 				if(center.text!=null){
 					center.text(null);
@@ -354,7 +347,7 @@ public class ItemSlot extends Button {
 		   item instanceof Wand||
 		   item instanceof Artifact){
 			if (trueLvl != 0 || buffedLvl != 0) {
-				center.text(Messages.format(TXT_LEVEL, buffedLvl));
+				center.text(Messages.format(ADD_TXT,buffedLvl));
 				center.measure();
 				if (trueLvl == buffedLvl || buffedLvl <= 0) {
 					if (buffedLvl > 0) {
@@ -379,7 +372,7 @@ public class ItemSlot extends Button {
 			}
 		}else {
 			if (trueLvl != 0 || buffedLvl != 0) {
-				level.text(Messages.format(TXT_LEVEL, buffedLvl));
+				level.text(Messages.format(ADD_TXT,buffedLvl));
 				level.measure();
 				if (trueLvl == buffedLvl || buffedLvl <= 0) {
 					if (buffedLvl > 0) {

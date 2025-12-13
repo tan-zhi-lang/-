@@ -62,12 +62,12 @@ public class Sheep extends NPC {
 	@Override
 	public boolean interact(Char c) {
 		Bestiary.setSeen(getClass());
-		{
+//		{
 //			LINE_KEYS = {"Baa!", "Baa?", "Baa.", "Baba"}
 //			LINE_KEYS = {"Baa!", "Baa?", " "Baba"}
 //			LINE_KEYS = {"Baa!", "Baba"}
 //			LINE_KEYS = {"Baba"}
-		}
+//		}
 		String s = Random.element(LINE_KEYS);
 		sprite.showStatus( CharSprite.NEUTRAL, Messages.get(this,s) );
 		

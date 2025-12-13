@@ -119,9 +119,9 @@ public class 武力之戒 extends Ring{
 			lvl=0;
 		}
 		
-		return Math.max(0,Math.round(tier+  //base
+		return Math.max(0,Math.round((tier+  //base
 									 lvl     //level scaling
-									));
+									 )/2));
 	}
 	
 	//same as equivalent tier weapon

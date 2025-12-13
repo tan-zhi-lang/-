@@ -79,6 +79,7 @@ public class Item implements Bundlable {
 	public boolean 物品 = false;
 	public boolean 炼金全放 = false;
 	public boolean 升级物品 = true;
+	public boolean 可以空间 = true;
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;
 
@@ -371,7 +372,9 @@ public class Item implements Bundlable {
 			
 		} else
 		if (quantity == 1) {
-
+			
+			Dungeon.quickslot.alphaItem( Item.this ,true);
+			updateQuickslot();
 			if (可堆叠){
 				Dungeon.quickslot.convertToPlaceholder(this);
 			}
@@ -390,7 +393,6 @@ public class Item implements Bundlable {
 	}
 	
 	public final Item detachAll( Bag container ) {
-		Dungeon.quickslot.alphaItem( this ,true);
 
 		for (Item item : container.items) {
 			if (item == this) {

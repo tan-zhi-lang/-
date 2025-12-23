@@ -125,6 +125,8 @@ public class WndGameInProgress extends Window {
 		pos += GAP;
 
 		statSlot( Messages.get(this, "depth"), info.maxDepth );
+		statSlot( "难度", Dungeon.难度名称(info.难度));
+		pos += GAP;
 		if (info.daily) {
 			if (info.dailyReplay) {
 				statSlot(Messages.get(this, "replay_for"), "_" + info.customSeed + "_");

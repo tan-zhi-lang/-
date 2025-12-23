@@ -44,7 +44,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	public boolean act() {
 
 		if (!freerunning() && target.invisible > 0 ){
-			if(target instanceof Hero hero&&hero.精通){
+			if(target instanceof Hero hero&&hero.天赋(Talent.职业精通)){
 				momentumStacks -=0.5;
 			}
 			momentumStacks = Math.min(momentumStacks + 2, 10);
@@ -203,7 +203,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public void doAction() {
-		if(target instanceof Hero hero&&hero.精通){
+		if(target instanceof Hero hero&&hero.天赋(Talent.职业精通)){
 			freerunTurns = momentumStacks*2;
 		}else{
 			freerunTurns = momentumStacks;

@@ -92,13 +92,14 @@ public class Feint extends ArmorAbility {
 				hero.pos = target;
 				Dungeon.level.occupyCell(hero);
 				Invisibility.dispel();
-				hero.spendAndNext(1f);
+				hero.next();
 			}
 		});
 
 		AfterImage image = new AfterImage();
 		image.pos = hero.pos;
-		GameScene.add(image, 1);
+		GameScene.add(image);
+		image.syncToHero(hero);
 
 		int imageAttackPos;
 		Char enemyTarget = TargetHealthIndicator.instance.target();
@@ -172,7 +173,11 @@ public class Feint extends ArmorAbility {
 			sprite.die();
 			return true;
 		}
-
+		public void syncToHero(Hero hero){
+			if (cooldown() != hero.cooldown()){
+				spendConstant(hero.cooldown() - cooldown());
+			}
+		}
 		@Override
 		public void 受伤时(int dmg, Object src ) {
 
@@ -185,7 +190,9 @@ public class Feint extends ArmorAbility {
 					((Mob) enemy).clearEnemy();
 				}
 				Buff.施加(enemy, FeintConfusion.class, 1);
-				if (enemy.sprite != null) enemy.sprite.showLost();
+				if (enemy.sprite != null) {
+					enemy.sprite.showLost();
+				}
 				if (Dungeon.hero.天赋(Talent.FEIGNED_RETREAT)) {
 					Buff.延长(Dungeon.hero, 极速.class, 2f * Dungeon.hero.天赋点数(Talent.FEIGNED_RETREAT));
 				}

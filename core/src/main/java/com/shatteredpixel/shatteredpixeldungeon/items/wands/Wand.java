@@ -146,6 +146,10 @@ public abstract class Wand extends Item {
 	@Override
 	public boolean 放背包(Bag container ) {
 		if (super.放背包( container )) {
+			
+			if(首次拾取){
+				usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
+			}
 			if (container.owner != null) {
 				if (container instanceof MagicalHolster)
 					charge( container.owner, ((MagicalHolster) container).HOLSTER_SCALE_FACTOR );
@@ -191,7 +195,7 @@ public abstract class Wand extends Item {
 		
 		if (target != Dungeon.hero&&
 				Dungeon.hero.subClass == HeroSubClass.术士){
-			灵魂标记.延长(target,灵魂标记.class,灵魂标记.DURATION+(Dungeon.hero.精通?10:5));
+			灵魂标记.延长(target,灵魂标记.class,灵魂标记.DURATION+(Dungeon.hero.天赋(Talent.职业精通)?10:5));
 		}
 	}
 
@@ -403,8 +407,11 @@ public abstract class Wand extends Item {
 
 	public void wandUsed() {
 		if (!已鉴定()) {
-			float uses = Talent.鉴定速度(Dungeon.hero,this);
-			usesLeftToID -= uses;
+			if(首次使用){
+				首次使用=false;
+				usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
+			}
+			usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){

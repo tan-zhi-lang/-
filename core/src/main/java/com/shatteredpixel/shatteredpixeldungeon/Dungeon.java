@@ -8,6 +8,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
@@ -53,6 +55,10 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.下水道1;
+import com.shatteredpixel.shatteredpixeldungeon.levels.下水道2;
+import com.shatteredpixel.shatteredpixeldungeon.levels.下水道3;
+import com.shatteredpixel.shatteredpixeldungeon.levels.下水道4;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -170,6 +176,7 @@ public class Dungeon {
 	public static int 玩法;
 	public static int 地牢时间;
 	public static int 地牢天数;
+	public static int 难度;
 	public static boolean 老鼠蝙蝠;
 	public static float mobsToChampion;
 
@@ -192,7 +199,10 @@ public class Dungeon {
 	public static int gold(int x){
 		if(x>0){
 			energy(Math.round(圣金之沙.获得()*x));
-			gold+=x;
+			gold+=Math.round(x*
+					 (hero()&&hero.天赋(Talent.财富)?
+					 hero.天赋点数(Talent.财富,0.2f)+1
+					 :1));
 		}
 		if(x<0){
 			gold+=x;
@@ -260,7 +270,9 @@ public class Dungeon {
 		玩法 = SPDSettings.玩法();
 		地牢时间= 360;
 		地牢天数= 1;
-		老鼠蝙蝠= Random.oneOf(true,false);
+		if(难度==0)难度=2;
+		老鼠蝙蝠= false;
+//		老鼠蝙蝠= Random.oneOf(true,false);
 		mobsToChampion = 1;
 
 		Actor.clear();
@@ -293,6 +305,9 @@ public class Dungeon {
 		
 		gold=0;
 		energy=0;
+		if(Dungeon.玩法(玩法设置.地牢塔防)){
+			energy(10);
+		}
 		if(Dungeon.系统(系统设置.资产破亿)||算法.isDebug()){
 			gold(1_0000);
 			energy(1_0000);
@@ -361,7 +376,85 @@ public class Dungeon {
 		}
 		return 小时+":"+(分钟<=9?"0"+分钟:分钟);
 	}
-
+	public static float 难度生命(){
+		float x=0;
+		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+			x+=30+(循环()-1)*5;
+		}
+		return switch(难度){
+			case 1 -> 0.67f+x;
+			case 2 -> 1f+x;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.5f+x;
+			default -> 1+x;
+		};
+	}
+	public static float 难度攻击(){
+		float x=0;
+		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+			x+=10+(循环()-1)*1.67;
+		}
+		return switch(难度){
+			case 1 -> 0.67f+x;
+			case 2 -> 1f+x;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
+			default -> 1+x;
+		};
+	}
+	public static float 难度经验(){
+		return switch(难度){
+			case 1 -> 1.5f;
+			case 2 -> 1f;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  0.5f+(难度-2)*0.5f;
+			default -> 1;
+		};
+	}
+	public static float 难度掉率(){
+		
+		return switch(难度){
+			case 1-> 1.5f;
+			case 2-> 1;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  0.5f+(难度-2)*0.5f;
+			default -> 1;
+		};
+	}
+	public static String 难度名称(){
+		return 难度名称(难度);
+	}
+	public static String 难度名称(int 难度){
+		return switch(难度){
+			case 1->"简单";
+			case 2->"普通";
+			case 3->"困难";
+			case 4->"史诗";
+			case 5->"传奇";
+			case 6->"神话";
+			case 7->"神话I";
+			case 8->"神话II";
+			case 9->"神话III";
+			case 10->"神话IV";
+			case 11->"神话V";
+			case 12->"神话VI";
+			case 13->"神话VII";
+			case 14->"神话VIII";
+			case 15->"神话IX";
+			case 16->"神话X";
+			default -> "";
+		};
+	}
+	public static float 难度防御(){
+		float x=1;
+		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+			x+=5+(循环()-1)*0.84;
+		}
+		return x;
+	}
+	public static float 难度命中闪避(){
+		float x=1;
+		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+			x+=4.5f+(循环()-1)*0.75f;
+		}
+		return x;
+	}
 	public static boolean levelHasBeenGenerated(int depth, int branch){
 		return generatedLevels.contains(depth + 1000*branch);
 	}
@@ -373,57 +466,96 @@ public class Dungeon {
 		
 		Level level;
 		if (branch == 0) {
-			switch (depth) {
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-					level = new SewerLevel();
-					break;
-				case 5:
-					level = new SewerBossLevel();
-					break;
-				case 6:
-				case 7:
-				case 8:
-				case 9:
-					level = new PrisonLevel();
-					break;
-				case 10:
-					level = new PrisonBossLevel();
-					break;
-				case 11:
-				case 12:
-				case 13:
-				case 14:
-					level = new CavesLevel();
-					break;
-				case 15:
-					level = new CavesBossLevel();
-					break;
-				case 16:
-				case 17:
-				case 18:
-				case 19:
-					level = new CityLevel();
-					break;
-				case 20:
-					level = new CityBossLevel();
-					break;
-				case 21:
-				case 22:
-				case 23:
-				case 24:
-					level = new HallsLevel();
-					break;
-				case 25:
-					level = new HallsBossLevel();
-					break;
-				case 26:
-					level = new LastLevel();
-					break;
-				default:
-					level = new DeadEndLevel();
+			if(Dungeon.玩法(玩法设置.地牢塔防)){
+				switch (depth){
+					case 1:
+						level=new 下水道1();
+						break;
+					case 2:
+						level=new 下水道2();
+						break;
+					case 3:
+						level=new 下水道3();
+						break;
+					case 4:
+						level=new 下水道4();
+						break;
+					default:
+						level=new DeadEndLevel();
+				}
+			}else{
+					switch(depth){
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+							level=new SewerLevel();
+							break;
+						case 5:
+							level=new SewerBossLevel();
+							break;
+						case 6:
+						case 7:
+						case 8:
+						case 9:
+							level=new PrisonLevel();
+							break;
+						case 10:
+							level=new PrisonBossLevel();
+							break;
+						case 11:
+						case 12:
+						case 13:
+						case 14:
+							level=new CavesLevel();
+							break;
+						case 15:
+							level=new CavesBossLevel();
+							break;
+						case 16:
+						case 17:
+						case 18:
+						case 19:
+							level=new CityLevel();
+							break;
+						case 20:
+							level=new CityBossLevel();
+							break;
+						case 21:
+						case 22:
+						case 23:
+						case 24:
+							level=new HallsLevel();
+							break;
+						case 25:
+							level=new HallsBossLevel();
+							break;
+						case 26:
+							level=new LastLevel();
+							break;
+						default:
+							level=new DeadEndLevel();
+				}
+				if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>1){
+					if(区域()==1){
+						level=new SewerLevel();
+						if(bossLevel()){
+							level=new SewerBossLevel();
+						}
+					}
+					if(区域()==2){
+						level=new PrisonLevel();
+					}
+					if(区域()==3){
+						level=new CavesLevel();
+					}
+					if(区域()==4){
+						level=new CityLevel();
+					}
+					if(区域()==5){
+						level=new HallsLevel();
+					}
+				}
 			}
 		} else if (branch == 1) {
 			switch (depth) {
@@ -443,7 +575,7 @@ public class Dungeon {
 				default:
 					level = new DeadEndLevel();
 			}
-		} else {
+		}else {
 			level = new DeadEndLevel();
 		}
 		
@@ -504,16 +636,16 @@ public class Dungeon {
 	}
 	
 	public static boolean shopOnLevel() {
-		
-		return depth == 1 || depth == 6 || depth == 11 || depth == 16;
+		if(区域()==5)return false;
+		return 区域层数(1);
 	}
 	
 	public static boolean bossLevel() {
-		return bossLevel( depth );
+		return 区域层数(0);
 	}
 	
 	public static boolean bossLevel( int depth ) {
-		return 区域层数(5);
+		return depth%5==0;
 	}
 
 	//value used for scaling of damage values and other effects.
@@ -690,6 +822,7 @@ public class Dungeon {
 	private static final String 解压x	= "解压";
 	private static final String 系统x	= "系统";
 	private static final String 玩法x	= "玩法";
+	private static final String 难度x	= "难度";
 	private static final String 地牢时间x= "地牢时间";
 	private static final String 地牢天数x= "地牢天数";
 	private static final String 老鼠蝙蝠x= "老鼠蝙蝠";
@@ -724,6 +857,7 @@ public class Dungeon {
 			bundle.put( 解压x, 解压 );
 			bundle.put( 系统x, 系统 );
 			bundle.put( 玩法x, 玩法 );
+			bundle.put( 难度x, 难度 );
 			bundle.put(地牢时间x,地牢时间);
 			bundle.put(地牢天数x,地牢天数);
 			bundle.put(老鼠蝙蝠x,老鼠蝙蝠);
@@ -838,6 +972,7 @@ public class Dungeon {
 		Dungeon.解压 = bundle.getInt( 解压x );
 		Dungeon.系统 = bundle.getInt( 系统x );
 		Dungeon.玩法 = bundle.getInt( 玩法x );
+		Dungeon.难度 = bundle.getInt( 难度x );
 		Dungeon.地牢时间= bundle.getInt(地牢时间x);
 		Dungeon.地牢天数= bundle.getInt(地牢天数x);
 		Dungeon.老鼠蝙蝠= bundle.getBoolean(老鼠蝙蝠x);
@@ -964,6 +1099,7 @@ public class Dungeon {
 		info.解压 = bundle.getInt( 解压x );
 		info.系统 = bundle.getInt( 系统x );
 		info.玩法 = bundle.getInt( 玩法x );
+		info.难度 = bundle.getInt( 难度x );
 		info.seed = bundle.getLong( SEED );
 		info.customSeed = bundle.getString( CUSTOM_SEED );
 		info.daily = bundle.getBoolean( DAILY );
@@ -1042,6 +1178,10 @@ public class Dungeon {
 			for (Mob m : level.mobs.toArray(new Mob[0])){
 				if (m instanceof Mimic && m.alignment == Char.Alignment.NEUTRAL && ((Mimic) m).stealthy()){
 					continue;
+				}
+				if(m.hasbuff(Invisibility.class)){//感知看到隐形敌人
+					Invisibility.dispel(m);
+					m.remove(m.buff(Levitation.class));
 				}
 
 				BArray.or( level.visited, level.heroFOV, m.pos - 1 - level.width(), 3, level.visited );
@@ -1198,43 +1338,15 @@ public class Dungeon {
 		return Math.round(区域()*x);
 	}
 	public static int 区域(){
-		if(depth<=5){
-			return 1;
-		}
-		if(depth<=10){
-			return 2;
-		}
-		if(depth<=15){
-			return 3;
-		}
-		if(depth<=20){
-			return 4;
-		}
-		if(depth<=25){
-			return 5;
-		}
-		return 0;
+		return Dungeon.depth/5+1;
+	}
+	public static int 循环(){
+		return Dungeon.depth/25;
 	}
 	public static boolean 偶数层(){
 		return Dungeon.depth%2==0;
 	}
-	public static boolean 区域层数(int x){
-		if(x==1){
-			return depth==5-4||depth==10-4||depth==15-4||depth==20-4||depth==25-4;
-		}
-		if(x==2){
-			return depth==5-3||depth==10-3||depth==15-3||depth==20-3||depth==25-3;
-		}
-		if(x==3){
-			return depth==5-2||depth==10-2||depth==15-2||depth==20-2||depth==25-2;
-		}
-		if(x==4){
-			return depth==5-1||depth==10-1||depth==15-1||depth==20-1||depth==25-1;
-		}
-		if(x==5){
-			return depth==5||depth==10||depth==15||depth==20||depth==25;
-		}
-
-		return false;
+	public static boolean 区域层数(int x){//1~4
+		return depth%5==x;
 	}
 }

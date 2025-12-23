@@ -6,6 +6,9 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x10;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x23;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x25;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x26;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x27;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x28;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x6;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x7;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x8;
@@ -43,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -156,8 +160,24 @@ public enum Talent {
 	
 	死亡抗拒(x23+5,4),
 	
-	鉴定速度(x25),攻击强化(x25+1),防御强化(x25+2),
-	杀伐果决(x25+4,3),技巧敏捷(x25+5,3),杀意感知(x25+6,3),随风而动(x25+7,3),
+	知识(x25),勇武(x25+1),备战(x25+2),
+	
+	健身(x25+4,3),破绽(x25+5,3),寻觅(x25+6,3),静步(x25+7,3),
+	
+	职业精通(x25+9,1),综合能力(x25+10,1),
+	均衡战斗(x25+11,1),战斗技巧(x25+12,1),背水一战(x25+13,1),九死一生(x25+14,1),
+	
+	
+	埋伏(x26),技巧(x26+1),突袭(x26+2),
+	猛攻(x26+4,3),集中(x26+5,3),近视(x26+6,3),快攻(x26+7,3),
+	
+	硬肤(x28+4,3),财富(x28+5,3),夜视(x28+6,3),丝路(x28+7,3),
+	
+	招架(x27),久战(x27+1),武装(x27+2),
+	坚韧(x27+4,3),躲避(x27+5,3),戒备(x27+6,3),速跑(x27+7,3),
+	
+	
+	
 	;
 	
 	//region Buff
@@ -273,7 +293,7 @@ public enum Talent {
 	int 最大点数;
 
 	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 => 2/8/15/24/35 6-3 7-1 9
-	public static int[] 天赋解锁 = new int[]{0, 2, 5, 11, 20, 20};//25
+	public static int[] 天赋解锁 = new int[]{0, 2, 6, 11, 21, 25};//25
 //	public static int[] 天赋解锁 = new int[]{0, 2, 7, 13, 21, 30};
 
 	Talent( int icon ){
@@ -333,11 +353,50 @@ public enum Talent {
 				return Messages.get(this, name() + ".desc") + "\n\n" + metaDesc;
 			}
 		}
+		if(name().equals("职业精通")){
+			
+			switch(Dungeon.hero.subClass){
+				case 潜能觉醒: default:
+					return "综合属性+10%。";
+				case 狂战士:
+					return "每点怒气+0.25%攻击力。";
+				case 角斗士:
+					return "连击重置回合+3，6+连击时连击技获得强化。";
+				case 战斗法师:
+					return "魔杖物理攻击会恢复0.5充能。";
+				case 术士:
+					return "灵魂标记+10回合。";
+				case 刺客:
+					return "每回合隐形会额外获得1阶段潜伏。";
+				case 疾行者:
+					return "每点动能额外提供1逸动回合。";
+				case 狙击手:
+					return "除灵能短弓外的物理攻击会施加狙击标记，灵能短弓对狙击标记敌人攻击取决于不同的强化方式。";
+				case 守望者:
+					return "踩踏植物会获得额外效果取代原本效果，所有植株对其无害。";
+				case 勇士:
+					return "主武器和副武器攻击效率+10%。";
+				case 武者:
+					return "最大内力+5。";
+				case PRIEST:
+					return "综合属性+15%";
+				case PALADIN:
+					return "综合属性+15%";
+				case 神秘学者:
+					return "综合属性+15%";
+				case 黑魔导师:
+					return "综合属性+15%";
+				case 健身猛男:
+					return "力量+20%。";
+				case 盾之勇者:
+					return "综合属性+15%";
+			}
+		}
 		return Messages.get(this, name() + ".desc");
 	}
 
 	public static void 获得天赋时(Hero hero, Talent talent ){
-
+		
 		if (talent==轻便斗篷&&hero.heroClass==HeroClass.盗贼){
 			for (Item item : Dungeon.hero.belongings.backpack.items){
 				if (item instanceof CloakOfShadows){
@@ -367,12 +426,23 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}}
 	
 	public static void 休息时(Hero hero, int pos){
+		if(算法.isDebug()){
+//			Dungeon.hero.interrupt();
+//			InterlevelScene.mode=InterlevelScene.Mode.FALL;
+//			if(Dungeon.level instanceof RegularLevel&&((RegularLevel)Dungeon.level).room(pos) instanceof WeakFloorRoom){
+//				InterlevelScene.fallIntoPit=true;
+//				Notes.remove(Notes.Landmark.DISTANT_WELL);
+//			}else{
+//				InterlevelScene.fallIntoPit=false;
+//			}
+//			Game.switchScene(InterlevelScene.class);
+		}
 		if (false){//不动如山
 			Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		hero.回血(Math.round(foodVal));
+		hero.回血(Math.round(foodVal)+hero.天赋点数(Talent.备战,3));
 	
 		if (hero.heroClass(HeroClass.学士)){
 			if (hero.cooldown() > 0) {
@@ -446,7 +516,7 @@ public enum Talent {
 
 	public static float 鉴定速度(Hero hero,Item item){
 		float factor = 1f;
-		factor+= hero.天赋点数(鉴定速度,2.5f);
+		factor+= hero.天赋点数(知识,2);
 
 		return factor;
 	}
@@ -545,6 +615,7 @@ public enum Talent {
 		if(hero.hasbuff(Invisibility.class)){
 			dmg++;
 		}
+		dmg+=hero.天赋点数(Talent.埋伏,2);
 		if(enemy.第一次背袭) {
 			dmg++;
 		}
@@ -592,14 +663,11 @@ public enum Talent {
 		}
 
 		ArrayList<Talent> tierTalents = new ArrayList<>();
-			//tier 1
-			switch(cls){
-				default:
-					Collections.addAll(tierTalents, 鉴定速度, 攻击强化, 防御强化);
-					break;
-				case NONE:
-					break;
-			}
+		//tier 1
+		//解析：先全部添加 然后隐藏分支，拥有后
+		Collections.addAll(tierTalents,知识,埋伏,招架);
+		Collections.addAll(tierTalents,勇武,技巧,久战);
+		Collections.addAll(tierTalents,备战,突袭,武装);
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
 				talent = replacements.get(talent);
@@ -609,7 +677,10 @@ public enum Talent {
 		tierTalents.clear();
 		
 		//tier 2
-		Collections.addAll(tierTalents,杀伐果决,技巧敏捷,杀意感知,随风而动);
+		Collections.addAll(tierTalents,健身,猛攻,硬肤,坚韧);
+		Collections.addAll(tierTalents,破绽,集中,财富,躲避);
+		Collections.addAll(tierTalents,寻觅,近视,夜视,戒备);
+		Collections.addAll(tierTalents,静步,快攻,丝路,速跑);
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
 				talent = replacements.get(talent);
@@ -662,8 +733,16 @@ public enum Talent {
 			talents.get(2).put(talent, 0);
 		}
 		tierTalents.clear();
-
+		
 		//tier4
+		Collections.addAll(tierTalents,职业精通,综合能力,均衡战斗,战斗技巧,背水一战,九死一生);
+		for (Talent talent : tierTalents){
+			if (replacements.containsKey(talent)){
+				talent = replacements.get(talent);
+			}
+			talents.get(3).put(talent, 0);
+		}
+		tierTalents.clear();
 		//TBD
 	}
 

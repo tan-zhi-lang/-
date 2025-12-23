@@ -24,7 +24,7 @@ public class DemonSpawner extends Mob {
 	{
 		spriteClass = SpawnerSprite.class;
 
-		生命 = 最大生命 = 120;
+		生命 = 最大生命 = Math.round(120*Dungeon.难度生命());
 		defenseSkill = 0;
 
 		经验 = 15;

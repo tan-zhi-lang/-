@@ -700,7 +700,10 @@ public class DwarfKing extends Mob {
 					}
 				} else {
 					Char ch = Actor.findChar(pos);
-					ch.受伤时(Random.NormalIntRange(20, 40), this);
+					int dmg=Random.NormalIntRange(20, 40);
+					
+					dmg=Math.round(dmg*Dungeon.难度攻击());
+					ch.受伤时(dmg, this);
 					if (((DwarfKing)target).phase == 2){
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 							target.受伤时(target.最大生命 /18, new KingDamager());

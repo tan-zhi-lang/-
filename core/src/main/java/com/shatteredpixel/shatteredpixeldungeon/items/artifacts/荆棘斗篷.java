@@ -2,8 +2,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -59,6 +61,7 @@ public class 荆棘斗篷 extends Artifact {
 					int deflected = Math.round(damage*(0.5f+等级()*0.2f));
 					damage=0;
 					if (attacker != null) {
+						Talent.onArtifactUsed(Dungeon.hero);
 						attacker.受伤时(deflected, this);
 					}
 					charge = 0;

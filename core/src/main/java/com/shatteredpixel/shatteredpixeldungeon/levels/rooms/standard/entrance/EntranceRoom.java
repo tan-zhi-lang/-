@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.exit.CircleWallEntranceRoom;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -163,7 +164,11 @@ public class EntranceRoom extends StandardRoom {
 	}
 
 	public static StandardRoom createEntrance(){
-		return Reflection.newInstance(rooms.get(Random.chances(chances[Dungeon.depth])));
+		int depth=Dungeon.depth;
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
+			depth%=25;//解析：超过25求余即是循环层
+		}
+		return Reflection.newInstance(rooms.get(Random.chances(chances[depth])));
 	}
 
 }

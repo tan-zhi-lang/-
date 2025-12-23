@@ -93,6 +93,7 @@ public class 能量之戒 extends Ring {
 				bonus*=c;
 			}
 		}
+		if(bonus*0.85f>=1)bonus*=0.85f;
 
 		return bonus;
 	}
@@ -102,7 +103,8 @@ public class 能量之戒 extends Ring {
 		if (target instanceof Hero hero){
 		
 		}
-
+		
+		if(bonus*0.7f>=1)bonus*=0.7f;
 		return bonus;
 	}
 	

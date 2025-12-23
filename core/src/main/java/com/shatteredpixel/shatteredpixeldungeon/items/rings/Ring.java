@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -53,7 +54,7 @@ public class Ring extends KindofMisc {
 			put("月亮石", 物品表.月亮石);
 			put("黄金", 物品表.黄金);
 			put("暗淡", 物品表.暗淡);
-			put("空气", 物品表.虚空);
+			put("虚空", 物品表.虚空);
 		}
 	};
 	
@@ -112,7 +113,19 @@ public class Ring extends KindofMisc {
 		}
 	}
 	
-	public void activate( Char ch ) {
+	@Override
+	public boolean 放背包(Bag container){
+		if(super.放背包(container)){
+			if(首次拾取){
+				levelsToID -= Talent.鉴定速度(Dungeon.hero,this)/30f;
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void activate(Char ch) {
 		if (buff != null){
 			buff.detach();
 			buff = null;
@@ -126,7 +139,10 @@ public class Ring extends KindofMisc {
 	@Override
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 		if (super.doUnequip( hero, collect, single )) {
-
+			
+			if(首次装备){
+				levelsToID -= Talent.鉴定速度(hero,this)/30f;
+			}
 			if (buff != null) {
 				buff.detach();
 				buff = null;
@@ -344,7 +360,7 @@ public class Ring extends KindofMisc {
 	}
 	public void 鉴定戒指(Hero hero ){
 		if (!已鉴定()&&isEquipped(hero)){
-		levelsToID -= Talent.鉴定速度(hero,this)/45f;
+		levelsToID -= Talent.鉴定速度(hero,this)/30f;
 		if (levelsToID <= 0){
 			if (ShardOfOblivion.passiveIDDisabled()){
 				if (levelsToID > -1){

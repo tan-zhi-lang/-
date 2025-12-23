@@ -29,7 +29,7 @@ public class CrystalGuardian extends Mob{
 	{
 		spriteClass = CrystalGuardianSprite.class;
 
-		生命 = 最大生命 = 100;
+		生命 = 最大生命 = Math.round(100*Dungeon.难度生命());
 		defenseSkill = 14;
 
 		经验 = 10;

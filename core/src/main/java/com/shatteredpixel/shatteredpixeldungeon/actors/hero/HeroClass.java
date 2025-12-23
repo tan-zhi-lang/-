@@ -31,6 +31,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.He
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Shockwave;
 import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.勇装;
@@ -89,6 +90,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
@@ -116,12 +118,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 
 public enum HeroClass{
@@ -177,6 +182,7 @@ public enum HeroClass{
 			new 极速药剂().数量(x).放背包();
 			new 净化药剂().数量(x).放背包();
 			new 隐形药剂().数量(x).放背包();
+			new PotionOfMindVision().数量(x).放背包();
 			new Icecap.Seed().数量(x).放背包();
 			new PotionOfToxicGas().数量(x).放背包();
 			
@@ -193,6 +199,9 @@ public enum HeroClass{
 //			new WandOfCorrosion().放背包();
 //			new MasterThievesArmband().放背包();
 			new TengusMask().放背包();
+			new 磨刀石().放背包();
+			new Stylus().放背包();
+			new 矮人国王的皇冠().放背包();
 			new 荆棘斗篷().放背包();
 			new TalismanOfForesight().放背包();
 			new ScrollOfMysticalEnergy().放背包();
@@ -216,6 +225,7 @@ public enum HeroClass{
 		}
 		
 		算法.种子();
+		
 		if(Holiday.getCurrentHoliday()==Holiday.国庆节){
 			new 中国国旗().放背包();
 		}
@@ -227,6 +237,7 @@ public enum HeroClass{
 		
 		水袋 水袋=new 水袋();
 		if(hero.heroClass(WARRIOR)){
+			if(!Dungeon.玩法(玩法设置.地牢塔防))
 			水袋.放背包();
 		}
 		
@@ -319,6 +330,20 @@ public enum HeroClass{
 		hero.belongings.misc2.activate(hero);
 		if(hero.belongings.misc3!=null)
 		hero.belongings.misc3.activate(hero);
+		
+		if(Dungeon.玩法(玩法设置.地牢塔防)){
+			hero.belongings.weapon=null;
+			hero.belongings.armor=null;
+			hero.belongings.misc=null;
+			hero.belongings.misc2=null;
+			hero.belongings.misc3=null;
+		}
+		if(Dungeon.玩法(玩法设置.地牢塔防)){
+			Item item=new 结晶法杖();
+			item.放背包();
+			Dungeon.quickslot.clearSlot(0);
+			Dungeon.quickslot.setSlot(0,item);
+		}
 		//endregion
 		
 		new 鉴定卷轴().鉴定();

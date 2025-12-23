@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -22,7 +23,6 @@ public class Statue extends Mob {
 	{
 		spriteClass = StatueSprite.class;
 
-		经验 = 0;
 		state = PASSIVE;
 		
 		properties.add(Property.INORGANIC);
@@ -35,7 +35,7 @@ public class Statue extends Mob {
 	public Statue() {
 		super();
 		
-		生命 = 最大生命 = 15 + Dungeon.depth * 5;
+		生命 = 最大生命 =Math.round((15 + Dungeon.depth * 5)*Dungeon.难度生命());
 		defenseSkill = 4 + Dungeon.depth;
 	}
 

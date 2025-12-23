@@ -99,7 +99,6 @@ public class Statistics {
 		sneakAttacks    = 0;
 		thrownAttacks   = 0;
 		物理防御   = 0;
-
 		spawnersAlive   = 0;
 		
 		duration	    = 0;

@@ -323,13 +323,13 @@ public class ShopRoom extends SpecialRoom {
 		}
 		w.enchant(null);
 		w.cursed = false;
-		w.等级(n);
+		w.升级(n);
 		w.鉴定(true);
 		itemsToSpawn.add(w);
 
 		a.inscribe(null);
 		a.cursed = false;
-		a.等级(n3);
+		a.升级(n3);
 		a.鉴定(true);
 		itemsToSpawn.add( a);
 
@@ -347,7 +347,7 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add( new 鉴定卷轴() );
 		itemsToSpawn.add( new 鉴定卷轴() );
-		itemsToSpawn.add( new 嬗变卷轴());
+		itemsToSpawn.add( new 嬗变卷轴() );
 		itemsToSpawn.add( new 祛邪卷轴() );
 		itemsToSpawn.add( new 探地卷轴() );
 
@@ -378,6 +378,7 @@ public class ShopRoom extends SpecialRoom {
 
 		itemsToSpawn.add( new Ankh() );
 		itemsToSpawn.add( new 强化符石() );
+		itemsToSpawn.add( new Stylus() );
 
 		时光沙漏 hourglass = Dungeon.hero.belongings.getItem(时光沙漏.class);
 		if (hourglass != null && hourglass.已鉴定() && !hourglass.cursed){
@@ -430,20 +431,21 @@ public class ShopRoom extends SpecialRoom {
 		switch (Random.Int(10)){
 			case 0:
 				rare = Generator.random( Generator.Category.WAND );
-				rare.等级( l );
+				rare.升级( l );
 				break;
 			case 1:
 				rare = Generator.random(Generator.Category.RING);
-				rare.等级( l );
+				rare.升级( l );
 				break;
 			case 2:
 				rare = Generator.random( Generator.Category.ARTIFACT );
 				break;
 			default:
-				rare = new Stylus();
+				rare = Random.oneOf(Generator.randomArtifact(),
+									Generator.randomWand(),Generator.randomRing());
 		}
 		rare.cursed = false;
-		rare.cursedKnown = true;
+		rare.鉴定(true);
 		itemsToSpawn.add( rare );
 
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)

@@ -74,7 +74,7 @@ public class 怒气 extends Buff implements ActionIndicator.Action {
 	}
 
 	public void damage(){
-		怒气= Math.min(100,怒气+10);
+		怒气= Math.min(100,怒气+5+Math.round(target.根据已损失生命()*5));
 		if (怒气>0){
 			ActionIndicator.setAction(this);
 		}

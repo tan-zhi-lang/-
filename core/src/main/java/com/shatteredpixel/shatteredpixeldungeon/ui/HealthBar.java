@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
@@ -26,9 +27,11 @@ public class HealthBar extends Component {
 	private float 护盾;
 	private float max;
 	private float shield;
+	private boolean 隐形;
 	
 	@Override
 	protected void createChildren() {
+		
 		Bg = new ColorBlock( 1, 1, COLOR_BG );
 		add( Bg );
 
@@ -43,11 +46,23 @@ public class HealthBar extends Component {
 		hpText.alpha(0.6f);
 		add(hpText);
 		
+		if(隐形){
+			Bg.alpha(0);
+			Shld.alpha(0);
+			Hp.alpha(0);
+			hpText.alpha(0);
+		}else{
+			Bg.alpha(1);
+			Shld.alpha(1);
+			Hp.alpha(1);
+			hpText.alpha(0.6f);
+		}
 		height = HEIGHT;
 	}
 	
 	@Override
 	public synchronized void update(){
+		
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
 		
@@ -68,12 +83,22 @@ public class HealthBar extends Component {
 		hpText.x = Hp.x + 1;
 		hpText.y = Hp.y + (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f+1;
 		
+		if(隐形){
+			Bg.alpha(0);
+			Shld.alpha(0);
+			Hp.alpha(0);
+			hpText.alpha(0);
+		}else{
+			Bg.alpha(1);
+			Shld.alpha(1);
+			Hp.alpha(1);
+			hpText.alpha(0.6f);
+		}
 		super.update();
 	}
 	
 	@Override
 	protected void layout() {
-		
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
 		
@@ -89,18 +114,31 @@ public class HealthBar extends Component {
 		hpText.x = Hp.x + 1;
 		hpText.y = Hp.y + (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
 		
+		if(隐形){
+			Bg.alpha(0);
+			Shld.alpha(0);
+			Hp.alpha(0);
+			hpText.alpha(0);
+		}else{
+			Bg.alpha(1);
+			Shld.alpha(1);
+			Hp.alpha(1);
+			hpText.alpha(0.6f);
+		}
+		
 	}
 	
 	public void level( float value ) {
-		level( value, 0f ,0f,0f,0f);
+		level( value, 0f ,0f,0f,0f,false);
 	}
 
-	public void level( float health, float shield , float health2, float shield2 , float max ){
+	public void level( float health, float shield , float health2, float shield2 , float max ,boolean 隐形){
 		this.health = health;
 		this.生命 = health2;
 		this.护盾 = shield2;
 		this.max = max;
 		this.shield = shield;
+		this.隐形 = 隐形;
 		layout();
 	}
 
@@ -109,7 +147,7 @@ public class HealthBar extends Component {
 		float maxx = c.最大生命;
 		float shield = c.shielding();
 		float max = Math.max(health+shield, c.最大生命);
-
-		level(health/max, (health+shield)/max,health,shield,maxx);
+		boolean 隐形=c.hasbuff(Invisibility.class);
+		level(health/max, (health+shield)/max,health,shield,maxx,隐形);
 	}
 }

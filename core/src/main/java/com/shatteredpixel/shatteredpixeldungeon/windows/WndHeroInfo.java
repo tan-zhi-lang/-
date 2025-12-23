@@ -246,7 +246,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new BuffIcon(BuffIndicator.HASTE, true),
 						  new ItemSprite(物品表.MISSILE_HOLDER),
-										  new BuffIcon(BuffIndicator.TERROR, true),
+										  new BuffIcon(BuffIndicator.BLESS, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 戒老:

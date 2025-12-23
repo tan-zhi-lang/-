@@ -262,6 +262,9 @@ public class WndHero extends WndTabbed {
 			pos += GAP;
 			statSlot( "吸血/全能吸血",Math.round(hero.吸血()*100)+"%"+"/"
 									  +Math.round(hero.全能吸血()*100)+"%");
+			
+			statSlot( "难度",Dungeon.难度名称());
+			
 			pos += GAP;
 			if (Dungeon.daily){
 				if (!Dungeon.dailyReplay) {

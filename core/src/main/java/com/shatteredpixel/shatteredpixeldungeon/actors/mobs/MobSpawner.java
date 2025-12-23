@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Random;
 
@@ -52,6 +53,10 @@ public class MobSpawner extends Actor {
 
 	//returns a rotation of standard mobs, unshuffled.
 	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ){
+		
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
+			depth%=25;//解析：超过25求余即是循环层
+		}
 		switch(depth){
 
 			// Sewers
@@ -208,6 +213,9 @@ public class MobSpawner extends Actor {
 		}
 		if(Dungeon.解压(解压设置.纯正怪物)){
 			return;
+		}
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
+			depth%=25;//解析：超过25求余即是循环层
 		}
 		float x=0.025f;
 		if(Holiday.getCurrentHoliday()==Holiday._1024){

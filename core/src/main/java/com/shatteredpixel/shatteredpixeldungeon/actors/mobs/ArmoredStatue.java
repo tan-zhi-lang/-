@@ -23,7 +23,7 @@ public class ArmoredStatue extends Statue {
 		super();
 
 		//double HP
-		生命 = 最大生命 = 30 + Dungeon.depth * 10;
+		生命 = 最大生命 =Math.round((30 + Dungeon.depth * 10)*Dungeon.难度生命());
 	}
 
 	@Override

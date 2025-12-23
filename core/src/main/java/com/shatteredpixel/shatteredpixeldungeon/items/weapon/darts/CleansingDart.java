@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -48,6 +49,8 @@ public class CleansingDart extends TippedDart {
 							((Mob) defender).state = ((Mob) defender).WANDERING;
 						}
 						((Mob) defender).beckon(Dungeon.level.randomDestination(defender));
+						
+						
 						defender.sprite.showLost();
 						return super.act();
 					}

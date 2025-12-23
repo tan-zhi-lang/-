@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
@@ -82,7 +83,9 @@ public class 再生 extends Buff {
 				if (partialRegen >= 1) {
 					if(target instanceof Hero hero){
 						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
-							hero.回血((int)partialRegen);
+							int x=(int)partialRegen
+								  +hero.天赋点数(Talent.背水一战,3);
+							hero.回血(x);
 						}
 						partialRegen -= (int)partialRegen;
 						if (hero.满血()) {

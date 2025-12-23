@@ -30,7 +30,6 @@ public class Wraith extends Mob {
 		spriteClass = WraithSprite.class;
 		
 		生命 = 最大生命 = 1;
-		经验 = 0;
 
 		最大等级 = -2;
 		

@@ -139,7 +139,7 @@ public abstract class EquipableItem extends Item {
 		} else {
 			hero.spend( timeToEquip( hero ) );
 		}
-
+		首次装备=false;
 		slotOfUnequipped = Dungeon.quickslot.getSlot(this);
 
 		//temporarily keep this item so it can be collected

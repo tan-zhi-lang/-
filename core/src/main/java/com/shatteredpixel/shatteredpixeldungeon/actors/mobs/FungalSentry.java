@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -14,7 +15,7 @@ public class FungalSentry extends Mob {
 	{
 		spriteClass = FungalSentrySprite.class;
 
-		生命 = 最大生命 = 200;
+		生命 = 最大生命 = Math.round(200*Dungeon.难度生命());
 		defenseSkill = 12;
 
 		经验 = 10;

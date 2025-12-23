@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -61,7 +62,7 @@ public abstract class RemainsItem extends Item {
 
 	public static RemainsItem get(HeroClass cls){//遗物
 		
-		return new 破损短剑();
+		return Random.oneOf(new 破损短剑(),new 遗失符石());
 //		switch (cls){
 //			case WARRIOR: default:
 //				return new 破损短剑();

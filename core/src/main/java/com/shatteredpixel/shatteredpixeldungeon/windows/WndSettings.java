@@ -728,8 +728,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 						CheckBox 物品命名;
 						RenderedTextBlock 物品命名str;
-						CheckBox 受伤打断;
-						RenderedTextBlock 受伤打断str;
+						CheckBox 打断英雄;
+						RenderedTextBlock 打断英雄str;
 						CheckBox 游戏提示;
 						RenderedTextBlock 游戏提示str;
 						CheckBox 自动拾取;
@@ -751,18 +751,18 @@ public class WndSettings extends WndTabbed {//WndSettings
 							物品命名str.hardlight(0x888888);
 							add(物品命名str);
 							
-							受伤打断 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "受伤打断")){
+							打断英雄= new CheckBox(Messages.get(WndSettings.游戏设置.this,"打断英雄")){
 								@Override
 								protected void onClick() {
 									super.onClick();
-									SPDSettings.受伤打断(checked());
+									SPDSettings.打断英雄(checked());
 								}
 							};
-							受伤打断.checked(SPDSettings.受伤打断());
-							add(受伤打断);
-							受伤打断str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "受伤打断str"), 5);
-							受伤打断str.hardlight(0x888888);
-							add(受伤打断str);
+							打断英雄.checked(SPDSettings.打断英雄());
+							add(打断英雄);
+							打断英雄str= PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this,"打断英雄str"),5);
+							打断英雄str.hardlight(0x888888);
+							add(打断英雄str);
 							
 							游戏提示 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "游戏提示")){
 								@Override
@@ -811,11 +811,11 @@ public class WndSettings extends WndTabbed {//WndSettings
 							物品命名str.maxWidth(width);
 							物品命名str.setPos(0, 物品命名.bottom()+1);
 							
-							受伤打断.setRect(0,  物品命名str.bottom()+GAP, width, BTN_HEIGHT);
-							受伤打断str.maxWidth(width);
-							受伤打断str.setPos(0, 受伤打断.bottom()+1);
+							打断英雄.setRect(0,物品命名str.bottom()+GAP,width,BTN_HEIGHT);
+							打断英雄str.maxWidth(width);
+							打断英雄str.setPos(0,打断英雄.bottom()+1);
 							
-							游戏提示.setRect(0,  受伤打断str.bottom()+GAP, width, BTN_HEIGHT);
+							游戏提示.setRect(0,打断英雄str.bottom()+GAP,width,BTN_HEIGHT);
 							游戏提示str.maxWidth(width);
 							游戏提示str.setPos(0, 游戏提示.bottom()+1);
 							

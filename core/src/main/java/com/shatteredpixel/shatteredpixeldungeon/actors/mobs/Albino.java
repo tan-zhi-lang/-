@@ -28,7 +28,9 @@ public class Albino extends Rat {
 	public int 攻击时(Char enemy, int damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (damage > 0 && Random.Int( 2 ) == 0) {
-			Buff.施加( enemy, 流血.class ).set( Random.NormalFloat(Dungeon.老鼠蝙蝠?8:2, Dungeon.老鼠蝙蝠?12:3) );
+			int dmg= Random.NormalIntRange(Dungeon.老鼠蝙蝠?8:2, Dungeon.老鼠蝙蝠?12:3);
+			dmg=Math.round(dmg*Dungeon.难度攻击());
+			Buff.施加( enemy, 流血.class ).set(dmg);
 		}
 		
 		return damage;

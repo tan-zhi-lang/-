@@ -63,11 +63,12 @@ public abstract class SpecialRoom extends Room {
 	//9 special rooms which give equipment more often than consumables (or as often as)
 	private static final ArrayList<Class<? extends SpecialRoom>> EQUIP_SPECIALS = new ArrayList<>( Arrays.asList(
 			WeakFloorRoom.class, CryptRoom.class, PoolRoom.class, ArmoryRoom.class, SentryRoom.class,
-			StatueRoom.class, CrystalVaultRoom.class, CrystalChoiceRoom.class, SacrificeRoom.class, 毒气宝箱怪房.class
-	));
+			StatueRoom.class, CrystalVaultRoom.class, CrystalChoiceRoom.class, SacrificeRoom.class, 毒气宝箱怪房.class,
+			超级魔法绵羊房.class
+																												));
 
-	//10 special rooms which give consumables more often than equipment
-	//note that alchemy rooms are spawned separately
+	//10 SPECIAL ROOMS WHICH GIVE CONSUMABLES MORE OFTEN THAN EQUIPMENT
+	//NOTE THAT ALCHEMY ROOMS ARE SPAWNED SEPARATELY
 	private static final ArrayList<Class<? extends SpecialRoom>> CONSUMABLE_SPECIALS = new ArrayList<>( Arrays.asList(
 			RunestoneRoom.class, GardenRoom.class, LibraryRoom.class, StorageRoom.class,
 			TreasuryRoom.class, MagicWellRoom.class, ToxicGasRoom.class, MagicalFireRoom.class,

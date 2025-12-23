@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -15,8 +16,8 @@ public class 毒气宝箱怪 extends Mimic {
 	{
 		spriteClass = MimicSprite.毒气.class;
 		生命 = 最大生命 =Dungeon.层数(10);
-		loot = Random.oneOf(Generator.randomArtifact(),
-							Generator.randomWand(),Generator.randomRing());
+		loot = Random.oneOf(Generator.randomArmor(),
+							Generator.randomWeapon());
 	}
 
 	@Override

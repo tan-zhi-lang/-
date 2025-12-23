@@ -106,6 +106,9 @@ public class Item implements Bundlable {
 	public boolean 嬗变= true;
 	public boolean 专属 = false;
 	public boolean 消受投掷 = false;
+	public boolean 首次使用= true;
+	public boolean 首次拾取 = true;
+	public boolean 首次装备 = true;
 
 	// These items are preserved even if the hero's inventory is lost via unblessed ankh
 	// this is largely set by the resurrection window, items can override this to always be kept
@@ -313,7 +316,7 @@ public class Item implements Bundlable {
 				Statistics.itemTypesDiscovered.add(getClass());
 			}
 		}
-		
+		首次拾取=false;
 		Dungeon.quickslot.alphaItem( this ,false);
 		items.add( this );
 		Dungeon.quickslot.replacePlaceholder(this);
@@ -326,7 +329,7 @@ public class Item implements Bundlable {
 	public final boolean 放背包() {
 		boolean 放=放背包( Dungeon.hero.belongings.backpack );
 		if(!放){
-			Dungeon.level.dropRandomCell(this,Dungeon.hero.pos);
+			Dungeon.level.drop(this,Dungeon.hero.pos);
 		}
 		return 放;
 	}
@@ -367,12 +370,9 @@ public class Item implements Bundlable {
 	public final Item detach( Bag container ) {
 		
 		if (quantity <= 0) {
-			
 			return null;
-			
 		} else
 		if (quantity == 1) {
-			
 			Dungeon.quickslot.alphaItem( Item.this ,true);
 			updateQuickslot();
 			if (可堆叠){
@@ -382,8 +382,6 @@ public class Item implements Bundlable {
 			return detachAll( container );
 			
 		} else {
-			
-			
 			Item detached = split(1);
 			updateQuickslot();
 			if (detached != null) detached.onDetach( );
@@ -730,6 +728,9 @@ public class Item implements Bundlable {
 	private static final String CUSTOM_NOTE_ID = "custom_note_id";
 	private static final String NAME = "name";
 	private static final String 升级物品x = "升级物品";
+	private static final String 首次使用x = "首次使用";
+	private static final String 首次拾取x = "首次拾取";
+	private static final String 首次装备x = "首次装备";
 	private static final String ALPHA = "alpha";
 	
 	@Override
@@ -741,6 +742,9 @@ public class Item implements Bundlable {
 		bundle.put( CURSED_KNOWN, cursedKnown );
 		bundle.put( NAME, name );
 		bundle.put( 升级物品x, 升级物品 );
+		bundle.put(首次使用x,首次使用);
+		bundle.put( 首次拾取x, 首次拾取 );
+		bundle.put( 首次装备x, 首次装备 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
@@ -756,6 +760,9 @@ public class Item implements Bundlable {
 		cursedKnown	= bundle.getBoolean( CURSED_KNOWN );
 		name	= bundle.getString( NAME );
 		升级物品	= bundle.getBoolean( 升级物品x );
+		首次使用= bundle.getBoolean(首次使用x);
+		首次拾取	= bundle.getBoolean( 首次拾取x );
+		首次装备	= bundle.getBoolean( 首次装备x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
 		int level = bundle.getInt( LEVEL );

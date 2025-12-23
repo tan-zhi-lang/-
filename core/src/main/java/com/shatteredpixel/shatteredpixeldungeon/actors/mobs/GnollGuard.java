@@ -19,7 +19,7 @@ public class GnollGuard extends Mob {
 	{
 		spriteClass = GnollGuardSprite.class;
 
-		生命 = 最大生命 = 35;
+		生命 = 最大生命 = Math.round(35*Dungeon.难度生命());
 		defenseSkill = 15;
 
 		经验 = 7;

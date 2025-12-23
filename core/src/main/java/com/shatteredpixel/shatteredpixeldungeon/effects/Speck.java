@@ -98,6 +98,8 @@ public class Speck extends Image {
 		switch (type) {
 		case DISCOVER:
 		case RED_LIGHT:
+		case YELLOW_LIGHT:
+		case BLUE_LIGHT:
 			frame( film.get( LIGHT ) );
 			break;
 		case EVOKE:

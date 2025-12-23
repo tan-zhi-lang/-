@@ -74,7 +74,7 @@ public class WndEnergizeItem extends WndInfoItem {
 						}
 					});
 				} else {
-					energizeAll(item);
+					energizeOne(item);
 					hide();
 				}
 				}

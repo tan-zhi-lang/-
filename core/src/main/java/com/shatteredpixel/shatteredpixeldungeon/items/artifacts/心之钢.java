@@ -66,7 +66,7 @@ public class 心之钢 extends Artifact {
 			if(charge>=chargeCap){
 				if(attacker instanceof Hero hero){
 					GLog.p("你的心之钢为你增加了"+(attacker.最大生命(0.1f)+等级()+1)+"这次物理攻击伤害，并增加了1最大生命。");
-					hero.大小=1+0.05f+等级()*0.025f;
+					hero.大小=1+等级()*0.015f;
 					damage+=attacker.最大生命(0.1f)+等级()+1;
 					心之钢生命++;
 					hero.更新属性();

@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -137,6 +138,7 @@ public class Guard extends Mob {
 
 	@Override
 	public Item createLoot() {
+		if(!Dungeon.玩法(玩法设置.刷子地牢))
 		Dungeon.LimitedDrops.GUARD_ARM.count++;
 		return super.createLoot();
 	}

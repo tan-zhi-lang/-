@@ -49,7 +49,7 @@ public class 玩法 extends Window {
 
             CheckBox cb = new CheckBox(Messages.titleCase(Messages.get(玩法设置.class,玩法)));
             cb.checked((checked & 玩法设置.MASKS[i]) != 0);
-            cb.active = editable;
+            cb.active =editable;
 
             if (i > 0) {
                 pos += GAP;

@@ -176,6 +176,7 @@ public class Eye extends Mob {
 
 			if (hit( this, ch, true )) {
 				int dmg = Random.NormalIntRange( 30, 50 );
+				dmg=Math.round(dmg*Dungeon.难度攻击());
 				dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 
 				//logic for fists or Yog-Dzewa taking 1/2 or 1/4 damage from aggression stoned minions

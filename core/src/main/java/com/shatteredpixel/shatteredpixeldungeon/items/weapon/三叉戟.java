@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.刺退;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.刺击;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 三叉戟 extends Weapon{
@@ -14,7 +14,7 @@ public class 三叉戟 extends Weapon{
 		image = 物品表.TRIDENT;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
-		技能=new 刺退();
+		技能=new 刺击();
 		投矛=true;
 		延迟= 1.35f;
 		伤害= 1.35f;

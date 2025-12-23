@@ -46,16 +46,16 @@ public class 商人信标 extends Item {
 		super.execute( hero, action );
 		
 		if (action.equals( AC_出售 )) {
-			hero.spend();
+			hero.sprite.operate(hero.pos);
+			hero.spend( 1f );
 			hero.busy();
-			hero.sprite.operate( hero.pos );
 			
 			parentWnd = GameScene.selectItem(itemSelector);
 		}
 		if (action.equals( AC_单发抽 )) {
-			hero.spend();
+			hero.sprite.operate(hero.pos);
+			hero.spend( 1f );
 			hero.busy();
-			hero.sprite.operate( hero.pos );
 			Item item;
 			if(Dungeon.gold>=Dungeon.depth*25){
 				Dungeon.gold(-Dungeon.depth*25);
@@ -68,9 +68,9 @@ public class 商人信标 extends Item {
 			}
 		}
 		if (action.equals( AC_十连抽 )) {
-			hero.spend();
+			hero.sprite.operate(hero.pos);
+			hero.spend( 1f );
 			hero.busy();
-			hero.sprite.operate( hero.pos );
 			if(Dungeon.gold>=Dungeon.depth*9*25){
 				Dungeon.gold(-Dungeon.depth*9*25);
 				int x=1;

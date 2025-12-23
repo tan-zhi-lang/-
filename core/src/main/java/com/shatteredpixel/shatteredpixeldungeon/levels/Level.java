@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
@@ -239,7 +240,7 @@ public abstract class Level implements Bundlable {
 				if(Dungeon.解压(解压设置.探索口粮))
 					addItemToSpawn(new SmallRation());
 			}
-			if (Dungeon.区域层数(2)) {
+			if (Dungeon.区域层数(3)) {
 				if(Dungeon.解压(解压设置.宝物空投)){
 					Random.oneOf(Generator.randomWeapon(),Generator.randomArmor(),Generator.randomRing(),Generator.randomArtifact(),Generator.randomWand()).放背包();
 				}
@@ -564,6 +565,8 @@ public abstract class Level implements Bundlable {
 		}
 
 		Mob m = Reflection.newInstance(mobsToSpawn.remove(0));
+		
+		m.生命=m.最大生命=Math.round(m.最大生命*Dungeon.难度生命());
 		ChampionEnemy.rollForChampion(m);
 		return m;
 	}
@@ -1421,6 +1424,15 @@ public abstract class Level implements Bundlable {
 				break;
 		}
 	}
+	public void pressCellgrass3(int cell) {
+		switch (map[cell]) {
+			
+			case Terrain.HIGH_GRASS:
+			case Terrain.FURROWED_GRASS:
+				HighGrass.trample3( this, cell);
+				break;
+		}
+	}
 
 	private static boolean[] heroMindFov;
 
@@ -1568,7 +1580,7 @@ public abstract class Level implements Bundlable {
 							continue;
 						}
 						int p = mob.pos;
-						if (!fieldOfView[p] && (distance(c.pos, p) <= mindVisRange || (ally != null && distance(ally.pos, p) <= mindVisRange))) {
+						if (mob.nobuff(Invisibility.class)&&!fieldOfView[p] && (distance(c.pos, p) <= mindVisRange || (ally != null && distance(ally.pos, p) <= mindVisRange))) {
 							for (int i : PathFinder.NEIGHBOURS9) {
 								heroMindFov[mob.pos + i] = true;
 							}

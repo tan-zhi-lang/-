@@ -256,6 +256,30 @@ public class ScrollOfTeleportation extends Scroll {
 
 	}
 
+	public static void 瞬移(Char ch,int pos) {
+
+		ch.sprite.interruptMotion();
+
+		ch.move( pos, false );
+		if (ch.pos == pos) {
+			ch.sprite.interruptMotion();
+			ch.sprite.place(pos);
+		}
+
+		if (ch.invisible == 0) {
+			ch.sprite.alpha( 0 );
+			ch.sprite.parent.add( new AlphaTweener( ch.sprite, 1, 0.4f ) );
+		}
+
+		if (Dungeon.level.heroFOV[pos] || ch == Dungeon.hero ) {
+		
+		} else {
+			if (Camera.main.followTarget() == ch.sprite){
+				//clear the follow in this case as the teleport target is going out of vision
+				Camera.main.panFollow(null, 5f);
+			}
+		}
+	}
 	public static void appear( Char ch, int pos ) {
 
 		ch.sprite.interruptMotion();

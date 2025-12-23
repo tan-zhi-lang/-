@@ -37,8 +37,6 @@ public class Piranha extends Mob {
 
 		baseSpeed = 2f;
 		
-		经验 = 0;
-		
 		loot = MysteryMeat.class;
 		
 		
@@ -53,7 +51,7 @@ public class Piranha extends Mob {
 	public Piranha() {
 		super();
 		
-		生命 = 最大生命 = 10 + Dungeon.depth * 5;
+		生命 = 最大生命 =Math.round((10 + Dungeon.depth * 5)*Dungeon.难度生命());
 		defenseSkill = 10 + Dungeon.depth * 2;
 	}
 	

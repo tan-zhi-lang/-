@@ -12,6 +12,8 @@ public class 防御姿态 extends 武技{
 	public void 武技(Hero hero,Weapon wep){
 		this.hero=hero;
 		this.wep=wep;
+		wep.消耗(hero);
 		hero.护甲(hero.最大护甲()/2);
+		wep.技能使用(hero);
 	}
 }

@@ -9,9 +9,9 @@ public class 玩法设置 {
 	public static final int 从不过节= 2;
 public static final int 鬼怨地牢				= 4;
 	public static final int 转生怪物				= 8;
-	public static final int 规则怪谈				= 16;
+	public static final int 地牢塔防= 16;
 	public static final int 速通地牢			= 32;
-	public static final int 苏死坚挺		    = 64;
+	public static final int 刷子地牢		    = 64;
 		public static final int 奇袭地牢	= 128;
 		public static final int 简单战斗 	= 256;
 	public static final int MAX_VALUE           = 511;
@@ -22,9 +22,9 @@ public static final int 鬼怨地牢				= 4;
 			"从不过节",
 			"鬼怨地牢",
 			"转生怪物",
-			"规则怪谈",
+			"地牢塔防",
 			"速通地牢",
-			"苏死坚挺",
+			"刷子地牢",
 			"奇袭地牢",
 			"简单战斗",
 	};
@@ -34,9 +34,9 @@ public static final int 鬼怨地牢				= 4;
 			从不过节,
 			鬼怨地牢,
 			转生怪物,
-			规则怪谈,
+			地牢塔防,
 			速通地牢,
-			苏死坚挺,
+			刷子地牢,
 			奇袭地牢,
 			简单战斗,
 	};

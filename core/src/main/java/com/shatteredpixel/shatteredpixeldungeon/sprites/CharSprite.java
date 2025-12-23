@@ -6,12 +6,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.DarkBlock;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
-import com.shatteredpixel.shatteredpixeldungeon.effects.IceBlock;
 import com.shatteredpixel.shatteredpixeldungeon.effects.GlowBlock;
+import com.shatteredpixel.shatteredpixeldungeon.effects.IceBlock;
 import com.shatteredpixel.shatteredpixeldungeon.effects.ShieldHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
@@ -92,7 +94,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected GlowBlock glowBlock;
 	protected TorchHalo light;
 	protected ShieldHalo shield;
-	protected AlphaTweener invisible;
+	public AlphaTweener invisible;
 	protected Flare aura;
 
 	protected EmoIcon emo;
@@ -403,11 +405,18 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				break;
 			case INVISIBLE:
 				if (invisible != null) invisible.killAndErase();
-				invisible = new AlphaTweener(this, 0.4f, 0.4f);
+				if(ch instanceof Hero)
+					invisible = new AlphaTweener(this, 0.4f, 0.4f);
+				else
+					invisible = new AlphaTweener(this, 0, 0);
 				if (parent != null) {
 					parent.add(invisible);
-				} else
-					alpha(0.4f);
+				} else{
+					if(ch instanceof Hero)
+						alpha(0.4f);
+					else
+						alpha(0f);
+				}
 				break;
 			case PARALYSED:
 				paused = true;
@@ -640,6 +649,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 
 		if (sleeping) {
+			
 			showSleep();
 		} else {
 			hideSleep();
@@ -661,6 +671,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public void showSleep() {
 		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
 			if (!(emo instanceof EmoIcon.Sleep)) {
 				if (emo != null) {
 					emo.killAndErase();
@@ -683,6 +695,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public void showAlert() {
 		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			||invisible!=null)return;
 			if (!(emo instanceof EmoIcon.Alert)) {
 				if (emo != null) {
 					emo.killAndErase();
@@ -704,6 +718,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public void showLost() {
 		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
 			if (!(emo instanceof EmoIcon.Lost)) {
 				if (emo != null) {
 					emo.killAndErase();

@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -127,7 +128,8 @@ public class CityLevel extends RegularLevel {
 	public boolean activateTransition(Hero hero,LevelTransition transition) {
 		if (transition.type == LevelTransition.Type.BRANCH_EXIT) {
 			
-			if (hero.buff(AscensionChallenge.class)!=null){
+			if (hero.buff(AscensionChallenge.class) != null
+				||hero.buff(LostInventory.class)!=null){
 				return false;
 			}
 				Game.runOnRenderThread(new Callback() {
@@ -162,6 +164,7 @@ public class CityLevel extends RegularLevel {
 								}
 								Dungeon.hero.belongings.armor = new ClothArmor();
 								Dungeon.hero.belongings.armor.鉴定();
+									hero.更新数据();
 									CityLevel.super.activateTransition(hero, transition);
 								}
 							}
@@ -305,7 +308,8 @@ public class CityLevel extends RegularLevel {
 			
 			@Override
 			public void emit( Emitter emitter, int index, float x, float y ) {
-				SmokeParticle p = (SmokeParticle)emitter.recycle( SmokeParticle.class );
+				SmokeParticle
+						p = (SmokeParticle)emitter.recycle(SmokeParticle.class);
 				p.reset( x, y );
 			}
 		};

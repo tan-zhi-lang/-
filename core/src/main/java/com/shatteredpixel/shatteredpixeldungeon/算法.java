@@ -33,6 +33,9 @@ public class 算法 {
     public static int x23=32*22;
     public static int x24=32*23;
     public static int x25=32*24;
+    public static int x26=32*25;
+    public static int x27=32*26;
+    public static int x28=32*27;
     public static Item 种子(){
     try {
         Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+SPDSettings.customSeed());
@@ -506,7 +509,7 @@ return null;
         return Random.Int(1,100)<= x+ (x == 33 ? 1 : 0);
     }
     public static boolean 概率学(float x){
-        return Random.Float()<= x+ (x == 0.33f ? 0.01f : 0);
+        return Random.Float()<= x+ (x > 0.33f&&x < 0.34f ? 0.01f : 0);
     }
     public static boolean 概率概率学(int x){
         return 概率学(x)&&概率学(x);

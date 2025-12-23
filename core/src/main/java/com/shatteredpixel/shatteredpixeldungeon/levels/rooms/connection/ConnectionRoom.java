@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.connection;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
@@ -60,6 +61,10 @@ public abstract class ConnectionRoom extends Room {
 	}
 	
 	public static ConnectionRoom createRoom(){
-		return Reflection.newInstance(rooms.get(Random.chances(chances[Dungeon.depth])));
+		int depth=Dungeon.depth;
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
+			depth%=25;//解析：超过25求余即是循环层
+		}
+		return Reflection.newInstance(rooms.get(Random.chances(chances[depth])));
 	}
 }

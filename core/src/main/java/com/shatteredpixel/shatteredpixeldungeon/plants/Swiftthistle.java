@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -32,7 +33,7 @@ public class Swiftthistle extends Plant {
 	public void activate( Char ch ) {
 		if (ch != null) {
 			Buff.施加(ch, TimeBubble.class).reset();
-			if (ch instanceof Hero hero&&hero.精通&& hero.subClass == HeroSubClass.守望者){
+			if (ch instanceof Hero hero&&hero.天赋(Talent.职业精通)&&hero.subClass==HeroSubClass.守望者){
 				Buff.施加(ch, 极速.class, 1f);
 			}
 		}

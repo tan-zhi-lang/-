@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.effects;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
@@ -45,14 +46,18 @@ public class EmoIcon extends Image {
 			x = owner.x + owner.width() - width / 2;
 			y = owner.y - height;
 		}
+		
+		if(owner!=null&&(owner.invisible!=null||(owner.ch!=null&&owner.ch.hasbuff(Invisibility.class)))){
+			alpha0();
+		}else{
+			alpha1();
+		}
 	}
 	
 	public static class Sleep extends EmoIcon {
 		
 		public Sleep( CharSprite owner ) {
-			
 			super( owner );
-			
 			copy( Icons.get( Icons.SLEEP ) );
 			
 			maxSize = 1.2f;

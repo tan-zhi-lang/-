@@ -80,9 +80,9 @@ public class Armor extends EquipableItem {
 	protected String 换甲 = Assets.Sounds.布甲;
 	
 	public enum Augment {
-		DEFENSE (1, 1.1f,1),
-		SPEED (1, 1,1.2f),
-		EVASION (1.3f , 1,1),
+		DEFENSE (1, 1.15f,1),
+		SPEED (1, 1,1.3f),
+		EVASION (1.45f , 1,1),
 		NONE	(1,1,1);
 		
 		private float evasionFactor;
@@ -170,11 +170,10 @@ public class Armor extends EquipableItem {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (破损纹章 != null) actions.add(AC_DETACH);
-		if(hero.heroClass(HeroClass.灵猫)){
+		if(!(this instanceof 背心)&&hero.heroClass(HeroClass.灵猫)){
 			actions.remove(AC_EQUIP);
 		}
-		if(hero.heroClass(HeroClass.鼠弟)){
-			
+		if(!(this instanceof 披风)&&hero.heroClass(HeroClass.鼠弟)){
 			actions.remove(AC_EQUIP);
 		}
 		if(hero.heroClass(HeroClass.凌云)){
@@ -203,6 +202,10 @@ public class Armor extends EquipableItem {
 	@Override
 	public boolean 放背包(Bag container) {
 		if(super.放背包(container)){
+			if(首次拾取){
+				
+				usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
+			}
 			if (Dungeon.hero() && Dungeon.hero.isAlive() && 已鉴定() && glyph != null){
 				Catalog.setSeen(glyph.getClass());
 				Statistics.itemTypesDiscovered.add(glyph.getClass());
@@ -356,7 +359,9 @@ public class Armor extends EquipableItem {
 	@Override
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 		if (super.doUnequip( hero, collect, single )) {
-
+			if(首次装备){
+				usesLeftToID-=Talent.鉴定速度(hero,this);
+			}
 			hero.belongings.armor = null;
 			((HeroSprite)hero.sprite).updateArmor();
 
@@ -489,7 +494,11 @@ public class Armor extends EquipableItem {
 	}
 	
 	public int 防御时(Char attacker, Char defender, int damage ) {
+		
 		if(defender instanceof Hero hero){
+			if(首次使用){
+				usesLeftToID-=Talent.鉴定速度(hero,this);
+			}
 			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
 				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
 					hero.现在健身-=0.01f;

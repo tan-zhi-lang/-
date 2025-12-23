@@ -24,7 +24,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
@@ -492,8 +491,11 @@ public abstract class YogFist extends Mob {
 			Invisibility.dispel(this);
 			Char enemy = this.enemy;
 			if (hit( this, enemy, true )) {
-
-				enemy.受伤时( Random.NormalIntRange(10, 20), new LightBeam() );
+				
+				int dmg=Random.NormalIntRange(10, 20);
+				
+				dmg=Math.round(dmg*Dungeon.难度攻击());
+				enemy.受伤时( dmg, new LightBeam() );
 				Buff.延长( enemy, Blindness.class, Blindness.DURATION/2f );
 
 				if (!enemy.isAlive() && enemy == Dungeon.hero) {
@@ -558,8 +560,11 @@ public abstract class YogFist extends Mob {
 			Invisibility.dispel(this);
 			Char enemy = this.enemy;
 			if (hit( this, enemy, true )) {
-
-				enemy.受伤时( Random.NormalIntRange(10, 20), new DarkBolt() );
+				
+				int dmg=Random.NormalIntRange(10, 20);
+				
+				dmg=Math.round(dmg*Dungeon.难度攻击());
+				enemy.受伤时( dmg, new DarkBolt() );
 
 				Light l = enemy.buff(Light.class);
 				if (l != null){

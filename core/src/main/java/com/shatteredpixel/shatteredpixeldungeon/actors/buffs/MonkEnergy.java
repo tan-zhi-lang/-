@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RipperDemon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
@@ -188,7 +189,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 	//10 at base, 20 at level 30
 	public int energyCap(){
-		return Math.max(10, 5 + (Dungeon.hero.精通?5:0));
+		return Math.max(10, 5 + (Dungeon.hero.天赋(Talent.职业精通)?5:0));
 	}
 
 	public void abilityUsed( MonkAbility abil ){
@@ -337,7 +338,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 				}
 
 				Char enemy = Actor.findChar(target);
-				if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
+				if (enemy == null||enemy instanceof NPC||enemy==hero||hero.isCharmedBy(enemy)||!Dungeon.level.heroFOV[target]) {
 					GLog.w(Messages.get(Weapon.class, "ability_no_target"));
 					return;
 				}
@@ -533,7 +534,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 				}
 
 				Char enemy = Actor.findChar(target);
-				if (enemy == null || enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
+				if (enemy == null || enemy instanceof NPC|| enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
 					GLog.w(Messages.get(Weapon.class, "ability_no_target"));
 					return;
 				}

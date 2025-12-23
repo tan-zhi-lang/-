@@ -194,6 +194,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
@@ -835,6 +836,9 @@ public class Generator {
 		} else {
 			w = (Weapon) random(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
 		}
+		if(Dungeon.玩法(玩法设置.刷子地牢)){
+			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
+		}
 		return w;
 	}
 	
@@ -860,7 +864,12 @@ public class Generator {
 		}
 
 		cat.probs[i]--;
-		return (Ring) Reflection.newInstance((Class<? extends Ring>) cat.classes[i]).random();
+		Ring r=(Ring) Reflection.newInstance((Class<? extends Ring>) cat.classes[i]).random();
+		
+		if(Dungeon.玩法(玩法设置.刷子地牢)){
+			r.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
+		}
+		return r;
 
 	}
 	public static Wand randomWand() {
@@ -885,8 +894,12 @@ public class Generator {
 		}
 
 		cat.probs[i]--;
-		return (Wand) Reflection.newInstance((Class<? extends Wand>) cat.classes[i]).random();
-
+		Wand w= (Wand) Reflection.newInstance((Class<? extends Wand>) cat.classes[i]).random();
+		
+		if(Dungeon.玩法(玩法设置.刷子地牢)){
+			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
+		}
+		return w;
 	}
 	//enforces uniqueness of artifacts throughout a run.
 	public static Artifact randomArtifact() {

@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SwarmSprite;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -91,7 +92,7 @@ public class Swarm extends Mob {
 				clone.pos = Random.element( candidates );
 				clone.state = clone.HUNTING;
 				GameScene.add( clone, SPLIT_DELAY ); //we add before assigning HP due to ascension
-
+				clone.最大生命=Math.round(clone.最大生命*Dungeon.难度生命());
 				clone.生命 = (生命 - damage) / 2;
 				Actor.add( new Pushing( clone, pos, clone.pos ) );
 
@@ -135,6 +136,7 @@ public class Swarm extends Mob {
 	
 	@Override
 	public Item createLoot(){
+		if(!Dungeon.玩法(玩法设置.刷子地牢))
 		Dungeon.LimitedDrops.SWARM_HP.count++;
 		return super.createLoot();
 	}

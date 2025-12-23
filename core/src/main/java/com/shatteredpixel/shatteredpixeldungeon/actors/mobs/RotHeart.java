@@ -19,7 +19,7 @@ public class RotHeart extends Mob {
 	{
 		spriteClass = RotHeartSprite.class;
 
-		生命 = 最大生命 = 80;
+		生命 = 最大生命 = Math.round(80*Dungeon.难度生命());
 		defenseSkill = 0;
 
 		经验 = 4;

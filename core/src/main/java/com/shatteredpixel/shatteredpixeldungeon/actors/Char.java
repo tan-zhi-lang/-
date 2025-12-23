@@ -75,8 +75,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.黑暗结晶;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -153,6 +155,7 @@ public abstract class Char extends Actor {
 	public int 护甲=0;
 	public int 每2次攻击=1;
 	public int 每3次攻击=1;
+	public int x次必暴=0;
 
 	public float 大小=1;
 	public boolean 第一次攻击=true;
@@ -161,6 +164,8 @@ public abstract class Char extends Actor {
 	public boolean 必暴 =false;
 	public boolean 必中 =false;
 	public boolean 必闪 =false;
+	public boolean 移速翻倍=false;
+	public boolean 移速减半=false;
 	public float 生命流动 =0;
 	public float 属性增幅 = 0.03f;
 
@@ -230,9 +235,12 @@ public abstract class Char extends Actor {
 	}
 
 	public boolean canInteract(Char c){
+		if (c instanceof Hero hero&&Dungeon.level.distance(pos, hero.pos) <= hero.攻击范围()){
+			return true;
+		}
 		if (Dungeon.level.adjacent( pos, c.pos )){
 			return true;
-		} else if (c instanceof Hero
+		} else if (false&&c instanceof Hero hero
 				&& alignment == Alignment.ALLY
 				&& !hasProp(this, Property.IMMOVABLE)
 				&& Dungeon.level.distance(pos, c.pos) <= 2){//移形换位
@@ -336,6 +344,7 @@ public abstract class Char extends Actor {
 	protected static final String BUFFS	    = "buffs";
 	protected static final String 每2次攻击x 	    = "每2次攻击";
 	protected static final String 每3次攻击x 	    = "每3次攻击";
+	protected static final String x次必暴x 	    = "x次必暴";
 	protected static final String 第一次攻击x 	    = "第一次攻击";
 	protected static final String 第一次防御x 	    = "第一次防御";
 	protected static final String 第一次背袭x 	    = "第一次背袭";
@@ -354,6 +363,7 @@ public abstract class Char extends Actor {
 		bundle.put( BUFFS, buffs );
 		bundle.put( 每2次攻击x, 每2次攻击);
 		bundle.put( 每3次攻击x, 每3次攻击);
+		bundle.put( x次必暴x, x次必暴);
 		bundle.put( 第一次攻击x, 第一次攻击);
 		bundle.put( 第一次防御x, 第一次防御);
 		bundle.put( 第一次背袭x, 第一次背袭);
@@ -428,6 +438,9 @@ public abstract class Char extends Actor {
 					dr=0;
 				}
 			}
+			if(!(enemy instanceof Hero&&enemy instanceof NPC)){
+				dr=Math.round(dr*Dungeon.难度防御());
+			}
 
 			//we use a float here briefly so that we don't have to constantly round while
 			// potentially applying various multiplier effects
@@ -441,11 +454,15 @@ public abstract class Char extends Actor {
 			} else {
 				if(this instanceof Hero hero){
 					dmg=hero.heroDamageIntRange(最小攻击(),最大攻击());
+					if(Dungeon.玩法(玩法设置.奇袭地牢)){
+						dmg=(最小攻击()+最大攻击())/2f;
+					}
 				}else{
 					dmg=Random.NormalIntRange(最小攻击(),最大攻击());
-				}
-				if(Dungeon.玩法(玩法设置.奇袭地牢)){
-					dmg=(最小攻击()+最大攻击())/2f;
+					if(Dungeon.玩法(玩法设置.奇袭地牢)){
+						dmg=(最小攻击()+最大攻击())/2f;
+					}
+					dmg=Math.round(dmg*Dungeon.难度攻击());
 				}
 			}
 
@@ -796,6 +813,12 @@ public abstract class Char extends Actor {
 		if(必暴||算法.概率学(暴击率())){
 			dmg=Math.round(dmg*暴击伤害());
 			必暴=false;
+			x次必暴=0;
+		}else {
+			x次必暴++;
+			if(暴击率()!=0&&x次必暴>=100/暴击率()){
+				必暴=true;
+			}
 		}
 		return dmg;
 	}
@@ -875,7 +898,12 @@ public abstract class Char extends Actor {
 		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
 		speed *= Flow.speedBoost(this, glyphLevel(Flow.class));
 		speed *= Bulk.speedBoost(this, glyphLevel(Bulk.class));
-
+		if(移速翻倍){
+			speed*=2;
+		}
+		if(移速减半){
+			speed/=2;
+		}
 		return speed;
 	}
 
@@ -962,7 +990,14 @@ public abstract class Char extends Actor {
 				damage *= 0.75f;
 			}
 		}
-
+		
+		if(Dungeon.玩法(玩法设置.地牢塔防))
+			for(int n: PathFinder.范围6){
+				Char c=Actor.findChar(pos+n);
+				if(c instanceof 黑暗结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
+					damage*=1.34f;
+				}
+			}
 		Terror t = buff(Terror.class);
 		if (t != null){
 			t.recover();
@@ -1212,6 +1247,7 @@ public abstract class Char extends Actor {
 	
 	public float 攻击延迟() {
 		float delay = 1f;
+		
 		return delay;
 	}
 	
@@ -1612,6 +1648,9 @@ public abstract class Char extends Actor {
 		return Math.round(x*视野范围());
 	}
 
+	public boolean 在地板(){
+		return Dungeon.level.map[pos] == Terrain.EMPTY_SP;
+	}
 	public boolean 在水中(){
 		return Dungeon.level.map[pos] == Terrain.WATER;
 	}

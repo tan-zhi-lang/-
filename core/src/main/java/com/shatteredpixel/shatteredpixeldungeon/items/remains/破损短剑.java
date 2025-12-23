@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.remains;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技.伤害150;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -56,7 +58,7 @@ public class 破损短剑 extends RemainsItem {
 				return;
 			}
 			
-			curUser.攻击(enemy,0,11);
+			curUser.攻击(enemy,伤害150,Char.INFINITE);
 			detach(curUser.belongings.backpack);
 		}
 		

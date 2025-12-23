@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Bundle;
 
 public class Hunger extends Buff implements Hero.Doom {
@@ -54,6 +55,10 @@ public class Hunger extends Buff implements Hero.Doom {
 			spend(TICK);
 			return true;
 		}
+		if(Dungeon.玩法(玩法设置.地牢塔防)){
+			spend(TICK);
+			return true;
+		}
 		if(target instanceof Hero hero&&(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
 			spend(TICK);
 			return true;
@@ -61,7 +66,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		if (target.isAlive() && target instanceof Hero hero) {
 			
-			if (isStarving()) {
+			if (isStarving()) {//饥饿时
 				
 				partial+=0.1f;
 
@@ -78,8 +83,8 @@ public class Hunger extends Buff implements Hero.Doom {
 				}
 				hungerDelay /= SaltCube.hungerGainMultiplier();
 
-				float newLevel = level + (1f/hungerDelay);
-				if (newLevel >= STARVING) {
+				float newLevel = level + 1f/hungerDelay;
+				if (newLevel >= STARVING) {//300时
 
 					GLog.n( Messages.get(this, "onstarving") );
 					hero.受伤时( 1, this );
@@ -96,7 +101,7 @@ public class Hunger extends Buff implements Hero.Doom {
 					}
 
 				}
-				level = newLevel;
+				level = Math.min(STARVING+1,newLevel);
 
 			}
 			spend( TICK );
@@ -127,14 +132,9 @@ public class Hunger extends Buff implements Hero.Doom {
 
 		float oldLevel = level;
 
-		level -= energy;
+		level = Math.max(0,level-energy);
 		if (level < 0 && !overrideLimits) {
 			level = 0;
-		} else if (level > STARVING) {
-			level = STARVING;
-			if(target instanceof Hero hero){
-				target.受伤时(1,this);
-			}
 		}
 
 		if (oldLevel < HUNGRY && level >= HUNGRY){
@@ -142,6 +142,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		} else if (oldLevel < STARVING && level >= STARVING){
 			GLog.n( Messages.get(this, "onstarving") );
 			target.受伤时( 1, this );
+			partial=0;
 		}
 
 		BuffIndicator.refreshHero();

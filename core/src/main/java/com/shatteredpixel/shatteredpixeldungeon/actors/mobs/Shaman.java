@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShamanSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -69,6 +70,7 @@ public abstract class Shaman extends Mob {
 
 	@Override
 	public Item createLoot() {
+		if(!Dungeon.玩法(玩法设置.刷子地牢))
 		Dungeon.LimitedDrops.SHAMAN_WAND.count++;
 		return super.createLoot();
 	}
@@ -109,6 +111,7 @@ public abstract class Shaman extends Mob {
 			}
 			
 			int dmg = Random.NormalIntRange( 6, 15 );
+			dmg=Math.round(dmg*Dungeon.难度攻击());
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 			enemy.受伤时( dmg, new EarthenBolt() );
 			

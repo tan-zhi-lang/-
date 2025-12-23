@@ -405,6 +405,17 @@ public class Assets {
 		public static final String ROT_HEART= "sprites/rot_heart.png";
 		public static final String GUARD    = "sprites/guard.png";
 		public static final String WARDS    = "sprites/wards.png";
+		public static final String 魔能结晶    = "sprites/魔能结晶.png";
+		public static final String 蓄能结晶    = "sprites/蓄能结晶.png";
+		public static final String 冰爆结晶    = "sprites/冰爆结晶.png";
+		public static final String 火爆结晶    = "sprites/火爆结晶.png";
+		public static final String 雷爆结晶    = "sprites/雷爆结晶.png";
+		public static final String 刺青结晶    = "sprites/刺青结晶.png";
+		public static final String 黑暗结晶    = "sprites/黑暗结晶.png";
+		public static final String 光明结晶    = "sprites/光明结晶.png";
+		public static final String 造能结晶    = "sprites/造能结晶.png";
+		public static final String 毒素结晶    = "sprites/毒素结晶.png";
+		public static final String 磐石结晶    = "sprites/磐石结晶.png";
 		public static final String GUARDIAN = "sprites/guardian.png";
 		public static final String SLIME    = "sprites/slime.png";
 		public static final String SNAKE    = "sprites/snake.png";

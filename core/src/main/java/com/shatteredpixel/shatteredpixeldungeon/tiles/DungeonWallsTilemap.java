@@ -19,7 +19,7 @@ public class DungeonWallsTilemap extends DungeonTilemap {
 
 	@Override
 	protected int getTileVisual(int pos, int tile, boolean flat){
-
+//
 		if (flat) return -1;
 
 		if (DungeonTileSheet.wallStitcheable(tile)) {
@@ -96,7 +96,8 @@ public class DungeonWallsTilemap extends DungeonTilemap {
 		} else if (pos + mapWidth < size && map[pos+mapWidth] == Terrain.FURROWED_GRASS){
 			return DungeonTileSheet.getVisualWithAlts(DungeonTileSheet.FURROWED_OVERHANG, pos + mapWidth);
 		}
-
+		
+		//超过26层会导致草丛有问题
 		return -1;
 	}
 

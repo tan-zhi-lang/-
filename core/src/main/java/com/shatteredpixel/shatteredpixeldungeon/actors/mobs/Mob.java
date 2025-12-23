@@ -42,8 +42,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.光明结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
@@ -55,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
@@ -83,6 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
@@ -117,8 +121,8 @@ public abstract class Mob extends Char {
 	
 	public int defenseSkill = 0;
 	
-	public int 经验 = 1;
-	public int 最大等级 = 经验==0?0:Hero.最大等级-1;
+	public int 经验 = 0;
+	public int 最大等级 = 经验==0?25:Hero.最大等级-1;
 	
 	protected Char enemy;
 	protected int enemyID = -1; //used for save/restore
@@ -228,7 +232,11 @@ public abstract class Mob extends Char {
 		
 		if (paralysed > 0) {
 			enemySeen = false;
-			spend( TICK );
+			if(this instanceof 刺青结晶){
+				spend( 攻击延迟() );
+			}else{
+				spend( TICK );
+			}
 			return true;
 		}
 
@@ -243,7 +251,12 @@ public abstract class Mob extends Char {
 		//prevents action, but still updates enemy seen status
 		if (buff(Feint.AfterImage.FeintConfusion.class) != null){
 			enemySeen = enemyInFOV;
-			spend( TICK );
+			
+			if(this instanceof 刺青结晶){
+				spend( 攻击延迟() );
+			}else{
+				spend( TICK );
+			}
 			return true;
 		}
 
@@ -260,7 +273,12 @@ public abstract class Mob extends Char {
 	
 	//FIXME this is sort of a band-aid correction for allies needing more intelligent behaviour
 	protected boolean intelligentAlly = false;
-	
+	public void target(int target){
+		this.target=target;
+	}
+	public void enemy(Char enemy){
+		this.enemy=enemy;
+	}
 	public Char chooseEnemy() {
 
 		Dread dread = buff( Dread.class );
@@ -642,7 +660,15 @@ public abstract class Mob extends Char {
 	}
 	@Override
 	public float 攻击延迟() {
-		float delay = 1f;
+		float delay = super.攻击延迟();
+		
+		if(Dungeon.玩法(玩法设置.地牢塔防))
+			for(int n: PathFinder.范围6){
+				Char c=Actor.findChar(pos+n);
+				if(c instanceof 光明结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
+					delay*=0.75f;
+				}
+			}
 		if ( buff(Adrenaline.class) != null) delay /= 1.5f;
 		return delay;
 	}
@@ -832,8 +858,13 @@ public abstract class Mob extends Char {
 
 				AscensionChallenge.processEnemyKill(this);
 				
-				int exp = Dungeon.hero.等级 <= 最大等级 ? 经验 : 0;
-
+				int exp =0;
+				if(Dungeon.玩法(玩法设置.刷子地牢)){
+					exp=经验;
+				}else {
+					exp=Dungeon.hero.等级 <= 最大等级 ? 经验 : 0;
+				}
+				
 				//during ascent, under-levelled enemies grant 10 xp each until level 30
 				// after this enemy kills which reduce the amulet curse still grant 10 effective xp
 				// for the purposes of on-exp effects, see AscensionChallenge.processEnemyKill
@@ -842,10 +873,9 @@ public abstract class Mob extends Char {
 					exp = Math.round(10 * spawningWeight());
 				}
 
-				if (exp > 0) {
-					Dungeon.hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(exp), FloatingText.EXPERIENCE);
+				if(!Dungeon.玩法(玩法设置.地牢塔防)){
+					Dungeon.hero.经验(exp,getClass());
 				}
-				Dungeon.hero.经验(exp, getClass());
 
 				if (Dungeon.hero.subClass == HeroSubClass.武者){
 					Buff.施加(Dungeon.hero, MonkEnergy.class).gainEnergy(this);
@@ -867,8 +897,24 @@ public abstract class Mob extends Char {
 				Statistics.hazardAssistedKills++;
 				Badges.validateHazardAssists();
 			}
-
-			rollToDropLoot();
+			
+			if(Dungeon.玩法(玩法设置.地牢塔防)){
+				int 能量=1;
+				if(Dungeon.hero.地牢塔防更多更快开关&&Random.Int(4)!=0)能量=0;
+				if(Dungeon.hero.地牢塔防波次%3==0)能量+=最大生命(0.01f);
+				
+				if(Dungeon.玩法(玩法设置.地牢塔防))
+					for(int n: PathFinder.范围6){
+						Char c=Actor.findChar(pos+n);
+						if(c instanceof 造能结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
+							能量=Math.round(能量*1.5f);
+						}
+					}
+				Dungeon.energy(能量);
+			}else{
+				rollToDropLoot();
+			}
+			
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
 				if(cause== Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
@@ -910,6 +956,7 @@ public abstract class Mob extends Char {
 				if(Dungeon.hero.heroClass(HeroClass.近卫)){
 					Dungeon.hero.回已损失血(0.05f);
 				}
+					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战));
 					//击杀瞬移
 //					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
 			
@@ -964,12 +1011,22 @@ public abstract class Mob extends Char {
 	}
 	
 	public void rollToDropLoot(){
-		if (Dungeon.hero.等级 > 最大等级 + 2) return;
-
+		if(Dungeon.玩法(玩法设置.刷子地牢)){
+		
+		}else{
+			if(Dungeon.hero.等级>最大等级+2)
+				return;
+		}
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/6f*Dungeon.难度掉率())){
+			Dungeon.level.drop(Generator.random(), pos).sprite.drop();
+		}
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
+			Dungeon.level.drop(new 治疗药剂(),pos).sprite.drop();
+		}
 		MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
 		if (stolen == null || !stolen.itemWasStolen()) {
 			Item loot = createLoot();
-			float 几率=1;
+			float 几率=1*Dungeon.难度掉率();
 			if (loot != null) {
 				if(loot.可堆叠){
 					loot.数量(幸运硬币.增加());
@@ -980,7 +1037,6 @@ public abstract class Mob extends Char {
 				}
 			}
 		}
-		
 		//ring of wealth logic
 		if (Ring.getBuffedBonus(Dungeon.hero, 财富之戒.Wealth.class)>0) {
 			int rolls = 1;
@@ -1062,15 +1118,20 @@ public abstract class Mob extends Char {
 		for (Buff b : buffs(ChampionEnemy.class)){
 			desc += "\n\n_" + Messages.titleCase(b.name()) + "_\n" + b.desc();
 		}
-		if(!(this instanceof NPC||this instanceof Mimic)){
+		if(!(this instanceof NPC||(this instanceof Mimic m&&
+				m.alignment == Char.Alignment.ENEMY && m.state!=PASSIVE))){
 			desc+="\n\n\n";
 			desc+="生命值"+生命+"/"+最大生命+"\n\n";
-			desc+="攻击力"+最小攻击()+"~"+最大攻击()+"\n\n";
-			desc+="防御力"+最小防御()+"~"+最大防御()+"\n\n";
-			desc+="命中"+最小命中(null)+"~"+最大命中(null)+"\n\n";
-			desc+="闪避"+最小闪避(null)+"~"+最大闪避(null)+"\n\n";
+			desc+="攻击力"+Math.round(最小攻击()*Dungeon.难度攻击())+"~"
+				  +Math.round(最大攻击()*Dungeon.难度攻击())+"\n\n";
+			desc+="防御力"+Math.round(最小防御()*Dungeon.难度防御())+"~"
+				  +Math.round(最大防御()*Dungeon.难度防御())+"\n\n";
+			desc+="命中"+Math.round(最小命中(null)*Dungeon.难度命中闪避())+"~"+
+				  Math.round(最大命中(null)*Dungeon.难度命中闪避())+"\n\n";
+			desc+="闪避"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+
+				  Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n\n";
 			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
-			desc+="经验/最大等级经验"+经验+"/"+最大等级;
+			desc+="经验/最大等级经验"+Math.round(经验*Dungeon.难度经验())+"/"+最大等级;
 //			desc+="战利品/掉落几率"+loot+"/"+String.format("%.2f",lootChance()*100)+"%";
 		}
 		return desc;
@@ -1273,6 +1334,7 @@ public abstract class Mob extends Char {
 				if (enemyInFOV) {
 					target = enemy.pos;
 				} else if (enemy == null) {
+					
 					sprite.showLost();
 					state = WANDERING;
 					target = ((Mob.Wandering)WANDERING).randomDestination();

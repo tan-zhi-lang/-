@@ -1065,6 +1065,17 @@ public class HeroSelectScene extends PixelScene {
             buttons.add(randomButton);
             add(randomButton);
             
+            StyledButton 难度设置 = new StyledButton(Chrome.Type.BLANK, "难度设置", 6) {
+                @Override
+                protected void onClick() {
+                    ShatteredPixelDungeon.scene().addToFront(new Wnd难度设置());
+                }
+            };
+            难度设置.leftJustify = true;
+            难度设置.icon(Icons.STATS.get());
+            buttons.add(难度设置);
+            add(难度设置);
+            
             for (int i = 1; i < buttons.size(); i++) {
                 ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
                 add(spc);
@@ -1161,6 +1172,60 @@ public class HeroSelectScene extends PixelScene {
                     }
                 };
                 btnConfirm.setRect(0, 64, 60, 16);
+                add(btnConfirm);
+                
+                resize(120, (int)btnConfirm.bottom());
+                
+            }
+            
+        }
+        private class Wnd难度设置 extends Window {
+            
+            OptionSlider optChals;
+            
+            public Wnd难度设置(){
+                super();
+                int 难度=Dungeon.难度;
+                if(难度==0)Dungeon.难度=2;
+                optChals = new OptionSlider(Dungeon.难度名称()+" "+
+                                            "生命"+Dungeon.难度生命()
+                                            +"攻击"+Dungeon.难度攻击()
+                                            +"经验"+Dungeon.难度经验()
+                                            +"掉率"+Dungeon.难度掉率(), "1", "16", 1, 16) {
+                    @Override
+                    protected void onChange() {
+                        Dungeon.难度=optChals.getSelectedValue();
+                        
+                        optChals.title.text(Dungeon.难度名称()+" "+
+                                            "生命"+Dungeon.难度生命()
+                                            +"攻击"+Dungeon.难度攻击()
+                                            +"经验"+Dungeon.难度经验()
+                                            +"掉率"+Dungeon.难度掉率());
+                    }
+                };
+                optChals.setSelectedValue(难度);
+                optChals.setRect(0, 0, 120, 22);
+                add(optChals);
+                
+
+				RedButton btnCancel = new RedButton("取消"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnCancel.setRect(61, 24, 60, 16);
+                add(btnCancel);
+                
+                RedButton btnConfirm = new RedButton("确认"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnConfirm.setRect(0, 24, 60, 16);
                 add(btnConfirm);
                 
                 resize(120, (int)btnConfirm.bottom());

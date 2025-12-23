@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.audio.Sample;
@@ -48,6 +49,10 @@ public class 蜕变秘卷 extends ExoticScroll {
 			identifiedByUse = true;
 		} else {
 			identifiedByUse = false;
+		}
+		if(true){
+			GLog.n("天赋更新导致可能出现问题，所以停止相关机制！");
+			return;
 		}
 		GameScene.show(new WndMetamorphChoose());
 	}

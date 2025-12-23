@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -98,7 +97,7 @@ public abstract class Plant implements Bundlable {
 
 	public String desc() {
 		String desc = Messages.get(this, "desc");
-		if (Dungeon.hero() &&Dungeon.hero.精通&& Dungeon.hero.subClass == HeroSubClass.守望者){
+		if (Dungeon.hero()&&Dungeon.hero.天赋(Talent.职业精通)&&Dungeon.hero.subClass==HeroSubClass.守望者){
 			desc += "\n\n" + Messages.get(this, "warden_desc");
 		}
 		return desc;
@@ -196,7 +195,7 @@ public abstract class Plant implements Bundlable {
 		@Override
 		public String desc() {
 			String desc = Messages.get(plantClass, "desc");
-			if (Dungeon.hero() &&Dungeon.hero.精通&& Dungeon.hero.subClass == HeroSubClass.守望者){
+			if (Dungeon.hero()&&Dungeon.hero.天赋(Talent.职业精通)&&Dungeon.hero.subClass==HeroSubClass.守望者){
 				desc += "\n\n" + Messages.get(plantClass, "warden_desc");
 			}
 			return desc;

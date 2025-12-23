@@ -41,14 +41,17 @@ public class TalentsPane extends ScrollPane {
 		int tiersAvailable = 1;
 
 		if (mode == TalentButton.Mode.INFO){
-			if (!Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_1)){
+			if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_1)){
 				tiersAvailable = 1;
-			} else if (!Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_2) || !Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_2)){
-				tiersAvailable = 2;
-			} else if (!Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4)){
-				tiersAvailable = 3;
-			} else {
-				tiersAvailable = Talent.MAX_TALENT_TIERS;
+				if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_2) || Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_1)){
+					tiersAvailable = 2;
+//					  if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_3)){
+//						tiersAvailable = 3;
+//						if(Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_4)||Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4)){
+//							tiersAvailable = Talent.MAX_TALENT_TIERS;
+//						}
+//					}
+				}
 			}
 		} else {
 			while (tiersAvailable < Talent.MAX_TALENT_TIERS
@@ -56,11 +59,14 @@ public class TalentsPane extends ScrollPane {
 			){
 				tiersAvailable++;
 			}
-			if (tiersAvailable > 2 && Dungeon.hero.subClass == HeroSubClass.NONE){
-				tiersAvailable = 2;
-			} else if (tiersAvailable > 3 && Dungeon.hero.armorAbility == null){
-				tiersAvailable = 3;
+			if (tiersAvailable > 1 &&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_1)){
+				tiersAvailable = 1;
 			}
+			if(tiersAvailable > 2&&Dungeon.hero.subClass==HeroSubClass.NONE)
+				tiersAvailable = 2;
+			
+			if(tiersAvailable > 3&&!Dungeon.hero.解锁4天赋)
+				tiersAvailable = 3;
 		}
 
 		tiersAvailable = Math.min(tiersAvailable, talents.size());
@@ -90,8 +96,8 @@ public class TalentsPane extends ScrollPane {
 			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier3"), 6);
 			content.add(blockText);
 		} else if (tiersAvailable == 3) {
-//			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier4"), 6);
-//			content.add(blockText);
+			blockText = PixelScene.renderTextBlock(Messages.get(this, "unlock_tier4"), 6);
+			content.add(blockText);
 		} else {
 			blockText = null;
 		}
@@ -209,6 +215,108 @@ public class TalentsPane extends ScrollPane {
 						}
 					}
 				};
+				if(Dungeon.hero()){
+					if(Dungeon.hero.天赋(Talent.知识)){
+						if(talent==Talent.勇武||talent==Talent.备战)
+							continue;
+						if(talent==Talent.技巧||talent==Talent.久战||talent==Talent.突袭||talent==Talent.武装)
+							continue;
+					}else{
+						if(talent==Talent.埋伏||talent==Talent.招架)
+							continue;
+					}
+					if(Dungeon.hero.天赋(Talent.勇武)){
+						if(talent==Talent.知识||talent==Talent.备战)
+							continue;
+						if(talent==Talent.埋伏||talent==Talent.招架||talent==Talent.突袭||talent==Talent.武装)
+							continue;
+					}else{
+						if(talent==Talent.技巧||talent==Talent.久战)
+							continue;
+					}
+					if(Dungeon.hero.天赋(Talent.备战)){
+						if(talent==Talent.知识||talent==Talent.勇武)
+							continue;
+						if(talent==Talent.埋伏||talent==Talent.招架||talent==Talent.技巧||talent==Talent.久战)
+							continue;
+					}else{
+						if(talent==Talent.突袭||talent==Talent.武装)
+							continue;
+					}
+					
+					//******************************
+					
+					if(Dungeon.hero.天赋(Talent.健身)){
+						if(talent==Talent.破绽||talent==Talent.寻觅||talent==Talent.静步)
+							continue;
+						if(talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
+						   
+						   ||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备
+						   
+						   ||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+							continue;
+					}else{
+						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧)
+							continue;
+					}
+					if(Dungeon.hero.天赋(Talent.破绽)){
+						if(talent==Talent.健身||talent==Talent.寻觅||talent==Talent.静步)
+							continue;
+						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
+						   
+						   ||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备
+						   
+						   ||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+							continue;
+					}else{
+						if(talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避)
+							continue;
+					}
+					if(Dungeon.hero.天赋(Talent.寻觅)){
+						if(talent==Talent.健身||talent==Talent.破绽||talent==Talent.静步)
+							continue;
+						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
+						   
+						   ||talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
+						   
+						   ||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+							continue;
+					}else{
+						if(talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备)
+							continue;
+					}
+					if(Dungeon.hero.天赋(Talent.静步)){
+						if(talent==Talent.健身||talent==Talent.破绽||talent==Talent.寻觅)
+							continue;
+						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
+						   
+						   ||talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
+						   
+						   ||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备)
+							continue;
+					}else{
+						if(talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+							continue;
+					}
+				}else{
+						if(talent==Talent.埋伏||talent==Talent.招架
+						   
+						   ||talent==Talent.技巧||talent==Talent.久战
+						   
+						   ||talent==Talent.突袭||talent==Talent.武装)
+							continue;
+						
+						
+					if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
+					
+					||talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
+					
+					||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备
+					
+					||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑
+					)
+						continue;
+				}
 				buttons.add(btn);
 				add(btn);
 			}

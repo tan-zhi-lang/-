@@ -235,7 +235,8 @@ public class WndRanking extends WndTabbed {
 				}
 
 				pos += GAP;
-
+				
+				pos = statSlot(this, "难度", Dungeon.难度名称(),pos);
 				pos = statSlot(this, Messages.get(this, "enemies"), num.format(Statistics.enemiesSlain), pos);
 				pos = statSlot(this, Messages.get(this, "gold"), num.format(Statistics.goldCollected), pos);
 				pos = statSlot(this, Messages.get(this, "food"), num.format(Statistics.foodEaten), pos);

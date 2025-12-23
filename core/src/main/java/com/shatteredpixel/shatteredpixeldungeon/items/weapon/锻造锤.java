@@ -89,6 +89,11 @@ public class 锻造锤 extends Weapon {
 				升级卷轴.upgrade(Dungeon.hero);
 				Item.evoke( Dungeon.hero );
 				
+				
+				Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+				Dungeon.hero.spend( 1f );
+				Dungeon.hero.busy();
+				
 				Badges.validateItemLevelAquired(item);
 				
 				if (!Blacksmith.Quest.rewardsAvailable()){

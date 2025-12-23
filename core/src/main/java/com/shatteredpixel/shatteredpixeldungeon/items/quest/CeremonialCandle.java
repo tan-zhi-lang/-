@@ -149,6 +149,7 @@ public class CeremonialCandle extends Item {
 			}
 				
 			Elemental.NewbornFireElemental elemental = new Elemental.NewbornFireElemental();
+			elemental.生命=elemental.最大生命=Math.round(elemental.最大生命*Dungeon.难度生命());
 			Char ch = Actor.findChar( ritualPos );
 			if (ch != null) {
 				ArrayList<Integer> candidates = new ArrayList<>();

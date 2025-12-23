@@ -32,7 +32,9 @@ public class Pylon extends Mob {
 	{
 		spriteClass = PylonSprite.class;
 
-		生命 = 最大生命 = Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 80 : 50;
+		生命 = 最大生命 = Math.round(
+				(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 80 : 50)
+				*Dungeon.难度生命());
 
 		最大等级 = -2;
 

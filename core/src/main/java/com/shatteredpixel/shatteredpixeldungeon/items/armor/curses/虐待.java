@@ -13,7 +13,7 @@ public class 虐待 extends Armor.Glyph {
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 		
-		damage=Math.round(damage*2.5f*procChanceMultiplier(defender));
+		damage=Math.round(damage*3.5f*procChanceMultiplier(defender));
 		defender.受伤(damage);
 		if(defender.isAlive()){
 			defender.回血(damage);

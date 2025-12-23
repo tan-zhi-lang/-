@@ -43,9 +43,6 @@ public class RingOfSharpshooting extends Ring {
 	public static int levelDamageBonus( Char target ){
 		int x=0;
 		if(target instanceof Hero hero){
-			if(hero.heroClass(HeroClass.女忍)){
-				x++;
-			}
 		}
 		return getBuffedBonus(target, RingOfSharpshooting.Aim.class)+x;
 	}

@@ -97,6 +97,8 @@ public class 财富之戒 extends Ring {
 	@Override
 	public int 强化等级(){
 		int l=0;
+		if(Dungeon.hero()){
+		}
 		return super.强化等级()+l;
 	}
 	public static float dropChanceMultiplier( Char target ){

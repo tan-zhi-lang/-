@@ -3,9 +3,11 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.watabou.noosa.audio.Sample;
@@ -16,9 +18,8 @@ public class DM0 extends Mob {
 	{
 		spriteClass = DM0Sprite.class;
 		
-		生命 = 最大生命 = 5;
+		生命 = 最大生命 = Dungeon.层数(5);
 		
-		经验 = 0;
 		state = WANDERING;
 		flying = true;
 		

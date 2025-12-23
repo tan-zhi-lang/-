@@ -185,19 +185,22 @@ public class 物品表 {
     //region 炸弹遗物
     public static final int TRINKET_CATA = xy(1, 5);
     public static final int 破损短剑 = TRINKET_CATA + 1;
-    public static final int SEAL_SHARD = TRINKET_CATA + 2;
-    public static final int BROKEN_STAFF = TRINKET_CATA + 3;
-    public static final int CLOAK_SCRAP = TRINKET_CATA + 4;
-    public static final int BOW_FRAGMENT = TRINKET_CATA + 5;
-    public static final int BROKEN_HILT = TRINKET_CATA + 6;
-    public static final int TORN_PAGE = TRINKET_CATA + 7;
-    public static final int 残缺灵杖 = TRINKET_CATA + 8;
-    public static final int 残缺重盾 = TRINKET_CATA + 9;
+    public static final int 遗失符石 = TRINKET_CATA + 2;
+    public static final int SEAL_SHARD = TRINKET_CATA + 3;
+    public static final int BROKEN_STAFF = TRINKET_CATA + 4;
+    public static final int CLOAK_SCRAP = TRINKET_CATA + 5;
+    public static final int BOW_FRAGMENT = TRINKET_CATA + 6;
+    public static final int BROKEN_HILT = TRINKET_CATA + 7;
+    public static final int TORN_PAGE = TRINKET_CATA + 8;
+    public static final int 残缺灵杖 = TRINKET_CATA + 9;
+    public static final int 残缺重盾 = TRINKET_CATA + 10;
 
     static {
         assignItemRect(TRINKET_CATA, 12, 11);
 
         assignItemRect(破损短剑, 13);
+        assignItemRect(遗失符石, 14,12);
+        
         assignItemRect(SEAL_SHARD, 12);
 
         assignItemRect(BROKEN_STAFF, 14, 10);
@@ -416,6 +419,10 @@ public class 物品表 {
     public static final int 日炎链刃 = WEP_TIER5 + 13;
     public static final int 流火 = WEP_TIER5 + 14;
     public static final int 蜜剑 = WEP_TIER5 + 15;
+    public static final int 闪电双截棍 = WEP_TIER5 + 16;
+    public static final int 寒冰镖 = WEP_TIER5 + 17;
+    public static final int 地裂镰 = WEP_TIER5 + 18;
+    public static final int 火焰剑 = WEP_TIER5 + 19;
 
     static {
         assignItemRect(英雄断剑, 12, 13);
@@ -436,13 +443,10 @@ public class 物品表 {
         assignItemRect(流火);
         assignItemRect(蜜剑);
         
-//        assignItemRect(死神镰刀, 16);
-//        assignItemRect(神农锄, 14, 16);
-//        assignItemRect(黄金雷鞭, 15, 16);
-//        assignItemRect(黄金冰镖, 16);
-//        assignItemRect(黄金地镰, 15, 16);
-//        assignItemRect(黄金火剑, 15, 16);
-//        assignItemRect(流火, 16);
+        assignItemRect(闪电双截棍, 15, 16);
+        assignItemRect(寒冰镖, 15,16);
+        assignItemRect(地裂镰, 15, 16);
+        assignItemRect(火焰剑, 15, 16);
     }
     //endregion
     

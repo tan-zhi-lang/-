@@ -3,9 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.watabou.utils.Bundle;
@@ -48,7 +45,7 @@ public abstract class ShieldBuff extends Buff {
 	}
 	
 	public void 设置(int shield ) {
-		
+		if(target!=null&&target.sprite!=null)
 		target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
 		if (this.shielding <= shield) this.shielding = shield;
 		if (target != null) target.needsShieldUpdate = true;

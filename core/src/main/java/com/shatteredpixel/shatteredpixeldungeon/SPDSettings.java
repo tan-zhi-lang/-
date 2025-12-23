@@ -43,7 +43,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
 	public static final String 物品命名x = "物品命名";
-	public static final String 受伤打断x = "受伤打断";
+	public static final String 打断英雄x= "打断英雄";
 	public static final String 游戏提示x = "游戏提示";
 	public static final String 自动拾取x = "自动拾取";
 	public static final String 装备武器x = "装备武器";
@@ -156,12 +156,12 @@ public class SPDSettings extends GameSettings {
 	public static boolean 物品命名() {
 		return getBoolean( 物品命名x, false);
 	}
-	public static void 受伤打断( boolean value ) {
-		put( 受伤打断x, value );
+	public static void 打断英雄(boolean value) {
+		put(打断英雄x,value);
 		
 	}
-	public static boolean 受伤打断() {
-		return getBoolean( 受伤打断x, true);
+	public static boolean 打断英雄() {
+		return getBoolean(打断英雄x,true);
 	}
 	public static void 游戏提示( boolean value ) {
 		put( 游戏提示x, value );

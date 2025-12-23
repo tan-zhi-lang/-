@@ -693,7 +693,11 @@ public class GnollGeomancer extends Mob {
 						}
 
 						if (ch != null && !(ch instanceof GnollGeomancer)){
-							ch.受伤时(Random.NormalIntRange(6, 12), new GnollGeomancer.Boulder());
+							
+							int dmg=Random.NormalIntRange(6, 12);
+							
+							dmg=Math.round(dmg*Dungeon.难度攻击());
+							ch.受伤时(dmg, new GnollGeomancer.Boulder());
 
 							if (ch == Dungeon.hero){
 								Statistics.questScores[2] -= 100;

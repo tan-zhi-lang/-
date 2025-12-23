@@ -2,8 +2,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -45,6 +47,10 @@ public abstract class SecretRoom extends SpecialRoom {
 	}
 	
 	public static int secretsForFloor(int depth){
+		
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
+			depth%=25;//解析：超过25求余即是循环层
+		}
 		if (depth == 1) return 0;
 		
 		int region = depth/5;

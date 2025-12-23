@@ -38,8 +38,6 @@ public class Mimic extends Mob {
 
 		properties.add(Property.DEMONIC);
 
-		经验 = 0;
-		
 		//mimics are neutral when hidden
 		alignment = Alignment.NEUTRAL;
 		state = PASSIVE;

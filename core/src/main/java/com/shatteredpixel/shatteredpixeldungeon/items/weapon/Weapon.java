@@ -526,6 +526,9 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public boolean 放背包(Bag container) {
 		if (super.放背包( container )) {
+			if(首次拾取){
+				usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
+			}
 			if (container.owner != null) {
 				activate( container.owner);
 			}
@@ -547,7 +550,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 		if (super.doUnequip( hero, collect, single )) {
 			stopCharging();
-			
+			if(首次装备){
+				usesLeftToID-=Talent.鉴定速度(hero,this);
+			}
 			return true;
 			
 		} else {
@@ -861,6 +866,11 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 投掷攻击时(Char attacker, Char defender, int damage) {
 		
 		if (attacker instanceof Hero hero) {
+			
+			if(首次使用){
+				首次使用=false;
+				usesLeftToID-=Talent.鉴定速度(hero,this);
+			}
 			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
 				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
 					hero.现在健身-=0.01f;
@@ -972,9 +982,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 
 	public enum Augment {
-		DAMAGE  (1.1f, 1,1),
-		DELAY(1,0.8f,1),
-		ACCURACY  (1, 1,1.3f),
+		DAMAGE  (1.15f, 1,1),
+		DELAY(1,0.7f,1),
+		ACCURACY  (1, 1,1.45f),
 		NONE	(1,1,1);
 
 		private float damageFactor;
@@ -1018,7 +1028,10 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 攻击时(Char attacker, Char defender, int damage ) {
 		
 		if (attacker instanceof Hero hero) {
-			
+			if(首次使用){
+				首次使用=false;
+				usesLeftToID-=Talent.鉴定速度(hero,this);
+			}
 			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
 				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
 					hero.现在健身-=0.01f;
@@ -1099,8 +1112,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		if (!已鉴定()&& attacker == Dungeon.hero) {
-			float uses =  Talent.鉴定速度(Dungeon.hero,this);
-			usesLeftToID -= uses;
+			usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){

@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -191,6 +192,7 @@ public class Shopkeeper extends NPC {
 		if(Holiday.getCurrentHoliday()==Holiday._1111){
 			打折*=.8f;
 		}
+		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
 		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.depth / 5f + 1));
 	}

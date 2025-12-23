@@ -128,6 +128,7 @@ public class GamesInProgress {
 		info.解压 = Dungeon.解压;
 		info.系统 = Dungeon.系统;
 		info.玩法 = Dungeon.玩法;
+		info.难度 = Dungeon.难度;
 
 		info.seed = Dungeon.seed;
 		info.customSeed = Dungeon.customSeedText;
@@ -179,6 +180,7 @@ public class GamesInProgress {
 		
 		public int goldCollected;
 		public int maxDepth;
+		public int 难度;
 	}
 	
 	public static final Comparator<GamesInProgress.Info> levelComparator = new Comparator<GamesInProgress.Info>() {

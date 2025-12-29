@@ -31,7 +31,8 @@ public class 炼金菱晶 extends Spell {
 	
 	{
 		image = 物品表.ALCHEMIZE;
-
+		
+		icon = 物品表.Icons.炼金;
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}
 

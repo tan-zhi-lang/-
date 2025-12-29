@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.BArray;
@@ -17,6 +17,7 @@ public class ShockingBrew extends Brew {
 	
 	{
 		image = 物品表.BREW_SHOCKING;
+		icon = 物品表.Icons.雷鸣;
 	}
 	
 	@Override
@@ -37,7 +38,7 @@ public class ShockingBrew extends Brew {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{PotionOfParalyticGas.class};
+			inputs =  new Class[]{麻痹药剂.class};
 			inQuantity = new int[]{1};
 			
 			cost = 10;

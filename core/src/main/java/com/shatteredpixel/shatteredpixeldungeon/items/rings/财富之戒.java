@@ -47,14 +47,14 @@ public class 财富之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", Math.pow(1.20f, soloBuffedBonus()) - 1f),2*soloBuffedBonus());
+					Messages.decimalFormat("#.2", Math.pow(1.20f, soloBuffedBonus()) - 1f),6*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", Math.pow(1.20f, combinedBuffedBonus(Dungeon.hero)) - 1f),2+2*combinedBuffedBonus(Dungeon.hero));
+						Messages.decimalFormat("#.2", Math.pow(1.20f, combinedBuffedBonus(Dungeon.hero)) - 1f),6+6*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.20f),2);
+			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.20f),6);
 		}
 	}
 
@@ -70,7 +70,7 @@ public class 财富之戒 extends Ring {
 	}
 	
 	public static int 暴击率( Char target ){
-		return getBuffedBonus( target, 财富之戒.Wealth.class);
+		return 6*getBuffedBonus( target, 财富之戒.Wealth.class);
 	}
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";
@@ -98,6 +98,7 @@ public class 财富之戒 extends Ring {
 	public int 强化等级(){
 		int l=0;
 		if(Dungeon.hero()){
+		
 		}
 		return super.强化等级()+l;
 	}

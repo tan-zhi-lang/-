@@ -5,11 +5,11 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.watabou.utils.Random;
 
 public class StorageRoom extends SpecialRoom {
@@ -36,8 +36,8 @@ public class StorageRoom extends SpecialRoom {
 		}
 		
 		entrance().set( Door.Type.BARRICADE );
-		level.addItemToSpawn( new PotionOfLiquidFlame() );
-		level.addItemToSpawn( new Icecap.Seed());
+		level.addItemToSpawn( new 液火药剂().房间物品());
+		level.addItemToSpawn( new Firebloom.Seed().房间物品());
 	}
 	
 	private static Item prize( Level level ) {

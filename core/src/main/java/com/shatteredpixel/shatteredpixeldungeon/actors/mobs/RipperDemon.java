@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
@@ -143,31 +142,15 @@ public class RipperDemon extends Mob {
 				if (leapVictim != null){
 					int bouncepos = -1;
 					//attempt to bounce in free passable space
-					for (int i : PathFinder.NEIGHBOURS8){
-						if ((bouncepos == -1 || Dungeon.level.trueDistance(pos, leapPos+i) < Dungeon.level.trueDistance(pos, bouncepos))
-								&& Actor.findChar(leapPos+i) == null
-							&&!Dungeon.level.pit[leapPos+i]//不是深渊
-							&& Dungeon.level.passable[leapPos+i]){
-							if(bouncepos!=-1){
-								continue;
-							}
-							bouncepos = leapPos+i;
+					for(int i: PathFinder.NEIGHBOURS8){
+						if((bouncepos==-1||
+							Dungeon.level.trueDistance(pos,leapPos+i)<Dungeon.level.trueDistance(pos,bouncepos))
+						   &&Actor.findChar(leapPos+i)==null&&Dungeon.level.passable[leapPos+i]&& !Dungeon.level.solid[leapPos+i]){
+							bouncepos=leapPos+i;
+							break;
 						}
 					}
-					//try again, allowing a bounce into any non-solid terrain
-					if(bouncepos==-1){
-						for (int i : PathFinder.NEIGHBOURS8){
-							if ((bouncepos == -1 || Dungeon.level.trueDistance(pos, leapPos+i) < Dungeon.level.trueDistance(pos, bouncepos))
-								&& Actor.findChar(leapPos+i) == null
-								&&!Dungeon.level.pit[leapPos+i]//不是深渊
-								&& Dungeon.level.passable[leapPos+i]){
-								if(bouncepos!=-1){
-									continue;
-								}
-								bouncepos = leapPos+i;
-							}
-						}
-					}
+					
 					//if no valid position, cancel the leap
 					if (bouncepos == -1) {
 						leapPos = -1;

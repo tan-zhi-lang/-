@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
@@ -33,7 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
-import com.shatteredpixel.shatteredpixeldungeon.系统设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
@@ -75,7 +75,7 @@ public class 法师魔杖 extends Weapon{
 	public int 转移=0;
 	public int 最大转移(){
 		int x=1;
-		if(Dungeon.系统(系统设置.独自变强)){
+		if(Dungeon.解压(解压设置.独自变强)){
 			x+=Dungeon.hero.等级/2;
 		}
 		return x+(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.高级魔杖):0);
@@ -172,7 +172,7 @@ public class 法师魔杖 extends Weapon{
 				attacker instanceof Hero hero && hero.subClass(HeroSubClass.战斗法师)) {
 			if (wand.curCharges < wand.maxCharges&&hero.天赋(Talent.职业精通)){
 				wand.partialCharge+=0.5f;
-				ScrollOfRecharging.charge(hero);
+				充能卷轴.charge(hero);
 			}
 			wand.onHit(this, attacker, defender, damage);
 		}

@@ -103,7 +103,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 				} else {
 						item.detach(Dungeon.hero.belongings.backpack);
 					if (!result.放背包()) {
-						Dungeon.level.drop(result, curUser.pos).sprite.drop();
+						Dungeon.level.drop(result, curUser.pos).sprite().drop();
 					} else if (result.可堆叠&&Dungeon.hero.belongings.getSimilar(result)!=null){
 						result = Dungeon.hero.belongings.getSimilar(result);
 					}
@@ -122,6 +122,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 			Transmuting.show(curUser, item, result);
 			curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 10);
 			GLog.p( Messages.get(this, "morph") );
+			curUser.sprite.礼物();
 		}
 		
 	}
@@ -249,7 +250,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.cursedKnown = a.cursedKnown;
 		n.cursed = a.cursed;
 		n.augment = a.augment;
-		n.破损纹章 = a.破损纹章;
+		n.荣誉纹章= a.荣誉纹章;
 
 		return n;
 		

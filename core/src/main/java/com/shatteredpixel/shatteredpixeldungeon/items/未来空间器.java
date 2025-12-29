@@ -2,11 +2,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.召唤物品;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -119,13 +118,16 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero,false,false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item= item;
+									item(Statistics.item);
 								}
-								Statistics.item= item;
-								item(Statistics.item);
 							}
 						});
 					}
@@ -174,18 +176,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item2= item;
+									item(Statistics.item2);
 								}
-								Statistics.item2= item;
-								item(Statistics.item2);
 							}
 						});
 					}
@@ -234,18 +239,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item3= item;
+									item(Statistics.item3);
 								}
-								Statistics.item3= item;
-								item(Statistics.item3);
 							}
 						});
 					}
@@ -295,18 +303,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item4= item;
+									item(Statistics.item4);
 								}
-								Statistics.item4= item;
-								item(Statistics.item4);
 							}
 						});
 					}
@@ -355,18 +366,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item5= item;
+									item(Statistics.item5);
 								}
-								Statistics.item5= item;
-								item(Statistics.item5);
 							}
 						});
 					}
@@ -415,18 +429,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item6= item;
+									item(Statistics.item6);
 								}
-								Statistics.item6= item;
-								item(Statistics.item6);
 							}
 						});
 					}
@@ -475,18 +492,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item7= item;
+									item(Statistics.item7);
 								}
-								Statistics.item7= item;
-								item(Statistics.item7);
 							}
 						});
 					}
@@ -535,18 +555,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item8= item;
+									item(Statistics.item8);
 								}
-								Statistics.item8= item;
-								item(Statistics.item8);
 							}
 						});
 					}
@@ -595,18 +618,21 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return !(item instanceof 召唤物品);
+								return item.可以空间;
 							}
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									Statistics.item9= item;
+									item(Statistics.item9);
 								}
-								Statistics.item9= item;
-								item(Statistics.item9);
 							}
 						});
 					}

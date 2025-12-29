@@ -244,7 +244,7 @@ public class 飞镖 extends Weapon{
 							curItem.detach(curUser.belongings.backpack);
 						
 						TippedDart newDart = TippedDart.getTipped((Plant.Seed) item, 1);
-						if (!newDart.放背包()) Dungeon.level.drop(newDart, curUser.pos).sprite.drop();
+						if (!newDart.放背包()) Dungeon.level.drop(newDart, curUser.pos).sprite().drop();
 						
 						curUser.spend( 1f );
 						curUser.busy();

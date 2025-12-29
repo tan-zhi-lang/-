@@ -37,6 +37,7 @@ public class Spinner extends Mob {
 
 		HUNTING = new Hunting();
 		FLEEING = new Fleeing();
+		properties.add(Property.昆虫);
 	}
 
 	@Override

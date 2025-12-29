@@ -57,14 +57,48 @@ public class Assets {
 		public static final String BADGES   = "interfaces/badges.png";
 		public static final String LOCKED   = "interfaces/locked_badge.png";
 
-		public static final String CHROME   = "interfaces/chrome.png";
 		public static final String ICONS    = "interfaces/icons.png";
-		public static final String STATUS   = "interfaces/status_pane.png";
-		public static final String MENU     = "interfaces/menu_pane.png";
-		public static final String MENU_BTN = "interfaces/menu_button.png";
-		public static final String TOOLBAR  = "interfaces/toolbar.png";
 		public static final String SHADOW   = "interfaces/shadow.png";
-		public static final String BOSSHP   = "interfaces/boss_hp.png";
+		
+		public static final String CHROME   = "interfaces/默认/chrome.png";
+		public static final String BOSSHP   = "interfaces/默认/boss_hp.png";
+		public static final String TOOLBAR  = "interfaces/默认/toolbar.png";
+		public static final String STATUS   = "interfaces/默认/status_pane.png";
+		public static final String MENU     = "interfaces/默认/menu_pane.png";
+		public static final String TALENT_BUTTON    = "interfaces/默认/talent_button.png";
+		public static final String MENU_BTN = "interfaces/默认/menu_button.png";
+
+		public static final String CHROME透明   = "interfaces/透明/chrome.png";
+		public static final String BOSSHP透明   = "interfaces/透明/boss_hp.png";
+		public static final String TOOLBAR透明  = "interfaces/透明/toolbar.png";
+		public static final String STATUS透明   = "interfaces/透明/status_pane.png";
+		public static final String MENU透明     = "interfaces/透明/menu_pane.png";
+		public static final String TALENT_BUTTON透明    = "interfaces/透明/talent_button.png";
+		public static final String MENU_BTN透明 = "interfaces/透明/menu_button.png";
+
+		public static final String CHROME春节   = "interfaces/春节/chrome.png";
+		public static final String BOSSHP春节   = "interfaces/春节/boss_hp.png";
+		public static final String TOOLBAR春节  = "interfaces/春节/toolbar.png";
+		public static final String STATUS春节   = "interfaces/春节/status_pane.png";
+		public static final String MENU春节     = "interfaces/春节/menu_pane.png";
+		public static final String TALENT_BUTTON春节    = "interfaces/春节/talent_button.png";
+		public static final String MENU_BTN春节 = "interfaces/春节/menu_button.png";
+
+		public static final String CHROME圣诞   = "interfaces/圣诞/chrome.png";
+		public static final String BOSSHP圣诞   = "interfaces/圣诞/boss_hp.png";
+		public static final String TOOLBAR圣诞  = "interfaces/圣诞/toolbar.png";
+		public static final String STATUS圣诞   = "interfaces/圣诞/status_pane.png";
+		public static final String MENU圣诞     = "interfaces/圣诞/menu_pane.png";
+		public static final String TALENT_BUTTON圣诞    = "interfaces/圣诞/talent_button.png";
+		public static final String MENU_BTN圣诞 = "interfaces/圣诞/menu_button.png";
+
+		public static final String CHROME愚人   = "interfaces/愚人/chrome.png";
+		public static final String BOSSHP愚人   = "interfaces/愚人/boss_hp.png";
+		public static final String TOOLBAR愚人  = "interfaces/愚人/toolbar.png";
+		public static final String STATUS愚人   = "interfaces/愚人/status_pane.png";
+		public static final String MENU愚人     = "interfaces/愚人/menu_pane.png";
+		public static final String TALENT_BUTTON愚人    = "interfaces/愚人/talent_button.png";
+		public static final String MENU_BTN愚人 = "interfaces/愚人/menu_button.png";
 
 		public static final String SURFACE  = "interfaces/surface.png";
 
@@ -72,7 +106,6 @@ public class Assets {
 		public static final String BUFFS_LARGE      = "interfaces/large_buffs.png";
 
 		public static final String TALENT_ICONS     = "interfaces/talent_icons.png";
-		public static final String TALENT_BUTTON    = "interfaces/talent_button.png";
 
 		public static final String HERO_ICONS       = "interfaces/hero_icons.png";
 		public static final String HERO_SPELL       = "interfaces/hero_spell.png";
@@ -367,6 +400,7 @@ public class Assets {
 		public static final String 修复 = "sprites/spinner.png";
 		public static final String DM300    = "sprites/dm300.png";
 		public static final String WRAITH   = "sprites/wraith.png";
+		public static final String 鬼怨   = "sprites/鬼怨.png";
 		public static final String UNDEAD   = "sprites/undead.png";
 		public static final String KING     = "sprites/king.png";
 		public static final String PIRANHA  = "sprites/piranha.png";
@@ -386,6 +420,7 @@ public class Assets {
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK     = "sprites/monk.png";
 		public static final String WARLOCK  = "sprites/warlock.png";
+		public static final String 仇鬼  = "sprites/仇鬼.png";
 		public static final String GOLEM    = "sprites/golem.png";
 		public static final String STATUE   = "sprites/statue.png";
 		public static final String SUCCUBUS = "sprites/succubus.png";

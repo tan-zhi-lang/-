@@ -33,7 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
@@ -410,7 +410,7 @@ public class DwarfKing extends Mob {
 				}
 			}
 
-			if (bestPos != enemy.pos) ScrollOfTeleportation.appear(furthest, bestPos);
+			if (bestPos != enemy.pos) 传送卷轴.appear(furthest,bestPos);
 			yell(Messages.get(this, "teleport_" + Random.IntRange(1, 2)));
 			return true;
 		}
@@ -483,7 +483,7 @@ public class DwarfKing extends Mob {
 			if (生命 <= (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50)) {
 				生命 = (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50);
 				sprite.showStatus(CharSprite.增强, Messages.get(this, "invulnerable"));
-				ScrollOfTeleportation.appear(this, CityBossLevel.throne);
+				传送卷轴.appear(this,CityBossLevel.throne);
 				properties.add(Property.IMMOVABLE);
 				phase = 2;
 				summonsMade = 0;
@@ -548,9 +548,9 @@ public class DwarfKing extends Mob {
 		}
 
 		if (pos == CityBossLevel.throne){
-			Dungeon.level.drop(new 矮人国王的皇冠(),pos+Dungeon.level.width()).sprite.drop(pos);
+			Dungeon.level.drop(new 矮人国王的皇冠(),pos+Dungeon.level.width()).sprite().drop(pos);
 		} else {
-			Dungeon.level.drop(new 矮人国王的皇冠(), pos).sprite.drop();
+			Dungeon.level.drop(new 矮人国王的皇冠(), pos).sprite().drop();
 		}
 
 		Badges.validateBossSlain();

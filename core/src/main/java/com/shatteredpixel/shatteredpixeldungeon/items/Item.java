@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -44,8 +45,10 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
@@ -66,6 +69,7 @@ public class Item implements Bundlable {
 	public static final String AC_DROP		= "DROP";
 	public static final String AC_THROW		= "THROW";
 	public static final String AC_RENAME		= "RENAME";
+	public static final String AC_REMOVE		= "REMOVE";
 
 	protected String defaultAction;
 	public boolean usesTargeting;
@@ -109,6 +113,17 @@ public class Item implements Bundlable {
 	public boolean 首次使用= true;
 	public boolean 首次拾取 = true;
 	public boolean 首次装备 = true;
+	public boolean 房间物品 = false;
+	public boolean 移除 = false;
+	public Item 房间物品(){
+		房间物品=true;
+		return this;
+	}
+	public Item 移除(){
+		alpha=true;
+		移除=true;
+		return this;
+	}
 
 	// These items are preserved even if the hero's inventory is lost via unblessed ankh
 	// this is largely set by the resurrection window, items can override this to always be kept
@@ -130,8 +145,12 @@ public class Item implements Bundlable {
 		ArrayList<String> actions = new ArrayList<>();
 		actions.add( AC_DROP );
 		actions.add( AC_THROW );
+		
 		if(SPDSettings.物品命名())
 		actions.add( AC_RENAME );
+		
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&false)
+		actions.add( AC_REMOVE );
 		return actions;
 	}
 
@@ -178,7 +197,7 @@ public class Item implements Bundlable {
 	public void doDrop( Hero hero ) {
 		hero.spendAndNext(Dungeon.hero.攻击延迟());
 		int pos = hero.pos;
-		Dungeon.level.drop(detachAll(hero.belongings.backpack), pos).sprite.drop(pos);
+		Dungeon.level.drop(detachAll(hero.belongings.backpack), pos).sprite().drop(pos);
 	}
 
 	//resets an item's properties, to ensure consistency between runs
@@ -210,11 +229,11 @@ public class Item implements Bundlable {
 			}
 			
 		} else if (action.equals( AC_THROW )) {
-			
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doThrow(hero);
 			}
 			
+		}else if (action.equals( AC_REMOVE )) {
 		} else if (action.equals( AC_RENAME )) {
 			GameScene.show(new WndTextInput("物品重命名",
 											"",
@@ -253,7 +272,7 @@ public class Item implements Bundlable {
 		}
 		Heap heap = Dungeon.level.drop( this, cell );
 		if (!heap.isEmpty()) {
-			heap.sprite.drop( cell );
+			heap.sprite().drop( cell );
 		}
 	}
 	
@@ -267,11 +286,10 @@ public class Item implements Bundlable {
 	}
 	
 	public boolean 放背包(Bag container ) {
-
 		if (quantity <= 0){
 			return true;
 		}
-
+		
 		ArrayList<Item> items = container.items;
 
 		if (items.contains( this )) {
@@ -314,6 +332,20 @@ public class Item implements Bundlable {
 			if (已鉴定()){
 				Catalog.setSeen(getClass());
 				Statistics.itemTypesDiscovered.add(getClass());
+			}
+		}
+		if(房间物品){
+			GLog.w("你能感觉某个房间中的事物需要此物品来解密。");
+			房间物品=false;
+		}
+		if(Dungeon.hero()&&Dungeon.hero.sprite!=null){
+			if(!已鉴定()){
+				if(可升级()){
+					Dungeon.hero.sprite.礼物();
+				}else{
+					
+					Dungeon.hero.sprite.showLost();
+				}
 			}
 		}
 		首次拾取=false;
@@ -600,7 +632,13 @@ public class Item implements Bundlable {
 				}
 			}
 		}
-		String s="物品";
+		String s="代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
+		s+="\n";
+		s+="_"+"金币价值"+(金币()>0?""+金币():"无价")+"_";
+		s+=" ";
+		s+="能量价值"+(能量()>0?""+能量():"无价");
+		s+="\n";
+		s+="物品";
 		if(this instanceof Bag){
 			s+="、"+"背包";
 		}
@@ -633,6 +671,9 @@ public class Item implements Bundlable {
 		}
 		if(this instanceof Scroll){
 			s+="、"+"卷轴";
+		}
+		if(this instanceof Spell){
+			s+="、"+"结晶";
 		}
 		if(this instanceof ExoticScroll){
 			s+="、"+"秘卷";
@@ -731,6 +772,8 @@ public class Item implements Bundlable {
 	private static final String 首次使用x = "首次使用";
 	private static final String 首次拾取x = "首次拾取";
 	private static final String 首次装备x = "首次装备";
+	private static final String 房间物品x = "房间物品";
+	private static final String 移除x = "移除";
 	private static final String ALPHA = "alpha";
 	
 	@Override
@@ -745,6 +788,8 @@ public class Item implements Bundlable {
 		bundle.put(首次使用x,首次使用);
 		bundle.put( 首次拾取x, 首次拾取 );
 		bundle.put( 首次装备x, 首次装备 );
+		bundle.put( 房间物品x, 房间物品 );
+		bundle.put( 移除x, 移除 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
@@ -763,6 +808,8 @@ public class Item implements Bundlable {
 		首次使用= bundle.getBoolean(首次使用x);
 		首次拾取	= bundle.getBoolean( 首次拾取x );
 		首次装备	= bundle.getBoolean( 首次装备x );
+		房间物品	= bundle.getBoolean( 房间物品x );
+		移除	= bundle.getBoolean( 移除x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
 		int level = bundle.getInt( LEVEL );
@@ -860,6 +907,8 @@ public class Item implements Bundlable {
 						}
 					});
 		}
+		
+		usesTargeting=false;
 	}
 	
 	public float castDelay( Char user, int cell ){

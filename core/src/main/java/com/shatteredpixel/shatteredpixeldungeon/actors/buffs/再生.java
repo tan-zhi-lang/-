@@ -83,11 +83,12 @@ public class 再生 extends Buff {
 				if (partialRegen >= 1) {
 					if(target instanceof Hero hero){
 						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
-							int x=(int)partialRegen
-								  +hero.天赋点数(Talent.背水一战,3);
+							float x=partialRegen
+								  +hero.天赋点数(Talent.背水一战,3)
+								  -(hero.heroClass(HeroClass.血鬼)?0.5f:0);
 							hero.回血(x);
 						}
-						partialRegen -= (int)partialRegen;
+						partialRegen -= partialRegen;
 						if (hero.满血()) {
 							hero.resting = false;
 						}

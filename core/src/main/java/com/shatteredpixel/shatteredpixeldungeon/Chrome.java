@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.noosa.NinePatch;
 
 public class Chrome {
@@ -26,7 +27,15 @@ public class Chrome {
 	}
 	
 	public static NinePatch get( Type type ) {
-		String Asset = Assets.Interfaces.CHROME;
+		String Asset=switch(Holiday.getCurrentHoliday()){
+			case NONE->SPDSettings.透明界面()?Assets.Interfaces.CHROME透明:Assets.Interfaces.CHROME;
+			default->SPDSettings.透明界面()?Assets.Interfaces.CHROME透明:Assets.Interfaces.CHROME;
+			case 愚人节->Assets.Interfaces.CHROME愚人;
+			case 春节->Assets.Interfaces.CHROME春节;
+//			case 圣诞节->Assets.Interfaces.CHROME圣诞;
+			
+			
+		};
 		switch (type) {
 		case WINDOW:
 			return new NinePatch( Asset, 0, 0, 20, 20, 6 );

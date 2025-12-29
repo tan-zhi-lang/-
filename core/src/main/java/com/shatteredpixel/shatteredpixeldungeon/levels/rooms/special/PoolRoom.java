@@ -69,7 +69,7 @@ public class PoolRoom extends SpecialRoom {
 		level.drop( prize( level ), pos ).type = Heap.Type.CHEST;
 		Painter.set( level, pos, Terrain.PEDESTAL );
 		
-		level.addItemToSpawn( new 隐形药剂());
+		level.addItemToSpawn( new 隐形药剂().房间物品());
 		
 		for (int i=0; i < NPIRANHAS; i++) {
 			Piranha piranha = Piranha.random();

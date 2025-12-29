@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -100,7 +100,7 @@ public class TrapsRoom extends SpecialRoom {
 			level.drop( prize( level ), pos ).type = Heap.Type.CHEST;
 		}
 		
-		level.addItemToSpawn( new PotionOfLevitation() );
+		level.addItemToSpawn( new 浮空药剂().房间物品());
 	}
 	
 	private static Item prize( Level level ) {

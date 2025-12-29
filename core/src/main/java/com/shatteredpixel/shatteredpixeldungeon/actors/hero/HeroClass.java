@@ -64,31 +64,36 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.恐惧卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
@@ -116,12 +121,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
@@ -139,18 +145,18 @@ public enum HeroClass{
 	DUELIST(HeroSubClass.勇士,HeroSubClass.武者),
 	CLERIC(),
 //	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
-	巫女(),
-//	巫女(HeroSubClass.神秘学者,HeroSubClass.黑魔导师),
-	重武(HeroSubClass.健身猛男),镜魔(),
-	道士(),行僧(),
-	近卫(),兽灵(),
-	机器(),女忍(),
-	戒老(),逐姝(),
-	罗兰(),学士(),
-	灵猫(),鼠弟(),
-	凌云(),血鬼(),
-	来世(),
-	NONE();
+	巫女(HeroSubClass.黑魔导师),
+	重武(HeroSubClass.健身猛男),镜魔(HeroSubClass.潜能觉醒),
+	道士(HeroSubClass.潜能觉醒),行僧(HeroSubClass.潜能觉醒),
+	近卫(HeroSubClass.征服者),兽灵(HeroSubClass.潜能觉醒),
+	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.潜能觉醒),
+	戒老(HeroSubClass.潜能觉醒),逐姝(HeroSubClass.潜能觉醒),
+	罗兰(HeroSubClass.潜能觉醒),学士(HeroSubClass.潜能觉醒),
+	灵猫(HeroSubClass.黑白双子),鼠弟(HeroSubClass.潜能觉醒),
+	凌云(HeroSubClass.潜能觉醒),
+	血鬼(HeroSubClass.金刚独狼),
+	来世(HeroSubClass.时间刺客),
+	NONE(HeroSubClass.潜能觉醒);
 	
 	private HeroSubClass[] subClasses;
 	
@@ -160,6 +166,8 @@ public enum HeroClass{
 	
 	public void initHero(Hero hero){
 		hero.heroClass=this;
+		if(Dungeon.hero.heroClass(HeroClass.鼠弟))
+			Dungeon.老鼠蝙蝠= true;
 		Talent.initClassTalents(hero);
 		
 		//		Item i = new ClothArmor().鉴定();
@@ -174,27 +182,30 @@ public enum HeroClass{
 			new MagicalHolster().放背包();
 			new 杂物袋().放背包();
 			new ScrollHolder().放背包();
+			
 			int x=100;
 			new 经验药剂().数量(x).鉴定(true).放背包();
 			new 治疗药剂().数量(x).放背包();
 			new 极速药剂().数量(x).放背包();
-			new PotionOfLiquidFlame().数量(x).放背包();
+			new 力量药剂().数量(x).放背包();
+			new 液火药剂().数量(x).放背包();
+			new 浮空药剂().数量(x).放背包();
 			new 极速药剂().数量(x).放背包();
 			new 净化药剂().数量(x).放背包();
 			new 隐形药剂().数量(x).放背包();
-			new PotionOfMindVision().数量(x).放背包();
+			new 灵视药剂().数量(x).放背包();
 			new Icecap.Seed().数量(x).放背包();
-			new PotionOfToxicGas().数量(x).放背包();
+			new 毒气药剂().数量(x).放背包();
 			
 //			new MysteryMeat().数量(x).放背包();
 			
 			new 升级卷轴().数量(x).放背包();
 			new 鉴定卷轴().数量(x).放背包();
 			new 嬗变卷轴().数量(x).放背包();
-			new ScrollOfRetribution().数量(x).放背包();
+			new 复仇卷轴().数量(x).放背包();
 			new 祛邪卷轴().数量(x).放背包();
 			new 来去秘卷().数量(x).放背包();
-			new ScrollOfMirrorImage().数量(x).放背包();
+			new 镜像卷轴().数量(x).放背包();
 			
 //			new WandOfCorrosion().放背包();
 //			new MasterThievesArmband().放背包();
@@ -217,7 +228,8 @@ public enum HeroClass{
 //			new 召唤物品().放背包();
 			new 能量之戒().放背包();
 			new 六神之戒().放背包();
-			new 六神之戒().放背包();
+			new 装甲之戒().放背包();
+			new RingOfFuror().放背包();
 			
 			for (Item item : Dungeon.hero.belongings){
 				item.鉴定();
@@ -229,6 +241,11 @@ public enum HeroClass{
 		if(Holiday.getCurrentHoliday()==Holiday.国庆节){
 			new 中国国旗().放背包();
 		}
+		if(Holiday.getCurrentHoliday()==Holiday.圣诞节){
+			new 圣诞礼物().放背包();
+		}
+		
+		
 		if(Holiday.getCurrentHoliday()==Holiday.感恩节){
 			new HornOfPlenty().放背包();
 		}
@@ -331,6 +348,10 @@ public enum HeroClass{
 		if(hero.belongings.misc3!=null)
 		hero.belongings.misc3.activate(hero);
 		
+		if(hero.belongings.幸运!=null)
+		hero.belongings.幸运.activate(hero);
+		hero.belongings.幸运.鉴定();
+		
 		if(Dungeon.玩法(玩法设置.地牢塔防)){
 			hero.belongings.weapon=null;
 			hero.belongings.armor=null;
@@ -390,12 +411,12 @@ public enum HeroClass{
 			hero.belongings.armor=(铠甲)i;
 		
 		if(hero.belongings.armor!=null){
-			hero.belongings.armor.affixSeal(new 破损纹章());
-			Catalog.setSeen(破损纹章.class); //as it's not added to the inventory
+			hero.belongings.armor.affixSeal(new 荣誉纹章());
+			Catalog.setSeen(荣誉纹章.class); //as it's not added to the inventory
 		}
 		
 		new 治疗药剂().鉴定();
-		new ScrollOfRage().鉴定();
+		new 盛怒卷轴().鉴定();
 	}
 	
 	private static void initMage(Hero hero){
@@ -410,8 +431,8 @@ public enum HeroClass{
 		
 		Dungeon.quickslot.setSlot(0,staff);
 		
-		new ScrollOfRecharging().鉴定();
-		new PotionOfLiquidFlame().鉴定();
+		new 充能卷轴().鉴定();
+		new 液火药剂().鉴定();
 	}
 	
 	private static void initRogue(Hero hero){
@@ -439,8 +460,8 @@ public enum HeroClass{
 		
 		Dungeon.quickslot.setSlot(0,hero.belongings.weapon);
 		
-		new PotionOfMindVision().鉴定();
-		new ScrollOfLullaby().鉴定();
+		new 灵视药剂().鉴定();
+		new 催眠卷轴().鉴定();
 	}
 	
 	private static void initDuelist(Hero hero){
@@ -449,8 +470,8 @@ public enum HeroClass{
 		(hero.belongings.weapon=new 配刺剑()).鉴定();
 		
 		
-		new PotionOfStrength().鉴定();
-		new ScrollOfRetribution().鉴定();
+		new 力量药剂().鉴定();
+		new 复仇卷轴().鉴定();
 	}
 	
 	private static void initCleric(Hero hero){
@@ -480,8 +501,8 @@ public enum HeroClass{
 		
 		Dungeon.quickslot.setSlot(0,bow);
 		
-		new ScrollOfTerror().鉴定();
-		new 治疗药剂().鉴定();
+		new 恐惧卷轴().鉴定();
+		new 经验药剂().鉴定();
 	}
 	
 	private static void 初始重武(Hero hero){
@@ -490,13 +511,16 @@ public enum HeroClass{
 		(hero.belongings.weapon=x).鉴定();
 		
 		
-		new ScrollOfLullaby().鉴定();
-		new PotionOfFrost().鉴定();
+		new 催眠卷轴().鉴定();
+		new 冰霜药剂().鉴定();
 	}
 	
 	private static void 初始镜魔(Hero hero){
 		(hero.belongings.weapon=new 镜刃()).鉴定();
 		(hero.belongings.armor=new 武服()).鉴定();
+		
+		new 镜像卷轴().鉴定();
+		new 复仇卷轴().鉴定();
 	}
 	
 	private static void 初始道士(Hero hero){
@@ -507,22 +531,30 @@ public enum HeroClass{
 		(hero.belongings.misc=tome).鉴定();
 		
 		Dungeon.quickslot.setSlot(0,tome);
+		new 祛邪卷轴().鉴定();
+		new 净化药剂().鉴定();
 	}
 	
 	private static void 初始行僧(Hero hero){
 		(hero.belongings.weapon=new 白带()).鉴定();
 		Buff.延长(hero,BlobImmunity.class,450*27);
+		new 极速药剂().鉴定();
+		new 净化药剂().鉴定();
 	}
 	
 	private static void 初始近卫(Hero hero){
 		
 		(hero.belongings.weapon=new 长矛()).鉴定();
 		(hero.belongings.armor=new 战甲()).鉴定();
+		new 力量药剂().鉴定();
+		new 盛怒卷轴().鉴定();
 	}
 	
 	private static void 初始兽灵(Hero hero){
 		
 		(hero.belongings.weapon=new 臂铠()).鉴定();
+		new 催眠卷轴().鉴定();
+		new 灵视药剂().鉴定();
 	}
 	
 	private static void 初始机器(Hero hero){
@@ -531,6 +563,8 @@ public enum HeroClass{
 		
 		
 		Dungeon.quickslot.setSlot(0,hero.belongings.weapon);
+		new 探地卷轴().鉴定();
+		new 灵视药剂().鉴定();
 	}
 	
 	private static void 初始女忍(Hero hero){
@@ -543,34 +577,46 @@ public enum HeroClass{
 		(hero.belongings.misc=tome).鉴定();
 		
 		Dungeon.quickslot.setSlot(0,tome);
+		new 液火药剂().鉴定();
+		new 隐形药剂().鉴定();
 	}
 	
 	private static void 初始戒老(Hero hero){
 		(hero.belongings.weapon=new 碧蓝巨剑()).鉴定();
 		new 空间之戒().放背包();
 		(hero.belongings.armor=new 能袍()).鉴定();
+		new 升级卷轴().鉴定();
+		new 充能卷轴().鉴定();
 	}
 	
 	private static void 初始逐姝(Hero hero){
 		(hero.belongings.weapon=new 灵鞭()).鉴定();
 		
 		(hero.belongings.armor=new 勇装()).鉴定();
+		new 升级卷轴().鉴定();
+		new 嬗变卷轴().鉴定();
 	}
 	
 	private static void 初始罗兰(Hero hero){
 		(hero.belongings.weapon=new 血姬()).鉴定();
 		
 		(hero.belongings.armor=new 连裙()).鉴定();
+		new 复仇卷轴().鉴定();
+		new 恐惧卷轴().鉴定();
 	}
 	
 	private static void 初始学士(Hero hero){
 		(hero.belongings.weapon=new 书包()).鉴定();
 		(hero.belongings.armor=new 训服()).鉴定();
+		new 液火药剂().鉴定();
+		new 毒气药剂().鉴定();
 	}
 	
 	private static void 初始灵猫(Hero hero){
 		
 		(hero.belongings.armor=new 背心()).鉴定();
+		new 祛邪卷轴().鉴定();
+		new 灵视药剂().鉴定();
 	}
 	
 	private static void 初始鼠弟(Hero hero){
@@ -581,13 +627,23 @@ public enum HeroClass{
 		Dungeon.quickslot.setSlot(0,i);
 		(hero.belongings.armor=new 魔披()).鉴定();
 		
+		new 麻痹药剂().鉴定();
+		new 毒气药剂().鉴定();
+		
 	}
 	
-	private static void 初始凌云(Hero hero){}
+	private static void 初始凌云(Hero hero){
+		
+		new 浮空药剂().鉴定();
+		new 极速药剂().鉴定();
+	}
 	
 	private static void 初始血鬼(Hero hero){
 		
 		(hero.belongings.weapon=new 吸血刀()).鉴定();
+		
+		new 治疗药剂().鉴定();
+		new 复仇卷轴().鉴定();
 	}
 	
 	private static void 初始来世(Hero hero){
@@ -603,6 +659,8 @@ public enum HeroClass{
 		Dungeon.gold=Statistics.金币;
 		Dungeon.energy=Statistics.能量;
 		
+		new 传送卷轴().鉴定();
+		new 极速药剂().鉴定();
 	}
 	
 	public String title(){

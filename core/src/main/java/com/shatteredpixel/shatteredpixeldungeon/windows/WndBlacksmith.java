@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
+import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -72,7 +72,7 @@ public class WndBlacksmith extends Window {
 							if (Blacksmith.Quest.pickaxe.doPickUp( Dungeon.hero )) {
 								GLog.i( Messages.capitalize(Messages.get(Dungeon.hero, "you_now_have", Blacksmith.Quest.pickaxe.name()) ));
 							} else {
-								Dungeon.level.drop( Blacksmith.Quest.pickaxe, Dungeon.hero.pos ).sprite.drop();
+								Dungeon.level.drop( Blacksmith.Quest.pickaxe, Dungeon.hero.pos ).sprite().drop();
 							}
 							Blacksmith.Quest.favor -= pickaxeCost;
 							Blacksmith.Quest.pickaxe = null;
@@ -163,7 +163,7 @@ public class WndBlacksmith extends Window {
 			protected void onClick() {
 				GLog.p(Messages.get(this, "人情"));
 				if(Dungeon.gold>=2500&&Dungeon.energy>=25){
-					Dungeon.level.drop(Blacksmith.Quest.pickaxe,Dungeon.hero.pos).sprite.drop();
+					Dungeon.level.drop(Blacksmith.Quest.pickaxe,Dungeon.hero.pos).sprite().drop();
 					GLog.p("正好这有一把我曾经一直使用的锻造锤，非常好用，送给你了。");
 				}
 				Blacksmith.Quest.favor -= 5000;
@@ -287,7 +287,7 @@ public class WndBlacksmith extends Window {
 					second.detachAll( Dungeon.hero.belongings.backpack );
 
 					if (second instanceof Armor){
-						破损纹章 seal = ((Armor) second).checkSeal();
+						荣誉纹章 seal = ((Armor) second).checkSeal();
 						if (seal != null){
 							Dungeon.level.drop( seal, Dungeon.hero.pos );
 						}
@@ -535,7 +535,7 @@ public class WndBlacksmith extends Window {
 						if (item.doPickUp( Dungeon.hero )) {
 							GLog.i( Messages.capitalize(Messages.get(Dungeon.hero, "you_now_have", item.name())) );
 						} else {
-							Dungeon.level.drop( item, Dungeon.hero.pos ).sprite.drop();
+							Dungeon.level.drop( item, Dungeon.hero.pos ).sprite().drop();
 						}
 						WndSmith.this.hide();
 						Blacksmith.Quest.smithRewards = null;

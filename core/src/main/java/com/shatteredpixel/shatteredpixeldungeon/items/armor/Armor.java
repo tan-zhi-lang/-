@@ -53,7 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
+import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -99,7 +99,7 @@ public class Armor extends EquipableItem {
 			return evasion*evasionFactor;
 		}
 		
-		public int defenseFactor(int defense){
+		public int defenseFactor(float defense){
 			return Math.round(defense*defenceFactor);
 		}
 		public float speedFactor(float speed){
@@ -114,7 +114,7 @@ public class Armor extends EquipableItem {
 	public boolean curseInfusionBonus = false;
 	public boolean 神力 = false;
 	
-	public 破损纹章 破损纹章;
+	public 荣誉纹章 荣誉纹章;
 	
 	public int tier;
 	
@@ -130,7 +130,7 @@ public class Armor extends EquipableItem {
 	private static final String GLYPH_HARDENED	= "glyph_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
 	private static final String 神力x = "神力";
-	private static final String 破损纹章x = "破损纹章";
+	private static final String 荣誉纹章x = "荣誉纹章";
 	private static final String AUGMENT			= "augment";
 
 	@Override
@@ -141,7 +141,7 @@ public class Armor extends EquipableItem {
 		bundle.put( GLYPH_HARDENED, glyphHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( 神力x, 神力 );
-		bundle.put(破损纹章x, 破损纹章);
+		bundle.put(荣誉纹章x,荣誉纹章);
 		bundle.put( AUGMENT, augment);
 	}
 
@@ -153,7 +153,7 @@ public class Armor extends EquipableItem {
 		glyphHardened = bundle.getBoolean(GLYPH_HARDENED);
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
-		破损纹章 = (破损纹章)bundle.get(破损纹章x);
+		荣誉纹章= (荣誉纹章)bundle.get(荣誉纹章x);
 		
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
@@ -163,13 +163,13 @@ public class Armor extends EquipableItem {
 		super.reset();
 		usesLeftToID = USES_TO_ID;
 		//armor can be kept in bones between runs, the seal cannot.
-		破损纹章 = null;
+		荣誉纹章= null;
 	}
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		if (破损纹章 != null) actions.add(AC_DETACH);
+		if (荣誉纹章!=null) actions.add(AC_DETACH);
 		if(!(this instanceof 背心)&&hero.heroClass(HeroClass.灵猫)){
 			actions.remove(AC_EQUIP);
 		}
@@ -190,8 +190,8 @@ public class Armor extends EquipableItem {
 
 		super.execute(hero, action);
 
-		if (action.equals(AC_DETACH) && 破损纹章 != null){
-			破损纹章 detaching = detachSeal();
+		if (action.equals(AC_DETACH)&&荣誉纹章!=null){
+			荣誉纹章 detaching = detachSeal();
 			GLog.i( Messages.get(Armor.class, "detach_seal") );
 			hero.sprite.operate();
 			detaching.放背包();
@@ -255,6 +255,7 @@ public class Armor extends EquipableItem {
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(Armor.class, "equip_cursed") );
+				Dungeon.hero.sprite.哭泣();
 			}
 			
 			((HeroSprite)hero.sprite).updateArmor();
@@ -262,11 +263,11 @@ public class Armor extends EquipableItem {
 			Talent.装备时(hero, this);
 			hero.spend( timeToEquip( hero ) );
 
-			if (Dungeon.hero.heroClass == HeroClass.WARRIOR && checkSeal() == null){
-				破损纹章 seal = oldArmor != null ? oldArmor.checkSeal() : null;
+			if (Dungeon.hero.heroClass(HeroClass.WARRIOR) && checkSeal() == null){
+				荣誉纹章 seal =oldArmor!=null ? oldArmor.checkSeal() : null;
 				if (seal != null && (!cursed || (seal.getGlyph() != null && seal.getGlyph().curse()))){
 
-					GameScene.show(new WndOptions(new ItemSprite(物品表.破损纹章),
+					GameScene.show(new WndOptions(new ItemSprite(物品表.荣誉纹章),
 							Messages.titleCase(seal.title()),
 							Messages.get(Armor.class, "seal_transfer"),
 							Messages.get(Armor.class, "seal_transfer_yes"),
@@ -311,13 +312,15 @@ public class Armor extends EquipableItem {
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
-			return Degrade.reduceLevel(等级()+(破损纹章!=null?破损纹章.等级():0));
+			return Degrade.reduceLevel(等级()+(荣誉纹章!=null?
+													   荣誉纹章.等级():0));
 		} else {
-			return 等级()+(破损纹章!=null?破损纹章.等级():0);
+			return 等级()+(荣誉纹章!=null?
+								   荣誉纹章.等级():0);
 		}
 	}
-	public void affixSeal(破损纹章 seal){
-		this.破损纹章 = seal;
+	public void affixSeal(荣誉纹章 seal){
+		this.荣誉纹章= seal;
 		if (seal.getGlyph() != null){
 			inscribe(seal.getGlyph());
 		}
@@ -326,21 +329,21 @@ public class Armor extends EquipableItem {
 //		}
 	}
 
-	public 破损纹章 detachSeal(){
-		if (破损纹章 != null){
+	public 荣誉纹章 detachSeal(){
+		if (荣誉纹章!=null){
 
 //			if (isEquipped(Dungeon.hero)) {
 //				破损纹章.WarriorShield sealBuff = Dungeon.hero.buff(破损纹章.WarriorShield.class);
 //				if (sealBuff != null) sealBuff.setArmor(null);
 //			}
 
-			破损纹章 detaching = 破损纹章;
-			int 转移量 = 破损纹章.最大等级()- 破损纹章.等级();
+			荣誉纹章 detaching =荣誉纹章;
+			int 转移量 =荣誉纹章.最大等级()-荣誉纹章.等级();
 			if(转移量>0&&真等级()>0&&真等级()-转移量>=0){
 				等级(真等级()-转移量);
-				破损纹章.升级(转移量);
+				荣誉纹章.升级(转移量);
 			}
-			破损纹章 = null;
+			荣誉纹章= null;
 			if (detaching.canTransferGlyph()){
 				inscribe(null);
 			} else {
@@ -352,8 +355,8 @@ public class Armor extends EquipableItem {
 		}
 	}
 
-	public 破损纹章 checkSeal(){
-		return 破损纹章;
+	public 荣誉纹章 checkSeal(){
+		return 荣誉纹章;
 	}
 
 	@Override
@@ -391,7 +394,7 @@ public class Armor extends EquipableItem {
 			return augment.defenseFactor(1 + tier + lvl);
 		}
 
-		return augment.defenseFactor(tier * (2 + lvl));
+		return augment.defenseFactor(Math.round(2*tier * (1 + lvl/1.5f)));
 	}
 
 	public final int 最小防御(){
@@ -399,7 +402,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public int 最小防御(int lvl){
-		return 0;
+		return augment.defenseFactor(tier);
 //		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 //			return 0;
 //		}
@@ -420,7 +423,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero){
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
-			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅*2;
+			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅;
 			
 		}
 		
@@ -432,7 +435,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
 			int aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
-			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅;
+			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅/2f;
 		}
 		
 		return augment.speedFactor(speed);
@@ -484,8 +487,8 @@ public class Armor extends EquipableItem {
 		
 		cursed = false;
 
-		if (破损纹章 != null && 破损纹章.等级() < 破损纹章.最大等级()) {
-			破损纹章.升级();//优先纹章
+		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
+			荣誉纹章.升级();//优先纹章
 		}else{
 			super.升级();
 		}
@@ -628,7 +631,7 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public Emitter emitter() {
-		if (破损纹章 == null) return super.emitter();
+		if (荣誉纹章==null) return super.emitter();
 		Emitter emitter = new Emitter();
 		emitter.pos(物品表.film.width(image)/2f + 2f, 物品表.film.height(image)/3f);
 		emitter.fillTarget = false;
@@ -713,7 +716,7 @@ public class Armor extends EquipableItem {
 	
 	@Override
 	public int 金币() {
-		if (破损纹章 != null) return 0;
+		if (荣誉纹章!=null) return 0;
 
 		int price = 20 * tier;
 		if (hasGoodGlyph()) {
@@ -740,8 +743,8 @@ public class Armor extends EquipableItem {
 		updateQuickslot();
 		//the hero needs runic transference to actually transfer, but we still attach the glyph here
 		// in case they take that talent in the future
-		if (破损纹章 != null){
-			破损纹章.setGlyph(glyph);
+		if (荣誉纹章!=null){
+			荣誉纹章.setGlyph(glyph);
 		}
 		if (glyph != null && 已鉴定() && Dungeon.hero()
 				&& Dungeon.hero.isAlive() && Dungeon.hero.belongings.contains(this)){
@@ -774,6 +777,9 @@ public class Armor extends EquipableItem {
 	}
 
 	//these are not used to process specific glyph effects, so magic immune doesn't affect them
+	public boolean hasGlyph(){
+		return glyph != null;
+	}
 	public boolean hasGoodGlyph(){
 		return glyph != null && !glyph.curse();
 	}

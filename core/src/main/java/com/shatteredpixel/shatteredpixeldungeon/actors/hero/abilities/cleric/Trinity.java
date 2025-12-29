@@ -214,7 +214,9 @@ public class Trinity extends ArmorAbility {
 					protected void onClick() {
 						if ((Dungeon.hero.belongings.misc() != null && Dungeon.hero.belongings.misc().getClass().equals(spiritForm.getClass()))
 								|| (Dungeon.hero.belongings.misc2() != null && Dungeon.hero.belongings.misc2().getClass().equals(spiritForm.getClass()))
-								|| (Dungeon.hero.belongings.misc3() != null && Dungeon.hero.belongings.misc3().getClass().equals(spiritForm.getClass()))){
+								|| (Dungeon.hero.belongings.misc3() != null && Dungeon.hero.belongings.misc3().getClass().equals(spiritForm.getClass()))
+								|| (Dungeon.hero.belongings.幸运() != null && Dungeon.hero.belongings.幸运().getClass().equals(spiritForm.getClass()))
+						){
 							GLog.w(Messages.get(Trinity.class, "no_duplicate"));
 							hide();
 							return;

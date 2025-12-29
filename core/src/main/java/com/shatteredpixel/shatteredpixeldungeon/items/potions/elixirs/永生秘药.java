@@ -27,6 +27,7 @@ public class 永生秘药 extends Elixir {
 
 	{
 		image = 物品表.永生秘药;
+		icon = 物品表.Icons.永生;
 		
 		特别= true;
 

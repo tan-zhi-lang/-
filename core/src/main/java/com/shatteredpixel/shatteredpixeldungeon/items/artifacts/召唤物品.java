@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -567,7 +567,7 @@ public class 召唤物品 extends Artifact {
 		{
 			immunities.add( CorrosiveGas.class );
 			immunities.add( 燃烧.class );
-			immunities.add( ScrollOfRetribution.class );
+			immunities.add( 复仇卷轴.class);
 			immunities.add( ScrollOfPsionicBlast.class );
 			immunities.add( AllyBuff.class );
 		}
@@ -816,10 +816,13 @@ public class 召唤物品 extends Artifact {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
 								}
 								rose.item4= item;
 								item(rose.item4);
@@ -876,10 +879,13 @@ public class 召唤物品 extends Artifact {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
 								}
 								rose.item5= item;
 								item(rose.item5);
@@ -936,10 +942,13 @@ public class 召唤物品 extends Artifact {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
 								}
 								rose.item6= item;
 								item(rose.item6);
@@ -996,10 +1005,13 @@ public class 召唤物品 extends Artifact {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
 								}
 								rose.item7= item;
 								item(rose.item7);
@@ -1056,10 +1068,13 @@ public class 召唤物品 extends Artifact {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
 								}
 								rose.item8= item;
 								item(rose.item8);
@@ -1116,10 +1131,13 @@ public class 召唤物品 extends Artifact {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
 								}
 								rose.item9= item;
 								item(rose.item9);

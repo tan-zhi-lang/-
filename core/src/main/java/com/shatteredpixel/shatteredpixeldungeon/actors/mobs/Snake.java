@@ -25,6 +25,12 @@ public class Snake extends Mob {
 		
 		loot = Generator.Category.SEED;
 		lootChance = 0.25f;
+		properties.add(Property.动物);
+	}
+	
+	@Override
+	public int 最小攻击() {
+		return 2;
 	}
 	
 	@Override

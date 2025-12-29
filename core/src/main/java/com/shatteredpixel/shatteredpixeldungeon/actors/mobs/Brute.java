@@ -32,6 +32,7 @@ public class Brute extends Mob {
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
+		properties.add(Property.动物);
 	}
 	
 	protected boolean hasRaged = false;

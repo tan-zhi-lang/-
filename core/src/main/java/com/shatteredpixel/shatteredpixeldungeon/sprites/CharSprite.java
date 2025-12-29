@@ -284,6 +284,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		animCallback = callback;
 		turnTo( ch.pos, cell );
 		play( zap );
+		ch.sprite.歪嘴();
 	}
 
 	public void turnTo( int from, int to ) {
@@ -649,10 +650,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 
 		if (sleeping) {
-			
 			showSleep();
-		} else {
-			hideSleep();
 		}
 		synchronized (EmoIcon.class) {
 			if (emo != null && emo.alive) {
@@ -733,6 +731,238 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void hideLost() {
 		synchronized (EmoIcon.class) {
 			if (emo instanceof EmoIcon.Lost) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+
+	public void 无语() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.无语)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.无语(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 无语x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.无语) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+	public void 扣6() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.扣6)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.扣6(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 扣6x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.扣6) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+	public void 微笑() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.微笑)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.微笑(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 微笑x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.微笑) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+	public void 愤怒() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.愤怒)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.愤怒(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 愤怒x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.愤怒) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+	public void 爱心() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.爱心)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.爱心(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 爱心x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.爱心) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+	public void 礼物() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.礼物)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.礼物(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 礼物x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.礼物) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+
+	public void 滑稽() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.滑稽)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.滑稽(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 滑稽x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.滑稽) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+
+	public void 歪嘴() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.歪嘴)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.歪嘴(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 歪嘴x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.歪嘴) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+	public void 吃瓜() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.吃瓜)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.吃瓜(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 吃瓜x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.吃瓜) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
+
+	public void 哭泣() {
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.哭泣)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.哭泣(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 哭泣x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.哭泣) {
 				emo.killAndErase();
 				emo = null;
 			}

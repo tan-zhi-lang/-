@@ -11,6 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 
@@ -90,6 +92,8 @@ public class Fire extends Blob {
 
 		Plant plant = Dungeon.level.plants.get( pos );
 		if (plant != null){
+			if(plant instanceof Firebloom)return;
+			if(plant instanceof Icecap)return;
 			plant.wither();
 		}
 	}

@@ -26,6 +26,7 @@ public class Slime extends Mob {
 		最大等级 = 9;
 		
 		lootChance = 0.2f; //by default, see lootChance()
+		properties.add(Property.INORGANIC);
 	}
 	
 	@Override
@@ -55,8 +56,8 @@ public class Slime extends Mob {
 //			//takes 5/6/7/8/9/10 dmg at 5/7/10/14/19/25 incoming dmg
 //			scaledDmg = 4 + (int)(Math.sqrt(8*(scaledDmg - 4) + 1) - 1)/2;
 //		}
-		dmg=算法.固衰(dmg,5);
 		dmg = (int)(scaledDmg*AscensionChallenge.statModifier(this));
+		dmg=算法.固衰(dmg,5);
 		super.受伤时(dmg, src);
 	}
 

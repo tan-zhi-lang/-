@@ -24,7 +24,7 @@ public class IncendiaryDart extends TippedDart {
 		if ((enemy == null || enemy == curUser) && Dungeon.level.flamable[cell]) {
 			GameScene.add(Blob.seed(cell, 4, Fire.class));
 			
-		Dungeon.level.drop(new 飞镖(),cell).sprite.drop();
+		Dungeon.level.drop(new 飞镖(),cell).sprite().drop();
 		
 		} else{
 			super.onThrow(cell);

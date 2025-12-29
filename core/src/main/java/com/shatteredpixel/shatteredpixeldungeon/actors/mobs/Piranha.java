@@ -204,10 +204,7 @@ public class Piranha extends Mob {
 		}
 	}
 	public void 寻找肉(){
-		if(true){
-			return;
-		}
-		try{
+		if(产卵){
 			for(int n: PathFinder.范围4){
 				Heap heap=Dungeon.level.heaps.get(pos+n);
 				if(heap!=null&&heap.type==Heap.Type.HEAP){
@@ -216,31 +213,24 @@ public class Piranha extends Mob {
 						target=heap.pos;
 						if(pos==heap.pos){
 							heap.destroy();
-							
-							try{
-								boolean newp = true;
-								for (int nx : PathFinder.NEIGHBOURS8){
-									if(newp){
-										Piranha piranha = Piranha.random();
-										piranha.pos=pos+nx;
-										if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&
-										   Dungeon.level.findMob( piranha.pos )==null){
-											newp=false;
-											GameScene.add(piranha,1);
-											Actor.add(piranha);
-											Dungeon.level.occupyCell(piranha);
-										}
+							boolean newp=true;
+							for(int nx: PathFinder.NEIGHBOURS8){
+								if(newp){
+									Piranha piranha=Piranha.random();
+									piranha.pos=pos+nx;
+									if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&Dungeon.level.findMob(piranha.pos)==null){
+										newp=false;
+										产卵=false;
+										GameScene.add(piranha,1);
+										Actor.add(piranha);
+										Dungeon.level.occupyCell(piranha);
 									}
 								}
-							}catch(Exception e){
-							
 							}
 						}
 					}
 				}
 			}
-		}catch(Exception e){
-		
 		}
 	}
 	public static Piranha random(){

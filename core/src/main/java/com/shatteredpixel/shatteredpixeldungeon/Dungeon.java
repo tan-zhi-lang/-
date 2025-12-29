@@ -272,7 +272,6 @@ public class Dungeon {
 		地牢天数= 1;
 		if(难度==0)难度=2;
 		老鼠蝙蝠= false;
-//		老鼠蝙蝠= Random.oneOf(true,false);
 		mobsToChampion = 1;
 
 		Actor.clear();
@@ -661,11 +660,10 @@ public class Dungeon {
 	public static boolean interfloorTeleportAllowed(){
 		if (Dungeon.level.locked
 				|| Dungeon.level instanceof MiningLevel
-				|| Dungeon.bossLevel(Dungeon.depth-1)
+				|| Dungeon.level instanceof VaultLevel
+//				|| Dungeon.bossLevel(Dungeon.depth-1)
 				|| Dungeon.bossLevel(Dungeon.depth)
-				|| Dungeon.bossLevel(Dungeon.depth+1)
-				|| Dungeon.depth==1
-				|| Dungeon.depth==26
+//				|| Dungeon.bossLevel(Dungeon.depth+1)
 		){
 			return false;
 		}
@@ -741,7 +739,8 @@ public class Dungeon {
 
 	public static boolean 力量药剂掉落() {
 		//2 POS each floor set
-		int posLeftThisSet = 2 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 2);
+		int 每层数量=2;
+		int posLeftThisSet = 每层数量 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 每层数量);
 		if (posLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);
@@ -757,8 +756,10 @@ public class Dungeon {
 	
 	public static boolean 升级卷轴掉落() {
 		int souLeftThisSet;
-		//4 SOU each floor set
-		souLeftThisSet = 3 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 3);
+		//3 SOU each floor set
+		int 每层数量=3;
+		
+		souLeftThisSet = 每层数量 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 每层数量);
 		if (souLeftThisSet <= 0) return false;
 
 		int floorThisSet = (depth % 5);

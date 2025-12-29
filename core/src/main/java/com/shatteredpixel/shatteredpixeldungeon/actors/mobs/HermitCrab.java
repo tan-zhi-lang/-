@@ -16,6 +16,7 @@ public class HermitCrab extends Crab {
 
 		//3x more likely to drop meat, and drops a guaranteed armor
 		lootChance = 0.5f;
+		properties.add(Property.海妖);
 	}
 
 	@Override
@@ -23,7 +24,7 @@ public class HermitCrab extends Crab {
 		super.rollToDropLoot();
 
 		if (Dungeon.hero.等级 <= 最大等级 + 2){
-			Dungeon.level.drop(Generator.randomArmor(), pos).sprite.drop();
+			Dungeon.level.drop(Generator.randomArmor(), pos).sprite().drop();
 		}
 	}
 

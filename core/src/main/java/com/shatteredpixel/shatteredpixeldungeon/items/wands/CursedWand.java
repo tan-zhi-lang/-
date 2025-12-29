@@ -40,7 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -54,9 +53,9 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
@@ -79,7 +78,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
@@ -243,14 +241,14 @@ public class CursedWand {
 			Char target = Actor.findChar( bolt.collisionPos );
 			//can only teleport target if positive only
 			if (target != null && !Char.hasProp(target, Char.Property.IMMOVABLE) && (positiveOnly || Random.Int(2) == 0)){
-				ScrollOfTeleportation.teleportChar(target);
+				传送卷轴.teleportChar(target);
 				tryForWandProc(target, origin);
 				return true;
 			} else {
 				if (positiveOnly || user == null || Char.hasProp(user, Char.Property.IMMOVABLE)){
 					return false;
 				} else {
-					ScrollOfTeleportation.teleportChar(user);
+					传送卷轴.teleportChar(user);
 					return true;
 				}
 			}
@@ -548,7 +546,7 @@ public class CursedWand {
 			for (Char ch : affected){
 				if (ch instanceof Hero) {
 					Buff.延长(ch, Recharging.class, Recharging.DURATION/3f);
-					ScrollOfRecharging.charge(ch);
+					充能卷轴.charge(ch);
 					SpellSprite.show(ch, SpellSprite.CHARGE);
 				}
 				//does not harm allies if positive only
@@ -750,7 +748,7 @@ public class CursedWand {
 
 			//scroll of teleportation if positive only, or inter-floor teleport disallowed
 			} else {
-				ScrollOfTeleportation.teleportChar(user);
+				传送卷轴.teleportChar(user);
 
 			}
 			return true;
@@ -763,7 +761,7 @@ public class CursedWand {
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 			//mirror images if positive only and user is hero
 			if (positiveOnly && user == Dungeon.hero){
-				ScrollOfMirrorImage.spawnImages(Dungeon.hero, bolt.collisionPos, 2);
+				镜像卷轴.spawnImages(Dungeon.hero,bolt.collisionPos,2);
 			} else {
 				new SummoningTrap().set(bolt.collisionPos).activate();
 			}
@@ -1155,7 +1153,7 @@ public class CursedWand {
 			} else {
 				GLog.w( Messages.get(CursedWand.class, "transmogrify_other") );
 			}
-			Dungeon.level.drop(result, user.pos).sprite.drop();
+			Dungeon.level.drop(result, user.pos).sprite().drop();
 			return true;
 		}
 	}

@@ -179,7 +179,7 @@ public class WndUpgrade extends Window {
 		}
 		
 //升级武技
-//		if (Dungeon.hero() && Dungeon.hero.heroClass == HeroClass.DUELIST
+//		if (Dungeon.hero() && Dungeon.hero.heroClass(HeroClass.DUELIST)
 //				&& toUpgrade instanceof Weapon && ((Weapon) toUpgrade).upgradeAbilityStat(levelFrom) != null){
 //			bottom = fillFields(Messages.get(toUpgrade, "upgrade_ability_stat_name"),
 //					((Weapon) toUpgrade).upgradeAbilityStat(levelFrom),

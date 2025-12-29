@@ -39,6 +39,7 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_CAMERA_FOLLOW= "camera_follow";
 	public static final String KEY_SCREEN_SHAKE = "screen_shake";
 	public static final String 动画加快x = "动画加快";
+	public static final String 透明界面x = "透明界面";
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
@@ -47,6 +48,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 游戏提示x = "游戏提示";
 	public static final String 自动拾取x = "自动拾取";
 	public static final String 装备武器x = "装备武器";
+	public static final String 主要战技x = "主要战技";
 	public static final String 画面同步x = "画面同步";
 	public static final String 游戏帧率x = "游戏帧率";
 	public static final String 字体大小x = "字体大小";
@@ -123,6 +125,13 @@ public class SPDSettings extends GameSettings {
 	public static boolean 动画加快() {
 		return getBoolean(动画加快x, false );
 	}
+	public static void 透明界面(boolean value ){
+		put(透明界面x, value );
+	}
+
+	public static boolean 透明界面() {
+		return getBoolean(透明界面x, false );
+	}
 
 	public static float 加快(){
 		return 动画加快()?100f:1f;
@@ -183,6 +192,13 @@ public class SPDSettings extends GameSettings {
 	}
 	public static boolean 装备武器() {
 		return getBoolean( 装备武器x, true);
+	}
+	public static void 主要战技( boolean value ) {
+		put( 主要战技x, value );
+		
+	}
+	public static boolean 主要战技() {
+		return getBoolean( 主要战技x, false);
 	}
 	public static void 画面同步(boolean value ){
 		put(画面同步x, value );

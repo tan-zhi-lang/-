@@ -7,13 +7,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
@@ -31,6 +31,7 @@ public class UnstableBrew extends Brew {
 
 	{
 		image = 物品表.BREW_UNSTABLE;
+		icon = 物品表.Icons.紊乱;
 	}
 
 	@Override
@@ -48,14 +49,14 @@ public class UnstableBrew extends Brew {
 	private static HashMap<Class<? extends Potion>, Float> potionChances = new HashMap<>();
 	static {
 		potionChances.put(治疗药剂.class, 3f);
-		potionChances.put(PotionOfMindVision.class, 2f);
-		potionChances.put(PotionOfFrost.class, 2f);
-		potionChances.put(PotionOfLiquidFlame.class, 2f);
-		potionChances.put(PotionOfToxicGas.class, 2f);
+		potionChances.put(灵视药剂.class,2f);
+		potionChances.put(冰霜药剂.class,2f);
+		potionChances.put(液火药剂.class,2f);
+		potionChances.put(毒气药剂.class,2f);
 		potionChances.put(极速药剂.class, 2f);
 		potionChances.put(隐形药剂.class,2f);
-		potionChances.put(PotionOfLevitation.class, 2f);
-		potionChances.put(PotionOfParalyticGas.class, 2f);
+		potionChances.put(浮空药剂.class,2f);
+		potionChances.put(麻痹药剂.class,2f);
 		potionChances.put(净化药剂.class, 2f);
 		potionChances.put(经验药剂.class, 1f);
 	}

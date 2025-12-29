@@ -49,7 +49,7 @@ public abstract class 道术{
 	}
 
 	public void onSpellCast(本命玉佩 tome,Hero hero){
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 		tome.spendCharge(chargeUse(hero));
 		Talent.onArtifactUsed(hero);
 	}

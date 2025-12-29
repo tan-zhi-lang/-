@@ -113,6 +113,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
+				Dungeon.hero.sprite.哭泣();
 			}
 			
 			hero.spendAndNext( timeToEquip(hero) );
@@ -145,6 +146,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
+				Dungeon.hero.sprite.哭泣();
 			}
 
 			hero.spendAndNext( timeToEquip(hero) );

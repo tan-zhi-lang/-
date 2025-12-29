@@ -36,11 +36,7 @@ public class 铠甲 extends Armor {
 	
 	@Override
 	public int 最大防御(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(1 + tier +1 + lvl);
-		}
-		
-		return augment.defenseFactor(tier * (2 + lvl+1));
+		return super.最大防御(lvl+1);
 	}
 	@Override
 	public int 金币() {

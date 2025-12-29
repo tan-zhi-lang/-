@@ -70,7 +70,6 @@ public class MimicSprite extends MobSprite {
 		} else {
 			play(hiding);
 		}
-		hideSleep();
 	}
 
 	@Override

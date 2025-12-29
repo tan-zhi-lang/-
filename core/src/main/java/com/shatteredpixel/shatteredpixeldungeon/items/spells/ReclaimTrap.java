@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
@@ -28,6 +28,7 @@ public class ReclaimTrap extends TargetedSpell {
 	
 	{
 		image = 物品表.RECLAIM_TRAP;
+		icon = 物品表.Icons.陷阱;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}
@@ -69,7 +70,7 @@ public class ReclaimTrap extends TargetedSpell {
 				t.disarm(); //even disarms traps that normally wouldn't be
 				
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
-				ScrollOfRecharging.charge(hero);
+				充能卷轴.charge(hero);
 				Buff.施加(hero, ReclaimedTrap.class).trap = t.getClass();
 				Bestiary.setSeen(t.getClass());
 				

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Random;
 
@@ -56,6 +57,20 @@ public class MobSpawner extends Actor {
 		
 		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
 			depth%=25;//解析：超过25求余即是循环层
+		}
+		if(Dungeon.玩法(玩法设置.鬼怨地牢)){
+			return new ArrayList<>(Arrays.asList(
+					鬼怨.class,
+					鬼怨.class,
+					鬼怨.class,
+					鬼怨.class,
+					
+					鬼怨.class,
+					鬼怨.class,
+					鬼怨.class,
+					鬼怨.class,
+					
+					仇鬼.class));
 		}
 		switch(depth){
 
@@ -214,6 +229,9 @@ public class MobSpawner extends Actor {
 		if(Dungeon.解压(解压设置.纯正怪物)){
 			return;
 		}
+		if(Dungeon.玩法(玩法设置.鬼怨地牢)){
+			return;
+		}
 		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
 			depth%=25;//解析：超过25求余即是循环层
 		}
@@ -254,15 +272,14 @@ public class MobSpawner extends Actor {
 			altChance*=2;
 		}
 		for (int i = 0; i < rotation.size(); i++) {
-			if(Dungeon.hero.heroClass(HeroClass.鼠弟)){
+			if(Dungeon.玩法(玩法设置.鬼怨地牢)&&算法.概率学(1/8f)){
 				Class<? extends Mob> cl = rotation.get(i);
-				if (cl == Rat.class){
-					cl = Albino.class;
-					rotation.set(i, cl);
-				}
+				if (cl == 鬼怨.class)                cl = 仇鬼.class;
+				rotation.set(i, cl);
+				continue;
 			}
 			if(Dungeon.解压(解压设置.纯正怪物)){
-				return;
+				break;
 			}
 			if (Random.Float() < altChance) {
 				Class<? extends Mob> cl = rotation.get(i);

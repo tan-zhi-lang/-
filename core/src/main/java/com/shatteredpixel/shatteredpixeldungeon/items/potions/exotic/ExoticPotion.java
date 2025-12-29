@@ -6,17 +6,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -31,23 +31,23 @@ public class ExoticPotion extends Potion {
 	public static final LinkedHashMap<Class<?extends Potion>, Class<?extends ExoticPotion>> regToExo = new LinkedHashMap<>();
 	public static final LinkedHashMap<Class<?extends ExoticPotion>, Class<?extends Potion>> exoToReg = new LinkedHashMap<>();
 	static{
-		regToExo.put(PotionOfStrength.class, PotionOfMastery.class);
-		exoToReg.put(PotionOfMastery.class, PotionOfStrength.class);
+		regToExo.put(力量药剂.class,PotionOfMastery.class);
+		exoToReg.put(PotionOfMastery.class, 力量药剂.class);
 
 		regToExo.put(治疗药剂.class, PotionOfShielding.class);
 		exoToReg.put(PotionOfShielding.class, 治疗药剂.class);
 
-		regToExo.put(PotionOfMindVision.class, PotionOfMagicalSight.class);
-		exoToReg.put(PotionOfMagicalSight.class, PotionOfMindVision.class);
+		regToExo.put(灵视药剂.class,PotionOfMagicalSight.class);
+		exoToReg.put(PotionOfMagicalSight.class, 灵视药剂.class);
 
-		regToExo.put(PotionOfFrost.class, PotionOfSnapFreeze.class);
-		exoToReg.put(PotionOfSnapFreeze.class, PotionOfFrost.class);
+		regToExo.put(冰霜药剂.class,PotionOfSnapFreeze.class);
+		exoToReg.put(PotionOfSnapFreeze.class, 冰霜药剂.class);
 
-		regToExo.put(PotionOfLiquidFlame.class, PotionOfDragonsBreath.class);
-		exoToReg.put(PotionOfDragonsBreath.class, PotionOfLiquidFlame.class);
+		regToExo.put(液火药剂.class,PotionOfDragonsBreath.class);
+		exoToReg.put(PotionOfDragonsBreath.class, 液火药剂.class);
 
-		regToExo.put(PotionOfToxicGas.class, PotionOfCorrosiveGas.class);
-		exoToReg.put(PotionOfCorrosiveGas.class, PotionOfToxicGas.class);
+		regToExo.put(毒气药剂.class,PotionOfCorrosiveGas.class);
+		exoToReg.put(PotionOfCorrosiveGas.class, 毒气药剂.class);
 
 		regToExo.put(极速药剂.class, PotionOfStamina.class);
 		exoToReg.put(PotionOfStamina.class, 极速药剂.class);
@@ -55,11 +55,11 @@ public class ExoticPotion extends Potion {
 		regToExo.put(隐形药剂.class,PotionOfShroudingFog.class);
 		exoToReg.put(PotionOfShroudingFog.class, 隐形药剂.class);
 		
-		regToExo.put(PotionOfLevitation.class, PotionOfStormClouds.class);
-		exoToReg.put(PotionOfStormClouds.class, PotionOfLevitation.class);
+		regToExo.put(浮空药剂.class,PotionOfStormClouds.class);
+		exoToReg.put(PotionOfStormClouds.class, 浮空药剂.class);
 
-		regToExo.put(PotionOfParalyticGas.class, PotionOfEarthenArmor.class);
-		exoToReg.put(PotionOfEarthenArmor.class, PotionOfParalyticGas.class);
+		regToExo.put(麻痹药剂.class,PotionOfEarthenArmor.class);
+		exoToReg.put(PotionOfEarthenArmor.class, 麻痹药剂.class);
 
 		regToExo.put(净化药剂.class, PotionOfCleansing.class);
 		exoToReg.put(PotionOfCleansing.class, 净化药剂.class);

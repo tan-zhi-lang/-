@@ -3,8 +3,11 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x10;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x12;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x20;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x23;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x24;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x25;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x26;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x27;
@@ -76,7 +79,7 @@ public enum Talent {
 
 	高级魔杖(41,4), SHIELD_BATTERY(42, 4),
 	//Battlemage T3
-	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), 盈能附魔(45,4),
+	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), 盈能打击(45,4),
 	//Warlock T3
 	SOUL_EATER(46, 4), SOUL_SIPHON(47, 4), NECROMANCERS_MINIONS(48, 4),
 	//Elemental Blast T4
@@ -150,15 +153,25 @@ public enum Talent {
 	血爆巫术(x7+8,3),
 	顶福精华(x7+9,4),强能处消(x7+10,4),
 	物到巫术(x7+11,4),星火符刃(x7+12,4),高级血爆(x7+13,4),
+	
 	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
 	
 	冰门高攻(x8+9,4),最佳防御(x8+10,4),
 	
-	轻便玉佩(x10+10,4),
+	残魂侵蚀(x10+9,4),轻便玉佩(x10+10,4),
 	
-	轻便护额(x15+10,4),
+	战争热诚(x12+11,4),致命节奏(x12+12,4),征服之姿(x12+13,4),
 	
-	死亡抗拒(x23+5,4),
+	元素之力(x15+9,4),轻便护额(x15+10,4),
+	
+	捕鱼达人(x20+9,4),猫反应7(x20+10,4),
+	白猫主导(x20+11,4),渡魂灵猫(x20+12,4),黑猫主导(x20+13,4),
+	
+	死亡抗拒(x23+9,4),适应身体(x23+10,4),
+	嗜血如故(x23+11,4),兽性猎手(x23+12,4),追捕猎物(x23+13,4),
+	
+//	死亡抗拒(x24+9,4),适应身体(x24+10,4),
+	关键时刻(x24+11,4),时间控制(x24+12,4),穿越零界(x24+13,4),
 	
 	知识(x25),勇武(x25+1),备战(x25+2),
 	
@@ -357,7 +370,7 @@ public enum Talent {
 			
 			switch(Dungeon.hero.subClass){
 				case 潜能觉醒: default:
-					return "综合属性+10%。";
+					return "综合属性+5%。";
 				case 狂战士:
 					return "每点怒气+0.25%攻击力。";
 				case 角斗士:
@@ -378,6 +391,14 @@ public enum Talent {
 					return "主武器和副武器攻击效率+10%。";
 				case 武者:
 					return "最大内力+5。";
+				case 征服者:
+					return "征服者全能吸血+2.5%";
+				case 黑白双子:
+					return "白猫受到伤害反馈-15%";
+				case 金刚独狼:
+					return "物理攻击和物理防御时额外恢复0.5%已损失生命";
+				case 时间刺客:
+					return "时停额外提供25%";
 				case PRIEST:
 					return "综合属性+15%";
 				case PALADIN:
@@ -397,7 +418,7 @@ public enum Talent {
 
 	public static void 获得天赋时(Hero hero, Talent talent ){
 		
-		if (talent==轻便斗篷&&hero.heroClass==HeroClass.盗贼){
+		if (talent==轻便斗篷&&hero.heroClass(HeroClass.盗贼)){
 			for (Item item : Dungeon.hero.belongings.backpack.items){
 				if (item instanceof CloakOfShadows){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
@@ -407,7 +428,7 @@ public enum Talent {
 			}
 		}
 
-		if (talent==轻量阅读&&hero.heroClass==HeroClass.CLERIC){
+		if (talent==轻量阅读&&hero.heroClass(HeroClass.CLERIC)){
 			for (Item item : Dungeon.hero.belongings.backpack.items){
 				if (item instanceof 神圣法典){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
@@ -442,7 +463,7 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		hero.回血(Math.round(foodVal)+hero.天赋点数(Talent.备战,3));
+		hero.回血(Math.round(foodVal)+hero.天赋点数(Talent.备战,4));
 	
 		if (hero.heroClass(HeroClass.学士)){
 			if (hero.cooldown() > 0) {
@@ -457,7 +478,7 @@ public enum Talent {
 //			Buff.施加( hero, PhysicalEmpower.class).set(1, 1);
 		//武技充能
 //		if (hero.有天赋()){
-//			if (hero.heroClass == HeroClass.DUELIST){
+//			if (hero.heroClass(HeroClass.DUELIST)){
 //				//0.67/1 charge for the duelist
 //				Buff.施加( hero, Weapon.Charger.class ).gainCharge(hero.天赋点数(,0.5f));
 //				ScrollOfRecharging.charge( hero );
@@ -467,7 +488,7 @@ public enum Talent {
 //			}
 //		}
 		//施法获得护盾
-//			if (hero.heroClass == HeroClass.CLERIC) {
+//			if (hero.heroClass(HeroClass.CLERIC)) {
 //				Buff.施加(hero, SatiatedSpellsTracker.class);
 //			} else {
 //				//3/5 shielding, delayed up to 10 turns
@@ -480,7 +501,7 @@ public enum Talent {
 //			}
 		//法典充能
 //		if (hero.有天赋(ENLIGHTENING_MEAL)){
-//			if (hero.heroClass == HeroClass.CLERIC) {
+//			if (hero.heroClass(HeroClass.CLERIC))) {
 //				神圣法典 tome = hero.belongings.getItem(神圣法典.class);
 //				if (tome != null) {
 //					// 2/3 of a charge at +1, 1 full charge at +2
@@ -616,10 +637,9 @@ public enum Talent {
 			dmg++;
 		}
 		dmg+=hero.天赋点数(Talent.埋伏,2);
-		if(enemy.第一次背袭) {
-			dmg++;
-		}
 		if(enemy.第一次背袭){
+			dmg++;
+			enemy.sprite.愤怒();
 			enemy.第一次背袭=false;
 		}
 		dmg*=传奇肛塞.伏击();
@@ -720,10 +740,16 @@ public enum Talent {
 				Collections.addAll(tierTalents,冰门高攻,最佳防御);
 				break;
 			case 道士:
-				Collections.addAll(tierTalents,轻便玉佩);
+				Collections.addAll(tierTalents,残魂侵蚀,轻便玉佩);
 				break;
 			case 女忍:
-				Collections.addAll(tierTalents,轻便护额);
+				Collections.addAll(tierTalents,元素之力,轻便护额);
+				break;
+			case 灵猫:
+				Collections.addAll(tierTalents,捕鱼达人,猫反应7);
+				break;
+			case 血鬼:
+				Collections.addAll(tierTalents,死亡抗拒,适应身体);
 				break;
 	}
 		for (Talent talent : tierTalents){
@@ -771,7 +797,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,连战热忱,以战养战,连击强化);
 				break;
 			case 战斗法师:
-				Collections.addAll(tierTalents,EMPOWERED_STRIKE,MYSTICAL_CHARGE,盈能附魔);
+				Collections.addAll(tierTalents,EMPOWERED_STRIKE,MYSTICAL_CHARGE,盈能打击);
 				break;
 			case 术士:
 				Collections.addAll(tierTalents, SOUL_EATER, SOUL_SIPHON, NECROMANCERS_MINIONS);
@@ -808,6 +834,18 @@ public enum Talent {
 				break;
 			case 盾之勇者:
 				Collections.addAll(tierTalents);
+				break;
+			case 征服者:
+				Collections.addAll(tierTalents,战争热诚,致命节奏,征服之姿);
+				break;
+			case 黑白双子:
+				Collections.addAll(tierTalents,白猫主导,渡魂灵猫,黑猫主导);
+				break;
+			case 金刚独狼:
+				Collections.addAll(tierTalents,嗜血如故,兽性猎手,追捕猎物);
+				break;
+			case 时间刺客:
+				Collections.addAll(tierTalents,关键时刻,时间控制,穿越零界);
 				break;
 		}
 		for (Talent talent : tierTalents){

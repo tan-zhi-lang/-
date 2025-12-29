@@ -13,6 +13,7 @@ public class ElixirOfIcyTouch extends Elixir {
 	
 	{
 		image = 物品表.ELIXIR_ICY;
+		icon = 物品表.Icons.晶触;
 	}
 	
 	@Override

@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
-import com.shatteredpixel.shatteredpixeldungeon.系统设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class 锻造锤 extends Weapon {
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",1+(Dungeon.系统(系统设置.独自变强)?Dungeon.hero.等级/2:0));
+		return Messages.get(this, "desc",1+(Dungeon.解压(解压设置.独自变强)?Dungeon.hero.等级/2:0));
 	}
 	private class UpgradeSelector extends WndBag.ItemSelector {
 		
@@ -73,7 +73,7 @@ public class 锻造锤 extends Weapon {
 			return item.可升级()
 				   && item.已鉴定()
 				   && !item.cursed
-				   && item.等级() < 1+(Dungeon.系统(系统设置.独自变强)?Dungeon.hero.等级/2:0);
+				   && item.等级() < 1+(Dungeon.解压(解压设置.独自变强)?Dungeon.hero.等级/2:0);
 		}
 		
 		@Override

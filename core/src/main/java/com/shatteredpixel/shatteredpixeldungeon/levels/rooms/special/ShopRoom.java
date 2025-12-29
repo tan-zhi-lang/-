@@ -47,6 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
@@ -296,48 +297,37 @@ public class ShopRoom extends SpecialRoom {
 				}
 			}
 		}
-		int n3 = 0;
-		if(Dungeon.解压(解压设置.持之以恒)){
-			if (Random.Int(1) == 0){
-				n3++;
-				if(Random.Int(2)==0){
-					n3++;
-					if(Random.Int(3)==0){
-						n3++;
-						if(Random.Int(4)==0){
-							n3++;
-							if(Random.Int(5)==0){
-								n3++;
-							}
-						}
-					}
-				}
-			}
+		if(w!=null){
+			w.enchant(null);
+			w.cursed = false;
+			w.升级(n);
+			w.鉴定(true);
+			itemsToSpawn.add(w);
+		}
+		if(a!=null){
+			a.inscribe(null);
+			a.cursed=false;
+			a.升级(n2);
+			a.鉴定(true);
+			itemsToSpawn.add(a);
+		}
+		
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&Dungeon.区域()==1){
+			itemsToSpawn.add(new 杂物袋());
+			Dungeon.LimitedDrops.杂物袋.drop();
+			itemsToSpawn.add(new ScrollHolder());
+			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
+			itemsToSpawn.add(new PotionBandolier());
+			Dungeon.LimitedDrops.POTION_BANDOLIER.drop();
+			itemsToSpawn.add(new MagicalHolster());
+			Dungeon.LimitedDrops.MAGICAL_HOLSTER.drop();
 		}else{
-			if(Random.Int(4)==0){
-				n3++;
-				if(Random.Int(5)==0){
-					n3++;
-				}
+			Bag bag=ChooseBag(Dungeon.hero.belongings);
+			if(bag!=null){
+				itemsToSpawn.add(bag);
 			}
 		}
-		w.enchant(null);
-		w.cursed = false;
-		w.升级(n);
-		w.鉴定(true);
-		itemsToSpawn.add(w);
-
-		a.inscribe(null);
-		a.cursed = false;
-		a.升级(n3);
-		a.鉴定(true);
-		itemsToSpawn.add( a);
-
-		Bag bag = ChooseBag(Dungeon.hero.belongings);
-		if (bag != null) {
-			itemsToSpawn.add(bag);
-		}
-
+		
 		itemsToSpawn.add( new 治疗药剂());
 		itemsToSpawn.add( new 治疗药剂());
 		itemsToSpawn.add( new 净化药剂());
@@ -444,9 +434,11 @@ public class ShopRoom extends SpecialRoom {
 				rare = Random.oneOf(Generator.randomArtifact(),
 									Generator.randomWand(),Generator.randomRing());
 		}
-		rare.cursed = false;
-		rare.鉴定(true);
-		itemsToSpawn.add( rare );
+		if(rare!=null){
+			rare.cursed=false;
+			rare.鉴定(true);
+			itemsToSpawn.add(rare);
+		}
 
 		//use a new generator here to prevent items in shop stock affecting levelgen RNG (e.g. sandbags)
 		//we can use a random long for the seed as it will be the same long every time

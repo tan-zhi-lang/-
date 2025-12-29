@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -300,7 +301,7 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Math.round(food.energy)) );
 				center.measure();
 				center.hardlight( UPGRADED );
-				extra.text( Messages.format( TXT, Math.round(food.energy*0.01f)) );
+				extra.text( Messages.format( TXT, Math.round(food.energy*0.01f+Dungeon.hero.天赋点数(Talent.备战,4))));
 				extra.measure();
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof 水袋 s) {

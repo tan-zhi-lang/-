@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PhantomPiranhaSprite;
@@ -51,7 +51,7 @@ public class PhantomPiranha extends Piranha {
 						}
 					}
 					if (!candidates.isEmpty()) {
-						ScrollOfTeleportation.appear(this, Random.element(candidates));
+						传送卷轴.appear(this,Random.element(candidates));
 						aggro(dmgSource);
 					} else {
 						teleportAway();
@@ -91,10 +91,10 @@ public class PhantomPiranha extends Piranha {
 
 		if (!outFOVCandidates.isEmpty()){
 			if (Dungeon.level.heroFOV[pos]) GLog.i(Messages.get(this, "teleport_away"));
-			ScrollOfTeleportation.appear(this, Random.element(outFOVCandidates));
+			传送卷轴.appear(this,Random.element(outFOVCandidates));
 			return true;
 		} else if (!inFOVCandidates.isEmpty()){
-			ScrollOfTeleportation.appear(this, Random.element(inFOVCandidates));
+			传送卷轴.appear(this,Random.element(inFOVCandidates));
 			return true;
 		}
 

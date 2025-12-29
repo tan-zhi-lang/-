@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -24,6 +24,7 @@ public class CausticBrew extends Brew {
 	
 	{
 		image = 物品表.BREW_CAUSTIC;
+		icon = 物品表.Icons.淤泥;
 	}
 	
 	@Override
@@ -50,7 +51,7 @@ public class CausticBrew extends Brew {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{PotionOfToxicGas.class, GooBlob.class};
+			inputs =  new Class[]{毒气药剂.class,GooBlob.class};
 			inQuantity = new int[]{1, 1};
 			
 			cost = 1;

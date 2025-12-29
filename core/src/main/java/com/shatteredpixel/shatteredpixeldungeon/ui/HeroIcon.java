@@ -23,20 +23,33 @@ public class HeroIcon extends Image {
 
 	//subclasses
 	public static final int BERSERKER   = 0;
-	public static final int GLADIATOR   = 1;
-	public static final int BATTLEMAGE  = 2;
-	public static final int WARLOCK     = 3;
-	public static final int ASSASSIN    = 4;
-	public static final int FREERUNNER  = 5;
-	public static final int SNIPER      = 6;
-	public static final int WARDEN      = 7;
-	public static final int CHAMPION    = 8;
-	public static final int MONK        = 9;
-	public static final int PRIEST      = 10;
-	public static final int PALADIN     = 11;
-	public static final int 神秘学者     = 12;
-	public static final int 黑魔导师     = 13;
-	public static final int 盾之勇者     = 14;
+	public static final int GLADIATOR   = BERSERKER+1;
+	
+	public static final int BATTLEMAGE  = 8;
+	public static final int WARLOCK     = BATTLEMAGE+1;
+	
+	public static final int ASSASSIN    = 2*8;
+	public static final int FREERUNNER  = ASSASSIN+1;
+	
+	public static final int SNIPER      = 3*8;
+	public static final int WARDEN      = SNIPER+1;
+	
+	public static final int CHAMPION    = 4*8;
+	public static final int MONK        = CHAMPION+1;
+	
+	public static final int PRIEST      = 5*8;
+	public static final int PALADIN     = PRIEST+1;
+	
+	public static final int 神秘学者     = 6*8;
+	public static final int 黑魔导师     = 神秘学者+1;
+	
+	public static final int 盾之勇者     = 7*8;
+	public static final int 养殖专家     = 7*8;
+	public static final int 征服者     = 9*8;
+	
+	public static final int 黑白双子     = 20*8;
+	public static final int 金刚独狼     = 23*8;
+	public static final int 时间刺客     = 24*8;
 
 	//abilities
 	public static final int HEROIC_LEAP     = 16;
@@ -101,12 +114,12 @@ public class HeroIcon extends Image {
 	public static final int WEAPON_SWAP     = 5;
 	public static final int MONK_ABILITIES  = 6;
 	
-	public static final int 圣光   = 8;
-	public static final int 痛命= 16;
+	public static final int 圣光   = 3*8;
+	public static final int 痛命= 4*8;
 	
-	public static final int 符咒= 24;
+	public static final int 符咒= 5*8;
 	
-	public static final int 风刃= 32;
+	public static final int 风刃= 6*8;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );

@@ -44,6 +44,7 @@ public class Pylon extends Mob {
 		properties.add(Property.ELECTRIC);
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.STATIC);
+		properties.add(Property.机械);
 
 		state = PASSIVE;
 		alignment = Alignment.NEUTRAL;
@@ -60,9 +61,6 @@ public class Pylon extends Mob {
 		Dungeon.level.updateFieldOfView( this, fieldOfView );
 
 		throwItems();
-
-		sprite.hideAlert();
-		sprite.hideLost();
 
 		//mob logic
 		enemy = chooseEnemy();

@@ -58,7 +58,7 @@ public class TormentedSpirit extends Wraith {
 			prize.升级();
 		}
 
-		Dungeon.level.drop(prize, pos).sprite.drop();
+		Dungeon.level.drop(prize, pos).sprite().drop();
 
 		destroy();
 		sprite.die();

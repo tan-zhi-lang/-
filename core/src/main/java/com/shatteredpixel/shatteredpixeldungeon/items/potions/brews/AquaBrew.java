@@ -11,6 +11,7 @@ public class AquaBrew extends Brew {
 
 	{
 		image = 物品表.BREW_AQUA;
+		icon = 物品表.Icons.水爆;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

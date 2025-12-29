@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -55,6 +56,7 @@ public abstract class Plant implements Bundlable {
 	public abstract void activate( Char ch );
 	
 	public void wither() {
+		
 		Dungeon.level.uproot( pos );
 
 		if (Dungeon.level.heroFOV[pos]) {
@@ -73,7 +75,7 @@ public abstract class Plant implements Bundlable {
 
 		if (Random.Float() < seedChance){
 			if (seedClass != null && seedClass != Rotberry.Seed.class) {
-				Dungeon.level.drop(Reflection.newInstance(seedClass), pos).sprite.drop();
+				Dungeon.level.drop(Reflection.newInstance(seedClass), pos).sprite().drop();
 			}
 		}
 		
@@ -106,12 +108,14 @@ public abstract class Plant implements Bundlable {
 	public static class Seed extends Item {
 
 		public static final String AC_PLANT	= "PLANT";
+		protected static final String AC_USE = "USE";
 		
 		private static final float TIME_TO_PLANT = 1f;
 		
 		{
 			可堆叠= true;
-			defaultAction = AC_THROW;
+			defaultAction = AC_USE;
+			usesTargeting=true;
 		}
 		
 		protected Class<? extends Plant> plantClass;
@@ -151,7 +155,9 @@ public abstract class Plant implements Bundlable {
 		public void execute( Hero hero, String action ) {
 
 			super.execute (hero, action );
-
+			if(action.equals(AC_USE)){
+				GameScene.show(new WndUseItem(null,this));
+			}
 			if (action.equals( AC_PLANT )) {
 
 				hero.busy();

@@ -75,8 +75,6 @@ public class CrystalSpire extends Mob {
 
 		throwItems();
 
-		sprite.hideAlert();
-		sprite.hideLost();
 
 		//mob logic
 		enemy = Dungeon.hero;

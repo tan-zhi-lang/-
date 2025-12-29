@@ -40,9 +40,16 @@ public enum HeroSubClass {
 	
 	鬼师(HeroIcon.NONE),
 	
-	养殖专家(HeroIcon.NONE),
+	养殖专家(HeroIcon.养殖专家),
+	征服者(HeroIcon.征服者),
 	
-	元素忍者(HeroIcon.NONE);
+	元素忍者(HeroIcon.NONE),
+	
+	黑白双子(HeroIcon.黑白双子),
+	
+	金刚独狼(HeroIcon.金刚独狼),
+	
+	时间刺客(HeroIcon.时间刺客);
 
 	int icon;
 

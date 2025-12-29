@@ -142,7 +142,7 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public void drop() {
-
+		
 		if (heap.isEmpty()) {
 			return;
 		} else if (heap.size() == 1){

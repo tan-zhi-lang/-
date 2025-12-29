@@ -29,6 +29,10 @@ public class ShatteredPixelDungeon extends Game {
 		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
 		
 //		com.watabou.utils.Bundle.addAlias(
+//				圣诞礼物.class,
+//				"com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物" );
+
+//		com.watabou.utils.Bundle.addAlias(
 //				探魔符石.class,
 //				"com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfDisarming" );//拆除符石
 

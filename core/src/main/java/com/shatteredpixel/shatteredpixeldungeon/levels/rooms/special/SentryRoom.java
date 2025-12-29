@@ -147,7 +147,7 @@ public class SentryRoom extends SpecialRoom {
 		Painter.set(level, treasurePos, Terrain.PEDESTAL);
 		level.drop( prize( level ), level.pointToCell(treasurePos) ).type = Heap.Type.CHEST;
 
-		level.addItemToSpawn(new 极速药剂());
+		level.addItemToSpawn(new 极速药剂().房间物品());
 
 		entrance.set( Door.Type.REGULAR );
 	}

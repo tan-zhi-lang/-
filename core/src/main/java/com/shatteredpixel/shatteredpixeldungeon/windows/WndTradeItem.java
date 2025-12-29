@@ -139,7 +139,7 @@ public class WndTradeItem extends WndInfoItem {
 						hide();
 
 						if (!item.doPickUp(hero)) {
-							Dungeon.level.drop(item, heap.pos).sprite.drop();
+							Dungeon.level.drop(item, heap.pos).sprite().drop();
 						}
 					} else {
 						GameScene.show(new WndOptions(new ItemSprite(物品表.ARTIFACT_ARMBAND),
@@ -157,7 +157,7 @@ public class WndTradeItem extends WndInfoItem {
 										WndTradeItem.this.hide();
 
 										if (!item.doPickUp(hero)) {
-											Dungeon.level.drop(item, heap.pos).sprite.drop();
+											Dungeon.level.drop(item, heap.pos).sprite().drop();
 										}
 									} else {
 										for (Mob mob : Dungeon.level.mobs) {
@@ -262,7 +262,7 @@ public class WndTradeItem extends WndInfoItem {
 		Catalog.countUses(Gold.class, price);
 		
 		if (!item.doPickUp( Dungeon.hero )) {
-			Dungeon.level.drop( item, heap.pos ).sprite.drop();
+			Dungeon.level.drop( item, heap.pos ).sprite().drop();
 		}
 	}
 }

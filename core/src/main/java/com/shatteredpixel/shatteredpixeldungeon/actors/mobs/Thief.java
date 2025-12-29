@@ -80,7 +80,7 @@ public class Thief extends Mob {
 	@Override
 	public void rollToDropLoot() {
 		if (item != null) {
-			Dungeon.level.drop( item, pos ).sprite.drop();
+			Dungeon.level.drop( item, pos ).sprite().drop();
 			//updates position
 			if (item instanceof Honeypot.ShatteredPot) ((Honeypot.ShatteredPot)item).dropPot( this, pos );
 			item = null;
@@ -120,7 +120,7 @@ public class Thief extends Mob {
 	@Override
 	public int 防御时(Char enemy, int damage) {
 		if (state == FLEEING) {
-			Dungeon.level.drop(new Gold().random(),pos).sprite.drop();
+			Dungeon.level.drop(new Gold().random(),pos).sprite().drop();
 		}
 
 		return super.防御时(enemy, damage);
@@ -131,7 +131,7 @@ public class Thief extends Mob {
 		Item toSteal = hero.belongings.randomUnequipped();
 
 		if (toSteal != null&&!toSteal.特别&&toSteal.等级()<1 ) {
-
+			hero.sprite.愤怒();
 			GLog.w( Messages.get(Thief.class, "stole", toSteal.name()) );
 			if (!toSteal.可堆叠) {
 				Dungeon.quickslot.convertToPlaceholder(toSteal);
@@ -203,6 +203,9 @@ public class Thief extends Mob {
 				}
 
 				if (item != null) GLog.n( Messages.get(Thief.class, "escapes", item.name()));
+				
+				if(Dungeon.hero.sprite!=null)Dungeon.hero.sprite.哭泣();
+				
 				item = null;
 				state = WANDERING;
 			} else {

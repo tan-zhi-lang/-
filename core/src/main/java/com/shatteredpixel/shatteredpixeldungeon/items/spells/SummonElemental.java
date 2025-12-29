@@ -18,11 +18,11 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -46,6 +46,7 @@ public class SummonElemental extends Spell {
 
 	{
 		image = 物品表.SUMMON_ELE;
+		icon = 物品表.Icons.唤魔;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}
@@ -84,7 +85,7 @@ public class SummonElemental extends Spell {
 
 			for (Char ch : Actor.chars()){
 				if (ch instanceof Elemental && ch.buff(InvisAlly.class) != null){
-					ScrollOfTeleportation.appear( ch, Random.element(spawnPoints) );
+					传送卷轴.appear(ch,Random.element(spawnPoints));
 					((Elemental) ch).state = ((Elemental) ch).HUNTING;
 					curUser.spendAndNext(Actor.TICK);
 					return;
@@ -96,7 +97,7 @@ public class SummonElemental extends Spell {
 			Buff.施加(elemental, InvisAlly.class);
 			elemental.setSummonedALly();
 			elemental.生命 = elemental.最大生命;
-			ScrollOfTeleportation.appear( elemental, Random.element(spawnPoints) );
+			传送卷轴.appear(elemental,Random.element(spawnPoints));
 			Invisibility.dispel();
 			curUser.sprite.operate();
 			curUser.spendAndNext(Actor.TICK);
@@ -159,9 +160,9 @@ public class SummonElemental extends Spell {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item.已鉴定() && (item instanceof PotionOfLiquidFlame
-					|| item instanceof PotionOfFrost
-					|| item instanceof ScrollOfRecharging
+			return item.已鉴定() && (item instanceof 液火药剂
+					|| item instanceof 冰霜药剂
+					|| item instanceof 充能卷轴
 					|| item instanceof 嬗变卷轴);
 		}
 
@@ -173,17 +174,17 @@ public class SummonElemental extends Spell {
 			}
 
 			item.detach(Dungeon.hero.belongings.backpack);
-			if (item instanceof PotionOfLiquidFlame) {
+			if (item instanceof 液火药剂) {
 				Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				curUser.sprite.emitter().burst( FlameParticle.FACTORY, 12 );
 				summonClass = Elemental.FireElemental.class;
 
-			} else if (item instanceof PotionOfFrost){
+			} else if (item instanceof 冰霜药剂){
 				Sample.INSTANCE.play(Assets.Sounds.SHATTER);
 				curUser.sprite.emitter().burst( MagicMissile.MagicParticle.FACTORY, 12 );
 				summonClass = Elemental.FrostElemental.class;
 
-			} else if (item instanceof ScrollOfRecharging){
+			} else if (item instanceof 充能卷轴){
 				Sample.INSTANCE.play(Assets.Sounds.ZAP);
 				curUser.sprite.emitter().burst( ShaftParticle.FACTORY, 12 );
 				summonClass = Elemental.ShockElemental.class;

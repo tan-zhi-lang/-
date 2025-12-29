@@ -26,8 +26,8 @@ public class TargetHealthIndicator extends HealthBar {
 			CharSprite sprite = target.sprite;
 			width = sprite.width();
 			x = sprite.x;
-			y = sprite.y - 3;
-			//导致血条文本下移
+			y = sprite.y -2;
+			
 			level( target );
 			visible = true;
 		} else {

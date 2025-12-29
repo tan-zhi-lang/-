@@ -266,7 +266,7 @@ public class 骷髅钥匙 extends Artifact {
 									if (!candidates.isEmpty()){
 										Heap heap = Dungeon.level.heaps.get(target);
 										while (!heap.isEmpty()) {
-											Dungeon.level.drop(heap.pickUp(), Random.element(candidates)).sprite.drop(target);
+											Dungeon.level.drop(heap.pickUp(), Random.element(candidates)).sprite().drop(target);
 										}
 									}
 								}

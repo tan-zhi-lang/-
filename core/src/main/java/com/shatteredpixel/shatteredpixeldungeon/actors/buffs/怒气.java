@@ -109,7 +109,7 @@ public class 怒气 extends Buff implements ActionIndicator.Action {
 	@Override
 	public void doAction() {
 		if(target instanceof Hero hero){
-			hero.回血(怒气*(0.1f+hero.天赋点数(Talent.嗜血成性,0.1f)));
+			hero.回血(hero.最大生命(怒气*(0.0015f+hero.天赋点数(Talent.嗜血成性,0.00075f))));
 		}
 		怒气=0;
 		ActionIndicator.clearAction(this);

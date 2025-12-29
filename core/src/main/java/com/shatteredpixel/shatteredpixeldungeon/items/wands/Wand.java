@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
@@ -125,7 +125,7 @@ public abstract class Wand extends Item {
 	//not affected by enchantment proc chance changers
 	public static float procChanceMultiplier( Char attacker ){
 		
-		return 1f+Dungeon.hero.天赋点数(Talent.盈能附魔,0.12f);
+		return 1f+Dungeon.hero.天赋点数(Talent.盈能打击,0.25f);
 	}
 	public boolean tryToZap( Hero owner, int target ){
 
@@ -430,7 +430,7 @@ public abstract class Wand extends Item {
 		}
 		
 		if(Dungeon.系统(系统设置.虔诚物到)){
-			Dungeon.level.drop(Generator.random(),curUser.pos).sprite.drop();
+			Dungeon.level.drop(Generator.random(),curUser.pos).sprite().drop();
 		}
 		
 		curCharges -= cursed ? 1 : chargesPerCast();
@@ -449,8 +449,7 @@ public abstract class Wand extends Item {
 				empower.use();
 			}
 		}
-
-
+		
 		// 10/20/30%
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
 				&& Dungeon.hero.天赋(Talent.CLEANSE)
@@ -646,7 +645,7 @@ public abstract class Wand extends Item {
 						}
 						curWand.curCharges = 0;
 						curUser.sprite.operate();
-						ScrollOfRecharging.charge(curUser);
+						充能卷轴.charge(curUser);
 						updateQuickslot();
 						curUser.spendAndNext(Actor.TICK);
 						return;
@@ -678,6 +677,7 @@ public abstract class Wand extends Item {
 						Badges.解锁巫女();
 						if (!curWand.cursedKnown){
 							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
+							Dungeon.hero.sprite.哭泣();
 						}
 						CursedWand.cursedZap(curWand,
 								curUser,

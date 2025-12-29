@@ -22,6 +22,7 @@ public class Rat extends Mob {
 		经验=Dungeon.老鼠蝙蝠?7:1;
 		baseSpeed = Dungeon.老鼠蝙蝠?2:1;
 		最大等级 = Dungeon.老鼠蝙蝠?15:5;
+		properties.add(Property.动物);
 	}
 	public boolean 普通=true;
 	@Override

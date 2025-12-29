@@ -62,7 +62,9 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 public class Potion extends Item {
-
+	{
+		usesTargeting=true;
+	}
 	public static final String AC_DRINK = "DRINK";
 	
 	//used internally for potions that can be drunk or thrown
@@ -96,10 +98,10 @@ public class Potion extends Item {
 
 	protected static final HashSet<Class<?extends Potion>> mustThrowPots = new HashSet<>();
 	static{
-		mustThrowPots.add(PotionOfToxicGas.class);
-		mustThrowPots.add(PotionOfLiquidFlame.class);
-		mustThrowPots.add(PotionOfParalyticGas.class);
-		mustThrowPots.add(PotionOfFrost.class);
+		mustThrowPots.add(毒气药剂.class);
+		mustThrowPots.add(液火药剂.class);
+		mustThrowPots.add(麻痹药剂.class);
+		mustThrowPots.add(冰霜药剂.class);
 		
 		//exotic
 		mustThrowPots.add(PotionOfCorrosiveGas.class);
@@ -113,7 +115,7 @@ public class Potion extends Item {
 	protected static final HashSet<Class<?extends Potion>> canThrowPots = new HashSet<>();
 	static{
 		canThrowPots.add(净化药剂.class);
-		canThrowPots.add(PotionOfLevitation.class);
+		canThrowPots.add(浮空药剂.class);
 		
 		//exotic
 		canThrowPots.add(PotionOfCleansing.class);
@@ -468,14 +470,14 @@ public class Potion extends Item {
 		static {
 			types.put(Blindweed.Seed.class,     隐形药剂.class);
 			types.put(Mageroyal.Seed.class,     净化药剂.class);
-			types.put(Earthroot.Seed.class,     PotionOfParalyticGas.class);
-			types.put(Fadeleaf.Seed.class,      PotionOfMindVision.class);
-			types.put(Firebloom.Seed.class,     PotionOfLiquidFlame.class);
-			types.put(Icecap.Seed.class,        PotionOfFrost.class);
-			types.put(Rotberry.Seed.class,      PotionOfStrength.class);
-			types.put(Sorrowmoss.Seed.class,    PotionOfToxicGas.class);
+			types.put(Earthroot.Seed.class,     麻痹药剂.class);
+			types.put(Fadeleaf.Seed.class,      灵视药剂.class);
+			types.put(Firebloom.Seed.class,     液火药剂.class);
+			types.put(Icecap.Seed.class,        冰霜药剂.class);
+			types.put(Rotberry.Seed.class,      力量药剂.class);
+			types.put(Sorrowmoss.Seed.class,    毒气药剂.class);
 			types.put(Starflower.Seed.class,    经验药剂.class);
-			types.put(Stormvine.Seed.class,     PotionOfLevitation.class);
+			types.put(Stormvine.Seed.class,     浮空药剂.class);
 			types.put(Sungrass.Seed.class,      治疗药剂.class);
 			types.put(Swiftthistle.Seed.class,  极速药剂.class);
 		}

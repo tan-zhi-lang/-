@@ -17,6 +17,7 @@ public class ElixirOfArcaneArmor extends Elixir {
 	
 	{
 		image = 物品表.ELIXIR_ARCANE;
+		icon = 物品表.Icons.抗魔;
 	}
 	
 	@Override

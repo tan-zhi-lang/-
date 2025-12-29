@@ -44,9 +44,6 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	public boolean act() {
 
 		if (!freerunning() && target.invisible > 0 ){
-			if(target instanceof Hero hero&&hero.天赋(Talent.职业精通)){
-				momentumStacks -=0.5;
-			}
 			momentumStacks = Math.min(momentumStacks + 2, 10);
 			movedLastTurn = true;
 			ActionIndicator.setAction(this);

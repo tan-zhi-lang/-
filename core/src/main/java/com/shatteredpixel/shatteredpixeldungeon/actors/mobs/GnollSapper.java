@@ -31,7 +31,8 @@ public class GnollSapper extends Mob {
 		最大等级 = -2;
 
 		properties.add(Property.MINIBOSS);
-
+		
+		properties.add(Property.动物);
 		HUNTING = new Hunting();
 		WANDERING = new Wandering();
 		state = SLEEPING;

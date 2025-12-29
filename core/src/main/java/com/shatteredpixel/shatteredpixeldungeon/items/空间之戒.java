@@ -167,13 +167,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero,false,false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									空间之戒.this.item= item;
+									item(item);
 								}
-								item= item;
-								item(item);
 							}
 						});
 					}
@@ -227,13 +230,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item2= item;
+									item(item2);
 								}
-								item2= item;
-								item(item2);
 							}
 						});
 					}
@@ -287,13 +293,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item3= item;
+									item(item3);
 								}
-								item3= item;
-								item(item3);
 							}
 						});
 					}
@@ -348,13 +357,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item4= item;
+									item(item4);
 								}
-								item4= item;
-								item(item4);
 							}
 						});
 					}
@@ -408,13 +420,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item5= item;
+									item(item5);
 								}
-								item5= item;
-								item(item5);
 							}
 						});
 					}
@@ -468,13 +483,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item6= item;
+									item(item6);
 								}
-								item6= item;
-								item(item6);
 							}
 						});
 					}
@@ -528,13 +546,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item7= item;
+									item(item7);
 								}
-								item7= item;
-								item(item7);
 							}
 						});
 					}
@@ -588,13 +609,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item8= item;
+									item(item8);
 								}
-								item8= item;
-								item(item8);
 							}
 						});
 					}
@@ -648,13 +672,16 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public void onSelect(Item item) {
-								if (item!=null&&item.isEquipped(Dungeon.hero)){
-									((Weapon) item).doUnequip(Dungeon.hero, false, false);
-								} else {
-									item.detach(Dungeon.hero.belongings.backpack);
+								
+								if(item!=null){
+									if(item.isEquipped(Dungeon.hero)){
+										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+									}else{
+										item.detach(Dungeon.hero.belongings.backpack);
+									}
+									item9= item;
+									item(item9);
 								}
-								item9= item;
-								item(item9);
 							}
 						});
 					}

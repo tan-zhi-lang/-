@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.雷爆结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.魔能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.黑暗结晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -53,7 +53,7 @@ public class Wnd选择结晶 extends Window {
 				Dungeon.energy(-10);
 				魔能结晶 mob = new 魔能结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -79,7 +79,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				蓄能结晶 mob = new 蓄能结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -105,7 +105,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				冰爆结晶 mob = new 冰爆结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -130,7 +130,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				火爆结晶 mob = new 火爆结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -155,7 +155,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				雷爆结晶 mob = new 雷爆结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -180,7 +180,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				刺青结晶 mob = new 刺青结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -205,7 +205,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				光明结晶 mob = new 光明结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -230,7 +230,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				黑暗结晶 mob = new 黑暗结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -255,7 +255,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				造能结晶 mob = new 造能结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -280,7 +280,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				毒素结晶 mob = new 毒素结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");
@@ -305,7 +305,7 @@ public class Wnd选择结晶 extends Window {
 				if(Dungeon.level.map[target] != Terrain.GRASS)return;
 				磐石结晶 mob = new 磐石结晶();
 				GameScene.add(mob);
-				ScrollOfTeleportation.瞬移(mob,target);
+				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
 					GLog.w("第"+hero.地牢塔防波次+"波");

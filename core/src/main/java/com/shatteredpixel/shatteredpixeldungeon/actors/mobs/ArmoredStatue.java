@@ -97,7 +97,7 @@ public class ArmoredStatue extends Statue {
 	@Override
 	public void 死亡时(Object cause ) {
 		armor.鉴定(false);
-		Dungeon.level.drop( armor, pos ).sprite.drop();
+		Dungeon.level.drop( armor, pos ).sprite().drop();
 		super.死亡时( cause );
 	}
 

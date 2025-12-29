@@ -140,7 +140,7 @@ public class Statue extends Mob {
 	@Override
 	public void 死亡时(Object cause ) {
 		weapon.鉴定(false);
-		Dungeon.level.drop( weapon, pos ).sprite.drop();
+		Dungeon.level.drop( weapon, pos ).sprite().drop();
 		super.死亡时( cause );
 	}
 

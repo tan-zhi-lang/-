@@ -26,6 +26,7 @@ public class Bat extends Mob {
 		
 		loot = 治疗药剂.class;
 		lootChance = 0.1667f; //by default, see lootChance()
+		properties.add(Property.动物);
 	}
 	
 	@Override

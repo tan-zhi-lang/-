@@ -178,7 +178,7 @@ public class 武力之戒 extends Ring{
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-3);
 		}
-		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST){
+		if(Dungeon.hero!=null&&Dungeon.hero.heroClass(HeroClass.DUELIST)){
 			int tier=tier();
 			int bonus=Math.round(3+tier+(level*((4+2*tier)/8f)));
 			return (min(level+1,tier)+bonus)+"-"+(max(level+1,tier)+bonus);
@@ -196,14 +196,14 @@ public class 武力之戒 extends Ring{
 	@Override
 	public void activate(Char ch){
 		super.activate(ch);
-		if(ch instanceof Hero&&((Hero)ch).heroClass==HeroClass.DUELIST){
+		if(ch instanceof Hero&&((Hero)ch).heroClass(HeroClass.DUELIST)){
 //			Buff.施加(ch,MeleeWeapon.Charger.class);
 		}
 	}
 	
 	@Override
 	public String defaultAction(){
-		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST){
+		if(Dungeon.hero!=null&&Dungeon.hero.heroClass(HeroClass.DUELIST)){
 			return AC_ABILITY;
 		}else{
 			return super.defaultAction();
@@ -213,7 +213,7 @@ public class 武力之戒 extends Ring{
 	@Override
 	public ArrayList<String> actions(Hero hero){
 		ArrayList<String> actions=super.actions(hero);
-		if(isEquipped(hero)&&hero.heroClass==HeroClass.DUELIST){
+		if(isEquipped(hero)&&hero.heroClass(HeroClass.DUELIST)){
 			actions.add(AC_ABILITY);
 		}
 		return actions;
@@ -257,7 +257,7 @@ public class 武力之戒 extends Ring{
 	public String info(){
 		String info=super.info();
 		
-//		if(Dungeon.hero!=null&&Dungeon.hero.heroClass==HeroClass.DUELIST&&(anonymous||已鉴定()||isEquipped(Dungeon.hero))){
+//		if(Dungeon.hero!=null&&Dungeon.hero.heroClass(HeroClass.DUELIST)&&(anonymous||已鉴定()||isEquipped(Dungeon.hero))){
 //			//0 if unidentified, solo level if unequipped, combined level if equipped
 //			int level=已鉴定()?
 //					(isEquipped(Dungeon.hero)?

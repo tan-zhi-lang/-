@@ -49,7 +49,7 @@ public abstract class 忍术{
 	}
 
 	public void onSpellCast(叛忍护额 tome,Hero hero){
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 		tome.spendCharge(chargeUse(hero));
 		Talent.onArtifactUsed(hero);
 	}

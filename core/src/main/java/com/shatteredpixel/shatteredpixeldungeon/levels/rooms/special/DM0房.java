@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM0;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -21,7 +21,7 @@ public class DM0房 extends SpecialRoom {
 		int cy = c.y;
 		
 		Door door = entrance();
-		level.addItemToSpawn( new PotionOfParalyticGas());
+		level.addItemToSpawn( new 麻痹药剂().房间物品());
 		
 		DM0 statue = new DM0();
 		statue.pos = cx + cy * level.width();

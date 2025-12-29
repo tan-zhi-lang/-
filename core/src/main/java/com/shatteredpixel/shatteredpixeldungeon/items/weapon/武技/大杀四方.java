@@ -3,7 +3,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -12,14 +11,13 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Callback;
 
 import java.util.ArrayList;
 
 public class 大杀四方 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的所有目标进行一次100%伤害必中的物理攻击，并花费攻击延迟的回合";
+		desc="对攻击范围内的所有目标进行一次100%伤害必中的物理攻击，对所有相邻敌人同样造成此伤害，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -65,23 +63,9 @@ public class 大杀四方 extends 武技{
 			}
 			
 			Sample.INSTANCE.play(wep.hitSound);
-			Char finalClosest = closest;
 			wep.消耗(hero);
-			hero.sprite.attack(hero.pos, new Callback() {
-				@Override
-				public void call() {
-					for (Char ch : targets) {
-						//ability does no extra damage
-						hero.attack(ch, 伤害100, 0, Char.INFINITE);
-						if (!ch.isAlive()){
-						
-						}
-					}
-					Invisibility.notimedispel();
-					hero.spendAndNext(hero.攻击延迟());
-					wep.技能使用(hero);
-				}
-			});
+			hero.九头蛇(hero,enemy.pos);
+			hero.spendAndNext(hero.攻击延迟());
 		}
 		
 		@Override

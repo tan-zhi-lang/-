@@ -61,7 +61,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SupplyRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.噩梦粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.地牢浆果;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.纯净粮食;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
@@ -132,7 +135,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
+import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Bundle;
 
@@ -240,7 +243,7 @@ public enum Catalog {
 
 		TRINKETS.addItems(Generator.Category.TRINKET.classes);
 
-		MISC_EQUIPMENT.addItems(破损纹章.class,
+		MISC_EQUIPMENT.addItems(荣誉纹章.class,
 								
 								短剑.class,
 								法师魔杖.class,
@@ -279,9 +282,9 @@ public enum Catalog {
 
 		STONES.addItems(Generator.Category.STONE.classes);
 
-		FOOD.addItems( Food.class, Pasty.class, MysteryMeat.class, ChargrilledMeat.class,
-				StewedMeat.class, FrozenCarpaccio.class, SmallRation.class, 地牢浆果.class,
-				SupplyRation.class, Blandfruit.class, PhantomMeat.class, MeatPie.class );
+		FOOD.addItems(Food.class,Pasty.class,MysteryMeat.class,ChargrilledMeat.class,
+					  StewedMeat.class,FrozenCarpaccio.class,SmallRation.class,地牢浆果.class,蜂蜜.class,噩梦粮食.class,纯净粮食.class,
+					  SupplyRation.class,Blandfruit.class,PhantomMeat.class,MeatPie.class );
 
 		EXOTIC_POTIONS.addItems(ExoticPotion.exoToReg.keySet().toArray(new Class[0]));
 

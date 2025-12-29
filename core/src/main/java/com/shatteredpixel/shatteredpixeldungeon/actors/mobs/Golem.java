@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GolemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
@@ -35,6 +35,7 @@ public class Golem extends Mob {
 
 		properties.add(Property.INORGANIC);
 		properties.add(Property.LARGE);
+		properties.add(Property.机械);
 
 		WANDERING = new Wandering();
 		HUNTING = new Hunting();
@@ -114,7 +115,7 @@ public class Golem extends Mob {
 		if (teleporting){
 			((GolemSprite)sprite).teleParticles(false);
 			if (Actor.findChar(target) == null && Dungeon.level.openSpace[target]) {
-				ScrollOfTeleportation.appear(this, target);
+				传送卷轴.appear(this,target);
 				selfTeleCooldown = 30;
 			} else {
 				target = Dungeon.level.randomDestination(this);
@@ -148,7 +149,7 @@ public class Golem extends Mob {
 		}
 
 		if (bestPos != enemy.pos){
-			ScrollOfTeleportation.appear(enemy, bestPos);
+			传送卷轴.appear(enemy,bestPos);
 			if (enemy instanceof Hero){
 				((Hero) enemy).interrupt();
 				Dungeon.observe();

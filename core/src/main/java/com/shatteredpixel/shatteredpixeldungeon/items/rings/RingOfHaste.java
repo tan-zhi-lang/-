@@ -13,24 +13,23 @@ public class RingOfHaste extends Ring {
 		icon = 物品表.Icons.RING_HASTE;
 		buffClass = Haste.class;
 	}
-
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", Math.pow(1.22f, soloBuffedBonus()) - 1f));
+									   Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.85f, soloBuffedBonus()))));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", Math.pow(1.22f, combinedBuffedBonus(Dungeon.hero)) - 1f));
+											  Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.85f, combinedBuffedBonus(Dungeon.hero)))));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.22f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 15f));
 		}
 	}
-
+	
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.2", Math.pow(1.22f, level+1)-1f) + "倍";
+		return Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.85f, level+1))) + "%";
 	}
 	
 	@Override
@@ -39,7 +38,7 @@ public class RingOfHaste extends Ring {
 	}
 	
 	public static float speedMultiplier( Char target ){
-		return (float)Math.pow(1.22f, getBuffedBonus(target, Haste.class));
+		return (float)Math.pow(0.85, getBuffedBonus(target, RingOfElements.Resistance.class));
 	}
 	
 	public class Haste extends RingBuff {

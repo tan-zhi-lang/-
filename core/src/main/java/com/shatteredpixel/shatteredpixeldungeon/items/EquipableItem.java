@@ -131,6 +131,7 @@ public abstract class EquipableItem extends Item {
 				&& hero.buff(MagicImmune.class) == null
 				&& (!hero.belongings.lostInventory() || keptThroughLostInventory()))) {
 			GLog.w(Messages.get(EquipableItem.class, "unequip_cursed"));
+			Dungeon.hero.sprite.哭泣();
 			return false;
 		}
 
@@ -149,7 +150,7 @@ public abstract class EquipableItem extends Item {
 			onDetach();
 			Dungeon.quickslot.alphaItem(this,true);
 			updateQuickslot();
-			if (collect) Dungeon.level.drop( this, hero.pos ).sprite.drop();
+			if (collect) Dungeon.level.drop( this, hero.pos ).sprite().drop();
 		}
 		keptThoughLostInvent = wasKept;
 

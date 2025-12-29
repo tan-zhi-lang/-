@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -35,6 +35,7 @@ public class BeaconOfReturning extends Spell {
 	
 	{
 		image = 物品表.RETURN_BEACON;
+		icon = 物品表.Icons.返回;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}
@@ -159,12 +160,12 @@ public class BeaconOfReturning extends Spell {
 						Dungeon.level.occupyCell(toPush);
 					}
 				} else {
-					GLog.w( Messages.get(ScrollOfTeleportation.class, "no_tele") );
+					GLog.w( Messages.get(传送卷轴.class,"no_tele"));
 					return;
 				}
 			}
 			
-			if (ScrollOfTeleportation.teleportToLocation(hero, tracker.returnPos)){
+			if (传送卷轴.teleportToLocation(hero,tracker.returnPos)){
 				hero.spendAndNext( 1f );
 			} else {
 				return;
@@ -179,7 +180,7 @@ public class BeaconOfReturning extends Spell {
 
 			//cannot return to mining level
 			if (tracker.returnDepth >= 11 && tracker.returnDepth <= 14 && tracker.returnBranch == 1){
-				GLog.w( Messages.get(ScrollOfTeleportation.class, "no_tele") );
+				GLog.w( Messages.get(传送卷轴.class,"no_tele"));
 				return;
 			}
 

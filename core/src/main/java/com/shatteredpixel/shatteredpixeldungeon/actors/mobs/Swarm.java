@@ -36,6 +36,7 @@ public class Swarm extends Mob {
 
 		loot = 治疗药剂.class;
 		lootChance = 0.1667f; //by default, see lootChance()
+		properties.add(Property.昆虫);
 	}
 	
 	private static final float SPLIT_DELAY	= 1f;

@@ -159,7 +159,7 @@ public class MasterThievesArmband extends Artifact {
 										//item collection happens instantly
 										curUser.spend(-curUser.攻击延迟());
 									} else {
-										Dungeon.level.drop(loot, curUser.pos).sprite.drop();
+										Dungeon.level.drop(loot, curUser.pos).sprite().drop();
 									}
 									GLog.i(Messages.get(MasterThievesArmband.class, "stole_item", loot.name()));
 									Buff.施加(ch, StolenTracker.class).setItemStolen(true);

@@ -19,7 +19,7 @@ public class 战甲 extends Armor {
 	
 	@Override
 	public int 最小防御(int lvl){
-		return super.最小防御(lvl)+augment.defenseFactor(tier+lvl);
+		return super.最小防御(lvl)+augment.defenseFactor(1);
 	}
 	@Override
 	public int 最大防御(int lvl){

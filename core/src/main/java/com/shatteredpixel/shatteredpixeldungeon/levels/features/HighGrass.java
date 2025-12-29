@@ -39,7 +39,7 @@ public class HighGrass {
 		Char ch = Actor.findChar(pos);
 		
 		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
+			if (ch instanceof Hero hero&& hero.heroClass(HeroClass.HUNTRESS)){
 				//Do nothing
 				freezeTrample = true;
 			} else {
@@ -47,7 +47,7 @@ public class HighGrass {
 			}
 			
 		} else {
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
+			if (ch instanceof Hero hero&&hero.heroClass(HeroClass.HUNTRESS)){
 				Level.set(pos, Terrain.FURROWED_GRASS);
 				freezeTrample = true;
 			} else {
@@ -87,7 +87,7 @@ public class HighGrass {
 //
 //						if (droppingBerry) {
 //							dropped.countUp(1);
-//							level.drop(new 地牢浆果(), pos).sprite.drop();
+//							level.drop(new 地牢浆果(), pos).sprite().drop();
 //						}
 //					}
 //
@@ -116,14 +116,14 @@ public class HighGrass {
 				}
 				if (Random.Float() < 概率) {
 					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite.drop();
+						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
 					} else {
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop();
+						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
 					}
 				}
 				
 				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					level.drop(new 地牢浆果(), pos).sprite.drop();
+					level.drop(new 地牢浆果(), pos).sprite().drop();
 				}
 				
 				// Dew, scales from 1/6 to 1/4
@@ -138,11 +138,11 @@ public class HighGrass {
 				}
 
 				if (Random.Float() < 概率) {
-					level.drop(new Dewdrop(), pos).sprite.drop();
+					level.drop(new Dewdrop(), pos).sprite().drop();
 				}
 				if (Random.Float() < 1/500f&&Dungeon.LimitedDrops.生命果.count==0) {
 					Dungeon.LimitedDrops.生命果.count++;
-					level.drop(new 生命果(),pos).sprite.drop();
+					level.drop(new 生命果(),pos).sprite().drop();
 				}
 				
 			}
@@ -169,7 +169,7 @@ public class HighGrass {
 		Char ch = Actor.findChar(pos);
 		
 		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
+			if (ch instanceof Hero hero&&hero.heroClass(HeroClass.HUNTRESS)){
 				//Do nothing
 				freezeTrample = true;
 			} else {
@@ -177,7 +177,7 @@ public class HighGrass {
 			}
 			
 		} else {
-			if (ch instanceof Hero && ((Hero) ch).heroClass == HeroClass.HUNTRESS){
+			if (ch instanceof Hero hero&&hero.heroClass(HeroClass.HUNTRESS)){
 				Level.set(pos, Terrain.FURROWED_GRASS);
 				freezeTrample = true;
 			} else {
@@ -217,7 +217,7 @@ public class HighGrass {
 //
 //						if (droppingBerry) {
 //							dropped.countUp(1);
-//							level.drop(new 地牢浆果(), pos).sprite.drop();
+//							level.drop(new 地牢浆果(), pos).sprite().drop();
 //						}
 //					}
 //
@@ -247,20 +247,20 @@ public class HighGrass {
 				}
 				if (Random.Float() < 概率) {
 					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite.drop();
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite.drop();
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite.drop();
+						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
+						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
+						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
 					} else {
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop();
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop();
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop();
+						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
+						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
+						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
 					}
 				}
 				
 				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					level.drop(new 地牢浆果(), pos).sprite.drop();
-					level.drop(new 地牢浆果(), pos).sprite.drop();
-					level.drop(new 地牢浆果(), pos).sprite.drop();
+					level.drop(new 地牢浆果(), pos).sprite().drop();
+					level.drop(new 地牢浆果(), pos).sprite().drop();
+					level.drop(new 地牢浆果(), pos).sprite().drop();
 				}
 				
 				// Dew, scales from 1/6 to 1/4
@@ -276,13 +276,13 @@ public class HighGrass {
 				}
 
 				if (Random.Float() < 概率) {
-					level.drop(new Dewdrop(), pos).sprite.drop();
-					level.drop(new Dewdrop(), pos).sprite.drop();
-					level.drop(new Dewdrop(), pos).sprite.drop();
+					level.drop(new Dewdrop(), pos).sprite().drop();
+					level.drop(new Dewdrop(), pos).sprite().drop();
+					level.drop(new Dewdrop(), pos).sprite().drop();
 				}
 				if (Random.Float() < 1/500f&&Dungeon.LimitedDrops.生命果.count==0) {
 					Dungeon.LimitedDrops.生命果.count++;
-					level.drop(new 生命果(),pos).sprite.drop();
+					level.drop(new 生命果(),pos).sprite().drop();
 				}
 				
 			}

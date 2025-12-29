@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blizzard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
@@ -16,6 +16,7 @@ public class BlizzardBrew extends Brew {
 	
 	{
 		image = 物品表.BREW_BLIZZARD;
+		icon = 物品表.Icons.冰暴;
 	}
 	
 	@Override
@@ -41,7 +42,7 @@ public class BlizzardBrew extends Brew {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{PotionOfFrost.class};
+			inputs =  new Class[]{冰霜药剂.class};
 			inQuantity = new int[]{1};
 			
 			cost = 8;

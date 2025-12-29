@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -12,6 +13,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.蜕变秘�
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoTalent;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Image;
@@ -68,7 +71,13 @@ public class TalentButton extends Button {
 		fill = new ColorBlock(0, 4, 0xFFFFFF44);
 		add(fill);
 
-		bg = new Image(Assets.Interfaces.TALENT_BUTTON);
+		bg = new Image(switch(Holiday.getCurrentHoliday()){
+			case NONE->SPDSettings.透明界面()?Assets.Interfaces.TALENT_BUTTON透明:Assets.Interfaces.TALENT_BUTTON;
+			default->SPDSettings.透明界面()?Assets.Interfaces.TALENT_BUTTON透明:Assets.Interfaces.TALENT_BUTTON;
+			case 愚人节->Assets.Interfaces.TALENT_BUTTON愚人;
+			case 春节->Assets.Interfaces.TALENT_BUTTON春节;
+//			case 圣诞节->Assets.Interfaces.TALENT_BUTTON圣诞;
+		});
 		add(bg);
 	}
 
@@ -112,6 +121,8 @@ public class TalentButton extends Button {
 				public void call() {
 					upgradeTalent();
 					Statistics.qualifiedForRandomVictoryBadge = false;
+					WndHero.INSTANCE.hide();//防止卡分支Bug
+					
 				}
 			});
 		} else if (mode == Mode.METAMORPH_CHOOSE && Dungeon.hero() && Dungeon.hero.isAlive()) {

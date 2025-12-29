@@ -136,7 +136,7 @@ public class Chasm implements Hero.Doom {
 		
 		if( hero.flying
 			||算法.isDebug()
-		   || hero.buff(Levitation.class) != null){
+		   || hero.hasbuff(Levitation.class)){
 			return;
 		}
 		

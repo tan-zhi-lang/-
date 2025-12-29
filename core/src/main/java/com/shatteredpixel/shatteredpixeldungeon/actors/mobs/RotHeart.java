@@ -29,6 +29,7 @@ public class RotHeart extends Mob {
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.MINIBOSS);
 		properties.add(Property.STATIC);
+		properties.add(Property.植物);
 	}
 
 	@Override
@@ -88,7 +89,7 @@ public class RotHeart extends Mob {
 	@Override
 	public void 死亡时(Object cause) {
 		super.死亡时(cause);
-		Dungeon.level.drop( new Rotberry.Seed(), pos ).sprite.drop();
+		Dungeon.level.drop( new Rotberry.Seed(), pos ).sprite().drop();
 		//assign score here as player may choose to keep the rotberry seed
 		Statistics.questScores[1] += 2000;
 	}

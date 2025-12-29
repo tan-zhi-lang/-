@@ -28,7 +28,8 @@ public class MagicalInfusion extends InventorySpell {
 		image = 物品表.MAGIC_INFUSE;
 		
 		特别= true;
-
+		
+		icon = 物品表.Icons.注魔;
 		talentFactor = 2;
 	}
 

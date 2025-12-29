@@ -10,6 +10,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -32,6 +34,7 @@ public class 白猫 extends NPC {
 		
 		//before other mobs
 		actPriority = MOB_PRIO + 1;
+		properties.add(Property.动物);
 	}
 	
 	private Hero hero;
@@ -199,8 +202,11 @@ public class 白猫 extends NPC {
 	@Override
 	public void 受伤时(int dmg,Object src){
 		if (hero != null){
-			Sample.INSTANCE.play(Assets.Sounds.哈气猫);
-//			hero.受伤时(Math.round(dmg*0.6f),src);
+			hero.受伤时(Math.round(dmg*(1-
+										(hero.subClass(HeroSubClass.黑白双子)?0.075f:0)
+										-hero.天赋点数(Talent.白猫主导,0.15f)
+										-hero.天赋点数(Talent.职业精通,0.15f)
+										)),src);
 		}
 	}
 	

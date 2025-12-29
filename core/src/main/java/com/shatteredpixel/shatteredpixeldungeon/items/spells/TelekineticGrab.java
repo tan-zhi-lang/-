@@ -24,7 +24,8 @@ public class TelekineticGrab extends TargetedSpell {
 
 	{
 		image = 物品表.TELE_GRAB;
-
+		
+		icon = 物品表.Icons.念力;
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}
 
@@ -66,7 +67,7 @@ public class TelekineticGrab extends TargetedSpell {
 
 				} else {
 					GLog.w(Messages.get(this, "cant_grab"));
-					Dungeon.level.drop(item, ch.pos).sprite.drop();
+					Dungeon.level.drop(item, ch.pos).sprite().drop();
 					break;
 				}
 				}
@@ -83,7 +84,7 @@ public class TelekineticGrab extends TargetedSpell {
 			if (h.type != Heap.Type.HEAP){
 				GLog.w(Messages.get(this, "cant_grab"));
 				hero.spend(Actor.TICK);
-				h.sprite.drop();
+				h.sprite().drop();
 				return;
 			}
 
@@ -96,7 +97,7 @@ public class TelekineticGrab extends TargetedSpell {
 
 				} else {
 					GLog.w(Messages.get(this, "cant_grab"));
-					h.sprite.drop();
+					h.sprite().drop();
 					break;
 				}
 			}

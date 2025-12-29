@@ -21,13 +21,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.DocumentPage;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDragonsBreath;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -62,6 +65,7 @@ public class Heap implements Bundlable {
 	public boolean autoExplored = false; //used to determine if this heap should count for exploration bonus
 	
 	public boolean hidden = false; //sets alpha to 15%
+	public boolean 移除 = false;
 	
 	public LinkedList<Item> items = new LinkedList<>();
 	
@@ -97,7 +101,7 @@ public class Heap implements Bundlable {
 			财富之戒.showFlareForBonusDrop(sprite);
 		}
 		sprite.link();
-		sprite.drop();
+		sprite().drop();
 	}
 	
 	public Heap setHauntedIfCursed(){
@@ -109,6 +113,13 @@ public class Heap implements Bundlable {
 			}
 		}
 		return this;
+	}
+	
+	public ItemSprite sprite(){
+		if(sprite==null){
+			sprite=new ItemSprite(new Gold().移除());
+		}
+		return sprite;
 	}
 	
 	public int size() {
@@ -137,7 +148,6 @@ public class Heap implements Bundlable {
 	
 	public void drop( Item item ) {
 		hidden = false;
-		
 		if (item.可堆叠&&type!=Type.FOR_SALE) {
 			
 			for (Item i : items) {
@@ -160,7 +170,7 @@ public class Heap implements Bundlable {
 		if (sprite != null) {
 			sprite.view(this).place( pos );
 		}
-
+		
 	}
 	
 	public void replace( Item a, Item b ) {
@@ -199,7 +209,9 @@ public class Heap implements Bundlable {
 		boolean evaporated = false;
 		
 		for (Item item : items.toArray( new Item[0] )) {
-			if(item instanceof Icecap.Seed||item instanceof PotionOfFrost||item instanceof BlizzardBrew){
+			if(item instanceof Firebloom.Seed||item instanceof Icecap.Seed||
+			   item instanceof 冰霜药剂||item instanceof BlizzardBrew||
+			   item instanceof 液火药剂||item instanceof PotionOfDragonsBreath){
 				continue;
 			}
 			if (item instanceof Scroll && !item.特别) {
@@ -250,7 +262,7 @@ public class Heap implements Bundlable {
 		if (type == Type.CHEST || type == Type.SKELETON) {
 			type = Type.HEAP;
 			sprite.link();
-			sprite.drop();
+			sprite().drop();
 			return;
 		}
 
@@ -408,6 +420,7 @@ public class Heap implements Bundlable {
 	private static final String HAUNTED	= "haunted";
 	private static final String AUTO_EXPLORED	= "auto_explored";
 	private static final String HIDDEN	= "hidden";
+	private static final String 移除x	= "移除";
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -434,6 +447,7 @@ public class Heap implements Bundlable {
 		haunted = bundle.getBoolean( HAUNTED );
 		autoExplored = bundle.getBoolean( AUTO_EXPLORED );
 		hidden = bundle.getBoolean( HIDDEN );
+		移除 = bundle.getBoolean( 移除x );
 	}
 
 	@Override
@@ -445,6 +459,7 @@ public class Heap implements Bundlable {
 		bundle.put( HAUNTED, haunted );
 		bundle.put( AUTO_EXPLORED, autoExplored );
 		bundle.put( HIDDEN, hidden );
+		bundle.put( 移除x, 移除 );
 	}
 	
 }

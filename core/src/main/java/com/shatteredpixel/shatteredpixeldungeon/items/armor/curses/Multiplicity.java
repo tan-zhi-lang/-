@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Bundle;
@@ -106,7 +106,7 @@ public class Multiplicity extends Armor.Glyph {
 					if (!spawnPoints.isEmpty()) {
 						m.pos = Random.element(spawnPoints);
 						GameScene.add(m);
-						ScrollOfTeleportation.appear(m, m.pos);
+						传送卷轴.appear(m,m.pos);
 					}
 				}
 

@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 
@@ -28,7 +28,7 @@ public class ScrollOfMysticalEnergy extends ExoticScroll {
 		
 		SpellSprite.show( curUser, SpellSprite.CHARGE, 0, 1, 1 );
 		鉴定();
-		ScrollOfRecharging.charge(curUser);
+		充能卷轴.charge(curUser);
 		
 		readAnimation();
 	}

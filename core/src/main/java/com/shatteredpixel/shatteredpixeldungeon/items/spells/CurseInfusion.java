@@ -26,6 +26,7 @@ public class CurseInfusion extends InventorySpell {
 	
 	{
 		image = 物品表.CURSE_INFUSE;
+		icon = 物品表.Icons.诅咒;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

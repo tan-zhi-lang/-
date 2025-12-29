@@ -91,7 +91,7 @@ public class 风刃 extends 目标忍术 {
 					hero.attack( ch, dmgMulti, 0, 1 );
 					callbacks.remove( this );
 					if (callbacks.isEmpty()) {
-						Invisibility.dispel();
+						Invisibility.notimedispel();
 						hero.spendAndNext( hero.攻击延迟());
 					}
 				}

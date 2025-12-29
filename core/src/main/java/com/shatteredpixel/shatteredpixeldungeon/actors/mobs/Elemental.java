@@ -20,10 +20,10 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
@@ -218,7 +218,7 @@ public abstract class Elemental extends Mob {
 		{
 			spriteClass = ElementalSprite.Fire.class;
 			
-			loot = PotionOfLiquidFlame.class;
+			loot = 液火药剂.class;
 			lootChance = 1/8f;
 			
 			properties.add( Property.FIERY );
@@ -401,7 +401,7 @@ public abstract class Elemental extends Mob {
 		public void 死亡时(Object cause) {
 			super.死亡时(cause);
 			if (alignment == Alignment.ENEMY) {
-				Dungeon.level.drop( new Embers(), pos ).sprite.drop();
+				Dungeon.level.drop( new Embers(), pos ).sprite().drop();
 				//assign score here as player may choose to keep the embers
 				Statistics.questScores[1] += 2000;
 				Game.runOnRenderThread(new Callback() {
@@ -469,7 +469,7 @@ public abstract class Elemental extends Mob {
 		{
 			spriteClass = ElementalSprite.Frost.class;
 			
-			loot = PotionOfFrost.class;
+			loot = 冰霜药剂.class;
 			lootChance = 1/8f;
 			
 			properties.add( Property.ICY );
@@ -497,7 +497,7 @@ public abstract class Elemental extends Mob {
 		{
 			spriteClass = ElementalSprite.Shock.class;
 			
-			loot = ScrollOfRecharging.class;
+			loot = 充能卷轴.class;
 			lootChance = 1/4f;
 			
 			properties.add( Property.ELECTRIC );

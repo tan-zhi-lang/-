@@ -15,15 +15,15 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
@@ -386,14 +386,14 @@ public class Bomb extends Item {
 		
 		public static final LinkedHashMap<Class<?extends Item>, Class<?extends Bomb>> validIngredients = new LinkedHashMap<>();
 		static {
-			validIngredients.put(PotionOfFrost.class,           FrostBomb.class);
-			validIngredients.put(ScrollOfMirrorImage.class,     WoollyBomb.class);
+			validIngredients.put(冰霜药剂.class,FrostBomb.class);
+			validIngredients.put(镜像卷轴.class,WoollyBomb.class);
 			
-			validIngredients.put(PotionOfLiquidFlame.class,     Firebomb.class);
-			validIngredients.put(ScrollOfRage.class,            Noisemaker.class);
+			validIngredients.put(液火药剂.class,Firebomb.class);
+			validIngredients.put(盛怒卷轴.class,Noisemaker.class);
 			
 			validIngredients.put(隐形药剂.class,SmokeBomb.class);
-			validIngredients.put(ScrollOfRecharging.class,      FlashBangBomb.class);
+			validIngredients.put(充能卷轴.class,FlashBangBomb.class);
 			
 			validIngredients.put(治疗药剂.class,         RegrowthBomb.class);
 			validIngredients.put(祛邪卷轴.class,     HolyBomb.class);

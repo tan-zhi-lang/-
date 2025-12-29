@@ -299,15 +299,15 @@ public abstract class Scroll extends Item {
 		private static HashMap<Class<?extends Scroll>, Class<?extends Runestone>> stones = new HashMap<>();
 		static {
 			stones.put(鉴定卷轴.class,      感知符石.class);
-			stones.put(ScrollOfLullaby.class,       StoneOfDeepSleep.class);
+			stones.put(催眠卷轴.class,StoneOfDeepSleep.class);
 			stones.put(探地卷轴.class,  StoneOfClairvoyance.class);
-			stones.put(ScrollOfMirrorImage.class,   StoneOfFlock.class);
-			stones.put(ScrollOfRetribution.class,   震爆符石.class);
-			stones.put(ScrollOfRage.class,          StoneOfAggression.class);
-			stones.put(ScrollOfRecharging.class,    StoneOfShock.class);
+			stones.put(镜像卷轴.class,StoneOfFlock.class);
+			stones.put(复仇卷轴.class,震爆符石.class);
+			stones.put(盛怒卷轴.class,StoneOfAggression.class);
+			stones.put(充能卷轴.class,StoneOfShock.class);
 			stones.put(祛邪卷轴.class,   探魔符石.class);
-			stones.put(ScrollOfTeleportation.class, StoneOfBlink.class);
-			stones.put(ScrollOfTerror.class,        StoneOfFear.class);
+			stones.put(传送卷轴.class,StoneOfBlink.class);
+			stones.put(恐惧卷轴.class,StoneOfFear.class);
 			stones.put(嬗变卷轴.class, 强化符石.class);
 			stones.put(升级卷轴.class,       附魔符石.class);
 		}

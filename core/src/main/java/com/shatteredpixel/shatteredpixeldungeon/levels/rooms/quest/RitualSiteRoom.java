@@ -42,10 +42,10 @@ public class RitualSiteRoom extends StandardRoom {
 		
 		Painter.fill(level, c.x-1, c.y-1, 3, 3, Terrain.CUSTOM_DECO_EMPTY);
 
-		level.addItemToSpawn(new CeremonialCandle());
-		level.addItemToSpawn(new CeremonialCandle());
-		level.addItemToSpawn(new CeremonialCandle());
-		level.addItemToSpawn(new CeremonialCandle());
+		level.addItemToSpawn(new CeremonialCandle().房间物品());
+		level.addItemToSpawn(new CeremonialCandle().房间物品());
+		level.addItemToSpawn(new CeremonialCandle().房间物品());
+		level.addItemToSpawn(new CeremonialCandle().房间物品());
 
 		CeremonialCandle.ritualPos = c.x + (level.width() * c.y);
 	}

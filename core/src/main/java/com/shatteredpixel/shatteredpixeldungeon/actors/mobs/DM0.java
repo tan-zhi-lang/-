@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.watabou.noosa.audio.Sample;
@@ -18,11 +17,12 @@ public class DM0 extends Mob {
 	{
 		spriteClass = DM0Sprite.class;
 		
-		生命 = 最大生命 = Dungeon.层数(5);
+		生命 = 最大生命 = Dungeon.层数(1);
 		
 		state = WANDERING;
 		flying = true;
 		
+		properties.add(Property.机械);
 		loot = Random.oneOf(Generator.randomUsingDefaults( Generator.Category.POTION ),
 							Generator.randomUsingDefaults( Generator.Category.SCROLL ));
 	}
@@ -35,7 +35,7 @@ public class DM0 extends Mob {
 		if(hasbuff(Paralysis.class)){
 			return 0;
 		}
-		return 2;
+		return 1;
 	}
 	@Override
 	public int 防御时(Char enemy,int damage){

@@ -58,7 +58,7 @@ public class 刺击 extends 武技{
 					if(enemy instanceof Piranha){
 						if(hero.attack(enemy,伤害150,0,Char.INFINITE)){
 							if(!enemy.isAlive())
-							Dungeon.level.drop(new MysteryMeat(),enemy.pos).sprite.drop();
+							Dungeon.level.drop(new MysteryMeat(),enemy.pos).sprite().drop();
 							Sample.INSTANCE.play(wep.hitSound);
 						}
 					}else{

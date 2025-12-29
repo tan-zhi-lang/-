@@ -40,7 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.DimensionalSundial;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
@@ -402,7 +402,7 @@ public class GameScene extends PixelScene {
 		switch (InterlevelScene.mode) {
 			case RESURRECT:
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-				ScrollOfTeleportation.appearVFX( Dungeon.hero );
+				传送卷轴.appearVFX(Dungeon.hero);
 				SpellSprite.show(Dungeon.hero, SpellSprite.ANKH);
 				new Flare( 5, 16 ).color( 0xFFFF00, true ).show( hero, 4f ) ;
 				break;
@@ -412,11 +412,11 @@ public class GameScene extends PixelScene {
 					ShatteredPixelDungeon.runOnRenderThread(new Callback() {
 						@Override
 						public void call() {
-							ScrollOfTeleportation.appearVFX(Dungeon.hero);
+							传送卷轴.appearVFX(Dungeon.hero);
 						}
 					});
 				} else {
-					ScrollOfTeleportation.appearVFX(Dungeon.hero);
+					传送卷轴.appearVFX(Dungeon.hero);
 				}
 				break;
 			case DESCEND:

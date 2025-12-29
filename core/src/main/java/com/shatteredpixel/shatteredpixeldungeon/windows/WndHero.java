@@ -40,14 +40,28 @@ public class WndHero extends WndTabbed {
 	private StatsTab stats;
 	private StatsTab2 stats2;
 
-	private TalentsTab talents;
+	public TalentsTab talents;
 	private BuffsTab buffs;
 
 	public static int lastIdx = 0;
-
+	
+	public static WndHero INSTANCE;//防止卡分支Bug
+	
+	@Override
+	public void hide() {
+		super.hide();
+		if (INSTANCE == this){
+			INSTANCE = null;
+		}
+	}
 	public WndHero() {
 		
 		super();
+		
+		if( INSTANCE != null ){
+			INSTANCE.hide();
+		}
+		INSTANCE = this;
 		
 		resize( WIDTH, HEIGHT );
 		
@@ -254,9 +268,7 @@ public class WndHero extends WndTabbed {
 			
 			pos = GAP*2;
 			
-			statSlot( "惊醒距离", hero.惊醒距离());
-			statSlot( "地牢视野", Dungeon.level.视野范围);
-			pos += GAP;
+			statSlot( "惊醒距离/地牢视野", hero.惊醒距离()+"/"+Dungeon.level.视野范围);
 			statSlot( "视野+光照范围", hero.视野范围()+"+"+hero.光照范围());
 			statSlot( "搜索/感知范围", +hero.搜索范围()+"/"+hero.感知范围());
 			pos += GAP;

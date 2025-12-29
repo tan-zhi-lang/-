@@ -54,7 +54,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
@@ -137,7 +138,7 @@ public abstract class Level implements Bundlable {
 					int x=PathFinder.范围4[Random.Int(0,PathFinder.范围4.length)];
 					if(!Dungeon.level.solid[c.pos+x]){
 						if(算法.概率学(1)){
-							Dungeon.level.drop(new 石头(),c.pos+x).sprite.drop();
+							Dungeon.level.drop(new 石头(),c.pos+x).sprite().drop();
 						}
 						if(算法.概率学(3)){
 							Char cx=Actor.findChar(c.pos);
@@ -242,7 +243,11 @@ public abstract class Level implements Bundlable {
 			}
 			if (Dungeon.区域层数(3)) {
 				if(Dungeon.解压(解压设置.宝物空投)){
-					Random.oneOf(Generator.randomWeapon(),Generator.randomArmor(),Generator.randomRing(),Generator.randomArtifact(),Generator.randomWand()).放背包();
+					addItemToSpawn(Random.oneOf(Generator.randomWeapon(),
+												Generator.randomArmor(),
+												Generator.randomRing(),
+												Generator.randomArtifact(),
+												Generator.randomWand()));
 				}
 			}
 			if (Dungeon.区域层数(3)) {
@@ -266,16 +271,17 @@ public abstract class Level implements Bundlable {
 				
 				addItemToSpawn( new 经验药剂());
 				addItemToSpawn( new 经验药剂());
-				addItemToSpawn( new PotionOfStrength());
-				addItemToSpawn( new PotionOfStrength());
+				addItemToSpawn( new 力量药剂());
+				addItemToSpawn( new 力量药剂());
 			}
 			
 			if(Dungeon.depth==4){
 				addItemToSpawn( new Firebloom.Seed());
+				addItemToSpawn( new 液火药剂());
 			}
 			if (Dungeon.力量药剂掉落()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
-				addItemToSpawn( new PotionOfStrength() );
+				addItemToSpawn( new 力量药剂());
 			}
 			if (Dungeon.升级卷轴掉落()) {
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;
@@ -1041,14 +1047,13 @@ public abstract class Level implements Bundlable {
 				ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
 			} while (solid[cell + ofs] &&!passable[cell + ofs]);
 			if (heaps.get(cell+ofs) == null) {
-				drop(item,cell+ofs).sprite.drop(cell);
+				drop(item,cell+ofs).sprite().drop(cell);
 			} else {
-				drop(item, cell + ofs).sprite.drop(cell + ofs);
+				drop(item, cell + ofs).sprite().drop(cell + ofs);
 			}
 		}
 	}
 	public Heap drop( Item item, int cell ) {
-
 		if (item == null || Challenges.isItemBlocked(item)){
 
 			//create a dummy heap, give it a dummy sprite, don't add it to the game, and return it.
@@ -1664,6 +1669,7 @@ public abstract class Level implements Bundlable {
 		int by = b / width();
 		return Math.max( Math.abs( ax - bx ), Math.abs( ay - by ) );
 	}
+	
 	
 	public boolean adjacent( int a, int b ) {
 		return distance( a, b ) == 1;

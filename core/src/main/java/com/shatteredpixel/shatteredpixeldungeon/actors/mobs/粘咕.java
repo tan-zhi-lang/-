@@ -39,7 +39,7 @@ public class 粘咕 extends Mob {
 		spriteClass = GooSprite.class;
 
 		properties.add(Property.BOSS);
-		properties.add(Property.DEMONIC);
+		properties.add(Property.INORGANIC);
 		properties.add(Property.ACIDIC);
 	}
 
@@ -257,9 +257,6 @@ public class 粘咕 extends Mob {
 		if (!BossHealthBar.isAssigned()){
 			BossHealthBar.assignBoss( this );
 			Dungeon.level.seal();
-		}
-		if(src instanceof 燃烧){
-			dmg+=2;
 		}
 
 		boolean bleeding = (生命 *2 <= 最大生命);

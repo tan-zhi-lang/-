@@ -50,9 +50,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.时间能力;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -97,8 +99,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
@@ -107,6 +109,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
@@ -115,7 +118,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
-import com.shatteredpixel.shatteredpixeldungeon.items.破损纹章;
+import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
@@ -156,18 +159,21 @@ public abstract class Char extends Actor {
 	public int 每2次攻击=1;
 	public int 每3次攻击=1;
 	public int x次必暴=0;
+	public int 变脸=0;
+	public int 未命中=0;
 
 	public float 大小=1;
 	public boolean 第一次攻击=true;
 	public boolean 第一次防御 =true;
 	public boolean 第一次背袭 =true;
+	public boolean 产卵=true;
 	public boolean 必暴 =false;
 	public boolean 必中 =false;
 	public boolean 必闪 =false;
 	public boolean 移速翻倍=false;
 	public boolean 移速减半=false;
 	public float 生命流动 =0;
-	public float 属性增幅 = 0.03f;
+	public float 属性增幅 = 0.02f;
 
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
@@ -193,13 +199,17 @@ public abstract class Char extends Actor {
 	
 	@Override
 	protected boolean act() {
+		if(++变脸>=3){
+			变脸=0;
+			sprite.hideEmo();
+		}
 		Dungeon.level.落石(this);
-		if(生命流动>=1){
+		if((int)Math.ceil(生命流动)>=1){
 			回血(1);
 			生命流动-=(int)Math.ceil(生命流动);
-		}else if(-生命流动>=1){
+		}else if(-(int)Math.ceil(生命流动)>=1){
 			受伤((int)Math.ceil(生命流动));
-			生命流动+=(int)Math.ceil(生命流动);
+			生命流动-=(int)Math.ceil(生命流动);
 		}
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
 			fieldOfView = new boolean[Dungeon.level.length()];
@@ -225,7 +235,7 @@ public abstract class Char extends Actor {
 				}
 			}
 			if (!candidates.isEmpty()){
-				Dungeon.level.drop( heap.pickUp(), Random.element(candidates) ).sprite.drop( pos );
+				Dungeon.level.drop( heap.pickUp(), Random.element(candidates) ).sprite().drop( pos );
 			}
 		}
 	}
@@ -283,8 +293,8 @@ public abstract class Char extends Actor {
 			}
 			pos = newPos;
 			c.pos = oldPos;
-			ScrollOfTeleportation.appear(this, newPos);
-			ScrollOfTeleportation.appear(c, oldPos);
+			传送卷轴.appear(this,newPos);
+			传送卷轴.appear(c,oldPos);
 			Dungeon.observe();
 			GameScene.updateFog();
 			return true;
@@ -309,6 +319,10 @@ public abstract class Char extends Actor {
 		if (c == Dungeon.hero){
 			if (Dungeon.hero.subClass == HeroSubClass.疾行者){
 				Buff.施加(Dungeon.hero, Momentum.class).gainStack();
+			}
+
+			if (Dungeon.hero.subClass == HeroSubClass.时间刺客){
+				Buff.施加(Dungeon.hero, 时间能力.class).gainStack();
 			}
 
 			Dungeon.hero.busy();
@@ -345,9 +359,12 @@ public abstract class Char extends Actor {
 	protected static final String 每2次攻击x 	    = "每2次攻击";
 	protected static final String 每3次攻击x 	    = "每3次攻击";
 	protected static final String x次必暴x 	    = "x次必暴";
+	protected static final String 变脸x 	    = "变脸";
+	protected static final String 未命中x 	    = "未命中";
 	protected static final String 第一次攻击x 	    = "第一次攻击";
 	protected static final String 第一次防御x 	    = "第一次防御";
 	protected static final String 第一次背袭x 	    = "第一次背袭";
+	protected static final String 产卵x 	    = "产卵";
 	protected static final String 生命流动x 	    = "生命流动";
 	protected static final String 大小x 	    = "大小";
 
@@ -364,9 +381,12 @@ public abstract class Char extends Actor {
 		bundle.put( 每2次攻击x, 每2次攻击);
 		bundle.put( 每3次攻击x, 每3次攻击);
 		bundle.put( x次必暴x, x次必暴);
+		bundle.put( 变脸x, 变脸);
+		bundle.put( 未命中x, 未命中);
 		bundle.put( 第一次攻击x, 第一次攻击);
 		bundle.put( 第一次防御x, 第一次防御);
 		bundle.put( 第一次背袭x, 第一次背袭);
+		bundle.put( 产卵x, 产卵);
 		bundle.put( 生命流动x, 生命流动);
 		bundle.put( 大小x, 大小);
 	}
@@ -382,9 +402,13 @@ public abstract class Char extends Actor {
 		护甲 = bundle.getInt( 护甲x );
 		每2次攻击 = bundle.getInt( 每2次攻击x );
 		每3次攻击 = bundle.getInt( 每3次攻击x );
+		x次必暴 = bundle.getInt( x次必暴x );
+		变脸 = bundle.getInt( 变脸x );
+		未命中 = bundle.getInt( 未命中x );
 		第一次攻击 = bundle.getBoolean( 第一次攻击x );
 		第一次防御 = bundle.getBoolean( 第一次防御x );
 		第一次背袭 = bundle.getBoolean( 第一次背袭x );
+		产卵 = bundle.getBoolean( 产卵x );
 		生命流动 = bundle.getFloat( 生命流动x );
 		大小 = bundle.getFloat( 大小x );
 
@@ -559,7 +583,9 @@ public abstract class Char extends Actor {
 			if (!enemy.isAlive()){
 				return true;
 			}
-
+			if(enemy.distance(this)>viewDistance/2){
+				enemy.sprite.愤怒();//你别让我接近！远距离受伤
+			}
 			enemy.受伤时( effectiveDamage, this );
 
 			if (buff(FireImbue.class) != null)  buff(FireImbue.class).proc(enemy);
@@ -646,9 +672,6 @@ public abstract class Char extends Actor {
 		float acuStat = Random.Float(attacker.最小命中( attacker ),attacker.最大命中( defender ));
 		float defStat = Random.Float(defender.最小闪避( attacker ),defender.最大闪避( attacker ));
 		
-		if(Dungeon.玩法(玩法设置.简单战斗)){
-			acuStat=0;
-		}
 		if ( attacker instanceof Hero hero) {
 			if(defender.恶魔亡灵()&&hero.heroClass(HeroClass.道士)){
 				defStat=0;
@@ -658,7 +681,7 @@ public abstract class Char extends Actor {
 			}
 		}
 		if ( defender instanceof Hero hero) {
-			if(attacker.properties().contains(Property.UNDEAD)&&hero.belongings.armor() instanceof 道袍){
+			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
 				acuStat*=0.7f;
 			}
 			
@@ -729,9 +752,18 @@ public abstract class Char extends Actor {
 		//endregion
 
 		if (acuStat >= defStat){
+			if(attacker.未命中>=3){
+				attacker.未命中=0;
+			}
 			hitMissIcon = FloatingText.getHitReasonIcon(attacker, acuStat, defender, defStat);
 			return true;
 		} else {
+			attacker.未命中++;
+			
+			if(attacker.未命中>=3&&attacker.未命中%3==0){
+				if(attacker.sprite!=null)
+					attacker.sprite.哭泣();
+			}
 			hitMissIcon = FloatingText.getMissReasonIcon(attacker, acuStat, defender, defStat);
 			return false;
 		}
@@ -807,17 +839,20 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 	public float 暴击伤害(){
-		return 1.75f;
+		return 1.5f;
 	}
 	public int 暴击(final Char enemy,int dmg){
-		if(必暴||算法.概率学(暴击率())){
+		if((必暴||算法.概率学(暴击率()))&&enemy.第一次防御){
 			dmg=Math.round(dmg*暴击伤害());
 			必暴=false;
 			x次必暴=0;
+			sprite.说("暴击！");
+			sprite.歪嘴();
 		}else {
 			x次必暴++;
-			if(暴击率()!=0&&x次必暴>=100/暴击率()){
+			if(暴击率()!=0&&x次必暴>=400/暴击率()){
 				必暴=true;
+				sprite.说("手感火热！");
 			}
 		}
 		return dmg;
@@ -970,10 +1005,10 @@ public abstract class Char extends Actor {
 				}
 			}
 		}
-
+		
 		//temporarily assign to a float to avoid rounding a bunch
 		float damage = dmg;
-
+		
 		//if dmg is from a character we already reduced it in Char.attack
 		if (!(src instanceof Char)) {
 			if (Dungeon.hero.alignment == alignment
@@ -989,6 +1024,20 @@ public abstract class Char extends Actor {
 			} else {
 				damage *= 0.75f;
 			}
+		}
+		
+		if((Property.FIERY.immunities().contains(src)||Property.FIERY.resistances().contains(src))&&(酸性()||植物()||寒冰())){
+			dmg*=2;
+		}
+		if((Property.ICY.immunities().contains(src)||Property.ICY.resistances().contains(src))&&火焰()){
+			dmg*=2;
+		}
+		if(((Property.INORGANIC.immunities().contains(src)||Property.INORGANIC.resistances().contains(src))||
+			(Property.ACIDIC.immunities().contains(src)||Property.ACIDIC.resistances().contains(src))||
+			(Property.FIERY.immunities().contains(src)||Property.FIERY.resistances().contains(src))||
+			(Property.ICY.immunities().contains(src)||Property.ICY.resistances().contains(src))
+		   )&&动物()){
+			dmg*=2;
 		}
 		
 		if(Dungeon.玩法(玩法设置.地牢塔防))
@@ -1067,7 +1116,7 @@ public abstract class Char extends Actor {
 			buff( Paralysis.class ).processDamage(dmg);
 		}
 
-		破损纹章.WarriorShield shield = buff(破损纹章.WarriorShield.class);
+		荣誉纹章.WarriorShield shield = buff(荣誉纹章.WarriorShield.class);
 		if (!(src instanceof Hunger)
 				&& dmg > 0
 				&& shield != null && !shield.coolingDown()){
@@ -1078,7 +1127,10 @@ public abstract class Char extends Actor {
 		dmg = ShieldBuff.processDamage(this, dmg, src);
 		shielded -= dmg;
 		生命 -= dmg;
-
+		
+		if(sprite!=null&&(dmg>=最大生命(0.34f)||生命<=最大生命(0.34f)))
+			sprite.哭泣();
+		
 		if (生命 > 0 && buff(Grim.GrimTracker.class) != null){
 
 			float finalChance = buff(Grim.GrimTracker.class).maxChance;
@@ -1418,7 +1470,6 @@ public abstract class Char extends Actor {
 	public int distance( Char other ) {
 		return Dungeon.level.distance( pos, other.pos );
 	}
-
 	public boolean[] modifyPassable( boolean[] passable){
 		//do nothing by default, but some chars can pass over terrain that others can't
 		return passable;
@@ -1500,16 +1551,24 @@ public abstract class Char extends Actor {
 	}
 
 	public enum Property{
-		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class, GrimTrap.class, ScrollOfRetribution.class, ScrollOfPsionicBlast.class)),
+		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class,GrimTrap.class,复仇卷轴.class,ScrollOfPsionicBlast.class)),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) )),
 		MINIBOSS ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) )),
 		BOSS_MINION,
+		傀儡,
 		UNDEAD,
 		DEMONIC,
+		昆虫,
+		动物,
+		植物,
+		海妖,
+		光明( new HashSet<Class>(),
+			  new HashSet<Class>( Arrays.asList(WandOfPrismaticLight.class) )),
+		机械,
 		INORGANIC ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(流血.class, ToxicGas.class, Poison.class) )),
-		FIERY ( new HashSet<Class>( Arrays.asList(焰浪法杖.class, Elemental.FireElemental.class)),
+		FIERY ( new HashSet<Class>( Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class)),
 				new HashSet<Class>( Arrays.asList(燃烧.class, Blazing.class))),
 		ICY ( new HashSet<Class>( Arrays.asList(WandOfFrost.class, Elemental.FrostElemental.class)),
 				new HashSet<Class>( Arrays.asList(Frost.class, Chill.class))),
@@ -1628,10 +1687,8 @@ public abstract class Char extends Actor {
 		float x2=x*治疗效果();
 		if(x2>=1){
 			生命=Math.min(生命+(int)Math.ceil(x2),最大生命);
-			生命流动-=(int)Math.ceil(x2);
 		}else if(-x2>=1){
 			受伤();
-			生命流动+=(int)Math.ceil(x2);
 		}
 		if (Dungeon.level.heroFOV[pos]){
 			if(sprite!=null&&sprite.visible&&生命>0&&x2>0){
@@ -1650,6 +1707,9 @@ public abstract class Char extends Actor {
 
 	public boolean 在地板(){
 		return Dungeon.level.map[pos] == Terrain.EMPTY_SP;
+	}
+	public boolean 在陷阱(){
+		return Dungeon.level.map[pos] == Terrain.TRAP|| Dungeon.level.map[pos] == Terrain.INACTIVE_TRAP;
 	}
 	public boolean 在水中(){
 		return Dungeon.level.map[pos] == Terrain.WATER;
@@ -1671,13 +1731,82 @@ public abstract class Char extends Actor {
 		}
 		return false;
 	}
+	public boolean 实体墙(int x){
+		int 墙 = 0;
+		for (int i : PathFinder.NEIGHBOURS8) {
+			if (Dungeon.level.solid[pos + i]) {
+				墙 ++;
+			}
+		}
+		if(墙<=x){
+			return true;
+		}
+		return false;
+	}
 	public float 吸血(){
 		return 0;
 	}
 	public float 全能吸血(){
 		return 0;
 	}
+	public boolean 恶魔(){
+		return properties().contains(Property.DEMONIC);
+	}
+	public boolean 亡灵(){
+		return properties().contains(Property.UNDEAD);
+	}
 	public boolean 恶魔亡灵(){
 		return properties().contains(Property.UNDEAD)||properties().contains(Property.DEMONIC);
+	}
+	public boolean 老鬼(){
+		return properties().contains(Property.BOSS);
+	}
+	public boolean 老鬼傀儡(){
+		return properties().contains(Property.BOSS_MINION);
+	}
+	public boolean 傀儡(){
+		return properties().contains(Property.傀儡);
+	}
+	public boolean 小老鬼(){
+		return properties().contains(Property.MINIBOSS);
+	}
+	public boolean 庞大(){
+		return properties().contains(Property.LARGE);
+	}
+	public boolean 无机物(){
+		return properties().contains(Property.INORGANIC);
+	}
+	public boolean 火焰(){
+		return properties().contains(Property.FIERY);
+	}
+	public boolean 寒冰(){
+		return properties().contains(Property.ICY);
+	}
+	public boolean 酸性(){
+		return properties().contains(Property.ACIDIC);
+	}
+	public boolean 闪电(){
+		return properties().contains(Property.ELECTRIC);
+	}
+	public boolean 低活动度生物(){
+		return properties().contains(Property.STATIC);
+	}
+	public boolean 静物(){
+		return properties().contains(Property.IMMOVABLE);
+	}
+	public boolean 动物(){
+		return properties().contains(Property.动物);
+	}
+	public boolean 昆虫(){
+		return properties().contains(Property.昆虫);
+	}
+	public boolean 植物(){
+		return properties().contains(Property.植物);
+	}
+	public boolean 海妖(){
+		return properties().contains(Property.海妖);
+	}
+	public boolean 机械(){
+		return properties().contains(Property.机械);
 	}
 }

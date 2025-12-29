@@ -41,7 +41,7 @@ public class Rotberry extends Plant {
 		}
 
 		//seed always drops, no lotus benefit
-		Dungeon.level.drop( new Seed(), pos ).sprite.drop();
+		Dungeon.level.drop( new Seed(), pos ).sprite().drop();
 	}
 
 	public static class Seed extends Plant.Seed {

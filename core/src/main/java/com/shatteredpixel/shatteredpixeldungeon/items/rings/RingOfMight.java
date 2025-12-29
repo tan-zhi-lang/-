@@ -73,13 +73,13 @@ public class RingOfMight extends Ring {
 	@Override
 	public String upgradeStat1(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return ""+2+2*level;
+		return ""+(2+2*level);
 	}
 
 	@Override
 	public String upgradeStat2(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return ""+25+level*25;
+		return ""+(25+level*25);
 	}
 	
 	public static int strengthBonus( Char target ){

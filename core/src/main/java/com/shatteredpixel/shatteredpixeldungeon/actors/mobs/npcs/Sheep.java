@@ -23,6 +23,7 @@ public class Sheep extends NPC {
 	{
 		spriteClass = SheepSprite.class;
 		loot = Generator.Category.SEED;
+		properties.add(Property.动物);
 	}
 
 	private float lifespan;

@@ -26,6 +26,7 @@ public class Recycle extends InventorySpell {
 	
 	{
 		image = 物品表.RECYCLE;
+		icon = 物品表.Icons.转换;
 
 		talentFactor = 2;
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;

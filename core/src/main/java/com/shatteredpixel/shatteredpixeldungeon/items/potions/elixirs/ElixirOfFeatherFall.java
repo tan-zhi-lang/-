@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -17,6 +17,7 @@ public class ElixirOfFeatherFall extends Elixir {
 
 	{
 		image = 物品表.ELIXIR_FEATHER;
+		icon = 物品表.Icons.羽落;
 
 		talentChance = 1;
 	}
@@ -36,13 +37,13 @@ public class ElixirOfFeatherFall extends Elixir {
 		}
 		
 		public void processFall(){
-			spend(-10f);
+			spend(-20f);
 			if(cooldown()<=0){
 				detach();
 			}
 		}
 		
-		public static final float DURATION=50f;
+		public static final float DURATION=400f;
 		
 		@Override
 		public int icon(){
@@ -64,7 +65,7 @@ public class ElixirOfFeatherFall extends Elixir {
 
 
 		{
-			inputs =  new Class[]{PotionOfLevitation.class};
+			inputs =  new Class[]{浮空药剂.class};
 			inQuantity = new int[]{1};
 
 			cost = 10;

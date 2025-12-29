@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTerrainTilemap;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
@@ -694,7 +695,14 @@ public class Toolbar extends Component {
 		}
 
 		public void icon( int x, int y, int width, int height){
-			if (icon == null) icon = new Image( Assets.Interfaces.TOOLBAR );
+			if (icon == null) icon = new Image(switch(Holiday.getCurrentHoliday()){
+				case NONE->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
+				default->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
+				case 愚人节->Assets.Interfaces.TOOLBAR愚人;
+				case 春节->Assets.Interfaces.TOOLBAR春节;
+//				case 圣诞节->Assets.Interfaces.TOOLBAR圣诞;
+				
+			});
 			add(icon);
 
 			icon.frame( x, y, width, height);
@@ -704,7 +712,14 @@ public class Toolbar extends Component {
 		protected void createChildren() {
 			super.createChildren();
 			
-			base = new Image( Assets.Interfaces.TOOLBAR );
+			base = new Image(switch(Holiday.getCurrentHoliday()){
+				case NONE->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
+				default->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
+				case 愚人节->Assets.Interfaces.TOOLBAR愚人;
+				case 春节->Assets.Interfaces.TOOLBAR春节;
+//				case 圣诞节->Assets.Interfaces.TOOLBAR圣诞;
+				
+			});
 			add( base );
 		}
 		

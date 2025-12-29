@@ -50,11 +50,23 @@ public class 蜕变秘卷 extends ExoticScroll {
 		} else {
 			identifiedByUse = false;
 		}
-		if(true){
-			GLog.n("天赋更新导致可能出现问题，所以停止相关机制！");
-			return;
+		HeroClass randomCls;
+		do {
+			randomCls = Random.oneOf(HeroClass.values());
+		} while (!randomCls.isUnlocked()||randomCls == HeroClass.鼠弟
+				 ||randomCls == HeroClass.灵猫||randomCls == HeroClass.机器
+				 ||randomCls == HeroClass.凌云||randomCls == HeroClass.NONE||randomCls == Dungeon.hero.heroClass);
+		if(randomCls!=null){
+			Dungeon.hero.heroClass蜕变=randomCls;
+			GLog.p(Messages.get(HeroClass.class,Dungeon.hero.heroClass蜕变.name()+"_desc")+"");
+			curUser.sprite.礼物();
+			detach(curUser.belongings.backpack);
+		}else{
+			GLog.w("你没有可蜕变的英雄特性！");
+			detach(curUser.belongings.backpack);
 		}
-		GameScene.show(new WndMetamorphChoose());
+		//
+//		GameScene.show(new WndMetamorphChoose());
 	}
 
 	public static void onMetamorph( Talent oldTalent, Talent newTalent ){

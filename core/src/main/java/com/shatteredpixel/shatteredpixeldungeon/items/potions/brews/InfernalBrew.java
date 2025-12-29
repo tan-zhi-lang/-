@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Inferno;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
@@ -16,6 +16,7 @@ public class InfernalBrew extends Brew {
 	
 	{
 		image = 物品表.BREW_INFERNAL;
+		icon = 物品表.Icons.炼狱;
 	}
 	
 	@Override
@@ -42,7 +43,7 @@ public class InfernalBrew extends Brew {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{PotionOfLiquidFlame.class};
+			inputs =  new Class[]{液火药剂.class};
 			inQuantity = new int[]{1};
 			
 			cost = 12;

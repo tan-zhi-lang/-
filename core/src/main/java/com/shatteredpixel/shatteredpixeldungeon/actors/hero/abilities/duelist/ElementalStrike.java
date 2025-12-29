@@ -36,7 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
@@ -404,7 +404,7 @@ public class ElementalStrike extends ArmorAbility {
 				if (ch.alignment == Char.Alignment.ENEMY
 						&& Random.Float() < 0.125f*powerMulti
 						&& ch.buff(ElementalStrikeLuckyTracker.class) == null) {
-					Dungeon.level.drop(Lucky.genLoot(), ch.pos).sprite.drop();
+					Dungeon.level.drop(Lucky.genLoot(), ch.pos).sprite().drop();
 					Lucky.showFlare(ch.sprite);
 					Buff.施加(ch, ElementalStrikeLuckyTracker.class);
 				}
@@ -473,7 +473,7 @@ public class ElementalStrike extends ArmorAbility {
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
 					int oldpos = ch.pos;
-					if (ScrollOfTeleportation.teleportChar(ch)){
+					if (传送卷轴.teleportChar(ch)){
 						if (Dungeon.level.heroFOV[oldpos]) {
 							CellEmitter.get( oldpos ).start( Speck.factory( Speck.LIGHT ), 0.2f, 3 );
 						}

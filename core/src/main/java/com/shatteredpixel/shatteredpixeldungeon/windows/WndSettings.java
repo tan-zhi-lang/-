@@ -228,6 +228,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 						CheckBox chkFullscreen;
 						CheckBox 动画加快;
+						CheckBox 透明界面;
 						CheckBox chkFont;
 						CheckBox chkVibrate;
 						CheckBox 画面同步;
@@ -260,6 +261,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							动画加快.checked(SPDSettings.动画加快());
 							add(动画加快);
+							
+							透明界面 = new CheckBox("透明界面") {
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.透明界面(checked());
+								}
+							};
+							透明界面.checked(SPDSettings.透明界面());
+							add(透明界面);
 							
 							chkFont = new CheckBox(Messages.get(DisplayTab.class, "system_font")){
 								@Override
@@ -316,7 +327,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 							resize(WIDTH_P, 0);
 							chkFullscreen.setRect(0,  GAP, width, BTN_HEIGHT);
 							动画加快.setRect(0,  chkFullscreen.bottom()+GAP, width, BTN_HEIGHT);
-							chkFont.setRect(0,  动画加快.bottom()+GAP, width, BTN_HEIGHT);
+							透明界面.setRect(0,  动画加快.bottom()+GAP, width, BTN_HEIGHT);
+							chkFont.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
 							chkVibrate.setRect(0,  chkFont.bottom()+GAP, width, BTN_HEIGHT);
 							画面同步.setRect(0,  chkVibrate.bottom()+GAP, width, BTN_HEIGHT);
 							画面同步str.maxWidth(width);
@@ -736,6 +748,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 						RenderedTextBlock 自动拾取str;
 						CheckBox 装备武器;
 						RenderedTextBlock 装备武器str;
+						CheckBox 主要战技;
+						RenderedTextBlock 主要战技str;
 						{
 							
 							物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
@@ -805,6 +819,21 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(装备武器str);
 							
 							
+							
+							主要战技 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "主要战技")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.主要战技(checked());
+								}
+							};
+							主要战技.checked(SPDSettings.主要战技());
+							add(主要战技);
+							主要战技str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "主要战技str"), 5);
+							主要战技str.hardlight(0x888888);
+							add(主要战技str);
+							
+							
 							resize(WIDTH_P, 0);
 							
 							物品命名.setRect(0,  GAP, width, BTN_HEIGHT);
@@ -827,7 +856,11 @@ public class WndSettings extends WndTabbed {//WndSettings
 							装备武器str.maxWidth(width);
 							装备武器str.setPos(0, 装备武器.bottom()+1);
 							
-							resize(WIDTH_P, (int) 装备武器str.bottom());
+							主要战技.setRect(0,  装备武器str.bottom()+GAP, width, BTN_HEIGHT);
+							主要战技str.maxWidth(width);
+							主要战技str.setPos(0, 主要战技.bottom()+1);
+							
+							resize(WIDTH_P, (int) 主要战技str.bottom());
 
 						}
 					});

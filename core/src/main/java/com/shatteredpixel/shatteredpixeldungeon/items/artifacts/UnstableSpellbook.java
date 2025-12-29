@@ -18,9 +18,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.恐惧卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
@@ -185,15 +185,15 @@ public class UnstableSpellbook extends Artifact {
 
 	private void checkForArtifactProc(Hero user, Scroll scroll){
 		//if the base scroll (exotics all match) is an AOE effect, then also trigger illuminate
-		if (scroll instanceof ScrollOfLullaby
-				|| scroll instanceof 祛邪卷轴 || scroll instanceof ScrollOfTerror) {
+		if (scroll instanceof 催眠卷轴
+				|| scroll instanceof 祛邪卷轴 || scroll instanceof 恐惧卷轴) {
 			for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 				if (Dungeon.level.heroFOV[mob.pos]) {
 					artifactProc(mob, visiblyUpgraded(), 1);
 				}
 			}
 		//except rage, which affects everything even if it isn't visible
-		} else if (scroll instanceof ScrollOfRage){
+		} else if (scroll instanceof 盛怒卷轴){
 			for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
 				artifactProc(mob, visiblyUpgraded(), 1);
 			}

@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -845,7 +845,7 @@ public class DriedRose extends Artifact {
 		{
 			immunities.add( CorrosiveGas.class );
 			immunities.add( 燃烧.class );
-			immunities.add( ScrollOfRetribution.class );
+			immunities.add( 复仇卷轴.class);
 			immunities.add( ScrollOfPsionicBlast.class );
 			immunities.add( AllyBuff.class );
 		}

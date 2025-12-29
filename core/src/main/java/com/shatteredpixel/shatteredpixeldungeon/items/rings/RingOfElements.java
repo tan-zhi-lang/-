@@ -31,14 +31,18 @@ public class RingOfElements extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, soloBuffedBonus()))));
+					Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, soloBuffedBonus()))),
+					Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, soloBuffedBonus())))
+									  );
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero)))));
+						Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero)))),
+						Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero))))
+											 );
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 17.5f));
+			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 17.5f), Messages.decimalFormat("#.2", 17.5f));
 		}
 	}
 
@@ -72,15 +76,24 @@ public class RingOfElements extends Ring {
 		float x=1;
 		if(target instanceof Hero hero){
 			x*=1-hero.天赋点数(Talent.神圣净化,0.15f);
-		}
-		if (getBuffedBonus(target, Resistance.class) == 0) return x;
-		
-		for (Class c : RESISTS){
-			if (c.isAssignableFrom(effect)){
-				return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class))*x;
+			if (getBuffedBonus(target, Resistance.class) == 0) return x;
+			
+			for (Class c : RESISTS){
+				if (c.isAssignableFrom(effect)){
+					return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class))*x;
+				}
+			}
+			
+		}else if(Dungeon.hero()){
+			x*=1+Dungeon.hero.天赋点数(Talent.元素之力,0.1f);
+			if (getBuffedBonus(Dungeon.hero, Resistance.class) == 0) return x;
+			
+			for (Class c : RESISTS){
+				if (c.isAssignableFrom(effect)){
+					return 1/(float)Math.pow(0.825, getBuffedBonus(Dungeon.hero, Resistance.class))*x;
+				}
 			}
 		}
-		
 		return x;
 	}
 	

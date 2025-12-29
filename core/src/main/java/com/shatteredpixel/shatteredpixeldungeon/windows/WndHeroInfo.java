@@ -214,6 +214,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new WraithSprite(),
 							  new BuffIcon(BuffIndicator.HEALING, true),
+										  new ItemSprite(物品表.纯净粮食),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 行僧:

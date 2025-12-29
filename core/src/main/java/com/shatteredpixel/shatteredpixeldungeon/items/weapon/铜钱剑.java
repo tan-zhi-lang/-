@@ -14,7 +14,7 @@ public class 铜钱剑 extends Weapon{
 		image = 物品表.铜钱剑;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		tier = 1;
-		延迟= 0.5f;
+		延迟= 0.85f;
 		伤害= 0.68f;
 		伏击=0.75f;
 		
@@ -25,7 +25,7 @@ public class 铜钱剑 extends Weapon{
 	public int 攻击时(Char attacker,Char defender,int damage){
 		
 		if(defender.恶魔亡灵()&&attacker instanceof Hero hero&&hero.heroClass(HeroClass.道士)){
-			damage=Math.round(damage*1.1f);
+			damage=Math.round(damage*1.75f);
 		}
 		return super.攻击时(attacker,defender,damage);
 	}

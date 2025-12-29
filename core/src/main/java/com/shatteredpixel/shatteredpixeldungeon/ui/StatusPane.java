@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -19,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.watabou.input.GameAction;
@@ -78,7 +80,14 @@ public class StatusPane extends Component {
 	public StatusPane( boolean 横屏){
 		super();
 
-		String asset = Assets.Interfaces.STATUS;
+		String asset=switch(Holiday.getCurrentHoliday()){
+			case NONE-> SPDSettings.透明界面()?Assets.Interfaces.STATUS透明:Assets.Interfaces.STATUS;
+			default-> SPDSettings.透明界面()?Assets.Interfaces.STATUS透明:Assets.Interfaces.STATUS;
+			case 愚人节-> Assets.Interfaces.STATUS愚人;
+			case 春节-> Assets.Interfaces.STATUS春节;
+//			case 圣诞节-> Assets.Interfaces.STATUS圣诞;
+			
+		};
 
 		this.横屏 = 横屏;
 		

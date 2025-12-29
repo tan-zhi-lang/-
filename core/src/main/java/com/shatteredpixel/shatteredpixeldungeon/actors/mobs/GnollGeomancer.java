@@ -22,7 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -66,6 +66,7 @@ public class GnollGeomancer extends Mob {
 
 		properties.add(Property.BOSS);
 		properties.add(Property.IMMOVABLE); //moves itself via ability, otherwise is static
+		properties.add(Property.动物);
 	}
 
 	private int abilityCooldown = Random.NormalIntRange(3, 5);
@@ -392,7 +393,7 @@ public class GnollGeomancer extends Mob {
 
 		for (int i : cells){
 			if (Dungeon.level.map[i] == Terrain.WALL_DECO){
-				Dungeon.level.drop(new DarkGold(), i).sprite.drop();
+				Dungeon.level.drop(new DarkGold(), i).sprite().drop();
 				Dungeon.level.map[i] = Terrain.EMPTY_DECO;
 			} else if (Dungeon.level.solid[i]){
 				if (Random.Int(3) == 0){
@@ -459,12 +460,12 @@ public class GnollGeomancer extends Mob {
 
 					if (!candidates.isEmpty()){
 						int newSapperPos = Random.element(candidates);
-						ScrollOfTeleportation.appear(closest, newSapperPos);
+						传送卷轴.appear(closest,newSapperPos);
 						closest.spawnPos = newSapperPos;
 						candidates.remove((Integer)newSapperPos);
 
 						if (guard instanceof GnollGuard && !candidates.isEmpty()){
-							ScrollOfTeleportation.appear((GnollGuard)guard, Random.element(candidates));
+							传送卷轴.appear((GnollGuard)guard,Random.element(candidates));
 						}
 
 					}

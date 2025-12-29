@@ -105,7 +105,7 @@ public class RenderedTextBlock extends Component {
 				highlighting = !highlighting;
 			} else if (str.equals("**")){
 				color=0xFF4444;//深红色
-			}else if (str.equals("~~")){
+			}else if (str.equals("@@")){
 				color=0x3399FF;//蓝色
 			}else if (str.equals("++")){
 				color=0x44FF44;//亮绿色

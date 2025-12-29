@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -16,6 +16,7 @@ public class 根骨秘药 extends Elixir {
 
 	{
 		image = 物品表.ELIXIR_MIGHT;
+		icon = 物品表.Icons.根骨;
 		
 		特别= true;
 
@@ -41,7 +42,7 @@ public class 根骨秘药 extends Elixir {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{PotionOfStrength.class};
+			inputs =  new Class[]{力量药剂.class};
 			inQuantity = new int[]{1};
 			
 			cost = 16;

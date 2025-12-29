@@ -65,7 +65,6 @@ public class HealthBar extends Component {
 		
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
-		
 		Bg.size( width, height );
 		
 		
@@ -80,8 +79,8 @@ public class HealthBar extends Component {
 			hpText.text(Math.round(生命) + "+" + Math.round(护盾) +  "/" + Math.round(max));
 		}
 		hpText.measure();
-		hpText.x = Hp.x + 1;
-		hpText.y = Hp.y + (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f+1;
+		hpText.x = Hp.x+0.5f;
+		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
 		
 		if(隐形){
 			Bg.alpha(0);
@@ -101,7 +100,6 @@ public class HealthBar extends Component {
 	protected void layout() {
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
-		
 		Bg.size( width, height );
 		
 		//logic here rounds up to the nearest pixel
@@ -111,8 +109,8 @@ public class HealthBar extends Component {
 		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height );
 		
 		hpText.scale.set(PixelScene.align(0.34f));
-		hpText.x = Hp.x + 1;
-		hpText.y = Hp.y + (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
+		hpText.x = Hp.x+0.5f;
+		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
 		
 		if(隐形){
 			Bg.alpha(0);

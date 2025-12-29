@@ -39,6 +39,7 @@ public class GnollTrickster extends Gnoll {
 		
 
 		properties.add(Property.MINIBOSS);
+		properties.add(Property.动物);
 	}
 
 	private int combo = 0;

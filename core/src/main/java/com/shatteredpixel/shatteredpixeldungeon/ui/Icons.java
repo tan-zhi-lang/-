@@ -89,6 +89,19 @@ public enum Icons {
     SLEEP,
     ALERT,
     LOST,
+    睡眠,
+    感叹,
+    问号,
+    无语,
+    扣6,
+    微笑,
+    愤怒,
+    爱心,
+    礼物,
+    滑稽,
+    歪嘴,
+    吃瓜,
+    哭泣,
     DEPTH,      //depth icons have three variants, for regular, seeded, daily, and daily replay runs
     DEPTH_CHASM,
     DEPTH_WATER,
@@ -455,6 +468,46 @@ public enum Icons {
                 break;
             case 玩法开:
                 icon.frame(icon.texture.uvRectBySizeXY(7, 8));
+                break;
+                
+            case 睡眠:
+                icon.frame(icon.texture.uvRectBySizeXY(0, 9));
+                break;
+            case 感叹:
+                icon.frame(icon.texture.uvRectBySizeXY(1, 9));
+                break;
+            case 问号:
+                icon.frame(icon.texture.uvRectBySizeXY(2, 9));
+                break;
+            case 无语:
+                icon.frame(icon.texture.uvRectBySizeXY(3, 9));
+                break;
+            case 扣6:
+                icon.frame(icon.texture.uvRectBySizeXY(4, 9));
+                break;
+            case 愤怒:
+                icon.frame(icon.texture.uvRectBySizeXY(5, 9));
+                break;
+            case 爱心:
+                icon.frame(icon.texture.uvRectBySizeXY(6, 9));
+                break;
+            case 礼物:
+                icon.frame(icon.texture.uvRectBySizeXY(7, 9));
+                break;
+            case 微笑:
+                icon.frame(icon.texture.uvRectBySizeXY(8, 9));
+                break;
+            case 滑稽:
+                icon.frame(icon.texture.uvRectBySizeXY(9, 9));
+                break;
+            case 歪嘴:
+                icon.frame(icon.texture.uvRectBySizeXY(10, 9));
+                break;
+            case 吃瓜:
+                icon.frame(icon.texture.uvRectBySizeXY(11, 9));
+                break;
+            case 哭泣:
+                icon.frame(icon.texture.uvRectBySizeXY(12, 9));
                 break;
         }
         return icon;

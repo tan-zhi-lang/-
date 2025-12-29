@@ -4,11 +4,13 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BloodParticle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoMob;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Game;
@@ -32,7 +34,14 @@ public class BossHealthBar extends Component {
 	private Image skull;
 	private Emitter blood;
 
-	private static String asset = Assets.Interfaces.BOSSHP;
+	private static String asset = switch(Holiday.getCurrentHoliday()){
+		case NONE-> SPDSettings.透明界面()?Assets.Interfaces.BOSSHP透明:Assets.Interfaces.BOSSHP;
+		default-> SPDSettings.透明界面()?Assets.Interfaces.BOSSHP透明:Assets.Interfaces.BOSSHP;
+		case 愚人节-> Assets.Interfaces.BOSSHP愚人;
+		case 春节-> Assets.Interfaces.BOSSHP春节;
+//		case 圣诞节-> Assets.Interfaces.BOSSHP圣诞;
+		
+	};
 
 	private static BossHealthBar instance;
 	private static boolean bleeding;

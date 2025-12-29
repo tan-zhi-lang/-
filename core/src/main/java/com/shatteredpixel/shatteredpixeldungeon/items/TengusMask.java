@@ -57,6 +57,10 @@ public class TengusMask extends Item {
 			if(Dungeon.炼狱(炼狱设置.诅咒面具)){
 				return;
 			}
+			if(hero.heroClass.subClasses()==null){
+				GLog.w("你没有可蜕变的英雄特性！");
+				return;
+			}
 			GameScene.show(new WndChooseSubclass(this,hero ));
 			
 		}

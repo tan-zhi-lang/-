@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.征服;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.组间休息;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.隔天休息;
@@ -66,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampir
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
@@ -73,6 +75,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
@@ -95,6 +98,7 @@ abstract public class Weapon extends KindOfWeapon {
 	boolean circlingBack = false;
 	boolean 回旋镖=true;
 	public static String AC_ABILITY = "ABILITY";
+	public static final String AC_CHOOSE = "CHOOSE";
 	
 	@Override
 	public float pickupDelay() {
@@ -165,17 +169,17 @@ abstract public class Weapon extends KindOfWeapon {
 															  boomerang.updateQuickslot();
 														  }else{
 															  if(!boomerang.doPickUp((Hero) target)){
-																  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+																  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 															  }
 														  }
 														  
 													  }else{
 														  if(!boomerang.doPickUp((Hero) target)){
-															  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+															  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 														  }
 													  }
 												  }else{
-													  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+													  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 												  }
 											  }
 											  
@@ -184,11 +188,11 @@ abstract public class Weapon extends KindOfWeapon {
 												 
 											  }
 											  if (!boomerang.spawnedForEffect) {
-												  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+												  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 											  }
 											  
 										  } else if (!boomerang.spawnedForEffect) {
-											  Dungeon.level.drop(boomerang, returnPos).sprite.drop();
+											  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 										  }
 										  boomerang.circlingBack = false;
 										  CircleBack.this.next();
@@ -232,13 +236,20 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String defaultAction() {
-		if (Dungeon.hero() &&isEquipped(Dungeon.hero)&&技能!=null){
-			return AC_ABILITY;
-		}else if(cursed&&isEquipped(Dungeon.hero)){
-			return null;
-		}else {
+		if(SPDSettings.主要战技()){
+			if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
+				if(技能!=null||cursed){
+					return AC_ABILITY;
+				}
+			}
 			return AC_THROW;
 		}
+		if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
+			if(技能!=null||cursed){
+				return AC_CHOOSE;
+			}
+		}
+		return AC_THROW;
 	}
 	
 	@Override
@@ -275,7 +286,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
 		
-		if (action.equals(AC_ABILITY)&&技能!=null){
+		if (action.equals( AC_CHOOSE )){
+			GameScene.show(new WndUseItem(null,this));
+		}else if (action.equals(AC_ABILITY)&&技能!=null){
 			if (!isEquipped(hero)) {
 				GLog.w(Messages.get(this, "ability_need_equip"));
 			} else if (力量() > hero.力量()){
@@ -310,6 +323,11 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	public void 技能使用(Hero hero){
 		hero.belongings.abilityWeapon = null;
+		
+		if (hero.subClass == HeroSubClass.征服者) {
+			Buff.施加(hero, 征服.class).叠层();
+		}
+		hero.战斗状态判定=Math.min(hero.战斗状态判定+8,8);
 		if (false){//使用武技命中
 			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
 		}
@@ -849,7 +867,7 @@ abstract public class Weapon extends KindOfWeapon {
 					return;
 				}
 			}
-			Dungeon.level.drop(this,cell).sprite.drop();
+			Dungeon.level.drop(this,cell).sprite().drop();
 		}
 	}
 	
@@ -897,9 +915,6 @@ abstract public class Weapon extends KindOfWeapon {
 		if(流血>0)
 			Buff.施加( defender, 流血.class).set(Math.round(damage*流血));
 		
-		if(吸血>0&&attacker instanceof Hero hero){
-			hero.生命流动+=damage * 吸血;
-		}
 		
 		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.天赋点数(Talent.SHARED_ENCHANTMENT)){
 			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
@@ -921,11 +936,12 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 			if (hero.buff(Momentum.class)!=null&&hero.buff(Momentum.class).freerunning()) {
-				damage = Math.round(damage * (1f + hero.buff(Momentum.class).freerunTurns*hero.天赋点数(Talent.PROJECTILE_MOMENTUM,0.1f)));
+				damage = Math.round(damage * (1f + hero.buff(Momentum.class).freerunTurns*hero.天赋点数(Talent.PROJECTILE_MOMENTUM,0.015f)));
 			}
 		}
 		if ((cursed || hasCurseEnchant()) && !cursedKnown){
 			GLog.n(Messages.get(this, "curse_discover"));
+			Dungeon.hero.sprite.哭泣();
 		}
 		cursedKnown = true;
 		
@@ -964,7 +980,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (user.天赋(Talent.SEER_SHOT)){
 			int shotPos = throwPos(user, dst);
 			if (Actor.findChar(shotPos) == null) {
-				RevealedArea a = Buff.施加(user, RevealedArea.class, 20);
+				RevealedArea a = Buff.施加(user, RevealedArea.class, 5);
 				a.depth = Dungeon.depth;
 				a.branch = Dungeon.branch;
 				a.pos = shotPos;
@@ -974,8 +990,9 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	//endregion
 	
-	
-	
+	{
+		usesTargeting=true;
+	}
 	
 	public float 命中 = 1f;	// Accuracy modifier
 	public float 延迟= 1f;	// Speed modifier
@@ -997,7 +1014,7 @@ abstract public class Weapon extends KindOfWeapon {
 			accuracyfactor = acc;
 		}
 
-		public int damageFactor(int dmg){
+		public int damageFactor(float dmg){
 			if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
 				dmg*=磨刀石.增加();
 			}
@@ -1058,10 +1075,6 @@ abstract public class Weapon extends KindOfWeapon {
 		if(流血>0)
 		Buff.施加( defender, 流血.class).set(damage*流血);
 		
-		if(吸血>0){
-			attacker.回血((int)Math.ceil(damage * 吸血));
-			attacker.生命流动+=damage * 吸血-(int)Math.ceil(damage * 吸血);
-		}
 		boolean becameAlly = false;
 		boolean wasAlly = defender.alignment == Char.Alignment.ALLY;
 		if (attacker.buff(MagicImmune.class) == null) {
@@ -1202,7 +1215,7 @@ abstract public class Weapon extends KindOfWeapon {
 			ACC /= 5;
 		}
 		if(encumbrance > 0 )ACC/=Math.pow( 1.5, encumbrance );
-		if(encumbrance < 0 )ACC*=1-encumbrance*owner.属性增幅*2;
+		if(encumbrance < 0 )ACC*=1-encumbrance*owner.属性增幅;
 		
 		
 		ACC *= adjacentAccFactor(owner, target);
@@ -1222,7 +1235,7 @@ abstract public class Weapon extends KindOfWeapon {
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
-				delay/=1-encumbrance*hero.属性增幅;
+				delay/=1-encumbrance*hero.属性增幅/2f;
 			}
 			
 		}
@@ -1422,6 +1435,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean hasGoodEnchant(){
 		return enchantment != null && !enchantment.curse();
 	}
+	public boolean hasEnchant(){
+		return enchantment != null;
+	}
 
 	public boolean hasCurseEnchant(){
 		return enchantment != null && enchantment.curse();
@@ -1476,7 +1492,6 @@ abstract public class Weapon extends KindOfWeapon {
 					multi+=0.5f;
 				}
 				multi+=hero.天赋点数(Talent.附魔打击,0.25f);
-				multi+=hero.天赋点数(Talent.盈能附魔,0.12f);
 				multi+=hero.天赋点数(Talent.SHARED_ENCHANTMENT,0.12f);
 			}
 //			if (attacker.buff(符文之刃.RunicSlashTracker.class)!=null){

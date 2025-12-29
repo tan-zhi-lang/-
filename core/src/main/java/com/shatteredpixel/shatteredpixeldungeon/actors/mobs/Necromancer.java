@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NecromancerSprite;
@@ -322,7 +322,7 @@ public class Necromancer extends Mob {
 						
 						if (telePos != -1){
 							
-							ScrollOfTeleportation.appear(mySkeleton, telePos);
+							传送卷轴.appear(mySkeleton,telePos);
 							mySkeleton.teleportSpend();
 							
 							if (sprite != null && sprite.visible){
@@ -371,6 +371,7 @@ public class Necromancer extends Mob {
 			
 			//20/25 health to start
 			生命 = 20;
+			properties.add(Property.傀儡);
 		}
 
 		@Override

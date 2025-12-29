@@ -4,15 +4,15 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.恐惧卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
@@ -40,15 +40,15 @@ public class SecretLibraryRoom extends SecretRoom {
 	static{
 		scrollChances.put( 鉴定卷轴.class,      1f );
 		scrollChances.put( 祛邪卷轴.class,   2f );
-		scrollChances.put( ScrollOfMirrorImage.class,   3f );
-		scrollChances.put( ScrollOfRecharging.class,    3f );
-		scrollChances.put( ScrollOfTeleportation.class, 3f );
-		scrollChances.put( ScrollOfLullaby.class,       4f );
-		scrollChances.put( 探地卷轴.class,  4f );
-		scrollChances.put( ScrollOfRage.class,          4f );
-		scrollChances.put( ScrollOfRetribution.class,   4f );
-		scrollChances.put( ScrollOfTerror.class,        4f );
-		scrollChances.put( 嬗变卷轴.class, 6f );
+		scrollChances.put(镜像卷轴.class,3f);
+		scrollChances.put(充能卷轴.class,3f);
+		scrollChances.put(传送卷轴.class,3f);
+		scrollChances.put(催眠卷轴.class,4f);
+		scrollChances.put(探地卷轴.class,  4f );
+		scrollChances.put(盛怒卷轴.class,4f);
+		scrollChances.put(复仇卷轴.class,4f);
+		scrollChances.put(恐惧卷轴.class,4f);
+		scrollChances.put(嬗变卷轴.class, 6f );
 	}
 	
 	public void paint( Level level ) {

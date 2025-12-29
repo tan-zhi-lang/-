@@ -100,6 +100,7 @@ public abstract class KindofMisc extends EquipableItem {
 			if (cursed) {
 				equipCursed( hero );
 				GLog.n( Messages.get(this, "equip_cursed", this) );
+				Dungeon.hero.sprite.哭泣();
 			}
 
 			hero.spendAndNext( timeToEquip(hero) );
@@ -131,7 +132,8 @@ public abstract class KindofMisc extends EquipableItem {
 	public boolean isEquipped( Hero hero ) {
 		return hero != null && (hero.belongings.misc() == this
 				|| hero.belongings.misc2() == this
-				|| hero.belongings.misc3() == this);
+				|| hero.belongings.misc3() == this
+				|| hero.belongings.幸运() == this);
 	}
 
 }

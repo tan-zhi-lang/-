@@ -55,6 +55,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.纯净粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -122,7 +124,7 @@ public abstract class Mob extends Char {
 	public int defenseSkill = 0;
 	
 	public int 经验 = 0;
-	public int 最大等级 = 经验==0?25:Hero.最大等级-1;
+	public int 最大等级 = 经验==0?25:Hero.最大等级;
 	
 	protected Char enemy;
 	protected int enemyID = -1; //used for save/restore
@@ -225,9 +227,6 @@ public abstract class Mob extends Char {
 		
 		if (justAlerted){
 			sprite.showAlert();
-		} else {
-			sprite.hideAlert();
-			sprite.hideLost();
 		}
 		
 		if (paralysed > 0) {
@@ -807,12 +806,11 @@ public abstract class Mob extends Char {
 			}
 			
 			if (src == Dungeon.hero
-//				||!(src instanceof Mob)
 				|| src instanceof Weapon || src instanceof Weapon.Enchantment||src instanceof Wand
 				||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术||src instanceof ArmorAbility){
 				
-				if(Dungeon.hero()&&全能吸血()>0){
-					Dungeon.hero.回血(dmg * 吸血());
+				if(Dungeon.hero()&&Dungeon.hero.全能吸血()>0){
+					Dungeon.hero.回血(dmg * Dungeon.hero.全能吸血());
 				}
 			}
 			if (!(src instanceof Corruption) && state != FLEEING) {
@@ -927,14 +925,14 @@ public abstract class Mob extends Char {
 						new Bomb.ConjuredBomb().heroexplode(pos);
 					}
 					if(Dungeon.hero.belongings.attackingWeapon()instanceof 金纹拐){
-						Dungeon.level.drop(new Gold().random(),pos).sprite.drop();
+						Dungeon.level.drop(new Gold().random(),pos).sprite().drop();
 					}
 					if(Dungeon.hero.belongings.attackingWeapon()instanceof 蜜剑){
-						Dungeon.level.drop(new 蜂蜜(),pos).sprite.drop();
+						Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
 					}
 				}
-				if( Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级)){
-					Dungeon.level.drop(new 升级卷轴(),pos).sprite.drop();
+				if( Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级/2)){
+					Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
 				}
 				
 				if(!isAlive()){
@@ -945,8 +943,16 @@ public abstract class Mob extends Char {
 					}
 				
 				if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
-					Dungeon.hero.回血(Dungeon.hero.最大生命(0.05f));
+					Dungeon.hero.回血(Dungeon.hero.最大生命(0.03f));
+					if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,2))))
+					Dungeon.level.drop(new 纯净粮食(),pos).sprite().drop();
 				}
+				if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人))
+					Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
+					
+				if(恶魔亡灵()&&Dungeon.hero.天赋(Talent.渡魂灵猫))
+					Dungeon.hero.回血(Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.渡魂灵猫,0.015f)));
+				
 				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
 					Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
 				}
@@ -956,7 +962,9 @@ public abstract class Mob extends Char {
 				if(Dungeon.hero.heroClass(HeroClass.近卫)){
 					Dungeon.hero.回已损失血(0.05f);
 				}
-					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战));
+				
+				if(Dungeon.hero.天赋(Talent.久战))
+				Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,2));
 					//击杀瞬移
 //					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
 			
@@ -1018,10 +1026,10 @@ public abstract class Mob extends Char {
 				return;
 		}
 		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/6f*Dungeon.难度掉率())){
-			Dungeon.level.drop(Generator.random(), pos).sprite.drop();
+			Dungeon.level.drop(Generator.random(), pos).sprite().drop();
 		}
 		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
-			Dungeon.level.drop(new 治疗药剂(),pos).sprite.drop();
+			Dungeon.level.drop(new 治疗药剂(),pos).sprite().drop();
 		}
 		MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
 		if (stolen == null || !stolen.itemWasStolen()) {
@@ -1033,7 +1041,7 @@ public abstract class Mob extends Char {
 					几率*=幸运硬币.减少();
 				}
 				if (Random.Float() < lootChance()*几率) {
-					Dungeon.level.drop(loot, pos).sprite.drop();
+					Dungeon.level.drop(loot, pos).sprite().drop();
 				}
 			}
 		}
@@ -1044,14 +1052,14 @@ public abstract class Mob extends Char {
 			else if (properties().contains(Property.MINIBOSS)) rolls = 5;
 			ArrayList<Item> bonus = 财富之戒.tryForBonusDrop(Dungeon.hero,rolls);
 			if (bonus != null && !bonus.isEmpty()) {
-				for (Item b : bonus) Dungeon.level.drop(b, pos).sprite.drop();
+				for (Item b : bonus) Dungeon.level.drop(b, pos).sprite().drop();
 				财富之戒.showFlareForBonusDrop(sprite);
 			}
 		}
 		
 		//lucky enchant logic
 		if (buff(Lucky.LuckProc.class) != null){
-			Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(), pos).sprite.drop();
+			Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(), pos).sprite().drop();
 			Lucky.showFlare(sprite);
 		}
 
@@ -1120,23 +1128,52 @@ public abstract class Mob extends Char {
 		}
 		if(!(this instanceof NPC||(this instanceof Mimic m&&
 				m.alignment == Char.Alignment.ENEMY && m.state!=PASSIVE))){
-			desc+="\n\n\n";
-			desc+="生命值"+生命+"/"+最大生命+"\n\n";
-			desc+="攻击力"+Math.round(最小攻击()*Dungeon.难度攻击())+"~"
-				  +Math.round(最大攻击()*Dungeon.难度攻击())+"\n\n";
-			desc+="防御力"+Math.round(最小防御()*Dungeon.难度防御())+"~"
-				  +Math.round(最大防御()*Dungeon.难度防御())+"\n\n";
-			desc+="命中"+Math.round(最小命中(null)*Dungeon.难度命中闪避())+"~"+
-				  Math.round(最大命中(null)*Dungeon.难度命中闪避())+"\n\n";
-			desc+="闪避"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+
-				  Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n\n";
-			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
-			desc+="经验/最大等级经验"+Math.round(经验*Dungeon.难度经验())+"/"+最大等级;
+			desc+="\n\n";
+			
+			String 属性="";
+			if(this instanceof Mob&&!无机物()&&!闪电()&&!恶魔亡灵()&&!火焰()&&!寒冰()) 属性+=" 生物";
+			
+			if(老鬼())属性+=" 老鬼";
+			if(小老鬼())属性+=" 小老鬼";
+			if(老鬼傀儡())属性+=" 傀儡";
+			if(傀儡())属性+=" 傀儡";
+			if(低活动度生物())属性+=" 低活动度生物";
+			
+			if(恶魔())属性+=" 恶魔";
+			if(亡灵())属性+=" 亡灵";
+			
+			if(庞大())属性+=" 庞大";
+			if(无机物()) 属性+=" 无机物";
+			if(海妖())属性+=" 海妖";
+			if(植物())属性+=" 植物";
+			if(昆虫())属性+=" 昆虫";
+			if(动物())属性+=" 动物";
+			if(酸性())属性+=" 酸性";
+			if(寒冰())属性+=" 寒冰";
+			if(火焰())属性+=" 火焰";
+			if(闪电()) 属性+=" 闪电";
+			if(静物())属性+=" 静物";
+			
+			desc+="属性"+属性+"\n";
+			desc+="生命值 "+生命+"/"+最大生命+"\n";
+			desc+="攻击/防御 "+Math.round(最小攻击()*Dungeon.难度攻击())+"~"
+				  +Math.round(最大攻击()*Dungeon.难度攻击())+"/"+Math.round(最小防御()*Dungeon.难度防御())+"~"
+				  +Math.round(最大防御()*Dungeon.难度防御())+"\n";
+			desc+="命中/闪避 "+Math.round(最小命中(null)*Dungeon.难度命中闪避())+"~"+
+				  Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+
+				  Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
+			desc+="攻速/移速 "+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n";
+			desc+="经验/最大等级经验 "+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
+			desc+="暴击率/暴击伤害"+暴击率()+"/"+暴击伤害()*100+"%\n";
+			desc+="视野范围"+viewDistance;
 //			desc+="战利品/掉落几率"+loot+"/"+String.format("%.2f",lootChance()*100)+"%";
 		}
 		return desc;
 	}
-	
+	@Override
+	public int 暴击率(){
+		return 6;
+	}
 	public void notice() {
 		sprite.showAlert();
 	}
@@ -1443,6 +1480,7 @@ public abstract class Mob extends Char {
 			if (buff( Terror.class ) == null && buff( Dread.class ) == null) {
 				if (enemySeen) {
 					sprite.showStatus(CharSprite.WARNING, Messages.get(Mob.class, "rage"));
+					sprite.愤怒();//逃不掉了！
 					state = HUNTING;
 				} else {
 					state = WANDERING;

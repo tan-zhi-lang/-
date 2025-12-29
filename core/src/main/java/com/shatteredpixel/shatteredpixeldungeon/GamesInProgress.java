@@ -138,6 +138,7 @@ public class GamesInProgress {
 		info.level = Dungeon.hero.等级;
 		info.exp = Dungeon.hero.当前经验;
 		info.heroClass = Dungeon.hero.heroClass;
+		info.heroClass蜕变 = Dungeon.hero.heroClass蜕变;
 		info.subClass = Dungeon.hero.subClass;
 		info.armorTier = Dungeon.hero.tier();
 		
@@ -175,6 +176,7 @@ public class GamesInProgress {
 		public int level;
 		public int exp;
 		public HeroClass heroClass;
+		public HeroClass heroClass蜕变;
 		public HeroSubClass subClass;
 		public int armorTier;
 		

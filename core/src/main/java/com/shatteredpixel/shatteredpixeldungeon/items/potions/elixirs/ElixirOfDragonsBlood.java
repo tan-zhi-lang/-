@@ -15,6 +15,7 @@ public class ElixirOfDragonsBlood extends Elixir {
 	
 	{
 		image = 物品表.ELIXIR_DRAGON;
+		icon = 物品表.Icons.龙血;
 	}
 	
 	@Override

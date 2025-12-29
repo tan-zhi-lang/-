@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndChallenges;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndJournal;
@@ -48,12 +49,26 @@ public class MenuPane extends Component {
 	private DangerIndicator danger;
 
 	public static final int WIDTH = 32;
-
+	
+	static String asset=switch(Holiday.getCurrentHoliday()){
+		case NONE-> SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
+		default->SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
+		case 愚人节->Assets.Interfaces.MENU_BTN愚人;
+		case 春节->Assets.Interfaces.MENU_BTN春节;
+//		case 圣诞节->Assets.Interfaces.MENU_BTN圣诞;
+		
+	};
 	@Override
 	protected void createChildren() {
 		super.createChildren();
 
-		bg = new Image(Assets.Interfaces.MENU);
+		bg = new Image(switch(Holiday.getCurrentHoliday()){
+			case NONE->SPDSettings.透明界面()?Assets.Interfaces.MENU透明:Assets.Interfaces.MENU;
+			default->SPDSettings.透明界面()?Assets.Interfaces.MENU透明:Assets.Interfaces.MENU;
+			case 春节->Assets.Interfaces.MENU春节;
+//			case 圣诞节->Assets.Interfaces.MENU圣诞;
+			
+		});
 		add(bg);
 
 		depthIcon = Icons.get(Dungeon.level.feeling);
@@ -218,11 +233,18 @@ public class MenuPane extends Component {
 		@Override
 		protected void createChildren() {
 			super.createChildren();
-
-			bg = new Image( Assets.Interfaces.MENU_BTN, 2, 2, 13, 11 );
+			String asset=switch(Holiday.getCurrentHoliday()){
+				case NONE-> SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
+				default->SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
+				case 愚人节->Assets.Interfaces.MENU_BTN愚人;
+				case 春节->Assets.Interfaces.MENU_BTN春节;
+//				case 圣诞节->Assets.Interfaces.MENU_BTN圣诞;
+				
+			};
+			bg = new Image(asset, 2, 2, 13, 11 );
 			add( bg );
 
-			journalIcon = new Image( Assets.Interfaces.MENU_BTN, 31, 0, 11, 6);
+			journalIcon = new Image( asset, 31, 0, 11, 6);
 			add( journalIcon );
 
 			keyIcon = new KeyDisplay();
@@ -347,10 +369,16 @@ public class MenuPane extends Component {
 		protected void createChildren() {
 			super.createChildren();
 
-			image = new Image( Assets.Interfaces.MENU_BTN, 17, 2, 12, 11 );
+			image = new Image(switch(Holiday.getCurrentHoliday()){
+				case NONE-> SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
+				default->SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
+				case 愚人节->Assets.Interfaces.MENU_BTN愚人;
+				case 春节->Assets.Interfaces.MENU_BTN春节;
+//				case 圣诞节->Assets.Interfaces.MENU_BTN圣诞;
+				
+			}, 17, 2, 12, 11 );
 			add( image );
 		}
-
 		@Override
 		protected void layout() {
 			super.layout();

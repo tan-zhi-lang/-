@@ -9,17 +9,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfFrost;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLevitation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfLiquidFlame;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfMindVision;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfParalyticGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -101,14 +101,14 @@ public class Blandfruit extends Food {
 	@Override
 	public String name() {
 		if (potionAttrib instanceof 治疗药剂)        return Messages.get(this, "sunfruit");
-		if (potionAttrib instanceof PotionOfStrength)       return Messages.get(this, "rotfruit");
-		if (potionAttrib instanceof PotionOfParalyticGas)   return Messages.get(this, "earthfruit");
+		if (potionAttrib instanceof 力量药剂)       return Messages.get(this,"rotfruit");
+		if (potionAttrib instanceof 麻痹药剂)   return Messages.get(this,"earthfruit");
 		if (potionAttrib instanceof 隐形药剂)   return Messages.get(this,"blindfruit");
-		if (potionAttrib instanceof PotionOfLiquidFlame)    return Messages.get(this, "firefruit");
-		if (potionAttrib instanceof PotionOfFrost)          return Messages.get(this, "icefruit");
-		if (potionAttrib instanceof PotionOfMindVision)     return Messages.get(this, "fadefruit");
-		if (potionAttrib instanceof PotionOfToxicGas)       return Messages.get(this, "sorrowfruit");
-		if (potionAttrib instanceof PotionOfLevitation)     return Messages.get(this, "stormfruit");
+		if (potionAttrib instanceof 液火药剂)    return Messages.get(this,"firefruit");
+		if (potionAttrib instanceof 冰霜药剂)          return Messages.get(this,"icefruit");
+		if (potionAttrib instanceof 灵视药剂)     return Messages.get(this,"fadefruit");
+		if (potionAttrib instanceof 毒气药剂)       return Messages.get(this,"sorrowfruit");
+		if (potionAttrib instanceof 浮空药剂)     return Messages.get(this,"stormfruit");
 		if (potionAttrib instanceof 净化药剂)         return Messages.get(this, "dreamfruit");
 		if (potionAttrib instanceof 经验药剂)     return Messages.get(this, "starfruit");
 		if (potionAttrib instanceof 极速药剂)          return Messages.get(this, "swiftfruit");
@@ -121,10 +121,10 @@ public class Blandfruit extends Food {
 			return super.desc();
 		} else {
 			String desc = Messages.get(this, "desc_cooked") + "\n\n";
-			if (potionAttrib instanceof PotionOfFrost
-				|| potionAttrib instanceof PotionOfLiquidFlame
-				|| potionAttrib instanceof PotionOfToxicGas
-				|| potionAttrib instanceof PotionOfParalyticGas) {
+			if (potionAttrib instanceof 冰霜药剂
+				|| potionAttrib instanceof 液火药剂
+				|| potionAttrib instanceof 毒气药剂
+				|| potionAttrib instanceof 麻痹药剂) {
 				desc += Messages.get(this, "desc_throw");
 			} else {
 				desc += Messages.get(this, "desc_eat");
@@ -150,14 +150,14 @@ public class Blandfruit extends Food {
 		potionAttrib.image = 物品表.BLANDFRUIT;
 
 		if (potionAttrib instanceof 治疗药剂)        potionGlow = new ItemSprite.Glowing( 0x2EE62E );
-		if (potionAttrib instanceof PotionOfStrength)       potionGlow = new ItemSprite.Glowing( 0xCC0022 );
-		if (potionAttrib instanceof PotionOfParalyticGas)   potionGlow = new ItemSprite.Glowing( 0x67583D );
+		if (potionAttrib instanceof 力量药剂) potionGlow = new ItemSprite.Glowing(0xCC0022 );
+		if (potionAttrib instanceof 麻痹药剂) potionGlow = new ItemSprite.Glowing(0x67583D );
 		if (potionAttrib instanceof 隐形药剂) potionGlow = new ItemSprite.Glowing(0xD9D9D9 );
-		if (potionAttrib instanceof PotionOfLiquidFlame)    potionGlow = new ItemSprite.Glowing( 0xFF7F00 );
-		if (potionAttrib instanceof PotionOfFrost)          potionGlow = new ItemSprite.Glowing( 0x66B3FF );
-		if (potionAttrib instanceof PotionOfMindVision)     potionGlow = new ItemSprite.Glowing( 0x919999 );
-		if (potionAttrib instanceof PotionOfToxicGas)       potionGlow = new ItemSprite.Glowing( 0xA15CE5 );
-		if (potionAttrib instanceof PotionOfLevitation)     potionGlow = new ItemSprite.Glowing( 0x1B5F79 );
+		if (potionAttrib instanceof 液火药剂) potionGlow = new ItemSprite.Glowing(0xFF7F00 );
+		if (potionAttrib instanceof 冰霜药剂) potionGlow = new ItemSprite.Glowing(0x66B3FF );
+		if (potionAttrib instanceof 灵视药剂) potionGlow = new ItemSprite.Glowing(0x919999 );
+		if (potionAttrib instanceof 毒气药剂) potionGlow = new ItemSprite.Glowing(0xA15CE5 );
+		if (potionAttrib instanceof 浮空药剂) potionGlow = new ItemSprite.Glowing(0x1B5F79 );
 		if (potionAttrib instanceof 净化药剂)         potionGlow = new ItemSprite.Glowing( 0xC152AA );
 		if (potionAttrib instanceof 经验药剂)     potionGlow = new ItemSprite.Glowing( 0x404040 );
 		if (potionAttrib instanceof 极速药剂)          potionGlow = new ItemSprite.Glowing( 0xCCBB00 );
@@ -172,16 +172,16 @@ public class Blandfruit extends Food {
 		if (Dungeon.level.map[cell] == Terrain.WELL || Dungeon.level.pit[cell]) {
 			super.onThrow( cell );
 			
-		} else if (potionAttrib instanceof PotionOfLiquidFlame ||
-				potionAttrib instanceof PotionOfToxicGas ||
-				potionAttrib instanceof PotionOfParalyticGas ||
-				potionAttrib instanceof PotionOfFrost ||
-				potionAttrib instanceof PotionOfLevitation ||
-				potionAttrib instanceof 净化药剂) {
+		} else if (potionAttrib instanceof 液火药剂||
+				   potionAttrib instanceof 毒气药剂||
+				   potionAttrib instanceof 麻痹药剂||
+				   potionAttrib instanceof 冰霜药剂||
+				   potionAttrib instanceof 浮空药剂||
+				   potionAttrib instanceof 净化药剂) {
 
 			Catalog.countUse(getClass());
 			potionAttrib.shatter( cell );
-			Dungeon.level.drop(new Chunks(), cell).sprite.drop();
+			Dungeon.level.drop(new Chunks(), cell).sprite().drop();
 			
 		} else {
 			super.onThrow( cell );

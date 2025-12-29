@@ -261,7 +261,7 @@ public class Mimic extends Mob {
 		
 		if (items != null) {
 			for (Item item : items) {
-				Dungeon.level.drop( item, pos ).sprite.drop();
+				Dungeon.level.drop( item, pos ).sprite().drop();
 			}
 			items = null;
 		}

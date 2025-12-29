@@ -22,6 +22,7 @@ public class Albino extends Rat {
 		
 		loot = MysteryMeat.class;
 		
+		properties.add(Property.动物);
 	}
 	
 	@Override

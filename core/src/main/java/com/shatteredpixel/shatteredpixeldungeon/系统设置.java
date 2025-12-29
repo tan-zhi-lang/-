@@ -13,19 +13,19 @@ public class 系统设置{
 	public static final int 金币能力=32;
 	public static final int 虔诚物到=64;
 	public static final int 波罗神盾=128;
-	public static final int 独自变强=256;
+	public static final int 攻击成长=256;
 	public static final int MAX_VALUE=511;
 	
 	public static final String[] NAME_IDS={"生命成长","防御成长","资产破亿",
 										   "经验成长",
 										   
 										   "时间能力","金币能力","虔诚物到",
-										   "波罗神盾","独自变强",};
+										   "波罗神盾","攻击成长",};
 	
 	public static final int[] MASKS={生命成长,防御成长,资产破亿,经验成长,
 									 
 									 时间能力,金币能力,虔诚物到,波罗神盾,
-									 独自变强,};
+									 攻击成长,};
 	
 	public static int 使用(){
 		int chCount=0;

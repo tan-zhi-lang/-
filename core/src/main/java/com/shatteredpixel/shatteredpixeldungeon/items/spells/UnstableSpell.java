@@ -3,16 +3,15 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.恐惧卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
@@ -32,6 +31,7 @@ public class UnstableSpell extends Spell {
 
 	{
 		image = 物品表.UNSTABLE_SPELL;
+		icon = 物品表.Icons.无序;
 	}
 	
 	private static HashMap<Class<? extends Scroll>, Float> scrollChances = new HashMap<>();
@@ -39,13 +39,13 @@ public class UnstableSpell extends Spell {
 		scrollChances.put( 鉴定卷轴.class,      3f );
 		scrollChances.put( 祛邪卷轴.class,   2f );
 		scrollChances.put( 探地卷轴.class,  2f );
-		scrollChances.put( ScrollOfMirrorImage.class,   2f );
-		scrollChances.put( ScrollOfRecharging.class,    2f );
-		scrollChances.put( ScrollOfLullaby.class,       2f );
-		scrollChances.put( ScrollOfRetribution.class,   2f );
-		scrollChances.put( ScrollOfRage.class,          2f );
-		scrollChances.put( ScrollOfTeleportation.class, 2f );
-		scrollChances.put( ScrollOfTerror.class,        2f );
+		scrollChances.put(镜像卷轴.class,2f);
+		scrollChances.put(充能卷轴.class,2f);
+		scrollChances.put(催眠卷轴.class,2f);
+		scrollChances.put(复仇卷轴.class,2f);
+		scrollChances.put(盛怒卷轴.class,2f);
+		scrollChances.put(传送卷轴.class,2f);
+		scrollChances.put(恐惧卷轴.class,2f);
 		scrollChances.put( 嬗变卷轴.class, 1f );
 	}
 
@@ -54,21 +54,21 @@ public class UnstableSpell extends Spell {
 		nonCombatScrolls.add( 鉴定卷轴.class );
 		nonCombatScrolls.add( 祛邪卷轴.class );
 		nonCombatScrolls.add( 探地卷轴.class );
-		nonCombatScrolls.add( ScrollOfRecharging.class );
-		nonCombatScrolls.add( ScrollOfLullaby.class );
-		nonCombatScrolls.add( ScrollOfTeleportation.class );
+		nonCombatScrolls.add( 充能卷轴.class);
+		nonCombatScrolls.add( 催眠卷轴.class);
+		nonCombatScrolls.add( 传送卷轴.class);
 		nonCombatScrolls.add( 嬗变卷轴.class );
 	}
 
 	private static HashSet<Class<? extends Scroll>> combatScrolls = new HashSet<>();
 	static {
-		combatScrolls.add( ScrollOfMirrorImage.class );
-		combatScrolls.add( ScrollOfRecharging.class );
-		combatScrolls.add( ScrollOfLullaby.class );
-		combatScrolls.add( ScrollOfRetribution.class );
-		combatScrolls.add( ScrollOfRage.class );
-		combatScrolls.add( ScrollOfTeleportation.class );
-		combatScrolls.add( ScrollOfTerror.class );
+		combatScrolls.add( 镜像卷轴.class);
+		combatScrolls.add( 充能卷轴.class);
+		combatScrolls.add( 催眠卷轴.class);
+		combatScrolls.add( 复仇卷轴.class);
+		combatScrolls.add( 盛怒卷轴.class);
+		combatScrolls.add( 传送卷轴.class);
+		combatScrolls.add( 恐惧卷轴.class);
 	}
 	
 	@Override

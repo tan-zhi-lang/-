@@ -77,7 +77,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 			
 			if(hero.天赋(Talent.以战养战)){
 				hero.护甲(hero.天赋点数(Talent.以战养战));
-//				Buff.施加(hero,破损纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.以战养战,0.08f));
+//				Buff.施加(hero,荣誉纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.以战养战,0.08f));
 			}
 			
 			initialComboTime=comboTime;

@@ -14,9 +14,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.PotionOfStrength;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
@@ -122,7 +122,7 @@ public class Pasty extends Food {
 				break;
 			case 复活节:
 				ArtifactRecharge.chargeArtifacts(hero, 2f);
-				ScrollOfRecharging.charge( hero );
+				充能卷轴.charge(hero);
 				break;
 			case 愚人节:
 				Sample.INSTANCE.play(Assets.Sounds.MIMIC);
@@ -153,7 +153,7 @@ public class Pasty extends Food {
 				if(!hero.单身) {
 					hero.单身=true;
 					hero.sprite.showStatusWithIcon(CharSprite.增强, "10%", FloatingText.STRENGTH);
-					GLog.p( Messages.get(PotionOfStrength.class, "msg", hero.力量()) );
+					GLog.p( Messages.get(力量药剂.class,"msg",hero.力量()));
 				}
 				break;
 			case 中秋节:
@@ -177,7 +177,7 @@ public class Pasty extends Food {
 				break;
 			case 圣诞节:
 				hero.belongings.charge(0.5f); //2 turns worth
-				ScrollOfRecharging.charge( hero );
+				充能卷轴.charge(hero);
 				break;
 		}
 	}

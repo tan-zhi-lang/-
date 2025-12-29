@@ -34,7 +34,8 @@ public class GnollExile extends Gnoll {
 
 		defenseSkill = 6;
 		生命 = 最大生命 = 24;
-
+		
+		properties.add(Property.动物);
 		lootChance = 0f; //see rollToDropLoot
 	}
 
@@ -98,7 +99,7 @@ public class GnollExile extends Gnoll {
 			do {
 				ofs = PathFinder.NEIGHBOURS9[Random.Int(9)];
 			} while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
-			Dungeon.level.drop( item, pos + ofs ).sprite.drop( pos );
+			Dungeon.level.drop( item, pos + ofs ).sprite().drop( pos );
 		}
 
 	}

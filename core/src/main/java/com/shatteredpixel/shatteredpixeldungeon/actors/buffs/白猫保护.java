@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.PathFinder;
@@ -55,7 +55,7 @@ public class 白猫保护 extends Buff {
 				pris.duplicate(hero);
 				pris.state = pris.HUNTING;
 				GameScene.add(pris, 0);
-				ScrollOfTeleportation.appear(pris, bestPos);
+				传送卷轴.appear(pris,bestPos);
 				
 				detach();
 			} else {

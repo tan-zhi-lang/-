@@ -140,7 +140,7 @@ public class 物品表 {
     private static final int MISC_CONSUMABLE = xy(1, 4);   //32 slots
     public static final int ANKH = MISC_CONSUMABLE + 0;
     public static final int STYLUS = MISC_CONSUMABLE + 1;
-    public static final int 破损纹章 = MISC_CONSUMABLE + 2;
+    public static final int 荣誉纹章=MISC_CONSUMABLE+2;
     public static final int TORCH = MISC_CONSUMABLE + 3;
     public static final int BEACON = MISC_CONSUMABLE + 4;
     public static final int HONEYPOT = MISC_CONSUMABLE + 5;
@@ -156,13 +156,14 @@ public class 物品表 {
     public static final int 护甲修理工具包=MISC_CONSUMABLE+15;
     public static final int 生命水晶 = MISC_CONSUMABLE + 16;
     public static final int 生命果 = MISC_CONSUMABLE + 17;
+    public static final int 圣诞礼物 = MISC_CONSUMABLE + 18;
 
 
     static {
         assignItemRect(ANKH, 10, 16);
         assignItemRect(STYLUS, 12, 13);
 
-        assignItemRect(破损纹章, 13);
+        assignItemRect(荣誉纹章,13);
         assignItemRect(TORCH, 12, 15);
         assignItemRect(BEACON, 16, 15);
 
@@ -179,6 +180,7 @@ public class 物品表 {
         assignItemRect(护甲修理工具包,16,15);
         assignItemRect(生命水晶);
         assignItemRect(生命果, 14, 13);
+        assignItemRect(圣诞礼物, 9, 11);
     }
     //endregion
 
@@ -902,6 +904,8 @@ public class 物品表 {
     public static final int PHANTOM_MEAT = FOOD + 11;
     public static final int SUPPLY_RATION = FOOD + 12;
     public static final int 蜂蜜 = FOOD + 13;
+    public static final int 噩梦粮食 = FOOD + 14;
+    public static final int 纯净粮食 = FOOD + 15;
 
     static {
         assignItemRect(MEAT, 15, 11);
@@ -918,6 +922,8 @@ public class 物品表 {
         assignItemRect(PHANTOM_MEAT, 15, 11);
         assignItemRect(SUPPLY_RATION, 16, 12);
         assignItemRect(蜂蜜, 16, 10);
+        assignItemRect(噩梦粮食, 7, 9);
+        assignItemRect(纯净粮食, 7, 9);
     }
 
     private static final int HOLIDAY_FOOD = xy(1, 29);  //16 slots
@@ -1132,7 +1138,7 @@ public class 物品表 {
             assignIconRect(SCROLL_ANTIMAGIC, 7);
             assignIconRect(SCROLL_PRISIMG, 5, 7);
             assignIconRect(SCROLL_MYSTENRG, 7, 5);
-            assignIconRect(SCROLL_PASSAGE, 5, 7);
+            assignIconRect(SCROLL_PASSAGE, 5);
             assignIconRect(SCROLL_SIREN, 7, 6);
             assignIconRect(SCROLL_FORESIGHT, 7, 5);
             assignIconRect(SCROLL_CHALLENGE, 7);
@@ -1200,7 +1206,65 @@ public class 物品表 {
             assignIconRect(POTION_CLEANSE, 7);
             assignIconRect(POTION_DIVINE, 7);
         }
-        public static final int 六神之戒 = xy(1, 9);  //16 slots
+        public static final int 水爆 = xy(1, 9);
+        public static final int 冰暴=水爆+1;
+        public static final int 淤泥=水爆+2;
+        public static final int 炼狱=水爆+3;
+        public static final int 雷鸣=水爆+4;
+        public static final int 紊乱=水爆+5;
+        static {
+            assignIconRect(水爆, 7);
+            assignIconRect(冰暴,7);
+            assignIconRect(炼狱,7);
+            assignIconRect(雷鸣,4,7);
+            assignIconRect(紊乱,4,7);
+        }
+        public static final int 羽落 = xy(1, 10);
+        public static final int 根骨 = 羽落+1;
+        public static final int 永生 = 羽落+2;
+        public static final int 毒粹 = 羽落+3;
+        public static final int 晶触 = 羽落+4;
+        public static final int 圣愈 = 羽落+5;
+        public static final int 龙血 = 羽落+6;
+        public static final int 抗魔 = 羽落+7;
+        public static final int 水灵 = 羽落+8;
+        
+        static {
+            assignIconRect(羽落, 6,7);
+            assignIconRect(根骨, 7);
+            assignIconRect(永生, 7,6);
+            assignIconRect(毒粹, 5,6);
+            assignIconRect(晶触, 7);
+            assignIconRect(圣愈, 6,7);
+            assignIconRect(抗魔, 7);
+            assignIconRect(水灵, 6,7);
+        }
+        public static final int 炼金 = xy(1, 12);  //16 slots
+        public static final int 强能 = 炼金+1;
+        public static final int 无序 = 炼金+2;
+        public static final int 念力 = 炼金+3;
+        public static final int 唤魔 = 炼金+4;
+        public static final int 转换 = 炼金+5;
+        public static final int 陷阱 = 炼金+6;
+        public static final int 转移 = 炼金+7;
+        public static final int 注魔 = 炼金+8;
+        public static final int 诅咒 = 炼金+9;
+        public static final int 返回 = 炼金+10;
+        static {
+            assignIconRect(炼金, 5);
+            assignIconRect(强能, 7);
+            assignIconRect(无序, 4,7);
+            assignIconRect(念力, 5,6);
+            assignIconRect(唤魔, 5,7);
+            
+            assignIconRect(转换, 5);
+            assignIconRect(陷阱, 5);
+            assignIconRect(转移, 7);
+            assignIconRect(注魔, 7);
+            assignIconRect(诅咒, 6);
+            assignIconRect(返回, 7,6);
+        }
+        public static final int 六神之戒 = xy(1, 14);  //16 slots
         public static final int 魔攻之戒=六神之戒+1;
         public static final int 装甲之戒=六神之戒+2;
         public static final int 恢复之戒=六神之戒+3;

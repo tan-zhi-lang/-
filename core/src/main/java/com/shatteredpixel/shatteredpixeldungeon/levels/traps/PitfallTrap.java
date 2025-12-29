@@ -105,7 +105,7 @@ public class PitfallTrap extends Trap {
 						}
 						heap.sprite.kill();
 						GameScene.discard(heap);
-						heap.sprite.drop();
+						heap.sprite().drop();
 						Dungeon.level.heaps.remove(cell);
 					}
 

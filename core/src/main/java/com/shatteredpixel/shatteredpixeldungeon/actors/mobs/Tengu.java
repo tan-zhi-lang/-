@@ -197,7 +197,7 @@ public class Tengu extends Mob {
 	public void 死亡时(Object cause ) {
 		
 		if (Dungeon.hero.subClass == HeroSubClass.NONE) {
-			Dungeon.level.drop( new TengusMask(), pos ).sprite.drop();
+			Dungeon.level.drop( new TengusMask(), pos ).sprite().drop();
 		}
 		
 		GameScene.bossSlain();

@@ -178,6 +178,7 @@ public class 魔攻之戒 extends Ring {
 						Badges.解锁巫女();
 						if (!curWand.cursedKnown){
 							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
+							Dungeon.hero.sprite.哭泣();
 						}
 						CursedWand.cursedZap(curWand,
 											 curUser,

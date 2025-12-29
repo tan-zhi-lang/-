@@ -151,8 +151,6 @@ public class YogDzewa extends Mob {
 
 		throwItems();
 
-		sprite.hideAlert();
-		sprite.hideLost();
 
 		//mob logic
 		enemy = chooseEnemy();

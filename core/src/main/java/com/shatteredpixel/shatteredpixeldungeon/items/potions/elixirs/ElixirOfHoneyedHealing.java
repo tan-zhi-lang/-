@@ -21,6 +21,7 @@ public class ElixirOfHoneyedHealing extends Elixir {
 	
 	{
 		image = 物品表.ELIXIR_HONEY;
+		icon = 物品表.Icons.圣愈;
 	}
 	
 	@Override

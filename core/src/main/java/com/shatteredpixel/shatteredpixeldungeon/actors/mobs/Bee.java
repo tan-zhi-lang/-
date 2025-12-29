@@ -28,6 +28,7 @@ public class Bee extends Mob {
 		loot=new 蜂蜜();
 		//only applicable when the bee is charmed with elixir of honeyed healing
 		intelligentAlly = true;
+		properties.add(Property.昆虫);
 	}
 
 	private int level;

@@ -62,7 +62,7 @@ public class SacrificeRoom extends SpecialRoom {
 
 		door.set( Door.Type.EMPTY );
 		
-		level.addItemToSpawn( new 治疗药剂());
+		level.addItemToSpawn( new 治疗药剂().房间物品());
 	}
 
 	public static Item prize( Level level ) {

@@ -148,13 +148,13 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 				int points = hero.天赋点数(Talent.UNENCUMBERED_SPIRIT);
 
 				if (hero.belongings.armor() != null){
-					if (hero.belongings.armor().tier <= 1 && points >= 4){
+					if (hero.belongings.armor().tier <= 2 && points >= 4){
 						enGainMulti += 1.20f;
-					} else if (hero.belongings.armor().tier <= 2 && points >= 3){
+					} else if (hero.belongings.armor().tier <= 3 && points >= 3){
 						enGainMulti += 0.9f;
-					} else if (hero.belongings.armor().tier <= 3 && points >= 2){
+					} else if (hero.belongings.armor().tier <= 4 && points >= 2){
 						enGainMulti += 0.6f;
-					} else if (hero.belongings.armor().tier <= 4 && points >= 1){
+					} else if (hero.belongings.armor().tier <= 5 && points >= 1){
 						enGainMulti += 0.3f;
 					}
 				}

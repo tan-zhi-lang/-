@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -119,7 +119,7 @@ public class SmokeBomb extends ArmorAbility {
 			}
 
 			CellEmitter.get( hero.pos ).burst( Speck.factory( Speck.WOOL ), 10 );
-			ScrollOfTeleportation.appear( hero, target );
+			传送卷轴.appear(hero,target);
 			Sample.INSTANCE.play( Assets.Sounds.PUFF );
 			Dungeon.level.occupyCell( hero );
 			Dungeon.observe();
@@ -156,6 +156,7 @@ public class SmokeBomb extends ArmorAbility {
 			最大生命 = 20;
 			if (Dungeon.hero()) 最大生命 *= Dungeon.hero.天赋点数(Talent.BODY_REPLACEMENT);
 			生命 = 最大生命;
+			properties.add(Property.植物);
 		}
 
 		@Override

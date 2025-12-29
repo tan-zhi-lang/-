@@ -6,15 +6,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfLullaby;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfMirrorImage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRage;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRecharging;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTerror;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.恐惧卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.watabou.utils.Reflection;
@@ -37,29 +37,29 @@ public abstract class ExoticScroll extends Scroll {
 		regToExo.put(祛邪卷轴.class, ScrollOfAntiMagic.class);
 		exoToReg.put(ScrollOfAntiMagic.class, 祛邪卷轴.class);
 
-		regToExo.put(ScrollOfMirrorImage.class, ScrollOfPrismaticImage.class);
-		exoToReg.put(ScrollOfPrismaticImage.class, ScrollOfMirrorImage.class);
+		regToExo.put(镜像卷轴.class,ScrollOfPrismaticImage.class);
+		exoToReg.put(ScrollOfPrismaticImage.class, 镜像卷轴.class);
 
-		regToExo.put(ScrollOfRecharging.class, ScrollOfMysticalEnergy.class);
-		exoToReg.put(ScrollOfMysticalEnergy.class, ScrollOfRecharging.class);
+		regToExo.put(充能卷轴.class,ScrollOfMysticalEnergy.class);
+		exoToReg.put(ScrollOfMysticalEnergy.class, 充能卷轴.class);
 
-		regToExo.put(ScrollOfTeleportation.class, 来去秘卷.class);
-		exoToReg.put(来去秘卷.class,ScrollOfTeleportation.class);
+		regToExo.put(传送卷轴.class,来去秘卷.class);
+		exoToReg.put(来去秘卷.class,传送卷轴.class);
 
-		regToExo.put(ScrollOfLullaby.class, ScrollOfSirensSong.class);
-		exoToReg.put(ScrollOfSirensSong.class, ScrollOfLullaby.class);
+		regToExo.put(催眠卷轴.class,ScrollOfSirensSong.class);
+		exoToReg.put(ScrollOfSirensSong.class, 催眠卷轴.class);
 
 		regToExo.put(探地卷轴.class, ScrollOfForesight.class);
 		exoToReg.put(ScrollOfForesight.class, 探地卷轴.class);
 
-		regToExo.put(ScrollOfRage.class, ScrollOfChallenge.class);
-		exoToReg.put(ScrollOfChallenge.class, ScrollOfRage.class);
+		regToExo.put(盛怒卷轴.class,ScrollOfChallenge.class);
+		exoToReg.put(ScrollOfChallenge.class, 盛怒卷轴.class);
 
-		regToExo.put(ScrollOfRetribution.class, ScrollOfPsionicBlast.class);
-		exoToReg.put(ScrollOfPsionicBlast.class, ScrollOfRetribution.class);
+		regToExo.put(复仇卷轴.class,ScrollOfPsionicBlast.class);
+		exoToReg.put(ScrollOfPsionicBlast.class, 复仇卷轴.class);
 		
-		regToExo.put(ScrollOfTerror.class, ScrollOfDread.class);
-		exoToReg.put(ScrollOfDread.class, ScrollOfTerror.class);
+		regToExo.put(恐惧卷轴.class,ScrollOfDread.class);
+		exoToReg.put(ScrollOfDread.class, 恐惧卷轴.class);
 		
 		regToExo.put(嬗变卷轴.class, 蜕变秘卷.class);
 		exoToReg.put(蜕变秘卷.class, 嬗变卷轴.class);

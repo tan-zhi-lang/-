@@ -39,6 +39,7 @@ public class GreatCrab extends Crab {
 		
 
 		properties.add(Property.MINIBOSS);
+		properties.add(Property.海妖);
 	}
 
 	private int moving = 0;

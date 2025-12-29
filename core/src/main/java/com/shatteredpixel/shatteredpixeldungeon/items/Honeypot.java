@@ -103,7 +103,7 @@ public class Honeypot extends Item {
 		}
 		
 		if (newPos != -1) {
-			Dungeon.level.drop(new 蜂蜜(),newPos).sprite.drop();
+			Dungeon.level.drop(new 蜂蜜(),newPos).sprite().drop();
 			Bee bee = new Bee();
 			bee.spawn( Dungeon.scalingDepth() );
 			bee.setPotInfo( pos, owner );

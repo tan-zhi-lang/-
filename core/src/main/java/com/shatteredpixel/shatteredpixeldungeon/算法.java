@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
@@ -491,6 +492,10 @@ return null;
     }
 
     }
+    public static void 调试(String s){
+        if(isDebug())
+        GLog.p(s);
+    }
     public static void 修复效果(Callback c){
         Actor.add(new Actor() {
             @Override
@@ -524,7 +529,7 @@ return null;
     public static int 固衰(int x,int 超过){
         if (x >= 超过){
             //takes 5/6/7/8/9/10 dmg at 5/7/10/14/19/25 incoming dmg
-            x = 超过-1 + (int)(Math.sqrt(8*(x - 超过-1) + 1) - 1)/2;
+            x = (超过-1) + (int)(Math.sqrt(8*(x - (超过-1)) + 1) - 1)/2;
         }
         return x;
     }

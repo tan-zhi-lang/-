@@ -84,7 +84,7 @@ public class ToxicGasRoom extends SpecialRoom {
 			level.drop(item.数量(item.数量()*2),goldPositions.remove(0)).type = Heap.Type.CHEST;
 		}
 
-		level.addItemToSpawn(new 净化药剂());
+		level.addItemToSpawn(new 净化药剂().房间物品());
 
 		entrance().set( Door.Type.REGULAR );
 

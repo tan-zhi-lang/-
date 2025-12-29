@@ -121,7 +121,7 @@ public class 时光沙漏 extends Artifact {
 									GameScene.flash(0x80FFFFFF);
 									Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
-									Invisibility.dispel();
+									Invisibility.notimedispel();
 									activeBuff = new timeFreeze();
 									Talent.onArtifactUsed(Dungeon.hero);
 									activeBuff.attachTo(Dungeon.hero);
@@ -274,7 +274,7 @@ public class 时光沙漏 extends Artifact {
 
 			if (super.attachTo(target)) {
 
-				Invisibility.dispel();
+				Invisibility.notimedispel();
 
 				int usedCharge = Math.min(charge, 2);
 				//buffs always act last, so the stasis buff should end a turn early.

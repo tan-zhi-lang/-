@@ -17,7 +17,7 @@ public class SuccubusSprite extends MobSprite {
 		TextureFilm frames = new TextureFilm( texture, 12, 15 );
 		
 		idle = new Animation( 8, true );
-		idle.frames( frames, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1 );
+		idle.frames( frames, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1 );
 		
 		run = new Animation( 15, true );
 		run.frames( frames, 3, 4, 5, 6, 7, 8 );

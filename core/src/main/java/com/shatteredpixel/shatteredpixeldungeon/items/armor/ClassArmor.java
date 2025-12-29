@@ -104,8 +104,8 @@ abstract public class ClassArmor extends Armor {
 		classArmor.tier = armor.tier;
 		classArmor.augment = armor.augment;
 		classArmor.inscribe(armor.glyph);
-		if (armor.破损纹章 != null) {
-			classArmor.破损纹章 = armor.破损纹章;
+		if (armor.荣誉纹章!=null) {
+			classArmor.荣誉纹章= armor.荣誉纹章;
 		}
 		classArmor.glyphHardened = armor.glyphHardened;
 		classArmor.cursed = armor.cursed;
@@ -224,11 +224,11 @@ abstract public class ClassArmor extends Armor {
 								神力 = armor.神力;
 								if (armor.checkSeal() != null) {
 									inscribe(armor.glyph);
-									破损纹章 = armor.checkSeal();
+									荣誉纹章= armor.checkSeal();
 								} else if (checkSeal() != null){
 									//automates the process of detaching the seal manually
 									// and re-affixing it to the new armor
-									if (破损纹章.等级() > 0){
+									if (荣誉纹章.等级()>0){
 										int newLevel = 真等级() + 1;
 										等级(newLevel);
 										Badges.validateItemLevelAquired(ClassArmor.this);
@@ -238,11 +238,11 @@ abstract public class ClassArmor extends Armor {
 									// we assume the player wants the glyph on the destination armor
 									// they can always manually detach first if they don't.
 									// otherwise we automate glyph transfer just like upgrades
-									if (armor.glyph == null && 破损纹章.canTransferGlyph()){
+									if (armor.glyph == null&&荣誉纹章.canTransferGlyph()){
 										//do nothing, keep our glyph
 									} else {
 										inscribe(armor.glyph);
-										破损纹章.setGlyph(null);
+										荣誉纹章.setGlyph(null);
 									}
 								} else {
 									inscribe(armor.glyph);

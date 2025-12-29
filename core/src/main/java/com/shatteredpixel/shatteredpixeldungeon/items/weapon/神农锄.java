@@ -32,7 +32,7 @@ public class 神农锄 extends Weapon{
 		// lvl 2 - 60%
 		float procChance = (level+1f)/(level+3f)*奥术之戒.enchantPowerMultiplier(attacker);
 		if (Random.Float()<procChance){
-			Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),attacker.pos).sprite.drop();
+			Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),attacker.pos).sprite().drop();
 		}
 		return super.攻击时( attacker, defender, damage );
 	}
@@ -46,7 +46,7 @@ public class 神农锄 extends Weapon{
 		// lvl 2 - 60%
 		float procChance = (level+1f)/(level+3f)*奥术之戒.enchantPowerMultiplier(attacker);
 		if (Random.Float() < procChance){
-			Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),attacker.pos).sprite.drop();
+			Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),attacker.pos).sprite().drop();
 		}
 		return super.投掷攻击时( attacker, defender, damage );
 	}

@@ -97,7 +97,7 @@ public abstract class TippedDart extends 飞镖{
 					return;
 				}
 			}
-			Dungeon.level.drop( d, enemy.pos ).sprite.drop();
+			Dungeon.level.drop( d, enemy.pos ).sprite().drop();
 		}
 	}
 

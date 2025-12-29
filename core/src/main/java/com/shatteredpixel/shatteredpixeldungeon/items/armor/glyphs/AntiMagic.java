@@ -27,8 +27,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.HolyBomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfRetribution;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.ScrollOfTeleportation;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
@@ -70,9 +70,9 @@ public class AntiMagic extends Armor.Glyph {
 
 		RESISTS.add( ArcaneBomb.class );
 		RESISTS.add( HolyBomb.HolyDamage.class );
-		RESISTS.add( ScrollOfRetribution.class );
+		RESISTS.add( 复仇卷轴.class);
 		RESISTS.add( ScrollOfPsionicBlast.class );
-		RESISTS.add( ScrollOfTeleportation.class );
+		RESISTS.add( 传送卷轴.class);
 		RESISTS.add( HolyDart.class );
 
 		RESISTS.add( HolyWeapon.class );

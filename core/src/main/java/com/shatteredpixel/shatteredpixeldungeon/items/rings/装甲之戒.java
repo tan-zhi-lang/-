@@ -24,7 +24,7 @@ public class 装甲之戒 extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats",0,4,2);
+			return Messages.get(this, "stats",0,2,2);
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class 装甲之戒 extends Ring {
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-3);
 		}
-		return 0+"~"+2*tier()*level;
+		return 0+"~"+(2*tier()*(1+level));
 	}
 	@Override
 	public String upgradeStat2(int level){

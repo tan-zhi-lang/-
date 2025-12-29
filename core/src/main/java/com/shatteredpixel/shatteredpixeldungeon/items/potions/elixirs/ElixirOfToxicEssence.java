@@ -13,6 +13,7 @@ public class ElixirOfToxicEssence extends Elixir {
 	
 	{
 		image = 物品表.ELIXIR_TOXIC;
+		icon = 物品表.Icons.毒粹;
 	}
 	
 	@Override

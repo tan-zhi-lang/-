@@ -16,21 +16,15 @@ public class 物品表 {
     public static TextureFilm film = new TextureFilm( TX_WIDTH, TX_HEIGHT, SIZE, SIZE );
 
     private static int xy(int x, int y) {
-        x -= 1;
-        y -= 1;
         return x + WIDTH * y;
     }
 
     private static void assignItemRect(int item) {
-        int x = (item % WIDTH) * SIZE;
-        int y = (item / WIDTH) * SIZE;
-        film.add(item, x, y, x + 16, y + 16);
+        assignItemRect(item,16);
     }
 
     private static void assignItemRect(int item, int wh) {
-        int x = (item % WIDTH) * SIZE;
-        int y = (item / WIDTH) * SIZE;
-        film.add(item, x, y, x + wh, y + wh);
+        assignItemRect(item,wh,wh);
     }
 
     private static void assignItemRect(int item, int width, int height) {
@@ -40,7 +34,7 @@ public class 物品表 {
     }
 
     //region 预备和物品堆
-    private static final int PLACEHOLDERS = xy(1, 1);   //18 slots
+    private static final int PLACEHOLDERS = xy(0, 0);   //18 slots
     //SOMETHING is the default item sprite at position 0. May show up ingame if there are bugs.
     public static final int ITEM=PLACEHOLDERS+0;
     public static final int WEAPON_HOLDER = PLACEHOLDERS + 1;
@@ -82,7 +76,7 @@ public class 物品表 {
         assignItemRect(DOCUMENT_HOLDER, 10, 11);
     }
 
-    private static final int UNCOLLECTIBLE = xy(1, 2);   //14 slots
+    private static final int UNCOLLECTIBLE = xy(0, 1);   //14 slots
     public static final int GOLD = UNCOLLECTIBLE + 0;
     public static final int ENERGY = UNCOLLECTIBLE + 1;
 
@@ -124,7 +118,7 @@ public class 物品表 {
     //endregion
 
     //region 物品
-    private static final int CONTAINERS = xy(1, 3);   //16 slots
+    private static final int CONTAINERS = xy(0, 2);   //16 slots
     public static final int BONES = CONTAINERS + 0;
     public static final int REMAINS = CONTAINERS + 1;
     public static final int TOMB = CONTAINERS + 2;
@@ -145,7 +139,7 @@ public class 物品表 {
         assignItemRect(EBONY_CHEST, 16, 14);
     }
 
-    private static final int MISC_CONSUMABLE = xy(1, 4);   //32 slots
+    private static final int MISC_CONSUMABLE = xy(0, 3);   //32 slots
     public static final int ANKH = MISC_CONSUMABLE + 0;
     public static final int STYLUS = MISC_CONSUMABLE + 1;
     public static final int 荣誉纹章=MISC_CONSUMABLE+2;
@@ -193,7 +187,7 @@ public class 物品表 {
     //endregion
 
     //region 炸弹遗物
-    public static final int TRINKET_CATA = xy(1, 5);
+    public static final int TRINKET_CATA = xy(0, 4);
     public static final int GUIDE_PAGE = TRINKET_CATA + 1;
     public static final int ALCH_PAGE = TRINKET_CATA + 2;
     public static final int SEWER_PAGE = TRINKET_CATA + 3;
@@ -216,7 +210,7 @@ public class 物品表 {
         assignItemRect(JANE_PAGE, 10, 11);
     }
 
-    private static final int BOMBS = xy(1, 6);   //16 slots
+    private static final int BOMBS = xy(0, 5);   //16 slots
     public static final int BOMB = BOMBS + 0;
     public static final int DBL_BOMB = BOMBS + 1;
     public static final int FIRE_BOMB = BOMBS + 2;
@@ -247,7 +241,7 @@ public class 物品表 {
     //endregion
     
     
-    public static final int 英雄初始 = xy(1, 7);
+    public static final int 英雄初始 = xy(0, 6);
     public static final int WORN_SHORTSWORD = 英雄初始 ;
     public static final int 法师魔杖 = 英雄初始 + 1;
     public static final int 小匕 = 英雄初始 + 2;
@@ -307,7 +301,7 @@ public class 物品表 {
         assignItemRect(火炮, 16);
     }
     //region 近战武器
-    public static final int WEP_TIER1 = xy(1, 8);   //8 slots
+    public static final int WEP_TIER1 = xy(0, 7);   //8 slots
     public static final int DAGGER = WEP_TIER1;
     public static final int GLOVES = WEP_TIER1 + 1;
     public static final int HAND_AXE = WEP_TIER1 + 2;
@@ -334,7 +328,7 @@ public class 物品表 {
     }
 
 
-    private static final int WEP_TIER2 = xy(1, 9);   //8 slots
+    private static final int WEP_TIER2 = xy(0, 8);   //8 slots
     public static final int SWORD = WEP_TIER2 ;
     public static final int DIRK = WEP_TIER2 + 1;
     public static final int MACE = WEP_TIER2 +2;
@@ -358,7 +352,7 @@ public class 物品表 {
         assignItemRect(斩马刀);
     }
 
-    private static final int WEP_TIER3 = xy(1, 10);   //8 slots
+    private static final int WEP_TIER3 = xy(0, 9);   //8 slots
     public static final int LONGSWORD = WEP_TIER3 ;
     public static final int BATTLE_AXE = WEP_TIER3 +1;
     public static final int FLAIL = WEP_TIER3 +2;
@@ -382,7 +376,7 @@ public class 物品表 {
         assignItemRect(KUNAI, 15);
     }
 
-    private static final int WEP_TIER4 = xy(1, 11);   //8 slots
+    private static final int WEP_TIER4 = xy(0, 10);   //8 slots
     public static final int GREATSWORD = WEP_TIER4 ;
     public static final int WAR_HAMMER = WEP_TIER4+1;
     public static final int TRIDENT = WEP_TIER4+2;
@@ -408,7 +402,7 @@ public class 物品表 {
         assignItemRect(GLAIVE);
     }
 
-    private static final int WEP_TIER5 = xy(1, 12);   //8 slots
+    private static final int WEP_TIER5 = xy(0, 11);   //8 slots
     public static final int 英雄断剑 = WEP_TIER5 ;
     public static final int RUNIC_BLADE = WEP_TIER5 + 1;
     public static final int ASSASSINS_BLADE = WEP_TIER5 + 2;
@@ -457,7 +451,7 @@ public class 物品表 {
     //endregion
     
     //region 飞镖
-    public static final int DARTS = xy(1, 13);  //16 slots
+    public static final int DARTS = xy(0, 12);  //16 slots
     public static final int DART = DARTS ;
     public static final int ROT_DART = DARTS + 1;
     public static final int INCENDIARY_DART = DARTS + 2;
@@ -473,13 +467,13 @@ public class 物品表 {
     public static final int BLINDING_DART = DARTS + 12;
     
     static {
-        for (int i = DARTS; i < DARTS + 16; i++)
+        for (int i = DARTS; i < DARTS + 30; i++)
             assignItemRect(i, 15);
     }
     //endregion
 
     //region 护甲
-    private static final int ARMOR = xy(1, 14);  //16 slots
+    private static final int ARMOR = xy(0, 13);  //16 slots
     public static final int ARMOR_CLOTH = ARMOR + 0;
     public static final int ARMOR_LEATHER = ARMOR + 1;
     public static final int ARMOR_MAIL = ARMOR + 2;
@@ -532,7 +526,7 @@ public class 物品表 {
     //endregion
 
     //region 法杖戒指
-    private static final int WANDS = xy(1, 15);  //16 slots
+    private static final int WANDS = xy(0, 14);  //16 slots
     public static final int WAND_MAGIC_MISSILE = WANDS + 0;
     public static final int 焰浪法杖 = WANDS + 1;
     public static final int WAND_FROST = WANDS + 2;
@@ -548,11 +542,11 @@ public class 物品表 {
     public static final int WAND_TRANSFUSION = WANDS + 12;
 
     static {
-        for (int i = WANDS; i < WANDS + 16; i++)
+        for (int i = WANDS; i < WANDS + 30; i++)
             assignItemRect(i, 14);
     }
 
-    private static final int RINGS = xy(1, 16);  //16 slots
+    private static final int RINGS = xy(0, 15);  //16 slots
     public static final int RING_GARNET = RINGS + 0;
     public static final int RING_RUBY = RINGS + 1;
     public static final int RING_TOPAZ = RINGS + 2;
@@ -579,7 +573,7 @@ public class 物品表 {
     //endregion
 
     //region 神器禁忌物
-    private static final int ARTIFACTS = xy(1, 17);  //24 slots
+    private static final int ARTIFACTS = xy(0, 16);  //24 slots
     public static final int ARTIFACT_CLOAK = ARTIFACTS + 0;
     public static final int ARTIFACT_ARMBAND = ARTIFACTS + 1;
     public static final int ARTIFACT_CAPE = ARTIFACTS + 2;
@@ -638,7 +632,7 @@ public class 物品表 {
         assignItemRect(叛忍护额,16,13);
     }
     
-    private static final int 神器2 = xy(1, 17);
+    private static final int 神器2 = xy(0, 17);
     public static final int 虫箭 = 神器2;
     public static final int 虫箭2 = 神器2+1;
     public static final int 虫箭3 = 神器2+2;
@@ -649,7 +643,7 @@ public class 物品表 {
         assignItemRect(虫箭3,16);
         assignItemRect(心之钢,16,15);
     }
-    private static final int TRINKETS = xy(1, 18);  //24 slots
+    private static final int TRINKETS = xy(0, 18);  //24 slots
     public static final int RAT_SKULL = TRINKETS + 0;
     public static final int PARCHMENT_SCRAP = TRINKETS + 1;
     public static final int PETRIFIED_SEED = TRINKETS + 2;
@@ -720,7 +714,7 @@ public class 物品表 {
         
     }
     
-    private static final int 禁忌物 = xy(1, 19);  //24 slots
+    private static final int 禁忌物 = xy(0, 19);  //24 slots
     public static final int 血腥生肉 = 禁忌物;
     static {
         
@@ -730,7 +724,7 @@ public class 物品表 {
     //endregion
 
     //region 卷轴符石
-    private static final int SCROLLS = xy(1, 20);  //16 slots
+    private static final int SCROLLS = xy(0, 20);  //16 slots
     public static final int SCROLL_KAUNAN = SCROLLS + 0;
     public static final int SCROLL_SOWILO = SCROLLS + 1;
     public static final int SCROLL_LAGUZ = SCROLLS + 2;
@@ -747,12 +741,12 @@ public class 物品表 {
     public static final int ARCANE_RESIN = SCROLLS + 13;
 
     static {
-        for (int i = SCROLLS; i < SCROLLS + 16; i++)
+        for (int i = SCROLLS; i < SCROLLS + 30; i++)
             assignItemRect(i, 15, 14);
         assignItemRect(ARCANE_RESIN, 12, 11);
     }
 
-    private static final int EXOTIC_SCROLLS = xy(1, 21);  //16 slots
+    private static final int EXOTIC_SCROLLS = xy(0, 21);  //16 slots
     public static final int EXOTIC_KAUNAN = EXOTIC_SCROLLS + 0;
     public static final int EXOTIC_SOWILO = EXOTIC_SCROLLS + 1;
     public static final int EXOTIC_LAGUZ = EXOTIC_SCROLLS + 2;
@@ -767,11 +761,11 @@ public class 物品表 {
     public static final int EXOTIC_TIWAZ = EXOTIC_SCROLLS + 11;
 
     static {
-        for (int i = EXOTIC_SCROLLS; i < EXOTIC_SCROLLS + 16; i++)
+        for (int i = EXOTIC_SCROLLS; i < EXOTIC_SCROLLS + 30; i++)
             assignItemRect(i, 15, 14);
     }
 
-    private static final int STONES = xy(1, 22);  //16 slots
+    private static final int STONES = xy(0, 22);  //16 slots
     public static final int STONE_AGGRESSION = STONES + 0;
     public static final int STONE_AUGMENTATION = STONES + 1;
     public static final int STONE_FEAR = STONES + 2;
@@ -786,13 +780,13 @@ public class 物品表 {
     public static final int STONE_SHOCK = STONES + 11;
 
     static {
-        for (int i = STONES; i < STONES + 16; i++)
+        for (int i = STONES; i < STONES + 30; i++)
             assignItemRect(i, 14, 12);
     }
     //endregion
 
     //region 药剂种子
-    private static final int POTIONS = xy(1, 23);  //16 slots
+    private static final int POTIONS = xy(0, 23);  //16 slots
     public static final int POTION_CRIMSON = POTIONS + 0;
     public static final int POTION_AMBER = POTIONS + 1;
     public static final int POTION_GOLDEN = POTIONS + 2;
@@ -809,12 +803,12 @@ public class 物品表 {
     public static final int LIQUID_METAL = POTIONS + 13;
 
     static {
-        for (int i = POTIONS; i < POTIONS + 16; i++)
+        for (int i = POTIONS; i < POTIONS + 30; i++)
             assignItemRect(i, 12, 14);
         assignItemRect(LIQUID_METAL, 8, 15);
     }
 
-    private static final int EXOTIC_POTIONS = xy(1, 24);  //16 slots
+    private static final int EXOTIC_POTIONS = xy(0, 24);  //16 slots
     public static final int EXOTIC_CRIMSON = EXOTIC_POTIONS + 0;
     public static final int EXOTIC_AMBER = EXOTIC_POTIONS + 1;
     public static final int EXOTIC_GOLDEN = EXOTIC_POTIONS + 2;
@@ -829,11 +823,11 @@ public class 物品表 {
     public static final int EXOTIC_IVORY = EXOTIC_POTIONS + 11;
 
     static {
-        for (int i = EXOTIC_POTIONS; i < EXOTIC_POTIONS + 16; i++)
+        for (int i = EXOTIC_POTIONS; i < EXOTIC_POTIONS + 30; i++)
             assignItemRect(i, 12, 13);
     }
 
-    private static final int SEEDS = xy(1, 25);  //16 slots
+    private static final int SEEDS = xy(0, 25);  //16 slots
     public static final int SEED_ROTBERRY = SEEDS + 0;
     public static final int SEED_FIREBLOOM = SEEDS + 1;
     public static final int SEED_SWIFTTHISTLE = SEEDS + 2;
@@ -848,13 +842,13 @@ public class 物品表 {
     public static final int SEED_BLINDWEED = SEEDS + 11;
 
     static {
-        for (int i = SEEDS; i < SEEDS + 16; i++)
+        for (int i = SEEDS; i < SEEDS + 30; i++)
             assignItemRect(i, 10);
     }
     //endregion
 
     //region 秘药结晶
-    private static final int BREWS = xy(1, 26);  //8 slots
+    private static final int BREWS = xy(0, 26);  //8 slots
     public static final int BREW_INFERNAL = BREWS + 0;
     public static final int BREW_BLIZZARD = BREWS + 1;
     public static final int BREW_SHOCKING = BREWS + 2;
@@ -862,7 +856,7 @@ public class 物品表 {
     public static final int BREW_AQUA = BREWS + 4;
     public static final int BREW_UNSTABLE = BREWS + 5;
 
-    public static final int ELIXIRS = xy(9,27);  //8 slots
+    public static final int ELIXIRS = xy(7,26);  //8 slots
     
     public static final int 永生秘药 = ELIXIRS -1;
     public static final int ELIXIR_HONEY = ELIXIRS + 0;
@@ -875,7 +869,7 @@ public class 物品表 {
     public static final int ELIXIR_FEATHER = ELIXIRS + 7;
 
     static {
-        for (int i = BREWS; i < BREWS + 16; i++)
+        for (int i = BREWS; i < BREWS + 30; i++)
             assignItemRect(i, 12, 14);
 
         assignItemRect(BREW_AQUA, 9, 11);
@@ -883,7 +877,7 @@ public class 物品表 {
 
 //16 free slots
 
-    private static final int SPELLS = xy(1, 27);  //16 slots
+    private static final int SPELLS = xy(0, 27);  //16 slots
     public static final int WILD_ENERGY = SPELLS + 0;
     public static final int PHASE_SHIFT = SPELLS + 1;
     public static final int TELE_GRAB = SPELLS + 2;
@@ -916,7 +910,7 @@ public class 物品表 {
     //endregion
 
     //region 食物节日
-    private static final int FOOD = xy(1, 28);  //16 slots
+    private static final int FOOD = xy(0, 28);  //16 slots
     public static final int MEAT = FOOD + 0;
     public static final int STEAK = FOOD + 1;
     public static final int STEWED = FOOD + 2;
@@ -953,7 +947,7 @@ public class 物品表 {
         assignItemRect(纯净粮食, 7, 9);
     }
 
-    private static final int HOLIDAY_FOOD = xy(1, 29);  //16 slots
+    private static final int HOLIDAY_FOOD = xy(0, 29);  //16 slots
     public static final int STEAMED_FISH = HOLIDAY_FOOD + 0;
     public static final int FISH_LEFTOVER = HOLIDAY_FOOD + 1;
     public static final int CHOC_AMULET = HOLIDAY_FOOD + 2;
@@ -986,7 +980,7 @@ public class 物品表 {
     //endregion
 
     //region 任务背包日志
-    private static final int QUEST = xy(1, 30);  //16 slots
+    private static final int QUEST = xy(0, 30);  //16 slots
     public static final int 尸尘 = QUEST;
     public static final int CANDLE = QUEST + 1;
     public static final int EMBER = QUEST + 2;
@@ -1010,7 +1004,7 @@ public class 物品表 {
         assignItemRect(ESCAPE,   8, 16);
         assignItemRect(锻造锤,   13, 12);
     }
-    private static final int BAGS = xy(1, 31);  //16 slots
+    private static final int BAGS = xy(0, 31);  //16 slots
     public static final int BACKPACK = BAGS;
     public static final int 绒布袋 = BAGS + 1;
     public static final int HOLDER = BAGS + 2;

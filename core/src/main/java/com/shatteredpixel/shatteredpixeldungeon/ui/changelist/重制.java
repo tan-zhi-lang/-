@@ -52,10 +52,12 @@ public class 重制 {
 										   "_-_ 护甲改成防具，防具可以放入炼金锅转换护甲修理工具包，同奥术树脂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MASTERY), "进阶宝典",
 										   "_-_ 5区域第一层必定生成一个。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.虫箭3), "虫箭",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.虫箭), "虫箭",
 										   "新增神器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.心之钢), "心之钢",
 										   "新增神器。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.血腥生肉), "血腥生肉",
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.火毒箭矢), "火毒箭矢",
 										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.巨大蟹钳), "巨大蟹钳",

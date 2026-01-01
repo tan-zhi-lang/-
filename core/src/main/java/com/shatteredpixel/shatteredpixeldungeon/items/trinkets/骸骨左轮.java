@@ -51,7 +51,7 @@ public class 骸骨左轮 extends Trinket {
 
 	public static float 减少(int level){
 		if (level < 0){
-			return 1;
+			return 0;
 		} else {
 			return 0.1f-0.05f*level;
 		}

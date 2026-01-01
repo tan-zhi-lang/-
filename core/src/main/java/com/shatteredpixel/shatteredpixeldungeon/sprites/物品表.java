@@ -194,10 +194,26 @@ public class 物品表 {
 
     //region 炸弹遗物
     public static final int TRINKET_CATA = xy(1, 5);
+    public static final int GUIDE_PAGE = TRINKET_CATA + 1;
+    public static final int ALCH_PAGE = TRINKET_CATA + 2;
+    public static final int SEWER_PAGE = TRINKET_CATA + 3;
+    public static final int PRISON_PAGE = TRINKET_CATA + 4;
+    public static final int CAVES_PAGE = TRINKET_CATA + 5;
+    public static final int CITY_PAGE = TRINKET_CATA + 6;
+    public static final int HALLS_PAGE = TRINKET_CATA + 7;
+    public static final int JANE_PAGE = TRINKET_CATA + 8;
 
     static {
         assignItemRect(TRINKET_CATA, 12, 11);
-
+        
+        assignItemRect(GUIDE_PAGE, 10, 11);
+        assignItemRect(ALCH_PAGE, 10, 11);
+        assignItemRect(SEWER_PAGE, 10, 11);
+        assignItemRect(PRISON_PAGE, 10, 11);
+        assignItemRect(CAVES_PAGE, 10, 11);
+        assignItemRect(CITY_PAGE, 10, 11);
+        assignItemRect(HALLS_PAGE, 10, 11);
+        assignItemRect(JANE_PAGE, 10, 11);
     }
 
     private static final int BOMBS = xy(1, 6);   //16 slots
@@ -621,18 +637,19 @@ public class 物品表 {
         assignItemRect(本命玉佩, 10, 16);
         assignItemRect(叛忍护额,16,13);
     }
-
-    public static final int 虫箭 = xy(1, 18);
-    public static final int 虫箭2 = 虫箭+1;
-    public static final int 虫箭3 = 虫箭+2;
-    public static final int 心之钢 = 虫箭+3;
+    
+    private static final int 神器2 = xy(1, 17);
+    public static final int 虫箭 = 神器2;
+    public static final int 虫箭2 = 神器2+1;
+    public static final int 虫箭3 = 神器2+2;
+    public static final int 心之钢 = 神器2+3;
     static {
         assignItemRect(虫箭,16);
         assignItemRect(虫箭2,16);
         assignItemRect(虫箭3,16);
         assignItemRect(心之钢,16,15);
     }
-    private static final int TRINKETS = xy(1, 19);  //24 slots
+    private static final int TRINKETS = xy(1, 18);  //24 slots
     public static final int RAT_SKULL = TRINKETS + 0;
     public static final int PARCHMENT_SCRAP = TRINKETS + 1;
     public static final int PETRIFIED_SEED = TRINKETS + 2;
@@ -703,7 +720,8 @@ public class 物品表 {
         
     }
     
-    public static final int 血腥生肉 = xy(1, 20);  //24 slots
+    private static final int 禁忌物 = xy(1, 19);  //24 slots
+    public static final int 血腥生肉 = 禁忌物;
     static {
         
         assignItemRect(血腥生肉,15,11);
@@ -712,7 +730,7 @@ public class 物品表 {
     //endregion
 
     //region 卷轴符石
-    private static final int SCROLLS = xy(1, 21);  //16 slots
+    private static final int SCROLLS = xy(1, 20);  //16 slots
     public static final int SCROLL_KAUNAN = SCROLLS + 0;
     public static final int SCROLL_SOWILO = SCROLLS + 1;
     public static final int SCROLL_LAGUZ = SCROLLS + 2;
@@ -734,7 +752,7 @@ public class 物品表 {
         assignItemRect(ARCANE_RESIN, 12, 11);
     }
 
-    private static final int EXOTIC_SCROLLS = xy(1, 22);  //16 slots
+    private static final int EXOTIC_SCROLLS = xy(1, 21);  //16 slots
     public static final int EXOTIC_KAUNAN = EXOTIC_SCROLLS + 0;
     public static final int EXOTIC_SOWILO = EXOTIC_SCROLLS + 1;
     public static final int EXOTIC_LAGUZ = EXOTIC_SCROLLS + 2;
@@ -753,7 +771,7 @@ public class 物品表 {
             assignItemRect(i, 15, 14);
     }
 
-    private static final int STONES = xy(1, 23);  //16 slots
+    private static final int STONES = xy(1, 22);  //16 slots
     public static final int STONE_AGGRESSION = STONES + 0;
     public static final int STONE_AUGMENTATION = STONES + 1;
     public static final int STONE_FEAR = STONES + 2;
@@ -774,7 +792,7 @@ public class 物品表 {
     //endregion
 
     //region 药剂种子
-    private static final int POTIONS = xy(1, 24);  //16 slots
+    private static final int POTIONS = xy(1, 23);  //16 slots
     public static final int POTION_CRIMSON = POTIONS + 0;
     public static final int POTION_AMBER = POTIONS + 1;
     public static final int POTION_GOLDEN = POTIONS + 2;
@@ -796,7 +814,7 @@ public class 物品表 {
         assignItemRect(LIQUID_METAL, 8, 15);
     }
 
-    private static final int EXOTIC_POTIONS = xy(1, 25);  //16 slots
+    private static final int EXOTIC_POTIONS = xy(1, 24);  //16 slots
     public static final int EXOTIC_CRIMSON = EXOTIC_POTIONS + 0;
     public static final int EXOTIC_AMBER = EXOTIC_POTIONS + 1;
     public static final int EXOTIC_GOLDEN = EXOTIC_POTIONS + 2;
@@ -815,7 +833,7 @@ public class 物品表 {
             assignItemRect(i, 12, 13);
     }
 
-    private static final int SEEDS = xy(1, 26);  //16 slots
+    private static final int SEEDS = xy(1, 25);  //16 slots
     public static final int SEED_ROTBERRY = SEEDS + 0;
     public static final int SEED_FIREBLOOM = SEEDS + 1;
     public static final int SEED_SWIFTTHISTLE = SEEDS + 2;
@@ -836,7 +854,7 @@ public class 物品表 {
     //endregion
 
     //region 秘药结晶
-    private static final int BREWS = xy(1, 27);  //8 slots
+    private static final int BREWS = xy(1, 26);  //8 slots
     public static final int BREW_INFERNAL = BREWS + 0;
     public static final int BREW_BLIZZARD = BREWS + 1;
     public static final int BREW_SHOCKING = BREWS + 2;
@@ -865,7 +883,7 @@ public class 物品表 {
 
 //16 free slots
 
-    private static final int SPELLS = xy(1, 28);  //16 slots
+    private static final int SPELLS = xy(1, 27);  //16 slots
     public static final int WILD_ENERGY = SPELLS + 0;
     public static final int PHASE_SHIFT = SPELLS + 1;
     public static final int TELE_GRAB = SPELLS + 2;
@@ -1017,26 +1035,6 @@ public class 物品表 {
         assignItemRect(VIAL, 12);
         assignItemRect(空间之戒, 8);
         assignItemRect(未来空间器, 16);
-    }
-    private static final int DOCUMENTS = xy(1, 32);  //16 slots
-    public static final int GUIDE_PAGE = DOCUMENTS + 0;
-    public static final int ALCH_PAGE = DOCUMENTS + 1;
-    public static final int SEWER_PAGE = DOCUMENTS + 2;
-    public static final int PRISON_PAGE = DOCUMENTS + 3;
-    public static final int CAVES_PAGE = DOCUMENTS + 4;
-    public static final int CITY_PAGE = DOCUMENTS + 5;
-    public static final int HALLS_PAGE = DOCUMENTS + 6;
-    public static final int JANE_PAGE = DOCUMENTS + 7;
-
-    static {
-        assignItemRect(GUIDE_PAGE, 10, 11);
-        assignItemRect(ALCH_PAGE, 10, 11);
-        assignItemRect(SEWER_PAGE, 10, 11);
-        assignItemRect(PRISON_PAGE, 10, 11);
-        assignItemRect(CAVES_PAGE, 10, 11);
-        assignItemRect(CITY_PAGE, 10, 11);
-        assignItemRect(HALLS_PAGE, 10, 11);
-        assignItemRect(JANE_PAGE, 10, 11);
     }
     //endregion
 

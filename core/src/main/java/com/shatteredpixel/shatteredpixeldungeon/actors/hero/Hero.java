@@ -45,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
@@ -58,6 +59,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.时间能力;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.死舞;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
@@ -126,6 +128,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.journal.Guidebook;
@@ -147,21 +150,26 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.EyeOfNewt;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ThirteenLeafClover;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
@@ -223,6 +231,7 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 
@@ -1065,6 +1074,11 @@ public class Hero extends Char {
         if (buff(HoldFast.class) != null) {
             dr += buff(HoldFast.class).armorBonus();
         }
+        if(hasbuff(装甲之戒.装甲.class)){
+            if(belongings.armor()==null){
+                dr+=装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class)+装甲之戒.tier();
+            }
+        }
         dr+=天赋点数(Talent.武装);
         
         dr*=增加防御();
@@ -1126,10 +1140,10 @@ public class Hero extends Char {
         if(hasbuff(装甲之戒.装甲.class)){
             
             if(belongings.armor()!=null){
-                dr+=belongings.armor().augment.defenseFactor(
-                        装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class)*装甲之戒.tier()*2);
+                dr+=belongings.armor().augment.defenseFactor(2*(1+装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class)/1.5f)
+                        );
             }else{
-                dr+=装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class)*2;
+                dr+=装甲之戒.tier()*2*(1+装甲之戒.getBuffedBonus(this,装甲之戒.装甲.class)/1.5f);
             }
         }
         
@@ -1149,17 +1163,18 @@ public class Hero extends Char {
         
         if (武力之戒.fightingUnarmed(this)) {//空手
             dmg += 武力之戒.heromin();
-            if (武力之戒.unarmedGetsWeaponAugment(this)) {
-                dmg += belongings.attackingWeapon().augment.damageFactor(dmg);
+//            if (武力之戒.unarmedGetsWeaponAugment(this)) {
+//                dmg += belongings.attackingWeapon().augment.damageFactor(dmg);
+//            }
+            if(hasbuff(武力之戒.Force.class)){
+                dmg += 武力之戒.min();
             }
         } else {
             if(belongings.thrownWeapon!=null){
                 dmg += wep.最小投掷攻击()*(heroClass(HeroClass.女忍)?1.1f:1);
                 
             }else if(wep!=null){
-                
                 if(belongings.secondWep==null){
-                    
                     dmg += wep.最小攻击();
                 }else{
                     
@@ -1168,18 +1183,16 @@ public class Hero extends Char {
                 }
                 if(wep.拳套){
                     dmg += 武力之戒.heromin();
+                    if(hasbuff(武力之戒.Force.class)){
+                        dmg += 武力之戒.min();
+                    }
                 }
-                if(hasbuff(武力之戒.Force.class)){
-                    dmg += 武力之戒.min();
-                    dmg++;
-                }
-            }else{
-                dmg += 武力之戒.min()+武力之戒.heromin();
             }
         }
         
         dmg+=天赋点数(Talent.技巧,2);
         
+        dmg*=破损短剑.增加();
         dmg*=增加攻击();
         if (dmg < 0) dmg = 0;
         return Math.round(dmg);
@@ -1208,30 +1221,31 @@ public class Hero extends Char {
 
         if (武力之戒.fightingUnarmed(this)) {//空手
             dmg+= 武力之戒.heromax();
-            if (武力之戒.unarmedGetsWeaponAugment(this)) {
-                dmg += belongings.attackingWeapon().augment.damageFactor(dmg);
+//            if (武力之戒.unarmedGetsWeaponAugment(this)) {
+//                dmg += belongings.attackingWeapon().augment.damageFactor(dmg);
+//            }
+            if(hasbuff(武力之戒.Force.class)){
+                dmg+=武力之戒.max();
             }
         } else {
             if(belongings.thrownWeapon!=null){
                 dmg += wep.最大投掷攻击()*(heroClass(HeroClass.女忍)?1.15f:1);
             }else if(wep!=null){
                 if(belongings.secondWep==null){
-                    
                     dmg += wep.最大攻击();
                 }else{
-                    
                     dmg += wep.最大攻击()*(0.5+(天赋(Talent.职业精通)?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
                     dmg += belongings.secondWep.最大攻击()*(0.5+(天赋(Talent.职业精通)?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
                 }
                 if(wep.拳套){
                     dmg+= 武力之戒.heromax();
+                    if(hasbuff(武力之戒.Force.class)){
+                        dmg += 武力之戒.max();
+                    }
                 }
                 if(hasbuff(武力之戒.Force.class)){
-                    dmg +=武力之戒.max();
-                    dmg +=武力之戒.getBuffedBonus(this,武力之戒.Force.class)*2+1;
+                    dmg+= 武力之戒.max(武力之戒.getBuffedBonus(this,武力之戒.Force.class),1);
                 }
-            }else{
-                dmg+= 武力之戒.max()+武力之戒.heromax();
             }
             
         }
@@ -1243,7 +1257,7 @@ public class Hero extends Char {
         if(z!=null)dmg+=z.层数*天赋点数(Talent.战争热诚,2);
         
         dmg+=天赋点数(Talent.猛攻,5);
-        
+        dmg*=破损短剑.减少();
         dmg*=增加攻击();
         if (dmg < 0) dmg = 0;
         return Math.round(dmg);
@@ -1264,6 +1278,7 @@ public class Hero extends Char {
         float speed = super.移速();
 
         speed *= 综合属性();
+        speed*=巨大蟹钳.减少();
         speed*=中国国旗.移速();
         speed*=1+天赋点数(Talent.速跑,0.1f);
         speed*=1+天赋点数(Talent.猫反应7,0.175f)*根据已损失生命();
@@ -1593,6 +1608,9 @@ public float 攻击延迟() {
         Dungeon.地牢天数=Dungeon.地牢时间/900+1;
         Dungeon.level.落石(this);
         
+        if(骸骨左轮.减少()<0){
+            生命流动+=骸骨左轮.减少();
+        }
         战斗状态判定=Math.max(战斗状态判定-1,0);
         if((int)Math.ceil(生命流动)>=1){
             回血((int)Math.ceil(生命流动));
@@ -1820,9 +1838,9 @@ public float 攻击延迟() {
 
             if (resting) {
                 if(Dungeon.玩法(玩法设置.地牢塔防)){
-                    spendConstant(TIME_TO_REST*2.5f);
+                    spendConstant(TIME_TO_REST*3);
                 }else{
-                    spendConstant(TIME_TO_REST*(0.5f+SPDSettings.休息速度()*0.5f));
+                    spendConstant(TIME_TO_REST*(SPDSettings.休息速度()));
                 }
                 next();
             } else {
@@ -2429,7 +2447,7 @@ public float 攻击延迟() {
         if (在草丛()) {
             暴击率+=天赋点数(Talent.丛林法则,12);
         }
-        暴击率+=财富之戒.暴击率(this);
+        暴击率+=幸运之戒.暴击率(this);
         
         return 暴击率;
     }
@@ -2450,8 +2468,10 @@ public float 攻击延迟() {
             if (subClass == HeroSubClass.狂战士) {
                 Buff.施加(this,怒气.class).damage();
             }
-            sprite.说("暴击！");
-            sprite.歪嘴();
+            if(sprite!=null){
+                sprite.说("暴击！");
+                sprite.歪嘴();
+            }
             必暴=false;
             x次必暴=0;
         }else {
@@ -2528,6 +2548,25 @@ public float 攻击延迟() {
 		//endregion
 		
 		//region 附加效果
+        if(火毒箭矢.增加()>0){
+            
+            int effect=Random.Int(4)+火毒箭矢.增加();
+            
+            if(effect>2){
+                
+                if(effect>=6&&enemy.buff(火毒.class)==null){
+                    
+                    if(Dungeon.level.flamable[enemy.pos]){
+                        GameScene.add(Blob.seed(enemy.pos,4,Fire.class));
+                    }
+                    Buff.施加(enemy,火毒.class).reignite(enemy);
+                    
+                }else{
+                    Buff.施加(enemy,Poison.class).set((effect-2));
+                }
+                
+            }
+        }
         if(subClass(HeroSubClass.金刚独狼))回已损失血(0.005f+天赋点数(Talent.嗜血如故,0.005f)+(天赋(Talent.职业精通)?0.005f:0));
         蛇皮走位=0;
         if ((enemy instanceof Rat||enemy instanceof Piranha)&&heroClass(HeroClass.灵猫)) {
@@ -2615,11 +2654,13 @@ public float 攻击延迟() {
 		//endregion
 		
 		//region x
+        damage*=火毒箭矢.减少();
+        
         if(enemy.海妖()){
             damage*=1+天赋点数(Talent.捕鱼达人,0.4f);
         }
         if(enemy.老鬼()){//老鬼因为机制问题，所以不好做增加生命
-            damage=Math.round(damage*(1/Dungeon.难度生命()));
+            damage=Math.round(damage*(1f/Dungeon.难度生命()));
         }
         if (heroClass(HeroClass.HUNTRESS)&&distance(enemy)<=感知范围()) {
             damage*=1.15f;
@@ -2714,6 +2755,7 @@ public float 攻击延迟() {
             damage *=0.9f;
         }
         damage*=中国国旗.受伤();
+        damage*=巨大蟹钳.受到();
         damage *= RingOfTenacity.damageMultiplier(this);
         damage*=受到伤害;
         
@@ -3747,10 +3789,11 @@ public float 攻击延迟() {
         int x = 1;
         
         x += 天赋点数(Talent.寻觅);
+        x+=遗失符石.减少();
         if (buff(Foresight.class) != null) {
             x = Foresight.DISTANCE;
         }
-        return x;
+        return Math.max(1,x);
     }
 
     public int 感知范围() {
@@ -3955,8 +3998,69 @@ public float 攻击延迟() {
             if(heroClass(HeroClass.盗贼)){
                 x/=2;
             }
-            spendAndNext(搜索范围()*2*x);
-
+            int 增加=0;
+            if(搜索范围()<=1){
+                增加+=遗失符石.减少()*3;
+            }
+            spendAndNext(搜索范围()*2*x+增加);
+            if(遗失符石.增加()>0){
+                int DIST=遗失符石.增加();
+                boolean[] FOV = new boolean[Dungeon.level.length()];
+                Point cc= Dungeon.level.cellToPoint(pos);
+                ShadowCaster.castShadow(cc.x,cc.y,Dungeon.level.width(),FOV,Dungeon.level.losBlocking,DIST);
+                
+                int sX = Math.max(0,cc.x-DIST);
+                int eX = Math.min(Dungeon.level.width()-1,cc.x+DIST);
+                
+                int sY = Math.max(0,cc.y-DIST);
+                int eY = Math.min(Dungeon.level.height()-1,cc.y+DIST);
+                
+                ArrayList<Trap> disarmCandidates = new ArrayList<>();
+                
+                for (int y = sY; y <= eY; y++){
+                    int curr2=y*Dungeon.level.width()+sX;
+                    for (int xx=sX;xx<=eX;xx++){
+                        
+                        if (FOV[curr2]){
+                            
+                            Trap t = Dungeon.level.traps.get(curr2);
+                            if (t != null && t.active){
+                                disarmCandidates.add(t);
+                            }
+                            
+                        }
+                        curr2++;
+                    }
+                }
+                
+                Collections.shuffle(disarmCandidates);
+                Collections.sort(disarmCandidates, new Comparator<Trap>() {
+                    @Override
+                    public int compare(Trap o1, Trap o2) {
+                        float diff = Dungeon.level.trueDistance(pos, o1.pos) - Dungeon.level.trueDistance(pos, o2.pos);
+                        if (diff < 0){
+                            return -1;
+                        } else if (diff == 0){
+                            return 0;
+                        } else {
+                            return 1;
+                        }
+                    }
+                });
+                
+                //disarms at most nine traps
+                while (disarmCandidates.size() > 9){
+                    disarmCandidates.remove(9);
+                }
+                
+                for ( Trap t : disarmCandidates){
+                    t.reveal();
+                    t.disarm();
+                    CellEmitter.get(t.pos).burst(Speck.factory(Speck.STEAM),6);
+                }
+                
+                Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+            }
         }
 
         if (smthFound) {
@@ -4058,6 +4162,10 @@ public float 攻击延迟() {
         }
         if(heroClass(HeroClass.来世)){
             x+=0.1f;
+        }
+        虫箭.力量 虫箭= buff(虫箭.力量.class);
+        if (虫箭 != null) {
+            x+=虫箭.itemLevel()*0.03f;
         }
         if (subClass(HeroSubClass.潜能觉醒)) {
             x += 0.05f;

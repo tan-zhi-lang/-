@@ -52,22 +52,38 @@ public class 重制 {
 										   "_-_ 护甲改成防具，防具可以放入炼金锅转换护甲修理工具包，同奥术树脂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MASTERY), "进阶宝典",
 										   "_-_ 5区域第一层必定生成一个。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.虫箭3), "虫箭",
+										   "新增神器。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.心之钢), "心之钢",
+										   "新增神器。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.火毒箭矢), "火毒箭矢",
+										   "新增禁忌物。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.巨大蟹钳), "巨大蟹钳",
+										   "新增禁忌物。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.骸骨左轮), "骸骨左轮",
+										   "新增禁忌物。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.断骨法杖), "断骨法杖",
+										   "新增禁忌物。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.遗失符石), "遗失符石",
+										   "新增禁忌物。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.破损短剑), "破损短剑",
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.角斗链枷), "角斗链枷",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.磨刀石), "磨刀石",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.幸运硬币), "幸运硬币",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.虚无透纱), "虚无透纱",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.精神支柱), "精神支柱",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.圣金之沙), "圣金之沙",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.优惠卡), "优惠卡",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.传奇肛塞), "传奇肛塞",
-										   "新增饰品。"));
+										   "新增禁忌物。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.斩马刀), "斩马刀",
 										   "新增3阶武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.流火), "流火",
@@ -98,7 +114,7 @@ public class 重制 {
 										   "新增5阶武器。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
 										   "装甲之戒\n" +
-										   "_-_ 裸衣+0~2x(1+等级)的防御，防具+0~根据力量自适应x(1+等级)的防御\n\n"+
+										   "_-_ 裸衣+(根据力量自适应+等级)~2x2x(1+等级/1.5)的防御，防具+根据力量自适应x2x(1+等级/1.5)的最大防御\n\n"+
 										   
 										   "恢复之戒\n" +
 										   "_-_ 恢复速度+1.2x等级的次方\n\n"+
@@ -307,7 +323,7 @@ public class 重制 {
 										   "疾速之戒=>时间之戒\n\n" +
 										   "_-_ 1.175=>0.85不仅仅加速移动速度，而是所有时间花费。\n"+
 										   
-										   "财富之戒\n\n" +
+										   "财富之戒=>幸运之戒\n\n" +
 										   "_-_ 英雄自带1级。\n"+
 										   "_-_ 增加暴击率6%+6%x等级。\n"+
 										   
@@ -324,11 +340,11 @@ public class 重制 {
 										   "_-_ 减少所有受到伤害，上取整=>减少所受物理攻击伤害，四舍五入。\n"+
 										   
 										   "武力之戒\n\n" +
-										   "_-_ 能和空手拳套叠加。\n" +
+										   "_-_ 能与空手+拳套+武力之戒空手+武力之戒武器叠加。\n" +
 										   "_-_ 最小和最大攻击/2。\n" +
 										   "_-_ 空手攻击1~力量-8=>10%力量~力量-8。\n" +
 										   "_-_ 最小和最大伤害不会因为等级为0不取最大阶伤。\n" +
-										   "_-_ 武器+等级增伤害=>武器获得1~1+等级x2攻击"
+										   "_-_ 武器+等级增伤害=>武力之戒的最大攻击"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
 										   "_-_ 法杖升级不再恢复1充能\n\n"+
@@ -416,7 +432,7 @@ public class 重制 {
 		
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "防具",
 										   "_-_ 防具装备和卸下时间1=>攻速x移速x6。\n"+
-										   "_-_ 最小防御等级=>阶级。\n"+
+										   "_-_ 最小防御等级=>阶级+等级。\n"+
 										   "_-_ 最大防御阶级x(2+等级)=>2x阶级x(1+等级/1.5)。\n"+
 										   "_-_ 防具完全适配增加闪避，转换效率为根号(力量-防具力量)的1%加成。\n"+
 										   "_-_ 防具完全适配增加移速，转换效率为根号(力量-防具力量)的2%加成。\n"+
@@ -480,6 +496,7 @@ public class 重制 {
 		
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "杂项",
 				"物品\n\n" +
+				"_-_ 神秘的肉=>生肉。\n" +
 				"_-_ 现在首次拾取和装备、使用进行一次鉴定效果。\n" +
 				"_-_ 武器战技重做。\n" +
 				"_-_ 震爆符石不会对自己也造成伤害。\n" +
@@ -494,7 +511,8 @@ public class 重制 {
 				"_-_ 扔出、拾取、丢下花费时间1=>攻速。\n" +
 				"_-_ 移除大部分没用描述。\n" +
 				"_-_ 一些物品图片更好。\n" +
-				"_-_ 饰品提炼能量5=>4+等级x3。"+
+				"_-_ 1区域生成一个魔能触媒=>3区。"+
+				"_-_ 饰物=>禁忌物，并且移除遗物，禁忌物提炼能量5=>4+等级x2。"+
 				"_-_ 灵能短弓箭矢能触发部分东西。"+
 				"_-_ 物品掉落位置更好。\n" ,
 				
@@ -518,10 +536,12 @@ public class 重制 {
 				"_-_ 矮人国王延缓伤害改成和史莱姆一样的固定衰减。\n"+
 				"_-_ 骷髅死亡爆炸对于对于目标的伤害会经过防御时，并且更好的处理。\n"+
 				"_-_ 大部分怪物正确获得属性。\n"+
+				"_-_ 腐臭老鼠击杀掉落巨鼠头骨。\n"+
+				"_-_ 巨钳螃蟹击杀掉落生肉x2=>巨大蟹钳。\n"+
 				"_-_ 下水道巨蛇最小和最大攻击+1。\n"+
 				"_-_ 疯狂小偷和疯狂强盗，没偷东西移速7/6，防御时掉落1金币=>30+地牢层数x10, 60+地牢层数x20。\n"+
 				"_-_ 野心勃勃的小恶魔不再半透明。\n"+
-				"_-_ 豺狼诡术师、酸液巨蝎和巨蝎接近它后，移速会只有5/6。其他情况的移速100%=>7/6。。\n"+
+				"_-_ 豺狼诡术师(击杀掉落随机武器=>火毒箭矢)、酸液巨蝎和巨蝎接近它后，移速会只有5/6。其他情况的移速100%=>7/6。。\n"+
 				"_-_ 魔法绵羊交互有彩蛋，还能获得经验。",
 				
 				"UI\n\n" +
@@ -555,6 +575,8 @@ public class 重制 {
 		));
 		changes.addButton(new ChangeButton(bug, "修复",
 				"_-_ 修复酸蚀法杖高等级的施法会导致低等级的施法伤害没有正确分配级。\n" +
+				"_-_ 修复傀儡和老鬼傀儡死亡潜在问题，傀儡和老鬼傀儡死亡不会触发联动效果，如击杀掉落等。\n" +
+				"_-_ 修复饥饿速率不对受伤修正。\n" +
 				"_-_ 修复魅魔站立动画异常有攻击的一帧。\n" +
 				"_-_ 修复楼层入口和楼层出口文本反了。\n" +
 				"_-_ 修复虹光幻像不在英雄视野还在攻击。\n" +
@@ -574,13 +596,16 @@ public class 重制 {
 										   
 										   "祝福效果\n" +
 										   "_-_ 残血净化无敌复活=>满血净化无敌复活。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.CLOVER), "十三叶草",
+				"_-_ 两段判定=>一段判定。\n" +
+				"_-_ 概率60%x(25%+25%x等级)=>55%+4%x等级"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.法师魔杖), "法师魔杖",
 				"_-_ 自带法杖回收，且能转移灌注法杖等级。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.荣誉纹章),"荣誉纹章",
 				"_-_ 破损纹章=>荣誉纹章。\n" +
 				"_-_ 移除受伤获得爆发屏障。\n" +
-				"_-_ 提升防具的等级≡>防具获得强化等级。。\n" +
-				"_-_ 可额外携带1级。。"));
+				"_-_ 提升防具的等级=>防具获得强化等级。\n" +
+				"_-_ 可额外携带1级。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARCANE_RESIN), "奥术树脂",
 				"_-_ 法杖转换数量2*(级-树脂级)=>级-树脂级+1，并且级-树脂级+1需要大于0才能转换。\n" +
 				"_-_ 取消等级升级上限。"));

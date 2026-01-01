@@ -223,8 +223,15 @@ public class Assets {
 		public static final String 板甲   = "sounds/板甲.mp3";
 
 		public static final String 心之钢              = "sounds/心之钢.mp3";
+		public static final String 子弹落地              = "sounds/子弹落地.mp3";
 		public static final String 换弹              = "sounds/换弹.mp3";
+		public static final String 霰弹枪换弹              = "sounds/霰弹枪换弹.mp3";
+		public static final String 火炮换弹              = "sounds/火炮换弹.mp3";
 		public static final String 手枪              = "sounds/手枪.mp3";
+		public static final String 冲锋枪              = "sounds/冲锋枪.mp3";
+		public static final String 火炮              = "sounds/火炮.mp3";
+		public static final String 狙击枪              = "sounds/狙击枪.mp3";
+		public static final String 霰弹枪              = "sounds/霰弹枪.mp3";
 		public static final String HIT              = "sounds/hit.mp3";
 		public static final String MISS             = "sounds/miss.mp3";
 		public static final String HIT_SLASH        = "sounds/hit_slash.mp3";
@@ -310,7 +317,9 @@ public class Assets {
 
 				OPEN, UNLOCK, ITEM, DEWDROP, STEP, WATER, GRASS, TRAMPLE, STURDY,
 				
-				心之钢,换弹,手枪,镜刃,布甲,皮甲,链甲,鳞甲,板甲,
+				心之钢,
+				子弹落地,换弹,霰弹枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
+				镜刃,布甲,皮甲,链甲,鳞甲,板甲,
 				HIT, MISS, HIT_SLASH, HIT_STAB, HIT_CRUSH, HIT_MAGIC, HIT_STRONG, HIT_PARRY,
 				HIT_ARROW, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL,
 

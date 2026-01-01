@@ -15,21 +15,11 @@ public class 生命水晶 extends 用品 {
 	}
 	
 	@Override
-	public void execute( Hero hero, String action ) {
-
-		super.execute( hero, action );
-
-		if (action.equals(AC_USE)) {
-			
-			hero.sprite.operate(hero.pos);
-			hero.spend( 1f );
-			hero.busy();
-			Sample.INSTANCE.play(Assets.Sounds.生命水晶);
-			detach(hero.belongings.backpack);
-			hero.根骨+=4;
-			hero.更新属性();
-		}
+	public void 使用(Hero hero){
+		Sample.INSTANCE.play(Assets.Sounds.生命水晶);
+		hero.根骨+=4;
+		hero.更新属性();
+		super.使用(hero);
 	}
-	
 
 }

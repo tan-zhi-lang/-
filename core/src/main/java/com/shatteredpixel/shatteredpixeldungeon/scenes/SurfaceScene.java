@@ -7,9 +7,9 @@ import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
@@ -199,7 +199,7 @@ public class SurfaceScene extends PixelScene {
 			window.add(allySprite);
 		}
 
-		if (Dungeon.hero.belongings.getItem(RemainsItem.class) != null){
+		if (Statistics.qualifiedForBossRemainsBadge){
 			Image grave = new Image(Assets.Interfaces.SURFACE, 88, 74, 16, 22);
 
 			grave.x = a.x + a.width() + 10;

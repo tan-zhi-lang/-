@@ -94,13 +94,13 @@ public class PoolRoom extends SpecialRoom {
 		//1 floor set higher in probability, never cursed
 		switch (Random.Int(1)){
 			case 0: default:
-				prize = Generator.randomWeapon((Dungeon.depth / 5) + 1);
+				prize = Generator.randomWeapon((Dungeon.相对层数() / 5) + 1);
 				if (((Weapon)prize).hasCurseEnchant()){
 					((Weapon) prize).enchant(null);
 				}
 				break;
 			case 1:
-				prize = Generator.randomArmor((Dungeon.depth / 5) + 1);
+				prize = Generator.randomArmor((Dungeon.相对层数() / 5) + 1);
 				if (((Armor)prize).hasCurseGlyph()){
 					((Armor) prize).inscribe(null);
 				}

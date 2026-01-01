@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -26,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
@@ -168,12 +168,9 @@ public class Item implements Bundlable {
 
 	public boolean doPickUp(Hero hero, int pos) {
 		if(Dungeon.炼狱(炼狱设置.遗失钥匙)){
-			if(this instanceof 磨损钥匙){
-				return true;
+			if(this instanceof 磨损钥匙||this instanceof 骷髅钥匙){
 			}else if(this instanceof Key){
 				return false;
-			}else{
-				return true;
 			}
 		}
 		if (放背包( hero.belongings.backpack )) {
@@ -494,10 +491,162 @@ public class Item implements Bundlable {
 		return this;
 	}
 	public Item 升级() {
-		this.等级++;
-
-		updateQuickslot();
 		
+		if(Dungeon.玩法(玩法设置.升级概率)){
+			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
+				if(等级>=17){
+					if(算法.概率学(10)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						this.等级(0);
+						updateQuickslot();
+						return this;
+					}
+				}
+				if(等级>=16){
+					if(算法.概率学(11)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						this.等级(0);
+						updateQuickslot();
+						return this;
+					}
+				}
+				if(等级>=15){
+					if(算法.概率学(16)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						this.等级(0);
+						updateQuickslot();
+						return this;
+					}
+				}
+				if(等级>=14){
+					if(算法.概率学(18)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						this.等级(0);
+						updateQuickslot();
+						return this;
+					}
+				}
+				if(等级>=13){
+					if(算法.概率学(20)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						this.等级(0);
+						updateQuickslot();
+						return this;
+					}
+				}
+				if(等级>=12){
+					if(算法.概率学(25)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						this.等级(8);
+						updateQuickslot();
+						return this;
+					}
+				}
+				if(等级>=11){
+					if(算法.概率学(30)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						this.等级(7);
+						updateQuickslot();
+						return this;
+					}
+				}
+				if(等级>=10){
+					if(算法.概率学(35)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						return this;
+					}
+				}
+				if(等级>=9){
+					if(算法.概率学(40)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						return this;
+					}
+				}
+				if(等级>=8){
+					if(算法.概率学(50)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						return this;
+					}
+				}
+				if(等级>=7){
+					if(算法.概率学(60)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						return this;
+					}
+				}
+				if(等级>=6){
+					if(算法.概率学(70)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						return this;
+					}
+				}
+				if(等级>=5){
+					if(算法.概率学(85)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						return this;
+					}
+				}
+				if(等级>=4){
+					if(算法.概率学(95)){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}else{
+						return this;
+					}
+				}
+				if(等级<=3){
+					this.等级++;
+					updateQuickslot();
+					return this;
+				}
+			}
+			this.等级++;
+			updateQuickslot();
+			return this;
+		}
+		
+		this.等级++;
+		updateQuickslot();
 		return this;
 	}
 	
@@ -651,11 +800,8 @@ public class Item implements Bundlable {
 		if(this instanceof Key){
 			s+="、"+"钥匙";
 		}
-		if(this instanceof RemainsItem){
-			s+="、"+"遗物";
-		}
 		if(this instanceof Trinket){
-			s+="、"+"饰品";
+			s+="、"+"禁忌物";
 		}
 		if(this instanceof Potion){
 			s+="、"+"药剂";

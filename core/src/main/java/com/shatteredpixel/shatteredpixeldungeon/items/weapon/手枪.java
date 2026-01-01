@@ -16,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -36,9 +35,8 @@ public class 手枪 extends Weapon{
 		hitSound = Assets.Sounds.HIT_STAB;
 		
 		tier = 1;
-		伤害=0.59f;
+		伤害=0.68f;
 
-		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 	}
 	@Override
@@ -51,6 +49,12 @@ public class 手枪 extends Weapon{
 		actions.add(AC_SHOOT);
 		actions.add(AC_换弹);
 		return actions;
+	}@Override
+	public String defaultAction() {
+		if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
+			return AC_SHOOT;
+		}
+		return AC_SHOOT;
 	}
 	@Override
 	public String status() {
@@ -118,9 +122,7 @@ public class 手枪 extends Weapon{
 		return 最小枪械攻击(强化等级());
 	}
 	public int 最小枪械攻击(int lvl) {
-		int dmg =1+Dungeon.hero.等级(0.2f)
-				 +RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				 +(curseInfusionBonus ? 1 + Dungeon.hero.等级(0.2f) : 0);
+		int dmg =Math.round(最小+((tier+1)+lvl));
 		return Math.max(0, dmg);
 	}
 	
@@ -128,9 +130,7 @@ public class 手枪 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public int 最大枪械攻击(int lvl) {
-		int dmg = 6 + Dungeon.hero.等级(0.4f)
-				  + 2*RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				  + (curseInfusionBonus ? 2 + Dungeon.hero.等级(0.2f) : 0);
+		int dmg =Math.round(最大+(5*(tier+1+1) +lvl*(tier+1)));
 		return Math.max(0, dmg);
 	}
 	
@@ -140,7 +140,7 @@ public class 手枪 extends Weapon{
 	}
 	public int maxCharges = initialCharges();
 	public int initialCharges() {
-		return 5;
+		return 7;
 	}
 	protected int chargesPerCast() {
 		return 1;
@@ -278,7 +278,6 @@ public class 手枪 extends Weapon{
 
 		{
 			image = 物品表.子弹;
-
 			hitSound = Assets.Sounds.手枪;
 			item_Miss = Assets.Sounds.手枪;
 		}
@@ -293,6 +292,15 @@ public class 手枪 extends Weapon{
 			
 		}
 		
+		@Override
+		public float delayFactor(Char user) {
+			return 手枪.this.delayFactor(user)*0.2f;
+		}
+		
+		@Override
+		public float accuracyFactor(Char owner, Char target) {
+			return 手枪.this.accuracyFactor(owner, target)/2;
+		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
 			return 手枪.this.hasEnchant(type, owner);

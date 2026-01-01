@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -68,8 +69,14 @@ public class Hunger extends Buff implements Hero.Doom {
 			
 			if (isStarving()) {//饥饿时
 				
-				partial+=0.1f;
-
+				float hungerDelay = 1/10f;
+				if (target.buff(Shadows.class) != null){
+					hungerDelay *= 1.5f;
+				}
+				hungerDelay/=SaltCube.hungerGainMultiplier();
+				hungerDelay/=血腥生肉.减少();
+				partial+=hungerDelay;
+				
 				if (partial >= 1){
 					partial=0;
 					hero.受伤时(1, this);
@@ -81,8 +88,9 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (target.buff(Shadows.class) != null){
 					hungerDelay *= 1.5f;
 				}
-				hungerDelay /= SaltCube.hungerGainMultiplier();
-
+				hungerDelay/=SaltCube.hungerGainMultiplier();
+				hungerDelay/=血腥生肉.减少();
+				
 				float newLevel = level + 1f/hungerDelay;
 				if (newLevel >= STARVING) {//300时
 

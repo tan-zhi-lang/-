@@ -445,11 +445,11 @@ public abstract class Char extends Actor {
 					Random.NormalIntRange( enemy.最小防御(), enemy.最大防御())
 					*AscensionChallenge.statModifier(enemy));
 			
-			if(Dungeon.玩法(玩法设置.奇袭地牢)){
-				dr=Math.round(
-						( enemy.最小防御()+enemy.最大防御())/2f
-						*AscensionChallenge.statModifier(enemy));
-			}
+//			if(Dungeon.玩法(玩法设置.奇袭地牢)){
+//				dr=Math.round(
+//						( enemy.最小防御()+enemy.最大防御())/2f
+//						*AscensionChallenge.statModifier(enemy));
+//			}
 			if (this instanceof Hero hero){
 				if (hero.subClass==HeroSubClass.狙击手){
 					dr = 0;
@@ -478,16 +478,13 @@ public abstract class Char extends Actor {
 			} else {
 				if(this instanceof Hero hero){
 					dmg=hero.heroDamageIntRange(最小攻击(),最大攻击());
-					if(Dungeon.玩法(玩法设置.奇袭地牢)){
-						dmg=(最小攻击()+最大攻击())/2f;
-					}
 				}else{
 					dmg=Random.NormalIntRange(最小攻击(),最大攻击());
-					if(Dungeon.玩法(玩法设置.奇袭地牢)){
-						dmg=(最小攻击()+最大攻击())/2f;
-					}
 					dmg=Math.round(dmg*Dungeon.难度攻击());
 				}
+				//					if(Dungeon.玩法(玩法设置.奇袭地牢)){
+				//						dmg=(最小攻击()+最大攻击())/2f;
+				//					}
 			}
 
 			dmg = dmg*dmgMulti;
@@ -679,6 +676,9 @@ public abstract class Char extends Actor {
 			if (defender.hasbuff(TalismanOfForesight.CharAwareness.class)){
 				defStat=0;
 			}
+			if (算法.isDebug()){
+				defStat=0;
+			}
 		}
 		if ( defender instanceof Hero hero) {
 			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
@@ -839,15 +839,17 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 	public float 暴击伤害(){
-		return 1.5f;
+		return 1.45f;
 	}
 	public int 暴击(final Char enemy,int dmg){
 		if((必暴||算法.概率学(暴击率()))&&enemy.第一次防御){
 			dmg=Math.round(dmg*暴击伤害());
 			必暴=false;
 			x次必暴=0;
-			sprite.说("暴击！");
-			sprite.歪嘴();
+			if(sprite!=null){
+				sprite.说("暴击！");
+				sprite.歪嘴();
+			}
 		}else {
 			x次必暴++;
 			if(暴击率()!=0&&x次必暴>=400/暴击率()){
@@ -971,6 +973,7 @@ public abstract class Char extends Actor {
 	}
 	public class 类{}
 	public void 受伤时(int dmg, Object src ) {
+		
 		
 		if (!isAlive() || dmg < 0) {
 			return;

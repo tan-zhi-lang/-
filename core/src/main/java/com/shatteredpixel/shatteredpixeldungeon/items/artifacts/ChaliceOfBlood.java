@@ -6,7 +6,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -46,19 +48,25 @@ public class ChaliceOfBlood extends Artifact {
 			actions.add(AC_PRICK);
 		return actions;
 	}
-
+	
 	@Override
 	public void execute(Hero hero, String action ) {
 		super.execute(hero, action);
-
+		
 		if (action.equals(AC_PRICK)
-			&& 等级() < levelCap){
+			&&isEquipped(hero)&& 等级() < levelCap){
 			
 			int minDmg=minPrickDmg();
 			int maxDmg=maxPrickDmg();
 			
-			int totalHeroHP=hero.生命+hero.shielding();
-			
+			int totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
+			if(hero.hasbuff(Invulnerability.class)){
+				minDmg=0;
+				maxDmg=0;
+			}if(hero.hasbuff(护盾.class)){
+				minDmg=0;
+				maxDmg=0;
+			}
 			float deathChance=0;
 			
 			if(totalHeroHP<maxDmg){
@@ -73,23 +81,26 @@ public class ChaliceOfBlood extends Artifact {
 					deathChance=1;
 				}
 			}
-			
-			GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,Messages.decimalFormat("#.##",100*deathChance)),Messages.get(this,"yes"),Messages.get(this,"no")){
-				@Override
-				protected void onSelect(int index){
-					if(index==0)
-						prick(Dungeon.hero);
-				}
-				
-			});
+			if(deathChance>0.85f){
+				GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,Messages.decimalFormat("#.##",100*deathChance)),Messages.get(this,"yes"),Messages.get(this,"no")){
+					@Override
+					protected void onSelect(int index){
+						if(index==0)
+							prick(Dungeon.hero);
+					}
+					
+				});
+			}else{
+				prick(Dungeon.hero);
+			}
 		}
 	}
 	
 	private int minPrickDmg(){
-		return (int)Math.round(2.5f*(等级()*等级()));
+		return Math.round(2.5f*(等级()*等级()));
 	}
 	private int maxPrickDmg(){
-		return (int)Math.round(3.5f*(等级()*等级()));
+		return Math.round(3.5f*(等级()*等级()));
 	}
 
 	private void prick(Hero hero){
@@ -107,6 +118,9 @@ public class ChaliceOfBlood extends Artifact {
 		}
 
 		damage -= hero.最大防御();
+		int 护甲=hero.护甲;
+		hero.护甲(-damage);
+		damage-=护甲;
 
 		hero.sprite.operate( hero.pos );
 		hero.busy();

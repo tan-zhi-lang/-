@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
@@ -820,7 +819,7 @@ public class Badges {
 	
 	public static void validateBossSlain() {
 		Badge badge = null;
-		switch (Dungeon.depth) {
+		switch (Dungeon.相对层数()) {
 		case 5:
 			badge = Badge.BOSS_SLAIN_1;
 			break;
@@ -881,7 +880,7 @@ public class Badges {
 				}
 			}
 
-			if (Statistics.qualifiedForBossRemainsBadge && Dungeon.hero.belongings.getItem(RemainsItem.class) != null){
+			if (Statistics.qualifiedForBossRemainsBadge){
 				badge = Badge.BOSS_SLAIN_REMAINS;
 				local.add( badge );
 				displayBadge( badge );
@@ -892,7 +891,7 @@ public class Badges {
 
 	public static void validateBossChallengeCompleted(){
 		Badge badge = null;
-		switch (Dungeon.depth) {
+		switch (Dungeon.相对层数()) {
 			case 5:
 				badge = Badge.BOSS_CHALLENGE_1;
 				break;
@@ -1220,7 +1219,7 @@ public class Badges {
 		local.add( Badge.HAPPY_END );
 		displayBadge( Badge.HAPPY_END );
 
-		if( Dungeon.hero.belongings.getItem(RemainsItem.class) != null ){
+		if( Statistics.qualifiedForBossRemainsBadge){
 			local.add( Badge.HAPPY_END_REMAINS );
 			displayBadge( Badge.HAPPY_END_REMAINS );
 		}

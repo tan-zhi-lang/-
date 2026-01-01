@@ -140,19 +140,19 @@ public class 武力之戒 extends Ring{
 		float tier=tier();
 		if(已鉴定()){
 			int level=soloBuffedBonus();
-			String info=Messages.get(this,"stats",min(level,tier),
-									 max(level,tier),
-									 1,level*2+1);
+			String info=Messages.get(this,"stats",heromin()+min(level,tier),
+									 heromax()+max(level,tier),
+									 max(level,1));
 			if(isEquipped(Dungeon.hero)&&soloBuffedBonus()!=combinedBuffedBonus(Dungeon.hero)){
 				level=combinedBuffedBonus(Dungeon.hero);
-				info+="\n\n"+Messages.get(this,"combined_stats",min(level,tier),
-										  max(level,tier),
-										  1,1+2*level);
+				info+="\n\n"+Messages.get(this,"combined_stats",heromin()+min(level,tier),
+										  heromax()+max(level,tier),
+										  max(level,1));
 			}
 			return info;
 		}else{
-			return Messages.get(this,"stats",min(0,tier),
-								max(0,tier),1,1);
+			return Messages.get(this,"stats",heromin()+min(0,tier),
+								heromax()+max(0,tier),max(0,1));
 		}
 	}
 	
@@ -162,7 +162,7 @@ public class 武力之戒 extends Ring{
 			level=Math.min(-1,level-3);
 		}
 		int tier=tier();
-		return min(level+1,tier)+"-"+max(level+1,tier);
+		return (heromin()+min(level+1,tier))+"~"+(heromax()+max(level+1,tier));
 	}
 	
 	@Override
@@ -170,7 +170,7 @@ public class 武力之戒 extends Ring{
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-3);
 		}
-		return Integer.toString(level*2+1);
+		return Integer.toString(max(level,1));
 	}
 	
 	@Override
@@ -279,6 +279,7 @@ public class 武力之戒 extends Ring{
 	}
 	
 	public static boolean fightingUnarmed(Hero hero){
+		
 		if(hero.belongings.attackingWeapon()==null||hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 			return true;
 		}

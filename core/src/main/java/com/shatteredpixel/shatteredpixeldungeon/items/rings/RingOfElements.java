@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -76,6 +77,7 @@ public class RingOfElements extends Ring {
 		float x=1;
 		if(target instanceof Hero hero){
 			x*=1-hero.天赋点数(Talent.神圣净化,0.15f);
+			x*=巨大蟹钳.受到();
 			if (getBuffedBonus(target, Resistance.class) == 0) return x;
 			
 			for (Class c : RESISTS){

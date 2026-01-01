@@ -50,7 +50,7 @@ public abstract class Trinket extends Item {
 	public abstract String statsDesc();
 
 	public int 能量() {
-		return 4+等级()*3;
+		return 4+等级()*2;
 	}
 
 	@Override

@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -34,6 +33,10 @@ public class 铠甲 extends Armor {
 		return req;
 	}
 	
+	@Override
+	public int 最小防御(int lvl){
+		return super.最小防御(lvl+1);
+	}
 	@Override
 	public int 最大防御(int lvl){
 		return super.最大防御(lvl+1);

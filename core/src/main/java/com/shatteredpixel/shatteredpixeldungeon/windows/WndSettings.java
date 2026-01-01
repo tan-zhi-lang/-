@@ -877,6 +877,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 						
 						OptionSlider 固定攻速;
+						RenderedTextBlock 固定攻速str;
 						OptionSlider 固定移速;
 						OptionSlider 休息速度;
 						{
@@ -901,7 +902,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(固定移速);
 							
 							休息速度 = new OptionSlider("休息速度",
-														"1", "2", 1, 3) {
+														"1", "3", 1, 3) {
 								@Override
 								protected void onChange() {
 									SPDSettings.休息速度(getSelectedValue());
@@ -909,10 +910,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							休息速度.setSelectedValue(SPDSettings.休息速度());
 							add(休息速度);
+							固定攻速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "固定攻速str"), 5);
+							固定攻速str.hardlight(0x888888);
+							add(固定攻速str);
+							
 							
 							resize(WIDTH_P, 0);
 							固定攻速.setRect(0,  GAP, width, BTN_HEIGHT);
-							固定移速.setRect(0,  固定攻速.bottom()+GAP, width, BTN_HEIGHT);
+							固定攻速str.maxWidth(width);
+							固定攻速str.setPos(0, 固定攻速.bottom()+1);
+							固定移速.setRect(0,  固定攻速str.bottom()+GAP, width, BTN_HEIGHT);
 							休息速度.setRect(0,  固定移速.bottom()+GAP, width, BTN_HEIGHT);
 							resize(WIDTH_P, (int) 休息速度.bottom());
 							

@@ -96,6 +96,10 @@ public class 物品表 {
     public static final int SPIRIT_ARROW = UNCOLLECTIBLE + 8;
     public static final int 子弹 = UNCOLLECTIBLE + 9;
     public static final int 手枪子弹 = UNCOLLECTIBLE + 10;
+    public static final int 冲锋枪子弹=UNCOLLECTIBLE+11;
+    public static final int 霰弹枪子弹 = UNCOLLECTIBLE + 12;
+    public static final int 狙击枪子弹 = UNCOLLECTIBLE + 13;
+    public static final int 火炮子弹 = UNCOLLECTIBLE + 14;
 
     static {
         assignItemRect(GOLD, 15, 13);
@@ -112,6 +116,10 @@ public class 物品表 {
         assignItemRect(SPIRIT_ARROW, 11);
         assignItemRect(子弹, 5);
         assignItemRect(手枪子弹, 6,10);
+        assignItemRect(冲锋枪子弹,5,8);
+        assignItemRect(霰弹枪子弹, 5,10);
+        assignItemRect(狙击枪子弹, 5,13);
+        assignItemRect(火炮子弹, 12,8);
     }
     //endregion
 
@@ -186,38 +194,10 @@ public class 物品表 {
 
     //region 炸弹遗物
     public static final int TRINKET_CATA = xy(1, 5);
-    public static final int 破损短剑 = TRINKET_CATA + 1;
-    public static final int 遗失符石 = TRINKET_CATA + 2;
-    public static final int SEAL_SHARD = TRINKET_CATA + 3;
-    public static final int BROKEN_STAFF = TRINKET_CATA + 4;
-    public static final int CLOAK_SCRAP = TRINKET_CATA + 5;
-    public static final int BOW_FRAGMENT = TRINKET_CATA + 6;
-    public static final int BROKEN_HILT = TRINKET_CATA + 7;
-    public static final int TORN_PAGE = TRINKET_CATA + 8;
-    public static final int 残缺灵杖 = TRINKET_CATA + 9;
-    public static final int 残缺重盾 = TRINKET_CATA + 10;
 
     static {
         assignItemRect(TRINKET_CATA, 12, 11);
 
-        assignItemRect(破损短剑, 13);
-        assignItemRect(遗失符石, 14,12);
-        
-        assignItemRect(SEAL_SHARD, 12);
-
-        assignItemRect(BROKEN_STAFF, 14, 10);
-
-        assignItemRect(CLOAK_SCRAP, 9, 9);
-
-        assignItemRect(BOW_FRAGMENT, 12, 9);
-
-        assignItemRect(BROKEN_HILT, 9, 9);
-
-        assignItemRect(TORN_PAGE, 11, 13);
-
-        assignItemRect(残缺灵杖, 9, 11);
-
-        assignItemRect(残缺重盾, 11, 15);
     }
 
     private static final int BOMBS = xy(1, 6);   //16 slots
@@ -275,6 +255,10 @@ public class 物品表 {
     public static final int 十字弩 = 英雄初始 + 20;
     public static final int 吸血刀 = 英雄初始 + 21;
     public static final int 手枪 = 英雄初始 + 22;
+    public static final int 冲锋枪 = 英雄初始 + 23;
+    public static final int 霰弹枪 = 英雄初始 + 24;
+    public static final int 狙击枪 = 英雄初始 + 25;
+    public static final int 火炮 = 英雄初始 + 26;
     static {
         
         
@@ -301,6 +285,10 @@ public class 物品表 {
         assignItemRect(十字弩,15);
         assignItemRect(吸血刀,11);
         assignItemRect(手枪, 13, 7);
+        assignItemRect(冲锋枪, 16, 12);
+        assignItemRect(霰弹枪, 14, 16);
+        assignItemRect(狙击枪,  16);
+        assignItemRect(火炮, 16);
     }
     //region 近战武器
     public static final int WEP_TIER1 = xy(1, 8);   //8 slots
@@ -574,7 +562,7 @@ public class 物品表 {
     }
     //endregion
 
-    //region 神器饰物
+    //region 神器禁忌物
     private static final int ARTIFACTS = xy(1, 17);  //24 slots
     public static final int ARTIFACT_CLOAK = ARTIFACTS + 0;
     public static final int ARTIFACT_ARMBAND = ARTIFACTS + 1;
@@ -671,6 +659,12 @@ public class 物品表 {
     public static final int 幸运硬币=TRINKETS+23;
     public static final int 磨刀石=TRINKETS+24;
     public static final int 角斗链枷=TRINKETS+25;
+    public static final int 破损短剑=TRINKETS+26;
+    public static final int 遗失符石=TRINKETS+27;
+    public static final int 断骨法杖=TRINKETS+28;
+    public static final int 骸骨左轮=TRINKETS+29;
+    public static final int 巨大蟹钳=TRINKETS+30;
+    public static final int 火毒箭矢=TRINKETS+31;
 
     static {
         assignItemRect(RAT_SKULL, 16, 11);
@@ -699,11 +693,26 @@ public class 物品表 {
         assignItemRect(幸运硬币,11,13);
         assignItemRect(磨刀石,15,12);
         assignItemRect(角斗链枷,15,16);
+        
+        assignItemRect(破损短剑, 13);
+        assignItemRect(遗失符石, 14,12);
+        assignItemRect(断骨法杖,14,10);
+        assignItemRect(骸骨左轮,15,10);
+        assignItemRect(巨大蟹钳,15,13);
+        assignItemRect(火毒箭矢,15,15);
+        
     }
+    
+    public static final int 血腥生肉 = xy(1, 20);  //24 slots
+    static {
+        
+        assignItemRect(血腥生肉,15,11);
+    }
+    
     //endregion
 
     //region 卷轴符石
-    private static final int SCROLLS = xy(1, 20);  //16 slots
+    private static final int SCROLLS = xy(1, 21);  //16 slots
     public static final int SCROLL_KAUNAN = SCROLLS + 0;
     public static final int SCROLL_SOWILO = SCROLLS + 1;
     public static final int SCROLL_LAGUZ = SCROLLS + 2;
@@ -725,7 +734,7 @@ public class 物品表 {
         assignItemRect(ARCANE_RESIN, 12, 11);
     }
 
-    private static final int EXOTIC_SCROLLS = xy(1, 21);  //16 slots
+    private static final int EXOTIC_SCROLLS = xy(1, 22);  //16 slots
     public static final int EXOTIC_KAUNAN = EXOTIC_SCROLLS + 0;
     public static final int EXOTIC_SOWILO = EXOTIC_SCROLLS + 1;
     public static final int EXOTIC_LAGUZ = EXOTIC_SCROLLS + 2;
@@ -744,7 +753,7 @@ public class 物品表 {
             assignItemRect(i, 15, 14);
     }
 
-    private static final int STONES = xy(1, 22);  //16 slots
+    private static final int STONES = xy(1, 23);  //16 slots
     public static final int STONE_AGGRESSION = STONES + 0;
     public static final int STONE_AUGMENTATION = STONES + 1;
     public static final int STONE_FEAR = STONES + 2;
@@ -765,7 +774,7 @@ public class 物品表 {
     //endregion
 
     //region 药剂种子
-    private static final int POTIONS = xy(1, 23);  //16 slots
+    private static final int POTIONS = xy(1, 24);  //16 slots
     public static final int POTION_CRIMSON = POTIONS + 0;
     public static final int POTION_AMBER = POTIONS + 1;
     public static final int POTION_GOLDEN = POTIONS + 2;
@@ -787,7 +796,7 @@ public class 物品表 {
         assignItemRect(LIQUID_METAL, 8, 15);
     }
 
-    private static final int EXOTIC_POTIONS = xy(1, 24);  //16 slots
+    private static final int EXOTIC_POTIONS = xy(1, 25);  //16 slots
     public static final int EXOTIC_CRIMSON = EXOTIC_POTIONS + 0;
     public static final int EXOTIC_AMBER = EXOTIC_POTIONS + 1;
     public static final int EXOTIC_GOLDEN = EXOTIC_POTIONS + 2;
@@ -806,7 +815,7 @@ public class 物品表 {
             assignItemRect(i, 12, 13);
     }
 
-    private static final int SEEDS = xy(1, 25);  //16 slots
+    private static final int SEEDS = xy(1, 26);  //16 slots
     public static final int SEED_ROTBERRY = SEEDS + 0;
     public static final int SEED_FIREBLOOM = SEEDS + 1;
     public static final int SEED_SWIFTTHISTLE = SEEDS + 2;
@@ -827,7 +836,7 @@ public class 物品表 {
     //endregion
 
     //region 秘药结晶
-    private static final int BREWS = xy(1, 26);  //8 slots
+    private static final int BREWS = xy(1, 27);  //8 slots
     public static final int BREW_INFERNAL = BREWS + 0;
     public static final int BREW_BLIZZARD = BREWS + 1;
     public static final int BREW_SHOCKING = BREWS + 2;
@@ -835,7 +844,7 @@ public class 物品表 {
     public static final int BREW_AQUA = BREWS + 4;
     public static final int BREW_UNSTABLE = BREWS + 5;
 
-    public static final int ELIXIRS = xy(9,26);  //8 slots
+    public static final int ELIXIRS = xy(9,27);  //8 slots
     
     public static final int 永生秘药 = ELIXIRS -1;
     public static final int ELIXIR_HONEY = ELIXIRS + 0;
@@ -856,7 +865,7 @@ public class 物品表 {
 
 //16 free slots
 
-    private static final int SPELLS = xy(1, 27);  //16 slots
+    private static final int SPELLS = xy(1, 28);  //16 slots
     public static final int WILD_ENERGY = SPELLS + 0;
     public static final int PHASE_SHIFT = SPELLS + 1;
     public static final int TELE_GRAB = SPELLS + 2;

@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDragonsBreath;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -95,10 +95,10 @@ public class Heap implements Bundlable {
 		}
 
 		type = Type.HEAP;
-		ArrayList<Item> bonus = 财富之戒.tryForBonusDrop(hero,1);
+		ArrayList<Item> bonus = 幸运之戒.tryForBonusDrop(hero,1);
 		if (bonus != null && !bonus.isEmpty()) {
 			items.addAll(0, bonus);
-			财富之戒.showFlareForBonusDrop(sprite);
+			幸运之戒.showFlareForBonusDrop(sprite);
 		}
 		sprite.link();
 		sprite().drop();

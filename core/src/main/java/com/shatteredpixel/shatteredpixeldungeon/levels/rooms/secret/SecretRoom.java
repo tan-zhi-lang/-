@@ -47,10 +47,8 @@ public abstract class SecretRoom extends SpecialRoom {
 	}
 	
 	public static int secretsForFloor(int depth){
+		depth=Dungeon.相对层数();
 		
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
-			depth%=25;//解析：超过25求余即是循环层
-		}
 		if (depth == 1) return 0;
 		
 		int region = depth/5;

@@ -402,11 +402,10 @@ public class Armor extends EquipableItem {
 	}
 
 	public int 最小防御(int lvl){
-		return augment.defenseFactor(tier);
-//		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-//			return 0;
-//		}
-//		return augment.defenseFactor(lvl);
+		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+			return 0;
+		}
+		return augment.defenseFactor(tier+lvl);
 	}
 
 	//This exists so we can test what a char's base evasion would be without armor affecting it

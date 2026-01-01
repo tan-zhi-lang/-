@@ -21,9 +21,9 @@ public class ThirteenLeafClover extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", Math.round(MAX_CHANCE * 100*alterHeroDamageChance(等级())), Math.round((1f-MAX_CHANCE) * 100*alterHeroDamageChance(等级())));
+			return Messages.get(this, "stats_desc", Math.round(100*alterHeroDamageChance(等级())), Math.round(100f- 100*alterHeroDamageChance(等级())));
 		} else {
-			return Messages.get(this, "stats_desc", Math.round(MAX_CHANCE * 100*alterHeroDamageChance(0)), Math.round((1f-MAX_CHANCE) * 100*alterHeroDamageChance(0)));
+			return Messages.get(this, "stats_desc", Math.round(100*alterHeroDamageChance(0)), Math.round(10f- 100*alterHeroDamageChance(0)));
 		}
 	}
 
@@ -32,17 +32,16 @@ public class ThirteenLeafClover extends Trinket {
 	}
 
 	public static float alterHeroDamageChance(int level ){
-		if (level <= -1){
+		if (level < 0){
 			return 0;
 		} else {
-			return 0.25f + 0.25f*level;
+			return 0.55f + 0.004f*level;
 		}
 	}
 
-	private static float MAX_CHANCE = 0.6f;
 
 	public static int alterDamageRoll(int min, int max){
-		if (Random.Float() < MAX_CHANCE){
+		if (Random.Float() < alterHeroDamageChance()){
 			return max;
 		} else {
 			return min;

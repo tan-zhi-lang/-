@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -25,7 +24,7 @@ public class 杂物袋 extends Bag {
 			item instanceof Artifact||
 			item instanceof Ring||
 			item instanceof Armor||
-			item instanceof Trinket||item instanceof RemainsItem){
+			item instanceof Trinket){
 			return super.canHold(item);
 		} else {
 			return false;

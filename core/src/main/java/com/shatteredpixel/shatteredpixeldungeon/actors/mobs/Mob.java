@@ -61,13 +61,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
@@ -916,24 +920,38 @@ public abstract class Mob extends Char {
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
 				if(cause== Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
-					if(Dungeon.hero.belongings.attackingWeapon()instanceof 草剃){
-						for(int n: PathFinder.NEIGHBOURS8){
-							Blooming.plantGrass(pos+n);
+					if(!(傀儡()&&老鬼傀儡())){
+						if(Dungeon.hero.belongings.attackingWeapon()instanceof 草剃){
+							for(int n: PathFinder.NEIGHBOURS8){
+								Blooming.plantGrass(pos+n);
+							}
+						}
+						if(Dungeon.hero.belongings.attackingWeapon() instanceof 日炎链刃){
+							new Bomb.ConjuredBomb().heroexplode(pos);
+						}
+						if(Dungeon.hero.belongings.attackingWeapon() instanceof 金纹拐){
+							Dungeon.level.drop(new Gold().random(),pos).sprite().drop();
+						}
+						if(Dungeon.hero.belongings.attackingWeapon() instanceof 蜜剑){
+							Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
 						}
 					}
-					if(Dungeon.hero.belongings.attackingWeapon()instanceof 日炎链刃){
-						new Bomb.ConjuredBomb().heroexplode(pos);
-					}
-					if(Dungeon.hero.belongings.attackingWeapon()instanceof 金纹拐){
-						Dungeon.level.drop(new Gold().random(),pos).sprite().drop();
-					}
-					if(Dungeon.hero.belongings.attackingWeapon()instanceof 蜜剑){
-						Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
-					}
 				}
-				if( Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级/2)){
-					Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
-				}
+				if(!(傀儡()&&老鬼傀儡())){
+					if(Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级/2)){
+						Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
+					}
+					if(血腥生肉.增加()>0&&Random.Int(血腥生肉.增加()-1)==0){
+						Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
+					}
+					
+					if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
+						Dungeon.hero.回血(Dungeon.hero.最大生命(0.03f));
+						if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,2))))
+							Dungeon.level.drop(new 纯净粮食(),pos).sprite().drop();
+					}
+					if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人))
+						Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
 				
 				if(!isAlive()){
 					if (Dungeon.hero.subClass(HeroSubClass.狂战士)) {
@@ -942,16 +960,8 @@ public abstract class Mob extends Char {
 						});
 					}
 				
-				if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
-					Dungeon.hero.回血(Dungeon.hero.最大生命(0.03f));
-					if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,2))))
-					Dungeon.level.drop(new 纯净粮食(),pos).sprite().drop();
-				}
-				if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人))
-					Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
-					
 				if(恶魔亡灵()&&Dungeon.hero.天赋(Talent.渡魂灵猫))
-					Dungeon.hero.回血(Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.渡魂灵猫,0.015f)));
+					Dungeon.hero.回血(Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.渡魂灵猫,0.025f)));
 				
 				if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
 					Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
@@ -962,12 +972,19 @@ public abstract class Mob extends Char {
 				if(Dungeon.hero.heroClass(HeroClass.近卫)){
 					Dungeon.hero.回已损失血(0.05f);
 				}
-				
+				if(骸骨左轮.增加()>0){
+					Dungeon.hero.回血(骸骨左轮.增加());
+				}
+				if(断骨法杖.增加()>0){
+					Dungeon.hero.belongings.charge(断骨法杖.增加());
+					充能卷轴.charge(Dungeon.hero);
+					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
+				}
 				if(Dungeon.hero.天赋(Talent.久战))
-				Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,2));
+					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,2));
 					//击杀瞬移
 //					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
-			
+				}
 			}
 		}
 
@@ -983,6 +1000,8 @@ public abstract class Mob extends Char {
 
 		if (!(this instanceof Wraith)
 				&& soulMarked
+				&& !傀儡()
+				&& !老鬼傀儡()
 				&& Random.Float() < (Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
 			Wraith w = Wraith.spawnAt(pos, Wraith.class);
 			if (w != null) {
@@ -1001,7 +1020,7 @@ public abstract class Mob extends Char {
 		if(Dungeon.解压(解压设置.掉落几率)){
 			lootChance*=3;
 		}
-		float dropBonus = 财富之戒.dropChanceMultiplier(Dungeon.hero);
+		float dropBonus = 幸运之戒.dropChanceMultiplier(Dungeon.hero);
 
 		Talent.BountyHunterTracker bhTracker = Dungeon.hero.buff(Talent.BountyHunterTracker.class);
 		if (bhTracker != null){
@@ -1046,14 +1065,14 @@ public abstract class Mob extends Char {
 			}
 		}
 		//ring of wealth logic
-		if (Ring.getBuffedBonus(Dungeon.hero, 财富之戒.Wealth.class)>0) {
+		if (Ring.getBuffedBonus(Dungeon.hero, 幸运之戒.Wealth.class)>0) {
 			int rolls = 1;
 			if (properties().contains(Property.BOSS)) rolls = 15;
 			else if (properties().contains(Property.MINIBOSS)) rolls = 5;
-			ArrayList<Item> bonus = 财富之戒.tryForBonusDrop(Dungeon.hero,rolls);
+			ArrayList<Item> bonus = 幸运之戒.tryForBonusDrop(Dungeon.hero,rolls);
 			if (bonus != null && !bonus.isEmpty()) {
 				for (Item b : bonus) Dungeon.level.drop(b, pos).sprite().drop();
-				财富之戒.showFlareForBonusDrop(sprite);
+				幸运之戒.showFlareForBonusDrop(sprite);
 			}
 		}
 		

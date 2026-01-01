@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.DarkBlock;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
@@ -408,12 +409,16 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (invisible != null) invisible.killAndErase();
 				if(ch instanceof Hero)
 					invisible = new AlphaTweener(this, 0.4f, 0.4f);
+				else if(ch instanceof NPC)
+					invisible = new AlphaTweener(this, 0.4f, 0.4f);
 				else
 					invisible = new AlphaTweener(this, 0, 0);
 				if (parent != null) {
 					parent.add(invisible);
 				} else{
 					if(ch instanceof Hero)
+						alpha(0.4f);
+					else if(ch instanceof NPC)
 						alpha(0.4f);
 					else
 						alpha(0f);

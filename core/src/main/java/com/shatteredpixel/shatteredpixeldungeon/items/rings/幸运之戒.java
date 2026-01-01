@@ -34,7 +34,7 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
-public class 财富之戒 extends Ring {
+public class 幸运之戒 extends Ring {
 
 	{
 		icon = 物品表.Icons.RING_WEALTH;
@@ -70,7 +70,7 @@ public class 财富之戒 extends Ring {
 	}
 	
 	public static int 暴击率( Char target ){
-		return 6*getBuffedBonus( target, 财富之戒.Wealth.class);
+		return 6*getBuffedBonus( target, 幸运之戒.Wealth.class);
 	}
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";

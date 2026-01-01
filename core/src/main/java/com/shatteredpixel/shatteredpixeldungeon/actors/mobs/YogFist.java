@@ -55,7 +55,8 @@ public abstract class YogFist extends Mob {
 
 		state = HUNTING;
 
-		properties.add(Property.BOSS);
+		properties.add(Property.BOSS_MINION);
+//		properties.add(Property.BOSS);
 		properties.add(Property.DEMONIC);
 	}
 

@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
-import com.shatteredpixel.shatteredpixeldungeon.items.remains.RemainsItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
@@ -220,10 +219,6 @@ public class Bones {
 				ArrayList<Item> result = new ArrayList<>();
 
 				if (heroClass != null) {
-					Item i=RemainsItem.get(heroClass);
-					if(i!=null){
-						result.add(i);
-					}
 					if (Dungeon.bossLevel()){
 						Statistics.qualifiedForBossRemainsBadge = true;
 					}

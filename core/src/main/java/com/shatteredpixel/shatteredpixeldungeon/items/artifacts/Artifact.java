@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
@@ -73,11 +72,11 @@ public class Artifact extends KindofMisc {
 		}
 		if(Dungeon.炼狱(炼狱设置.诅咒神器)&&!(
 				this instanceof CloakOfShadows||
-				this instanceof 神圣法典
+				this instanceof 神圣法典||
+				this instanceof 本命玉佩||
+				this instanceof 叛忍护额
 				)){
-			if(ch.nobuff(Vertigo.class)){
-				Buff.延长(ch,Vertigo.class,2);
-			}
+			
 		}else{
 			passiveBuff = passiveBuff();
 			passiveBuff.attachTo(ch);

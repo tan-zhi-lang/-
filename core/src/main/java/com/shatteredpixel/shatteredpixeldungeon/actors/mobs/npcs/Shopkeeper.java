@@ -194,7 +194,7 @@ public class Shopkeeper extends NPC {
 		}
 		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
 		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
-//		return Math.round(item.金币() * 打折/2 * (Dungeon.depth / 5f + 1));
+//		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
 	}
 	
 	public static WndBag sell() {

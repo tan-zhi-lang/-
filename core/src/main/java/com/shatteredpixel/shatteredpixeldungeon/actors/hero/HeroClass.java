@@ -183,7 +183,7 @@ public enum HeroClass{
 			new 杂物袋().放背包();
 			new ScrollHolder().放背包();
 			
-			int x=100;
+			int x=999;
 			new 经验药剂().数量(x).鉴定(true).放背包();
 			new 治疗药剂().数量(x).放背包();
 			new 极速药剂().数量(x).放背包();

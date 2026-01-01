@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -93,7 +93,7 @@ public class Belongings implements Iterable<Item> {
 	public KindofMisc misc = null;
 	public KindofMisc misc2 = null;
 	public KindofMisc misc3 = null;
-	public KindofMisc 幸运 = new 财富之戒();
+	public KindofMisc 幸运 = new 幸运之戒();
 	public LinkedList<Item> 装备(){
 		LinkedList<Item> items = new LinkedList<>();
 		if(weapon()!=null)

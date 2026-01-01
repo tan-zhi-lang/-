@@ -97,6 +97,7 @@ public class Dungeon {
 		ENCH_STONE,
 		INT_STONE,
 		TRINKET_CATA,
+		TRINKET_CATA2,
 		LAB_ROOM, //actually a room, but logic is the same
 
 		//Health potion sources
@@ -378,7 +379,7 @@ public class Dungeon {
 	public static float 难度生命(){
 		float x=0;
 		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
-			x+=30+(循环()-1)*5;
+			x+=15+(循环()-1 )*5;
 		}
 		return switch(难度){
 			case 1 -> 0.67f+x;
@@ -390,7 +391,7 @@ public class Dungeon {
 	public static float 难度攻击(){
 		float x=0;
 		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
-			x+=10+(循环()-1)*1.67;
+			x+=10+(循环()-1 )*1.67;
 		}
 		return switch(难度){
 			case 1 -> 0.67f+x;
@@ -443,14 +444,14 @@ public class Dungeon {
 	public static float 难度防御(){
 		float x=1;
 		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
-			x+=5+(循环()-1)*0.84;
+			x+=5+(循环()-1 )*0.84;
 		}
 		return x;
 	}
 	public static float 难度命中闪避(){
 		float x=1;
 		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
-			x+=4.5f+(循环()-1)*0.75f;
+			x+=4.5f+(循环()-1 )*0.75f;
 		}
 		return x;
 	}
@@ -483,7 +484,7 @@ public class Dungeon {
 						level=new DeadEndLevel();
 				}
 			}else{
-					switch(depth){
+					switch(相对层数()){
 						case 1:
 						case 2:
 						case 3:
@@ -534,26 +535,6 @@ public class Dungeon {
 							break;
 						default:
 							level=new DeadEndLevel();
-				}
-				if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>1){
-					if(区域()==1){
-						level=new SewerLevel();
-						if(bossLevel()){
-							level=new SewerBossLevel();
-						}
-					}
-					if(区域()==2){
-						level=new PrisonLevel();
-					}
-					if(区域()==3){
-						level=new CavesLevel();
-					}
-					if(区域()==4){
-						level=new CityLevel();
-					}
-					if(区域()==5){
-						level=new HallsLevel();
-					}
 				}
 			}
 		} else if (branch == 1) {
@@ -651,9 +632,9 @@ public class Dungeon {
 	//is usually the dungeon depth, but can be set to 26 when ascending
 	public static int scalingDepth(){
 		if (Dungeon.hero() && Dungeon.hero.buff(AscensionChallenge.class) != null){
-			return 26;
+			return 相对层数()+1;
 		} else {
-			return depth;
+			return 相对层数();
 		}
 	}
 
@@ -661,6 +642,7 @@ public class Dungeon {
 		if (Dungeon.level.locked
 				|| Dungeon.level instanceof MiningLevel
 				|| Dungeon.level instanceof VaultLevel
+				|| Dungeon.level instanceof LastLevel
 //				|| Dungeon.bossLevel(Dungeon.depth-1)
 				|| Dungeon.bossLevel(Dungeon.depth)
 //				|| Dungeon.bossLevel(Dungeon.depth+1)
@@ -797,6 +779,10 @@ public class Dungeon {
 	public static boolean trinketCataNeeded(){
 		//one trinket catalyst on floors 1-3
 		return depth < 5 && !LimitedDrops.TRINKET_CATA.dropped() && Random.Int(4-depth) == 0;
+	}
+	public static boolean trinketCataNeeded2(){
+		//one trinket catalyst on floors 1-3
+		return depth>10&&depth < 15 && !LimitedDrops.TRINKET_CATA2.dropped() && Random.Int(14-depth) == 0;
 	}
 
 	public static boolean labRoomNeeded(){
@@ -1335,19 +1321,26 @@ public class Dungeon {
 	public static int 层数(float x){
 		return Math.round(scalingDepth()*x);
 	}
+	public static int 相对层数(){
+		int d=depth;
+		if(玩法(玩法设置.刷子地牢)&&d>25){
+			d=((d - 1) % 25) + 1;
+		}
+		return d;
+	}
 	public static int 区域(float x){
 		return Math.round(区域()*x);
 	}
 	public static int 区域(){
-		return Dungeon.depth/5+1;
+		return (相对层数() - 1) / 5 + 1;
 	}
 	public static int 循环(){
-		return Dungeon.depth/25;
+		return (Dungeon.depth-1)/25;
 	}
 	public static boolean 偶数层(){
 		return Dungeon.depth%2==0;
 	}
 	public static boolean 区域层数(int x){//1~4
-		return depth%5==x;
+		return 相对层数()%5==x;
 	}
 }

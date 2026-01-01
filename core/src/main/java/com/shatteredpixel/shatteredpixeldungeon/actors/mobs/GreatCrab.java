@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -35,7 +35,7 @@ public class GreatCrab extends Crab {
 		WANDERING = new Wandering();
 		state = WANDERING;
 
-		loot = new MysteryMeat().数量(2);
+		loot = new 巨大蟹钳();
 		
 
 		properties.add(Property.MINIBOSS);

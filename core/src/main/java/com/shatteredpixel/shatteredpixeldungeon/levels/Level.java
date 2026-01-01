@@ -305,8 +305,12 @@ public abstract class Level implements Bundlable {
 				Dungeon.LimitedDrops.INT_STONE.drop();
 				addItemToSpawn( new 感知符石());
 			}
-			if ( Dungeon.trinketCataNeeded() ){
-				Dungeon.LimitedDrops.TRINKET_CATA.drop();
+//			if ( Dungeon.trinketCataNeeded() ){
+//				Dungeon.LimitedDrops.TRINKET_CATA.drop();
+//				addItemToSpawn( new TrinketCatalyst());
+//			}
+			if ( Dungeon.trinketCataNeeded2() ){
+				Dungeon.LimitedDrops.TRINKET_CATA2.drop();
 				addItemToSpawn( new TrinketCatalyst());
 			}
 			

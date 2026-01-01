@@ -17,18 +17,13 @@ public class 护甲修理工具包 extends 用品 {
 	}
 	
 	@Override
-	public void execute( Hero hero, String action ) {
-
-		super.execute( hero, action );
-
-		if (action.equals(AC_USE)) {
-			if(hero.护甲>=hero.最大护甲()*2/3){
-				GLog.n("护甲没有破损，不推荐修复护甲，收益不高。");
-				return;
-			}
-			detach(hero.belongings.backpack);
-			hero.回满护甲();
+	public void 使用(Hero hero){
+		if(hero.护甲>=hero.最大护甲()*0.85f){
+			GLog.n("护甲没有破损，不推荐修复护甲，收益不高。");
+			return;
 		}
+		hero.回满护甲();
+		super.使用(hero);
 	}
 	
 	@Override

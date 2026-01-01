@@ -101,10 +101,7 @@ public class ExitRoom extends StandardRoom {
 	}
 
 	public static StandardRoom createExit(){
-		int depth=Dungeon.depth;
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
-			depth%=25;//解析：超过25求余即是循环层
-		}
+		int depth=Dungeon.相对层数();
 		return Reflection.newInstance(rooms.get(Random.chances(chances[depth])));
 	}
 }

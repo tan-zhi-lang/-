@@ -27,21 +27,21 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
@@ -52,27 +52,27 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.恐惧卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.恐惧卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
@@ -109,11 +109,18 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
@@ -531,7 +538,7 @@ public class Generator {
 					
 					RingOfSharpshooting.class,
 					RingOfTenacity.class,
-					财富之戒.class,
+					幸运之戒.class,
 					
 					魔攻之戒.class,
 					装甲之戒.class,
@@ -579,6 +586,9 @@ public class Generator {
 			//So we don't need the same enforcement of uniqueness
 			TRINKET.classes = new Class<?>[]{
 					RatSkull.class,
+					巨大蟹钳.class,
+					火毒箭矢.class,
+					
 					ParchmentScrap.class,
 					PetrifiedSeed.class,
 					
@@ -600,7 +610,6 @@ public class Generator {
 					
 					FerretTuft.class,
 					传奇肛塞.class,
-					
 					中国国旗.class,
 					
 					优惠卡.class,
@@ -611,16 +620,26 @@ public class Generator {
 					幸运硬币.class,
 					磨刀石.class,
 					角斗链枷.class,
+					破损短剑.class,
+					
+					遗失符石.class,
+					断骨法杖.class,
+					骸骨左轮.class,
+					血腥生肉.class,
 			};
-			TRINKET.defaultProbs = new float[]{ 1, 1, 1,
+			TRINKET.defaultProbs = new float[]{ 0,0,0,
+												1, 1,
+												
 												1, 1, 1,
 												1, 1, 1,
 												1, 1, 1,
 												1, 1, 1,
-												1,1,
-												0,
+												
+												1,1,0,
+												
 												1,1,1,1,
-												1,1,1,
+												1,1,1,1,
+												1,1,1,1,
 												};
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 
@@ -794,7 +813,7 @@ public class Generator {
 	}
 
 	public static Armor randomArmor(){
-		return randomArmor(Dungeon.depth / 5);
+		return randomArmor(Dungeon.相对层数() / 5);
 	}
 	
 	public static Armor randomArmor(int floorSet) {
@@ -815,7 +834,7 @@ public class Generator {
 	};
 
 	public static Weapon randomWeapon(){
-		return randomWeapon(Dungeon.depth / 5);
+		return randomWeapon(Dungeon.相对层数() / 5);
 	}
 
 	public static Weapon randomWeapon(int floorSet) {
@@ -823,7 +842,7 @@ public class Generator {
 	}
 
 	public static Weapon randomWeapon(boolean useDefaults) {
-		return randomWeapon(Dungeon.depth / 5, useDefaults);
+		return randomWeapon(Dungeon.相对层数() / 5, useDefaults);
 	}
 	
 	public static Weapon randomWeapon(int floorSet, boolean useDefaults) {

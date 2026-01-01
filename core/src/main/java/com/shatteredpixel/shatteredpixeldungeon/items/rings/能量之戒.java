@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.法袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.能袍;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -61,6 +62,7 @@ public class 能量之戒 extends Ring {
 			}else {
 				bonus *=精神支柱.减少();
 			}
+			bonus *=断骨法杖.减少();
 			if (hero.belongings.armor instanceof 法袍){
 				bonus *= 1.1f;
 			}

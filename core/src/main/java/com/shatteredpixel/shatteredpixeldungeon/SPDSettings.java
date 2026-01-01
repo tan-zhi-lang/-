@@ -155,7 +155,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 休息速度() {
-		return getInt(休息速度x, 1,2,3 );
+		return getInt(休息速度x, 1,1,3 );
 	}
 	
 	public static void 物品命名( boolean value ) {

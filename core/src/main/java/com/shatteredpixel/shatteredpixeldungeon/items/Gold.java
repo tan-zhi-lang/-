@@ -26,7 +26,7 @@ public class Gold extends Item {
 	}
 	
 	public Gold() {
-		this( 1 );
+		this(Random.IntRange( 30 + 10, 60 +20 ));
 	}
 	
 	public Gold( int value ) {

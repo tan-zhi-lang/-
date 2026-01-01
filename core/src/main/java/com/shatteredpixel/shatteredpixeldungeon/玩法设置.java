@@ -12,7 +12,7 @@ public static final int 鬼怨地牢				= 4;
 	public static final int 地牢塔防= 16;
 	public static final int 速通地牢			= 32;
 	public static final int 刷子地牢		    = 64;
-		public static final int 奇袭地牢	= 128;
+		public static final int 升级概率	= 128;
 		public static final int 重生怪物 	= 256;
 	public static final int MAX_VALUE           = 511;
 	public static final int MAX_CHALS           = 9;
@@ -25,7 +25,7 @@ public static final int 鬼怨地牢				= 4;
 			"地牢塔防",
 			"速通地牢",
 			"刷子地牢",
-			"奇袭地牢",
+			"升级概率",
 			"重生怪物",
 	};
 
@@ -37,7 +37,7 @@ public static final int 鬼怨地牢				= 4;
 			地牢塔防,
 			速通地牢,
 			刷子地牢,
-			奇袭地牢,
+			升级概率,
 			重生怪物,
 	};
 	

@@ -9,6 +9,55 @@ import com.watabou.utils.Random;
 public class 算法 {
     /*
 
+		ArrayList<Integer> grassCells = new ArrayList<>();
+		for (int i : PathFinder.NEIGHBOURS9){
+			grassCells.add(hero.pos+i);
+		}
+		Random.shuffle(grassCells);
+		for (int grassCell : grassCells){
+			if (Dungeon.level.map[grassCell] == Terrain.EMPTY ||
+					Dungeon.level.map[grassCell] == Terrain.EMBERS ||
+					Dungeon.level.map[grassCell] == Terrain.EMPTY_DECO){
+				Level.set(grassCell, Terrain.GRASS);
+				GameScene.updateMap(grassCell);
+			}
+			CellEmitter.get(grassCell).burst(LeafParticle.LEVEL_SPECIFIC, 4);
+		}
+		// 5 cells total
+		int totalGrassCells = 5;
+		while (grassCells.size() > totalGrassCells){
+			grassCells.remove(0);
+		}
+		for (int grassCell : grassCells){
+			int t = Dungeon.level.map[grassCell];
+			if ((t == Terrain.EMPTY || t == Terrain.EMPTY_DECO || t == Terrain.EMBERS
+					|| t == Terrain.GRASS || t == Terrain.FURROWED_GRASS)
+					&& Dungeon.level.plants.get(grassCell) == null){
+				Level.set(grassCell, Terrain.HIGH_GRASS);
+				GameScene.updateMap(grassCell);
+			}
+		}
+		Dungeon.observe();
+		Sample.INSTANCE.play(Assets.Sounds.PLANT);
+		
+		
+		
+		
+		ArtifactRecharge.chargeArtifacts(hero, 4f);
+		充能卷轴.charge(hero);
+		Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
+		
+		
+		
+		
+		
+		Buff.施加( hero, PhysicalEmpower.class).set(Math.max(2, hero.等级 /3), 2);
+		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
+		
+		
+		
+		
+		
     * */
     public static int x2=32;
     public static int x3=32*2;

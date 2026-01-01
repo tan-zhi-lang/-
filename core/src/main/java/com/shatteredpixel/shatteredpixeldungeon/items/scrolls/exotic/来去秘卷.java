@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class 来去秘卷 extends ExoticScroll {
 	
 	{
 		icon = 物品表.Icons.SCROLL_PASSAGE;
+		defaultAction=AC_下楼;
 	}
 	
 	protected static final String AC_上楼 = "上楼";
@@ -41,8 +43,8 @@ public class 来去秘卷 extends ExoticScroll {
 		if (action.equals( AC_上楼 )) {
 			
 			
-			if (!Dungeon.interfloorTeleportAllowed()
-				|| Dungeon.depth==1) {
+			if ((!Dungeon.interfloorTeleportAllowed()
+				|| Dungeon.depth==1)&&!算法.isDebug()) {
 				GLog.w( Messages.get(传送卷轴.class,"no_tele"));
 				return;
 			}
@@ -57,8 +59,8 @@ public class 来去秘卷 extends ExoticScroll {
 		if (action.equals( AC_下楼 )) {
 			
 			
-			if (!Dungeon.interfloorTeleportAllowed()
-				|| Dungeon.depth==26) {
+			if ( (!Dungeon.interfloorTeleportAllowed()
+				 || Dungeon.depth==26)&&!算法.isDebug()) {
 				GLog.w( Messages.get(传送卷轴.class,"no_tele"));
 				return;
 			}

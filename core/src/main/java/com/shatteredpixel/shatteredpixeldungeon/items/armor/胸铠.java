@@ -33,6 +33,10 @@ public class 胸铠 extends Armor {
 	}
 	
 	@Override
+	public int 最大防御(int lvl){
+		return super.最大防御(lvl+1);
+	}
+	@Override
 	public int 金币() {
 		return Math.round(super.金币()*1.34f);
 	}

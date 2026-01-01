@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -317,6 +318,10 @@ public class ItemSlot extends Button {
 				center.measure();
 				center.hardlight( FADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
+				level.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
+				level.measure();
+				level.hardlight( WARNING );
+			}else if (item instanceof 虫箭 x&&x.等级()<10) {
 				level.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
 				level.measure();
 				level.hardlight( WARNING );

@@ -158,7 +158,7 @@ public class WndBlacksmith extends Window {
 		smith.enable(Blacksmith.Quest.favor >= 2000);
 		buttons.add(smith);
 
-		RedButton 锤子 = new RedButton(Messages.get(this, "锤子", 5000), 6){
+		RedButton 锤子 = new RedButton(Messages.get(this, "人情", 5000), 6){
 			@Override
 			protected void onClick() {
 				GLog.p(Messages.get(this, "人情"));

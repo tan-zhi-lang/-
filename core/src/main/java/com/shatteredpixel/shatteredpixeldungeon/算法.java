@@ -572,7 +572,9 @@ return null;
         return 概率学(x)&&概率学(x);
     }
     public static int 固衰(int x){
-        x = x-1 + (int)(Math.sqrt(8*(x - x-1) + 1) - 1)/2;
+        if (x >= 1){
+            x=(int)(Math.sqrt(8*x+1)-1)/2;
+        }
         return x;
     }
     public static int 固衰(int x,int 超过){

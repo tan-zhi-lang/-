@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.utils;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Random;
 
@@ -67,7 +68,7 @@ public enum Holiday {
 	}
 	public static Holiday getHolidayForDate(GregorianCalendar cal){
 		
-		if(Dungeon.玩法(玩法设置.从不过节))return NONE;
+		if(SPDSettings.从不过节())return NONE;
 		if (cal.get(Calendar.MONTH) == Calendar.JANUARY){
 			if(星期(cal,1))
 			return 元旦节;

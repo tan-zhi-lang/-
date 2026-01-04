@@ -14,7 +14,7 @@ public class 锈右斧 extends Weapon{
 	{
 		image = 物品表.锈右斧;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		延迟= 1.68f;
+		延迟= 1.5f;
 		伤害=1.2f;
 		双手=true;
 		技能=new 劈斩();

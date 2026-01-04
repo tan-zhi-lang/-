@@ -17,24 +17,23 @@ public class 死神镰刀 extends Weapon{
 		
 		双手=true;
 		tier = 5;
-		延迟= 1.5f;
+		延迟= 1.25f;
 		伤害= 1.35f;
+		命中=0.75f;
 	}
 	
 	@Override
 	public int 攻击时(Char attacker,Char defender,int damage) {
 		
 		if(defender.残血()){
-			damage*=2;
+			damage*=attacker.暴击伤害();
 		}
 		return super.攻击时( attacker, defender, damage );
 	}
 	@Override
 	public int 投掷攻击时(Char attacker,Char defender,int damage) {
-		
-		
-		if(defender.半血以下()){
-			damage*=2;
+		if(defender.残血()){
+			damage*=attacker.暴击伤害();
 		}
 		return super.投掷攻击时( attacker, defender, damage );
 	}

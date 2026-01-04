@@ -10,8 +10,8 @@ public class 炼狱设置 {
 	public static final int 诅咒神器				= 4;
 	public static final int 诅咒之戒				= 8;
 	public static final int 诅咒法杖				= 16;
-	public static final int 诅咒投掷			= 32;
-	public static final int 诅咒装备		    = 64;
+	public static final int 无力投掷			= 32;
+	public static final int 治疗禁令= 64;
 	public static final int 体弱多病	= 128;
 	public static final int STRONGER_BOSSES 	= 256;
 	public static final int MAX_VALUE           = 511;
@@ -23,8 +23,8 @@ public class 炼狱设置 {
 			"诅咒神器",
 			"诅咒之戒",
 			"诅咒法杖",
-			"诅咒投掷",
-			"诅咒装备",
+			"无力投掷",
+			"治疗禁令",
 			"体弱多病",
 	};
 
@@ -34,8 +34,8 @@ public class 炼狱设置 {
 			诅咒神器,
 			诅咒之戒,
 			诅咒法杖,
-			诅咒投掷,
-			诅咒装备,
+			无力投掷,
+			治疗禁令,
 			体弱多病,
 	};
 	

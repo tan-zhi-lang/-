@@ -11,9 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollTricksterSprite;
@@ -111,20 +109,6 @@ public class GnollTrickster extends Gnoll {
 				|| fieldOfView.length != Dungeon.level.length() || fieldOfView[ch.pos]) {
 			super.aggro(ch);
 		}
-	}
-	
-	@Override
-	public Item createLoot() {
-		Weapon drop = (Weapon)super.createLoot();
-		drop.等级(0);
-		if (drop.hasCurseEnchant()){
-			drop.enchant(null);
-		}
-		drop.cursed = false;
-		drop.鉴定(false);
-		//half quantity, rounded up
-		drop.数量((drop.数量()+1)/2);
-		return drop;
 	}
 	
 	@Override

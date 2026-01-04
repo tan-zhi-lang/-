@@ -62,7 +62,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
@@ -134,20 +134,21 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.watabou.utils.Random;
 
 public enum HeroClass{
 	
 	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士),
 	MAGE(HeroSubClass.战斗法师,HeroSubClass.术士),
-	盗贼(HeroSubClass.刺客,HeroSubClass.疾行者),
+	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影),
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
-	DUELIST(HeroSubClass.勇士,HeroSubClass.武者),
+	DUELIST(HeroSubClass.武器大师,HeroSubClass.武者),
 	CLERIC(),
 //	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
-	巫女(HeroSubClass.黑魔导师),
-	重武(HeroSubClass.健身猛男),镜魔(HeroSubClass.潜能觉醒),
-	道士(HeroSubClass.潜能觉醒),行僧(HeroSubClass.潜能觉醒),
+	巫女(HeroSubClass.潜能觉醒),
+	重武(HeroSubClass.潜能觉醒),镜魔(HeroSubClass.灵月杀手),
+	道士(HeroSubClass.潜能觉醒),行僧(HeroSubClass.疾行者),
 	近卫(HeroSubClass.征服者),兽灵(HeroSubClass.潜能觉醒),
 	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.潜能觉醒),
 	戒老(HeroSubClass.潜能觉醒),逐姝(HeroSubClass.潜能觉醒),
@@ -166,8 +167,53 @@ public enum HeroClass{
 	
 	public void initHero(Hero hero){
 		hero.heroClass=this;
-		if(Dungeon.hero.heroClass(HeroClass.鼠弟))
+		
+		if(hero.heroClass(HeroClass.鼠弟))
 			Dungeon.老鼠蝙蝠= true;
+		
+		if(Dungeon.玩法(玩法设置.赛季游戏)){
+			switch(Random.Int(1)){
+				case 0:
+					hero.赛季游戏=0;
+					break;
+				case 1:
+					hero.赛季游戏=1;
+					break;
+				case 2:
+					hero.赛季游戏=2;
+					break;
+			}
+		}
+		if(Dungeon.玩法(玩法设置.英精英雄)){
+			switch(Random.Int(6)){
+				case 0:
+				default:
+					hero.英精英雄=0;
+//					ChampionEnemy.Blazing.class;
+					break;
+				case 1:
+					hero.英精英雄=1;
+//					ChampionEnemy.Projecting.class;
+					break;
+				case 2:
+					hero.英精英雄=2;
+//					ChampionEnemy.AntiMagic.class;
+					break;
+				case 3:
+					hero.英精英雄=3;
+//					ChampionEnemy.Giant.class;
+					break;
+				case 4:
+					hero.英精英雄=4;
+//					ChampionEnemy.Blessed.class;
+					break;
+				case 5:
+					hero.英精英雄=5;
+					hero.英精英雄成长=0.2f;
+//					ChampionEnemy.Growing.class;
+					break;
+			}
+		}
 		Talent.initClassTalents(hero);
 		
 		//		Item i = new ClothArmor().鉴定();
@@ -180,7 +226,7 @@ public enum HeroClass{
 			
 			new PotionBandolier().放背包();
 			new MagicalHolster().放背包();
-			new 杂物袋().放背包();
+			new 宝物袋().放背包();
 			new ScrollHolder().放背包();
 			
 			int x=999;
@@ -231,7 +277,7 @@ public enum HeroClass{
 			new 装甲之戒().放背包();
 			new RingOfFuror().放背包();
 			
-			for (Item item : Dungeon.hero.belongings){
+			for (Item item : hero.belongings){
 				item.鉴定();
 			}
 		}

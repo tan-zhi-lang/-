@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -19,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
@@ -40,7 +42,6 @@ public class MagicalInfusion extends InventorySpell {
 
 	@Override
 	protected void onItemSelected( Item item ) {
-
 		GameScene.show(new WndUpgrade(this, item, false));
 
 	}
@@ -68,7 +69,7 @@ public class MagicalInfusion extends InventorySpell {
 		升级卷轴.upgrade(curUser);
 
 		Degrade.detach( curUser, Degrade.class );
-
+		
 		if (item instanceof Weapon && ((Weapon) item).enchantment != null) {
 			item = ((Weapon) item).升级(true);
 		} else if (item instanceof Armor && ((Armor) item).glyph != null) {

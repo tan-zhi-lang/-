@@ -164,35 +164,39 @@ public enum Document {
 		} else {
 			//special per-page visuals for guidebook
 			switch (page){
-				case Document.GUIDE_INTRO: default:
+				case GUIDE_INTRO: default:
 					return new ItemSprite(物品表.MASTERY);
-				case "Examining":
+				case GUIDE_EXAMINING:
 					return Icons.get(Icons.MAGNIFY);
-				case "Surprise_Attacks":
+				case GUIDE_SURPRISE_ATKS:
 					return Icons.get(Icons.SNAKE);
-				case "Identifying":
+				case GUIDE_IDING:
 					return new ItemSprite( new 鉴定卷轴() );
-				case "Food":
+				case GUIDE_FOOD:
 					return new ItemSprite( 物品表.PASTY );
-				case "Alchemy":
+				case GUIDE_ALCHEMY:
 					return new ItemSprite( 物品表.TRINKET_CATA );
-				case "Dieing":
+				case GUIDE_DIEING:
 					return new ItemSprite( 物品表.TOMB );
-				case Document.GUIDE_SEARCHING:
+				case GUIDE_SEARCHING:
 					return Icons.get(Icons.MAGNIFY);
-				case "Strength":
+				case 力量:
 					return new ItemSprite( 物品表.巨斧);
-				case "Upgrades":
+				case 装备:
 					return new ItemSprite( 物品表.RING_EMERALD );
-				case "Looting":
+				case 搜索:
 					return new ItemSprite( 物品表.CRYSTAL_KEY );
-				case "Levelling":
+				case 升级:
 					return Icons.get(Icons.TALENT);
-				case "Positioning":
+				case 地势:
 					return new ItemSprite( 物品表.灵能短弓);
-				case "Magic":
+				case 法伤:
 					return new ItemSprite( 物品表.焰浪法杖);
-				case Document.GUIDE_CALENDAR:
+				case 护甲:
+					return new ItemSprite( 物品表.护甲修理工具包);
+				case 暴击:
+					return new ItemSprite( 物品表.无尽之刃);
+				case GUIDE_CALENDAR:
 					return Icons.get(Icons.CALENDAR);
 			}
 		}
@@ -236,6 +240,14 @@ public enum Document {
 	public static final String GUIDE_DIEING         = "Dieing";
 
 	public static final String GUIDE_SEARCHING      = "Searching";
+	public static final String 力量= "力量";
+	public static final String 装备= "装备";
+	public static final String 搜索= "搜索";
+	public static final String 升级= "升级";
+	public static final String 地势= "地势";
+	public static final String 法伤= "法伤";
+	public static final String 护甲= "护甲";
+	public static final String 暴击= "暴击";
 	public static final String GUIDE_CALENDAR= "calendar";
 
 	public static final String KING_ATTRITION       = "attrition";
@@ -253,12 +265,14 @@ public enum Document {
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_DIEING,         debug ? READ : NOT_FOUND);
 		//given in sewers
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_SEARCHING,      debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put("Strength",           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put("Upgrades",           debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put("Looting",            debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put("Levelling",          debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put("Positioning",        debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put("Magic",              debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(力量,           debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(装备,           debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(搜索,            debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(升级,          debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(地势,        debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(法伤,              debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(护甲,debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(暴击,debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_CALENDAR,debug ? READ : NOT_FOUND);
 		
 		//given in sewers

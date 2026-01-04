@@ -21,14 +21,14 @@ public class 流星索 extends Weapon{
 	
 	@Override
 	public int 攻击时(Char attacker,Char defender,int damage) {
-		if(defender.第一次防御){
+		if(defender.第x次防御==1){
 			Buff.延长( defender, Cripple.class, Cripple.DURATION/2 );
 		}
 		return super.攻击时( attacker, defender, damage );
 	}
 	@Override
 	public int 投掷攻击时(Char attacker,Char defender,int damage) {
-		if(defender.第一次防御){
+		if(defender.第x次防御==1){
 			Buff.延长( defender, Cripple.class, Cripple.DURATION/2 );
 		}
 		return super.投掷攻击时( attacker, defender, damage );

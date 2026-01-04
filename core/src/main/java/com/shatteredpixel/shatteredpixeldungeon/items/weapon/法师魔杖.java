@@ -170,7 +170,7 @@ public class 法师魔杖 extends Weapon{
 		
 		if (wand != null &&
 				attacker instanceof Hero hero && hero.subClass(HeroSubClass.战斗法师)) {
-			if (wand.curCharges < wand.maxCharges&&hero.天赋(Talent.职业精通)){
+			if (wand.curCharges < wand.maxCharges&&hero.职业精通()){
 				wand.partialCharge+=0.5f;
 				充能卷轴.charge(hero);
 			}

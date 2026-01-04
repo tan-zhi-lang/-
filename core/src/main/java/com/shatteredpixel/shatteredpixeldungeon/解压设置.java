@@ -8,7 +8,7 @@ public class 解压设置 {
 	public static final int 超级背包				= 1;
 	public static final int 幸运女神				= 2;
 	public static final int 天赋武神				= 4;
-	public static final int 纯正怪物				= 8;
+	public static final int 点石成金				= 8;
 	public static final int 宝物空投				= 16;
 	public static final int 掉落几率			= 32;
 	public static final int 独自变强= 64;
@@ -21,7 +21,7 @@ public class 解压设置 {
 			"超级背包",
 			"幸运女神",
 			"天赋武神",
-			"纯正怪物",
+			"点石成金",
 			"宝物空投",
 			"掉落几率",
 			"独自变强",
@@ -33,7 +33,7 @@ public class 解压设置 {
 			超级背包,
 			幸运女神,
 			天赋武神,
-			纯正怪物,
+			点石成金,
 			宝物空投,
 			掉落几率,
 			独自变强,

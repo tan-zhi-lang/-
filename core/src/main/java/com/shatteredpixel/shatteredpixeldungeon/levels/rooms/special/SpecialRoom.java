@@ -151,7 +151,7 @@ public abstract class SpecialRoom extends Room {
 		
 		} else {
 			
-			if (Dungeon.bossLevel(Dungeon.depth + 1)){
+			if (Dungeon.bossLevel(Dungeon.相对层数() + 1)){
 				floorSpecials.remove(WeakFloorRoom.class);
 			}
 

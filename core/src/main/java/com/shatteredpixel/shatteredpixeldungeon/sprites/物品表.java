@@ -927,6 +927,9 @@ public class 物品表 {
     public static final int 蜂蜜 = FOOD + 13;
     public static final int 噩梦粮食 = FOOD + 14;
     public static final int 纯净粮食 = FOOD + 15;
+    public static final int 红蘑菇 = FOOD + 16;
+    public static final int 蓝蘑菇 = FOOD + 17;
+    public static final int 绿蘑菇 = FOOD + 18;
 
     static {
         assignItemRect(MEAT, 15, 11);
@@ -945,6 +948,9 @@ public class 物品表 {
         assignItemRect(蜂蜜, 16, 10);
         assignItemRect(噩梦粮食, 7, 9);
         assignItemRect(纯净粮食, 7, 9);
+        assignItemRect(红蘑菇, 16, 14);
+        assignItemRect(蓝蘑菇, 16, 13);
+        assignItemRect(绿蘑菇, 16, 14);
     }
 
     private static final int HOLIDAY_FOOD = xy(0, 29);  //16 slots
@@ -991,6 +997,7 @@ public class 物品表 {
     public static final int SHARD = QUEST + 7;
     public static final int ESCAPE = QUEST + 8;
     public static final int 锻造锤 = QUEST + 9;
+    public static final int 秘银 = QUEST + 10;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -1003,6 +1010,7 @@ public class 物品表 {
         assignItemRect(SHARD, 8, 10);
         assignItemRect(ESCAPE,   8, 16);
         assignItemRect(锻造锤,   13, 12);
+        assignItemRect(秘银, 15);
     }
     private static final int BAGS = xy(0, 31);  //16 slots
     public static final int BACKPACK = BAGS;
@@ -1010,7 +1018,7 @@ public class 物品表 {
     public static final int HOLDER = BAGS + 2;
     public static final int BANDOLIER = BAGS + 3;
     public static final int HOLSTER = BAGS + 4;
-    public static final int 杂物袋 = BAGS + 5;
+    public static final int 宝物袋=BAGS+5;
 
     public static final int 水袋 = BAGS + 6;
     public static final int VIAL = BAGS + 7;
@@ -1023,7 +1031,7 @@ public class 物品表 {
         assignItemRect(HOLDER, 16);
         assignItemRect(BANDOLIER, 15, 16);
         assignItemRect(HOLSTER, 15, 16);
-        assignItemRect(杂物袋, 13, 14);
+        assignItemRect(宝物袋,13,14);
 
         assignItemRect(水袋, 16, 14);
         assignItemRect(VIAL, 12);

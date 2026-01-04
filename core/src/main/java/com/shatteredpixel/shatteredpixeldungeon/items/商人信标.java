@@ -128,7 +128,7 @@ public class 商人信标 extends Item {
 				if (item.数量()==1) {
 					
 					RedButton
-							btnSell = new RedButton(Messages.get(this,"sell",item.金币())) {
+							btnSell = new RedButton(Messages.get(this,"sell",item.价值提升())) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sell(item);
@@ -144,7 +144,7 @@ public class 商人信标 extends Item {
 					
 				} else {
 					
-					int priceAll = item.金币();
+					int priceAll = item.价值提升();
 					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.数量())) {
 						@Override
 						protected void onClick() {

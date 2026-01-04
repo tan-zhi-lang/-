@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -54,9 +55,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
@@ -70,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
@@ -92,6 +94,7 @@ import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
@@ -253,24 +256,26 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.区域层数(3)) {
 				addItemToSpawn(new 治疗药剂());
 			}
-			if(Dungeon.区域()==5&&Dungeon.区域层数(1)){
+			if(Dungeon.区域()==3&&Dungeon.区域层数(3)){
 				addItemToSpawn(new 进阶宝典());
 			}
 			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count==0){
 				addItemToSpawn(new 生命水晶());
 				Dungeon.LimitedDrops.生命水晶.count++;
 			}
-			if(Dungeon.玩法(玩法设置.速通地牢))
+			if(SPDSettings.customSeed().equals("速通地牢"))
 			if (Dungeon.区域层数(1)) {
 				addItemToSpawn( new 来去秘卷());
 				addItemToSpawn( new 来去秘卷());
 				addItemToSpawn( new 来去秘卷());
-				addItemToSpawn( new 升级卷轴());
+				
 				addItemToSpawn( new 升级卷轴());
 				addItemToSpawn( new 升级卷轴());
 				
 				addItemToSpawn( new 经验药剂());
 				addItemToSpawn( new 经验药剂());
+				addItemToSpawn( new 经验药剂());
+				
 				addItemToSpawn( new 力量药剂());
 				addItemToSpawn( new 力量药剂());
 			}
@@ -1476,6 +1481,28 @@ public abstract class Level implements Bundlable {
 						if (blocking[i] && (Dungeon.level.map[i] == Terrain.HIGH_GRASS || Dungeon.level.map[i] == Terrain.FURROWED_GRASS)) {
 							blocking[i] = false;
 						}
+					}
+				}
+			}
+			if(Dungeon.hero.belongings.attackingWeapon() instanceof 地裂镰){
+				if(blocking==null){
+					System.arraycopy(Dungeon.level.losBlocking,0,modifiableBlocking,0,modifiableBlocking.length);
+					blocking=modifiableBlocking;
+				}
+				for(int i=0;i<blocking.length;i++){
+					if(blocking[i]&&(Dungeon.level.map[i]==Terrain.WALL||Dungeon.level.map[i]==Terrain.WALL_DECO)){
+						blocking[i]=false;
+					}
+				}
+			}
+			if(Dungeon.系统(系统设置.透视系统)){
+				if(blocking==null){
+					System.arraycopy(Dungeon.level.losBlocking,0,modifiableBlocking,0,modifiableBlocking.length);
+					blocking=modifiableBlocking;
+				}
+				for(int i=0;i<blocking.length;i++){
+					if(blocking[i]){
+						blocking[i]=false;
 					}
 				}
 			}

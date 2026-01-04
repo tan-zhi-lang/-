@@ -4,12 +4,10 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -226,9 +224,6 @@ public class MobSpawner extends Actor {
 		if(Holiday.getCurrentHoliday()==Holiday.中元节){
 			rotation.add(Wraith.class);
 		}
-		if(Dungeon.解压(解压设置.纯正怪物)){
-			return;
-		}
 		if(Dungeon.玩法(玩法设置.鬼怨地牢)){
 			return;
 		}
@@ -277,9 +272,6 @@ public class MobSpawner extends Actor {
 				if (cl == 鬼怨.class)                cl = 仇鬼.class;
 				rotation.set(i, cl);
 				continue;
-			}
-			if(Dungeon.解压(解压设置.纯正怪物)){
-				break;
 			}
 			if (Random.Float() < altChance) {
 				Class<? extends Mob> cl = rotation.get(i);

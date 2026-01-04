@@ -195,7 +195,7 @@ public abstract class Wand extends Item {
 		
 		if (target != Dungeon.hero&&
 				Dungeon.hero.subClass == HeroSubClass.术士){
-			灵魂标记.延长(target,灵魂标记.class,灵魂标记.DURATION+(Dungeon.hero.天赋(Talent.职业精通)?10:5));
+			灵魂标记.延长(target,灵魂标记.class,灵魂标记.DURATION+(Dungeon.hero.职业精通()?10:5));
 		}
 	}
 
@@ -429,9 +429,6 @@ public abstract class Wand extends Item {
 			}
 		}
 		
-		if(Dungeon.系统(系统设置.虔诚物到)){
-			Dungeon.level.drop(Generator.random(),curUser.pos).sprite().drop();
-		}
 		
 		curCharges -= cursed ? 1 : chargesPerCast();
 
@@ -541,7 +538,7 @@ public abstract class Wand extends Item {
 
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.025f+1);
+		return Math.round(金币()*0.05f+1+等级());
 	}
 	private static final String USES_LEFT_TO_ID     = "uses_left_to_id";
 	private static final String CUR_CHARGES         = "curCharges";

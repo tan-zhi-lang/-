@@ -13,7 +13,7 @@ public class 长鞭 extends Weapon {
 		技能=new 大杀四方();
 		
 		
-		延迟= 1.25f;
+		延迟= 1.35f;
 		tier = 3;
 		范围 = 3;    //lots of extra reach
 		命中=0.75f;

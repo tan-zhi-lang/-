@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
@@ -31,9 +32,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
@@ -43,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.轮刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
@@ -129,12 +131,13 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(臻冰刃.class,0);
 		ANGULAR_SPEEDS.put(无尽之刃.class,0);
 		ANGULAR_SPEEDS.put(蜜剑.class,0);
+		ANGULAR_SPEEDS.put(火焰剑.class,0);
 		ANGULAR_SPEEDS.put(流火.class,0);
 		ANGULAR_SPEEDS.put(饮血之剑.class,0);
 		ANGULAR_SPEEDS.put(硬头锤.class,0);
 		ANGULAR_SPEEDS.put(权杖.class,0);
 		ANGULAR_SPEEDS.put(战锤.class,0);
-		ANGULAR_SPEEDS.put(短柄镰.class,0);
+		
 		ANGULAR_SPEEDS.put(巨斧.class,0);
 		ANGULAR_SPEEDS.put(武士刀.class,0);
 		ANGULAR_SPEEDS.put(符文之刃.class,0);
@@ -150,9 +153,11 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(GnollGeomancer.Boulder.class,   90);
 		
 		ANGULAR_SPEEDS.put(回旋镖.class,1440);
+		ANGULAR_SPEEDS.put(轮刃.class,1440);
 		ANGULAR_SPEEDS.put(流星索.class,1440);
 		
 		ANGULAR_SPEEDS.put(手里剑.class,2160);
+		ANGULAR_SPEEDS.put(寒冰镖.class,2160);
 		ANGULAR_SPEEDS.put(TenguSprite.TenguShuriken.class, 2160);
 	}
 

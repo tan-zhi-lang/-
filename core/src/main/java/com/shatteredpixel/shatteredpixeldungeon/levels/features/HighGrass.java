@@ -16,6 +16,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.地牢浆果;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.PetrifiedSeed;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -123,7 +126,7 @@ public class HighGrass {
 				}
 				
 				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					level.drop(new 地牢浆果(), pos).sprite().drop();
+					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
 				}
 				
 				// Dew, scales from 1/6 to 1/4
@@ -258,9 +261,9 @@ public class HighGrass {
 				}
 				
 				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					level.drop(new 地牢浆果(), pos).sprite().drop();
-					level.drop(new 地牢浆果(), pos).sprite().drop();
-					level.drop(new 地牢浆果(), pos).sprite().drop();
+					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
 				}
 				
 				// Dew, scales from 1/6 to 1/4

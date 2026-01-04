@@ -48,7 +48,11 @@ public abstract class InventoryStone extends Runestone {
 	}
 	
 	protected void useAnimation() {
-		curUser.spend( 1f );
+		if(快速使用){
+			curUser.spend( 0 );
+		}else{
+			curUser.spend( 1f );
+		}
 		curUser.busy();
 		curUser.sprite.operate();
 

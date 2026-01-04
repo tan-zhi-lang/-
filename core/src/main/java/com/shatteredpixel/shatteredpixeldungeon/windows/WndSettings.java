@@ -290,7 +290,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 								}
 							};
 							chkFont.checked(SPDSettings.systemFont());
-							add(chkFont);
+//							add(chkFont);
 							
 							chkVibrate = new CheckBox(Messages.get(DisplayTab.class, "vibration")){
 								@Override
@@ -750,6 +750,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 						RenderedTextBlock 装备武器str;
 						CheckBox 主要战技;
 						RenderedTextBlock 主要战技str;
+						CheckBox 从不过节;
+						RenderedTextBlock 从不过节str;
 						{
 							
 							物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
@@ -834,6 +836,20 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(主要战技str);
 							
 							
+							从不过节 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "从不过节")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.从不过节(checked());
+								}
+							};
+							从不过节.checked(SPDSettings.从不过节());
+							add(从不过节);
+							从不过节str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "从不过节str"), 5);
+							从不过节str.hardlight(0x888888);
+							add(从不过节str);
+							
+							
 							resize(WIDTH_P, 0);
 							
 							物品命名.setRect(0,  GAP, width, BTN_HEIGHT);
@@ -860,7 +876,11 @@ public class WndSettings extends WndTabbed {//WndSettings
 							主要战技str.maxWidth(width);
 							主要战技str.setPos(0, 主要战技.bottom()+1);
 							
-							resize(WIDTH_P, (int) 主要战技str.bottom());
+							从不过节.setRect(0,  主要战技str.bottom()+GAP, width, BTN_HEIGHT);
+							从不过节str.maxWidth(width);
+							从不过节str.setPos(0, 从不过节.bottom()+1);
+							
+							resize(WIDTH_P, (int) 从不过节str.bottom());
 
 						}
 					});

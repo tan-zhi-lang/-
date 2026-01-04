@@ -14,9 +14,4 @@ public class DarkGold extends Item {
 		特别= true;
 		物品 = true;
 	}
-	
-	@Override
-	public int 能量() {
-		return 25;
-	}
 }

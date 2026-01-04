@@ -29,7 +29,7 @@ public class Wraith extends Mob {
 	{
 		spriteClass = WraithSprite.class;
 		
-		生命 = 最大生命 = Dungeon.区域(2);
+		生命 = 最大生命 = Dungeon.区域(1);
 
 		最大等级 = -2;
 		

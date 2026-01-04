@@ -37,7 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
@@ -268,7 +268,7 @@ public enum Catalog {
 								镐子.class,
 								锻造锤.class,
 								商人信标.class,
-								水袋.class,杂物袋.class,绒布袋.class,
+								水袋.class,宝物袋.class,绒布袋.class,
 								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class,Amulet.class);
 
 

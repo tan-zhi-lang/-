@@ -80,8 +80,8 @@ public class Food extends Item {
 	}
 
 	public float eatingTime(){
-		if (Dungeon.hero.heroClass(HeroClass.学士)){
-			return TIME_TO_EAT - 2;
+		if (快速使用){
+			return 0;
 		} else {
 			return TIME_TO_EAT;
 		}

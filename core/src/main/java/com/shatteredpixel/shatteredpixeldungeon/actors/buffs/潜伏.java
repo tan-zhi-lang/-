@@ -117,7 +117,7 @@ public class 潜伏 extends Buff implements ActionIndicator.Action {
 	public boolean act() {
 		if (target.invisible > 0){
 			turnsInvis++;
-			if(target instanceof Hero hero&&hero.天赋(Talent.职业精通)){
+			if(target instanceof Hero hero&&hero.职业精通()){
 				turnsInvis++;
 			}
 			if (AttackLevel.getLvl(turnsInvis).blinkDistance() > 0 && target == Dungeon.hero){

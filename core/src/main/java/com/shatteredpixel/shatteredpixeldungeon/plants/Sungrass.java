@@ -27,7 +27,7 @@ public class Sungrass extends Plant {
 	public void activate( Char ch ) {
 		
 		if (ch != null){
-			if (ch instanceof Hero hero&&hero.天赋(Talent.职业精通)&&hero.subClass==HeroSubClass.守望者){
+			if (ch instanceof Hero hero&&hero.职业精通()&&hero.subClass==HeroSubClass.守望者){
 				Buff.施加(ch, Healing.class).setHeal(ch.最大生命, 0, 1);
 			} else {
 				Buff.施加(ch, Health.class).boost(ch.最大生命);

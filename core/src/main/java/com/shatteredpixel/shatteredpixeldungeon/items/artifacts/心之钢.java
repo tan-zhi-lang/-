@@ -41,7 +41,7 @@ public class 心之钢 extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-			charge = Math.min(charge+Math.round(3*amount),chargeCap);
+			charge = Math.min(charge+Math.round(2*amount),chargeCap);
 			updateQuickslot();
 	}
 	
@@ -56,7 +56,7 @@ public class 心之钢 extends Artifact {
 
 		@Override
 		public boolean act(){
-			charge = Math.min(charge+Math.round(3*能量之戒.artifactChargeMultiplier(target)),chargeCap);
+			charge = Math.min(charge+Math.round(2*能量之戒.artifactChargeMultiplier(target)),chargeCap);
 			updateQuickslot();
 			spend(TICK);
 			return true;
@@ -65,7 +65,8 @@ public class 心之钢 extends Artifact {
 		public int proc(int damage, Char attacker, Char defender){
 			if(charge>=chargeCap){
 				if(attacker instanceof Hero hero){
-					GLog.p("你的心之钢为你增加了"+(attacker.最大生命(0.1f)+等级()+1)+"这次物理攻击伤害，并增加了1最大生命。");
+					//1.6x游戏秒=回合
+					GLog.p("心之钢为这次物理攻击+"+(attacker.最大生命(0.1f)+等级()+1)+"伤害，并增加了1最大生命。");
 					hero.大小=1+等级()*0.015f;
 					damage+=attacker.最大生命(0.1f)+等级()+1;
 					心之钢生命++;

@@ -105,7 +105,7 @@ public class 能量之戒 extends Ring {
 		float bonus = (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
 
 		if (target instanceof Hero hero){
-		
+			if(hero.heroClass(HeroClass.DUELIST))bonus+=0.2f;
 		}
 		
 		if(bonus*0.7f>=1)bonus*=0.7f;

@@ -15,8 +15,8 @@ public class 地裂镰 extends Weapon{
 		技能=new 无情铁手();
 		双手=true;
 		tier = 5;
-		延迟= 1.35f;
-		伤害= 1.5f;
+		延迟= 1.25f;
+		伤害= 1.35f;
 		命中=0.75f;
 	}
 

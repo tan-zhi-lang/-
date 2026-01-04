@@ -30,7 +30,7 @@ public class Brute extends Mob {
 		经验 = 8;
 		最大等级 = 16;
 		
-		loot = Gold.class;
+		loot = new Gold().random();
 		lootChance = 0.5f;
 		properties.add(Property.动物);
 	}

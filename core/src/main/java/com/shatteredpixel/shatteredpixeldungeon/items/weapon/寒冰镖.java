@@ -4,7 +4,9 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
@@ -20,6 +22,13 @@ public class 寒冰镖 extends Weapon{
 		伏击=0.67f;
 		命中=0.85f;
 		tier = 1;
+	}
+	
+	@Override
+	public int 投掷攻击时(Char attacker,Char defender,int damage){
+		if (attacker.buff(ShurikenInstantTracker.class) == null)
+		Buff.施加(defender,Frost.class,Frost.DURATION);
+		return super.投掷攻击时(attacker,defender,damage);
 	}
 	
 	@Override

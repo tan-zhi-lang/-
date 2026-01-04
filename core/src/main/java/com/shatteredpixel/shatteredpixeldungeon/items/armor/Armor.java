@@ -55,6 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
@@ -177,9 +178,6 @@ public class Armor extends EquipableItem {
 			actions.remove(AC_EQUIP);
 		}
 		if(hero.heroClass(HeroClass.凌云)){
-			actions.remove(AC_EQUIP);
-		}
-		if(Dungeon.炼狱(炼狱设置.诅咒装备)&&(等级()>5||tier>3)) {
 			actions.remove(AC_EQUIP);
 		}
 		return actions;
@@ -580,12 +578,18 @@ public class Armor extends EquipableItem {
 			
 			if (Dungeon.hero() && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
+				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
+					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
+				}
 			}
 		} else {
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(0), tier, 最小防御(0), 最大防御(0));
 
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "probably_too_heavy");
+				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
+					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
+				}
 			}
 		}
 
@@ -734,7 +738,7 @@ public class Armor extends EquipableItem {
 	}
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.025f+1);
+		return Math.round(金币()*0.05f+1+等级());
 	}
 	public Armor inscribe( Glyph glyph ) {
 		if (glyph == null || !glyph.curse()) curseInfusionBonus = false;

@@ -35,7 +35,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		if (item.数量()==1) {
 
-			RedButton btnEnergize = new RedButton( Messages.get(this, "energize", item.能量()) ) {
+			RedButton btnEnergize = new RedButton( Messages.get(this, "energize", item.能量提升()) ) {
 				@Override
 				protected void onClick() {
 					energizeAll( item );
@@ -50,7 +50,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		} else {
 
-			int energyAll = item.能量();
+			int energyAll = item.能量提升();
 			RedButton btnEnergize1 = new RedButton( Messages.get(this, "energize_1", energyAll / item.数量()) ) {
 				@Override
 				protected void onClick() {

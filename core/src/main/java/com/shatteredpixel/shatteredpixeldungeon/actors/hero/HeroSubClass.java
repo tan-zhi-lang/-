@@ -21,12 +21,12 @@ public enum HeroSubClass {
 	术士(HeroIcon.WARLOCK),
 	
 	刺客(HeroIcon.ASSASSIN),
-	疾行者(HeroIcon.FREERUNNER),
+	神偷无影(HeroIcon.神偷无影),
 	
 	狙击手(HeroIcon.SNIPER),
 	守望者(HeroIcon.WARDEN),
 
-	勇士(HeroIcon.CHAMPION),
+	武器大师(HeroIcon.CHAMPION),
 	武者(HeroIcon.MONK),
 
 	PRIEST(HeroIcon.PRIEST),
@@ -38,9 +38,13 @@ public enum HeroSubClass {
 	健身猛男(HeroIcon.NONE),
 	盾之勇者(HeroIcon.盾之勇者),
 	
+	灵月杀手(HeroIcon.灵月杀手),
 	鬼师(HeroIcon.NONE),
 	
 	养殖专家(HeroIcon.养殖专家),
+	
+	疾行者(HeroIcon.FREERUNNER),
+	
 	征服者(HeroIcon.征服者),
 	
 	元素忍者(HeroIcon.NONE),

@@ -300,6 +300,87 @@ public class Dungeon {
 		Toolbar.swappedQuickslots = false;
 		
 		depth = 1;
+		switch(SPDSettings.customSeed()){
+			case "1调试":
+				depth = 1;
+				break;
+			case "2调试":
+				depth = 2;
+				break;
+			case "3调试":
+				depth = 3;
+				break;
+			case "4调试":
+				depth = 4;
+				break;
+			case "5调试":
+				depth = 5;
+				break;
+			case "6调试":
+				depth = 6;
+				break;
+			case "7调试":
+				depth = 7;
+				break;
+			case "8调试":
+				depth = 8;
+				break;
+			case "9调试":
+				depth = 9;
+				break;
+			case "10调试":
+				depth = 10;
+				break;
+			case "11调试":
+				depth = 11;
+				break;
+			case "12调试":
+				depth = 12;
+				break;
+			case "13调试":
+				depth = 13;
+				break;
+			case "14调试":
+				depth = 14;
+				break;
+			case "15调试":
+				depth = 15;
+				break;
+			case "16调试":
+				depth = 16;
+				break;
+			case "17调试":
+				depth = 17;
+				break;
+			case "18调试":
+				depth = 18;
+				break;
+			case "19调试":
+				depth = 19;
+				break;
+			case "20调试":
+				depth = 20;
+				break;
+			case "21调试":
+				depth = 21;
+				break;
+			case "22调试":
+				depth = 22;
+				break;
+			case "23调试":
+				depth = 23;
+				break;
+			case "24调试":
+				depth = 24;
+				break;
+			case "25调试":
+				depth = 25;
+				break;
+			case "26调试":
+				depth = 26;
+				break;
+		}
+		
 		branch = 0;
 		generatedLevels.clear();
 		
@@ -644,7 +725,7 @@ public class Dungeon {
 				|| Dungeon.level instanceof VaultLevel
 				|| Dungeon.level instanceof LastLevel
 //				|| Dungeon.bossLevel(Dungeon.depth-1)
-				|| Dungeon.bossLevel(Dungeon.depth)
+				|| Dungeon.bossLevel(Dungeon.相对层数())
 //				|| Dungeon.bossLevel(Dungeon.depth+1)
 		){
 			return false;
@@ -737,16 +818,31 @@ public class Dungeon {
 	}
 	
 	public static boolean 升级卷轴掉落() {
-		int souLeftThisSet;
-		//3 SOU each floor set
-		int 每层数量=3;
+//		int souLeftThisSet;
+//		//3 SOU each floor set
+//		int 每层数量=3;
+//
+//		souLeftThisSet = 每层数量 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 每层数量);
+//		if (souLeftThisSet <= 0) return false;
+//
+//		int floorThisSet = (depth % 5);
+//		//chance is floors left / scrolls left
+//		return Random.Int(5 - floorThisSet) < souLeftThisSet;
 		
-		souLeftThisSet = 每层数量 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 每层数量);
-		if (souLeftThisSet <= 0) return false;
-
+		
+		//2 POS each floor set
+		int 每层数量=2;
+		int posLeftThisSet = 每层数量 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 每层数量);
+		if (posLeftThisSet <= 0) return false;
+		
 		int floorThisSet = (depth % 5);
-		//chance is floors left / scrolls left
-		return Random.Int(5 - floorThisSet) < souLeftThisSet;
+		
+		//pos drops every two floors, (numbers 1-2, and 3-4) with a 50% chance for the earlier one each time.
+		int targetPOSLeft = 2 - floorThisSet/2;
+		if (floorThisSet % 2 == 1 && Random.Int(2) == 0) targetPOSLeft --;
+		
+		if (targetPOSLeft < posLeftThisSet) return true;
+		else return false;
 	}
 	public static boolean asNeeded() {
 		//1 AS each floor set

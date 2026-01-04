@@ -57,6 +57,25 @@ public class Blacksmith extends NPC {
 	}
 	
 	@Override
+	public int 最大闪避(Char enemy ) {
+		return Char.INFINITE;
+	}
+	
+	@Override
+	public void 受伤时(int dmg, Object src ) {
+		//do nothing
+	}
+	
+	@Override
+	public boolean add( Buff buff ) {
+		return false;
+	}
+	
+	@Override
+	public boolean reset() {
+		return true;
+	}
+	@Override
 	public boolean interact(Char c) {
 		
 		sprite.turnTo( pos, c.pos );
@@ -161,25 +180,6 @@ public class Blacksmith extends NPC {
 		});
 	}
 
-	@Override
-	public int 最大闪避(Char enemy ) {
-		return Char.INFINITE;
-	}
-	
-	@Override
-	public void 受伤时(int dmg, Object src ) {
-		//do nothing
-	}
-
-	@Override
-	public boolean add( Buff buff ) {
-		return false;
-	}
-	
-	@Override
-	public boolean reset() {
-		return true;
-	}
 
 	public static class Quest {
 

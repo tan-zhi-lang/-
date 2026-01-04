@@ -8,23 +8,23 @@ public class 系统设置{
 	public static final int 生命成长=1;
 	public static final int 防御成长=2;
 	public static final int 资产破亿=4;
-	public static final int 经验成长=8;
+	public static final int 透视系统=8;
 	public static final int 时间能力=16;
 	public static final int 金币能力=32;
-	public static final int 虔诚物到=64;
+	public static final int 无限资源=64;
 	public static final int 波罗神盾=128;
 	public static final int 攻击成长=256;
 	public static final int MAX_VALUE=511;
 	
 	public static final String[] NAME_IDS={"生命成长","防御成长","资产破亿",
-										   "经验成长",
+										   "透视系统",
 										   
-										   "时间能力","金币能力","虔诚物到",
+										   "时间能力","金币能力","无限资源",
 										   "波罗神盾","攻击成长",};
 	
-	public static final int[] MASKS={生命成长,防御成长,资产破亿,经验成长,
+	public static final int[] MASKS={生命成长,防御成长,资产破亿,透视系统,
 									 
-									 时间能力,金币能力,虔诚物到,波罗神盾,
+									 时间能力,金币能力,无限资源,波罗神盾,
 									 攻击成长,};
 	
 	public static int 使用(){

@@ -41,7 +41,7 @@ public class 升级卷轴 extends InventoryScroll {
 
 	@Override
 	protected void onItemSelected( Item item ) {
-
+		
 		GameScene.show(new WndUpgrade(this, item, identifiedByUse));
 
 	}
@@ -56,11 +56,9 @@ public class 升级卷轴 extends InventoryScroll {
 		upgrade( curUser );
 		Badges.解锁学士();
 		Degrade.detach( curUser, Degrade.class );
-		if(Dungeon.炼狱(炼狱设置.诅咒装备)){
-			return this;
-		}
 		//logic for telling the user when item properties change from upgrades
 		//...yes this is rather messy
+		
 		if (item instanceof Weapon){
 			Weapon w = (Weapon) item;
 			boolean wasCursed = w.cursed;

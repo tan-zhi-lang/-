@@ -32,7 +32,7 @@ public class Fadeleaf extends Plant {
 			
 			hero.curAction = null;
 			
-			if (hero.天赋(Talent.职业精通)&&hero.subClass==HeroSubClass.守望者&&Dungeon.interfloorTeleportAllowed()){
+			if (hero.职业精通()&&hero.subClass==HeroSubClass.守望者&&Dungeon.interfloorTeleportAllowed()){
 
 				Level.beforeTransition();
 				InterlevelScene.mode = InterlevelScene.Mode.RETURN;

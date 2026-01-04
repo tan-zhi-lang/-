@@ -14,7 +14,7 @@ public class 金纹拐 extends Weapon {
 		
 		技能=new 防御姿态();
 		
-		伤害= 0.59f;
+		伤害= 0.68f;
 		tier = 5;
 	}
 

@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 
 public class Wnd选择肌肉记忆 extends Window {
 
@@ -33,7 +34,10 @@ public class Wnd选择肌肉记忆 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
+				
+				if(!Dungeon.炼狱(炼狱设置.体弱多病))
 				Dungeon.hero.武器力量+=2;
+				
 				hide();
 			}
 		};
@@ -49,7 +53,10 @@ public class Wnd选择肌肉记忆 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
+				
+				if(!Dungeon.炼狱(炼狱设置.体弱多病))
 				Dungeon.hero.护甲力量+=2;
+				
 				hide();
 			}
 		};

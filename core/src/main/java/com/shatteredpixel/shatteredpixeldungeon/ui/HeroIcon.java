@@ -29,7 +29,7 @@ public class HeroIcon extends Image {
 	public static final int WARLOCK     = BATTLEMAGE+1;
 	
 	public static final int ASSASSIN    = 2*8;
-	public static final int FREERUNNER  = ASSASSIN+1;
+	public static final int 神偷无影    = ASSASSIN+1;
 	
 	public static final int SNIPER      = 3*8;
 	public static final int WARDEN      = SNIPER+1;
@@ -44,8 +44,13 @@ public class HeroIcon extends Image {
 	public static final int 黑魔导师     = 神秘学者+1;
 	
 	public static final int 盾之勇者     = 7*8;
-	public static final int 养殖专家     = 7*8;
-	public static final int 征服者     = 9*8;
+	public static final int 灵月杀手     = 8*8;
+	
+	public static final int FREERUNNER  = 10*8;
+	
+	public static final int 征服者     = 11*8;
+	
+	public static final int 养殖专家     = 12*8;
 	
 	public static final int 黑白双子     = 20*8;
 	public static final int 金刚独狼     = 23*8;

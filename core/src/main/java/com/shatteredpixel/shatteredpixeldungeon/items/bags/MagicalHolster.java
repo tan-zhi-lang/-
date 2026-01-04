@@ -39,6 +39,9 @@ public class MagicalHolster extends Bag {
 					if (item instanceof Wand) {
 						((Wand) item).charge(owner, HOLSTER_SCALE_FACTOR);
 					}
+					if (item instanceof Weapon) {
+						((Weapon) item).charge(owner, HOLSTER_SCALE_FACTOR);
+					}
 				}
 			}
 			return true;

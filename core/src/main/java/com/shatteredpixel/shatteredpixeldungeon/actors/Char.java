@@ -119,6 +119,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kineti
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
@@ -156,16 +157,15 @@ public abstract class Char extends Actor {
 	public int 最大生命;
 	public int 生命;
 	public int 护甲=0;
-	public int 每2次攻击=1;
-	public int 每3次攻击=1;
 	public int x次必暴=0;
 	public int 变脸=0;
 	public int 未命中=0;
 
 	public float 大小=1;
-	public boolean 第一次攻击=true;
-	public boolean 第一次防御 =true;
-	public boolean 第一次背袭 =true;
+	public boolean 史莱姆=false;
+	public int 第x次攻击=0;
+	public int 第x次防御 =0;
+	public int 第x次背袭 =0;
 	public boolean 产卵=true;
 	public boolean 必暴 =false;
 	public boolean 必中 =false;
@@ -204,12 +204,12 @@ public abstract class Char extends Actor {
 			sprite.hideEmo();
 		}
 		Dungeon.level.落石(this);
-		if((int)Math.ceil(生命流动)>=1){
+		if((int)Math.floor(生命流动)>=1){
 			回血(1);
-			生命流动-=(int)Math.ceil(生命流动);
-		}else if(-(int)Math.ceil(生命流动)>=1){
-			受伤((int)Math.ceil(生命流动));
-			生命流动-=(int)Math.ceil(生命流动);
+			生命流动-=(int)Math.floor(生命流动);
+		}else if(-(int)Math.floor(生命流动)>=1){
+			受伤((int)Math.floor(生命流动));
+			生命流动-=(int)Math.floor(生命流动);
 		}
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
 			fieldOfView = new boolean[Dungeon.level.length()];
@@ -356,14 +356,12 @@ public abstract class Char extends Actor {
 	protected static final String TAG_HT    = "HT";
 	protected static final String 护甲x    = "护甲";
 	protected static final String BUFFS	    = "buffs";
-	protected static final String 每2次攻击x 	    = "每2次攻击";
-	protected static final String 每3次攻击x 	    = "每3次攻击";
 	protected static final String x次必暴x 	    = "x次必暴";
 	protected static final String 变脸x 	    = "变脸";
 	protected static final String 未命中x 	    = "未命中";
-	protected static final String 第一次攻击x 	    = "第一次攻击";
-	protected static final String 第一次防御x 	    = "第一次防御";
-	protected static final String 第一次背袭x 	    = "第一次背袭";
+	protected static final String 第x次攻击x 	    = "第x次攻击";
+	protected static final String 第x次防御x 	    = "第x次防御";
+	protected static final String 第x次背袭x 	    = "第x次背袭";
 	protected static final String 产卵x 	    = "产卵";
 	protected static final String 生命流动x 	    = "生命流动";
 	protected static final String 大小x 	    = "大小";
@@ -378,14 +376,12 @@ public abstract class Char extends Actor {
 		bundle.put( TAG_HT, 最大生命);
 		bundle.put( 护甲x, 护甲);
 		bundle.put( BUFFS, buffs );
-		bundle.put( 每2次攻击x, 每2次攻击);
-		bundle.put( 每3次攻击x, 每3次攻击);
 		bundle.put( x次必暴x, x次必暴);
 		bundle.put( 变脸x, 变脸);
 		bundle.put( 未命中x, 未命中);
-		bundle.put( 第一次攻击x, 第一次攻击);
-		bundle.put( 第一次防御x, 第一次防御);
-		bundle.put( 第一次背袭x, 第一次背袭);
+		bundle.put( 第x次攻击x, 第x次攻击);
+		bundle.put( 第x次防御x, 第x次防御);
+		bundle.put( 第x次背袭x, 第x次背袭);
 		bundle.put( 产卵x, 产卵);
 		bundle.put( 生命流动x, 生命流动);
 		bundle.put( 大小x, 大小);
@@ -400,14 +396,12 @@ public abstract class Char extends Actor {
 		生命 = bundle.getInt( TAG_HP );
 		最大生命 = bundle.getInt( TAG_HT );
 		护甲 = bundle.getInt( 护甲x );
-		每2次攻击 = bundle.getInt( 每2次攻击x );
-		每3次攻击 = bundle.getInt( 每3次攻击x );
 		x次必暴 = bundle.getInt( x次必暴x );
 		变脸 = bundle.getInt( 变脸x );
 		未命中 = bundle.getInt( 未命中x );
-		第一次攻击 = bundle.getBoolean( 第一次攻击x );
-		第一次防御 = bundle.getBoolean( 第一次防御x );
-		第一次背袭 = bundle.getBoolean( 第一次背袭x );
+		第x次攻击 = bundle.getInt( 第x次攻击x );
+		第x次防御 = bundle.getInt( 第x次防御x );
+		第x次背袭 = bundle.getInt( 第x次背袭x );
 		产卵 = bundle.getBoolean( 产卵x );
 		生命流动 = bundle.getFloat( 生命流动x );
 		大小 = bundle.getFloat( 大小x );
@@ -549,8 +543,8 @@ public abstract class Char extends Actor {
 					dmg *= 0.5f;
 				}
 			}
-			//原版是先防御时后攻击时
-			int effectiveDamage = 攻击时(enemy, Math.round(dmg));
+			
+			int effectiveDamage = enemy.防御时( this, Math.round(dmg) );
 			//do not trigger on-hit logic if defenseProc returned a negative value
 			if (effectiveDamage >= 0) {
 				//LOL护甲
@@ -566,8 +560,8 @@ public abstract class Char extends Actor {
 				if (enemy.buff(Vulnerable.class) != null) {
 					effectiveDamage *= 1.33f;
 				}
-
-				effectiveDamage = enemy.防御时( this, effectiveDamage );
+				
+				effectiveDamage = 攻击时(enemy, effectiveDamage);
 			}
 			if (visibleFight) {
 				if (effectiveDamage > 0 || !enemy.blockSound(Random.Float(0.96f, 1.05f))) {
@@ -670,6 +664,9 @@ public abstract class Char extends Actor {
 		float defStat = Random.Float(defender.最小闪避( attacker ),defender.最大闪避( attacker ));
 		
 		if ( attacker instanceof Hero hero) {
+			if (magic&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.法伤)){
+				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.法伤);
+			}
 			if(defender.恶魔亡灵()&&hero.heroClass(HeroClass.道士)){
 				defStat=0;
 			}
@@ -842,7 +839,7 @@ public abstract class Char extends Actor {
 		return 1.45f;
 	}
 	public int 暴击(final Char enemy,int dmg){
-		if((必暴||算法.概率学(暴击率()))&&enemy.第一次防御){
+		if((必暴||算法.概率学(暴击率()))){
 			dmg=Math.round(dmg*暴击伤害());
 			必暴=false;
 			x次必暴=0;
@@ -852,7 +849,7 @@ public abstract class Char extends Actor {
 			}
 		}else {
 			x次必暴++;
-			if(暴击率()!=0&&x次必暴>=400/暴击率()){
+			if(暴击率()!=0&&x次必暴>=600/暴击率()){
 				必暴=true;
 				sprite.说("手感火热！");
 			}
@@ -867,22 +864,14 @@ public abstract class Char extends Actor {
 		if(this instanceof Hero hero){
 			视野敌人=hero.视野敌人();
 		}
-		if(每2次攻击>=3||视野敌人){
-			每2次攻击=1;
-		}else {
-			每2次攻击++;
-		}
-		if(每3次攻击>=4||视野敌人){
-			每3次攻击=1;
-		}else {
-			每3次攻击++;
-		}
+		
+		第x次攻击++;
+		
 		damage=暴击(enemy,damage);
 		
 		if(吸血()>0){
 			回血(damage * 吸血());
 		}
-		第一次攻击=false;
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			buff.onAttackProc( enemy );
 		}
@@ -890,8 +879,7 @@ public abstract class Char extends Actor {
 	}
 	
 	public int 防御时(Char enemy, int damage ) {
-		damage++;
-		第一次防御 =false;
+		enemy.第x次防御++;
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (armor != null) {
 			damage = armor.absorb( damage );
@@ -905,7 +893,8 @@ public abstract class Char extends Actor {
 				damage = Dungeon.hero.belongings.armor().防御时( enemy, this, damage );
 			}
 		}
-		
+		if(史莱姆)
+		damage=算法.固衰(damage,5);
 		damage=护甲伤害(damage);
 
 		return damage;
@@ -935,6 +924,17 @@ public abstract class Char extends Actor {
 		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
 		speed *= Flow.speedBoost(this, glyphLevel(Flow.class));
 		speed *= Bulk.speedBoost(this, glyphLevel(Bulk.class));
+		if(this instanceof Hero hero){
+			if(hero.英精英雄==3)
+				if ((Dungeon.level.map[hero.pos] != Terrain.DOOR && Dungeon.level.map[hero.pos] != Terrain.OPEN_DOOR )) {
+					return 1;
+				} else {
+					if (hero.sprite != null){
+						hero.sprite.emitter().startDelayed(ShadowParticle.UP,0.02f,5,0.05f);
+					}
+					speed/=2;
+				}
+		}
 		if(移速翻倍){
 			speed*=2;
 		}
@@ -1625,6 +1625,9 @@ public abstract class Char extends Actor {
 	}
 	public int 护甲伤害(int dmg){
 		if(dmg>0&&护甲>0){
+			if (护甲<=最大护甲()/2&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
+				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.护甲);
+			}
 			if(护甲>=dmg){
 				护甲(-dmg);
 				dmg=0;
@@ -1689,14 +1692,20 @@ public abstract class Char extends Actor {
 	public void 回血(float x){
 		float x2=x*治疗效果();
 		if(x2>=1){
-			生命=Math.min(生命+(int)Math.ceil(x2),最大生命);
-		}else if(-x2>=1){
-			受伤();
-		}
-		if (Dungeon.level.heroFOV[pos]){
-			if(sprite!=null&&sprite.visible&&生命>0&&x2>0){
-				sprite.showStatusWithIcon(CharSprite.增强,(int)Math.ceil(x2),FloatingText.HEALING);
+			生命=Math.min(生命+(int)Math.floor(x2),最大生命);
+			
+			if (Dungeon.level.heroFOV[pos]){
+				if(sprite!=null&&sprite.visible&&生命>0&&x2>0){
+					sprite.showStatusWithIcon(CharSprite.增强,(int)Math.floor(x2),FloatingText.HEALING);
+				}
 			}
+			
+			if((x-(int)Math.floor(x2))>0)
+			生命流动+=x-(int)Math.floor(x2);
+		}else if(-x2>=1){
+			受伤((int)Math.floor(x2));
+			if((x-(int)Math.floor(x2))<0)
+			生命流动-=x-(int)Math.floor(x2);
 		}
 	}
 

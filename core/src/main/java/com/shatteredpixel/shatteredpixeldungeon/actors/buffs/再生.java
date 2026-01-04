@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
@@ -63,15 +62,15 @@ public class 再生 extends Buff {
 		}
 
 				float 延迟= REGENERATION_DELAY;
-		if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
-			if (chaliceCursed) {
-				延迟*= 1.5f;
-			} else {
-				//15% boost at +0, scaling to a 500% boost at +10
-				延迟-=1.33f+chaliceLevel*0.667f;
-				延迟/= 能量之戒.artifactChargeMultiplier(target);
+			if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
+				if (chaliceCursed) {
+					延迟*= 1.5f;
+				} else {
+					//15% boost at +0, scaling to a 500% boost at +10
+					延迟-=1.33f+chaliceLevel*0.667f;
+					延迟/= 能量之戒.artifactChargeMultiplier(target);
+				}
 			}
-		}
 		
 			//salt cube is turned off while regen is disabled.
 			if (target.buff(LockedFloor.class) == null) {
@@ -82,13 +81,12 @@ public class 再生 extends Buff {
 
 				if (partialRegen >= 1) {
 					if(target instanceof Hero hero){
+						
 						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
-							float x=partialRegen
-								  +hero.天赋点数(Talent.背水一战,3)
-								  -(hero.heroClass(HeroClass.血鬼)?0.5f:0);
+							float x=partialRegen-(hero.heroClass(HeroClass.血鬼)?0.5f:0);
 							hero.回血(x);
 						}
-						partialRegen -= partialRegen;
+						partialRegen=0;
 						if (hero.满血()) {
 							hero.resting = false;
 						}

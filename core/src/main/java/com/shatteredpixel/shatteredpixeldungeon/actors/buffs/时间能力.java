@@ -122,7 +122,7 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 	public void doAction() {
 		if(target instanceof Hero hero){
 			
-			Buff.施加(target,时光沙漏.timeFreeze.class).processTime(时间能力*(1+(hero.天赋(Talent.职业精通)?0.25f:0)+hero.天赋点数(Talent.时间控制,0.25f)));
+			Buff.施加(target,时光沙漏.timeFreeze.class).processTime(时间能力*(1+(hero.职业精通()?0.25f:0)+hero.天赋点数(Talent.时间控制,0.25f)));
 		}
 		
 		//cooldown is functionally 10+2*stacks when active effect ends

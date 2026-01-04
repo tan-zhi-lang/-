@@ -200,7 +200,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public void doAction() {
-		if(target instanceof Hero hero&&hero.天赋(Talent.职业精通)){
+		if(target instanceof Hero hero&&hero.职业精通()){
 			freerunTurns = momentumStacks*2;
 		}else{
 			freerunTurns = momentumStacks;

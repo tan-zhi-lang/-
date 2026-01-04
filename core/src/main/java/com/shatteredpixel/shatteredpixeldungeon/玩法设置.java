@@ -6,11 +6,11 @@ public class 玩法设置 {
 
 	//Some of these internal IDs are outdated and don't represent what these challenges do
 	public static final int 修罗血场				= 1;
-	public static final int 从不过节= 2;
+	public static final int 英精英雄= 2;
 public static final int 鬼怨地牢				= 4;
 	public static final int 赛季游戏				= 8;
 	public static final int 地牢塔防= 16;
-	public static final int 速通地牢			= 32;
+	public static final int 特性之征			= 32;
 	public static final int 刷子地牢		    = 64;
 		public static final int 升级概率	= 128;
 		public static final int 重生怪物 	= 256;
@@ -19,11 +19,11 @@ public static final int 鬼怨地牢				= 4;
 
 	public static final String[] NAME_IDS = {
 			"修罗血场",
-			"从不过节",
+			"英精英雄",
 			"鬼怨地牢",
 			"赛季游戏",
 			"地牢塔防",
-			"速通地牢",
+			"特性之征",
 			"刷子地牢",
 			"升级概率",
 			"重生怪物",
@@ -31,11 +31,11 @@ public static final int 鬼怨地牢				= 4;
 
 	public static final int[] MASKS = {
 			修罗血场,
-			从不过节,
+			英精英雄,
 			鬼怨地牢,
 			赛季游戏,
 			地牢塔防,
-			速通地牢,
+			特性之征,
 			刷子地牢,
 			升级概率,
 			重生怪物,

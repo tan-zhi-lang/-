@@ -28,7 +28,7 @@ public class Earthroot extends Plant {
 	public void activate( Char ch ) {
 
 		if (ch != null){
-			if (ch instanceof Hero hero&&hero.天赋(Talent.职业精通)&&hero.subClass==HeroSubClass.守望者){
+			if (ch instanceof Hero hero&&hero.职业精通()&&hero.subClass==HeroSubClass.守望者){
 				Barkskin.conditionallyAppend(Dungeon.hero, Dungeon.hero.等级 + 5, 5);
 			} else {
 				Buff.施加(ch, Armor.class).level(ch.最大生命);

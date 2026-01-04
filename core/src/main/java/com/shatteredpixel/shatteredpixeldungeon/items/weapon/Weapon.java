@@ -66,6 +66,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstab
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -96,7 +97,7 @@ abstract public class Weapon extends KindOfWeapon {
 	//region MeleeWeapon
 	武技 技能=null;
 	boolean circlingBack = false;
-	boolean 回旋镖=true;
+	boolean 回旋镖=false;
 	public static String AC_ABILITY = "ABILITY";
 	public static final String AC_CHOOSE = "CHOOSE";
 	
@@ -259,9 +260,6 @@ abstract public class Weapon extends KindOfWeapon {
 		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&技能!=null){
 			actions.add(AC_ABILITY);
 		}
-		if(Dungeon.炼狱(炼狱设置.诅咒装备)&&(等级()>5||tier>3)) {
-			actions.remove(AC_EQUIP);
-		}
 		return actions;
 	}
 	
@@ -410,21 +408,27 @@ abstract public class Weapon extends KindOfWeapon {
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(), tier, 最小攻击(), 最大攻击(), 最小投掷攻击(), 最大投掷攻击());
 			if (Dungeon.hero()) {
-				if (力量() > Dungeon.hero.力量()&&!Dungeon.hero.heroClass(HeroClass.DUELIST)) {
+				if (力量() > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
+					if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
+						GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
+					}
 				} else if (Dungeon.hero.力量() > 力量()) {
 					info += " " + Messages.get(Weapon.class, "excess_str",
-											   (Dungeon.hero.heroClass(HeroClass.DUELIST)?"":"0~")
+											   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~")
 							,Dungeon.hero.力量() - 力量());
 				}
 			}
 		} else {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(0), tier, 最小攻击(0), 最大攻击(0), 最小投掷攻击(0), 最大投掷攻击(0));
-			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()&&!Dungeon.hero.heroClass(HeroClass.DUELIST)) {
+			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 				info += " " + Messages.get(Weapon.class, "probably_too_heavy");
+				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
+					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
+				}
 			} else if (Dungeon.hero.力量() > 力量()) {
 				info += " " + Messages.get(Weapon.class, "excess_str",
-										   (Dungeon.hero.heroClass(HeroClass.DUELIST)?"":"0~"),
+										   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~"),
 										   Dungeon.hero.力量() - 力量());
 			}
 		}
@@ -516,7 +520,7 @@ abstract public class Weapon extends KindOfWeapon {
 				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?(Dungeon.hero.力量()-力量())/2f:0)+
 				(augment.damageFactor(最小攻击()+最大攻击()))/2f
 //				*伤害
-				/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f));
+				/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f)*1.5f);
 	}
 	@Override
 	public int 金币() {
@@ -539,7 +543,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.025f+1);
+		return Math.round(金币()*0.05f+1+等级());
 	}
 	@Override
 	public boolean 放背包(Bag container) {
@@ -637,7 +641,7 @@ abstract public class Weapon extends KindOfWeapon {
 				partialCharge = 0;
 			}
 			
-			if (ActionIndicator.action != this && Dungeon.hero.subClass == HeroSubClass.勇士) {
+			if (ActionIndicator.action != this && Dungeon.hero.subClass == HeroSubClass.武器大师) {
 				ActionIndicator.setAction(this);
 			}
 			
@@ -647,7 +651,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		@Override
 		public void fx(boolean on) {
-			if (on && Dungeon.hero.subClass == HeroSubClass.勇士) {
+			if (on && Dungeon.hero.subClass == HeroSubClass.武器大师) {
 				ActionIndicator.setAction(this);
 			}
 		}
@@ -659,7 +663,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		public int chargeCap(){
-			return Math.min(7, 1+ Dungeon.hero.等级(0.25f));
+			return Math.min(7+(Dungeon.hero.heroClass(HeroClass.DUELIST)?3:0), 1+ Dungeon.hero.等级(0.25f));
 		}
 		
 		public void gainCharge( float charge ){
@@ -739,7 +743,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		@Override
 		public void doAction() {
-			if (Dungeon.hero.subClass != HeroSubClass.勇士){
+			if (Dungeon.hero.subClass != HeroSubClass.武器大师){
 				return;
 			}
 			
@@ -902,7 +906,7 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 			int exStr = hero.力量() - 力量();
-			if (hero.heroClass(HeroClass.DUELIST)) {
+			if (hero.subClass(HeroSubClass.武器大师)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
@@ -926,7 +930,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (attacker instanceof Hero hero) {
 			
 			int exStr = hero.力量() - 力量();
-			if (hero.heroClass(HeroClass.DUELIST)) {
+			if (hero.subClass(HeroSubClass.武器大师)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
@@ -1062,7 +1066,7 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 			int exStr = hero.力量() - 力量();
-			if (hero.heroClass(HeroClass.DUELIST)) {
+			if (hero.subClass(HeroSubClass.武器大师)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
@@ -1231,7 +1235,7 @@ abstract public class Weapon extends KindOfWeapon {
 		float delay = augment.delayFactor(this.延迟);
 		if (owner instanceof Hero hero) {
 			int encumbrance = 力量() - hero.力量();
-			if (encumbrance > 0&&!hero.heroClass(HeroClass.DUELIST)){
+			if (encumbrance > 0&&!hero.subClass(HeroSubClass.武器大师)){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
@@ -1256,7 +1260,6 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int reachFactor(Char owner) {
 		int reach = 范围;
-			reach +=命中之戒.getBuffedBonus(owner,命中之戒.Accuracy.class);
 		if (owner instanceof Hero&&武力之戒.fightingUnarmed((Hero) owner)){
 			reach = 1; //brawlers stance benefits from enchantments, but not innate reach
 			if (!武力之戒.unarmedGetsWeaponEnchantment((Hero) owner)){

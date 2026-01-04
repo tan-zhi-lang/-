@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -99,7 +98,7 @@ public abstract class Plant implements Bundlable {
 
 	public String desc() {
 		String desc = Messages.get(this, "desc");
-		if (Dungeon.hero()&&Dungeon.hero.天赋(Talent.职业精通)&&Dungeon.hero.subClass==HeroSubClass.守望者){
+		if (Dungeon.hero()&&Dungeon.hero.职业精通()&&Dungeon.hero.subClass==HeroSubClass.守望者){
 			desc += "\n\n" + Messages.get(this, "warden_desc");
 		}
 		return desc;
@@ -162,7 +161,11 @@ public abstract class Plant implements Bundlable {
 
 				hero.busy();
 				((Seed)detach( hero.belongings.backpack )).onThrow( hero.pos );
-				hero.spend( TIME_TO_PLANT );
+				if(快速使用){
+					hero.spend( 0 );
+				}else{
+					hero.spend( TIME_TO_PLANT );
+				}
 
 				hero.sprite.operate( hero.pos );
 				
@@ -201,7 +204,7 @@ public abstract class Plant implements Bundlable {
 		@Override
 		public String desc() {
 			String desc = Messages.get(plantClass, "desc");
-			if (Dungeon.hero()&&Dungeon.hero.天赋(Talent.职业精通)&&Dungeon.hero.subClass==HeroSubClass.守望者){
+			if (Dungeon.hero()&&Dungeon.hero.职业精通()&&Dungeon.hero.subClass==HeroSubClass.守望者){
 				desc += "\n\n" + Messages.get(plantClass, "warden_desc");
 			}
 			return desc;

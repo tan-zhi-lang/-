@@ -53,7 +53,7 @@ public class WndTradeItem extends WndInfoItem {
 
 		if (item.数量()==1) {
 
-			RedButton btnSell = new RedButton( Messages.get(this, "sell", item.金币()) ) {
+			RedButton btnSell = new RedButton( Messages.get(this, "sell", item.价值提升()) ) {
 				@Override
 				protected void onClick() {
 					sell( item, finalShop);
@@ -68,7 +68,7 @@ public class WndTradeItem extends WndInfoItem {
 
 		} else {
 
-			int priceAll= item.金币();
+			int priceAll= item.价值提升();
 			RedButton btnSell1 = new RedButton( Messages.get(this, "sell_1", priceAll / item.数量()) ) {
 				@Override
 				protected void onClick() {

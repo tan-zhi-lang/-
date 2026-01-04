@@ -51,6 +51,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
+import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
@@ -813,8 +814,13 @@ public abstract class Mob extends Char {
 				|| src instanceof Weapon || src instanceof Weapon.Enchantment||src instanceof Wand
 				||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术||src instanceof ArmorAbility){
 				
-				if(Dungeon.hero()&&Dungeon.hero.全能吸血()>0){
+				if(Dungeon.hero()){
+					if(Dungeon.hero.全能吸血()>0)
 					Dungeon.hero.回血(dmg * Dungeon.hero.全能吸血());
+					
+					if(Dungeon.hero.天赋(Talent.错失良机))
+						Buff.延长( Dungeon.hero, Invisibility.class, Dungeon.hero.天赋点数(Talent.错失良机,2) );
+					
 				}
 			}
 			if (!(src instanceof Corruption) && state != FLEEING) {
@@ -953,6 +959,8 @@ public abstract class Mob extends Char {
 					if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人))
 						Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
 				
+					if(Dungeon.hero.天赋概率(Talent.盗墓大师,25))
+						Dungeon.level.drop(Generator.random(), pos ).type = Heap.Type.TOMB;
 				if(!isAlive()){
 					if (Dungeon.hero.subClass(HeroSubClass.狂战士)) {
 						算法.修复效果(()->{
@@ -1044,10 +1052,11 @@ public abstract class Mob extends Char {
 			if(Dungeon.hero.等级>最大等级+2)
 				return;
 		}
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/6f*Dungeon.难度掉率())){
+		if(!(傀儡()&&老鬼傀儡())){
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
 			Dungeon.level.drop(Generator.random(), pos).sprite().drop();
 		}
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
+		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/12f*Dungeon.难度掉率())){
 			Dungeon.level.drop(new 治疗药剂(),pos).sprite().drop();
 		}
 		MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
@@ -1081,7 +1090,7 @@ public abstract class Mob extends Char {
 			Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(), pos).sprite().drop();
 			Lucky.showFlare(sprite);
 		}
-
+		}
 	}
 	
 	protected Object loot = null;

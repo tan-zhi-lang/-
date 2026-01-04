@@ -15,8 +15,8 @@ public class 链枷 extends Weapon {
 		技能=new 甩击();
 		tier = 3;
 		范围=2;
-		延迟= 1.15f;
-		伤害 = 1.35f;
+		延迟= 1.35f;
+		伤害= 1.35f;
 	}
 	
 	

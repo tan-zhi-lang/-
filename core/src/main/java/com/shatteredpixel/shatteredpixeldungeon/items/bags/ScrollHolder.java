@@ -23,6 +23,7 @@ public class ScrollHolder extends Bag {
 	public boolean canHold( Item item ) {
 		if (item instanceof Scroll || item instanceof Spell
 				|| item instanceof ArcaneResin || item instanceof Stylus){
+			item.价值提升=true;
 			return super.canHold(item);
 		} else {
 			return false;

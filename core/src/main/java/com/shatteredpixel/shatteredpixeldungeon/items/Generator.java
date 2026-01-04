@@ -144,6 +144,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圆盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
@@ -163,6 +165,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
@@ -185,6 +188,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镶钉手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长鞭;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.震爆方石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
@@ -499,11 +503,19 @@ public class Generator {
 					日炎链刃.class,
 					流火.class,
 					蜜剑.class,
+					神农锄.class,
+					
+					火焰剑.class,
+					地裂镰.class,
+					寒冰镖.class,
+					闪电双截棍.class,
 					
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2,2,2,
 											   2,2,2,2,2,2,2,
-											   2,2,2,2,2,};
+											   2,2,2,2,2,
+											   2,2,2,2,
+											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
 			//see Generator.randomArmor

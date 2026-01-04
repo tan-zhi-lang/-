@@ -28,7 +28,7 @@ public class Mageroyal extends Plant {
 
 				GLog.i( Messages.get(this, "refreshed") );
 				
-				if (ch instanceof Hero hero&&hero.天赋(Talent.职业精通)&&hero.subClass==HeroSubClass.守望者){
+				if (ch instanceof Hero hero&&hero.职业精通()&&hero.subClass==HeroSubClass.守望者){
 					Buff.施加(ch, BlobImmunity.class, BlobImmunity.DURATION/2f);
 				}
 		}

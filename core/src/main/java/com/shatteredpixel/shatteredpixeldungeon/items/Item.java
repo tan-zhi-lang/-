@@ -9,10 +9,12 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -37,9 +39,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -50,6 +54,8 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.系统设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
@@ -72,7 +78,7 @@ public class Item implements Bundlable {
 	public static final String AC_REMOVE		= "REMOVE";
 
 	protected String defaultAction;
-	public boolean usesTargeting;
+	public boolean usesTargeting=true;
 
 	//TODO should these be private and accessed through methods?
 	public int image = 0;
@@ -81,6 +87,9 @@ public class Item implements Bundlable {
 	
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
+	public boolean 价值提升 = false;
+	public boolean 能量提升 = false;
+	public boolean 快速使用 = false;
 	public boolean 炼金全放 = false;
 	public boolean 升级物品 = true;
 	public boolean 可以空间 = true;
@@ -186,7 +195,10 @@ public class Item implements Bundlable {
 	}
 	public float pickupDelay(){
 		
-		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.盗贼)){
+		if(Dungeon.hero.heroClass(HeroClass.盗贼)){
+			Buff.施加(Dungeon.hero,Swiftthistle.TimeBubble.class).reset(1+(Dungeon.hero.subClass(HeroSubClass.神偷无影)&&Dungeon.hero.职业精通()?2:0));
+		}
+		if(Dungeon.hero.subClass(HeroSubClass.神偷无影)){
 			return 0;
 		}
 		return Dungeon.hero.攻击延迟();
@@ -400,27 +412,35 @@ public class Item implements Bundlable {
 		
 		if (quantity <= 0) {
 			return null;
-		} else
-		if (quantity == 1) {
-			Dungeon.quickslot.alphaItem( Item.this ,true);
-			updateQuickslot();
-			if (可堆叠){
-				Dungeon.quickslot.convertToPlaceholder(this);
+		} else{
+			if(Dungeon.系统(系统设置.无限资源)){
+				return this;
 			}
-
-			return detachAll( container );
-			
-		} else {
-			Item detached = split(1);
-			updateQuickslot();
-			if (detached != null) detached.onDetach( );
-			return detached;
-			
+			if(quantity==1){
+				Dungeon.quickslot.alphaItem(Item.this,true);
+				updateQuickslot();
+				if(可堆叠){
+					Dungeon.quickslot.convertToPlaceholder(this);
+				}
+				
+				return detachAll(container);
+				
+			}else{
+				Item detached=split(1);
+				updateQuickslot();
+				if(detached!=null)
+					detached.onDetach();
+				return detached;
+				
+			}
 		}
 	}
 	
 	public final Item detachAll( Bag container ) {
-
+		
+		if(Dungeon.系统(系统设置.无限资源)){
+			return this;
+		}
 		for (Item item : container.items) {
 			if (item == this) {
 				container.items.remove(this);
@@ -492,154 +512,157 @@ public class Item implements Bundlable {
 	}
 	public Item 升级() {
 		
-		if(Dungeon.玩法(玩法设置.升级概率)){
-			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
-				if(等级>=17){
-					if(算法.概率学(10)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						this.等级(0);
-						updateQuickslot();
-						return this;
-					}
-				}
-				if(等级>=16){
-					if(算法.概率学(11)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						this.等级(0);
-						updateQuickslot();
-						return this;
-					}
-				}
-				if(等级>=15){
-					if(算法.概率学(16)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						this.等级(0);
-						updateQuickslot();
-						return this;
-					}
-				}
-				if(等级>=14){
-					if(算法.概率学(18)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						this.等级(0);
-						updateQuickslot();
-						return this;
-					}
-				}
-				if(等级>=13){
-					if(算法.概率学(20)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						this.等级(0);
-						updateQuickslot();
-						return this;
-					}
-				}
-				if(等级>=12){
-					if(算法.概率学(25)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						this.等级(8);
-						updateQuickslot();
-						return this;
-					}
-				}
-				if(等级>=11){
-					if(算法.概率学(30)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						this.等级(7);
-						updateQuickslot();
-						return this;
-					}
-				}
-				if(等级>=10){
-					if(算法.概率学(35)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						return this;
-					}
-				}
-				if(等级>=9){
-					if(算法.概率学(40)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						return this;
-					}
-				}
-				if(等级>=8){
-					if(算法.概率学(50)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						return this;
-					}
-				}
-				if(等级>=7){
-					if(算法.概率学(60)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						return this;
-					}
-				}
-				if(等级>=6){
-					if(算法.概率学(70)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						return this;
-					}
-				}
-				if(等级>=5){
-					if(算法.概率学(85)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						return this;
-					}
-				}
-				if(等级>=4){
-					if(算法.概率学(95)){
-						this.等级++;
-						updateQuickslot();
-						return this;
-					}else{
-						return this;
-					}
-				}
-				if(等级<=3){
-					this.等级++;
-					updateQuickslot();
-					return this;
-				}
+		if(this instanceof Weapon||this instanceof Armor||this instanceof Artifact||this instanceof Ring||this instanceof Wand){
+			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
+				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
+			if(Dungeon.玩法(玩法设置.升级概率)){
+					if(等级>=17){
+						if(算法.概率学(10)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							this.等级(0);
+							updateQuickslot();
+							return this;
+						}
+					}
+					if(等级>=16){
+						if(算法.概率学(11)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							this.等级(0);
+							updateQuickslot();
+							return this;
+						}
+					}
+					if(等级>=15){
+						if(算法.概率学(16)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							this.等级(0);
+							updateQuickslot();
+							return this;
+						}
+					}
+					if(等级>=14){
+						if(算法.概率学(18)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							this.等级(0);
+							updateQuickslot();
+							return this;
+						}
+					}
+					if(等级>=13){
+						if(算法.概率学(20)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							this.等级(0);
+							updateQuickslot();
+							return this;
+						}
+					}
+					if(等级>=12){
+						if(算法.概率学(25)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							this.等级(8);
+							updateQuickslot();
+							return this;
+						}
+					}
+					if(等级>=11){
+						if(算法.概率学(30)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							this.等级(7);
+							updateQuickslot();
+							return this;
+						}
+					}
+					if(等级>=10){
+						if(算法.概率学(35)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							return this;
+						}
+					}
+					if(等级>=9){
+						if(算法.概率学(40)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							return this;
+						}
+					}
+					if(等级>=8){
+						if(算法.概率学(50)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							return this;
+						}
+					}
+					if(等级>=7){
+						if(算法.概率学(60)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							return this;
+						}
+					}
+					if(等级>=6){
+						if(算法.概率学(70)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							return this;
+						}
+					}
+					if(等级>=5){
+						if(算法.概率学(85)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							return this;
+						}
+					}
+					if(等级>=4){
+						if(算法.概率学(95)){
+							this.等级++;
+							updateQuickslot();
+							return this;
+						}else{
+							return this;
+						}
+					}
+					if(等级<=3){
+						this.等级++;
+						updateQuickslot();
+						return this;
+					}
+				}
 			this.等级++;
 			updateQuickslot();
 			return this;
@@ -715,6 +738,9 @@ public class Item implements Bundlable {
 				Statistics.itemTypesDiscovered.add(getClass());
 			}
 		}
+		if(Dungeon.解压(解压设置.点石成金)){
+			特殊升级();
+		}
 
 		levelKnown = true;
 		cursedKnown = true;
@@ -766,6 +792,13 @@ public class Item implements Bundlable {
 
 	public Emitter emitter() { return null; }
 	
+	public int 价值提升(){
+		return (价值提升?Math.round(金币()*1.1f):金币());
+	}
+	public int 能量提升(){
+		return (能量提升?Math.round(能量()*1.5f):能量());
+	}
+	
 	public String info() {
 
 		if (Dungeon.hero()) {
@@ -783,10 +816,17 @@ public class Item implements Bundlable {
 		}
 		String s="代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
 		s+="\n";
-		s+="_"+"金币价值"+(金币()>0?""+金币():"无价")+"_";
-		s+=" ";
-		s+="能量价值"+(能量()>0?""+能量():"无价");
-		s+="\n";
+		if(已鉴定()){
+			
+			s+="_"+"金币价值"+(金币()>0?
+									   ""+价值提升():
+									   "无价")+"_";
+			s+=" ";
+			s+="能量价值"+(能量()>0?
+								   ""+能量提升():
+								   "无价");
+			s+="\n";
+		}
 		s+="物品";
 		if(this instanceof Bag){
 			s+="、"+"背包";
@@ -835,9 +875,6 @@ public class Item implements Bundlable {
 		}
 		if(this instanceof Weapon){
 			s+="、"+"武器";
-			if( this instanceof Weapon w&&算法.isDebug()){
-				s+="\n\n"+w.DPS();
-			}
 		}
 		if(this instanceof 飞镖){
 			s+="、"+"飞镖";
@@ -919,6 +956,9 @@ public class Item implements Bundlable {
 	private static final String 首次拾取x = "首次拾取";
 	private static final String 首次装备x = "首次装备";
 	private static final String 房间物品x = "房间物品";
+	private static final String 价值提升x = "价值提升";
+	private static final String 能量提升x = "能量提升";
+	private static final String 快速使用x = "快速使用";
 	private static final String 移除x = "移除";
 	private static final String ALPHA = "alpha";
 	
@@ -935,6 +975,9 @@ public class Item implements Bundlable {
 		bundle.put( 首次拾取x, 首次拾取 );
 		bundle.put( 首次装备x, 首次装备 );
 		bundle.put( 房间物品x, 房间物品 );
+		bundle.put( 价值提升x, 价值提升 );
+		bundle.put( 能量提升x, 能量提升 );
+		bundle.put( 快速使用x, 快速使用 );
 		bundle.put( 移除x, 移除 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
@@ -955,6 +998,9 @@ public class Item implements Bundlable {
 		首次拾取	= bundle.getBoolean( 首次拾取x );
 		首次装备	= bundle.getBoolean( 首次装备x );
 		房间物品	= bundle.getBoolean( 房间物品x );
+		价值提升	= bundle.getBoolean( 价值提升x );
+		能量提升	= bundle.getBoolean( 能量提升x );
+		快速使用	= bundle.getBoolean( 快速使用x );
 		移除	= bundle.getBoolean( 移除x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
@@ -1025,7 +1071,11 @@ public class Item implements Bundlable {
 								user.buff(Talent.LethalMomentumTracker.class).detach();
 								user.next();
 							} else {
-								user.spendAndNext(delay);
+								if(快速使用){
+									user.spendAndNext(0);
+								}else{
+									user.spendAndNext(delay);
+								}
 							}
 						}
 					});
@@ -1047,7 +1097,13 @@ public class Item implements Bundlable {
 							}else{
 								i=Item.this.detach(user.belongings.backpack);
 							}
-							user.spend(delay);
+							
+							if(快速使用){
+								user.spend(0);
+							}else{
+								user.spend(delay);
+							}
+							
 							if (i != null) i.onThrow(cell);
 							user.next();
 						}

@@ -117,8 +117,7 @@ public enum Icons {
     SEED_POUCH,
     SCROLL_HOLDER,
     WAND_HOLSTER,
-    POTION_BANDOLIER,
-    杂物袋,
+    POTION_BANDOLIER,宝物袋,
 
     //icons that appear in the about screen, variable spacing
     LIBGDX,
@@ -410,7 +409,7 @@ public enum Icons {
             case POTION_BANDOLIER:
                 icon.frame(icon.texture.uvRectBySize(216, 80, 10, 10));
                 break;
-            case 杂物袋:
+            case 宝物袋:
                 icon.frame(icon.texture.uvRectBySize(226, 80, 10, 10));
                 break;
 
@@ -485,16 +484,16 @@ public enum Icons {
             case 扣6:
                 icon.frame(icon.texture.uvRectBySizeXY(4, 9));
                 break;
-            case 愤怒:
+            case 微笑:
                 icon.frame(icon.texture.uvRectBySizeXY(5, 9));
                 break;
-            case 爱心:
+            case 愤怒:
                 icon.frame(icon.texture.uvRectBySizeXY(6, 9));
                 break;
-            case 礼物:
+            case 爱心:
                 icon.frame(icon.texture.uvRectBySizeXY(7, 9));
                 break;
-            case 微笑:
+            case 礼物:
                 icon.frame(icon.texture.uvRectBySizeXY(8, 9));
                 break;
             case 滑稽:

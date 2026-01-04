@@ -561,11 +561,11 @@ public class 骷髅钥匙 extends Artifact {
 
 		{
 			revivePersists = true;
-			ironKeysNeeded = new int[26];
+			ironKeysNeeded = new int[26_000];
 			Arrays.fill(ironKeysNeeded, -1);
-			goldenKeysNeeded = new int[26];
+			goldenKeysNeeded = new int[26_000];
 			Arrays.fill(goldenKeysNeeded, -1);
-			crystalKeysNeeded = new int[26];
+			crystalKeysNeeded = new int[26_000];
 			Arrays.fill(crystalKeysNeeded, -1);
 		}
 

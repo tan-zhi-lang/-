@@ -73,7 +73,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 				count++;
 			}
 			count=Math.min(10,count+1);
-			comboTime = Math.max(4+hero.天赋点数(Talent.连战热忱,2)+(hero.天赋(Talent.职业精通)?3:0),4f);
+			comboTime = Math.max(4+hero.天赋点数(Talent.连战热忱,2)+(hero.职业精通()?3:0),4f);
 			
 			if(hero.天赋(Talent.以战养战)){
 				hero.护甲(hero.天赋点数(Talent.以战养战));
@@ -211,31 +211,31 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 		public String desc(int count){
 			switch (this){
 				case 冲击: default:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.职业精通)){
+					if (count >= 6&&Dungeon.hero.职业精通()){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case 撞击:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.职业精通)){
+					if (count >= 6&&Dungeon.hero.职业精通()){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*20);
 					} else {
 						return Messages.get(this, name() + ".desc", count*20);
 					}
 				case 招架:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.职业精通)){
+					if (count >= 6&&Dungeon.hero.职业精通()){
 						return Messages.get(this, name() + ".empower_desc");
 					} else {
 						return Messages.get(this, name() + ".desc");
 					}
 				case 横扫:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.职业精通)){
+					if (count >= 6&&Dungeon.hero.职业精通()){
 						return Messages.get(this, name() + ".empower_desc", count/3, count*25);
 					} else {
 						return Messages.get(this,  name() + ".desc", count*25);
 					}
 				case 暴雨:
-					if (count >= 6&&Dungeon.hero.天赋(Talent.职业精通)){
+					if (count >= 6&&Dungeon.hero.职业精通()){
 						return Messages.get(this, name() + ".empower_desc", count/3);
 					} else {
 						return Messages.get(this,  name() + ".desc");

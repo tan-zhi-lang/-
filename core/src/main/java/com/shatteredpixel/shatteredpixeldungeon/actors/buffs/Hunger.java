@@ -44,7 +44,41 @@ public class Hunger extends Buff implements Hero.Doom {
 		level = bundle.getFloat( LEVEL );
 		partial = bundle.getFloat(PARTIAL);
 	}
-
+	protected int color;
+	protected int rays;
+	@Override
+	public void fx(boolean on) {
+		if(target instanceof Hero hero&&hero.英精英雄!=-1){
+			switch(hero.英精英雄){
+				case 0:
+					color = 0xFF8800;
+					rays = 4;
+					break;
+				case 1:
+					color = 0x8800FF;
+					rays = 4;
+					break;
+				case 2:
+					color = 0x00FF00;
+					rays = 5;
+					break;
+				case 3:
+					color = 0x0088FF;
+					rays = 5;
+					break;
+				case 4:
+					color = 0xFFFF00;
+					rays = 6;
+					break;
+				case 5:
+					color = 0xFF2222; //a little white helps it stick out from background
+					rays = 6;
+					break;
+			}
+		}
+		if (on) target.sprite.aura( color, rays );
+		else target.sprite.clearAura();
+	}
 	@Override
 	public boolean act() {
 

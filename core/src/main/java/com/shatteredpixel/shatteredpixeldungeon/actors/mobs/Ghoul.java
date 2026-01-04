@@ -36,7 +36,7 @@ public class Ghoul extends Mob {
 		WANDERING = new Wandering();
 		state = SLEEPING;
 
-		loot = Gold.class;
+		loot = new Gold().random();
 		lootChance = 0.2f;
 		
 		properties.add(Property.UNDEAD);

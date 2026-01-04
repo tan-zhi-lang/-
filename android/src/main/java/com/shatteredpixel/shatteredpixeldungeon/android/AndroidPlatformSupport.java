@@ -177,16 +177,15 @@ public class AndroidPlatformSupport extends PlatformSupport {
 
 		resetGenerators(false);
 		fonts = new HashMap<>();
-		basicFontGenerator = KRFontGenerator = ZHFontGenerator = JPFontGenerator = null;
+//		basicFontGenerator = KRFontGenerator = ZHFontGenerator = JPFontGenerator = null;
 		
-		if (systemfont && Gdx.files.absolute("/system/fonts/Roboto-Regular.ttf").exists()) {
-			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/Roboto-Regular.ttf"));
-		} else if (systemfont && Gdx.files.absolute("/system/fonts/DroidSans.ttf").exists()){
-			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/DroidSans.ttf"));
-		} else {
-			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
-		}
-		
+//		if (systemfont && Gdx.files.absolute("/system/fonts/Roboto-Regular.ttf").exists()) {
+//			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/Roboto-Regular.ttf"));
+//		} else if (systemfont && Gdx.files.absolute("/system/fonts/DroidSans.ttf").exists()){
+//			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.absolute("/system/fonts/DroidSans.ttf"));
+//		} else {
+//			basicFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/pixel_font.ttf"));
+//		}
 		//android 7.0+. all asian fonts are nicely contained in one spot
 		if (Gdx.files.absolute("/system/fonts/NotoSansCJK-Regular.ttc").exists()) {
 			//typefaces are 0-JP, 1-KR, 2-SC, 3-TC.
@@ -248,6 +247,8 @@ public class AndroidPlatformSupport extends PlatformSupport {
 			if (JPFontGenerator == null) JPFontGenerator = fallbackGenerator;
 			
 		}
+		
+		basicFontGenerator = KRFontGenerator = ZHFontGenerator = JPFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/sy.otf"));
 		
 		if (basicFontGenerator != null) fonts.put(basicFontGenerator, new HashMap<>());
 		if (KRFontGenerator != null) fonts.put(KRFontGenerator, new HashMap<>());

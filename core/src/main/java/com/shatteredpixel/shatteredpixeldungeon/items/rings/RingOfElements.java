@@ -78,6 +78,7 @@ public class RingOfElements extends Ring {
 		if(target instanceof Hero hero){
 			x*=1-hero.天赋点数(Talent.神圣净化,0.15f);
 			x*=巨大蟹钳.受到();
+			if(hero.英精英雄==2)return 0;
 			if (getBuffedBonus(target, Resistance.class) == 0) return x;
 			
 			for (Class c : RESISTS){

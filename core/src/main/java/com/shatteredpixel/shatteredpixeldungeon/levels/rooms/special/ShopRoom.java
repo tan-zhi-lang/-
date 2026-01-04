@@ -26,7 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.杂物袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -313,7 +313,7 @@ public class ShopRoom extends SpecialRoom {
 		}
 		
 		if(Dungeon.玩法(玩法设置.刷子地牢)&&Dungeon.区域()==1){
-			itemsToSpawn.add(new 杂物袋());
+			itemsToSpawn.add(new 宝物袋());
 			Dungeon.LimitedDrops.杂物袋.drop();
 			itemsToSpawn.add(new ScrollHolder());
 			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();
@@ -454,7 +454,7 @@ public class ShopRoom extends SpecialRoom {
 		//generate a hashmap of all valid bags.
 		HashMap<Bag, Integer> bags = new HashMap<>();
 		if (!Dungeon.LimitedDrops.VELVET_POUCH.dropped()) bags.put(new 绒布袋(), 3);
-		if (!Dungeon.LimitedDrops.杂物袋.dropped()) bags.put(new 杂物袋(), 2);//优先级
+		if (!Dungeon.LimitedDrops.杂物袋.dropped()) bags.put(new 宝物袋(),2);//优先级
 		if (!Dungeon.LimitedDrops.SCROLL_HOLDER.dropped()) bags.put(new ScrollHolder(), 0);
 		if (!Dungeon.LimitedDrops.POTION_BANDOLIER.dropped()) bags.put(new PotionBandolier(), 0);
 		if (!Dungeon.LimitedDrops.MAGICAL_HOLSTER.dropped()) bags.put(new MagicalHolster(), 0);
@@ -482,7 +482,7 @@ public class ShopRoom extends SpecialRoom {
 
 		if (bestBag instanceof 绒布袋){
 			Dungeon.LimitedDrops.VELVET_POUCH.drop();
-		}else if (bestBag instanceof 杂物袋){
+		}else if (bestBag instanceof 宝物袋){
 			Dungeon.LimitedDrops.杂物袋.drop();
 		} else if (bestBag instanceof ScrollHolder) {
 			Dungeon.LimitedDrops.SCROLL_HOLDER.drop();

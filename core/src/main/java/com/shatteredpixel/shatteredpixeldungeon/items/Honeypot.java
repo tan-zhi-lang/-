@@ -117,6 +117,7 @@ public class Honeypot extends Item {
 			bee.sprite.parent.add( new AlphaTweener( bee.sprite, 1, 0.15f ) );
 			
 			Sample.INSTANCE.play( Assets.Sounds.BEE );
+			Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
 			return new ShatteredPot();
 		} else {
 			return this;

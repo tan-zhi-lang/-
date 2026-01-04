@@ -21,7 +21,7 @@ public class Wnd选择天赋层 extends Window {
 		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		float pos = MARGIN;
-		RenderedTextBlock title = PixelScene.renderTextBlock("选择一层天赋使其天赋点数+1",9);
+		RenderedTextBlock title = PixelScene.renderTextBlock("选择一层天赋使其天赋点数+1\n不要退出，你会后悔的",9);
 		title.hardlight(TITLE_COLOR);
 		title.setPos((width-title.width())/2, pos);
 		title.maxWidth(width - MARGIN * 2);

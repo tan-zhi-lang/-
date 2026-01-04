@@ -177,9 +177,9 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case DUELIST:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							new ItemSprite(物品表.英雄断剑),
+										  new BuffIcon(BuffIndicator.RECHARGING, true),
 							  new ItemSprite(物品表.巨斧),
-						  new ItemSprite(物品表.WEAPON_HOLDER),
+										  Icons.TALENT.get(),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case CLERIC:
@@ -275,7 +275,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							new ItemSprite(物品表.POTION_HOLDER),
 							new ItemSprite(物品表.SCROLL_HOLDER),
-							  new ItemSprite(物品表.RATION),
+							  new BuffIcon(BuffIndicator.HEALING, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case 灵猫:

@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x10;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x11;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x12;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x20;
@@ -15,6 +16,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x28;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x6;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x7;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x8;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x9;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -46,7 +48,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
@@ -93,8 +97,7 @@ public enum Talent {
 	体生匿影(73, 4), 轻便斗篷(74,4),
 	//Assassin T3
 	ENHANCED_LETHALITY(75, 4), ASSASSINS_REACH(76, 4), BOUNTY_HUNTER(77, 4),
-	//Freerunner T3
-	EVASIVE_ARMOR(78, 4), PROJECTILE_MOMENTUM(79, 4), SPEEDY_STEALTH(80, 4),
+	边搜边打(78, 4),盗墓大师(79, 4), 捉拿抓鬼(80,4),
 	//Smoke Bomb T4
 	HASTY_RETREAT(81, 4), BODY_REPLACEMENT(82, 4), SHADOW_STEP(83, 4),
 	//Death Mark T4
@@ -158,7 +161,11 @@ public enum Talent {
 	
 	冰门高攻(x8+9,4),最佳防御(x8+10,4),
 	
+	蓄势待发(x9+11,4),错失良机(x9+12,4),偷袭姿态(x9+13,4),
+	
 	残魂侵蚀(x10+9,4),轻便玉佩(x10+10,4),
+	
+	EVASIVE_ARMOR(x11+11, 4), PROJECTILE_MOMENTUM(x11+12, 4), SPEEDY_STEALTH(x11+13, 4),
 	
 	战争热诚(x12+11,4),致命节奏(x12+12,4),征服之姿(x12+13,4),
 	
@@ -177,9 +184,7 @@ public enum Talent {
 	
 	健身(x25+4,3),破绽(x25+5,3),寻觅(x25+6,3),静步(x25+7,3),
 	
-	职业精通(x25+9,1),综合能力(x25+10,1),
-	均衡战斗(x25+11,1),战斗技巧(x25+12,1),背水一战(x25+13,1),九死一生(x25+14,1),
-	
+	职业精通(x25+9,1),
 	
 	埋伏(x26),技巧(x26+1),突袭(x26+2),
 	猛攻(x26+4,3),集中(x26+5,3),近视(x26+6,3),快攻(x26+7,3),
@@ -305,7 +310,7 @@ public enum Talent {
 	int icon;
 	int 最大点数;
 
-	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 => 2/8/15/24/35 6-3 7-1 9
+	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 => 2/6/11/21/25 4 5 10
 	public static int[] 天赋解锁 = new int[]{0, 2, 6, 11, 21, 25};//25
 //	public static int[] 天赋解锁 = new int[]{0, 2, 7, 13, 21, 30};
 
@@ -364,53 +369,6 @@ public enum Talent {
 			if (!metaDesc.equals("没找到")){
 //			if (!metaDesc.equals(Messages.NO_TEXT_FOUND)){
 				return Messages.get(this, name() + ".desc") + "\n\n" + metaDesc;
-			}
-		}
-		if(name().equals("职业精通")){
-			
-			switch(Dungeon.hero.subClass){
-				case 潜能觉醒: default:
-					return "综合属性+5%。";
-				case 狂战士:
-					return "每点怒气+0.25%攻击力。";
-				case 角斗士:
-					return "连击重置回合+3，6+连击时连击技获得强化。";
-				case 战斗法师:
-					return "魔杖物理攻击会恢复0.5充能。";
-				case 术士:
-					return "灵魂标记+10回合。";
-				case 刺客:
-					return "每回合隐形会额外获得1阶段潜伏。";
-				case 疾行者:
-					return "每点动能额外提供1逸动回合。";
-				case 狙击手:
-					return "除灵能短弓外的物理攻击会施加狙击标记，灵能短弓对狙击标记敌人攻击取决于不同的强化方式。";
-				case 守望者:
-					return "踩踏植物会获得额外效果取代原本效果，所有植株对其无害。";
-				case 勇士:
-					return "主武器和副武器攻击效率+10%。";
-				case 武者:
-					return "最大内力+5。";
-				case 征服者:
-					return "征服者全能吸血+2.5%";
-				case 黑白双子:
-					return "白猫受到伤害反馈-15%";
-				case 金刚独狼:
-					return "物理攻击和物理防御时额外恢复0.5%已损失生命";
-				case 时间刺客:
-					return "时停额外提供25%";
-				case PRIEST:
-					return "综合属性+15%";
-				case PALADIN:
-					return "综合属性+15%";
-				case 神秘学者:
-					return "综合属性+15%";
-				case 黑魔导师:
-					return "综合属性+15%";
-				case 健身猛男:
-					return "力量+20%。";
-				case 盾之勇者:
-					return "综合属性+15%";
 			}
 		}
 		return Messages.get(this, name() + ".desc");
@@ -637,10 +595,13 @@ public enum Talent {
 			dmg++;
 		}
 		dmg+=hero.天赋点数(Talent.埋伏,2);
-		if(enemy.第一次背袭){
+		enemy.第x次背袭++;
+		if(enemy.第x次背袭==1){
 			dmg++;
 			enemy.sprite.愤怒();
-			enemy.第一次背袭=false;
+			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.地势)){
+				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.地势);
+			}
 		}
 		dmg*=传奇肛塞.伏击();
 		return dmg;
@@ -761,14 +722,14 @@ public enum Talent {
 		tierTalents.clear();
 		
 		//tier4
-		Collections.addAll(tierTalents,职业精通,综合能力,均衡战斗,战斗技巧,背水一战,九死一生);
-		for (Talent talent : tierTalents){
-			if (replacements.containsKey(talent)){
-				talent = replacements.get(talent);
-			}
-			talents.get(3).put(talent, 0);
-		}
-		tierTalents.clear();
+//		Collections.addAll(tierTalents,);
+//		for (Talent talent : tierTalents){
+//			if (replacements.containsKey(talent)){
+//				talent = replacements.get(talent);
+//			}
+//			talents.get(3).put(talent, 0);
+//		}
+//		tierTalents.clear();
 		//TBD
 	}
 
@@ -805,8 +766,8 @@ public enum Talent {
 			case 刺客:
 				Collections.addAll(tierTalents, ENHANCED_LETHALITY, ASSASSINS_REACH, BOUNTY_HUNTER);
 				break;
-			case 疾行者:
-				Collections.addAll(tierTalents, EVASIVE_ARMOR, PROJECTILE_MOMENTUM, SPEEDY_STEALTH);
+			case 神偷无影:
+				Collections.addAll(tierTalents,边搜边打,盗墓大师,捉拿抓鬼);
 				break;
 			case 狙击手:
 				Collections.addAll(tierTalents,鹰眼远视,SHARED_ENCHANTMENT,狙击弱点);
@@ -814,7 +775,7 @@ public enum Talent {
 			case 守望者:
 				Collections.addAll(tierTalents,消受投掷,丛林法则,SHIELDING_DEW);
 				break;
-			case 勇士:
+			case 武器大师:
 				Collections.addAll(tierTalents,双武格挡,TWIN_UPGRADES,复合损伤);
 				break;
 			case 武者:
@@ -834,6 +795,12 @@ public enum Talent {
 				break;
 			case 盾之勇者:
 				Collections.addAll(tierTalents);
+				break;
+			case 灵月杀手:
+				Collections.addAll(tierTalents, 蓄势待发, 错失良机, 偷袭姿态);
+				break;
+			case 疾行者:
+				Collections.addAll(tierTalents, EVASIVE_ARMOR, PROJECTILE_MOMENTUM, SPEEDY_STEALTH);
 				break;
 			case 征服者:
 				Collections.addAll(tierTalents,战争热诚,致命节奏,征服之姿);

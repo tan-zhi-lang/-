@@ -174,7 +174,7 @@ public class WndHero extends WndTabbed {
 			title.color(Window.TITLE_COLOR);
 			title.setRect( 0, 0, WIDTH-16, 0 );
 			add(title);
-
+			
 			IconButton infoButton = new IconButton(Icons.get(Icons.INFO)){
 				@Override
 				protected void onClick() {

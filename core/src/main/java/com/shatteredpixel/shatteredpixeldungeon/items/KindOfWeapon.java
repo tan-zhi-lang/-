@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -38,7 +37,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	@Override
 	public void execute(Hero hero, String action) {
-		if (hero.subClass == HeroSubClass.勇士&&action.equals(AC_EQUIP)){
+		if (hero.subClass == HeroSubClass.武器大师&&action.equals(AC_EQUIP)){
 			usesTargeting = false;
 			String primaryName = Messages.titleCase(hero.belongings.weapon != null ? hero.belongings.weapon.trueName() : Messages.get(KindOfWeapon.class, "empty"));
 			String secondaryName = Messages.titleCase(hero.belongings.secondWep != null ? hero.belongings.secondWep.trueName() : Messages.get(KindOfWeapon.class, "empty"));
@@ -90,7 +89,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	protected float timeToEquip( Hero hero ) {
 		
-		if (hero.heroClass(HeroClass.DUELIST)) {
+		if (hero.subClass(HeroSubClass.武器大师)) {
 			return 0;
 		}
 		return isSwiftEquipping ? 0f : super.timeToEquip(hero);
@@ -117,7 +116,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			}
 			
 			hero.spendAndNext( timeToEquip(hero) );
-			if (hero.heroClass(HeroClass.DUELIST)) {
+			if (hero.subClass(HeroSubClass.武器大师)) {
 				GLog.i(Messages.get(this, "swift_equip"));
 			}
 			return true;
@@ -241,7 +240,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		
 		if (attacker instanceof Hero hero){
 			Char enemy=hero.attackTarget();
-			if(enemy!=null&&enemy.第一次防御&&投矛){
+			if(enemy!=null&&enemy.第x次防御==1&&投矛){
 				return 最大投掷攻击();
 			}
 			int dmgdiff=0;
@@ -254,7 +253,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public int 投掷攻击时(Char attacker, Char defender, int damage ) {
 		if (attacker instanceof Hero hero){
 			Char enemy=hero.attackTarget();
-			if(enemy!=null&&enemy.第一次防御&&投矛){
+			if(enemy!=null&&enemy.第x次防御==1&&投矛){
 				return 最大投掷攻击();
 			}
 			int dmgdiff=0;

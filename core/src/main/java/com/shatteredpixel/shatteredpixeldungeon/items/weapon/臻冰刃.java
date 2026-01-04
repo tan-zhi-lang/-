@@ -28,7 +28,7 @@ public class 臻冰刃 extends Weapon {
 	@Override
 	public int 攻击时(Char attacker,Char defender,int damage) {
 		if(defender.hasbuff(Frost.class)){
-			damage+=defender.生命/2;
+			damage+=defender.生命(0.35f);
 		}else if(defender.hasbuff(Chill.class)){
 			Buff.施加(defender,Frost.class,2);
 		}else{
@@ -40,7 +40,7 @@ public class 臻冰刃 extends Weapon {
 	public int 投掷攻击时(Char attacker,Char defender,int damage) {
 		
 		if(defender.hasbuff(Frost.class)){
-			damage+=defender.生命/2;
+			damage+=defender.生命(0.35f);
 		}else if(defender.hasbuff(Chill.class)){
 			Buff.施加(defender,Frost.class,2);
 		}else{

@@ -77,11 +77,11 @@ public class DwarfKing extends Mob {
 
 	@Override
 	public int 最小攻击() {
-		return 15;
+		return 25;
 	}
 	@Override
 	public int 最大攻击() {
-		return 25;
+		return 35;
 	}
 
 	@Override
@@ -459,13 +459,10 @@ public class DwarfKing extends Mob {
 			super.受伤时(dmg, src);
 			return;
 		} else if (phase == 3 ){//&& !(src instanceof Viscosity.DeferedDamage)
-			if (dmg >= 0) {
 				dmg=算法.固衰(dmg,5);
 //				Viscosity.DeferedDamage deferred = Buff.施加( this, Viscosity.DeferedDamage.class );
 //				deferred.extend( dmg );
 //				sprite.showStatus( CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg) );
-			}
-//			return;
 		}
 		int preHP = 生命;
 		super.受伤时(dmg, src);

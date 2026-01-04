@@ -128,6 +128,7 @@ public class WndInfoCell extends Window {
 					if (desc.length() > 0) {
 						desc += "\n\n";
 					}
+					desc += "地牢中有"+blob.volume+"点此元素\n";
 					desc += blob.tileDesc();
 				}
 			}

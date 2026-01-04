@@ -79,7 +79,7 @@ public class DM300 extends Mob {
 
 	@Override
 	public int 最大攻击() {
-		return 25;
+		return 30;
 	}
 
 	@Override

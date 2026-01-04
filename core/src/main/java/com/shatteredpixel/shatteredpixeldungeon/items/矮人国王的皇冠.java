@@ -2,8 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass.NONE;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -27,12 +25,10 @@ import java.util.ArrayList;
 public class 矮人国王的皇冠 extends Item {
 	
 	private static final String AC_WEAR = "WEAR";
-	private static final String AC_精通 = "精通";
 	
 	{
 		image = 物品表.CROWN;
 
-		defaultAction = AC_精通;
 		可以空间=false;
 		黄色=true;
 		特别= true;
@@ -43,20 +39,18 @@ public class 矮人国王的皇冠 extends Item {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 //		actions.add( AC_WEAR );
-		actions.add( AC_精通 );
 		return actions;
+	}
+	
+	@Override
+	public int 金币(){
+		return 500;
 	}
 	
 	@Override
 	public void execute( Hero hero, String action ) {
 
 		super.execute( hero, action );
-
-		if (action.equals(AC_精通)&&hero.subClass!=NONE) {
-			detach(hero.belongings.backpack);
-			hero.解锁4天赋=true;
-			GLog.p("你解锁了4层天赋");
-		}
 		
 		if (action.equals(AC_WEAR)) {
 

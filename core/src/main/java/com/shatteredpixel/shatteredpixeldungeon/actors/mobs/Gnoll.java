@@ -19,7 +19,7 @@ public class Gnoll extends Mob {
 		经验 = 2;
 		最大等级 = 8;
 		
-		loot = Gold.class;
+		loot = new Gold().random();
 		lootChance = 0.5f;
 		properties.add(Property.动物);
 	}

@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Fireball;
-import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
@@ -171,26 +170,26 @@ public class WelcomeScene extends PixelScene {
 		}
 
 		RenderedTextBlock text = PixelScene.renderTextBlock(6);
-		String message;
-		if (previousVersion == 0 || SPDSettings.intro()) {
-			message = Document.INTROS.pageBody(0);
-		} else if (previousVersion <= ShatteredPixelDungeon.versionCode) {
-			if (previousVersion < LATEST_UPDATE){
-				message = Messages.get(this, "update_intro");
-				message += "\n\n" + Messages.get(this, "update_msg");
-			} else {
-				//TODO: change the messages here in accordance with the type of patch.
-				message = Messages.get(this, "patch_intro");
-				message += "\n";
-				message += "\n" + Messages.get(this, "patch_balance");
-				message += "\n" + Messages.get(this, "patch_bugfixes");
-				message += "\n" + Messages.get(this, "patch_translations");
-
-			}
-
-		} else {
-			message = Messages.get(this, "what_msg");
-		}
+		String message="";
+//		if (previousVersion == 0 || SPDSettings.intro()) {
+//			message = Document.INTROS.pageBody(0);
+//		} else if (previousVersion <= ShatteredPixelDungeon.versionCode) {
+//			if (previousVersion < LATEST_UPDATE){
+//				message = Messages.get(this, "update_intro");
+//				message += "\n\n" + Messages.get(this, "update_msg");
+//			} else {
+//				//TODO: change the messages here in accordance with the type of patch.
+//				message = Messages.get(this, "patch_intro");
+//				message += "\n";
+//				message += "\n" + Messages.get(this, "patch_balance");
+//				message += "\n" + Messages.get(this, "patch_bugfixes");
+//				message += "\n" + Messages.get(this, "patch_translations");
+//
+//			}
+//
+//		} else {
+//			message = Messages.get(this, "what_msg");
+//		}
 
 		text.text(message, Math.min(w-20, 300));
 		float titleBottom = title.y + title.height();

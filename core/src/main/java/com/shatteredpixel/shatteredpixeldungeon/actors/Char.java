@@ -83,6 +83,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.黑暗结晶;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
@@ -105,6 +106,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfCha
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
@@ -749,14 +751,18 @@ public abstract class Char extends Actor {
 		//endregion
 
 		if (acuStat >= defStat){
-			if(attacker.未命中>=3){
-				attacker.未命中=0;
+			attacker.未命中=0;
+			if(attacker instanceof Hero hero&&投机之剑.增加()>0&&算法.概率学(投机之剑.增加())){
+				hero.投机之剑+=new Gold().random().数量();
 			}
 			hitMissIcon = FloatingText.getHitReasonIcon(attacker, acuStat, defender, defStat);
 			return true;
 		} else {
 			attacker.未命中++;
 			
+			if(attacker instanceof Hero hero&&投机之剑.增加()>0){
+				hero.投机之剑-=Math.round(hero.投机之剑*投机之剑.减少());
+			}
 			if(attacker.未命中>=3&&attacker.未命中%3==0){
 				if(attacker.sprite!=null)
 					attacker.sprite.哭泣();

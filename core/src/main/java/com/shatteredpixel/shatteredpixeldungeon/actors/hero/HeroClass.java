@@ -95,6 +95,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
@@ -286,6 +287,9 @@ public enum HeroClass{
 		
 		if(Holiday.getCurrentHoliday()==Holiday.国庆节){
 			new 中国国旗().放背包();
+		}
+		if(Holiday.getCurrentHoliday()==Holiday._1111){
+			new 优惠卡().放背包();
 		}
 		if(Holiday.getCurrentHoliday()==Holiday.圣诞节){
 			new 圣诞礼物().放背包();

@@ -37,9 +37,9 @@ public class Scorpio extends Mob {
 	@Override
 	public float 移速() {
 		if(enemy!=null&&Dungeon.level.distance( enemy.pos, pos )<=2)
-			return 5/6f;
+			return super.移速()*5/6f;
 		else
-			return 7/6f;
+			return super.移速()*9/6f;
 	}
 	@Override
 	public int 最小攻击() {

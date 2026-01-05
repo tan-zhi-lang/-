@@ -18,6 +18,7 @@ public class 三叉戟 extends Weapon{
 		投矛=true;
 		延迟= 1.35f;
 		伤害= 1.35f;
+		连招范围=2;
 		范围 = 2;
 		命中=0.85f;
 		

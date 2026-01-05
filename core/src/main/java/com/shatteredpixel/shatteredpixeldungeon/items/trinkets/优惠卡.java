@@ -22,12 +22,12 @@ public class 优惠卡 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
 								打折(),
-								打折()
+								获取()
 							   );
 		} else {
 			return Messages.get(this, "stats_desc",
 								打折(0),
-								打折(0)
+								获取(0)
 							   );
 		}
 	}
@@ -41,6 +41,17 @@ public class 优惠卡 extends Trinket {
 			return 10;
 		} else {
 			return 9-level;
+		}
+	}
+	public static int 获取(){
+		return 获取(trinketLevel(优惠卡.class));
+	}
+
+	public static int 获取(int level){
+		if (level < 0){
+			return 100;
+		} else {
+			return 95-5*level;
 		}
 	}
 

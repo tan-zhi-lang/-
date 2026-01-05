@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
@@ -199,6 +200,7 @@ public class Dungeon {
 	public static int energy=0;
 	public static int gold(int x){
 		if(x>0){
+			x*=优惠卡.获取()/100f;
 			energy(Math.round(圣金之沙.获得()*x));
 			gold+=Math.round(x*
 					 (hero()&&hero.天赋(Talent.财富)?

@@ -111,10 +111,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
@@ -587,8 +589,7 @@ public class Generator {
 					UnstableSpellbook.class,
 					骷髅钥匙.class
 			};
-			ARTIFACT.defaultProbs = new float[]{ 1, 1,
-												 0,
+			ARTIFACT.defaultProbs = new float[]{ 1, 1,0,
 												 1, 1,
 					1, 1, 1, 1,
 					1, 1,1,1 };
@@ -622,9 +623,10 @@ public class Generator {
 					
 					FerretTuft.class,
 					传奇肛塞.class,
-					中国国旗.class,
 					
+					中国国旗.class,
 					优惠卡.class,
+					
 					圣金之沙.class,
 					精神支柱.class,
 					虚无透纱.class,
@@ -638,6 +640,9 @@ public class Generator {
 					断骨法杖.class,
 					骸骨左轮.class,
 					血腥生肉.class,
+					
+					投机之剑.class,
+					神圣之剑.class,
 			};
 			TRINKET.defaultProbs = new float[]{ 0,0,0,
 												1, 1,
@@ -647,11 +652,12 @@ public class Generator {
 												1, 1, 1,
 												1, 1, 1,
 												
-												1,1,0,
-												
+												1,1,
+												0,0,
+												1,1,1,
 												1,1,1,1,
 												1,1,1,1,
-												1,1,1,1,
+												1,1,
 												};
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 

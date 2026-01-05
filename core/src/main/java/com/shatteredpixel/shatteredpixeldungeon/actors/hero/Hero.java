@@ -168,6 +168,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
@@ -294,6 +295,7 @@ public class Hero extends Char {
     public int 根骨 = 0;
     public int 连击 = 0;
     public int 护甲力量= 0;
+    public int 投机之剑= 0;
     public int 英精英雄= -1;
     public int 赛季游戏= -1;
     public boolean[] 特性之征=new boolean[]{
@@ -348,7 +350,7 @@ public class Hero extends Char {
     }
     public void 更新属性() {
 
-        最大生命 = 20 + Math.round(4* (等级 - 1)) + HTBoost;
+        最大生命 = 20 + Math.round(3* (等级 - 1)) + HTBoost;
         
         最大生命+=根骨 * 5;
         if (buff(根骨秘药.HTBoost.class) != null) {
@@ -439,6 +441,7 @@ public class Hero extends Char {
     private static final String 根骨x = "根骨";
     private static final String 连击x = "连击";
     private static final String 护甲力量x= "护甲力量";
+    private static final String 投机之剑x= "投机之剑";
     private static final String 英精英雄x= "英精英雄";
     private static final String 赛季游戏x= "赛季游戏";
     private static final String 护甲恢复x= "护甲恢复";
@@ -486,6 +489,7 @@ public class Hero extends Char {
         bundle.put(根骨x, 根骨);
         bundle.put(连击x, 连击);
         bundle.put(护甲力量x,护甲力量);
+        bundle.put(投机之剑x,投机之剑);
         bundle.put(英精英雄x,英精英雄);
         bundle.put(赛季游戏x,赛季游戏);
         bundle.put(护甲恢复x,护甲恢复);
@@ -529,6 +533,7 @@ public class Hero extends Char {
         根骨 = bundle.getInt(根骨x);
         连击 = bundle.getInt(连击x);
         护甲力量= bundle.getInt(护甲力量x);
+        投机之剑= bundle.getInt(投机之剑x);
         英精英雄= bundle.getInt(英精英雄x);
         赛季游戏= bundle.getInt(赛季游戏x);
         护甲恢复= bundle.getFloat(护甲恢复x);
@@ -936,6 +941,7 @@ public class Hero extends Char {
         if(wep==null){
             accuracy*=1+(力量()-10)*属性增幅;
         }
+        accuracy*=神圣之剑.减少();
         
         if(英精英雄==4)accuracy*=4;
         accuracy*=1+英精英雄成长;
@@ -1961,8 +1967,9 @@ public float 攻击延迟() {
     }
     @Override
     public int 最大护甲(){
-        int 最大护甲=34*Math.max(1,等级/5);
-        if(heroClass(HeroClass.逐姝))最大护甲+=等级;
+        int 最大护甲=3+等级;
+        if(进阶)最大护甲+=5;
+        if(heroClass(HeroClass.逐姝))最大护甲+=等级/2;
         return 最大护甲;
     }
     public void busy() {
@@ -2521,6 +2528,9 @@ public float 攻击延迟() {
     }
     @Override
     public int 暴击(final Char enemy,int dmg){
+        if(enemy.第x次攻击>0&&enemy.第x次攻击<=神圣之剑.增加())
+            必暴=true;
+        
         if((必暴||算法.概率学(暴击率()))){
             dmg=Math.round(dmg*暴击伤害());
             if (subClass == HeroSubClass.狂战士) {
@@ -2670,7 +2680,7 @@ public float 攻击延迟() {
         
         if (belongings.thrownWeapon != null) {
             if(!Dungeon.炼狱(炼狱设置.无力投掷))
-            damage = belongings.secondWep.投掷攻击时(this, enemy, Math.round(
+            damage = belongings.thrownWeapon.投掷攻击时(this, enemy, Math.round(
                                                      damage*(heroClass(HeroClass.女忍)?1.15f:1)));
         }else if (wep != null) {
             damage = wep.攻击时(this, enemy, damage);

@@ -716,9 +716,13 @@ public class 物品表 {
     
     private static final int 禁忌物 = xy(0, 19);  //24 slots
     public static final int 血腥生肉 = 禁忌物;
+    public static final int 投机之剑 = 禁忌物+1;
+    public static final int 神圣之剑 = 禁忌物+2;
     static {
         
         assignItemRect(血腥生肉,15,11);
+        assignItemRect(投机之剑,16);
+        assignItemRect(神圣之剑,13,16);
     }
     
     //endregion

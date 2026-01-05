@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.WelcomeScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -27,8 +26,9 @@ public class ShatteredPixelDungeon extends Game {
 	public static final int v1_0_0 = 10_00_00;
 	
 	public ShatteredPixelDungeon( PlatformSupport platform ) {
-		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
-		
+		super( sceneClass == null ? TitleScene.class : sceneClass, platform );
+//		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
+
 //		com.watabou.utils.Bundle.addAlias(
 //				圣诞礼物.class,
 //				"com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物" );

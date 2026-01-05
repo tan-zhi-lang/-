@@ -70,6 +70,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
@@ -987,6 +988,9 @@ public abstract class Mob extends Char {
 					Dungeon.hero.belongings.charge(断骨法杖.增加());
 					充能卷轴.charge(Dungeon.hero);
 					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
+				}
+				if(投机之剑.增加()>0&&Dungeon.hero.投机之剑>0){
+					Dungeon.gold(Dungeon.hero.投机之剑);
 				}
 				if(Dungeon.hero.天赋(Talent.久战))
 					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,2));

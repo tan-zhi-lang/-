@@ -90,7 +90,7 @@ public class Tengu extends Mob {
 	
 	@Override
 	public int 最大命中(Char target ) {
-		if (Dungeon.level.adjacent(pos, target.pos)){
+		if (target!=null&&Dungeon.level.adjacent(pos, target.pos)){
 			return 10;
 		} else {
 			return 20;

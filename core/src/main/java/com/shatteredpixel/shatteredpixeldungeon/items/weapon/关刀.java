@@ -18,6 +18,7 @@ public class 关刀 extends Weapon{
 		伤害=1.5f;
 		命中=0.7f;
 		tier = 4;
-		范围 = 2;    //extra reach
+		连招范围=2;
+		范围 = 2;
 	}
 }

@@ -23,6 +23,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
@@ -178,7 +180,7 @@ public class Item implements Bundlable {
 	public boolean doPickUp(Hero hero, int pos) {
 		if(Dungeon.炼狱(炼狱设置.遗失钥匙)){
 			if(this instanceof 磨损钥匙||this instanceof 骷髅钥匙){
-			}else if(this instanceof Key){
+			}else if(this instanceof GoldenKey||this instanceof CrystalKey){
 				return false;
 			}
 		}

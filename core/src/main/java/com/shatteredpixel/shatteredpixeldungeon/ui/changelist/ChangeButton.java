@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -21,6 +22,28 @@ public class ChangeButton extends Component {
 	protected String title;
 	protected String[] messages;
 	
+	public ChangeButton( Item item,String... messages){
+		super();
+		
+		this.icon = new ItemSprite(item.image);
+		add(this.icon);
+		
+		this.title = Messages.titleCase(item.name());
+		this.messages =new String[]{item.desc()+messages};
+		
+		layout();
+	}
+	public ChangeButton(Mob mob,String... messages){
+		super();
+		
+		this.icon = mob.sprite();
+		add(this.icon);
+		
+		this.title = Messages.titleCase(mob.name());
+		this.messages =new String[]{mob.description()+messages};
+		
+		layout();
+	}
 	public ChangeButton( Image icon, String title, String... messages){
 		super();
 		

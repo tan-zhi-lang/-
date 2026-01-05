@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
+import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndChallenges;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHeroInfo;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
@@ -62,10 +63,11 @@ import java.util.TimeZone;
 
 public class HeroSelectScene extends PixelScene {
 
+	private static boolean heroWasRandomized = true;
+	private static boolean chalWasRandomized = false;
     private Image background;
     private Image fadeLeft, fadeRight;
     private IconButton btnFade; //only on landscape
-
     //fading UI elements
     private RenderedTextBlock title;
     private ArrayList<StyledButton> heroBtns = new ArrayList<>();
@@ -79,10 +81,6 @@ public class HeroSelectScene extends PixelScene {
     private GameOptions optionsPane;
     private IconButton btnExit;
     private float uiAlpha;
-    
-    
-	private static boolean heroWasRandomized = true;
-	private static boolean chalWasRandomized = false;
 
     @Override
     public void create() {
@@ -187,7 +185,7 @@ public class HeroSelectScene extends PixelScene {
         };
         改动按钮.setSize(20, 21);
         add(改动按钮);
-        
+
         排行榜 = new IconButton(new ItemSprite(物品表.REMAINS)) {
             @Override
             protected void onClick() {
@@ -382,7 +380,7 @@ public class HeroSelectScene extends PixelScene {
 
             optionsPane.setPos(btnOptions.right(), btnOptions.top() - optionsPane.height() - 2);
             align(optionsPane);
-            
+
             btnExit = new ExitButton();
             btnExit.setPos(Camera.main.width - btnExit.width(), 0);
             add(btnExit);
@@ -474,7 +472,7 @@ public class HeroSelectScene extends PixelScene {
             改动按钮.setRect((Camera.main.width - 1.5f * title.width()) / 2f-4, btnOptions.top()-3, 20, 21);
             排行榜.setRect((Camera.main.width - title.width()) / 2f+排行榜.width()*1.5f, (Camera.main.height - HeroBtn.HEIGHT - title.height() -改动按钮.height()*1.5f), 20, 21);
             optionsPane.setPos(heroBtns.get(0).left(), 0);
-            
+
             btnExit = new ExitButton();
             btnExit.setPos((Camera.main.width - 1.5f * title.width()) / 2f + infoButton.width()*3+
                            btnExit.width()*2, btnOptions.top()-4);
@@ -738,11 +736,10 @@ public class HeroSelectScene extends PixelScene {
 
     private class GameOptions extends Component {
 
+        protected StyledButton challengeButton;
         private NinePatch bg;
-
         private ArrayList<StyledButton> buttons;
         private ArrayList<ColorBlock> spacers;
-        protected StyledButton challengeButton;
 
         @Override
         protected void createChildren() {
@@ -936,7 +933,7 @@ public class HeroSelectScene extends PixelScene {
             解压.icon(Icons.get(SPDSettings.解压() > 0 ? Icons.解压开 : Icons.解压关));
             add(解压);
             buttons.add(解压);
-            
+
             StyledButton 系统 = new StyledButton(Chrome.Type.BLANK,Messages.get(系统.class,"title"),6) {
                 @Override
                 protected void onClick() {
@@ -962,7 +959,7 @@ public class HeroSelectScene extends PixelScene {
             系统.icon(Icons.get(SPDSettings.系统() > 0 ? Icons.系统开 : Icons.系统关));
             add(系统);
             buttons.add(系统);
-            
+
             challengeButton = new StyledButton(Chrome.Type.BLANK, Messages.get(WndChallenges.class, "title"), 6){
                 @Override
                 protected void onClick() {
@@ -988,8 +985,8 @@ public class HeroSelectScene extends PixelScene {
             challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
             add(challengeButton);
             buttons.add(challengeButton);
-            
-            
+
+
             StyledButton 炼狱 = new StyledButton(Chrome.Type.BLANK,Messages.get(炼狱.class,"title"),6) {
                 @Override
                 protected void onClick() {
@@ -1001,7 +998,7 @@ public class HeroSelectScene extends PixelScene {
                         ));
                         return;
                     }
-                    
+
                     ShatteredPixelDungeon.scene().addToFront(new 炼狱(SPDSettings.炼狱(), true) {
                         public void onBackPressed() {
                             super.onBackPressed();
@@ -1015,7 +1012,7 @@ public class HeroSelectScene extends PixelScene {
             炼狱.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
             add(炼狱);
             buttons.add(炼狱);
-            
+
             StyledButton 玩法 = new StyledButton(Chrome.Type.BLANK,Messages.get(玩法.class,"title"),6) {
                 @Override
                 protected void onClick() {
@@ -1027,7 +1024,7 @@ public class HeroSelectScene extends PixelScene {
                         ));
                         return;
                     }
-                    
+
                     ShatteredPixelDungeon.scene().addToFront(new 玩法(SPDSettings.玩法(), true) {
                         public void onBackPressed() {
                             super.onBackPressed();
@@ -1041,14 +1038,14 @@ public class HeroSelectScene extends PixelScene {
             玩法.icon(Icons.get(SPDSettings.玩法() > 0 ? Icons.玩法开 : Icons.玩法关));
             add(玩法);
             buttons.add(玩法);
-            
+
             StyledButton randomButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "randomize"), 6) {
                 @Override
                 protected void onClick() {
-                
+
 //                        if (Badges.isUnlocked(Badges.Badge.VICTORY)||DeviceCompat.isDebug()){
                         ShatteredPixelDungeon.scene().addToFront(new WndRandomize());
-                        
+
 //                        } else {
 //
 //                            HeroClass randomCls;
@@ -1064,7 +1061,7 @@ public class HeroSelectScene extends PixelScene {
             randomButton.icon(Icons.SHUFFLE.get());
             buttons.add(randomButton);
             add(randomButton);
-            
+
             StyledButton 难度设置 = new StyledButton(Chrome.Type.BLANK, "难度设置", 6) {
                 @Override
                 protected void onClick() {
@@ -1075,164 +1072,14 @@ public class HeroSelectScene extends PixelScene {
             难度设置.icon(Icons.STATS.get());
             buttons.add(难度设置);
             add(难度设置);
-            
+
             for (int i = 1; i < buttons.size(); i++) {
                 ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
                 add(spc);
                 spacers.add(spc);
             }
         }
-        private class WndRandomize extends Window {
-            
-            CheckBox chkHero;
-            CheckBox chkChals;
-            OptionSlider optChals;
-            
-            public WndRandomize(){
-                super();
-                
-				chkHero = new CheckBox(Messages.get(HeroSelectScene.class, "randomize_hero")){
-					@Override
-					public void checked(boolean value) {
-						super.checked(value);
-						heroWasRandomized = value;
-					}
-				};
-                chkHero.setRect(0, 0, 120, 16);
-				chkHero.checked(heroWasRandomized);
-                add(chkHero);
-                
-                chkChals = new CheckBox(Messages.get(HeroSelectScene.class, "randomize_chals")){
-                    @Override
-                    public void checked(boolean value) {
-                        super.checked(value);
-                        optChals.enable(value);
-						chalWasRandomized = value;
-                    }
-                };
-                chkChals.setRect(0, 20, 120, 16);
-                add(chkChals);
-                
-                int max = Challenges.MAX_CHALS;
-                optChals = new OptionSlider(Messages.get(HeroSelectScene.class, "randomize_chals_title"), "0", Integer.toString(max), 0, max) {
-                    @Override
-                    protected void onChange() {
-                        //do nothing immediately
-                    }
-                };
-                optChals.enable(false);
-                optChals.setSelectedValue(Challenges.activeChallenges(SPDSettings.challenges()));
-                optChals.setRect(0, 38, 120, 22);
-                add(optChals);
-                
-				chkChals.checked(chalWasRandomized);
 
-				RedButton btnCancel = new RedButton(Messages.get(HeroSelectScene.class, "randomize_cancel")){
-                    @Override
-                    protected void onClick() {
-                        super.onClick();
-                        hide();
-                    }
-                };
-                btnCancel.setRect(61, 64, 60, 16);
-                add(btnCancel);
-                
-                RedButton btnConfirm = new RedButton(Messages.get(HeroSelectScene.class, "randomize_confirm")){
-                    @Override
-                    protected void onClick() {
-                        super.onClick();
-                        hide();
-                        
-                        if (chkChals.checked()){
-                            int chals = optChals.getSelectedValue();
-                            ArrayList<Integer> chalMasks = new ArrayList<>();
-                            for (int i=0;i<Challenges.MAX_CHALS;i++){
-                                chalMasks.add((int)Math.pow(2, i));
-                            }
-                            Random.shuffle(chalMasks);
-                            int mask = 0;
-                            for (int i = 0; i < chals; i++){
-                                mask += chalMasks.remove(0);
-                            }
-                            SPDSettings.challenges(mask);
-                            challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
-                            ShatteredPixelDungeon.scene().addToFront(new WndChallenges(mask, false));
-                        }
-                        
-                        if (chkHero.checked()){
-                            HeroClass randomCls;
-                            do {
-                                randomCls = Random.oneOf(HeroClass.values());
-                            } while (!randomCls.isUnlocked()||randomCls == HeroClass.NONE);
-                            setSelectedHero(randomCls);
-                            GamesInProgress.randomizedClass = true;
-                        } else {
-                            setSelectedHero(GamesInProgress.selectedClass);
-                        }
-                    }
-                };
-                btnConfirm.setRect(0, 64, 60, 16);
-                add(btnConfirm);
-                
-                resize(120, (int)btnConfirm.bottom());
-                
-            }
-            
-        }
-        private class Wnd难度设置 extends Window {
-            
-            OptionSlider optChals;
-            
-            public Wnd难度设置(){
-                super();
-                int 难度=Dungeon.难度;
-                if(难度==0)Dungeon.难度=2;
-                optChals = new OptionSlider(Dungeon.难度名称()+" "+
-                                            "生命"+Dungeon.难度生命()
-                                            +"攻击"+Dungeon.难度攻击()
-                                            +"经验"+Dungeon.难度经验()
-                                            +"掉率"+Dungeon.难度掉率(), "1", "16", 1, 16) {
-                    @Override
-                    protected void onChange() {
-                        Dungeon.难度=optChals.getSelectedValue();
-                        
-                        optChals.title.text(Dungeon.难度名称()+" "+
-                                            "生命"+Dungeon.难度生命()
-                                            +"攻击"+Dungeon.难度攻击()
-                                            +"经验"+Dungeon.难度经验()
-                                            +"掉率"+Dungeon.难度掉率());
-                    }
-                };
-                optChals.setSelectedValue(难度);
-                optChals.setRect(0, 0, 120, 22);
-                add(optChals);
-                
-
-				RedButton btnCancel = new RedButton("取消"){
-                    @Override
-                    protected void onClick() {
-                        super.onClick();
-                        hide();
-                    }
-                };
-                btnCancel.setRect(61, 24, 60, 16);
-                add(btnCancel);
-                
-                RedButton btnConfirm = new RedButton("确认"){
-                    @Override
-                    protected void onClick() {
-                        super.onClick();
-                        hide();
-                    }
-                };
-                btnConfirm.setRect(0, 24, 60, 16);
-                add(btnConfirm);
-                
-                resize(120, (int)btnConfirm.bottom());
-                
-            }
-            
-        }
         @Override
         protected void layout() {
             super.layout();
@@ -1275,6 +1122,168 @@ public class HeroSelectScene extends PixelScene {
             for (ColorBlock spc : spacers) {
                 spc.alpha(value);
             }
+        }
+
+        private class WndRandomize extends Window {
+
+            CheckBox chkHero;
+            CheckBox chkChals;
+            OptionSlider optChals;
+
+            public WndRandomize(){
+                super();
+
+				chkHero = new CheckBox(Messages.get(HeroSelectScene.class, "randomize_hero")){
+					@Override
+					public void checked(boolean value) {
+						super.checked(value);
+						heroWasRandomized = value;
+					}
+				};
+                chkHero.setRect(0, 0, 120, 16);
+				chkHero.checked(heroWasRandomized);
+                add(chkHero);
+
+                chkChals = new CheckBox(Messages.get(HeroSelectScene.class, "randomize_chals")){
+                    @Override
+                    public void checked(boolean value) {
+                        super.checked(value);
+                        optChals.enable(value);
+						chalWasRandomized = value;
+                    }
+                };
+                chkChals.setRect(0, 20, 120, 16);
+                add(chkChals);
+
+                int max = Challenges.MAX_CHALS;
+                optChals = new OptionSlider(Messages.get(HeroSelectScene.class, "randomize_chals_title"), "0", Integer.toString(max), 0, max) {
+                    @Override
+                    protected void onChange() {
+                        //do nothing immediately
+                    }
+                };
+                optChals.enable(false);
+                optChals.setSelectedValue(Challenges.activeChallenges(SPDSettings.challenges()));
+                optChals.setRect(0, 38, 120, 22);
+                add(optChals);
+
+				chkChals.checked(chalWasRandomized);
+
+				RedButton btnCancel = new RedButton(Messages.get(HeroSelectScene.class, "randomize_cancel")){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnCancel.setRect(61, 64, 60, 16);
+                add(btnCancel);
+
+                RedButton btnConfirm = new RedButton(Messages.get(HeroSelectScene.class, "randomize_confirm")){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+
+                        if (chkChals.checked()){
+                            int chals = optChals.getSelectedValue();
+                            ArrayList<Integer> chalMasks = new ArrayList<>();
+                            for (int i=0;i<Challenges.MAX_CHALS;i++){
+                                chalMasks.add((int)Math.pow(2, i));
+                            }
+                            Random.shuffle(chalMasks);
+                            int mask = 0;
+                            for (int i = 0; i < chals; i++){
+                                mask += chalMasks.remove(0);
+                            }
+                            SPDSettings.challenges(mask);
+                            challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+                            ShatteredPixelDungeon.scene().addToFront(new WndChallenges(mask, false));
+                        }
+
+                        if (chkHero.checked()){
+                            HeroClass randomCls;
+                            do {
+                                randomCls = Random.oneOf(HeroClass.values());
+                            } while (!randomCls.isUnlocked()||randomCls == HeroClass.NONE);
+                            setSelectedHero(randomCls);
+                            GamesInProgress.randomizedClass = true;
+                        } else {
+                            setSelectedHero(GamesInProgress.selectedClass);
+                        }
+                    }
+                };
+                btnConfirm.setRect(0, 64, 60, 16);
+                add(btnConfirm);
+
+                resize(120, (int)btnConfirm.bottom());
+
+            }
+
+        }
+
+        private class Wnd难度设置 extends Window {
+
+            OptionSlider optChals;
+
+            public Wnd难度设置(){
+                super();
+                int 难度=Dungeon.难度;
+                if(难度==0)Dungeon.难度=难度=2;
+
+                IconTitle titlebar = new IconTitle();
+                titlebar.icon(Icons.STATS.get());
+                titlebar.label("                    "+Dungeon.难度名称());
+                titlebar.color(Window.TITLE_COLOR);
+                titlebar.setRect( 0, 0, 120, 8 );
+                add(titlebar);
+
+                RenderedTextBlock desc = PixelScene.renderTextBlock("        _-_ 生命："+Dungeon.难度生命()
+                                                                    +"            _-_ 攻击："+Dungeon.难度攻击()
+                                                                    +"\n\n        _-_ 经验："+Dungeon.难度经验()
+                                                                    +"            _-_ 掉率："+Dungeon.难度掉率()+"\n",6);
+                desc.setRect( 0, titlebar.bottom(), 120, 12 );
+                add(desc);
+                optChals = new OptionSlider("难度", "1", "16", 1, 16) {
+                    @Override
+                    protected void onChange() {
+                        Dungeon.难度=optChals.getSelectedValue();
+                        titlebar.label(Dungeon.难度名称());
+                        desc.text("        _-_ 生命："+Dungeon.难度生命()
+                                  +"            _-_ 攻击："+Dungeon.难度攻击()
+                                  +"\n\n        _-_ 经验："+Dungeon.难度经验()
+                                  +"            _-_ 掉率："+Dungeon.难度掉率()+"\n");
+                    }
+                };
+                optChals.setSelectedValue(难度);
+                optChals.setRect(0, desc.bottom(), 120, 22);
+                add(optChals);
+
+
+				RedButton btnCancel = new RedButton("取消"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnCancel.setRect(61, desc.bottom()+24, 60, 16);
+                add(btnCancel);
+
+                RedButton btnConfirm = new RedButton("确认"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnConfirm.setRect(0, desc.bottom()+24, 60, 16);
+                add(btnConfirm);
+
+                resize(120, (int)btnConfirm.bottom());
+
+            }
+
         }
     }
 

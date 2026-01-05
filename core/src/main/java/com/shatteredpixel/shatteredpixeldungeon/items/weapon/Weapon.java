@@ -36,7 +36,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -77,7 +76,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Image;
@@ -501,14 +499,14 @@ abstract public class Weapon extends KindOfWeapon {
 	public String statsInfo(){
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御()+"~"+最大防御()+"_，"),
-								命中,延迟,伤害,DPS(),范围,
+								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御(0)+"~"+最大防御(0)+"_，"),
-								命中,延迟,伤害,DPS(),范围,
+								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
@@ -1001,6 +999,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public float 命中 = 1f;	// Accuracy modifier
 	public float 延迟= 1f;	// Speed modifier
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
+	public int 连招范围 = -1;
 
 	public enum Augment {
 		DAMAGE  (1.15f, 1,1),
@@ -1047,7 +1046,12 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
-		
+		if(连招范围!=-1&&连招范围>1){
+			连招范围--;
+		}else {
+			连招范围=范围;
+		}
+
 		if (attacker instanceof Hero hero) {
 			if(首次使用){
 				首次使用=false;
@@ -1144,6 +1148,7 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 
+		if(连招范围!=-1)damage=Math.round(damage*连招范围*(1+0.075f));
 		return damage;
 	}
 	
@@ -1156,6 +1161,7 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final String ENCHANT_HARDENED = "enchant_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
 	private static final String 神力x = "神力";
+	private static final String 连招范围x = "连招范围";
 	private static final String AUGMENT	        = "augment";
 
 	@Override
@@ -1166,6 +1172,7 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( ENCHANT_HARDENED, enchantHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( 神力x, 神力 );
+		bundle.put( 连招范围x, 连招范围 );
 		bundle.put( AUGMENT, augment );
 	}
 	
@@ -1177,6 +1184,7 @@ abstract public class Weapon extends KindOfWeapon {
 		enchantHardened = bundle.getBoolean( ENCHANT_HARDENED );
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
+		连招范围 = bundle.getInt( 连招范围x );
 
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
@@ -1260,6 +1268,10 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int reachFactor(Char owner) {
 		int reach = 范围;
+		if(连招范围!=-1){
+			reach=连招范围;
+		}
+
 		if (owner instanceof Hero&&武力之戒.fightingUnarmed((Hero) owner)){
 			reach = 1; //brawlers stance benefits from enchantments, but not innate reach
 			if (!武力之戒.unarmedGetsWeaponEnchantment((Hero) owner)){

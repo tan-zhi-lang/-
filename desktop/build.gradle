@@ -64,6 +64,7 @@ runtime {
 
     jpackage {
         mainClass = appMainClass
+//        appVersion = (appVersionName =~ /\d+\.\d+/)[0]
         appVersion = (appVersionName =~ /\d+\.\d+\.\d+/)[0]
         imageName = appName
     }

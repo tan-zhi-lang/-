@@ -20,6 +20,7 @@ public class 长矛 extends Weapon{
 		延迟= 1.35f;
 		伤害= 1.35f;
 		命中=0.85f;
+		连招范围=2;
 		范围 = 2;
 	}
 	

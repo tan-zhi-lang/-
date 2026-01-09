@@ -2628,7 +2628,8 @@ public float 攻击延迟() {
         damage = super.攻击时(enemy, damage);
 
         if(英精英雄==5)英精英雄成长+=0.01f;
-        Buff.施加(this,战斗状态.class,6);
+
+        Buff.刷新(this,战斗状态.class,6);
         
         //		if(第x次攻击%2==0)
         //		if(第x次攻击%3==0)
@@ -2877,7 +2878,7 @@ public float 攻击延迟() {
             enemy.生命流动-=damage;
         }
         if(英精英雄==5)英精英雄成长+=0.001f;
-        Buff.施加(this,战斗状态.class,6);
+        Buff.刷新(this,战斗状态.class,6);
         if(Dungeon.系统(系统设置.防御成长)){
             防御成长+=Dungeon.depth/100f;
         }

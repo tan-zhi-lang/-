@@ -173,6 +173,30 @@ public class Buff extends Actor {
 		return buff;
 	}
 
+	//same as append, but prevents duplication.
+	public static<T extends Buff> T 刷新(Char target, Class<T> buffClass ) {//不重复
+		T buff = target.buff( buffClass );
+		if (buff != null) {
+			return buff;
+		} else {
+			return 新增( target, buffClass );
+		}
+	}
+
+	public static<T extends FlavourBuff> T 刷新(Char target, Class<T> buffClass, float duration ) {
+		T buff = target.buff( buffClass );
+		if (buff != null) {
+			buff.detach();
+			T newbuff = 施加( target, buffClass );
+			newbuff.spend( duration * target.resist(buffClass) );
+			return newbuff;
+		} else {
+			T newbuff = 施加( target, buffClass );
+			newbuff.spend( duration * target.resist(buffClass) );
+			return newbuff;
+		}
+	}
+
 	//postpones an already active buff, or creates & attaches a new buff and delays that.
 	public static<T extends FlavourBuff> T 延长(Char target, Class<T> buffClass, float duration ) {//没有新增
 		T buff = 施加( target, buffClass );

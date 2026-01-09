@@ -589,6 +589,8 @@ public class 重制 {
 		
 		changes.addButton( new ChangeButton(Icons.get(Icons.DISPLAY), "UI",
 											"_-_ 设置界面和英雄属性界面更好。\n" +
+											"_-_ 显示更多信息。\n" +
+											"_-_ Buff显示计数。\n" +
 											"_-_ 更好的物品图标和底色，数值显示。\n" +
 											"_-_ 优化显示面板以及显示更多内容。\n" +
 											"_-_ 设置UI更新，且添加和移除部分按钮。\n" +

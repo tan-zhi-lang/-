@@ -8,7 +8,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
@@ -73,15 +76,22 @@ public class WandOfLightning extends DamageWand {
 			wandProc(ch, chargesPerCast());
 			if (ch == curUser && ch.isAlive()) {
 				ch.受伤时(Math.round(damageRoll() * multiplier * 0.5f), this);
+				Buff.施加(ch,Cripple.class,2+强化等级());
 				if (!curUser.isAlive()) {
 					Badges.validateDeathFromFriendlyMagic();
 					Dungeon.fail( this );
 					GLog.n(Messages.get(this, "ondeath"));
 				}
 			} else {
+				Buff.施加(ch,Paralysis.class,2+强化等级());
 				ch.受伤时(Math.round(damageRoll() * multiplier), this);
 			}
 		}
+	}
+
+	@Override
+	public String upgradeStat2(int level) {
+		return Integer.toString(2 + level);
 	}
 
 	@Override

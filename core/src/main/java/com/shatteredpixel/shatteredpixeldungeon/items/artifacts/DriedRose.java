@@ -394,6 +394,9 @@ public class DriedRose extends Artifact {
 					while (partialCharge > 1) {
 						ghost.生命++;
 						partialCharge--;
+						if (ghost.生命 == ghost.最大生命){
+							partialCharge = 0;
+						}
 					}
 				} else {
 					partialCharge = 0;

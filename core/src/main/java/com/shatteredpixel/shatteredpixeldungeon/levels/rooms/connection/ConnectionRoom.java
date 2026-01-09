@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.connection;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 

@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -184,9 +185,13 @@ public class 法师魔杖 extends Weapon{
 	public int reachFactor(Char owner) {
 		int reach = super.reachFactor(owner);
 		if (owner instanceof Hero
-				&& wand instanceof WandOfDisintegration
 				&& ((Hero)owner).subClass == HeroSubClass.战斗法师){
+
+			if(wand instanceof WandOfDisintegration)
 			reach += Math.round(Wand.procChanceMultiplier(owner));
+
+			if(wand instanceof 影织法杖)
+			reach += Math.round(Wand.procChanceMultiplier(owner)*2);
 		}
 		return reach;
 	}
@@ -213,9 +218,10 @@ public class 法师魔杖 extends Weapon{
 		int oldStaffcharges = this.wand != null ? this.wand.curCharges : 0;
 
 		if (owner == Dungeon.hero){
-			Talent.WandPreservationCounter counter = Buff.施加(Dungeon.hero, Talent.WandPreservationCounter.class);
-//			if (counter.count() == 0){
-//				counter.countUp(1);
+			Talent.WandPreservationCount
+					counter = Buff.施加(Dungeon.hero,Talent.WandPreservationCount.class);
+//			if (counter.count == 0){
+//				counter.set(1);
 				
 				int 转移量 = 最大转移()- 转移;
 				if(转移量>0&&this.wand.等级()>0&&this.wand.等级()-转移量>=0){
@@ -444,7 +450,7 @@ public class 法师魔杖 extends Weapon{
 					}
 
 					if (Dungeon.hero.天赋(Talent.高级魔杖)
-						&& Dungeon.hero.buff(Talent.WandPreservationCounter.class) == null){
+						&&Dungeon.hero.buff(Talent.WandPreservationCount.class)==null){
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_talent");
 					} else {
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_lost");

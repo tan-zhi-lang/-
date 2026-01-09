@@ -121,7 +121,7 @@ public class 冲锋枪 extends Weapon{
 		return 最小枪械攻击(强化等级());
 	}
 	public int 最小枪械攻击(int lvl) {
-		int dmg =Math.round(最小+((tier-1)+lvl));
+		int dmg =Math.round(最小+2*((tier-2)+lvl));
 		return Math.max(0, dmg);
 	}
 	
@@ -129,7 +129,7 @@ public class 冲锋枪 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public int 最大枪械攻击(int lvl) {
-		int dmg =Math.round(最大+(5*(tier+1-1) +lvl*(tier+1)));
+		int dmg =Math.round(最大+(5*(tier+1-2) +lvl*(tier+1)));
 		return Math.max(0, dmg);
 	}
 	
@@ -142,7 +142,7 @@ public class 冲锋枪 extends Weapon{
 		return 30;
 	}
 	protected int chargesPerCast() {
-		return 1;
+		return 4;
 	}
 	public int curCharges = maxCharges;
 	public float partialCharge = 0f;
@@ -223,7 +223,7 @@ public class 冲锋枪 extends Weapon{
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 
 			if (再生.regenOn())
-				partialCharge += (1f/turnsToCharge);
+				partialCharge += (1f/turnsToCharge/3f);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {
@@ -258,7 +258,7 @@ public class 冲锋枪 extends Weapon{
 	private CellSelector.Listener shooter = new CellSelector.Listener() {
 		@Override
 		public void onSelect( Integer target ) {
-			if (target != null) {
+			if (target != null&&curCharges>=-chargesPerCast()) {
 				curCharges = Math.max(curCharges-chargesPerCast(),0);
 				knockArrow().cast(curUser, target);
 				knockArrow().cast(curUser, target);
@@ -301,7 +301,7 @@ public class 冲锋枪 extends Weapon{
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 冲锋枪.this.accuracyFactor(owner,target)/2;
+			return 冲锋枪.this.accuracyFactor(owner,target)/2f;
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {

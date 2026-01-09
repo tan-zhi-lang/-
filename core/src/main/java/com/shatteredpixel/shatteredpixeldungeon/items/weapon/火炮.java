@@ -16,10 +16,13 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -31,7 +34,7 @@ public class 火炮 extends Weapon{
 	public static final String AC_换弹		= "换弹";
 	
 	{
-		image = 物品表.狙击枪;
+		image = 物品表.火炮;
 		hitSound = Assets.Sounds.HIT_STAB;
 		范围=2;
 		tier = 5;
@@ -122,7 +125,7 @@ public class 火炮 extends Weapon{
 		return 最小枪械攻击(强化等级());
 	}
 	public int 最小枪械攻击(int lvl) {
-		int dmg =Math.round(最小+((tier+34)+lvl));
+		int dmg =Math.round(最小+2*((tier+8)+lvl));
 		return Math.max(0, dmg);
 	}
 	
@@ -130,7 +133,7 @@ public class 火炮 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public int 最大枪械攻击(int lvl) {
-		int dmg =Math.round(最大+(5*(tier+1+34) +lvl*(tier+1)));
+		int dmg =Math.round(最大+(5*(tier+1+8) +lvl*(tier+1)));
 		return Math.max(0, dmg);
 	}
 	
@@ -224,7 +227,7 @@ public class 火炮 extends Weapon{
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 
 			if (再生.regenOn())
-				partialCharge += (1f/turnsToCharge);
+				partialCharge += (1f/turnsToCharge/3f);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {
@@ -262,6 +265,8 @@ public class 火炮 extends Weapon{
 			if (target != null) {
 				curCharges = Math.max(curCharges-chargesPerCast(),0);
 				knockArrow().cast(curUser, target);
+
+				new Bomb.ConjuredBomb().heroexplode(target);
 			}
 		}
 		@Override
@@ -299,7 +304,7 @@ public class 火炮 extends Weapon{
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 火炮.this.accuracyFactor(owner,target)/2;
+			return 火炮.this.accuracyFactor(owner,target)/2f;
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
@@ -318,6 +323,8 @@ public class 火炮 extends Weapon{
 
 		@Override
 		protected void onThrow( int cell ) {
+			WandOfBlastWave.BlastWave.blast(cell);
+			PixelScene.shake(2,0.5f);
 			if (Dungeon.level.heroFOV[cell]) {
 				CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
 			}

@@ -175,7 +175,8 @@ public class Dungeon {
 	public static int 炼狱;
 	public static int 解压;
 	public static int 系统;
-	public static int 玩法;
+	public static int 派对;
+	public static int 赛季;
 	public static int 地牢时间;
 	public static int 地牢天数;
 	public static int 难度;
@@ -270,7 +271,8 @@ public class Dungeon {
 		炼狱 = SPDSettings.炼狱();
 		解压 = SPDSettings.解压();
 		系统 = SPDSettings.系统();
-		玩法 = SPDSettings.玩法();
+		派对= SPDSettings.派对();
+		赛季= SPDSettings.赛季();
 		地牢时间= 360;
 		地牢天数= 1;
 		if(难度==0)难度=2;
@@ -302,93 +304,20 @@ public class Dungeon {
 		Toolbar.swappedQuickslots = false;
 		
 		depth = 1;
-		switch(SPDSettings.customSeed()){
-			case "1调试":
-				depth = 1;
-				break;
-			case "2调试":
-				depth = 2;
-				break;
-			case "3调试":
-				depth = 3;
-				break;
-			case "4调试":
-				depth = 4;
-				break;
-			case "5调试":
-				depth = 5;
-				break;
-			case "6调试":
-				depth = 6;
-				break;
-			case "7调试":
-				depth = 7;
-				break;
-			case "8调试":
-				depth = 8;
-				break;
-			case "9调试":
-				depth = 9;
-				break;
-			case "10调试":
-				depth = 10;
-				break;
-			case "11调试":
-				depth = 11;
-				break;
-			case "12调试":
-				depth = 12;
-				break;
-			case "13调试":
-				depth = 13;
-				break;
-			case "14调试":
-				depth = 14;
-				break;
-			case "15调试":
-				depth = 15;
-				break;
-			case "16调试":
-				depth = 16;
-				break;
-			case "17调试":
-				depth = 17;
-				break;
-			case "18调试":
-				depth = 18;
-				break;
-			case "19调试":
-				depth = 19;
-				break;
-			case "20调试":
-				depth = 20;
-				break;
-			case "21调试":
-				depth = 21;
-				break;
-			case "22调试":
-				depth = 22;
-				break;
-			case "23调试":
-				depth = 23;
-				break;
-			case "24调试":
-				depth = 24;
-				break;
-			case "25调试":
-				depth = 25;
-				break;
-			case "26调试":
-				depth = 26;
-				break;
+
+		String seed = SPDSettings.customSeed();
+		// 判断是否以数字开头且包含"调试"，避免非目标字符串出错
+		if (seed.matches("\\d+调试")) {
+			// 提取开头的数字并转为int
+			depth = Integer.parseInt(seed.replaceAll("调试", ""));
 		}
-		
+
 		branch = 0;
 		generatedLevels.clear();
 		
 		gold=0;
 		energy=0;
-		if(Dungeon.玩法(玩法设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			energy(10);
 		}
 		if(Dungeon.系统(系统设置.资产破亿)||算法.isDebug()){
@@ -430,8 +359,11 @@ public class Dungeon {
 	public static boolean 系统( int mask ) {
 		return (系统 & mask) != 0;
 	}
-	public static boolean 玩法( int mask ) {
-		return (玩法 & mask) != 0;
+	public static boolean 派对(int mask) {
+		return (派对&mask)!=0;
+	}
+	public static boolean 赛季(int mask) {
+		return (赛季&mask)!=0;
 	}
 	public static boolean 地牢时间(int min,int max) {
 		return 地牢时间>=min*60*1.6f&&地牢时间<=max*60*1.6f;
@@ -461,7 +393,7 @@ public class Dungeon {
 	}
 	public static float 难度生命(){
 		float x=0;
-		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=15+(循环()-1 )*5;
 		}
 		return switch(难度){
@@ -473,7 +405,7 @@ public class Dungeon {
 	}
 	public static float 难度攻击(){
 		float x=0;
-		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=10+(循环()-1 )*1.67;
 		}
 		return switch(难度){
@@ -526,14 +458,14 @@ public class Dungeon {
 	}
 	public static float 难度防御(){
 		float x=1;
-		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=5+(循环()-1 )*0.84;
 		}
 		return x;
 	}
 	public static float 难度命中闪避(){
 		float x=1;
-		if(玩法(玩法设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=4.5f+(循环()-1 )*0.75f;
 		}
 		return x;
@@ -549,7 +481,7 @@ public class Dungeon {
 		
 		Level level;
 		if (branch == 0) {
-			if(Dungeon.玩法(玩法设置.地牢塔防)){
+			if(Dungeon.赛季(赛季设置.地牢塔防)){
 				switch (depth){
 					case 1:
 						level=new 下水道1();
@@ -619,6 +551,8 @@ public class Dungeon {
 						default:
 							level=new DeadEndLevel();
 				}
+				if(Dungeon.depth>1000)
+					level=new LastLevel();
 			}
 		} else if (branch == 1) {
 			switch (depth) {
@@ -906,7 +840,8 @@ public class Dungeon {
 	private static final String 炼狱x	= "炼狱";
 	private static final String 解压x	= "解压";
 	private static final String 系统x	= "系统";
-	private static final String 玩法x	= "玩法";
+	private static final String 派对x	= "派对";
+	private static final String 赛季x	= "赛季";
 	private static final String 难度x	= "难度";
 	private static final String 地牢时间x= "地牢时间";
 	private static final String 地牢天数x= "地牢天数";
@@ -941,7 +876,8 @@ public class Dungeon {
 			bundle.put( 炼狱x, 炼狱 );
 			bundle.put( 解压x, 解压 );
 			bundle.put( 系统x, 系统 );
-			bundle.put( 玩法x, 玩法 );
+			bundle.put(派对x,派对);
+			bundle.put(赛季x,赛季);
 			bundle.put( 难度x, 难度 );
 			bundle.put(地牢时间x,地牢时间);
 			bundle.put(地牢天数x,地牢天数);
@@ -1056,7 +992,8 @@ public class Dungeon {
 		Dungeon.炼狱 = bundle.getInt( 炼狱x );
 		Dungeon.解压 = bundle.getInt( 解压x );
 		Dungeon.系统 = bundle.getInt( 系统x );
-		Dungeon.玩法 = bundle.getInt( 玩法x );
+		Dungeon.派对= bundle.getInt(派对x);
+		Dungeon.赛季= bundle.getInt(赛季x);
 		Dungeon.难度 = bundle.getInt( 难度x );
 		Dungeon.地牢时间= bundle.getInt(地牢时间x);
 		Dungeon.地牢天数= bundle.getInt(地牢天数x);
@@ -1183,7 +1120,8 @@ public class Dungeon {
 		info.炼狱 = bundle.getInt( 炼狱x );
 		info.解压 = bundle.getInt( 解压x );
 		info.系统 = bundle.getInt( 系统x );
-		info.玩法 = bundle.getInt( 玩法x );
+		info.派对= bundle.getInt(派对x);
+		info.赛季= bundle.getInt(赛季x);
 		info.难度 = bundle.getInt( 难度x );
 		info.seed = bundle.getLong( SEED );
 		info.customSeed = bundle.getString( CUSTOM_SEED );
@@ -1421,7 +1359,7 @@ public class Dungeon {
 	}
 	public static int 相对层数(){
 		int d=depth;
-		if(玩法(玩法设置.刷子地牢)&&d>25){
+		if(赛季(赛季设置.刷子地牢)&&d>25){
 			d=((d - 1) % 25) + 1;
 		}
 		return d;

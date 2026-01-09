@@ -118,10 +118,8 @@ public class 虫箭 extends Artifact {
 		}
 
 		damage -= hero.最大防御();
-		
-		int 护甲=hero.护甲;
-		hero.护甲(-damage);
-		damage-=护甲;
+
+		damage-=hero.护甲伤害(damage);
 		
 		hero.sprite.operate( hero.pos );
 		hero.busy();

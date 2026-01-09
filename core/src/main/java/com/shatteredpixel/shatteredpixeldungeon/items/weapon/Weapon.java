@@ -76,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Image;
@@ -235,6 +236,9 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String defaultAction() {
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
+			技能=null;
+		}
 		if(SPDSettings.主要战技()){
 			if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
 				if(技能!=null||cursed){
@@ -254,7 +258,10 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
-		
+
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
+			技能=null;
+		}
 		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&技能!=null){
 			actions.add(AC_ABILITY);
 		}
@@ -263,6 +270,9 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public String status() {
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
+			技能=null;
+		}
 		if (技能!=null&&levelKnown&&charger!=null&&Dungeon.hero()&&isEquipped(Dungeon.hero)) {
 			return charger.charges + "/" + charger.chargeCap();
 		} else {
@@ -271,6 +281,9 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String actionName(String action, Hero hero) {
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
+			技能=null;
+		}
 		if (action.equals(AC_ABILITY)){
 			return 技能.name();
 		} else {
@@ -281,7 +294,10 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
-		
+
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
+			技能=null;
+		}
 		if (action.equals( AC_CHOOSE )){
 			GameScene.show(new WndUseItem(null,this));
 		}else if (action.equals(AC_ABILITY)&&技能!=null){
@@ -323,7 +339,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (hero.subClass == HeroSubClass.征服者) {
 			Buff.施加(hero, 征服.class).叠层();
 		}
-		hero.战斗状态判定=Math.min(hero.战斗状态判定+8,8);
+		Buff.新增(hero,Hero.战斗状态.class,6);
 		if (false){//使用武技命中
 			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
 		}
@@ -833,9 +849,10 @@ abstract public class Weapon extends KindOfWeapon {
 			return 1.5f;
 		}
 		if (target!=null&&Dungeon.level.distance(owner.pos,target.pos)<=范围) {
-			return 1;
+			//抵近射击
+			return 1/Math.max(Dungeon.level.distance(owner.pos,target.pos),Dungeon.level.distance(owner.pos,target.pos)-范围);
 		} else {
-			return 0.75f+x;	//抵近射击
+			return 0.5f+x;
 		}
 	}
 	@Override
@@ -1046,10 +1063,11 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 攻击时(Char attacker, Char defender, int damage ) {
-		if(连招范围!=-1&&连招范围>1){
+		if(连招范围!=-1){
+			if(连招范围>1)
 			连招范围--;
-		}else {
-			连招范围=范围;
+			else 连招范围=范围;
+
 		}
 
 		if (attacker instanceof Hero hero) {
@@ -1148,7 +1166,14 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 
-		if(连招范围!=-1)damage=Math.round(damage*连招范围*(1+0.075f));
+		if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.连招)&&连招范围==1){
+			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.连招);
+		}
+
+		if(连招范围!=-1){
+			GLog.w("这次你的物理攻击连招范围是"+连招范围+"，将造成"+(1+(范围+1-连招范围)*0.15f)+"倍伤害");
+			damage=Math.round(damage*(1+(范围+1-连招范围)*0.15f));
+		}
 		return damage;
 	}
 	
@@ -1526,10 +1551,6 @@ abstract public class Weapon extends KindOfWeapon {
 			if (attacker.buff(Talent.SpiritBladesTracker.class) != null
 					&& ((Hero)attacker).天赋点数(Talent.SPIRIT_BLADES) == 4){
 				multi += 0.1f;
-			}
-			if (attacker.buff(Talent.StrikingWaveTracker.class) != null
-					&& ((Hero)attacker).天赋点数(Talent.STRIKING_WAVE) == 4){
-				multi += 0.2f;
 			}
 
 			return multi;

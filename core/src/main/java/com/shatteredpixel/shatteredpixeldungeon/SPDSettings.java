@@ -334,7 +334,8 @@ public class SPDSettings extends GameSettings {
 	public static final String 炼狱x	= "炼狱";
 	public static final String 解压x	= "解压";
 	public static final String 系统x	= "系统";
-	public static final String 玩法x	= "玩法";
+	public static final String 派对x	= "派对";
+	public static final String 赛季x= "赛季";
 	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_LAST_DAILY	= "last_daily";
 	public static final String KEY_INTRO		= "intro";
@@ -387,12 +388,19 @@ public class SPDSettings extends GameSettings {
 	public static int 系统() {
 		return getInt( 系统x, 0, 0, 系统设置.MAX_VALUE );
 	}
-	public static void 玩法( int value ) {
-		put( 玩法x, value );
+	public static void 派对(int value) {
+		put(派对x,value);
 	}
 
-	public static int 玩法() {
-		return getInt( 玩法x, 0, 0, 玩法设置.MAX_VALUE );
+	public static int 派对() {
+		return getInt(派对x,0,0,派对设置.MAX_VALUE);
+	}
+	public static void 赛季(int value) {
+		put(赛季x,value);
+	}
+
+	public static int 赛季() {
+		return getInt(赛季x,0,0,赛季设置.MAX_VALUE);
 	}
 
 	public static void customSeed( String value ){

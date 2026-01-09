@@ -557,6 +557,10 @@ return null;
     }
     public static boolean isDebug(){
 //        Game.version.contains("INDEV")
+        if (SPDSettings.customSeed().matches("\\d+调试")) {
+            // 提取开头的数字并转为int
+            return true;
+        }
         return SPDSettings.customSeed().equals("调试");
     }
     public static boolean 概率学(int x){

@@ -11,11 +11,11 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 
 import java.util.ArrayList;
 
-public class 玩法 extends Window {
+public class 派对 extends Window {
 
     private static final int WIDTH = 120;
     private static final int TTL_HEIGHT = 16;
@@ -25,7 +25,7 @@ public class 玩法 extends Window {
     private boolean editable;
     private ArrayList<CheckBox> boxes;
 
-    public 玩法(int checked, boolean editable) {
+    public 派对(int checked,boolean editable) {
 
         super();
 
@@ -43,12 +43,13 @@ public class 玩法 extends Window {
         boxes = new ArrayList<>();
 
         float pos = TTL_HEIGHT;
-        for (int i=0;i<玩法设置.NAME_IDS.length;i++) {
+        for (int i=0;i<派对设置.NAME_IDS.length;i++) {
 
-            final String 玩法= 玩法设置.NAME_IDS[i];
+            final String
+                    派对= 派对设置.NAME_IDS[i];
 
-            CheckBox cb = new CheckBox(Messages.titleCase(Messages.get(玩法设置.class,玩法)));
-            cb.checked((checked & 玩法设置.MASKS[i]) != 0);
+            CheckBox cb = new CheckBox(Messages.titleCase(Messages.get(派对设置.class,派对)));
+            cb.checked((checked&派对设置.MASKS[i])!=0);
             cb.active =editable;
 
             if (i > 0) {
@@ -64,7 +65,7 @@ public class 玩法 extends Window {
                 protected void onClick() {
                     super.onClick();
                     ShatteredPixelDungeon.scene().add(
-                            new WndMessage(Messages.get(玩法设置.class,玩法+"_desc"))
+                            new WndMessage(Messages.get(派对设置.class,派对+"_desc"))
                     );
                 }
             };
@@ -84,10 +85,10 @@ public class 玩法 extends Window {
             int value = 0;
             for (int i = 0; i < boxes.size(); i++) {
                 if (boxes.get(i).checked()) {
-                    value |= 玩法设置.MASKS[i];
+                    value |= 派对设置.MASKS[i];
                 }
             }
-            SPDSettings.玩法(value);
+            SPDSettings.派对(value);
         }
 
         super.onBackPressed();

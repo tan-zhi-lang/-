@@ -24,7 +24,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -42,7 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
-import com.shatteredpixel.shatteredpixeldungeon.系统设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -341,6 +340,7 @@ public abstract class Wand extends Item {
 		int lvl = super.强化等级();
 		if(Dungeon.hero()){
 			lvl+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
+			lvl+=Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血色契约,0.01f));
 		}
 		
 		if (charger != null && charger.target instanceof Hero hero) {
@@ -429,7 +429,7 @@ public abstract class Wand extends Item {
 			}
 		}
 		
-		
+		if(!算法.isDebug())
 		curCharges -= cursed ? 1 : chargesPerCast();
 
 		//remove magic charge at a higher priority, if we are benefiting from it are and not the

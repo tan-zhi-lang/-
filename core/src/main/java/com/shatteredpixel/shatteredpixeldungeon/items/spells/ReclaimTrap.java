@@ -5,11 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.items.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
@@ -64,7 +65,6 @@ public class ReclaimTrap extends TargetedSpell {
 			}
 		}
 		if (storedTrap == null) {
-			quantity++; //storing a trap doesn't consume the spell
 			Trap t = Dungeon.level.traps.get(bolt.collisionPos);
 			if (t != null && t.active && t.visible) {
 				t.disarm(); //even disarms traps that normally wouldn't be
@@ -77,6 +77,9 @@ public class ReclaimTrap extends TargetedSpell {
 			} else {
 				GLog.w(Messages.get(this, "no_trap"));
 			}
+			//spell is not consumed, so doesn't count as a full use
+			Invisibility.notimedispel();
+			curUser.spendAndNext( timeToCast() );
 		} else {
 			
 			Trap t = Reflection.newInstance(storedTrap);
@@ -86,6 +89,7 @@ public class ReclaimTrap extends TargetedSpell {
 			Bestiary.countEncounter(t.getClass());
 			t.activate();
 			
+			onSpellused();
 		}
 	}
 	

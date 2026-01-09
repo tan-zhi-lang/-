@@ -12,8 +12,9 @@ public class 暗杀之刃 extends Weapon {
 	{
 		image = 物品表.ASSASSINS_BLADE;
 		hitSound = Assets.Sounds.HIT_STAB;
-		
-		伤害= 0.75f;
+
+		延迟=0.9f;
+		伤害= 0.7f;
 		
 		技能=new 潜行();
 		伏击=1f;

@@ -127,7 +127,8 @@ public class GamesInProgress {
 		info.炼狱 = Dungeon.炼狱;
 		info.解压 = Dungeon.解压;
 		info.系统 = Dungeon.系统;
-		info.玩法 = Dungeon.玩法;
+		info.派对= Dungeon.派对;
+		info.赛季= Dungeon.赛季;
 		info.难度 = Dungeon.难度;
 
 		info.seed = Dungeon.seed;
@@ -165,7 +166,8 @@ public class GamesInProgress {
 		public int 炼狱;
 		public int 解压;
 		public int 系统;
-		public int 玩法;
+		public int 派对;
+		public int 赛季;
 
 		public long seed;
 		public String customSeed;

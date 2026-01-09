@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisintegrationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -256,6 +257,7 @@ public class Eye extends Mob {
 
 	{
 		resistances.add( WandOfDisintegration.class );
+		resistances.add( 影织法杖.class);
 		resistances.add( DeathGaze.class );
 		resistances.add( DisintegrationTrap.class );
 	}

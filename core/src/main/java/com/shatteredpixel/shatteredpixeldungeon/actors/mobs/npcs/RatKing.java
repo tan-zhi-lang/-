@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -142,13 +141,13 @@ public class RatKing extends NPC {
 						@Override
 						protected void onSelect(int index){
 							if(index==0){
-								crown.upgradeArmor(Dungeon.hero,Dungeon.hero.belongings.armor(),new Ratmogrify());
+								crown.upgradeArmor(Dungeon.hero,Dungeon.hero.belongings.armor(),null);
 								
 								Statistics.qualifiedForRandomVictoryBadge = false;
 								((RatKingSprite)sprite).resetAnims();
 								yell(Messages.get(RatKing.class,"crown_thankyou"));
 							}else if(index==1){
-								GameScene.show(new WndInfoArmorAbility(Dungeon.hero.heroClass,new Ratmogrify()));
+								GameScene.show(new WndInfoArmorAbility(Dungeon.hero.heroClass,null));
 							}else{
 								yell(Messages.get(RatKing.class,"crown_fine"));
 							}
@@ -166,7 +165,7 @@ public class RatKing extends NPC {
 	
 	@Override
 	public String description() {
-		if (Dungeon.hero() && Dungeon.hero.armorAbility instanceof Ratmogrify){
+		if (Dungeon.hero() && !RatKing.库存){
 			return Messages.get(this, "desc_crown");
 		} else if (Holiday.getCurrentHoliday() == Holiday.愚人节){
 			return Messages.get(this, "desc_birthday");

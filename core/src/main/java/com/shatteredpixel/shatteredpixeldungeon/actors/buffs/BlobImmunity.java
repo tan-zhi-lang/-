@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Web;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Tengu;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MagicalFireRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class BlobImmunity extends FlavourBuff {
@@ -46,6 +47,7 @@ public class BlobImmunity extends FlavourBuff {
 		immunities.add( Electricity.class );
 		immunities.add( Fire.class );
 		immunities.add( MagicalFireRoom.EternalFire.class );
+		immunities.add(魔法冰霜房间.魔法冰霜.class );
 		immunities.add( Freezing.class );
 		immunities.add( Inferno.class );
 		immunities.add( ParalyticGas.class );

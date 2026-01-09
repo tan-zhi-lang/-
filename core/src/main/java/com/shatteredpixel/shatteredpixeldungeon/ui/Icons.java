@@ -132,7 +132,10 @@ public enum Icons {
     炼狱关, 炼狱开,
     解压关, 解压开,
     系统关, 系统开,
-    玩法关, 玩法开,
+    派对关,
+    派对开,
+    赛季关,
+    赛季开,
     ;
 
     public Image get() {
@@ -462,13 +465,20 @@ public enum Icons {
             case 系统开:
                 icon.frame(icon.texture.uvRectBySizeXY(5, 8));
                 break;
-            case 玩法关:
+            case 派对关:
                 icon.frame(icon.texture.uvRectBySizeXY(6, 8));
                 break;
-            case 玩法开:
+            case 派对开:
                 icon.frame(icon.texture.uvRectBySizeXY(7, 8));
                 break;
-                
+
+            case 赛季关:
+                icon.frame(icon.texture.uvRectBySizeXY(8, 8));
+                break;
+            case 赛季开:
+                icon.frame(icon.texture.uvRectBySizeXY(9, 8));
+                break;
+
             case 睡眠:
                 icon.frame(icon.texture.uvRectBySizeXY(0, 9));
                 break;

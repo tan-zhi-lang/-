@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.防御姿态;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class 冰门重盾 extends Weapon{
 
 	{
 		image = 物品表.冰门重盾;
-		
+		技能=new 防御姿态();
 		特别= true;
 		遗产= false;
 		缴械= false;
@@ -25,13 +26,7 @@ public class 冰门重盾 extends Weapon{
 		伤害= 0.85f;
 		tier = 1;
 	}
-	@Override
-	public String defaultAction() {
-		if(Dungeon.hero.subClass(HeroSubClass.盾之勇者)){
-			return super.defaultAction();
-		}
-		return defaultAction;
-	}
+
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
@@ -55,11 +50,14 @@ public class 冰门重盾 extends Weapon{
 	}
 	@Override
 	public int 最大攻击(int lvl) {
-		return  Math.round(super.最大攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻)));
+		return  Math.round(super.最大攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));
 	}
 
 	@Override
 	public int 最大防御(int lvl){
-		return 2 + lvl*2;
+		tier=1+Dungeon.hero.天赋点数(Talent.高阶盾武);
+		命中=1+Dungeon.hero.天赋点数(Talent.用盾诀窍,0.075f);
+		吸血=Dungeon.hero.天赋点数(Talent.用盾诀窍,0.03f);
+		return (1+Dungeon.hero.天赋点数(Talent.冰门高防)) + lvl*(1+Dungeon.hero.天赋点数(Talent.冰门高防));
 	}
 }

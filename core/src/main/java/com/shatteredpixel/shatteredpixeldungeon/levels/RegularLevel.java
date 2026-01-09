@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.levels;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -45,6 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SacrificeRo
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.StatueRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.entrance.EntranceRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.exit.ExitRoom;
@@ -58,7 +58,9 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -111,6 +113,9 @@ public abstract class RegularLevel extends Level {
 			standards = (int)Math.ceil(standards * 1.5f);
 		}
 
+		if(Dungeon.赛季(赛季设置.危险重重)){
+			standards*=2;
+		}
 		for (int i = 0; i < standards; i++) {
 			StandardRoom s;
 			do {
@@ -128,6 +133,9 @@ public abstract class RegularLevel extends Level {
 		if (feeling == Feeling.LARGE){
 			specials++;
 		}
+		if(Dungeon.赛季(赛季设置.危险重重)){
+			specials*=2;
+		}
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
 			SpecialRoom s = SpecialRoom.createRoom();
@@ -138,6 +146,9 @@ public abstract class RegularLevel extends Level {
 		int secrets = SecretRoom.secretsForFloor(Dungeon.depth);
 		//one additional secret for secret levels
 		if (feeling == Feeling.SECRETS) secrets++;
+		if(Dungeon.赛季(赛季设置.危险重重)){
+			secrets*=2;
+		}
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
 		}
@@ -184,29 +195,33 @@ public abstract class RegularLevel extends Level {
 	
 	@Override
 	public int mobLimit() {
-		if (Dungeon.depth <= 1){
-			if (!Statistics.amuletObtained) return 0;
-			else                            return 9;
+		int mobs = 3 + Dungeon.depth % 5 + Random.Int(3);
+		if (Dungeon.depth == 1){
+//			if (!Statistics.amuletObtained) mobs=0;
+//			else mobs=8;
+			mobs=8;
+			//on floor 1, 8 pre-set mobs are created so the player can get level 2.
 		}
 
-		int mobs = 3 + Dungeon.depth % 5 + Random.Int(3);
 		if (feeling == Feeling.LARGE){
 			mobs = (int)Math.ceil(mobs * 1.33f);
 		}
-		if(Dungeon.玩法(玩法设置.修罗血场)){
+		if(Dungeon.赛季(赛季设置.危险重重)){
 			mobs*=2;
 		}
+		if(Dungeon.赛季(赛季设置.修罗血场)){
+			mobs*=2;
+		}
+		if(Dungeon.赛季(赛季设置.刷子地牢)){
+			mobs*=2;
+		}//并不是生成找不到位置，而是生成太多检测了，比如60x60x100，这都生成到猴年马月
 		return mobs;
 	}
 	
 	@Override
 	protected void createMobs() {
-		//on floor 1, 8 pre-set mobs are created so the player can get level 2.
-		int mobsToSpawn = Dungeon.depth == 1 ? 9 : mobLimit();
-		
-		if(Dungeon.玩法(玩法设置.修罗血场)){
-			mobsToSpawn*=2;
-		}
+		int mobsToSpawn = mobLimit();
+
 		ArrayList<Room> stdRooms = new ArrayList<>();
 		for (Room room : rooms) {
 			if (room instanceof StandardRoom) {
@@ -247,29 +262,36 @@ public abstract class RegularLevel extends Level {
 			}
 			roomToSpawn = stdRoomIter.next();
 
-			int tries = 30;
+			int tries = 15;
 			do {
 				mob.pos = pointToCell(roomToSpawn.random());
 				tries--;
+
 			} while (tries >= 0 && (findMob(mob.pos) != null
 					|| entranceFOV[mob.pos] || PathFinder.distance[mob.pos] != Integer.MAX_VALUE
 					|| !passable[mob.pos]
 					|| solid[mob.pos]
+					|| mob.pos==-1
 					|| !roomToSpawn.canPlaceCharacter(cellToPoint(mob.pos), this)
+					|| mob.pos == entrance()
 					|| mob.pos == exit()
 					|| traps.get(mob.pos) != null || plants.get(mob.pos) != null
 					|| (!openSpace[mob.pos] && mob.properties().contains(Char.Property.LARGE))));
 
-			if (tries >= 0) {
+			if (tries >= 0) {//如果还有尝试生成机会，继续生成
 				mobsToSpawn--;
-				mobs.add(mob);
-				mob = null;
+
+				if(mob.pos!=-1){
+					mobs.add(mob);
+					mob = null;
+				}
 
 				//chance to add a second mob to this room, except on floor 1
-				if (Dungeon.depth > 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
+				//一层也能额外生成一次
+				if (Dungeon.depth >= 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = createMob();
 
-					tries = 30;
+					tries = 15;
 					do {
 						mob.pos = pointToCell(roomToSpawn.random());
 						tries--;
@@ -277,17 +299,29 @@ public abstract class RegularLevel extends Level {
 							|| entranceFOV[mob.pos] || PathFinder.distance[mob.pos] != Integer.MAX_VALUE
 							|| !passable[mob.pos]
 							|| solid[mob.pos]
+							|| mob.pos==-1
 							|| !roomToSpawn.canPlaceCharacter(cellToPoint(mob.pos), this)
+							|| mob.pos == entrance()
 							|| mob.pos == exit()
 							|| traps.get(mob.pos) != null || plants.get(mob.pos) != null
 							|| (!openSpace[mob.pos] && mob.properties().contains(Char.Property.LARGE))));
 
 					if (tries >= 0) {
 						mobsToSpawn--;
-						mobs.add(mob);
-						mob = null;
+
+						if(mob.pos!=-1){
+							mobs.add(mob);
+							mob=null;
+						}
+					}else {
+						//无法生成也-
+						mobsToSpawn--;
 					}
+
 				}
+			}else {
+				//无法生成也-
+				mobsToSpawn--;
 			}
 		}
 
@@ -368,13 +402,17 @@ public abstract class RegularLevel extends Level {
 		if (feeling == Feeling.LARGE){
 			nItems += 2;
 		}
-		
+
+		if(Dungeon.赛季(赛季设置.危险重重)){
+			nItems*=5;
+		}
 		for (int i=0; i < nItems; i++) {
 
 			Item toDrop = Generator.random();
 			if (toDrop == null) continue;
 
 			int cell = randomDropCell();
+
 			if (map[cell] == Terrain.HIGH_GRASS || map[cell] == Terrain.FURROWED_GRASS) {
 				map[cell] = Terrain.GRASS;
 				losBlocking[cell] = false;
@@ -514,9 +552,9 @@ public abstract class RegularLevel extends Level {
 //		Random.pushGenerator( Random.Long() );
 //			if (Dungeon.hero.天赋(Talent.寻宝猎人)){
 //				Talent.寻宝猎人 dropped = Buff.施加(Dungeon.hero, Talent.寻宝猎人.class);
-//				int targetFloor = (int)(2 + dropped.count());
-//				if (dropped.count() > 4) targetFloor++;
-//				if (Dungeon.depth >= targetFloor && dropped.count() < Dungeon.hero.天赋点数(Talent.寻宝猎人)){
+//				int targetFloor = (int)(2 + dropped.count);
+//				if (dropped.count > 4) targetFloor++;
+//				if (Dungeon.depth >= targetFloor && dropped.count < Dungeon.hero.天赋点数(Talent.寻宝猎人)){
 //					int cell;
 //					int tries = 100;
 //					boolean valid;
@@ -535,7 +573,7 @@ public abstract class RegularLevel extends Level {
 //						}
 //							drop(Generator.randomArmor(), cell).type = Heap.Type.CHEST;
 //
-//						dropped.countUp(2);
+//						dropped.set(2);
 //					}
 //				}
 //			}
@@ -780,7 +818,7 @@ public abstract class RegularLevel extends Level {
 	}
 	
 	protected int randomDropCell( Class<?extends Room> roomType ) {
-		int tries = 100;
+		int tries = 30;//100
 		while (tries-- > 0) {
 			Room room = randomRoom( roomType );
 			if (room == null){
@@ -789,10 +827,13 @@ public abstract class RegularLevel extends Level {
 			if (room != roomEntrance) {
 				int pos = pointToCell(room.random());
 				if (passable[pos] && !solid[pos]
+						&& pos != entrance()
 						&& pos != exit()
+						&& pos != -1
 						&& heaps.get(pos) == null
 						&& room.canPlaceItem(cellToPoint(pos), this)
-						&& findMob(pos) == null) {
+//						&& findMob(pos) == null//怪物可以在物品上
+				) {
 					
 					Trap t = traps.get(pos);
 					
@@ -860,7 +901,9 @@ public abstract class RegularLevel extends Level {
 		//There is magical fire (blocks items) or sacrificial fire (contains items) in it
 		for (Blob b : blobs.values()){
 			if (b.volume > 0) {
-				if (b instanceof MagicalFireRoom.EternalFire) {
+				if (b instanceof 魔法冰霜房间.魔法冰霜) {
+					missedRooms.add(room(魔法冰霜房间.class));
+				} else if (b instanceof MagicalFireRoom.EternalFire) {
 					missedRooms.add(room(MagicalFireRoom.class));
 				} else if (b instanceof SacrificialFire) {
 					missedRooms.add(room(SacrificeRoom.class));

@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Random;
 
@@ -53,10 +53,10 @@ public class MobSpawner extends Actor {
 	//returns a rotation of standard mobs, unshuffled.
 	private static ArrayList<Class<? extends Mob>> standardMobRotation( int depth ){
 		
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
+		if(Dungeon.赛季(赛季设置.刷子地牢)&&depth>25){
 			depth%=25;//解析：超过25求余即是循环层
 		}
-		if(Dungeon.玩法(玩法设置.鬼怨地牢)){
+		if(Dungeon.赛季(赛季设置.鬼怨地牢)){
 			return new ArrayList<>(Arrays.asList(
 					鬼怨.class,
 					鬼怨.class,
@@ -224,10 +224,10 @@ public class MobSpawner extends Actor {
 		if(Holiday.getCurrentHoliday()==Holiday.中元节){
 			rotation.add(Wraith.class);
 		}
-		if(Dungeon.玩法(玩法设置.鬼怨地牢)){
+		if(Dungeon.赛季(赛季设置.鬼怨地牢)){
 			return;
 		}
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&depth>25){
+		if(Dungeon.赛季(赛季设置.刷子地牢)&&depth>25){
 			depth%=25;//解析：超过25求余即是循环层
 		}
 		float x=0.025f;
@@ -267,7 +267,7 @@ public class MobSpawner extends Actor {
 			altChance*=2;
 		}
 		for (int i = 0; i < rotation.size(); i++) {
-			if(Dungeon.玩法(玩法设置.鬼怨地牢)&&算法.概率学(1/8f)){
+			if(Dungeon.赛季(赛季设置.鬼怨地牢)&&算法.概率学(1/8f)){
 				Class<? extends Mob> cl = rotation.get(i);
 				if (cl == 鬼怨.class)                cl = 仇鬼.class;
 				rotation.set(i, cl);

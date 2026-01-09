@@ -5,8 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x10;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x11;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x12;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x13;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x20;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x21;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x23;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x24;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x25;
@@ -25,14 +27,13 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -74,10 +75,6 @@ public enum Talent {
 	洪荒之怒(11,4), 血气旺盛(12,4), 嗜血成性(13,4),
 	//Gladiator T3
 	连战热忱(14,4), 以战养战(15,4), 连击强化(16,4),
-	//Heroic Leap T4
-	BODY_SLAM(17, 4), IMPACT_WAVE(18, 4), DOUBLE_JUMP(19, 4),
-	//Shockwave T4
-	EXPANDING_WAVE(20, 4), STRIKING_WAVE(21, 4), SHOCK_FORCE(22, 4),
 	//Endure T4
 	SUSTAINED_RETRIBUTION(23, 4), SHRUG_IT_OFF(24, 4), EVEN_THE_ODDS(25, 4),
 
@@ -148,8 +145,6 @@ public enum Talent {
 
 	//universal T4
 	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
-	//Ratmogrify T4
-	RATSISTANCE(215, 4), RATLOMACY(216, 4), RATFORCEMENTS(217, 4),
 	
 	任督二脉(x8+26, 3+6+9+3+3),
 	
@@ -159,8 +154,11 @@ public enum Talent {
 	
 	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
 	
-	冰门高攻(x8+9,4),最佳防御(x8+10,4),
-	
+	冰门高攻(x8+9,4),
+	冰门高防(x8+10,4),
+	以攻为守(x8+11,4),用盾诀窍(x8+12,4),高阶盾武(x8+13,4),
+	快速布阵(x8+14,4),全副武装(x8+15,4),步兵冲锋(x8+16,4),
+
 	蓄势待发(x9+11,4),错失良机(x9+12,4),偷袭姿态(x9+13,4),
 	
 	残魂侵蚀(x10+9,4),轻便玉佩(x10+10,4),
@@ -168,16 +166,22 @@ public enum Talent {
 	EVASIVE_ARMOR(x11+11, 4), PROJECTILE_MOMENTUM(x11+12, 4), SPEEDY_STEALTH(x11+13, 4),
 	
 	战争热诚(x12+11,4),致命节奏(x12+12,4),征服之姿(x12+13,4),
-	
+	荣耀之证(x12+14,4),皇室传承(x12+15,4),钢铁甲胄(x12+16,4),
+
+	狂暴爪击(x13+11,4),坚铁甲胄(x13+12,4),极凌飓风(x13+13,4),
+
 	元素之力(x15+9,4),轻便护额(x15+10,4),
 	
 	捕鱼达人(x20+9,4),猫反应7(x20+10,4),
 	白猫主导(x20+11,4),渡魂灵猫(x20+12,4),黑猫主导(x20+13,4),
-	
+
+	吱援部队(x21+11,4),外交鼠段(x21+12,4),鼠手鼠脚(x21+13,4),
+	狂血疯撕(x21+14,4),狂齿猎食(x21+15,4),鼠爪刺击(x21+16,4),
+
 	死亡抗拒(x23+9,4),适应身体(x23+10,4),
 	嗜血如故(x23+11,4),兽性猎手(x23+12,4),追捕猎物(x23+13,4),
-	
-//	死亡抗拒(x24+9,4),适应身体(x24+10,4),
+	血之潮汐(x23+14,4),血色契约(x23+15,4),鲜血转换(x23+16,4),
+
 	关键时刻(x24+11,4),时间控制(x24+12,4),穿越零界(x24+13,4),
 	
 	知识(x25),勇武(x25+1),备战(x25+2),
@@ -201,8 +205,7 @@ public enum Talent {
 	//region Buff
 	
 	public static class LethalMomentumTracker extends FlavourBuff{}
-	public static class StrikingWaveTracker extends FlavourBuff{}
-	public static class WandPreservationCounter extends CounterBuff{{revivePersists = true;}}
+	public static class WandPreservationCount extends CountBuff{{revivePersists = true;}}
 	
 	public static class ProtectiveShadowsTracker extends Buff {
 		float barrierInc = 0.5f;
@@ -247,7 +250,7 @@ public enum Talent {
 		public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / (20 ), 1); }
 	}
 	
-	public static class RejuvenatingStepsFurrow extends CounterBuff{{revivePersists = true;}}
+	public static class RejuvenatingStepsFurrow extends CountBuff{{revivePersists = true;}}
 	
 	
 	public static class SpiritBladesTracker extends FlavourBuff{}
@@ -325,9 +328,6 @@ public enum Talent {
 
 	public int icon(){
 		if (this == HEROIC_ENERGY){
-			if (Ratmogrify.useRatroicEnergy){
-				return 26*7;
-			}
 			HeroClass cls = Dungeon.hero() ? Dungeon.hero.heroClass : GamesInProgress.selectedClass;
 			switch (cls){
 				case WARRIOR: default:
@@ -353,9 +353,6 @@ public enum Talent {
 	}
 
 	public String title(){
-		if (this == HEROIC_ENERGY && Ratmogrify.useRatroicEnergy){
-			return Messages.get(this, name() + ".rat_title");
-		}
 		return Messages.get(this, name() + ".title");
 	}
 
@@ -397,12 +394,10 @@ public enum Talent {
 		}
 		hero.更新数据();
 	}
-
-	public static class CachedRationsDropped extends CounterBuff{{revivePersists = true;}}
 	
-	public static class 寻宝猎人 extends CounterBuff{{revivePersists = true;}}
+	public static class 寻宝猎人 extends CountBuff{{revivePersists = true;}}
 	
-	public static class NatureBerriesDropped extends CounterBuff{{revivePersists = true;}}
+	public static class NatureBerriesDropped extends CountBuff{{revivePersists = true;}}
 	
 	public static void 休息时(Hero hero, int pos){
 		if(算法.isDebug()){
@@ -421,7 +416,7 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		hero.回血(Math.round(foodVal)+hero.天赋点数(Talent.备战,4));
+		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)));
 	
 		if (hero.heroClass(HeroClass.学士)){
 			if (hero.cooldown() > 0) {
@@ -698,7 +693,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,顶福精华,强能处消);
 				break;
 			case 重武:
-				Collections.addAll(tierTalents,冰门高攻,最佳防御);
+				Collections.addAll(tierTalents,冰门高攻,冰门高防);
 				break;
 			case 道士:
 				Collections.addAll(tierTalents,残魂侵蚀,轻便玉佩);
@@ -794,7 +789,10 @@ public enum Talent {
 				Collections.addAll(tierTalents, 高级痛命, 高级死血, 高级吸血);
 				break;
 			case 盾之勇者:
-				Collections.addAll(tierTalents);
+				Collections.addAll(tierTalents,以攻为守,用盾诀窍,高阶盾武);
+				break;
+			case 轻装步兵:
+				Collections.addAll(tierTalents,快速布阵,全副武装,步兵冲锋);
 				break;
 			case 灵月杀手:
 				Collections.addAll(tierTalents, 蓄势待发, 错失良机, 偷袭姿态);
@@ -805,11 +803,26 @@ public enum Talent {
 			case 征服者:
 				Collections.addAll(tierTalents,战争热诚,致命节奏,征服之姿);
 				break;
+			case 皇室卫兵:
+				Collections.addAll(tierTalents,荣耀之证,皇室传承,钢铁甲胄);
+				break;
+			case 神兽之灵:
+				Collections.addAll(tierTalents,狂暴爪击,坚铁甲胄,极凌飓风);
+				break;
 			case 黑白双子:
 				Collections.addAll(tierTalents,白猫主导,渡魂灵猫,黑猫主导);
 				break;
+			case 巫咒王鼠:
+				Collections.addAll(tierTalents,吱援部队,外交鼠段,鼠手鼠脚);
+				break;
+			case 实验狂鼠:
+				Collections.addAll(tierTalents,狂血疯撕,狂齿猎食,鼠爪刺击);
+				break;
 			case 金刚独狼:
 				Collections.addAll(tierTalents,嗜血如故,兽性猎手,追捕猎物);
+				break;
+			case 血法师:
+				Collections.addAll(tierTalents,血之潮汐,血色契约,鲜血转换);
 				break;
 			case 时间刺客:
 				Collections.addAll(tierTalents,关键时刻,时间控制,穿越零界);

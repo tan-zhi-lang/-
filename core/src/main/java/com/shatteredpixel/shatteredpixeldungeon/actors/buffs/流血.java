@@ -4,6 +4,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Sacrificial;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
@@ -80,7 +83,10 @@ public class 流血 extends Buff {
 			int dmg = Math.round(level);
 			
 			if (dmg > 0) {
-				
+				if(!(target instanceof Hero)&&Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.实验狂鼠)){
+					dmg*=dmg*(1+(Dungeon.hero.职业精通()?0.25f:0)+Dungeon.hero.天赋点数(Talent.狂齿猎食,0.25f));
+					Dungeon.hero.回血(dmg*Dungeon.hero.天赋点数(Talent.狂血疯撕,0.05f));
+				}
 				target.受伤时( dmg, this );
 				if (target.sprite.visible) {
 					Splash.at( target.sprite.center(), -PointF.PI / 2, PointF.PI / 6,

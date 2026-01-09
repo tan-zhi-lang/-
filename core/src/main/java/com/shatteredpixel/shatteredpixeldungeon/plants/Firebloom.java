@@ -10,10 +10,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -40,6 +40,10 @@ public class Firebloom extends Plant {
 		
 		if (Dungeon.level.heroFOV[pos]) {
 			CellEmitter.get( pos ).burst( FlameParticle.FACTORY, 5 );
+		}
+		魔法冰霜房间.魔法冰霜 魔法冰霜 = (魔法冰霜房间.魔法冰霜)Dungeon.level.blobs.get(魔法冰霜房间.魔法冰霜.class);
+		if (魔法冰霜 != null && 魔法冰霜.volume > 0) {
+			魔法冰霜.clear( pos );
 		}
 	}
 	

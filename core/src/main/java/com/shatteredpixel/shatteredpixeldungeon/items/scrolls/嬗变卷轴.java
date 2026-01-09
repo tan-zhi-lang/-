@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
@@ -41,13 +42,16 @@ public class 嬗变卷轴 extends InventoryScroll {
 		icon = 物品表.Icons.SCROLL_TRANSMUTE;
 		
 		遗产= true;
-
+		嬗变=false;
 		talentFactor = 2f;
 	}
 
 	@Override
 	protected boolean usableOnItem(Item item) {
 		
+		if(item instanceof Bag){
+			return false;
+		}
 		if(!item.嬗变){
 			return false;
 		}

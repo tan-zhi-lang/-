@@ -36,23 +36,31 @@ public enum HeroSubClass {
 	黑魔导师(HeroIcon.黑魔导师),
 	
 	健身猛男(HeroIcon.NONE),
+
 	盾之勇者(HeroIcon.盾之勇者),
-	
+	轻装步兵(HeroIcon.轻装步兵),
+
 	灵月杀手(HeroIcon.灵月杀手),
 	鬼师(HeroIcon.NONE),
-	
+
+	神兽之灵(HeroIcon.神兽之灵),
 	养殖专家(HeroIcon.养殖专家),
-	
+
 	疾行者(HeroIcon.FREERUNNER),
 	
 	征服者(HeroIcon.征服者),
-	
+	皇室卫兵(HeroIcon.皇室卫兵),
+
 	元素忍者(HeroIcon.NONE),
 	
 	黑白双子(HeroIcon.黑白双子),
-	
+
+	巫咒王鼠(HeroIcon.巫咒王鼠),
+	实验狂鼠(HeroIcon.实验狂鼠),
+
 	金刚独狼(HeroIcon.金刚独狼),
-	
+	血法师(HeroIcon.血法师),
+
 	时间刺客(HeroIcon.时间刺客);
 
 	int icon;

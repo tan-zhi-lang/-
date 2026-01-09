@@ -49,6 +49,7 @@ public class WildEnergy extends TargetedSpell {
 
 		Buff.施加(hero, Recharging.class, 8f);
 		Buff.施加(hero, ArtifactRecharge.class).extend( 8 ).ignoreHornOfPlenty = false;
+		onSpellused();
 	}
 	
 	@Override

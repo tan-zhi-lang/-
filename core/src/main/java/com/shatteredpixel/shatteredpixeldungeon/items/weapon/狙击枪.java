@@ -122,7 +122,7 @@ public class 狙击枪 extends Weapon{
 		return 最小枪械攻击(强化等级());
 	}
 	public int 最小枪械攻击(int lvl) {
-		int dmg =Math.round(最小+((tier+15)+lvl));
+		int dmg =Math.round(最小+2*((tier+5)+lvl));
 		return Math.max(0, dmg);
 	}
 	
@@ -130,7 +130,7 @@ public class 狙击枪 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public int 最大枪械攻击(int lvl) {
-		int dmg =Math.round(最大+(5*(tier+1+15) +lvl*(tier+1)));
+		int dmg =Math.round(最大+(5*(tier+1+5) +lvl*(tier+1)));
 		return Math.max(0, dmg);
 	}
 	
@@ -224,7 +224,7 @@ public class 狙击枪 extends Weapon{
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 
 			if (再生.regenOn())
-				partialCharge += (1f/turnsToCharge);
+				partialCharge += (1f/turnsToCharge/3f);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {
@@ -299,7 +299,7 @@ public class 狙击枪 extends Weapon{
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 狙击枪.this.accuracyFactor(owner,target)/2;
+			return 狙击枪.this.accuracyFactor(owner,target)/2f;
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {

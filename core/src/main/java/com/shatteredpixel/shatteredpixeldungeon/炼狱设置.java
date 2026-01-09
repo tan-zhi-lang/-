@@ -13,8 +13,8 @@ public class 炼狱设置 {
 	public static final int 无力投掷			= 32;
 	public static final int 治疗禁令= 64;
 	public static final int 体弱多病	= 128;
-	public static final int STRONGER_BOSSES 	= 256;
-	public static final int MAX_VALUE           = 511;
+	public static final int 战技移除 	= 256;
+	public static final int MAX_VALUE           = 256*2-1;
 	public static final int MAX_CHALS           = 9;
 
 	public static final String[] NAME_IDS = {
@@ -26,6 +26,7 @@ public class 炼狱设置 {
 			"无力投掷",
 			"治疗禁令",
 			"体弱多病",
+			"战技移除",
 	};
 
 	public static final int[] MASKS = {
@@ -37,6 +38,7 @@ public class 炼狱设置 {
 			无力投掷,
 			治疗禁令,
 			体弱多病,
+			战技移除,
 	};
 	
 	public static int 使用(){

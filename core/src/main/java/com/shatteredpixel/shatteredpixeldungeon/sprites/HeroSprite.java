@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HeroDisguise;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.watabou.gltextures.SmartTexture;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.Camera;
@@ -55,38 +55,65 @@ public class HeroSprite extends CharSprite {
 //	}
 	public void updateArmor() {
 		
-		if(Dungeon.玩法(玩法设置.重生怪物)){
+		if(Dungeon.派对(派对设置.重生怪物)){
 			if(Dungeon.hero.重生怪物.equals("")){
 				
-				Dungeon.hero.重生怪物=Random.oneOf("下水道巨蛇","下水道螃蟹","史莱姆","吸血蝙蝠","矮人武僧");
+				Dungeon.hero.重生怪物=Random.oneOf("白化老鼠","下水道巨蛇","下水道螃蟹","史莱姆","吸血蝙蝠","矮人武僧");
 			}
 			TextureFilm frames;
 			switch(Dungeon.hero.重生怪物){
-				case "下水道巨蛇":
-					texture( Assets.Sprites.SNAKE );
-					
-					frames = new TextureFilm( texture, 12, 11 );
-					
-					//many frames here as we want the rising/falling to be slow but the tongue to be fast
-					idle = new Animation( 10, true );
-					idle.frames( frames, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-								 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 1, 1);
-					
-					run = new Animation( 8, true );
-					run.frames( frames, 4, 5, 6, 7 );
-					
+				case "白化老鼠":
+					texture( Assets.Sprites.RAT );
+
+					 frames = new TextureFilm( texture, 16, 15 );
+
+					idle = new Animation( 2, true );
+					idle.frames( frames, 16, 16, 16, 17 );
+
+					run = new Animation( 10, true );
+					run.frames( frames, 22, 23, 24, 25, 26 );
+
 					attack = new Animation( 15, false );
-					attack.frames( frames, 8, 9, 10, 9, 0);
-					
+					attack.frames( frames, 18, 19, 20, 21 );
+
 					die = new Animation( 10, false );
-					die.frames( frames, 11, 12, 13 );
-					
-					
+					die.frames( frames, 27, 28, 29, 30 );
+
 					zap = attack.clone();
 					operate = attack.clone();
 					fly = run.clone();
 					read = attack.clone();
 					
+					if (Dungeon.hero.isAlive())
+						idle();
+					else
+						die();
+					return;
+				case "下水道巨蛇":
+					texture( Assets.Sprites.SNAKE );
+
+					frames = new TextureFilm( texture, 12, 11 );
+
+					//many frames here as we want the rising/falling to be slow but the tongue to be fast
+					idle = new Animation( 10, true );
+					idle.frames( frames, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+								 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 2, 1, 1);
+
+					run = new Animation( 8, true );
+					run.frames( frames, 4, 5, 6, 7 );
+
+					attack = new Animation( 15, false );
+					attack.frames( frames, 8, 9, 10, 9, 0);
+
+					die = new Animation( 10, false );
+					die.frames( frames, 11, 12, 13 );
+
+
+					zap = attack.clone();
+					operate = attack.clone();
+					fly = run.clone();
+					read = attack.clone();
+
 					if (Dungeon.hero.isAlive())
 						idle();
 					else

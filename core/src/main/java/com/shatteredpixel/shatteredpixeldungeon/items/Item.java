@@ -45,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -54,7 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
@@ -160,7 +161,7 @@ public class Item implements Bundlable {
 		if(SPDSettings.物品命名())
 		actions.add( AC_RENAME );
 		
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&false)
+		if(Dungeon.赛季(赛季设置.刷子地牢)&&false)
 		actions.add( AC_REMOVE );
 		return actions;
 	}
@@ -416,7 +417,34 @@ public class Item implements Bundlable {
 			return null;
 		} else{
 			if(Dungeon.系统(系统设置.无限资源)){
-				return this;
+				boolean 消耗=false;
+				if(this instanceof Bomb){
+					消耗=true;
+				}
+				if(this instanceof Food){
+					消耗=true;
+				}
+				if(this instanceof Potion){
+					消耗=true;
+				}
+				if(this instanceof Plant.Seed){
+					消耗=true;
+				}
+				if(this instanceof Scroll){
+					消耗=true;
+				}
+				if(this instanceof Spell){
+					消耗=true;
+				}
+				if(this instanceof Runestone){
+					消耗=true;
+				}
+				if(this instanceof 用品){
+					消耗=true;
+				}
+				if(消耗){
+					数量(数量()+1);
+				}
 			}
 			if(quantity==1){
 				Dungeon.quickslot.alphaItem(Item.this,true);
@@ -439,10 +467,7 @@ public class Item implements Bundlable {
 	}
 	
 	public final Item detachAll( Bag container ) {
-		
-		if(Dungeon.系统(系统设置.无限资源)){
-			return this;
-		}
+
 		for (Item item : container.items) {
 			if (item == this) {
 				container.items.remove(this);
@@ -518,7 +543,7 @@ public class Item implements Bundlable {
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
-			if(Dungeon.玩法(玩法设置.升级概率)){
+			if(Dungeon.赛季(赛季设置.升级概率)){
 					if(等级>=17){
 						if(算法.概率学(10)){
 							this.等级++;
@@ -848,6 +873,9 @@ public class Item implements Bundlable {
 		if(this instanceof Potion){
 			s+="、"+"药剂";
 		}
+		if(this instanceof Plant.Seed){
+			s+="、"+"种子";
+		}
 		if(this instanceof Elixir){
 			s+="、"+"秘药";
 		}
@@ -869,8 +897,37 @@ public class Item implements Bundlable {
 		if(this instanceof Runestone){
 			s+="、"+"符石";
 		}
-		if(this instanceof ExoticScroll){
-			s+="、"+"秘卷";
+
+		boolean 消耗=false;
+		{
+			if(this instanceof Bomb){
+				消耗=true;
+			}
+			if(this instanceof Food){
+				消耗=true;
+			}
+			if(this instanceof Potion){
+				消耗=true;
+			}
+			if(this instanceof Plant.Seed){
+				消耗=true;
+			}
+			if(this instanceof Scroll){
+				消耗=true;
+			}
+			if(this instanceof Spell){
+				消耗=true;
+			}
+			if(this instanceof Runestone){
+				消耗=true;
+			}
+			if(this instanceof 用品){
+				消耗=true;
+			}
+		}
+
+		if(消耗){
+			s+="、"+"用品";
 		}
 		if(this instanceof EquipableItem){
 			s+="、"+"装备";

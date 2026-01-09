@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM200Sprite;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
@@ -71,7 +71,7 @@ public class DM200 extends Mob {
 	}
 
 	public Item createLoot() {
-		if(!Dungeon.玩法(玩法设置.刷子地牢))
+		if(!Dungeon.赛季(赛季设置.刷子地牢))
 		Dungeon.LimitedDrops.DM200_EQUIP.count++;
 		
 		//uses probability tables for dwarf city

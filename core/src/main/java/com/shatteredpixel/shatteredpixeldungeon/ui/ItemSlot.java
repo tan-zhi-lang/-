@@ -302,7 +302,7 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Math.round(food.energy)) );
 				center.measure();
 				center.hardlight( UPGRADED );
-				extra.text( Messages.format( TXT, Math.round(food.energy*0.01f+Dungeon.hero.天赋点数(Talent.备战,4))));
+				extra.text( Messages.format( TXT, Math.round(food.energy/150f+Dungeon.hero.天赋点数(Talent.备战,3))));
 				extra.measure();
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof 水袋 s) {
@@ -330,12 +330,9 @@ public class ItemSlot extends Button {
 				extra.measure();
 				extra.hardlight( FADED );
 			}else if (item instanceof 心之钢 x) {
-				extra.text( Messages.format( TXT, Dungeon.hero.最大生命(0.1f)+x.等级()+1) );
+				extra.text( Messages.format( TXT, Dungeon.hero.最大生命(0.04f+0.02f*x.等级())) );
 				extra.measure();
 				extra.hardlight( WARNING );
-				center.text( Messages.format( TXT, x.心之钢生命));
-				center.measure();
-				center.hardlight( UPGRADED );
 			}else{
 				if(center.text!=null){
 					center.text(null);

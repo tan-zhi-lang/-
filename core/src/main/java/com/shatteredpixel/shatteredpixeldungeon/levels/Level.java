@@ -92,7 +92,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
@@ -236,21 +236,22 @@ public abstract class Level implements Bundlable {
 		//TODO maybe just make this part of RegularLevel?
 		if (!Dungeon.bossLevel() && Dungeon.branch == 0) {
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
-			if(Dungeon.解压(解压设置.探索口粮))
+			if(Dungeon.解压(解压设置.抗饿能手))
 				addItemToSpawn(Generator.random(Generator.Category.FOOD));
 			
 			if(Dungeon.偶数层()) {
 				addItemToSpawn(new SmallRation());
-				if(Dungeon.解压(解压设置.探索口粮))
+				if(Dungeon.解压(解压设置.抗饿能手))
 					addItemToSpawn(new SmallRation());
 			}
-			if (Dungeon.区域层数(3)) {
-				if(Dungeon.解压(解压设置.宝物空投)){
-					addItemToSpawn(Random.oneOf(Generator.randomWeapon(),
-												Generator.randomArmor(),
-												Generator.randomRing(),
-												Generator.randomArtifact(),
-												Generator.randomWand()));
+			if (Dungeon.区域层数(3)){
+				if(Dungeon.解压(解压设置.随机装备)){
+					addItemToSpawn(Generator.randomArtifact());
+					addItemToSpawn(Generator.randomRing());
+				}
+				if(Dungeon.解压(解压设置.随机魔装)){
+					addItemToSpawn(Generator.randomWand());
+					addItemToSpawn(Generator.random(Generator.Category.TRINKET));
 				}
 			}
 			if (Dungeon.区域层数(3)) {
@@ -339,7 +340,7 @@ public abstract class Level implements Bundlable {
 					case 4:
 						feeling = Feeling.LARGE;
 						addItemToSpawn(Generator.random(Generator.Category.FOOD));
-						if(Dungeon.解压(解压设置.探索口粮))
+						if(Dungeon.解压(解压设置.抗饿能手))
 							addItemToSpawn(Generator.random(Generator.Category.FOOD));
 						break;
 					case 5:
@@ -807,8 +808,8 @@ public abstract class Level implements Bundlable {
 		} else {
 			cooldown = TIME_TO_RESPAWN;
 		}
-		if(Dungeon.玩法(玩法设置.修罗血场)){
-			cooldown/=2;
+		if(Dungeon.赛季(赛季设置.修罗血场)){
+			cooldown/=3;
 		}
 		return cooldown / DimensionalSundial.spawnMultiplierAtCurrentTime();
 	}
@@ -1002,7 +1003,60 @@ public abstract class Level implements Bundlable {
 			discoverable[i] = d;
 		}
 	}
-	
+	public static boolean 在边缘(int pos) {
+		int width= Dungeon.level.width();
+		// 跳过第一行、最后一行
+		if(pos < width || pos >= modifiableBlocking.length - width) {
+			return true;//小于地图大小 大于地图格子-地图大小
+		}
+		int col = pos % width;
+		// 跳过最左边列（col=0）和最右边列（col=width-1）
+		if(col == 0 || col == width - 1) {
+			return true;//地图大小求宽度余之后剩下的是当前在第几列，0是最左边，宽度-1是最右边
+		}
+		return false;
+	}
+	public boolean 在地板(int pos){
+		return Dungeon.level.map[pos] == Terrain.EMPTY_SP;
+	}
+	public boolean 在陷阱(int pos){
+		return Dungeon.level.map[pos] == Terrain.TRAP|| Dungeon.level.map[pos] == Terrain.INACTIVE_TRAP;
+	}
+	public boolean 在水中(int pos){
+		return Dungeon.level.map[pos] == Terrain.WATER;
+	}
+	public boolean 在草丛(int pos){
+		return Dungeon.level.map[pos] == Terrain.GRASS||
+			   Dungeon.level.map[pos] == Terrain.HIGH_GRASS||
+			   Dungeon.level.map[pos] == Terrain.FURROWED_GRASS;
+	}
+	public boolean 在门上(int pos){
+		return Dungeon.level.map[pos] == Terrain.OPEN_DOOR;
+	}
+	public boolean 在狭窄(int pos){
+		int 墙 = 0;
+		for (int i : PathFinder.NEIGHBOURS8) {
+			if (Dungeon.level.solid[pos + i]) {
+				墙 ++;
+			}
+		}
+		if(墙>=5){
+			return true;
+		}
+		return false;
+	}
+	public boolean 实体墙(int pos,int x){
+		int 墙 = 0;
+		for (int i : PathFinder.NEIGHBOURS8) {
+			if (Dungeon.level.solid[pos + i]) {
+				墙 ++;
+			}
+		}
+		if(墙<=x){
+			return true;
+		}
+		return false;
+	}
 	public static void set( int cell, int terrain ){
 		set( cell, terrain, Dungeon.level );
 	}
@@ -1251,7 +1305,7 @@ public abstract class Level implements Bundlable {
 
 //				if (!再生.regenOn()){
 //					set(ch.pos, Terrain.FURROWED_GRASS);
-//				} else if (ch.buff(Talent.RejuvenatingStepsFurrow.class) != null && ch.buff(Talent.RejuvenatingStepsFurrow.class).count() >= 200) {
+//				} else if (ch.buff(Talent.RejuvenatingStepsFurrow.class) != null && ch.buff(Talent.RejuvenatingStepsFurrow.class).count >= 200) {
 //					set(ch.pos, Terrain.FURROWED_GRASS);
 //				} else {
 					set(ch.pos, Terrain.HIGH_GRASS);
@@ -1309,6 +1363,9 @@ public abstract class Level implements Bundlable {
 			
 		case Terrain.HIGH_GRASS:
 		case Terrain.FURROWED_GRASS:
+			if(算法.isDebug())
+				HighGrass.trample3( this, cell);
+
 			HighGrass.trample( this, cell);
 			break;
 			
@@ -1434,6 +1491,9 @@ public abstract class Level implements Bundlable {
 			
 			case Terrain.HIGH_GRASS:
 			case Terrain.FURROWED_GRASS:
+				if(算法.isDebug())
+				HighGrass.trample3( this, cell);
+
 				HighGrass.trample( this, cell);
 				break;
 		}
@@ -1471,37 +1531,72 @@ public abstract class Level implements Bundlable {
 
 			//grass is see-through by some specific entities, but not during the fungi quest
 			if (!(Dungeon.level instanceof  MiningLevel) || Blacksmith.Quest.Type() != Blacksmith.Quest.FUNGI){
-				if ((c instanceof Hero && ((Hero) c).subClass == HeroSubClass.守望者)
+				if ((c instanceof Hero hero&& hero.subClass == HeroSubClass.守望者)
 						|| c instanceof YogFist.SoiledFist || c instanceof GnollGeomancer) {
 					if (blocking == null) {
 						System.arraycopy(Dungeon.level.losBlocking, 0, modifiableBlocking, 0, modifiableBlocking.length);
 						blocking = modifiableBlocking;
 					}
 					for (int i = 0; i < blocking.length; i++) {
+						// 跳过第一行、最后一行
+						if(i < width || i >= blocking.length - width) {
+							continue;
+						}
+						int col = i % width;
+						// 跳过最左边列（col=0）和最右边列（col=width-1）
+						if(col == 0 || col == width - 1) {
+							continue;
+						}
 						if (blocking[i] && (Dungeon.level.map[i] == Terrain.HIGH_GRASS || Dungeon.level.map[i] == Terrain.FURROWED_GRASS)) {
 							blocking[i] = false;
 						}
 					}
 				}
 			}
-			if(Dungeon.hero.belongings.attackingWeapon() instanceof 地裂镰){
+			if(c instanceof Hero hero&& hero.belongings.attackingWeapon() instanceof 地裂镰){
 				if(blocking==null){
 					System.arraycopy(Dungeon.level.losBlocking,0,modifiableBlocking,0,modifiableBlocking.length);
 					blocking=modifiableBlocking;
 				}
 				for(int i=0;i<blocking.length;i++){
-					if(blocking[i]&&(Dungeon.level.map[i]==Terrain.WALL||Dungeon.level.map[i]==Terrain.WALL_DECO)){
+
+					int width = Dungeon.level.width();
+					// 跳过第一行、最后一行
+					if(i < width || i >= blocking.length - width) {
+						continue;
+					}
+					int col = i % width;
+					// 跳过最左边列（col=0）和最右边列（col=width-1）
+					if(col == 0 || col == width - 1) {
+						continue;
+					}
+					if(blocking[i]&&(Dungeon.level.map[i]==Terrain.WALL||Dungeon.level.map[i]==Terrain.WALL_DECO||Dungeon.level.map[i]==Terrain.DOOR)){
 						blocking[i]=false;
 					}
 				}
 			}
-			if(Dungeon.系统(系统设置.透视系统)){
+			if(Dungeon.系统(系统设置.透视系统)&&c instanceof Hero){
 				if(blocking==null){
 					System.arraycopy(Dungeon.level.losBlocking,0,modifiableBlocking,0,modifiableBlocking.length);
 					blocking=modifiableBlocking;
 				}
 				for(int i=0;i<blocking.length;i++){
-					if(blocking[i]){
+					int width = Dungeon.level.width();
+					// 跳过第一行、最后一行
+					if(i < width || i >= blocking.length - width) {
+//						算法.调试("第"+i+"个");
+						continue;//小于地图大小 大于地图格子-地图大小
+					}
+					int col = i % width;
+					// 跳过最左边列（col=0）和最右边列（col=width-1）
+					if(col == 0 || col == width - 1) {
+//						算法.调试("第"+col+"列");
+						continue;//地图大小求宽度余之后剩下的是当前在第几列，0是最左边，宽度-1是最右边
+					}
+
+					if(blocking[i]&&(Dungeon.level.map[i] == Terrain.HIGH_GRASS || Dungeon.level.map[i] == Terrain.FURROWED_GRASS
+					||Dungeon.level.map[i]==Terrain.WALL||Dungeon.level.map[i]==Terrain.WALL_DECO
+					||Dungeon.level.map[i]==Terrain.DOOR)){
 						blocking[i]=false;
 					}
 				}

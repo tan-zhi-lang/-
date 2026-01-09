@@ -232,8 +232,12 @@ public class Ring extends KindofMisc {
 	
 	@Override
 	public Item 升级() {
+		if(等级+1>25){
+			GLog.n("地牢承受不住能量！升级失败！不过你收集到了部分溢出的能量转为为炼金能量");
+			Dungeon.energy(10);
+			return this;
+		}
 		super.升级();
-		
 		if (Random.Int(3) == 0) {
 			cursed = false;
 		}

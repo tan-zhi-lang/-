@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
@@ -90,6 +91,10 @@ public class Fire extends Blob {
 			heap.burn();
 		}
 
+		魔法冰霜房间.魔法冰霜 魔法冰霜 = (魔法冰霜房间.魔法冰霜)Dungeon.level.blobs.get(魔法冰霜房间.魔法冰霜.class);
+		if (魔法冰霜 != null && 魔法冰霜.volume > 0) {
+			魔法冰霜.clear( pos );
+		}
 		Plant plant = Dungeon.level.plants.get( pos );
 		if (plant != null){
 			if(plant instanceof Firebloom)return;

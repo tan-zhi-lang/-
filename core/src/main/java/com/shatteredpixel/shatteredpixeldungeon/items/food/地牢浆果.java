@@ -4,7 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -27,8 +27,9 @@ public class 地牢浆果 extends Food {
 	@Override
 	protected void satisfy(Hero hero) {
 		super.satisfy(hero);
-		SeedCounter counter = Buff.count(hero, SeedCounter.class, 1);
-		if (counter.count() >= 2){
+		SeedCount
+				counter = Buff.count(hero,SeedCount.class,1);
+		if (counter.count >= 2){
 			Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED), hero.pos).sprite().drop();
 			counter.detach();
 		}
@@ -39,5 +40,5 @@ public class 地牢浆果 extends Food {
 		return 5 * quantity;
 	}
 
-	public static class SeedCounter extends CounterBuff{{revivePersists = true;}};
+	public static class SeedCount extends CountBuff{{revivePersists = true;}};
 }

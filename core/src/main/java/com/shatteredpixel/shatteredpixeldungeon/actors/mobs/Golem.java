@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GolemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -74,7 +74,7 @@ public class Golem extends Mob {
 	}
 
 	public Item createLoot() {
-		if(!Dungeon.玩法(玩法设置.刷子地牢))
+		if(!Dungeon.赛季(赛季设置.刷子地牢))
 		Dungeon.LimitedDrops.GOLEM_EQUIP.count++;
 		//uses probability tables for demon halls
 		if (loot == Generator.Category.WEAPON){

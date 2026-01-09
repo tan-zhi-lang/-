@@ -94,9 +94,10 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -667,7 +668,7 @@ public abstract class Mob extends Char {
 	public float 攻击延迟() {
 		float delay = super.攻击延迟();
 		
-		if(Dungeon.玩法(玩法设置.地牢塔防))
+		if(Dungeon.赛季(赛季设置.地牢塔防))
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
 				if(c instanceof 光明结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
@@ -805,6 +806,11 @@ public abstract class Mob extends Char {
 	}
 
 	@Override
+	public float 吸血(){
+		return super.吸血();
+	}
+
+	@Override
 	public void 受伤时(int dmg, Object src ) {
 		if (!是无敌(src.getClass())) {
 			if (state == SLEEPING) {
@@ -868,7 +874,7 @@ public abstract class Mob extends Char {
 				AscensionChallenge.processEnemyKill(this);
 				
 				int exp =0;
-				if(Dungeon.玩法(玩法设置.刷子地牢)){
+				if(Dungeon.赛季(赛季设置.刷子地牢)){
 					exp=经验;
 				}else {
 					exp=Dungeon.hero.等级 <= 最大等级 ? 经验 : 0;
@@ -882,7 +888,7 @@ public abstract class Mob extends Char {
 					exp = Math.round(10 * spawningWeight());
 				}
 
-				if(!Dungeon.玩法(玩法设置.地牢塔防)){
+				if(!Dungeon.赛季(赛季设置.地牢塔防)){
 					Dungeon.hero.经验(exp,getClass());
 				}
 
@@ -907,12 +913,12 @@ public abstract class Mob extends Char {
 				Badges.validateHazardAssists();
 			}
 			
-			if(Dungeon.玩法(玩法设置.地牢塔防)){
+			if(Dungeon.赛季(赛季设置.地牢塔防)){
 				int 能量=1;
 				if(Dungeon.hero.地牢塔防更多更快开关&&Random.Int(4)!=0)能量=0;
 				if(Dungeon.hero.地牢塔防波次%3==0)能量+=最大生命(0.01f);
 				
-				if(Dungeon.玩法(玩法设置.地牢塔防))
+				if(Dungeon.赛季(赛季设置.地牢塔防))
 					for(int n: PathFinder.范围6){
 						Char c=Actor.findChar(pos+n);
 						if(c instanceof 造能结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
@@ -945,13 +951,20 @@ public abstract class Mob extends Char {
 					}
 				}
 				if(!(傀儡()&&老鬼傀儡())){
+				if(!isAlive()){
+					if (Dungeon.hero.subClass(HeroSubClass.狂战士)) {
+						算法.修复效果(()->{
+							Buff.施加(this,怒气.class).damage();
+						});
+					}
+
 					if(Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级/2)){
 						Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
 					}
 					if(血腥生肉.增加()>0&&Random.Int(血腥生肉.增加()-1)==0){
 						Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
 					}
-					
+
 					if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
 						Dungeon.hero.回血(Dungeon.hero.最大生命(0.03f));
 						if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,2))))
@@ -959,16 +972,15 @@ public abstract class Mob extends Char {
 					}
 					if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人))
 						Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
-				
+
+					if((this instanceof Rat||this instanceof TransmogRat)&&Dungeon.hero.subClass(HeroSubClass.巫咒王鼠)){
+						if(Random.Int(1)==0||Dungeon.hero.职业精通())
+						Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
+					}
+
 					if(Dungeon.hero.天赋概率(Talent.盗墓大师,25))
 						Dungeon.level.drop(Generator.random(), pos ).type = Heap.Type.TOMB;
-				if(!isAlive()){
-					if (Dungeon.hero.subClass(HeroSubClass.狂战士)) {
-						算法.修复效果(()->{
-							Buff.施加(this,怒气.class).damage();
-						});
-					}
-				
+
 				if(恶魔亡灵()&&Dungeon.hero.天赋(Talent.渡魂灵猫))
 					Dungeon.hero.回血(Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.渡魂灵猫,0.025f)));
 				
@@ -993,7 +1005,7 @@ public abstract class Mob extends Char {
 					Dungeon.gold(Dungeon.hero.投机之剑);
 				}
 				if(Dungeon.hero.天赋(Talent.久战))
-					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,2));
+					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战));
 					//击杀瞬移
 //					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
 				}
@@ -1050,17 +1062,17 @@ public abstract class Mob extends Char {
 	}
 	
 	public void rollToDropLoot(){
-		if(Dungeon.玩法(玩法设置.刷子地牢)){
+		if(Dungeon.赛季(赛季设置.刷子地牢)){
 		
 		}else{
 			if(Dungeon.hero.等级>最大等级+2)
 				return;
 		}
 		if(!(傀儡()&&老鬼傀儡())){
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
+		if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
 			Dungeon.level.drop(Generator.random(), pos).sprite().drop();
 		}
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&算法.概率学(1/12f*Dungeon.难度掉率())){
+		if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/12f*Dungeon.难度掉率())){
 			Dungeon.level.drop(new 治疗药剂(),pos).sprite().drop();
 		}
 		MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
@@ -1201,10 +1213,6 @@ public abstract class Mob extends Char {
 //			desc+="战利品/掉落几率"+loot+"/"+String.format("%.2f",lootChance()*100)+"%";
 		}
 		return desc;
-	}
-	@Override
-	public int 暴击率(){
-		return 6;
 	}
 	public void notice() {
 		sprite.showAlert();

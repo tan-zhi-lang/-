@@ -122,7 +122,7 @@ public class 手枪 extends Weapon{
 		return 最小枪械攻击(强化等级());
 	}
 	public int 最小枪械攻击(int lvl) {
-		int dmg =Math.round(最小+((tier+1)+lvl));
+		int dmg =Math.round(最小+2*((tier+1)+lvl));
 		return Math.max(0, dmg);
 	}
 	
@@ -224,7 +224,7 @@ public class 手枪 extends Weapon{
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 
 			if (再生.regenOn())
-				partialCharge += (1f/turnsToCharge);
+				partialCharge += (1f/turnsToCharge/3f);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {
@@ -299,7 +299,7 @@ public class 手枪 extends Weapon{
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 手枪.this.accuracyFactor(owner, target)/2;
+			return 手枪.this.accuracyFactor(owner, target)/2f;
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {

@@ -150,7 +150,7 @@ public class 骷髅钥匙 extends Artifact {
 							return;
 						}
 						if (charge < 1){
-							GLog.i( Messages.get(this, "iron_charges") );
+							GLog.i( Messages.get(骷髅钥匙.class, "iron_charges") );
 							return;
 						}
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
@@ -205,6 +205,9 @@ public class 骷髅钥匙 extends Artifact {
 								CellEmitter.get( target ).start( Speck.factory( Speck.DISCOVER ), 0.025f, 20 );
 								curUser.spendAndNext(Actor.TICK);
 								curUser.sprite.idle();
+
+								//if there is a distant well landmark above, remove it, as we just opened the door
+								Notes.remove(Notes.Landmark.DISTANT_WELL, Dungeon.depth-1);
 							}
 						});
 						curUser.busy();
@@ -561,11 +564,11 @@ public class 骷髅钥匙 extends Artifact {
 
 		{
 			revivePersists = true;
-			ironKeysNeeded = new int[26_000];
+			ironKeysNeeded = new int[1001];
 			Arrays.fill(ironKeysNeeded, -1);
-			goldenKeysNeeded = new int[26_000];
+			goldenKeysNeeded = new int[1001];
 			Arrays.fill(goldenKeysNeeded, -1);
-			crystalKeysNeeded = new int[26_000];
+			crystalKeysNeeded = new int[1001];
 			Arrays.fill(crystalKeysNeeded, -1);
 		}
 

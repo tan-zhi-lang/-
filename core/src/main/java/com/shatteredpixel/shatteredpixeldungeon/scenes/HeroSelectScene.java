@@ -37,10 +37,11 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTitledMessage;
+import com.shatteredpixel.shatteredpixeldungeon.windows.派对;
 import com.shatteredpixel.shatteredpixeldungeon.windows.炼狱;
-import com.shatteredpixel.shatteredpixeldungeon.windows.玩法;
 import com.shatteredpixel.shatteredpixeldungeon.windows.系统;
 import com.shatteredpixel.shatteredpixeldungeon.windows.解压;
+import com.shatteredpixel.shatteredpixeldungeon.windows.赛季;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
@@ -534,7 +535,7 @@ public class HeroSelectScene extends PixelScene {
     private void updateOptionsColor() {
         if (!SPDSettings.customSeed().isEmpty()) {
             btnOptions.icon().hardlight(1f, 1.5f, 0.67f);
-        } else if (SPDSettings.解压() != 0||SPDSettings.系统() != 0||SPDSettings.challenges() != 0||SPDSettings.炼狱()!=0||SPDSettings.玩法()!=0) {
+        } else if (SPDSettings.解压() != 0||SPDSettings.系统() != 0||SPDSettings.challenges() != 0||SPDSettings.炼狱()!=0||SPDSettings.赛季()!=0) {
             btnOptions.icon().hardlight(2f, 1.33f, 0.5f);
         } else {
             btnOptions.icon().resetColor();
@@ -1013,31 +1014,59 @@ public class HeroSelectScene extends PixelScene {
             add(炼狱);
             buttons.add(炼狱);
 
-            StyledButton 玩法 = new StyledButton(Chrome.Type.BLANK,Messages.get(玩法.class,"title"),6) {
+            StyledButton
+                    派对= new StyledButton(Chrome.Type.BLANK,Messages.get(派对.class,"title"),6) {
                 @Override
                 protected void onClick() {
                     if (false) {
                         ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
-                                Icons.get(Icons.玩法关),
-                                Messages.get(玩法.class, "title"),
-                                Messages.get(HeroSelectScene.class, "玩法")
+                                Icons.get(Icons.派对关),
+                                Messages.get(派对.class,"title"),
+                                Messages.get(HeroSelectScene.class, "派对")
                         ));
                         return;
                     }
 
-                    ShatteredPixelDungeon.scene().addToFront(new 玩法(SPDSettings.玩法(), true) {
+                    ShatteredPixelDungeon.scene().addToFront(new 派对(SPDSettings.派对(),true) {
                         public void onBackPressed() {
                             super.onBackPressed();
-                            icon(Icons.get(SPDSettings.玩法() > 0 ? Icons.玩法开 : Icons.玩法关));
+                            icon(Icons.get(SPDSettings.派对()>0 ? Icons.派对开: Icons.派对关));
                             updateOptionsColor();
                         }
                     });
                 }
             };
-            玩法.leftJustify = true;
-            玩法.icon(Icons.get(SPDSettings.玩法() > 0 ? Icons.玩法开 : Icons.玩法关));
-            add(玩法);
-            buttons.add(玩法);
+            派对.leftJustify = true;
+            派对.icon(Icons.get(SPDSettings.派对()>0 ? Icons.派对开: Icons.派对关));
+            add(派对);
+            buttons.add(派对);
+
+            StyledButton
+                    赛季= new StyledButton(Chrome.Type.BLANK,Messages.get(赛季.class,"title"),6) {
+                @Override
+                protected void onClick() {
+                    if (false) {
+                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                Icons.get(Icons.赛季关),
+                                Messages.get(赛季.class,"title"),
+                                Messages.get(HeroSelectScene.class, "赛季")
+                        ));
+                        return;
+                    }
+
+                    ShatteredPixelDungeon.scene().addToFront(new 赛季(SPDSettings.赛季(),true) {
+                        public void onBackPressed() {
+                            super.onBackPressed();
+                            icon(Icons.get(SPDSettings.赛季()>0 ? Icons.赛季开: Icons.赛季关));
+                            updateOptionsColor();
+                        }
+                    });
+                }
+            };
+            赛季.leftJustify = true;
+            赛季.icon(Icons.get(SPDSettings.赛季()>0 ? Icons.赛季开: Icons.赛季关));
+            add(赛季);
+            buttons.add(赛季);
 
             StyledButton randomButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "randomize"), 6) {
                 @Override

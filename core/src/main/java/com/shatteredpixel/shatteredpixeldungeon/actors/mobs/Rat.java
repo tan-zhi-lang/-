@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RatKing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.watabou.noosa.audio.Sample;
@@ -43,7 +42,7 @@ public class Rat extends Mob {
 			alignment=Alignment.ENEMY;
 		}
 		
-		if(!RatKing.库存||Dungeon.hero.armorAbility instanceof Ratmogrify){
+		if(!RatKing.库存){
 			if(Dungeon.level.heroFOV[pos]){
 				if(alignment != Alignment.ALLY) {
 					alignment = Alignment.NEUTRAL;

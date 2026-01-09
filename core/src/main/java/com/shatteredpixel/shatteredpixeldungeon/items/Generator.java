@@ -136,6 +136,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
@@ -207,7 +211,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
@@ -392,17 +396,29 @@ public class Generator {
 					WandOfMagicMissile.class,
 					WandOfLightning.class,
 					WandOfDisintegration.class,
+					影织法杖.class,
+
 					焰浪法杖.class,
+					冰海法杖.class,
 					WandOfCorrosion.class,
 					WandOfBlastWave.class,
+
 					WandOfLivingEarth.class,
 					WandOfFrost.class,
+					烈焰法杖.class,
 					WandOfPrismaticLight.class,
+
+					棱镜法杖.class,
+
 					WandOfWarding.class,
 					WandOfTransfusion.class,
 					WandOfCorruption.class,
 					WandOfRegrowth.class };
-			WAND.defaultProbs = new float[]{ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 };
+			WAND.defaultProbs = new float[]{ 3, 3, 3, 3,
+											 3, 3, 3, 3,
+											 3, 3, 3, 3,
+											 3,
+											 3, 3, 3,3 };
 			WAND.probs = WAND.defaultProbs.clone();
 			
 			//see generator.randomWeapon
@@ -873,7 +889,7 @@ public class Generator {
 		} else {
 			w = (Weapon) random(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
 		}
-		if(Dungeon.玩法(玩法设置.刷子地牢)){
+		if(Dungeon.赛季(赛季设置.刷子地牢)){
 			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
 		}
 		return w;
@@ -903,7 +919,7 @@ public class Generator {
 		cat.probs[i]--;
 		Ring r=(Ring) Reflection.newInstance((Class<? extends Ring>) cat.classes[i]).random();
 		
-		if(Dungeon.玩法(玩法设置.刷子地牢)){
+		if(Dungeon.赛季(赛季设置.刷子地牢)){
 			r.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
 		}
 		return r;
@@ -933,7 +949,7 @@ public class Generator {
 		cat.probs[i]--;
 		Wand w= (Wand) Reflection.newInstance((Class<? extends Wand>) cat.classes[i]).random();
 		
-		if(Dungeon.玩法(玩法设置.刷子地牢)){
+		if(Dungeon.赛季(赛季设置.刷子地牢)){
 			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
 		}
 		return w;

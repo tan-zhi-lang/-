@@ -264,7 +264,7 @@ public class BuffIndicator extends Component {
 		public BuffButton( Buff buff, boolean large ){
 			super( new BuffIcon(buff, large));
 			this.buff = buff;
-			this.large = large;
+			this.large = !large;//之前没有!
 
 			bringToFront(grey);
 			bringToFront(text);
@@ -317,7 +317,7 @@ public class BuffIndicator extends Component {
 				text.scale.set(1f);
 			}
 			text.x = this.x + width() - text.width() - 1;
-			text.y = this.y + width() - text.baseLine() - 2;
+			text.y = this.y + width() - text.baseLine() - 2+8;//x 8
 		}
 
 		@Override

@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
@@ -111,24 +111,26 @@ public class 幸运之戒 extends Ring {
 
 		if (bonus <= 0) return null;
 
-		CounterBuff triesToDrop = target.buff(TriesToDropTracker.class);
+		CountBuff
+				triesToDrop = target.buff(TriesToDropTracker.class);
 		if (triesToDrop == null){
 			triesToDrop = Buff.施加(target, TriesToDropTracker.class);
-			triesToDrop.countUp( Random.NormalIntRange(0, 20) );
+			triesToDrop.set( Random.NormalIntRange(0, 20) );
 		}
 
-		CounterBuff dropsToEquip = target.buff(DropsToEquipTracker.class);
+		CountBuff
+				dropsToEquip = target.buff(DropsToEquipTracker.class);
 		if (dropsToEquip == null){
 			dropsToEquip = Buff.施加(target, DropsToEquipTracker.class);
-			dropsToEquip.countUp( Random.NormalIntRange(5, 10) );
+			dropsToEquip.set( Random.NormalIntRange(5, 10) );
 		}
 
 		//now handle reward logic
 		ArrayList<Item> drops = new ArrayList<>();
 
-		triesToDrop.countDown(tries);
-		while ( triesToDrop.count() <= 0 ){
-			if (dropsToEquip.count() <= 0){
+		triesToDrop.set(tries);
+		while ( triesToDrop.count <= 0 ){
+			if (dropsToEquip.count <= 0){
 				int equipBonus = 0;
 
 				//A second ring of wealth can be at most +1 when calculating wealth bonus for equips
@@ -147,16 +149,16 @@ public class 幸运之戒 extends Ring {
 					i = genEquipmentDrop(equipBonus - 1);
 				} while (Challenges.isItemBlocked(i));
 				drops.add(i);
-				dropsToEquip.countUp(Random.NormalIntRange(5, 10));
+				dropsToEquip.set(Random.NormalIntRange(5, 10));
 			} else {
 				Item i;
 				do {
 					i = genConsumableDrop(bonus - 1);
 				} while (Challenges.isItemBlocked(i));
 				drops.add(i);
-				dropsToEquip.countDown(1);
+				dropsToEquip.set(1);
 			}
-			triesToDrop.countUp( Random.NormalIntRange(0, 20) );
+			triesToDrop.set( Random.NormalIntRange(0, 20) );
 		}
 		
 		return drops;
@@ -309,13 +311,13 @@ public class 幸运之戒 extends Ring {
 	public class Wealth extends RingBuff {
 	}
 
-	public static class TriesToDropTracker extends CounterBuff {
+	public static class TriesToDropTracker extends CountBuff{
 		{
 			revivePersists = true;
 		}
 	}
 
-	public static class DropsToEquipTracker extends CounterBuff {
+	public static class DropsToEquipTracker extends CountBuff{
 		{
 			revivePersists = true;
 		}

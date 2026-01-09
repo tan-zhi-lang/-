@@ -22,16 +22,16 @@ public class 圣金之沙 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 								
-								Messages.decimalFormat("#.##", 100*获得()),
+								100*获得(),
 								
-								Messages.decimalFormat("#.##", 100*减少())
+								100*减少()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								
-								Messages.decimalFormat("#.##", 100*获得(0)),
+								100*获得(0),
 								
-								Messages.decimalFormat("#.##", 100*减少(0))
+								100*减少(0)
 							   );
 		}
 	}

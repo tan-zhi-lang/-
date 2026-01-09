@@ -5,19 +5,11 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.watabou.utils.Bundle;
 
 //A buff whose only purposes is to keep track of a count of some form
-public class CounterBuff extends Buff {
+public class CountBuff extends Buff {
 
-	private float count = 0;
-
-	public void countUp( float inc ){
-		count += inc;
-	}
-
-	public void countDown( float inc ){
-		count -= inc;
-	}
-
-	public float count(){
+	public float count = 0;
+	public float set(float x){
+		count+=x;
 		return count;
 	}
 

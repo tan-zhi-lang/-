@@ -540,6 +540,10 @@ public class 物品表 {
     public static final int WAND_WARDING = WANDS + 10;
     public static final int WAND_REGROWTH = WANDS + 11;
     public static final int WAND_TRANSFUSION = WANDS + 12;
+    public static final int 冰海法杖 = WANDS + 13;
+    public static final int 烈焰法杖 = WANDS + 14;
+    public static final int 影织法杖 = WANDS + 15;
+    public static final int 棱镜法杖 = WANDS + 16;
 
     static {
         for (int i = WANDS; i < WANDS + 30; i++)
@@ -954,7 +958,7 @@ public class 物品表 {
         assignItemRect(纯净粮食, 7, 9);
         assignItemRect(红蘑菇, 16, 14);
         assignItemRect(蓝蘑菇, 16, 13);
-        assignItemRect(绿蘑菇, 16, 14);
+        assignItemRect(绿蘑菇, 16, 15);
     }
 
     private static final int HOLIDAY_FOOD = xy(0, 29);  //16 slots

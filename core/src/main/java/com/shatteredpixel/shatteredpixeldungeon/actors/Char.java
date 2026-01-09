@@ -100,10 +100,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
@@ -112,6 +112,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
@@ -136,7 +137,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
@@ -440,12 +441,10 @@ public abstract class Char extends Actor {
 			int dr = Math.round(
 					Random.NormalIntRange( enemy.最小防御(), enemy.最大防御())
 					*AscensionChallenge.statModifier(enemy));
-			
-//			if(Dungeon.玩法(玩法设置.奇袭地牢)){
-//				dr=Math.round(
-//						( enemy.最小防御()+enemy.最大防御())/2f
-//						*AscensionChallenge.statModifier(enemy));
-//			}
+
+			if(!(enemy instanceof Hero&&enemy instanceof NPC)){
+				dr=Math.round(dr*Dungeon.难度防御());
+			}
 			if (this instanceof Hero hero){
 				if (hero.subClass==HeroSubClass.狙击手){
 					dr = 0;
@@ -457,9 +456,6 @@ public abstract class Char extends Actor {
 				if (hero.heroClass(HeroClass.罗兰)) {
 					dr=0;
 				}
-			}
-			if(!(enemy instanceof Hero&&enemy instanceof NPC)){
-				dr=Math.round(dr*Dungeon.难度防御());
 			}
 
 			//we use a float here briefly so that we don't have to constantly round while
@@ -478,9 +474,9 @@ public abstract class Char extends Actor {
 					dmg=Random.NormalIntRange(最小攻击(),最大攻击());
 					dmg=Math.round(dmg*Dungeon.难度攻击());
 				}
-				//					if(Dungeon.玩法(玩法设置.奇袭地牢)){
-				//						dmg=(最小攻击()+最大攻击())/2f;
-				//					}
+				if(Dungeon.赛季(赛季设置.英雄联盟)){
+					dmg=最小攻击()+最大攻击();
+				}
 			}
 
 			dmg = dmg*dmgMulti;
@@ -550,8 +546,10 @@ public abstract class Char extends Actor {
 			//do not trigger on-hit logic if defenseProc returned a negative value
 			if (effectiveDamage >= 0) {
 				//LOL护甲
-//				effectiveDamage = Math.max(Math.round(effectiveDamage*(1-enemy.最大防御()/(enemy.最大防御()+10f))), 0);
-				effectiveDamage = Math.max(effectiveDamage - dr, 0);
+
+				if(Dungeon.赛季(赛季设置.英雄联盟)){
+					effectiveDamage = Math.max(Math.round(effectiveDamage*(1f-dr/(dr+2.5f))), 0);
+				}else effectiveDamage = Math.max(effectiveDamage - dr, 0);
 
 				if (enemy.buff(Viscosity.ViscosityTracker.class) != null) {
 					effectiveDamage = enemy.buff(Viscosity.ViscosityTracker.class).deferDamage(effectiveDamage);
@@ -664,7 +662,12 @@ public abstract class Char extends Actor {
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ) {
 		float acuStat = Random.Float(attacker.最小命中( attacker ),attacker.最大命中( defender ));
 		float defStat = Random.Float(defender.最小闪避( attacker ),defender.最大闪避( attacker ));
-		
+
+		if(Dungeon.赛季(赛季设置.英雄联盟)){
+			acuStat = attacker.最小命中( attacker )+attacker.最大命中( defender );
+			defStat = defender.最小闪避( attacker )+defender.最大闪避( attacker );
+		}
+
 		if ( attacker instanceof Hero hero) {
 			if (magic&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.法伤)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.法伤);
@@ -709,9 +712,21 @@ public abstract class Char extends Actor {
 		//if accuracy or evasion are large enough, treat them as infinite.
 		//note that infinite evasion beats infinite accuracy
 		if (defStat>=INFINITE||acuStat==0){
+			attacker.未命中++;
+			if(attacker instanceof Hero hero&&投机之剑.增加()>0){
+				hero.投机之剑-=Math.round(hero.投机之剑*投机之剑.减少());
+			}
+			if(attacker.未命中>=3&&attacker.未命中%3==0){
+				if(attacker.sprite!=null)
+					attacker.sprite.哭泣();
+			}
 			hitMissIcon = FloatingText.getMissReasonIcon(attacker,acuStat,defender,INFINITE);
 			return false;
 		} else if (acuStat>=INFINITE||defStat==0){
+			attacker.未命中=0;
+			if(attacker instanceof Hero hero&&投机之剑.增加()>0&&算法.概率学(投机之剑.增加())){
+				hero.投机之剑+=new Gold().random().数量();
+			}
 			hitMissIcon = FloatingText.getHitReasonIcon(attacker,INFINITE,defender,defStat);
 			return true;
 		}
@@ -749,6 +764,37 @@ public abstract class Char extends Actor {
 		}
 		defStat *= FerretTuft.evasionMultiplier();
 		//endregion
+
+		if(Dungeon.赛季(赛季设置.英雄联盟)){
+			acuStat = acuStat/(acuStat+5f);
+			defStat = defStat/(defStat+7.5f);
+
+			if (acuStat>=defStat&&Random.Float()<=acuStat){
+				attacker.未命中++;
+				if(attacker instanceof Hero hero&&投机之剑.增加()>0){
+					hero.投机之剑-=Math.round(hero.投机之剑*投机之剑.减少());
+				}
+				if(attacker.未命中>=3&&attacker.未命中%3==0){
+					if(attacker.sprite!=null)
+						attacker.sprite.哭泣();
+				}
+				hitMissIcon = FloatingText.getHitReasonIcon(attacker,INFINITE,defender,defStat);
+				return true;
+			} else{
+				if (Random.Float()<=defStat){
+					attacker.未命中=0;
+					if(attacker instanceof Hero hero&&投机之剑.增加()>0&&算法.概率学(投机之剑.增加())){
+						hero.投机之剑+=new Gold().random().数量();
+					}
+					hitMissIcon = FloatingText.getMissReasonIcon(attacker,acuStat,defender,INFINITE);
+					return false;
+				}else{
+
+					hitMissIcon = FloatingText.getHitReasonIcon(attacker,INFINITE,defender,defStat);
+					return true;
+				}
+			}
+		}
 
 		if (acuStat >= defStat){
 			attacker.未命中=0;
@@ -839,10 +885,18 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 	
 	public int 暴击率(){
-		return 0;
+		int 暴击率=6;
+//		if(Dungeon.赛季(赛季设置.英雄联盟)){
+//			暴击率+=18;
+//		}
+		return 暴击率;
 	}
 	public float 暴击伤害(){
-		return 1.45f;
+		float 暴击伤害=1.45f;
+//		if(Dungeon.赛季(赛季设置.英雄联盟)){
+//			暴击伤害+=0.3f;
+//		}
+		return 暴击伤害;
 	}
 	public int 暴击(final Char enemy,int dmg){
 		if((必暴||算法.概率学(暴击率()))){
@@ -885,7 +939,7 @@ public abstract class Char extends Actor {
 	}
 	
 	public int 防御时(Char enemy, int damage ) {
-		enemy.第x次防御++;
+		第x次防御++;
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (armor != null) {
 			damage = armor.absorb( damage );
@@ -900,7 +954,8 @@ public abstract class Char extends Actor {
 			}
 		}
 		if(史莱姆)
-		damage=算法.固衰(damage,5);
+			damage=算法.固衰(damage,5);
+
 		damage=护甲伤害(damage);
 
 		return damage;
@@ -972,12 +1027,12 @@ public abstract class Char extends Actor {
 		return cachedShield;
 	}
 	public void 受伤(){
-		受伤时(1,类.class);
+		受伤时(1,魔法伤害.class);
 	}
 	public void 受伤(int dmg){
-		受伤时(dmg,类.class);
+		受伤时(dmg,魔法伤害.class);
 	}
-	public class 类{}
+	public class 魔法伤害{}
 	public void 受伤时(int dmg, Object src ) {
 		
 		
@@ -1049,7 +1104,7 @@ public abstract class Char extends Actor {
 			dmg*=2;
 		}
 		
-		if(Dungeon.玩法(玩法设置.地牢塔防))
+		if(Dungeon.赛季(赛季设置.地牢塔防))
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
 				if(c instanceof 黑暗结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
@@ -1573,7 +1628,7 @@ public abstract class Char extends Actor {
 		植物,
 		海妖,
 		光明( new HashSet<Class>(),
-			  new HashSet<Class>( Arrays.asList(WandOfPrismaticLight.class) )),
+			  new HashSet<Class>( Arrays.asList(WandOfPrismaticLight.class,棱镜法杖.class) )),
 		机械,
 		INORGANIC ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(流血.class, ToxicGas.class, Poison.class) )),
@@ -1629,6 +1684,10 @@ public abstract class Char extends Actor {
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲());
 		return 护甲;
 	}
+	public int 恢复百分比护甲(float x){
+		return 护甲(Math.round(最大护甲()*x));
+	}
+
 	public int 护甲伤害(int dmg){
 		if(dmg>0&&护甲>0){
 			if (护甲<=最大护甲()/2&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
@@ -1737,6 +1796,9 @@ public abstract class Char extends Actor {
 				Dungeon.level.map[pos] == Terrain.HIGH_GRASS||
 				Dungeon.level.map[pos] == Terrain.FURROWED_GRASS;
 	}
+	public boolean 在门上(){
+		return Dungeon.level.map[pos] == Terrain.OPEN_DOOR;
+	}
 	public boolean 在狭窄(){
 		int 墙 = 0;
 		for (int i : PathFinder.NEIGHBOURS8) {
@@ -1756,7 +1818,7 @@ public abstract class Char extends Actor {
 				墙 ++;
 			}
 		}
-		if(墙<=x){
+		if(墙<=x){//周围4墙横穿是最好的，5包括以上都会卡
 			return true;
 		}
 		return false;

@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 
 public class Slime extends Mob {
@@ -57,7 +57,7 @@ public class Slime extends Mob {
 	
 	@Override
 	public Item createLoot() {
-		if(!Dungeon.玩法(玩法设置.刷子地牢))
+		if(!Dungeon.赛季(赛季设置.刷子地牢))
 		Dungeon.LimitedDrops.SLIME_WEP.count++;
 		
 		Generator.Category c = Generator.Category.WEP_T2;

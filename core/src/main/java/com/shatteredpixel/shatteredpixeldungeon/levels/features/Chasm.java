@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -39,7 +39,7 @@ public class Chasm implements Hero.Doom {
 	private static int heroPos;
 	
 	public static void heroJump( final Hero hero ) {
-		if(Dungeon.玩法(玩法设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			return;
 		}
 		heroPos = hero.pos;

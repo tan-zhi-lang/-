@@ -71,7 +71,7 @@ public abstract class SpecialRoom extends Room {
 	//NOTE THAT ALCHEMY ROOMS ARE SPAWNED SEPARATELY
 	private static final ArrayList<Class<? extends SpecialRoom>> CONSUMABLE_SPECIALS = new ArrayList<>( Arrays.asList(
 			RunestoneRoom.class, GardenRoom.class, LibraryRoom.class, StorageRoom.class,
-			TreasuryRoom.class, MagicWellRoom.class, ToxicGasRoom.class, MagicalFireRoom.class,
+			TreasuryRoom.class, MagicWellRoom.class, ToxicGasRoom.class, MagicalFireRoom.class, 魔法冰霜房间.class,
 			TrapsRoom.class, CrystalPathRoom.class, DM0房.class
 	) );
 
@@ -82,7 +82,8 @@ public abstract class SpecialRoom extends Room {
 
 	//only one special that generates a potion per floor
 	private static final ArrayList<Class<? extends SpecialRoom>> POTION_SPAWN_ROOMS = new ArrayList<>( Arrays.asList(
-			PoolRoom.class, SentryRoom.class, StorageRoom.class, ToxicGasRoom.class, MagicalFireRoom.class, TrapsRoom.class
+			PoolRoom.class, SentryRoom.class, StorageRoom.class, ToxicGasRoom.class, MagicalFireRoom.class,魔法冰霜房间.class, TrapsRoom.class
+
 	) );
 
 	public static ArrayList<Class<? extends Room>> runSpecials = new ArrayList<>();

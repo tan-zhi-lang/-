@@ -65,4 +65,9 @@ public class Gold extends Item {
 		return this;
 	}
 
+	public Item random(float f) {
+		quantity = Math.round(Random.IntRange( 30 + 10, 60 +20 )*f);
+		//		quantity = Random.IntRange( 30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20 );
+		return this;
+	}
 }

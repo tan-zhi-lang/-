@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
@@ -200,10 +200,10 @@ public class MasterThievesArmband extends Artifact {
 	};
 
 	//counter of 0 for attempt but no success, 1 for success
-	public static class StolenTracker extends CounterBuff {
+	public static class StolenTracker extends CountBuff{
 		{ revivePersists = true; }
-		public void setItemStolen(boolean stolen){ if (stolen) countUp(1); }
-		public boolean itemWasStolen(){ return count() > 0; }
+		public void setItemStolen(boolean stolen){ if (stolen) set(1); }
+		public boolean itemWasStolen(){ return count > 0; }
 	}
 
 	@Override

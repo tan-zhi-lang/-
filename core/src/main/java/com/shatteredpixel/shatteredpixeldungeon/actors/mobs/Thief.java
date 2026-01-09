@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -90,7 +90,7 @@ public class Thief extends Mob {
 
 	@Override
 	public Item createLoot() {
-		if(!Dungeon.玩法(玩法设置.刷子地牢))
+		if(!Dungeon.赛季(赛季设置.刷子地牢))
 		Dungeon.LimitedDrops.THEIF_MISC.count++;
 		return super.createLoot();
 	}

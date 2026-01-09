@@ -17,6 +17,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.ConeAOE;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -25,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class 霰弹枪 extends Weapon{
 	public static final String AC_SHOOT		= "SHOOT";
@@ -121,7 +124,7 @@ public class 霰弹枪 extends Weapon{
 		return 最小枪械攻击(强化等级());
 	}
 	public int 最小枪械攻击(int lvl) {
-		int dmg =Math.round(最小+((tier+12)+lvl));
+		int dmg =Math.round(最小+2*((tier+4)+lvl));
 		return Math.max(0, dmg);
 	}
 	
@@ -129,7 +132,7 @@ public class 霰弹枪 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public int 最大枪械攻击(int lvl) {
-		int dmg =Math.round(最大+(5*(tier+1+12) +lvl*(tier+1)));
+		int dmg =Math.round(最大+(5*(tier+1+4) +lvl*(tier+1)));
 		return Math.max(0, dmg);
 	}
 	
@@ -223,7 +226,7 @@ public class 霰弹枪 extends Weapon{
 					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
 
 			if (再生.regenOn())
-				partialCharge += (1f/turnsToCharge);
+				partialCharge += (1f/turnsToCharge/3f);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {
@@ -255,12 +258,44 @@ public class 霰弹枪 extends Weapon{
 			this.scalingFactor = value;
 		}
 	}
+	private Char findChar(Ballistica path, Hero hero, int wallPenetration, HashSet<Char> existingTargets){
+		for (int cell : path.path){
+			Char ch = Actor.findChar(cell);
+			if (ch != null){
+				if (ch == hero || existingTargets.contains(ch) || ch.alignment == Char.Alignment.ALLY){
+					continue;
+				} else {
+					return ch;
+				}
+			}
+			if (Dungeon.level.solid[cell]){
+				wallPenetration--;
+				if (wallPenetration < 0){
+					return null;
+				}
+			}
+		}
+		return null;
+	}
+
 	private CellSelector.Listener shooter = new CellSelector.Listener() {
 		@Override
 		public void onSelect( Integer target ) {
 			if (target != null) {
 				curCharges = Math.max(curCharges-chargesPerCast(),0);
-				knockArrow().cast(curUser, target);
+
+
+				Ballistica b = new Ballistica(curUser.pos, target, Ballistica.WONT_STOP);
+				final HashSet<Char> targets = new HashSet<>();
+				ConeAOE cone = new ConeAOE(b,60);
+				for (Ballistica ray : cone.rays){
+					Char toAdd = findChar(ray, curUser, 0, targets);
+					if (toAdd != null && curUser.fieldOfView[toAdd.pos]){
+						targets.add(toAdd);
+						knockArrow().cast(curUser, toAdd.pos);
+					}
+				}
+
 			}
 		}
 		@Override
@@ -298,7 +333,7 @@ public class 霰弹枪 extends Weapon{
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 霰弹枪.this.accuracyFactor(owner,target)/2;
+			return 霰弹枪.this.accuracyFactor(owner,target)/2f;
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
@@ -307,6 +342,7 @@ public class 霰弹枪 extends Weapon{
 
 		@Override
 		public int 投掷攻击时(Char attacker, Char defender, int damage) {
+			damage=Math.round(1+damage*1f/attacker.distance(defender));
 			return 霰弹枪.this.投掷攻击时(attacker,defender,damage);
 		}
 

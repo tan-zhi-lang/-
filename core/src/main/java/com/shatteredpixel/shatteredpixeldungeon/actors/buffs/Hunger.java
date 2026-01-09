@@ -17,7 +17,8 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 
 public class Hunger extends Buff implements Hero.Doom {
@@ -90,7 +91,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			spend(TICK);
 			return true;
 		}
-		if(Dungeon.玩法(玩法设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			spend(TICK);
 			return true;
 		}
@@ -105,8 +106,10 @@ public class Hunger extends Buff implements Hero.Doom {
 				
 				float hungerDelay = 1/10f;
 				if (target.buff(Shadows.class) != null){
-					hungerDelay *= 1.5f;
+					hungerDelay /= 1.5f;
 				}
+				if(Dungeon.解压(解压设置.抗饿能手))
+					hungerDelay /= 2;
 				hungerDelay/=SaltCube.hungerGainMultiplier();
 				hungerDelay/=血腥生肉.减少();
 				partial+=hungerDelay;
@@ -122,6 +125,8 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (target.buff(Shadows.class) != null){
 					hungerDelay *= 1.5f;
 				}
+				if(Dungeon.解压(解压设置.抗饿能手))
+					hungerDelay *= 2;
 				hungerDelay/=SaltCube.hungerGainMultiplier();
 				hungerDelay/=血腥生肉.减少();
 				

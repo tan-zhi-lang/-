@@ -11,8 +11,9 @@ public class 长匕首 extends Weapon{
 	{
 		image = 物品表.DIRK;
 		hitSound = Assets.Sounds.HIT_STAB;
-		
-		伤害= 0.8f;
+
+		延迟=0.85f;
+		伤害= 0.75f;
 		技能=new 潜行();
 		
 		伏击=0.67f;

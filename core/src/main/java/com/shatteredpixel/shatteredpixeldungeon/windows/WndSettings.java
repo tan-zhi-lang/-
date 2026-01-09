@@ -145,7 +145,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 		height = Math.max(height, langs.height());
 //		add( langs );
 
-
 		IconTab langsTab = new IconTab(Icons.get(Icons.LANGS)){
 			@Override
 			protected void select(boolean value) {
@@ -174,7 +173,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 		layoutTabs();
 
-		if (tabs.size() == 5 && last_index >= 3){
+		if (tabs.size() == 4 && last_index >= 3){
 			//input tab isn't visible
 			select(last_index-1);
 		} else {

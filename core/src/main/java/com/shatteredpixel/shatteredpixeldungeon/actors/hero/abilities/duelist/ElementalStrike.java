@@ -17,7 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CounterBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -261,7 +261,7 @@ public class ElementalStrike extends ArmorAbility {
 
 	private int storedKineticDamage = 0;
 
-	public static class ElementalStrikeFurrowCounter extends CounterBuff{{revivePersists = true;}};
+	public static class ElementalStrikeFurrowCount extends CountBuff{{revivePersists = true;}};
 
 	//effects that affect the cells of the environment themselves
 	private void perCellEffect(ConeAOE cone, Weapon.Enchantment ench){
@@ -303,13 +303,13 @@ public class ElementalStrike extends ArmorAbility {
 			// each hero level is worth 20 normal uses, but just 5 if no enemies are present
 			// cap of 40/10 uses
 			int highGrassType = Terrain.HIGH_GRASS;
-			if (Buff.施加(Dungeon.hero, ElementalStrikeFurrowCounter.class).count() >= 40){
+			if (Buff.施加(Dungeon.hero, ElementalStrikeFurrowCount.class).count>=40){
 				highGrassType = Terrain.FURROWED_GRASS;
 			} else {
 				if (Dungeon.hero.visibleEnemies() == 0 && targetsHit == 0) {
-					Buff.count(Dungeon.hero, ElementalStrikeFurrowCounter.class, 4f);
+					Buff.count(Dungeon.hero,ElementalStrikeFurrowCount.class,4f);
 				} else {
-					Buff.count(Dungeon.hero, ElementalStrikeFurrowCounter.class, 1f);
+					Buff.count(Dungeon.hero,ElementalStrikeFurrowCount.class,1f);
 				}
 			}
 

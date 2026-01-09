@@ -107,6 +107,7 @@ public class Buff extends Actor {
 	}
 
 	public String name() {
+		if(!name.equals(""))return name;
 		return Messages.get(this, "name");
 	}
 
@@ -123,13 +124,15 @@ public class Buff extends Actor {
 	public float visualcooldown(){
 		return cooldown()+1f;
 	}
-
+	public String name="";
 	private static final String MNEMONIC_EXTENDED    = "mnemonic_extended";
+	private static final String NAME    = "name";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		if (mnemonicExtended) bundle.put(MNEMONIC_EXTENDED, mnemonicExtended);
+		bundle.put(NAME, name);
 	}
 
 	@Override
@@ -138,6 +141,7 @@ public class Buff extends Actor {
 		if (bundle.contains(MNEMONIC_EXTENDED)) {
 			mnemonicExtended = bundle.getBoolean(MNEMONIC_EXTENDED);
 		}
+		name = bundle.getString(NAME);
 	}
 
 	//creates a fresh instance of the buff and attaches that, this allows duplication.
@@ -172,13 +176,14 @@ public class Buff extends Actor {
 	//postpones an already active buff, or creates & attaches a new buff and delays that.
 	public static<T extends FlavourBuff> T 延长(Char target, Class<T> buffClass, float duration ) {//没有新增
 		T buff = 施加( target, buffClass );
+
 		buff.postpone( duration * target.resist(buffClass) );
 		return buff;
 	}
 
-	public static<T extends CounterBuff> T count( Char target, Class<T> buffclass, float count ) {
+	public static<T extends CountBuff> T count(Char target,Class<T> buffclass,float count) {
 		T buff = 施加( target, buffclass );
-		buff.countUp( count );
+		buff.set( count );
 		return buff;
 	}
 	
@@ -187,4 +192,5 @@ public class Buff extends Actor {
 			b.detach();
 		}
 	}
+
 }

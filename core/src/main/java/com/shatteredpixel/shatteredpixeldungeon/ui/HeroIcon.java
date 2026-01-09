@@ -44,16 +44,25 @@ public class HeroIcon extends Image {
 	public static final int 黑魔导师     = 神秘学者+1;
 	
 	public static final int 盾之勇者     = 7*8;
+	public static final int 轻装步兵     = 盾之勇者+1;
+
 	public static final int 灵月杀手     = 8*8;
 	
 	public static final int FREERUNNER  = 10*8;
 	
 	public static final int 征服者     = 11*8;
-	
-	public static final int 养殖专家     = 12*8;
-	
+	public static final int 皇室卫兵     = 征服者+1;
+
+	public static final int 神兽之灵     = 12*8;
+	public static final int 养殖专家     = 神兽之灵+1;
+
 	public static final int 黑白双子     = 20*8;
+
+	public static final int 巫咒王鼠     = 21*8;
+	public static final int 实验狂鼠     = 巫咒王鼠+1;
+
 	public static final int 金刚独狼     = 23*8;
+	public static final int 血法师     = 金刚独狼+1;
 	public static final int 时间刺客     = 24*8;
 
 	//abilities

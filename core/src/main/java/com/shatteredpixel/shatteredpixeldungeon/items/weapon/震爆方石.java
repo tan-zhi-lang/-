@@ -7,6 +7,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -56,7 +58,13 @@ public class 震爆方石 extends Weapon{
 		Dungeon.level.pressCell(cell);
 		
 		ArrayList<Char> targets = new ArrayList<>();
-		if (Actor.findChar(cell) != null) targets.add(Actor.findChar(cell));
+		Char primaryTarget;
+		if (Actor.findChar(cell) != null) {
+			primaryTarget = Actor.findChar(cell);
+			targets.add(primaryTarget);
+		} else {
+			primaryTarget = null;
+		}
 		
 		for (int i : PathFinder.NEIGHBOURS8){
 			if (!(Dungeon.level.traps.get(cell+i) instanceof TenguDartTrap)) Dungeon.level.pressCell(cell+i);
@@ -79,6 +87,26 @@ public class 震爆方石 extends Weapon{
 			}
 		}
 		
+		//if we're applying sniper's mark, prioritize giving it to the primary target of the attack
+		if (curUser.subClass(HeroSubClass.狙击手)&&primaryTarget!=null&&primaryTarget.isActive()){
+			Actor.add(new Actor() {
+
+				{
+					actPriority = VFX_PRIO-1;
+				}
+
+				@Override
+				protected boolean act() {
+					SnipersMark
+							mark = Dungeon.hero.buff(SnipersMark.class);
+					if (mark != null && primaryTarget.isActive()){
+						mark.object = primaryTarget.id();
+					}
+					Actor.remove(this);
+					return true;
+				}
+			});
+		}
 		WandOfBlastWave.BlastWave.blast(cell);
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
 	}

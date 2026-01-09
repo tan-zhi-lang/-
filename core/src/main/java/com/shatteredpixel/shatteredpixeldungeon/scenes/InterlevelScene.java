@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.ShadowBox;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LostBackpack;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -735,6 +736,10 @@ public class InterlevelScene extends PixelScene {
 			if (pos == -1) pos = level.entrance();
 			level.drop(new LostBackpack(), pos);
 
+			//need to reset key replacement tracking as well
+			if (Dungeon.hero.buff(骷髅钥匙.KeyReplacementTracker.class)!=null){
+				Dungeon.hero.buff(骷髅钥匙.KeyReplacementTracker.class).setupKeysForDepth();
+			}
 		} else {
 			level = Dungeon.level;
 			BArray.setFalse(level.heroFOV);

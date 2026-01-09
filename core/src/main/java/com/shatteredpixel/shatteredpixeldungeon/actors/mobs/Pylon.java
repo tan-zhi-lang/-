@@ -116,7 +116,9 @@ public class Pylon extends Mob {
 	private void shockChar( Char ch ){
 		if (ch != null && !(ch instanceof DM300)){
 			ch.sprite.flash();
-			ch.受伤时(Random.NormalIntRange(10, 20), new Electricity());
+			int dmg=Random.NormalIntRange(10, 20);
+			dmg=Math.round(dmg*Dungeon.难度攻击());
+			ch.受伤时(dmg, new Electricity());
 
 			if (ch == Dungeon.hero) {
 				Statistics.qualifiedForBossChallengeBadge = false;

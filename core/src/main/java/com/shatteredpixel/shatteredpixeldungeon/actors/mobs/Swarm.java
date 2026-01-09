@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SwarmSprite;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -137,7 +137,7 @@ public class Swarm extends Mob {
 	
 	@Override
 	public Item createLoot(){
-		if(!Dungeon.玩法(玩法设置.刷子地牢))
+		if(!Dungeon.赛季(赛季设置.刷子地牢))
 		Dungeon.LimitedDrops.SWARM_HP.count++;
 		return super.createLoot();
 	}

@@ -620,6 +620,7 @@ public class Tengu extends Mob {
 						if (ch != null && !(ch instanceof Tengu)) {
 							int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth() * 2);
 							dmg -= ch.最大防御();
+							dmg=Math.round(dmg*Dungeon.难度攻击());
 
 							if (dmg > 0) {
 								ch.受伤时(dmg, Bomb.class);
@@ -1052,7 +1053,9 @@ public class Tengu extends Mob {
 							
 							Char ch = Actor.findChar(cell);
 							if (ch != null && !(ch instanceof Tengu)){
-								ch.受伤时(2 + Dungeon.scalingDepth(), new Electricity());
+								int dmg=2 + Dungeon.scalingDepth();
+								dmg=Math.round(dmg*Dungeon.难度攻击());
+								ch.受伤时(dmg, new Electricity());
 								
 								if (ch == Dungeon.hero){
 									Statistics.qualifiedForBossChallengeBadge = false;

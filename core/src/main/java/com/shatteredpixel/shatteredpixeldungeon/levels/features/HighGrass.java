@@ -24,9 +24,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
+import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Random;
 
 public class HighGrass {
@@ -75,7 +75,7 @@ public class HighGrass {
 //					int berriesAvailable = 2 + 2;
 //
 //					Talent.NatureBerriesDropped dropped = Buff.施加(ch, Talent.NatureBerriesDropped.class);
-//					berriesAvailable -= dropped.count();
+//					berriesAvailable -= dropped.count;
 //
 //					if (berriesAvailable > 0) {
 //						int targetFloor = 2 + 2;
@@ -89,7 +89,7 @@ public class HighGrass {
 //						else if (Dungeon.depth < targetFloor) droppingBerry = Random.Int(90) == 0;
 //
 //						if (droppingBerry) {
-//							dropped.countUp(1);
+//							dropped.set(1);
 //							level.drop(new 地牢浆果(), pos).sprite().drop();
 //						}
 //					}
@@ -103,7 +103,12 @@ public class HighGrass {
 					&& Random.Int(3) != 0){
 				自然层 = -1;
 			}
-			
+
+			//grass gives no loot in vault tester area
+			if (Dungeon.level instanceof VaultLevel){
+				自然层 = -1;
+			}
+
 			if (自然层 >= 0) {
 				// Seed, scales from 1/25 to 1/9
 				float 概率 = 1/(25f - 自然层 *4f);
@@ -113,9 +118,6 @@ public class HighGrass {
 				概率 *= PetrifiedSeed.grassLootMultiplier();
 				if(Holiday.getCurrentHoliday()==Holiday.植树节){
 					概率 *=2;
-				}
-				if(算法.isDebug()){
-					概率=1;
 				}
 				if (Random.Float() < 概率) {
 					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
@@ -136,10 +138,6 @@ public class HighGrass {
 				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
 					概率 /= 2;
 				}
-				if(算法.isDebug()){
-					概率=1;
-				}
-
 				if (Random.Float() < 概率) {
 					level.drop(new Dewdrop(), pos).sprite().drop();
 				}
@@ -205,7 +203,7 @@ public class HighGrass {
 //					int berriesAvailable = 2 + 2;
 //
 //					Talent.NatureBerriesDropped dropped = Buff.施加(ch, Talent.NatureBerriesDropped.class);
-//					berriesAvailable -= dropped.count();
+//					berriesAvailable -= dropped.count;
 //
 //					if (berriesAvailable > 0) {
 //						int targetFloor = 2 + 2;
@@ -219,7 +217,7 @@ public class HighGrass {
 //						else if (Dungeon.depth < targetFloor) droppingBerry = Random.Int(90) == 0;
 //
 //						if (droppingBerry) {
-//							dropped.countUp(1);
+//							dropped.set(1);
 //							level.drop(new 地牢浆果(), pos).sprite().drop();
 //						}
 //					}
@@ -233,7 +231,11 @@ public class HighGrass {
 					&& Random.Int(3) != 0){
 				自然层 = -1;
 			}
-			
+
+			//grass gives no loot in vault tester area
+			if (Dungeon.level instanceof VaultLevel){
+				自然层 = -1;
+			}
 			if (自然层 >= 0) {
 				// Seed, scales from 1/25 to 1/9
 				float 概率 = 1/(25f - 自然层 *4f);
@@ -245,9 +247,6 @@ public class HighGrass {
 					概率 *=2;
 				}
 				概率*=3;
-				if(算法.isDebug()){
-					概率=1;
-				}
 				if (Random.Float() < 概率) {
 					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
 						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
@@ -274,9 +273,6 @@ public class HighGrass {
 					概率 /= 2;
 				}
 				概率*=3;
-				if(算法.isDebug()){
-					概率=1;
-				}
 
 				if (Random.Float() < 概率) {
 					level.drop(new Dewdrop(), pos).sprite().drop();

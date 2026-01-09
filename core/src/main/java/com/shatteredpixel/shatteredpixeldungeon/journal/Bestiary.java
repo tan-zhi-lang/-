@@ -204,7 +204,12 @@ public enum Bestiary {
 				Tengu.class,
 				Pylon.class, DM300.class,
 				DwarfKing.class,
-				YogDzewa.Larva.class, YogFist.BurningFist.class, YogFist.SoiledFist.class, YogFist.RottingFist.class, YogFist.RustedFist.class,YogFist.BrightFist.class, YogFist.DarkFist.class, YogDzewa.class);
+				YogDzewa.Larva.class,
+			   YogFist.BurningFist.class,YogFist.SoiledFist.class,
+			   YogFist.RottingFist.class,YogFist.RustedFist.class,
+			   YogFist.BrightFist.class,YogFist.DarkFist.class,
+					   YogDzewa.class);
+
 
 		UNIVERSAL.addEntities(Wraith.class,Piranha.class,Mimic.class,GoldenMimic.class,EbonyMimic.class,DM0.class,毒气宝箱怪.class,超级魔法绵羊.class,Statue.class,GuardianTrap.Guardian.class,SentryRoom.Sentry.class);
 

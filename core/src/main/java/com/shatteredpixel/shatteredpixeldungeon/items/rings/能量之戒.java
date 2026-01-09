@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 
 public class 能量之戒 extends Ring {
 
@@ -53,7 +53,7 @@ public class 能量之戒 extends Ring {
 
 		if (target instanceof Hero hero){
 			
-			if(Dungeon.玩法(玩法设置.鬼怨地牢))bonus*=1.34f;
+			if(Dungeon.赛季(赛季设置.鬼怨地牢)) bonus*=1.34f;
 			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.轻量阅读)){
 				bonus *= 1f + hero.天赋点数(Talent.轻量阅读,0.07f);
 			}

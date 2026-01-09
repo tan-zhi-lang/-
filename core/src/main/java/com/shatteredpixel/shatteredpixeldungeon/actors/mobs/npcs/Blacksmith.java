@@ -220,7 +220,7 @@ public class Blacksmith extends NPC {
 			completed	= false;
 
 			favor       = 0;
-			pickaxe     = new 镐子().鉴定();
+			pickaxe     = new 镐子().鉴定(false);
 			freePickaxe = false;
 			修理    = 0;
 			reforges    = 0;

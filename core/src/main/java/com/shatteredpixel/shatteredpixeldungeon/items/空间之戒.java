@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -32,6 +31,7 @@ public class 空间之戒 extends Item {
 		特别 = true;
 		物品 = true;
 		可以空间=false;
+		嬗变= false;
 		
 		defaultAction = AC_使用;
 	}
@@ -170,7 +170,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -233,7 +233,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -296,7 +296,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -360,7 +360,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -423,7 +423,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -486,7 +486,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -549,7 +549,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -612,7 +612,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -675,7 +675,7 @@ public class 空间之戒 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}

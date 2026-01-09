@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Brute;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
@@ -33,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Succubus;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Swarm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.TransmogRat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
@@ -86,8 +86,8 @@ public class AscensionChallenge extends Buff {
 			return 1;
 		}
 
-		if (ch instanceof Ratmogrify.TransmogRat){
-			ch = ((Ratmogrify.TransmogRat) ch).getOriginal();
+		if (ch instanceof TransmogRat){
+			ch = ((TransmogRat) ch).getOriginal();
 		}
 
 		if (ch.buff(AscensionBuffBlocker.class) != null){
@@ -148,8 +148,8 @@ public class AscensionChallenge extends Buff {
 		AscensionChallenge chal = Dungeon.hero.buff(AscensionChallenge.class);
 		if (chal == null) return;
 
-		if (enemy instanceof Ratmogrify.TransmogRat){
-			enemy = ((Ratmogrify.TransmogRat) enemy).getOriginal();
+		if (enemy instanceof TransmogRat){
+			enemy = ((TransmogRat) enemy).getOriginal();
 			if (enemy == null) return;
 		}
 
@@ -196,8 +196,8 @@ public class AscensionChallenge extends Buff {
 			return m.经验;
 		}
 
-		if (m instanceof Ratmogrify.TransmogRat){
-			m = ((Ratmogrify.TransmogRat) m).getOriginal();
+		if (m instanceof TransmogRat){
+			m = ((TransmogRat) m).getOriginal();
 		}
 
 		if (m.buff(AscensionBuffBlocker.class) != null){

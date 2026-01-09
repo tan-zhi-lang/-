@@ -20,12 +20,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -334,6 +335,9 @@ public class 召唤物品 extends Artifact {
 					while (partialCharge > 1) {
 						召唤.生命++;
 						partialCharge--;
+						if (召唤.生命 == 召唤.最大生命){
+							partialCharge = 0;
+						}
 					}
 				} else {
 					partialCharge = 0;
@@ -819,7 +823,7 @@ public class 召唤物品 extends Artifact {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -882,7 +886,7 @@ public class 召唤物品 extends Artifact {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -945,7 +949,7 @@ public class 召唤物品 extends Artifact {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -1008,7 +1012,7 @@ public class 召唤物品 extends Artifact {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -1071,7 +1075,7 @@ public class 召唤物品 extends Artifact {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -1134,7 +1138,7 @@ public class 召唤物品 extends Artifact {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}

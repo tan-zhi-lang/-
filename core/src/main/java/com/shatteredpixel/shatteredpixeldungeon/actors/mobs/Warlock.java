@@ -19,7 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WarlockSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -141,7 +141,7 @@ public class Warlock extends Mob implements Callback {
 		// 1/6 chance for healing, scaling to 0 over 8 drops
 		if (Random.Int(3) == 0 && Random.Int(8) > Dungeon.LimitedDrops.WARLOCK_HP.count ){
 			
-			if(!Dungeon.玩法(玩法设置.刷子地牢))
+			if(!Dungeon.赛季(赛季设置.刷子地牢))
 			Dungeon.LimitedDrops.WARLOCK_HP.count++;
 			return new 治疗药剂();
 		} else {

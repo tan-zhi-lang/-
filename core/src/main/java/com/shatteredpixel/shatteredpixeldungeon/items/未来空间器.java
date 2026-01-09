@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -31,6 +30,7 @@ public class 未来空间器 extends Item {
 		image = 物品表.未来空间器;
 		特别 = true;
 		物品 = true;
+		嬗变= false;
 		可以空间=false;
 		
 		defaultAction = AC_使用;
@@ -121,7 +121,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -184,7 +184,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -247,7 +247,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -311,7 +311,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -374,7 +374,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -437,7 +437,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -500,7 +500,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -563,7 +563,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
@@ -626,7 +626,7 @@ public class 未来空间器 extends Item {
 								
 								if(item!=null){
 									if(item.isEquipped(Dungeon.hero)){
-										((Weapon)item).doUnequip(Dungeon.hero,false,false);
+										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}

@@ -45,6 +45,7 @@ public class PhaseShift extends TargetedSpell {
 		} else {
 			GLog.w( Messages.get(this, "no_target") );
 		}
+		onSpellused();
 	}
 	
 	@Override

@@ -47,7 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
@@ -312,7 +312,7 @@ public class ShopRoom extends SpecialRoom {
 			itemsToSpawn.add(a);
 		}
 		
-		if(Dungeon.玩法(玩法设置.刷子地牢)&&Dungeon.区域()==1){
+		if(Dungeon.赛季(赛季设置.刷子地牢)&&Dungeon.区域()==1){
 			itemsToSpawn.add(new 宝物袋());
 			Dungeon.LimitedDrops.杂物袋.drop();
 			itemsToSpawn.add(new ScrollHolder());

@@ -22,13 +22,13 @@ public class 血腥生肉 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 								增加(),
-								减少()
+								减少()*100
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								
 								增加(0),
-								减少(0)
+								减少(0)*100
 							   );
 		}
 	}

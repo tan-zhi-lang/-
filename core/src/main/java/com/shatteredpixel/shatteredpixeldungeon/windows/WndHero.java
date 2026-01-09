@@ -290,6 +290,7 @@ public class WndHero extends WndTabbed {
 				statSlot( Messages.get(StatsTab.class, "dungeon_seed"), DungeonSeed.convertToCode(Dungeon.seed) );
 			}
 
+
 			pos += GAP;
 		}
 

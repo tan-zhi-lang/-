@@ -22,7 +22,7 @@ public class 征服 extends Buff {
 	@Override
 	public boolean act() {
 		if(target instanceof Hero hero){
-			if(hero.战斗状态判定<=0){
+			if(hero.nobuff(Hero.战斗状态.class)){
 				层数= Math.max(层数-2,0);
 			}
 		}

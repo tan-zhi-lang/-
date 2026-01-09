@@ -27,9 +27,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.HolyBomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
@@ -40,6 +40,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfTransfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.HolyDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
@@ -85,12 +89,16 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( CursedWand.class );
 		RESISTS.add( WandOfBlastWave.class );
 		RESISTS.add( WandOfDisintegration.class );
+		RESISTS.add( 影织法杖.class);
 		RESISTS.add( 焰浪法杖.class );
+		RESISTS.add( 冰海法杖.class);
 		RESISTS.add( WandOfFrost.class );
+		RESISTS.add( 烈焰法杖.class);
 		RESISTS.add( WandOfLightning.class );
 		RESISTS.add( WandOfLivingEarth.class );
 		RESISTS.add( WandOfMagicMissile.class );
 		RESISTS.add( WandOfPrismaticLight.class );
+		RESISTS.add( 棱镜法杖.class);
 		RESISTS.add( WandOfTransfusion.class );
 		RESISTS.add( WandOfWarding.Ward.class );
 		
@@ -110,6 +118,8 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( Eye.DeathGaze.class );
 		RESISTS.add( YogFist.BrightFist.LightBeam.class );
 		RESISTS.add( YogFist.DarkFist.DarkBolt.class );
+
+		RESISTS.add( Char.魔法伤害.class);
 	}
 	
 	@Override

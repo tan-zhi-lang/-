@@ -8,7 +8,8 @@ import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.RatKing;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
@@ -132,7 +133,7 @@ public class SurfaceScene extends PixelScene {
 		a.y = SKY_HEIGHT - a.height*2;
 		align(a);
 
-		if (Dungeon.hero.armorAbility instanceof Ratmogrify) {
+		if (Dungeon.hero.subClass(HeroSubClass.巫咒王鼠)||!RatKing.库存) {
 			rats = new Pet[30];
 			for (int i = 0; i < rats.length; i++){
 				Pet pet = new Pet();

@@ -83,15 +83,25 @@ public class WndGame extends Window {
 			} );
 			curBtn.icon(Icons.get(Icons.系统开));
 		}
-		if (Dungeon.玩法 > 0) {
-			addButton( curBtn = new RedButton( Messages.get(this, "玩法") ) {
+		if (Dungeon.派对 > 0) {
+			addButton( curBtn = new RedButton( Messages.get(this, "派对") ) {
 				@Override
 				protected void onClick() {
 					hide();
-					GameScene.show( new 玩法( Dungeon.玩法, false ) );
+					GameScene.show( new 派对( Dungeon.派对, false ) );
 				}
 			} );
-			curBtn.icon(Icons.get(Icons.玩法开));
+			curBtn.icon(Icons.get(Icons.派对开));
+		}
+		if (Dungeon.赛季>0) {
+			addButton( curBtn = new RedButton( Messages.get(this, "赛季") ) {
+				@Override
+				protected void onClick() {
+					hide();
+					GameScene.show( new 赛季(Dungeon.赛季,false ));
+				}
+			} );
+			curBtn.icon(Icons.get(Icons.赛季开));
 		}
 
 		// Restart

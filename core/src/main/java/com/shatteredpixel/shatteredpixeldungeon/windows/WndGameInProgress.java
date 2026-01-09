@@ -107,14 +107,28 @@ public class WndGameInProgress extends Window {
 			
 			pos = btnChallenges.bottom() + GAP;
 		}
-		if (info.玩法 > 0) {
-			RedButton btnChallenges = new RedButton( Messages.get(this, "玩法") ) {
+		if (info.派对 > 0) {
+			RedButton btnChallenges = new RedButton( Messages.get(this, "派对") ) {
 				@Override
 				protected void onClick() {
-					Game.scene().add( new 玩法( info.玩法, false ) );
+					Game.scene().add( new 派对( info.派对, false ) );
 				}
 			};
-			btnChallenges.icon(Icons.get(Icons.玩法开));
+			btnChallenges.icon(Icons.get(Icons.派对开));
+			float btnW = btnChallenges.reqWidth() + 2;
+			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
+			add( btnChallenges );
+
+			pos = btnChallenges.bottom() + GAP;
+		}
+		if (info.赛季>0) {
+			RedButton btnChallenges = new RedButton( Messages.get(this, "赛季") ) {
+				@Override
+				protected void onClick() {
+					Game.scene().add( new 赛季(info.赛季,false ));
+				}
+			};
+			btnChallenges.icon(Icons.get(Icons.赛季开));
 			float btnW = btnChallenges.reqWidth() + 2;
 			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
 			add( btnChallenges );

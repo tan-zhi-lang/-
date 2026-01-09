@@ -32,7 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.YogSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.玩法设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -59,7 +59,7 @@ public class YogDzewa extends Mob {
 		//so that allies can attack it. States are never actually used.
 		state = HUNTING;
 		
-		loot = Dungeon.玩法(玩法设置.刷子地牢)?new Amulet():null;
+		loot = Dungeon.赛季(赛季设置.刷子地牢)?new Amulet():null;
 		viewDistance = 12;
 
 		properties.add(Property.BOSS);

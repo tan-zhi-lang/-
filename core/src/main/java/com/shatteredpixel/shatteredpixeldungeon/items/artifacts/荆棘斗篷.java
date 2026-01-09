@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -28,6 +29,7 @@ public class 荆棘斗篷 extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
+		if (cursed ||target.buff(MagicImmune.class)!=null) return;
 		charge = Math.min(charge+10,chargeCap);
 		updateQuickslot();
 	}

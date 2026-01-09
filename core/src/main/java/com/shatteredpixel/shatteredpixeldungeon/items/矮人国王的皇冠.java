@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.Ratmogrify;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
@@ -73,12 +72,7 @@ public class 矮人国王的皇冠 extends Item {
 		hero.busy();
 
 		if (armor != null){
-
-			if (ability instanceof Ratmogrify){
-				GLog.p(Messages.get(this, "ratgraded"));
-			} else {
 				GLog.p(Messages.get(this, "upgraded"));
-			}
 
 			ClassArmor classArmor = ClassArmor.upgrade(hero, armor);
 			if (hero.belongings.armor == armor) {

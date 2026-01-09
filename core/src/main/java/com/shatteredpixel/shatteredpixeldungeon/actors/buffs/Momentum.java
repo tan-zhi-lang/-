@@ -86,9 +86,9 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	public float speedMultiplier(){
 		float x=freerunTurns*Dungeon.hero.天赋点数(Talent.SPEEDY_STEALTH,0.15f);
 		if (freerunning()){
-			return 1.5f+x;
-		} else if (target.invisible > 0 ){
 			return 2+x;
+		} else if (target.invisible > 0 ){
+			return 3+x;
 		} else {
 			return 1;
 		}

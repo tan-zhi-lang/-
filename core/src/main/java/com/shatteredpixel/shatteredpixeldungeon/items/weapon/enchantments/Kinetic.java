@@ -17,7 +17,7 @@ public class Kinetic extends Weapon.Enchantment {
 	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF00 );
 
 	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
+	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
 
 		return damage;
 	}
@@ -33,14 +33,14 @@ public class Kinetic extends Weapon.Enchantment {
 			actPriority = Actor.VFX_PRIO;
 		}
 
-		public int conservedDamage;
+		public float conservedDamage;
 
 		@Override
 		public boolean act() {
 			detach();
 			return true;
 		}
-	};
+	}
 	
 	public static class ConservedDamage extends Buff {
 
@@ -66,17 +66,17 @@ public class Kinetic extends Weapon.Enchantment {
 
 		@Override
 		public String iconTextDisplay() {
-			return Integer.toString(damageBonus());
+			return Float.toString(damageBonus());
 		}
 		
 		private float preservedDamage;
 		
-		public void setBonus(int bonus){
+		public void setBonus(float bonus){
 			preservedDamage = bonus;
 		}
 		
-		public int damageBonus(){
-			return (int)Math.ceil(preservedDamage);
+		public float damageBonus(){
+			return preservedDamage;
 		}
 		
 		@Override

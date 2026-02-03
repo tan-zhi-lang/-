@@ -44,7 +44,7 @@ public class 护甲修理工具包 extends 用品 {
 		
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 6;
+			return 5;
 		}
 		
 		@Override

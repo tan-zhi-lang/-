@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.光明结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.冰爆结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.毒素结晶;
@@ -12,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.火爆结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.磐石结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.蓄能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.重力结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.雷爆结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.魔能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.黑暗结晶;
@@ -49,7 +49,6 @@ public class Wnd选择结晶 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
-				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				Dungeon.energy(-10);
 				魔能结晶 mob = new 魔能结晶();
 				GameScene.add(mob);
@@ -85,7 +84,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -95,13 +94,13 @@ public class Wnd选择结晶 extends Window {
 		moveBtn2.setRect(0,pos,width,moveBtn2.reqHeight()+6);
 		add(moveBtn2);
 		pos=moveBtn2.bottom()+MARGIN;
-		
-		
+
+
 		RedButton moveBtn3=new RedButton("冰爆结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				冰爆结晶 mob = new 冰爆结晶();
 				GameScene.add(mob);
@@ -111,7 +110,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -121,12 +120,12 @@ public class Wnd选择结晶 extends Window {
 		moveBtn3.setRect(0,pos,width,moveBtn3.reqHeight()+6);
 		add(moveBtn3);
 		pos=moveBtn3.bottom()+MARGIN;
-		
+
 		RedButton moveBtn4=new RedButton("火爆结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				火爆结晶 mob = new 火爆结晶();
 				GameScene.add(mob);
@@ -136,7 +135,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -146,12 +145,12 @@ public class Wnd选择结晶 extends Window {
 		moveBtn4.setRect(0,pos,width,moveBtn4.reqHeight()+6);
 		add(moveBtn4);
 		pos=moveBtn4.bottom()+MARGIN;
-		
+
 		RedButton moveBtn5=new RedButton("雷爆结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				雷爆结晶 mob = new 雷爆结晶();
 				GameScene.add(mob);
@@ -161,7 +160,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -171,12 +170,12 @@ public class Wnd选择结晶 extends Window {
 		moveBtn5.setRect(0,pos,width,moveBtn5.reqHeight()+6);
 		add(moveBtn5);
 		pos=moveBtn5.bottom()+MARGIN;
-		
+
 		RedButton moveBtn6=new RedButton("刺青结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				刺青结晶 mob = new 刺青结晶();
 				GameScene.add(mob);
@@ -186,7 +185,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -196,14 +195,14 @@ public class Wnd选择结晶 extends Window {
 		moveBtn6.setRect(0,pos,width,moveBtn6.reqHeight()+6);
 		add(moveBtn6);
 		pos=moveBtn6.bottom()+MARGIN;
-		
+
 		RedButton moveBtn7=new RedButton("光明结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
-				光明结晶 mob = new 光明结晶();
+				重力结晶 mob = new 重力结晶();
 				GameScene.add(mob);
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
@@ -211,7 +210,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -221,12 +220,12 @@ public class Wnd选择结晶 extends Window {
 		moveBtn7.setRect(0,pos,width,moveBtn7.reqHeight()+6);
 		add(moveBtn7);
 		pos=moveBtn7.bottom()+MARGIN;
-		
+
 		RedButton moveBtn8=new RedButton("黑暗结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				黑暗结晶 mob = new 黑暗结晶();
 				GameScene.add(mob);
@@ -236,7 +235,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -246,12 +245,12 @@ public class Wnd选择结晶 extends Window {
 		moveBtn8.setRect(0,pos,width,moveBtn8.reqHeight()+6);
 		add(moveBtn8);
 		pos=moveBtn8.bottom()+MARGIN;
-		
+
 		RedButton moveBtn9=new RedButton("造能结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				造能结晶 mob = new 造能结晶();
 				GameScene.add(mob);
@@ -261,7 +260,7 @@ public class Wnd选择结晶 extends Window {
 					GLog.w("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
-				
+
 				hide();
 			}
 		};
@@ -271,12 +270,12 @@ public class Wnd选择结晶 extends Window {
 		moveBtn9.setRect(0,pos,width,moveBtn9.reqHeight()+6);
 		add(moveBtn9);
 		pos=moveBtn9.bottom()+MARGIN;
-		
+
 		RedButton moveBtn10=new RedButton("毒素结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				
+
 				if(Dungeon.level.map[target]!=Terrain.EMPTY_SP)return;
 				毒素结晶 mob = new 毒素结晶();
 				GameScene.add(mob);

@@ -22,13 +22,13 @@ public class Acidic extends Scorpio {
 		properties.add(Property.昆虫);
 	}
 	@Override
-	public int 攻击时(Char enemy, int damage) {
+	public float 攻击时(final Char enemy, float damage) {
 		Buff.施加(enemy, Ooze.class).set( Ooze.DURATION );
 		return super.攻击时(enemy, damage);
 	}
 
 	@Override
-	public int 防御时(Char enemy, int damage ) {
+	public float 防御时(Char enemy, float damage ) {
 		if (Dungeon.level.adjacent(pos, enemy.pos)){
 			Buff.施加(enemy, Ooze.class).set( Ooze.DURATION );
 		}

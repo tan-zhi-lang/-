@@ -47,7 +47,7 @@ public class 粘咕 extends Mob {
 	private int healInc = 1;
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		int min = 1;
 		int max = (生命 *2 <= 最大生命) ? 12 : 8;
 		if (pumpedUp > 0) {
@@ -62,7 +62,7 @@ public class 粘咕 extends Mob {
 		}
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		int min = 1;
 		int max = (生命 *2 <= 最大生命) ? 12 : 8;
 		if (pumpedUp > 0) {
@@ -91,7 +91,7 @@ public class 粘咕 extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+2;
 	}
 
@@ -146,7 +146,7 @@ public class 粘咕 extends Mob {
 	}
 
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (Random.Int( 3 ) == 0) {
 			Buff.施加( enemy, Ooze.class ).set( Ooze.DURATION );
@@ -253,7 +253,7 @@ public class 粘咕 extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (!BossHealthBar.isAssigned()){
 			BossHealthBar.assignBoss( this );
 			Dungeon.level.seal();

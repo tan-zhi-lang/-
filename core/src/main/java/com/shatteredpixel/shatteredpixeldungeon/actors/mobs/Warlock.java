@@ -44,11 +44,11 @@ public class Warlock extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 12;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 18;
 	}
 	
@@ -58,7 +58,7 @@ public class Warlock extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+8;
 	}
 	
@@ -101,9 +101,9 @@ public class Warlock extends Mob implements Callback {
 				Buff.延长( enemy, Degrade.class, Degrade.DURATION );
 				Sample.INSTANCE.play( Assets.Sounds.DEGRADE );
 			}
-			
-			int dmg = Random.NormalIntRange( 12, 18 );
-			dmg=Math.round(dmg*Dungeon.难度攻击());
+
+			float dmg = Random.NormalIntRange( 12, 18 );
+			dmg=dmg*Dungeon.难度攻击();
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 
 			//logic for DK taking 1/2 damage from aggression stoned minions

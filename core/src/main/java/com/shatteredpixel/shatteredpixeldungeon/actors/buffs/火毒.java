@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
@@ -60,7 +61,8 @@ public class 火毒 extends Buff implements Hero.Doom {
 		} else if (target.isAlive() && !target.免疫(getClass())) {
 
 			acted = true;
-			int damage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
+			float damage = Random.NormalFloat( 0.5f, 1.5f + Dungeon.scalingDepth()/8f );
+			damage*=1+Dungeon.hero.天赋点数(Talent.水漫火狱,0.5f);
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero hero
@@ -96,8 +98,8 @@ public class 火毒 extends Buff implements Hero.Doom {
 			if (ch.glyphLevel(Brimstone.class) >= 0){
 				//generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
 				float shieldChance = 2*(Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);
-				int shieldCap = Math.round(shieldChance*4f);
-				int shieldGain = (int)shieldChance;
+				float shieldCap = Math.round(shieldChance*4f);
+				float shieldGain = (int)shieldChance;
 				if (Random.Float() < shieldChance%1) shieldGain++;
 				if (shieldCap > 0 && shieldGain > 0){
 					Barrier barrier = Buff.施加(ch, Barrier.class);

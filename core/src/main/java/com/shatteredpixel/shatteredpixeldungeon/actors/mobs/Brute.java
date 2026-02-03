@@ -38,20 +38,20 @@ public class Brute extends Mob {
 	protected boolean hasRaged = false;
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return buff(BruteRage.class) != null ?
 				15 :
 				5;
 	}
 	
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return buff(BruteRage.class) != null ?
 				40 :
 				25;
 	}
 	@Override
-	public int 攻击时(Char enemy,int damage){
+	public float 攻击时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		return super.攻击时(enemy,damage);
 	}
@@ -61,7 +61,7 @@ public class Brute extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+8;
 	}
 
@@ -95,7 +95,7 @@ public class Brute extends Mob {
 	protected void triggerEnrage(){
 		rage = Buff.施加(this, BruteRage.class);
 		rage.设置(最大生命/2 + 4);
-		sprite.showStatusWithIcon(CharSprite.增强,Integer.toString(最大生命/2+4),FloatingText.SHIELDING);
+		sprite.showStatusWithIcon(CharSprite.增强,最大生命/2+4,FloatingText.SHIELDING);
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
 		}

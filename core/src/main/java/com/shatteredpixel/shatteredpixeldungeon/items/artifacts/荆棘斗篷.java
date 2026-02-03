@@ -57,10 +57,10 @@ public class 荆棘斗篷 extends Artifact {
 			return true;
 		}
 
-		public int proc(int damage, Char attacker, Char defender){
+		public float proc(float damage, Char attacker, Char defender){
 				if (charge >= chargeCap){
 					GLog.p( Messages.get(this, "radiating",Math.round(damage*(0.5f+等级()*0.2f))));
-					int deflected = Math.round(damage*(0.5f+等级()*0.2f));
+					float deflected = Math.round(damage*(0.5f+等级()*0.2f));
 					damage=0;
 					if (attacker != null) {
 						Talent.onArtifactUsed(Dungeon.hero);

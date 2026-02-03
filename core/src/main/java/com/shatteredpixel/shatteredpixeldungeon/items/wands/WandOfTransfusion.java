@@ -14,14 +14,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BloodParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -71,10 +69,10 @@ public class WandOfTransfusion extends DamageWand {
 			if (ch.alignment == Char.Alignment.ALLY || ch.buff(Charm.class) != null){
 				
 				// 5% of max hp
-				int selfDmg = Math.round(curUser.最大生命 *0.05f);
+				float selfDmg = Math.round(curUser.最大生命 *0.05f);
 				
-				int healing = selfDmg + 3* 强化等级();
-				int shielding = (ch.生命 + healing) - ch.最大生命;
+				float healing = selfDmg + 3* 强化等级();
+				float shielding = (ch.生命 + healing) - ch.最大生命;
 				if (shielding > 0){
 					healing -= shielding;
 					Buff.施加(ch, Barrier.class).设置(shielding);
@@ -122,7 +120,7 @@ public class WandOfTransfusion extends DamageWand {
 	}
 
 	//this wand costs health too
-	private void damageHero(int damage){
+	private void damageHero(float damage){
 		
 		curUser.受伤时(damage, this);
 
@@ -134,11 +132,11 @@ public class WandOfTransfusion extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		if (defender.buff(Charm.class) != null && defender.buff(Charm.class).object == attacker.id()){
 			//grants a free use of the staff and shields self
 			freeCharge = true;
-			int shieldToGive = Math.round((2*(5 + 强化等级()))*procChanceMultiplier(attacker));
+			float shieldToGive = Math.round((2*(5 + 强化等级()))*procChanceMultiplier(attacker));
 			Buff.施加(attacker, Barrier.class).设置(shieldToGive);
 			GLog.p( Messages.get(this, "charged") );
 			attacker.sprite.emitter().burst(BloodParticle.BURST, 20);

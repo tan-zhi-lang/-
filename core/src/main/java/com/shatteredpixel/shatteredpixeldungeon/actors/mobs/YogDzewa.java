@@ -204,12 +204,12 @@ public class YogDzewa extends Mob {
 
 					if (hit( this, ch, true )) {
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
-							int dmg=Random.NormalIntRange(30, 50);
-							dmg=Math.round(dmg*Dungeon.难度攻击());
+							float dmg=Random.NormalIntRange(30, 50);
+							dmg=dmg*Dungeon.难度攻击();
 							ch.受伤时(dmg, new Eye.DeathGaze());
 						} else {
-							int dmg=Random.NormalIntRange(20, 30);
-							dmg=Math.round(dmg*Dungeon.难度攻击());
+							float dmg=Random.NormalIntRange(20, 30);
+							dmg=dmg*Dungeon.难度攻击();
 							ch.受伤时(dmg, new Eye.DeathGaze());
 						}
 						if (Dungeon.level.heroFOV[pos]) {
@@ -230,7 +230,7 @@ public class YogDzewa extends Mob {
 
 			if (abilityCooldown <= 0){
 
-				int beams = 1 + (最大生命 - 生命)/400;
+				float beams = 1 + (最大生命 - 生命)/400;
 				HashSet<Integer> affectedCells = new HashSet<>();
 				for (int i = 0; i < beams; i++){
 
@@ -343,6 +343,7 @@ public class YogDzewa extends Mob {
 		//but the very last fist to die does trigger the final phase
 		if (phase == 4 && findFist() == null){
 			yell(Messages.get(this, "hope"));
+			Sample.INSTANCE.play(Assets.Sounds.汝之希望皆为虚妄);
 			summonCooldown = -15; //summon a burst of minions!
 			phase = 5;
 			BossHealthBar.bleed(true);
@@ -371,9 +372,9 @@ public class YogDzewa extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src ) {
+	public void 受伤时(float dmg, Object src ) {
 
-		int preHP = 生命;
+		float preHP = 生命;
 		super.受伤时( dmg, src );
 
 		if (phase == 0 || findFist() != null) return;
@@ -383,7 +384,7 @@ public class YogDzewa extends Mob {
 		} else if (phase == 4) {
 			生命 = Math.max(生命, 100);
 		}
-		int dmgTaken = preHP - 生命;
+		float dmgTaken = preHP - 生命;
 
 		if (dmgTaken > 0) {
 			abilityCooldown -= dmgTaken / 10f;
@@ -537,6 +538,7 @@ public class YogDzewa extends Mob {
 		if (!BossHealthBar.isAssigned()) {
 			BossHealthBar.assignBoss(this);
 			yell(Messages.get(this, "notice"));
+			Sample.INSTANCE.play(Assets.Sounds.我看见你了);
 			for (Char ch : Actor.chars()){
 				if (ch instanceof DriedRose.GhostHero){
 					((DriedRose.GhostHero) ch).sayBoss();
@@ -643,17 +645,17 @@ public class YogDzewa extends Mob {
 		}
 
 		@Override
-		public int 最小攻击() {
+		public float 最小攻击() {
 			return 15;
 		}
 
 		@Override
-		public int 最大攻击() {
+		public float 最大攻击() {
 			return 25;
 		}
 
 		@Override
-		public int 最大防御() {
+		public float 最大防御() {
 			return super.最大防御()+4;
 		}
 

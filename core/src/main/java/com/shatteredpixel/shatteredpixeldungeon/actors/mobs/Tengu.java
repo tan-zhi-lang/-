@@ -80,11 +80,11 @@ public class Tengu extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 6;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 12;
 	}
 	
@@ -98,7 +98,7 @@ public class Tengu extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+5;
 	}
 
@@ -114,18 +114,18 @@ public class Tengu extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (!Dungeon.level.mobs.contains(this)){
 			return;
 		}
 
 		PrisonBossLevel.State state = ((PrisonBossLevel)Dungeon.level).state();
-		
-		int hpBracket = 最大生命(0.125f);
 
-		int curbracket = 生命 / hpBracket;//当前生命能承受1/8多少次
+		float hpBracket = 最大生命(0.125f);
 
-		int beforeHitHP = 生命;
+		float curbracket = 生命 / hpBracket;//当前生命能承受1/8多少次
+
+		float beforeHitHP = 生命;
 		super.受伤时(dmg, src);
 
 		//cannot be hit through multiple brackets at a time
@@ -133,7 +133,7 @@ public class Tengu extends Mob {
 			生命 = (curbracket-1)*hpBracket + 1;
 		}
 
-		int newBracket =  生命 / hpBracket;
+		float newBracket =  生命 / hpBracket;
 		dmg = beforeHitHP - 生命;
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
@@ -618,9 +618,9 @@ public class Tengu extends Mob {
 					if (PathFinder.distance[cell] < Integer.MAX_VALUE) {
 						Char ch = Actor.findChar(cell);
 						if (ch != null && !(ch instanceof Tengu)) {
-							int dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth() * 2);
+							float dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth() * 2);
 							dmg -= ch.最大防御();
-							dmg=Math.round(dmg*Dungeon.难度攻击());
+							dmg=dmg*Dungeon.难度攻击();
 
 							if (dmg > 0) {
 								ch.受伤时(dmg, Bomb.class);
@@ -1053,8 +1053,8 @@ public class Tengu extends Mob {
 							
 							Char ch = Actor.findChar(cell);
 							if (ch != null && !(ch instanceof Tengu)){
-								int dmg=2 + Dungeon.scalingDepth();
-								dmg=Math.round(dmg*Dungeon.难度攻击());
+								float dmg=2 + Dungeon.scalingDepth();
+								dmg=dmg*Dungeon.难度攻击();
 								ch.受伤时(dmg, new Electricity());
 								
 								if (ch == Dungeon.hero){

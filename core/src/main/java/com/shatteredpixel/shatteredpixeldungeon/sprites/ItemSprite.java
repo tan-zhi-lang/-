@@ -330,7 +330,14 @@ public class ItemSprite extends MovieClip {
 					if (Dungeon.level.water[heap.pos]) {
 						Sample.INSTANCE.play( Assets.Sounds.WATER, 0.8f, Random.Float( 1f, 1.45f ) );
 					} else if (Dungeon.level.map[heap.pos] == Terrain.EMPTY_SP) {
-						Sample.INSTANCE.play( Assets.Sounds.STURDY, 0.8f, Random.Float( 1.16f, 1.25f ) );
+						if(Dungeon.区域()==4){
+							Sample.INSTANCE.play(Assets.Sounds.地毯, 0.8f, Random.Float( 1.16f, 1.25f ) );
+						}else if(Dungeon.区域()==3){
+							Sample.INSTANCE.play(Assets.Sounds.金属板,0.8f,Random.Float(1.16f,1.25f));
+						}else if(Dungeon.区域()==2){
+							Sample.INSTANCE.play(Assets.Sounds.金属网,0.8f,Random.Float(1.16f,1.25f));
+						}else
+							Sample.INSTANCE.play(Assets.Sounds.STURDY, 0.8f, Random.Float( 1.16f, 1.25f ) );
 					} else if (Dungeon.level.map[heap.pos] == Terrain.GRASS
 							|| Dungeon.level.map[heap.pos] == Terrain.EMBERS
 							|| Dungeon.level.map[heap.pos] == Terrain.FURROWED_GRASS){

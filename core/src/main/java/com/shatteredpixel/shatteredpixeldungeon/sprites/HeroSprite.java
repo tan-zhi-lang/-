@@ -308,7 +308,7 @@ public class HeroSprite extends CharSprite {
 	}
 
 	@Override
-	public void bloodBurstA(PointF from, int damage) {
+	public void bloodBurstA(PointF from, float damage) {
 		//Does nothing.
 
 		/*

@@ -20,7 +20,7 @@ public class CausticSlime extends Slime {
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		if (Random.Int( 2 ) == 0) {
 			Buff.施加( enemy, Ooze.class ).set( Ooze.DURATION );
 			enemy.sprite.burst( 0x000000, 5 );

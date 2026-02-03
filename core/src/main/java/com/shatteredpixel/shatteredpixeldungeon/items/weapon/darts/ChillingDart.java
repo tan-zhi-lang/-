@@ -15,7 +15,7 @@ public class ChillingDart extends TippedDart {
 	}
 	
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage) {
+	public float 攻击时(Char attacker, Char defender, float damage) {
 
 		//when processing charged shot, only chill enemies
 		if (!processingChargedShot || attacker.alignment != defender.alignment) {

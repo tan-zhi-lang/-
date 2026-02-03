@@ -18,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -178,14 +177,14 @@ public class Challenge extends ArmorAbility {
 		return new Talent[]{Talent.CLOSE_THE_GAP, Talent.INVIGORATING_VICTORY, Talent.ELIMINATION_MATCH, Talent.HEROIC_ENERGY};
 	}
 
-	public static class EliminationMatchTracker extends FlavourBuff{};
+	public static class EliminationMatchTracker extends FlavourBuff{}
 
 	public static class DuelParticipant extends Buff {
 
 		public static float DURATION = 10f;
 
 		private int left = (int)DURATION;
-		private int takenDmg = 0;
+		private float takenDmg = 0;
 
 		@Override
 		public int icon() {
@@ -199,10 +198,10 @@ public class Challenge extends ArmorAbility {
 
 		@Override
 		public String iconTextDisplay() {
-			return Integer.toString(left);
+			return Float.toString(left);
 		}
 
-		public void addDamage(int dmg){
+		public void addDamage(float dmg){
 			takenDmg += dmg;
 		}
 
@@ -241,7 +240,7 @@ public class Challenge extends ArmorAbility {
 					if (Dungeon.hero.天赋(Talent.INVIGORATING_VICTORY)){
 						DuelParticipant heroBuff = Dungeon.hero.buff(DuelParticipant.class);
 
-						int hpToHeal = 0;
+						float hpToHeal = 0;
 						if (heroBuff != null){
 							hpToHeal = heroBuff.takenDmg;
 						}
@@ -297,7 +296,7 @@ public class Challenge extends ArmorAbility {
 		public void restoreFromBundle(Bundle bundle) {
 			super.restoreFromBundle(bundle);
 			left = bundle.getInt(LEFT);
-			takenDmg = bundle.getInt(TAKEN_DMG);
+			takenDmg = bundle.getFloat(TAKEN_DMG);
 		}
 	}
 

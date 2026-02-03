@@ -197,9 +197,9 @@ public class WndHero extends WndTabbed {
 
 			pos = title.bottom() + GAP;
 
-			statSlot( Messages.get(this, "str")+"/攻击范围", hero.力量()+"/"+hero.攻击范围());
-			statSlot( "攻击力", hero.最小攻击()+"~"+hero.最大攻击());
-			statSlot( "防御力", hero.最小防御()+"~"+hero.最大防御());
+			statSlot( Messages.get(this, "str")+"/攻击范围", String.format("%.2f",hero.力量())+"/"+hero.攻击范围());
+			statSlot( "攻击力", String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
+			statSlot( "防御力", String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
 			pos += GAP;
 			
 			statSlot( "命中", hero.最小命中(null)+"~"+hero.最大命中(null));

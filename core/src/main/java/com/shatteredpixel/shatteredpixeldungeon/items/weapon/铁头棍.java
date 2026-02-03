@@ -20,7 +20,7 @@ public class 铁头棍 extends Weapon {
 	}
 
 	@Override
-	public int 最大防御(int lvl){
+	public float 最大防御(int lvl){
 		return 1 + lvl;
 	}
 

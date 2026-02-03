@@ -45,19 +45,19 @@ public class 冰门重盾 extends Weapon{
 		return 0;
 	}
 	@Override
-	public int 最小攻击(int lvl) {
+	public float 最小攻击(int lvl) {
 		return  Math.round(super.最小攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));               //+2 per level, down from +4
 	}
 	@Override
-	public int 最大攻击(int lvl) {
+	public float 最大攻击(int lvl) {
+		tier=1+Dungeon.hero.天赋点数(Talent.高阶盾武);
+		命中=1+Dungeon.hero.天赋点数(Talent.用盾诀窍,0.075f);
+		吸血=Dungeon.hero.天赋点数(Talent.用盾诀窍,0.03f);
 		return  Math.round(super.最大攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));
 	}
 
 	@Override
-	public int 最大防御(int lvl){
-		tier=1+Dungeon.hero.天赋点数(Talent.高阶盾武);
-		命中=1+Dungeon.hero.天赋点数(Talent.用盾诀窍,0.075f);
-		吸血=Dungeon.hero.天赋点数(Talent.用盾诀窍,0.03f);
+	public float 最大防御(int lvl){
 		return (1+Dungeon.hero.天赋点数(Talent.冰门高防)) + lvl*(1+Dungeon.hero.天赋点数(Talent.冰门高防));
 	}
 }

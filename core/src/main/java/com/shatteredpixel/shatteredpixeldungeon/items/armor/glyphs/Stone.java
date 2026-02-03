@@ -21,10 +21,11 @@ public class Stone extends Armor.Glyph {
 	private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x222222 );
 
 	@Override
-	public int proc(Armor armor, Char attacker, Char defender, int damage) {
+	public float proc(Armor armor, Char attacker, Char defender, float damage) {
 		
 		testing = true;
-		float accuracy = attacker.最大命中(defender);
+		float accuracy=0;
+		if(attacker!=null)accuracy=attacker.最大命中(defender);
 		float evasion = defender.最大闪避(attacker);
 		testing = false;
 
@@ -62,14 +63,14 @@ public class Stone extends Armor.Glyph {
 		// end of copy-pasta
 
 		evasion *= genericProcChanceMultiplier(defender);
-		
+
 		float hitChance;
 		if (evasion >= accuracy){
 			hitChance = (accuracy/evasion)/2f;
 		} else {
 			hitChance = 1f - (evasion/accuracy)/2f;
 		}
-		
+
 		//75% of dodge chance is applied as damage reduction
 		// we clamp in case accuracy or evasion were negative
 		hitChance = GameMath.gate(0.25f, (1f + 3f*hitChance)/4f, 1f);

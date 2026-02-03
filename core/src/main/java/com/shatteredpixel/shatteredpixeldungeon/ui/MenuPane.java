@@ -54,7 +54,7 @@ public class MenuPane extends Component {
 		case NONE-> SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
 		default->SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
 		case 愚人节->Assets.Interfaces.MENU_BTN愚人;
-		case 春节->Assets.Interfaces.MENU_BTN春节;
+//		case 春节->Assets.Interfaces.MENU_BTN春节;
 //		case 圣诞节->Assets.Interfaces.MENU_BTN圣诞;
 		
 	};
@@ -65,7 +65,7 @@ public class MenuPane extends Component {
 		bg = new Image(switch(Holiday.getCurrentHoliday()){
 			case NONE->SPDSettings.透明界面()?Assets.Interfaces.MENU透明:Assets.Interfaces.MENU;
 			default->SPDSettings.透明界面()?Assets.Interfaces.MENU透明:Assets.Interfaces.MENU;
-			case 春节->Assets.Interfaces.MENU春节;
+//			case 春节->Assets.Interfaces.MENU春节;
 //			case 圣诞节->Assets.Interfaces.MENU圣诞;
 			
 		});
@@ -237,7 +237,7 @@ public class MenuPane extends Component {
 				case NONE-> SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
 				default->SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
 				case 愚人节->Assets.Interfaces.MENU_BTN愚人;
-				case 春节->Assets.Interfaces.MENU_BTN春节;
+//				case 春节->Assets.Interfaces.MENU_BTN春节;
 //				case 圣诞节->Assets.Interfaces.MENU_BTN圣诞;
 				
 			};
@@ -373,7 +373,7 @@ public class MenuPane extends Component {
 				case NONE-> SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
 				default->SPDSettings.透明界面()?Assets.Interfaces.MENU_BTN透明:Assets.Interfaces.MENU_BTN;
 				case 愚人节->Assets.Interfaces.MENU_BTN愚人;
-				case 春节->Assets.Interfaces.MENU_BTN春节;
+//				case 春节->Assets.Interfaces.MENU_BTN春节;
 //				case 圣诞节->Assets.Interfaces.MENU_BTN圣诞;
 				
 			}, 17, 2, 12, 11 );

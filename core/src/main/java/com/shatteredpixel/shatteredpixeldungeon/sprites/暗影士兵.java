@@ -35,7 +35,7 @@ public class 暗影士兵 extends MobSprite {
 	}
 
 	@Override
-	public void bloodBurstA(PointF from, int damage) {
+	public void bloodBurstA(PointF from, float damage) {
 		//do nothing
 	}
 

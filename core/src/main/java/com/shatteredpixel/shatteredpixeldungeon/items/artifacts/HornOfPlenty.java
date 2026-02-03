@@ -94,7 +94,7 @@ public class HornOfPlenty extends Artifact {
 				}
 
 				Hunger hunger = Buff.施加(Dungeon.hero, Hunger.class);
-				int chargesToUse = Math.max( 1, hunger.hunger() / satietyPerCharge);
+				float chargesToUse = Math.max( 1, hunger.hunger() / satietyPerCharge);
 				if (chargesToUse > charge) chargesToUse = charge;
 
 				//always use 1 charge if snacking
@@ -112,7 +112,7 @@ public class HornOfPlenty extends Artifact {
 		}
 	}
 
-	public void doEatEffect(Hero hero, int chargesToUse){
+	public void doEatEffect(Hero hero, float chargesToUse){
 		int satietyPerCharge = (int) (Hunger.STARVING/5f);
 		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
 			satietyPerCharge /= 3;

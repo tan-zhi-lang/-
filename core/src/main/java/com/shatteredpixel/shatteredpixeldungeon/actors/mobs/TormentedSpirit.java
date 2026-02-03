@@ -24,11 +24,11 @@ public class TormentedSpirit extends Wraith {
 
 	//50% more damage scaling than regular wraiths
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return  1 + Math.round(1.5f*level)/2;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return  2 + Math.round(1.5f*level) ;
 	}
 

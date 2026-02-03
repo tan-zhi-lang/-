@@ -163,12 +163,12 @@ public class SpiritHawk extends ArmorAbility {
 		}
 
 		@Override
-		public int 最大攻击() {
+		public float 最大攻击() {
 			return Random.NormalIntRange(5, 10);
 		}
 
 		@Override
-		public int 攻击时(Char enemy, int damage) {
+		public float 攻击时(final Char enemy, float damage) {
 			damage = super.攻击时( enemy, damage );
 			switch (Dungeon.hero.天赋点数(Talent.GO_FOR_THE_EYES)){
 				case 1:

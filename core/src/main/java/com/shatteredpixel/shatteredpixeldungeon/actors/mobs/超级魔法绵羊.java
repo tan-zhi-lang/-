@@ -32,7 +32,7 @@ public class 超级魔法绵羊 extends Mob {
 	}
 	
 	@Override
-	public void 受伤时(int dmg, Object src ){
+	public void 受伤时(float dmg, Object src ){
 		
 		String s=Random.element(LINE_KEYS);
 		sprite.showStatus(CharSprite.NEUTRAL,Messages.get(this,s));

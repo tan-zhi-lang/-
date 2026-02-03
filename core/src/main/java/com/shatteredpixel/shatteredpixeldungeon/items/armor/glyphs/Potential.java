@@ -16,7 +16,7 @@ public class Potential extends Glyph {
 	private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing( 0xFFFFFF, 0.6f );
 	
 	@Override
-	public int proc( Armor armor, Char attacker, Char defender, int damage) {
+	public float proc( Armor armor, Char attacker, Char defender, float damage) {
 
 		int level = Math.max( 0, armor.强化等级() );
 		

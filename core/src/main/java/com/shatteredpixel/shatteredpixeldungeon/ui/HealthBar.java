@@ -74,9 +74,10 @@ public class HealthBar extends Component {
 		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
 		Hp.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
 		if (护盾 <= 0){
-			hpText.text(Math.round(生命) + "/" + Math.round(max));
+			hpText.text(String.format("%.2f",生命) + "/" + String.format("%.2f",max));
 		} else {
-			hpText.text(Math.round(生命) + "+" + Math.round(护盾) +  "/" + Math.round(max));
+			hpText.text(String.format("%.2f",生命) + "+"
+						+ String.format("%.2f",护盾) +  "/" + String.format("%.2f",max));
 		}
 		hpText.measure();
 		hpText.x = Hp.x+0.5f;

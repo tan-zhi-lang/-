@@ -18,7 +18,7 @@ public class 臂铠 extends Weapon{
 		遗产= false;
 	}
 	@Override
-	public int 最大防御(int lvl){
+	public float 最大防御(int lvl){
 		return 1 + lvl;
 	}
 	

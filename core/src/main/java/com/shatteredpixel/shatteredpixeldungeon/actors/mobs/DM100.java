@@ -42,12 +42,12 @@ public class DM100 extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 2;
 	}
 	
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 8;
 	}
 	
@@ -57,12 +57,12 @@ public class DM100 extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+4;
 	}
 	
 	@Override
-	public int 防御时(Char enemy,int damage){
+	public float 防御时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.金属受伤);
 		return super.防御时(enemy,damage);
 	}
@@ -91,8 +91,8 @@ public class DM100 extends Mob implements Callback {
 
 			Invisibility.dispel(this);
 			if (hit( this, enemy, true )) {
-				int dmg = Random.NormalIntRange(3, 10);
-				dmg=Math.round(dmg*Dungeon.难度攻击());
+				float dmg = Random.NormalIntRange(3, 10);
+				dmg=dmg*Dungeon.难度攻击();
 				dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 				enemy.受伤时( dmg, new LightningBolt() );
 

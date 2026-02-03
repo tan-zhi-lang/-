@@ -311,13 +311,22 @@ public class BuffIndicator extends Component {
 			grey.x = icon.x = this.x + (large ? 0 : 1);
 			grey.y = icon.y = this.y + (large ? 0 : 2);
 
-			if (text.width > width()){
-				text.scale.set(PixelScene.align(0.5f));
-			} else {
-				text.scale.set(1f);
-			}
+//			if (text.width > width()){
+//				text.scale.set(PixelScene.align(0.5f));
+//			} else {
+//				text.scale.set(1f);
+//			}
+
+			text.scale.set(0.75f);
+
 			text.x = this.x + width() - text.width() - 1;
-			text.y = this.y + width() - text.baseLine() - 2+8;//x 8
+			text.y = this.y + width() - text.baseLine() - 2;
+
+			if (!large || buff.iconTextDisplay().isEmpty()) {
+				text.y+=8;
+			}else{
+				text.y+=6;
+			}
 		}
 
 		@Override

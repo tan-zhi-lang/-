@@ -3,11 +3,13 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -17,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.watabou.noosa.audio.Sample;
 
 public class LostBackpack extends Item {
@@ -40,6 +43,8 @@ public class LostBackpack extends Item {
 			} else {
 				if (i instanceof EquipableItem && i.isEquipped(hero)){
 					((EquipableItem) i).activate(hero);
+				} else if (i instanceof 心之钢&&Dungeon.派对(派对设置.钢门联盟)){
+					((心之钢) i).activate(hero);
 				} else if ( i instanceof CloakOfShadows && hero.天赋(Talent.轻便斗篷)){
 					((CloakOfShadows) i).activate(hero);
 				} else if (i instanceof 神圣法典&&hero.天赋(Talent.轻量阅读)){

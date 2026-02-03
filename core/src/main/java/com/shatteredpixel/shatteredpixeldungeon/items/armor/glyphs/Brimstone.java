@@ -11,7 +11,7 @@ public class Brimstone extends Armor.Glyph {
 	private static ItemSprite.Glowing ORANGE = new ItemSprite.Glowing( 0xFF4400 );
 
 	@Override
-	public int proc(Armor armor, Char attacker, Char defender, int damage) {
+	public float proc(Armor armor, Char attacker, Char defender, float damage) {
 		//no proc effect, triggers in Char.isImmune
 		return damage;
 	}

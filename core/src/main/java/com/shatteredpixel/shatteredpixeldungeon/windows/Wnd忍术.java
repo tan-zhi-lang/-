@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -174,7 +173,7 @@ public class Wnd忍术 extends Window {
 
 
 				if(!tome.canCast(Dungeon.hero, spell)){
-					GLog.w(Messages.get(神圣法典.class, "no_spell"));
+					GLog.w(Messages.get(叛忍护额.class, "no_spell"));
 				} else {
 					spell.onCast(tome, Dungeon.hero);
 
@@ -211,7 +210,7 @@ public class Wnd忍术 extends Window {
 						case 0:
 							hide();
 							if(!tome.canCast(Dungeon.hero, spell)){
-								GLog.w(Messages.get(神圣法典.class, "no_spell"));
+								GLog.w(Messages.get(叛忍护额.class, "no_spell"));
 							} else {
 								spell.onCast(tome, Dungeon.hero);
 

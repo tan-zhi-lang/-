@@ -20,7 +20,7 @@ public class Entanglement extends Glyph {
 	private static ItemSprite.Glowing BROWN = new ItemSprite.Glowing( 0x663300 );
 	
 	@Override
-	public int proc(Armor armor, Char attacker, final Char defender, final int damage ) {
+	public float proc(Armor armor, Char attacker, final Char defender, final float damage ) {
 
 		final int level = Math.max( 0, armor.强化等级() );
 		float procChance = 1/4f * procChanceMultiplier(defender);

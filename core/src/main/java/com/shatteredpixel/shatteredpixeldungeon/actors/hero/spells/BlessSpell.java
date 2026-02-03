@@ -14,10 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -79,9 +77,9 @@ public class BlessSpell extends TargetedClericSpell {
 		if (ch == hero){
 			Buff.施加(ch, Barrier.class).设置(hero.天赋生命力(Talent.BLESS,0.7f));
 		} else {
-			int totalHeal = hero.天赋生命力(Talent.BLESS,0.7f);
+			float totalHeal = hero.天赋生命力(Talent.BLESS,0.7f);
 			if (ch.最大生命 - ch.生命 < totalHeal){
-				int barrier = totalHeal - (ch.最大生命 - ch.生命);
+				float barrier = totalHeal - (ch.最大生命 - ch.生命);
 				barrier = Math.max(barrier, 0);
 				ch.回满血();
 				if (barrier > 0) {

@@ -130,15 +130,15 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 3;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 6;
 	}
 	@Override
-	public int 攻击时(Char enemy,int damage){
+	public float 攻击时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		return super.攻击时(enemy,damage);
 	}
@@ -148,7 +148,7 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+6;
 	}
 
@@ -195,7 +195,7 @@ public class GnollGeomancer extends Mob {
 				public void call() {
 					//does its own special damage calculation that's only influenced by pickaxe level and augment
 					//we pretend the geomancer is the owner here so that properties like hero str or or other equipment do not factor in
-					int dmg = Hero.heroDamageIntRange(p.最小攻击(),p.最大攻击());
+					float dmg = Hero.heroDamage(p.最小攻击(),p.最大攻击());
 
 					boolean wasSleeping = state == SLEEPING;
 
@@ -256,10 +256,10 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
-		int hpBracket = 最大生命 / 3;
+	public void 受伤时(float dmg, Object src) {
+		float hpBracket = 最大生命 / 3;
 
-		int curbracket = 生命 / hpBracket;
+		float curbracket = 生命 / hpBracket;
 		if (curbracket == 3) curbracket--; //full HP isn't its own bracket
 
 		inFinalBracket = curbracket == 0;
@@ -268,7 +268,7 @@ public class GnollGeomancer extends Mob {
 
 		abilityCooldown -= dmg/10f;
 
-		int newBracket =  生命 / hpBracket;
+		float newBracket =  生命 / hpBracket;
 		if (newBracket == 3) newBracket--; //full HP isn't its own bracket
 
 		if (newBracket != curbracket) {
@@ -572,9 +572,9 @@ public class GnollGeomancer extends Mob {
 					// 50/50 to either throw a rock or do rockfall, but never do rockfall twice
 					// unless target is next to a barricade, then always try to throw
 					// unless nothing to throw, then always rockfall
-					int hpBracket = 最大生命 / 3;
+					float hpBracket = 最大生命 / 3;
 
-					int curbracket = 生命 / hpBracket;
+					float curbracket = 生命 / hpBracket;
 					if (curbracket == 3) curbracket--; //full HP isn't its own bracket
 
 					Ballistica aim = GnollGeomancer.prepRockThrowAttack(enemy, GnollGeomancer.this);
@@ -602,7 +602,7 @@ public class GnollGeomancer extends Mob {
 						abilityCooldown = Random.NormalIntRange(3, 5);
 						spend(GameMath.gate(TICK, (int)Math.ceil(enemy.cooldown()), 3*TICK));
 						return true;
-					} else if (GnollGeomancer.prepRockFallAttack(enemy, GnollGeomancer.this, 6-2*curbracket, true)) {
+					} else if (GnollGeomancer.prepRockFallAttack(enemy, GnollGeomancer.this, Math.round(6-2*curbracket), true)) {
 						lastAbilityWasRockfall = true;
 						Dungeon.hero.interrupt();
 						spend(GameMath.gate(TICK, (int)Math.ceil(enemy.cooldown()), 3*TICK));
@@ -694,10 +694,10 @@ public class GnollGeomancer extends Mob {
 						}
 
 						if (ch != null && !(ch instanceof GnollGeomancer)){
+
+							float dmg=Random.NormalIntRange(6, 12);
 							
-							int dmg=Random.NormalIntRange(6, 12);
-							
-							dmg=Math.round(dmg*Dungeon.难度攻击());
+							dmg=dmg*Dungeon.难度攻击();
 							ch.受伤时(dmg, new GnollGeomancer.Boulder());
 
 							if (ch == Dungeon.hero){

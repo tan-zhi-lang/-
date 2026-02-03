@@ -42,11 +42,11 @@ public class 鬼怨 extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return Dungeon.层数(1);
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return  Dungeon.层数(1.5f)+Dungeon.区域(1.5f);
 	}
 	
@@ -78,7 +78,7 @@ public class 鬼怨 extends Mob {
 		return Char.INFINITE;
 	}
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+Dungeon.层数(0.5f);
 	}
 	@Override

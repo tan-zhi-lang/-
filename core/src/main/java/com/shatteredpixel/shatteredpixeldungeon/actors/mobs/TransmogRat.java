@@ -102,18 +102,18 @@ public class TransmogRat extends Mob {
 			return original.最大命中(target);
 		}
 
-		public int 最大防御() {
+		public float 最大防御() {
 			return original.最大防御();
 		}
 
 		@Override
-		public int 最大攻击() {
-			int damage = original.最大攻击();
+		public float 最大攻击() {
+			float damage = original.最大攻击();
 			return damage;
 		}
 
 	@Override
-	public int 攻击时(Char enemy,int damage){
+	public float 攻击时(Char enemy,float damage){
 		if (enemy instanceof Hero hero&&hero.天赋(Talent.鼠手鼠脚)){
 			damage *= 1-hero.天赋点数(Talent.鼠手鼠脚,0.1f);
 		}
@@ -123,7 +123,7 @@ public class TransmogRat extends Mob {
 	@Override
 	public void 死亡时(Object cause){
 		if(算法.概率学(Dungeon.hero.天赋点数(Talent.吱援部队,10))){
-			回血(最大生命);
+			回满血();
 			makeAlly();
 		}else {
 			死亡时(cause);

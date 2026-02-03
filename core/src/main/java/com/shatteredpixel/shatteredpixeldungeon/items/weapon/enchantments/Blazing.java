@@ -17,7 +17,7 @@ public class Blazing extends Weapon.Enchantment {
 	private static ItemSprite.Glowing ORANGE = new ItemSprite.Glowing( 0xFF4400 );
 	
 	@Override
-	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 		int level = Math.max( 0, weapon.强化等级() );
 
 		// lvl 0 - 33%
@@ -34,8 +34,8 @@ public class Blazing extends Weapon.Enchantment {
 			}
 
 			if (powerMulti > 0){
-				int burnDamage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
-				burnDamage = Math.round(burnDamage * 0.67f * powerMulti);
+				float burnDamage = Random.NormalFloat( 1, 3 + Dungeon.scalingDepth()/4f );
+				burnDamage *= 0.67f * powerMulti;
 				if (burnDamage > 0) {
 					defender.受伤时(burnDamage, this);
 				}

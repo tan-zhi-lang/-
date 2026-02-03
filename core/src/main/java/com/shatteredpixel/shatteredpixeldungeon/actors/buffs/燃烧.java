@@ -77,7 +77,7 @@ public class 燃烧 extends Buff implements Hero.Doom {
 		} else if (target.isAlive() && !target.免疫(getClass())) {
 
 			acted = true;
-			int damage = Random.NormalIntRange( 1, 3 + Dungeon.scalingDepth()/4 );
+			float damage = Random.NormalFloat( 1, 3 + Dungeon.scalingDepth()/4f );
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero hero
@@ -161,8 +161,8 @@ public class 燃烧 extends Buff implements Hero.Doom {
 			if (ch.glyphLevel(Brimstone.class) >= 0){
 				//generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
 				float shieldChance = 2*(Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);
-				int shieldCap = Math.round(shieldChance*4f);
-				int shieldGain = (int)shieldChance;
+				float shieldCap = Math.round(shieldChance*4f);
+				float shieldGain = (int)shieldChance;
 				if (Random.Float() < shieldChance%1) shieldGain++;
 				if (shieldCap > 0 && shieldGain > 0){
 					Barrier barrier = Buff.施加(ch, Barrier.class);

@@ -38,11 +38,11 @@ public abstract class Shaman extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 5;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 10;
 	}
 	
@@ -52,7 +52,7 @@ public abstract class Shaman extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+6;
 	}
 
@@ -111,8 +111,8 @@ public abstract class Shaman extends Mob {
 				if (enemy == Dungeon.hero) Sample.INSTANCE.play( Assets.Sounds.DEBUFF );
 			}
 			
-			int dmg = Random.NormalIntRange( 6, 15 );
-			dmg=Math.round(dmg*Dungeon.难度攻击());
+			float dmg = Random.NormalIntRange( 6, 15 );
+			dmg=dmg*Dungeon.难度攻击();
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 			enemy.受伤时( dmg, new EarthenBolt() );
 			

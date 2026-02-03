@@ -29,12 +29,12 @@ public class Snake extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 2;
 	}
 	
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 5;
 	}
 	
@@ -46,7 +46,7 @@ public class Snake extends Mob {
 	private static int dodges = 0;
 	
 	@Override
-	public int 攻击时(Char enemy,int damage){
+	public float 攻击时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.蛇叫);
 		return super.攻击时(enemy,damage);
 	}

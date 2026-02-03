@@ -4,9 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -16,7 +14,7 @@ public class Vampiric extends Weapon.Enchantment {
 	private static ItemSprite.Glowing RED = new ItemSprite.Glowing( 0x660022 );
 	
 	@Override
-	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 		
 		//chance to heal scales from 5%-30% based on missing HP
 		float missingPercent = (attacker.最大生命 - attacker.生命) / (float)attacker.最大生命;
@@ -31,7 +29,7 @@ public class Vampiric extends Weapon.Enchantment {
 			float powerMulti = Math.max(1f, healChance);
 			
 			//heals for 50% of damage dealt
-			int healAmt = Math.round(damage * 0.5f * powerMulti);
+			float healAmt = Math.round(damage * 0.5f * powerMulti);
 			healAmt = Math.min( healAmt, attacker.最大生命 - attacker.生命);
 			
 			if (healAmt > 0 && attacker.isAlive()) {

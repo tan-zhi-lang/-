@@ -42,7 +42,7 @@ public class DemonSpawner extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+12;
 	}
 
@@ -112,7 +112,7 @@ public class DemonSpawner extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (dmg >= 20){
 			//takes 20/21/22/23/24/25/26/27/28/29/30 dmg
 			// at   20/22/25/29/34/40/47/55/64/74/85 incoming dmg

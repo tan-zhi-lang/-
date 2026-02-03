@@ -217,7 +217,7 @@ public class WandOfCorruption extends Wand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		int level = Math.max( 0, 强化等级() );
 
 		// lvl 0 - 16%

@@ -17,7 +17,7 @@ public class Bat extends Mob {
 		
 		生命 = 最大生命 = Dungeon.老鼠蝙蝠?7:30;
 		defenseSkill = Dungeon.老鼠蝙蝠?2:15;
-		baseSpeed = Dungeon.老鼠蝙蝠?1f:2f;
+		baseSpeed = 2f;
 		
 		经验 = Dungeon.老鼠蝙蝠?1:7;
 		最大等级 = Dungeon.老鼠蝙蝠?5:15;
@@ -30,11 +30,11 @@ public class Bat extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return Dungeon.老鼠蝙蝠?1:5;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return Dungeon.老鼠蝙蝠?4:18;
 	}
 	
@@ -44,7 +44,7 @@ public class Bat extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+(Dungeon.老鼠蝙蝠?1:4);
 	}
 	
@@ -61,7 +61,7 @@ public class Bat extends Mob {
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 //		int reg = Math.min( damage - 4, 最大生命 - 生命);
 //		回血(reg);

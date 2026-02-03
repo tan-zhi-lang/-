@@ -18,7 +18,7 @@ public class ToxicGas extends Blob implements Hero.Doom {
 	protected void evolve() {
 		super.evolve();
 
-		int damage = 1 + Dungeon.scalingDepth()/5;
+		float damage = 1 + Dungeon.scalingDepth()/5f;
 
 		Char ch;
 		int cell;

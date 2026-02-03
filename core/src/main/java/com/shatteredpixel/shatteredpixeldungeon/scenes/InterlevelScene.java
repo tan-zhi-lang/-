@@ -191,7 +191,7 @@ public class InterlevelScene extends PixelScene {
 			}
 		Random.popGenerator();
 		
-		if (算法.isDebug()|| SPDSettings.加快()==100f){
+		if (算法.isDebug()|| SPDSettings.加快()>1){
 			fadeTime = 0f;
 		}
 
@@ -248,7 +248,7 @@ public class InterlevelScene extends PixelScene {
 		align(loadingText);
 		add(loadingText);
 
-		if (mode == Mode.DESCEND && lastRegion <= 5 && !算法.isDebug()&&SPDSettings.加快()!=100f){
+		if (mode == Mode.DESCEND && lastRegion <= 5 && !算法.isDebug()&&SPDSettings.加快()==1){
 			if (Dungeon.hero == null || (loadingDepth > Statistics.deepestFloor && loadingDepth % 5 == 1)){
 					storyMessage = PixelScene.renderTextBlock(Document.INTROS.pageBody(region), 6);
 					storyMessage.maxWidth( PixelScene.横屏() ? 180 : 125);
@@ -738,7 +738,7 @@ public class InterlevelScene extends PixelScene {
 
 			//need to reset key replacement tracking as well
 			if (Dungeon.hero.buff(骷髅钥匙.KeyReplacementTracker.class)!=null){
-				Dungeon.hero.buff(骷髅钥匙.KeyReplacementTracker.class).setupKeysForDepth();
+				Dungeon.hero.buff(骷髅钥匙.KeyReplacementTracker.class).clearDepth();
 			}
 		} else {
 			level = Dungeon.level;

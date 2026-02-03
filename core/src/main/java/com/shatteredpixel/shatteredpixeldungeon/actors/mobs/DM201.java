@@ -25,14 +25,14 @@ public class DM201 extends DM200 {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 15;
 	}
 
 	private boolean threatened = false;
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (!(src instanceof Corruption)) {
 			if ((src instanceof Char && !Dungeon.level.adjacent(pos, ((Char) src).pos))
 				|| enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)) {

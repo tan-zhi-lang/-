@@ -33,11 +33,11 @@ public class Monk extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 12;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 25;
 	}
 	
@@ -52,7 +52,7 @@ public class Monk extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+2;
 	}
 	

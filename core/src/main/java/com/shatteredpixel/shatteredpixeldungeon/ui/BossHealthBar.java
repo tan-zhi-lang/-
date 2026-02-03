@@ -38,7 +38,7 @@ public class BossHealthBar extends Component {
 		case NONE-> SPDSettings.透明界面()?Assets.Interfaces.BOSSHP透明:Assets.Interfaces.BOSSHP;
 		default-> SPDSettings.透明界面()?Assets.Interfaces.BOSSHP透明:Assets.Interfaces.BOSSHP;
 		case 愚人节-> Assets.Interfaces.BOSSHP愚人;
-		case 春节-> Assets.Interfaces.BOSSHP春节;
+//		case 春节-> Assets.Interfaces.BOSSHP春节;
 //		case 圣诞节-> Assets.Interfaces.BOSSHP圣诞;
 		
 	};
@@ -138,8 +138,8 @@ public class BossHealthBar extends Component {
 		skull.x = bar.x + (paneSize - skull.width())/2f;
 		skull.y = bar.y + (paneSize - skull.height())/2f;
 	}
-	int oldhp=0;
-	int oldshield=0;
+	float oldhp=0;
+	float oldshield=0;
 	private float HP缓冲=0;
 	private float SHI缓冲=0;
 	float 时间=0;
@@ -158,10 +158,10 @@ public class BossHealthBar extends Component {
 				}
 			} else {
 
-				int health = boss.生命;
+				float health = boss.生命;
 				
-				int shield = boss.shielding();
-				int max = boss.最大生命;
+				float shield = boss.shielding();
+				float max = boss.最大生命;
 				
 				if(oldhp==0)
 					oldhp = health;

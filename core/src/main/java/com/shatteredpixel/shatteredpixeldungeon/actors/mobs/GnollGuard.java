@@ -57,13 +57,13 @@ public class GnollGuard extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (hasSapper()) dmg /= 4;
 		super.受伤时(dmg, src);
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		if (enemy != null && !Dungeon.level.adjacent(pos, enemy.pos)){
 			return 16;
 		} else {
@@ -71,7 +71,7 @@ public class GnollGuard extends Mob {
 		}
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		if (enemy != null && !Dungeon.level.adjacent(pos, enemy.pos)){
 			return 22;
 		} else {
@@ -80,9 +80,9 @@ public class GnollGuard extends Mob {
 	}
 
 	@Override
-	public int 攻击时(Char enemy, int damage) {
+	public float 攻击时(final Char enemy, float damage) {
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
-		int dmg = super.攻击时(enemy, damage);
+		float dmg = super.攻击时(enemy, damage);
 		if (enemy == Dungeon.hero && !Dungeon.level.adjacent(pos, enemy.pos) && dmg > 12){
 			GLog.n(Messages.get(this, "spear_warn"));
 		}
@@ -95,7 +95,7 @@ public class GnollGuard extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+6;
 	}
 

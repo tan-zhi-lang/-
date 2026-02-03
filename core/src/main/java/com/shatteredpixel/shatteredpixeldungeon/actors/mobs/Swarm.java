@@ -65,12 +65,12 @@ public class Swarm extends Mob {
 	}
 	
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 4;
 	}
 	
 	@Override
-	public int 防御时(Char enemy, int damage ) {
+	public float 防御时(Char enemy, float damage ) {
 
 		if (生命 >= damage + 2) {
 			

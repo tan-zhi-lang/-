@@ -77,16 +77,16 @@ public class 再生 extends Buff {
 				延迟/= SaltCube.healthRegenMultiplier();
 			}
 
-				partialRegen +=1f/延迟*恢复之戒.恢复(target);
+				partialRegen =1f/延迟*恢复之戒.恢复(target);
 
-				if (partialRegen >= 1) {
+				if (partialRegen > 0) {
 					if(target instanceof Hero hero){
 						
 						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
 							float x=partialRegen-(hero.heroClass(HeroClass.血鬼)?0.5f:0);
 							hero.回血(x);
 						}
-						partialRegen=0;
+//						partialRegen=0;
 						if (hero.满血()) {
 							hero.resting = false;
 						}

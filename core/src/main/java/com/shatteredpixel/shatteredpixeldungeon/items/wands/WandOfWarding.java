@@ -16,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
@@ -159,7 +158,7 @@ public class WandOfWarding extends Wand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		int level = Math.max( 0, staff.强化等级() );
 
 		// lvl 0 - 20%
@@ -321,8 +320,8 @@ public class WandOfWarding extends Wand {
 		}
 
 		@Override
-		public int 最大防御() {
-			int dr = super.最大防御();
+		public float 最大防御() {
+			float dr = super.最大防御();
 			if (tier > 3){
 				return dr + Math.round(Random.NormalIntRange(0, 3 + Dungeon.scalingDepth()/2) / (7f - tier));
 			} else {
@@ -351,7 +350,7 @@ public class WandOfWarding extends Wand {
 			spend( 1f );
 
 			//always hits
-			int dmg = Hero.heroDamageIntRange( 2 + wandLevel, 8 + 4*wandLevel );
+			float dmg = Hero.heroDamage(2+wandLevel,8+4*wandLevel);
 			Char enemy = this.enemy;
 			enemy.受伤时( dmg, this );
 			if (enemy.isAlive()){

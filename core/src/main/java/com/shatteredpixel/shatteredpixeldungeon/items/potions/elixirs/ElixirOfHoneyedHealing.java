@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -21,7 +22,7 @@ public class ElixirOfHoneyedHealing extends Elixir {
 	
 	{
 		image = 物品表.ELIXIR_HONEY;
-		icon = 物品表.Icons.圣愈;
+		icon = Dungeon.isChallenged(Challenges.NO_HEALING)?物品表.Icons.毒粹:物品表.Icons.圣愈;
 	}
 	
 	@Override
@@ -48,6 +49,11 @@ public class ElixirOfHoneyedHealing extends Elixir {
 				((Bee)ch).setPotInfo(-1, null);
 			}
 		}
+	}
+	@Override
+	public String desc(){
+		if(Dungeon.isChallenged(Challenges.NO_HEALING))return "你对此过敏，会中毒。";
+		return super.desc();
 	}
 	@Override
 	public int 金币() {

@@ -87,10 +87,10 @@ public class 魔攻之戒 extends Ring {
 		if (ch != null) {
 			
 			wandProc(ch,soloBuffedBonus(), 1);
-			ch.受伤时(Hero.heroDamageIntRange(
+			ch.受伤时(Hero.heroDamage(
 					5+soloBuffedBonus(),
 					9+6*soloBuffedBonus()
-					), this);
+									 ), this);
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f) );
 			
 			ch.sprite.burst(0xFFFFFFFF, 强化等级() / 2 + 2);

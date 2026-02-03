@@ -16,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -119,7 +118,7 @@ public abstract class Wand extends Item {
 
 	public abstract void onZap(Ballistica attack);
 
-	public abstract void onHit(法师魔杖 staff, Char attacker, Char defender, int damage);
+	public abstract void onHit(法师魔杖 staff, Char attacker, Char defender, float damage);
 
 	//not affected by enchantment proc chance changers
 	public static float procChanceMultiplier( Char attacker ){
@@ -191,11 +190,7 @@ public abstract class Wand extends Item {
 
 	//TODO Consider externalizing char awareness buff
 	public static void wandProc(Char target,int wandLevel,int chargesUsed){
-		
-		if (target != Dungeon.hero&&
-				Dungeon.hero.subClass == HeroSubClass.术士){
-			灵魂标记.延长(target,灵魂标记.class,灵魂标记.DURATION+(Dungeon.hero.职业精通()?10:5));
-		}
+
 	}
 
 	@Override
@@ -339,6 +334,7 @@ public abstract class Wand extends Item {
 	public int 强化等级() {
 		int lvl = super.强化等级();
 		if(Dungeon.hero()){
+			lvl+=Dungeon.hero.智力;
 			lvl+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
 			lvl+=Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血色契约,0.01f));
 		}
@@ -596,7 +592,7 @@ public abstract class Wand extends Item {
 
 		@Override
 		public void onZap(Ballistica attack) {}
-		public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {}
+		public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {}
 
 		@Override
 		public String info() {
@@ -636,7 +632,7 @@ public abstract class Wand extends Item {
 							return;
 						}
 						if(curUser.天赋(Talent.SHIELD_BATTERY)) {
-							int shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.025f)) * curWand.curCharges;
+							float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.025f)) * curWand.curCharges;
 							Buff.施加(curUser, Barrier.class).设置(shield);
 							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						}

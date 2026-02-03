@@ -11,7 +11,7 @@ public class Obfuscation extends Armor.Glyph {
 	private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x888888 );
 
 	@Override
-	public int proc(Armor armor, Char attacker, Char defender, int damage) {
+	public float proc(Armor armor, Char attacker, Char defender, float damage) {
 		//no proc effect, triggered in Char.stealth()
 		return damage;
 	}

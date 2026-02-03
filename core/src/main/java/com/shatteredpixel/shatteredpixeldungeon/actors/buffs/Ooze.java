@@ -76,7 +76,7 @@ public class Ooze extends Buff {
 
 			acted = true;
 			if (Dungeon.scalingDepth() > 5) {
-				target.受伤时(1 + Dungeon.scalingDepth() / 5, this);
+				target.受伤时(1 + Dungeon.scalingDepth() / 5f, this);
 			} else if (Dungeon.scalingDepth() == 5){
 				target.受伤时(1, this); //1 dmg per turn vs Goo
 			} else if (Random.Int(2) == 0) {

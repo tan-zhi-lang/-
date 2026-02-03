@@ -76,14 +76,14 @@ public class Corrosion extends Buff implements Hero.Doom {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", dispTurns(left), Math.round(damage));
+		return Messages.get(this, "desc", dispTurns(left), String.format("%.2f",damage));
 	}
 
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			target.受伤时(Math.round(damage), this);
-			if (damage < (Dungeon.scalingDepth()/2)+2) {
+			target.受伤时(damage, this);
+			if (damage < (Dungeon.scalingDepth()/2f)+2) {
 				damage++;
 			} else {
 				damage += 0.5f;

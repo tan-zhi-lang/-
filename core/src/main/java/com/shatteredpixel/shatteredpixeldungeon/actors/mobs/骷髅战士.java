@@ -23,11 +23,11 @@ public class 骷髅战士 extends Skeleton {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 3;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 19;
 	}
 }

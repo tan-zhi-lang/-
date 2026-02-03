@@ -37,7 +37,7 @@ public class 刺青结晶 extends NPC {
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.INORGANIC);
 		
-		viewDistance = 2;
+		viewDistance = 4;
 		state = WANDERING;
 	}
 	
@@ -65,29 +65,26 @@ public class 刺青结晶 extends NPC {
 		if(viewDistance==6){
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
-				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
-					c.受伤(2*tier);
+				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
+					c.受伤(1+tier);
 				}
 			}
-			return super.act();
 		}
 		if(viewDistance==5){
 			for(int n: PathFinder.范围5){
 				Char c=Actor.findChar(pos+n);
-				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
-					c.受伤(2*tier);
+				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
+					c.受伤(1+tier);
 				}
 			}
-			return super.act();
 		}
-		if(viewDistance==4){
+		if(viewDistance==5){
 			for(int n: PathFinder.范围4){
 				Char c=Actor.findChar(pos+n);
-				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
-					c.受伤(2*tier);
+				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
+					c.受伤(1+tier);
 				}
 			}
-			return super.act();
 		}
 		return super.act();
 	}
@@ -105,7 +102,7 @@ public class 刺青结晶 extends NPC {
 	}
 	@Override
 	public float 攻击延迟() {
-		return super.攻击延迟()*2;
+		return super.攻击延迟();
 	}
 	
 	private ArrayList<Char> affected = new ArrayList<>();
@@ -170,13 +167,13 @@ public class 刺青结晶 extends NPC {
 			public void call() {
 				GameScene.show(new WndOptions(sprite(),
 											  "要驱散这个结晶吗？",
-											  "驱散返回5能量。",
+											  "驱散返回"+(tier*5+5)/2+"能量。",
 											  "是",
 											  "否"){
 					@Override
 					protected void onSelect(int index) {
 						if (index == 0){
-							Dungeon.energy(5);
+							Dungeon.energy((tier*5+5)/2);
 							死亡时(null);
 						}
 					}
@@ -188,7 +185,7 @@ public class 刺青结晶 extends NPC {
 	
 	@Override
 	public String description() {
-			return Messages.get(this, "desc", tier,攻击延迟(),viewDistance,2*tier);
+			return Messages.get(this, "desc", tier,攻击延迟(),viewDistance,1+tier);
 	}
 	
 	{
@@ -213,7 +210,7 @@ public class 刺青结晶 extends NPC {
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		tier = bundle.getInt(TIER);
-		viewDistance = 2 + tier;
+		viewDistance = 4 + tier;
 		totalZaps = bundle.getInt(TOTAL_ZAPS);
 	}
 	

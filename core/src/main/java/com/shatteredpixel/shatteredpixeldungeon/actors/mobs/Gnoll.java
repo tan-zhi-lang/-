@@ -25,12 +25,12 @@ public class Gnoll extends Mob {
 	}
 	
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 6;
 	}
 	
 	@Override
-	public int 攻击时(Char enemy,int damage){
+	public float 攻击时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		return super.攻击时(enemy,damage);
 	}
@@ -41,7 +41,7 @@ public class Gnoll extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+2;
 	}
 }

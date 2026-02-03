@@ -80,11 +80,11 @@ public class 流血 extends Buff {
 		if (target.isAlive()) {
 			
 			level = Random.NormalFloat(level / 2f, level);
-			int dmg = Math.round(level);
+			float dmg = level;
 			
 			if (dmg > 0) {
 				if(!(target instanceof Hero)&&Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.实验狂鼠)){
-					dmg*=dmg*(1+(Dungeon.hero.职业精通()?0.25f:0)+Dungeon.hero.天赋点数(Talent.狂齿猎食,0.25f));
+					dmg*=(1+(Dungeon.hero.职业精通()?0.25f:0)+Dungeon.hero.天赋点数(Talent.狂齿猎食,0.25f));
 					Dungeon.hero.回血(dmg*Dungeon.hero.天赋点数(Talent.狂血疯撕,0.05f));
 				}
 				target.受伤时( dmg, this );
@@ -123,6 +123,6 @@ public class 流血 extends Buff {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", Math.round(level));
+		return Messages.get(this, "desc", String.format("%.2f",level));
 	}
 }

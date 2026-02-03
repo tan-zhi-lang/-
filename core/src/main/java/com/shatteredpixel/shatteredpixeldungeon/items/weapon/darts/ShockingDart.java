@@ -22,11 +22,11 @@ public class ShockingDart extends TippedDart {
 	}
 	
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage) {
+	public float 攻击时(Char attacker, Char defender, float damage) {
 
 		//when processing charged shot, only shock enemies
 		if (!processingChargedShot || attacker.alignment != defender.alignment) {
-			defender.受伤时(Random.NormalIntRange(5 + Dungeon.scalingDepth() / 4, 10 + Dungeon.scalingDepth() / 4), new Electricity());
+			defender.受伤时(Random.NormalFloat(5 + Dungeon.scalingDepth() / 4f, 10 + Dungeon.scalingDepth() / 4f), new Electricity());
 
 			CharSprite s = defender.sprite;
 			if (s != null && s.parent != null) {

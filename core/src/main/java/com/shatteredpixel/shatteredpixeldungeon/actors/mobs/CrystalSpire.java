@@ -269,7 +269,7 @@ public class CrystalSpire extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (!(src instanceof 镐子) ){
 			dmg = 0;
 		}
@@ -302,7 +302,7 @@ public class CrystalSpire extends Mob {
 				public void call() {
 					//does its own special damage calculation that's only influenced by pickaxe level and augment
 					//we pretend the spire is the owner here so that properties like hero str or or other equipment do not factor in
-					int dmg = Hero.heroDamageIntRange(p.最小攻击(),p.最大攻击());
+					float dmg = Hero.heroDamage(p.最小攻击(),p.最大攻击());
 
 					CrystalSpire.this.受伤时(dmg, p);
 					abilityCooldown -= dmg/10f;

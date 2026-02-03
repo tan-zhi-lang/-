@@ -48,11 +48,11 @@ public class FungalSentry extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 5;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 10;
 	}
 
@@ -66,7 +66,7 @@ public class FungalSentry extends Mob {
 	//TODO if we want to allow them to be literally killed, probably should give them a heal if hero is out of FOV, or similar
 
 	@Override
-	public int 攻击时(Char enemy, int damage) {
+	public float 攻击时(final Char enemy, float damage) {
 		Buff.施加(enemy, Poison.class).extend(6);
 		return super.攻击时(enemy, damage);
 	}

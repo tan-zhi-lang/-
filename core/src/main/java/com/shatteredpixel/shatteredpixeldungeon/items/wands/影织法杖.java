@@ -143,7 +143,7 @@ public class 影织法杖 extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class 武士刀 extends Weapon {
 		tier = 2;
 	}
 	@Override
-	public int 最大防御(int lvl){
+	public float 最大防御(int lvl){
 		return 2 + lvl*2;
 	}
 

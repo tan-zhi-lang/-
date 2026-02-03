@@ -51,7 +51,7 @@ public class 武力之戒 extends Ring{
 	// *** Weapon-like properties ***
 	
 	public static int tier(){
-		int str=Dungeon.hero!=null?
+		float str=Dungeon.hero!=null?
 				Dungeon.hero.力量():
 				10;
 		int tier=Math.round(Math.max(1,(str-8)/2f));
@@ -77,7 +77,7 @@ public class 武力之戒 extends Ring{
 		int level=getBuffedBonus(hero,Force.class);
 		int tier=tier();
 		if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
-			dmg+=Hero.heroDamageIntRange(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
+			dmg+=Hero.heroDamage(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
 		}
 		if(hero.buff(BrawlersStance.class)!=null&&hero.buff(BrawlersStance.class).active){
 			// 3+tier base dmg, roughly +60%->45% dmg at T1->5
@@ -88,11 +88,11 @@ public class 武力之戒 extends Ring{
 	}
 	
 	public static int heromin(){
-		return Dungeon.hero.力量(0.1f);
+		return Math.round(0.1f * Dungeon.hero.力量());
 	}
 	
 	public static int heromax(){
-		return Dungeon.hero.力量()-8;
+		return Math.round(Dungeon.hero.力量()-8);
 	}
 	public static int min(){
 		int x=0;

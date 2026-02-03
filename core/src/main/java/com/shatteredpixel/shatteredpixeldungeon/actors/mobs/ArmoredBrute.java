@@ -25,7 +25,7 @@ public class ArmoredBrute extends Brute {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+4; //4-12 DR total
 	}
 	

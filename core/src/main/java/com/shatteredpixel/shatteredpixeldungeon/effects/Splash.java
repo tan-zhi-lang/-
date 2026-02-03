@@ -14,11 +14,11 @@ import java.util.HashMap;
 
 public class Splash {
 	
-	public static void at( int cell, final int color, int n ) {
+	public static void at( int cell, final int color, float n ) {
 		at( DungeonTilemap.tileCenterToWorld( cell ), color, n );
 	}
 	
-	public static void at( PointF p, final int color, int n ) {
+	public static void at( PointF p, final int color, float n ) {
 		
 		if (n <= 0) {
 			return;
@@ -38,7 +38,7 @@ public class Splash {
 		emitter.burst( fact, n );
 	}
 	
-	public static void at( PointF p, final float dir, final float cone, final int color, int n ) {
+	public static void at( PointF p, final float dir, final float cone, final int color, float n ) {
 		
 		if (n <= 0) {
 			return;

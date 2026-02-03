@@ -35,7 +35,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeLink;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
@@ -50,11 +49,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.时间能力;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -137,8 +136,8 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
@@ -157,9 +156,9 @@ public abstract class Char extends Actor {
 	
 	public CharSprite sprite;
 	
-	public int 最大生命;
-	public int 生命;
-	public int 护甲=0;
+	public float 最大生命;
+	public float 生命;
+	public float 护甲=0;
 	public int x次必暴=0;
 	public int 变脸=0;
 	public int 未命中=0;
@@ -175,9 +174,9 @@ public abstract class Char extends Actor {
 	public boolean 必闪 =false;
 	public boolean 移速翻倍=false;
 	public boolean 移速减半=false;
-	public float 生命流动 =0;
 	public float 属性增幅 = 0.02f;
 
+	protected float 攻击延迟	= 1;
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
 
@@ -207,13 +206,7 @@ public abstract class Char extends Actor {
 			sprite.hideEmo();
 		}
 		Dungeon.level.落石(this);
-		if((int)Math.floor(生命流动)>=1){
-			回血(1);
-			生命流动-=(int)Math.floor(生命流动);
-		}else if(-(int)Math.floor(生命流动)>=1){
-			受伤((int)Math.floor(生命流动));
-			生命流动-=(int)Math.floor(生命流动);
-		}
+
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
 			fieldOfView = new boolean[Dungeon.level.length()];
 		}
@@ -248,19 +241,17 @@ public abstract class Char extends Actor {
 	}
 
 	public boolean canInteract(Char c){
-		if (c instanceof Hero hero&&Dungeon.level.distance(pos, hero.pos) <= hero.攻击范围()){
+		if (c instanceof Hero hero&&c.alignment!=Alignment.ENEMY&&Dungeon.level.distance(pos, hero.pos) <= hero.攻击范围()){
 			return true;
 		}
-		if (Dungeon.level.adjacent( pos, c.pos )){
-			return true;
-		} else if (false&&c instanceof Hero hero
+		if (false&&c instanceof Hero hero
 				&& alignment == Alignment.ALLY
 				&& !hasProp(this, Property.IMMOVABLE)
 				&& Dungeon.level.distance(pos, c.pos) <= 2){//移形换位
 			return true;
-		} else {
-			return false;
 		}
+
+			return false;
 	}
 	
 	//swaps places by default
@@ -320,14 +311,6 @@ public abstract class Char extends Actor {
 		c.spend( 1 / c.移速() );
 
 		if (c == Dungeon.hero){
-			if (Dungeon.hero.subClass == HeroSubClass.疾行者){
-				Buff.施加(Dungeon.hero, Momentum.class).gainStack();
-			}
-
-			if (Dungeon.hero.subClass == HeroSubClass.时间刺客){
-				Buff.施加(Dungeon.hero, 时间能力.class).gainStack();
-			}
-
 			Dungeon.hero.busy();
 		}
 		
@@ -366,7 +349,6 @@ public abstract class Char extends Actor {
 	protected static final String 第x次防御x 	    = "第x次防御";
 	protected static final String 第x次背袭x 	    = "第x次背袭";
 	protected static final String 产卵x 	    = "产卵";
-	protected static final String 生命流动x 	    = "生命流动";
 	protected static final String 大小x 	    = "大小";
 
 	@Override
@@ -386,7 +368,6 @@ public abstract class Char extends Actor {
 		bundle.put( 第x次防御x, 第x次防御);
 		bundle.put( 第x次背袭x, 第x次背袭);
 		bundle.put( 产卵x, 产卵);
-		bundle.put( 生命流动x, 生命流动);
 		bundle.put( 大小x, 大小);
 	}
 	
@@ -398,7 +379,7 @@ public abstract class Char extends Actor {
 		pos = bundle.getInt( POS );
 		生命 = bundle.getInt( TAG_HP );
 		最大生命 = bundle.getInt( TAG_HT );
-		护甲 = bundle.getInt( 护甲x );
+		护甲 = bundle.getFloat( 护甲x );
 		x次必暴 = bundle.getInt( x次必暴x );
 		变脸 = bundle.getInt( 变脸x );
 		未命中 = bundle.getInt( 未命中x );
@@ -406,7 +387,6 @@ public abstract class Char extends Actor {
 		第x次防御 = bundle.getInt( 第x次防御x );
 		第x次背袭 = bundle.getInt( 第x次背袭x );
 		产卵 = bundle.getBoolean( 产卵x );
-		生命流动 = bundle.getFloat( 生命流动x );
 		大小 = bundle.getFloat( 大小x );
 
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
@@ -438,12 +418,14 @@ public abstract class Char extends Actor {
 
 		} else if (hit( this, enemy, accMulti, false )) {
 			
-			int dr = Math.round(
-					Random.NormalIntRange( enemy.最小防御(), enemy.最大防御())
+			float dr = Math.round(
+					Random.NormalFloat( enemy.最小防御(), enemy.最大防御())
 					*AscensionChallenge.statModifier(enemy));
 
 			if(!(enemy instanceof Hero&&enemy instanceof NPC)){
-				dr=Math.round(dr*Dungeon.难度防御());
+				dr*=Dungeon.难度防御();
+				if(enemy.hasbuff(灵焰.class))
+					dr=0;
 			}
 			if (this instanceof Hero hero){
 				if (hero.subClass==HeroSubClass.狙击手){
@@ -469,10 +451,10 @@ public abstract class Char extends Actor {
 				}
 			} else {
 				if(this instanceof Hero hero){
-					dmg=hero.heroDamageIntRange(最小攻击(),最大攻击());
+					dmg=hero.heroDamage(最小攻击(),最大攻击());
 				}else{
-					dmg=Random.NormalIntRange(最小攻击(),最大攻击());
-					dmg=Math.round(dmg*Dungeon.难度攻击());
+					dmg=Random.NormalFloat(最小攻击(),最大攻击());
+					dmg=dmg*Dungeon.难度攻击();
 				}
 				if(Dungeon.赛季(赛季设置.英雄联盟)){
 					dmg=最小攻击()+最大攻击();
@@ -541,14 +523,14 @@ public abstract class Char extends Actor {
 					dmg *= 0.5f;
 				}
 			}
-			
-			int effectiveDamage = enemy.防御时( this, Math.round(dmg) );
+
+			float effectiveDamage = enemy.防御时( this, Math.round(dmg) );
 			//do not trigger on-hit logic if defenseProc returned a negative value
 			if (effectiveDamage >= 0) {
 				//LOL护甲
 
 				if(Dungeon.赛季(赛季设置.英雄联盟)){
-					effectiveDamage = Math.max(Math.round(effectiveDamage*(1f-dr/(dr+2.5f))), 0);
+					effectiveDamage = Math.max(effectiveDamage*(1f-dr/(dr+2.5f)), 0);
 				}else effectiveDamage = Math.max(effectiveDamage - dr, 0);
 
 				if (enemy.buff(Viscosity.ViscosityTracker.class) != null) {
@@ -854,7 +836,7 @@ public abstract class Char extends Actor {
 		return Messages.get(this, "def_verb");
 	}
 	
-	public int 最小防御() {
+	public float 最小防御() {
 		int dr = 0;
 
 		return dr;
@@ -863,7 +845,7 @@ public abstract class Char extends Actor {
 		float x=1;
 		return x;
 	}
-	public int 最大防御() {
+	public float 最大防御() {
 		int dr = 0;
 		dr += Barkskin.currentLevel(this);
 
@@ -874,10 +856,10 @@ public abstract class Char extends Actor {
 		return x;
 	}
 	
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 1;
 	}
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 1;
 	}
 	
@@ -898,7 +880,7 @@ public abstract class Char extends Actor {
 //		}
 		return 暴击伤害;
 	}
-	public int 暴击(final Char enemy,int dmg){
+	public float 暴击(final Char enemy,float dmg){
 		if((必暴||算法.概率学(暴击率()))){
 			dmg=Math.round(dmg*暴击伤害());
 			必暴=false;
@@ -916,7 +898,7 @@ public abstract class Char extends Actor {
 		}
 		return dmg;
 	}
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		boolean 视野敌人=false;
 		if(this instanceof Mob mob){
 			视野敌人=mob.chooseEnemy()!=null;
@@ -938,7 +920,7 @@ public abstract class Char extends Actor {
 		return damage;
 	}
 	
-	public int 防御时(Char enemy, int damage ) {
+	public float 防御时(Char enemy, float damage ) {
 		第x次防御++;
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (armor != null) {
@@ -953,8 +935,10 @@ public abstract class Char extends Actor {
 				damage = Dungeon.hero.belongings.armor().防御时( enemy, this, damage );
 			}
 		}
+		float scaleFactor = AscensionChallenge.statModifier(this);
+		float scaledDmg = damage/scaleFactor;
 		if(史莱姆)
-			damage=算法.固衰(damage,5);
+			damage=算法.固衰(scaledDmg,5);
 
 		damage=护甲伤害(damage);
 
@@ -1011,10 +995,10 @@ public abstract class Char extends Actor {
 	}
 	
 	//used so that buffs(Shieldbuff.class) isn't called every time unnecessarily
-	private int cachedShield = 0;
+	private float cachedShield = 0;
 	public boolean needsShieldUpdate = true;
 	
-	public int shielding(){
+	public float shielding(){
 		if (!needsShieldUpdate){
 			return cachedShield;
 		}
@@ -1026,14 +1010,27 @@ public abstract class Char extends Actor {
 		needsShieldUpdate = false;
 		return cachedShield;
 	}
-	public void 受伤(){
-		受伤时(1,魔法伤害.class);
+	public void 火焰受伤(float dmg){
+		受伤时(dmg,火焰伤害.class);
 	}
-	public void 受伤(int dmg){
+	public class 火焰伤害{}
+	public void 冰霜受伤(float dmg){
+		受伤时(dmg,冰霜伤害.class);
+	}
+	public class 冰霜伤害{}
+	public void 雷电受伤(float dmg){
+			受伤时(dmg,雷电伤害.class);
+	}
+	public class 雷电伤害{}
+	public void 化学受伤(float dmg){
+		受伤时(dmg,化学伤害.class);
+	}
+	public class 化学伤害{}
+	public void 受伤(float dmg){
 		受伤时(dmg,魔法伤害.class);
 	}
 	public class 魔法伤害{}
-	public void 受伤时(int dmg, Object src ) {
+	public void 受伤时(float dmg, Object src ) {
 		
 		
 		if (!isAlive() || dmg < 0) {
@@ -1053,7 +1050,7 @@ public abstract class Char extends Actor {
 					link.detach();
 				}
 			}
-			dmg = (int)Math.ceil(dmg / (float)(links.size()+1));
+			dmg = dmg/(links.size()+1);
 			for (LifeLink link : links){
 				Char ch = (Char)Actor.findById(link.object);
 				if (ch != null) {
@@ -1069,24 +1066,22 @@ public abstract class Char extends Actor {
 				}
 			}
 		}
-		
-		//temporarily assign to a float to avoid rounding a bunch
-		float damage = dmg;
+
 		
 		//if dmg is from a character we already reduced it in Char.attack
 		if (!(src instanceof Char)) {
 			if (Dungeon.hero.alignment == alignment
 					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
 					&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2 || buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)) {
-				damage *= 1f - Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,0.12f);
+				dmg *= 1f - Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,0.12f);
 			}
 		}
 
 		if (buff(PowerOfMany.PowerBuff.class) != null){
 			if (buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null){
-				damage *= 0.70f - 0.05f*Dungeon.hero.天赋点数(Talent.LIFE_LINK);
+				dmg *= 0.70f - 0.05f*Dungeon.hero.天赋点数(Talent.LIFE_LINK);
 			} else {
-				damage *= 0.75f;
+				dmg *= 0.75f;
 			}
 		}
 		
@@ -1108,9 +1103,10 @@ public abstract class Char extends Actor {
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
 				if(c instanceof 黑暗结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
-					damage*=1.34f;
+					dmg*=1.2f+x.tier*0.1f;
 				}
 			}
+
 		Terror t = buff(Terror.class);
 		if (t != null){
 			t.recover();
@@ -1130,10 +1126,10 @@ public abstract class Char extends Actor {
 			Buff.detach(this, MagicalSleep.class);
 		}
 		if (this.buff(Doom.class) != null && !免疫(Doom.class)){
-			damage *= 1.67f;
+			dmg *= 1.67f;
 		}
 		if (alignment != Alignment.ALLY && this.buff(DeathMark.DeathMarkTracker.class) != null){
-			damage *= 1.25f;
+			dmg *= 1.25f;
 		}
 
 //		if (buff(短柄镰.HarvestBleedTracker.class)!=null){
@@ -1154,24 +1150,22 @@ public abstract class Char extends Actor {
 
 		Class<?> srcClass = src.getClass();
 		if (免疫( srcClass )) {
-			damage = 0;
+			dmg = 0;
 		} else {
-			damage *= resist( srcClass );
+			dmg *= resist( srcClass );
 		}
-
-		dmg = Math.round(damage);
 
 		//we ceil these specifically to favor the player vs. champ dmg reduction
 		// most important vs. giant champions in the earlygame
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
-			dmg = (int) Math.ceil(dmg * buff.damageTakenFactor());
+			dmg = dmg * buff.damageTakenFactor();
 		}
 		
 		//TODO improve this when I have proper damage source logic
 		if (AntiMagic.RESISTS.contains(src.getClass())){
 			dmg -= AntiMagic.drRoll(this, glyphLevel(AntiMagic.class));
 			if (buff(ArcaneArmor.class) != null) {
-				dmg -= Random.NormalIntRange(0, buff(ArcaneArmor.class).level());
+				dmg -= Random.NormalFloat(0, buff(ArcaneArmor.class).level());
 			}
 			if (dmg < 0) dmg = 0;
 		}
@@ -1187,9 +1181,10 @@ public abstract class Char extends Actor {
 			shield.activate();
 		}
 
-		int shielded = dmg;
+		float shielded = dmg;
 		dmg = ShieldBuff.processDamage(this, dmg, src);
 		shielded -= dmg;
+
 		生命 -= dmg;
 		
 		if(sprite!=null&&(dmg>=最大生命(0.34f)||生命<=最大生命(0.34f)))
@@ -1198,10 +1193,10 @@ public abstract class Char extends Actor {
 		if (生命 > 0 && buff(Grim.GrimTracker.class) != null){
 
 			float finalChance = buff(Grim.GrimTracker.class).maxChance;
-			finalChance *= (float)Math.pow( ((最大生命 - 生命) / (float) 最大生命), 2);
+			finalChance *= Math.pow( ((最大生命 - 生命) /最大生命), 2);
 
 			if (Random.Float() < finalChance) {
-				int extraDmg = Math.round(生命 *resist(Grim.class));
+				float extraDmg = 生命 *resist(Grim.class);
 				dmg += extraDmg;
 				生命 -= extraDmg;
 
@@ -1214,9 +1209,9 @@ public abstract class Char extends Actor {
 
 		if (生命 < 0 && src instanceof Char && alignment == Alignment.ENEMY){
 			if (((Char) src).buff(Kinetic.KineticTracker.class) != null){
-				int dmgToAdd = -生命;
+				float dmgToAdd = -生命;
 				dmgToAdd -= ((Char) src).buff(Kinetic.KineticTracker.class).conservedDamage;
-				dmgToAdd = Math.round(dmgToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src));
+				dmgToAdd = dmgToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char) src);
 				if (dmgToAdd > 0) {
 					Buff.施加((Char) src, Kinetic.ConservedDamage.class).setBonus(dmgToAdd);
 				}
@@ -1263,8 +1258,8 @@ public abstract class Char extends Actor {
 				icon = hitMissIcon;
 			}
 			hitMissIcon = -1;
-			if(dmg + shielded>0)
-			sprite.showStatusWithIcon(CharSprite.削弱, Integer.toString(dmg + shielded), icon);
+			if(dmg + shielded>=1&&!Dungeon.赛季(赛季设置.地牢塔防))
+				sprite.showStatusWithIcon(CharSprite.削弱, dmg + shielded, icon);
 		}
 
 		if (生命 < 0) 生命 = 0;
@@ -1362,7 +1357,7 @@ public abstract class Char extends Actor {
 	}
 	
 	public float 攻击延迟() {
-		float delay = 1f;
+		float delay = 攻击延迟;
 		
 		return delay;
 	}
@@ -1674,21 +1669,24 @@ public abstract class Char extends Actor {
 	public static boolean hasProp( Char ch, Property p){
 		return (ch != null && ch.properties().contains(p));
 	}
-	public int 生命力(){
-		return (int) Math.round(Math.sqrt(最大生命));
+	public float 生命力(){
+		return (float)Math.sqrt(最大生命);
 	}
-	public int 生命力(float x){
-		return Math.round(生命力()*x);
+	public float 生命力(float x){
+		return 生命力()*x;
 	}
-	public int 护甲(int x){
+	public float 护甲(float x){
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲());
 		return 护甲;
 	}
-	public int 恢复百分比护甲(float x){
-		return 护甲(Math.round(最大护甲()*x));
+	public float 恢复百分比护甲(float x){
+		return 护甲(最大护甲()*x);
 	}
 
-	public int 护甲伤害(int dmg){
+	public float 护甲伤害(float dmg){
+		if(this instanceof Hero hero){
+			dmg-=Random.NormalFloat(最小防御(),最大防御())*hero.天赋点数(Talent.金刚不坏,0.05f);
+		}
 		if(dmg>0&&护甲>0){
 			if (护甲<=最大护甲()/2&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.护甲);
@@ -1703,41 +1701,41 @@ public abstract class Char extends Actor {
 		}
 		return dmg;
 	}
-	public int 回满护甲(){
+	public float 回满护甲(){
 		护甲=最大护甲();
 		return 护甲;
 	}
-	public int 最大护甲(){
-		int 最大护甲=最大生命(0.25f);
+	public float 最大护甲(){
+		float 最大护甲=最大生命(0.25f);
 		
 		return 最大护甲;
 	}
-	public int 已损失生命(){
+	public float 已损失生命(){
 		return 最大生命-生命;
 	}
 	public float 根据已损失生命(){
-		return (float)已损失生命()/最大生命;
+		return 已损失生命()/最大生命;
 	}
-	public int 已损失生命(float x){
-		return Math.round(已损失生命()*x);
+	public float 已损失生命(float x){
+		return 已损失生命()*x;
 	}
-	public int 生命(float x){
-		return Math.round(生命*x);
+	public float 生命(float x){
+		return 生命*x;
 	}
-	public int 最大生命(float x){
-		return Math.round(最大生命*x);
+	public float 最大生命(float x){
+		return 最大生命*x;
 	}
 	public boolean 残血(){
-		return (float)生命/最大生命<=0.33f;
+		return 生命/最大生命<=0.33f;
 	}
 	public boolean 半血(){
-		return (float)生命/最大生命>0.33f&&(float)生命/最大生命<=0.66f;
+		return 生命/最大生命>0.33f&&(float)生命/最大生命<=0.66f;
 	}
 	public boolean 半血以下(){
-		return (float)生命/最大生命<=0.5f;
+		return 生命/最大生命<=0.5f;
 	}
 	public boolean 康血(){
-		return (float)生命/最大生命>=0.66f;
+		return 生命/最大生命>=0.66f;
 	}
 	public boolean 满血(){
 		return 生命==最大生命;
@@ -1755,22 +1753,17 @@ public abstract class Char extends Actor {
 		return 1;
 	}
 	public void 回血(float x){
-		float x2=x*治疗效果();
-		if(x2>=1){
-			生命=Math.min(生命+(int)Math.floor(x2),最大生命);
-			
+		x*=治疗效果();
+		if(x>0){
+			生命=Math.min(生命+x,最大生命);
 			if (Dungeon.level.heroFOV[pos]){
-				if(sprite!=null&&sprite.visible&&生命>0&&x2>0){
-					sprite.showStatusWithIcon(CharSprite.增强,(int)Math.floor(x2),FloatingText.HEALING);
+				if(sprite!=null&&sprite.visible&&x>=1&&!Dungeon.赛季(赛季设置.地牢塔防)){
+					sprite.showStatusWithIcon(CharSprite.增强,x,FloatingText.HEALING);
 				}
 			}
-			
-			if((x-(int)Math.floor(x2))>0)
-			生命流动+=x-(int)Math.floor(x2);
-		}else if(-x2>=1){
-			受伤((int)Math.floor(x2));
-			if((x-(int)Math.floor(x2))<0)
-			生命流动-=x-(int)Math.floor(x2);
+
+		}else if(x<0){
+			受伤(x);
 		}
 	}
 

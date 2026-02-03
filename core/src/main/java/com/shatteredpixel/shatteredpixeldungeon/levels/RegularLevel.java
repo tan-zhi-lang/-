@@ -58,9 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -199,7 +197,7 @@ public abstract class RegularLevel extends Level {
 		if (Dungeon.depth == 1){
 //			if (!Statistics.amuletObtained) mobs=0;
 //			else mobs=8;
-			mobs=8;
+			mobs=9;
 			//on floor 1, 8 pre-set mobs are created so the player can get level 2.
 		}
 
@@ -291,7 +289,7 @@ public abstract class RegularLevel extends Level {
 				if (Dungeon.depth >= 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = createMob();
 
-					tries = 15;
+					tries = 30;
 					do {
 						mob.pos = pointToCell(roomToSpawn.random());
 						tries--;

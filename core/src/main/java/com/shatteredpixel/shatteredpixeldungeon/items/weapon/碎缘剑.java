@@ -23,7 +23,7 @@ public class 碎缘剑 extends Weapon{
 		tier=5;
 	}
 	@Override
-	public int 攻击时(Char attacker,Char defender,int damage) {
+	public float 攻击时(Char attacker,Char defender,float damage) {
 		
 		int level = Math.max(0, 强化等级());
 		
@@ -60,7 +60,7 @@ public class 碎缘剑 extends Weapon{
 		return super.攻击时( attacker, defender, damage );
 	}
 	@Override
-	public int 投掷攻击时(Char attacker,Char defender,int damage) {
+	public float 投掷攻击时(Char attacker,Char defender,float damage) {
 		
 		int level = Math.max(0, 强化等级());
 		

@@ -90,10 +90,10 @@ public class 潜伏 extends Buff implements ActionIndicator.Action {
 			}
 		}
 		
-		public int damageRoll( Char attacker ){
-			int dmg = attacker.最大攻击();
+		public float damageRoll( Char attacker ){
+			float dmg = attacker.最大攻击();
 			for( int i = 1; i < damageRolls; i++){
-				int newDmg = attacker.最大攻击();
+				float newDmg = attacker.最大攻击();
 				if (newDmg > dmg) dmg = newDmg;
 			}
 			return Math.round(dmg * (1f + baseDmgBonus));
@@ -140,7 +140,7 @@ public class 潜伏 extends Buff implements ActionIndicator.Action {
 		return AttackLevel.getLvl(turnsInvis).ordinal()+1;
 	}
 	
-	public int damageRoll( Char attacker ){
+	public float damageRoll( Char attacker ){
 		return AttackLevel.getLvl(turnsInvis).damageRoll(attacker);
 	}
 

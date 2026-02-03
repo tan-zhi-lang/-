@@ -230,15 +230,15 @@ public class ElementalStrike extends ArmorAbility {
 		//*** Blocking ***
 		} else if (ench instanceof Blocking){
 			if (targetsHit > 0){
-				int shield = Math.round(Math.round(6f*targetsHit*powerMulti));
+				float shield = Math.round(Math.round(6f*targetsHit*powerMulti));
 				Buff.施加(hero, Barrier.class).设置(Math.round(6f*targetsHit*powerMulti));
-				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(shield), FloatingText.SHIELDING);
+				hero.sprite.showStatusWithIcon(CharSprite.增强, shield, FloatingText.SHIELDING);
 			}
 
 		//*** Vampiric ***
 		} else if (ench instanceof Vampiric){
 			if (targetsHit > 0){
-				int heal = Math.round(2.5f*targetsHit*powerMulti);
+				float heal = Math.round(2.5f*targetsHit*powerMulti);
 				heal = Math.min( heal, hero.最大生命 - hero.生命);
 				if (heal > 0){
 					hero.回血(heal);
@@ -259,7 +259,7 @@ public class ElementalStrike extends ArmorAbility {
 
 	public static class ElementalStrikeLuckyTracker extends Buff{};
 
-	private int storedKineticDamage = 0;
+	private float storedKineticDamage = 0;
 
 	public static class ElementalStrikeFurrowCount extends CountBuff{{revivePersists = true;}};
 
@@ -350,7 +350,7 @@ public class ElementalStrike extends ArmorAbility {
 		//*** no enchantment ***
 		if (ench == null) {
 			for (Char ch : affected){
-				ch.受伤时(Math.round(powerMulti* Hero.heroDamageIntRange(6, 12)), ElementalStrike.this);
+				ch.受伤时(powerMulti* Hero.heroDamage(6,12),ElementalStrike.this);
 			}
 
 		//*** Kinetic ***
@@ -358,7 +358,7 @@ public class ElementalStrike extends ArmorAbility {
 			if (storedKineticDamage > 0) {
 				for (Char ch : affected) {
 					if (ch != primaryTarget) {
-						ch.受伤时(Math.round(storedKineticDamage * 0.4f * powerMulti), ench);
+						ch.受伤时(storedKineticDamage * 0.4f * powerMulti, ench);
 					}
 				}
 				storedKineticDamage = 0;
@@ -414,7 +414,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Projecting){
 			for (Char ch : affected){
 				if (ch != primaryTarget) {
-					ch.受伤时(Math.round(hero.最大攻击()*0.3f*powerMulti),ench);
+					ch.受伤时(hero.最大攻击()*0.3f*powerMulti,ench);
 				}
 			}
 
@@ -518,7 +518,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Polarized){
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
-					ch.受伤时(Hero.heroDamageIntRange(24, 36), ElementalStrike.this);
+					ch.受伤时(Hero.heroDamage(24,36),ElementalStrike.this);
 				}
 			}
 

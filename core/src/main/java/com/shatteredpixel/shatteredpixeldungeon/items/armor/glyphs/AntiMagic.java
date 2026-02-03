@@ -123,18 +123,18 @@ public class AntiMagic extends Armor.Glyph {
 	}
 	
 	@Override
-	public int proc(Armor armor, Char attacker, Char defender, int damage) {
+	public float proc(Armor armor, Char attacker, Char defender, float damage) {
 		//no proc effect, triggers in Char.damage
 		return damage;
 	}
 	
-	public static int drRoll( Char owner, int level ){
+	public static float drRoll( Char owner, int level ){
 		if (level == -1){
 			return 0;
 		} else {
-			return Random.NormalIntRange(
-					Math.round(level * genericProcChanceMultiplier(owner)),
-					Math.round((3 + (level * 1.5f)) * genericProcChanceMultiplier(owner)));
+			return Random.NormalFloat(
+					level * genericProcChanceMultiplier(owner),
+					(3 + (level * 1.5f)) * genericProcChanceMultiplier(owner));
 		}
 	}
 

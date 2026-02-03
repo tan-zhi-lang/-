@@ -67,7 +67,7 @@ public class Wandmaker extends NPC {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src ) {
+	public void 受伤时(float dmg, Object src ) {
 		//do nothing
 	}
 
@@ -158,12 +158,6 @@ public class Wandmaker extends NPC {
 					break;
 				case CLERIC:
 					msg1 += Messages.get(this, "intro_cleric");
-					break;
-				case 巫女:
-					msg1 += Messages.get(this, "巫女");
-					break;
-				case 重武:
-					msg1 += Messages.get(this, "重武");
 					break;
 			}
 

@@ -15,7 +15,7 @@ public class AdrenalineDart extends TippedDart {
 	}
 	
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage) {
+	public float 攻击时(Char attacker, Char defender, float damage) {
 
 		if (processingChargedShot && defender == attacker) {
 			//do nothing to the hero when processing charged shot

@@ -184,9 +184,9 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int 最大攻击() {
-			int damage = Random.NormalIntRange(10, 20);
-			int heroDamage = Dungeon.hero.最大攻击();
+		public float 最大攻击() {
+			float damage = Random.NormalIntRange(10, 20);
+			float heroDamage = Dungeon.hero.最大攻击();
 			heroDamage /= Dungeon.hero.攻击延迟(); //normalize hero damage based on atk speed
 			heroDamage = Math.round(0.08f * Dungeon.hero.天赋点数(Talent.SHADOW_BLADE) * heroDamage);
 			if (heroDamage > 0){
@@ -196,7 +196,7 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int 攻击时(Char enemy, int damage ) {
+		public float 攻击时(final Char enemy, float damage ) {
 			damage = super.攻击时( enemy, damage );
 			if (Random.Int(4) < Dungeon.hero.天赋点数(Talent.SHADOW_BLADE)
 					&& Dungeon.hero.belongings.weapon() != null){
@@ -207,9 +207,9 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int 最大防御() {
-			int dr = super.最大防御();
-			int heroRoll = Dungeon.hero.最大防御();
+		public float 最大防御() {
+			float dr = super.最大防御();
+			float heroRoll = Dungeon.hero.最大防御();
 			heroRoll = Math.round(0.12f * Dungeon.hero.天赋点数(Talent.CLONED_ARMOR) * heroRoll);
 			if (heroRoll > 0){
 				dr += heroRoll;
@@ -227,7 +227,7 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int 防御时(Char enemy, int damage) {
+		public float 防御时(Char enemy, float damage) {
 			damage = super.防御时(enemy, damage);
 			if (Random.Int(4) < Dungeon.hero.天赋点数(Talent.CLONED_ARMOR)
 					&& Dungeon.hero.belongings.armor() != null){

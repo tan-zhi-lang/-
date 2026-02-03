@@ -31,7 +31,7 @@ public class Chrome {
 			case NONE->SPDSettings.透明界面()?Assets.Interfaces.CHROME透明:Assets.Interfaces.CHROME;
 			default->SPDSettings.透明界面()?Assets.Interfaces.CHROME透明:Assets.Interfaces.CHROME;
 			case 愚人节->Assets.Interfaces.CHROME愚人;
-			case 春节->Assets.Interfaces.CHROME春节;
+//			case 春节->Assets.Interfaces.CHROME春节;
 //			case 圣诞节->Assets.Interfaces.CHROME圣诞;
 			
 			

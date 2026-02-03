@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -41,8 +42,9 @@ public abstract class Plant implements Bundlable {
 
 		Char ch = Actor.findChar(pos);
 
-		if (ch instanceof Hero){
-			((Hero) ch).interrupt();
+		if (ch instanceof Hero hero){
+			hero.interrupt();
+			hero.生命成长+=hero.天赋点数(Talent.万木归尘,2);
 		}
 		//视野内植物触发
 

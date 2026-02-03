@@ -162,7 +162,7 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public int 防御时(Char enemy, int damage) {
+	public float 防御时(Char enemy, float damage) {
 		if (state == PASSIVE){
 			alignment = Alignment.ENEMY;
 			stopHiding();
@@ -171,7 +171,7 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (state == PASSIVE){
 			alignment = Alignment.ENEMY;
 			stopHiding();
@@ -206,7 +206,7 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		if (alignment == Alignment.NEUTRAL){
 			return 2 + 2*level;
 		} else {
@@ -215,7 +215,7 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		if (alignment == Alignment.NEUTRAL){
 			return 2 + 2*level;
 		} else {
@@ -224,7 +224,7 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+1+level/2;
 	}
 

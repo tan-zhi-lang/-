@@ -19,8 +19,8 @@ public class 胸铠 extends Armor {
 		super(1);
 	}
 	@Override
-	public int 力量(int lvl) {
-		int req = 力量(tier, lvl)-1;
+	public float 力量(int lvl) {
+		float req = 力量(tier, lvl)-1;
 		
 		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
 			req-=Dungeon.hero.护甲力量;
@@ -33,8 +33,8 @@ public class 胸铠 extends Armor {
 	}
 	
 	@Override
-	public int 最大防御(int lvl){
-		return super.最大防御(lvl+1);
+	public float 最大防御(int lvl){
+		return super.最大防御(lvl)+augment.defenseFactor(0.5f);
 	}
 	@Override
 	public int 金币() {

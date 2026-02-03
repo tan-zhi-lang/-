@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -13,10 +12,10 @@ import com.watabou.utils.GameMath;
 
 public class Healing extends Buff {
 
-	private int healingLeft;
+	private float healingLeft;
 	
 	private float percentHealPerTick;
-	private int flatHealPerTick;
+	private float flatHealPerTick;
 
 	private boolean healingLimited = false;
 	
@@ -53,8 +52,8 @@ public class Healing extends Buff {
 		return true;
 	}
 	
-	private int healingThisTick(){
-		int heal = (int)GameMath.gate(1,
+	private float healingThisTick(){
+		float heal = GameMath.gate(1,
 				Math.round(healingLeft * percentHealPerTick) + flatHealPerTick,
 				healingLeft);
 		if (healingLimited && heal > VialOfBlood.maxHealPerTurn()){
@@ -63,7 +62,7 @@ public class Healing extends Buff {
 		return heal;
 	}
 
-	public void setHeal(int amount, float percentPerTick, int flatPerTick){
+	public void setHeal(float amount, float percentPerTick, float flatPerTick){
 		//multiple sources of healing do not overlap, but do combine the best of their properties
 		healingLeft = Math.max(healingLeft, amount);
 		percentHealPerTick = Math.max(percentHealPerTick, percentPerTick);
@@ -105,9 +104,9 @@ public class Healing extends Buff {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		healingLeft = bundle.getInt(LEFT);
+		healingLeft = bundle.getFloat(LEFT);
 		percentHealPerTick = bundle.getFloat(PERCENT);
-		flatHealPerTick = bundle.getInt(FLAT);
+		flatHealPerTick = bundle.getFloat(FLAT);
 		healingLimited = bundle.getBoolean(HEALING_LIMITED);
 	}
 	
@@ -118,7 +117,7 @@ public class Healing extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(healingLeft);
+		return Float.toString(healingLeft);
 	}
 	
 	@Override

@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -55,7 +54,7 @@ public class Sungrass extends Plant {
 		
 		private int pos;
 		private float partialHeal;
-		private int level;
+		private float level;
 
 		{
 			type = buffType.POSITIVE;
@@ -72,7 +71,7 @@ public class Sungrass extends Plant {
 			partialHeal += (40 + target.最大生命)/150f;
 			
 			if (partialHeal > 1){
-				int healThisTurn = (int)partialHeal;
+				float healThisTurn = partialHeal;
 				partialHeal -= healThisTurn;
 				level -= healThisTurn;
 
@@ -98,7 +97,7 @@ public class Sungrass extends Plant {
 			return true;
 		}
 
-		public void boost( int amount ){
+		public void boost( float amount ){
 			if (target != null) {
 				level += amount;
 				pos = target.pos;
@@ -117,7 +116,7 @@ public class Sungrass extends Plant {
 
 		@Override
 		public String iconTextDisplay() {
-			return Integer.toString(level);
+			return Float.toString(level);
 		}
 
 		@Override
@@ -142,7 +141,7 @@ public class Sungrass extends Plant {
 			super.restoreFromBundle( bundle );
 			pos = bundle.getInt( POS );
 			partialHeal = bundle.getFloat( PARTIAL );
-			level = bundle.getInt( LEVEL );
+			level = bundle.getFloat( LEVEL );
 
 		}
 	}

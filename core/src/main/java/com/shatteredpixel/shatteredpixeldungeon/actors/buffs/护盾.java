@@ -18,13 +18,13 @@ public class 护盾 extends ShieldBuff {
 	int partialLostShield;
 
 	@Override
-	public void 增加(int amt) {
+	public void 增加(float amt) {
 		super.增加(amt);
 		partialLostShield = 0;
 	}
 
 	@Override
-	public void 设置(int shield) {
+	public void 设置(float shield) {
 		
 		super.设置(shield);
 		if (护盾量() == shield) partialLostShield = 0;
@@ -41,7 +41,7 @@ public class 护盾 extends ShieldBuff {
 		return true;
 	}
 	@Override
-	public int absorbDamage( int dmg ){
+	public float absorbDamage( float dmg ){
 		shielding --;
 		if (shielding <= 0 && detachesAtZero){
 			detach();
@@ -70,12 +70,12 @@ public class 护盾 extends ShieldBuff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(护盾量());
+		return Float.toString(护盾量());
 	}
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", 护盾量());
+		return Messages.get(this, "desc", Math.round(护盾量()));
 	}
 
 	private static final String PARTIAL_LOST_SHIELD = "partial_lost_shield";

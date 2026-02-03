@@ -699,7 +699,7 @@ public class Toolbar extends Component {
 				case NONE->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
 				default->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
 				case 愚人节->Assets.Interfaces.TOOLBAR愚人;
-				case 春节->Assets.Interfaces.TOOLBAR春节;
+//				case 春节->Assets.Interfaces.TOOLBAR春节;
 //				case 圣诞节->Assets.Interfaces.TOOLBAR圣诞;
 				
 			});
@@ -716,7 +716,7 @@ public class Toolbar extends Component {
 				case NONE->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
 				default->SPDSettings.透明界面()?Assets.Interfaces.TOOLBAR透明:Assets.Interfaces.TOOLBAR;
 				case 愚人节->Assets.Interfaces.TOOLBAR愚人;
-				case 春节->Assets.Interfaces.TOOLBAR春节;
+//				case 春节->Assets.Interfaces.TOOLBAR春节;
 //				case 圣诞节->Assets.Interfaces.TOOLBAR圣诞;
 				
 			});

@@ -7,6 +7,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x11;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x12;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x13;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x2;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x20;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x21;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x23;
@@ -78,11 +79,10 @@ public enum Talent {
 	//Endure T4
 	SUSTAINED_RETRIBUTION(23, 4), SHRUG_IT_OFF(24, 4), EVEN_THE_ODDS(25, 4),
 
-	高级魔杖(41,4), SHIELD_BATTERY(42, 4),
+	高级魔杖(x2+9,4), SHIELD_BATTERY(x2+10, 4),
 	//Battlemage T3
-	EMPOWERED_STRIKE(43, 4), MYSTICAL_CHARGE(44, 4), 盈能打击(45,4),
-	//Warlock T3
-	SOUL_EATER(46, 4), SOUL_SIPHON(47, 4), NECROMANCERS_MINIONS(48, 4),
+	EMPOWERED_STRIKE(x2+11, 4), MYSTICAL_CHARGE(x2+12, 4), 盈能打击(x2+13,4),
+	水漫火狱(x2+14, 4), 万木归尘(x2+15, x2), 金刚不坏(x2+16,4),
 	//Elemental Blast T4
 	BLAST_RADIUS(49, 4), ELEMENTAL_POWER(50, 4), REACTIVE_BARRIER(51, 4),
 	//Wild Magic T4
@@ -160,6 +160,9 @@ public enum Talent {
 	快速布阵(x8+14,4),全副武装(x8+15,4),步兵冲锋(x8+16,4),
 
 	蓄势待发(x9+11,4),错失良机(x9+12,4),偷袭姿态(x9+13,4),
+	不灭之魂(x9+14,4),怀恨在心(x9+15,4),慷慨赴死(x9+16,4),
+
+	SOUL_EATER(x10+11, 4), SOUL_SIPHON(x10+12, 4), NECROMANCERS_MINIONS(x10+13, 4),
 	
 	残魂侵蚀(x10+9,4),轻便玉佩(x10+10,4),
 	
@@ -171,6 +174,7 @@ public enum Talent {
 	狂暴爪击(x13+11,4),坚铁甲胄(x13+12,4),极凌飓风(x13+13,4),
 
 	元素之力(x15+9,4),轻便护额(x15+10,4),
+	灵魂摄击(x15+11,4),生命汲取(x15+12,4),灵魂烈焰(x15+13,4),
 	
 	捕鱼达人(x20+9,4),猫反应7(x20+10,4),
 	白猫主导(x20+11,4),渡魂灵猫(x20+12,4),黑猫主导(x20+13,4),
@@ -499,7 +503,7 @@ public enum Talent {
 
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
-			int shieldToGive = Math.round( factor * hero.最大生命);
+			float shieldToGive = Math.round( factor * hero.最大生命);
 			Buff.施加(hero, Barrier.class).设置(shieldToGive);
 		}
 		if (false){//喝药加闪
@@ -584,15 +588,15 @@ public enum Talent {
 	
 	}
 
-	public static int 伏击时(Hero hero, Char enemy, int dmg ){
-		dmg++;
+	public static float 伏击时(Hero hero, Char enemy, float dmg ){
+		dmg+=0.5f;
 		if(hero.hasbuff(Invisibility.class)){
-			dmg++;
+			dmg+=0.5f;
 		}
-		dmg+=hero.天赋点数(Talent.埋伏,2);
+		dmg+=hero.天赋点数(Talent.埋伏,1.5f);
 		enemy.第x次背袭++;
 		if(enemy.第x次背袭==1){
-			dmg++;
+			dmg+=0.5f;
 			enemy.sprite.愤怒();
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.地势)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.地势);
@@ -601,7 +605,7 @@ public enum Talent {
 		dmg*=传奇肛塞.伏击();
 		return dmg;
 	}
-	public static int 攻击时(Hero hero, Char enemy, int dmg ){
+	public static float 攻击时(Hero hero, Char enemy, float dmg ){
 
 		if (enemy instanceof Mob && ((Mob) enemy).surprisedBy(hero)){
 			dmg=伏击时(hero,enemy,dmg);
@@ -755,8 +759,8 @@ public enum Talent {
 			case 战斗法师:
 				Collections.addAll(tierTalents,EMPOWERED_STRIKE,MYSTICAL_CHARGE,盈能打击);
 				break;
-			case 术士:
-				Collections.addAll(tierTalents, SOUL_EATER, SOUL_SIPHON, NECROMANCERS_MINIONS);
+			case 元素法师:
+				Collections.addAll(tierTalents,水漫火狱,万木归尘,金刚不坏);
 				break;
 			case 刺客:
 				Collections.addAll(tierTalents, ENHANCED_LETHALITY, ASSASSINS_REACH, BOUNTY_HUNTER);
@@ -797,6 +801,12 @@ public enum Talent {
 			case 灵月杀手:
 				Collections.addAll(tierTalents, 蓄势待发, 错失良机, 偷袭姿态);
 				break;
+			case 不灭战士:
+				Collections.addAll(tierTalents, 不灭之魂, 怀恨在心, 慷慨赴死);
+				break;
+			case 术士:
+				Collections.addAll(tierTalents, SOUL_EATER, SOUL_SIPHON, NECROMANCERS_MINIONS);
+				break;
 			case 疾行者:
 				Collections.addAll(tierTalents, EVASIVE_ARMOR, PROJECTILE_MOMENTUM, SPEEDY_STEALTH);
 				break;
@@ -808,6 +818,9 @@ public enum Talent {
 				break;
 			case 神兽之灵:
 				Collections.addAll(tierTalents,狂暴爪击,坚铁甲胄,极凌飓风);
+				break;
+			case 灵魂武者:
+				Collections.addAll(tierTalents,灵魂摄击,生命汲取,灵魂烈焰);
 				break;
 			case 黑白双子:
 				Collections.addAll(tierTalents,白猫主导,渡魂灵猫,黑猫主导);

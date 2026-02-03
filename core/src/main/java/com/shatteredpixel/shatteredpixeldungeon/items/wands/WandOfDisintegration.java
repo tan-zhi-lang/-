@@ -108,7 +108,7 @@ public class WandOfDisintegration extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		//no direct effect, see magesStaff.reachfactor
 	}
 

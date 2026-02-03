@@ -75,7 +75,7 @@ public class WandOfLightning extends DamageWand {
 
 			wandProc(ch, chargesPerCast());
 			if (ch == curUser && ch.isAlive()) {
-				ch.受伤时(Math.round(damageRoll() * multiplier * 0.5f), this);
+				ch.受伤时(damageRoll() * multiplier * 0.5f, this);
 				Buff.施加(ch,Cripple.class,2+强化等级());
 				if (!curUser.isAlive()) {
 					Badges.validateDeathFromFriendlyMagic();
@@ -84,7 +84,7 @@ public class WandOfLightning extends DamageWand {
 				}
 			} else {
 				Buff.施加(ch,Paralysis.class,2+强化等级());
-				ch.受伤时(Math.round(damageRoll() * multiplier), this);
+				ch.受伤时(damageRoll() * multiplier, this);
 			}
 		}
 	}
@@ -95,7 +95,7 @@ public class WandOfLightning extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 
 		// lvl 0 - 25%
 		// lvl 1 - 40%

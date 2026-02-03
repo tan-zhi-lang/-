@@ -87,8 +87,8 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public int 最小攻击() {
-		int damage;
+	public float 最小攻击() {
+		float damage;
 		if (hero.belongings.weapon() != null){
 			damage = hero.belongings.weapon().最小攻击();
 		} else {
@@ -97,8 +97,8 @@ public class MirrorImage extends NPC {
 		return (damage+1)/2; //half hero damage, rounded up
 	}
 	@Override
-	public int 最大攻击() {
-		int damage;
+	public float 最大攻击() {
+		float damage;
 		if (hero.belongings.weapon() != null){
 			damage = hero.belongings.weapon().最大攻击();
 		} else {
@@ -153,8 +153,8 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public int 最小防御() {
-		int dr = super.最小防御();
+	public float 最小防御() {
+		float dr = super.最小防御();
 		if (hero != null && hero.belongings.weapon() != null){
 			return dr ;
 		} else {
@@ -162,8 +162,8 @@ public class MirrorImage extends NPC {
 		}
 	}
 	@Override
-	public int 最大防御() {
-		int dr = super.最大防御();
+	public float 最大防御() {
+		float dr = super.最大防御();
 		if (hero != null && hero.belongings.weapon() != null){
 			return dr +hero.belongings.weapon().defenseFactor(this)/2;
 		} else {
@@ -172,7 +172,7 @@ public class MirrorImage extends NPC {
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		
 		MirrorInvis buff = buff(MirrorInvis.class);

@@ -54,6 +54,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
@@ -75,9 +77,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
@@ -95,10 +96,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.折镜法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
@@ -117,6 +118,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狙击枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血姬;
@@ -128,6 +130,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
+import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
+import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
@@ -146,7 +150,7 @@ import com.watabou.utils.Random;
 public enum HeroClass{
 	
 	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士),
-	MAGE(HeroSubClass.战斗法师,HeroSubClass.术士),
+	MAGE(HeroSubClass.战斗法师),
 	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影),
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
@@ -154,11 +158,11 @@ public enum HeroClass{
 	CLERIC(HeroSubClass.潜能觉醒),
 //	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
 	巫女(HeroSubClass.潜能觉醒),
-	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),镜魔(HeroSubClass.灵月杀手),
-	道士(HeroSubClass.潜能觉醒),行僧(HeroSubClass.疾行者),
+	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士),
+	道士(HeroSubClass.术士),行僧(HeroSubClass.疾行者),
 	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵),
 	兽灵(HeroSubClass.神兽之灵),
-	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.潜能觉醒),
+	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.灵魂武者),
 	戒老(HeroSubClass.潜能觉醒),逐姝(HeroSubClass.潜能觉醒),
 	罗兰(HeroSubClass.潜能觉醒),学士(HeroSubClass.潜能觉醒),
 	灵猫(HeroSubClass.黑白双子),鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠),
@@ -216,7 +220,13 @@ public enum HeroClass{
 		
 		//		i = new Food();
 		//		if (!Challenges.isItemBlocked(i)) i.放背包();
-		
+
+		if(Dungeon.派对(派对设置.钢门联盟)){
+			心之钢 钢门=new 心之钢();
+			钢门.鉴定();
+			钢门.activate(hero);
+			钢门.放背包();
+		}
 		if(算法.isDebug()){
 
 			new PotionBandolier().放背包();
@@ -242,7 +252,10 @@ public enum HeroClass{
 			new 灵视药剂().数量(x).放背包();
 			new Icecap.Seed().数量(x).放背包();
 			new 毒气药剂().数量(x).放背包();
-			
+
+			new 坠牢之星().数量(x).放背包();
+			new 属性碎片().数量(x).放背包();
+
 //			new MysteryMeat().数量(x).放背包();
 			
 			new 升级卷轴().数量(x).放背包();
@@ -274,17 +287,18 @@ public enum HeroClass{
 			new Amulet().放背包();
 //			new 商人信标().放背包();
 //			new 召唤物品().放背包();
-			new 能量之戒().放背包();
+			new 神农锄().放背包();
 			new 六神之戒().放背包();
-			new 装甲之戒().放背包();
+			new RingOfHaste().放背包();
 			new RingOfFuror().放背包();
 			
 			for (Item item : hero.belongings){
 				item.鉴定();
 			}
 		}
-		
-		算法.种子();
+
+		if(算法.种子()!=null)
+		算法.种子().放背包();
 		
 		if(Holiday.getCurrentHoliday()==Holiday.国庆节){
 			new 中国国旗().放背包();
@@ -413,7 +427,7 @@ public enum HeroClass{
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			Item item=new 结晶法杖();
 			item.放背包();
-			Dungeon.quickslot.clearSlot(0);
+			Dungeon.quickslot.reset();
 			Dungeon.quickslot.setSlot(0,item);
 		}
 		//endregion
@@ -474,14 +488,15 @@ public enum HeroClass{
 		Item i=new 法袍().鉴定();
 			hero.belongings.armor=(法袍)i;
 		
-		法师魔杖 staff;
-		
-		staff=new 法师魔杖(new 焰浪法杖());
-		
+		法师魔杖 staff=new 法师魔杖(new WandOfMagicMissile());
 		(hero.belongings.weapon=staff).鉴定();
-		
+
+		四叶草法典 tome=new 四叶草法典();
+		(hero.belongings.misc=tome).鉴定();
+
 		Dungeon.quickslot.setSlot(0,staff);
-		
+		Dungeon.quickslot.setSlot(1,tome);
+
 		new 充能卷轴().鉴定();
 		new 液火药剂().鉴定();
 	}

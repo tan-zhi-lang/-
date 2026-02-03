@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 魔披 extends Armor {
@@ -18,8 +17,8 @@ public class 魔披 extends Armor {
 		super(1);
 	}
 	@Override
-	public int 力量(int lvl) {
-		int req = 力量(tier, lvl)-1;
+	public float 力量(int lvl) {
+		float req = 力量(tier, lvl)-1;
 		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
             req-=Dungeon.hero.护甲力量;
         }

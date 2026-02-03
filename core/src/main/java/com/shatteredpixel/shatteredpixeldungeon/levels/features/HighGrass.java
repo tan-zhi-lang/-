@@ -141,7 +141,7 @@ public class HighGrass {
 				if (Random.Float() < 概率) {
 					level.drop(new Dewdrop(), pos).sprite().drop();
 				}
-				if (Random.Float() < 1/500f&&Dungeon.LimitedDrops.生命果.count==0) {
+				if (Random.Float() < 1/900f&&Dungeon.LimitedDrops.生命果.count==0) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
@@ -279,7 +279,7 @@ public class HighGrass {
 					level.drop(new Dewdrop(), pos).sprite().drop();
 					level.drop(new Dewdrop(), pos).sprite().drop();
 				}
-				if (Random.Float() < 1/500f&&Dungeon.LimitedDrops.生命果.count==0) {
+				if (Random.Float() < 1/900f&&Dungeon.LimitedDrops.生命果.count==0) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}

@@ -22,7 +22,7 @@ public class 铜钱剑 extends Weapon{
 		遗产= false;
 	}
 	@Override
-	public int 攻击时(Char attacker,Char defender,int damage){
+	public float 攻击时(Char attacker,Char defender,float damage){
 		
 		if(defender.恶魔亡灵()&&attacker instanceof Hero hero&&hero.heroClass(HeroClass.道士)){
 			damage=Math.round(damage*1.75f);

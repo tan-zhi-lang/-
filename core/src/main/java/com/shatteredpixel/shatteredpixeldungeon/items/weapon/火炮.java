@@ -121,25 +121,25 @@ public class 火炮 extends Weapon{
 		}
 	}
 	
-	public int 最小枪械攻击() {
+	public float 最小枪械攻击() {
 		return 最小枪械攻击(强化等级());
 	}
-	public int 最小枪械攻击(int lvl) {
-		int dmg =Math.round(最小+2*((tier+8)+lvl));
+	public float 最小枪械攻击(int lvl) {
+		int dmg =最小+2*((tier()+8)+lvl);
 		return Math.max(0, dmg);
 	}
 	
-	public int 最大枪械攻击() {
+	public float 最大枪械攻击() {
 		return 最大枪械攻击(强化等级());
 	}
-	public int 最大枪械攻击(int lvl) {
-		int dmg =Math.round(最大+(5*(tier+1+8) +lvl*(tier+1)));
+	public float 最大枪械攻击(int lvl) {
+		int dmg =最大+(5*(tier()+1+8) +lvl*(tier()+1));
 		return Math.max(0, dmg);
 	}
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",最小枪械攻击(),最大枪械攻击());
+		return Messages.get(this, "desc",String.format("%.2f",最小枪械攻击()),String.format("%.2f",最大枪械攻击()));
 	}
 	public int maxCharges = initialCharges();
 	public int initialCharges() {
@@ -287,12 +287,12 @@ public class 火炮 extends Weapon{
 			item_Miss = Assets.Sounds.火炮;
 		}
 		@Override
-		public int 最小投掷攻击(int lvl) {
+		public float 最小投掷攻击(int lvl) {
 			return 火炮.this.最小枪械攻击(lvl);
 		}
 		
 		@Override
-		public int 最大投掷攻击(int lvl) {
+		public float 最大投掷攻击(int lvl) {
 			return 火炮.this.最大枪械攻击(lvl);
 			
 		}
@@ -312,12 +312,12 @@ public class 火炮 extends Weapon{
 		}
 
 		@Override
-		public int 投掷攻击时(Char attacker, Char defender, int damage) {
+		public float 投掷攻击时(Char attacker, Char defender, float damage) {
 			return 火炮.this.投掷攻击时(attacker,defender,damage);
 		}
 
 		@Override
-		public int 力量(int lvl) {
+		public float 力量(int lvl) {
 			return 火炮.this.力量();
 		}
 

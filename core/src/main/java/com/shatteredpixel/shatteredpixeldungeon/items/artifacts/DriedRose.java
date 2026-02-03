@@ -626,7 +626,7 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int 最小攻击() {
+		public float 最小攻击() {
 			int dmg = 0;
 			if (weapon() != null){
 				dmg += weapon().最小攻击();
@@ -635,7 +635,7 @@ public class DriedRose extends Artifact {
 			return dmg;
 		}
 		@Override
-		public int 最大攻击() {
+		public float 最大攻击() {
 			int dmg = 0;
 			if (weapon() != null){
 				dmg += weapon().最大攻击();
@@ -647,7 +647,7 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int 攻击时(Char enemy, int damage) {
+		public float 攻击时(final Char enemy, float damage) {
 			damage = super.攻击时(enemy, damage);
 
 			if (weapon() != null) {
@@ -662,7 +662,7 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int 防御时(Char enemy, int damage) {
+		public float 防御时(Char enemy, float damage) {
 			if (armor() != null) {
 				damage = armor().防御时( enemy, this, damage );
 			}
@@ -670,7 +670,7 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public void 受伤时(int dmg, Object src) {
+		public void 受伤时(float dmg, Object src) {
 			super.受伤时( dmg, src );
 			
 			//for the rose status indicator
@@ -703,16 +703,16 @@ public class DriedRose extends Artifact {
 		}
 		
 		@Override
-		public int 最小防御() {
-			int dr = super.最小防御();
+		public float 最小防御() {
+			float dr = super.最小防御();
 			if (armor() != null){
 				dr += armor().最小防御();
 			}
 			return dr;
 		}
 		@Override
-		public int 最大防御() {
-			int dr = super.最大防御();
+		public float 最大防御() {
+			float dr = super.最大防御();
 			if (armor() != null){
 				dr += armor().最大防御();
 			}

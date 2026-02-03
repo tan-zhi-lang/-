@@ -14,16 +14,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.watabou.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 
@@ -131,7 +129,7 @@ public class DeathMark extends ArmorAbility {
 
 		public static float DURATION = 5f;
 
-		int initialHP = 0;
+		float initialHP = 0;
 
 		{
 			type = buffType.NEGATIVE;
@@ -153,7 +151,7 @@ public class DeathMark extends ArmorAbility {
 			return Math.max(0, (DURATION - visualcooldown()) / DURATION);
 		}
 
-		private void setInitialHP( int hp ){
+		private void setInitialHP( float hp ){
 			if (initialHP < hp){
 				initialHP = hp;
 			}
@@ -197,7 +195,7 @@ public class DeathMark extends ArmorAbility {
 		@Override
 		public void restoreFromBundle(Bundle bundle) {
 			super.restoreFromBundle(bundle);
-			initialHP = bundle.getInt(INITIAL_HP);
+			initialHP = bundle.getFloat(INITIAL_HP);
 		}
 	}
 

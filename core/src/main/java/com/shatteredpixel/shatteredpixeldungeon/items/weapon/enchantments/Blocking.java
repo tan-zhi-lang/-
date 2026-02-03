@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -23,7 +22,7 @@ public class Blocking extends Weapon.Enchantment {
 	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing( 0x0000FF );
 	
 	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
+	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
 		
 		int level = Math.max( 0, weapon.强化等级() );
 
@@ -35,7 +34,7 @@ public class Blocking extends Weapon.Enchantment {
 			float powerMulti = Math.max(1f, procChance);
 
 			BlockBuff b = Buff.施加(attacker, BlockBuff.class);
-			int shield = Math.round(powerMulti * (2 + weapon.强化等级()));
+			float shield = Math.round(powerMulti * (2 + weapon.强化等级()));
 			b.设置(shield);
 			
 			attacker.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 5);
@@ -71,7 +70,7 @@ public class Blocking extends Weapon.Enchantment {
 		}
 
 		@Override
-		public void 设置(int shield) {
+		public void 设置(float shield) {
 			super.设置(shield);
 			left = 5f;
 		}

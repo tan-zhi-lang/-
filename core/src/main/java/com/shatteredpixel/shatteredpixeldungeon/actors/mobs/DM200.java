@@ -41,11 +41,11 @@ public class DM200 extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 10;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 25;
 	}
 
@@ -55,11 +55,11 @@ public class DM200 extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+8;
 	}
 	@Override
-	public int 防御时(Char enemy,int damage){
+	public float 防御时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.金属受伤);
 		return super.防御时(enemy,damage);
 	}

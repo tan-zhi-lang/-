@@ -12,10 +12,15 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -23,6 +28,8 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
@@ -84,7 +91,7 @@ public class StatusPane extends Component {
 			case NONE-> SPDSettings.透明界面()?Assets.Interfaces.STATUS透明:Assets.Interfaces.STATUS;
 			default-> SPDSettings.透明界面()?Assets.Interfaces.STATUS透明:Assets.Interfaces.STATUS;
 			case 愚人节-> Assets.Interfaces.STATUS愚人;
-			case 春节-> Assets.Interfaces.STATUS春节;
+//			case 春节-> Assets.Interfaces.STATUS春节;
 //			case 圣诞节-> Assets.Interfaces.STATUS圣诞;
 			
 		};
@@ -295,23 +302,42 @@ public class StatusPane extends Component {
 	private float 法力缓冲=0;
 	private float 时间=0;
 
+	@SuppressWarnings("DefaultLocale")
 	@Override
 	public void update() {
 		super.update();
-		
-		int health = Dungeon.hero.生命;
-		int max = Dungeon.hero.最大生命;
-		int hunger = 450-
+
+		float health = Dungeon.hero.生命;
+		float max = Dungeon.hero.最大生命;
+		float hunger = 450f-
 				(Dungeon.hero.hasbuff(Hunger.class)?
-						Dungeon.hero.buff(Hunger.class).hunger():450);
-		int shield = Dungeon.hero.shielding();
-		
-		int 护甲 = Dungeon.hero.护甲;
-		int 最大护甲 = Dungeon.hero.最大护甲();
+						Dungeon.hero.buff(Hunger.class).hunger():450f);
+		float hungerDelay = 1f;
+		if (Dungeon.hero.buff(Shadows.class)!=null){
+			hungerDelay *= 1.5f;
+		}
+		if(Dungeon.解压(解压设置.抗饿能手))
+			hungerDelay *= 2;
+		hungerDelay/=
+				SaltCube.hungerGainMultiplier();
+		hungerDelay/=
+				血腥生肉.减少();
+
+		float shield = Dungeon.hero.shielding();
+
+		float 护甲 = Dungeon.hero.护甲;
+		float 最大护甲 = Dungeon.hero.最大护甲();
+
+		float 恢复速度=1+Dungeon.hero.天赋点数(Talent.硬肤,0.15f);
+		if(Dungeon.赛季(赛季设置.鬼怨地牢)) 恢复速度*=1.4f;
+		if(Dungeon.hero.heroClass(HeroClass.WARRIOR))恢复速度*=1.4f;
+		if(Dungeon.hero.subClass(HeroSubClass.皇室卫兵)) 恢复速度*=2.5f+(Dungeon.hero.职业精通()?2.5f:0);
+		//+40%即2=>2.8，50=>35
+
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);
-		} else if ((health/(float)max) < 0.334f) {
-			warning += Game.elapsed * 5f *(0.4f - (health/(float)max));
+		} else if ((health/max) < 0.334f) {
+			warning += Game.elapsed * 5f *(0.4f - (health/max));
 			warning %= 1f;
 			avatar.tint(ColorMath.interpolate(warning, warningColors), 0.5f );
 		} else if (talentBlink > 0.33f){ //stops early so it doesn't end in the middle of a blink
@@ -351,9 +377,9 @@ public class StatusPane extends Component {
 				old法力-=法力缓冲/1.11f;
 			}
 			
-			血条.scale.x = Math.max( 0, oldHP/(float)max);
+			血条.scale.x = Math.max( 0, oldHP/max);
 			绿条.scale.x = Math.max( 0, old绿/450f);
-			法力条.scale.x = Math.max(0,old法力/(float)最大护甲);
+			法力条.scale.x = Math.max(0,old法力/最大护甲);
 			护盾.scale.x = 0;
 			
 			时间=0;
@@ -369,15 +395,16 @@ public class StatusPane extends Component {
 		}
 		if(!(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云))){
 			if(血量变化>0){
-				血条文本.text(health+"+"+String.format("%.2f",血量变化)+"/"+max);
+				血条文本.text(String.format("%.2f",health)+"+"+String.format("%.2f",血量变化)+"/"+String.format("%.2f",max));
 			}else if(血量变化==0){
-				血条文本.text(health+"/"+max);
+				血条文本.text(String.format("%.2f",health)+"/"+String.format("%.2f",max));
 			}else{
-				血条文本.text(health+String.format("%.2f",血量变化)+"/"+max);
+				血条文本.text(String.format("%.2f",health)+String.format("%.2f",血量变化)+"/"+String.format("%.2f",max));
 			}
 		}
-		法力条文本.text(护甲+"/"+最大护甲);
-		绿条文本.text(hunger+(hunger>0?"-1":"") + "/" + 450);
+		法力条文本.text(String.format("%.2f",护甲)+"+"+(护甲<最大护甲?String.format("%.2f",100/50f*恢复速度):"")+"/"+String.format("%.2f",最大护甲));
+		绿条文本.text(String.format("%.2f",hunger)+
+					  (hunger>0?String.format("%.2f",-hungerDelay):"") + "/" + String.format("%.2f",450f));
 	
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());

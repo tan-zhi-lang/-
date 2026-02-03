@@ -47,20 +47,20 @@ public class Succubus extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 25;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 30;
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		
 		if (enemy.buff(Charm.class) != null ){
-			int shield = (生命 - 最大生命) + (5 + damage);
+			float shield = (生命 - 最大生命) + (5 + damage);
 			if (shield > 0){
 				回满血();
 
@@ -142,7 +142,7 @@ public class Succubus extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+10;
 	}
 

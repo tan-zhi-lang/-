@@ -17,7 +17,7 @@ public class 死舞 extends Buff {
 		type = buffType.NEGATIVE;
 	}
 	
-	protected int damage = 0;
+	protected float damage = 0;
 	
 	private static final String DAMAGE	= "damage";
 	
@@ -31,7 +31,7 @@ public class 死舞 extends Buff {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
-		damage = bundle.getInt( DAMAGE );
+		damage = bundle.getFloat( DAMAGE );
 	}
 	
 	public void extend( float damage ) {
@@ -49,14 +49,14 @@ public class 死舞 extends Buff {
 	
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(damage);
+		return Float.toString(damage);
 	}
 	
 	@Override
 	public boolean act() {
 		if (target.isAlive()) {
-			
-			int damageThisTick = Math.max(1, damage/3);
+
+			float damageThisTick = Math.max(1, damage/3);
 			target.受伤时( damageThisTick, this );
 			if (target.sprite.visible) {
 				Splash.at(target.sprite.center(),-PointF.PI/2,PointF.PI/6,

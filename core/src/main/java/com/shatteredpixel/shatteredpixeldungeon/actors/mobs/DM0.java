@@ -38,7 +38,7 @@ public class DM0 extends Mob {
 		return 1;
 	}
 	@Override
-	public int 防御时(Char enemy,int damage){
+	public float 防御时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.金属受伤);
 		return super.防御时(enemy,damage);
 	}
@@ -48,7 +48,7 @@ public class DM0 extends Mob {
 	}
 	
 	@Override
-	public void 受伤时(int dmg, Object src ) {
+	public void 受伤时(float dmg, Object src ) {
 		
 		if(src instanceof Paralysis){
 			dmg=最大生命;

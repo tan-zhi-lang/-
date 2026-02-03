@@ -101,17 +101,17 @@ public class Bee extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 最大生命 / 10;
 	}
 	
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 最大生命 / 4;
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (enemy instanceof Mob) {
 			((Mob)enemy).aggro( this );

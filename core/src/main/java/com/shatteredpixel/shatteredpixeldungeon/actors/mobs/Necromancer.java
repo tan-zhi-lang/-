@@ -71,7 +71,7 @@ public class Necromancer extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+5;
 	}
 	
@@ -199,9 +199,9 @@ public class Necromancer extends Mob {
 
 				Char blocker = Actor.findChar(summoningPos);
 				if (blocker.alignment != alignment){
-					int dmg=Random.NormalIntRange(2, 10);
+					float dmg=Random.NormalIntRange(2, 10);
 					
-					dmg=Math.round(dmg*Dungeon.难度攻击());
+					dmg=dmg*Dungeon.难度攻击();
 					blocker.受伤时(dmg, new SummoningBlockDamage() );
 					if (blocker == Dungeon.hero && !blocker.isAlive()){
 						Badges.validateDeathFromEnemyMagic();

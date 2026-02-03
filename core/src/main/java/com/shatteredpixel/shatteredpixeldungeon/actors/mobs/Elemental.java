@@ -60,7 +60,7 @@ public abstract class Elemental extends Mob {
 	protected boolean summonedALly;
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		if (!summonedALly) {
 			return 20;
 		} else {
@@ -69,7 +69,7 @@ public abstract class Elemental extends Mob {
 		}
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		if (!summonedALly) {
 			return 25;
 		} else {
@@ -97,7 +97,7 @@ public abstract class Elemental extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+5;
 	}
 	
@@ -148,7 +148,7 @@ public abstract class Elemental extends Mob {
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		meleeProc( enemy, damage );
 		
@@ -179,14 +179,14 @@ public abstract class Elemental extends Mob {
 	@Override
 	public boolean add( Buff buff ) {
 		if (harmfulBuffs.contains( buff.getClass() )) {
-			受伤时( Random.NormalIntRange( 最大生命 /2, 最大生命 * 3/5 ), buff );
+			受伤时( Random.NormalFloat( 最大生命 /2, 最大生命 * 3/5 ), buff );
 			return false;
 		} else {
 			return super.add( buff );
 		}
 	}
 	
-	protected abstract void meleeProc( Char enemy, int damage );
+	protected abstract void meleeProc( Char enemy, float damage );
 	protected abstract void rangedProc( Char enemy );
 	
 	protected ArrayList<Class<? extends Buff>> harmfulBuffs = new ArrayList<>();
@@ -228,7 +228,7 @@ public abstract class Elemental extends Mob {
 		}
 		
 		@Override
-		protected void meleeProc( Char enemy, int damage ) {
+		protected void meleeProc( Char enemy, float damage ) {
 			if (Random.Int( 2 ) == 0 && !Dungeon.level.water[enemy.pos]) {
 				Buff.施加( enemy, 燃烧.class ).reignite( enemy );
 				if (enemy.sprite.visible) Splash.at( enemy.sprite.center(), sprite.blood(), 5);
@@ -381,7 +381,7 @@ public abstract class Elemental extends Mob {
 		}
 
 		@Override
-		public int 最大攻击() {
+		public float 最大攻击() {
 			if (!summonedALly) {
 				return Random.NormalIntRange(10, 12);
 			} else {
@@ -390,7 +390,7 @@ public abstract class Elemental extends Mob {
 		}
 
 		@Override
-		protected void meleeProc(Char enemy, int damage) {
+		protected void meleeProc(Char enemy, float damage) {
 			//no fiery on-hit unless it is an ally summon
 			if (summonedALly) {
 				super.meleeProc(enemy, damage);
@@ -478,7 +478,7 @@ public abstract class Elemental extends Mob {
 		}
 		
 		@Override
-		protected void meleeProc( Char enemy, int damage ) {
+		protected void meleeProc( Char enemy, float damage ) {
 			if (Random.Int( 3 ) == 0 || Dungeon.level.water[enemy.pos]) {
 				Freezing.freeze( enemy.pos );
 				if (enemy.sprite.visible) Splash.at( enemy.sprite.center(), sprite.blood(), 5);
@@ -504,7 +504,7 @@ public abstract class Elemental extends Mob {
 		}
 		
 		@Override
-		protected void meleeProc( Char enemy, int damage ) {
+		protected void meleeProc( Char enemy, float damage ) {
 			ArrayList<Char> affected = new ArrayList<>();
 			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 			Shocking.arc( this, enemy, 2, affected, arcs );
@@ -514,7 +514,7 @@ public abstract class Elemental extends Mob {
 			}
 			
 			for (Char ch : affected) {
-				ch.受伤时( Math.round( damage * 0.4f ), new Shocking() );
+				ch.受伤时(damage * 0.4f, new Shocking() );
 				if (ch == Dungeon.hero && !ch.isAlive()){
 					Dungeon.fail(this);
 					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );
@@ -551,7 +551,7 @@ public abstract class Elemental extends Mob {
 		}
 		
 		@Override
-		protected void meleeProc( Char enemy, int damage ) {
+		protected void meleeProc( Char enemy, float damage ) {
 			Ballistica aim = new Ballistica(pos, enemy.pos, Ballistica.STOP_TARGET);
 			//TODO shortcutting the fx seems fine for now but may cause problems with new cursed effects
 			//of course, not shortcutting it means actor ordering issues =S

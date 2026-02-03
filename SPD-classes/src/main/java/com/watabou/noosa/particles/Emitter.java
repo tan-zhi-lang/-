@@ -22,7 +22,7 @@ public class Emitter extends Group {
 	public boolean fillTarget = true;
 	
 	protected float interval;
-	protected int quantity;
+	protected float quantity;
 	
 	public boolean on = false;
 
@@ -59,21 +59,21 @@ public class Emitter extends Group {
 		pos(x, y, width, height);
 		pos(target);
 	}
-	
-	public void burst( Factory factory, int quantity ) {
+
+	public void burst( Factory factory, float quantity ) {
 		start( factory, 0, quantity );
 	}
-	
+
 	public void pour( Factory factory, float interval ) {
 		start( factory, interval, 0 );
 	}
 
-	public void start( Factory factory, float interval, int quantity ) {
+	public void start( Factory factory, float interval, float quantity ) {
 		//by default the delay is random, up to the interval
 		startDelayed( factory, interval, quantity, Random.Float(interval));
 	}
-	
-	public void startDelayed( Factory factory, float interval, int quantity, float delay ) {
+
+	public void startDelayed( Factory factory, float interval, float quantity, float delay ) {
 		this.factory = factory;
 		this.lightMode = factory.lightMode();
 		

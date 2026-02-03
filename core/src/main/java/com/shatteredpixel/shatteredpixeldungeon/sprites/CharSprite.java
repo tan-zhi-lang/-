@@ -22,11 +22,13 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.TorchHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.灵焰粒子;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CharHealthIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.glwrap.Matrix;
 import com.watabou.glwrap.Vertexbuffer;
 import com.watabou.noosa.Camera;
@@ -69,7 +71,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS, GLOWING, AURA
+		BURNING,
+		灵焰,
+		LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS, GLOWING, AURA
 	}
 
 	protected Animation idle;
@@ -84,6 +88,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected PosTweener motion;
 
 	protected Emitter burning;
+	protected Emitter 灵焰;
 	protected Emitter chilled;
 	protected Emitter marked;
 	protected Emitter levitation;
@@ -122,7 +127,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public void play(Animation anim) {
 		//Shouldn't interrupt the dieing animation
 		if (curAnim == null || curAnim != die) {
-			if(SPDSettings.加快()==100) {
+			if(SPDSettings.加快()>1) {
 				if (anim == idle) {
 					anim.delay = 1f;
 				} else if (anim == run) {
@@ -193,6 +198,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public void showStatusWithIcon( int color, int text, int icon, Object... args ){
 		showStatusWithIcon(color,text+"",icon,args);
+	}
+	public void showStatusWithIcon( int color, float text, int icon, Object... args ){
+		showStatusWithIcon(color,String.format("%.2f",text)+"",icon,args);
 	}
 	public void showStatusWithIcon( int color, String text, int icon, Object... args ) {
 		if (visible) {
@@ -349,7 +357,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 	}
 
-	public void bloodBurstA( PointF from, int damage ) {
+	public void bloodBurstA( PointF from, float damage ) {
 		if (visible) {
 			PointF c = center();
 			int n = (int)Math.min( 9 * Math.sqrt( (double)damage / ch.最大生命), 9 );
@@ -396,6 +404,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (burning != null) burning.on = false;
 				burning = emitter();
 				burning.pour(FlameParticle.FACTORY, 0.06f);
+				if (visible) {
+					Sample.INSTANCE.play(Assets.Sounds.BURNING);
+				}
+				break;
+			case 灵焰:
+				if (灵焰 != null) 灵焰.on = false;
+				灵焰 = emitter();
+				灵焰.pour(灵焰粒子.FACTORY,0.06f);
 				if (visible) {
 					Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				}
@@ -509,6 +525,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					burning = null;
 				}
 				break;
+			case 灵焰:
+				if (灵焰 != null) {
+					灵焰.on = false;
+					灵焰 = null;
+				}
+				break;
 			case LEVITATING:
 				if (levitation != null) {
 					levitation.on = false;
@@ -618,6 +640,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (burning != null) {
 			burning.visible = visible;
 		}
+		if (灵焰 != null) {
+			灵焰.visible = visible;
+		}
 		if (levitation != null) {
 			levitation.visible = visible;
 		}
@@ -673,6 +698,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void showSleep() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -697,6 +723,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void showAlert() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			||invisible!=null)return;
@@ -720,6 +747,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void showLost() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -744,6 +772,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 
 	public void 无语() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -767,6 +796,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void 扣6() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -790,6 +820,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void 微笑() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -813,6 +844,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void 愤怒() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -836,6 +868,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void 爱心() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -859,6 +892,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void 礼物() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -883,6 +917,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 
 	public void 滑稽() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -907,6 +942,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 
 	public void 歪嘴() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -929,6 +965,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 	}
 	public void 吃瓜() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;
@@ -952,6 +989,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void 哭泣() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
 			if((ch!=null&&ch.hasbuff(Invisibility.class))
 			   ||invisible!=null)return;

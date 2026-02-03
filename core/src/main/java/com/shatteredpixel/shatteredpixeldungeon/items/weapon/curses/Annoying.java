@@ -20,7 +20,7 @@ public class Annoying extends Weapon.Enchantment {
 	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
 
 	@Override
-	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 
 		float procChance = 1/20f * procChanceMultiplier(attacker);
 		if (Random.Float() < procChance) {

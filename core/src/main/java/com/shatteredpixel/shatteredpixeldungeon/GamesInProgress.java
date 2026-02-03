@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
@@ -142,7 +143,8 @@ public class GamesInProgress {
 		info.heroClass蜕变 = Dungeon.hero.heroClass蜕变;
 		info.subClass = Dungeon.hero.subClass;
 		info.armorTier = Dungeon.hero.tier();
-		
+		info.armor = Dungeon.hero.belongings.armor;
+
 		info.goldCollected = Statistics.goldCollected;
 		info.maxDepth = Statistics.deepestFloor;
 
@@ -181,7 +183,8 @@ public class GamesInProgress {
 		public HeroClass heroClass蜕变;
 		public HeroSubClass subClass;
 		public int armorTier;
-		
+		public Armor armor;
+
 		public int goldCollected;
 		public int maxDepth;
 		public int 难度;

@@ -22,7 +22,7 @@ public class Shocking extends Weapon.Enchantment {
 	private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing( 0xFFFFFF, 0.5f );
 
 	@Override
-	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 		int level = Math.max( 0, weapon.强化等级() );
 
 
@@ -40,7 +40,7 @@ public class Shocking extends Weapon.Enchantment {
 			affected.remove(defender); //defender isn't hurt by lightning
 			for (Char ch : affected) {
 				if (ch.alignment != attacker.alignment) {
-					ch.受伤时(Math.round(damage * 0.5f * powerMulti), this);
+					ch.受伤时(damage * 0.5f * powerMulti, this);
 				}
 			}
 

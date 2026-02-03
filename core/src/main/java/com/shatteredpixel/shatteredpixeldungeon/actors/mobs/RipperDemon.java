@@ -48,11 +48,11 @@ public class RipperDemon extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 15;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 25;
 	}
 
@@ -67,7 +67,7 @@ public class RipperDemon extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+4;
 	}
 
@@ -170,8 +170,8 @@ public class RipperDemon extends Mob {
 
 						if (leapVictim != null && alignment != leapVictim.alignment){
 							if (hit(RipperDemon.this,leapVictim,Char.INFINITE,false)) {
-								int dmg=Math.round(0.75f*最大攻击());
-								dmg=Math.round(dmg*Dungeon.难度攻击());
+								float dmg=Math.round(0.75f*最大攻击());
+								dmg=dmg*Dungeon.难度攻击();
 								Buff.施加(leapVictim, 流血.class).set(dmg);
 								leapVictim.sprite.flash();
 								Sample.INSTANCE.play(Assets.Sounds.HIT);

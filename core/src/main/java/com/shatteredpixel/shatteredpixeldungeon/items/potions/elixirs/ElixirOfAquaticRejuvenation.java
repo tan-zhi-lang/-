@@ -24,7 +24,7 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 	
 	{
 		image = 物品表.ELIXIR_AQUA;
-		icon = 物品表.Icons.水灵;
+		icon = Dungeon.isChallenged(Challenges.NO_HEALING)?物品表.Icons.毒粹:物品表.Icons.水灵;
 	}
 	
 	@Override
@@ -35,7 +35,12 @@ public class ElixirOfAquaticRejuvenation extends Elixir {
 			Buff.施加(hero, AquaHealing.class).set(Math.round(hero.最大生命 * 1.5f));
 		}
 	}
-	
+
+	@Override
+	public String desc(){
+		if(Dungeon.isChallenged(Challenges.NO_HEALING))return "你对此过敏，会中毒。";
+		return super.desc();
+	}
 	public static class AquaHealing extends Buff {
 		
 		{

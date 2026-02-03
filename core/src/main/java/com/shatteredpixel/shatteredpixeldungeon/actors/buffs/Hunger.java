@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
@@ -112,11 +113,11 @@ public class Hunger extends Buff implements Hero.Doom {
 					hungerDelay /= 2;
 				hungerDelay/=SaltCube.hungerGainMultiplier();
 				hungerDelay/=血腥生肉.减少();
-				partial+=hungerDelay;
-				
-				if (partial >= 1){
-					partial=0;
-					hero.受伤时(1, this);
+				partial=hungerDelay;
+				if(算法.isDebug())partial=0;
+				if (partial > 0){
+//					partial=0;
+					hero.受伤时(hungerDelay, this);
 				}
 				
 			} else {
@@ -134,7 +135,7 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (newLevel >= STARVING) {//300时
 
 					GLog.n( Messages.get(this, "onstarving") );
-					hero.受伤时( 1, this );
+					hero.受伤时( hungerDelay, this );
 
 					hero.interrupt();
 					newLevel = STARVING;
@@ -198,8 +199,8 @@ public class Hunger extends Buff implements Hero.Doom {
 		return level >= STARVING;
 	}
 
-	public int hunger() {
-		return (int)Math.ceil(level);
+	public float hunger() {
+		return level;
 	}
 
 //	@Override

@@ -59,7 +59,7 @@ public class SpawnerSprite extends MobSprite {
 	}
 
 	@Override
-	public void bloodBurstA(PointF from, int damage) {
+	public void bloodBurstA(PointF from, float damage) {
 		if (alive) {
 			super.bloodBurstA(from, damage);
 		}

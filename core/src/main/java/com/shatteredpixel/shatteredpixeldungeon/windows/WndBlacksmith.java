@@ -158,6 +158,31 @@ public class WndBlacksmith extends Window {
 		smith.enable(Blacksmith.Quest.favor >= 2000);
 		buttons.add(smith);
 
+		RedButton 升阶 = new RedButton(Messages.get(this, "升阶", 4500), 6){
+			@Override
+			protected void onClick() {
+				GameScene.show(new WndOptions(
+						troll.sprite(),
+						Messages.titleCase( troll.name() ),
+						Messages.get(WndBlacksmith.class, "升阶_verify"),
+						Messages.get(WndBlacksmith.class, "升阶_yes"),
+						Messages.get(WndBlacksmith.class, "升阶_no")
+				){
+					@Override
+					protected void onSelect(int index) {
+						if (index == 0){
+							Blacksmith.Quest.favor -= 4500;
+							Blacksmith.Quest.smiths++;
+							WndBlacksmith.this.hide();
+							GameScene.selectItem(new 升阶());
+						}
+					}
+				});
+			}
+		};
+		升阶.enable(Blacksmith.Quest.favor >= 4500);
+		buttons.add(升阶);
+
 		RedButton 锤子 = new RedButton(Messages.get(this, "人情", 5000), 6){
 			@Override
 			protected void onClick() {
@@ -444,6 +469,62 @@ public class WndBlacksmith extends Window {
 				Blacksmith.Quest.upgrades++;
 
 				WndBlacksmith.this.hide();
+
+				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
+				升级卷轴.upgrade( Dungeon.hero );
+				Item.evoke( Dungeon.hero );
+
+				Badges.validateItemLevelAquired( item );
+
+				if (!Blacksmith.Quest.rewardsAvailable()){
+					Notes.remove( Notes.Landmark.TROLL );
+				}
+
+				Catalog.countUse(item.getClass());
+			}
+		}
+	}
+	private class 升阶 extends WndBag.ItemSelector {
+
+		@Override
+		public String textPrompt() {
+			return Messages.get(this, "prompt");
+		}
+
+		@Override
+		public Class<?extends Bag> preferredBag(){
+			return Belongings.Backpack.class;
+		}
+
+		@Override
+		public boolean itemSelectable(Item item) {
+			if(item.可升级()
+			   && item.已鉴定()
+			   && !item.cursed
+			   && item.能量提升){
+				if(item instanceof Weapon w&&w.tier()+1<5){
+					return true;
+				}
+				if(item instanceof Armor a&&a.tier()+1<5){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public void onSelect(Item item) {
+			if (item != null) {
+			if(item instanceof Weapon w){
+				w.额外阶++;
+			}
+			if(item instanceof Armor a){
+				a.额外阶++;
+			}
+
+			WndBlacksmith.this.hide();
+				item.升级();
+				Blacksmith.Quest.upgrades++;
 
 				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
 				升级卷轴.upgrade( Dungeon.hero );

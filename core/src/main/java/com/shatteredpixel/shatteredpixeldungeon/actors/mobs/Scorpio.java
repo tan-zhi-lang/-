@@ -42,11 +42,11 @@ public class Scorpio extends Mob {
 			return super.移速()*9/6f;
 	}
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 30;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 40;
 	}
 	
@@ -56,7 +56,7 @@ public class Scorpio extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+16;
 	}
 	
@@ -67,7 +67,7 @@ public class Scorpio extends Mob {
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (Random.Int( 2 ) == 0) {
 			Buff.延长( enemy, Cripple.class, Cripple.DURATION );

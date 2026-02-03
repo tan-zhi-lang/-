@@ -50,11 +50,11 @@ public class ArmoredStatue extends Statue {
 	}
 
 	@Override
-	public int 最小防御() {
+	public float 最小防御() {
 		return super.最小防御()+armor.最小防御();
 	}
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+armor.最大防御();
 	}
 
@@ -64,7 +64,7 @@ public class ArmoredStatue extends Statue {
 	}
 
 	@Override
-	public int 防御时(Char enemy, int damage) {
+	public float 防御时(Char enemy, float damage) {
 		damage = armor.防御时(enemy, this, damage);
 		return super.防御时(enemy, damage);
 	}

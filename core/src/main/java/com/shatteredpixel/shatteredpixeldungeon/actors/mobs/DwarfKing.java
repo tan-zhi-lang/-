@@ -76,11 +76,11 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 25;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 35;
 	}
 
@@ -90,7 +90,7 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+10;
 	}
 
@@ -441,7 +441,7 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		//hero counts as unarmed if they aren't attacking with a weapon and aren't benefiting from force
 		if (src == Dungeon.hero && (!武力之戒.fightingUnarmed(Dungeon.hero)||Dungeon.hero.buff(武力之戒.Force.class)!=null)){
 			Statistics.qualifiedForBossChallengeBadge = false;
@@ -464,7 +464,7 @@ public class DwarfKing extends Mob {
 //				deferred.extend( dmg );
 //				sprite.showStatus( CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg) );
 		}
-		int preHP = 生命;
+		float preHP = 生命;
 		super.受伤时(dmg, src);
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
@@ -474,7 +474,7 @@ public class DwarfKing extends Mob {
 		}
 
 		if (phase == 1) {
-			int dmgTaken = preHP - 生命;
+			float dmgTaken = preHP - 生命;
 			abilityCooldown -= dmgTaken/8f;
 			summonCooldown -= dmgTaken/8f;
 			if (生命 <= (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50)) {
@@ -697,9 +697,9 @@ public class DwarfKing extends Mob {
 					}
 				} else {
 					Char ch = Actor.findChar(pos);
-					int dmg=Random.NormalIntRange(20, 40);
+					float dmg=Random.NormalIntRange(20, 40);
 					
-					dmg=Math.round(dmg*Dungeon.难度攻击());
+					dmg=dmg*Dungeon.难度攻击();
 					ch.受伤时(dmg, this);
 					if (((DwarfKing)target).phase == 2){
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
@@ -782,7 +782,7 @@ public class DwarfKing extends Mob {
 			super.detach();
 			for (Mob m : Dungeon.level.mobs){
 				if (m instanceof DwarfKing){
-					int damage = m.最大生命 / (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 18 : 12);
+					float damage = m.最大生命 / (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 18 : 12);
 					m.受伤时(damage, this);
 				}
 			}

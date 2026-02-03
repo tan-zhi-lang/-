@@ -25,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 public class 治疗药剂 extends Potion {
 
 	{
-		icon = 物品表.Icons.POTION_HEALING;
+		icon = Dungeon.isChallenged(Challenges.NO_HEALING)?物品表.Icons.毒粹:物品表.Icons.POTION_HEALING;
 		
 		遗产= true;
 	}
@@ -67,6 +67,12 @@ public class 治疗药剂 extends Potion {
 		Buff.detach( ch, Drowsy.class );
 		Buff.detach( ch, Slow.class );
 		Buff.detach( ch, Vertigo.class);
+	}
+
+	@Override
+	public String desc(){
+		if(Dungeon.isChallenged(Challenges.NO_HEALING))return "你对此过敏，会中毒。";
+		return super.desc();
 	}
 
 	@Override

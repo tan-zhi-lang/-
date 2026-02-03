@@ -17,7 +17,7 @@ public class Affection extends Glyph {
 	private static ItemSprite.Glowing PINK = new ItemSprite.Glowing( 0xFF4488 );
 	
 	@Override
-	public int proc( Armor armor, Char attacker, Char defender, int damage) {
+	public float proc( Armor armor, Char attacker, Char defender, float damage) {
 
 		int level = Math.max(0, armor.强化等级());
 		

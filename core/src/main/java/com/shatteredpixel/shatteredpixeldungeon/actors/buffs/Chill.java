@@ -2,10 +2,14 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.watabou.utils.Random;
 
 public class Chill extends FlavourBuff {
 
@@ -14,6 +18,17 @@ public class Chill extends FlavourBuff {
 	{
 		type = buffType.NEGATIVE;
 		announced = true;
+	}
+
+	@Override
+	public boolean act(){
+		float damage = Random.NormalFloat(0.25f,1+Dungeon.scalingDepth()/16f);
+		if (target instanceof Hero hero
+			&&target.buff(时光沙漏.timeStasis.class)==null
+			&& target.buff(TimeStasis.class) == null){
+			hero.受伤时(damage,this);
+		}
+		return super.act();
 	}
 
 	@Override

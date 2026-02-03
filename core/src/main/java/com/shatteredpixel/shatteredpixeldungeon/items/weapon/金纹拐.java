@@ -19,7 +19,7 @@ public class 金纹拐 extends Weapon {
 	}
 
 	@Override
-	public int 最大防御(int lvl){
+	public float 最大防御(int lvl){
 		return 5 + lvl*5;
 	}
 	

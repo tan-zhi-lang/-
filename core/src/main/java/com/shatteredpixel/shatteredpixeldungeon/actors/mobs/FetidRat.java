@@ -40,12 +40,12 @@ public class FetidRat extends Rat {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+2;
 	}
 
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		if (Random.Int(3) == 0) {
 			Buff.施加(enemy, Ooze.class).set( Ooze.DURATION );
@@ -59,7 +59,7 @@ public class FetidRat extends Rat {
 	}
 
 	@Override
-	public int 防御时(Char enemy, int damage ) {
+	public float 防御时(Char enemy, float damage ) {
 
 		GameScene.add(Blob.seed(pos, 20, StenchGas.class));
 

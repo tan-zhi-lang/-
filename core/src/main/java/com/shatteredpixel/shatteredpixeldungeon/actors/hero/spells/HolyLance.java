@@ -41,8 +41,8 @@ public class HolyLance extends TargetedClericSpell {
 
 	@Override
 	public String desc() {
-		int min = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,0.6f);
-		int max = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,1.2f);
+		float min = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,0.6f);
+		float max = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,1.2f);
 		return Messages.get(this, "desc", min, max) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -95,12 +95,12 @@ public class HolyLance extends TargetedClericSpell {
 							new Callback() {
 								@Override
 								public void call() {
-									int min = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,0.6f);
-									int max = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,1.2f);
+									float min = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,0.6f);
+									float max = Dungeon.hero.天赋生命力(Talent.HOLY_LANCE,1.2f);
 									if (Char.hasProp(enemy, Char.Property.UNDEAD) || Char.hasProp(enemy, Char.Property.DEMONIC)){
 										min = max;
 									}
-									enemy.受伤时(Random.NormalIntRange(min, max), HolyLance.this);
+									enemy.受伤时(Random.NormalFloat(min, max), HolyLance.this);
 									Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.8f, 1f) );
 									Sample.INSTANCE.play( Assets.Sounds.HIT_STAB, 1, Random.Float(0.8f, 1f) );
 

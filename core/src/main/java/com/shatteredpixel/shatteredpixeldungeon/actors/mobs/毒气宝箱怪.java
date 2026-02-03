@@ -26,7 +26,7 @@ public class 毒气宝箱怪 extends Mimic {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src ) {
+	public void 受伤时(float dmg, Object src ) {
 		if(src instanceof ToxicGas){
 			dmg=最大生命;
 		}else{

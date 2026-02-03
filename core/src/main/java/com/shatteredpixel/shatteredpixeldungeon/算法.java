@@ -8,7 +8,6 @@ import com.watabou.utils.Random;
 
 public class 算法 {
     /*
-
 		ArrayList<Integer> grassCells = new ArrayList<>();
 		for (int i : PathFinder.NEIGHBOURS9){
 			grassCells.add(hero.pos+i);
@@ -86,207 +85,194 @@ public class 算法 {
     public static int x26=32*25;
     public static int x27=32*26;
     public static int x28=32*27;
+    public static float f2(float x){
+        int l = Math.round(x * 100);
+        float d = (float)(l/100.00);
+        return d;
+    }
     public static Item 种子(){
+
+        String seed = SPDSettings.customSeed();
+        seed=seed.replaceAll("调试", "");
     try {
-        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+SPDSettings.customSeed());
+        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+seed);
 
         Object item = classn.newInstance();
         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
     } catch (Exception e) {
         try {
-            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.armor."+SPDSettings.customSeed());
+            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.armor."+seed);
 
             Object item = classn.newInstance();
             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
         } catch (Exception e1) {
 
             try {
-                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.artifacts."+SPDSettings.customSeed());
+                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.artifacts."+seed);
 
                 Object item = classn.newInstance();
                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
             } catch (Exception e2) {
 
                 try {
-                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bags."+SPDSettings.customSeed());
+                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bags."+seed);
 
                     Object item = classn.newInstance();
                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                 } catch (Exception e3) {
 
                     try {
-                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bombs."+SPDSettings.customSeed());
+                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bombs."+seed);
 
                         Object item = classn.newInstance();
                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                     } catch (Exception e4) {
 
                         try {
-                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.food."+SPDSettings.customSeed());
+                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.food."+seed);
 
                             Object item = classn.newInstance();
                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                         } catch (Exception e5) {
 
                             try {
-                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions."+SPDSettings.customSeed());
+                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions."+seed);
 
                                 Object item = classn.newInstance();
                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                             } catch (Exception e6) {
 
                                 try {
-                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.remains."+SPDSettings.customSeed());
+                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.remains."+seed);
 
                                     Object item = classn.newInstance();
                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                 } catch (Exception e7) {
 
                                     try {
-                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.rings."+SPDSettings.customSeed());
+                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.rings."+seed);
 
                                         Object item = classn.newInstance();
                                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                     } catch (Exception e8) {
 
                                         try {
-                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls."+SPDSettings.customSeed());
+                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls."+seed);
 
                                             Object item = classn.newInstance();
                                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                         } catch (Exception e9) {
 
                                             try {
-                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.spells."+SPDSettings.customSeed());
+                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.spells."+seed);
 
                                                 Object item = classn.newInstance();
                                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                             } catch (Exception e10) {
 
                                                 try {
-                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.stones."+SPDSettings.customSeed());
+                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.stones."+seed);
 
                                                     Object item = classn.newInstance();
                                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                 } catch (Exception e11) {
 
                                                     try {
-                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.trinkets."+SPDSettings.customSeed());
+                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.trinkets."+seed);
 
                                                         Object item = classn.newInstance();
                                                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                     } catch (Exception e12) {
 
                                                         try {
-                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.wands."+SPDSettings.customSeed());
+                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.wands."+seed);
 
                                                             Object item = classn.newInstance();
                                                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                         } catch (Exception e13) {
 
                                                             try {
-                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon."+SPDSettings.customSeed());
+                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon."+seed);
 
                                                                 Object item = classn.newInstance();
                                                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                             } catch (Exception e14) {
 
                                                                 try {
-                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts."+SPDSettings.customSeed());
+                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts."+seed);
 
                                                                     Object item = classn.newInstance();
                                                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                 } catch (Exception e15) {
                                                                         try {
-                                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic."+SPDSettings.customSeed());
+                                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic."+seed);
 
                                                                             Object item = classn.newInstance();
                                                                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                         } catch (Exception e17) {
                                                                             try {
-                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.brews."+SPDSettings.customSeed());
+                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.brews."+seed);
 
                                                                                 Object item = classn.newInstance();
                                                                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                             } catch (Exception e18) {
                                                                                 try {
-                                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs."+SPDSettings.customSeed());
+                                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs."+seed);
 
                                                                                     Object item = classn.newInstance();
                                                                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                                 } catch (Exception e19) {
                                                                                     try {
-                                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."+SPDSettings.customSeed());
+                                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."+seed);
 
                                                                                         Object item = classn.newInstance();
                                                                                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                                     } catch (Exception e20) {
                                                                                             try{
-                                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.mm."+SPDSettings.customSeed());
+                                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.mm."+seed);
                                                                                                 
                                                                                                 Object item = classn.newInstance();
                                                                                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
                                                                                             } catch (Exception e21) {
                                                                                             return null;
@@ -319,7 +305,6 @@ public class 算法 {
 
         Object item = classn.newInstance();
         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
     } catch (Exception e) {
@@ -328,7 +313,6 @@ public class 算法 {
 
             Object item = classn.newInstance();
             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
         } catch (Exception e1) {
@@ -338,7 +322,6 @@ public class 算法 {
 
                 Object item = classn.newInstance();
                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
             } catch (Exception e2) {
@@ -348,7 +331,6 @@ public class 算法 {
 
                     Object item = classn.newInstance();
                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                 } catch (Exception e3) {
@@ -358,7 +340,6 @@ public class 算法 {
 
                         Object item = classn.newInstance();
                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                     } catch (Exception e4) {
@@ -368,7 +349,6 @@ public class 算法 {
 
                             Object item = classn.newInstance();
                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                         } catch (Exception e5) {
@@ -378,7 +358,6 @@ public class 算法 {
 
                                 Object item = classn.newInstance();
                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                             } catch (Exception e6) {
@@ -388,7 +367,6 @@ public class 算法 {
 
                                     Object item = classn.newInstance();
                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                 } catch (Exception e7) {
@@ -398,7 +376,6 @@ public class 算法 {
 
                                         Object item = classn.newInstance();
                                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                     } catch (Exception e8) {
@@ -408,7 +385,6 @@ public class 算法 {
 
                                             Object item = classn.newInstance();
                                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                         } catch (Exception e9) {
@@ -418,7 +394,6 @@ public class 算法 {
 
                                                 Object item = classn.newInstance();
                                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                             } catch (Exception e10) {
@@ -428,7 +403,6 @@ public class 算法 {
 
                                                     Object item = classn.newInstance();
                                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                 } catch (Exception e11) {
@@ -438,7 +412,6 @@ public class 算法 {
 
                                                         Object item = classn.newInstance();
                                                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                     } catch (Exception e12) {
@@ -448,7 +421,6 @@ public class 算法 {
 
                                                             Object item = classn.newInstance();
                                                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                         } catch (Exception e13) {
@@ -458,7 +430,6 @@ public class 算法 {
 
                                                                 Object item = classn.newInstance();
                                                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                             } catch (Exception e14) {
@@ -468,7 +439,6 @@ public class 算法 {
 
                                                                     Object item = classn.newInstance();
                                                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                 } catch (Exception e15) {
@@ -477,7 +447,6 @@ public class 算法 {
 
                                                                         Object item = classn.newInstance();
                                                                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                     } catch (Exception e16) {
@@ -486,7 +455,6 @@ public class 算法 {
 
                                                                             Object item = classn.newInstance();
                                                                             
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                         } catch (Exception e17) {
@@ -495,7 +463,6 @@ public class 算法 {
 
                                                                                 Object item = classn.newInstance();
                                                                                 
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                             } catch (Exception e18) {
@@ -504,7 +471,6 @@ public class 算法 {
 
                                                                                     Object item = classn.newInstance();
                                                                                     
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                                 } catch (Exception e19) {
@@ -513,7 +479,6 @@ public class 算法 {
 
                                                                                         Object item = classn.newInstance();
                                                                                         
-        ((Item)item).鉴定().放背包();
         return ((Item)item).鉴定();
 
                                                                                     } catch (Exception e20) {
@@ -557,11 +522,14 @@ return null;
     }
     public static boolean isDebug(){
 //        Game.version.contains("INDEV")
-        if (SPDSettings.customSeed().matches("\\d+调试")) {
-            // 提取开头的数字并转为int
+        String seed = SPDSettings.customSeed();
+        if (seed.matches("\\d+调试")) {
             return true;
         }
-        return SPDSettings.customSeed().equals("调试");
+        if (seed.matches(".*调试")) {
+            return true;
+        }
+        return seed.equals("调试");
     }
     public static boolean 概率学(int x){
         return Random.Int(1,100)<= x+ (x == 33 ? 1 : 0);
@@ -575,16 +543,16 @@ return null;
     public static boolean 概率概率学(float x){
         return 概率学(x)&&概率学(x);
     }
-    public static int 固衰(int x){
+    public static float 固衰(float x){
         if (x >= 1){
-            x=(int)(Math.sqrt(8*x+1)-1)/2;
+            x= (float)(Math.sqrt(8*x+1)-1)/2f;
         }
         return x;
     }
-    public static int 固衰(int x,int 超过){
+    public static float 固衰(float x,float 超过){
         if (x >= 超过){
             //takes 5/6/7/8/9/10 dmg at 5/7/10/14/19/25 incoming dmg
-            x = (超过-1) + (int)(Math.sqrt(8*(x - (超过-1)) + 1) - 1)/2;
+            x = (float)((超过-1)+(Math.sqrt(8*(x-(超过-1))+1)-1)/2);
         }
         return x;
     }

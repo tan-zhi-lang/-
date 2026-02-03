@@ -18,7 +18,8 @@ public class 用品 extends Item {
 		可堆叠=true;
 		物品 = true;
 	}
-	
+	boolean 重复使用=false;
+	boolean 动作=true;
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
@@ -31,10 +32,14 @@ public class 用品 extends Item {
 		super.execute( hero, action );
 		
 		if (action.equals(AC_USE)) {
-			Catalog.countUse(getClass());
-			hero.sprite.operate(hero.pos);
-			hero.spend( 1f );
-			hero.busy();
+			if(动作){
+				Catalog.countUse(getClass());
+				hero.sprite.operate(hero.pos);
+				hero.spend(1f);
+				hero.busy();
+			}
+
+			if(!重复使用)
 			detach(hero.belongings.backpack);
 			使用(hero);
 		}

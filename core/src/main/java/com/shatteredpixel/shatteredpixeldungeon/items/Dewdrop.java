@@ -10,13 +10,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -59,12 +57,12 @@ public class Dewdrop extends Item {
 
 	public static boolean consumeDew(int quantity, Hero hero, boolean force){
 		//20 drops for a full heal
-		int effect = Math.round( hero.最大生命 * 0.05f * quantity );
+		float effect = Math.round( hero.最大生命 * 0.05f * quantity );
 
-		int heal = Math.min( hero.最大生命 - hero.生命, effect );
+		float heal = Math.min( hero.最大生命 - hero.生命, effect );
 
 		if (quantity > 1 &&hero.天赋(Talent.SHIELDING_DEW)){
-			int shield = hero.最大生命(hero.天赋点数(Talent.SHIELDING_DEW,0.25f)*quantity);
+			float shield = hero.最大生命(hero.天赋点数(Talent.SHIELDING_DEW,0.25f)*quantity);
 			Buff.施加(hero, Barrier.class).增加(shield);
 		}
 

@@ -45,11 +45,11 @@ public class 磨刀石 extends Trinket {
 		}
 	}
 
-	public static int 力量(){
+	public static float 力量(){
 		return 力量(trinketLevel(磨刀石.class));
 	}
 
-	public static int 力量(int level){
+	public static float 力量(int level){
 		if (level < 0){
 			return 0;
 		} else {

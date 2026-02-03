@@ -6,12 +6,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.watabou.noosa.audio.Sample;
 
 public class 心之钢 extends Artifact {
@@ -27,7 +29,11 @@ public class 心之钢 extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
+		if(Dungeon.派对(派对设置.钢门联盟)){
+			charge = Math.min(charge+Math.round(15*amount),chargeCap);
+		}else{
 			charge = Math.min(charge+Math.round(5*amount),chargeCap);
+		}
 			updateQuickslot();
 	}
 	
@@ -35,23 +41,56 @@ public class 心之钢 extends Artifact {
 	public String desc() {
 		float 伤害=武力之戒.heromax()+Dungeon.hero.最大生命(0.04f+0.02f*等级());
 		float 生命=伤害*(0.04f+等级()*0.02f);
-		String desc = Messages.get(this, "desc",伤害,生命,
+		String desc = Messages.get(this, "desc",String.format("%.2f",伤害),String.format("%.2f",生命),
 								   String.format("%.1f",Dungeon.hero.大小));
 
 		return desc;
 	}
 
+	@Override
+	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
+		if (super.doUnequip(hero, collect, single)){
+			if (!collect || !Dungeon.派对(派对设置.钢门联盟)){
+				if (activeBuff != null){
+					activeBuff.detach();
+					activeBuff = null;
+				}
+			} else {
+				activate(hero);
+			}
+
+			return true;
+		} else
+			return false;
+	}
+	@Override
+	public boolean 放背包(Bag container) {
+		if (super.放背包(container)){
+			if (container.owner instanceof Hero
+				&& passiveBuff == null
+				&& Dungeon.派对(派对设置.钢门联盟)){
+				activate((Hero) container.owner);
+			}
+			return true;
+		} else{
+			return false;
+		}
+	}
 	public class 心 extends ArtifactBuff{
 
 		@Override
 		public boolean act(){
-			charge = Math.min(charge+Math.round(5*能量之戒.artifactChargeMultiplier(target)),chargeCap);
+			if(Dungeon.派对(派对设置.钢门联盟)){
+				charge=Math.min(charge+Math.round(15*能量之戒.artifactChargeMultiplier(target)),chargeCap);
+			}else{
+				Math.min(charge+Math.round(5*能量之戒.artifactChargeMultiplier(target)),chargeCap);
+			}
 			updateQuickslot();
 			spend(TICK);
 			return true;
 		}
 
-		public int proc(int damage, Char attacker, Char defender){
+		public float proc(float damage, Char attacker, Char defender){
 			if(charge>=chargeCap){
 				if(attacker instanceof Hero hero){
 					hero.大小=1.025f+等级()*0.025f;
@@ -63,7 +102,7 @@ public class 心之钢 extends Artifact {
 					hero.生命成长+=生命;
 					hero.更新属性();
 
-					GLog.w("心之钢为这次物理攻击+"+伤害+"伤害，并+"+生命+"最大生命。");
+					GLog.w("心之钢为这次物理攻击+"+String.format("%.2f",伤害)+"伤害，并+"+String.format("%.2f",生命)+"最大生命。");
 
 					exp+=生命*3;
 					charge=0;

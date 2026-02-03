@@ -14,7 +14,7 @@ public class Elastic extends Weapon.Enchantment {
 	private static ItemSprite.Glowing PINK = new ItemSprite.Glowing( 0xFF00FF );
 	
 	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage ) {
+	public float proc(Weapon weapon, Char attacker, Char defender, float damage ) {
 		int level = Math.max( 0, weapon.强化等级() );
 
 		// lvl 0 - 20%

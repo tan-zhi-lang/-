@@ -45,7 +45,7 @@ public class 充能射击x extends 武技{
 	}
 
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage) {
+	public float 攻击时(Char attacker, Char defender, float damage) {
 		int dmg = super.攻击时(attacker, defender, damage);
 
 		//stronger elastic effect

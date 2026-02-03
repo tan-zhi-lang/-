@@ -29,10 +29,9 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 		actPriority = HERO_PRIO+1;
 	}
 	
-	private int momentumStacks = 0;
-	public int freerunTurns = 0;
+	private float momentumStacks = 0;
+	public float freerunTurns = 0;
 
-	private boolean movedLastTurn = true;
 
 	@Override
 	public void detach() {
@@ -42,40 +41,24 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public boolean act() {
-
-		if (!freerunning() && target.invisible > 0 ){
-			momentumStacks = Math.min(momentumStacks + 2, 10);
-			movedLastTurn = true;
-			ActionIndicator.setAction(this);
-			BuffIndicator.refreshHero();
-		}
-
-		if (freerunTurns > 0){
-			if (target.invisible == 0) {
-				freerunTurns--;
-			}
-		} else if (!movedLastTurn){
-			momentumStacks -=2;
-			if (momentumStacks <= 0) {
-				ActionIndicator.clearAction(this);
-				BuffIndicator.refreshHero();
-			} else {
-				ActionIndicator.refresh();
-			}
-		}
-		movedLastTurn = false;
+		freerunTurns = Math.max(freerunTurns -1, 0);
 
 		spend(TICK);
 		return true;
 	}
 	
 	public void gainStack(){
-		movedLastTurn = true;
 		if (!freerunning()){
-			postpone(target.cooldown()+(1/target.移速()));
-			momentumStacks = Math.min(momentumStacks + 1, 10);
+			if(target.hasbuff(Invisibility.class))
+				momentumStacks = Math.min(momentumStacks + 1.5f, 9);
+
+			momentumStacks = Math.min(momentumStacks + 1.5f, 9);
 			ActionIndicator.setAction(this);
 			BuffIndicator.refreshHero();
+		}else {
+			if(target instanceof Hero hero){
+				hero.护甲(freerunTurns*Dungeon.hero.天赋点数(Talent.EVASIVE_ARMOR,0.75f));
+			}
 		}
 	}
 
@@ -84,7 +67,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	}
 	
 	public float speedMultiplier(){
-		float x=freerunTurns*Dungeon.hero.天赋点数(Talent.SPEEDY_STEALTH,0.15f);
+		float x=freerunTurns*Dungeon.hero.天赋点数(Talent.SPEEDY_STEALTH,0.02f);
 		if (freerunning()){
 			return 2+x;
 		} else if (target.invisible > 0 ){
@@ -94,18 +77,18 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 		}
 	}
 	
-	public float evasionBonus(){
+	public float evasionBonus(Hero hero){
 		if (freerunTurns > 0) {
-			return 1+freerunTurns*Dungeon.hero.天赋点数(Talent.EVASIVE_ARMOR,0.03f);
+			return hero.移速()*hero.天赋点数(Talent.PROJECTILE_MOMENTUM,0.05f);
 		} else {
-			return 1;
+			return hero.移速()*hero.天赋点数(Talent.PROJECTILE_MOMENTUM,0.05f);
 		}
 	}
 	
 	@Override
 	public int icon() {
 		if (momentumStacks > 0 )  return BuffIndicator.MOMENTUM;
-		else                                            return BuffIndicator.NONE;
+		else                                            return BuffIndicator.MOMENTUM;
 	}
 	
 	@Override
@@ -118,20 +101,11 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	}
 
 	@Override
-	public float iconFadePercent() {
-		if (freerunTurns > 0){
-			return (10f - freerunTurns) / 10f;
-		}else {
-			return 0;
-		}
-	}
-
-	@Override
 	public String iconTextDisplay() {
 		if (freerunTurns > 0){
-			return Integer.toString(freerunTurns);
+			return Float.toString(freerunTurns);
 		}  else {
-			return "";
+			return Float.toString(momentumStacks);
 		}
 	}
 
@@ -166,12 +140,12 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		momentumStacks = bundle.getInt(STACKS);
-		freerunTurns = bundle.getInt(FREERUN_TURNS);
+		momentumStacks = bundle.getFloat(STACKS);
+		freerunTurns = bundle.getFloat(FREERUN_TURNS);
 		if (momentumStacks > 0 && freerunTurns <= 0){
 			ActionIndicator.setAction(this);
 		}
-		movedLastTurn = false;
+
 	}
 
 	@Override
@@ -187,7 +161,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	@Override
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
-		txt.text(Integer.toString((int)momentumStacks) );
+		txt.text(Float.toString(momentumStacks) );
 		txt.hardlight(CharSprite.增强);
 		txt.measure();
 		return txt;

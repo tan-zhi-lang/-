@@ -62,7 +62,7 @@ public class WandOfFrost extends DamageWand {
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null){
 
-			int damage = damageRoll();
+			float damage = damageRoll();
 
 			if (ch.buff(Frost.class) != null){
 				//6.67% less damage per turn of chill remaining, to a max of 10 turns (50% dmg)
@@ -106,7 +106,7 @@ public class WandOfFrost extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		Chill chill = defender.buff(Chill.class);
 
 		if (chill != null) {

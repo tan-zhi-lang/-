@@ -43,7 +43,7 @@ public class PhantomMeat extends Food {
 
 			cost = 5;
 
-			output = StewedMeat.class;
+			output = PhantomMeat.class;
 		}
 	}
 

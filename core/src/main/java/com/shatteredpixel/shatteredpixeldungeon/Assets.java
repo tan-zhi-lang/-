@@ -212,6 +212,9 @@ public class Assets {
 		public static final String ITEM     = "sounds/item.mp3";
 		public static final String DEWDROP  = "sounds/dewdrop.mp3";
 		public static final String STEP     = "sounds/step.mp3";
+		public static final String 金属网= "sounds/金属网.mp3";
+		public static final String 金属板= "sounds/金属板.mp3";
+		public static final String 地毯= "sounds/地毯.mp3";
 		public static final String WATER    = "sounds/water.mp3";
 		public static final String GRASS    = "sounds/grass.mp3";
 		public static final String TRAMPLE  = "sounds/trample.mp3";
@@ -267,6 +270,8 @@ public class Assets {
 		public static final String 挖爆    = "sounds/挖爆.mp3";
 		public static final String 挖矿    = "sounds/挖矿.mp3";
 		public static final String 生命水晶   = "sounds/生命水晶.mp3";
+		public static final String 魔力水晶   = "sounds/魔力水晶.mp3";
+		public static final String 海克斯   = "sounds/海克斯.mp3";
 		public static final String TOMB     = "sounds/tomb.mp3";
 		public static final String ALERT    = "sounds/alert.mp3";
 		public static final String MELD     = "sounds/meld.mp3";
@@ -293,6 +298,8 @@ public class Assets {
 		public static final String 螃蟹= "sounds/螃蟹.mp3";
 		public static final String 猫= "sounds/猫.mp3";
 		public static final String 哈气猫= "sounds/哈气猫.mp3";
+		public static final String 我看见你了= "sounds/我看见你了.mp3";
+		public static final String 汝之希望皆为虚妄= "sounds/汝之希望皆为虚妄.mp3";
 		public static final String MASTERY  = "sounds/mastery.mp3";
 		public static final String PUFF     = "sounds/puff.mp3";
 		public static final String ROCKS    = "sounds/rocks.mp3";
@@ -315,7 +322,16 @@ public class Assets {
 		public static final String[] all = new String[]{
 				CLICK, BADGE, GOLD,
 
-				OPEN, UNLOCK, ITEM, DEWDROP, STEP, WATER, GRASS, TRAMPLE, STURDY,
+				OPEN, UNLOCK, ITEM, DEWDROP,
+
+				STEP,
+				金属网,
+				金属板,
+				地毯,
+				WATER,
+				GRASS, TRAMPLE,
+
+				STURDY,
 				
 				心之钢,
 				子弹落地,换弹,霰弹枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
@@ -331,6 +347,8 @@ public class Assets {
 				日炎链刃,
 				死神镰刀,
 				生命水晶,
+				魔力水晶,
+				海克斯,
 				挖矿,
 				TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
 				TELEPORT,
@@ -351,6 +369,8 @@ public class Assets {
 				螃蟹,
 				猫,
 				哈气猫,
+				我看见你了,
+				汝之希望皆为虚妄,
 				MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,
 				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE
 		};
@@ -425,6 +445,9 @@ public class Assets {
 		public static final String TENGU    = "sprites/tengu.png";
 		public static final String SHEEP    = "sprites/sheep.png";
 		public static final String KEEPER   = "sprites/shopkeeper.png";
+		public static final String 商机   = "sprites/商机.png";
+		public static final String 商鼠   = "sprites/商鼠.png";
+		public static final String 商士   = "sprites/商士.png";
 		public static final String BAT      = "sprites/bat.png";
 		public static final String ELEMENTAL= "sprites/elemental.png";
 		public static final String MONK     = "sprites/monk.png";
@@ -456,7 +479,8 @@ public class Assets {
 		public static final String 雷爆结晶    = "sprites/雷爆结晶.png";
 		public static final String 刺青结晶    = "sprites/刺青结晶.png";
 		public static final String 黑暗结晶    = "sprites/黑暗结晶.png";
-		public static final String 光明结晶    = "sprites/光明结晶.png";
+		public static final String
+				重力结晶= "sprites/重力结晶.png";
 		public static final String 造能结晶    = "sprites/造能结晶.png";
 		public static final String 毒素结晶    = "sprites/毒素结晶.png";
 		public static final String 磐石结晶    = "sprites/磐石结晶.png";

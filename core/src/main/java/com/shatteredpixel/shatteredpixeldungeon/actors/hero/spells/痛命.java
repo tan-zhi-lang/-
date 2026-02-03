@@ -55,14 +55,15 @@ public class 痛命 extends 目标巫术 {
 
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
-					hero.受伤(2);
-					ch.受伤时(Random.NormalIntRange(
-							6+
+					float f=Random.NormalFloat(
+							5+
 							hero.术提升()
 							,
-							15+
+							10+
 							hero.术提升(5)
-					), 痛命.this);
+												 );
+					hero.受伤(f*0.075f);
+					ch.受伤时(f, 痛命.this);
 				
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
@@ -80,8 +81,8 @@ public class 痛命 extends 目标巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",6+Dungeon.hero.术提升(),
-								   15+Dungeon.hero.术提升(5));
+		String desc = Messages.get(this, "desc",5+Dungeon.hero.术提升(),
+								   10+Dungeon.hero.术提升(5));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

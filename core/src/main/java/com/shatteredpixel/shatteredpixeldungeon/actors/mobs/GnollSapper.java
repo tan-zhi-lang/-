@@ -78,12 +78,12 @@ public class GnollSapper extends Mob {
 		losePartner();
 	}
 	@Override
-	public int 攻击时(Char enemy,int damage){
+	public float 攻击时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		return super.攻击时(enemy,damage);
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 6;
 	}
 
@@ -93,13 +93,13 @@ public class GnollSapper extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		super.受伤时(dmg, src);
 		abilityCooldown -= dmg/10f;
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+6;
 	}
 

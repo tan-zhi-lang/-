@@ -39,7 +39,7 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		//TODO: when effect properties are done, change this to FIRE
 		if (src instanceof 燃烧) {
 			destroy();
@@ -50,7 +50,7 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public int 防御时(Char enemy, int damage) {
+	public float 防御时(Char enemy, float damage) {
 		//rot heart spreads less gas in enclosed spaces
 		int openNearby = 0;
 		for (int i : PathFinder.NEIGHBOURS8){
@@ -100,11 +100,11 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 0;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 0;
 	}
 
@@ -114,7 +114,7 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+5;
 	}
 	

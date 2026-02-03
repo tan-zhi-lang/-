@@ -25,7 +25,7 @@ public class 寒冰镖 extends Weapon{
 	}
 	
 	@Override
-	public int 投掷攻击时(Char attacker,Char defender,int damage){
+	public float 投掷攻击时(Char attacker,Char defender,float damage){
 		if (attacker.buff(ShurikenInstantTracker.class) == null)
 		Buff.施加(defender,Frost.class,Frost.DURATION);
 		return super.投掷攻击时(attacker,defender,damage);

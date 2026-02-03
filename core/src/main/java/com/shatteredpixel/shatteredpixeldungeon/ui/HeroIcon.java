@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.法术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.TextureFilm;
@@ -26,8 +27,8 @@ public class HeroIcon extends Image {
 	public static final int GLADIATOR   = BERSERKER+1;
 	
 	public static final int BATTLEMAGE  = 8;
-	public static final int WARLOCK     = BATTLEMAGE+1;
-	
+	public static final int 元素法师  = BATTLEMAGE+1;
+
 	public static final int ASSASSIN    = 2*8;
 	public static final int 神偷无影    = ASSASSIN+1;
 	
@@ -47,7 +48,10 @@ public class HeroIcon extends Image {
 	public static final int 轻装步兵     = 盾之勇者+1;
 
 	public static final int 灵月杀手     = 8*8;
-	
+	public static final int 不灭战士     = 灵月杀手+1;
+
+	public static final int WARLOCK     = 9*8;
+
 	public static final int FREERUNNER  = 10*8;
 	
 	public static final int 征服者     = 11*8;
@@ -55,6 +59,8 @@ public class HeroIcon extends Image {
 
 	public static final int 神兽之灵     = 12*8;
 	public static final int 养殖专家     = 神兽之灵+1;
+
+	public static final int 灵魂武者     = 14*8;
 
 	public static final int 黑白双子     = 20*8;
 
@@ -127,13 +133,16 @@ public class HeroIcon extends Image {
 	public static final int SNIPERS_MARK    = 4;
 	public static final int WEAPON_SWAP     = 5;
 	public static final int MONK_ABILITIES  = 6;
-	
+	public static final int 时间能力  = 7;
+
 	public static final int 圣光   = 3*8;
 	public static final int 痛命= 4*8;
 	
 	public static final int 符咒= 5*8;
 	
 	public static final int 风刃= 6*8;
+	public static final int
+			火球术=7*8;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );
@@ -182,6 +191,13 @@ public class HeroIcon extends Image {
 		frame(film.get(spell.icon()));
 	}
 	public HeroIcon(忍术 spell){
+		super( Assets.Interfaces.HERO_SPELL );
+		if (film == null){
+			film = new TextureFilm(texture, SIZE, SIZE);
+		}
+		frame(film.get(spell.icon()));
+	}
+	public HeroIcon(法术 spell){
 		super( Assets.Interfaces.HERO_SPELL );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);

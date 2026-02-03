@@ -36,7 +36,7 @@ public class 火爆结晶 extends NPC {
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.INORGANIC);
 		
-		viewDistance = 3;
+		viewDistance = 5;
 		state = WANDERING;
 	}
 	
@@ -56,7 +56,7 @@ public class 火爆结晶 extends NPC {
 	
 	@Override
 	protected boolean canAttack( Char enemy ) {
-		return new Ballistica(pos,enemy.pos,Ballistica.MAGIC_BOLT).collisionPos==enemy.pos;
+		return new Ballistica(pos,enemy.pos,Ballistica.MAGIC_BOLT).collisionPos==enemy.pos&&!enemy.flying;
 	}
 	
 	@Override
@@ -77,14 +77,14 @@ public class 火爆结晶 extends NPC {
 	private void zap() {
 		spend( 攻击延迟() );
 		Char enemy = this.enemy;
-		enemy.受伤时( 2*tier, this );
+		enemy.受伤时( 2+tier, this );
 		
 		CellEmitter.get(enemy.pos).burst(SmokeParticle.FACTORY,4);
 		
 		for (int n : PathFinder.NEIGHBOURS9){
 			Char c= Actor.findChar(enemy.pos+n);
 			if(c!=null){
-				enemy.受伤时( 2*tier, this );
+				enemy.受伤时( 2+tier, this );
 			}
 		}
 		totalZaps++;
@@ -141,13 +141,13 @@ public class 火爆结晶 extends NPC {
 			public void call() {
 				GameScene.show(new WndOptions(sprite(),
 											  "要驱散这个结晶吗？",
-											  "驱散返回5能量。",
+											  "驱散返回"+(tier*5+5)/2+"能量。",
 											  "是",
 											  "否"){
 					@Override
 					protected void onSelect(int index) {
 						if (index == 0){
-							Dungeon.energy(5);
+							Dungeon.energy((tier*5+5)/2);
 							死亡时(null);
 						}
 					}
@@ -159,7 +159,7 @@ public class 火爆结晶 extends NPC {
 	
 	@Override
 	public String description() {
-			return Messages.get(this, "desc", tier,攻击延迟(),viewDistance,2*tier);
+			return Messages.get(this, "desc", tier,攻击延迟(),viewDistance,2+tier);
 	}
 	
 	{
@@ -184,7 +184,7 @@ public class 火爆结晶 extends NPC {
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		tier = bundle.getInt(TIER);
-		viewDistance = 3 + tier;
+		viewDistance = 5 + tier;
 		totalZaps = bundle.getInt(TOTAL_ZAPS);
 	}
 	

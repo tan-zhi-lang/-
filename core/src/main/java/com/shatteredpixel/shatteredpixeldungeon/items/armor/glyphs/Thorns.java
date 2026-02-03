@@ -14,7 +14,7 @@ public class Thorns extends Armor.Glyph {
 	private static ItemSprite.Glowing RED = new ItemSprite.Glowing( 0x660022 );
 
 	@Override
-	public int proc(Armor armor, Char attacker, Char defender, int damage) {
+	public float proc(Armor armor, Char attacker, Char defender, float damage) {
 
 		int level = Math.max(0, armor.强化等级());
 
@@ -22,7 +22,7 @@ public class Thorns extends Armor.Glyph {
 		// lvl 1 - 23.1%
 		// lvl 2 - 28.5%
 		float procChance = (level+2f)/(level+12f) * procChanceMultiplier(defender);
-		if ( attacker.alignment != defender.alignment && Random.Float() < procChance ) {
+		if ( attacker!=null&&attacker.alignment != defender.alignment && Random.Float() < procChance ) {
 
 			float powerMulti = Math.max(1f, procChance);
 

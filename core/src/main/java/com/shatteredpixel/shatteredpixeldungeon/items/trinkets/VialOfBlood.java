@@ -24,12 +24,12 @@ public class VialOfBlood extends Trinket {
 			return Messages.get(this,
 					"stats_desc",
 					Messages.decimalFormat("#.##", 100*(totalHealMultiplier(等级())-1f)),
-					Integer.toString(maxHealPerTurn(等级())));
+					maxHealPerTurn(等级()));
 		} else {
 			return Messages.get(this,
 					"stats_desc",
 					Messages.decimalFormat("#.##", 100*(totalHealMultiplier(0)-1f)),
-					Integer.toString(maxHealPerTurn(0)));
+					maxHealPerTurn(0));
 		}
 	}
 
@@ -49,12 +49,12 @@ public class VialOfBlood extends Trinket {
 		}
 	}
 
-	public static int maxHealPerTurn(){
+	public static float maxHealPerTurn(){
 		return maxHealPerTurn(trinketLevel(VialOfBlood.class));
 	}
 
-	public static int maxHealPerTurn(int level){
-		int maxHP = Dungeon.hero == null ? 20 : Dungeon.hero.最大生命;
+	public static float maxHealPerTurn(int level){
+		float maxHP = Dungeon.hero == null ? 20 : Dungeon.hero.最大生命;
 		if (level == -1){
 			return maxHP;
 		} else {

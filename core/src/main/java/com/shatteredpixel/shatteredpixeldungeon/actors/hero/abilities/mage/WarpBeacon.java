@@ -100,11 +100,11 @@ public class WarpBeacon extends ArmorAbility {
 
 							if (existing != null && existing != hero){
 								if (hero.天赋(Talent.TELEFRAG)){
-									int heroHP = hero.生命 + hero.shielding();
-									int heroDmg = 5 * hero.天赋点数(Talent.TELEFRAG);
+									float heroHP = hero.生命 + hero.shielding();
+									float heroDmg = 5 * hero.天赋点数(Talent.TELEFRAG);
 									hero.受伤时(Math.min(heroDmg, heroHP-1), WarpBeacon.this);
 
-									int damage = Hero.heroDamageIntRange(10*hero.天赋点数(Talent.TELEFRAG), 15*hero.天赋点数(Talent.TELEFRAG));
+									float damage = Hero.heroDamage(10*hero.天赋点数(Talent.TELEFRAG),15*hero.天赋点数(Talent.TELEFRAG));
 									existing.sprite.flash();
 									existing.sprite.bloodBurstA(existing.sprite.center(), damage);
 									existing.受伤时(damage, WarpBeacon.this);

@@ -73,12 +73,12 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 15;
 	}
 
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 30;
 	}
 
@@ -88,11 +88,11 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+10;
 	}
 	@Override
-	public int 防御时(Char enemy,int damage){
+	public float 防御时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.金属受伤);
 		return super.防御时(enemy,damage);
 	}
@@ -328,7 +328,7 @@ public class DM300 extends Mob {
 				}
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
 				sprite.emitter().start(SparkParticle.STATIC, 0.05f, 20);
-				sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(30 + (最大生命 - 生命)/10), FloatingText.SHIELDING);
+				sprite.showStatusWithIcon(CharSprite.增强, 30 + (最大生命 - 生命)/10, FloatingText.SHIELDING);
 			}
 
 			Buff.施加(this, Barrier.class).设置( 30 + (最大生命 - 生命)/10);
@@ -463,18 +463,18 @@ public class DM300 extends Mob {
 	private boolean invulnWarned = false;
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (!BossHealthBar.isAssigned()){
 			notice();
 		}
 
-		int preHP = 生命;
+		float preHP = 生命;
 		super.受伤时(dmg, src);
 		if (是无敌(src.getClass())){
 			return;
 		}
 
-		int dmgTaken = preHP - 生命;
+		float dmgTaken = preHP - 生命;
 		if (dmgTaken > 0) {
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 			if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
@@ -483,7 +483,7 @@ public class DM300 extends Mob {
 			}
 		}
 
-		int threshold;
+		float threshold;
 		if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 			threshold = 最大生命 / 4 * (3 - pylonsActivated);
 		} else {
@@ -676,14 +676,14 @@ public class DM300 extends Mob {
 		public void affectChar(Char ch){
 			if(!(ch instanceof DM300||ch instanceof Pylon)){
 				if(Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
-					int dmg=Random.NormalIntRange(10, 20);
+					float dmg=Random.NormalIntRange(10, 20);
 					
-					dmg=Math.round(dmg*Dungeon.难度攻击());
+					dmg=dmg*Dungeon.难度攻击();
 					ch.受伤时(dmg,this);
 				}else{
-					int dmg=Random.NormalIntRange(6, 12);
+					float dmg=Random.NormalIntRange(6, 12);
 					
-					dmg=Math.round(dmg*Dungeon.难度攻击());
+					dmg=dmg*Dungeon.难度攻击();
 					ch.受伤时(dmg,this);
 				}
 				if(ch.isAlive()){

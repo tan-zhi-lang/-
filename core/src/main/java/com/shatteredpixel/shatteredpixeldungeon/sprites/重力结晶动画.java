@@ -4,21 +4,21 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.光明结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.重力结晶;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.tweeners.AlphaTweener;
 
-public class 光明结晶动画 extends MobSprite{
+public class 重力结晶动画 extends MobSprite{
 	
 	private Animation tierIdles[] = new Animation[4];
 	
-	public 光明结晶动画(){
+	public 重力结晶动画(){
 		super();
 		
-		texture(Assets.Sprites.光明结晶);
+		texture(Assets.Sprites.重力结晶);
 		
 		tierIdles[1] = new Animation( 1, true );
 		tierIdles[1].frames(texture.uvRect(38, 0, 44, 13));
@@ -41,7 +41,7 @@ public class 光明结晶动画 extends MobSprite{
 		} else {
 			parent.add(new Beam.DeathRay(center(),DungeonTilemap.raisedTileCenterToWorld(pos)));
 		}
-		((光明结晶)ch).onZapComplete();
+		((重力结晶)ch).onZapComplete();
 	}
 	
 	@Override
@@ -58,7 +58,7 @@ public class 光明结晶动画 extends MobSprite{
 		parent.add( new AlphaTweener(this,0,2f ) {
 			@Override
 			protected void onComplete() {
-				光明结晶动画.this.killAndErase();
+				重力结晶动画.this.killAndErase();
 				parent.erase( this );
 			}
 		} );
@@ -67,8 +67,8 @@ public class 光明结晶动画 extends MobSprite{
 	@Override
 	public void resetColor() {
 		super.resetColor();
-		if (ch instanceof 光明结晶){
-			光明结晶 ward = (光明结晶) ch;
+		if (ch instanceof 重力结晶){
+			重力结晶 ward = (重力结晶) ch;
 		}
 	}
 	
@@ -76,7 +76,7 @@ public class 光明结晶动画 extends MobSprite{
 		
 		if (ch == null) return;
 		
-		updateTier( ((光明结晶)ch).tier);
+		updateTier( ((重力结晶)ch).tier);
 		
 	}
 	

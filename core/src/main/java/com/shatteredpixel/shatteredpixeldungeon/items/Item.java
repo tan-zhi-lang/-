@@ -90,6 +90,7 @@ public class Item implements Bundlable {
 	
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
+	public boolean 特别物品 = false;
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
 	public boolean 快速使用 = false;
@@ -155,9 +156,10 @@ public class Item implements Bundlable {
 	
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = new ArrayList<>();
-		actions.add( AC_DROP );
-		actions.add( AC_THROW );
-		
+		if(!特别物品){
+			actions.add(AC_DROP);
+			actions.add(AC_THROW);
+		}
 		if(SPDSettings.物品命名())
 		actions.add( AC_RENAME );
 		
@@ -820,7 +822,7 @@ public class Item implements Bundlable {
 	public Emitter emitter() { return null; }
 	
 	public int 价值提升(){
-		return (价值提升?Math.round(金币()*1.1f):金币());
+		return (价值提升?Math.round(金币()*1.5f):金币());
 	}
 	public int 能量提升(){
 		return (能量提升?Math.round(能量()*1.5f):能量());
@@ -960,9 +962,6 @@ public class Item implements Bundlable {
 	
 	public int 数量() {
 		return quantity;
-	}
-	public int 数量(float x) {
-		return Math.round(quantity*x);
 	}
 	public Item 数量(int value) {
 		

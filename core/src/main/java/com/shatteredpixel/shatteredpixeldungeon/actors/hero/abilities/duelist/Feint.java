@@ -179,7 +179,7 @@ public class Feint extends ArmorAbility {
 			}
 		}
 		@Override
-		public void 受伤时(int dmg, Object src ) {
+		public void 受伤时(float dmg, Object src ) {
 
 		}
 

@@ -29,7 +29,7 @@ public class MirrorSprite extends MobSprite {
 	}
 
 	@Override
-	public void bloodBurstA(PointF from, int damage) {
+	public void bloodBurstA(PointF from, float damage) {
 		//do nothing
 	}
 

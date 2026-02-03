@@ -19,7 +19,6 @@ public class Rat extends Mob {
 		生命 = 最大生命 = Dungeon.老鼠蝙蝠?50:8;
 		defenseSkill = Dungeon.老鼠蝙蝠?16:2;
 		经验=Dungeon.老鼠蝙蝠?7:1;
-		baseSpeed = Dungeon.老鼠蝙蝠?2:1;
 		最大等级 = Dungeon.老鼠蝙蝠?15:5;
 		properties.add(Property.动物);
 	}
@@ -51,15 +50,16 @@ public class Rat extends Mob {
 				if (state == SLEEPING) state = WANDERING;
 			}
 		}
+
 		return super.act();
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return Dungeon.老鼠蝙蝠?5:1;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return Dungeon.老鼠蝙蝠?18:4;
 	}
 	
@@ -76,7 +76,7 @@ public class Rat extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+(Dungeon.老鼠蝙蝠?4:1);
 	}
 

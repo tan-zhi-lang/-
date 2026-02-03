@@ -39,16 +39,16 @@ public class Skeleton extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 2;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 10;
 	}
 	
 	@Override
-	public int 防御时(Char enemy,int damage){
+	public float 防御时(Char enemy,float damage){
 		Sample.INSTANCE.play(Assets.Sounds.骷髅);
 		return super.防御时(enemy,damage);
 	}
@@ -63,7 +63,7 @@ public class Skeleton extends Mob {
 		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
 			Char ch = findChar( pos + PathFinder.NEIGHBOURS8[i] );
 			if (ch != null && ch.isAlive()) {
-				int damage = Random.NormalIntRange(6, 12);
+				float damage = Random.NormalIntRange(6, 12);
 				damage=Math.round(damage*Dungeon.难度攻击());
 				damage = Math.round( damage * AscensionChallenge.statModifier(this));
 				//all sources of DR are 2x effective vs. bone explosion
@@ -71,21 +71,19 @@ public class Skeleton extends Mob {
 
 				WandOfLivingEarth.RockArmor rockArmor = ch.buff(WandOfLivingEarth.RockArmor.class);
 				if (rockArmor != null) {
-					int preDmg = damage;
+					float preDmg = damage;
 					damage = rockArmor.absorb(damage);
 					damage *= Math.round(damage/(float)preDmg); //apply the % reduction twice
 				}
 
 				Earthroot.Armor armor = ch.buff(Earthroot.Armor.class);
 				if (damage > 0 && armor != null) {
-					int preDmg = damage;
+					float preDmg = damage;
 					damage = armor.absorb( damage );
 					damage -= (preDmg - damage); //apply the flat reduction twice
 				}
 				if(ch instanceof Hero hero){
-					int 护甲=hero.护甲;
-					hero.护甲(-damage);
-					damage-=护甲;
+					damage-=hero.护甲伤害(damage);
 				}
 				//apply DR twice (with 2 rolls for more consistency)
 				damage = Math.max( 0,  damage - (2*ch.最大防御()));
@@ -126,7 +124,7 @@ public class Skeleton extends Mob {
 	}
 	
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+5;
 	}
 

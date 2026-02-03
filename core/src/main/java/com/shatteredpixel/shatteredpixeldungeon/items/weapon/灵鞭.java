@@ -24,14 +24,14 @@ public class 灵鞭 extends Weapon{
 		遗产= false;
 	}
 	@Override
-	public int 最小攻击(int lvl) {
-		int dmg =super.最小攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.任督二脉,0.03f));
+	public float 最小攻击(int lvl) {
+		float dmg =super.最小攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.任督二脉,0.03f));
 		return Math.max(0, dmg);
 	}
 	
 	@Override
-	public int 最大攻击(int lvl) {
-		int dmg =super.最大攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.任督二脉,0.3f));
+	public float 最大攻击(int lvl) {
+		float dmg =super.最大攻击(lvl) + Dungeon.hero.等级(Dungeon.hero.天赋点数(Talent.任督二脉,0.3f));
 		return Math.max(0, dmg);
 	}
 }

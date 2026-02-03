@@ -78,7 +78,7 @@ public class WornDartTrap extends Trap {
 								reset(pos,finalTarget.sprite,new 飞镖(),new Callback() {
 									@Override
 									public void call() {
-										int dmg = Random.NormalIntRange(4, 8) - finalTarget.最大防御();
+										float dmg = Random.NormalIntRange(4, 8) - finalTarget.最大防御();
 										finalTarget.受伤时(dmg, WornDartTrap.this);
 										if (finalTarget == Dungeon.hero && !finalTarget.isAlive()){
 											Dungeon.fail( WornDartTrap.this  );

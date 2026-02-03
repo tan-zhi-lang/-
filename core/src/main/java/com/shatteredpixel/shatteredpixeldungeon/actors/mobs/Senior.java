@@ -23,11 +23,11 @@ public class Senior extends Monk {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 16;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 26;
 	}
 	

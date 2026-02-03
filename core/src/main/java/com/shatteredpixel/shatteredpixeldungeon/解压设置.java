@@ -13,7 +13,7 @@ public class 解压设置 {
 	public static final int 独自变强			= 32;
 	public static final int 持之以恒= 64;
 	public static final int 抗饿能手= 128;
-	public static final int 随机魔装 	= 256;
+	public static final int 随机奖励 	= 256;
 	public static final int MAX_VALUE           = 256*2-1;
 	public static final int MAX_CHALS           = 9;
 
@@ -26,7 +26,7 @@ public class 解压设置 {
 			"独自变强",
 			"持之以恒",
 			"抗饿能手",
-			"随机魔装",
+			"随机奖励",
 	};
 
 	public static final int[] MASKS = {
@@ -38,7 +38,7 @@ public class 解压设置 {
 			独自变强,
 			持之以恒,
 			抗饿能手,
-			随机魔装,
+			随机奖励,
 	};
 	
 	public static int 使用(){

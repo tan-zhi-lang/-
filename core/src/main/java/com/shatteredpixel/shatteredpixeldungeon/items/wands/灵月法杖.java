@@ -206,7 +206,7 @@ public class 灵月法杖 extends Wand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 
 	}
 

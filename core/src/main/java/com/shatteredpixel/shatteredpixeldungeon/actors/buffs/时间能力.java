@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
@@ -29,7 +30,7 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 		actPriority = HERO_PRIO+1;
 	}
 	
-	public int 时间能力= 0;
+	public float 时间能力= 0;
 
 	@Override
 	public void detach() {
@@ -39,20 +40,14 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public boolean act() {
-
-		if (target.nobuff(时光沙漏.timeFreeze.class) && target.invisible > 0 ){
-			时间能力= Math.min(时间能力+2,10);
-			ActionIndicator.setAction(this);
-			BuffIndicator.refreshHero();
-		}
 		spend(TICK);
 		return true;
 	}
 	
 	public void gainStack(){
-		if (target.nobuff(时光沙漏.timeFreeze.class)){
-			postpone(target.cooldown()+(1/target.移速()));
-			时间能力= Math.min(时间能力+1,10);
+		if (target.nobuff(Swiftthistle.TimeBubble.class)){
+			时间能力= Math.min(时间能力+1.5f,9);
+
 			ActionIndicator.setAction(this);
 			BuffIndicator.refreshHero();
 		}
@@ -88,7 +83,7 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		时间能力= bundle.getInt(时间能力x);
+		时间能力= bundle.getFloat(时间能力x);
 		if (时间能力>0){
 			ActionIndicator.setAction(this);
 		}
@@ -101,13 +96,13 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public int actionIcon() {
-		return HeroIcon.时间刺客;
+		return HeroIcon.时间能力;
 	}
 	
 	@Override
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
-		txt.text(Integer.toString((int)时间能力));
+		txt.text(Float.toString(时间能力));
 		txt.hardlight(CharSprite.增强);
 		txt.measure();
 		return txt;
@@ -115,14 +110,13 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public int indicatorColor() {
-		return 0x444444;
+		return 0xffffff;
 	}
 
 	@Override
 	public void doAction() {
 		if(target instanceof Hero hero){
-			
-			Buff.施加(target,时光沙漏.timeFreeze.class).processTime(时间能力*(1+(hero.职业精通()?0.25f:0)+hero.天赋点数(Talent.时间控制,0.25f)));
+			Buff.施加(hero,Swiftthistle.TimeBubble.class).reset(时间能力*(1+(hero.职业精通()?0.25f:0)+hero.天赋点数(Talent.时间控制,0.25f)));
 		}
 		
 		//cooldown is functionally 10+2*stacks when active effect ends

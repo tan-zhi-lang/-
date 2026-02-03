@@ -42,7 +42,7 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (src instanceof 燃烧) {
 			destroy();
 			sprite.die();
@@ -60,7 +60,7 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public int 攻击时(Char enemy, int damage) {
+	public float 攻击时(final Char enemy, float damage) {
 		damage = super.攻击时( enemy, damage );
 		Buff.施加( enemy, Cripple.class, 2f );
 		return super.攻击时(enemy, damage);
@@ -82,11 +82,11 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 10;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 20;
 	}
 
@@ -96,7 +96,7 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+8;
 	}
 	

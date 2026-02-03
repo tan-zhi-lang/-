@@ -80,7 +80,7 @@ public class 灵能短弓 extends Weapon {
 	};
 
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage) {
+	public float 攻击时(Char attacker, Char defender, float damage) {
 
 		if (attacker.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial){
 
@@ -115,28 +115,28 @@ public class 灵能短弓 extends Weapon {
 		return super.攻击时(attacker, defender, damage);
 	}
 
-	public int 最小弓箭攻击() {
+	public float 最小弓箭攻击() {
 		return 最小弓箭攻击(强化等级());
 	}
-	public int 最小弓箭攻击(int lvl) {
-		int dmg = 1 + Math.round(Dungeon.hero.等级(0.1f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f)))
+	public float 最小弓箭攻击(int lvl) {
+		float dmg = 1 + Dungeon.hero.等级(0.1f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f))
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
 				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级(0.1f) : 0);
 		return Math.max(0, dmg);
 	}
 	
-	public int 最大弓箭攻击() {
+	public float 最大弓箭攻击() {
 		return 最大弓箭攻击(强化等级());
 	}
-	public int 最大弓箭攻击(int lvl) {
-		int dmg = 6 + Math.round(Dungeon.hero.等级(0.2f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f)))
+	public float 最大弓箭攻击(int lvl) {
+		float dmg = 6 + Dungeon.hero.等级(0.2f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f))
 				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)*2
 				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级(0.1f) : 0);
 		return Math.max(0, dmg);
 	}
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",最小弓箭攻击(),最大弓箭攻击());
+		return Messages.get(this, "desc",String.format("%.2f",最小弓箭攻击()),String.format("%.2f",最大弓箭攻击()));
 	}
 
 	@Override
@@ -217,12 +217,12 @@ public class 灵能短弓 extends Weapon {
 			}
 		}
 		@Override
-		public int 最小投掷攻击(int lvl) {
+		public float 最小投掷攻击(int lvl) {
 			return 灵能短弓.this.最小弓箭攻击(lvl);
 		}
 		
 		@Override
-		public int 最大投掷攻击(int lvl) {
+		public float 最大投掷攻击(int lvl) {
 			return 灵能短弓.this.最大弓箭攻击(lvl);
 		
 		}
@@ -233,7 +233,7 @@ public class 灵能短弓 extends Weapon {
 		}
 		
 		@Override
-		public int 投掷攻击时(Char attacker, Char defender, int damage) {
+		public float 投掷攻击时(Char attacker, Char defender, float damage) {
 			
 			
 			if (sniperSpecial){
@@ -275,7 +275,7 @@ public class 灵能短弓 extends Weapon {
 		}
 		
 		@Override
-		public int 力量(int lvl) {
+		public float 力量(int lvl) {
 			return 灵能短弓.this.力量();
 		}
 

@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
@@ -74,30 +75,37 @@ public class RingOfElements extends Ring {
 	}
 	
 	public static float resist( Char target, Class effect ){
-		float x=1;
 		if(target instanceof Hero hero){
+			float x=1;
 			x*=1-hero.天赋点数(Talent.神圣净化,0.15f);
 			x*=巨大蟹钳.受到();
-			if(hero.英精英雄==2)return 0;
-			if (getBuffedBonus(target, Resistance.class) == 0) return x;
+			if(hero.subClass(HeroSubClass.元素法师))x*=0.7f;
+			if(hero.英精英雄==2)x*=0;
+//			if (getBuffedBonus(target, Resistance.class) == 0) return 1;
 			
 			for (Class c : RESISTS){
 				if (c.isAssignableFrom(effect)){
 					return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class))*x;
+				}else{
+					return 1;
 				}
 			}
 			
 		}else if(Dungeon.hero()){
-			x*=1+Dungeon.hero.天赋点数(Talent.元素之力,0.1f);
-			if (getBuffedBonus(Dungeon.hero, Resistance.class) == 0) return x;
-			
+			float x2=1;
+			x2*=1+Dungeon.hero.天赋点数(Talent.元素之力,0.075f);
+//			if (getBuffedBonus(Dungeon.hero, Resistance.class) == 0) return 1;
+
+			if(Dungeon.hero.subClass(HeroSubClass.元素法师)&&Dungeon.hero.职业精通())x2*=1+0.3f;
 			for (Class c : RESISTS){
 				if (c.isAssignableFrom(effect)){
-					return 1/(float)Math.pow(0.825, getBuffedBonus(Dungeon.hero, Resistance.class))*x;
+					return (float)Math.pow(0.825, getBuffedBonus(Dungeon.hero, Resistance.class))*x2;
+				}else{
+					return 1;
 				}
 			}
 		}
-		return x;
+		return 1;
 	}
 	
 	public class Resistance extends RingBuff {

@@ -66,7 +66,7 @@ public class EbonyMimic extends Mimic {
 	}
 
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		if (alignment == Alignment.NEUTRAL){
 			return Math.round(super.最大攻击()*2f); //BIG damage on surprise
 		} else {

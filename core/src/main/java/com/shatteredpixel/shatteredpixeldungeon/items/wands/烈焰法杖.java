@@ -63,7 +63,7 @@ public class 烈焰法杖 extends DamageWand {
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null){
 
-			int damage = damageRoll();
+			float damage = damageRoll();
 
 			if (ch.buff(燃烧.class) != null){
 				//6.67% less damage per turn of chill remaining, to a max of 10 turns (50% dmg)
@@ -77,10 +77,10 @@ public class 烈焰法杖 extends DamageWand {
 
 			if (ch.isAlive()){
 				if (ch.buff(Chill.class) != null){
-					Buff.施加(ch, 火毒.class).reignite(ch,2+强化等级());
+					Buff.施加(ch, 燃烧.class).reignite(ch,2+强化等级());
 				}
 				if (ch.在草丛()||ch.在门上()) {
-					Buff.施加(ch,火毒.class).reignite(ch,2+强化等级());
+					Buff.施加(ch,燃烧.class).reignite(ch,2+强化等级());
 				} else {
 					ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
 					Buff.施加(ch, 燃烧.class).reignite(ch,2 + 强化等级());
@@ -107,7 +107,7 @@ public class 烈焰法杖 extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		燃烧 燃烧 = defender.buff(燃烧.class);
 
 		if (燃烧 != null) {

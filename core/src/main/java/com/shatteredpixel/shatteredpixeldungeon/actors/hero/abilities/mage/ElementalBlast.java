@@ -28,7 +28,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
@@ -56,7 +55,6 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ConeAOE;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
@@ -249,7 +247,7 @@ public class ElementalBlast extends ArmorAbility {
 
 							//### Deal damage ###
 							Char mob = Actor.findChar(cell);
-							int damage = Math.round(Hero.heroDamageIntRange(15, 25)
+							int damage = Math.round(Hero.heroDamage(15,25)
 									* effectMulti
 									* damageFactors.get(finalWandCls));
 
@@ -316,8 +314,8 @@ public class ElementalBlast extends ArmorAbility {
 								//*** Wand of Transfusion ***
 								} else if (finalWandCls == WandOfTransfusion.class){
 									if(mob.alignment == Char.Alignment.ALLY || mob.buff(Charm.class) != null){
-										int healing = Math.round(10*effectMulti);
-										int shielding = (mob.生命 + healing) - mob.最大生命;
+										float healing = Math.round(10*effectMulti);
+										float shielding = (mob.生命 + healing) - mob.最大生命;
 										if (shielding > 0){
 											healing -= shielding;
 											Buff.施加(mob, Barrier.class).设置(shielding);
@@ -334,7 +332,7 @@ public class ElementalBlast extends ArmorAbility {
 											charm.ignoreHeroAllies = true;
 											mob.sprite.centerEmitter().start(Speck.factory(Speck.HEART), 0.2f, 3);
 										} else {
-											damage = Math.round(Hero.heroDamageIntRange(15, 25) * effectMulti);
+											damage = Math.round(Hero.heroDamage(15,25)*effectMulti);
 											mob.受伤时(damage, Reflection.newInstance(finalWandCls));
 											mob.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10);
 										}
@@ -393,7 +391,7 @@ public class ElementalBlast extends ArmorAbility {
 
 						charsHit = Math.min(4 + hero.天赋点数(Talent.REACTIVE_BARRIER), charsHit);
 						if (charsHit > 0 && hero.天赋(Talent.REACTIVE_BARRIER)){
-							int shielding = Math.round(charsHit*2.5f*hero.天赋点数(Talent.REACTIVE_BARRIER));
+							float shielding = Math.round(charsHit*2.5f*hero.天赋点数(Talent.REACTIVE_BARRIER));
 							Buff.施加(hero, Barrier.class).设置(shielding);
 						}
 

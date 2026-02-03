@@ -16,7 +16,7 @@ public class HealingDart extends TippedDart {
 	}
 	
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage) {
+	public float 攻击时(Char attacker, Char defender, float damage) {
 
 		//do nothing to the hero or enemies when processing charged shot
 		if (processingChargedShot && (defender == attacker || attacker.alignment != defender.alignment)){

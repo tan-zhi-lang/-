@@ -8,6 +8,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.商士;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.商机;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.商鼠;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.对话NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -47,8 +51,9 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -108,9 +113,18 @@ public class ShopRoom extends SpecialRoom {
 		int pos = level.pointToCell(center());
 
 		Mob shopkeeper = new Shopkeeper();
+		if(Dungeon.区域()==2)shopkeeper=new 商鼠();
+		if(Dungeon.区域()==3)shopkeeper=new 商机();
+		if(Dungeon.区域()==4)shopkeeper=new 商士();
+
 		shopkeeper.pos = pos;
 		level.mobs.add( shopkeeper );
 
+		if(算法.isDebug()){
+			Mob 对话NPC= new 对话NPC();
+			对话NPC.pos=pos+1;
+			level.mobs.add(对话NPC);
+		}
 	}
 
 	protected void placeItems( Level level ){

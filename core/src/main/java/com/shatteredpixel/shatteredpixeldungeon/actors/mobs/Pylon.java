@@ -116,8 +116,8 @@ public class Pylon extends Mob {
 	private void shockChar( Char ch ){
 		if (ch != null && !(ch instanceof DM300)){
 			ch.sprite.flash();
-			int dmg=Random.NormalIntRange(10, 20);
-			dmg=Math.round(dmg*Dungeon.难度攻击());
+			float dmg=Random.NormalIntRange(10, 20);
+			dmg=dmg*Dungeon.难度攻击();
 			ch.受伤时(dmg, new Electricity());
 
 			if (ch == Dungeon.hero) {
@@ -179,7 +179,7 @@ public class Pylon extends Mob {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src) {
+	public void 受伤时(float dmg, Object src) {
 		if (dmg >= 15){
 			//takes 15/16/17/18/19/20 dmg at 15/17/20/24/29/36 incoming dmg
 			dmg = 14 + (int)(Math.sqrt(8*(dmg - 14) + 1) - 1)/2;

@@ -85,6 +85,7 @@ public class 法师魔杖 extends Weapon{
 	public int 强化等级(){
 		int l=转移;
 		if(Dungeon.hero()){
+			l+=Dungeon.hero.智力;
 			l+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
 		}
 		//only the hero can be affected by Degradation
@@ -162,7 +163,7 @@ public class 法师魔杖 extends Weapon{
 	}
 
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage) {
+	public float 攻击时(Char attacker, Char defender, float damage) {
 		if (attacker instanceof Hero && ((Hero) attacker).天赋(Talent.MYSTICAL_CHARGE)){
 			Hero hero = (Hero) attacker;
 			ArtifactRecharge.chargeArtifacts(hero, hero.天赋点数(Talent.MYSTICAL_CHARGE,0.5f));

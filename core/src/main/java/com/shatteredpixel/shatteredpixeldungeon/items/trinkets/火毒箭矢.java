@@ -21,13 +21,13 @@ public class 火毒箭矢 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								减少(),
+								减少()*100,
 								增加()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								
-								减少(0),
+								减少(0)*100,
 								增加(0)
 							   );
 		}

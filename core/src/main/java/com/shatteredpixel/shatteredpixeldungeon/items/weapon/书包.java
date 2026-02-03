@@ -24,17 +24,17 @@ public class 书包 extends Weapon{
 		int d=0;
 		if(curUser!=null){
 			for(Item i:curUser.belongings){
-				if(i instanceof Scroll s)d+=s.数量(0.5f);
+				if(i instanceof Scroll s)d+=s.数量()/2;
 			}
 		}
 		return Messages.get(this,"desc",d);
 	}
 	@Override
-	public int 最大攻击(int lvl) {
+	public float 最大攻击(int lvl) {
 		int d=0;
 		if(curUser!=null){
 			for(Item i:curUser.belongings){
-				if(i instanceof Scroll s)d+=s.数量(0.5f);
+				if(i instanceof Scroll s)d+=s.数量()/2;
 			}
 		}
 		return  super.最大攻击(lvl)+d;

@@ -65,6 +65,7 @@ public class WndEnergizeItem extends WndInfoItem {
 							if (index == 0) {
 								energizeAll(item);
 							}
+							openItemSelector();
 						}
 						
 						@Override

@@ -46,7 +46,7 @@ public class 复仇卷轴 extends Scroll {
 
 		for (Mob mob : targets){
 			//deals 10%HT, plus 0-90%HP based on scaling
-			mob.受伤时(Math.round(mob.最大生命 /10f + (mob.生命 * power * 0.225f)), this);
+			mob.受伤时(mob.最大生命 /10f + (mob.生命 * power * 0.225f), this);
 			if (mob.isAlive()) {
 				Buff.延长(mob, Blindness.class, Blindness.DURATION);
 			}

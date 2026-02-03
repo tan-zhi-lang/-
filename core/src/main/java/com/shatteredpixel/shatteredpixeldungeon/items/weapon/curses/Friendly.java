@@ -15,7 +15,7 @@ public class Friendly extends Weapon.Enchantment {
 	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
 	
 	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage ) {
+	public float proc(Weapon weapon, Char attacker, Char defender, float damage ) {
 
 		if (attacker.buff(Charm.class) != null && attacker.buff(Charm.class).object == defender.id()){
 			damage = 0;

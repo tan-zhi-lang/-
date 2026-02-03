@@ -112,7 +112,7 @@ public class Pasty extends Food {
 				break; //do nothing extra
 			case 元旦节:
 				//shields for 10% of max hp, min of 5
-				int toShield = Math.max(5, hero.最大生命 /10);
+				float toShield = Math.max(5, hero.最大生命 /10);
 				Buff.施加(hero, Barrier.class).设置(toShield);
 				break;
 			case 春节:
@@ -167,7 +167,7 @@ public class Pasty extends Food {
 				break;
 			case 万圣节:
 				//heals for 5% max hp, min of 3
-				int toHeal = Math.max(3, hero.最大生命 /20);
+				float toHeal = Math.max(3, hero.最大生命 /20);
 				hero.回血(toHeal);
 				break;
 			case PD_BIRTHDAY:

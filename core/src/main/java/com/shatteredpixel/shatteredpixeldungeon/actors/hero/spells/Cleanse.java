@@ -36,7 +36,7 @@ public class Cleanse extends ClericSpell {
 	public String desc(){
 		int immunity = 2 * (Dungeon.hero.天赋点数(Talent.CLEANSE)-1);
 		if (immunity > 0) immunity++;
-		int shield = Dungeon.hero.天赋生命力(Talent.CLEANSE,0.9f);
+		float shield = Dungeon.hero.天赋生命力(Talent.CLEANSE,0.9f);
 		return Messages.get(this, "desc", immunity, shield) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

@@ -174,12 +174,12 @@ public class WandOfBlastWave extends DamageWand {
 	public static class Knockback{}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 
 		if (defender.buff(Paralysis.class) != null && defender.buff(BWaveOnHitTracker.class) == null){
 			defender.buff(Paralysis.class).detach();
 			int dmg = Random.NormalIntRange(8+ 2*强化等级(), 12+3* 强化等级());
-			defender.受伤时(Math.round(procChanceMultiplier(attacker) * dmg), this);
+			defender.受伤时(procChanceMultiplier(attacker) * dmg, this);
 			BlastWave.blast(defender.pos);
 			Sample.INSTANCE.play( Assets.Sounds.BLAST );
 

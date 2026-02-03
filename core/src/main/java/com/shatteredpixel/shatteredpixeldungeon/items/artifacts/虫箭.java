@@ -55,11 +55,11 @@ public class 虫箭 extends Artifact {
 
 		if (action.equals(AC_PRICK)
 			&&isEquipped(hero)&& 等级() < levelCap){
+
+			float minDmg=minPrickDmg();
+			float maxDmg=maxPrickDmg();
 			
-			int minDmg=minPrickDmg();
-			int maxDmg=maxPrickDmg();
-			
-			int totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
+			float totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
 			if(hero.hasbuff(Invulnerability.class)){
 				minDmg=0;
 				maxDmg=0;
@@ -96,15 +96,15 @@ public class 虫箭 extends Artifact {
 		}
 	}
 	
-	private int minPrickDmg(){
-		return (int)Math.round(2.5f*(等级()*等级()));
+	private float minPrickDmg(){
+		return 2.5f*(等级()*等级());
 	}
-	private int maxPrickDmg(){
-		return (int)Math.round(3.5f*(等级()*等级()));
+	private float maxPrickDmg(){
+		return 3.5f*(等级()*等级());
 	}
 
 	private void prick(Hero hero){
-		int damage = Random.NormalIntRange(minPrickDmg(), maxPrickDmg());
+		float damage = Random.NormalFloat(minPrickDmg(), maxPrickDmg());
 
 		//need to process on-hit effects manually
 		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);

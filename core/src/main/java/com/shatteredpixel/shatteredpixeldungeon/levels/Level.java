@@ -249,7 +249,7 @@ public abstract class Level implements Bundlable {
 					addItemToSpawn(Generator.randomArtifact());
 					addItemToSpawn(Generator.randomRing());
 				}
-				if(Dungeon.解压(解压设置.随机魔装)){
+				if(Dungeon.解压(解压设置.随机奖励)){
 					addItemToSpawn(Generator.randomWand());
 					addItemToSpawn(Generator.random(Generator.Category.TRINKET));
 				}
@@ -794,7 +794,8 @@ public abstract class Level implements Bundlable {
 	}
 
 	public float respawnCooldown(){
-		float cooldown;
+		float cooldown=TIME_TO_RESPAWN;
+
 		if (Statistics.amuletObtained){
 			if (Dungeon.depth == 1){
 				//very fast spawns on floor 1! 0/2/4/6/8/10/12, etc.
@@ -803,11 +804,14 @@ public abstract class Level implements Bundlable {
 				//respawn time is 5/5/10/15/20/25/25, etc.
 				cooldown = Math.round(GameMath.gate( TIME_TO_RESPAWN/10f, Dungeon.level.mobCount() * (TIME_TO_RESPAWN / 10f), TIME_TO_RESPAWN / 2f));
 			}
-		} else if (Dungeon.level.feeling == Feeling.DARK){
-			cooldown = 2*TIME_TO_RESPAWN/3f;
-		} else {
-			cooldown = TIME_TO_RESPAWN;
+		}else{
+			if (Dungeon.depth == 1){
+				cooldown*=25;
+			}else if(Dungeon.level.feeling==Feeling.DARK){
+				cooldown= 2*TIME_TO_RESPAWN/3f;
+			}
 		}
+
 		if(Dungeon.赛季(赛季设置.修罗血场)){
 			cooldown/=3;
 		}
@@ -969,7 +973,24 @@ public abstract class Level implements Bundlable {
 		}
 
 	}
-
+	//updates open space both on the cell itself and adjacent cells
+	public void updateOpenSpace(int cell){
+		for (int i : PathFinder.NEIGHBOURS9) {
+			if (solid[cell+i]){
+				openSpace[cell+i] = false;
+			} else {
+				for (int j = 1; j < PathFinder.CIRCLE8.length; j += 2){
+					if (solid[cell+i+PathFinder.CIRCLE8[j]]) {
+						openSpace[cell+i] = false;
+					} else if (!solid[cell+i+PathFinder.CIRCLE8[(j+1)%8]]
+							   && !solid[cell+i+PathFinder.CIRCLE8[(j+2)%8]]){
+						openSpace[cell+i] = true;
+						break;
+					}
+				}
+			}
+		}
+	}
 	public void destroy( int pos ) {
 		//if raw tile type is flammable or empty
 		int terr = map[pos];

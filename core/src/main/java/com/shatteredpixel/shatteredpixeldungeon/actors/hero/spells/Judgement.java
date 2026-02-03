@@ -48,12 +48,12 @@ public class Judgement extends ClericSpell {
 				GameScene.flash( 0x80FFFFFF );
 				Sample.INSTANCE.play(Assets.Sounds.BLAST);
 
-				int damageBase = 5 + 5*hero.天赋点数(Talent.JUDGEMENT);
+				float damageBase = 5 + 5*hero.天赋点数(Talent.JUDGEMENT);
 				damageBase += Math.round(damageBase*hero.buff(AscendedForm.AscendBuff.class).spellCasts/3f);
 
 				for (Char ch : Actor.chars()){
 					if (ch.alignment != hero.alignment && Dungeon.level.heroFOV[ch.pos]){
-						ch.受伤时( Random.NormalIntRange(damageBase, 2*damageBase), Judgement.this);
+						ch.受伤时( Random.NormalFloat(damageBase, 2*damageBase), Judgement.this);
 						if (hero.subClass == HeroSubClass.PRIEST){
 							Buff.施加(ch, GuidingLight.Illuminated.class);
 						}

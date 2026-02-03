@@ -49,7 +49,7 @@ public class 荣誉纹章 extends Item {
 	}
 
 	private Armor.Glyph glyph;
-	private int 转移等级 = 0;
+	public int 转移等级 = 0;
 
 	public boolean canTransferGlyph(){
 		if (glyph == null){
@@ -292,9 +292,9 @@ public class 荣誉纹章 extends Item {
 		@Override
 		public String iconTextDisplay() {
 			if (护盾量() > 0){
-				return Integer.toString(护盾量());
+				return Float.toString(护盾量());
 			} else if (coolingDown()|| cooldown < 0){
-				return Integer.toString(cooldown);
+				return Float.toString(cooldown);
 			} else {
 				return "";
 			}

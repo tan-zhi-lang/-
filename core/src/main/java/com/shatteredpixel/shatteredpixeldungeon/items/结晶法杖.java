@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.光明结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.冰爆结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.毒素结晶;
@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.火爆结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.磐石结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.蓄能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.重力结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.雷爆结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.魔能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.黑暗结晶;
@@ -22,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择结晶;
 import com.watabou.noosa.Game;
@@ -32,19 +34,18 @@ public class 结晶法杖 extends 用品 {
 	
 	{
 		image = 物品表.WAND_WARDING;
+		特别物品=true;
+		重复使用=true;
+		动作=false;
 	}
-	
+
+
 	@Override
-	public void execute( Hero hero, String action ) {
-
-		super.execute( hero, action );
-
-		if (action.equals(AC_USE)&&Dungeon.energy>=10) {
-			
-			GameScene.selectCell(wand);
-		}
+	public void 使用(Hero hero){
+		GameScene.selectCell(wand);
+		super.使用(hero);
 	}
-	
+
 	protected CellSelector.Listener wand= new  CellSelector.Listener() {
 		
 		@Override
@@ -54,15 +55,18 @@ public class 结晶法杖 extends 用品 {
 			}
 
 			Char enemy = Actor.findChar(target);
-			
-			升级结晶(curUser,enemy);
-			
-			if (enemy != null || enemy == curUser || !Dungeon.level.heroFOV[target]) {
-				return;
-			}
-			Game.runOnRenderThread(()->{
-				GameScene.show(new Wnd选择结晶(target,curUser));
-			});
+			if(enemy instanceof NPC){
+				升级结晶(curUser,enemy);
+			}else if(enemy!=null){
+
+			}else
+				if (Dungeon.energy<10){
+					GLog.w("能量不足！");
+					return;
+				}
+				Game.runOnRenderThread(()->{
+					GameScene.show(new Wnd选择结晶(target,curUser));
+				});
 		}
 		
 		@Override
@@ -77,15 +81,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -99,15 +107,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -121,15 +133,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -143,15 +159,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -165,15 +185,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -187,15 +211,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -205,19 +233,23 @@ public class 结晶法杖 extends 用品 {
 			return;
 		}
 		
-		if((enemy instanceof 光明结晶 x&&x.tier<3)){
+		if((enemy instanceof 重力结晶 x&&x.tier<3)){
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -231,15 +263,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -253,15 +289,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -275,15 +315,19 @@ public class 结晶法杖 extends 用品 {
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -292,21 +336,24 @@ public class 结晶法杖 extends 用品 {
 			});
 			return;
 		}
-		
-		
+
 		if((enemy instanceof 磐石结晶 x&&x.tier<3)){
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
+					if (Dungeon.energy<x.tier*5+5){
+						GLog.w("能量不足！");
+						return;
+					}
 					GameScene.show(new WndOptions(x.sprite(),
 												  "要升级这个结晶吗？",
-												  "升级消耗10能量。",
+												  "升级消耗"+(x.tier*5+5)+"能量。",
 												  "是",
 												  "否"){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								Dungeon.energy(-10);
+								Dungeon.energy(-x.tier*5-5);
 								x.upgrade();
 							}
 						}
@@ -317,8 +364,7 @@ public class 结晶法杖 extends 用品 {
 		}
 		
 		
-		
-		
+
 		
 		
 	}

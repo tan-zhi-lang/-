@@ -75,7 +75,7 @@ public class TalentButton extends Button {
 			case NONE->SPDSettings.透明界面()?Assets.Interfaces.TALENT_BUTTON透明:Assets.Interfaces.TALENT_BUTTON;
 			default->SPDSettings.透明界面()?Assets.Interfaces.TALENT_BUTTON透明:Assets.Interfaces.TALENT_BUTTON;
 			case 愚人节->Assets.Interfaces.TALENT_BUTTON愚人;
-			case 春节->Assets.Interfaces.TALENT_BUTTON春节;
+//			case 春节->Assets.Interfaces.TALENT_BUTTON春节;
 //			case 圣诞节->Assets.Interfaces.TALENT_BUTTON圣诞;
 		});
 		add(bg);
@@ -247,6 +247,7 @@ public class TalentButton extends Button {
 			float oldWidth = fill.width();
 			pointsInTalent++;
 			layout();
+//			Sample.INSTANCE.play(Assets.Sounds.海克斯);
 			Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
 			Emitter emitter = (Emitter) parent.recycle(Emitter.class);
 			emitter.revive();

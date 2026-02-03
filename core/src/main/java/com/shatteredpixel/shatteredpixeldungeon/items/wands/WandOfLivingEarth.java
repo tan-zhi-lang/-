@@ -17,7 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
@@ -26,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.EarthGuardianSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -68,8 +66,8 @@ public class WandOfLivingEarth extends DamageWand {
 			CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.STEAM),10);
 		}
 		Char ch = Actor.findChar(bolt.collisionPos);
-		int damage = damageRoll();
-		int armorToAdd = damage;
+		float damage = damageRoll();
+		float armorToAdd = damage;
 
 		EarthGuardian guardian = null;
 		for (Mob m : Dungeon.level.mobs){
@@ -218,7 +216,7 @@ public class WandOfLivingEarth extends DamageWand {
 	}
 	
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		EarthGuardian guardian = null;
 		for (Mob m : Dungeon.level.mobs){
 			if (m instanceof EarthGuardian){
@@ -261,7 +259,7 @@ public class WandOfLivingEarth extends DamageWand {
 		}
 
 		private int wandLevel;
-		private int armor;
+		private float armor;
 
 		private float powerOfManyTurns = 0;
 
@@ -278,7 +276,7 @@ public class WandOfLivingEarth extends DamageWand {
 			return true;
 		}
 
-		private void addArmor(int wandLevel, int toAdd ){
+		private void addArmor(int wandLevel, float toAdd ){
 			this.wandLevel = Math.max(this.wandLevel, wandLevel);
 			armor += toAdd;
 			armor = Math.min(armor, 2*armorToGuardian());
@@ -288,8 +286,8 @@ public class WandOfLivingEarth extends DamageWand {
 			return 8 + wandLevel*4;
 		}
 
-		public int absorb( int damage ) {
-			int block = damage - damage/2;
+		public float absorb( float damage ) {
+			float block = damage - damage/2;
 			if (armor <= block) {
 				detach();
 				return damage - armor;
@@ -324,7 +322,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 		@Override
 		public String iconTextDisplay() {
-			return Integer.toString(armor);
+			return Float.toString(armor);
 		}
 
 		@Override
@@ -379,7 +377,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 		private int wandLevel = -1;
 
-		public void setInfo(Hero hero, int wandLevel, int healthToAdd){
+		public void setInfo(Hero hero, int wandLevel, float healthToAdd){
 			if (wandLevel > this.wandLevel) {
 				this.wandLevel = wandLevel;
 				最大生命 = 16 + 8 * wandLevel;
@@ -396,19 +394,19 @@ public class WandOfLivingEarth extends DamageWand {
 		}
 
 		@Override
-		public int 攻击时(Char enemy, int damage) {
+		public float 攻击时(final Char enemy, float damage) {
 			if (enemy instanceof Mob) ((Mob)enemy).aggro(this);
 			return super.攻击时(enemy, damage);
 		}
 
 		@Override
-		public int 最大攻击() {
+		public float 最大攻击() {
 			return Random.NormalIntRange(2, 4 + Dungeon.scalingDepth()/2);
 		}
 
 		@Override
-		public int 最大防御() {
-			int dr = super.最大防御();
+		public float 最大防御() {
+			float dr = super.最大防御();
 			if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 				return dr + Random.NormalIntRange(wandLevel, 2 + wandLevel);
 			} else {

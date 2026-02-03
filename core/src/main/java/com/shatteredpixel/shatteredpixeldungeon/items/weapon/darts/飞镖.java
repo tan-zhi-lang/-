@@ -72,7 +72,7 @@ public class 飞镖 extends Weapon{
 	}
 	
 	@Override
-	public int 最小投掷攻击(int lvl) {
+	public float 最小投掷攻击(int lvl) {
 		updateCrossbow();
 		if(bow!=null){
 			return super.最小投掷攻击(lvl)*2;
@@ -80,7 +80,7 @@ public class 飞镖 extends Weapon{
 		return super.最小投掷攻击(lvl);
 	}
 	@Override
-	public int 最大投掷攻击(int lvl) {
+	public float 最大投掷攻击(int lvl) {
 		updateCrossbow();
 		if(bow!=null){
 			return super.最大投掷攻击(lvl)*2;
@@ -102,12 +102,12 @@ public class 飞镖 extends Weapon{
 	}
 
 	@Override
-	public int 投掷攻击时(Char attacker, Char defender, int damage) {
+	public float 投掷攻击时(Char attacker, Char defender, float damage) {
 		if (bow != null && !processingChargedShot){
 			damage = bow.投掷攻击时(attacker, defender, damage);
 		}
 
-		int dmg = super.投掷攻击时(attacker, defender, damage);
+		float dmg = super.投掷攻击时(attacker, defender, damage);
 		if (!processingChargedShot) {
 			processChargedShot(defender, damage);
 		}
@@ -130,7 +130,7 @@ public class 飞镖 extends Weapon{
 
 	protected boolean processingChargedShot = false;
 	private int chargedShotPos;
-	protected void processChargedShot( Char target, int dmg ){
+	protected void processChargedShot( Char target, float dmg ){
 		//don't update xbow here, as dart may be the active weapon atm
 		processingChargedShot = true;
 		if (chargedShotPos != -1 && bow != null

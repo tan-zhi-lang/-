@@ -2,42 +2,38 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.光明结晶动画;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.蓄能结晶动画;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.重力结晶动画;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
-import com.watabou.utils.PathFinder;
 
-import java.util.ArrayList;
-
-public class 光明结晶 extends NPC {
+public class 重力结晶 extends NPC {
 	
 	public int tier = 1;
 	
 	public int totalZaps = 0;
 	
 	{
-		spriteClass = 光明结晶动画.class;
+		spriteClass = 重力结晶动画.class;
 		
 		alignment = Alignment.ALLY;
 		
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.INORGANIC);
 		
-		viewDistance = 2;
+		viewDistance = 6;
 		state = WANDERING;
 	}
 	
@@ -48,7 +44,7 @@ public class 光明结晶 extends NPC {
 			大小=0.75f+tier*0.25f;
 			viewDistance++;
 			if (sprite != null){
-				((光明结晶动画)sprite).updateTier(tier);
+				((蓄能结晶动画)sprite).updateTier(tier);
 				sprite.place(pos);
 			}
 			GameScene.updateFog(pos,viewDistance+1);
@@ -57,33 +53,7 @@ public class 光明结晶 extends NPC {
 	
 	@Override
 	protected boolean canAttack( Char enemy ) {
-		return new Ballistica(pos,enemy.pos,Ballistica.MAGIC_BOLT).collisionPos==enemy.pos&&false;
-	}
-	
-	@Override
-	protected boolean act(){
-		if(viewDistance==6){
-			return super.act();
-		}
-		if(viewDistance==5){
-			for(int n: PathFinder.范围5){
-				Char c=Actor.findChar(pos+n);
-				if(c!=null&&c.在草丛()&&c.alignment==Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
-					c.受伤(2*tier);
-				}
-			}
-			return super.act();
-		}
-		if(viewDistance==4){
-			for(int n: PathFinder.范围4){
-				Char c=Actor.findChar(pos+n);
-				if(c!=null&&c.在草丛()&&c.alignment==Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
-					c.受伤(2*tier);
-				}
-			}
-			return super.act();
-		}
-		return super.act();
+		return new Ballistica(pos,enemy.pos,Ballistica.MAGIC_BOLT).collisionPos==enemy.pos&&enemy.flying;
 	}
 	
 	@Override
@@ -99,16 +69,12 @@ public class 光明结晶 extends NPC {
 	}
 	@Override
 	public float 攻击延迟() {
-		return super.攻击延迟();
+		return super.攻击延迟()*2;
 	}
-	
-	private ArrayList<Char> affected = new ArrayList<>();
-	
-	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
-	
 	private void zap() {
 		spend( 攻击延迟() );
 		Char enemy = this.enemy;
+		enemy.受伤时( 2+2*tier, this );
 		
 		totalZaps++;
 	}
@@ -130,7 +96,7 @@ public class 光明结晶 extends NPC {
 	
 	@Override
 	public CharSprite sprite() {
-		光明结晶动画 sprite = (光明结晶动画) super.sprite();
+		蓄能结晶动画 sprite = (蓄能结晶动画) super.sprite();
 		sprite.linkVisuals(this);
 		return sprite;
 	}
@@ -138,7 +104,7 @@ public class 光明结晶 extends NPC {
 	@Override
 	public void updateSpriteState() {
 		super.updateSpriteState();
-		((光明结晶动画)sprite).updateTier(tier);
+		((蓄能结晶动画)sprite).updateTier(tier);
 		sprite.place(pos);
 	}
 	
@@ -164,13 +130,13 @@ public class 光明结晶 extends NPC {
 			public void call() {
 				GameScene.show(new WndOptions(sprite(),
 											  "要驱散这个结晶吗？",
-											  "驱散返回5能量。",
+											  "驱散返回"+(tier*5+5)/2+"能量。",
 											  "是",
 											  "否"){
 					@Override
 					protected void onSelect(int index) {
 						if (index == 0){
-							Dungeon.energy(5);
+							Dungeon.energy((tier*5+5)/2);
 							死亡时(null);
 						}
 					}
@@ -182,7 +148,7 @@ public class 光明结晶 extends NPC {
 	
 	@Override
 	public String description() {
-			return Messages.get(this, "desc", tier,viewDistance);
+			return Messages.get(this, "desc", tier,攻击延迟(),viewDistance,2+2*tier);
 	}
 	
 	{
@@ -207,7 +173,7 @@ public class 光明结晶 extends NPC {
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		tier = bundle.getInt(TIER);
-		viewDistance = 2 + tier;
+		viewDistance = 6 + tier;
 		totalZaps = bundle.getInt(TOTAL_ZAPS);
 	}
 	

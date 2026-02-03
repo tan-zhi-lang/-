@@ -61,7 +61,7 @@ public class Thief extends Mob {
 	}
 
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 10;
 	}
 
@@ -101,24 +101,25 @@ public class Thief extends Mob {
 	}
 
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+3;
 	}
 
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 		
 		if (alignment == Alignment.ENEMY && item == null
 				&& enemy instanceof Hero && steal( (Hero)enemy )) {
 			state = FLEEING;
+			sprite.说("拿来吧你！");
 		}
 
 		return damage;
 	}
 
 	@Override
-	public int 防御时(Char enemy, int damage) {
+	public float 防御时(Char enemy, float damage) {
 		if (state == FLEEING) {
 			Dungeon.level.drop(new Gold().random(),pos).sprite().drop();
 		}

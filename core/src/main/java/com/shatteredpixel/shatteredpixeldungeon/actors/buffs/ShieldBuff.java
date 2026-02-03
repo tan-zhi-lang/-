@@ -13,7 +13,7 @@ import java.util.Comparator;
 
 public abstract class ShieldBuff extends Buff {
 	
-	public int shielding;
+	public float shielding;
 
 	//higher priority shielding buffs are consumed first if multiple exist
 	//currently we have the following:
@@ -40,13 +40,13 @@ public abstract class ShieldBuff extends Buff {
 		super.detach();
 	}
 	
-	public int 护盾量(){
+	public float 护盾量(){
 		return shielding;
 	}
 	
-	public void 设置(int shield ) {
+	public void 设置(float shield ) {
 		if(target!=null&&target.sprite!=null)
-		target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
+			target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
 		if (this.shielding <= shield) this.shielding = shield;
 		if (target != null) target.needsShieldUpdate = true;
 	}
@@ -55,7 +55,7 @@ public abstract class ShieldBuff extends Buff {
 		增加(1);
 	}
 
-	public void 增加(int amt ){
+	public void 增加(float amt ){
 		
 		target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
 		shielding += amt;
@@ -71,13 +71,13 @@ public abstract class ShieldBuff extends Buff {
 		减少(1);
 	}
 
-	public void 减少(int amt ){
+	public void 减少(float amt ){
 		shielding -= amt;
 		if (target != null) target.needsShieldUpdate = true;
 	}
 	
 	//returns the amount of damage leftover
-	public int absorbDamage( int dmg ){
+	public float absorbDamage( float dmg ){
 		if (shielding >= dmg){
 			shielding -= dmg;
 			dmg = 0;
@@ -92,7 +92,7 @@ public abstract class ShieldBuff extends Buff {
 		return dmg;
 	}
 
-	public static int processDamage( Char target, int damage, Object src ){
+	public static float processDamage( Char target, float damage, Object src ){
 		//hunger damage is not affected by shielding
 		if (src instanceof Hunger){
 			return damage;
@@ -128,7 +128,7 @@ public abstract class ShieldBuff extends Buff {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
-		shielding = bundle.getInt( SHIELDING );
+		shielding = bundle.getFloat( SHIELDING );
 	}
 	
 }

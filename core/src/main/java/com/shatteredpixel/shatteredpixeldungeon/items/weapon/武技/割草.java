@@ -43,10 +43,8 @@ public class 割草 extends 武技{
 				GLog.w(Messages.get(ArmorAbility.class,"self_target"));
 				return;
 			}
-			if(Dungeon.level.map[target]!=Terrain.HIGH_GRASS||
-			   Dungeon.level.map[target]!=Terrain.FURROWED_GRASS){
-				return;
-			}
+			if(Dungeon.level.map[target]==Terrain.HIGH_GRASS||Dungeon.level.map[target]==Terrain.FURROWED_GRASS){
+
 			PathFinder.buildDistanceMap(Dungeon.hero.pos,BArray.or(Dungeon.level.passable,Dungeon.level.avoid,null),hero.攻击范围());
 			if (PathFinder.distance[target]==Integer.MAX_VALUE||!Dungeon.level.heroFOV[target]||hero.rooted) {
 				GLog.w(Messages.get(wep,"ability_target_range"));
@@ -90,7 +88,8 @@ public class 割草 extends 武技{
 			//final zap at 2/3 distance, for timing of the actual effect
 			
 			for (int cell : cone.cells){
-				Dungeon.level.pressCellgrass3(target);
+				if(Dungeon.level.map[cell]==Terrain.HIGH_GRASS||Dungeon.level.map[cell]==Terrain.FURROWED_GRASS)
+				Dungeon.level.pressCellgrass3(cell);
 			}
 			MagicMissile.boltFromChar(hero.sprite.parent,
 									  MagicMissile.FORCE_CONE,
@@ -105,6 +104,8 @@ public class 割草 extends 武技{
 									  });
 			//
 			wep.技能使用(hero);
+
+			}
 		}
 		
 		@Override

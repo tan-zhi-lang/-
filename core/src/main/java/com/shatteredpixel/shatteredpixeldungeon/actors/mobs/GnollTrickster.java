@@ -62,7 +62,7 @@ public class GnollTrickster extends Gnoll {
 	}
 
 	@Override
-	public int 攻击时(Char enemy, int damage ) {
+	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
 
 		if (combo >= 1){

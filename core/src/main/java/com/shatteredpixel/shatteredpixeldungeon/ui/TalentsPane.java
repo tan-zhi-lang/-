@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -11,8 +12,10 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.Random;
 
@@ -38,9 +41,9 @@ public class TalentsPane extends ScrollPane {
 		int tiersAvailable = 1;
 
 		if (mode == TalentButton.Mode.INFO){
-			if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_1)){
+			if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_1)||算法.isDebug()){
 				tiersAvailable = 1;
-				if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_2) || Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_1)){
+				if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_2) || Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_1)||算法.isDebug()){
 					tiersAvailable = 2;
 //					  if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_3)){
 //						tiersAvailable = 3;
@@ -56,7 +59,7 @@ public class TalentsPane extends ScrollPane {
 			){
 				tiersAvailable++;
 			}
-			if (tiersAvailable > 1&&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
+			if (tiersAvailable > 1&&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_1)&&!算法.isDebug())
 				tiersAvailable = 1;
 			
 			if(tiersAvailable > 2&&Dungeon.hero.subClass==HeroSubClass.NONE)

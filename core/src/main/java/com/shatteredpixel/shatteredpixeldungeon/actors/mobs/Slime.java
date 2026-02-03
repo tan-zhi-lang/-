@@ -28,11 +28,11 @@ public class Slime extends Mob {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return 2;
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return 5;
 	}
 	

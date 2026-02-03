@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -18,9 +19,9 @@ public class 火焰剑 extends Weapon{
 		伤害=0.8f;
 		tier=5;
 	}
-	float add=0.15f;
+	float add=0.05f;
 	@Override
-	public int 攻击时(Char attacker,Char defender,int damage) {
+	public float 攻击时(Char attacker,Char defender,float damage) {
 		float x=1;
 		if(defender.hasbuff(火毒.class)){
 			x+=add;
@@ -42,13 +43,16 @@ public class 火焰剑 extends Weapon{
 		return super.攻击时( attacker, defender, damage );
 	}
 	@Override
-	public int 投掷攻击时(Char attacker,Char defender,int damage) {
+	public float 投掷攻击时(Char attacker,Char defender,float damage) {
 		
 		float x=1;
 		if(defender.hasbuff(火毒.class)){
 			x+=add;
 		}
 		if(defender.hasbuff(燃烧.class)){
+			x+=add;
+		}
+		if(defender.hasbuff(灵焰.class)){
 			x+=add;
 		}
 		Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);

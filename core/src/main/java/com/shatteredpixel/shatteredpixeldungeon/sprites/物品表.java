@@ -159,6 +159,8 @@ public class 物品表 {
     public static final int 生命水晶 = MISC_CONSUMABLE + 16;
     public static final int 生命果 = MISC_CONSUMABLE + 17;
     public static final int 圣诞礼物 = MISC_CONSUMABLE + 18;
+    public static final int 坠牢之星 = MISC_CONSUMABLE + 19;
+    public static final int 魔力水晶 = MISC_CONSUMABLE + 20;
 
 
     static {
@@ -183,6 +185,8 @@ public class 物品表 {
         assignItemRect(生命水晶);
         assignItemRect(生命果, 14, 13);
         assignItemRect(圣诞礼物, 9, 11);
+        assignItemRect(坠牢之星, 11, 12);
+        assignItemRect(魔力水晶, 11, 12);
     }
     //endregion
 
@@ -605,6 +609,7 @@ public class 物品表 {
     public static final int 骷髅钥匙 = ARTIFACTS + 23;
     public static final int 本命玉佩 = ARTIFACTS + 25;
     public static final int 叛忍护额=ARTIFACTS+26;
+    public static final int 四叶草法典=ARTIFACTS+27;
 
     static {
         assignItemRect(ARTIFACT_CLOAK, 9, 15);
@@ -634,6 +639,7 @@ public class 物品表 {
         assignItemRect(神圣法典, 14, 16);
         assignItemRect(本命玉佩, 10, 16);
         assignItemRect(叛忍护额,16,13);
+        assignItemRect(四叶草法典,13,16);
     }
     
     private static final int 神器2 = xy(0, 17);
@@ -866,15 +872,15 @@ public class 物品表 {
 
     public static final int ELIXIRS = xy(7,26);  //8 slots
     
-    public static final int 永生秘药 = ELIXIRS -1;
-    public static final int ELIXIR_HONEY = ELIXIRS + 0;
-    public static final int ELIXIR_AQUA = ELIXIRS + 1;
-    public static final int ELIXIR_MIGHT = ELIXIRS + 2;
-    public static final int ELIXIR_DRAGON = ELIXIRS + 3;
-    public static final int ELIXIR_TOXIC = ELIXIRS + 4;
-    public static final int ELIXIR_ICY = ELIXIRS + 5;
-    public static final int ELIXIR_ARCANE = ELIXIRS + 6;
-    public static final int ELIXIR_FEATHER = ELIXIRS + 7;
+    public static final int 永生秘药 = ELIXIRS;
+    public static final int ELIXIR_HONEY = ELIXIRS + 1;
+    public static final int ELIXIR_AQUA = ELIXIRS + 2;
+    public static final int ELIXIR_MIGHT = ELIXIRS + 3;
+    public static final int ELIXIR_DRAGON = ELIXIRS + 4;
+    public static final int ELIXIR_TOXIC = ELIXIRS + 5;
+    public static final int ELIXIR_ICY = ELIXIRS + 6;
+    public static final int ELIXIR_ARCANE = ELIXIRS + 7;
+    public static final int ELIXIR_FEATHER = ELIXIRS + 8;
 
     static {
         for (int i = BREWS; i < BREWS + 30; i++)
@@ -1006,6 +1012,8 @@ public class 物品表 {
     public static final int ESCAPE = QUEST + 8;
     public static final int 锻造锤 = QUEST + 9;
     public static final int 秘银 = QUEST + 10;
+    public static final int 属性碎片 = QUEST + 11;
+    public static final int 属性锻造器 = QUEST + 12;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -1019,6 +1027,8 @@ public class 物品表 {
         assignItemRect(ESCAPE,   8, 16);
         assignItemRect(锻造锤,   13, 12);
         assignItemRect(秘银, 15);
+        assignItemRect(属性碎片, 7,11);
+        assignItemRect(属性锻造器, 13,12);
     }
     private static final int BAGS = xy(0, 31);  //16 slots
     public static final int BACKPACK = BAGS;
@@ -1232,6 +1242,8 @@ public class 物品表 {
         static {
             assignIconRect(水爆, 7);
             assignIconRect(冰暴,7);
+            assignIconRect(淤泥,5,4);
+
             assignIconRect(炼狱,7);
             assignIconRect(雷鸣,4,7);
             assignIconRect(紊乱,4,7);

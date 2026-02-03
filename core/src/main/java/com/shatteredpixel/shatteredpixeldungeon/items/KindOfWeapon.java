@@ -184,25 +184,25 @@ abstract public class KindOfWeapon extends EquipableItem {
 		}
 	}
 
-	public int 最小攻击(){
+	public float 最小攻击(){
 		return 最小攻击(强化等级());
 	}
 
-	public int 最大攻击(){
+	public float 最大攻击(){
 		return 最大攻击(强化等级());
 	}
-	public int 最小投掷攻击(){
+	public float 最小投掷攻击(){
 		return 最小投掷攻击(强化等级());
 	}
 
-	public int 最大投掷攻击(){
+	public float 最大投掷攻击(){
 		return 最大投掷攻击(强化等级());
 	}
 
-	abstract public int 最小攻击(int lvl);
-	abstract public int 最大攻击(int lvl);
-	abstract public int 最小投掷攻击(int lvl);
-	abstract public int 最大投掷攻击(int lvl);
+	abstract public float 最小攻击(int lvl);
+	abstract public float 最大攻击(int lvl);
+	abstract public float 最小投掷攻击(int lvl);
+	abstract public float 最大投掷攻击(int lvl);
 	
 	public float accuracyFactor( Char owner, Char target ) {
 		return 1f;
@@ -232,33 +232,32 @@ abstract public class KindOfWeapon extends EquipableItem {
 		}
 	}
 
-	public int defenseFactor( Char owner ) {
+	public float defenseFactor( Char owner ) {
 		return 0;
 	}
 	
-	public int 攻击时(Char attacker, Char defender, int damage ) {
+	public float 攻击时(Char attacker, Char defender, float damage ) {
 		
 		if (attacker instanceof Hero hero){
 			Char enemy=hero.attackTarget();
 			if(enemy!=null&&enemy.第x次防御==1&&投矛){
 				return 最大投掷攻击();
 			}
-			int dmgdiff=0;
 			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
-				dmgdiff=Math.round((最大攻击()-最小攻击())*伏击);
+				damage+=(最大攻击()-最小攻击())*伏击;
 			}
 		}
 		return damage;
 	}
-	public int 投掷攻击时(Char attacker, Char defender, int damage ) {
+	public float 投掷攻击时(Char attacker, Char defender, float damage ) {
 		if (attacker instanceof Hero hero){
 			Char enemy=hero.attackTarget();
 			if(enemy!=null&&enemy.第x次防御==1&&投矛){
 				return 最大投掷攻击();
 			}
-			int dmgdiff=0;
+
 			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
-				dmgdiff=Math.round((最大投掷攻击()-最小投掷攻击())*伏击);
+				damage+=Math.round((最大投掷攻击()-最小投掷攻击())*伏击);
 			}
 		}
 		return damage;

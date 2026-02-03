@@ -52,7 +52,7 @@ public class 圣光 extends TargetedClericSpell {
 				if (ch != null) {
 					int d=Random.NormalIntRange(3+hero.术提升(), 8+hero.术提升(3));
 					if(ch.恶魔亡灵()){
-						ch.受伤时(Math.round(d*1.5f),圣光.this);
+						ch.受伤时(d*1.5f,圣光.this);
 						Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 						ch.sprite.burst(0xFFFFFF44, 3);
 					}else{

@@ -42,7 +42,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.光明结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -84,6 +83,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
+import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -94,7 +94,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
@@ -667,14 +667,7 @@ public abstract class Mob extends Char {
 	@Override
 	public float 攻击延迟() {
 		float delay = super.攻击延迟();
-		
-		if(Dungeon.赛季(赛季设置.地牢塔防))
-			for(int n: PathFinder.范围6){
-				Char c=Actor.findChar(pos+n);
-				if(c instanceof 光明结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
-					delay*=0.75f;
-				}
-			}
+
 		if ( buff(Adrenaline.class) != null) delay /= 1.5f;
 		return delay;
 	}
@@ -714,7 +707,7 @@ public abstract class Mob extends Char {
 	}
 	
 	@Override
-	public int 防御时(Char enemy, int damage ) {
+	public float 防御时(Char enemy, float damage ) {
 		if(enemy instanceof Hero&&!enemySeen){//防止惊醒距离被打不惊醒
 			enemySeen = true;
 			notice();
@@ -757,13 +750,17 @@ public abstract class Mob extends Char {
 		}
 
 		if (buff(灵魂标记.class)!=null) {
-			Dungeon.hero.回血(damage/3f);
 			if (enemy != Dungeon.hero){
-				Dungeon.hero.回血(damage/3f*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
+				Dungeon.hero.回血(damage*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.13f)*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
+				Buff.施加(Dungeon.hero, Hunger.class).吃饭(damage*0.15f*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
+			}else {
+				Dungeon.hero.回血(damage*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.13f));
+				Buff.施加(Dungeon.hero, Hunger.class).吃饭(damage*0.15f);
 			}
-			Buff.施加(Dungeon.hero, Hunger.class).吃饭(damage/3f*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.2f));
-
 		}
+
+		if(Dungeon.派对(派对设置.怪物猎场)&&Math.round(damage/10)>0)
+			Dungeon.level.drop(new 属性碎片().数量(Math.round(damage/10)),pos).sprite.drop();
 
 		return super.防御时(enemy, damage);
 	}
@@ -811,7 +808,7 @@ public abstract class Mob extends Char {
 	}
 
 	@Override
-	public void 受伤时(int dmg, Object src ) {
+	public void 受伤时(float dmg, Object src ) {
 		if (!是无敌(src.getClass())) {
 			if (state == SLEEPING) {
 				state = WANDERING;
@@ -922,7 +919,7 @@ public abstract class Mob extends Char {
 					for(int n: PathFinder.范围6){
 						Char c=Actor.findChar(pos+n);
 						if(c instanceof 造能结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
-							能量=Math.round(能量*1.5f);
+							能量=Math.round(能量*(0.3f+0.2f*x.tier));
 						}
 					}
 				Dungeon.energy(能量);
@@ -1001,6 +998,8 @@ public abstract class Mob extends Char {
 					充能卷轴.charge(Dungeon.hero);
 					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 				}
+				if(Dungeon.hero.subClass(HeroSubClass.灵魂武者))
+					Dungeon.hero.力量成长+=0.025f+(Dungeon.hero.职业精通()?0.025f:0);
 				if(投机之剑.增加()>0&&Dungeon.hero.投机之剑>0){
 					Dungeon.gold(Dungeon.hero.投机之剑);
 				}
@@ -1081,7 +1080,7 @@ public abstract class Mob extends Char {
 			float 几率=1*Dungeon.难度掉率();
 			if (loot != null) {
 				if(loot.可堆叠){
-					loot.数量(幸运硬币.增加());
+					loot.数量(loot.数量()+幸运硬币.增加());
 					几率*=幸运硬币.减少();
 				}
 				if (Random.Float() < lootChance()*几率) {
@@ -1199,11 +1198,11 @@ public abstract class Mob extends Char {
 			if(静物())属性+=" 静物";
 			
 			desc+="属性"+属性+"\n";
-			desc+="生命值 "+生命+"/"+最大生命+"\n";
-			desc+="攻击/防御 "+Math.round(最小攻击()*Dungeon.难度攻击())+"~"
-				  +Math.round(最大攻击()*Dungeon.难度攻击())+"/"+Math.round(最小防御()*Dungeon.难度防御())+"~"
+			desc+="生命值 "+String.format("%.2f",生命)+"/"+String.format("%.2f",最大生命)+"\n";
+			desc+="攻击/防御 "+String.format("%.2f",最小攻击()*Dungeon.难度攻击())+"~"
+				  +String.format("%.2f",最大攻击()*Dungeon.难度攻击())+"/"+String.format("%.2f",最小防御()*Dungeon.难度防御())+"~"
 				  +Math.round(最大防御()*Dungeon.难度防御())+"\n";
-			desc+="命中/闪避 "+Math.round(最小命中(null)*Dungeon.难度命中闪避())+"~"+
+			desc+="命中/闪避 "+String.format("%.2f",最小命中(null)*Dungeon.难度命中闪避())+"~"+
 				  Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+
 				  Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
 			desc+="攻速/移速 "+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n";
@@ -1220,6 +1219,7 @@ public abstract class Mob extends Char {
 	
 	public void yell( String str ) {
 		GLog.newLine();
+		sprite.说(str);//说话修改
 		GLog.n( "%s: \"%s\" ", Messages.titleCase(name()), str );
 	}
 

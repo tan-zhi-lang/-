@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
@@ -17,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.PathFinder;
 
 public class 磐石结晶 extends NPC {
 	
@@ -39,9 +41,9 @@ public class 磐石结晶 extends NPC {
 	public void upgrade(){
 		
 		if (tier < 3){
-			
-			生命=最大生命+=75;
+
 			tier++;
+			生命=最大生命+=50+tier*25;
 			大小=0.75f+tier*0.25f;
 			viewDistance++;
 			if (sprite != null){
@@ -57,7 +59,48 @@ public class 磐石结晶 extends NPC {
 		return new Ballistica(pos,enemy.pos,Ballistica.MAGIC_BOLT).collisionPos==enemy.pos&&
 			   false;
 	}
-	
+
+	@Override
+	protected boolean act(){
+		if(viewDistance==3){
+			for(int n: PathFinder.范围3){
+				Char c=
+						Actor.findChar(pos+n);
+				if(c!=null&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
+					c.受伤(1+tier);
+				}
+				if(c instanceof 磐石结晶){
+					回血(1+tier);
+				}
+			}
+		}
+		if(viewDistance==2){
+			for(int n: PathFinder.范围2){
+				Char c=Actor.findChar(pos+n);
+				if(c!=null&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
+					c.受伤(1+tier);
+				}
+				if(c instanceof 磐石结晶){
+					回血(1+tier);
+				}
+			}
+		}
+		if(viewDistance==1){
+			for(int n: PathFinder.NEIGHBOURS8){
+				Char c=Actor.findChar(pos+n);
+				if(c!=null&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
+					c.受伤(1+tier);
+				}
+				if(c instanceof 磐石结晶){
+					回血(1+tier);
+				}
+			}
+		}
+
+		回血(1+tier);
+
+		return super.act();
+	}
 	@Override
 	protected boolean doAttack(Char enemy) {
 		boolean visible = fieldOfView[pos] || fieldOfView[enemy.pos];
@@ -76,6 +119,7 @@ public class 磐石结晶 extends NPC {
 	private void zap() {
 		spend( 攻击延迟() );
 		Char enemy = this.enemy;
+
 		totalZaps++;
 	}
 	
@@ -130,13 +174,13 @@ public class 磐石结晶 extends NPC {
 			public void call() {
 				GameScene.show(new WndOptions(sprite(),
 											  "要驱散这个结晶吗？",
-											  "驱散返回5能量。",
+											  "驱散返回"+(tier*5+5)/2+"能量。",
 											  "是",
 											  "否"){
 					@Override
 					protected void onSelect(int index) {
 						if (index == 0){
-							Dungeon.energy(5);
+							Dungeon.energy((tier*5+5)/2);
 							死亡时(null);
 						}
 					}
@@ -148,7 +192,7 @@ public class 磐石结晶 extends NPC {
 	
 	@Override
 	public String description() {
-			return Messages.get(this, "desc", tier,viewDistance);
+			return Messages.get(this, "desc", tier,攻击延迟(),viewDistance,1+tier,1+tier);
 	}
 	
 	{

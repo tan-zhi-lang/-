@@ -18,8 +18,8 @@ public enum HeroSubClass {
 	角斗士(HeroIcon.GLADIATOR),
 
 	战斗法师(HeroIcon.BATTLEMAGE),
-	术士(HeroIcon.WARLOCK),
-	
+	元素法师(HeroIcon.元素法师),
+
 	刺客(HeroIcon.ASSASSIN),
 	神偷无影(HeroIcon.神偷无影),
 	
@@ -41,7 +41,8 @@ public enum HeroSubClass {
 	轻装步兵(HeroIcon.轻装步兵),
 
 	灵月杀手(HeroIcon.灵月杀手),
-	鬼师(HeroIcon.NONE),
+	不灭战士(HeroIcon.不灭战士),
+	术士(HeroIcon.WARLOCK),
 
 	神兽之灵(HeroIcon.神兽之灵),
 	养殖专家(HeroIcon.养殖专家),
@@ -51,8 +52,9 @@ public enum HeroSubClass {
 	征服者(HeroIcon.征服者),
 	皇室卫兵(HeroIcon.皇室卫兵),
 
+	灵魂武者(HeroIcon.灵魂武者),
 	元素忍者(HeroIcon.NONE),
-	
+
 	黑白双子(HeroIcon.黑白双子),
 
 	巫咒王鼠(HeroIcon.巫咒王鼠),

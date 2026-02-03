@@ -23,7 +23,7 @@ public class Viscosity extends Glyph {
 	private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing( 0x8844CC );
 	
 	@Override
-	public int proc( Armor armor, Char attacker, Char defender, int damage ) {
+	public float proc( Armor armor, Char attacker, Char defender, float damage ) {
 
 		//we use a tracker so that this glyph can apply after armor
 		Buff.施加(defender, ViscosityTracker.class).level = armor.强化等级();
@@ -43,20 +43,20 @@ public class Viscosity extends Glyph {
 			actPriority = Actor.VFX_PRIO;
 		}
 
-		private int level = 0;
+		private float level = 0;
 
-		public int deferDamage(int dmg){
+		public float deferDamage(float dmg){
 			//account for icon stomach (just skip the glyph)
 			if (target.buff(Talent.WarriorFoodImmunity.class) != null){
 				return dmg;
 			}
 
-			int level = Math.max( 0, this.level );
+			float level = Math.max( 0, this.level );
 
-			float percent = (level+1)/(float)(level+6);
+			float percent = (level+1)/(level+6);
 			percent *= genericProcChanceMultiplier(target);
 
-			int amount;
+			float amount;
 			if (percent > 1f){
 				dmg = Math.round(dmg / percent);
 				amount = dmg;
@@ -79,7 +79,7 @@ public class Viscosity extends Glyph {
 			detach();
 			return true;
 		}
-	};
+	}
 	
 	public static class DeferedDamage extends Buff {
 		
@@ -87,7 +87,7 @@ public class Viscosity extends Glyph {
 			type = buffType.NEGATIVE;
 		}
 		
-		protected int damage = 0;
+		protected float damage = 0;
 		
 		private static final String DAMAGE	= "damage";
 		
@@ -101,7 +101,7 @@ public class Viscosity extends Glyph {
 		@Override
 		public void restoreFromBundle( Bundle bundle ) {
 			super.restoreFromBundle( bundle );
-			damage = bundle.getInt( DAMAGE );
+			damage = bundle.getFloat( DAMAGE );
 		}
 		
 		public void extend( float damage ) {
@@ -119,14 +119,14 @@ public class Viscosity extends Glyph {
 
 		@Override
 		public String iconTextDisplay() {
-			return Integer.toString(damage);
+			return Float.toString(damage);
 		}
 		
 		@Override
 		public boolean act() {
 			if (target.isAlive()) {
 
-				int damageThisTick = Math.max(1, (int)(damage*0.1f));
+				float damageThisTick = Math.max(1, damage*0.1f);
 				target.受伤时( damageThisTick, this );
 				if (target == Dungeon.hero && !target.isAlive()) {
 

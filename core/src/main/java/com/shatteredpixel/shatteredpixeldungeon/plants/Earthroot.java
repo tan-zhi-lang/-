@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.EarthParticle;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -56,7 +55,7 @@ public class Earthroot extends Plant {
 		private static final float STEP = 1f;
 		
 		private int pos;
-		private int level;
+		private float level;
 
 		{
 			type = buffType.POSITIVE;
@@ -76,12 +75,12 @@ public class Earthroot extends Plant {
 			return (Dungeon.scalingDepth() + 5)/2;
 		}
 		
-		public int absorb( int damage ) {
+		public float absorb( float damage ) {
 			if (pos != target.pos){
 				detach();
 				return damage;
 			}
-			int block = Math.min( damage, blocking());
+			float block = Math.min( damage, blocking());
 			if (level <= block) {
 				detach();
 				return damage - block;
@@ -91,7 +90,7 @@ public class Earthroot extends Plant {
 			}
 		}
 		
-		public void level( int value ) {
+		public void level( float value ) {
 			if (target != null) {
 				if (level < value) {
 					level = value;
@@ -112,7 +111,7 @@ public class Earthroot extends Plant {
 
 		@Override
 		public String iconTextDisplay() {
-			return Integer.toString(level);
+			return Float.toString(level);
 		}
 
 		@Override
@@ -134,7 +133,7 @@ public class Earthroot extends Plant {
 		public void restoreFromBundle( Bundle bundle ) {
 			super.restoreFromBundle( bundle );
 			pos = bundle.getInt( POS );
-			level = bundle.getInt( LEVEL );
+			level = bundle.getFloat( LEVEL );
 		}
 	}
 }

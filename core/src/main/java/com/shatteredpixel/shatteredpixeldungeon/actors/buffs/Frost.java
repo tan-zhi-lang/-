@@ -5,8 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
@@ -85,6 +87,16 @@ public class Frost extends FlavourBuff {
 	@Override
 	public void detach() {
 		super.detach();
+		float damage = Random.NormalFloat(4,12+Dungeon.scalingDepth());
+		damage*=1+Dungeon.hero.天赋点数(Talent.水漫火狱,0.5f);
+		if (!(target instanceof Hero)&&Dungeon.hero.天赋(Talent.水漫火狱)){
+			Buff.施加(target,火毒.class).reignite(target);
+		}
+		if (target instanceof Hero hero
+			&&target.buff(时光沙漏.timeStasis.class)==null
+			&& target.buff(TimeStasis.class) == null){
+			hero.受伤时(damage,this);
+		}
 		if (target.paralysed > 0)
 			target.paralysed--;
 		if (Dungeon.level.water[target.pos])

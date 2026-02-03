@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
@@ -359,19 +358,22 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	public int tier;
-	
+	public int 额外阶=0;
+	public int tier(){
+		return tier+额外阶;
+	}
 	@Override
-	public int 最小攻击(int lvl) {
-		return augment.damageFactor(Math.round(最小+(tier+lvl)*伤害));
+	public float 最小攻击(int lvl) {
+		return augment.damageFactor(最小+(tier()+lvl)*伤害);
 	}
 	
 	@Override
-	public int 最大攻击(int lvl) {
-		return augment.damageFactor(Math.round(最大+(5*(tier+1) +lvl*(tier+1))*伤害));
+	public float 最大攻击(int lvl) {
+		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1))*伤害);
 	}
 	
-	public int 力量(int lvl){
-		int req = 力量(tier, lvl);
+	public float 力量(int lvl){
+		float req = 力量(tier(), lvl);
 		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
             req-=Dungeon.hero.武器力量;
         }
@@ -396,7 +398,7 @@ abstract public class Weapon extends KindOfWeapon {
 				evaluatingTwinUpgrades = false;
 				
 				//weaker weapon needs to be 2/1/0 tiers lower, based on talent level
-				if ((tier + (4 - Dungeon.hero.天赋点数(Talent.TWIN_UPGRADES))) <= ((Weapon) other).tier
+				if ((tier() + (4 - Dungeon.hero.天赋点数(Talent.TWIN_UPGRADES))) <= ((Weapon) other).tier()
 					&& otherLevel > super.强化等级()) {
 					return otherLevel;
 				}
@@ -420,7 +422,11 @@ abstract public class Weapon extends KindOfWeapon {
 		String info = super.info();
 		
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(), tier, 最小攻击(), 最大攻击(), 最小投掷攻击(), 最大投掷攻击());
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(), tier(),
+										  String.format("%.2f",最小攻击()),
+										  String.format("%.2f",最大攻击()),
+											String.format("%.2f",最小投掷攻击()),
+										  String.format("%.2f",最大投掷攻击()));
 			if (Dungeon.hero()) {
 				if (力量() > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
@@ -430,11 +436,15 @@ abstract public class Weapon extends KindOfWeapon {
 				} else if (Dungeon.hero.力量() > 力量()) {
 					info += " " + Messages.get(Weapon.class, "excess_str",
 											   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~")
-							,Dungeon.hero.力量() - 力量());
+							,String.format("%.2f",Dungeon.hero.力量() - 力量()));
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(0), tier, 最小攻击(0), 最大攻击(0), 最小投掷攻击(0), 最大投掷攻击(0));
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(0), tier(),
+										  String.format("%.2f",最小攻击(0)),
+										String.format("%.2f",最大攻击(0)),
+										  String.format("%.2f",最小投掷攻击(0)),
+											String.format("%.2f",最大投掷攻击(0)));
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 				info += " " + Messages.get(Weapon.class, "probably_too_heavy");
 				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
@@ -443,7 +453,7 @@ abstract public class Weapon extends KindOfWeapon {
 			} else if (Dungeon.hero.力量() > 力量()) {
 				info += " " + Messages.get(Weapon.class, "excess_str",
 										   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~"),
-										   Dungeon.hero.力量() - 力量());
+										   String.format("%.2f",Dungeon.hero.力量() - 力量()));
 			}
 		}
 		
@@ -495,50 +505,51 @@ abstract public class Weapon extends KindOfWeapon {
 		return info;
 	}
 	@Override
-	public int defenseFactor( Char owner ) {
+	public float defenseFactor( Char owner ) {
 		return 最大防御();
 	}
-	public int 最大防御(){
+	public float 最大防御(){
 		return 最大防御(强化等级());
 	}
 	
-	public int 最大防御(int lvl){
+	public float 最大防御(int lvl){
 		return 0;
 	}
-	public int 最小防御(){
+	public float 最小防御(){
 		return 最小防御(强化等级());
 	}
 	
-	public int 最小防御(int lvl){
+	public float 最小防御(int lvl){
 		return 0;
 	}
 	public String statsInfo(){
 		if (已鉴定()){
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御()+"~"+最大防御()+"_，"),
-								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+
+						 String.format("%.2f",最小防御())+"~"+String.format("%.2f",最大防御())+"_，"),
+								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
 							   );
 		} else {
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+最小防御(0)+"~"+最大防御(0)+"_，"),
-								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+String.format("%.2f",最小防御(0))+"~"+String.format("%.2f",最大防御(0))+"_，"),
+								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
 							   );
 		}
 	}
-	public int DPS(){
-		return Math.round(
+	public float DPS(){
+		return 
 				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?(Dungeon.hero.力量()-力量())/2f:0)+
 				(augment.damageFactor(最小攻击()+最大攻击()))/2f
 //				*伤害
-				/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f)*1.5f);
+				/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f);
 	}
 	@Override
 	public int 金币() {
-		int price = 20 * tier;
+		int price = 20 * tier();
 		if (hasGoodEnchant()) {
 			price *= 1.5;
 		}
@@ -785,7 +796,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean spawnedForEffect = false;
 	
 	@Override
-	public int 最小投掷攻击() {
+	public float 最小投掷攻击() {
 		if (Dungeon.hero()){
 			return Math.max(0, 最小投掷攻击(强化等级()+RingOfSharpshooting.levelDamageBonus(Dungeon.hero)));
 		} else {
@@ -794,13 +805,13 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	@Override
-	public int 最小投掷攻击(int lvl) {
-		return augment.damageFactor(Math.round(最小+(2*tier+lvl)*(伤害*0.5f)));
-//		return Math.round(最小+(2*tier+lvl)*(伤害+));
+	public float 最小投掷攻击(int lvl) {
+		return augment.damageFactor(最小+(2*tier()+lvl)*(伤害*0.5f));
+//		return Math.round(最小+(2*tier()+lvl)*(伤害+));
 	}
 	
 	@Override
-	public int 最大投掷攻击() {
+	public float 最大投掷攻击() {
 		if (Dungeon.hero()){
 			return Math.max(0, 最大投掷攻击( 强化等级() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero) ));
 		} else {
@@ -809,11 +820,10 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	@Override
-	public int 最大投掷攻击(int lvl) {
-		return augment.damageFactor(Math.round(最大+(5 * tier +tier*lvl )*(伤害*1.2f)));
-//		return Math.round(最大+(5 * tier +tier*lvl )*(伤害));
+	public float 最大投掷攻击(int lvl) {
+		return augment.damageFactor(最大+(5 * tier() +tier()*lvl )*(伤害*1.2f));
+//		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害));
 	}
-	
 	
 	@Override
 	public int throwPos(Hero user, int dst) {
@@ -900,7 +910,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	@Override
-	public int 投掷攻击时(Char attacker, Char defender, int damage) {
+	public float 投掷攻击时(Char attacker, Char defender, float damage) {
 		
 		if (attacker instanceof Hero hero) {
 			
@@ -920,14 +930,14 @@ abstract public class Weapon extends KindOfWeapon {
 					}
 				}
 			}
-			int exStr = hero.力量() - 力量();
+			float exStr = hero.力量() - 力量();
 			if (hero.subClass(HeroSubClass.武器大师)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
 			}else{
 				if (exStr > 0) {
-					damage += Hero.heroDamageIntRange( 0, exStr );
+					damage += Hero.heroDamage(0,exStr);
 				}
 			}
 		}
@@ -943,19 +953,16 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		if (attacker instanceof Hero hero) {
-			
-			int exStr = hero.力量() - 力量();
+
+			float exStr = hero.力量() - 力量();
 			if (hero.subClass(HeroSubClass.武器大师)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
 			}else{
 				if (exStr > 0) {
-					damage += Hero.heroDamageIntRange( 0, exStr );
+					damage += Hero.heroDamage(0,exStr);
 				}
-			}
-			if (hero.buff(Momentum.class)!=null&&hero.buff(Momentum.class).freerunning()) {
-				damage = Math.round(damage * (1f + hero.buff(Momentum.class).freerunTurns*hero.天赋点数(Talent.PROJECTILE_MOMENTUM,0.015f)));
 			}
 		}
 		if ((cursed || hasCurseEnchant()) && !cursedKnown){
@@ -963,8 +970,8 @@ abstract public class Weapon extends KindOfWeapon {
 			Dungeon.hero.sprite.哭泣();
 		}
 		cursedKnown = true;
-		
-		int result = super.投掷攻击时(attacker, defender, damage);
+
+		float result = super.投掷攻击时(attacker, defender, damage);
 		
 		if (!已鉴定()&& attacker == Dungeon.hero) {
 			float uses =  Talent.鉴定速度(Dungeon.hero,this);
@@ -1034,11 +1041,11 @@ abstract public class Weapon extends KindOfWeapon {
 			accuracyfactor = acc;
 		}
 
-		public int damageFactor(float dmg){
+		public float damageFactor(float dmg){
 			if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
 				dmg*=磨刀石.增加();
 			}
-			return Math.round(dmg * damageFactor);
+			return dmg * damageFactor;
 		}
 
 		public float delayFactor(float dly){
@@ -1062,7 +1069,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean 神力 = false;
 	
 	@Override
-	public int 攻击时(Char attacker, Char defender, int damage ) {
+	public float 攻击时(Char attacker, Char defender, float damage ) {
 		if(连招范围!=-1){
 			if(连招范围>1)
 			连招范围--;
@@ -1087,14 +1094,14 @@ abstract public class Weapon extends KindOfWeapon {
 					}
 				}
 			}
-			int exStr = hero.力量() - 力量();
+			float exStr = hero.力量() - 力量();
 			if (hero.subClass(HeroSubClass.武器大师)) {
 				if (exStr > 0) {
 					damage += exStr;
 				}
 			}else{
 				if (exStr > 0) {
-					damage += Hero.heroDamageIntRange( 0, exStr );
+					damage += Hero.heroDamage(0,exStr);
 				}
 			}
 		}
@@ -1128,7 +1135,7 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 				if (defender.isAlive() && !becameAlly) {
 					int dmg = ((Hero) attacker).subClass == HeroSubClass.PALADIN ? 6 : 2;
-					defender.受伤时(Math.round(dmg * Enchantment.genericProcChanceMultiplier(attacker)), HolyWeapon.INSTANCE);
+					defender.受伤时(dmg * Enchantment.genericProcChanceMultiplier(attacker), HolyWeapon.INSTANCE);
 				}
 
 			} else {
@@ -1188,6 +1195,7 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final String 神力x = "神力";
 	private static final String 连招范围x = "连招范围";
 	private static final String AUGMENT	        = "augment";
+	private static final String 额外阶x	        = "额外阶";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -1199,6 +1207,7 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( 神力x, 神力 );
 		bundle.put( 连招范围x, 连招范围 );
 		bundle.put( AUGMENT, augment );
+		bundle.put( 额外阶x, 额外阶 );
 	}
 	
 	@Override
@@ -1210,6 +1219,7 @@ abstract public class Weapon extends KindOfWeapon {
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 		连招范围 = bundle.getInt( 连招范围x );
+		额外阶 = bundle.getInt( 额外阶x );
 
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
@@ -1239,8 +1249,8 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float accuracyFactor(Char owner, Char target) {
-		
-		int encumbrance = 0;
+
+		float encumbrance = 0;
 		
 		if( owner instanceof Hero hero&&!hero.heroClass(HeroClass.DUELIST)){
 			encumbrance = 力量() - hero.力量();
@@ -1267,7 +1277,7 @@ abstract public class Weapon extends KindOfWeapon {
 	protected float baseDelay( Char owner ){
 		float delay = augment.delayFactor(this.延迟);
 		if (owner instanceof Hero hero) {
-			int encumbrance = 力量() - hero.力量();
+			float encumbrance = 力量() - hero.力量();
 			if (encumbrance > 0&&!hero.subClass(HeroSubClass.武器大师)){
 				delay *= Math.pow( 1.2, encumbrance );
 			}
@@ -1314,18 +1324,18 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 	}
 
-	public int 力量(){
+	public float 力量(){
 		return 力量(等级());
 	}
 
-	protected static int 力量(int tier, int lvl){
+	protected static float 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
-		int str=0;
+		float str=0;
 		if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
 			str+=磨刀石.力量();;
 		}
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return str+(8 + tier * 2) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
+		return (float)(str+(8+tier*2)-(Math.sqrt(8*lvl+1)-1)/2);
 	}
 
 	@Override
@@ -1519,7 +1529,7 @@ abstract public class Weapon extends KindOfWeapon {
 		};
 		
 			
-		public abstract int proc( Weapon weapon, Char attacker, Char defender, int damage );
+		public abstract float proc( Weapon weapon, Char attacker, Char defender, float damage );
 
 		protected float procChanceMultiplier( Char attacker ){
 			return genericProcChanceMultiplier( attacker );

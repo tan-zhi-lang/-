@@ -19,8 +19,8 @@ public class 忍服 extends Armor {
 		super(1);
 	}
 	@Override
-	public int 力量(int lvl) {
-		int req = 力量(tier, lvl)-1;
+	public float 力量(int lvl) {
+		float req = 力量(tier, lvl)-1;
 		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
             req-=Dungeon.hero.护甲力量;
         }

@@ -75,10 +75,10 @@ public class CrystalMimic extends Mimic {
 
 	//does not deal bonus damage, steals instead. See attackProc
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		if (alignment == Alignment.NEUTRAL) {
 			alignment = Alignment.ENEMY;
-			int dmg = super.最大攻击();
+			float dmg = super.最大攻击();
 			alignment = Alignment.NEUTRAL;
 			return dmg;
 		} else {
@@ -105,7 +105,7 @@ public class CrystalMimic extends Mimic {
 	}
 
 	@Override
-	public int 攻击时(Char enemy, int damage) {
+	public float 攻击时(final Char enemy, float damage) {
 		if (alignment == Alignment.NEUTRAL && enemy == Dungeon.hero){
 			steal( Dungeon.hero );
 

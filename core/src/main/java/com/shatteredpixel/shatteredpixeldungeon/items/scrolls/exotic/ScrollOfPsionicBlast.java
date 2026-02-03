@@ -45,13 +45,13 @@ public class ScrollOfPsionicBlast extends ExoticScroll {
 		for (Mob mob : targets){
 			//always kills non-resistant enemies
 			//resistant enemies take 50% current HP at full health, scaling to 75% at 1/2 HP, and 100% at 1/3 hp
-			mob.受伤时(Math.round(mob.最大生命 /2f + mob.生命 /2f), this);
+			mob.受伤时(mob.最大生命 /2f + mob.生命 /2f, this);
 			if (mob.isAlive()) {
 				Buff.延长(mob, Blindness.class, Blindness.DURATION);
 			}
 		}
 		
-		curUser.受伤时(Math.max(0, Math.round(curUser.最大生命 *(0.5f * (float)Math.pow(0.9, targets.size())))), this);
+		curUser.受伤时(Math.max(0, curUser.最大生命 *(0.5f * (float)Math.pow(0.9, targets.size()))), this);
 		if (curUser.isAlive()) {
 			Buff.延长(curUser, Blindness.class, Blindness.DURATION);
 			Buff.延长(curUser, Weakness.class, Weakness.DURATION*5f);

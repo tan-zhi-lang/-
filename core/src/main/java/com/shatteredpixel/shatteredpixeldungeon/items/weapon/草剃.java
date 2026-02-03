@@ -22,7 +22,7 @@ public class 草剃 extends Weapon {
 	}
 	
 	@Override
-	public int 攻击时(Char attacker,Char defender,int damage) {
+	public float 攻击时(Char attacker,Char defender,float damage) {
 		for (int n : PathFinder.NEIGHBOURS8){
 			int cell=attacker.pos+n;
 			Dungeon.level.pressCellgrass(cell);
@@ -30,7 +30,7 @@ public class 草剃 extends Weapon {
 		return super.攻击时( attacker, defender, damage );
 	}
 	@Override
-	public int 投掷攻击时(Char attacker,Char defender,int damage) {
+	public float 投掷攻击时(Char attacker,Char defender,float damage) {
 		
 		for (int n : PathFinder.NEIGHBOURS8){
 			int cell=attacker.pos+n;

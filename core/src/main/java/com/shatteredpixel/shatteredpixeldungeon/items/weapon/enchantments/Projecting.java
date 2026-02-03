@@ -11,7 +11,7 @@ public class Projecting extends Weapon.Enchantment {
 	private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing( 0x8844CC );
 
 	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
+	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
 		//Does nothing as a proc, instead increases weapon range.
 		//See weapon.reachFactor, and MissileWeapon.throwPos;
 		return damage;

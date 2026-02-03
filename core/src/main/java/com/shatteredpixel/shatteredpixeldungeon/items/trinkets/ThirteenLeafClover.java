@@ -40,7 +40,7 @@ public class ThirteenLeafClover extends Trinket {
 	}
 
 
-	public static int alterDamageRoll(int min, int max){
+	public static float alterDamageRoll(float min, float max){
 		if (Random.Float() < alterHeroDamageChance()){
 			return max;
 		} else {

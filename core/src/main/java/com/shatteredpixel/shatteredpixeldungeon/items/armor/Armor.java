@@ -63,7 +63,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
@@ -100,8 +99,8 @@ public class Armor extends EquipableItem {
 			return evasion*evasionFactor;
 		}
 		
-		public int defenseFactor(float defense){
-			return Math.round(defense*defenceFactor);
+		public float defenseFactor(float defense){
+			return defense*defenceFactor;
 		}
 		public float speedFactor(float speed){
 			return speed*speedFactor;
@@ -118,7 +117,11 @@ public class Armor extends EquipableItem {
 	public 荣誉纹章 荣誉纹章;
 	
 	public int tier;
-	
+	public int 额外阶=0;
+
+	public int tier(){
+		return tier+额外阶;
+	}
 	private static final int USES_TO_ID = 10;
 	public float usesLeftToID = USES_TO_ID;
 	
@@ -133,6 +136,7 @@ public class Armor extends EquipableItem {
 	private static final String 神力x = "神力";
 	private static final String 荣誉纹章x = "荣誉纹章";
 	private static final String AUGMENT			= "augment";
+	private static final String 额外阶x			= "额外阶";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -144,6 +148,7 @@ public class Armor extends EquipableItem {
 		bundle.put( 神力x, 神力 );
 		bundle.put(荣誉纹章x,荣誉纹章);
 		bundle.put( AUGMENT, augment);
+		bundle.put( 额外阶x, 额外阶);
 	}
 
 	@Override
@@ -155,7 +160,8 @@ public class Armor extends EquipableItem {
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 		荣誉纹章= (荣誉纹章)bundle.get(荣誉纹章x);
-		
+		额外阶= bundle.getInt(额外阶x);
+
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}
 
@@ -383,27 +389,27 @@ public class Armor extends EquipableItem {
 		return hero != null && hero.belongings.armor() == this;
 	}
 
-	public final int 最大防御(){
+	public final float 最大防御(){
 		return 最大防御(强化等级());
 	}
 
-	public int 最大防御(int lvl){
+	public float 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(1 + tier + lvl);
+			return augment.defenseFactor(1 + tier() + lvl);
 		}
 
-		return augment.defenseFactor(Math.round(2*tier * (1 + lvl/1.5f)));
+		return augment.defenseFactor(2*tier() * (1 + lvl/1.5f));
 	}
 
-	public final int 最小防御(){
+	public final float 最小防御(){
 		return 最小防御(强化等级());
 	}
 
-	public int 最小防御(int lvl){
+	public float 最小防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 			return 0;
 		}
-		return augment.defenseFactor(tier+lvl);
+		return augment.defenseFactor(tier()+lvl);
 	}
 
 	//This exists so we can test what a char's base evasion would be without armor affecting it
@@ -418,7 +424,7 @@ public class Armor extends EquipableItem {
 		}
 		
 		if (owner instanceof Hero hero){
-			int aEnc = 力量() - hero.力量();
+			float aEnc = 力量() - hero.力量();
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
 			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅;
 			
@@ -430,7 +436,7 @@ public class Armor extends EquipableItem {
 	public float speedFactor( Char owner, float speed ){
 		
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
-			int aEnc = 力量() - hero.力量();
+			float aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
 			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅/2f;
 		}
@@ -493,7 +499,7 @@ public class Armor extends EquipableItem {
 		return this;
 	}
 	
-	public int 防御时(Char attacker, Char defender, int damage ) {
+	public float 防御时(Char attacker, Char defender, float damage ) {
 		
 		if(defender instanceof Hero hero){
 			if(首次使用){
@@ -567,14 +573,22 @@ public class Armor extends EquipableItem {
 	public String name() {
 				return glyph != null && (cursedKnown || !glyph.curse()) ? glyph.name( super.name() ) : super.name();
 	}
-	
+
+	@Override
+	public String desc(){
+		if(荣誉纹章!=null)
+		return Messages.get(this, "desc")+"\n已转移等级"+荣誉纹章.转移等级+"/"+荣誉纹章.最大等级()+"。";
+
+		return Messages.get(this, "desc");
+	}
 	@Override
 	public String info() {
 		String info = super.info();
 		
 		if (levelKnown) {
 
-			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(), tier, 最小防御(), 最大防御());
+			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(), tier(),
+										  String.format("%.2f",最小防御()), String.format("%.2f",最大防御()));
 			
 			if (Dungeon.hero() && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
@@ -583,7 +597,9 @@ public class Armor extends EquipableItem {
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(0), tier, 最小防御(0), 最大防御(0));
+			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(0), tier(),
+										  String.format("%.2f",最小防御(0)),
+										  String.format("%.2f",最大防御(0)));
 
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "probably_too_heavy");
@@ -626,7 +642,7 @@ public class Armor extends EquipableItem {
 		}
 //
 //		if (破损纹章 != null) {
-//			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier, 强化等级()));
+//			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier(), 强化等级()));
 //		}
 //
 		return info;
@@ -695,12 +711,12 @@ public class Armor extends EquipableItem {
 		return this;
 	}
 
-	public int 力量(){
+	public float 力量(){
 		return 力量(等级());
 	}
 
-	public int 力量(int lvl){
-		int req = 力量(tier, lvl);
+	public float 力量(int lvl){
+		float req = 力量(tier(), lvl);
 		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
             req-=Dungeon.hero.护甲力量;
         }
@@ -711,17 +727,17 @@ public class Armor extends EquipableItem {
 		return req;
 	}
 
-	protected static int 力量(int tier, int lvl){
+	protected static float 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return (8 + Math.round(tier * 2)) - (int)(Math.sqrt(8 * lvl + 1) - 1)/2;
+		return (float)((8+tier*2)-(Math.sqrt(8*lvl+1)-1)/2);
 	}
 	
 	@Override
 	public int 金币() {
 		if (荣誉纹章!=null) return 0;
 
-		int price = 20 * tier;
+		int price = 20 * tier();
 		if (hasGoodGlyph()) {
 			price *= 1.5;
 		}
@@ -821,7 +837,7 @@ public class Armor extends EquipableItem {
 				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class, 虐待.class, 焦灼.class
 		};
 		
-		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );
+		public abstract float proc( Armor armor, Char attacker, Char defender, float damage );
 
 		protected float procChanceMultiplier( Char defender ){
 			return genericProcChanceMultiplier( defender );

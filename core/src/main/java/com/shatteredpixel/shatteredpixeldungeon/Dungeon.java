@@ -205,7 +205,7 @@ public class Dungeon {
 			energy(Math.round(圣金之沙.获得()*x));
 			gold+=Math.round(x*
 					 (hero()&&hero.天赋(Talent.财富)?
-					 hero.天赋点数(Talent.财富,0.2f)+1
+					 hero.天赋点数(Talent.财富,0.1f)+1
 					 :1));
 		}
 		if(x<0){
@@ -252,7 +252,7 @@ public class Dungeon {
 			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
 		} else if (!SPDSettings.customSeed().isEmpty()){
 			customSeedText = SPDSettings.customSeed();
-			if(算法.种子() instanceof Item){
+			if(算法.种子()!=null){
 				customSeedText = "";
 				seed = DungeonSeed.randomSeed();
 			}else{
@@ -365,13 +365,13 @@ public class Dungeon {
 	public static boolean 赛季(int mask) {
 		return (赛季&mask)!=0;
 	}
-	public static boolean 地牢时间(int min,int max) {
+	public static boolean 地牢时间(float min,float max) {
 		return 地牢时间>=min*60*1.6f&&地牢时间<=max*60*1.6f;
 	}
 	public static String 地牢时间() {
 		int 小时=0;
 		int 分钟=0;
-		float 时间=地牢时间*1.6f;
+		float 时间=地牢时间*4/3f;
 		boolean 时间计算=true;
 		while(时间计算){
 			if(时间>=60){

@@ -34,7 +34,7 @@ public class 装甲之戒 extends Ring {
 	
 	
 	public static int tier(){
-		int str=Dungeon.hero!=null?
+		float str=Dungeon.hero!=null?
 				Dungeon.hero.力量():
 				10;
 		int tier=Math.round(Math.max(1,(str-8)/2f));

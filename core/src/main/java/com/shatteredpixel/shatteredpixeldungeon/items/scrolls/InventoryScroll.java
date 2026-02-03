@@ -5,10 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.scrolls;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -35,11 +31,18 @@ public abstract class InventoryScroll extends Scroll {
 	}
 	
 	private void confirmCancelation() {
-		GameScene.show( new WndOptions(new ItemSprite(this),
+		GameScene.show( new WndConfirmCancel() );
+	}
+
+	public class WndConfirmCancel extends WndOptions{
+
+		public WndConfirmCancel(){
+			super(new ItemSprite(InventoryScroll.this),
 				Messages.titleCase(name()),
-				Messages.get(this, "warning"),
-				Messages.get(this, "yes"),
-				Messages.get(this, "no") ) {
+					Messages.get(InventoryScroll.this, "warning"),
+					Messages.get(InventoryScroll.this, "yes"),
+					Messages.get(InventoryScroll.this, "no") );
+		}
 			@Override
 			protected void onSelect( int index ) {
 				switch (index) {
@@ -65,7 +68,11 @@ public abstract class InventoryScroll extends Scroll {
 				}
 			}
 			public void onBackPressed() {}
-		} );
+
+		public WndBag.ItemSelector getItemSelector(){
+			return itemSelector;
+		}
+
 	}
 
 	private String inventoryTitle(){

@@ -20,7 +20,7 @@ public class 配刺剑 extends Weapon{
 	}
 	
 	@Override
-	public int 最大防御(int lvl){
+	public float 最大防御(int lvl){
 		return 1 + lvl;
 	}
 

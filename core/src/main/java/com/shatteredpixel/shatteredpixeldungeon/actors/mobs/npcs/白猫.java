@@ -113,7 +113,7 @@ public class 白猫 extends NPC {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		if (hero != null) {
 			return hero.最小攻击();
 		} else {
@@ -121,7 +121,7 @@ public class 白猫 extends NPC {
 		}
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		if (hero != null) {
 			return hero.最大攻击();
 		} else {
@@ -163,7 +163,7 @@ public class 白猫 extends NPC {
 	}
 	
 	@Override
-	public int 最小防御() {
+	public float 最小防御() {
 		if (hero != null){
 			return hero.最小防御();
 		}else{
@@ -171,7 +171,7 @@ public class 白猫 extends NPC {
 		}
 	}
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		if (hero != null){
 			return hero.最大防御();
 		}else{
@@ -180,7 +180,7 @@ public class 白猫 extends NPC {
 	}
 	
 	@Override
-	public int 攻击时(Char enemy, int damage) {
+	public float 攻击时(final Char enemy, float damage) {
 		if (enemy instanceof Mob) {
 			((Mob)enemy).aggro( this );
 		}
@@ -191,7 +191,7 @@ public class 白猫 extends NPC {
 		}
 	}
 	@Override
-	public int 防御时(Char enemy, int damage) {
+	public float 防御时(Char enemy, float damage) {
 		if (hero != null){
 			return hero.防御时(enemy, damage);
 		}else{
@@ -200,7 +200,7 @@ public class 白猫 extends NPC {
 	}
 	
 	@Override
-	public void 受伤时(int dmg,Object src){
+	public void 受伤时(float dmg,Object src){
 		if (hero != null){
 			hero.受伤时(Math.round(dmg*(1-
 										(hero.subClass(HeroSubClass.黑白双子)?0.075f:0)

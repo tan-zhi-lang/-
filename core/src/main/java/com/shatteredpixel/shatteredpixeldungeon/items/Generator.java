@@ -22,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellboo
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
@@ -594,6 +595,7 @@ public class Generator {
 					
 					荆棘斗篷.class,
 					心之钢.class,
+					虫箭.class,
 
 					EtherealChains.class,
 					HornOfPlenty.class,
@@ -606,7 +608,7 @@ public class Generator {
 					骷髅钥匙.class
 			};
 			ARTIFACT.defaultProbs = new float[]{ 1, 1,0,
-												 1, 1,
+												 1, 1, 1,
 					1, 1, 1, 1,
 					1, 1,1,1 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();

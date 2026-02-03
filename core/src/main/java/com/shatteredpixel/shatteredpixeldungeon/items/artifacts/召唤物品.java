@@ -480,7 +480,7 @@ public class 召唤物品 extends Artifact {
 		}
 		
 		@Override
-		public int 最大攻击() {
+		public float 最大攻击() {
 			int dmg = 0;
 				dmg += Random.NormalIntRange(0, 5);
 			
@@ -488,20 +488,20 @@ public class 召唤物品 extends Artifact {
 		}
 		
 		@Override
-		public int 攻击时(Char enemy, int damage) {
+		public float 攻击时(final Char enemy, float damage) {
 			damage = super.攻击时(enemy, damage);
 
 			return damage;
 		}
 		
 		@Override
-		public int 防御时(Char enemy, int damage) {
+		public float 防御时(Char enemy, float damage) {
 			
 			return super.防御时(enemy, damage);
 		}
 		
 		@Override
-		public void 受伤时(int dmg, Object src) {
+		public void 受伤时(float dmg, Object src) {
 			super.受伤时( dmg, src );
 			
 			//for the rose status indicator
@@ -531,8 +531,8 @@ public class 召唤物品 extends Artifact {
 		}
 		
 		@Override
-		public int 最大防御() {
-			int dr = super.最大防御();
+		public float 最大防御() {
+			float dr = super.最大防御();
 			
 			return dr;
 		}

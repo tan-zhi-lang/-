@@ -57,11 +57,11 @@ public class 仇鬼 extends Mob implements Callback {
 	}
 	
 	@Override
-	public int 最小攻击() {
+	public float 最小攻击() {
 		return Dungeon.层数(1);
 	}
 	@Override
-	public int 最大攻击() {
+	public float 最大攻击() {
 		return  Dungeon.层数(1.5f)+Dungeon.区域(1.5f);
 	}
 	@Override
@@ -91,7 +91,7 @@ public class 仇鬼 extends Mob implements Callback {
 		return Char.INFINITE;
 	}
 	@Override
-	public int 最大防御() {
+	public float 最大防御() {
 		return super.最大防御()+Dungeon.层数(0.5f);
 	}
 	
@@ -134,9 +134,9 @@ public class 仇鬼 extends Mob implements Callback {
 				Buff.延长( enemy, Degrade.class, Degrade.DURATION );
 				Sample.INSTANCE.play( Assets.Sounds.DEGRADE );
 			}
-			
-			int dmg = Random.NormalIntRange( Dungeon.区域(2), Dungeon.区域(5) );
-			dmg=Math.round(dmg*Dungeon.难度攻击());
+
+			float dmg = Random.NormalIntRange( Dungeon.区域(2), Dungeon.区域(5) );
+			dmg=dmg*Dungeon.难度攻击();
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 
 			//logic for DK taking 1/2 damage from aggression stoned minions

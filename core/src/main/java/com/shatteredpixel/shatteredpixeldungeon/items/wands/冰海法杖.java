@@ -135,7 +135,7 @@ public class 冰海法杖 extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 
 		//proc chance is initially 0..
 		float procChance = 0;
@@ -185,7 +185,7 @@ public class 冰海法杖 extends DamageWand {
 						}
 						if (ch.alignment == Char.Alignment.ENEMY) {
 							//damage of a 2-charge zap
-							ch.受伤时(Math.round(powerMulti*Random.NormalIntRange(2 + 2*强化等级(), 8 + 4* 强化等级())), this);
+							ch.受伤时(powerMulti*Random.NormalIntRange(2 + 2*强化等级(), 8 + 4* 强化等级()), this);
 						}
 					}
 				}

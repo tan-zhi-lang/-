@@ -60,7 +60,7 @@ public class 棱镜法杖 extends DamageWand {
 
 
 	private void affectTarget(Char ch){
-		int dmg = damageRoll();
+		float dmg = damageRoll();
 
 		//three in (5+lvl) chance of failing
 		if (Random.Int(5+ 强化等级()) >= chargesPerCast()) {
@@ -72,7 +72,7 @@ public class 棱镜法杖 extends DamageWand {
 			ch.sprite.emitter().start(ShadowParticle.UP,0.05f,10+强化等级());
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 
-			ch.受伤时(Math.round(dmg*1.666f), this);
+			ch.受伤时(dmg*1.666f, this);
 		} else {
 			ch.sprite.centerEmitter().burst(RainbowParticle.BURST,10+强化等级());
 
@@ -155,7 +155,7 @@ public class 棱镜法杖 extends DamageWand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 	}
 
 	@Override

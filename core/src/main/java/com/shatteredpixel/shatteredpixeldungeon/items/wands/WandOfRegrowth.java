@@ -197,7 +197,7 @@ public class WandOfRegrowth extends Wand {
 	}
 
 	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, int damage) {
+	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
 		//like pre-nerf vampiric enchantment, except with herbal healing buff, only in grass
 		boolean grass = false;
 		int terr = Dungeon.level.map[attacker.pos];
@@ -215,7 +215,7 @@ public class WandOfRegrowth extends Wand {
 			// lvl 0 - 16%
 			// lvl 1 - 21%
 			// lvl 2 - 25%
-			int healing = Math.round(damage * (level + 2f) / (level + 6f) / 2f);
+			float healing = Math.round(damage * (level + 2f) / (level + 6f) / 2f);
 			healing = Math.round(healing * procChanceMultiplier(attacker));
 			Buff.施加(attacker, Sungrass.Health.class).boost(healing);
 		}
@@ -440,7 +440,7 @@ public class WandOfRegrowth extends Wand {
 		}
 
 		@Override
-		public void 受伤时(int dmg, Object src ) {
+		public void 受伤时(float dmg, Object src ) {
 			//do nothing
 		}
 

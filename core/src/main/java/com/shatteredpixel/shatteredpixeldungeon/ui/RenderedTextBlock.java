@@ -103,16 +103,22 @@ public class RenderedTextBlock extends Component {
 			// the actual symbols are not rendered
 			if ((str.equals("_")) && highlightingEnabled){
 				highlighting = !highlighting;
+			} else if (str.equals("$$")){
+				color=0xFFFF44;//黄色
 			} else if (str.equals("**")){
-				color=0xFF4444;//深红色
+				color=0xFF4444;//红色
 			}else if (str.equals("@@")){
 				color=0x3399FF;//蓝色
 			}else if (str.equals("++")){
-				color=0x44FF44;//亮绿色
+				color=0x44FF44;//绿色
+			}else if (str.equals("^^")){
+				color=0xFF4488;//粉色
 			}else if (str.equals("##")){
 				color=0x8800FF;//紫色
 			}else if (str.equals("--")){
 				color=0x999999;//灰色
+			}else if (str.equals(",,")){
+				color=0x000000;//黑色
 			}else if (str.equals("==")){
 				color=0xFF8800;//橙色
 			} else if (str.equals("\n")){

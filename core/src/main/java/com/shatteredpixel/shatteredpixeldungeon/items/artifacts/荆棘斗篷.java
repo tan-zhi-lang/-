@@ -24,13 +24,12 @@ public class 荆棘斗篷 extends Artifact {
 		charge = 0;
 		chargeCap = 100;
 
-		defaultAction = "NONE";
 	}
 	
 	@Override
 	public void charge(Hero target, float amount) {
 		if (cursed ||target.buff(MagicImmune.class)!=null) return;
-		charge = Math.min(charge+10,chargeCap);
+		charge = Math.min(charge+amount*10,chargeCap);
 		updateQuickslot();
 	}
 	
@@ -51,7 +50,7 @@ public class 荆棘斗篷 extends Artifact {
 
 		@Override
 		public boolean act(){
-			charge = Math.min(charge+Math.round(10*能量之戒.artifactChargeMultiplier(target)),chargeCap);
+			charge = Math.min(charge+10*能量之戒.artifactChargeMultiplier(target),chargeCap);
 			updateQuickslot();
 			spend(TICK);
 			return true;

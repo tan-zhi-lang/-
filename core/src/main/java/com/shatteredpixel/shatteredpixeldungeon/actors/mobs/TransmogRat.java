@@ -115,7 +115,7 @@ public class TransmogRat extends Mob {
 	@Override
 	public float 攻击时(Char enemy,float damage){
 		if (enemy instanceof Hero hero&&hero.天赋(Talent.鼠手鼠脚)){
-			damage *= 1-hero.天赋点数(Talent.鼠手鼠脚,0.1f);
+			damage *= 1-hero.天赋点数(Talent.鼠手鼠脚,0.15f);
 		}
 		return super.攻击时(enemy,damage);
 	}

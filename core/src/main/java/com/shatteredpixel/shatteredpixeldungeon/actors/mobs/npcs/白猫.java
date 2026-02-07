@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -13,12 +12,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.白猫动画;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 public class 白猫 extends NPC {
@@ -49,11 +45,13 @@ public class 白猫 extends NPC {
 		}
 		
 		if(!Dungeon.level.heroFOV[pos]){
+			if ( hero==null)
+				hero = (Hero) Actor.findById(heroID);
+
 			Buff.施加(hero, 白猫保护.class);
 			destroy();
-			CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT),0.2f,3);
+
 			sprite.die();
-			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 			return true;
 		}
 		
@@ -202,11 +200,11 @@ public class 白猫 extends NPC {
 	@Override
 	public void 受伤时(float dmg,Object src){
 		if (hero != null){
-			hero.受伤时(Math.round(dmg*(1-
+			hero.受伤时(dmg*(1-
 										(hero.subClass(HeroSubClass.黑白双子)?0.075f:0)
 										-hero.天赋点数(Talent.白猫主导,0.15f)
 										-hero.天赋点数(Talent.职业精通,0.15f)
-										)),src);
+										),src);
 		}
 	}
 	
@@ -236,11 +234,13 @@ public class 白猫 extends NPC {
 		public boolean act(boolean enemyInFOV, boolean justAlerted) {
 			
 			if (!enemyInFOV){
+				if ( hero==null)
+					hero = (Hero) Actor.findById(heroID);
+
 				Buff.施加(hero, 白猫保护.class);
 				destroy();
-				CellEmitter.get(pos).start(Speck.factory(Speck.LIGHT),0.2f,3);
 				sprite.die();
-				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
+
 				return true;
 			} else {
 				return super.act(enemyInFOV, justAlerted);

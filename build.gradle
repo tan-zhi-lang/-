@@ -25,9 +25,9 @@ buildscript {
 
         // 保留Google仓库(备选)
         google()}
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.11.1'
-    }
+        dependencies {
+            classpath 'com.android.tools.build:gradle:8.12.1'
+        }
 }
 
 allprojects {
@@ -38,7 +38,7 @@ allprojects {
         appVersionCode = 10_00_00
         appVersionName = '1.0.0'
 
-        appJavaCompatibility = JavaVersion.VERSION_17
+        appJavaCompatibility = JavaVersion.VERSION_16
 
         appAndroidCompileSDK = 35   //Android 15
         appAndroidMinSDK = 16       //Android 4.0

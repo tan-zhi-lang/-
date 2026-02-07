@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArm
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
@@ -115,6 +116,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.男人国徽章;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
@@ -149,6 +151,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.半月刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圆盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
@@ -166,6 +169,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
@@ -174,6 +178,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破甲锥;
@@ -181,12 +186,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.符文之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.腥红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蝙蝠棒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.轮刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铁头棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链枷;
@@ -528,12 +536,22 @@ public class Generator {
 					地裂镰.class,
 					寒冰镖.class,
 					闪电双截棍.class,
-					
+
+					真铜短剑.class,
+					腥红散华.class,
+					重锤.class,
+					无影剑.class,
+
+					变态刀.class,
+					蝙蝠棒.class,
+
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2,2,2,
 											   2,2,2,2,2,2,2,
 											   2,2,2,2,2,
 											   2,2,2,2,
+											   2,2,2,2,
+											   2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
@@ -595,6 +613,7 @@ public class Generator {
 					
 					荆棘斗篷.class,
 					心之钢.class,
+					九龙针筒.class,
 					虫箭.class,
 
 					EtherealChains.class,
@@ -608,7 +627,7 @@ public class Generator {
 					骷髅钥匙.class
 			};
 			ARTIFACT.defaultProbs = new float[]{ 1, 1,0,
-												 1, 1, 1,
+												 1, 1, 1, 1,
 					1, 1, 1, 1,
 					1, 1,1,1 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();
@@ -661,6 +680,7 @@ public class Generator {
 					
 					投机之剑.class,
 					神圣之剑.class,
+					男人国徽章.class,
 			};
 			TRINKET.defaultProbs = new float[]{ 0,0,0,
 												1, 1,
@@ -675,7 +695,7 @@ public class Generator {
 												1,1,1,
 												1,1,1,1,
 												1,1,1,1,
-												1,1,
+												1,1,1,
 												};
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 

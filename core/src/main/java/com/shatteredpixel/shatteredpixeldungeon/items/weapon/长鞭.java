@@ -17,7 +17,7 @@ public class 长鞭 extends Weapon {
 		tier = 3;
 		连招范围=3;
 		范围 = 3;
-		命中=0.75f;
+		命中=0.65f;
 	}
 
 }

@@ -2,7 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -58,7 +58,7 @@ public class Wnd选择属性 extends Window {
 
 							"暴击伤害","全能吸血");
 	}
-	public Wnd选择属性(){
+	public Wnd选择属性(Hero hero){
 		super();
 
 		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
@@ -120,44 +120,44 @@ public class Wnd选择属性 extends Window {
 				super.onClick();
 				switch(finalrx1){
 					case "最大攻击":
-						Dungeon.hero.攻击成长+=
+						hero.攻击成长+=
 								finalrxv1;
 						break;
 					case "最大防御":
-						Dungeon.hero.防御成长+=
+						hero.防御成长+=
 								finalrxv1;
 						break;
 					case "生命":
-						Dungeon.hero.生命成长+=
+						hero.生命成长+=
 								finalrxv1;
-						Dungeon.hero.更新数据();
+						hero.更新数据();
 						break;
 					case "力量":
-						Dungeon.hero.力量成长+=
+						hero.力量成长+=
 								finalrxv1;
 						break;
 					case "攻速":
-						Dungeon.hero.攻速成长+=
+						hero.攻速成长+=
 								finalrxv1;
 						break;
 					case "移速":
-						Dungeon.hero.移速成长+=
+						hero.移速成长+=
 								finalrxv1;
 						break;
 					case "最大命中":
-						Dungeon.hero.命中成长+=
+						hero.命中成长+=
 								finalrxv1;
 						break;
 					case "最大闪避":
-						Dungeon.hero.闪避成长+=
+						hero.闪避成长+=
 								finalrxv1;
 						break;
 					case "暴击伤害":
-						Dungeon.hero.暴击成长+=
+						hero.暴击成长+=
 								finalrxv1;
 						break;
 					case "全能吸血":
-						Dungeon.hero.吸血成长+=
+						hero.吸血成长+=
 								finalrxv1;
 						break;
 				}
@@ -179,35 +179,35 @@ public class Wnd选择属性 extends Window {
 
 				switch(finalrx2){
 					case "最大攻击":
-						Dungeon.hero.攻击成长+=finalrxv2;
+						hero.攻击成长+=finalrxv2;
 						break;
 					case "最大防御":
-						Dungeon.hero.防御成长+=finalrxv2;
+						hero.防御成长+=finalrxv2;
 						break;
 					case "生命":
-						Dungeon.hero.生命成长+=finalrxv2;
-						Dungeon.hero.更新数据();
+						hero.生命成长+=finalrxv2;
+						hero.更新数据();
 						break;
 					case "力量":
-						Dungeon.hero.力量成长+=finalrxv2;
+						hero.力量成长+=finalrxv2;
 						break;
 					case "攻速":
-						Dungeon.hero.攻速成长+=finalrxv2;
+						hero.攻速成长+=finalrxv2;
 						break;
 					case "移速":
-						Dungeon.hero.移速成长+=finalrxv2;
+						hero.移速成长+=finalrxv2;
 						break;
 					case "最大命中":
-						Dungeon.hero.命中成长+=finalrxv2;
+						hero.命中成长+=finalrxv2;
 						break;
 					case "最大闪避":
-						Dungeon.hero.闪避成长+=finalrxv2;
+						hero.闪避成长+=finalrxv2;
 						break;
 					case "暴击伤害":
-						Dungeon.hero.暴击成长+=finalrxv2;
+						hero.暴击成长+=finalrxv2;
 						break;
 					case "全能吸血":
-						Dungeon.hero.吸血成长+=finalrxv2;
+						hero.吸血成长+=finalrxv2;
 						break;
 				}
 				hide();
@@ -228,35 +228,35 @@ public class Wnd选择属性 extends Window {
 
 				switch(finalrx3){
 					case "最大攻击":
-						Dungeon.hero.攻击成长+=finalrxv3;
+						hero.攻击成长+=finalrxv3;
 						break;
 					case "最大防御":
-						Dungeon.hero.防御成长+=finalrxv3;
+						hero.防御成长+=finalrxv3;
 						break;
 					case "生命":
-						Dungeon.hero.生命成长+=finalrxv3;
-						Dungeon.hero.更新数据();
+						hero.生命成长+=finalrxv3;
+						hero.更新数据();
 						break;
 					case "力量":
-						Dungeon.hero.力量成长+=finalrxv3;
+						hero.力量成长+=finalrxv3;
 						break;
 					case "攻速":
-						Dungeon.hero.攻速成长+=finalrxv3;
+						hero.攻速成长+=finalrxv3;
 						break;
 					case "移速":
-						Dungeon.hero.移速成长+=finalrxv3;
+						hero.移速成长+=finalrxv3;
 						break;
 					case "最大命中":
-						Dungeon.hero.命中成长+=finalrxv3;
+						hero.命中成长+=finalrxv3;
 						break;
 					case "最大闪避":
-						Dungeon.hero.闪避成长+=finalrxv3;
+						hero.闪避成长+=finalrxv3;
 						break;
 					case "暴击伤害":
-						Dungeon.hero.暴击成长+=finalrxv3;
+						hero.暴击成长+=finalrxv3;
 						break;
 					case "全能吸血":
-						Dungeon.hero.吸血成长+=finalrxv3;
+						hero.吸血成长+=finalrxv3;
 						break;
 				}
 				hide();

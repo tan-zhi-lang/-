@@ -128,11 +128,16 @@ public class RatKing extends NPC {
 		} else if (crown != null){
 			if (库存){
 				库存=false;
+				crown.detach(Dungeon.hero.belongings.backpack);
 				for(int x=0;x<=100;x++){
 					Item i=Generator.random();
+					if(i instanceof Gold)i=Generator.random();
+					if(i instanceof Gold)i=Generator.random();
+					if(i instanceof Gold)i=Generator.random();
+
 					Dungeon.level.drop(i,pos);
 				}
-				Dungeon.level.drop(new Gold(5000),pos);
+
 				yell("国库都归你你了！皇冠归我！而且我的子民也不会攻击你了，除了可恶的变异白鼠！");
 				Badges.validateRatmogrify();
 				

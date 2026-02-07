@@ -9,7 +9,6 @@ public class 修理扳手 extends Weapon{
 	
 	{
 		image = 物品表.修理扳手;
-		hitSound = Assets.Sounds.HIT_SLASH;
 		吸血=0.05f;
 		延迟=0.85f;
 		伤害=0.68f;

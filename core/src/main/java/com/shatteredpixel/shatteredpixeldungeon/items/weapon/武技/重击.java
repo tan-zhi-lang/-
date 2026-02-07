@@ -19,7 +19,7 @@ public class 重击 extends 武技{
 	
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次137%伤害的物理攻击，并花费攻击延迟1.5倍的回合";
+		desc="对攻击范围内的一个目标进行一次137%伤害的物理攻击，并花费攻击延迟1.37倍的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -58,7 +58,7 @@ public class 重击 extends 武技{
 						Sample.INSTANCE.play(wep.hitSound);
 					}
 					Invisibility.notimedispel();
-					hero.spendAndNext(hero.攻击延迟()*1.5f);
+					hero.spendAndNext(hero.攻击延迟()*1.37f);
 					wep.技能使用(hero);
 				}
 			});

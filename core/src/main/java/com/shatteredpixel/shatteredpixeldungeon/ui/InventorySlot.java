@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.audio.Sample;
@@ -105,6 +106,15 @@ public class InventorySlot extends ItemSlot {
 				}
 				if(item.青色){
 					bg.青色();
+				}
+				if(item.橙色){
+					bg.橙色();
+				}
+				if(item.棕色){
+					bg.棕色();
+				}
+				if(item.粉色){
+					bg.粉色();
 				}
 			}
 

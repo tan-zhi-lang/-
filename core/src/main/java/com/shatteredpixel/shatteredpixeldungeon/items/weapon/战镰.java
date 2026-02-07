@@ -17,7 +17,7 @@ public class 战镰 extends Weapon{
 		tier = 5;
 		延迟= 1.25f;
 		伤害= 1.35f;
-		命中=0.75f;
+		命中=0.85f;
 	}
 
 

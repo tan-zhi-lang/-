@@ -1,0 +1,90 @@
+
+
+package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
+
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+
+public class 神器 extends Artifact {
+
+	{
+		image = 物品表.ARTIFACT_CAPE;
+
+		levelCap = 10;
+
+		charge = 3;
+		chargeCap = 3;
+
+	}
+	
+	@Override
+	public void charge(Hero target, float amount) {
+		if (cursed ||target.buff(MagicImmune.class)!=null) return;
+		charge = Math.min(charge+amount*10,chargeCap);
+		updateQuickslot();
+	}
+	
+	@Override
+	public String desc() {
+		String desc = Messages.get(this, "desc");
+
+		return desc;
+	}
+	
+	
+	@Override
+	protected ArtifactBuff passiveBuff() {
+		return new Thorns();
+	}
+	
+	public class Thorns extends ArtifactBuff{
+
+		@Override
+		public boolean act(){
+			charge = Math.min(charge+10*能量之戒.artifactChargeMultiplier(target),chargeCap);
+			updateQuickslot();
+			spend(TICK);
+			return true;
+		}
+
+		public float proc(float damage, Char attacker, Char defender){
+				if (charge >= chargeCap){
+					GLog.p( Messages.get(this, "radiating",Math.round(damage*(0.5f+等级()*0.2f))));
+					float deflected = Math.round(damage*(0.5f+等级()*0.2f));
+					damage=0;
+					if (attacker != null) {
+						Talent.onArtifactUsed(Dungeon.hero);
+						attacker.受伤时(deflected, this);
+					}
+					charge = 0;
+					exp+= deflected/5;
+				}
+				
+				if (exp >= (等级()+1)*10 && 等级() < levelCap){
+					exp -= (等级()+1)*10;
+					升级();
+					Catalog.countUse(神器.class);
+					GLog.p( Messages.get(this, "levelup") );
+				}
+			updateQuickslot();
+			return damage;
+		}
+
+		@Override
+		public int icon() {
+				return BuffIndicator.THORNS;
+		}
+
+	}
+
+
+}

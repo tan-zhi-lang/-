@@ -69,7 +69,7 @@ public class 骷髅钥匙 extends Artifact {
 		levelCap = 10;
 
 		charge = 3+等级()/2;
-		partialCharge = 0;
+
 		chargeCap = 3+等级()/2;
 
 		defaultAction = AC_INSERT;

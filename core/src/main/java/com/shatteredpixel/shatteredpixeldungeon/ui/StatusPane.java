@@ -393,7 +393,9 @@ public class StatusPane extends Component {
 				血量变化+=Dungeon.hero.buff(再生.class).partialRegen;
 			}
 		}
-		if(!(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云))){
+		if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+			血条文本.text(String.format("%.2f",health)+"/"+String.format("%.2f",max));
+		}else {
 			if(血量变化>0){
 				血条文本.text(String.format("%.2f",health)+"+"+String.format("%.2f",血量变化)+"/"+String.format("%.2f",max));
 			}else if(血量变化==0){

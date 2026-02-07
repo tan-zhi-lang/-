@@ -161,6 +161,7 @@ public class 物品表 {
     public static final int 圣诞礼物 = MISC_CONSUMABLE + 18;
     public static final int 坠牢之星 = MISC_CONSUMABLE + 19;
     public static final int 魔力水晶 = MISC_CONSUMABLE + 20;
+    public static final int 海克斯宝典 = MISC_CONSUMABLE + 21;
 
 
     static {
@@ -187,6 +188,7 @@ public class 物品表 {
         assignItemRect(圣诞礼物, 9, 11);
         assignItemRect(坠牢之星, 11, 12);
         assignItemRect(魔力水晶, 11, 12);
+        assignItemRect(海克斯宝典, 13, 16);
     }
     //endregion
 
@@ -427,6 +429,13 @@ public class 物品表 {
     public static final int 寒冰镖 = WEP_TIER5 + 17;
     public static final int 地裂镰 = WEP_TIER5 + 18;
     public static final int 火焰剑 = WEP_TIER5 + 19;
+    public static final int 真铜短剑 = WEP_TIER5 + 20;
+    public static final int 腥红散华=WEP_TIER5+21;
+    public static final int 重锤=WEP_TIER5+22;
+    public static final int 无影剑=WEP_TIER5+23;
+    public static final int 变态刀=WEP_TIER5+24;
+    public static final int 蝙蝠棒=WEP_TIER5+25;
+    public static final int 大肉棒=WEP_TIER5+26;
 
     static {
         assignItemRect(英雄断剑, 12, 13);
@@ -451,6 +460,14 @@ public class 物品表 {
         assignItemRect(寒冰镖, 15,16);
         assignItemRect(地裂镰, 15, 16);
         assignItemRect(火焰剑, 15, 16);
+
+        assignItemRect(真铜短剑, 12);
+        assignItemRect(腥红散华,16);
+        assignItemRect(重锤,16);
+        assignItemRect(无影剑,16);
+        assignItemRect(变态刀,15,16);
+        assignItemRect(蝙蝠棒,15,13);
+        assignItemRect(大肉棒,14);
     }
     //endregion
     
@@ -647,11 +664,13 @@ public class 物品表 {
     public static final int 虫箭2 = 神器2+1;
     public static final int 虫箭3 = 神器2+2;
     public static final int 心之钢 = 神器2+3;
+    public static final int 九龙针筒 = 神器2+4;
     static {
         assignItemRect(虫箭,16);
         assignItemRect(虫箭2,16);
         assignItemRect(虫箭3,16);
         assignItemRect(心之钢,16,15);
+        assignItemRect(九龙针筒,16);
     }
     private static final int TRINKETS = xy(0, 18);  //24 slots
     public static final int RAT_SKULL = TRINKETS + 0;
@@ -720,19 +739,21 @@ public class 物品表 {
         assignItemRect(断骨法杖,14,10);
         assignItemRect(骸骨左轮,15,10);
         assignItemRect(巨大蟹钳,15,13);
-        assignItemRect(火毒箭矢,15,15);
-        
+        assignItemRect(火毒箭矢,15);
+
     }
     
     private static final int 禁忌物 = xy(0, 19);  //24 slots
     public static final int 血腥生肉 = 禁忌物;
     public static final int 投机之剑 = 禁忌物+1;
     public static final int 神圣之剑 = 禁忌物+2;
+    public static final int 男人国徽章=禁忌物+3;
     static {
         
         assignItemRect(血腥生肉,15,11);
         assignItemRect(投机之剑,16);
         assignItemRect(神圣之剑,13,16);
+        assignItemRect(男人国徽章,13);
     }
     
     //endregion

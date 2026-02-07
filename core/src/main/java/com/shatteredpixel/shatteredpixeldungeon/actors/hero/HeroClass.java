@@ -53,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolki
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
@@ -95,7 +96,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.折镜法杖;
@@ -134,6 +134,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
@@ -150,7 +151,7 @@ import com.watabou.utils.Random;
 public enum HeroClass{
 	
 	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士),
-	MAGE(HeroSubClass.战斗法师),
+	MAGE(HeroSubClass.战斗法师,HeroSubClass.元素法师),
 	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影),
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
@@ -159,7 +160,7 @@ public enum HeroClass{
 //	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
 	巫女(HeroSubClass.潜能觉醒),
 	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士),
-	道士(HeroSubClass.术士),行僧(HeroSubClass.疾行者),
+	道士(HeroSubClass.死灵术士),行僧(HeroSubClass.疾行者),
 	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵),
 	兽灵(HeroSubClass.神兽之灵),
 	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.灵魂武者),
@@ -221,11 +222,15 @@ public enum HeroClass{
 		//		i = new Food();
 		//		if (!Challenges.isItemBlocked(i)) i.放背包();
 
+		if(Dungeon.赛季(赛季设置.幸运转世))hero.幸运转世=Random.oneOf(1,2);
 		if(Dungeon.派对(派对设置.钢门联盟)){
 			心之钢 钢门=new 心之钢();
 			钢门.鉴定();
 			钢门.activate(hero);
 			钢门.放背包();
+		}
+		if(Dungeon.派对(派对设置.海克斯)){
+			new 海克斯宝典().放背包();
 		}
 		if(算法.isDebug()){
 
@@ -269,7 +274,7 @@ public enum HeroClass{
 //			new WandOfCorrosion().放背包();
 //			new MasterThievesArmband().放背包();
 			new TengusMask().放背包();
-			new 磨刀石().放背包();
+			new 九龙针筒().放背包();
 			new Stylus().放背包();
 			new 矮人国王的皇冠().放背包();
 			new 影织法杖().放背包();

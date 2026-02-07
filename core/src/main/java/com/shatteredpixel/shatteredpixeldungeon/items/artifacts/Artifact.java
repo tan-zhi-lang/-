@@ -13,8 +13,8 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class Artifact extends KindofMisc {
 
@@ -29,12 +29,12 @@ public class Artifact extends KindofMisc {
 	protected int levelCap = 0;
 
 	//the current artifact charge
-	protected int charge = 0;
+	protected float charge = 0;
 	//the build towards next charge, usually rolls over at 1.
 	//better to keep charge as an int and use a separate float than casting.
 	protected float partialCharge = 0;
 	//the maximum charge, varies per artifact, not all artifacts use this.
-	protected int chargeCap = 0;
+	protected float chargeCap = 0;
 
 	//used by some artifacts to keep track of duration of effects or cooldowns to use.
 	protected int cooldown = 0;
@@ -170,16 +170,16 @@ public class Artifact extends KindofMisc {
 
 		//display as percent
 		if (chargeCap == 100)
-			return Messages.format( "%d%%", charge );
+			return Messages.format( "%d%%", Math.round(charge) );
 
 		//display as #/#
 		if (chargeCap > 0)
-			return Messages.format( "%d/%d", charge, chargeCap );
+			return Messages.format( "%d/%d", Math.round(charge), Math.round(chargeCap) );
 
 		//if there's no cap -
 		//- but there is charge anyway, display that charge
 		if (charge != 0)
-			return Messages.format( "%d", charge );
+			return Messages.format( "%d", Math.round(charge) );
 
 		//otherwise, if there's no charge, return null.
 		return null;
@@ -188,9 +188,12 @@ public class Artifact extends KindofMisc {
 	@Override
 	public Item random() {
 		//always +0
-		
+
+		float 概率=1;
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
 		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
+		if (算法.概率学(概率*3/10f)) {
 			cursed = true;
 		}
 		return this;

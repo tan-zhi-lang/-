@@ -54,7 +54,7 @@ public class TengusMask extends Item {
 		if (action.equals( AC_WEAR )) {
 			
 			curUser = hero;
-			if(Dungeon.炼狱(炼狱设置.诅咒面具)){
+			if(Dungeon.炼狱(炼狱设置.诅咒面具)||hero.海克斯.get("回归基本功")){
 				return;
 			}
 			if(hero.heroClass.subClasses()==null){

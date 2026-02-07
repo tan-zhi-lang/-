@@ -197,7 +197,7 @@ public class Bomb extends Item {
 			}
 		}
 	}
-	public void heroexplode(int cell){
+	public void heroexplode(int cell){//不破坏物品和不伤害英雄
 		//We're blowing up, so no need for a fuse anymore.
 		this.fuse = null;
 
@@ -238,11 +238,6 @@ public class Bomb extends Item {
 					terrainAffected = true;
 				}
 
-				//destroys items / triggers bombs caught in the blast.
-				Heap heap = Dungeon.level.heaps.get(i);
-				if (heap != null) {
-					heap.explode();
-				}
 			}
 			
 			for (Char ch : affectedChars){
@@ -252,7 +247,7 @@ public class Bomb extends Item {
 					continue;
 				}
 
-				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth())*2;
+				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
 
 				if (ch != Dungeon.hero &&dmg > 0) {
 					ch.受伤时(dmg, this);

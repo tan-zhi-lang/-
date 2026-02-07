@@ -70,6 +70,7 @@ public class HeroIcon extends Image {
 	public static final int 金刚独狼     = 23*8;
 	public static final int 血法师     = 金刚独狼+1;
 	public static final int 时间刺客     = 24*8;
+	public static final int 潜能觉醒     = 32*8;
 
 	//abilities
 	public static final int HEROIC_LEAP     = 16;

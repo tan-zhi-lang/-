@@ -112,6 +112,21 @@ public class Item implements Bundlable {
 	public boolean 红色 = false;
 	public boolean 绿色 = false;
 	public boolean 蓝色 = false;
+	public boolean 橙色 = false;
+	public boolean 棕色 = false;
+	public boolean 粉色 = false;
+
+	public boolean 白光 = false;
+	public boolean 黑光 = false;
+	public boolean 黄光 = false;
+	public boolean 青光 = false;
+	public boolean 紫光 = false;
+	public boolean 红光 = false;
+	public boolean 绿光 = false;
+	public boolean 蓝光 = false;
+	public boolean 橙光 = false;
+	public boolean 棕光 = false;
+	public boolean 粉光 = false;
 	public boolean levelKnown = false;
 
 	public boolean cursed=false;
@@ -541,10 +556,11 @@ public class Item implements Bundlable {
 	}
 	public Item 升级() {
 		
-		if(this instanceof Weapon||this instanceof Armor||this instanceof Artifact||this instanceof Ring||this instanceof Wand){
+		if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
+			if(Dungeon.hero()&&Dungeon.hero.海克斯.get("升级升级"))this.等级++;
 			if(Dungeon.赛季(赛季设置.升级概率)){
 					if(等级>=17){
 						if(算法.概率学(10)){
@@ -816,6 +832,42 @@ public class Item implements Bundlable {
 	}
 	
 	public ItemSprite.Glowing glowing() {
+
+		if(黑光){
+			return new ItemSprite.Glowing( 0x000000 );
+		}
+		if(白光){
+			return new ItemSprite.Glowing( 0xFFFFFF );
+		}
+		if(黄光){
+			return new ItemSprite.Glowing( 0xFFFF00 );
+		}
+		if(红光){
+			return new ItemSprite.Glowing( 0x660022 );
+		}
+		if(绿光){
+			return new ItemSprite.Glowing( 0x448822 );
+		}
+
+		if(蓝光){
+			return new ItemSprite.Glowing( 0x0000FF );
+		}
+		if(紫光){
+			return new ItemSprite.Glowing( 0x8844CC );
+		}
+		if(青光){
+			return new ItemSprite.Glowing( 0x88EEFF );
+		}
+		if(橙光){
+			return new ItemSprite.Glowing( 0xFF4400 );
+		}
+		if(棕光){
+			return new ItemSprite.Glowing( 0x663300 );
+		}
+		if(粉光){
+			return new ItemSprite.Glowing( 0xFF4488 );
+		}
+
 		return null;
 	}
 

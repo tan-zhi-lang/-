@@ -152,11 +152,11 @@ public class AlchemistsToolkit extends Artifact {
 	}
 
 	public int availableEnergy(){
-		return charge;
+		return Math.round(charge);
 	}
 
 	public int consumeEnergy(int amount){
-		int result = amount - charge;
+		int result = amount - Math.round(charge);
 		charge = Math.max(0, charge - amount);
 		Talent.onArtifactUsed(Dungeon.hero);
 		return Math.max(0, result);

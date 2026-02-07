@@ -81,6 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.黑暗结晶;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -165,6 +166,7 @@ public abstract class Char extends Actor {
 
 	public float 大小=1;
 	public boolean 史莱姆=false;
+	public boolean 吸血鬼飞刀=false;
 	public int 第x次攻击=0;
 	public int 第x次防御 =0;
 	public int 第x次背袭 =0;
@@ -663,12 +665,18 @@ public abstract class Char extends Actor {
 			if (算法.isDebug()){
 				defStat=0;
 			}
+
+			if(hero.欧皇())defStat/=2;
+			if(hero.非酋())defStat*=2;
 		}
 		if ( defender instanceof Hero hero) {
 			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
 				acuStat*=0.7f;
 			}
-			
+
+			if(hero.欧皇())acuStat*=2;
+			if(hero.非酋())acuStat/=2;
+
 			if(hero.damageInterrupt){
 				hero.interrupt();
 			}
@@ -780,15 +788,18 @@ public abstract class Char extends Actor {
 
 		if (acuStat >= defStat){
 			attacker.未命中=0;
-			if(attacker instanceof Hero hero&&投机之剑.增加()>0&&算法.概率学(投机之剑.增加())){
-				hero.投机之剑+=new Gold().random().数量();
+			if(attacker instanceof Hero hero){
+				if(投机之剑.增加()>0&&算法.概率学(投机之剑.增加())){
+					hero.投机之剑+=new Gold().random().数量();
+				}
 			}
 			hitMissIcon = FloatingText.getHitReasonIcon(attacker, acuStat, defender, defStat);
 			return true;
 		} else {
 			attacker.未命中++;
 			
-			if(attacker instanceof Hero hero&&投机之剑.增加()>0){
+			if(attacker instanceof Hero hero){
+				if(投机之剑.增加()>0)
 				hero.投机之剑-=Math.round(hero.投机之剑*投机之剑.减少());
 			}
 			if(attacker.未命中>=3&&attacker.未命中%3==0){
@@ -879,6 +890,10 @@ public abstract class Char extends Actor {
 //			暴击伤害+=0.3f;
 //		}
 		return 暴击伤害;
+	}
+	public float 伤害(){
+		float 伤害=1f;
+		return 伤害;
 	}
 	public float 暴击(final Char enemy,float dmg){
 		if((必暴||算法.概率学(暴击率()))){
@@ -1147,7 +1162,7 @@ public abstract class Char extends Actor {
 //				return;
 //			}
 //		}
-
+		if(!(this instanceof Hero))dmg*=伤害();
 		Class<?> srcClass = src.getClass();
 		if (免疫( srcClass )) {
 			dmg = 0;
@@ -1186,7 +1201,7 @@ public abstract class Char extends Actor {
 		shielded -= dmg;
 
 		生命 -= dmg;
-		
+
 		if(sprite!=null&&(dmg>=最大生命(0.34f)||生命<=最大生命(0.34f)))
 			sprite.哭泣();
 		
@@ -1685,7 +1700,7 @@ public abstract class Char extends Actor {
 
 	public float 护甲伤害(float dmg){
 		if(this instanceof Hero hero){
-			dmg-=Random.NormalFloat(最小防御(),最大防御())*hero.天赋点数(Talent.金刚不坏,0.05f);
+			dmg-=Random.NormalFloat(最小防御(),最大防御())*hero.天赋点数(Talent.金刚不坏,0.075f);
 		}
 		if(dmg>0&&护甲>0){
 			if (护甲<=最大护甲()/2&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
@@ -1759,6 +1774,7 @@ public abstract class Char extends Actor {
 			if (Dungeon.level.heroFOV[pos]){
 				if(sprite!=null&&sprite.visible&&x>=1&&!Dungeon.赛季(赛季设置.地牢塔防)){
 					sprite.showStatusWithIcon(CharSprite.增强,x,FloatingText.HEALING);
+					sprite.emitter().burst(Speck.factory(Speck.HEALING),1+x/10);
 				}
 			}
 

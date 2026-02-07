@@ -5,20 +5,19 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.召唤物品;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.PointF;
 
-public class 暗影士兵 extends MobSprite {
+public class 替身动画 extends MobSprite {
 	
 	private static final int FRAME_WIDTH	= 12;
 	private static final int FRAME_HEIGHT	= 15;
 	
-	public 暗影士兵() {
+	public 替身动画() {
 		super();
 		
 		texture( Dungeon.hero() ? Dungeon.hero.heroClass.spritesheet() : HeroClass.WARRIOR.spritesheet() );
-		updateArmor( 0 );
+		updateArmor();
 		idle();
 	}
 	
@@ -39,12 +38,8 @@ public class 暗影士兵 extends MobSprite {
 		//do nothing
 	}
 
-	public void updateArmor(){
-		updateArmor( ((召唤物品.随从)ch).armTier);
-	}
-	
-	public void updateArmor( int tier ) {
-		TextureFilm film = new TextureFilm( HeroSprite.tiers(), tier, FRAME_WIDTH, FRAME_HEIGHT );
+	public void updateArmor() {
+		TextureFilm film = new TextureFilm(HeroSprite.tiers(),Dungeon.hero.tier(),FRAME_WIDTH,FRAME_HEIGHT );
 		
 		idle = new Animation( 1, true );
 		idle.frames( film, 0, 0, 0, 1, 0, 0, 1, 1 );

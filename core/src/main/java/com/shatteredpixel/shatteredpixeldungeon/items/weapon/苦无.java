@@ -15,10 +15,10 @@ public class 苦无 extends Weapon{
 	{
 		image = 物品表.KUNAI;
 		hitSound = Assets.Sounds.HIT_STAB;
-		
-		伤害=0.8f;
-		伏击=0.67f;
-		命中=0.85f;
+
+		延迟=0.75f;
+		伤害=0.75f;
+		伏击=0.75f;
 		tier = 3;
 	}
 

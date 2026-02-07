@@ -197,9 +197,9 @@ public class WndHero extends WndTabbed {
 
 			pos = title.bottom() + GAP;
 
-			statSlot( Messages.get(this, "str")+"/攻击范围", String.format("%.2f",hero.力量())+"/"+hero.攻击范围());
-			statSlot( "攻击力", String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
-			statSlot( "防御力", String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
+			statSlot( "力量/攻击范围", String.format("%.2f",hero.力量())+"/"+hero.攻击范围());
+			statSlot( "==攻击==", String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
+			statSlot( "++防御++", String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
 			pos += GAP;
 			
 			statSlot( "命中", hero.最小命中(null)+"~"+hero.最大命中(null));
@@ -208,7 +208,7 @@ public class WndHero extends WndTabbed {
 					+"/"+String.format("%.2f",hero.移速()));
 			
 			pos += GAP;
-			statSlot( "暴击率/暴击伤害", hero.暴击率()+"%/"+Math.round(hero.暴击伤害()*100)+"%");
+			statSlot( "$$暴击率/暴击伤害$$", hero.暴击率()+"%/"+Math.round(hero.暴击伤害()*100)+"%");
 			
 			pos += GAP;
 		}
@@ -269,10 +269,10 @@ public class WndHero extends WndTabbed {
 			pos = GAP*2;
 			
 			statSlot( "惊醒距离/地牢视野", hero.惊醒距离()+"/"+Dungeon.level.视野范围);
-			statSlot( "视野+光照范围", hero.视野范围()+"+"+hero.光照范围());
+			statSlot( "$$视野+光照范围$$", hero.视野范围()+"+"+hero.光照范围());
 			statSlot( "搜索/感知范围", +hero.搜索范围()+"/"+hero.感知范围());
 			pos += GAP;
-			statSlot( "吸血/全能吸血",Math.round(hero.吸血()*100)+"%"+"/"
+			statSlot( "**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"
 									  +Math.round(hero.全能吸血()*100)+"%");
 			
 			statSlot( "难度",Dungeon.难度名称());

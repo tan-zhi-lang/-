@@ -305,9 +305,9 @@ public abstract class Wand extends Item {
 
 		super.升级();
 
-		if (Random.Int(3) == 0) {
+
 			cursed = false;
-		}
+
 
 		if (resinBonus > 0){
 			resinBonus--;
@@ -470,35 +470,42 @@ public abstract class Wand extends Item {
 		//+1: 26.67% (4/15)
 		//+2: 6.67%  (1/15)
 		int n = 0;
+		float 概率=1;
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
 		if(Dungeon.解压(解压设置.持之以恒)){
-			if (Random.Int(1) == 0){
+			if (算法.概率学(概率*1/2)){
 				n++;
-				if (Random.Int(2) == 0){
+				if (算法.概率学(概率*1/3)){
 					n++;
-					if (Random.Int(3) == 0){
+					if (算法.概率学(概率*1/4)){
 						n++;
-						if (Random.Int(4) == 0){
+						if (算法.概率学(概率*1/5)){
 							n++;
-							if (Random.Int(5) == 0){
+							if (算法.概率学(概率*1/6)){
 								n++;
 							}
 						}
 					}
 				}
 			}
-		}else{
-			if (Random.Int(3) == 0) {
+
+		}else {
+			if (算法.概率学(概率*1/4)){
 				n++;
-				if (Random.Int(5) == 0){
+				if (算法.概率学(概率*1/6)){
 					n++;
 				}
 			}
 		}
 		等级(n);
 		curCharges += n;
-		
+
+		float 概率2=1;
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率2*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())概率2/=2;
 		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
+		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;
 		}
 

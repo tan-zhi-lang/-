@@ -18,7 +18,7 @@ public class 双刃 extends Weapon{
 		延迟=0.5f;
 		伤害= 0.64f;
 		双手=true;
-		伏击=0.75f;
+		伏击=0.67f;
 		遗产= false;
 	}
 }

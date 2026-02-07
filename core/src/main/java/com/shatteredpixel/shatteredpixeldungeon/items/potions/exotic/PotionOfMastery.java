@@ -23,7 +23,7 @@ public class PotionOfMastery extends ExoticPotion {
 		鉴定();
 		
 		Game.runOnRenderThread(()->{
-			GameScene.show(new Wnd选择肌肉记忆());
+			GameScene.show(new Wnd选择肌肉记忆(hero));
 		});
 	}
 }

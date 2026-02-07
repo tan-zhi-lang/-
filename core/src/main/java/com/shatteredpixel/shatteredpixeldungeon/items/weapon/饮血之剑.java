@@ -13,7 +13,7 @@ public class 饮血之剑 extends Weapon{
 		tier=5;
 		延迟=1.35f;
 		吸血=0.15f;
-		命中=0.8f;
+		命中=0.85f;
 		技能=new 嗜血();
 	}
 }

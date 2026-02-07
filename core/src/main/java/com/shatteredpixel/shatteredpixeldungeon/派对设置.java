@@ -9,8 +9,8 @@ public class 派对设置{
 	public static final int 重生怪物= 2;
 public static final int 钢门联盟				= 4;
 public static final int 怪物猎场				= 8;
-	public static final int 特性之征= 16;
-//	public static final int 特性之征			= 32;
+	public static final int 海克斯= 16;
+//	public static final int x			= 32;
 //	public static final int 刷子地牢		    = 64;
 //		public static final int 升级概率	= 128;
 //		public static final int  	= 256;
@@ -22,7 +22,7 @@ public static final int MAX_VALUE           = 256*2-1;
 			"重生怪物",
 			"钢门联盟",
 			"怪物猎场",
-			"特性之征",
+			"海克斯",
 	};
 
 	public static final int[] MASKS = {
@@ -30,7 +30,7 @@ public static final int MAX_VALUE           = 256*2-1;
 			重生怪物,
 			钢门联盟,
 			怪物猎场,
-			特性之征,
+			海克斯,
 	};
 	
 	public static int 使用(){

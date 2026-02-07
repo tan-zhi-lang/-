@@ -2,208 +2,49 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.替身保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
-import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
-import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
-
-import java.util.ArrayList;
 
 public class 虫箭 extends Artifact {
 
 	{
 		image = 物品表.虫箭;
-		defaultAction=AC_PRICK;
-		levelCap = 10;
 	}
 
-	public static final String AC_PRICK = "PRICK";
-
-	@Override
-	public ArrayList<String> actions( Hero hero ) {
-		ArrayList<String> actions = super.actions( hero );
-		if (isEquipped( hero )
-				&& 等级() < levelCap
-				&& !cursed
-				&& !hero.是无敌(getClass())
-				&& hero.buff(MagicImmune.class) == null)
-			actions.add(AC_PRICK);
-		return actions;
-	}
-
-	@Override
-	public void execute(Hero hero, String action ) {
-		super.execute(hero, action);
-
-		if (action.equals(AC_PRICK)
-			&&isEquipped(hero)&& 等级() < levelCap){
-
-			float minDmg=minPrickDmg();
-			float maxDmg=maxPrickDmg();
-			
-			float totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
-			if(hero.hasbuff(Invulnerability.class)){
-				minDmg=0;
-				maxDmg=0;
-			}if(hero.hasbuff(护盾.class)){
-				minDmg=0;
-				maxDmg=0;
-			}
-			float deathChance=0;
-			
-			if(totalHeroHP<maxDmg){
-				deathChance=(maxDmg-totalHeroHP)/(float)(maxDmg-minDmg);
-				if(deathChance<0.5f){
-					deathChance=(float)Math.pow(2*deathChance,2)/2f;
-				}else if(deathChance<1f){
-					deathChance=1f-deathChance;
-					deathChance=(float)Math.pow(2*deathChance,2)/2f;
-					deathChance=1f-deathChance;
-				}else{
-					deathChance=1;
-				}
-			}
-			if(deathChance>0.85f){
-				GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,Messages.decimalFormat("#.##",100*deathChance)),Messages.get(this,"yes"),Messages.get(this,"no")){
-					@Override
-					protected void onSelect(int index){
-						if(index==0)
-							prick(Dungeon.hero);
-					}
-					
-				});
-			}else{
-				prick(Dungeon.hero);
-			}
-		}
-	}
-	
-	private float minPrickDmg(){
-		return 2.5f*(等级()*等级());
-	}
-	private float maxPrickDmg(){
-		return 3.5f*(等级()*等级());
-	}
-
-	private void prick(Hero hero){
-		float damage = Random.NormalFloat(minPrickDmg(), maxPrickDmg());
-
-		//need to process on-hit effects manually
-		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);
-		if (armor != null) {
-			damage = armor.absorb(damage);
-		}
-
-		WandOfLivingEarth.RockArmor rockArmor = hero.buff(WandOfLivingEarth.RockArmor.class);
-		if (rockArmor != null) {
-			damage = rockArmor.absorb(damage);
-		}
-
-		damage -= hero.最大防御();
-
-		damage-=hero.护甲伤害(damage);
-		
-		hero.sprite.operate( hero.pos );
-		hero.busy();
-		hero.spend(Actor.TICK);
-		GLog.w( Messages.get(this, "onprick") );
-		if (damage <= 0){
-			damage = 1;
-		} else {
-			Sample.INSTANCE.play(Assets.Sounds.CURSED);
-			hero.sprite.emitter().burst( ShadowParticle.CURSE, 4+(damage/10) );
-		}
-
-		hero.受伤时(damage, this);
-
-		if (!hero.isAlive()) {
-			Badges.validateDeathFromFriendlyMagic();
-			Dungeon.fail( this );
-			GLog.n( Messages.get(this, "ondeath") );
-		} else {
-			升级();
-			Catalog.countUse(getClass());
-		}
-	}
-
-	@Override
-	public Item 升级() {
-		if (等级() >= 6)
-			image = 物品表.虫箭3;
-		else if (等级() >= 2)
-			image = 物品表.虫箭2;
-		return super.升级();
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		if (等级() >= 7) image = 物品表.虫箭3;
-		else if (等级() >= 3) image = 物品表.虫箭2;
-	}
-
-	@Override
-	protected ArtifactBuff passiveBuff() {
-		return new 力量();
-	}
-	
-	@Override
-	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
-
-		//grants 5 turns of healing up-front, if hero isn't starving
-		if (target.isStarving()) return;
-
-		float healDelay = 10f - (1.33f + 等级()*0.667f);
-		healDelay /= amount;
-		float heal = 5f/healDelay;
-		//effectively 0.5/1/1.5/2/2.5 HP per turn at +0/+6/+8/+9/+10
-		if (Random.Float() < heal%1){
-			heal++;
-		}
-		if (heal >= 1f && target.生命 < target.最大生命) {
-			target.回血(Math.round(heal));
-			if (target.生命 == target.最大生命) {
-				target.resting = false;
-			}
-		}
-	}
-	
 	@Override
 	public String desc() {
-		String desc = "";
-
-		if (isEquipped (Dungeon.hero)){
-			desc += "\n\n";
-			if (cursed)
-				desc += Messages.get(this, "desc_cursed");
-			else
-				desc += Messages.get(this, "desc",3*等级());
-		}
+		String desc = Messages.get(this, "desc");
 
 		return desc;
 	}
 
-	public class 力量 extends ArtifactBuff {
-		//see Regeneration.class for effect
+	@Override
+	protected ArtifactBuff passiveBuff() {
+		return new 保护();
+	}
+	@Override
+	public boolean doEquip( final Hero hero) {
+			if (super.doEquip( hero )){
+				if(!cursed){
+					hero.受伤时(hero.最大生命(0.35f),this);
+
+					if(hero.isAlive())
+					Buff.施加(hero,替身保护.class);
+					if(hero.belongings.misc instanceof 虫箭)hero.belongings.misc=null;
+					if(hero.belongings.misc2 instanceof 虫箭)hero.belongings.misc2=null;
+					if(hero.belongings.misc3 instanceof 虫箭)hero.belongings.misc3=null;
+				}
+				return true;
+			} else {
+				return false;
+
+			}
+	}
+	public class 保护 extends ArtifactBuff{
+
 	}
 
 }

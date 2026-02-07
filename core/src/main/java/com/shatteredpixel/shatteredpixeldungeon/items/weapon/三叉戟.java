@@ -12,7 +12,7 @@ public class 三叉戟 extends Weapon{
 	
 	{
 		image = 物品表.TRIDENT;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.HIT_STAB;
 		
 		技能=new 刺击();
 		投矛=true;

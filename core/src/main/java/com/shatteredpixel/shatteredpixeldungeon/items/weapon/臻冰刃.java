@@ -15,20 +15,18 @@ public class 臻冰刃 extends Weapon {
 	{
 		image = 物品表.臻冰刃;
 		hitSound = Assets.Sounds.HIT_STAB;
-		
-		延迟=1.2f;
-		伤害=0.8f;
+
+		伤害=0.75f;
 		技能=new 潜行();
-		
-		命中=0.85f;
-		伏击=0.35f;
+		命中=0.75f;
+		伏击=0.67f;
 		tier = 5;
 	}
 	
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(defender.hasbuff(Frost.class)){
-			damage+=defender.生命(0.35f);
+			damage*=attacker.暴击伤害();
 		}else if(defender.hasbuff(Chill.class)){
 			Buff.施加(defender,Frost.class,2);
 		}else{
@@ -40,7 +38,7 @@ public class 臻冰刃 extends Weapon {
 	public float 投掷攻击时(Char attacker,Char defender,float damage) {
 		
 		if(defender.hasbuff(Frost.class)){
-			damage+=defender.生命(0.35f);
+			damage*=attacker.暴击伤害();
 		}else if(defender.hasbuff(Chill.class)){
 			Buff.施加(defender,Frost.class,2);
 		}else{

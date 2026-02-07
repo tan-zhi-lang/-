@@ -56,9 +56,9 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 	
 	public float 综合属性(){
 		if (target.hasbuff(时光沙漏.timeFreeze.class)){
-			return 1+Dungeon.hero.天赋点数(Talent.关键时刻,0.075f);
+			return Dungeon.hero.天赋点数(Talent.关键时刻,0.075f);
 		}  else {
-			return 1;
+			return 0;
 		}
 	}
 	

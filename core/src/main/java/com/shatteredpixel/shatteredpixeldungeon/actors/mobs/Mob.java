@@ -820,7 +820,7 @@ public abstract class Mob extends Char {
 				
 				if(Dungeon.hero()){
 					if(Dungeon.hero.全能吸血()>0)
-					Dungeon.hero.回血(dmg * Dungeon.hero.全能吸血());
+					Dungeon.hero.回血(dmg * Dungeon.hero.全能吸血()*((老鬼()||小老鬼())?1:0.5f));
 					
 					if(Dungeon.hero.天赋(Talent.错失良机))
 						Buff.延长( Dungeon.hero, Invisibility.class, Dungeon.hero.天赋点数(Talent.错失良机,2) );
@@ -929,8 +929,9 @@ public abstract class Mob extends Char {
 			
 
 			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
+
+				if(!傀儡()&&!老鬼傀儡()){
 				if(cause== Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
-					if(!(傀儡()&&老鬼傀儡())){
 						if(Dungeon.hero.belongings.attackingWeapon()instanceof 草剃){
 							for(int n: PathFinder.NEIGHBOURS8){
 								Blooming.plantGrass(pos+n);
@@ -945,9 +946,7 @@ public abstract class Mob extends Char {
 						if(Dungeon.hero.belongings.attackingWeapon() instanceof 蜜剑){
 							Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
 						}
-					}
 				}
-				if(!(傀儡()&&老鬼傀儡())){
 				if(!isAlive()){
 					if (Dungeon.hero.subClass(HeroSubClass.狂战士)) {
 						算法.修复效果(()->{
@@ -999,7 +998,7 @@ public abstract class Mob extends Char {
 					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 				}
 				if(Dungeon.hero.subClass(HeroSubClass.灵魂武者))
-					Dungeon.hero.力量成长+=0.025f+(Dungeon.hero.职业精通()?0.025f:0);
+					Dungeon.hero.力量成长+=0.1f+(Dungeon.hero.职业精通()?0.1f:0);
 				if(投机之剑.增加()>0&&Dungeon.hero.投机之剑>0){
 					Dungeon.gold(Dungeon.hero.投机之剑);
 				}
@@ -1019,7 +1018,14 @@ public abstract class Mob extends Char {
 
 		boolean soulMarked =buff(灵魂标记.class)!=null;
 
-		super.死亡时( cause );
+		if (!傀儡()
+			&& !老鬼傀儡()&& 算法.概率学(1/5f)&& Dungeon.hero.海克斯.get("破败之王")){
+				回满血();
+				Buff.施加(this, Corruption.class);
+		}else{
+			super.死亡时( cause );
+		}
+
 
 		if (!(this instanceof Wraith)
 				&& soulMarked
@@ -1043,6 +1049,8 @@ public abstract class Mob extends Char {
 		if(Dungeon.解压(解压设置.掉落几率)){
 			lootChance*=3;
 		}
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())lootChance*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())lootChance/=2;
 		float dropBonus = 幸运之戒.dropChanceMultiplier(Dungeon.hero);
 
 		Talent.BountyHunterTracker bhTracker = Dungeon.hero.buff(Talent.BountyHunterTracker.class);
@@ -1198,18 +1206,19 @@ public abstract class Mob extends Char {
 			if(静物())属性+=" 静物";
 			
 			desc+="属性"+属性+"\n";
-			desc+="生命值 "+String.format("%.2f",生命)+"/"+String.format("%.2f",最大生命)+"\n";
-			desc+="攻击/防御 "+String.format("%.2f",最小攻击()*Dungeon.难度攻击())+"~"
-				  +String.format("%.2f",最大攻击()*Dungeon.难度攻击())+"/"+String.format("%.2f",最小防御()*Dungeon.难度防御())+"~"
+
+			desc+="==攻击=="+String.format("%.2f",最小攻击()*Dungeon.难度攻击())+"~"
+				  +String.format("%.2f",最大攻击()*Dungeon.难度攻击())+"\n";
+			desc+="++防御++"+String.format("%.2f",最小防御()*Dungeon.难度防御())+"~"
 				  +Math.round(最大防御()*Dungeon.难度防御())+"\n";
-			desc+="命中/闪避 "+String.format("%.2f",最小命中(null)*Dungeon.难度命中闪避())+"~"+
+			desc+="命中/闪避"+String.format("%.2f",最小命中(null)*Dungeon.难度命中闪避())+"~"+
 				  Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+
 				  Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
-			desc+="攻速/移速 "+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n";
-			desc+="经验/最大等级经验 "+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
-			desc+="暴击率/暴击伤害"+暴击率()+"/"+暴击伤害()*100+"%\n";
-			desc+="视野范围"+viewDistance;
-//			desc+="战利品/掉落几率"+loot+"/"+String.format("%.2f",lootChance()*100)+"%";
+			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n";
+			desc+="经验/最大等级经验"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
+			desc+="$$暴击率/暴击伤害$$"+暴击率()+"/"+暴击伤害()*100+"%\n";
+			desc+="$$视野范围$$"+viewDistance;
+			desc+="掉落几率"+String.format("%.2f",lootChance()*100)+"%";
 		}
 		return desc;
 	}

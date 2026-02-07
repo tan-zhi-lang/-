@@ -23,9 +23,9 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -238,9 +238,8 @@ public class Ring extends KindofMisc {
 			return this;
 		}
 		super.升级();
-		if (Random.Int(3) == 0) {
+
 			cursed = false;
-		}
 		
 		return this;
 	}
@@ -271,34 +270,41 @@ public class Ring extends KindofMisc {
 		//+1: 26.67% (4/15)
 		//+2: 6.67%  (1/15)
 		int n = 0;
+		float 概率=1;
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
 		if(Dungeon.解压(解压设置.持之以恒)){
-			if (Random.Int(1) == 0){
+			if (算法.概率学(概率*1/2)){
 				n++;
-				if (Random.Int(2) == 0){
+				if (算法.概率学(概率*1/3)){
 					n++;
-					if (Random.Int(3) == 0){
+					if (算法.概率学(概率*1/4)){
 						n++;
-						if (Random.Int(4) == 0){
+						if (算法.概率学(概率*1/5)){
 							n++;
-							if (Random.Int(5) == 0){
+							if (算法.概率学(概率*1/6)){
 								n++;
 							}
 						}
 					}
 				}
 			}
-		}else{
-			if (Random.Int(3) == 0) {
+
+		}else {
+			if (算法.概率学(概率*1/4)){
 				n++;
-				if (Random.Int(5) == 0){
+				if (算法.概率学(概率*1/6)){
 					n++;
 				}
 			}
 		}
 		等级(n);
-		
+
+		float 概率2=1;
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率2*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())概率2/=2;
 		//30% chance to be cursed
-		if (Random.Float() < 0.3f) {
+		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;
 		}
 		

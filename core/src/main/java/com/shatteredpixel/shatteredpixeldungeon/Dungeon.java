@@ -202,7 +202,11 @@ public class Dungeon {
 	public static int gold(int x){
 		if(x>0){
 			x*=优惠卡.获取()/100f;
-			energy(Math.round(圣金之沙.获得()*x));
+			energy+=Math.round(圣金之沙.获得()*x);
+
+			if(Dungeon.hero()&&Dungeon.hero.海克斯.get("货币互通"))
+				energy+=Math.round(0.01f*x);
+
 			gold+=Math.round(x*
 					 (hero()&&hero.天赋(Talent.财富)?
 					 hero.天赋点数(Talent.财富,0.1f)+1
@@ -217,7 +221,11 @@ public class Dungeon {
 	}
 	public static int energy(int x){
 		if(x>0){
-			gold(Math.round(圣金之沙.减少()*x));
+			gold+=Math.round(圣金之沙.减少()*x);
+
+			if(Dungeon.hero()&&Dungeon.hero.海克斯.get("货币互通"))
+			gold+=Math.round(50*x);
+
 			energy+=x;
 		}
 		if(x<0){
@@ -437,22 +445,22 @@ public class Dungeon {
 	}
 	public static String 难度名称(int 难度){
 		return switch(难度){
-			case 1->"简单";
+			case 1->"++简单++";
 			case 2->"普通";
-			case 3->"困难";
-			case 4->"史诗";
-			case 5->"传奇";
-			case 6->"神话";
-			case 7->"神话I";
-			case 8->"神话II";
-			case 9->"神话III";
-			case 10->"神话IV";
-			case 11->"神话V";
-			case 12->"神话VI";
-			case 13->"神话VII";
-			case 14->"神话VIII";
-			case 15->"神话IX";
-			case 16->"神话X";
+			case 3->"$$困难$$";
+			case 4->"^^史诗^^";
+			case 5->"==传奇==";
+			case 6->"==神话==";
+			case 7->"**神话I**";
+			case 8->"**神话II**";
+			case 9->"**神话III**";
+			case 10->"##神话IV##";
+			case 11->"##神话V##";
+			case 12->"--神话VI--";
+			case 13->"--神话VII--";
+			case 14->"--神话VIII--";
+			case 15->",,神话IX,,";
+			case 16->",,神话X,,";
 			default -> "";
 		};
 	}

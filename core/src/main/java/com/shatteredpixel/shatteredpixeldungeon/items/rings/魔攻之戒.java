@@ -46,7 +46,7 @@ public class 魔攻之戒 extends Ring {
 	public static final String AC_ZAP	= "ZAP";
 	
 	public String defaultAction(){
-		if(已鉴定()){
+		if(isKnown()){
 			return defaultAction;
 		}
 		return null;
@@ -58,7 +58,7 @@ public class 魔攻之戒 extends Ring {
 		if(Dungeon.炼狱(炼狱设置.诅咒法杖)){
 		
 		}else{
-			if (curCharges > 0 &&已鉴定()&&isEquipped(hero)) {
+			if (curCharges > 0 &&isKnown()&&isEquipped(hero)) {
 				actions.add( AC_ZAP );
 			}
 		}
@@ -73,7 +73,7 @@ public class 魔攻之戒 extends Ring {
 		if(Dungeon.炼狱(炼狱设置.诅咒法杖)){
 		
 		}else{
-			if (action.equals( AC_ZAP )&&已鉴定()) {
+			if (action.equals( AC_ZAP )&&isKnown()) {
 				curUser = hero;
 				curItem = this;
 				GameScene.selectCell(zapper);
@@ -237,7 +237,7 @@ public class 魔攻之戒 extends Ring {
 	}
 	@Override
 	public String status() {
-		if (已鉴定()) {
+		if (isKnown()) {
 			return curCharges + "/" + maxCharges;
 		} else {
 			return null;

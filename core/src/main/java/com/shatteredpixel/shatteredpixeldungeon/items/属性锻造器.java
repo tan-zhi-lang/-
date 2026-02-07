@@ -22,7 +22,7 @@ public class 属性锻造器 extends 用品 {
 		Sample.INSTANCE.play(Assets.Sounds.海克斯);
 
 		Game.runOnRenderThread(()->{
-			GameScene.show(new Wnd选择属性());
+			GameScene.show(new Wnd选择属性(hero));
 		});
 		super.使用(hero);
 	}

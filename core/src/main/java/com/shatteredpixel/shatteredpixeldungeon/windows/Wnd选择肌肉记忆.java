@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -16,7 +17,7 @@ public class Wnd选择肌肉记忆 extends Window {
 
 	private static final int MARGIN  = 2;
 
-	public Wnd选择肌肉记忆(){
+	public Wnd选择肌肉记忆(Hero hero){
 		super();
 
 		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
@@ -36,7 +37,7 @@ public class Wnd选择肌肉记忆 extends Window {
 				super.onClick();
 				
 				if(!Dungeon.炼狱(炼狱设置.体弱多病))
-				Dungeon.hero.武器力量+=2;
+				hero.武器力量+=2;
 				
 				hide();
 			}
@@ -55,7 +56,7 @@ public class Wnd选择肌肉记忆 extends Window {
 				super.onClick();
 				
 				if(!Dungeon.炼狱(炼狱设置.体弱多病))
-				Dungeon.hero.护甲力量+=2;
+				hero.护甲力量+=2;
 				
 				hide();
 			}

@@ -55,7 +55,7 @@ public class 白猫保护 extends Buff {
 				pris.duplicate(hero);
 				pris.state = pris.HUNTING;
 				GameScene.add(pris, 0);
-				传送卷轴.appear(pris,bestPos);
+				传送卷轴.瞬移(pris,bestPos);
 				
 				detach();
 			} else {

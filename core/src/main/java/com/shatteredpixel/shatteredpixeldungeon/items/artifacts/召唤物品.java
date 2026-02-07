@@ -33,7 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.暗影士兵;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.替身动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ItemButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -297,7 +297,7 @@ public class 召唤物品 extends Artifact {
 		super.restoreFromBundle(bundle);
 
 		随从ID= bundle.getInt(随从IDx);
-		
+
 		if (bundle.contains(ITEM)) item= (Item)bundle.get(ITEM);
 		if (bundle.contains(ITEM2)) item2= (Item)bundle.get(ITEM2);
 		if (bundle.contains(ITEM3)) item3= (Item)bundle.get(ITEM3);
@@ -385,7 +385,7 @@ public class 召唤物品 extends Artifact {
 	public static class 随从 extends DirectableAlly {
 
 		{
-			spriteClass = 暗影士兵.class;
+			spriteClass = 替身动画.class;
 
 			flying = true;
 			
@@ -395,7 +395,8 @@ public class 召唤物品 extends Artifact {
 			properties.add(Property.INORGANIC);
 		}
 		
-		private 召唤物品 召唤物品= null;
+		private 召唤物品
+				召唤物品= null;
 		public int armTier;
 		
 		public 随从(){
@@ -404,7 +405,8 @@ public class 召唤物品 extends Artifact {
 
 		public 随从(召唤物品 召唤物品){
 			super();
-			this.召唤物品=召唤物品;
+			this.召唤物品=
+					召唤物品;
 			更新数据();
 			生命 = 最大生命;
 		}
@@ -427,7 +429,7 @@ public class 召唤物品 extends Artifact {
 		private void 更新数据(){
 			if (召唤物品==null) {
 				召唤物品= Dungeon.hero.belongings.getItem(召唤物品.class);
-				if (召唤物品 != null) {
+				if (召唤物品!=null) {
 					召唤物品.召唤 = this;
 					召唤物品.随从ID = id();
 				}

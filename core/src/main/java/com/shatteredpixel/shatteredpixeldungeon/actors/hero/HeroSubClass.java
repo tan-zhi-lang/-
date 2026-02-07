@@ -12,7 +12,7 @@ import com.watabou.noosa.Game;
 public enum HeroSubClass {
 
 	NONE(HeroIcon.NONE),
-	潜能觉醒(HeroIcon.NONE),
+	潜能觉醒(HeroIcon.潜能觉醒),
 
 	狂战士(HeroIcon.BERSERKER),
 	角斗士(HeroIcon.GLADIATOR),
@@ -42,7 +42,7 @@ public enum HeroSubClass {
 
 	灵月杀手(HeroIcon.灵月杀手),
 	不灭战士(HeroIcon.不灭战士),
-	术士(HeroIcon.WARLOCK),
+	死灵术士(HeroIcon.WARLOCK),
 
 	神兽之灵(HeroIcon.神兽之灵),
 	养殖专家(HeroIcon.养殖专家),

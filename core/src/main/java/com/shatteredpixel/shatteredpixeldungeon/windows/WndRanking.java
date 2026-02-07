@@ -207,11 +207,11 @@ public class WndRanking extends WndTabbed {
 
 				float strBonus = Dungeon.hero.力量() - Dungeon.hero.力量;
 				if (strBonus > 0)
-					pos = statSlot(this, Messages.get(this, "str"), String.format("%.2f",Dungeon.hero.力量) + " + " + String.format("%.2f",strBonus), pos);
+					pos = statSlot(this, "力量", String.format("%.2f",Dungeon.hero.力量) + " + " + String.format("%.2f",strBonus), pos);
 				else if (strBonus < 0)
-					pos = statSlot(this, Messages.get(this, "str"), String.format("%.2f",Dungeon.hero.力量) + " - " + String.format("%.2f",-strBonus), pos);
+					pos = statSlot(this, "力量", String.format("%.2f",Dungeon.hero.力量) + " - " + String.format("%.2f",-strBonus), pos);
 				else
-					pos = statSlot(this, Messages.get(this, "str"), String.format("%.2f",Dungeon.hero.力量), pos);
+					pos = statSlot(this, "力量", String.format("%.2f",Dungeon.hero.力量), pos);
 				pos = statSlot(this, Messages.get(this, "duration"), num.format((int) Statistics.duration), pos);
 				if (Statistics.highestAscent == 0) {
 					pos = statSlot(this, Messages.get(this, "depth"), num.format(Statistics.deepestFloor), pos);

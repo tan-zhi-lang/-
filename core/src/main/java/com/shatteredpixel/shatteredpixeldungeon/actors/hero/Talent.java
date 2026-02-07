@@ -82,7 +82,7 @@ public enum Talent {
 	高级魔杖(x2+9,4), SHIELD_BATTERY(x2+10, 4),
 	//Battlemage T3
 	EMPOWERED_STRIKE(x2+11, 4), MYSTICAL_CHARGE(x2+12, 4), 盈能打击(x2+13,4),
-	水漫火狱(x2+14, 4), 万木归尘(x2+15, x2), 金刚不坏(x2+16,4),
+	水漫火狱(x2+14, 4), 万木归尘(x2+15, 4), 金刚不坏(x2+16,4),
 	//Elemental Blast T4
 	BLAST_RADIUS(49, 4), ELEMENTAL_POWER(50, 4), REACTIVE_BARRIER(51, 4),
 	//Wild Magic T4
@@ -420,8 +420,11 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)));
-	
+		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)+(hero.海克斯.get("饭桶")?hero.最大生命(0.075f):0)));
+
+		if(hero.海克斯.get("饭桶")){
+			hero.恢复百分比护甲(0.15f);
+		}
 		if (hero.heroClass(HeroClass.学士)){
 			if (hero.cooldown() > 0) {
 				Buff.施加(hero, WarriorFoodImmunity.class, hero.cooldown());
@@ -804,7 +807,7 @@ public enum Talent {
 			case 不灭战士:
 				Collections.addAll(tierTalents, 不灭之魂, 怀恨在心, 慷慨赴死);
 				break;
-			case 术士:
+			case 死灵术士:
 				Collections.addAll(tierTalents, SOUL_EATER, SOUL_SIPHON, NECROMANCERS_MINIONS);
 				break;
 			case 疾行者:

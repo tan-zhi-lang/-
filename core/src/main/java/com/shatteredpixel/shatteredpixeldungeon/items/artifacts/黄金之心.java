@@ -14,7 +14,6 @@ public class 黄金之心 extends Artifact {
 		image = 物品表.ARTIFACT_CAPE;
 
 		levelCap = 3;
-		defaultAction = "NONE";
 	}
 
 	@Override

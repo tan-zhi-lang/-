@@ -8,6 +8,10 @@ import com.watabou.utils.Random;
 
 public class 算法 {
     /*
+    XX 武器阶+级 法杖1+级 防具阶+级 神器1+级 最大攻击 最大防御 法杖充能15% 神器充能30%
+
+        饮血剑和无尽都0.8
+
 		ArrayList<Integer> grassCells = new ArrayList<>();
 		for (int i : PathFinder.NEIGHBOURS9){
 			grassCells.add(hero.pos+i);

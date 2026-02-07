@@ -308,8 +308,24 @@ public class Ghost extends NPC {
 					case 4: armor = new ScaleArmor();   break;
 					case 5: armor = new PlateArmor();   break;
 				}
+				if(Dungeon.hero()&&Dungeon.hero.欧皇())switch (Random.chances(new float[]{0, 0, 20, 12, 6, 2})){
+					default:
+					case 2: armor = new LeatherArmor(); break;
+					case 3: armor = new MailArmor();    break;
+					case 4: armor = new ScaleArmor();   break;
+					case 5: armor = new PlateArmor();   break;
+				}
+				if(Dungeon.hero()&&Dungeon.hero.非酋())switch (Random.chances(new float[]{0, 0, 5, 3, 1.5f, 0.5f})){
+					default:
+					case 2: armor = new LeatherArmor(); break;
+					case 3: armor = new MailArmor();    break;
+					case 4: armor = new ScaleArmor();   break;
+					case 5: armor = new PlateArmor();   break;
+				}
 				//50%:tier2, 30%:tier3, 15%:tier4, 5%:tier5
 				int wepTier = Random.chances(new float[]{0, 0, 10, 6, 3, 1});
+				if(Dungeon.hero()&&Dungeon.hero.欧皇())wepTier = Random.chances(new float[]{0, 0, 20, 12, 6, 2});
+				if(Dungeon.hero()&&Dungeon.hero.非酋())wepTier = Random.chances(new float[]{0, 0, 5, 3, 1.5f, 0.5f});
 				weapon = (Weapon) Generator.random(Generator.wepTiers[wepTier - 1]);
 
 				//clear weapon's starting properties
@@ -317,8 +333,12 @@ public class Ghost extends NPC {
 				weapon.enchant(null);
 				weapon.cursed = false;
 
+				float 概率=1;
+				if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
+				if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+
 				//50%:+0, 30%:+1, 15%:+2, 5%:+3
-				float itemLevelRoll = Random.Float();
+				float itemLevelRoll = Random.Float()*概率;
 				int itemLevel;
 				if (itemLevelRoll < 0.5f){
 					itemLevel = 0;
@@ -329,15 +349,26 @@ public class Ghost extends NPC {
 				} else {
 					itemLevel = 3;
 				}
+				float itemLevelRoll2 = Random.Float()*概率;
+				int itemLevel2;
+				if (itemLevelRoll2 < 0.5f){
+					itemLevel2 = 0;
+				} else if (itemLevelRoll2 < 0.8f){
+					itemLevel2 = 1;
+				} else if (itemLevelRoll2 < 0.95f){
+					itemLevel2 = 2;
+				} else {
+					itemLevel2 = 3;
+				}
 				weapon.升级(itemLevel);
-				armor.升级(itemLevel);
+				armor.升级(itemLevel2);
 
 				// 20% base chance to be enchanted, stored separately so status isn't revealed early
 				//we generate first so that the outcome doesn't affect the number of RNG rolls
 				enchant = Weapon.Enchantment.random();
 				glyph = Armor.Glyph.random();
 
-				float enchantRoll = Random.Float();
+				float enchantRoll = Random.Float()*概率;
 				if (enchantRoll > 0.2f * ParchmentScrap.enchantChanceMultiplier()){
 					enchant = null;
 					glyph = null;

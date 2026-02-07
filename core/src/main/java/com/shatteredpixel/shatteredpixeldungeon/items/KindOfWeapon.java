@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -244,7 +245,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 				return 最大投掷攻击();
 			}
 			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
-				damage+=(最大攻击()-最小攻击())*伏击;
+				damage+=(最大攻击()-最小攻击())*伏击*(hero.海克斯.get("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击(defender,1)>1?hero.暴击伤害():1);
+
 			}
 		}
 		return damage;
@@ -257,7 +259,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			}
 
 			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
-				damage+=Math.round((最大投掷攻击()-最小投掷攻击())*伏击);
+				damage+=(最大投掷攻击()-最小投掷攻击())*伏击*(hero.海克斯.get("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击(defender,1)>1?hero.暴击伤害():1);
 			}
 		}
 		return damage;

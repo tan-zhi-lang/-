@@ -333,6 +333,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	public void 技能使用(Hero hero){
+		Catalog.countUse(getClass());
 		hero.belongings.abilityWeapon = null;
 		
 		if (hero.subClass == HeroSubClass.征服者) {
@@ -1352,6 +1353,9 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	public Item 升级(boolean enchant ) {
 
+		float 概率=1;
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
@@ -1359,16 +1363,16 @@ abstract public class Weapon extends KindOfWeapon {
 		} else if (enchantment != null) {
 			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
 			if (enchantHardened){
-				if (等级() >= 6 && Random.Float(10) < Math.pow(2, 等级()-6)){
+				if (等级() >= 6 && Random.Float(10) < 概率*Math.pow(2, 等级()-6)){
 					enchantHardened = false;
 				}
 
 			//chance to remove curse is a static 33%
 			} else if (hasCurseEnchant()) {
-				if (Random.Int(3) == 0) enchant(null);
+				if (算法.概率学(概率*1/4f)) enchant(null);
 
 			//otherwise chance to lose enchant is 10/20/40/80/100% when upgrading from +4/5/6/7/8
-			} else if (等级() >= 4 && Random.Float(10) < Math.pow(2, 等级()-4)){
+			} else if (等级() >= 4 && Random.Float(10) < 概率*Math.pow(2, 等级()-4)){
 				enchant(null);
 			}
 		}
@@ -1395,26 +1399,30 @@ abstract public class Weapon extends KindOfWeapon {
 		//+1: 20% (4/20)
 		//+2: 5%  (1/20)
 		int n = 0;
+		float 概率=1;
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
 		if(Dungeon.解压(解压设置.持之以恒)){
-			if (Random.Int(1) == 0){
+			if (算法.概率学(概率*1/2)){
 				n++;
-				if (Random.Int(2) == 0){
+				if (算法.概率学(概率*1/3)){
 					n++;
-					if (Random.Int(3) == 0){
+					if (算法.概率学(概率*1/4)){
 						n++;
-						if (Random.Int(4) == 0){
+						if (算法.概率学(概率*1/5)){
 							n++;
-							if (Random.Int(5) == 0){
+							if (算法.概率学(概率*1/6)){
 								n++;
 							}
 						}
 					}
 				}
 			}
-		}else{
-			if(Random.Int(4)==0){
+
+		}else {
+			if (算法.概率学(概率*1/5)){
 				n++;
-				if(Random.Int(5)==0){
+				if (算法.概率学(概率*1/6)){
 					n++;
 				}
 			}
@@ -1427,7 +1435,9 @@ abstract public class Weapon extends KindOfWeapon {
 
 			//30% chance to be cursed
 			//10% chance to be enchanted
-			float effectRoll = Random.Float();
+				float effectRoll = Random.Float();
+			if(Dungeon.hero()&&Dungeon.hero.欧皇())effectRoll*=2;
+			if(Dungeon.hero()&&Dungeon.hero.非酋())effectRoll/=2;
 			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
 				enchant(Enchantment.randomCurse());
 				cursed = true;

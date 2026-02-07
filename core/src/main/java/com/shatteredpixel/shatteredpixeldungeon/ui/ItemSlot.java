@@ -11,8 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -93,7 +93,7 @@ public class ItemSlot extends Button {
 		this();
 		item( item );
 	}
-		
+	float 字体大小=0.9f;
 	@Override
 	protected void createChildren() {
 		
@@ -103,19 +103,19 @@ public class ItemSlot extends Button {
 		add(sprite);
 		
 		status = new BitmapText( PixelScene.pixelFont);
-		status.scale.set(0.85f);
+		status.scale.set(字体大小);
 		add(status);
 		
 		extra = new BitmapText( PixelScene.pixelFont);
-		extra.scale.set(0.85f);
+		extra.scale.set(字体大小);
 		add(extra);
 		
 		level = new BitmapText( PixelScene.pixelFont);
-		level.scale.set(0.85f);
+		level.scale.set(字体大小);
 		add(level);
 
 		center = new BitmapText( PixelScene.pixelFont);
-		center.scale.set(0.85f);
+		center.scale.set(字体大小);
 		add(center);
 	}
 	
@@ -130,9 +130,9 @@ public class ItemSlot extends Button {
 		if (status != null) {
 			status.measure();
 			if (status.width > width - (margin.left + margin.right)){
-				status.scale.set(PixelScene.align(0.8f*0.85f));//0.8
+				status.scale.set(PixelScene.align(0.8f*字体大小));//0.8
 			} else {
-				status.scale.set(0.85f);//1
+				status.scale.set(字体大小);//1
 			}
 			status.x = x + margin.left;
 			status.y = y + margin.top;
@@ -322,21 +322,17 @@ public class ItemSlot extends Button {
 				center.measure();
 				center.hardlight( FADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
-				level.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
-				level.measure();
-				level.hardlight( WARNING );
-			}else if (item instanceof 虫箭 x&&x.等级()<10) {
-				level.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
-				level.measure();
-				level.hardlight( WARNING );
+				extra.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
+				extra.measure();
+				extra.hardlight( WARNING );
+			}else if (item instanceof 九龙针筒 x&&x.等级()<10) {
+				extra.text( Messages.format( TXT, 5*(x.等级()+1)) );
+				extra.measure();
+				extra.hardlight( WARNING );
 			}else if (item instanceof 荆棘斗篷 x) {
 				extra.text( Messages.format( FLOAT, x.等级()*0.2f+0.5f) );
 				extra.measure();
 				extra.hardlight( FADED );
-//			}else if (item instanceof 心之钢 x) {
-//				extra.text( Messages.format( FLOAT, Dungeon.hero.最大生命(0.12f+0.06f*x.等级())) );
-//				extra.measure();
-//				extra.hardlight( UPGRADED );
 			}else{
 				if(center.text!=null){
 					center.text(null);

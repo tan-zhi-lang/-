@@ -62,7 +62,7 @@ public class Dewdrop extends Item {
 		float heal = Math.min( hero.最大生命 - hero.生命, effect );
 
 		if (quantity > 1 &&hero.天赋(Talent.SHIELDING_DEW)){
-			float shield = hero.最大生命(hero.天赋点数(Talent.SHIELDING_DEW,0.25f)*quantity);
+			float shield = hero.最大生命(hero.天赋点数(Talent.SHIELDING_DEW,0.15f)*quantity);
 			Buff.施加(hero, Barrier.class).增加(shield);
 		}
 

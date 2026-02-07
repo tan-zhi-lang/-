@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ItemButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
@@ -37,14 +38,14 @@ public class WndResurrect extends Window {
 
 	RedButton btnContinue;
 	
-	public WndResurrect( final Ankh ankh ) {
+	public WndResurrect() {
 		
 		super();
 		
 		instance = this;
 		
 		IconTitle titlebar = new IconTitle();
-		titlebar.icon( new ItemSprite( ankh.image(), null ) );
+		titlebar.icon( new ItemSprite(物品表.ITEM));
 		titlebar.label( Messages.titleCase(Messages.get(this, "title")) );
 		titlebar.setRect( 0, 0, WIDTH, 0 );
 		add( titlebar );
@@ -88,12 +89,12 @@ public class WndResurrect extends Window {
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){
-								resurrect(ankh);
+								resurrect();
 							}
 						}
 					});
 				} else {
-					resurrect( ankh );
+					resurrect();
 				}
 			}
 		};
@@ -103,13 +104,11 @@ public class WndResurrect extends Window {
 		resize( WIDTH, (int)btnContinue.bottom() );
 	}
 
-	private void resurrect( final Ankh ankh ){
+	private void resurrect(){
 		hide();
 
 		Statistics.ankhsUsed++;
 		Catalog.countUse(Ankh.class);
-
-		ankh.detach(Dungeon.hero.belongings.backpack);
 
 		if (btnItem1.item() != null){
 			btnItem1.item().keptThoughLostInvent = true;

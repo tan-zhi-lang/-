@@ -625,7 +625,7 @@ public class GameScene extends PixelScene {
 				}
 			}
 			if (ankh != null && GamesInProgress.gameExists(GamesInProgress.curSlot)) {
-				add(new WndResurrect(ankh));
+				add(new WndResurrect());
 			} else {
 				gameOver();
 			}

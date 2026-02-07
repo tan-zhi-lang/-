@@ -2,7 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -15,7 +15,7 @@ public class Wnd选择天赋层 extends Window {
 
 	private static final int MARGIN  = 2;
 
-	public Wnd选择天赋层(){
+	public Wnd选择天赋层(Hero hero){
 		super();
 
 		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
@@ -33,7 +33,7 @@ public class Wnd选择天赋层 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
-				Dungeon.hero.天赋[1]=true;
+				hero.天赋[1]=true;
 				hide();
 			}
 		};
@@ -49,7 +49,7 @@ public class Wnd选择天赋层 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
-				Dungeon.hero.天赋[2]=true;
+				hero.天赋[2]=true;
 				hide();
 			}
 		};
@@ -65,7 +65,7 @@ public class Wnd选择天赋层 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
-				Dungeon.hero.天赋[3]=true;
+				hero.天赋[3]=true;
 				hide();
 			}
 		};

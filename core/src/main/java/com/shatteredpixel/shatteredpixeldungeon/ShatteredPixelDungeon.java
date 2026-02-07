@@ -28,10 +28,10 @@ public class ShatteredPixelDungeon extends Game {
 	public ShatteredPixelDungeon( PlatformSupport platform ) {
 		super( sceneClass == null ? TitleScene.class : sceneClass, platform );
 //		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
-
+//
 //		com.watabou.utils.Bundle.addAlias(
-//				圣诞礼物.class,
-//				"com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物" );
+//				九龙针筒.class,
+//				"com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒" );
 
 //		com.watabou.utils.Bundle.addAlias(
 //				探魔符石.class,

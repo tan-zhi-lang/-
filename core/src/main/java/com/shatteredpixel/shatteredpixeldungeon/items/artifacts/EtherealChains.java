@@ -26,9 +26,9 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
-import com.watabou.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -134,12 +134,12 @@ public class EtherealChains extends Artifact {
 	
 	//pulls an enemy to a position along the chain's path, as close to the hero as possible
 	private void chainEnemy( Ballistica chain, final Hero hero, final Char enemy ){
-		
+
 		if (enemy.properties().contains(Char.Property.IMMOVABLE)) {
 			GLog.w( Messages.get(this, "cant_pull") );
 			return;
 		}
-		
+
 		int bestPos = -1;
 		for (int i : chain.subPath(1, chain.dist)){
 			//prefer to the earliest point on the path
@@ -150,20 +150,20 @@ public class EtherealChains extends Artifact {
 				break;
 			}
 		}
-		
+
 		if (bestPos == -1) {
 			GLog.i(Messages.get(this, "does_nothing"));
 			return;
 		}
-		
+
 		final int pulledPos = bestPos;
-		
+
 		int chargeUse = Dungeon.level.distance(enemy.pos, pulledPos);
 		if (chargeUse > charge) {
 			GLog.w( Messages.get(this, "no_charge") );
 			return;
 		}
-		
+
 		hero.busy();
 		throwSound();
 		Sample.INSTANCE.play( Assets.Sounds.CHAINS );

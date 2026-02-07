@@ -56,8 +56,8 @@ public class ChaliceOfBlood extends Artifact {
 		if (action.equals(AC_PRICK)
 			&&isEquipped(hero)&& 等级() < levelCap){
 
-			float minDmg=minPrickDmg();
-			float maxDmg=maxPrickDmg();
+			float minDmg=PrickDmg();
+			float maxDmg=PrickDmg();
 			
 			float totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
 			if(hero.hasbuff(Invulnerability.class)){
@@ -68,7 +68,7 @@ public class ChaliceOfBlood extends Artifact {
 				maxDmg=0;
 			}
 			float deathChance=0;
-			
+
 			if(totalHeroHP<maxDmg){
 				deathChance=(maxDmg-totalHeroHP)/(float)(maxDmg-minDmg);
 				if(deathChance<0.5f){
@@ -95,16 +95,13 @@ public class ChaliceOfBlood extends Artifact {
 			}
 		}
 	}
-	
-	private float minPrickDmg(){
-		return 2.5f*(等级()*等级());
-	}
-	private float maxPrickDmg(){
-		return 3.5f*(等级()*等级());
+
+	private float PrickDmg(){
+		return 3f*(等级()*等级());
 	}
 
 	private void prick(Hero hero){
-		float damage = Random.NormalFloat(minPrickDmg(), maxPrickDmg());
+		float damage = PrickDmg();
 
 		//need to process on-hit effects manually
 		Earthroot.Armor armor = hero.buff(Earthroot.Armor.class);

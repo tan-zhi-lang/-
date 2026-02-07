@@ -61,37 +61,40 @@ public class 再生 extends Buff {
 			}
 		}
 
-				float 延迟= REGENERATION_DELAY;
+				float 再生速度= 1f/REGENERATION_DELAY;
 			if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
 				if (chaliceCursed) {
-					延迟*= 1.5f;
+					再生速度*= 1.5f;
 				} else {
 					//15% boost at +0, scaling to a 500% boost at +10
-					延迟-=1.33f+chaliceLevel*0.667f;
-					延迟/= 能量之戒.artifactChargeMultiplier(target);
+					再生速度-=1.33f+chaliceLevel*0.667f;
+					再生速度/= 能量之戒.artifactChargeMultiplier(target);
 				}
 			}
 		
-			//salt cube is turned off while regen is disabled.
-			if (target.buff(LockedFloor.class) == null) {
-				延迟/= SaltCube.healthRegenMultiplier();
-			}
+				//salt cube is turned off while regen is disabled.
+				if (target.buff(LockedFloor.class) == null) {
+					再生速度/= SaltCube.healthRegenMultiplier();
+				}
 
-				partialRegen =1f/延迟*恢复之戒.恢复(target);
-
-				if (partialRegen > 0) {
+					再生速度*=恢复之戒.恢复(target);
 					if(target instanceof Hero hero){
-						
-						if(!(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
-							float x=partialRegen-(hero.heroClass(HeroClass.血鬼)?0.5f:0);
-							hero.回血(x);
-						}
-//						partialRegen=0;
+
+						if(hero.heroClass(HeroClass.血鬼))再生速度/=2;
+						if(hero.海克斯.get("恢复恢复"))再生速度*=2.5f;
+
+						if(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))再生速度=0;
+						if(hero.海克斯.get("吸血习性"))再生速度=0;
+
+						partialRegen =再生速度;
+
+						float x=partialRegen;
+						if(partialRegen > 0)hero.回血(x);
+
 						if (hero.满血()) {
 							hero.resting = false;
 						}
 					}
-				}
 			}
 
 			spend( TICK );

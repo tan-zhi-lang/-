@@ -30,9 +30,9 @@ public class 心之钢 extends Artifact {
 	@Override
 	public void charge(Hero target, float amount) {
 		if(Dungeon.派对(派对设置.钢门联盟)){
-			charge = Math.min(charge+Math.round(15*amount),chargeCap);
+			charge = Math.min(charge+15*amount,chargeCap);
 		}else{
-			charge = Math.min(charge+Math.round(5*amount),chargeCap);
+			charge = Math.min(charge+5*amount,chargeCap);
 		}
 			updateQuickslot();
 	}
@@ -81,9 +81,9 @@ public class 心之钢 extends Artifact {
 		@Override
 		public boolean act(){
 			if(Dungeon.派对(派对设置.钢门联盟)){
-				charge=Math.min(charge+Math.round(15*能量之戒.artifactChargeMultiplier(target)),chargeCap);
+				charge=Math.min(charge+15*能量之戒.artifactChargeMultiplier(target),chargeCap);
 			}else{
-				Math.min(charge+Math.round(5*能量之戒.artifactChargeMultiplier(target)),chargeCap);
+				charge=Math.min(charge+5*能量之戒.artifactChargeMultiplier(target),chargeCap);
 			}
 			updateQuickslot();
 			spend(TICK);
@@ -93,15 +93,21 @@ public class 心之钢 extends Artifact {
 		public float proc(float damage, Char attacker, Char defender){
 			if(charge>=chargeCap){
 				if(attacker instanceof Hero hero){
-					hero.大小=1.025f+等级()*0.025f;
 					//1.6x游戏秒=回合
 					float 伤害=武力之戒.heromax()+attacker.最大生命(0.04f+0.02f*等级());
 					damage+=伤害;
 
 					float 生命=伤害*(0.04f+等级()*0.02f);
+					if(cursed)
+					hero.生命成长-=生命;
+					else
 					hero.生命成长+=生命;
+
 					hero.更新属性();
 
+					if(cursed)
+						GLog.w("心之钢为这次物理攻击-"+String.format("%.2f",伤害)+"伤害，并-"+String.format("%.2f",生命)+"最大生命。");
+					else
 					GLog.w("心之钢为这次物理攻击+"+String.format("%.2f",伤害)+"伤害，并+"+String.format("%.2f",生命)+"最大生命。");
 
 					exp+=生命*3;

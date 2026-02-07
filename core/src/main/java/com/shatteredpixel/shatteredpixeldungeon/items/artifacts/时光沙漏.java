@@ -54,7 +54,7 @@ public class 时光沙漏 extends Artifact {
 	@Override
 	public void resetForTrinity(int visibleLevel) {
 		super.resetForTrinity(visibleLevel);
-		charge = visibleLevel/2 - 1; //grants 4-10 turns of time freeze
+		charge = visibleLevel/2f - 1; //grants 4-10 turns of time freeze
 	}
 
 	public static final String AC_ACTIVATE = "ACTIVATE";
@@ -276,7 +276,7 @@ public class 时光沙漏 extends Artifact {
 
 				Invisibility.notimedispel();
 
-				int usedCharge = Math.min(charge, 2);
+				float usedCharge = Math.min(charge, 2);
 				//buffs always act last, so the stasis buff should end a turn early.
 				spend(5*usedCharge);
 

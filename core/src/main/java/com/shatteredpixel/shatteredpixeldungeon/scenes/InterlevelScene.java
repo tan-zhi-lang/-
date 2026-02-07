@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.ShadowBox;
+import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LostBackpack;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
@@ -734,6 +735,17 @@ public class InterlevelScene extends PixelScene {
 			}
 			int pos = level.randomRespawnCell(null);
 			if (pos == -1) pos = level.entrance();
+
+			boolean 可以掉=true;
+			for (Heap h : Dungeon.level.heaps.valueList()){
+				for (Item i : h.items){
+					if (i instanceof LostBackpack){
+						可以掉=false;
+						break;
+					}
+				}
+			}
+			if(可以掉)
 			level.drop(new LostBackpack(), pos);
 
 			//need to reset key replacement tracking as well
@@ -761,6 +773,17 @@ public class InterlevelScene extends PixelScene {
 				level.map[Dungeon.hero.pos] = Terrain.GRASS;
 			}
 			Dungeon.hero.resurrect();
+
+			boolean 可以掉=true;
+			for (Heap h : Dungeon.level.heaps.valueList()){
+				for (Item i : h.items){
+					if (i instanceof LostBackpack){
+						可以掉=false;
+						break;
+					}
+				}
+			}
+			if(可以掉)
 			level.drop(new LostBackpack(), invPos);
 		}
 

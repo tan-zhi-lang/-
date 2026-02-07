@@ -19,9 +19,8 @@ public class 寒冰镖 extends Weapon{
 		
 		延迟=0.8f;
 		伤害=0.8f;
-		伏击=0.67f;
-		命中=0.85f;
-		tier = 1;
+		伏击=0.8f;
+		tier = 5;
 	}
 	
 	@Override

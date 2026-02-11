@@ -247,7 +247,7 @@ public class TalentButton extends Button {
 			float oldWidth = fill.width();
 			pointsInTalent++;
 			layout();
-//			Sample.INSTANCE.play(Assets.Sounds.海克斯);
+//			Sample.INSTANCE.play(Assets.Sounds.海克斯,1.75f);
 			Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
 			Emitter emitter = (Emitter) parent.recycle(Emitter.class);
 			emitter.revive();

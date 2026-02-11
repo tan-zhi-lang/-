@@ -461,7 +461,7 @@ public class StatusPane extends Component {
 	}
 
 	public void alpha( float value ){
-		value = GameMath.gate(0, value, 1f);
+		value = GameMath.之内(0,value,1f);
 		bg.alpha(value);
 		avatar.alpha(value);
 		护盾.alpha(value);

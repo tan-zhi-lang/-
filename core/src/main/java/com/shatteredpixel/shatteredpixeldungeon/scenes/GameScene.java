@@ -204,7 +204,7 @@ public class GameScene extends PixelScene {
 		SPDSettings.lastClass(Dungeon.hero.heroClass.ordinal());
 		
 		super.create();
-		Camera.main.zoom( GameMath.gate(minZoom, defaultZoom + SPDSettings.zoom(), maxZoom));
+		Camera.main.zoom( GameMath.之内(minZoom,defaultZoom+SPDSettings.zoom(),maxZoom));
 		Camera.main.edgeScroll.set(1);
 
 		switch (SPDSettings.镜头追踪强度()) {
@@ -1609,10 +1609,15 @@ public class GameScene extends PixelScene {
 	public static void examineObject(Object o){
 		if (o == Dungeon.hero){
 			GameScene.show( new WndHero() );
-		} else if ( o instanceof Mob && ((Mob) o).isActive() &&((Mob)o).nobuff(Invisibility.class)){//隐形检视不到
-			GameScene.show(new WndInfoMob((Mob) o));
+		} else if ( o instanceof Mob m&& m.isActive() &&m.nobuff(Invisibility.class)){//隐形检视不到
+			GameScene.show(new WndInfoMob(m));
 			if (o instanceof Snake && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_SURPRISE_ATKS)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_SURPRISE_ATKS);
+			}
+			if(Dungeon.hero.符文("???"))
+			{
+				Dungeon.hero.attack(m,1,0,Char.INFINITE);
+				Dungeon.hero.spendAndNext(1);
 			}
 		} else if ( o instanceof Heap && !((Heap) o).isEmpty() ){
 			GameScene.show(new WndInfoItem((Heap)o));

@@ -58,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
@@ -114,6 +115,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			standards*=2;
 		}
+		if(算法.彩蛋("更小"))standards/=2;
 		for (int i = 0; i < standards; i++) {
 			StandardRoom s;
 			do {
@@ -134,6 +136,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			specials*=2;
 		}
+		if(算法.彩蛋("更小"))specials/=2;
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
 			SpecialRoom s = SpecialRoom.createRoom();
@@ -147,6 +150,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			secrets*=2;
 		}
+		if(算法.彩蛋("更小"))secrets/=2;
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
 		}
@@ -207,6 +211,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			mobs*=2;
 		}
+		if(算法.彩蛋("更小"))mobs/=2;
 		if(Dungeon.赛季(赛季设置.修罗血场)){
 			mobs*=2;
 		}
@@ -404,6 +409,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			nItems*=5;
 		}
+		if(算法.彩蛋("更小"))nItems/=2;
 		for (int i=0; i < nItems; i++) {
 
 			Item toDrop = Generator.random();

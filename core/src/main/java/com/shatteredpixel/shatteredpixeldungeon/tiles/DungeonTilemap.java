@@ -66,8 +66,8 @@ public abstract class DungeonTilemap extends Tilemap {
 			invScale( SIZE );
 		
 		//snap to the edges of the tilemap
-		p.x = GameMath.gate(0, p.x, Dungeon.level.width()-0.001f);
-		p.y = GameMath.gate(0, p.y, Dungeon.level.height()-0.001f);
+		p.x = GameMath.之内(0,p.x,Dungeon.level.width()-0.001f);
+		p.y = GameMath.之内(0,p.y,Dungeon.level.height()-0.001f);
 
 		int cell = (int)p.x + (int)p.y * Dungeon.level.width();
 

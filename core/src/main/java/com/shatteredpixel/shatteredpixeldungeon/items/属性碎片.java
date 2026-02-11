@@ -11,6 +11,9 @@ public class 属性碎片 extends 用品 {
 	
 	{
 		image = 物品表.属性碎片;
+		可以空间=false;
+		特别= true;
+		嬗变=false;
 	}
 
 	@Override

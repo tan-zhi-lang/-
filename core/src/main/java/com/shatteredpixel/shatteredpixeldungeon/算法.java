@@ -12,6 +12,7 @@ public class 算法 {
 
         饮血剑和无尽都0.8
 
+
 		ArrayList<Integer> grassCells = new ArrayList<>();
 		for (int i : PathFinder.NEIGHBOURS9){
 			grassCells.add(hero.pos+i);
@@ -524,6 +525,20 @@ return null;
             }
         });
     }
+    public static boolean 彩蛋(String s){
+        String seed = SPDSettings.customSeed();
+        if(s.equals("更小"))
+        if(seed.equals("更小")||seed.equals("更小调试"))
+            return true;
+
+        return false;
+    }
+    public static boolean 彩蛋(){
+        String seed = SPDSettings.customSeed();
+        if(seed.equals("更小")||seed.equals("更小调试"))
+            return true;
+        else return false;
+    }
     public static boolean isDebug(){
 //        Game.version.contains("INDEV")
         String seed = SPDSettings.customSeed();
@@ -533,7 +548,9 @@ return null;
         if (seed.matches(".*调试")) {
             return true;
         }
-        return seed.equals("调试");
+        if(seed.equals("更小")||seed.equals("更小调试"))
+            return true;
+        else return false;
     }
     public static boolean 概率学(int x){
         return Random.Int(1,100)<= x+ (x == 33 ? 1 : 0);

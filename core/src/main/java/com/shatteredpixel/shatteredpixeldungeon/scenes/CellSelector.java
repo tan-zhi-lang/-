@@ -51,7 +51,7 @@ public class CellSelector extends ScrollArea {
 		//scale zoom difference so zooming is consistent
 		diff /= ((camera.zoom+1)/camera.zoom)-1;
 		diff = Math.min(1, diff);
-		mouseZoom = GameMath.gate( PixelScene.minZoom, mouseZoom - diff, PixelScene.maxZoom );
+		mouseZoom = GameMath.之内(PixelScene.minZoom,mouseZoom-diff,PixelScene.maxZoom);
 		
 		zoom( Math.round(mouseZoom) );
 	}
@@ -109,7 +109,7 @@ public class CellSelector extends ScrollArea {
 
 	private float zoom( float value ) {
 
-		value = GameMath.gate( PixelScene.minZoom, value, PixelScene.maxZoom );
+		value = GameMath.之内(PixelScene.minZoom,value,PixelScene.maxZoom);
 		SPDSettings.zoom((int) (value - PixelScene.defaultZoom));
 		camera.zoom( value );
 
@@ -207,10 +207,10 @@ public class CellSelector extends ScrollArea {
 
 			float curSpan = PointF.distance( curEvent.current, another.current );
 			float zoom = (startZoom * curSpan / startSpan);
-			camera.zoom( GameMath.gate(
+			camera.zoom( GameMath.之内(
 				PixelScene.minZoom,
 					zoom - (zoom % 0.1f),
-				PixelScene.maxZoom ) );
+				PixelScene.maxZoom) );
 
 		} else {
 		
@@ -388,8 +388,8 @@ public class CellSelector extends ScrollArea {
 		}
 		int cell = Dungeon.hero.pos;
 		//clamp to adjacent values (-1 to +1)
-		cell += GameMath.gate(-1, direction.x, +1);
-		cell += GameMath.gate(-1, direction.y, +1) * Dungeon.level.width();
+		cell += GameMath.之内(-1,direction.x,+1);
+		cell +=GameMath.之内(-1,direction.y,+1)*Dungeon.level.width();
 
 		if (cell != Dungeon.hero.pos && cell != lastCellMoved){
 			lastCellMoved = cell;

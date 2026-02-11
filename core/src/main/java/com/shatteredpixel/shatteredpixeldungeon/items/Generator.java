@@ -530,7 +530,6 @@ public class Generator {
 					日炎链刃.class,
 					流火.class,
 					蜜剑.class,
-					神农锄.class,
 					
 					火焰剑.class,
 					地裂镰.class,
@@ -548,7 +547,7 @@ public class Generator {
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2,2,2,
 											   2,2,2,2,2,2,2,
-											   2,2,2,2,2,
+											   2,2,2,2,
 											   2,2,2,2,
 											   2,2,2,2,
 											   2,2,
@@ -874,7 +873,7 @@ public class Generator {
 	
 	public static Armor randomArmor(int floorSet) {
 
-		floorSet = (int)GameMath.gate(0, floorSet, floorSetTierProbs.length-1);
+		floorSet = (int)GameMath.之内(0,floorSet,floorSetTierProbs.length-1);
 		
 		Armor a = (Armor)Reflection.newInstance(Category.ARMOR.classes[Random.chances(floorSetTierProbs[floorSet])]);
 		a.random();
@@ -903,7 +902,7 @@ public class Generator {
 	
 	public static Weapon randomWeapon(int floorSet, boolean useDefaults) {
 
-		floorSet = (int)GameMath.gate(0, floorSet, floorSetTierProbs.length-1);
+		floorSet = (int)GameMath.之内(0,floorSet,floorSetTierProbs.length-1);
 		
 		Weapon w;
 		if (useDefaults){

@@ -83,17 +83,18 @@ public class 法师魔杖 extends Weapon{
 	}
 	@Override
 	public int 强化等级(){
-		int l=转移;
+		int l=等级()+转移;
 		if(Dungeon.hero()){
 			l+=Dungeon.hero.智力;
 			l+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
+			if(Dungeon.hero.符文("升级法师魔杖"))l*=1.5f;
 		}
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
-			return Degrade.reduceLevel(等级()+l);
+			return Degrade.reduceLevel(l);
 		} else {
-			return 等级()+l;
+			return l;
 		}
 	}
 
@@ -274,6 +275,9 @@ public class 法师魔杖 extends Weapon{
 		return this;
 	}
 
+	public void gainCharge(){
+		gainCharge(1);
+	}
 	public void gainCharge( float amt ){
 		gainCharge(amt, false);
 	}

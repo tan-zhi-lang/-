@@ -89,6 +89,11 @@ public class Frost extends FlavourBuff {
 		super.detach();
 		float damage = Random.NormalFloat(4,12+Dungeon.scalingDepth());
 		damage*=1+Dungeon.hero.天赋点数(Talent.水漫火狱,0.5f);
+		if(Dungeon.hero.符文("冰霜之书")){
+			if(Dungeon.hero.暴击(null,1)>1)
+			damage*=Dungeon.hero.暴击伤害();
+			Dungeon.hero.回血(damage);
+		}
 		if (!(target instanceof Hero)&&Dungeon.hero.天赋(Talent.水漫火狱)){
 			Buff.施加(target,火毒.class).reignite(target);
 		}

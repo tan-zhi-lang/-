@@ -802,7 +802,7 @@ public abstract class Level implements Bundlable {
 				cooldown = (Dungeon.level.mobCount()) * (TIME_TO_RESPAWN / 25f);
 			} else {
 				//respawn time is 5/5/10/15/20/25/25, etc.
-				cooldown = Math.round(GameMath.gate( TIME_TO_RESPAWN/10f, Dungeon.level.mobCount() * (TIME_TO_RESPAWN / 10f), TIME_TO_RESPAWN / 2f));
+				cooldown = Math.round(GameMath.之内(TIME_TO_RESPAWN/10f,Dungeon.level.mobCount()*(TIME_TO_RESPAWN/10f),TIME_TO_RESPAWN/2f));
 			}
 		}else{
 			if (Dungeon.depth == 1){
@@ -1818,6 +1818,9 @@ public abstract class Level implements Bundlable {
 	}
 	
 	
+	public boolean adjacent( Char a, Char b ) {
+		return distance( a.pos, b.pos ) == 1;
+	}
 	public boolean adjacent( int a, int b ) {
 		return distance( a, b ) == 1;
 	}

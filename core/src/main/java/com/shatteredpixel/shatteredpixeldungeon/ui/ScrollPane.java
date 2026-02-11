@@ -53,7 +53,7 @@ public class ScrollPane extends Component {
 					} else {
 						keyScroll -= 1;
 					}
-					keyScroll = GameMath.gate(-1f, keyScroll, +1f);
+					keyScroll = GameMath.之内(-1f,keyScroll,+1f);
 					return true;
 				} else if (action == SPDAction.ZOOM_OUT){
 					if (keyEvent.pressed){
@@ -61,7 +61,7 @@ public class ScrollPane extends Component {
 					} else {
 						keyScroll += 1;
 					}
-					keyScroll = GameMath.gate(-1f, keyScroll, +1f);
+					keyScroll = GameMath.之内(-1f,keyScroll,+1f);
 					return true;
 				}
 				return false;

@@ -95,7 +95,6 @@ abstract public class Weapon extends KindOfWeapon {
 	//region MeleeWeapon
 	武技 技能=null;
 	boolean circlingBack = false;
-	boolean 回旋镖=false;
 	public static String AC_ABILITY = "ABILITY";
 	public static final String AC_CHOOSE = "CHOOSE";
 	
@@ -335,7 +334,8 @@ abstract public class Weapon extends KindOfWeapon {
 	public void 技能使用(Hero hero){
 		Catalog.countUse(getClass());
 		hero.belongings.abilityWeapon = null;
-		
+
+		if(hero.符文("古式佳酿"))hero.回百分比血(0.015f);
 		if (hero.subClass == HeroSubClass.征服者) {
 			Buff.施加(hero, 征服.class).叠层();
 		}
@@ -687,26 +687,27 @@ abstract public class Weapon extends KindOfWeapon {
 			super.detach();
 			ActionIndicator.clearAction(this);
 		}
-		
+
 		public int chargeCap(){
 			return Math.min(7+(Dungeon.hero.heroClass(HeroClass.DUELIST)?3:0), 1+ Dungeon.hero.等级(0.25f));
 		}
-		
+
+		public void gainCharge(){
+			gainCharge(1);
+		}
+
 		public void gainCharge( float charge ){
-			if (charges < chargeCap()) {
-				partialCharge += charge;
-				while (partialCharge >= 1f) {
-					charges++;
-					partialCharge--;
-				}
-				if (charges >= chargeCap()){
-					partialCharge = 0;
-					charges = chargeCap();
-				}
+			gainCharge( charge, false );
+		}
+		public void gainCharge( float charge, boolean overcharge ){
+			partialCharge += charge;
+			while (partialCharge >= 1) {
+				if (overcharge) charges = Math.min(chargeCap()+(int)charge, charges+1);
+				else charges = Math.min(chargeCap(), charges+1);
+				partialCharge--;
 				updateQuickslot();
 			}
 		}
-		
 		private void setScaleFactor(float value){
 			this.scalingFactor = value;
 		}
@@ -885,7 +886,7 @@ abstract public class Weapon extends KindOfWeapon {
 			消受投掷=false;
 			return;
 		}
-		if(回旋镖){
+		if(回旋镖()){
 			Buff.新增(Dungeon.hero, CircleBack.class).setup(this, cell, Dungeon.hero.pos, Dungeon.depth, Dungeon.branch);
 			return;
 		}
@@ -902,7 +903,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	protected void rangedMiss( int cell ) {
-		if(回旋镖){
+		if(回旋镖()){
 			Buff.新增(Dungeon.hero, CircleBack.class).setup(this, cell, Dungeon.hero.pos, Dungeon.depth, Dungeon.branch);
 			return;
 		}

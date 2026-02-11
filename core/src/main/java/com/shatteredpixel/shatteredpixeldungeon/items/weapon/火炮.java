@@ -152,6 +152,10 @@ public class 火炮 extends Weapon{
 	public float partialCharge = 0f;
 
 	protected 火炮.Charger charger;
+
+	public void gainCharge(){
+		gainCharge(1);
+	}
 	public void gainCharge( float amt ){
 		gainCharge( amt, false );
 	}

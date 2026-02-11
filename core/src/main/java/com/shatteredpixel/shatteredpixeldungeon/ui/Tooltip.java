@@ -46,8 +46,8 @@ public class Tooltip extends Component {
 			}
 		}
 		lastUsedTime = Game.timeTotal;
-		bg.alpha(GameMath.gate(0, tooltipAlpha, 1));
-		text.alpha(GameMath.gate(0, tooltipAlpha, 1));
+		bg.alpha(GameMath.之内(0,tooltipAlpha,1));
+		text.alpha(GameMath.之内(0,tooltipAlpha,1));
 	}
 
 	@Override
@@ -79,8 +79,8 @@ public class Tooltip extends Component {
 		tooltipAlpha = Math.min(1f, tooltipAlpha + 10f*Game.elapsed);
 		lastUsedTime = Game.timeTotal;
 
-		bg.alpha(GameMath.gate(0, tooltipAlpha, 1));
-		text.alpha(GameMath.gate(0, tooltipAlpha, 1));
+		bg.alpha(GameMath.之内(0,tooltipAlpha,1));
+		text.alpha(GameMath.之内(0,tooltipAlpha,1));
 	}
 
 	@Override

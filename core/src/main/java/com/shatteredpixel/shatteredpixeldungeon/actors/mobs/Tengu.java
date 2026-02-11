@@ -619,8 +619,10 @@ public class Tengu extends Mob {
 						Char ch = Actor.findChar(cell);
 						if (ch != null && !(ch instanceof Tengu)) {
 							float dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth() * 2);
-							dmg -= ch.最大防御();
+
 							dmg=dmg*Dungeon.难度攻击();
+							dmg=ch.防御(ch,dmg);
+							dmg=ch.护甲伤害(dmg);
 
 							if (dmg > 0) {
 								ch.受伤时(dmg, Bomb.class);
@@ -847,7 +849,7 @@ public class Tengu extends Mob {
 				for (int i = area.left; i < area.right; i++){
 					for (int j = area.top; j < area.bottom; j++){
 						cell = i + j* Dungeon.level.width();
-						off[cell] = (int)GameMath.gate(0, cur[cell] - 1, 1);
+						off[cell] = (int)GameMath.之内(0,cur[cell]-1,1);
 						
 						if (off[cell] > 0) {
 							volume += off[cell];

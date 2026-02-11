@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Foliage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfAwareness;
@@ -11,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfHealth;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.天赋之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.神力之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
@@ -24,6 +26,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.LostBackpack;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.BeaconOfReturning;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.WeakFloorRoom;
@@ -363,6 +368,7 @@ public class Notes {
 		TEXT,
 		DEPTH,
 		ITEM_TYPE,
+		MOB_TYPE,
 		SPECIFIC_ITEM,
 		ITEM //for pre-3.1 save conversion
 	}
@@ -372,6 +378,7 @@ public class Notes {
 		protected CustomType type;
 
 		protected int ID = -1;
+		protected Class mobClass;
 		protected Class itemClass;
 
 		protected String title;
@@ -392,6 +399,12 @@ public class Notes {
 			body = desc;
 		}
 
+		public CustomRecord(Char c,String title,String desc) {
+			type = CustomType.MOB_TYPE;
+			mobClass= c.getClass();
+			this.title = title;
+			body = desc;
+		}
 		public CustomRecord(Class itemCls, String title, String desc) {
 			type = CustomType.ITEM_TYPE;
 			itemClass = itemCls;
@@ -432,10 +445,23 @@ public class Notes {
 					return Icons.SCROLL_COLOR.get();
 				case DEPTH:
 					return Icons.上楼.get();
+				case MOB_TYPE:
+					Mob c = (Mob) Reflection.newInstance(mobClass);
+					return c.sprite();
 				case ITEM_TYPE:
-				case SPECIFIC_ITEM:
 					Item i = (Item) Reflection.newInstance(itemClass);
+
+					if(i instanceof Potion&&!i.已鉴定())
+						return new ItemSprite(物品表.POTION_HOLDER);
+					if(i instanceof Scroll&&!i.已鉴定())
+						return new ItemSprite(物品表.SCROLL_HOLDER);
+					if(i instanceof Ring&&!i.已鉴定())
+						return new ItemSprite(物品表.RING_HOLDER);
+
 					return new ItemSprite(i);
+				case SPECIFIC_ITEM:
+					Item i2 = (Item) Reflection.newInstance(itemClass);
+					return new ItemSprite(i2);
 			}
 		}
 
@@ -488,6 +514,7 @@ public class Notes {
 		private static final String TYPE        = "type";
 		private static final String ID_NUMBER   = "id_number";
 
+		private static final String MOB_CLASS= "mob_class";
 		private static final String ITEM_CLASS   = "item_class";
 
 		private static final String TITLE       = "title";
@@ -518,6 +545,19 @@ public class Notes {
 						type = CustomType.SPECIFIC_ITEM;
 					} else {
 						type = CustomType.ITEM_TYPE;
+					}
+				}
+			}
+
+			if (bundle.contains(MOB_CLASS)) {
+				mobClass= bundle.getClass(MOB_CLASS);
+				if (type == CustomType.MOB_TYPE){
+					//prior to v3.1 specific item notes and item type notes were the same
+					//we assume notes are for a specific item if they're for an equipment
+					if (EquipableItem.class.isAssignableFrom(mobClass)){
+						type = CustomType.MOB_TYPE;
+					} else {
+						type = CustomType.MOB_TYPE;
 					}
 				}
 			}
@@ -679,8 +719,19 @@ public class Notes {
 		return null;
 	}
 
+	public static CustomRecord findCustomRecord( Char c ){
+		for (Record rec : records){
+			if (rec instanceof CustomRecord
+					&& ((CustomRecord) rec).type == CustomType.MOB_TYPE
+					&&((CustomRecord) rec).mobClass==c.getClass()) {
+				return (CustomRecord) rec;
+			}
+		}
+		return null;
+	}
+
 	public static int customRecordLimit(){
-		return 5;
+		return 500;
 	}
 
 	private static final Comparator<Record> comparator = new Comparator<Record>() {
@@ -689,5 +740,29 @@ public class Notes {
 			return r1.order() - r2.order();
 		}
 	};
-	
+	public static void 层数备注(int 层,String t,String d){
+		Notes.CustomRecord note = new Notes.CustomRecord(层,"","");
+		Notes.add(note);
+		note.editText(t,d);
+	}
+	public static void 物品类备注(Item i,String t,String d){
+		Notes.CustomRecord note = new Notes.CustomRecord(i,"","");
+		Notes.add(note);
+		note.editText(t,d);
+	}
+	public static void 怪物备注(Mob i,String t,String d){
+		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),"","");
+		Notes.add(note);
+		note.editText(t,d);
+	}
+	public static void 物品类别备注(Item i,String t,String d){
+		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),"","");
+		Notes.add(note);
+		note.editText(t,d);
+	}
+	public static void 备注(String t,String d){
+		Notes.CustomRecord note = new Notes.CustomRecord("","");
+		Notes.add(note);
+		note.editText(t,d);
+	}
 }

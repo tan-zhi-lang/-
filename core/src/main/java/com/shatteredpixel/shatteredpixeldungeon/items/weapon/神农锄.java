@@ -18,7 +18,7 @@ public class 神农锄 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		技能=new 割草();
-		双手=true;
+		
 		tier = 5;
 		延迟= 1.25f;
 	}

@@ -14,8 +14,7 @@ public class 魔岩拳套 extends Weapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
 		技能=new 连击();
-		双手=true;
-		拳套=true;
+		
 		tier = 4;
 		延迟= 0.5f;
 		伤害= 0.5f;

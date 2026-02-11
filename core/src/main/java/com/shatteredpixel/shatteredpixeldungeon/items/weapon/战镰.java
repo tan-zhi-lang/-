@@ -13,7 +13,7 @@ public class 战镰 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		技能=new 无情铁手();
-		双手=true;
+		
 		tier = 5;
 		延迟= 1.25f;
 		伤害= 1.35f;

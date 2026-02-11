@@ -14,6 +14,9 @@ public class 海克斯宝典 extends 用品 {
 	
 	{
 		image = 物品表.海克斯宝典;
+		可以空间=false;
+		嬗变=false;
+		特别= true;
 	}
 
 	public boolean 用过=false;
@@ -35,6 +38,7 @@ public class 海克斯宝典 extends 用品 {
 
 		Game.runOnRenderThread(()->{
 			GameScene.show(new Wnd选择海克斯(this,hero));
+			hero.更新数据();
 		});
 		super.使用(hero);
 	}

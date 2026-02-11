@@ -29,6 +29,7 @@ public class 矮人国王的皇冠 extends Item {
 		image = 物品表.CROWN;
 
 		可以空间=false;
+		嬗变=false;
 		黄色=true;
 		特别= true;
 		物品 = true;

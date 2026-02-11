@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -82,6 +83,14 @@ public class Fire extends Blob {
 	
 	public static void burn( int pos ) {
 		Char ch = Actor.findChar( pos );
+		if (ch != null) {
+			if(Dungeon.符文("祖母辣椒油")){
+				if(ch instanceof Hero hero)
+					Dungeon.hero.回百分比血(0.05f);
+				else
+					ch.受伤(Dungeon.hero.最大生命(0.05f));
+			}
+		}
 		if (ch != null && !ch.免疫(Fire.class)) {
 			Buff.施加( ch, 燃烧.class ).reignite( ch );
 		}

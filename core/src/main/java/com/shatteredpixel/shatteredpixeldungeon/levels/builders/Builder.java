@@ -179,9 +179,9 @@ public abstract class Builder {
 
 		//cap it to a valid connection point for most rooms
 		if (direction == Room.TOP || direction == Room.BOTTOM) {
-			start.x = (int) GameMath.gate(prev.left + 1, start.x, prev.right - 1);
+			start.x = (int) GameMath.之内(prev.left+1,start.x,prev.right-1);
 		} else {
-			start.y = (int) GameMath.gate(prev.top + 1, start.y, prev.bottom - 1);
+			start.y = (int) GameMath.之内(prev.top+1,start.y,prev.bottom-1);
 		}
 
 		//space checking

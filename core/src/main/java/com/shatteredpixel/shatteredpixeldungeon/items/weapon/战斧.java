@@ -12,7 +12,7 @@ public class 战斧 extends Weapon {
 	{
 		image = 物品表.BATTLE_AXE;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		双手=true;
+		
 		延迟= 1.5f;
 		伤害=1.25f;
 		流血=0.25f;

@@ -456,7 +456,7 @@ public class DM300 extends Mob {
 			sprite.parent.add(new TargetedCell(i, 0xFF0000));
 		}
 		//don't want to overly punish players with slow move or attack speed
-		Buff.新增(this, FallingRockBuff.class, GameMath.gate(TICK, (int)Math.ceil(target.cooldown()), 3*TICK)).setRockPositions(rockCells);
+		Buff.新增(this, FallingRockBuff.class, GameMath.之内(TICK,(int)Math.ceil(target.cooldown()),3*TICK)).setRockPositions(rockCells);
 
 	}
 

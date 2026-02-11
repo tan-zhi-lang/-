@@ -15,7 +15,6 @@ public class 长矛 extends Weapon{
 		hitSound = Assets.Sounds.HIT_STAB;
 		
 		技能=new 刺击();
-		投矛=true;
 		tier = 1;
 		延迟= 1.35f;
 		伤害= 1.35f;

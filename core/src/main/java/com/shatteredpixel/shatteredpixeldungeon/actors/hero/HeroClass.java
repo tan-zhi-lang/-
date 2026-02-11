@@ -65,6 +65,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
@@ -132,6 +133,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
+import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
@@ -140,6 +142,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
@@ -180,7 +183,25 @@ public enum HeroClass{
 	
 	public void initHero(Hero hero){
 		hero.heroClass=this;
-		
+
+		Notes.物品类别备注(new 治疗药剂(),"治疗药剂"+"使用技巧","能够站在献祭之火扔向献祭之火即可直接完成献祭");
+		Notes.物品类别备注(new 浮空药剂(),"浮空药剂"+"使用技巧","浮空时可以无伤跳楼");
+		Notes.物品类别备注(new 隐形药剂(),"隐形药剂"+"使用技巧","隐形时巨型食人鱼就不会攻击你");
+		Notes.物品类别备注(new 极速药剂(),"极速药剂"+"使用技巧","只要你跑得够快血色哨卫攻击不到你");
+
+		Notes.物品类别备注(new 液火药剂(),"液火药剂"+"使用技巧","火焰可以燃烧(必刷烈焰花)");
+		Notes.物品类别备注(new 冰霜药剂(),"冰霜药剂"+"使用技巧","可以熄灭魔法火焰(必刷冰冠花)");
+
+		Notes.物品类别备注(new 净化药剂(),"净化药剂"+"使用技巧","可以无视很多负面效果，直接去毒气房一探究竟");
+
+		Notes.物品类别备注(new Bomb(),"炸弹"+"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
+		Notes.物品类别备注(new 水袋(),"水袋"+"使用技巧","装满水可以合成永生秘药");
+		Notes.物品类别备注(new 毒气药剂(),"毒气药剂"+"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
+		Notes.物品类别备注(new 麻痹药剂(),"麻痹药剂"+"使用技巧","只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
+		Notes.物品类别备注(new 灵视药剂(),"灵视药剂"+"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
+
+
+
 		if(hero.heroClass(HeroClass.鼠弟))
 			Dungeon.老鼠蝙蝠= true;
 
@@ -262,7 +283,9 @@ public enum HeroClass{
 			new 属性碎片().数量(x).放背包();
 
 //			new MysteryMeat().数量(x).放背包();
+			new 属性锻造器().数量(10).放背包();
 			
+			new 探地卷轴().数量(x).放背包();
 			new 升级卷轴().数量(x).放背包();
 			new 鉴定卷轴().数量(x).放背包();
 			new 嬗变卷轴().数量(x).放背包();

@@ -13,7 +13,7 @@ public class 地裂镰 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		技能=new 立地();
-		双手=true;
+		
 		tier = 5;
 		延迟= 1.25f;
 		伤害= 1.35f;

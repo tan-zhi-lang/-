@@ -13,7 +13,7 @@ public class 巨剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		技能=new 斩击();
-		双手=true;
+		
 		tier = 4;
 		命中=1.1f;
 	}

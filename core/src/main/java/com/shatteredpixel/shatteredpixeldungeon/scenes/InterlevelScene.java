@@ -203,7 +203,7 @@ public class InterlevelScene extends PixelScene {
 			background.x = (Camera.main.width - background.width())/2f;
 		} else {
 			background.x = Camera.main.width/2f - loadingCenter*background.scale.x;
-			background.x = GameMath.gate(Camera.main.width - background.width(), background.x, 0);
+			background.x = GameMath.之内(Camera.main.width-background.width(),background.x,0);
 		}
 		background.y = (Camera.main.height - background.height())/2f;
 		PixelScene.align(background);
@@ -516,7 +516,7 @@ public class InterlevelScene extends PixelScene {
 				if (background.speed.isZero() && background.acc.isZero()){
 					background.acc.x = background.center().x >= Camera.main.width ? -1f : 1f;
 				} else {
-					background.speed.x = GameMath.gate(-10, background.speed.x, 10);
+					background.speed.x = GameMath.之内(-10,background.speed.x,10);
 					if (background.acc.x > 0 && background.x >= -25){
 						background.acc.x = -2.5f;
 					} else if (background.acc.x < 0 && background.x + background.width() <= Camera.main.width+25){

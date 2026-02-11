@@ -77,7 +77,8 @@ public class Shopkeeper extends NPC {
 	
 	@Override
 	public void 受伤时(float dmg, Object src ) {
-		processHarm();
+		if(src!=魔法伤害.class)
+			processHarm();
 	}
 	
 	@Override

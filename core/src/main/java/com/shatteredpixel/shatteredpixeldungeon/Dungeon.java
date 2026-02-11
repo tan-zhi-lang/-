@@ -178,6 +178,7 @@ public class Dungeon {
 	public static int 派对;
 	public static int 赛季;
 	public static int 地牢时间;
+	public static int 地牢寿命;
 	public static int 地牢天数;
 	public static int 难度;
 	public static boolean 老鼠蝙蝠;
@@ -204,7 +205,7 @@ public class Dungeon {
 			x*=优惠卡.获取()/100f;
 			energy+=Math.round(圣金之沙.获得()*x);
 
-			if(Dungeon.hero()&&Dungeon.hero.海克斯.get("货币互通"))
+			if(Dungeon.hero()&&Dungeon.hero.符文("货币互通"))
 				energy+=Math.round(0.01f*x);
 
 			gold+=Math.round(x*
@@ -223,7 +224,7 @@ public class Dungeon {
 		if(x>0){
 			gold+=Math.round(圣金之沙.减少()*x);
 
-			if(Dungeon.hero()&&Dungeon.hero.海克斯.get("货币互通"))
+			if(Dungeon.hero()&&Dungeon.hero.符文("货币互通"))
 			gold+=Math.round(50*x);
 
 			energy+=x;
@@ -260,7 +261,7 @@ public class Dungeon {
 			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
 		} else if (!SPDSettings.customSeed().isEmpty()){
 			customSeedText = SPDSettings.customSeed();
-			if(算法.种子()!=null){
+			if(算法.种子()!=null||算法.isDebug()||算法.彩蛋()){
 				customSeedText = "";
 				seed = DungeonSeed.randomSeed();
 			}else{
@@ -282,6 +283,7 @@ public class Dungeon {
 		派对= SPDSettings.派对();
 		赛季= SPDSettings.赛季();
 		地牢时间= 360;
+		地牢寿命= 0;
 		地牢天数= 1;
 		if(难度==0)难度=2;
 		老鼠蝙蝠= false;
@@ -305,6 +307,7 @@ public class Dungeon {
 		Random.resetGenerators();
 		
 		Statistics.reset();
+		Hero.海克斯重置();
 		Notes.reset();
 
 		quickslot.reset();
@@ -852,6 +855,7 @@ public class Dungeon {
 	private static final String 赛季x	= "赛季";
 	private static final String 难度x	= "难度";
 	private static final String 地牢时间x= "地牢时间";
+	private static final String 地牢寿命x= "地牢寿命";
 	private static final String 地牢天数x= "地牢天数";
 	private static final String 老鼠蝙蝠x= "老鼠蝙蝠";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
@@ -888,6 +892,7 @@ public class Dungeon {
 			bundle.put(赛季x,赛季);
 			bundle.put( 难度x, 难度 );
 			bundle.put(地牢时间x,地牢时间);
+			bundle.put(地牢寿命x,地牢寿命);
 			bundle.put(地牢天数x,地牢天数);
 			bundle.put(老鼠蝙蝠x,老鼠蝙蝠);
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
@@ -1004,6 +1009,7 @@ public class Dungeon {
 		Dungeon.赛季= bundle.getInt(赛季x);
 		Dungeon.难度 = bundle.getInt( 难度x );
 		Dungeon.地牢时间= bundle.getInt(地牢时间x);
+		Dungeon.地牢寿命= bundle.getInt(地牢寿命x);
 		Dungeon.地牢天数= bundle.getInt(地牢天数x);
 		Dungeon.老鼠蝙蝠= bundle.getBoolean(老鼠蝙蝠x);
 		Dungeon.mobsToChampion = bundle.getFloat( MOBS_TO_CHAMPION );
@@ -1358,6 +1364,9 @@ public class Dungeon {
 		}
 		return step;
 
+	}
+	public static boolean 符文(String s){
+		return hero!=null&&hero.符文(s);
 	}
 	public static boolean hero(){
 		return hero!=null;

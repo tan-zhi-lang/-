@@ -18,7 +18,7 @@ public class 战锤 extends Weapon{
 		技能=new 重击();
 		延迟=1.25f;
 		伤害=1.15f;
-		双手=true;
+		
 		tier = 4;
 	}
 	

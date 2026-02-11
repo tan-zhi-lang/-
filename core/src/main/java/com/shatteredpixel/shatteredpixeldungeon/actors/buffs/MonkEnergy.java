@@ -67,7 +67,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public float iconFadePercent() {
-		return GameMath.gate(0, cooldown/MAX_COOLDOWN, 1);
+		return GameMath.之内(0,cooldown/MAX_COOLDOWN,1);
 	}
 
 	@Override

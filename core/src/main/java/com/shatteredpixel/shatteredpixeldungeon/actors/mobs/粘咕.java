@@ -204,7 +204,7 @@ public class 粘咕 extends Mob {
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){
 				pumpedUp += 2;
 				//don't want to overly punish players with slow move or attack speed
-				spend(GameMath.gate(攻击延迟(),(int)Math.ceil(enemy.cooldown()),3*攻击延迟()));
+				spend(GameMath.之内(攻击延迟(),(int)Math.ceil(enemy.cooldown()),3*攻击延迟()));
 			} else {
 				pumpedUp++;
 				spend(攻击延迟());

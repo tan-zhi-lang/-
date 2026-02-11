@@ -266,7 +266,7 @@ public class YogDzewa extends Mob {
 				}
 
 				//don't want to overly punish players with slow move or attack speed
-				spend(GameMath.gate(TICK, (int)Math.ceil(Dungeon.hero.cooldown()), 3*TICK));
+				spend(GameMath.之内(TICK,(int)Math.ceil(Dungeon.hero.cooldown()),3*TICK));
 				Dungeon.hero.interrupt();
 
 				abilityCooldown += Random.NormalFloat(MIN_ABILITY_CD, MAX_ABILITY_CD);

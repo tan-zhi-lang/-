@@ -14,7 +14,7 @@ public class 大肉棒 extends Weapon{
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
 		技能=new 吃下();
-		双手=true;
+		
 		tier = 5;
 	}
 

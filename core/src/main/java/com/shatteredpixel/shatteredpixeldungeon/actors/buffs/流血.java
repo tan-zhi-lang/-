@@ -80,7 +80,9 @@ public class 流血 extends Buff {
 		if (target.isAlive()) {
 			
 			level = Random.NormalFloat(level / 2f, level);
+
 			float dmg = level;
+			if(dmg<0.01f)level=0;//防止多余计算
 			
 			if (dmg > 0) {
 				if(!(target instanceof Hero)&&Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.实验狂鼠)){

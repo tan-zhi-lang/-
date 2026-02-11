@@ -41,8 +41,8 @@ public class RingTunnelRoom extends TunnelRoom {
 		if (connSpace == null) {
 			Point c = getDoorCenter();
 
-			c.x = (int) GameMath.gate(left + 2, c.x, right - 2);
-			c.y = (int) GameMath.gate(top + 2, c.y, bottom - 2);
+			c.x = (int) GameMath.之内(left+2,c.x,right-2);
+			c.y = (int) GameMath.之内(top+2,c.y,bottom-2);
 
 
 			connSpace = new Rect(c.x-1, c.y-1, c.x+1, c.y+1);

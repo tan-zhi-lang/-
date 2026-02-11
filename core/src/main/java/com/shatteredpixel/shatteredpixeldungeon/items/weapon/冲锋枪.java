@@ -148,6 +148,10 @@ public class 冲锋枪 extends Weapon{
 	public float partialCharge = 0f;
 
 	protected 冲锋枪.Charger charger;
+
+	public void gainCharge(){
+		gainCharge(1);
+	}
 	public void gainCharge( float amt ){
 		gainCharge( amt, false );
 	}

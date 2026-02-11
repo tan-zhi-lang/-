@@ -560,7 +560,7 @@ public class Item implements Bundlable {
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
-			if(Dungeon.hero()&&Dungeon.hero.海克斯.get("升级升级"))this.等级++;
+			if(Dungeon.hero()&&Dungeon.hero.符文("升级升级"))this.等级++;
 			if(Dungeon.赛季(赛季设置.升级概率)){
 					if(等级>=17){
 						if(算法.概率学(10)){
@@ -986,8 +986,19 @@ public class Item implements Bundlable {
 		if(this instanceof EquipableItem){
 			s+="、"+"装备";
 		}
-		if(this instanceof Weapon){
-			s+="、"+"武器";
+		if(this instanceof Weapon w){
+			s+="、";
+			if(w.双手())s+="双手";
+			else s+="双持";
+			if(w.拳套())s+="拳套";
+			if(w.剑())s+="剑";
+			if(w.刀())s+="刀";
+			if(w.斧())s+="斧";
+			if(w.锤())s+="锤";
+			if(w.鞭())s+="鞭";
+			if(w.棍())s+="棍";
+			if(w.盾())s+="盾";
+		   s+="武器";
 		}
 		if(this instanceof 飞镖){
 			s+="、"+"飞镖";

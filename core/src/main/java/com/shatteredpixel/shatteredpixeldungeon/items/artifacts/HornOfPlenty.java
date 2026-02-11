@@ -44,7 +44,7 @@ public class HornOfPlenty extends Artifact {
 
 		charge = 0;
 		partialCharge = 0;
-		chargeCap = 5 + 等级()/2;
+		chargeCap = 3 + 等级()/2;
 	}
 	@Override
 	public String defaultAction(){
@@ -114,6 +114,7 @@ public class HornOfPlenty extends Artifact {
 
 	public void doEatEffect(Hero hero, float chargesToUse){
 		int satietyPerCharge = (int) (Hunger.STARVING/5f);
+		if(hero.符文("升级丰饶之角"))satietyPerCharge*=2;
 		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
 			satietyPerCharge /= 3;
 		}
@@ -262,7 +263,9 @@ public class HornOfPlenty extends Artifact {
 				//This means that a standard ration will be recovered in ~5.333 hero levels
 				float chargeGain = Hunger.STARVING * levelPortion * (0.25f + (0.125f* 等级()));
 				chargeGain *= 能量之戒.artifactChargeMultiplier(target);
-
+				if(target instanceof Hero hero){
+					if(hero.符文("升级丰饶之角"))chargeGain*=1.45f;
+				}
 				//each charge is equal to 1/5 the max hunger value
 				chargeGain /= Hunger.STARVING/5;
 				partialCharge += chargeGain;

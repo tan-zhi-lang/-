@@ -16,6 +16,5 @@ public class 轮刃 extends Weapon{
 		命中=0.85f;
 		技能=new 大杀四方();
 		tier = 4;
-		回旋镖=true;
 	}
 }

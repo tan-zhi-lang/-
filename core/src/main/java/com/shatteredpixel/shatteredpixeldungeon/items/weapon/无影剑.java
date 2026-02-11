@@ -20,7 +20,7 @@ public class 无影剑 extends Weapon{
 	public float 攻击时(Char attacker,Char defender,float damage) {
 
 		if(attacker instanceof Hero hero){
-			if(hero.海克斯.get("升级无影剑"))
+			if(hero.符文("升级无影剑"))
 				damage*=1.2f;
 		}
 		damage*=1.3f;
@@ -29,7 +29,7 @@ public class 无影剑 extends Weapon{
 	@Override
 	public float 投掷攻击时(Char attacker,Char defender,float damage) {
 		if(attacker instanceof Hero hero){
-			if(hero.海克斯.get("升级无影剑"))
+			if(hero.符文("升级无影剑"))
 				damage*=1.2f;
 		}
 		damage*=1.3f;

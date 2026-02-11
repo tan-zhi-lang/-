@@ -53,10 +53,11 @@ public class 能量之戒 extends Ring {
 
 		if (target instanceof Hero hero){
 			
-			if(Dungeon.赛季(赛季设置.鬼怨地牢)) bonus*=1.34f;
+			if(Dungeon.赛季(赛季设置.鬼怨地牢)) bonus*=1.35f;
 			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.轻量阅读)){
 				bonus *= 1f + hero.天赋点数(Talent.轻量阅读,0.07f);
 			}
+			if(hero.符文("尖端发明家"))bonus*=1.35f;
 			if(hero.visibleEnemies()>0){
 				bonus *=精神支柱.增加();
 			}else {
@@ -84,6 +85,7 @@ public class 能量之戒 extends Ring {
 			if (hero.belongings.armor instanceof 能袍){
 				bonus *= 1.1f;
 			}
+			if(hero.符文("尖端发明家"))bonus*=1.35f;
 			if(hero.visibleEnemies()>0){
 				bonus *=精神支柱.增加();
 			}else {
@@ -105,6 +107,7 @@ public class 能量之戒 extends Ring {
 		float bonus = (float)Math.pow(1.175, getBuffedBonus(target, Energy.class));
 
 		if (target instanceof Hero hero){
+			if(hero.符文("尖端发明家"))bonus*=1.35f;
 			if(hero.heroClass(HeroClass.DUELIST))bonus+=0.2f;
 		}
 		

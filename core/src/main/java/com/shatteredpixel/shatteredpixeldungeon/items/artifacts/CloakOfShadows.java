@@ -219,6 +219,8 @@ public class CloakOfShadows extends Artifact {
 					if (!isEquipped(Dungeon.hero)){
 						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便斗篷,0.25f);
 					}
+					if(Dungeon.hero()&&Dungeon.hero.符文("升级暗影斗篷"))
+					chargeToGain*=1.45f;
 					partialCharge += chargeToGain;
 				}
 
@@ -266,7 +268,7 @@ public class CloakOfShadows extends Artifact {
 
 		@Override
 		public float iconFadePercent() {
-			return (4f - turnsToCost) / 4f;
+			return ((4f+(Dungeon.hero()&&Dungeon.hero.符文("升级暗影斗篷")?4f:0)) - turnsToCost) / (4f+(Dungeon.hero()&&Dungeon.hero.符文("升级暗影斗篷")?4:0));
 		}
 
 		@Override
@@ -326,7 +328,7 @@ public class CloakOfShadows extends Artifact {
 						GLog.p(Messages.get(this, "levelup"));
 						
 					}
-					turnsToCost = 4;
+					turnsToCost = 4+(Dungeon.hero()&&Dungeon.hero.符文("升级暗影斗篷")?4:0);
 				}
 				updateQuickslot();
 			}

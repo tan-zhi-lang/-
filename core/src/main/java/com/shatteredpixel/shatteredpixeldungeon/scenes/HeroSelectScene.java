@@ -629,7 +629,7 @@ public class HeroSelectScene extends PixelScene {
     }
 
     private void updateFade() {
-        float alpha = GameMath.gate(0f, uiAlpha, 1f);
+        float alpha = GameMath.之内(0f,uiAlpha,1f);
         title.alpha(alpha);
         for (StyledButton b : heroBtns) {
             b.enable(alpha != 0);

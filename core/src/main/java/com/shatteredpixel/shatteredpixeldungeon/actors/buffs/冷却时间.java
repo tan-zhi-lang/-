@@ -25,5 +25,5 @@ public class 冷却时间 extends FlavourBuff{
 		冷却 = bundle.getFloat( 冷却x );
 	}
 	public int icon() { return BuffIndicator.TIME; }
-	public float iconFadePercent() { return GameMath.gate(0,(冷却-visualcooldown())/(冷却),1); }
+	public float iconFadePercent() { return GameMath.之内(0,(冷却-visualcooldown())/(冷却),1); }
 }

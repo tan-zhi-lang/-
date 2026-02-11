@@ -4,6 +4,9 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -13,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
@@ -33,7 +37,6 @@ public class CustomNoteButton extends IconButton {
 
 	public CustomNoteButton () {
 		super(Icons.PLUS.get());
-
 		width = 11;
 		height = 11;
 	}
@@ -69,6 +72,7 @@ public class CustomNoteButton extends IconButton {
 					Messages.get(CustomNoteButton.class, "new_text"),
 					Messages.get(CustomNoteButton.class, "new_floor"),
 					Messages.get(CustomNoteButton.class, "new_inv"),
+					Messages.get(CustomNoteButton.class, "new_mob"),
 					Messages.get(CustomNoteButton.class, "new_type"));
 			NOTE_SELECT_INSTANCE = this;
 		}
@@ -84,6 +88,14 @@ public class CustomNoteButton extends IconButton {
 				GameScene.show(new WndDepthSelect());
 			} else if (index == 2){
 				GameScene.selectItem(itemSelector);
+			} else if (index == 3){
+				WndJournal.INSTANCE.hide();
+				if (parent != null) {
+					parent.erase(this);
+				}
+				destroy();
+
+				GameScene.selectCell(mobSelector);
 			} else {
 				GameScene.show(new WndItemtypeSelect());
 			}
@@ -135,6 +147,38 @@ public class CustomNoteButton extends IconButton {
 		}
 
 	}
+
+	protected CellSelector.Listener mobSelector= new  CellSelector.Listener() {
+
+		@Override
+		public void onSelect(Integer target) {
+			if (target == null) {
+				return;
+			}
+
+			Char c = Actor.findChar(target);
+
+
+			if(Notes.findCustomRecord(c)!=null){
+				return;
+			}
+			Notes.CustomRecord custom;
+			if (c instanceof Mob) {
+				custom = new Notes.CustomRecord(c, "", "");
+				custom.assignID();
+				addNote(null, custom,
+						Messages.get(CustomNoteButton.class, "new_mob"),
+						Messages.get(CustomNoteButton.class, "new_mob_title", Messages.titleCase(c.name())));
+
+			}
+
+		}
+
+		@Override
+		public String prompt() {
+			return Messages.get(CustomNoteButton.class, "new_mob_prompt");
+		}
+	};
 
 	private WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 

@@ -14,7 +14,6 @@ public class 修理扳手 extends Weapon{
 		伤害=0.68f;
 		特别= true;
 		遗产= false;
-		回旋镖=true;
 		
 		tier = 1;
 	}

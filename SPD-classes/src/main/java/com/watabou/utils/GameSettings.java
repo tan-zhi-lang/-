@@ -36,7 +36,7 @@ public class GameSettings {
 		try {
 			int i = get().getInteger( key, defValue );
 			if (i < min || i > max){
-				int val = (int)GameMath.gate(min, i, max);
+				int val = (int)GameMath.之内(min,i,max);
 				put(key, val);
 				return val;
 			} else {
@@ -52,7 +52,7 @@ public class GameSettings {
 		try {
 			float i = get().getFloat( key, defValue );
 			if (i < min || i > max){
-				float val = (float)GameMath.gate(min, i, max);
+				float val = (float)GameMath.之内(min,i,max);
 				put(key, val);
 				return val;
 			} else {
@@ -73,7 +73,7 @@ public class GameSettings {
 		try {
 			long i = get().getLong( key, defValue );
 			if (i < min || i > max){
-				long val = (long)GameMath.gate(min, i, max);
+				long val = (long)GameMath.之内(min,i,max);
 				put(key, val);
 				return val;
 			} else {

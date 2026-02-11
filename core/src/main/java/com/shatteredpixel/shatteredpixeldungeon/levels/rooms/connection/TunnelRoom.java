@@ -96,8 +96,8 @@ public class TunnelRoom extends ConnectionRoom {
 		Point c = new Point((int)doorCenter.x / connected.size(), (int)doorCenter.y / connected.size());
 		if (Random.Float() < doorCenter.x % 1) c.x++;
 		if (Random.Float() < doorCenter.y % 1) c.y++;
-		c.x = (int)GameMath.gate(left+1, c.x, right-1);
-		c.y = (int)GameMath.gate(top+1, c.y, bottom-1);
+		c.x = (int)GameMath.之内(left+1,c.x,right-1);
+		c.y = (int)GameMath.之内(top+1,c.y,bottom-1);
 
 		return c;
 	}

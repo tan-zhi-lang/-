@@ -90,7 +90,7 @@ public class 水袋 extends Item {
 
 				//trimming off 0.01 drops helps with floating point errors
 				int dropsToConsume = (int)Math.ceil(dropsNeeded - 0.01f);
-				dropsToConsume = (int)GameMath.gate(1, dropsToConsume, volume);
+				dropsToConsume = (int)GameMath.之内(1,dropsToConsume,volume);
 
 				if (Dewdrop.consumeDew(dropsToConsume, hero, true)){
 					volume -= dropsToConsume;
@@ -166,7 +166,7 @@ public class 水袋 extends Item {
 
 		GLog.i( Messages.get(this, "collected") );
 		volume += dew.quantity;
-		if(Dungeon.hero.海克斯.get("升级水袋"))volume+=dew.quantity*2;
+		if(Dungeon.hero.符文("升级水袋"))volume+=dew.quantity*2;
 		if (volume >= MAX_VOLUME) {
 			volume = MAX_VOLUME;
 			GLog.p( Messages.get(this, "full") );

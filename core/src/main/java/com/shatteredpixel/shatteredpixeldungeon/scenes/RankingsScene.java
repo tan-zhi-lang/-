@@ -71,7 +71,7 @@ public class RankingsScene extends PixelScene {
 		if (Rankings.INSTANCE.records.size() > 0) {
 
 			//attempts to give each record as much space as possible, ideally as much space as portrait mode
-			float rowHeight = GameMath.gate(ROW_HEIGHT_MIN, (uiCamera.height - 26)/Rankings.INSTANCE.records.size(), ROW_HEIGHT_MAX);
+			float rowHeight = GameMath.之内(ROW_HEIGHT_MIN,(uiCamera.height-26)/Rankings.INSTANCE.records.size(),ROW_HEIGHT_MAX);
 
 			float left = (w - Math.min( MAX_ROW_WIDTH, w )) / 2 + GAP;
 			float top = (h - rowHeight  * Rankings.INSTANCE.records.size()) / 2;

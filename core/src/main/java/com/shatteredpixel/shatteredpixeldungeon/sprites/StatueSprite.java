@@ -33,7 +33,7 @@ public class StatueSprite extends MobSprite {
 	private static int[] tierFrames = {0, 21, 32, 43, 54, 65};
 
 	public void setArmor( int tier ){
-		int c = tierFrames[(int)GameMath.gate(0, tier, 5)];
+		int c = tierFrames[(int)GameMath.之内(0,tier,5)];
 
 		TextureFilm frames = new TextureFilm( texture, 12, 15 );
 

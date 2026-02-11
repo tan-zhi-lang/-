@@ -55,13 +55,9 @@ public class 魔攻之戒 extends Ring {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
-		if(Dungeon.炼狱(炼狱设置.诅咒法杖)){
-		
-		}else{
 			if (curCharges > 0 &&isKnown()&&isEquipped(hero)) {
 				actions.add( AC_ZAP );
 			}
-		}
 		
 		return actions;
 	}
@@ -70,15 +66,11 @@ public class 魔攻之戒 extends Ring {
 	public void execute( Hero hero, String action ) {
 		
 		super.execute( hero, action );
-		if(Dungeon.炼狱(炼狱设置.诅咒法杖)){
-		
-		}else{
 			if (action.equals( AC_ZAP )&&isKnown()) {
 				curUser = hero;
 				curItem = this;
 				GameScene.selectCell(zapper);
 			}
-		}
 	}
 	
 	public void onZap(Ballistica bolt) {
@@ -298,6 +290,10 @@ public class 魔攻之戒 extends Ring {
 		curCharges = bundle.getInt( CUR_CHARGES );
 		maxCharges = bundle.getInt( MAX_CHARGES );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );
+	}
+
+	public void gainCharge(){
+		gainCharge(1);
 	}
 	public void gainCharge( float amt ){
 		gainCharge( amt, false );

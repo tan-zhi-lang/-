@@ -893,7 +893,7 @@ public class CavesBossLevel extends Level {
 				}
 
 				float dist = (float)Math.max( Math.abs(energySourceSprite.x - x), Math.abs(energySourceSprite.y - y) );
-				dist = GameMath.gate(0, dist-40, 320);
+				dist = GameMath.之内(0,dist-40,320);
 				//more sparks closer up
 				if (Random.Float(360) > dist) {
 

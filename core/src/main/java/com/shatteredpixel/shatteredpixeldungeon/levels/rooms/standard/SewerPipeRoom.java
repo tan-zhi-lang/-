@@ -208,8 +208,8 @@ public class SewerPipeRoom extends StandardRoom {
 		Point c = new Point((int)doorCenter.x / connected.size(), (int)doorCenter.y / connected.size());
 		if (Random.Float() < doorCenter.x % 1) c.x++;
 		if (Random.Float() < doorCenter.y % 1) c.y++;
-		c.x = (int) GameMath.gate(left+2, c.x, right-2);
-		c.y = (int)GameMath.gate(top+2, c.y, bottom-2);
+		c.x = (int) GameMath.之内(left+2,c.x,right-2);
+		c.y = (int)GameMath.之内(top+2,c.y,bottom-2);
 
 		return c;
 	}

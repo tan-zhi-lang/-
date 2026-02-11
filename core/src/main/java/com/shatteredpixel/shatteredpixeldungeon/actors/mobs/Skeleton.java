@@ -82,11 +82,12 @@ public class Skeleton extends Mob {
 					damage = armor.absorb( damage );
 					damage -= (preDmg - damage); //apply the flat reduction twice
 				}
+
+				damage=ch.防御(this,damage);
 				if(ch instanceof Hero hero){
 					damage-=hero.护甲伤害(damage);
 				}
-				//apply DR twice (with 2 rolls for more consistency)
-				damage = Math.max( 0,  damage - (2*ch.最大防御()));
+
 				ch.受伤时( damage, this );
 				if (ch == Dungeon.hero && !ch.isAlive()) {
 					heroKilled = true;

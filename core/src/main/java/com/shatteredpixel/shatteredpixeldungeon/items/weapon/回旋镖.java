@@ -14,6 +14,5 @@ public class 回旋镖 extends Weapon{
 		伤害=0.68f;
 		命中=0.85f;
 		tier = 2;
-		回旋镖=true;
 	}
 }

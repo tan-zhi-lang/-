@@ -80,9 +80,10 @@ public class RockfallTrap extends Trap {
 				if (ch instanceof Mob) {
 					Buff.延长(ch, Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 				}
-				int damage = Random.NormalIntRange(5+scalingDepth(), 10+scalingDepth()*2);
-				damage -= ch.最大防御();
-				ch.受伤时( Math.max(damage, 0) , this);
+				float damage = Random.NormalIntRange(5+scalingDepth(), 10+scalingDepth()*2);
+				damage=ch.防御(ch,damage);
+				damage=ch.护甲伤害(damage);
+				ch.受伤时( damage, this);
 
 				if (ch.isActive()) {
 					Buff.延长(ch, Paralysis.class, Paralysis.DURATION);

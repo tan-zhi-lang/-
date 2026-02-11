@@ -381,9 +381,9 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 					for (Char ch : Actor.chars()) {
 						if (ch != enemy && ch.alignment == Char.Alignment.ENEMY
 								&& PathFinder.distance[ch.pos] < Integer.MAX_VALUE) {
-							int aoeHit = Math.round(target.最大攻击()*0.25f*count);
+							float aoeHit = Math.round(target.最大攻击()*0.25f*count);
 							aoeHit /= 2;
-							aoeHit -= ch.最大防御();
+							aoeHit=ch.防御(ch,aoeHit);
 							if (ch.buff(Vulnerable.class) != null) aoeHit *= 1.33f;
 							if (ch instanceof DwarfKing){
 								//change damage type for DK so that crush AOE doesn't count for DK's challenge badge

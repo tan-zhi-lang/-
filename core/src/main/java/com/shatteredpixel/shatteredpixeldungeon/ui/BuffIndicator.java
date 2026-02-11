@@ -286,7 +286,7 @@ public class BuffIndicator extends Component {
 			if (!large || buff.iconTextDisplay().isEmpty()) {
 				text.visible = false;
 				grey.visible = true;
-				float fadeHeight = GameMath.gate(0, buff.iconFadePercent(), 1) * icon.height();
+				float fadeHeight =GameMath.之内(0,buff.iconFadePercent(),1)*icon.height();
 				float zoom = (camera() != null) ? camera().zoom : 1;
 				if (fadeHeight < icon.height() / 2f) {
 					grey.scale.set(icon.width(), (float) Math.ceil(zoom * fadeHeight) / zoom);

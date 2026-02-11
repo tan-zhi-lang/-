@@ -40,7 +40,7 @@ public class 再生 extends Buff {
 	}
 	@Override
 	public boolean act() {
-		if (target.isAlive()) {
+		if (target instanceof Hero hero&&hero.isAlive()) {
 		
 			//if other trinkets ever get buffs like this should probably make the buff attaching
 			// behaviour more like wands/rings/artifacts
@@ -48,10 +48,10 @@ public class 再生 extends Buff {
 				Buff.施加(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
 			}
 
-			if (regenOn() && !target.满血() && !((Hero)target).isStarving()) {
+			if (regenOn() && !hero.满血() && !((Hero)hero).isStarving()) {
 		boolean chaliceCursed = false;
 		int chaliceLevel = -1;
-		if (target.buff(MagicImmune.class) == null) {
+		if (hero.buff(MagicImmune.class) == null) {
 			if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class) != null) {
 				chaliceCursed = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed();
 				chaliceLevel = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel();
@@ -61,32 +61,40 @@ public class 再生 extends Buff {
 			}
 		}
 
-				float 再生速度= 1f/REGENERATION_DELAY;
-			if (chaliceLevel != -1 && target.buff(MagicImmune.class) == null) {
-				if (chaliceCursed) {
-					再生速度*= 1.5f;
-				} else {
-					//15% boost at +0, scaling to a 500% boost at +10
-					再生速度-=1.33f+chaliceLevel*0.667f;
-					再生速度/= 能量之戒.artifactChargeMultiplier(target);
+				float
+						再生数值=1f/REGENERATION_DELAY;
+				if (chaliceLevel != -1 && hero.buff(MagicImmune.class) == null) {
+					if (chaliceCursed) {
+						再生数值/= 1.5f;
+					} else {
+						//15% boost at +0, scaling to a 500% boost at +10
+						再生数值+=0.133f+chaliceLevel*0.0667f;
+						if(hero.符文("升级蓄血圣杯")){
+							再生数值+=hero.已损失生命(0.0225f);
+						}
+						再生数值*= 能量之戒.artifactChargeMultiplier(hero);
+					}
 				}
-			}
 		
 				//salt cube is turned off while regen is disabled.
-				if (target.buff(LockedFloor.class) == null) {
-					再生速度/= SaltCube.healthRegenMultiplier();
+				if (hero.buff(LockedFloor.class) == null) {
+					再生数值/= SaltCube.healthRegenMultiplier();
 				}
 
-					再生速度*=恢复之戒.恢复(target);
-					if(target instanceof Hero hero){
+				再生数值*=恢复之戒.恢复(hero);
 
-						if(hero.heroClass(HeroClass.血鬼))再生速度/=2;
-						if(hero.海克斯.get("恢复恢复"))再生速度*=2.5f;
+						if(hero.heroClass(HeroClass.血鬼))
+							再生数值/=2;
+						if(hero.符文("恢复恢复"))
+							再生数值*=3.5f;
 
-						if(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))再生速度=0;
-						if(hero.海克斯.get("吸血习性"))再生速度=0;
+						if(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
+							再生数值=0;
+						if(hero.符文("吸血习性"))
+							再生数值=0;
 
-						partialRegen =再生速度;
+						partialRegen =
+								再生数值;
 
 						float x=partialRegen;
 						if(partialRegen > 0)hero.回血(x);
@@ -95,7 +103,6 @@ public class 再生 extends Buff {
 							hero.resting = false;
 						}
 					}
-			}
 
 			spend( TICK );
 			

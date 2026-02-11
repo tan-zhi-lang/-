@@ -176,8 +176,7 @@ public class Bomb extends Item {
 				}
 
 				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth())*2;
-				dmg -= ch.最大防御()*2;
-				dmg=ch.防御时(null,dmg);
+				dmg=ch.防御(ch,dmg);
 				dmg=ch.护甲伤害(dmg);
 				if (dmg > 0) {
 					ch.受伤时(dmg, this);

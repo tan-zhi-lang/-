@@ -107,6 +107,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
@@ -165,6 +166,7 @@ public abstract class Char extends Actor {
 	public int 未命中=0;
 
 	public float 大小=1;
+	public boolean 首次死亡=false;
 	public boolean 史莱姆=false;
 	public boolean 吸血鬼飞刀=false;
 	public int 第x次攻击=0;
@@ -921,12 +923,14 @@ public abstract class Char extends Actor {
 		if(this instanceof Hero hero){
 			视野敌人=hero.视野敌人();
 		}
-		
 		第x次攻击++;
 		
 		damage=暴击(enemy,damage);
 		
 		if(吸血()>0){
+			if(this instanceof Hero hero&&hero.符文("猛攻")){
+
+			}else
 			回血(damage * 吸血());
 		}
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
@@ -1025,22 +1029,18 @@ public abstract class Char extends Actor {
 		needsShieldUpdate = false;
 		return cachedShield;
 	}
-	public void 火焰受伤(float dmg){
-		受伤时(dmg,火焰伤害.class);
+	public boolean 火焰伤害(Object src){
+		return Property.FIERY.immunities().contains(src)||Property.FIERY.resistances().contains(src);
 	}
-	public class 火焰伤害{}
-	public void 冰霜受伤(float dmg){
-		受伤时(dmg,冰霜伤害.class);
+	public boolean 冰霜伤害(Object src){
+		return Property.ICY.immunities().contains(src)||Property.ICY.resistances().contains(src);
 	}
-	public class 冰霜伤害{}
-	public void 雷电受伤(float dmg){
-			受伤时(dmg,雷电伤害.class);
+	public boolean 酸性伤害(Object src){
+		return Property.ACIDIC.immunities().contains(src)||Property.ACIDIC.resistances().contains(src);
 	}
-	public class 雷电伤害{}
-	public void 化学受伤(float dmg){
-		受伤时(dmg,化学伤害.class);
+	public boolean 无机伤害(Object src){
+		return Property.INORGANIC.immunities().contains(src)||Property.INORGANIC.resistances().contains(src);
 	}
-	public class 化学伤害{}
 	public void 受伤(float dmg){
 		受伤时(dmg,魔法伤害.class);
 	}
@@ -1099,19 +1099,34 @@ public abstract class Char extends Actor {
 				dmg *= 0.75f;
 			}
 		}
-		
-		if((Property.FIERY.immunities().contains(src)||Property.FIERY.resistances().contains(src))&&(酸性()||植物()||寒冰())){
-			dmg*=2;
+
+		if(火焰伤害(src)&&(酸性()||植物()||寒冰())){
+			dmg*=1.45f;
 		}
-		if((Property.ICY.immunities().contains(src)||Property.ICY.resistances().contains(src))&&火焰()){
-			dmg*=2;
+		if(冰霜伤害(src)&&火焰()){
+			dmg*=1.45f;
 		}
-		if(((Property.INORGANIC.immunities().contains(src)||Property.INORGANIC.resistances().contains(src))||
-			(Property.ACIDIC.immunities().contains(src)||Property.ACIDIC.resistances().contains(src))||
-			(Property.FIERY.immunities().contains(src)||Property.FIERY.resistances().contains(src))||
-			(Property.ICY.immunities().contains(src)||Property.ICY.resistances().contains(src))
-		   )&&动物()){
-			dmg*=2;
+		if((酸性伤害(src)||无机伤害(src)||火焰伤害(src)||冰霜伤害(src))&&动物()){
+			dmg*=1.45f;
+		}
+		if(Dungeon.hero()){
+			if(Dungeon.hero.nobuff(Hero.战斗状态.class)&&Dungeon.hero.符文("虔焚之热")&&火焰伤害(src)){
+				if(Dungeon.hero.暴击(null,1)>1)
+					dmg*=Dungeon.hero.暴击伤害();
+				Dungeon.hero.回血(dmg);
+			}
+			if(Dungeon.hero.符文("裁决使")&&残血())
+				dmg*=1.125f;
+			if(src instanceof Wand){
+				if(Dungeon.hero.符文("珠光护手"))
+					if(暴击(null,1)>1)
+						dmg*=暴击伤害();
+			}
+			if(src instanceof Weapon){
+				if(Dungeon.hero.符文("易损"))
+					if(暴击(null,1)>1)
+						dmg*=暴击伤害();
+			}
 		}
 		
 		if(Dungeon.赛季(赛季设置.地牢塔防))
@@ -1541,6 +1556,9 @@ public abstract class Char extends Actor {
 		Dungeon.level.occupyCell(this );
 	}
 	
+	public boolean adjacent( Char other ) {
+		return Dungeon.level.adjacent( pos, other.pos );
+	}
 	public int distance( Char other ) {
 		return Dungeon.level.distance( pos, other.pos );
 	}
@@ -1782,7 +1800,11 @@ public abstract class Char extends Actor {
 			受伤(x);
 		}
 	}
-
+	public float 防御(Char enemy, float damage){
+		damage-=Random.NormalFloat(最小防御(),最大防御());
+		damage=防御时(enemy,damage);
+		return damage;
+	}
 	public int 视野范围(){
 		int x=viewDistance;
 		return x;
@@ -1852,6 +1874,10 @@ public abstract class Char extends Actor {
 	}
 	public boolean 老鬼傀儡(){
 		return properties().contains(Property.BOSS_MINION);
+	}
+	public boolean 防刷(){
+		if(Dungeon.hero()&&Dungeon.hero.符文("叠角龙"))return true;
+		return !老鬼()&&!小老鬼()&&!傀儡()&&老鬼傀儡();
 	}
 	public boolean 傀儡(){
 		return properties().contains(Property.傀儡);

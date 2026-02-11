@@ -103,7 +103,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 攻击延迟(){
 		if (hero != null) {
-			return hero.攻击延迟()/(1+(hero.海克斯.get("力速双A替身")?0.25f:0));
+			return hero.攻击延迟()/(1+(hero.符文("力速双A替身")?0.25f:0));
 		} else {
 			return super.攻击延迟();
 		}
@@ -112,7 +112,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最小攻击() {
 		if (hero != null) {
-			return hero.最小攻击()*(1+(hero.海克斯.get("力速双A替身")?0.25f:0));
+			return hero.最小攻击()*(1+(hero.符文("力速双A替身")?0.25f:0));
 		} else {
 			return 0;
 		}
@@ -120,7 +120,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最大攻击() {
 		if (hero != null) {
-			return hero.最大攻击()*(1+(hero.海克斯.get("力速双A替身")?0.25f:0));
+			return hero.最大攻击()*(1+(hero.符文("力速双A替身")?0.25f:0));
 		} else {
 			return 0;
 		}

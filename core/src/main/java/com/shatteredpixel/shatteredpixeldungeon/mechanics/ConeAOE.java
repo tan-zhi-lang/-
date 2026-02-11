@@ -63,8 +63,8 @@ public class ConeAOE {
 			scan.x += (fromP.x > scan.x ? +0.5f : -0.5f);
 			scan.y += (fromP.y > scan.y ? +0.5f : -0.5f);
 			scanInt.set(
-					(int)GameMath.gate(0, (int)Math.floor(scan.x), Dungeon.level.width()-1),
-					(int)GameMath.gate(0, (int)Math.floor(scan.y), Dungeon.level.height()-1));
+					(int)GameMath.之内(0,(int)Math.floor(scan.x),Dungeon.level.width()-1),
+					(int)GameMath.之内(0,(int)Math.floor(scan.y),Dungeon.level.height()-1));
 			targetCells.add(Dungeon.level.pointToCell(scanInt));
 			outerCells.add(Dungeon.level.pointToCell(scanInt));
 			//if the cone is large enough, also cast rays to cells just inside of the outer arc
@@ -75,8 +75,8 @@ public class ConeAOE {
 				scan.x += (fromP.x > scan.x ? +0.5f : -0.5f);
 				scan.y += (fromP.y > scan.y ? +0.5f : -0.5f);
 				scanInt.set(
-						(int)GameMath.gate(0, (int)Math.floor(scan.x), Dungeon.level.width()-1),
-						(int)GameMath.gate(0, (int)Math.floor(scan.y), Dungeon.level.height()-1));
+						(int)GameMath.之内(0,(int)Math.floor(scan.x),Dungeon.level.width()-1),
+						(int)GameMath.之内(0,(int)Math.floor(scan.y),Dungeon.level.height()-1));
 				targetCells.add(Dungeon.level.pointToCell(scanInt));
 			}
 		}

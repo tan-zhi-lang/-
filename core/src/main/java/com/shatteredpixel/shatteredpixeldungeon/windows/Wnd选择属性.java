@@ -133,7 +133,7 @@ public class Wnd选择属性 extends Window {
 						hero.更新数据();
 						break;
 					case "力量":
-						hero.力量成长+=
+						hero.力量+=
 								finalrxv1;
 						break;
 					case "攻速":
@@ -189,7 +189,7 @@ public class Wnd选择属性 extends Window {
 						hero.更新数据();
 						break;
 					case "力量":
-						hero.力量成长+=finalrxv2;
+						hero.力量+=finalrxv2;
 						break;
 					case "攻速":
 						hero.攻速成长+=finalrxv2;
@@ -238,7 +238,7 @@ public class Wnd选择属性 extends Window {
 						hero.更新数据();
 						break;
 					case "力量":
-						hero.力量成长+=finalrxv3;
+						hero.力量+=finalrxv3;
 						break;
 					case "攻速":
 						hero.攻速成长+=finalrxv3;

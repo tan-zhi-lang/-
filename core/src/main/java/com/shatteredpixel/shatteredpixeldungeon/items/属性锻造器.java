@@ -15,11 +15,14 @@ public class 属性锻造器 extends 用品 {
 	
 	{
 		image = 物品表.属性锻造器;
+		嬗变=false;
+		可以空间=false;
+		特别= true;
 	}
 	
 	@Override
 	public void 使用(Hero hero){
-		Sample.INSTANCE.play(Assets.Sounds.海克斯);
+		Sample.INSTANCE.play(Assets.Sounds.海克斯,1.75f);
 
 		Game.runOnRenderThread(()->{
 			GameScene.show(new Wnd选择属性(hero));

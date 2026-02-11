@@ -600,12 +600,12 @@ public class GnollGeomancer extends Mob {
 
 						Dungeon.hero.interrupt();
 						abilityCooldown = Random.NormalIntRange(3, 5);
-						spend(GameMath.gate(TICK, (int)Math.ceil(enemy.cooldown()), 3*TICK));
+						spend(GameMath.之内(TICK,(int)Math.ceil(enemy.cooldown()),3*TICK));
 						return true;
 					} else if (GnollGeomancer.prepRockFallAttack(enemy, GnollGeomancer.this, Math.round(6-2*curbracket), true)) {
 						lastAbilityWasRockfall = true;
 						Dungeon.hero.interrupt();
-						spend(GameMath.gate(TICK, (int)Math.ceil(enemy.cooldown()), 3*TICK));
+						spend(GameMath.之内(TICK,(int)Math.ceil(enemy.cooldown()),3*TICK));
 						abilityCooldown = Random.NormalIntRange(3, 5);
 						return true;
 					}
@@ -788,7 +788,7 @@ public class GnollGeomancer extends Mob {
 			source.sprite.parent.add(new TargetedCell(i, 0xFF0000));
 		}
 		//don't want to overly punish players with slow move or attack speed
-		Buff.新增(source, GnollRockFall.class, GameMath.gate(TICK, (int)Math.ceil(target.cooldown()), 3*TICK)).setRockPositions(rockCells);
+		Buff.新增(source, GnollRockFall.class, GameMath.之内(TICK,(int)Math.ceil(target.cooldown()),3*TICK)).setRockPositions(rockCells);
 
 		source.sprite.attack(target.pos, new Callback() {
 			@Override

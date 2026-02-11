@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
@@ -251,7 +252,7 @@ public enum Talent {
 	public static class RejuvenatingStepsCooldown extends FlavourBuff{//复春步伐
 		public int icon() { return BuffIndicator.TIME; }
 		public void tintIcon(Image icon) { icon.hardlight(0f, 0.35f, 0.15f); }
-		public float iconFadePercent() { return GameMath.gate(0, visualcooldown() / (20 ), 1); }
+		public float iconFadePercent() { return GameMath.之内(0,visualcooldown()/(20 ),1); }
 	}
 	
 	public static class RejuvenatingStepsFurrow extends CountBuff{{revivePersists = true;}}
@@ -415,14 +416,17 @@ public enum Talent {
 //			}
 //			Game.switchScene(InterlevelScene.class);
 		}
+		if(hero.符文("我等你")){
+			Buff.延长(hero,Invulnerability.class,1);
+		}
 		if (false){//不动如山
 			Buff.施加(Dungeon.hero, HoldFast.class).pos = Dungeon.hero.pos;
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)+(hero.海克斯.get("饭桶")?hero.最大生命(0.075f):0)));
+		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)+(hero.符文("饭桶")?hero.最大生命(0.075f):0)));
 
-		if(hero.海克斯.get("饭桶")){
+		if(hero.符文("饭桶")){
 			hero.恢复百分比护甲(0.15f);
 		}
 		if (hero.heroClass(HeroClass.学士)){
@@ -551,6 +555,7 @@ public enum Talent {
 
 	public static void onArtifactUsed( Hero hero ){
 
+		if(hero.符文("古式佳酿"))hero.回百分比血(0.015f);
 		// 10/20/30%
 		if (Dungeon.hero.heroClass != HeroClass.CLERIC
 				&& Dungeon.hero.天赋(Talent.CLEANSE)

@@ -85,7 +85,7 @@ public class WndJournal extends WndTabbed {
 	
 	public static int last_index = 0;
 
-	private static WndJournal INSTANCE = null;
+	public static WndJournal INSTANCE = null;
 	
 	public WndJournal(){
 

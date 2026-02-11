@@ -267,14 +267,15 @@ public class WndHero extends WndTabbed {
 			Hero hero = Dungeon.hero;
 			
 			pos = GAP*2;
-			
-			statSlot( "惊醒距离/地牢视野", hero.惊醒距离()+"/"+Dungeon.level.视野范围);
+
+			statSlot( "##惊醒距离/地牢视野##", hero.惊醒距离()+"/"+Dungeon.level.视野范围);
 			statSlot( "$$视野+光照范围$$", hero.视野范围()+"+"+hero.光照范围());
 			statSlot( "搜索/感知范围", +hero.搜索范围()+"/"+hero.感知范围());
 			pos += GAP;
 			statSlot( "**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"
 									  +Math.round(hero.全能吸血()*100)+"%");
-			
+			statSlot( "++治疗效果/综合属性++",Math.round(hero.治疗效果()*100)+"/"+Math.round(hero.综合属性()*100)+"%");
+
 			statSlot( "难度",Dungeon.难度名称());
 			
 			pos += GAP;

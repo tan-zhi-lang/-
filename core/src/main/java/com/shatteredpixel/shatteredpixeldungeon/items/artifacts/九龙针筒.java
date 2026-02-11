@@ -119,9 +119,9 @@ public class 九龙针筒 extends Artifact {
 			damage = rockArmor.absorb(damage);
 		}
 		charge--;
-		damage -= hero.最大防御();
+		damage=hero.防御(hero,damage);
 		damage-=hero.护甲伤害(damage);
-		hero.力量成长+=0.1f+等级()*0.01f;
+		hero.力量+=0.1f+等级()*0.01f;
 		hero.sprite.operate( hero.pos );
 		hero.busy();
 		hero.spend(Actor.TICK);

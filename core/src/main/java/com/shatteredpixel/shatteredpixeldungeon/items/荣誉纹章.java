@@ -279,11 +279,11 @@ public class 荣誉纹章 extends Item {
 		@Override
 		public float iconFadePercent() {
 			if (护盾量() > 0){
-				return GameMath.gate(0, 1f - 护盾量()/(float)maxShield(), 1);
+				return GameMath.之内(0,1f-护盾量()/(float)maxShield(),1);
 			} else if (coolingDown()){
-				return GameMath.gate(0, cooldown / (float)cool(), 1);
+				return GameMath.之内(0,cooldown/(float)cool(),1);
 			} else if (cooldown < 0) {
-				return GameMath.gate(0, (COOLDOWN_START+cooldown) / (float)COOLDOWN_START, 1);
+				return GameMath.之内(0,(COOLDOWN_START+cooldown)/(float)COOLDOWN_START,1);
 			} else {
 				return 0;
 			}

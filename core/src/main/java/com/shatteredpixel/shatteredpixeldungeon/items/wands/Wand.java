@@ -81,7 +81,7 @@ public abstract class Wand extends Item {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if(Dungeon.炼狱(炼狱设置.诅咒法杖)&&!(this instanceof 灵月法杖)){
+		if((Dungeon.炼狱(炼狱设置.诅咒法杖)||(hero.符文("末法")))&&!(this instanceof 灵月法杖)){
 		
 		}else{
 			if (curCharges > 0 || !curChargeKnown) {
@@ -96,7 +96,7 @@ public abstract class Wand extends Item {
 	public void execute( Hero hero, String action ) {
 
 		super.execute( hero, action );
-		if(Dungeon.炼狱(炼狱设置.诅咒法杖)&&!(this instanceof 灵月法杖)){
+		if((Dungeon.炼狱(炼狱设置.诅咒法杖)||(hero.符文("末法")))&&!(this instanceof 灵月法杖)){
 		
 		}else{
 			if (action.equals( AC_ZAP )) {
@@ -160,6 +160,10 @@ public abstract class Wand extends Item {
 		}
 	}
 
+	public void gainCharge(){
+		gainCharge(1);
+	}
+
 	public void gainCharge( float amt ){
 		gainCharge( amt, false );
 	}
@@ -190,7 +194,11 @@ public abstract class Wand extends Item {
 
 	//TODO Consider externalizing char awareness buff
 	public static void wandProc(Char target,int wandLevel,int chargesUsed){
-
+		if(Dungeon.hero()){
+			if(Dungeon.hero.符文("古式佳酿"))Dungeon.hero.回百分比血(0.015f);
+			if(Dungeon.hero.符文("虚幻武器"))
+				Dungeon.hero.attack(target,0.05f);
+		}
 	}
 
 	@Override

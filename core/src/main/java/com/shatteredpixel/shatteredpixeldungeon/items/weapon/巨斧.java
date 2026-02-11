@@ -13,7 +13,7 @@ public class 巨斧 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		延迟=1.35f;
 		流血=0.2f;
-		双手=true;
+		
 		技能=new 劈斩();
 
 		tier = 4;

@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
@@ -759,8 +760,8 @@ public abstract class Mob extends Char {
 			}
 		}
 
-		if(Dungeon.派对(派对设置.怪物猎场)&&Math.round(damage/10)>0)
-			Dungeon.level.drop(new 属性碎片().数量(Math.round(damage/10)),pos).sprite.drop();
+		if(Dungeon.派对(派对设置.怪物猎场)&&Math.round(damage/10/3)>0)
+			Dungeon.level.drop(new 属性碎片().数量(Math.round(damage/10/3)),pos).sprite.drop();
 
 		return super.防御时(enemy, damage);
 	}
@@ -819,9 +820,15 @@ public abstract class Mob extends Char {
 				||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术||src instanceof ArmorAbility){
 				
 				if(Dungeon.hero()){
-					if(Dungeon.hero.全能吸血()>0)
-					Dungeon.hero.回血(dmg * Dungeon.hero.全能吸血()*((老鬼()||小老鬼())?1:0.5f));
-					
+					if(Dungeon.hero.全能吸血()>0){
+
+						if(Dungeon.hero()&&Dungeon.hero.符文("猛攻")){
+
+						}else
+							Dungeon.hero.回血(dmg*Dungeon.hero.全能吸血()*((老鬼()||小老鬼())?
+																			   1:
+																			   1/3f));
+					}
 					if(Dungeon.hero.天赋(Talent.错失良机))
 						Buff.延长( Dungeon.hero, Invisibility.class, Dungeon.hero.天赋点数(Talent.错失良机,2) );
 					
@@ -928,9 +935,9 @@ public abstract class Mob extends Char {
 			}
 			
 
-			if (cause == Dungeon.hero || cause instanceof Weapon || cause instanceof Weapon.Enchantment){
+			if (cause == Dungeon.hero||cause instanceof Ring||cause instanceof Artifact||cause instanceof Wand||cause instanceof Weapon||cause instanceof Weapon.Enchantment){
 
-				if(!傀儡()&&!老鬼傀儡()){
+				if(防刷()){
 				if(cause== Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
 						if(Dungeon.hero.belongings.attackingWeapon()instanceof 草剃){
 							for(int n: PathFinder.NEIGHBOURS8){
@@ -998,10 +1005,19 @@ public abstract class Mob extends Char {
 					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 				}
 				if(Dungeon.hero.subClass(HeroSubClass.灵魂武者))
-					Dungeon.hero.力量成长+=0.1f+(Dungeon.hero.职业精通()?0.1f:0);
+					Dungeon.hero.力量+=0.1f+(Dungeon.hero.职业精通()?0.1f:0);
 				if(投机之剑.增加()>0&&Dungeon.hero.投机之剑>0){
 					Dungeon.gold(Dungeon.hero.投机之剑);
 				}
+
+				if(Dungeon.hero.符文("裁决使")){
+					if(cause instanceof Wand w)
+					w.gainCharge(1);
+					if(cause instanceof Weapon w&&w.charger!=null)
+					w.charger.gainCharge(1);
+				}
+
+				if(Dungeon.hero.符文("超凡邪恶"))Dungeon.hero.智力+=0.015f;
 				if(Dungeon.hero.天赋(Talent.久战))
 					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战));
 					//击杀瞬移
@@ -1012,26 +1028,13 @@ public abstract class Mob extends Char {
 
 		}
 
-		if (Dungeon.hero.isAlive() && !Dungeon.level.heroFOV[pos]) {
-			GLog.i( Messages.get(this, "died") );
-		}
 
 		boolean soulMarked =buff(灵魂标记.class)!=null;
 
-		if (!傀儡()
-			&& !老鬼傀儡()&& 算法.概率学(1/5f)&& Dungeon.hero.海克斯.get("破败之王")){
-				回满血();
-				Buff.施加(this, Corruption.class);
-		}else{
-			super.死亡时( cause );
-		}
-
-
 		if (!(this instanceof Wraith)
-				&& soulMarked
-				&& !傀儡()
-				&& !老鬼傀儡()
-				&& Random.Float() < (Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
+			&& soulMarked
+			&& 防刷()
+			&& Random.Float() < (Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
 			Wraith w = Wraith.spawnAt(pos, Wraith.class);
 			if (w != null) {
 				Buff.施加(w, Corruption.class);
@@ -1041,6 +1044,22 @@ public abstract class Mob extends Char {
 				}
 			}
 		}
+
+		if (Dungeon.hero.isAlive() && !Dungeon.level.heroFOV[pos]) {
+			GLog.i( Messages.get(this, "died") );
+		}
+
+		if (防刷()&& 算法.概率学(1/5f)&& Dungeon.hero.符文("破败之王")){
+				回满血();
+				Buff.施加(this, Corruption.class);
+		}else{
+			if(Dungeon.hero.符文("击杀击杀")&&防刷()){
+				首次死亡=true;
+				死亡时( cause );
+			}else
+			super.死亡时( cause );
+		}
+
 	}
 
 	public float lootChance(){
@@ -1075,7 +1094,7 @@ public abstract class Mob extends Char {
 			if(Dungeon.hero.等级>最大等级+2)
 				return;
 		}
-		if(!(傀儡()&&老鬼傀儡())){
+		if(防刷()){
 		if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
 			Dungeon.level.drop(Generator.random(), pos).sprite().drop();
 		}
@@ -1186,7 +1205,7 @@ public abstract class Mob extends Char {
 			
 			if(老鬼())属性+=" 老鬼";
 			if(小老鬼())属性+=" 小老鬼";
-			if(老鬼傀儡())属性+=" 傀儡";
+			if(老鬼傀儡())属性+=" 老鬼傀儡";
 			if(傀儡())属性+=" 傀儡";
 			if(低活动度生物())属性+=" 低活动度生物";
 			

@@ -25,7 +25,7 @@ public class 腥红散华 extends Weapon{
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(attacker instanceof Hero hero){
-			hero.风刃(hero,defender.pos,45,4,5,new 吸血刀());
+			hero.风刃(hero,defender.pos,45,4,new 吸血刀());
 		}
 		return super.攻击时( attacker, defender, damage );
 	}

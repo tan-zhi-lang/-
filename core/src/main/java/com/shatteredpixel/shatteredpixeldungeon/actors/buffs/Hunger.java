@@ -109,6 +109,8 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (target.buff(Shadows.class) != null){
 					hungerDelay /= 1.5f;
 				}
+				if(Dungeon.符文("树懒转世"))
+					hungerDelay /= 2;
 				if(Dungeon.解压(解压设置.抗饿能手))
 					hungerDelay /= 2;
 				hungerDelay/=SaltCube.hungerGainMultiplier();
@@ -126,6 +128,8 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (target.buff(Shadows.class) != null){
 					hungerDelay *= 1.5f;
 				}
+				if(Dungeon.符文("树懒转世"))
+					hungerDelay *= 2;
 				if(Dungeon.解压(解压设置.抗饿能手))
 					hungerDelay *= 2;
 				hungerDelay/=SaltCube.hungerGainMultiplier();
@@ -168,7 +172,11 @@ public class Hunger extends Buff implements Hero.Doom {
 	}
 	public void affectHunger(float energy, boolean overrideLimits ) {
 		if(target instanceof Hero hero){
-			hero.吃饭触发+=energy;
+			if(hero.符文("吃胀到了")){
+				float x=level-energy;
+				if(x<0)
+				hero.回血(-x);
+			}
 			
 			Talent.吃饭时(hero,energy/150f);
 		}

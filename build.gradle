@@ -21,6 +21,7 @@ buildscript {
         // 首都在线
         maven { url 'https://maven.oscs.oschina.net/content/groups/public/' }
 
+
         mavenCentral()
 
         // 保留Google仓库(备选)

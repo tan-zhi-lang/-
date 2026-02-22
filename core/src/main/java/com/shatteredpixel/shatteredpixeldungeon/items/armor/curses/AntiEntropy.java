@@ -25,7 +25,7 @@ public class AntiEntropy extends Glyph {
 		float procChance = 1/8f * procChanceMultiplier(defender);
 		if ( Random.Float() < procChance ) {
 
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				Freezing.affect(defender.pos+i);
 			}
 

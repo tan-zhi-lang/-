@@ -22,7 +22,7 @@ public class Corrosion extends Armor.Glyph {
 		float procChance = 1/10f * procChanceMultiplier(defender);
 		if ( Random.Float() < procChance ) {
 			int pos = defender.pos;
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				Splash.at(pos+i, 0x000000, 5);
 				if (Actor.findChar(pos+i) != null)
 					Buff.施加(Actor.findChar(pos+i), Ooze.class).set( Ooze.DURATION/2 );

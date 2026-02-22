@@ -6,8 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -84,9 +82,9 @@ public class TengusMask extends Item {
 		curUser.subClass = way;
 		Talent.initSubclassTalents(curUser);
 
-		if (way == HeroSubClass.刺客&&curUser.invisible>0){
-			Buff.施加(curUser, 潜伏.class);
-		}
+//		if (way == HeroSubClass.刺客&&curUser.invisible>0){
+//			Buff.施加(curUser, 潜伏.class);
+//		}
 		
 		curUser.sprite.operate(  );
 		Sample.INSTANCE.play( Assets.Sounds.MASTERY );

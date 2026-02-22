@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
@@ -105,6 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
@@ -244,16 +244,16 @@ public enum Catalog {
 		TRINKETS.addItems(Generator.Category.TRINKET.classes);
 
 		MISC_EQUIPMENT.addItems(荣誉纹章.class,
-								
+
 								短剑.class,
 								法师魔杖.class,
 								四叶草法典.class,
 								双刃.class,CloakOfShadows.class,灵能短弓.class,
 								配刺剑.class,
-								
+
 								权杖.class,
 								镜刃.class,
-								
+
 								白带.class,
 								臂铠.class,
 								修理扳手.class,
@@ -265,13 +265,13 @@ public enum Catalog {
 								血姬.class,
 								书包.class,十字弩.class,
 								飞镖.class,
-								
+
 								吸血刀.class,
 								镐子.class,
 								锻造锤.class,
 								商人信标.class,
 								水袋.class,宝物袋.class,绒布袋.class,
-								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class,Amulet.class);
+								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class,真正护符.class);
 
 
 

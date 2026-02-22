@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.watabou.utils.Random;
@@ -109,6 +110,9 @@ public class HighGrass {
 				自然层 = -1;
 			}
 
+			if(Dungeon.符文("升级自然之履"))
+			自然层+=2;
+
 			if (自然层 >= 0) {
 				// Seed, scales from 1/25 to 1/9
 				float 概率 = 1/(25f - 自然层 *4f);
@@ -130,10 +134,13 @@ public class HighGrass {
 				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
 					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
 				}
+				if(Dungeon.符文("灵感咕力咕力咕力灵感菇")){
+					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+				}
 				
 				// Dew, scales from 1/6 to 1/4
 				概率 = 1/(6f - 自然层 /2f);
-//				概率 = 1/(4f + 自然层 /2f);
+
 				//grassy levels spawn half as much dew
 				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
 					概率 /= 2;
@@ -141,7 +148,10 @@ public class HighGrass {
 				if (Random.Float() < 概率) {
 					level.drop(new Dewdrop(), pos).sprite().drop();
 				}
-				if (Random.Float() < 1/900f&&Dungeon.LimitedDrops.生命果.count==0) {
+				if(Dungeon.符文("繁花的宠爱"))
+					level.drop(new Sungrass.Seed(),pos).sprite().drop();
+
+				if (Random.Float() < 1/900f&&Dungeon.LimitedDrops.生命果.count<1) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
@@ -236,6 +246,9 @@ public class HighGrass {
 			if (Dungeon.level instanceof VaultLevel){
 				自然层 = -1;
 			}
+			if(Dungeon.符文("升级自然之履"))
+				自然层+=2;
+
 			if (自然层 >= 0) {
 				// Seed, scales from 1/25 to 1/9
 				float 概率 = 1/(25f - 自然层 *4f);
@@ -264,7 +277,11 @@ public class HighGrass {
 					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
 					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
 				}
-				
+				if(Dungeon.符文("灵感咕力咕力咕力灵感菇")){
+					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+				}
 				// Dew, scales from 1/6 to 1/4
 				概率 = 1/(6f - 自然层 /2f);
 //				概率 = 1/(4f + 自然层 /2f);
@@ -279,7 +296,9 @@ public class HighGrass {
 					level.drop(new Dewdrop(), pos).sprite().drop();
 					level.drop(new Dewdrop(), pos).sprite().drop();
 				}
-				if (Random.Float() < 1/900f&&Dungeon.LimitedDrops.生命果.count==0) {
+				if(Dungeon.符文("繁花的宠爱"))
+					level.drop(new Sungrass.Seed(),pos).sprite().drop();
+				if (Random.Float() < 1/300f&&Dungeon.LimitedDrops.生命果.count<1) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}

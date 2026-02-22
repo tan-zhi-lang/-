@@ -51,6 +51,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
@@ -115,6 +116,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 英雄断剑)return true;
 		if(this instanceof 无尽之刃)return true;
 		if(this instanceof 饮血之剑)return true;
+		if(this instanceof 破败王剑)return true;
 		if(this instanceof 火焰剑)return true;
 		if(this instanceof 流火)return true;
 		if(this instanceof 蜜剑)return true;
@@ -405,7 +407,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	
 	public boolean canReach( Char owner, int target){
-		int reach = reachFactor(owner);
+		int reach = owner.攻击范围();
 		if (Dungeon.level.distance( owner.pos, target ) > reach){
 			return false;
 		} else {
@@ -427,11 +429,10 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 攻击时(Char attacker, Char defender, float damage ) {
 		
 		if (attacker instanceof Hero hero){
-			Char enemy=hero.attackTarget();
-			if(enemy!=null&&enemy.第x次防御==1&&长矛()){
+			if(defender!=null&&defender.第x次防御==1&&长矛()){
 				return 最大投掷攻击();
 			}
-			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
+			if(defender!=null&&伏击>0&&defender instanceof Mob&&((Mob)defender).surprisedBy(hero)){
 				damage+=(最大攻击()-最小攻击())*伏击*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击(defender,1)>1?hero.暴击伤害():1);
 
 			}
@@ -440,12 +441,11 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	public float 投掷攻击时(Char attacker, Char defender, float damage ) {
 		if (attacker instanceof Hero hero){
-			Char enemy=hero.attackTarget();
-			if(enemy!=null&&enemy.第x次防御==1&&长矛()){
+			if(defender!=null&&defender.第x次防御==1&&长矛()){
 				return 最大投掷攻击();
 			}
 
-			if(伏击>0&&enemy instanceof Mob&&((Mob)enemy).surprisedBy(hero)){
+			if(defender!=null&&伏击>0&&defender instanceof Mob&&((Mob)defender).surprisedBy(hero)){
 				damage+=(最大投掷攻击()-最小投掷攻击())*伏击*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击(defender,1)>1?hero.暴击伤害():1);
 			}
 		}

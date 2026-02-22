@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -38,7 +37,7 @@ public class DimensionalSundial extends Trinket {
 
 	public static float spawnMultiplierAtCurrentTime(){
 		if (trinketLevel(DimensionalSundial.class) != -1) {
-			if (Dungeon.地牢时间(8,20)) {
+			if (Dungeon.地牢时间>2000||Dungeon.地牢时间<=800) {
 				if (!sundialWarned){
 					GLog.w(Messages.get(DimensionalSundial.class, "warning"));
 					sundialWarned = true;

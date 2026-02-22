@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
@@ -20,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
+import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -77,7 +77,7 @@ public class Shopkeeper extends NPC {
 	
 	@Override
 	public void 受伤时(float dmg, Object src ) {
-		if(src!=魔法伤害.class)
+		if(src!=Char.魔法伤害.class)
 			processHarm();
 	}
 	
@@ -201,7 +201,7 @@ public class Shopkeeper extends NPC {
 
 	public static boolean canSell(Item item){
 		if (item.金币() <= 0)                                              return false;
-		if (item.特别&&!item.可堆叠)                                 return false;
+		if (!item.可堆叠)                                 return false;
 		if (item instanceof Armor && ((Armor) item).checkSeal() != null)    return false;
 		if (item.isEquipped(Dungeon.hero) && item.cursed)                   return false;
 		return true;
@@ -240,11 +240,13 @@ public class Shopkeeper extends NPC {
 		Game.runOnRenderThread(new Callback() {
 			@Override
 			public void call() {
-				String[] options = new String[2+ buybackItems.size()];
+				String[] options = new String[(Dungeon.符文("属性买买买")?3:2)+ buybackItems.size()];
 				int maxLen = PixelScene.横屏() ? 30 : 25;
 				int i = 0;
 				options[i++] = Messages.get(Shopkeeper.this, "sell");
 				options[i++] = Messages.get(Shopkeeper.this, "talk");
+				if(Dungeon.符文("属性买买买"))
+				options[i++] = Messages.get(Shopkeeper.this, "属性锻造器");
 				for (Item item : buybackItems){
 					options[i] = Messages.get(Heap.class, "for_sale", item.金币(), Messages.titleCase(item.title()));
 					if (options[i].length() > maxLen) options[i] = options[i].substring(0, maxLen-3) + "...";
@@ -259,11 +261,22 @@ public class Shopkeeper extends NPC {
 							sell();
 						} else if (index == 1){
 							GameScene.show(new WndTitledMessage(sprite(), Messages.titleCase(name()), chatText()));
-						} else if (index > 1){
+						}else if(Dungeon.符文("属性买买买")&&index == 2){
+							Item i=new 属性锻造器();
+							int g=sellPrice(i);
+							if(Dungeon.gold>=g){
+
+								Dungeon.gold(-g);
+								if (!i.doPickUp(Dungeon.hero)){
+									Dungeon.level.drop(i, Dungeon.hero.pos);
+								}
+							}else {
+								GLog.w(Messages.get(Shopkeeper.this, "nogold"));
+							}
+						}else if (index > (Dungeon.符文("属性买买买")?2:1)){
 							GLog.i(Messages.get(Shopkeeper.this, "buyback"));
 							Item returned = buybackItems.remove(index-2);
 							Dungeon.gold(-returned.金币());
-							Statistics.goldCollected -= returned.金币();
 							if (!returned.doPickUp(Dungeon.hero)){
 								Dungeon.level.drop(returned, Dungeon.hero.pos);
 							}
@@ -272,8 +285,8 @@ public class Shopkeeper extends NPC {
 
 					@Override
 					protected boolean enabled(int index) {
-						if (index > 1){
-							return Dungeon.gold >= buybackItems.get(index-2).金币();
+						if (index > (Dungeon.符文("属性买买买")?2:1)){
+							return Dungeon.gold >= buybackItems.get(index-(Dungeon.符文("属性买买买")?3:2)).金币();
 						} else {
 							return super.enabled(index);
 						}
@@ -281,13 +294,13 @@ public class Shopkeeper extends NPC {
 
 					@Override
 					protected boolean hasIcon(int index) {
-						return index > 1;
+						return index > (Dungeon.符文("属性买买买")?2:1);
 					}
 
 					@Override
 					protected Image getIcon(int index) {
-						if (index > 1){
-							return new ItemSprite(buybackItems.get(index-2));
+						if (index > (Dungeon.符文("属性买买买")?2:1)){
+							return new ItemSprite(buybackItems.get(index-(Dungeon.符文("属性买买买")?3:2)));
 						}
 						return null;
 					}

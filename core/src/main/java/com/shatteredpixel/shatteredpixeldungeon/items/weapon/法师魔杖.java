@@ -7,12 +7,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.物法皆修;
+import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -24,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -76,19 +77,27 @@ public class 法师魔杖 extends Weapon{
 	public int 转移=0;
 	public int 最大转移(){
 		int x=1;
-		if(Dungeon.解压(解压设置.独自变强)){
-			x+=Dungeon.hero.等级/2;
-		}
+
 		return x+(Dungeon.hero()?Dungeon.hero.天赋点数(Talent.高级魔杖):0);
 	}
 	@Override
 	public int 强化等级(){
 		int l=等级()+转移;
-		if(Dungeon.hero()){
+		if(Dungeon.hero()&&!Dungeon.符文("魔法转物理")){
 			l+=Dungeon.hero.智力;
 			l+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
 			if(Dungeon.hero.符文("升级法师魔杖"))l*=1.5f;
+			if(Dungeon.符文("物法皆修")&&Dungeon.hero.hasbuff(战斗状态.class)&&Dungeon.hero.hasbuff(物法皆修.class)){
+				l+= Dungeon.hero.buff(物法皆修.class).count/5;
+			}
+			if(Dungeon.符文("物理转魔法")){
+				l+= Dungeon.hero.力量()*0.15f;
+			}
+			if(Dungeon.符文("法神")){
+				l*=1.6f;
+			}
 		}
+
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
@@ -165,36 +174,13 @@ public class 法师魔杖 extends Weapon{
 
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
-		if (attacker instanceof Hero && ((Hero) attacker).天赋(Talent.MYSTICAL_CHARGE)){
-			Hero hero = (Hero) attacker;
-			ArtifactRecharge.chargeArtifacts(hero, hero.天赋点数(Talent.MYSTICAL_CHARGE,0.5f));
-		}
-			damage += Math.round(damage*wand.curCharges*Dungeon.hero.天赋点数(Talent.EMPOWERED_STRIKE,0.075f));
-		
-		if (wand != null &&
-				attacker instanceof Hero hero && hero.subClass(HeroSubClass.战斗法师)) {
-			if (wand.curCharges < wand.maxCharges&&hero.职业精通()){
-				wand.partialCharge+=0.5f;
-				充能卷轴.charge(hero);
-			}
-			wand.onHit(this, attacker, defender, damage);
-		}
-
 		return super.攻击时(attacker, defender, damage);
 	}
 
 	@Override
 	public int reachFactor(Char owner) {
 		int reach = super.reachFactor(owner);
-		if (owner instanceof Hero
-				&& ((Hero)owner).subClass == HeroSubClass.战斗法师){
 
-			if(wand instanceof WandOfDisintegration)
-			reach += Math.round(Wand.procChanceMultiplier(owner));
-
-			if(wand instanceof 影织法杖)
-			reach += Math.round(Wand.procChanceMultiplier(owner)*2);
-		}
 		return reach;
 	}
 
@@ -220,8 +206,7 @@ public class 法师魔杖 extends Weapon{
 		int oldStaffcharges = this.wand != null ? this.wand.curCharges : 0;
 
 		if (owner == Dungeon.hero){
-			Talent.WandPreservationCount
-					counter = Buff.施加(Dungeon.hero,Talent.WandPreservationCount.class);
+//			Talent.WandPreservationCount counter = Buff.施加(Dungeon.hero,Talent.WandPreservationCount.class);
 //			if (counter.count == 0){
 //				counter.set(1);
 				
@@ -230,6 +215,7 @@ public class 法师魔杖 extends Weapon{
 					this.wand.等级(this.wand.等级()-转移量);
 					转移+=转移量;
 				}
+
 				if (!this.wand.放背包()) {
 					Dungeon.level.drop(this.wand, owner.pos);
 				}
@@ -356,9 +342,6 @@ public class 法师魔杖 extends Weapon{
 			if ((!cursed && !hasCurseEnchant()) || !cursedKnown)    info += " " + wand.statsDesc();
 			else                                                    info += " " + Messages.get(this, "cursed_wand");
 
-			if (Dungeon.hero.subClass == HeroSubClass.战斗法师){
-				info += "\n\n" + Messages.get(wand, "bmage_desc");
-			}
 		}
 
 		return info;
@@ -436,16 +419,16 @@ public class 法师魔杖 extends Weapon{
 				if (wand == null){
 					applyWand((Wand)item);
 				} else if(!(item instanceof 灵月法杖)) {
-					int newLevel=0;
+					int 转移法杖=item.等级();
 					int 转移量 = 最大转移()- 转移;
-					if(转移量>0&&item.等级()>0){
-						newLevel=item.等级()-转移量;
+					if(转移量>0&&item.等级()>0&&item.等级()-转移量>=0){
+						转移法杖-=转移量;
 						转移+=转移量;
 					}
 
 					String bodyText = Messages.get(法师魔杖.class, "imbue_desc");
 					if (item.已鉴定()){
-						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_level", newLevel);
+						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_level", 强化等级());
 					} else {
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_unknown", 转移量);
 					}
@@ -454,12 +437,7 @@ public class 法师魔杖 extends Weapon{
 						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_cursed");
 					}
 
-					if (Dungeon.hero.天赋(Talent.高级魔杖)
-						&&Dungeon.hero.buff(Talent.WandPreservationCount.class)==null){
-						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_talent");
-					} else {
-						bodyText += "\n\n" + Messages.get(法师魔杖.class, "imbue_lost");
-					}
+					bodyText += "\n\n" + Messages.get(法师魔杖.class,"imbue_talent",转移法杖);
 
 					GameScene.show(
 							new WndOptions(new ItemSprite(item),

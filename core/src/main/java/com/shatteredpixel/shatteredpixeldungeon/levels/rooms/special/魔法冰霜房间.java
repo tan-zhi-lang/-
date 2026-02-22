@@ -129,7 +129,7 @@ public class 魔法冰霜房间 extends SpecialRoom {
 			if (l.map[cell] == Terrain.EMPTY_SP) return false;
 
 			if (fire.cur[cell] > 0)     return false;
-			for (int i : PathFinder.NEIGHBOURS4){
+			for (int i : PathFinder.相邻4){
 				if (fire.cur[cell+i] > 0)   return false;
 			}
 		}
@@ -174,7 +174,7 @@ public class 魔法冰霜房间 extends SpecialRoom {
 						}
 
 						//clears itself if there is frost/blizzard on or next to it
-						for (int k : PathFinder.NEIGHBOURS9) {
+						for (int k : PathFinder.自相邻8) {
 							if (freeze != null && freeze.volume > 0 && freeze.cur[cell+k] > 0) {
 								freeze.clear(cell);
 								cur[cell] = 0;

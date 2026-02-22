@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Callback;
@@ -8,10 +9,24 @@ import com.watabou.utils.Random;
 
 public class 算法 {
     /*
-    XX 武器阶+级 法杖1+级 防具阶+级 神器1+级 最大攻击 最大防御 法杖充能15% 神器充能30%
 
         饮血剑和无尽都0.8
 
+
+        Buff延长
+		public void extend(float extension){
+			if (cooldown()+extension <= 2*DURATION){
+				spend(extension);
+			} else {
+				postpone(2*DURATION);
+			}
+		}
+
+        if(算法.概率学(1/4f)){
+            Plant.Seed plant=new WandOfRegrowth.Seedpod.Seed();
+                plant=new WandOfRegrowth.Dewcatcher.Seed();
+            Dungeon.level.plant(plant,pos);
+    }
 
 		ArrayList<Integer> grassCells = new ArrayList<>();
 		for (int i : PathFinder.NEIGHBOURS9){
@@ -527,17 +542,39 @@ return null;
     }
     public static boolean 彩蛋(String s){
         String seed = SPDSettings.customSeed();
-        if(s.equals("更小"))
-        if(seed.equals("更小")||seed.equals("更小调试"))
+        if (seed.matches(".*调试")) {
+            if(seed.replaceAll("调试", "").equals("更小")){
+                return true;
+            }
+        }
+        if(seed.equals("更小")){
             return true;
-
+        }
         return false;
     }
     public static boolean 彩蛋(){
         String seed = SPDSettings.customSeed();
-        if(seed.equals("更小")||seed.equals("更小调试"))
+        if (seed.matches(".*调试")) {
+            if(seed.replaceAll("调试", "").equals("更小")){
+                return true;
+            }
+        }
+        if(seed.equals("更小")){
             return true;
+        }
         else return false;
+    }
+    public static boolean 海克斯(){
+        String seed = SPDSettings.customSeed();
+        if (seed.matches(".*调试")) {
+            if(Hero.是海克斯(seed.replaceAll("调试", ""))){
+                return true;
+            }
+        }
+        if(Hero.是海克斯(seed)){
+            return true;
+        }
+         return false;
     }
     public static boolean isDebug(){
 //        Game.version.contains("INDEV")
@@ -548,8 +585,9 @@ return null;
         if (seed.matches(".*调试")) {
             return true;
         }
-        if(seed.equals("更小")||seed.equals("更小调试"))
+        if(seed.equals("更小调试"))
             return true;
+
         else return false;
     }
     public static boolean 概率学(int x){

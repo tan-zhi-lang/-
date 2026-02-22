@@ -9,14 +9,19 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.ElementalBlast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WarpBeacon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyLance;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Judgement;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Sunray;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.冰魄之弓;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.掌心雷;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.火球术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.痛命;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.破冰飞刃;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.符咒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.赐福;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风刃;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalWisp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM100;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
@@ -79,11 +84,22 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( 传送卷轴.class);
 		RESISTS.add( HolyDart.class );
 
-		RESISTS.add( HolyWeapon.class );
-		RESISTS.add( Sunray.class );
-		RESISTS.add( HolyLance.class );
-		RESISTS.add( Smite.class );
-		RESISTS.add( Judgement.class );
+		RESISTS.add( Char.魔法伤害.class);
+		RESISTS.add( 圣光.class);
+		RESISTS.add( 赐福.class);
+		RESISTS.add( 火球术.class);
+		RESISTS.add( 破冰飞刃.class);
+		RESISTS.add( 冰魄之弓.class);
+
+		RESISTS.add( 痛命.class);
+
+		RESISTS.add( 符咒.class);
+		RESISTS.add( 掌心雷.class);
+
+		RESISTS.add( 风刃.class);
+//		RESISTS.add( 尘遁.class);
+
+		RESISTS.add( 燃烧.class);
 
 		RESISTS.add( ElementalBlast.class );
 		RESISTS.add( CursedWand.class );
@@ -118,8 +134,6 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( Eye.DeathGaze.class );
 		RESISTS.add( YogFist.BrightFist.LightBeam.class );
 		RESISTS.add( YogFist.DarkFist.DarkBolt.class );
-
-		RESISTS.add( Char.魔法伤害.class);
 	}
 	
 	@Override
@@ -129,13 +143,13 @@ public class AntiMagic extends Armor.Glyph {
 	}
 	
 	public static float drRoll( Char owner, int level ){
-		if (level == -1){
-			return 0;
-		} else {
-			return Random.NormalFloat(
+		float x=0;
+		if (level != -1)
+			x=Random.NormalFloat(
 					level * genericProcChanceMultiplier(owner),
 					(3 + (level * 1.5f)) * genericProcChanceMultiplier(owner));
-		}
+
+		return x;
 	}
 
 	@Override

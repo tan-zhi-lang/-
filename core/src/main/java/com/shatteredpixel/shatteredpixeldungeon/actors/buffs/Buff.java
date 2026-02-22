@@ -112,6 +112,7 @@ public class Buff extends Actor {
 	}
 
 	public String desc(){
+		if(!desc.equals(""))return desc;
 		return Messages.get(this, "desc");
 	}
 
@@ -125,14 +126,17 @@ public class Buff extends Actor {
 		return cooldown()+1f;
 	}
 	public String name="";
+	public String desc="";
 	private static final String MNEMONIC_EXTENDED    = "mnemonic_extended";
 	private static final String NAME    = "name";
+	private static final String DESC    = "desc";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		if (mnemonicExtended) bundle.put(MNEMONIC_EXTENDED, mnemonicExtended);
 		bundle.put(NAME, name);
+		bundle.put(DESC, desc);
 	}
 
 	@Override
@@ -142,6 +146,7 @@ public class Buff extends Actor {
 			mnemonicExtended = bundle.getBoolean(MNEMONIC_EXTENDED);
 		}
 		name = bundle.getString(NAME);
+		desc = bundle.getString(DESC);
 	}
 
 	//creates a fresh instance of the buff and attaches that, this allows duplication.
@@ -200,7 +205,6 @@ public class Buff extends Actor {
 	//postpones an already active buff, or creates & attaches a new buff and delays that.
 	public static<T extends FlavourBuff> T 延长(Char target, Class<T> buffClass, float duration ) {//没有新增
 		T buff = 施加( target, buffClass );
-
 		buff.postpone( duration * target.resist(buffClass) );
 		return buff;
 	}
@@ -216,5 +220,4 @@ public class Buff extends Actor {
 			b.detach();
 		}
 	}
-
 }

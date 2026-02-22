@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -147,13 +147,13 @@ public class LastLevel extends Level {
 
 	@Override
 	protected void createItems() {
-		drop( new Amulet(), AMULET_POS );
+		drop(new 真正护符(),AMULET_POS);
 	}
 
 	@Override
 	public int randomRespawnCell( Char ch ) {
 		ArrayList<Integer> candidates = new ArrayList<>();
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			int cell = entrance() + i;
 			if (passable[cell]
 					&& Actor.findChar(cell) == null

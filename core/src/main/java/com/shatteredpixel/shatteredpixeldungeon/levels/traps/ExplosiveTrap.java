@@ -20,7 +20,7 @@ public class ExplosiveTrap extends Trap {
 	@Override
 	public void activate() {
 
-		for( int i : PathFinder.NEIGHBOURS9) {
+		for( int i : PathFinder.自相邻8) {
 			if (Actor.findChar(pos+i) instanceof Mob){
 				Buff.延长(Actor.findChar(pos+i), Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 			}

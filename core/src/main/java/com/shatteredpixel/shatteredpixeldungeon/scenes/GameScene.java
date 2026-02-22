@@ -195,7 +195,7 @@ public class GameScene extends PixelScene {
 	public void create() {
 		
 		if (Dungeon.hero == null || Dungeon.level == null){
-			ShatteredPixelDungeon.switchNoFade(TitleScene.class);
+			ShatteredPixelDungeon.switchNoFade(StartScene.class);
 			return;
 		}
 
@@ -1614,10 +1614,12 @@ public class GameScene extends PixelScene {
 			if (o instanceof Snake && !Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_SURPRISE_ATKS)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_SURPRISE_ATKS);
 			}
-			if(Dungeon.hero.符文("???"))
-			{
-				Dungeon.hero.attack(m,1,0,Char.INFINITE);
-				Dungeon.hero.spendAndNext(1);
+			if(Dungeon.hero.符文("???")){
+				if(m.alignment==Char.Alignment.ENEMY)
+					Dungeon.hero.attack(m,1,m.已损失生命(0.15f),Char.INFINITE);
+				else
+					m.回百分比血(0.05f);
+				Dungeon.hero.spendAndNext(4);
 			}
 		} else if ( o instanceof Heap && !((Heap) o).isEmpty() ){
 			GameScene.show(new WndInfoItem((Heap)o));

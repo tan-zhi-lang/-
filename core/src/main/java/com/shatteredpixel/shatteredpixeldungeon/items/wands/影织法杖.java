@@ -39,12 +39,12 @@ public class 影织法杖 extends DamageWand {
 	}
 
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
-	public int min(int lvl){
+	public float min(int lvl){
 		return (1+lvl) * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
-	public int max(int lvl){
+	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
 				return 2 + 2*lvl;
@@ -142,9 +142,6 @@ public class 影织法杖 extends DamageWand {
 
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-	}
 
 	@Override
 	public void fx(Ballistica bolt, Callback callback) {

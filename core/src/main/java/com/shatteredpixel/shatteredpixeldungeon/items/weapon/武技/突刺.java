@@ -55,8 +55,8 @@ public class 突刺 extends 武技{
 			
 			
 			int lungeCell = -1;
-			for (int i : PathFinder.NEIGHBOURS8){
-				if (Dungeon.level.distance(hero.pos+i, target) <= hero.攻击范围()
+			for (int i : PathFinder.相邻8){
+				if (Dungeon.level.distance(hero.pos+i, target) <= hero.攻击范围()+1
 					&& Actor.findChar(hero.pos+i) == null
 					&& (Dungeon.level.passable[hero.pos+i] || (Dungeon.level.avoid[hero.pos+i] && hero.flying))){
 					if (lungeCell == -1 || Dungeon.level.trueDistance(hero.pos + i, target) < Dungeon.level.trueDistance(lungeCell, target)){

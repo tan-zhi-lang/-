@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
@@ -71,7 +71,7 @@ public class CurseInfusion extends InventorySpell {
 		} else if (item instanceof Wand){
 			((Wand) item).curseInfusionBonus = true;
 			((Wand) item).updateLevel();
-		} else if (item instanceof RingOfMight){
+		} else if (item instanceof 根骨之戒){
 			curUser.更新属性();
 		}
 		Badges.validateItemLevelAquired(item);

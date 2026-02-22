@@ -25,7 +25,7 @@ public class ConfusionTrap extends Trap {
 		GameScene.add(Blob.seed(pos, 300 + 20 * scalingDepth(), ConfusionGas.class));
 		Sample.INSTANCE.play(Assets.Sounds.GAS);
 
-		for( int i : PathFinder.NEIGHBOURS9) {
+		for( int i : PathFinder.自相邻8) {
 			if (Actor.findChar(pos+i) instanceof Mob){
 				Buff.延长(Actor.findChar(pos+i), Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 			}

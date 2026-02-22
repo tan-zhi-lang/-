@@ -52,7 +52,7 @@ public class DM201 extends DM200 {
 		spend(TICK);
 
 		GameScene.add(Blob.seed(enemy.pos, 15, CorrosiveGas.class).setStrength(8));
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			if (!Dungeon.level.solid[enemy.pos+i]) {
 				GameScene.add(Blob.seed(enemy.pos + i, 5, CorrosiveGas.class).setStrength(8));
 			}

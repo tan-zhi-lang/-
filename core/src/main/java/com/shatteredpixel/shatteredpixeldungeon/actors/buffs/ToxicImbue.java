@@ -52,7 +52,7 @@ public class ToxicImbue extends Buff {
 		if (left > 0) {
 			//spreads 54 units of gas total
 			int centerVolume = 6;
-			for (int i : PathFinder.NEIGHBOURS8) {
+			for (int i : PathFinder.相邻8) {
 				if (!Dungeon.level.solid[target.pos + i]) {
 					GameScene.add(Blob.seed(target.pos + i, 6, ToxicGas.class));
 				} else {

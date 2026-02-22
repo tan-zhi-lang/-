@@ -36,7 +36,7 @@ public class ChasmBridgeEntranceRoom extends ChasmBridgeRoom {
 
 		} while (spaceRect.inside(level.cellToPoint(entrance)) || level.findMob(entrance) != null);
 
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			Painter.set(level, entrance + i, Terrain.EMPTY);
 		}
 

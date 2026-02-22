@@ -74,8 +74,8 @@ public class SpiritHawk extends ArmorAbility {
 			}
 		} else {
 			ArrayList<Integer> spawnPoints = new ArrayList<>();
-			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-				int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+			for (int i=0; i < PathFinder.相邻8.length;i++) {
+				int p = hero.pos + PathFinder.相邻8[i];
 				if (Actor.findChar(p) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
 					spawnPoints.add(p);
 				}

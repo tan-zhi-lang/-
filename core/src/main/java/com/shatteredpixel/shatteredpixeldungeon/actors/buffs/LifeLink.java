@@ -2,10 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
@@ -58,7 +56,7 @@ public class LifeLink extends FlavourBuff {
 
 	@Override
 	public float iconFadePercent() {
-		int duration = Math.round(6.67f + 3.33f*Dungeon.hero.天赋点数(Talent.LIFE_LINK));
+		int duration = Math.round(6.67f);
 		return Math.max(0, (duration - visualcooldown()) / duration);
 	}
 

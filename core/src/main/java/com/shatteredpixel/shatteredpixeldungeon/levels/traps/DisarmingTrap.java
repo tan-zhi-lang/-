@@ -45,7 +45,7 @@ public class DisarmingTrap extends Trap{
 				if (item instanceof Honeypot.ShatteredPot){
 					((Honeypot.ShatteredPot)item).movePot(pos, cell);
 				}
-				for (int i : PathFinder.NEIGHBOURS9) Dungeon.level.visited[cell+i] = true;
+				for (int i : PathFinder.自相邻8)Dungeon.level.visited[cell+i] = true;
 				GameScene.updateFog();
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 				CellEmitter.get(pos).burst(Speck.factory(Speck.LIGHT), 4);
@@ -84,7 +84,7 @@ public class DisarmingTrap extends Trap{
 				weapon.updateQuickslot();
 
 				Dungeon.level.drop(weapon, cell).seen = true;
-				for (int i : PathFinder.NEIGHBOURS9) {
+				for (int i : PathFinder.自相邻8) {
 					Dungeon.level.mapped[cell + i] = true;
 				}
 				GameScene.updateFog(cell, 1);

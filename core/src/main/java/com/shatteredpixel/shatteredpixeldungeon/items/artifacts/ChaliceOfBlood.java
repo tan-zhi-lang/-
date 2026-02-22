@@ -168,7 +168,7 @@ public class ChaliceOfBlood extends Artifact {
 		//grants 5 turns of healing up-front, if hero isn't starving
 		if (target.isStarving()) return;
 
-		float healDelay = 10f - (1.33f + 等级()*0.667f);
+		float healDelay = (10f - (1.33f + 等级()*0.667f))*0.75f;
 		healDelay /= amount;
 		float heal = 5f/healDelay;
 		//effectively 0.5/1/1.5/2/2.5 HP per turn at +0/+6/+8/+9/+10

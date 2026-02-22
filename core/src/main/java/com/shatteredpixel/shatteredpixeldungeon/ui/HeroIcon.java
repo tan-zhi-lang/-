@@ -25,9 +25,9 @@ public class HeroIcon extends Image {
 	//subclasses
 	public static final int BERSERKER   = 0;
 	public static final int GLADIATOR   = BERSERKER+1;
-	
-	public static final int BATTLEMAGE  = 8;
-	public static final int 元素法师  = BATTLEMAGE+1;
+
+	public static final int 冰结师  = 8;
+	public static final int 元素法师  = 冰结师+1;
 
 	public static final int ASSASSIN    = 2*8;
 	public static final int 神偷无影    = ASSASSIN+1;
@@ -38,11 +38,11 @@ public class HeroIcon extends Image {
 	public static final int CHAMPION    = 4*8;
 	public static final int MONK        = CHAMPION+1;
 	
-	public static final int PRIEST      = 5*8;
-	public static final int PALADIN     = PRIEST+1;
-	
-	public static final int 神秘学者     = 6*8;
-	public static final int 黑魔导师     = 神秘学者+1;
+	public static final int PALADIN      = 5*8;
+	public static final int PRIEST= PALADIN+1;
+
+	public static final int 黑魔导师     = 6*8;
+	public static final int BATTLEMAGE  = 黑魔导师+1;
 	
 	public static final int 盾之勇者     = 7*8;
 	public static final int 轻装步兵     = 盾之勇者+1;
@@ -51,6 +51,7 @@ public class HeroIcon extends Image {
 	public static final int 不灭战士     = 灵月杀手+1;
 
 	public static final int WARLOCK     = 9*8;
+	public static final int 真人     = WARLOCK+1;
 
 	public static final int FREERUNNER  = 10*8;
 	
@@ -61,6 +62,10 @@ public class HeroIcon extends Image {
 	public static final int 养殖专家     = 神兽之灵+1;
 
 	public static final int 灵魂武者     = 14*8;
+	public static final int 土影     = 灵魂武者+1;
+
+	public static final int 阿修罗     = 15*8;
+	public static final int 指环王     = 阿修罗+1;
 
 	public static final int 黑白双子     = 20*8;
 
@@ -106,8 +111,7 @@ public class HeroIcon extends Image {
 	public static final int HOLY_LANCE      = 48;
 	public static final int HALLOWED_GROUND = 49;
 	public static final int MNEMONIC_PRAYER = 50;
-	public static final int SMITE           = 51;
-	public static final int LAY_ON_HANDS    = 52;
+
 	public static final int AURA_OF_PROTECTION = 53;
 	public static final int WALL_OF_LIGHT   = 54;
 	public static final int DIVINE_INTERVENTION = 55;
@@ -136,14 +140,23 @@ public class HeroIcon extends Image {
 	public static final int MONK_ABILITIES  = 6;
 	public static final int 时间能力  = 7;
 
+	public static final int 火球术=2*8;
+	public static final int 火墙术=火球术+2;
+	public static final int 破冰飞刃=火球术+4;
+	public static final int 冰魄之弓=火球术+6;
 	public static final int 圣光   = 3*8;
+	public static final int 赐福=圣光+2;
+
 	public static final int 痛命= 4*8;
-	
+	public static final int 死血= 痛命+2;
+
 	public static final int 符咒= 5*8;
-	
+	public static final int 掌心雷= 符咒+2;
+
 	public static final int 风刃= 6*8;
-	public static final int
-			火球术=7*8;
+	public static final int 木遁= 风刃+2;
+	public static final int 尘遁= 风刃+4;
+	public static final int 土遁= 风刃+6;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );

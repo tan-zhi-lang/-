@@ -42,7 +42,7 @@ public class RegionDecoPatchExitRoom extends RegionDecoPatchRoom {
 				valid = level.map[exit] != Terrain.REGION_DECO && level.findMob(exit) == null;
 			} else {
 				valid = false;
-				for (int i : PathFinder.NEIGHBOURS4){
+				for (int i : PathFinder.相邻4){
 					if (level.map[exit+i] != Terrain.REGION_DECO){
 						valid = true;
 					}
@@ -52,7 +52,7 @@ public class RegionDecoPatchExitRoom extends RegionDecoPatchRoom {
 		} while (!valid);
 		Painter.set( level, exit, Terrain.EXIT );
 
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			Painter.set( level, exit+i, Terrain.EMPTY );
 		}
 

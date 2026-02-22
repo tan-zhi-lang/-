@@ -29,7 +29,7 @@ public class PotionOfSnapFreeze extends ExoticPotion {
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 		}
 		
-		for (int offset : PathFinder.NEIGHBOURS9){
+		for (int offset : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[cell+offset]) {
 				
 				Freezing.affect( cell + offset );

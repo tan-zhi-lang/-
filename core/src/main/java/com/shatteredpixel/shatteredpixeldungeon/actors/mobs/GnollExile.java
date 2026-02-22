@@ -97,7 +97,7 @@ public class GnollExile extends Gnoll {
 		for (Item item : items){
 			int ofs;
 			do {
-				ofs = PathFinder.NEIGHBOURS9[Random.Int(9)];
+				ofs = PathFinder.自相邻8[Random.Int(9)];
 			} while (Dungeon.level.solid[pos + ofs] && !Dungeon.level.passable[pos + ofs]);
 			Dungeon.level.drop( item, pos + ofs ).sprite().drop( pos );
 		}

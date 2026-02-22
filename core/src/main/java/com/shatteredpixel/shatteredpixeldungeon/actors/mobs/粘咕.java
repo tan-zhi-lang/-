@@ -104,7 +104,7 @@ public class 粘咕 extends Mob {
 		}
 
 		if (!flying && Dungeon.level.water[pos] && 生命 < 最大生命) {
-			回血(healInc);
+			回血(healInc/3f);
 			Statistics.qualifiedForBossChallengeBadge = false;
 
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);

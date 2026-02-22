@@ -91,6 +91,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static int 亮度() {
+		if(Dungeon.符文("怕光"))return -1;
 		return getInt( KEY_BRIGHTNESS, 0, -1, 1 );
 	}
 	
@@ -100,6 +101,7 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static int 网格可视度() {
+		if(Dungeon.符文("怕光"))return -1;
 		return getInt( KEY_GRID, 2, -1, 2 );
 	}
 
@@ -124,6 +126,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean 动画加快() {
+		if(Dungeon.符文("树懒转世"))return false;
 		return getBoolean(动画加快x, false );
 	}
 	public static void 透明界面(boolean value ){

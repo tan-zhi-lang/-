@@ -38,12 +38,12 @@ public class WandOfTransfusion extends DamageWand {
 	}
 
 	@Override
-	public int min(int level) {
+	public float min(int level) {
 		return 3 + level;
 	}
 
 	@Override
-	public int max(int level) {
+	public float max(int level) {
 		return 6 + 2*level;
 	}
 
@@ -128,18 +128,6 @@ public class WandOfTransfusion extends DamageWand {
 			Badges.validateDeathFromFriendlyMagic();
 			Dungeon.fail( this );
 			GLog.n( Messages.get(this, "ondeath") );
-		}
-	}
-
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		if (defender.buff(Charm.class) != null && defender.buff(Charm.class).object == attacker.id()){
-			//grants a free use of the staff and shields self
-			freeCharge = true;
-			float shieldToGive = Math.round((2*(5 + 强化等级()))*procChanceMultiplier(attacker));
-			Buff.施加(attacker, Barrier.class).设置(shieldToGive);
-			GLog.p( Messages.get(this, "charged") );
-			attacker.sprite.emitter().burst(BloodParticle.BURST, 20);
 		}
 	}
 

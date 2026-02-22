@@ -23,7 +23,7 @@ public class ToxicTrap extends Trap{
 	@Override
 	public void activate() {
 		
-		for (int offset : PathFinder.NEIGHBOURS9){
+		for (int offset : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[pos+offset]) {
 				GameScene.add( Blob.seed( pos+offset, 33 + 2 * scalingDepth()/*300 + 20 * scalingDepth()*/, ToxicGas.class));
 			}
@@ -31,7 +31,7 @@ public class ToxicTrap extends Trap{
 		
 		Sample.INSTANCE.play(Assets.Sounds.GAS);
 
-		for( int i : PathFinder.NEIGHBOURS9) {
+		for( int i : PathFinder.自相邻8) {
 			if (Actor.findChar(pos+i) instanceof Mob){
 				Buff.延长(Actor.findChar(pos+i), Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 			}

@@ -32,7 +32,7 @@ public class StatuesExitRoom extends StatuesRoom {
 			Painter.fill(level, this, 3, Terrain.EMPTY_SP);
 		}
 
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			if (level.map[exit + i] != Terrain.STATUE_SP) {
 				Painter.set(level, exit + i, Terrain.EMPTY_SP);
 			}

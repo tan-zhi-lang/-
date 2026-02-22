@@ -10,7 +10,7 @@ public class 解压设置 {
 	public static final int 点石成金				= 4;
 	public static final int 随机装备				= 8;
 	public static final int 掉落几率				= 16;
-	public static final int 独自变强			= 32;
+	public static final int 偷偷变强			= 32;
 	public static final int 持之以恒= 64;
 	public static final int 抗饿能手= 128;
 	public static final int 随机奖励 	= 256;
@@ -23,7 +23,7 @@ public class 解压设置 {
 			"点石成金",
 			"随机装备",
 			"掉落几率",
-			"独自变强",
+			"偷偷变强",
 			"持之以恒",
 			"抗饿能手",
 			"随机奖励",
@@ -35,7 +35,7 @@ public class 解压设置 {
 			点石成金,
 			随机装备,
 			掉落几率,
-			独自变强,
+			偷偷变强,
 			持之以恒,
 			抗饿能手,
 			随机奖励,

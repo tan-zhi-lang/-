@@ -220,7 +220,7 @@ public abstract class YogFist extends Mob {
 			int evaporatedTiles = Random.chances(new float[]{0, 1, 2});
 
 			for (int i = 0; i < evaporatedTiles; i++) {
-				int cell = pos + PathFinder.NEIGHBOURS8[Random.Int(8)];
+				int cell = pos + PathFinder.相邻8[Random.Int(8)];
 				if (Dungeon.level.map[cell] == Terrain.WATER){
 					Level.set( cell, Terrain.EMPTY);
 					GameScene.updateMap( cell );
@@ -228,7 +228,7 @@ public abstract class YogFist extends Mob {
 				}
 			}
 
-			for (int i : PathFinder.NEIGHBOURS9) {
+			for (int i : PathFinder.自相邻8) {
 				int vol = Fire.volumeAt(pos+i, Fire.class);
 				if (vol < 4 && !Dungeon.level.water[pos + i] && !Dungeon.level.solid[pos + i]){
 					GameScene.add( Blob.seed( pos + i, 4 - vol, Fire.class ) );
@@ -250,7 +250,7 @@ public abstract class YogFist extends Mob {
 				Buff.施加( enemy, 燃烧.class ).reignite( enemy );
 			}
 
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				if (!Dungeon.level.water[enemy.pos+i] && !Dungeon.level.solid[enemy.pos+i]){
 					int vol = Fire.volumeAt(enemy.pos+i, Fire.class);
 					if (vol < 4){
@@ -285,7 +285,7 @@ public abstract class YogFist extends Mob {
 			int furrowedTiles = Random.chances(new float[]{0, 2, 1});
 
 			for (int i = 0; i < furrowedTiles; i++) {
-				int cell = pos + PathFinder.NEIGHBOURS9[Random.Int(9)];
+				int cell = pos + PathFinder.自相邻8[Random.Int(9)];
 				if (Dungeon.level.map[cell] == Terrain.GRASS) {
 					Level.set(cell, Terrain.FURROWED_GRASS);
 					GameScene.updateMap(cell);
@@ -295,7 +295,7 @@ public abstract class YogFist extends Mob {
 
 			Dungeon.observe();
 
-			for (int i : PathFinder.NEIGHBOURS9) {
+			for (int i : PathFinder.自相邻8) {
 				int cell = pos + i;
 				if (canSpreadGrass(cell)){
 					Level.set(pos+i, Terrain.GRASS);
@@ -309,7 +309,7 @@ public abstract class YogFist extends Mob {
 		@Override
 		public void 受伤时(float dmg, Object src) {
 			int grassCells = 0;
-			for (int i : PathFinder.NEIGHBOURS9) {
+			for (int i : PathFinder.自相邻8) {
 				if (Dungeon.level.map[pos+i] == Terrain.FURROWED_GRASS
 				|| Dungeon.level.map[pos+i] == Terrain.HIGH_GRASS){
 					grassCells++;
@@ -340,7 +340,7 @@ public abstract class YogFist extends Mob {
 				enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
 			}
 
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				int cell = enemy.pos + i;
 				if (canSpreadGrass(cell)){
 					if (Random.Int(5) == 0){

@@ -346,6 +346,7 @@ public class 霰弹枪 extends Weapon{
 
 		@Override
 		public float 投掷攻击时(Char attacker, Char defender, float damage) {
+			if(defender!=null)
 			damage=Math.round(1+damage*1f/attacker.distance(defender));
 			return 霰弹枪.this.投掷攻击时(attacker,defender,damage);
 		}

@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
@@ -270,6 +271,14 @@ public class MobSpawner extends Actor {
 			if(Dungeon.赛季(赛季设置.鬼怨地牢)&&算法.概率学(1/8f)){
 				Class<? extends Mob> cl = rotation.get(i);
 				if (cl == 鬼怨.class)                cl = 仇鬼.class;
+				rotation.set(i, cl);
+				continue;
+			}
+
+			if(Dungeon.hero()&&(Dungeon.hero.heroClass(HeroClass.鼠弟)||Dungeon.hero.heroClass(HeroClass.灵猫))){
+				Class<? extends Mob> cl=rotation.get(i);
+				if(cl==Rat.class)
+					cl=Albino.class;
 				rotation.set(i, cl);
 				continue;
 			}

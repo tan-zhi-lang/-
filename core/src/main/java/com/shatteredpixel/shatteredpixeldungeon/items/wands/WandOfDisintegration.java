@@ -31,11 +31,11 @@ public class WandOfDisintegration extends DamageWand {
 	}
 
 
-	public int min(int lvl){
+	public float min(int lvl){
 		return 2+lvl;
 	}
 
-	public int max(int lvl){
+	public float max(int lvl){
 		return 8+4*lvl;
 	}
 	
@@ -107,10 +107,6 @@ public class WandOfDisintegration extends DamageWand {
 		}
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		//no direct effect, see magesStaff.reachfactor
-	}
 
 	private int distance() {
 		return 强化等级()*2 + 6;

@@ -153,7 +153,7 @@ public class CeremonialCandle extends Item {
 			Char ch = Actor.findChar( ritualPos );
 			if (ch != null) {
 				ArrayList<Integer> candidates = new ArrayList<>();
-				for (int n : PathFinder.NEIGHBOURS8) {
+				for (int n : PathFinder.相邻8) {
 					int cell = ritualPos + n;
 					if ((Dungeon.level.passable[cell] || Dungeon.level.avoid[cell]) && Actor.findChar( cell ) == null) {
 						candidates.add( cell );
@@ -174,7 +174,7 @@ public class CeremonialCandle extends Item {
 				((PrisonLevel) Dungeon.level).updateWandmakerQuestMusic();
 			}
 
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				CellEmitter.get(ritualPos+i).burst(ElmoParticle.FACTORY, 10);
 			}
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);

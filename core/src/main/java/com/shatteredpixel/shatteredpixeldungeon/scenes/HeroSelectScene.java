@@ -682,7 +682,7 @@ public class HeroSelectScene extends PixelScene {
     @Override
     protected void onBackPressed() {
         if (btnExit.active) {
-            ShatteredPixelDungeon.switchScene(TitleScene.class);
+            ShatteredPixelDungeon.switchScene(StartScene.class);
         } else {
             super.onBackPressed();
         }

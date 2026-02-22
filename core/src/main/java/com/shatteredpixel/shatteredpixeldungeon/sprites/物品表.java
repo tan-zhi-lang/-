@@ -88,12 +88,14 @@ public class 物品表 {
     public static final int TENGU_SHOCKER = UNCOLLECTIBLE + 6;
     public static final int GEO_BOULDER = UNCOLLECTIBLE + 7;
     public static final int SPIRIT_ARROW = UNCOLLECTIBLE + 8;
-    public static final int 子弹 = UNCOLLECTIBLE + 9;
-    public static final int 手枪子弹 = UNCOLLECTIBLE + 10;
-    public static final int 冲锋枪子弹=UNCOLLECTIBLE+11;
-    public static final int 霰弹枪子弹 = UNCOLLECTIBLE + 12;
-    public static final int 狙击枪子弹 = UNCOLLECTIBLE + 13;
-    public static final int 火炮子弹 = UNCOLLECTIBLE + 14;
+    public static final int 魔法箭矢 = UNCOLLECTIBLE + 9;
+    public static final int 符箓 = UNCOLLECTIBLE + 10;
+    public static final int 子弹 = UNCOLLECTIBLE + 11;
+    public static final int 手枪子弹 = UNCOLLECTIBLE + 12;
+    public static final int 冲锋枪子弹=UNCOLLECTIBLE+13;
+    public static final int 霰弹枪子弹 = UNCOLLECTIBLE + 14;
+    public static final int 狙击枪子弹 = UNCOLLECTIBLE + 15;
+    public static final int 火炮子弹 = UNCOLLECTIBLE + 16;
 
     static {
         assignItemRect(GOLD, 15, 13);
@@ -108,6 +110,9 @@ public class 物品表 {
         assignItemRect(GEO_BOULDER, 16, 14);
 
         assignItemRect(SPIRIT_ARROW, 11);
+        assignItemRect(魔法箭矢, 11);
+        assignItemRect(符箓, 11,16);
+
         assignItemRect(子弹, 5);
         assignItemRect(手枪子弹, 6,10);
         assignItemRect(冲锋枪子弹,5,8);
@@ -435,7 +440,8 @@ public class 物品表 {
     public static final int 无影剑=WEP_TIER5+23;
     public static final int 变态刀=WEP_TIER5+24;
     public static final int 蝙蝠棒=WEP_TIER5+25;
-    public static final int 大肉棒=WEP_TIER5+26;
+    public static final int 破败王剑=WEP_TIER5+26;
+    public static final int 大肉棒=WEP_TIER5+27;
 
     static {
         assignItemRect(英雄断剑, 12, 13);
@@ -467,6 +473,7 @@ public class 物品表 {
         assignItemRect(无影剑,16);
         assignItemRect(变态刀,15,16);
         assignItemRect(蝙蝠棒,15,13);
+        assignItemRect(破败王剑,16);
         assignItemRect(大肉棒,14);
     }
     //endregion
@@ -1035,6 +1042,8 @@ public class 物品表 {
     public static final int 秘银 = QUEST + 10;
     public static final int 属性碎片 = QUEST + 11;
     public static final int 属性锻造器 = QUEST + 12;
+    public static final int 红包 = QUEST + 13;
+    public static final int 火把神的恩宠 = QUEST + 14;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -1050,6 +1059,8 @@ public class 物品表 {
         assignItemRect(秘银, 15);
         assignItemRect(属性碎片, 7,11);
         assignItemRect(属性锻造器, 13,12);
+        assignItemRect(红包, 11,15);
+        assignItemRect(火把神的恩宠, 13,16);
     }
     private static final int BAGS = xy(0, 31);  //16 slots
     public static final int BACKPACK = BAGS;

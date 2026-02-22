@@ -66,7 +66,7 @@ public class 震爆方石 extends Weapon{
 			primaryTarget = null;
 		}
 		
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			if (!(Dungeon.level.traps.get(cell+i) instanceof TenguDartTrap)) Dungeon.level.pressCell(cell+i);
 			if (Actor.findChar(cell + i) != null) targets.add(Actor.findChar(cell + i));
 		}

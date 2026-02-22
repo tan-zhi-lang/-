@@ -17,9 +17,9 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -204,7 +204,7 @@ public class HallsBossLevel extends Level {
 	@Override
 	public int randomRespawnCell( Char ch ) {
 		ArrayList<Integer> candidates = new ArrayList<>();
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			int cell = entrance() + i;
 			if (passable[cell]
 					&& Actor.findChar(cell) == null
@@ -247,7 +247,7 @@ public class HallsBossLevel extends Level {
 		//push any char that is already here away
 		if (Actor.findChar(boss.pos) != null){
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (Actor.findChar(boss.pos + i) == null){
 					candidates.add(boss.pos + i);
 				}
@@ -315,17 +315,17 @@ public class HallsBossLevel extends Level {
 	@Override
 	public boolean activateTransition(Hero hero, LevelTransition transition) {
 		if (transition.type == LevelTransition.Type.REGULAR_ENTRANCE
-				&& hero.belongings.getItem(Amulet.class) != null
+				&& hero.belongings.getItem(真正护符.class) != null
 				&& hero.buff(AscensionChallenge.class) == null) {
 
 			Game.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
 					GameScene.show( new WndOptions( new ItemSprite(物品表.AMULET),
-							Messages.get(Amulet.class, "ascent_title"),
-							Messages.get(Amulet.class, "ascent_desc"),
-							Messages.get(Amulet.class, "ascent_yes"),
-							Messages.get(Amulet.class, "ascent_no")){
+							Messages.get(真正护符.class, "ascent_title"),
+							Messages.get(真正护符.class,"ascent_desc"),
+							Messages.get(真正护符.class, "ascent_yes"),
+							Messages.get(真正护符.class, "ascent_no")){
 						@Override
 						protected void onSelect(int index) {
 							if (index == 0){

@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.ui.InventoryPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ItemJournalButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
@@ -61,6 +62,11 @@ public class WndUseItem extends WndInfoItem {
 
 			ItemJournalButton btn = new ItemJournalButton(item, this);
 			btn.setRect(width - 16, 0, 16, 16);
+
+			Notes.CustomRecord note = Notes.findCustomRecord(item.getClass());
+			if(!item.已鉴定()&&note!=null&&note.title().matches(".*使用技巧")){
+				//使用技巧没鉴定不显示
+			}else
 			add(btn);
 		}
 

@@ -58,6 +58,8 @@ android {
 configurations { natives }
 
 dependencies {
+
+
     implementation 'cat.ereza:customactivityoncrash:2.4.0'//崩溃提示https://github.com/Ereza/CustomActivityOnCrash
     implementation project(':core')
 

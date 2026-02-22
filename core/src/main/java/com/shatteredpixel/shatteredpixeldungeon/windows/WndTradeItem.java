@@ -12,7 +12,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -208,6 +210,12 @@ public class WndTradeItem extends WndInfoItem {
 		
 		if (item.isEquipped( hero ) && !((EquipableItem)item).doUnequip( hero, false )) {
 			return;
+		}
+		if(hero.符文("出售武器Bug")&&item instanceof Weapon w){
+			hero.攻击成长+=w.最大攻击();
+		}
+		if(hero.符文("出售防具Bug")&&item instanceof Armor a){
+			hero.防御成长+=a.最大防御();
 		}
 		item.detachAll( hero.belongings.backpack );
 

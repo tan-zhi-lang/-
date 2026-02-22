@@ -3,10 +3,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.木遁;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Acidic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Albino;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredBrute;
@@ -229,7 +228,7 @@ public enum Bestiary {
 		ALLY.addEntities(MirrorImage.class,PrismaticImage.class,白猫.class,
 						 DriedRose.GhostHero.class,
 						 WandOfWarding.Ward.class,WandOfWarding.Ward.WardSentry.class,WandOfLivingEarth.EarthGuardian.class,
-						 ShadowClone.ShadowAlly.class,SmokeBomb.NinjaLog.class,SpiritHawk.HawkAlly.class,PowerOfMany.LightAlly.class);
+						 ShadowClone.ShadowAlly.class,木遁.NinjaLog.class,SpiritHawk.HawkAlly.class);
 
 		TRAP.addEntities(WornDartTrap.class, PoisonDartTrap.class, DisintegrationTrap.class, GatewayTrap.class,
 				ChillingTrap.class, BurningTrap.class, ShockingTrap.class, AlarmTrap.class, GrippingTrap.class, TeleportationTrap.class, OozeTrap.class,

@@ -26,6 +26,7 @@ public class Torch extends Item {
 		可堆叠= true;
 		黄色 = true;
 		物品 = true;
+		炼金全放=true;
 		
 		defaultAction = AC_LIGHT;
 	}

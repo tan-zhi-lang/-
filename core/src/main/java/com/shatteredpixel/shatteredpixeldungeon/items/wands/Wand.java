@@ -11,17 +11,16 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
+import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.物法皆修;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -118,13 +117,6 @@ public abstract class Wand extends Item {
 
 	public abstract void onZap(Ballistica attack);
 
-	public abstract void onHit(法师魔杖 staff, Char attacker, Char defender, float damage);
-
-	//not affected by enchantment proc chance changers
-	public static float procChanceMultiplier( Char attacker ){
-		
-		return 1f+Dungeon.hero.天赋点数(Talent.盈能打击,0.25f);
-	}
 	public boolean tryToZap( Hero owner, int target ){
 
 		if (owner.buff(WildMagic.WildMagicTracker.class) == null && owner.buff(MagicImmune.class) != null){
@@ -195,9 +187,9 @@ public abstract class Wand extends Item {
 	//TODO Consider externalizing char awareness buff
 	public static void wandProc(Char target,int wandLevel,int chargesUsed){
 		if(Dungeon.hero()){
-			if(Dungeon.hero.符文("古式佳酿"))Dungeon.hero.回百分比血(0.015f);
+			if(Dungeon.hero.符文("古式佳酿"))Dungeon.hero.回百分比血(0.045f);
 			if(Dungeon.hero.符文("虚幻武器"))
-				Dungeon.hero.attack(target,0.05f);
+				Dungeon.hero.attack(target);
 		}
 	}
 
@@ -257,10 +249,6 @@ public abstract class Wand extends Item {
 			desc += "\n\n" + Messages.get(Wand.class, "cursed");
 		} else if (!已鉴定() && cursedKnown){
 			desc += "\n\n" + Messages.get(Wand.class, "not_cursed");
-		}
-
-		if (Dungeon.hero() && Dungeon.hero.subClass == HeroSubClass.战斗法师){
-			desc += "\n\n" + Messages.get(this, "bmage_desc");
 		}
 
 		return desc;
@@ -341,12 +329,25 @@ public abstract class Wand extends Item {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-		if(Dungeon.hero()){
+
+		if(Dungeon.hero()&&!Dungeon.符文("魔法转物理")){
+			lvl+=Dungeon.hero.魔力()-1;
 			lvl+=Dungeon.hero.智力;
 			lvl+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
 			lvl+=Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血色契约,0.01f));
+			if(Dungeon.符文("物法皆修")&&Dungeon.hero.hasbuff(战斗状态.class)&&Dungeon.hero.hasbuff(物法皆修.class)){
+				lvl+= Dungeon.hero.buff(物法皆修.class).count/5;
+			}
+
+			if(Dungeon.符文("物理转魔法")){
+				lvl+= Dungeon.hero.力量()*0.15f;
+			}
+			if(Dungeon.符文("法神")){
+				lvl*=1.6f;
+			}
+
 		}
-		
+
 		if (charger != null && charger.target instanceof Hero hero) {
 			
 			//inside staff, still need to apply degradation
@@ -432,7 +433,7 @@ public abstract class Wand extends Item {
 				Buff.延长(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
 			}
 		}
-		
+
 		if(!算法.isDebug())
 		curCharges -= cursed ? 1 : chargesPerCast();
 
@@ -449,21 +450,6 @@ public abstract class Wand extends Item {
 			if (empower != null){
 				empower.use();
 			}
-		}
-		
-		// 10/20/30%
-		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.CLEANSE)
-				&& Dungeon.hero.天赋概率(Talent.CLEANSE,10)){
-			boolean removed = false;
-			for (Buff b : Dungeon.hero.buffs()) {
-				if (b.type == Buff.buffType.NEGATIVE
-						&& !(b instanceof LostInventory)) {
-					b.detach();
-					removed = true;
-				}
-			}
-			if (removed) new Flare( 6, 32 ).color(0xFF4CD2, true).show( Dungeon.hero.sprite, 2f );
 		}
 
 		Invisibility.notimedispel();
@@ -607,7 +593,6 @@ public abstract class Wand extends Item {
 
 		@Override
 		public void onZap(Ballistica attack) {}
-		public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {}
 
 		@Override
 		public String info() {
@@ -694,6 +679,10 @@ public abstract class Wand extends Item {
 									@Override
 									public void call() {
 										curWand.wandUsed();
+
+										if(Actor.findChar(target)!=null&&!curUser.攻击范围(Actor.findChar(target))&&curUser.符文("老练狙神")){
+											curWand.gainCharge(10);
+										}
 									}
 								});
 					} else {
@@ -709,10 +698,16 @@ public abstract class Wand extends Item {
 												public void call() {
 													WondrousResin.forcePositive = false;
 													curWand.wandUsed();
+													if(Actor.findChar(target)!=null&&!curUser.攻击范围(Actor.findChar(target))&&curUser.符文("老练狙神")){
+														curWand.gainCharge(10);
+													}
 												}
 											});
 								} else {
 									curWand.wandUsed();
+									if(Actor.findChar(target)!=null&&!curUser.攻击范围(Actor.findChar(target))&&curUser.符文("老练狙神")){
+										curWand.gainCharge(10);
+									}
 								}
 							}
 						});

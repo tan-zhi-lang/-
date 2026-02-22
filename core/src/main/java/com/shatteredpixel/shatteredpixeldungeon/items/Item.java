@@ -142,14 +142,9 @@ public class Item implements Bundlable {
 	public boolean 首次拾取 = true;
 	public boolean 首次装备 = true;
 	public boolean 房间物品 = false;
-	public boolean 移除 = false;
+	public boolean 超级等级 = false;
 	public Item 房间物品(){
 		房间物品=true;
-		return this;
-	}
-	public Item 移除(){
-		alpha=true;
-		移除=true;
 		return this;
 	}
 
@@ -512,21 +507,21 @@ public class Item implements Bundlable {
 
 	//returns the true level of the item, ignoring all modifiers aside from upgrades
 	public final int 真等级(){
+		if(超级等级)return 10086;
 		return 等级;
 	}
 
 	//returns the persistant level of the item, only affected by modifiers which are persistent (e.g. curse infusion)
 	public int 等级(){
+		if(超级等级)return 10086;
 		return 等级;
 	}
 	
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions
 	//note that not all item properties should care about buffs/debuffs! (e.g. str requirement)
 	public int 强化等级(){
+		if(超级等级)return 10086;
 		int x=0;
-		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.逐姝)&&this instanceof Weapon){
-			x++;
-		}
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 			&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
@@ -560,7 +555,16 @@ public class Item implements Bundlable {
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
-			if(Dungeon.hero()&&Dungeon.hero.符文("升级升级"))this.等级++;
+			if(Dungeon.符文("衰退的堕落")){
+				this.等级++;
+				this.等级++;
+				updateQuickslot();
+				Buff.延长( Dungeon.hero, Degrade.class, Degrade.DURATION*5 );
+			}
+			if(Dungeon.符文("升级升级")){
+				this.等级++;
+				updateQuickslot();
+			}
 			if(Dungeon.赛季(赛季设置.升级概率)){
 					if(等级>=17){
 						if(算法.概率学(10)){
@@ -786,7 +790,10 @@ public class Item implements Bundlable {
 		if(Dungeon.解压(解压设置.点石成金)){
 			特殊升级();
 		}
-
+		if(Dungeon.符文("鉴定的宠爱")){
+			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
+				升级();
+		}
 		levelKnown = true;
 		cursedKnown = true;
 		Item.updateQuickslot();
@@ -808,6 +815,9 @@ public class Item implements Bundlable {
 
 		if (visiblyUpgraded() != 0)
 			name = Messages.format( TXT_TO_STRING_LVL, name, visiblyUpgraded()  );
+
+		if (buffedVisiblyUpgraded()-visiblyUpgraded() > 0)
+			name+="+"+(buffedVisiblyUpgraded()-visiblyUpgraded());
 
 		if (quantity > 1)
 			name = Messages.format( TXT_TO_STRING_X, name, quantity );
@@ -890,6 +900,10 @@ public class Item implements Bundlable {
 			} else {
 				note = Notes.findCustomRecord(getClass());
 				if (note != null) {
+					if(!已鉴定()&&note!=null&&note.title().matches(".*使用技巧")){
+						//使用技巧没鉴定不显示
+					}
+					else
 					//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
 					return Messages.get(this, "custom_note_type", note.title().replace('_', 'ˍ')) + "\n\n" + desc();
 				}
@@ -1080,7 +1094,7 @@ public class Item implements Bundlable {
 	private static final String 价值提升x = "价值提升";
 	private static final String 能量提升x = "能量提升";
 	private static final String 快速使用x = "快速使用";
-	private static final String 移除x = "移除";
+	private static final String 超级等级x = "超级等级";
 	private static final String ALPHA = "alpha";
 	
 	@Override
@@ -1099,7 +1113,7 @@ public class Item implements Bundlable {
 		bundle.put( 价值提升x, 价值提升 );
 		bundle.put( 能量提升x, 能量提升 );
 		bundle.put( 快速使用x, 快速使用 );
-		bundle.put( 移除x, 移除 );
+		bundle.put( 超级等级x, 超级等级 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
@@ -1122,7 +1136,7 @@ public class Item implements Bundlable {
 		价值提升	= bundle.getBoolean( 价值提升x );
 		能量提升	= bundle.getBoolean( 能量提升x );
 		快速使用	= bundle.getBoolean( 快速使用x );
-		移除	= bundle.getBoolean( 移除x );
+		超级等级	= bundle.getBoolean( 超级等级x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
 		int level = bundle.getInt( LEVEL );

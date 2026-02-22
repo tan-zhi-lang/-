@@ -6,8 +6,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
@@ -49,32 +49,28 @@ public class 再生 extends Buff {
 			}
 
 			if (regenOn() && !hero.满血() && !((Hero)hero).isStarving()) {
-		boolean chaliceCursed = false;
-		int chaliceLevel = -1;
-		if (hero.buff(MagicImmune.class) == null) {
-			if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class) != null) {
-				chaliceCursed = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed();
-				chaliceLevel = Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel();
-			} else if (Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class) != null
-					   && Dungeon.hero.buff(SpiritForm.SpiritFormBuff.class).artifact() instanceof ChaliceOfBlood) {
-				chaliceLevel = SpiritForm.artifactLevel();
-			}
-		}
+				float 再生数值=1f/REGENERATION_DELAY;
 
-				float
-						再生数值=1f/REGENERATION_DELAY;
-				if (chaliceLevel != -1 && hero.buff(MagicImmune.class) == null) {
-					if (chaliceCursed) {
-						再生数值/= 1.5f;
-					} else {
-						//15% boost at +0, scaling to a 500% boost at +10
-						再生数值+=0.133f+chaliceLevel*0.0667f;
-						if(hero.符文("升级蓄血圣杯")){
-							再生数值+=hero.已损失生命(0.0225f);
-						}
-						再生数值*= 能量之戒.artifactChargeMultiplier(hero);
+					if(hero.符文("最大护甲转生命再生")){
+						再生数值+=hero.最大护甲(0.01f);
 					}
-				}
+					if(hero.符文("升级蓄血圣杯")){
+						再生数值+=hero.已损失生命(0.0225f);
+					}
+					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
+						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
+							再生数值/= 1.75f;
+						else
+							再生数值 +=(0.133f+Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel()*0.0667f)*1.5f;
+					}
+					if (Dungeon.hero.buff(虫箭.保护.class)!=null) {
+						if(Dungeon.hero.buff(虫箭.保护.class).isCursed())
+							再生数值/= 1.25f;
+						else
+							再生数值 +=(0.133f+Dungeon.hero.buff(虫箭.保护.class).itemLevel()*0.0667f)/2f;
+					}
+					再生数值*= 能量之戒.artifactChargeMultiplier(hero);
+
 		
 				//salt cube is turned off while regen is disabled.
 				if (hero.buff(LockedFloor.class) == null) {

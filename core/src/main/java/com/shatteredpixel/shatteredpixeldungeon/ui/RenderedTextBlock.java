@@ -45,7 +45,6 @@ public class RenderedTextBlock extends Component {
 		this.size = size;
 		text(text);
 	}
-
 	public void text(String text){
 		this.text = text;
 
@@ -96,45 +95,85 @@ public class RenderedTextBlock extends Component {
 		
 		clear();
 		words = new ArrayList<>();
-		boolean highlighting = false;
+		boolean 颜色在用 = false;
 		for (String str : tokens){
 
 			//if highlighting is enabled, '_' or '**' is used to toggle highlighting on or off
 			// the actual symbols are not rendered
-			if ((str.equals("_")) && highlightingEnabled){
-				highlighting = !highlighting;
-			} else if (str.equals("$$")){
-				color=0xFFFF44;//黄色
+			if (str.equals("_")&& highlightingEnabled){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
+				color=hightlightColor;//黄色
 			} else if (str.equals("**")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0xFF4444;//红色
 			}else if (str.equals("@@")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0x3399FF;//蓝色
 			}else if (str.equals("++")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0x44FF44;//绿色
 			}else if (str.equals("^^")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0xFF4488;//粉色
 			}else if (str.equals("##")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0x8800FF;//紫色
 			}else if (str.equals("--")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0x999999;//灰色
 			}else if (str.equals(",,")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0x000000;//黑色
 			}else if (str.equals("==")){
+				if(颜色在用)颜色在用=false;
+				else 颜色在用=true;
 				color=0xFF8800;//橙色
 			} else if (str.equals("\n")){
 				words.add(NEWLINE);
 			} else if (str.equals(" ")){
 				words.add(SPACE);
 			} else {
+				//以下注释是模拟渲染
+				//==攻击==数值
+				//检测到==开启橙色，并跳过渲染
+				//开始渲染橙色文本
+				//检测到==关闭橙色
+				//颜色没使用就重置颜色
+				//清理残余==
+				//但仍然是橙色 攻击数值
+				//未找到问题
+
+				if(!颜色在用)color=-1;
+//
+//				//清理后缀
+				str=str.replaceAll("_", "");
+				str=str.replaceAll("@@", "");
+				str=str.replaceAll("\\+\\+", "");
+				str=str.replaceAll("\\^\\^", "");
+				str=str.replaceAll("##", "");
+				str=str.replaceAll("--", "");
+				str=str.replaceAll(",,", "");
+				str=str.replaceAll("==", "");
+
 				RenderedText word = new RenderedText(str, size);
-				
-				if (highlighting) word.hardlight(hightlightColor);
-				else if (color != -1) word.hardlight(color);
+
+				if (颜色在用&&color!=-1) {
+					word.hardlight(color);
+				}else word.hardlight(0xffffff);
+
 				word.scale.set(zoom*(1+SPDSettings.字体大小()*0.25f));
-				
+
 				words.add(word);
 				add(word);
-				
+
 				if (height < word.height()) height = word.height();
 			}
 		}

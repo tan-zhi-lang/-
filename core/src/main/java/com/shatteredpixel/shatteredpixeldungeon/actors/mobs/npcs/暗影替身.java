@@ -199,7 +199,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public void 受伤时(float dmg,Object src){
 		if (hero != null){
-			hero.受伤时(dmg,src);
+			hero.受伤时(dmg*0.5f,src);
 		}
 	}
 	

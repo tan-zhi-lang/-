@@ -86,7 +86,7 @@ public class 磐石结晶 extends NPC {
 			}
 		}
 		if(viewDistance==1){
-			for(int n: PathFinder.NEIGHBOURS8){
+			for(int n: PathFinder.相邻8){
 				Char c=Actor.findChar(pos+n);
 				if(c!=null&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
 					c.受伤(1+tier);

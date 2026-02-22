@@ -35,6 +35,10 @@ public class 治疗药剂 extends Potion {
 		鉴定();
 		cure( hero );
 		heal( hero );
+		if(hero.符文("生命的祝福")){
+			hero.生命成长+=hero.最大生命(0.05f);
+			hero.更新数据();
+		}
 		Badges.解锁血鬼();
 	}
 

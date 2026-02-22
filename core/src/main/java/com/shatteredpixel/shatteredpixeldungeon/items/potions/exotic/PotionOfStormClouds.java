@@ -29,7 +29,7 @@ public class PotionOfStormClouds extends ExoticPotion {
 		}
 
 		int centerVolume = 120;
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			if (!Dungeon.level.solid[cell+i]){
 				GameScene.add( Blob.seed( cell+i, 120, StormCloud.class ) );
 			} else {

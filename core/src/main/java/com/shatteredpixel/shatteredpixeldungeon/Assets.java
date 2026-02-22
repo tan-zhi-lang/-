@@ -127,6 +127,7 @@ public class Assets {
 	}
 
 	public static class Music {
+		public static final String 骷髅打金服              = "music/骷髅打金服.mp3";
 		public static final String 夜航星              = "music/夜航星.mp3";
 		public static final String THEME_1              = "music/夜航星.mp3";
 		public static final String THEME_2              = "music/夜航星.mp3";
@@ -167,6 +168,7 @@ public class Assets {
 
 		public static final String[] allBGM = new String[]{
 			夜航星,
+			骷髅打金服,
 
 			SEWERS_1,
 			SEWERS_2,
@@ -270,6 +272,7 @@ public class Assets {
 		public static final String 挖爆    = "sounds/挖爆.mp3";
 		public static final String 挖矿    = "sounds/挖矿.mp3";
 		public static final String 生命水晶   = "sounds/生命水晶.mp3";
+		public static final String 我恭喜你发财   = "sounds/我恭喜你发财.mp3";
 		public static final String 魔力水晶   = "sounds/魔力水晶.mp3";
 		public static final String 海克斯   = "sounds/海克斯.mp3";
 		public static final String TOMB     = "sounds/tomb.mp3";
@@ -308,6 +311,7 @@ public class Assets {
 		public static final String GHOST    = "sounds/ghost.mp3";
 		public static final String SECRET   = "sounds/secret.mp3";
 		public static final String BONES    = "sounds/bones.mp3";
+		public static final String 嘟嘟哒    = "sounds/嘟嘟哒.mp3";
 		public static final String BEE      = "sounds/bee.mp3";
 		public static final String DEGRADE  = "sounds/degrade.mp3";
 		public static final String MIMIC    = "sounds/mimic.mp3";
@@ -371,7 +375,7 @@ public class Assets {
 				哈气猫,
 				我看见你了,
 				汝之希望皆为虚妄,
-				MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,
+				MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,嘟嘟哒,
 				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE
 		};
 	}

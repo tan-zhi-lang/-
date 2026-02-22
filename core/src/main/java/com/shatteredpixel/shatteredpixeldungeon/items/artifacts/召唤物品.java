@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -133,8 +132,8 @@ public class 召唤物品 extends Artifact {
 			else if (charge != chargeCap)   GLog.i( Messages.get(this, "no_charge") );
 			else {
 				ArrayList<Integer> spawnPoints = new ArrayList<>();
-				for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-					int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+				for (int i=0; i < PathFinder.相邻8.length;i++) {
+					int p = hero.pos + PathFinder.相邻8[i];
 					if (Actor.findChar(p) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
 						spawnPoints.add(p);
 					}
@@ -170,10 +169,6 @@ public class 召唤物品 extends Artifact {
 			if (召唤==null&&随从ID!=0){
 				find随从();
 			}
-			if (召唤!=null&&召唤!=Stasis.getStasisAlly()){
-				GameScene.selectCell(随从指引);
-			}
-			
 		} else if (action.equals(AC_OUTFIT)){
 			GameScene.show( new Wnd(this));
 		}
@@ -183,13 +178,6 @@ public class 召唤物品 extends Artifact {
 		Actor a = Actor.findById(随从ID);
 		if (a != null){
 			召唤= (随从)a;
-		} else {
-			if (Stasis.getStasisAlly() instanceof 随从){
-				召唤= (随从) Stasis.getStasisAlly();
-				随从ID= 召唤.id();
-			} else {
-				随从ID= 0;
-			}
 		}
 	}
 	

@@ -17,12 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.AuraOfProtection;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.LifeLinkSpell;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -506,10 +500,10 @@ public class Armor extends EquipableItem {
 	public float 防御时(Char attacker, Char defender, float damage ) {
 		
 		if(defender instanceof Hero hero){
-			if(首次使用){
+			if(attacker!=null&&首次使用){
 				usesLeftToID-=Talent.鉴定速度(hero,this);
 			}
-			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
+			if(attacker!=null&&hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
 				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
 					hero.现在健身-=0.01f;
 				}else{
@@ -522,34 +516,18 @@ public class Armor extends EquipableItem {
 				}
 			}
 		}
-		if (defender.buff(MagicImmune.class) == null) {
+		if (attacker!=null&&defender.buff(MagicImmune.class) == null) {
 			Glyph trinityGlyph = null;
-			//only when it's the hero or a char that uses the hero's armor
-			if (Dungeon.hero.buff(BodyForm.BodyFormBuff.class) != null
-					&& (defender == Dungeon.hero||defender instanceof PrismaticImage||defender instanceof 白猫||defender instanceof ShadowClone.ShadowAlly)){
-				trinityGlyph = Dungeon.hero.buff(BodyForm.BodyFormBuff.class).glyph();
-				if (glyph != null && trinityGlyph != null && trinityGlyph.getClass() == glyph.getClass()){
-					trinityGlyph = null;
-				}
-			}
 				if (glyph != null) {
 					damage = glyph.proc(this, attacker, defender, damage);
 				}
 				if (trinityGlyph != null){
 					damage = trinityGlyph.proc( this, attacker, defender, damage );
 				}
-				//so that this effect procs for allies using this armor via aura of protection
-				if (defender.alignment == Dungeon.hero.alignment
-						&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
-						&& (Dungeon.level.distance(defender.pos, Dungeon.hero.pos) <= 2 || defender.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)
-						) {
-					int blocking = Dungeon.hero.subClass == HeroSubClass.PALADIN ? 3 : 1;
-					damage -= Math.round(blocking * Glyph.genericProcChanceMultiplier(defender));
-				}
 			damage = Math.max(damage, 0);
 		}
 		
-		if (!已鉴定() && defender == Dungeon.hero) {
+		if (attacker!=null&&!已鉴定() && defender == Dungeon.hero) {
 			usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
@@ -792,11 +770,7 @@ public class Armor extends EquipableItem {
 	public boolean hasGlyph(Class<?extends Glyph> type, Char owner) {
 		if (owner.buff(MagicImmune.class) != null) {
 			return false;
-		} else if (owner.buff(BodyForm.BodyFormBuff.class) != null
-				&& owner.buff(BodyForm.BodyFormBuff.class).glyph() != null
-				&& owner.buff(BodyForm.BodyFormBuff.class).glyph().getClass().equals(type)){
-			return true;
-		} else if (glyph != null) {
+		}else if (glyph != null) {
 			return glyph.getClass() == type;
 		} else {
 			return false;
@@ -853,12 +827,6 @@ public class Armor extends EquipableItem {
 
 		public static float genericProcChanceMultiplier( Char defender ){
 			float multi = 奥术之戒.enchantPowerMultiplier(defender);
-
-			if (Dungeon.hero.alignment == defender.alignment
-					&& Dungeon.hero.buff(AuraOfProtection.AuraBuff.class) != null
-					&& (Dungeon.level.distance(defender.pos, Dungeon.hero.pos) <= 2 || defender.buff(LifeLinkSpell.LifeLinkSpellBuff.class) != null)){
-				multi +=Dungeon.hero.天赋点数(Talent.AURA_OF_PROTECTION,0.3f);
-			}
 
 			return multi;
 		}

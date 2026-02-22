@@ -56,7 +56,7 @@ public class ItemSlot extends Button {
 
 	private static final String TXT	= "%s";
 	private static final String FLOAT	= "%.2f";
-	private static final String ADD_TXT= "+%s";
+	private static final String ADD_INT= "+%d";
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
 		public int image() { return 物品表.CHEST; }
@@ -103,19 +103,15 @@ public class ItemSlot extends Button {
 		add(sprite);
 		
 		status = new BitmapText( PixelScene.pixelFont);
-		status.scale.set(字体大小);
 		add(status);
 		
 		extra = new BitmapText( PixelScene.pixelFont);
-		extra.scale.set(字体大小);
 		add(extra);
 		
 		level = new BitmapText( PixelScene.pixelFont);
-		level.scale.set(字体大小);
 		add(level);
 
 		center = new BitmapText( PixelScene.pixelFont);
-		center.scale.set(字体大小);
 		add(center);
 	}
 	
@@ -126,14 +122,19 @@ public class ItemSlot extends Button {
 		sprite.x = x + margin.left + (width - sprite.width - (margin.left + margin.right)) / 2f;
 		sprite.y = y + margin.top + (height - sprite.height - (margin.top + margin.bottom)) / 2f;
 		PixelScene.align(sprite);
-		
+
+		status.scale.set(字体大小);
+		extra.scale.set(字体大小);
+		level.scale.set(字体大小);
+		center.scale.set(字体大小);
+
 		if (status != null) {
 			status.measure();
-			if (status.width > width - (margin.left + margin.right)){
-				status.scale.set(PixelScene.align(0.8f*字体大小));//0.8
-			} else {
-				status.scale.set(字体大小);//1
-			}
+//			if (status.width > width - (margin.left + margin.right)){
+//				status.scale.set(PixelScene.align(0.8f));
+//			} else {
+//				status.scale.set(1);
+//			}
 			status.x = x + margin.left;
 			status.y = y + margin.top;
 			PixelScene.align(status);
@@ -294,7 +295,7 @@ public class ItemSlot extends Button {
 			extra.measure();
 
 		} else {
-			if(extra.text!=null){
+			if(extra.text==null){
 				extra.text(null);
 				extra.resetColor();
 			}
@@ -334,7 +335,7 @@ public class ItemSlot extends Button {
 				extra.measure();
 				extra.hardlight( FADED );
 			}else{
-				if(center.text!=null){
+				if(center.text==null){
 					center.text(null);
 					center.resetColor();
 				}
@@ -350,7 +351,7 @@ public class ItemSlot extends Button {
 		   item instanceof Wand||
 		   item instanceof Artifact){
 			if (trueLvl != 0 || buffedLvl != 0) {
-				center.text(Messages.format(ADD_TXT,buffedLvl));
+				center.text(Messages.format(ADD_INT,buffedLvl));
 				center.measure();
 				if (trueLvl == buffedLvl || buffedLvl <= 0) {
 					if (buffedLvl > 0) {
@@ -368,14 +369,14 @@ public class ItemSlot extends Button {
 					center.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
 				}
 			} else {
-				if(center.text!=null){
+				if(center.text==null){
 					center.text(null);
 					center.resetColor();
 				}
 			}
 		}else {
 			if (trueLvl != 0 || buffedLvl != 0) {
-				level.text(Messages.format(ADD_TXT,buffedLvl));
+				level.text(Messages.format(ADD_INT,buffedLvl));
 				level.measure();
 				if (trueLvl == buffedLvl || buffedLvl <= 0) {
 					if (buffedLvl > 0) {
@@ -393,13 +394,13 @@ public class ItemSlot extends Button {
 					level.hardlight(buffedLvl > trueLvl ? ENHANCED : WARNING);
 				}
 			} else {
-				if(level.text!=null){
+				if(level.text==null){
 					level.text(null);
 					level.resetColor();
 				}
 			}
 		}
-		
+
 		layout();
 	}
 	

@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.ResistanceIndicator;
 import com.watabou.noosa.ui.Component;
 
 public class WndInfoMob extends WndTitledMessage {
@@ -27,6 +28,7 @@ public class WndInfoMob extends WndTitledMessage {
 		private RenderedTextBlock name;
 		private HealthBar health;
 		private BuffIndicator buffs;
+		private ResistanceIndicator resistances;
 		
 		public MobTitle( Mob mob ) {
 			
@@ -45,6 +47,9 @@ public class WndInfoMob extends WndTitledMessage {
 
 			buffs = new BuffIndicator( mob );
 			add( buffs );
+
+			resistances = new ResistanceIndicator(mob);
+			add(resistances);
 		}
 		
 		@Override
@@ -68,9 +73,13 @@ public class WndInfoMob extends WndTitledMessage {
 
 			health.setRect(image.width() + GAP, name.bottom() + GAP, w, health.height());
 
-			buffs.setPos(name.right(), name.bottom() - BuffIndicator.SIZE_SMALL-2-4);//4
+			buffs.setPos(name.right(), name.bottom() - BuffIndicator.SIZE_SMALL-4);//4
 
-			height = Math.max(image.y + image.height(), health.bottom());
+			resistances.setRect(3f, image.y + image.height() + 6f//3
+					, width - 6f, 0f);
+
+			height = resistances.bottom();
+//			height = Math.max(image.y + image.height(), health.bottom());
 		}
 	}
 }

@@ -237,7 +237,7 @@ public class 魔攻之戒 extends Ring {
 	}
 	
 	public String upgradeStat1(int level){
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
+		if (cursed && cursedKnown) level = Math.min(-1, level-6);
 		return (5+level)+"~"+(9+6*level);
 	}
 	@Override

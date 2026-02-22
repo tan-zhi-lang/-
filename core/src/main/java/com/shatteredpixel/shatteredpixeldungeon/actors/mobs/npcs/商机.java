@@ -183,16 +183,6 @@ public class 商机 extends NPC {
 		return true;
 	}
 
-	//商机s are greedy!
-	public static int sellPrice(Item item){
-		float 打折=优惠卡.打折();
-		if(Holiday.getCurrentHoliday()==Holiday._618){
-			打折*=.9f;
-		}
-		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
-		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
-//		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
-	}
 	
 	public static WndBag sell() {
 		return GameScene.selectItem( itemSelector );
@@ -262,7 +252,6 @@ public class 商机 extends NPC {
 							GLog.i(Messages.get(商机.this,"buyback"));
 							Item returned = buybackItems.remove(index-2);
 							Dungeon.gold(-returned.金币());
-							Statistics.goldCollected -= returned.金币();
 							if (!returned.doPickUp(Dungeon.hero)){
 								Dungeon.level.drop(returned, Dungeon.hero.pos);
 							}

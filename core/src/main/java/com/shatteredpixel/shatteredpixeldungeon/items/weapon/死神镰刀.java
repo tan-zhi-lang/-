@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.无情铁手;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -24,7 +25,7 @@ public class 死神镰刀 extends Weapon{
 	
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		
+		if(attacker instanceof Hero hero&&hero.符文("升级死神镰刀"))damage*=attacker.暴击伤害();
 		if(defender.残血()){
 			damage*=attacker.暴击伤害();
 		}
@@ -32,6 +33,7 @@ public class 死神镰刀 extends Weapon{
 	}
 	@Override
 	public float 投掷攻击时(Char attacker,Char defender,float damage) {
+		if(attacker instanceof Hero hero&&hero.符文("升级死神镰刀"))damage*=attacker.暴击伤害();
 		if(defender.残血()){
 			damage*=attacker.暴击伤害();
 		}

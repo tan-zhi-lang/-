@@ -13,7 +13,7 @@ public class Light extends FlavourBuff {
 		type = buffType.POSITIVE;
 	}
 
-	public static final float DURATION	= 250f;
+	public static final float DURATION	= 225f;
 	public static final int DISTANCE	= 6;
 	
 	@Override

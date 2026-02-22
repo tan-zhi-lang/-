@@ -170,7 +170,7 @@ public class PotionOfDragonsBreath extends ExoticPotion {
 										//ignite cells that share a side with an adjacent cell, are flammable, and are further from the source pos
 										//This prevents short-range casts not igniting barricades or bookshelves
 										for (int cell : adjacentCells){
-											for (int i : PathFinder.NEIGHBOURS4){
+											for (int i : PathFinder.相邻4){
 												if (Dungeon.level.trueDistance(cell+i, bolt.sourcePos) > Dungeon.level.trueDistance(cell, bolt.sourcePos)
 														&& Dungeon.level.flamable[cell+i]
 														&& Fire.volumeAt(cell+i, Fire.class) == 0){

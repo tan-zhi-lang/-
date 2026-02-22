@@ -40,7 +40,7 @@ public class 虚无透纱 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 2.5f+level;
+			return 2.5f+1.5f*level;
 		}
 	}
 

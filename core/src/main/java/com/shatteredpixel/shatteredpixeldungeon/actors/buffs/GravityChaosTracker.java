@@ -69,7 +69,7 @@ public class GravityChaosTracker extends Buff {
 		if (!blocked.isEmpty()){
 			boolean blockedremoved = false;
 			for (Char ch : blocked.toArray(new Char[0])){
-				Ballistica path = new Ballistica(ch.pos, ch.pos + PathFinder.NEIGHBOURS8[idx], Ballistica.MAGIC_BOLT);
+				Ballistica path = new Ballistica(ch.pos, ch.pos + PathFinder.相邻8[idx],Ballistica.MAGIC_BOLT);
 				if (!(path.dist == 1 && Actor.findChar(path.collisionPos) != null)){
 					if (ch instanceof Hero) ((Hero) ch).interrupt();
 					WandOfBlastWave.throwChar(ch, path, 3, false, false, this);
@@ -93,7 +93,7 @@ public class GravityChaosTracker extends Buff {
 			}
 		}
 
-		idx = Random.Int(PathFinder.NEIGHBOURS8.length);
+		idx = Random.Int(PathFinder.相邻8.length);
 		for (Char ch : Actor.chars()){
 			if (Char.hasProp(ch, Char.Property.IMMOVABLE) ||
 					(positiveOnly && ch.alignment == Char.Alignment.ALLY)){
@@ -102,7 +102,7 @@ public class GravityChaosTracker extends Buff {
 				if (ch instanceof Mob && ((Mob) ch).state == ((Mob) ch).SLEEPING){
 					((Mob) ch).state = ((Mob) ch).WANDERING;
 				}
-				Ballistica path = new Ballistica(ch.pos, ch.pos + PathFinder.NEIGHBOURS8[idx], Ballistica.MAGIC_BOLT);
+				Ballistica path = new Ballistica(ch.pos, ch.pos + PathFinder.相邻8[idx],Ballistica.MAGIC_BOLT);
 				if (path.dist == 1 && Actor.findChar(path.collisionPos) != null){
 					blocked.add(ch);
 				} else {

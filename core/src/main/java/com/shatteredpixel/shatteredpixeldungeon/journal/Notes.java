@@ -729,6 +729,15 @@ public class Notes {
 		}
 		return null;
 	}
+	public static CustomRecord findCustomRecord( String title ){
+		for (Record rec : records){
+			if (rec instanceof CustomRecord
+					&& ((CustomRecord) rec).title().equals(title)) {
+				return (CustomRecord) rec;
+			}
+		}
+		return null;
+	}
 
 	public static int customRecordLimit(){
 		return 500;
@@ -741,28 +750,28 @@ public class Notes {
 		}
 	};
 	public static void 层数备注(int 层,String t,String d){
-		Notes.CustomRecord note = new Notes.CustomRecord(层,"","");
+		Notes.CustomRecord note = new Notes.CustomRecord(层,t,d);
 		Notes.add(note);
-		note.editText(t,d);
+//		note.editText(t,d);
 	}
 	public static void 物品类备注(Item i,String t,String d){
-		Notes.CustomRecord note = new Notes.CustomRecord(i,"","");
+		Notes.CustomRecord note = new Notes.CustomRecord(i,t,d);
 		Notes.add(note);
-		note.editText(t,d);
+//		note.editText(t,d);
 	}
 	public static void 怪物备注(Mob i,String t,String d){
-		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),"","");
+		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),t,d);
 		Notes.add(note);
-		note.editText(t,d);
+//		note.editText(t,d);
 	}
 	public static void 物品类别备注(Item i,String t,String d){
-		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),"","");
+		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),t,d);
 		Notes.add(note);
-		note.editText(t,d);
+//		note.editText(t,d);
 	}
 	public static void 备注(String t,String d){
-		Notes.CustomRecord note = new Notes.CustomRecord("","");
+		Notes.CustomRecord note = new Notes.CustomRecord(t,d);
 		Notes.add(note);
-		note.editText(t,d);
+//		note.editText(t,d);
 	}
 }

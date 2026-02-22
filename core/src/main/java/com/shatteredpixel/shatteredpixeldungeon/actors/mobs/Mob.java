@@ -32,11 +32,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
@@ -44,6 +42,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.连杀状态;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArm
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.噩梦粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.纯净粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
@@ -64,6 +65,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
@@ -72,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -85,6 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
+import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -208,6 +212,7 @@ public abstract class Mob extends Char {
 
 		if (bundle.contains(MAX_LVL)) 最大等级 = bundle.getInt(MAX_LVL);
 
+
 		if (bundle.contains(ENEMY_ID)) {
 			enemyID = bundle.getInt(ENEMY_ID);
 		}
@@ -224,12 +229,28 @@ public abstract class Mob extends Char {
 	public CharSprite sprite() {
 		return Reflection.newInstance(spriteClass);
 	}
-	
+
+	@Override
+	public float 伤害(){
+		float 伤害=1f;
+		伤害+=真正护符.增加();
+		if(Dungeon.符文("辐射")&&首次死亡)伤害+=0.35f;
+		if(Dungeon.符文("辐射")&&首次死亡)伤害+=0.35f;
+		if(Dungeon.符文("究极玻璃大炮"))伤害=1.5f;
+		if(Dungeon.符文("来吧老弟"))伤害+=0.35f;
+		if(Dungeon.符文("缩小射线"))伤害*=大小;
+		return 伤害;
+	}
 	@Override
 	protected boolean act() {
 		
 		super.act();
-		
+
+		float x=0;
+		if(Dungeon.符文("缩小射线")&&hasbuff(战斗状态.class)) x-=0.15;
+		大小=1+x;
+
+
 		boolean justAlerted = alerted;
 		alerted = false;
 		
@@ -268,12 +289,6 @@ public abstract class Mob extends Char {
 		}
 
 		boolean result = state.act( enemyInFOV, justAlerted );
-
-		//for updating hero FOV
-		if (buff(PowerOfMany.PowerBuff.class) != null){
-			Dungeon.level.updateFieldOfView( this, fieldOfView );
-			GameScene.updateFog(pos, viewDistance+(int)Math.ceil(移速()));
-		}
 
 		return result;
 	}
@@ -420,7 +435,7 @@ public abstract class Mob extends Char {
 				for (Char curr : enemies){
 					int currDist = Integer.MAX_VALUE;
 					//we aren't trying to move into the target, just toward them
-					for (int i : PathFinder.NEIGHBOURS8){
+					for (int i : PathFinder.相邻8){
 						if (PathFinder.distance[curr.pos+i] < currDist){
 							currDist = PathFinder.distance[curr.pos+i];
 						}
@@ -593,7 +608,7 @@ public abstract class Mob extends Char {
 					newPath = true;
 					//If the next cell on the path can't be moved into, see if there is another cell that could replace it
 					if (!path.isEmpty()) {
-						for (int i : PathFinder.NEIGHBOURS8) {
+						for (int i : PathFinder.相邻8) {
 							if (Dungeon.level.adjacent(pos, nextCell + i) && Dungeon.level.adjacent(nextCell + i, path.getFirst())) {
 								if (cellIsPathable(nextCell+i)){
 									path.addFirst(nextCell+i);
@@ -721,7 +736,7 @@ public abstract class Mob extends Char {
 			Badges.validateHuntressUnlock();
 		}
 		
-		if (surprisedBy(enemy)) {
+		if (enemy!=null&&surprisedBy(enemy)) {
 			Statistics.sneakAttacks++;
 			Badges.validateRogueUnlock();
 			//TODO this is somewhat messy, it would be nicer to not have to manually handle delays here
@@ -750,7 +765,7 @@ public abstract class Mob extends Char {
 			}
 		}
 
-		if (buff(灵魂标记.class)!=null) {
+		if (enemy!=null&&buff(灵魂标记.class)!=null) {
 			if (enemy != Dungeon.hero){
 				Dungeon.hero.回血(damage*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.13f)*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
 				Buff.施加(Dungeon.hero, Hunger.class).吃饭(damage*0.15f*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
@@ -759,9 +774,6 @@ public abstract class Mob extends Char {
 				Buff.施加(Dungeon.hero, Hunger.class).吃饭(damage*0.15f);
 			}
 		}
-
-		if(Dungeon.派对(派对设置.怪物猎场)&&Math.round(damage/10/3)>0)
-			Dungeon.level.drop(new 属性碎片().数量(Math.round(damage/10/3)),pos).sprite.drop();
 
 		return super.防御时(enemy, damage);
 	}
@@ -822,7 +834,7 @@ public abstract class Mob extends Char {
 				if(Dungeon.hero()){
 					if(Dungeon.hero.全能吸血()>0){
 
-						if(Dungeon.hero()&&Dungeon.hero.符文("猛攻")){
+						if(Dungeon.符文("猛攻")||Dungeon.符文("不全能吸血")){
 
 						}else
 							Dungeon.hero.回血(dmg*Dungeon.hero.全能吸血()*((老鬼()||小老鬼())?
@@ -905,6 +917,7 @@ public abstract class Mob extends Char {
 	
 	@Override
 	public void 死亡时(Object cause ) {
+
 		if (cause == Chasm.class){
 			//50% chance to round up, 50% to round down
 			if (经验 % 2 == 1) 经验 += Random.Int(2);
@@ -936,11 +949,10 @@ public abstract class Mob extends Char {
 			
 
 			if (cause == Dungeon.hero||cause instanceof Ring||cause instanceof Artifact||cause instanceof Wand||cause instanceof Weapon||cause instanceof Weapon.Enchantment){
-
 				if(防刷()){
 				if(cause== Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
 						if(Dungeon.hero.belongings.attackingWeapon()instanceof 草剃){
-							for(int n: PathFinder.NEIGHBOURS8){
+							for(int n: PathFinder.相邻8){
 								Blooming.plantGrass(pos+n);
 							}
 						}
@@ -970,8 +982,12 @@ public abstract class Mob extends Char {
 
 					if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
 						Dungeon.hero.回血(Dungeon.hero.最大生命(0.03f));
-						if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,2))))
+						if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,0.5f)))){
+							if(Dungeon.hero.天赋概率(Talent.残魂侵蚀,25))
 							Dungeon.level.drop(new 纯净粮食(),pos).sprite().drop();
+							else
+							Dungeon.level.drop(new 噩梦粮食(),pos).sprite().drop();
+						}
 					}
 					if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人))
 						Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
@@ -1006,18 +1022,42 @@ public abstract class Mob extends Char {
 				}
 				if(Dungeon.hero.subClass(HeroSubClass.灵魂武者))
 					Dungeon.hero.力量+=0.1f+(Dungeon.hero.职业精通()?0.1f:0);
+
 				if(投机之剑.增加()>0&&Dungeon.hero.投机之剑>0){
 					Dungeon.gold(Dungeon.hero.投机之剑);
 				}
 
+				if(Dungeon.hero.符文("嘟嘟哒嘟嘟哒")){
+					Sample.INSTANCE.play( Assets.Sounds.嘟嘟哒 );
+
+					if(this instanceof Skeleton)
+						Dungeon.level.drop(new ScrollOfSirensSong().数量(5),pos).sprite.drop();
+				}
+				if(Dungeon.hero.符文("我是色批")&&this instanceof Succubus)Dungeon.hero.力量+=10;
 				if(Dungeon.hero.符文("裁决使")){
 					if(cause instanceof Wand w)
-					w.gainCharge(1);
+						w.gainCharge(10);
+
 					if(cause instanceof Weapon w&&w.charger!=null)
-					w.charger.gainCharge(1);
+					w.charger.gainCharge(10);
 				}
 
-				if(Dungeon.hero.符文("超凡邪恶"))Dungeon.hero.智力+=0.015f;
+
+				if(Dungeon.hero.符文("属性叠属性叠")&&算法.概率学(1/6f))
+					new 属性锻造器().放背包();
+				if(Dungeon.hero.符文("心灵净化")){
+					for (int n : PathFinder.相邻8){
+						Char c=Actor.findChar(pos+n);
+						if ( c!=null&&c.alignment==Alignment.ENEMY){
+							c.受伤(c.生命(0.2f));
+						}
+					}
+				}
+					if(Dungeon.派对(派对设置.怪物猎场)&&算法.概率学(1/2f))
+						Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();
+
+					if(Dungeon.hero.符文("超凡邪恶"))Dungeon.hero.智力+=0.05f;
+				Buff.刷新(Dungeon.hero,连杀状态.class,10);
 				if(Dungeon.hero.天赋(Talent.久战))
 					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战));
 					//击杀瞬移
@@ -1049,25 +1089,22 @@ public abstract class Mob extends Char {
 			GLog.i( Messages.get(this, "died") );
 		}
 
-		if (防刷()&& 算法.概率学(1/5f)&& Dungeon.hero.符文("破败之王")){
-				回满血();
-				Buff.施加(this, Corruption.class);
-		}else{
-			if(Dungeon.hero.符文("击杀击杀")&&防刷()){
-				首次死亡=true;
-				死亡时( cause );
-			}else
+		if(Dungeon.hero.符文("击杀击杀")&&防刷()&&首次死亡){
+			首次死亡=false;
+			死亡时( cause );
+		}else
 			super.死亡时( cause );
-		}
 
 	}
 
 	public float lootChance(){
 		float lootChance = this.lootChance;
-		
+
 		if(Dungeon.解压(解压设置.掉落几率)){
 			lootChance*=3;
 		}
+		if(Dungeon.符文("升级破碎像素地牢"))
+			lootChance*=4;
 		if(Dungeon.hero()&&Dungeon.hero.欧皇())lootChance*=2;
 		if(Dungeon.hero()&&Dungeon.hero.非酋())lootChance/=2;
 		float dropBonus = 幸运之戒.dropChanceMultiplier(Dungeon.hero);
@@ -1095,43 +1132,47 @@ public abstract class Mob extends Char {
 				return;
 		}
 		if(防刷()){
-		if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
-			Dungeon.level.drop(Generator.random(), pos).sprite().drop();
-		}
-		if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/12f*Dungeon.难度掉率())){
-			Dungeon.level.drop(new 治疗药剂(),pos).sprite().drop();
-		}
-		MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
-		if (stolen == null || !stolen.itemWasStolen()) {
-			Item loot = createLoot();
-			float 几率=1*Dungeon.难度掉率();
-			if (loot != null) {
-				if(loot.可堆叠){
-					loot.数量(loot.数量()+幸运硬币.增加());
-					几率*=幸运硬币.减少();
-				}
-				if (Random.Float() < lootChance()*几率) {
-					Dungeon.level.drop(loot, pos).sprite().drop();
+			if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
+				Dungeon.level.drop(Generator.random(), pos).sprite().drop();
+			}
+			if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/12f*Dungeon.难度掉率())){
+				Dungeon.level.drop(new 治疗药剂(),pos).sprite().drop();
+			}
+			MasterThievesArmband.StolenTracker stolen = buff(MasterThievesArmband.StolenTracker.class);
+			if (stolen == null || !stolen.itemWasStolen()) {
+				Item loot = createLoot();
+				float 几率=1*Dungeon.难度掉率();
+
+				if (loot != null) {
+					if(loot.可堆叠){
+						loot.数量(loot.数量()+幸运硬币.增加());
+						几率*=幸运硬币.减少();
+					}
+					if (Random.Float() < lootChance()*几率) {
+						Dungeon.level.drop(loot, pos).sprite().drop();
+					}
 				}
 			}
-		}
-		//ring of wealth logic
-		if (Ring.getBuffedBonus(Dungeon.hero, 幸运之戒.Wealth.class)>0) {
-			int rolls = 1;
-			if (properties().contains(Property.BOSS)) rolls = 15;
-			else if (properties().contains(Property.MINIBOSS)) rolls = 5;
-			ArrayList<Item> bonus = 幸运之戒.tryForBonusDrop(Dungeon.hero,rolls);
-			if (bonus != null && !bonus.isEmpty()) {
-				for (Item b : bonus) Dungeon.level.drop(b, pos).sprite().drop();
-				幸运之戒.showFlareForBonusDrop(sprite);
+			//ring of wealth logic
+			if (Ring.getBuffedBonus(Dungeon.hero, 幸运之戒.Wealth.class)>0) {
+				int rolls = 1;
+				if (properties().contains(Property.BOSS)) rolls = 15;
+				else if (properties().contains(Property.MINIBOSS)) rolls = 5;
+
+				rolls=Math.max(1,Math.round(lootChance()*rolls));//T
+
+				ArrayList<Item> bonus = 幸运之戒.tryForBonusDrop(Dungeon.hero,rolls);
+				if (bonus != null && !bonus.isEmpty()) {
+					for (Item b : bonus) Dungeon.level.drop(b, pos).sprite().drop();
+					幸运之戒.showFlareForBonusDrop(sprite);
+				}
 			}
-		}
-		
-		//lucky enchant logic
-		if (buff(Lucky.LuckProc.class) != null){
-			Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(), pos).sprite().drop();
-			Lucky.showFlare(sprite);
-		}
+
+			//lucky enchant logic
+			if (buff(Lucky.LuckProc.class) != null){
+				Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(), pos).sprite().drop();
+				Lucky.showFlare(sprite);
+			}
 		}
 	}
 	
@@ -1196,12 +1237,15 @@ public abstract class Mob extends Char {
 		for (Buff b : buffs(ChampionEnemy.class)){
 			desc += "\n\n_" + Messages.titleCase(b.name()) + "_\n" + b.desc();
 		}
-		if(!(this instanceof NPC||(this instanceof Mimic m&&
-				m.alignment == Char.Alignment.ENEMY && m.state!=PASSIVE))){
+		boolean b=true;
+		if(this instanceof NPC)b=false;
+		if(this instanceof Mimic m&&
+		   m.alignment == Char.Alignment.ENEMY && m.state!=PASSIVE)b=false;
+		if(b){
 			desc+="\n\n";
 			
 			String 属性="";
-			if(this instanceof Mob&&!无机物()&&!闪电()&&!恶魔亡灵()&&!火焰()&&!寒冰()) 属性+=" 生物";
+			if(!无机物()&&!闪电()&&!恶魔亡灵()&&!火焰()&&!寒冰()) 属性+=" 生物";
 			
 			if(老鬼())属性+=" 老鬼";
 			if(小老鬼())属性+=" 小老鬼";
@@ -1209,19 +1253,19 @@ public abstract class Mob extends Char {
 			if(傀儡())属性+=" 傀儡";
 			if(低活动度生物())属性+=" 低活动度生物";
 			
-			if(恶魔())属性+=" 恶魔";
-			if(亡灵())属性+=" 亡灵";
+			if(恶魔())属性+=" ##恶魔##";
+			if(亡灵())属性+=" --亡灵--";
 			
 			if(庞大())属性+=" 庞大";
 			if(无机物()) 属性+=" 无机物";
-			if(海妖())属性+=" 海妖";
-			if(植物())属性+=" 植物";
+			if(海妖())属性+=" @@海妖@@";
+			if(植物())属性+=" ++植物++";
 			if(昆虫())属性+=" 昆虫";
 			if(动物())属性+=" 动物";
-			if(酸性())属性+=" 酸性";
-			if(寒冰())属性+=" 寒冰";
-			if(火焰())属性+=" 火焰";
-			if(闪电()) 属性+=" 闪电";
+			if(酸性())属性+=" ++酸性++";
+			if(寒冰())属性+=" @@寒冰@@";
+			if(火焰())属性+=" ==火焰==";
+			if(闪电()) 属性+=" _闪电_";
 			if(静物())属性+=" 静物";
 			
 			desc+="属性"+属性+"\n";
@@ -1229,15 +1273,14 @@ public abstract class Mob extends Char {
 			desc+="==攻击=="+String.format("%.2f",最小攻击()*Dungeon.难度攻击())+"~"
 				  +String.format("%.2f",最大攻击()*Dungeon.难度攻击())+"\n";
 			desc+="++防御++"+String.format("%.2f",最小防御()*Dungeon.难度防御())+"~"
-				  +Math.round(最大防御()*Dungeon.难度防御())+"\n";
+				  +String.format("%.2f",最大防御()*Dungeon.难度防御())+"\n\n";
 			desc+="命中/闪避"+String.format("%.2f",最小命中(null)*Dungeon.难度命中闪避())+"~"+
 				  Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+
 				  Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
-			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n";
+			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
+			desc+="_暴击率/暴击伤害_"+暴击率()+"/"+暴击伤害()*100+"%\n";
 			desc+="经验/最大等级经验"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
-			desc+="$$暴击率/暴击伤害$$"+暴击率()+"/"+暴击伤害()*100+"%\n";
-			desc+="$$视野范围$$"+viewDistance;
-			desc+="掉落几率"+String.format("%.2f",lootChance()*100)+"%";
+			desc+="_视野范围/掉落几率_"+viewDistance+"/"+String.format("%.2f",lootChance()*100)+"%";
 		}
 		return desc;
 	}
@@ -1288,9 +1331,7 @@ public abstract class Mob extends Char {
 					if (fieldOfView[ch.pos] && ch.invisible == 0 && ch.alignment != alignment && ch.alignment != Alignment.NEUTRAL){
 						float chDist = ch.stealth() + distance(ch);
 						if(ch instanceof Hero hero){
-							int x=0;
-							
-							x=hero.惊醒距离();
+							int x=hero.惊醒距离();
 							
 							//silent steps rogue talent, which also applies to rogue's shadow clone
 							if (ch instanceof Hero||ch instanceof ShadowClone.ShadowAlly){
@@ -1580,8 +1621,7 @@ public abstract class Mob extends Char {
 		heldAllies.clear();
 		for (Mob mob : level.mobs.toArray( new Mob[0] )) {
 			//preserve directable allies or empowered intelligent allies no matter where they are
-			if (mob instanceof DirectableAlly
-				|| (mob.intelligentAlly && PowerOfMany.getPoweredAlly() == mob)) {
+			if (mob instanceof DirectableAlly) {
 				if (mob instanceof DirectableAlly) {
 					((DirectableAlly) mob).clearDefensingPos();
 				}
@@ -1606,7 +1646,7 @@ public abstract class Mob extends Char {
 		if (!heldAllies.isEmpty()){
 			
 			ArrayList<Integer> candidatePositions = new ArrayList<>();
-			for (int i : PathFinder.NEIGHBOURS8) {
+			for (int i : PathFinder.相邻8) {
 				if (!Dungeon.level.solid[i+pos] && !Dungeon.level.avoid[i+pos] && level.findMob(i+pos) == null){
 					candidatePositions.add(i+pos);
 				}
@@ -1625,42 +1665,6 @@ public abstract class Mob extends Char {
 				});
 			}
 
-			//can only have one empowered ally at once, prioritize incoming ally
-			if (Stasis.getStasisAlly() != null){
-				for (Mob mob : level.mobs.toArray( new Mob[0] )) {
-					if (mob.buff(PowerOfMany.PowerBuff.class) != null){
-						mob.buff(PowerOfMany.PowerBuff.class).detach();
-					}
-				}
-			}
-			
-			for (Mob ally : heldAllies) {
-
-				//can only have one empowered ally at once, prioritize incoming ally
-				if (ally.buff(PowerOfMany.PowerBuff.class) != null){
-					for (Mob mob : level.mobs.toArray( new Mob[0] )) {
-						if (mob.buff(PowerOfMany.PowerBuff.class) != null){
-							mob.buff(PowerOfMany.PowerBuff.class).detach();
-						}
-					}
-				}
-
-				level.mobs.add(ally);
-				ally.state = ally.WANDERING;
-				
-				if (!candidatePositions.isEmpty()){
-					ally.pos = candidatePositions.remove(0);
-				} else {
-					ally.pos = pos;
-				}
-				if (ally.sprite != null) ally.sprite.place(ally.pos);
-
-				if (ally.fieldOfView == null || ally.fieldOfView.length != level.length()){
-					ally.fieldOfView = new boolean[level.length()];
-				}
-				Dungeon.level.updateFieldOfView( ally, ally.fieldOfView );
-				
-			}
 		}
 		heldAllies.clear();
 	}

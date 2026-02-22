@@ -15,6 +15,7 @@ public class 长鞭 extends Weapon {
 		
 		延迟= 1.35f;
 		tier = 3;
+		伤害=0.75f;
 		连招范围=3;
 		范围 = 3;
 		命中=0.65f;

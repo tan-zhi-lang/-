@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -50,13 +50,12 @@ public class 圣光 extends TargetedClericSpell {
 
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
-					int d=Random.NormalIntRange(3+hero.术提升(), 8+hero.术提升(3));
 					if(ch.恶魔亡灵()){
-						ch.受伤时(d*1.5f,圣光.this);
+						ch.受伤时(hero.光照范围()*4+hero.天赋点数(Talent.神圣之触,hero.光照范围()*1.5f),圣光.this);
 						Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 						ch.sprite.burst(0xFFFFFF44, 3);
 					}else{
-						ch.回血(d);
+						ch.回血(hero.光照范围()*2+hero.天赋点数(Talent.神圣之触,hero.光照范围()*0.75f));
 					}
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
@@ -77,10 +76,8 @@ public class 圣光 extends TargetedClericSpell {
 	}
 
 	public String desc(){
-		String desc = Messages.get(this, "desc",3+Dungeon.hero.术提升(), 8+Dungeon.hero.术提升(3));
-		if (Dungeon.hero.subClass == HeroSubClass.PRIEST){
-			desc += "\n\n" + Messages.get(this, "desc_priest",Dungeon.hero.生命力(0.5f),Dungeon.hero.生命力(4f));
-		}
+		String desc = Messages.get(this, "desc",Dungeon.hero.光照范围()*2+Dungeon.hero.天赋点数(Talent.神圣之触,Dungeon.hero.光照范围()*0.75f),
+										Dungeon.hero.光照范围()*4+Dungeon.hero.天赋点数(Talent.神圣之触,Dungeon.hero.光照范围()*1.5f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

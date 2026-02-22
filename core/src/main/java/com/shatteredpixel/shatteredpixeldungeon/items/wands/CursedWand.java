@@ -316,7 +316,7 @@ public class CursedWand {
 				Dungeon.level.pressCell(bolt.collisionPos);
 			}
 			tryForWandProc(Actor.findChar(bolt.collisionPos), origin);
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				if (!Dungeon.level.solid[bolt.collisionPos+i]){
 					CellEmitter.get(bolt.collisionPos+i).start(Speck.factory(Speck.BUBBLE), 0.25f, 40);
 				}
@@ -524,7 +524,7 @@ public class CursedWand {
 			user.sprite.parent.add(new Lightning(user.pos - Dungeon.level.width(), user.pos + Dungeon.level.width(), null));
 			user.sprite.parent.add(new Lightning(user.pos - 1 - Dungeon.level.width(), user.pos + 1 + Dungeon.level.width(), null));
 			user.sprite.parent.add(new Lightning(user.pos - 1 + Dungeon.level.width(), user.pos + 1 - Dungeon.level.width(), null));
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				if (Actor.findChar(user.pos+i) != null){
 					affected.add(Actor.findChar(user.pos+i));
 				}
@@ -535,7 +535,7 @@ public class CursedWand {
 			user.sprite.parent.add(new Lightning(pos - Dungeon.level.width(), pos + Dungeon.level.width(), null));
 			user.sprite.parent.add(new Lightning(pos - 1 - Dungeon.level.width(), pos + 1 + Dungeon.level.width(), null));
 			user.sprite.parent.add(new Lightning(pos - 1 + Dungeon.level.width(), pos + 1 - Dungeon.level.width(), null));
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				if (Actor.findChar(pos+i) != null && !affected.contains(Actor.findChar(pos+i))){
 					affected.add(Actor.findChar(pos+i));
 				}
@@ -1027,7 +1027,7 @@ public class CursedWand {
 			int spawnCell = bolt.collisionPos;
 			if (ch != null){
 				ArrayList<Integer> candidates = new ArrayList<Integer>();
-				for (int n : PathFinder.NEIGHBOURS8) {
+				for (int n : PathFinder.相邻8) {
 					int cell = bolt.collisionPos + n;
 					if (Dungeon.level.passable[cell] && Actor.findChar( cell ) == null) {
 						candidates.add( cell );

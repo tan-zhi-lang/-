@@ -57,6 +57,7 @@ public class 死舞 extends Buff {
 		if (target.isAlive()) {
 
 			float damageThisTick = Math.max(1, damage/3);
+
 			target.受伤时( damageThisTick, this );
 			if (target.sprite.visible) {
 				Splash.at(target.sprite.center(),-PointF.PI/2,PointF.PI/6,
@@ -72,7 +73,7 @@ public class 死舞 extends Buff {
 			spend( TICK );
 			
 			damage -= damageThisTick;
-			if (damage <= 0) {
+			if (damage <= 0.01f) {
 				detach();
 			}
 			
@@ -87,6 +88,6 @@ public class 死舞 extends Buff {
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", damage);
+		return Messages.get(this, "desc", String.format("%.2f",damage));
 	}
 }

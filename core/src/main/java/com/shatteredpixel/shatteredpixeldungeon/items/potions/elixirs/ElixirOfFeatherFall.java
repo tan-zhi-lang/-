@@ -42,8 +42,14 @@ public class ElixirOfFeatherFall extends Elixir {
 				detach();
 			}
 		}
-		
-		public static final float DURATION=400f;
+
+		@Override
+		public void detach(){
+			if(target instanceof Hero hero&&hero.符文("羽落的宠爱"))new ElixirOfFeatherFall().放背包();
+			super.detach();
+		}
+
+		public static final float DURATION=3000;
 		
 		@Override
 		public int icon(){

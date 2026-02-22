@@ -4,7 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.StartScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -26,7 +26,7 @@ public class ShatteredPixelDungeon extends Game {
 	public static final int v1_0_0 = 10_00_00;
 	
 	public ShatteredPixelDungeon( PlatformSupport platform ) {
-		super( sceneClass == null ? TitleScene.class : sceneClass, platform );
+		super( sceneClass == null ? StartScene.class : sceneClass, platform );
 //		super( sceneClass == null ? WelcomeScene.class : sceneClass, platform );
 //
 //		com.watabou.utils.Bundle.addAlias(
@@ -62,7 +62,7 @@ public class ShatteredPixelDungeon extends Game {
 			super.finish();
 		} else {
 			//can't exit on iOS (Apple guidelines), so just go to title screen
-			switchScene(TitleScene.class);
+			switchScene(StartScene.class);
 		}
 	}
 

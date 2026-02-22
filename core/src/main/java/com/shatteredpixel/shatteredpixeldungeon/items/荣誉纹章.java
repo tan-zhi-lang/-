@@ -190,9 +190,7 @@ public class 荣誉纹章 extends Item {
 	}
 	public int 最大等级(){
 		int x=1;
-		if(Dungeon.解压(解压设置.独自变强)){
-			x+=Dungeon.hero.等级/2;
-		}
+
 		return x+Dungeon.hero.天赋点数(Talent.纹章荣耀);
 	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {

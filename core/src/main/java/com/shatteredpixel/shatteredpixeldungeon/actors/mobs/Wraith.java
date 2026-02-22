@@ -96,7 +96,7 @@ public class Wraith extends Mob {
 	}
 	
 	public static void spawnAround( int pos, Class<? extends Wraith> wraithClass ) {
-		for (int n : PathFinder.NEIGHBOURS4) {
+		for (int n : PathFinder.相邻4) {
 			spawnAt( pos + n, wraithClass, false );
 		}
 	}
@@ -115,7 +115,7 @@ public class Wraith extends Mob {
 		if (Dungeon.level.solid[pos] || Actor.findChar( pos ) != null){
 			ArrayList<Integer> candidates = new ArrayList<>();
 
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (!Dungeon.level.solid[pos+i] && Actor.findChar( pos+i ) == null){
 					candidates.add(pos+i);
 				}

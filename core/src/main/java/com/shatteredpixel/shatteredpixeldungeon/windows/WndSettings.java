@@ -115,7 +115,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 		data = new DataTab();
 		data.setSize(width, 0);
 		height = Math.max(height, data.height());
-		add( data );
+//		add( data );
 
 		add( new IconTab(Icons.get(Icons.DATA)){
 			@Override

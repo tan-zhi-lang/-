@@ -25,16 +25,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -260,7 +258,7 @@ public abstract class Level implements Bundlable {
 			if(Dungeon.区域()==3&&Dungeon.区域层数(3)){
 				addItemToSpawn(new 进阶宝典());
 			}
-			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count==0){
+			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count<1){
 				addItemToSpawn(new 生命水晶());
 				Dungeon.LimitedDrops.生命水晶.count++;
 			}
@@ -359,6 +357,15 @@ public abstract class Level implements Bundlable {
 							feeling = Feeling.NONE;
 						}
 				}
+				if(Dungeon.符文("陷阱的宠爱"))
+					feeling = Feeling.TRAPS;
+				if(Dungeon.符文("深渊的宠爱"))
+					feeling = Feeling.CHASM;
+				if(Dungeon.符文("流水的宠爱"))
+					feeling = Feeling.WATER;
+				if(Dungeon.符文("草木的宠爱"))
+					feeling = Feeling.GRASS;
+
 			}
 		}
 		
@@ -583,6 +590,14 @@ public abstract class Level implements Bundlable {
 		Mob m = Reflection.newInstance(mobsToSpawn.remove(0));
 		
 		m.生命=m.最大生命=Math.round(m.最大生命*Dungeon.难度生命());
+
+		if(Dungeon.符文("我无限回档洞悉所有底牌")&&Random.Int(9)==0)
+		算法.修复效果(()->{
+			Buff.延长(m,Invisibility.class,25*450*2);
+		});
+		if(Dungeon.符文("辐射"))
+		Buff.施加( m, Poison.class).set(3 + Dungeon.scalingDepth()*0.6f);
+
 		ChampionEnemy.rollForChampion(m);
 		return m;
 	}
@@ -669,12 +684,6 @@ public abstract class Level implements Bundlable {
 		//awareness also doesn't, honestly it's weird that it's a buff
 		Awareness awareness = Dungeon.hero.buff(Awareness.class);
 		if (awareness != null) awareness.detach();
-
-		Char ally = Stasis.getStasisAlly();
-		if (Char.hasProp(ally, Char.Property.IMMOVABLE)){
-			Dungeon.hero.buff(Stasis.StasisBuff.class).act();
-			GLog.w(Messages.get(Stasis.StasisBuff.class, "left_behind"));
-		}
 
 		//spend the hero's partial turns,  so the hero cannot take partial turns between floors
 		Dungeon.hero.spendToWhole();
@@ -806,13 +815,16 @@ public abstract class Level implements Bundlable {
 			}
 		}else{
 			if (Dungeon.depth == 1){
-				cooldown*=25;
+				cooldown*=25*25;
 			}else if(Dungeon.level.feeling==Feeling.DARK){
 				cooldown= 2*TIME_TO_RESPAWN/3f;
 			}
 		}
 
 		if(Dungeon.赛季(赛季设置.修罗血场)){
+			cooldown/=3;
+		}
+		if(Dungeon.符文("升级破碎像素地牢")){
 			cooldown/=3;
 		}
 		return cooldown / DimensionalSundial.spawnMultiplierAtCurrentTime();
@@ -975,7 +987,7 @@ public abstract class Level implements Bundlable {
 	}
 	//updates open space both on the cell itself and adjacent cells
 	public void updateOpenSpace(int cell){
-		for (int i : PathFinder.NEIGHBOURS9) {
+		for (int i : PathFinder.自相邻8) {
 			if (solid[cell+i]){
 				openSpace[cell+i] = false;
 			} else {
@@ -1013,8 +1025,8 @@ public abstract class Level implements Bundlable {
 			
 			boolean d = false;
 			
-			for (int j=0; j < PathFinder.NEIGHBOURS9.length; j++) {
-				int n = i + PathFinder.NEIGHBOURS9[j];
+			for (int j=0; j < PathFinder.自相邻8.length;j++) {
+				int n = i + PathFinder.自相邻8[j];
 				if (n >= 0 && n < length() && map[n] != Terrain.WALL && map[n] != Terrain.WALL_DECO) {
 					d = true;
 					break;
@@ -1054,9 +1066,12 @@ public abstract class Level implements Bundlable {
 	public boolean 在门上(int pos){
 		return Dungeon.level.map[pos] == Terrain.OPEN_DOOR;
 	}
+	public boolean 在墙体(int pos){
+		return Dungeon.level.map[pos] == Terrain.WALL||Dungeon.level.map[pos] == Terrain.WALL_DECO;
+	}
 	public boolean 在狭窄(int pos){
 		int 墙 = 0;
-		for (int i : PathFinder.NEIGHBOURS8) {
+		for (int i : PathFinder.相邻8) {
 			if (Dungeon.level.solid[pos + i]) {
 				墙 ++;
 			}
@@ -1068,7 +1083,7 @@ public abstract class Level implements Bundlable {
 	}
 	public boolean 实体墙(int pos,int x){
 		int 墙 = 0;
-		for (int i : PathFinder.NEIGHBOURS8) {
+		for (int i : PathFinder.相邻8) {
 			if (Dungeon.level.solid[pos + i]) {
 				墙 ++;
 			}
@@ -1105,7 +1120,7 @@ public abstract class Level implements Bundlable {
 			}
 		}
 
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			i = cell + i;
 			if (level.solid[i]){
 				level.openSpace[i] = false;
@@ -1128,7 +1143,7 @@ public abstract class Level implements Bundlable {
 		for (int i = 1; i <= item.数量(); i++){
 			int ofs;
 			do {
-				ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
+				ofs = PathFinder.相邻8[Random.Int(8)];
 			} while (solid[cell + ofs] &&!passable[cell + ofs]);
 			if (heaps.get(cell+ofs) == null) {
 				drop(item,cell+ofs).sprite().drop(cell);
@@ -1168,7 +1183,7 @@ public abstract class Level implements Bundlable {
 			
 			int n;
 			do {
-				n = cell + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+				n = cell + PathFinder.相邻8[Random.Int(8)];
 			} while (!passable[n] && !avoid[n]);
 			return drop( item, n );
 			
@@ -1384,9 +1399,6 @@ public abstract class Level implements Bundlable {
 			
 		case Terrain.HIGH_GRASS:
 		case Terrain.FURROWED_GRASS:
-			if(算法.isDebug())
-				HighGrass.trample3( this, cell);
-
 			HighGrass.trample( this, cell);
 			break;
 			
@@ -1512,9 +1524,6 @@ public abstract class Level implements Bundlable {
 			
 			case Terrain.HIGH_GRASS:
 			case Terrain.FURROWED_GRASS:
-				if(算法.isDebug())
-				HighGrass.trample3( this, cell);
-
 				HighGrass.trample( this, cell);
 				break;
 		}
@@ -1574,7 +1583,7 @@ public abstract class Level implements Bundlable {
 					}
 				}
 			}
-			if(c instanceof Hero hero&& hero.belongings.attackingWeapon() instanceof 地裂镰){
+			if(c instanceof Hero hero&& ((hero.职业精通()&&hero.subClass(HeroSubClass.土影))||hero.belongings.attackingWeapon() instanceof 地裂镰)){
 				if(blocking==null){
 					System.arraycopy(Dungeon.level.losBlocking,0,modifiableBlocking,0,modifiableBlocking.length);
 					blocking=modifiableBlocking;
@@ -1596,6 +1605,7 @@ public abstract class Level implements Bundlable {
 					}
 				}
 			}
+
 			if(Dungeon.系统(系统设置.透视系统)&&c instanceof Hero){
 				if(blocking==null){
 					System.arraycopy(Dungeon.level.losBlocking,0,modifiableBlocking,0,modifiableBlocking.length);
@@ -1690,7 +1700,7 @@ public abstract class Level implements Bundlable {
 			for (Mob mob : mobs) {
 				int p = mob.pos;
 				if (!fieldOfView[p] && distance(c.pos, p) <= range) {
-					for (int i : PathFinder.NEIGHBOURS9) {
+					for (int i : PathFinder.自相邻8) {
 						fieldOfView[mob.pos + i] = true;
 					}
 				}
@@ -1712,7 +1722,7 @@ public abstract class Level implements Bundlable {
 					if (mob instanceof Mimic && mob.alignment == Char.Alignment.NEUTRAL&& ((Mimic) mob).stealthy()){
 						continue;
 					}
-					for (int i : PathFinder.NEIGHBOURS9) {
+					for (int i : PathFinder.自相邻8) {
 						heroMindFov[mob.pos + i] = true;
 					}
 				}
@@ -1720,20 +1730,14 @@ public abstract class Level implements Bundlable {
 
 				int mindVisRange = ((Hero) c).感知范围();
 
-				//power of many's life link spell allows allies to get divine sense
-				Char ally = PowerOfMany.getPoweredAlly();
-				if (ally != null && ally.buff(DivineSense.DivineSenseTracker.class) == null){
-					ally = null;
-				}
-
 				if (mindVisRange >= 1) {
 					for (Mob mob : mobs) {
 						if (mob instanceof Mimic && mob.alignment == Char.Alignment.NEUTRAL && ((Mimic) mob).stealthy()){
 							continue;
 						}
 						int p = mob.pos;
-						if (mob.nobuff(Invisibility.class)&&!fieldOfView[p] && (distance(c.pos, p) <= mindVisRange || (ally != null && distance(ally.pos, p) <= mindVisRange))) {
-							for (int i : PathFinder.NEIGHBOURS9) {
+						if (mob.nobuff(Invisibility.class)&&!fieldOfView[p] && (distance(c.pos, p) <= mindVisRange)) {
+							for (int i : PathFinder.自相邻8) {
 								heroMindFov[mob.pos + i] = true;
 							}
 						}
@@ -1744,7 +1748,7 @@ public abstract class Level implements Bundlable {
 			if (c.buff( Awareness.class ) != null) {
 				for (Heap heap : heaps.valueList()) {
 					int p = heap.pos;
-					for (int i : PathFinder.NEIGHBOURS9) heroMindFov[p+i] = true;
+					for (int i : PathFinder.自相邻8)heroMindFov[p+i] = true;
 				}
 			}
 
@@ -1754,19 +1758,18 @@ public abstract class Level implements Bundlable {
 					continue;
 				}
 				int p = ch.pos;
-				for (int i : PathFinder.NEIGHBOURS9) heroMindFov[p+i] = true;
+				for (int i : PathFinder.自相邻8)heroMindFov[p+i] = true;
 			}
 
 			for (TalismanOfForesight.HeapAwareness h : c.buffs(TalismanOfForesight.HeapAwareness.class)){
 				if (Dungeon.depth != h.depth || Dungeon.branch != h.branch) continue;
-				for (int i : PathFinder.NEIGHBOURS9) heroMindFov[h.pos+i] = true;
+				for (int i : PathFinder.自相邻8)heroMindFov[h.pos+i] = true;
 			}
 
 			for (Mob m : mobs){
 				if (m instanceof WandOfWarding.Ward
 						|| m instanceof WandOfRegrowth.Lotus
-						|| m instanceof SpiritHawk.HawkAlly
-						|| m.buff(PowerOfMany.PowerBuff.class) != null){
+						|| m instanceof SpiritHawk.HawkAlly){
 					if (m.fieldOfView == null || m.fieldOfView.length != length()){
 						m.fieldOfView = new boolean[length()];
 						Dungeon.level.updateFieldOfView( m, m.fieldOfView );
@@ -1782,7 +1785,7 @@ public abstract class Level implements Bundlable {
 				}else if(Dungeon.hero.天赋点数(Talent.SEER_SHOT)==2){
 					for (int i : PathFinder.范围2) heroMindFov[a.pos+i] = true;
 				}else if(Dungeon.hero.天赋(Talent.SEER_SHOT)){
-					for (int i : PathFinder.NEIGHBOURS9) heroMindFov[a.pos+i] = true;
+					for (int i : PathFinder.自相邻8)heroMindFov[a.pos+i] = true;
 				}
 			}
 

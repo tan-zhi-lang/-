@@ -33,7 +33,14 @@ public class RenderedText extends Image {
 		text = null;
 		this.size = size;
 	}
-	
+
+	public RenderedText setPos(float x,float y) {
+		this.x = x;
+		this.y = y;
+		measure();
+
+		return this;
+	}
 	public RenderedText(String text, int size){
 		this.text = text;
 		this.size = size;

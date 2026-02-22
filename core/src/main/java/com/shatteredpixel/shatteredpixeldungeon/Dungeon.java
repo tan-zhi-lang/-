@@ -16,9 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.DivineSense;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
@@ -205,7 +203,7 @@ public class Dungeon {
 			x*=优惠卡.获取()/100f;
 			energy+=Math.round(圣金之沙.获得()*x);
 
-			if(Dungeon.hero()&&Dungeon.hero.符文("货币互通"))
+			if(Dungeon.符文("货币互通"))
 				energy+=Math.round(0.01f*x);
 
 			gold+=Math.round(x*
@@ -218,18 +216,20 @@ public class Dungeon {
 		}
 		if(hero()&&hero.heroClass(HeroClass.来世))
 			Statistics.金币=Dungeon.gold;
+		Statistics.goldCollected += x;
 		return gold;
 	}
 	public static int energy(int x){
 		if(x>0){
 			gold+=Math.round(圣金之沙.减少()*x);
 
-			if(Dungeon.hero()&&Dungeon.hero.符文("货币互通"))
+			if(Dungeon.符文("货币互通"))
 			gold+=Math.round(50*x);
 
 			energy+=x;
 		}
 		if(x<0){
+			if(Dungeon.符文("智慧的宠爱"))x*=12;
 			energy+=x;
 		}
 		if(hero()&&hero.heroClass(HeroClass.来世))
@@ -261,7 +261,7 @@ public class Dungeon {
 			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
 		} else if (!SPDSettings.customSeed().isEmpty()){
 			customSeedText = SPDSettings.customSeed();
-			if(算法.种子()!=null||算法.isDebug()||算法.彩蛋()){
+			if(算法.种子()!=null||算法.isDebug()||算法.彩蛋()||算法.海克斯()){
 				customSeedText = "";
 				seed = DungeonSeed.randomSeed();
 			}else{
@@ -282,7 +282,7 @@ public class Dungeon {
 		系统 = SPDSettings.系统();
 		派对= SPDSettings.派对();
 		赛季= SPDSettings.赛季();
-		地牢时间= 360;
+		地牢时间= 900;
 		地牢寿命= 0;
 		地牢天数= 1;
 		if(难度==0)难度=2;
@@ -354,7 +354,7 @@ public class Dungeon {
 		Badges.reset();
 		
 		GamesInProgress.selectedClass.initHero( hero );
-		
+
 	}
 
 	public static boolean isChallenged( int mask ) {
@@ -376,29 +376,26 @@ public class Dungeon {
 	public static boolean 赛季(int mask) {
 		return (赛季&mask)!=0;
 	}
-	public static boolean 地牢时间(float min,float max) {
-		return 地牢时间>=min*60*1.6f&&地牢时间<=max*60*1.6f;
-	}
 	public static String 地牢时间() {
 		int 小时=0;
 		int 分钟=0;
-		float 时间=地牢时间*4/3f;
+		float 时间=地牢时间;
 		boolean 时间计算=true;
 		while(时间计算){
-			if(时间>=60){
-				时间-=60;
+			if(时间>=100){
+				时间-=100;
 				小时++;
 				分钟=0;
 				if(小时>=24){
 					小时=0;
 				}
 			}else{
-				分钟=Math.round(时间);
+				分钟=Math.round(时间/1.67f);
 				时间计算=false;
 			}
 		}
 		if(小时<=9){
-			return "0"+小时+":"+(分钟<=9?"0"+分钟:分钟);
+			return "0"+小时+":"+(分钟<=9?"0":分钟);
 		}
 		return 小时+":"+(分钟<=9?"0"+分钟:分钟);
 	}
@@ -450,7 +447,7 @@ public class Dungeon {
 		return switch(难度){
 			case 1->"++简单++";
 			case 2->"普通";
-			case 3->"$$困难$$";
+			case 3->"_困难_";
 			case 4->"^^史诗^^";
 			case 5->"==传奇==";
 			case 6->"==神话==";
@@ -716,7 +713,7 @@ public class Dungeon {
 		for(Mob m : level.mobs){
 			if (m.pos == hero.pos && !Char.hasProp(m, Char.Property.IMMOVABLE)){
 				//displace mob
-				for(int i : PathFinder.NEIGHBOURS8){
+				for(int i : PathFinder.相邻8){
 					if (Actor.findChar(m.pos+i) == null && level.passable[m.pos + i]){
 						m.pos += i;
 						break;
@@ -1205,13 +1202,13 @@ public class Dungeon {
 		}
 
 		//always visit adjacent tiles, even if they aren't seen
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			level.visited[hero.pos+i] = true;
 		}
 	
 		GameScene.updateFog(l, t, width, height);
 
-		if (hero.buff(MindVision.class) != null || hero.buff(DivineSense.DivineSenseTracker.class) != null){
+		if (hero.buff(MindVision.class) != null){
 			for (Mob m : level.mobs.toArray(new Mob[0])){
 				if (m instanceof Mimic && m.alignment == Char.Alignment.NEUTRAL && ((Mimic) m).stealthy()){
 					continue;
@@ -1266,8 +1263,7 @@ public class Dungeon {
 		for (Char ch : Actor.chars()){
 			if (ch instanceof WandOfWarding.Ward
 					|| ch instanceof WandOfRegrowth.Lotus
-					|| ch instanceof SpiritHawk.HawkAlly
-					|| ch.buff(PowerOfMany.PowerBuff.class) != null){
+					|| ch instanceof SpiritHawk.HawkAlly){
 				x = ch.pos % level.width();
 				y = ch.pos / level.width();
 
@@ -1383,6 +1379,9 @@ public class Dungeon {
 	}
 	public static int 区域(float x){
 		return Math.round(区域()*x);
+	}
+	public static boolean 在区域(int x){
+		return (相对层数() - 1) / 5 + 1==x;
 	}
 	public static int 区域(){
 		return (相对层数() - 1) / 5 + 1;

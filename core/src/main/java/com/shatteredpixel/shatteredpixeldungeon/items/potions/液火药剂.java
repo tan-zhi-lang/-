@@ -28,7 +28,7 @@ public class 液火药剂 extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.BURNING );
 		}
 
-		for (int offset : PathFinder.NEIGHBOURS9){
+		for (int offset : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[cell+offset]) {
 				GameScene.add(Blob.seed(cell+offset,2,Fire.class));
 			}

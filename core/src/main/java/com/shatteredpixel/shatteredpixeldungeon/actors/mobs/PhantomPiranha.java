@@ -45,7 +45,7 @@ public class PhantomPiranha extends Piranha {
 			if (dmgSource != null) {
 				if (!Dungeon.level.adjacent(pos, dmgSource.pos)) {
 					ArrayList<Integer> candidates = new ArrayList<>();
-					for (int i : PathFinder.NEIGHBOURS8) {
+					for (int i : PathFinder.相邻8) {
 						if (Dungeon.level.water[dmgSource.pos + i] && Actor.findChar(dmgSource.pos + i) == null) {
 							candidates.add(dmgSource.pos + i);
 						}

@@ -216,21 +216,6 @@ public class WandOfCorruption extends Wand {
 		}
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		int level = Math.max( 0, 强化等级() );
-
-		// lvl 0 - 16%
-		// lvl 1 - 28.5%
-		// lvl 2 - 37.5%
-		float procChance = (level+1f)/(level+6f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-
-			float powerMulti = Math.max(1f, procChance);
-
-			Buff.延长( defender, Amok.class, Math.round((4+level*2) * powerMulti));
-		}
-	}
 
 	@Override
 	public String upgradeStat1(int level) {

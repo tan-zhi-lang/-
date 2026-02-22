@@ -121,7 +121,7 @@ public class RotGardenRoom extends SpecialRoom {
 			return false;
 		}
 
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			if (level.findMob(pos+i) != null){
 				return false;
 			}
@@ -131,13 +131,13 @@ public class RotGardenRoom extends SpecialRoom {
 
 		//if lasher isn't near heart, we can just use cardinal directions
 		if (level.distance(pos, heartPos) > 2){
-			for (int i : PathFinder.NEIGHBOURS4){
+			for (int i : PathFinder.相邻4){
 				newPassable[pos+i] = false;
 			}
 		//if it is near, has to count as blocking all adjacent
 		// so that we can guarantee a safe tile to stay still in next to the heart
 		} else {
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				newPassable[pos+i] = false;
 			}
 		}

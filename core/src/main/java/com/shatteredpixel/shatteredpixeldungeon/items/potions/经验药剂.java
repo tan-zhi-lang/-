@@ -23,6 +23,10 @@ public class 经验药剂 extends Potion {
 		鉴定();
 		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(hero.升级所需()), FloatingText.EXPERIENCE);
 		hero.经验( hero.升级所需(), getClass() );
+		if(hero.符文("神圣的宠爱")){
+			hero.命中成长+=40;
+			hero.闪避成长+=40;
+		}
 		new Flare( 6, 32 ).color(0xFFFF00, true).show( curUser.sprite, 2f );
 	}
 	

@@ -32,7 +32,7 @@ public class CavesFissureEntranceRoom extends CavesFissureRoom {
 		} while (level.map[entrance] == Terrain.CHASM || level.map[entrance] == Terrain.EMPTY_SP || level.findMob(entrance) != null);
 
 
-		for (int i : PathFinder.NEIGHBOURS4){
+		for (int i : PathFinder.相邻4){
 			if (level.map[entrance+i] == Terrain.CHASM) {
 				Painter.set(level, entrance + i, Terrain.EMPTY);
 			}

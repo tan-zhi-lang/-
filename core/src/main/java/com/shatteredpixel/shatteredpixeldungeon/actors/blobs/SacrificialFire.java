@@ -61,7 +61,7 @@ public class SacrificialFire extends Blob {
 					volume += off[cell];
 
 					if (off[cell] > 0){
-						for (int k : PathFinder.NEIGHBOURS9){
+						for (int k : PathFinder.自相邻8){
 							Char ch = Actor.findChar( cell+k );
 							if (ch != null){
 								if (Dungeon.level.heroFOV[cell+k] && ch.buff( Marked.class ) == null) {
@@ -129,7 +129,7 @@ public class SacrificialFire extends Blob {
 	public void sacrifice( Char ch ) {
 
 		int firePos = -1;
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			if (volume > 0 && cur[ch.pos+i] > 0){
 				firePos = ch.pos+i;
 				break;
@@ -174,7 +174,7 @@ public class SacrificialFire extends Blob {
 					clear(firePos);
 					if (volume <= 0) Notes.remove( landmark() );
 
-					for (int i : PathFinder.NEIGHBOURS9){
+					for (int i : PathFinder.自相邻8){
 						CellEmitter.get(firePos+i).burst( SacrificialParticle.FACTORY, 20 );
 					}
 					Sample.INSTANCE.play(Assets.Sounds.BURNING );

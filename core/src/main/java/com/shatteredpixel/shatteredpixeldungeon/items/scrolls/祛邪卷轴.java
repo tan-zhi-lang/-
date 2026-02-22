@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -34,7 +35,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 	public void doRead() {
 
 		TormentedSpirit spirit = null;
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			if (Actor.findChar(curUser.pos+i) instanceof TormentedSpirit){
 				spirit = (TormentedSpirit) Actor.findChar(curUser.pos+i);
 			}
@@ -104,6 +105,10 @@ public class 祛邪卷轴 extends InventoryScroll {
 				if (item.cursed) {
 					procced = true;
 					item.cursed = false;
+					if(hero.符文("祛邪的宠爱")){
+						if(item instanceof Ring)
+							item.升级(2);
+					}
 				}
 			}
 			if (item instanceof Weapon){
@@ -111,6 +116,9 @@ public class 祛邪卷轴 extends InventoryScroll {
 				if (w.hasCurseEnchant()){
 					w.enchant(null);
 					procced = true;
+					if(hero.符文("祛邪的宠爱")){
+						item.升级(2);
+					}
 				}
 			}
 			if (item instanceof Armor){
@@ -118,10 +126,16 @@ public class 祛邪卷轴 extends InventoryScroll {
 				if (a.hasCurseGlyph()){
 					a.inscribe(null);
 					procced = true;
+					if(hero.符文("祛邪的宠爱")){
+						item.升级(2);
+					}
 				}
 			}
 			if (item instanceof Wand){
 				((Wand) item).updateLevel();
+				if(hero.符文("祛邪的宠爱")){
+					item.升级(2);
+				}
 			}
 		}
 		

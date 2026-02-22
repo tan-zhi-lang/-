@@ -51,32 +51,39 @@ public class 荆棘斗篷 extends Artifact {
 
 		@Override
 		public boolean act(){
-			charge = Math.min(charge+10*能量之戒.artifactChargeMultiplier(target)*(1+(Dungeon.hero()&&Dungeon.hero.符文("升级荆棘斗篷")?0.45f:0)),chargeCap);
+			charge = Math.min(charge+10*能量之戒.artifactChargeMultiplier(target)*(1+(Dungeon.符文("升级荆棘斗篷")?0.45f:0)),chargeCap);
 			updateQuickslot();
 			spend(TICK);
 			return true;
 		}
 
 		public float proc(float damage, Char defender){
-				if (charge >= chargeCap){
-					GLog.p( Messages.get(this, "radiating",0,(1+等级())/3f*Dungeon.hero.最大护甲()));
-					float deflected = Math.round(damage*(0.5f+等级()*0.05f));
+				if(charge>=chargeCap){
+					if(defender!=null)
+					GLog.p(Messages.get(this,"radiating",0,(1+等级())/3f*Dungeon.hero.最大护甲()));
 
-					if (defender != null) {
+					float deflected=Math.round(damage*(0.5f+等级()*0.05f));
+
+					if(defender!=null){
 						Talent.onArtifactUsed(Dungeon.hero);
-						damage+=deflected;
 					}
-					charge = 0;
-					exp+= deflected;
+					damage+=deflected;
+
+					if(defender!=null){
+						charge=0;
+						exp+=deflected;
+					}
 				}
-				
-				if (exp >= (等级()+1)*20 && 等级() < levelCap){
-					exp -= (等级()+1)*20;
+
+				if(defender!=null&&exp>=(等级()+1)*20&&等级()<levelCap){
+					exp-=(等级()+1)*20;
 					升级();
 					Catalog.countUse(荆棘斗篷.class);
-					GLog.p( Messages.get(this, "levelup") );
+					GLog.p(Messages.get(this,"levelup"));
 				}
-			updateQuickslot();
+				if(defender!=null)
+				updateQuickslot();
+
 			return damage;
 		}
 

@@ -23,20 +23,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.BodyForm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Smite;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
+import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.物法皆修;
+import com.shatteredpixel.shatteredpixeldungeon.actors.鬼刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -335,11 +332,13 @@ abstract public class Weapon extends KindOfWeapon {
 		Catalog.countUse(getClass());
 		hero.belongings.abilityWeapon = null;
 
-		if(hero.符文("古式佳酿"))hero.回百分比血(0.015f);
+
+		if(hero.符文("鬼刀一开看不见"))Buff.施加(hero,鬼刀.class,5);
+		if(hero.符文("古式佳酿"))hero.回百分比血(0.045f);
 		if (hero.subClass == HeroSubClass.征服者) {
 			Buff.施加(hero, 征服.class).叠层();
 		}
-		Buff.新增(hero,Hero.战斗状态.class,6);
+		Buff.新增(hero,战斗状态.class,6);
 		if (false){//使用武技命中
 			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
 		}
@@ -408,10 +407,14 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		int x=0;
 		if(isEquipped(Dungeon.hero)){
+			if(Dungeon.符文("物法皆修")&&Dungeon.hero.hasbuff(战斗状态.class)&&Dungeon.hero.hasbuff(物法皆修.class)){
+				x+= Dungeon.hero.buff(物法皆修.class).count/5;
+			}
 			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
 			if(Dungeon.hero.heroClass(HeroClass.逐姝)){
 				x++;
 			}
+			if(Dungeon.符文("魔法转物理"))x+=Dungeon.hero.智力;
 		}
 		return super.强化等级()+x;
 	}
@@ -423,7 +426,7 @@ abstract public class Weapon extends KindOfWeapon {
 		String info = super.info();
 		
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(), tier(),
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known", String.format("%.2f",力量()), tier(),
 										  String.format("%.2f",最小攻击()),
 										  String.format("%.2f",最大攻击()),
 											String.format("%.2f",最小投掷攻击()),
@@ -441,7 +444,7 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(0), tier(),
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known", String.format("%.2f",力量(0)), tier(),
 										  String.format("%.2f",最小攻击(0)),
 										String.format("%.2f",最大攻击(0)),
 										  String.format("%.2f",最小投掷攻击(0)),
@@ -473,12 +476,8 @@ abstract public class Weapon extends KindOfWeapon {
 				break;
 			case NONE:
 		}
-		
-		if (isEquipped(Dungeon.hero) && !hasCurseEnchant() &&Dungeon.hero.buff(HolyWeapon.HolyWepBuff.class)!=null
-			&& (Dungeon.hero.subClass!=HeroSubClass.PALADIN||enchantment==null)){
-			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", Messages.get(HolyWeapon.class, "ench_name", Messages.get(Enchantment.class, "enchant"))));
-			info += " " + Messages.get(HolyWeapon.class, "ench_desc");
-		} else if (enchantment != null && (cursedKnown || !enchantment.curse())){
+
+		if (enchantment != null && (cursedKnown || !enchantment.curse())){
 			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", enchantment.name()));
 			if (enchantHardened) info += " " + Messages.get(Weapon.class, "enchant_hardened");
 			info += " " + enchantment.desc();
@@ -525,15 +524,15 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	public String statsInfo(){
 		if (已鉴定()){
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+
-						 String.format("%.2f",最小防御())+"~"+String.format("%.2f",最大防御())+"_，"),
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+_"+
+						 String.format("%.2f",最小防御())+"~"+String.format("%.2f",最大防御())+"_防御，"),
 								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
 								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
 							   );
 		} else {
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"武器格挡_"+String.format("%.2f",最小防御(0))+"~"+String.format("%.2f",最大防御(0))+"_，"),
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+_"+String.format("%.2f",最小防御(0))+"~"+String.format("%.2f",最大防御(0))+"_防御，"),
 								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
 								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
@@ -800,7 +799,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 最小投掷攻击() {
 		if (Dungeon.hero()){
-			return Math.max(0, 最小投掷攻击(强化等级()+RingOfSharpshooting.levelDamageBonus(Dungeon.hero)));
+			return Math.max(0, 最小投掷攻击(强化等级()+神射之戒.levelDamageBonus(Dungeon.hero)));
 		} else {
 			return Math.max(0 , 最小投掷攻击( 强化等级() ));
 		}
@@ -815,7 +814,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 最大投掷攻击() {
 		if (Dungeon.hero()){
-			return Math.max(0, 最大投掷攻击( 强化等级() + RingOfSharpshooting.levelDamageBonus(Dungeon.hero) ));
+			return Math.max(0, 最大投掷攻击(强化等级()+神射之戒.levelDamageBonus(Dungeon.hero)));
 		} else {
 			return Math.max(0 , 最大投掷攻击( 强化等级() ));
 		}
@@ -916,11 +915,11 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		if (attacker instanceof Hero hero) {
 			
-			if(首次使用){
+			if(defender!=null&&首次使用){
 				首次使用=false;
 				usesLeftToID-=Talent.鉴定速度(hero,this);
 			}
-			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
+			if(defender!=null&&hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
 				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
 					hero.现在健身-=0.01f;
 				}else{
@@ -943,7 +942,7 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		}
-		if(流血>0)
+		if(defender!=null&&流血>0)
 			Buff.施加( defender, 流血.class).set(Math.round(damage*流血));
 		
 		
@@ -967,14 +966,36 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		}
-		if ((cursed || hasCurseEnchant()) && !cursedKnown){
-			GLog.n(Messages.get(this, "curse_discover"));
-			Dungeon.hero.sprite.哭泣();
+		if(defender!=null){
+			if((cursed||hasCurseEnchant())&&!cursedKnown){
+				GLog.n(Messages.get(this,"curse_discover"));
+				Dungeon.hero.sprite.哭泣();
+			}
+			cursedKnown=true;
 		}
-		cursedKnown = true;
 
 		float result = super.投掷攻击时(attacker, defender, damage);
-		
+
+		if(defender!=null){
+		boolean becameAlly = false;
+		boolean wasAlly = defender.alignment == Char.Alignment.ALLY;
+		if (attacker.buff(MagicImmune.class) == null) {
+			Enchantment trinityEnchant = null;
+
+			if (enchantment != null) {
+				damage = enchantment.proc(this, attacker, defender, damage);
+				if (defender.alignment == Char.Alignment.ALLY && !wasAlly) {
+					becameAlly = true;
+				}
+			}
+
+			if (defender.isAlive() && !becameAlly && trinityEnchant != null){
+				damage = trinityEnchant.proc(this, attacker, defender, damage);
+			}
+
+		}
+		}
+		if(defender!=null)
 		if (!已鉴定()&& attacker == Dungeon.hero) {
 			float uses =  Talent.鉴定速度(Dungeon.hero,this);
 			usesLeftToID -= uses;
@@ -990,7 +1011,7 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 		
-		if (!已鉴定() && ShardOfOblivion.passiveIDDisabled()){
+		if (defender!=null&&!已鉴定() && ShardOfOblivion.passiveIDDisabled()){
 			Buff.延长(curUser, ShardOfOblivion.ThrownUseTracker.class, 50f);
 		}
 		
@@ -1000,6 +1021,11 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float castDelay(Char user, int cell) {
+		if(user instanceof Hero hero&&hero.符文("精巧狙击手")){
+			if(Actor.findChar(cell)!=null&&!hero.攻击范围(Actor.findChar(cell))){
+				return delayFactor( user )/3f;
+			}
+		}
 		return delayFactor( user );
 	}
 	
@@ -1026,6 +1052,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public float 延迟= 1f;	// Speed modifier
 	public int 范围 = 1;    // Reach modifier (only applies to melee hits)
 	public int 连招范围 = -1;
+	public boolean 连招 = false;
 
 	public enum Augment {
 		DAMAGE  (1.15f, 1,1),
@@ -1072,14 +1099,14 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage ) {
+		if(defender!=null&&连招)
 		if(连招范围!=-1){
 			if(连招范围>1)
 			连招范围--;
 			else 连招范围=范围;
-
 		}
 
-		if (attacker instanceof Hero hero) {
+		if (defender!=null&&attacker instanceof Hero hero) {
 			if(首次使用){
 				首次使用=false;
 				usesLeftToID-=Talent.鉴定速度(hero,this);
@@ -1107,59 +1134,29 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		}
-		if(流血>0)
+		if(defender!=null&&流血>0)
 		Buff.施加( defender, 流血.class).set(damage*流血);
-		
-		boolean becameAlly = false;
-		boolean wasAlly = defender.alignment == Char.Alignment.ALLY;
-		if (attacker.buff(MagicImmune.class) == null) {
-			Enchantment trinityEnchant = null;
-			//only when it's the hero or a char that uses the hero's weapon
-			if (Dungeon.hero.buff(BodyForm.BodyFormBuff.class) != null
-					&& (attacker == Dungeon.hero || attacker instanceof MirrorImage || attacker instanceof ShadowClone.ShadowAlly)){
-				trinityEnchant = Dungeon.hero.buff(BodyForm.BodyFormBuff.class).enchant();
-				if (enchantment != null && trinityEnchant != null && trinityEnchant.getClass() == enchantment.getClass()){
-					trinityEnchant = null;
-				}
-			}
+		if(defender!=null){
+			boolean becameAlly=false;
+			boolean wasAlly=defender.alignment==Char.Alignment.ALLY;
+			if(attacker.buff(MagicImmune.class)==null){
+				Enchantment trinityEnchant=null;
 
-			if (attacker instanceof Hero && isEquipped((Hero) attacker)
-					&& attacker.buff(HolyWeapon.HolyWepBuff.class) != null){
-				if (enchantment != null &&
-						(((Hero) attacker).subClass == HeroSubClass.PALADIN || hasCurseEnchant())){
-					damage = enchantment.proc(this, attacker, defender, damage);
-					if (defender.alignment == Char.Alignment.ALLY && !wasAlly){
-						becameAlly = true;
-					}
-				}
-				if (defender.isAlive() && !becameAlly && trinityEnchant != null){
-					damage = trinityEnchant.proc(this, attacker, defender, damage);
-				}
-				if (defender.isAlive() && !becameAlly) {
-					int dmg = ((Hero) attacker).subClass == HeroSubClass.PALADIN ? 6 : 2;
-					defender.受伤时(dmg * Enchantment.genericProcChanceMultiplier(attacker), HolyWeapon.INSTANCE);
-				}
-
-			} else {
-				if (enchantment != null) {
-					damage = enchantment.proc(this, attacker, defender, damage);
-					if (defender.alignment == Char.Alignment.ALLY && !wasAlly) {
-						becameAlly = true;
+				if(enchantment!=null){
+					damage=enchantment.proc(this,attacker,defender,damage);
+					if(defender.alignment==Char.Alignment.ALLY&&!wasAlly){
+						becameAlly=true;
 					}
 				}
 
-				if (defender.isAlive() && !becameAlly && trinityEnchant != null){
-					damage = trinityEnchant.proc(this, attacker, defender, damage);
+				if(defender.isAlive()&&!becameAlly&&trinityEnchant!=null){
+					damage=trinityEnchant.proc(this,attacker,defender,damage);
 				}
-			}
 
-			if (attacker instanceof Hero && isEquipped((Hero) attacker) &&
-					attacker.buff(Smite.SmiteTracker.class) != null && !becameAlly){
-				defender.受伤时(Smite.bonusDmg((Hero) attacker, defender), Smite.INSTANCE);
 			}
 		}
 		
-		if (!已鉴定()&& attacker == Dungeon.hero) {
+		if (defender!=null&&!已鉴定()&& attacker == Dungeon.hero) {
 			usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
@@ -1175,13 +1172,16 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 
+		if(defender!=null&&连招)
 		if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.连招)&&连招范围==1){
 			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.连招);
 		}
 
+		if(连招)
 		if(连招范围!=-1){
-			GLog.w("这次你的物理攻击连招范围是"+连招范围+"，将造成"+(1+(范围+1-连招范围)*0.15f)+"倍伤害");
-			damage=Math.round(damage*(1+(范围+1-连招范围)*0.15f));
+			if(defender!=null)
+			GLog.w("这次你的物理攻击连招范围是"+连招范围);//+"，将造成"+(1+(范围+1-连招范围)*0.2f)+"倍伤害"
+			damage=Math.round(damage*(1+(范围+1-连招范围)*0.2f));
 		}
 		return damage;
 	}
@@ -1273,7 +1273,12 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float delayFactor( Char owner ) {
-		return baseDelay(owner) * (1f/speedMultiplier(owner));
+		float multi = 狂怒之戒.attackSpeedMultiplier(owner);
+
+		//		if (owner.buff(弯刀.SwordDance.class)!=null){
+		//			multi += 0.6f;
+		//		}
+		return baseDelay(owner)/multi;
 	}
 
 	protected float baseDelay( Char owner ){
@@ -1292,19 +1297,10 @@ abstract public class Weapon extends KindOfWeapon {
 		return delay;
 	}
 
-	protected float speedMultiplier(Char owner ){
-		float multi = RingOfFuror.attackSpeedMultiplier(owner);
-
-//		if (owner.buff(弯刀.SwordDance.class)!=null){
-//			multi += 0.6f;
-//		}
-
-		return multi;
-	}
-
 	@Override
 	public int reachFactor(Char owner) {
 		int reach = 范围;
+		if(连招)
 		if(连招范围!=-1){
 			reach=连招范围;
 		}
@@ -1314,9 +1310,6 @@ abstract public class Weapon extends KindOfWeapon {
 			if (!武力之戒.unarmedGetsWeaponEnchantment((Hero) owner)){
 				return reach;
 			}
-		}
-		if (owner instanceof Hero && owner.buff(AscendedForm.AscendBuff.class) != null){
-			reach += 2;
 		}
 
 		if (hasEnchant(Projecting.class, owner)){
@@ -1385,13 +1378,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public String name() {
-		if (isEquipped(Dungeon.hero) && !hasCurseEnchant() && Dungeon.hero.buff(HolyWeapon.HolyWepBuff.class) != null
-			&& (Dungeon.hero.subClass != HeroSubClass.PALADIN || enchantment == null)){
-				return Messages.get(HolyWeapon.class, "ench_name", super.name());
-			} else {
 				return enchantment != null && (cursedKnown || !enchantment.curse()) ? enchantment.name(super.name()) : super.name();
-
-		}
 	}
 	
 	@Override
@@ -1474,17 +1461,6 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean hasEnchant(Class<?extends Enchantment> type, Char owner) {
 		if (owner.buff(MagicImmune.class) != null) {
 			return false;
-		} else if (enchantment != null
-				&& !enchantment.curse()
-				&& owner instanceof Hero
-				&& isEquipped((Hero) owner)
-				&& owner.buff(HolyWeapon.HolyWepBuff.class) != null
-				&& ((Hero) owner).subClass != HeroSubClass.PALADIN) {
-			return false;
-		} else if (owner.buff(BodyForm.BodyFormBuff.class) != null
-				&& owner.buff(BodyForm.BodyFormBuff.class).enchant() != null
-				&& owner.buff(BodyForm.BodyFormBuff.class).enchant().getClass().equals(type)){
-			return true;
 		} else if (enchantment != null) {
 			return enchantment.getClass() == type;
 		} else {
@@ -1504,16 +1480,9 @@ abstract public class Weapon extends KindOfWeapon {
 		return enchantment != null && enchantment.curse();
 	}
 
-	private static ItemSprite.Glowing HOLY = new ItemSprite.Glowing( 0xFFFF00 );
-
 	@Override
 	public ItemSprite.Glowing glowing() {
-		if (isEquipped(Dungeon.hero) && !hasCurseEnchant() && Dungeon.hero.buff(HolyWeapon.HolyWepBuff.class) != null
-				&& (Dungeon.hero.subClass != HeroSubClass.PALADIN || enchantment == null)){
-			return HOLY;
-		} else {
-			return enchantment != null && (cursedKnown || !enchantment.curse()) ? enchantment.glowing() : null;
-		}
+		return enchantment != null && (cursedKnown || !enchantment.curse()) ? enchantment.glowing() : null;
 	}
 
 	public static abstract class Enchantment implements Bundlable {
@@ -1552,26 +1521,19 @@ abstract public class Weapon extends KindOfWeapon {
 				if(hero.belongings.weapon() instanceof 符文之刃){
 					multi+=0.5f;
 				}
-				multi+=hero.天赋点数(Talent.附魔打击,0.25f);
-				multi+=hero.天赋点数(Talent.SHARED_ENCHANTMENT,0.12f);
+				multi*=1+hero.天赋点数(Talent.附魔打击,0.25f);
+				multi*=1+hero.天赋点数(Talent.盈能打击,0.25f);
+				multi*=1+hero.天赋点数(Talent.SHARED_ENCHANTMENT,0.12f);
 			}
 //			if (attacker.buff(符文之刃.RunicSlashTracker.class)!=null){
 //				multi += attacker.buff(符文之刃.RunicSlashTracker.class).boost;
 //				attacker.buff(符文之刃.RunicSlashTracker.class).detach();
 //			}
 
-			if (attacker.buff(Smite.SmiteTracker.class) != null){
-				multi += 3f;
-			}
 
 			if (attacker.buff(ElementalStrike.DirectedPowerTracker.class) != null){
 				multi += attacker.buff(ElementalStrike.DirectedPowerTracker.class).enchBoost;
 				attacker.buff(ElementalStrike.DirectedPowerTracker.class).detach();
-			}
-
-			if (attacker.buff(Talent.SpiritBladesTracker.class) != null
-					&& ((Hero)attacker).天赋点数(Talent.SPIRIT_BLADES) == 4){
-				multi += 0.1f;
 			}
 
 			return multi;

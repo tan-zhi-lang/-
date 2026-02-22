@@ -47,14 +47,14 @@ public class 装甲之戒 extends Ring {
 	@Override
 	public String upgradeStat1(int level){
 		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-3);
+			level=Math.min(-1,level-6);
 		}
 		return (tier()+level)+"~"+Math.round(2*tier()*(1+level/1.5f));
 	}
 	@Override
 	public String upgradeStat2(int level){
 		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-3);
+			level=Math.min(-1,level-6);
 		}
 		return ""+Math.round((2*(1+level/1.5f)));
 	}

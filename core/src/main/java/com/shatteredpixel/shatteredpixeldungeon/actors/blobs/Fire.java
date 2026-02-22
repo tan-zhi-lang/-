@@ -86,9 +86,9 @@ public class Fire extends Blob {
 		if (ch != null) {
 			if(Dungeon.符文("祖母辣椒油")){
 				if(ch instanceof Hero hero)
-					Dungeon.hero.回百分比血(0.05f);
+					Dungeon.hero.回百分比血(0.075f);
 				else
-					ch.受伤(Dungeon.hero.最大生命(0.05f));
+					ch.受伤(Dungeon.hero.最大生命(0.075f));
 			}
 		}
 		if (ch != null && !ch.免疫(Fire.class)) {

@@ -159,7 +159,7 @@ public class 武力之戒 extends Ring{
 	@Override
 	public String upgradeStat1(int level){
 		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-3);
+			level=Math.min(-1,level-6);
 		}
 		int tier=tier();
 		return (heromin()+min(level+1,tier))+"~"+(heromax()+max(level+1,tier));
@@ -168,7 +168,7 @@ public class 武力之戒 extends Ring{
 	@Override
 	public String upgradeStat2(int level){
 		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-3);
+			level=Math.min(-1,level-6);
 		}
 		return Integer.toString(max(level,1));
 	}
@@ -176,7 +176,7 @@ public class 武力之戒 extends Ring{
 	@Override
 	public String upgradeStat3(int level){
 		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-3);
+			level=Math.min(-1,level-6);
 		}
 		if(Dungeon.hero!=null&&Dungeon.hero.heroClass(HeroClass.DUELIST)){
 			int tier=tier();

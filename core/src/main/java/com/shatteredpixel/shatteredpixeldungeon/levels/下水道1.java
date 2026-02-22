@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -115,7 +115,7 @@ public class 下水道1 extends Level {
 			return false;
 		}
 		if (transition.type == LevelTransition.Type.SURFACE){
-			if (hero.belongings.getItem( Amulet.class)==null) {
+			if (hero.belongings.getItem( 真正护符.class)==null) {
 				Game.runOnRenderThread(new Callback() {
 					@Override
 					public void call() {
@@ -134,7 +134,7 @@ public class 下水道1 extends Level {
 					@Override
 					public void afterCreate() {
 						Badges.validateHappyEnd();
-						Dungeon.win( Amulet.class );
+						Dungeon.win( 真正护符.class);
 						Dungeon.deleteGame(GamesInProgress.curSlot,true);
 						Badges.saveGlobal();
 					}

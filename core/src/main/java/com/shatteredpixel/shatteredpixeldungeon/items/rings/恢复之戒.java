@@ -18,24 +18,24 @@ public class 恢复之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   Messages.decimalFormat("#.2", Math.pow(1.2f, soloBuffedBonus()) - 1f));
+									   Messages.decimalFormat("#.2", 0.236f*soloBuffedBonus()));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  Messages.decimalFormat("#.2", Math.pow(1.2f, combinedBuffedBonus(Dungeon.hero)) - 1f));
+											  Messages.decimalFormat("#.2", 0.236f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats",.2f);
+			return Messages.get(this, "stats",0.236f);
 		}
 	}
 	
 	
 	public String upgradeStat1(int level){
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.2", Math.pow(1.2f, level+1)-1f) + "倍";
+		if (cursed && cursedKnown) level = Math.min(-1, level-6);
+		return Messages.decimalFormat("#.2", 0.236f*(level+1)) + "倍";
 	}
 	public static float 恢复( Char target){
-		return (float)Math.pow(1.2f, getBuffedBonus(target, 恢复.class));
+		return 1+0.236f*getBuffedBonus(target, 恢复.class);
 	}
 	@Override
 	protected RingBuff buff( ) {

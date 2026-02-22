@@ -27,7 +27,7 @@ public class TeleportationTrap extends Trap {
 	@Override
 	public void activate() {
 
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			Char ch = Actor.findChar(pos + i);
 			if (ch != null){
 				if (传送卷轴.teleportChar(ch)) {

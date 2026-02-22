@@ -30,9 +30,9 @@ public class 心之钢 extends Artifact {
 	@Override
 	public void charge(Hero target, float amount) {
 		if(Dungeon.派对(派对设置.钢门联盟)){
-			charge = Math.min(charge+15*amount,chargeCap);
+			charge = Math.min(charge+9*amount,chargeCap);
 		}else{
-			charge = Math.min(charge+5*amount,chargeCap);
+			charge = Math.min(charge+3*amount,chargeCap);
 		}
 			updateQuickslot();
 	}
@@ -69,7 +69,7 @@ public class 心之钢 extends Artifact {
 			if (container.owner instanceof Hero
 				&& passiveBuff == null
 				&& Dungeon.派对(派对设置.钢门联盟)){
-				activate((Hero) container.owner);
+				activate(container.owner);
 			}
 			return true;
 		} else{
@@ -81,9 +81,9 @@ public class 心之钢 extends Artifact {
 		@Override
 		public boolean act(){
 			if(Dungeon.派对(派对设置.钢门联盟)){
-				charge=Math.min(charge+15*能量之戒.artifactChargeMultiplier(target),chargeCap);
+				charge=Math.min(charge+9*能量之戒.artifactChargeMultiplier(target),chargeCap);
 			}else{
-				charge=Math.min(charge+5*能量之戒.artifactChargeMultiplier(target),chargeCap);
+				charge=Math.min(charge+3*能量之戒.artifactChargeMultiplier(target),chargeCap);
 			}
 			updateQuickslot();
 			spend(TICK);

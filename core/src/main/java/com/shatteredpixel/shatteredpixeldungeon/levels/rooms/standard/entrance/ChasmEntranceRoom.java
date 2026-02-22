@@ -46,7 +46,7 @@ public class ChasmEntranceRoom extends ChasmRoom {
 				valid = level.map[entrance] != Terrain.CHASM && level.findMob(entrance) == null;
 			} else {
 				valid = false;
-				for (int i : PathFinder.NEIGHBOURS4){
+				for (int i : PathFinder.相邻4){
 					if (level.map[entrance+i] != Terrain.CHASM){
 						valid = true;
 					}
@@ -56,7 +56,7 @@ public class ChasmEntranceRoom extends ChasmRoom {
 		} while (!valid);
 		Painter.set( level, entrance, Terrain.ENTRANCE );
 
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			Painter.set( level, entrance+i, Terrain.EMPTY );
 		}
 

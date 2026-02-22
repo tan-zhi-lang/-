@@ -7,6 +7,8 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -66,9 +68,11 @@ public class WndHero extends WndTabbed {
 		resize( WIDTH, HEIGHT );
 		
 		stats = new StatsTab();
+		if(!Dungeon.符文("黑幕"))
 		add( stats );
 		
 		stats2 = new StatsTab2();
+		if(!Dungeon.符文("黑幕"))
 		add( stats2 );
 
 		talents = new TalentsTab();
@@ -197,18 +201,18 @@ public class WndHero extends WndTabbed {
 
 			pos = title.bottom() + GAP;
 
-			statSlot( "力量/攻击范围", String.format("%.2f",hero.力量())+"/"+hero.攻击范围());
-			statSlot( "==攻击==", String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
-			statSlot( "++防御++", String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
+			statSlot( "力量/魔力", String.format("%.2f",hero.力量())+"/"+hero.魔力());
+			statSlot( "==物理增伤/攻击==", Math.round((hero.攻击时(null,100)/100f-1)*100f)+"%/"+String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
+			statSlot( "++物理抗性/防御++", Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
 			pos += GAP;
 			
-			statSlot( "命中", hero.最小命中(null)+"~"+hero.最大命中(null));
-			statSlot( "闪避", hero.最小闪避(null)+"~"+hero.最大闪避(null));
+			statSlot( "**攻击范围/命中**", hero.攻击范围()+"/"+hero.最小命中(null)+"~"+hero.最大命中(null));
+			statSlot( "##惊醒距离/闪避##", hero.惊醒距离()+"/"+hero.最小闪避(null)+"~"+hero.最大闪避(null));
 			statSlot( "攻速/移速", String.format("%.2f",1/hero.攻击延迟())
 					+"/"+String.format("%.2f",hero.移速()));
 			
 			pos += GAP;
-			statSlot( "$$暴击率/暴击伤害$$", hero.暴击率()+"%/"+Math.round(hero.暴击伤害()*100)+"%");
+			statSlot( "_暴击率/暴击伤害_", hero.暴击率()+"%/"+Math.round(hero.暴击伤害()*100)+"%");
 			
 			pos += GAP;
 		}
@@ -268,13 +272,19 @@ public class WndHero extends WndTabbed {
 			
 			pos = GAP*2;
 
-			statSlot( "##惊醒距离/地牢视野##", hero.惊醒距离()+"/"+Dungeon.level.视野范围);
-			statSlot( "$$视野+光照范围$$", hero.视野范围()+"+"+hero.光照范围());
-			statSlot( "搜索/感知范围", +hero.搜索范围()+"/"+hero.感知范围());
+			statSlot( "==穿甲/护甲穿透==", hero.穿甲()+"/"+Math.round((1-hero.护甲穿透())*100)+"%");
+
+			statSlot( "##造成伤害/元素抗性##",Math.round(hero.伤害()*100)+"%"+"/"+Math.round(
+					(100-(100*RingOfElements.resist(hero)-AntiMagic.drRoll(hero,hero.glyphLevel(AntiMagic.class))/100f)
+								))+"%");
+			pos += GAP;
+			statSlot( "_视野+光照范围_", hero.视野范围get+"+"+hero.光照范围());
+			statSlot( "搜索/感知范围", hero.搜索范围()+"/"+hero.感知范围());
+			statSlot( "隐匿/地牢视野", Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
 			pos += GAP;
 			statSlot( "**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"
 									  +Math.round(hero.全能吸血()*100)+"%");
-			statSlot( "++治疗效果/综合属性++",Math.round(hero.治疗效果()*100)+"/"+Math.round(hero.综合属性()*100)+"%");
+			statSlot( "++治疗效果/综合属性++",Math.round(hero.治疗效果()*100)+"%"+"/"+Math.round(hero.综合属性()*100)+"%");
 
 			statSlot( "难度",Dungeon.难度名称());
 			

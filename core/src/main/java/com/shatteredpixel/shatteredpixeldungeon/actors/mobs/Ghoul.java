@@ -254,7 +254,7 @@ public class Ghoul extends Mob {
 			if (turnsToRevive <= 0){
 				if (Actor.findChar( ghoul.pos ) != null) {
 					ArrayList<Integer> candidates = new ArrayList<>();
-					for (int n : PathFinder.NEIGHBOURS8) {
+					for (int n : PathFinder.相邻8) {
 						int cell = ghoul.pos + n;
 						if (Dungeon.level.passable[cell]
 								&& Actor.findChar( cell ) == null

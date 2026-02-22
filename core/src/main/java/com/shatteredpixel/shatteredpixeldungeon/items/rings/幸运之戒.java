@@ -47,25 +47,25 @@ public class 幸运之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", Math.pow(1.20f, soloBuffedBonus()) - 1f),6*soloBuffedBonus());
+					Messages.decimalFormat("#.2", 0.236f*soloBuffedBonus()),6*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", Math.pow(1.20f, combinedBuffedBonus(Dungeon.hero)) - 1f),6+6*combinedBuffedBonus(Dungeon.hero));
+						Messages.decimalFormat("#.2", 0.236f*combinedBuffedBonus(Dungeon.hero)),6+6*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.20f),6);
+			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.236f),6);
 		}
 	}
 
 	public String upgradeStat1(int level){
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.2", Math.pow(1.2f, level+1)-1f) + "倍";
+		if (cursed && cursedKnown) level = Math.min(-1, level-6);
+		return Messages.decimalFormat("#.2", 0.236f*(level+1)) + "倍";
 	}
 	
 	@Override
 	public String upgradeStat2(int level) {
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
+		if (cursed && cursedKnown) level = Math.min(-1, level-6);
 		return ""+2+level*2;
 	}
 	
@@ -103,7 +103,7 @@ public class 幸运之戒 extends Ring {
 		return super.强化等级()+l;
 	}
 	public static float dropChanceMultiplier( Char target ){
-		return (float)Math.pow(1.20, getBuffedBonus(target, Wealth.class));
+		return 1+0.236f*getBuffedBonus(target, Wealth.class);
 	}
 	
 	public static ArrayList<Item> tryForBonusDrop(Char target, int tries ){

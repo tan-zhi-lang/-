@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -22,7 +23,7 @@ public class 征服 extends Buff {
 	@Override
 	public boolean act() {
 		if(target instanceof Hero hero){
-			if(hero.nobuff(Hero.战斗状态.class)){
+			if(hero.nobuff(战斗状态.class)){
 				层数= Math.max(层数-2,0);
 			}
 		}

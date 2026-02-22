@@ -5,10 +5,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
@@ -46,7 +44,7 @@ public class 风刃 extends 目标忍术 {
 		Ballistica b = new Ballistica(hero.pos, target, Ballistica.WONT_STOP);
 		final HashSet<Char> targets = new HashSet<>();
 		
-		Char enemy = findChar(b,hero, 2+hero.术提升(),targets);
+		Char enemy = findChar(b,hero, 0/*穿墙*/,targets);
 		
 		if (enemy == null || !hero.fieldOfView[enemy.pos]){
 			GLog.w(Messages.get(this, "no_target"));
@@ -55,14 +53,14 @@ public class 风刃 extends 目标忍术 {
 		
 		targets.add(enemy);
 		
-			ConeAOE cone = new ConeAOE(b,60+hero.术提升(60));
+			ConeAOE cone = new ConeAOE(b,60);
 			for (Ballistica ray : cone.rays){
-				Char toAdd = findChar(ray, hero, 2+hero.术提升(), targets);
+				Char toAdd = findChar(ray, hero, 0/*穿墙*/, targets);
 				if (toAdd != null && hero.fieldOfView[toAdd.pos]){
 					targets.add(toAdd);
 				}
 			}
-			while (targets.size() > 1 + hero.术提升()){
+			while (targets.size() > 1+3){
 				Char furthest = null;
 				for (Char ch : targets){
 					if (furthest == null){
@@ -85,9 +83,6 @@ public class 风刃 extends 目标忍术 {
 				@Override
 				public void call() {
 					float dmgMulti = ch == enemy ? 1f : 0.5f;
-					if (hero.天赋(Talent.SPIRIT_BLADES)){
-						Buff.施加(hero,Talent.SpiritBladesTracker.class,0f);
-					}
 					hero.attack( ch, dmgMulti, 0, 1 );
 					callbacks.remove( this );
 					if (callbacks.isEmpty()) {
@@ -133,8 +128,7 @@ public class 风刃 extends 目标忍术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",60+Dungeon.hero.术提升(60),
-								   1+Dungeon.hero.术提升(),2+Dungeon.hero.术提升()
+		String desc = Messages.get(this, "desc"
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}

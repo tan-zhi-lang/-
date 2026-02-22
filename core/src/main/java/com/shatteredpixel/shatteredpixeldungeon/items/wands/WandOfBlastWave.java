@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
@@ -40,33 +39,35 @@ public class WandOfBlastWave extends DamageWand {
 		collisionProperties = Ballistica.PROJECTILE;
 	}
 
-	public int min(int lvl){
+	public float min(int lvl){
 		return 1+lvl;
 	}
 
-	public int max(int lvl){
+	public float max(int lvl){
 		return 3+3*lvl;
 	}
-
+	public static float 冲击波(){
+		return Dungeon.符文("电能震荡")?Dungeon.hero.最大攻击():0;
+	}
 	@Override
 	public void onZap(Ballistica bolt) {
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
 		BlastWave.blast(bolt.collisionPos);
 
 		//presses all tiles in the AOE first, with the exception of tengu dart traps
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			if (!(Dungeon.level.traps.get(bolt.collisionPos+i) instanceof TenguDartTrap)) {
 				Dungeon.level.pressCell(bolt.collisionPos + i);
 			}
 		}
 
 		//throws other chars around the center.
-		for (int i  : PathFinder.NEIGHBOURS8){
+		for (int i  : PathFinder.相邻8){
 			Char ch = Actor.findChar(bolt.collisionPos + i);
 
 			if (ch != null){
 				wandProc(ch, chargesPerCast());
-				if (ch.alignment != Char.Alignment.ALLY) ch.受伤时(damageRoll(), this);
+				if (ch.alignment != Char.Alignment.ALLY) ch.受伤时(damageRoll()+冲击波(), this);
 
 				//do not push chars that are dieing over a pit, or that move due to the damage
 				if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
@@ -83,7 +84,7 @@ public class WandOfBlastWave extends DamageWand {
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null){
 			wandProc(ch, chargesPerCast());
-			ch.受伤时(damageRoll(), this);
+			ch.受伤时(damageRoll()+冲击波(), this);
 
 			//do not push chars that are dieing over a pit, or that move due to the damage
 			if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
@@ -146,7 +147,7 @@ public class WandOfBlastWave extends DamageWand {
 				int oldPos = ch.pos;
 				ch.pos = newPos;
 				if (finalCollided && ch.isActive()) {
-					ch.受伤时(Random.NormalIntRange(finalDist, 2*finalDist), new Knockback());
+					ch.受伤时(Random.NormalIntRange(finalDist, 2*finalDist)+冲击波(), new Knockback());
 					if (ch.isActive()) {
 						Paralysis.延长(ch, Paralysis.class, 1 + finalDist/2f);
 					} else if (ch == Dungeon.hero){
@@ -172,21 +173,6 @@ public class WandOfBlastWave extends DamageWand {
 	}
 
 	public static class Knockback{}
-
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-
-		if (defender.buff(Paralysis.class) != null && defender.buff(BWaveOnHitTracker.class) == null){
-			defender.buff(Paralysis.class).detach();
-			int dmg = Random.NormalIntRange(8+ 2*强化等级(), 12+3* 强化等级());
-			defender.受伤时(procChanceMultiplier(attacker) * dmg, this);
-			BlastWave.blast(defender.pos);
-			Sample.INSTANCE.play( Assets.Sounds.BLAST );
-
-			//brief immunity, to prevent stacking absurd damage with it with things like para gas
-			Buff.延长(defender, BWaveOnHitTracker.class, 3f);
-		}
-	}
 
 	public static class BWaveOnHitTracker extends FlavourBuff{}
 

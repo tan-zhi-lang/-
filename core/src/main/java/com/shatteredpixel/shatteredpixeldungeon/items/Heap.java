@@ -77,11 +77,13 @@ public class Heap implements Bundlable {
 			if(Dungeon.hero.天赋概率(Talent.盗墓大师,25)){
 				break;
 			}
+			if(hero.符文("摸金校尉"))Dungeon.gold(500*Dungeon.depth);
 			Wraith.spawnAround( hero.pos );
 			break;
 		case REMAINS:
 		case SKELETON:
 			Badges.解锁道士();
+			if(hero.符文("摸金校尉"))Dungeon.gold(500*Dungeon.depth);
 			CellEmitter.center( pos ).start(Speck.factory(Speck.RATTLE), 0.1f, 3);
 			break;
 		default:
@@ -121,9 +123,6 @@ public class Heap implements Bundlable {
 	}
 	
 	public ItemSprite sprite(){
-		if(sprite==null){
-			sprite=new ItemSprite(new Gold().移除());
-		}
 		return sprite;
 	}
 	

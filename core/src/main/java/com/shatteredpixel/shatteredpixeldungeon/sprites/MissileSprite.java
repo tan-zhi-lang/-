@@ -4,10 +4,12 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.HolyLance;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.神圣长枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.符箓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
@@ -38,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
@@ -63,6 +66,7 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
 
 import java.util.HashMap;
+
 
 public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
@@ -142,6 +146,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(真铜短剑.class,0);
 		ANGULAR_SPEEDS.put(流火.class,0);
 		ANGULAR_SPEEDS.put(饮血之剑.class,0);
+		ANGULAR_SPEEDS.put(破败王剑.class,0);
 		ANGULAR_SPEEDS.put(硬头锤.class,0);
 		ANGULAR_SPEEDS.put(权杖.class,0);
 		ANGULAR_SPEEDS.put(战锤.class,0);
@@ -150,16 +155,18 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(武士刀.class,0);
 		ANGULAR_SPEEDS.put(符文之刃.class,0);
 		ANGULAR_SPEEDS.put(暗杀之刃.class,0);
-		
+
+		ANGULAR_SPEEDS.put(魔法箭矢.class,0);
 		ANGULAR_SPEEDS.put(灵能短弓.SpiritArrow.class,       0);
 		ANGULAR_SPEEDS.put(ScorpioSprite.ScorpioShot.class,   0);
-		ANGULAR_SPEEDS.put(HolyLance.HolyLanceVFX.class,      0);
+		ANGULAR_SPEEDS.put(神圣长枪.class,0);
 		ANGULAR_SPEEDS.put(手枪.子弹.class,0);
 		
 		//720 is default
 
 		ANGULAR_SPEEDS.put(GnollGeomancer.Boulder.class,   90);
-		
+		ANGULAR_SPEEDS.put(符箓.class,90);
+
 		ANGULAR_SPEEDS.put(回旋镖.class,1440);
 		ANGULAR_SPEEDS.put(轮刃.class,1440);
 		ANGULAR_SPEEDS.put(流星索.class,1440);

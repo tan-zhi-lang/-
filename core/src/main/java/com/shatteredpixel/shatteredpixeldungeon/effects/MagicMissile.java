@@ -352,7 +352,7 @@ public class MagicMissile extends Emitter {
 	}
 	
 	public static class EarthParticle extends PixelParticle.Shrinking {
-		
+
 		public static final Emitter.Factory FACTORY = new Factory() {
 			@Override
 			public void emit( Emitter emitter, int index, float x, float y ) {
@@ -496,6 +496,12 @@ public class MagicMissile extends Emitter {
 			}
 		};
 
+		public static final Emitter.Factory 土墙 = new Factory() {
+			@Override
+			public void emit( Emitter emitter, int index, float x, float y ) {
+				((WhiteParticle)emitter.recycle( WhiteParticle.class )).resetWall( x, y,0x8F4E35 );
+			}
+		};
 		public static final Emitter.Factory WALL = new Factory() {
 			@Override
 			public void emit( Emitter emitter, int index, float x, float y ) {
@@ -525,11 +531,25 @@ public class MagicMissile extends Emitter {
 			hardlight(1, 1, 1);
 		}
 
+		public void reset( float x, float y, int color ) {
+			reset(x, y);
+			hardlight(color);
+		}
+
 		public void reset( float x, float y, float r, float g, float b ) {
 			reset(x, y);
 			hardlight(r, g, b);
 		}
 
+		public void resetWall( float x, float y, int color ){
+			reset(x, y, color );
+
+			left = lifespan = 2f;
+
+			this.x = Math.round(x/4)*4;
+			this.y = Math.round(y/4)*4 - 6;
+			this.x += Math.round(this.y % 16)/4f - 2;
+		}
 		public void resetWall( float x, float y){
 			reset(x, y);
 
@@ -547,7 +567,6 @@ public class MagicMissile extends Emitter {
 			size( (left / lifespan) * 3 );
 		}
 	}
-
 	public static class SlowParticle extends PixelParticle {
 		
 		private Emitter emitter;

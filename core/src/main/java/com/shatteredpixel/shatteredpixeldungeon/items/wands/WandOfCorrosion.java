@@ -9,13 +9,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.CorrosionParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -25,7 +22,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 public class WandOfCorrosion extends Wand {
 
@@ -45,7 +41,7 @@ public class WandOfCorrosion extends Wand {
 		GameScene.add(gas);
 		Sample.INSTANCE.play(Assets.Sounds.GAS);
 
-		for (int i : PathFinder.NEIGHBOURS9) {
+		for (int i : PathFinder.自相邻8) {
 			Char ch = Actor.findChar(bolt.collisionPos + i);
 			if (ch != null) {
 				wandProc(ch, chargesPerCast());
@@ -70,24 +66,6 @@ public class WandOfCorrosion extends Wand {
 				bolt.collisionPos,
 				callback);
 		Sample.INSTANCE.play(Assets.Sounds.ZAP);
-	}
-
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		int level = Math.max( 0, 强化等级() );
-
-		// lvl 0 - 33%
-		// lvl 1 - 50%
-		// lvl 2 - 60%
-		float procChance = (level+1f)/(level+3f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-
-			float powerMulti = Math.max(1f, procChance);
-			
-			Buff.施加( defender, Ooze.class ).set( Ooze.DURATION * powerMulti );
-			CellEmitter.center(defender.pos).burst( CorrosionParticle.SPLASH, 5 );
-			
-		}
 	}
 
 	@Override

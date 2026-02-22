@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -19,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 public class ScrollOfSirensSong extends ExoticScroll {
 	
@@ -91,6 +93,11 @@ public class ScrollOfSirensSong extends ExoticScroll {
 				}
 				identifiedByUse = false;
 
+				if(Dungeon.符文("歌尽云梦"))
+					if(Random.Int(3)==0)
+						new ScrollOfSirensSong().数量(2).放背包();
+						else
+						new 催眠卷轴().放背包();
 				readAnimation();
 
 			}

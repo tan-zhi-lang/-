@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Ripple;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
@@ -126,7 +126,7 @@ public class SewerLevel extends RegularLevel {
 	@Override
 	public boolean activateTransition(Hero hero, LevelTransition transition) {
 		if (transition.type == LevelTransition.Type.SURFACE){
-			if (hero.belongings.getItem( Amulet.class ) == null) {
+			if (hero.belongings.getItem( 真正护符.class ) == null) {
 				Game.runOnRenderThread(new Callback() {
 					@Override
 					public void call() {
@@ -145,7 +145,7 @@ public class SewerLevel extends RegularLevel {
 					@Override
 					public void afterCreate() {
 						Badges.validateHappyEnd();
-						Dungeon.win( Amulet.class );
+						Dungeon.win( 真正护符.class);
 						Dungeon.deleteGame( GamesInProgress.curSlot, true );
 						Badges.saveGlobal();
 					}

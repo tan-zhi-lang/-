@@ -46,10 +46,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfMight;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
@@ -116,7 +116,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.男人国徽章;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
@@ -182,6 +184,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破甲锥;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
@@ -543,6 +546,7 @@ public class Generator {
 
 					变态刀.class,
 					蝙蝠棒.class,
+					破败王剑.class,
 
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2,2,2,
@@ -550,7 +554,7 @@ public class Generator {
 											   2,2,2,2,
 											   2,2,2,2,
 											   2,2,2,2,
-											   2,2,
+											   2,2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
@@ -580,11 +584,11 @@ public class Generator {
 					闪避之戒.class,
 					武力之戒.class,
 					
-					RingOfFuror.class,
-					RingOfHaste.class,
-					RingOfMight.class,
+					狂怒之戒.class,
+					疾速之戒.class,
+					根骨之戒.class,
 					
-					RingOfSharpshooting.class,
+					神射之戒.class,
 					RingOfTenacity.class,
 					幸运之戒.class,
 					
@@ -637,7 +641,10 @@ public class Generator {
 					RatSkull.class,
 					巨大蟹钳.class,
 					火毒箭矢.class,
-					
+
+					狂妄皇冠.class,
+					真正护符.class,
+
 					ParchmentScrap.class,
 					PetrifiedSeed.class,
 					
@@ -681,7 +688,9 @@ public class Generator {
 					神圣之剑.class,
 					男人国徽章.class,
 			};
-			TRINKET.defaultProbs = new float[]{ 0,0,0,
+			TRINKET.defaultProbs = new float[]{
+					0,0,0,
+					0,0,
 												1, 1,
 												
 												1, 1, 1,

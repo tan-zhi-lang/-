@@ -393,7 +393,7 @@ public abstract class RegularPainter extends Painter {
 			}
 			
 			int count = 1;
-			for (int n : PathFinder.NEIGHBOURS8) {
+			for (int n : PathFinder.相邻8) {
 				if (grass[i + n]) {
 					count++;
 				}

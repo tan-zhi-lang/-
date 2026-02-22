@@ -9,15 +9,13 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfSharpshooting;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -29,7 +27,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
-import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
@@ -42,9 +39,10 @@ public class 灵能短弓 extends Weapon {
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 		tier=1;
-		物品 = true;
+
 		绿色 = true;
-		伤害=0.5f;
+		伤害=0.75f;
+		延迟=1.5f;
 		特别= true;
 		遗产= false;
 	}
@@ -82,36 +80,6 @@ public class 灵能短弓 extends Weapon {
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
 
-		if (attacker.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial){
-
-			Actor.add(new Actor() {
-				{
-					actPriority = VFX_PRIO;
-				}
-
-				@Override
-				protected boolean act() {
-
-					if (Random.Int(12) < ((Hero)attacker).天赋点数(Talent.NATURES_WRATH)){
-						Plant plant = (Plant) Reflection.newInstance(Random.element(harmfulPlants));
-						plant.pos = defender.pos;
-						plant.activate( defender.isAlive() ? defender : null );
-					}
-
-					if (!defender.isAlive()){
-						NaturesPower.naturesPowerTracker tracker = attacker.buff(NaturesPower.naturesPowerTracker.class);
-						if (tracker != null){
-							tracker.extend(((Hero) attacker).天赋点数(Talent.WILD_MOMENTUM));
-						}
-					}
-
-					Actor.remove(this);
-					return true;
-				}
-			});
-
-		}
-
 		return super.攻击时(attacker, defender, damage);
 	}
 
@@ -119,9 +87,12 @@ public class 灵能短弓 extends Weapon {
 		return 最小弓箭攻击(强化等级());
 	}
 	public float 最小弓箭攻击(int lvl) {
-		float dmg = 1 + Dungeon.hero.等级(0.1f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f))
-				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)
-				+ (curseInfusionBonus ? 1 + Dungeon.hero.等级(0.1f) : 0);
+		float dmg =1+ lvl/5f
+				   +神射之戒.levelDamageBonus(Dungeon.hero)
+				   +(curseInfusionBonus ? 1 + lvl/5f : 0);
+		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
+		dmg*=1.5f;
+		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}
 	
@@ -129,9 +100,12 @@ public class 灵能短弓 extends Weapon {
 		return 最大弓箭攻击(强化等级());
 	}
 	public float 最大弓箭攻击(int lvl) {
-		float dmg = 6 + Dungeon.hero.等级(0.2f)*(1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.75f))
-				+ RingOfSharpshooting.levelDamageBonus(Dungeon.hero)*2
-				+ (curseInfusionBonus ? 2 + Dungeon.hero.等级(0.1f) : 0);
+		float dmg =6f+ lvl/2.5f
+				   +神射之戒.levelDamageBonus(Dungeon.hero)*2
+				   +(curseInfusionBonus ? 2 + lvl/2.5f : 0);
+		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
+		dmg*=1.5f;
+		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}
 	@Override
@@ -148,6 +122,7 @@ public class 灵能短弓 extends Weapon {
 	
 	@Override
 	protected float baseDelay(Char owner) {
+		float d=1;
 		if (sniperSpecial){
 			switch (augment){
 				case NONE: default:
@@ -160,38 +135,18 @@ public class 灵能短弓 extends Weapon {
 					return 3;
 			}
 		} else{
-			return super.baseDelay(owner);
+			return super.baseDelay(owner)/d;
 		}
 	}
 
 	@Override
-	protected float speedMultiplier(Char owner) {
-		float speed = super.speedMultiplier(owner);
-		if (owner.buff(NaturesPower.naturesPowerTracker.class) != null){
-			// +33% speed to +50% speed, depending on talent points
-			speed += ((8 + ((Hero)owner).天赋点数(Talent.GROWING_POWER)) / 24f);
-		}
-		return speed;
-	}
+	public int 强化等级(){
 
-	@Override
-	public int 等级() {
 		int level = Dungeon.hero == null ? 0 : Dungeon.hero.等级 /5;
-		if (curseInfusionBonus) level += 1 + level/6;
-		return level;
+		if (curseInfusionBonus) level += 1 + level/5;
+		return level+super.强化等级();
 	}
 
-	@Override
-	public int 强化等级() {
-		//level isn't affected by buffs/debuffs
-		return this.等级();
-	}
-	
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-	
 	public SpiritArrow knockArrow(){
 		return new SpiritArrow();
 	}
@@ -206,7 +161,7 @@ public class 灵能短弓 extends Weapon {
 		}
 		@Override
 		public Emitter emitter() {
-			if (Dungeon.hero.buff(NaturesPower.naturesPowerTracker.class) != null && !sniperSpecial){
+			if (!sniperSpecial){
 				Emitter e = new Emitter();
 				e.pos(5, 5);
 				e.fillTarget = false;
@@ -234,8 +189,10 @@ public class 灵能短弓 extends Weapon {
 		
 		@Override
 		public float 投掷攻击时(Char attacker, Char defender, float damage) {
-			
-			
+			damage+=attacker.攻击范围();
+			damage*=attacker.攻击延迟();
+
+			if(defender!=null)
 			if (sniperSpecial){
 				damage = Math.round(damage * (1f + sniperSpecialBonusDamage));
 				
@@ -257,6 +214,7 @@ public class 灵能短弓 extends Weapon {
 						break;
 				}
 			}
+
 			return 灵能短弓.this.投掷攻击时(attacker, defender, damage);
 		}
 		

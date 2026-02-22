@@ -142,7 +142,7 @@ public class RipperDemon extends Mob {
 				if (leapVictim != null){
 					int bouncepos = -1;
 					//attempt to bounce in free passable space
-					for(int i: PathFinder.NEIGHBOURS8){
+					for(int i: PathFinder.相邻8){
 						if((bouncepos==-1||
 							Dungeon.level.trueDistance(pos,leapPos+i)<Dungeon.level.trueDistance(pos,bouncepos))
 						   &&Actor.findChar(leapPos+i)==null&&Dungeon.level.passable[leapPos+i]&& !Dungeon.level.solid[leapPos+i]){

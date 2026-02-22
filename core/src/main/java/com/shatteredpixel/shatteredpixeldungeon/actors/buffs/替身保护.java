@@ -36,8 +36,8 @@ public class 替身保护 extends Buff {
 		if (closest != null && Dungeon.level.distance(hero.pos, closest.pos) < 5){
 			//spawn guardian
 			int bestPos = -1;
-			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-				int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+			for (int i=0; i < PathFinder.相邻8.length;i++) {
+				int p = hero.pos + PathFinder.相邻8[i];
 				if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
 					if (bestPos == -1 || Dungeon.level.trueDistance(p, closest.pos) < Dungeon.level.trueDistance(bestPos, closest.pos)){
 						bestPos = p;
@@ -46,8 +46,7 @@ public class 替身保护 extends Buff {
 			}
 			if (bestPos != -1) {
 
-				暗影替身
-						pris = new 暗影替身();
+				暗影替身 pris = new 暗影替身();
 				pris.duplicate(hero);
 				pris.state = pris.HUNTING;
 				GameScene.add(pris, 0);

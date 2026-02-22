@@ -41,8 +41,8 @@ public class 白猫保护 extends Buff {
 		if (closest != null && Dungeon.level.distance(hero.pos, closest.pos) < 5){
 			//spawn guardian
 			int bestPos = -1;
-			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-				int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+			for (int i=0; i < PathFinder.相邻8.length;i++) {
+				int p = hero.pos + PathFinder.相邻8[i];
 				if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
 					if (bestPos == -1 || Dungeon.level.trueDistance(p, closest.pos) < Dungeon.level.trueDistance(bestPos, closest.pos)){
 						bestPos = p;

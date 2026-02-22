@@ -18,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
@@ -136,8 +135,8 @@ public class DriedRose extends Artifact {
 			else if (cursed)                GLog.i( Messages.get(this, "cursed") );
 			else {
 				ArrayList<Integer> spawnPoints = new ArrayList<>();
-				for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-					int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+				for (int i=0; i < PathFinder.相邻8.length;i++) {
+					int p = hero.pos + PathFinder.相邻8[i];
 					if (Actor.findChar(p) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
 						spawnPoints.add(p);
 					}
@@ -185,9 +184,6 @@ public class DriedRose extends Artifact {
 			if (ghost == null && ghostID != 0){
 				findGhost();
 			}
-			if (ghost != null && ghost != Stasis.getStasisAlly()){
-				GameScene.selectCell(ghostDirector);
-			}
 			
 		} else if (action.equals(AC_OUTFIT)){
 			GameScene.show( new WndGhostHero(this) );
@@ -198,13 +194,6 @@ public class DriedRose extends Artifact {
 		Actor a = Actor.findById(ghostID);
 		if (a != null){
 			ghost = (GhostHero)a;
-		} else {
-			if (Stasis.getStasisAlly() instanceof GhostHero){
-				ghost = (GhostHero) Stasis.getStasisAlly();
-				ghostID = ghost.id();
-			} else {
-				ghostID = 0;
-			}
 		}
 	}
 	
@@ -423,8 +412,8 @@ public class DriedRose extends Artifact {
 
 				ArrayList<Integer> spawnPoints = new ArrayList<>();
 
-				for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-					int p = target.pos + PathFinder.NEIGHBOURS8[i];
+				for (int i=0; i < PathFinder.相邻8.length;i++) {
+					int p = target.pos + PathFinder.相邻8[i];
 					if (Actor.findChar(p) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
 						spawnPoints.add(p);
 					}

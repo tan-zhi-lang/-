@@ -298,7 +298,7 @@ public class Wandmaker extends NPC {
 					if (npc.pos == level.entrance() || level.solid[npc.pos]){
 						validPos = false;
 					}
-					for (int i : PathFinder.NEIGHBOURS4){
+					for (int i : PathFinder.相邻4){
 						if (level.map[npc.pos+i] == Terrain.DOOR){
 							validPos = false;
 						}

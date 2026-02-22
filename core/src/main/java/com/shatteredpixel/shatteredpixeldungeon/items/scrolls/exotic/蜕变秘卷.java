@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Transmuting;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.InventoryScroll;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -53,12 +54,17 @@ public class 蜕变秘卷 extends ExoticScroll {
 		HeroClass randomCls;
 		do {
 			randomCls = Random.oneOf(HeroClass.values());
-		} while (!randomCls.isUnlocked()||randomCls == HeroClass.鼠弟
-				 ||randomCls == HeroClass.灵猫||randomCls == HeroClass.机器
-				 ||randomCls == HeroClass.凌云||randomCls == HeroClass.NONE||randomCls == Dungeon.hero.heroClass);
+		} while (!randomCls.isUnlocked()
+				 ||randomCls == HeroClass.鼠弟||randomCls == HeroClass.灵猫
+				 ||randomCls == HeroClass.机器||randomCls == HeroClass.凌云
+				 ||randomCls == HeroClass.戒老||randomCls == HeroClass.NONE
+				 ||randomCls == Dungeon.hero.heroClass);
 		if(randomCls!=null){
 			Dungeon.hero.heroClass蜕变=randomCls;
-			GLog.p(Messages.get(HeroClass.class,Dungeon.hero.heroClass蜕变.name()+"_desc")+"");
+
+			Notes.备注(Dungeon.hero.heroClass蜕变.name(),Messages.get(HeroClass.class,Dungeon.hero.heroClass蜕变.name()+"_desc"));
+			GLog.w("你已备注了随机的英雄所有特性。");
+
 			curUser.sprite.礼物();
 			detach(curUser.belongings.backpack);
 		}else{
@@ -229,18 +235,13 @@ public class 蜕变秘卷 extends ExoticScroll {
 				clsTalentsAtTier.remove(Talent.高级魔杖);
 				clsTalentsAtTier.remove(Talent.轻便斗篷);
 				clsTalentsAtTier.remove(Talent.弓箭强化);
-				
-				clsTalentsAtTier.remove(Talent.CLEANSE);
+
 				clsTalentsAtTier.remove(Talent.轻量阅读);
 				clsTalentsAtTier.remove(Talent.轻便玉佩);
 				clsTalentsAtTier.remove(Talent.轻便护额);
 				
 				clsTalentsAtTier.remove(Talent.血爆巫术);
-				
-				
-				clsTalentsAtTier.remove(Talent.日耀射线);
-				clsTalentsAtTier.remove(Talent.神圣感知);
-				clsTalentsAtTier.remove(Talent.BLESS);
+
 				
 				for (Talent talent : clsTalentsAtTier.toArray(new Talent[0])){
 					if (talent == replacing){

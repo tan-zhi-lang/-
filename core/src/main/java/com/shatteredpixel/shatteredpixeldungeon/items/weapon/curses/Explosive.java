@@ -45,7 +45,7 @@ public class Explosive extends Weapon.Enchantment {
 			//explosion position is the closest adjacent cell to the defender
 			// this will be the attacker's position if they are adjacent
 			int explosionPos = -1;
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (!Dungeon.level.solid[defender.pos+i] &&
 						(explosionPos == -1 ||
 						Dungeon.level.trueDistance(attacker.pos, defender.pos+i) < Dungeon.level.trueDistance(attacker.pos, explosionPos))){

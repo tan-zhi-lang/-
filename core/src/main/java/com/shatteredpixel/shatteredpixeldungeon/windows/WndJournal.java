@@ -278,7 +278,7 @@ public class WndJournal extends WndTabbed {
 				物品表.POTION_HOLDER,
 				物品表.SCROLL_HOLDER,
 				物品表.BOMB_HOLDER,
-				物品表.MISSILE_HOLDER,
+				物品表.ITEM,//杂项
 				物品表.ELIXIR_HOLDER,
 				物品表.SPELL_HOLDER
 		};

@@ -214,7 +214,7 @@ public class Piranha extends Mob {
 						if(pos==heap.pos){
 							heap.destroy();
 							boolean newp=true;
-							for(int nx: PathFinder.NEIGHBOURS8){
+							for(int nx: PathFinder.相邻8){
 								if(newp){
 									Piranha piranha=Piranha.random();
 									piranha.pos=pos+nx;

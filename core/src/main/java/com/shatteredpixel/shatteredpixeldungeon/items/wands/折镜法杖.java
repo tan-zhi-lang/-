@@ -17,7 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -45,11 +44,11 @@ public class 折镜法杖 extends DamageWand {
 
 	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 
-	public int min(int lvl){
+	public float min(int lvl){
 		return 5+lvl;
 	}
 
-	public int max(int lvl){
+	public float max(int lvl){
 		return 10+5*lvl;
 	}
 
@@ -95,25 +94,6 @@ public class 折镜法杖 extends DamageWand {
 		return Integer.toString(2 + level);
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-
-		// lvl 0 - 25%
-		// lvl 1 - 40%
-		// lvl 2 - 50%
-		float procChance = (强化等级()+1f)/(强化等级()+4f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-
-			float powerMulti = Math.min(1f, procChance);
-
-			FlavourBuff.延长(attacker, LightningCharge.class,powerMulti*LightningCharge.DURATION);
-			attacker.sprite.centerEmitter().burst( SparkParticle.FACTORY, 10 );
-			attacker.sprite.flash();
-			Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-
-		}
-	}
-
 	public static class LightningCharge extends FlavourBuff {
 
 		{
@@ -133,12 +113,6 @@ public class 折镜法杖 extends DamageWand {
 		}
 	}
 
-	public static class LightningOnHit extends Shocking {
-		@Override
-		protected float procChanceMultiplier(Char attacker) {
-			return Wand.procChanceMultiplier(attacker);
-		}
-	}
 
 	private void arc( Char ch ) {
 

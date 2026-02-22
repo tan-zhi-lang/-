@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
@@ -29,11 +30,11 @@ public class 烈焰法杖 extends DamageWand {
 		image = 物品表.烈焰法杖;
 	}
 
-	public int min(int lvl){
+	public float min(int lvl){
 		return (2+lvl)/2;
 	}
 
-	public int max(int lvl){
+	public float max(int lvl){
 		return (8+5*lvl)/2;
 	}
 
@@ -77,10 +78,10 @@ public class 烈焰法杖 extends DamageWand {
 
 			if (ch.isAlive()){
 				if (ch.buff(Chill.class) != null){
-					Buff.施加(ch, 燃烧.class).reignite(ch,2+强化等级());
+					Buff.施加(ch,Paralysis.class,4f);
 				}
 				if (ch.在草丛()||ch.在门上()) {
-					Buff.施加(ch,燃烧.class).reignite(ch,2+强化等级());
+					Buff.施加(ch,Paralysis.class,4f);
 				} else {
 					ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
 					Buff.施加(ch, 燃烧.class).reignite(ch,2 + 强化等级());
@@ -106,34 +107,6 @@ public class 烈焰法杖 extends DamageWand {
 		Sample.INSTANCE.play(Assets.Sounds.ZAP);
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		燃烧 燃烧 = defender.buff(燃烧.class);
-
-		if (燃烧 != null) {
-
-			//1/9 at 2 turns of chill, scaling to 9/9 at 10 turns
-			float procChance = ((int)Math.floor(燃烧.cooldown()) - 1)/9f;
-			procChance *= procChanceMultiplier(attacker);
-
-			if (Random.Float() < procChance) {
-
-				float powerMulti = Math.max(1f, procChance);
-
-				//need to delay this through an actor so that the freezing isn't broken by taking damage from the staff hit.
-				new FlavourBuff() {
-					{
-						actPriority = VFX_PRIO;
-					}
-
-					public boolean act() {
-						Buff.施加(target, 火毒.class).reignite(target,Math.round(火毒.DURATION * powerMulti));
-						return super.act();
-					}
-				}.attachTo(defender);
-			}
-		}
-	}
 
 	@Override
 	public void staffFx(法师魔杖.StaffParticle particle) {

@@ -300,7 +300,7 @@ public abstract class Elemental extends Mob {
 
 				//set up an attack for next turn
 				ArrayList<Integer> candidates = new ArrayList<>();
-				for (int i : PathFinder.NEIGHBOURS8){
+				for (int i : PathFinder.相邻8){
 					int target = enemy.pos + i;
 					if (target != pos && new Ballistica(pos, target, Ballistica.STOP_SOLID | Ballistica.STOP_TARGET).collisionPos == target){
 						candidates.add(target);
@@ -310,7 +310,7 @@ public abstract class Elemental extends Mob {
 				if (!candidates.isEmpty()){
 					targetingPos = Random.element(candidates);
 
-					for (int i : PathFinder.NEIGHBOURS9){
+					for (int i : PathFinder.自相邻8){
 						if (!Dungeon.level.solid[targetingPos + i]) {
 							sprite.parent.addToBack(new TargetedCell(targetingPos + i, 0xFF0000));
 						}
@@ -346,7 +346,7 @@ public abstract class Elemental extends Mob {
 
 				Invisibility.dispel(this);
 
-				for (int i : PathFinder.NEIGHBOURS9) {
+				for (int i : PathFinder.自相邻8) {
 					if (!Dungeon.level.solid[targetingPos + i]) {
 						CellEmitter.get(targetingPos + i).burst(ElmoParticle.FACTORY, 5);
 						if (Dungeon.level.water[targetingPos + i]) {

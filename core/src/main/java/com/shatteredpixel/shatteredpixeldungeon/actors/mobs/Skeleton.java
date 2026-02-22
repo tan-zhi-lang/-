@@ -60,8 +60,8 @@ public class Skeleton extends Mob {
 		if (cause == Chasm.class) return;
 		
 		boolean heroKilled = false;
-		for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-			Char ch = findChar( pos + PathFinder.NEIGHBOURS8[i] );
+		for (int i=0; i < PathFinder.相邻8.length;i++) {
+			Char ch = findChar( pos + PathFinder.相邻8[i]);
 			if (ch != null && ch.isAlive()) {
 				float damage = Random.NormalIntRange(6, 12);
 				damage=Math.round(damage*Dungeon.难度攻击());
@@ -109,7 +109,8 @@ public class Skeleton extends Mob {
 	public float lootChance() {
 		//each drop makes future drops 1/3 as likely
 		// so loot chance looks like: 1/6, 1/18, 1/54, 1/162, etc.
-		return super.lootChance() * (float)Math.pow(1/3f, Dungeon.LimitedDrops.SKELE_WEP.count);
+		return super.lootChance() * (float)Math.pow(1/3f, Dungeon.LimitedDrops.SKELE_WEP.count)
+				*(Dungeon.符文("骷髅打金服")?10:1);
 	}
 
 	@Override

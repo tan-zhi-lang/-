@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Light;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
@@ -38,11 +37,11 @@ public class WandOfPrismaticLight extends DamageWand {
 		collisionProperties = Ballistica.MAGIC_BOLT;
 	}
 
-	public int min(int lvl){
+	public float min(int lvl){
 		return 1+lvl;
 	}
 
-	public int max(int lvl){
+	public float max(int lvl){
 		return 5+3*lvl;
 	}
 
@@ -93,7 +92,7 @@ public class WandOfPrismaticLight extends DamageWand {
 			if (!Dungeon.level.insideMap(c)){
 				continue;
 			}
-			for (int n : PathFinder.NEIGHBOURS9){
+			for (int n : PathFinder.自相邻8){
 				int cell = c+n;
 
 				if (Dungeon.level.discoverable[cell])
@@ -138,12 +137,6 @@ public class WandOfPrismaticLight extends DamageWand {
 		curUser.sprite.parent.add(
 				new Beam.LightRay(curUser.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(beam.collisionPos)));
 		callback.call();
-	}
-
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		//cripples enemy
-		Buff.延长( defender, Cripple.class, Math.round((1+staff.强化等级())*procChanceMultiplier(attacker)));
 	}
 
 	@Override

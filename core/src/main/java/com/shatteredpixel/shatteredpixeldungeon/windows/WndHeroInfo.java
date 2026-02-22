@@ -149,8 +149,8 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case WARRIOR:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
-							new ItemSprite(物品表.巨斧),
-							new ItemSprite(物品表.ARMOR_HOLDER),
+							new TalentIcon(Talent.任督二脉),
+							new BuffIcon(BuffIndicator.HEALING, true),
 							 new BuffIcon(BuffIndicator.SEAL_SHIELD, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
@@ -233,6 +233,8 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case 兽灵:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
+							new BuffIcon(BuffIndicator.HEART, true),
+							new BuffIcon(BuffIndicator.WEAPON, true),
 							new BuffIcon(BuffIndicator.HEART, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;

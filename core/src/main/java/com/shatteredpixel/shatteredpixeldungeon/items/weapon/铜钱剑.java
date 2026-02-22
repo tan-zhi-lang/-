@@ -17,10 +17,18 @@ public class 铜钱剑 extends Weapon{
 		延迟= 0.85f;
 		伤害= 0.68f;
 		伏击=0.75f;
+		连招范围=3;
+		范围 = 3;
 		
 		特别= true;
 		遗产= false;
 	}
+
+	@Override
+	public int 强化等级(){
+		return super.强化等级()*3;
+	}
+
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage){
 		

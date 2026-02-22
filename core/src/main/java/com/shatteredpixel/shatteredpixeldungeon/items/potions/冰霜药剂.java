@@ -27,7 +27,7 @@ public class 冰霜药剂 extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 		}
 		
-		for (int offset : PathFinder.NEIGHBOURS9){
+		for (int offset : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[cell+offset]) {
 				GameScene.add(Blob.seed(cell + offset, 10, Freezing.class));
 			}

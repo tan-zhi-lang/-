@@ -47,7 +47,7 @@ public class CaveExitRoom extends CaveRoom {
 				valid = level.map[exit] != Terrain.WALL && level.findMob(exit) == null;
 			} else {
 				valid = false;
-				for (int i : PathFinder.NEIGHBOURS4){
+				for (int i : PathFinder.相邻4){
 					if (level.map[exit+i] != Terrain.WALL){
 						valid = true;
 					}
@@ -57,7 +57,7 @@ public class CaveExitRoom extends CaveRoom {
 		} while (!valid);
 		Painter.set( level, exit, Terrain.EXIT );
 
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			Painter.set( level, exit+i, Terrain.EMPTY );
 		}
 

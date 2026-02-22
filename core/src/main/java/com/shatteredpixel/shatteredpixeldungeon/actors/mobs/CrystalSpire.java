@@ -118,14 +118,14 @@ public class CrystalSpire extends Mob {
 					int movePos = i;
 					//crystal guardians get knocked away from the hero, others get knocked away from the spire
 					if (ch instanceof CrystalGuardian){
-						for (int j : PathFinder.NEIGHBOURS8){
+						for (int j : PathFinder.相邻8){
 							if (!Dungeon.level.solid[i+j] && Actor.findChar(i+j) == null &&
 									Dungeon.level.trueDistance(i+j, Dungeon.hero.pos) > Dungeon.level.trueDistance(movePos, Dungeon.hero.pos)){
 								movePos = i+j;
 							}
 						}
 					} else if (!Char.hasProp(ch, Property.IMMOVABLE)) {
-						for (int j : PathFinder.NEIGHBOURS8){
+						for (int j : PathFinder.相邻8){
 							if (!Dungeon.level.solid[i+j] && Actor.findChar(i+j) == null &&
 									Dungeon.level.trueDistance(i+j, pos) > Dungeon.level.trueDistance(movePos, pos)){
 								movePos = i+j;
@@ -211,7 +211,7 @@ public class CrystalSpire extends Mob {
 	private ArrayList<Integer> spreadDiamondAOE(ArrayList<Integer> currentCells){
 		ArrayList<Integer> spreadCells = new ArrayList<>();
 		for (int i : currentCells){
-			for (int j : PathFinder.NEIGHBOURS4){
+			for (int j : PathFinder.相邻4){
 				if ((!Dungeon.level.solid[i+j] || Dungeon.level.map[i+j] == Terrain.MINE_CRYSTAL)
 						&& !spreadCells.contains(i+j) && !currentCells.contains(i+j)){
 					spreadCells.add(i+j);
@@ -248,7 +248,7 @@ public class CrystalSpire extends Mob {
 	private ArrayList<Integer> spreadAOE(ArrayList<Integer> currentCells){
 		ArrayList<Integer> spreadCells = new ArrayList<>();
 		for (int i : currentCells){
-			for (int j : PathFinder.NEIGHBOURS8){
+			for (int j : PathFinder.相邻8){
 				if ((!Dungeon.level.solid[i+j] || Dungeon.level.map[i+j] == Terrain.MINE_CRYSTAL)
 						&& !spreadCells.contains(i+j) && !currentCells.contains(i+j)){
 					spreadCells.add(i+j);

@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
@@ -49,7 +48,7 @@ public class RingOfElements extends Ring {
 	}
 
 	public String upgradeStat1(int level){
-		if (cursed && cursedKnown) level = Math.min(-1, level-3);
+		if (cursed && cursedKnown) level = Math.min(-1, level-6);
 		return Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, level+1))) + "%";
 	}
 	
@@ -60,7 +59,6 @@ public class RingOfElements extends Ring {
 
 	public static final HashSet<Class> RESISTS = new HashSet<>();
 	static {
-		RESISTS.add( 燃烧.class );
 		RESISTS.add( Chill.class );
 		RESISTS.add( Frost.class );
 		RESISTS.add( Ooze.class );
@@ -75,35 +73,33 @@ public class RingOfElements extends Ring {
 	}
 	
 	public static float resist( Char target, Class effect ){
+		for (Class c : RESISTS){
+			if (c.isAssignableFrom(effect)){
+				return resist(target,effect);
+			}else{
+				return 1;
+			}
+		}
+		return 1;
+	}
+	public static float resist( Char target ){
 		if(target instanceof Hero hero){
 			float x=1;
-			x*=1-hero.天赋点数(Talent.神圣净化,0.15f);
+			x*=1-hero.天赋点数(Talent.神圣净化,0.1f);
 			x*=巨大蟹钳.受到();
+			if(hero.符文("防御转魔抗"))x*=1-hero.最大防御()/(2.5+hero.最大防御());
 			if(hero.subClass(HeroSubClass.元素法师))x*=0.7f;
 			if(hero.英精英雄==2)x*=0;
 //			if (getBuffedBonus(target, Resistance.class) == 0) return 1;
-			
-			for (Class c : RESISTS){
-				if (c.isAssignableFrom(effect)){
-					return (float)Math.pow(0.825, getBuffedBonus(target, Resistance.class))*x;
-				}else{
-					return 1;
-				}
-			}
-			
+					return (float)Math.pow(0.825f, getBuffedBonus(target, Resistance.class))*x;
+
 		}else if(Dungeon.hero()){
 			float x2=1;
 			x2*=1+Dungeon.hero.天赋点数(Talent.元素之力,0.075f);
 //			if (getBuffedBonus(Dungeon.hero, Resistance.class) == 0) return 1;
 
 			if(Dungeon.hero.subClass(HeroSubClass.元素法师)&&Dungeon.hero.职业精通())x2*=1+0.3f;
-			for (Class c : RESISTS){
-				if (c.isAssignableFrom(effect)){
-					return (float)Math.pow(0.825, getBuffedBonus(Dungeon.hero, Resistance.class))*x2;
-				}else{
-					return 1;
-				}
-			}
+				return (float)Math.pow(0.825, getBuffedBonus(Dungeon.hero, Resistance.class))*x2;
 		}
 		return 1;
 	}

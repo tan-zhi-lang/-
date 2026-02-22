@@ -24,10 +24,9 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ConeAOE;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.LotusSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -39,7 +38,7 @@ import com.watabou.utils.Random;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class WandOfRegrowth extends Wand {
+public class WandOfRegrowth extends DamageWand {
 
 	{
 		image = 物品表.WAND_REGROWTH;
@@ -54,6 +53,23 @@ public class WandOfRegrowth extends Wand {
 	ConeAOE cone;
 	int target;
 
+
+	//1/2/3 base damage with 1/2/3 scaling based on charges used
+	public float min(int lvl){
+		return (1+lvl) * chargesPerCast()*3;
+	}
+
+	//2/8/18 base damage with 2/4/6 scaling based on charges used
+	public float max(int lvl){
+		switch (chargesPerCast()){
+			case 1: default:
+				return (2 + 2*lvl)*3;
+			case 2:
+				return 3*2*(4 + 2*lvl);
+			case 3:
+				return 3*3*(6+2*lvl);
+		}
+	}
 	@Override
 	public boolean tryToZap(Hero owner, int target) {
 		if (super.tryToZap(owner, target)){
@@ -99,6 +115,8 @@ public class WandOfRegrowth extends Wand {
 						Statistics.qualifiedForBossChallengeBadge = false;
 					}
 					wandProc(ch, chargesPerCast());
+					ch.受伤时(damageRoll(), this);
+					if(ch.isAlive())
 					Buff.延长( ch, Roots.class, 4f * chrgUsed );
 				}
 			}
@@ -196,32 +214,6 @@ public class WandOfRegrowth extends Wand {
 		}
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		//like pre-nerf vampiric enchantment, except with herbal healing buff, only in grass
-		boolean grass = false;
-		int terr = Dungeon.level.map[attacker.pos];
-		if (terr == Terrain.GRASS || terr == Terrain.HIGH_GRASS || terr == Terrain.FURROWED_GRASS){
-			grass = true;
-		}
-		terr = Dungeon.level.map[defender.pos];
-		if (terr == Terrain.GRASS || terr == Terrain.HIGH_GRASS || terr == Terrain.FURROWED_GRASS){
-			grass = true;
-		}
-
-		if (grass) {
-			int level = Math.max(0, staff.强化等级());
-
-			// lvl 0 - 16%
-			// lvl 1 - 21%
-			// lvl 2 - 25%
-			float healing = Math.round(damage * (level + 2f) / (level + 6f) / 2f);
-			healing = Math.round(healing * procChanceMultiplier(attacker));
-			Buff.施加(attacker, Sungrass.Health.class).boost(healing);
-		}
-
-	}
-
 	public void fx(Ballistica bolt, Callback callback) {
 
 		// 4/6/8 distance
@@ -267,21 +259,21 @@ public class WandOfRegrowth extends Wand {
 
 	@Override
 	public String statsDesc() {
-		String desc = Messages.get(this, "stats_desc", chargesPerCast());
+		String desc = Messages.get(this, "stats_desc", chargesPerCast(), min(), max());
 		if (已鉴定()){
 			int chargeLeft = chargeLimit(Dungeon.hero.等级) - totChrgUsed;
-			if (chargeLeft < 10000) desc += " " + Messages.get(this, "degradation", Math.max(chargeLeft, 0));
+			if (chargeLeft < 10000) desc += " " + Messages.get(this, "degradation", Math.max(chargeLeft, 0), min(), max());
 		}
 		return desc;
 	}
 
 	@Override
-	public String upgradeStat1(int level) {
+	public String upgradeStat2(int level) {
 		return Messages.decimalFormat("#.##", 3 + (2+level)/3f);
 	}
 
 	@Override
-	public String upgradeStat2(int level) {
+	public String upgradeStat3(int level) {
 		if (level >= 10){
 			return "∞";
 		} else {
@@ -330,7 +322,7 @@ public class WandOfRegrowth extends Wand {
 			int nDrops = Random.NormalIntRange(3, 6);
 
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (Dungeon.level.passable[pos+i]
 						&& pos+i != Dungeon.level.entrance()
 						&& pos+i != Dungeon.level.exit()){
@@ -370,7 +362,7 @@ public class WandOfRegrowth extends Wand {
 			int nSeeds = Random.NormalIntRange(2, 4);
 
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (Dungeon.level.passable[pos+i]
 						&& pos+i != Dungeon.level.entrance()
 						&& pos+i != Dungeon.level.exit()){
@@ -409,7 +401,7 @@ public class WandOfRegrowth extends Wand {
 
 		private int wandLvl = 0;
 
-		private void setLevel( int lvl ){
+		public void setLevel( int lvl ){
 			wandLvl = lvl;
 			生命 = 最大生命 = 25 + 3*lvl;
 		}

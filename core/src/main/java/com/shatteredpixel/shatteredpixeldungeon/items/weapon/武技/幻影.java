@@ -46,7 +46,7 @@ public class 幻影 extends 武技{
 			
 			wep.消耗(hero);
 			hero.连击=5;
-			hero.连击(enemy,伤害156/10f+伤害156/5f/6f,0,1,wep);
+			hero.连击(enemy,伤害156/10f+伤害156/5f/6f,0,1);
 			wep.技能使用(hero);
 		}
 		

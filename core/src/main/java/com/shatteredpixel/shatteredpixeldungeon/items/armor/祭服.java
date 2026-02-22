@@ -15,12 +15,6 @@ public class 祭服 extends Armor {
 	public 祭服(){
 		super(1);
 	}
-
-	@Override
-	public int 等级() {
-		int level = super.等级()+1;
-		return level;
-	}
 	
 	@Override
 	public int 金币() {

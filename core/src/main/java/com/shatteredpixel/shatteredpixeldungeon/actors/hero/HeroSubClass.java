@@ -2,12 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.watabou.noosa.Game;
 
 public enum HeroSubClass {
 
@@ -17,7 +13,7 @@ public enum HeroSubClass {
 	狂战士(HeroIcon.BERSERKER),
 	角斗士(HeroIcon.GLADIATOR),
 
-	战斗法师(HeroIcon.BATTLEMAGE),
+	冰结师(HeroIcon.冰结师),
 	元素法师(HeroIcon.元素法师),
 
 	刺客(HeroIcon.ASSASSIN),
@@ -29,10 +25,10 @@ public enum HeroSubClass {
 	武器大师(HeroIcon.CHAMPION),
 	武者(HeroIcon.MONK),
 
-	PRIEST(HeroIcon.PRIEST),
-	PALADIN(HeroIcon.PALADIN),
+	圣骑士(HeroIcon.PALADIN),
+	祭司(HeroIcon.PRIEST),
 
-	神秘学者(HeroIcon.神秘学者),
+	战斗法师(HeroIcon.BATTLEMAGE),
 	黑魔导师(HeroIcon.黑魔导师),
 	
 	健身猛男(HeroIcon.NONE),
@@ -42,7 +38,9 @@ public enum HeroSubClass {
 
 	灵月杀手(HeroIcon.灵月杀手),
 	不灭战士(HeroIcon.不灭战士),
+
 	死灵术士(HeroIcon.WARLOCK),
+	真人(HeroIcon.真人),
 
 	神兽之灵(HeroIcon.神兽之灵),
 	养殖专家(HeroIcon.养殖专家),
@@ -53,7 +51,10 @@ public enum HeroSubClass {
 	皇室卫兵(HeroIcon.皇室卫兵),
 
 	灵魂武者(HeroIcon.灵魂武者),
-	元素忍者(HeroIcon.NONE),
+	土影(HeroIcon.土影),
+
+	阿修罗(HeroIcon.阿修罗),
+	指环王(HeroIcon.指环王),
 
 	黑白双子(HeroIcon.黑白双子),
 
@@ -80,20 +81,7 @@ public enum HeroSubClass {
 	}
 
 	public String desc() {
-		//Include the staff effect description in the battlemage's desc if possible
-		if (this==战斗法师){
-			String desc = Messages.get(this, name() + "_desc");
-			if (Game.scene() instanceof GameScene){
-				法师魔杖 staff = Dungeon.hero.belongings.getItem(法师魔杖.class);
-				if (staff != null && staff.wandClass() != null){
-					desc += "\n\n" + Messages.get(staff.wandClass(), "bmage_desc");
-					desc = desc.replaceAll("_", "");
-				}
-			}
-			return desc;
-		} else {
-			return Messages.get(this, name() + "_desc");
-		}
+		return Messages.get(this, name() + "_desc");
 	}
 
 	public int icon(){

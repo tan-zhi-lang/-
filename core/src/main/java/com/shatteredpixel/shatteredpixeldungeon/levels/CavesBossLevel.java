@@ -214,7 +214,7 @@ public class CavesBossLevel extends Level {
 	@Override
 	public int randomRespawnCell( Char ch ) {
 		ArrayList<Integer> candidates = new ArrayList<>();
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			int cell = entrance() + i;
 			if (passable[cell]
 					&& Actor.findChar(cell) == null
@@ -283,7 +283,7 @@ public class CavesBossLevel extends Level {
 		while (heap != null && !heap.isEmpty()) {
 			int n;
 			do {
-				n = entrance + PathFinder.NEIGHBOURS8[Random.Int(8)];
+				n = entrance + PathFinder.相邻8[Random.Int(8)];
 			} while (!Dungeon.level.passable[n]);
 			Heap dropped = Dungeon.level.drop(heap.pickUp(), n);
 			dropped.seen = heap.seen;
@@ -293,7 +293,7 @@ public class CavesBossLevel extends Level {
 		if (ch != null) {
 			int n;
 			do {
-				n = entrance + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+				n = entrance + PathFinder.相邻8[Random.Int(8)];
 			} while (!Dungeon.level.passable[n]);
 			ch.pos = n;
 			ch.sprite.place(n);

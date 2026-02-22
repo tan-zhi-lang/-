@@ -27,7 +27,7 @@ public class CorrosionTrap extends Trap {
 
 		corrosiveGas.setStrength(1+scalingDepth()/4);
 
-		for( int i : PathFinder.NEIGHBOURS9) {
+		for( int i : PathFinder.自相邻8) {
 			if (Actor.findChar(pos+i) instanceof Mob){
 				Buff.延长(Actor.findChar(pos+i), Trap.HazardAssistTracker.class, HazardAssistTracker.DURATION);
 			}

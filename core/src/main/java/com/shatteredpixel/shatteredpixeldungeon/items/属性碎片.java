@@ -18,17 +18,17 @@ public class 属性碎片 extends 用品 {
 
 	@Override
 	public void 使用(Hero hero){
-		if(数量()==hero.等级*5-1){
+		if(数量()==10){
 			detachAll(hero.belongings.backpack);
 			new 属性锻造器().放背包();
 			super.使用(hero);
-		}else if(数量()>=hero.等级*5-1){
-			split(hero.等级*5-1).detach(hero.belongings.backpack);
+		}else if(数量()>10){
+			split(10).detach(hero.belongings.backpack);
 			new 属性锻造器().放背包();
 			super.使用(hero);
 		}else {
 			new 属性碎片().放背包();
-			GLog.w("数量不够，还差"+(hero.等级*5-数量())+"个。");
+			GLog.w("数量不够，还差"+(10-数量())+"个。");
 		}
 	}
 

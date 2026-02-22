@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
@@ -32,7 +31,7 @@ public class Icecap extends Plant {
 			Buff.施加(ch, FrostImbue.class, FrostImbue.DURATION*0.3f);
 		}
 
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[pos+i]) {
 				Freezing.affect( pos+i );
 				if (Actor.findChar(pos+i) instanceof Mob){

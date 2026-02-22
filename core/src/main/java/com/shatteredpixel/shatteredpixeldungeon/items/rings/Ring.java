@@ -10,8 +10,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.SpiritForm;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
@@ -117,8 +117,9 @@ public class Ring extends KindofMisc {
 	public boolean 放背包(Bag container){
 		if(super.放背包(container)){
 			if(首次拾取){
-				levelsToID -= Talent.鉴定速度(Dungeon.hero,this)/30f;
+				levelsToID -= Talent.鉴定速度(Dungeon.hero,this)/45f;
 			}
+			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.指环王))activate(container.owner);
 			return true;
 		} else {
 			return false;
@@ -141,7 +142,7 @@ public class Ring extends KindofMisc {
 		if (super.doUnequip( hero, collect, single )) {
 			
 			if(首次装备){
-				levelsToID -= Talent.鉴定速度(hero,this)/30f;
+				levelsToID -= Talent.鉴定速度(hero,this)/45f;
 			}
 			if (buff != null) {
 				buff.detach();
@@ -232,11 +233,6 @@ public class Ring extends KindofMisc {
 	
 	@Override
 	public Item 升级() {
-		if(等级+1>25){
-			GLog.n("地牢承受不住能量！升级失败！不过你收集到了部分溢出的能量转为为炼金能量");
-			Dungeon.energy(10);
-			return this;
-		}
 		super.升级();
 
 			cursed = false;
@@ -370,7 +366,7 @@ public class Ring extends KindofMisc {
 	}
 	public void 鉴定戒指(Hero hero ){
 		if (!已鉴定()&&isEquipped(hero)){
-		levelsToID -= Talent.鉴定速度(hero,this)/30f;
+		levelsToID -= Talent.鉴定速度(hero,this)/45f;
 		if (levelsToID <= 0){
 			if (ShardOfOblivion.passiveIDDisabled()){
 				if (levelsToID > -1){
@@ -392,6 +388,11 @@ public class Ring extends KindofMisc {
 		if(Dungeon.hero.heroClass(HeroClass.戒老)){
 			lvl++;
 		}
+		if(Dungeon.hero.subClass(HeroSubClass.指环王)&&Dungeon.hero.职业精通()){
+			lvl+=3;
+		}
+		lvl+=Dungeon.hero.天赋点数(Talent.戒之九型);
+		lvl*=1+Dungeon.hero.天赋点数(Talent.以戒之名,0.3f);
 		return lvl;
 	}
 
@@ -400,13 +401,6 @@ public class Ring extends KindofMisc {
 		int bonus = 0;
 		for (RingBuff buff : target.buffs(type)) {
 			bonus += buff.level();
-		}
-		SpiritForm.SpiritFormBuff spiritForm = target.buff(SpiritForm.SpiritFormBuff.class);
-		if (bonus == 0
-				&& spiritForm != null
-				&& spiritForm.ring() != null
-				&& spiritForm.ring().buffClass == type){
-			bonus += spiritForm.ring().soloBonus();
 		}
 		return bonus;
 	}
@@ -417,31 +411,28 @@ public class Ring extends KindofMisc {
 		for (RingBuff buff : target.buffs(type)) {
 			bonus += buff.buffedLvl();
 		}
-		if (bonus == 0
-				&& target.buff(SpiritForm.SpiritFormBuff.class) != null
-				&& target.buff(SpiritForm.SpiritFormBuff.class).ring() != null
-				&& target.buff(SpiritForm.SpiritFormBuff.class).ring().buffClass == type){
-			bonus += target.buff(SpiritForm.SpiritFormBuff.class).ring().soloBuffedBonus();
-		}
 		return bonus;
 	}
 
 	//just used for ring descriptions
 	public int soloBonus(){
 		if (cursed){
-			return Math.min( 0, Ring.this.等级()-2 );
+			return Math.min( 0, 新等级(Ring.this.等级())-5 );
 		} else {
-			return Ring.this.等级()+1;
+			return 新等级(Ring.this.等级()+1);
 		}
 	}
 
 	//just used for ring descriptions
 	public int soloBuffedBonus(){
 		if (cursed){
-			return Math.min( 0, Ring.this.强化等级()-2 );
+			return Math.min( 0, 新等级(Ring.this.强化等级())-6 );
 		} else {
-			return Ring.this.强化等级()+1;
+			return 新等级(Ring.this.强化等级()+1);
 		}
+	}
+	public int 新等级(int x){
+		return (int)Math.round(x*Math.sqrt(x));
 	}
 
 	//just used for ring descriptions

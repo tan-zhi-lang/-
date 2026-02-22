@@ -35,7 +35,7 @@ public class CavesFissureExitRoom extends CavesFissureRoom {
 				|| level.findMob(exit) != null);
 
 
-		for (int i : PathFinder.NEIGHBOURS4){
+		for (int i : PathFinder.相邻4){
 			if (level.map[exit+i] == Terrain.CHASM) {
 				Painter.set(level, exit + i, Terrain.EMPTY);
 			}

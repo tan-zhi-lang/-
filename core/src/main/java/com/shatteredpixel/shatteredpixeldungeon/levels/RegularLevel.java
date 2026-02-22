@@ -58,7 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
@@ -115,7 +115,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			standards*=2;
 		}
-		if(算法.彩蛋("更小"))standards/=2;
+		if(Dungeon.派对(派对设置.小小可爱))standards/=2;
 		for (int i = 0; i < standards; i++) {
 			StandardRoom s;
 			do {
@@ -136,7 +136,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			specials*=2;
 		}
-		if(算法.彩蛋("更小"))specials/=2;
+		if(Dungeon.派对(派对设置.小小可爱))specials/=2;
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
 			SpecialRoom s = SpecialRoom.createRoom();
@@ -150,7 +150,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			secrets*=2;
 		}
-		if(算法.彩蛋("更小"))secrets/=2;
+		if(Dungeon.派对(派对设置.小小可爱))secrets/=2;
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
 		}
@@ -201,7 +201,7 @@ public abstract class RegularLevel extends Level {
 		if (Dungeon.depth == 1){
 //			if (!Statistics.amuletObtained) mobs=0;
 //			else mobs=8;
-			mobs=9;
+			mobs=10;
 			//on floor 1, 8 pre-set mobs are created so the player can get level 2.
 		}
 
@@ -211,7 +211,7 @@ public abstract class RegularLevel extends Level {
 		if(Dungeon.赛季(赛季设置.危险重重)){
 			mobs*=2;
 		}
-		if(算法.彩蛋("更小"))mobs/=2;
+		if(Dungeon.派对(派对设置.小小可爱))mobs/=2;
 		if(Dungeon.赛季(赛季设置.修罗血场)){
 			mobs*=2;
 		}
@@ -407,9 +407,9 @@ public abstract class RegularLevel extends Level {
 		}
 
 		if(Dungeon.赛季(赛季设置.危险重重)){
-			nItems*=5;
+			nItems*=4;
 		}
-		if(算法.彩蛋("更小"))nItems/=2;
+		if(Dungeon.派对(派对设置.小小可爱))nItems/=4;
 		for (int i=0; i < nItems; i++) {
 
 			Item toDrop = Generator.random();
@@ -933,7 +933,7 @@ public abstract class RegularLevel extends Level {
 				// we ignore connection rooms and prefer rooms already missed
 				// note that if the tile borders two non-connection rooms, it only counts one
 				Room candidate = null;
-				for (int j : PathFinder.NEIGHBOURS4){
+				for (int j : PathFinder.相邻4){
 					if (room(i+j) != null){
 						if (candidate == null || !missedRooms.contains(candidate)){
 							candidate = room(i+j);

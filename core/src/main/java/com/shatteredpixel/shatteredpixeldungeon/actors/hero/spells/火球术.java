@@ -59,14 +59,12 @@ public class 火球术 extends 目标法术 {
 			@Override
 			public void call() {
 
-				Heap
-						heap = Dungeon.level.heaps.get(aim.collisionPos);
+				Heap heap = Dungeon.level.heaps.get(aim.collisionPos);
 				if (heap != null) {
 					heap.freeze();
 				}
 
-				Freezing
-						free = (Freezing) Dungeon.level.blobs.get(Freezing.class);
+				Freezing free = (Freezing) Dungeon.level.blobs.get(Freezing.class);
 				if (free != null && free.volume > 0) {
 					free.clear( aim.collisionPos );
 				}
@@ -85,15 +83,13 @@ public class 火球术 extends 目标法术 {
 				if (ch != null) {
 					ch.受伤时(
 							Random.NormalFloat(
-									1+
-									hero.术提升(0.5f)
+									1
 									,
-									4+
-									hero.术提升(2.5f)
+									4
 											  ), 火球术.this);
 
-					ch.sprite.burst( 0xFF99CCFF, hero.术提升() / 2 + 2 );
-					Buff.施加(ch,燃烧.class).reignite(ch,2+hero.术提升());
+					ch.sprite.burst( 0xFF99CCFF,  2 );
+					Buff.施加(ch,燃烧.class).reignite(ch,2);
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
 				}
@@ -110,7 +106,7 @@ public class 火球术 extends 目标法术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",1+Dungeon.hero.术提升(0.5f),4+Dungeon.hero.术提升(2.5f));
+		String desc = Messages.get(this, "desc",1,4);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

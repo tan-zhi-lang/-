@@ -44,6 +44,7 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
 		try {
 			GdxNativesLoader.load();
 			FreeType.initFreeType();

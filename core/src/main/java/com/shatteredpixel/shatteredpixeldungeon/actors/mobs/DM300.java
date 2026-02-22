@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.WallOfLight;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.土遁;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
@@ -381,7 +381,7 @@ public class DM300 extends Mob {
 				}
 				if (gasVented < 250*gasMulti){
 					int toVentAround = (int)Math.ceil(((250*gasMulti) - gasVented)/8f);
-					for (int i : PathFinder.NEIGHBOURS8){
+					for (int i : PathFinder.相邻8){
 						GameScene.add(Blob.seed(pos+i, toVentAround, ToxicGas.class));
 					}
 				}
@@ -429,7 +429,7 @@ public class DM300 extends Mob {
 
 		int safeCell;
 		do {
-			safeCell = rockCenter + PathFinder.NEIGHBOURS8[Random.Int(8)];
+			safeCell = rockCenter + PathFinder.相邻8[Random.Int(8)];
 		} while (safeCell == pos
 				|| (Dungeon.level.solid[safeCell] && Random.Int(2) == 0)
 				|| (Blob.volumeAt(safeCell, CavesBossLevel.PylonEnergy.class) > 0 && Random.Int(2) == 0));
@@ -598,7 +598,7 @@ public class DM300 extends Mob {
 			}
 
 			int bestpos = pos;
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (Actor.findChar(pos+i) == null &&
 						Dungeon.level.trueDistance(bestpos, target) > Dungeon.level.trueDistance(pos+i, target)){
 					bestpos = pos+i;
@@ -608,7 +608,7 @@ public class DM300 extends Mob {
 				Sample.INSTANCE.play( Assets.Sounds.ROCKS );
 
 				Rect gate = CavesBossLevel.gate;
-				for (int i : PathFinder.NEIGHBOURS9){
+				for (int i : PathFinder.自相邻8){
 					if (Dungeon.level.map[pos+i] == Terrain.WALL || Dungeon.level.map[pos+i] == Terrain.WALL_DECO){
 						Point p = Dungeon.level.cellToPoint(pos+i);
 						if (p.y < gate.bottom && p.x >= gate.left-2 && p.x < gate.right+2){
@@ -620,8 +620,8 @@ public class DM300 extends Mob {
 						Level.set(pos+i, Terrain.EMPTY_DECO);
 						GameScene.updateMap(pos+i);
 					}
-					if (Dungeon.level.blobs.get(WallOfLight.LightWall.class) != null){
-						Dungeon.level.blobs.get(WallOfLight.LightWall.class).clear(pos+i);
+					if (Dungeon.level.blobs.get(土遁.LightWall.class)!=null){
+						Dungeon.level.blobs.get(土遁.LightWall.class).clear(pos+i);
 					}
 				}
 				Dungeon.level.cleanWalls();
@@ -629,7 +629,7 @@ public class DM300 extends Mob {
 				spend(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 2f : 3f);
 
 				bestpos = pos;
-				for (int i : PathFinder.NEIGHBOURS8){
+				for (int i : PathFinder.相邻8){
 					if (Actor.findChar(pos+i) == null && Dungeon.level.openSpace[pos+i] &&
 							Dungeon.level.trueDistance(bestpos, target) > Dungeon.level.trueDistance(pos+i, target)){
 						bestpos = pos+i;

@@ -41,7 +41,7 @@ public class PitfallTrap extends Trap {
 		p.branch = Dungeon.branch;
 
 		ArrayList<Integer> positions = new ArrayList<>();
-		for (int i : PathFinder.NEIGHBOURS9){
+		for (int i : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[pos+i] || Dungeon.level.passable[pos+i]){
 				CellEmitter.floor(pos+i).burst(PitfallParticle.FACTORY4, 8);
 				positions.add(pos+i);

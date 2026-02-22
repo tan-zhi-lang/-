@@ -226,7 +226,7 @@ public class 骷髅钥匙 extends Artifact {
 
 							int pushCell = -1;
 							//push to the closest open cell that's further than the door
-							for (int i : PathFinder.NEIGHBOURS8){
+							for (int i : PathFinder.相邻8){
 								if (!Dungeon.level.solid[target+i]
 										&& Actor.findChar(target+i) == null
 										&& (Dungeon.level.openSpace[target+i] || !Char.hasProp(toMove, Char.Property.LARGE))
@@ -261,7 +261,7 @@ public class 骷髅钥匙 extends Artifact {
 								//throw items inside the door in random directions
 								if (Dungeon.level.heaps.get(target) != null){
 									ArrayList<Integer> candidates = new ArrayList<>();
-									for (int n : PathFinder.NEIGHBOURS8){
+									for (int n : PathFinder.相邻8){
 										if (Dungeon.level.passable[target+n]){
 											candidates.add(target+n);
 										}

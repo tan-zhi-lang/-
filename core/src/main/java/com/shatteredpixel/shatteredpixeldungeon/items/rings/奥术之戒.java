@@ -17,10 +17,10 @@ public class 奥术之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", Math.pow(1.175f, soloBuffedBonus()) - 1f));
+					Messages.decimalFormat("#.2", 0.21025f*soloBuffedBonus()));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", Math.pow(1.175f, combinedBuffedBonus(Dungeon.hero)) - 1f));
+						Messages.decimalFormat("#.2", 0.21025f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
@@ -29,8 +29,8 @@ public class 奥术之戒 extends Ring {
 	}
 
 	public String upgradeStat1(int level){
-		if (cursed) level = Math.min(-1, level-3);
-		return Messages.decimalFormat("#.2", Math.pow(1.175f, level+1)-1f) + "倍";
+		if (cursed) level = Math.min(-1, level-6);
+		return Messages.decimalFormat("#.2", 0.21025f*(level+1)) + "倍";
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class 奥术之戒 extends Ring {
 	}
 
 	public static float enchantPowerMultiplier(Char target ){
-		return (float)Math.pow(1.175f, getBuffedBonus(target, Arcana.class));
+		return 1+0.21025f*getBuffedBonus(target, Arcana.class);
 	}
 
 	public class Arcana extends RingBuff {

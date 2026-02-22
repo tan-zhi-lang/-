@@ -11,23 +11,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.AscendedForm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.Trinity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Feint;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.NaturesPower;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpectralBlades;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.ElementalBlast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WarpBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.DeathMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.SmokeBomb;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.warrior.Endure;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
@@ -78,9 +69,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfFuror;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfHaste;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
@@ -97,6 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.折镜法杖;
@@ -131,14 +123,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
-import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
-import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
-import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -154,25 +144,30 @@ import com.watabou.utils.Random;
 public enum HeroClass{
 	
 	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士),
-	MAGE(HeroSubClass.战斗法师,HeroSubClass.元素法师),
+	MAGE(HeroSubClass.冰结师,HeroSubClass.元素法师),
 	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影),
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
 	DUELIST(HeroSubClass.武器大师,HeroSubClass.武者),
-	CLERIC(HeroSubClass.潜能觉醒),
-//	CLERIC(HeroSubClass.PRIEST,HeroSubClass.PALADIN),
-	巫女(HeroSubClass.潜能觉醒),
-	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士),
-	道士(HeroSubClass.死灵术士),行僧(HeroSubClass.疾行者),
+	CLERIC(HeroSubClass.圣骑士),//,HeroSubClass.祭司
+	巫女(HeroSubClass.战斗法师,HeroSubClass.黑魔导师),//1
+	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),
+	镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士),
+	道士(HeroSubClass.死灵术士,HeroSubClass.真人),//1
+	行僧(HeroSubClass.疾行者),//1
 	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵),
-	兽灵(HeroSubClass.神兽之灵),
-	机器(HeroSubClass.潜能觉醒),女忍(HeroSubClass.灵魂武者),
-	戒老(HeroSubClass.潜能觉醒),逐姝(HeroSubClass.潜能觉醒),
-	罗兰(HeroSubClass.潜能觉醒),学士(HeroSubClass.潜能觉醒),
-	灵猫(HeroSubClass.黑白双子),鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠),
-	凌云(HeroSubClass.潜能觉醒),
+	兽灵(HeroSubClass.神兽之灵),//1
+	机器(HeroSubClass.潜能觉醒),///2
+	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影),//1
+	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王),
+	逐姝(HeroSubClass.潜能觉醒),///2
+	罗兰(HeroSubClass.潜能觉醒),///2
+	学士(HeroSubClass.潜能觉醒),///2
+	灵猫(HeroSubClass.黑白双子),//1
+	鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠),
+	凌云(HeroSubClass.潜能觉醒),///2
 	血鬼(HeroSubClass.金刚独狼,HeroSubClass.血法师),
-	来世(HeroSubClass.时间刺客),
+	来世(HeroSubClass.时间刺客),//1
 	NONE(HeroSubClass.潜能觉醒);
 	
 	private HeroSubClass[] subClasses;
@@ -243,7 +238,11 @@ public enum HeroClass{
 		//		i = new Food();
 		//		if (!Challenges.isItemBlocked(i)) i.放背包();
 
-		if(Dungeon.赛季(赛季设置.幸运转世))hero.幸运转世=Random.oneOf(1,2);
+		if(Dungeon.赛季(赛季设置.幸运转世)){
+			hero.幸运转世=1;
+//			hero.幸运转世=Random.oneOf(1,2);
+		}
+
 		if(Dungeon.派对(派对设置.钢门联盟)){
 			心之钢 钢门=new 心之钢();
 			钢门.鉴定();
@@ -266,7 +265,7 @@ public enum HeroClass{
 			new 火炮().放背包();
 
 			int x=999;
-			new 经验药剂().数量(x).鉴定(true).放背包();
+			new 经验药剂().数量(x).放背包();
 			new 治疗药剂().数量(x).放背包();
 			new 极速药剂().数量(x).放背包();
 			new 力量药剂().数量(x).放背包();
@@ -279,11 +278,11 @@ public enum HeroClass{
 			new Icecap.Seed().数量(x).放背包();
 			new 毒气药剂().数量(x).放背包();
 
-			new 坠牢之星().数量(x).放背包();
-			new 属性碎片().数量(x).放背包();
+//			new 坠牢之星().数量(x).放背包();
+			new Torch().数量(x).放背包();
 
 //			new MysteryMeat().数量(x).放背包();
-			new 属性锻造器().数量(10).放背包();
+//			new 属性锻造器().数量(10).放背包();
 			
 			new 探地卷轴().数量(x).放背包();
 			new 升级卷轴().数量(x).放背包();
@@ -312,13 +311,13 @@ public enum HeroClass{
 //			new 手枪().放背包();
 //			new TrinketCatalyst().放背包();
 //			new CapeOfThorns().放背包();
-			new Amulet().放背包();
+			new 真正护符().放背包();
 //			new 商人信标().放背包();
 //			new 召唤物品().放背包();
 			new 神农锄().放背包();
 			new 六神之戒().放背包();
-			new RingOfHaste().放背包();
-			new RingOfFuror().放背包();
+			new 疾速之戒().放背包();
+			new 狂怒之戒().放背包();
 			
 			for (Item item : hero.belongings){
 				item.鉴定();
@@ -328,6 +327,9 @@ public enum HeroClass{
 		if(算法.种子()!=null)
 		算法.种子().放背包();
 		
+		if(Holiday.getCurrentHoliday()==Holiday.春节){
+			new 红包().放背包();
+		}
 		if(Holiday.getCurrentHoliday()==Holiday.国庆节){
 			new 中国国旗().放背包();
 		}
@@ -777,28 +779,20 @@ public enum HeroClass{
 		switch(this){
 			case WARRIOR:
 			default:
-				return new ArmorAbility[]{
-										  new Endure()};
 			case MAGE:
 				return new ArmorAbility[]{new ElementalBlast(),
 										  new WildMagic(),
 										  new WarpBeacon()};
 			case 盗贼:
-				return new ArmorAbility[]{new SmokeBomb(),
-										  new DeathMark(),
+				return new ArmorAbility[]{
 										  new ShadowClone()};
 			case HUNTRESS:
-				return new ArmorAbility[]{new SpectralBlades(),
-										  new NaturesPower(),
+				return new ArmorAbility[]{
 										  new SpiritHawk()};
 			case DUELIST:
 				return new ArmorAbility[]{new Challenge(),
 										  new ElementalStrike(),
 										  new Feint()};
-			case CLERIC:
-				return new ArmorAbility[]{new AscendedForm(),
-										  new Trinity(),
-										  new PowerOfMany()};
 		}
 	}
 	

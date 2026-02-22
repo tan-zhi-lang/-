@@ -41,7 +41,7 @@ public abstract class DungeonTilemap extends Tilemap {
 	public synchronized void updateMapCell(int cell) {
 		//update in a 3x3 grid to account for neighbours which might also be affected
 		if (Dungeon.level.insideMap(cell)) {
-			for (int i : PathFinder.NEIGHBOURS9) {
+			for (int i : PathFinder.自相邻8) {
 				data[cell + i] = getTileVisual(cell + i, map[cell + i], false);
 			}
 			super.updateMapCell(cell - mapWidth - 1);

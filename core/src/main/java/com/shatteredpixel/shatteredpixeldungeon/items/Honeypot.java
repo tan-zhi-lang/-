@@ -92,7 +92,7 @@ public class Honeypot extends Item {
 		if (Actor.findChar( pos ) != null) {
 			ArrayList<Integer> candidates = new ArrayList<>();
 			
-			for (int n : PathFinder.NEIGHBOURS4) {
+			for (int n : PathFinder.相邻4) {
 				int c = pos + n;
 				if (!Dungeon.level.solid[c] && Actor.findChar( c ) == null) {
 					candidates.add( c );

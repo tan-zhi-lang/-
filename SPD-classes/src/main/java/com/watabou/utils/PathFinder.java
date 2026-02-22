@@ -25,11 +25,20 @@ public class PathFinder {
 
 	//performance-light shortcuts for some common pathfinder cases
 	//they are in array-access order for increased memory performance
-	public static int[] NEIGHBOURS4;
-	public static int[] NEIGHBOURS8;
-	public static int[] NEIGHBOURS9;
+	public static int[] 相邻4;
+	public static int[] 相邻8;
+	public static int[] 自相邻8;
 	public static int[] 范围2;
 	public static int[] 范围3;
+	public static int[] 八卦;
+	public static int 八卦开门;
+	public static int 八卦休门;
+	public static int 八卦生门;
+	public static int 八卦伤门;
+	public static int 八卦杜门;
+	public static int 八卦景门;
+	public static int 八卦死门;
+	public static int 八卦惊门;
 	public static int[] 范围4;
 	public static int[] 范围5;
 	public static int[] 范围6;
@@ -57,12 +66,27 @@ public class PathFinder {
 		dir = new int[]{-1, +1, -width, +width, -width-1, -width+1, +width-1, +width+1};
 		dirLR = new int[]{-1-width, -1, -1+width, -width, +width, +1-width, +1, +1+width};
 
-		NEIGHBOURS4 = new int[]{-width, -1, +1, +width};
-		NEIGHBOURS8 = new int[]{-width-1, -width, -width+1, -1, +1, +width-1, +width, +width+1};
-		NEIGHBOURS9 = new int[]{-width-1, -width, -width+1, -1, 0, +1, +width-1, +width, +width+1};
+		相邻4= new int[]{-width, -1, +1, +width};
+		相邻8= new int[]{-width-1, -width,-width+1, -1, +1,+width-1, +width,+width+1};
+		自相邻8= new int[]{-width-1, -width,-width+1, -1, 0, +1,+width-1, +width,+width+1};
 		
 		范围2=x格(width,2);
 		范围3=x格(width,3);
+		八卦=new int[]{-width*3,
+				-width*2-2,-width*2+2,
+				-3, +3,
+				+width*2-2,+width*2+2,
+				+width*3};
+
+		八卦开门=+width*2+2;
+		八卦休门=+width*3;
+		八卦生门=+width*2-2;
+		八卦伤门=-3;
+		八卦杜门=-width*2-2;
+		八卦景门=-width*3;
+		八卦死门=-width*2+2;
+		八卦惊门=+3;
+
 		范围4=x格(width,4);
 		范围5=x格(width,5);
 		范围6=x格(width,6);

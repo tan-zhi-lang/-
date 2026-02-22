@@ -27,7 +27,7 @@ public class 毒气药剂 extends Potion {
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 			Sample.INSTANCE.play( Assets.Sounds.GAS );
 		}
-		for (int offset : PathFinder.NEIGHBOURS9){
+		for (int offset : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[cell+offset]) {
 				GameScene.add( Blob.seed( cell+offset, 111/*1000*/, ToxicGas.class));
 			}

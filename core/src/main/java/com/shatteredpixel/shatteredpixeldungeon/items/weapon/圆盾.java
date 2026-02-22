@@ -20,7 +20,7 @@ public class 圆盾 extends Weapon {
 
 	@Override
 	public float 最大防御(int lvl){
-		return 2 + lvl*2;
+		return 1 + lvl;
 	}
 	
 

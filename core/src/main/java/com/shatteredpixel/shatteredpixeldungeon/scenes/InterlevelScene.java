@@ -615,6 +615,9 @@ public class InterlevelScene extends PixelScene {
 
 			Level level = Dungeon.newLevel();
 			Dungeon.switchLevel( level, -1 );
+
+			if(算法.海克斯()&&Dungeon.level!=null)
+				Dungeon.hero.选择海克斯(SPDSettings.customSeed().replaceAll("调试", ""));
 		} else {
 			if (curTransition.destBranch != Dungeon.branch && Dungeon.depth >= 16 && Dungeon.depth <= 20) {
 				//FIXME avoids holding allies when entering city quest area, this is very sloppy though

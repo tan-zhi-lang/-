@@ -139,7 +139,7 @@ public abstract class Plant implements Bundlable {
 				Catalog.countUse(getClass());
 				Dungeon.level.plant( this, cell );
 				if (Dungeon.hero.subClass == HeroSubClass.守望者) {
-					for (int i : PathFinder.NEIGHBOURS8) {
+					for (int i : PathFinder.相邻8) {
 						int c = Dungeon.level.map[cell + i];
 						if ( c == Terrain.EMPTY || c == Terrain.EMPTY_DECO
 								|| c == Terrain.EMBERS || c == Terrain.GRASS){

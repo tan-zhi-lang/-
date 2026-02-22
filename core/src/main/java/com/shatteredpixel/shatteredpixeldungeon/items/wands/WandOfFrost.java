@@ -28,11 +28,11 @@ public class WandOfFrost extends DamageWand {
 		image = 物品表.WAND_FROST;
 	}
 
-	public int min(int lvl){
+	public float min(int lvl){
 		return 2+lvl;
 	}
 
-	public int max(int lvl){
+	public float max(int lvl){
 		return 8+5*lvl;
 	}
 
@@ -103,35 +103,6 @@ public class WandOfFrost extends DamageWand {
 				bolt.collisionPos,
 				callback);
 		Sample.INSTANCE.play(Assets.Sounds.ZAP);
-	}
-
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		Chill chill = defender.buff(Chill.class);
-
-		if (chill != null) {
-
-			//1/9 at 2 turns of chill, scaling to 9/9 at 10 turns
-			float procChance = ((int)Math.floor(chill.cooldown()) - 1)/9f;
-			procChance *= procChanceMultiplier(attacker);
-
-			if (Random.Float() < procChance) {
-
-				float powerMulti = Math.max(1f, procChance);
-
-				//need to delay this through an actor so that the freezing isn't broken by taking damage from the staff hit.
-				new FlavourBuff() {
-					{
-						actPriority = VFX_PRIO;
-					}
-
-					public boolean act() {
-						Buff.施加(target, Frost.class, Math.round(Frost.DURATION * powerMulti));
-						return super.act();
-					}
-				}.attachTo(defender);
-			}
-		}
 	}
 
 	@Override

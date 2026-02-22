@@ -14,7 +14,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
@@ -67,10 +66,6 @@ public class WandOfWarding extends Wand {
 			}
 		}
 
-		if (Stasis.getStasisAlly() instanceof Ward){
-			currentWardEnergy += ((Ward) Stasis.getStasisAlly()).tier;
-		}
-		
 		int maxWardEnergy = 0;
 		for (Buff buff : curUser.buffs()){
 			if (buff instanceof Wand.Charger){
@@ -126,7 +121,7 @@ public class WandOfWarding extends Wand {
 				GLog.w( Messages.get(this, "bad_location"));
 				Dungeon.level.pressCell(target);
 			}
-			
+
 		} else if (!Dungeon.level.passable[target]){
 			GLog.w( Messages.get(this, "bad_location"));
 			Dungeon.level.pressCell(target);
@@ -155,27 +150,6 @@ public class WandOfWarding extends Wand {
 			m.setSpeed(bolt.dist*20);
 		}
 		Sample.INSTANCE.play(Assets.Sounds.ZAP);
-	}
-
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		int level = Math.max( 0, staff.强化等级() );
-
-		// lvl 0 - 20%
-		// lvl 1 - 33%
-		// lvl 2 - 43%
-		float procChance = (level+1f)/(level+5f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-
-			float powerMulti = Math.max(1f, procChance);
-
-			for (Char ch : Actor.chars()){
-				if (ch instanceof Ward){
-					((Ward) ch).wandHeal(staff.强化等级(), powerMulti);
-					ch.sprite.emitter().burst(MagicMissile.WardParticle.UP, ((Ward) ch).tier);
-				}
-			}
-		}
 	}
 
 	@Override

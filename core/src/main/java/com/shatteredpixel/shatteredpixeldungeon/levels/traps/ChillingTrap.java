@@ -28,7 +28,7 @@ public class ChillingTrap extends Trap{
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 		}
 		
-		for( int i : PathFinder.NEIGHBOURS9) {
+		for( int i : PathFinder.自相邻8) {
 			if (!Dungeon.level.solid[pos + i]) {
 				GameScene.add(Blob.seed(pos + i, 10, Freezing.class));
 				if (Actor.findChar(pos+i) instanceof Mob){

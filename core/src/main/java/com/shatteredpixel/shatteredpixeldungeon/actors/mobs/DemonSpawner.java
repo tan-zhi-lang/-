@@ -81,7 +81,7 @@ public class DemonSpawner extends Mob {
 			}
 
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int n : PathFinder.NEIGHBOURS8) {
+			for (int n : PathFinder.相邻8) {
 				if (Dungeon.level.passable[pos+n] && Actor.findChar( pos+n ) == null) {
 					candidates.add( pos+n );
 				}

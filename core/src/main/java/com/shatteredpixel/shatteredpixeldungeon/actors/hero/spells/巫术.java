@@ -58,6 +58,7 @@ public abstract class 巫术 {
 		if (tier == 1) {
 			spells.add(痛命.INSTANCE);
 		} else if (tier == 2) {
+			spells.add(死血.INSTANCE);
 		} else if (tier == 3){
 		} else if (tier == 4){
 
@@ -70,6 +71,7 @@ public abstract class 巫术 {
 	public static ArrayList<巫术> getAllSpells() {
 		ArrayList<巫术> spells = new ArrayList<>();
 		spells.add(痛命.INSTANCE);
+		spells.add(死血.INSTANCE);
 		return spells;
 	}
 }

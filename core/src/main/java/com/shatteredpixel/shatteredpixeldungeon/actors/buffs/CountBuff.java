@@ -13,6 +13,10 @@ public class CountBuff extends Buff {
 		return count;
 	}
 
+	public void clearc(){
+		count=0;
+	}
+
 	private static final String COUNT = "count";
 
 	@Override

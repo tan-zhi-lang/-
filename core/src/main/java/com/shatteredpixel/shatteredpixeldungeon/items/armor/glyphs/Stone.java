@@ -2,15 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Daze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -38,12 +35,6 @@ public class Stone extends Armor.Glyph {
 			accuracy *= buff.evasionAndAccuracyFactor();
 		}
 		accuracy *= AscensionChallenge.statModifier(attacker);
-		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.BLESS)
-				&& attacker.alignment == Char.Alignment.ALLY){
-			// + 3%/5%
-			accuracy *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
-		}
 
 		if (defender.buff(Bless.class) != null) evasion *= 1.25f;
 		if (defender.buff(  Hex.class) != null) evasion *= 0.8f;
@@ -52,12 +43,7 @@ public class Stone extends Armor.Glyph {
 			evasion *= buff.evasionAndAccuracyFactor();
 		}
 		evasion *= AscensionChallenge.statModifier(defender);
-		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.BLESS)
-				&& defender.alignment == Char.Alignment.ALLY){
-			// + 3%/5%
-			evasion *= 1 + Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
-		}
+
 		evasion *= FerretTuft.evasionMultiplier();
 
 		// end of copy-pasta

@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -15,7 +14,6 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Image;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.Random;
 
@@ -62,7 +60,7 @@ public class TalentsPane extends ScrollPane {
 			if (tiersAvailable > 1&&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_1)&&!算法.isDebug())
 				tiersAvailable = 1;
 			
-			if(tiersAvailable > 2&&Dungeon.hero.subClass==HeroSubClass.NONE)
+			if(tiersAvailable > 2&&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_2)&&Dungeon.hero.subClass==HeroSubClass.NONE)
 				tiersAvailable = 2;
 			
 //			if(tiersAvailable > 3)
@@ -203,7 +201,7 @@ public class TalentsPane extends ScrollPane {
 							});
 						};
 					};
-					add(random);
+//					add(random);//随机天赋
 				}
 			}
 

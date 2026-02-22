@@ -11,8 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.Stasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
@@ -49,12 +47,12 @@ public class WandOfLivingEarth extends DamageWand {
 		else                                        return Ballistica.STOP_TARGET;
 	}
 	@Override
-	public int min(int lvl) {
+	public float min(int lvl) {
 		return 4;
 	}
 	
 	@Override
-	public int max(int lvl) {
+	public float max(int lvl) {
 		return 6 + 2*lvl;
 	}
 	
@@ -75,10 +73,6 @@ public class WandOfLivingEarth extends DamageWand {
 				guardian = (EarthGuardian) m;
 				break;
 			}
-		}
-
-		if (Stasis.getStasisAlly() instanceof EarthGuardian){
-			guardian = (EarthGuardian)Stasis.getStasisAlly();
 		}
 
 		RockArmor buff = curUser.buff(RockArmor.class);
@@ -110,9 +104,6 @@ public class WandOfLivingEarth extends DamageWand {
 			guardian = new EarthGuardian();
 			guardian.setInfo(curUser, 强化等级(), buff.armor);
 
-			if (buff.powerOfManyTurns > 0){
-				Buff.施加(guardian, PowerOfMany.PowerBuff.class, buff.powerOfManyTurns);
-			}
 
 			//if the collision pos is occupied (likely will be), then spawn the guardian in the
 			//adjacent cell which is closes to the user of the wand.
@@ -126,7 +117,7 @@ public class WandOfLivingEarth extends DamageWand {
 				int closest = -1;
 				boolean[] passable = Dungeon.level.passable;
 
-				for (int n : PathFinder.NEIGHBOURS9) {
+				for (int n : PathFinder.自相邻8) {
 					int c = bolt.collisionPos + n;
 					if (passable[c] && Actor.findChar( c ) == null
 						&& (closest == -1 || (Dungeon.level.trueDistance(c, curUser.pos) < (Dungeon.level.trueDistance(closest, curUser.pos))))) {
@@ -214,27 +205,7 @@ public class WandOfLivingEarth extends DamageWand {
 				callback);
 		Sample.INSTANCE.play(Assets.Sounds.ZAP);
 	}
-	
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		EarthGuardian guardian = null;
-		for (Mob m : Dungeon.level.mobs){
-			if (m instanceof EarthGuardian){
-				guardian = (EarthGuardian) m;
-				break;
-			}
-		}
-		
-		int armor = Math.round(damage*0.33f*procChanceMultiplier(attacker));
 
-		if (guardian != null){
-			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + 强化等级() / 2);
-			guardian.setInfo(Dungeon.hero, 强化等级(), armor);
-		} else {
-			attacker.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + 强化等级() / 2);
-			Buff.施加(attacker, RockArmor.class).addArmor( 强化等级(), armor);
-		}
-	}
 	
 	@Override
 	public void staffFx(法师魔杖.StaffParticle particle) {
@@ -457,9 +428,7 @@ public class WandOfLivingEarth extends DamageWand {
 			public boolean act(boolean enemyInFOV, boolean justAlerted) {
 				if (!enemyInFOV){
 					Buff.施加(Dungeon.hero, RockArmor.class).addArmor(wandLevel, 生命);
-					if (buff(PowerOfMany.PowerBuff.class) != null){
-						Buff.施加(Dungeon.hero, RockArmor.class).powerOfManyTurns = buff(PowerOfMany.PowerBuff.class).cooldown()+1;
-					}
+
 					Dungeon.hero.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + wandLevel/2);
 					destroy();
 					sprite.die();

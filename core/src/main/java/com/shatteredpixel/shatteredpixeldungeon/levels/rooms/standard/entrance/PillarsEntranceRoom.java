@@ -31,7 +31,7 @@ public class PillarsEntranceRoom extends PillarsRoom {
 			entrance = level.pointToCell(random(2));
 			valid = true;
 
-			for (int i : PathFinder.NEIGHBOURS4){
+			for (int i : PathFinder.相邻4){
 				if (i == -level.width()) continue;
 				if (level.map[entrance+i] == Terrain.WALL){
 					valid = false;

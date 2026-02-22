@@ -3,24 +3,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
-import com.shatteredpixel.shatteredpixeldungeon.items.Amulet;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
-import com.watabou.utils.Callback;
 
 public class 下水道4 extends Level {
 
@@ -110,40 +100,6 @@ public class 下水道4 extends Level {
 		}
 		
 		return true;
-	}
-	
-	@Override
-	public boolean activateTransition(Hero hero,LevelTransition transition) {
-		if (transition.type == LevelTransition.Type.SURFACE){
-			if (hero.belongings.getItem( Amulet.class)==null) {
-				Game.runOnRenderThread(new Callback() {
-					@Override
-					public void call() {
-						GameScene.show(new WndMessage(Messages.get(hero,"leave") ));
-					}
-				});
-				return false;
-			} else {
-				Statistics.ascended = true;
-				Game.switchScene(SurfaceScene.class,new Game.SceneChangeCallback() {
-					@Override
-					public void beforeCreate() {
-					
-					}
-					
-					@Override
-					public void afterCreate() {
-						Badges.validateHappyEnd();
-						Dungeon.win( Amulet.class );
-						Dungeon.deleteGame(GamesInProgress.curSlot,true);
-						Badges.saveGlobal();
-					}
-				});
-				return true;
-			}
-		} else {
-			return super.activateTransition(hero, transition);
-		}
 	}
 	private int mapToTerrain(int i) {
 		if (!(i == 1 || i == 2)) {

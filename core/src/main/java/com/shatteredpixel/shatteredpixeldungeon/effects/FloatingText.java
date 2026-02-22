@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Daze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.ArmoredStatue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -333,12 +332,7 @@ public class FloatingText extends RenderedTextBlock {
 			blessBoost *= attacker.buff(ChampionEnemy.class).evasionAndAccuracyFactor();
 		}
 		if (attacker.buff(Bless.class) != null) blessBoost *= 1.25f;
-		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.BLESS)
-				&& attacker.alignment == Char.Alignment.ALLY){
-			// + 3%/5%
-			blessBoost *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
-		}
+
 		if (blessBoost > 1f) hitReasons.put(HIT_BLS, blessBoost);
 		if (命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2>0)    hitReasons.put(HIT_ACC,命中之戒.getBuffedBonus(attacker,命中之戒.Accuracy.class)*2f);
 //		if (attacker.buff(弯刀.SwordDance.class)!=null)   hitReasons.put(HIT_DANCE,1.5f);
@@ -426,12 +420,8 @@ public class FloatingText extends RenderedTextBlock {
 			blessBoost *= defender.buff(ChampionEnemy.class).evasionAndAccuracyFactor();
 		}
 		if (defender.buff(Bless.class) != null) blessBoost *= 1.25f;
-		if (Dungeon.hero.heroClass != HeroClass.CLERIC
-				&& Dungeon.hero.天赋(Talent.BLESS)
-				&& defender.alignment == Char.Alignment.ALLY){
-			// + 3%/5%
-			blessBoost *= 1+Dungeon.hero.天赋点数(Talent.BLESS,0.06f);
-		}
+
+
 		if (blessBoost > 1f)                                    missReasons.put(MISS_BLS, blessBoost);
 		if (FerretTuft.evasionMultiplier() > 1)                 missReasons.put(MISS_TUFT, FerretTuft.evasionMultiplier());
 		if (闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2>0)      missReasons.put(MISS_EVA,闪避之戒.getBuffedBonus(defender,闪避之戒.Evasion.class)*2f);

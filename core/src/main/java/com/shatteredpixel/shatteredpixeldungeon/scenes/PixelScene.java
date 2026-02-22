@@ -166,7 +166,7 @@ public class PixelScene extends Scene {
 
 					//we don't use keybindings for these as we want the user to be able to
 					// bind these keys to other actions when pressed individually
-					if (keyEvent.code == Input.Keys.ALT_RIGHT){
+					if (keyEvent.code==Input.Keys.ALT_RIGHT){
 						alt = keyEvent.pressed;
 					} else if (keyEvent.code == Input.Keys.ENTER){
 						enter = keyEvent.pressed;

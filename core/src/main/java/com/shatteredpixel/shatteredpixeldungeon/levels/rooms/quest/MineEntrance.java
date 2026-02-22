@@ -54,7 +54,7 @@ public class MineEntrance extends CaveRoom {
 		do {
 			valid = false;
 			entrance = level.pointToCell(random(3));
-			for (int i : PathFinder.NEIGHBOURS9){
+			for (int i : PathFinder.自相邻8){
 				if (level.map[entrance+i] != Terrain.WALL){
 					valid = true;
 				}
@@ -65,7 +65,7 @@ public class MineEntrance extends CaveRoom {
 		} while (level.findMob(entrance) != null || !valid);
 		Painter.set( level, entrance, Terrain.ENTRANCE );
 
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			Painter.set( level, entrance+i, Terrain.EMPTY );
 		}
 

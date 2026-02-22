@@ -122,7 +122,7 @@ public abstract class ChampionEnemy extends Buff {
 		public void detach() {
 			//don't trigger when killed by being knocked into a pit
 			if (target.flying || !Dungeon.level.pit[target.pos]) {
-				for (int i : PathFinder.NEIGHBOURS9) {
+				for (int i : PathFinder.自相邻8) {
 					if (!Dungeon.level.solid[target.pos + i] && !Dungeon.level.water[target.pos + i]) {
 						GameScene.add(Blob.seed(target.pos + i, 2, Fire.class));
 					}

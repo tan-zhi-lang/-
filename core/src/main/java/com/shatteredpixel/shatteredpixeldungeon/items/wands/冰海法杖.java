@@ -13,11 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
-import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -30,7 +26,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -44,19 +39,19 @@ public class 冰海法杖 extends DamageWand {
 	}
 
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
-	public int min(int lvl){
+	public float min(int lvl){
 		return (1+lvl) * chargesPerCast()*3;
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
-	public int max(int lvl){
+	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return (2 + 2*lvl)*3;
+				return (2 + 2*lvl)*2;
 			case 2:
-				return 3*2*(4 + 2*lvl);
+				return 2*2*(4 + 2*lvl);
 			case 3:
-				return 3*3*(6+2*lvl);
+				return 2*3*(6+2*lvl);
 		}
 	}
 
@@ -106,7 +101,7 @@ public class 冰海法杖 extends DamageWand {
 		//ignite cells that share a side with an adjacent cell, are flammable, and are closer to the collision pos
 		//This prevents short-range casts not igniting barricades or bookshelves
 		for (int cell : adjacentCells){
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (Dungeon.level.trueDistance(cell+i, bolt.collisionPos) < Dungeon.level.trueDistance(cell, bolt.collisionPos)
 						&& Dungeon.level.flamable[cell+i]
 						&& Freezing.volumeAt(cell+i, Freezing.class) == 0){
@@ -134,74 +129,6 @@ public class 冰海法杖 extends DamageWand {
 		}
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-
-		//proc chance is initially 0..
-		float procChance = 0;
-		for (int i : PathFinder.NEIGHBOURS9) {
-
-			//+25% proc chance per burning char within 3x3 of target
-			// this includes the attacker and defender
-			if (Actor.findChar(defender.pos + i) != null
-					&& Actor.findChar(defender.pos + i).buff(Chill.class) != null){
-				procChance+=
-						0.25f;
-			}else if (Actor.findChar(defender.pos + i) != null
-					&& Actor.findChar(defender.pos + i).buff(Frost.class) != null) {
-				procChance += 0.5f;
-
-			//otherwise +5% proc chance per burning tile within 3x3 of target
-			} else if (Freezing.volumeAt(defender.pos+i, Freezing.class) > 0){
-				procChance += 0.05f;
-			}
-
-		}
-
-		procChance = Math.min(1f, procChance);
-		procChance *= Wand.procChanceMultiplier(attacker);
-
-		if (Random.Float() < procChance){
-
-			float powerMulti = Math.max(1f, procChance);
-
-			Blob free = Dungeon.level.blobs.get(Freezing.class);
-
-			//explode, dealing damage to enemies in 3x3, and clearing all free
-			CellEmitter.center(defender.pos).burst(BlastParticle.FACTORY, 30);
-			if (free != null) {
-				for (int i : PathFinder.NEIGHBOURS9) {
-					CellEmitter.get(defender.pos + i).burst(SmokeParticle.FACTORY, 4);
-					if (Freezing.volumeAt(defender.pos+i, Freezing.class) > 0){
-						Dungeon.level.destroy(defender.pos + i);
-						GameScene.updateMap(defender.pos + i);
-						free.clear(defender.pos + i);
-					}
-
-					Char ch = Actor.findChar(defender.pos + i);
-					if (ch != null) {
-						if (ch.buff(Chill.class) != null) {
-							ch.buff(Chill.class).detach();
-						}
-						if (ch.alignment == Char.Alignment.ENEMY) {
-							//damage of a 2-charge zap
-							ch.受伤时(powerMulti*Random.NormalIntRange(2 + 2*强化等级(), 8 + 4* 强化等级()), this);
-						}
-					}
-				}
-			}
-
-			Sample.INSTANCE.play( Assets.Sounds.BLAST );
-
-		}
-	}
-
-	public static class FreeBlastOnHit extends Blazing {
-		@Override
-		protected float procChanceMultiplier(Char attacker) {
-			return Wand.procChanceMultiplier(attacker);
-		}
-	}
 
 	@Override
 	public void fx(Ballistica bolt, Callback callback) {

@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -38,7 +39,16 @@ public class Wnd选择属性 extends Window {
 				return Random.Float(0.05f,0.1f);
 			case "全能吸血":
 				return Random.Float(0.05f,0.1f);
+			case "暴击率":
+				return Random.Float(0.05f,0.1f);
+			case "穿甲":
+				return Random.Float(2,10);
+			case "治疗效果":
+				return Random.Float(0.05f,0.1f);
+			case "护甲穿透":
+				return Random.Float(0.05f,0.1f);
 		}
+
 		return 0;
 	}
 	public String 随机属性(){
@@ -46,25 +56,39 @@ public class Wnd选择属性 extends Window {
 				"最大攻击","最大防御",
 				"最大攻击","最大防御",
 				"最大攻击","最大防御",
+				"最大攻击","最大防御",
 
+							"生命","力量",
 							"生命","力量",
 							"生命","力量",
 							"攻速","移速",
 							"攻速","移速",
+							"攻速","移速",
 
 							"最大命中","最大闪避",
 							"最大命中","最大闪避",
 							"最大命中","最大闪避",
+							"最大命中","最大闪避",
 
-							"暴击伤害","全能吸血");
+							"暴击伤害","全能吸血",
+
+							"暴击率","穿甲",
+							"暴击率","穿甲",
+
+							"治疗效果","护甲穿透",
+							"治疗效果","护甲穿透"
+				);
 	}
-	public Wnd选择属性(Hero hero){
+	public boolean 百分比(String s){
+		return s.equals("攻速")||s.equals("移速")||s.equals("暴击伤害")||s.equals("全能吸血")||s.equals("暴击率")||s.equals("护甲穿透")||s.equals("治疗效果");
+	}
+	public Wnd选择属性(属性锻造器 i,Hero hero){
 		super();
 
 		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
 
 		float pos = MARGIN;
-		RenderedTextBlock title = PixelScene.renderTextBlock("选择一项属性\n不要退出，你会后悔的",9);
+		RenderedTextBlock title = PixelScene.renderTextBlock("选择一项属性",9);
 		title.hardlight(TITLE_COLOR);
 		title.setPos((width-title.width())/2, pos);
 		title.maxWidth(width - MARGIN * 2);
@@ -102,65 +126,11 @@ public class Wnd选择属性 extends Window {
 		float finalrxv2=rxv2;
 		float finalrxv3=rxv3;
 
-		boolean 百分比1=false;
-		boolean 百分比2=false;
-		boolean 百分比3=false;
-		if(rx1.equals("攻速")||rx1.equals("移速")||rx1.equals("暴击伤害")||rx1.equals("全能吸血")){
-			百分比1=true;
-		}
-		if(rx2.equals("攻速")||rx2.equals("移速")||rx2.equals("暴击伤害")||rx2.equals("全能吸血")){
-			百分比2=true;
-		}
-		if(rx3.equals("攻速")||rx3.equals("移速")||rx3.equals("暴击伤害")||rx3.equals("全能吸血")){
-			百分比3=true;
-		}
-		RedButton moveBtn=new RedButton((百分比1?Math.round(rxv1*100)+"%":String.format("%.2f",rxv1))+rx1){
+		RedButton moveBtn=new RedButton((百分比(rx1)?Math.round(rxv1*100)+"%":String.format("%.2f",rxv1))+rx1){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				switch(finalrx1){
-					case "最大攻击":
-						hero.攻击成长+=
-								finalrxv1;
-						break;
-					case "最大防御":
-						hero.防御成长+=
-								finalrxv1;
-						break;
-					case "生命":
-						hero.生命成长+=
-								finalrxv1;
-						hero.更新数据();
-						break;
-					case "力量":
-						hero.力量+=
-								finalrxv1;
-						break;
-					case "攻速":
-						hero.攻速成长+=
-								finalrxv1;
-						break;
-					case "移速":
-						hero.移速成长+=
-								finalrxv1;
-						break;
-					case "最大命中":
-						hero.命中成长+=
-								finalrxv1;
-						break;
-					case "最大闪避":
-						hero.闪避成长+=
-								finalrxv1;
-						break;
-					case "暴击伤害":
-						hero.暴击成长+=
-								finalrxv1;
-						break;
-					case "全能吸血":
-						hero.吸血成长+=
-								finalrxv1;
-						break;
-				}
+				hero.属性锻造(finalrx1,finalrxv1);
 				hide();
 			}
 		};
@@ -172,44 +142,11 @@ public class Wnd选择属性 extends Window {
 		pos=moveBtn.bottom()+MARGIN;
 		
 		
-		RedButton moveBtn2=new RedButton((百分比2?Math.round(rxv2*100)+"%":String.format("%.2f",rxv2))+rx2){
+		RedButton moveBtn2=new RedButton((百分比(rx2)?Math.round(rxv2*100)+"%":String.format("%.2f",rxv2))+rx2){
 			@Override
 			protected void onClick(){
 				super.onClick();
-
-				switch(finalrx2){
-					case "最大攻击":
-						hero.攻击成长+=finalrxv2;
-						break;
-					case "最大防御":
-						hero.防御成长+=finalrxv2;
-						break;
-					case "生命":
-						hero.生命成长+=finalrxv2;
-						hero.更新数据();
-						break;
-					case "力量":
-						hero.力量+=finalrxv2;
-						break;
-					case "攻速":
-						hero.攻速成长+=finalrxv2;
-						break;
-					case "移速":
-						hero.移速成长+=finalrxv2;
-						break;
-					case "最大命中":
-						hero.命中成长+=finalrxv2;
-						break;
-					case "最大闪避":
-						hero.闪避成长+=finalrxv2;
-						break;
-					case "暴击伤害":
-						hero.暴击成长+=finalrxv2;
-						break;
-					case "全能吸血":
-						hero.吸血成长+=finalrxv2;
-						break;
-				}
+				hero.属性锻造(finalrx2,finalrxv2);
 				hide();
 			}
 		};
@@ -221,44 +158,12 @@ public class Wnd选择属性 extends Window {
 		pos=moveBtn2.bottom()+MARGIN;
 		
 		
-		RedButton moveBtn3=new RedButton((百分比3?Math.round(rxv3*100)+"%":String.format("%.2f",rxv3))+rx3){
+		RedButton moveBtn3=new RedButton((百分比(rx3)?Math.round(rxv3*100)+"%":String.format("%.2f",rxv3))+rx3){
 			@Override
 			protected void onClick(){
 				super.onClick();
 
-				switch(finalrx3){
-					case "最大攻击":
-						hero.攻击成长+=finalrxv3;
-						break;
-					case "最大防御":
-						hero.防御成长+=finalrxv3;
-						break;
-					case "生命":
-						hero.生命成长+=finalrxv3;
-						hero.更新数据();
-						break;
-					case "力量":
-						hero.力量+=finalrxv3;
-						break;
-					case "攻速":
-						hero.攻速成长+=finalrxv3;
-						break;
-					case "移速":
-						hero.移速成长+=finalrxv3;
-						break;
-					case "最大命中":
-						hero.命中成长+=finalrxv3;
-						break;
-					case "最大闪避":
-						hero.闪避成长+=finalrxv3;
-						break;
-					case "暴击伤害":
-						hero.暴击成长+=finalrxv3;
-						break;
-					case "全能吸血":
-						hero.吸血成长+=finalrxv3;
-						break;
-				}
+				hero.属性锻造(finalrx3,finalrxv3);
 				hide();
 			}
 		};
@@ -268,9 +173,34 @@ public class Wnd选择属性 extends Window {
 		moveBtn3.setRect(0,pos,width,moveBtn3.reqHeight()+6);
 		add(moveBtn3);
 		pos=moveBtn3.bottom()+MARGIN;
-		
+
+		boolean 属性刷新=true;
+		RedButton 刷新=new RedButton("重新获得一个属性锻造器(一次性，相当于刷新)",6){
+			@Override
+			protected void onClick(){
+				super.onClick();
+				属性锻造器 item=new 属性锻造器();
+				item.用过=true;
+				item.放背包();
+
+				hide();
+			}
+		};
+		刷新.leftJustify=true;
+		刷新.multiline=true;
+		刷新.setSize(width,刷新.reqHeight());
+		刷新.setRect(0,pos,width,刷新.reqHeight()+6);
+		if(属性刷新&&!i.用过){
+			add(刷新);
+			pos=刷新.bottom()+MARGIN;
+		}
+
 		resize(width, (int)pos);
 
 	}
-	
+
+	@Override
+	public void onBackPressed() {
+
+	}
 }

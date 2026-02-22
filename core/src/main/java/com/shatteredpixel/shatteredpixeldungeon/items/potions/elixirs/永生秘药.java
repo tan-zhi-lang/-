@@ -40,6 +40,7 @@ public class 永生秘药 extends Elixir {
 		cure( hero );
 		heal( hero );
 		hero.belongings.uncurseEquipped();
+		if(hero.符文("恢复的宠爱"))hero.治疗成长+=0.25f;
 		hero.buff( Hunger.class ).吃饭( Hunger.STARVING );
 	}
 	

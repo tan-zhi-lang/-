@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.cleric.PowerOfMany;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
@@ -45,8 +44,8 @@ public class PrismaticGuard extends Buff {
 		if (closest != null && Dungeon.level.distance(hero.pos, closest.pos) < 5){
 			//spawn guardian
 			int bestPos = -1;
-			for (int i = 0; i < PathFinder.NEIGHBOURS8.length; i++) {
-				int p = hero.pos + PathFinder.NEIGHBOURS8[i];
+			for (int i=0; i < PathFinder.相邻8.length;i++) {
+				int p = hero.pos + PathFinder.相邻8[i];
 				if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
 					if (bestPos == -1 || Dungeon.level.trueDistance(p, closest.pos) < Dungeon.level.trueDistance(bestPos, closest.pos)){
 						bestPos = p;
@@ -56,9 +55,7 @@ public class PrismaticGuard extends Buff {
 			if (bestPos != -1) {
 				PrismaticImage pris = new PrismaticImage();
 				pris.duplicate(hero, (int)Math.floor(HP) );
-				if (powerOfManyTurns > 0){
-					Buff.施加(pris, PowerOfMany.PowerBuff.class, powerOfManyTurns);
-				}
+
 				pris.state = pris.HUNTING;
 				GameScene.add(pris, 1);
 				传送卷轴.appear(pris,bestPos);
@@ -94,11 +91,7 @@ public class PrismaticGuard extends Buff {
 
 	public void set( PrismaticImage img){
 		this.HP = img.生命;
-		if (img.buff(PowerOfMany.PowerBuff.class) != null){
-			powerOfManyTurns = img.buff(PowerOfMany.PowerBuff.class).cooldown()+1;
-		} else {
-			powerOfManyTurns = 0;
-		}
+		powerOfManyTurns = 0;
 	}
 	
 	public int maxHP(){

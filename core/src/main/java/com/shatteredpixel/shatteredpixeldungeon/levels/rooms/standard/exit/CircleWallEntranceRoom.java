@@ -40,7 +40,7 @@ public class CircleWallEntranceRoom extends CircleWallRoom {
 		Point p = center();
 
 		int cell = level.pointToCell(p);
-		for (int i : PathFinder.NEIGHBOURS8){
+		for (int i : PathFinder.相邻8){
 			if (level.map[cell+2*i] == Terrain.WALL){
 				Painter.set(level, cell+i, Terrain.EMPTY);
 			}

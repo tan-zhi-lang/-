@@ -34,9 +34,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
-import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -385,7 +385,7 @@ public class DwarfKing extends Mob {
 			} else {
 				bestDist = Dungeon.level.trueDistance(pos, enemy.pos);
 
-				for (int i : PathFinder.NEIGHBOURS8){
+				for (int i : PathFinder.相邻8){
 					if (Actor.findChar(pos+i) == null
 							&& !Dungeon.level.solid[pos+i]
 							&& Dungeon.level.trueDistance(pos+i, enemy.pos) > bestDist){
@@ -401,7 +401,7 @@ public class DwarfKing extends Mob {
 			//find closest cell that's adjacent to enemy, place subject there
 			bestDist = Dungeon.level.trueDistance(enemy.pos, pos);
 			bestPos = enemy.pos;
-			for (int i : PathFinder.NEIGHBOURS8){
+			for (int i : PathFinder.相邻8){
 				if (Actor.findChar(enemy.pos+i) == null
 						&& !Dungeon.level.solid[enemy.pos+i]
 						&& Dungeon.level.trueDistance(enemy.pos+i, pos) < bestDist){
@@ -545,9 +545,9 @@ public class DwarfKing extends Mob {
 		}
 
 		if (pos == CityBossLevel.throne){
-			Dungeon.level.drop(new 矮人国王的皇冠(),pos+Dungeon.level.width()).sprite().drop(pos);
+			Dungeon.level.drop(new 狂妄皇冠(),pos+Dungeon.level.width()).sprite().drop(pos);
 		} else {
-			Dungeon.level.drop(new 矮人国王的皇冠(), pos).sprite().drop();
+			Dungeon.level.drop(new 狂妄皇冠(), pos).sprite().drop();
 		}
 
 		Badges.validateBossSlain();
@@ -670,7 +670,7 @@ public class DwarfKing extends Mob {
 
 				if (Actor.findChar(pos) != null){
 					ArrayList<Integer> candidates = new ArrayList<>();
-					for (int i : PathFinder.NEIGHBOURS8){
+					for (int i : PathFinder.相邻8){
 						if (Dungeon.level.passable[pos+i] && Actor.findChar(pos+i) == null){
 							candidates.add(pos+i);
 						}

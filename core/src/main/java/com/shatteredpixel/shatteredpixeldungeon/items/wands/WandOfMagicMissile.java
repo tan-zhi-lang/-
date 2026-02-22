@@ -7,8 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
-import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -24,12 +22,12 @@ public class WandOfMagicMissile extends DamageWand {
 		image = 物品表.WAND_MAGIC_MISSILE;
 	}
 
-	public int min(int lvl){
+	public float min(int lvl){
 		lvl*=2;
 		return 2+lvl;
 	}
 
-	public int max(int lvl){
+	public float max(int lvl){
 		lvl*=2;
 		return 8+2*lvl;
 	}
@@ -59,16 +57,6 @@ public class WandOfMagicMissile extends DamageWand {
 		}
 	}
 
-	@Override
-	public void onHit(法师魔杖 staff, Char attacker, Char defender, float damage) {
-		SpellSprite.show(attacker, SpellSprite.CHARGE);
-		for (Wand.Charger c : attacker.buffs(Wand.Charger.class)){
-			if (c.wand() != this){
-				c.gainCharge(0.5f * procChanceMultiplier(attacker));
-			}
-		}
-
-	}
 
 	public int initialCharges() {
 		return 3;

@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
@@ -53,10 +54,19 @@ public class PrisonLevel extends RegularLevel {
 
 	@Override
 	public void playLevelMusic() {
-		if (Wandmaker.Quest.active() || Statistics.amuletObtained){
-			Music.INSTANCE.play(Assets.Music.PRISON_TENSE, true);
-		} else {
-			Music.INSTANCE.playTracks(PRISON_TRACK_LIST, PRISON_TRACK_CHANCES, false);
+		if(Dungeon.符文("骷髅打金服")){
+			SPDSettings.music(true);
+			SPDSettings.musicVol(10);
+			Music.INSTANCE.enable(SPDSettings.music());
+			Music.INSTANCE.volume(SPDSettings.musicVol()*SPDSettings.musicVol()/100f);
+
+			Music.INSTANCE.play(Assets.Music.骷髅打金服,true);
+		}else{
+			if(Wandmaker.Quest.active()||Statistics.amuletObtained){
+				Music.INSTANCE.play(Assets.Music.PRISON_TENSE,true);
+			}else{
+				Music.INSTANCE.playTracks(PRISON_TRACK_LIST,PRISON_TRACK_CHANCES,false);
+			}
 		}
 		wandmakerQuestWasActive = Wandmaker.Quest.active();
 	}
@@ -194,7 +204,7 @@ public class PrisonLevel extends RegularLevel {
 	public static void addPrisonVisuals(Level level, Group group){
 		for (int i=0; i < level.length(); i++) {
 			if (level.map[i] == Terrain.WALL_DECO) {
-				group.add( new Torch( i ) );
+				group.add( new Torch(i ));
 			}
 			//alt deco is a chasm visual in the prison
 			if (level.map[i] == Terrain.REGION_DECO_ALT) {

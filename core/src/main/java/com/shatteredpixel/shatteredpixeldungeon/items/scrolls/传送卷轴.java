@@ -162,7 +162,7 @@ public class 传送卷轴 extends Scroll {
 				SpecialRoom room = (SpecialRoom) level.room(pos);
 				if (room.entrance() != null){
 					doorPos = level.pointToCell(room.entrance());
-					for (int i : PathFinder.NEIGHBOURS8){
+					for (int i : PathFinder.相邻8){
 						if (!room.inside(level.cellToPoint(doorPos + i))
 								&& level.passable[doorPos + i]
 								&& Actor.findChar(doorPos + i) == null){
@@ -259,7 +259,7 @@ public class 传送卷轴 extends Scroll {
 	public static void 周身瞬移(Char ch,int pos) {
 		int ofs;
 		do {
-			ofs = PathFinder.NEIGHBOURS8[Random.Int(8)];
+			ofs = PathFinder.相邻8[Random.Int(8)];
 		} while (Actor.findChar(pos + ofs)==null&&Dungeon.level.solid[pos + ofs] &&!Dungeon.level.passable[pos + ofs]);
 
 

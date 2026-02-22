@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -59,7 +60,14 @@ public abstract class 法术{
 		if (tier == 1) {
 			spells.add(火球术.INSTANCE);
 		} else if (tier == 2) {
+			if(cleric.等级>6&&Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
+				spells.add(火墙术.INSTANCE);
 		} else if (tier == 3){
+			if(cleric.天赋(Talent.破冰飞刃))
+			spells.add(破冰飞刃.INSTANCE);
+
+			if(cleric.天赋(Talent.冰魄之弓))
+			spells.add(冰魄之弓.INSTANCE);
 		} else if (tier == 4){
 
 
@@ -71,6 +79,10 @@ public abstract class 法术{
 	public static ArrayList<法术> getAllSpells() {
 		ArrayList<法术> spells = new ArrayList<>();
 		spells.add(火球术.INSTANCE);
+		spells.add(火墙术.INSTANCE);
+
+		spells.add(破冰飞刃.INSTANCE);
+		spells.add(冰魄之弓.INSTANCE);
 		return spells;
 	}
 }

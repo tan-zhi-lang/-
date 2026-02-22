@@ -182,6 +182,7 @@ public abstract class Recipe {
 		new TrinketCatalyst.Recipe(),
 		new Trinket.UpgradeTrinket(),
 		new 魔力水晶.Recipe(),
+		new 火把神的恩宠.R(),
 	};
 	
 	private static Recipe[] twoIngredientRecipes = new Recipe[]{

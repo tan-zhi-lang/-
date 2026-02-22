@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
@@ -42,6 +43,9 @@ public class Invisibility extends FlavourBuff {
 	public void detach() {
 		if (target.invisible > 0)
 			target.invisible--;
+		if(target instanceof Mob m){
+			if(Dungeon.符文("我无限回档洞悉所有底牌"))m.诡异=true;
+		}
 		super.detach();
 	}
 	

@@ -13,17 +13,17 @@ import com.watabou.noosa.audio.Sample;
 //wands with AOE or circumstantial direct damage count here (e.g. fireblast, transfusion), but wands with indirect damage do not (e.g. corrosion)
 public abstract class DamageWand extends Wand{
 
-	public int min(){
+	public float min(){
 		return min(强化等级());
 	}
 
-	public abstract int min(int lvl);
+	public abstract float min(int lvl);
 
-	public int max(){
+	public float max(){
 		return max(强化等级());
 	}
 
-	public abstract int max(int lvl);
+	public abstract float max(int lvl);
 
 	public float damageRoll(){
 		return damageRoll(强化等级());
@@ -31,7 +31,7 @@ public abstract class DamageWand extends Wand{
 
 	public float damageRoll(int lvl){
 		float dmg = Hero.heroDamage(min(lvl),max(lvl));
-		
+
 		WandEmpower emp = Dungeon.hero.buff(WandEmpower.class);
 		if (emp != null){
 			dmg += emp.dmgBoost;
@@ -47,13 +47,13 @@ public abstract class DamageWand extends Wand{
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", min(), max());
+			return Messages.get(this, "stats_desc", String.format("%.2f",min()), String.format("%.2f",max()));
 		else
-			return Messages.get(this, "stats_desc", min(0), max(0));
+			return Messages.get(this, "stats_desc", String.format("%.2f",min(0)), String.format("%.2f",max(0)));
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
-		return min(level) + "-" + max(level);
+		return String.format("%.2f",min(level)) + "-" + String.format("%.2f",max(level));
 	}
 }

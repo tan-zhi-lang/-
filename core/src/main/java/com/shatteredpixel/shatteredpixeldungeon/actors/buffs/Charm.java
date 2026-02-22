@@ -4,7 +4,9 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundle;
 
 public class Charm extends FlavourBuff {
@@ -44,6 +46,15 @@ public class Charm extends FlavourBuff {
 	@Override
 	public float iconFadePercent() {
 		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+	}
+
+	@Override
+	public boolean attachTo(Char target){
+		if(target instanceof Hero hero&&hero.符文("我是色批"))
+			算法.修复效果(()->{
+				Buff.施加(hero,Paralysis.class,Paralysis.DURATION);
+			});
+		return super.attachTo(target);
 	}
 
 	public boolean ignoreNextHit = false;

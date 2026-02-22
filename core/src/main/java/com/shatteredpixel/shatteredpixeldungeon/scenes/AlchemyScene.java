@@ -696,9 +696,7 @@ public class AlchemyScene extends PixelScene {
 		}
 		
 		if (result != null){
-
 			craftItem(ingredients, result);
-
 		}
 
 		boolean foundItems = true;
@@ -752,7 +750,11 @@ public class AlchemyScene extends PixelScene {
 				if (inputs[i] != null && inputs[i].item() != null) {
 					Item item = inputs[i].item();
 					if (item.数量()<=0) {
-						inputs[i].item(null);
+						if(Dungeon.符文("智慧的宠爱")){
+//							item.数量(1);
+						}else{
+							inputs[i].item(null);
+						}
 					} else {
 						inputs[i].slot.updateText();
 					}

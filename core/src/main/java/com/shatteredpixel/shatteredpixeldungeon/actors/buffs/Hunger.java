@@ -104,17 +104,19 @@ public class Hunger extends Buff implements Hero.Doom {
 		if (target.isAlive() && target instanceof Hero hero) {
 			
 			if (isStarving()) {//饥饿时
-				
-				float hungerDelay = 1/10f;
+
+				float hungerDelay = 1f/10f;
 				if (target.buff(Shadows.class) != null){
-					hungerDelay /= 1.5f;
+					hungerDelay *= 1.5f;
 				}
 				if(Dungeon.符文("树懒转世"))
-					hungerDelay /= 2;
+					hungerDelay *= 2;
 				if(Dungeon.解压(解压设置.抗饿能手))
-					hungerDelay /= 2;
+					hungerDelay *= 2;
 				hungerDelay/=SaltCube.hungerGainMultiplier();
 				hungerDelay/=血腥生肉.减少();
+
+				if(Dungeon.符文("我是瘦子"))hungerDelay*=1.75f;
 				partial=hungerDelay;
 				if(算法.isDebug())partial=0;
 				if (partial > 0){
@@ -134,7 +136,8 @@ public class Hunger extends Buff implements Hero.Doom {
 					hungerDelay *= 2;
 				hungerDelay/=SaltCube.hungerGainMultiplier();
 				hungerDelay/=血腥生肉.减少();
-				
+
+				if(Dungeon.符文("我是瘦子"))hungerDelay*=1.75f;
 				float newLevel = level + 1f/hungerDelay;
 				if (newLevel >= STARVING) {//300时
 
@@ -197,6 +200,9 @@ public class Hunger extends Buff implements Hero.Doom {
 			GLog.w( Messages.get(this, "onhungry") );
 		} else if (oldLevel < STARVING && level >= STARVING){
 			GLog.n( Messages.get(this, "onstarving") );
+			if(Dungeon.符文("我是瘦子"))
+				target.受伤时( 2, this );
+			else
 			target.受伤时( 1, this );
 			partial=0;
 		}
@@ -255,5 +261,8 @@ public class Hunger extends Buff implements Hero.Doom {
 	}
 	public boolean 饥饿(){
 		return level > HUNGRY;
+	}
+	public boolean 空腹(){
+		return level > STARVING;
 	}
 }

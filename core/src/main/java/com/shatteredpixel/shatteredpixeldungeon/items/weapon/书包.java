@@ -16,7 +16,7 @@ public class 书包 extends Weapon{
 		tier = 1;
 		伤害=0.5f;
 		
-		遗产= false;
+
 	}
 	
 	@Override

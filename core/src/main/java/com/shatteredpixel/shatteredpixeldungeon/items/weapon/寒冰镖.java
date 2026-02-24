@@ -16,7 +16,7 @@ public class 寒冰镖 extends Weapon{
 	{
 		image = 物品表.寒冰镖;
 		hitSound = Assets.Sounds.HIT_STAB;
-		
+		circlingBack=true;
 		延迟=0.8f;
 		伤害=0.8f;
 		伏击=0.8f;
@@ -25,7 +25,7 @@ public class 寒冰镖 extends Weapon{
 	
 	@Override
 	public float 投掷攻击时(Char attacker,Char defender,float damage){
-		if (attacker.buff(ShurikenInstantTracker.class) == null)
+		if (defender!=null&&attacker.buff(ShurikenInstantTracker.class) == null)
 		Buff.施加(defender,Frost.class,Frost.DURATION);
 		return super.投掷攻击时(attacker,defender,damage);
 	}

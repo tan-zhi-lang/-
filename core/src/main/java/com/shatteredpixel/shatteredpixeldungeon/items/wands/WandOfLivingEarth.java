@@ -48,12 +48,12 @@ public class WandOfLivingEarth extends DamageWand {
 	}
 	@Override
 	public float min(int lvl) {
-		return 4;
+		return 魔力(0.4f,0.25f);
 	}
 	
 	@Override
 	public float max(int lvl) {
-		return 6 + 2*lvl;
+		return 魔力(0.6f,0.333f);
 	}
 	
 	@Override
@@ -92,7 +92,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 		//shooting at the guardian
 		if (guardian != null && guardian == ch){
-			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + 强化等级() / 2);
+			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 			guardian.setInfo(curUser, 强化等级(), armorToAdd);
 			wandProc(guardian, chargesPerCast());
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.9f * Random.Float(0.87f, 1.15f) );
@@ -109,7 +109,7 @@ public class WandOfLivingEarth extends DamageWand {
 			//adjacent cell which is closes to the user of the wand.
 			if (ch != null){
 
-				ch.sprite.centerEmitter().burst(MagicMissile.EarthParticle.BURST, 5 + 强化等级()/2);
+				ch.sprite.centerEmitter().burst(MagicMissile.EarthParticle.BURST);
 
 				wandProc(ch, chargesPerCast());
 				ch.受伤时(damage, this);
@@ -127,7 +127,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 				if (closest == -1){
 					if (armorToAdd > 0) {
-						curUser.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + 强化等级() / 2);
+						curUser.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 					}
 					return; //do not spawn guardian or detach buff
 				} else {
@@ -146,7 +146,7 @@ public class WandOfLivingEarth extends DamageWand {
 				Dungeon.level.occupyCell(guardian);
 			}
 
-			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + 强化等级()/2);
+			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 			buff.detach();
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.9f * Random.Float(0.87f, 1.15f) );
 
@@ -155,7 +155,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 			if (ch != null) {
 
-				ch.sprite.centerEmitter().burst(MagicMissile.EarthParticle.BURST, 5 + 强化等级() / 2);
+				ch.sprite.centerEmitter().burst(MagicMissile.EarthParticle.BURST);
 
 				wandProc(ch, chargesPerCast());
 				ch.受伤时(damage, this);
@@ -163,11 +163,11 @@ public class WandOfLivingEarth extends DamageWand {
 				
 				if (guardian == null) {
 					if (armorToAdd > 0) {
-						curUser.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + 强化等级() / 2);
+						curUser.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 					}
 				} else {
 					if (guardian.sprite != null) { //may be in stasis
-						guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + 强化等级() / 2);
+						guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 					}
 					guardian.setInfo(curUser, 强化等级(), armorToAdd);
 					if (ch.alignment == Char.Alignment.ENEMY || ch.buff(Amok.class) != null) {
@@ -429,7 +429,7 @@ public class WandOfLivingEarth extends DamageWand {
 				if (!enemyInFOV){
 					Buff.施加(Dungeon.hero, RockArmor.class).addArmor(wandLevel, 生命);
 
-					Dungeon.hero.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT, 8 + wandLevel/2);
+					Dungeon.hero.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 					destroy();
 					sprite.die();
 					return true;

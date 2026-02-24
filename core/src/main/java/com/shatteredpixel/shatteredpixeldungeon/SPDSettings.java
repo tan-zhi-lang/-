@@ -138,7 +138,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static float 加快(){
-		return 动画加快()?100f:1f;
+		return 动画加快()?50f:1f;
 	}
 	public static void 固定攻速(int value ){
 		put(固定攻速x, value );

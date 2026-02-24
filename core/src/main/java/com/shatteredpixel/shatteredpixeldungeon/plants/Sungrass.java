@@ -43,8 +43,6 @@ public class Sungrass extends Plant {
 			image = 物品表.SEED_SUNGRASS;
 
 			plantClass = Sungrass.class;
-			
-			遗产= true;
 		}
 	}
 	

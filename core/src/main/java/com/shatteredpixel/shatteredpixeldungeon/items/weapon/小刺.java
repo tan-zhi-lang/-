@@ -18,14 +18,9 @@ public class 小刺 extends Weapon{
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		damage+=defender.最大防御();
+		if(defender!=null)
+			damage+=defender.最大防御();
 		return super.攻击时( attacker, defender, damage );
-	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		
-		damage+=defender.最大防御();
-		return super.投掷攻击时( attacker, defender, damage );
 	}
 
 }

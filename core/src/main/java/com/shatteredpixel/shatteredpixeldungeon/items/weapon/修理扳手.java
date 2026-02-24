@@ -13,7 +13,7 @@ public class 修理扳手 extends Weapon{
 		延迟=0.85f;
 		伤害=0.68f;
 		特别= true;
-		遗产= false;
+
 		
 		tier = 1;
 	}

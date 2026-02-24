@@ -15,7 +15,7 @@ public class 白带 extends Weapon{
 		延迟= 0.43f;
 		伤害= 0.5f;
 		技能=new 连击();
-		遗产= false;
+
 	}
 
 }

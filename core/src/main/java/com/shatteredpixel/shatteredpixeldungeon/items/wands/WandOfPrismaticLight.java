@@ -19,7 +19,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
@@ -38,11 +37,11 @@ public class WandOfPrismaticLight extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return 1+lvl;
+		return 魔力();
 	}
 
 	public float max(int lvl){
-		return 5+3*lvl;
+		return 魔力(0.5f,0.6f);
 	}
 
 	@Override
@@ -51,9 +50,9 @@ public class WandOfPrismaticLight extends DamageWand {
 		
 		if (Dungeon.level.视野范围<6 ){
 			if (Dungeon.isChallenged(Challenges.DARKNESS)){
-				Buff.延长( curUser, Light.class, 2f + 强化等级());
+				Buff.延长( curUser, Light.class, 3);
 			} else {
-				Buff.延长( curUser, Light.class, 10f+ 强化等级()*5);
+				Buff.延长( curUser, Light.class, 15);
 			}
 		}
 		
@@ -67,19 +66,17 @@ public class WandOfPrismaticLight extends DamageWand {
 	private void affectTarget(Char ch){
 		float dmg = damageRoll();
 
-		//three in (5+lvl) chance of failing
-		if (Random.Int(5+ 强化等级()) >= 3) {
-			Buff.延长(ch, Blindness.class, 2f + (强化等级() * 0.333f));
-			ch.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6 );
-		}
+	//three in (5+lvl) chance of failing
+		Buff.延长(ch, Blindness.class, 2);
+		ch.sprite.emitter().burst(Speck.factory(Speck.LIGHT));
 
 		if (ch.properties().contains(Char.Property.DEMONIC) || ch.properties().contains(Char.Property.UNDEAD)){
-			ch.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+ 强化等级() );
+			ch.sprite.emitter().start( ShadowParticle.UP, 0.05f );
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 
 			ch.受伤时(dmg*1.333f, this);
 		} else {
-			ch.sprite.centerEmitter().burst( RainbowParticle.BURST, 10+ 强化等级() );
+			ch.sprite.centerEmitter().burst( RainbowParticle.BURST );
 
 			ch.受伤时(dmg, this);
 		}
@@ -116,11 +113,6 @@ public class WandOfPrismaticLight extends DamageWand {
 			Sample.INSTANCE.play( Assets.Sounds.SECRET );
 
 		GameScene.updateFog();
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return Messages.decimalFormat("#", 100*(1-(3/(float)(5+level)))) + "%";
 	}
 
 	@Override

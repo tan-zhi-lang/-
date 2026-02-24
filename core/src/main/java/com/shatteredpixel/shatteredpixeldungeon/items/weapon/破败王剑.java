@@ -20,19 +20,11 @@ public class 破败王剑 extends Weapon{
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(attacker instanceof Hero hero&&hero.符文("升级破败王剑"))
+		if(defender!=null&&attacker instanceof Hero hero&&hero.符文("升级破败王剑"))
 			damage+=defender.最大生命(0.035f);
-
+		if(defender!=null)
 		damage+=defender.生命(0.15f);
 		return super.攻击时( attacker, defender, damage );
-	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		if(attacker instanceof Hero hero&&hero.符文("升级破败王剑"))
-			damage+=defender.最大生命(0.035f);
-
-		damage+=defender.生命(0.15f);
-		return super.投掷攻击时( attacker, defender, damage );
 	}
 
 }

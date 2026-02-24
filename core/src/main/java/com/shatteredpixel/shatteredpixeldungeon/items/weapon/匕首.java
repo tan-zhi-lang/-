@@ -17,7 +17,7 @@ public class 匕首 extends Weapon{
 		伏击=0.75f;
 		技能=new 潜行();
 
-		遗产= false;
+
 		
 		tier = 1;
 	}

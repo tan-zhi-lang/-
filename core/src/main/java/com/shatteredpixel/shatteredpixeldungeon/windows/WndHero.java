@@ -201,8 +201,8 @@ public class WndHero extends WndTabbed {
 
 			pos = title.bottom() + GAP;
 
-			statSlot( "力量/魔力", String.format("%.2f",hero.力量())+"/"+hero.魔力());
-			statSlot( "==物理增伤/攻击==", Math.round((hero.攻击时(null,100)/100f-1)*100f)+"%/"+String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
+			statSlot( "力量/魔力", String.format("%.2f",hero.力量())+"/"+String.format("%.2f",hero.魔力()));
+			statSlot( "==物理增伤/攻击==", Math.round((hero.攻击时(null,100)/100f-1)*hero.伤害()*100f)+"%/"+String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
 			statSlot( "++物理抗性/防御++", Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
 			pos += GAP;
 			
@@ -274,7 +274,7 @@ public class WndHero extends WndTabbed {
 
 			statSlot( "==穿甲/护甲穿透==", hero.穿甲()+"/"+Math.round((1-hero.护甲穿透())*100)+"%");
 
-			statSlot( "##造成伤害/元素抗性##",Math.round(hero.伤害()*100)+"%"+"/"+Math.round(
+			statSlot( "##魔抗/元素抗性##",String.format("%.2f",AntiMagic.drRoll(hero, hero.glyphLevel(AntiMagic.class)))+"/"+Math.round(
 					(100-(100*RingOfElements.resist(hero)-AntiMagic.drRoll(hero,hero.glyphLevel(AntiMagic.class))/100f)
 								))+"%");
 			pos += GAP;

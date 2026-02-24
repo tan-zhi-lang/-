@@ -17,7 +17,7 @@ public class 碧蓝巨剑 extends Weapon{
 		tier = 1;
 		延迟= 1.35f;
 		伤害= 1.35f;
-		遗产= false;
+
 	}
 
 }

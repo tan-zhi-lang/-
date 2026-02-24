@@ -17,7 +17,7 @@ public class 血砍刀 extends Weapon{
 		流血=0.3f;
 		
 		特别= true;
-		遗产= false;
+
 		红色 = true;
 	}
 	

@@ -25,26 +25,17 @@ public class 臻冰刃 extends Weapon {
 	
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(defender.hasbuff(Frost.class)){
-			damage*=attacker.暴击伤害();
-		}else if(defender.hasbuff(Chill.class)){
-			Buff.施加(defender,Frost.class,2);
-		}else{
-			Buff.施加(defender,Chill.class,2);
+		if(defender!=null){
+			if(defender.hasbuff(Frost.class)){
+				damage*=attacker.暴击伤害();
+			}else
+				if(defender.hasbuff(Chill.class)){
+					Buff.施加(defender,Frost.class,2);
+				}else{
+					Buff.施加(defender,Chill.class,2);
+				}
 		}
 			return super.攻击时( attacker, defender, damage );
-	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		
-		if(defender.hasbuff(Frost.class)){
-			damage*=attacker.暴击伤害();
-		}else if(defender.hasbuff(Chill.class)){
-			Buff.施加(defender,Frost.class,2);
-		}else{
-			Buff.施加(defender,Chill.class,2);
-		}
-		return super.投掷攻击时( attacker, defender, damage );
 	}
 
 }

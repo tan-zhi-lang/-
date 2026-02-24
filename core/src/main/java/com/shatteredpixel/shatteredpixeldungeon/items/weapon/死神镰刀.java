@@ -26,19 +26,12 @@ public class 死神镰刀 extends Weapon{
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(attacker instanceof Hero hero&&hero.符文("升级死神镰刀"))damage*=attacker.暴击伤害();
-		if(defender.残血()){
+		if(defender!=null&&defender.残血()){
 			damage*=attacker.暴击伤害();
 		}
 		return super.攻击时( attacker, defender, damage );
 	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		if(attacker instanceof Hero hero&&hero.符文("升级死神镰刀"))damage*=attacker.暴击伤害();
-		if(defender.残血()){
-			damage*=attacker.暴击伤害();
-		}
-		return super.投掷攻击时( attacker, defender, damage );
-	}
+
 
 
 }

@@ -20,26 +20,27 @@ public class HolyDart extends TippedDart {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			//do nothing to the hero when processing charged shot
+			if(processingChargedShot&&defender==attacker){
+				return super.攻击时(attacker,defender,damage);
+			}
 
-		//do nothing to the hero when processing charged shot
-		if (processingChargedShot && defender == attacker){
-			return super.攻击时(attacker, defender, damage);
-		}
+			if(attacker.alignment==defender.alignment){
+				Buff.施加(defender,Bless.class,Math.round(Bless.DURATION));
+				return 0;
+			}
 
-		if (attacker.alignment == defender.alignment){
-			Buff.施加(defender, Bless.class, Math.round(Bless.DURATION));
-			return 0;
+			if(Char.hasProp(defender,Char.Property.UNDEAD)||Char.hasProp(defender,Char.Property.DEMONIC)){
+				defender.sprite.emitter().start(ShadowParticle.UP,0.05f,10+强化等级());
+				Sample.INSTANCE.play(Assets.Sounds.BURNING);
+				defender.受伤时(Random.NormalFloat(10+Dungeon.scalingDepth()/3f,20+Dungeon.scalingDepth()/3f),this);
+				//also do not bless enemies if processing charged shot
+			}else
+				if(!processingChargedShot){
+					Buff.施加(defender,Bless.class,Math.round(Bless.DURATION));
+				}
 		}
-
-		if (Char.hasProp(defender, Char.Property.UNDEAD) || Char.hasProp(defender, Char.Property.DEMONIC)){
-			defender.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10+ 强化等级() );
-			Sample.INSTANCE.play(Assets.Sounds.BURNING);
-			defender.受伤时(Random.NormalFloat(10 + Dungeon.scalingDepth()/3f, 20 + Dungeon.scalingDepth()/3f), this);
-		//also do not bless enemies if processing charged shot
-		} else if (!processingChargedShot){
-			Buff.施加(defender, Bless.class, Math.round(Bless.DURATION));
-		}
-		
 		return super.攻击时(attacker, defender, damage);
 	}
 }

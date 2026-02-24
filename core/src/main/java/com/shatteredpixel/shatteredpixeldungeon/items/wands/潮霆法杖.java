@@ -10,10 +10,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
-import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
@@ -23,9 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Callback;
@@ -34,22 +30,22 @@ import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class 折镜法杖 extends DamageWand {
+public class 潮霆法杖 extends DamageWand {
 
 	{
-		image = 物品表.WAND_LIGHTNING;
+		image = 物品表.潮霆法杖;
 	}
-	
+
 	private ArrayList<Char> affected = new ArrayList<>();
 
 	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 
 	public float min(int lvl){
-		return 5+lvl;
+		return 魔力(1,0.2f);
 	}
 
 	public float max(int lvl){
-		return 10+5*lvl;
+		return 魔力(2,0.5f);
 	}
 
 	@Override
@@ -58,57 +54,32 @@ public class 折镜法杖 extends DamageWand {
 		for (Char ch : affected.toArray(new Char[0])){
 			if (ch != curUser && ch.alignment == curUser.alignment && ch.pos != bolt.collisionPos){
 				affected.remove(ch);
-			} else if (ch.buff(LightningCharge.class) != null){
-				affected.remove(ch);
 			}
 		}
 
 		//lightning deals less damage per-target, the more targets that are hit.
-		float multiplier = 0.4f + (0.6f/affected.size());
+		float multiplier = 0.8f + (1.2f/affected.size());
 		//if the main target is in water, all affected take full damage
 		if (Dungeon.level.water[bolt.collisionPos]) multiplier = 1f;
 
 		for (Char ch : affected){
 			if (ch == Dungeon.hero) PixelScene.shake( 2, 0.3f );
+			ch.sprite.centerEmitter().burst( SparkParticle.FACTORY);
 			ch.sprite.flash();
 
 			wandProc(ch, chargesPerCast());
 			if (ch == curUser && ch.isAlive()) {
 				ch.受伤时(damageRoll() * multiplier * 0.5f, this);
-				Buff.施加(ch,Cripple.class,2+强化等级());
+				Buff.施加(ch,Cripple.class,5);
 				if (!curUser.isAlive()) {
 					Badges.validateDeathFromFriendlyMagic();
 					Dungeon.fail( this );
 					GLog.n(Messages.get(this, "ondeath"));
 				}
 			} else {
-				Buff.施加(ch,Paralysis.class,2+强化等级());
+				Buff.施加(ch,Paralysis.class,5);
 				ch.受伤时(damageRoll() * multiplier, this);
 			}
-		}
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return Integer.toString(2 + level);
-	}
-
-	public static class LightningCharge extends FlavourBuff {
-
-		{
-			type = buffType.POSITIVE;
-		}
-
-		public static float DURATION = 10f;
-
-		@Override
-		public int icon() {
-			return BuffIndicator.IMBUE;
-		}
-
-		@Override
-		public void tintIcon(Image icon) {
-			icon.hardlight(1, 1, 0);
 		}
 	}
 
@@ -117,9 +88,7 @@ public class 折镜法杖 extends DamageWand {
 
 		int dist = Dungeon.level.water[ch.pos] ? 2 : 1;
 
-		if (curUser.buff(LightningCharge.class) != null){
-			dist++;
-		}
+		dist++;
 
 		ArrayList<Char> hitThisArc = new ArrayList<>();
 		PathFinder.buildDistanceMap( ch.pos, BArray.not( Dungeon.level.solid, null ), dist );
@@ -137,7 +106,7 @@ public class 折镜法杖 extends DamageWand {
 
 		affected.addAll(hitThisArc);
 		for (Char hit : hitThisArc){
-			ch.sprite.parent.add(new Beam.LightRay(ch.sprite.center(),DungeonTilemap.raisedTileCenterToWorld(hit.pos)));
+			arcs.add(new Lightning.Arc(ch.sprite.center(), hit.sprite.center()));
 			arc(hit);
 		}
 	}
@@ -157,11 +126,10 @@ public class 折镜法杖 extends DamageWand {
 			}
 
 			affected.add( ch );
-
-			curUser.sprite.parent.add(new Beam.LightRay(curUser.sprite.center(),DungeonTilemap.raisedTileCenterToWorld(ch.pos)));
+			arcs.add( new Lightning.Arc(curUser.sprite.center(), ch.sprite.center()));
 			arc(ch);
 		} else {
-			curUser.sprite.parent.add(new Beam.LightRay(curUser.sprite.center(),DungeonTilemap.raisedTileCenterToWorld(bolt.collisionPos)));
+			arcs.add( new Lightning.Arc(curUser.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(bolt.collisionPos)));
 			CellEmitter.center( cell ).burst( SparkParticle.FACTORY, 3 );
 		}
 
@@ -185,5 +153,5 @@ public class 折镜法杖 extends DamageWand {
 		particle.x -= dst;
 		particle.y += dst;
 	}
-	
+
 }

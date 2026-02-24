@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -17,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
@@ -76,7 +78,18 @@ public abstract class Wand extends Item {
 		usesTargeting = true;
 		遗产= true;
 	}
-	
+
+	public float 魔力(){
+		return Dungeon.hero.魔力(0.1f*(1+1*强化等级()));
+	}
+	public float 魔力(float 魔力收益,float 等收益){
+		return Dungeon.hero.魔力(魔力收益*(1+等收益*强化等级()));
+	}
+
+	public float 魔力加(float 魔力收益,float 等收益){
+		return Dungeon.hero.魔力(魔力收益*(1+等收益*(强化等级()+1)));
+	}
+
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
@@ -295,7 +308,7 @@ public abstract class Wand extends Item {
 		level += resinBonus;
 		return level;
 	}
-	
+
 	@Override
 	public Item 升级() {
 
@@ -331,7 +344,7 @@ public abstract class Wand extends Item {
 		int lvl = super.强化等级();
 
 		if(Dungeon.hero()&&!Dungeon.符文("魔法转物理")){
-			lvl+=Dungeon.hero.魔力()-1;
+			lvl+=Math.round(Dungeon.hero.魔力(0.04999f));
 			lvl+=Dungeon.hero.智力;
 			lvl+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
 			lvl+=Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血色契约,0.01f));
@@ -437,6 +450,8 @@ public abstract class Wand extends Item {
 		if(!算法.isDebug())
 		curCharges -= cursed ? 1 : chargesPerCast();
 
+		if(curUser.subClass(HeroSubClass.祭司))
+			Buff.延长(curUser,Bless.class,Bless.DURATION);
 		//remove magic charge at a higher priority, if we are benefiting from it are and not the
 		//wand that just applied it
 		WandOfMagicMissile.MagicCharge buff = curUser.buff(WandOfMagicMissile.MagicCharge.class);

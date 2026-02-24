@@ -404,7 +404,9 @@ public class StatusPane extends Component {
 				血条文本.text(String.format("%.2f",health)+String.format("%.2f",血量变化)+"/"+String.format("%.2f",max));
 			}
 		}
-		法力条文本.text(String.format("%.2f",护甲)+"+"+(护甲<最大护甲?String.format("%.2f",100/50f*恢复速度):"")+"/"+String.format("%.2f",最大护甲));
+		法力条文本.text(String.format("%.2f",护甲)+(护甲<最大护甲?
+															("+"+String.format("%.2f",100/50f*恢复速度)
+		):"")+"/"+String.format("%.2f",最大护甲));
 		绿条文本.text(String.format("%.2f",hunger)+
 					  (hunger>0?String.format("%.2f",-hungerDelay):"") + "/" + String.format("%.2f",450f));
 	

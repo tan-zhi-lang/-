@@ -108,7 +108,7 @@ public class 飞镖 extends Weapon{
 		}
 
 		float dmg = super.投掷攻击时(attacker, defender, damage);
-
+		dmg = super.攻击时(attacker, defender, damage);
 		if(defender!=null)
 		if (!processingChargedShot) {
 			processChargedShot(defender, damage);

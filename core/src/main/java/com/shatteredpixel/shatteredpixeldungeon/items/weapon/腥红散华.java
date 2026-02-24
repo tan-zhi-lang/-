@@ -12,11 +12,11 @@ public class 腥红散华 extends Weapon{
 	{
 		image = 物品表.腥红散华;
 		hitSound = Assets.Sounds.HIT_ARROW;
-
+		范围=5;
 		红色 = true;
 		特别= true;
-		遗产= false;
-		伤害=0.25f;
+
+		伤害=0.2f;
 		吸血=0.07f;
 		命中=0.65f;
 		tier = 5;
@@ -24,7 +24,7 @@ public class 腥红散华 extends Weapon{
 
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(attacker instanceof Hero hero){
+		if(defender!=null&&attacker instanceof Hero hero){
 			hero.风刃(hero,defender.pos,45,4,new 吸血刀());
 		}
 		return super.攻击时( attacker, defender, damage );

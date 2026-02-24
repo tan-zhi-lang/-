@@ -28,20 +28,15 @@ public class 死血 extends 巫术 {
 		Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC,1,Random.Float(0.87f,1.15f));
 
 
-		hero.回已损失血(0.075f+hero.天赋点数(Talent.高级死血,0.05f));
+		hero.回血(hero.魔力(2)*hero.根据已损失生命()*hero.天赋点数(Talent.高级死血,0.05f));
 
 		onSpellCast(tome, hero);
 
 	}
 
-	@Override
-	public int chargeUse(Hero hero) {
-		return 1;
-	}
-
 	public String desc(){
 		String desc = Messages.get(this, "desc",String.format("%.2f",
-															  Dungeon.hero.已损失生命(0.075f+Dungeon.hero.天赋点数(Talent.高级死血,0.05f))));
+															  Dungeon.hero.魔力(2)*Dungeon.hero.根据已损失生命()*Dungeon.hero.天赋点数(Talent.高级死血,0.05f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

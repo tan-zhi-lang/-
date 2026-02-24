@@ -12,7 +12,7 @@ public class 纯净粮食 extends Food {
 		image = 物品表.纯净粮食;
 		energy = Hunger.HUNGRY/3f*2; //100 food value
 		
-		遗产= false;
+
 	}
 
 	@Override

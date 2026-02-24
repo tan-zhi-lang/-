@@ -8,6 +8,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
@@ -80,16 +82,34 @@ public class 火球术 extends 目标法术 {
 				}
 
 				Char ch = Actor.findChar( aim.collisionPos );
-				if (ch != null) {
-					ch.受伤时(
-							Random.NormalFloat(
-									1
-									,
-									4
-											  ), 火球术.this);
 
-					ch.sprite.burst( 0xFF99CCFF,  2 );
-					Buff.施加(ch,燃烧.class).reignite(ch,2);
+				float damage = Random.NormalFloat(
+						hero.魔力(0.1f)
+						,
+						hero.魔力(0.4f)
+												 );
+
+				if (ch != null) {
+					if (ch.buff(燃烧.class)!=null){
+						//6.67% less damage per turn of chill remaining, to a max of 10 turns (50% dmg)
+						float chillturns = Math.min(10, ch.buff(燃烧.class).cooldown());
+						damage = (int)Math.round(damage * Math.pow(0.9333f, chillturns));
+					}
+					ch.受伤时(damage
+							, 火球术.this);
+
+					if (ch.isAlive()){
+						if (ch.buff(Chill.class)!=null){
+							Buff.施加(ch,Paralysis.class,4f);
+						}
+						if (ch.在草丛()||ch.在门上()) {
+							Buff.施加(ch,Paralysis.class,4f);
+						} else {
+							ch.sprite.burst( 0xFF99CCFF,
+											 Math.round(hero.魔力(0.15f)));
+							Buff.施加(ch, 燃烧.class).reignite(ch,2 + hero.魔力(0.15f));
+						}
+					}
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
 				}
@@ -106,7 +126,10 @@ public class 火球术 extends 目标法术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",1,4);
+		String desc = Messages.get(this, "desc",
+								   Dungeon.hero.魔力(0.1f)
+				,
+								   Dungeon.hero.魔力(0.4f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

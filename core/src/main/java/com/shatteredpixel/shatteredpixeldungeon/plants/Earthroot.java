@@ -45,8 +45,6 @@ public class Earthroot extends Plant {
 			image = 物品表.SEED_EARTHROOT;
 
 			plantClass = Earthroot.class;
-			
-			遗产= true;
 		}
 	}
 	

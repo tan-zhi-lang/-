@@ -75,88 +75,45 @@ public class HeroIcon extends Image {
 	public static final int 金刚独狼     = 23*8;
 	public static final int 血法师     = 金刚独狼+1;
 	public static final int 时间刺客     = 24*8;
-	public static final int 潜能觉醒     = 32*8;
 
-	//abilities
-	public static final int HEROIC_LEAP     = 16;
-	public static final int SHOCKWAVE       = 17;
-	public static final int ENDURE          = 18;
 	public static final int ELEMENTAL_BLAST = 19;
 	public static final int WILD_MAGIC      = 20;
 	public static final int WARP_BEACON     = 21;
-	public static final int SMOKE_BOMB      = 22;
-	public static final int DEATH_MARK      = 23;
 	public static final int SHADOW_CLONE    = 24;
-	public static final int SPECTRAL_BLADES = 25;
-	public static final int NATURES_POWER   = 26;
 	public static final int SPIRIT_HAWK     = 27;
 	public static final int CHALLENGE       = 28;
 	public static final int ELEMENTAL_STRIKE= 29;
 	public static final int FEINT           = 30;
-	public static final int ASCENDED_FORM   = 31;
-	public static final int TRINITY         = 32;
-	public static final int POWER_OF_MANY   = 33;
-	public static final int RATMOGRIFY      = 34;
 
-	//cleric spells
-	public static final int GUIDING_LIGHT   = 40;
-	public static final int HOLY_WEAPON     = 41;
-	public static final int HOLY_INTUITION  = 42;
-	public static final int SUNRAY          = 43;
-	public static final int DIVINE_SENSE    = 44;
-	public static final int BLESS           = 45;
-	public static final int CLEANSE         = 46;
-	
-	public static final int RADIANCE        = 47;
-	public static final int HOLY_LANCE      = 48;
-	public static final int HALLOWED_GROUND = 49;
-	public static final int MNEMONIC_PRAYER = 50;
-
-	public static final int AURA_OF_PROTECTION = 53;
-	public static final int WALL_OF_LIGHT   = 54;
-	public static final int DIVINE_INTERVENTION = 55;
-	public static final int JUDGEMENT       = 56;
-	public static final int FLASH           = 57;
-	public static final int BODY_FORM       = 58;
-	public static final int MIND_FORM       = 59;
-	public static final int SPIRIT_FORM     = 60;
-	public static final int BEAMING_RAY     = 61;
-	public static final int LIFE_LINK       = 62;
-	public static final int STASIS          = 63;
-
-	//all cleric spells have a separate icon with no background for the action indicator
-	public static final int SPELL_ACTION_OFFSET      = 32;
-	
-	
-	public static final int 血爆巫术= 100;
-	public static final int 物到巫术= 103;
 	//action indicator visuals
-	public static final int BERSERK         = 0;
-	public static final int COMBO           = 1;
-	public static final int PREPARATION     = 2;
-	public static final int MOMENTUM        = 3;
-	public static final int SNIPERS_MARK    = 4;
-	public static final int WEAPON_SWAP     = 5;
-	public static final int MONK_ABILITIES  = 6;
-	public static final int 时间能力  = 7;
+	public static final int BERSERK         = 25*8;
+	public static final int COMBO           = BERSERK+1;
+	public static final int PREPARATION     = BERSERK+2;
+	public static final int MOMENTUM        = BERSERK+3;
+	public static final int SNIPERS_MARK    = BERSERK+4;
+	public static final int WEAPON_SWAP     = BERSERK+5;
+	public static final int MONK_ABILITIES  = BERSERK+6;
+	public static final int 时间能力  = BERSERK+7;
 
-	public static final int 火球术=2*8;
+	public static final int 火球术=27*8;
 	public static final int 火墙术=火球术+2;
 	public static final int 破冰飞刃=火球术+4;
 	public static final int 冰魄之弓=火球术+6;
-	public static final int 圣光   = 3*8;
+	public static final int 圣光   = 28*8;
 	public static final int 赐福=圣光+2;
 
-	public static final int 痛命= 4*8;
+	public static final int 痛命= 29*8;
 	public static final int 死血= 痛命+2;
 
-	public static final int 符咒= 5*8;
+	public static final int 符咒= 30*8;
 	public static final int 掌心雷= 符咒+2;
 
-	public static final int 风刃= 6*8;
+	public static final int 风刃= 31*8;
 	public static final int 木遁= 风刃+2;
 	public static final int 尘遁= 风刃+4;
 	public static final int 土遁= 风刃+6;
+
+	public static final int 潜能觉醒     = 32*8;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );
@@ -167,7 +124,7 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(ArmorAbility abil){
-		super( Assets.Interfaces.HERO_SPELL );
+		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
@@ -175,7 +132,7 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(ActionIndicator.Action action){
-		super( Assets.Interfaces.HERO_SPELL );
+		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
@@ -183,7 +140,7 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(ClericSpell spell){
-		super( Assets.Interfaces.HERO_SPELL );
+		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
@@ -191,28 +148,28 @@ public class HeroIcon extends Image {
 	}
 
 	public HeroIcon(巫术 spell){
-		super( Assets.Interfaces.HERO_SPELL );
+		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
 		frame(film.get(spell.icon()));
 	}
 	public HeroIcon(道术 spell){
-		super( Assets.Interfaces.HERO_SPELL );
+		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
 		frame(film.get(spell.icon()));
 	}
 	public HeroIcon(忍术 spell){
-		super( Assets.Interfaces.HERO_SPELL );
+		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}
 		frame(film.get(spell.icon()));
 	}
 	public HeroIcon(法术 spell){
-		super( Assets.Interfaces.HERO_SPELL );
+		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){
 			film = new TextureFilm(texture, SIZE, SIZE);
 		}

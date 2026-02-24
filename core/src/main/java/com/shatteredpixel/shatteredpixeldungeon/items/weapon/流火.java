@@ -17,14 +17,8 @@ public class 流火 extends Weapon{
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(defender.nobuff(火毒.class))
+		if(defender!=null&&defender.nobuff(火毒.class))
 			Buff.施加(defender,火毒.class).reignite(defender);
 		return super.攻击时( attacker, defender, damage );
-	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		if(defender.nobuff(火毒.class))
-			Buff.施加(defender,火毒.class).reignite(defender);
-		return super.投掷攻击时( attacker, defender, damage );
 	}
 }

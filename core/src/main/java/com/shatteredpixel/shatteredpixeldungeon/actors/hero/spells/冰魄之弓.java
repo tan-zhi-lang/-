@@ -49,15 +49,15 @@ public class 冰魄之弓 extends 目标法术 {
 		}
 
 		if(enemy.isAlive())
-			Buff.施加(enemy,伤害.class).level+=hero.最大攻击()*0.2f*(1+hero.天赋点数(Talent.冰魄之弓));
+			Buff.施加(enemy,伤害.class).level+=hero.魔力(0.2f)*(1+hero.天赋点数(Talent.冰魄之弓,0.25f));
 		hero.扔出(enemy.pos,new 魔法箭矢(),()->{
 			if(enemy.isAlive())
-				Buff.施加(enemy,伤害.class).level+=hero.最大攻击()*0.2f*(1+hero.天赋点数(Talent.冰魄之弓));
+				Buff.施加(enemy,伤害.class).level+=hero.魔力(0.2f)*(1+hero.天赋点数(Talent.冰魄之弓,0.25f));
 			hero.扔出(enemy.pos,new 魔法箭矢(),()->{
 
 				hero.扔出(enemy.pos,new 魔法箭矢(),()->{
 					if(enemy.isAlive())
-						Buff.施加(enemy,伤害.class).level+=hero.最大攻击()*0.2f*(1+hero.天赋点数(Talent.冰魄之弓));
+						Buff.施加(enemy,伤害.class).level+=hero.魔力(0.2f)*(1+hero.天赋点数(Talent.冰魄之弓,0.25f));
 				});
 			});
 		});
@@ -123,7 +123,7 @@ public class 冰魄之弓 extends 目标法术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.最大攻击()*0.2f*(1+Dungeon.hero.天赋点数(Talent.冰魄之弓)));
+		String desc = Messages.get(this, "desc",Dungeon.hero.魔力(0.2f)*(1+Dungeon.hero.天赋点数(Talent.冰魄之弓,0.25f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

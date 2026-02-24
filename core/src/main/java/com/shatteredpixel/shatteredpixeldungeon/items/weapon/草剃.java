@@ -23,20 +23,13 @@ public class 草剃 extends Weapon {
 	
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
+		if(defender!=null)
 		for (int n : PathFinder.相邻8){
 			int cell=attacker.pos+n;
 			Dungeon.level.pressCellgrass(cell);
 		}
 		return super.攻击时( attacker, defender, damage );
 	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		
-		for (int n : PathFinder.相邻8){
-			int cell=attacker.pos+n;
-			Dungeon.level.pressCellgrass(cell);
-		}
-		return super.投掷攻击时( attacker, defender, damage );
-	}
+
 
 }

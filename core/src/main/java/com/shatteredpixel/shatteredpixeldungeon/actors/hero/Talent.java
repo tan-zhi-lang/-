@@ -109,7 +109,7 @@ public enum Talent {
 	//Cleric T2
 	神圣净化(169,4), 轻量阅读(170,4),
 	//Priest T3
-	HOLY_LANCE(171, 4), HALLOWED_GROUND(172, 4), MNEMONIC_PRAYER(173, 4),
+	神圣长枪(171,4), 神圣领域(172,4), 祈愿诗篇(173,4),
 	//Paladin T3
 	神圣之触(174,4), 守御灵光(175,4), 神圣屏障(176,4),
 
@@ -411,6 +411,9 @@ public enum Talent {
 	public static void 吃饭时(Hero hero, float foodVal ){
 		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)+(hero.符文("饭桶")?hero.最大生命(0.05f):0)));
 
+		if(hero.符文("牙结石")){
+			hero.护甲(foodVal*0.1f);
+		}
 		if(hero.符文("饭桶")){
 			hero.恢复百分比护甲(0.1f);
 		}
@@ -737,11 +740,11 @@ public enum Talent {
 			case 武者:
 				Collections.addAll(tierTalents, UNENCUMBERED_SPIRIT, MONASTIC_VIGOR, COMBINED_ENERGY);
 				break;
-			case 祭司:
-				Collections.addAll(tierTalents, HOLY_LANCE, HALLOWED_GROUND, MNEMONIC_PRAYER);
-				break;
 			case 圣骑士:
 				Collections.addAll(tierTalents,神圣之触,守御灵光,神圣屏障);
+				break;
+			case 祭司:
+				Collections.addAll(tierTalents,神圣长枪,神圣领域,祈愿诗篇);
 				break;
 			case 黑魔导师:
 				Collections.addAll(tierTalents, 高级痛命, 高级死血, 高级吸血);

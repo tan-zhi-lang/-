@@ -64,10 +64,11 @@ public abstract class 忍术{
 			if(cleric.等级>6&&Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
 				spells.add(木遁.INSTANCE);
 		} else if (tier == 3){
-			if(cleric.subClass(HeroSubClass.土影));
-			spells.add(尘遁.INSTANCE);
-			if(cleric.天赋(Talent.绝密尘遁))
+			if(cleric.subClass(HeroSubClass.土影))
 			spells.add(土遁.INSTANCE);
+
+			if(cleric.天赋(Talent.绝密尘遁))
+			spells.add(尘遁.INSTANCE);
 		} else if (tier == 4){
 
 
@@ -80,8 +81,8 @@ public abstract class 忍术{
 		ArrayList<忍术> spells = new ArrayList<>();
 		spells.add(风刃.INSTANCE);
 		spells.add(木遁.INSTANCE);
-		spells.add(尘遁.INSTANCE);
 		spells.add(土遁.INSTANCE);
+		spells.add(尘遁.INSTANCE);
 		return spells;
 	}
 }

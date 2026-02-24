@@ -51,7 +51,7 @@ public class RenderedTextBlock extends Component {
 		if (text != null && !text.equals("")) {
 			
 			tokens = Game.platform.splitforTextBlock(text, multiline);
-			
+
 			build();
 		}
 	}
@@ -90,95 +90,122 @@ public class RenderedTextBlock extends Component {
 		return maxWidth;
 	}
 
-	private synchronized void build(){
+	//region 颜色文本渲染
+	private static final int COLOR_WHITE = 0xFFFFFF;      // 默认白色
+	private static final int COLOR_RESET = -1;            // 颜色重置值
+
+	private synchronized void build() {
 		if (tokens == null) return;
-		
+
 		clear();
 		words = new ArrayList<>();
-		boolean 颜色在用 = false;
-		for (String str : tokens){
+		boolean isColorActive = false; // 规范化变量名，替换中文“颜色在用”
+		int currentColor = COLOR_RESET; // 独立维护当前颜色，避免color全局残留
 
-			//if highlighting is enabled, '_' or '**' is used to toggle highlighting on or off
-			// the actual symbols are not rendered
-			if (str.equals("_")&& highlightingEnabled){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=hightlightColor;//黄色
-			} else if (str.equals("**")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0xFF4444;//红色
-			}else if (str.equals("@@")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0x3399FF;//蓝色
-			}else if (str.equals("++")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0x44FF44;//绿色
-			}else if (str.equals("^^")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0xFF4488;//粉色
-			}else if (str.equals("##")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0x8800FF;//紫色
-			}else if (str.equals("--")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0x999999;//灰色
-			}else if (str.equals(",,")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0x000000;//黑色
-			}else if (str.equals("==")){
-				if(颜色在用)颜色在用=false;
-				else 颜色在用=true;
-				color=0xFF8800;//橙色
-			} else if (str.equals("\n")){
-				words.add(NEWLINE);
-			} else if (str.equals(" ")){
-				words.add(SPACE);
+		for (String str : tokens) {
+			// 统一判断highlightingEnabled：所有颜色标记符都需要该开关生效
+//			System.out.println(str);
+			if (highlightingEnabled) {
+				if (str.equals("_")) {
+					isColorActive = !isColorActive; // 简化toggle逻辑
+					currentColor = isColorActive ? 0xFFFF00 : COLOR_RESET;
+					continue;
+				}
+				if (str.equals("**")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0xFF4444 : COLOR_RESET;// 红色
+					continue;
+				}
+				if (str.equals("@@")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0x3399FF : COLOR_RESET;// 蓝色
+					continue;
+				}  if (str.equals("++")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0x44FF44 : COLOR_RESET;// 绿色
+					continue;
+				}  if (str.equals("^^")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0xFF4488 : COLOR_RESET;// 粉色
+					continue;
+				}  if (str.equals("##")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0x8800FF : COLOR_RESET;// 紫色
+					continue;
+				}  if (str.equals("--")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0x999999 : COLOR_RESET;// 灰色
+					continue;
+				}  if (str.equals(",,")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0x000000 : COLOR_RESET;// 黑色
+					continue;
+				}  if (str.equals("==")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0xFF8800 : COLOR_RESET;// 橙色
+					continue;
+				}
+					// 非颜色标记符，正常处理
+					processNormalToken(str, isColorActive, currentColor);
 			} else {
-				//以下注释是模拟渲染
-				//==攻击==数值
-				//检测到==开启橙色，并跳过渲染
-				//开始渲染橙色文本
-				//检测到==关闭橙色
-				//颜色没使用就重置颜色
-				//清理残余==
-				//但仍然是橙色 攻击数值
-				//未找到问题
-
-				if(!颜色在用)color=-1;
-//
-//				//清理后缀
-				str=str.replaceAll("_", "");
-				str=str.replaceAll("@@", "");
-				str=str.replaceAll("\\+\\+", "");
-				str=str.replaceAll("\\^\\^", "");
-				str=str.replaceAll("##", "");
-				str=str.replaceAll("--", "");
-				str=str.replaceAll(",,", "");
-				str=str.replaceAll("==", "");
-
-				RenderedText word = new RenderedText(str, size);
-
-				if (颜色在用&&color!=-1) {
-					word.hardlight(color);
-				}else word.hardlight(0xffffff);
-
-				word.scale.set(zoom*(1+SPDSettings.字体大小()*0.25f));
-
-				words.add(word);
-				add(word);
-
-				if (height < word.height()) height = word.height();
+				// 高亮关闭时，直接处理普通token（不解析颜色标记符）
+				processNormalToken(str, false, COLOR_RESET);
 			}
 		}
 		layout();
 	}
+
+	/**
+	 * 抽离普通token处理逻辑，提升代码复用性和可读性
+	 */
+	private void processNormalToken(String str, boolean isColorActive, int currentColor) {
+		if (str.equals("\n")) {
+			words.add(NEWLINE);
+			return;
+		}
+		if (str.equals(" ")) {
+			words.add(SPACE);
+			return;
+		}
+
+		// 清理所有颜色标记符（补充**的替换，修正转义）
+		String cleanStr = str.replaceAll("_", "")
+				.replaceAll("\\*\\*", "") // 补充**的替换，之前漏掉了
+				.replaceAll("@@", "")
+				.replaceAll("\\+\\+", "")
+				.replaceAll("\\^\\^", "")
+				.replaceAll("##", "")
+				.replaceAll("--", "")
+				.replaceAll(",,", "")
+				.replaceAll("==", "");
+
+		// 避免空字符串生成无效的RenderedText
+		if (cleanStr.isEmpty()) {
+			return;
+		}
+
+		RenderedText word = new RenderedText(cleanStr, size);
+
+		// 颜色逻辑：激活且颜色有效时用指定颜色，否则用白色
+		if (isColorActive && currentColor != COLOR_RESET) {
+			word.hardlight(currentColor);
+		} else {
+			word.hardlight(COLOR_WHITE);
+		}
+
+		// 缩放计算：提取魔法值为注释，提升可读性
+		float scaleFactor = zoom * (1 + SPDSettings.字体大小() * 0.25f);
+		word.scale.set(scaleFactor);
+
+		words.add(word);
+		add(word);
+
+		// 更新最大高度
+		if (height < word.height()) {
+			height = word.height();
+		}
+	}
+	//endregion
 
 	public synchronized void zoom(float zoom){
 		this.zoom = zoom;

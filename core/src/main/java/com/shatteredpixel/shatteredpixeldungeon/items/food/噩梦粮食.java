@@ -17,7 +17,7 @@ public class 噩梦粮食 extends Food {
 		image = 物品表.噩梦粮食;
 		energy = Hunger.HUNGRY/3f*2; //100 food value
 		黑色=true;
-		遗产= false;
+
 	}
 
 	@Override

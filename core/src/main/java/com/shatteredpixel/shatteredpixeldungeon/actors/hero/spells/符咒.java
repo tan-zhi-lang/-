@@ -61,10 +61,10 @@ public class 符咒 extends 目标道术 {
 				Cripple.延长(ch,Weakness.class,4f);
 				Cripple.延长(ch,Hex.class,4f);
 				if(ch.恶魔亡灵())
-					ch.受伤时(Random.NormalIntRange(
-							5
+					ch.受伤时(Random.NormalFloat(
+							hero.魔力(0.3f)
 							,
-							10
+							hero.魔力(1.2f)
 												   ), 符咒.this);
 
 			} else {
@@ -86,8 +86,10 @@ public class 符咒 extends 目标道术 {
 	
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",5,
-								   10);
+		String desc = Messages.get(this, "desc",
+								   Dungeon.hero.魔力(0.3f)
+				,
+								   Dungeon.hero.魔力(1.2f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}
 }

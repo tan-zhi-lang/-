@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -58,6 +59,7 @@ public abstract class 巫术 {
 		if (tier == 1) {
 			spells.add(痛命.INSTANCE);
 		} else if (tier == 2) {
+			if(cleric.等级>6&&Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
 			spells.add(死血.INSTANCE);
 		} else if (tier == 3){
 		} else if (tier == 4){

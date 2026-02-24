@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.桃木剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.男人国徽章;
@@ -33,7 +34,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
@@ -156,7 +159,7 @@ public class 重制 {
 										   "_-_ 5个火把合成，使用永久+1光照范围。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.坠牢之星), "坠牢之星",
-										   "_-_ 19:30~4:30，1/2400概率掉落，5个可以合成魔力水晶。"
+										   "_-_ 19:30~4:30，1/450概率掉落，5个可以合成魔力水晶。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.魔力水晶), "魔力水晶",
 										   "_-_ 使用所有法杖永久+1强化等级。"
@@ -195,6 +198,8 @@ public class 重制 {
 		changes = new ChangeInfo("新禁忌物", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.桃木剑), "桃木剑",
+										   new 桃木剑().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.男人国徽章), "男人国徽章",
 										   new 男人国徽章().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.神圣之剑), "神圣之剑",
@@ -349,17 +354,26 @@ public class 重制 {
 		changes = new ChangeInfo("新法杖", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.浓毒法杖), "浓毒法杖",
+										   "_-_ 新增法杖，毒气版酸蚀法杖，并且重制毒气代码，伤害1+地牢层数/25=>毒气元素/15。\n"+new 潮霆法杖().statsDesc()
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.潮霆法杖), "潮霆法杖",
+										   "_-_ 新增法杖，连锁距离更远，伤害更高也更危险的加强版雷霆法杖。\n"+new 潮霆法杖().statsDesc()
+		));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.落石法杖), "落石法杖",
+										   "_-_ 新增法杖。\n"+new 落石法杖().statsDesc()
+		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.棱镜法杖), "棱镜法杖",
-										   "_-_ 新增法杖。\n"+new 棱镜法杖().statsDesc()
+										   "_-_ 新增法杖，加强版散射棱光法杖。\n"+new 棱镜法杖().statsDesc()
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.影织法杖), "影织法杖",
-										   "_-_ 新增法杖。\n"+new 影织法杖().statsDesc()
+										   "_-_ 新增法杖，加强版散射解离法杖。\n"+new 影织法杖().statsDesc()
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.冰海法杖), "冰海法杖",
-										   "_-_ 新增法杖。\n"+new 冰海法杖().statsDesc()
+										   "_-_ 新增法杖，大范围施法版冰霜法杖。\n"+new 冰海法杖().statsDesc()
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.烈焰法杖), "烈焰法杖",
-										   "_-_ 新增法杖。"+new 烈焰法杖().statsDesc()
+										   "_-_ 新增法杖，单体迷你版焰浪法杖。"+new 烈焰法杖().statsDesc()
 		));
 		//endregion
 
@@ -445,23 +459,23 @@ public class 重制 {
 		changes.addButton(new ChangeButton(Icons.get(Icons.下楼), "地牢",
 										   "_-_ 火房必定生成额外冰冠花物品\n"+
 										   "_-_ 木房必定生成额外烈焰花物品\n"+
-										   
-										   "献祭房\n\n" +
-										   "_-_ 所需经验减少90%，并且可以站在祭坛上扔治疗药剂直接献祭完成。",
-										   
+										   "献祭房\n" +
+										   "_-_ 所需经验减少90%，并且可以站在祭坛上扔治疗药剂直接献祭完成。\n\n"+
 										   "金币宝箱房\n\n" +
-										   "_-_ 金币数量5~15=>30+地牢层数x10, 60+地牢层数x20。\n" ,
+										   "_-_ 金币数量5~15=>30+地牢层数x10, 60+地牢层数x20。" ,
+
+										   "尸尘房\n" +
+										   "_-_ 金币数量1=>自然生成金币。\n\n" ,
+										   "毒气房和鼠王房\n" +
+										   "_-_ 金币数量10~15=>30+地牢层数x10, 60+地牢层数x20。" ,
 										   
-										   "尸尘房\n\n" +
-										   "_-_ 金币数量1=>自然生成金币。\n" ,
-										   
-										   "毒气房和鼠王房\n\n" +
-										   "_-_ 金币数量10~15=>30+地牢层数x10, 60+地牢层数x20。\n" ,
-										   
-										   "地牢生成。\n\n" +
+										   "地牢生成1\n" +
 										   "_-_ 物品生成不会生成在出口。\n"+
+										   "_-_ 3区每层必定3个石头。\n"+
 										   "_-_ 物品也能生成在怪物下。\n"+
-										   "_-_ 1区域生成一个魔能触媒=>3区。\n"+
+										   "_-_ 1区域生成一个魔能触媒=>3区。",
+
+										   "地牢生成2\n" +
 										   "_-_ 生成金币只计算1层。\n" +
 										   "_-_ 每区域偶数层必定生成一个小包口粮，且金币价值减半。\n" +
 										   "_-_ 每区域的升级卷轴数量-1。\n" +
@@ -491,7 +505,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
 										   "_-_ 升级25%概率祛邪=>必定\n" +
 										   "_-_ 诅咒等级-3=>-6。\n" +
-										   "_-_ 戒指的等级为等级x根号等级+强化等级，并且数值都从指数提升改成固定x等级的提升，以防止数据溢出。\n" +
+										   "_-_ 戒指的等级为等级x根号等级，并且数值都从指数提升改成固定x等级的提升，以防止数据溢出。\n" +
 										   "_-_ 装备和卸下花费时间1=>攻速。\n" +
 										   "_-_ 取消物品还需要经验的鉴定，戒指是每装备1回合鉴定1/45次。",
 
@@ -531,18 +545,23 @@ public class 重制 {
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
 										   "_-_ 升级25%概率祛邪=>必定\n" +
-										   "_-_ 法杖升级不再恢复1充能\n\n"+
+										   "_-_ 法杖的数值都从魔力中收益，每级提升等级且还能提升法杖的魔力百分比收益。\n"+
+										   "_-_ 大部分的法杖施加Buff从等级收益改成固定。\n"+
+										   "_-_ 法杖的特效固定，不再从等级收益，防止后期特效炸满。\n"+
+										   "_-_ 法杖升级不再恢复1充能\n"+
 										   "灵壤法杖\n" +
-										   "_-_ 对深渊目标地施法如果是深渊那么就接壤。\n\n"+
+										   "_-_ 最小伤害不再固定，能收益等级，对深渊目标地施法如果是深渊那么就接壤。\n\n"+
 										   "再生法杖\n" +
-										   "_-_ 可以对敌人造成伤害，最小伤害为(1+等级)x消耗充能x3，消耗1充能最大伤害为(2+2*等级)x3，消耗2充能最大伤害为2*(4+2*等级)x3，消耗3充能最大伤害为3*(6+2*等级)x3。\n\n"+
+										   "_-_ 可以对敌人造成伤害。\n\n"+
 										   "酸蚀法杖\n" +
 										   "_-_ 气体量50+10x级=>30+15x级。",
 
 										   "雷霆法杖\n" +
-										   "_-_ 现在会对敌人施加麻痹，自身残废。\n\n"+
+										   "_-_ 贴图改变，且使用更安全，现在会对敌人施加麻痹，自身残废。\n\n"+
+										   "棱光法杖\n" +
+										   "_-_ 概率施加施加=>必定。\n\n"+
 										   "魔弹法杖\n" +
-										   "_-_ 升级则会暂时强化其他法杖=>伤害等级加成x2。\n\n"+
+										   "_-_ 升级则会暂时强化其他法杖=>伤害等级收益+25%。\n\n"+
 										   "冰霜法杖\n"+
 										   "_-_ 对冻伤和冻结的敌人建设伤害=>冻伤增加伤害且冻结敌人，如果冻结就减少伤害。\n" +
 										   "_-_ 在水中额外2回合冻伤=>直接冻结。"
@@ -564,7 +583,8 @@ public class 重制 {
 										   "_-_ 最大生命80%+14=>90%。\n" +
 										   "_-_ 恢复速度25%=>45%。\n\n"+
 										   "奥术护盾合剂\n"+
-										   "_-_ 最大生命护盾60%+10=>最大生命5%的护盾层数。\n\n"+
+										   "_-_ 最大生命护盾60%+10=>最大生命5%的护盾层数。",
+
 										   "根骨秘药\n"+
 										   "_-_ +暂时最大生命=>25永久最大生命。\n\n"+
 										   "麻痹药剂\n"+
@@ -595,6 +615,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "武器",
 										   "_-_ 装备和卸下时间1=>攻速\n" +
 										   "_-_ 武器战技重做\n" +
+										   "_-_ 武器投掷物理攻击能触发近战物理攻击效果\n" +
 										   "_-_ 连招，武器范围>1时，那么设定x，x为范围。第x次攻击造成伤害+20%x(4-x)，1范围后会会重置为最初的范围。\n" +
 										   "_-_ 扔出装备的武器时，只花费扔出的时间，不花费卸下的时间。\n"+
 										   "_-_ 所有武器伤害倍率大于和小于1的最小和最大攻击，能从升级正确分配攻击。\n"+
@@ -712,7 +733,7 @@ public class 重制 {
 											
 											"英雄机制\n\n" +
 											"_-_ 新增吸血作用于物理攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值(不过对非Boss仅1/3效果)。\n"+
-											"_-_ 新增魔力，一般英雄初始是1，所有法杖+魔力-1的强化等级，以及一些伤害需要此计算。\n"+
+											"_-_ 新增魔力，英雄初始是10，所有法杖+10%魔力，以及一些伤害需要此计算。\n"+
 											"_-_ 新增穿甲(固定值无视防御)，护甲穿透(百分比无视防御)，先x/后+-。\n"+
 											"_-_ 不进行攻击的回合，可叠加隐藏蛇皮走位效果，超过8层后+物理攻击伤害+移速，物理攻击后重置为0。\n"+
 											"_-_ 任何饱腹填充都能触发吃饭天赋，不过效果倍率是食物填充值/150。\n"+
@@ -760,7 +781,9 @@ public class 重制 {
 										   "_-_ 术士=>死灵术士。"
 										   ));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ITEM), "物品",
-										   "_-_ Yendor护符可以堆叠。\n" +
+										   "_-_ 1阶的武器和防具不会遗产。\n" +
+										   "_-_ 以及很多杂物品的遗产和是否可嬗变优化。\n" +
+										   "_-_ 种子都可以遗产。\n" +
 										   "_-_ 特别的物品可以出售。\n" +
 										   "_-_ 神秘的肉=>生肉。\n" +
 										   "_-_ 矮人国王的皇冠价值2000。\n" +

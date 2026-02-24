@@ -15,9 +15,11 @@ public class ParalyticDart extends TippedDart {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage ) {
-		//when processing charged shot, only stun enemies
-		if (!processingChargedShot || attacker.alignment != defender.alignment) {
-			Buff.延长(defender, Paralysis.class, 5f);
+		if(defender!=null){
+			//when processing charged shot, only stun enemies
+			if(!processingChargedShot||attacker.alignment!=defender.alignment){
+				Buff.延长(defender,Paralysis.class,5f);
+			}
 		}
 		return super.攻击时( attacker, defender, damage );
 	}

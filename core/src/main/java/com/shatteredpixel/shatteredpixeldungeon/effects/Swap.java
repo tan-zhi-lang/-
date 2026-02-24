@@ -24,6 +24,8 @@ public class Swap extends Actor {
 	private float delay;
 
 	public Swap( Char ch1, Char ch2 ) {
+		if(ch1.静物()||ch1.低活动度生物()||ch2.静物()||ch2.低活动度生物())return;
+
 
 		this.ch1 = ch1;
 		this.ch2 = ch2;

@@ -2,7 +2,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -29,7 +33,8 @@ public class WndInfoMob extends WndTitledMessage {
 		private HealthBar health;
 		private BuffIndicator buffs;
 		private ResistanceIndicator resistances;
-		
+
+		boolean b=true;
 		public MobTitle( Mob mob ) {
 			
 			name = PixelScene.renderTextBlock( Messages.titleCase( mob.name() ), 9 );
@@ -49,6 +54,12 @@ public class WndInfoMob extends WndTitledMessage {
 			add( buffs );
 
 			resistances = new ResistanceIndicator(mob);
+			if(mob instanceof NPC) b=false;
+			if(mob instanceof Mimic m&&
+			   m.alignment==Char.Alignment.ENEMY&&m.state!=mob.PASSIVE) b=false;
+			if(mob.hasbuff(Invisibility.class))b=false;
+
+			if(b)
 			add(resistances);
 		}
 		
@@ -78,8 +89,10 @@ public class WndInfoMob extends WndTitledMessage {
 			resistances.setRect(3f, image.y + image.height() + 6f//3
 					, width - 6f, 0f);
 
+			if(b)
 			height = resistances.bottom();
-//			height = Math.max(image.y + image.height(), health.bottom());
+			else
+			height = Math.max(image.y + image.height(), health.bottom());
 		}
 	}
 }

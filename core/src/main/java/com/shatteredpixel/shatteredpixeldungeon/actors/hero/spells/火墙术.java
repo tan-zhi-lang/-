@@ -56,7 +56,7 @@ public class 火墙术 extends 目标法术 {
 		hero.next();
 		for (int offset : PathFinder.自相邻8){
 			if (!Dungeon.level.solid[target+offset]) {
-				GameScene.add(Blob.seed(target+offset,4,Fire.class));
+				GameScene.add(Blob.seed(target+offset,Math.round(hero.魔力(0.15f)),Fire.class));
 			}
 		}
 	}
@@ -65,7 +65,7 @@ public class 火墙术 extends 目标法术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",1,4);
+		String desc = Messages.get(this, "desc",Math.round(Dungeon.hero.魔力(0.15f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

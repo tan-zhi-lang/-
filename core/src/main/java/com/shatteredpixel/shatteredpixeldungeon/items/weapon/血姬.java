@@ -16,7 +16,7 @@ public class 血姬 extends Weapon{
 		流血= 0.35f;
 		伏击=0.85f;
 		特别= true;
-		遗产= false;
+
 	}
 	
 }

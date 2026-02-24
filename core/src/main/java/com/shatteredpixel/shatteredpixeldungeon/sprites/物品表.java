@@ -293,7 +293,7 @@ public class 物品表 {
         assignItemRect(灵月法杖, 16);
         assignItemRect(冰门重盾, 15, 16);
         assignItemRect(镜刃, 15, 16);
-        assignItemRect(铜钱剑, 15);
+        assignItemRect(铜钱剑, 16);
         assignItemRect(白带, 15,16);
         assignItemRect(SPEAR);
         assignItemRect(臂铠, 16);
@@ -572,6 +572,9 @@ public class 物品表 {
     public static final int 烈焰法杖 = WANDS + 14;
     public static final int 影织法杖 = WANDS + 15;
     public static final int 棱镜法杖 = WANDS + 16;
+    public static final int 落石法杖 = WANDS + 17;
+    public static final int 潮霆法杖 = WANDS + 18;
+    public static final int 浓毒法杖 = WANDS + 19;
 
     static {
         for (int i = WANDS; i < WANDS + 30; i++)
@@ -755,12 +758,17 @@ public class 物品表 {
     public static final int 投机之剑 = 禁忌物+1;
     public static final int 神圣之剑 = 禁忌物+2;
     public static final int 男人国徽章=禁忌物+3;
+    public static final int 桃木剑=禁忌物+4;
+    public static final int 世界标尺=禁忌物+5;
     static {
         
         assignItemRect(血腥生肉,15,11);
         assignItemRect(投机之剑,16);
         assignItemRect(神圣之剑,13,16);
         assignItemRect(男人国徽章,13);
+        assignItemRect(桃木剑,16);
+        assignItemRect(世界标尺,6,14);
+        assignItemRect(世界标尺,11,12);
     }
     
     //endregion

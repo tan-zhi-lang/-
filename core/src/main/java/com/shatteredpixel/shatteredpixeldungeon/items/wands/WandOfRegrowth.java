@@ -56,18 +56,18 @@ public class WandOfRegrowth extends DamageWand {
 
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public float min(int lvl){
-		return (1+lvl) * chargesPerCast()*3;
+		return 魔力(0.3f,1) * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
 	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return (2 + 2*lvl)*3;
+				return 魔力(0.4f,1);
 			case 2:
-				return 3*2*(4 + 2*lvl);
+				return 魔力(2f,0.5f);
 			case 3:
-				return 3*3*(6+2*lvl);
+				return 魔力(2f,0.3f);
 		}
 	}
 	@Override
@@ -91,7 +91,7 @@ public class WandOfRegrowth extends DamageWand {
 		}
 
 		int chrgUsed = chargesPerCast();
-		int grassToPlace = Math.round((3.67f+ 强化等级()/3f)*chrgUsed);
+		int grassToPlace = Math.round((魔力(0.367f,0.272f))*chrgUsed);
 
 		//ignore cells which can't have anything grow in them.
 		for (Iterator<Integer> i = cells.iterator(); i.hasNext();) {
@@ -200,7 +200,7 @@ public class WandOfRegrowth extends DamageWand {
 	}
 
 	private int chargeLimit( int heroLvl ){
-		return chargeLimit(  heroLvl, 等级() );
+		return chargeLimit(  heroLvl, Math.round(魔力() ));
 	}
 
 	private int chargeLimit( int heroLvl, int wndLvl ){

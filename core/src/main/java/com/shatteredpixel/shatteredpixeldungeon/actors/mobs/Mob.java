@@ -74,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.桃木剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
@@ -234,6 +235,7 @@ public abstract class Mob extends Char {
 	public float 伤害(){
 		float 伤害=1f;
 		伤害+=真正护符.增加();
+		if(恶魔亡灵())伤害-=桃木剑.伤害();
 		if(Dungeon.符文("辐射")&&首次死亡)伤害+=0.35f;
 		if(Dungeon.符文("辐射")&&首次死亡)伤害+=0.35f;
 		if(Dungeon.符文("究极玻璃大炮"))伤害=1.5f;
@@ -981,7 +983,7 @@ public abstract class Mob extends Char {
 					}
 
 					if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
-						Dungeon.hero.回血(Dungeon.hero.最大生命(0.03f));
+						Dungeon.hero.回血(Dungeon.hero.最大生命(0.04f));
 						if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,0.5f)))){
 							if(Dungeon.hero.天赋概率(Talent.残魂侵蚀,25))
 							Dungeon.level.drop(new 纯净粮食(),pos).sprite().drop();
@@ -1027,11 +1029,12 @@ public abstract class Mob extends Char {
 					Dungeon.gold(Dungeon.hero.投机之剑);
 				}
 
+				if(Dungeon.hero.符文("太阳神")&&Random.Int(2)==0)Dungeon.hero.火把神++;
 				if(Dungeon.hero.符文("嘟嘟哒嘟嘟哒")){
 					Sample.INSTANCE.play( Assets.Sounds.嘟嘟哒 );
 
 					if(this instanceof Skeleton)
-						Dungeon.level.drop(new ScrollOfSirensSong().数量(5),pos).sprite.drop();
+						Dungeon.level.drop(new ScrollOfSirensSong().数量(2),pos).sprite.drop();
 				}
 				if(Dungeon.hero.符文("我是色批")&&this instanceof Succubus)Dungeon.hero.力量+=10;
 				if(Dungeon.hero.符文("裁决使")){

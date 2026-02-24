@@ -18,6 +18,7 @@ public class 镐子 extends Weapon {
 		
 		
 		特别= true;
+		嬗变= false;
 		遗产= false;
 
 		tier = 2;

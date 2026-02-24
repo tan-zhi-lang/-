@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -23,7 +22,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
@@ -40,18 +38,18 @@ public class 影织法杖 extends DamageWand {
 
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public float min(int lvl){
-		return (1+lvl) * chargesPerCast();
+		return 魔力(0.3f,1) * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
 	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return 2 + 2*lvl;
+				return 魔力(0.4f,1);
 			case 2:
-				return 2*(4 + 2*lvl);
+			return 魔力(2f,0.5f);
 			case 3:
-				return 3*(6+2*lvl);
+			return 魔力(2f,0.3f);
 		}
 	}
 
@@ -136,7 +134,7 @@ public class 影织法杖 extends DamageWand {
 						break;
 				}
 			}
-			ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
+			ch.sprite.centerEmitter().burst( PurpleParticle.BURST );
 			ch.sprite.flash();
 		}
 
@@ -166,9 +164,6 @@ public class 影织法杖 extends DamageWand {
 
 		}
 		callback.call();
-
-		Sample.INSTANCE.play( Assets.Sounds.ZAP );
-		Sample.INSTANCE.play( Assets.Sounds.BURNING );
 	}
 
 	@Override
@@ -187,21 +182,6 @@ public class 影织法杖 extends DamageWand {
 			return Messages.get(this, "stats_desc", chargesPerCast(), min(), max());
 		else
 			return Messages.get(this, "stats_desc", chargesPerCast(), min(0), max(0));
-	}
-
-	@Override
-	public String upgradeStat1(int level) {
-		return (1+level) + "-" + (2+2*level);
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return (2+2*level) + "-" + 2*(4+2*level);
-	}
-
-	@Override
-	public String upgradeStat3(int level) {
-		return (3+3*level) + "-" + 3*(6+2*level);
 	}
 
 	@Override

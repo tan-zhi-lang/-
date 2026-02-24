@@ -16,16 +16,17 @@ public class AdrenalineDart extends TippedDart {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
-
-		if (processingChargedShot && defender == attacker) {
-			//do nothing to the hero when processing charged shot
-		} else if (attacker.alignment == defender.alignment){
-			Buff.延长( defender, Adrenaline.class, Adrenaline.DURATION);
-			return 0;
-		} else {
-			Buff.延长( defender, Cripple.class, Cripple.DURATION/2);
+		if(defender!=null){
+			if(processingChargedShot&&defender==attacker){
+				//do nothing to the hero when processing charged shot
+			}else
+				if(attacker.alignment==defender.alignment){
+					Buff.延长(defender,Adrenaline.class,Adrenaline.DURATION);
+					return 0;
+				}else{
+					Buff.延长(defender,Cripple.class,Cripple.DURATION/2);
+				}
 		}
-		
 		return super.攻击时(attacker, defender, damage);
 	}
 }

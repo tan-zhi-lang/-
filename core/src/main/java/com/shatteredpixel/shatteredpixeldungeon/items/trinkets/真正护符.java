@@ -24,7 +24,6 @@ public class 真正护符 extends Trinket {
 		image = 物品表.AMULET;//Amulet
 		黄色 = true;
 		特别= true;
-		可堆叠=true;
 		可以空间=false;
 	}
 

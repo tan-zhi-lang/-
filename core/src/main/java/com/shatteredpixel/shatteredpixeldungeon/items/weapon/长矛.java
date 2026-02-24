@@ -30,12 +30,4 @@ public class 长矛 extends Weapon{
 		}
 		return super.攻击时( attacker, defender, damage );
 	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		if(defender instanceof Piranha){
-			damage+=defender.生命(0.5f);
-		}
-		return super.投掷攻击时( attacker, defender, damage );
-	}
-
 }

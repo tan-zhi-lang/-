@@ -584,7 +584,7 @@ public class Armor extends EquipableItem {
 										  String.format("%.2f",最大防御(0)));
 
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
-				info += " " + Messages.get(Armor.class, "probably_too_heavy");
+				info += " " + Messages.get(Armor.class, "too_heavy");
 				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
 					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
 				}

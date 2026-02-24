@@ -9,15 +9,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
-import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
-import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -30,7 +26,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -45,18 +40,18 @@ public class 焰浪法杖 extends DamageWand {
 
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public float min(int lvl){
-		return (1+lvl) * chargesPerCast();
+		return 魔力() * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
 	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return 2 + 2*lvl;
+				return 魔力(0.2f,1);
 			case 2:
-				return 2*(4 + 2*lvl);
+				return 魔力(0.8f,0.5f);
 			case 3:
-				return 3*(6+2*lvl);
+				return 魔力(1.8f,0.3f);
 		}
 	}
 
@@ -189,20 +184,6 @@ public class 焰浪法杖 extends DamageWand {
 			return Messages.get(this, "stats_desc", chargesPerCast(), min(0), max(0));
 	}
 
-	@Override
-	public String upgradeStat1(int level) {
-		return (1+level) + "-" + (2+2*level);
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return (2+2*level) + "-" + 2*(4+2*level);
-	}
-
-	@Override
-	public String upgradeStat3(int level) {
-		return (3+3*level) + "-" + 3*(6+2*level);
-	}
 
 	@Override
 	public void staffFx(法师魔杖.StaffParticle particle) {

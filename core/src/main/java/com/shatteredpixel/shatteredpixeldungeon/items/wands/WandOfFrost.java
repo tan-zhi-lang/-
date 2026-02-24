@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -29,11 +28,11 @@ public class WandOfFrost extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return 2+lvl;
+		return 魔力(0.2f,0.5f);
 	}
 
 	public float max(int lvl){
-		return 8+5*lvl;
+		return 魔力(0.8f,0.625f);
 	}
 
 	@Override
@@ -76,13 +75,12 @@ public class WandOfFrost extends DamageWand {
 
 			if (ch.isAlive()){
 				if (ch.buff(Chill.class) != null){
-					Buff.施加(ch, Frost.class, 2+ 强化等级());
+					Buff.施加(ch, Frost.class, 4);
 				}
 				if (Dungeon.level.water[ch.pos]) {
-					Buff.施加(ch, Frost.class, 2 + 强化等级());
+					Buff.施加(ch, Frost.class, 4);
 				} else {
-					ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
-					Buff.施加(ch, Chill.class, 2 + 强化等级());
+					Buff.施加(ch, Chill.class, 4);
 				}
 			}
 		} else {

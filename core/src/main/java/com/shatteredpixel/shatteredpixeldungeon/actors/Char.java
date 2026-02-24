@@ -217,7 +217,6 @@ public abstract class Char extends Actor {
 			变脸=0;
 			sprite.hideEmo();
 		}
-		Dungeon.level.落石(this);
 
 		if (fieldOfView == null || fieldOfView.length != Dungeon.level.length()){
 			fieldOfView = new boolean[Dungeon.level.length()];
@@ -659,7 +658,7 @@ public abstract class Char extends Actor {
 		}
 		if ( defender instanceof Hero hero) {
 			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
-				acuStat*=0.7f;
+				acuStat*=0.85f;
 			}
 
 			if(hero.欧皇())acuStat*=2;

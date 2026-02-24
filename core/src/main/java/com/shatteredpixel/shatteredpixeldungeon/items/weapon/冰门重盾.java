@@ -17,7 +17,7 @@ public class 冰门重盾 extends Weapon{
 		image = 物品表.冰门重盾;
 		技能=new 防御姿态();
 		特别= true;
-		遗产= false;
+
 		缴械= false;
 		嬗变= false;
 		专属=true;

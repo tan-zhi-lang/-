@@ -112,9 +112,8 @@ public class SnipersMark extends FlavourBuff implements ActionIndicator.Action {
 		
 		int cell = QuickSlotButton.autoAim(ch, arrow);
 		if (cell == -1) return;
-		
+
 		bow.sniperSpecial = true;
-		bow.sniperSpecialBonusDamage = percentDmgBonus;
 		
 		arrow.cast(hero, cell);
 		detach();

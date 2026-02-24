@@ -20,41 +20,46 @@ public class CleansingDart extends TippedDart {
 	@Override
 	public float 攻击时(Char attacker, final Char defender, float damage) {
 
-		if (processingChargedShot && defender == attacker) {
-			//do nothing to the hero when processing charged shot
-		} else if (attacker.alignment == defender.alignment){
-			PotionOfCleansing.cleanse(defender, PotionOfCleansing.Cleanse.DURATION*2f);
-			return 0;
-		} else {
-			for (Buff b : defender.buffs()){
-				if (!(b instanceof ChampionEnemy)
-						&& b.type == Buff.buffType.POSITIVE
-//						&& !(b instanceof 十字弩.ChargedShot)
-				){
-					b.detach();
-				}
-			}
-			//for when cleansed effects were keeping defender alive (e.g. raging brutes)
-			if (!defender.isAlive()){
-				defender.死亡时(attacker);
-				return super.攻击时(attacker, defender, damage);
-			}
-			if (defender instanceof Mob) {
-				//need to delay this so damage from the dart doesn't break wandering
-				new FlavourBuff(){
-					{actPriority = VFX_PRIO;}
-					public boolean act() {
-						if (((Mob) defender).state == ((Mob) defender).HUNTING || ((Mob) defender).state == ((Mob) defender).FLEEING){
-							((Mob) defender).state = ((Mob) defender).WANDERING;
+		if(defender!=null){
+			if(processingChargedShot&&defender==attacker){
+				//do nothing to the hero when processing charged shot
+			}else
+				if(attacker.alignment==defender.alignment){
+					PotionOfCleansing.cleanse(defender,PotionOfCleansing.Cleanse.DURATION*2f);
+					return 0;
+				}else{
+					for(Buff b: defender.buffs()){
+						if(!(b instanceof ChampionEnemy)&&b.type==Buff.buffType.POSITIVE
+							//						&& !(b instanceof 十字弩.ChargedShot)
+						){
+							b.detach();
 						}
-						((Mob) defender).beckon(Dungeon.level.randomDestination(defender));
-						
-						
-						defender.sprite.showLost();
-						return super.act();
 					}
-				}.attachTo(defender);
-			}
+					//for when cleansed effects were keeping defender alive (e.g. raging brutes)
+					if(!defender.isAlive()){
+						defender.死亡时(attacker);
+						return super.攻击时(attacker,defender,damage);
+					}
+					if(defender instanceof Mob){
+						//need to delay this so damage from the dart doesn't break wandering
+						new FlavourBuff(){
+							{
+								actPriority=VFX_PRIO;
+							}
+
+							public boolean act(){
+								if(((Mob)defender).state==((Mob)defender).HUNTING||((Mob)defender).state==((Mob)defender).FLEEING){
+									((Mob)defender).state=((Mob)defender).WANDERING;
+								}
+								((Mob)defender).beckon(Dungeon.level.randomDestination(defender));
+
+
+								defender.sprite.showLost();
+								return super.act();
+							}
+						}.attachTo(defender);
+					}
+				}
 		}
 
 		return super.攻击时(attacker, defender, damage);

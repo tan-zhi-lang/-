@@ -15,7 +15,7 @@ public class 短剑 extends Weapon{
 		tier = 1;
 		
 		技能=new 斩击();
-		遗产= false;
+
 	}
 
 

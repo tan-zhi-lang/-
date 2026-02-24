@@ -43,7 +43,6 @@ public class 荣誉纹章 extends Item {
 
 		cursedKnown = levelKnown = true;
 		特别= true;
-		遗产= false;
 
 		defaultAction = AC_INFO;
 	}

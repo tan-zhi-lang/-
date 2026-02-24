@@ -47,13 +47,5 @@ public class 重锤 extends Weapon{
 		if(attacker.hasbuff(Levitation.class))damage*=attacker.暴击伤害();
 		return super.攻击时( attacker, defender, damage );
 	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		if(attacker instanceof Hero&&猛击>0){
-			damage*=Dungeon.区域();
-			猛击--;
-		}
-		if(attacker.hasbuff(Levitation.class))damage*=attacker.暴击伤害();
-		return super.投掷攻击时( attacker, defender, damage );
-	}
+
 }

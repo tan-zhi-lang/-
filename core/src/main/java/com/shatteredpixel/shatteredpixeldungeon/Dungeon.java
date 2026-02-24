@@ -358,22 +358,28 @@ public class Dungeon {
 	}
 
 	public static boolean isChallenged( int mask ) {
+		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
 		return (challenges & mask) != 0;
 	}
 
 	public static boolean 炼狱( int mask ) {
+		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
 		return (炼狱 & mask) != 0;
 	}
 	public static boolean 解压( int mask ) {
+		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
 		return (解压 & mask) != 0;
 	}
 	public static boolean 系统( int mask ) {
+		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
 		return (系统 & mask) != 0;
 	}
 	public static boolean 派对(int mask) {
+		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
 		return (派对&mask)!=0;
 	}
 	public static boolean 赛季(int mask) {
+		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
 		return (赛季&mask)!=0;
 	}
 	public static String 地牢时间() {

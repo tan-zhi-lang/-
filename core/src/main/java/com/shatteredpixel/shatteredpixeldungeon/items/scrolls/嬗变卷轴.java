@@ -40,8 +40,6 @@ public class 嬗变卷轴 extends InventoryScroll {
 	
 	{
 		icon = 物品表.Icons.SCROLL_TRANSMUTE;
-		
-		遗产= true;
 		嬗变=false;
 		talentFactor = 2f;
 	}

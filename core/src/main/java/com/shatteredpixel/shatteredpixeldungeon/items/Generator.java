@@ -46,17 +46,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
@@ -115,6 +115,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.桃木剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.男人国徽章;
@@ -144,8 +145,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.浓毒法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
@@ -407,29 +411,33 @@ public class Generator {
 			WAND.classes = new Class<?>[]{
 					WandOfMagicMissile.class,
 					WandOfLightning.class,
+					潮霆法杖.class,
 					WandOfDisintegration.class,
 					影织法杖.class,
 
 					焰浪法杖.class,
 					冰海法杖.class,
+
+					浓毒法杖.class,
 					WandOfCorrosion.class,
 					WandOfBlastWave.class,
 
 					WandOfLivingEarth.class,
+					落石法杖.class,
 					WandOfFrost.class,
 					烈焰法杖.class,
 					WandOfPrismaticLight.class,
-
 					棱镜法杖.class,
 
 					WandOfWarding.class,
 					WandOfTransfusion.class,
 					WandOfCorruption.class,
 					WandOfRegrowth.class };
-			WAND.defaultProbs = new float[]{ 3, 3, 3, 3,
-											 3, 3, 3, 3,
-											 3, 3, 3, 3,
-											 3,
+			WAND.defaultProbs = new float[]{ 3, 3, 3, 3,3,
+											 3, 3,
+											3, 3, 3,
+											 3, 3,3, 3,3,3,
+
 											 3, 3, 3,3 };
 			WAND.probs = WAND.defaultProbs.clone();
 			
@@ -687,6 +695,7 @@ public class Generator {
 					投机之剑.class,
 					神圣之剑.class,
 					男人国徽章.class,
+					桃木剑.class,
 			};
 			TRINKET.defaultProbs = new float[]{
 					0,0,0,
@@ -703,7 +712,7 @@ public class Generator {
 												1,1,1,
 												1,1,1,1,
 												1,1,1,1,
-												1,1,1,
+												1,1,1,0,
 												};
 			TRINKET.probs = TRINKET.defaultProbs.clone();
 

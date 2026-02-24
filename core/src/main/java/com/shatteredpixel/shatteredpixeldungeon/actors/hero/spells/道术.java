@@ -75,6 +75,7 @@ public abstract class 道术{
 	public static ArrayList<道术> getAllSpells() {
 		ArrayList<道术> spells = new ArrayList<>();
 		spells.add(符咒.INSTANCE);
+		spells.add(掌心雷.INSTANCE);
 		return spells;
 	}
 }

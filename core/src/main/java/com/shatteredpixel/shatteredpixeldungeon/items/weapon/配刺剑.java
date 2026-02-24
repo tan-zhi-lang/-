@@ -16,7 +16,7 @@ public class 配刺剑 extends Weapon{
 		伤害= 0.8f;
 		
 		技能=new 突刺();
-		遗产= false;
+
 	}
 	
 	@Override

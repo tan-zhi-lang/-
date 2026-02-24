@@ -20,8 +20,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WarpB
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
-import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.勇装;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
@@ -40,17 +38,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -69,10 +63,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfMysticalEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
@@ -88,10 +78,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.折镜法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
@@ -110,8 +97,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狙击枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血姬;
@@ -126,7 +113,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
@@ -149,7 +135,7 @@ public enum HeroClass{
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
 	DUELIST(HeroSubClass.武器大师,HeroSubClass.武者),
-	CLERIC(HeroSubClass.圣骑士),//,HeroSubClass.祭司
+	CLERIC(HeroSubClass.圣骑士,HeroSubClass.祭司),
 	巫女(HeroSubClass.战斗法师,HeroSubClass.黑魔导师),//1
 	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),
 	镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士),
@@ -292,32 +278,8 @@ public enum HeroClass{
 			new 祛邪卷轴().数量(x).放背包();
 			new 来去秘卷().数量(x).放背包();
 			new 镜像卷轴().数量(x).放背包();
-			
-//			new WandOfCorrosion().放背包();
-//			new MasterThievesArmband().放背包();
-			new TengusMask().放背包();
-			new 九龙针筒().放背包();
-			new Stylus().放背包();
-			new 矮人国王的皇冠().放背包();
-			new 影织法杖().放背包();
-			new 折镜法杖().放背包();
-			new 荆棘斗篷().放背包();
-			new TalismanOfForesight().放背包();
-			new ScrollOfMysticalEnergy().放背包();
-			new AlchemistsToolkit().放背包();
-//			new AlchemistsToolkit().放背包();
-//			new 奥术之戒().放背包();
-//			new 能量之戒().放背包();
-//			new 手枪().放背包();
-//			new TrinketCatalyst().放背包();
-//			new CapeOfThorns().放背包();
-			new 真正护符().放背包();
-//			new 商人信标().放背包();
-//			new 召唤物品().放背包();
-			new 神农锄().放背包();
-			new 六神之戒().放背包();
-			new 疾速之戒().放背包();
-			new 狂怒之戒().放背包();
+
+
 			
 			for (Item item : hero.belongings){
 				item.鉴定();
@@ -509,7 +471,12 @@ public enum HeroClass{
 			hero.belongings.armor.affixSeal(new 荣誉纹章());
 			Catalog.setSeen(荣誉纹章.class); //as it's not added to the inventory
 		}
-		
+
+		石头 tome=new 石头();
+		tome.鉴定().放背包();
+		Dungeon.quickslot.setSlot(0,tome);
+
+
 		new 治疗药剂().鉴定();
 		new 盛怒卷轴().鉴定();
 	}

@@ -39,12 +39,12 @@ public class WandOfTransfusion extends DamageWand {
 
 	@Override
 	public float min(int level) {
-		return 3 + level;
+		return 魔力(0.3f,0.333f);
 	}
 
 	@Override
 	public float max(int level) {
-		return 6 + 2*level;
+		return 魔力(0.6f,0.333f);
 	}
 
 	private boolean freeCharge = false;
@@ -53,7 +53,7 @@ public class WandOfTransfusion extends DamageWand {
 	public void onZap(Ballistica beam) {
 
 		for (int c : beam.subPath(0, beam.dist))
-			CellEmitter.center(c).burst( BloodParticle.BURST, 1 );
+			CellEmitter.center(c).burst( BloodParticle.BURST );
 
 		int cell = beam.collisionPos;
 

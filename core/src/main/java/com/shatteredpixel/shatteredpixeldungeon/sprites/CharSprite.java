@@ -73,9 +73,23 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public enum State {
 		BURNING,
 		灵焰,
-		LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, HEARTS, GLOWING, AURA
+		LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING,
+		SHIELDED,
+		领域,
+		HEARTS, GLOWING, AURA
 	}
-
+	int color;
+	int range;
+	public void 领域(int color){
+		this.color=color;
+		this.range=-1;
+		add(CharSprite.State.领域);
+	}
+	public void 领域(int color,int range){
+		this.color=color;
+		this.range=range;
+		add(CharSprite.State.领域);
+	}
 	protected Animation idle;
 	protected Animation run;
 	protected Animation attack;
@@ -100,6 +114,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected GlowBlock glowBlock;
 	protected TorchHalo light;
 	protected ShieldHalo shield;
+	protected ShieldHalo 领域光环;
 	public AlphaTweener invisible;
 	protected Flare aura;
 
@@ -362,6 +377,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		return emitter;
 	}
 
+	public void burst( final int color) {
+		if (visible) {
+			Splash.at( center(), color, 4 );
+		}
+	}
 	public void burst( final int color, int n ) {
 		if (visible) {
 			Splash.at( center(), color, n );
@@ -485,6 +505,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (shield != null) shield.killAndErase();
 				GameScene.effect(shield = new ShieldHalo(this));
 				break;
+			case 领域:
+				if (领域光环 != null) 领域光环.killAndErase();
+
+				if(range==-1)
+				GameScene.effect(领域光环 = new ShieldHalo(this,color));
+				else
+				GameScene.effect(领域光环 = new ShieldHalo(this,color,range));
+				break;
 			case HEARTS:
 				if (hearts != null) hearts.on = false;
 				hearts = emitter();
@@ -597,6 +625,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			case SHIELDED:
 				if (shield != null) {
 					shield.putOut();
+				}
+				break;
+			case 领域:
+				if (领域光环 != null) {
+					领域光环.putOut();
 				}
 				break;
 			case HEARTS:

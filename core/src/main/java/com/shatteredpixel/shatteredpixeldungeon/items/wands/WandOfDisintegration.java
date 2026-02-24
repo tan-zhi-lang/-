@@ -32,11 +32,11 @@ public class WandOfDisintegration extends DamageWand {
 
 
 	public float min(int lvl){
-		return 2+lvl;
+		return 魔力(0.2f,0.5f);
 	}
 
 	public float max(int lvl){
-		return 8+4*lvl;
+		return 魔力(0.8f,0.5f);
 	}
 	
 	@Override
@@ -102,19 +102,14 @@ public class WandOfDisintegration extends DamageWand {
 		for (Char ch : chars) {
 			wandProc(ch, chargesPerCast());
 			ch.受伤时( damageRoll(lvl), this );
-			ch.sprite.centerEmitter().burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
+			ch.sprite.centerEmitter().burst( PurpleParticle.BURST );
 			ch.sprite.flash();
 		}
 	}
 
 
 	private int distance() {
-		return 强化等级()*2 + 6;
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return Integer.toString(6 + level*2);
+		return Math.round(魔力(0.6f,0.333f));
 	}
 
 	@Override

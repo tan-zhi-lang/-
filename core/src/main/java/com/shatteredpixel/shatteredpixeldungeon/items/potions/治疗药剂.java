@@ -26,8 +26,7 @@ public class 治疗药剂 extends Potion {
 
 	{
 		icon = Dungeon.isChallenged(Challenges.NO_HEALING)?物品表.Icons.毒粹:物品表.Icons.POTION_HEALING;
-		
-		遗产= true;
+
 	}
 	
 	@Override

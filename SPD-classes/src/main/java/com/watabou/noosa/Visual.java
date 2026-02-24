@@ -22,6 +22,7 @@ public class Visual extends Gizmo {
 	public float gm;
 	public float bm;
 	public float am;
+
 	public float ra;
 	public float ga;
 	public float ba;

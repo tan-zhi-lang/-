@@ -60,12 +60,20 @@ public class Emitter extends Group {
 		pos(target);
 	}
 
+	public void burst( Factory factory) {
+		start( factory, 0, 5 );
+	}
 	public void burst( Factory factory, float quantity ) {
 		start( factory, 0, quantity );
 	}
 
 	public void pour( Factory factory, float interval ) {
 		start( factory, interval, 0 );
+	}
+
+	public void start( Factory factory, float interval) {
+		//by default the delay is random, up to the interval
+		startDelayed( factory, interval, 5, Random.Float(interval));
 	}
 
 	public void start( Factory factory, float interval, float quantity ) {

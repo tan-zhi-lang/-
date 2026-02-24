@@ -26,8 +26,6 @@ public class Ankh extends Item {
 		//You tell the ankh no, don't revive me, and then it comes back to revive you again in another run.
 		//I'm not sure if that's enthusiasm or passive-aggression.
 		黄色 = blessed;
-		黄光 = blessed;
-		遗产= true;
 		物品 = true;
 	}
 

@@ -83,7 +83,10 @@ public class 破冰飞刃 extends 目标法术 {
 			Callback callback = new Callback() {
 				@Override
 				public void call() {
-					float dmgMulti = ch == enemy ? 1f : 0.5f;
+					float dmgMulti = ch == enemy ? 0.6f : 0.5f;
+					if(ch == enemy){
+						dmgMulti+=hero.天赋点数(Talent.破冰飞刃,0.1f);
+					}
 					hero.attack( ch, dmgMulti, 0, 1 );
 					callbacks.remove( this );
 					if (callbacks.isEmpty()) {
@@ -131,7 +134,8 @@ public class 破冰飞刃 extends 目标法术 {
 	public String desc(){
 		String desc = Messages.get(this, "desc",
 								   50+Dungeon.hero.天赋点数(Talent.破冰飞刃,10),
-								   2+Dungeon.hero.天赋点数(Talent.破冰飞刃)
+								   2+Dungeon.hero.天赋点数(Talent.破冰飞刃),
+								   60+Dungeon.hero.天赋点数(Talent.破冰飞刃,10)
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}

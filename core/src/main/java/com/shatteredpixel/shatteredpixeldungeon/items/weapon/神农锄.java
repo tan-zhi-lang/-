@@ -25,31 +25,18 @@ public class 神农锄 extends Weapon{
 	
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		
-		int level = Math.max( 0, 强化等级() );
-		
-		// lvl 0 - 33%
-		// lvl 1 - 50%
-		// lvl 2 - 60%
-		float procChance = (level+1f)/(level+3f)*奥术之戒.enchantPowerMultiplier(attacker);
-		if (Random.Float()<procChance){
-			Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),attacker.pos).sprite().drop();
+		if(defender!=null){
+			int level=Math.max(0,强化等级());
+
+			// lvl 0 - 33%
+			// lvl 1 - 50%
+			// lvl 2 - 60%
+			float procChance=(level+1f)/(level+3f)*奥术之戒.enchantPowerMultiplier(attacker);
+			if(Random.Float()<procChance){
+				Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),defender.pos).sprite().drop();
+			}
 		}
 		return super.攻击时( attacker, defender, damage );
-	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		
-		int level = Math.max( 0, 强化等级() );
-		
-		// lvl 0 - 33%
-		// lvl 1 - 50%
-		// lvl 2 - 60%
-		float procChance = (level+1f)/(level+3f)*奥术之戒.enchantPowerMultiplier(attacker);
-		if (Random.Float() < procChance){
-			Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),attacker.pos).sprite().drop();
-		}
-		return super.投掷攻击时( attacker, defender, damage );
 	}
 
 

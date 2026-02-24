@@ -14,7 +14,7 @@ public class 镜刃 extends Weapon{
 		伤害=0.85f;
 		tier = 1;
 		特别= true;
-		遗产= false;
+
 	}
 	@Override
 	public int 能量() {

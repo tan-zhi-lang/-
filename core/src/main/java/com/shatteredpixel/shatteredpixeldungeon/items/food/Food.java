@@ -53,7 +53,7 @@ public class Food extends Item {
 	public void execute( Hero hero, String action ) {
 
 		super.execute( hero, action );
-
+		if(hero.符文("我是瘦子")&&!hero.buff(Hunger.class).空腹())return;
 		if (action.equals( AC_EAT )) {
 			
 			detach( hero.belongings.backpack );

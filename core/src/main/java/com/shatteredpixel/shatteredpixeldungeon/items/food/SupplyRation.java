@@ -14,7 +14,7 @@ public class SupplyRation extends Food {
 		image = 物品表.SUPPLY_RATION;
 		energy = 2*Hunger.HUNGRY/3f; //200 food value
 		
-		遗产= false;
+
 	}
 
 	@Override

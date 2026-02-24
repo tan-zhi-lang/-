@@ -17,17 +17,17 @@ public class RotDart extends TippedDart {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
-
-		//when processing charged shot, only corrode enemies
-		if (processingChargedShot && attacker.alignment == defender.alignment) {
-			//do nothing
-		} else if (defender.properties().contains(Char.Property.BOSS)
-				|| defender.properties().contains(Char.Property.MINIBOSS)){
-			Buff.施加(defender, Corrosion.class).set(5f, Dungeon.scalingDepth()/3);
-		} else {
-			Buff.施加(defender, Corrosion.class).set(10f, Dungeon.scalingDepth());
+		if(defender!=null){
+			//when processing charged shot, only corrode enemies
+			if(processingChargedShot&&attacker.alignment==defender.alignment){
+				//do nothing
+			}else
+				if(defender.properties().contains(Char.Property.BOSS)||defender.properties().contains(Char.Property.MINIBOSS)){
+					Buff.施加(defender,Corrosion.class).set(5f,Dungeon.scalingDepth()/3);
+				}else{
+					Buff.施加(defender,Corrosion.class).set(10f,Dungeon.scalingDepth());
+				}
 		}
-		
 		return super.攻击时(attacker, defender, damage);
 	}
 	

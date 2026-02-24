@@ -40,11 +40,11 @@ public class WandOfBlastWave extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return 1+lvl;
+		return 魔力(0.1f,0.5f);
 	}
 
 	public float max(int lvl){
-		return 3+3*lvl;
+		return 魔力(0.3f,1f);
 	}
 	public static float 冲击波(){
 		return Dungeon.符文("电能震荡")?Dungeon.hero.最大攻击():0;
@@ -73,7 +73,7 @@ public class WandOfBlastWave extends DamageWand {
 				if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
 						&& ch.pos == bolt.collisionPos + i) {
 					Ballistica trajectory = new Ballistica(ch.pos, ch.pos + i, Ballistica.MAGIC_BOLT);
-					int strength = Math.round(1.5f + Math.round(强化等级() / 2f));
+					int strength = Math.round(魔力(0.15f,0.333f));
 					throwChar(ch, trajectory, strength, false, true, this);
 				}
 
@@ -90,7 +90,7 @@ public class WandOfBlastWave extends DamageWand {
 			if ((ch.isAlive() || ch.flying || !Dungeon.level.pit[ch.pos])
 					&& bolt.path.size() > bolt.dist+1 && ch.pos == bolt.collisionPos) {
 				Ballistica trajectory = new Ballistica(ch.pos, bolt.path.get(bolt.dist + 1), Ballistica.MAGIC_BOLT);
-				int strength = 强化等级() + 3;
+				int strength = Math.round(魔力(0.3f,0.333f));
 				throwChar(ch, trajectory, strength, false, true, this);
 			}
 		}

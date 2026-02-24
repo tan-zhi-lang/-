@@ -43,38 +43,35 @@ public class 棱镜法杖 extends DamageWand {
 
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public float min(int lvl){
-		return (1+lvl) * chargesPerCast()*2;
+		return 魔力() * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
 	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return (2 + 2*lvl)*2;
+				return 魔力(0.2f,1);
 			case 2:
-				return 2*(4 + 2*lvl)*2;
+				return 魔力(0.8f,0.5f);
 			case 3:
-				return 3*(6+2*lvl)*2;
+				return 魔力(1.8f,0.3f);
 		}
 	}
-
 
 	private void affectTarget(Char ch){
 		float dmg = damageRoll();
 
 		//three in (5+lvl) chance of failing
-		if (Random.Int(5+ 强化等级()) >= chargesPerCast()) {
-			Buff.延长(ch,Blindness.class,4+(强化等级()*0.666f));
-			ch.sprite.emitter().burst(Speck.factory(Speck.LIGHT),6);
-		}
+
+			Buff.延长(ch,Blindness.class,2);
+			ch.sprite.emitter().burst(Speck.factory(Speck.LIGHT));
 
 		if (ch.properties().contains(Char.Property.DEMONIC) || ch.properties().contains(Char.Property.UNDEAD)){
-			ch.sprite.emitter().start(ShadowParticle.UP,0.05f,10+强化等级());
+			ch.sprite.emitter().start(ShadowParticle.UP,0.05f);
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 
 			ch.受伤时(dmg*1.666f, this);
 		} else {
-			ch.sprite.centerEmitter().burst(RainbowParticle.BURST,10+强化等级());
 
 			ch.受伤时(dmg, this);
 		}
@@ -105,7 +102,7 @@ public class 棱镜法杖 extends DamageWand {
 				}
 			}
 
-			CellEmitter.center(c).burst( RainbowParticle.BURST, Random.IntRange( 1, 2 ) );
+			CellEmitter.center(c).burst( RainbowParticle.BURST);
 		}
 		if (noticed)
 			Sample.INSTANCE.play( Assets.Sounds.SECRET );
@@ -121,9 +118,9 @@ public class 棱镜法杖 extends DamageWand {
 
 		if (Dungeon.level.视野范围<6 ){
 			if (Dungeon.isChallenged(Challenges.DARKNESS)){
-				Buff.延长(curUser,Light.class,3+强化等级()*2);
+				Buff.延长(curUser,Light.class,3);
 			} else {
-				Buff.延长( curUser, Light.class, 15+ 强化等级()*10);
+				Buff.延长( curUser, Light.class, 15);
 			}
 		}
 
@@ -201,20 +198,6 @@ public class 棱镜法杖 extends DamageWand {
 			return Messages.get(this, "stats_desc", chargesPerCast(), min(0), max(0));
 	}
 
-	@Override
-	public String upgradeStat1(int level) {
-		return (1+level) + "-" + (2+2*level);
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return (2+2*level) + "-" + 2*(4+2*level);
-	}
-
-	@Override
-	public String upgradeStat3(int level) {
-		return (3+3*level) + "-" + 3*(6+2*level);
-	}
 
 	@Override
 	public void staffFx(法师魔杖.StaffParticle particle) {

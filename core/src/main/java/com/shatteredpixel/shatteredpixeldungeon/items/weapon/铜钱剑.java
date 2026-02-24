@@ -21,7 +21,7 @@ public class 铜钱剑 extends Weapon{
 		范围 = 3;
 		
 		特别= true;
-		遗产= false;
+
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class 铜钱剑 extends Weapon{
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage){
 		
-		if(defender.恶魔亡灵()&&attacker instanceof Hero hero&&hero.heroClass(HeroClass.道士)){
+		if(defender!=null&&defender.恶魔亡灵()&&attacker instanceof Hero hero&&hero.heroClass(HeroClass.道士)){
 			damage=Math.round(damage*1.75f);
 		}
 		return super.攻击时(attacker,defender,damage);

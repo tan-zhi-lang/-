@@ -14,7 +14,5 @@ public class 镶钉手套 extends Weapon{
 		tier = 1;
 		延迟= 0.5f;
 		伤害= 0.57f;
-
-		遗产= false;
 	}
 }

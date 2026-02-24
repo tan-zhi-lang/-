@@ -23,16 +23,9 @@ public class 锈右斧 extends Weapon{
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(defender.nobuff(Poison.class))
+		if(defender!=null&&defender.nobuff(Poison.class))
 			Buff.施加(defender,Poison.class).set(Math.round(damage*0.2f));
 		return super.攻击时( attacker, defender, damage );
 	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		if(defender.nobuff(Poison.class))
-			Buff.施加(defender, Poison.class).set(Math.round(damage*0.2f));
-		return super.投掷攻击时( attacker, defender, damage );
-	}
-	
 	
 }

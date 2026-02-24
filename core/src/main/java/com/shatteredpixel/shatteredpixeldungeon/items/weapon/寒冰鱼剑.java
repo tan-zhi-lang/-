@@ -20,7 +20,7 @@ public class 寒冰鱼剑 extends Weapon {
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(defender.第x次防御==1){
+		if(defender!=null&&defender.第x次防御==1){
 			算法.修复效果(
 					()->{
 						Buff.施加(defender,Frost.class,2f);
@@ -28,16 +28,5 @@ public class 寒冰鱼剑 extends Weapon {
 						 );
 		}
 		return super.攻击时( attacker, defender, damage );
-	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		if(defender.第x次防御==1){
-			算法.修复效果(
-					()->{
-						Buff.施加(defender,Frost.class,2f);
-					}
-						 );
-		}
-		return super.投掷攻击时( attacker, defender, damage );
 	}
 }

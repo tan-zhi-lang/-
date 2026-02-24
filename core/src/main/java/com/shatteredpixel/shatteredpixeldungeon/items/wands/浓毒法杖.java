@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.CorrosiveGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
@@ -23,10 +23,10 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.PathFinder;
 
-public class WandOfCorrosion extends Wand {
+public class 浓毒法杖 extends Wand {
 
 	{
-		image = 物品表.WAND_CORROSION;
+		image = 物品表.浓毒法杖;
 
 		collisionProperties = Ballistica.STOP_TARGET | Ballistica.STOP_SOLID;
 	}
@@ -34,8 +34,8 @@ public class WandOfCorrosion extends Wand {
 	@Override
 	public void onZap(Ballistica bolt) {
 		//破碎50+10
-		CorrosiveGas gas = Blob.seed(bolt.collisionPos, Math.round(魔力(0.3f,0.5f)), CorrosiveGas.class);
-		CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.CORROSION), 10 );
+		ToxicGas gas = Blob.seed(bolt.collisionPos,Math.round(魔力(0.6f,0.5f)),ToxicGas.class);
+		CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.TOXIC), 10 );
 //		gas.setStrength(2 + 强化等级(), getClass());
 		//破碎的
 		GameScene.add(gas);
@@ -61,7 +61,7 @@ public class WandOfCorrosion extends Wand {
 	public void fx(Ballistica bolt, Callback callback) {
 		MagicMissile.boltFromChar(
 				curUser.sprite.parent,
-				MagicMissile.CORROSION,
+				MagicMissile.毒气,
 				curUser.sprite,
 				bolt.collisionPos,
 				callback);
@@ -70,7 +70,7 @@ public class WandOfCorrosion extends Wand {
 
 	@Override
 	public void staffFx(法师魔杖.StaffParticle particle) {
-		particle.color( ColorMath.random( 0xAAAAAA, 0xFF8800) );
+		particle.color( ColorMath.random( 0x99ff34, 0x00802a) );
 		particle.am = 0.6f;
 		particle.setLifespan( 1f );
 		particle.acc.set(0, 20);
@@ -81,14 +81,14 @@ public class WandOfCorrosion extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 魔力(0.3f,0.5f));
+			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f));
 		else
-			return Messages.get(this, "stats_desc", 魔力(0.3f,0.5f));
+			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f));
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
-		return Integer.toString(Math.round(魔力加(0.3f,0.5f)));
+		return Integer.toString(Math.round(魔力加(0.6f,0.5f)));
 	}
 
 }

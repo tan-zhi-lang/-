@@ -44,7 +44,7 @@ public class 灵能短弓 extends Weapon {
 		伤害=0.75f;
 		延迟=1.5f;
 		特别= true;
-		遗产= false;
+		专属= true;
 	}
 	@Override
 	public String defaultAction() {
@@ -52,7 +52,6 @@ public class 灵能短弓 extends Weapon {
 	}
 	
 	public boolean sniperSpecial = false;
-	public float sniperSpecialBonusDamage = 0f;
 	
 	@Override
 	public ArrayList<String> actions(Hero hero) {
@@ -161,15 +160,11 @@ public class 灵能短弓 extends Weapon {
 		}
 		@Override
 		public Emitter emitter() {
-			if (!sniperSpecial){
-				Emitter e = new Emitter();
-				e.pos(5, 5);
-				e.fillTarget = false;
-				e.pour(LeafParticle.GENERAL, 0.01f);
-				return e;
-			} else {
-				return super.emitter();
-			}
+			Emitter e = new Emitter();
+			e.pos(5, 5);
+			e.fillTarget = false;
+			e.pour(LeafParticle.GENERAL, 0.01f);
+			return e;
 		}
 		@Override
 		public float 最小投掷攻击(int lvl) {
@@ -194,23 +189,22 @@ public class 灵能短弓 extends Weapon {
 
 			if(defender!=null)
 			if (sniperSpecial){
-				damage = Math.round(damage * (1f + sniperSpecialBonusDamage));
 				
 				switch (augment){
 					case NONE:
 						break;
 					case DELAY:
-						damage = Math.round(damage * 0.5f);
+						damage = damage * 0.5f;
 						break;
 					case ACCURACY:
-						damage = Math.round(damage * 1.2f);
+						damage = damage * 1.2f;
 						break;
 					case DAMAGE:
 						//as distance increases so does damage, capping at 3x:
 						//1.20x|1.35x|1.52x|1.71x|1.92x|2.16x|2.43x|2.74x|3.00x
 						int distance = Dungeon.level.distance(attacker.pos, targetPos) - 1;
 						float multiplier = Math.min(3f, 1.2f * (float)Math.pow(1.125f, distance));
-						damage = Math.round(damage * multiplier);
+						damage = damage * multiplier;
 						break;
 				}
 			}
@@ -244,10 +238,12 @@ public class 灵能短弓 extends Weapon {
 			}
 			Char enemy = Actor.findChar( cell );
 			if (enemy == null || enemy == curUser) {
-				Splash.at( cell, 0xCC99FFFF, 1 );
+				Splash.at( cell, 0x44FF44, 1 );
+//				Splash.at( cell, 0xCC99FFFF, 1 );
 			} else {
 				if (!curUser.shoot( enemy, this )) {
-					Splash.at(cell, 0xCC99FFFF, 1);
+					Splash.at(cell, 0x44FF44, 1);
+//					Splash.at(cell, 0xCC99FFFF, 1);
 				}
 				if (sniperSpecial && 灵能短弓.this.augment != Augment.DELAY) sniperSpecial = false;
 			}

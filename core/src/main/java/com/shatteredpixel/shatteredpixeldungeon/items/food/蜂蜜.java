@@ -14,7 +14,7 @@ public class 蜂蜜 extends Food {
 		image = 物品表.蜂蜜;
 		energy = Hunger.HUNGRY/3f*2; //100 food value
 		
-		遗产= false;
+
 	}
 
 	@Override

@@ -50,7 +50,7 @@ public class 土遁 extends 目标忍术 {
 			&& Dungeon.level.blobs.get(LightWall.class).volume > 0){
 			return 0;
 		}
-		return 3;
+		return 1;
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class 土遁 extends 目标忍术 {
 		int rightDirX = 0;
 		int rightDirY = 0;
 
-		int steps = Dungeon.hero.天赋点数(Talent.神圣屏障);
+		int steps = Math.round(hero.魔力(0.1f));
 
 		switch (closestIdx){
 			case 0: //top left
@@ -207,7 +207,7 @@ public class 土遁 extends 目标忍术 {
 
 	private void placeWall( int pos, int knockbackDIR){
 		if (!Dungeon.level.solid[pos]) {
-			GameScene.add(Blob.seed(pos, 15, LightWall.class));
+			GameScene.add(Blob.seed(pos, Math.round(Dungeon.hero.魔力()), LightWall.class));
 
 			Char ch = Actor.findChar(pos);
 			if (ch != null && ch.alignment == Char.Alignment.ENEMY){

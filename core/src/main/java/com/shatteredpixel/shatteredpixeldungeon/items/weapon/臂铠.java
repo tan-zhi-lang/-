@@ -15,7 +15,7 @@ public class 臂铠 extends Weapon{
 		伤害= 0.4f;
 		技能=new 连击();
 		
-		遗产= false;
+
 	}
 	@Override
 	public float 最大防御(int lvl){

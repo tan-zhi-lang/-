@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.watabou.utils.Bundle;
@@ -100,8 +101,12 @@ public class Bones {
 					item = Dungeon.quickslot.randomNonePlaceholder();
 					break;
 			}
-			if (item == null || !item.遗产) {
-				return pickItem(hero);
+			if(item instanceof Weapon weapon&&weapon.tier==1)
+				return pickItem(hero);//重新找
+			if(item instanceof Armor armor&&armor.tier==1)
+				return pickItem(hero);//重新找
+			if (item == null || !item.遗产|| !item.专属) {
+				return pickItem(hero);//重新找
 			}
 		} else {
 

@@ -450,7 +450,7 @@ abstract public class Weapon extends KindOfWeapon {
 										  String.format("%.2f",最小投掷攻击(0)),
 											String.format("%.2f",最大投掷攻击(0)));
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
-				info += " " + Messages.get(Weapon.class, "probably_too_heavy");
+				info += " " + Messages.get(Weapon.class, "too_heavy");
 				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
 					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
 				}
@@ -527,16 +527,16 @@ abstract public class Weapon extends KindOfWeapon {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+_"+
 						 String.format("%.2f",最小防御())+"~"+String.format("%.2f",最大防御())+"_防御，"),
 								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
-								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
-								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
-								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
+								(流血==0?"":"，流血**"+Math.round(流血*100)+"%**"),
+								(吸血==0?"":"，吸血**"+Math.round(吸血*100)+"%**"),
+								(伏击==0?"":"，伏击率_"+Math.round(伏击*100)+"%_")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+_"+String.format("%.2f",最小防御(0))+"~"+String.format("%.2f",最大防御(0))+"_防御，"),
 								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
-								(流血==0?"":"，流血_"+Math.round(流血*100)+"%_"),
-								(吸血==0?"":"，吸血_"+Math.round(吸血*100)+"%_"),
-								(伏击==0?"":"，伏击_"+Math.round(伏击*100)+"%_")
+								(流血==0?"":"，流血**"+Math.round(流血*100)+"%**"),
+								(吸血==0?"":"，吸血**"+Math.round(吸血*100)+"%**"),
+								(伏击==0?"":"，伏击率_"+Math.round(伏击*100)+"%_")
 							   );
 		}
 	}
@@ -975,6 +975,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		float result = super.投掷攻击时(attacker, defender, damage);
+		result = super.攻击时(attacker, defender, damage);
 
 		if(defender!=null){
 		boolean becameAlly = false;

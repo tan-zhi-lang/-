@@ -16,10 +16,11 @@ public class PoisonDart extends TippedDart {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
-
-		//when processing charged shot, only poison enemies
-		if (!processingChargedShot || attacker.alignment != defender.alignment) {
-			Buff.施加(defender, Poison.class).set(3 + Dungeon.scalingDepth() / 2);
+		if(defender!=null){
+			//when processing charged shot, only poison enemies
+			if(!processingChargedShot||attacker.alignment!=defender.alignment){
+				Buff.施加(defender,Poison.class).set(3+Dungeon.scalingDepth()/2);
+			}
 		}
 		
 		return super.攻击时(attacker, defender, damage);

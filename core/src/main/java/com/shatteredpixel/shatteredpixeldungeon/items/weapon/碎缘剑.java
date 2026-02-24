@@ -24,75 +24,39 @@ public class 碎缘剑 extends Weapon{
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
-		
-		int level = Math.max(0, 强化等级());
-		
-		// lvl 0 - 15%
-		// lvl 1 ~ 19%
-		// lvl 2 ~ 23%
-		float procChance = (level+3f)/(level+20f)*奥术之戒.enchantPowerMultiplier(attacker);
-		if (Random.Float()<procChance) {
-			
-			float powerMulti = Math.max(1f, procChance);
-			
-			if(defender.nobuff(Charm.class)){
-				Buff.施加(defender,Charm.class,Math.round(Charm.DURATION*powerMulti)).object=
-						defender.id();
-				defender.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f,5);
-			}else{
-				
-				new Flare(5,32 ).color(0xFF0000,true).show(defender.sprite,2f);
-				
-				int count = 0;
-				Mob affected = null;
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-						Buff.施加(mob,Terror.class,Terror.DURATION).object = curUser.id();
-						
-						if (mob.buff(Terror.class) != null){
-							count++;
-							affected = mob;
+		if(defender!=null){
+			int level=Math.max(0,强化等级());
+
+			// lvl 0 - 15%
+			// lvl 1 ~ 19%
+			// lvl 2 ~ 23%
+			float procChance=(level+3f)/(level+20f)*奥术之戒.enchantPowerMultiplier(attacker);
+			if(Random.Float()<procChance){
+
+				float powerMulti=Math.max(1f,procChance);
+
+				if(defender.nobuff(Charm.class)){
+					Buff.施加(defender,Charm.class,Math.round(Charm.DURATION*powerMulti)).object=defender.id();
+					defender.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f,5);
+				}else{
+
+					new Flare(5,32).color(0xFF0000,true).show(defender.sprite,2f);
+
+					int count=0;
+					Mob affected=null;
+					for(Mob mob: Dungeon.level.mobs.toArray(new Mob[0])){
+						if(mob.alignment!=Char.Alignment.ALLY&&Dungeon.level.heroFOV[mob.pos]){
+							Buff.施加(mob,Terror.class,Terror.DURATION).object=curUser.id();
+
+							if(mob.buff(Terror.class)!=null){
+								count++;
+								affected=mob;
+							}
 						}
 					}
 				}
 			}
 		}
 		return super.攻击时( attacker, defender, damage );
-	}
-	@Override
-	public float 投掷攻击时(Char attacker,Char defender,float damage) {
-		
-		int level = Math.max(0, 强化等级());
-		
-		// lvl 0 - 15%
-		// lvl 1 ~ 19%
-		// lvl 2 ~ 23%
-		float procChance = (level+3f)/(level+20f)*奥术之戒.enchantPowerMultiplier(attacker);
-		if (Random.Float()<procChance) {
-			
-			float powerMulti = Math.max(1f, procChance);
-			if(defender.nobuff(Charm.class)){
-				Buff.施加(defender,Charm.class,Math.round(Charm.DURATION*powerMulti)).object=
-						defender.id();
-				defender.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f,5);
-			}else{
-				
-				new Flare(5,32 ).color(0xFF0000,true).show(defender.sprite,2f);
-				
-				int count = 0;
-				Mob affected = null;
-				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					if (mob.alignment != Char.Alignment.ALLY && Dungeon.level.heroFOV[mob.pos]) {
-						Buff.施加(mob,Terror.class,Terror.DURATION).object = curUser.id();
-						
-						if (mob.buff(Terror.class) != null){
-							count++;
-							affected = mob;
-						}
-					}
-				}
-			}
-		}
-		return super.投掷攻击时( attacker, defender, damage );
 	}
 }

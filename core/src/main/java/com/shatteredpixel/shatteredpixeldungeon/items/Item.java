@@ -909,6 +909,7 @@ public class Item implements Bundlable {
 				}
 			}
 		}
+
 		String s="代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
 		s+="\n";
 		if(已鉴定()){

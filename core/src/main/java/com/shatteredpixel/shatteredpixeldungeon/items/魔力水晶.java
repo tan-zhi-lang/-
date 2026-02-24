@@ -17,7 +17,7 @@ public class 魔力水晶 extends 用品 {
 	@Override
 	public void 使用(Hero hero){
 		Sample.INSTANCE.play(Assets.Sounds.魔力水晶);
-		hero.智力+=1;
+		hero.魔力+=2;
 
 		super.使用(hero);
 	}

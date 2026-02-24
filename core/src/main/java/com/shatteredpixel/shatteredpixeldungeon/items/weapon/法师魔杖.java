@@ -6,25 +6,20 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.物法皆修;
-import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -35,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.particles.PixelParticle;
@@ -84,18 +78,7 @@ public class 法师魔杖 extends Weapon{
 	public int 强化等级(){
 		int l=等级()+转移;
 		if(Dungeon.hero()&&!Dungeon.符文("魔法转物理")){
-			l+=Dungeon.hero.智力;
-			l+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
-			if(Dungeon.hero.符文("升级法师魔杖"))l*=1.5f;
-			if(Dungeon.符文("物法皆修")&&Dungeon.hero.hasbuff(战斗状态.class)&&Dungeon.hero.hasbuff(物法皆修.class)){
-				l+= Dungeon.hero.buff(物法皆修.class).count/5;
-			}
-			if(Dungeon.符文("物理转魔法")){
-				l+= Dungeon.hero.力量()*0.15f;
-			}
-			if(Dungeon.符文("法神")){
-				l*=1.6f;
-			}
+			l+=new WandOfMagicMissile().强化等级();;
 		}
 
 		//only the hero can be affected by Degradation
@@ -325,7 +308,7 @@ public class 法师魔杖 extends Weapon{
 		if (wand == null) {
 			return super.name();
 		} else {
-			String name = Messages.get(wand, "staff_name");
+			String name = Messages.get(wand, "name").replaceAll("法杖", "魔杖");
 			return enchantment != null && (cursedKnown || !enchantment.curse()) ? enchantment.name( name ) : name;
 		}
 	}

@@ -23,13 +23,11 @@ public class WandOfMagicMissile extends DamageWand {
 	}
 
 	public float min(int lvl){
-		lvl*=2;
-		return 2+lvl;
+		return 魔力(0.2f,0.75f);
 	}
 
 	public float max(int lvl){
-		lvl*=2;
-		return 8+2*lvl;
+		return 魔力(0.8f,0.5f);
 	}
 	
 	@Override
@@ -42,7 +40,7 @@ public class WandOfMagicMissile extends DamageWand {
 			ch.受伤时(damageRoll(), this);
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f) );
 
-			ch.sprite.burst(0xFFFFFFFF, 强化等级() / 2 + 2);
+			ch.sprite.burst(0xFFFFFFFF);
 
 			//apply the magic charge buff if we have another wand in inventory of a lower level, or already have the buff
 //			for (Wand.Charger wandCharger : curUser.buffs(Wand.Charger.class)){
@@ -57,7 +55,7 @@ public class WandOfMagicMissile extends DamageWand {
 		}
 	}
 
-
+	@Override
 	public int initialCharges() {
 		return 3;
 	}

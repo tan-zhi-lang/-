@@ -37,21 +37,20 @@ public class 冰海法杖 extends DamageWand {
 		//only used for targeting, actual projectile logic is Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID
 		collisionProperties = Ballistica.WONT_STOP;
 	}
-
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public float min(int lvl){
-		return (1+lvl) * chargesPerCast()*3;
+		return 魔力(0.3f,1) * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
 	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return (2 + 2*lvl)*2;
+				return 魔力(0.4f,1);
 			case 2:
-				return 2*2*(4 + 2*lvl);
+				return 魔力(2f,0.5f);
 			case 3:
-				return 2*3*(6+2*lvl);
+				return 魔力(2f,0.3f);
 		}
 	}
 
@@ -122,7 +121,7 @@ public class 冰海法杖 extends DamageWand {
 						Buff.施加(ch,Cripple.class,5);
 						break;
 					case 3:
-						Buff.施加(ch, Frost.class, Frost.DURATION);
+						Buff.施加(ch, Frost.class, 5);
 						break;
 				}
 			}
@@ -163,7 +162,6 @@ public class 冰海法杖 extends DamageWand {
 				longestRay.path.get(longestRay.dist/2),
 				callback );
 		Sample.INSTANCE.play( Assets.Sounds.ZAP );
-		Sample.INSTANCE.play( Assets.Sounds.BURNING );
 	}
 
 	@Override
@@ -184,20 +182,6 @@ public class 冰海法杖 extends DamageWand {
 			return Messages.get(this, "stats_desc", chargesPerCast(), min(0), max(0));
 	}
 
-	@Override
-	public String upgradeStat1(int level) {
-		return (1+level) + "-" + (2+2*level);
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return (2+2*level) + "-" + 2*(4+2*level);
-	}
-
-	@Override
-	public String upgradeStat3(int level) {
-		return (3+3*level) + "-" + 3*(6+2*level);
-	}
 
 	@Override
 	public void staffFx(法师魔杖.StaffParticle particle) {

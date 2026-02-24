@@ -16,7 +16,6 @@ public class 替身保护 extends Buff {
 	{
 		type = buffType.POSITIVE;
 	}
-	
 	@Override
 	public boolean act() {
 		

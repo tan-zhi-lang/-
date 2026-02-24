@@ -6,10 +6,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.神圣长枪;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
@@ -50,12 +53,15 @@ public class 圣光 extends TargetedClericSpell {
 
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
+					if(hero.天赋(Talent.神圣长枪))hero.扔出(ch.pos,new 神圣长枪(),()->{
+						Buff.施加(ch,伤害.class).level+=hero.魔力天赋点数(Talent.神圣之触,0.25f);
+					} );
 					if(ch.恶魔亡灵()){
-						ch.受伤时(hero.光照范围()*4+hero.天赋点数(Talent.神圣之触,hero.光照范围()*1.5f),圣光.this);
+						ch.受伤时(hero.魔力(1*(1+hero.天赋点数(Talent.神圣之触,0.25f))),圣光.this);
 						Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
 						ch.sprite.burst(0xFFFFFF44, 3);
 					}else{
-						ch.回血(hero.光照范围()*2+hero.天赋点数(Talent.神圣之触,hero.光照范围()*0.75f));
+						ch.回血(hero.魔力(0.5f*(1+hero.天赋点数(Talent.神圣之触,0.25f))));
 					}
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
@@ -70,14 +76,9 @@ public class 圣光 extends TargetedClericSpell {
 		});
 	}
 
-	@Override
-	public int chargeUse(Hero hero) {
-		return 1;
-	}
-
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.光照范围()*2+Dungeon.hero.天赋点数(Talent.神圣之触,Dungeon.hero.光照范围()*0.75f),
-										Dungeon.hero.光照范围()*4+Dungeon.hero.天赋点数(Talent.神圣之触,Dungeon.hero.光照范围()*1.5f));
+		String desc = Messages.get(this, "desc",Dungeon.hero.魔力(0.2f)*(1+Dungeon.hero.天赋点数(Talent.神圣之触,0.25f)),
+										Dungeon.hero.魔力()*(1+Dungeon.hero.天赋点数(Talent.神圣之触,0.25f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

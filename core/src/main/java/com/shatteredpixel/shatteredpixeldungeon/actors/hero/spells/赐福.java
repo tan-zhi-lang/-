@@ -34,6 +34,9 @@ public class 赐福 extends ClericSpell {
 
 		Buff.施加(hero,效果.class,50f);
 
+		if(hero.天赋(Talent.祈愿诗篇))
+			hero.属性成长+=hero.天赋点数(Talent.祈愿诗篇,0.0025f);
+
 		if(hero.天赋(Talent.守御灵光))
 			Buff.施加(hero,守御灵光.class,50f);
 

@@ -14,7 +14,7 @@ public class 绿蘑菇 extends Food {
 		image = 物品表.绿蘑菇;
 		energy = Hunger.HUNGRY/3f*2; //100 food value
 		
-		遗产= false;
+
 	}
 
 	@Override

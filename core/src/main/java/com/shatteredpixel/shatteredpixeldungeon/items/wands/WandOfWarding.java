@@ -70,7 +70,7 @@ public class WandOfWarding extends Wand {
 		for (Buff buff : curUser.buffs()){
 			if (buff instanceof Wand.Charger){
 				if (((Charger) buff).wand() instanceof WandOfWarding){
-					maxWardEnergy += 2 + ((Charger) buff).wand().等级();
+					maxWardEnergy += ((Charger) buff).wand().魔力(0.2f,0.5f);
 				}
 			}
 		}
@@ -112,9 +112,9 @@ public class WandOfWarding extends Wand {
 		if (ch != null){
 			if (ch instanceof Ward){
 				if (wardAvailable) {
-					((Ward) ch).upgrade( 强化等级() );
+					((Ward) ch).upgrade( Math.round(魔力()) );
 				} else {
-					((Ward) ch).wandHeal( 强化等级() );
+					((Ward) ch).wandHeal(Math.round(魔力()));
 				}
 				ch.sprite.emitter().burst(MagicMissile.WardParticle.UP, ((Ward) ch).tier);
 			} else {
@@ -129,7 +129,7 @@ public class WandOfWarding extends Wand {
 		} else {
 			Ward ward = new Ward();
 			ward.pos = target;
-			ward.wandLevel = 强化等级();
+			ward.wandLevel =Math.round(魔力());
 			GameScene.add(ward, 1f);
 			Dungeon.level.occupyCell(ward);
 			ward.sprite.emitter().burst(MagicMissile.WardParticle.UP, ward.tier);
@@ -257,29 +257,29 @@ public class WandOfWarding extends Wand {
 				this.wandLevel = wandLevel;
 			}
 
-			int heal;
+			float heal;
 			switch(tier){
 				default:
 					return;
 				case 2:
-					heal = Math.round(1 * healFactor);
+					heal = 1 * healFactor;
 					break;
 				case 3:
-					heal = Math.round(Random.IntRange(1, 2) * healFactor);
+					heal = Random.Float(1, 2) * healFactor;
 					break;
 				case 4:
-					heal = Math.round(9 * healFactor); //9/5 1.8
+					heal = 9 * healFactor; //9/5 1.8
 					break;
 				case 5:
-					heal = Math.round(12 * healFactor); //12/6, 2
+					heal = 12 * healFactor; //12/6, 2
 					break;
 				case 6:
-					heal = Math.round(16 * healFactor); //16/7, 2.28
+					heal = 16 * healFactor; //16/7, 2.28
 					break;
 			}
 
 			if (tier <= 3){
-				totalZaps = (Math.max(0, totalZaps-heal));
+				totalZaps = Math.round(Math.max(0, totalZaps-heal));
 			} else {
 				回血(heal);
 			}

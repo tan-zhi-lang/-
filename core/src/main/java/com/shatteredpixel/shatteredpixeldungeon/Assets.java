@@ -108,7 +108,6 @@ public class Assets {
 		public static final String TALENT_ICONS     = "interfaces/talent_icons.png";
 
 		public static final String HERO_ICONS       = "interfaces/hero_icons.png";
-		public static final String HERO_SPELL       = "interfaces/hero_spell.png";
 
 		public static final String RADIAL_MENU      = "interfaces/radial_menu.png";
 	}

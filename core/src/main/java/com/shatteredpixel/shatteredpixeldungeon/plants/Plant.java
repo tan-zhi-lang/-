@@ -117,6 +117,8 @@ public abstract class Plant implements Bundlable {
 			可堆叠= true;
 			defaultAction = AC_USE;
 			usesTargeting=true;
+
+			遗产= true;
 		}
 		
 		protected Class<? extends Plant> plantClass;

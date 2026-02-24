@@ -11,6 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.替身保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.替身动画;
 import com.watabou.utils.Bundle;
@@ -90,11 +92,15 @@ public class 暗影替身 extends NPC {
 		this.hero = hero;
 		heroID = this.hero.id();
 	}
-	
+	public int 等级(){
+		if(hero!=null){
+			return 1+hero.belongings.getItem(虫箭.class).等级();
+		}else return 1;
+	}
 	@Override
 	public float 移速(){
 		if (hero != null) {
-			return hero.移速();
+			return hero.移速()*(1+等级()*0.2f);
 		} else {
 			return super.移速();
 		}
@@ -103,7 +109,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 攻击延迟(){
 		if (hero != null) {
-			return hero.攻击延迟()/(1+(hero.符文("力速双A替身")?0.25f:0));
+			return hero.攻击延迟()/(1+(hero.符文("力速双A替身")?0.45f:0)+等级()*0.2f);
 		} else {
 			return super.攻击延迟();
 		}
@@ -112,7 +118,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最小攻击() {
 		if (hero != null) {
-			return hero.最小攻击()*(1+(hero.符文("力速双A替身")?0.25f:0));
+			return hero.最小攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级()*0.2f);
 		} else {
 			return 0;
 		}
@@ -120,7 +126,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最大攻击() {
 		if (hero != null) {
-			return hero.最大攻击()*(1+(hero.符文("力速双A替身")?0.25f:0));
+			return hero.最大攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级()*0.2f);
 		} else {
 			return 0;
 		}
@@ -129,7 +135,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最小命中(Char target ) {
 		if (hero != null) {
-			return hero.最小命中(target);
+			return Math.round(hero.最小命中(target)*(1+等级()*0.2f));
 		}else{
 			return 0;
 		}
@@ -137,7 +143,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最大命中(Char target ) {
 		if (hero != null) {
-			return hero.最大命中(target);
+			return Math.round(hero.最大命中(target)*(1+等级()*0.2f));
 		} else {
 			return 0;
 		}
@@ -145,7 +151,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最小闪避(Char target ) {
 		if (hero != null) {
-			return hero.最小闪避(target);
+			return Math.round(hero.最小闪避(target)*(1+等级()*0.2f));
 		} else {
 			return 0;
 		}
@@ -153,7 +159,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最大闪避(Char enemy) {
 		if (hero != null) {
-			return hero.最大闪避(enemy);
+			return Math.round(hero.最大闪避(enemy)*(1+等级()*0.2f));
 		} else {
 			return 0;
 		}
@@ -162,7 +168,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最小防御() {
 		if (hero != null){
-			return hero.最小防御();
+			return hero.最小防御()*(1+等级()*0.2f);
 		}else{
 			return 0;
 		}
@@ -170,7 +176,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最大防御() {
 		if (hero != null){
-			return hero.最大防御();
+			return hero.最大防御()*(1+等级()*0.2f);
 		}else{
 			return 0;
 		}
@@ -195,11 +201,16 @@ public class 暗影替身 extends NPC {
 			return super.防御时(enemy, damage);
 		}
 	}
-	
+
+	@Override
+	public String description(){
+		return Messages.get(this,"desc",Math.round(100-等级()*7.5f));
+	}
+
 	@Override
 	public void 受伤时(float dmg,Object src){
 		if (hero != null){
-			hero.受伤时(dmg*0.5f,src);
+			hero.受伤时(dmg*(1-0.075f*等级()),src);
 		}
 	}
 	

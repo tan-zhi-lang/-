@@ -9,9 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -31,11 +29,11 @@ public class 烈焰法杖 extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return (2+lvl)/2;
+		return 魔力();
 	}
 
 	public float max(int lvl){
-		return (8+5*lvl)/2;
+		return 魔力(0.4f,0.625f);
 	}
 
 	@Override
@@ -74,7 +72,7 @@ public class 烈焰法杖 extends DamageWand {
 
 			wandProc(ch, chargesPerCast());
 			ch.受伤时(damage, this);
-			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 1.1f * Random.Float(0.87f, 1.15f) );
+			Sample.INSTANCE.play( Assets.Sounds.BURNING, 1, 1.1f * Random.Float(0.87f, 1.15f) );
 
 			if (ch.isAlive()){
 				if (ch.buff(Chill.class) != null){
@@ -83,8 +81,7 @@ public class 烈焰法杖 extends DamageWand {
 				if (ch.在草丛()||ch.在门上()) {
 					Buff.施加(ch,Paralysis.class,4f);
 				} else {
-					ch.sprite.burst( 0xFF99CCFF, 强化等级() / 2 + 2 );
-					Buff.施加(ch, 燃烧.class).reignite(ch,2 + 强化等级());
+					Buff.施加(ch, 燃烧.class).reignite(ch,4);
 				}
 			}
 		} else {

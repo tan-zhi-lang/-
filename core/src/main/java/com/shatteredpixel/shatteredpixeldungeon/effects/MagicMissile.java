@@ -56,6 +56,8 @@ public class MagicMissile extends Emitter {
 	public static final int POISON          = 15;
 	public static final int LIGHT_MISSILE   = 16;
 
+	public static final int 毒气   = 17;
+
 	public static final int MAGIC_MISS_CONE = 100;
 	public static final int FROST_CONE      = 101;
 	public static final int FIRE_CONE       = 102;
@@ -110,8 +112,7 @@ public class MagicMissile extends Emitter {
 		sy = speed.y;
 		time = d.length() / SPEED;
 		if(SPDSettings.加快()>1){
-
-			time = d.length() / SPEED/3f;
+			time = d.length() / SPEED/1.5f;
 		}
 
 		//for now all specks share the same size and volume, this can easily be customized later if needed
@@ -167,6 +168,10 @@ public class MagicMissile extends Emitter {
 			case SHAMAN_RED:
 				size( 2 );
 				pour( ShamanParticle.RED, 0.01f );
+				break;
+			case 毒气:
+				size( 2 );
+				pour( ShamanParticle.绿, 0.01f );
 				break;
 			case SHAMAN_BLUE:
 				size( 2 );
@@ -435,7 +440,15 @@ public class MagicMissile extends Emitter {
 						.reset( x, y, ColorMath.random(0x6699FF, 0x1A3C80) );
 			}
 		};
-		
+
+		public static final Emitter.Factory 绿 = new Factory() {
+			@Override
+			public void emit( Emitter emitter, int index, float x, float y ) {
+				((ShamanParticle)emitter.recycle( ShamanParticle.class ))
+						.reset( x, y, ColorMath.random(0x99ff34, 0x00802a0) );
+			}
+		};
+
 		public static final Emitter.Factory PURPLE = new Factory() {
 			@Override
 			public void emit( Emitter emitter, int index, float x, float y ) {

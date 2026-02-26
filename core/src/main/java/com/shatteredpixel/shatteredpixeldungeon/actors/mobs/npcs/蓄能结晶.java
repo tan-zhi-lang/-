@@ -35,7 +35,12 @@ public class 蓄能结晶 extends NPC {
 		viewDistance = 8;
 		state = WANDERING;
 	}
-	
+
+	@Override
+	protected boolean act(){
+		sprite.领域(0xFF4444,8+tier);
+		return super.act();
+	}
 	public void upgrade(){
 		
 		if (tier < 3){

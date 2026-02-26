@@ -31,6 +31,7 @@ public class 灵月法杖 extends Wand {
 		image = 物品表.灵月法杖;
 		特别= true;
 		专属= true;
+		嬗变= false;
 	}
 
 	@Override
@@ -112,7 +113,7 @@ public class 灵月法杖 extends Wand {
 		}
 		@Override
 		public Visual primaryVisual() {
-			Image ico= new HeroIcon(this);;
+			Image ico= new HeroIcon(this);
 			ico.width += 4; //shift slightly to the left to separate from smaller icon
 			return ico;
 		}

@@ -59,7 +59,6 @@ public class WndInfoItem extends Window {
 		
 		IconTitle titlebar = new IconTitle( heap );
 //		titlebar.color( TITLE_COLOR );
-		titlebar.color( 0xFFFFFF );
 		
 		RenderedTextBlock txtInfo = PixelScene.renderTextBlock( heap.info(), 6 );
 
@@ -77,12 +76,12 @@ public class WndInfoItem extends Window {
 
 		IconTitle titlebar = new IconTitle( item );
 //		titlebar.color( color );
-
-		if(item.cursed&&item.cursedKnown){
-			titlebar.color( 0xFF4444 );//诅咒红文本
-		}else{
-			titlebar.color( 0xFFFFFF );
-		}
+//		if(item.绿色)titlebar.color(0x44FF44);
+//		else if(item.cursed&&item.cursedKnown){
+//			titlebar.color( 0xFF4444 );//诅咒红文本
+//		}else {
+//			titlebar.color(0xFFFFFF);
+//		}
 		RenderedTextBlock txtInfo = PixelScene.renderTextBlock( item.info(), 6 );
 		
 		layoutFields(titlebar, txtInfo);

@@ -15,8 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Ch
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Feint;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.ElementalBlast;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WarpBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -63,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
@@ -113,7 +112,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
@@ -130,23 +128,23 @@ import com.watabou.utils.Random;
 public enum HeroClass{
 	
 	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士),
-	MAGE(HeroSubClass.冰结师,HeroSubClass.元素法师),
+	MAGE(HeroSubClass.冰结师,HeroSubClass.元素法师),//1
 	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影),
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
 	DUELIST(HeroSubClass.武器大师,HeroSubClass.武者),
 	CLERIC(HeroSubClass.圣骑士,HeroSubClass.祭司),
-	巫女(HeroSubClass.战斗法师,HeroSubClass.黑魔导师),//1
+	巫女(HeroSubClass.战斗法师,HeroSubClass.黑魔导师),
 	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),
 	镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士),
-	道士(HeroSubClass.死灵术士,HeroSubClass.真人),//1
-	行僧(HeroSubClass.疾行者),//1
+	道士(HeroSubClass.死灵术士,HeroSubClass.真人),
+	行僧(HeroSubClass.疾行者,HeroSubClass.符文法师),
 	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵),
 	兽灵(HeroSubClass.神兽之灵),//1
 	机器(HeroSubClass.潜能觉醒),///2
-	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影),//1
+	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影),
 	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王),
-	逐姝(HeroSubClass.潜能觉醒),///2
+	逐姝(HeroSubClass.剑魔),///2
 	罗兰(HeroSubClass.潜能觉醒),///2
 	学士(HeroSubClass.潜能觉醒),///2
 	灵猫(HeroSubClass.黑白双子),//1
@@ -224,11 +222,19 @@ public enum HeroClass{
 		//		i = new Food();
 		//		if (!Challenges.isItemBlocked(i)) i.放背包();
 
-		if(Dungeon.赛季(赛季设置.幸运转世)){
+		if(Dungeon.派对(派对设置.幸运转世)){
 			hero.幸运转世=1;
 //			hero.幸运转世=Random.oneOf(1,2);
 		}
 
+		if(Dungeon.派对(派对设置.种族天赋)){
+			if(!(hero.heroClass(鼠弟)&&hero.heroClass(机器)&&hero.heroClass(灵猫)))
+			if(hero.种族天赋.equals("")){
+				hero.种族天赋=Random.oneOf("人类","兽人","鲛人","精灵",
+										   "喵星人","龙人","矮人","猩人","恶魔");
+				//"吸血鬼","半人马","地精","汪星人","鼠人","树妖","不死族","恶魔"
+			}
+		}
 		if(Dungeon.派对(派对设置.钢门联盟)){
 			心之钢 钢门=new 心之钢();
 			钢门.鉴定();
@@ -646,8 +652,9 @@ public enum HeroClass{
 	
 	private static void 初始戒老(Hero hero){
 		(hero.belongings.weapon=new 碧蓝巨剑()).鉴定();
-		new 空间之戒().放背包();
+//		new 空间之戒().放背包();
 		(hero.belongings.armor=new 能袍()).鉴定();
+		(hero.belongings.misc=new 六神之戒()).鉴定();
 		new 升级卷轴().鉴定();
 		new 充能卷轴().鉴定();
 	}
@@ -747,9 +754,7 @@ public enum HeroClass{
 			case WARRIOR:
 			default:
 			case MAGE:
-				return new ArmorAbility[]{new ElementalBlast(),
-										  new WildMagic(),
-										  new WarpBeacon()};
+				return new ArmorAbility[]{new WildMagic()};
 			case 盗贼:
 				return new ArmorAbility[]{
 										  new ShadowClone()};

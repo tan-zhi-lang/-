@@ -29,7 +29,7 @@ public class RotHeart extends Mob {
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.MINIBOSS);
 		properties.add(Property.STATIC);
-		properties.add(Property.植物);
+		properties.add(Property.树妖);
 	}
 
 	@Override

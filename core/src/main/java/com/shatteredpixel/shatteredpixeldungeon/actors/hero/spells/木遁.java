@@ -121,7 +121,7 @@ public class 木遁 extends 目标忍术 {
 			最大生命 = 20;
 
 			生命 = 最大生命;
-			properties.add(Property.植物);
+			properties.add(Property.树妖);
 		}
 
 		@Override

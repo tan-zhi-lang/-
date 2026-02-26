@@ -77,8 +77,8 @@ public class 法师魔杖 extends Weapon{
 	@Override
 	public int 强化等级(){
 		int l=等级()+转移;
-		if(Dungeon.hero()&&!Dungeon.符文("魔法转物理")){
-			l+=new WandOfMagicMissile().强化等级();;
+		if(Dungeon.hero()){
+			l+=new WandOfMagicMissile().强化等级();
 		}
 
 		//only the hero can be affected by Degradation

@@ -38,7 +38,12 @@ public class 冰爆结晶 extends NPC {
 		viewDistance = 4;
 		state = WANDERING;
 	}
-	
+
+	@Override
+	protected boolean act(){
+		sprite.领域(0x3399FF,4+tier);
+		return super.act();
+	}
 	public void upgrade(){
 		
 		if (tier < 3){

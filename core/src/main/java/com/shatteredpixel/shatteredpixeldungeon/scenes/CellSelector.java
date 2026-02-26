@@ -410,7 +410,7 @@ public class CellSelector extends ScrollArea {
 		if (action == SPDAction.E)  return new Point(+1,  0);
 		if (action == SPDAction.SE) return new Point(+1, +1);
 		if (action == SPDAction.S)  return new Point( 0, +1);
-		if (action == SPDAction.SW) return new Point(-1, +1);;
+		if (action == SPDAction.SW) return new Point(-1, +1);
 		if (action == SPDAction.W)  return new Point(-1,  0);
 		if (action == SPDAction.NW) return new Point(-1, -1);
 		else                        return new Point();

@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -14,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,10 +184,11 @@ public class Wnd选择海克斯 extends Window {
 		add(clsInfo3);
 		pos = btnCls3.bottom() + MARGIN;
 
-		RedButton 刷新=new RedButton("重新获得一个海克斯法典(一次性，相当于刷新)",6){
+		RedButton 刷新=new RedButton("重新获得一个海克斯法典(初始可以刷新2次)",6){
 			@Override
 			protected void onClick(){
 				super.onClick();
+				Sample.INSTANCE.play(Assets.Sounds.海克斯,1.75f);
 				海克斯宝典 item=new 海克斯宝典();
 				item.用过+=i.用过+1;
 				item.放背包();
@@ -198,8 +201,10 @@ public class Wnd选择海克斯 extends Window {
 		刷新.setSize(width,刷新.reqHeight());
 		刷新.setRect(0,pos,width,刷新.reqHeight()+6);
 		if(i.用过<i.使用上限()){
-			add(刷新);
-			pos=刷新.bottom()+MARGIN;
+			if(!hero.符文("无法刷新海克斯")){
+				add(刷新);
+				pos=刷新.bottom()+MARGIN;
+			}
 		}
 
 		resize(width, (int)pos);

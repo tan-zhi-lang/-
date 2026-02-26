@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
@@ -128,13 +129,20 @@ public class WndBag extends WndTabbed {
 		}
 
 		layoutTabs();
+
+
+		try{
+			Dungeon.saveAll();
+			Badges.saveGlobal();
+		}catch(Exception e){
+			//保存游戏
+		}
 	}
 	
 	public ItemSelector getSelector() {
 		return selector;
 	}
-
-	public static WndBag lastBag( ItemSelector selector ) {
+	public static WndBag lastBag(ItemSelector selector) {
 		
 		if (lastBag != null && Dungeon.hero.belongings.backpack.contains( lastBag )) {
 			

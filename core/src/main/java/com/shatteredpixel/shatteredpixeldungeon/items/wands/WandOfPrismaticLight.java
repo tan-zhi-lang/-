@@ -116,15 +116,6 @@ public class WandOfPrismaticLight extends DamageWand {
 	}
 
 	@Override
-	public String upgradeStat3(int level) {
-		if (Dungeon.isChallenged(Challenges.DARKNESS)){
-			return Integer.toString(2 + level);
-		} else {
-			return Integer.toString(10 + 5*level);
-		}
-	}
-
-	@Override
 	public void fx(Ballistica beam, Callback callback) {
 		curUser.sprite.parent.add(
 				new Beam.LightRay(curUser.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(beam.collisionPos)));

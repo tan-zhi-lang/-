@@ -39,7 +39,12 @@ public class 火爆结晶 extends NPC {
 		viewDistance = 5;
 		state = WANDERING;
 	}
-	
+
+	@Override
+	protected boolean act(){
+		sprite.领域(0xFF8800,5+tier);
+		return super.act();
+	}
 	public void upgrade(){
 		
 		if (tier < 3){

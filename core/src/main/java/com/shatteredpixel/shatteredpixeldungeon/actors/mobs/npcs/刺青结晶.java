@@ -40,7 +40,7 @@ public class 刺青结晶 extends NPC {
 		viewDistance = 4;
 		state = WANDERING;
 	}
-	
+
 	public void upgrade(){
 		
 		if (tier < 3){
@@ -62,6 +62,7 @@ public class 刺青结晶 extends NPC {
 	
 	@Override
 	protected boolean act(){
+		sprite.领域(0x44FF44,4+tier);
 		if(viewDistance==6){
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
@@ -78,7 +79,7 @@ public class 刺青结晶 extends NPC {
 				}
 			}
 		}
-		if(viewDistance==5){
+		if(viewDistance==4){
 			for(int n: PathFinder.范围4){
 				Char c=Actor.findChar(pos+n);
 				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){

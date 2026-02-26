@@ -21,26 +21,26 @@ public class 优惠卡 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-								打折(),
+								Math.round(100 *打折()),
 								获取()
 							   );
 		} else {
 			return Messages.get(this, "stats_desc",
-								打折(0),
+								Math.round(100 *打折(0)),
 								获取(0)
 							   );
 		}
 	}
 
-	public static int 打折(){
+	public static float 打折(){
 		return 打折(trinketLevel(优惠卡.class));
 	}
 
-	public static int 打折(int level){
+	public static float 打折(int level){
 		if (level < 0){
-			return 10;
+			return 1;
 		} else {
-			return 9-level;
+			return 0.9f-0.1f*level;
 		}
 	}
 	public static int 获取(){

@@ -21,8 +21,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
-import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.物法皆修;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -80,14 +78,29 @@ public abstract class Wand extends Item {
 	}
 
 	public float 魔力(){
+		if(Dungeon.hero())
 		return Dungeon.hero.魔力(0.1f*(1+1*强化等级()));
+		else
+		return 10*0.1f;
+	}
+	public float 魔力(float 魔力收益){
+		if(Dungeon.hero())
+		return Dungeon.hero.魔力(魔力收益*(1+0*强化等级()));
+		else
+			return 10*魔力收益;
 	}
 	public float 魔力(float 魔力收益,float 等收益){
+		if(Dungeon.hero())
 		return Dungeon.hero.魔力(魔力收益*(1+等收益*强化等级()));
+		else
+			return 10*魔力收益*(1+等收益*强化等级());
 	}
 
 	public float 魔力加(float 魔力收益,float 等收益){
+		if(Dungeon.hero())
 		return Dungeon.hero.魔力(魔力收益*(1+等收益*(强化等级()+1)));
+		else
+			return 10*魔力收益*(1+等收益*(强化等级()+1));
 	}
 
 	@Override
@@ -342,24 +355,8 @@ public abstract class Wand extends Item {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-
-		if(Dungeon.hero()&&!Dungeon.符文("魔法转物理")){
-			lvl+=Math.round(Dungeon.hero.魔力(0.04999f));
-			lvl+=Dungeon.hero.智力;
-			lvl+=(Dungeon.hero.heroClass(HeroClass.MAGE)?1:0);
-			lvl+=Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.血色契约,0.01f));
-			if(Dungeon.符文("物法皆修")&&Dungeon.hero.hasbuff(战斗状态.class)&&Dungeon.hero.hasbuff(物法皆修.class)){
-				lvl+= Dungeon.hero.buff(物法皆修.class).count/5;
-			}
-
-			if(Dungeon.符文("物理转魔法")){
-				lvl+= Dungeon.hero.力量()*0.15f;
-			}
-			if(Dungeon.符文("法神")){
-				lvl*=1.6f;
-			}
-
-		}
+		if(Dungeon.hero())
+		lvl+=Math.round(Dungeon.hero.魔力(0.04999f));
 
 		if (charger != null && charger.target instanceof Hero hero) {
 			

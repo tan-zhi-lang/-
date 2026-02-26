@@ -46,7 +46,8 @@ public class 叛忍护额 extends Artifact {
 		defaultAction = AC_CAST;
 
 		特别= true;
-		遗产= false;
+		专属= true;
+		嬗变= false;
 	}
 
 	public static final String AC_CAST = "CAST";
@@ -314,7 +315,7 @@ public class 叛忍护额 extends Artifact {
 		}
 		@Override
 		public Visual primaryVisual() {
-			Image ico= new HeroIcon(this);;
+			Image ico= new HeroIcon(this);
 			ico.width += 4; //shift slightly to the left to separate from smaller icon
 			return ico;
 		}

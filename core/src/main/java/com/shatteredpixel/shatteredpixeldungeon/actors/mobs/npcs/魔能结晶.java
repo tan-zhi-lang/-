@@ -49,7 +49,13 @@ public class 魔能结晶 extends NPC {
 			GameScene.updateFog(pos,viewDistance+1);
 		}
 	}
-	
+
+	@Override
+	protected boolean act(){
+		sprite.领域(0x8800FF,6+tier);
+		return super.act();
+	}
+
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		return new Ballistica(pos,enemy.pos,Ballistica.MAGIC_BOLT).collisionPos==enemy.pos&&!enemy.flying;

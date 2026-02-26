@@ -3,6 +3,7 @@
 package com.watabou.noosa;
 
 import com.watabou.gltextures.TextureCache;
+import com.watabou.utils.Random;
 
 public class ColorBlock extends Image implements Resizable {
 	
@@ -80,6 +81,22 @@ public class ColorBlock extends Image implements Resizable {
 	public void 粉色(){
 		ra = +0.3f;
 		ba = +0.3f;
+	}
+	public void 靛色(){
+		color(0x2c0d49);
+	}
+	public void 彩色(){
+
+		color(Random.oneOf(
+				0xFF4444,
+				0xFFFF00,
+				0x3399FF,
+				0x44FF44,
+
+				0xb2f2ff,
+				0x2c0d49,
+				0x8800FF
+						  ));
 	}
 	public void 黑色(){
 		ra = -0.3f;

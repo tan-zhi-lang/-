@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -52,7 +53,7 @@ public class Shopkeeper extends NPC {
 		properties.add(Property.IMMOVABLE);
 	}
 
-	public static int MAX_BUYBACK_HISTORY = 3;
+	public static int MAX_BUYBACK_HISTORY = 6;
 	public ArrayList<Item> buybackItems = new ArrayList<>();
 
 	private int turnsSinceHarmed = -1;
@@ -191,7 +192,8 @@ public class Shopkeeper extends NPC {
 			打折*=.9f;
 		}
 		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
-		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
+		return Math.round(item.价值提升() * 打折);
+//		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
 	}
 	
@@ -201,7 +203,6 @@ public class Shopkeeper extends NPC {
 
 	public static boolean canSell(Item item){
 		if (item.金币() <= 0)                                              return false;
-		if (!item.可堆叠)                                 return false;
 		if (item instanceof Armor && ((Armor) item).checkSeal() != null)    return false;
 		if (item.isEquipped(Dungeon.hero) && item.cursed)                   return false;
 		return true;
@@ -232,10 +233,16 @@ public class Shopkeeper extends NPC {
 		if (c != Dungeon.hero) {
 			return true;
 		}
-		if(buybackItems.size()>=20&&商人信标){
+		if(buybackItems.size()>=6&&商人信标){
 			商人信标=false;
 			new 商人信标().放背包();
 			Messages.get(Shopkeeper.this, "商人信标");
+		}
+		try{
+			Dungeon.saveAll();
+			Badges.saveGlobal();
+		}catch(Exception e){
+			//保存游戏
 		}
 		Game.runOnRenderThread(new Callback() {
 			@Override

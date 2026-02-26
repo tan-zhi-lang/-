@@ -196,7 +196,7 @@ public class Wnd选择结晶 extends Window {
 		add(moveBtn6);
 		pos=moveBtn6.bottom()+MARGIN;
 
-		RedButton moveBtn7=new RedButton("光明结晶"){
+		RedButton moveBtn7=new RedButton("重力结晶"){
 			@Override
 			protected void onClick(){
 				super.onClick();

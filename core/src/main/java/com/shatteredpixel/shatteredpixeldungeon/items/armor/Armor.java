@@ -767,6 +767,13 @@ public class Armor extends EquipableItem {
 		return inscribe( gl );
 	}
 
+	public boolean hasGlyph(Class<?extends Glyph> type) {
+		if (glyph != null) {
+			return glyph.getClass() == type;
+		} else {
+			return false;
+		}
+	}
 	public boolean hasGlyph(Class<?extends Glyph> type, Char owner) {
 		if (owner.buff(MagicImmune.class) != null) {
 			return false;

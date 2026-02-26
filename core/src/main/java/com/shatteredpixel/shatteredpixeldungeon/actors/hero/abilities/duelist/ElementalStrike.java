@@ -69,7 +69,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
@@ -536,16 +535,8 @@ public class ElementalStrike extends ArmorAbility {
 	@Override
 	public String desc() {
 		String desc = Messages.get(this, "desc");
-		if (Game.scene() instanceof GameScene){
-			Weapon w = Dungeon.hero.belongings.weapon();
-			if (w instanceof Weapon && ((Weapon) w).enchantment != null){
-				desc += "\n\n" + Messages.get(((Weapon) w).enchantment, "elestrike_desc");
-			} else {
-				desc += "\n\n" + Messages.get(this, "generic_desc");
-			}
-		} else {
-			desc += "\n\n" + Messages.get(this, "generic_desc");
-		}
+//		if (Game.scene() instanceof GameScene){
+//		}
 		desc += "\n\n" + Messages.get(this, "cost", (int)baseChargeUse);
 		return desc;
 	}

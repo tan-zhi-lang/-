@@ -96,20 +96,20 @@ public class WandOfTransfusion extends DamageWand {
 			} else if (ch.alignment == Char.Alignment.ENEMY || ch instanceof Mimic) {
 
 				//grant a self-shield, and...
-				Buff.施加(curUser, Barrier.class).设置((5 + 强化等级()));
+				Buff.施加(curUser, Barrier.class).设置(魔力(0.5f,0.2f));
 				
 				
 				//charms living enemies
-				if (!ch.properties().contains(Char.Property.UNDEAD)) {
+				if (!ch.恶魔亡灵()) {
 					Charm charm = Buff.施加(ch, Charm.class, Charm.DURATION/2f);
 					charm.object = curUser.id();
 					charm.ignoreHeroAllies = true;
-					ch.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 3 );
+					ch.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f );
 				
 				//harms the undead
 				} else {
 					ch.受伤时(damageRoll(), this);
-					ch.sprite.emitter().start(ShadowParticle.UP, 0.05f, 10 + 强化等级());
+					ch.sprite.emitter().start(ShadowParticle.UP, 0.05f);
 					Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				}
 
@@ -152,7 +152,7 @@ public class WandOfTransfusion extends DamageWand {
 	public String statsDesc() {
 		int selfDMG = Dungeon.hero() ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3* 强化等级(), 5+ 强化等级(), min(), max());
+			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3* 强化等级(), 魔力(0.5f,0.2f), min(), max());
 		else
 			return Messages.get(this, "stats_desc", selfDMG, selfDMG, 5, min(0), max(0));
 	}

@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -79,7 +80,7 @@ public class 烈焰法杖 extends DamageWand {
 					Buff.施加(ch,Paralysis.class,4f);
 				}
 				if (ch.在草丛()||ch.在门上()) {
-					Buff.施加(ch,Paralysis.class,4f);
+					Buff.施加(ch, 火毒.class).reignite(ch,4);
 				} else {
 					Buff.施加(ch, 燃烧.class).reignite(ch,4);
 				}
@@ -89,10 +90,6 @@ public class 烈焰法杖 extends DamageWand {
 		}
 	}
 
-	@Override
-	public String upgradeStat2(int level) {
-		return Integer.toString(2 + level);
-	}
 
 	@Override
 	public void fx(Ballistica bolt, Callback callback) {

@@ -30,7 +30,7 @@ public class 升级卷轴 extends InventoryScroll {
 		preferredBag = Belongings.Backpack.class;
 		
 		特别= true;
-
+		绿色=已鉴定();
 		talentFactor = 2f;
 	}
 

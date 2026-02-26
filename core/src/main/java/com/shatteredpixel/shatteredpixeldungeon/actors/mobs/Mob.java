@@ -56,18 +56,22 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.噩梦粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.纯净粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ExoticCrystals;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -96,6 +100,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -907,6 +912,22 @@ public abstract class Mob extends Char {
 				}
 
 				if(!Dungeon.赛季(赛季设置.地牢塔防)){
+					if(老鬼()||小老鬼()){
+						try{
+							Dungeon.saveAll();
+							Badges.saveGlobal();
+						}catch(Exception e){
+							//保存游戏
+						}
+					}else if(Dungeon.hero.升级所需()-Dungeon.hero.当前经验+exp<=0){
+						try{
+							Dungeon.saveAll();
+							Badges.saveGlobal();
+						}catch(Exception e){
+							//保存游戏
+						}
+					}
+
 					Dungeon.hero.经验(exp,getClass());
 				}
 
@@ -1056,10 +1077,17 @@ public abstract class Mob extends Char {
 						}
 					}
 				}
-					if(Dungeon.派对(派对设置.怪物猎场)&&算法.概率学(1/2f))
+					if(Dungeon.hero.天赋(Talent.曲境折迁))
+					Dungeon.hero.空间传送(pos);
+
+					if(Dungeon.hero.种族天赋.equals("恶魔")){
+						Dungeon.hero.攻击成长+=0.1f;
+						Dungeon.hero.生命成长+=0.33f;
+					}
+					if(Dungeon.派对(派对设置.怪物猎场)&&算法.概率学(25))
 						Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();
 
-					if(Dungeon.hero.符文("超凡邪恶"))Dungeon.hero.智力+=0.05f;
+					if(Dungeon.hero.符文("超凡邪恶"))Dungeon.hero.魔力+=0.05f;
 				Buff.刷新(Dungeon.hero,连杀状态.class,10);
 				if(Dungeon.hero.天赋(Talent.久战))
 					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战));
@@ -1248,30 +1276,34 @@ public abstract class Mob extends Char {
 			desc+="\n\n";
 			
 			String 属性="";
-			if(!无机物()&&!闪电()&&!恶魔亡灵()&&!火焰()&&!寒冰()) 属性+=" 生物";
+			if(!无机物()&&!闪电()&&!恶魔亡灵()&&!火焰()&&!寒冰()) 属性+="生物";
 			
-			if(老鬼())属性+=" 老鬼";
-			if(小老鬼())属性+=" 小老鬼";
-			if(老鬼傀儡())属性+=" 老鬼傀儡";
-			if(傀儡())属性+=" 傀儡";
+			if(老鬼())属性+="/老鬼";
+			if(小老鬼())属性+="/小老鬼";
+			if(老鬼傀儡())属性+="/老鬼傀儡";
+			if(傀儡())属性+="/傀儡";
 			if(低活动度生物())属性+=" 低活动度生物";
 			
-			if(恶魔())属性+=" ##恶魔##";
-			if(亡灵())属性+=" --亡灵--";
+			if(恶魔())属性+="/ ##恶魔##";
+			if(亡灵())属性+="/ -- 亡灵 --";
 			
-			if(庞大())属性+=" 庞大";
-			if(无机物()) 属性+=" 无机物";
-			if(海妖())属性+=" @@海妖@@";
-			if(植物())属性+=" ++植物++";
-			if(昆虫())属性+=" 昆虫";
-			if(动物())属性+=" 动物";
-			if(酸性())属性+=" ++酸性++";
-			if(寒冰())属性+=" @@寒冰@@";
-			if(火焰())属性+=" ==火焰==";
-			if(闪电()) 属性+=" _闪电_";
-			if(静物())属性+=" 静物";
-			
-			desc+="属性"+属性+"\n";
+			if(庞大())属性+="/庞大";
+			if(无机物()) 属性+="/无机物";
+			if(海妖())属性+="/ !! 海妖 !!";
+			if(树妖()) 属性+="/ ++ 植物 ++";
+			if(昆虫())属性+="/昆虫";
+			if(动物())属性+="/动物";
+			if(酸性())属性+="/ ++ 酸性 ++";
+			if(寒冰())属性+="/ @@ 寒冰 @@";
+			if(火焰())属性+="/ == 火焰 ==";
+			if(闪电()) 属性+="/ _ 闪电 _";
+			if(静物())属性+="/静物";
+
+			String 阵容="";
+			if(alignment==Alignment.ALLY)阵容="盟友";
+			if(alignment==Alignment.ENEMY)阵容="敌人";
+			if(alignment==Alignment.NEUTRAL)阵容="中立";
+			desc+="属性:"+属性+"(阵容="+阵容+")\n";
 
 			desc+="==攻击=="+String.format("%.2f",最小攻击()*Dungeon.难度攻击())+"~"
 				  +String.format("%.2f",最大攻击()*Dungeon.难度攻击())+"\n";
@@ -1282,8 +1314,21 @@ public abstract class Mob extends Char {
 				  Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
 			desc+="攻速/移速"+String.format("%.2f",1/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
 			desc+="_暴击率/暴击伤害_"+暴击率()+"/"+暴击伤害()*100+"%\n";
-			desc+="经验/最大等级经验"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
-			desc+="_视野范围/掉落几率_"+viewDistance+"/"+String.format("%.2f",lootChance()*100)+"%";
+			desc+="经验/英雄等级在此及以下才能获经验"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
+			String 战利品="视其他机制掉落";
+			if(loot instanceof Item i)战利品=i.name();
+			if (loot instanceof Generator.Category l){
+				if(Generator.randomUsingDefaults(l) instanceof Weapon)战利品="随机武器";
+				if(Generator.randomUsingDefaults(l) instanceof Wand)战利品="随机法杖";
+				if(Generator.randomUsingDefaults(l) instanceof Ring) 战利品="随机戒指";
+				if(Generator.randomUsingDefaults(l) instanceof Artifact) 战利品="随机神器";
+				if(Generator.randomUsingDefaults(l) instanceof Food) 战利品="随机食物";
+				if(Generator.randomUsingDefaults(l) instanceof Plant.Seed) 战利品="随机种子";
+				if(Generator.randomUsingDefaults(l) instanceof Runestone) 战利品="随机符石";
+				if(Generator.randomUsingDefaults(l) instanceof Scroll) 战利品="随机卷轴";
+				if(Generator.randomUsingDefaults(l) instanceof Potion) 战利品="随机药剂";
+			}
+			desc+="_战利品/掉落几率_"+战利品+"/"+String.format("%.2f",lootChance()*100)+"%";
 		}
 		return desc;
 	}

@@ -43,7 +43,7 @@ public class 矮人国王的皇冠 extends Item {
 	
 	@Override
 	public int 金币(){
-		return 2000;
+		return 1000;
 	}
 	
 	@Override

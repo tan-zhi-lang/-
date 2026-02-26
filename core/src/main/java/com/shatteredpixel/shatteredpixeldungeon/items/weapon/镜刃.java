@@ -18,7 +18,7 @@ public class 镜刃 extends Weapon{
 	}
 	@Override
 	public int 能量() {
-		return Math.round(super.能量()*5);
+		return Math.round(super.能量()*6);
 	}
 
 }

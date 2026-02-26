@@ -37,7 +37,7 @@ public class 磐石结晶 extends NPC {
 		viewDistance = 1;
 		state = WANDERING;
 	}
-	
+
 	public void upgrade(){
 		
 		if (tier < 3){
@@ -62,6 +62,7 @@ public class 磐石结晶 extends NPC {
 
 	@Override
 	protected boolean act(){
+		sprite.领域(0x8F4E35,1+tier);
 		if(viewDistance==3){
 			for(int n: PathFinder.范围3){
 				Char c=

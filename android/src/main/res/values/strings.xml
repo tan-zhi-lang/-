@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- CustomActivityOnCrash 崩溃界面中文翻译 -->
+    <string name="customactivityoncrash_error_activity_error_occurred_explanation">请点击崩溃日志，复制并发给游戏作者Tan(Q群335966124)。</string>
+    <string name="customactivityoncrash_error_activity_unknown_exception">未知异常</string>
+    <string name="customactivityoncrash_error_activity_restart_app">重启应用</string>
+    <string name="customactivityoncrash_error_activity_close_app">关闭应用</string>
+    <string name="customactivityoncrash_error_activity_error_details">崩溃日志</string>
+    <string name="customactivityoncrash_error_activity_error_details_title">崩溃日志</string>
+    <string name="customactivityoncrash_error_activity_error_details_close">关闭</string>
+
+    <string name="customactivityoncrash_error_activity_copy_error">复制失败</string>
+    <string name="customactivityoncrash_error_activity_copy_success">复制成功</string>
+</resources>

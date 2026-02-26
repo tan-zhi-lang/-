@@ -93,7 +93,7 @@ public class RenderedTextBlock extends Component {
 	//region 颜色文本渲染
 	private static final int COLOR_WHITE = 0xFFFFFF;      // 默认白色
 	private static final int COLOR_RESET = -1;            // 颜色重置值
-
+	//使用文本渲染时建议空格隔开，如a == abc == c
 	private synchronized void build() {
 		if (tokens == null) return;
 
@@ -144,6 +144,18 @@ public class RenderedTextBlock extends Component {
 					isColorActive = !isColorActive;
 					currentColor = isColorActive ? 0xFF8800 : COLOR_RESET;// 橙色
 					continue;
+				}if (str.equals(";;")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0x8F4E35 : COLOR_RESET;// 棕色
+					continue;
+				}if (str.equals("!!")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0xb2f2ff : COLOR_RESET;// 青色
+					continue;
+				}if (str.equals("??")) {
+					isColorActive = !isColorActive;
+					currentColor = isColorActive ? 0x2c0d49 : COLOR_RESET;// 靛色
+					continue;
 				}
 					// 非颜色标记符，正常处理
 					processNormalToken(str, isColorActive, currentColor);
@@ -164,20 +176,23 @@ public class RenderedTextBlock extends Component {
 			return;
 		}
 		if (str.equals(" ")) {
-			words.add(SPACE);
+//			words.add(SPACE);
 			return;
 		}
 
 		// 清理所有颜色标记符（补充**的替换，修正转义）
 		String cleanStr = str.replaceAll("_", "")
-				.replaceAll("\\*\\*", "") // 补充**的替换，之前漏掉了
+				.replaceAll("\\*\\*", "")
 				.replaceAll("@@", "")
 				.replaceAll("\\+\\+", "")
 				.replaceAll("\\^\\^", "")
 				.replaceAll("##", "")
 				.replaceAll("--", "")
 				.replaceAll(",,", "")
-				.replaceAll("==", "");
+				.replaceAll("==", "")
+				.replaceAll(";;", "")
+				.replaceAll("!!", "")
+				.replaceAll("\\?\\?", "");
 
 		// 避免空字符串生成无效的RenderedText
 		if (cleanStr.isEmpty()) {
@@ -283,7 +298,7 @@ public class RenderedTextBlock extends Component {
 		for (int i = 0; i < words.size(); i++){
 			RenderedText word = words.get(i);
 			if (word == SPACE){
-				x += 1.667f;
+				x += 1.667f;//空格宽度
 			} else if (word == NEWLINE) {
 				//newline
 				y += height+2f;

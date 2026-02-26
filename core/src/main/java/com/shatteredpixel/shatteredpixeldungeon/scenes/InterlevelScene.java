@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
@@ -140,7 +141,6 @@ public class InterlevelScene extends PixelScene {
 				loadingDepth = returnDepth;
 				break;
 		}
-
 		//flush the texture cache whenever moving between regions, helps reduce memory load
 		int region = (int)Math.ceil(loadingDepth / 5f);
 		if (region != lastRegion){
@@ -432,6 +432,14 @@ public class InterlevelScene extends PixelScene {
 			thread.start();
 		}
 		waitingTime = 0f;
+
+
+		try{
+			Dungeon.saveAll();
+			Badges.saveGlobal();
+		}catch(Exception e){
+			//保存游戏
+		}
 	}
 
 	private int dots = 0;
@@ -533,8 +541,8 @@ public class InterlevelScene extends PixelScene {
 				else if (error.getMessage() != null &&
 						error.getMessage().equals("old save")) errorMsg = Messages.get(this, "io_error");
 
-				else throw new RuntimeException("fatal error occurred while moving between floors. " +
-							"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth, error);
+				else throw new RuntimeException("切换楼层时出现了Bug。 " +
+							"种子:" + Dungeon.seed + " 地牢层数:" + Dungeon.depth, error);
 
 				add( new WndError( errorMsg ) {
 					public void onBackPressed() {
@@ -554,8 +562,8 @@ public class InterlevelScene extends PixelScene {
 				//we care about reporting game logic exceptions, not slow IO
 				if (!s.contains("FileUtils.bundleToFile")){
 					ShatteredPixelDungeon.reportException(
-							new RuntimeException("waited more than 10 seconds on levelgen. " +
-									"Seed:" + Dungeon.seed + " depth:" + Dungeon.depth + " trace:" +
+							new RuntimeException("在切换楼层超过10秒。" +
+									"种子:" + Dungeon.seed + " 地牢层数:" + Dungeon.depth + " 跟踪Bug至:" +
 									s));
 				}
 			}

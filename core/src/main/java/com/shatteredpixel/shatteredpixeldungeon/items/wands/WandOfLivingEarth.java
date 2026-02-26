@@ -86,14 +86,14 @@ public class WandOfLivingEarth extends DamageWand {
 				buff = Buff.施加(curUser, RockArmor.class);
 			}
 			if (buff != null) {
-				buff.addArmor( 强化等级(), armorToAdd);
+				buff.addArmor( Math.round(魔力()), armorToAdd);
 			}
 		}
 
 		//shooting at the guardian
 		if (guardian != null && guardian == ch){
 			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
-			guardian.setInfo(curUser, 强化等级(), armorToAdd);
+			guardian.setInfo(curUser, Math.round(魔力()), armorToAdd);
 			wandProc(guardian, chargesPerCast());
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.9f * Random.Float(0.87f, 1.15f) );
 
@@ -102,7 +102,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 			//create a new guardian
 			guardian = new EarthGuardian();
-			guardian.setInfo(curUser, 强化等级(), buff.armor);
+			guardian.setInfo(curUser, Math.round(魔力()), buff.armor);
 
 
 			//if the collision pos is occupied (likely will be), then spawn the guardian in the
@@ -169,7 +169,7 @@ public class WandOfLivingEarth extends DamageWand {
 					if (guardian.sprite != null) { //may be in stasis
 						guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 					}
-					guardian.setInfo(curUser, 强化等级(), armorToAdd);
+					guardian.setInfo(curUser,Math.round(魔力()), armorToAdd);
 					if (ch.alignment == Char.Alignment.ENEMY || ch.buff(Amok.class) != null) {
 						guardian.aggro(ch);
 					}

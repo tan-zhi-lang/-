@@ -204,7 +204,7 @@ public class Dungeon {
 			energy+=Math.round(圣金之沙.获得()*x);
 
 			if(Dungeon.符文("货币互通"))
-				energy+=Math.round(0.01f*x);
+				energy+=Math.round(0.05f*x);
 
 			gold+=Math.round(x*
 					 (hero()&&hero.天赋(Talent.财富)?
@@ -224,7 +224,7 @@ public class Dungeon {
 			gold+=Math.round(圣金之沙.减少()*x);
 
 			if(Dungeon.符文("货币互通"))
-			gold+=Math.round(50*x);
+			gold+=Math.round(60*x);
 
 			energy+=x;
 		}
@@ -451,7 +451,7 @@ public class Dungeon {
 	}
 	public static String 难度名称(int 难度){
 		return switch(难度){
-			case 1->"++简单++";
+			case 1->" ++ 简单 ++ ";
 			case 2->"普通";
 			case 3->"_困难_";
 			case 4->"^^史诗^^";

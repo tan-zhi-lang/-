@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.StartScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.邮件系统;
 import com.watabou.noosa.Game;
 
 import java.io.IOException;
@@ -41,6 +42,15 @@ public class WndGame extends Window {
 			}
 		});
 		curBtn.icon(Icons.get(Icons.PREFS));
+
+		addButton( curBtn = new RedButton("问题/建议") {
+			@Override
+			protected void onClick() {
+				hide();
+				邮件系统.发送邮件("");
+			}
+		} );
+		curBtn.icon(Icons.get(Icons.JOURNAL));
 
 		// Challenges window
 		if (Dungeon.challenges > 0) {

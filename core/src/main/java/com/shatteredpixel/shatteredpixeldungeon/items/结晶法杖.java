@@ -59,7 +59,7 @@ public class 结晶法杖 extends 用品 {
 				升级结晶(curUser,enemy);
 			}else if(enemy!=null){
 
-			}else
+			}else{
 				if (Dungeon.energy<10){
 					GLog.w("能量不足！");
 					return;
@@ -67,6 +67,7 @@ public class 结晶法杖 extends 用品 {
 				Game.runOnRenderThread(()->{
 					GameScene.show(new Wnd选择结晶(target,curUser));
 				});
+			}
 		}
 		
 		@Override

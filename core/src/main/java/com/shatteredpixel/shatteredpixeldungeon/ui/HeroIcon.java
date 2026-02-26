@@ -54,7 +54,8 @@ public class HeroIcon extends Image {
 	public static final int 真人     = WARLOCK+1;
 
 	public static final int FREERUNNER  = 10*8;
-	
+	public static final int 符文法师  = FREERUNNER+1;
+
 	public static final int 征服者     = 11*8;
 	public static final int 皇室卫兵     = 征服者+1;
 
@@ -66,6 +67,7 @@ public class HeroIcon extends Image {
 
 	public static final int 阿修罗     = 15*8;
 	public static final int 指环王     = 阿修罗+1;
+	public static final int 剑魔     = 16*8;
 
 	public static final int 黑白双子     = 20*8;
 
@@ -94,6 +96,7 @@ public class HeroIcon extends Image {
 	public static final int WEAPON_SWAP     = BERSERK+5;
 	public static final int MONK_ABILITIES  = BERSERK+6;
 	public static final int 时间能力  = BERSERK+7;
+	public static final int 空间信标  = BERSERK+8;
 
 	public static final int 火球术=27*8;
 	public static final int 火墙术=火球术+2;

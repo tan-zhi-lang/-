@@ -48,6 +48,6 @@ public class 属性锻造器 extends 用品 {
 
 	@Override
 	public int 金币() {
-		return 125;
+		return 750;
 	}
 }

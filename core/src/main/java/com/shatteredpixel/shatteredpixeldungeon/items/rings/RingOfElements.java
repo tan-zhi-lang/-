@@ -83,25 +83,28 @@ public class RingOfElements extends Ring {
 		return 1;
 	}
 	public static float resist( Char target ){
+		float x=1;
 		if(target instanceof Hero hero){
-			float x=1;
 			x*=1-hero.天赋点数(Talent.神圣净化,0.1f);
 			x*=巨大蟹钳.受到();
 			if(hero.符文("防御转魔抗"))x*=1-hero.最大防御()/(2.5+hero.最大防御());
 			if(hero.subClass(HeroSubClass.元素法师))x*=0.7f;
+
+			if(hero.种族天赋.equals("龙人"))x*=0.7f;
 			if(hero.英精英雄==2)x*=0;
 //			if (getBuffedBonus(target, Resistance.class) == 0) return 1;
 					return (float)Math.pow(0.825f, getBuffedBonus(target, Resistance.class))*x;
 
 		}else if(Dungeon.hero()){
-			float x2=1;
-			x2*=1+Dungeon.hero.天赋点数(Talent.元素之力,0.075f);
-//			if (getBuffedBonus(Dungeon.hero, Resistance.class) == 0) return 1;
+			Hero hero=Dungeon.hero;
+			if(hero.种族天赋.equals("龙人"))x*=0.7f;
+			x*=1+hero.天赋点数(Talent.元素之力,0.075f);
+//			if (getBuffedBonus(hero, Resistance.class) == 0) return 1;
 
-			if(Dungeon.hero.subClass(HeroSubClass.元素法师)&&Dungeon.hero.职业精通())x2*=1+0.3f;
-				return (float)Math.pow(0.825, getBuffedBonus(Dungeon.hero, Resistance.class))*x2;
+			if(hero.subClass(HeroSubClass.元素法师)&&hero.职业精通())x*=1+0.3f;
+				return (float)Math.pow(0.825, getBuffedBonus(hero, Resistance.class))*x;
 		}
-		return 1;
+		return x;
 	}
 	
 	public class Resistance extends RingBuff {

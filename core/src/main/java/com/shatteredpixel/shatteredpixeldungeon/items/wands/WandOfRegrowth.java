@@ -126,7 +126,7 @@ public class WandOfRegrowth extends DamageWand {
 
 		if (chargesPerCast() >= 3){
 			Lotus l = new Lotus();
-			l.setLevel(强化等级());
+			l.setLevel(Math.round(魔力()));
 			if (cells.contains(target) && Actor.findChar(target) == null){
 				cells.remove((Integer)target);
 				l.pos = target;
@@ -265,20 +265,6 @@ public class WandOfRegrowth extends DamageWand {
 			if (chargeLeft < 10000) desc += " " + Messages.get(this, "degradation", Math.max(chargeLeft, 0), min(), max());
 		}
 		return desc;
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return Messages.decimalFormat("#.##", 3 + (2+level)/3f);
-	}
-
-	@Override
-	public String upgradeStat3(int level) {
-		if (level >= 10){
-			return "∞";
-		} else {
-			return Integer.toString(chargeLimit(Dungeon.hero.等级, level));
-		}
 	}
 
 	@Override

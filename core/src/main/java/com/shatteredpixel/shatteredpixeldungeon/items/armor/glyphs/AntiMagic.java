@@ -11,8 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.ElementalBlast;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WarpBeacon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.冰魄之弓;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.掌心雷;
@@ -48,8 +46,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.HolyDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
@@ -101,7 +101,6 @@ public class AntiMagic extends Armor.Glyph {
 
 		RESISTS.add( 燃烧.class);
 
-		RESISTS.add( ElementalBlast.class );
 		RESISTS.add( CursedWand.class );
 		RESISTS.add( WandOfBlastWave.class );
 		RESISTS.add( WandOfDisintegration.class );
@@ -110,8 +109,10 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( 冰海法杖.class);
 		RESISTS.add( WandOfFrost.class );
 		RESISTS.add( 烈焰法杖.class);
+		RESISTS.add( 潮霆法杖.class);
 		RESISTS.add( WandOfLightning.class );
 		RESISTS.add( WandOfLivingEarth.class );
+		RESISTS.add( 落石法杖.class);
 		RESISTS.add( WandOfMagicMissile.class );
 		RESISTS.add( WandOfPrismaticLight.class );
 		RESISTS.add( 棱镜法杖.class);
@@ -124,8 +125,6 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( Blazing.class );
 		RESISTS.add( Shocking.class );
 		RESISTS.add( Grim.class );
-
-		RESISTS.add( WarpBeacon.class );
 		
 		RESISTS.add( DM100.LightningBolt.class );
 		RESISTS.add( Shaman.EarthenBolt.class );

@@ -11,8 +11,8 @@ public static final int 钢门联盟				= 4;
 public static final int 怪物猎场				= 8;
 	public static final int 海克斯= 16;
 	public static final int 小小可爱			= 32;
-//	public static final int 刷子地牢		    = 64;
-//		public static final int 升级概率	= 128;
+	public static final int 幸运转世		    = 64;
+		public static final int 种族天赋	= 128;
 //		public static final int  	= 256;
 public static final int MAX_VALUE           = 256*2-1;
 	public static final int MAX_CHALS           = 9;
@@ -24,6 +24,8 @@ public static final int MAX_VALUE           = 256*2-1;
 			"怪物猎场",
 			"海克斯",
 			"小小可爱",
+			"幸运转世",
+			"种族天赋",
 	};
 
 	public static final int[] MASKS = {
@@ -33,6 +35,8 @@ public static final int MAX_VALUE           = 256*2-1;
 			怪物猎场,
 			海克斯,
 			小小可爱,
+			幸运转世,
+			种族天赋,
 	};
 	
 	public static int 使用(){

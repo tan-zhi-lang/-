@@ -31,6 +31,8 @@ public class 水袋 extends Item {
 	{
 		image = 物品表.水袋;
 		特别= true;
+		嬗变= false;
+		红色=true;
 	}
 	@Override
 	public String defaultAction(){

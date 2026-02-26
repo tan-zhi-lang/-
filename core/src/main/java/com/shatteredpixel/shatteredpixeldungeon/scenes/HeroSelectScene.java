@@ -1262,18 +1262,18 @@ public class HeroSelectScene extends PixelScene {
 
                 IconTitle titlebar = new IconTitle();
                 titlebar.icon(Icons.STATS.get());
-                titlebar.label("                    "+Dungeon.难度名称());
+                titlebar.label(Dungeon.难度名称());
                 titlebar.color(Window.TITLE_COLOR);
                 titlebar.setRect( 0, 0, 120, 8 );
                 add(titlebar);
 
-                RenderedTextBlock desc = PixelScene.renderTextBlock("        _-_ 生命："+Dungeon.难度生命()
+                RenderedTextBlock desc = PixelScene.renderTextBlock("       _-_ 生命："+Dungeon.难度生命()
                                                                     +"            _-_ 攻击："+Dungeon.难度攻击()
                                                                     +"\n\n        _-_ 经验："+Dungeon.难度经验()
                                                                     +"            _-_ 掉率："+Dungeon.难度掉率()+"\n",6);
                 desc.setRect( 0, titlebar.bottom(), 120, 12 );
                 add(desc);
-                optChals = new OptionSlider("难度", "1", "16", 1, 16) {
+                optChals = new OptionSlider(Dungeon.难度名称(), "1", "16", 1, 16) {
                     @Override
                     protected void onChange() {
                         Dungeon.难度=optChals.getSelectedValue();

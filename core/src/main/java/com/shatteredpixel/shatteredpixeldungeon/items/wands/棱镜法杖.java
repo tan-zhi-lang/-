@@ -72,6 +72,7 @@ public class 棱镜法杖 extends DamageWand {
 
 			ch.受伤时(dmg*1.666f, this);
 		} else {
+			ch.sprite.centerEmitter().burst(RainbowParticle.BURST);
 
 			ch.受伤时(dmg, this);
 		}

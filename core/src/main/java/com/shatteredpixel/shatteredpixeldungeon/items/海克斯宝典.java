@@ -36,8 +36,7 @@ public class 海克斯宝典 extends 用品 {
 		用过= bundle.getInt(用过x);
 	}
 	public static int 使用上限(){
-		if(Dungeon.符文("无法刷新海克斯"))return 0;
-		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0);
+		return 2+(Dungeon.符文("骰子收集者")?2:0)+(Dungeon.符文("刷新海克斯")?5:0);
 	}
 	@Override
 	public void 使用(Hero hero){
@@ -51,4 +50,12 @@ public class 海克斯宝典 extends 用品 {
 		super.使用(hero);
 	}
 
+	@Override
+	public int 金币(){
+		return 1000;
+	}
+	@Override
+	public int 能量(){
+		return 50;
+	}
 }

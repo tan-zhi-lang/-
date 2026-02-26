@@ -18,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -91,7 +90,7 @@ public class WandOfDisintegration extends DamageWand {
 				
 			}
 			
-			CellEmitter.center( c ).burst( PurpleParticle.BURST, Random.IntRange( 1, 2 ) );
+			CellEmitter.center( c ).burst( PurpleParticle.BURST );
 		}
 		
 		if (terrainAffected) {

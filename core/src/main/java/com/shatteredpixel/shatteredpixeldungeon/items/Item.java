@@ -64,6 +64,7 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
+import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -115,6 +116,8 @@ public class Item implements Bundlable {
 	public boolean 橙色 = false;
 	public boolean 棕色 = false;
 	public boolean 粉色 = false;
+	public boolean 靛色 = false;
+	public boolean 彩色 = false;
 
 	public boolean 白光 = false;
 	public boolean 黑光 = false;
@@ -127,6 +130,8 @@ public class Item implements Bundlable {
 	public boolean 橙光 = false;
 	public boolean 棕光 = false;
 	public boolean 粉光 = false;
+	public boolean 靛光 = false;
+	public boolean 彩光 = false;
 	public boolean levelKnown = false;
 
 	public boolean cursed=false;
@@ -561,6 +566,10 @@ public class Item implements Bundlable {
 				updateQuickslot();
 				Buff.延长( Dungeon.hero, Degrade.class, Degrade.DURATION*5 );
 			}
+			if(Dungeon.hero()&&Dungeon.hero.种族天赋.equals("矮人")&&Random.Int(1)==0){
+				this.等级++;
+				updateQuickslot();
+			}
 			if(Dungeon.符文("升级升级")){
 				this.等级++;
 				updateQuickslot();
@@ -877,6 +886,20 @@ public class Item implements Bundlable {
 		if(粉光){
 			return new ItemSprite.Glowing( 0xFF4488 );
 		}
+		if(靛光){
+			return new ItemSprite.Glowing( 0x2c0d49 );
+		}
+		if(彩光)
+		return Random.oneOf(
+				new ItemSprite.Glowing(0xFF4444 ),
+				new ItemSprite.Glowing(0xFFFF00 ),
+				new ItemSprite.Glowing(0x3399FF ),
+				new ItemSprite.Glowing(0x44FF44 ),
+
+				new ItemSprite.Glowing(0xb2f2ff ),
+				new ItemSprite.Glowing(0x2c0d49 ),
+				new ItemSprite.Glowing(0x8800FF )
+						   );
 
 		return null;
 	}
@@ -917,10 +940,10 @@ public class Item implements Bundlable {
 			s+="_"+"金币价值"+(金币()>0?
 									   ""+价值提升():
 									   "无价")+"_";
-			s+=" ";
-			s+="能量价值"+(能量()>0?
+			s+="/";
+			s+=" @@ 能量价值"+(能量()>0?
 								   ""+能量提升():
-								   "无价");
+								   "无价")+" @@ ";
 			s+="\n";
 		}
 		s+="物品";
@@ -1002,9 +1025,9 @@ public class Item implements Bundlable {
 			s+="、"+"装备";
 		}
 		if(this instanceof Weapon w){
-			s+="、";
-			if(w.双手())s+="双手";
-			else s+="双持";
+			s+="/";
+			if(w.双手())s+="双手 ";
+			else s+="双持 ";
 			if(w.拳套())s+="拳套";
 			if(w.剑())s+="剑";
 			if(w.刀())s+="刀";
@@ -1013,7 +1036,7 @@ public class Item implements Bundlable {
 			if(w.鞭())s+="鞭";
 			if(w.棍())s+="棍";
 			if(w.盾())s+="盾";
-		   s+="武器";
+		   s+="类武器";
 		}
 		if(this instanceof 飞镖){
 			s+="、"+"飞镖";

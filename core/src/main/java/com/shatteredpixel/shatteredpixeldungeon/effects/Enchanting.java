@@ -45,7 +45,7 @@ public class Enchanting extends ItemSprite {
 	@Override
 	public void update() {
 		super.update();
-		
+
 		x = target.sprite.center().x - width() / 2;
 		y = target.sprite.y - 8 - height()/2;
 

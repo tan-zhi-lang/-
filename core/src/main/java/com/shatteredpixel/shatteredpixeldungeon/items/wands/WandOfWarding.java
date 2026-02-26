@@ -165,19 +165,9 @@ public class WandOfWarding extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 等级()+2);
+			return Messages.get(this, "stats_desc", 魔力(0.2f,0.5f));
 		else
-			return Messages.get(this, "stats_desc", 2);
-	}
-
-	@Override
-	public String upgradeStat1(int level) {
-		return 2+level + "-" + (8+4*level);
-	}
-
-	@Override
-	public String upgradeStat2(int level) {
-		return Integer.toString(level+2);
+			return Messages.get(this, "stats_desc", 魔力(0.2f,0.5f));
 	}
 
 	public static class Ward extends NPC {

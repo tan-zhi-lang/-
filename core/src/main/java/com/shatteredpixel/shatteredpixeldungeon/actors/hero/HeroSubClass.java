@@ -46,7 +46,8 @@ public enum HeroSubClass {
 	养殖专家(HeroIcon.养殖专家),
 
 	疾行者(HeroIcon.FREERUNNER),
-	
+	符文法师(HeroIcon.符文法师),
+
 	征服者(HeroIcon.征服者),
 	皇室卫兵(HeroIcon.皇室卫兵),
 
@@ -55,6 +56,8 @@ public enum HeroSubClass {
 
 	阿修罗(HeroIcon.阿修罗),
 	指环王(HeroIcon.指环王),
+
+	剑魔(HeroIcon.剑魔),
 
 	黑白双子(HeroIcon.黑白双子),
 

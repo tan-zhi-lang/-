@@ -25,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.物法皆修;
 import com.shatteredpixel.shatteredpixeldungeon.actors.鬼刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
@@ -59,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projec
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.传说;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -240,6 +240,7 @@ abstract public class Weapon extends KindOfWeapon {
 					return AC_ABILITY;
 				}
 			}
+			if(!Dungeon.炼狱(炼狱设置.无力投掷))
 			return AC_THROW;
 		}
 		if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
@@ -247,6 +248,8 @@ abstract public class Weapon extends KindOfWeapon {
 				return AC_CHOOSE;
 			}
 		}
+
+		if(Dungeon.炼狱(炼狱设置.无力投掷))return null;
 		return AC_THROW;
 	}
 	
@@ -387,6 +390,13 @@ abstract public class Weapon extends KindOfWeapon {
 	private static boolean evaluatingTwinUpgrades = false;
 	@Override
 	public int 强化等级() {
+		int x=0;
+		if(isEquipped(Dungeon.hero)){
+			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
+			if(Dungeon.hero.heroClass(HeroClass.逐姝)){
+				x++;
+			}
+		}
 		if (!evaluatingTwinUpgrades && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
 			KindOfWeapon other = null;
 			if (Dungeon.hero.belongings.weapon() != this) other = Dungeon.hero.belongings.weapon();
@@ -394,7 +404,8 @@ abstract public class Weapon extends KindOfWeapon {
 			
 			if (other instanceof Weapon) {
 				evaluatingTwinUpgrades = true;
-				int otherLevel = other.强化等级();
+				int otherLevel = other.强化等级()+x;
+				if(hasEnchant(传说.class))otherLevel*=1.3f;
 				evaluatingTwinUpgrades = false;
 				
 				//weaker weapon needs to be 2/1/0 tiers lower, based on talent level
@@ -405,18 +416,10 @@ abstract public class Weapon extends KindOfWeapon {
 				
 			}
 		}
-		int x=0;
-		if(isEquipped(Dungeon.hero)){
-			if(Dungeon.符文("物法皆修")&&Dungeon.hero.hasbuff(战斗状态.class)&&Dungeon.hero.hasbuff(物法皆修.class)){
-				x+= Dungeon.hero.buff(物法皆修.class).count/5;
-			}
-			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
-			if(Dungeon.hero.heroClass(HeroClass.逐姝)){
-				x++;
-			}
-			if(Dungeon.符文("魔法转物理"))x+=Dungeon.hero.智力;
-		}
-		return super.强化等级()+x;
+		x+=super.强化等级();
+
+		if(hasEnchant(传说.class))x*=1.3f;
+		return x;
 	}
 	
 	
@@ -524,19 +527,20 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	public String statsInfo(){
 		if (已鉴定()){
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+_"+
-						 String.format("%.2f",最小防御())+"~"+String.format("%.2f",最大防御())+"_防御，"),
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
+						 String.format("%.2f",最小防御())+"~"+String.format("%.2f",最大防御())+" ++ 防御，"),
 								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
-								(流血==0?"":"，流血**"+Math.round(流血*100)+"%**"),
-								(吸血==0?"":"，吸血**"+Math.round(吸血*100)+"%**"),
-								(伏击==0?"":"，伏击率_"+Math.round(伏击*100)+"%_")
+								(流血==0?"":"，流血 ** "+Math.round(流血*100)+"% ** "),
+								(吸血==0?"":"，吸血 ** "+Math.round(吸血*100)+"% ** "),
+								(伏击==0?"":"，伏击率 ## "+Math.round(伏击*100)+"% ##")
 							   );
 		} else {
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+_"+String.format("%.2f",最小防御(0))+"~"+String.format("%.2f",最大防御(0))+"_防御，"),
+			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
+							 String.format("%.2f",最小防御(0))+"~"+String.format("%.2f",最大防御(0))+" ++ 防御，"),
 								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
-								(流血==0?"":"，流血**"+Math.round(流血*100)+"%**"),
-								(吸血==0?"":"，吸血**"+Math.round(吸血*100)+"%**"),
-								(伏击==0?"":"，伏击率_"+Math.round(伏击*100)+"%_")
+								(流血==0?"":"，流血 ** "+Math.round(流血*100)+"% ** "),
+								(吸血==0?"":"，吸血 ** "+Math.round(吸血*100)+"% ** "),
+								(伏击==0?"":"，伏击率 ## "+Math.round(伏击*100)+"% ##")
 							   );
 		}
 	}
@@ -1328,7 +1332,7 @@ abstract public class Weapon extends KindOfWeapon {
 		lvl = Math.max(0, lvl);
 		float str=0;
 		if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
-			str+=磨刀石.力量();;
+			str+=磨刀石.力量();
 		}
 		//strength req decreases at +1,+3,+6,+10,etc.
 		return (float)(str+(8+tier*2)-(Math.sqrt(8*lvl+1)-1)/2);
@@ -1459,6 +1463,13 @@ abstract public class Weapon extends KindOfWeapon {
 		return enchant( ench );
 	}
 
+	public boolean hasEnchant(Class<?extends Enchantment> type) {
+		if (enchantment != null) {
+			return enchantment.getClass() == type;
+		} else {
+			return false;
+		}
+	}
 	public boolean hasEnchant(Class<?extends Enchantment> type, Char owner) {
 		if (owner.buff(MagicImmune.class) != null) {
 			return false;
@@ -1496,7 +1507,7 @@ abstract public class Weapon extends KindOfWeapon {
 				Lucky.class, Projecting.class, Unstable.class};
 
 		public static final Class<?>[] rare = new Class<?>[]{
-				Corrupting.class, Grim.class, Vampiric.class};
+				Corrupting.class, Grim.class, Vampiric.class, 传说.class};
 
 		public static final float[] typeChances = new float[]{
 				50, //12.5% each

@@ -36,7 +36,12 @@ public class 重力结晶 extends NPC {
 		viewDistance = 6;
 		state = WANDERING;
 	}
-	
+
+	@Override
+	protected boolean act(){
+		sprite.领域(0xFFFFFF,6+tier);
+		return super.act();
+	}
 	public void upgrade(){
 		
 		if (tier < 3){

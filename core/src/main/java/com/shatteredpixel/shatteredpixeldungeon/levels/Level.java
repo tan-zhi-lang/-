@@ -86,14 +86,13 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
@@ -144,13 +143,13 @@ public abstract class Level implements Bundlable {
 	public int version;
 	
 	public int[] map;
-	public boolean[] visited;
+	public boolean[] visited;//参观了
 	public boolean[] mapped;
 	public boolean[] discoverable;
 
 	public int 视野范围= 8;
 	
-	public boolean[] heroFOV;
+	public boolean[] heroFOV;//英雄视野
 	
 	public boolean[] passable;
 	public boolean[] losBlocking;
@@ -347,6 +346,8 @@ public abstract class Level implements Bundlable {
 					feeling = Feeling.CHASM;
 				if(Dungeon.符文("流水的宠爱"))
 					feeling = Feeling.WATER;
+				if(Dungeon.符文("神殿的宠爱"))
+					feeling = Feeling.LARGE;
 				if(Dungeon.符文("草木的宠爱"))
 					feeling = Feeling.GRASS;
 

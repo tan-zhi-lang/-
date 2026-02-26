@@ -28,7 +28,7 @@ public class ResistanceIndicator extends Component {
 		elementalText.setPos(this.x,this.y);
 		add(elementalText);
 		int x=0;
-		if(charRef.酸性()||charRef.植物()||charRef.寒冰()){
+		if(charRef.酸性()||charRef.树妖()||charRef.寒冰()){
 			x=1;
 		}
 		if(charRef.火焰()){
@@ -42,7 +42,7 @@ public class ResistanceIndicator extends Component {
 			int c = i % ICON_COLS;
 			String s="";
 			float v=1;
-			if(charRef.酸性()||charRef.植物()){
+			if(charRef.酸性()||charRef.树妖()||charRef.海妖()||charRef.昆虫()){
 				if(i==0){
 					s= "火焰伤害";
 					v=0.5f;
@@ -87,7 +87,7 @@ public class ResistanceIndicator extends Component {
 				}
 			}
 
-			RenderedText txt = makePercentText(s,v);;
+			RenderedText txt = makePercentText(s,v);
 			txt.setPos(GAP + (width - GAP * 2f) / ICON_COLS * c + GAP ,
 					   elementalText.y + elementalText.height() + GAP + ICON_HEIGHT * r
 					   + (- txt.height()) / 2f);

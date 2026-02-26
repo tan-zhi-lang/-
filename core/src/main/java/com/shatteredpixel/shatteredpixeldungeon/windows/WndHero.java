@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -131,6 +132,14 @@ public class WndHero extends WndTabbed {
 		talents.layout();
 
 		select( lastIdx );
+
+
+		try{
+			Dungeon.saveAll();
+			Badges.saveGlobal();
+		}catch(Exception e){
+			//保存游戏
+		}
 	}
 
 	@Override
@@ -272,7 +281,7 @@ public class WndHero extends WndTabbed {
 			
 			pos = GAP*2;
 
-			statSlot( "==穿甲/护甲穿透==", hero.穿甲()+"/"+Math.round((1-hero.护甲穿透())*100)+"%");
+			statSlot( "==穿甲/护甲穿透==", hero.穿甲()+"/"+Math.round(hero.护甲穿透()*100)+"%");
 
 			statSlot( "##魔抗/元素抗性##",String.format("%.2f",AntiMagic.drRoll(hero, hero.glyphLevel(AntiMagic.class)))+"/"+Math.round(
 					(100-(100*RingOfElements.resist(hero)-AntiMagic.drRoll(hero,hero.glyphLevel(AntiMagic.class))/100f)
@@ -280,7 +289,7 @@ public class WndHero extends WndTabbed {
 			pos += GAP;
 			statSlot( "_视野+光照范围_", hero.视野范围get+"+"+hero.光照范围());
 			statSlot( "搜索/感知范围", hero.搜索范围()+"/"+hero.感知范围());
-			statSlot( "隐匿/地牢视野", Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
+			statSlot( "??隐匿/地牢视野??", Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
 			pos += GAP;
 			statSlot( "**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"
 									  +Math.round(hero.全能吸血()*100)+"%");

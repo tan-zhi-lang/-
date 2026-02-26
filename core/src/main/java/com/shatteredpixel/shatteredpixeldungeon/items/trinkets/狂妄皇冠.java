@@ -18,6 +18,10 @@ public class 狂妄皇冠 extends Trinket {
 	}
 
 	@Override
+	public int 金币(){
+		return 1000;
+	}
+	@Override
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",

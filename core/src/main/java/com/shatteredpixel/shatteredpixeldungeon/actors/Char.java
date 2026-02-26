@@ -511,7 +511,7 @@ public abstract class Char extends Actor {
 				//LOL护甲
 
 				if(护甲穿透()>0){
-					dr*=护甲穿透();
+					dr*=1-护甲穿透();
 				}
 				if(穿甲()>0){
 					dr-=穿甲();
@@ -1657,7 +1657,9 @@ public abstract class Char extends Actor {
 		傀儡,
 		UNDEAD,
 		DEMONIC,
-		昆虫,
+		昆虫( new HashSet<Class>(),
+			   new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
+																							   燃烧.class, Blazing.class))),
 		动物(new HashSet<Class>(),new HashSet<Class>(),new HashSet<Class>(Arrays.asList(
 				流血.class, ToxicGas.class, Poison.class,
 
@@ -1669,9 +1671,11 @@ public abstract class Char extends Actor {
 
 				焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
 				燃烧.class, Blazing.class))),
-		植物(new HashSet<Class>(),new HashSet<Class>(),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
-																						燃烧.class, Blazing.class))),
-		海妖,
+		树妖(new HashSet<Class>(),new HashSet<Class>(),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
+																						燃烧.class,Blazing.class))),
+		海妖( new HashSet<Class>(),
+			  new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
+																							  燃烧.class, Blazing.class))),
 		光明( new HashSet<Class>(),
 			  new HashSet<Class>( Arrays.asList(WandOfPrismaticLight.class,棱镜法杖.class) ),new HashSet<Class>()),
 		机械,
@@ -1979,8 +1983,8 @@ public abstract class Char extends Actor {
 	public boolean 昆虫(){
 		return properties().contains(Property.昆虫);
 	}
-	public boolean 植物(){
-		return properties().contains(Property.植物);
+	public boolean 树妖(){
+		return properties().contains(Property.树妖);
 	}
 	public boolean 海妖(){
 		return properties().contains(Property.海妖);

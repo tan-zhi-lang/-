@@ -72,16 +72,13 @@ public enum Talent {
 
 	高级魔杖(x2+9,4), SHIELD_BATTERY(x2+10, 4),
 	//Battlemage T3
-	寒冰之境(x2+11, 4), 破冰飞刃(x2+12, 4), 冰魄之弓(x2+13,4),
+	寒冰之境(x2+11, 4), 冰魄之弓(x2+12,4), 冰封领域(x2+13,4),
 	水漫火狱(x2+14, 4), 万木归尘(x2+15, 4), 金刚不坏(x2+16,4),
 	//Elemental Blast T4
-	BLAST_RADIUS(49, 4), ELEMENTAL_POWER(50, 4), REACTIVE_BARRIER(51, 4),
 	//Wild Magic T4
 	WILD_POWER(52, 4), FIRE_EVERYTHING(53, 4), CONSERVED_MAGIC(54, 4),
 	//Warp Beacon T4
-	TELEFRAG(55, 4), REMOTE_BEACON(56, 4), LONGRANGE_WARP(57, 4),
 
-	
 	体生匿影(73, 4), 轻便斗篷(74,4),
 	//Assassin T3
 	ENHANCED_LETHALITY(75, 4), ASSASSINS_REACH(76, 4), BOUNTY_HUNTER(77, 4),
@@ -136,9 +133,11 @@ public enum Talent {
 	控物术法(x10+14, 4), 诡异身法(x10+15, 4), 金光护罩(x10+16, 4),
 
 	残魂侵蚀(x10+9,4),轻便玉佩(x10+10,4),
-	
+
+	蓄意轰拳(x11+9,4),铁布回音(x11+10,4),
 	EVASIVE_ARMOR(x11+11, 4), PROJECTILE_MOMENTUM(x11+12, 4), SPEEDY_STEALTH(x11+13, 4),
-	
+	奥术专精(x11+14, 4), 符文势力(x11+15, 4), 曲境折迁(x11+16, 4),
+
 	战争热诚(x12+11,4),致命节奏(x12+12,4),征服之姿(x12+13,4),
 	荣耀之证(x12+14,4),皇室传承(x12+15,4),钢铁甲胄(x12+16,4),
 
@@ -717,7 +716,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,连战热忱,以战养战,连击强化);
 				break;
 			case 冰结师:
-				Collections.addAll(tierTalents,寒冰之境,破冰飞刃,冰魄之弓);
+				Collections.addAll(tierTalents,寒冰之境,冰魄之弓,冰封领域);
 				break;
 			case 元素法师:
 				Collections.addAll(tierTalents,水漫火狱,万木归尘,金刚不坏);
@@ -772,6 +771,9 @@ public enum Talent {
 				break;
 			case 疾行者:
 				Collections.addAll(tierTalents, EVASIVE_ARMOR, PROJECTILE_MOMENTUM, SPEEDY_STEALTH);
+				break;
+			case 符文法师:
+				Collections.addAll(tierTalents, 奥术专精,符文势力,曲境折迁);
 				break;
 			case 征服者:
 				Collections.addAll(tierTalents,战争热诚,致命节奏,征服之姿);

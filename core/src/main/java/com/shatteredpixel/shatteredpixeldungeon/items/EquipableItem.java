@@ -12,12 +12,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
@@ -35,10 +38,19 @@ public abstract class EquipableItem extends Item {
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+
+		if(Dungeon.炼狱(炼狱设置.诅咒之戒)&&this instanceof Ring){
+		}else if(Dungeon.炼狱(炼狱设置.诅咒神器)&&this instanceof Artifact){
+			if((Dungeon.派对(派对设置.钢门联盟)&&this instanceof 心之钢)||
+			   专属)
+				actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+
+		}else actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+
 		if(isEquipped(hero)&&cursed&&cursedKnown){
 			actions.remove(AC_UNEQUIP);//正装备的诅咒移除扔出和卸下
 			actions.remove(AC_DROP);
+			if(!Dungeon.炼狱(炼狱设置.无力投掷))
 			actions.remove(AC_THROW);
 		}
 		return actions;

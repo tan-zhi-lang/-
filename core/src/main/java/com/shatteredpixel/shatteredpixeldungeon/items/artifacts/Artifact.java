@@ -11,8 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.派对设置;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundle;
 
@@ -71,19 +69,8 @@ public class Artifact extends KindofMisc {
 			if (passiveBuff.target != null) passiveBuff.detach();
 			passiveBuff = null;
 		}
-		if(Dungeon.炼狱(炼狱设置.诅咒神器)&&!(
-				this instanceof 四叶草法典||
-				Dungeon.派对(派对设置.钢门联盟)&& this instanceof 心之钢||
-				this instanceof CloakOfShadows||
-				this instanceof 神圣法典||
-				this instanceof 本命玉佩||
-				this instanceof 叛忍护额
-				)){
-			
-		}else{
-			passiveBuff = passiveBuff();
-			passiveBuff.attachTo(ch);
-		}
+		passiveBuff = passiveBuff();
+		passiveBuff.attachTo(ch);
 	}
 
 	@Override

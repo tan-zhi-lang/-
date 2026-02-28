@@ -82,14 +82,18 @@ public class 流血 extends Buff {
 			level = Random.NormalFloat(level / 2f, level);
 
 			float dmg = level;
-			if(dmg<0.01f)level=0;//防止多余计算
-			
 			if (dmg > 0) {
 				if(!(target instanceof Hero)&&Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.实验狂鼠)){
 					dmg*=(1+(Dungeon.hero.职业精通()?0.25f:0)+Dungeon.hero.天赋点数(Talent.狂齿猎食,0.25f));
 					Dungeon.hero.回血(dmg*Dungeon.hero.天赋点数(Talent.狂血疯撕,0.05f));
 				}
+
 				target.受伤时( dmg, this );
+				if(dmg<=1){
+					target.受伤时(level,this);//防止多余计算
+					level=0;
+					detach();
+				}
 				if (target.sprite.visible) {
 					Splash.at( target.sprite.center(), -PointF.PI / 2, PointF.PI / 6,
 							target.sprite.blood(), Math.min( 10 * dmg / target.最大生命, 10 ) );

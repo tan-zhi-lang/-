@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -34,7 +35,8 @@ public class Ankh extends Item {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions(hero);
 		水袋 水袋 = hero.belongings.getItem(水袋.class);
-		if (水袋 != null && 水袋.isFull() && !blessed)
+		永生秘药 永生秘药 = hero.belongings.getItem(永生秘药.class);
+		if (((水袋 != null && 水袋.isFull())||(永生秘药 != null)) && !blessed)
 			actions.add( AC_BLESS );
 		return actions;
 	}
@@ -47,9 +49,14 @@ public class Ankh extends Item {
 		if (action.equals( AC_BLESS )) {
 
 			水袋 水袋 = hero.belongings.getItem(水袋.class);
-			if (水袋 != null){
+			永生秘药 永生秘药 = hero.belongings.getItem(永生秘药.class);
+			if (水袋 != null||永生秘药!=null){
 				blessed = true;
+				if(水袋 != null)
 				水袋.empty();
+				else if(永生秘药!=null)
+				detach(hero.belongings.backpack);
+
 				GLog.p( Messages.get(this, "bless") );
 				hero.spend( 1f );
 				hero.busy();

@@ -430,10 +430,17 @@ public class Ring extends KindofMisc {
 		}
 	}
 	public int 新等级(int x){
-		return (int)Math.round(x*Math.sqrt(x));
+		return (int)Math.round(x*
+			   Math.sqrt(
+			   Math.sqrt(
+				Math.sqrt(
+				Math.sqrt(x)))));
 	}
 
 	//just used for ring descriptions
+	public int combinedBonus(){
+		return combinedBonus(Dungeon.hero);
+	}
 	public int combinedBonus(Hero hero){
 		int bonus = 0;
 		if (hero.belongings.misc() != null && hero.belongings.misc().getClass() == getClass()){
@@ -451,6 +458,9 @@ public class Ring extends KindofMisc {
 		return bonus;
 	}
 
+	public int combinedBuffedBonus(){
+		return combinedBuffedBonus(Dungeon.hero);
+	}
 	//just used for ring descriptions
 	public int combinedBuffedBonus(Hero hero){
 		int bonus = 0;

@@ -11,7 +11,7 @@ public class 炼狱设置 {
 	public static final int 诅咒之戒				= 8;
 	public static final int 诅咒法杖				= 16;
 	public static final int 无力投掷			= 32;
-	public static final int 治疗禁令= 64;
+	public static final int 非酋玩家= 64;
 	public static final int 体弱多病	= 128;
 	public static final int 战技移除 	= 256;
 	public static final int MAX_VALUE           = 256*2-1;
@@ -24,7 +24,7 @@ public class 炼狱设置 {
 			"诅咒之戒",
 			"诅咒法杖",
 			"无力投掷",
-			"治疗禁令",
+			"非酋玩家",
 			"体弱多病",
 			"战技移除",
 	};
@@ -36,7 +36,7 @@ public class 炼狱设置 {
 			诅咒之戒,
 			诅咒法杖,
 			无力投掷,
-			治疗禁令,
+			非酋玩家,
 			体弱多病,
 			战技移除,
 	};

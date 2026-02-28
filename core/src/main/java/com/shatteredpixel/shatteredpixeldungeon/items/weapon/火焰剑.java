@@ -18,6 +18,8 @@ public class 火焰剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		伤害=0.8f;
 		tier=5;
+		特别=true;
+		黄色=true;
 	}
 	float add=0.05f;
 	@Override

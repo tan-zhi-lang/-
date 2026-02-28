@@ -89,6 +89,9 @@ public class Dungeon {
 	public static enum LimitedDrops {
 		//limited world drops
 		生命水晶,
+		活力水晶,
+		奥术水晶,
+		神盾果,
 		生命果,
 		STRENGTH_POTIONS,
 		UPGRADE_SCROLLS,
@@ -206,10 +209,7 @@ public class Dungeon {
 			if(Dungeon.符文("货币互通"))
 				energy+=Math.round(0.05f*x);
 
-			gold+=Math.round(x*
-					 (hero()&&hero.天赋(Talent.财富)?
-					 hero.天赋点数(Talent.财富,0.1f)+1
-					 :1));
+			gold+=x;
 		}
 		if(x<0){
 			gold+=x;
@@ -719,7 +719,7 @@ public class Dungeon {
 		for(Mob m : level.mobs){
 			if (m.pos == hero.pos && !Char.hasProp(m, Char.Property.IMMOVABLE)){
 				//displace mob
-				for(int i : PathFinder.相邻8){
+				for(int i : PathFinder.相邻){
 					if (Actor.findChar(m.pos+i) == null && level.passable[m.pos + i]){
 						m.pos += i;
 						break;
@@ -1208,7 +1208,7 @@ public class Dungeon {
 		}
 
 		//always visit adjacent tiles, even if they aren't seen
-		for (int i : PathFinder.自相邻8){
+		for (int i : PathFinder.自相邻){
 			level.visited[hero.pos+i] = true;
 		}
 	

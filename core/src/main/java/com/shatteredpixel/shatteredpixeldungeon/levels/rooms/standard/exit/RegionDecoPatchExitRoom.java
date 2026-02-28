@@ -52,7 +52,7 @@ public class RegionDecoPatchExitRoom extends RegionDecoPatchRoom {
 		} while (!valid);
 		Painter.set( level, exit, Terrain.EXIT );
 
-		for (int i : PathFinder.相邻8){
+		for (int i : PathFinder.相邻){
 			Painter.set( level, exit+i, Terrain.EMPTY );
 		}
 

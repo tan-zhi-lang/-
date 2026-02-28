@@ -60,8 +60,8 @@ public class Skeleton extends Mob {
 		if (cause == Chasm.class) return;
 		
 		boolean heroKilled = false;
-		for (int i=0; i < PathFinder.相邻8.length;i++) {
-			Char ch = findChar( pos + PathFinder.相邻8[i]);
+		for (int i=0; i < PathFinder.相邻.length;i++) {
+			Char ch = findChar( pos + PathFinder.相邻[i]);
 			if (ch != null && ch.isAlive()) {
 				float damage = Random.NormalIntRange(6, 12);
 				damage=Math.round(damage*Dungeon.难度攻击());

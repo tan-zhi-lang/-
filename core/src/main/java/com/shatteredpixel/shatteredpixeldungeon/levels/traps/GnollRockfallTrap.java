@@ -41,7 +41,7 @@ public class GnollRockfallTrap extends RockfallTrap {
 			if (PathFinder.distance[i] < Integer.MAX_VALUE) {
 				if (Dungeon.level instanceof MiningLevel){
 					boolean barricade = false;
-					for (int j : PathFinder.自相邻8){
+					for (int j : PathFinder.自相邻){
 						if (Dungeon.level.map[i+j] == Terrain.BARRICADE){
 							barricade = true;
 						}

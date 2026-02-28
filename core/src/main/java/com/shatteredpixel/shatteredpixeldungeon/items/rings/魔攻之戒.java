@@ -27,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -72,20 +71,45 @@ public class 魔攻之戒 extends Ring {
 				GameScene.selectCell(zapper);
 			}
 	}
-	
+
+	public float 魔力(float 魔力收益){
+		if(Dungeon.hero())
+			return Dungeon.hero.魔力(魔力收益);
+		else
+			return 10*魔力收益;
+	}
+	public float 魔力(float 魔力收益,float 等收益){
+		if(Dungeon.hero())
+			return Dungeon.hero.魔力(魔力收益*(1+等收益*强化等级()));
+		else
+			return 10*魔力收益*(1+等收益*强化等级());
+	}
+	public float 魔力结合(float 魔力收益,float 等收益){
+		if(Dungeon.hero())
+			return Dungeon.hero.魔力(魔力收益*(1+等收益*combinedBuffedBonus()));
+		else
+			return 10*魔力收益*(1+等收益*强化等级());
+	}
+
+	public float 魔力加(float 魔力收益,float 等收益){
+		if(Dungeon.hero())
+			return Dungeon.hero.魔力(魔力收益*(1+等收益*(强化等级()+1)));
+		else
+			return 10*魔力收益*(1+等收益*(强化等级()+1));
+	}
 	public void onZap(Ballistica bolt) {
 		
 		Char ch = Actor.findChar( bolt.collisionPos );
 		if (ch != null) {
 			
 			wandProc(ch,soloBuffedBonus(), 1);
-			ch.受伤时(Hero.heroDamage(
-					5+soloBuffedBonus(),
-					9+6*soloBuffedBonus()
+			ch.受伤时(Random.NormalFloat(
+					魔力(0.5f,0.2f),
+					魔力(0.9f,0.67f)
 									 ), this);
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f) );
 			
-			ch.sprite.burst(0xFFFFFFFF, 强化等级() / 2 + 2);
+			ch.sprite.burst(0xFFFFFFFF);
 			
 		} else {
 			Dungeon.level.pressCell(bolt.collisionPos);
@@ -218,13 +242,19 @@ public class 魔攻之戒 extends Ring {
 	};
 	public String statsInfo() {
 		if (已鉴定()){
-			String info = Messages.get(this, "stats",5+soloBuffedBonus(),9+6*soloBuffedBonus());
+			String info = Messages.get(this, "stats",
+									   魔力(0.5f,0.2f),
+									   魔力(0.9f,0.67f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
-				info += "\n\n" + Messages.get(this, "combined_stats",5+combinedBuffedBonus(Dungeon.hero),9+combinedBuffedBonus(Dungeon.hero)*6);
+				info += "\n\n" + Messages.get(this, "combined_stats",
+											  魔力结合(0.5f,0.2f),
+											  魔力结合(0.9f,0.67f));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats",5,9);
+			return Messages.get(this, "stats",
+								魔力(0.5f),
+								魔力(0.9f));
 		}
 	}
 	@Override
@@ -238,7 +268,7 @@ public class 魔攻之戒 extends Ring {
 	
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return (5+level)+"~"+(9+6*level);
+		return String.format("%.2f",魔力(0.5f,0.2f))+"~"+String.format("%.2f",魔力加(0.9f,0.67f));
 	}
 	@Override
 	protected RingBuff buff( ) {

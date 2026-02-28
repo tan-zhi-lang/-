@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 符文之刃 extends Weapon {
@@ -12,6 +11,9 @@ public class 符文之刃 extends Weapon {
 		image = 物品表.RUNIC_BLADE;
 		hitSound = Assets.Sounds.镜刃;
 		tier = 5;
+
+		特别=true;
+		青色=true;
 	}
 	@Override
 	public int 强化等级(){

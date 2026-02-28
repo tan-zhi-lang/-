@@ -20,6 +20,8 @@ public class 重锤 extends Weapon{
 		技能=new 保鲜();
 		延迟=0.6f;
 
+		特别=true;
+		白色=true;
 		
 		tier = 5;
 	}

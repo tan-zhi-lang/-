@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.scenes;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
@@ -433,13 +432,6 @@ public class InterlevelScene extends PixelScene {
 		}
 		waitingTime = 0f;
 
-
-		try{
-			Dungeon.saveAll();
-			Badges.saveGlobal();
-		}catch(Exception e){
-			//保存游戏
-		}
 	}
 
 	private int dots = 0;

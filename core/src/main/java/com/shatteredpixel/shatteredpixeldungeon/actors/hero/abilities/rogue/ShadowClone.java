@@ -76,8 +76,8 @@ public class ShadowClone extends ArmorAbility {
 			}
 		} else {
 			ArrayList<Integer> spawnPoints = new ArrayList<>();
-			for (int i=0; i < PathFinder.相邻8.length;i++) {
-				int p = hero.pos + PathFinder.相邻8[i];
+			for (int i=0; i < PathFinder.相邻.length;i++) {
+				int p = hero.pos + PathFinder.相邻[i];
 				if (Actor.findChar(p) == null && Dungeon.level.passable[p]) {
 					spawnPoints.add(p);
 				}

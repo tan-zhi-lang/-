@@ -16,6 +16,8 @@ public class 闪电双截棍 extends Weapon {
 		
 		伤害= 0.68f;
 		tier = 5;
+		特别=true;
+		黄色=true;
 	}
 
 	@Override

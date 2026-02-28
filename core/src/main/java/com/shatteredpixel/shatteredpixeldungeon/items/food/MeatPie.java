@@ -21,7 +21,6 @@ public class MeatPie extends Food {
 	@Override
 	protected void satisfy(Hero hero) {
 		super.satisfy( hero );
-		Buff.施加(hero, WellFed.class).reset();
 	}
 	
 	@Override

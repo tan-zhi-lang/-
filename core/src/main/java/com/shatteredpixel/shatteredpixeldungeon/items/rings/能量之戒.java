@@ -67,6 +67,9 @@ public class 能量之戒 extends Ring {
 			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.轻量阅读)){
 				bonus += hero.天赋点数(Talent.轻量阅读,0.07f);
 			}
+			if(hero.符文("无限火力"))bonus+=3.5f;
+			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;
+			if(hero.符文("面包和黄油"))bonus+=0.5f;
 			if(hero.符文("尖端发明家"))bonus+=0.35f;
 			if(hero.符文("由暴生急"))bonus+=0.5*hero.暴击率();
 			if (hero.belongings.armor instanceof 法袍){
@@ -105,7 +108,10 @@ public class 能量之戒 extends Ring {
 			if (hero.belongings.armor instanceof 能袍){
 				bonus += 0.1f;
 			}
-			if(hero.符文("尖端发明家"))bonus+=-.35f;
+			if(hero.符文("无限火力"))bonus+=3.5f;
+			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;
+			if(hero.符文("面包和奶酪"))bonus+=0.5f;
+			if(hero.符文("尖端发明家"))bonus+=.35f;
 			if(hero.符文("由暴生急"))bonus+=0.5*hero.暴击率();
 			if(hero.heroClass(HeroClass.巫女)){
 				float c=0;
@@ -127,6 +133,9 @@ public class 能量之戒 extends Ring {
 		float bonus = 1+ 0.1845f*getBuffedBonus(target, Energy.class);
 
 		if (target instanceof Hero hero){
+			if(hero.符文("无限火力"))bonus+=3.5f;
+			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;
+			if(hero.符文("面包和果酱"))bonus+=0.5f;
 			if(hero.符文("尖端发明家"))bonus+=0.35f;
 			if(hero.符文("由暴生急"))bonus+=0.5*hero.暴击率();
 			if(hero.heroClass(HeroClass.DUELIST))bonus+=0.2f;

@@ -3,14 +3,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.大杀四方;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.群魔乱舞;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 长鞭 extends Weapon {
 
 	{
 		image = 物品表.WHIP;
-		技能=new 大杀四方();
+		技能=new 群魔乱舞();
 		
 		
 		延迟= 1.35f;

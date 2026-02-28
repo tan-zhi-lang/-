@@ -11,7 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙拉管;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
@@ -55,7 +56,7 @@ public class ItemSlot extends Button {
 	protected BitmapText center;
 
 	private static final String TXT	= "%s";
-	private static final String FLOAT	= "%.2f";
+	private static final String FLOAT	= "%.0f";
 	private static final String ADD_INT= "+%d";
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
@@ -323,11 +324,15 @@ public class ItemSlot extends Button {
 				center.measure();
 				center.hardlight( FADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
-				extra.text( Messages.format( TXT, 3*x.等级()*x.等级()) );
+				extra.text( Messages.format( FLOAT, 1.5f*x.等级()*x.等级()) );
 				extra.measure();
 				extra.hardlight( WARNING );
-			}else if (item instanceof 九龙针筒 x&&x.等级()<10) {
-				extra.text( Messages.format( TXT, 5*(x.等级()+1)) );
+			}else if (item instanceof 九龙拉管 x&&x.等级()<10) {
+				extra.text( Messages.format( FLOAT, 2.5f*(x.等级()+1)) );
+				extra.measure();
+				extra.hardlight( WARNING );
+			}else if (item instanceof 生命蜡烛 x&&x.等级()<10) {
+				extra.text( Messages.format( FLOAT, 2.5f*(x.等级()+1)) );
 				extra.measure();
 				extra.hardlight( WARNING );
 			}else if (item instanceof 荆棘斗篷 x) {

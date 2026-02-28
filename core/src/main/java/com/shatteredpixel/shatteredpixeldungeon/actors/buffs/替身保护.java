@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.暗影替身;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.PathFinder;
 
 public class 替身保护 extends Buff {
@@ -16,6 +17,12 @@ public class 替身保护 extends Buff {
 	{
 		type = buffType.POSITIVE;
 	}
+
+	@Override
+	public int icon(){
+		return BuffIndicator.INVISIBLE;
+	}
+
 	@Override
 	public boolean act() {
 		
@@ -35,8 +42,8 @@ public class 替身保护 extends Buff {
 		if (closest != null && Dungeon.level.distance(hero.pos, closest.pos) < 5){
 			//spawn guardian
 			int bestPos = -1;
-			for (int i=0; i < PathFinder.相邻8.length;i++) {
-				int p = hero.pos + PathFinder.相邻8[i];
+			for (int i=0; i < PathFinder.相邻.length;i++) {
+				int p = hero.pos + PathFinder.相邻[i];
 				if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
 					if (bestPos == -1 || Dungeon.level.trueDistance(p, closest.pos) < Dungeon.level.trueDistance(bestPos, closest.pos)){
 						bestPos = p;

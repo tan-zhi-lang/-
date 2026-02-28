@@ -99,9 +99,9 @@ public class ColorBlock extends Image implements Resizable {
 						  ));
 	}
 	public void 黑色(){
-		ra = -0.3f;
-		ga = -0.3f;
-		ba = -0.3f;
+		ra = -0.45f;
+		ga = -0.45f;
+		ba = -0.45f;
 	}
 	public void 诅咒(){
 		ra = +0.3f;

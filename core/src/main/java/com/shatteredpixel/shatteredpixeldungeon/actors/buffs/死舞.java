@@ -73,10 +73,12 @@ public class 死舞 extends Buff {
 			spend( TICK );
 			
 			damage -= damageThisTick;
-			if (damage <= 0.01f) {
+
+			if(damageThisTick<=1){
+				target.受伤时(damage,this);//防止多余计算
+				damage=0;
 				detach();
 			}
-			
 		} else {
 			
 			detach();

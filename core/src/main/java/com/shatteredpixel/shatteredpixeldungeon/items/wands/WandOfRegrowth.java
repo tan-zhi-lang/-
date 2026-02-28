@@ -308,7 +308,7 @@ public class WandOfRegrowth extends DamageWand {
 			int nDrops = Random.NormalIntRange(3, 6);
 
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : PathFinder.相邻8){
+			for (int i : PathFinder.相邻){
 				if (Dungeon.level.passable[pos+i]
 						&& pos+i != Dungeon.level.entrance()
 						&& pos+i != Dungeon.level.exit()){
@@ -348,7 +348,7 @@ public class WandOfRegrowth extends DamageWand {
 			int nSeeds = Random.NormalIntRange(2, 4);
 
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int i : PathFinder.相邻8){
+			for (int i : PathFinder.相邻){
 				if (Dungeon.level.passable[pos+i]
 						&& pos+i != Dungeon.level.entrance()
 						&& pos+i != Dungeon.level.exit()){

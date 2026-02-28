@@ -8,6 +8,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x12;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x13;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x16;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x17;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x2;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x20;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x21;
@@ -150,6 +151,10 @@ public enum Talent {
 	戒之九型(x16+9,4),命运罗盘(x16+10,4),
 	大暗黑天(x16+11,4),波动印记(x16+12,4),杀意波动(x16+13,4),
 	以戒之名(x16+14,4),破刺戒冲(x16+15,4),戒护环法(x16+16,4),
+
+	女中豪杰(x17+9,4),灵鞭强化(x17+10,4),
+	蛇腹剑刺(x17+11,4),血饮狂舞(x17+12,4),贪欲燔祭(x17+13,4),
+	舞动身法(x17+14,4),灵爆之至(x17+15,4),更之以蝶(x17+16,4),
 
 	捕鱼达人(x20+9,4),猫反应7(x20+10,4),
 	白猫主导(x20+11,4),渡魂灵猫(x20+12,4),黑猫主导(x20+13,4),
@@ -351,7 +356,16 @@ public enum Talent {
 	}
 
 	public static void 获得天赋时(Hero hero, Talent talent ){
-		
+		if(!hero.第1层天赋){
+			if(talent==知识||talent==勇武||talent==备战)
+				hero.第1层天赋=true;
+		}else hero.第1层天赋=false;
+
+		if(!hero.第2层天赋){
+			if(talent==健身||talent==破绽||talent==寻觅||talent==静步)
+				hero.第2层天赋=true;
+		}else hero.第2层天赋=false;
+
 		if (talent==轻便斗篷&&hero.heroClass(HeroClass.盗贼)){
 			for (Item item : Dungeon.hero.belongings.backpack.items){
 				if (item instanceof CloakOfShadows){
@@ -664,6 +678,9 @@ public enum Talent {
 			case 戒老:
 				Collections.addAll(tierTalents,戒之九型,命运罗盘);
 				break;
+			case 逐姝:
+				Collections.addAll(tierTalents,女中豪杰,灵鞭强化);
+				break;
 			case 灵猫:
 				Collections.addAll(tierTalents,捕鱼达人,猫反应7);
 				break;
@@ -795,6 +812,12 @@ public enum Talent {
 				break;
 			case 指环王:
 				Collections.addAll(tierTalents,以戒之名,破刺戒冲,戒护环法);
+				break;
+			case 剑魔:
+				Collections.addAll(tierTalents,蛇腹剑刺,血饮狂舞,贪欲燔祭);
+				break;
+			case 圣女:
+				Collections.addAll(tierTalents,舞动身法,灵爆之至,更之以蝶);
 				break;
 			case 黑白双子:
 				Collections.addAll(tierTalents,白猫主导,渡魂灵猫,黑猫主导);

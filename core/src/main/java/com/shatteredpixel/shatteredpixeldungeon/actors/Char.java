@@ -236,7 +236,7 @@ public abstract class Char extends Actor {
 				&& !(heap.peek() instanceof Tengu.BombAbility.BombItem)
 				&& !(heap.peek() instanceof Tengu.ShockerAbility.ShockerItem)) {
 			ArrayList<Integer> candidates = new ArrayList<>();
-			for (int n : PathFinder.相邻8){
+			for (int n : PathFinder.相邻){
 				if (Dungeon.level.passable[pos+n]){
 					candidates.add(pos+n);
 				}
@@ -913,6 +913,7 @@ public abstract class Char extends Actor {
 		Buff.刷新(this,战斗状态.class,5);
 
 		if(enemy!=null&&Dungeon.符文("友好老鬼")&&(老鬼()||小老鬼()))Dungeon.hero.回百分比血(0.05f);
+
 		damage=暴击(enemy,damage);
 		
 		if(enemy!=null&&吸血()>0){
@@ -999,6 +1000,7 @@ public abstract class Char extends Actor {
 		if(移速减半){
 			speed/=2;
 		}
+		if(Dungeon.符文("冰寒"))speed-=0.1f;
 		return speed;
 	}
 
@@ -1193,10 +1195,12 @@ public abstract class Char extends Actor {
 				&& shield != null && !shield.coolingDown()){
 			shield.activate();
 		}
-
 		float shielded = dmg;
 		dmg = ShieldBuff.processDamage(this, dmg, src);
 		shielded -= dmg;
+
+		if(Dungeon.符文("吸收痛苦")&&!(src instanceof 吸收痛苦))
+			Buff.施加(Dungeon.hero,吸收痛苦.class).吸收(dmg);
 
 		生命 -= dmg;
 
@@ -1528,7 +1532,7 @@ public abstract class Char extends Actor {
 
 		if (travelling && Dungeon.level.adjacent( step, pos ) && buff( Vertigo.class ) != null) {
 			sprite.interruptMotion();
-			int newPos = pos + PathFinder.相邻8[Random.Int(8)];
+			int newPos = pos + PathFinder.相邻[Random.Int(8)];
 			if (!(Dungeon.level.passable[newPos] || Dungeon.level.avoid[newPos])
 					|| (properties().contains(Property.LARGE) && !Dungeon.level.openSpace[newPos])
 					|| Actor.findChar( newPos ) != null)
@@ -1557,6 +1561,9 @@ public abstract class Char extends Actor {
 	}
 	public int distance( Char other ) {
 		return Dungeon.level.distance( pos, other.pos );
+	}
+	public int distance( int target ) {
+		return Dungeon.level.distance( pos, target );
 	}
 	public boolean[] modifyPassable( boolean[] passable){
 		//do nothing by default, but some chars can pass over terrain that others can't
@@ -1842,6 +1849,9 @@ public abstract class Char extends Actor {
 			受伤(x);
 		}
 	}
+	public float 防御(float damage){
+		return 防御(null,damage);
+	}
 	public float 防御(Char enemy, float damage){
 		damage-=Random.NormalFloat(最小防御(),最大防御());
 		damage=防御时(enemy,damage);
@@ -1886,7 +1896,7 @@ public abstract class Char extends Actor {
 	}
 	public boolean 在狭窄(){
 		int 墙 = 0;
-		for (int i : PathFinder.相邻8) {
+		for (int i : PathFinder.相邻) {
 			if (Dungeon.level.solid[pos + i]) {
 				墙 ++;
 			}
@@ -1898,7 +1908,7 @@ public abstract class Char extends Actor {
 	}
 	public boolean 实体墙(int x){
 		int 墙 = 0;
-		for (int i : PathFinder.相邻8) {
+		for (int i : PathFinder.相邻) {
 			if (Dungeon.level.solid[pos + i]) {
 				墙 ++;
 			}
@@ -1941,6 +1951,12 @@ public abstract class Char extends Actor {
 	}
 	public boolean 老鬼傀儡(){
 		return properties().contains(Property.BOSS_MINION);
+	}
+
+	public float 强度(){
+		float 强度=Dungeon.区域()*0.1f;
+		if(老鬼()||小老鬼())强度=0.5f;
+		return 强度;
 	}
 	public boolean 防刷(){
 		if(Dungeon.符文("叠角龙"))return true;

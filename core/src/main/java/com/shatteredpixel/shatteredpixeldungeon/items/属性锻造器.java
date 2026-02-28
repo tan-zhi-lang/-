@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -22,9 +23,8 @@ public class 属性锻造器 extends 用品 {
 		特别= true;
 	}
 
-	public boolean 用过=false;
+	public int 用过=0;
 	private static final String 用过x=        "用过";
-
 	@Override
 	public void storeInBundle( Bundle bundle) {
 		super.storeInBundle(bundle);
@@ -34,11 +34,14 @@ public class 属性锻造器 extends 用品 {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
-		用过= bundle.getBoolean(用过x);
+		用过= bundle.getInt(用过x);
+	}
+	public static int 使用上限(){
+		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0);
 	}
 	@Override
 	public void 使用(Hero hero){
-		Sample.INSTANCE.play(Assets.Sounds.海克斯,1.75f);
+		Sample.INSTANCE.play(Assets.Sounds.海克斯);
 
 		Game.runOnRenderThread(()->{
 			GameScene.show(new Wnd选择属性(this,hero));

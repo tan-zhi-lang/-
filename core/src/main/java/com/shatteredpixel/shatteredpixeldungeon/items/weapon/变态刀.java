@@ -13,6 +13,8 @@ public class 变态刀 extends Weapon{
 		延迟=0.75f;
 		伤害=0.5f;
 
+		特别=true;
+		白色=true;
 		伏击=0.5f;
 		tier=5;
 	}

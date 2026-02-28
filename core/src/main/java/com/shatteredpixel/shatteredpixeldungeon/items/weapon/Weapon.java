@@ -90,6 +90,7 @@ import java.util.Arrays;
 
 abstract public class Weapon extends KindOfWeapon {
 	//region MeleeWeapon
+
 	武技 技能=null;
 	boolean circlingBack = false;
 	public static String AC_ABILITY = "ABILITY";
@@ -377,7 +378,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	public float 力量(int lvl){
 		float req = 力量(tier(), lvl);
-		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
+		if(Dungeon.hero()){
             req-=Dungeon.hero.武器力量;
         }
 		if (神力){
@@ -1186,7 +1187,11 @@ abstract public class Weapon extends KindOfWeapon {
 		if(连招范围!=-1){
 			if(defender!=null)
 			GLog.w("这次你的物理攻击连招范围是"+连招范围);//+"，将造成"+(1+(范围+1-连招范围)*0.2f)+"倍伤害"
-			damage=Math.round(damage*(1+(范围+1-连招范围)*0.2f));
+			float x=0.2f;
+			if(attacker instanceof Hero hero){
+				x*=1+hero.天赋点数(Talent.蛇腹剑刺,0.25f);
+			}
+			damage=Math.round(damage*(1+(范围+1-连招范围)*x));
 		}
 		return damage;
 	}

@@ -31,7 +31,7 @@ public class Icecap extends Plant {
 			Buff.施加(ch, FrostImbue.class, FrostImbue.DURATION*0.3f);
 		}
 
-		for (int i : PathFinder.自相邻8){
+		for (int i : PathFinder.自相邻){
 			if (!Dungeon.level.solid[pos+i]) {
 				Freezing.affect( pos+i );
 				if (Actor.findChar(pos+i) instanceof Mob){

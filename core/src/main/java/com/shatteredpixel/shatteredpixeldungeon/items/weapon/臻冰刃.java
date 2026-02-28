@@ -20,6 +20,8 @@ public class 臻冰刃 extends Weapon {
 		技能=new 潜行();
 		命中=0.75f;
 		伏击=0.67f;
+		特别=true;
+		青色=true;
 		tier = 5;
 	}
 	

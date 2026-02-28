@@ -5,10 +5,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -50,10 +48,15 @@ public class WellFed extends Buff {
 			//150 turns if on diet is enabled
 			left /= 3;
 		}
+		left=Math.min(900,left);
 	}
-
 	public void extend( float duration ) {
 		left += duration;
+		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+			//150 turns if on diet is enabled
+			left /= 3;
+		}
+		left=Math.min(900,left);
 	}
 	
 	@Override

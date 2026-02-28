@@ -19,9 +19,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArm
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙拉管;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.灵魂焰灯;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
@@ -161,6 +163,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圆盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
@@ -555,6 +558,7 @@ public class Generator {
 					变态刀.class,
 					蝙蝠棒.class,
 					破败王剑.class,
+					妖刀村正.class,
 
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2,2,2,
@@ -562,7 +566,7 @@ public class Generator {
 											   2,2,2,2,
 											   2,2,2,2,
 											   2,2,2,2,
-											   2,2,2,
+											   2,2,2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
@@ -624,7 +628,9 @@ public class Generator {
 					
 					荆棘斗篷.class,
 					心之钢.class,
-					九龙针筒.class,
+					九龙拉管.class,
+					生命蜡烛.class,
+					灵魂焰灯.class,
 					虫箭.class,
 
 					EtherealChains.class,
@@ -638,7 +644,7 @@ public class Generator {
 					骷髅钥匙.class
 			};
 			ARTIFACT.defaultProbs = new float[]{ 1, 1,0,
-												 1, 1, 1, 1,
+												 1, 1, 1, 1, 1,1,
 					1, 1, 1, 1,
 					1, 1,1,1 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();

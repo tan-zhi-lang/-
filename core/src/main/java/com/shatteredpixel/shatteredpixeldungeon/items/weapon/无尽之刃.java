@@ -13,6 +13,8 @@ public class 无尽之刃 extends Weapon{
 		延迟=1.15f;
 
 		tier=5;
+		特别=true;
+		黄色=true;
 		技能=new 暴伤();
 	}
 }

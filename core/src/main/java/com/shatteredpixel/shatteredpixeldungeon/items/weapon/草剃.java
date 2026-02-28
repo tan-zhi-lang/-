@@ -16,7 +16,9 @@ public class 草剃 extends Weapon {
 		
 		延迟= 0.8f;
 		伤害= 0.8f;
-		
+
+		特别=true;
+		绿色=true;
 		伏击=0.5f;
 		tier = 5;
 	}
@@ -24,7 +26,7 @@ public class 草剃 extends Weapon {
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(defender!=null)
-		for (int n : PathFinder.相邻8){
+		for (int n : PathFinder.相邻){
 			int cell=attacker.pos+n;
 			Dungeon.level.pressCellgrass(cell);
 		}

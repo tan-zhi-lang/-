@@ -17,7 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
@@ -105,7 +104,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			
 			if (isStarving()) {//饥饿时
 
-				float hungerDelay = 1f/10f;
+				float hungerDelay = 1/10f;
 				if (target.buff(Shadows.class) != null){
 					hungerDelay *= 1.5f;
 				}
@@ -117,16 +116,16 @@ public class Hunger extends Buff implements Hero.Doom {
 				hungerDelay/=血腥生肉.减少();
 
 				if(Dungeon.符文("我是瘦子"))hungerDelay*=1.75f;
-				partial=hungerDelay;
-				if(算法.isDebug())partial=0;
+				partial=hungerDelay/2f+(float)Math.sqrt(hero.已损失生命())/89f;
+
 				if (partial > 0){
 //					partial=0;
-					hero.受伤时(hungerDelay, this);
+					hero.受伤时(partial, this);
 				}
 				
 			} else {
 
-				float hungerDelay = 1f;
+				float hungerDelay = 1;
 				if (target.buff(Shadows.class) != null){
 					hungerDelay *= 1.5f;
 				}
@@ -139,10 +138,10 @@ public class Hunger extends Buff implements Hero.Doom {
 
 				if(Dungeon.符文("我是瘦子"))hungerDelay*=1.75f;
 				float newLevel = level + 1f/hungerDelay;
-				if (newLevel >= STARVING) {//300时
+				if (newLevel >= STARVING) {//450时
 
 					GLog.n( Messages.get(this, "onstarving") );
-					hero.受伤时( hungerDelay, this );
+					hero.受伤时( hungerDelay/20f+(float)Math.sqrt(hero.已损失生命())/89f, this );
 
 					hero.interrupt();
 					newLevel = STARVING;
@@ -175,14 +174,15 @@ public class Hunger extends Buff implements Hero.Doom {
 	}
 	public void affectHunger(float energy, boolean overrideLimits ) {
 		if(target instanceof Hero hero){
-			if(hero.符文("吃胀到了")){
-				float x=level-energy;
-				if(x<0)
-				hero.回血(-x);
+			float x=level-energy;
+			if(x<0){
+				if(hero.符文("吃胀到了")){
+						hero.回血(-x);
+				}
+				Buff.施加(hero, WellFed.class).extend(-x);
 			}
-			
+
 			Talent.吃饭时(hero,energy/150f);
-		}
 		if (energy < 0 && target.buff(WellFed.class) != null){
 			target.buff(WellFed.class).left += energy;
 			BuffIndicator.refreshHero();
@@ -208,6 +208,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		}
 
 		BuffIndicator.refreshHero();
+		}
 	}
 	public boolean isStarving() {
 		return level >= STARVING;

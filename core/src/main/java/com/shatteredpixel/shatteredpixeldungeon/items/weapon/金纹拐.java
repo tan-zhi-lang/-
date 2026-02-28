@@ -13,7 +13,9 @@ public class 金纹拐 extends Weapon {
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
 		技能=new 防御姿态();
-		
+
+		特别=true;
+		黄色=true;
 		伤害= 0.68f;
 		tier = 5;
 	}

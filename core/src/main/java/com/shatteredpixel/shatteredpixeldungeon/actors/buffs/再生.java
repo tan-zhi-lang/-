@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -24,9 +25,6 @@ public class 再生 extends Buff {
 	}
 
 	public float partialRegen = 0f;
-	
-	private static final float REGENERATION_DELAY = 10; //1HP every 10 turns
-	
 	@Override
 	public boolean attachTo( Char target) {
 		if (super.attachTo( target )) {
@@ -49,19 +47,27 @@ public class 再生 extends Buff {
 			}
 
 			if (regenOn() && !hero.满血() && !((Hero)hero).isStarving()) {
-				float 再生数值=1f/REGENERATION_DELAY;
-
+				float 再生数值=(float)Math.sqrt(hero.最大生命)/44f;
+					再生数值+=hero.再生成长;
 					if(hero.符文("最大护甲转生命再生")){
 						再生数值+=hero.最大护甲(0.01f);
 					}
-					if(hero.符文("升级蓄血圣杯")){
-						再生数值+=hero.已损失生命(0.0225f);
-					}
+					if(hero.hasbuff(WellFed.class))再生数值*=1.5f;
 					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
 						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
 							再生数值/= 1.75f;
-						else
+						else{
+							if(hero.符文("升级蓄血圣杯")){
+								再生数值+=hero.已损失生命(0.0225f);
+							}
 							再生数值 +=(0.133f+Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel()*0.0667f)*1.5f;
+						}
+					}
+					if (Dungeon.hero.buff(生命蜡烛.燃烧.class)!=null) {
+						if(Dungeon.hero.buff(生命蜡烛.燃烧.class).isCursed())
+							再生数值/= 1.75f;
+						else
+							再生数值 +=(0.133f+Dungeon.hero.buff(生命蜡烛.燃烧.class).itemLevel()*0.0667f)*1.5f;
 					}
 					if (Dungeon.hero.buff(虫箭.保护.class)!=null) {
 						if(Dungeon.hero.buff(虫箭.保护.class).isCursed())
@@ -89,8 +95,7 @@ public class 再生 extends Buff {
 						if(hero.符文("吸血习性"))
 							再生数值=0;
 
-						partialRegen =
-								再生数值;
+						partialRegen = 再生数值;
 
 						float x=partialRegen;
 						if(partialRegen > 0)hero.回血(x);

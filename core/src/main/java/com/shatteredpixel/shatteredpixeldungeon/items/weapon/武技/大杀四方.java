@@ -12,12 +12,10 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
-import java.util.ArrayList;
-
 public class 大杀四方 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的所有目标进行一次100%伤害必中的物理攻击，对所有相邻敌人同样造成此伤害，并花费攻击延迟的回合";
+		desc="对攻击范围内的一个目标进行一次100%伤害的物理攻击，并对对所有相邻敌人同样造成此伤害，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -39,32 +37,14 @@ public class 大杀四方 extends 武技{
 				return;
 			}
 			
-			
-			ArrayList<Char> targets = new ArrayList<>();
-			Char closest = null;
-			
+
 			hero.belongings.abilityWeapon = wep;
-			for (Char ch : Actor.chars()){
-				if (ch.alignment == Char.Alignment.ENEMY
-					&& !hero.isCharmedBy(ch)
-					&& Dungeon.level.heroFOV[ch.pos]
-					&& hero.canAttack(ch)){
-					targets.add(ch);
-					if (closest == null || Dungeon.level.trueDistance(hero.pos, closest.pos) > Dungeon.level.trueDistance(hero.pos, ch.pos)){
-						closest = ch;
-					}
-				}
-			}
+			hero.九头蛇(hero,enemy.pos);
 			hero.belongings.abilityWeapon = null;
-			
-			if (targets.isEmpty()) {
-				GLog.w(Messages.get(this, "ability_no_target"));
-				return;
-			}
+
 			
 			Sample.INSTANCE.play(wep.hitSound);
 			wep.消耗(hero);
-			hero.九头蛇(hero,enemy.pos);
 			hero.spendAndNext(hero.攻击延迟());
 		}
 		

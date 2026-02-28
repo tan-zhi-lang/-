@@ -85,7 +85,7 @@ public class 棱镜法杖 extends DamageWand {
 			if (!Dungeon.level.insideMap(c)){
 				continue;
 			}
-			for (int n : PathFinder.自相邻8){
+			for (int n : PathFinder.自相邻){
 				int cell = c+n;
 
 				if (Dungeon.level.discoverable[cell])

@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -9,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择海克斯;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 public class 海克斯宝典 extends 用品 {
@@ -36,7 +38,7 @@ public class 海克斯宝典 extends 用品 {
 		用过= bundle.getInt(用过x);
 	}
 	public static int 使用上限(){
-		return 2+(Dungeon.符文("骰子收集者")?2:0)+(Dungeon.符文("刷新海克斯")?5:0);
+		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0);
 	}
 	@Override
 	public void 使用(Hero hero){
@@ -44,6 +46,7 @@ public class 海克斯宝典 extends 用品 {
 		new 海克斯宝典().放背包();
 
 		Game.runOnRenderThread(()->{
+			Sample.INSTANCE.play(Assets.Sounds.海克斯);
 			GameScene.show(new Wnd选择海克斯(this,hero));
 			hero.更新数据();
 		});

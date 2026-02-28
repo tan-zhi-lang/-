@@ -29,13 +29,15 @@ public class 祛邪卷轴 extends InventoryScroll {
 	{
 		icon = 物品表.Icons.SCROLL_REMCURSE;
 		preferredBag = Belongings.Backpack.class;
+		特别=true;
+		白色=已鉴定();
 	}
 
 	@Override
 	public void doRead() {
 
 		TormentedSpirit spirit = null;
-		for (int i : PathFinder.相邻8){
+		for (int i : PathFinder.相邻){
 			if (Actor.findChar(curUser.pos+i) instanceof TormentedSpirit){
 				spirit = (TormentedSpirit) Actor.findChar(curUser.pos+i);
 			}
@@ -107,7 +109,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 					item.cursed = false;
 					if(hero.符文("祛邪的宠爱")){
 						if(item instanceof Ring)
-							item.升级(2);
+							item.升级();
 					}
 				}
 			}
@@ -117,7 +119,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 					w.enchant(null);
 					procced = true;
 					if(hero.符文("祛邪的宠爱")){
-						item.升级(2);
+						item.升级();
 					}
 				}
 			}
@@ -127,14 +129,14 @@ public class 祛邪卷轴 extends InventoryScroll {
 					a.inscribe(null);
 					procced = true;
 					if(hero.符文("祛邪的宠爱")){
-						item.升级(2);
+						item.升级();
 					}
 				}
 			}
 			if (item instanceof Wand){
 				((Wand) item).updateLevel();
 				if(hero.符文("祛邪的宠爱")){
-					item.升级(2);
+					item.升级();
 				}
 			}
 		}

@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
@@ -55,10 +56,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
@@ -91,6 +92,7 @@ public class Item implements Bundlable {
 	
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
+	public boolean 丢过 = false;
 	public boolean 特别物品 = false;
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
@@ -255,6 +257,7 @@ public class Item implements Bundlable {
 			
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doDrop(hero);
+				丢过=true;
 			}
 			
 		} else if (action.equals( AC_THROW )) {
@@ -725,7 +728,7 @@ public class Item implements Bundlable {
 			updateQuickslot();
 			return this;
 		}
-		
+
 		this.等级++;
 		updateQuickslot();
 		return this;
@@ -938,9 +941,9 @@ public class Item implements Bundlable {
 		if(已鉴定()){
 			
 			s+="_"+"金币价值"+(金币()>0?
-									   ""+价值提升():
+									   价值提升()+"(出售价)/"+Shopkeeper.sellPrice(this)+"购入价":
 									   "无价")+"_";
-			s+="/";
+			s+="\n";
 			s+=" @@ 能量价值"+(能量()>0?
 								   ""+能量提升():
 								   "无价")+" @@ ";
@@ -1119,6 +1122,7 @@ public class Item implements Bundlable {
 	private static final String 能量提升x = "能量提升";
 	private static final String 快速使用x = "快速使用";
 	private static final String 超级等级x = "超级等级";
+	private static final String 丢过x = "丢过";
 	private static final String ALPHA = "alpha";
 	
 	@Override
@@ -1138,6 +1142,7 @@ public class Item implements Bundlable {
 		bundle.put( 能量提升x, 能量提升 );
 		bundle.put( 快速使用x, 快速使用 );
 		bundle.put( 超级等级x, 超级等级 );
+		bundle.put( 丢过x, 丢过 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
 			bundle.put( QUICKSLOT, Dungeon.quickslot.getSlot(this) );
@@ -1161,6 +1166,7 @@ public class Item implements Bundlable {
 		能量提升	= bundle.getBoolean( 能量提升x );
 		快速使用	= bundle.getBoolean( 快速使用x );
 		超级等级	= bundle.getBoolean( 超级等级x );
+		丢过	= bundle.getBoolean( 丢过x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
 		int level = bundle.getInt( LEVEL );

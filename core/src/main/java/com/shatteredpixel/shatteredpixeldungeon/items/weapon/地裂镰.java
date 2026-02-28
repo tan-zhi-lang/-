@@ -18,6 +18,8 @@ public class 地裂镰 extends Weapon{
 		延迟= 1.25f;
 		伤害= 1.35f;
 		命中=0.85f;
+		特别=true;
+		黄色=true;
 	}
 
 

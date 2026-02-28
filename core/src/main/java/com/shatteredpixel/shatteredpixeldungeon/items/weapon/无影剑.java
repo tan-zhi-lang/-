@@ -13,6 +13,8 @@ public class 无影剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		延迟=1.25f;
 		伤害=0.85f;
+		特别=true;
+		白色=true;
 		tier=5;
 	}
 

@@ -68,6 +68,7 @@ public class HeroIcon extends Image {
 	public static final int 阿修罗     = 15*8;
 	public static final int 指环王     = 阿修罗+1;
 	public static final int 剑魔     = 16*8;
+	public static final int 圣女     = 剑魔+1;
 
 	public static final int 黑白双子     = 20*8;
 

@@ -39,7 +39,7 @@ public class CloakOfShadows extends Artifact {
 		chargeCap = Math.min(等级()+3, 10);
 
 		defaultAction = AC_STEALTH;
-
+		黑色=true;
 		特别= true;
 		专属= true;
 		嬗变= false;

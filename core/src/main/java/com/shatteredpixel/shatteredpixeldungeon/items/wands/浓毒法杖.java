@@ -41,7 +41,7 @@ public class 浓毒法杖 extends Wand {
 		GameScene.add(gas);
 		Sample.INSTANCE.play(Assets.Sounds.GAS);
 
-		for (int i : PathFinder.自相邻8) {
+		for (int i : PathFinder.自相邻) {
 			Char ch = Actor.findChar(bolt.collisionPos + i);
 			if (ch != null) {
 				wandProc(ch, chargesPerCast());
@@ -81,9 +81,9 @@ public class 浓毒法杖 extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f));
+			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/15f);
 		else
-			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f));
+			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/15f);
 	}
 
 	@Override

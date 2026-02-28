@@ -55,14 +55,14 @@ public class WandOfBlastWave extends DamageWand {
 		BlastWave.blast(bolt.collisionPos);
 
 		//presses all tiles in the AOE first, with the exception of tengu dart traps
-		for (int i : PathFinder.自相邻8){
+		for (int i : PathFinder.自相邻){
 			if (!(Dungeon.level.traps.get(bolt.collisionPos+i) instanceof TenguDartTrap)) {
 				Dungeon.level.pressCell(bolt.collisionPos + i);
 			}
 		}
 
 		//throws other chars around the center.
-		for (int i  : PathFinder.相邻8){
+		for (int i  : PathFinder.相邻){
 			Char ch = Actor.findChar(bolt.collisionPos + i);
 
 			if (ch != null){

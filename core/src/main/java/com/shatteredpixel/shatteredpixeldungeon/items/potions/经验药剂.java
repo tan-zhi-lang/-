@@ -14,6 +14,8 @@ public class 经验药剂 extends Potion {
 		icon = 物品表.Icons.POTION_EXP;
 
 		talentFactor = 2f;
+		特别=true;
+		黄色=已鉴定();
 	}
 	
 	@Override

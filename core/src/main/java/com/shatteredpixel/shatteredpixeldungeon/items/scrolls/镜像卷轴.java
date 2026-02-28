@@ -50,8 +50,8 @@ public class 镜像卷轴 extends Scroll {
 		
 		ArrayList<Integer> respawnPoints = new ArrayList<>();
 		
-		for (int i=0; i < PathFinder.自相邻8.length;i++) {
-			int p = pos + PathFinder.自相邻8[i];
+		for (int i=0; i < PathFinder.自相邻.length;i++) {
+			int p = pos + PathFinder.自相邻[i];
 			if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
 				respawnPoints.add( p );
 			}

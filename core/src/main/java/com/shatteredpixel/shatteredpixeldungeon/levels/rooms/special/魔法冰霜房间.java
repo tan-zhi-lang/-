@@ -174,7 +174,7 @@ public class 魔法冰霜房间 extends SpecialRoom {
 						}
 
 						//clears itself if there is frost/blizzard on or next to it
-						for (int k : PathFinder.自相邻8) {
+						for (int k : PathFinder.自相邻) {
 							if (freeze != null && freeze.volume > 0 && freeze.cur[cell+k] > 0) {
 								freeze.clear(cell);
 								cur[cell] = 0;

@@ -26,8 +26,8 @@ public class PathFinder {
 	//performance-light shortcuts for some common pathfinder cases
 	//they are in array-access order for increased memory performance
 	public static int[] 相邻4;
-	public static int[] 相邻8;
-	public static int[] 自相邻8;
+	public static int[] 相邻;
+	public static int[] 自相邻;
 	public static int[] 范围2;
 	public static int[] 范围3;
 	public static int[] 八卦;
@@ -67,8 +67,8 @@ public class PathFinder {
 		dirLR = new int[]{-1-width, -1, -1+width, -width, +width, +1-width, +1, +1+width};
 
 		相邻4= new int[]{-width, -1, +1, +width};
-		相邻8= new int[]{-width-1, -width,-width+1, -1, +1,+width-1, +width,+width+1};
-		自相邻8= new int[]{-width-1, -width,-width+1, -1, 0, +1,+width-1, +width,+width+1};
+		相邻= new int[]{-width-1, -width,-width+1, -1, +1,+width-1, +width,+width+1};
+		自相邻= new int[]{-width-1, -width,-width+1, -1, 0, +1,+width-1, +width,+width+1};
 		
 		范围2=x格(width,2);
 		范围3=x格(width,3);

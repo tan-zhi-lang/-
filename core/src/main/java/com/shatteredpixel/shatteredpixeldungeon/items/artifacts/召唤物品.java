@@ -132,8 +132,8 @@ public class 召唤物品 extends Artifact {
 			else if (charge != chargeCap)   GLog.i( Messages.get(this, "no_charge") );
 			else {
 				ArrayList<Integer> spawnPoints = new ArrayList<>();
-				for (int i=0; i < PathFinder.相邻8.length;i++) {
-					int p = hero.pos + PathFinder.相邻8[i];
+				for (int i=0; i < PathFinder.相邻.length;i++) {
+					int p = hero.pos + PathFinder.相邻[i];
 					if (Actor.findChar(p) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
 						spawnPoints.add(p);
 					}

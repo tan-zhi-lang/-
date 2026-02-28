@@ -28,7 +28,7 @@ public class 护甲修理工具包 extends 用品 {
 	
 	@Override
 	public int 金币() {
-		return 7 * quantity;
+		return 3 * quantity;
 	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {

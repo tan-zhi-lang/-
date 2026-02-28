@@ -187,13 +187,13 @@ public class Shopkeeper extends NPC {
 
 	//shopkeepers are greedy!
 	public static int sellPrice(Item item){
-		float 打折=优惠卡.打折();
+		float 打折=10;
+		打折*=优惠卡.打折();
 		if(Holiday.getCurrentHoliday()==Holiday._618){
 			打折*=.9f;
 		}
 		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
-		return Math.round(item.价值提升() * 打折);
-//		return Math.round(item.金币() * 打折/2 * (1 / 5f + 1));
+		return Math.round(item.价值提升() * 打折/2 * (1 / 5f + 1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
 	}
 	

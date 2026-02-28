@@ -21,6 +21,8 @@ public class 神农锄 extends Weapon{
 		
 		tier = 5;
 		延迟= 1.25f;
+		特别=true;
+		绿色=true;
 	}
 	
 	@Override

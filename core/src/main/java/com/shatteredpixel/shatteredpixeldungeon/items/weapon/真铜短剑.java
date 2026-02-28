@@ -16,6 +16,8 @@ public class 真铜短剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 
 
+		特别=true;
+		橙色=true;
 		伤害=0.75f;
 		技能=new 潜行();
 

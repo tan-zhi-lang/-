@@ -395,7 +395,7 @@ public class PrisonBossLevel extends Level {
 				//if something is occupying Tengu's space, try to put him in an adjacent cell
 				if (Actor.findChar(tenguPos) != null){
 					ArrayList<Integer> candidates = new ArrayList<>();
-					for (int i : PathFinder.相邻8){
+					for (int i : PathFinder.相邻){
 						if (Actor.findChar(tenguPos + i) == null){
 							candidates.add(tenguPos + i);
 						}
@@ -702,7 +702,7 @@ public class PrisonBossLevel extends Level {
 	@Override
 	public int randomRespawnCell( Char ch ) {
 		ArrayList<Integer> candidates = new ArrayList<>();
-		for (int i : PathFinder.相邻8){
+		for (int i : PathFinder.相邻){
 			int cell = ENTRANCE_POS + i;
 			if (passable[cell]
 					&& Actor.findChar(cell) == null

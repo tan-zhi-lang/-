@@ -16,6 +16,8 @@ public class 破败王剑 extends Weapon{
 		延迟=0.75f;
 		吸血=0.075f;
 		伤害=0.75f;
+		特别=true;
+		靛色=true;
 		技能=new 嗜血();
 	}
 	@Override

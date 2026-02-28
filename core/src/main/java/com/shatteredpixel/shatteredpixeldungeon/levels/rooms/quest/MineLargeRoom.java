@@ -114,7 +114,7 @@ public class MineLargeRoom extends CaveRoom {
 
 			int guardPos;
 			do {
-				guardPos = sapperPos+PathFinder.相邻8[Random.Int(8)];
+				guardPos = sapperPos+PathFinder.相邻[Random.Int(8)];
 			} while (level.map[guardPos] != Terrain.EMPTY);
 			GnollGuard g = new GnollGuard();
 			g.pos = guardPos;
@@ -123,7 +123,7 @@ public class MineLargeRoom extends CaveRoom {
 
 			int barricades = Random.Int(2) == 0 ? 2 : 1;
 			for (int i = 0; i < barricades; i ++){
-				int barricadePos = sapperPos+PathFinder.相邻8[Random.Int(8)];
+				int barricadePos = sapperPos+PathFinder.相邻[Random.Int(8)];
 				if (level.map[barricadePos] == Terrain.EMPTY && barricadePos != guardPos){
 					Painter.set(level, barricadePos, Terrain.BARRICADE);
 				} else {

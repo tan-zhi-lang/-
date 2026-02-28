@@ -5,7 +5,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -20,7 +19,7 @@ import com.watabou.utils.Callback;
 public class 刺击 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次125%伤害必中的物理攻击，并花费攻击延迟的回合，如果是巨型食人鱼，则造成150%伤害，且击杀额外掉落1生肉";
+		desc="对攻击范围内的一个目标进行一次125%伤害必中的物理攻击，并花费攻击延迟的回合，如果是海妖类敌人，则造成150%伤害，且击杀额外掉落1生肉";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -55,7 +54,7 @@ public class 刺击 extends 武技{
 				@Override
 				public void call() {
 					AttackIndicator.target(enemy);
-					if(enemy instanceof Piranha){
+					if(enemy.海妖()){
 						if(hero.attack(enemy,伤害150,0,Char.INFINITE)){
 							if(!enemy.isAlive())
 							Dungeon.level.drop(new MysteryMeat(),enemy.pos).sprite().drop();

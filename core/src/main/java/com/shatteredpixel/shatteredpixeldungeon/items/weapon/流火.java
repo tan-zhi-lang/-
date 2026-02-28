@@ -14,6 +14,8 @@ public class 流火 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		伤害=0.8f;
 		tier=5;
+		特别=true;
+		橙色=true;
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {

@@ -71,12 +71,13 @@ public class Sheep extends NPC {
 //		}
 		String s = Random.element(LINE_KEYS);
 		sprite.showStatus( CharSprite.NEUTRAL, Messages.get(this,s) );
-		
-		Badges.解锁兽灵();
-		if(s.equals("Baba")){
-			Dungeon.hero.经验(Dungeon.层数(0.5f));
-		}
+
 		if (c == Dungeon.hero) {
+			Badges.解锁兽灵();
+			if(s.equals("Baba")){
+				Dungeon.hero.经验(Dungeon.层数(0.5f));
+			}
+			if(Dungeon.符文("磨刀霍霍向猪羊"))Dungeon.hero.磨刀+=0.075f;
 			Dungeon.hero.spendAndNext(1f);
 			Sample.INSTANCE.play(Assets.Sounds.SHEEP, 1, Random.Float(0.91f, 1.1f));
 			//sheep summoned by woolly bomb can be dispelled by interacting

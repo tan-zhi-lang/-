@@ -54,7 +54,7 @@ public class 火墙术 extends 目标法术 {
 
 		hero.spend( 1f );
 		hero.next();
-		for (int offset : PathFinder.自相邻8){
+		for (int offset : PathFinder.自相邻){
 			if (!Dungeon.level.solid[target+offset]) {
 				GameScene.add(Blob.seed(target+offset,Math.round(hero.魔力(0.15f)),Fire.class));
 			}

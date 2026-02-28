@@ -22,6 +22,7 @@ public class 力量药剂 extends Potion {
 		icon = 物品表.Icons.POTION_STRENGTH;
 		
 		特别= true;
+		橙色=已鉴定();
 
 		talentFactor = 2f;
 	}
@@ -33,6 +34,8 @@ public class 力量药剂 extends Potion {
 		if(!Dungeon.炼狱(炼狱设置.体弱多病)){
 			hero.力量++;
 		}
+		if(hero.符文("III型药剂"))
+			hero.力量+=35;
 		if(hero.符文("力量的爆发"))
 			Buff.施加(hero,HTBoost.class).add();
 

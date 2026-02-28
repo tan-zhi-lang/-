@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.大肉棒;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
@@ -125,6 +126,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(匕首.class,0);
 		ANGULAR_SPEEDS.put(长匕首.class,0);
 		ANGULAR_SPEEDS.put(碧蓝巨剑.class,0);
+		ANGULAR_SPEEDS.put(妖刀村正.class,0);
 		ANGULAR_SPEEDS.put(大肉棒.class,0);
 		ANGULAR_SPEEDS.put(重锤.class,0);
 		ANGULAR_SPEEDS.put(无影剑.class,0);

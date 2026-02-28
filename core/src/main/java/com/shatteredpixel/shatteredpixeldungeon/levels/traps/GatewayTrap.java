@@ -37,7 +37,7 @@ public class GatewayTrap extends Trap {
 	public void activate() {
 
 		if (telePos == -1){
-			for (int i : PathFinder.自相邻8){
+			for (int i : PathFinder.自相邻){
 				Char ch = Actor.findChar(pos + i);
 				if (ch != null){
 					if (传送卷轴.teleportChar(ch)) {
@@ -67,7 +67,7 @@ public class GatewayTrap extends Trap {
 		if (telePos != -1){
 
 			ArrayList<Integer> telePositions = new ArrayList<>();
-			for (int i : PathFinder.相邻8){
+			for (int i : PathFinder.相邻){
 				if (Dungeon.level.passable[telePos+i]
 						&& Actor.findChar( telePos+i ) == null){
 					telePositions.add(telePos+i);
@@ -87,7 +87,7 @@ public class GatewayTrap extends Trap {
 				}
 			}
 
-			for (int i : PathFinder.自相邻8){
+			for (int i : PathFinder.自相邻){
 
 				Char ch = Actor.findChar(pos + i);
 				if (ch != null && !Char.hasProp(ch, Char.Property.IMMOVABLE)){

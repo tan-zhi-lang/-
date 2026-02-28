@@ -58,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
@@ -94,8 +95,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.毒气宝箱怪;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.超级魔法绵羊;
 import com.shatteredpixel.shatteredpixeldungeon.actors.专注;
+import com.shatteredpixel.shatteredpixeldungeon.actors.仙法;
 import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
 import com.shatteredpixel.shatteredpixeldungeon.actors.冥想;
+import com.shatteredpixel.shatteredpixeldungeon.actors.吸收痛苦;
 import com.shatteredpixel.shatteredpixeldungeon.actors.外交豁免;
 import com.shatteredpixel.shatteredpixeldungeon.actors.快炖;
 import com.shatteredpixel.shatteredpixeldungeon.actors.慢炖;
@@ -112,6 +115,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.鬼刀;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
@@ -157,7 +161,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.EtherealChains;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙针筒;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙拉管;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.召唤物品;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
@@ -252,6 +256,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.大肉棒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
@@ -259,6 +264,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.超级升级符石;
@@ -350,9 +356,16 @@ public class Hero extends Char {
     private int 最大闪避 = 5;
     public float 之前健身= 0;
     public float 现在健身= 0;
+    public float 缩小引擎= 0;
+    public float 坦克引擎= 0;
+    public float 击杀数量= 0;
+    public float 属性翻倍= 1;
     public boolean[] 天赋 = {false,false,false,false,false,};
     public boolean 单身 = false;
     public boolean 进阶 = false;
+    public boolean 奥术 = false;
+    public boolean 第1层天赋 = false;
+    public boolean 第2层天赋 = false;
 
     public static LinkedHashMap<String, Boolean> 海克斯1=new LinkedHashMap<String, Boolean>(){};
 
@@ -370,10 +383,17 @@ public class Hero extends Char {
     }
     public static void 海克斯重置(){
         {
+
             put1("升级综合属性",false);
             put1("缩小射线",false);
             put1("子时已到",false);
+            put1("巫师式思考",false);
+            put1("磨刀霍霍向猪羊",false);
+            put1("冰寒",false);
             put1("我是瘦子",false);
+            put1("面包和黄油",false);
+            put1("面包和奶酪",false);
+            put1("面包和果酱",false);
             put1("药剂赌狗",false);
             put1("物品赌狗",false);
             put1("卷轴赌狗",false);
@@ -428,7 +448,7 @@ public class Hero extends Char {
             put1("升级法师魔杖",false);
             put1("铁布衫",false);
             put1("龙鳞甲",false);
-            put1("升级荣耀纹章",false);
+            put1("升级荣誉纹章",false);
             put1("升级暗杀之刃",false);
             put1("升级饮血之剑",false);
             put1("升级破败王剑",false);
@@ -460,6 +480,7 @@ public class Hero extends Char {
             put1("魔法转物理",false);
             put1("点亮他们",false);
             put1("尖端发明家",false);
+            put1("魔术回路",false);
             put1("死神",false);
             put1("我有一剑",false);
             put1("我懂个锤子",false);
@@ -498,6 +519,8 @@ public class Hero extends Char {
             put1("黑幕",false);
             put1("天狗的宠爱",false);
 
+            put2("我还以为减速带呢",false);
+            put2("你也不想被发现吧",false);
             put2("挑战之神",false);
             put2("炼狱之神",false);
             put2("我是地牢大佬",false);
@@ -508,6 +531,7 @@ public class Hero extends Char {
             put2("宝库",false);
             put2("海克斯收集家",false);
             put2("台风",false);
+            put2("III型药剂",false);
             put2("吞噬星空",false);
             put2("冥想",false);
             put2("升级经验",false);
@@ -622,12 +646,20 @@ public class Hero extends Char {
             put2("防御的宠爱",false);
             put2("攻击的宠爱",false);
             put2("破败之王",false);
+            put2("当头一棒",false);
+            put2("双发快射",false);
             put2("暗黑破坏神",false);
             put2("粘咕的宠爱",false);
             put2("精巧狙击手",false);
             put2("亮出你的剑",false);
             put2("DM-300的宠爱",false);
+            put2("传送",false);
+            put2("我不是人我只是个怪物",false);
+            put2("更多生命水晶和生命果",false);
 
+            put3("吸收痛苦",false);
+            put3("梦魇",false);
+            put3("区区致命伤",false);
             put3("太阳神",false);
             put3("防具的宠爱",false);
             put3("我开挂了",false);
@@ -635,10 +667,12 @@ public class Hero extends Char {
             put3("坚固壁垒",false);
             put3("双刀流",false);
             put3("恢复的宠爱",false);
+            put3("每日属性翻倍",false);
             put3("孤注一掷",false);
             put3("亮出你的枪",false);
             put3("潘多拉魔盒",false);
             put3("300颗够吗",false);
+            put3("属性专精",false);
             put3("血之饥渴",false);
             put3("当务之急安装洋柿子",false);
             put3("我秒升级",false);
@@ -646,9 +680,11 @@ public class Hero extends Char {
             put3("暴击不暴击",false);
             put3("究极玻璃大炮",false);
             put3("踢踏舞",false);
+            put3("无限火力",false);
             put3("装备星蚀",false);
             put3("出售防具Bug",false);
             put3("出售武器Bug",false);
+            put3("千锤百炼",false);
             put3("无法刷新海克斯",false);
             put3("物法皆修",false);
             put3("闪避的宠爱",false);
@@ -719,10 +755,16 @@ public class Hero extends Char {
             case "站在布隆后面":return "盾类武器攻击+50%防御+50%";
             case "死神":return "物理攻击对残血敌人+30%伤害";
             case "交锋":return "物理攻击对满血敌人必定暴击";
-            case "子时已到":return "23:00-1:00，综合属性+1000%";
+            case "子时已到":return "23:00-1:00，综合属性+500%";
+            case "巫师式思考":return "魔力+15";
+            case "磨刀霍霍向猪羊":return "每次交互魔法绵羊永久+刀类武器7.5%攻击";
+            case "冰寒":return "敌人的额外移速-0.1(固定减移速)";
             case "升级综合属性":return "综合属性现在会改变攻击，防御";
             case "缩小射线":return "战斗状态的敌人大小-0.15，且敌人的伤害为大小";
             case "我是瘦子":return "你不能吃饭，只能在饥饿值为0的时候才能吃饭，且饥饿速度减75%，但是饥饿的伤害翻倍";
+            case "面包和黄油":return "法杖充能速度+50%";
+            case "面包和奶酪":return "神器充能神器+50%";
+            case "面包和果酱":return "武器充能速度+50%";
             case "卷轴赌狗":return "随机60张卷轴";
             case "药剂赌狗":return "随机60瓶药剂";
             case "物品赌狗":return "随机60个物品";
@@ -738,7 +780,7 @@ public class Hero extends Char {
             case "升级破碎像素地牢":return "地牢敌人数量生成速度x3，但是掉率几率x4";
             case "专注":return "物理攻击前3回合也物理攻击过的敌人时，物理攻击伤害+15%";
             case "力速双A替身":return "替身+45%总攻速和总攻击";
-            case "骰子收集者":return "海克斯宝典可以额外刷新2次";
+            case "骰子收集者":return "海克斯宝典可以额外刷新1次";
             case "升级全能吸血":return "全能+2倍吸血，但是吸血无效";
             case "小怪猎手":return "物理攻击对非BOSS+15%伤害";
             case "猛攻":return "吸血和全能吸血无效，但伤害+50%吸血+50%全能吸血";
@@ -762,7 +804,7 @@ public class Hero extends Char {
             case "升级法师魔杖":return "+50%魔杖等级";
             case "铁布衫":return "防御+550%";
             case "龙鳞甲":return "防御+200%";
-            case "升级荣耀纹章":return "恢复护甲速h度+650%，最大护甲+防具阶级+防具等级";
+            case "升级荣誉纹章":return "恢复护甲速h度+650%，最大护甲+防具阶级+防具等级";
             case "升级暗杀之刃":return "伏击率能暴击";
             case "升级饮血之剑":return "+5%吸血，同时无需满血也能恢复护甲";
             case "升级破败王剑":return "+2.5%吸血，同时造成物理攻击时额外造成3.5%敌人最大生命";
@@ -781,7 +823,7 @@ public class Hero extends Char {
             case "升级变态刀":return "不再减总移速，且隐形时暴击伤害再次x1.2";
             case "升级无尽之刃":return "+25%暴击率，暴击伤害+50%暴击率";
             case "升级自然之履":return "踩草的自然层+2，自然层=神器等级+1，种子掉率=1/(25f - 自然层 *4f)，露珠掉率=1/(6f - 自然层 /2f)";
-            case "会心治疗":return "+25%暴击率，治疗效果可以暴击然后额外恢复45%";
+            case "会心治疗":return "+25%暴击率，治疗效果可以暴击然后额外恢复暴击伤害的量";
             case "会心防御":return "+25%暴击率，所受物理攻击根据暴击几率减少最多20%受到的伤害";
             case "会心闪避":return "暴击率+25%，闪避可以暴击额外+暴击伤害";
             case "穿甲的宠爱":return "穿甲+15%最大防御";
@@ -792,7 +834,7 @@ public class Hero extends Char {
             case "虚幻武器":return "对目标施法同时会施加100%伤害的物理攻击";
             case "纪元":return "物理攻击伤害+敌人被发现的回合x5";
             case "饭桶":return "吃饭恢复5%最大生命和10%最大护甲";
-            case "祛邪的宠爱":return "祛邪物品会同时升级2次(武器、防具、戒指、法杖)";
+            case "祛邪的宠爱":return "祛邪物品会同时升级1次(武器、防具、戒指、法杖)";
             case "鉴定的宠爱":return "鉴定物品会同时升级1次(武器、防具、戒指、法杖)";
             case "最终祝福":return "满级之后一直拥有祝福";
             case "接二连三":return "每第三次攻击会额外攻击一次";
@@ -807,6 +849,7 @@ public class Hero extends Char {
             case "灵魂虹吸":return "+25%暴击率，作用于暴击的12.5%吸血";
             case "由暴生急":return "+50%暴击率的法杖、神器、武器充能";
             case "尖端发明家":return "法杖、神器、武器充能速度+35%";
+            case "魔术回路":return "魔力将不再是固定值，而是10%~350%";
             case "钢铁意志":return "根据已损失生命最多+300%最大护甲";
             case "战斗狂怒":return "根据已损失生命最多+50%暴击率";
             case "魔法转物理":return "力量+魔力";
@@ -831,16 +874,18 @@ public class Hero extends Char {
             case "豪赌":return "随机3级海克斯，并加入5个没啥用在海克斯组，但是之后的海克斯升级概率减半";
             case "我是色批":return "击杀魅魔会永久+10力量，但是被魅惑时会同时施加麻痹";
             //2
+            case "我不是人我只是个怪物":return "每回合1/7概率阅读恐惧卷轴";
             case "高级5阶武器库":return "随机+15等级的三选一5阶武器，可以让5阶武器库也是+15";
             case "高级法杖库":return "随机+15等级的三选一法杖，可以让法杖库也是+15";
             case "高级戒指库":return "随机+15等级的三选一戒指，可以让戒指库也是+15";
             case "我是地牢大佬":return "综合属性+挑战数量x10%+炼狱数量x20%-解压数量x10%-系统数量x20%-派对数量x30%+赛季数量x30%";
             case "炼狱之神":return "综合属性+炼狱数量x50%";
             case "挑战之神":return "综合属性+挑战数量x25%";
+            case "你也不想被发现吧":return "惊醒之后会麻痹敌人5回合";
             case "谁说女子不如男":return "如果男人英雄，总力量-50%，如果是女人总力量+50%";
             case "宝库":return "随机+18的5阶武器，法杖，戒指三选一";
             case "骷髅打金服":return "骷髅的掉率x10倍，包括幸运之戒触发，循环播放专属BGM";
-            case "刷新海克斯":return "海克斯宝典可以额外刷新5次";
+            case "刷新海克斯":return "海克斯宝典可以额外刷新3次";
             case "不是哥们我海克斯呢":return "移除所有海克斯，并根据移除的海克斯数量获得双倍数量的随机海克斯";
             case "夺金":return "对敌人的首次物理攻击额外造成40%最大攻击的魔法伤害，并获得金币";
             case "灵感咕力咕力咕力灵感菇":return "踩草必定随机额外获得一个红蓝绿其一蘑菇";
@@ -867,6 +912,7 @@ public class Hero extends Char {
             case "轻音战士":return "综合属性+(音乐音量+音效音量)x0.5%";
             case "陷阱的宠爱":return "新楼层必定陷阱层，在陷阱上综合属性+60%";
             case "流水的宠爱":return "新楼层必定流水层，在水上综合属性+25%";
+            case "深渊的宠爱":return "新楼层必定深渊层，在深渊上综合属性+45%";
             case "神殿的宠爱":return "新楼层必定为广阔层，综合属性+15%";
             case "范围的宠爱":return "攻击范围+武器等级";
             case "防御转魔抗":return "元素抗性+最大防御/(2.5+最大防御)";
@@ -945,6 +991,7 @@ public class Hero extends Char {
             case "台风":return "物理攻击额外投掷一个无视防御的魔法箭矢，造成30%物理攻击伤害";
             case "海克斯收集家":return "每有一个海克斯，综合属性+10%";
             case "吞噬星空":return "暗金有吞噬按钮，吞噬之后消耗掉暗金并1%综合属性";
+            case "III型药剂":return "力量药剂15%概率+35力量";
             case "升级经验":return "获得的经验x0.35x等级";
             case "冥想":return "等待回合x4，但是恢复25%已损失圣生命，且所受伤害-50%";
             case "暗黑破坏神":return "镐子破坏墙体时永久+0.35%综合属性";
@@ -956,8 +1003,14 @@ public class Hero extends Char {
             case "物理转魔法":return "魔力+力量";
             case "DM-300的宠爱":return "在每个区域的第一层获得无敌";
             case "炒能力":return "力量+金币/150";
+            case "更多生命水晶和生命果":return "获得生命水晶x14个，19个生命果可以从草丛中获得";
             case "亮出你的剑":return "攻击范围固定为1，每点额外攻击范围+10%攻速，10%攻击，10%最大生命，7.5%吸血";
+            case "传送":return "你的移动改成传送，但是传送距离为1+30%移速，每次必定消耗1回合";
+            case "我还以为减速带呢":return "如果你的移速比相邻敌人大于等于3倍(或者大小大于等于1.5倍)，则秒杀";
+            case "双发快射":return "物理攻击暴击时，投掷一个魔法箭矢，造成100%暴击伤害的魔法伤害";
+            case "当头一棒":return "物理攻击1/3概率施加3回合麻痹";
             //3
+            case "属性专精":return "获得350自适应属性，每100点自适应属性对应35最大攻击，15最大防御，39最大命中，34最大闪避，110%攻速，110%移速，125最大生命，25最大护甲，20力量，20魔力";
             case "300颗够吗":return "获得300颗坠牢之星";
             case "亮出你的枪":return "攻击范围+6/攻击范围，每超过1攻击范围，则-5%最大生命，+15%攻击，10%攻速";
             case "无法刷新海克斯":return "海克斯宝典无法刷新，但是根据海克斯刷新上限额外获得海克斯宝典";
@@ -967,6 +1020,10 @@ public class Hero extends Char {
             case "我开挂了":return "物理攻击必定秒杀，但是受到伤害x3";
             case "坚固壁垒":return "超过10%生命的所受伤害将减少50%";
             case "恢复的宠爱":return "饮用永生秘药+25%治疗效果";
+            case "每日属性翻倍":return "总综合属性-45%，每天你的综合属性x2，最多1024倍";
+            case "吸收痛苦":return "所有单位受到的伤害都能吸收使你下次物理攻击额外造成魔法伤害，并消耗45%痛苦";
+            case "梦魇":return "恐惧一个敌人时，永久+45力量";
+            case "区区致命伤":return "根据已损失生命，获得伤害减免，最多90%";
             case "太阳神":return "光照范围+7，击杀敌人1/3概率永久+1光照范围，物理攻击额外造成光照范围的魔法伤害";
             case "血之饥渴":return "物理攻击额外造成10%最大攻击的魔法伤害，在半血以下时候同时恢复伤害的生命，在残血以下时恢复的生命x2.5";
             case "孤注一掷":return "综合属性-45%，并随机获得5个海克斯";
@@ -974,12 +1031,14 @@ public class Hero extends Char {
             case "当务之急安装洋柿子":return "随机获得3个海克斯";
             case "我秒升级":return "升级所需经验改为等级";
             case "最大护甲转生命再生":return "生命再生+1%最大护甲";
+            case "无限火力":return "法杖，神器，武器充能速度+350%，总攻速x2，但是治疗效果-50%";
             case "暴击不暴击":return "未暴击也能提升伤害，只不过x1.45";
             case "踢踏舞":return "攻速+15%移速，战斗状态下每次物理攻击+10%移速，可以无限叠加，脱离战斗状态会移除所有";
-            case "装备星蚀":return "2回合内对物理攻击并使用法杖施法或武器技能，则对敌人造成20%最大生命的伤害，并恢复20%最大护甲，之后需要冷却5回合";
+            case "装备星蚀":return "2回合内对物理攻击两次，则对敌人造成20%最大生命的伤害，并恢复20%最大护甲，之后需要冷却5回合";
             case "物法皆修":return "战斗状态下物理攻击+0.5力量和魔力，脱离战斗状态移除所有";
             case "出售防具Bug":return "出售防具时，永久+防具的最大防御";
             case "出售武器Bug":return "出售武器时，永久+武器的最大攻击";
+            case "千锤百炼":return "受到伤害时，+3%伤害的最大生命";
             case "闪避的宠爱":return "闪避时+0.5最大闪避";
             case "吞噬灵魂":return "敌人被施加负面效果时永久+3最大生命";
             case "衰退的堕落":return "升级武器、防具、法杖、戒指能够额外升级两次，获得150回合降级效果";
@@ -995,8 +1054,8 @@ public class Hero extends Char {
             case "铜皮铁骨":return "最大防御+450%力量";
             case "飞身踢":return "物理攻击秒杀生命值低于20%自身最大生命的敌人，并恢复5%最大生命";
             case "红包":return "每回合1/240概率掉落红包，红包使用同时会获得一个属性锻造器";
-            case "缩小引擎":return "大小-英雄等级x0.02，综合属性+英雄等级x1%";
-            case "坦克引擎":return "大小+英雄等级x0.01，最大生命+英雄等级x4%";
+            case "缩小引擎":return "击杀敌人根据强度大小-0.02，以及移速+4%，法杖神器武器充能4%，死亡-65%效果";
+            case "坦克引擎":return "击杀敌人根据强度大小+0.025，以及最大生命+5%，死亡-65%效果";
             case "均衡打击":return "物理攻击伤害减半，但是额外造成另一半的魔法伤害";
             case "战神":return "吸血+15%，最大生命+40%";
             case "法神":return "魔力+60%";
@@ -1091,6 +1150,9 @@ public class Hero extends Char {
             case "歌尽云梦":
                 new ScrollOfSirensSong().放背包();
                 return;
+            case "更多生命水晶和生命果":
+                new 生命水晶().数量(14).放背包();
+                return;
             case "300颗够吗":
                 new 坠牢之星().数量(300).放背包();
                 return;
@@ -1120,6 +1182,7 @@ public class Hero extends Char {
                 Game.runOnRenderThread(()->{
                     GameScene.show(new Wnd选择物品(this,wm1,finalIwm,finalwm1wm));
                 });
+                return;
             case "法杖库":
             case "高级法杖库":
                 Item w1;
@@ -1290,7 +1353,7 @@ public class Hero extends Char {
 
     public void 选择海克斯(String s){
 
-        Sample.INSTANCE.play(Assets.Sounds.海克斯,1.75f);
+        Sample.INSTANCE.play(Assets.Sounds.海克斯);
 
         Notes.备注(s,海克斯描述(s));
         GLog.w("你已备注了选择的海克斯。");
@@ -1382,11 +1445,17 @@ public class Hero extends Char {
 
     }
     public void 能随机海克斯(){
+        if(heroClass(HeroClass.WARRIOR)&&!符文("升级荣誉纹章")){
+            put1("升级荣誉纹章",false);
+        }
         if(heroClass(HeroClass.WARRIOR)&&!符文("战神")){
             put3("战神",false);
         }
         if(heroClass(HeroClass.MAGE)&&!符文("法神")){
             put3("法神",false);
+        }
+        if(heroClass(HeroClass.MAGE)&&!符文("升级法师魔杖")){
+            put1("升级法师魔杖",false);
         }
         if(heroClass(HeroClass.HUNTRESS)&&!符文("升级灵能短弓")){
             put1("升级灵能短弓",false);
@@ -1418,6 +1487,7 @@ public class Hero extends Char {
     private static final List<Set<String>> 不能海克斯= List.of(
             Set.of("快炖", "慢炖"),
             Set.of("亮出你的枪", "亮出你的剑"),
+            Set.of("灵魂虹吸", "会心治疗"),
             Set.of("物理转魔法", "魔法转物理"),
             Set.of("作弊我能复活", "我无限回档洞悉所有底牌"),
             Set.of("防御转魔抗", "魔抗转防御"),
@@ -1508,9 +1578,19 @@ public class Hero extends Char {
     public int 视野范围get = 0;
     public float 最大生命get = 0;
     public float 最大护甲get = 0;
+    public float 攻速get = 0;
+    public float 移速get = 0;
+    public float 命中get = 0;
+    public float 闪避get = 0;
+    public float 攻击get = 0;
+    public float 防御get = 0;
+    public float 力量get = 0;
+    public float 魔力get = 0;
     public int 死亡次数 = 0;
     public int 破坏物体 = 0;
     public float 生命成长 = 0;
+    public float 护甲成长 = 0;
+    public float 再生成长 = 0;
     public float 攻击成长 = 0;
     public float 防御成长 = 0;
     public float 攻速成长 = 0;
@@ -1524,7 +1604,7 @@ public class Hero extends Char {
     public float 治疗成长 = 0;
     public float 穿甲成长 = 0;
     public float 穿透成长 = 0;
-    public float 之前攻击延迟 = 0;
+    public float 增加攻击的攻速 = 1;
 
     public boolean ready = false;
     public boolean damageInterrupt = true;
@@ -1540,6 +1620,7 @@ public class Hero extends Char {
 
     public float 力量;
     public float 魔力;
+    public float 磨刀= 0;
     public float 武器力量= 0;
     public int 根骨 = 0;
     public int 火把神 = 0;
@@ -1593,6 +1674,7 @@ public class Hero extends Char {
 
         最大生命 = 20 + 3* (等级 - 1) + HTBoost;
 
+        最大生命+=自适应属性("生命");
         最大生命+=生命成长;
         最大生命+=根骨 * 5;
         if(符文("生命的宠爱"))最大生命+=第x次防御/10f;
@@ -1618,7 +1700,7 @@ public class Hero extends Char {
         if(符文("科学狂人")&&科学狂人==0.3f)最大生命x+=0.4f;
         if(符文("战神"))最大生命x+=0.4f;
         if(符文("歌利亚巨人"))最大生命x+=0.6f;
-        if(符文("坦克引擎"))最大生命x+=0.04f*等级;
+        if(符文("坦克引擎"))最大生命x+=0.05f*坦克引擎;
         if(符文("古神"))最大生命x+=1;
         if(符文("巨型坦克"))最大生命x+=0.8f;
 
@@ -1647,6 +1729,10 @@ public class Hero extends Char {
         float m=魔力;
         if (heroClass(HeroClass.MAGE)) m+=2;
         m-=桃木剑.减少();
+        if(符文("巫师式思考")){
+            m+= 15;
+        }
+        m+=自适应属性("魔力");
         if(符文("物法皆修")&&hasbuff(战斗状态.class)&&hasbuff(物法皆修.class)){
             m+= buff(物法皆修.class).count/2f;
         }
@@ -1672,18 +1758,74 @@ public class Hero extends Char {
         mx+=天赋点数(Talent.奥术专精,0.15f);
         m*=mx;
         m*=综合属性();
+        if(符文("魔术回路"))m=Random.NormalFloat(m*0.1f,m*3.5f);
+        if(奥术)m*=1.15f;
+        魔力get=m;
         return m;
     }
     public float 魔力(float x) {
         return 魔力()*x;
     }
+    public float 自适应属性(String 属性){
+        float x=0;
+        if(符文("属性专精"))x+=350;
+
+        String 自适应属性=自适应属性();
+        //每100点自适应属性对应35最大攻击，15最大防御，39最大命中，34最大闪避，110%攻速，110%移速，125最大生命，25最大护甲，20力量，20魔力
+        if(自适应属性.equals("攻击")&&属性.equals(自适应属性))return x*0.35f;
+        if(自适应属性.equals("防御")&&属性.equals(自适应属性))return x*0.15f;
+        if(自适应属性.equals("命中")&&属性.equals(自适应属性))return x*0.39f;
+        if(自适应属性.equals("闪避")&&属性.equals(自适应属性))return x*0.34f;
+        if(自适应属性.equals("生命")&&属性.equals(自适应属性))return x*1.25f;//
+        if(自适应属性.equals("护甲")&&属性.equals(自适应属性))return x*0.25f;//
+        if(自适应属性.equals("攻速")&&属性.equals(自适应属性))return x*0.011f;
+        if(自适应属性.equals("移速")&&属性.equals(自适应属性))return x*0.011f;
+        if(自适应属性.equals("力量")&&属性.equals(自适应属性))return x*0.2f;//
+        if(自适应属性.equals("魔力")&&属性.equals(自适应属性))return x*0.2f;//
+        return 0;
+    }
+    public String 自适应属性(){
+
+        LinkedHashMap<String, Float> 属性=new LinkedHashMap<String, Float>(){};
+        属性.put("攻击",攻击get/35f);
+        属性.put("防御",防御get/15f);
+
+        属性.put("命中",命中get/39f);
+        属性.put("闪避",闪避get/34f);
+
+        属性.put("攻速",攻速get/1.1f);
+        属性.put("移速",移速get/1.1f);
+
+        属性.put("生命",最大生命get/125);
+        属性.put("护甲",最大护甲get/25);
+
+        属性.put("力量",力量get/20);
+        属性.put("魔力",魔力get/20);
+        String maxs="";
+        float max=-1;
+        for(String s:属性.keySet()){
+            if(maxs.equals("")){
+                maxs=s;
+                if(max==-1){
+                    max=属性.get(s);
+                }
+                continue;
+            }
+            if(属性.get(s)>max){
+                max=属性.get(s);
+                maxs=s;
+            }
+        }
+        return maxs;
+    }
     public float 力量() {
 
         float str =力量+根骨之戒.strengthBonus(this)*2;
 
-        if(nobuff(九龙针筒.力量.class)&&belongings.hasItem(九龙针筒.class)&&belongings.getItem(九龙针筒.class).cursed)
-            str-=力量/2;
+        if(hasbuff(九龙拉管.力量.class)&&buff(九龙拉管.力量.class).isCursed())
+            str-=buff(九龙拉管.力量.class).itemLevel();
 
+        str+=自适应属性("力量");
         str+=天赋点数(Talent.健身);
 
         AdrenalineSurge buff = buff(AdrenalineSurge.class);
@@ -1751,6 +1893,7 @@ public class Hero extends Char {
 
         str*=strx;
         //最后结算
+        力量get=str;
         return str;
     }
 
@@ -1762,6 +1905,7 @@ public class Hero extends Char {
     private static final String LEVEL = "lvl";
     private static final String 力量x = "力量";
     private static final String 魔力x = "魔力";
+    private static final String 磨刀x= "磨刀";
     private static final String 武器力量x= "武器力量";
     private static final String 根骨x = "根骨";
     private static final String 火把神x = "火把神";
@@ -1780,8 +1924,15 @@ public class Hero extends Char {
 
     private static final String 之前健身x= "之前健身";
     private static final String 现在健身x= "现在健身";
+    private static final String 缩小引擎x= "缩小引擎";
+    private static final String 坦克引擎x= "坦克引擎";
+    private static final String 击杀数量x= "击杀数量";
+    private static final String 属性翻倍x= "属性翻倍";
     private static final String 单身x = "单身";
     private static final String 进阶x = "进阶";
+    private static final String 奥术x = "奥术";
+    private static final String 第1层天赋x = "第1层天赋";
+    private static final String 第2层天赋x = "第2层天赋";
     private static final String 幸运转世x= "幸运转世";
     private static final String 科学狂人x= "科学狂人";
     private static final String 重生怪物x = "重生怪物";
@@ -1791,9 +1942,19 @@ public class Hero extends Char {
     protected static final String 视野范围getx    = "视野范围get";
     protected static final String 最大生命getx    = "最大生命get";
     protected static final String 最大护甲getx    = "最大护甲get";
+    protected static final String 攻速getx    = "攻速get";
+    protected static final String 移速getx    = "移速get";
+    protected static final String 命中getx    = "命中get";
+    protected static final String 闪避getx    = "命中get";
+    protected static final String 攻击getx    = "攻击get";
+    protected static final String 防御getx    = "防御get";
+    protected static final String 力量getx    = "力量get";
+    protected static final String 魔力getx    = "魔力get";
     protected static final String 死亡次数x    = "死亡次数";
     protected static final String 破坏物体x    = "破坏物体";
     protected static final String 生命成长x    = "生命成长";
+    protected static final String 护甲成长x    = "护甲成长";
+    protected static final String 再生成长x    = "再生成长";
     protected static final String 攻击成长x    = "攻击成长";
     protected static final String 防御成长x    = "防御成长";
     protected static final String 攻速成长x    = "攻速成长";
@@ -1807,8 +1968,7 @@ public class Hero extends Char {
     protected static final String 治疗成长x    = "治疗成长";
     protected static final String 穿甲成长x    = "穿甲成长";
     protected static final String 穿透成长x    = "穿透成长";
-    protected static final String 之前攻击延迟x    = "之前攻击延迟";
-    protected static final String 吃饭触发x    = "吃饭触发";
+    protected static final String 增加攻击的攻速x    = "增加攻击的攻速";
     private static final String EXPERIENCE = "exp";
     private static final String HTBOOST = "htboost";
 
@@ -1826,6 +1986,7 @@ public class Hero extends Char {
         bundle.put(LEVEL, 等级);
         bundle.put(力量x, 力量);
         bundle.put(魔力x, 魔力);
+        bundle.put(磨刀x,磨刀);
         bundle.put(武器力量x,武器力量);
         bundle.put(根骨x, 根骨);
         bundle.put(火把神x, 火把神);
@@ -1844,8 +2005,15 @@ public class Hero extends Char {
 
         bundle.put(之前健身x,之前健身);
         bundle.put(现在健身x,现在健身);
+        bundle.put(缩小引擎x,缩小引擎);
+        bundle.put(坦克引擎x,坦克引擎);
+        bundle.put(击杀数量x,击杀数量);
+        bundle.put(属性翻倍x,属性翻倍);
         bundle.put(单身x, 单身);
         bundle.put(进阶x, 进阶);
+        bundle.put(奥术x, 奥术);
+        bundle.put(第1层天赋x, 第1层天赋);
+        bundle.put(第2层天赋x, 第2层天赋);
         bundle.put(幸运转世x,幸运转世);
         bundle.put(科学狂人x,科学狂人);
         bundle.put(重生怪物x, 重生怪物);
@@ -1855,10 +2023,20 @@ public class Hero extends Char {
         bundle.put( 视野范围getx, 视野范围get);
         bundle.put( 最大生命getx, 最大生命get);
         bundle.put( 最大护甲getx, 最大护甲get);
+        bundle.put( 攻速getx, 攻速get);
+        bundle.put( 移速getx, 移速get);
+        bundle.put( 命中getx, 命中get);
+        bundle.put( 闪避getx, 闪避get);
+        bundle.put( 攻击getx, 攻击get);
+        bundle.put( 防御getx, 防御get);
+        bundle.put( 力量getx, 力量get);
+        bundle.put( 魔力getx, 魔力get);
         bundle.put( 死亡次数x, 死亡次数);
         bundle.put( 破坏物体x, 破坏物体);
 
         bundle.put( 生命成长x, 生命成长);
+        bundle.put( 护甲成长x, 护甲成长);
+        bundle.put( 再生成长x, 再生成长);
         bundle.put( 攻击成长x, 攻击成长);
         bundle.put( 防御成长x, 防御成长);
         bundle.put( 攻速成长x, 攻速成长);
@@ -1873,7 +2051,7 @@ public class Hero extends Char {
         bundle.put( 穿甲成长x, 穿甲成长);
         bundle.put( 穿透成长x, 穿透成长);
 
-        bundle.put( 之前攻击延迟x, 之前攻击延迟);
+        bundle.put( 增加攻击的攻速x, 增加攻击的攻速);
         bundle.put(EXPERIENCE, 当前经验);
 
         bundle.put(HTBOOST, HTBoost);
@@ -1905,6 +2083,7 @@ public class Hero extends Char {
         等级 = bundle.getInt(LEVEL);
         力量 = bundle.getFloat(力量x);
         魔力 = bundle.getFloat(魔力x);
+        磨刀= bundle.getFloat(磨刀x);
         武器力量= bundle.getInt(武器力量x);
         根骨 = bundle.getInt(根骨x);
         火把神 = bundle.getInt(火把神x);
@@ -1923,8 +2102,15 @@ public class Hero extends Char {
         
         之前健身= bundle.getFloat(之前健身x);
         现在健身= bundle.getFloat(现在健身x);
+        缩小引擎= bundle.getFloat(缩小引擎x);
+        坦克引擎= bundle.getFloat(坦克引擎x);
+        击杀数量= bundle.getFloat(击杀数量x);
+        属性翻倍= bundle.getFloat(属性翻倍x);
         单身 = bundle.getBoolean(单身x);
         进阶 = bundle.getBoolean(进阶x);
+        奥术 = bundle.getBoolean(奥术x);
+        第1层天赋 = bundle.getBoolean(第1层天赋x);
+        第2层天赋 = bundle.getBoolean(第2层天赋x);
         幸运转世= bundle.getInt(幸运转世x);
         科学狂人= bundle.getFloat(科学狂人x);
         重生怪物 = bundle.getString(重生怪物x);
@@ -1934,10 +2120,20 @@ public class Hero extends Char {
         视野范围get = bundle.getInt( 视野范围getx );
         最大生命get = bundle.getFloat( 最大生命getx );
         最大护甲get = bundle.getFloat( 最大护甲getx );
+        攻速get = bundle.getFloat( 攻速getx );
+        移速get = bundle.getFloat( 移速getx );
+        命中get = bundle.getFloat( 命中getx );
+        闪避get = bundle.getFloat( 闪避getx );
+        攻击get = bundle.getFloat( 攻击getx );
+        防御get = bundle.getFloat( 防御getx );
+        力量get = bundle.getFloat( 力量getx );
+        魔力get = bundle.getFloat( 魔力getx );
         死亡次数 = bundle.getInt( 死亡次数x );
         破坏物体 = bundle.getInt( 破坏物体x );
 
         生命成长 = bundle.getFloat( 生命成长x );
+        护甲成长 = bundle.getFloat( 护甲成长x );
+        再生成长 = bundle.getFloat( 再生成长x );
         攻击成长 = bundle.getFloat( 攻击成长x );
         防御成长 = bundle.getFloat( 防御成长x );
         攻速成长 = bundle.getFloat( 攻速成长x );
@@ -1951,10 +2147,11 @@ public class Hero extends Char {
         治疗成长 = bundle.getFloat( 治疗成长x );
         穿甲成长 = bundle.getFloat( 穿甲成长x );
         穿透成长 = bundle.getFloat( 穿透成长x );
-        之前攻击延迟 = bundle.getFloat( 之前攻击延迟x );
+        增加攻击的攻速 = bundle.getFloat( 增加攻击的攻速x );
         当前经验 = bundle.getInt(EXPERIENCE);
 
         HTBoost = bundle.getInt(HTBOOST);
+
 
         if (bundle.contains("海克斯1")){
             Bundle replacements = bundle.getBundle("海克斯1");
@@ -2053,7 +2250,7 @@ public class Hero extends Char {
     }
 
     public boolean 天赋概率(Talent talent, int x) {
-        return Random.Int(1, 100) <= 天赋点数(talent,x) + (x == 33 ? 1 : 0);
+        return 算法.概率学(天赋点数(talent,x));
     }
 
     public int 天赋点数(Talent talent, int x) {
@@ -2383,9 +2580,10 @@ public class Hero extends Char {
     @Override
     public float 增加命中() {
         float x=0;
-        x+=天赋点数(Talent.集中,0.1f);
         x *= 综合属性();
         x*=命中之戒.命中(this);
+        x*=1+天赋点数(Talent.舞动身法,0.05f);
+        x*=1+天赋点数(Talent.集中,0.1f);
         return x;
     }
     @Override
@@ -2393,6 +2591,7 @@ public class Hero extends Char {
         KindOfWeapon wep = belongings.attackingWeapon();
         float accuracy=Math.round((最大命中 + (等级 - 1) * 1.2f));
         accuracy+=命中成长;
+        accuracy+=自适应属性("命中");;
         accuracy+=天赋点数(Talent.顶福精华, 10);
         if(符文("属性转换"))accuracy+=最大闪避(target);
 
@@ -2457,8 +2656,9 @@ public class Hero extends Char {
                 accuracy*=belongings.secondWep.accuracyFactor(this, target);
             }
         }
-        
-        
+
+
+        命中get=accuracy;
         return Math.max(1, Math.round(accuracy));
     }
 	//endregion
@@ -2481,7 +2681,6 @@ public class Hero extends Char {
     public float 增加闪避() {
         float x=0;
         if(重生怪物.equals("下水道巨蛇"))x+=5f;
-        x+=天赋点数(Talent.躲避,0.075f);
 
         x+=天赋点数(Talent.猫反应7,0.175f)*根据已损失生命();
         if(符文("最后生还者")&&半血以下())x*=1.45;
@@ -2489,6 +2688,8 @@ public class Hero extends Char {
         x *= 综合属性();
         x*=闪避之戒.闪避(this);
 
+        x*=1+天赋点数(Talent.舞动身法,0.05f);
+        x*=1+天赋点数(Talent.躲避,0.1f);
         return x;
     }
     @Override
@@ -2507,6 +2708,7 @@ public class Hero extends Char {
 
         float evasion = (最大闪避 + Math.round((等级 - 1) * 1.2f));
 
+        evasion += 自适应属性("闪避");;
         evasion += 天赋点数(Talent.顶福精华, 5);
 
         float evasionx=1;
@@ -2537,8 +2739,9 @@ public class Hero extends Char {
         }
         //stone specifically overrides to 0 always, guaranteed hit
         if (belongings.armor() != null&&belongings.armor().hasGlyph(Stone.class, this) && !Stone.testingEvasion()){
-            return 0;
+            evasion=0;
         }
+        命中get=evasion;
         return Math.max(1, Math.round(evasion));
     }
 	//endregion
@@ -2608,7 +2811,7 @@ public class Hero extends Char {
         }
         if(天赋(Talent.砂之守护)){
             int 墙体数量=0;
-            for (int i : PathFinder.相邻8){
+            for (int i : PathFinder.相邻){
                 if(Dungeon.level.在墙体(i+pos))墙体数量++;
             }
             x+=天赋点数(Talent.砂之守护,0.1f)*墙体数量;
@@ -2674,6 +2877,7 @@ public class Hero extends Char {
         if (thorns != null) {
             dr+=(thorns.itemLevel()+1)*最大护甲();
         }
+        dr+=自适应属性("防御");
         if(符文("防御的宠爱"))dr+=第x次防御*0.05f;
         if(符文("装备黄金之心"))dr+=10;
         if(符文("铜皮铁骨"))dr+=力量()*4.5f;
@@ -2698,7 +2902,7 @@ public class Hero extends Char {
         if (heroClass(HeroClass.血鬼)) {
             dr+=最大生命(0.05f);
         }
-        dr+=天赋点数(Talent.坚韧,1.5f);
+        dr+=天赋点数(Talent.坚韧,3.75f);
         
         if(hasbuff(装甲之戒.装甲.class)){
             
@@ -2712,6 +2916,7 @@ public class Hero extends Char {
 
         dr*=1+天赋点数(Talent.钢铁甲胄,0.4f);
         dr*=增加防御();
+        防御get=dr;
         return dr;
     }
     public boolean 空手(){
@@ -2731,10 +2936,11 @@ public class Hero extends Char {
     }
     @Override
     public float 最小攻击() {
-        Weapon wep = belongings.attackingWeapon();
+        Weapon wep =null;
+        if(belongings!=null)wep=belongings.attackingWeapon();
         float dmg=0;
         
-        if (武力之戒.fightingUnarmed(this)) {//空手
+        if (空手()) {//空手
             dmg += 武力之戒.heromin();
 //            if (武力之戒.unarmedGetsWeaponAugment(this)) {
 //                dmg += belongings.attackingWeapon().augment.damageFactor(dmg);
@@ -2743,23 +2949,30 @@ public class Hero extends Char {
                 dmg += 武力之戒.min();
             }
         } else {
-            if(belongings.thrownWeapon!=null){
-                dmg += wep.最小投掷攻击();
-                
-            }else if(wep!=null){
-                if(belongings.secondWep==null){
-                    dmg += wep.最小攻击();
-                }else{
-                    
-                    dmg += wep.最小攻击()*(0.5+(职业精通()?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
-                    dmg += belongings.secondWep.最小攻击()*(0.5+(职业精通()?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
-                }
-                if(wep.拳套()){
-                    dmg += 武力之戒.heromin();
-                    if(hasbuff(武力之戒.Force.class)){
-                        dmg += 武力之戒.min();
+            if(belongings!=null){
+                if(belongings.thrownWeapon!=null){
+                    dmg+=wep.最小投掷攻击();
+
+                }else
+                    if(wep!=null){
+                        if(belongings.secondWep==null){
+                            dmg+=wep.最小攻击();
+                        }else{
+
+                            dmg+=wep.最小攻击()*(0.5+(职业精通()?
+                                                              0.1f:
+                                                              0)+天赋点数(Talent.复合损伤,0.1f));
+                            dmg+=belongings.secondWep.最小攻击()*(0.5+(职业精通()?
+                                                                               0.1f:
+                                                                               0)+天赋点数(Talent.复合损伤,0.1f));
+                        }
+                        if(wep.拳套()){
+                            dmg+=武力之戒.heromin();
+                            if(hasbuff(武力之戒.Force.class)){
+                                dmg+=武力之戒.min();
+                            }
+                        }
                     }
-                }
             }
         }
 
@@ -2803,9 +3016,12 @@ public class Hero extends Char {
         if(符文("盘古开天")&&belongings.weapon!=null&belongings.weapon.斧()) x+=0.35f;
         if(符文("齐天大圣")&&belongings.weapon!=null&belongings.weapon.棍()) x+=0.45f;
         if(符文("闪电五连鞭")&&belongings.weapon!=null&belongings.weapon.鞭()) x+=0.5f;
+        if(符文("磨刀霍霍向猪羊")&&belongings.weapon!=null&belongings.weapon.刀()) x+=磨刀;
+
+        if(belongings.weapon instanceof 灵鞭) x+=天赋点数(Talent.灵鞭强化,0.25f);
 
 
-        float delay = 之前攻击延迟;
+        float delay = 增加攻击的攻速;
         if (SPDSettings.固定攻速() == 1) {
             x/=delay;
         }
@@ -2815,10 +3031,11 @@ public class Hero extends Char {
     
     @Override
     public float 最大攻击() {
-        Weapon wep = belongings.attackingWeapon();
+        Weapon wep =null;
+        if(belongings!=null)wep=belongings.attackingWeapon();
         float dmg=0;
 
-        if (武力之戒.fightingUnarmed(this)) {//空手
+        if (空手()) {//空手
             dmg+= 武力之戒.heromax();
 //            if (武力之戒.unarmedGetsWeaponAugment(this)) {
 //                dmg += belongings.attackingWeapon().augment.damageFactor(dmg);
@@ -2827,26 +3044,32 @@ public class Hero extends Char {
                 dmg+=武力之戒.max();
             }
         } else {
-            if(belongings.thrownWeapon!=null){
-                dmg += wep.最大投掷攻击();
-            }else if(wep!=null){
-                if(belongings.secondWep==null){
-                    dmg += wep.最大攻击();
-                }else{
-                    dmg += wep.最大攻击()*(0.5+(职业精通()?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
-                    dmg += belongings.secondWep.最大攻击()*(0.5+(职业精通()?0.1f:0)+天赋点数(Talent.复合损伤,0.1f));
-                }
-                if(wep.拳套()){
-                    dmg+= 武力之戒.heromax();
-                    if(hasbuff(武力之戒.Force.class)){
-                        dmg += 武力之戒.max();
+            if(belongings!=null){
+                if(belongings.thrownWeapon!=null){
+                    dmg+=wep.最大投掷攻击();
+                }else
+                    if(wep!=null){
+                        if(belongings.secondWep==null){
+                            dmg+=wep.最大攻击();
+                        }else{
+                            dmg+=wep.最大攻击()*(0.5+(职业精通()?
+                                                              0.1f:
+                                                              0)+天赋点数(Talent.复合损伤,0.1f));
+                            dmg+=belongings.secondWep.最大攻击()*(0.5+(职业精通()?
+                                                                               0.1f:
+                                                                               0)+天赋点数(Talent.复合损伤,0.1f));
+                        }
+                        if(wep.拳套()){
+                            dmg+=武力之戒.heromax();
+                            if(hasbuff(武力之戒.Force.class)){
+                                dmg+=武力之戒.max();
+                            }
+                        }
+                        if(hasbuff(武力之戒.Force.class)){
+                            dmg+=武力之戒.max(武力之戒.getBuffedBonus(this,武力之戒.Force.class),1);
+                        }
                     }
-                }
-                if(hasbuff(武力之戒.Force.class)){
-                    dmg+= 武力之戒.max(武力之戒.getBuffedBonus(this,武力之戒.Force.class),1);
-                }
             }
-            
         }
         if(Dungeon.系统(系统设置.金币能力)){
             dmg+=Dungeon.gold/50f;
@@ -2870,16 +3093,18 @@ public class Hero extends Char {
         if(符文("攻击的宠爱"))dmg+=第x次攻击*0.05f;
         if(符文("防御转攻击"))dmg+=最大防御();
 
+        dmg+=自适应属性("攻击");
         if(符文("属性转换"))dmg+=最大防御();
         if(符文("残暴之力"))dmg+=35f;
         dmg+=最大防御()*(天赋点数(Talent.以攻为守,0.25f));
         征服 z=buff(征服.class);
         if(z!=null)dmg+=z.层数*天赋点数(Talent.战争热诚,3);
         dmg+=攻击成长;
-        dmg+=天赋点数(Talent.猛攻,2.5f);
+        dmg+=天赋点数(Talent.猛攻,8.75f);
         dmg*=破损短剑.减少();
         dmg*=增加攻击();
         if (dmg < 0) dmg = 0;
+        攻击get=dmg;
         return dmg;
     }
 
@@ -2908,9 +3133,10 @@ public class Hero extends Char {
             移速+=(力量()-10)*属性增幅/2f*(天赋点数(Talent.快速布阵,0.5f));
         }
 
+        if(符文("缩小引擎"))移速+=0.04f*缩小引擎;
         if(天赋(Talent.浮石冲浪)){
             int 墙体数量=0;
-            for (int i : PathFinder.相邻8){
+            for (int i : PathFinder.相邻){
                 if(Dungeon.level.在墙体(i+pos))墙体数量++;
             }
             移速+=天赋点数(Talent.浮石冲浪,0.1f)*墙体数量;
@@ -2924,6 +3150,7 @@ public class Hero extends Char {
         if(hasbuff(Invisibility.class))
             移速+=天赋点数(Talent.偷袭姿态,0.2f);
 
+        移速+=自适应属性("移速");
         移速+=天赋点数(Talent.速跑,0.075f);
 
         if(符文("嗜血")){
@@ -3008,6 +3235,7 @@ public class Hero extends Char {
         if(符文("科学狂人")&&科学狂人==-0.3f)
             移速*=1.6f;
 
+        移速*=1+天赋点数(Talent.舞动身法,0.05f);
         移速*= 综合属性();
         //region x
         speed*=移速;
@@ -3033,20 +3261,26 @@ public class Hero extends Char {
         }
 
         if (SPDSettings.固定移速() == 5) {
+            移速get=speed;
             return speed;
         }
         if (SPDSettings.固定移速() == 4) {
+            移速get=speed;
             return speed >= 4 ? 4 : speed;
         }
         if (SPDSettings.固定移速() == 3) {
+            移速get=speed;
             return speed >= 3 ? 3 : speed;
         }
         if (SPDSettings.固定移速() == 2) {
+            移速get=speed;
             return speed >= 2 ? 2 : speed;
         }
         if (SPDSettings.固定移速() == 1) {
+            移速get=speed;
             return speed >= 1 ? 1 : speed;
         }
+        移速get=speed;
         //护符正在_使你减速_，并阻止了一切加速效果！
 //        speed = AscensionChallenge.modifyHeroSpeed(speed);
         return speed;
@@ -3094,7 +3328,7 @@ public float 攻击延迟() {
         float delay = 1;
         if(空手())delay=0.5f;
 
-    if (!武力之戒.fightingUnarmed(this)) {
+    if (!空手()) {
         delay =belongings.attackingWeapon().delayFactor(this);
 
     } else{
@@ -3121,6 +3355,7 @@ public float 攻击延迟() {
 
     //region +
     float 攻速=1;
+    攻速+=自适应属性("攻速");
     攻速+=天赋点数(Talent.快攻,0.1f);
     攻速+=狂怒之戒.attackSpeedMultiplier(this)-1;
     if(空手()){
@@ -3191,8 +3426,10 @@ public float 攻击延迟() {
     delay/=综合属性();
 
     if(天赋(Talent.符文势力)&&hasbuff(战斗状态.class))delay/=1+天赋点数(Talent.符文势力,0.2f);
+    delay/=1+天赋点数(Talent.舞动身法,0.05f);
     if(符文("双刀流"))delay/=1.2f;
     if(符文("闪电打击"))delay/=1.2f;
+    if(符文("无限火力"))delay/=2;
     if(符文("空手道"))delay*=2;
     //endregion
 
@@ -3200,23 +3437,31 @@ public float 攻击延迟() {
     //            if (buff(弯刀.SwordDance.class)!=null) {
     //                delay /= 1.6f;
     //            }
+
             if (SPDSettings.固定攻速() >= 5) {
+                攻速get=1/delay;
                 return delay;
             }
             if (SPDSettings.固定攻速() ==4) {
+                攻速get=1/delay;
                 return Math.max(delay,1/4f);
             }
             if (SPDSettings.固定攻速() ==3) {
+                攻速get=1/delay;
                 return Math.max(delay,1/3f);
             }
             if (SPDSettings.固定攻速() ==2) {
+                攻速get=1/delay;
                 return Math.max(delay,1/2f);
             }
             if (SPDSettings.固定攻速() == 1||subClass(HeroSubClass.灵月杀手)||符文("一板一眼")) {
-                if(之前攻击延迟!=1)
-                之前攻击延迟=delay;
+                if(增加攻击的攻速!=1)
+                增加攻击的攻速=delay;
+
+                攻速get=1/delay;
                 return delay <= 1 ? 1 : delay;
             }
+            攻速get=1/delay;
             return delay;
     }
 
@@ -3383,8 +3628,8 @@ public float 攻击延迟() {
                 x+=0.1f;
         }
         if(女人())x-=0.1f;
-        if(符文("缩小引擎"))x-=0.02f*等级;
-        if(符文("坦克引擎"))x+=0.01f*等级;
+        if(符文("缩小引擎"))x-=0.02f*缩小引擎;
+        if(符文("坦克引擎"))x+=0.025f*坦克引擎;
         if(belongings.hasItem(心之钢.class))x+=(1+belongings.getItem(心之钢.class).等级())*0.025f;
         大小=1+x;
 
@@ -3399,10 +3644,11 @@ public float 攻击延迟() {
         if(种族天赋.equals("恶魔"))x-=0.4f;
         if(subClass(HeroSubClass.祭司))x+=0.35f;
         if(符文("吸血鬼"))x+=吸血()+全能吸血();
+        if(符文("无限火力"))x-=0.5f;
         if(符文("急救用具"))x+=0.25f;
         if(符文("多克特"))x+=0.60f;
         if(符文("蛋白粉奶昔"))x+=0.175f+最大防御()/200f;
-        if(Dungeon.炼狱(炼狱设置.治疗禁令))x-=0.5f;
+        if(Dungeon.炼狱(炼狱设置.非酋玩家))x-=0.5f;
         x+=天赋点数(Talent.冰封领域,0.25f);
         x+=天赋点数(Talent.死亡抗拒,0.45f)*根据已损失生命();
 
@@ -3411,6 +3657,7 @@ public float 攻击延迟() {
     @Override
     public boolean act(){
         //        算法.调试(Holiday.getCurrentHoliday()+"");
+        算法.调试("自适应属性为"+自适应属性());
         if(subClass(HeroSubClass.冰结师)){
             GameScene.add(Blob.seed(pos,Math.round(5*(1+天赋点数(Talent.寒冰之境,0.25f))),Freezing.class));
             if(职业精通())
@@ -3420,8 +3667,7 @@ public float 攻击延迟() {
         Dungeon.地牢时间++;
         if(Dungeon.地牢时间%2400==0){
             Dungeon.地牢天数++;
-            int 地牢天数=Dungeon.地牢天数;
-
+            if(符文("每日属性翻倍")&&属性翻倍!=1024)属性翻倍*=2;
             if(符文("解除人体限制的诅咒")){
                 属性成长+=0.001f;
                 if(Dungeon.地牢天数>=Dungeon.地牢寿命)
@@ -3483,6 +3729,31 @@ public float 攻击延迟() {
         if(符文("红包")&&算法.概率学(1/240f))
             new 红包().放背包();
 
+        if(符文("我不是人我只是个怪物")&&算法.概率学(1/9f)){
+            new Flare(5,32).color(0xFF0000,true).show(sprite,2f);
+
+            int count=0;
+            Mob affected=null;
+            for(Mob mob: Dungeon.level.mobs.toArray(new Mob[0])){
+                if(mob.alignment!=Char.Alignment.ALLY&&Dungeon.level.heroFOV[mob.pos]){
+                    Buff.施加(mob,Terror.class,Terror.DURATION).object=id();
+
+                    if(mob.buff(Terror.class)!=null){
+                        count++;
+                        affected=mob;
+                    }
+                }
+            }
+        }
+        if(符文("我还以为减速带呢")){
+            for (int n : PathFinder.相邻){
+                Char c= Actor.findChar(pos+n);
+                if(c!=null&&c.alignment == Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
+                    if(移速()>=c.移速()*3||大小>=c.大小*1.5f)
+                    Buff.施加(c, Grim.GrimTracker.class).maxChance = 100f;
+                }
+            }
+        }
         if(符文("慢炖")){
             sprite.领域(0x3399FF,2);
             for (int n : PathFinder.范围2){
@@ -3643,7 +3914,7 @@ public float 攻击延迟() {
                 }
             }
         }
-        float 护甲恢复=1+天赋点数(Talent.硬肤,0.125f);
+        float 护甲恢复=1+天赋点数(Talent.硬肤,0.15f);
         if(belongings.armor!=null&&belongings.armor.荣誉纹章!=null)护甲恢复+=belongings.armor.荣誉纹章.等级()*0.15f;
         if(符文("护甲是生命"))
             护甲恢复+=buff(再生.class).partialRegen*2;
@@ -3651,12 +3922,12 @@ public float 攻击延迟() {
         if(subClass(HeroSubClass.皇室卫兵))
             护甲恢复*=5+(职业精通()?4:0);
         if(符文("恢复恢复"))护甲恢复*=3.5f;
-        if(符文("升级荣耀纹章"))护甲恢复*=6.5f;
+        if(符文("升级荣誉纹章"))护甲恢复*=6.5f;
         护甲恢复*=恢复之戒.恢复(this);
         护甲(1/150f*护甲恢复);
         
         if(hasbuff(ElixirOfFeatherFall.FeatherBuff.class))
-        for (int n : PathFinder.相邻8){
+        for (int n : PathFinder.相邻){
             if(nobuff(Levitation.class)||(hasbuff(Levitation.class)&&buff(Levitation.class).cooldown()<=2.5f)){
                 if(Dungeon.level.pit[pos+n]||
                    Dungeon.level.map[pos+n]==Terrain.CHASM||
@@ -3723,7 +3994,7 @@ public float 攻击延迟() {
                     item instanceof EnergyCrystal||
                     item instanceof Dewdrop)
                 ok=true;
-
+                if(item.丢过)ok=false;
                 if (ok&&item.doPickUp(this)) {
                     heap.pickUp();
                     水袋 flask = belongings.getItem(水袋.class);
@@ -3849,12 +4120,14 @@ public float 攻击延迟() {
     }
     @Override
     public float 最大护甲(){
-        float 最大护甲=3+等级;
-        if(进阶)最大护甲+=5;
+        float 最大护甲=2+等级;
+        if(进阶)最大护甲+=2;
+        最大护甲+=护甲成长;
+        最大护甲+=自适应属性("护甲");;
         if(heroClass(HeroClass.逐姝))最大护甲+=等级/2f;
         if(符文("力量的护甲"))最大护甲+=力量();
         if(符文("全副武装"))最大护甲+=最大生命get*0.7f*3;
-        if(符文("升级荣耀纹章")&&belongings.armor!=null&&belongings.armor.荣誉纹章!=null)最大护甲+=belongings.armor.tier+belongings.armor.强化等级();
+        if(符文("升级荣誉纹章")&&belongings.armor!=null&&belongings.armor.荣誉纹章!=null)最大护甲+=belongings.armor.tier+belongings.armor.强化等级();
 
 
         if(符文("钢铁意志"))最大护甲*=1+根据已损失生命()*3;
@@ -4213,7 +4486,7 @@ public float 攻击延迟() {
                     public void call() {
 
                         boolean crystalAdjacent = false;
-                        for (int i : PathFinder.相邻8) {
+                        for (int i : PathFinder.相邻) {
                             if (Dungeon.level.map[action.dst + i] == Terrain.MINE_CRYSTAL) {
                                 crystalAdjacent = true;
                                 break;
@@ -4264,10 +4537,10 @@ public float 攻击延迟() {
                             Level.set(action.dst, Terrain.EMPTY_DECO);
                         }
 
-                        for (int i : PathFinder.自相邻8) {
+                        for (int i : PathFinder.自相邻) {
                             Dungeon.level.discoverable[action.dst + i] = true;
                         }
-                        for (int i : PathFinder.自相邻8) {
+                        for (int i : PathFinder.自相邻) {
                             GameScene.updateMap(action.dst + i);
                         }
 
@@ -4276,7 +4549,7 @@ public float 攻击延迟() {
                                 @Override
                                 protected void onComplete() {
                                     boolean broke = false;
-                                    for (int i : PathFinder.相邻8) {
+                                    for (int i : PathFinder.相邻) {
                                         if (Dungeon.level.map[action.dst + i] == Terrain.MINE_CRYSTAL) {
                                             Splash.at(action.dst + i, 0xFFFFFF, 5);
                                             Level.set(action.dst + i, Terrain.EMPTY);
@@ -4287,7 +4560,7 @@ public float 攻击延迟() {
                                         Sample.INSTANCE.play(Assets.Sounds.SHATTER);
                                     }
 
-                                    for (int i : PathFinder.自相邻8) {
+                                    for (int i : PathFinder.自相邻) {
                                         GameScene.updateMap(action.dst + i);
                                     }
                                     spendAndNext(TICK);
@@ -4405,7 +4678,7 @@ public float 攻击延迟() {
     @Override
     public int 暴击率(){
         
-        int 暴击率=super.暴击率()-6;
+        int 暴击率=幸运之戒.暴击率(this);
 
         if(种族天赋.equals("兽人"))暴击率+=20;
         if(符文("暴击率的宠爱")) 暴击率+=第x次攻击*0.001f;
@@ -4437,18 +4710,20 @@ public float 攻击延迟() {
         if (在草丛()) {
             暴击率+=天赋点数(Talent.丛林法则,12);
         }
-        暴击率+=幸运之戒.暴击率(this);
 
         if(符文("浪客之道")) 暴击率*=2.5f;
         return 暴击率;
     }
     @Override
     public float 暴击伤害(){
+        int 暴击率判定=暴击率();
+        if(欧皇())暴击率判定*=2;
+        if(非酋())暴击率判定/=2;
         float 暴击伤害=super.暴击伤害();
-        if(暴击率()>100){
+        if(暴击率判定>100){
             if(符文("暴伤暴伤"))
-            暴击伤害+=暴击率()/100f;
-            else 暴击伤害+=暴击率()/300f;
+            暴击伤害+=暴击率判定/100f;
+            else 暴击伤害+=暴击率判定/300f;
         }
         if(belongings.attackingWeapon() instanceof 无尽之刃){
             暴击伤害+=0.3f;
@@ -4456,7 +4731,7 @@ public float 攻击延迟() {
         暴击伤害+= 暴伤成长;
 
 
-        if(符文("升级无尽之刃")&&belongings.weapon instanceof 无尽之刃)暴击伤害+=暴击率()/200f;
+        if(符文("升级无尽之刃")&&belongings.weapon instanceof 无尽之刃)暴击伤害+=暴击率判定/200f;
 
         if(hasbuff(Invisibility.class)){
             if(belongings.weapon instanceof 变态刀)
@@ -4488,7 +4763,7 @@ public float 攻击延迟() {
             dmg*=暴击伤害();
 
         if((必暴||算法.概率学(暴击率()))){
-            if(符文("会心治疗")) dmg*=0.75f;
+            if(符文("会心治疗")) dmg*=暴击伤害();
 
             dmg*=暴击伤害();
             if(符文("暴击暴击")&&(必暴||算法.概率学(暴击率()))) dmg*=1.45f;
@@ -4507,11 +4782,16 @@ public float 攻击延迟() {
             必暴=false;
             x次必暴=0;
         }else {
-
             x次必暴++;
             if(暴击率()!=0&&x次必暴>=600/暴击率()){
                 必暴=true;
                 sprite.说("手感火热！");
+                if(enemy!=null&&符文("双发快射")){
+                    float finalDmg=dmg;
+                    扔出(enemy.pos,new 魔法箭矢(),()->{
+                        Buff.施加( enemy, 伤害.class).level+=finalDmg;
+                    });
+                }
             }
         }
         if(暴击了&&符文("冰霜之书")&&enemy!=null)算法.修复效果(()->{
@@ -4535,6 +4815,7 @@ public float 攻击延迟() {
             x++;
         if(英精英雄==1)
             x+=3;
+
 
         x+=天赋点数(Talent.控物术法,2);
         x+=天赋点数(Talent.杀意波动);
@@ -4586,6 +4867,8 @@ public float 攻击延迟() {
     public float 攻击时(final Char enemy, float damage) {
         damage = super.攻击时(enemy, damage);
         damage = Talent.攻击时(this, enemy, damage);
+
+
         if(enemy!=null&&符文("你好我能换个位置吗"))
         Actor.add( new Swap(this,enemy ));
 
@@ -4631,6 +4914,8 @@ public float 攻击延迟() {
         }
 
         if(enemy!=null&&Dungeon.符文("装备星蚀")&&nobuff(星蚀冷却.class))Buff.施加(this,星蚀.class,2).set(1,enemy);
+
+        if(enemy!=null&&subClass(HeroSubClass.圣女))Buff.施加(enemy,仙法.class,3).set(1,this);
 
         if (enemy!=null&&符文("纪元")&&hasbuff(被发现.class))damage+=enemy.buff(被发现.class).visualcooldown()*5;
 
@@ -4699,6 +4984,11 @@ public float 攻击延迟() {
             damage += conservedDamage;
         }
 
+        if(符文("吸收痛苦"))
+        if (enemy!=null&&buff(吸收痛苦.class)!=null) {
+            if(enemy.isAlive())enemy.受伤时(buff(吸收痛苦.class).痛苦(),吸收痛苦.class);
+        }
+
 
         //endregion
 
@@ -4735,14 +5025,19 @@ public float 攻击延迟() {
             Buff.施加(this,疾射火炮.class,10);
         }
         if(enemy!=null&&(符文("飞身踢")||符文("即死"))){
+            if(符文("飞身踢"))
             回百分比血(0.05f);
+
             if(enemy.生命<=
                (符文("即死")?enemy.最大生命(0.25f):0)
                +(符文("飞身踢")?最大生命(0.2f):0))
                 Buff.施加(enemy, Grim.GrimTracker.class).maxChance = 100f;
         }
 
-        if(符文("我开挂了"))
+        if(enemy!=null&&符文("当头一棒")&&算法.概率学(1/3f))
+            Buff.延长(enemy,Paralysis.class,3);
+
+        if(enemy!=null&&符文("我开挂了"))
             Buff.施加(enemy, Grim.GrimTracker.class).maxChance = 100f;
 
         if (enemy!=null&&subClass == HeroSubClass.征服者) {
@@ -5179,7 +5474,7 @@ public float 攻击延迟() {
         if(英精英雄==3)damage*=0.2f;
 
         if(enemy!=null)
-        for (int n : PathFinder.相邻8){
+        for (int n : PathFinder.相邻){
             Char c=Actor.findChar(pos+n);
             int x=0;
             if(c!=null){
@@ -5206,7 +5501,7 @@ public float 攻击延迟() {
             Buff.施加(enemy, Amok.class, 6);
         if(enemy!=null&&heroClass(HeroClass.鼠弟)){
             Sample.INSTANCE.play(Assets.Sounds.RAT);
-            for (int n : PathFinder.相邻8){
+            for (int n : PathFinder.相邻){
                 Char c= Actor.findChar(pos+n);
                 if(c!=null&&c.alignment == Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
 
@@ -5301,6 +5596,7 @@ public float 攻击延迟() {
         if(src instanceof Mob mob){
             dmg*=mob.伤害();
         }
+        if(符文("区区致命伤"))dmg*=1-根据已损失生命()*0.9f;
         if(符文("我开挂了"))dmg*=3;
         if(符文("末法"))dmg*=0.8f;
 
@@ -5309,6 +5605,8 @@ public float 攻击延迟() {
         if(符文("坚固壁垒")&&dmg>=生命(0.1f)){
             dmg/=2f;
         }
+
+        if(符文("千锤百炼"))生命成长+=dmg*0.03f;
         if (buff(Talent.WarriorFoodImmunity.class) != null) {
             if (heroClass(HeroClass.学士)) {
                 dmg = 0f;
@@ -5401,6 +5699,9 @@ public float 攻击延迟() {
 
                 if(符文("天狗的宠爱"))Buff.施加(target,伤害.class).level=最大攻击()*0.5f;
 
+                if(符文("你也不想被发现吧"))
+                    Buff.延长(target,Paralysis.class,5);
+
                 if(符文("我的刀盾")&&target.豺狼())
                     Buff.施加(target, Corruption.class);
 
@@ -5473,20 +5774,33 @@ public float 攻击延迟() {
         if (subClass == HeroSubClass.时间刺客&&hasbuff(时光沙漏.timeFreeze.class)&&天赋(Talent.穿越零界)) {
             if(Dungeon.level.solid[target]&&Dungeon.level.distance(pos,target)<=1&&实体墙(天赋点数(Talent.穿越零界))){
                 sprite.move(pos,target);
-                
-                move(target);
+
 
                 float delay = 1;
 
                 if (buff(GreaterHaste.class) != null) {
                     delay = 0;
                 }
+                sprite.move(pos, target);
                 spend(delay/ 移速());
                 
                 search(false);
                 interrupt();
                 return true;
             }
+        }
+        if(符文("传送")){
+            if (!Dungeon.level.solid[target])
+            if(distance(target)<=Math.round(1+0.65f*移速())){
+                传送卷轴.appear(Hero.this,target);
+
+                spend(1);
+
+                search(false);
+                interrupt();
+                return true;
+            }
+            return false;
         }
         if (target == pos){
             if(Dungeon.level.pit[target] && !Dungeon.level.solid[target]){
@@ -5744,8 +6058,8 @@ public float 攻击延迟() {
 //                Buff.施加(this, Barrier.class).设置(Math.round(x));
 //            }
         }
-
-        if(符文("会心治疗")&&暴击(null,1)>1)x=1.45f;
+        if(subClass(HeroSubClass.剑魔)&&职业精通())x*=1.6f;
+        if(符文("会心治疗")&&暴击(null,1)>1)x*=1.45f;
 
         if(符文("死亡之环"))
         for (int n : PathFinder.范围2){
@@ -5754,6 +6068,7 @@ public float 攻击延迟() {
                 c.受伤(x);
             }
         }
+        if(天赋概率(Talent.贪欲燔祭,Math.round(x)))Dungeon.level.drop(Generator.random(),pos).sprite.drop();
         super.回血(x);
     }
     
@@ -6002,6 +6317,11 @@ public float 攻击延迟() {
                 Dungeon.level.drop(Generator.random(),pos).sprite.drop();
             }
         }
+        if(符文("坦克引擎"))
+        坦克引擎=Math.max(0,坦克引擎*0.35f);
+        if(符文("缩小引擎"))
+        缩小引擎=Math.max(0,缩小引擎*0.35f);
+
         死亡次数++;
         if(cause!=null){
             Ankh ankh = null;
@@ -6117,7 +6437,7 @@ public float 攻击延迟() {
         int pos = Dungeon.hero.pos;
 
         ArrayList<Integer> passable = new ArrayList<>();
-        for (Integer ofs : PathFinder.相邻8) {
+        for (Integer ofs : PathFinder.相邻) {
             int cell = pos + ofs;
             if ((Dungeon.level.passable[cell] || Dungeon.level.avoid[cell]) && Dungeon.level.heaps.get(cell) == null) {
                 passable.add(cell);
@@ -6469,7 +6789,7 @@ public float 攻击延迟() {
             left = Math.max(0, left);
             for (curr = left + y * Dungeon.level.width(); curr <= right + y * Dungeon.level.width(); curr++) {
                 if (intentional) {
-                    if(Dungeon.level.mapped[curr] && Dungeon.level.visited[curr])
+                    if(Dungeon.level.visited[curr])
                     if(Dungeon.level.map[curr]!=Terrain.SECRET_TRAP&&Dungeon.level.map[curr]!=Terrain.TRAP){
                         Heap heap = Dungeon.level.heaps.get(curr);//搜索拾取
                         if (heap != null && (heap.type == Heap.Type.HEAP || heap.type == Heap.Type.CHEST)) {
@@ -6745,16 +7065,17 @@ public float 攻击延迟() {
     }
 
     public float 综合属性() {
-        float x = 1 + 天赋点数(Talent.任督二脉, 0.035f);
+        float x = 1 + 天赋点数(Talent.任督二脉, 0.035f) + 天赋点数(Talent.女中豪杰, 0.05f);
         if(belongings!=null&&belongings.hasItem(三叉戟.class)&&在水中()){
             x+=0.1f;
         }
         if(符文("子时已到")){
-            if(Dungeon.地牢时间>=2300||Dungeon.地牢时间<=100)x+=10;
+            if(Dungeon.地牢时间>=2300||Dungeon.地牢时间<=100)x+=5;
         }
         if(种族天赋.equals("人类"))x+=0.05f;
         if(种族天赋.equals("鲛人")&&在水中())x+=0.15f;
         if(种族天赋.equals("精灵")&&在草丛())x+=0.15f;
+        if(符文("每日属性翻倍"))x-=0.45f;
         if(符文("挑战之神"))
         x+=Challenges.activeChallenges()*0.25f;
         if(符文("炼狱之神"))
@@ -6806,7 +7127,6 @@ public float 攻击延迟() {
         if(符文("神殿的宠爱"))x+=0.15f;
         if(符文("流水的宠爱")&&在水中())x+=0.25f;
         if(符文("草木的宠爱")&&在草丛())x+=0.25f;
-        if(符文("缩小引擎"))x-=0.01f*等级;
         if(符文("草丛伦")&&hasbuff(Invisibility.class))
             x+=0.1f;
         x+=属性成长;
@@ -6841,6 +7161,7 @@ public float 攻击延迟() {
         if(符文("时间之神白野"))
         if(hasbuff(Swiftthistle.TimeBubble.class)||hasbuff(时光沙漏.timeFreeze.class))x*=3f;
         x*=六神之戒.六神之力(this);
+        if(符文("每日属性翻倍"))x*=属性翻倍;
         return x;
     }
 
@@ -6848,6 +7169,7 @@ public float 攻击延迟() {
     public float 吸血() {
         float 吸血 = 0;
         if(heroClass(HeroClass.WARRIOR))吸血+=0.025f;
+        if(subClass(HeroSubClass.剑魔))吸血+=0.07f;
         if(符文("日蚀"))吸血+=1f/攻击延迟()*0.05f;
         if(符文("不全能吸血"))吸血+=2*全能吸血();
         if(符文("战神"))吸血+=0.15f;
@@ -6900,6 +7222,7 @@ public float 攻击延迟() {
         }
         if(符文("升级全能吸血"))全能吸血+=2*吸血();
         if(符文("吸血习性"))全能吸血+=0.25f;
+        全能吸血 += 天赋点数(Talent.血饮狂舞, 0.0075f)*攻击范围();
         全能吸血 += 天赋点数(Talent.高级吸血, 0.015f);
         全能吸血+=吸血成长;
         return 全能吸血;
@@ -7112,7 +7435,7 @@ public float 攻击延迟() {
 
                                 //*** Wand of Prismatic Light ***
                             } else if (finalWandCls == WandOfPrismaticLight.class){
-                                for (int n : PathFinder.自相邻8) {
+                                for (int n : PathFinder.自相邻) {
                                     int c = cell+n;
 
                                     if (Dungeon.level.discoverable[c]) {
@@ -7409,8 +7732,8 @@ public float 攻击延迟() {
 
         ArrayList<Integer> spawnPoints = new ArrayList<>();
 
-        for (int i=0; i < PathFinder.相邻8.length;i++) {
-            int p = pos + PathFinder.相邻8[i];
+        for (int i=0; i < PathFinder.相邻.length;i++) {
+            int p = pos + PathFinder.相邻[i];
             if (Actor.findChar( p ) == null && Dungeon.level.passable[p]) {
                 spawnPoints.add( p );
             }
@@ -7516,7 +7839,7 @@ public float 攻击延迟() {
             }
             if(!(Actor.findChar(cell) == null
                  && (Dungeon.level.passable[cell] &&!Dungeon.level.solid[cell]))){
-                for(int i: PathFinder.相邻8){
+                for(int i: PathFinder.相邻){
                     if(Actor.findChar(cell+i)==null&&(Dungeon.level.passable[cell+i]&&!Dungeon.level.solid[cell+i])){
                         if(cell!=-1){
                             cell=cell+i;
@@ -7552,14 +7875,14 @@ public float 攻击延迟() {
         if (target != null) {
             
             hero.busy();
-            for (int i : PathFinder.相邻8) {
+            for (int i : PathFinder.相邻) {
                 Char mob = Actor.findChar(hero.pos + i);
                 if (mob != null && mob != hero && mob.alignment != Char.Alignment.ALLY) {
                     
                     hero.attack(mob, 1, 0, Char.INFINITE);
                     if (mob.pos == hero.pos + i && false){
                         Ballistica trajectory = new Ballistica(mob.pos, mob.pos + i, Ballistica.MAGIC_BOLT);
-                        int strength = 1;//击退
+                        int strength = 0;//击退
                         WandOfBlastWave.throwChar(mob,trajectory,strength,true,true,this);
                     }
                 }
@@ -7646,7 +7969,7 @@ public float 攻击延迟() {
             }
             if(!(Actor.findChar(cell) == null
                  && (Dungeon.level.passable[cell] &&!Dungeon.level.solid[cell]))){
-                for(int i: PathFinder.相邻8){
+                for(int i: PathFinder.相邻){
                     if(Actor.findChar(cell+i)==null&&(Dungeon.level.passable[cell+i]&&!Dungeon.level.solid[cell+i])){
                         if(cell!=-1){
                             cell=cell+i;
@@ -7801,6 +8124,12 @@ public float 攻击延迟() {
                 case 指环王:
                     s+= "所有戒指等级+3。";
                     break;
+                case 剑魔:
+                    s+= "自我回血的治疗效果+60%。";
+                    break;
+                case 圣女:
+                    s+= "满层的伤害和回血x3倍。";
+                    break;
                 case 黑白双子:
                     s+= "白猫受到伤害反馈-15%。";
                     break;
@@ -7892,7 +8221,7 @@ public float 攻击延迟() {
                                     Char toPush = Char.hasProp(existing, Char.Property.IMMOVABLE) ? Hero.this : existing;
 
                                     ArrayList<Integer> candidates = new ArrayList<>();
-                                    for (int n : PathFinder.相邻8) {
+                                    for (int n : PathFinder.相邻) {
                                         int cell = tracker.pos + n;
                                         if (!Dungeon.level.solid[cell] && Actor.findChar( cell ) == null
                                             && (!Char.hasProp(toPush, Char.Property.LARGE) || Dungeon.level.openSpace[cell])) {

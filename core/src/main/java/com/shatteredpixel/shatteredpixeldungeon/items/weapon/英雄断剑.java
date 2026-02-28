@@ -11,8 +11,8 @@ public class 英雄断剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		延迟=1.25f;
 		伤害=0.85f;
-		遗产=false;
 		特别=true;
+		遗产=false;
 		tier=5;
 	}
 	@Override

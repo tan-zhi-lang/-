@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.大杀四方;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.群魔乱舞;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 灵鞭 extends Weapon{
@@ -12,7 +12,7 @@ public class 灵鞭 extends Weapon{
 		image = 物品表.灵鞭;
 		
 		
-		技能=new 大杀四方();
+		技能=new 群魔乱舞();
 		tier = 1;
 
 		伤害=0.75f;

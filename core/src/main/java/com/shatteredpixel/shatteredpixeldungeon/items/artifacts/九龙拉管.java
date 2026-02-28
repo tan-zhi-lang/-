@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
@@ -27,10 +26,10 @@ import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
 
-public class 九龙针筒 extends Artifact {
+public class 九龙拉管 extends Artifact {
 
 	{
-		image = 物品表.九龙针筒;
+		image = 物品表.九龙拉管;
 		defaultAction=AC_PRICK;
 		levelCap = 9;
 		charge = Math.min(1+等级(),9);
@@ -44,7 +43,6 @@ public class 九龙针筒 extends Artifact {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero )
-				&& 等级() < levelCap
 				&& charge>0
 				&& !cursed
 				&& !hero.是无敌(getClass())
@@ -65,10 +63,7 @@ public class 九龙针筒 extends Artifact {
 			float maxDmg=PrickDmg();
 			
 			float totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
-			if(hero.hasbuff(Invulnerability.class)){
-				minDmg=0;
-				maxDmg=0;
-			}if(hero.hasbuff(护盾.class)){
+			if(hero.hasbuff(护盾.class)){
 				minDmg=0;
 				maxDmg=0;
 			}
@@ -119,9 +114,9 @@ public class 九龙针筒 extends Artifact {
 			damage = rockArmor.absorb(damage);
 		}
 		charge--;
-		damage=hero.防御(hero,damage);
+		damage=hero.防御(damage);
 		damage-=hero.护甲伤害(damage);
-		hero.力量+=0.1f+等级()*0.01f;
+		hero.力量+=0.3f+等级()*0.03f;
 		hero.sprite.operate( hero.pos );
 		hero.busy();
 		hero.spend(Actor.TICK);
@@ -130,7 +125,7 @@ public class 九龙针筒 extends Artifact {
 			damage = 1;
 		} else {
 			Sample.INSTANCE.play(Assets.Sounds.CURSED);
-			hero.sprite.emitter().burst( ShadowParticle.CURSE, 4+(damage/10) );
+			hero.sprite.emitter().burst( ShadowParticle.CURSE);
 		}
 
 		Catalog.countUse(getClass());
@@ -181,7 +176,7 @@ public class 九龙针筒 extends Artifact {
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
 			else
-				desc += Messages.get(this, "desc",(等级()+1)*5,String.format("%.2f",0.1f+等级()*0.01f));
+				desc += Messages.get(this, "desc",String.format("%.2f",(等级()+1)*2.5f),String.format("%.2f",0.3f+等级()*0.03f));
 		}
 
 		return desc;

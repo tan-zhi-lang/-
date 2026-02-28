@@ -11,8 +11,8 @@ public class 星蚀 extends FlavourBuff{
     public float set(float x,Char c){
         count+=x;
         if(c!=null&&count>=2&&target instanceof Hero hero){
-            c.受伤时(c.最大生命(1),hero);
-            hero.恢复百分比护甲(1);
+            c.受伤时(c.最大生命(0.2f),hero);
+            hero.恢复百分比护甲(0.2f);
             Buff.施加(hero,星蚀冷却.class,5);
             detach();
         }

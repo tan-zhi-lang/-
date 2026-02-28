@@ -133,7 +133,7 @@ public class WarpBeaconTracker extends Buff implements ActionIndicator.Action{
 								existing;
 
 						ArrayList<Integer> candidates=new ArrayList<>();
-						for(int n: PathFinder.相邻8){
+						for(int n: PathFinder.相邻){
 							int cell=pos+n;
 							if(!Dungeon.level.solid[cell]&&Actor.findChar(cell)==null&&(!Char.hasProp(toPush,Char.Property.LARGE)||Dungeon.level.openSpace[cell])){
 								candidates.add(cell);

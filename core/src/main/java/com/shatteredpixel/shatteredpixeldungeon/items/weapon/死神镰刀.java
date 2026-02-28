@@ -21,6 +21,8 @@ public class 死神镰刀 extends Weapon{
 		延迟= 1.25f;
 		伤害= 1.35f;
 		命中=0.75f;
+		特别=true;
+		靛色=true;
 	}
 	
 	@Override

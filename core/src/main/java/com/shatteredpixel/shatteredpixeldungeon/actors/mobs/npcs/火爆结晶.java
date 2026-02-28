@@ -86,7 +86,7 @@ public class 火爆结晶 extends NPC {
 		
 		CellEmitter.get(enemy.pos).burst(SmokeParticle.FACTORY,4);
 		
-		for (int n : PathFinder.自相邻8){
+		for (int n : PathFinder.自相邻){
 			Char c= Actor.findChar(enemy.pos+n);
 			if(c!=null){
 				enemy.受伤时( 2+tier, this );

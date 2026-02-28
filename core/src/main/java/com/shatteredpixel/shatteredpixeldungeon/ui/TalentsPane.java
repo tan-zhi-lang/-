@@ -57,7 +57,7 @@ public class TalentsPane extends ScrollPane {
 			){
 				tiersAvailable++;
 			}
-			if (tiersAvailable > 1&&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_1)&&!算法.isDebug())
+			if (tiersAvailable > 1&&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
 				tiersAvailable = 1;
 			
 			if(tiersAvailable > 2&&!Badges.local.contains(Badges.Badge.BOSS_SLAIN_2)&&Dungeon.hero.subClass==HeroSubClass.NONE)

@@ -39,7 +39,7 @@ public class RegionDecoBridgeEntranceRoom extends RegionDecoBridgeRoom {
 			if (spaceRect.inside(level.cellToPoint(entrance))){
 				valid = false;
 			} else {
-				for (int i : PathFinder.相邻8){
+				for (int i : PathFinder.相邻){
 					if (level.map[entrance+i] == Terrain.REGION_DECO_ALT){
 						valid = false;
 					}

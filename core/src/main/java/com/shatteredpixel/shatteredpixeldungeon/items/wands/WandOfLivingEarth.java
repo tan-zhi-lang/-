@@ -117,7 +117,7 @@ public class WandOfLivingEarth extends DamageWand {
 				int closest = -1;
 				boolean[] passable = Dungeon.level.passable;
 
-				for (int n : PathFinder.自相邻8) {
+				for (int n : PathFinder.自相邻) {
 					int c = bolt.collisionPos + n;
 					if (passable[c] && Actor.findChar( c ) == null
 						&& (closest == -1 || (Dungeon.level.trueDistance(c, curUser.pos) < (Dungeon.level.trueDistance(closest, curUser.pos))))) {

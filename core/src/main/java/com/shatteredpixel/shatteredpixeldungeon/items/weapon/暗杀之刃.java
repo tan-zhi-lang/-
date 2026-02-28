@@ -15,7 +15,9 @@ public class 暗杀之刃 extends Weapon {
 
 		延迟=0.85f;
 		伤害= 0.75f;
-		
+
+		特别=true;
+		靛色=true;
 		技能=new 潜行();
 		伏击=1.5f;
 		tier = 5;

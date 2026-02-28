@@ -703,7 +703,7 @@ public class Armor extends EquipableItem {
 
 	public float 力量(int lvl){
 		float req = 力量(tier(), lvl);
-		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
+		if(Dungeon.hero()){
             req-=Dungeon.hero.护甲力量;
         }
 		if (神力){

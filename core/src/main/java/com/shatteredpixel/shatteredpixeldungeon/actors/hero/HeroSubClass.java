@@ -58,6 +58,7 @@ public enum HeroSubClass {
 	指环王(HeroIcon.指环王),
 
 	剑魔(HeroIcon.剑魔),
+	圣女(HeroIcon.圣女),
 
 	黑白双子(HeroIcon.黑白双子),
 

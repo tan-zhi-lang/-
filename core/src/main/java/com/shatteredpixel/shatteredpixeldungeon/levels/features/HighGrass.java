@@ -151,7 +151,7 @@ public class HighGrass {
 				if(Dungeon.符文("繁花的宠爱"))
 					level.drop(new Sungrass.Seed(),pos).sprite().drop();
 
-				if (Random.Float() < 1/900f&&Dungeon.LimitedDrops.生命果.count<1) {
+				if (Random.Float() < 1/300f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
@@ -298,7 +298,7 @@ public class HighGrass {
 				}
 				if(Dungeon.符文("繁花的宠爱"))
 					level.drop(new Sungrass.Seed(),pos).sprite().drop();
-				if (Random.Float() < 1/300f&&Dungeon.LimitedDrops.生命果.count<1) {
+				if (Random.Float() < 1/100f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}

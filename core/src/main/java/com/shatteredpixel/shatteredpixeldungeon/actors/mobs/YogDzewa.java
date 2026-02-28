@@ -237,7 +237,7 @@ public class YogDzewa extends Mob {
 					int targetPos = Dungeon.hero.pos;
 					if (i != 0){
 						do {
-							targetPos = Dungeon.hero.pos + PathFinder.相邻8[Random.Int(8)];
+							targetPos = Dungeon.hero.pos + PathFinder.相邻[Random.Int(8)];
 						} while (Dungeon.level.trueDistance(pos, Dungeon.hero.pos)
 								> Dungeon.level.trueDistance(pos, targetPos));
 					}
@@ -248,7 +248,7 @@ public class YogDzewa extends Mob {
 
 				//remove one beam if multiple shots would cause every cell next to the hero to be targeted
 				boolean allAdjTargeted = true;
-				for (int i : PathFinder.自相邻8){
+				for (int i : PathFinder.自相邻){
 					if (!affectedCells.contains(Dungeon.hero.pos + i) && Dungeon.level.passable[Dungeon.hero.pos + i]){
 						allAdjTargeted = false;
 						break;
@@ -283,7 +283,7 @@ public class YogDzewa extends Mob {
 				regularSummons.add(cls);
 
 				int spawnPos = -1;
-				for (int i : PathFinder.相邻8){
+				for (int i : PathFinder.相邻){
 					if (Actor.findChar(pos+i) == null){
 						if (spawnPos == -1 || Dungeon.level.trueDistance(Dungeon.hero.pos, spawnPos) > Dungeon.level.trueDistance(Dungeon.hero.pos, pos+i)){
 							spawnPos = pos + i;
@@ -293,7 +293,7 @@ public class YogDzewa extends Mob {
 
 				//if no other valid spawn spots exist, try to kill an adjacent sheep to spawn anyway
 				if (spawnPos == -1){
-					for (int i : PathFinder.相邻8){
+					for (int i : PathFinder.相邻){
 						if (Actor.findChar(pos+i) instanceof Sheep){
 							if (spawnPos == -1 || Dungeon.level.trueDistance(Dungeon.hero.pos, spawnPos) > Dungeon.level.trueDistance(Dungeon.hero.pos, pos+i)){
 								spawnPos = pos + i;

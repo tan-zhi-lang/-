@@ -20,6 +20,8 @@ public class 日炎链刃 extends Weapon {
 		tier = 3;
 		连招范围=5;
 		范围 = 5;
+		特别=true;
+		橙色=true;
 	}
 
 }

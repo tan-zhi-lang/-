@@ -41,6 +41,8 @@ public class 嬗变卷轴 extends InventoryScroll {
 	{
 		icon = 物品表.Icons.SCROLL_TRANSMUTE;
 		嬗变=false;
+		靛色=已鉴定();
+		特别=true;
 		talentFactor = 2f;
 	}
 

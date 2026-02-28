@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -121,8 +122,15 @@ public class TalentButton extends Button {
 				public void call() {
 					upgradeTalent();
 					Statistics.qualifiedForRandomVictoryBadge = false;
-					WndHero.INSTANCE.hide();//防止卡分支Bug
-					
+					if(Dungeon.hero.等级>6&&Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
+						if(Dungeon.hero.第2层天赋){
+							WndHero.INSTANCE.hide();//防止卡分支Bug
+						}
+
+					if(Dungeon.hero.第1层天赋)
+						if(Dungeon.hero.等级>0){
+							WndHero.INSTANCE.hide();//防止卡分支Bug
+						}
 				}
 			});
 		} else if (mode == Mode.METAMORPH_CHOOSE && Dungeon.hero() && Dungeon.hero.isAlive()) {
@@ -247,7 +255,7 @@ public class TalentButton extends Button {
 			float oldWidth = fill.width();
 			pointsInTalent++;
 			layout();
-//			Sample.INSTANCE.play(Assets.Sounds.海克斯,1.75f);
+//			Sample.INSTANCE.play(Assets.Sounds.海克斯);
 			Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
 			Emitter emitter = (Emitter) parent.recycle(Emitter.class);
 			emitter.revive();

@@ -49,6 +49,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
@@ -83,17 +84,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狙击枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
@@ -107,13 +104,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -121,6 +118,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Random;
@@ -144,7 +142,7 @@ public enum HeroClass{
 	机器(HeroSubClass.潜能觉醒),///2
 	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影),
 	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王),
-	逐姝(HeroSubClass.剑魔),///2
+	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女),///2
 	罗兰(HeroSubClass.潜能觉醒),///2
 	学士(HeroSubClass.潜能觉醒),///2
 	灵猫(HeroSubClass.黑白双子),//1
@@ -224,8 +222,13 @@ public enum HeroClass{
 
 		if(Dungeon.派对(派对设置.幸运转世)){
 			hero.幸运转世=1;
-//			hero.幸运转世=Random.oneOf(1,2);
 		}
+
+		if(Dungeon.炼狱(炼狱设置.非酋玩家)){
+			hero.幸运转世=2;
+		}
+		if(Dungeon.派对(派对设置.幸运转世)&&Dungeon.炼狱(炼狱设置.非酋玩家))
+			hero.幸运转世=0;
 
 		if(Dungeon.派对(派对设置.种族天赋)){
 			if(!(hero.heroClass(鼠弟)&&hero.heroClass(机器)&&hero.heroClass(灵猫)))
@@ -250,11 +253,11 @@ public enum HeroClass{
 			new MagicalHolster().放背包();
 			new 宝物袋().放背包();
 			new ScrollHolder().放背包();
-			new 手枪().放背包();
-			new 冲锋枪().放背包();
-			new 霰弹枪().放背包();
-			new 狙击枪().放背包();
-			new 火炮().放背包();
+//			new 手枪().放背包();
+//			new 冲锋枪().放背包();
+//			new 霰弹枪().放背包();
+//			new 狙击枪().放背包();
+//			new 火炮().放背包();
 
 			int x=999;
 			new 经验药剂().数量(x).放背包();
@@ -272,6 +275,7 @@ public enum HeroClass{
 
 //			new 坠牢之星().数量(x).放背包();
 			new Torch().数量(x).放背包();
+			new Food().数量(x).放背包();
 
 //			new MysteryMeat().数量(x).放背包();
 //			new 属性锻造器().数量(10).放背包();
@@ -320,6 +324,7 @@ public enum HeroClass{
 			if(!Dungeon.赛季(赛季设置.地牢塔防))
 			水袋.放背包();
 		}
+		new 自残绳().放背包();
 		
 		//region 初始
 		switch(this){
@@ -508,7 +513,7 @@ public enum HeroClass{
 		Item i=new 风衣().鉴定();
 			hero.belongings.armor=(风衣)i;
 		
-		new 英雄断剑().放背包();
+		new 英雄断剑().鉴定().放背包();
 		new Torch().放背包();
 		
 		(hero.belongings.weapon=new 匕首()).鉴定();

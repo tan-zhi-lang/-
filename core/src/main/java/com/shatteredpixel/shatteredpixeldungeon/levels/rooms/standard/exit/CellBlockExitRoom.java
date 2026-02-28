@@ -31,7 +31,7 @@ public class CellBlockExitRoom extends CellBlockRoom {
 
 			if (level.map[level.pointToCell(p)] == Terrain.EMPTY_SP){
 				boolean valid = true;
-				for (int i : PathFinder.相邻8){
+				for (int i : PathFinder.相邻){
 					if (level.map[level.pointToCell(p)+i] == Terrain.DOOR){
 						valid = false;
 					}

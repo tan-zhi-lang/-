@@ -115,7 +115,7 @@ public class Wraith extends Mob {
 		if (Dungeon.level.solid[pos] || Actor.findChar( pos ) != null){
 			ArrayList<Integer> candidates = new ArrayList<>();
 
-			for (int i : PathFinder.相邻8){
+			for (int i : PathFinder.相邻){
 				if (!Dungeon.level.solid[pos+i] && Actor.findChar( pos+i ) == null){
 					candidates.add(pos+i);
 				}

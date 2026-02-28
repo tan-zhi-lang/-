@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -60,10 +59,7 @@ public class ChaliceOfBlood extends Artifact {
 			float maxDmg=PrickDmg();
 			
 			float totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
-			if(hero.hasbuff(Invulnerability.class)){
-				minDmg=0;
-				maxDmg=0;
-			}if(hero.hasbuff(护盾.class)){
+			if(hero.hasbuff(护盾.class)){
 				minDmg=0;
 				maxDmg=0;
 			}
@@ -97,7 +93,7 @@ public class ChaliceOfBlood extends Artifact {
 	}
 
 	private float PrickDmg(){
-		return 3f*(等级()*等级());
+		return 1.5f*(等级()*等级());
 	}
 
 	private void prick(Hero hero){
@@ -114,7 +110,7 @@ public class ChaliceOfBlood extends Artifact {
 			damage = rockArmor.absorb(damage);
 		}
 
-		damage=hero.防御(hero,damage);
+		damage=hero.防御(damage);
 		damage-=hero.护甲伤害(damage);
 
 		hero.sprite.operate( hero.pos );

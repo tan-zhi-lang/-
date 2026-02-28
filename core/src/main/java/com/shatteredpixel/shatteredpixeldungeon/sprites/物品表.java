@@ -163,10 +163,14 @@ public class 物品表 {
     public static final int 护甲修理工具包=MISC_CONSUMABLE+15;
     public static final int 生命水晶 = MISC_CONSUMABLE + 16;
     public static final int 生命果 = MISC_CONSUMABLE + 17;
-    public static final int 圣诞礼物 = MISC_CONSUMABLE + 18;
-    public static final int 坠牢之星 = MISC_CONSUMABLE + 19;
-    public static final int 魔力水晶 = MISC_CONSUMABLE + 20;
-    public static final int 海克斯宝典 = MISC_CONSUMABLE + 21;
+    public static final int 坠牢之星 = MISC_CONSUMABLE + 18;
+    public static final int 魔力水晶 = MISC_CONSUMABLE + 19;
+    public static final int 活力水晶 = MISC_CONSUMABLE + 20;
+    public static final int 奥术水晶 = MISC_CONSUMABLE + 21;
+    public static final int 神盾果 = MISC_CONSUMABLE + 22;
+    public static final int 圣诞礼物 = MISC_CONSUMABLE + 23;
+    public static final int 海克斯宝典 = MISC_CONSUMABLE + 24;
+    public static final int 自残绳 = MISC_CONSUMABLE + 25;
 
 
     static {
@@ -190,10 +194,16 @@ public class 物品表 {
         assignItemRect(护甲修理工具包,16,15);
         assignItemRect(生命水晶);
         assignItemRect(生命果, 14, 13);
-        assignItemRect(圣诞礼物, 9, 11);
         assignItemRect(坠牢之星, 11, 12);
         assignItemRect(魔力水晶, 11, 12);
+
+        assignItemRect(活力水晶, 15, 13);
+        assignItemRect(奥术水晶, 13, 16);
+        assignItemRect(神盾果, 13, 15);
+
+        assignItemRect(圣诞礼物, 9, 11);
         assignItemRect(海克斯宝典, 13, 16);
+        assignItemRect(自残绳, 14, 16);
     }
     //endregion
 
@@ -441,7 +451,8 @@ public class 物品表 {
     public static final int 变态刀=WEP_TIER5+24;
     public static final int 蝙蝠棒=WEP_TIER5+25;
     public static final int 破败王剑=WEP_TIER5+26;
-    public static final int 大肉棒=WEP_TIER5+27;
+    public static final int 妖刀村正=WEP_TIER5+27;
+    public static final int 大肉棒=WEP_TIER5+28;
 
     static {
         assignItemRect(英雄断剑, 12, 13);
@@ -474,6 +485,7 @@ public class 物品表 {
         assignItemRect(变态刀,15,16);
         assignItemRect(蝙蝠棒,15,13);
         assignItemRect(破败王剑,16);
+        assignItemRect(妖刀村正,14,16);
         assignItemRect(大肉棒,14);
     }
     //endregion
@@ -632,11 +644,11 @@ public class 物品表 {
     public static final int ARTIFACT_ROSE1 = ARTIFACTS + 20;
     public static final int ARTIFACT_ROSE2 = ARTIFACTS + 21;
     public static final int ARTIFACT_ROSE3 = ARTIFACTS + 22;
-    public static final int 神圣法典 = ARTIFACTS + 24;
     public static final int 骷髅钥匙 = ARTIFACTS + 23;
-    public static final int 本命玉佩 = ARTIFACTS + 25;
-    public static final int 叛忍护额=ARTIFACTS+26;
-    public static final int 四叶草法典=ARTIFACTS+27;
+    public static final int 四叶草法典=ARTIFACTS+24;
+    public static final int 神圣法典 = ARTIFACTS + 25;
+    public static final int 本命玉佩 = ARTIFACTS + 26;
+    public static final int 叛忍护额=ARTIFACTS+27;
 
     static {
         assignItemRect(ARTIFACT_CLOAK, 9, 15);
@@ -663,10 +675,11 @@ public class 物品表 {
         assignItemRect(ARTIFACT_ROSE2, 14);
         assignItemRect(ARTIFACT_ROSE3, 14);
         assignItemRect(骷髅钥匙, 8, 16);
+
+        assignItemRect(四叶草法典,13,16);
         assignItemRect(神圣法典, 14, 16);
         assignItemRect(本命玉佩, 10, 16);
         assignItemRect(叛忍护额,16,13);
-        assignItemRect(四叶草法典,13,16);
     }
     
     private static final int 神器2 = xy(0, 17);
@@ -674,13 +687,23 @@ public class 物品表 {
     public static final int 虫箭2 = 神器2+1;
     public static final int 虫箭3 = 神器2+2;
     public static final int 心之钢 = 神器2+3;
-    public static final int 九龙针筒 = 神器2+4;
+    public static final int 九龙拉管 = 神器2+4;
+    public static final int 生命蜡烛 = 神器2+5;
+    public static final int 灵魂焰灯 = 神器2+6;
+    public static final int 灵魂焰灯2 = 神器2+7;
+    public static final int 灵魂焰灯3 = 神器2+8;
+    public static final int 灵魂焰灯4 = 神器2+9;
     static {
         assignItemRect(虫箭,16);
         assignItemRect(虫箭2,16);
         assignItemRect(虫箭3,16);
         assignItemRect(心之钢,16,15);
-        assignItemRect(九龙针筒,16);
+        assignItemRect(九龙拉管,16);
+        assignItemRect(生命蜡烛, 12, 16);
+        assignItemRect(灵魂焰灯, 10, 14);
+        assignItemRect(灵魂焰灯2, 10, 14);
+        assignItemRect(灵魂焰灯3, 10, 14);
+        assignItemRect(灵魂焰灯4, 10, 14);
     }
     private static final int TRINKETS = xy(0, 18);  //24 slots
     public static final int RAT_SKULL = TRINKETS + 0;

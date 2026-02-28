@@ -75,7 +75,7 @@ public class RingOfElements extends Ring {
 	public static float resist( Char target, Class effect ){
 		for (Class c : RESISTS){
 			if (c.isAssignableFrom(effect)){
-				return resist(target,effect);
+				return resist(target);
 			}else{
 				return 1;
 			}

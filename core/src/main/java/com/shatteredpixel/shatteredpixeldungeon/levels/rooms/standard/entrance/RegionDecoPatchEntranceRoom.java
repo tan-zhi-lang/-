@@ -72,7 +72,7 @@ public class RegionDecoPatchEntranceRoom extends RegionDecoPatchRoom {
 		} while (!valid);
 		Painter.set( level, entrance, Terrain.ENTRANCE );
 
-		for (int i : PathFinder.相邻8){
+		for (int i : PathFinder.相邻){
 			Painter.set( level, entrance+i, Terrain.EMPTY );
 		}
 

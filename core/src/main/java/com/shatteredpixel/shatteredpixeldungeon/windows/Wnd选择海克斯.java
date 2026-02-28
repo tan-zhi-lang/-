@@ -184,11 +184,11 @@ public class Wnd选择海克斯 extends Window {
 		add(clsInfo3);
 		pos = btnCls3.bottom() + MARGIN;
 
-		RedButton 刷新=new RedButton("重新获得一个海克斯法典(初始可以刷新2次)",6){
+		RedButton 刷新=new RedButton("重新获得一个海克斯法典(初始可以刷新1次)",6){
 			@Override
 			protected void onClick(){
 				super.onClick();
-				Sample.INSTANCE.play(Assets.Sounds.海克斯,1.75f);
+				Sample.INSTANCE.play(Assets.Sounds.海克斯);
 				海克斯宝典 item=new 海克斯宝典();
 				item.用过+=i.用过+1;
 				item.放背包();

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
 
@@ -16,6 +18,12 @@ public class Terror extends FlavourBuff {
 	{
 		type = buffType.NEGATIVE;
 		announced = true;
+	}
+
+	@Override
+	public boolean attachTo(Char target){
+		if(Dungeon.符文("梦魇"))Dungeon.hero.力量+=100;
+		return super.attachTo(target);
 	}
 
 	@Override

@@ -121,7 +121,7 @@ public class RotGardenRoom extends SpecialRoom {
 			return false;
 		}
 
-		for (int i : PathFinder.自相邻8){
+		for (int i : PathFinder.自相邻){
 			if (level.findMob(pos+i) != null){
 				return false;
 			}
@@ -137,7 +137,7 @@ public class RotGardenRoom extends SpecialRoom {
 		//if it is near, has to count as blocking all adjacent
 		// so that we can guarantee a safe tile to stay still in next to the heart
 		} else {
-			for (int i : PathFinder.相邻8){
+			for (int i : PathFinder.相邻){
 				newPassable[pos+i] = false;
 			}
 		}

@@ -393,7 +393,7 @@ public abstract class RegularPainter extends Painter {
 			}
 			
 			int count = 1;
-			for (int n : PathFinder.相邻8) {
+			for (int n : PathFinder.相邻) {
 				if (grass[i + n]) {
 					count++;
 				}
@@ -442,7 +442,8 @@ public abstract class RegularPainter extends Painter {
 
 		//no more than one trap every 5 valid tiles.
 		nTraps = Math.min(nTraps, validCells.size()/5);
-
+		if(Dungeon.hero()&&Dungeon.hero.欧皇())nTraps/=2;
+		if(Dungeon.hero()&&Dungeon.hero.非酋())nTraps*=2;
 		float revealedChance = TrapMechanism.revealHiddenTrapChance();
 		float revealInc = 0;
 

@@ -42,6 +42,7 @@ public class WndHero extends WndTabbed {
 	
 	private StatsTab stats;
 	private StatsTab2 stats2;
+	private StatsTab3 stats3;
 
 	public TalentsTab talents;
 	private BuffsTab buffs;
@@ -76,6 +77,9 @@ public class WndHero extends WndTabbed {
 		if(!Dungeon.符文("黑幕"))
 		add( stats2 );
 
+		stats3 = new StatsTab3();
+		add( stats3 );
+
 		talents = new TalentsTab();
 		add(talents);
 		talents.setRect(0, 0, WIDTH, HEIGHT);
@@ -109,10 +113,22 @@ public class WndHero extends WndTabbed {
 				stats2.visible = stats2.active = selected;
 			}
 		} );
+		add( new IconTab( Icons.get(Icons.下楼) ) {
+			protected void select( boolean value ) {
+				super.select( value );
+				if (selected) {
+					lastIdx = 0;
+					if (!stats3.visible) {
+						stats3.initialize();
+					}
+				}
+				stats3.visible = stats3.active = selected;
+			}
+		} );
 		add( new IconTab( Icons.get(Icons.TALENT) ) {
 			protected void select( boolean value ) {
 				super.select( value );
-				if (selected) lastIdx = 1;
+				if (selected) lastIdx = 2;
 				if (selected) StatusPane.talentBlink = 0;
 				talents.visible = talents.active = selected;
 			}
@@ -120,7 +136,7 @@ public class WndHero extends WndTabbed {
 		add( new IconTab( Icons.get(Icons.BUFFS) ) {
 			protected void select( boolean value ) {
 				super.select( value );
-				if (selected) lastIdx = 2;
+				if (selected) lastIdx = 3;
 				buffs.visible = buffs.active = selected;
 			}
 		} );
@@ -132,7 +148,6 @@ public class WndHero extends WndTabbed {
 		talents.layout();
 
 		select( lastIdx );
-
 
 		try{
 			Dungeon.saveAll();
@@ -211,18 +226,18 @@ public class WndHero extends WndTabbed {
 			pos = title.bottom() + GAP;
 
 			statSlot( "力量/魔力", String.format("%.2f",hero.力量())+"/"+String.format("%.2f",hero.魔力()));
+			statSlot( "攻速/移速", String.format("%.2f",1/hero.攻击延迟())
+								   +"/"+String.format("%.2f",hero.移速()));
+			pos += GAP;
+
 			statSlot( "==物理增伤/攻击==", Math.round((hero.攻击时(null,100)/100f-1)*hero.伤害()*100f)+"%/"+String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
 			statSlot( "++物理抗性/防御++", Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
 			pos += GAP;
 			
 			statSlot( "**攻击范围/命中**", hero.攻击范围()+"/"+hero.最小命中(null)+"~"+hero.最大命中(null));
 			statSlot( "##惊醒距离/闪避##", hero.惊醒距离()+"/"+hero.最小闪避(null)+"~"+hero.最大闪避(null));
-			statSlot( "攻速/移速", String.format("%.2f",1/hero.攻击延迟())
-					+"/"+String.format("%.2f",hero.移速()));
-			
-			pos += GAP;
-			statSlot( "_暴击率/暴击伤害_", hero.暴击率()+"%/"+Math.round(hero.暴击伤害()*100)+"%");
-			
+
+
 			pos += GAP;
 		}
 
@@ -281,35 +296,21 @@ public class WndHero extends WndTabbed {
 			
 			pos = GAP*2;
 
-			statSlot( "==穿甲/护甲穿透==", hero.穿甲()+"/"+Math.round(hero.护甲穿透()*100)+"%");
+			statSlot( "_暴击率/暴击伤害_", hero.暴击率()+"%/"+Math.round(hero.暴击伤害()*100)+"%");
 
+			statSlot( "==穿甲/护甲穿透==", String.format("%.2f",hero.穿甲())+"/"+Math.round(hero.护甲穿透()*100)+"%");
+
+			pos += GAP;
 			statSlot( "##魔抗/元素抗性##",String.format("%.2f",AntiMagic.drRoll(hero, hero.glyphLevel(AntiMagic.class)))+"/"+Math.round(
 					(100-(100*RingOfElements.resist(hero)-AntiMagic.drRoll(hero,hero.glyphLevel(AntiMagic.class))/100f)
 								))+"%");
 			pos += GAP;
 			statSlot( "_视野+光照范围_", hero.视野范围get+"+"+hero.光照范围());
 			statSlot( "搜索/感知范围", hero.搜索范围()+"/"+hero.感知范围());
-			statSlot( "??隐匿/地牢视野??", Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
 			pos += GAP;
 			statSlot( "**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"
 									  +Math.round(hero.全能吸血()*100)+"%");
 			statSlot( "++治疗效果/综合属性++",Math.round(hero.治疗效果()*100)+"%"+"/"+Math.round(hero.综合属性()*100)+"%");
-
-			statSlot( "难度",Dungeon.难度名称());
-			
-			pos += GAP;
-			if (Dungeon.daily){
-				if (!Dungeon.dailyReplay) {
-					statSlot(Messages.get(StatsTab.class, "daily_for"), "_" + Dungeon.customSeedText + "_");
-				} else {
-					statSlot(Messages.get(StatsTab.class, "replay_for"), "_" + Dungeon.customSeedText + "_");
-				}
-			} else if (!Dungeon.customSeedText.isEmpty()){
-				statSlot( Messages.get(StatsTab.class, "custom_seed"), "_" + Dungeon.customSeedText + "_" );
-			} else {
-				statSlot( Messages.get(StatsTab.class, "dungeon_seed"), DungeonSeed.convertToCode(Dungeon.seed) );
-			}
-
 
 			pos += GAP;
 		}
@@ -344,6 +345,81 @@ public class WndHero extends WndTabbed {
 			statSlot( label, Integer.toString( value ) );
 		}
 		
+		public float height() {
+			return pos;
+		}
+	}
+	private class StatsTab3 extends Group {
+
+		private static final int GAP = 6;
+
+		private float pos;
+
+		public StatsTab3() {
+			initialize();
+		}
+
+		public void initialize(){
+
+			for (Gizmo g : members){
+				if (g != null) g.destroy();
+			}
+			clear();
+
+			Hero hero = Dungeon.hero;
+
+			pos = GAP*2;
+
+			statSlot( "??隐匿/地牢视野??", Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
+			statSlot( "难度",Dungeon.难度名称());
+
+			pos += GAP;
+			if (Dungeon.daily){
+				if (!Dungeon.dailyReplay) {
+					statSlot(Messages.get(StatsTab.class, "daily_for"), "_" + Dungeon.customSeedText + "_");
+				} else {
+					statSlot(Messages.get(StatsTab.class, "replay_for"), "_" + Dungeon.customSeedText + "_");
+				}
+			} else if (!Dungeon.customSeedText.isEmpty()){
+				statSlot( Messages.get(StatsTab.class, "custom_seed"), "_" + Dungeon.customSeedText + "_" );
+			} else {
+				statSlot( Messages.get(StatsTab.class, "dungeon_seed"), DungeonSeed.convertToCode(Dungeon.seed) );
+			}
+
+
+			pos += GAP;
+		}
+
+		private void statSlot( String label, String value ) {
+
+			int size = 8;
+
+			RenderedTextBlock txt;
+			do {
+				txt = PixelScene.renderTextBlock( label, size );
+				size--;
+			} while (txt.width() >= WIDTH * 0.55f);
+			txt.setPos(0, pos + (6 - txt.height())/2);
+			PixelScene.align(txt);
+			add( txt );
+
+			size = 8;
+			do {
+				txt = PixelScene.renderTextBlock( value, size );
+				size--;
+			} while (txt.width() >= WIDTH * 0.45f);
+			txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
+
+			PixelScene.align(txt);
+			add( txt );
+
+			pos += GAP + txt.height();
+		}
+
+		private void statSlot( String label, int value ) {
+			statSlot( label, Integer.toString( value ) );
+		}
+
 		public float height() {
 			return pos;
 		}

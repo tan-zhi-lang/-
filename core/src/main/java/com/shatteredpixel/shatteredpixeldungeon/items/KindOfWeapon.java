@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圆盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
@@ -137,6 +138,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 血砍刀)return true;
 		if(this instanceof 镜刃)return true;
 		if(this instanceof 吸血刀)return true;
+		if(this instanceof 妖刀村正)return true;
 		return false;
 	}
 	public boolean 斧(){

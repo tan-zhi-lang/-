@@ -52,7 +52,7 @@ public class 落石法杖 extends DamageWand {
 		Char ch = Actor.findChar(bolt.collisionPos);
 		wandProc(ch, chargesPerCast());
 
-		for (int j : PathFinder.自相邻8){
+		for (int j : PathFinder.自相邻){
 			if(算法.概率学(5)){
 				Dungeon.level.drop(new 石头(),bolt.collisionPos+j).sprite().drop();
 			}
@@ -100,7 +100,7 @@ public class 落石法杖 extends DamageWand {
 
 		int safeCell;
 		do {
-			safeCell = rockCenter + PathFinder.相邻8[Random.Int(8)];
+			safeCell = rockCenter + PathFinder.相邻[Random.Int(8)];
 		} while (safeCell == Dungeon.hero.pos
 				 || (Dungeon.level.solid[safeCell] && Random.Int(2) == 0)
 				 || (Blob.volumeAt(safeCell, CavesBossLevel.PylonEnergy.class) > 0 && Random.Int(2) == 0));

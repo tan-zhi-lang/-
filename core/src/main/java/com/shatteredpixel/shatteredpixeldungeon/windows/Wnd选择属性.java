@@ -175,12 +175,12 @@ public class Wnd选择属性 extends Window {
 		pos=moveBtn3.bottom()+MARGIN;
 
 		boolean 属性刷新=true;
-		RedButton 刷新=new RedButton("重新获得一个属性锻造器(一次性，相当于刷新)",6){
+		RedButton 刷新=new RedButton("重新获得一个属性锻造器(初始可以刷新1次)",6){
 			@Override
 			protected void onClick(){
 				super.onClick();
 				属性锻造器 item=new 属性锻造器();
-				item.用过=true;
+				item.用过+=i.用过+1;
 				item.放背包();
 
 				hide();
@@ -190,9 +190,12 @@ public class Wnd选择属性 extends Window {
 		刷新.multiline=true;
 		刷新.setSize(width,刷新.reqHeight());
 		刷新.setRect(0,pos,width,刷新.reqHeight()+6);
-		if(属性刷新&&!i.用过){
-			add(刷新);
-			pos=刷新.bottom()+MARGIN;
+
+		if(i.用过<i.使用上限()){
+			if(!hero.符文("无法刷新海克斯")){
+				add(刷新);
+				pos=刷新.bottom()+MARGIN;
+			}
 		}
 
 		resize(width, (int)pos);

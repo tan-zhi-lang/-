@@ -21,6 +21,8 @@ public class 寒冰镖 extends Weapon{
 		伤害=0.8f;
 		伏击=0.8f;
 		tier = 5;
+		特别=true;
+		黄色=true;
 	}
 	
 	@Override

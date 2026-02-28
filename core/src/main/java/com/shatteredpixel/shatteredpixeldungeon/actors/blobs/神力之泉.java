@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMastery;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -45,7 +44,7 @@ public class 神力之泉 extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
-		if((item instanceof Weapon && !(item instanceof 灵能短弓) && !((Weapon) item).神力)
+		if((item instanceof Weapon && !((Weapon) item).神力)
 				|| (item instanceof Armor && !((Armor) item).神力)){
 			if (item instanceof Weapon) {
 				((Weapon) item).神力 = true;

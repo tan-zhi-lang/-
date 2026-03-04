@@ -309,8 +309,8 @@ public class 灵魂焰灯 extends Artifact {
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
 			else
-				desc += Messages.get(this, "desc",String.format("%.2f",魔力(0.3f,1f))
-						,String.format("%.2f",魔力(1.2f,0.75f)));
+				desc += Messages.get(this, "desc",魔力(0.3f,1f)
+						,魔力(1.2f,0.75f));
 		}
 
 

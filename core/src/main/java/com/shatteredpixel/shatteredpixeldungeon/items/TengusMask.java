@@ -85,6 +85,8 @@ public class TengusMask extends Item {
 //		if (way == HeroSubClass.刺客&&curUser.invisible>0){
 //			Buff.施加(curUser, 潜伏.class);
 //		}
+		if(way==HeroSubClass.幸运之子)
+			curUser.belongings.幸运.升级(7);
 		
 		curUser.sprite.operate(  );
 		Sample.INSTANCE.play( Assets.Sounds.MASTERY );

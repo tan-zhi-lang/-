@@ -21,9 +21,9 @@ public class FerretTuft extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", Messages.decimalFormat("#.##", 100 * (evasionMultiplier(等级())-1f)));
+			return Messages.get(this, "stats_desc",  100 * (evasionMultiplier(等级())-1f));
 		} else {
-			return Messages.get(this, "stats_desc", Messages.decimalFormat("#.##", 100 * (evasionMultiplier(0)-1f)));
+			return Messages.get(this, "stats_desc",  100 * (evasionMultiplier(0)-1f));
 		}
 	}
 

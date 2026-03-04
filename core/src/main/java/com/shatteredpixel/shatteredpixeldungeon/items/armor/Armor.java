@@ -457,8 +457,7 @@ public class Armor extends EquipableItem {
 	public Item 升级(boolean inscribe ) {
 
 		float 概率=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
 		if (inscribe){
 			if (glyph == null){
 				inscribe( Glyph.random() );
@@ -570,7 +569,7 @@ public class Armor extends EquipableItem {
 		if (levelKnown) {
 
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(), tier(),
-										  String.format("%.2f",最小防御()), String.format("%.2f",最大防御()));
+										  最小防御(), 最大防御());
 			
 			if (Dungeon.hero() && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
@@ -580,8 +579,8 @@ public class Armor extends EquipableItem {
 			}
 		} else {
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(0), tier(),
-										  String.format("%.2f",最小防御(0)),
-										  String.format("%.2f",最大防御(0)));
+										  最小防御(0),
+										  最大防御(0));
 
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
@@ -647,8 +646,7 @@ public class Armor extends EquipableItem {
 		//+2: 5%  (1/20)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -683,8 +681,7 @@ public class Armor extends EquipableItem {
 			//30% chance to be cursed
 			//15% chance to be inscribed
 			float effectRoll = Random.Float();
-			if(Dungeon.hero()&&Dungeon.hero.欧皇())effectRoll*=2;
-			if(Dungeon.hero()&&Dungeon.hero.非酋())effectRoll/=2;
+			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
 			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
 				inscribe(Glyph.randomCurse());
 				cursed = true;

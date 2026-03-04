@@ -12,20 +12,20 @@ public class LarvaSprite extends MobSprite {
 		super();
 		
 		texture( Assets.Sprites.LARVA );
-		
+		int x=16;
 		TextureFilm frames = new TextureFilm( texture, 12, 8 );
 		
 		idle = new Animation( 5, true );
-		idle.frames( frames, 4, 4, 4, 4, 4, 5, 5 );
+		idle.frames( frames, 0+x, 1+x);
 		
 		run = new Animation( 12, true );
-		run.frames( frames, 0, 1, 2, 3 );
+		run.frames( frames, 0+x, 1+x, 2+x, 3+x );
 		
 		attack = new Animation( 15, false );
-		attack.frames( frames, 6, 5, 7 );
+		attack.frames( frames, 4+x, 5+x, 6+x , 7+x );
 		
 		die = new Animation( 10, false );
-		die.frames( frames, 8 );
+		die.frames( frames, 2+x ,3+x );
 		
 		play( idle );
 	}

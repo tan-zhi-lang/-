@@ -14,7 +14,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -47,7 +46,6 @@ import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -55,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
@@ -216,13 +215,11 @@ public class Item implements Bundlable {
 		}
 	}
 	public float pickupDelay(){
-		
+
 		if(Dungeon.hero.heroClass(HeroClass.盗贼)){
-			Buff.施加(Dungeon.hero,Swiftthistle.TimeBubble.class).reset(1+(Dungeon.hero.subClass(HeroSubClass.神偷无影)&&Dungeon.hero.职业精通()?2:0));
-		}
-		if(Dungeon.hero.subClass(HeroSubClass.神偷无影)){
 			return 0;
 		}
+
 		return Dungeon.hero.攻击延迟();
 	}
 	public void doDrop( Hero hero ) {
@@ -246,14 +243,18 @@ public class Item implements Bundlable {
 		}
 		GameScene.selectCell(thrower);
 	}
-	
+
+	public static final String AC_CHOOSE = "CHOOSE";
 	public void execute( Hero hero, String action ) {
 
 		GameScene.cancel();
 		curUser = hero;
 		curItem = this;
-		
-		if (action.equals( AC_DROP )) {
+
+
+		if (action.equals( AC_CHOOSE )){
+			GameScene.show(new WndUseItem(null,this));
+		}else if (action.equals( AC_DROP )) {
 			
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doDrop(hero);
@@ -563,6 +564,7 @@ public class Item implements Bundlable {
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
+
 			if(Dungeon.符文("衰退的堕落")){
 				this.等级++;
 				this.等级++;

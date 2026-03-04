@@ -26,7 +26,7 @@ public class Gold extends Item {
 	}
 	
 	public Gold() {
-		this(Math.round(Random.IntRange(  40, 80)));
+		this(Math.round(Random.IntRange(30, 60)));
 	}
 	
 	public Gold( int value ) {
@@ -59,13 +59,13 @@ public class Gold extends Item {
 	
 	@Override
 	public Item random() {
-		quantity = Math.round(Random.IntRange(  40, 80));
+		quantity = Math.round(Random.IntRange(30, 60));
 //		quantity = Random.IntRange( 30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20 );
 		return this;
 	}
 
 	public Item random(float f) {
-		quantity = Math.round(Random.IntRange( 40, 80 )*f);
+		quantity = Math.round(Random.IntRange(30, 60)*f);
 		//		quantity = Random.IntRange( 30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20 );
 		return this;
 	}

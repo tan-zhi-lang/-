@@ -18,7 +18,7 @@ public class 属性碎片 extends 用品 {
 
 	@Override
 	public int 金币() {
-		return 150;
+		return 25*quantity;
 	}
 	@Override
 	public void 使用(Hero hero){

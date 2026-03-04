@@ -82,9 +82,9 @@ public class 痛命 extends 目标巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",String.format("%.2f",Dungeon.hero.力量()/2f+
-									Dungeon.hero.天赋点数(Talent.高级痛命,0.15f)*Dungeon.hero.最小攻击()),
-								   String.format("%.2f",Dungeon.hero.生命(0.015f)));
+		String desc = Messages.get(this, "desc",Dungeon.hero.力量()/2f+
+									Dungeon.hero.天赋点数(Talent.高级痛命,0.15f)*Dungeon.hero.最小攻击(),
+								  Dungeon.hero.生命(0.015f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

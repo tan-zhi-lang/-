@@ -90,6 +90,6 @@ public class 死舞 extends Buff {
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", String.format("%.2f",damage));
+		return Messages.get(this, "desc", damage);
 	}
 }

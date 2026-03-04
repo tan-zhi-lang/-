@@ -15,17 +15,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.SewerPainter;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.AlarmTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ChillingTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ConfusionTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.FlockTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GatewayTrap;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.OozeTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ShockingTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.SummoningTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TeleportationTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.ToxicTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.SurfaceScene;
@@ -100,11 +91,10 @@ public class SewerLevel extends RegularLevel {
 	@Override
 	protected Class<?>[] trapClasses() {
 		return Dungeon.depth == 1 ?
-				new Class<?>[]{ WornDartTrap.class } :
+				new Class<?>[]{ GeyserTrap.class } :
 				new Class<?>[]{
-						ChillingTrap.class, ShockingTrap.class, ToxicTrap.class, WornDartTrap.class,
-						AlarmTrap.class, OozeTrap.class,
-						ConfusionTrap.class, FlockTrap.class, SummoningTrap.class, TeleportationTrap.class, GatewayTrap.class };
+						GeyserTrap.class, OozeTrap.class,
+				};
 }
 
 	@Override
@@ -112,9 +102,7 @@ public class SewerLevel extends RegularLevel {
 		return Dungeon.depth == 1 ?
 				new float[]{1} :
 				new float[]{
-						4, 4, 4, 4,
-						2, 2,
-						1, 1, 1, 1, 1};
+						 1, 1};
 	}
 
 	@Override

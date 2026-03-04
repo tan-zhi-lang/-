@@ -37,6 +37,8 @@ public class Assets {
 		public static final String WEAK_FLOOR       = "environment/custom_tiles/weak_floor.png";
 		public static final String SEWER_BOSS       = "environment/custom_tiles/sewer_boss.png";
 		public static final String PRISON_QUEST     = "environment/custom_tiles/prison_quest.png";
+		public static final String 矮人传送魔法阵11     = "environment/custom_tiles/矮人传送魔法阵11.png";
+		public static final String 矮人传送魔法阵18     = "environment/custom_tiles/矮人传送魔法阵18.png";
 		public static final String PRISON_EXIT      = "environment/custom_tiles/prison_exit.png";
 		public static final String CAVES_QUEST      = "environment/custom_tiles/caves_quest.png";
 		public static final String CAVES_BOSS       = "environment/custom_tiles/caves_boss.png";
@@ -428,6 +430,7 @@ public class Assets {
 
 		public static final String 白猫      = "sprites/白猫.png";
 		public static final String RAT      = "sprites/rat.png";
+		public static final String 蟑螂      = "sprites/蟑螂.png";
 		public static final String BRUTE    = "sprites/brute.png";
 		public static final String 修复 = "sprites/spinner.png";
 		public static final String DM300    = "sprites/dm300.png";
@@ -441,6 +444,7 @@ public class Assets {
 		public static final String CRAB     = "sprites/crab.png";
 		public static final String GOO      = "sprites/goo.png";
 		public static final String SWARM    = "sprites/swarm.png";
+		public static final String 石虱    = "sprites/石虱.png";
 		public static final String SKELETON = "sprites/skeleton.png";
 		public static final String 骷髅战士 = "sprites/骷髅战士.png";
 		public static final String SHAMAN   = "sprites/shaman.png";
@@ -475,6 +479,7 @@ public class Assets {
 		public static final String ROT_HEART= "sprites/rot_heart.png";
 		public static final String GUARD    = "sprites/guard.png";
 		public static final String WARDS    = "sprites/wards.png";
+		public static final String 传送阵眼    = "sprites/传送阵眼.png";
 		public static final String 魔能结晶    = "sprites/魔能结晶.png";
 		public static final String 蓄能结晶    = "sprites/蓄能结晶.png";
 		public static final String 冰爆结晶    = "sprites/冰爆结晶.png";

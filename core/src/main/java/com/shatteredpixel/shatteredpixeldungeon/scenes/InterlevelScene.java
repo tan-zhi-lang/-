@@ -60,7 +60,10 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 	
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE
+		DESCEND, ASCEND,
+		CONTINUE, RESURRECT,
+		RETURN,GOTO,
+		FALL,RESET, NONE
 	}
 	public static Mode mode;
 
@@ -130,6 +133,9 @@ public class InterlevelScene extends PixelScene {
 				break;
 			case FALL:
 				loadingDepth = Dungeon.depth+1;
+				break;
+			case GOTO:
+					loadingDepth = returnDepth;
 				break;
 			case ASCEND:
 				fadeTime = FAST_FADE;
@@ -406,6 +412,9 @@ public class InterlevelScene extends PixelScene {
 								break;
 							case RETURN:
 								returnTo();
+								break;
+							case GOTO:
+								goTo();
 								break;
 							case FALL:
 								fall();
@@ -701,7 +710,23 @@ public class InterlevelScene extends PixelScene {
 
 		Dungeon.switchLevel( level, returnPos );
 	}
-	
+
+	private void goTo() throws IOException {
+		Mob.holdAllies( Dungeon.level );
+		Dungeon.saveAll();
+
+		Level level;
+		Dungeon.depth = returnDepth;
+		Dungeon.branch = returnBranch;
+		if (Dungeon.levelHasBeenGenerated(Dungeon.depth, Dungeon.branch)) {
+			level = Dungeon.loadLevel( GamesInProgress.curSlot );
+		} else {
+			level = Dungeon.newLevel();
+		}
+
+		Dungeon.switchLevel( level, returnPos );
+	}
+
 	private void restore() throws IOException {
 		
 		Mob.clearHeldAllies();

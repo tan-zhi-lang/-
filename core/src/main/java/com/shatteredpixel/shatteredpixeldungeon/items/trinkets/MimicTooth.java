@@ -21,12 +21,12 @@ public class MimicTooth extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", mimicChanceMultiplier(等级())),
-					Messages.decimalFormat("#.##", 100*ebonyMimicChance(等级())));
+					 mimicChanceMultiplier(等级()),
+					 100*ebonyMimicChance(等级()));
 		} else {
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", mimicChanceMultiplier(0)),
-					Messages.decimalFormat("#.##", 100*ebonyMimicChance(0)));
+					 mimicChanceMultiplier(0),
+					 100*ebonyMimicChance(0));
 		}
 	}
 

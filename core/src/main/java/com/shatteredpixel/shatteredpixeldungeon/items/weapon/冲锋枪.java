@@ -135,7 +135,7 @@ public class 冲锋枪 extends Weapon{
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",String.format("%.2f",最小枪械攻击()),String.format("%.2f",最大枪械攻击()));
+		return Messages.get(this, "desc",最小枪械攻击(),最大枪械攻击());
 	}
 	public int maxCharges = initialCharges();
 	public int initialCharges() {

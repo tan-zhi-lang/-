@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.DwarfToken;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -20,7 +20,7 @@ public class WndImp extends Window {
 	private static final int BTN_HEIGHT = 20;
 	private static final int GAP        = 2;
 
-	public WndImp( final Imp imp, final DwarfToken tokens ) {
+	public WndImp( final Imp imp, final 矮人徽章 tokens) {
 		
 		super();
 		
@@ -47,11 +47,11 @@ public class WndImp extends Window {
 		resize( WIDTH, (int)btnReward.bottom() );
 	}
 	
-	private void takeReward( Imp imp, DwarfToken tokens, Item reward ) {
+	private void takeReward(Imp imp,矮人徽章 tokens,Item reward) {
 		
 		hide();
 		
-		tokens.detachAll( Dungeon.hero.belongings.backpack );
+//		tokens.detachAll( Dungeon.hero.belongings.backpack );
 		if (reward == null) return;
 
 		reward.鉴定(false);

@@ -118,7 +118,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
-import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Random;
@@ -126,7 +125,7 @@ import com.watabou.utils.Random;
 public enum HeroClass{
 	
 	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士),
-	MAGE(HeroSubClass.冰结师,HeroSubClass.元素法师),//1
+	MAGE(HeroSubClass.冰结师,HeroSubClass.元素法师),
 	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影),
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
 	
@@ -145,11 +144,11 @@ public enum HeroClass{
 	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女),///2
 	罗兰(HeroSubClass.潜能觉醒),///2
 	学士(HeroSubClass.潜能觉醒),///2
-	灵猫(HeroSubClass.黑白双子),//1
+	灵猫(HeroSubClass.黑白双子,HeroSubClass.猫头鹰),
 	鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠),
 	凌云(HeroSubClass.潜能觉醒),///2
 	血鬼(HeroSubClass.金刚独狼,HeroSubClass.血法师),
-	来世(HeroSubClass.时间刺客),//1
+	来世(HeroSubClass.时间刺客,HeroSubClass.幸运之子),
 	NONE(HeroSubClass.潜能觉醒);
 	
 	private HeroSubClass[] subClasses;
@@ -220,15 +219,6 @@ public enum HeroClass{
 		//		i = new Food();
 		//		if (!Challenges.isItemBlocked(i)) i.放背包();
 
-		if(Dungeon.派对(派对设置.幸运转世)){
-			hero.幸运转世=1;
-		}
-
-		if(Dungeon.炼狱(炼狱设置.非酋玩家)){
-			hero.幸运转世=2;
-		}
-		if(Dungeon.派对(派对设置.幸运转世)&&Dungeon.炼狱(炼狱设置.非酋玩家))
-			hero.幸运转世=0;
 
 		if(Dungeon.派对(派对设置.种族天赋)){
 			if(!(hero.heroClass(鼠弟)&&hero.heroClass(机器)&&hero.heroClass(灵猫)))

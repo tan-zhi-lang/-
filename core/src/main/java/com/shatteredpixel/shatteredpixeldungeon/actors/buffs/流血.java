@@ -129,6 +129,6 @@ public class 流血 extends Buff {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", String.format("%.2f",level));
+		return Messages.get(this, "desc", level);
 	}
 }

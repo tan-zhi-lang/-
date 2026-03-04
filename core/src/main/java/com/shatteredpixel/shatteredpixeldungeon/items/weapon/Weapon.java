@@ -71,7 +71,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.ActionIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
@@ -94,7 +93,6 @@ abstract public class Weapon extends KindOfWeapon {
 	武技 技能=null;
 	boolean circlingBack = false;
 	public static String AC_ABILITY = "ABILITY";
-	public static final String AC_CHOOSE = "CHOOSE";
 	
 	@Override
 	public float pickupDelay() {
@@ -296,10 +294,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			技能=null;
-		}
-		if (action.equals( AC_CHOOSE )){
-			GameScene.show(new WndUseItem(null,this));
-		}else if (action.equals(AC_ABILITY)&&技能!=null){
+		}if (action.equals(AC_ABILITY)&&技能!=null){
 			if (!isEquipped(hero)) {
 				GLog.w(Messages.get(this, "ability_need_equip"));
 			} else if (力量() > hero.力量()){
@@ -430,11 +425,11 @@ abstract public class Weapon extends KindOfWeapon {
 		String info = super.info();
 		
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", String.format("%.2f",力量()), tier(),
-										  String.format("%.2f",最小攻击()),
-										  String.format("%.2f",最大攻击()),
-											String.format("%.2f",最小投掷攻击()),
-										  String.format("%.2f",最大投掷攻击()));
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known",力量(), tier(),
+										  最小攻击(),
+										  最大攻击(),
+											最小投掷攻击(),
+										  最大投掷攻击());
 			if (Dungeon.hero()) {
 				if (力量() > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
@@ -444,15 +439,15 @@ abstract public class Weapon extends KindOfWeapon {
 				} else if (Dungeon.hero.力量() > 力量()) {
 					info += " " + Messages.get(Weapon.class, "excess_str",
 											   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~")
-							,String.format("%.2f",Dungeon.hero.力量() - 力量()));
+							,Dungeon.hero.力量() - 力量());
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", String.format("%.2f",力量(0)), tier(),
-										  String.format("%.2f",最小攻击(0)),
-										String.format("%.2f",最大攻击(0)),
-										  String.format("%.2f",最小投掷攻击(0)),
-											String.format("%.2f",最大投掷攻击(0)));
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(0), tier(),
+										  最小攻击(0),
+										最大攻击(0),
+										  最小投掷攻击(0),
+											最大投掷攻击(0));
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 				info += " " + Messages.get(Weapon.class, "too_heavy");
 				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
@@ -461,7 +456,7 @@ abstract public class Weapon extends KindOfWeapon {
 			} else if (Dungeon.hero.力量() > 力量()) {
 				info += " " + Messages.get(Weapon.class, "excess_str",
 										   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~"),
-										   String.format("%.2f",Dungeon.hero.力量() - 力量()));
+										   Dungeon.hero.力量() - 力量());
 			}
 		}
 		
@@ -529,16 +524,16 @@ abstract public class Weapon extends KindOfWeapon {
 	public String statsInfo(){
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
-						 String.format("%.2f",最小防御())+"~"+String.format("%.2f",最大防御())+" ++ 防御，"),
-								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
+						最小防御()+"~"+最大防御()+" ++ 防御，"),
+								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血 ** "+Math.round(流血*100)+"% ** "),
 								(吸血==0?"":"，吸血 ** "+Math.round(吸血*100)+"% ** "),
 								(伏击==0?"":"，伏击率 ## "+Math.round(伏击*100)+"% ##")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
-							 String.format("%.2f",最小防御(0))+"~"+String.format("%.2f",最大防御(0))+" ++ 防御，"),
-								命中,延迟,伤害,String.format("%.2f",DPS()),(连招范围!=-1?连招范围:范围),
+							 最小防御(0)+"~"+最大防御(0)+" ++ 防御，"),
+								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
 								(流血==0?"":"，流血 ** "+Math.round(流血*100)+"% ** "),
 								(吸血==0?"":"，吸血 ** "+Math.round(吸血*100)+"% ** "),
 								(伏击==0?"":"，伏击率 ## "+Math.round(伏击*100)+"% ##")
@@ -629,7 +624,7 @@ abstract public class Weapon extends KindOfWeapon {
 		charger.setScaleFactor( chargeScaleFactor );
 	}
 	public Weapon.Charger charger;
-	public static class Charger extends Buff implements ActionIndicator.Action {
+	public class Charger extends Buff implements ActionIndicator.Action {
 		{
 			//so that duelist keeps weapon charge on ankh revive
 			revivePersists = true;
@@ -638,6 +633,12 @@ abstract public class Weapon extends KindOfWeapon {
 		public float partialCharge;
 		
 		float scalingFactor = 0.875f;
+
+
+		public Weapon Weapon(){
+			return Weapon.this;
+		}
+
 		@Override
 		public boolean act() {
 			if (charges < chargeCap()){
@@ -1049,7 +1050,16 @@ abstract public class Weapon extends KindOfWeapon {
 		super.cast(user,dst);
 	}
 	//endregion
-	
+
+	public static void chargeWeapons(float turns){
+		if(Dungeon.hero())
+			for(Weapon.Charger wc: Dungeon.hero.buffs(Weapon.Charger.class)){
+				if(wc.Weapon()!=null){
+					wc.gainCharge(turns);
+				}
+			}
+	}
+
 	{
 		usesTargeting=true;
 	}
@@ -1358,8 +1368,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public Item 升级(boolean enchant ) {
 
 		float 概率=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
@@ -1398,8 +1407,7 @@ abstract public class Weapon extends KindOfWeapon {
 		//+2: 5%  (1/20)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -1434,8 +1442,7 @@ abstract public class Weapon extends KindOfWeapon {
 			//30% chance to be cursed
 			//10% chance to be enchanted
 				float effectRoll = Random.Float();
-			if(Dungeon.hero()&&Dungeon.hero.欧皇())effectRoll*=2;
-			if(Dungeon.hero()&&Dungeon.hero.非酋())effectRoll/=2;
+			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
 			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
 				enchant(Enchantment.randomCurse());
 				cursed = true;

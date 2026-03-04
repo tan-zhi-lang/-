@@ -21,12 +21,12 @@ public class 传奇肛塞 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", 100*伏击()),
-								Messages.decimalFormat("#.##",100*受伤()));
+					 100*伏击(),
+								100*受伤());
 		} else {
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", 100*伏击(0)),
-								Messages.decimalFormat("#.##",100*受伤(0)));
+					 100*伏击(0),
+								100*受伤(0));
 		}
 	}
 

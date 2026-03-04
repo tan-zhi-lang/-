@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
@@ -158,6 +158,7 @@ public enum Talent {
 
 	捕鱼达人(x20+9,4),猫反应7(x20+10,4),
 	白猫主导(x20+11,4),渡魂灵猫(x20+12,4),黑猫主导(x20+13,4),
+	夜行专精(x20+14,4),无声突袭(x20+15,4),精准感知(x20+16,4),
 
 	吱援部队(x21+11,4),外交鼠段(x21+12,4),鼠手鼠脚(x21+13,4),
 	狂血疯撕(x21+14,4),狂齿猎食(x21+15,4),鼠爪刺击(x21+16,4),
@@ -167,7 +168,8 @@ public enum Talent {
 	血之潮汐(x23+14,4),血色契约(x23+15,4),鲜血转换(x23+16,4),
 
 	关键时刻(x24+11,4),时间控制(x24+12,4),穿越零界(x24+13,4),
-	
+	天命之赐(x24+14,4),天命眷顾(x24+15,4),欧皇庇护(x24+16,4),
+
 	知识(x25),勇武(x25+1),备战(x25+2),
 	
 	健身(x25+4,3),破绽(x25+5,3),寻觅(x25+6,3),静步(x25+7,3),
@@ -512,7 +514,7 @@ public enum Talent {
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
 			float shieldToGive = Math.round( factor * hero.最大生命);
-			Buff.施加(hero, Barrier.class).设置(shieldToGive);
+			Buff.施加(hero, 护盾.class).设置(shieldToGive);
 		}
 		if (false){//喝药加闪
 			if (factor >= 0.5f){
@@ -822,6 +824,9 @@ public enum Talent {
 			case 黑白双子:
 				Collections.addAll(tierTalents,白猫主导,渡魂灵猫,黑猫主导);
 				break;
+			case 猫头鹰:
+				Collections.addAll(tierTalents,夜行专精,无声突袭,精准感知);
+				break;
 			case 巫咒王鼠:
 				Collections.addAll(tierTalents,吱援部队,外交鼠段,鼠手鼠脚);
 				break;
@@ -836,6 +841,9 @@ public enum Talent {
 				break;
 			case 时间刺客:
 				Collections.addAll(tierTalents,关键时刻,时间控制,穿越零界);
+				break;
+			case 幸运之子:
+				Collections.addAll(tierTalents,天命之赐,天命眷顾,欧皇庇护);
 				break;
 		}
 		for (Talent talent : tierTalents){

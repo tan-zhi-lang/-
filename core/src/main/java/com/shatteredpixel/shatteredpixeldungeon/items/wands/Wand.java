@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
@@ -443,7 +443,7 @@ public abstract class Wand extends Item {
 				Buff.延长(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
 			}
 		}
-
+		if(curUser.符文("不详契约"))curUser.受伤(curUser.生命(0.05f));
 		if(!算法.isDebug())
 		curCharges -= cursed ? 1 : chargesPerCast();
 
@@ -477,8 +477,7 @@ public abstract class Wand extends Item {
 		//+2: 6.67%  (1/15)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -508,8 +507,7 @@ public abstract class Wand extends Item {
 		curCharges += n;
 
 		float 概率2=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率2*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率2/=2;
+		if(Dungeon.hero()) 概率2*=Dungeon.hero.幸运值();
 		//30% chance to be cursed
 		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;
@@ -645,7 +643,7 @@ public abstract class Wand extends Item {
 						}
 						if(curUser.天赋(Talent.SHIELD_BATTERY)) {
 							float shield = curUser.最大生命(curUser.天赋点数(Talent.SHIELD_BATTERY, 0.025f)) * curWand.curCharges;
-							Buff.施加(curUser, Barrier.class).设置(shield);
+							Buff.施加(curUser, 护盾.class).设置(shield);
 							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
 						}
 						curWand.curCharges = 0;

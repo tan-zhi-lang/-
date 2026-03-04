@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -113,7 +113,7 @@ public class Pasty extends Food {
 			case 元旦节:
 				//shields for 10% of max hp, min of 5
 				float toShield = Math.max(5, hero.最大生命 /10);
-				Buff.施加(hero, Barrier.class).设置(toShield);
+				Buff.施加(hero, 护盾.class).设置(toShield);
 				break;
 			case 春节:
 				//...but it also awards an extra item that restores 150 hunger

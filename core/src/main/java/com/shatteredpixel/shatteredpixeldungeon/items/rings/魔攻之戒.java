@@ -268,7 +268,7 @@ public class 魔攻之戒 extends Ring {
 	
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return String.format("%.2f",魔力(0.5f,0.2f))+"~"+String.format("%.2f",魔力加(0.9f,0.67f));
+		return 魔力加(0.5f,0.2f)+"~"+魔力加(0.9f,0.67f);
 	}
 	@Override
 	protected RingBuff buff( ) {

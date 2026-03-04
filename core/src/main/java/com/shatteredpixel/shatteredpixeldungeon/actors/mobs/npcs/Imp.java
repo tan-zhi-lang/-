@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Golem;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.quest.DwarfToken;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.AmbitiousImpR
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndImp;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuest;
 import com.watabou.noosa.Game;
@@ -93,7 +94,7 @@ public class Imp extends NPC {
 
 		if (Quest.given) {
 			
-			DwarfToken tokens = Dungeon.hero.belongings.getItem( DwarfToken.class );
+			矮人徽章 tokens = Dungeon.hero.belongings.getItem(矮人徽章.class);
 			if (tokens != null && (tokens.数量()>=5||(!Quest.alternative&&tokens.数量()>=4))) {
 				Game.runOnRenderThread(new Callback() {
 					@Override
@@ -128,7 +129,7 @@ public class Imp extends NPC {
 	}
 	
 	public void flee() {
-		
+		GLog.w("矮人徽章你就拿着吧！去看看矮人魔法传送阵！");
 		yell( Messages.get(this, "cya", Messages.titleCase(Dungeon.hero.name())) );
 		
 		destroy();
@@ -232,7 +233,7 @@ public class Imp extends NPC {
 				if ((alternative && mob instanceof Monk) ||
 					(!alternative && mob instanceof Golem)) {
 					
-					Dungeon.level.drop( new DwarfToken(), mob.pos ).sprite().drop();
+					Dungeon.level.drop(new 矮人徽章(),mob.pos).sprite().drop();
 				}
 			}
 		}

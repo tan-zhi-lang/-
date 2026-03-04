@@ -22,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellboo
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙拉管;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时空道标;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.灵魂焰灯;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
@@ -179,6 +180,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无限之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
@@ -559,6 +561,7 @@ public class Generator {
 					蝙蝠棒.class,
 					破败王剑.class,
 					妖刀村正.class,
+					无限之剑.class,
 
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2,2,2,
@@ -566,7 +569,7 @@ public class Generator {
 											   2,2,2,2,
 											   2,2,2,2,
 											   2,2,2,2,
-											   2,2,2,2,
+											   2,2,2,2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
@@ -625,8 +628,10 @@ public class Generator {
 					ChaliceOfBlood.class,
 					
 					DriedRose.class,
-					
+
+					时空道标.class,
 					荆棘斗篷.class,
+
 					心之钢.class,
 					九龙拉管.class,
 					生命蜡烛.class,
@@ -644,7 +649,8 @@ public class Generator {
 					骷髅钥匙.class
 			};
 			ARTIFACT.defaultProbs = new float[]{ 1, 1,0,
-												 1, 1, 1, 1, 1,1,
+												 1, 1,
+					1, 1, 1, 1,1,
 					1, 1, 1, 1,
 					1, 1,1,1 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();

@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -42,6 +43,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Shopkeeper extends NPC {
@@ -238,12 +240,7 @@ public class Shopkeeper extends NPC {
 			new 商人信标().放背包();
 			Messages.get(Shopkeeper.this, "商人信标");
 		}
-		try{
-			Dungeon.saveAll();
-			Badges.saveGlobal();
-		}catch(Exception e){
-			//保存游戏
-		}
+
 		Game.runOnRenderThread(new Callback() {
 			@Override
 			public void call() {

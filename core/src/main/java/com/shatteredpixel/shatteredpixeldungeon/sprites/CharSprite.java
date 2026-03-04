@@ -215,7 +215,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		showStatusWithIcon(color,text+"",icon,args);
 	}
 	public void showStatusWithIcon( int color, float text, int icon, Object... args ){
-		showStatusWithIcon(color,String.format("%.2f",text)+"",icon,args);
+		showStatusWithIcon(color,text+"",icon,args);
 	}
 	public void showStatusWithIcon( int color, String text, int icon, Object... args ) {
 		if (visible) {
@@ -661,8 +661,8 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 
 		if(ch!=null){
-			scale.x=ch.大小;
-			scale.y=ch.大小;
+			scale.x=ch.大小();
+			scale.y=ch.大小();
 		}
 		super.update();
 
@@ -815,6 +815,26 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 
+	public void showInvestigate() {
+		synchronized (EmoIcon.class) {
+			if (!(emo instanceof EmoIcon.Investigate)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.Investigate(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void hideInvestigate() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.Investigate) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
 	public void 无语() {
 		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {

@@ -45,7 +45,7 @@ public class EmoIcon extends Image {
 					growing = true;
 				}
 			}
-			
+
 			x = owner.x + owner.width()/2 - width / 2;
 			y = owner.y- owner.height()/2f - height/2f-0.5f;
 		}
@@ -56,7 +56,7 @@ public class EmoIcon extends Image {
 			alpha1();
 		}
 	}
-	
+
 	public static class Sleep extends EmoIcon {
 		
 		public Sleep( CharSprite owner ) {
@@ -98,9 +98,21 @@ public class EmoIcon extends Image {
 			scale.set( Random.Float( minSize, maxSize ) );
 			
 		}
-		
-	}
 
+	}
+	public static class Investigate extends EmoIcon {
+
+		public Investigate( CharSprite owner ) {
+
+			super( owner );
+
+			copy( Icons.get( Icons.INVESTIGATE ) );
+
+			origin.set( width / 2, height / 2 );
+			scale.set( Random.Float( minSize, maxSize ) );
+		}
+
+		}
 	public static class 无语 extends EmoIcon {
 		
 		public 无语( CharSprite owner ){

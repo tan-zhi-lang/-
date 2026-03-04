@@ -7,8 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -117,6 +118,9 @@ public class Swarm extends Mob {
 		clone.经验 = 0;
 		if (buff( 燃烧.class ) != null) {
 			Buff.施加( clone, 燃烧.class ).reignite( clone );
+		}
+		if (buff( 火毒.class)!=null) {
+			Buff.施加( clone, 火毒.class ).reignite( clone );
 		}
 		if (buff( Poison.class ) != null) {
 			Buff.施加( clone, Poison.class ).set(2);

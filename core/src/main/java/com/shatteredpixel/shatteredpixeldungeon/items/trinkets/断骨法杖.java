@@ -22,13 +22,13 @@ public class 断骨法杖 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 								增加(),
-								Messages.decimalFormat("#.##",100*减少())
+								100*减少()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								
 								增加(0),
-								Messages.decimalFormat("#.##",100*减少(0))
+								100*减少(0)
 							   );
 		}
 	}

@@ -15,12 +15,12 @@ public class Bat extends Mob {
 	{
 		spriteClass = BatSprite.class;
 		
-		生命 = 最大生命 = Dungeon.老鼠蝙蝠?7:30;
-		defenseSkill = Dungeon.老鼠蝙蝠?2:15;
-		baseSpeed = 2f;
+		生命 = 最大生命 = Dungeon.老鼠蝙蝠?9:35;
+		defenseSkill = Dungeon.老鼠蝙蝠?2:16;
+		baseSpeed = 1.5f;
 		
-		经验 = Dungeon.老鼠蝙蝠?1:7;
-		最大等级 = Dungeon.老鼠蝙蝠?5:15;
+		经验 = Dungeon.老鼠蝙蝠?1:8;
+		最大等级 = Dungeon.老鼠蝙蝠?5:16;
 		
 		flying = true;
 		
@@ -35,12 +35,12 @@ public class Bat extends Mob {
 	}
 	@Override
 	public float 最大攻击() {
-		return Dungeon.老鼠蝙蝠?4:18;
+		return Dungeon.老鼠蝙蝠?4:21;
 	}
 	
 	@Override
 	public int 最大命中(Char target ) {
-		return Dungeon.老鼠蝙蝠?8:16;
+		return Dungeon.老鼠蝙蝠?8:18;
 	}
 	
 	@Override

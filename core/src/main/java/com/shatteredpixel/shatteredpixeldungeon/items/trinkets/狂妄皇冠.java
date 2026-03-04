@@ -43,7 +43,7 @@ public class 狂妄皇冠 extends Trinket {
 
 	public static int 增加(int level){
 		if (level < 0){
-			return -1;
+			return 0;
 		} else {
 			return 1+level;
 		}

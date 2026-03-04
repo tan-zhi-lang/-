@@ -47,20 +47,20 @@ public class 幸运之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", 0.236f*soloBuffedBonus()),6*soloBuffedBonus());
+									   0.236f*soloBuffedBonus(),100*0.06f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", 0.236f*combinedBuffedBonus(Dungeon.hero)),6+6*combinedBuffedBonus(Dungeon.hero));
+						0.236f*combinedBuffedBonus(Dungeon.hero),100*(0.06f+0.06f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.236f),6);
+			return Messages.get(this, "stats", 0.236f,6);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return Messages.decimalFormat("#.2", 0.236f*(level+1)) + "倍";
+		return 0.236f*(level+1) + "倍";
 	}
 	
 	@Override
@@ -69,8 +69,8 @@ public class 幸运之戒 extends Ring {
 		return ""+2+level*2;
 	}
 	
-	public static int 暴击率( Char target ){
-		return 6*getBuffedBonus( target, 幸运之戒.Wealth.class);
+	public static float 暴击率( Char target ){
+		return 0.06f*getBuffedBonus( target, 幸运之戒.Wealth.class);
 	}
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";

@@ -15,7 +15,7 @@ public class 护盾 extends ShieldBuff {
 		type = buffType.POSITIVE;
 	}
 
-	int partialLostShield;
+	float partialLostShield;
 
 	@Override
 	public void 增加(float amt) {
@@ -32,6 +32,15 @@ public class 护盾 extends ShieldBuff {
 
 	@Override
 	public boolean act() {
+
+		partialLostShield += Math.min(1f, 护盾量()/20f)
+				* HoldFast.buffDecayFactor(target);
+
+		if (partialLostShield >= 1f) {
+			absorbDamage(1);
+			partialLostShield = 0;
+		}
+		
 		if (护盾量() <= 0){
 			detach();
 		}
@@ -40,15 +49,7 @@ public class 护盾 extends ShieldBuff {
 		
 		return true;
 	}
-	@Override
-	public float absorbDamage( float dmg ){
-		shielding --;
-		if (shielding <= 0 && detachesAtZero){
-			detach();
-		}
-		if (target != null) target.needsShieldUpdate = true;
-		return 0;
-	}
+	
 	@Override
 	public void fx(boolean on) {
 		if (on) {
@@ -75,7 +76,7 @@ public class 护盾 extends ShieldBuff {
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", Math.round(护盾量()));
+		return Messages.get(this, "desc", 护盾量());
 	}
 
 	private static final String PARTIAL_LOST_SHIELD = "partial_lost_shield";
@@ -89,6 +90,6 @@ public class 护盾 extends ShieldBuff {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		partialLostShield = bundle.getInt(PARTIAL_LOST_SHIELD);
+		partialLostShield = bundle.getFloat(PARTIAL_LOST_SHIELD);
 	}
 }

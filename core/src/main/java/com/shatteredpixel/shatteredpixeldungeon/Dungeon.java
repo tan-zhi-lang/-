@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
@@ -23,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.传送阵眼;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -203,12 +205,14 @@ public class Dungeon {
 	public static int energy=0;
 	public static int gold(int x){
 		if(x>0){
-			x*=优惠卡.获取()/100f;
 			energy+=Math.round(圣金之沙.获得()*x);
 
 			if(Dungeon.符文("货币互通"))
 				energy+=Math.round(0.05f*x);
 
+			if(hero())
+			x*=Dungeon.hero.幸运值();
+			x*=优惠卡.获取()/100f;
 			gold+=x;
 		}
 		if(x<0){
@@ -295,14 +299,14 @@ public class Dungeon {
 		//offset seed slightly to avoid output patterns
 		Random.pushGenerator( seed+1 );
 
-			Scroll.initLabels();
-			Potion.initColors();
-			Ring.initGems();
+		Scroll.initLabels();
+		Potion.initColors();
+		Ring.initGems();
 
-			SpecialRoom.initForRun();
-			SecretRoom.initForRun();
+		SpecialRoom.initForRun();
+		SecretRoom.initForRun();
 
-			Generator.fullReset();
+		Generator.fullReset();
 
 		Random.resetGenerators();
 		
@@ -694,6 +698,14 @@ public class Dungeon {
 			LevelTransition t = level.getTransition(LevelTransition.Type.REGULAR_ENTRANCE);
 			if (t != null) pos = t.cell();
 		}
+		if ((Dungeon.相对层数()==11||Dungeon.相对层数()==18)&&pos == 0){
+			for(Mob m : level.mobs){
+				if(m instanceof 传送阵眼){
+					pos=m.pos;
+					break;
+				}
+			}
+		}
 
 		//Place hero at the entrance if they are out of the map (often used for pos = -1)
 		// or if they are in invalid terrain terrain (except in the mining level, where that happens normally)
@@ -721,13 +733,13 @@ public class Dungeon {
 				//displace mob
 				for(int i : PathFinder.相邻){
 					if (Actor.findChar(m.pos+i) == null && level.passable[m.pos + i]){
-						m.pos += i;
+						hero.pos += i;
 						break;
 					}
 				}
 			}
 		}
-
+		if(!hero.subClass(HeroSubClass.猫头鹰))
 		hero.viewDistance = level.视野范围;
 		hero.curAction = hero.lastAction = null;
 

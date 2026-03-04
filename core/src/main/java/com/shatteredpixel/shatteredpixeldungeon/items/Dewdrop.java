@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -63,7 +63,7 @@ public class Dewdrop extends Item {
 
 		if (quantity > 1 &&hero.天赋(Talent.SHIELDING_DEW)){
 			float shield = hero.最大生命(hero.天赋点数(Talent.SHIELDING_DEW,0.15f)*quantity);
-			Buff.施加(hero, Barrier.class).增加(shield);
+			Buff.施加(hero, 护盾.class).增加(shield);
 		}
 
 		if (heal > 0 ) {

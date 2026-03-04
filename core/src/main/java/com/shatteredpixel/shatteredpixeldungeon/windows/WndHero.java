@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -32,6 +33,7 @@ import com.watabou.noosa.Group;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -149,12 +151,6 @@ public class WndHero extends WndTabbed {
 
 		select( lastIdx );
 
-		try{
-			Dungeon.saveAll();
-			Badges.saveGlobal();
-		}catch(Exception e){
-			//保存游戏
-		}
 	}
 
 	@Override
@@ -225,13 +221,13 @@ public class WndHero extends WndTabbed {
 
 			pos = title.bottom() + GAP;
 
-			statSlot( "力量/魔力", String.format("%.2f",hero.力量())+"/"+String.format("%.2f",hero.魔力()));
-			statSlot( "攻速/移速", String.format("%.2f",1/hero.攻击延迟())
+			statSlot( "力量/魔力", Math.round(hero.力量())+"/"+Math.round(hero.魔力()));
+			statSlot( "攻速/移速", String.format("%.2f",1f/hero.攻击延迟())
 								   +"/"+String.format("%.2f",hero.移速()));
 			pos += GAP;
 
-			statSlot( "==物理增伤/攻击==", Math.round((hero.攻击时(null,100)/100f-1)*hero.伤害()*100f)+"%/"+String.format("%.2f",hero.最小攻击())+"~"+String.format("%.2f",hero.最大攻击()));
-			statSlot( "++物理抗性/防御++", Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+String.format("%.2f",hero.最小防御())+"~"+String.format("%.2f",hero.最大防御()));
+			statSlot( "==物理增伤/攻击==", Math.round((hero.攻击时(null,100)/100f-1)*hero.伤害()*100f)+"%/"+Math.round(hero.最小攻击())+"~"+Math.round(hero.最大攻击()));
+			statSlot( "++物理抗性/防御++", Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+Math.round(hero.最小防御())+"~"+Math.round(hero.最大防御()));
 			pos += GAP;
 			
 			statSlot( "**攻击范围/命中**", hero.攻击范围()+"/"+hero.最小命中(null)+"~"+hero.最大命中(null));
@@ -296,12 +292,12 @@ public class WndHero extends WndTabbed {
 			
 			pos = GAP*2;
 
-			statSlot( "_暴击率/暴击伤害_", hero.暴击率()+"%/"+Math.round(hero.暴击伤害()*100)+"%");
+			statSlot( "_暴击率/暴击伤害_", Math.round(hero.暴击率()*100)+"%/"+Math.round(hero.暴击伤害()*100)+"%");
 
-			statSlot( "==穿甲/护甲穿透==", String.format("%.2f",hero.穿甲())+"/"+Math.round(hero.护甲穿透()*100)+"%");
+			statSlot( "==穿甲/护甲穿透==", hero.穿甲()+"/"+Math.round(hero.护甲穿透()*100)+"%");
 
 			pos += GAP;
-			statSlot( "##魔抗/元素抗性##",String.format("%.2f",AntiMagic.drRoll(hero, hero.glyphLevel(AntiMagic.class)))+"/"+Math.round(
+			statSlot( "##魔抗/元素抗性##",AntiMagic.drRoll(hero, hero.glyphLevel(AntiMagic.class))+"/"+Math.round(
 					(100-(100*RingOfElements.resist(hero)-AntiMagic.drRoll(hero,hero.glyphLevel(AntiMagic.class))/100f)
 								))+"%");
 			pos += GAP;

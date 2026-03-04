@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
@@ -17,9 +18,13 @@ public class HolyDart extends TippedDart {
 	{
 		image = 物品表.HOLY_DART;
 	}
-	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
+		if (attacker instanceof Hero) {
+			if (((Hero) attacker).attackTarget().alignment==attacker.alignment){
+				return 0; //does not deal damage to allies
+			}
+		}
 		if(defender!=null){
 			//do nothing to the hero when processing charged shot
 			if(processingChargedShot&&defender==attacker){
@@ -41,6 +46,6 @@ public class HolyDart extends TippedDart {
 					Buff.施加(defender,Bless.class,Math.round(Bless.DURATION));
 				}
 		}
-		return super.攻击时(attacker, defender, damage);
+		return 0;
 	}
 }

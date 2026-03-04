@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.LloydsBeacon;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时空道标;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesBossLevel;
@@ -323,7 +323,7 @@ public class DM300 extends Mob {
 			}
 
 			if (Dungeon.level.heroFOV[pos]) {
-				if (buff(Barrier.class) == null) {
+				if (buff(护盾.class)==null) {
 					GLog.w(Messages.get(this, "shield"));
 				}
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
@@ -331,7 +331,7 @@ public class DM300 extends Mob {
 				sprite.showStatusWithIcon(CharSprite.增强, 30 + (最大生命 - 生命)/10, FloatingText.SHIELDING);
 			}
 
-			Buff.施加(this, Barrier.class).设置( 30 + (最大生命 - 生命)/10);
+			Buff.施加(this, 护盾.class).设置(30+(最大生命-生命)/10);
 
 		}
 	}
@@ -579,7 +579,7 @@ public class DM300 extends Mob {
 		}
 		Statistics.bossScores[2] += 3000;
 
-		LloydsBeacon beacon = Dungeon.hero.belongings.getItem(LloydsBeacon.class);
+		时空道标 beacon = Dungeon.hero.belongings.getItem(时空道标.class);
 		if (beacon != null) {
 			beacon.升级();
 		}

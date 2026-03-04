@@ -219,12 +219,12 @@ public class WandOfCorruption extends Wand {
 
 	@Override
 	public String upgradeStat1(int level) {
-		return Messages.decimalFormat("#.##", 魔力(0.3f,0.333f));
+		return ""+魔力(0.3f,0.333f);
 	}
 
 	@Override
 	public String upgradeStat2(int level) {
-		return Integer.toString(Math.round(魔力(0.6f,0.5f)));
+		return ""+魔力(0.6f,0.5f);
 	}
 
 	@Override

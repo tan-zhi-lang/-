@@ -21,13 +21,13 @@ public class 磨刀石 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								Messages.decimalFormat("#.##",100*增加()),
+								100*增加(),
 								力量()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								
-								Messages.decimalFormat("#.##",100*增加(0)),
+								100*增加(0),
 								力量(0)
 							   );
 		}

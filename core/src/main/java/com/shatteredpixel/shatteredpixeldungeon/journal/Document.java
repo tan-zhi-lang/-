@@ -171,7 +171,7 @@ public enum Document {
 				case GUIDE_EXAMINING:
 					return Icons.get(Icons.MAGNIFY);
 				case GUIDE_SURPRISE_ATKS:
-					return Icons.get(Icons.SNAKE);
+					return Icons.get(Icons.命中);
 				case GUIDE_IDING:
 					return new ItemSprite( new 鉴定卷轴() );
 				case GUIDE_FOOD:

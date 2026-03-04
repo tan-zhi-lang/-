@@ -39,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
@@ -75,7 +76,7 @@ public class ShopRoom extends SpecialRoom {
 	}
 
 	public int spacesNeeded(){
-		if (itemsToSpawn == null) itemsToSpawn = generateItems();
+		if (itemsToSpawn == null) itemsToSpawn = generateItems(false);
 
 		//sandbags spawn based on current level of an hourglass the player may be holding
 		// so, to avoid rare cases of min sizes differing based on that, we ignore all sandbags
@@ -130,7 +131,7 @@ public class ShopRoom extends SpecialRoom {
 	protected void placeItems( Level level ){
 
 		if (itemsToSpawn == null){
-			itemsToSpawn = generateItems();
+			itemsToSpawn = generateItems(false);
 		}
 
 		Point entryInset = new Point(entrance());
@@ -224,7 +225,7 @@ public class ShopRoom extends SpecialRoom {
 
 	}
 	
-	protected static ArrayList<Item> generateItems() {
+	protected static ArrayList<Item> generateItems(boolean imp) {
 
 		ArrayList<Item> itemsToSpawn = new ArrayList<>();
 
@@ -359,7 +360,8 @@ public class ShopRoom extends SpecialRoom {
 //			itemsToSpawn.add( Random.Int(2) == 0 ?
 //					Generator.randomUsingDefaults( Generator.Category.POTION ) :
 //					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-
+		if(imp)
+		itemsToSpawn.add( new 矮人徽章().数量(Random.Int(4,5)));
 
 		itemsToSpawn.add( new Food() );
 		itemsToSpawn.add( new SmallRation() );

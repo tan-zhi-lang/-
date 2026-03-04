@@ -20,11 +20,11 @@ public class FlavourBuff extends Buff {
 
 	//flavour buffs can all just rely on cooldown()
 	protected String dispTurns() {
-		return dispTurns(visualcooldown());
+		return dispTurns(Math.round(visualcooldown()));
 	}
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)visualcooldown());
+		return Integer.toString(Math.round(visualcooldown()));
 	}
 }

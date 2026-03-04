@@ -96,6 +96,7 @@ public class 物品表 {
     public static final int 霰弹枪子弹 = UNCOLLECTIBLE + 14;
     public static final int 狙击枪子弹 = UNCOLLECTIBLE + 15;
     public static final int 火炮子弹 = UNCOLLECTIBLE + 16;
+    public static final int 魄罗 = UNCOLLECTIBLE + 17;
 
     static {
         assignItemRect(GOLD, 15, 13);
@@ -119,6 +120,7 @@ public class 物品表 {
         assignItemRect(霰弹枪子弹, 5,10);
         assignItemRect(狙击枪子弹, 5,13);
         assignItemRect(火炮子弹, 12,8);
+        assignItemRect(魄罗, 9);
     }
     //endregion
 
@@ -452,7 +454,8 @@ public class 物品表 {
     public static final int 蝙蝠棒=WEP_TIER5+25;
     public static final int 破败王剑=WEP_TIER5+26;
     public static final int 妖刀村正=WEP_TIER5+27;
-    public static final int 大肉棒=WEP_TIER5+28;
+    public static final int 无限之剑=WEP_TIER5+28;
+    public static final int 大肉棒=WEP_TIER5+29;
 
     static {
         assignItemRect(英雄断剑, 12, 13);
@@ -485,7 +488,8 @@ public class 物品表 {
         assignItemRect(变态刀,15,16);
         assignItemRect(蝙蝠棒,15,13);
         assignItemRect(破败王剑,16);
-        assignItemRect(妖刀村正,14,16);
+        assignItemRect(妖刀村正,15,16);
+        assignItemRect(无限之剑,16);
         assignItemRect(大肉棒,14);
     }
     //endregion
@@ -1040,6 +1044,7 @@ public class 物品表 {
     public static final int 粽子 = HOLIDAY_FOOD + 10;
     public static final int 单身狗粮 = HOLIDAY_FOOD + 11;
     public static final int 月饼 = HOLIDAY_FOOD + 12;
+    public static final int 蛋糕 = HOLIDAY_FOOD + 13;
 
     static {
         assignItemRect(STEAMED_FISH, 16, 12);
@@ -1055,6 +1060,7 @@ public class 物品表 {
         assignItemRect(粽子, 16, 15);
         assignItemRect(单身狗粮, 12, 14);
         assignItemRect(月饼, 12);
+        assignItemRect(蛋糕, 14, 13);
     }
     //endregion
 

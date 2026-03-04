@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -173,8 +172,8 @@ public class WndUpgrade extends Window {
 		if (toUpgrade instanceof Weapon){
 			Weapon.Augment aug = ((Weapon) toUpgrade).augment;
 			bottom = fillFields(Messages.get(this, "damage"),
-								String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelFrom))) + "-" + String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelFrom))),
-											  String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo))) + "-" + String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo))),
+								aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelFrom)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelFrom)),
+											  aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo)),
 					bottom);
 		}
 		
@@ -191,26 +190,26 @@ public class WndUpgrade extends Window {
 		if (toUpgrade instanceof Armor){
 			Armor.Augment aug = ((Armor) toUpgrade).augment;
 			bottom = fillFields(Messages.get(this, "blocking"),
-								String.format("%.2f",((Armor) toUpgrade).最小防御(levelFrom)) + "-" + String.format("%.2f",(((Armor) toUpgrade).最大防御(levelFrom))),
-								String.format("%.2f",((Armor) toUpgrade).最小防御(levelTo)) + "-" +  String.format("%.2f",(((Armor) toUpgrade).最大防御(levelTo))),
+								((Armor) toUpgrade).最小防御(levelFrom) + "-" + (((Armor) toUpgrade).最大防御(levelFrom)),
+								((Armor) toUpgrade).最小防御(levelTo) + "-" +  (((Armor) toUpgrade).最大防御(levelTo)),
 					bottom);
 		} else if (toUpgrade instanceof Weapon m&&m.最大防御()>0){
 			bottom = fillFields(Messages.get(this, "blocking"),
-								String.format("%.2f",m.最小防御(levelFrom)) + "-" + String.format("%.2f",m.最大防御(levelFrom)),
-											  String.format("%.2f",m.最小防御(levelTo)) + "-" + String.format("%.2f",m.最大防御(levelTo)),
+								m.最小防御(levelFrom) + "-" + m.最大防御(levelFrom),
+											  m.最小防御(levelTo) + "-" + m.最大防御(levelTo),
 					bottom);
 		}
 
 		//weight (i.e. strength requirement)
 		if (toUpgrade instanceof Weapon){
 			bottom = fillFields(Messages.get(this, "weight"),
-								String.format("%.2f",(((Weapon) toUpgrade).力量(levelFrom))),
-								String.format("%.2f",(((Weapon) toUpgrade).力量(levelTo))),
+								""+((Weapon) toUpgrade).力量(levelFrom),
+								""+((Weapon) toUpgrade).力量(levelTo),
 					bottom);
 		} else if (toUpgrade instanceof Armor) {
 			bottom = fillFields(Messages.get(this, "weight"),
-								String.format("%.2f",(((Armor) toUpgrade).力量(levelFrom))),
-								String.format("%.2f",(((Armor) toUpgrade).力量(levelTo))),
+								""+((Armor) toUpgrade).力量(levelFrom),
+								""+((Armor) toUpgrade).力量(levelTo),
 					bottom);
 		}
 
@@ -443,10 +442,10 @@ public class WndUpgrade extends Window {
 	private float fillFields(String title, String msg1, String msg2, float bottom){
 
 		//the ~ symbol is more commonly used in Chinese
-		if (Messages.lang() == Languages.CHI_SMPL || Messages.lang() == Languages.CHI_TRAD){
-			msg1 = msg1.replace('-', '~');
-			msg2 = msg2.replace('-', '~');
-		}
+//		if (Messages.lang() == Languages.CHI_SMPL || Messages.lang() == Languages.CHI_TRAD){
+//			msg1 = msg1.replace('-', '~');
+//			msg2 = msg2.replace('-', '~');
+//		}
 
 		RenderedTextBlock ttl = PixelScene.renderTextBlock(6);
 		ttl.align(RenderedTextBlock.CENTER_ALIGN);

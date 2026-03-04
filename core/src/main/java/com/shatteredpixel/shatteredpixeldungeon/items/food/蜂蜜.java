@@ -12,7 +12,7 @@ public class 蜂蜜 extends Food {
 
 	{
 		image = 物品表.蜂蜜;
-		energy = Hunger.HUNGRY/3f*2; //100 food value
+		energy = Hunger.STARVING/3f; //100 food value
 		
 
 	}
@@ -30,6 +30,6 @@ public class 蜂蜜 extends Food {
 
 	@Override
 	public int 金币() {
-		return 20 * quantity;
+		return 30 * quantity;
 	}
 }

@@ -9,13 +9,19 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
-public class Barrier extends ShieldBuff {
+public class 饮血之剑护盾 extends ShieldBuff {
 	
 	{
 		type = buffType.POSITIVE;
 	}
 
 	float partialLostShield;
+
+	@Override
+	public float max(){
+		if(target!=null)return target.最大生命(0.2f);
+		return super.max();
+	}
 
 	@Override
 	public void 增加(float amt) {
@@ -76,7 +82,7 @@ public class Barrier extends ShieldBuff {
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", String.format("%.2f",护盾量()));
+		return Messages.get(this, "desc", 护盾量());
 	}
 
 	private static final String PARTIAL_LOST_SHIELD = "partial_lost_shield";

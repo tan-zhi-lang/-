@@ -45,7 +45,7 @@ public class ImpShopRoom extends ShopRoom {
 		//this room isn't actually filled in until the city boss is defeated, at the earliest
 		//but we want to decide the items as part of levelgen
 		if (itemsToSpawn == null) {
-			itemsToSpawn = generateItems();
+			itemsToSpawn = generateItems(true);
 		}
 	}
 

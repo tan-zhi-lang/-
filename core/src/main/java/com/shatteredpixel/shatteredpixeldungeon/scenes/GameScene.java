@@ -421,6 +421,19 @@ public class GameScene extends PixelScene {
 					传送卷轴.appearVFX(Dungeon.hero);
 				}
 				break;
+			case GOTO:
+				if (Dungeon.level.pit[Dungeon.hero.pos] && !Dungeon.hero.flying){
+					//delay this so falling into the chasm processes properly
+					ShatteredPixelDungeon.runOnRenderThread(new Callback() {
+						@Override
+						public void call() {
+							传送卷轴.appearVFX(Dungeon.hero);
+						}
+					});
+				} else {
+					传送卷轴.appearVFX(Dungeon.hero);
+				}
+				break;
 			case DESCEND:
 			case FALL:
 				if (Dungeon.hero.isAlive()) {
@@ -1479,7 +1492,7 @@ public class GameScene extends PixelScene {
 	@Override
 	public synchronized void saveWindows() {
 		super.saveWindows();
-		if (scene.inventory != null && scene.inventory.getSelector() != null){
+		if (scene != null && scene.inventory != null && scene.inventory.getSelector() != null){
 			savedSelector = scene.inventory.getSelector();
 		} else {
 			for (Gizmo g : members.toArray(new Gizmo[0])){
@@ -1499,7 +1512,7 @@ public class GameScene extends PixelScene {
 	public synchronized void restoreWindows() {
 		super.restoreWindows();
 		if (savedSelector != null){
-			if (scene.inventory != null){
+			if (scene != null && scene.inventory != null){
 				scene.inventory.setSelector(savedSelector);
 			} else {
 				addToFront(new WndBag(Dungeon.hero.belongings.backpack, savedSelector));

@@ -22,12 +22,12 @@ public class 角斗链枷 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 								暴击率(),
-								Messages.decimalFormat("#.##",100*减少())
+								100*减少()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								暴击率(0),
-								Messages.decimalFormat("#.##",100*减少(0))
+								100*减少(0)
 							   );
 		}
 	}

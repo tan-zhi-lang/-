@@ -18,10 +18,19 @@ public class Rat extends Mob {
 		
 		生命 = 最大生命 = Dungeon.老鼠蝙蝠?50:8;
 		defenseSkill = Dungeon.老鼠蝙蝠?16:2;
-		经验=Dungeon.老鼠蝙蝠?7:1;
-		最大等级 = Dungeon.老鼠蝙蝠?15:5;
+		经验=Dungeon.老鼠蝙蝠?8:1;
+		baseSpeed = Dungeon.老鼠蝙蝠?1.5f:1;
+		最大等级 = Dungeon.老鼠蝙蝠?16:5;
 		properties.add(Property.动物);
 	}
+
+	@Override
+	public float 攻击延迟(){
+		if(Dungeon.老鼠蝙蝠)
+			return super.攻击延迟()*0.5f;
+		return super.攻击延迟();
+	}
+
 	public boolean 普通=true;
 	@Override
 	protected boolean act() {
@@ -60,7 +69,7 @@ public class Rat extends Mob {
 	}
 	@Override
 	public float 最大攻击() {
-		return Dungeon.老鼠蝙蝠?18:4;
+		return Dungeon.老鼠蝙蝠?21:4;
 	}
 	
 	
@@ -72,7 +81,7 @@ public class Rat extends Mob {
 	
 	@Override
 	public int 最大命中(Char target ) {
-		return Dungeon.老鼠蝙蝠?16:8;
+		return Dungeon.老鼠蝙蝠?18:8;
 	}
 	
 	@Override

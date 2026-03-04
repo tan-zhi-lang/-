@@ -177,8 +177,7 @@ public class Artifact extends KindofMisc {
 		//always +0
 
 		float 概率=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+		概率*=Dungeon.hero.幸运值();
 		//30% chance to be cursed
 		if (算法.概率学(概率*3/10f)) {
 			cursed = true;

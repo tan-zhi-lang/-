@@ -369,6 +369,7 @@ public class Notes {
 		DEPTH,
 		ITEM_TYPE,
 		MOB_TYPE,
+		IMAGE_TYPE,
 		SPECIFIC_ITEM,
 		ITEM //for pre-3.1 save conversion
 	}
@@ -382,6 +383,7 @@ public class Notes {
 		protected Class itemClass;
 
 		protected String title;
+		public int image = 0;
 		protected String body;
 
 		public CustomRecord() {}
@@ -402,6 +404,13 @@ public class Notes {
 		public CustomRecord(Char c,String title,String desc) {
 			type = CustomType.MOB_TYPE;
 			mobClass= c.getClass();
+			this.title = title;
+			body = desc;
+		}
+		public CustomRecord(boolean b,int items,String title,String desc) {
+			type = CustomType.IMAGE_TYPE;
+			if(b)
+			image= items;
 			this.title = title;
 			body = desc;
 		}
@@ -448,6 +457,8 @@ public class Notes {
 				case MOB_TYPE:
 					Mob c = (Mob) Reflection.newInstance(mobClass);
 					return c.sprite();
+				case IMAGE_TYPE:
+					return new ItemSprite(image);
 				case ITEM_TYPE:
 					Item i = (Item) Reflection.newInstance(itemClass);
 
@@ -519,6 +530,7 @@ public class Notes {
 
 		private static final String TITLE       = "title";
 		private static final String BODY        = "body";
+		private static final String IMAGE        = "image";
 
 		@Override
 		public void storeInBundle(Bundle bundle) {
@@ -528,6 +540,7 @@ public class Notes {
 			if (itemClass != null) bundle.put(ITEM_CLASS, itemClass);
 			bundle.put(TITLE, title);
 			bundle.put(BODY, body);
+			bundle.put(IMAGE, image);
 		}
 
 		@Override
@@ -562,6 +575,9 @@ public class Notes {
 				}
 			}
 
+
+
+			image = bundle.getInt(IMAGE);
 			title = bundle.getString(TITLE);
 			body = bundle.getString(BODY);
 		}
@@ -771,6 +787,11 @@ public class Notes {
 	}
 	public static void 备注(String t,String d){
 		Notes.CustomRecord note = new Notes.CustomRecord(t,d);
+		Notes.add(note);
+//		note.editText(t,d);
+	}
+	public static void 备注(int i,String t,String d){
+		Notes.CustomRecord note = new Notes.CustomRecord(true,i,t,d);
 		Notes.add(note);
 //		note.editText(t,d);
 	}

@@ -51,12 +51,14 @@ public class Wnd选择海克斯 extends Window {
 		String 海克斯1s;
 		String 海克斯2s;
 		String 海克斯3s;
+		String 海克斯4s;
 		String 海克斯1;
 		String 海克斯2;
 		String 海克斯3;
+		String 海克斯4;
 
 		List<String> selectedKeys = new ArrayList<>();
-		selectedKeys.addAll(hero.随机海克斯(3));
+		selectedKeys.addAll(hero.随机海克斯(4));
 
 		海克斯1s=selectedKeys.get(0);
 		海克斯1=hero.海克斯级(海克斯1s)+"级:";
@@ -66,6 +68,9 @@ public class Wnd选择海克斯 extends Window {
 
 		海克斯3s=selectedKeys.get(2);
 		海克斯3=hero.海克斯级(海克斯3s)+"级:";
+
+		海克斯4s=selectedKeys.get(3);
+		海克斯4=hero.海克斯级(海克斯4s)+"级:";
 
 		String final海克斯1s=海克斯1s;
 
@@ -183,6 +188,44 @@ public class Wnd选择海克斯 extends Window {
 		clsInfo3.setRect(width-20, btnCls3.top() + (btnCls3.height()-20)/2, 20, 20);
 		add(clsInfo3);
 		pos = btnCls3.bottom() + MARGIN;
+
+		String final海克斯4s=海克斯4s;
+		RedButton btnCls4 = new RedButton( 海克斯4+final海克斯4s, 6 ) {
+			@Override
+			protected void onClick() {
+				GameScene.show(new WndOptions(
+						Messages.titleCase("选择海克斯"),
+						"你确定选择这个海克斯？",
+						"是",
+						"否"){
+					@Override
+					protected void onSelect(int index) {
+						hide();
+						if (index == 0){
+							INSTANCE.hide();
+							hero.选择海克斯(final海克斯4s);
+							数据收集(final海克斯4s);
+						}
+					}
+				});
+			}
+		};
+		btnCls4.leftJustify = true;
+		btnCls4.multiline = true;
+		btnCls4.text.setSize(1.5f,1.5f);
+		btnCls4.setSize(width-20, btnCls4.reqHeight()+2);
+		btnCls4.setRect( 0, pos, width-20, btnCls4.reqHeight()+6);
+		add( btnCls4 );
+
+		IconButton clsInfo4 = new IconButton(Icons.get(Icons.INFO)){
+			@Override
+			protected void onClick() {
+				GameScene.show(new WndTitledMessage(new ItemSprite(物品表.海克斯宝典),final海克斯4s,hero.海克斯描述(final海克斯4s)));
+			}
+		};
+		clsInfo4.setRect(width-20, btnCls4.top() + (btnCls4.height()-20)/2, 20, 20);
+		add(clsInfo4);
+		pos = btnCls4.bottom() + MARGIN;
 
 		RedButton 刷新=new RedButton("重新获得一个海克斯法典(初始可以刷新1次)",6){
 			@Override

@@ -15,8 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
@@ -29,7 +27,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
@@ -328,10 +325,7 @@ public class StatusPane extends Component {
 		float 护甲 = Dungeon.hero.护甲;
 		float 最大护甲 = Dungeon.hero.最大护甲();
 
-		float 恢复速度=1+Dungeon.hero.天赋点数(Talent.硬肤,0.15f);
-		if(Dungeon.赛季(赛季设置.鬼怨地牢)) 恢复速度*=1.4f;
-		if(Dungeon.hero.heroClass(HeroClass.WARRIOR))恢复速度*=1.4f;
-		if(Dungeon.hero.subClass(HeroSubClass.皇室卫兵)) 恢复速度*=2.5f+(Dungeon.hero.职业精通()?2.5f:0);
+		float 恢复速度=Dungeon.hero.护甲恢复();
 		//+40%即2=>2.8，50=>35
 
 		if (!Dungeon.hero.isAlive()) {
@@ -394,21 +388,22 @@ public class StatusPane extends Component {
 			}
 		}
 		if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
-			血条文本.text(String.format("%.2f",health)+"/"+String.format("%.2f",max));
+			血条文本.text(String.format("%.0f",health)+"/"+String.format("%.0f",max));
 		}else {
-			if(血量变化>0){
-				血条文本.text(String.format("%.2f",health)+"+"+String.format("%.2f",血量变化)+"/"+String.format("%.2f",max));
+			if(血量变化>=1){
+				血条文本.text(String.format("%.0f",health)+"+"+String.format("%.0f",血量变化)+"/"+String.format("%.0f",max));
 			}else if(血量变化==0){
-				血条文本.text(String.format("%.2f",health)+"/"+String.format("%.2f",max));
-			}else{
-				血条文本.text(String.format("%.2f",health)+String.format("%.2f",血量变化)+"/"+String.format("%.2f",max));
-			}
+				血条文本.text(String.format("%.0f",health)+"/"+String.format("%.0f",max));
+			}else if(血量变化<=-1){
+				血条文本.text(String.format("%.0f",health)+String.format("%.0f",血量变化)+"/"+String.format("%.0f",max));
+			}else
+				血条文本.text(String.format("%.0f",health)+"/"+String.format("%.0f",max));
 		}
-		法力条文本.text(String.format("%.2f",护甲)+(护甲<最大护甲?
-															("+"+String.format("%.2f",100/50f*恢复速度)
-		):"")+"/"+String.format("%.2f",最大护甲));
-		绿条文本.text(String.format("%.2f",hunger)+
-					  (hunger>0?String.format("%.2f",-hungerDelay):"") + "/" + String.format("%.2f",450f));
+		法力条文本.text(String.format("%.0f",护甲)+(护甲<最大护甲&&恢复速度>=1?
+															("+"+String.format("%.0f",恢复速度)
+		):"")+"/"+String.format("%.0f",最大护甲));
+		绿条文本.text(String.format("%.0f",hunger)+
+					  (hunger>0&&hungerDelay>=1?String.format("%.0f",-hungerDelay):"") + "/" + String.format("%.0f",450f));
 	
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());

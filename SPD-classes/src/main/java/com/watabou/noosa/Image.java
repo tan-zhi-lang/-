@@ -11,7 +11,7 @@ import com.watabou.utils.RectF;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
 
-public class Image extends Visual {
+public class Image extends Visual{
 
 	public SmartTexture texture;
 	protected RectF frame;

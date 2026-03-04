@@ -265,8 +265,7 @@ public class Ring extends KindofMisc {
 		//+2: 6.67%  (1/15)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -295,8 +294,7 @@ public class Ring extends KindofMisc {
 		等级(n);
 
 		float 概率2=1;
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())概率2*=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())概率2/=2;
+		if(Dungeon.hero()) 概率2*=Dungeon.hero.幸运值();
 		//30% chance to be cursed
 		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;
@@ -432,9 +430,8 @@ public class Ring extends KindofMisc {
 	public int 新等级(int x){
 		return (int)Math.round(x*
 			   Math.sqrt(
-			   Math.sqrt(
 				Math.sqrt(
-				Math.sqrt(x)))));
+				Math.sqrt(x))));
 	}
 
 	//just used for ring descriptions

@@ -8,11 +8,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class MobSpawner extends Actor {
 	{
@@ -80,17 +80,17 @@ public class MobSpawner extends Actor {
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
-							Snake.class));
+							蟑螂.class));
 			case 2:
 					//2x rat, 1x snake, 2x gnoll
-					return new ArrayList<>(Arrays.asList(Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
-														 Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
+					return new ArrayList<>(Arrays.asList(Dungeon.老鼠蝙蝠?Bat.class:水蛭.class,
+														 Dungeon.老鼠蝙蝠?Bat.class:水蛭.class,
 														 Snake.class,
-														 Gnoll.class, Gnoll.class));
+														 Snake.class, Snake.class));
 				
 			case 3:
 				//1x rat, 1x snake, 3x gnoll, 1x swarm, 1x crab
-				return new ArrayList<>(Arrays.asList(Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
+				return new ArrayList<>(Arrays.asList(Dungeon.老鼠蝙蝠?Bat.class:水蛭.class,
 						Snake.class,
 						Gnoll.class, Gnoll.class, Gnoll.class,
 						Swarm.class,
@@ -133,16 +133,16 @@ public class MobSpawner extends Actor {
 			case 11:
 				//3x bat, 1x brute, 1x shaman
 				return new ArrayList<>(Arrays.asList(
-						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
-						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
-						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
+						蠕虫.class,
+						蠕虫.class,
+						蠕虫.class,
 						Brute.class,
 						Shaman.random()));
 			case 12:
 				//2x bat, 2x brute, 1x shaman, 1x spinner
 				return new ArrayList<>(Arrays.asList(
-						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
-						Dungeon.老鼠蝙蝠?Rat.class:Bat.class,
+						石虱.class,
+						石虱.class,
 						Brute.class, Brute.class,
 						Shaman.random(),
 						Spinner.class));
@@ -207,13 +207,13 @@ public class MobSpawner extends Actor {
 			case 23:
 				//1x succubus, 2x evil eye, 1x scorpio
 				return new ArrayList<>(Arrays.asList(
-						Succubus.class,
+						地狱猎犬.class,
 						Eye.class, Eye.class,
 						Scorpio.class));
 			case 24: case 25: case 26:
 				//1x succubus, 2x evil eye, 3x scorpio
 				return new ArrayList<>(Arrays.asList(
-						Succubus.class,
+						地狱猎犬.class,
 						Eye.class, Eye.class,
 						Scorpio.class, Scorpio.class, Scorpio.class));
 		}
@@ -267,45 +267,46 @@ public class MobSpawner extends Actor {
 		if(Holiday.getCurrentHoliday()==Holiday._1024){
 			altChance*=2;
 		}
-		for (int i = 0; i < rotation.size(); i++) {
-			if(Dungeon.赛季(赛季设置.鬼怨地牢)&&算法.概率学(1/8f)){
-				Class<? extends Mob> cl = rotation.get(i);
-				if (cl == 鬼怨.class)                cl = 仇鬼.class;
-				rotation.set(i, cl);
-				continue;
-			}
+		if(Dungeon.赛季(赛季设置.鬼怨地牢)){
+			altChance*=20;
+		}
 
-			if(Dungeon.hero()&&(Dungeon.hero.heroClass(HeroClass.鼠弟)||Dungeon.hero.heroClass(HeroClass.灵猫))){
-				Class<? extends Mob> cl=rotation.get(i);
-				if(cl==Rat.class)
-					cl=Albino.class;
-				rotation.set(i, cl);
-				continue;
-			}
+		if(Dungeon.hero()&&(Dungeon.hero.heroClass(HeroClass.鼠弟)||Dungeon.hero.heroClass(HeroClass.灵猫))){
+			altChance*=20;
+		}
+		for (int i = 0; i < rotation.size(); i++) {
 			if (Random.Float() < altChance) {
 				Class<? extends Mob> cl = rotation.get(i);
-				if (cl == Rat.class)                cl = Albino.class;
-				else if (cl == Gnoll.class)         cl = GnollExile.class;
-				else if (cl == Crab.class)          cl = HermitCrab.class;
-				else if (cl == Slime.class)         cl = CausticSlime.class;
-
-				else if (cl == Skeleton.class)         cl = 骷髅战士.class;
-				else if (cl == Thief.class)         cl = Bandit.class;
-				else if (cl == Necromancer.class)   cl = SpectralNecromancer.class;
-
-				else if (cl == Brute.class)         cl = ArmoredBrute.class;
-				else if (cl == DM200.class)         cl = DM201.class;
-
-				else if (cl == Monk.class)          cl = Senior.class;
-				//chaos elemental spawning happens in Elemental.Random
-
-				else if (cl == Scorpio.class)       cl = Acidic.class;
-				
+				Class<? extends Mob> alt = RARE_ALTS.get(cl);
 				if(Holiday.getCurrentHoliday()==Holiday.中元节){
-					cl = Wraith.class;
+					alt = Wraith.class;
 				}
-				rotation.set(i, cl);
+				if (alt != null) {
+					rotation.set(i, alt);
+				}
 			}
 		}
+	}
+
+	public static final HashMap<Class<?extends Mob>, Class<?extends Mob>> RARE_ALTS = new HashMap<>();
+	static {
+		RARE_ALTS.put(鬼怨.class,            仇鬼.class);
+		RARE_ALTS.put(Rat.class,            Albino.class);
+		RARE_ALTS.put(Gnoll.class,          GnollExile.class);
+		RARE_ALTS.put(Crab.class,           HermitCrab.class);
+		RARE_ALTS.put(Slime.class,          CausticSlime.class);
+
+		RARE_ALTS.put(Thief.class,          Bandit.class);
+		RARE_ALTS.put(Skeleton.class,          骷髅战士.class);
+		RARE_ALTS.put(Necromancer.class,    SpectralNecromancer.class);
+
+		RARE_ALTS.put(Brute.class,          ArmoredBrute.class);
+		RARE_ALTS.put(DM200.class,          DM201.class);
+
+		RARE_ALTS.put(Monk.class,           Senior.class);
+		//swapping to chaos elemental actually happens in Elemental.random
+		RARE_ALTS.put(Elemental.class,      Elemental.ChaosElemental.class);
+				
+		RARE_ALTS.put(Scorpio.class,        Acidic.class);
 	}
 }

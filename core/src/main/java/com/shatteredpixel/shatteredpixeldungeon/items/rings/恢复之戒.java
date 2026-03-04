@@ -18,10 +18,10 @@ public class 恢复之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   Messages.decimalFormat("#.2", 0.236f*soloBuffedBonus()));
+									  0.236f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  Messages.decimalFormat("#.2", 0.236f*combinedBuffedBonus(Dungeon.hero)));
+											  0.236f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
@@ -32,7 +32,7 @@ public class 恢复之戒 extends Ring {
 	
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return Messages.decimalFormat("#.2", 0.236f*(level+1)) + "倍";
+		return 0.236f*(level+1) + "倍";
 	}
 	public static float 恢复( Char target){
 		return 1+0.236f*getBuffedBonus(target, 恢复.class);

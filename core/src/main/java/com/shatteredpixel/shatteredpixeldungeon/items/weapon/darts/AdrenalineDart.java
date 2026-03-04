@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class AdrenalineDart extends TippedDart {
@@ -16,13 +17,17 @@ public class AdrenalineDart extends TippedDart {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
+		if (attacker instanceof Hero) {
+			if (((Hero) attacker).attackTarget().alignment==attacker.alignment){
+				return 0; //does not deal damage to allies
+			}
+		}
 		if(defender!=null){
 			if(processingChargedShot&&defender==attacker){
 				//do nothing to the hero when processing charged shot
 			}else
 				if(attacker.alignment==defender.alignment){
 					Buff.延长(defender,Adrenaline.class,Adrenaline.DURATION);
-					return 0;
 				}else{
 					Buff.延长(defender,Cripple.class,Cripple.DURATION/2);
 				}

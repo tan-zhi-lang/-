@@ -41,8 +41,8 @@ public class 心之钢 extends Artifact {
 	public String desc() {
 		float 伤害=武力之戒.heromax()+Dungeon.hero.最大生命(0.04f+0.02f*等级());
 		float 生命=伤害*(0.04f+等级()*0.02f);
-		String desc = Messages.get(this, "desc",String.format("%.2f",伤害),String.format("%.2f",生命),
-								   String.format("%.1f",Dungeon.hero.大小));
+		String desc = Messages.get(this, "desc",伤害,生命,
+								  Dungeon.hero.大小);
 
 		return desc;
 	}
@@ -106,9 +106,9 @@ public class 心之钢 extends Artifact {
 					hero.更新属性();
 
 					if(cursed)
-						GLog.w("心之钢为这次物理攻击-"+String.format("%.2f",伤害)+"伤害，并-"+String.format("%.2f",生命)+"最大生命。");
+						GLog.w("心之钢为这次物理攻击-"+伤害+"伤害，并-"+生命+"最大生命。");
 					else
-					GLog.w("心之钢为这次物理攻击+"+String.format("%.2f",伤害)+"伤害，并+"+String.format("%.2f",生命)+"最大生命。");
+					GLog.w("心之钢为这次物理攻击+"+伤害+"伤害，并+"+生命+"最大生命。");
 
 					exp+=生命*3;
 					charge=0;

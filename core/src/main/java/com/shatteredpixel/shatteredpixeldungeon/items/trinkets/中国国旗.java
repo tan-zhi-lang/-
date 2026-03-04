@@ -21,12 +21,12 @@ public class 中国国旗 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", 100*受伤()),
-								Messages.decimalFormat("#.##",100*移速()));
+					 100*受伤(),
+								100*移速());
 		} else {
 			return Messages.get(this, "stats_desc",
-					Messages.decimalFormat("#.##", 100*受伤(0)),
-								Messages.decimalFormat("#.##",100*移速(0)));
+					 100*受伤(0),
+								100*移速(0));
 		}
 	}
 

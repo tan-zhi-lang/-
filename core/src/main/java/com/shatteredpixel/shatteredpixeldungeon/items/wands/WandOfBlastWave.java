@@ -218,6 +218,9 @@ public class WandOfBlastWave extends DamageWand {
 			x = (pos % Dungeon.level.width()) * DungeonTilemap.SIZE + (DungeonTilemap.SIZE - width) / 2;
 			y = (pos / Dungeon.level.width()) * DungeonTilemap.SIZE + (DungeonTilemap.SIZE - height) / 2;
 
+			resetColor();
+			scale.set(0);
+
 			time = TIME_TO_FADE;
 			this.size = size;
 		}
@@ -240,10 +243,17 @@ public class WandOfBlastWave extends DamageWand {
 		}
 
 		public static void blast(int pos, float radius) {
-			Group parent = Dungeon.hero.sprite.parent;
-			BlastWave b = (BlastWave) parent.recycle(BlastWave.class);
+			blast(pos, radius, -1);
+		}
+
+		public static void blast(int pos, float radius, int hardLight){
+			Group parent=Dungeon.hero.sprite.parent;
+			BlastWave b=(BlastWave)parent.recycle(BlastWave.class);
 			parent.bringToFront(b);
-			b.reset(pos, radius);
+			b.reset(pos,radius);
+			if(hardLight!=-1){
+				b.hardlight(hardLight);
+			}
 		}
 
 	}

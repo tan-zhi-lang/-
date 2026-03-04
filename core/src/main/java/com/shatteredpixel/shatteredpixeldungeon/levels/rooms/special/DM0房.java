@@ -19,8 +19,10 @@ public class DM0房 extends SpecialRoom {
 		Point c = center();
 		int cx = c.x;
 		int cy = c.y;
-		
+
 		Door door = entrance();
+		door.set( Door.Type.REGULAR );
+
 		level.addItemToSpawn( new 麻痹药剂().房间物品());
 		
 		DM0 statue = new DM0();

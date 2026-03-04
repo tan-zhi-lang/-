@@ -23,6 +23,8 @@ package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.VaultFlameTraps;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -34,70 +36,26 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.Builder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.builders.GridBuilder;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
+import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.VaultEnemyCenterRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.AlternatingTrapsRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultCircleRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultCrossRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultEntranceRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultFinalRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultLasersRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultLongRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultQuadrantsRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultRingRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.RegionDecoLineRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.SegmentedRoom;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.entrance.EntranceRoom;
-import com.watabou.utils.Point;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultRingsRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault.VaultSimpleEnemyTreasureRoom;
+import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
 public class VaultLevel extends CityLevel {
-
-	public static class VaultEntrance extends EntranceRoom{
-		@Override
-		public int maxConnections(int direction) {
-			if (direction == LEFT || direction == TOP) return 0;
-			return super.maxConnections(direction);
-		}
-
-		@Override
-		public boolean canMerge(Level l, Room other, Point p, int mergeTerrain) {
-			return false;
-		}
-	}
-
-	public static class VaultSegmentedRoom extends SegmentedRoom {
-		@Override
-		public float[] sizeCatProbs() {
-			return new float[]{1, 0, 0};
-		}
-	}
-
-	public static class VaultRegionDecoLineRoom extends RegionDecoLineRoom{
-		@Override
-		public float[] sizeCatProbs() {
-			return new float[]{0, 0, 1};
-		}
-
-		@Override
-		public boolean isExit() {
-			return true;
-		}
-
-		@Override
-		public int maxConnections(int direction) {
-			return 1;
-		}
-
-		@Override
-		public boolean canPlaceItem(Point p, Level l) {
-			return false;
-		}
-
-		@Override
-		public boolean canMerge(Level l, Room other, Point p, int mergeTerrain) {
-			return false;
-		}
-	}
 
 	@Override
 	protected ArrayList<Room> initRooms() {
@@ -105,11 +63,16 @@ public class VaultLevel extends CityLevel {
 
 		initRooms.add(roomEntrance = new VaultEntranceRoom());
 
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 2; i++){
 			initRooms.add(new VaultRingRoom());
 			initRooms.add(new VaultCircleRoom());
 			initRooms.add(new VaultCrossRoom());
 			initRooms.add(new VaultQuadrantsRoom());
+			initRooms.add(new VaultEnemyCenterRoom());
+			initRooms.add(new VaultRingsRoom());
+			initRooms.add(new VaultSimpleEnemyTreasureRoom());
+			initRooms.add(new AlternatingTrapsRoom());
+			initRooms.add(new VaultLasersRoom());
 		}
 
 		initRooms.add(new VaultLongRoom());
@@ -188,4 +151,30 @@ public class VaultLevel extends CityLevel {
 	public int randomRespawnCell( Char ch ) {
 		return entrance()-width();
 	}
+
+	public static class VaultFlameTrap extends Trap{
+
+		{
+			color = BLACK;
+			shape = DOTS;
+
+			canBeHidden = false;
+			active = false;
+		}
+
+		@Override
+		public void activate() {
+			//does nothing, this trap is just decoration and is always deactivated
+		}
+
+		public static void setupTrap(Level level, int cell, int initialDelay, int cooldown){
+			VaultFlameTraps traps = Blob.seed(0,0,VaultFlameTraps.class,level);
+			traps.initialCooldowns[cell] = cooldown;
+			traps.cooldowns[cell] = initialDelay;
+			level.setTrap(new VaultLevel.VaultFlameTrap().reveal(), cell);
+			Painter.set(level,cell,Terrain.INACTIVE_TRAP);
+		}
+
+	}
+
 }

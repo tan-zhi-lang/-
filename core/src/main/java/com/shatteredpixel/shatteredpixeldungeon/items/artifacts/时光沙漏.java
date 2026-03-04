@@ -449,7 +449,7 @@ public class 时光沙漏 extends Artifact {
 
 		@Override
 		public String desc() {
-			return Messages.get(this, "desc", Messages.decimalFormat("#.##", Math.max(0, turnsToCost)));
+			return Messages.get(this, "desc", Math.max(0, turnsToCost));
 		}
 
 		private static final String PRESSES = "presses";

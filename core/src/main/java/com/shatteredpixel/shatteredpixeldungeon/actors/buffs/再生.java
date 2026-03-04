@@ -53,6 +53,7 @@ public class 再生 extends Buff {
 						再生数值+=hero.最大护甲(0.01f);
 					}
 					if(hero.hasbuff(WellFed.class))再生数值*=1.5f;
+
 					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
 						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
 							再生数值/= 1.75f;

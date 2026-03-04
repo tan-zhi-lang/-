@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 
@@ -35,5 +37,13 @@ public class Recharging extends FlavourBuff {
 	//otherwise this causes inconsistent behaviour where this may detach before, or after, a wand charger acts.
 	public float remainder() {
 		return Math.min(1f, this.cooldown());
+	}
+	public static void chargeWands(float turns){
+		if(Dungeon.hero())
+		for(Wand.Charger wc: Dungeon.hero.buffs(Wand.Charger.class)){
+			if(wc.wand()!=null){
+				wc.gainCharge(turns);
+			}
+		}
 	}
 }

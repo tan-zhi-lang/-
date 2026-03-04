@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
@@ -230,7 +230,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof Blocking){
 			if (targetsHit > 0){
 				float shield = Math.round(Math.round(6f*targetsHit*powerMulti));
-				Buff.施加(hero, Barrier.class).设置(Math.round(6f*targetsHit*powerMulti));
+				Buff.施加(hero, 护盾.class).设置(Math.round(6f*targetsHit*powerMulti));
 				hero.sprite.showStatusWithIcon(CharSprite.增强, shield, FloatingText.SHIELDING);
 			}
 

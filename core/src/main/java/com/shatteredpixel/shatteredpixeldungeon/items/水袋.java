@@ -37,7 +37,7 @@ public class 水袋 extends Item {
 	@Override
 	public String defaultAction(){
 		if (volume == MAX_VOLUME) {
-			return AC_合成;
+			return AC_CHOOSE;
 		}
 		return AC_DRINK;
 	}

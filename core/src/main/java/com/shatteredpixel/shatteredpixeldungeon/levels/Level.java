@@ -1055,6 +1055,9 @@ public abstract class Level implements Bundlable {
 	public boolean 在陷阱(int pos){
 		return Dungeon.level.map[pos] == Terrain.TRAP|| Dungeon.level.map[pos] == Terrain.INACTIVE_TRAP;
 	}
+	public boolean 在深渊(int pos){
+		return Dungeon.level.map[pos] == Terrain.CHASM;
+	}
 	public boolean 在水中(int pos){
 		return Dungeon.level.map[pos] == Terrain.WATER;
 	}

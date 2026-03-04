@@ -30,7 +30,7 @@ public class 闪避之戒 extends Ring {
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return Messages.decimalFormat("#.2f", 0.15875f*(level+1)) + "倍";
+		return 0.15875f*(level+1) + "倍";
 	}
 
 	public static float 闪避(Char target){

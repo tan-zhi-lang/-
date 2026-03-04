@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -20,13 +21,17 @@ public class CleansingDart extends TippedDart {
 	@Override
 	public float 攻击时(Char attacker, final Char defender, float damage) {
 
+		if (attacker instanceof Hero) {
+			if (((Hero) attacker).attackTarget().alignment==attacker.alignment){
+				return 0; //does not deal damage to allies
+			}
+		}
 		if(defender!=null){
 			if(processingChargedShot&&defender==attacker){
 				//do nothing to the hero when processing charged shot
 			}else
 				if(attacker.alignment==defender.alignment){
 					PotionOfCleansing.cleanse(defender,PotionOfCleansing.Cleanse.DURATION*2f);
-					return 0;
 				}else{
 					for(Buff b: defender.buffs()){
 						if(!(b instanceof ChampionEnemy)&&b.type==Buff.buffType.POSITIVE

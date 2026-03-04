@@ -59,7 +59,7 @@ public enum Icons {
     BACKPACK_LRG,
     TALENT,
     MAGNIFY,
-    SNAKE,
+    命中,
     BUFFS,
     CATALOG,
     ALCHEMY,
@@ -89,6 +89,7 @@ public enum Icons {
     SLEEP,
     ALERT,
     LOST,
+    INVESTIGATE,
     睡眠,
     感叹,
     问号,
@@ -281,8 +282,8 @@ public enum Icons {
             case MAGNIFY:
                 icon.frame(icon.texture.uvRectBySize(32, 48, 14, 14));
                 break;
-            case SNAKE:
-                icon.frame(icon.texture.uvRectBySize(48, 48, 9, 13));
+            case 命中:
+                icon.frame(icon.texture.uvRectBySize(48, 48, 16, 16));
                 break;
             case BUFFS:
                 icon.frame(icon.texture.uvRectBySize(64, 48, 16, 15));
@@ -356,13 +357,16 @@ public enum Icons {
                 icon.frame(icon.texture.uvRectBySize(0, 88, 7, 5));
                 break;
             case SLEEP:
-                icon.frame(icon.texture.uvRectBySize(16, 80, 9, 8));
+                icon.frame( icon.texture.uvRectBySize( 7, 88, 9, 8 ) );
                 break;
             case ALERT:
-                icon.frame(icon.texture.uvRectBySize(16, 88, 8, 8));
+                icon.frame( icon.texture.uvRectBySize( 16, 80, 8, 8 ) );
                 break;
             case LOST:
-                icon.frame(icon.texture.uvRectBySize(24, 88, 8, 8));
+                icon.frame( icon.texture.uvRectBySize( 24, 80, 8, 8 ) );
+                break;
+            case INVESTIGATE:
+                icon.frame( icon.texture.uvRectBySize( 16, 88, 8, 8 ) );
                 break;
             case DEPTH:
                 icon.frame(icon.texture.uvRectBySize(32 + runTypeOfsX(), 80 + runTypeOfsY(), 6, 7));

@@ -21,7 +21,8 @@ public class HealthBar extends Component {
 	private ColorBlock Shld;
 	private ColorBlock Hp;
 	private BitmapText hpText;
-	
+	private BitmapText 护盾t;
+
 	private float health;
 	private float 生命;
 	private float 护盾;
@@ -43,19 +44,25 @@ public class HealthBar extends Component {
 		
 		
 		hpText = new BitmapText(PixelScene.pixelFont);
-		hpText.alpha(0.6f);
+		hpText.alpha(1);
 		add(hpText);
+
+		护盾t = new BitmapText(PixelScene.pixelFont);
+		护盾t.alpha(1);
+		add(护盾t);
 		
 		if(隐形){
 			Bg.alpha(0);
 			Shld.alpha(0);
 			Hp.alpha(0);
 			hpText.alpha(0);
+			护盾t.alpha(0);
 		}else{
 			Bg.alpha(1);
 			Shld.alpha(1);
 			Hp.alpha(1);
 			hpText.alpha(0.6f);
+			护盾t.alpha(0.6f);
 		}
 		height = HEIGHT;
 	}
@@ -73,26 +80,29 @@ public class HealthBar extends Component {
 		if (camera() != null) pixelWidth *= camera().zoom;
 		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
 		Hp.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
-		if (护盾 <= 0){
-			hpText.text(String.format("%.2f",生命) + "/" + String.format("%.2f",max));
-		} else {
-			hpText.text(String.format("%.2f",生命) + "+"
-						+ String.format("%.2f",护盾) +  "/" + String.format("%.2f",max));
-		}
+
+		hpText.text(String.format("%.0f",生命) + "/" + String.format("%.0f",max));
 		hpText.measure();
 		hpText.x = Hp.x+0.5f;
 		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
-		
+		if(护盾>=1){
+			护盾t.text(String.format("%.0f",护盾));
+			护盾t.measure();
+			护盾t.x=Hp.x+width-护盾t.width+0.5f;
+			护盾t.y=Hp.y+0.5f+(Hp.height-(护盾t.baseLine()+护盾t.scale.y))/2f;
+		}
 		if(隐形){
 			Bg.alpha(0);
 			Shld.alpha(0);
 			Hp.alpha(0);
 			hpText.alpha(0);
+			护盾t.alpha(0);
 		}else{
 			Bg.alpha(1);
 			Shld.alpha(1);
 			Hp.alpha(1);
 			hpText.alpha(0.6f);
+			护盾t.alpha(0.6f);
 		}
 		super.update();
 	}
@@ -112,17 +122,23 @@ public class HealthBar extends Component {
 		hpText.scale.set(PixelScene.align(0.34f));
 		hpText.x = Hp.x+0.5f;
 		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
-		
+
+		护盾t.scale.set(PixelScene.align(0.34f));
+		护盾t.x = Hp.x+width-护盾t.width+0.5f;
+		护盾t.y = Hp.y +0.5f+ (Hp.height - (护盾t.baseLine()+护盾t.scale.y))/2f;
+
 		if(隐形){
 			Bg.alpha(0);
 			Shld.alpha(0);
 			Hp.alpha(0);
 			hpText.alpha(0);
+			护盾t.alpha(0);
 		}else{
 			Bg.alpha(1);
 			Shld.alpha(1);
 			Hp.alpha(1);
 			hpText.alpha(0.6f);
+			护盾t.alpha(0.6f);
 		}
 		
 	}

@@ -117,7 +117,7 @@ public class 传送卷轴 extends Scroll {
 			
 		}
 	}
-	
+
 	public static boolean teleportPreferringUnseen( Hero hero ){
 		
 		if (!(Dungeon.level instanceof RegularLevel)){
@@ -260,7 +260,7 @@ public class 传送卷轴 extends Scroll {
 		int ofs;
 		do {
 			ofs = PathFinder.相邻[Random.Int(8)];
-		} while (Actor.findChar(pos + ofs)==null&&Dungeon.level.solid[pos + ofs] &&!Dungeon.level.passable[pos + ofs]);
+		} while (Actor.findChar(pos + ofs)!=null||Dungeon.level.solid[pos + ofs] ||!Dungeon.level.passable[pos + ofs]);
 
 
 		瞬移(ch,pos + ofs);

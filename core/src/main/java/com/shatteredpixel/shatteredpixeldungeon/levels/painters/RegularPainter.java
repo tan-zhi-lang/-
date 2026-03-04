@@ -442,13 +442,14 @@ public abstract class RegularPainter extends Painter {
 
 		//no more than one trap every 5 valid tiles.
 		nTraps = Math.min(nTraps, validCells.size()/5);
-		if(Dungeon.hero()&&Dungeon.hero.欧皇())nTraps/=2;
-		if(Dungeon.hero()&&Dungeon.hero.非酋())nTraps*=2;
+		nTraps/=3;//陷阱数量/3
+		if(Dungeon.hero())nTraps*=Dungeon.hero.幸运值();
+		if(l.feeling == Level.Feeling.TRAPS)nTraps*=5;
 		float revealedChance = TrapMechanism.revealHiddenTrapChance();
 		float revealInc = 0;
 
 		//5x traps on traps level feeling, but the extra traps are all visible
-		for (int i = 0; i < (l.feeling == Level.Feeling.TRAPS ? 5*nTraps : nTraps); i++) {
+		for (int i = 0; i < nTraps; i++) {
 
 			Trap trap = Reflection.newInstance(trapClasses[Random.chances( trapChances )]);
 

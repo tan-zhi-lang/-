@@ -12,10 +12,8 @@ public class Crab extends Mob {
 
 	{
 		spriteClass = CrabSprite.class;
-		
 		生命 = 最大生命 = 15;
 		defenseSkill = 5;
-		baseSpeed = 2f;
 		
 		经验 = 4;
 		最大等级 = 9;
@@ -24,7 +22,12 @@ public class Crab extends Mob {
 		lootChance = 0.167f;
 		properties.add(Property.海妖);
 	}
-	
+
+	@Override
+	public float 移速() {
+		if (水平移动) return super.移速()*2f;
+		else return super.移速();
+	}
 	@Override
 	public float 最小攻击() {
 		return 1;

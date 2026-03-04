@@ -17,20 +17,21 @@ public class 狂怒之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", 0.1845f*soloBuffedBonus()));
+									   0.1845f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", 0.1845f*combinedBuffedBonus(Dungeon.hero)));
+											  0.1845f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 0.1845f));
+			return Messages.get(this, "stats",
+								0.1845f);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return Messages.decimalFormat("#.2f", 0.1845f*(level+1)) + "倍";
+		return 0.1845f*(level+1) + "倍";
 	}
 
 	@Override

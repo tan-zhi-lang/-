@@ -308,24 +308,20 @@ public class Ghost extends NPC {
 					case 4: armor = new ScaleArmor();   break;
 					case 5: armor = new PlateArmor();   break;
 				}
-				if(Dungeon.hero()&&Dungeon.hero.欧皇())switch (Random.chances(new float[]{0, 0, 20, 12, 6, 2})){
+				if(Dungeon.hero())switch (Random.chances(new float[]{0, 0, 10/Dungeon.hero.幸运值(), 6/Dungeon.hero.幸运值(),
+						3*Dungeon.hero.幸运值(), 1*Dungeon.hero.幸运值()})){
 					default:
 					case 2: armor = new LeatherArmor(); break;
 					case 3: armor = new MailArmor();    break;
 					case 4: armor = new ScaleArmor();   break;
 					case 5: armor = new PlateArmor();   break;
 				}
-				if(Dungeon.hero()&&Dungeon.hero.非酋())switch (Random.chances(new float[]{0, 0, 5, 3, 1.5f, 0.5f})){
-					default:
-					case 2: armor = new LeatherArmor(); break;
-					case 3: armor = new MailArmor();    break;
-					case 4: armor = new ScaleArmor();   break;
-					case 5: armor = new PlateArmor();   break;
-				}
+
 				//50%:tier2, 30%:tier3, 15%:tier4, 5%:tier5
 				int wepTier = Random.chances(new float[]{0, 0, 10, 6, 3, 1});
-				if(Dungeon.hero()&&Dungeon.hero.欧皇())wepTier = Random.chances(new float[]{0, 0, 20, 12, 6, 2});
-				if(Dungeon.hero()&&Dungeon.hero.非酋())wepTier = Random.chances(new float[]{0, 0, 5, 3, 1.5f, 0.5f});
+				if(Dungeon.hero())wepTier = Random.chances(new float[]{0, 0, 10/Dungeon.hero.幸运值(), 6/Dungeon.hero.幸运值(),
+						3*Dungeon.hero.幸运值(), 1*Dungeon.hero.幸运值()});
+
 				weapon = (Weapon) Generator.random(Generator.wepTiers[wepTier - 1]);
 
 				//clear weapon's starting properties
@@ -334,8 +330,7 @@ public class Ghost extends NPC {
 				weapon.cursed = false;
 
 				float 概率=1;
-				if(Dungeon.hero()&&Dungeon.hero.欧皇())概率*=2;
-				if(Dungeon.hero()&&Dungeon.hero.非酋())概率/=2;
+				if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
 
 				//50%:+0, 30%:+1, 15%:+2, 5%:+3
 				float itemLevelRoll = Random.Float()*概率;

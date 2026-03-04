@@ -71,6 +71,7 @@ public class HeroIcon extends Image {
 	public static final int 圣女     = 剑魔+1;
 
 	public static final int 黑白双子     = 20*8;
+	public static final int 猫头鹰     = 黑白双子+1;
 
 	public static final int 巫咒王鼠     = 21*8;
 	public static final int 实验狂鼠     = 巫咒王鼠+1;
@@ -78,6 +79,7 @@ public class HeroIcon extends Image {
 	public static final int 金刚独狼     = 23*8;
 	public static final int 血法师     = 金刚独狼+1;
 	public static final int 时间刺客     = 24*8;
+	public static final int 幸运之子     = 时间刺客+1;
 
 	public static final int ELEMENTAL_BLAST = 19;
 	public static final int WILD_MAGIC      = 20;

@@ -10,10 +10,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
@@ -60,12 +60,6 @@ public class 火球术 extends 目标法术 {
 		MagicMissile.boltFromChar(hero.sprite.parent, MagicMissile.FIRE, hero.sprite, aim.collisionPos, new Callback() {
 			@Override
 			public void call() {
-
-				Heap heap = Dungeon.level.heaps.get(aim.collisionPos);
-				if (heap != null) {
-					heap.freeze();
-				}
-
 				Freezing free = (Freezing) Dungeon.level.blobs.get(Freezing.class);
 				if (free != null && free.volume > 0) {
 					free.clear( aim.collisionPos );
@@ -107,7 +101,7 @@ public class 火球术 extends 目标法术 {
 						} else {
 							ch.sprite.burst( 0xFF99CCFF,
 											 Math.round(hero.魔力(0.15f)));
-							Buff.施加(ch, 燃烧.class).reignite(ch,2 + hero.魔力(0.15f));
+							Buff.施加(ch, 火毒.class).reignite(ch,4+hero.魔力(0.3f));
 						}
 					}
 				} else {

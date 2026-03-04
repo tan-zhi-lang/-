@@ -35,8 +35,8 @@ public class 死血 extends 巫术 {
 	}
 
 	public String desc(){
-		String desc = Messages.get(this, "desc",String.format("%.2f",
-															  Dungeon.hero.魔力(2)*Dungeon.hero.根据已损失生命()*Dungeon.hero.天赋点数(Talent.高级死血,0.05f)));
+		String desc = Messages.get(this, "desc",
+															  Dungeon.hero.魔力(2)*Dungeon.hero.根据已损失生命()*Dungeon.hero.天赋点数(Talent.高级死血,0.05f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

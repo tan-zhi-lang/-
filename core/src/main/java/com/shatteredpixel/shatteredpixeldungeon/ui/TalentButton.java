@@ -122,13 +122,14 @@ public class TalentButton extends Button {
 				public void call() {
 					upgradeTalent();
 					Statistics.qualifiedForRandomVictoryBadge = false;
-					if(Dungeon.hero.等级>6&&Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
+
+					if(Dungeon.hero.等级>=6&&Badges.local.contains(Badges.Badge.BOSS_SLAIN_1))
 						if(Dungeon.hero.第2层天赋){
 							WndHero.INSTANCE.hide();//防止卡分支Bug
 						}
 
 					if(Dungeon.hero.第1层天赋)
-						if(Dungeon.hero.等级>0){
+						if(Dungeon.hero.等级>=1){
 							WndHero.INSTANCE.hide();//防止卡分支Bug
 						}
 				}

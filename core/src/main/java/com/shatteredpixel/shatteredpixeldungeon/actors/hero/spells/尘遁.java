@@ -31,7 +31,7 @@ public class 尘遁 extends 目标忍术 {
 	@Override
 	public String desc() {
 		float d = Dungeon.hero.魔力(3)*(1+Dungeon.hero.天赋点数(Talent.绝密尘遁,0.25f));
-		return Messages.get(this, "desc", String.format("%.2f",d)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", d) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 

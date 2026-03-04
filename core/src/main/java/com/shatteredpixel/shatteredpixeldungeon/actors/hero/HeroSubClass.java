@@ -61,6 +61,7 @@ public enum HeroSubClass {
 	圣女(HeroIcon.圣女),
 
 	黑白双子(HeroIcon.黑白双子),
+	猫头鹰(HeroIcon.猫头鹰),
 
 	巫咒王鼠(HeroIcon.巫咒王鼠),
 	实验狂鼠(HeroIcon.实验狂鼠),
@@ -68,7 +69,8 @@ public enum HeroSubClass {
 	金刚独狼(HeroIcon.金刚独狼),
 	血法师(HeroIcon.血法师),
 
-	时间刺客(HeroIcon.时间刺客);
+	时间刺客(HeroIcon.时间刺客),
+	幸运之子(HeroIcon.幸运之子);
 
 	int icon;
 

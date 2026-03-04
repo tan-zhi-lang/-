@@ -30,7 +30,7 @@ public class 命中之戒 extends Ring {
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return Messages.decimalFormat("#.2f", 0.236f*(level+1)) + "倍";
+		return 0.236f*(level+1) + "倍";
 	}
 
 	public static float 命中(Char target){

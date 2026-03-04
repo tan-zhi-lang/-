@@ -31,7 +31,7 @@ import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;
 
-public class LloydsBeacon extends Artifact {
+public class 时空道标 extends Artifact {
 
 	public static final float TIME_TO_USE = 1;
 
@@ -92,7 +92,7 @@ public class LloydsBeacon extends Artifact {
 		if (action == AC_SET || action == AC_RETURN) {
 			
 			if (Dungeon.bossLevel() || !Dungeon.interfloorTeleportAllowed()) {
-				hero.spend( LloydsBeacon.TIME_TO_USE );
+				hero.spend(时空道标.TIME_TO_USE);
 				GLog.w( Messages.get(this, "preventing") );
 				return;
 			}
@@ -128,7 +128,7 @@ public class LloydsBeacon extends Artifact {
 			returnDepth = Dungeon.depth;
 			returnPos = hero.pos;
 			
-			hero.spend( LloydsBeacon.TIME_TO_USE );
+			hero.spend(时空道标.TIME_TO_USE);
 			hero.busy();
 			
 			hero.sprite.operate( hero.pos );
@@ -218,7 +218,7 @@ public class LloydsBeacon extends Artifact {
 
 										} else if (ch.properties().contains(Char.Property.IMMOVABLE)) {
 
-											GLog.w( Messages.get(LloydsBeacon.class, "tele_fail") );
+											GLog.w( Messages.get(时空道标.class,"tele_fail"));
 
 										} else  {
 
@@ -244,7 +244,7 @@ public class LloydsBeacon extends Artifact {
 
 		@Override
 		public String prompt() {
-			return Messages.get(LloydsBeacon.class, "prompt");
+			return Messages.get(时空道标.class,"prompt");
 		}
 	};
 

@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.守御灵光;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.圣盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Enchanting;
@@ -41,7 +41,7 @@ public class 赐福 extends ClericSpell {
 			Buff.施加(hero,守御灵光.class,50f);
 
 		if(hero.天赋(Talent.神圣屏障))
-		Buff.施加(hero,护盾.class).增加(hero.天赋点数(Talent.神圣屏障,2));
+		Buff.施加(hero,圣盾.class).增加(hero.天赋点数(Talent.神圣屏障,2));
 
 		Item.updateQuickslot();
 

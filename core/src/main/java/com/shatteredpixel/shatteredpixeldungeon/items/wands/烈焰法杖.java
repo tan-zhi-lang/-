@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
-import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -39,11 +38,6 @@ public class 烈焰法杖 extends DamageWand {
 
 	@Override
 	public void onZap(Ballistica bolt) {
-
-		Heap heap = Dungeon.level.heaps.get(bolt.collisionPos);
-		if (heap != null) {
-			heap.freeze();
-		}
 
 		Freezing free = (Freezing) Dungeon.level.blobs.get(Freezing.class);
 		if (free != null && free.volume > 0) {
@@ -80,9 +74,9 @@ public class 烈焰法杖 extends DamageWand {
 					Buff.施加(ch,Paralysis.class,4f);
 				}
 				if (ch.在草丛()||ch.在门上()) {
-					Buff.施加(ch, 火毒.class).reignite(ch,4);
+					Buff.施加(ch, 火毒.class).reignite(ch,8);
 				} else {
-					Buff.施加(ch, 燃烧.class).reignite(ch,4);
+					Buff.施加(ch, 火毒.class).reignite(ch,4);
 				}
 			}
 		} else {

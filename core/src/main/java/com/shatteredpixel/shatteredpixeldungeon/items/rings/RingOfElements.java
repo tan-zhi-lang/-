@@ -32,24 +32,24 @@ public class RingOfElements extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, soloBuffedBonus()))),
-					Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, soloBuffedBonus())))
+					100f * (1f - Math.pow(0.825f, soloBuffedBonus())),
+					100f * (1f - Math.pow(0.825f, soloBuffedBonus()))
 									  );
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero)))),
-						Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero))))
+						100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero))),
+						100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero)))
 											 );
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", Messages.decimalFormat("#.2", 17.5f), Messages.decimalFormat("#.2", 17.5f));
+			return Messages.get(this, "stats", 17.5f,17.5f);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return Messages.decimalFormat("#.2", 100f * (1f - Math.pow(0.825f, level+1))) + "%";
+		return 100f * (1f - Math.pow(0.825f, level+1)) + "%";
 	}
 	
 	@Override

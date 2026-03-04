@@ -36,7 +36,7 @@ public class 荆棘斗篷 extends Artifact {
 	@Override
 	public String desc() {
 		String desc = Messages.get(this, "desc",Math.round((0.5f+等级()*0.05f)*100)
-				,String.format("%.2f",(1+等级())/3f*Dungeon.hero.最大护甲()));
+				,(1+等级())/3f*Dungeon.hero.最大护甲());
 
 		return desc;
 	}

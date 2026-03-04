@@ -21,12 +21,12 @@ public class 优惠卡 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-								Math.round(100 *打折()),
+								100 *打折(),
 								获取()
 							   );
 		} else {
 			return Messages.get(this, "stats_desc",
-								Math.round(100 *打折(0)),
+								100 *打折(0),
 								获取(0)
 							   );
 		}

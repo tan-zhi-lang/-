@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.圣盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -63,7 +63,7 @@ public class 九龙拉管 extends Artifact {
 			float maxDmg=PrickDmg();
 			
 			float totalHeroHP=hero.生命+hero.shielding()+hero.最大防御()+hero.护甲;
-			if(hero.hasbuff(护盾.class)){
+			if(hero.hasbuff(圣盾.class)){
 				minDmg=0;
 				maxDmg=0;
 			}
@@ -82,7 +82,7 @@ public class 九龙拉管 extends Artifact {
 				}
 			}
 			if(deathChance>0.85f){
-				GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,Messages.decimalFormat("#.##",100*deathChance)),Messages.get(this,"yes"),Messages.get(this,"no")){
+				GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,100*deathChance),Messages.get(this,"yes"),Messages.get(this,"no")){
 					@Override
 					protected void onSelect(int index){
 						if(index==0)
@@ -176,7 +176,7 @@ public class 九龙拉管 extends Artifact {
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
 			else
-				desc += Messages.get(this, "desc",String.format("%.2f",(等级()+1)*2.5f),String.format("%.2f",0.3f+等级()*0.03f));
+				desc += Messages.get(this, "desc",(等级()+1)*2.5f,0.3f+等级()*0.03f);
 		}
 
 		return desc;

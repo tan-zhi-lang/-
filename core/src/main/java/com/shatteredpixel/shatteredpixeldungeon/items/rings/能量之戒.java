@@ -28,21 +28,21 @@ public class 能量之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", 0.1845f*soloBuffedBonus()));
+									   0.1845f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						Messages.decimalFormat("#.2", 0.1845f*combinedBuffedBonus(Dungeon.hero)));
+											  0.1845f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
 			return Messages.get(this, "stats",
-					Messages.decimalFormat("#.2", 0.1845f));
+								0.1845f);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return Messages.decimalFormat("#.2", 0.1845f*(level+1)) + "倍";
+		return 0.1845f*(level+1) + "倍";
 	}
 	
 	@Override
@@ -67,6 +67,7 @@ public class 能量之戒 extends Ring {
 			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.轻量阅读)){
 				bonus += hero.天赋点数(Talent.轻量阅读,0.07f);
 			}
+			if(hero.符文("回归基本功"))bonus+=1.65f;
 			if(hero.符文("无限火力"))bonus+=3.5f;
 			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;
 			if(hero.符文("面包和黄油"))bonus+=0.5f;
@@ -108,6 +109,7 @@ public class 能量之戒 extends Ring {
 			if (hero.belongings.armor instanceof 能袍){
 				bonus += 0.1f;
 			}
+			if(hero.符文("回归基本功"))bonus+=1.65f;
 			if(hero.符文("无限火力"))bonus+=3.5f;
 			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;
 			if(hero.符文("面包和奶酪"))bonus+=0.5f;
@@ -133,6 +135,7 @@ public class 能量之戒 extends Ring {
 		float bonus = 1+ 0.1845f*getBuffedBonus(target, Energy.class);
 
 		if (target instanceof Hero hero){
+			if(hero.符文("回归基本功"))bonus+=1.65f;
 			if(hero.符文("无限火力"))bonus+=3.5f;
 			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;
 			if(hero.符文("面包和果酱"))bonus+=0.5f;

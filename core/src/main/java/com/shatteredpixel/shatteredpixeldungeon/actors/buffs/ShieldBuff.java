@@ -14,7 +14,10 @@ import java.util.Comparator;
 public abstract class ShieldBuff extends Buff {
 	
 	public float shielding;
-
+	public float max=-1;
+	public float max(){
+		return max;
+	}
 	//higher priority shielding buffs are consumed first if multiple exist
 	//currently we have the following:
 	// 2: relatively weak and short term shields like blocking buff
@@ -45,10 +48,24 @@ public abstract class ShieldBuff extends Buff {
 	}
 	
 	public void 设置(float shield ) {
-		if(target!=null&&target.sprite!=null)
-			target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
-		if (this.shielding <= shield) this.shielding = shield;
-		if (target != null) target.needsShieldUpdate = true;
+		if(max()!=-1){
+			if(target!=null&&target.sprite!=null)
+				target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
+
+			this.shielding=Math.min(max(),shielding+shield);
+
+			if(target!=null)
+				target.needsShieldUpdate=true;
+		}else{
+			if(target!=null&&target.sprite!=null)
+				target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
+
+			if(this.shielding<=shield)
+				this.shielding=shield;
+
+			if(target!=null)
+				target.needsShieldUpdate=true;
+		}
 	}
 	
 	public void 增加(){
@@ -56,10 +73,17 @@ public abstract class ShieldBuff extends Buff {
 	}
 
 	public void 增加(float amt ){
-		
-		target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
-		shielding += amt;
-		if (target != null) target.needsShieldUpdate = true;
+		if(max()!=-1){
+			target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
+			shielding=Math.min(max(),shielding+amt);
+			if(target!=null)
+				target.needsShieldUpdate=true;
+		}else {
+			target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
+			shielding+=amt;
+			if(target!=null)
+				target.needsShieldUpdate=true;
+		}
 	}
 
 	//doesn't add shield, but postpones it detereorating
@@ -118,17 +142,20 @@ public abstract class ShieldBuff extends Buff {
 	}
 	
 	private static final String SHIELDING = "shielding";
-	
+	private static final String MAX = "max";
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( SHIELDING, shielding);
+		bundle.put( MAX, max);
 	}
 	
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		shielding = bundle.getFloat( SHIELDING );
+		max = bundle.getFloat( MAX );
 	}
 	
 }

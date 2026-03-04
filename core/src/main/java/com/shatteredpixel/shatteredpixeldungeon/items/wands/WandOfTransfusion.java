@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barrier;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
@@ -75,7 +75,7 @@ public class WandOfTransfusion extends DamageWand {
 				float shielding = (ch.生命 + healing) - ch.最大生命;
 				if (shielding > 0){
 					healing -= shielding;
-					Buff.施加(ch, Barrier.class).设置(shielding);
+					Buff.施加(ch, 护盾.class).设置(shielding);
 				} else {
 					shielding = 0;
 				}
@@ -96,7 +96,7 @@ public class WandOfTransfusion extends DamageWand {
 			} else if (ch.alignment == Char.Alignment.ENEMY || ch instanceof Mimic) {
 
 				//grant a self-shield, and...
-				Buff.施加(curUser, Barrier.class).设置(魔力(0.5f,0.2f));
+				Buff.施加(curUser, 护盾.class).设置(魔力(0.5f,0.2f));
 				
 				
 				//charms living enemies

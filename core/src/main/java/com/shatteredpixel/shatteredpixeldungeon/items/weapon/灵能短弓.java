@@ -109,7 +109,7 @@ public class 灵能短弓 extends Weapon {
 	}
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",String.format("%.2f",最小弓箭攻击()),String.format("%.2f",最大弓箭攻击()));
+		return Messages.get(this, "desc",最小弓箭攻击(),最大弓箭攻击());
 	}
 
 	@Override

@@ -54,6 +54,6 @@ public abstract class DamageWand extends Wand{
 
 	@Override
 	public String upgradeStat1(int level) {
-		return String.format("%.2f",min(level)) + "-" + String.format("%.2f",max(level));
+		return min(level) + "-" + max(level);
 	}
 }

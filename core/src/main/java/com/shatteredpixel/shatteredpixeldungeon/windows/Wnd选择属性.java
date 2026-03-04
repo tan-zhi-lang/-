@@ -116,17 +116,27 @@ public class Wnd选择属性 extends Window {
 			rxv3=属性(rx3);
 		}while(rx3.equals(rx1)||rx3.equals(rx2));
 
+		String rx4="";
+		float rxv4=0;
+		do
+		{
+			rx4=随机属性();
+			rxv4=属性(rx4);
+		}while(rx4.equals(rx1)||rx4.equals(rx2)||rx4.equals(rx3));
+
 		pos = title.bottom() + 3*MARGIN;
 
 		String finalrx1=rx1;
 		String finalrx2=rx2;
 		String finalrx3=rx3;
+		String finalrx4=rx4;
 
 		float finalrxv1=rxv1;
 		float finalrxv2=rxv2;
 		float finalrxv3=rxv3;
+		float finalrxv4=rxv4;
 
-		RedButton moveBtn=new RedButton((百分比(rx1)?Math.round(rxv1*100)+"%":String.format("%.2f",rxv1))+rx1){
+		RedButton moveBtn=new RedButton((百分比(rx1)?Math.round(rxv1*100)+"%":rxv1)+rx1){
 			@Override
 			protected void onClick(){
 				super.onClick();
@@ -142,7 +152,7 @@ public class Wnd选择属性 extends Window {
 		pos=moveBtn.bottom()+MARGIN;
 		
 		
-		RedButton moveBtn2=new RedButton((百分比(rx2)?Math.round(rxv2*100)+"%":String.format("%.2f",rxv2))+rx2){
+		RedButton moveBtn2=new RedButton((百分比(rx2)?Math.round(rxv2*100)+"%":rxv2)+rx2){
 			@Override
 			protected void onClick(){
 				super.onClick();
@@ -158,7 +168,7 @@ public class Wnd选择属性 extends Window {
 		pos=moveBtn2.bottom()+MARGIN;
 		
 		
-		RedButton moveBtn3=new RedButton((百分比(rx3)?Math.round(rxv3*100)+"%":String.format("%.2f",rxv3))+rx3){
+		RedButton moveBtn3=new RedButton((百分比(rx3)?Math.round(rxv3*100)+"%":rxv3)+rx3){
 			@Override
 			protected void onClick(){
 				super.onClick();
@@ -173,6 +183,22 @@ public class Wnd选择属性 extends Window {
 		moveBtn3.setRect(0,pos,width,moveBtn3.reqHeight()+6);
 		add(moveBtn3);
 		pos=moveBtn3.bottom()+MARGIN;
+
+		RedButton moveBtn4=new RedButton((百分比(rx4)?Math.round(rxv4*100)+"%":rxv4)+rx4){
+			@Override
+			protected void onClick(){
+				super.onClick();
+
+				hero.属性锻造(finalrx4,finalrxv4);
+				hide();
+			}
+		};
+		moveBtn4.leftJustify=true;
+		moveBtn4.multiline=true;
+		moveBtn4.setSize(width,moveBtn4.reqHeight());
+		moveBtn4.setRect(0,pos,width,moveBtn4.reqHeight()+6);
+		add(moveBtn4);
+		pos=moveBtn4.bottom()+MARGIN;
 
 		boolean 属性刷新=true;
 		RedButton 刷新=new RedButton("重新获得一个属性锻造器(初始可以刷新1次)",6){

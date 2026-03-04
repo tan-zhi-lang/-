@@ -8,8 +8,14 @@ import com.watabou.utils.Bundle;
 public class CountBuff extends Buff {
 
 	public float count = 0;
+	public float maxcount = -1;
 	public float set(float x){
-		count+=x;
+		if(maxcount!=-1){
+			if(count<maxcount)
+				count+=x;
+		}else {
+			count+=x;
+		}
 		return count;
 	}
 
@@ -18,16 +24,19 @@ public class CountBuff extends Buff {
 	}
 
 	private static final String COUNT = "count";
+	private static final String MAXCOUNT = "maxcount";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(COUNT, count);
+		bundle.put(COUNT, MAXCOUNT);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		count = bundle.getFloat(COUNT);
+		maxcount = bundle.getFloat(MAXCOUNT);
 	}
 }

@@ -165,9 +165,9 @@ public class 燃烧 extends Buff implements Hero.Doom {
 				float shieldGain = (int)shieldChance;
 				if (Random.Float() < shieldChance%1) shieldGain++;
 				if (shieldCap > 0 && shieldGain > 0){
-					Barrier barrier = Buff.施加(ch, Barrier.class);
-					if (barrier.护盾量() < shieldCap){
-						barrier.增加(Math.min(shieldGain, shieldCap - barrier.护盾量()));
+					护盾 护盾= Buff.施加(ch,护盾.class);
+					if (护盾.护盾量()<shieldCap){
+						护盾.增加(Math.min(shieldGain,shieldCap-护盾.护盾量()));
 					}
 				}
 			}

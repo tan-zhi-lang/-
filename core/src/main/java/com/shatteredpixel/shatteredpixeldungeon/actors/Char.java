@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Barkskin;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
@@ -39,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
@@ -196,6 +198,11 @@ public abstract class Char extends Actor {
 	public boolean rooted		= false;
 	public boolean flying		= false;
 	public int invisible		= 0;
+
+	public float 大小(){
+		float 大小=this.大小;
+		return 大小;
+	}
 
 	//these are relative to the hero
 	public enum Alignment{
@@ -651,8 +658,7 @@ public abstract class Char extends Actor {
 				defStat=0;
 			}
 
-			if(hero.欧皇())defStat/=2;
-			if(hero.非酋())defStat*=2;
+			defStat*=hero.幸运值();
 		}else {
 			if(attacker.诡异)acuStat*=10;
 		}
@@ -661,8 +667,7 @@ public abstract class Char extends Actor {
 				acuStat*=0.85f;
 			}
 
-			if(hero.欧皇())acuStat*=2;
-			if(hero.非酋())acuStat/=2;
+			acuStat*=hero.幸运值();
 
 			if(hero.damageInterrupt){
 				hero.interrupt();
@@ -830,7 +835,7 @@ public abstract class Char extends Actor {
 	}
 	
 	public float 最小防御() {
-		int dr = 0;
+		int dr = 1;
 
 		return dr;
 	}
@@ -859,8 +864,8 @@ public abstract class Char extends Actor {
 	//TODO it would be nice to have a pre-armor and post-armor proc.
 	// atm attack is always post-armor and defence is already pre-armor
 	
-	public int 暴击率(){
-		int 暴击率=6;
+	public float 暴击率(){
+		float 暴击率=6;
 //		if(Dungeon.赛季(赛季设置.英雄联盟)){
 //			暴击率+=18;
 //		}
@@ -885,7 +890,7 @@ public abstract class Char extends Actor {
 	}
 	public float 暴击(final Char enemy,float dmg){
 		if((必暴||算法.概率学(暴击率()))){
-			dmg=Math.round(dmg*暴击伤害());
+			dmg=dmg*暴击伤害();
 			必暴=false;
 			x次必暴=0;
 			if(sprite!=null){
@@ -1202,6 +1207,12 @@ public abstract class Char extends Actor {
 		if(Dungeon.符文("吸收痛苦")&&!(src instanceof 吸收痛苦))
 			Buff.施加(Dungeon.hero,吸收痛苦.class).吸收(dmg);
 
+		if(Dungeon.hero.符文("炼狱导管")){
+			Recharging.chargeWands(0.16f);
+			ArtifactRecharge.chargeArtifacts(Dungeon.hero,0.16f);
+			Weapon.chargeWeapons(0.625f);
+			dmg*=1.1f;
+		}
 		生命 -= dmg;
 
 		if(sprite!=null&&(dmg>=最大生命(0.34f)||生命<=最大生命(0.34f)))
@@ -1337,13 +1348,8 @@ public abstract class Char extends Actor {
 		}
 	}
 
-	//we cache this info to prevent having to call buff(...) in isAlive.
-	//This is relevant because we call isAlive during drawing, which has both performance
-	//and thread coordination implications
-	public boolean deathMarked = false;
-	
 	public boolean isAlive() {
-		return 生命 > 0 || deathMarked;
+		return 生命 > 0;
 	}
 
 	public boolean isActive() {
@@ -1527,6 +1533,9 @@ public abstract class Char extends Actor {
 		move( step, true );
 	}
 
+	public boolean 水平移动=false;
+	public boolean 垂直移动=false;
+
 	//travelling may be false when a character is moving instantaneously, such as via teleportation
 	public void move( int step, boolean travelling ) {
 
@@ -1547,6 +1556,9 @@ public abstract class Char extends Actor {
 			Door.leave( pos );
 		}
 
+		水平移动=水平移动(step);
+		垂直移动=垂直移动(step);
+
 		pos = step;
 		
 		if (this != Dungeon.hero) {
@@ -1555,7 +1567,21 @@ public abstract class Char extends Actor {
 		
 		Dungeon.level.occupyCell(this );
 	}
-	
+	public boolean 水平移动(int step){
+
+		for(int n: PathFinder.水平32){
+			if(pos+n==step)return true;
+		}
+		return false;
+	}
+	public boolean 垂直移动(int step){
+
+		for(int n: PathFinder.垂直32){
+			if(pos+n==step)return true;
+		}
+		return false;
+	}
+
 	public boolean adjacent( Char other ) {
 		return Dungeon.level.adjacent( pos, other.pos );
 	}
@@ -1778,6 +1804,10 @@ public abstract class Char extends Actor {
 		护甲=最大护甲();
 		return 护甲;
 	}
+	public float 护甲恢复(){
+		float 护甲恢复=0;
+		return 1/150f*护甲恢复;
+	}
 	public float 最大护甲(){
 		float 最大护甲=最大生命(0.25f);
 		
@@ -1839,9 +1869,9 @@ public abstract class Char extends Actor {
 		if(x>0){
 			生命=Math.min(生命+x,最大生命);
 			if (Dungeon.level.heroFOV[pos]){
-				if(sprite!=null&&sprite.visible&&x>=1&&!Dungeon.赛季(赛季设置.地牢塔防)){
+				if(sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
 					sprite.showStatusWithIcon(CharSprite.增强,x,FloatingText.HEALING);
-					sprite.emitter().burst(Speck.factory(Speck.HEALING),1+x/10);
+					sprite.emitter().burst(Speck.factory(Speck.HEALING),x/25);
 				}
 			}
 

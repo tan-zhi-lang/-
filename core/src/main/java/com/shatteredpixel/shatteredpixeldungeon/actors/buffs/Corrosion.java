@@ -76,7 +76,7 @@ public class Corrosion extends Buff implements Hero.Doom {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", dispTurns(left), String.format("%.2f",damage));
+		return Messages.get(this, "desc", dispTurns(left), damage);
 	}
 
 	@Override

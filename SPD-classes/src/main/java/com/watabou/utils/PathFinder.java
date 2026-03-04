@@ -31,6 +31,10 @@ public class PathFinder {
 	public static int[] 范围2;
 	public static int[] 范围3;
 	public static int[] 八卦;
+	public static int[] 垂直;
+	public static int[] 水平;
+	public static int[] 水平32;
+	public static int[] 垂直32;
 	public static int 八卦开门;
 	public static int 八卦休门;
 	public static int 八卦生门;
@@ -78,6 +82,17 @@ public class PathFinder {
 				+width*2-2,+width*2+2,
 				+width*3};
 
+		水平 = new int[]{
+				-3,-2,-1,+1,+2,+3
+		};
+		垂直 = new int[]{
+				-width*3,
+				-width*2,
+				-width,
+				+width,
+				+width*2,
+				+width*3,
+		};
 		八卦开门=+width*2+2;
 		八卦休门=+width*3;
 		八卦生门=+width*2-2;
@@ -87,6 +102,8 @@ public class PathFinder {
 		八卦死门=-width*2+2;
 		八卦惊门=+3;
 
+		水平32=水平(32);
+		垂直32=垂直(width,32);
 		范围4=x格(width,4);
 		范围5=x格(width,5);
 		范围6=x格(width,6);
@@ -94,6 +111,16 @@ public class PathFinder {
 		范围8=x格(width,8);
 		CIRCLE4 = new int[]{-width, +1, +width, -1};
 		CIRCLE8 = new int[]{-width-1, -width, -width+1, +1, +width+1, +width, +width-1, -1};
+	}
+	private static int[] 水平(int r){
+		int[] arr=new int[2*r];int idx=0;
+		for(int i=-r;i<=r;i++)if(i!=0)arr[idx++]=i;
+		return arr;
+	}
+	private static int[] 垂直(int w,int r){
+		int[] arr=new int[2*r];int idx=0;
+		for(int i=-r;i<=r;i++)if(i!=0)arr[idx++]=i*w;
+		return arr;
 	}
 	public static int[] x格(int width,int range) {
 		int[] S= new int[1 + 4 * range * (range + 1)];

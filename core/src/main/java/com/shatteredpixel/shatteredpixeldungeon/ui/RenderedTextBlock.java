@@ -10,7 +10,10 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class RenderedTextBlock extends Component {
 
@@ -165,8 +168,43 @@ public class RenderedTextBlock extends Component {
 			}
 		}
 		layout();
-	}
+	} private static final Pattern INT_PATTERN = Pattern.compile("^\\s*[+-]?\\d+\\s*$");
 
+	/**
+	 * 判断字符串类型：
+	 * - 整数格式：直接返回trim后的整数字符串
+	 * - 浮点数格式（可转float）：四舍五入保留两位小数返回
+	 * - 其他：返回null
+	 * @param str 待判断的字符串
+	 * @return 处理后的结果（失败返回null）
+	 */
+	public static String fx(String str) {
+		// 空值/空字符串直接返回null（转换失败）
+		if (str == null || str.trim().isEmpty()) {
+			return null;
+		}
+
+		// 第一步：判定是否是整数格式，若是则直接返回trim后的整数
+		if (INT_PATTERN.matcher(str).matches()) {
+			return str.trim();
+		}
+
+		// 第二步：不是整数，尝试转换为float并处理小数
+		float floatValue;
+		try {
+			floatValue = Float.parseFloat(str.trim());
+		} catch (NumberFormatException e) {
+			// 转换失败（既不是int也不是float），返回null
+			return null;
+		}
+
+		// 使用BigDecimal进行四舍五入，保留两位小数
+		BigDecimal bigDecimal = new BigDecimal(floatValue);
+		BigDecimal roundedValue = bigDecimal.setScale(0,RoundingMode.HALF_UP);
+
+		// 返回格式化后的小数字符串
+		return roundedValue.toPlainString();
+	}
 	/**
 	 * 抽离普通token处理逻辑，提升代码复用性和可读性
 	 */
@@ -180,6 +218,14 @@ public class RenderedTextBlock extends Component {
 			return;
 		}
 
+		if(fx(str)!=null)
+			str=fx(str);
+
+		//the ~ symbol is more commonly used in Chinese
+//		if (Messages.lang() == Languages.CHI_SMPL || Messages.lang() == Languages.CHI_TRAD){
+//			str = str.replace('-', '~');
+//			str = str.replace('-', '~');
+//		}
 		// 清理所有颜色标记符（补充**的替换，修正转义）
 		String cleanStr = str.replaceAll("_", "")
 				.replaceAll("\\*\\*", "")

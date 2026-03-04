@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -13,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.ColorBlock;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.Random;
@@ -174,7 +176,7 @@ public class TalentsPane extends ScrollPane {
 									Icons.SHUFFLE.get(),
 									Messages.get(TalentsPane.class, "random_title"),
 									Messages.get(TalentsPane.class, "random_sure"),
-									Messages.get(TalentsPane.class, "random_yes"),
+//									Messages.get(TalentsPane.class, "random_yes"),
 									Messages.get(TalentsPane.class, "random_one"),
 									Messages.get(TalentsPane.class, "random_no")) {
 								@Override
@@ -184,12 +186,14 @@ public class TalentsPane extends ScrollPane {
 									if (TalentTierPane.this.parent == null){
 										return;
 									}
-									if (index == 0 || index == 1){
+									if (index == 0){
+//									if (index == 0 || index == 1){
 										while (Dungeon.hero.talentPointsAvailable(tier) > 0){
 											TalentButton button = Random.element(buttons);
 											if (Dungeon.hero.天赋点数(button.talent) < button.talent.最大点数()){
 												button.upgradeTalent();
-												if (index == 1){
+												if (index == 0){
+//												if (index == 1){
 													break;
 												}
 											}
@@ -200,8 +204,24 @@ public class TalentsPane extends ScrollPane {
 								}
 							});
 						};
+
+						@Override
+						public void update() {
+
+							if (Statistics.qualifiedForRandomVictoryBadge){
+								icon.tint(1, 1, 1, (float)Math.abs(Math.cos(1.5f*Math.PI*Game.timeTotal)/2f));
+							}
+							super.update();
+						}
 					};
-//					add(random);//随机天赋
+					if(tier==1&&!Dungeon.hero.第1层天赋)
+					add(random);//随机天赋
+
+					if(tier==2&&!Dungeon.hero.第2层天赋)
+					add(random);//随机天赋
+
+					if(tier==3)
+					add(random);//随机天赋
 				}
 			}
 

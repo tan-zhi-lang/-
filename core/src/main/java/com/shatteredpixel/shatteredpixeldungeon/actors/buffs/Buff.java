@@ -171,7 +171,7 @@ public class Buff extends Actor {
 			return 新增( target, buffClass );
 		}
 	}
-	
+	//affect
 	public static<T extends FlavourBuff> T 施加(Char target, Class<T> buffClass, float duration ) {
 		T buff = 施加( target, buffClass );
 		buff.spend( duration * target.resist(buffClass) );

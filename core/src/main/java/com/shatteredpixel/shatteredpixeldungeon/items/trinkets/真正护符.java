@@ -125,14 +125,14 @@ public class 真正护符 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								Messages.decimalFormat("#.##",100*综合()),
-								Messages.decimalFormat("#.##",100*增加())
+								100*综合(),
+								100*增加()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								
-								Messages.decimalFormat("#.##",100*综合(0)),
-								Messages.decimalFormat("#.##",100*增加(0))
+								100*综合(0),
+								100*增加(0)
 							   );
 		}
 	}

@@ -81,9 +81,9 @@ public class 浓毒法杖 extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/15f);
+			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/25f);
 		else
-			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/15f);
+			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/25f);
 	}
 
 	@Override

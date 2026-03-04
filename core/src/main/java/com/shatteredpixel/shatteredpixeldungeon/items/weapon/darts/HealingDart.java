@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -17,6 +18,12 @@ public class HealingDart extends TippedDart {
 	
 	@Override
 	public float 攻击时(Char attacker, Char defender, float damage) {
+
+		if (attacker instanceof Hero) {
+			if (((Hero) attacker).attackTarget().alignment==attacker.alignment){
+				return 0; //does not deal damage to allies
+			}
+		}
 		if(defender!=null){
 			//do nothing to the hero or enemies when processing charged shot
 			if(processingChargedShot&&(defender==attacker||attacker.alignment!=defender.alignment)){

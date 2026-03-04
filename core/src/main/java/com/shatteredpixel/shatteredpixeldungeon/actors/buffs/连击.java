@@ -320,6 +320,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 	}
 
 	private static ComboMove moveBeingUsed;
+	private static int furyHitsLeft = 0;
 
 	private void doAttack(final Char enemy) {
 
@@ -418,9 +419,14 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 				break;
 
 			case 暴雨:
-				count--;
+				if (count > 0){
+					furyHitsLeft = count;
+					count = 0;
+					hero.spend(hero.攻击延迟());
+				}
+				furyHitsLeft--;
 				//fury attacks as many times as you have combo count
-				if (count > 0 && enemy.isAlive() && hero.canAttack(enemy) &&
+				if (furyHitsLeft > 0 && enemy.isAlive() && hero.canAttack(enemy) &&
 						(wasAlly || enemy.alignment != target.alignment)){
 					target.sprite.attack(enemy.pos, new Callback() {
 						@Override
@@ -429,6 +435,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 						}
 					});
 				} else {
+					furyHitsLeft = 0;
 					detach();
 					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
 					ActionIndicator.clearAction(连击.this);

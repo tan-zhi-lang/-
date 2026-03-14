@@ -117,7 +117,7 @@ public class Healing extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Float.toString(healingLeft);
+		return Math.round(healingLeft)+"";
 	}
 	
 	@Override

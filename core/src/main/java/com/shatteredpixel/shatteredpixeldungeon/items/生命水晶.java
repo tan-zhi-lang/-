@@ -18,7 +18,7 @@ public class 生命水晶 extends 用品 {
 	public void 使用(Hero hero){
 		Sample.INSTANCE.play(Assets.Sounds.生命水晶);
 		hero.根骨+=4;
-		hero.更新属性();
+		hero.更新生命();
 		super.使用(hero);
 	}
 

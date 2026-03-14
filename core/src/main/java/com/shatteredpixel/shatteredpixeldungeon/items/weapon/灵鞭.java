@@ -17,7 +17,7 @@ public class 灵鞭 extends Weapon{
 
 		伤害=0.75f;
 		延迟= 1.25f;
-		连招范围=3;
+//		连招范围=3;
 		范围 = 3;
 		专属= true;
 		特别= true;

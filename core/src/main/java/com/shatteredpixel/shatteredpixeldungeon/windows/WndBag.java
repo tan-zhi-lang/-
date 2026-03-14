@@ -130,6 +130,7 @@ public class WndBag extends WndTabbed {
 		layoutTabs();
 
 
+//		Dungeon.保存游戏();
 	}
 	
 	public ItemSelector getSelector() {

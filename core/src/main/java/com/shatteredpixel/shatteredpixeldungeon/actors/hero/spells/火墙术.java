@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -54,7 +55,16 @@ public class 火墙术 extends 目标法术 {
 
 		hero.spend( 1f );
 		hero.next();
+		float damage = Random.NormalFloat(
+				hero.魔力(0.3f)
+				,
+				hero.魔力(1.2f)
+										 );
 		for (int offset : PathFinder.自相邻){
+			Char ch = Actor.findChar(target+offset);
+			if(ch!=null&&ch.isAlive())
+			ch.受伤时(damage, 火墙术.this);
+
 			if (!Dungeon.level.solid[target+offset]) {
 				GameScene.add(Blob.seed(target+offset,Math.round(hero.魔力(0.15f)),Fire.class));
 			}
@@ -65,7 +75,10 @@ public class 火墙术 extends 目标法术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Math.round(Dungeon.hero.魔力(0.15f)));
+		String desc = Messages.get(this, "desc",Math.round(Dungeon.hero.魔力(0.15f)),
+								   Dungeon.hero.魔力(0.3f)
+				,
+								   Dungeon.hero.魔力(1.2f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

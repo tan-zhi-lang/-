@@ -118,7 +118,7 @@ public class Ring extends KindofMisc {
 			if(首次拾取){
 				levelsToID -= Talent.鉴定速度(Dungeon.hero,this)/45f;
 			}
-			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.指环王))activate(container.owner);
+			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.指环王)&&Dungeon.hero.职业精通())activate(container.owner);
 			return true;
 		} else {
 			return false;
@@ -233,7 +233,7 @@ public class Ring extends KindofMisc {
 	public Item 升级() {
 		super.升级();
 
-			cursed = false;
+		cursed = false;
 		
 		return this;
 	}
@@ -384,7 +384,7 @@ public class Ring extends KindofMisc {
 		if(Dungeon.hero.heroClass(HeroClass.戒老)){
 			lvl++;
 		}
-		if(Dungeon.hero.subClass(HeroSubClass.指环王)&&Dungeon.hero.职业精通()){
+		if(Dungeon.hero.subClass(HeroSubClass.指环王)){
 			lvl+=3;
 		}
 		lvl+=Dungeon.hero.天赋点数(Talent.戒之九型);

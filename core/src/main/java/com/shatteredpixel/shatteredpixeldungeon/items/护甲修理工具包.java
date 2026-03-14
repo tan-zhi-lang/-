@@ -18,7 +18,7 @@ public class 护甲修理工具包 extends 用品 {
 	
 	@Override
 	public void 使用(Hero hero){
-		if(hero.护甲>=hero.最大护甲()*0.85f){
+		if(hero.护甲>=hero.最大护甲*0.85f){
 			GLog.n("护甲没有破损，不推荐修复护甲，收益不高。");
 			return;
 		}

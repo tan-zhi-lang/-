@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -21,7 +20,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
-import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -43,7 +41,6 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Shopkeeper extends NPC {
@@ -195,7 +192,7 @@ public class Shopkeeper extends NPC {
 			打折*=.9f;
 		}
 		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
-		return Math.round(item.价值提升() * 打折/2 * (1 / 5f + 1));
+		return Math.round(item.金币提升()*打折/2*(1/5f+1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
 	}
 	
@@ -241,6 +238,7 @@ public class Shopkeeper extends NPC {
 			Messages.get(Shopkeeper.this, "商人信标");
 		}
 
+//		Dungeon.保存游戏();
 		Game.runOnRenderThread(new Callback() {
 			@Override
 			public void call() {

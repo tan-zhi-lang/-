@@ -55,7 +55,7 @@ public class 四叶草法典 extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.天赋(Talent.轻便护额))
+		if ((isEquipped( hero ) || hero.天赋(Talent.轻便法典))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
@@ -72,7 +72,7 @@ public class 四叶草法典 extends Artifact {
 
 		if (action.equals(AC_CAST)) {
 
-			if (!isEquipped(hero) && !hero.天赋(Talent.轻便护额)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
+			if (!isEquipped(hero) && !hero.天赋(Talent.轻便法典)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
 			else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 			else {
 
@@ -98,7 +98,7 @@ public class 四叶草法典 extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (collect && hero.天赋(Talent.轻便护额)){
+			if (collect && hero.天赋(Talent.轻便法典)){
 				activate(hero);
 			}
 
@@ -112,7 +112,7 @@ public class 四叶草法典 extends Artifact {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).天赋(Talent.轻便护额)){
+					&& ((Hero) container.owner).天赋(Talent.轻便法典)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -130,7 +130,7 @@ public class 四叶草法典 extends Artifact {
 	}
 
 	public boolean canCast( Hero hero, 法术 spell){
-		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.轻便护额)&&hero.belongings.contains(this)))
+		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.轻便法典)&&hero.belongings.contains(this)))
 				&& hero.buff(MagicImmune.class) == null
 				&& charge >= spell.chargeUse(hero)
 				&& spell.canCast(hero);
@@ -199,7 +199,7 @@ public class 四叶草法典 extends Artifact {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
-			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便护额,0.25f);
+			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便法典,0.25f);
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1f) {
 				charge++;
@@ -281,7 +281,7 @@ public class 四叶草法典 extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便护额,025f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便法典,025f);
 					}
 					partialCharge += chargeToGain;
 				}

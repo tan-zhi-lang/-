@@ -78,29 +78,49 @@ public abstract class Wand extends Item {
 	}
 
 	public float 魔力(){
-		if(Dungeon.hero())
-		return Dungeon.hero.魔力(0.1f*(1+1*强化等级()));
-		else
-		return 10*0.1f;
+		return 魔力(0.1f,1);
 	}
 	public float 魔力(float 魔力收益){
-		if(Dungeon.hero())
-		return Dungeon.hero.魔力(魔力收益*(1+0*强化等级()));
-		else
-			return 10*魔力收益;
+		return 魔力(魔力收益,0);
 	}
 	public float 魔力(float 魔力收益,float 等收益){
-		if(Dungeon.hero())
-		return Dungeon.hero.魔力(魔力收益*(1+等收益*强化等级()));
-		else
-			return 10*魔力收益*(1+等收益*强化等级());
+		return 魔力(魔力收益,等收益,强化等级());
 	}
 
 	public float 魔力加(float 魔力收益,float 等收益){
+		return 魔力(魔力收益,等收益,强化等级()+1);
+	}
+	public float 魔力(float 魔力收益,float 等收益,int 等级){
+		float x=1;
+		if(Dungeon.符文("属性:火")){
+			if(this instanceof 焰浪法杖)x+=0.5f;
+			if(this instanceof 烈焰法杖)x+=0.5f;
+		}
+		if(Dungeon.符文("属性:冰")){
+			if(this instanceof 冰海法杖)x+=0.5f;
+			if(this instanceof WandOfFrost)x+=0.5f;
+		}
+		if(Dungeon.符文("属性:光")){
+			if(this instanceof WandOfPrismaticLight)x+=0.5f;
+			if(this instanceof 棱镜法杖)x+=0.5f;
+		}
+		if(Dungeon.符文("属性:暗")){
+			if(this instanceof WandOfDisintegration)x+=0.5f;
+			if(this instanceof 影织法杖)x+=0.5f;
+		}
+		if(Dungeon.符文("属性:地")){
+			if(this instanceof WandOfLivingEarth)x+=0.5f;
+			if(this instanceof 落石法杖)x+=0.5f;
+		}
+		if(Dungeon.hero()){
+			x+=Dungeon.hero.天赋点数(Talent.洪荒法力,0.15f);
+		}
+		魔力收益+=x;
+		等收益+=x;
 		if(Dungeon.hero())
-		return Dungeon.hero.魔力(魔力收益*(1+等收益*(强化等级()+1)));
+		return Dungeon.hero.魔力(魔力收益*(1+等收益*等级));
 		else
-			return 10*魔力收益*(1+等收益*(强化等级()+1));
+			return 10*魔力收益*(1+等收益*等级);
 	}
 
 	@Override
@@ -355,8 +375,6 @@ public abstract class Wand extends Item {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-		if(Dungeon.hero())
-		lvl+=Math.round(Dungeon.hero.魔力(0.04999f));
 
 		if (charger != null && charger.target instanceof Hero hero) {
 			

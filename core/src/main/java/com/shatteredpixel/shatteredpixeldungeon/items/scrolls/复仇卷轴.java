@@ -27,10 +27,8 @@ public class 复仇卷轴 extends Scroll {
 
 		detach(curUser.belongings.backpack);
 		GameScene.flash( 0x80FFFFFF );
-		
-		//scales from 0x to 1x power, maxing at ~10% HP
-		float hpPercent = (curUser.最大生命 - curUser.生命)/(float)(curUser.最大生命);
-		float power = Math.min( 4f, 4.45f*hpPercent);
+
+		float power = curUser.根据已损失生命();
 		
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
 		GLog.i(Messages.get(this, "blast"));
@@ -46,7 +44,7 @@ public class 复仇卷轴 extends Scroll {
 
 		for (Mob mob : targets){
 			//deals 10%HT, plus 0-90%HP based on scaling
-			mob.受伤时(mob.最大生命 /10f + (mob.生命 * power * 0.225f), this);
+			mob.受伤时(mob.最大生命(0.1f) + (mob.生命 * power), this);
 			if (mob.isAlive()) {
 				Buff.延长(mob, Blindness.class, Blindness.DURATION);
 			}

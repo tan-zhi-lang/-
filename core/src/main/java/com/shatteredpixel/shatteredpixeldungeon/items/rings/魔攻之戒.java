@@ -72,31 +72,29 @@ public class 魔攻之戒 extends Ring {
 			}
 	}
 
+	public float 魔力(){
+		return 魔力(0.1f,1);
+	}
 	public float 魔力(float 魔力收益){
-		if(Dungeon.hero())
-			return Dungeon.hero.魔力(魔力收益);
-		else
-			return 10*魔力收益;
+		return 魔力(魔力收益,0);
 	}
 	public float 魔力(float 魔力收益,float 等收益){
-		if(Dungeon.hero())
-			return Dungeon.hero.魔力(魔力收益*(1+等收益*强化等级()));
-		else
-			return 10*魔力收益*(1+等收益*强化等级());
-	}
-	public float 魔力结合(float 魔力收益,float 等收益){
-		if(Dungeon.hero())
-			return Dungeon.hero.魔力(魔力收益*(1+等收益*combinedBuffedBonus()));
-		else
-			return 10*魔力收益*(1+等收益*强化等级());
+		return 魔力(魔力收益,等收益,强化等级());
 	}
 
 	public float 魔力加(float 魔力收益,float 等收益){
-		if(Dungeon.hero())
-			return Dungeon.hero.魔力(魔力收益*(1+等收益*(强化等级()+1)));
-		else
-			return 10*魔力收益*(1+等收益*(强化等级()+1));
+		return 魔力(魔力收益,等收益,强化等级()+1);
 	}
+	public float 魔力(float 魔力收益,float 等收益,int 等级){
+		if(Dungeon.hero())
+			return Dungeon.hero.魔力(魔力收益*(1+等收益*等级));
+		else
+			return 10*魔力收益*(1+等收益*等级);
+	}
+	public float 魔力结合(float 魔力收益,float 等收益){
+		return 魔力(魔力收益,等收益,combinedBuffedBonus());
+	}
+
 	public void onZap(Ballistica bolt) {
 		
 		Char ch = Actor.findChar( bolt.collisionPos );

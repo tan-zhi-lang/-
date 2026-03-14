@@ -15,7 +15,7 @@ public class 防御姿态 extends 武技{
 		hero.sprite.operate(hero.pos);
 		hero.spend(1f);
 		hero.busy();
-		hero.护甲(hero.最大护甲()/2);
+		hero.护甲(hero.最大护甲/2);
 		wep.技能使用(hero);
 	}
 }

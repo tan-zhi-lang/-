@@ -23,6 +23,8 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
 
+import java.util.ArrayList;
+
 public class 升级卷轴 extends InventoryScroll {
 	
 	{
@@ -34,6 +36,24 @@ public class 升级卷轴 extends InventoryScroll {
 		talentFactor = 2f;
 	}
 
+	protected static final String AC_强化 = "强化";
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		ArrayList<String> actions = super.actions( hero );
+		if(已鉴定())
+		actions.add( AC_强化 );
+		return actions;
+	}
+	@Override
+	public void execute( Hero hero, String action ) {
+
+		super.execute( hero, action );
+
+		if (action.equals(AC_强化)) {
+			detach( curUser.belongings.backpack );
+			hero.属性成长+=0.045f;
+		}
+	}
 	@Override
 	protected boolean usableOnItem(Item item) {
 		return item.可升级();

@@ -10,7 +10,9 @@ public class 伤害 extends Buff{
 	
 	public float level;
 	private static final String LEVEL	= "level";
-	
+	public void level(float level){
+		this.level+=level;
+	}
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );

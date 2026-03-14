@@ -17,7 +17,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.勇装;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
@@ -41,7 +44,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
@@ -50,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
@@ -124,32 +128,32 @@ import com.watabou.utils.Random;
 
 public enum HeroClass{
 	
-	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士),
-	MAGE(HeroSubClass.冰结师,HeroSubClass.元素法师),
-	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影),
-	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者),
+	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士,HeroSubClass.奇经八脉),
+	MAGE(HeroSubClass.冰结师,HeroSubClass.大魔法师,HeroSubClass.奇经八脉),
+	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影,HeroSubClass.奇经八脉),
+	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者,HeroSubClass.奇经八脉),
 	
-	DUELIST(HeroSubClass.武器大师,HeroSubClass.武者),
-	CLERIC(HeroSubClass.圣骑士,HeroSubClass.祭司),
-	巫女(HeroSubClass.战斗法师,HeroSubClass.黑魔导师),
-	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵),
-	镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士),
-	道士(HeroSubClass.死灵术士,HeroSubClass.真人),
-	行僧(HeroSubClass.疾行者,HeroSubClass.符文法师),
-	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵),
-	兽灵(HeroSubClass.神兽之灵),//1
-	机器(HeroSubClass.潜能觉醒),///2
-	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影),
-	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王),
-	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女),///2
-	罗兰(HeroSubClass.潜能觉醒),///2
-	学士(HeroSubClass.潜能觉醒),///2
-	灵猫(HeroSubClass.黑白双子,HeroSubClass.猫头鹰),
-	鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠),
-	凌云(HeroSubClass.潜能觉醒),///2
-	血鬼(HeroSubClass.金刚独狼,HeroSubClass.血法师),
-	来世(HeroSubClass.时间刺客,HeroSubClass.幸运之子),
-	NONE(HeroSubClass.潜能觉醒);
+	DUELIST(HeroSubClass.武器大师,HeroSubClass.武者,HeroSubClass.奇经八脉),
+	CLERIC(HeroSubClass.圣骑士,HeroSubClass.祭司,HeroSubClass.奇经八脉),
+	巫女(HeroSubClass.战斗法师,HeroSubClass.黑魔导师,HeroSubClass.奇经八脉),
+	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵,HeroSubClass.奇经八脉),
+	镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士,HeroSubClass.奇经八脉),
+	道士(HeroSubClass.死灵术士,HeroSubClass.真人,HeroSubClass.奇经八脉),
+	行僧(HeroSubClass.疾行者,HeroSubClass.符文法师,HeroSubClass.奇经八脉),
+	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵,HeroSubClass.奇经八脉),
+	兽灵(HeroSubClass.神兽之灵,HeroSubClass.养殖专家,HeroSubClass.奇经八脉),
+	机器(HeroSubClass.机械教主,HeroSubClass.魔法灵枢),
+	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影,HeroSubClass.奇经八脉),
+	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王,HeroSubClass.奇经八脉),
+	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女,HeroSubClass.奇经八脉),
+	罗兰(HeroSubClass.灾厄化身,HeroSubClass.灵剪刺客,HeroSubClass.奇经八脉),
+	学士(HeroSubClass.幸运之子,HeroSubClass.图书管理员,HeroSubClass.奇经八脉),
+	灵猫(HeroSubClass.黑白双子,HeroSubClass.猫头鹰,HeroSubClass.奇经八脉),
+	鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠,HeroSubClass.奇经八脉),
+	凌云(HeroSubClass.解咒真人,HeroSubClass.吞噬云烟,HeroSubClass.奇经八脉),
+	血鬼(HeroSubClass.金刚独狼,HeroSubClass.血法师,HeroSubClass.奇经八脉),
+	来世(HeroSubClass.时间刺客,HeroSubClass.戏命师,HeroSubClass.奇经八脉),
+	NONE(HeroSubClass.奇经八脉);
 	
 	private HeroSubClass[] subClasses;
 	
@@ -160,21 +164,23 @@ public enum HeroClass{
 	public void initHero(Hero hero){
 		hero.heroClass=this;
 
-		Notes.物品类别备注(new 治疗药剂(),"治疗药剂"+"使用技巧","能够站在献祭之火扔向献祭之火即可直接完成献祭");
-		Notes.物品类别备注(new 浮空药剂(),"浮空药剂"+"使用技巧","浮空时可以无伤跳楼");
-		Notes.物品类别备注(new 隐形药剂(),"隐形药剂"+"使用技巧","隐形时巨型食人鱼就不会攻击你");
-		Notes.物品类别备注(new 极速药剂(),"极速药剂"+"使用技巧","只要你跑得够快血色哨卫攻击不到你");
+		Notes.物品备注(new 治疗药剂(),"使用技巧","能够站在献祭之火扔向献祭之火即可直接完成献祭");
+		Notes.物品备注(new 浮空药剂(),"使用技巧","浮空时可以无伤跳楼");
+		Notes.物品备注(new 隐形药剂(),"使用技巧","隐形时巨型食人鱼就不会攻击你");
+		Notes.物品备注(new 极速药剂(),"使用技巧","只要你跑得够快血色哨卫攻击不到你");
 
-		Notes.物品类别备注(new 液火药剂(),"液火药剂"+"使用技巧","火焰可以燃烧(必刷烈焰花)");
-		Notes.物品类别备注(new 冰霜药剂(),"冰霜药剂"+"使用技巧","可以熄灭魔法火焰(必刷冰冠花)");
+		Notes.物品备注(new 液火药剂(),"使用技巧","火焰可以燃烧(必刷烈焰花)");
+		Notes.物品备注(new 冰霜药剂(),"使用技巧","可以熄灭魔法火焰(必刷冰冠花)");
 
-		Notes.物品类别备注(new 净化药剂(),"净化药剂"+"使用技巧","可以无视很多负面效果，直接去毒气房一探究竟");
+		Notes.物品备注(new 净化药剂(),"使用技巧","可以无视很多负面效果，直接去毒气房一探究竟");
 
-		Notes.物品类别备注(new Bomb(),"炸弹"+"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
-		Notes.物品类别备注(new 水袋(),"水袋"+"使用技巧","装满水可以合成永生秘药");
-		Notes.物品类别备注(new 毒气药剂(),"毒气药剂"+"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
-		Notes.物品类别备注(new 麻痹药剂(),"麻痹药剂"+"使用技巧","只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
-		Notes.物品类别备注(new 灵视药剂(),"灵视药剂"+"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
+		Notes.物品备注(new Bomb(),"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
+		Notes.物品备注(new 水袋(),"使用技巧","装满水可以合成永生秘药");
+		Notes.物品备注(new 毒气药剂(),"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
+		Notes.物品备注(new 麻痹药剂(),"使用技巧","只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
+		Notes.物品备注(new 灵视药剂(),"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
+		
+		Notes.物品备注(new PotionOfCleansing(),"使用技巧","饥饿值为0时饮用可以填充450饥饿");
 
 
 
@@ -226,6 +232,7 @@ public enum HeroClass{
 				hero.种族天赋=Random.oneOf("人类","兽人","鲛人","精灵",
 										   "喵星人","龙人","矮人","猩人","恶魔");
 				//"吸血鬼","半人马","地精","汪星人","鼠人","树妖","不死族","恶魔"
+				Notes.备注("种族",hero.种族天赋);
 			}
 		}
 		if(Dungeon.派对(派对设置.钢门联盟)){
@@ -263,11 +270,16 @@ public enum HeroClass{
 			new Icecap.Seed().数量(x).放背包();
 			new 毒气药剂().数量(x).放背包();
 
-//			new 坠牢之星().数量(x).放背包();
+//			new 狂怒之戒().放背包();
+//			new 恢复之戒().放背包();
+//			new 闪避之戒().放背包();
+//			new 命中之戒().放背包();
 			new Torch().数量(x).放背包();
 			new Food().数量(x).放背包();
 
-//			new MysteryMeat().数量(x).放背包();
+			new Honeypot().数量(x).放背包();
+
+			new TengusMask().放背包();
 //			new 属性锻造器().数量(10).放背包();
 			
 			new 探地卷轴().数量(x).放背包();
@@ -406,9 +418,10 @@ public enum HeroClass{
 		if(hero.belongings.misc3!=null)
 		hero.belongings.misc3.activate(hero);
 		
-		if(hero.belongings.幸运!=null)
-		hero.belongings.幸运.activate(hero);
-		hero.belongings.幸运.鉴定();
+		if(hero.belongings.幸运!=null){
+			hero.belongings.幸运.activate(hero);
+			hero.belongings.幸运.鉴定();
+		}
 		
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			hero.belongings.weapon=null;
@@ -591,7 +604,7 @@ public enum HeroClass{
 		(hero.belongings.weapon=new 铜钱剑()).鉴定();
 		(hero.belongings.armor=new 道袍()).鉴定();
 		
-		本命玉佩 tome=new 本命玉佩();
+		鬼帝钟 tome=new 鬼帝钟();
 		(hero.belongings.misc=tome).鉴定();
 		
 		Dungeon.quickslot.setSlot(0,tome);
@@ -673,6 +686,14 @@ public enum HeroClass{
 	private static void 初始学士(Hero hero){
 		(hero.belongings.weapon=new 书包()).鉴定();
 		(hero.belongings.armor=new 训服()).鉴定();
+
+		Generator.randomUsingDefaults(Generator.Category.POTION).放背包();
+		Generator.randomUsingDefaults(Generator.Category.POTION).放背包();
+		Generator.randomUsingDefaults(Generator.Category.POTION).放背包();
+
+		Generator.randomUsingDefaults(Generator.Category.SCROLL).放背包();
+		Generator.randomUsingDefaults(Generator.Category.SCROLL).放背包();
+		Generator.randomUsingDefaults(Generator.Category.SCROLL).放背包();
 		new 液火药剂().鉴定();
 		new 毒气药剂().鉴定();
 	}
@@ -809,6 +830,8 @@ public enum HeroClass{
 			case 鼠弟:
 				return Assets.Sprites.鼠弟;
 			case 凌云:
+				if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.解咒真人))
+					return Assets.Sprites.凌云真人;
 				return Assets.Sprites.凌云;
 			case 血鬼:
 				return Assets.Sprites.血鬼;

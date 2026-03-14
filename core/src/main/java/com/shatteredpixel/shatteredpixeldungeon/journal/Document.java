@@ -200,8 +200,10 @@ public enum Document {
 					return new ItemSprite( 物品表.无尽之刃);
 				case 走位:
 					return new BuffIcon(BuffIndicator.HASTE,true);
-				case 连招:
-					return new ItemSprite( 物品表.日炎链刃);
+//				case 连招:
+//					return new ItemSprite( 物品表.日炎链刃);
+				case 魔力:
+					return new ItemSprite( 物品表.魔力水晶);
 				case GUIDE_CALENDAR:
 					return Icons.get(Icons.CALENDAR);
 			}
@@ -255,7 +257,8 @@ public enum Document {
 	public static final String 护甲= "护甲";
 	public static final String 暴击= "暴击";
 	public static final String 走位= "走位";
-	public static final String 连招= "连招";
+//	public static final String 连招= "连招";
+	public static final String 魔力= "魔力";
 	public static final String GUIDE_CALENDAR= "calendar";
 
 	public static final String KING_ATTRITION       = "attrition";
@@ -282,7 +285,8 @@ public enum Document {
 		ADVENTURERS_GUIDE.pagesStates.put(护甲,debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(暴击,debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(走位,debug ? READ : NOT_FOUND);
-		ADVENTURERS_GUIDE.pagesStates.put(连招,debug ? READ : NOT_FOUND);
+//		ADVENTURERS_GUIDE.pagesStates.put(连招,debug ? READ : NOT_FOUND);
+		ADVENTURERS_GUIDE.pagesStates.put(魔力,debug ? READ : NOT_FOUND);
 		ADVENTURERS_GUIDE.pagesStates.put(GUIDE_CALENDAR,debug ? READ : NOT_FOUND);
 		
 		//given in sewers

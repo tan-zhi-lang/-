@@ -33,7 +33,7 @@ public class PrismaticGuard extends Buff {
 		Mob closest = null;
 		int v = hero.visibleEnemies();
 		for (int i=0; i < v; i++) {
-			Mob mob = hero.visibleEnemy( i );
+			Mob mob = hero.视野敌人(i);
 			if ( mob.isAlive() && !mob.是无敌(PrismaticImage.class)
 					&& mob.state != mob.PASSIVE && mob.state != mob.WANDERING && mob.state != mob.SLEEPING && !hero.mindVisionEnemies.contains(mob)
 					&& (closest == null || Dungeon.level.distance(hero.pos, mob.pos) < Dungeon.level.distance(hero.pos, closest.pos))) {
@@ -127,7 +127,7 @@ public class PrismaticGuard extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)HP);
+		return Math.round(HP)+"";
 	}
 	
 	@Override

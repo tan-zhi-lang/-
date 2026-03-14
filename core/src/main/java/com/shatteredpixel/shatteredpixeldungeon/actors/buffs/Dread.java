@@ -92,7 +92,7 @@ public class Dread extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(left);
+		return Math.round(left)+"";
 	}
 
 	@Override

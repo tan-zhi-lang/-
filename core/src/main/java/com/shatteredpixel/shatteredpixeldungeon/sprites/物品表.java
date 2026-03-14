@@ -651,7 +651,7 @@ public class 物品表 {
     public static final int 骷髅钥匙 = ARTIFACTS + 23;
     public static final int 四叶草法典=ARTIFACTS+24;
     public static final int 神圣法典 = ARTIFACTS + 25;
-    public static final int 本命玉佩 = ARTIFACTS + 26;
+    public static final int 鬼帝钟=ARTIFACTS+26;
     public static final int 叛忍护额=ARTIFACTS+27;
 
     static {
@@ -682,7 +682,7 @@ public class 物品表 {
 
         assignItemRect(四叶草法典,13,16);
         assignItemRect(神圣法典, 14, 16);
-        assignItemRect(本命玉佩, 10, 16);
+        assignItemRect(鬼帝钟,13,16);
         assignItemRect(叛忍护额,16,13);
     }
     

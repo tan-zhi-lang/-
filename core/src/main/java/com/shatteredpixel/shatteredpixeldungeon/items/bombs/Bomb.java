@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
@@ -102,6 +103,9 @@ public class Bomb extends Item {
 	@Override
 	protected void onThrow( int cell ) {
 		if (!Dungeon.level.pit[ cell ] && lightingFuse) {
+			if(Dungeon.符文("王者之翼手雷"))
+				Sample.INSTANCE.play( Assets.Sounds.龟内 );
+
 			Actor.addDelayed(fuse = createFuse().ignite(this), 2);
 		}
 		super.onThrow( cell );
@@ -121,9 +125,13 @@ public class Bomb extends Item {
 		//We're blowing up, so no need for a fuse anymore.
 		if (fuse != null) {
 			fuse.snuff();
-		this.fuse = null;
+			this.fuse = null;
 		}
+		if(Dungeon.符文("炸弹狂人"))new Bomb().放背包();
 
+		if(Dungeon.符文("王者之翼手雷"))
+		Sample.INSTANCE.play( Assets.Sounds.王翼雷 );
+		else
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
 
 		if (explodesDestructively()) {
@@ -175,7 +183,11 @@ public class Bomb extends Item {
 					continue;
 				}
 
-				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth())*2;
+				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
+				dmg*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
+				dmg*=2;
+				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
+
 				dmg=ch.防御(ch,dmg);
 				dmg=ch.护甲伤害(dmg);
 				if (dmg > 0) {
@@ -196,6 +208,7 @@ public class Bomb extends Item {
 			}
 		}
 	}
+
 	public void heroexplode(int cell){//不破坏物品和不伤害英雄
 		//We're blowing up, so no need for a fuse anymore.
 		this.fuse = null;
@@ -246,8 +259,12 @@ public class Bomb extends Item {
 					continue;
 				}
 
-				int dmg = Random.NormalIntRange(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
+				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
+				dmg*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
+				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
 
+				dmg=ch.防御(ch,dmg);
+				dmg=ch.护甲伤害(dmg);
 				if (ch != Dungeon.hero &&dmg > 0) {
 					ch.受伤时(dmg, this);
 				}

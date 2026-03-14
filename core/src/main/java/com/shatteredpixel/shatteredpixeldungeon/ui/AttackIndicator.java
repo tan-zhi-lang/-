@@ -97,7 +97,7 @@ public class AttackIndicator extends Tag {
 		candidates.clear();
 		int v = Dungeon.hero.visibleEnemies();
 		for (int i=0; i < v; i++) {
-			Mob mob = Dungeon.hero.visibleEnemy( i );
+			Mob mob = Dungeon.hero.视野敌人(i);
 			if ( Dungeon.hero.canAttack( mob) ) {
 				candidates.add( mob );
 			}

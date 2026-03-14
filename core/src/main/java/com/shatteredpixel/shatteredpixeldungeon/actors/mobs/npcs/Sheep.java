@@ -7,7 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -18,7 +20,7 @@ import com.watabou.utils.Random;
 
 public class Sheep extends NPC {
 
-	private static final String[] LINE_KEYS = {"Baa!", "Baa?", "Baa.", "Baa...", "Baba"};
+	private static final String[] LINE_KEYS = {"咩!", "咩?", "咩.", "咩...", "咩咩咩"};
 
 	{
 		spriteClass = SheepSprite.class;
@@ -74,7 +76,13 @@ public class Sheep extends NPC {
 
 		if (c == Dungeon.hero) {
 			Badges.解锁兽灵();
-			if(s.equals("Baba")){
+
+			if(Dungeon.hero.天赋概率(Talent.群羊牵引,25)){
+				s="咩咩咩";
+				Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.群羊牵引)),pos).sprite.drop();
+			}
+
+			if(s.equals("咩咩咩")){
 				Dungeon.hero.经验(Dungeon.层数(0.5f));
 			}
 			if(Dungeon.符文("磨刀霍霍向猪羊"))Dungeon.hero.磨刀+=0.075f;

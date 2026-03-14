@@ -188,7 +188,7 @@ public class SPDSettings extends GameSettings {
 		
 	}
 	public static boolean 自动拾取() {
-		return getBoolean( 自动拾取x, false);
+		return getBoolean( 自动拾取x, true);
 	}
 	public static void 装备武器( boolean value ) {
 		put( 装备武器x, value );
@@ -270,7 +270,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int scale() {
-		return getInt( KEY_SCALE, 7 );
+		return getInt( KEY_SCALE, 9 );
 	}
 	
 	public static void quickSwapper(boolean value ){ put( KEY_QUICK_SWAP, value ); }

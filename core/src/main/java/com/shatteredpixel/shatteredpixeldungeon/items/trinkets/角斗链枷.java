@@ -21,12 +21,12 @@ public class 角斗链枷 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								暴击率(),
+								100*暴击率(),
 								100*减少()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								暴击率(0),
+								100*暴击率(0),
 								100*减少(0)
 							   );
 		}
@@ -44,15 +44,15 @@ public class 角斗链枷 extends Trinket {
 		}
 	}
 
-	public static int 暴击率(){
+	public static float 暴击率(){
 		return 暴击率(trinketLevel(角斗链枷.class));
 	}
 
-	public static int 暴击率(int level){
+	public static float 暴击率(int level){
 		if (level < 0){
 			return 0;
 		} else {
-			return 15+5*level;
+			return 0.3f+0.1f*level;
 		}
 	}
 

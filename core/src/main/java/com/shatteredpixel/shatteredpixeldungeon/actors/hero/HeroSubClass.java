@@ -8,13 +8,13 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 public enum HeroSubClass {
 
 	NONE(HeroIcon.NONE),
-	潜能觉醒(HeroIcon.潜能觉醒),
+	奇经八脉(HeroIcon.肉身成圣),
 
 	狂战士(HeroIcon.BERSERKER),
 	角斗士(HeroIcon.GLADIATOR),
 
 	冰结师(HeroIcon.冰结师),
-	元素法师(HeroIcon.元素法师),
+	大魔法师(HeroIcon.大魔法师),
 
 	刺客(HeroIcon.ASSASSIN),
 	神偷无影(HeroIcon.神偷无影),
@@ -45,6 +45,9 @@ public enum HeroSubClass {
 	神兽之灵(HeroIcon.神兽之灵),
 	养殖专家(HeroIcon.养殖专家),
 
+	机械教主(HeroIcon.机械教主),
+	魔法灵枢(HeroIcon.魔法灵枢),
+
 	疾行者(HeroIcon.FREERUNNER),
 	符文法师(HeroIcon.符文法师),
 
@@ -60,17 +63,26 @@ public enum HeroSubClass {
 	剑魔(HeroIcon.剑魔),
 	圣女(HeroIcon.圣女),
 
+	灾厄化身(HeroIcon.灾厄化身),
+	灵剪刺客(HeroIcon.灵剪刺客),
+
+	幸运之子(HeroIcon.幸运之子),
+	图书管理员(HeroIcon.图书管理员),
+
 	黑白双子(HeroIcon.黑白双子),
 	猫头鹰(HeroIcon.猫头鹰),
 
 	巫咒王鼠(HeroIcon.巫咒王鼠),
 	实验狂鼠(HeroIcon.实验狂鼠),
 
+	解咒真人(HeroIcon.解咒真人),
+	吞噬云烟(HeroIcon.吞噬云烟),
+
 	金刚独狼(HeroIcon.金刚独狼),
 	血法师(HeroIcon.血法师),
 
 	时间刺客(HeroIcon.时间刺客),
-	幸运之子(HeroIcon.幸运之子);
+	戏命师(HeroIcon.戏命师);
 
 	int icon;
 
@@ -87,7 +99,7 @@ public enum HeroSubClass {
 	}
 
 	public String desc() {
-		return Messages.get(this, name() + "_desc");
+			return Messages.get(this, name() + "_desc")+"\n\n职业精通:"+Hero.职业精通提示(this,false,true);
 	}
 
 	public int icon(){

@@ -104,6 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.glwrap.Blending;
 import com.watabou.input.ControllerHandler;
 import com.watabou.input.KeyBindings;
@@ -652,7 +653,7 @@ public class GameScene extends PixelScene {
 		if (!waitForActorThread( 4500, true )){
 			Throwable t = new Throwable();
 			t.setStackTrace(actorThread.getStackTrace());
-			throw new RuntimeException("timeout waiting for actor thread! ", t);
+			throw new RuntimeException("超时等待演员线程！", t);
 		}
 
 		Emitter.freezeEmitters = false;
@@ -707,6 +708,7 @@ public class GameScene extends PixelScene {
 	//the actor thread processes at a maximum of 60 times a second
 	//this caps the speed of resting for higher refresh rate displays
 	private float notifyDelay = 1/60f;
+	private float 每秒 = 0;
 
 	public static boolean updateItemDisplays = false;
 
@@ -735,7 +737,18 @@ public class GameScene extends PixelScene {
 
 		super.update();
 
-		if (notifyDelay > 0) notifyDelay -= Game.elapsed;
+		if (notifyDelay > 0){
+			notifyDelay -= Game.elapsed;
+		}
+
+		if (每秒 >= 1){
+			if(Dungeon.赛季(赛季设置.即时策略))
+			if(Dungeon.hero()&&Dungeon.hero.curAction==null){
+				Dungeon.hero.spendAndNext(1);
+			}
+
+			每秒=0;
+		}else 每秒+=1/60f;
 
 		if (!Emitter.freezeEmitters) {
 			waterOfs -= 5 * Game.elapsed;
@@ -940,7 +953,7 @@ public class GameScene extends PixelScene {
 		}
 	}
 	
-	private void addMobSprite( Mob mob ) {
+	private synchronized void addMobSprite( Mob mob ) {
 		CharSprite sprite = mob.sprite();
 		sprite.visible = Dungeon.level.heroFOV[mob.pos];
 		mobs.add( sprite );
@@ -1368,11 +1381,13 @@ public class GameScene extends PixelScene {
 				@Override
 				public void call() {
 					//greater than 0 to account for negative values (which have the first bit set to 1)
+					if (scene != null) {
 					if (color > 0 && color < 0x01000000) {
 						scene.fadeIn(0xFF000000 | color, lightmode);
 					} else {
 						scene.fadeIn(color, lightmode);
 					}
+				}
 				}
 			});
 		}

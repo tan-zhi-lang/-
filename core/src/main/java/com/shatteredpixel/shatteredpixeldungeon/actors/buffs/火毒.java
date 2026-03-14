@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
@@ -62,7 +61,6 @@ public class 火毒 extends Buff implements Hero.Doom {
 
 			acted = true;
 			float damage = Random.NormalFloat( 0.5f, 1.5f + Dungeon.scalingDepth()/8f );
-			damage*=1+Dungeon.hero.天赋点数(Talent.水漫火狱,0.5f);
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero hero
@@ -129,7 +127,7 @@ public class 火毒 extends Buff implements Hero.Doom {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)left);
+		return Math.round(left)+"";
 	}
 
 	@Override

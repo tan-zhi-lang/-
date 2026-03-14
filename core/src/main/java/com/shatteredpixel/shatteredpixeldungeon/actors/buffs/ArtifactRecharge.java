@@ -81,7 +81,7 @@ public class ArtifactRecharge extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)left+1);
+		return Math.round(left+1)+"";
 	}
 	
 	@Override

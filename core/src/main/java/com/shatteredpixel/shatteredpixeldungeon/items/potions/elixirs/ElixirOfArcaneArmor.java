@@ -22,7 +22,7 @@ public class ElixirOfArcaneArmor extends Elixir {
 	
 	@Override
 	public void apply(Hero hero) {
-		Buff.施加(hero, ArcaneArmor.class).set(5 + hero.等级 /2, 80);
+		Buff.施加(hero, ArcaneArmor.class).set(5 + hero.等级 /1.5f, 80);
 	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

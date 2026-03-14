@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.符箓;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -31,7 +31,7 @@ public class 符咒 extends 目标道术 {
 	}
 	
 	@Override
-	protected void onTargetSelected(本命玉佩 tome,Hero hero,Integer target){
+	protected void onTargetSelected(鬼帝钟 tome,Hero hero,Integer target){
 		
 		if (target == null){
 			return;

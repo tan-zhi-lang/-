@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 铠甲 extends Armor {
@@ -20,26 +19,12 @@ public class 铠甲 extends Armor {
 	}
 	
 	@Override
-	public float 力量(int lvl) {
-		float req = 力量(tier, lvl)+1;
-		
-		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
-			req-=Dungeon.hero.护甲力量;
-		}
-		if (神力){
-			req -= 3;
-		}
-		
-		return req;
-	}
-	
-	@Override
 	public float 最小防御(int lvl){
 		return super.最小防御(lvl)+augment.defenseFactor(0.5f);
 	}
 	@Override
 	public float 最大防御(int lvl){
-		return super.最大防御(lvl)+augment.defenseFactor(1);
+		return super.最大防御(lvl)+augment.defenseFactor(0.5f);
 	}
 	@Override
 	public int 金币() {

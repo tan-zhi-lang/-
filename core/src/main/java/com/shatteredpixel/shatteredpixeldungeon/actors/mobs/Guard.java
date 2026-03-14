@@ -30,7 +30,7 @@ public class Guard extends Mob {
 		spriteClass = GuardSprite.class;
 
 		生命 = 最大生命 = 40;
-		defenseSkill = 10;
+		defenseSkill = 14;
 
 		经验 = 7;
 		最大等级 = 14;
@@ -121,7 +121,7 @@ public class Guard extends Mob {
 
 	@Override
 	public int 最大命中(Char target ) {
-		return 12;
+		return 14;
 	}
 
 	@Override

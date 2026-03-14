@@ -18,7 +18,7 @@ public class 日炎链刃 extends Weapon {
 		延迟= 1.5f;
 		命中=0.65f;
 		tier = 3;
-		连招范围=5;
+//		连招范围=5;
 		范围 = 5;
 		特别=true;
 		橙色=true;

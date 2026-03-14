@@ -31,10 +31,10 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class 本命玉佩 extends Artifact {
+public class 鬼帝钟 extends Artifact {
 
 	{
-		image = 物品表.本命玉佩;
+		image = 物品表.鬼帝钟;
 
 		exp = 0;
 		levelCap = 10;
@@ -55,7 +55,7 @@ public class 本命玉佩 extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if ((isEquipped( hero ) || hero.天赋(Talent.轻便玉佩))
+		if ((isEquipped( hero ) || hero.天赋(Talent.轻便帝钟))
 				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
@@ -72,7 +72,7 @@ public class 本命玉佩 extends Artifact {
 
 		if (action.equals(AC_CAST)) {
 
-			if (!isEquipped(hero) && !hero.天赋(Talent.轻便玉佩)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
+			if (!isEquipped(hero) && !hero.天赋(Talent.轻便帝钟)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
 			else if (cursed)       GLog.i( Messages.get(this, "cursed") );
 			else {
 
@@ -98,7 +98,7 @@ public class 本命玉佩 extends Artifact {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			if (collect && hero.天赋(Talent.轻便玉佩)){
+			if (collect && hero.天赋(Talent.轻便帝钟)){
 				activate(hero);
 			}
 
@@ -112,7 +112,7 @@ public class 本命玉佩 extends Artifact {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero
 					&& passiveBuff == null
-					&& ((Hero) container.owner).天赋(Talent.轻便玉佩)){
+					&& ((Hero) container.owner).天赋(Talent.轻便帝钟)){
 				activate((Hero) container.owner);
 			}
 			return true;
@@ -130,7 +130,7 @@ public class 本命玉佩 extends Artifact {
 	}
 
 	public boolean canCast( Hero hero, 道术 spell ){
-		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.轻便玉佩)&&hero.belongings.contains(this)))
+		return (isEquipped(hero) || (Dungeon.hero.天赋(Talent.轻便帝钟)&&hero.belongings.contains(this)))
 				&& hero.buff(MagicImmune.class) == null
 				&& charge >= spell.chargeUse(hero)
 				&& spell.canCast(hero);
@@ -158,7 +158,7 @@ public class 本命玉佩 extends Artifact {
 
 		if (exp >= (等级() + 1) * 50 && 等级() < levelCap) {
 			升级();
-			Catalog.countUse(本命玉佩.class);
+			Catalog.countUse(鬼帝钟.class);
 			exp -= 等级() * 50;
 			GLog.p(Messages.get(this, "levelup"));
 
@@ -199,7 +199,7 @@ public class 本命玉佩 extends Artifact {
 		if (cursed || target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
-			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便玉佩,0.25f);
+			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便帝钟,0.25f);
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1f) {
 				charge++;
@@ -280,7 +280,7 @@ public class 本命玉佩 extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便玉佩,025f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便帝钟,025f);
 					}
 					partialCharge += chargeToGain;
 				}
@@ -321,7 +321,7 @@ public class 本命玉佩 extends Artifact {
 		}
 		@Override
 		public Visual secondaryVisual() {
-			Image ico= new ItemSprite(new 本命玉佩());
+			Image ico= new ItemSprite(new 鬼帝钟());
 			ico.scale.set(PixelScene.align(0.51f));
 			ico.brightness(0.6f);
 			return ico;
@@ -338,19 +338,19 @@ public class 本命玉佩 extends Artifact {
 		@Override
 		public void doAction() {
 			if (cursed){
-				GLog.w(Messages.get(本命玉佩.this,"cursed"));
+				GLog.w(Messages.get(鬼帝钟.this,"cursed"));
 				return;
 			}
 
 			if (!canCast(Dungeon.hero, quickSpell)){
-				GLog.w(Messages.get(本命玉佩.this,"no_spell"));
+				GLog.w(Messages.get(鬼帝钟.this,"no_spell"));
 				return;
 			}
 
 			if (QuickSlotButton.targetingSlot != -1 &&
-					Dungeon.quickslot.getItem(QuickSlotButton.targetingSlot) == 本命玉佩.this) {
+					Dungeon.quickslot.getItem(QuickSlotButton.targetingSlot) == 鬼帝钟.this) {
 				targetingSpell = quickSpell;
-				int cell = QuickSlotButton.autoAim(QuickSlotButton.lastTarget, 本命玉佩.this);
+				int cell = QuickSlotButton.autoAim(QuickSlotButton.lastTarget, 鬼帝钟.this);
 
 				if (cell != -1){
 					GameScene.handleCell(cell);
@@ -359,11 +359,11 @@ public class 本命玉佩 extends Artifact {
 					GameScene.handleCell( QuickSlotButton.lastTarget.pos );
 				}
 			} else {
-				quickSpell.onCast(本命玉佩.this,Dungeon.hero);
+				quickSpell.onCast(鬼帝钟.this,Dungeon.hero);
 
-				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(本命玉佩.this)){
+				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(鬼帝钟.this)){
 					targetingSpell = quickSpell;
-					QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(本命玉佩.this));
+					QuickSlotButton.useTargeting(Dungeon.quickslot.getSlot(鬼帝钟.this));
 				}
 			}
 		}

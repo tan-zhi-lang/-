@@ -44,7 +44,7 @@ public abstract class Plant implements Bundlable {
 
 		if (ch instanceof Hero hero){
 			hero.interrupt();
-			hero.生命成长+=hero.天赋点数(Talent.万木归尘,2);
+			hero.生命成长+=hero.天赋点数(Talent.元素掌控);//元素掌控土
 		}
 		//视野内植物触发
 

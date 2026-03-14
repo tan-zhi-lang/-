@@ -6,12 +6,16 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.x10;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x11;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x12;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x13;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x14;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x15;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x16;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x17;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x18;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x19;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x2;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x20;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x21;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.x22;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x23;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x24;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.x25;
@@ -27,21 +31,26 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.醍醐灌顶冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.静止状态;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
@@ -49,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
@@ -71,10 +81,10 @@ public enum Talent {
 	//Gladiator T3
 	连战热忱(14,4), 以战养战(15,4), 连击强化(16,4),
 
-	高级魔杖(x2+9,4), SHIELD_BATTERY(x2+10, 4),
+	高级魔杖(x2+9,4),轻便法典(x2+10,4),
 	//Battlemage T3
 	寒冰之境(x2+11, 4), 冰魄之弓(x2+12,4), 冰封领域(x2+13,4),
-	水漫火狱(x2+14, 4), 万木归尘(x2+15, 4), 金刚不坏(x2+16,4),
+	SHIELD_BATTERY(x2+14, 4), 破冰飞刃(x2+15,4), 元素掌控(x2+16,4),
 	//Elemental Blast T4
 	//Wild Magic T4
 	WILD_POWER(52, 4), FIRE_EVERYTHING(53, 4), CONSERVED_MAGIC(54, 4),
@@ -111,11 +121,6 @@ public enum Talent {
 	//Paladin T3
 	神圣之触(174,4), 守御灵光(175,4), 神圣屏障(176,4),
 
-	//universal T4
-	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
-	
-	任督二脉(x8+26, 3+6+9+3+3),
-	
 	血爆巫术(x7+8,3),
 	顶福精华(x7+9,4),强能处消(x7+10,4),
 	高级痛命(x7+11,4),高级死血(x7+12,4),高级吸血(x7+13,4),
@@ -133,7 +138,8 @@ public enum Talent {
 	SOUL_EATER(x10+11, 4), SOUL_SIPHON(x10+12, 4), NECROMANCERS_MINIONS(x10+13, 4),
 	控物术法(x10+14, 4), 诡异身法(x10+15, 4), 金光护罩(x10+16, 4),
 
-	残魂侵蚀(x10+9,4),轻便玉佩(x10+10,4),
+	残魂侵蚀(x10+9,4),
+	轻便帝钟(x10+10,4),
 
 	蓄意轰拳(x11+9,4),铁布回音(x11+10,4),
 	EVASIVE_ARMOR(x11+11, 4), PROJECTILE_MOMENTUM(x11+12, 4), SPEEDY_STEALTH(x11+13, 4),
@@ -143,6 +149,10 @@ public enum Talent {
 	荣耀之证(x12+14,4),皇室传承(x12+15,4),钢铁甲胄(x12+16,4),
 
 	狂暴爪击(x13+11,4),坚铁甲胄(x13+12,4),极凌飓风(x13+13,4),
+	蜂蛊技术(x13+14,4),群羊牵引(x13+15,4),撒子鱼群(x13+16,4),
+
+	手臂强化(x14+11,4),躯体强化(x14+12,4),下肢强化(x14+13,4),
+	高额炼化(x14+14,4),能量守恒(x14+15,4),能量迸发(x14+16,4),
 
 	元素之力(x15+9,4),轻便护额(x15+10,4),
 	灵魂摄击(x15+11,4),生命汲取(x15+12,4),灵魂烈焰(x15+13,4),
@@ -156,6 +166,13 @@ public enum Talent {
 	蛇腹剑刺(x17+11,4),血饮狂舞(x17+12,4),贪欲燔祭(x17+13,4),
 	舞动身法(x17+14,4),灵爆之至(x17+15,4),更之以蝶(x17+16,4),
 
+	污蔑狂宴(x18+11,4),绝望安息(x18+12,4),真绝伪证(x18+13,4),
+	六芒星针(x18+14,4),丝缕缠流(x18+15,4),引针族射(x18+16,4),
+
+	天命之赐(x19+12,4),天命眷顾(x19+12,4),欧皇庇护(x19+13,4),
+	废寝忘食(x19+14,4),醍醐灌顶(x19+15,4),归档资料(x19+16,4),
+
+
 	捕鱼达人(x20+9,4),猫反应7(x20+10,4),
 	白猫主导(x20+11,4),渡魂灵猫(x20+12,4),黑猫主导(x20+13,4),
 	夜行专精(x20+14,4),无声突袭(x20+15,4),精准感知(x20+16,4),
@@ -163,12 +180,15 @@ public enum Talent {
 	吱援部队(x21+11,4),外交鼠段(x21+12,4),鼠手鼠脚(x21+13,4),
 	狂血疯撕(x21+14,4),狂齿猎食(x21+15,4),鼠爪刺击(x21+16,4),
 
+	洪荒法力(x22+11,4),以身做法(x22+12,4),燕飞云疾(x22+13,4),
+	全面吞噬(x22+14,4),机体解构(x22+15,4),纯极密度(x22+16,4),
+
 	死亡抗拒(x23+9,4),适应身体(x23+10,4),
 	嗜血如故(x23+11,4),兽性猎手(x23+12,4),追捕猎物(x23+13,4),
 	血之潮汐(x23+14,4),血色契约(x23+15,4),鲜血转换(x23+16,4),
 
 	关键时刻(x24+11,4),时间控制(x24+12,4),穿越零界(x24+13,4),
-	天命之赐(x24+14,4),天命眷顾(x24+15,4),欧皇庇护(x24+16,4),
+	完美谢幕(x24+14,4),致命华彩(x24+15,4),万众倾倒(x24+16,4),
 
 	知识(x25),勇武(x25+1),备战(x25+2),
 	
@@ -183,9 +203,14 @@ public enum Talent {
 	
 	招架(x27),久战(x27+1),武装(x27+2),
 	坚韧(x27+4,3),躲避(x27+5,3),戒备(x27+6,3),速跑(x27+7,3),
-	
-	
-	
+
+
+	//universal T4
+	HEROIC_ENERGY(26, 4), //See icon() and title() for special logic for this one
+
+	任督二脉(x25+11,4),
+	洗筋伐髓(x25+12,4),
+	八门遁甲(x25+13,4),
 	;
 	
 	//region Buff
@@ -354,7 +379,50 @@ public enum Talent {
 				return Messages.get(this, name() + ".desc") + "\n\n" + metaDesc;
 			}
 		}
-		return Messages.get(this, name() + ".desc");
+		String s="";
+		if(this ==知识){
+			s+="\n";
+			s+="\n"+"分支:\n"+Messages.get(埋伏, 埋伏.name() + ".title")+":"+Messages.get(埋伏, 埋伏.name() + ".desc");
+			s+="\n"+Messages.get(招架, 招架.name() + ".title")+":"+Messages.get(招架, 招架.name() + ".desc");
+		}
+		if(this ==勇武){
+			s+="\n";
+			s+="\n"+"分支:\n"+Messages.get(技巧, 技巧.name() + ".title")+":"+Messages.get(技巧, 技巧.name() + ".desc");
+			s+="\n"+Messages.get(久战, 久战.name() + ".title")+":"+Messages.get(久战, 久战.name() + ".desc");
+		}
+		if(this ==备战){
+			s+="\n";
+			s+="\n"+"分支:\n"+Messages.get(突袭, 突袭.name() + ".title")+":"+Messages.get(突袭, 突袭.name() + ".desc");
+			s+="\n"+Messages.get(武装, 武装.name() + ".title")+":"+Messages.get(武装, 武装.name() + ".desc");
+		}
+		if(this ==健身){
+			s+="\n";
+			s+="\n"+"分支:\n"+Messages.get(猛攻, 猛攻.name() + ".title")+":"+Messages.get(猛攻, 猛攻.name() + ".desc");
+			s+="\n"+Messages.get(硬肤, 硬肤.name() + ".title")+":"+Messages.get(硬肤, 硬肤.name() + ".desc");
+			s+="\n"+Messages.get(坚韧, 坚韧.name() + ".title")+":"+Messages.get(坚韧, 坚韧.name() + ".desc");
+		}
+		if(this ==破绽){
+			s+="\n";
+			s+="\n"+"分支:\n"+Messages.get(集中, 集中.name() + ".title")+":"+Messages.get(集中, 集中.name() + ".desc");
+			s+="\n"+Messages.get(财富, 财富.name() + ".title")+":"+Messages.get(财富, 财富.name() + ".desc");
+			s+="\n"+Messages.get(躲避, 躲避.name() + ".title")+":"+Messages.get(躲避, 躲避.name() + ".desc");
+		}
+
+		if(this ==寻觅){
+			s+="\n";
+			s+="\n"+"分支:\n"+Messages.get(近视, 近视.name() + ".title")+":"+Messages.get(近视, 近视.name() + ".desc");
+			s+="\n"+Messages.get(夜视, 夜视.name() + ".title")+":"+Messages.get(夜视, 夜视.name() + ".desc");
+			s+="\n"+Messages.get(戒备, 戒备.name() + ".title")+":"+Messages.get(戒备, 戒备.name() + ".desc");
+		}
+
+		if(this ==静步){
+			s+="\n";
+			s+="\n"+"分支:\n"+Messages.get(快攻, 快攻.name() + ".title")+":"+Messages.get(快攻, 快攻.name() + ".desc");
+			s+="\n"+Messages.get(丝路, 丝路.name() + ".title")+":"+Messages.get(丝路, 丝路.name() + ".desc");
+			s+="\n"+Messages.get(速跑, 速跑.name() + ".title")+":"+Messages.get(速跑, 速跑.name() + ".desc");
+		}
+
+		return Messages.get(this, name() + ".desc")+s;
 	}
 
 	public static void 获得天赋时(Hero hero, Talent talent ){
@@ -368,25 +436,34 @@ public enum Talent {
 				hero.第2层天赋=true;
 		}else hero.第2层天赋=false;
 
-		if (talent==轻便斗篷&&hero.heroClass(HeroClass.盗贼)){
 			for (Item item : Dungeon.hero.belongings.backpack.items){
-				if (item instanceof CloakOfShadows){
+				if (talent==轻便斗篷||item instanceof CloakOfShadows){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
 						((CloakOfShadows) item).activate(Dungeon.hero);
 					}
 				}
-			}
-		}
-
-		if (talent==轻量阅读&&hero.heroClass(HeroClass.CLERIC)){
-			for (Item item : Dungeon.hero.belongings.backpack.items){
-				if (item instanceof 神圣法典){
+				if (talent==轻便法典||item instanceof 四叶草法典){
+					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
+						((四叶草法典) item).activate(Dungeon.hero);
+					}
+				}
+				if (talent==轻便护额||item instanceof 叛忍护额){
+					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
+						((叛忍护额) item).activate(Dungeon.hero);
+					}
+				}
+				if (talent==轻便帝钟||item instanceof 鬼帝钟){
+					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
+						((鬼帝钟) item).activate(Dungeon.hero);
+					}
+				}
+				if (talent==轻量阅读||item instanceof 神圣法典){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
 						((神圣法典) item).activate(Dungeon.hero);
 					}
 				}
 			}
-		}
+
 		hero.更新数据();
 	}
 	
@@ -427,7 +504,7 @@ public enum Talent {
 		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)+(hero.符文("饭桶")?hero.最大生命(0.05f):0)));
 
 		if(hero.符文("牙结石")){
-			hero.护甲(foodVal*0.1f);
+			hero.护甲(foodVal*0.075f);
 		}
 		if(hero.符文("饭桶")){
 			hero.恢复百分比护甲(0.1f);
@@ -436,6 +513,10 @@ public enum Talent {
 			if (hero.cooldown() > 0) {
 				Buff.施加(hero, WarriorFoodImmunity.class, hero.cooldown());
 			}
+		}
+		if(hero.天赋(Talent.污蔑狂宴)){
+			hero.力量+=hero.天赋点数(Talent.污蔑狂宴,0.5f);
+			hero.生命成长+=hero.天赋点数(Talent.污蔑狂宴,5);
 		}
 		//法杖伤害
 //			Buff.施加( hero, WandEmpower.class).set(5, 1);
@@ -524,6 +605,23 @@ public enum Talent {
 	}
 
 	public static void onScrollUsed( Hero hero, int pos, float factor, Class<?extends Item> cls ){
+		if(hero.subClass(HeroSubClass.图书管理员)){
+			Buff.施加(hero, Swiftthistle.TimeBubble.class).reset(2);
+			hero.经验(Math.round(factor*2*Dungeon.相对层数()));
+		}
+		if(hero.天赋(Talent.废寝忘食))hero.buff(Hunger.class).吃饭(factor*hero.天赋点数(Talent.废寝忘食,37.5f));
+		if(hero.天赋(Talent.醍醐灌顶)&&hero.nobuff(醍醐灌顶冷却.class)){
+			try{
+				cls.newInstance().数量(Math.round(factor)).放背包();
+				Buff.施加(hero,醍醐灌顶冷却.class,750-hero.天赋点数(Talent.醍醐灌顶,150));
+			}catch(Exception e){
+
+			}
+		}
+		if(hero.天赋(Talent.归档资料)){
+			hero.力量+=factor*hero.天赋点数(Talent.归档资料,0.5f);
+			hero.魔力+=factor*hero.天赋点数(Talent.归档资料,0.5f);
+		}
 		if (false){//阅读法杖升级
 			// 2/3 empowered wand zaps
 			Buff.施加(hero, ScrollEmpower.class).reset((int) (factor));
@@ -645,13 +743,12 @@ public enum Talent {
 		switch(cls){
 			default:
 			case NONE:
-				Collections.addAll(tierTalents,任督二脉);
 				break;
 			case WARRIOR:
 				Collections.addAll(tierTalents,纹章荣耀,力大无穷);
 				break;
 			case MAGE:
-				Collections.addAll(tierTalents,高级魔杖,SHIELD_BATTERY);
+				Collections.addAll(tierTalents,高级魔杖,轻便法典);
 				break;
 			case 盗贼:
 				Collections.addAll(tierTalents,体生匿影,轻便斗篷);
@@ -672,7 +769,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,冰门高攻,冰门高防);
 				break;
 			case 道士:
-				Collections.addAll(tierTalents,残魂侵蚀,轻便玉佩);
+				Collections.addAll(tierTalents,残魂侵蚀,轻便帝钟);
 				break;
 			case 女忍:
 				Collections.addAll(tierTalents,元素之力,轻便护额);
@@ -725,8 +822,8 @@ public enum Talent {
 
 		//tier 3
 		switch (cls){
-			case 潜能觉醒: default:
-				Collections.addAll(tierTalents, 任督二脉);
+			case 奇经八脉: default:
+				Collections.addAll(tierTalents,任督二脉,洗筋伐髓,八门遁甲);
 				break;
 			case 狂战士:
 				Collections.addAll(tierTalents,洪荒之怒,血气旺盛,嗜血成性);
@@ -737,8 +834,8 @@ public enum Talent {
 			case 冰结师:
 				Collections.addAll(tierTalents,寒冰之境,冰魄之弓,冰封领域);
 				break;
-			case 元素法师:
-				Collections.addAll(tierTalents,水漫火狱,万木归尘,金刚不坏);
+			case 大魔法师:
+				Collections.addAll(tierTalents,SHIELD_BATTERY, 破冰飞刃, 元素掌控);
 				break;
 			case 刺客:
 				Collections.addAll(tierTalents, ENHANCED_LETHALITY, ASSASSINS_REACH, BOUNTY_HUNTER);
@@ -803,6 +900,15 @@ public enum Talent {
 			case 神兽之灵:
 				Collections.addAll(tierTalents,狂暴爪击,坚铁甲胄,极凌飓风);
 				break;
+			case 养殖专家:
+				Collections.addAll(tierTalents,蜂蛊技术,群羊牵引,撒子鱼群);
+				break;
+			case 机械教主:
+				Collections.addAll(tierTalents,手臂强化,躯体强化,下肢强化);
+				break;
+			case 魔法灵枢:
+				Collections.addAll(tierTalents,高额炼化,能量守恒,能量迸发);
+				break;
 			case 灵魂武者:
 				Collections.addAll(tierTalents,灵魂摄击,生命汲取,灵魂烈焰);
 				break;
@@ -821,6 +927,18 @@ public enum Talent {
 			case 圣女:
 				Collections.addAll(tierTalents,舞动身法,灵爆之至,更之以蝶);
 				break;
+			case 灾厄化身:
+				Collections.addAll(tierTalents,污蔑狂宴,绝望安息,真绝伪证);
+				break;
+			case 灵剪刺客:
+				Collections.addAll(tierTalents,六芒星针,丝缕缠流,引针族射);
+				break;
+			case 幸运之子:
+				Collections.addAll(tierTalents,天命之赐,天命眷顾,欧皇庇护);
+				break;
+			case 图书管理员:
+				Collections.addAll(tierTalents,废寝忘食,醍醐灌顶,归档资料);
+				break;
 			case 黑白双子:
 				Collections.addAll(tierTalents,白猫主导,渡魂灵猫,黑猫主导);
 				break;
@@ -833,6 +951,12 @@ public enum Talent {
 			case 实验狂鼠:
 				Collections.addAll(tierTalents,狂血疯撕,狂齿猎食,鼠爪刺击);
 				break;
+			case 解咒真人:
+				Collections.addAll(tierTalents,洪荒法力,以身做法,燕飞云疾);
+				break;
+			case 吞噬云烟:
+				Collections.addAll(tierTalents,全面吞噬,机体解构,纯极密度);
+				break;
 			case 金刚独狼:
 				Collections.addAll(tierTalents,嗜血如故,兽性猎手,追捕猎物);
 				break;
@@ -842,8 +966,8 @@ public enum Talent {
 			case 时间刺客:
 				Collections.addAll(tierTalents,关键时刻,时间控制,穿越零界);
 				break;
-			case 幸运之子:
-				Collections.addAll(tierTalents,天命之赐,天命眷顾,欧皇庇护);
+			case 戏命师:
+				Collections.addAll(tierTalents,完美谢幕,致命华彩,万众倾倒);
 				break;
 		}
 		for (Talent talent : tierTalents){

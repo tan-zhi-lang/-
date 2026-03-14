@@ -9,9 +9,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
@@ -45,12 +46,14 @@ public class LostBackpack extends Item {
 					((EquipableItem) i).activate(hero);
 				} else if (i instanceof 心之钢&&Dungeon.派对(派对设置.钢门联盟)){
 					((心之钢) i).activate(hero);
+				} else if ((i instanceof 四叶草法典)&&hero.天赋(Talent.轻便法典)){
+					((四叶草法典) i).activate(hero);
 				} else if ( i instanceof CloakOfShadows && hero.天赋(Talent.轻便斗篷)){
 					((CloakOfShadows) i).activate(hero);
 				} else if (i instanceof 神圣法典&&hero.天赋(Talent.轻量阅读)){
 					((神圣法典) i).activate(hero);
-				} else if (i instanceof 本命玉佩&&hero.天赋(Talent.轻便玉佩)){
-					((本命玉佩) i).activate(hero);
+				} else if (i instanceof 鬼帝钟&&hero.天赋(Talent.轻便帝钟)){
+					((鬼帝钟) i).activate(hero);
 				} else if (i instanceof 叛忍护额&&hero.天赋(Talent.轻便护额)){
 					((叛忍护额) i).activate(hero);
 				} else if (i instanceof Wand){
@@ -65,7 +68,7 @@ public class LostBackpack extends Item {
 			}
 		}
 
-		hero.更新属性();
+		hero.更新生命();
 
 		Item.updateQuickslot();
 		Sample.INSTANCE.play( Assets.Sounds.DEWDROP );

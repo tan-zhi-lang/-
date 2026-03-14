@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.冰魄之弓;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
@@ -143,6 +144,7 @@ public class AntiMagic extends Armor.Glyph {
 	
 	public static float drRoll( Char owner, int level ){
 		float x=0;
+		if(owner instanceof Hero hero)x+=0.08f*hero.等级;
 		if (level != -1)
 			x=Random.NormalFloat(
 					level * genericProcChanceMultiplier(owner),

@@ -12,8 +12,8 @@ public static final int 鬼怨地牢				= 4;
 	public static final int 地牢塔防= 16;
 	public static final int 刷子地牢			= 32;
 	public static final int 危险重重		    = 64;
-//		public static final int 幸运转世 	= 128;
-//		public static final int 重生怪物 	= 256;
+		public static final int 生化模式 	= 128;
+		public static final int 即时策略 	= 256;
 	public static final int MAX_VALUE           = 256*2-1;
 	public static final int MAX_CHALS           = 9;
 
@@ -25,6 +25,8 @@ public static final int 鬼怨地牢				= 4;
 			"地牢塔防",
 			"刷子地牢",
 			"危险重重",
+			"生化模式",
+			"即时策略",
 	};
 
 	public static final int[] MASKS = {
@@ -35,6 +37,8 @@ public static final int 鬼怨地牢				= 4;
 			地牢塔防,
 			刷子地牢,
 			危险重重,
+			生化模式,
+			即时策略,
 	};
 	
 	public static int 使用(){

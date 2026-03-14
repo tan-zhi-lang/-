@@ -961,7 +961,7 @@ public class Badges {
 	}
 	
 	public static void validateRogueUnlock(){
-		if (Statistics.sneakAttacks >= 10 && !isUnlocked(Badge.解锁盗贼)){
+		if (Statistics.sneakAttacks >= 5 && !isUnlocked(Badge.解锁盗贼)){
 			displayBadge( Badge.解锁盗贼);
 		}
 	}

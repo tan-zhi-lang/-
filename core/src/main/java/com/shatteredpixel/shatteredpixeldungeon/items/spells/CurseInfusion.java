@@ -72,7 +72,7 @@ public class CurseInfusion extends InventorySpell {
 			((Wand) item).curseInfusionBonus = true;
 			((Wand) item).updateLevel();
 		} else if (item instanceof 根骨之戒){
-			curUser.更新属性();
+			curUser.更新生命();
 		}
 		Badges.validateItemLevelAquired(item);
 		updateQuickslot();

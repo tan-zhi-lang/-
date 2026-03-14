@@ -16,7 +16,7 @@ public class PotionOfEarthenArmor extends ExoticPotion {
 	public void apply( Hero hero ) {
 		鉴定();
 		
-		Barkskin.conditionallyAppend( hero, 2 + hero.等级 /3, 50 );
+		Barkskin.conditionallyAppend( hero, 2 + hero.等级 /2.5f, 50 );
 	}
 	
 }

@@ -184,8 +184,6 @@ public class 灵能短弓 extends Weapon {
 		
 		@Override
 		public float 投掷攻击时(Char attacker, Char defender, float damage) {
-			damage+=attacker.攻击范围();
-			damage*=attacker.攻击延迟();
 
 			if(defender!=null)
 			if (sniperSpecial){

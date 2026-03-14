@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.watabou.utils.Bundle;
@@ -48,6 +49,7 @@ public abstract class ShieldBuff extends Buff {
 	}
 	
 	public void 设置(float shield ) {
+		if(target instanceof Hero hero)shield*=hero.治疗护盾();
 		if(max()!=-1){
 			if(target!=null&&target.sprite!=null)
 				target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
@@ -73,6 +75,7 @@ public abstract class ShieldBuff extends Buff {
 	}
 
 	public void 增加(float amt ){
+		if(target instanceof Hero hero)amt*=hero.治疗护盾();
 		if(max()!=-1){
 			target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
 			shielding=Math.min(max(),shielding+amt);

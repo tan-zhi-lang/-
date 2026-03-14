@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
@@ -101,7 +100,7 @@ public class 火球术 extends 目标法术 {
 						} else {
 							ch.sprite.burst( 0xFF99CCFF,
 											 Math.round(hero.魔力(0.15f)));
-							Buff.施加(ch, 火毒.class).reignite(ch,4+hero.魔力(0.3f));
+							Buff.施加(ch, 燃烧.class).reignite(ch,4+hero.魔力(0.3f));
 						}
 					}
 				} else {

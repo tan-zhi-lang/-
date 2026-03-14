@@ -46,13 +46,14 @@ public class 再生 extends Buff {
 				Buff.施加(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
 			}
 
-			if (regenOn() && !hero.满血() && !((Hero)hero).isStarving()) {
-				float 再生数值=(float)Math.sqrt(hero.最大生命)/44f;
+			if (regenOn() && !hero.满血() && !hero.isStarving()) {
+				float 再生数值=(float)Math.sqrt(hero.最大生命)/88f;
+					再生数值+=0.004f*hero.等级;
 					再生数值+=hero.再生成长;
 					if(hero.符文("最大护甲转生命再生")){
-						再生数值+=hero.最大护甲(0.01f);
+						再生数值+=hero.更新护甲(0.01f);
 					}
-					if(hero.hasbuff(WellFed.class))再生数值*=1.5f;
+					if(hero.hasbuff(WellFed.class))再生数值*=1.2f;
 
 					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
 						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())

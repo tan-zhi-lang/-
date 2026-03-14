@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -66,7 +68,7 @@ public class HealthBar extends Component {
 		}
 		height = HEIGHT;
 	}
-	
+
 	@Override
 	public synchronized void update(){
 		
@@ -81,16 +83,16 @@ public class HealthBar extends Component {
 		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
 		Hp.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
 
-		hpText.text(String.format("%.0f",生命) + "/" + String.format("%.0f",max));
+		hpText.text(kw2(生命)+"/"+kw2(max));
 		hpText.measure();
 		hpText.x = Hp.x+0.5f;
 		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
-		if(护盾>=1){
-			护盾t.text(String.format("%.0f",护盾));
-			护盾t.measure();
-			护盾t.x=Hp.x+width-护盾t.width+0.5f;
-			护盾t.y=Hp.y+0.5f+(Hp.height-(护盾t.baseLine()+护盾t.scale.y))/2f;
-		}
+//		if(护盾>=1){
+//			护盾t.text(kw(护盾));
+//			护盾t.measure();
+//			护盾t.x=Hp.x+width-护盾t.width+0.5f;
+//			护盾t.y=Hp.y+0.5f+(Hp.height-(护盾t.baseLine()+护盾t.scale.y))/2f;
+//		}
 		if(隐形){
 			Bg.alpha(0);
 			Shld.alpha(0);
@@ -106,7 +108,7 @@ public class HealthBar extends Component {
 		}
 		super.update();
 	}
-	
+
 	@Override
 	protected void layout() {
 		Bg.x = Shld.x = Hp.x = x;

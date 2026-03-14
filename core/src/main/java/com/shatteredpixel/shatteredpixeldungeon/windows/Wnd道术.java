@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.符咒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -37,7 +37,7 @@ public class Wnd道术 extends Window {
 
 	public static int BTN_SIZE = 20;
 
-	public Wnd道术(本命玉佩 tome,Hero cleric,boolean info){
+	public Wnd道术(鬼帝钟 tome,Hero cleric,boolean info){
 
 		IconTitle title;
 		if (!info){
@@ -113,12 +113,12 @@ public class Wnd道术 extends Window {
 	public class SpellButton extends IconButton {
 
 		道术 spell;
-		本命玉佩 tome;
+		鬼帝钟 tome;
 		boolean info;
 
 		NinePatch bg;
 
-		public SpellButton(道术 spell, 本命玉佩 tome, boolean info){
+		public SpellButton(道术 spell,鬼帝钟 tome,boolean info){
 			super(new HeroIcon(spell));
 
 			this.spell = spell;
@@ -173,7 +173,7 @@ public class Wnd道术 extends Window {
 
 
 				if(!tome.canCast(Dungeon.hero, spell)){
-					GLog.w(Messages.get(本命玉佩.class, "no_spell"));
+					GLog.w(Messages.get(鬼帝钟.class,"no_spell"));
 				} else {
 					spell.onCast(tome, Dungeon.hero);
 
@@ -210,7 +210,7 @@ public class Wnd道术 extends Window {
 						case 0:
 							hide();
 							if(!tome.canCast(Dungeon.hero, spell)){
-								GLog.w(Messages.get(本命玉佩.class, "no_spell"));
+								GLog.w(Messages.get(鬼帝钟.class,"no_spell"));
 							} else {
 								spell.onCast(tome, Dungeon.hero);
 

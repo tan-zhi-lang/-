@@ -18,7 +18,7 @@ public class 奥术水晶 extends 用品 {
 	public void 使用(Hero hero){
 		Sample.INSTANCE.play(Assets.Sounds.魔力水晶);
 		hero.奥术=true;
-		hero.更新属性();
+		hero.更新生命();
 		super.使用(hero);
 	}
 

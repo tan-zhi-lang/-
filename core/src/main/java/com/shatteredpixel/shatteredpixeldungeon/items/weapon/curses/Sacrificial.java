@@ -18,8 +18,7 @@ public class Sacrificial extends Weapon.Enchantment {
 
 		float procChance = 1/10f * procChanceMultiplier(attacker);
 		if (Random.Float() < procChance) {
-			float missingPercent = attacker.生命 /(float)attacker.最大生命;
-			float bleedAmt = (float)(Math.pow(missingPercent, 2) * attacker.最大生命)/8f;
+			float bleedAmt = (float)(Math.pow(attacker.根据生命(), 2) * attacker.最大生命)/8f;
 			if (Random.Float() < bleedAmt) {
 				Buff.施加(attacker, 流血.class).set(Math.max(1, bleedAmt), getClass());
 			}

@@ -65,6 +65,9 @@ public abstract class 法术{
 		} else if (tier == 3){
 			if(cleric.天赋(Talent.冰魄之弓))
 			spells.add(冰魄之弓.INSTANCE);
+
+			if(cleric.天赋(Talent.破冰飞刃))
+			spells.add(破冰飞刃.INSTANCE);
 		} else if (tier == 4){
 
 
@@ -79,6 +82,7 @@ public abstract class 法术{
 		spells.add(火墙术.INSTANCE);
 
 		spells.add(冰魄之弓.INSTANCE);
+		spells.add(破冰飞刃.INSTANCE);
 		return spells;
 	}
 }

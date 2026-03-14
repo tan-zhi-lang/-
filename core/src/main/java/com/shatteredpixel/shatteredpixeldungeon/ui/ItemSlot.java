@@ -320,7 +320,7 @@ public class ItemSlot extends Button {
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof PotionOfShielding&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
-				center.text( Messages.format( FLOAT, Dungeon.hero.最大生命(0.05f)) );
+				center.text( Messages.format( FLOAT, Dungeon.hero.最大生命(0.75f)) );
 				center.measure();
 				center.hardlight( FADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
@@ -336,7 +336,7 @@ public class ItemSlot extends Button {
 				extra.measure();
 				extra.hardlight( WARNING );
 			}else if (item instanceof 荆棘斗篷 x) {
-				extra.text( Messages.format( FLOAT, (1+x.等级())/3f*Dungeon.hero.最大护甲() ));
+				extra.text( Messages.format( FLOAT, (1+x.等级())/3f*Dungeon.hero.最大护甲 ));
 				extra.measure();
 				extra.hardlight( FADED );
 			}else{

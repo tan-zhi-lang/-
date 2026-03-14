@@ -128,6 +128,7 @@ public class Assets {
 	}
 
 	public static class Music {
+		public static final String 生化模式              = "music/生化模式.mp3";
 		public static final String 骷髅打金服              = "music/骷髅打金服.mp3";
 		public static final String 夜航星              = "music/夜航星.mp3";
 		public static final String THEME_1              = "music/夜航星.mp3";
@@ -170,6 +171,7 @@ public class Assets {
 		public static final String[] allBGM = new String[]{
 			夜航星,
 			骷髅打金服,
+			生化模式,
 
 			SEWERS_1,
 			SEWERS_2,
@@ -281,6 +283,8 @@ public class Assets {
 		public static final String MELD     = "sounds/meld.mp3";
 		public static final String BOSS     = "sounds/boss.mp3";
 		public static final String BLAST    = "sounds/blast.mp3";
+		public static final String 龟内= "sounds/龟内.mp3";
+		public static final String 王翼雷    = "sounds/王翼雷.mp3";
 		public static final String PLANT    = "sounds/plant.mp3";
 		public static final String RAY      = "sounds/ray.mp3";
 		public static final String BEACON   = "sounds/beacon.mp3";
@@ -355,7 +359,11 @@ public class Assets {
 				魔力水晶,
 				海克斯,
 				挖矿,
-				TOMB, ALERT, MELD, BOSS, BLAST, PLANT, RAY, BEACON,
+				TOMB, ALERT, MELD, BOSS,
+				BLAST,
+				龟内,
+				王翼雷,
+				PLANT, RAY, BEACON,
 				TELEPORT,
 				CHARMS,
 				RAT,
@@ -423,6 +431,7 @@ public class Assets {
 		public static final String 灵猫   = "sprites/灵猫.png";
 		public static final String 鼠弟   = "sprites/鼠弟.png";
 		public static final String 凌云   = "sprites/凌云.png";
+		public static final String 凌云真人   = "sprites/凌云真人.png";
 		public static final String 血鬼   = "sprites/血鬼.png";
 		public static final String 来世= "sprites/来世.png";
 		public static final String PET      = "sprites/pet.png";

@@ -72,7 +72,7 @@ public class 流血 extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(Math.round(level));
+		return Math.round(level)+"";
 	}
 	
 	@Override

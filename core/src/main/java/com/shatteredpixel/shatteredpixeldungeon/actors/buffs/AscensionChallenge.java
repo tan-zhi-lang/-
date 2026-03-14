@@ -35,6 +35,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.TransmogRat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.水蛭;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.石虱;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蟑螂;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蠕虫;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -50,6 +54,8 @@ public class AscensionChallenge extends Buff {
 
 	private static HashMap<Class<?extends Mob>, Float> modifiers = new HashMap<>();
 	static {
+		modifiers.put(蟑螂.class,12f);
+		modifiers.put(水蛭.class,11f);
 		modifiers.put(Rat.class,            10f);
 		modifiers.put(Snake.class,          9f);
 		modifiers.put(Gnoll.class,          9f);
@@ -63,7 +69,9 @@ public class AscensionChallenge extends Buff {
 		modifiers.put(Guard.class,          4f);
 		modifiers.put(Necromancer.class,    4f);
 
-		modifiers.put(Bat.class,            2.5f);
+		modifiers.put(蠕虫.class,2.75f);
+		modifiers.put(石虱.class,2.5f);
+		modifiers.put(Bat.class,            2.25f);//2.5
 		modifiers.put(Brute.class,          2.25f);
 		modifiers.put(Shaman.class,         2.25f);
 		modifiers.put(Spinner.class,        2f);

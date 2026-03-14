@@ -2,8 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff.buffType.NEGATIVE;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
@@ -46,7 +50,10 @@ public class Buff extends Actor {
 	}
 	
 	public boolean attachTo( Char target ) {
-
+		if(target instanceof Hero hero&&hero.subClass(HeroSubClass.灾厄化身)){
+			if(type==NEGATIVE)
+				return false;
+		}
 		if (target.免疫( getClass() )) {
 			return false;
 		}
@@ -89,7 +96,7 @@ public class Buff extends Actor {
 
 	//text to display on large buff icons in the desktop UI
 	public String iconTextDisplay(){
-		return "";
+		return Math.round(visualcooldown())+"";
 	}
 
 	//visual effect usually attached to the sprite of the character the buff is attacked to

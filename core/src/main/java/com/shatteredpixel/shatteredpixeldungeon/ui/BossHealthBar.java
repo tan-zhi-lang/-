@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
@@ -143,6 +145,7 @@ public class BossHealthBar extends Component {
 	private float HP缓冲=0;
 	private float SHI缓冲=0;
 	float 时间=0;
+
 	@Override
 	public void update() {
 		super.update();
@@ -194,11 +197,8 @@ public class BossHealthBar extends Component {
 					blood.on = bleeding;
 				}
 
-				if (shield <= 0){
-					hpText.text(health + "/" + max);
-				} else {
-					hpText.text(health + "+" + shield +  "/" + max);
-				}
+				hpText.text(kw2(health)+"/"+kw2(max));
+
 				hpText.measure();
 				hpText.x = hp.x + 1;
 

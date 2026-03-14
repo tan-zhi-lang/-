@@ -26,13 +26,13 @@ public class 狂妄皇冠 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 								增加(),
-								攻击()
+								攻击()*100
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 
 								增加(0),
-								攻击(0)
+								攻击(0)*100
 							   );
 		}
 	}

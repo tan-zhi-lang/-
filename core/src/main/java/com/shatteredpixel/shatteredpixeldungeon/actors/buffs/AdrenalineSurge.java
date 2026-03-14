@@ -59,11 +59,6 @@ public class AdrenalineSurge extends Buff {
 	}
 
 	@Override
-	public String iconTextDisplay() {
-		return Integer.toString((int)visualcooldown());
-	}
-
-	@Override
 	public String desc() {
 		return Messages.get(this, "desc", boost, dispTurns(visualcooldown()));
 	}

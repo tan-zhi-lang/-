@@ -75,9 +75,9 @@ public class Armor extends EquipableItem {
 	protected String 换甲 = Assets.Sounds.布甲;
 	
 	public enum Augment {
-		DEFENSE (1, 1.15f,1),
-		SPEED (1, 1,1.3f),
-		EVASION (1.45f , 1,1),
+		DEFENSE (1, 1.12f,1),
+		SPEED (1, 1,1.25f),
+		EVASION (1.375f , 1,1),
 		NONE	(1,1,1);
 		
 		private float evasionFactor;
@@ -234,7 +234,7 @@ public class Armor extends EquipableItem {
 	@Override
 	protected float timeToEquip( Hero hero ) {
 		换甲();
-		return hero.攻击延迟()*1/hero.移速()*6f;
+		return hero.攻击延迟()*2f;
 	}
 	public void 换甲(){
 		Sample.INSTANCE.play(换甲);

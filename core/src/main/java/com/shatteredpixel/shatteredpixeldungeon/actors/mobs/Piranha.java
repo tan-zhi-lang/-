@@ -11,14 +11,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
@@ -113,7 +113,9 @@ public class Piranha extends Mob {
 	@Override
 	public void 死亡时(Object cause ) {
 		super.死亡时( cause );
-		
+		if(Dungeon.hero.天赋(Talent.撒子鱼群)){
+			Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.撒子鱼群,2)),pos).sprite.drop();
+		}
 		Statistics.piranhasKilled++;
 		Badges.validatePiranhasKilled();
 	}
@@ -209,21 +211,44 @@ public class Piranha extends Mob {
 				Heap heap=Dungeon.level.heaps.get(pos+n);
 				if(heap!=null&&heap.type==Heap.Type.HEAP){
 					Item item=heap.peek();
-					if(item instanceof MysteryMeat||item instanceof StewedMeat||item instanceof ChargrilledMeat||item instanceof FrozenCarpaccio){
-						target=heap.pos;
-						if(pos==heap.pos){
-							heap.destroy();
-							boolean newp=true;
-							for(int nx: PathFinder.相邻){
-								if(newp){
-									Piranha piranha=Piranha.random();
-									piranha.pos=pos+nx;
-									if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&Dungeon.level.findMob(piranha.pos)==null){
-										newp=false;
-										产卵=false;
-										GameScene.add(piranha,1);
-										Actor.add(piranha);
-										Dungeon.level.occupyCell(piranha);
+					if(Dungeon.hero.subClass(HeroSubClass.养殖专家)){
+						if(item instanceof StewedMeat){
+							target=heap.pos;
+							if(pos==heap.pos){
+								heap.destroy();
+								boolean newp=true;
+								for(int nx: PathFinder.相邻){
+									if(newp){
+										Piranha piranha=Piranha.random();
+										piranha.pos=pos+nx;
+										if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&Dungeon.level.findMob(piranha.pos)==null){
+											newp=false;
+											产卵=false;
+											GameScene.add(piranha,1);
+											Actor.add(piranha);
+											Dungeon.level.occupyCell(piranha);
+										}
+									}
+								}
+							}
+						}
+					}else{
+						if(item instanceof MysteryMeat){
+							target=heap.pos;
+							if(pos==heap.pos){
+								heap.destroy();
+								boolean newp=true;
+								for(int nx: PathFinder.相邻){
+									if(newp){
+										Piranha piranha=Piranha.random();
+										piranha.pos=pos+nx;
+										if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&Dungeon.level.findMob(piranha.pos)==null){
+											newp=false;
+											产卵=false;
+											GameScene.add(piranha,1);
+											Actor.add(piranha);
+											Dungeon.level.occupyCell(piranha);
+										}
 									}
 								}
 							}

@@ -77,7 +77,7 @@ public class 饮血之剑护盾 extends ShieldBuff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Float.toString(护盾量());
+		return Math.round(护盾量())+"";
 	}
 	
 	@Override

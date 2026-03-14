@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -42,6 +44,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.机体解构层数;
+import com.shatteredpixel.shatteredpixeldungeon.actors.生化特性;
 import com.shatteredpixel.shatteredpixeldungeon.actors.连杀状态;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
@@ -54,7 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.灵魂焰灯;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
@@ -781,7 +785,16 @@ public abstract class Mob extends Char{
 	}
 
 	@Override
+	public float 攻击时(Char enemy,float damage){
+		if(Dungeon.赛季(赛季设置.生化模式)&&enemy!=null&&enemy.isAlive())enemy.受伤(enemy.最大生命(0.15f));
+		return super.攻击时(enemy,damage);
+	}
+
+	@Override
 	public float 防御时(Char enemy,float damage){
+		if(enemy!=null){
+			if(Dungeon.赛季(赛季设置.生化模式))Buff.施加(this,生化特性.class).set(1);
+		}
 		if(enemy instanceof Hero h&&!enemySeen){//防止惊醒距离被打不惊醒
 			enemySeen=true;
 			notice();
@@ -836,7 +849,12 @@ public abstract class Mob extends Char{
 
 	@Override
 	public float 移速(){
-		return super.移速()*AscensionChallenge.enemySpeedModifier(this);
+		float x=1;
+		if(Dungeon.赛季(赛季设置.生化模式)){
+			x+=0.35f;
+			if(hasbuff(生化特性.class))x*=(float)Math.pow(0.65f,buff(生化特性.class).count);
+		}
+		return super.移速()*AscensionChallenge.enemySpeedModifier(this)*x;
 	}
 
 	public final boolean surprisedBy(Char enemy){
@@ -905,9 +923,6 @@ public abstract class Mob extends Char{
 																				   1/3f));
 						}
 					}
-					if(Dungeon.hero.天赋(Talent.错失良机)){
-						Buff.延长(Dungeon.hero,Invisibility.class,Dungeon.hero.天赋点数(Talent.错失良机,2));
-					}
 
 				}
 			}
@@ -925,6 +940,10 @@ public abstract class Mob extends Char{
 					}
 				}
 			}
+		}
+		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.机体解构)){
+			Buff.施加(this,机体解构层数.class).set(1);
+			dmg*=1+buff(机体解构层数.class).count*Dungeon.hero.天赋点数(Talent.机体解构,0.03f);
 		}
 
 		super.受伤时(dmg,src);
@@ -1019,13 +1038,16 @@ public abstract class Mob extends Char{
 			}
 			boolean 可以=true;
 			if(Dungeon.hero())
-			if (Dungeon.hero.buff(生命蜡烛.燃烧.class)!=null)
-				if(Dungeon.hero.buff(生命蜡烛.燃烧.class).isCursed())可以=false;
+			if (Dungeon.hero.buff(灵魂焰灯.燃烧.class)!=null)
+				if(Dungeon.hero.buff(灵魂焰灯.燃烧.class).isCursed()) 可以=false;
 
 			if(可以&&防刷()){
-			if(cause==Dungeon.hero||cause instanceof Ring||cause instanceof Artifact||cause instanceof Wand||cause instanceof Weapon||cause instanceof Weapon.Enchantment){
+				if(cause==Dungeon.hero||cause instanceof Ring||cause instanceof Artifact||cause instanceof Wand||cause instanceof Weapon||cause instanceof Weapon.Enchantment){
 
 					if(!isAlive()){
+						if(Dungeon.hero.subClass(HeroSubClass.戏命师))
+						new Bomb.ConjuredBomb().heroexplode(pos);
+
 						if(cause==Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
 							if(Dungeon.hero.belongings.attackingWeapon() instanceof 草剃){
 								for(int n: PathFinder.相邻){
@@ -1442,15 +1464,15 @@ public abstract class Mob extends Char{
 			}
 			desc+="属性:"+属性+"(阵容="+阵容+")\n";
 
-			desc+=" == 攻击 == "+Math.round(最小攻击()*Dungeon.难度攻击())+"~"+Math.round(最大攻击()*Dungeon.难度攻击())+"\n";
-			desc+=" ++ 防御++ "+Math.round(最小防御()*Dungeon.难度防御())+"~"+Math.round(最大防御()*Dungeon.难度防御())+"\n\n";
+			desc+=" == 攻击 == "+kw2(最小攻击()*Dungeon.难度攻击())+"~"+kw2(最大攻击()*Dungeon.难度攻击())+"\n";
+			desc+=" ++ 防御++ "+kw2(最小防御()*Dungeon.难度防御())+"~"+kw2(最大防御()*Dungeon.难度防御())+"\n\n";
 			desc+="命中/闪避"+最小命中(null)*Dungeon.难度命中闪避()+"~"
 				  +Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"
 				  +Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"
 				  +Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
 			desc+="攻速/移速"+String.format("%.2f",1f/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
 			desc+="_暴击率/暴击伤害_"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
-			desc+="经验/英雄等级在此及以下才能获经验"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
+			desc+="经验/经验等级上限"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
 			String 战利品="视其他机制掉落";
 			if(loot instanceof Item i){
 				战利品=i.name();

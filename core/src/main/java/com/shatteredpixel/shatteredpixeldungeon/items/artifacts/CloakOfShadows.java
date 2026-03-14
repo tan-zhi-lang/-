@@ -310,17 +310,8 @@ public class CloakOfShadows extends Artifact {
 					GLog.w(Messages.get(this, "no_charge"));
 					((Hero) target).interrupt();
 				} else {
-					//target hero level is 1 + 2*cloak level
-					int lvlDiffFromTarget = ((Hero) target).等级 - (1+ 等级()*2);
-					//plus an extra one for each level after 6
-					if (等级() >= 7){
-						lvlDiffFromTarget -= 等级()-6;
-					}
-					if (lvlDiffFromTarget >= 0){
-						exp += Math.round(10f * Math.pow(1.1f, lvlDiffFromTarget));
-					} else {
-						exp += Math.round(10f * Math.pow(0.75f, -lvlDiffFromTarget));
-					}
+
+						exp +=10f;
 					
 					if (exp >= (等级() + 1) * 50 && 等级() < levelCap) {
 						升级();

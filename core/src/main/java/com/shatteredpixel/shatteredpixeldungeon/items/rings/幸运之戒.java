@@ -128,7 +128,7 @@ public class 幸运之戒 extends Ring {
 		//now handle reward logic
 		ArrayList<Item> drops = new ArrayList<>();
 
-		triesToDrop.set(tries);
+		triesToDrop.set(-tries);
 		while ( triesToDrop.count <= 0 ){
 			if (dropsToEquip.count <= 0){
 				int equipBonus = 0;
@@ -156,7 +156,7 @@ public class 幸运之戒 extends Ring {
 					i = genConsumableDrop(bonus - 1);
 				} while (Challenges.isItemBlocked(i));
 				drops.add(i);
-				dropsToEquip.set(1);
+				dropsToEquip.set(-1);
 			}
 			triesToDrop.set( Random.NormalIntRange(0, 20) );
 		}

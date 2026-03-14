@@ -54,7 +54,7 @@ public class 圣光 extends TargetedClericSpell {
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
 					if(hero.天赋(Talent.神圣长枪))hero.扔出(ch.pos,new 神圣长枪(),()->{
-						Buff.施加(ch,伤害.class).level+=hero.魔力天赋点数(Talent.神圣之触,0.25f);
+						Buff.施加(ch,伤害.class).level(hero.魔力天赋点数(Talent.神圣之触,0.25f));
 					} );
 					if(ch.恶魔亡灵()){
 						ch.受伤时(hero.魔力(1*(1+hero.天赋点数(Talent.神圣之触,0.25f))),圣光.this);

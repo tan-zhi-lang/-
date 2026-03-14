@@ -3,9 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -24,7 +21,7 @@ public class 来去秘卷 extends ExoticScroll {
 	
 	{
 		icon = 物品表.Icons.SCROLL_PASSAGE;
-		defaultAction=AC_下楼;
+		defaultAction=算法.isDebug()?AC_下楼:AC_CHOOSE;
 	}
 	
 	protected static final String AC_上楼 = "上楼";
@@ -41,14 +38,14 @@ public class 来去秘卷 extends ExoticScroll {
 	public void execute(Hero hero,String action){
 		super.execute(hero,action);
 		if (action.equals( AC_上楼 )) {
-			
+
+			doRead();
 			
 			if ((!Dungeon.interfloorTeleportAllowed()
 				|| Dungeon.depth==1)&&!算法.isDebug()) {
 				GLog.w( Messages.get(传送卷轴.class,"no_tele"));
 				return;
 			}
-			
 			Level.beforeTransition();
 			InterlevelScene.mode = InterlevelScene.Mode.RETURN;
 			InterlevelScene.returnDepth = Dungeon.depth - 1;
@@ -57,7 +54,8 @@ public class 来去秘卷 extends ExoticScroll {
 			Game.switchScene( InterlevelScene.class );
 		}
 		if (action.equals( AC_下楼 )) {
-			
+
+			doRead();
 			
 			if ( (!Dungeon.interfloorTeleportAllowed()
 				 || Dungeon.depth==26)&&!算法.isDebug()) {
@@ -66,13 +64,11 @@ public class 来去秘卷 extends ExoticScroll {
 			}
 			
 			Level.beforeTransition();
-			InterlevelScene.mode = InterlevelScene.Mode.FALL;
+			InterlevelScene.mode = InterlevelScene.Mode.GOTO;
 			InterlevelScene.returnDepth = Dungeon.depth +1;
 			InterlevelScene.returnBranch = 0;
 			InterlevelScene.returnPos = 2;
 
-			Buff.施加(Dungeon.hero,Invulnerability.class,1);
-			Buff.施加(Dungeon.hero,BlobImmunity.class,1);
 			Game.switchScene( InterlevelScene.class );
 		}
 	}

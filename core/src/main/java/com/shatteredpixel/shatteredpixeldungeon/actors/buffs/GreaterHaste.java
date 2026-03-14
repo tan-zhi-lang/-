@@ -61,7 +61,7 @@ public class GreaterHaste extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Float.toString(left);
+		return Math.round(left)+"";
 	}
 
 	@Override

@@ -49,7 +49,7 @@ public class ElixirOfFeatherFall extends Elixir {
 			super.detach();
 		}
 
-		public static final float DURATION=3000;
+		public static final float DURATION=100;
 		
 		@Override
 		public int icon(){

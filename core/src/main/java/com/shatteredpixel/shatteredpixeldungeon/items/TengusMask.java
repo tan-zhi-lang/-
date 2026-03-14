@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -85,6 +86,13 @@ public class TengusMask extends Item {
 //		if (way == HeroSubClass.刺客&&curUser.invisible>0){
 //			Buff.施加(curUser, 潜伏.class);
 //		}
+		if(way==HeroSubClass.指环王&&Dungeon.hero.职业精通()){
+			for(Item i:Dungeon.hero.belongings.backpack){
+				if(i instanceof Ring r){
+					r.activate(Dungeon.hero);
+				}
+			}
+		}
 		if(way==HeroSubClass.幸运之子)
 			curUser.belongings.幸运.升级(7);
 		

@@ -89,18 +89,18 @@ public class WndBlacksmith extends Window {
 		pickaxe.enable(Blacksmith.Quest.pickaxe != null && Blacksmith.Quest.favor >= pickaxeCost);
 		buttons.add(pickaxe);
 
-		int 修理人情 = 50 + 100*Blacksmith.Quest.修理;
-		RedButton 修理 = new RedButton(Messages.get(this, "修理", 修理人情), 6){
+		int 修理费用 = 50 + 100*Blacksmith.Quest.修理;
+		RedButton 修理 = new RedButton(Messages.get(this, "修理", 修理费用), 6){
 			@Override
 			protected void onClick() {
 				hero.回满护甲();
-				Blacksmith.Quest.favor -= 修理人情;
+				Blacksmith.Quest.favor -= 修理费用;
 				Blacksmith.Quest.修理++;
 				WndBlacksmith.this.hide();
 				
 			}
 		};
-		修理.enable(Blacksmith.Quest.favor >= 修理人情&&hero.护甲<hero.最大护甲());
+		修理.enable(Blacksmith.Quest.favor >= 修理费用&&hero.护甲<hero.最大护甲);
 		buttons.add(修理);
 
 		int reforgecost = 500 + 1000*Blacksmith.Quest.reforges;
@@ -183,24 +183,19 @@ public class WndBlacksmith extends Window {
 		升阶.enable(Blacksmith.Quest.favor >= 4500);
 		buttons.add(升阶);
 
-		RedButton 锤子 = new RedButton(Messages.get(this, "人情", 5000), 6){
+		RedButton 人情 = new RedButton(Messages.get(this, "人情", 5000), 6){
 			@Override
 			protected void onClick() {
-				GLog.p(Messages.get(this, "人情"));
-				if(Dungeon.gold>=2500&&Dungeon.energy>=25){
-					Dungeon.level.drop(Blacksmith.Quest.pickaxe,Dungeon.hero.pos).sprite().drop();
-					GLog.p("正好这有一把我曾经一直使用的锻造锤，非常好用，送给你了。");
-				}
+				Dungeon.level.drop(Blacksmith.Quest.pickaxe,Dungeon.hero.pos).sprite().drop();
+				GLog.p("正好这有一把我曾经一直使用的锻造锤，非常好用，送给你了。");
+
 				Blacksmith.Quest.favor -= 5000;
-				if(Dungeon.gold>=2500&&Dungeon.energy>=25){
-					Dungeon.gold(-2500);
-					Dungeon.energy(-25);
-				}
+
 				WndBlacksmith.this.hide();
 			}
 		};
-		锤子.enable(Blacksmith.Quest.favor >= 5000);
-		buttons.add(锤子);
+		人情.enable(Blacksmith.Quest.favor >= 5000);
+		buttons.add(人情);
 
 		RedButton cashOut = new RedButton(Messages.get(this, "cashout"), 6){
 			@Override

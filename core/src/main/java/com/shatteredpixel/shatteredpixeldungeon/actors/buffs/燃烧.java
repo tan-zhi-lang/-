@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -78,6 +79,7 @@ public class 燃烧 extends Buff implements Hero.Doom {
 
 			acted = true;
 			float damage = Random.NormalFloat( 1, 3 + Dungeon.scalingDepth()/4f );
+			damage+=target.最大生命(Dungeon.hero.天赋点数(Talent.元素掌控,0.02f));//元素掌控火
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero hero
@@ -191,7 +193,7 @@ public class 燃烧 extends Buff implements Hero.Doom {
 	}
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)left);
+		return Math.round(left)+"";
 	}
 
 	@Override

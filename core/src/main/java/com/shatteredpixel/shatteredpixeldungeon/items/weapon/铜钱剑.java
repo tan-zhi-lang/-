@@ -17,7 +17,7 @@ public class 铜钱剑 extends Weapon{
 		延迟= 0.85f;
 		伤害= 0.68f;
 		伏击=0.75f;
-		连招范围=3;
+//		连招范围=3;
 		范围 = 3;
 		
 		特别= true;

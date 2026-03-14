@@ -158,12 +158,14 @@ public class Honeypot extends Item {
 					GLog.w(Messages.get(AlchemistsToolkit.class,"need_energy"));
 				}else{
 					Dungeon.energy(-6);
-					
+
 					detach( hero.belongings.backpack );
-					hero.sprite.zap( hero.pos );
 					new Honeypot().放背包();
-					
-					hero.next();
+
+					hero.spend( 1 );
+					hero.busy();
+					hero.sprite.operate( hero.pos );
+
 				}
 			}
 		}

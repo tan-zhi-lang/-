@@ -236,7 +236,7 @@ public abstract class Level implements Bundlable {
 			if (Dungeon.区域层数(3)) {
 				addItemToSpawn(new 治疗药剂());
 			}
-			if(Dungeon.区域()==3&&Dungeon.区域层数(3)){
+			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&!Dungeon.hero.进阶){
 				addItemToSpawn(new 进阶宝典());
 			}
 			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count<1){

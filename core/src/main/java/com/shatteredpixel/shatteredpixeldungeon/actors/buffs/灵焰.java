@@ -132,7 +132,7 @@ public class 灵焰 extends Buff implements Hero.Doom {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)left);
+		return Math.round(left)+"";
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class CountBuff extends Buff {
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(COUNT, count);
-		bundle.put(COUNT, MAXCOUNT);
+		bundle.put(MAXCOUNT, count);
 	}
 
 	@Override

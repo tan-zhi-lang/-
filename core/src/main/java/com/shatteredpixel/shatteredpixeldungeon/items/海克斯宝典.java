@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择海克斯;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -42,14 +41,15 @@ public class 海克斯宝典 extends 用品 {
 	}
 	@Override
 	public void 使用(Hero hero){
-		if(算法.isDebug())
-		new 海克斯宝典().放背包();
 
 		Game.runOnRenderThread(()->{
 			Sample.INSTANCE.play(Assets.Sounds.海克斯);
 			GameScene.show(new Wnd选择海克斯(this,hero));
 			hero.更新数据();
 		});
+
+
+//		Dungeon.保存游戏();
 		super.使用(hero);
 	}
 

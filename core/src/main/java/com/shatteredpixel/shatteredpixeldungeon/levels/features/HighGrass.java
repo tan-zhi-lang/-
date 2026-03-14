@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
@@ -150,6 +151,9 @@ public class HighGrass {
 				}
 				if(Dungeon.符文("繁花的宠爱"))
 					level.drop(new Sungrass.Seed(),pos).sprite().drop();
+
+				if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.元素掌控))//元素掌控木
+					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f);
 
 				if (Random.Float() < 1/300f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
@@ -298,6 +302,9 @@ public class HighGrass {
 				}
 				if(Dungeon.符文("繁花的宠爱"))
 					level.drop(new Sungrass.Seed(),pos).sprite().drop();
+
+				if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.元素掌控))//元素掌控木
+					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f)*3;
 				if (Random.Float() < 1/100f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();

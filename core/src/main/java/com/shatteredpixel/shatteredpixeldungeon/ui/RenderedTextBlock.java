@@ -200,7 +200,7 @@ public class RenderedTextBlock extends Component {
 
 		// 使用BigDecimal进行四舍五入，保留两位小数
 		BigDecimal bigDecimal = new BigDecimal(floatValue);
-		BigDecimal roundedValue = bigDecimal.setScale(0,RoundingMode.HALF_UP);
+		BigDecimal roundedValue = bigDecimal.setScale(2,RoundingMode.HALF_UP);
 
 		// 返回格式化后的小数字符串
 		return roundedValue.toPlainString();

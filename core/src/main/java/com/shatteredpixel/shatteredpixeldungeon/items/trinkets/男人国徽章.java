@@ -49,7 +49,7 @@ public class 男人国徽章 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.5f - 0.5f*level;
+			return 0.5f + 0.5f*level;
 		}
 	}
 

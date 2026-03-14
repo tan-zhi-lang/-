@@ -74,7 +74,7 @@ public class ArcaneArmor extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Float.toString(level);
+		return Math.round(level)+"";
 	}
 	
 	@Override

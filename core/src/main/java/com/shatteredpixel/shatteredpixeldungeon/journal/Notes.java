@@ -472,6 +472,14 @@ public class Notes {
 					return new ItemSprite(i);
 				case SPECIFIC_ITEM:
 					Item i2 = (Item) Reflection.newInstance(itemClass);
+
+					if(i2 instanceof Potion&&!i2.已鉴定())
+						return new ItemSprite(物品表.POTION_HOLDER);
+					if(i2 instanceof Scroll&&!i2.已鉴定())
+						return new ItemSprite(物品表.SCROLL_HOLDER);
+					if(i2 instanceof Ring&&!i2.已鉴定())
+						return new ItemSprite(物品表.RING_HOLDER);
+
 					return new ItemSprite(i2);
 			}
 		}
@@ -488,6 +496,7 @@ public class Notes {
 				case ITEM_TYPE:
 				case SPECIFIC_ITEM:
 					Item item = (Item) Reflection.newInstance(itemClass);
+
 					if (item.已鉴定() && item.icon != -1) {
 						Image secondIcon = new Image(Assets.Sprites.ITEM_ICONS);
 						secondIcon.frame(物品表.Icons.film.get(item.icon));
@@ -770,17 +779,20 @@ public class Notes {
 		Notes.add(note);
 //		note.editText(t,d);
 	}
-	public static void 物品类备注(Item i,String t,String d){
+	public static void 物品备注(Item i,String t,String d){
+//		if(t.equals("使用技巧"))t=i.name()+t;
 		Notes.CustomRecord note = new Notes.CustomRecord(i,t,d);
 		Notes.add(note);
 //		note.editText(t,d);
 	}
-	public static void 怪物备注(Mob i,String t,String d){
-		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),t,d);
+	public static void 怪物备注(Mob m,String t,String d){
+//		if(t.equals("应对技巧"))t=m.name()+t;
+		Notes.CustomRecord note = new Notes.CustomRecord(m.getClass(),t,d);
 		Notes.add(note);
 //		note.editText(t,d);
 	}
 	public static void 物品类别备注(Item i,String t,String d){
+//		if(t.equals("使用技巧"))t=i.name()+t;
 		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),t,d);
 		Notes.add(note);
 //		note.editText(t,d);

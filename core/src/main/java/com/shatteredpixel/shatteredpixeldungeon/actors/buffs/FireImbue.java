@@ -87,7 +87,7 @@ public class FireImbue extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)left);
+		return Math.round(left)+"";
 	}
 
 	@Override
@@ -97,6 +97,8 @@ public class FireImbue extends Buff {
 
 	{
 		immunities.add( 燃烧.class );
+		immunities.add( 火毒.class );
+		immunities.add( 灵焰.class );
 	}
 
 	@Override

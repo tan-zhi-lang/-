@@ -36,6 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesBossLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesLevel;
@@ -92,9 +93,13 @@ public class Dungeon {
 		//limited world drops
 		生命水晶,
 		活力水晶,
-		奥术水晶,
-		神盾果,
+
 		生命果,
+		神盾果,
+
+		坠牢之星,
+		奥术水晶,
+
 		STRENGTH_POTIONS,
 		UPGRADE_SCROLLS,
 		ARCANE_STYLI,
@@ -212,6 +217,7 @@ public class Dungeon {
 
 			if(hero())
 			x*=Dungeon.hero.幸运值();
+
 			x*=优惠卡.获取()/100f;
 			gold+=x;
 		}
@@ -230,11 +236,16 @@ public class Dungeon {
 			if(Dungeon.符文("货币互通"))
 			gold+=Math.round(60*x);
 
+			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.魔法灵枢))
+				x*=1.5f+Dungeon.hero.天赋点数(Talent.高额炼化,0.5f);
 			energy+=x;
 		}
 		if(x<0){
 			if(Dungeon.符文("智慧的宠爱"))x*=12;
 			energy+=x;
+
+			if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.能量守恒))
+				energy(Math.round(-x*Dungeon.hero.天赋点数(Talent.能量守恒,0.125f)));
 		}
 		if(hero()&&hero.heroClass(HeroClass.来世))
 		Statistics.能量=Dungeon.energy;
@@ -311,7 +322,6 @@ public class Dungeon {
 		Random.resetGenerators();
 		
 		Statistics.reset();
-		Hero.海克斯重置();
 		Notes.reset();
 
 		quickslot.reset();
@@ -353,11 +363,12 @@ public class Dungeon {
 
 		hero = new Hero();
 		hero.live();
-		hero.更新属性();
+		hero.更新生命();
 		
 		Badges.reset();
 		
 		GamesInProgress.selectedClass.initHero( hero );
+		Hero.海克斯重置();
 
 	}
 
@@ -414,6 +425,7 @@ public class Dungeon {
 		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=15+(循环()-1 )*5;
 		}
+		if(Dungeon.赛季(赛季设置.生化模式))x+=8;
 		return switch(难度){
 			case 1 -> 0.67f+x;
 			case 2 -> 1f+x;
@@ -980,6 +992,15 @@ public class Dungeon {
 		FileUtils.bundleToFile(GamesInProgress.depthFile( save, depth, branch ), bundle);
 	}
 	
+	public static void 保存游戏(){//真保存游戏
+		try {
+			Dungeon.saveAll();
+			Badges.saveGlobal();
+			Journal.saveGlobal();
+		} catch (
+				IOException e) {//保存游戏
+		}
+	}
 	public static void saveAll() throws IOException {
 		if (hero != null && (hero.isAlive() || WndResurrect.instance != null)) {
 			

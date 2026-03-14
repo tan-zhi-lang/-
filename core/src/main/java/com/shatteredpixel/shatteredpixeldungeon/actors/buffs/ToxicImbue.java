@@ -88,7 +88,7 @@ public class ToxicImbue extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)left);
+		return Math.round(left)+"";
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.本命玉佩;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
@@ -29,7 +29,7 @@ public class 掌心雷 extends 目标道术 {
 	}
 	
 	@Override
-	protected void onTargetSelected(本命玉佩 tome,Hero hero,Integer target){
+	protected void onTargetSelected(鬼帝钟 tome,Hero hero,Integer target){
 
 		if (target == null) {
 			return;

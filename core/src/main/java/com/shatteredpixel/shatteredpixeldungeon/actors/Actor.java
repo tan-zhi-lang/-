@@ -243,7 +243,7 @@ public abstract class Actor implements Bundlable {
 							current = actor;
 						}
 					}
-					
+
 				}
 			}
 

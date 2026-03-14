@@ -112,6 +112,7 @@ public class WndHeroInfo extends WndTabbed {
 
 		select(0);
 
+//		Dungeon.保存游戏();
 	}
 
 	@Override
@@ -149,7 +150,7 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case WARRIOR:
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
-							new TalentIcon(Talent.任督二脉),
+							new TalentIcon(Talent.洗筋伐髓),
 							new BuffIcon(BuffIndicator.HEALING, true),
 							 new BuffIcon(BuffIndicator.SEAL_SHIELD, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
@@ -311,7 +312,7 @@ public class WndHeroInfo extends WndTabbed {
 				case 来世:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
 							  new ItemSprite(物品表.GOLD),
-										  new TalentIcon(Talent.任督二脉),
+										  new TalentIcon(Talent.洗筋伐髓),
 							  new ItemSprite(物品表.ENERGY),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;

@@ -172,8 +172,8 @@ public class WndUpgrade extends Window {
 		if (toUpgrade instanceof Weapon){
 			Weapon.Augment aug = ((Weapon) toUpgrade).augment;
 			bottom = fillFields(Messages.get(this, "damage"),
-								aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelFrom)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelFrom)),
-											  aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo)) + "-" + aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo)),
+								String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelFrom))) + "-" + String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelFrom))),
+											  String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo))) + "-" + String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo))),
 					bottom);
 		}
 		
@@ -190,26 +190,26 @@ public class WndUpgrade extends Window {
 		if (toUpgrade instanceof Armor){
 			Armor.Augment aug = ((Armor) toUpgrade).augment;
 			bottom = fillFields(Messages.get(this, "blocking"),
-								((Armor) toUpgrade).最小防御(levelFrom) + "-" + (((Armor) toUpgrade).最大防御(levelFrom)),
-								((Armor) toUpgrade).最小防御(levelTo) + "-" +  (((Armor) toUpgrade).最大防御(levelTo)),
+								String.format("%.2f",((Armor) toUpgrade).最小防御(levelFrom)) + "-" + String.format("%.2f",(((Armor) toUpgrade).最大防御(levelFrom))),
+								String.format("%.2f",((Armor) toUpgrade).最小防御(levelTo)) + "-" +  String.format("%.2f",(((Armor) toUpgrade).最大防御(levelTo))),
 					bottom);
 		} else if (toUpgrade instanceof Weapon m&&m.最大防御()>0){
 			bottom = fillFields(Messages.get(this, "blocking"),
-								m.最小防御(levelFrom) + "-" + m.最大防御(levelFrom),
-											  m.最小防御(levelTo) + "-" + m.最大防御(levelTo),
+								String.format("%.2f",m.最小防御(levelFrom)) + "-" + String.format("%.2f",m.最大防御(levelFrom)),
+											  String.format("%.2f",m.最小防御(levelTo)) + "-" + String.format("%.2f",m.最大防御(levelTo)),
 					bottom);
 		}
 
 		//weight (i.e. strength requirement)
 		if (toUpgrade instanceof Weapon){
 			bottom = fillFields(Messages.get(this, "weight"),
-								""+((Weapon) toUpgrade).力量(levelFrom),
-								""+((Weapon) toUpgrade).力量(levelTo),
+								String.format("%.2f",(((Weapon) toUpgrade).力量(levelFrom))),
+								String.format("%.2f",(((Weapon) toUpgrade).力量(levelTo))),
 					bottom);
 		} else if (toUpgrade instanceof Armor) {
 			bottom = fillFields(Messages.get(this, "weight"),
-								""+((Armor) toUpgrade).力量(levelFrom),
-								""+((Armor) toUpgrade).力量(levelTo),
+								String.format("%.2f",(((Armor) toUpgrade).力量(levelFrom))),
+								String.format("%.2f",(((Armor) toUpgrade).力量(levelTo))),
 					bottom);
 		}
 

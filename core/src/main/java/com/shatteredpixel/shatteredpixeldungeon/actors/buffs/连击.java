@@ -64,7 +64,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString((int)comboTime);
+		return Math.round(comboTime)+"";
 	}
 	
 	public void hit( Char enemy ) {
@@ -73,10 +73,10 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 				count++;
 			}
 			count=Math.min(10,count+1);
-			comboTime = Math.max(4+hero.天赋点数(Talent.连战热忱,2)+(hero.职业精通()?3:0),4f);
+			comboTime = Math.max(5+hero.天赋点数(Talent.连战热忱,2.5f)+(hero.职业精通()?5:0),5);
 			
 			if(hero.天赋(Talent.以战养战)){
-				hero.护甲(hero.天赋点数(Talent.以战养战));
+				hero.护甲(hero.更新护甲(hero.天赋点数(Talent.以战养战,0.05f)));
 //				Buff.施加(hero,荣誉纹章.WarriorShield.class).reduceCooldown(hero.天赋点数(Talent.以战养战,0.08f));
 			}
 			
@@ -360,7 +360,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 					trajectory = new Ballistica(trajectory.collisionPos, trajectory.path.get(trajectory.path.size() - 1), Ballistica.PROJECTILE);
 					//knock them back along that ballistica, ensuring they don't fall into a pit
 					int dist = 2;
-					if (enemy.isAlive() && count >= 6 &&hero.天赋(Talent.连击强化)) {
+					if (enemy.isAlive() && count >= 6 &&hero.职业精通()) {
 						dist++;
 						Buff.延长(enemy, Vertigo.class, 3);
 					} else if (!enemy.flying) {
@@ -378,7 +378,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 					break;
 				case 横扫:
 					WandOfBlastWave.BlastWave.blast(enemy.pos);
-					PathFinder.buildDistanceMap(target.pos, BArray.not(Dungeon.level.solid, null), ((Hero)target).天赋(Talent.连击强化)?3:2);
+					PathFinder.buildDistanceMap(target.pos, BArray.not(Dungeon.level.solid, null), ((Hero)target).职业精通()?3:2);
 					for (Char ch : Actor.chars()) {
 						if (ch != enemy && ch.alignment == Char.Alignment.ENEMY
 								&& PathFinder.distance[ch.pos] < Integer.MAX_VALUE) {
@@ -469,7 +469,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 				GLog.w(Messages.get(连击.class,"bad_target"));
 
 			} else if (!((Hero)target).canAttack(enemy)){
-				if (!((Hero) target).天赋(Talent.连击强化)
+				if (!((Hero) target).职业精通()
 					|| Dungeon.level.distance(target.pos, enemy.pos) > 1 +target.buff(连击.class).count/3){
 					GLog.w(Messages.get(连击.class,"bad_target"));
 				} else {

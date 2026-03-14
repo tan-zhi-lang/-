@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -79,7 +80,7 @@ public class Item implements Bundlable {
 	public static final String AC_DROP		= "DROP";
 	public static final String AC_THROW		= "THROW";
 	public static final String AC_RENAME		= "RENAME";
-	public static final String AC_REMOVE		= "REMOVE";
+	public static final String AC_吞噬= "吞噬";
 
 	protected String defaultAction;
 	public boolean usesTargeting=true;
@@ -179,8 +180,14 @@ public class Item implements Bundlable {
 		if(SPDSettings.物品命名())
 		actions.add( AC_RENAME );
 		
-		if(Dungeon.赛季(赛季设置.刷子地牢)&&false)
-		actions.add( AC_REMOVE );
+		if(hero.subClass(HeroSubClass.吞噬云烟)){
+			if(!(this instanceof Bag)){
+				if(this instanceof EquipableItem&&!isEquipped(hero))
+					actions.add(AC_吞噬);
+				else
+					actions.add(AC_吞噬);
+			}
+		}
 		return actions;
 	}
 
@@ -266,7 +273,38 @@ public class Item implements Bundlable {
 				doThrow(hero);
 			}
 			
-		}else if (action.equals( AC_REMOVE )) {
+		}else if (action.equals(AC_吞噬)) {
+			detach(hero.belongings.backpack);
+
+			float x=0.0001f;
+			x+=金币提升()/quantity/60_0000f;
+			x+=能量提升()/quantity/1_0000f;
+			x+=强化等级()/1_0000f;
+			if(cursedKnown)x+=0.001f;
+			if(levelKnown)x+=0.001f;
+			if(cursedKnown)x+=0.001f;
+			if(this instanceof Food f){
+				x+=f.energy/1_0000f;
+			}
+			if(this instanceof Weapon w){
+				if(w.enchantHardened) x+=0.001f;
+				if(w.curseInfusionBonus) x+=0.001f;
+				if(w.神力) x+=0.001f;
+				if(w.augment!=Weapon.Augment.NONE) x+=0.001f;
+				if(w.hasEnchant())x+=0.001f;
+				x+=w.tier/1_0000f;
+			}
+			if(this instanceof Armor a){
+				if(a.glyphHardened) x+=0.001f;
+				if(a.curseInfusionBonus) x+=0.001f;
+				if(a.神力) x+=0.001f;
+				if(a.augment!=Armor.Augment.NONE) x+=0.001f;
+				if(a.hasGlyph())x+=0.001f;
+				x+=a.tier/1_0000f;
+			}
+			x*=1+(hero.职业精通()?0.25f:0)+hero.天赋点数(Talent.全面吞噬,0.25f);
+			GLog.p(x+"");
+			hero.属性成长+=x;
 		} else if (action.equals( AC_RENAME )) {
 			GameScene.show(new WndTextInput("物品重命名",
 											"",
@@ -808,6 +846,9 @@ public class Item implements Bundlable {
 			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
 				升级();
 		}
+		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.真绝伪证))
+			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
+				升级(Dungeon.hero.天赋点数(Talent.真绝伪证));
 		levelKnown = true;
 		cursedKnown = true;
 		Item.updateQuickslot();
@@ -911,7 +952,7 @@ public class Item implements Bundlable {
 
 	public Emitter emitter() { return null; }
 	
-	public int 价值提升(){
+	public int 金币提升(){
 		return (价值提升?Math.round(金币()*1.5f):金币());
 	}
 	public int 能量提升(){
@@ -919,31 +960,45 @@ public class Item implements Bundlable {
 	}
 	
 	public String info() {
-
+		String n="";
 		if (Dungeon.hero()) {
 			Notes.CustomRecord note = Notes.findCustomRecord(customNoteID);
 			if (note != null) {
-				//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
-				return Messages.get(this, "custom_note", note.title().replace('_', 'ˍ')) + "\n\n" + desc();
-			} else {
-				note = Notes.findCustomRecord(getClass());
-				if (note != null) {
-					if(!已鉴定()&&note!=null&&note.title().matches(".*使用技巧")){
-						//使用技巧没鉴定不显示
-					}
-					else
+					//使用技巧没鉴定不显示
 					//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
-					return Messages.get(this, "custom_note_type", note.title().replace('_', 'ˍ')) + "\n\n" + desc();
+					n+=Messages.get(this,"custom_note",note.title().replace('_','ˍ'),
+									note.desc().replace('_','ˍ'))+"\n\n";
+			} else {
+				if(note!=null){
+					note=Notes.findCustomRecord(getClass());
+					if(note!=null){
+							//使用技巧没鉴定不显示
+							//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
+							n+=Messages.get(this,"custom_note_type",note.title().replace('_','ˍ'),
+											note.desc().replace('_','ˍ'))+"\n\n";
+					}
+				}else {
+					note = Notes.findCustomRecord("使用技巧");
+					if(note!=null){
+						if(已鉴定()){
+							//使用技巧没鉴定不显示
+							//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
+							n+=Messages.get(this,"custom_note",note.title().replace('_','ˍ'),
+											note.desc().replace('_','ˍ'))+"\n\n";
+						}
+					}
 				}
 			}
 		}
+
+		GLog.p(n);
 
 		String s="代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
 		s+="\n";
 		if(已鉴定()){
 			
 			s+="_"+"金币价值"+(金币()>0?
-									   价值提升()+"(出售价)/"+Shopkeeper.sellPrice(this)+"购入价":
+									   金币提升()+"(出售价)/"+Shopkeeper.sellPrice(this)+"购入价":
 									   "无价")+"_";
 			s+="\n";
 			s+=" @@ 能量价值"+(能量()>0?
@@ -1059,7 +1114,7 @@ public class Item implements Bundlable {
 			s+="、"+"法杖";
 		}
 
-		return desc()+"\n\n"+s;
+		return n+desc()+s;
 	}
 	
 	public String desc() {

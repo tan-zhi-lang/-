@@ -19,7 +19,7 @@ public class Stench extends Armor.Glyph {
 
 		float procChance = 1/8f * procChanceMultiplier(defender);
 		if ( Random.Float() < procChance ) {
-			GameScene.add( Blob.seed( defender.pos, 250, ToxicGas.class ) );
+			GameScene.add( Blob.seed( defender.pos, Math.round(250*8*procChance), ToxicGas.class ) );
 		}
 
 		return damage;

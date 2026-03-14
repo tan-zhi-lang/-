@@ -30,7 +30,7 @@ public class Necromancer extends Mob {
 		spriteClass = NecromancerSprite.class;
 		
 		生命 = 最大生命 = 40;
-		defenseSkill = 14;
+		defenseSkill = 10;
 		
 		经验 = 7;
 		最大等级 = 14;

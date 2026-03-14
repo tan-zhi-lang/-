@@ -25,6 +25,6 @@ public class FlavourBuff extends Buff {
 
 	@Override
 	public String iconTextDisplay() {
-		return Integer.toString(Math.round(visualcooldown()));
+		return Math.round(visualcooldown())+"";
 	}
 }

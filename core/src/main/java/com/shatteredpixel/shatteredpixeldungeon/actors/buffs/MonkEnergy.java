@@ -73,7 +73,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 	@Override
 	public String iconTextDisplay() {
 		if (cooldown > 0){
-			return Integer.toString(cooldown);
+			return Math.round(cooldown)+"";
 		} else {
 			return "";
 		}

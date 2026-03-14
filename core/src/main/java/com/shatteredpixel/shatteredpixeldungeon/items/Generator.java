@@ -628,11 +628,11 @@ public class Generator {
 					ChaliceOfBlood.class,
 					
 					DriedRose.class,
-
 					时空道标.class,
 					荆棘斗篷.class,
 
 					心之钢.class,
+
 					九龙拉管.class,
 					生命蜡烛.class,
 					灵魂焰灯.class,
@@ -648,9 +648,10 @@ public class Generator {
 					UnstableSpellbook.class,
 					骷髅钥匙.class
 			};
-			ARTIFACT.defaultProbs = new float[]{ 1, 1,0,
-												 1, 1,
-					1, 1, 1, 1,1,
+			ARTIFACT.defaultProbs = new float[]{ 1, 1,
+					0,0, 1,
+					1,
+					1, 1, 1,1,
 					1, 1, 1, 1,
 					1, 1,1,1 };
 			ARTIFACT.probs = ARTIFACT.defaultProbs.clone();

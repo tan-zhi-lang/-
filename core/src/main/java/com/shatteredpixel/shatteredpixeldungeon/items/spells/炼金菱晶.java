@@ -132,7 +132,7 @@ public class 炼金菱晶 extends Spell {
 			if (Shopkeeper.canSell(item)) {
 				if (item.数量()==1) {
 
-					RedButton btnSell = new RedButton(Messages.get(this, "sell", item.价值提升())) {
+					RedButton btnSell = new RedButton(Messages.get(this, "sell", item.金币提升())) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sell(item);
@@ -148,7 +148,7 @@ public class 炼金菱晶 extends Spell {
 
 				} else {
 
-					int priceAll = item.价值提升();
+					int priceAll = item.金币提升();
 					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.数量())) {
 						@Override
 						protected void onClick() {

@@ -88,7 +88,7 @@ public class RingOfElements extends Ring {
 			x*=1-hero.天赋点数(Talent.神圣净化,0.1f);
 			x*=巨大蟹钳.受到();
 			if(hero.符文("防御转魔抗"))x*=1-hero.最大防御()/(2.5+hero.最大防御());
-			if(hero.subClass(HeroSubClass.元素法师))x*=0.7f;
+			if(hero.subClass(HeroSubClass.大魔法师)) x*=0.7f;
 
 			if(hero.种族天赋.equals("龙人"))x*=0.7f;
 			if(hero.英精英雄==2)x*=0;
@@ -97,11 +97,12 @@ public class RingOfElements extends Ring {
 
 		}else if(Dungeon.hero()){
 			Hero hero=Dungeon.hero;
+			if(hero.符文("穿针引线"))x*=0.8f;
 			if(hero.种族天赋.equals("龙人"))x*=0.7f;
 			x*=1+hero.天赋点数(Talent.元素之力,0.075f);
 //			if (getBuffedBonus(hero, Resistance.class) == 0) return 1;
 
-			if(hero.subClass(HeroSubClass.元素法师)&&hero.职业精通())x*=1+0.3f;
+			if(hero.subClass(HeroSubClass.大魔法师)&&hero.职业精通()) x*=1+0.3f;
 				return (float)Math.pow(0.825, getBuffedBonus(hero, Resistance.class))*x;
 		}
 		return x;

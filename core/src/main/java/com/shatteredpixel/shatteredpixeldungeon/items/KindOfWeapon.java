@@ -39,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无限之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
@@ -117,6 +118,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 英雄断剑)return true;
 		if(this instanceof 无尽之刃)return true;
 		if(this instanceof 饮血之剑)return true;
+		if(this instanceof 无限之剑)return true;
 		if(this instanceof 破败王剑)return true;
 		if(this instanceof 火焰剑)return true;
 		if(this instanceof 流火)return true;
@@ -185,6 +187,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 回旋镖(){
+		if(Dungeon.符文("投影魔术"))return true;
 		if(this instanceof 修理扳手)return true;
 		if(this instanceof 血砍刀)return true;
 		if(this instanceof 回旋镖)return true;

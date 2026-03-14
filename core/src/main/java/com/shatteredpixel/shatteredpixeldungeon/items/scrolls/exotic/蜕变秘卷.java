@@ -235,8 +235,7 @@ public class 蜕变秘卷 extends ExoticScroll {
 
 				Set<Talent> clsTalentsAtTier = clsTalents.get(tier-1).keySet();
 				boolean replacingIsInSet = false;
-				
-				clsTalentsAtTier.remove(Talent.任督二脉);
+
 				
 				clsTalentsAtTier.remove(Talent.纹章荣耀);
 				clsTalentsAtTier.remove(Talent.高级魔杖);
@@ -244,7 +243,7 @@ public class 蜕变秘卷 extends ExoticScroll {
 				clsTalentsAtTier.remove(Talent.弓箭强化);
 
 				clsTalentsAtTier.remove(Talent.轻量阅读);
-				clsTalentsAtTier.remove(Talent.轻便玉佩);
+				clsTalentsAtTier.remove(Talent.轻便帝钟);
 				clsTalentsAtTier.remove(Talent.轻便护额);
 				
 				clsTalentsAtTier.remove(Talent.血爆巫术);

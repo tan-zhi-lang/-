@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import static com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene.uiCamera;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
 import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -323,7 +324,7 @@ public class StatusPane extends Component {
 		float shield = Dungeon.hero.shielding();
 
 		float 护甲 = Dungeon.hero.护甲;
-		float 最大护甲 = Dungeon.hero.最大护甲();
+		float 最大护甲 = Dungeon.hero.最大护甲;
 
 		float 恢复速度=Dungeon.hero.护甲恢复();
 		//+40%即2=>2.8，50=>35
@@ -388,22 +389,22 @@ public class StatusPane extends Component {
 			}
 		}
 		if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
-			血条文本.text(String.format("%.0f",health)+"/"+String.format("%.0f",max));
+			血条文本.text(kw2(health)+"/"+kw2(max));
 		}else {
-			if(血量变化>=1){
-				血条文本.text(String.format("%.0f",health)+"+"+String.format("%.0f",血量变化)+"/"+String.format("%.0f",max));
+			if(血量变化>0){
+				血条文本.text(kw2(health)+"+"+String.format("%.2f",血量变化)+"/"+kw2(max));
 			}else if(血量变化==0){
-				血条文本.text(String.format("%.0f",health)+"/"+String.format("%.0f",max));
-			}else if(血量变化<=-1){
-				血条文本.text(String.format("%.0f",health)+String.format("%.0f",血量变化)+"/"+String.format("%.0f",max));
+				血条文本.text(kw2(health)+"/"+kw2(max));
+			}else if(血量变化<0){
+				血条文本.text(kw2(health)+String.format("%.2f",血量变化)+"/"+kw2(max));
 			}else
-				血条文本.text(String.format("%.0f",health)+"/"+String.format("%.0f",max));
+				血条文本.text(kw2(health)+"/"+kw2(max));
 		}
-		法力条文本.text(String.format("%.0f",护甲)+(护甲<最大护甲&&恢复速度>=1?
-															("+"+String.format("%.0f",恢复速度)
-		):"")+"/"+String.format("%.0f",最大护甲));
+		法力条文本.text(kw2(护甲)+(护甲<最大护甲&&恢复速度>0?
+															("+"+String.format("%.2f",恢复速度)
+		):"")+"/"+kw2(最大护甲));
 		绿条文本.text(String.format("%.0f",hunger)+
-					  (hunger>0&&hungerDelay>=1?String.format("%.0f",-hungerDelay):"") + "/" + String.format("%.0f",450f));
+					  (hunger>0&&hungerDelay>0?String.format("%.2f",-hungerDelay):"") + "/" + String.format("%.0f",450f));
 	
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());

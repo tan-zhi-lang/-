@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
@@ -53,14 +54,14 @@ public class 破冰飞刃 extends 目标法术 {
 		
 		targets.add(enemy);
 		
-			ConeAOE cone = new ConeAOE(b,50);
+			ConeAOE cone = new ConeAOE(b,90);
 			for (Ballistica ray : cone.rays){
 				Char toAdd = findChar(ray, hero, 0/*穿墙*/, targets);
 				if (toAdd != null && hero.fieldOfView[toAdd.pos]){
 					targets.add(toAdd);
 				}
 			}
-			while (targets.size() > 1+2){
+			while (targets.size() > 1+5){
 				Char furthest = null;
 				for (Char ch : targets){
 					if (furthest == null){
@@ -82,8 +83,8 @@ public class 破冰飞刃 extends 目标法术 {
 			Callback callback = new Callback() {
 				@Override
 				public void call() {
-					float dmgMulti = ch == enemy ? 0.6f : 0.5f;
-
+					float dmgMulti = 0.6f*(1+Dungeon.hero.天赋点数(Talent.破冰飞刃,0.25f));
+					if(ch != enemy)dmgMulti*=0.5f;
 					hero.attack( ch, dmgMulti, 0, 1 );
 					callbacks.remove( this );
 					if (callbacks.isEmpty()) {
@@ -130,9 +131,9 @@ public class 破冰飞刃 extends 目标法术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-								   50,
-								   2,
-								   60
+								   90,
+								   5,
+								   60*(1+Dungeon.hero.天赋点数(Talent.破冰飞刃,25))
 		);
 		return desc + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}

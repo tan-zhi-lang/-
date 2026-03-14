@@ -128,16 +128,14 @@ public abstract class EquipableItem extends Item {
 	}
 
 	protected float timeToEquip( Hero hero ) {
-		if(不花费){
+		if(不花费||Dungeon.符文("快手")){
 			return 0;
 		}
 		if(hero.subClass(HeroSubClass.轻装步兵)){
 				if(this instanceof Armor)
 			return 0;
 		}
-		if(this instanceof Artifact){
-			return hero.攻击延迟()*2;
-		}
+
 		return hero.攻击延迟();
 	}
 

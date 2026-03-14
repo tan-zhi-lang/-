@@ -835,20 +835,14 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int throwPos(Hero user, int dst) {
 		
-		int projecting = 0;
+		boolean projecting = false;
 		if (hasEnchant(Projecting.class, user)){
-			projecting += 4;
-		}
-		if ((!(this instanceof 灵能短弓.SpiritArrow) && Random.Int(3) < user.天赋点数(Talent.SHARED_ENCHANTMENT))){
-			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
-			if (bow != null && bow.hasEnchant(Projecting.class, user)) {
-				projecting += 4;
-			}
+			projecting=true;
 		}
 		
-		if (projecting > 0
+		if (projecting
 			&& (Dungeon.level.passable[dst] || Dungeon.level.avoid[dst] || Actor.findChar(dst) != null)
-			&& Dungeon.level.distance(user.pos, dst) <= Math.round(projecting * Enchantment.genericProcChanceMultiplier(user))){
+			&& Dungeon.level.distance(user.pos, dst) <= Math.round(user.攻击范围() * Enchantment.genericProcChanceMultiplier(user))){
 			return dst;
 		} else {
 			return super.throwPos(user, dst);
@@ -1071,9 +1065,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean 连招 = false;
 
 	public enum Augment {
-		DAMAGE  (1.15f, 1,1),
-		DELAY(1,0.7f,1),
-		ACCURACY  (1, 1,1.45f),
+		DAMAGE  (1.125f, 1,1),
+		DELAY(1,0.75f,1),
+		ACCURACY  (1, 1,1.375f),
 		NONE	(1,1,1);
 
 		private float damageFactor;
@@ -1188,19 +1182,16 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 
-		if(defender!=null&&连招)
-		if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.连招)&&连招范围==1){
-			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.连招);
-		}
+//		if(defender!=null&&连招)
+//		if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.连招)&&连招范围==1){
+//			GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.连招);
+//		}
 
 		if(连招)
 		if(连招范围!=-1){
 			if(defender!=null)
 			GLog.w("这次你的物理攻击连招范围是"+连招范围);//+"，将造成"+(1+(范围+1-连招范围)*0.2f)+"倍伤害"
 			float x=0.2f;
-			if(attacker instanceof Hero hero){
-				x*=1+hero.天赋点数(Talent.蛇腹剑刺,0.25f);
-			}
 			damage=Math.round(damage*(1+(范围+1-连招范围)*x));
 		}
 		return damage;

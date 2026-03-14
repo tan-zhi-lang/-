@@ -57,7 +57,7 @@ public class Poison extends Buff implements Hero.Doom {
 	}
 
 	public String iconTextDisplay(){
-		return Integer.toString((int) left);
+		return Math.round(left)+"";
 	}
 
 	@Override

@@ -49,7 +49,7 @@ public class 死舞 extends Buff {
 	
 	@Override
 	public String iconTextDisplay() {
-		return Float.toString(damage);
+		return Math.round(damage)+"";
 	}
 	
 	@Override

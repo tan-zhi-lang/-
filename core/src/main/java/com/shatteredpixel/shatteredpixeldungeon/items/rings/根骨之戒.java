@@ -20,7 +20,7 @@ public class 根骨之戒 extends Ring {
 	@Override
 	public boolean doEquip(Hero hero) {
 		if (super.doEquip(hero)){
-			hero.更新属性();
+			hero.更新生命();
 			return true;
 		} else {
 			return false;
@@ -30,7 +30,7 @@ public class 根骨之戒 extends Ring {
 	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
-			hero.更新属性();
+			hero.更新生命();
 			return true;
 		} else {
 			return false;
@@ -52,7 +52,7 @@ public class 根骨之戒 extends Ring {
 	
 	private void updateTargetHT(){
 		if (buff != null && buff.target instanceof Hero){
-			((Hero) buff.target).更新属性();
+			((Hero) buff.target).更新生命();
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class 根骨之戒 extends Ring {
 									   2*soloBuffedBonus(), soloBuffedBonus()*25);
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  2+2*combinedBuffedBonus(Dungeon.hero), 25+combinedBuffedBonus(Dungeon.hero)*25);
+											  2*combinedBuffedBonus(Dungeon.hero), combinedBuffedBonus(Dungeon.hero)*25);
 			}
 			return info;
 		} else {

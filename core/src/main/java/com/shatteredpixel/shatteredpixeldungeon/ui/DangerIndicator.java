@@ -93,7 +93,7 @@ public class DangerIndicator extends Tag {
 		super.onClick();
 		if (Dungeon.hero.visibleEnemies() > 0) {
 
-			Mob target = Dungeon.hero.visibleEnemy(++enemyIndex);
+			Mob target = Dungeon.hero.视野敌人(++enemyIndex);
 
 			QuickSlotButton.target(target);
 			if (Dungeon.hero.canAttack(target)) AttackIndicator.target(target);

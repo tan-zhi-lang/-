@@ -51,9 +51,15 @@ public abstract class KindofMisc extends EquipableItem {
 							// item detaching logic
 							int slot = Dungeon.quickslot.getSlot(KindofMisc.this);
 							slotOfUnequipped = -1;
-							Dungeon.hero.belongings.backpack.items.remove(KindofMisc.this);
+//							Dungeon.hero.belongings.backpack.items.remove(KindofMisc.this);
 							if (equipped.doUnequip(hero, true, false)) {
 								//swap out equip in misc slot if needed
+								//
+								detach( hero.belongings.backpack );
+
+								Talent.装备时(hero, KindofMisc.this);
+								activate( hero );
+								//
 								if (index == 0){
 									hero.belongings.misc = KindofMisc.this;
 								} else if (index == 1){
@@ -61,9 +67,10 @@ public abstract class KindofMisc extends EquipableItem {
 								} else if (index == 2 ){
 									hero.belongings.misc3 = KindofMisc.this;
 								}
-							} else {
-								Dungeon.hero.belongings.backpack.items.add(KindofMisc.this);
 							}
+//							else {
+//								Dungeon.hero.belongings.backpack.items.add(KindofMisc.this);
+//							}
 							if (slot != -1) {
 								Dungeon.quickslot.setSlot(slot, KindofMisc.this);
 							} else if (slotOfUnequipped != -1 && defaultAction() != null){

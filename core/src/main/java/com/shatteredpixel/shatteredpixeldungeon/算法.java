@@ -105,10 +105,15 @@ public class 算法 {
     public static int x26=32*25;
     public static int x27=32*26;
     public static int x28=32*27;
-    public static float f2(float x){
-        int l = Math.round(x * 100);
-        float d = (float)(l/100.00);
-        return d;
+    public static String kw2(float x){
+        if(x>=10000)return String.format("%.2f",x/10000f)+"W";
+        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
+        return String.format("%.2f",x);
+    }
+    public static String kw(float x){
+        if(x>=10000)return String.format("%.0f",x/10000f)+"W";
+        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
+        return String.format("%.0f",x);
     }
     public static Item 种子(){
 

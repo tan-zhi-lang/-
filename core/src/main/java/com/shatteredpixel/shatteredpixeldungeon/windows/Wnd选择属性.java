@@ -43,7 +43,7 @@ public class Wnd选择属性 extends Window {
 				return Random.Float(0.05f,0.1f);
 			case "穿甲":
 				return Random.Float(2,10);
-			case "治疗效果":
+			case "治疗护盾":
 				return Random.Float(0.05f,0.1f);
 			case "护甲穿透":
 				return Random.Float(0.05f,0.1f);
@@ -75,12 +75,12 @@ public class Wnd选择属性 extends Window {
 							"暴击率","穿甲",
 							"暴击率","穿甲",
 
-							"治疗效果","护甲穿透",
-							"治疗效果","护甲穿透"
+							"治疗护盾","护甲穿透",
+							"治疗护盾","护甲穿透"
 				);
 	}
 	public boolean 百分比(String s){
-		return s.equals("攻速")||s.equals("移速")||s.equals("暴击伤害")||s.equals("全能吸血")||s.equals("暴击率")||s.equals("护甲穿透")||s.equals("治疗效果");
+		return s.equals("攻速")||s.equals("移速")||s.equals("暴击伤害")||s.equals("全能吸血")||s.equals("暴击率")||s.equals("护甲穿透")||s.equals("治疗护盾");
 	}
 	public Wnd选择属性(属性锻造器 i,Hero hero){
 		super();

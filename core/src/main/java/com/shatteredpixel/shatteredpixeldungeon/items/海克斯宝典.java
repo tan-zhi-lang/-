@@ -55,10 +55,10 @@ public class 海克斯宝典 extends 用品 {
 
 	@Override
 	public int 金币(){
-		return 1000;
+		return 100*((使用上限()-用过)>=0?(使用上限()-用过)*100:1);
 	}
 	@Override
 	public int 能量(){
-		return 50;
+		return 5*((使用上限()-用过)>=0?(使用上限()-用过)*5:1);
 	}
 }

@@ -127,30 +127,32 @@ public enum Talent {
 
 	EMPOWERED_STRIKE(x7+14,4),MYSTICAL_CHARGE(x7+15,4),盈能打击(x7+16,4),
 
-	冰门高攻(x8+9,4),
-	冰门高防(x8+10,4),
+	冰门高攻(x8+9,4),冰门高防(x8+10,4),
 	以攻为守(x8+11,4),用盾诀窍(x8+12,4),高阶盾武(x8+13,4),
 	快速布阵(x8+14,4),全副武装(x8+15,4),步兵冲锋(x8+16,4),
 
+	分身升力(x9+9,4),镜板镀层(x9+10,4),
 	蓄势待发(x9+11,4),错失良机(x9+12,4),偷袭姿态(x9+13,4),
 	不灭之魂(x9+14,4),怀恨在心(x9+15,4),慷慨赴死(x9+16,4),
 
+
+	残魂侵蚀(x10+9,4),轻便帝钟(x10+10,4),
 	SOUL_EATER(x10+11, 4), SOUL_SIPHON(x10+12, 4), NECROMANCERS_MINIONS(x10+13, 4),
 	控物术法(x10+14, 4), 诡异身法(x10+15, 4), 金光护罩(x10+16, 4),
-
-	残魂侵蚀(x10+9,4),
-	轻便帝钟(x10+10,4),
 
 	蓄意轰拳(x11+9,4),铁布回音(x11+10,4),
 	EVASIVE_ARMOR(x11+11, 4), PROJECTILE_MOMENTUM(x11+12, 4), SPEEDY_STEALTH(x11+13, 4),
 	奥术专精(x11+14, 4), 符文势力(x11+15, 4), 曲境折迁(x11+16, 4),
 
+	战斗本能(x12+9,4),大荒星陨(x12+10,4),
 	战争热诚(x12+11,4),致命节奏(x12+12,4),征服之姿(x12+13,4),
 	荣耀之证(x12+14,4),皇室传承(x12+15,4),钢铁甲胄(x12+16,4),
 
+	兽性之力(x13+9,4),心灵之力(x13+10,4),
 	狂暴爪击(x13+11,4),坚铁甲胄(x13+12,4),极凌飓风(x13+13,4),
 	蜂蛊技术(x13+14,4),群羊牵引(x13+15,4),撒子鱼群(x13+16,4),
 
+	水中漫步(x14+9,4),防雨钢皮(x14+10,4),
 	手臂强化(x14+11,4),躯体强化(x14+12,4),下肢强化(x14+13,4),
 	高额炼化(x14+14,4),能量守恒(x14+15,4),能量迸发(x14+16,4),
 
@@ -166,9 +168,11 @@ public enum Talent {
 	蛇腹剑刺(x17+11,4),血饮狂舞(x17+12,4),贪欲燔祭(x17+13,4),
 	舞动身法(x17+14,4),灵爆之至(x17+15,4),更之以蝶(x17+16,4),
 
+	创造灾难(x18+9,4),祸乱绝露(x18+10,4),
 	污蔑狂宴(x18+11,4),绝望安息(x18+12,4),真绝伪证(x18+13,4),
 	六芒星针(x18+14,4),丝缕缠流(x18+15,4),引针族射(x18+16,4),
 
+	药剂测试(x19+9,4),破解符文(x19+10,4),
 	天命之赐(x19+12,4),天命眷顾(x19+12,4),欧皇庇护(x19+13,4),
 	废寝忘食(x19+14,4),醍醐灌顶(x19+15,4),归档资料(x19+16,4),
 
@@ -177,9 +181,11 @@ public enum Talent {
 	白猫主导(x20+11,4),渡魂灵猫(x20+12,4),黑猫主导(x20+13,4),
 	夜行专精(x20+14,4),无声突袭(x20+15,4),精准感知(x20+16,4),
 
+	灵动尾击(x21+9,4),窄区突围(x21+10,4),
 	吱援部队(x21+11,4),外交鼠段(x21+12,4),鼠手鼠脚(x21+13,4),
 	狂血疯撕(x21+14,4),狂齿猎食(x21+15,4),鼠爪刺击(x21+16,4),
 
+	遮云见日(x22+9,4),响破云霄(x22+10,4),
 	洪荒法力(x22+11,4),以身做法(x22+12,4),燕飞云疾(x22+13,4),
 	全面吞噬(x22+14,4),机体解构(x22+15,4),纯极密度(x22+16,4),
 
@@ -187,6 +193,7 @@ public enum Talent {
 	嗜血如故(x23+11,4),兽性猎手(x23+12,4),追捕猎物(x23+13,4),
 	血之潮汐(x23+14,4),血色契约(x23+15,4),鲜血转换(x23+16,4),
 
+	来世金币(x24+9,4),来世能量(x24+10,4),
 	关键时刻(x24+11,4),时间控制(x24+12,4),穿越零界(x24+13,4),
 	完美谢幕(x24+14,4),致命华彩(x24+15,4),万众倾倒(x24+16,4),
 
@@ -590,7 +597,8 @@ public enum Talent {
 		return factor;
 	}
 
-	public static void 喝药时(Hero hero, int cell, float factor ){
+	public static void 饮用药剂(Hero hero,int cell,float factor){
+		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.05f));
 
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
@@ -604,7 +612,9 @@ public enum Talent {
 		}
 	}
 
-	public static void onScrollUsed( Hero hero, int pos, float factor, Class<?extends Item> cls ){
+	public static void 阅读卷轴(Hero hero,int pos,float factor,Class<?extends Item> cls){
+		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.05f));
+
 		if(hero.subClass(HeroSubClass.图书管理员)){
 			Buff.施加(hero, Swiftthistle.TimeBubble.class).reset(2);
 			hero.经验(Math.round(factor*2*Dungeon.相对层数()));
@@ -768,8 +778,23 @@ public enum Talent {
 			case 重武:
 				Collections.addAll(tierTalents,冰门高攻,冰门高防);
 				break;
+			case 镜魔:
+				Collections.addAll(tierTalents,分身升力,镜板镀层);
+				break;
 			case 道士:
 				Collections.addAll(tierTalents,残魂侵蚀,轻便帝钟);
+				break;
+			case 行僧:
+				Collections.addAll(tierTalents,蓄意轰拳,铁布回音);
+				break;
+			case 近卫:
+				Collections.addAll(tierTalents,战斗本能,大荒星陨);
+				break;
+			case 兽灵:
+				Collections.addAll(tierTalents,兽性之力,心灵之力);
+				break;
+			case 机器:
+				Collections.addAll(tierTalents,水中漫步,防雨钢皮);
 				break;
 			case 女忍:
 				Collections.addAll(tierTalents,元素之力,轻便护额);
@@ -780,11 +805,26 @@ public enum Talent {
 			case 逐姝:
 				Collections.addAll(tierTalents,女中豪杰,灵鞭强化);
 				break;
+			case 罗兰:
+				Collections.addAll(tierTalents,创造灾难,祸乱绝露);
+				break;
+			case 学士:
+				Collections.addAll(tierTalents,药剂测试,破解符文);
+				break;
 			case 灵猫:
 				Collections.addAll(tierTalents,捕鱼达人,猫反应7);
 				break;
+			case 鼠弟:
+				Collections.addAll(tierTalents,灵动尾击,窄区突围);
+				break;
+			case 凌云:
+				Collections.addAll(tierTalents,遮云见日,响破云霄);
+				break;
 			case 血鬼:
 				Collections.addAll(tierTalents,死亡抗拒,适应身体);
+				break;
+			case 来世:
+				Collections.addAll(tierTalents,来世金币,来世能量);
 				break;
 	}
 		for (Talent talent : tierTalents){

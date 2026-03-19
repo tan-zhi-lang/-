@@ -36,10 +36,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.探地卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
@@ -48,6 +51,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -342,7 +346,15 @@ public class ShopRoom extends SpecialRoom {
 				itemsToSpawn.add(bag);
 			}
 		}
-		
+		if(Dungeon.符文("海克斯获取:贸易"))
+			itemsToSpawn.add( new 海克斯宝典());
+		if(Dungeon.符文("黑市:力量药剂"))
+		itemsToSpawn.add( new 力量药剂().数量(2));
+		if(Dungeon.符文("黑市:升级卷轴"))
+		itemsToSpawn.add( new 升级卷轴().数量(3));
+		if(Dungeon.符文("黑市:六神之戒")&&Dungeon.区域()==1)
+		itemsToSpawn.add( new 六神之戒());
+
 		itemsToSpawn.add( new 治疗药剂());
 		itemsToSpawn.add( new 治疗药剂());
 		itemsToSpawn.add( new 净化药剂());

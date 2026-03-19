@@ -392,6 +392,8 @@ abstract public class Weapon extends KindOfWeapon {
 			if(Dungeon.hero.heroClass(HeroClass.逐姝)){
 				x++;
 			}
+			if(剑()&&Dungeon.符文("起源:剑"))x+=Dungeon.hero.魔力(0.2f);
+			if(Dungeon.符文("武器＞防具")&&Dungeon.hero.belongings.armor!=null)x+=Dungeon.hero.belongings.armor.强化等级();
 		}
 		if (!evaluatingTwinUpgrades && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
 			KindOfWeapon other = null;
@@ -1359,7 +1361,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public Item 升级(boolean enchant ) {
 
 		float 概率=1;
-		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
@@ -1434,7 +1436,7 @@ abstract public class Weapon extends KindOfWeapon {
 			//10% chance to be enchanted
 				float effectRoll = Random.Float();
 			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
-			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
+			if (effectRoll < 0.3f / ParchmentScrap.curseChanceMultiplier()) {
 				enchant(Enchantment.randomCurse());
 				cursed = true;
 			} else if (effectRoll >= 1f - (0.1f * ParchmentScrap.enchantChanceMultiplier())){

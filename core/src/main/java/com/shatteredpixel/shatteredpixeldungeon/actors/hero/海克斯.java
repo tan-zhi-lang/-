@@ -2,8 +2,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 
@@ -18,10 +16,9 @@ public class 海克斯 extends Item implements Bundlable{
 	}
 	public float 权重(){
 		float 权重=this.权重;
-		float 保底=1/16f;
+		float 保底=1/12f;
 		boolean 是保底=false;
-		if(算法.isDebug()) 保底*=2;
-		if(Dungeon.符文("保底机制"))保底*=3;
+
 		if(Dungeon.hero()){
 			Hero hero=Dungeon.hero;
 			if(等级==1)
@@ -54,10 +51,12 @@ public class 海克斯 extends Item implements Bundlable{
 		}
 		if(是保底){
 			if(权重==0)
-			权重++;
+			权重=2;
 
 			权重*=保底;
 		}
+		if(获得)权重=0;
+
 		return 权重;
 	}
 

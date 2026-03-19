@@ -653,6 +653,9 @@ public class 物品表 {
     public static final int 神圣法典 = ARTIFACTS + 25;
     public static final int 鬼帝钟=ARTIFACTS+26;
     public static final int 叛忍护额=ARTIFACTS+27;
+    public static final int 干涸绝露=ARTIFACTS+28;
+    public static final int 干涸绝露2=ARTIFACTS+29;
+    public static final int 干涸绝露3=ARTIFACTS+30;
 
     static {
         assignItemRect(ARTIFACT_CLOAK, 9, 15);
@@ -684,6 +687,9 @@ public class 物品表 {
         assignItemRect(神圣法典, 14, 16);
         assignItemRect(鬼帝钟,13,16);
         assignItemRect(叛忍护额,16,13);
+        assignItemRect(干涸绝露,16);
+        assignItemRect(干涸绝露2,16);
+        assignItemRect(干涸绝露3,16);
     }
     
     private static final int 神器2 = xy(0, 17);

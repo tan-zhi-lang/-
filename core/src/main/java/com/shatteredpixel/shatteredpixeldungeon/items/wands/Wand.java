@@ -525,7 +525,7 @@ public abstract class Wand extends Item {
 		curCharges += n;
 
 		float 概率2=1;
-		if(Dungeon.hero()) 概率2*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率2/=Dungeon.hero.幸运值();
 		//30% chance to be cursed
 		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;

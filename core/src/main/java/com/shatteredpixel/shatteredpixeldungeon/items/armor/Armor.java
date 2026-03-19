@@ -457,7 +457,7 @@ public class Armor extends EquipableItem {
 	public Item 升级(boolean inscribe ) {
 
 		float 概率=1;
-		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
 		if (inscribe){
 			if (glyph == null){
 				inscribe( Glyph.random() );
@@ -682,7 +682,7 @@ public class Armor extends EquipableItem {
 			//15% chance to be inscribed
 			float effectRoll = Random.Float();
 			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
-			if (effectRoll < 0.3f * ParchmentScrap.curseChanceMultiplier()) {
+			if (effectRoll < 0.3f / ParchmentScrap.curseChanceMultiplier()) {
 				inscribe(Glyph.randomCurse());
 				cursed = true;
 			} else if (effectRoll >= 1f - (0.15f * ParchmentScrap.enchantChanceMultiplier())){

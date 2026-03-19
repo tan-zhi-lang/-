@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PrismaticGuard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -217,7 +218,8 @@ public class PrismaticImage extends NPC {
 
 	@Override
 	public float 攻击时(final Char enemy, float damage ) {
-		
+
+		if(Dungeon.hero())damage*=1+Dungeon.hero.天赋点数(Talent.分身升力,0.35f);
 		if (enemy instanceof Mob) {
 			((Mob)enemy).aggro( this );
 		}

@@ -6,8 +6,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.QuickSlot;
+import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
@@ -43,9 +43,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.干涸绝露;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -67,6 +68,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
@@ -164,23 +169,23 @@ public enum HeroClass{
 	public void initHero(Hero hero){
 		hero.heroClass=this;
 
-		Notes.物品备注(new 治疗药剂(),"使用技巧","能够站在献祭之火扔向献祭之火即可直接完成献祭");
-		Notes.物品备注(new 浮空药剂(),"使用技巧","浮空时可以无伤跳楼");
-		Notes.物品备注(new 隐形药剂(),"使用技巧","隐形时巨型食人鱼就不会攻击你");
-		Notes.物品备注(new 极速药剂(),"使用技巧","只要你跑得够快血色哨卫攻击不到你");
+		Notes.物品类别备注(new 治疗药剂(),"使用技巧","能够站在献祭之火扔向献祭之火即可直接完成献祭");
+		Notes.物品类别备注(new 浮空药剂(),"使用技巧","浮空时可以无伤跳楼");
+		Notes.物品类别备注(new 隐形药剂(),"使用技巧","隐形时巨型食人鱼就不会攻击你");
+		Notes.物品类别备注(new 极速药剂(),"使用技巧","只要你跑得够快血色哨卫攻击不到你");
 
-		Notes.物品备注(new 液火药剂(),"使用技巧","火焰可以燃烧(必刷烈焰花)");
-		Notes.物品备注(new 冰霜药剂(),"使用技巧","可以熄灭魔法火焰(必刷冰冠花)");
+		Notes.物品类别备注(new 液火药剂(),"使用技巧","火焰可以燃烧(必刷烈焰花)");
+		Notes.物品类别备注(new 冰霜药剂(),"使用技巧","可以熄灭魔法火焰(必刷冰冠花)");
 
-		Notes.物品备注(new 净化药剂(),"使用技巧","可以无视很多负面效果，直接去毒气房一探究竟");
+		Notes.物品类别备注(new 净化药剂(),"使用技巧","可以无视很多负面效果，直接去毒气房一探究竟");
 
-		Notes.物品备注(new Bomb(),"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
-		Notes.物品备注(new 水袋(),"使用技巧","装满水可以合成永生秘药");
-		Notes.物品备注(new 毒气药剂(),"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
-		Notes.物品备注(new 麻痹药剂(),"使用技巧","只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
-		Notes.物品备注(new 灵视药剂(),"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
+		Notes.物品类别备注(new Bomb(),"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
+		Notes.物品类别备注(new 水袋(),"使用技巧","装满水可以合成永生秘药");
+		Notes.物品类别备注(new 毒气药剂(),"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
+		Notes.物品类别备注(new 麻痹药剂(),"使用技巧","只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
+		Notes.物品类别备注(new 灵视药剂(),"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
 		
-		Notes.物品备注(new PotionOfCleansing(),"使用技巧","饥饿值为0时饮用可以填充450饥饿");
+		Notes.物品类别备注(new PotionOfCleansing(),"使用技巧","饥饿值为0时饮用可以填充450饥饿");
 
 
 
@@ -270,10 +275,10 @@ public enum HeroClass{
 			new Icecap.Seed().数量(x).放背包();
 			new 毒气药剂().数量(x).放背包();
 
-//			new 狂怒之戒().放背包();
-//			new 恢复之戒().放背包();
-//			new 闪避之戒().放背包();
-//			new 命中之戒().放背包();
+			new 狂怒之戒().放背包();
+			new 恢复之戒().放背包();
+			new 闪避之戒().放背包();
+			new 命中之戒().放背包();
 			new Torch().数量(x).放背包();
 			new Food().数量(x).放背包();
 
@@ -679,6 +684,11 @@ public enum HeroClass{
 		(hero.belongings.weapon=new 血姬()).鉴定();
 		
 		(hero.belongings.armor=new 连裙()).鉴定();
+		干涸绝露 tome=new 干涸绝露();
+		(hero.belongings.misc=tome).鉴定();
+
+		Dungeon.quickslot.setSlot(0,tome);
+
 		new 复仇卷轴().鉴定();
 		new 恐惧卷轴().鉴定();
 	}
@@ -742,8 +752,8 @@ public enum HeroClass{
 		Item i=new 未来空间器();
 		i.放背包();
 		Dungeon.quickslot.setSlot(0,i);
-		Dungeon.gold=Statistics.金币;
-		Dungeon.energy=Statistics.能量;
+		Dungeon.gold=Rankings.INSTANCE.来世金币;
+		Dungeon.energy=Rankings.INSTANCE.来世能量;
 		
 		new 传送卷轴().鉴定();
 		new 极速药剂().鉴定();

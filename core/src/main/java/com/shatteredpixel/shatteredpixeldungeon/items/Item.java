@@ -501,6 +501,9 @@ public class Item implements Bundlable {
 				if(this instanceof 用品){
 					消耗=true;
 				}
+				if(this instanceof 海克斯宝典){
+					消耗=false;
+				}
 				if(消耗){
 					数量(数量()+1);
 				}
@@ -969,24 +972,12 @@ public class Item implements Bundlable {
 					n+=Messages.get(this,"custom_note",note.title().replace('_','ˍ'),
 									note.desc().replace('_','ˍ'))+"\n\n";
 			} else {
+				note=Notes.findCustomRecord(getClass());
 				if(note!=null){
-					note=Notes.findCustomRecord(getClass());
-					if(note!=null){
-							//使用技巧没鉴定不显示
-							//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
-							n+=Messages.get(this,"custom_note_type",note.title().replace('_','ˍ'),
-											note.desc().replace('_','ˍ'))+"\n\n";
-					}
-				}else {
-					note = Notes.findCustomRecord("使用技巧");
-					if(note!=null){
-						if(已鉴定()){
-							//使用技巧没鉴定不显示
-							//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
-							n+=Messages.get(this,"custom_note",note.title().replace('_','ˍ'),
-											note.desc().replace('_','ˍ'))+"\n\n";
-						}
-					}
+					//使用技巧没鉴定不显示
+					//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
+					n+=Messages.get(this,"custom_note_type",note.title().replace('_','ˍ'),
+									note.desc().replace('_','ˍ'))+"\n\n";
 				}
 			}
 		}

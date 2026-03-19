@@ -1807,7 +1807,13 @@ public abstract class Char extends Actor {
 
 	public float 护甲伤害(float dmg){
 		if(this instanceof Hero hero){
-			dmg-=Random.NormalFloat(最小防御(),最大防御())*hero.天赋点数(Talent.元素掌控,0.035f);//元素掌控金
+
+			if(hero.天赋(Talent.元素掌控)||hero.天赋(Talent.镜板镀层)){
+				dmg-=防御(dmg*hero.天赋点数(Talent.元素掌控,0.075f));//元素掌控金
+
+				dmg-=防御(dmg*hero.天赋点数(Talent.镜板镀层,0.125f));
+			}
+
 		}
 		if(dmg>0&&护甲>0){
 			if (护甲<=最大护甲/2&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){

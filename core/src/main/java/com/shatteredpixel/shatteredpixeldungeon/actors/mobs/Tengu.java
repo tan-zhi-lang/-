@@ -621,7 +621,7 @@ public class Tengu extends Mob {
 							float dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth() * 2);
 
 							dmg=dmg*Dungeon.难度攻击();
-							dmg=ch.防御(ch,dmg);
+							dmg=ch.防御(dmg);
 							dmg=ch.护甲伤害(dmg);
 
 							if (dmg > 0) {

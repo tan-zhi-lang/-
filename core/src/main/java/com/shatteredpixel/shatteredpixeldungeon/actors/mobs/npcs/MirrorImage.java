@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
@@ -169,7 +170,7 @@ public class MirrorImage extends NPC {
 	@Override
 	public float 攻击时(final Char enemy, float damage ) {
 		damage = super.攻击时( enemy, damage );
-		
+		if(Dungeon.hero())damage*=1+Dungeon.hero.天赋点数(Talent.分身升力,0.35f);
 		MirrorInvis buff = buff(MirrorInvis.class);
 		if (buff != null){
 			buff.detach();

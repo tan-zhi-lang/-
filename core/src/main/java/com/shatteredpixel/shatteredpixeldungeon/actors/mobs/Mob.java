@@ -98,6 +98,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -1134,20 +1135,20 @@ public abstract class Mob extends Char{
 							Dungeon.gold(Dungeon.hero.投机之剑);
 						}
 
-						if(Dungeon.hero.符文("太阳神")&&Random.Int(2)==0){
+						if(Dungeon.符文("太阳神")&&Random.Int(2)==0){
 							Dungeon.hero.火把神++;
 						}
-						if(Dungeon.hero.符文("嘟嘟哒嘟嘟哒")){
+						if(Dungeon.符文("嘟嘟哒嘟嘟哒")){
 							Sample.INSTANCE.play(Assets.Sounds.嘟嘟哒);
 
 							if(this instanceof Skeleton){
 								Dungeon.level.drop(new ScrollOfSirensSong().数量(2),pos).sprite.drop();
 							}
 						}
-						if(Dungeon.hero.符文("我是色批")&&this instanceof Succubus){
+						if(Dungeon.符文("我是色批")&&this instanceof Succubus){
 							Dungeon.hero.力量+=10;
 						}
-						if(Dungeon.hero.符文("裁决使")){
+						if(Dungeon.符文("裁决使")){
 							if(cause instanceof Wand w){
 								w.gainCharge(10);
 							}
@@ -1158,10 +1159,17 @@ public abstract class Mob extends Char{
 						}
 
 
-						if(Dungeon.hero.符文("属性叠属性叠")&&算法.概率学(1/6f)){
+						if(Dungeon.符文("起源:进食")){
+							Dungeon.hero.攻击成长+=最大攻击()*0.03f;
+							Dungeon.hero.生命成长+=最大生命*0.03f;
+						}
+						if(Dungeon.符文("属性叠属性叠")&&算法.概率学(1/6f)){
 							new 属性锻造器().放背包();
 						}
-						if(Dungeon.hero.符文("心灵净化")){
+						if(Dungeon.符文("海克斯获取:掉落")&&算法.概率学(1/20f))
+							new 海克斯宝典().放背包();
+
+						if(Dungeon.符文("心灵净化")){
 							for(int n: PathFinder.相邻){
 								Char c=Actor.findChar(pos+n);
 								if(c!=null&&c.alignment==Alignment.ENEMY){
@@ -1181,7 +1189,7 @@ public abstract class Mob extends Char{
 							Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();
 						}
 
-						if(Dungeon.hero.符文("超凡邪恶")){
+						if(Dungeon.符文("超凡邪恶")){
 							Dungeon.hero.魔力+=0.05f;
 						}
 						Buff.刷新(Dungeon.hero,连杀状态.class,10);
@@ -1214,7 +1222,7 @@ public abstract class Mob extends Char{
 			GLog.i(Messages.get(this,"died"));
 		}
 
-		if(Dungeon.hero.符文("击杀击杀")&&防刷()&&首次死亡){
+		if(Dungeon.符文("击杀击杀")&&防刷()&&首次死亡){
 			首次死亡=false;
 			死亡时(cause);
 		}else{

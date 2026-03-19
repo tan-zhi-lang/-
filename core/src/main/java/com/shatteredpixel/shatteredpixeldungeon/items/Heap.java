@@ -86,6 +86,13 @@ public class Heap implements Bundlable {
 			if(hero.符文("摸金校尉"))Dungeon.gold(500*Dungeon.depth);
 			CellEmitter.center( pos ).start(Speck.factory(Speck.RATTLE), 0.1f, 3);
 			break;
+
+		case CHEST:
+		case LOCKED_CHEST:
+		case CRYSTAL_CHEST:
+
+			break;
+
 		default:
 		}
 		
@@ -131,7 +138,11 @@ public class Heap implements Bundlable {
 	}
 	
 	public Item pickUp() {
-		
+//		if(type == Heap.Type.CHEST||
+//		   type == Heap.Type.LOCKED_CHEST||
+//		   type == Heap.Type.CRYSTAL_CHEST
+//		   )if(Dungeon.符文(""))
+
 		if (items.isEmpty()){
 			destroy();
 			return null;

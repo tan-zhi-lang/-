@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
+import com.badlogic.gdx.utils.IntMap;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -1720,6 +1721,21 @@ public abstract class Level implements Bundlable {
 			}
 
 			Dungeon.hero.mindVisionEnemies.clear();
+
+			if(true)//感知陷阱
+			for (IntMap.Entry<Trap> trap : Dungeon.level.traps){
+					for(int i: PathFinder.自相邻){
+						heroMindFov[trap.value.pos+i]=true;
+					}
+			}
+
+			if(Dungeon.符文("M4A1仲达"))//感知物品
+			for (Heap heap : Dungeon.level.heaps.valueList()){
+					for(int i: PathFinder.自相邻){
+						heroMindFov[heap.pos+i]=true;
+					}
+			}
+
 			if (c.buff( MindVision.class ) != null) {
 				for (Mob mob : mobs) {
 					if (mob instanceof Mimic && mob.alignment == Char.Alignment.NEUTRAL&& ((Mimic) mob).stealthy()){

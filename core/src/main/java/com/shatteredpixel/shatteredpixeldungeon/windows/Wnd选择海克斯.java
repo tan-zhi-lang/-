@@ -89,6 +89,14 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯1s);
 							数据收集(final海克斯1s);
+							hero.降低海克斯(海克斯2s);
+							hero.降低海克斯(海克斯3s);
+							hero.降低海克斯(海克斯4s);
+							if(hero.符文("飞升")){
+								hero.移除海克斯(海克斯2s);
+								hero.移除海克斯(海克斯3s);
+								hero.移除海克斯(海克斯4s);
+							}
 						}
 					}
 				});
@@ -129,6 +137,14 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯2s);
 							数据收集(final海克斯2s);
+							hero.降低海克斯(海克斯1s);
+							hero.降低海克斯(海克斯3s);
+							hero.降低海克斯(海克斯4s);
+							if(hero.符文("飞升")){
+								hero.移除海克斯(海克斯1s);
+								hero.移除海克斯(海克斯3s);
+								hero.移除海克斯(海克斯4s);
+							}
 						}
 					}
 				});
@@ -167,6 +183,14 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯3s);
 							数据收集(final海克斯3s);
+							hero.降低海克斯(海克斯1s);
+							hero.降低海克斯(海克斯2s);
+							hero.降低海克斯(海克斯4s);
+							if(hero.符文("飞升")){
+								hero.移除海克斯(海克斯1s);
+								hero.移除海克斯(海克斯2s);
+								hero.移除海克斯(海克斯4s);
+							}
 						}
 					}
 				});
@@ -205,6 +229,14 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯4s);
 							数据收集(final海克斯4s);
+							hero.降低海克斯(海克斯1s);
+							hero.降低海克斯(海克斯2s);
+							hero.降低海克斯(海克斯3s);
+							if(hero.符文("飞升")){
+								hero.移除海克斯(海克斯1s);
+								hero.移除海克斯(海克斯2s);
+								hero.移除海克斯(海克斯3s);
+							}
 						}
 					}
 				});

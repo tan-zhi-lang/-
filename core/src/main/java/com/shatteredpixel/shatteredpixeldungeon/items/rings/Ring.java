@@ -118,7 +118,8 @@ public class Ring extends KindofMisc {
 			if(首次拾取){
 				levelsToID -= Talent.鉴定速度(Dungeon.hero,this)/45f;
 			}
-			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.指环王)&&Dungeon.hero.职业精通())activate(container.owner);
+			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.指环王)&&Dungeon.hero.职业精通())
+				activate(Dungeon.hero);
 			return true;
 		} else {
 			return false;
@@ -294,7 +295,7 @@ public class Ring extends KindofMisc {
 		等级(n);
 
 		float 概率2=1;
-		if(Dungeon.hero()) 概率2*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率2/=Dungeon.hero.幸运值();
 		//30% chance to be cursed
 		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;

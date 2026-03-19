@@ -47,7 +47,7 @@ public abstract class TargetedSpell extends Spell {
 		curUser.spendAndNext( timeToCast() );
 		Catalog.countUse(getClass());
 		if (Random.Float() < talentChance){
-			Talent.onScrollUsed(curUser, curUser.pos, talentFactor, getClass());
+			Talent.阅读卷轴(curUser,curUser.pos,talentFactor,getClass());
 		}
 	}
 

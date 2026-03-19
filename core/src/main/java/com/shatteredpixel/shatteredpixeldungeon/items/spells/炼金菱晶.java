@@ -266,7 +266,7 @@ public class 炼金菱晶 extends Spell {
 			}
 			Catalog.countUse(getClass());
 			if (curItem instanceof 炼金菱晶 && Random.Float() < ((炼金菱晶)curItem).talentChance){
-				Talent.onScrollUsed(curUser, curUser.pos, ((炼金菱晶) curItem).talentFactor, curItem.getClass());
+				Talent.阅读卷轴(curUser,curUser.pos,((炼金菱晶) curItem).talentFactor,curItem.getClass());
 			}
 		}
 

@@ -50,6 +50,8 @@ public enum Rankings {
 	public int lastRecord;
 	public int totalNumber;
 	public int wonNumber;
+	public int 来世金币;
+	public int 来世能量;
 
 	//The number of runs which are only present locally, not in the cloud
 	public int localTotal;
@@ -351,6 +353,8 @@ public enum Rankings {
 	public static final String LATEST_DAILY	        = "latest_daily";
 	public static final String DAILY_HISTORY_DATES  = "daily_history_dates";
 	public static final String DAILY_HISTORY_SCORES = "daily_history_scores";
+	public static final String 来世金币x = "来世金币";
+	public static final String 来世能量x = "来世能量";
 
 	public void save() {
 		Bundle bundle = new Bundle();
@@ -358,6 +362,8 @@ public enum Rankings {
 		bundle.put( LATEST, lastRecord );
 		bundle.put( TOTAL, totalNumber );
 		bundle.put( WON, wonNumber );
+		bundle.put( 来世金币x, 来世金币 );
+		bundle.put( 来世能量x, 来世能量 );
 
 		bundle.put(LATEST_DAILY, latestDaily);
 
@@ -409,6 +415,8 @@ public enum Rankings {
 					}
 				}
 			}
+			来世金币 = bundle.getInt( 来世金币x );
+			来世能量 = bundle.getInt( 来世能量x );
 
 			if (bundle.contains(LATEST_DAILY)){
 				latestDaily = (Record) bundle.get(LATEST_DAILY);

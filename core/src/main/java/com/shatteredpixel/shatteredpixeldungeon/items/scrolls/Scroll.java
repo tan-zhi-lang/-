@@ -192,7 +192,7 @@ public abstract class Scroll extends Item {
 			Catalog.countUse(getClass());
 		}
 		if (Random.Float()<talentChance) {
-			Talent.onScrollUsed(curUser,curUser.pos,talentFactor,getClass());
+			Talent.阅读卷轴(curUser,curUser.pos,talentFactor,getClass());
 		}
 
 	}

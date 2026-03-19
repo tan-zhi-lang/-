@@ -219,13 +219,17 @@ public class Dungeon {
 			x*=Dungeon.hero.幸运值();
 
 			x*=优惠卡.获取()/100f;
+
+			if(Dungeon.hero())
+			x*=1+Dungeon.hero.天赋点数(Talent.来世金币,0.25f);
+
 			gold+=x;
 		}
 		if(x<0){
 			gold+=x;
 		}
 		if(hero()&&hero.heroClass(HeroClass.来世))
-			Statistics.金币=Dungeon.gold;
+			Rankings.INSTANCE.来世金币=Dungeon.gold;
 		Statistics.goldCollected += x;
 		return gold;
 	}
@@ -238,6 +242,10 @@ public class Dungeon {
 
 			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.魔法灵枢))
 				x*=1.5f+Dungeon.hero.天赋点数(Talent.高额炼化,0.5f);
+			
+			if(Dungeon.hero())
+			x*=1+Dungeon.hero.天赋点数(Talent.来世能量,0.25f);
+
 			energy+=x;
 		}
 		if(x<0){
@@ -248,7 +256,7 @@ public class Dungeon {
 				energy(Math.round(-x*Dungeon.hero.天赋点数(Talent.能量守恒,0.125f)));
 		}
 		if(hero()&&hero.heroClass(HeroClass.来世))
-		Statistics.能量=Dungeon.energy;
+			Rankings.INSTANCE.来世能量=Dungeon.energy;
 		return energy;
 	}
 	

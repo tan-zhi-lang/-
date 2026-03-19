@@ -188,7 +188,7 @@ public class Bomb extends Item {
 				dmg*=2;
 				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
 
-				dmg=ch.防御(ch,dmg);
+				dmg=ch.防御(dmg);
 				dmg=ch.护甲伤害(dmg);
 				if (dmg > 0) {
 					ch.受伤时(dmg, this);
@@ -263,7 +263,7 @@ public class Bomb extends Item {
 				dmg*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
 				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
 
-				dmg=ch.防御(ch,dmg);
+				dmg=ch.防御(dmg);
 				dmg=ch.护甲伤害(dmg);
 				if (ch != Dungeon.hero &&dmg > 0) {
 					ch.受伤时(dmg, this);

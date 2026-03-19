@@ -65,7 +65,7 @@ public class MagicalInfusion extends InventorySpell {
 
 		Catalog.countUse(curItem.getClass());
 		if (Random.Float() < ((Spell) curItem).talentChance) {
-			Talent.onScrollUsed(curUser, curUser.pos, ((Spell) curItem).talentFactor, getClass());
+			Talent.阅读卷轴(curUser,curUser.pos,((Spell) curItem).talentFactor,getClass());
 		}
 	}
 

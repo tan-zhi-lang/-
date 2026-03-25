@@ -21,7 +21,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.vault;
 
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.VaultSentry;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.VaultRat;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -29,7 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
 import com.watabou.utils.Point;
 
-public class VaultCrossRoom extends StandardRoom {
+public class VaultEnemyCenterRoom extends StandardRoom {
 
 	@Override
 	public float[] sizeCatProbs() {
@@ -39,44 +39,32 @@ public class VaultCrossRoom extends StandardRoom {
 	@Override
 	public void paint(Level level) {
 		Painter.fill( level, this, Terrain.WALL );
+		Painter.fill( level, this, 1 , Terrain.EMPTY );
 
-		Painter.fill( level, this, 4, 1, 4, 1, Terrain.EMPTY );
-		Painter.fill( level, this, 1, 4, 1, 4, Terrain.EMPTY );
-
-		Painter.set( level, center(), Terrain.PEDESTAL);
-
-		//TODO only shapes for sides with doors?
-
-		VaultSentry sentry = new VaultSentry();
-		sentry.pos = level.pointToCell(center());
-
-		sentry.scanLength = 4;
-		sentry.scanWidth = 90;
-
-		sentry.afterScanCooldown = 2;
-
-		sentry.scanDirs = new int[][]{
-				new int[]{sentry.pos-1},
-				new int[]{sentry.pos-level.width()},
-				new int[]{sentry.pos+1},
-				new int[]{sentry.pos+level.width()},
-		};
-
-		level.mobs.add(sentry);
+		Painter.fill( level, this, 2 , Terrain.WALL );
+		Painter.fill( level, this, 3 , Terrain.EMPTY );
+		Painter.drawLine( level, new Point(left+1, top+3), new Point(right-1, top+3), Terrain.EMPTY);
+		Painter.drawLine( level, new Point(left+1, bottom-3), new Point(right-1, bottom-3), Terrain.EMPTY);
+		Painter.drawLine( level, new Point(left+3, top+1), new Point(left+3, bottom-1), Terrain.EMPTY);
+		Painter.drawLine( level, new Point(right-3, top+1), new Point(right-3, bottom-1), Terrain.EMPTY);
+		//TODO maybe better without corner pillars? they sorta just bait you...
+		// Need to think a little more about layout here
 
 		for (Door door : connected.values()) {
 			door.set( Door.Type.REGULAR );
 		}
+
+		VaultRat rat = new VaultRat();
+		do {
+			rat.pos = level.pointToCell(center());
+		} while (level.solid[rat.pos]);
+		rat.state = rat.WANDERING;
+		level.mobs.add(rat);
+
 	}
 
 	@Override
 	public boolean canMerge(Level l, Room other, Point p, int mergeTerrain) {
 		return false;
-	}
-
-	@Override
-	public boolean canConnect(Point p) {
-		Point c = center();
-		return (Math.abs(c.x - p.x) <= 1 || Math.abs(c.y - p.y) <= 1) && super.canConnect(p);
 	}
 }

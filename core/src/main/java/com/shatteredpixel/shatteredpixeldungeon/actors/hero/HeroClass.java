@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
@@ -713,6 +714,8 @@ public enum HeroClass{
 		(hero.belongings.armor=new 背心()).鉴定();
 		new 祛邪卷轴().鉴定();
 		new 灵视药剂().鉴定();
+
+			Buff.施加(hero,白猫保护.class);
 	}
 	
 	private static void 初始鼠弟(Hero hero){

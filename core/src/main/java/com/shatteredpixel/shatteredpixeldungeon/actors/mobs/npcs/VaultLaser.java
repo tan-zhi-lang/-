@@ -1,6 +1,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
@@ -9,7 +11,9 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WardSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class VaultLaser extends NPC {
 
@@ -19,17 +23,27 @@ public class VaultLaser extends NPC {
 		properties.add(Property.IMMOVABLE);
 	}
 
+	//turn into int[][] if we ever want one laser to fire multiple shots per turn
 	public int[] laserDirs;
 	public int laserDirIdx;
 
-	public int initialLaserCooldown;
-	public int cooldown;
+	public int curCooldown;
+	public int afterShotCooldown;
+
+	public int shotsAfterCooldown = 1;
+	private int shotsFired = 0;
+
+	//warning is unnecessary in some configurations where patterns are obvious.
+	public boolean giveWarning = true;
+
+	//laser sentries will collectively play a SFX at most every 80 ms
+	private static long SFXLastPlayed = 0;
 
 	@Override
 	protected boolean act() {
 
-		cooldown--;
-		if (cooldown <= 0){
+		curCooldown--;
+		if (curCooldown <= 0){
 
 			Ballistica beam = new Ballistica(pos, laserDirs[laserDirIdx], Ballistica.STOP_SOLID);
 			boolean visible = false;
@@ -39,21 +53,34 @@ public class VaultLaser extends NPC {
 				}
 				if (Actor.findChar(cell) == Dungeon.hero){
 					Dungeon.hero.sprite.showStatus(CharSprite.削弱, "!!!");
+					Sample.INSTANCE.play(Assets.Sounds.RAY);
+					SFXLastPlayed = ShatteredPixelDungeon.realTime;
 				}
 			}
 			if (visible){
 				sprite.parent.add(new Beam.DeathRay(sprite.center(), DungeonTilemap.raisedTileCenterToWorld(beam.collisionPos)));
+				if (SFXLastPlayed+80 < ShatteredPixelDungeon.realTime) {
+					Sample.INSTANCE.play(Assets.Sounds.RAY, 0.5f);
+					SFXLastPlayed = ShatteredPixelDungeon.realTime;
+				}
 			}
 
 			laserDirIdx++;
 			if (laserDirIdx >= laserDirs.length){
 				laserDirIdx = 0;
 			}
-			cooldown = initialLaserCooldown;
+
+			shotsFired++;
+			if (shotsFired < shotsAfterCooldown){
+				curCooldown = 1;
+			} else {
+				shotsFired = 0;
+				curCooldown = afterShotCooldown;
+			}
 
 		}
 
-		if (cooldown == 1){
+		if (curCooldown == 1 && giveWarning){
 
 			Ballistica nextBeam = new Ballistica(pos, laserDirs[laserDirIdx], Ballistica.STOP_SOLID);
 			for (int cell : nextBeam.subPath(1, nextBeam.dist)){
@@ -92,16 +119,25 @@ public class VaultLaser extends NPC {
 
 	private static final String LASER_DIRS = "laser_dirs";
 	private static final String LASER_DIR_IDX = "laser_dir_idx";
-	private static final String INITIAL_COOLDOWN = "initial_cooldown";
-	private static final String COOLDOWN = "cooldown";
+
+	private static final String AFTER_SHOT_COOLDOWN = "after_shot_cooldown";
+	private static final String CUR_COOLDOWN = "cur_cooldown";
+
+	private static final String SHOTS = "shots";
+	private static final String SHOTS_FIRED = "shots_fired";
+
+	private static final String WARNING = "warning";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(LASER_DIRS, laserDirs);
 		bundle.put(LASER_DIR_IDX, laserDirIdx);
-		bundle.put(INITIAL_COOLDOWN, initialLaserCooldown);
-		bundle.put(COOLDOWN, cooldown);
+		bundle.put(AFTER_SHOT_COOLDOWN, afterShotCooldown);
+		bundle.put(CUR_COOLDOWN, curCooldown);
+		bundle.put(SHOTS, shotsAfterCooldown);
+		bundle.put(SHOTS_FIRED, shotsFired);
+		bundle.put(WARNING, giveWarning);
 	}
 
 	@Override
@@ -109,8 +145,17 @@ public class VaultLaser extends NPC {
 		super.restoreFromBundle(bundle);
 		laserDirs = bundle.getIntArray(LASER_DIRS);
 		laserDirIdx = bundle.getInt(LASER_DIR_IDX);
-		initialLaserCooldown = bundle.getInt(INITIAL_COOLDOWN);
-		cooldown = bundle.getInt(COOLDOWN);
+		if (bundle.contains(AFTER_SHOT_COOLDOWN)){
+			afterShotCooldown = bundle.getInt(AFTER_SHOT_COOLDOWN);
+			curCooldown = bundle.getInt(CUR_COOLDOWN);
+			shotsAfterCooldown = bundle.getInt(SHOTS);
+			shotsFired = bundle.getInt(SHOTS_FIRED);
+			giveWarning = bundle.getBoolean(WARNING);
+		//3.3.X saves
+		} else {
+			afterShotCooldown = Random.IntRange(3,7);
+			curCooldown = Random.IntRange(1, afterShotCooldown);
+		}
 	}
 
 	@Override

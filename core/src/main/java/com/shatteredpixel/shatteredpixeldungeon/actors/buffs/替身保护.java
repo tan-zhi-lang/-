@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.暗影替身;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.PathFinder;
 
 public class 替身保护 extends Buff {
@@ -18,10 +17,10 @@ public class 替身保护 extends Buff {
 		type = buffType.POSITIVE;
 	}
 
-	@Override
-	public int icon(){
-		return BuffIndicator.INVISIBLE;
-	}
+//	@Override
+//	public int icon(){
+//		return BuffIndicator.INVISIBLE;
+//	}
 
 	@Override
 	public boolean act() {

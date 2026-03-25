@@ -348,7 +348,7 @@ public class Blacksmith extends NPC {
 
 				//Currently cannot roll the fungi quest, as it is not fully implemented
 				type = Random.IntRange(1, 2);
-				
+
 				given = false;
 				generateRewards( true );
 				

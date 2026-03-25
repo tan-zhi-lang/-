@@ -158,6 +158,17 @@ public class 灵能短弓 extends Weapon {
 			hitSound = Assets.Sounds.HIT_ARROW;
 
 		}
+
+		@Override
+		public ArrayList<String> actions(Hero hero) {
+			return new ArrayList<>();
+		}
+
+		@Override
+		public String defaultAction() {
+			return null;
+		}
+
 		@Override
 		public Emitter emitter() {
 			Emitter e = new Emitter();

@@ -2,6 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
@@ -18,21 +19,26 @@ import java.util.Arrays;
 //contains both blob logic and logic for seeding itself
 public class VaultFlameTraps extends Blob {
 
-	public int[] initialCooldowns;
-	public int[] cooldowns;
+	public int[] afterTriggerCooldowns;
+	public int[] curCooldowns;
+	public int[] triggersAfterCooldown;
+
+	//always gives a warning, via the blob
 
 	@Override
 	public boolean act() {
 		super.act();
 
-		for (int i = 0; i < initialCooldowns.length; i++){
-			if (initialCooldowns[i] > -1){
-				if (cooldowns[i] <= 0){
-					cooldowns[i] = initialCooldowns[i];
+		if (afterTriggerCooldowns != null) {
+			for (int i = 0; i < afterTriggerCooldowns.length; i++) {
+				if (afterTriggerCooldowns[i] > -1) {
+					if (curCooldowns[i] <= 0) {
+						curCooldowns[i] = afterTriggerCooldowns[i];
 				}
-				cooldowns[i]--;
-				if (cooldowns[i] <= 0){
-					seed(Dungeon.level, i, 1);
+					curCooldowns[i]--;
+					if (curCooldowns[i] <= 0) {
+						seed(Dungeon.level, i, triggersAfterCooldown[i]);
+					}
 				}
 			}
 		}
@@ -40,10 +46,14 @@ public class VaultFlameTraps extends Blob {
 		return true;
 	}
 
+	//flame traps will collectively play a SFX at most every 80 ms
+	private static long SFXLastPlayed = 0;
+
 	@Override
 	protected void evolve() {
 		int cell;
 
+		boolean playSfx = false;
 		for (int i = area.left; i < area.right; i++) {
 			for (int j = area.top; j < area.bottom; j++) {
 				cell = i + j* Dungeon.level.width();
@@ -53,6 +63,7 @@ public class VaultFlameTraps extends Blob {
 					Char ch = Actor.findChar( cell );
 					if (ch == Dungeon.hero){
 						Sample.INSTANCE.play(Assets.Sounds.BURNING);
+						SFXLastPlayed = ShatteredPixelDungeon.realTime;
 						ch.sprite.showStatus(CharSprite.削弱, "!!!");
 					}
 					/*if (ch != null && !ch.isImmune(Fire.class)) {
@@ -77,39 +88,59 @@ public class VaultFlameTraps extends Blob {
 
 					if (Dungeon.level.heroFOV[cell]){
 						CellEmitter.get(cell).start(ElmoParticle.FACTORY, 0.02f, 10);
+						playSfx = true;
+					}
+					off[cell] = cur[cell] - 1;
+					volume += off[cell];
+				} else {
+					off[cell] = 0;
 					}
 
 				}
 			}
+
+		if (playSfx && SFXLastPlayed +80 < ShatteredPixelDungeon.realTime) {
+			Sample.INSTANCE.play(Assets.Sounds.BURNING, 0.5f);
+			SFXLastPlayed = ShatteredPixelDungeon.realTime;
 		}
 	}
 
 	public void seed(Level level, int cell, int amount ) {
 		super.seed(level, cell, amount);
-		if (initialCooldowns == null) {
-			initialCooldowns = new int[level.length()];
-			Arrays.fill(initialCooldowns, -1);
+		if (afterTriggerCooldowns == null) {
+			afterTriggerCooldowns = new int[level.length()];
+			Arrays.fill(afterTriggerCooldowns, -1);
 		}
-		if (cooldowns == null){
-			cooldowns = new int[level.length()];
+		if (curCooldowns == null){
+			curCooldowns = new int[level.length()];
+		}
+		if (triggersAfterCooldown == null){
+			triggersAfterCooldown = new int[level.length()];
 		}
 	}
 
-	private static final String ONE	= "one";
-	private static final String TWO	= "two";
+	private static final String AFTER_TRIGGER_CDS	= "after_trigger_cds";
+	private static final String CUR_COOLDOWNS	    = "cur_cooldowns";
+	private static final String TRIGGERS	        = "triggers";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(ONE, initialCooldowns);
-		bundle.put(TWO, cooldowns);
+		if (afterTriggerCooldowns != null) {
+			bundle.put(AFTER_TRIGGER_CDS, afterTriggerCooldowns);
+			bundle.put(CUR_COOLDOWNS, curCooldowns);
+			bundle.put(TRIGGERS, triggersAfterCooldown);
+		}
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		initialCooldowns = bundle.getIntArray(ONE);
-		cooldowns = bundle.getIntArray(TWO);
+		if (bundle.contains(AFTER_TRIGGER_CDS)){
+			afterTriggerCooldowns = bundle.getIntArray(AFTER_TRIGGER_CDS);
+			curCooldowns = bundle.getIntArray(CUR_COOLDOWNS);
+			triggersAfterCooldown = bundle.getIntArray(TRIGGERS);
+		}
 	}
 
 	@Override

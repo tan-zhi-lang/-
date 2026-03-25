@@ -78,7 +78,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.老婆保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.隔天休息;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.饮血之剑护盾;
@@ -329,6 +329,7 @@ import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.Delayer;
 import com.watabou.utils.BArray;
+import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.GameMath;
@@ -385,430 +386,437 @@ public class Hero extends Char {
     public boolean 第2层天赋 = false;
 
 	//region 海克斯
-    public static 海克斯表 海克斯表1=new 海克斯表();
-    public static 海克斯表 海克斯表2=new 海克斯表();
-    public static 海克斯表 海克斯表3=new 海克斯表();
-    public static void put1(String s,int 权重,boolean b){
-        海克斯表1.海克斯表.add(new 海克斯(s,1,权重,b));
+    public static ArrayList<海克斯> 海克斯表=new ArrayList<>();
+    public static ArrayList<海克斯> 海克斯表1 = new ArrayList<>();
+    public static ArrayList<海克斯> 海克斯表2 = new ArrayList<>();
+    public static ArrayList<海克斯> 海克斯表3 = new ArrayList<>();
+    public static void put1(String s,int 权重){
+        海克斯表1.add(new 海克斯(s,1,权重));
     }
-    public static void put2(String s,int 权重,boolean b){
-        海克斯表2.海克斯表.add(new 海克斯(s,2,权重,b));
+    public static void put2(String s,int 权重){
+        海克斯表2.add(new 海克斯(s,1,权重));
     }
-    public static void put3(String s,int 权重,boolean b){
-        海克斯表3.海克斯表.add(new 海克斯(s,3,权重,b));
+    public static void put3(String s,int 权重){
+        海克斯表3.add(new 海克斯(s,1,权重));
     }
     public static void 海克斯重置(){
         {
-            put1("升级综合属性",2,false);
-            put1("缩小射线",2,false);
-            put1("子时已到",2,false);
-            put1("巫师式思考",2,false);
-            put1("伶俐斗士",2,false);
-            put1("狂热者",2,false);
-            put1("磨刀霍霍向猪羊",2,false);
-            put1("冰寒",2,false);
-            put1("我是瘦子",2,false);
-            put1("面包和黄油",2,false);
-            put1("面包和奶酪",2,false);
-            put1("面包和果酱",2,false);//12
-            put1("药剂赌狗",2,false);
-            put1("物品赌狗",2,false);
-            put1("卷轴赌狗",2,false);
-            put1("牙结石",2,false);
-            put1("你好我能换个位置吗",2,false);
-            put1("鬼刀一开看不见",2,false);
-            put1("先攻",2,false);
-            put1("装备死亡之舞",2,false);
-            put1("屠夫",2,false);
-            put1("血气方刚",2,false);
-            put1("升级死神镰刀",2,false);
-            put1("电能震荡",2,false);
-            put1("升级破碎像素地牢",2,false);
-            put1("专注",2,false);
-            put1("骰子收集者",2,false);
-            put1("升级全能吸血",2,false);
-            put1("吸吸物质为俊杰",2,false);
-            put1("力速双A替身",2,false);
-            put1("小怪猎手",2,false);
-            put1("猛攻",2,false);
-            put1("风语者的祝福",2,false);
-            put1("残暴之力",2,false);
-            put1("唯快不破",2,false);
-            put1("什么都没有",2,false);
-            put1("橡皮长枪手",2,false);
-            put1("佯攻",2,false);
-            put1("捐赠",2,false);
-            put1("接二连三",2,false);
-            put1("珠光护手",2,false);
-            put1("易损",2,false);
-            put1("嗜血",2,false);
-            put1("虚幻武器",2,false);
-            put1("左拳伤害高右拳高伤害",2,false);
-            put1("会心防御",2,false);
-            put1("会心治疗",2,false);
-            put1("会心闪避",2,false);
-            put1("穿甲的宠爱",2,false);
-            put1("远视人启动",2,false);
-            put1("安内",2,false);
-            put1("乌龟",2,false);
-            put1("失败的Man",2,false);
-            put1("止戈",2,false);
-            put1("末法",2,false);
-            put1("力量的爆发",2,false);
-            put1("速度的承载",2,false);
-            put1("战场Boss",2,false);
-            put1("树懒转世",2,false);
-            put1("铁布衫",2,false);
-            put1("龙鳞甲",2,false);
-            put1("急救用具",2,false);
-            put1("一板一眼",2,false);
-            put1("暴风吸入",2,false);
-            put1("神圣的宠爱",2,false);
-            put1("灵巧",2,false);
-            put1("装备黄金之心",2,false);
-            put1("星界躯体",2,false);
-            put1("瞄准镜",2,false);
-            put1("虚空之眼",2,false);
-            put1("纪元",2,false);
-            put1("饭桶",2,false);
-            put1("鉴定的宠爱",2,false);
-            put1("祛邪的宠爱",2,false);
-            put1("最终祝福",2,false);
-            put1("浪客之道",2,false);
-            put1("灵魂虹吸",2,false);
-            put1("由暴生急",2,false);
-            put1("交锋",2,false);
-            put1("钢铁意志",2,false);
-            put1("战斗狂怒",2,false);
-            put1("魔法转物理",2,false);
-            put1("点亮他们",2,false);
-            put1("尖端发明家",2,false);
-            put1("魔术回路",2,false);
-            put1("死神",2,false);
-            put1("我有一剑",2,false);
-            put1("我懂个锤子",2,false);
-            put1("盘古开天",2,false);
-            put1("齐天大圣",2,false);
-            put1("闪电五连鞭",2,false);
-            put1("我身为汽车维修",2,false);
-            put1("站在布隆后面",2,false);
-            put1("对冲基金",2,false);
-            put1("货币互通",2,false);
-            put1("千里眼顺风耳",2,false);
-            put1("轮回",2,false);
-            put1("额外闪现",2,false);
-            put1("古式佳酿",2,false);
-            put1("虔焚之热",2,false);
-            put1("我是Evan",2,false);
-            put1("摸金校尉",2,false);
-            put1("羽落的宠爱",2,false);
-            put1("豪赌",2,false);
-            put1("我是色批",2,false);
-            put1("自杀式攻击",2,false);
-            put1("大难不死必有后福",2,false);
-            put1("冰霜之书",2,false);
-            put1("怕光",2,false);
-            put1("心灵净化",2,false);
-            put1("火把之神的馈赠",2,false);
-            put1("全能石",2,false);
-            put1("玻璃大炮",2,false);
-            put1("不全能吸血",2,false);
-            put1("升级便无敌的我",2,false);
-            put1("永不动摇",2,false);
-            put1("太有用了",2,false);
-            put1("5阶武器库",2,false);
-            put1("法杖库",2,false);
-            put1("戒指库",2,false);
-            put1("黑幕",2,false);
-            put1("天狗的宠爱",2,false);
+            put1("吃虫饱兰博",2);
+            put1("升级综合属性",2);
+            put1("缩小射线",2);
+            put1("子时已到",2);
+            put1("巫师式思考",2);
+            put1("伶俐斗士",2);
+            put1("狂热者",2);
+            put1("磨刀霍霍向猪羊",2);
+            put1("冰寒",2);
+            put1("我是瘦子",2);
+            put1("面包和黄油",2);
+            put1("面包和奶酪",2);
+            put1("面包和果酱",2);//12
+            put1("药剂赌狗",2);
+            put1("物品赌狗",2);
+            put1("卷轴赌狗",2);
+            put1("牙结石",2);
+            put1("你好我能换个位置吗",2);
+            put1("鬼刀一开看不见",2);
+            put1("先攻",2);
+            put1("装备死亡之舞",2);
+            put1("屠夫",2);
+            put1("什么档次也配和我同等级",2);
+            put1("血气方刚",2);
+            put1("升级死神镰刀",2);
+            put1("电能震荡",2);
+            put1("升级破碎像素地牢",2);
+            put1("专注",2);
+            put1("骰子收集者",2);
+            put1("升级全能吸血",2);
+            put1("吸吸物质为俊杰",2);
+            put1("力速双A替身",2);
+            put1("小怪猎手",2);
+            put1("猛攻",2);
+            put1("风语者的祝福",2);
+            put1("残暴之力",2);
+            put1("唯快不破",2);
+            put1("什么都没有",2);
+            put1("橡皮长枪手",2);
+            put1("佯攻",2);
+            put1("捐赠",2);
+            put1("接二连三",2);
+            put1("珠光护手",2);
+            put1("易损",2);
+            put1("嗜血",2);
+            put1("虚幻武器",2);
+            put1("左拳伤害高右拳高伤害",2);
+            put1("会心防御",2);
+            put1("会心治疗",2);
+            put1("会心闪避",2);
+            put1("穿甲的宠爱",2);
+            put1("远视人启动",2);
+            put1("安内",2);
+            put1("乌龟",2);
+            put1("失败的Man",2);
+            put1("止戈",2);
+            put1("末法",2);
+            put1("力量的爆发",2);
+            put1("速度的承载",2);
+            put1("战场Boss",2);
+            put1("树懒转世",2);
+            put1("铁布衫",2);
+            put1("龙鳞甲",2);
+            put1("急救用具",2);
+            put1("一板一眼",2);
+            put1("暴风吸入",2);
+            put1("神圣的宠爱",2);
+            put1("灵巧",2);
+            put1("装备黄金之心",2);
+            put1("星界躯体",2);
+            put1("瞄准镜",2);
+            put1("虚空之眼",2);
+            put1("纪元",2);
+            put1("饭桶",2);
+            put1("鉴定的宠爱",2);
+            put1("祛邪的宠爱",2);
+            put1("最终祝福",2);
+            put1("浪客之道",2);
+            put1("灵魂虹吸",2);
+            put1("由暴生急",2);
+            put1("交锋",2);
+            put1("钢铁意志",2);
+            put1("战斗狂怒",2);
+            put1("魔法转物理",2);
+            put1("点亮他们",2);
+            put1("尖端发明家",2);
+            put1("魔术回路",2);
+            put1("死神",2);
+            put1("我有一剑",2);
+            put1("我懂个锤子",2);
+            put1("盘古开天",2);
+            put1("齐天大圣",2);
+            put1("闪电五连鞭",2);
+            put1("我身为汽车维修",2);
+            put1("站在布隆后面",2);
+            put1("对冲基金",2);
+            put1("货币互通",2);
+            put1("千里眼顺风耳",2);
+            put1("轮回",2);
+            put1("额外闪现",2);
+            put1("古式佳酿",2);
+            put1("虔焚之热",2);
+            put1("我是Evan",2);
+            put1("摸金校尉",2);
+            put1("羽落的宠爱",2);
+            put1("豪赌",2);
+            put1("我是色批",2);
+            put1("自杀式攻击",2);
+            put1("大难不死必有后福",2);
+            put1("冰霜之书",2);
+            put1("怕光",2);
+            put1("心灵净化",2);
+            put1("火把之神的馈赠",2);
+            put1("全能石",2);
+            put1("玻璃大炮",2);
+            put1("不全能吸血",2);
+            put1("升级便无敌的我",2);
+            put1("永不动摇",2);
+            put1("太有用了",2);
+            put1("5阶武器库",2);
+            put1("法杖库",2);
+            put1("戒指库",2);
+            put1("黑幕",2);
+            put1("天狗的宠爱",2);
 
-            put1("没卵用1",0,false);
-            put1("没卵用2",0,false);
-            put1("没卵用3",0,false);
-            put1("没卵用4",0,false);
-            put1("没卵用5",0,false);
-            put1("没啥用1",0,false);
-            put1("没啥用2",0,false);
-            put1("没啥用3",0,false);
-            put1("没啥用4",0,false);
-            put1("没啥用5",0,false);
-            put1("没啥用6",0,false);
-            put1("没啥用7",0,false);
-            put1("没啥用8",0,false);
-            put1("没啥用9",0,false);
-            put1("没啥用10",0,false);
+            put1("没卵用1",0);
+            put1("没卵用2",0);
+            put1("没卵用3",0);
+            put1("没卵用4",0);
+            put1("没卵用5",0);
+            put1("没啥用1",0);
+            put1("没啥用2",0);
+            put1("没啥用3",0);
+            put1("没啥用4",0);
+            put1("没啥用5",0);
+            put1("没啥用6",0);
+            put1("没啥用7",0);
+            put1("没啥用8",0);
+            put1("没啥用9",0);
+            put1("没啥用10",0);
 
-            put1("升级荣誉纹章",2,false);
-            put1("升级法师魔杖",2,false);
-            put1("升级暗影斗篷",2,false);
-            put1("升级灵能短弓",2,false);
-            put1("走完红色路线",2,false);
+            put1("升级荣誉纹章",2);
+            put1("升级法师魔杖",2);
+            put1("升级暗影斗篷",2);
+            put1("升级灵能短弓",2);
+            put1("走完红色路线",2);
 
-            put1("升级荆棘斗篷",2,false);
-            put1("升级蓄血圣杯",2,false);
-            put1("升级丰饶之角",2,false);
-            put1("升级自然之履",2,false);
+            put1("升级荆棘斗篷",2);
+            put1("升级蓄血圣杯",2);
+            put1("升级丰饶之角",2);
+            put1("升级自然之履",2);
 
-            put1("升级腥红散华",2,false);
-            put1("升级无影剑",2,false);
-            put1("升级变态刀",2,false);
+            put1("升级腥红散华",2);
+            put1("升级无影剑",2);
+            put1("升级变态刀",2);
 
-            put1("升级无尽之刃",2,false);
-            put1("升级饮血之剑",2,false);
-            put1("升级破败王剑",2,false);
+            put1("升级无尽之刃",2);
+            put1("升级饮血之剑",2);
+            put1("升级破败王剑",2);
 
-            put1("刃下生风",2,false);
-            put1("升级狂妄",2,false);
-            put1("神圣干预",2,false);
-            put1("回力OK标",2,false);
-            put1("穿针引线",2,false);
-            put1("起源:切断与结合",2,false);
-            put1("王者之翼手雷",2,false);
-            put1("快手",2,false);
-            put1("属性:火",2,false);
-            put1("属性:冰",2,false);
-            put1("属性:光",2,false);
-            put1("属性:暗",2,false);
-            put1("属性:地",2,false);
-            put1("投影魔术",2,false);
-            put1("炸弹狂人",2,false);
-            put1("适应性头盔",2,false);
-            put1("魔术基盘",2,false);
-            put1("尊我为王",2,false);
-            put1("黑市:升级卷轴",2,false);
-            put1("黑市:力量药剂",2,false);
-            put1("黑市:六神之戒",2,false);
-            put1("M4A1仲达",2,false);
-            put1("M4A1星象",2,false);
-            put1("飞升",2,false);
-            put1("起源:剑",2,false);
+            put1("刃下生风",2);
+            put1("升级狂妄",2);
+            put1("神圣干预",2);
+            put1("回力OK标",2);
+            put1("穿针引线",2);
+            put1("起源:切断与结合",2);
+            put1("王者之翼手雷",2);
+            put1("快手",2);
+            put1("属性:火",2);
+            put1("属性:冰",2);
+            put1("属性:光",2);
+            put1("属性:暗",2);
+            put1("属性:地",2);
+            put1("投影魔术",2);
+            put1("炸弹狂人",2);
+            put1("适应性头盔",2);
+            put1("彼岸",2);
+            put1("魔术基盘",2);
+            put1("尊我为王",2);
+            put1("黑市:升级卷轴",2);
+            put1("黑市:力量药剂",2);
+            put1("黑市:六神之戒",2);
+            put1("M4A1仲达",2);
+            put1("M4A1星象",2);
+            put1("飞升",2);
+            put1("起源:剑",2);
 
 
-            put2("我还以为减速带呢",2,false);
-            put2("你也不想被发现吧",2,false);
-            put2("挑战之神",2,false);
-            put2("炼狱之神",2,false);
-            put2("我是地牢大佬",2,false);
-            put2("谁说女子不如男",2,false);
-            put2("高级5阶武器库",2,false);
-            put2("高级法杖库",2,false);
-            put2("高级戒指库",2,false);
-            put2("宝库",2,false);
-            put2("海克斯收集家",2,false);
-            put2("台风",2,false);
-            put2("III型药剂",2,false);
-            put2("吞噬星空",2,false);
-            put2("冥想",2,false);
-            put2("升级经验",2,false);
-            put2("升级海克斯",2,false);
-            put2("全副武装",2,false);
-            put2("淬体",2,false);
-            put2("深渊的宠爱",2,false);
-            put2("陷阱的宠爱",2,false);
-            put2("流水的宠爱",2,false);
-            put2("神殿的宠爱",2,false);
-            put2("范围的宠爱",2,false);
-            put2("起源:进食",2,false);
-            put2("轻音战士",2,false);
-            put2("草木的宠爱",2,false);
-            put2("临终轻语",2,false);
-            put2("暴击率的宠爱",2,false);
-            put2("玩命",2,false);
-            put2("防御转魔抗",2,false);
-            put2("升级缝合像素地牢",2,false);
-            put2("狂暴",2,false);
-            put2("即死",2,false);
-            put2("物理攻击Bug",2,false);
-            put2("无休回复",2,false);
-            put2("升级水袋",2,false);
-            put2("攻守兼备",2,false);
-            put2("死亡之环",2,false);
-            put2("我的刀盾",2,false);
-            put2("我不是药神",2,false);
-            put2("时间之神白野",2,false);
-            put2("恢复恢复",2,false);
-            put2("轻装上阵",2,false);
-            put2("巨人杀手",2,false);
-            put2("友好老鬼",2,false);
-            put2("刷新海克斯",2,false);
-            put2("嘟嘟哒嘟嘟哒",2,false);
-            put2("灵感咕力咕力咕力灵感菇",2,false);
-            put2("夺金",2,false);
-            put2("青青子衿悠悠我心",2,false);
-            put2("不是哥们我海克斯呢",2,false);
-            put2("骷髅打金服",2,false);
-            put2("护甲是生命",2,false);
-            put2("力量的护甲",2,false);
-            put2("护甲的力量",2,false);
-            put2("装备疾射火炮",2,false);
-            put2("砍伤",2,false);
-            put2("狂怒",2,false);
-            put2("裁决使",2,false);
-            put2("老练狙神",2,false);
-            put2("叠角龙",2,false);
-            put2("繁花的宠爱",2,false);
-            put2("草丛伦",2,false);
-            put2("!!!",2,false);
-            put2("???",2,false);
-            put2("献血",2,false);
-            put2("击杀击杀",2,false);
-            put2("痛苦",2,false);
-            put2("重量级打击手",2,false);
-            put2("真战士",2,false);
-            put2("武器＞防具",2,false);
-            put2("混乱",2,false);
-            put2("小型打击",2,false);
-            put2("吸血鬼",2,false);
-            put2("伤害伤害",2,false);
-            put2("渴血",2,false);
-            put2("装备无穷饥渴",2,false);
-            put2("关键暴击",2,false);
-            put2("超级玻璃大炮",2,false);
-            put2("装备无终恨意",2,false);
-            put2("慢炖",2,false);
-            put2("快炖",2,false);
-            put2("万用瞄准镜",2,false);
-            put2("攻击转防御",2,false);
-            put2("防御转攻击",2,false);
-            put2("武器收集家",2,false);
-            put2("防具收集家",2,false);
-            put2("法杖收集家",2,false);
-            put2("神器收集家",2,false);
-            put2("家园卫士",2,false);
-            put2("闪电打击",2,false);
-            put2("来吧老弟",2,false);
-            put2("动物园园长",2,false);
-            put2("海妖杀手",2,false);
-            put2("终结者",2,false);
-            put2("卧槽炫狗",2,false);
-            put2("你肩上的恶魔",2,false);
-            put2("强健体魄",2,false);
-            put2("正义右拳",2,false);
-            put2("无极剑道",2,false);
-            put2("最后生还者",2,false);
-            put2("伤害转嫁",2,false);
-            put2("祖母辣椒油",2,false);
-            put2("腺上激素",2,false);
-            put2("多克特",2,false);
-            put2("暴伤暴伤",2,false);
-            put2("幸运",2,false);
-            put2("选牌",2,false);
-            put2("日蚀",2,false);
-            put2("眼球收集者",2,false);
-            put2("回归基本功",2,false);
-            put2("魄罗爆破手",2,false);
-            put2("大错特错",2,false);
-            put2("武器赌狗",2,false);
-            put2("防具赌狗",2,false);
-            put2("法杖赌狗",2,false);
-            put2("海克斯赌狗",2,false);
-            put2("炒能力",2,false);
-            put2("戒指赌狗",2,false);
-            put2("吃胀到了",2,false);
-            put2("升级等级",2,false);
-            put2("Man!",2,false);
-            put2("暴击暴击",2,false);
-            put2("辐射",2,false);
-            put2("物理转魔法",2,false);
-            put2("命中的宠爱",2,false);
-            put2("生命的宠爱",2,false);
-            put2("防御的宠爱",2,false);
-            put2("攻击的宠爱",2,false);
-            put2("破败之王",2,false);
-            put2("当头一棒",2,false);
-            put2("双发快射",2,false);
-            put2("暗黑破坏神",2,false);
-            put2("粘咕的宠爱",2,false);
-            put2("精巧狙击手",2,false);
-            put2("亮出你的剑",2,false);
-            put2("DM-300的宠爱",2,false);
-            put2("传送",2,false);
-            put2("海克斯获取:贸易",2,false);
-            put2("我不是人我只是个怪物",2,false);
-            put2("更多生命水晶和生命果",2,false);
-            put2("当心小蛋糕",2,false);
-            put3("量子计算",2,false);
-            put3("升级进阶宝典",2,false);
-            put3("装备禁忌时机",2,false);
+            put2("我还以为减速带呢",2);
+            put2("你也不想被发现吧",2);
+            put2("挑战之神",2);
+            put2("炼狱之神",2);
+            put2("我是地牢大佬",2);
+            put2("谁说女子不如男",2);
+            put2("高级5阶武器库",2);
+            put2("高级法杖库",2);
+            put2("高级戒指库",2);
+            put2("健身",2);
+            put2("宝库",2);
+            put2("海克斯收集家",2);
+            put2("台风",2);
+            put2("III型药剂",2);
+            put2("吞噬星空",2);
+            put2("冥想",2);
+            put2("升级经验",2);
+            put2("升级海克斯",2);
+            put2("全副武装",2);
+            put2("淬体",2);
+            put2("深渊的宠爱",2);
+            put2("陷阱的宠爱",2);
+            put2("流水的宠爱",2);
+            put2("神殿的宠爱",2);
+            put2("范围的宠爱",2);
+            put2("起源:进食",2);
+            put2("轻音战士",2);
+            put2("草木的宠爱",2);
+            put2("临终轻语",2);
+            put2("暴击率的宠爱",2);
+            put2("玩命",2);
+            put2("防御转魔抗",2);
+            put2("升级缝合像素地牢",2);
+            put2("狂暴",2);
+            put2("即死",2);
+            put2("物理攻击Bug",2);
+            put2("无休回复",2);
+            put2("升级水袋",2);
+            put2("攻守兼备",2);
+            put2("死亡之环",2);
+            put2("我的刀盾",2);
+            put2("我不是药神",2);
+            put2("时间之神白野",2);
+            put2("恢复恢复",2);
+            put2("轻装上阵",2);
+            put2("巨人杀手",2);
+            put2("友好老鬼",2);
+            put2("刷新海克斯",2);
+            put2("嘟嘟哒嘟嘟哒",2);
+            put2("灵感咕力咕力咕力灵感菇",2);
+            put2("夺金",2);
+            put2("青青子衿悠悠我心",2);
+            put2("不是哥们我海克斯呢",2);
+            put2("骷髅打金服",2);
+            put2("护甲是生命",2);
+            put2("力量的护甲",2);
+            put2("护甲的力量",2);
+            put2("装备疾射火炮",2);
+            put2("砍伤",2);
+            put2("狂怒",2);
+            put2("裁决使",2);
+            put2("老练狙神",2);
+            put2("叠角龙",2);
+            put2("繁花的宠爱",2);
+            put2("草丛伦",2);
+            put2("!!!",2);
+            put2("???",2);
+            put2("献血",2);
+            put2("击杀击杀",2);
+            put2("痛苦",2);
+            put2("重量级打击手",2);
+            put2("真战士",2);
+            put2("武器＞防具",2);
+            put2("混乱",2);
+            put2("小型打击",2);
+            put2("吸血鬼",2);
+            put2("伤害伤害",2);
+            put2("渴血",2);
+            put2("装备无穷饥渴",2);
+            put2("关键暴击",2);
+            put2("超级玻璃大炮",2);
+            put2("装备无终恨意",2);
+            put2("慢炖",2);
+            put2("快炖",2);
+            put2("万用瞄准镜",2);
+            put2("攻击转防御",2);
+            put2("防御转攻击",2);
+            put2("武器收集家",2);
+            put2("防具收集家",2);
+            put2("法杖收集家",2);
+            put2("神器收集家",2);
+            put2("家园卫士",2);
+            put2("闪电打击",2);
+            put2("来吧老弟",2);
+            put2("动物园园长",2);
+            put2("海妖杀手",2);
+            put2("终结者",2);
+            put2("卧槽炫狗",2);
+            put2("你肩上的恶魔",2);
+            put2("强健体魄",2);
+            put2("正义右拳",2);
+            put2("无极剑道",2);
+            put2("最后生还者",2);
+            put2("伤害转嫁",2);
+            put2("祖母辣椒油",2);
+            put2("腺上激素",2);
+            put2("多克特",2);
+            put2("暴伤暴伤",2);
+            put2("幸运",2);
+            put2("选牌",2);
+            put2("日蚀",2);
+            put2("眼球收集者",2);
+            put2("回归基本功",2);
+            put2("魄罗爆破手",2);
+            put2("大错特错",2);
+            put2("武器赌狗",2);
+            put2("防具赌狗",2);
+            put2("法杖赌狗",2);
+            put2("海克斯赌狗",2);
+            put2("炒能力",2);
+            put2("戒指赌狗",2);
+            put2("吃胀到了",2);
+            put2("升级等级",2);
+            put2("Man!",2);
+            put2("暴击暴击",2);
+            put2("辐射",2);
+            put2("物理转魔法",2);
+            put2("命中的宠爱",2);
+            put2("生命的宠爱",2);
+            put2("防御的宠爱",2);
+            put2("攻击的宠爱",2);
+            put2("破败之王",2);
+            put2("当头一棒",2);
+            put2("双发快射",2);
+            put2("暗黑破坏神",2);
+            put2("粘咕的宠爱",2);
+            put2("精巧狙击手",2);
+            put2("亮出你的剑",2);
+            put2("DM-300的宠爱",2);
+            put2("传送",2);
+            put2("海克斯获取:贸易",2);
+            put2("我不是人我只是个怪物",2);
+            put2("更多生命水晶和生命果",2);
+            put2("当心小蛋糕",2);
+            put3("量子计算",2);
+            put3("升级进阶宝典",2);
+            put3("装备禁忌时机",2);
 
             
-            put3("秘术冲拳",2,false);
-            put3("吸收痛苦",2,false);
-            put3("梦魇",2,false);
-            put3("区区致命伤",2,false);
-            put3("太阳神",2,false);
-            put3("防具的宠爱",2,false);
-            put3("我开挂了",2,false);
-            put3("外交豁免",2,false);
-            put3("坚固壁垒",2,false);
-            put3("双刀流",2,false);
-            put3("恢复的宠爱",2,false);
-            put3("不详契约",2,false);
-            put3("每日属性翻倍",2,false);
-            put3("孤注一掷",2,false);
-            put3("亮出你的枪",2,false);
-            put3("潘多拉魔盒",2,false);
-            put3("300颗够吗",2,false);
-            put3("血之饥渴",2,false);
-            put3("当务之急安装洋柿子",2,false);
-            put3("我秒升级",2,false);
-            put3("最大护甲转生命再生",2,false);
-            put3("暴击不暴击",2,false);
-            put3("究极玻璃大炮",2,false);
-            put3("踢踏舞",2,false);
-            put3("无限火力",2,false);
-            put3("装备星蚀",2,false);
-            put3("出售防具Bug",2,false);
-            put3("出售武器Bug",2,false);
-            put3("千锤百炼",2,false);
-            put3("无法刷新海克斯",2,false);
-            put3("物法皆修",2,false);
-            put3("闪避的宠爱",2,false);
-            put3("吞噬灵魂",2,false);
-            put3("属性转换",2,false);
-            put3("+10086",2,false);
-            put3("大饥霸",2,false);
-            put3("重殇",2,false);
-            put3("海克斯获取:掉落",2,false);
-            put3("歌尽云梦",2,false);
-            put3("红包",2,false);
-            put3("飞身踢",2,false);
-            put3("科学狂人",2,false);
-            put3("衰退的堕落",2,false);
-            put3("缩小引擎",2,false);
-            put3("坦克引擎",2,false);
-            put3("均衡打击",2,false);
-            put3("解除人体限制的诅咒",2,false);
-            put3("超凡邪恶",2,false);
-            put3("人不犯我我不犯人",2,false);
-            put3("我等你",2,false);
-            put3("属性叠属性叠",2,false);
-            put3("吸血习性",2,false);
-            put3("电火迸射",2,false);
-            put3("玄武",2,false);
-            put3("作弊我能复活",2,false);
-            put3("我无限回档洞悉所有底牌",2,false);
-            put3("歌利亚巨人",2,false);
-            put3("巨型坦克",2,false);
-            put3("蛋白粉奶昔",2,false);
-            put3("我独自升级",2,false);
-            put3("古神",2,false);
-            put3("杀戮之神",2,false);
-            put3("沃尔夫冈",2,false);
-            put3("空手道",2,false);
-            put3("升级升级",2,false);
-            put3("毒素",2,false);
-            put3("智慧的宠爱",2,false);
-            put3("属性买买买",2,false);
-            put3("铜皮铁骨",2,false);
-            put3("最终Boss",2,false);
-            put3("生命的祝福",2,false);
-            put3("炼狱导管",2,false);
-            put3("你赢了老弟",2,false);
+            put3("秘术冲拳",2);
+            put3("吸收痛苦",2);
+            put3("梦魇",2);
+            put3("至死方休:老婆",2);
+            put3("区区致命伤",2);
+            put3("太阳神",2);
+            put3("防具的宠爱",2);
+            put3("我开挂了",2);
+            put3("外交豁免",2);
+            put3("坚固壁垒",2);
+            put3("双刀流",2);
+            put3("恢复的宠爱",2);
+            put3("不详契约",2);
+            put3("每日属性翻倍",2);
+            put3("孤注一掷",2);
+            put3("亮出你的枪",2);
+            put3("潘多拉魔盒",2);
+            put3("300颗够吗",2);
+            put3("血之饥渴",2);
+            put3("当务之急安装洋柿子",2);
+            put3("我秒升级",2);
+            put3("越级挑战",2);
+            put3("最大护甲转生命再生",2);
+            put3("暴击不暴击",2);
+            put3("究极玻璃大炮",2);
+            put3("踢踏舞",2);
+            put3("无限火力",2);
+            put3("装备星蚀",2);
+            put3("出售防具Bug",2);
+            put3("出售武器Bug",2);
+            put3("千锤百炼",2);
+            put3("无法刷新海克斯",2);
+            put3("物法皆修",2);
+            put3("闪避的宠爱",2);
+            put3("吞噬灵魂",2);
+            put3("属性转换",2);
+            put3("+10086",2);
+            put3("大饥霸",2);
+            put3("重殇",2);
+            put3("海克斯获取:掉落",2);
+            put3("歌尽云梦",2);
+            put3("红包",2);
+            put3("飞身踢",2);
+            put3("科学狂人",2);
+            put3("衰退的堕落",2);
+            put3("缩小引擎",2);
+            put3("坦克引擎",2);
+            put3("均衡打击",2);
+            put3("解除人体限制的诅咒",2);
+            put3("超凡邪恶",2);
+            put3("人不犯我我不犯人",2);
+            put3("我等你",2);
+            put3("属性叠属性叠",2);
+            put3("吸血习性",2);
+            put3("电火迸射",2);
+            put3("玄武",2);
+            put3("作弊我能复活",2);
+            put3("我无限回档洞悉所有底牌",2);
+            put3("歌利亚巨人",2);
+            put3("巨型坦克",2);
+            put3("蛋白粉奶昔",2);
+            put3("我独自升级",2);
+            put3("古神",2);
+            put3("杀戮之神",2);
+            put3("沃尔夫冈",2);
+            put3("空手道",2);
+            put3("升级升级",2);
+            put3("毒素",2);
+            put3("智慧的宠爱",2);
+            put3("属性买买买",2);
+            put3("铜皮铁骨",2);
+            put3("最终Boss",2);
+            put3("生命的祝福",2);
+            put3("炼狱导管",2);
+            put3("你赢了老弟",2);
 
-            put3("战神",2,false);
-            put3("法神",2,false);
-            put3("无妨我已经看到了未来",2,false);
+            put3("战神",2);
+            put3("法神",2);
+            put3("无妨我已经看到了未来",2);
         }
     }
 
@@ -842,6 +850,7 @@ public class Hero extends Char {
             case "狂热者":return "+3%魔力的暴击率和攻速";
             case "磨刀霍霍向猪羊":return "每次交互魔法绵羊永久+刀类武器7.5%攻击";
             case "冰寒":return "敌人的额外移速-0.1(固定减移速)";
+            case "吃虫饱兰博":return "击杀水蛭，永久+20最大生命";
             case "升级综合属性":return "综合属性现在会改变治疗护盾，为150%效果";
             case "缩小射线":return "战斗状态的敌人大小-0.15，且敌人的伤害为大小";
             case "我是瘦子":return "你不能吃饭，只能在饥饿值为0的时候才能吃饭，且饥饿速度减75%，但是饥饿的伤害翻倍";
@@ -858,6 +867,7 @@ public class Hero extends Char {
             case "先攻":return "对敌人的首次物理攻击造成额外10%伤害，并获得20%伤害的金币";
             case "装备死亡之舞":return "受到的物理攻击30%，像流血那样";
             case "血气方刚":return "防御+吸血+全能吸血";
+            case "什么档次也配和我同等级":return "物理攻击对同等级敌人+150%伤害";
             case "屠夫":return "物理攻击生物类型敌人时候1/8概率掉落生肉";
             case "升级死神镰刀":return "无需残血也能造成暴击伤害，且残血也能再次x暴击伤害";
             case "电能震荡":return "冲击波法杖额外造成最大攻击力的伤害";
@@ -887,8 +897,8 @@ public class Hero extends Char {
             case "升级蓄血圣杯":return "生命再生额外恢复2.25%已损失生命";
             case "升级丰饶之角":return "每层充能填充+100%，充能速度+45%";
             case "升级法师魔杖":return "+50%魔杖等级";
-            case "铁布衫":return "防御+550%";
-            case "龙鳞甲":return "防御+200%";
+            case "铁布衫":return "布甲防御+550%";
+            case "龙鳞甲":return "鳞甲防御+200%";
             case "升级荣誉纹章":return "恢复护甲速h度+650%，最大护甲+防具阶级+防具等级";
             case "升级暗杀之刃":return "伏击率能暴击";
             case "升级饮血之剑":return "+5%吸血，同时无需满血也能恢复护盾";
@@ -911,6 +921,7 @@ public class Hero extends Char {
             case "属性:暗":return "解离法杖和影织法杖魔力收益+50%";
             case "属性:地":return "灵壤法杖和落石法杖魔力收益+50%";
             case "炸弹狂人":return "炸弹爆炸后获得一个炸弹";
+            case "彼岸":return "地牢将有1/8概率生成的是隐形怪，但是你击杀敌人获得的经验x2";
             case "黑市:升级卷轴":return "商店会卖升级卷轴x3";
             case "黑市:力量药剂":return "商店会卖力量药剂x2";
             case "黑市:六神之戒":return "1区商店会卖六神之戒";
@@ -986,6 +997,7 @@ public class Hero extends Char {
             case "海克斯获取:贸易":return "商店会卖海克斯宝典";
             case "我不是人我只是个怪物":return "每回合1/7概率阅读恐惧卷轴";
             case "高级5阶武器库":return "随机+15等级的三选一5阶武器，可以让5阶武器库也是+15";
+            case "健身":return "物理攻击永久+0.05力量";
             case "高级法杖库":return "随机+15等级的三选一法杖，可以让法杖库也是+15";
             case "高级戒指库":return "随机+15等级的三选一戒指，可以让戒指库也是+15";
             case "我是地牢大佬":return "综合属性+挑战数量x10%+炼狱数量x20%-解压数量x10%-系统数量x20%-派对数量x30%+赛季数量x30%";
@@ -1140,12 +1152,14 @@ public class Hero extends Char {
             case "梦魇":return "恐惧一个敌人时，永久+45力量";
             case "秘术冲拳":return "物理攻击法杖神器武器充能0.625";
             case "区区致命伤":return "根据已损失生命，获得伤害减免，最多90%";
+            case "至死方休:老婆":return "你将受老婆保护，老婆无限命中，无限闪避";
             case "太阳神":return "光照范围+7，击杀敌人1/3概率永久+1光照范围，物理攻击额外造成光照范围的魔法伤害";
             case "血之饥渴":return "物理攻击额外造成10%最大攻击的魔法伤害，在半血以下时候同时恢复伤害的生命，在残血以下时恢复的生命x2.5";
             case "孤注一掷":return "综合属性-45%，并随机获得5个海克斯";
             case "潘多拉魔盒":return "随机获得4个海克斯，但是海克斯组加入10个没啥用";
             case "当务之急安装洋柿子":return "随机获得3个海克斯";
             case "我秒升级":return "升级所需经验改为等级";
+            case "越级挑战":return "敌人生命、攻击和防御、命中和闪避-25地牢层数计算";
             case "最大护甲转生命再生":return "生命再生+1%最大护甲";
             case "无限火力":return "法杖，神器，武器充能速度+350%，总攻速x2，但是治疗护盾-50%";
             case "暴击不暴击":return "未暴击也能+暴击伤害";
@@ -1214,27 +1228,30 @@ public class Hero extends Char {
                 if(Dungeon.hero())
                 更新数据();
                 return;
+            case "至死方休:老婆":
+                Buff.施加(this,老婆保护.class);
+                return;
             case "不是哥们我海克斯呢":
                 int 数量=0;
-                for(海克斯 s:海克斯表1.海克斯表){
-                    if(s.获得){
+                for(海克斯 s:海克斯表1){
+                    if(海克斯表.contains(s)){
                         Notes.remove(Notes.findCustomRecord(s.名字));
-                        s.获得=false;
+                        海克斯表.remove(s);
                         数量++;
                     }
                 }
-                for(海克斯 s:海克斯表2.海克斯表){
-                    if(s.获得){
+                for(海克斯 s:海克斯表2){
+                    if(海克斯表.contains(s)){
                         Notes.remove(Notes.findCustomRecord(s.名字));
-                        s.获得=false;
+                        海克斯表.remove(s);
                         数量++;
                     }
                 }
 
-                for(海克斯 s:海克斯表3.海克斯表){
-                    if(s.获得){
+                for(海克斯 s:海克斯表3){
+                    if(海克斯表.contains(s)){
                         Notes.remove(Notes.findCustomRecord(s.名字));
-                        s.获得=false;
+                        海克斯表.remove(s);
                         数量++;
                     }
                 }
@@ -1446,34 +1463,34 @@ public class Hero extends Char {
 
     public void 降低海克斯(String ss){
 
-        for(海克斯 s:海克斯表1.海克斯表){
+        for(海克斯 s:海克斯表1){
             if(s.名字.equals(ss))
                 s.权重=1;
         }
 
-        for(海克斯 s:海克斯表2.海克斯表){
+        for(海克斯 s:海克斯表2){
             if(s.名字.equals(ss))
                 s.权重=1;
         }
 
-        for(海克斯 s:海克斯表3.海克斯表){
+        for(海克斯 s:海克斯表3){
             if(s.名字.equals(ss))
                 s.权重=1;
         }
     }
     public void 移除海克斯(String ss){
 
-        for(海克斯 s:海克斯表1.海克斯表){
+        for(海克斯 s:海克斯表1){
             if(s.名字.equals(ss))
                 s.权重=0;
         }
 
-        for(海克斯 s:海克斯表2.海克斯表){
+        for(海克斯 s:海克斯表2){
             if(s.名字.equals(ss))
                 s.权重=0;
         }
 
-        for(海克斯 s:海克斯表3.海克斯表){
+        for(海克斯 s:海克斯表3){
             if(s.名字.equals(ss))
                 s.权重=0;
         }
@@ -1485,19 +1502,17 @@ public class Hero extends Char {
         Notes.备注(物品表.海克斯宝典,海克斯级(ss)+"级:"+ss,海克斯描述(ss));
         GLog.w("你已备注了选择的海克斯。");
         
-            for(海克斯 s:海克斯表1.海克斯表){
+            for(海克斯 s:海克斯表1){
                 if(s.名字.equals(ss))
-                    s.获得=true;
+                    海克斯表.add(s);
             }
-
-            for(海克斯 s:海克斯表2.海克斯表){
+            for(海克斯 s:海克斯表2){
                 if(s.名字.equals(ss))
-                    s.获得=true;
+                    海克斯表.add(s);
             }
-
-            for(海克斯 s:海克斯表3.海克斯表){
+            for(海克斯 s:海克斯表3){
                 if(s.名字.equals(ss))
-                    s.获得=true;
+                    海克斯表.add(s);
             }
 
         海克斯触发(ss);
@@ -1553,7 +1568,7 @@ public class Hero extends Char {
 
             //endregion
 
-        海克斯表 海克斯表=海克斯表1;
+        ArrayList<海克斯> 海克斯表=海克斯表1;
         if(随机等级==-1){
             if(等级==2){
                 海克斯表=海克斯表2;
@@ -1563,16 +1578,16 @@ public class Hero extends Char {
             }
         }else 海克斯表=Random.oneOf(海克斯表1,海克斯表2,海克斯表3);
 
-            float[] 权重表=new float[海克斯表.海克斯表.size()];
+            float[] 权重表=new float[海克斯表.size()];
             int 权重位=0;
-            for(海克斯 s:海克斯表.海克斯表){
+            for(海克斯 s:海克斯表){
                 权重表[权重位]=s.权重();
                 权重位++;
             }
 
-            float[] 随机权重表=new float[海克斯表.海克斯表.size()];
+            float[] 随机权重表=new float[海克斯表.size()];
             int 随机权重位=0;
-            for(海克斯 s:海克斯表.海克斯表){
+            for(海克斯 s:海克斯表){
                 随机权重表[随机权重位]=s.权重;
                 随机权重位++;
             }
@@ -1581,10 +1596,10 @@ public class Hero extends Char {
             随机权重位=Random.chances(随机权重表);
             String key="";
             if(完全随机){
-                key=海克斯表.海克斯表.get(随机权重位).名字;
+                key=海克斯表.get(随机权重位).名字;
 
             }else {
-                key=海克斯表.海克斯表.get(权重位).名字;
+                key=海克斯表.get(权重位).名字;
             }
 
             //找不到
@@ -1664,27 +1679,21 @@ public class Hero extends Char {
         return 海克斯级(s)!=0;
     }
     public static int 海克斯级(String sl){
-        for(海克斯 s:海克斯表1.海克斯表){
+        for(海克斯 s:海克斯表1){
             if(s.名字.equals(sl))return 1;
         }
-        for(海克斯 s:海克斯表2.海克斯表){
-            if(s.名字.equals(sl))return 1;
+        for(海克斯 s:海克斯表2){
+            if(s.名字.equals(sl))return 2;
         }
-        for(海克斯 s:海克斯表3.海克斯表){
-            if(s.名字.equals(sl))return 1;
+        for(海克斯 s:海克斯表3){
+            if(s.名字.equals(sl))return 3;
         }
         return 0;
     }
 
     public boolean 符文(String sn){
-        for(海克斯 s:海克斯表1.海克斯表){
-            if(s.名字.equals(sn)&&s.获得)return true;
-        }
-        for(海克斯 s:海克斯表2.海克斯表){
-            if(s.名字.equals(sn)&&s.获得)return true;
-        }
-        for(海克斯 s:海克斯表3.海克斯表){
-            if(s.名字.equals(sn)&&s.获得)return true;
+        for(海克斯 s:海克斯表){
+            if(s.名字.equals(sn))return true;
         }
         return false;
     }
@@ -2094,6 +2103,7 @@ public class Hero extends Char {
     protected static final String 增加攻击的攻速x    = "增加攻击的攻速";
     private static final String EXPERIENCE = "exp";
     private static final String HTBOOST = "htboost";
+    private static final String 海克斯表x = "海克斯表";
     private static final String 海克斯表1x = "海克斯表1";
     private static final String 海克斯表2x = "海克斯表2";
     private static final String 海克斯表3x = "海克斯表3";
@@ -2183,6 +2193,7 @@ public class Hero extends Char {
 
         bundle.put(HTBOOST, HTBoost);
 
+        bundle.put(海克斯表x, 海克斯表);
         bundle.put(海克斯表1x, 海克斯表1);
         bundle.put(海克斯表2x, 海克斯表2);
         bundle.put(海克斯表3x, 海克斯表3);
@@ -2266,11 +2277,30 @@ public class Hero extends Char {
 
         HTBoost = bundle.getInt(HTBOOST);
 
-        海克斯表1 = (海克斯表)bundle.get(海克斯表1x);
-        海克斯表2 = (海克斯表)bundle.get(海克斯表2x);
-        海克斯表3 = (海克斯表)bundle.get(海克斯表3x);
-
-
+        for (Bundlable item : bundle.getCollection(海克斯表x)) {
+            if (item != null){
+                //force-add the item if necessary, such as if its item category changed after an update
+                海克斯表.add((海克斯) item);
+            }
+        }
+        for (Bundlable item : bundle.getCollection(海克斯表1x)) {
+            if (item != null){
+                //force-add the item if necessary, such as if its item category changed after an update
+                海克斯表1.add((海克斯) item);
+            }
+        }
+        for (Bundlable item : bundle.getCollection(海克斯表2x)) {
+            if (item != null){
+                //force-add the item if necessary, such as if its item category changed after an update
+                海克斯表2.add((海克斯) item);
+            }
+        }
+        for (Bundlable item : bundle.getCollection(海克斯表3x)) {
+            if (item != null){
+                //force-add the item if necessary, such as if its item category changed after an update
+                海克斯表3.add((海克斯) item);
+            }
+        }
         super.restoreFromBundle(bundle);
 
         heroClass = bundle.getEnum(CLASS, HeroClass.class);
@@ -2493,8 +2523,6 @@ public class Hero extends Char {
         Buff.施加(this, 再生.class);
         Buff.施加(this, Hunger.class);
 
-        if(heroClass(HeroClass.灵猫))
-        Buff.施加(this,白猫保护.class);
     }
 
     public static int tier(HeroClass heroClass,Armor armor) {
@@ -2803,7 +2831,7 @@ public class Hero extends Char {
         float evasion = 最大闪避 +等级;
 
         if(heroClass(HeroClass.凌云)){
-            evasion +=5;
+            evasion +=15;
         }
         evasion += 天赋点数(Talent.顶福精华, 5);
 
@@ -3896,17 +3924,17 @@ public float 攻击延迟() {
         if(Dungeon.派对(派对设置.海克斯)&&算法.isDebug()){
             if(Random.Int(24)==0)
             选择海克斯(随机海克斯());
-            int x1=0;
-            int x2=0;
-            int x3=0;
-            for(海克斯 s:海克斯表1.海克斯表){
-                if(!s.获得)x1++;
+            int x1=海克斯表1.size();
+            int x2=海克斯表2.size();
+            int x3=海克斯表3.size();
+            for(海克斯 s:海克斯表1){
+                if(海克斯表.contains(s))x1--;
             }
-            for(海克斯 s:海克斯表2.海克斯表){
-                if(!s.获得)x2++;
+            for(海克斯 s:海克斯表2){
+                if(海克斯表.contains(s))x1--;
             }
-            for(海克斯 s:海克斯表3.海克斯表){
-                if(!s.获得)x3++;
+            for(海克斯 s:海克斯表3){
+                if(海克斯表.contains(s))x1--;
             }
             算法.调试("海克斯1级还剩"+x1+"个");
             算法.调试("海克斯2级还剩"+x2+"个");
@@ -4023,7 +4051,7 @@ public float 攻击延迟() {
                 }
             }
         }
-        蛇皮走位=Math.min(3,蛇皮走位+1);
+        蛇皮走位=Math.min(10,蛇皮走位+0.5f);
 
 
         if(++变脸>=3){
@@ -5121,7 +5149,8 @@ public float 攻击延迟() {
         if(enemy!=null&&Dungeon.系统(系统设置.攻击成长)){
             攻击成长+=Dungeon.depth/100f;
         }
-
+        if(算法.isDebug())damage+=45;
+        if(符文("健身"))力量+=0.05f;
 
         Weapon wep;
 
@@ -5152,8 +5181,10 @@ public float 攻击延迟() {
         if(enemy!=null&&visibleEnemies()==1&&subClass(HeroSubClass.神兽之灵)){
             damage+=enemy.最大生命(0.1f+天赋点数(Talent.狂暴爪击,0.05f));
         }
-        蛇皮走位=Math.min(3,蛇皮走位+0.5f);
-        if(蛇皮走位==3&&sprite!=null){
+        if(enemy!=null)
+        蛇皮走位=Math.min(10,蛇皮走位+0.5f);
+
+        if(蛇皮走位==10){
             sprite.歪嘴();
             蛇皮走位=0;
 
@@ -5195,6 +5226,9 @@ public float 攻击延迟() {
         }
         if(天赋(Talent.灵魂摄击))
         damage+=力量()*天赋点数(Talent.灵魂摄击,0.25f);
+
+        if(天赋(Talent.响破云霄))
+        damage+=最大防御()*天赋点数(Talent.响破云霄,0.35f);
 
         if (buff(Kinetic.ConservedDamage.class) != null) {
             float conservedDamage = 0;
@@ -5627,6 +5661,9 @@ public float 攻击延迟() {
             if(视野范围(enemy))
                 伤害倍率+=0.15f;
         }
+        if(enemy instanceof Mob m&&符文("什么档次也配和我同等级")&&m.最大等级==等级){
+            伤害倍率+=1.5f;
+        }
         if(enemy!=null&&符文("专注")&&enemy.isAlive()){
             if(enemy.hasbuff(专注.class))
                 伤害倍率+=0.15f;
@@ -5881,7 +5918,7 @@ public float 攻击延迟() {
             }
         }
         if(enemy!=null&&heroClass(HeroClass.凌云)){
-            enemy.受伤(damage*(0.25f+天赋点数(Talent.响破云霄,0.55f)));
+            enemy.受伤(damage);
         }
         if(enemy!=null&&subClass(HeroSubClass.金刚独狼))回已损失血(0.005f+天赋点数(Talent.嗜血如故,0.005f)+(职业精通()?0.005f:0));
         if(hasbuff(Hunger.class)){
@@ -5939,6 +5976,10 @@ public float 攻击延迟() {
         if (buff(时光沙漏.timeStasis.class) != null
             || buff(TimeStasis.class) != null) {
             return;
+        }
+        //TODO hero cannot take damage in the vault tester area
+        if (Dungeon.depth > 15 && Dungeon.branch == 1){
+            dmg = 0;
         }
         //regular damage interrupt, triggers on any damage except specific mild DOT effects
         // unless the player recently hit 'continue moving', in which case this is ignored
@@ -7543,14 +7584,8 @@ public float 攻击延迟() {
         }
         if(符文("海克斯收集家")){
             int 海克斯数量=0;
-            for(海克斯 s:海克斯表1.海克斯表){
-                if(s.获得)海克斯数量++;
-            }
-            for(海克斯 s:海克斯表2.海克斯表){
-                if(s.获得)海克斯数量++;
-            }
-            for(海克斯 s:海克斯表3.海克斯表){
-                if(s.获得)海克斯数量++;
+            for(海克斯 s:海克斯表){
+                if(s!=null)海克斯数量++;
             }
             x+=海克斯数量*0.1f;
         }

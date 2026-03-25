@@ -186,26 +186,26 @@ public class 魔法冰霜房间 extends SpecialRoom {
 								clearAll = true;
 							}
 						}
-						l.passable[cell] = cur[cell] == 0 && (Terrain.flags[l.map[cell]] & Terrain.PASSABLE) != 0;
 					}
 
 					if (cur[cell] > 0
 							|| cur[cell-1] > 0
 							|| cur[cell+1] > 0
 							|| cur[cell-Dungeon.level.width()] > 0
-							|| cur[cell+Dungeon.level.width()] > 0) {
+							|| cur[cell+Dungeon.level.width()] > 0){
 
-						Char ch = Actor.findChar( cell );
-						if (ch != null) {
-							if (Dungeon.level.water[ch.pos]){
-								Buff.延长(ch, Frost.class, Frost.DURATION * 3);
-							} else {
-								Buff.延长(ch, Frost.class, Frost.DURATION);
+						Char ch=Actor.findChar(cell);
+						if(ch!=null){
+							if(Dungeon.level.water[ch.pos]){
+								Buff.延长(ch,Frost.class,Frost.DURATION*3);
+							}else{
+								Buff.延长(ch,Frost.class,Frost.DURATION);
 							}
-						}
-						Heap heap = Dungeon.level.heaps.get( cell );
-						if (heap != null) {
-							heap.freeze();
+
+							//burn adjacent heaps, but only on outside and non-water cells
+							if(Dungeon.level.heaps.get(cell)!=null&&Dungeon.level.map[cell]!=Terrain.EMPTY_SP&&Dungeon.level.map[cell]!=Terrain.WATER){
+								Dungeon.level.heaps.get(cell).freeze();
+							}
 						}
 					}
 
@@ -253,7 +253,7 @@ public class 魔法冰霜房间 extends SpecialRoom {
 		@Override
 		public void use( BlobEmitter emitter) {
 			super.use( emitter );
-			emitter.start(SnowParticle.FACTORY,0.05f,0);
+			emitter.start(SnowParticle.FACTORY,0.02f);
 		}
 
 		@Override
@@ -291,7 +291,7 @@ public class 魔法冰霜房间 extends SpecialRoom {
 		@Override
 		public void seed(Level level, int cell, int amount) {
 			super.seed(level, cell, amount);
-			level.passable[cell] = cur[cell] == 0 && (Terrain.flags[level.map[cell]] & Terrain.PASSABLE) != 0;
+			level.updateCellFlags(cell);
 		}
 
 		@Override
@@ -312,8 +312,16 @@ public class 魔法冰霜房间 extends SpecialRoom {
 		public void onBuildFlagMaps( Level l ) {
 			if (volume > 0){
 				for (int i=0; i < l.length(); i++) {
-					l.passable[i] = l.passable[i] && cur[i] == 0;
+					onUpdateCellFlags(l, i);
 				}
+				}
+			}
+
+		@Override
+		public void onUpdateCellFlags(Level l, int cell) {
+			if(volume > 0 && cur[cell] > 0) {
+				l.passable[cell] = false;
+				l.avoid[cell] = false;
 			}
 		}
 	}

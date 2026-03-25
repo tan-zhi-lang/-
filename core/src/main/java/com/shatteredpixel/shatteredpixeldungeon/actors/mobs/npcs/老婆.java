@@ -7,21 +7,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.老婆保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.白猫动画;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.老婆动画;
 import com.watabou.utils.Bundle;
 
-public class 白猫 extends NPC {
+public class 老婆 extends NPC {
 	
 	{
-		spriteClass = 白猫动画.class;
+		spriteClass = 老婆动画.class;
 		
 		alignment = Alignment.ALLY;
 		intelligentAlly = true;
@@ -36,6 +33,7 @@ public class 白猫 extends NPC {
 	
 	private Hero hero;
 	private int heroID;
+	public int armTier;
 	
 	@Override
 	protected boolean act() {
@@ -49,8 +47,7 @@ public class 白猫 extends NPC {
 			if ( hero==null)
 				hero = (Hero) Actor.findById(heroID);
 
-			Buff.施加(hero, 白猫保护.class);
-			算法.调试("buff猫");
+			Buff.施加(hero, 老婆保护.class);
 			destroy();
 
 			sprite.die();
@@ -76,17 +73,20 @@ public class 白猫 extends NPC {
 	}
 
 	private static final String HEROID	= "hero_id";
+	private static final String ARMTIER	= "armTier";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle( bundle );
 		bundle.put( HEROID, heroID );
+		bundle.put( ARMTIER, armTier );
 	}
 	
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		heroID = bundle.getInt( HEROID );
+		armTier = bundle.getInt( ARMTIER );
 	}
 	
 	public void duplicate( Hero hero) {
@@ -131,35 +131,19 @@ public class 白猫 extends NPC {
 	
 	@Override
 	public int 最小命中(Char target ) {
-		if (hero != null) {
-			return hero.最小命中(target);
-		}else{
-			return 0;
-		}
+		return INFINITE;
 	}
 	@Override
 	public int 最大命中(Char target ) {
-		if (hero != null) {
-			return hero.最大命中(target);
-		} else {
-			return 0;
-		}
+		return INFINITE;
 	}
 	@Override
 	public int 最小闪避(Char target ) {
-		if (hero != null) {
-			return hero.最小闪避(target);
-		} else {
-			return 0;
-		}
+		return INFINITE;
 	}
 	@Override
 	public int 最大闪避(Char enemy) {
-		if (hero != null) {
-			return hero.最大闪避(enemy);
-		} else {
-			return 0;
-		}
+		return INFINITE;
 	}
 	
 	@Override
@@ -202,11 +186,7 @@ public class 白猫 extends NPC {
 	@Override
 	public void 受伤时(float dmg,Object src){
 		if (hero != null){
-			hero.受伤时(dmg*(1-
-										(hero.subClass(HeroSubClass.黑白双子)?0.075f:0)
-										-hero.天赋点数(Talent.白猫主导,0.15f)
-										-hero.天赋点数(Talent.职业精通,0.15f)
-										),src);
+			hero.受伤时(dmg,src);
 		}
 	}
 	
@@ -223,6 +203,7 @@ public class 白猫 extends NPC {
 	public CharSprite sprite() {
 		CharSprite s = super.sprite();
 		hero = (Hero)Actor.findById(heroID);
+		armTier=Math.max(hero.等级/8,1);
 		return s;
 	}
 	
@@ -239,7 +220,7 @@ public class 白猫 extends NPC {
 				if ( hero==null)
 					hero = (Hero) Actor.findById(heroID);
 
-				Buff.施加(hero, 白猫保护.class);
+				Buff.施加(hero, 老婆保护.class);
 				destroy();
 				sprite.die();
 

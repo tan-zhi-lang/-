@@ -295,7 +295,7 @@ public class WndHero extends WndTabbed {
 
 			statSlot( "_暴击率/暴击伤害_", Math.round(hero.暴击率()*100)+"%/"+Math.round(hero.暴击伤害()*100)+"%");
 
-			statSlot( "==穿甲/护甲穿透==", hero.穿甲()+"/"+Math.round(hero.护甲穿透()*100)+"%");
+			statSlot( "==穿甲/护甲穿透==", kw2(hero.穿甲())+"/"+Math.round(hero.护甲穿透()*100)+"%");
 
 			pos += GAP;
 			statSlot( "##魔抗/元素抗性##",kw2(AntiMagic.drRoll(hero, hero.glyphLevel(AntiMagic.class)))+"/"+Math.round(

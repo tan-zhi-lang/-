@@ -1267,10 +1267,12 @@ public class HeroSelectScene extends PixelScene {
                 titlebar.setRect( 0, 0, 120, 8 );
                 add(titlebar);
 
-                RenderedTextBlock desc = PixelScene.renderTextBlock("       _-_ 生命："+Dungeon.难度生命()
-                                                                    +"            _-_ 攻击："+Dungeon.难度攻击()
-                                                                    +"\n\n        _-_ 经验："+Dungeon.难度经验()
-                                                                    +"            _-_ 掉率："+Dungeon.难度掉率()+"\n",6);
+                RenderedTextBlock desc = PixelScene.renderTextBlock(" _-_ 最大生命："+Dungeon.难度生命()
+                                                                    +"     _-_ 攻击："+Dungeon.难度攻击()
+                                                                    +"     _-_ 防御："+Dungeon.难度防御()
+                                                                    +"\n\n _-_ 命中闪避："+Dungeon.难度命中闪避()
+                                                                    +"     _-_ 经验："+Dungeon.难度经验()
+                                                                    +"     _-_ 掉率："+Dungeon.难度掉率()+"\n",6);
                 desc.setRect( 0, titlebar.bottom(), 120, 12 );
                 add(desc);
                 optChals = new OptionSlider(Dungeon.难度名称(), "1", "16", 1, 16) {
@@ -1278,10 +1280,12 @@ public class HeroSelectScene extends PixelScene {
                     protected void onChange() {
                         Dungeon.难度=optChals.getSelectedValue();
                         titlebar.label(Dungeon.难度名称());
-                        desc.text("        _-_ 生命："+Dungeon.难度生命()
-                                  +"            _-_ 攻击："+Dungeon.难度攻击()
-                                  +"\n\n        _-_ 经验："+Dungeon.难度经验()
-                                  +"            _-_ 掉率："+Dungeon.难度掉率()+"\n");
+                        desc.text(" _-_ 最大生命："+Dungeon.难度生命()
+                                  +"     _-_ 攻击："+Dungeon.难度攻击()
+                                  +"     _-_ 防御："+Dungeon.难度防御()
+                                  +"\n\n _-_ 命中闪避："+Dungeon.难度命中闪避()
+                                  +"     _-_ 经验："+Dungeon.难度经验()
+                                  +"     _-_ 掉率："+Dungeon.难度掉率()+"\n");
                     }
                 };
                 optChals.setSelectedValue(难度);

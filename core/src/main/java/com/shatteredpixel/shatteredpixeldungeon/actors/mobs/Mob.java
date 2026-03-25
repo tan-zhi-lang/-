@@ -991,7 +991,7 @@ public abstract class Mob extends Char{
 				}
 
 				if(!Dungeon.赛季(赛季设置.地牢塔防)){
-					Dungeon.hero.经验(exp,getClass());
+					Dungeon.hero.经验(exp*(1+(Dungeon.符文("彼岸")?1:0)),getClass());
 				}
 
 				if(Dungeon.hero.subClass==HeroSubClass.武者){
@@ -1043,7 +1043,9 @@ public abstract class Mob extends Char{
 				if(Dungeon.hero.buff(灵魂焰灯.燃烧.class).isCursed()) 可以=false;
 
 			if(可以&&防刷()){
-				if(cause==Dungeon.hero||cause instanceof Ring||cause instanceof Artifact||cause instanceof Wand||cause instanceof Weapon||cause instanceof Weapon.Enchantment){
+				if(cause==Dungeon.hero||cause instanceof Ring||
+				   cause instanceof Artifact||cause instanceof Wand||
+				   cause instanceof Weapon||cause instanceof Weapon.Enchantment){
 
 					if(!isAlive()){
 						if(Dungeon.hero.subClass(HeroSubClass.戏命师))
@@ -1144,6 +1146,9 @@ public abstract class Mob extends Char{
 							if(this instanceof Skeleton){
 								Dungeon.level.drop(new ScrollOfSirensSong().数量(2),pos).sprite.drop();
 							}
+						}
+						if(Dungeon.符文("吃虫饱兰博")&&this instanceof 水蛭){
+							Dungeon.hero.生命成长+=20;
 						}
 						if(Dungeon.符文("我是色批")&&this instanceof Succubus){
 							Dungeon.hero.力量+=10;
@@ -1481,7 +1486,7 @@ public abstract class Mob extends Char{
 			desc+="攻速/移速"+String.format("%.2f",1f/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
 			desc+="_暴击率/暴击伤害_"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
 			desc+="经验/经验等级上限"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
-			String 战利品="视其他机制掉落";
+			String 战利品="";
 			if(loot instanceof Item i){
 				战利品=i.name();
 			}

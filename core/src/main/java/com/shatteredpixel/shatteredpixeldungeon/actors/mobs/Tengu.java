@@ -1108,12 +1108,15 @@ public class Tengu extends Mob {
 			@Override
 			protected void onThrow(int cell) {
 				super.onThrow(cell);
+				ShockerAbility buff;
 				if (throwingChar != null){
-					Buff.新增(throwingChar, ShockerAbility.class).shockerPos = cell;
+					buff = Buff.新增(throwingChar, ShockerAbility.class);
 					throwingChar = null;
 				} else {
-					Buff.新增(curUser, ShockerAbility.class).shockerPos = cell;
+					buff = Buff.新增(curUser, ShockerAbility.class);
 				}
+				buff.shockerPos = cell;
+				buff.spendToWhole(); //to ensure its aligned with blob logic
 			}
 			
 			@Override

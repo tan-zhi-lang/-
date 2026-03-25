@@ -287,6 +287,16 @@ public class 冲锋枪 extends Weapon{
 			hitSound = Assets.Sounds.冲锋枪;
 			item_Miss = Assets.Sounds.冲锋枪;
 		}
+
+		@Override
+		public ArrayList<String> actions(Hero hero) {
+			return new ArrayList<>();
+		}
+
+		@Override
+		public String defaultAction() {
+			return null;
+		}
 		@Override
 		public float 最小投掷攻击(int lvl) {
 			return 冲锋枪.this.最小枪械攻击(lvl);

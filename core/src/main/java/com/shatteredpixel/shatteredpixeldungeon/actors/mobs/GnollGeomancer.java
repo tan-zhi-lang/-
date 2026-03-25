@@ -204,7 +204,7 @@ public class GnollGeomancer extends Mob {
 
 					dmg = Math.min(dmg, buff(RockArmor.class).护盾量());
 
-					GnollGeomancer.this.受伤时(dmg, p);
+					受伤时(dmg, p);
 					sprite.bloodBurstA(Dungeon.hero.sprite.center(), dmg);
 					sprite.flash();
 
@@ -273,6 +273,8 @@ public class GnollGeomancer extends Mob {
 
 		if (newBracket != curbracket) {
 			//cannot be hit through multiple brackets at a time
+
+
 			if (生命 <= (curbracket-1)*hpBracket){
 				生命 = (curbracket-1)*hpBracket + 1;
 			}
@@ -280,8 +282,11 @@ public class GnollGeomancer extends Mob {
 			BossHealthBar.bleed(newBracket <= 0);
 
 			carveRockAndDash();
+
 			Buff.施加(this, RockArmor.class).设置(25);
 		}
+		//新加的代码，不止什么原理导致死亡没有正常触发
+		if(!isAlive())死亡时(src);
 	}
 
 	private boolean inFinalBracket = false;

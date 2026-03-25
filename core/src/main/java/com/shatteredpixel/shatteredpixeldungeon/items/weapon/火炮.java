@@ -290,6 +290,16 @@ public class 火炮 extends Weapon{
 			hitSound = Assets.Sounds.火炮;
 			item_Miss = Assets.Sounds.火炮;
 		}
+
+		@Override
+		public ArrayList<String> actions(Hero hero) {
+			return new ArrayList<>();
+		}
+
+		@Override
+		public String defaultAction() {
+			return null;
+		}
 		@Override
 		public float 最小投掷攻击(int lvl) {
 			return 火炮.this.最小枪械攻击(lvl);

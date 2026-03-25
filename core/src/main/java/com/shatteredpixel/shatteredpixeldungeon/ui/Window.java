@@ -75,7 +75,7 @@ public class Window extends Group implements Signal.Listener<KeyEvent> {
 			width - chrome.x + chrome.marginRight(),
 			height - chrome.y + chrome.marginBottom() );
 		add( chrome );
-		
+
 		camera = new Camera( 0, 0,
 			(int)chrome.width,
 			(int)chrome.height,

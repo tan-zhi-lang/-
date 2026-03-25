@@ -1,11 +1,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.particles.Emitter;
+
+import java.util.ArrayList;
 
 public class 神圣长枪 extends Weapon{
 
@@ -14,6 +17,16 @@ public class 神圣长枪 extends Weapon{
 			hitSound = Assets.Sounds.HIT_STAB;
 		}
 
+
+	@Override
+	public ArrayList<String> actions(Hero hero) {
+		return new ArrayList<>();
+	}
+
+	@Override
+	public String defaultAction() {
+		return null;
+	}
 		@Override
 		public ItemSprite.Glowing glowing() {
 			return new ItemSprite.Glowing(0xFFFFFF,0.1f);

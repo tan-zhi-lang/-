@@ -1014,8 +1014,8 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		}
 		
-		if (defender!=null&&!已鉴定() && ShardOfOblivion.passiveIDDisabled()){
-			Buff.延长(curUser, ShardOfOblivion.ThrownUseTracker.class, 50f);
+		if (attacker == Dungeon.hero && defender!=null&&!已鉴定() && ShardOfOblivion.passiveIDDisabled()){
+			Buff.延长(Dungeon.hero, ShardOfOblivion.ThrownUseTracker.class, 50f);
 		}
 		
 		return result;

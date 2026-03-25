@@ -606,6 +606,9 @@ public class Item implements Bundlable {
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
 
+			if(算法.isDebug())
+				this.等级+=100;
+
 			if(Dungeon.符文("衰退的堕落")){
 				this.等级++;
 				this.等级++;

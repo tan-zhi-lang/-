@@ -592,6 +592,10 @@ public abstract class Level implements Bundlable {
 		
 		m.生命=m.最大生命=Math.round(m.最大生命*Dungeon.难度生命());
 
+		if(Dungeon.符文("彼岸")&&Random.Int(7)==0)
+		算法.修复效果(()->{
+			Buff.延长(m,Invisibility.class,25*450*2);
+		});
 		if(Dungeon.符文("我无限回档洞悉所有底牌")&&Random.Int(9)==0)
 		算法.修复效果(()->{
 			Buff.延长(m,Invisibility.class,25*450*2);
@@ -1108,38 +1112,33 @@ public abstract class Level implements Bundlable {
 			level.traps.remove( cell );
 		}
 
+		level.updateCellFlags(cell);
+	}
+
+	public void updateCellFlags( int cell ){
+		int terrain = map[cell];
+
 		int flags = Terrain.flags[terrain];
-		level.passable[cell]		= (flags & Terrain.PASSABLE) != 0;
-		level.losBlocking[cell]	    = (flags & Terrain.LOS_BLOCKING) != 0;
-		level.flamable[cell]		= (flags & Terrain.FLAMABLE) != 0;
-		level.secret[cell]		    = (flags & Terrain.SECRET) != 0;
-		level.solid[cell]			= (flags & Terrain.SOLID) != 0;
-		level.avoid[cell]			= (flags & Terrain.AVOID) != 0;
-		level.pit[cell]			    = (flags & Terrain.PIT) != 0;
-		level.water[cell]			= terrain == Terrain.WATER;
+		passable[cell]      = (flags & Terrain.PASSABLE) != 0;
+		losBlocking[cell]   = (flags & Terrain.LOS_BLOCKING) != 0;
+		flamable[cell]      = (flags & Terrain.FLAMABLE) != 0;
+		secret[cell]        = (flags & Terrain.SECRET) != 0;
+		solid[cell]         = (flags & Terrain.SOLID) != 0;
+		avoid[cell]         = (flags & Terrain.AVOID) != 0;
+		pit[cell]           = (flags & Terrain.PIT) != 0;
+		water[cell]         = terrain == Terrain.WATER;
 
-		if (level instanceof SewerLevel){
-			if (level.map[cell] == Terrain.REGION_DECO || level.map[cell] == Terrain.REGION_DECO_ALT){
-				level.flamable[cell] = true;
+		if (this instanceof SewerLevel){
+			if (map[cell] == Terrain.REGION_DECO || map[cell] == Terrain.REGION_DECO_ALT){
+				flamable[cell] = true;
 			}
 		}
 
-		for (int i : PathFinder.自相邻){
-			i = cell + i;
-			if (level.solid[i]){
-				level.openSpace[i] = false;
-			} else {
-				for (int j = 1; j < PathFinder.CIRCLE8.length; j += 2){
-					if (level.solid[i+PathFinder.CIRCLE8[j]]) {
-						level.openSpace[i] = false;
-					} else if (!level.solid[i+PathFinder.CIRCLE8[(j+1)%8]]
-							&& !level.solid[i+PathFinder.CIRCLE8[(j+2)%8]]){
-						level.openSpace[i] = true;
-						break;
+		for (Blob b : blobs.values()){
+			b.onUpdateCellFlags(this, cell);
 					}
-				}
-			}
-		}
+
+		updateOpenSpace(cell);
 	}
 	
 	public void dropRandomCell( Item item, int cell) {
@@ -1722,7 +1721,7 @@ public abstract class Level implements Bundlable {
 
 			Dungeon.hero.mindVisionEnemies.clear();
 
-			if(true)//感知陷阱
+			if(Dungeon.符文("M4A1星象"))//感知陷阱
 			for (IntMap.Entry<Trap> trap : Dungeon.level.traps){
 					for(int i: PathFinder.自相邻){
 						heroMindFov[trap.value.pos+i]=true;

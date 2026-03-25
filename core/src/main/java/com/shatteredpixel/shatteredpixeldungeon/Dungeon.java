@@ -374,8 +374,8 @@ public class Dungeon {
 		hero.更新生命();
 		
 		Badges.reset();
-		
 		GamesInProgress.selectedClass.initHero( hero );
+
 		Hero.海克斯重置();
 
 	}
@@ -495,18 +495,28 @@ public class Dungeon {
 		};
 	}
 	public static float 难度防御(){
-		float x=1;
+		float x=0;
 		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=5+(循环()-1 )*0.84;
 		}
-		return x;
+		return switch(难度){
+			case 1 -> 0.67f+x;
+			case 2 -> 1f+x;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
+			default -> 1+x;
+		};
 	}
 	public static float 难度命中闪避(){
-		float x=1;
+		float x=0;
 		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=4.5f+(循环()-1 )*0.75f;
 		}
-		return x;
+		return switch(难度){
+			case 1 -> 0.67f+x;
+			case 2 -> 1f+x;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
+			default -> 1+x;
+		};
 	}
 	public static boolean levelHasBeenGenerated(int depth, int branch){
 		return generatedLevels.contains(depth + 1000*branch);
@@ -1434,7 +1444,7 @@ public class Dungeon {
 		return (相对层数() - 1) / 5 + 1;
 	}
 	public static int 循环(){
-		return (Dungeon.depth-1)/25;
+		return (Dungeon.depth-1)/25-(符文("越级挑战")?1:0);
 	}
 	public static boolean 偶数层(){
 		return Dungeon.depth%2==0;

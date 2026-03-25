@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 
 public class 经验药剂 extends Potion {
 
@@ -22,7 +23,7 @@ public class 经验药剂 extends Potion {
 	public void apply( Hero hero ) {
 		鉴定();
 		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(hero.升级所需()), FloatingText.EXPERIENCE);
-		hero.经验( hero.升级所需(), getClass() );
+		hero.经验( hero.升级所需()*(算法.isDebug()?100:1), getClass() );
 		if(hero.符文("神圣的宠爱")){
 			hero.命中成长+=40;
 			hero.闪避成长+=40;

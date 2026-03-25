@@ -85,9 +85,8 @@ public class TelekineticGrab extends TargetedSpell {
 			if (h.type != Heap.Type.HEAP){
 				GLog.w(Messages.get(this, "cant_grab"));
 				hero.spend(Actor.TICK);
-				h.sprite().drop();
-				return;
-			}
+				h.sprite.drop();
+			} else {
 
 			while (!h.isEmpty()) {
 				Item item = h.peek();
@@ -98,7 +97,7 @@ public class TelekineticGrab extends TargetedSpell {
 
 				} else {
 					GLog.w(Messages.get(this, "cant_grab"));
-					h.sprite().drop();
+						h.sprite.drop();
 					break;
 				}
 			}
@@ -107,6 +106,8 @@ public class TelekineticGrab extends TargetedSpell {
 			if (totalpickupTime > 1){
 				hero.spend(-(totalpickupTime-1));
 			}
+			}
+
 		} else {
 			GLog.w(Messages.get(this, "no_target"));
 			hero.spend(Actor.TICK);

@@ -437,6 +437,7 @@ public class Assets {
 		public static final String PET      = "sprites/pet.png";
 		public static final String AMULET   = "sprites/amulet.png";
 
+		public static final String 老婆      = "sprites/老婆.png";
 		public static final String 白猫      = "sprites/白猫.png";
 		public static final String RAT      = "sprites/rat.png";
 		public static final String 蟑螂      = "sprites/蟑螂.png";

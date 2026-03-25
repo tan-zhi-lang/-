@@ -540,12 +540,19 @@ public class 骷髅钥匙 extends Artifact {
 		public void onBuildFlagMaps(Level l) {
 			if (volume > 0){
 				for (int i=0; i < l.length(); i++) {
-					l.losBlocking[i] = l.losBlocking[i] || cur[i] > 0;
-					l.solid[i] = l.solid[i] || cur[i] > 0;
-					l.passable[i] = l.passable[i] && cur[i] == 0;
-					l.avoid[i] = l.avoid[i] && cur[i] == 0;
-					//openSpace will be updated as part of building flap maps
+					onUpdateCellFlags(l, i);
 				}
+			}
+		}
+
+		@Override
+		public void onUpdateCellFlags(Level l, int cell) {
+			if (volume > 0 && cur[cell] > 0) {
+				l.losBlocking[cell] =  true;
+				l.solid[cell] = true;
+				l.passable[cell] = false;
+				l.avoid[cell] = false;
+				//openSpace will be updated as part of updating flags in Level
 			}
 		}
 

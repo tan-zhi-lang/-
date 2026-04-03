@@ -315,11 +315,11 @@ public class WndBlacksmith extends Window {
 
 					//preserves enchant/glyphs if present
 					if (first instanceof Weapon && ((Weapon) first).hasGoodEnchant()){
-						((Weapon) first).升级(true);
+						((Weapon) first).额外升级(true);
 					} else if (first instanceof Armor && ((Armor) first).hasGoodGlyph()){
-						((Armor) first).升级(true);
+						((Armor) first).额外升级(true);
 					} else {
-						first.升级();
+						first.额外升级();
 					}
 					Badges.validateItemLevelAquired( first );
 					Item.updateQuickslot();
@@ -458,7 +458,7 @@ public class WndBlacksmith extends Window {
 		@Override
 		public void onSelect(Item item) {
 			if (item != null) {
-				item.升级();
+				item.额外升级();
 				int upgradeCost = 1000 + 1000*Blacksmith.Quest.upgrades;
 				Blacksmith.Quest.favor -= upgradeCost;
 				Blacksmith.Quest.upgrades++;
@@ -518,7 +518,7 @@ public class WndBlacksmith extends Window {
 			}
 
 			WndBlacksmith.this.hide();
-				item.升级();
+
 				Blacksmith.Quest.upgrades++;
 
 				Sample.INSTANCE.play(Assets.Sounds.EVOKE);

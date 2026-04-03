@@ -299,7 +299,7 @@ public class WndHero extends WndTabbed {
 
 			pos += GAP;
 			statSlot( "##魔抗/元素抗性##",kw2(AntiMagic.drRoll(hero, hero.glyphLevel(AntiMagic.class)))+"/"+Math.round(
-					(100-(100*RingOfElements.resist(hero)-AntiMagic.drRoll(hero,hero.glyphLevel(AntiMagic.class))/100f)
+					100*(1-(RingOfElements.resist(hero))
 								))+"%");
 			pos += GAP;
 			statSlot( "_视野+光照范围_", hero.视野范围get+"+"+hero.光照范围());

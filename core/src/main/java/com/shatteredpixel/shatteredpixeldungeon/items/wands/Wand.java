@@ -92,6 +92,17 @@ public abstract class Wand extends Item {
 	}
 	public float 魔力(float 魔力收益,float 等收益,int 等级){
 		float x=1;
+		if(Dungeon.符文("多重施法")){
+			if(算法.概率学(1/2))
+			x+=1;
+			if(算法.概率学(1/4))
+			x+=2;
+			if(算法.概率学(1/8))
+			x+=4;
+			if(算法.概率学(1/16))
+			x+=8;
+		}
+		if(Dungeon.符文("溢流"))x++;
 		if(Dungeon.符文("属性:火")){
 			if(this instanceof 焰浪法杖)x+=0.5f;
 			if(this instanceof 烈焰法杖)x+=0.5f;
@@ -464,6 +475,9 @@ public abstract class Wand extends Item {
 		if(curUser.符文("不详契约"))curUser.受伤(curUser.生命(0.05f));
 		if(!算法.isDebug())
 		curCharges -= cursed ? 1 : chargesPerCast();
+
+		if(curUser.符文("溢流")&&curCharges>0)
+			curCharges -= cursed ? 1 : chargesPerCast();
 
 		if(curUser.subClass(HeroSubClass.祭司))
 			Buff.延长(curUser,Bless.class,Bless.DURATION);

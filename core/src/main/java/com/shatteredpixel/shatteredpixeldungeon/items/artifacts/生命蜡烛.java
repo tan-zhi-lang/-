@@ -98,7 +98,7 @@ public class 生命蜡烛 extends Artifact {
 	}
 
 	private float PrickDmg(){
-		return (等级()+1)*2.5f;
+		return (等级()+1)*2.5f*(Dungeon.符文("升级生命蜡烛")?0.5f:1);
 	}
 
 	private void prick(Hero hero){
@@ -118,7 +118,9 @@ public class 生命蜡烛 extends Artifact {
 
 		Catalog.countUse(getClass());
 		hero.受伤时(damage, this);
-		Buff.延长(hero,Invulnerability.class,4+等级()*2.5f);
+		Buff.延长(hero,Invulnerability.class,(4+等级()*2.5f)*(
+				hero.符文("升级生命蜡烛")?2:1
+				));
 
 		if (!hero.isAlive()) {
 			Badges.validateDeathFromFriendlyMagic();

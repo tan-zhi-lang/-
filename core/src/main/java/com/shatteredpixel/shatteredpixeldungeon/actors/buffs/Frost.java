@@ -88,6 +88,8 @@ public class Frost extends FlavourBuff {
 		super.detach();
 		float damage = Random.NormalFloat(4,12+Dungeon.scalingDepth());
 
+		if(Dungeon.hero.符文("wc冰!"))damage+=Dungeon.hero.最小攻击()+Dungeon.hero.力量()+Dungeon.hero.最大攻击();
+
 		if(Dungeon.hero.符文("冰霜之书")){
 			if(Dungeon.hero.暴击(null,1)>1)
 			damage*=Dungeon.hero.暴击伤害();

@@ -20,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.SewerLevel;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
@@ -404,6 +405,7 @@ public class Ghost extends NPC {
 			armor = null;
 			
 			Notes.remove( Notes.Landmark.GHOST );
+			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典().放背包();
 		}
 
 		public static boolean processed(){

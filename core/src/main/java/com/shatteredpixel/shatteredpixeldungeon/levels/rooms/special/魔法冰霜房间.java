@@ -250,17 +250,6 @@ public class 魔法冰霜房间 extends SpecialRoom {
 			if (heap != null) heap.freeze();
 		}
 
-		@Override
-		public void use( BlobEmitter emitter) {
-			super.use( emitter );
-			emitter.start(SnowParticle.FACTORY,0.02f);
-		}
-
-		@Override
-		public String tileDesc() {
-			return Messages.get(this,"desc");
-		}
-
 		//legacy functionality from before this was a proper blob. Returns true if this cell is visible
 		public static boolean affect( int cell ) {
 
@@ -307,6 +296,16 @@ public class 魔法冰霜房间 extends SpecialRoom {
 			Dungeon.level.buildFlagMaps();
 		}
 
+		@Override
+		public void use( BlobEmitter emitter ) {
+			super.use( emitter );
+			emitter.pour(SnowParticle.FACTORY,0.02f);
+		}
+
+		@Override
+		public String tileDesc() {
+			return Messages.get(this, "desc");
+		}
 
 		@Override
 		public void onBuildFlagMaps( Level l ) {

@@ -429,7 +429,7 @@ public class Dungeon {
 		return 小时+":"+(分钟<=9?"0"+分钟:分钟);
 	}
 	public static float 难度生命(){
-		float x=0;
+		float x=1f;
 		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=15+(循环()-1 )*5;
 		}
@@ -442,7 +442,7 @@ public class Dungeon {
 		};
 	}
 	public static float 难度攻击(){
-		float x=0;
+		float x=0.2f;
 		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=10+(循环()-1 )*1.67;
 		}

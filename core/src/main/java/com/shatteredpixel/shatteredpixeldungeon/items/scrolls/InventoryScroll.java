@@ -84,10 +84,10 @@ public abstract class InventoryScroll extends Scroll {
 	protected boolean usableOnItem( Item item ){
 		return true;
 	}
-	
+
 	protected abstract void onItemSelected( Item item );
-	
-	protected WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+
+	public WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 
 		@Override
 		public String textPrompt() {

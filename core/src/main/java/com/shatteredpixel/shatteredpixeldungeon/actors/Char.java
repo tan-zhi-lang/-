@@ -148,6 +148,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
@@ -169,6 +170,7 @@ public abstract class Char extends Actor {
 	public CharSprite sprite;
 	
 	public float 最大生命=0;
+	public float 负数生命=0;
 	public float 生命=0;
 	public float 护甲=0;
 	public float 最大护甲=0;
@@ -185,9 +187,6 @@ public abstract class Char extends Actor {
 	public int 第x次背袭 =0;
 	public boolean 产卵=true;
 	public boolean 诡异 =false;
-	public boolean 必暴 =false;
-	public boolean 必中 =false;
-	public boolean 必闪 =false;
 	public boolean 移速翻倍=false;
 	public boolean 移速减半=false;
 	public float 属性增幅 = 0.02f;
@@ -359,6 +358,7 @@ public abstract class Char extends Actor {
 	}
 	
 	protected static final String POS       = "pos";
+	protected static final String 负数生命x    = "负数生命";
 	protected static final String TAG_HP    = "HP";
 	protected static final String TAG_HT    = "HT";
 	protected static final String 护甲x    = "护甲";
@@ -380,6 +380,7 @@ public abstract class Char extends Actor {
 		super.storeInBundle( bundle );
 		
 		bundle.put( POS, pos );
+		bundle.put( 负数生命x, 负数生命);
 		bundle.put( TAG_HP, 生命);
 		bundle.put( TAG_HT, 最大生命);
 		bundle.put( 护甲x, 护甲);
@@ -402,8 +403,9 @@ public abstract class Char extends Actor {
 		super.restoreFromBundle( bundle );
 		
 		pos = bundle.getInt( POS );
-		生命 = bundle.getInt( TAG_HP );
-		最大生命 = bundle.getInt( TAG_HT );
+		负数生命 = bundle.getFloat( 负数生命x );
+		生命 = bundle.getFloat( TAG_HP );
+		最大生命 = bundle.getFloat( TAG_HT );
 		护甲 = bundle.getFloat( 护甲x );
 		最大护甲 = bundle.getFloat( 最大护甲x );
 		x次必暴 = bundle.getInt( x次必暴x );
@@ -475,7 +477,7 @@ public abstract class Char extends Actor {
 					dmg=Random.NormalFloat(最小攻击(),最大攻击());
 					dmg=dmg*Dungeon.难度攻击();
 				}
-				if(Dungeon.赛季(赛季设置.英雄联盟)){
+				if(Dungeon.派对(派对设置.英雄联盟)){
 					dmg=最小攻击()+最大攻击();
 				}
 			}
@@ -529,7 +531,7 @@ public abstract class Char extends Actor {
 				if(穿甲()>0){
 					dr-=穿甲();
 				}
-				if(Dungeon.赛季(赛季设置.英雄联盟)){
+				if(Dungeon.派对(派对设置.英雄联盟)){
 					effectiveDamage = Math.max(effectiveDamage*(1f-dr/(dr+2.5f)), 0);
 				}else effectiveDamage = Math.max(effectiveDamage - dr, 0);
 
@@ -645,7 +647,7 @@ public abstract class Char extends Actor {
 		float acuStat = Random.Float(attacker.最小命中( attacker ),attacker.最大命中( defender ));
 		float defStat = Random.Float(defender.最小闪避( attacker ),defender.最大闪避( attacker ));
 
-		if(Dungeon.赛季(赛季设置.英雄联盟)){
+		if(Dungeon.派对(派对设置.英雄联盟)){
 			acuStat = attacker.最小命中( attacker )+attacker.最大命中( defender );
 			defStat = defender.最小闪避( attacker )+defender.最大闪避( attacker );
 		}
@@ -654,6 +656,9 @@ public abstract class Char extends Actor {
 			if (magic&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.法伤)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.法伤);
 			}
+
+			acuStat*=hero.幸运值();
+
 			if(defender.恶魔亡灵()&&hero.heroClass(HeroClass.道士)){
 				defStat=0;
 			}
@@ -663,17 +668,18 @@ public abstract class Char extends Actor {
 			if (算法.isDebug()){
 				defStat=0;
 			}
-
-			defStat*=hero.幸运值();
 		}else {
 			if(attacker.诡异)acuStat*=10;
 		}
 		if ( defender instanceof Hero hero) {
+			defStat/=hero.幸运值();
+
 			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
 				acuStat*=0.85f;
 			}
 
-			acuStat*=hero.幸运值();
+			if(hero.符文("仿生:巨钳螃蟹")&&attacker.hasbuff(被发现.class)&&attacker.buff(被发现.class).visualcooldown()<5)
+				acuStat=0;
 
 			if(hero.damageInterrupt){
 				hero.interrupt();
@@ -682,14 +688,17 @@ public abstract class Char extends Actor {
 			if(defender.诡异)defStat*=10;
 		}
 		
-		if(attacker.必中){
+		if(attacker.hasbuff(必定命中.class)){
 			defStat=0;
-			attacker.必中=false;
+			Buff.detach(attacker,必定命中.class);
 		}
-		if(defender.必闪){
+		if(defender.hasbuff(必定闪避.class)){
 			acuStat=0;
-			defender.必闪=false;
+			Buff.detach(defender,必定闪避.class);
 		}
+
+		if(Dungeon.赛季(赛季设置.从零英雄))defStat=0;
+
 		//invisible chars always hit (for the hero this is surprise attacking)
 		if (attacker.invisible > 0 && attacker.canSurpriseAttack()){
 			defStat=0;
@@ -745,7 +754,7 @@ public abstract class Char extends Actor {
 		defStat *= FerretTuft.evasionMultiplier();
 		//endregion
 
-		if(Dungeon.赛季(赛季设置.英雄联盟)){
+		if(Dungeon.派对(派对设置.英雄联盟)){
 			acuStat = acuStat/(acuStat+5f);
 			defStat = defStat/(defStat+7.5f);
 
@@ -790,6 +799,10 @@ public abstract class Char extends Actor {
 			if(defender instanceof Hero hero){
 
 				if(hero.符文("闪避的宠爱"))hero.闪避成长+=0.5f;
+				if(hero.符文("侧滑"))hero.回百分比血(0.03f);
+
+				if(hero.符文("幻影突袭"))
+					Buff.施加(hero,必定暴击.class);
 			}
 			if(attacker instanceof Hero hero){
 				if(投机之剑.增加()>0)
@@ -896,9 +909,9 @@ public abstract class Char extends Actor {
 	}
 	public float 暴击(final Char enemy,float dmg){
 		if(enemy!=null){
-			if((必暴||算法.概率学(暴击率()))){
+			if((hasbuff(必定暴击.class)||算法.概率学(暴击率()))){
 				dmg=dmg*(1+暴击伤害());
-				必暴=false;
+				Buff.detach(this,必定暴击.class);
 				x次必暴=0;
 				if(sprite!=null){
 					sprite.说("暴击！");
@@ -907,7 +920,7 @@ public abstract class Char extends Actor {
 			}else{
 				x次必暴++;
 				if(暴击率()!=0&&x次必暴>=600/暴击率()){
-					必暴=true;
+					Buff.施加(this,必定暴击.class);
 					sprite.说("手感火热！");
 				}
 			}
@@ -1091,7 +1104,6 @@ public abstract class Char extends Actor {
 			}
 		}
 
-
 		if(Dungeon.hero()){
 			if(Dungeon.hero.nobuff(战斗状态.class)&&Dungeon.hero.符文("虔焚之热")&&火焰伤害(src)){
 				if(Dungeon.hero.暴击(null,1)>1)
@@ -1227,6 +1239,7 @@ public abstract class Char extends Actor {
 			Weapon.chargeWeapons(0.625f);
 			dmg*=1.1f;
 		}
+
 		生命 -= dmg;
 
 		if(sprite!=null&&(dmg>=最大生命(0.34f)||生命<=最大生命(0.34f)))
@@ -1306,6 +1319,8 @@ public abstract class Char extends Actor {
 
 		if (生命 < 0) 生命 = 0;
 
+		if(生命==0&&Dungeon.赛季(赛季设置.从零英雄))负数生命+=dmg;
+
 		if (!isAlive()) {
 			死亡时( src );
 		}
@@ -1372,6 +1387,7 @@ public abstract class Char extends Actor {
 	}
 
 	public boolean isAlive() {
+		if(Dungeon.赛季(赛季设置.从零英雄))return 战斗力()>0;
 		return 生命 > 0;
 	}
 
@@ -1901,6 +1917,7 @@ public abstract class Char extends Actor {
 		x*=治疗护盾();
 		if(x>0){
 			生命=Math.min(生命+x,最大生命);
+
 			if (Dungeon.level.heroFOV[pos]){
 				if(sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
 					sprite.showStatusWithIcon(CharSprite.增强,x,FloatingText.HEALING);
@@ -1912,6 +1929,21 @@ public abstract class Char extends Actor {
 			受伤(x);
 		}
 	}
+
+	public float 战斗力(){
+		float 战斗力=生命/10f;
+		战斗力+=攻击范围();
+		战斗力+=视野范围();
+		战斗力+=护甲;
+		战斗力+=(最小命中(null)+最大命中(null))/10f;
+
+		战斗力+=(最小闪避(null)+最大闪避(null))/10f*移速();
+		战斗力+=AntiMagic.drRoll(this, this.glyphLevel(AntiMagic.class))/RingOfElements.resist(this);
+		战斗力-=负数生命;
+//		if(战斗力<0)战斗力=0;
+		return 战斗力;
+	}
+
 	public float 防御(float damage){
 		return 防御(null,damage);
 	}

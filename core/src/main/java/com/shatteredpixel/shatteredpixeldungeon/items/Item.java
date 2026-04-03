@@ -600,183 +600,117 @@ public class Item implements Bundlable {
 		return this;
 	}
 	public Item 升级() {
-		
+		this.等级++;
+		updateQuickslot();
+		return this;
+	}
+	public Item 额外升级() {
+
+		//region 额外升级
 		if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
-
 			if(算法.isDebug())
-				this.等级+=100;
+				this.等级+=10;
 
 			if(Dungeon.符文("衰退的堕落")){
 				this.等级++;
 				this.等级++;
-				updateQuickslot();
-				Buff.延长( Dungeon.hero, Degrade.class, Degrade.DURATION*5 );
+				Buff.延长(Dungeon.hero,Degrade.class,Degrade.DURATION*5);
 			}
 			if(Dungeon.hero()&&Dungeon.hero.种族天赋.equals("矮人")&&Random.Int(1)==0){
 				this.等级++;
-				updateQuickslot();
 			}
 			if(Dungeon.符文("升级升级")){
 				this.等级++;
-				updateQuickslot();
 			}
 			if(Dungeon.赛季(赛季设置.升级概率)){
-					if(等级>=17){
-						if(算法.概率学(10)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							this.等级(0);
-							updateQuickslot();
-							return this;
-						}
-					}
-					if(等级>=16){
-						if(算法.概率学(11)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							this.等级(0);
-							updateQuickslot();
-							return this;
-						}
-					}
-					if(等级>=15){
-						if(算法.概率学(16)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							this.等级(0);
-							updateQuickslot();
-							return this;
-						}
-					}
-					if(等级>=14){
-						if(算法.概率学(18)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							this.等级(0);
-							updateQuickslot();
-							return this;
-						}
-					}
-					if(等级>=13){
-						if(算法.概率学(20)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							this.等级(0);
-							updateQuickslot();
-							return this;
-						}
-					}
-					if(等级>=12){
-						if(算法.概率学(25)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							this.等级(8);
-							updateQuickslot();
-							return this;
-						}
-					}
-					if(等级>=11){
-						if(算法.概率学(30)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							this.等级(7);
-							updateQuickslot();
-							return this;
-						}
-					}
-					if(等级>=10){
-						if(算法.概率学(35)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							return this;
-						}
-					}
-					if(等级>=9){
-						if(算法.概率学(40)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							return this;
-						}
-					}
-					if(等级>=8){
-						if(算法.概率学(50)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							return this;
-						}
-					}
-					if(等级>=7){
-						if(算法.概率学(60)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							return this;
-						}
-					}
-					if(等级>=6){
-						if(算法.概率学(70)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							return this;
-						}
-					}
-					if(等级>=5){
-						if(算法.概率学(85)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							return this;
-						}
-					}
-					if(等级>=4){
-						if(算法.概率学(95)){
-							this.等级++;
-							updateQuickslot();
-							return this;
-						}else{
-							return this;
-						}
-					}
-					if(等级<=3){
+				if(等级>=17){
+					if(算法.概率学(10)){
 						this.等级++;
-						updateQuickslot();
-						return this;
+					}else{
+						this.等级(0);
 					}
 				}
-			this.等级++;
-			updateQuickslot();
-			return this;
+				if(等级>=16){
+					if(算法.概率学(11)){
+						this.等级++;
+					}else{
+						this.等级(0);
+					}
+				}
+				if(等级>=15){
+					if(算法.概率学(16)){
+						this.等级++;
+					}else{
+						this.等级(0);
+					}
+				}
+				if(等级>=14){
+					if(算法.概率学(18)){
+						this.等级++;
+					}else{
+						this.等级(0);
+					}
+				}
+				if(等级>=13){
+					if(算法.概率学(20)){
+						this.等级++;
+					}else{
+						this.等级(0);
+					}
+				}
+				if(等级>=12){
+					if(算法.概率学(25)){
+						this.等级++;
+					}else{
+						this.等级(8);
+					}
+				}
+				if(等级>=11){
+					if(算法.概率学(30)){
+						this.等级++;
+					}else{
+						this.等级(7);
+					}
+				}
+				if(等级>=10){
+					if(算法.概率学(35))
+						this.等级++;
+				}
+				if(等级>=9){
+					if(算法.概率学(40))
+						this.等级++;
+				}
+				if(等级>=8){
+					if(算法.概率学(50))
+						this.等级++;
+				}
+				if(等级>=7){
+					if(算法.概率学(60))
+						this.等级++;
+				}
+				if(等级>=6){
+					if(算法.概率学(70))
+						this.等级++;
+				}
+				if(等级>=5){
+					if(算法.概率学(85))
+						this.等级++;
+				}
+				if(等级>=4){
+					if(算法.概率学(95))
+						this.等级++;
+				}
+				if(等级<=3)
+					this.等级++;
+			}
 		}
+//endregion
 
-		this.等级++;
-		updateQuickslot();
+		升级();
+
 		return this;
 	}
 	

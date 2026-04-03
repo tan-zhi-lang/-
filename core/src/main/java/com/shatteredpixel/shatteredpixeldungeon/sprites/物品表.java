@@ -1087,6 +1087,7 @@ public class 物品表 {
     public static final int 属性锻造器 = QUEST + 12;
     public static final int 红包 = QUEST + 13;
     public static final int 火把神的恩宠 = QUEST + 14;
+    public static final int 贤者之石 = QUEST + 15;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -1104,6 +1105,7 @@ public class 物品表 {
         assignItemRect(属性锻造器, 13,12);
         assignItemRect(红包, 11,15);
         assignItemRect(火把神的恩宠, 13,16);
+        assignItemRect(贤者之石, 16);
     }
     private static final int BAGS = xy(0, 31);  //16 slots
     public static final int BACKPACK = BAGS;

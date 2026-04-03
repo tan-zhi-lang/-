@@ -137,7 +137,7 @@ public class GamesInProgress {
 		info.dailyReplay = Dungeon.dailyReplay;
 		
 		info.level = Dungeon.hero.等级;
-		info.exp = Dungeon.hero.当前经验;
+		info.exp = Dungeon.hero.经验;
 		info.heroClass = Dungeon.hero.heroClass;
 		info.heroClass蜕变 = Dungeon.hero.heroClass蜕变;
 		info.subClass = Dungeon.hero.subClass;

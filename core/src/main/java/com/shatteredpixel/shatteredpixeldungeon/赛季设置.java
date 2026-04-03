@@ -8,7 +8,7 @@ public class 赛季设置{
 	public static final int 修罗血场				= 1;
 	public static final int 升级概率= 2;
 public static final int 鬼怨地牢				= 4;
-	public static final int 英雄联盟				= 8;
+	public static final int 从零英雄				= 8;
 	public static final int 地牢塔防= 16;
 	public static final int 刷子地牢			= 32;
 	public static final int 危险重重		    = 64;
@@ -21,7 +21,7 @@ public static final int 鬼怨地牢				= 4;
 			"修罗血场",
 			"升级概率",
 			"鬼怨地牢",
-			"英雄联盟",
+			"从零英雄",
 			"地牢塔防",
 			"刷子地牢",
 			"危险重重",
@@ -33,7 +33,7 @@ public static final int 鬼怨地牢				= 4;
 			修罗血场,
 			升级概率,
 			鬼怨地牢,
-			英雄联盟,
+			从零英雄,
 			地牢塔防,
 			刷子地牢,
 			危险重重,

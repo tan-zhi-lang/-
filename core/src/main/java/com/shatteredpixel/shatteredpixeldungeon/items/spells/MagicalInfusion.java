@@ -75,13 +75,13 @@ public class MagicalInfusion extends InventorySpell {
 		Degrade.detach( curUser, Degrade.class );
 		
 		if (item instanceof Weapon && ((Weapon) item).enchantment != null) {
-			item = ((Weapon) item).升级(true);
+			item = ((Weapon) item).额外升级(true);
 		} else if (item instanceof Armor && ((Armor) item).glyph != null) {
-			item = ((Armor) item).升级(true);
+			item = ((Armor) item).额外升级(true);
 		} else {
 			boolean wasCursed = item.cursed;
 			boolean wasCurseInfused = item instanceof Wand && ((Wand) item).curseInfusionBonus;
-			item = item.升级();
+			item = item.额外升级();
 			if (wasCursed) item.cursed = true;
 			if (wasCurseInfused) ((Wand) item).curseInfusionBonus = true;
 		}

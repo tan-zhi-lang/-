@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.CeremonialCandle;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.CorpseDust;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.Embers;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.RegularLevel;
@@ -441,6 +442,7 @@ public class Wandmaker extends NPC {
 			if (Quest.type == 1) {
 				Statistics.questScores[1] += 2000;
 			}
+			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典().放背包();
 		}
 	}
 }

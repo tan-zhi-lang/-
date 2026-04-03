@@ -1358,6 +1358,34 @@ abstract public class Weapon extends KindOfWeapon {
 		return 升级(false);
 	}
 	
+	public Item 额外升级(boolean enchant ) {
+		float 概率=1;
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
+		if (enchant){
+			if (enchantment == null){
+				enchant(Enchantment.random());
+			}
+		} else if (enchantment != null) {
+			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
+			if (enchantHardened){
+				if (等级() >= 6 && Random.Float(10) < 概率*Math.pow(2, 等级()-6)){
+					enchantHardened = false;
+				}
+
+				//chance to remove curse is a static 33%
+			} else if (hasCurseEnchant()) {
+				if (算法.概率学(概率*1/4f)) enchant(null);
+
+				//otherwise chance to lose enchant is 10/20/40/80/100% when upgrading from +4/5/6/7/8
+			} else if (等级() >= 4 && Random.Float(10) < 概率*Math.pow(2, 等级()-4)){
+				enchant(null);
+			}
+		}
+
+		cursed = false;
+
+		return super.额外升级();
+	}
 	public Item 升级(boolean enchant ) {
 
 		float 概率=1;

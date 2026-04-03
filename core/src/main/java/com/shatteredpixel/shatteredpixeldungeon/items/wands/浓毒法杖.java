@@ -34,7 +34,7 @@ public class 浓毒法杖 extends Wand {
 	@Override
 	public void onZap(Ballistica bolt) {
 		//破碎50+10
-		ToxicGas gas = Blob.seed(bolt.collisionPos,Math.round(魔力(0.6f,0.5f)),ToxicGas.class);
+		ToxicGas gas = Blob.seed(bolt.collisionPos,Math.round(魔力(8,0.5f)),ToxicGas.class);
 		CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.TOXIC), 10 );
 //		gas.setStrength(2 + 强化等级(), getClass());
 		//破碎的
@@ -81,14 +81,14 @@ public class 浓毒法杖 extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/25f);
+			return Messages.get(this, "stats_desc", 魔力(8,0.5f)/35f);
 		else
-			return Messages.get(this, "stats_desc", 魔力(0.6f,0.5f)/25f);
+			return Messages.get(this, "stats_desc", 魔力(8,0.5f)/35f);
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
-		return Integer.toString(Math.round(魔力加(0.6f,0.5f)));
+		return Integer.toString(Math.round(魔力加(8,0.5f)));
 	}
 
 }

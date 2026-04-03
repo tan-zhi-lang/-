@@ -919,7 +919,14 @@ public abstract class Mob extends Char{
 						if(Dungeon.符文("猛攻")||Dungeon.符文("不全能吸血")){
 
 						}else{
-							Dungeon.hero.回血(dmg*Dungeon.hero.全能吸血()*((老鬼()||小老鬼())?
+							boolean 不削弱=true;
+							if(老鬼()||小老鬼())
+								不削弱=false;
+
+							if(Dungeon.符文("不死意志"))
+								不削弱=true;
+
+							Dungeon.hero.回血(dmg*Dungeon.hero.全能吸血()*(不削弱?
 																				   1:
 																				   1/3f));
 						}
@@ -1201,6 +1208,8 @@ public abstract class Mob extends Char{
 						if(Dungeon.hero.天赋(Talent.久战)){
 							Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战));
 						}
+
+						if(Dungeon.赛季(赛季设置.从零英雄))Dungeon.hero.负数生命=0;
 						//击杀瞬移
 						//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
 					}
@@ -1524,6 +1533,19 @@ public abstract class Mob extends Char{
 		return desc;
 	}
 
+	@Override
+	public float 战斗力(){
+		float 战斗力=super.战斗力();
+
+		战斗力+=(最小攻击()+最大攻击()+穿甲())/攻击延迟()
+				/10f*(1+护甲穿透())*伤害()
+				*(1+暴击率())*暴击伤害()
+				*(1+吸血()+全能吸血())*治疗护盾();
+
+		战斗力+=(最小防御()+最大防御())/10f;
+		战斗力+=(经验+最大等级)/10f-1;
+		return 战斗力;
+	}
 	public void notice(){
 		sprite.showAlert();
 	}

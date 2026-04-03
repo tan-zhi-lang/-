@@ -28,7 +28,7 @@ public class ToxicGas extends Blob implements Hero.Doom {
 				cell = i + j*Dungeon.level.width();
 				if (cur[cell] > 0 && (ch = Actor.findChar( cell )) != null) {
 					if (!ch.免疫(this.getClass())) {
-						ch.受伤时(volume/25f, this);
+						ch.受伤时(volume/35f, this);
 					}
 				}
 			}

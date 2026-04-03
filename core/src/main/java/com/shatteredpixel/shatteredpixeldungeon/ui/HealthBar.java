@@ -4,9 +4,11 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.ui.Component;
@@ -25,6 +27,7 @@ public class HealthBar extends Component {
 	private BitmapText hpText;
 	private BitmapText 护盾t;
 
+	private float 战斗力;
 	private float health;
 	private float 生命;
 	private float 护盾;
@@ -81,9 +84,12 @@ public class HealthBar extends Component {
 		float pixelWidth = width;
 		if (camera() != null) pixelWidth *= camera().zoom;
 		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
-		Hp.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
-
+		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height );
 		hpText.text(kw2(生命)+"/"+kw2(max));
+		if(Dungeon.赛季(赛季设置.从零英雄)){
+			hpText.text(kw2(战斗力));
+			Hp.size( width * Math.min(1,(float)Math.ceil((health+战斗力) * pixelWidth)/pixelWidth), height );
+		}
 		hpText.measure();
 		hpText.x = Hp.x+0.5f;
 		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
@@ -120,7 +126,10 @@ public class HealthBar extends Component {
 		if (camera() != null) pixelWidth *= camera().zoom;
 		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
 		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height );
-		
+
+		if(Dungeon.赛季(赛季设置.从零英雄)){
+			Hp.size( width * Math.min(1,(float)Math.ceil((health+战斗力) * pixelWidth)/pixelWidth), height );
+		}
 		hpText.scale.set(PixelScene.align(0.34f));
 		hpText.x = Hp.x+0.5f;
 		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
@@ -146,10 +155,11 @@ public class HealthBar extends Component {
 	}
 	
 	public void level( float value ) {
-		level( value, 0f ,0f,0f,0f,false);
+		level(0, value, 0f ,0f,0f,0f,false);
 	}
 
-	public void level( float health, float shield , float health2, float shield2 , float max ,boolean 隐形){
+	public void level(float 战斗力, float health, float shield , float health2, float shield2 , float max ,boolean 隐形){
+		this.战斗力 = 战斗力;
 		this.health = health;
 		this.生命 = health2;
 		this.护盾 = shield2;
@@ -160,11 +170,12 @@ public class HealthBar extends Component {
 	}
 
 	public void level(Char c){
+		float 战斗力 = c.战斗力();
 		float health = c.生命;
 		float maxx = c.最大生命;
 		float shield = c.shielding();
 		float max = Math.max(health+shield, c.最大生命);
 		boolean 隐形=c.hasbuff(Invisibility.class);
-		level(health/max, (health+shield)/max,health,shield,maxx,隐形);
+		level(战斗力,health/max, (health+shield)/max,health,shield,maxx,隐形);
 	}
 }

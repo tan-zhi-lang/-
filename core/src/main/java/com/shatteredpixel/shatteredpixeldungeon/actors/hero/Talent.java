@@ -443,28 +443,28 @@ public enum Talent {
 				hero.第2层天赋=true;
 		}else hero.第2层天赋=false;
 
-			for (Item item : Dungeon.hero.belongings.backpack.items){
-				if (talent==轻便斗篷||item instanceof CloakOfShadows){
+			for (Item item : Dungeon.hero.belongings){
+				if (talent==轻便斗篷&&item instanceof CloakOfShadows){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
 						((CloakOfShadows) item).activate(Dungeon.hero);
 					}
 				}
-				if (talent==轻便法典||item instanceof 四叶草法典){
+				if (talent==轻便法典&&item instanceof 四叶草法典){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
 						((四叶草法典) item).activate(Dungeon.hero);
 					}
 				}
-				if (talent==轻便护额||item instanceof 叛忍护额){
+				if (talent==轻便护额&&item instanceof 叛忍护额){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
 						((叛忍护额) item).activate(Dungeon.hero);
 					}
 				}
-				if (talent==轻便帝钟||item instanceof 鬼帝钟){
+				if (talent==轻便帝钟&&item instanceof 鬼帝钟){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
 						((鬼帝钟) item).activate(Dungeon.hero);
 					}
 				}
-				if (talent==轻量阅读||item instanceof 神圣法典){
+				if (talent==轻量阅读&&item instanceof 神圣法典){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
 						((神圣法典) item).activate(Dungeon.hero);
 					}

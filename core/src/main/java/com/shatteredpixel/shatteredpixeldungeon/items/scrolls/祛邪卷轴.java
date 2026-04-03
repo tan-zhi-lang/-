@@ -109,7 +109,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 					item.cursed = false;
 					if(hero.符文("祛邪的宠爱")){
 						if(item instanceof Ring)
-							item.升级();
+							item.额外升级();
 					}
 				}
 			}
@@ -119,7 +119,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 					w.enchant(null);
 					procced = true;
 					if(hero.符文("祛邪的宠爱")){
-						item.升级();
+						item.额外升级();
 					}
 				}
 			}
@@ -129,14 +129,14 @@ public class 祛邪卷轴 extends InventoryScroll {
 					a.inscribe(null);
 					procced = true;
 					if(hero.符文("祛邪的宠爱")){
-						item.升级();
+						item.额外升级();
 					}
 				}
 			}
 			if (item instanceof Wand){
 				((Wand) item).updateLevel();
 				if(hero.符文("祛邪的宠爱")){
-					item.升级();
+					item.额外升级();
 				}
 			}
 		}

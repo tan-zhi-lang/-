@@ -46,7 +46,7 @@ public class 天赋之泉 extends WellWater {
 	@Override
 	protected Item affectItem( Item item, int pos ) {
 		if (item.可升级()) {
-			item.升级();
+			item.额外升级();
 			CellEmitter.get( pos ).start( Speck.factory( Speck.UP ), 0.4f, 4 );
 			Sample.INSTANCE.play( Assets.Sounds.DRINK );
 			return item;

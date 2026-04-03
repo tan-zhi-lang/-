@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.PetrifiedSeed;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
@@ -158,6 +159,9 @@ public class HighGrass {
 				if (Random.Float() < 1/300f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
+				}
+				if (Random.Float() < 1/300f&&Dungeon.符文("海克斯获取:收获")) {
+					level.drop(new 海克斯宝典(),pos).sprite().drop();
 				}
 				
 			}
@@ -308,6 +312,9 @@ public class HighGrass {
 				if (Random.Float() < 1/100f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
+				}
+				if (Random.Float() < 1/100f&&Dungeon.符文("海克斯获取:收获")) {
+					level.drop(new 海克斯宝典(),pos).sprite().drop();
 				}
 				
 			}

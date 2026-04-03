@@ -741,7 +741,7 @@ public class GameScene extends PixelScene {
 			notifyDelay -= Game.elapsed;
 		}
 
-		if (每秒 >= 1){
+		if (每秒 >= 1.5f){
 			if(Dungeon.赛季(赛季设置.即时策略))
 			if(Dungeon.hero()&&Dungeon.hero.curAction==null){
 				Dungeon.hero.spendAndNext(1);

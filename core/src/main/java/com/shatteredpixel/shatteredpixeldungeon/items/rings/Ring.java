@@ -428,7 +428,7 @@ public class Ring extends KindofMisc {
 			return 新等级(Ring.this.强化等级()+1);
 		}
 	}
-	public int 新等级(int x){
+	public static int 新等级(int x){
 		return (int)Math.round(x*
 			   Math.sqrt(
 				Math.sqrt(
@@ -453,6 +453,8 @@ public class Ring extends KindofMisc {
 		if (hero.belongings.幸运() != null && hero.belongings.幸运().getClass() == getClass()){
 			bonus += ((Ring)hero.belongings.幸运()).soloBonus();
 		}
+		if(hero.符文("戒指的宠爱"))bonus*=3;
+
 		return bonus;
 	}
 

@@ -98,15 +98,19 @@ public class 灵魂焰灯 extends Artifact {
 		return 魔力(魔力收益,0);
 	}
 	public float 魔力(float 魔力收益,float 等收益){
-		return 魔力(魔力收益,等收益,Dungeon.hero.击杀数量);
+		return 魔力(魔力收益,等收益,强化等级());
 	}
 
 	public float 魔力加(float 魔力收益,float 等收益){
-		return 魔力(魔力收益,等收益,Dungeon.hero.击杀数量);
+		return 魔力(魔力收益,等收益,1+强化等级());
 	}
 	public float 魔力(float 魔力收益,float 等收益,float 等级){
+
 		if(Dungeon.hero())
-			return Dungeon.hero.魔力(魔力收益*(1+等收益*等级));
+			return Dungeon.hero.魔力(魔力收益*(1+等收益*(
+					等级
+			+(Dungeon.hero.击杀数量*(Dungeon.符文("升级灵魂焰灯")?2:1))
+			)));
 		else
 			return 10*魔力收益*(1+等收益*等级);
 	}
@@ -122,7 +126,7 @@ public class 灵魂焰灯 extends Artifact {
 									 ), this);
 			if(!ch.isAlive()){
 				GLog.w( Messages.get(this, "onprick") );
-				Dungeon.hero.击杀数量+=ch.强度();
+				Dungeon.hero.击杀数量+=ch.强度()*(Dungeon.符文("升级灵魂焰灯")?2:1);
 
 				if(Dungeon.hero.击杀数量%6==0&&等级() < levelCap)
 					升级();

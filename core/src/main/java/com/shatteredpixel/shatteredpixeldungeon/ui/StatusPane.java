@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
@@ -306,6 +307,7 @@ public class StatusPane extends Component {
 		super.update();
 
 		float health = Dungeon.hero.生命;
+		if(Dungeon.赛季(赛季设置.从零英雄))health+=Dungeon.hero.战斗力();
 		float max = Dungeon.hero.最大生命;
 		float hunger = 450f-
 				(Dungeon.hero.hasbuff(Hunger.class)?
@@ -372,7 +374,7 @@ public class StatusPane extends Component {
 				old法力-=法力缓冲/1.11f;
 			}
 			
-			血条.scale.x = Math.max( 0, oldHP/max);
+			血条.scale.x = Math.max( 0, Math.min(1,oldHP/max));
 			绿条.scale.x = Math.max( 0, old绿/450f);
 			法力条.scale.x = Math.max(0,old法力/最大护甲);
 			护盾.scale.x = 0;
@@ -400,14 +402,17 @@ public class StatusPane extends Component {
 			}else
 				血条文本.text(kw2(health)+"/"+kw2(max));
 		}
+		if(Dungeon.赛季(赛季设置.从零英雄)){
+			血条文本.text(kw2(Dungeon.hero.战斗力()));
+		}
 		法力条文本.text(kw2(护甲)+(护甲<最大护甲&&恢复速度>0?
 															("+"+String.format("%.2f",恢复速度)
 		):"")+"/"+kw2(最大护甲));
 		绿条文本.text(String.format("%.0f",hunger)+
 					  (hunger>0&&hungerDelay>0?String.format("%.2f",-hungerDelay):"") + "/" + String.format("%.0f",450f));
 	
-		exp.scale.x = (17 / exp.width) * Dungeon.hero.当前经验 / Dungeon.hero.升级所需();
-		expText.text(Dungeon.hero.当前经验 + "/" + Dungeon.hero.升级所需());
+		exp.scale.x = (17 / exp.width) * Dungeon.hero.经验/Dungeon.hero.升级所需();
+		expText.text(Dungeon.hero.经验+"/"+Dungeon.hero.升级所需());
 		
 		fps.text("FPS:" + Gdx.graphics.getFramesPerSecond());
 		fps.measure();

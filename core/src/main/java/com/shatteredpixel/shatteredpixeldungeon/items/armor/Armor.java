@@ -454,7 +454,7 @@ public class Armor extends EquipableItem {
 		return 升级( false );
 	}
 	
-	public Item 升级(boolean inscribe ) {
+	public Item 额外升级(boolean inscribe ) {
 
 		float 概率=1;
 		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
@@ -485,6 +485,48 @@ public class Armor extends EquipableItem {
 			}
 		}
 		
+		cursed = false;
+
+		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
+			荣誉纹章.额外升级();//优先纹章
+		}else{
+			super.额外升级();
+		}
+
+		return this;
+	}
+
+	public Item 升级(boolean inscribe ) {
+
+		float 概率=1;
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
+		if (inscribe){
+			if (glyph == null){
+				inscribe( Glyph.random() );
+			}
+		} else if (glyph != null) {
+			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
+			if (glyphHardened) {
+				if (等级() >= 6 && Random.Float(10) < 概率*Math.pow(2, 等级()-6)){
+					glyphHardened = false;
+				}
+
+			//chance to remove curse is a static 33%
+			} else if (hasCurseGlyph()){
+				if (算法.概率学(概率*1/4f)) inscribe(null);
+
+			//otherwise chance to lose glyph is 10/20/40/80/100% when upgrading from +4/5/6/7/8
+			} else {
+
+				//the chance from +4/5, and then +6 can be set to 0% with metamorphed runic transference
+				int lossChanceStart = 4;
+
+				if (等级() >= lossChanceStart && Random.Float(10) < 概率*Math.pow(2, 等级()-4)) {
+					inscribe(null);
+				}
+			}
+		}
+
 		cursed = false;
 
 		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {

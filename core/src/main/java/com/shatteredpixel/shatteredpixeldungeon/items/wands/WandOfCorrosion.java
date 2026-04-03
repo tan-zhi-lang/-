@@ -34,7 +34,7 @@ public class WandOfCorrosion extends Wand {
 	@Override
 	public void onZap(Ballistica bolt) {
 		//破碎50+10
-		CorrosiveGas gas = Blob.seed(bolt.collisionPos, Math.round(魔力(0.3f,0.5f)), CorrosiveGas.class);
+		CorrosiveGas gas = Blob.seed(bolt.collisionPos, Math.round(魔力(0.4f,0.5f)), CorrosiveGas.class);
 		CellEmitter.get(bolt.collisionPos).burst(Speck.factory(Speck.CORROSION), 10 );
 //		gas.setStrength(2 + 强化等级(), getClass());
 		//破碎的
@@ -81,14 +81,14 @@ public class WandOfCorrosion extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 魔力(0.3f,0.5f)/15f);
+			return Messages.get(this, "stats_desc", 魔力(0.4f,0.5f)/15f);
 		else
-			return Messages.get(this, "stats_desc", 魔力(0.3f,0.5f)/15f);
+			return Messages.get(this, "stats_desc", 魔力(0.4f,0.5f)/15f);
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
-		return Integer.toString(Math.round(魔力加(0.3f,0.5f)));
+		return Integer.toString(Math.round(魔力加(0.4f,0.5f)));
 	}
 
 }

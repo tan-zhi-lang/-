@@ -39,13 +39,13 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		//TODO: when effect properties are done, change this to FIRE
-		if (src instanceof 燃烧) {
+		if (来源 instanceof 燃烧) {
 			destroy();
 			sprite.die();
 		} else {
-			super.受伤时(dmg, src);
+			super.受伤时(dmg,来源);
 		}
 	}
 
@@ -87,8 +87,8 @@ public class RotHeart extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
-		super.死亡时(cause);
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 		Dungeon.level.drop( new Rotberry.Seed(), pos ).sprite().drop();
 		//assign score here as player may choose to keep the rotberry seed
 		Statistics.questScores[1] += 2000;

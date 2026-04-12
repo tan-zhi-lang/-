@@ -3,23 +3,19 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Callback;
 
-public class 保鲜 extends 武技{
-	
+public class 横扫 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次150%伤害的物理攻击，并花费攻击延迟1.5倍的回合";
+		desc="对攻击范围内的一个目标进行一次100%伤害的物理攻击，并对所有相邻敌人同样造成此伤害，同时穿越目标至身后同时对所有相邻敌人同样造成此伤害，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -41,27 +37,15 @@ public class 保鲜 extends 武技{
 				return;
 			}
 			
+
 			hero.belongings.abilityWeapon = wep;
-			if (!hero.canAttack(enemy)){
-				GLog.w(Messages.get(Weapon.class, "ability_target_range"));
-				hero.belongings.abilityWeapon = null;
-				return;
-			}
+			hero.穿越攻击(hero,enemy.pos,1);
+			hero.九头蛇(hero,enemy.pos);
 			hero.belongings.abilityWeapon = null;
+
 			
+			Sample.INSTANCE.play(wep.hitSound);
 			wep.消耗(hero);
-			hero.sprite.attack(enemy.pos, new Callback() {
-				@Override
-				public void call() {
-					AttackIndicator.target(enemy);
-					if (hero.attack(enemy,伤害150,0,Char.INFINITE)) {
-						Sample.INSTANCE.play(wep.hitSound);
-					}
-					Invisibility.notimedispel();
-					hero.spendAndNext(hero.攻击延迟()*1.5f);
-					wep.技能使用(hero);
-				}
-			});
 		}
 		
 		@Override

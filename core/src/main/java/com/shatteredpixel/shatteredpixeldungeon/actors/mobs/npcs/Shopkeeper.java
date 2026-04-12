@@ -76,8 +76,8 @@ public class Shopkeeper extends NPC {
 	}
 	
 	@Override
-	public void 受伤时(float dmg, Object src ) {
-		if(src!=Char.魔法伤害.class)
+	public void 受伤时(float dmg, Object 来源) {
+		if(来源!=Dungeon.class)
 			processHarm();
 	}
 	
@@ -191,7 +191,10 @@ public class Shopkeeper extends NPC {
 		if(Holiday.getCurrentHoliday()==Holiday._618){
 			打折*=.9f;
 		}
+		if(Dungeon.符文("我让你乱卖"))打折*=0.2f;
+
 		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
+
 		return Math.round(item.金币提升()*打折/2*(1/5f+1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
 	}

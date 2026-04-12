@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LockedFloor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.法术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
@@ -33,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时空道标;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -441,34 +443,34 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		//hero counts as unarmed if they aren't attacking with a weapon and aren't benefiting from force
-		if (src == Dungeon.hero && (!武力之戒.fightingUnarmed(Dungeon.hero)||Dungeon.hero.buff(武力之戒.Force.class)!=null)){
+		if (来源==Dungeon.hero&&(!武力之戒.fightingUnarmed(Dungeon.hero)||Dungeon.hero.buff(武力之戒.Force.class)!=null)){
 			Statistics.qualifiedForBossChallengeBadge = false;
 		//Corrosion, corruption, and regrowth do no direct damage and so have their own custom logic
 		//Transfusion damages DK and so doesn't need custom logic
 		//Lightning has custom logic so that chaining it doesn't DQ for the badge
-		} else if (src instanceof Wand && !(src instanceof WandOfLightning)){
+		} else if (来源 instanceof Wand&&!(来源 instanceof WandOfLightning)){
 			Statistics.qualifiedForBossChallengeBadge = false;
 			//Only damage-dealing spells from the Cleric
-		} else if (src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术){
+		} else if (来源 instanceof 魔攻之戒||来源 instanceof 法术||来源 instanceof ClericSpell||来源 instanceof 巫术||来源 instanceof 道术||来源 instanceof 忍术){
 			Statistics.qualifiedForBossChallengeBadge = false;
 		}
 
-		if (是无敌(src.getClass())){
-			super.受伤时(dmg, src);
+		if (是无敌(来源.getClass())){
+			super.受伤时(dmg,来源);
 			return;
-		} else if (phase == 3 ){//&& !(src instanceof Viscosity.DeferedDamage)
+		} else if (phase == 3 ){//&& !(来源 instanceof Viscosity.DeferedDamage)
 				dmg=算法.固衰(dmg,5);
 //				Viscosity.DeferedDamage deferred = Buff.施加( this, Viscosity.DeferedDamage.class );
 //				deferred.extend( dmg );
 //				sprite.showStatus( CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg) );
 		}
 		float preHP = 生命;
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
+		if (lock != null&&!免疫(来源.getClass())&&!是无敌(来源.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/5f);
 			else                                                    lock.addTime(dmg/3f);
 		}
@@ -530,11 +532,11 @@ public class DwarfKing extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 
 		GameScene.bossSlain();
 
-		super.死亡时( cause );
+		super.死亡时(来源);
 
 		Heap h = Dungeon.level.heaps.get(CityBossLevel.throne);
 		if (h != null) {

@@ -29,7 +29,7 @@ public class FungalSpinner extends Spinner {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		int grassCells = 0;
 		for (int i : PathFinder.自相邻) {
 			if (Dungeon.level.map[pos+i] == Terrain.FURROWED_GRASS
@@ -40,7 +40,7 @@ public class FungalSpinner extends Spinner {
 		//first adjacent grass cell reduces damage taken by 30%, each one after reduces by another 10%
 		if (grassCells > 0) dmg = Math.round(dmg * (8-grassCells)/10f);
 
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 	}
 
 	@Override

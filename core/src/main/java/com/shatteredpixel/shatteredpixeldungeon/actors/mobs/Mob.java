@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -38,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.法术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
@@ -55,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
@@ -69,7 +72,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.属性戒指;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
@@ -99,6 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.血药;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -296,7 +302,9 @@ public abstract class Mob extends Char{
 		if(justAlerted){
 			sprite.showAlert();
 		}
-
+		if(Dungeon.符文("我让你跑")){
+			if(移速()>Dungeon.hero.移速())受伤时(Dungeon.hero.最大攻击(),Dungeon.hero);
+		}
 		if(paralysed>0){
 			enemySeen=false;
 			if(this instanceof 刺青结晶){
@@ -787,7 +795,7 @@ public abstract class Mob extends Char{
 
 	@Override
 	public float 攻击时(Char enemy,float damage){
-		if(Dungeon.赛季(赛季设置.生化模式)&&enemy!=null&&enemy.isAlive())enemy.受伤(enemy.最大生命(0.15f));
+		if(Dungeon.赛季(赛季设置.生化模式)&&enemy!=null&&enemy.isAlive())enemy.受伤时(enemy.最大生命(0.15f),Dungeon.class);
 		return super.攻击时(enemy,damage);
 	}
 
@@ -826,7 +834,7 @@ public abstract class Mob extends Char{
 
 		//if attacked by something else than current target, and that thing is closer, switch targets
 		//or if attacked by target, simply update target position
-		if(state!=FLEEING){
+		if(enemy!=null&&state!=FLEEING){
 			if(state!=HUNTING){
 				aggro(enemy);
 				target=enemy.pos;
@@ -899,24 +907,32 @@ public abstract class Mob extends Char{
 	}
 
 	@Override
-	public void 受伤时(float dmg,Object src){
-		if(!是无敌(src.getClass())){
+	public void 受伤时(float dmg,Object 来源){
+		if(!是无敌(来源.getClass())){
 			if(state==SLEEPING){
 				state=WANDERING;
 			}
 
-			if(src instanceof Hero h&&!enemySeen){//防止惊醒距离被打不惊醒
+			if(来源 instanceof Hero h&&!enemySeen){//防止惊醒距离被打不惊醒
 				enemySeen=true;
 				notice();
 				state=HUNTING;
 				target=h.pos;
 			}
-			if(src==Dungeon.hero||src instanceof Weapon||src instanceof Weapon.Enchantment||src instanceof Wand||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术||src instanceof ArmorAbility){
+			if(来源==Dungeon.hero||来源 instanceof 魔攻之戒||
+			   来源 instanceof Artifact||来源 instanceof Wand||
+			   来源 instanceof Weapon||来源 instanceof Weapon.Enchantment||
+			   来源 instanceof Armor.Glyph||
+			   来源 instanceof Dungeon||
+			   来源 instanceof Buff||
+			   来源 instanceof Trap||
+			   来源 instanceof Bomb||
+			   (来源 instanceof Mob m&&m.alignment==Alignment.ALLY)){
 
 				if(Dungeon.hero()){
 					if(Dungeon.hero.全能吸血()>0){
 
-						if(Dungeon.符文("猛攻")||Dungeon.符文("不全能吸血")){
+						if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.符文("猛攻")||Dungeon.符文("不全能吸血")){
 
 						}else{
 							boolean 不削弱=true;
@@ -934,16 +950,16 @@ public abstract class Mob extends Char{
 
 				}
 			}
-			if(!(src instanceof Corruption)&&state!=FLEEING){
+			if(!(来源 instanceof Corruption)&&state!=FLEEING){
 				if(state!=HUNTING){
 					alerted=true;
 					//assume the hero is hitting us in these common cases
-					if(src instanceof Wand||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术||src instanceof ArmorAbility){
+					if(来源 instanceof 魔攻之戒||来源 instanceof Wand||来源 instanceof 法术||来源 instanceof ClericSpell||来源 instanceof 巫术||来源 instanceof 道术||来源 instanceof 忍术||来源 instanceof ArmorAbility){
 						aggro(Dungeon.hero);
 						target=Dungeon.hero.pos;
 					}
 				}else{
-					if(src instanceof Wand||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术||src instanceof ArmorAbility){
+					if(来源 instanceof 魔攻之戒||来源 instanceof Wand||来源 instanceof 法术||来源 instanceof ClericSpell||来源 instanceof 巫术||来源 instanceof 道术||来源 instanceof 忍术||来源 instanceof ArmorAbility){
 						recentlyAttackedBy.add(Dungeon.hero);
 					}
 				}
@@ -954,7 +970,7 @@ public abstract class Mob extends Char{
 			dmg*=1+buff(机体解构层数.class).count*Dungeon.hero.天赋点数(Talent.机体解构,0.03f);
 		}
 
-		super.受伤时(dmg,src);
+		super.受伤时(dmg,来源);
 	}
 
 
@@ -1008,9 +1024,9 @@ public abstract class Mob extends Char{
 		}
 	}
 	@Override
-	public void 死亡时(Object cause){
+	public void 死亡时(Object 来源){
 
-		if(cause==Chasm.class){
+		if(来源==Chasm.class){
 			//50% chance to round up, 50% to round down
 			if(经验%2==1){
 				经验+=Random.Int(2);
@@ -1050,15 +1066,22 @@ public abstract class Mob extends Char{
 				if(Dungeon.hero.buff(灵魂焰灯.燃烧.class).isCursed()) 可以=false;
 
 			if(可以&&防刷()){
-				if(cause==Dungeon.hero||cause instanceof Ring||
-				   cause instanceof Artifact||cause instanceof Wand||
-				   cause instanceof Weapon||cause instanceof Weapon.Enchantment){
+				if(来源==Dungeon.hero||来源 instanceof 魔攻之戒||
+				   来源 instanceof Artifact||来源 instanceof Wand||
+				   来源 instanceof Weapon||来源 instanceof Weapon.Enchantment||
+				   来源 instanceof Armor.Glyph||
+				   来源 instanceof Dungeon||
+				   来源 instanceof Buff||
+				   来源 instanceof Trap||
+				   来源 instanceof Bomb||
+				   (来源 instanceof Mob m&&m.alignment==Alignment.ALLY)
+				){
 
 					if(!isAlive()){
 						if(Dungeon.hero.subClass(HeroSubClass.戏命师))
 						new Bomb.ConjuredBomb().heroexplode(pos);
 
-						if(cause==Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
+						if(来源==Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
 							if(Dungeon.hero.belongings.attackingWeapon() instanceof 草剃){
 								for(int n: PathFinder.相邻){
 									Blooming.plantGrass(pos+n);
@@ -1078,14 +1101,19 @@ public abstract class Mob extends Char{
 						if(Dungeon.符文("缩小引擎"))Dungeon.hero.缩小引擎+=强度();
 						if(Dungeon.hero.subClass(HeroSubClass.狂战士)){
 							算法.修复效果(()->{
-								Buff.施加(this,怒气.class).damage();
+								Buff.施加(Dungeon.hero,怒气.class).damage2();
+							});
+						}
+						if(Dungeon.符文("夜狩")){
+							算法.修复效果(()->{
+								Buff.延长( Dungeon.hero, Invisibility.class, Invisibility.DURATION );
 							});
 						}
 
 						if(Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级/2)){
 							Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
 						}
-						if(血腥生肉.增加()>0&&Random.Int(血腥生肉.增加()-1)==0){
+						if(血腥生肉.概率()>0&&Random.Int(血腥生肉.概率()-1)==0){
 							Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
 						}
 
@@ -1161,11 +1189,11 @@ public abstract class Mob extends Char{
 							Dungeon.hero.力量+=10;
 						}
 						if(Dungeon.符文("裁决使")){
-							if(cause instanceof Wand w){
+							if(来源 instanceof Wand w){
 								w.gainCharge(10);
 							}
 
-							if(cause instanceof Weapon w&&w.charger!=null){
+							if(来源 instanceof Weapon w&&w.charger!=null){
 								w.charger.gainCharge(10);
 							}
 						}
@@ -1179,13 +1207,13 @@ public abstract class Mob extends Char{
 							new 属性锻造器().放背包();
 						}
 						if(Dungeon.符文("海克斯获取:掉落")&&算法.概率学(1/20f))
-							new 海克斯宝典().放背包();
+							new 海克斯宝典(true).放背包();
 
 						if(Dungeon.符文("心灵净化")){
 							for(int n: PathFinder.相邻){
 								Char c=Actor.findChar(pos+n);
 								if(c!=null&&c.alignment==Alignment.ENEMY){
-									c.受伤(c.生命(0.2f));
+									c.受伤时(c.生命(0.2f),Dungeon.hero);
 								}
 							}
 						}
@@ -1201,6 +1229,66 @@ public abstract class Mob extends Char{
 							Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();
 						}
 
+						if(Dungeon.赛季(赛季设置.回廊传说)){
+							Item i=Random.oneOf(
+									Generator.randomWeapon((Dungeon.相对层数() - 1) / 5),
+									Generator.randomArmor((Dungeon.相对层数() - 1) / 5),
+									new 属性戒指(),
+									new 血药()
+											   );
+
+							if(i instanceof Weapon||i instanceof Armor||i instanceof Ring)
+							i.等级(Random.Int(Dungeon.相对层数()-1,Dungeon.相对层数()+3));
+
+							if(i instanceof 属性戒指 x){
+								int xn=0;
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.攻击=Random.Int(20,40)*i.等级();
+								}
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.防御=Random.Int(20,40)*i.等级();
+								}
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.穿甲=Random.Int(20,40)*i.等级();
+								}
+
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.吸血=Random.Int(20,40)*i.等级();
+								}
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.暴击=Random.Int(20,40)*i.等级();
+								}
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.反击=Random.Int(20,40)*i.等级();
+								}
+
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.命中=Random.Int(20,40)*i.等级();
+								}
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.闪避=Random.Int(20,40)*i.等级();
+								}
+								if(xn<3&&Random.Int(8)==0){
+									xn++;
+									x.生命=Random.Int(400,800)*i.等级();
+								}
+
+							}
+
+							Dungeon.level.drop(i,pos).sprite.drop();
+						}
+						if(Dungeon.符文("击杀获得护盾"))
+							Buff.施加(Dungeon.hero, 护盾.class).设置(Dungeon.hero.最大生命(0.15f));
+
+						if(Dungeon.符文("食以民为天"))Dungeon.hero.buff(Hunger.class).吃饭(最大生命);
 						if(Dungeon.符文("超凡邪恶")){
 							Dungeon.hero.魔力+=0.05f;
 						}
@@ -1238,9 +1326,9 @@ public abstract class Mob extends Char{
 
 		if(Dungeon.符文("击杀击杀")&&防刷()&&首次死亡){
 			首次死亡=false;
-			死亡时(cause);
+			死亡时(来源);
 		}else{
-			super.死亡时(cause);
+			super.死亡时(来源);
 		}
 
 	}
@@ -1248,6 +1336,7 @@ public abstract class Mob extends Char{
 	public float lootChance(){
 		float lootChance=this.lootChance;
 
+		if(Dungeon.赛季(赛季设置.回廊传说))lootChance=0;
 		if(Dungeon.解压(解压设置.掉落几率)){
 			lootChance*=3;
 		}
@@ -1279,6 +1368,8 @@ public abstract class Mob extends Char{
 	}
 
 	public void rollToDropLoot(){
+		if(Dungeon.赛季(赛季设置.回廊传说))
+			return;
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
 
 		}else{
@@ -1287,16 +1378,17 @@ public abstract class Mob extends Char{
 			}
 		}
 		if(防刷()){
-			if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/8f*Dungeon.难度掉率())){
+			if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/8f)){
 				Dungeon.level.drop(Generator.random(),pos).sprite().drop();
 			}
-			if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/12f*Dungeon.难度掉率())){
+			if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/12f)){
 				Dungeon.level.drop(new 治疗药剂(),pos).sprite().drop();
 			}
 			MasterThievesArmband.StolenTracker stolen=buff(MasterThievesArmband.StolenTracker.class);
 			if(stolen==null||!stolen.itemWasStolen()){
 				Item loot=createLoot();
 				float 几率=1*Dungeon.难度掉率();
+				if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4)))几率*=10;
 
 				if(loot!=null){
 					if(loot.可堆叠){
@@ -1337,7 +1429,7 @@ public abstract class Mob extends Char{
 		}
 	}
 
-	protected Object loot=null;
+	public Object loot=null;
 	protected float lootChance=1;//0
 
 	@SuppressWarnings("unchecked")
@@ -1486,15 +1578,17 @@ public abstract class Mob extends Char{
 			}
 			desc+="属性:"+属性+"(阵容="+阵容+")\n";
 
-			desc+=" == 攻击 == "+kw2(最小攻击()*Dungeon.难度攻击())+"~"+kw2(最大攻击()*Dungeon.难度攻击())+"\n";
-			desc+=" ++ 防御++ "+kw2(最小防御()*Dungeon.难度防御())+"~"+kw2(最大防御()*Dungeon.难度防御())+"\n\n";
-			desc+="命中/闪避"+最小命中(null)*Dungeon.难度命中闪避()+"~"
-				  +Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"
-				  +Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"
-				  +Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
-			desc+="攻速/移速"+String.format("%.2f",1f/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
-			desc+="_暴击率/暴击伤害_"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
-			desc+="经验/经验等级上限"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
+			if(Dungeon.赛季(赛季设置.回廊传说)){
+				desc+=" == 攻击 == "+kw2(最大攻击()*Dungeon.难度攻击())+"\n";
+				desc+=" ++ 防御++ "+kw2(最大防御()*Dungeon.难度防御())+"\n\n";
+			}else{
+				desc+=" == 攻击 == "+kw2(最小攻击()*Dungeon.难度攻击())+"~"+kw2(最大攻击()*Dungeon.难度攻击())+"\n";
+				desc+=" ++ 防御++ "+kw2(最小防御()*Dungeon.难度防御())+"~"+kw2(最大防御()*Dungeon.难度防御())+"\n\n";
+				desc+="命中/闪避"+最小命中(null)*Dungeon.难度命中闪避()+"~"+Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
+				desc+="攻速/移速"+String.format("%.2f",1f/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
+				desc+="_暴击率/暴击伤害_"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
+				desc+="经验/经验等级上限"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
+			}
 			String 战利品="";
 			if(loot instanceof Item i){
 				战利品=i.name();

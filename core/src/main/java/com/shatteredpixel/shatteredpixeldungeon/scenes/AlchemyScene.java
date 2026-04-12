@@ -751,7 +751,7 @@ public class AlchemyScene extends PixelScene {
 					Item item = inputs[i].item();
 					if (item.数量()<=0) {
 						if(Dungeon.符文("智慧的宠爱")){
-//							item.数量(1);
+//							item.数量0();
 						}else{
 							inputs[i].item(null);
 						}

@@ -50,7 +50,7 @@ public abstract class WellWater extends Blob {
 
 				} else if (oldItem.数量()>1) {
 
-					oldItem.数量(oldItem.数量()-1);
+					oldItem.数量减();
 					heap.drop( newItem );
 					
 				} else {

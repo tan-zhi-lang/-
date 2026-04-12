@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
@@ -16,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -92,6 +93,7 @@ public abstract class Wand extends Item {
 	}
 	public float 魔力(float 魔力收益,float 等收益,int 等级){
 		float x=1;
+		if(Dungeon.符文("没有魔力的魔法帝"))return 0;
 		if(Dungeon.符文("多重施法")){
 			if(算法.概率学(1/2))
 			x+=1;
@@ -102,6 +104,7 @@ public abstract class Wand extends Item {
 			if(算法.概率学(1/16))
 			x+=8;
 		}
+		if(Dungeon.符文("魔法:神代回归"))x+=3.5f;
 		if(Dungeon.符文("溢流"))x++;
 		if(Dungeon.符文("属性:火")){
 			if(this instanceof 焰浪法杖)x+=0.5f;
@@ -141,6 +144,7 @@ public abstract class Wand extends Item {
 		
 		}else{
 			if (curCharges > 0 || !curChargeKnown) {
+				if(!(this instanceof 技能))
 				actions.add( AC_ZAP );
 			}
 		}
@@ -155,6 +159,7 @@ public abstract class Wand extends Item {
 		if((Dungeon.炼狱(炼狱设置.诅咒法杖)||(hero.符文("末法")))&&!(this instanceof 灵月法杖)){
 		
 		}else{
+			if(!(this instanceof 技能))
 			if (action.equals( AC_ZAP )) {
 				curUser = hero;
 				curItem = this;
@@ -358,18 +363,21 @@ public abstract class Wand extends Item {
 
 		super.升级();
 
+		cursed = false;
 
-			cursed = false;
-
-
-		if (resinBonus > 0){
-			resinBonus--;
+		if(this instanceof 技能 x){
+			maxCharges = initialCharges() - 等级()*x.充能;
+			updateQuickslot();
+		}else{
+			if (resinBonus > 0){
+				resinBonus--;
+			}
+			updateLevel();
+			curCharges=Math.min(curCharges+ +(curUser!=null&&curUser.heroClass(HeroClass.MAGE)?
+													  1:
+													  0),maxCharges);
+			updateQuickslot();
 		}
-
-		updateLevel();
-		curCharges = Math.min( curCharges + +(curUser!=null&&curUser.heroClass(HeroClass.MAGE)?1:0), maxCharges );
-		updateQuickslot();
-		
 		return this;
 	}
 	
@@ -387,6 +395,7 @@ public abstract class Wand extends Item {
 	public int 强化等级() {
 		int lvl = super.强化等级();
 
+		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		if (charger != null && charger.target instanceof Hero hero) {
 			
 			//inside staff, still need to apply degradation
@@ -427,7 +436,12 @@ public abstract class Wand extends Item {
 	public int initialCharges() {
 		return 2;
 	}
-
+	public boolean 一点充能(){
+		return curCharges==1;
+	}
+	public boolean 满充能(){
+		return curCharges==maxCharges;
+	}
 	protected int chargesPerCast() {
 		return 1;
 	}
@@ -450,6 +464,12 @@ public abstract class Wand extends Item {
 	}
 
 	public void wandUsed() {
+		if(this instanceof 技能){
+			curCharges -=chargesPerCast();
+			Invisibility.notimedispel();
+			updateQuickslot();
+			return;
+		}
 		if (!已鉴定()) {
 			if(首次使用){
 				首次使用=false;
@@ -472,7 +492,8 @@ public abstract class Wand extends Item {
 				Buff.延长(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
 			}
 		}
-		if(curUser.符文("不详契约"))curUser.受伤(curUser.生命(0.05f));
+		if(curUser.符文("万世催化石"))curUser.回血(20);
+		if(curUser.符文("不详契约"))curUser.受伤时(curUser.生命(0.05f),curUser);
 		if(!算法.isDebug())
 		curCharges -= cursed ? 1 : chargesPerCast();
 
@@ -792,6 +813,11 @@ public abstract class Wand extends Item {
 		
 		@Override
 		public boolean act() {
+			if(Wand.this instanceof 技能){
+				updateQuickslot();
+				spend(TICK);
+				return true;
+			}
 			if (curCharges < maxCharges && target.buff(MagicImmune.class) == null)
 				recharge();
 			
@@ -831,6 +857,7 @@ public abstract class Wand extends Item {
 		}
 
 		public void gainCharge(float charge){
+			if(Wand.this instanceof 技能)return;
 			if (curCharges < maxCharges) {
 				partialCharge += charge;
 				while (partialCharge >= 1f) {

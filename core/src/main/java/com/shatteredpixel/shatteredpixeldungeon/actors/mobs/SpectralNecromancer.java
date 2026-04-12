@@ -46,7 +46,7 @@ public class SpectralNecromancer extends Necromancer {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 		for (int ID : wraithIDs){
 			Actor a = Actor.findById(ID);
 			if (a instanceof Wraith && ((Wraith) a).alignment == alignment){
@@ -54,7 +54,7 @@ public class SpectralNecromancer extends Necromancer {
 			}
 		}
 
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 
 	private static final String WRAITH_IDS = "wraith_ids";

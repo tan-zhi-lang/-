@@ -29,7 +29,7 @@ public class 传送阵眼 extends NPC {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ) {
+	public void 受伤时(float dmg, Object 来源) {
 		//do nothing
 	}
 

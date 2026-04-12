@@ -40,7 +40,7 @@ public class 超级魔法绵羊 extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ){
+	public void 受伤时(float dmg, Object 来源){
 		
 		String s=Random.element(LINE_KEYS);
 		sprite.showStatus(CharSprite.NEUTRAL,Messages.get(this,s));
@@ -51,7 +51,7 @@ public class 超级魔法绵羊 extends Mob {
 		}
 		Sample.INSTANCE.play(Assets.Sounds.SHEEP,1,Random.Float(0.91f,1.1f));
 		
-		super.受伤时(dmg,src);
+		super.受伤时(dmg,来源);
 		
 		if(isAlive()){
 			传送卷轴.teleportChar(this);

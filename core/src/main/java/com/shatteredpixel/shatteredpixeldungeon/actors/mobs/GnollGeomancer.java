@@ -256,7 +256,7 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		float hpBracket = 最大生命 / 3;
 
 		float curbracket = 生命 / hpBracket;
@@ -264,7 +264,7 @@ public class GnollGeomancer extends Mob {
 
 		inFinalBracket = curbracket == 0;
 
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 
 		abilityCooldown -= dmg/10f;
 
@@ -286,7 +286,7 @@ public class GnollGeomancer extends Mob {
 			Buff.施加(this, RockArmor.class).设置(25);
 		}
 		//新加的代码，不止什么原理导致死亡没有正常触发
-		if(!isAlive())死亡时(src);
+		if(!isAlive())死亡时(来源);
 	}
 
 	private boolean inFinalBracket = false;
@@ -509,8 +509,8 @@ public class GnollGeomancer extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
-		super.死亡时(cause);
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 		Blacksmith.Quest.beatBoss();
 		Sample.INSTANCE.playDelayed(Assets.Sounds.ROCKS, 0.1f);
 		PixelScene.shake( 3, 0.7f );

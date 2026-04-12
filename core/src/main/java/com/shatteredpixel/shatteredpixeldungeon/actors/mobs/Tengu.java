@@ -114,7 +114,7 @@ public class Tengu extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		if (!Dungeon.level.mobs.contains(this)){
 			return;
 		}
@@ -126,7 +126,7 @@ public class Tengu extends Mob {
 		float curbracket = 生命 / hpBracket;//当前生命能承受1/8多少次
 
 		float beforeHitHP = 生命;
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 
 		//cannot be hit through multiple brackets at a time
 		if (生命 <= (curbracket-1)*hpBracket){//生命小于1/8那么就多一点
@@ -137,7 +137,7 @@ public class Tengu extends Mob {
 		dmg = beforeHitHP - 生命;
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
+		if (lock != null&&!免疫(来源.getClass())&&!是无敌(来源.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(2*dmg/3f);
 			else                                                    lock.addTime(dmg);
 		}
@@ -194,14 +194,14 @@ public class Tengu extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause ) {
+	public void 死亡时(Object 来源) {
 		
 		if (Dungeon.hero.subClass == HeroSubClass.NONE) {
 			Dungeon.level.drop( new TengusMask(), pos ).sprite().drop();
 		}
 		
 		GameScene.bossSlain();
-		super.死亡时( cause );
+		super.死亡时(来源);
 		
 		Badges.validateBossSlain();
 		if (Statistics.qualifiedForBossChallengeBadge){

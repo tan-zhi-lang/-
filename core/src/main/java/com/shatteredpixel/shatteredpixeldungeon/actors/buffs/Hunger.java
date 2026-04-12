@@ -80,22 +80,43 @@ public class Hunger extends Buff implements Hero.Doom {
 		if (on) target.sprite.aura( color, rays );
 		else target.sprite.clearAura();
 	}
+	public float 饥饿速度(){
+		float x=1;
+
+		if (target.buff(Shadows.class) != null){
+			x /= 2;
+		}
+		if(Dungeon.符文("短跑壮如牛长跑瘦如猴"))
+			x *= target.移速();
+		if(Dungeon.符文("大胃王"))
+			x /= 2;
+		if(Dungeon.符文("树懒转世"))
+			x /= 2;
+		if(Dungeon.解压(解压设置.抗饿能手))
+			x /= 2;
+		if(Dungeon.符文("我是瘦子"))x/=2;
+		x*=SaltCube.hungerGainMultiplier();
+		x*=血腥生肉.饥饿();
+
+		return x;
+	}
 	@Override
 	public boolean act() {
-
+		boolean 不饥饿=false;
 		if (Dungeon.level.locked
 				|| target.buff(WellFed.class) != null
 				|| SPDSettings.intro()
 				|| target.buff(ScrollOfChallenge.ChallengeArena.class) != null
 			|| Dungeon.level instanceof VaultLevel){
-			spend(TICK);
-			return true;
+			不饥饿=true;
 		}
-		if(Dungeon.赛季(赛季设置.地牢塔防)){
-			spend(TICK);
-			return true;
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+			不饥饿=true;
 		}
 		if(target instanceof Hero hero&&(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
+			不饥饿=true;
+		}
+		if(不饥饿){
 			spend(TICK);
 			return true;
 		}
@@ -104,19 +125,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			
 			if (isStarving()) {//饥饿时
 
-				float hungerDelay = 1/10f;
-				if (target.buff(Shadows.class) != null){
-					hungerDelay *= 1.5f;
-				}
-				if(Dungeon.符文("树懒转世"))
-					hungerDelay *= 2;
-				if(Dungeon.解压(解压设置.抗饿能手))
-					hungerDelay *= 2;
-				hungerDelay/=SaltCube.hungerGainMultiplier();
-				hungerDelay/=血腥生肉.减少();
-
-				if(Dungeon.符文("我是瘦子"))hungerDelay*=1.75f;
-				partial=hungerDelay/2f+(float)Math.sqrt(hero.已损失生命())/89f;
+				partial=饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f;
 
 				if (partial > 0){
 //					partial=0;
@@ -125,23 +134,12 @@ public class Hunger extends Buff implements Hero.Doom {
 				
 			} else {
 
-				float hungerDelay = 1;
-				if (target.buff(Shadows.class) != null){
-					hungerDelay *= 1.5f;
-				}
-				if(Dungeon.符文("树懒转世"))
-					hungerDelay *= 2;
-				if(Dungeon.解压(解压设置.抗饿能手))
-					hungerDelay *= 2;
-				hungerDelay/=SaltCube.hungerGainMultiplier();
-				hungerDelay/=血腥生肉.减少();
-
-				if(Dungeon.符文("我是瘦子"))hungerDelay*=1.75f;
-				float newLevel = level + 1f/hungerDelay;
+				float hungerDelay = 饥饿速度();
+				float newLevel = level + hungerDelay;
 				if (newLevel >= STARVING) {//450时
 
 					GLog.n( Messages.get(this, "onstarving") );
-					hero.受伤时( hungerDelay/20f+(float)Math.sqrt(hero.已损失生命())/89f, this );
+					hero.受伤时( hungerDelay/20f+(float)Math.sqrt(hero.已损失生命())/89f, this);
 
 					hero.interrupt();
 					newLevel = STARVING;
@@ -201,9 +199,9 @@ public class Hunger extends Buff implements Hero.Doom {
 		} else if (oldLevel < STARVING && level >= STARVING){
 			GLog.n( Messages.get(this, "onstarving") );
 			if(Dungeon.符文("我是瘦子"))
-				target.受伤时( 2, this );
+				target.受伤时( 饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f*2, this );
 			else
-			target.受伤时( 1, this );
+			target.受伤时( 饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f, this );
 			partial=0;
 		}
 

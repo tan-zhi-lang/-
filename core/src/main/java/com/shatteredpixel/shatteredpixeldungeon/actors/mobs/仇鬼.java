@@ -51,9 +51,9 @@ public class 仇鬼 extends Mob implements Callback {
 	}
 	
 	@Override
-	public void 死亡时(Object cause){
+	public void 死亡时(Object 来源){
 		Sample.INSTANCE.play(Assets.Sounds.鬼叫);
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 	
 	@Override

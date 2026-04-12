@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -92,6 +93,7 @@ public class 武力之戒 extends Ring{
 	}
 	
 	public static int heromax(){
+		if(Dungeon.赛季(赛季设置.回廊传说))return 2;
 		return Math.round(Dungeon.hero.力量()-8);
 	}
 	public static int min(){

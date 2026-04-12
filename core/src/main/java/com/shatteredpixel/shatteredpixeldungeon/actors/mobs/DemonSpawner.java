@@ -112,14 +112,14 @@ public class DemonSpawner extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		if (dmg >= 20){
 			//takes 20/21/22/23/24/25/26/27/28/29/30 dmg
 			// at   20/22/25/29/34/40/47/55/64/74/85 incoming dmg
 			dmg = 19 + (int)(Math.sqrt(8*(dmg - 19) + 1) - 1)/2;
 		}
 		spawnCooldown -= dmg;
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 	}
 
 	@Override
@@ -128,13 +128,13 @@ public class DemonSpawner extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 		if (spawnRecorded){
 			Statistics.spawnersAlive--;
 			Notes.remove(landmark());
 		}
 		GLog.h(Messages.get(this, "on_death"));
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 
 	public static final String SPAWN_COOLDOWN = "spawn_cooldown";

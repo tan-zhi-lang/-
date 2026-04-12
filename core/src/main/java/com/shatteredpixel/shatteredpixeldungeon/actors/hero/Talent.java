@@ -62,6 +62,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -508,13 +509,23 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		hero.回血(Math.round(foodVal+hero.天赋点数(Talent.备战,3)+(hero.符文("饭桶")?hero.最大生命(0.05f):0)));
+		hero.回血(Math.round(foodVal+
+							 foodVal*(
+									 hero.天赋点数(Talent.备战,3)+(hero.符文("饭桶")?hero.最大生命(0.05f):0))
+							));
 
+		if(hero.符文("饿死鬼投胎")&&hero.buff(Hunger.class).空腹()){
+			hero.回百分比血(0.2f*foodVal);
+		}
 		if(hero.符文("牙结石")){
 			hero.护甲(foodVal*0.075f);
 		}
+		if(hero.符文("一口吃得成大胖子")){
+			hero.生命成长+=foodVal*5f;
+			hero.大小成长+=foodVal*0.025f;
+		}
 		if(hero.符文("饭桶")){
-			hero.恢复百分比护甲(0.1f);
+			hero.恢复百分比护甲(0.1f*foodVal);
 		}
 		if (hero.heroClass(HeroClass.学士)){
 			if (hero.cooldown() > 0) {
@@ -522,8 +533,8 @@ public enum Talent {
 			}
 		}
 		if(hero.天赋(Talent.污蔑狂宴)){
-			hero.力量+=hero.天赋点数(Talent.污蔑狂宴,0.5f);
-			hero.生命成长+=hero.天赋点数(Talent.污蔑狂宴,5);
+			hero.力量+=hero.天赋点数(Talent.污蔑狂宴,0.5f)*foodVal;
+			hero.生命成长+=hero.天赋点数(Talent.污蔑狂宴,5)*foodVal;
 		}
 		//法杖伤害
 //			Buff.施加( hero, WandEmpower.class).set(5, 1);
@@ -649,13 +660,15 @@ public enum Talent {
 
 	public static void onArtifactUsed( Hero hero ){
 
+		if(hero.符文("万世催化石"))hero.回血(20);
 		if(hero.符文("古式佳酿"))hero.回百分比血(0.045f);
 
 	}
 
 	public static void 装备时(Hero hero, Item item ){
 		boolean identify = false;
-		
+
+		if(Dungeon.赛季(赛季设置.回廊传说))item.鉴定();
 		if (identify){
 			if(ShardOfOblivion.passiveIDDisabled()){
 				if(item instanceof Weapon){
@@ -672,7 +685,8 @@ public enum Talent {
 	}
 
 	public static void 拾取时(Hero hero, Item item ){
-	
+
+		if(Dungeon.赛季(赛季设置.回廊传说))item.鉴定();
 	}
 
 	public static float 伏击时(Hero hero, Char enemy, float dmg ){

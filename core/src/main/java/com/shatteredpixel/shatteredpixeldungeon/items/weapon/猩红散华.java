@@ -7,10 +7,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 腥红散华 extends Weapon{
+public class 猩红散华 extends Weapon{
 	
 	{
-		image = 物品表.腥红散华;
+		image = 物品表.猩红散华;
 		hitSound = Assets.Sounds.HIT_ARROW;
 		范围=5;
 		红色 = true;

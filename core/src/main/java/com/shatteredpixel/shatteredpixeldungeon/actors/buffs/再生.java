@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 
 public class 再生 extends Buff {
@@ -51,7 +52,7 @@ public class 再生 extends Buff {
 					再生数值+=0.004f*hero.等级;
 					再生数值+=hero.再生成长;
 					if(hero.符文("最大护甲转生命再生")){
-						再生数值+=hero.更新护甲(0.01f);
+						再生数值+=hero.最大护甲(0.01f);
 					}
 					if(hero.hasbuff(WellFed.class))再生数值*=1.2f;
 
@@ -89,10 +90,12 @@ public class 再生 extends Buff {
 
 						if(hero.heroClass(HeroClass.血鬼))
 							再生数值/=2;
+						if(hero.符文("大胃王"))
+							再生数值*=2;
 						if(hero.符文("恢复恢复"))
 							再生数值*=3.5f;
 
-						if(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
+						if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)|| hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
 							再生数值=0;
 						if(hero.符文("吸血习性"))
 							再生数值=0;

@@ -139,7 +139,7 @@ public class UnstableSpell extends Spell {
 		public Item brew(ArrayList<Item> ingredients) {
 
 			for (Item i : ingredients){
-				i.数量(i.数量()-1);
+				i.数量减();
 			}
 
 			return sampleOutput(null);

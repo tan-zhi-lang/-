@@ -23,7 +23,7 @@ public class Wnd选择属性 extends Window {
 				return Random.Float(5,25);
 			case "最大防御":
 				return Random.Float(2,10);
-			case "生命":
+			case "最大生命":
 				return Random.Float(5,25);
 			case "力量":
 				return Random.Float(1,5);
@@ -58,9 +58,9 @@ public class Wnd选择属性 extends Window {
 				"最大攻击","最大防御",
 				"最大攻击","最大防御",
 
-							"生命","力量",
-							"生命","力量",
-							"生命","力量",
+							"最大生命","力量",
+							"最大生命","力量",
+							"最大生命","力量",
 							"攻速","移速",
 							"攻速","移速",
 							"攻速","移速",
@@ -201,7 +201,7 @@ public class Wnd选择属性 extends Window {
 		pos=moveBtn4.bottom()+MARGIN;
 
 		boolean 属性刷新=true;
-		RedButton 刷新=new RedButton("重新获得一个属性锻造器(初始可以刷新1次)",6){
+		RedButton 刷新=new RedButton("刷新/重新获得(剩余"+i.使用上限()+"次)",6){
 			@Override
 			protected void onClick(){
 				super.onClick();
@@ -217,7 +217,7 @@ public class Wnd选择属性 extends Window {
 		刷新.setSize(width,刷新.reqHeight());
 		刷新.setRect(0,pos,width,刷新.reqHeight()+6);
 
-		if(i.用过<i.使用上限()){
+		if(i.使用上限()>0){
 			if(!hero.符文("无法刷新海克斯")){
 				add(刷新);
 				pos=刷新.bottom()+MARGIN;

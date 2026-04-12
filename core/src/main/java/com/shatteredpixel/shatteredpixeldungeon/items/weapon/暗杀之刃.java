@@ -3,8 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.潜行;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.背刺;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 暗杀之刃 extends Weapon {
@@ -18,7 +17,7 @@ public class 暗杀之刃 extends Weapon {
 
 		特别=true;
 		靛色=true;
-		技能=new 潜行();
+		技能=new 背刺();
 		伏击=1.5f;
 		tier = 5;
 	}

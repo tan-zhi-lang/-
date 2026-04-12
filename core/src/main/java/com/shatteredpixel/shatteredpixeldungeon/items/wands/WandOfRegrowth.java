@@ -418,7 +418,7 @@ public class WandOfRegrowth extends DamageWand {
 		}
 
 		@Override
-		public void 受伤时(float dmg, Object src ) {
+		public void 受伤时(float dmg, Object 来源) {
 			//do nothing
 		}
 

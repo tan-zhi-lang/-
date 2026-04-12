@@ -92,6 +92,11 @@ public class Wnd选择海克斯 extends Window {
 							hero.降低海克斯(海克斯2s);
 							hero.降低海克斯(海克斯3s);
 							hero.降低海克斯(海克斯4s);
+							if(hero.符文("我全都要")){
+								hero.选择海克斯(海克斯2s);
+								hero.选择海克斯(海克斯3s);
+								hero.选择海克斯(海克斯4s);
+							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯2s);
 								hero.移除海克斯(海克斯3s);
@@ -140,6 +145,11 @@ public class Wnd选择海克斯 extends Window {
 							hero.降低海克斯(海克斯1s);
 							hero.降低海克斯(海克斯3s);
 							hero.降低海克斯(海克斯4s);
+							if(hero.符文("我全都要")){
+								hero.选择海克斯(海克斯1s);
+								hero.选择海克斯(海克斯3s);
+								hero.选择海克斯(海克斯4s);
+							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯1s);
 								hero.移除海克斯(海克斯3s);
@@ -186,6 +196,11 @@ public class Wnd选择海克斯 extends Window {
 							hero.降低海克斯(海克斯1s);
 							hero.降低海克斯(海克斯2s);
 							hero.降低海克斯(海克斯4s);
+							if(hero.符文("我全都要")){
+								hero.选择海克斯(海克斯1s);
+								hero.选择海克斯(海克斯2s);
+								hero.选择海克斯(海克斯4s);
+							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯1s);
 								hero.移除海克斯(海克斯2s);
@@ -232,6 +247,11 @@ public class Wnd选择海克斯 extends Window {
 							hero.降低海克斯(海克斯1s);
 							hero.降低海克斯(海克斯2s);
 							hero.降低海克斯(海克斯3s);
+							if(hero.符文("我全都要")){
+								hero.选择海克斯(海克斯1s);
+								hero.选择海克斯(海克斯2s);
+								hero.选择海克斯(海克斯3s);
+							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯1s);
 								hero.移除海克斯(海克斯2s);
@@ -259,12 +279,12 @@ public class Wnd选择海克斯 extends Window {
 		add(clsInfo4);
 		pos = btnCls4.bottom() + MARGIN;
 
-		RedButton 刷新=new RedButton("重新获得一个海克斯法典(初始可以刷新1次)",6){
+		RedButton 刷新=new RedButton("刷新/重新获得(剩余"+i.使用上限()+"次)",6){
 			@Override
 			protected void onClick(){
 				super.onClick();
 				Sample.INSTANCE.play(Assets.Sounds.海克斯);
-				海克斯宝典 item=new 海克斯宝典();
+				海克斯宝典 item=new 海克斯宝典(true);
 				item.用过+=i.用过+1;
 				item.放背包();
 
@@ -275,7 +295,7 @@ public class Wnd选择海克斯 extends Window {
 		刷新.multiline=true;
 		刷新.setSize(width,刷新.reqHeight());
 		刷新.setRect(0,pos,width,刷新.reqHeight()+6);
-		if(i.用过<i.使用上限()){
+		if(i.使用上限()>0){
 			if(!hero.符文("无法刷新海克斯")){
 				add(刷新);
 				pos=刷新.bottom()+MARGIN;

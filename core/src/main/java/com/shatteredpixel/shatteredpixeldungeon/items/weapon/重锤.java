@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.保鲜;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.重击;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Bundle;
 
@@ -17,7 +17,7 @@ public class 重锤 extends Weapon{
 		image = 物品表.重锤;
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
-		技能=new 保鲜();
+		技能=new 重击();
 		延迟=0.6f;
 
 		特别=true;

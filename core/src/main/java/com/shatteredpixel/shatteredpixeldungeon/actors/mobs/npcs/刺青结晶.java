@@ -67,7 +67,7 @@ public class 刺青结晶 extends NPC {
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
 				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
-					c.受伤(1+tier);
+					c.受伤时(1+tier,this);
 				}
 			}
 		}
@@ -75,7 +75,7 @@ public class 刺青结晶 extends NPC {
 			for(int n: PathFinder.范围5){
 				Char c=Actor.findChar(pos+n);
 				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
-					c.受伤(1+tier);
+					c.受伤时(1+tier,this);
 				}
 			}
 		}
@@ -83,7 +83,7 @@ public class 刺青结晶 extends NPC {
 			for(int n: PathFinder.范围4){
 				Char c=Actor.findChar(pos+n);
 				if(c!=null&&c.在草丛()&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
-					c.受伤(1+tier);
+					c.受伤时(1+tier,this);
 				}
 			}
 		}

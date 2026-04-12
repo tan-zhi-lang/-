@@ -216,7 +216,10 @@ public abstract class RegularLevel extends Level {
 			mobs*=2;
 		}
 		if(Dungeon.派对(派对设置.小小可爱))mobs/=2;
-		if(Dungeon.赛季(赛季设置.修罗血场)){
+		if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4))){
+			mobs*=2;
+		}
+		if(Dungeon.符文("修罗血场")){
 			mobs*=2;
 		}
 		if(Dungeon.赛季(赛季设置.刷子地牢)){

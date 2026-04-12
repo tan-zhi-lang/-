@@ -96,7 +96,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
@@ -826,7 +825,10 @@ public abstract class Level implements Bundlable {
 			}
 		}
 
-		if(Dungeon.赛季(赛季设置.修罗血场)){
+		if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4))){
+			cooldown/=2;
+		}
+		if(Dungeon.符文("修罗血场")){
 			cooldown/=3;
 		}
 		if(Dungeon.符文("升级破碎像素地牢")){
@@ -1055,32 +1057,32 @@ public abstract class Level implements Bundlable {
 		return false;
 	}
 	public boolean 在地板(int pos){
-		return Dungeon.level.map[pos] == Terrain.EMPTY_SP;
+		return map[pos] == Terrain.EMPTY_SP;
 	}
 	public boolean 在陷阱(int pos){
-		return Dungeon.level.map[pos] == Terrain.TRAP|| Dungeon.level.map[pos] == Terrain.INACTIVE_TRAP;
+		return map[pos] == Terrain.TRAP|| map[pos] == Terrain.INACTIVE_TRAP;
 	}
 	public boolean 在深渊(int pos){
-		return Dungeon.level.map[pos] == Terrain.CHASM;
+		return map[pos] == Terrain.CHASM;
 	}
 	public boolean 在水中(int pos){
-		return Dungeon.level.map[pos] == Terrain.WATER;
+		return map[pos] == Terrain.WATER;
 	}
 	public boolean 在草丛(int pos){
-		return Dungeon.level.map[pos] == Terrain.GRASS||
-			   Dungeon.level.map[pos] == Terrain.HIGH_GRASS||
-			   Dungeon.level.map[pos] == Terrain.FURROWED_GRASS;
+		return map[pos] == Terrain.GRASS||
+			   map[pos] == Terrain.HIGH_GRASS||
+			   map[pos] == Terrain.FURROWED_GRASS;
 	}
 	public boolean 在门上(int pos){
-		return Dungeon.level.map[pos] == Terrain.OPEN_DOOR;
+		return map[pos] == Terrain.OPEN_DOOR;
 	}
 	public boolean 在墙体(int pos){
-		return Dungeon.level.map[pos] == Terrain.WALL||Dungeon.level.map[pos] == Terrain.WALL_DECO;
+		return map[pos] == Terrain.WALL||map[pos] == Terrain.WALL_DECO;
 	}
 	public boolean 在狭窄(int pos){
 		int 墙 = 0;
 		for (int i : PathFinder.相邻) {
-			if (Dungeon.level.solid[pos + i]) {
+			if (solid[pos + i]) {
 				墙 ++;
 			}
 		}
@@ -1092,7 +1094,7 @@ public abstract class Level implements Bundlable {
 	public boolean 实体墙(int pos,int x){
 		int 墙 = 0;
 		for (int i : PathFinder.相邻) {
-			if (Dungeon.level.solid[pos + i]) {
+			if (solid[pos + i]) {
 				墙 ++;
 			}
 		}

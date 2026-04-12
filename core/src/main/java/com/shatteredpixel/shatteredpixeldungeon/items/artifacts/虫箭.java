@@ -20,16 +20,21 @@ public class 虫箭 extends Artifact {
 
 	{
 		image = 物品表.虫箭;
-		defaultAction = AC_USE;
+		defaultAction = AC_USE1;
 		usesTargeting=false;
 	}
-	protected static final String AC_USE = "USE";
+	protected static final String AC_USE1 = "USE1";
+	protected static final String AC_USE2 = "USE2";
 
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
-		if(isEquipped(hero))
-		actions.add( AC_USE );
+		if(isEquipped(hero)){
+			if(召唤)
+			actions.add(AC_USE1);
+			else
+			actions.add(AC_USE2);
+		}
 		return actions;
 	}
 	@Override
@@ -37,12 +42,14 @@ public class 虫箭 extends Artifact {
 
 		super.execute( hero, action );
 
-		if (action.equals(AC_USE)&&isEquipped(hero)) {
+		if (action.equals(AC_USE1)&&isEquipped(hero)) {
 			if(召唤){
 				召唤=false;
 				Buff.施加(hero,替身保护.class);
 			}
-			else {
+		}
+		if (action.equals(AC_USE2)&&isEquipped(hero)) {
+			{
 				召唤=true;
 
 				for (Mob m : Dungeon.level.mobs){

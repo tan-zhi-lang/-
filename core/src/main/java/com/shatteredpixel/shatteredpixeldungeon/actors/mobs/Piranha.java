@@ -111,8 +111,8 @@ public class Piranha extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause ) {
-		super.死亡时( cause );
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 		if(Dungeon.hero.天赋(Talent.撒子鱼群)){
 			Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.撒子鱼群,2)),pos).sprite.drop();
 		}

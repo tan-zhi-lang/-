@@ -32,14 +32,14 @@ public class DM201 extends DM200 {
 	private boolean threatened = false;
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
-		if (!(src instanceof Corruption)) {
-			if ((src instanceof Char && !Dungeon.level.adjacent(pos, ((Char) src).pos))
+	public void 受伤时(float dmg, Object 来源) {
+		if (!(来源 instanceof Corruption)) {
+			if ((来源 instanceof Char&&!Dungeon.level.adjacent(pos,((Char)来源).pos))
 				|| enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)) {
 				threatened = true;
 			}
 		}
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 	}
 
 	public void onZapComplete(){

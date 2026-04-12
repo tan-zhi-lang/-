@@ -269,11 +269,11 @@ public class CrystalSpire extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
-		if (!(src instanceof 镐子) ){
+	public void 受伤时(float dmg, Object 来源) {
+		if (!(来源 instanceof 镐子) ){
 			dmg = 0;
 		}
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 	}
 
 	@Override

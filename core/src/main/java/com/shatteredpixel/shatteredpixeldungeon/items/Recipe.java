@@ -124,7 +124,7 @@ public abstract class Recipe {
 							needed[i] = 0;
 						} else {
 							needed[i] -= ingredient.数量();
-							ingredient.数量(0);
+							ingredient.数量0();
 						}
 					}
 				}

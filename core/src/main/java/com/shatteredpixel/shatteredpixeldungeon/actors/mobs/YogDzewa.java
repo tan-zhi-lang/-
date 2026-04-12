@@ -371,10 +371,10 @@ public class YogDzewa extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ) {
+	public void 受伤时(float dmg, Object 来源) {
 
 		float preHP = 生命;
-		super.受伤时( dmg, src );
+		super.受伤时(dmg,来源);
 
 		if (phase == 0 || findFist() != null) return;
 
@@ -415,7 +415,7 @@ public class YogDzewa extends Mob {
 		}
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
+		if (lock != null&&!免疫(来源.getClass())&&!是无敌(来源.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmgTaken/3f);
 			else                                                    lock.addTime(dmgTaken/2f);
 		}
@@ -503,12 +503,12 @@ public class YogDzewa extends Mob {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void 死亡时(Object cause ) {
+	public void 死亡时(Object 来源) {
 
 		Bestiary.skipCountingEncounters = true;
 		for (Mob mob : (Iterable<Mob>)Dungeon.level.mobs.clone()) {
 			if (mob instanceof Larva || mob instanceof YogRipper || mob instanceof YogEye || mob instanceof YogScorpio) {
-				mob.死亡时( cause );
+				mob.死亡时(来源);
 			}
 		}
 		Bestiary.skipCountingEncounters = false;
@@ -524,10 +524,10 @@ public class YogDzewa extends Mob {
 		}
 		Statistics.bossScores[4] += 5000 + 1250*Statistics.spawnersAlive;
 
-		Badges.validateTakingTheMick(cause);
+		Badges.validateTakingTheMick(来源);
 
 		Dungeon.level.unseal();
-		super.死亡时( cause );
+		super.死亡时(来源);
 
 		yell( Messages.get(this, "defeated") );
 	}

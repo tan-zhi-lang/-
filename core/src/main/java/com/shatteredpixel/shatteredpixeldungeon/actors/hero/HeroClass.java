@@ -11,6 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.药剂栏;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.食物栏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
@@ -18,6 +20,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
+import com.shatteredpixel.shatteredpixeldungeon.actors.回廊传说;
+import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -70,6 +74,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
@@ -148,7 +153,7 @@ public enum HeroClass{
 	行僧(HeroSubClass.疾行者,HeroSubClass.符文法师,HeroSubClass.奇经八脉),
 	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵,HeroSubClass.奇经八脉),
 	兽灵(HeroSubClass.神兽之灵,HeroSubClass.养殖专家,HeroSubClass.奇经八脉),
-	机器(HeroSubClass.机械教主,HeroSubClass.魔法灵枢),
+	机器(HeroSubClass.机械教主,HeroSubClass.魔法灵枢,HeroSubClass.奇经八脉),
 	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影,HeroSubClass.奇经八脉),
 	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王,HeroSubClass.奇经八脉),
 	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女,HeroSubClass.奇经八脉),
@@ -248,7 +253,17 @@ public enum HeroClass{
 			钢门.放背包();
 		}
 		if(Dungeon.派对(派对设置.海克斯)){
-			new 海克斯宝典().放背包();
+			new 海克斯宝典(true).放背包();
+		}
+		if(Dungeon.赛季(赛季设置.回廊传说))
+		Buff.施加(hero,回廊传说.class);
+
+		Buff.施加(hero,开局属性更新.class);
+
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+		}else {
+			Buff.施加(hero,食物栏.class);
+			Buff.施加(hero,药剂栏.class);
 		}
 		if(算法.isDebug()){
 
@@ -306,35 +321,38 @@ public enum HeroClass{
 
 		if(算法.种子()!=null)
 		算法.种子().放背包();
-		
-		if(Holiday.getCurrentHoliday()==Holiday.春节){
-			new 红包().放背包();
-		}
-		if(Holiday.getCurrentHoliday()==Holiday.国庆节){
-			new 中国国旗().放背包();
-		}
-		if(Holiday.getCurrentHoliday()==Holiday._1111){
-			new 优惠卡().放背包();
-		}
-		if(Holiday.getCurrentHoliday()==Holiday.圣诞节){
-			new 圣诞礼物().放背包();
-		}
-		
-		
-		if(Holiday.getCurrentHoliday()==Holiday.感恩节){
-			new HornOfPlenty().放背包();
-		}
-		new 绒布袋().放背包();
-		Dungeon.LimitedDrops.VELVET_POUCH.drop();
-		
-		水袋 水袋=new 水袋();
-		if(hero.heroClass(WARRIOR)){
-			if(!Dungeon.赛季(赛季设置.地牢塔防))
-			水袋.放背包();
-		}
-		new 自残绳().放背包();
-		
+
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+
+		}else{
+			//初始物品！
+				if(Holiday.getCurrentHoliday()==Holiday.春节){
+					new 红包().放背包();
+				}
+				if(Holiday.getCurrentHoliday()==Holiday.国庆节){
+					new 中国国旗().放背包();
+				}
+				if(Holiday.getCurrentHoliday()==Holiday._1111){
+					new 优惠卡().放背包();
+				}
+				if(Holiday.getCurrentHoliday()==Holiday.圣诞节){
+					new 圣诞礼物().放背包();
+				}
+
+				if(Holiday.getCurrentHoliday()==Holiday.感恩节){
+					new HornOfPlenty().放背包();
+				}
+
+				new 绒布袋().放背包();
+				Dungeon.LimitedDrops.VELVET_POUCH.drop();
+
+				new 自残绳().放背包();
+			}
+
 		//region 初始
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+
+		}else
 		switch(this){
 			case WARRIOR:
 				initWarrior(hero);
@@ -411,6 +429,7 @@ public enum HeroClass{
 				初始来世(hero);
 				break;
 		}
+
 		if(hero.belongings.weapon!=null)
 		hero.belongings.weapon.activate(hero);
 		
@@ -423,18 +442,19 @@ public enum HeroClass{
 		hero.belongings.misc2.activate(hero);
 		if(hero.belongings.misc3!=null)
 		hero.belongings.misc3.activate(hero);
+
+		hero.belongings.幸运=new 幸运之戒();
+		hero.belongings.幸运.activate(hero);
+		hero.belongings.幸运.鉴定();
 		
-		if(hero.belongings.幸运!=null){
-			hero.belongings.幸运.activate(hero);
-			hero.belongings.幸运.鉴定();
-		}
-		
-		if(Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
 			hero.belongings.weapon=null;
 			hero.belongings.armor=null;
 			hero.belongings.misc=null;
 			hero.belongings.misc2=null;
 			hero.belongings.misc3=null;
+			hero.belongings.幸运=null;
+			Buff.detach(hero,幸运之戒.Wealth.class);
 		}
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			Item item=new 结晶法杖();
@@ -445,7 +465,10 @@ public enum HeroClass{
 		//endregion
 		
 		new 鉴定卷轴().鉴定();
-		
+
+
+		水袋 水袋=hero.belongings.getItem(水袋.class);
+		if(水袋!=null)
 		if(SPDSettings.quickslotWaterskin()){
 			for(int s=0;s<QuickSlot.SIZE;s++){
 				if(Dungeon.quickslot.getItem(s)==null){
@@ -456,7 +479,8 @@ public enum HeroClass{
 				}
 			}
 		}
-		
+
+
 	}
 	
 	public Badges.Badge masteryBadge(){
@@ -496,6 +520,7 @@ public enum HeroClass{
 		tome.鉴定().放背包();
 		Dungeon.quickslot.setSlot(0,tome);
 
+		new 水袋().放背包();
 
 		new 治疗药剂().鉴定();
 		new 盛怒卷轴().鉴定();

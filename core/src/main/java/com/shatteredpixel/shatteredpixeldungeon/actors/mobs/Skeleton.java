@@ -53,11 +53,11 @@ public class Skeleton extends Mob {
 		return super.防御时(enemy,damage);
 	}
 	@Override
-	public void 死亡时(Object cause ) {
+	public void 死亡时(Object 来源) {
 		
-		super.死亡时( cause );
+		super.死亡时(来源);
 		
-		if (cause == Chasm.class) return;
+		if (来源==Chasm.class) return;
 		
 		boolean heroKilled = false;
 		for (int i=0; i < PathFinder.相邻.length;i++) {

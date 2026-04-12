@@ -73,7 +73,7 @@ public class 锻造锤 extends Weapon {
 			return item.可升级()
 				   && item.已鉴定()
 				   && !item.cursed
-				   && item.等级() < 1;
+				   && item.等级() < 2;
 		}
 		
 		@Override
@@ -87,7 +87,7 @@ public class 锻造锤 extends Weapon {
 				
 				
 				Dungeon.hero.sprite.operate(Dungeon.hero.pos);
-				Dungeon.hero.spend( 1f );
+				Dungeon.hero.spend( 5 );
 				Dungeon.hero.busy();
 				
 				Badges.validateItemLevelAquired(item);

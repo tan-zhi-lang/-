@@ -184,9 +184,9 @@ public class 老婆 extends NPC {
 	}
 	
 	@Override
-	public void 受伤时(float dmg,Object src){
+	public void 受伤时(float dmg,Object 来源){
 		if (hero != null){
-			hero.受伤时(dmg,src);
+			hero.受伤时(dmg,来源);
 		}
 	}
 	

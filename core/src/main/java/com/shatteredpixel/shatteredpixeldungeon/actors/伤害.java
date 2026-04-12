@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.watabou.utils.Bundle;
 
 public class 伤害 extends Buff{
@@ -29,7 +28,7 @@ public class 伤害 extends Buff{
 	public boolean act() {
 		if (target.isAlive()) {
 			if (level > 0) {
-				target.受伤时(level,魔法箭矢.class);
+				target.受伤时(level,this);
 				level=0;
 				spend( 0 );
 			} else {

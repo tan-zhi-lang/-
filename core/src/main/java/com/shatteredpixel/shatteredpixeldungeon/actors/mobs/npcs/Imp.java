@@ -70,7 +70,7 @@ public class Imp extends NPC {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ) {
+	public void 受伤时(float dmg, Object 来源) {
 		//do nothing
 	}
 
@@ -245,7 +245,7 @@ public class Imp extends NPC {
 
 			Statistics.questScores[3] = 4000;
 			Notes.remove( Notes.Landmark.IMP );
-			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典().放背包();
+			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典(true).放背包();
 		}
 		
 		public static boolean isCompleted() {

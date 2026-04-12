@@ -122,6 +122,7 @@ public class Bomb extends Item {
 	}
 
 	public void explode(int cell){
+		if(Dungeon.符文("核聚变"))Dungeon.hero.回满血();
 		//We're blowing up, so no need for a fuse anymore.
 		if (fuse != null) {
 			fuse.snuff();
@@ -210,6 +211,8 @@ public class Bomb extends Item {
 	}
 
 	public void heroexplode(int cell){//不破坏物品和不伤害英雄
+
+		if(Dungeon.符文("核聚变"))Dungeon.hero.回满血();
 		//We're blowing up, so no need for a fuse anymore.
 		this.fuse = null;
 
@@ -473,7 +476,7 @@ public class Bomb extends Item {
 			Item result = null;
 			
 			for (Item i : ingredients){
-				i.数量(i.数量()-1);
+				i.数量减();
 				if (validIngredients.containsKey(i.getClass())){
 					result = Reflection.newInstance(validIngredients.get(i.getClass()));
 				}

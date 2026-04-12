@@ -66,7 +66,7 @@ public class Potion extends Item {
 		usesTargeting=true;
 	}
 	public static final String AC_DRINK = "DRINK";
-	
+
 	//used internally for potions that can be drunk or thrown
 	public static final String AC_CHOOSE = "CHOOSE";
 
@@ -229,7 +229,6 @@ public class Potion extends Item {
 			
 			if(this instanceof 治疗药剂&&已鉴定()&&hero.康血()){
 				GLog.n("生命健康，不推荐治疗，收益不高。");
-				return;
 			}
 			if (isKnown() && mustThrowPots.contains(getClass())) {
 				
@@ -281,7 +280,7 @@ public class Potion extends Item {
 	}
 	
 	protected void drink( Hero hero ) {
-		
+
 		detach( hero.belongings.backpack );
 
 		hero.spend( drinkTime() );
@@ -299,7 +298,23 @@ public class Potion extends Item {
 			}
 		}
 	}
-	
+	public void 药剂栏( Hero hero ) {
+		hero.spend( drinkTime() );
+		hero.busy();
+		apply( hero );
+
+		Sample.INSTANCE.play( Assets.Sounds.DRINK );
+
+		hero.sprite.operate( hero.pos );
+
+		if (!anonymous) {
+			Catalog.countUse(getClass());
+			if (Random.Float() < talentChance) {
+				Talent.饮用药剂(hero,hero.pos,talentFactor);
+			}
+		}
+	}
+
 	@Override
 	protected void onThrow( int cell ) {
 		if (Dungeon.level.map[cell] == Terrain.WELL || Dungeon.level.pit[cell]) {
@@ -508,7 +523,7 @@ public class Potion extends Item {
 			if (!testIngredients(ingredients)) return null;
 			
 			for (Item ingredient : ingredients){
-				ingredient.数量(ingredient.数量()-1);
+				ingredient.数量减();
 			}
 			
 			ArrayList<Class<?extends Plant.Seed>> seeds = new ArrayList<>();

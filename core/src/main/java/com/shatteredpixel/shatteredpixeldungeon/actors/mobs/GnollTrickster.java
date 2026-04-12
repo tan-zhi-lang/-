@@ -112,8 +112,8 @@ public class GnollTrickster extends Gnoll {
 	}
 	
 	@Override
-	public void 死亡时(Object cause ) {
-		super.死亡时( cause );
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 
 		Ghost.Quest.process();
 	}

@@ -113,9 +113,9 @@ public abstract class Elemental extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 		flying = false;
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 	
 	@Override
@@ -398,8 +398,8 @@ public abstract class Elemental extends Mob {
 		}
 
 		@Override
-		public void 死亡时(Object cause) {
-			super.死亡时(cause);
+		public void 死亡时(Object 来源) {
+			super.死亡时(来源);
 			if (alignment == Alignment.ENEMY) {
 				Dungeon.level.drop( new Embers(), pos ).sprite().drop();
 				//assign score here as player may choose to keep the embers

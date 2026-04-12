@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -382,6 +383,7 @@ public class Ring extends KindofMisc {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
+		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		if(Dungeon.hero.heroClass(HeroClass.戒老)){
 			lvl++;
 		}

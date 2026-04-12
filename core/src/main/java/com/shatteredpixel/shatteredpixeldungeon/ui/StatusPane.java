@@ -238,7 +238,12 @@ public class StatusPane extends Component {
 		法力条文本.y = 法力条.y + (法力条.height - (法力条文本.baseLine()+ 法力条文本.scale.y))/2f;
 		法力条文本.y -= 0.001f; //prefer to be slightly higher
 		PixelScene.align(法力条文本);
-	
+
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+			法力条.alpha0();
+			法力条文本.alpha0();
+			法力条框.alpha0();
+		}
 		
 		绿条框.x=法力条框.x;
 		绿条框.y=法力条框.y-2+绿条框.height();
@@ -251,7 +256,7 @@ public class StatusPane extends Component {
 		绿条文本.y-=0.001f; //prefer to be slightly higher
 		PixelScene.align(绿条文本);
 			
-		if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)||Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
 			绿条.alpha0();
 			绿条文本.alpha0();
 			绿条框.alpha0();
@@ -321,7 +326,7 @@ public class StatusPane extends Component {
 		hungerDelay/=
 				SaltCube.hungerGainMultiplier();
 		hungerDelay/=
-				血腥生肉.减少();
+				血腥生肉.饥饿();
 
 		float shield = Dungeon.hero.shielding();
 
@@ -390,7 +395,8 @@ public class StatusPane extends Component {
 				血量变化+=Dungeon.hero.buff(再生.class).partialRegen;
 			}
 		}
-		if(Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+
+		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)||Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
 			血条文本.text(kw2(health)+"/"+kw2(max));
 		}else {
 			if(血量变化>0){

@@ -168,11 +168,12 @@ public class 物品表 {
     public static final int 坠牢之星 = MISC_CONSUMABLE + 18;
     public static final int 魔力水晶 = MISC_CONSUMABLE + 19;
     public static final int 活力水晶 = MISC_CONSUMABLE + 20;
-    public static final int 奥术水晶 = MISC_CONSUMABLE + 21;
-    public static final int 神盾果 = MISC_CONSUMABLE + 22;
+    public static final int 神盾果 = MISC_CONSUMABLE + 21;
+    public static final int 奥术水晶 = MISC_CONSUMABLE + 22;
     public static final int 圣诞礼物 = MISC_CONSUMABLE + 23;
     public static final int 海克斯宝典 = MISC_CONSUMABLE + 24;
     public static final int 自残绳 = MISC_CONSUMABLE + 25;
+    public static final int 技能书 = MISC_CONSUMABLE + 26;
 
 
     static {
@@ -206,6 +207,7 @@ public class 物品表 {
         assignItemRect(圣诞礼物, 9, 11);
         assignItemRect(海克斯宝典, 13, 16);
         assignItemRect(自残绳, 14, 16);
+        assignItemRect(技能书, 13, 16);
     }
     //endregion
 
@@ -447,7 +449,7 @@ public class 物品表 {
     public static final int 地裂镰 = WEP_TIER5 + 18;
     public static final int 火焰剑 = WEP_TIER5 + 19;
     public static final int 真铜短剑 = WEP_TIER5 + 20;
-    public static final int 腥红散华=WEP_TIER5+21;
+    public static final int 猩红散华=WEP_TIER5+21;
     public static final int 重锤=WEP_TIER5+22;
     public static final int 无影剑=WEP_TIER5+23;
     public static final int 变态刀=WEP_TIER5+24;
@@ -482,7 +484,7 @@ public class 物品表 {
         assignItemRect(火焰剑, 15, 16);
 
         assignItemRect(真铜短剑, 12);
-        assignItemRect(腥红散华,16);
+        assignItemRect(猩红散华,16);
         assignItemRect(重锤,16);
         assignItemRect(无影剑,16);
         assignItemRect(变态刀,15,16);
@@ -1367,7 +1369,7 @@ public class 物品表 {
             assignIconRect(陷阱, 5);
             assignIconRect(转移, 7);
             assignIconRect(注魔, 7);
-            assignIconRect(诅咒, 6);
+            assignIconRect(诅咒, 7);
             assignIconRect(返回, 7,6);
         }
         public static final int 六神之戒 = xy(1, 14);  //16 slots

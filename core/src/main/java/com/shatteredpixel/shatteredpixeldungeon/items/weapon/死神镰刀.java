@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.无情铁手;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.横扫;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 死神镰刀 extends Weapon{
@@ -14,7 +14,7 @@ public class 死神镰刀 extends Weapon{
 		image = 物品表.死神镰刀;
 		hitSound = Assets.Sounds.死神镰刀;
 		
-		技能=new 无情铁手();
+		技能=new 横扫();
 		
 		
 		tier = 5;

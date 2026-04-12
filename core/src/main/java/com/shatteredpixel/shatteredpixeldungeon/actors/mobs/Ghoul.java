@@ -136,8 +136,8 @@ public class Ghoul extends Mob {
 	private boolean beingLifeLinked = false;
 
 	@Override
-	public void 死亡时(Object cause) {
-		if (cause != Chasm.class && cause != GhoulLifeLink.class && !Dungeon.level.pit[pos]){
+	public void 死亡时(Object 来源) {
+		if (来源!=Chasm.class&&来源!=GhoulLifeLink.class&&!Dungeon.level.pit[pos]){
 			Ghoul nearby = GhoulLifeLink.searchForHost(this);
 			if (nearby != null){
 				beingLifeLinked = true;
@@ -150,7 +150,7 @@ public class Ghoul extends Mob {
 			}
 		}
 
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 
 	@Override

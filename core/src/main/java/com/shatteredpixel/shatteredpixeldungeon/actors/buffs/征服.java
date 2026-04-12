@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -17,14 +18,14 @@ public class 征服 extends Buff {
 		actPriority = HERO_PRIO+1;
 	}
 	
-	public int 层数= 0;
+	public float 层数= 0;
 	
 	public float iconFadePercent() { return Math.max(0, 1f - ((float)层数/ 12)); }
 	@Override
 	public boolean act() {
 		if(target instanceof Hero hero){
 			if(hero.nobuff(战斗状态.class)){
-				层数= Math.max(层数-2,0);
+				层数= Math.max(层数-5*(1-hero.天赋点数(Talent.征服之姿,0.2f)),0);
 			}
 		}
 		spend(TICK);
@@ -60,6 +61,6 @@ public class 征服 extends Buff {
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		层数= bundle.getInt(层数x);
+		层数= bundle.getFloat(层数x);
 	}
 }

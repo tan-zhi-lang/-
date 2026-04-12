@@ -55,7 +55,7 @@ public class 护甲修理工具包 extends 用品 {
 			if (!w.levelKnown){
 				result.数量(resinQuantity(w));
 			}
-			w.数量(0);
+			w.数量0();
 			
 			return result;
 		}

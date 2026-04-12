@@ -35,12 +35,25 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotio
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.Spell;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.技能;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -53,6 +66,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
@@ -81,6 +95,8 @@ public class Item implements Bundlable {
 	public static final String AC_THROW		= "THROW";
 	public static final String AC_RENAME		= "RENAME";
 	public static final String AC_吞噬= "吞噬";
+	public static final String AC_融合= "融合";
+	public static final String AC_祛邪= "祛邪";
 
 	protected String defaultAction;
 	public boolean usesTargeting=true;
@@ -93,7 +109,7 @@ public class Item implements Bundlable {
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
 	public boolean 丢过 = false;
-	public boolean 特别物品 = false;
+	public boolean 不能丢扔= false;
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
 	public boolean 快速使用 = false;
@@ -150,6 +166,28 @@ public class Item implements Bundlable {
 	public boolean 首次装备 = true;
 	public boolean 房间物品 = false;
 	public boolean 超级等级 = false;
+	public boolean tr(){
+		if(this instanceof 生命水晶)return true;
+		if(this instanceof 生命果)return true;
+		if(this instanceof 坠牢之星)return true;
+		if(this instanceof 魔力水晶)return true;
+		if(this instanceof 奥术水晶)return true;
+		if(this instanceof 活力水晶)return true;
+		if(this instanceof 神盾果)return true;
+		if(this instanceof 猩红散华)return true;
+		if(this instanceof 角斗链枷)return true;
+		if(this instanceof 真铜短剑)return true;
+		if(this instanceof 蜜剑)return true;
+		if(this instanceof 日炎链刃)return true;
+		if(this instanceof 死神镰刀)return true;
+		if(this instanceof 妖刀村正)return true;
+		if(this instanceof 英雄断剑)return true;
+		if(this instanceof 爪)return true;
+		if(this instanceof 寒冰鱼剑)return true;
+		if(this instanceof 圣诞礼物)return true;
+		if(this instanceof 火把神的恩宠)return true;
+		return false;
+	}
 	public Item 房间物品(){
 		房间物品=true;
 		return this;
@@ -173,7 +211,7 @@ public class Item implements Bundlable {
 	
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = new ArrayList<>();
-		if(!特别物品){
+		if(!不能丢扔){
 			actions.add(AC_DROP);
 			actions.add(AC_THROW);
 		}
@@ -188,6 +226,11 @@ public class Item implements Bundlable {
 					actions.add(AC_吞噬);
 			}
 		}
+		if(hero.符文("融合装备")&&可升级()&&(this instanceof Weapon||this instanceof Armor||this instanceof Wand||this instanceof Ring))
+		actions.add(AC_融合);
+
+		if(hero.符文("我让你诅咒")&&cursed)
+		actions.add(AC_祛邪);
 		return actions;
 	}
 
@@ -252,6 +295,54 @@ public class Item implements Bundlable {
 	}
 
 	public static final String AC_CHOOSE = "CHOOSE";
+
+	private class 融合装备 extends WndBag.ItemSelector {
+
+		@Override
+		public String textPrompt() {
+			return Messages.get(this,"prompt");
+		}
+
+		@Override
+		public Class<?extends Bag> preferredBag(){
+			return Belongings.Backpack.class;
+		}
+
+		@Override
+		public boolean itemSelectable(Item item) {
+			Item item1=Item.this;
+			Item item2=item;
+			boolean 选择=true;
+			//need 2 items
+			if (item1 == null || item2 == null) {
+				选择=false;
+				//both of the same type
+			} else if (item1.getClass() != item2.getClass()) {
+				选择=false;
+				//and not the literal same item
+			} else if (item1 == item2) {
+				选择=false;
+			}
+			return 选择;
+		}
+
+		@Override
+		public void onSelect(Item item) {
+			if (item != null) {
+				升级(item.强化等级());
+
+				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
+				升级卷轴.upgrade(Dungeon.hero);
+				Item.evoke( Dungeon.hero );
+
+
+				Dungeon.hero.sprite.operate(Dungeon.hero.pos);
+				Dungeon.hero.spend( 1f );
+				Dungeon.hero.busy();
+
+			}
+		}
+	}
 	public void execute( Hero hero, String action ) {
 
 		GameScene.cancel();
@@ -273,6 +364,10 @@ public class Item implements Bundlable {
 				doThrow(hero);
 			}
 			
+		}else if (action.equals(AC_祛邪)){
+			祛邪卷轴.祛邪(hero,this);
+		}else if (action.equals(AC_融合)){
+			GameScene.selectItem(new 融合装备());
 		}else if (action.equals(AC_吞噬)) {
 			detach(hero.belongings.backpack);
 
@@ -453,7 +548,9 @@ public class Item implements Bundlable {
 			this.storeInBundle(copy);
 			split.restoreFromBundle(copy);
 			split.数量(amount);
-			quantity -= amount;
+
+			数量(quantity-amount);
+//			quantity -= amount;
 			
 			return split;
 		}
@@ -470,44 +567,14 @@ public class Item implements Bundlable {
 		return dupe;
 	}
 	
+	public final Item detach(){
+		return detach(Dungeon.hero.belongings.backpack);
+	}
 	public final Item detach( Bag container ) {
-		
+
 		if (quantity <= 0) {
 			return null;
 		} else{
-			if(Dungeon.系统(系统设置.无限资源)){
-				boolean 消耗=false;
-				if(this instanceof Bomb){
-					消耗=true;
-				}
-				if(this instanceof Food){
-					消耗=true;
-				}
-				if(this instanceof Potion){
-					消耗=true;
-				}
-				if(this instanceof Plant.Seed){
-					消耗=true;
-				}
-				if(this instanceof Scroll){
-					消耗=true;
-				}
-				if(this instanceof Spell){
-					消耗=true;
-				}
-				if(this instanceof Runestone){
-					消耗=true;
-				}
-				if(this instanceof 用品){
-					消耗=true;
-				}
-				if(this instanceof 海克斯宝典){
-					消耗=false;
-				}
-				if(消耗){
-					数量(数量()+1);
-				}
-			}
 			if(quantity==1){
 				Dungeon.quickslot.alphaItem(Item.this,true);
 				updateQuickslot();
@@ -527,7 +594,10 @@ public class Item implements Bundlable {
 			}
 		}
 	}
-	
+
+	public final Item detachAll(){
+		return detachAll(Dungeon.hero.belongings.backpack);
+	}
 	public final Item detachAll( Bag container ) {
 
 		for (Item item : container.items) {
@@ -757,7 +827,7 @@ public class Item implements Bundlable {
 	}
 	
 	public boolean 已鉴定() {
-		if(物品){
+		if(物品||this instanceof 技能){
 			return true;
 		}
 		return levelKnown && cursedKnown;
@@ -921,7 +991,7 @@ public class Item implements Bundlable {
 
 		GLog.p(n);
 
-		String s="代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
+		String s="\n代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
 		s+="\n";
 		if(已鉴定()){
 			
@@ -1016,6 +1086,7 @@ public class Item implements Bundlable {
 			s+="/";
 			if(w.双手())s+="双手 ";
 			else s+="双持 ";
+			if(w.tr())s+="泰拉瑞亚";
 			if(w.拳套())s+="拳套";
 			if(w.剑())s+="剑";
 			if(w.刀())s+="刀";
@@ -1052,8 +1123,53 @@ public class Item implements Bundlable {
 	public int 数量() {
 		return quantity;
 	}
+	public Item 数量1() {
+		return 数量(1);
+	}
+	public Item 数量0() {
+		return 数量(0);
+	}
+	public Item 数量加() {
+		return 数量(数量()+1);
+	}
+	public Item 数量减() {
+		return 数量(数量()-1);
+	}
 	public Item 数量(int value) {
-		
+
+		if(Dungeon.系统(系统设置.无限资源)&&value!=1&&value!=0){
+			boolean 消耗=false;
+			if(this instanceof Bomb){
+				消耗=true;
+			}
+			if(this instanceof Food){
+				消耗=true;
+			}
+			if(this instanceof Potion){
+				消耗=true;
+			}
+			if(this instanceof Plant.Seed){
+				消耗=true;
+			}
+			if(this instanceof Scroll){
+				消耗=true;
+			}
+			if(this instanceof Spell){
+				消耗=true;
+			}
+			if(this instanceof Runestone){
+				消耗=true;
+			}
+			if(this instanceof 用品){
+				消耗=true;
+			}
+			if(this instanceof 海克斯宝典){
+				消耗=false;
+			}
+			if(消耗){
+				数量加();
+			}
+		}
 		quantity = value;
 		return this;
 	}

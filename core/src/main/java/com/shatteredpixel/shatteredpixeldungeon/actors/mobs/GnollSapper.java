@@ -73,8 +73,8 @@ public class GnollSapper extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
-		super.死亡时(cause);
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 		losePartner();
 	}
 	@Override
@@ -93,8 +93,8 @@ public class GnollSapper extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
-		super.受伤时(dmg, src);
+	public void 受伤时(float dmg, Object 来源) {
+		super.受伤时(dmg,来源);
 		abilityCooldown -= dmg/10f;
 	}
 

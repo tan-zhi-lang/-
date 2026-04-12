@@ -133,6 +133,7 @@ public class HeroIcon extends Image {
 	public static final int 土遁= 风刃+6;
 
 	public static final int 肉身成圣=31*8;
+	public static final int 食物栏=32*8;
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );
@@ -157,7 +158,34 @@ public class HeroIcon extends Image {
 		}
 		frame(film.get(action.actionIcon()));
 	}
-
+	public HeroIcon(食物栏标.Action action){
+		super( Assets.Interfaces.HERO_ICONS );
+		if (film == null){
+			film = new TextureFilm(texture, SIZE, SIZE);
+		}
+		frame(film.get(action.actionIcon()));
+	}
+	public HeroIcon(药剂栏标.Action action){
+		super( Assets.Interfaces.HERO_ICONS );
+		if (film == null){
+			film = new TextureFilm(texture, SIZE, SIZE);
+		}
+		frame(film.get(action.actionIcon()));
+	}
+	public HeroIcon(法术栏标.Action action){
+		super( Assets.Interfaces.HERO_ICONS );
+		if (film == null){
+			film = new TextureFilm(texture, SIZE, SIZE);
+		}
+		frame(film.get(action.actionIcon()));
+	}
+	public HeroIcon(副武器.Action action){
+		super( Assets.Interfaces.HERO_ICONS );
+		if (film == null){
+			film = new TextureFilm(texture, SIZE, SIZE);
+		}
+		frame(film.get(action.actionIcon()));
+	}
 	public HeroIcon(ClericSpell spell){
 		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){

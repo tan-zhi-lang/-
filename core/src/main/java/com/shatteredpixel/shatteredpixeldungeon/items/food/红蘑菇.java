@@ -23,7 +23,7 @@ public class 红蘑菇 extends Food {
 	@Override
 	protected void satisfy(Hero hero) {
 		
-		hero.受伤(20);
+		hero.受伤时(20,this);
 		super.satisfy(hero);
 	}
 

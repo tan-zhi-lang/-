@@ -22,7 +22,7 @@ public class 仙法 extends FlavourBuff{
             float 倍=1+hero.天赋点数(Talent.灵爆之至,0.25f);
             if(hero.职业精通())倍*=3;
 
-            target.受伤(target.最大生命(0.075f*倍));
+            target.受伤时(target.最大生命(0.075f*倍),this);
             hero.回百分比血(0.05f*倍);
             算法.修复效果(()->{
                 Buff.施加(target,Cripple.class,4);

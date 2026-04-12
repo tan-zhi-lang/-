@@ -36,8 +36,8 @@ public class 属性锻造器 extends 用品 {
 		super.restoreFromBundle(bundle);
 		用过= bundle.getInt(用过x);
 	}
-	public static int 使用上限(){
-		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0);
+	public int 使用上限(){
+		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0)-用过;
 	}
 	@Override
 	public void 使用(Hero hero){

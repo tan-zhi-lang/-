@@ -95,7 +95,7 @@ public class Ghost extends NPC {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ) {
+	public void 受伤时(float dmg, Object 来源) {
 		//do nothing
 	}
 
@@ -405,7 +405,7 @@ public class Ghost extends NPC {
 			armor = null;
 			
 			Notes.remove( Notes.Landmark.GHOST );
-			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典().放背包();
+			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典(true).放背包();
 		}
 
 		public static boolean processed(){

@@ -14,6 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMastery;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -32,6 +34,7 @@ public class 神力之泉 extends WellWater {
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
 
 		hero.力量++;
+		if(hero.符文("真神力之泉"))hero.力量+=175;
 		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(1), FloatingText.STRENGTH);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 
@@ -44,6 +47,12 @@ public class 神力之泉 extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
+		if(Dungeon.符文("真神力之泉")&&(
+				item instanceof Weapon||
+				item instanceof Armor||
+				item instanceof Ring||
+				item instanceof Wand
+		))item.升级(35);
 		if((item instanceof Weapon && !((Weapon) item).神力)
 				|| (item instanceof Armor && !((Armor) item).神力)){
 			if (item instanceof Weapon) {

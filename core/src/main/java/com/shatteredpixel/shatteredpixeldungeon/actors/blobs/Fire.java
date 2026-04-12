@@ -88,7 +88,7 @@ public class Fire extends Blob {
 				if(ch instanceof Hero hero)
 					Dungeon.hero.回百分比血(0.075f);
 				else
-					ch.受伤(Dungeon.hero.最大生命(0.075f));
+					ch.受伤时(Dungeon.hero.最大生命(0.075f),燃烧.class);
 			}
 		}
 		if (ch != null && !ch.免疫(Fire.class)) {

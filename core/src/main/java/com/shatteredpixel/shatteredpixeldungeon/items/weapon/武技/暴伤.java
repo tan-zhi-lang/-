@@ -14,12 +14,11 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
 public class 暴伤 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次100%~200%伤害必中的物理攻击，并花费攻击延迟的回合";
+		desc="对攻击范围内的一个目标进行一次暴击伤害必中的物理攻击，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -54,7 +53,7 @@ public class 暴伤 extends 武技{
 				@Override
 				public void call() {
 					AttackIndicator.target(enemy);
-					if (hero.attack(enemy,Random.Float(伤害100,伤害150+伤害150/3f),0,Char.INFINITE)) {
+					if (hero.attack(enemy,hero.暴击伤害(),0,Char.INFINITE)) {
 						Sample.INSTANCE.play(wep.hitSound);
 					}
 					Invisibility.notimedispel();

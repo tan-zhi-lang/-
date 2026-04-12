@@ -12,7 +12,7 @@ public  class 吸收痛苦 extends Buff{
 		
 		public float 痛苦(){
 			float d=preservedDamage;
-			preservedDamage*=0.85f;
+			preservedDamage*=0.75f;
 			return d;
 		}
 		

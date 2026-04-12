@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.下水道1;
 import com.shatteredpixel.shatteredpixeldungeon.levels.下水道2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.下水道3;
 import com.shatteredpixel.shatteredpixeldungeon.levels.下水道4;
+import com.shatteredpixel.shatteredpixeldungeon.levels.回廊1;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -429,7 +430,10 @@ public class Dungeon {
 		return 小时+":"+(分钟<=9?"0"+分钟:分钟);
 	}
 	public static float 难度生命(){
-		float x=1f;
+		float x=0;
+//		x+=0.25f;
+		if(Dungeon.赛季(赛季设置.回廊传说))
+		x+=10;
 		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=15+(循环()-1 )*5;
 		}
@@ -442,9 +446,40 @@ public class Dungeon {
 		};
 	}
 	public static float 难度攻击(){
-		float x=0.2f;
+		float x=0;
+//		x==0.05f;
+		if(Dungeon.赛季(赛季设置.回廊传说))
+			x+=10;
+
 		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
 			x+=10+(循环()-1 )*1.67;
+		}
+		return switch(难度){
+			case 1 -> 0.67f+x;
+			case 2 -> 1f+x;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
+			default -> 1+x;
+		};
+	}
+	public static float 难度防御(){
+		float x=0;
+		//		x==0.05f;
+		if(Dungeon.赛季(赛季设置.回廊传说))
+			x+=10;
+		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
+			x+=5+(循环()-1 )*0.84;
+		}
+		return switch(难度){
+			case 1 -> 0.67f+x;
+			case 2 -> 1f+x;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
+			default -> 1+x;
+		};
+	}
+	public static float 难度命中闪避(){
+		float x=0;
+		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
+			x+=4.5f+(循环()-1 )*0.75f;
 		}
 		return switch(难度){
 			case 1 -> 0.67f+x;
@@ -494,30 +529,6 @@ public class Dungeon {
 			default -> "";
 		};
 	}
-	public static float 难度防御(){
-		float x=0;
-		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
-			x+=5+(循环()-1 )*0.84;
-		}
-		return switch(难度){
-			case 1 -> 0.67f+x;
-			case 2 -> 1f+x;
-			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
-			default -> 1+x;
-		};
-	}
-	public static float 难度命中闪避(){
-		float x=0;
-		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
-			x+=4.5f+(循环()-1 )*0.75f;
-		}
-		return switch(难度){
-			case 1 -> 0.67f+x;
-			case 2 -> 1f+x;
-			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
-			default -> 1+x;
-		};
-	}
 	public static boolean levelHasBeenGenerated(int depth, int branch){
 		return generatedLevels.contains(depth + 1000*branch);
 	}
@@ -529,7 +540,15 @@ public class Dungeon {
 		
 		Level level;
 		if (branch == 0) {
-			if(Dungeon.赛季(赛季设置.地牢塔防)){
+			if(Dungeon.赛季(赛季设置.回廊传说)){
+				switch (depth){
+					case 1:
+						level=new 回廊1();
+						break;
+					default:
+						level=new DeadEndLevel();
+				}
+			}else if(Dungeon.赛季(赛季设置.地牢塔防)){
 				switch (depth){
 					case 1:
 						level=new 下水道1();

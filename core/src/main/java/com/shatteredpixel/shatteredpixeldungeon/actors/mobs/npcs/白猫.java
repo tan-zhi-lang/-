@@ -200,13 +200,13 @@ public class 白猫 extends NPC {
 	}
 	
 	@Override
-	public void 受伤时(float dmg,Object src){
+	public void 受伤时(float dmg,Object 来源){
 		if (hero != null){
 			hero.受伤时(dmg*(1-
 										(hero.subClass(HeroSubClass.黑白双子)?0.075f:0)
 										-hero.天赋点数(Talent.白猫主导,0.15f)
 										-hero.天赋点数(Talent.职业精通,0.15f)
-										),src);
+										),来源);
 		}
 	}
 	

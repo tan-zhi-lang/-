@@ -5,7 +5,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -110,13 +109,13 @@ public class Statue extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ) {
+	public void 受伤时(float dmg, Object 来源) {
 
 		if (state == PASSIVE) {
 			state = HUNTING;
 		}
 		
-		super.受伤时( dmg, src );
+		super.受伤时(dmg,来源);
 	}
 	
 	@Override
@@ -138,10 +137,10 @@ public class Statue extends Mob {
 	}
 	
 	@Override
-	public void 死亡时(Object cause ) {
+	public void 死亡时(Object 来源) {
 		weapon.鉴定(false);
 		Dungeon.level.drop( weapon, pos ).sprite().drop();
-		super.死亡时( cause );
+		super.死亡时(来源);
 	}
 
 	@Override

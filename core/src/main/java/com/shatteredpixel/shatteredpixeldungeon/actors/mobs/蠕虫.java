@@ -35,9 +35,9 @@ public class 蠕虫 extends Mob {
 		}
 
 	@Override
-	public void 受伤时(float dmg,Object src){
-		super.受伤时(dmg,src);
-		if(isAlive()&&src instanceof Char c){
+	public void 受伤时(float dmg,Object 来源){
+		super.受伤时(dmg,来源);
+		if(isAlive()&&来源 instanceof Char c){
 			传送卷轴.周身瞬移(this,c.pos);
 			Dungeon.level.occupyCell(this);
 		}

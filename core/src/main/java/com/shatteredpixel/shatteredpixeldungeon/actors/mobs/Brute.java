@@ -66,10 +66,10 @@ public class Brute extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
-		super.死亡时(cause);
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 
-		if (cause == Chasm.class){
+		if (来源==Chasm.class){
 			hasRaged = true; //don't let enrage trigger for chasm deaths
 		}
 	}

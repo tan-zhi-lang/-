@@ -150,7 +150,7 @@ public class ArcaneResin extends Item {
 			if (!w.levelKnown){
 				result.数量(resinQuantity(w));
 			}
-			w.数量(0);
+			w.数量0();
 
 			return result;
 		}

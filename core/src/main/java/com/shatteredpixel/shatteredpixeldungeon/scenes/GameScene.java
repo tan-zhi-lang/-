@@ -90,6 +90,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toast;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.ui.副武器;
+import com.shatteredpixel.shatteredpixeldungeon.ui.法术栏标;
+import com.shatteredpixel.shatteredpixeldungeon.ui.药剂栏标;
+import com.shatteredpixel.shatteredpixeldungeon.ui.食物栏标;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
@@ -184,9 +188,13 @@ public class GameScene extends PixelScene {
 	private Toast prompt;
 
 	private AttackIndicator attack;
-	private LootIndicator loot;
-	private ActionIndicator action;
+	private 副武器 副武器;
 	private ResumeIndicator resume;
+	private ActionIndicator action;
+	private LootIndicator loot;
+	private 食物栏标 食物栏标;
+	private 药剂栏标 药剂栏标;
+	private 法术栏标 法术栏标;
 
 	{
 		inGameScene = true;
@@ -367,6 +375,19 @@ public class GameScene extends PixelScene {
 		action = new ActionIndicator();
 		action.camera = uiCamera;
 		add( action );
+		副武器 = new 副武器();
+		副武器.camera = uiCamera;
+		add( 副武器 );
+
+		食物栏标= new 食物栏标();
+		食物栏标.camera = uiCamera;
+		add(食物栏标);
+		药剂栏标= new 药剂栏标();
+		药剂栏标.camera = uiCamera;
+		add(药剂栏标);
+		法术栏标= new 法术栏标();
+		法术栏标.camera = uiCamera;
+		add(法术栏标);
 
 		loot = new LootIndicator();
 		loot.camera = uiCamera;
@@ -742,6 +763,7 @@ public class GameScene extends PixelScene {
 		}
 
 		if (每秒 >= 1.5f){
+
 			if(Dungeon.赛季(赛季设置.即时策略))
 			if(Dungeon.hero()&&Dungeon.hero.curAction==null){
 				Dungeon.hero.spendAndNext(1);
@@ -790,23 +812,39 @@ public class GameScene extends PixelScene {
 			tagAttack = attack.active;
 			tagLoot = loot.visible;
 			tagAction = action.visible;
+			tag食物栏= 食物栏标.visible;
+			tag药剂栏= 药剂栏标.visible;
+			tag法术栏= 法术栏标.visible;
+			tag副武器 = 副武器.visible;
 			tagResume = resume.visible;
 
 			layoutTags();
 
-		} else if (tagAttack != attack.active ||
-				tagLoot != loot.visible ||
-				tagAction != action.visible ||
+		} else if (tagAttack != attack.active||
+				tagLoot != loot.visible||
+				tagAction != action.visible||
+				   tag食物栏!=食物栏标.visible||
+				   tag药剂栏!=药剂栏标.visible||
+				   tag法术栏!=法术栏标.visible||
+				tag副武器 != 副武器.visible||
 				tagResume != resume.visible) {
 
-			boolean tagAppearing = (attack.active && !tagAttack) ||
-									(loot.visible && !tagLoot) ||
-									(action.visible && !tagAction) ||
-									(resume.visible && !tagResume);
+			boolean tagAppearing =(attack.active && !tagAttack)||
+								  (loot.visible && !tagLoot)||
+								  (action.visible && !tagAction)||
+								  (食物栏标.visible&&!tag食物栏)||
+								  (药剂栏标.visible&&!tag药剂栏)||
+								  (法术栏标.visible&&!tag法术栏)||
+								  (副武器.visible && !tag副武器)||
+								  (resume.visible && !tagResume);
 
 			tagAttack = attack.active;
 			tagLoot = loot.visible;
 			tagAction = action.visible;
+			tag食物栏= 食物栏标.visible;
+			tag药剂栏= 药剂栏标.visible;
+			tag法术栏= 法术栏标.visible;
+			tag副武器 = 副武器.visible;
 			tagResume = resume.visible;
 
 			//if a new tag appears, re-layout tags immediately
@@ -840,6 +878,10 @@ public class GameScene extends PixelScene {
 	private boolean tagAttack    = false;
 	private boolean tagLoot      = false;
 	private boolean tagAction    = false;
+	private boolean tag食物栏= false;
+	private boolean tag药剂栏= false;
+	private boolean tag法术栏= false;
+	private boolean tag副武器    = false;
 	private boolean tagResume    = false;
 
 	public static void layoutTags() {
@@ -865,6 +907,7 @@ public class GameScene extends PixelScene {
 		boolean tagsOnLeft = SPDSettings.flipTags();
 		float tagWidth = Tag.SIZE + (tagsOnLeft ? insets.left : insets.right);
 		float tagLeft = tagsOnLeft ? 0 : uiCamera.width - tagWidth;
+		float tagLeft2 = tagsOnLeft ? uiCamera.width - tagWidth:0;
 
 		float y = SPDSettings.interfaceSize() == 0 ? scene.toolbar.top()-2 : scene.status.top()-2;
 		if (SPDSettings.interfaceSize() == 0){
@@ -889,25 +932,44 @@ public class GameScene extends PixelScene {
 		if (scene.tagAttack){
 			scene.attack.setRect( tagLeft, pos - Tag.SIZE, tagWidth, Tag.SIZE );
 			scene.attack.flip(tagsOnLeft);
-			pos = scene.attack.top();
+//			pos = scene.attack.top();
 		}
 
-		if (scene.tagLoot) {
-			scene.loot.setRect( tagLeft, pos - Tag.SIZE, tagWidth, Tag.SIZE );
-			scene.loot.flip(tagsOnLeft);
-			pos = scene.loot.top();
+		if (scene.tag副武器) {
+			scene.副武器.setRect( tagLeft, pos - Tag.SIZE*2, tagWidth, Tag.SIZE );
+			scene.副武器.flip(tagsOnLeft);
+			//			pos = scene.副武器.top();
 		}
-
-		if (scene.tagAction) {
-			scene.action.setRect( tagLeft, pos - Tag.SIZE, tagWidth, Tag.SIZE );
-			scene.action.flip(tagsOnLeft);
-			pos = scene.action.top();
-		}
-
 		if (scene.tagResume) {
-			scene.resume.setRect( tagLeft, pos - Tag.SIZE, tagWidth, Tag.SIZE );
+			scene.resume.setRect( tagLeft, pos - Tag.SIZE*3, tagWidth, Tag.SIZE );
 			scene.resume.flip(tagsOnLeft);
 		}
+		if (scene.tagAction) {
+			scene.action.setRect( tagLeft, pos - Tag.SIZE*4, tagWidth, Tag.SIZE );
+			scene.action.flip(tagsOnLeft);
+			//			pos = scene.action.top();
+		}
+		if (scene.tagLoot) {
+			scene.loot.setRect( tagLeft, pos - Tag.SIZE*5, tagWidth, Tag.SIZE );
+			scene.loot.flip(tagsOnLeft);
+//			pos = scene.loot.top();
+		}
+
+
+		if (scene.tag食物栏) {
+			scene.食物栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE,tagWidth,Tag.SIZE);
+			scene.食物栏标.flip(!tagsOnLeft);
+		}
+
+		if (scene.tag药剂栏) {
+			scene.药剂栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*2,tagWidth,Tag.SIZE);
+			scene.药剂栏标.flip(!tagsOnLeft);
+		}
+		if (scene.tag法术栏) {
+			scene.法术栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*3,tagWidth,Tag.SIZE);
+			scene.法术栏标.flip(!tagsOnLeft);
+		}
+
 	}
 	
 	@Override

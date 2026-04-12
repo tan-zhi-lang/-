@@ -171,21 +171,21 @@ public class Mimic extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		if (state == PASSIVE){
 			alignment = Alignment.ENEMY;
 			stopHiding();
 		}
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 		if (state == PASSIVE){
 			alignment = Alignment.ENEMY;
 			stopHiding();
 		}
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 
 	public void stopHiding(){

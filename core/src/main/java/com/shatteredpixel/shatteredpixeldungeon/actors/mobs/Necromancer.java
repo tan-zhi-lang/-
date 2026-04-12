@@ -90,7 +90,7 @@ public class Necromancer extends Mob {
 	}
 	
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 		if (storedSkeletonID != -1){
 			Actor ch = Actor.findById(storedSkeletonID);
 			storedSkeletonID = -1;
@@ -103,7 +103,7 @@ public class Necromancer extends Mob {
 			mySkeleton.死亡时(null);
 		}
 		
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 
 	@Override

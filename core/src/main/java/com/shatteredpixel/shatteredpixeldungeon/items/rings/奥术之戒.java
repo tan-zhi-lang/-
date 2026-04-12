@@ -25,7 +25,7 @@ public class 奥术之戒 extends Ring {
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 10);
+			return Messages.get(this, "stats", 10,0.21025f);
 		}
 	}
 	@Override

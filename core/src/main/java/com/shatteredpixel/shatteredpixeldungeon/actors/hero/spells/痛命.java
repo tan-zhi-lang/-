@@ -64,7 +64,7 @@ public class 痛命 extends 目标巫术 {
 							hero.天赋点数(Talent.高级痛命,0.15f)*hero.最大攻击()
 												 );
 					ch.受伤时(f, 痛命.this);
-					hero.受伤(hero.生命(0.015f));
+					hero.受伤时(hero.生命(0.015f),痛命.INSTANCE);
 				
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);

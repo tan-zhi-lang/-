@@ -68,7 +68,7 @@ public class 磐石结晶 extends NPC {
 				Char c=
 						Actor.findChar(pos+n);
 				if(c!=null&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
-					c.受伤(1+tier);
+					c.受伤时(1+tier,this);
 				}
 				if(c instanceof 磐石结晶){
 					回血(1+tier);
@@ -79,7 +79,7 @@ public class 磐石结晶 extends NPC {
 			for(int n: PathFinder.范围2){
 				Char c=Actor.findChar(pos+n);
 				if(c!=null&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
-					c.受伤(1+tier);
+					c.受伤时(1+tier,this);
 				}
 				if(c instanceof 磐石结晶){
 					回血(1+tier);
@@ -90,7 +90,7 @@ public class 磐石结晶 extends NPC {
 			for(int n: PathFinder.相邻){
 				Char c=Actor.findChar(pos+n);
 				if(c!=null&&c.alignment==Char.Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]&&!c.flying){
-					c.受伤(1+tier);
+					c.受伤时(1+tier,this);
 				}
 				if(c instanceof 磐石结晶){
 					回血(1+tier);

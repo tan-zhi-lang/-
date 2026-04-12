@@ -58,7 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.符文之刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.腥红散华;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
@@ -219,7 +219,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 地裂镰)return true;
 		if(this instanceof 寒冰镖)return true;
 		if(this instanceof 闪电双截棍)return true;
-		if(this instanceof 腥红散华)return true;
+		if(this instanceof 猩红散华)return true;
 		if(this instanceof 重锤)return true;
 		if(this instanceof 灵能短弓)return true;
 		if(this instanceof 白带)return true;
@@ -232,7 +232,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	@Override
 	public void execute(Hero hero, String action) {
-		if (hero.subClass == HeroSubClass.武器大师&&action.equals(AC_EQUIP)){
+		if (action.equals(AC_EQUIP)&&!双手()){//武器大师
 			usesTargeting = false;
 			String primaryName = Messages.titleCase(hero.belongings.weapon != null ? hero.belongings.weapon.trueName() : Messages.get(KindOfWeapon.class, "empty"));
 			String secondaryName = Messages.titleCase(hero.belongings.secondWep != null ? hero.belongings.secondWep.trueName() : Messages.get(KindOfWeapon.class, "empty"));
@@ -311,9 +311,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			}
 			
 			hero.spendAndNext( timeToEquip(hero) );
-			if (hero.subClass(HeroSubClass.武器大师)) {
-				GLog.i(Messages.get(this, "swift_equip"));
-			}
+
 			return true;
 			
 		} else {
@@ -438,7 +436,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 				return 最大投掷攻击();
 			}
 			if(defender!=null&&伏击>0&&defender instanceof Mob&&((Mob)defender).surprisedBy(hero)){
-				damage+=(最大攻击()-最小攻击())*伏击*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击(defender,1)>1?hero.暴击伤害():1);
+				damage+=(最大攻击()-最小攻击())*伏击*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击判定(defender,1)>1?hero.暴击伤害():1);
 
 			}
 		}
@@ -451,7 +449,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			}
 
 			if(defender!=null&&伏击>0&&defender instanceof Mob&&((Mob)defender).surprisedBy(hero)){
-				damage+=(最大投掷攻击()-最小投掷攻击())*伏击*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击(defender,1)>1?hero.暴击伤害():1);
+				damage+=(最大投掷攻击()-最小投掷攻击())*伏击*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃&&hero.暴击判定(defender,1)>1?hero.暴击伤害():1);
 			}
 		}
 		return damage;

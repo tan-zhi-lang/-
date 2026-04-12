@@ -161,7 +161,7 @@ public class HighGrass {
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
 				if (Random.Float() < 1/300f&&Dungeon.符文("海克斯获取:收获")) {
-					level.drop(new 海克斯宝典(),pos).sprite().drop();
+					level.drop(new 海克斯宝典(true),pos).sprite().drop();
 				}
 				
 			}
@@ -314,7 +314,7 @@ public class HighGrass {
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
 				if (Random.Float() < 1/100f&&Dungeon.符文("海克斯获取:收获")) {
-					level.drop(new 海克斯宝典(),pos).sprite().drop();
+					level.drop(new 海克斯宝典(true),pos).sprite().drop();
 				}
 				
 			}

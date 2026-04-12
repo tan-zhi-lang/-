@@ -9,8 +9,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.法术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -58,13 +60,13 @@ public class GreatCrab extends Crab {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ){
+	public void 受伤时(float dmg, Object 来源){
 		//crab blocks all wand damage from the hero if it sees them.
 		//Direct damage is negated, but add-on effects and environmental effects go through as normal.
 		if (enemySeen
 				&& state != SLEEPING
 				&& paralysed == 0
-				&& (src instanceof Wand||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术)
+				&& (来源 instanceof 魔攻之戒||来源 instanceof Wand||来源 instanceof 法术||来源 instanceof ClericSpell||来源 instanceof 巫术||来源 instanceof 道术||来源 instanceof 忍术)
 				&& enemy == Dungeon.hero
 				&& enemy.invisible == 0){
 			GLog.n( Messages.get(this, "noticed") );
@@ -72,7 +74,7 @@ public class GreatCrab extends Crab {
 			Sample.INSTANCE.play( Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
 			Statistics.questScores[0] -= 50;
 		} else {
-			super.受伤时( dmg, src );
+			super.受伤时(dmg,来源);
 		}
 	}
 
@@ -97,8 +99,8 @@ public class GreatCrab extends Crab {
 	}
 
 	@Override
-	public void 死亡时(Object cause ) {
-		super.死亡时( cause );
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 
 		Ghost.Quest.process();
 	}

@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锻造锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -186,7 +187,7 @@ public class WndBlacksmith extends Window {
 		RedButton 人情 = new RedButton(Messages.get(this, "人情", 5000), 6){
 			@Override
 			protected void onClick() {
-				Dungeon.level.drop(Blacksmith.Quest.pickaxe,Dungeon.hero.pos).sprite().drop();
+				Dungeon.level.drop(new 锻造锤(),Dungeon.hero.pos).sprite().drop();
 				GLog.p("正好这有一把我曾经一直使用的锻造锤，非常好用，送给你了。");
 
 				Blacksmith.Quest.favor -= 5000;

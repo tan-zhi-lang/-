@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.劈斩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.无情铁手;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 锈右斧 extends Weapon{
@@ -19,7 +20,7 @@ public class 锈右斧 extends Weapon{
 
 		特别=true;
 		橙色=true;
-		技能=new 劈斩();
+		技能=new 无情铁手();
 
 		tier = 5;
 	}

@@ -61,13 +61,14 @@ public class RingOfElements extends Ring {
 	static {
 		RESISTS.add( Chill.class );
 		RESISTS.add( Frost.class );
-		RESISTS.add( Ooze.class );
-		RESISTS.add( Paralysis.class );
-		RESISTS.add( Poison.class );
-		RESISTS.add( Corrosion.class );
 
-		RESISTS.add( ToxicGas.class );
-		RESISTS.add( Electricity.class );
+		RESISTS.add( Ooze.class );//淤泥
+		RESISTS.add( Corrosion.class );//酸蚀
+		RESISTS.add( ToxicGas.class );//毒气
+		RESISTS.add( Poison.class );//中毒
+
+		RESISTS.add( Paralysis.class );//麻痹
+		RESISTS.add( Electricity.class );//电
 
 		RESISTS.addAll( AntiMagic.RESISTS );
 	}

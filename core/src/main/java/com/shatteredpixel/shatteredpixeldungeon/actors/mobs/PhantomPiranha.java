@@ -9,8 +9,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.ClericSpell;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.巫术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.忍术;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.法术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.道术;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -31,17 +33,17 @@ public class PhantomPiranha extends Piranha {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		Char dmgSource = null;
-		if (src instanceof Char) dmgSource = (Char)src;
-		if (src instanceof Wand||src instanceof ClericSpell||src instanceof 巫术||src instanceof 道术||src instanceof 忍术) dmgSource = Dungeon.hero;
+		if (来源 instanceof Char) dmgSource = (Char)来源;
+		if (来源 instanceof 魔攻之戒||来源 instanceof Wand||来源 instanceof 法术||来源 instanceof ClericSpell||来源 instanceof 巫术||来源 instanceof 道术||来源 instanceof 忍术) dmgSource = Dungeon.hero;
 
 		if (dmgSource == null || !Dungeon.level.adjacent(pos, dmgSource.pos)){
 			dmg = Math.round(dmg/2f); //halve damage taken if we are going to teleport
 		}
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 
-		if (isAlive() && !(src instanceof Corruption)) {
+		if (isAlive() && !(来源 instanceof Corruption)) {
 			if (dmgSource != null) {
 				if (!Dungeon.level.adjacent(pos, dmgSource.pos)) {
 					ArrayList<Integer> candidates = new ArrayList<>();

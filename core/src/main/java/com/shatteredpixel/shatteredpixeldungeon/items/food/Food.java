@@ -28,7 +28,8 @@ public class Food extends Item {
 	public static final float TIME_TO_EAT	= 3f;
 	
 	public static final String AC_EAT	= "EAT";
-	
+	public static final String AC_食物栏	= "食物栏";
+
 	public float energy = Hunger.HUNGRY;
 	
 	{
@@ -54,9 +55,11 @@ public class Food extends Item {
 
 		super.execute( hero, action );
 		if(hero.符文("我是瘦子")&&!hero.buff(Hunger.class).空腹())return;
-		if (action.equals( AC_EAT )) {
-			
+		if (action.equals( AC_EAT )||action.equals( AC_食物栏 )) {
+
+			if(action.equals( AC_EAT ))
 			detach( hero.belongings.backpack );
+
 			Catalog.countUse(getClass());
 			
 			satisfy(hero);

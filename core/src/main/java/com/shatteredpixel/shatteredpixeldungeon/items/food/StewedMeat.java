@@ -43,7 +43,7 @@ public class StewedMeat extends Food {
 			Item result = sampleOutput(ingredients);
 			MysteryMeat m = (MysteryMeat) ingredients.get(0);
 			result.数量(metalQuantity(m));
-			m.数量(0);
+			m.数量0();
 			return result;
 		}
 

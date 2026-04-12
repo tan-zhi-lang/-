@@ -88,7 +88,7 @@ public abstract class TippedDart extends 飞镖{
 		if (!spawnedForEffect){
 			//attempt to stick the dart to the enemy, just drop it if we can't.
 			飞镖 d = new 飞镖();
-			d.数量(1);
+			d.数量0();
 			Catalog.countUse(getClass());
 			if (enemy != null && enemy.isAlive() && enemy.alignment != Char.Alignment.ALLY){
 				PinCushion p = Buff.施加(enemy, PinCushion.class);

@@ -80,6 +80,7 @@ public class 燃烧 extends Buff implements Hero.Doom {
 			acted = true;
 			float damage = Random.NormalFloat( 1, 3 + Dungeon.scalingDepth()/4f );
 			damage+=target.最大生命(Dungeon.hero.天赋点数(Talent.元素掌控,0.02f));//元素掌控火
+			if(Dungeon.符文("星星之火可以燎原"))damage*=cooldown();
 			Buff.detach( target, Chill.class);
 
 			if (target instanceof Hero hero

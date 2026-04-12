@@ -38,9 +38,9 @@ public class Albino extends Rat {
 	}
 	
 	@Override
-	public void 死亡时(Object cause){
+	public void 死亡时(Object 来源){
 		
 		Badges.解锁鼠弟();
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 }

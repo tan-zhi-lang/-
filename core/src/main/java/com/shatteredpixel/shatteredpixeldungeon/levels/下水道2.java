@@ -78,8 +78,8 @@ public class 下水道2 extends Level {
 			 map[i] = 下水道1[i];
 		}
 		
-		for (int i=2; i < SIZE; i++) {
-			for (int j=2; j < SIZE; j++) {
+		for (int i=0; i < SIZE; i++) {
+			for (int j=0; j < SIZE; j++) {
 				if(map[i * width() + j]==7){
 					this.entrance=i * width() + j;
 				}

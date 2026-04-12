@@ -48,7 +48,7 @@ public class WellFed extends Buff {
 			//150 turns if on diet is enabled
 			left /= 3;
 		}
-		left=Math.min(900,left);
+		left=Math.min(上限(),left);
 	}
 	public void extend( float duration ) {
 		left += duration;
@@ -56,9 +56,14 @@ public class WellFed extends Buff {
 			//150 turns if on diet is enabled
 			left /= 3;
 		}
-		left=Math.min(900,left);
+		left=Math.min(上限(),left);
 	}
-	
+
+	public int 上限() {
+		int x=900;
+		if(Dungeon.符文("大胃王"))x+=1350;
+		return x;
+	}
 	@Override
 	public int icon() {
 		return BuffIndicator.WELL_FED;

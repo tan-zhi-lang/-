@@ -34,7 +34,7 @@ public class 结晶法杖 extends 用品 {
 	
 	{
 		image = 物品表.WAND_WARDING;
-		特别物品=true;
+		不能丢扔=true;
 		重复使用=true;
 		动作=false;
 	}

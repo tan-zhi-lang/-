@@ -99,10 +99,10 @@ public class PrismaticImage extends NPC {
 	}
 	
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 		if (deathTimer == -1) {
-			if (cause == Chasm.class){
-				super.死亡时( cause );
+			if (来源==Chasm.class){
+				super.死亡时(来源);
 			} else {
 				deathTimer = 5;
 				sprite.add(CharSprite.State.PARALYSED);

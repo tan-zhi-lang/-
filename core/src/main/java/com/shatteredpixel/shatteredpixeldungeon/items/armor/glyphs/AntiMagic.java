@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
@@ -9,11 +10,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.冰魄之弓;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.尘遁;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.掌心雷;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.火球术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.痛命;
@@ -27,14 +31,20 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
+import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
+import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.连杀状态;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.HolyBomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.DamageWand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
@@ -51,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.HolyDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
@@ -85,10 +96,16 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( 传送卷轴.class);
 		RESISTS.add( HolyDart.class );
 
-		RESISTS.add( Char.魔法伤害.class);
+		RESISTS.add( DamageWand.class);
+		RESISTS.add( 魔攻之戒.class);
+		RESISTS.add( Dungeon.class);
+		RESISTS.add( 伤害.class);
+
 		RESISTS.add( 圣光.class);
 		RESISTS.add( 赐福.class);
+
 		RESISTS.add( 火球术.class);
+
 		RESISTS.add( 破冰飞刃.class);
 		RESISTS.add( 冰魄之弓.class);
 
@@ -98,9 +115,11 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( 掌心雷.class);
 
 		RESISTS.add( 风刃.class);
-//		RESISTS.add( 尘遁.class);
+		RESISTS.add( 尘遁.class);
 
 		RESISTS.add( 燃烧.class);
+		RESISTS.add( 火毒.class);
+		RESISTS.add( 灵焰.class);
 
 		RESISTS.add( CursedWand.class );
 		RESISTS.add( WandOfBlastWave.class );
@@ -144,7 +163,27 @@ public class AntiMagic extends Armor.Glyph {
 	
 	public static float drRoll( Char owner, int level ){
 		float x=0;
-		if(owner instanceof Hero hero)x+=0.08f*hero.等级;
+		if(owner instanceof Hero hero){
+
+			if(hero.符文("一剑破万法")){
+				for(Item i: hero.belongings){
+					if(i instanceof Weapon w&&w.剑())
+						x+=hero.最大攻击()*0.15f;
+				}
+			}
+			if(hero.符文("勇气")){
+				if(hero.hasbuff(连杀状态.class))
+					x+=25;
+				if(hero.hasbuff(战斗状态.class))
+					x+=25;
+			}
+		}
+		else {
+			if(Dungeon.符文("劣变"))x-=owner.第x次防御*15;
+
+			if(Dungeon.符文("混沌"))
+			x-=Dungeon.hero.最大防御()*0.5f;
+		}
 		if (level != -1)
 			x=Random.NormalFloat(
 					level * genericProcChanceMultiplier(owner),

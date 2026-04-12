@@ -179,23 +179,23 @@ public class Pylon extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		if (dmg >= 15){
 			//takes 15/16/17/18/19/20 dmg at 15/17/20/24/29/36 incoming dmg
 			dmg = 14 + (int)(Math.sqrt(8*(dmg - 14) + 1) - 1)/2;
 		}
 
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-		if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
+		if (lock != null&&!免疫(来源.getClass())&&!是无敌(来源.getClass())){
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg/2f);
 			else                                                    lock.addTime(dmg);
 		}
-		super.受伤时(dmg, src);
+		super.受伤时(dmg,来源);
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
-		super.死亡时(cause);
+	public void 死亡时(Object 来源) {
+		super.死亡时(来源);
 		((CavesBossLevel)Dungeon.level).eliminatePylon();
 	}
 

@@ -50,7 +50,7 @@ public class 掌心雷 extends 目标道术 {
 			@Override
 			public void call() {
 				AttackIndicator.target(enemy);
-				enemy.受伤(enemy.最大生命(0.2f)+enemy.最大防御());
+				enemy.受伤时(enemy.最大生命(0.2f)+enemy.最大防御(),掌心雷.INSTANCE);
 				Invisibility.notimedispel();
 				hero.sprite.centerEmitter().burst(SparkParticle.FACTORY,10);
 				hero.sprite.flash();

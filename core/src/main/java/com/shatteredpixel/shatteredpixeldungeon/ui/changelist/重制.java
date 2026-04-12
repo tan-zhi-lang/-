@@ -47,12 +47,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破甲锥;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.腥红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
@@ -67,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NecromancerSprite;
@@ -94,7 +95,10 @@ public class 重制 {
 	public static void addAllChanges( ArrayList<ChangeInfo> changeInfos ){
 		add_v1_0_0_Changes(changeInfos);
 	}
-
+	/**
+	轻便刻印+闪避-防御
+	 头骨棒5，击杀敌人+1最大攻击
+	*/
 	
 	static Image bug= new Image(Assets.Sprites.修复, 144, 0, 16, 16);
 	public static void add_v1_0_0_Changes( ArrayList<ChangeInfo> changeInfos ) {
@@ -153,7 +157,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.护甲修理工具包), "护甲修理工具包",
 										   "_-_ 护甲机制，和破碎护盾差不多，但是不会随时间流逝，也只能防御物理攻击伤害，包含骷髅死亡爆炸和跳楼受伤(不含流血)。\n" +
 										   "_-_ 护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
-										   "_-_ 最大护甲为2+等级。\n" +
+										   "_-_ 最大护甲为3+等级。\n" +
 										   "_-_ 每150回合修理1护甲。\n" +
 										   "_-_ 巨魔铁匠可以花费人情修复你的护甲。\n" +
 										   "_-_ 巨魔铁匠可以花费人情升级装备的阶，不超过5。\n" +
@@ -175,7 +179,7 @@ public class 重制 {
 										   "_-_ 可以从商人偷取或出售超过20个物品获得。\n" +
 										   "_-_ 可以无限使用炼金菱晶的商店系统。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.锻造锤), "锻造锤",
-										   "_-_ 可以给1级以下的物品升级。\n" +
+										   "_-_ 可以花费5回合给2级以下的物品升级。\n" +
 										   "_-_ 恶魔铁匠不要人情获得。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.蜂蜜), "蜂蜜",
 										   "_-_ 金色蜜蜂死亡必定掉落一个蜂蜜。\n" +
@@ -273,8 +277,8 @@ public class 重制 {
 										   "新增5阶武器。\n"+new 无影剑().desc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.重锤),"重锤",
 										   "新增5阶武器。\n"+new 重锤().desc()));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.腥红散华),"腥红散华",
-										   "新增5阶武器。\n"+new 腥红散华().desc()));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.猩红散华),"腥红散华",
+										   "新增5阶武器。\n"+new 猩红散华().desc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.真铜短剑),"真铜短剑",
 										   "新增5阶武器。\n"+new 真铜短剑().desc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.斩马刀), "斩马刀",
@@ -425,7 +429,7 @@ public class 重制 {
 											"_-_ 改变游戏的玩法。"));
 		changes.addButton( new ChangeButton(Icons.STATS.get(), "难度设置",
 											"新增游戏选项。\n" +
-											"敌人的生命+1倍，攻击+0.2倍。\n" +
+//											"敌人的生命+0.25倍，攻击+0.05倍。\n" +
 											"_-_ 调整游戏生物的属性。"));
 		//endregion
 
@@ -455,7 +459,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "武器附魔",
 		"传说\n" +
 		"_-_ 获得30%强化等级。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x000000 )), "诅咒刻印",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "诅咒刻印",
 		"虐待\n" +
 		"_-_ 受到的物理伤害x4.5，如果没有死亡，则恢复受到的伤害。\n\n"+
 		"焦灼\n" +
@@ -520,7 +524,7 @@ public class 重制 {
 										   "尸尘房\n" +
 										   "_-_ 金币数量1=>自然生成金币。\n\n" ,
 										   "毒气房和鼠王房\n" +
-										   "_-_ 金币数量10~15=>标准金币，且毒气房初始毒气30=>8，生产毒气12=>8。" ,
+										   "_-_ 金币数量10~15=>标准金币，且毒气房初始毒气30=>8，生产毒气12=>10。" ,
 										   
 										   "地牢生成1\n" +
 										   "_-_ 物品生成不会生成在出口。\n"+
@@ -689,7 +693,7 @@ public class 重制 {
 										   "死神\n" +
 										   "_-_ 根据已损失生命的次方=>根据已损失生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "武器",
-										   "_-_ 装备和卸下时间1=>攻速\n" +
+										   "_-_ 装备和卸下时间1=>攻击延迟\n" +
 										   "_-_ 5阶都是特别物品\n" +
 										   "_-_ 武器战技重做\n" +
 										   "_-_ 武器投掷物理攻击能触发近战物理攻击效果\n" +
@@ -708,7 +712,7 @@ public class 重制 {
 
 
 
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x000000 )), "诅咒刻印",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "诅咒刻印",
 										   "恶臭\n" +
 										   "_-_ 释放的毒气元素能受到奥术之戒的效果。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "防具",
@@ -735,6 +739,7 @@ public class 重制 {
 											"_-_ 一些杂项音效。" ));
 		changes.addButton( new ChangeButton(Icons.get(Icons.DISPLAY), "UI",
 											"_-_ 设置界面和英雄属性界面更好。\n" +
+											"_-_ 优化指标，新增食物栏、药剂栏，并移除排版的自动优化。\n" +
 											"_-_ 显示更多信息。\n" +
 											"_-_ Buff显示计数。\n" +
 											"_-_ 状态栏添加食物条。并且不显示Buff图标。\n"+
@@ -766,11 +771,9 @@ public class 重制 {
 											"_-_ 巨魔铁匠任务要求数量40=>20，携带的数量越多，增加的好感度越多。\n" +
 											"_-_ 巨魔铁匠新增额外选项，不需要人情，如果还有2500以上金币和25能量会赠送锻造锤。\n"+
 											"_-_ 野心勃勃的小恶魔不再半透明。"));
-		changes.addButton( new ChangeButton(new NecromancerSprite(),"死灵法师和幽魂法师","_-_ 最大闪避-4。\n" +
-					 "_-_"));
+		changes.addButton( new ChangeButton(new NecromancerSprite(),"死灵法师和幽魂法师","_-_ 最大闪避-4。 "));
 
-		changes.addButton( new ChangeButton(new NecromancerSprite(),"监狱守卫","_-_ 最大闪避+4，最大命中+2。\n" +
-					 "_-_"));
+		changes.addButton( new ChangeButton(new GuardSprite(),"监狱守卫","_-_ 最大闪避+4，最大命中+2。、"));
 
 		changes.addButton( new ChangeButton(new GooSprite(),"老鬼",
 						"小老鬼\n"+
@@ -824,7 +827,7 @@ public class 重制 {
 											"_-_ 新增吸血作用于物理攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值(不过对非Boss仅1/3效果)。\n"+
 											"_-_ 新增魔力，英雄初始是10，法杖、法、巫、道、忍术需要此。\n"+
 											"_-_ 新增穿甲(固定值无视防御)，护甲穿透(百分比无视防御)，先x/后+-。\n"+
-											"_-_ 蛇皮走位，正常行动会叠加0.35层，物理攻击叠加0.35层，最多10层。满层时的物理攻击+移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
+											"_-_ 蛇皮走位，正常行动会叠加0.35层，物理攻击叠加0.35层，最多15层。满层时的物理攻击+移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
 											"_-_ 任何饱腹填充都能触发吃饭天赋，不过效果倍率是食物填充值/150。\n"+
 											"_-_ 移除搜索、开锁等动作扣除饥饿值，同时搜索花费时间2=>搜索范围x2。\n",
 
@@ -849,7 +852,7 @@ public class 重制 {
 											"英雄属性1\n\n" +
 											"_-_ 最大生命值20+5x升级等级=>15+3x等级。\n"+
 											"_-_ 升级+最大命中和最大闪避=>每级提供最大命中和最大闪避，最大等级-5。\n"+
-											"_-_ 现在每级还会+0.004再生、攻速和移速，最大防御0.16和0.08魔抗\n" ,
+											"_-_ 现在每级还会+0.004再生\n" ,
 
 											"英雄属性2\n\n" +
 											"_-_ 女性英雄大小-0.1，男性则+0.1。\n"+
@@ -870,7 +873,7 @@ public class 重制 {
 										   "_-_ 战斗法师职业给到巫女。\n" +
 										   "_-_ 疾行者职业给到行僧。\n" +
 										   "_-_ 术士职业给到道士。\n" +
-										   "_-_ 勇士=>武器大师。\n" +
+										   "_-_ 勇士=>武器大师(所有人拥有副武器功能，但仅45%攻击效果)。\n" +
 										   "_-_ 术士=>死灵术士。"
 										   ));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ITEM), "物品",
@@ -894,7 +897,11 @@ public class 重制 {
 										   "_-_ 一些物品图片更好。\n" +
 										   "_-_ 物品掉落位置更好。" ));
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "杂项",
+				"_-_ Buff伤害和防具刻印、炸弹、盟军、陷阱、地牢的伤害也能判定击杀。\n" +
 				"_-_ 陷阱数量生成后处理每5格地板不超过1个陷阱。\n" +
+				"_-_ 成长精英每4回合1%=>每回合0.25%。\n" +
+				"_-_ 无限命中大于无限闪避。\n" +
+				"_-_ 武器、防具生成，生成特定阶级时，不再有机会生成其他阶级。\n" +
 				"_-_ 护盾类也算作治疗效果。\n" +
 //				"_-_ 交互商人，英雄升级，打开英雄面板和背包面板会保存游戏，防止意外崩溃的丢失。\n" +
 				"_-_ 现在吃饭超过450的食物也会填充，施加饱腹Buff，但是饱腹最多900。\n" +

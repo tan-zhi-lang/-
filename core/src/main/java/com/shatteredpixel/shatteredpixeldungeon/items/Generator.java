@@ -198,7 +198,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.符文之刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.腥红散华;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
@@ -553,7 +553,7 @@ public class Generator {
 					闪电双截棍.class,
 
 					真铜短剑.class,
-					腥红散华.class,
+					猩红散华.class,
 					重锤.class,
 					无影剑.class,
 
@@ -899,14 +899,23 @@ public class Generator {
 	}
 
 	public static Armor randomArmor(){
-		return randomArmor(Dungeon.相对层数() / 5);
+		return randomArmor(Dungeon.相对层数() / 5,false);
 	}
-	
+
 	public static Armor randomArmor(int floorSet) {
+		return randomArmor(floorSet, false);
+	}
+
+	public static Armor randomArmor(int floorSet, boolean useDefaults) {
 
 		floorSet = (int)GameMath.之内(0,floorSet,floorSetTierProbs.length-1);
-		
-		Armor a = (Armor)Reflection.newInstance(Category.ARMOR.classes[Random.chances(floorSetTierProbs[floorSet])]);
+		Armor a;
+		if (useDefaults){
+			a = (Armor)Reflection.newInstance(Category.ARMOR.classes[Random.chances(floorSetTierProbs[floorSet])]);
+		} else {
+			a = (Armor)Reflection.newInstance(Category.ARMOR.classes[floorSet]);//之前还有机会
+		}
+
 		a.random();
 		return a;
 	}
@@ -939,7 +948,7 @@ public class Generator {
 		if (useDefaults){
 			w = (Weapon) randomUsingDefaults(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
 		} else {
-			w = (Weapon) random(wepTiers[Random.chances(floorSetTierProbs[floorSet])]);
+			w = (Weapon) random(wepTiers[floorSet]);//之前还有机会
 		}
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
 			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));

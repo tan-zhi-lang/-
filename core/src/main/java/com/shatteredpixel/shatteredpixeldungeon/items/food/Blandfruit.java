@@ -258,9 +258,9 @@ public class Blandfruit extends Food {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			if (!testIngredients(ingredients)) return null;
-			
-			ingredients.get(0).数量(ingredients.get(0).数量()-1);
-			ingredients.get(1).数量(ingredients.get(1).数量()-1);
+
+			ingredients.get(0).数量减();
+			ingredients.get(1).数量减();
 			
 			
 			return new Blandfruit().cook((Seed) ingredients.get(1));

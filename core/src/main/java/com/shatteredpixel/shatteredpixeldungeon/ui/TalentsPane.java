@@ -380,9 +380,12 @@ public class TalentsPane extends ScrollPane {
 			super.layout();
 
 			int regStars = Talent.天赋解锁[tier+1] - Talent.天赋解锁[tier];
+//			int regStars = Talent.天赋解锁[tier+1] - Talent.天赋解锁[tier] + Dungeon.hero.bonusTalentPoints(tier);
+
 
 			float titleWidth = title.width();
 			titleWidth += 2 + Math.min(stars.size(), regStars)*6;
+//			titleWidth += 2 + Math.min(stars.size(), regStars)*5f;
 			title.setPos(x + (width - titleWidth)/2f, y);
 
 			float left = title.right() + 2;
@@ -397,6 +400,7 @@ public class TalentsPane extends ScrollPane {
 				left += 6;
 				regStars--;
 				if (regStars == 0){
+//				if (regStars == 7){
 					starTop += 6;
 					left = title.right() + 2;
 				}
@@ -408,12 +412,12 @@ public class TalentsPane extends ScrollPane {
 			float gap = (width - buttons.size()*TalentButton.WIDTH)/(buttons.size()+1);
 			left = x + gap;
 			for (TalentButton btn : buttons){
-				btn.setPos(left, title.bottom() + 4);
+				btn.setPos(left, title.bottom() + 4);//+5f/*无*/
 				PixelScene.align(btn);
 				left += btn.width() + gap;
 			}
 
-			height = buttons.get(0).bottom() - y;
+			height = buttons.get(0).bottom() - y;//+5f/*无*/
 
 		}
 

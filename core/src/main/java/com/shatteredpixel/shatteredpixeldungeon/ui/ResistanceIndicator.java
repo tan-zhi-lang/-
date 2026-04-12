@@ -1,6 +1,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.watabou.noosa.ColorBlock;
@@ -111,7 +112,7 @@ public class ResistanceIndicator extends Component {
 		magicalLine2.setPos(elementalText.x+elementalText.width+ GAP,elementalText.y + elementalText.height() + ICON_HEIGHT * 2f + GAP);
 		add(magicalLine2);
 
-		RenderedText magicalTxt2 = makePercentText(RingOfElements.resist(charRef,Char.魔法伤害.class)-1);
+		RenderedText magicalTxt2 = makePercentText(RingOfElements.resist(charRef,Dungeon.class)-1);
 		magicalTxt2.x = magicalLine2.x + magicalLine2.width()+ GAP;
 		magicalTxt2.y = magicalLine.y;
 		add(magicalTxt2);

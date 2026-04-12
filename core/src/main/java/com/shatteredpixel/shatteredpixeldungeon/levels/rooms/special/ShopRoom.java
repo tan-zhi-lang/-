@@ -347,7 +347,7 @@ public class ShopRoom extends SpecialRoom {
 			}
 		}
 		if(Dungeon.符文("海克斯获取:贸易"))
-			itemsToSpawn.add( new 海克斯宝典());
+			itemsToSpawn.add( new 海克斯宝典(true));
 		if(Dungeon.符文("黑市:力量药剂"))
 		itemsToSpawn.add( new 力量药剂().数量(2));
 		if(Dungeon.符文("黑市:升级卷轴"))

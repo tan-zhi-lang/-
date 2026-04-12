@@ -10,11 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 
-public class 幻影 extends 武技{
+public class 背刺 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行十次20%伤害的物理攻击，并花费攻击延迟的回合";
+		desc="对攻击范围内进行一次112%伤害的物理攻击，并穿越至目标身后，同时对所有相邻敌人同样造成此伤害，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -36,18 +37,14 @@ public class 幻影 extends 武技{
 				return;
 			}
 			
+
 			hero.belongings.abilityWeapon = wep;
-			if (!hero.canAttack(enemy)){
-				GLog.w(Messages.get(Weapon.class, "ability_target_range"));
-				hero.belongings.abilityWeapon = null;
-				return;
-			}
+			hero.穿越攻击(hero,enemy.pos,伤害112);
 			hero.belongings.abilityWeapon = null;
+
 			
+			Sample.INSTANCE.play(wep.hitSound);
 			wep.消耗(hero);
-			hero.连击=5;
-			hero.连击(enemy,伤害156/10f+伤害156/5f/6f,0,1);
-			wep.技能使用(hero);
 		}
 		
 		@Override
@@ -55,4 +52,5 @@ public class 幻影 extends 武技{
 			return Messages.get(Weapon.class, "prompt");
 		}
 	};
+	
 }

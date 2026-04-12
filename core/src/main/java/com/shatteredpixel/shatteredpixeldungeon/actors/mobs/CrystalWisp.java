@@ -99,9 +99,9 @@ public class CrystalWisp extends Mob{
 	}
 
 	@Override
-	public void 死亡时(Object cause) {
+	public void 死亡时(Object 来源) {
 		flying = false;
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 
 	//used so resistances can differentiate between melee and magical attacks

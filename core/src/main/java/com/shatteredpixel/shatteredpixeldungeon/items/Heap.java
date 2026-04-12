@@ -71,7 +71,7 @@ public class Heap implements Bundlable {
 	public LinkedList<Item> items = new LinkedList<>();
 	
 	public void open( Hero hero ) {
-		if(hero.符文("海克斯获取:宝藏"))new 海克斯宝典().放背包();
+		if(hero.符文("海克斯获取:宝藏"))new 海克斯宝典(true).放背包();
 		switch (type) {
 		case TOMB:
 			Badges.解锁道士();
@@ -215,6 +215,7 @@ public class Heap implements Bundlable {
 	}
 	
 	public void burn() {//烧灭
+		if(Dungeon.符文("我让你破坏"))return;
 		hidden = false;
 
 		if (type != Type.HEAP) {
@@ -272,6 +273,7 @@ public class Heap implements Bundlable {
 
 	//Note: should not be called to initiate an explosion, but rather by an explosion that is happening.
 	public void explode() {
+		if(Dungeon.符文("我让你破坏"))return;
 		
 		hidden = false;
 		//breaks open most standard containers, mimics die.
@@ -326,6 +328,7 @@ public class Heap implements Bundlable {
 	}
 	
 	public void freeze() {
+		if(Dungeon.符文("我让你破坏"))return;
 
 		if (type != Type.HEAP) {
 			return;

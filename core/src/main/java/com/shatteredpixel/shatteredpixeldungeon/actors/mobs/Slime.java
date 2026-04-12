@@ -42,9 +42,9 @@ public class Slime extends Mob {
 	}
 	
 	@Override
-	public void 死亡时(Object cause){
+	public void 死亡时(Object 来源){
 		Sample.INSTANCE.play(Assets.Sounds.史莱姆);
-		super.死亡时(cause);
+		super.死亡时(来源);
 	}
 	
 	

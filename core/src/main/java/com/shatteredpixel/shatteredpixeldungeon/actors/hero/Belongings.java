@@ -13,10 +13,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.果决攻击;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -53,7 +53,7 @@ public class Belongings implements Iterable<Item> {
 
 	public Backpack backpack;
 	/**
-	 
+
 	 if(算法.概率学(33)){
 	 LinkedList<Item> items = new LinkedList<>();
 	 for(Item item:belongings){
@@ -75,17 +75,17 @@ public class Belongings implements Iterable<Item> {
 	 }
 	 GLog.p("bbi"+items);
 	 }
-	 
+
 	 belonings所有物品包括装备
 	 belonings.backpack背包物品
 	 belonings.backpack.items主背包物品
 	*/
 	public Belongings( Hero owner ) {
 		this.owner = owner;
-		
+
 		backpack = new Backpack();
 		backpack.owner = owner;
-		
+
 	}
 
 	public Weapon weapon = null;
@@ -93,7 +93,7 @@ public class Belongings implements Iterable<Item> {
 	public KindofMisc misc = null;
 	public KindofMisc misc2 = null;
 	public KindofMisc misc3 = null;
-	public KindofMisc 幸运 = new 幸运之戒();
+	public KindofMisc 幸运 = null;
 	public LinkedList<Item> 装备(){
 		LinkedList<Item> items = new LinkedList<>();
 		if(weapon()!=null)
@@ -196,7 +196,7 @@ public class Belongings implements Iterable<Item> {
 	}
 
 	// ***
-	
+
 	private static final String WEAPON		= "weapon";
 	private static final String ARMOR		= "armor";
 	private static final String MISC       = "misc";
@@ -207,9 +207,9 @@ public class Belongings implements Iterable<Item> {
 	private static final String SECOND_WEP = "second_wep";
 
 	public void storeInBundle( Bundle bundle ) {
-		
+
 		backpack.storeInBundle( bundle );
-		
+
 		bundle.put( WEAPON, weapon );
 		bundle.put( ARMOR, armor );
 		bundle.put( MISC, misc );
@@ -218,18 +218,18 @@ public class Belongings implements Iterable<Item> {
 		bundle.put( 幸运x, 幸运 );
 		bundle.put( SECOND_WEP, secondWep );
 	}
-	
+
 	public static boolean bundleRestoring = false;
 	public void restoreFromBundle( Bundle bundle ) {
-		
+
 		bundleRestoring = true;
 		backpack.clear();
 		backpack.restoreFromBundle( bundle );
-		
-		
+
+
 		weapon = (Weapon) bundle.get(WEAPON);
 		if (weapon() != null)       weapon().activate(owner);
-		
+
 		armor = (Armor)bundle.get( ARMOR );
 		if (armor() != null)        armor().activate( owner );
 
@@ -243,7 +243,7 @@ public class Belongings implements Iterable<Item> {
 
 		misc3 = (KindofMisc) bundle.get(MISC3);
 		if (misc3() != null)         misc3().activate( owner );
-		
+
 		幸运 = (KindofMisc) bundle.get(幸运x);
 		if (幸运() != null)         幸运().activate( owner );
 
@@ -261,7 +261,7 @@ public class Belongings implements Iterable<Item> {
 		misc3 = null;
 		幸运 = null;
 	}
-	
+
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {
 		if (bundle.contains( ARMOR )){
 			Armor armor = ((Armor)bundle.get( ARMOR ));
@@ -291,6 +291,31 @@ public class Belongings implements Iterable<Item> {
 	}
 	public boolean hasItem(Class itemClass){
 		return getItem(itemClass)!=null;
+	}
+	public boolean 技能(Class itemClass){
+
+		if(hasItem(果决攻击.class)){
+			return true;
+		}
+		return false;
+	}
+	public boolean 充满技能(Class itemClass){
+
+		if(hasItem(果决攻击.class)){
+			getItem(果决攻击.class).gainCharge(1);
+			if(getItem(果决攻击.class).满充能()){
+				getItem(果决攻击.class).wandUsed();
+				return true;
+			}
+		}
+		return false;
+	}
+	public int 技能等级(Class itemClass){
+
+		if(hasItem(果决攻击.class)){
+			return getItem(果决攻击.class).强化等级();
+		}
+		return 0;
 	}
 	@SuppressWarnings("unchecked")
 	public<T extends Item> T getItem( Class<T> itemClass ) {

@@ -59,7 +59,7 @@ public class 真正护符 extends Trinket {
 				hero.spend(-hero.cooldown());
 
 
-				if(Dungeon.符文("尊我为王"))Dungeon.hero.选择海克斯(Dungeon.hero.随机海克斯(true,3));
+				if(Dungeon.符文("尊我为王"))Dungeon.hero.选择随机海克斯3();
 
 				//delay with an actor here so pickup behaviour can fully process.
 				Actor.add(new Actor(){

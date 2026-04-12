@@ -42,12 +42,12 @@ public class RotLasher extends Mob {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
-		if (src instanceof 燃烧) {
+	public void 受伤时(float dmg, Object 来源) {
+		if (来源 instanceof 燃烧) {
 			destroy();
 			sprite.die();
 		} else {
-			super.受伤时(dmg, src);
+			super.受伤时(dmg,来源);
 		}
 	}
 

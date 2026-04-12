@@ -463,21 +463,21 @@ public class DM300 extends Mob {
 	private boolean invulnWarned = false;
 
 	@Override
-	public void 受伤时(float dmg, Object src) {
+	public void 受伤时(float dmg, Object 来源) {
 		if (!BossHealthBar.isAssigned()){
 			notice();
 		}
 
 		float preHP = 生命;
-		super.受伤时(dmg, src);
-		if (是无敌(src.getClass())){
+		super.受伤时(dmg,来源);
+		if (是无敌(来源.getClass())){
 			return;
 		}
 
 		float dmgTaken = preHP - 生命;
 		if (dmgTaken > 0) {
 			LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
-			if (lock != null && !免疫(src.getClass()) && !是无敌(src.getClass())){
+			if (lock != null&&!免疫(来源.getClass())&&!是无敌(来源.getClass())){
 				if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmgTaken/2f);
 				else                                                    lock.addTime(dmgTaken);
 			}
@@ -560,9 +560,9 @@ public class DM300 extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause ) {
+	public void 死亡时(Object 来源) {
 
-		super.死亡时( cause );
+		super.死亡时(来源);
 
 		GameScene.bossSlain();
 		Dungeon.level.unseal();

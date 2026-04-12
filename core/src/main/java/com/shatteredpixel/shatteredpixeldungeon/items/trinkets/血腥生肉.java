@@ -21,23 +21,23 @@ public class 血腥生肉 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								增加(),
-								减少()*100
+								概率(),
+								饥饿()*100
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								
-								增加(0),
-								减少(0)*100
+
+								概率(0),
+								饥饿(0)*100
 							   );
 		}
 	}
 
-	public static int 增加(){
-		return 增加(trinketLevel(血腥生肉.class));
+	public static int 概率(){
+		return 概率(trinketLevel(血腥生肉.class));
 	}
 
-	public static int 增加(int level){
+	public static int 概率(int level){
 		if (level < 0){
 			return 0;
 		} else {
@@ -45,11 +45,11 @@ public class 血腥生肉 extends Trinket {
 		}
 	}
 
-	public static float 减少(){
-		return 减少(trinketLevel(血腥生肉.class));
+	public static float 饥饿(){
+		return 饥饿(trinketLevel(血腥生肉.class));
 	}
 
-	public static float 减少(int level){
+	public static float 饥饿(int level){
 		if (level < 0){
 			return 1;
 		} else {

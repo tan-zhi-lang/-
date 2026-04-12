@@ -121,12 +121,12 @@ public class TransmogRat extends Mob {
 	}
 
 	@Override
-	public void 死亡时(Object cause){
+	public void 死亡时(Object 来源){
 		if(算法.概率学(Dungeon.hero.天赋点数(Talent.吱援部队,10))){
 			回满血();
 			makeAlly();
 		}else {
-			死亡时(cause);
+			死亡时(来源);
 		}
 	}
 

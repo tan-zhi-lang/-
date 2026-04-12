@@ -333,8 +333,8 @@ public abstract class Scroll extends Item {
 			if (!testIngredients(ingredients)) return null;
 			
 			Scroll s = (Scroll) ingredients.get(0);
-			
-			s.数量(s.数量()-1);
+
+			s.数量减();
 			if (ShatteredPixelDungeon.scene() instanceof AlchemyScene){
 				if (!s.已鉴定()){
 					((AlchemyScene) ShatteredPixelDungeon.scene()).showIdentify(s);

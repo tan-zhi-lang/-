@@ -64,16 +64,16 @@ public class ItemSprite extends MovieClip {
 		super(Assets.Sprites.ITEMS);
 		view( heap );
 	}
-	
+
 	public ItemSprite( Item item ) {
 		super(Assets.Sprites.ITEMS);
 		view( item );
 	}
-	
+
 	public ItemSprite( int image ){
 		this( image, null );
 	}
-	
+
 	public ItemSprite( int image, Glowing glowing ) {
 		super( Assets.Sprites.ITEMS );
 		

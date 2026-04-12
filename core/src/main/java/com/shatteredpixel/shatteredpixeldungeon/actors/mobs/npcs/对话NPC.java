@@ -41,7 +41,7 @@ public class 对话NPC extends NPC {
 	}
 
 	@Override
-	public void 受伤时(float dmg, Object src ) {
+	public void 受伤时(float dmg, Object 来源) {
 		//do nothing
 	}
 

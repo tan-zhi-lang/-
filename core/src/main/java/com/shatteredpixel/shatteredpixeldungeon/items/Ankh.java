@@ -55,7 +55,7 @@ public class Ankh extends Item {
 				if(水袋 != null)
 				水袋.empty();
 				else if(永生秘药!=null)
-				detach(hero.belongings.backpack);
+					永生秘药.detach(hero.belongings.backpack);
 
 				GLog.p( Messages.get(this, "bless") );
 				hero.spend( 1f );

@@ -48,7 +48,7 @@ public class 技能书 extends 用品 {
 
 		Game.runOnRenderThread(()->{
 			GameScene.show(new Wnd选择技能(this,hero));
-			hero.更新数据();
+			
 		});
 
 

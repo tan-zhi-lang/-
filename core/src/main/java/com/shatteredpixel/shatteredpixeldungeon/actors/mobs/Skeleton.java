@@ -85,7 +85,7 @@ public class Skeleton extends Mob {
 
 				damage=ch.防御(this,damage);
 				if(ch instanceof Hero hero){
-					damage-=hero.护甲伤害(damage);
+					damage=hero.护甲伤害(damage);
 				}
 
 				ch.受伤时( damage, this );

@@ -81,6 +81,7 @@ public class GreatCrab extends Crab {
 	@Override
 	public int 最大闪避(Char enemy ) {
 		//crab blocks all melee attacks from its current target
+		if(enemy!=null)
 		if (enemySeen
 				&& state != SLEEPING
 				&& paralysed == 0

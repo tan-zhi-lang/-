@@ -33,8 +33,8 @@ public class 海克斯宝典 extends 用品 {
 	public 海克斯宝典(boolean 非正常获取){
 		if(非正常获取){
 			if(Dungeon.符文("任务:海克斯获取")){
-				new 海克斯宝典(true).放背包();
-				new 海克斯宝典(true).放背包();
+				new 海克斯宝典(false).放背包();
+				new 海克斯宝典(false).放背包();
 			}
 		}
 	}
@@ -103,7 +103,7 @@ public class 海克斯宝典 extends 用品 {
 		Game.runOnRenderThread(()->{
 			Sample.INSTANCE.play(Assets.Sounds.海克斯);
 			GameScene.show(new Wnd选择海克斯(this,hero));
-			hero.更新数据();
+			
 		});
 
 
@@ -113,10 +113,10 @@ public class 海克斯宝典 extends 用品 {
 
 	@Override
 	public int 金币(){
-		return 100*((使用上限()-用过)>=0?(使用上限()-用过)*100:1);
+		return 100*((使用上限()-用过)>=0?(使用上限()-用过)*30:1);
 	}
 	@Override
 	public int 能量(){
-		return 5*((使用上限()-用过)>=0?(使用上限()-用过)*5:1);
+		return 15*((使用上限()-用过)>=0?(使用上限()-用过)*5:1);
 	}
 }

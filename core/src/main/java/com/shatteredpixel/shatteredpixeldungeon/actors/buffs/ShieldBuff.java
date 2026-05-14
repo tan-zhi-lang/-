@@ -2,11 +2,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,8 +18,22 @@ public abstract class ShieldBuff extends Buff {
 	
 	public float shielding;
 	public float max=-1;
+	public float 衰减=-1;
+	public float 回合=-1;
+	public float 衰减回合=-1;
 	public float max(){
 		return max;
+	}
+
+	@Override
+	public boolean act() {
+		if(衰减!=-1)
+			shielding=Math.max(0,shielding*衰减);
+		if(回合!=-1){
+			if(衰减回合==-1)衰减回合=shielding*1/回合;
+			shielding=Math.max(0,shielding-衰减回合);
+		}
+		return true;
 	}
 	//higher priority shielding buffs are consumed first if multiple exist
 	//currently we have the following:
@@ -105,6 +121,15 @@ public abstract class ShieldBuff extends Buff {
 	
 	//returns the amount of damage leftover
 	public float absorbDamage( float dmg ){
+		if(target instanceof Hero hero){
+			if(hero.符文("砸开那颗蛋"))
+				for (int i : PathFinder.相邻) {
+					Char mob = Actor.findChar(hero.pos+i);
+					if (mob != null &&mob.isAlive() && mob.alignment != Char.Alignment.ALLY)
+						mob.受伤时(dmg*1.5f);
+
+				}
+		}
 		if (shielding >= dmg){
 			shielding -= dmg;
 			dmg = 0;

@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.冰魄之弓;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
@@ -32,9 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
 import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
-import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.连杀状态;
-import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
@@ -61,7 +57,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.HolyDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
@@ -69,7 +64,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocki
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisintegrationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.watabou.utils.Random;
 
 import java.util.HashSet;
 
@@ -159,37 +153,6 @@ public class AntiMagic extends Armor.Glyph {
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
 		//no proc effect, triggers in Char.damage
 		return damage;
-	}
-	
-	public static float drRoll( Char owner, int level ){
-		float x=0;
-		if(owner instanceof Hero hero){
-
-			if(hero.符文("一剑破万法")){
-				for(Item i: hero.belongings){
-					if(i instanceof Weapon w&&w.剑())
-						x+=hero.最大攻击()*0.15f;
-				}
-			}
-			if(hero.符文("勇气")){
-				if(hero.hasbuff(连杀状态.class))
-					x+=25;
-				if(hero.hasbuff(战斗状态.class))
-					x+=25;
-			}
-		}
-		else {
-			if(Dungeon.符文("劣变"))x-=owner.第x次防御*15;
-
-			if(Dungeon.符文("混沌"))
-			x-=Dungeon.hero.最大防御()*0.5f;
-		}
-		if (level != -1)
-			x=Random.NormalFloat(
-					level * genericProcChanceMultiplier(owner),
-					(3 + (level * 1.5f)) * genericProcChanceMultiplier(owner));
-
-		return x;
 	}
 
 	@Override

@@ -455,8 +455,8 @@ public class Ring extends KindofMisc {
 		if (hero.belongings.幸运() != null && hero.belongings.幸运().getClass() == getClass()){
 			bonus += ((Ring)hero.belongings.幸运()).soloBonus();
 		}
-		if(hero.符文("戒指的宠爱"))bonus*=3;
 
+		if(hero.符文("戒指的宠爱"))bonus*=3;
 		return bonus;
 	}
 
@@ -478,6 +478,7 @@ public class Ring extends KindofMisc {
 		if (hero.belongings.幸运() != null && hero.belongings.幸运().getClass() == getClass()){
 			bonus += ((Ring)hero.belongings.幸运()).soloBuffedBonus();
 		}
+		if(hero.符文("戒指的宠爱"))bonus*=3;
 		return bonus;
 	}
 	

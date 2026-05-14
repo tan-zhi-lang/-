@@ -158,9 +158,9 @@ public class 真正护符 extends Trinket {
 
 	public static float 增加(int level){
 		if (level < 0){
-			return 0;
+			return 1;
 		} else {
-			return (10f+5f*level)/Dungeon.相对层数()/100f;
+			return 1+(10f+5f*level)/Dungeon.相对层数()/100f;
 		}
 	}
 

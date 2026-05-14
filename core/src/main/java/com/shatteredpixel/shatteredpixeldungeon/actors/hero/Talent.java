@@ -52,6 +52,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -472,7 +473,7 @@ public enum Talent {
 				}
 			}
 
-		hero.更新数据();
+		
 	}
 	
 	public static class 寻宝猎人 extends CountBuff{{revivePersists = true;}}
@@ -480,6 +481,7 @@ public enum Talent {
 	public static class NatureBerriesDropped extends CountBuff{{revivePersists = true;}}
 	
 	public static void 休息时(Hero hero, int pos){
+
 		if(算法.isDebug()){
 //			Dungeon.hero.interrupt();
 //			InterlevelScene.mode=InterlevelScene.Mode.FALL;
@@ -509,10 +511,10 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		hero.回血(Math.round(foodVal+
-							 foodVal*(
-									 hero.天赋点数(Talent.备战,3)+(hero.符文("饭桶")?hero.最大生命(0.05f):0))
-							));
+		float h=foodVal+hero.天赋点数(Talent.备战,3);
+		if(Dungeon.符文("饭桶"))h+=hero.最大生命(0.05f);
+		if(Dungeon.符文("细嚼慢咽"))h*=2;
+		hero.回血(h);
 
 		if(hero.符文("饿死鬼投胎")&&hero.buff(Hunger.class).空腹()){
 			hero.回百分比血(0.2f*foodVal);
@@ -611,6 +613,7 @@ public enum Talent {
 	public static void 饮用药剂(Hero hero,int cell,float factor){
 		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.05f));
 
+		if(hero.符文("我不是药王"))hero.生命成长+=5;
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
 			float shieldToGive = Math.round( factor * hero.最大生命);
@@ -626,6 +629,10 @@ public enum Talent {
 	public static void 阅读卷轴(Hero hero,int pos,float factor,Class<?extends Item> cls){
 		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.05f));
 
+		if(hero.符文("读万卷书"))hero.生命成长+=5;
+		if(hero.符文("作弊:我能回城")&&cls==来去秘卷.class){
+			new 来去秘卷().放背包();
+		}
 		if(hero.subClass(HeroSubClass.图书管理员)){
 			Buff.施加(hero, Swiftthistle.TimeBubble.class).reset(2);
 			hero.经验(Math.round(factor*2*Dungeon.相对层数()));
@@ -687,6 +694,7 @@ public enum Talent {
 	public static void 拾取时(Hero hero, Item item ){
 
 		if(Dungeon.赛季(赛季设置.回廊传说))item.鉴定();
+
 	}
 
 	public static float 伏击时(Hero hero, Char enemy, float dmg ){

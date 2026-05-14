@@ -1043,7 +1043,7 @@ public abstract class Level implements Bundlable {
 			discoverable[i] = d;
 		}
 	}
-	public static boolean 在边缘(int pos) {
+	public boolean 在边缘(int pos) {
 		int width= Dungeon.level.width();
 		// 跳过第一行、最后一行
 		if(pos < width || pos >= modifiableBlocking.length - width) {
@@ -1064,6 +1064,15 @@ public abstract class Level implements Bundlable {
 	}
 	public boolean 在深渊(int pos){
 		return map[pos] == Terrain.CHASM;
+	}
+	public boolean 在坟墓(int pos){
+			Heap heap = Dungeon.level.heaps.get(pos);
+			if (heap != null &&(
+					heap.type==Heap.Type.TOMB||
+					heap.type==Heap.Type.REMAINS||
+					heap.type==Heap.Type.SKELETON
+			))return true;
+		return false;
 	}
 	public boolean 在水中(int pos){
 		return map[pos] == Terrain.WATER;

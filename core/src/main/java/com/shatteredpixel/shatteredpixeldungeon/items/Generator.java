@@ -55,11 +55,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神兵之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
@@ -189,6 +190,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
@@ -198,7 +200,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.符文之刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
@@ -603,14 +604,15 @@ public class Generator {
 					疾速之戒.class,
 					根骨之戒.class,
 					
-					神射之戒.class,
+					神兵之戒.class,
 					RingOfTenacity.class,
 					幸运之戒.class,
 					
 					魔攻之戒.class,
 					装甲之戒.class,
 					恢复之戒.class,
-					
+					极肚之戒.class,
+
 					六神之戒.class
 			
 			};
@@ -620,6 +622,7 @@ public class Generator {
 											 3, 3, 3,
 											 
 											 3,3 ,3,
+					3,
 											 0};
 			RING.probs = RING.defaultProbs.clone();
 			
@@ -801,7 +804,7 @@ public class Generator {
 			}
 		}
 	}
-	
+
 	public static Item random() {
 		Category cat = Random.chances( categoryProbs );
 		if (cat == null){
@@ -819,6 +822,13 @@ public class Generator {
 		} else {
 			return random(cat);
 		}
+	}
+	public static Item 随机物品() {
+		Item item=null;
+		do{
+			item = random();
+		}while(item instanceof Gold);
+		return item;
 	}
 
 	public static Item randomUsingDefaults(){

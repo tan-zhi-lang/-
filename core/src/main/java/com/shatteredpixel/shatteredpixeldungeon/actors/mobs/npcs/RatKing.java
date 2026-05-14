@@ -130,11 +130,7 @@ public class RatKing extends NPC {
 				库存=false;
 				crown.detach(Dungeon.hero.belongings.backpack);
 				for(int x=0;x<=100;x++){
-					Item i=Generator.random();
-					if(i instanceof Gold)i=Generator.random();
-					if(i instanceof Gold)i=Generator.random();
-					if(i instanceof Gold)i=Generator.random();
-
+					Item i=Generator.随机物品();
 					Dungeon.level.drop(i,pos);
 				}
 

@@ -83,6 +83,7 @@ public class Food extends Item {
 	}
 
 	public float eatingTime(){
+		if(Dungeon.符文("细嚼慢咽"))return TIME_TO_EAT*1.5f;
 		if (快速使用){
 			return 0;
 		} else {
@@ -95,6 +96,7 @@ public class Food extends Item {
 		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
 			foodVal /= 3f;
 		}
+		if(Dungeon.符文("细嚼慢咽"))foodVal*=2;
 
 		Artifact.ArtifactBuff buff = hero.buff( HornOfPlenty.hornRecharge.class );
 		if (buff != null && buff.isCursed()){

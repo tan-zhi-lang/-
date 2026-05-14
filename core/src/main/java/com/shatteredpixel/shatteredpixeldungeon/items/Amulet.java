@@ -27,6 +27,7 @@ public class Amulet extends Item {
 		黄色 = true;
 		特别= true;
 		可堆叠=true;
+		嬗变=false;
 		可以空间=false;
 	}
 	

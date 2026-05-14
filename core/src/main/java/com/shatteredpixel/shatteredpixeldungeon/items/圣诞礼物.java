@@ -15,7 +15,7 @@ public class 圣诞礼物 extends 用品 {
 	
 	@Override
 	public void 使用(Hero hero){
-		Dungeon.level.drop(Generator.random(),curUser.pos).sprite().drop();
+		Generator.随机物品().放背包();
 		super.使用(hero);
 	}
 }

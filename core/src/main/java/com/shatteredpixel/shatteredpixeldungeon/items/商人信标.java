@@ -56,13 +56,9 @@ public class 商人信标 extends Item {
 			hero.sprite.operate(hero.pos);
 			hero.spend( 1f );
 			hero.busy();
-			Item item;
 			if(Dungeon.gold>=Dungeon.depth*25){
 				Dungeon.gold(-Dungeon.depth*25);
-				do{
-					item = Generator.random();
-					item.放背包();
-				}while(item instanceof Gold);
+				Generator.随机物品().放背包();
 			}else{
 				Messages.get(this, "nogold");
 			}
@@ -79,8 +75,8 @@ public class 商人信标 extends Item {
 					x++;
 					do{
 						item = Generator.random();
-						item.放背包();
 					}while(item instanceof Gold);
+					item.放背包();
 				}
 			}else{
 				Messages.get(this, "nogold");

@@ -1,9 +1,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
@@ -93,32 +91,34 @@ public class ResistanceIndicator extends Component {
 					   elementalText.y + elementalText.height() + GAP + ICON_HEIGHT * r
 					   + (- txt.height()) / 2f);
 			add(txt);
+			height = elementalText.height() + ICON_HEIGHT * 2.25f//2
+					 + GAP + txt.height();
 		}
 
-		RenderedText magicalLine = new RenderedText("造成伤害",FONT_SIZE);
-		magicalLine.hardlight(0xFF8800);
-		magicalLine.scale=new PointF(0.27f,0.27f);
-		magicalLine.setPos(elementalText.x+ GAP,elementalText.y + elementalText.height() + ICON_HEIGHT * 2f + GAP);
-		add(magicalLine);
+//		RenderedText magicalLine = new RenderedText("造成伤害",FONT_SIZE);
+//		magicalLine.hardlight(0xFF8800);
+//		magicalLine.scale=new PointF(0.27f,0.27f);
+//		magicalLine.setPos(elementalText.x+ GAP,elementalText.y + elementalText.height() + ICON_HEIGHT * 2f + GAP);
+//		add(magicalLine);
 
-		RenderedText magicalTxt = makePercentText(charRef.伤害());
-		magicalTxt.x = magicalLine.x + magicalLine.width() + GAP;
-		magicalTxt.y = magicalLine.y;
-		add(magicalTxt);
+//		RenderedText magicalTxt = makePercentText(charRef.伤害());
+//		magicalTxt.x = magicalLine.x + magicalLine.width() + GAP;
+//		magicalTxt.y = magicalLine.y;
+//		add(magicalTxt);
 
-		RenderedText magicalLine2 = new RenderedText("元素抗性",FONT_SIZE);
-		magicalLine2.hardlight(0x8800FF);
-		magicalLine2.scale=new PointF(0.27f,0.27f);
-		magicalLine2.setPos(elementalText.x+elementalText.width+ GAP,elementalText.y + elementalText.height() + ICON_HEIGHT * 2f + GAP);
-		add(magicalLine2);
-
-		RenderedText magicalTxt2 = makePercentText(RingOfElements.resist(charRef,Dungeon.class)-1);
-		magicalTxt2.x = magicalLine2.x + magicalLine2.width()+ GAP;
-		magicalTxt2.y = magicalLine.y;
-		add(magicalTxt2);
-
-		height = elementalText.height() + ICON_HEIGHT * 2.25f//2
-				 + GAP + magicalLine.height();
+//		RenderedText magicalLine2 = new RenderedText("元素抗性",FONT_SIZE);
+//		magicalLine2.hardlight(0x8800FF);
+//		magicalLine2.scale=new PointF(0.27f,0.27f);
+//		magicalLine2.setPos(elementalText.x+elementalText.width+ GAP,elementalText.y + elementalText.height() + ICON_HEIGHT * 2f + GAP);
+//		add(magicalLine2);
+//
+//		RenderedText magicalTxt2 = makePercentText(RingOfElements.resist(charRef,Dungeon.class)-1);
+//		magicalTxt2.x = magicalLine2.x + magicalLine2.width()+ GAP;
+//		magicalTxt2.y = magicalLine.y;
+//		add(magicalTxt2);
+//
+//		height = elementalText.height() + ICON_HEIGHT * 2.25f//2
+//				 + GAP + magicalLine.height();
 
 		ColorBlock bg = new ColorBlock(width + 2f, height + 2f, 0xd680876f);
 		bg.x = x - 1f;

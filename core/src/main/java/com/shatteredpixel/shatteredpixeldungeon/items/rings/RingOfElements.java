@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.watabou.utils.PathFinder;
 
 import java.util.HashSet;
 
@@ -59,7 +60,7 @@ public class RingOfElements extends Ring {
 
 	public static final HashSet<Class> RESISTS = new HashSet<>();
 	static {
-		RESISTS.add( Chill.class );
+		RESISTS.add( Chill.class );//冰霜
 		RESISTS.add( Frost.class );
 
 		RESISTS.add( Ooze.class );//淤泥
@@ -88,6 +89,12 @@ public class RingOfElements extends Ring {
 		if(target instanceof Hero hero){
 			x*=1-hero.天赋点数(Talent.神圣净化,0.1f);
 			x*=巨大蟹钳.受到();
+			if(hero.符文("面壁者")){
+				for(int i: PathFinder.相邻){
+					if(Dungeon.level.在墙体(i+hero.pos))
+						x*=0.92f;
+				}
+			}
 			if(hero.符文("防御转魔抗"))x*=1-hero.最大防御()/(2.5+hero.最大防御());
 			if(hero.subClass(HeroSubClass.大魔法师)) x*=0.7f;
 

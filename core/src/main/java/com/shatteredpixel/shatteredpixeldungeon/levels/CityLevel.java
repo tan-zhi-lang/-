@@ -165,7 +165,7 @@ public class CityLevel extends RegularLevel {
 								}
 								Dungeon.hero.belongings.armor = new ClothArmor();
 								Dungeon.hero.belongings.armor.鉴定();
-									hero.更新数据();
+									
 									CityLevel.super.activateTransition(hero, transition);
 								}
 							}

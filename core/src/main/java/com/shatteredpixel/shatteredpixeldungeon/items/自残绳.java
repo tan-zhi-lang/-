@@ -16,6 +16,10 @@ public class 自残绳 extends 用品 {
 	
 	@Override
 	public void 使用(Hero hero){
+		if(hero.符文("炼狱绳")){
+			hero.受伤时(hero.最大生命(0.2f));
+			hero.力量+=1;
+		}else
 		hero.死亡时(null);
 		super.使用(hero);
 	}

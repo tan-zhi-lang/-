@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon;
 public class 解压设置 {
 
 	//Some of these internal IDs are outdated and don't represent what these challenges do
-	public static final int 超级背包				= 1;
+	public static final int 高级背包				= 1;
 	public static final int 幸运女神				= 2;
 	public static final int 点石成金				= 4;
 	public static final int 随机装备				= 8;
@@ -18,7 +18,7 @@ public class 解压设置 {
 	public static final int MAX_CHALS           = 9;
 
 	public static final String[] NAME_IDS = {
-			"超级背包",
+			"高级背包",
 			"幸运女神",
 			"点石成金",
 			"随机装备",
@@ -30,7 +30,7 @@ public class 解压设置 {
 	};
 
 	public static final int[] MASKS = {
-			超级背包,
+			高级背包,
 			幸运女神,
 			点石成金,
 			随机装备,

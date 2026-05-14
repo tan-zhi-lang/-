@@ -306,10 +306,17 @@ public class ItemSlot extends Button {
 		//装备图标
 		if(item.已鉴定()){
 			if (item instanceof Food food){
-				center.text( Messages.format( FLOAT, food.energy) );
+				float f=food.energy;
+				if(Dungeon.符文("细嚼慢咽"))f*=2;
+				if (Dungeon.isChallenged(Challenges.NO_FOOD))f/=3f;
+
+				center.text( Messages.format( FLOAT, f) );
 				center.measure();
 				center.hardlight( UPGRADED );
-				extra.text( Messages.format( FLOAT, food.energy/150f+Dungeon.hero.天赋点数(Talent.备战,3)));
+				float h= f/150f+Dungeon.hero.天赋点数(Talent.备战,3);
+				if(Dungeon.符文("饭桶"))h+=Dungeon.hero.最大生命(0.05f);
+				if(Dungeon.符文("细嚼慢咽"))h*=2;
+				extra.text( Messages.format( FLOAT,h));
 				extra.measure();
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof 水袋 s) {

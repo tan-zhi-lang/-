@@ -168,7 +168,8 @@ public class RenderedTextBlock extends Component {
 			}
 		}
 		layout();
-	} private static final Pattern INT_PATTERN = Pattern.compile("^\\s*[+-]?\\d+\\s*$");
+	}
+	private static final Pattern INT_PATTERN = Pattern.compile("^\\s*[+-]?\\d+\\s*$");
 
 	/**
 	 * 判断字符串类型：

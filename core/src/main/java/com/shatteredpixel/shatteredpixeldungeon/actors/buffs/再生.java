@@ -97,6 +97,7 @@ public class 再生 extends Buff {
 
 						if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)|| hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
 							再生数值=0;
+
 						if(hero.符文("吸血习性"))
 							再生数值=0;
 

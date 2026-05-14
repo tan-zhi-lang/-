@@ -663,6 +663,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if(ch!=null){
 			scale.x=ch.大小();
 			scale.y=ch.大小();
+			if(ch.折叠屏)scale.y=0.1f;
 		}
 		super.update();
 

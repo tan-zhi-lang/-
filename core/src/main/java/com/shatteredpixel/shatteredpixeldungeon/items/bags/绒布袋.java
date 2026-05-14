@@ -19,6 +19,8 @@ public class 绒布袋 extends Bag {
 
 	@Override
 	public boolean canHold( Item item ) {
+		if(Dungeon.符文("超级背包"))
+			return super.canHold(item);
 		if (item instanceof Plant.Seed || item instanceof Runestone
 				|| item instanceof GooBlob || item instanceof MetalShard){
 			item.快速使用=true;
@@ -29,7 +31,7 @@ public class 绒布袋 extends Bag {
 	}
 	
 	public int capacity(){
-		return 19+(Dungeon.解压(解压设置.超级背包)?10:0);
+		return 19+(Dungeon.解压(解压设置.高级背包)?10:0);
 	}
 	
 	@Override

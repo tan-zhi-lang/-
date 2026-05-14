@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
+import com.shatteredpixel.shatteredpixeldungeon.actors.守护灵次数;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -492,6 +493,7 @@ public abstract class Wand extends Item {
 				Buff.延长(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
 			}
 		}
+		if(curUser.符文("守护灵"))Buff.施加(curUser,守护灵次数.class).set(10);
 		if(curUser.符文("万世催化石"))curUser.回血(20);
 		if(curUser.符文("不详契约"))curUser.受伤时(curUser.生命(0.05f),curUser);
 		if(!算法.isDebug())

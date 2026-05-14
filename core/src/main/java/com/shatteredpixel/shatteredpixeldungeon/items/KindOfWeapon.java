@@ -258,6 +258,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 						} else {
 							equipSecondary(hero);
 						}
+						if(hero.符文("跟着我左手右手一个慢动作"))hero.回百分比血(0.03f);
 						if (slot != -1) {
 							Dungeon.quickslot.setSlot( slot, KindOfWeapon.this );
 							updateQuickslot();
@@ -283,7 +284,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 	private static boolean isSwiftEquipping = false;
 
 	protected float timeToEquip( Hero hero ) {
-		
+		if(hero.符文("跟着我左手右手一个慢动作"))
+			return isSwiftEquipping ? 0f : super.timeToEquip(hero)*3;
 		if (hero.subClass(HeroSubClass.武器大师)) {
 			return 0;
 		}

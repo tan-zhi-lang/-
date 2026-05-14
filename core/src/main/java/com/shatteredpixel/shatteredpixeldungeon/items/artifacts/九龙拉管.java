@@ -115,11 +115,11 @@ public class 九龙拉管 extends Artifact {
 		}
 		charge--;
 		damage=hero.防御(damage);
-		damage-=hero.护甲伤害(damage);
+		damage=hero.护甲伤害(damage);
 		hero.力量+=0.3f+等级()*0.03f;
 		if(hero.符文("极限剂量")){
 			hero.生命成长+=hero.已损失生命(0.1f);
-			hero.更新数据();
+			
 		}
 		hero.sprite.operate( hero.pos );
 		hero.busy();

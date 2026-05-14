@@ -2,9 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 
@@ -17,7 +15,7 @@ public class EnhancedRings extends FlavourBuff {
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)){
-			if (target == Dungeon.hero) ((Hero) target).更新生命();
+//			if (target == Dungeon.hero) ((Hero) target).
 			return true;
 		}
 		return false;
@@ -26,7 +24,7 @@ public class EnhancedRings extends FlavourBuff {
 	@Override
 	public void detach() {
 		super.detach();
-		if (target == Dungeon.hero) ((Hero) target).更新生命();
+//		if (target == Dungeon.hero) ((Hero) target).
 	}
 
 	@Override

@@ -111,7 +111,7 @@ public class 算法 {
         return String.format("%.2f",x);
     }
     public static String kw(float x){
-        if(x>=10000)return String.format("%.0f",x/10000f)+"W";
+        if(x>=10000)return String.format("%.2f",x/10000f)+"W";
         if(x>=1000)return String.format("%.2f",x/1000f)+"K";
         return String.format("%.0f",x);
     }

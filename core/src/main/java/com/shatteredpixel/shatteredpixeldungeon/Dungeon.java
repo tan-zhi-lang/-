@@ -306,7 +306,7 @@ public class Dungeon {
 		系统 = SPDSettings.系统();
 		派对= SPDSettings.派对();
 		赛季= SPDSettings.赛季();
-		地牢时间= 900;
+		地牢时间= 时间(900);
 		地牢寿命= 0;
 		地牢天数= 1;
 		if(难度==0)难度=2;
@@ -372,7 +372,7 @@ public class Dungeon {
 
 		hero = new Hero();
 		hero.live();
-		hero.更新生命();
+		
 		
 		Badges.reset();
 		GamesInProgress.selectedClass.initHero( hero );
@@ -406,14 +406,19 @@ public class Dungeon {
 		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
 		return (赛季&mask)!=0;
 	}
+	public static int 时间(int 时间) {
+		float x=1;
+		if(符文("勤劳的一天"))x/=10f;
+		return Math.round(时间*x);
+	}
 	public static String 地牢时间() {
 		int 小时=0;
 		int 分钟=0;
 		float 时间=地牢时间;
 		boolean 时间计算=true;
 		while(时间计算){
-			if(时间>=100){
-				时间-=100;
+			if(时间>=时间(100)){
+				时间-=时间(100);
 				小时++;
 				分钟=0;
 				if(小时>=24){
@@ -432,41 +437,50 @@ public class Dungeon {
 	public static float 难度生命(){
 		float x=0;
 //		x+=0.25f;
-		if(Dungeon.赛季(赛季设置.回廊传说))
+		if(赛季(赛季设置.回廊传说))
 		x+=10;
-		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=15+(循环()-1 )*5;
 		}
-		if(Dungeon.赛季(赛季设置.生化模式))x+=8;
-		return switch(难度){
+
+		if(赛季(赛季设置.生化模式))x+=8;
+		x=switch(难度){
 			case 1 -> 0.67f+x;
 			case 2 -> 1f+x;
 			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.5f+x;
 			default -> 1+x;
 		};
+
+		if(符文("打野"))x*=3;
+		if(符文("战斗久"))x*=2;
+		if(符文("来互秒"))x/=5;
+		if(符文("不耐揍的敌人"))x*=0.9f;
+		return x;
 	}
 	public static float 难度攻击(){
 		float x=0;
 //		x==0.05f;
-		if(Dungeon.赛季(赛季设置.回廊传说))
+		if(赛季(赛季设置.回廊传说))
 			x+=10;
-
-		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=10+(循环()-1 )*1.67;
 		}
-		return switch(难度){
+		x=switch(难度){
 			case 1 -> 0.67f+x;
 			case 2 -> 1f+x;
 			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
 			default -> 1+x;
 		};
+		if(符文("战斗久"))x/=2;
+		if(符文("来互秒"))x*=3;
+		return x;
 	}
 	public static float 难度防御(){
 		float x=0;
 		//		x==0.05f;
-		if(Dungeon.赛季(赛季设置.回廊传说))
+		if(赛季(赛季设置.回廊传说))
 			x+=10;
-		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=5+(循环()-1 )*0.84;
 		}
 		return switch(难度){
@@ -478,7 +492,7 @@ public class Dungeon {
 	}
 	public static float 难度命中闪避(){
 		float x=0;
-		if(赛季(赛季设置.刷子地牢)&&Dungeon.循环()>0){
+		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=4.5f+(循环()-1 )*0.75f;
 		}
 		return switch(难度){
@@ -540,7 +554,7 @@ public class Dungeon {
 		
 		Level level;
 		if (branch == 0) {
-			if(Dungeon.赛季(赛季设置.回廊传说)){
+			if(赛季(赛季设置.回廊传说)){
 				switch (depth){
 					case 1:
 						level=new 回廊1();
@@ -548,7 +562,7 @@ public class Dungeon {
 					default:
 						level=new DeadEndLevel();
 				}
-			}else if(Dungeon.赛季(赛季设置.地牢塔防)){
+			}else if(赛季(赛季设置.地牢塔防)){
 				switch (depth){
 					case 1:
 						level=new 下水道1();
@@ -618,7 +632,7 @@ public class Dungeon {
 						default:
 							level=new DeadEndLevel();
 				}
-				if(Dungeon.depth>1000)
+				if(depth>1000)
 					level=new LastLevel();
 			}
 		} else if (branch == 1) {

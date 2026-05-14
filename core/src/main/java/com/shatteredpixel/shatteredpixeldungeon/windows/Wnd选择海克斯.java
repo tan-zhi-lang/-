@@ -96,6 +96,7 @@ public class Wnd选择海克斯 extends Window {
 								hero.选择海克斯(海克斯2s);
 								hero.选择海克斯(海克斯3s);
 								hero.选择海克斯(海克斯4s);
+								hero.删除海克斯("我全都要");
 							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯2s);
@@ -149,6 +150,7 @@ public class Wnd选择海克斯 extends Window {
 								hero.选择海克斯(海克斯1s);
 								hero.选择海克斯(海克斯3s);
 								hero.选择海克斯(海克斯4s);
+								hero.删除海克斯("我全都要");
 							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯1s);
@@ -200,6 +202,7 @@ public class Wnd选择海克斯 extends Window {
 								hero.选择海克斯(海克斯1s);
 								hero.选择海克斯(海克斯2s);
 								hero.选择海克斯(海克斯4s);
+								hero.删除海克斯("我全都要");
 							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯1s);
@@ -251,6 +254,7 @@ public class Wnd选择海克斯 extends Window {
 								hero.选择海克斯(海克斯1s);
 								hero.选择海克斯(海克斯2s);
 								hero.选择海克斯(海克斯3s);
+								hero.删除海克斯("我全都要");
 							}
 							if(hero.符文("飞升")){
 								hero.移除海克斯(海克斯1s);

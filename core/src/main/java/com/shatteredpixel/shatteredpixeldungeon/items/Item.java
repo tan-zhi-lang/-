@@ -109,6 +109,7 @@ public class Item implements Bundlable {
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
 	public boolean 丢过 = false;
+
 	public boolean 不能丢扔= false;
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
@@ -226,7 +227,7 @@ public class Item implements Bundlable {
 					actions.add(AC_吞噬);
 			}
 		}
-		if(hero.符文("融合装备")&&可升级()&&(this instanceof Weapon||this instanceof Armor||this instanceof Wand||this instanceof Ring))
+		if(hero.符文("装备融合")&&可升级()&&(this instanceof Weapon||this instanceof Armor||this instanceof Wand||this instanceof Ring))
 		actions.add(AC_融合);
 
 		if(hero.符文("我让你诅咒")&&cursed)
@@ -296,7 +297,7 @@ public class Item implements Bundlable {
 
 	public static final String AC_CHOOSE = "CHOOSE";
 
-	private class 融合装备 extends WndBag.ItemSelector {
+	private class 装备融合 extends WndBag.ItemSelector {
 
 		@Override
 		public String textPrompt() {
@@ -367,7 +368,7 @@ public class Item implements Bundlable {
 		}else if (action.equals(AC_祛邪)){
 			祛邪卷轴.祛邪(hero,this);
 		}else if (action.equals(AC_融合)){
-			GameScene.selectItem(new 融合装备());
+			GameScene.selectItem(new 装备融合());
 		}else if (action.equals(AC_吞噬)) {
 			detach(hero.belongings.backpack);
 
@@ -1167,7 +1168,7 @@ public class Item implements Bundlable {
 				消耗=false;
 			}
 			if(消耗){
-				数量加();
+				value++;
 			}
 		}
 		quantity = value;

@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
@@ -87,7 +86,6 @@ public class 灵能短弓 extends Weapon {
 	}
 	public float 最小弓箭攻击(int lvl) {
 		float dmg =1+ lvl/5f
-				   +神射之戒.levelDamageBonus(Dungeon.hero)
 				   +(curseInfusionBonus ? 1 + lvl/5f : 0);
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
 		dmg*=1.5f;
@@ -100,7 +98,6 @@ public class 灵能短弓 extends Weapon {
 	}
 	public float 最大弓箭攻击(int lvl) {
 		float dmg =6f+ lvl/2.5f
-				   +神射之戒.levelDamageBonus(Dungeon.hero)*2
 				   +(curseInfusionBonus ? 2 + lvl/2.5f : 0);
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
 		dmg*=1.5f;

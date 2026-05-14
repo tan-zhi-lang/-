@@ -33,7 +33,7 @@ public class MagicImmune extends FlavourBuff {
 				}
 			}
 			if (target instanceof Hero){
-				((Hero) target).更新生命();
+//				((Hero) target).
 			}
 			return true;
 		} else {
@@ -45,7 +45,7 @@ public class MagicImmune extends FlavourBuff {
 	public void detach() {
 		super.detach();
 		if (target instanceof Hero){
-			((Hero) target).更新生命();
+//			((Hero) target).
 		}
 	}
 

@@ -4,11 +4,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 神射之戒 extends Ring {
+public class 神兵之戒 extends Ring {
 
 	{
 		icon = 物品表.Icons.RING_SHARPSHOOT;
@@ -18,14 +17,14 @@ public class 神射之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					2*soloBuffedBonus());
+					soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						2*combinedBuffedBonus(Dungeon.hero));
+						combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 2);
+			return Messages.get(this, "stats", 1);
 		}
 	}
 
@@ -39,12 +38,8 @@ public class 神射之戒 extends Ring {
 		return new Aim();
 	}
 	
-	public static int levelDamageBonus( Char target ){
-		int x=0;
-		if(target instanceof Hero hero){
-
-		}
-		return getBuffedBonus(target, 神射之戒.Aim.class)+x;
+	public static int levelBonus(Char target){
+		return getBuffedBonus(target, 神兵之戒.Aim.class);
 	}
 
 	public class Aim extends RingBuff {

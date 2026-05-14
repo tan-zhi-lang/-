@@ -223,7 +223,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 游戏帧率() {
-		return getInt(游戏帧率x, 2,1,4 );
+		return getInt(游戏帧率x, 2,1,6 );
 	}
 	public static void 字体大小(int value ){
 		put(字体大小x, value );

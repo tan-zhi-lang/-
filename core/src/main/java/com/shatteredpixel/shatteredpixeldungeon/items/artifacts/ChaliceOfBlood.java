@@ -111,7 +111,7 @@ public class ChaliceOfBlood extends Artifact {
 		}
 
 		damage=hero.防御(damage);
-		damage-=hero.护甲伤害(damage);
+		damage=hero.护甲伤害(damage);
 
 		hero.sprite.operate( hero.pos );
 		hero.busy();

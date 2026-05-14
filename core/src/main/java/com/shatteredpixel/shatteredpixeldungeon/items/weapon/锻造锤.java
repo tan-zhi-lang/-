@@ -53,7 +53,7 @@ public class 锻造锤 extends Weapon {
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",1
+		return Messages.get(this, "desc",2+(Dungeon.符文("杰作锻造锤")?14:0)
 						   );
 	}
 	private class UpgradeSelector extends WndBag.ItemSelector {
@@ -73,7 +73,7 @@ public class 锻造锤 extends Weapon {
 			return item.可升级()
 				   && item.已鉴定()
 				   && !item.cursed
-				   && item.等级() < 2;
+				   && item.等级() < 2+(Dungeon.符文("杰作锻造锤")?14:0);
 		}
 		
 		@Override

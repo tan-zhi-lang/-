@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.时间;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -37,7 +39,7 @@ public class DimensionalSundial extends Trinket {
 
 	public static float spawnMultiplierAtCurrentTime(){
 		if (trinketLevel(DimensionalSundial.class) != -1) {
-			if (Dungeon.地牢时间>2000||Dungeon.地牢时间<=800) {
+			if (Dungeon.地牢时间>时间(2000)||Dungeon.地牢时间<=时间(800)) {
 				if (!sundialWarned){
 					GLog.w(Messages.get(DimensionalSundial.class, "warning"));
 					sundialWarned = true;

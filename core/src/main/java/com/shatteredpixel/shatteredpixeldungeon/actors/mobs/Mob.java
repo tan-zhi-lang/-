@@ -45,10 +45,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
+import com.shatteredpixel.shatteredpixeldungeon.actors.击杀累计;
 import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
 import com.shatteredpixel.shatteredpixeldungeon.actors.机体解构层数;
 import com.shatteredpixel.shatteredpixeldungeon.actors.生化特性;
+import com.shatteredpixel.shatteredpixeldungeon.actors.罪恶快感;
+import com.shatteredpixel.shatteredpixeldungeon.actors.虚空裂隙;
+import com.shatteredpixel.shatteredpixeldungeon.actors.虚空裂隙冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.连杀状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.魔法箭矢冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.黑暗收割冷却;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
@@ -72,6 +79,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.属性戒指;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
@@ -96,6 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
@@ -260,30 +269,6 @@ public abstract class Mob extends Char{
 	}
 
 	@Override
-	public float 伤害(){
-		float 伤害=1f;
-		伤害+=真正护符.增加();
-		if(恶魔亡灵()){
-			伤害-=桃木剑.伤害();
-		}
-		if(Dungeon.符文("辐射")&&首次死亡){
-			伤害+=0.35f;
-		}
-		if(Dungeon.符文("辐射")&&首次死亡){
-			伤害+=0.35f;
-		}
-		if(Dungeon.符文("究极玻璃大炮")){
-			伤害=1.5f;
-		}
-		if(Dungeon.符文("来吧老弟")){
-			伤害+=0.35f;
-		}
-		if(Dungeon.符文("缩小射线")){
-			伤害*=大小;
-		}
-		return 伤害;
-	}
-	@Override
 	public float 大小(){
 		float 大小=super.大小();
 		if(Dungeon.符文("缩小射线")&&hasbuff(战斗状态.class)){
@@ -301,6 +286,14 @@ public abstract class Mob extends Char{
 
 		if(justAlerted){
 			sprite.showAlert();
+		}
+		if(Dungeon.符文("黑洞")){
+			受伤时(最大生命(0.05f));
+		}
+		if(Dungeon.符文("黑洞")){
+			for (int i : PathFinder.相邻) {
+				if(Dungeon.level.在坟墓(pos+i))受伤时(最大生命(0.3f));
+			}
 		}
 		if(Dungeon.符文("我让你跑")){
 			if(移速()>Dungeon.hero.移速())受伤时(Dungeon.hero.最大攻击(),Dungeon.hero);
@@ -795,7 +788,21 @@ public abstract class Mob extends Char{
 
 	@Override
 	public float 攻击时(Char enemy,float damage){
-		if(Dungeon.赛季(赛季设置.生化模式)&&enemy!=null&&enemy.isAlive())enemy.受伤时(enemy.最大生命(0.15f),Dungeon.class);
+
+		if(Dungeon.赛季(赛季设置.生化模式)&&enemy!=null&&enemy.isAlive())enemy.受伤时(enemy.最大生命(0.15f));
+
+
+		if(Dungeon.符文("来吧老弟")){
+			damage*=1.35f;
+		}
+		damage*=真正护符.增加();
+		if(恶魔亡灵()){
+			damage*=桃木剑.伤害();
+		}
+		if(Dungeon.符文("威慑纪元"))damage*=1.25f;
+		if(Dungeon.符文("缩小射线")){
+			damage*=大小;
+		}
 		return super.攻击时(enemy,damage);
 	}
 
@@ -935,6 +942,9 @@ public abstract class Mob extends Char{
 						if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.符文("猛攻")||Dungeon.符文("不全能吸血")){
 
 						}else{
+							float 全能吸血=Dungeon.hero.全能吸血();
+							if((老鬼()||小老鬼())&&Dungeon.符文("暗裔恶魔"))全能吸血+=0.6f;
+
 							boolean 不削弱=true;
 							if(老鬼()||小老鬼())
 								不削弱=false;
@@ -942,7 +952,7 @@ public abstract class Mob extends Char{
 							if(Dungeon.符文("不死意志"))
 								不削弱=true;
 
-							Dungeon.hero.回血(dmg*Dungeon.hero.全能吸血()*(不削弱?
+							Dungeon.hero.回血(dmg*全能吸血*(不削弱?
 																				   1:
 																				   1/3f));
 						}
@@ -965,12 +975,39 @@ public abstract class Mob extends Char{
 				}
 			}
 		}
+		if(Dungeon.符文("虚空裂隙")&&Dungeon.hero.视野范围(this)&&nobuff(虚空裂隙冷却.class)){
+			Buff.施加(this,虚空裂隙.class,6);
+
+			Mob m2=null;
+			for(Mob m:Dungeon.hero.getVisibleEnemies()){
+				if(m instanceof Mob&&m!=this&&m.hasbuff(虚空裂隙.class)&&m.nobuff(虚空裂隙冷却.class)&&m.alignment!=Alignment.ALLY){
+					m2=m;
+					break;
+				}
+			}
+			if(m2!=null){
+				Buff.detach(m2,虚空裂隙.class);
+				Buff.detach(this,虚空裂隙.class);
+
+				m2.受伤时(10*(Dungeon.hero.魔力()+Dungeon.hero.穿甲()+Dungeon.hero.法穿())*(1+Dungeon.hero.护甲穿透()));
+				受伤时(10*(Dungeon.hero.魔力()+Dungeon.hero.穿甲()+Dungeon.hero.法穿())*(1+Dungeon.hero.护甲穿透()));
+
+				Buff.施加(m2,虚空裂隙冷却.class,3);
+				Buff.施加(this,虚空裂隙冷却.class,3);
+			}
+		}
 		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.机体解构)){
 			Buff.施加(this,机体解构层数.class).set(1);
 			dmg*=1+buff(机体解构层数.class).count*Dungeon.hero.天赋点数(Talent.机体解构,0.03f);
 		}
-
 		super.受伤时(dmg,来源);
+		if(Dungeon.hero()&&Dungeon.符文("魔法箭矢")&&nobuff(魔法箭矢冷却.class))
+			Dungeon.hero.扔出(enemy.pos,new 魔法箭矢(),()->{
+				if(enemy.isAlive()){
+					Buff.施加(enemy,伤害.class).level(最大生命(Math.min(0.09f,0.015f*distance(Dungeon.hero))));
+					Buff.施加(enemy,魔法箭矢冷却.class,2);
+				}
+			});
 	}
 
 
@@ -1212,8 +1249,8 @@ public abstract class Mob extends Char{
 						if(Dungeon.符文("心灵净化")){
 							for(int n: PathFinder.相邻){
 								Char c=Actor.findChar(pos+n);
-								if(c!=null&&c.alignment==Alignment.ENEMY){
-									c.受伤时(c.生命(0.2f),Dungeon.hero);
+								if(c!=null&&c.alignment!=Alignment.ALLY){
+									c.受伤时(c.生命(0.25f),Dungeon.hero);
 								}
 							}
 						}
@@ -1285,6 +1322,19 @@ public abstract class Mob extends Char{
 
 							Dungeon.level.drop(i,pos).sprite.drop();
 						}
+
+						if(Dungeon.符文("黑暗收割")){
+							Buff.detach(Dungeon.hero,黑暗收割冷却.class);
+						}
+						if(Dungeon.符文("鬼脑")&&最大攻击()>=Dungeon.hero.最大攻击())Dungeon.hero.攻击成长+=最大攻击();
+						if(Dungeon.符文("凯旋")){
+							Dungeon.gold(new Gold().random().数量()/3);
+							Dungeon.hero.回已损失血(0.1f);
+						}
+						if(Dungeon.符文("海克斯获取:屠杀"))Buff.施加(Dungeon.hero,击杀累计.class).set(1);
+
+						if(Dungeon.符文("吞噬细胞")&&最大生命<=Dungeon.hero.生命)Dungeon.hero.生命成长+=0.03f*最大生命;
+						if(Dungeon.符文("罪恶快感"))Buff.施加(Dungeon.hero,罪恶快感.class).set(1);
 						if(Dungeon.符文("击杀获得护盾"))
 							Buff.施加(Dungeon.hero, 护盾.class).设置(Dungeon.hero.最大生命(0.15f));
 
@@ -1395,7 +1445,7 @@ public abstract class Mob extends Char{
 						loot.数量(loot.数量()+幸运硬币.增加());
 						几率*=幸运硬币.减少();
 					}
-					if(Random.Float()<lootChance()*几率){
+					if(Dungeon.符文("绝对爆率")||Random.Float()<lootChance()*几率){
 						Dungeon.level.drop(loot,pos).sprite().drop();
 					}
 				}
@@ -1576,18 +1626,32 @@ public abstract class Mob extends Char{
 			if(alignment==Alignment.NEUTRAL){
 				阵容="中立";
 			}
-			desc+="属性:"+属性+"(阵容="+阵容+")\n";
+			desc+="属性:"+属性+"(阵容="+阵容+")\n\n";
 
 			if(Dungeon.赛季(赛季设置.回廊传说)){
-				desc+=" == 攻击 == "+kw2(最大攻击()*Dungeon.难度攻击())+"\n";
-				desc+=" ++ 防御++ "+kw2(最大防御()*Dungeon.难度防御())+"\n\n";
+				desc+=" == 攻击 == "+kw2(最大攻击()*Dungeon.难度攻击());
+				desc+=" ++ 防御++ "+kw2(最大防御()*Dungeon.难度防御());
+				desc+="\n";
+				desc+=" ++ 元素抗性/魔抗 ++ "+Math.round(100*(1-(RingOfElements.resist(this))))+"%/"
+					  +kw2(最小魔抗())+"~"+kw2(最大魔抗());
+				desc+="\n";
+				desc+="\n";
 			}else{
-				desc+=" == 攻击 == "+kw2(最小攻击()*Dungeon.难度攻击())+"~"+kw2(最大攻击()*Dungeon.难度攻击())+"\n";
-				desc+=" ++ 防御++ "+kw2(最小防御()*Dungeon.难度防御())+"~"+kw2(最大防御()*Dungeon.难度防御())+"\n\n";
-				desc+="命中/闪避"+最小命中(null)*Dungeon.难度命中闪避()+"~"+Math.round(最大命中(null)*Dungeon.难度命中闪避())+"/"+Math.round(最小闪避(null)*Dungeon.难度命中闪避())+"~"+Math.round(最大闪避(null)*Dungeon.难度命中闪避())+"\n";
-				desc+="攻速/移速"+String.format("%.2f",1f/攻击延迟())+"/"+String.format("%.2f",移速())+"\n\n";
+				desc+=" == 攻击 == "+"/"+" ++ 防御 ++ "+kw2(最小攻击()*Dungeon.难度攻击())+"~"+kw2(最大攻击()*Dungeon.难度攻击());
+				desc+="/"+kw2(最小防御()*Dungeon.难度防御())+"~"+kw2(最大防御()*Dungeon.难度防御());
+				desc+="\n";
+				desc+=" ## 元素抗性/魔抗 ## "+Math.round(100*(1-(RingOfElements.resist(this))))+"%/"
+					  +kw2(最小魔抗())+"~"+kw2(最大魔抗());
+				desc+="\n";
+				desc+="\n";
+				desc+=" ** 命中 ** "+"/"+" ## 闪避 ## "+kw2(最小命中(null)*Dungeon.难度命中闪避())+"~"
+					  +kw2(最大命中(null)*Dungeon.难度命中闪避());
+				desc+="/"+kw2(最小闪避(null)*Dungeon.难度命中闪避())+"~"
+					  +kw2(最大闪避(null)*Dungeon.难度命中闪避());
+				desc+="\n";
+				desc+="_攻速_/移速"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";
 				desc+="_暴击率/暴击伤害_"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
-				desc+="经验/经验等级上限"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
+				desc+="_经验/经验等级上限_"+Math.round(经验*Dungeon.难度经验())+"/"+(最大等级+2)+"\n";
 			}
 			String 战利品="";
 			if(loot instanceof Item i){
@@ -1622,7 +1686,7 @@ public abstract class Mob extends Char{
 					战利品="随机药剂";
 				}
 			}
-			desc+="_战利品/掉落几率_"+战利品+"/"+lootChance()*100+"%";
+			desc+="_战利品/掉落几率_"+战利品+"/"+kw2(lootChance()*100)+"%";
 		}
 		return desc;
 	}
@@ -1632,7 +1696,7 @@ public abstract class Mob extends Char{
 		float 战斗力=super.战斗力();
 
 		战斗力+=(最小攻击()+最大攻击()+穿甲())/攻击延迟()
-				/10f*(1+护甲穿透())*伤害()
+				/10f*(1+护甲穿透())
 				*(1+暴击率())*暴击伤害()
 				*(1+吸血()+全能吸血())*治疗护盾();
 
@@ -1640,7 +1704,18 @@ public abstract class Mob extends Char{
 		战斗力+=(经验+最大等级)/10f-1;
 		return 战斗力;
 	}
+
+	@Override
+	public float 最大魔抗(){
+		float x=super.最小魔抗();
+		if(Dungeon.符文("劣变"))x-=第x次防御*15;
+
+		if(Dungeon.符文("混沌"))
+			x-=Dungeon.hero.最大防御()*0.5f;
+		return x;
+	}
 	public void notice(){
+		if(sprite!=null)
 		sprite.showAlert();
 	}
 

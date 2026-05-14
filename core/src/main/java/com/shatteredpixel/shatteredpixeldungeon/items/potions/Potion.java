@@ -299,6 +299,10 @@ public class Potion extends Item {
 		}
 	}
 	public void 药剂栏( Hero hero ) {
+		if(!(this instanceof 治疗药剂)&&hero.符文("三国杀:华佗")){
+			治疗药剂.cure( hero );
+			治疗药剂.heal( hero );
+		}
 		hero.spend( drinkTime() );
 		hero.busy();
 		apply( hero );

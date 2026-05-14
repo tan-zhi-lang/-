@@ -42,6 +42,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.炼狱;
 import com.shatteredpixel.shatteredpixeldungeon.windows.系统;
 import com.shatteredpixel.shatteredpixeldungeon.windows.解压;
 import com.shatteredpixel.shatteredpixeldungeon.windows.赛季;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
@@ -66,6 +67,7 @@ public class HeroSelectScene extends PixelScene {
 
 	private static boolean heroWasRandomized = true;
 	private static boolean chalWasRandomized = false;
+	private static boolean 随机炼狱开关 = false;
     private Image background;
     private Image fadeLeft, fadeRight;
     private IconButton btnFade; //only on landscape
@@ -738,6 +740,7 @@ public class HeroSelectScene extends PixelScene {
     private class GameOptions extends Component {
 
         protected StyledButton challengeButton;
+        protected StyledButton 炼狱按钮;
         private NinePatch bg;
         private ArrayList<StyledButton> buttons;
         private ArrayList<ColorBlock> spacers;
@@ -988,7 +991,7 @@ public class HeroSelectScene extends PixelScene {
             buttons.add(challengeButton);
 
 
-            StyledButton 炼狱 = new StyledButton(Chrome.Type.BLANK,Messages.get(炼狱.class,"title"),6) {
+            炼狱按钮 = new StyledButton(Chrome.Type.BLANK,Messages.get(炼狱.class,"title"),6) {
                 @Override
                 protected void onClick() {
                     if (false) {
@@ -1009,10 +1012,10 @@ public class HeroSelectScene extends PixelScene {
                     });
                 }
             };
-            炼狱.leftJustify = true;
-            炼狱.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
-            add(炼狱);
-            buttons.add(炼狱);
+            炼狱按钮.leftJustify = true;
+            炼狱按钮.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
+            add(炼狱按钮);
+            buttons.add(炼狱按钮);
 
             StyledButton
                     派对= new StyledButton(Chrome.Type.BLANK,Messages.get(派对.class,"title"),6) {
@@ -1158,6 +1161,8 @@ public class HeroSelectScene extends PixelScene {
             CheckBox chkHero;
             CheckBox chkChals;
             OptionSlider optChals;
+            CheckBox 随机炼狱;
+            OptionSlider 炼狱个数;
 
             public WndRandomize(){
                 super();
@@ -1198,6 +1203,31 @@ public class HeroSelectScene extends PixelScene {
 
 				chkChals.checked(chalWasRandomized);
 
+                随机炼狱 = new CheckBox(Messages.get(HeroSelectScene.class, "随机炼狱")){
+                    @Override
+                    public void checked(boolean value) {
+                        super.checked(value);
+                        炼狱个数.enable(value);
+                        随机炼狱开关 = value;
+                    }
+                };
+                随机炼狱.setRect(0, 58+4, 120, 16);
+                add(随机炼狱);
+
+                int max2 = 炼狱设置.MAX_CHALS;
+                炼狱个数 = new OptionSlider(Messages.get(HeroSelectScene.class, "炼狱个数"), "0", Integer.toString(max2), 0, max2) {
+                    @Override
+                    protected void onChange() {
+                        //do nothing immediately
+                    }
+                };
+                炼狱个数.enable(false);
+                炼狱个数.setSelectedValue(炼狱设置.使用(SPDSettings.炼狱()));
+                炼狱个数.setRect(0, 72+4, 120, 22);
+                add(炼狱个数);
+
+                随机炼狱.checked(随机炼狱开关);
+
 				RedButton btnCancel = new RedButton(Messages.get(HeroSelectScene.class, "randomize_cancel")){
                     @Override
                     protected void onClick() {
@@ -1205,7 +1235,7 @@ public class HeroSelectScene extends PixelScene {
                         hide();
                     }
                 };
-                btnCancel.setRect(61, 64, 60, 16);
+                btnCancel.setRect(61, 64+26+4, 60, 16);
                 add(btnCancel);
 
                 RedButton btnConfirm = new RedButton(Messages.get(HeroSelectScene.class, "randomize_confirm")){
@@ -1230,6 +1260,22 @@ public class HeroSelectScene extends PixelScene {
                             ShatteredPixelDungeon.scene().addToFront(new WndChallenges(mask, false));
                         }
 
+                        if (随机炼狱.checked()){
+                            int chals = 炼狱个数.getSelectedValue();
+                            ArrayList<Integer> chalMasks = new ArrayList<>();
+                            for (int i=0;i<炼狱设置.MAX_CHALS;i++){
+                                chalMasks.add((int)Math.pow(2, i));
+                            }
+                            Random.shuffle(chalMasks);
+                            int mask = 0;
+                            for (int i = 0; i < chals; i++){
+                                mask += chalMasks.remove(0);
+                            }
+                            SPDSettings.炼狱(mask);
+                            炼狱按钮.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
+                            ShatteredPixelDungeon.scene().addToFront(new 炼狱(mask, false));
+                        }
+
                         if (chkHero.checked()){
                             HeroClass randomCls;
                             do {
@@ -1242,7 +1288,7 @@ public class HeroSelectScene extends PixelScene {
                         }
                     }
                 };
-                btnConfirm.setRect(0, 64, 60, 16);
+                btnConfirm.setRect(0, 64+26+4, 60, 16);
                 add(btnConfirm);
 
                 resize(120, (int)btnConfirm.bottom());

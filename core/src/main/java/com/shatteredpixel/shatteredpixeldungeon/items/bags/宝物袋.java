@@ -19,6 +19,8 @@ public class 宝物袋 extends Bag {
 
 	@Override
 	public boolean canHold( Item item ) {
+		if(Dungeon.符文("超级背包"))
+			return super.canHold(item);
 		if (item instanceof Artifact||
 			item instanceof Ring||
 			item instanceof Armor||
@@ -31,7 +33,7 @@ public class 宝物袋 extends Bag {
 	}
 	
 	public int capacity(){
-		return 19+(Dungeon.解压(解压设置.超级背包)?10:0);
+		return 19+(Dungeon.解压(解压设置.高级背包)?10:0);
 	}
 	
 	@Override

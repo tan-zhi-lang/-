@@ -18,6 +18,8 @@ public class PotionBandolier extends Bag {
 
 	@Override
 	public boolean canHold( Item item ) {
+		if(Dungeon.符文("超级背包"))
+			return super.canHold(item);
 		if (item instanceof Potion || item instanceof LiquidMetal|| item instanceof 水袋){
 			item.价值提升=true;
 			return super.canHold(item);
@@ -27,7 +29,7 @@ public class PotionBandolier extends Bag {
 	}
 
 	public int capacity(){
-		return 19+(Dungeon.解压(解压设置.超级背包)?10:0);
+		return 19+(Dungeon.解压(解压设置.高级背包)?10:0);
 	}
 
 	@Override

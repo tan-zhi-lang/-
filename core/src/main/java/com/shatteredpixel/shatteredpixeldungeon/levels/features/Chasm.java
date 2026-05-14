@@ -153,7 +153,7 @@ public class Chasm implements Hero.Doom {
 		float 流血= hero.最大生命 / (6f + (6f*(hero.生命 /hero.最大生命)));
 		float 受伤=Math.max( hero.生命 / 2f, Random.NormalFloat( hero.生命 / 2f, hero.最大生命 / 4f ));
 
-		受伤-=hero.护甲伤害(受伤);
+		受伤=hero.护甲伤害(受伤);
 		
 		Buff.施加( hero, 流血.class).set(流血, Chasm.class);
 		hero.受伤时( 受伤, new Chasm() );

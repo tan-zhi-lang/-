@@ -173,8 +173,10 @@ public abstract class Char extends Actor {
 	public int x次必暴=0;
 	public int 变脸=0;
 	public int 未命中=0;
+	public boolean 暴击了=false;
 
 	public float 大小=1;
+	public boolean 折叠屏=false;
 	public boolean 首次死亡=true;
 	public boolean 史莱姆=false;
 	public boolean 吸血鬼飞刀=false;
@@ -217,7 +219,7 @@ public abstract class Char extends Actor {
 	
 	@Override
 	protected boolean act() {
-		if(++变脸>=3){
+		if(++变脸>=3&&sprite!=null){
 			变脸=0;
 			sprite.hideEmo();
 		}
@@ -363,12 +365,14 @@ public abstract class Char extends Actor {
 	protected static final String x次必暴x 	    = "x次必暴";
 	protected static final String 变脸x 	    = "变脸";
 	protected static final String 未命中x 	    = "未命中";
+	protected static final String 暴击了x 	    = "暴击了";
 	protected static final String 第x次攻击x 	    = "第x次攻击";
 	protected static final String 第x次防御x 	    = "第x次防御";
 	protected static final String 第x次背袭x 	    = "第x次背袭";
 	protected static final String 产卵x 	    = "产卵";
 	protected static final String 诡异x 	    = "诡异";
 	protected static final String 大小x 	    = "大小";
+	protected static final String 折叠屏x 	    = "折叠屏";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -385,12 +389,14 @@ public abstract class Char extends Actor {
 		bundle.put( x次必暴x, x次必暴);
 		bundle.put( 变脸x, 变脸);
 		bundle.put( 未命中x, 未命中);
+		bundle.put( 暴击了x, 暴击了);
 		bundle.put( 第x次攻击x, 第x次攻击);
 		bundle.put( 第x次防御x, 第x次防御);
 		bundle.put( 第x次背袭x, 第x次背袭);
 		bundle.put( 产卵x, 产卵);
 		bundle.put( 诡异x, 诡异);
 		bundle.put( 大小x, 大小);
+		bundle.put( 折叠屏x, 折叠屏);
 	}
 	
 	@Override
@@ -407,12 +413,14 @@ public abstract class Char extends Actor {
 		x次必暴 = bundle.getInt( x次必暴x );
 		变脸 = bundle.getInt( 变脸x );
 		未命中 = bundle.getInt( 未命中x );
+		暴击了 = bundle.getBoolean( 暴击了x );
 		第x次攻击 = bundle.getInt( 第x次攻击x );
 		第x次防御 = bundle.getInt( 第x次防御x );
 		第x次背袭 = bundle.getInt( 第x次背袭x );
 		产卵 = bundle.getBoolean( 产卵x );
 		诡异 = bundle.getBoolean( 诡异x );
 		大小 = bundle.getFloat( 大小x );
+		折叠屏 = bundle.getBoolean( 折叠屏x );
 
 		for (Bundlable b : bundle.getCollection( BUFFS )) {
 			if (b != null) {
@@ -452,6 +460,7 @@ public abstract class Char extends Actor {
 
 			if(enemy instanceof Mob){
 				dr*=Dungeon.难度防御();
+				if(Dungeon.符文("三国杀:吕布"))dr/=2;
 			}
 
 			if(enemy.hasbuff(灵焰.class))
@@ -669,6 +678,7 @@ public abstract class Char extends Actor {
 			if(magic&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.法伤)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.法伤);
 			}
+			if(hero.符文("三国杀:赵云"))acuStat+=defStat;
 
 			acuStat*=hero.幸运值();
 
@@ -690,6 +700,7 @@ public abstract class Char extends Actor {
 				acuStat*=10;
 		}
 		if(defender instanceof Hero hero){
+			if(hero.符文("三国杀:赵云"))defStat+=acuStat;
 			defStat/=hero.幸运值();
 
 			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
@@ -707,6 +718,7 @@ public abstract class Char extends Actor {
 		}else{
 			if(defender.诡异)
 				defStat*=10;
+			if(Dungeon.符文("三国杀:吕布"))defStat/=2f;
 		}
 
 		if(attacker.hasbuff(Blindness.class)){
@@ -947,9 +959,11 @@ public abstract class Char extends Actor {
 	public float 护甲穿透(){
 		return 0;
 	}
-	public float 伤害(){
-		float 伤害=1f;
-		return 伤害;
+	public float 法穿(){
+		return 0;
+	}
+	public float 法术穿透(){
+		return 0;
 	}
 	public float 暴击判定(final Char enemy,float dmg){
 		if(enemy!=null){
@@ -979,6 +993,7 @@ public abstract class Char extends Actor {
 	public float 攻击时(final Char enemy, float damage ) {
 		if(enemy!=null)
 		第x次攻击++;
+
 		if(enemy!=null)
 		Buff.刷新(this,战斗状态.class,5);
 
@@ -1001,7 +1016,9 @@ public abstract class Char extends Actor {
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			buff.onAttackProc( enemy );
 		}
+		if(折叠屏)damage*=0.8f;
 		if(诡异)damage*=10;
+		if(Dungeon.符文("辐射")&&首次死亡)damage*=1.35f;
 		return damage;
 	}
 	
@@ -1058,22 +1075,22 @@ public abstract class Char extends Actor {
 		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
 		speed *= Flow.speedBoost(this, glyphLevel(Flow.class));
 		speed *= Bulk.speedBoost(this, glyphLevel(Bulk.class));
+		if(移速翻倍){
+			speed*=2;
+		}
+		if(移速减半){
+			speed/=2;
+		}
 		if(this instanceof Hero hero){
-			if(hero.英精英雄==3)
+			if(hero.英精英雄==3&&Dungeon.level!=null)
 				if ((Dungeon.level.map[hero.pos] != Terrain.DOOR && Dungeon.level.map[hero.pos] != Terrain.OPEN_DOOR )) {
-					return 1;
+
 				} else {
 					if (hero.sprite != null){
 						hero.sprite.emitter().startDelayed(ShadowParticle.UP,0.02f,5,0.05f);
 					}
 					speed/=2;
 				}
-		}
-		if(移速翻倍){
-			speed*=2;
-		}
-		if(移速减半){
-			speed/=2;
 		}
 		if(Dungeon.符文("冰寒"))speed-=0.1f;
 		return speed;
@@ -1111,6 +1128,28 @@ public abstract class Char extends Actor {
 	}
 	public boolean 无机伤害(Object src){
 		return Property.INORGANIC.immunities().contains(src)||Property.INORGANIC.resistances().contains(src);
+	}
+
+	public float 最小魔抗(){
+		float x=0;
+
+		int l=glyphLevel(AntiMagic.class);
+		if (l != -1)
+			x+=l* Armor.Glyph.genericProcChanceMultiplier(this);
+
+		return x;
+	}
+	public float 最大魔抗(){
+		float x=0;
+
+		int l=glyphLevel(AntiMagic.class);
+		if (l != -1)
+			x+=(3 + (l * 1.5f)) * Armor.Glyph.genericProcChanceMultiplier(this);
+
+		return x;
+	}
+	public void 受伤时(float dmg){
+		受伤时(dmg,Dungeon.class);
 	}
 	public void 受伤时(float dmg,Object 来源){
 
@@ -1216,18 +1255,12 @@ public abstract class Char extends Actor {
 		//				sprite.showStatus(CharSprite.WARNING, Messages.titleCase(b.name()) + " " + (int)b.level());
 		//				return;
 		//			}
-		//		}
-		if(来源 instanceof Char cm){
-			if(this instanceof Hero){
-
-				dmg*=cm.伤害();
-			}else if(Dungeon.hero()){
-				dmg*=Dungeon.hero.伤害();
-				if(老鬼()){//老鬼因为机制问题，所以不好做增加生命
-					dmg*=(1f/Dungeon.难度生命());
-				}
-				if(诡异)dmg/=10f;
+	//		}
+		if(Dungeon.hero()){
+			if(老鬼()){//老鬼因为机制问题，所以不好做增加生命
+				dmg*=(1f/Dungeon.难度生命());
 			}
+			if(诡异)dmg/=10f;
 		}
 		if(来源!=Frost.class&&在水中()){
 			if(Dungeon.hero.天赋(Talent.元素掌控))
@@ -1251,7 +1284,13 @@ public abstract class Char extends Actor {
 		
 		//TODO improve this when I have proper damage source logic
 		if (AntiMagic.RESISTS.contains(来源.getClass())){
-			dmg -= AntiMagic.drRoll(this, glyphLevel(AntiMagic.class));
+			if(Dungeon.hero()){
+				if(Dungeon.hero.法术穿透()>0)
+					dmg*=Dungeon.hero.法术穿透();
+				if(Dungeon.hero.法穿()>0)
+					dmg-=Dungeon.hero.法穿();
+			}
+			dmg -= Random.NormalFloat(最小魔抗(),最大魔抗());
 			if (buff(ArcaneArmor.class) != null) {
 				dmg -= Random.NormalFloat(0, buff(ArcaneArmor.class).level());
 			}
@@ -1339,7 +1378,7 @@ public abstract class Char extends Actor {
 			}
 
 			if (来源 instanceof Hunger) icon = FloatingText.HUNGER;
-			if (来源 instanceof 燃烧) icon = FloatingText.BURNING;
+			if (来源 instanceof 燃烧||来源 instanceof 火毒||来源 instanceof 灵焰) icon = FloatingText.BURNING;
 			if (来源 instanceof Chill||来源 instanceof Frost) icon = FloatingText.FROST;
 			if (来源 instanceof GeyserTrap||来源 instanceof StormCloud) icon = FloatingText.WATER;
 			if (来源 instanceof 燃烧) icon = FloatingText.BURNING;
@@ -1444,7 +1483,7 @@ public abstract class Char extends Actor {
 		spendConstant(1);
 	}
 	@Override
-	protected void spendConstant(float time) {
+	public void spendConstant(float time) {
 		时光沙漏.timeFreeze freeze = buff(时光沙漏.timeFreeze.class);
 		if (freeze != null) {
 			freeze.processTime(time);
@@ -1882,7 +1921,7 @@ public abstract class Char extends Actor {
 			}
 			if(护甲>=dmg){
 				护甲(-dmg);
-				dmg-=护甲;
+				dmg=0;
 			}else{
 				dmg-=护甲;
 				护甲=0;
@@ -1971,7 +2010,7 @@ public abstract class Char extends Actor {
 			}
 
 		}else if(x<0){
-			受伤时(x,Dungeon.class);
+			受伤时(x);
 		}
 	}
 
@@ -1983,8 +2022,10 @@ public abstract class Char extends Actor {
 		战斗力+=(最小命中(null)+最大命中(null))/10f;
 
 		战斗力+=(最小闪避(null)+最大闪避(null))/10f*移速();
-		战斗力+=AntiMagic.drRoll(this, this.glyphLevel(AntiMagic.class))/RingOfElements.resist(this);
+		战斗力+=(最小魔抗()+最大魔抗())/RingOfElements.resist(this);
 		战斗力-=负数生命;
+
+		战斗力+=法穿()/(1+法术穿透());
 //		if(战斗力<0)战斗力=0;
 		return 战斗力;
 	}
@@ -2002,6 +2043,38 @@ public abstract class Char extends Actor {
 		return x;
 	}
 
+	public boolean 孤立无援(){
+
+		int 敌人=0;
+		for(int n: PathFinder.相邻){
+			Char c=Actor.findChar(pos+n);
+			if(c!=null&&c.alignment!=Alignment.ALLY){
+				敌人++;
+			}
+		}
+		if(敌人==0)return true;return false;
+
+	}
+	public boolean 在上边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+		return pos2==pos-Dungeon.level.width();
+	}
+	public boolean 在下边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+		return pos2==pos+Dungeon.level.width();
+	}
+	public boolean 在左边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+		return pos2==pos-1;
+	}
+	public boolean 在右边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+		return pos2==pos+1;
+	}
 	public boolean 在地板(){
 		if(Dungeon.level==null)return false;
 		else
@@ -2011,6 +2084,18 @@ public abstract class Char extends Actor {
 		if(Dungeon.level==null)return false;
 		else
 		return Dungeon.level.map[pos] == Terrain.TRAP|| Dungeon.level.map[pos] == Terrain.INACTIVE_TRAP;
+	}
+	public boolean 在坟墓(){
+		if(Dungeon.level==null)return false;
+		else{
+			Heap heap = Dungeon.level.heaps.get(pos);
+			if (heap != null &&(
+					heap.type==Heap.Type.TOMB||
+					heap.type==Heap.Type.REMAINS||
+					heap.type==Heap.Type.SKELETON
+					))return true;
+		}
+		return false;
 	}
 	public boolean 在水中(){
 		if(Dungeon.level==null)return false;

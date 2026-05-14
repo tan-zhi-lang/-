@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.浓毒法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
@@ -157,7 +158,7 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.护甲修理工具包), "护甲修理工具包",
 										   "_-_ 护甲机制，和破碎护盾差不多，但是不会随时间流逝，也只能防御物理攻击伤害，包含骷髅死亡爆炸和跳楼受伤(不含流血)。\n" +
 										   "_-_ 护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
-										   "_-_ 最大护甲为3+等级。\n" +
+										   "_-_ 最大护甲为2+等级。\n" +
 										   "_-_ 每150回合修理1护甲。\n" +
 										   "_-_ 巨魔铁匠可以花费人情修复你的护甲。\n" +
 										   "_-_ 巨魔铁匠可以花费人情升级装备的阶，不超过5。\n" +
@@ -364,7 +365,10 @@ public class 重制 {
 										   "_-_ 裸衣+(根据力量自适应+等级)~2x2x(1+等级/1.5)的防御，防具+根据力量自适应x2x(1+等级/1.5)的最大防御。\n\n"+
 										   
 										   "恢复之戒\n" +
-										   "_-_ 恢复速度+0.2x等级。\n\n"+
+										   "_-_ 生命再生和护甲再生+0.236x等级。\n\n"+
+
+										   "极肚之戒\n" +
+										   "_-_ 最大饱腹+100x等级，但是力量+0.5%x等级x(最大饥饿+最大饱腹)。\n\n"+
 										   
 										   "魔攻之戒\n" +
 										   "_-_ 施法对目标造成50%魔力+20%等级收益~90%魔力+67%等级收益。"
@@ -386,7 +390,7 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.浓毒法杖), "浓毒法杖",
-										   "_-_ 新增法杖，毒气版酸蚀法杖，并且重制毒气代码，伤害1+地牢层数/25=>毒气元素/35。\n"+new 潮霆法杖().statsDesc()
+										   "_-_ 新增法杖，毒气版酸蚀法杖，并且重制毒气代码，伤害1+地牢层数/25=>15%根号毒气元素。\n"+new 浓毒法杖().statsDesc()
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.潮霆法杖), "潮霆法杖",
 										   "_-_ 新增法杖，连锁距离更远，伤害更高也更危险的加强版雷霆法杖。\n"+new 潮霆法杖().statsDesc()
@@ -456,10 +460,13 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new 骷髅战士动画(),"骷髅战士",
 											"_-_ 新增骷髅的变异体。\n" +
 											"_-_ 死亡掉落单手剑、长剑、巨剑任意一个。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "武器附魔",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "罕见附魔",
 		"传说\n" +
 		"_-_ 获得30%强化等级。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "诅咒刻印",
+//		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0x666666 )), "诅咒附魔",
+//		"血祭\n" +
+//		"_-_ 物理攻击损失2%生命，并根据已损失生命造成额外伤害。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x666666 )), "诅咒刻印",
 		"虐待\n" +
 		"_-_ 受到的物理伤害x4.5，如果没有死亡，则恢复受到的伤害。\n\n"+
 		"焦灼\n" +
@@ -568,6 +575,8 @@ public class 重制 {
 										   "_-_ 装备和卸下花费时间1=>攻速。\n" +
 										   "_-_ 取消物品还需要经验的鉴定，戒指是每装备1回合鉴定1/45次。",
 
+										   "神射之戒=>神兵之戒\n" +
+										   "_-_ 增加投掷武器的等级=>装备的武器的等级增加" +
 										   "奥术之戒\n" +
 										   "_-_ 1.175=>1+21025x(魔力-10)，每级不再提升附魔和刻印效果，而是+10魔力。\n\n"+
 										   "根骨之戒\n" +
@@ -689,7 +698,7 @@ public class 重制 {
 		));
 		//endregion
 
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "武器附魔",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "罕见附魔",
 										   "死神\n" +
 										   "_-_ 根据已损失生命的次方=>根据已损失生命。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "武器",
@@ -712,7 +721,7 @@ public class 重制 {
 
 
 
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "诅咒刻印",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x666666 )), "诅咒刻印",
 										   "恶臭\n" +
 										   "_-_ 释放的毒气元素能受到奥术之戒的效果。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "防具",
@@ -832,7 +841,7 @@ public class 重制 {
 											"_-_ 移除搜索、开锁等动作扣除饥饿值，同时搜索花费时间2=>搜索范围x2。\n",
 
 											"英雄机制2\n\n" +
-											"_-_ 游戏第1、2局幸运值+1，每日挑战非重玩+1幸运值。\n"+
+//											"_-_ 游戏第1、2局幸运值+1，每日挑战非重玩+1幸运值。\n"+
 											"_-_ 视野算法优化。\n"+
 											"_-_ 搜索会在搜索范围内拾取非陷阱上的物品和打开箱子，以及踩踏草。\n"+
 											"_-_ 先处理物理防御时然后处理物理攻击时=>先处理物理攻击时然后处理物理防御时。\n"+
@@ -862,7 +871,7 @@ public class 重制 {
 											"_-_ 10回合-1饥饿=>每回合-1。\n"+
 											"_-_ 根据力量增加命中，转换效率为根号(力量-10)x2%。\n" +
 											"_-_ 根据力量增加攻速，转换效率为根号(力量-10)x1%。\n"+
-											"_-_ 升级所需经验初始10+5/级=>10+6/级，且最高升级所需限制在160，每5级所需经验x1.25。"));
+											"_-_ 升级所需经验初始10+5/级=>10+6/级，且最高升级所需限制在150，每5级所需经验x1.25。"));
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.BACKPACK_LRG), "背包",
 											"_-_ 绒布袋会让此背包的物品使用不消耗回合。\n" +
@@ -904,7 +913,7 @@ public class 重制 {
 				"_-_ 武器、防具生成，生成特定阶级时，不再有机会生成其他阶级。\n" +
 				"_-_ 护盾类也算作治疗效果。\n" +
 //				"_-_ 交互商人，英雄升级，打开英雄面板和背包面板会保存游戏，防止意外崩溃的丢失。\n" +
-				"_-_ 现在吃饭超过450的食物也会填充，施加饱腹Buff，但是饱腹最多900。\n" +
+				"_-_ 现在吃饭超过450的食物也会填充，施加饱腹Buff，但是饱腹最多600。\n" +
 				"_-_ 正常角色物理攻击和物理防御施加战斗状态5回合，静止时会施加静止回合。\n" +
 				"_-_ 一些根据最大防御减少伤害的机制都改为正常的经过最小防御~最大防御和防御时。",
 

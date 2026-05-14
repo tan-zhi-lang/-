@@ -395,7 +395,7 @@ public class 召唤物品 extends Artifact {
 			super();
 			this.召唤物品=
 					召唤物品;
-			更新数据();
+			
 			生命 = 最大生命;
 		}
 
@@ -436,7 +436,7 @@ public class 召唤物品 extends Artifact {
 
 		@Override
 		protected boolean act() {
-			更新数据();
+			
 			if (召唤物品==null
 				|| Dungeon.hero.buff(MagicImmune.class) != null){
 				受伤时(1, new 类());
@@ -534,7 +534,7 @@ public class 召唤物品 extends Artifact {
 
 		@Override
 		public boolean interact(Char c) {
-			更新数据();
+			
 				return super.interact(c);
 		}
 
@@ -545,7 +545,7 @@ public class 召唤物品 extends Artifact {
 
 		@Override
 		public void destroy() {
-			更新数据();
+			
 			//TODO stasis?
 			if (召唤物品!=null) {
 				召唤物品.召唤= null;

@@ -730,6 +730,10 @@ public class GameScene extends PixelScene {
 	//this caps the speed of resting for higher refresh rate displays
 	private float notifyDelay = 1/60f;
 	private float 每秒 = 0;
+	private float 每秒2 = 0;
+	private float 每秒3 = 0;
+	private float 每秒5 = 0;
+	private float 每秒10 = 0;
 
 	public static boolean updateItemDisplays = false;
 
@@ -762,15 +766,35 @@ public class GameScene extends PixelScene {
 			notifyDelay -= Game.elapsed;
 		}
 
-		if (每秒 >= 1.5f){
+		if (每秒 >= 1){
+			if(Dungeon.hero()){
+				Dungeon.hero.更新数据();
+			}
+			每秒=0;
+		}else 每秒+=1/60f;
 
+		if (每秒2 >= 1.5f){
 			if(Dungeon.赛季(赛季设置.即时策略))
 			if(Dungeon.hero()&&Dungeon.hero.curAction==null){
 				Dungeon.hero.spendAndNext(1);
 			}
+			每秒2=0;
+		}else 每秒2+=1/60f;
 
-			每秒=0;
-		}else 每秒+=1/60f;
+		if (每秒3 >= 3){
+
+			每秒3=0;
+		}else 每秒3+=1/60f;
+
+		if (每秒5 >= 5){
+
+			每秒5=0;
+		}else 每秒5+=1/60f;
+
+		if (每秒10 >= 10){
+
+			每秒10=0;
+		}else 每秒10+=1/60f;
 
 		if (!Emitter.freezeEmitters) {
 			waterOfs -= 5 * Game.elapsed;

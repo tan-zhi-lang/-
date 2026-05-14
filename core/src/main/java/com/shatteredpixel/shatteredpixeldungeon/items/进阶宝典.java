@@ -15,7 +15,7 @@ public class 进阶宝典 extends 用品 {
 	@Override
 	public void 使用(Hero hero){
 		hero.进阶=true;
-		hero.更新生命();
+		
 		super.使用(hero);
 	}
 

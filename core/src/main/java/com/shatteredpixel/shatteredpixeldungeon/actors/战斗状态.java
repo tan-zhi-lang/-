@@ -11,11 +11,17 @@ public class 战斗状态 extends FlavourBuff{
 
     @Override
     public void detach(){
-        if(target instanceof Hero hero&&hero.符文 ("踢踏舞")){
-            Buff.施加(target,踢踏舞.class).clearc();
-        }
-        if(target instanceof Hero hero&&hero.符文 ("物法皆修")){
-            Buff.施加(target,物法皆修.class).clearc();
+        if(target instanceof Hero hero){
+
+            if(hero.符文 ("无畏北伐")){
+                hero.回百分比血(0.05f);
+            }
+            if(hero.符文 ("踢踏舞")){
+                Buff.施加(target,踢踏舞.class).clearCount();
+            }
+            if(hero.符文 ("物法皆修")){
+                Buff.施加(target,物法皆修.class).clearCount();
+            }
         }
         super.detach();
     }

@@ -60,6 +60,8 @@ public class 能量之戒 extends Ring {
 				if(i instanceof Wand a)
 					法杖数量+=1+a.强化等级();
 			}
+			if(hero.符文("纯粹主义术师"))
+				bonus+=1/hero.攻击延迟();
 			if(hero.符文("法杖收集家"))
 				bonus+=法杖数量*0.1f;
 
@@ -103,6 +105,8 @@ public class 能量之戒 extends Ring {
 				if(i instanceof Artifact a)
 					神器数量+=1+a.等级();
 			}
+			if(hero.符文("纯粹主义术师"))
+				bonus+=1/hero.攻击延迟();
 			if(hero.符文("神器收集家"))
 				bonus+=神器数量*0.2f;
 
@@ -135,6 +139,8 @@ public class 能量之戒 extends Ring {
 		float bonus = 1+ 0.1845f*getBuffedBonus(target, Energy.class);
 
 		if (target instanceof Hero hero){
+			if(hero.符文("纯粹主义术师"))
+				bonus+=1/hero.攻击延迟();
 			if(hero.符文("回归基本功"))bonus+=1.65f;
 			if(hero.符文("无限火力"))bonus+=3.5f;
 			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;

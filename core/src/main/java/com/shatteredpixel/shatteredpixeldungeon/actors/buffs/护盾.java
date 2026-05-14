@@ -47,7 +47,7 @@ public class 护盾 extends ShieldBuff {
 		
 		spend( TICK );
 		
-		return true;
+		return super.act();
 	}
 	
 	@Override

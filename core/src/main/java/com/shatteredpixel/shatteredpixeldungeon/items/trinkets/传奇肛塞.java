@@ -38,7 +38,7 @@ public class 传奇肛塞 extends Trinket {
 		if (level < 0){
 			return 1;
 		} else {
-			return 1.1f + 0.05f*level;
+			return 1.2f + 0.1f*level;
 		}
 	}
 	public static float 受伤(){
@@ -49,7 +49,7 @@ public class 传奇肛塞 extends Trinket {
 		if (level < 0){
 			return 1;
 		} else {
-			return 1.2f+0.1f*level;
+			return 1.1f+0.05f*level;
 		}
 	}
 

@@ -402,7 +402,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							
 							
 							游戏帧率 = new OptionSlider("游戏帧率",
-														"30", "120", 1, 4) {//30 60 90 120
+														"30", "160", 1, 6) {//30 60 90 120 140 160
 								@Override
 								protected void onChange() {
 									SPDSettings.游戏帧率(getSelectedValue());

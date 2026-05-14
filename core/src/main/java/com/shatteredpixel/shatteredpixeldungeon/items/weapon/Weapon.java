@@ -32,7 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神兵之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -67,9 +67,9 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
-import com.shatteredpixel.shatteredpixeldungeon.ui.副武器;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
+import com.shatteredpixel.shatteredpixeldungeon.ui.副武器;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
@@ -395,6 +395,7 @@ abstract public class Weapon extends KindOfWeapon {
 		int x=0;
 		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		if(isEquipped(Dungeon.hero)){
+			x+=神兵之戒.levelBonus(Dungeon.hero);
 			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
 			if(Dungeon.hero.heroClass(HeroClass.逐姝)){
 				x++;
@@ -815,11 +816,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击() {
-		if (Dungeon.hero()){
-			return Math.max(0, 最小投掷攻击(强化等级()+神射之戒.levelDamageBonus(Dungeon.hero)));
-		} else {
 			return Math.max(0 , 最小投掷攻击( 强化等级() ));
-		}
 	}
 	
 	@Override
@@ -830,11 +827,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击() {
-		if (Dungeon.hero()){
-			return Math.max(0, 最大投掷攻击(强化等级()+神射之戒.levelDamageBonus(Dungeon.hero)));
-		} else {
 			return Math.max(0 , 最大投掷攻击( 强化等级() ));
-		}
 	}
 	
 	@Override

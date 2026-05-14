@@ -1188,7 +1188,7 @@ public class 物品表 {
             assignIconRect(RING_FUROR, 7, 6);
             assignIconRect(RING_HASTE, 6);
             assignIconRect(RING_MIGHT, 7);
-            assignIconRect(RING_SHARPSHOOT, 7);
+            assignIconRect(RING_SHARPSHOOT, 6);
             assignIconRect(RING_TENACITY, 6);
             assignIconRect(RING_WEALTH, 7, 6);
         }
@@ -1376,12 +1376,24 @@ public class 物品表 {
         public static final int 魔攻之戒=六神之戒+1;
         public static final int 装甲之戒=六神之戒+2;
         public static final int 恢复之戒=六神之戒+3;
+        public static final int 极肚之戒=六神之戒+4;
 
         static {
             assignIconRect(六神之戒, 7);
             assignIconRect(魔攻之戒,6);
             assignIconRect(装甲之戒,6);
             assignIconRect(恢复之戒,6,7);
+            assignIconRect(极肚之戒,6,7);
+        }
+
+        public static final int 银星 = xy(1, 15);  //16 slots
+        public static final int 金星=银星+1;
+        public static final int 铱星=银星+2;
+
+        static {
+            assignIconRect(银星, 8);
+            assignIconRect(金星, 8);
+            assignIconRect(铱星, 8);
         }
 
         //16 free slots

@@ -241,7 +241,7 @@ public class 飞镖 extends Weapon{
 				protected void onSelect(int index) {
 					super.onSelect(index);
 					
-					if (index == 0 && options.length == 3){
+					if (index == 0){
 							item.detach( curUser.belongings.backpack );
 							curItem.detach(curUser.belongings.backpack);
 						

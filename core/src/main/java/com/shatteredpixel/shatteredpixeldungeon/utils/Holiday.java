@@ -67,6 +67,7 @@ public enum Holiday {
 	public static Holiday getHolidayForDate(GregorianCalendar cal){
 		
 		if(SPDSettings.从不过节())return NONE;
+
 		if (cal.get(Calendar.MONTH) == Calendar.JANUARY){
 			if(星期(cal,1))
 			return 元旦节;
@@ -98,10 +99,10 @@ public enum Holiday {
 				return Random.oneOf(游戏周年,_520,端午节);
 		}
 		if (cal.get(Calendar.MONTH) == Calendar.JUNE){
-			if(星期(cal,1))
-				return 端午节;
-			if(星期(cal,23))
-				return Random.oneOf(_618,端午节);//6月第2、3个星期
+			if(星期(cal,12))
+				return Random.oneOf(彩虹节,端午节);//6月第1、2个星期
+			if(星期(cal,3))
+				return Random.oneOf(_618,端午节);
 			if(星期(cal,4))
 				return 端午节;
 		}

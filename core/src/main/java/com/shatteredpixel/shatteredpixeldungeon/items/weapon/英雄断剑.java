@@ -9,14 +9,13 @@ public class 英雄断剑 extends Weapon{
 	{
 		image = 物品表.英雄断剑;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		延迟=1.25f;
-		伤害=0.85f;
+
+		延迟=0.8f;
+		伤害=0.8f;
+		伏击=0.25f;
 		特别=true;
+		金币价值=2;
 		遗产=false;
 		tier=5;
-	}
-	@Override
-	public int 金币() {
-		return Math.round(super.金币()*6);
 	}
 }

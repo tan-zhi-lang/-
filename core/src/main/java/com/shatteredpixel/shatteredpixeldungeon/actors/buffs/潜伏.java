@@ -236,7 +236,7 @@ public class 潜伏 extends Buff implements ActionIndicator.Action {
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
 		txt.text(Integer.toString(Math.min(9, turnsInvis)));
-		txt.hardlight(CharSprite.增强);
+		txt.hardlight(CharSprite.增强绿);
 		txt.measure();
 		return txt;
 	}

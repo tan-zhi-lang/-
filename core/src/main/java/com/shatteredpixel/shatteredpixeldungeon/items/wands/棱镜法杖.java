@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -43,18 +42,18 @@ public class 棱镜法杖 extends DamageWand {
 
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public float min(int lvl){
-		return 魔力() * chargesPerCast();
+		return 魔力(0.1f,0.1f)  * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
 	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return 魔力(0.2f,1);
+				return 魔力(0.2f,0.2f);
 			case 2:
-				return 魔力(0.8f,0.5f);
+				return 魔力(0.8f,0.2f);
 			case 3:
-				return 魔力(1.8f,0.3f);
+				return 魔力(1.8f,0.2f);
 		}
 	}
 
@@ -118,11 +117,7 @@ public class 棱镜法杖 extends DamageWand {
 		affectMap(bolt);
 
 		if (Dungeon.level.视野范围<6 ){
-			if (Dungeon.isChallenged(Challenges.DARKNESS)){
-				Buff.延长(curUser,Light.class,3);
-			} else {
 				Buff.延长( curUser, Light.class, 15);
-			}
 		}
 
 		ArrayList<Char> affectedChars = new ArrayList<>();

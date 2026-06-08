@@ -17,7 +17,7 @@ public class RotLasher extends Mob {
 	{
 		spriteClass = RotLasherSprite.class;
 
-		生命 = 最大生命 = Math.round(80*Dungeon.难度生命());
+		生命 = 最大生命 = Math.round(80*Dungeon.难度生命(this));
 		defenseSkill = 0;
 
 		经验 = 1;

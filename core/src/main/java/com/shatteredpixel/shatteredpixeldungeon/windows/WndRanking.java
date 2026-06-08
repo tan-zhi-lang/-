@@ -205,19 +205,30 @@ public class WndRanking extends WndTabbed {
 
 				pos += GAP;
 
-				float strBonus = Dungeon.hero.力量() - Dungeon.hero.力量;
-				if (strBonus > 0)
-					pos = statSlot(this, "力量", Dungeon.hero.力量 + " + " + strBonus, pos);
-				else if (strBonus < 0)
-					pos = statSlot(this, "力量", Dungeon.hero.力量 + " - " + -strBonus, pos);
-				else
-					pos = statSlot(this, "力量", ""+Dungeon.hero.力量, pos);
 				pos = statSlot(this, Messages.get(this, "duration"), num.format((int) Statistics.duration), pos);
 				if (Statistics.highestAscent == 0) {
 					pos = statSlot(this, Messages.get(this, "depth"), num.format(Statistics.deepestFloor), pos);
 				} else {
 					pos = statSlot(this, Messages.get(this, "ascent"), num.format(Statistics.highestAscent), pos);
 				}
+				pos = statSlot(this, Messages.get(this, "gold")+"/"
+						+Messages.get(this, "energy"), num.format(Statistics.goldCollected)+"/"
+						+num.format(Statistics.energyc), pos);
+
+				pos = statSlot(this, Messages.get(this, "属性"), "", pos);
+
+				IconButton scoreInfo2 = new IconButton(Icons.get(Icons.INFO)) {
+					@Override
+					protected void onClick() {
+						super.onClick();
+						ShatteredPixelDungeon.scene().addToFront(new Wnd属性());
+					}
+				};
+				scoreInfo2.setSize(16, 16);
+				scoreInfo2.setPos(WIDTH - scoreInfo2.width(), pos - 10 - GAP);
+				add(scoreInfo2);
+
+				pos += GAP;
 				if (Dungeon.seed != -1) {
 					if (Dungeon.daily) {
 						if (Dungeon.dailyReplay) {
@@ -238,7 +249,6 @@ public class WndRanking extends WndTabbed {
 				
 				pos = statSlot(this, "难度", Dungeon.难度名称(),pos);
 				pos = statSlot(this, Messages.get(this, "enemies"), num.format(Statistics.enemiesSlain), pos);
-				pos = statSlot(this, Messages.get(this, "gold"), num.format(Statistics.goldCollected), pos);
 				pos = statSlot(this, Messages.get(this, "food"), num.format(Statistics.foodEaten), pos);
 				pos = statSlot(this, Messages.get(this, "alchemy"), num.format(Statistics.itemsCrafted), pos);
 			}

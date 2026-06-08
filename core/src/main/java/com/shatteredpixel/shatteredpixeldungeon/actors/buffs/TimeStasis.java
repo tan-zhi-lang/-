@@ -40,7 +40,7 @@ public class TimeStasis extends FlavourBuff {
 		//don't punish the player for going into stasis frequently
 		Hunger hunger = Buff.施加(target, Hunger.class);
 		if (hunger != null && !hunger.isStarving()) {
-			hunger.affectHunger(cooldown(), true);
+			hunger.吃饭(cooldown());
 		}
 	}
 

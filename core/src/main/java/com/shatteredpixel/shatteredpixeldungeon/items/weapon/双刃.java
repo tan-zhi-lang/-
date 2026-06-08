@@ -15,10 +15,9 @@ public class 双刃 extends Weapon{
 		技能=new 剑舞();
 
 		tier = 1;
-		延迟=0.5f;
-		伤害= 0.64f;
-		
-		伏击=0.67f;
+		延迟=1.175f;
+		伤害= 0.8f;
+		伏击=0.25f;
 
 	}
 }

@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
@@ -44,12 +45,12 @@ public class TalentsPane extends ScrollPane {
 				tiersAvailable = 1;
 				if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_2)&& Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_1)){
 					tiersAvailable = 2;
-//					  if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_3)){
-//						tiersAvailable = 3;
+					  if (Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_3)&& Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_2)){
+						tiersAvailable = 3;
 //						if(Badges.isUnlocked(Badges.Badge.LEVEL_REACHED_4)||Badges.isUnlocked(Badges.Badge.BOSS_SLAIN_4)){
 //							tiersAvailable = Talent.MAX_TALENT_TIERS;
 //						}
-//					}
+					}
 				}
 			}
 		} else {
@@ -201,6 +202,9 @@ public class TalentsPane extends ScrollPane {
 										};
 										setupStars();
 										TalentTierPane.this.layout();
+
+
+										WndHero.INSTANCE.hide();//防止卡分支Bug
 									}
 								}
 							});
@@ -215,13 +219,15 @@ public class TalentsPane extends ScrollPane {
 							super.update();
 						}
 					};
-					if(tier==1&&!Dungeon.hero.第1层天赋)
-					add(random);//随机天赋
+//					if(tier==1&&!Dungeon.hero.第1层天赋)
+//					add(random);//随机天赋
+//
+//					if(tier==2&&!Dungeon.hero.第2层天赋)
+//					add(random);//随机天赋
+//
+//					if(tier==3)
+//					add(random);//随机天赋
 
-					if(tier==2&&!Dungeon.hero.第2层天赋)
-					add(random);//随机天赋
-
-					if(tier==3)
 					add(random);//随机天赋
 				}
 			}

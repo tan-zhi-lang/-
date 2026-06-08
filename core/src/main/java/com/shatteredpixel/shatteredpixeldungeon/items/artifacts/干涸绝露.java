@@ -63,7 +63,7 @@ public class 干涸绝露 extends Artifact {
 			actions.add(AC_SNACK);
 			actions.add(AC_EAT);
 		}
-		if ((isEquipped( hero ) || hero.天赋(Talent.轻便斗篷) ) && 等级() < levelCap && !cursed) {
+		if ((isEquipped( hero ) ) && 等级() < levelCap && !cursed) {
 			actions.add(AC_STORE);
 		}
 		return actions;
@@ -112,7 +112,7 @@ public class 干涸绝露 extends Artifact {
 		hero.回百分比血(chargesToUse*0.035f);
 		for(Mob m:hero.getVisibleEnemies()){
 			if(m instanceof Mob&&m.alignment==Char.Alignment.ENEMY){
-				m.受伤时(hero.魔力(0.45f)*chargesToUse,this);
+				m.受伤时(hero.魔力(this,0.45f)*chargesToUse,this);
 			}
 		}
 

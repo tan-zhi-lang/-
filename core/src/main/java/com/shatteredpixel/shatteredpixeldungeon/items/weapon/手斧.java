@@ -16,9 +16,8 @@ public class 手斧 extends Weapon {
 		技能=new 劈斩();
 
 		tier = 1;
-		延迟=1.4f;
-		伤害=1.2f;
-		流血=0.35f;
+		延迟=1.175f;
+		流血=0.25f;
 	}
 	
 

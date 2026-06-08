@@ -31,11 +31,11 @@ public class WandOfDisintegration extends DamageWand {
 
 
 	public float min(int lvl){
-		return 魔力(0.2f,0.5f);
+		return 魔力(0.2f,0.1f);
 	}
 
 	public float max(int lvl){
-		return 魔力(0.8f,0.5f);
+		return 魔力(0.8f,0.4f);
 	}
 	
 	@Override

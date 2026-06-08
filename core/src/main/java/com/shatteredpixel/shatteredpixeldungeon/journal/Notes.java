@@ -765,7 +765,7 @@ public class Notes {
 	}
 
 	public static int customRecordLimit(){
-		return 500;
+		return 250;//备注上限 备注数量
 	}
 
 	private static final Comparator<Record> comparator = new Comparator<Record>() {

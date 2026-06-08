@@ -9,6 +9,10 @@ public class 战斗状态 extends FlavourBuff{
         {name="战斗状态";}
         public int icon() { return BuffIndicator.WEAPON; }
 
+//    @Override
+//    public float iconFadePercent() {
+//        return Math.max(0, 1/cooldown());
+//    }
     @Override
     public void detach(){
         if(target instanceof Hero hero){

@@ -795,6 +795,10 @@ public class 物品表 {
     public static final int 男人国徽章=禁忌物+3;
     public static final int 桃木剑=禁忌物+4;
     public static final int 世界标尺=禁忌物+5;
+    public static final int 水晶碎块=禁忌物+6;
+    public static final int 丛林玫瑰=禁忌物+7;
+    public static final int 妖精粉尘=禁忌物+8;
+    public static final int 重力场球=禁忌物+9;
     static {
         
         assignItemRect(血腥生肉,15,11);
@@ -803,7 +807,10 @@ public class 物品表 {
         assignItemRect(男人国徽章,13);
         assignItemRect(桃木剑,16);
         assignItemRect(世界标尺,6,14);
-        assignItemRect(世界标尺,11,12);
+        assignItemRect(水晶碎块,11,12);
+        assignItemRect(丛林玫瑰,12);
+        assignItemRect(妖精粉尘,13,7);
+        assignItemRect(重力场球,11,12);
     }
     
     //endregion
@@ -1090,6 +1097,8 @@ public class 物品表 {
     public static final int 红包 = QUEST + 13;
     public static final int 火把神的恩宠 = QUEST + 14;
     public static final int 贤者之石 = QUEST + 15;
+    public static final int 海克斯词条 = QUEST + 16;
+    public static final int 海克斯移除器 = QUEST + 17;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -1108,6 +1117,8 @@ public class 物品表 {
         assignItemRect(红包, 11,15);
         assignItemRect(火把神的恩宠, 13,16);
         assignItemRect(贤者之石, 16);
+        assignItemRect(海克斯词条, 16,14);
+        assignItemRect(海克斯移除器, 16,14);
     }
     private static final int BAGS = xy(0, 31);  //16 slots
     public static final int BACKPACK = BAGS;

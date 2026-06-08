@@ -14,8 +14,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Callback;
@@ -29,13 +32,12 @@ public class 烈焰法杖 extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return 魔力();
+		return 魔力(0.15f,0.075f);
 	}
 
 	public float max(int lvl){
-		return 魔力(0.4f,0.625f);
+		return 魔力(0.6f,0.33f);
 	}
-
 	@Override
 	public void onZap(Ballistica bolt) {
 
@@ -54,6 +56,22 @@ public class 烈焰法杖 extends DamageWand {
 
 		}
 
+		//knock doors open
+		if (Dungeon.level.map[bolt.collisionPos]==Terrain.DOOR){
+			Level.set(bolt.collisionPos,Terrain.OPEN_DOOR);
+			GameScene.updateMap(bolt.collisionPos);
+		}
+
+		//only ignite cells directly near caster if they are flammable or solid
+		if (Dungeon.level.adjacent(bolt.sourcePos, bolt.collisionPos)
+			&& !(Dungeon.level.flamable[bolt.collisionPos] || Dungeon.level.solid[bolt.collisionPos])){
+			//do burn any heaps located here though
+			if (Dungeon.level.heaps.get(bolt.collisionPos) != null){
+				Dungeon.level.heaps.get(bolt.collisionPos).burn();
+			}
+		} else {
+//			GameScene.add(Blob.seed(bolt.collisionPos,1+chargesPerCast(),Fire.class));
+		}
 		Char ch = Actor.findChar(bolt.collisionPos);
 		if (ch != null){
 

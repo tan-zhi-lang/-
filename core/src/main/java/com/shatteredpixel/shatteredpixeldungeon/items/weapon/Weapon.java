@@ -2,6 +2,9 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.衰减;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -67,6 +70,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.副武器;
@@ -89,6 +93,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 abstract public class Weapon extends KindOfWeapon {
+
+
+	public static class PlaceHolder extends Weapon{
+
+		{
+			image = 物品表.WEAPON_HOLDER;
+			tier=0;
+		}
+
+		@Override
+		public boolean isSimilar(Item item) {
+			return item instanceof Weapon;
+		}
+
+		@Override
+		public String info() {
+			return "";
+		}
+	}
 	//region MeleeWeapon
 
 	武技 技能=null;
@@ -368,15 +391,63 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public float 最小攻击(int lvl) {
-		return augment.damageFactor(最小+(tier()+lvl)*伤害);
+		return augment.damageFactor(最小+(tier()+lvl)*伤害());
 	}
 	
 	@Override
 	public float 最大攻击(int lvl) {
 //		if(Dungeon.赛季(赛季设置.回廊传说))return 0;
-		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1))*伤害);
+		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1))*伤害());
 	}
-	
+
+	@Override
+	public float 伤害(){
+		float 伤害=this.伤害;
+		if(伤害随攻速){
+			if(延迟()>1)
+				伤害*=1+1/延迟();
+			if(延迟()<1)
+				伤害*=延迟();
+		}
+		return 伤害;
+	}
+
+	public float 延迟(){
+		float 伤害=this.延迟;
+		return 延迟;
+	}
+
+	public float 命中(){
+		float 命中=this.命中;
+		if(双手())命中*=0.8f;
+		if(命中随攻速)命中*=衰减(1/延迟());
+		return 命中;
+	}
+	@Override
+	public float 流血(){
+		float 流血=super.流血();
+		if(!钝器())流血+=0.25f;
+		return 流血;
+	}
+
+	@Override
+	public float 吸血(){
+		float 吸血=super.吸血();
+		return 吸血;
+	}
+	@Override
+	public float 魔法(){
+		float 魔法=super.魔法();
+		return 魔法;
+	}
+
+	@Override
+	public float 伏击(){
+		float 伏击=super.伏击();
+		if(匕首()||短剑()||镖())伏击+=0.25f;
+		return 伏击;
+	}
+
 	public float 力量(int lvl){
 		float req = 力量(tier(), lvl);
 		if(Dungeon.hero()){
@@ -396,11 +467,13 @@ abstract public class Weapon extends KindOfWeapon {
 		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		if(isEquipped(Dungeon.hero)){
 			x+=神兵之戒.levelBonus(Dungeon.hero);
+
 			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
+
 			if(Dungeon.hero.heroClass(HeroClass.逐姝)){
 				x++;
 			}
-			if(剑()&&Dungeon.符文("起源:剑"))x+=Dungeon.hero.魔力(0.2f);
+			if(剑()&&Dungeon.符文("起源:剑"))x+=Dungeon.hero.魔力(this,0.2f);
 			if(Dungeon.符文("武器＞防具")&&Dungeon.hero.belongings.armor!=null)x+=Dungeon.hero.belongings.armor.强化等级();
 		}
 		if (!evaluatingTwinUpgrades && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
@@ -452,7 +525,7 @@ abstract public class Weapon extends KindOfWeapon {
 				} else if (Dungeon.hero.力量() > 力量()) {
 					info += " " + Messages.get(Weapon.class, "excess_str",
 											   (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"":"0~")
-							,Dungeon.hero.力量() - 力量());
+							,kw2(Dungeon.hero.力量() - 力量()));
 				}
 			}
 		} else {
@@ -517,7 +590,7 @@ abstract public class Weapon extends KindOfWeapon {
 		return info;
 	}
 	@Override
-	public float defenseFactor( Char owner ) {
+	public float 最大防御(Char owner) {
 		return 最大防御();
 	}
 	public float 最大防御(){
@@ -530,7 +603,10 @@ abstract public class Weapon extends KindOfWeapon {
 	public float 最小防御(){
 		return 最小防御(强化等级());
 	}
-	
+	@Override
+	public float 最小防御( Char owner ) {
+		return 最小防御();
+	}
 	public float 最小防御(int lvl){
 		return 0;
 	}
@@ -538,18 +614,20 @@ abstract public class Weapon extends KindOfWeapon {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
 						最小防御()+"~"+最大防御()+" ++ 防御，"),
-								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
-								(流血==0?"":"，流血 ** "+Math.round(流血*100)+"% ** "),
-								(吸血==0?"":"，吸血 ** "+Math.round(吸血*100)+"% ** "),
-								(伏击==0?"":"，伏击率 ## "+Math.round(伏击*100)+"% ##")
+								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
+								(流血()==0?"":"，额外造成 ** "+Math.round(流血()*100)+"% ** 流血伤害"),
+								(魔法()==0?"":"，额外造成 @@ "+Math.round(魔法()*100)+"% @@ 魔法伤害"),
+								(吸血()==0?"":"，吸血+ ** "+Math.round(吸血()*100)+"% ** "),
+								(伏击()==0?"":"，伏击额外造成 ## "+Math.round(伏击()/4f*100)+"% ## 伤害")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
 							 最小防御(0)+"~"+最大防御(0)+" ++ 防御，"),
-								命中,延迟,伤害,DPS(),(连招范围!=-1?连招范围:范围),
-								(流血==0?"":"，流血 ** "+Math.round(流血*100)+"% ** "),
-								(吸血==0?"":"，吸血 ** "+Math.round(吸血*100)+"% ** "),
-								(伏击==0?"":"，伏击率 ## "+Math.round(伏击*100)+"% ##")
+								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
+								(流血()==0?"":"，额外造成 ** "+Math.round(流血()*100)+"% ** 流血伤害"),
+								(魔法()==0?"":"，额外造成 @@ "+Math.round(魔法()*100)+"% @@ 魔法伤害"),
+								(吸血()==0?"":"，吸血+ ** "+Math.round(吸血()*100)+"% ** "),
+								(伏击()==0?"":"，伏击额外造成 ## "+Math.round(伏击()/4f*100)+"% ## 伤害")
 							   );
 		}
 	}
@@ -557,8 +635,9 @@ abstract public class Weapon extends KindOfWeapon {
 		return 
 				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?(Dungeon.hero.力量()-力量())/2f:0)+
 				(augment.damageFactor(最小攻击()+最大攻击()))/2f
-//				*伤害
-				/augment.delayFactor(延迟)*(1+流血)*(1+伏击/3f);
+				/augment.delayFactor(延迟())
+				*(1.25f*命中())*(1+流血())*(1+魔法())
+				*(1+伏击()/4f);
 	}
 	@Override
 	public int 金币() {
@@ -581,7 +660,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.05f+1+等级());
+		return Math.round(金币提升()*装备能量);
 	}
 	@Override
 	public boolean 放背包(Bag container) {
@@ -656,17 +735,14 @@ abstract public class Weapon extends KindOfWeapon {
 		public boolean act() {
 			if (charges < chargeCap()){
 				if (再生.regenOn()){
-					int mwepCharges=chargeCap()-charges;
-					mwepCharges= Math.max(0,mwepCharges);
-					//60 to 45 turns per charge
-					float chargeToGain = (float) (10
-												  + ((40) * Math.pow(0.875f,mwepCharges)));
-					
+					float chargeToGain = 1/(60f-1.5f*(chargeCap()-charges));
+
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
 					if (Dungeon.hero.buff(武力之戒.BrawlersStance.class)!=null){
 						chargeToGain *= 0.50f;
 					}
-					partialCharge += (1f/chargeToGain)/2f*能量之戒.weaponChargeMultiplier(target);
+					chargeToGain*=0.875f/scalingFactor;
+					partialCharge += (1f/chargeToGain)*能量之戒.weaponChargeMultiplier(target);
 					
 				}
 				
@@ -707,7 +783,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public int chargeCap(){
-			return Math.min(7+(Dungeon.hero.heroClass(HeroClass.DUELIST)?3:0), 1+ Dungeon.hero.等级(0.25f));
+			return Math.min(10, Dungeon.hero.等级((Dungeon.hero.heroClass(HeroClass.DUELIST)?0.8f:0.4f)));
 		}
 
 		public void gainCharge(){
@@ -821,8 +897,8 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击(int lvl) {
-		return augment.damageFactor(最小+(2*tier()+lvl)*(伤害*0.5f));
-//		return Math.round(最小+(2*tier()+lvl)*(伤害+));
+		return augment.damageFactor(最小+(2*tier()+lvl)*(伤害()*0.5f));
+//		return Math.round(最小+(2*tier()+lvl)*(伤害()));
 	}
 	
 	@Override
@@ -832,8 +908,8 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击(int lvl) {
-		return augment.damageFactor(最大+(5 * tier() +tier()*lvl )*(伤害*1.2f));
-//		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害));
+		return augment.damageFactor(最大+(5 * tier() +tier()*lvl )*(伤害()*1.2f));
+//		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害()));
 	}
 	
 	@Override
@@ -865,9 +941,10 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		if (target!=null&&Dungeon.level.distance(owner.pos,target.pos)<=范围) {
 			//抵近射击
-			return 1/Math.max(Dungeon.level.distance(owner.pos,target.pos),Dungeon.level.distance(owner.pos,target.pos)-范围);
+			return 1f/Math.max(1,
+							  Dungeon.level.distance(owner.pos,target.pos)-范围);
 		} else {
-			return 0.5f+x;
+			return 1f/2/范围+x;
 		}
 	}
 	@Override
@@ -946,9 +1023,6 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		}
-		if(defender!=null&&流血>0)
-			Buff.施加( defender, 流血.class).set(Math.round(damage*流血));
-		
 		
 		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.天赋点数(Talent.SHARED_ENCHANTMENT)){
 			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
@@ -1019,7 +1093,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (attacker == Dungeon.hero && defender!=null&&!已鉴定() && ShardOfOblivion.passiveIDDisabled()){
 			Buff.延长(Dungeon.hero, ShardOfOblivion.ThrownUseTracker.class, 50f);
 		}
-		
+
 		return result;
 	}
 	
@@ -1148,8 +1222,9 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		}
-		if(defender!=null&&流血>0)
-		Buff.施加( defender, 流血.class).set(damage*流血);
+		if(defender!=null&&流血()>0)
+		Buff.施加( defender, 流血.class).set(damage*流血());
+
 		if(defender!=null){
 			boolean becameAlly=false;
 			boolean wasAlly=defender.alignment==Char.Alignment.ALLY;
@@ -1198,6 +1273,8 @@ abstract public class Weapon extends KindOfWeapon {
 			float x=0.2f;
 			damage=Math.round(damage*(1+(范围+1-连招范围)*x));
 		}
+
+		if(defender!=null&&defender.isAlive()&&魔法()>0)defender.受伤时(魔法()*damage);
 		return damage;
 	}
 	
@@ -1274,13 +1351,13 @@ abstract public class Weapon extends KindOfWeapon {
 			encumbrance = 力量() - hero.力量();
 		}
 
-		float ACC = this.命中;
+		float ACC = this.命中();
 
 		if (owner.buff(Wayward.WaywardBuff.class) != null && enchantment instanceof Wayward){
 			ACC /= 5;
 		}
 		if(encumbrance > 0 )ACC/=Math.pow( 1.5, encumbrance );
-		if(encumbrance < 0 )ACC*=1-encumbrance*owner.属性增幅;
+		if(encumbrance < 0 )ACC*=1-encumbrance*owner.属性增幅();
 		
 		
 		ACC *= adjacentAccFactor(owner, target);
@@ -1298,7 +1375,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	protected float baseDelay( Char owner ){
-		float delay = augment.delayFactor(this.延迟);
+		float delay = augment.delayFactor(this.延迟());
 		if(Dungeon.赛季(赛季设置.回廊传说))return 1;
 		if (owner instanceof Hero hero) {
 			float encumbrance = 力量() - hero.力量();
@@ -1306,7 +1383,7 @@ abstract public class Weapon extends KindOfWeapon {
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
-				delay/=1-encumbrance*hero.属性增幅/2f;
+				delay/=1-encumbrance*hero.属性增幅()/2f;
 			}
 			
 		}

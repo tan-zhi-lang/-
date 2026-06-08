@@ -77,9 +77,9 @@ public class 火球术 extends 目标法术 {
 				Char ch = Actor.findChar( aim.collisionPos );
 
 				float damage = Random.NormalFloat(
-						hero.魔力(0.1f)
+						hero.法术(this,0.1f)
 						,
-						hero.魔力(0.4f)
+						hero.法术(this,0.4f)
 												 );
 
 				if (ch != null) {
@@ -98,9 +98,8 @@ public class 火球术 extends 目标法术 {
 						if (ch.在草丛()||ch.在门上()) {
 							Buff.施加(ch,Paralysis.class,4f);
 						} else {
-							ch.sprite.burst( 0xFF99CCFF,
-											 Math.round(hero.魔力(0.15f)));
-							Buff.施加(ch, 燃烧.class).reignite(ch,4+hero.魔力(0.3f));
+							ch.sprite.burst( 0xFF99CCFF);
+							Buff.施加(ch, 燃烧.class).reignite(ch,4+hero.法术(this,0.3f));
 						}
 					}
 				} else {
@@ -120,9 +119,9 @@ public class 火球术 extends 目标法术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-								   Dungeon.hero.魔力(0.1f)
+								   Dungeon.hero.法术(this,0.1f)
 				,
-								   Dungeon.hero.魔力(0.4f));
+								   Dungeon.hero.法术(this,0.4f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

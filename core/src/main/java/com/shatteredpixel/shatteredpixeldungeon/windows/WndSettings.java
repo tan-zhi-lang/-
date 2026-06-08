@@ -898,6 +898,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider 固定攻速;
 						RenderedTextBlock 固定攻速str;
 						OptionSlider 固定移速;
+						RenderedTextBlock 固定移速str;
 						OptionSlider 休息速度;
 						{
 							
@@ -921,7 +922,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(固定移速);
 							
 							休息速度 = new OptionSlider("休息速度",
-														"1", "3", 1, 3) {
+														"1", "5", 1, 5) {
 								@Override
 								protected void onChange() {
 									SPDSettings.休息速度(getSelectedValue());
@@ -929,17 +930,27 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							休息速度.setSelectedValue(SPDSettings.休息速度());
 							add(休息速度);
+
 							固定攻速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "固定攻速str"), 5);
 							固定攻速str.hardlight(0x888888);
 							add(固定攻速str);
-							
-							
+
+
+							固定移速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "固定移速str"), 5);
+							固定移速str.hardlight(0x888888);
+							add(固定移速str);
+
+
 							resize(WIDTH_P, 0);
 							固定攻速.setRect(0,  GAP, width, BTN_HEIGHT);
 							固定攻速str.maxWidth(width);
 							固定攻速str.setPos(0, 固定攻速.bottom()+1);
+
 							固定移速.setRect(0,  固定攻速str.bottom()+GAP, width, BTN_HEIGHT);
-							休息速度.setRect(0,  固定移速.bottom()+GAP, width, BTN_HEIGHT);
+							固定移速str.maxWidth(width);
+							固定移速str.setPos(0, 固定移速.bottom()+1);
+
+							休息速度.setRect(0,  固定移速str.bottom()+GAP, width, BTN_HEIGHT);
 							resize(WIDTH_P, (int) 休息速度.bottom());
 							
 						}
@@ -1386,8 +1397,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 			else if (currLang.status() == Languages.Status.X_UNFINISH) info += Messages.get(this, "unfinished");
 			txtLangInfo.text(info);
 
-			if (currLang.status() == Languages.Status.__UNREVIEW) txtLangInfo.setHightlighting(true, CharSprite.WARNING);
-			else if (currLang.status() == Languages.Status.X_UNFINISH) txtLangInfo.setHightlighting(true, CharSprite.削弱);
+			if (currLang.status() == Languages.Status.__UNREVIEW) txtLangInfo.setHightlighting(true, CharSprite.警告橙);
+			else if (currLang.status() == Languages.Status.X_UNFINISH) txtLangInfo.setHightlighting(true, CharSprite.削弱红);
 			add(txtLangInfo);
 
 			sep2 = new ColorBlock(1, 1, 0xFF000000);

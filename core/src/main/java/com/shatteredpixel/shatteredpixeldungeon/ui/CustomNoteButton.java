@@ -337,7 +337,7 @@ public class CustomNoteButton extends IconButton {
 					GameScene.show(new WndTextInput(editBodyText,
 							"",
 							rec.desc(),
-							500,
+							500,//500
 							true,
 							Messages.get(CustomNoteWindow.class, "confirm"),
 							Messages.get(CustomNoteWindow.class, "cancel")){

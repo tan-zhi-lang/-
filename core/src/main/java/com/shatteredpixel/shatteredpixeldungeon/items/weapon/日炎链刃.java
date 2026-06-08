@@ -16,8 +16,8 @@ public class 日炎链刃 extends Weapon {
 		技能=new 大杀四方();
 		
 		延迟= 1.5f;
-		命中=0.65f;
-		tier = 3;
+
+		tier = 5;
 //		连招范围=5;
 		范围 = 5;
 		特别=true;

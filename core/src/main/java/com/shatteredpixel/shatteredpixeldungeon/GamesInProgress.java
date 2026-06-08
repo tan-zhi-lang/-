@@ -141,9 +141,9 @@ public class GamesInProgress {
 		info.heroClass = Dungeon.hero.heroClass;
 		info.heroClass蜕变 = Dungeon.hero.heroClass蜕变;
 		info.subClass = Dungeon.hero.subClass;
+		info.备注 = Dungeon.hero.备注;
 		info.armorTier = Dungeon.hero.tier();
 
-		info.goldCollected = Statistics.goldCollected;
 		info.maxDepth = Statistics.deepestFloor;
 
 		slotStates.put( slot, info );
@@ -180,9 +180,9 @@ public class GamesInProgress {
 		public HeroClass heroClass;
 		public HeroClass heroClass蜕变;
 		public HeroSubClass subClass;
+		public String 备注="";
 		public int armorTier;
 
-		public int goldCollected;
 		public int maxDepth;
 		public int 难度;
 	}

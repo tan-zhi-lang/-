@@ -213,7 +213,7 @@ public class 粘咕 extends Mob {
 			((GooSprite)sprite).pumpUp( pumpedUp );
 
 			if (Dungeon.level.heroFOV[pos]) {
-				sprite.showStatus( CharSprite.WARNING, Messages.get(this, "!!!") );
+				sprite.showStatus(CharSprite.警告橙,Messages.get(this,"!!!"));
 				GLog.n( Messages.get(this, "pumpup") );
 			}
 
@@ -263,7 +263,7 @@ public class 粘咕 extends Mob {
 		super.受伤时(dmg,来源);
 		if ((生命 *2 <= 最大生命) && !bleeding){
 			BossHealthBar.bleed(true);
-			sprite.showStatus(CharSprite.WARNING, Messages.get(this, "enraged"));
+			sprite.showStatus(CharSprite.警告橙,Messages.get(this,"enraged"));
 			((GooSprite)sprite).spray(true);
 			yell(Messages.get(this, "gluuurp"));
 		}

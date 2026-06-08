@@ -15,9 +15,8 @@ public class 地裂镰 extends Weapon{
 		技能=new 立地();
 		
 		tier = 5;
-		延迟= 1.25f;
-		伤害= 1.35f;
-		命中=0.85f;
+		延迟= 1.5f;
+		伤害= 1.5f;
 		特别=true;
 		黄色=true;
 	}

@@ -4,25 +4,37 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 
 public abstract class 武技{
-	public static float 伤害75=0.75f;
-	public static float 伤害81=0.8125f;
-	public static float 伤害87=0.875f;
-	public static float 伤害93=0.9375f;
-	public static float 伤害100=1f;
-	public static float 伤害106=1.0625f;
-	public static float 伤害112=1.125f;
-	public static float 伤害118=1.1875f;
-	public static float 伤害125=1.25f;
-	public static float 伤害131=1.3125f;
-	public static float 伤害137=1.375f;
-	public static float 伤害143=1.4375f;
-	public static float 伤害150=1.5f;
-	public static float 伤害156=1.5625f;
 	
 	Hero hero;
 	Weapon wep;
 	String desc="";
-	
+
+	public Class<?>[] all=new Class<?>[]{
+				暴伤.class,//
+				背刺.class,//
+				吃下.class,
+				充能射击x.class,
+				刺击.class,//
+				刺退.class,//
+				大杀四方.class,
+				防御姿态.class,
+				符文x.class,
+				割草.class,
+				横扫.class,
+				剑舞.class,//
+				立地.class,
+				连击.class,//
+				劈斩.class,//
+				破击.class,//
+				潜行.class,
+				群魔乱舞.class,
+				嗜血.class,//
+				甩击.class,
+				突刺.class,//
+				无情铁手.class,//
+				斩击.class,//
+				重击.class//
+	};
 	public boolean 目标=false;
 	public int 消耗=1;
 	public abstract void 武技(Hero hero,Weapon wep);

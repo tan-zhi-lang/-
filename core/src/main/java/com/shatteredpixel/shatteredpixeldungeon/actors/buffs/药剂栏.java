@@ -81,7 +81,7 @@ public class 药剂栏 extends Buff  implements 药剂栏标.Action{
 		if(potion!=null)
 		txt.text(""+potion.数量());
 		else return null;
-		txt.hardlight(CharSprite.增强);
+		txt.hardlight(CharSprite.增强绿);
 		txt.measure();
 		return txt;
 	}

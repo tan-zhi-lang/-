@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
@@ -186,16 +185,18 @@ public class Shopkeeper extends NPC {
 
 	//shopkeepers are greedy!
 	public static int sellPrice(Item item){
+		return 售价(item.金币提升());
+	}
+	public static int 售价(int g){
 		float 打折=10;
 		打折*=优惠卡.打折();
 		if(Holiday.getCurrentHoliday()==Holiday._618){
 			打折*=.9f;
 		}
+//		打折/=2;
 		if(Dungeon.符文("我让你乱卖"))打折*=0.2f;
 
-		打折*=1-Dungeon.hero.天赋点数(Talent.丝路,0.1f);
-
-		return Math.round(item.金币提升()*打折/2*(1/5f+1));
+		return Math.round(g*打折/2*(1/5f+1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
 	}
 	
@@ -271,7 +272,7 @@ public class Shopkeeper extends NPC {
 							int g=sellPrice(i);
 							if(Dungeon.gold>=g){
 
-								Dungeon.gold(-g);
+								Dungeon.gold(-g,pos);
 								if (!i.doPickUp(Dungeon.hero)){
 									Dungeon.level.drop(i, Dungeon.hero.pos);
 								}
@@ -281,7 +282,7 @@ public class Shopkeeper extends NPC {
 						}else if (index > (Dungeon.符文("属性买买买")?2:1)){
 							GLog.i(Messages.get(Shopkeeper.this, "buyback"));
 							Item returned = buybackItems.remove(index-2);
-							Dungeon.gold(-returned.金币());
+							Dungeon.gold(-returned.金币提升(),pos);
 							if (!returned.doPickUp(Dungeon.hero)){
 								Dungeon.level.drop(returned, Dungeon.hero.pos);
 							}

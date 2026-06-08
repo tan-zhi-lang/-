@@ -64,7 +64,7 @@ public class VaultFlameTraps extends Blob {
 					if (ch == Dungeon.hero){
 						Sample.INSTANCE.play(Assets.Sounds.BURNING);
 						SFXLastPlayed = ShatteredPixelDungeon.realTime;
-						ch.sprite.showStatus(CharSprite.削弱, "!!!");
+						ch.sprite.showStatus(CharSprite.削弱红,"!!!");
 					}
 					/*if (ch != null && !ch.isImmune(Fire.class)) {
 						Buff.affect( ch, Burning.class ).reignite( ch );

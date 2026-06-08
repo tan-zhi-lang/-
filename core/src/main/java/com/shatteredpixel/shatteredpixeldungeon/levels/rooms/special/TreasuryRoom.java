@@ -49,7 +49,7 @@ public class TreasuryRoom extends SpecialRoom {
 				do {
 					pos = level.pointToCell(random());
 				} while (level.map[pos] != Terrain.EMPTY);
-				level.drop( new Gold().random(), pos );
+				level.drop( new Gold(Random.IntRange(2,3)), pos );
 			}
 		}
 		

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -51,18 +52,8 @@ public class DM0 extends Mob {
 	}
 	
 	@Override
-	public void 受伤时(float dmg, Object 来源) {
-		
-		if(来源 instanceof Paralysis){
-			dmg=最大生命;
-		}else{
-			dmg=0;
-		}
-		super.受伤时(dmg,来源);
-	}
-	@Override
 	public boolean add( Buff buff) {
-		if(buff instanceof Paralysis){
+		if(buff instanceof Paralysis||buff instanceof 落石法杖.落石){
 			受伤时(最大生命,buff);
 			return true;
 		}

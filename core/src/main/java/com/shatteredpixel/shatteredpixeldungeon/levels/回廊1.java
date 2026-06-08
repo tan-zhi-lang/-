@@ -157,7 +157,7 @@ public class 回廊1 extends Level {
 				if(在草丛(pos)){
 					x+=0.25f;
 					Mob mob=new Rat();
-					mob.生命=mob.最大生命=mob.最大生命*x*Dungeon.难度生命();
+					mob.生命=mob.最大生命=mob.最大生命*x*Dungeon.难度生命(mob);
 					mob.pos=pos;
 
 					Buff.施加(mob,MagicalSleep.class);

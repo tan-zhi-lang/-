@@ -165,7 +165,7 @@ public abstract class Elemental extends Mob {
 			rangedProc( enemy );
 			
 		} else {
-			enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+			enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 		}
 
 		rangedCooldown = Random.NormalIntRange( 3, 5 );

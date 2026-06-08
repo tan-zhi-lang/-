@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -14,11 +15,8 @@ public class 铜钱剑 extends Weapon{
 		image = 物品表.铜钱剑;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		tier = 1;
-		延迟= 0.85f;
-		伤害= 0.68f;
-		伏击=0.75f;
-//		连招范围=3;
-		范围 = 3;
+		伤害= 0.6f;
+		魔法=0.5f;
 		
 		特别= true;
 
@@ -26,7 +24,9 @@ public class 铜钱剑 extends Weapon{
 
 	@Override
 	public int 强化等级(){
-		return super.强化等级()*3;
+		int level = super.强化等级();
+		if(Dungeon.hero()) level+=Dungeon.hero.等级(0.2f)+Dungeon.hero.魔力(0.1f);
+		return level;
 	}
 
 	@Override

@@ -23,11 +23,11 @@ public class WandOfMagicMissile extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return 魔力(0.2f,0.75f);
+		return 魔力(0.2f,0.1f*1.25f);
 	}
 
 	public float max(int lvl){
-		return 魔力(0.8f,0.5f);
+		return 魔力(0.8f,0.2f*1.25f);
 	}
 	
 	@Override

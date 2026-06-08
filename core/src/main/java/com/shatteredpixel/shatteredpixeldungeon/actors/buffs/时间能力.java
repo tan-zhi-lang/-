@@ -103,7 +103,7 @@ public class 时间能力 extends Buff implements ActionIndicator.Action {
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
 		txt.text(Float.toString(时间能力));
-		txt.hardlight(CharSprite.增强);
+		txt.hardlight(CharSprite.增强绿);
 		txt.measure();
 		return txt;
 	}

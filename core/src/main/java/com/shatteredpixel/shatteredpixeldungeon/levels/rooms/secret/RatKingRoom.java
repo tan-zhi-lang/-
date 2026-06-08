@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.sewerboss.SewerBossEntranceRoom;
+import com.watabou.utils.Random;
 
 public class RatKingRoom extends SecretRoom {
 	
@@ -59,7 +60,7 @@ public class RatKingRoom extends SecretRoom {
 			return;
 		}
 		
-		Item prize = new Gold().random();
+		Item prize = new Gold(Random.IntRange(2,3));
 		
 		level.drop( prize, pos ).type = Heap.Type.CHEST;
 	}

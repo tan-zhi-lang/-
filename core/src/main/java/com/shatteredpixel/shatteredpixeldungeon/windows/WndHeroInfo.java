@@ -185,8 +185,8 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case CLERIC:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-										  new ItemSprite(物品表.WEAPON_HOLDER),
-										  new ItemSprite(物品表.ARMOR_HOLDER),
+							new TalentIcon(Talent.洗筋伐髓),
+							new ItemSprite(物品表.WAND_HOLDER),
 							new BuffIcon(BuffIndicator.LIGHT, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
@@ -311,9 +311,9 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case 来世:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							  new ItemSprite(物品表.GOLD),
+							  new ItemSprite(物品表.优惠卡),
 										  new TalentIcon(Talent.洗筋伐髓),
-							  new ItemSprite(物品表.ENERGY),
+							  new ItemSprite(物品表.FOOD_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 			}

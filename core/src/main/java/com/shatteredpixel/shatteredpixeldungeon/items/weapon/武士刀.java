@@ -12,8 +12,7 @@ public class 武士刀 extends Weapon {
 	{
 		image = 物品表.KATANA;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		延迟=1.15f;
-		伤害=0.85f;
+		延迟=1.25f;
 		技能=new 突刺();
 		tier = 2;
 	}

@@ -30,7 +30,7 @@ public class ElixirOfHoneyedHealing extends Elixir {
 		治疗药剂.cure(hero);
 		治疗药剂.heal(hero);
 		Buff.施加(hero, Hunger.class).吃饭(Hunger.HUNGRY/2f);
-		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.round(Hunger.HUNGRY/2f)), FloatingText.HUNGER);
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(Math.round(Hunger.HUNGRY/2f)),FloatingText.HUNGER);
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class ElixirOfHoneyedHealing extends Elixir {
 	}
 	@Override
 	public String desc(){
-		if(Dungeon.isChallenged(Challenges.NO_HEALING))return "你对此过敏，会中毒。";
+		if(Dungeon.isChallenged(Challenges.NO_HEALING)&&已鉴定())return "你对此过敏，会中毒。";
 		return super.desc();
 	}
 	@Override

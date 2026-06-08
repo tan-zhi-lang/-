@@ -505,7 +505,7 @@ public class WndKeyBindings extends Window {
 
 				if (event.code != 0 && (event.code == curKeyCode || event.code == otherBoundKey1 || event.code == otherBoundKey2)){
 					warnErr.text(Messages.get(this, "error"));
-					warnErr.hardlight(CharSprite.削弱);
+					warnErr.hardlight(CharSprite.削弱红);
 					btnConfirm.enable(false);
 
 				} else if (event.code != 0 && changedBindings.get(changedKeyCode) != null){
@@ -516,7 +516,7 @@ public class WndKeyBindings extends Window {
 						}
 					}
 					warnErr.text(Messages.get(this, "warning", Messages.get(WndKeyBindings.class, changedBindings.get(changedKeyCode).name() )));
-					warnErr.hardlight(CharSprite.WARNING);
+					warnErr.hardlight(CharSprite.警告橙);
 					btnConfirm.enable(true);
 
 				} else {

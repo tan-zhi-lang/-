@@ -44,14 +44,20 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.醍醐灌顶冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.静止状态;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
@@ -175,7 +181,7 @@ public enum Talent {
 	六芒星针(x18+14,4),丝缕缠流(x18+15,4),引针族射(x18+16,4),
 
 	药剂测试(x19+9,4),破解符文(x19+10,4),
-	天命之赐(x19+12,4),天命眷顾(x19+12,4),欧皇庇护(x19+13,4),
+	天命之赐(x19+11,4),天命眷顾(x19+12,4),欧皇庇护(x19+13,4),
 	废寝忘食(x19+14,4),醍醐灌顶(x19+15,4),归档资料(x19+16,4),
 
 
@@ -501,7 +507,7 @@ public enum Talent {
 		Buff.施加(hero, 静止状态.class).set(1);
 		hero.buff(静止状态.class).pos = hero.pos;
 		if(hero.符文("永不动摇")&&hero.buff(静止状态.class).count>=5)hero.回已损失血(0.05f);
-		if(hero.subClass(HeroSubClass.真人)&&hero.职业精通())hero.护甲(hero.buff(静止状态.class).count/10f);
+
 		if(hero.buff(静止状态.class).count>3){
 			if(hero.belongings.weapon instanceof 变态刀)
 				Buff.延长(hero,Invisibility.class,Invisibility.DURATION);
@@ -511,9 +517,12 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		float h=foodVal+hero.天赋点数(Talent.备战,3);
+		float h=foodVal+hero.天赋点数(Talent.备战,2.5f);
+		if(hero.天赋(Talent.备战))hero.护甲(hero.天赋点数(Talent.备战,1.5f));
+		if(Dungeon.符文("吃货"))h+=hero.最大生命(0.125f);
 		if(Dungeon.符文("饭桶"))h+=hero.最大生命(0.05f);
 		if(Dungeon.符文("细嚼慢咽"))h*=2;
+
 		hero.回血(h);
 
 		if(hero.符文("饿死鬼投胎")&&hero.buff(Hunger.class).空腹()){
@@ -527,7 +536,7 @@ public enum Talent {
 			hero.大小成长+=foodVal*0.025f;
 		}
 		if(hero.符文("饭桶")){
-			hero.恢复百分比护甲(0.1f*foodVal);
+			hero.回百分比护甲(0.1f*foodVal);
 		}
 		if (hero.heroClass(HeroClass.学士)){
 			if (hero.cooldown() > 0) {
@@ -610,9 +619,11 @@ public enum Talent {
 		return factor;
 	}
 
-	public static void 饮用药剂(Hero hero,int cell,float factor){
-		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.05f));
+	public static void 饮用药剂(Hero hero,int cell,float factor,Item item){
+		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.04f));
+		if(hero.符文("止渴"))hero.回百分比血(0.08f);
 
+		if(hero.符文("5号化合剂")&&item instanceof Elixir)hero.化合剂++;
 		if(hero.符文("我不是药王"))hero.生命成长+=5;
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
@@ -627,7 +638,7 @@ public enum Talent {
 	}
 
 	public static void 阅读卷轴(Hero hero,int pos,float factor,Class<?extends Item> cls){
-		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.05f));
+		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.04f));
 
 		if(hero.符文("读万卷书"))hero.生命成长+=5;
 		if(hero.符文("作弊:我能回城")&&cls==来去秘卷.class){
@@ -694,7 +705,28 @@ public enum Talent {
 	public static void 拾取时(Hero hero, Item item ){
 
 		if(Dungeon.赛季(赛季设置.回廊传说))item.鉴定();
-
+		if(hero.符文("肉鸽:武器")){
+			if(item instanceof KindofMisc){
+				if(!(item instanceof Weapon))
+				Generator.randomWeapon().放背包();
+			}
+		}
+		if(hero.符文("我不吃牛肉")){
+			if(item instanceof MysteryMeat){
+				item.detach();
+				hero.力量+=7.5f;
+			}
+		}
+		if(hero.符文("肉鸽:药剂")){
+			if(item instanceof Scroll){
+				Generator.randomPotion().放背包();
+			}
+		}
+		if(hero.符文("肉鸽:卷轴")){
+			if(item instanceof Potion){
+				Generator.randomScroll().放背包();
+			}
+		}
 	}
 
 	public static float 伏击时(Hero hero, Char enemy, float dmg ){
@@ -702,7 +734,9 @@ public enum Talent {
 		if(hero.hasbuff(Invisibility.class)){
 			dmg+=0.5f;
 		}
-		dmg+=hero.天赋点数(Talent.埋伏,1.5f);
+		if(hero.天赋(Talent.埋伏))
+		dmg+=hero.天赋点数(Talent.埋伏,2.5f);
+
 		enemy.第x次背袭++;
 		if(enemy.第x次背袭==1){
 			dmg+=0.5f;

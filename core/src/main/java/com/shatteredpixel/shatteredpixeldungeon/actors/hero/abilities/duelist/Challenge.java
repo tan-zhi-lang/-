@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
@@ -198,7 +199,7 @@ public class Challenge extends ArmorAbility {
 
 		@Override
 		public String iconTextDisplay() {
-			return Float.toString(left);
+			return 算法.kw2(left);
 		}
 
 		public void addDamage(float dmg){

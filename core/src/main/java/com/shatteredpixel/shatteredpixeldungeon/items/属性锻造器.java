@@ -23,21 +23,61 @@ public class 属性锻造器 extends 用品 {
 		特别= true;
 	}
 
-	public int 用过=0;
-	private static final String 用过x=        "用过";
+	public int 用过1=0;
+	public int 用过2=0;
+	public int 用过3=0;
+	private static final String 用过1x=        "用过1";
+	private static final String 用过2x=        "用过2";
+	private static final String 用过3x=        "用过3";
 	@Override
 	public void storeInBundle( Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(用过x,用过);
+		bundle.put(用过1x,用过1);
+		bundle.put(用过2x,用过2);
+		bundle.put(用过3x,用过3);
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
-		用过= bundle.getInt(用过x);
+		用过1= bundle.getInt(用过1x);
+		用过2= bundle.getInt(用过2x);
+		用过3= bundle.getInt(用过3x);
+	}
+	public Item 清空使用(){
+		用过1=使用上限1();
+		用过2=使用上限2();
+		用过3=使用上限3();
+		return this;
+	}
+	public void 用过(){
+		用过1=使用1();
+		用过2=使用2();
+		用过3=使用3();
+	}
+	public int 使用(){
+		return 使用1()+使用2()+使用3();
+	}
+	public int 使用1(){
+		return 使用上限1()-用过1;
+	}
+	public int 使用2(){
+		return 使用上限2()-用过2;
+	}
+	public int 使用3(){
+		return 使用上限3()-用过3;
 	}
 	public int 使用上限(){
-		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0)-用过;
+		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0);
+	}
+	public int 使用上限1(){
+		return 使用上限();
+	}
+	public int 使用上限2(){
+		return 使用上限();
+	}
+	public int 使用上限3(){
+		return 使用上限();
 	}
 	@Override
 	public void 使用(Hero hero){
@@ -51,6 +91,6 @@ public class 属性锻造器 extends 用品 {
 
 	@Override
 	public int 金币() {
-		return 125;
+		return 75;
 	}
 }

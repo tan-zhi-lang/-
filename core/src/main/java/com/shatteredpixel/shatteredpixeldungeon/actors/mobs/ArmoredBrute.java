@@ -34,7 +34,7 @@ public class ArmoredBrute extends Brute {
 		Buff.施加(this, ArmoredRage.class).设置(最大生命 /2);
 		
 		if (Dungeon.level.heroFOV[pos]) {
-			sprite.showStatus( CharSprite.WARNING, Messages.get(this, "enraged") );
+			sprite.showStatus(CharSprite.警告橙,Messages.get(this,"enraged"));
 		}
 		spend( TICK );
 		hasRaged = true;

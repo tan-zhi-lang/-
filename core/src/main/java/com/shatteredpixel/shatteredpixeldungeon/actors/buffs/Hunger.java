@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -80,21 +81,21 @@ public class Hunger extends Buff implements Hero.Doom {
 		if (on) target.sprite.aura( color, rays );
 		else target.sprite.clearAura();
 	}
-	public float 饥饿速度(){
+	public static float 饥饿速度(){
 		float x=1;
 
-		if (target.buff(Shadows.class) != null){
+		if (Dungeon.hero.buff(Shadows.class) != null){
 			x /= 2;
 		}
 		if(Dungeon.符文("短跑壮如牛长跑瘦如猴"))
-			x *= target.移速();
+			x *= Dungeon.hero.移速();
 		if(Dungeon.符文("大胃王"))
-			x /= 2;
+			x /= 3;
 		if(Dungeon.符文("树懒转世"))
 			x /= 2;
 		if(Dungeon.解压(解压设置.抗饿能手))
 			x /= 2;
-		if(Dungeon.符文("我是瘦子"))x/=2;
+		if(Dungeon.符文("我是瘦子"))x/=4f;
 		x*=SaltCube.hungerGainMultiplier();
 		x*=血腥生肉.饥饿();
 
@@ -167,7 +168,22 @@ public class Hunger extends Buff implements Hero.Doom {
 		return true;
 	}
 
+	public static float 吃饭效率() {
+		float energy=1;
+
+		if(Dungeon.hero.heroClass(HeroClass.来世))energy*=4/3f;
+
+		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
+			energy /= 2f;
+		}
+		if(Dungeon.符文("细嚼慢咽"))energy*=2;
+
+		return energy;
+	}
 	public void 吃饭(float energy ) {
+		if(Dungeon.hero()){
+			energy*=吃饭效率();
+		}
 		affectHunger( energy, false );
 	}
 	public void affectHunger(float energy, boolean overrideLimits ) {
@@ -190,9 +206,9 @@ public class Hunger extends Buff implements Hero.Doom {
 		float oldLevel = level;
 
 		level = Math.max(0,level-energy);
-		if (level < 0 && !overrideLimits) {
-			level = 0;
-		}
+//		if (level < 0 && !overrideLimits) {
+//			level = 0;
+//		}
 
 		if (oldLevel < HUNGRY && level >= HUNGRY){
 			GLog.w( Messages.get(this, "onhungry") );

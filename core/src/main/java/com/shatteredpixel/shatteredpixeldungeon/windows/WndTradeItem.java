@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
-import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -22,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CurrencyIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 
 public class WndTradeItem extends WndInfoItem {
 
@@ -208,7 +208,8 @@ public class WndTradeItem extends WndInfoItem {
 		
 		Hero hero = Dungeon.hero;
 		
-		if (item.isEquipped( hero ) && !((EquipableItem)item).doUnequip( hero, false )) {
+		if (item.isEquipped( hero )) {
+//		if (item.isEquipped( hero ) && !((EquipableItem)item).doUnequip( hero, false )) {
 			return;
 		}
 		if(hero.符文("出售武器Bug")&&item instanceof Weapon w){
@@ -222,7 +223,7 @@ public class WndTradeItem extends WndInfoItem {
 		//selling items in the sell interface doesn't spend time
 		hero.spend(-hero.cooldown());
 
-		new Gold( item.金币() ).doPickUp( hero );
+		Dungeon.gold(item.金币提升(),shop.pos);
 
 		if (shop != null){
 			shop.buybackItems.add(item);
@@ -249,7 +250,7 @@ public class WndTradeItem extends WndInfoItem {
 			//selling items in the sell interface doesn't spend time
 			hero.spend(-hero.cooldown());
 
-			new Gold( item.金币() ).doPickUp( hero );
+			Dungeon.gold(item.金币提升());
 
 			if (shop != null){
 				shop.buybackItems.add(item);
@@ -266,7 +267,11 @@ public class WndTradeItem extends WndInfoItem {
 		if (item == null) return;
 		
 		int price = Shopkeeper.sellPrice( item );
-		Dungeon.gold(-price);
+		if(Dungeon.符文("手慢无")&&算法.概率学(1/3f)){
+
+		}else
+		Dungeon.gold(-price,heap.pos);
+
 		Catalog.countUses(Gold.class, price);
 		
 		if (!item.doPickUp( Dungeon.hero )) {

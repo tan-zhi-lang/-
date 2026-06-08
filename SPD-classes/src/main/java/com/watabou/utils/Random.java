@@ -58,15 +58,27 @@ public class Random {
 	public static synchronized float Float() {
 		return Float(true);
 	}
+	public static synchronized double Double() {
+		return Double(true);
+	}
 
 	public static synchronized float Float( boolean useGeneratorStack ) {
 		if (useGeneratorStack)  return generators.peekFirst().nextFloat();
 		else                    return generators.peekLast().nextFloat();
 	}
 
+	public static synchronized double Double( boolean useGeneratorStack ) {
+		if (useGeneratorStack)  return generators.peekFirst().nextDouble();
+		else                    return generators.peekLast().nextDouble();
+	}
+
 	//returns a uniformly distributed float in the range [0, max)
 	public static float Float( float max ) {
 		return Float() * max;
+	}
+
+	public static double Double( double max ) {
+		return Double() * max;
 	}
 
 	//returns a uniformly distributed float in the range [min, max)
@@ -177,7 +189,55 @@ public class Random {
 		
 		return -1;
 	}
-	
+	public static int chances( double[] chances ) {
+
+		int length = chances.length;
+
+		double sum = 0;
+		for (int i=0; i < length; i++) {
+			sum += Math.max(0, chances[i]);
+		}
+
+		if (sum <= 0){
+			return -1;
+		}
+
+		double value = Double( sum );
+		sum = 0;
+		for (int i=0; i < length; i++) {
+			sum += Math.max(0, chances[i]);
+			if (value < sum) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+	public static int chances( int[] chances ) {
+
+		int length = chances.length;
+
+		int sum = 0;
+		for (int i=0; i < length; i++) {
+			sum += Math.max(0, chances[i]);
+		}
+
+		if (sum <= 0){
+			return -1;
+		}
+
+		int value = Int( sum );
+		sum = 0;
+		for (int i=0; i < length; i++) {
+			sum += Math.max(0, chances[i]);
+			if (value < sum) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
 	@SuppressWarnings("unchecked")
 	//returns a key element from chances, the probability of each key is the weight value it maps to
 	public static <K> K chances( HashMap<K,Float> chances ) {

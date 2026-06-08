@@ -40,8 +40,7 @@ public class 灵能短弓 extends Weapon {
 		tier=1;
 
 		绿色 = true;
-		伤害=0.75f;
-		延迟=1.5f;
+		伤害=0.6f;
 		特别= true;
 		专属= true;
 	}
@@ -85,10 +84,10 @@ public class 灵能短弓 extends Weapon {
 		return 最小弓箭攻击(强化等级());
 	}
 	public float 最小弓箭攻击(int lvl) {
-		float dmg =1+ lvl/5f
-				   +(curseInfusionBonus ? 1 + lvl/5f : 0);
+		float dmg =1+ lvl/7.5f
+				   +(curseInfusionBonus ? 1 + lvl/10f : 0);
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
-		dmg*=1.5f;
+		dmg*=1.25f;
 		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}
@@ -97,10 +96,10 @@ public class 灵能短弓 extends Weapon {
 		return 最大弓箭攻击(强化等级());
 	}
 	public float 最大弓箭攻击(int lvl) {
-		float dmg =6f+ lvl/2.5f
-				   +(curseInfusionBonus ? 2 + lvl/2.5f : 0);
+		float dmg =6f+ lvl/3.4f
+				   +(curseInfusionBonus ? 2 + lvl/5f : 0);
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
-		dmg*=1.5f;
+		dmg*=1.25f;
 		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}
@@ -118,7 +117,6 @@ public class 灵能短弓 extends Weapon {
 	
 	@Override
 	protected float baseDelay(Char owner) {
-		float d=1;
 		if (sniperSpecial){
 			switch (augment){
 				case NONE: default:
@@ -131,16 +129,15 @@ public class 灵能短弓 extends Weapon {
 					return 3;
 			}
 		} else{
-			return super.baseDelay(owner)/d;
+			return super.baseDelay(owner);
 		}
 	}
 
 	@Override
 	public int 强化等级(){
-
-		int level = Dungeon.hero == null ? 0 : Dungeon.hero.等级 /5;
-		if (curseInfusionBonus) level += 1 + level/5;
-		return level+super.强化等级();
+		int level = super.强化等级();
+		if(Dungeon.hero())level+=Dungeon.hero.等级(0.2f)+Dungeon.hero.魔力(0.1f);
+		return level;
 	}
 
 	public SpiritArrow knockArrow(){
@@ -151,7 +148,6 @@ public class 灵能短弓 extends Weapon {
 		
 		{
 			image = 物品表.SPIRIT_ARROW;
-
 			hitSound = Assets.Sounds.HIT_ARROW;
 
 		}
@@ -214,7 +210,8 @@ public class 灵能短弓 extends Weapon {
 						break;
 				}
 			}
-
+			if(defender!=null&&defender.isAlive())defender.受伤时(damage*0.75f);
+			damage/=4;
 			return 灵能短弓.this.投掷攻击时(attacker, defender, damage);
 		}
 		

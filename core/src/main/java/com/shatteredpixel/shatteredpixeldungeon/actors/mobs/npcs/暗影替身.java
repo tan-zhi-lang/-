@@ -92,15 +92,15 @@ public class 暗影替身 extends NPC {
 		this.hero = hero;
 		heroID = this.hero.id();
 	}
-	public int 等级(){
-		if(hero!=null){
-			return 1+hero.belongings.getItem(虫箭.class).等级();
-		}else return 1;
+	public float 等级(){
+		if(hero!=null&&hero.belongings.hasItem(虫箭.class)){
+			return hero.belongings.getItem(虫箭.class).等级()*0.1f;
+		}else return 0;
 	}
 	@Override
 	public float 移速(){
 		if (hero != null) {
-			return hero.移速()*(1+等级()*0.2f);
+			return hero.移速()*(1+等级());
 		} else {
 			return super.移速();
 		}
@@ -109,7 +109,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 攻击延迟(){
 		if (hero != null) {
-			return hero.攻击延迟()/(1+(hero.符文("力速双A替身")?0.45f:0)+等级()*0.2f);
+			return hero.攻击延迟()/(1+(hero.符文("力速双A替身")?0.45f:0)+等级());
 		} else {
 			return super.攻击延迟();
 		}
@@ -118,7 +118,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最小攻击() {
 		if (hero != null) {
-			return hero.最小攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级()*0.2f);
+			return hero.最小攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级());
 		} else {
 			return 0;
 		}
@@ -126,7 +126,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最大攻击() {
 		if (hero != null) {
-			return hero.最大攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级()*0.2f);
+			return hero.最大攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级());
 		} else {
 			return 0;
 		}
@@ -135,7 +135,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最小命中(Char target ) {
 		if (hero != null) {
-			return Math.round(hero.最小命中(target)*(1+等级()*0.2f));
+			return Math.round(hero.最小命中(target)*(1+等级()));
 		}else{
 			return 0;
 		}
@@ -143,7 +143,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最大命中(Char target ) {
 		if (hero != null) {
-			return Math.round(hero.最大命中(target)*(1+等级()*0.2f));
+			return Math.round(hero.最大命中(target)*(1+等级()));
 		} else {
 			return 0;
 		}
@@ -151,7 +151,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最小闪避(Char target ) {
 		if (hero != null) {
-			return Math.round(hero.最小闪避(target)*(1+等级()*0.2f));
+			return Math.round(hero.最小闪避(target)*(1+等级()));
 		} else {
 			return 0;
 		}
@@ -159,7 +159,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public int 最大闪避(Char enemy) {
 		if (hero != null) {
-			return Math.round(hero.最大闪避(enemy)*(1+等级()*0.2f));
+			return Math.round(hero.最大闪避(enemy)*(1+等级()));
 		} else {
 			return 0;
 		}
@@ -168,7 +168,7 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最小防御() {
 		if (hero != null){
-			return hero.最小防御()*(1+等级()*0.2f);
+			return hero.最小防御()*(1+等级());
 		}else{
 			return 0;
 		}
@@ -176,16 +176,54 @@ public class 暗影替身 extends NPC {
 	@Override
 	public float 最大防御() {
 		if (hero != null){
-			return hero.最大防御()*(1+等级()*0.2f);
+			return hero.最大防御()*(1+等级());
 		}else{
 			return 0;
 		}
 	}
-	
+
+	@Override
+	public float 最小魔抗() {
+		if (hero != null){
+			return hero.最大魔抗()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+	@Override
+	public float 最大魔抗() {
+		if (hero != null){
+			return hero.最大魔抗()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+
+	@Override
+	public float 暴击率() {
+		if (hero != null){
+			return hero.暴击率()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+
+	@Override
+	public float 暴击伤害() {
+		if (hero != null){
+			return hero.暴击伤害()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+
 	@Override
 	public float 攻击时(final Char enemy, float damage) {
 		if (enemy instanceof Mob) {
 			((Mob)enemy).aggro( this );
+			if(hero!=null&&hero.belongings.hasItem(虫箭.class)){
+				hero.belongings.getItem(虫箭.class).经验升级();
+			}
 		}
 		if (hero != null){
 			return hero.攻击时(enemy, damage);
@@ -204,13 +242,13 @@ public class 暗影替身 extends NPC {
 
 	@Override
 	public String description(){
-		return Messages.get(this,"desc",Math.round(100-等级()*7.5f));
+		return Messages.get(this,"desc",Math.round((1-等级()/3f)*100));
 	}
 
 	@Override
 	public void 受伤时(float dmg,Object 来源){
 		if (hero != null){
-			hero.受伤时(dmg*(1-0.075f*等级()),来源);
+			hero.受伤时(dmg*(1-等级()/3f),来源);
 		}
 	}
 	

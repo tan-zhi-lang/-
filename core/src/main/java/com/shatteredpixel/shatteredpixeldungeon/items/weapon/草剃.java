@@ -19,7 +19,6 @@ public class 草剃 extends Weapon {
 
 		特别=true;
 		绿色=true;
-		伏击=0.5f;
 		tier = 5;
 	}
 	

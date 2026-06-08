@@ -147,15 +147,39 @@ public class Messages {
 	/**
 	 * String Utility Methods
 	 */
-
-	public static String format( String format, Object...args ) {
+	public static String format(String format, Object... args) {
 		try {
-			return String.format(locale(), format, args);
+			// 1. 预处理参数：将所有浮点数保留2位小数
+			Object[] processedArgs = new Object[args.length];
+			for (int i = 0; i < args.length; i++) {
+				Object arg = args[i];
+				// 判断是否为浮点数类型（Float/Double，包含自动装箱）
+				if (arg instanceof Float || arg instanceof Double) {
+					// 转为double并保留2位小数
+					double num = ((Number) arg).doubleValue();
+					// 格式化浮点数为2位小数的字符串（通用兼容所有格式符）
+					processedArgs[i] = String.format(Locale.ROOT, "%.2f", num);
+				} else {
+					// 非浮点数参数，直接保留原值
+					processedArgs[i] = arg;
+				}
+			}
+			// 2. 用处理后的参数执行格式化（保留原有的locale()）
+			return String.format(locale(), format, processedArgs);
 		} catch (IllegalFormatException e) {
-			ShatteredPixelDungeon.reportException( new Exception("formatting error for the string: " + format, e) );
+			// 原有异常上报逻辑完全保留
+			ShatteredPixelDungeon.reportException(new Exception("formatting error for the string: " + format, e));
 			return format;
 		}
 	}
+//	public static String format( String format, Object...args ) {
+//		try {
+//			return String.format(locale(), format, args);
+//		} catch (IllegalFormatException e) {
+//			ShatteredPixelDungeon.reportException( new Exception("formatting error for the string: " + format, e) );
+//			return format;
+//		}
+//	}
 
 	private static HashMap<String, DecimalFormat> formatters;
 

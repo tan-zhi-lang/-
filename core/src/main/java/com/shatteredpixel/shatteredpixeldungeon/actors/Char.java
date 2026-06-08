@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StormCloud;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
@@ -22,7 +21,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Daze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
@@ -105,13 +103,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
@@ -127,13 +125,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazin
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GeyserTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GnollRockfallTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
@@ -164,7 +160,7 @@ public abstract class Char extends Actor {
 	public int pos = 0;
 	
 	public CharSprite sprite;
-	
+
 	public float 最大生命=0;
 	public float 负数生命=0;
 	public float 生命=0;
@@ -187,8 +183,11 @@ public abstract class Char extends Actor {
 	public boolean 诡异 =false;
 	public boolean 移速翻倍=false;
 	public boolean 移速减半=false;
-	public float 属性增幅 = 0.02f;
 
+	public float 属性增幅(){
+		float x=0.015f;
+		return x;
+	}
 	protected float 攻击延迟	= 1;
 	protected float baseSpeed	= 1;
 	protected PathFinder.Path path;
@@ -442,7 +441,7 @@ public abstract class Char extends Actor {
 		if (enemy.是无敌(getClass())) {
 
 			if (visibleFight) {
-				enemy.sprite.showStatus( CharSprite.增强, Messages.get(this, "invulnerable") );
+				enemy.sprite.showStatus(CharSprite.增强绿,Messages.get(this,"invulnerable"));
 
 				Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1f, Random.Float(0.96f, 1.05f));
 			}
@@ -459,7 +458,12 @@ public abstract class Char extends Actor {
 			dr*=AscensionChallenge.statModifier(enemy);
 
 			if(enemy instanceof Mob){
-				dr*=Dungeon.难度防御();
+				dr*=Dungeon.难度防御(enemy);
+				if(Dungeon.hero()){
+					if(老鬼()){//老鬼因为机制问题，所以不好做增加生命
+						dr*=1+(0.1f*Dungeon.难度生命(enemy));
+					}
+				}
 				if(Dungeon.符文("三国杀:吕布"))dr/=2;
 			}
 
@@ -491,7 +495,7 @@ public abstract class Char extends Actor {
 					if(Dungeon.赛季(赛季设置.回廊传说))
 						dmg=最大攻击();
 
-					dmg*=Dungeon.难度攻击();
+					dmg*=Dungeon.难度攻击(this);
 				}
 				if(Dungeon.派对(派对设置.英雄联盟)){
 					dmg=最小攻击()+最大攻击();
@@ -512,10 +516,6 @@ public abstract class Char extends Actor {
 
 			dmg *= AscensionChallenge.statModifier(this);
 
-
-			if (enemy.buff(ScrollOfChallenge.ChallengeArena.class) != null){
-				dmg *= 0.67f;
-			}
 
 			if (enemy.buff(MonkEnergy.MonkAbility.Meditate.MeditateResistance.class) != null){
 				dmg *= 0.2f;
@@ -593,7 +593,7 @@ public abstract class Char extends Actor {
 						enemy.死亡时(this);
 				}
 				if (enemy.sprite != null) {
-					enemy.sprite.showStatus(CharSprite.削弱, Messages.get(潜伏.class,"assassinated"));
+					enemy.sprite.showStatus(CharSprite.削弱红,Messages.get(潜伏.class,"assassinated"));
 				}
 			}
 
@@ -631,13 +631,13 @@ public abstract class Char extends Actor {
 					//dooking is a playful sound Ferrets can make, like low pitched chirping
 					// I doubt this will translate, so it's only in English
 					if (hitMissIcon == FloatingText.MISS_TUFT && Messages.lang() == Languages.ENGLISH && Random.Int(10) == 0) {
-						enemy.sprite.showStatusWithIcon(CharSprite.NEUTRAL, "dooked", hitMissIcon);
+						enemy.sprite.showStatusWithIcon(CharSprite.中性黄,"dooked",hitMissIcon);
 					} else {
-						enemy.sprite.showStatusWithIcon(CharSprite.NEUTRAL, enemy.defenseVerb(), hitMissIcon);
+						enemy.sprite.showStatusWithIcon(CharSprite.中性黄,enemy.defenseVerb(),hitMissIcon);
 					}
 					hitMissIcon = -1;
 				} else {
-					enemy.sprite.showStatus(CharSprite.NEUTRAL, enemy.defenseVerb());
+					enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 				}
 			}
 			if (visibleFight) {
@@ -695,9 +695,12 @@ public abstract class Char extends Actor {
 				defStat=0;
 			}
 			if(hero.符文("我让你闪避"))defStat=0;
+			defStat*=Dungeon.难度闪避(defender);
 		}else{
 			if(attacker.诡异)
 				acuStat*=10;
+
+			acuStat*=Dungeon.难度命中(attacker);
 		}
 		if(defender instanceof Hero hero){
 			if(hero.符文("三国杀:赵云"))defStat+=acuStat;
@@ -968,7 +971,7 @@ public abstract class Char extends Actor {
 	public float 暴击判定(final Char enemy,float dmg){
 		if(enemy!=null){
 			if((hasbuff(必定暴击.class)||算法.概率学(暴击率()))){
-				dmg=dmg*(1+暴击伤害());
+				dmg*=(1+暴击伤害());
 				Buff.detach(this,必定暴击.class);
 				x次必暴=0;
 				if(sprite!=null){
@@ -993,12 +996,28 @@ public abstract class Char extends Actor {
 	public float 攻击时(final Char enemy, float damage ) {
 		if(enemy!=null)
 		第x次攻击++;
+		if(enemy!=null&&Dungeon.符文("诚信互钢")&&enemy.第x次防御==1){
+			damage+=叠钢();
+			Sample.INSTANCE.play(Assets.Sounds.心之钢);
+		}
 
 		if(enemy!=null)
 		Buff.刷新(this,战斗状态.class,5);
 
 		if(enemy!=null&&Dungeon.符文("友好老鬼")&&(老鬼()||小老鬼()))Dungeon.hero.回百分比血(0.05f);
 
+		if(this instanceof Hero hero){
+			if(!hero.符文("狂怒攻击")){
+				if(hero.符文("安内")){
+					if(Dungeon.level.adjacent(this,enemy)){
+						if(暴击判定(enemy,1)>1)
+							damage=暴击判定(enemy,damage*1.75f);
+					}else damage=暴击判定(enemy,damage*2f/3f);
+				}
+				else
+				damage=暴击判定(enemy,damage);
+			}
+		}else
 		damage=暴击判定(enemy,damage);
 		
 		if(enemy!=null&&吸血()>0){
@@ -1071,10 +1090,14 @@ public abstract class Char extends Actor {
 		if ( buff( 极速.class ) != null) speed *= 3f;
 		if ( buff( Dread.class ) != null) speed *= 2f;
 
+		speed*=重力场球.移速(this);
+
 		if(诡异)speed*=10f;
+
 		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
 		speed *= Flow.speedBoost(this, glyphLevel(Flow.class));
 		speed *= Bulk.speedBoost(this, glyphLevel(Bulk.class));
+
 		if(移速翻倍){
 			speed*=2;
 		}
@@ -1158,7 +1181,7 @@ public abstract class Char extends Actor {
 		}
 
 		if(是无敌(来源.getClass())){
-			sprite.showStatus(CharSprite.增强,Messages.get(this,"invulnerable"));
+			sprite.showStatus(CharSprite.增强绿,Messages.get(this,"invulnerable"));
 			return;
 		}
 
@@ -1210,6 +1233,16 @@ public abstract class Char extends Actor {
 			}
 		}
 
+
+		if(火焰伤害(来源))
+			dmg*=d火焰();
+		if(冰霜伤害(来源))
+			dmg*=d冰霜();
+		if(酸性伤害(来源))
+			dmg*=d酸性();
+		if(无机伤害(来源))
+			dmg*=d无机();
+
 		if(Dungeon.赛季(赛季设置.地牢塔防))
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
@@ -1256,18 +1289,8 @@ public abstract class Char extends Actor {
 		//				return;
 		//			}
 	//		}
-		if(Dungeon.hero()){
-			if(老鬼()){//老鬼因为机制问题，所以不好做增加生命
-				dmg*=(1f/Dungeon.难度生命());
-			}
-			if(诡异)dmg/=10f;
-		}
-		if(来源!=Frost.class&&在水中()){
-			if(Dungeon.hero.天赋(Talent.元素掌控))
-				算法.修复效果(()->{
-					Buff.施加(this,Frost.class,Dungeon.hero.天赋点数(Talent.元素掌控));
-				});
-		}
+
+		if(诡异)dmg/=10f;
 
 		Class<?> srcClass = 来源.getClass();
 		if (免疫( srcClass )) {
@@ -1285,12 +1308,17 @@ public abstract class Char extends Actor {
 		//TODO improve this when I have proper damage source logic
 		if (AntiMagic.RESISTS.contains(来源.getClass())){
 			if(Dungeon.hero()){
+				float 魔抗=Random.NormalFloat(最小魔抗(),最大魔抗());
+
 				if(Dungeon.hero.法术穿透()>0)
-					dmg*=Dungeon.hero.法术穿透();
+					魔抗*=1-Dungeon.hero.法术穿透();
 				if(Dungeon.hero.法穿()>0)
-					dmg-=Dungeon.hero.法穿();
+					魔抗-=Dungeon.hero.法穿();
+				dmg -= 魔抗;
+				if(this instanceof Mob&&Dungeon.hero.符文("法态:穿透"))
+					Buff.施加(Dungeon.hero,法态穿透.class,5);
+
 			}
-			dmg -= Random.NormalFloat(最小魔抗(),最大魔抗());
 			if (buff(ArcaneArmor.class) != null) {
 				dmg -= Random.NormalFloat(0, buff(ArcaneArmor.class).level());
 			}
@@ -1360,45 +1388,63 @@ public abstract class Char extends Actor {
 		
 		if (sprite != null) {
 			//defaults to normal damage icon if no other ones apply
-			int                                                         icon = FloatingText.PHYS_DMG;
-			if (NO_ARMOR_PHYSICAL_SOURCES.contains(来源.getClass())) icon = FloatingText.PHYS_DMG_NO_BLOCK;
+			int  icon = FloatingText.PHYS_DMG;
+//			if (NO_ARMOR_PHYSICAL_SOURCES.contains(来源.getClass())) icon = FloatingText.PHYS_DMG_NO_BLOCK;
 			if (AntiMagic.RESISTS.contains(来源.getClass())) icon = FloatingText.MAGIC_DMG;
-			if (来源 instanceof 镐子) icon = FloatingText.PICK_DMG;
+//			if (来源 instanceof 镐子) icon = FloatingText.PICK_DMG;
 
 			//special case for sniper when using ranged attacks
-			if (来源==Dungeon.hero
-				&& Dungeon.hero.subClass == HeroSubClass.狙击手){
-				icon = FloatingText.PHYS_DMG_NO_BLOCK;
-			}
+//			if (来源==Dungeon.hero
+//				&& Dungeon.hero.subClass == HeroSubClass.狙击手){
+//				icon = FloatingText.PHYS_DMG_NO_BLOCK;
+//			}
 
 			//special case for monk using unarmed abilities
-			if (来源==Dungeon.hero
-				&& Dungeon.hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null){
-				icon = FloatingText.PHYS_DMG_NO_BLOCK;
-			}
+//			if (来源==Dungeon.hero
+//				&& Dungeon.hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class) != null){
+//				icon = FloatingText.PHYS_DMG_NO_BLOCK;
+//			}
 
-			if (来源 instanceof Hunger) icon = FloatingText.HUNGER;
-			if (来源 instanceof 燃烧||来源 instanceof 火毒||来源 instanceof 灵焰) icon = FloatingText.BURNING;
-			if (来源 instanceof Chill||来源 instanceof Frost) icon = FloatingText.FROST;
-			if (来源 instanceof GeyserTrap||来源 instanceof StormCloud) icon = FloatingText.WATER;
-			if (来源 instanceof 燃烧) icon = FloatingText.BURNING;
-			if (来源 instanceof Electricity) icon = FloatingText.SHOCKING;
-			if (来源 instanceof 流血) icon = FloatingText.BLEEDING;
-			if (来源 instanceof ToxicGas) icon = FloatingText.TOXIC;
-			if (来源 instanceof Corrosion) icon = FloatingText.CORROSION;
-			if (来源 instanceof Poison) icon = FloatingText.POISON;
-			if (来源 instanceof Ooze) icon = FloatingText.OOZE;
-			if (来源 instanceof Viscosity.DeferedDamage) icon = FloatingText.DEFERRED;
-			if (来源 instanceof Corruption) icon = FloatingText.CORRUPTION;
-			if (来源 instanceof AscensionChallenge) icon = FloatingText.AMULET;
+//			if (来源 instanceof Hunger) icon = FloatingText.HUNGER;
+//			if (来源 instanceof 燃烧) icon = FloatingText.BURNING;
+//			if (来源 instanceof Chill||来源 instanceof Frost) icon = FloatingText.FROST;
+//			if (来源 instanceof GeyserTrap||来源 instanceof StormCloud) icon = FloatingText.WATER;
+//			if (来源 instanceof Electricity) icon = FloatingText.SHOCKING;
+//			if (来源 instanceof 流血) icon = FloatingText.BLEEDING;
+//			if (来源 instanceof ToxicGas) icon = FloatingText.TOXIC;
+//			if (来源 instanceof Corrosion) icon = FloatingText.CORROSION;
+//			if (来源 instanceof Poison) icon = FloatingText.POISON;
+//			if (来源 instanceof Ooze) icon = FloatingText.OOZE;
+//			if (来源 instanceof Viscosity.DeferedDamage) icon = FloatingText.DEFERRED;
+//			if (来源 instanceof Corruption) icon = FloatingText.CORRUPTION;
+//			if (来源 instanceof AscensionChallenge) icon = FloatingText.AMULET;
 
-			if ((icon == FloatingText.PHYS_DMG || icon == FloatingText.PHYS_DMG_NO_BLOCK) && hitMissIcon != -1){
-				if (icon == FloatingText.PHYS_DMG_NO_BLOCK) hitMissIcon += 18; //extra row
-				icon = hitMissIcon;
+//			if ((icon == FloatingText.PHYS_DMG || icon == FloatingText.PHYS_DMG_NO_BLOCK) && hitMissIcon != -1){
+//				if (icon == FloatingText.PHYS_DMG_NO_BLOCK)
+//					hitMissIcon += 18; //extra row
+//				icon = hitMissIcon;
+//			}
+//			hitMissIcon = -1;
+			if(dmg + shielded>2&&!Dungeon.赛季(赛季设置.地牢塔防))//伤害显示
+			{
+				if (AntiMagic.RESISTS.contains(来源.getClass()))
+				sprite.showStatusWithIcon(CharSprite.蓝色,dmg+shielded,icon);
+//				else if(来源 instanceof 燃烧||来源 instanceof Corrosion)
+//					sprite.showStatusWithIcon(CharSprite.警告橙,dmg+shielded,icon);
+//				else if (来源 instanceof Chill||来源 instanceof Frost||来源 instanceof GeyserTrap)
+//					sprite.showStatusWithIcon(CharSprite.蓝色,dmg+shielded,icon);
+//				else if (来源 instanceof ToxicGas||来源 instanceof Poison||来源 instanceof Hunger)
+//					sprite.showStatusWithIcon(CharSprite.增强绿,dmg+shielded,icon);
+//				else if (来源 instanceof Electricity)
+//					sprite.showStatusWithIcon(CharSprite.中性黄,dmg+shielded,icon);
+//				else if (来源 instanceof Ooze||来源 instanceof Corruption)
+//					sprite.showStatusWithIcon(CharSprite.黑色,dmg+shielded,icon);
+//				else if (来源 instanceof StormCloud)
+//					sprite.showStatusWithIcon(CharSprite.默认白,dmg+shielded,icon);
+//				else if (来源 instanceof 流血)
+//					sprite.showStatusWithIcon(CharSprite.削弱红,dmg+shielded,icon);
+				else sprite.showStatusWithIcon(CharSprite.削弱红,dmg+shielded,icon);//物理
 			}
-			hitMissIcon = -1;
-			if(dmg + shielded>=1&&!Dungeon.赛季(赛季设置.地牢塔防))
-				sprite.showStatusWithIcon(CharSprite.削弱, dmg + shielded, icon);
 		}
 
 		if (生命 < 0) 生命 = 0;
@@ -1506,6 +1552,7 @@ public abstract class Char extends Actor {
 	public float 攻击延迟() {
 		float delay = 攻击延迟;
 		if(诡异)delay/=10f;
+		delay*=重力场球.攻速(this);
 		return delay;
 	}
 	
@@ -1589,15 +1636,15 @@ public abstract class Char extends Actor {
 		if (sprite != null && buff.announced) {
 			switch (buff.type) {
 				case POSITIVE:
-					sprite.showStatus(CharSprite.增强, Messages.titleCase(buff.name()));
+					sprite.showStatus(CharSprite.增强绿,Messages.titleCase(buff.name()));
 					break;
 				case NEGATIVE:
 					吞噬灵魂(this);
-					sprite.showStatus(CharSprite.WARNING, Messages.titleCase(buff.name()));
+					sprite.showStatus(CharSprite.警告橙,Messages.titleCase(buff.name()));
 					break;
 				case NEUTRAL:
 				default:
-					sprite.showStatus(CharSprite.NEUTRAL, Messages.titleCase(buff.name()));
+					sprite.showStatus(CharSprite.中性黄,Messages.titleCase(buff.name()));
 					break;
 			}
 		}
@@ -1894,15 +1941,17 @@ public abstract class Char extends Actor {
 	public float 生命力(float x){
 		return 生命力()*x;
 	}
-	public float 护甲(float x){
+	public void 护甲(float x){
+		if(x>2)
+			sprite.showStatusWithIcon(CharSprite.增强绿,x,FloatingText.SHIELDING);
+
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲);
-		return 护甲;
 	}
 	public float 最大护甲(float x){
 		return 最大护甲*x;
 	}
-	public float 恢复百分比护甲(float x){
-		return 护甲(最大护甲*x);
+	public void 回百分比护甲(float x){
+		护甲(最大护甲*x);
 	}
 
 	public float 护甲伤害(float dmg){
@@ -1927,11 +1976,12 @@ public abstract class Char extends Actor {
 				护甲=0;
 			}
 		}
+		if(dmg<0)dmg=0;
 		return dmg;
 	}
 	public float 回满护甲(){
-		护甲=最大护甲;
-		return 护甲;
+		护甲(最大护甲);
+		return 最大护甲;
 	}
 	public float 护甲恢复(){
 		float 护甲恢复=0;
@@ -1970,23 +2020,27 @@ public abstract class Char extends Actor {
 	public float 最大生命(float x){
 		return 最大生命*x;
 	}
+	public boolean 大残(){
+		return 生命/最大生命<=0.1f;
+	}
 	public boolean 残血(){
-		return 生命/最大生命<=0.33f;
+		return 生命/最大生命<=0.4f;
 	}
 	public boolean 半血(){
-		return 生命/最大生命>0.33f&&(float)生命/最大生命<=0.66f;
+		return !残血()&&!康血();
 	}
 	public boolean 半血以下(){
 		return 生命/最大生命<=0.5f;
 	}
 	public boolean 康血(){
-		return 生命/最大生命>=0.66f;
+		return 生命/最大生命>=0.6f;
 	}
 	public boolean 满血(){
 		return 生命==最大生命;
 	}
-	public void 回满血(){
+	public float 回满血(){
 		回血(最大生命);
+		return 最大生命;
 	}
 	public void 回百分比血(float x){
 		回血(最大生命(x));
@@ -1997,14 +2051,27 @@ public abstract class Char extends Actor {
 	public float 治疗护盾(){
 		return 1;
 	}
+	public float 叠钢(){
+		Dungeon.叠钢+=0.12f*0.06f;
+
+		if(老鬼()||小老鬼()){
+
+		}else{
+			if(this instanceof Hero hero)hero.生命成长+=最大生命(0.12f*0.06f);
+//			GLog.i(Dungeon.叠钢+"");
+			最大生命*=1+Dungeon.叠钢;
+			回血(最大生命(0.12f*0.06f));
+		}
+		return 最大生命(0.12f);
+	}
 	public void 回血(float x){
 		x*=治疗护盾();
 		if(x>0){
 			生命=Math.min(生命+x,最大生命);
 
 			if (Dungeon.level.heroFOV[pos]){
-				if(sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
-					sprite.showStatusWithIcon(CharSprite.增强,x,FloatingText.HEALING);
+				if(x>2&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
+					sprite.showStatusWithIcon(CharSprite.增强绿,x,FloatingText.HEALING);
 					sprite.emitter().burst(Speck.factory(Speck.HEALING),Math.min(6,x/25));
 				}
 			}
@@ -2036,6 +2103,7 @@ public abstract class Char extends Actor {
 	public float 防御(Char enemy, float damage){
 		damage-=Random.NormalFloat(最小防御(),最大防御());
 		damage=防御时(enemy,damage);
+		if(damage<0)damage=0;
 		return damage;
 	}
 	public int 视野范围(){
@@ -2058,22 +2126,85 @@ public abstract class Char extends Actor {
 	public boolean 在上边(int pos2){
 		if(Dungeon.level==null)return false;
 		else
-		return pos2==pos-Dungeon.level.width();
+			return pos2==上边(pos);
+	}
+	public boolean 在左上边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+			return pos2==左上边(pos);
+	}
+	public boolean 在右上边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+			return pos2==右上边(pos);
 	}
 	public boolean 在下边(int pos2){
 		if(Dungeon.level==null)return false;
 		else
-		return pos2==pos+Dungeon.level.width();
+			return pos2==下边(pos);
+	}
+	public boolean 在左下边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+			return pos2==左下边(pos);
+	}
+	public boolean 在右下边(int pos2){
+		if(Dungeon.level==null)return false;
+		else
+			return pos2==右下边(pos);
 	}
 	public boolean 在左边(int pos2){
 		if(Dungeon.level==null)return false;
 		else
-		return pos2==pos-1;
+			return pos2==左边(pos);
 	}
 	public boolean 在右边(int pos2){
 		if(Dungeon.level==null)return false;
 		else
-		return pos2==pos+1;
+		return pos2==右边(pos);
+	}
+	public int 上边(int pos2){
+		return pos2-Dungeon.level.width();
+	}
+	public int 左上边(int pos2){
+		return pos2-Dungeon.level.width()-1;
+	}
+	public int 右上边(int pos2){
+		return pos2-Dungeon.level.width()+1;
+	}
+	public int 下边(int pos2){
+		return pos2+Dungeon.level.width();
+	}
+	public int 左下边(int pos2){
+		return pos2+Dungeon.level.width()-1;
+	}
+	public int 右下边(int pos2){
+		return pos2+Dungeon.level.width()+1;
+	}
+	public int 左边(int pos2){
+		return pos2-1;
+	}
+	public int 右边(int pos2){
+		return pos2+1;
+	}
+	public int 溜冰(int pos2){
+		if(在上边(pos2))pos2=上边(pos2);
+		if(在左上边(pos2))pos2=左上边(pos2);
+		if(在右上边(pos2))pos2=右上边(pos2);
+
+		if(在下边(pos2))pos2=下边(pos2);
+		if(在左下边(pos2))pos2=左下边(pos2);
+		if(在右下边(pos2))pos2=右下边(pos2);
+
+		if(在左边(pos2))pos2=左边(pos2);
+		if(在右边(pos2))pos2=右边(pos2);
+		return pos2;
+	}
+	public boolean 相邻(int pos2){
+		return distance(pos2)<=1;
+	}
+	public boolean 相邻(Char c){
+		return distance(c)<=1;
 	}
 	public boolean 在地板(){
 		if(Dungeon.level==null)return false;
@@ -2097,10 +2228,35 @@ public abstract class Char extends Actor {
 		}
 		return false;
 	}
+	public boolean 相邻坟墓(){
+		if(Dungeon.level==null)return false;
+		else{
+			for(int nx: PathFinder.相邻){
+				Heap heap=Dungeon.level.heaps.get(pos+nx);
+
+				if(heap!=null&&(heap.type==Heap.Type.TOMB||heap.type==Heap.Type.REMAINS||heap.type==Heap.Type.SKELETON))
+					return true;
+			}
+		}
+
+		return false;
+	}
 	public boolean 在水中(){
 		if(Dungeon.level==null)return false;
 		else
 		return Dungeon.level.map[pos] == Terrain.WATER;
+	}
+	public boolean 大墟(){
+		if(Dungeon.level==null)return false;
+		else
+			for(int nx: PathFinder.相邻)
+					if(
+						Dungeon.level.map[pos+nx]==Terrain.WALL_DECO||
+						Dungeon.level.map[pos+nx]==Terrain.EXIT||
+						Dungeon.level.map[pos+nx]==Terrain.ENTRANCE
+					)return true;
+
+			return false;
 	}
 	public boolean 在草丛(){
 		if(Dungeon.level==null)return false;
@@ -2150,13 +2306,15 @@ public abstract class Char extends Actor {
 		return 0;
 	}
 	public boolean 恶魔(){
+		if(Dungeon.符文("白骨皮肉"))return true;
 		return properties().contains(Property.DEMONIC);
 	}
 	public boolean 亡灵(){
+		if(Dungeon.符文("白骨皮肉"))return true;
 		return properties().contains(Property.UNDEAD);
 	}
 	public boolean 恶魔亡灵(){
-		return properties().contains(Property.UNDEAD)||properties().contains(Property.DEMONIC);
+		return 恶魔()||亡灵();
 	}
 	public boolean 老鬼(){
 		return properties().contains(Property.BOSS);
@@ -2188,6 +2346,34 @@ public abstract class Char extends Actor {
 
 		return !老鬼()&&!小老鬼()&&!傀儡()&&!老鬼傀儡();
 	}
+	public float d火焰(){
+		float x=1;
+
+		if(酸性()||树妖()||海妖()||昆虫())x*=2;
+
+		if(火焰()) x/=2;
+		if(冰霜()) x*=2;
+
+		if(动物())x*=2;
+		return x;
+	}
+	public float d冰霜(){
+		float x=1;
+		if(冰霜()) x/=2;
+		if(火焰())x*=2;
+		if(动物())x*=2;
+		return x;
+	}
+	public float d酸性(){
+		float x=1;
+		if(动物())x*=2;
+		return x;
+	}
+	public float d无机(){
+		float x=1;
+		if(动物())x*=2;
+		return x;
+	}
 	public boolean 傀儡(){
 		return properties().contains(Property.傀儡);
 	}
@@ -2203,7 +2389,7 @@ public abstract class Char extends Actor {
 	public boolean 火焰(){
 		return properties().contains(Property.FIERY);
 	}
-	public boolean 寒冰(){
+	public boolean 冰霜(){
 		return properties().contains(Property.ICY);
 	}
 	public boolean 酸性(){

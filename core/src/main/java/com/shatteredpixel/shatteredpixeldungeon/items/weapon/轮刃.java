@@ -11,9 +11,7 @@ public class 轮刃 extends Weapon{
 	{
 		image = 物品表.BOOMERANG;
 		hitSound = Assets.Sounds.HIT_CRUSH;
-		伤害=0.68f;
-		流血=0.35f;
-		命中=0.85f;
+		伤害=0.8f;
 		技能=new 大杀四方();
 		tier = 4;
 	}

@@ -29,7 +29,7 @@ public class CrystalGuardian extends Mob{
 	{
 		spriteClass = CrystalGuardianSprite.class;
 
-		生命 = 最大生命 = Math.round(100*Dungeon.难度生命());
+		生命 = 最大生命 = Math.round(100*Dungeon.难度生命(this));
 		defenseSkill = 14;
 
 		经验 = 10;
@@ -123,7 +123,7 @@ public class CrystalGuardian extends Mob{
 	public float 防御时(Char enemy, float damage) {
 		if (recovering){
 			//this triggers before blocking, so the dmg as block-bypassing
-			sprite.showStatusWithIcon(CharSprite.削弱, damage, FloatingText.PHYS_DMG_NO_BLOCK);
+			sprite.showStatusWithIcon(CharSprite.削弱红,damage,FloatingText.PHYS_DMG_NO_BLOCK);
 			生命 = Math.max(1, 生命 -damage);
 			damage = -1;
 		}

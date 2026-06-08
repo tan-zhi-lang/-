@@ -9,8 +9,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.替身保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.暗影替身;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
@@ -20,12 +22,20 @@ public class 虫箭 extends Artifact {
 
 	{
 		image = 物品表.虫箭;
-		defaultAction = AC_USE1;
 		usesTargeting=false;
+		levelCap=10;
 	}
 	protected static final String AC_USE1 = "USE1";
 	protected static final String AC_USE2 = "USE2";
 
+	@Override
+	public String defaultAction() {
+		if (召唤){
+			return AC_USE1;
+		} else {
+			return AC_USE2;
+		}
+	}
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
@@ -63,7 +73,15 @@ public class 虫箭 extends Artifact {
 			}
 		}
 	}
-
+	public void 经验升级(){
+		exp+=1;
+		if (exp >= (等级()+1)*2 && 等级() < levelCap){
+			exp -= (等级()+1)*2;
+			升级();
+			Catalog.countUse(心之钢.class);
+			GLog.p(Messages.get(this,"levelup"));
+		}
+	}
 	@Override
 	public void charge(Hero target, float amount) {
 		if (cursed ||target.buff(MagicImmune.class)!=null) return;

@@ -58,7 +58,7 @@ public class TengusMask extends Item {
 				return;
 			}
 			if(hero.heroClass.subClasses()==null){
-				GLog.w("你没有可蜕变的英雄特性！");
+				GLog.w("你没有可转职的职业！");
 				return;
 			}
 			GameScene.show(new WndChooseSubclass(this,hero ));

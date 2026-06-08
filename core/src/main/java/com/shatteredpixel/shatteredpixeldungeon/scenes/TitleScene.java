@@ -338,7 +338,7 @@ public class TitleScene extends PixelScene {
 			super.update();
 
 			if (Messages.lang().status() == Languages.Status.X_UNFINISH){
-				textColor(ColorMath.interpolate( 0xFFFFFF, CharSprite.削弱, 0.5f + (float)Math.sin(Game.timeTotal*5)/2f));
+				textColor(ColorMath.interpolate(0xFFFFFF,CharSprite.削弱红,0.5f+(float)Math.sin(Game.timeTotal*5)/2f));
 			}
 		}
 

@@ -87,9 +87,9 @@ public class 魔攻之戒 extends Ring {
 	}
 	public float 魔力(float 魔力收益,float 等收益,int 等级){
 		if(Dungeon.hero())
-			return Dungeon.hero.魔力(魔力收益*(1+等收益*等级));
+			return Dungeon.hero.魔力(this,魔力收益+等收益*等级);
 		else
-			return 10*魔力收益*(1+等收益*等级);
+			return 10*魔力收益+10*(等收益*等级);
 	}
 	public float 魔力结合(float 魔力收益,float 等收益){
 		return 魔力(魔力收益,等收益,combinedBuffedBonus());

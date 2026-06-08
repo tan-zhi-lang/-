@@ -161,6 +161,7 @@ public abstract class Recipe {
 		new Scroll.ScrollToStone(),
 		new ExoticPotion.PotionToExotic(),
 		new ExoticScroll.ScrollToExotic(),
+		new LiquidMetal.Recipe(),
 		new ArcaneResin.Recipe(),
 		new 护甲修理工具包.Recipe(),
 		new BlizzardBrew.Recipe(),

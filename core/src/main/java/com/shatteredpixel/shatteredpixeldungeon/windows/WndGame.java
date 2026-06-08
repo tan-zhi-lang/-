@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.StartScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
-import com.shatteredpixel.shatteredpixeldungeon.邮件系统;
 import com.watabou.noosa.Game;
 
 import java.io.IOException;
@@ -43,11 +42,39 @@ public class WndGame extends Window {
 		});
 		curBtn.icon(Icons.get(Icons.PREFS));
 
-		addButton( curBtn = new RedButton("问题/建议") {
+		addButton( curBtn = new RedButton("爱发电赞助") {
 			@Override
 			protected void onClick() {
 				hide();
-				邮件系统.发送邮件("");
+
+				Game.runOnRenderThread(()->{
+					GameScene.show(new 赞助());
+
+				});
+			}
+		} );
+		curBtn.icon(Icons.get(Icons.GOLD));
+
+		addButton( curBtn = new RedButton("备注存档") {
+			@Override
+			protected void onClick() {
+				hide();
+				GameScene.show(new WndTextInput("备注存档",
+												"我的存档是无敌哒！",
+												"",
+												50,
+												false,
+												"确定",
+												"取消"){
+					@Override
+					public void onSelect(boolean positive, String text) {
+						if (positive && !text.isEmpty()){
+							Dungeon.hero.备注=text;
+						}
+
+					}
+				});
+//				邮件系统.发送邮件("");//问题/建议
 			}
 		} );
 		curBtn.icon(Icons.get(Icons.JOURNAL));

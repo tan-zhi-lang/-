@@ -170,7 +170,7 @@ public class WandOfWarding extends Wand {
 			return Messages.get(this, "stats_desc", 魔力(0.2f,0.5f));
 	}
 
-	public static class Ward extends NPC {
+	public class Ward extends NPC {//之前静态
 
 		public int tier = 1;
 		private int wandLevel = 1;
@@ -236,7 +236,7 @@ public class WandOfWarding extends Wand {
 		}
 
 		//this class is used so that wards and sentries can have two entries in the Bestiary
-		public static class WardSentry extends Ward{};
+		public class WardSentry extends Ward{};//之前静态
 
 		public void wandHeal( int wandLevel ){
 			wandHeal( wandLevel, 1f );
@@ -314,7 +314,9 @@ public class WandOfWarding extends Wand {
 			spend( 1f );
 
 			//always hits
-			float dmg = Hero.heroDamage(2+wandLevel,8+4*wandLevel);
+			float dmg = Hero.heroDamage(魔力(0.2f,0.1f),
+										魔力(0.8f,0.4f)
+										);
 			Char enemy = this.enemy;
 			enemy.受伤时( dmg, this );
 			if (enemy.isAlive()){
@@ -422,7 +424,10 @@ public class WandOfWarding extends Wand {
 					return Messages.get(this, "desc_generic_sentry");
 				}
 			} else {
-				return Messages.get(this, "desc_" + tier, 2 + wandLevel, 8 + 4 * wandLevel, tier);
+				return Messages.get(this, "desc_" + tier,
+
+									魔力(0.2f,0.1f),
+									魔力(0.8f,0.4f), tier);
 			}
 		}
 		

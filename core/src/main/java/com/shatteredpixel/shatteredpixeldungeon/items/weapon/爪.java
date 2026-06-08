@@ -15,7 +15,7 @@ public class 爪 extends Weapon{
 		技能=new 连击();
 		
 		延迟= 0.5f;
-		伤害= 0.64f;
+		伤害= 0.67f;
 		tier = 2;
 	}
 

@@ -38,7 +38,7 @@ public class 疾速之戒 extends Ring {
 	}
 	
 	public static float speedMultiplier( Char target ){
-		return 1+0.21025f*getBuffedBonus(target, RingOfElements.Resistance.class);
+		return 1+0.21025f*getBuffedBonus(target, Haste.class);
 	}
 	
 	public class Haste extends RingBuff {

@@ -30,7 +30,7 @@ public class 尘遁 extends 目标忍术 {
 
 	@Override
 	public String desc() {
-		float d = Dungeon.hero.魔力(3)*(1+Dungeon.hero.天赋点数(Talent.绝密尘遁,0.25f));
+		float d = Dungeon.hero.法术(this,3)*(1+Dungeon.hero.天赋点数(Talent.绝密尘遁,0.25f));
 		return Messages.get(this, "desc", d) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
@@ -63,12 +63,12 @@ public class 尘遁 extends 目标忍术 {
 		hero.sprite.zap(target);
 
 		hero.sprite.parent.add(
-				new Beam.LightRay(hero.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(aim.collisionPos)));
+				new Beam.SunRay(hero.sprite.center(), DungeonTilemap.raisedTileCenterToWorld(aim.collisionPos)));
 
 		Char ch = Actor.findChar( aim.collisionPos );
 		if (ch != null) {
-			ch.sprite.burst(0xffffff, Math.round(hero.魔力(0.2f)));
-				ch.受伤时(hero.魔力(3)*(1+hero.天赋点数(Talent.绝密尘遁,0.25f)),尘遁.this);
+			ch.sprite.burst(0xffffff);
+				ch.受伤时(hero.法术(this,3)*(1+hero.天赋点数(Talent.绝密尘遁,0.25f)),尘遁.this);
 		}
 
 		hero.spend( 1f );

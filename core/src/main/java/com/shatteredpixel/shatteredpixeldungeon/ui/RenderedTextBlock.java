@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -10,8 +12,6 @@ import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -22,14 +22,14 @@ public class RenderedTextBlock extends Component {
 
 	private static final RenderedText SPACE = new RenderedText();
 	private static final RenderedText NEWLINE = new RenderedText();
-	
-	protected String text;
+
+	public String text;//protected
 	protected String[] tokens = null;
 	protected ArrayList<RenderedText> words = new ArrayList<>();
 	protected boolean multiline = false;
 
-	private int size;
-	private float zoom;
+	public int size;//private
+	public float zoom;//private
 	private int color = -1;
 	
 	private int hightlightColor = Window.TITLE_COLOR;
@@ -108,6 +108,7 @@ public class RenderedTextBlock extends Component {
 		for (String str : tokens) {
 			// 统一判断highlightingEnabled：所有颜色标记符都需要该开关生效
 //			System.out.println(str);
+
 			if (highlightingEnabled) {
 				if (str.equals("_")) {
 					isColorActive = !isColorActive; // 简化toggle逻辑
@@ -200,11 +201,12 @@ public class RenderedTextBlock extends Component {
 		}
 
 		// 使用BigDecimal进行四舍五入，保留两位小数
-		BigDecimal bigDecimal = new BigDecimal(floatValue);
-		BigDecimal roundedValue = bigDecimal.setScale(2,RoundingMode.HALF_UP);
-
-		// 返回格式化后的小数字符串
-		return roundedValue.toPlainString();
+//		BigDecimal bigDecimal = new BigDecimal(floatValue);
+//		BigDecimal roundedValue = bigDecimal.setScale(2,RoundingMode.HALF_UP);
+//
+//		// 返回格式化后的小数字符串
+//		return roundedValue.toPlainString();
+		return kw2(floatValue);
 	}
 	/**
 	 * 抽离普通token处理逻辑，提升代码复用性和可读性

@@ -204,11 +204,11 @@ public class YogDzewa extends Mob {
 					if (hit( this, ch, true )) {
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
 							float dmg=Random.NormalIntRange(30, 50);
-							dmg=dmg*Dungeon.难度攻击();
+							dmg=dmg*Dungeon.难度攻击(this);
 							ch.受伤时(dmg, new Eye.DeathGaze());
 						} else {
 							float dmg=Random.NormalIntRange(20, 30);
-							dmg=dmg*Dungeon.难度攻击();
+							dmg=dmg*Dungeon.难度攻击(this);
 							ch.受伤时(dmg, new Eye.DeathGaze());
 						}
 						if (Dungeon.level.heroFOV[pos]) {
@@ -221,7 +221,7 @@ public class YogDzewa extends Mob {
 							GLog.n(Messages.get(Char.class, "kill", name()));
 						}
 					} else {
-						ch.sprite.showStatus( CharSprite.NEUTRAL,  ch.defenseVerb() );
+						ch.sprite.showStatus(CharSprite.中性黄,ch.defenseVerb());
 					}
 				}
 				targetedCells.clear();
@@ -397,7 +397,7 @@ public class YogDzewa extends Mob {
 
 			updateVisibility(Dungeon.level);
 			GLog.n(Messages.get(this, "darkness"));
-			sprite.showStatus(CharSprite.增强, Messages.get(this, "invulnerable"));
+			sprite.showStatus(CharSprite.增强绿,Messages.get(this,"invulnerable"));
 
 			addFist((YogFist)Reflection.newInstance(fistSummons.remove(0)));
 
@@ -459,9 +459,9 @@ public class YogDzewa extends Mob {
 		if (phase > 1 && isAlive()){
 			viewDistance = Math.max(4 - (phase-1), 1);
 		}
-		if (Dungeon.isChallenged(Challenges.DARKNESS)) {
-			viewDistance = Math.min(viewDistance, 2);
-		}
+//		if (Dungeon.isChallenged(Challenges.DARKNESS)) {
+//			viewDistance = Math.min(viewDistance, 2);
+//		}
 		level.视野范围= viewDistance;
 		if (Dungeon.hero()) {
 			if (Dungeon.hero.buff(Light.class) == null) {

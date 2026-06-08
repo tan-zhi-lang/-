@@ -20,7 +20,7 @@ public class 火把神的恩宠 extends 用品 {
 	public static class R extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 		{
 			inputs =  new Class[]{Torch.class};
-			inQuantity = new int[]{5,};
+			inQuantity = new int[]{3,};
 
 			cost = 5;
 

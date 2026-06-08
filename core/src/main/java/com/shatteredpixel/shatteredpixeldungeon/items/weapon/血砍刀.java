@@ -12,9 +12,8 @@ public class 血砍刀 extends Weapon{
 		hitSound = Assets.Sounds.HIT_STAB;
 		tier = 1;
 		
-		
-		伏击=0.67f;
-		流血=0.3f;
+		伤害=0.8f;
+		流血=0.25f;
 		
 		特别= true;
 

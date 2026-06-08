@@ -56,7 +56,7 @@ public class SuperNovaTracker extends Buff {
 
 		if (turnsLeft > 0){
 
-			FloatingText.show(p.x, p.y, pos, turnsLeft + "...", CharSprite.WARNING);
+			FloatingText.show(p.x, p.y, pos, turnsLeft + "...", CharSprite.警告橙);
 			halo.radius(5 + 2*(10-turnsLeft));
 			halo.alpha(1.25f - 0.075f*turnsLeft);
 			halo.point(p.x, p.y);

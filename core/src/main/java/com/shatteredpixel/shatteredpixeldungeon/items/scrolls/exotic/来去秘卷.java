@@ -29,14 +29,18 @@ public class 来去秘卷 extends ExoticScroll {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
-		actions.add( AC_上楼 );
-		actions.add( AC_下楼 );
+		if(已鉴定()){
+			actions.add(AC_上楼);
+			actions.add(AC_下楼);
+		}
 		return actions;
 	}
 	
 	@Override
 	public void execute(Hero hero,String action){
 		super.execute(hero,action);
+
+		if(已鉴定())
 		if (action.equals( AC_上楼 )) {
 
 			doRead();
@@ -53,6 +57,8 @@ public class 来去秘卷 extends ExoticScroll {
 			InterlevelScene.returnPos = -2;
 			Game.switchScene( InterlevelScene.class );
 		}
+
+		if(已鉴定())
 		if (action.equals( AC_下楼 )) {
 
 			doRead();

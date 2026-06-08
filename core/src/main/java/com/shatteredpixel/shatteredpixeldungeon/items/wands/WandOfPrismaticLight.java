@@ -37,11 +37,11 @@ public class WandOfPrismaticLight extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return 魔力();
+		return 魔力(0.1f,0.1f);
 	}
 
 	public float max(int lvl){
-		return 魔力(0.5f,0.6f);
+		return 魔力(0.5f,0.3f);
 	}
 
 	@Override
@@ -49,11 +49,7 @@ public class WandOfPrismaticLight extends DamageWand {
 		affectMap(beam);
 		
 		if (Dungeon.level.视野范围<6 ){
-			if (Dungeon.isChallenged(Challenges.DARKNESS)){
-				Buff.延长( curUser, Light.class, 3);
-			} else {
 				Buff.延长( curUser, Light.class, 15);
-			}
 		}
 		
 		Char ch = Actor.findChar(beam.collisionPos);

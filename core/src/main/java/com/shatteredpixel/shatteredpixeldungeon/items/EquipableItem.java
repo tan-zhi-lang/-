@@ -39,13 +39,17 @@ public abstract class EquipableItem extends Item {
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 
+		boolean b=true;
 		if(Dungeon.炼狱(炼狱设置.诅咒之戒)&&this instanceof Ring){
+			b=false;
 		}else if(Dungeon.炼狱(炼狱设置.诅咒神器)&&this instanceof Artifact){
-			if((Dungeon.派对(派对设置.钢门联盟)&&this instanceof 心之钢)||
-			   专属)
-				actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+			b=false;
+		}
+		if(Dungeon.派对(派对设置.钢门联盟)&&this instanceof 心之钢)b=true;
+		if(专属)b=true;
 
-		}else actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+		if(b)
+			actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
 
 		if(isEquipped(hero)&&cursed&&cursedKnown){
 			actions.remove(AC_UNEQUIP);//正装备的诅咒移除扔出和卸下
@@ -81,6 +85,8 @@ public abstract class EquipableItem extends Item {
 			int slot = Dungeon.quickslot.getSlot( this );
 			slotOfUnequipped = -1;
 			doEquip(hero);
+			curItem=this;
+			curUser=hero;
 			Dungeon.quickslot.alphaItem(this,false);
 			if (slot != -1) {
 				Dungeon.quickslot.setSlot( slot, this );
@@ -93,6 +99,8 @@ public abstract class EquipableItem extends Item {
 			}
 		} else if (action.equals( AC_UNEQUIP )) {
 			doUnequip( hero, true );
+			curItem=null;
+			curUser=null;
 		}
 	}
 

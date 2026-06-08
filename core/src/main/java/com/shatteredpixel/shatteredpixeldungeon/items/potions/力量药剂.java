@@ -39,7 +39,7 @@ public class 力量药剂 extends Potion {
 		if(hero.符文("力量的爆发"))
 			Buff.施加(hero,HTBoost.class).add();
 
-		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.STRENGTH);
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,"1",FloatingText.STRENGTH);
 
 		GLog.p( Messages.get(this, "msg", hero.力量()) );
 		

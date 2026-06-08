@@ -114,7 +114,7 @@ public class Sungrass extends Plant {
 
 		@Override
 		public String iconTextDisplay() {
-			return Float.toString(level);
+			return Math.round(level)+"";
 		}
 
 		@Override

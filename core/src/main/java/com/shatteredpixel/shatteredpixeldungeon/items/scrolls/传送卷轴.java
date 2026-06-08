@@ -277,6 +277,7 @@ public class 传送卷轴 extends Scroll {
 
 		if (ch.invisible == 0) {
 			ch.sprite.alpha( 0 );
+			if(ch.sprite.parent!=null)
 			ch.sprite.parent.add( new AlphaTweener( ch.sprite, 1, 0.4f ) );
 		}
 

@@ -34,7 +34,7 @@ public class 命中之戒 extends Ring {
 	}
 
 	public static float 命中(Char target){
-		return 1+0.236f*getBuffedBonus(target, 狂怒之戒.Furor.class);
+		return 1+0.236f*getBuffedBonus(target, Accuracy.class);
 	}
 	@Override
 	protected RingBuff buff( ) {

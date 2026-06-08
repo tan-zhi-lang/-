@@ -94,12 +94,12 @@ public class WndUpgrade extends Window {
 		// *** Sprites, showing item at current level and with +1 ***
 
 		ColorBlock bg1 = new ColorBlock(ITEMSLOT_SIZE, ITEMSLOT_SIZE, 0x9953564D);
-		bg1.x = COL_2 - ITEMSLOT_SIZE/2f;
+		bg1.x = COL_2 - ITEMSLOT_SIZE/2f-25;
 		bg1.y = message.bottom() + 2*GAP;
 		add(bg1);
 
 		ColorBlock bg2 = new ColorBlock(ITEMSLOT_SIZE, ITEMSLOT_SIZE, 0x9953564D);
-		bg2.x = COL_3 - ITEMSLOT_SIZE/2f;
+		bg2.x = COL_3 - ITEMSLOT_SIZE/2f-15;
 		bg2.y = message.bottom() + 2*GAP;
 		add(bg2);
 
@@ -119,7 +119,7 @@ public class WndUpgrade extends Window {
 		ItemSprite i1 = new ItemSprite();
 		add(i1);
 		i1.view(toUpgrade);
-		i1.x = COL_2 - i1.width()/2f;
+		i1.x = COL_2 - i1.width()/2f-25;
 		i1.y = bg1.y + (ITEMSLOT_SIZE-i1.height())/2f;
 		PixelScene.align(i1);
 		add(i1);
@@ -127,7 +127,7 @@ public class WndUpgrade extends Window {
 		ItemSprite i2 = new ItemSprite();
 		add(i2);
 		i2.view(toUpgrade);
-		i2.x = COL_3 - i2.width()/2f;
+		i2.x = COL_3 - i2.width()/2f-15;
 		i2.y = i1.y;
 		PixelScene.align(i2);
 		add(i2);
@@ -261,14 +261,14 @@ public class WndUpgrade extends Window {
 				}
 				if (((Ring) toUpgrade).upgradeStat2(levelFrom) != null) {
 					bottom = fillFields(Messages.get(toUpgrade, "upgrade_stat_name_2"),
-							((Ring) toUpgrade).upgradeStat1(Ring.新等级(levelFrom)),
-							((Ring) toUpgrade).upgradeStat1(Ring.新等级(levelTo)),
+							((Ring) toUpgrade).upgradeStat2(Ring.新等级(levelFrom)),
+							((Ring) toUpgrade).upgradeStat2(Ring.新等级(levelTo)),
 							bottom);
 				}
 				if (((Ring) toUpgrade).upgradeStat3(levelFrom) != null) {
 					bottom = fillFields(Messages.get(toUpgrade, "upgrade_stat_name_3"),
-							((Ring) toUpgrade).upgradeStat1(Ring.新等级(levelFrom)),
-							((Ring) toUpgrade).upgradeStat1(Ring.新等级(levelTo)),
+							((Ring) toUpgrade).upgradeStat3(Ring.新等级(levelFrom)),
+							((Ring) toUpgrade).upgradeStat3(Ring.新等级(levelTo)),
 							bottom);
 				}
 			}
@@ -277,13 +277,13 @@ public class WndUpgrade extends Window {
 		//visual separators for each column
 		ColorBlock sep = new ColorBlock(1, 1, 0xFF222222);
 		sep.size(1, bottom - message.bottom());
-		sep.x = WIDTH/2f;
+		sep.x = WIDTH/2f-25;
 		sep.y = message.bottom() + GAP;
 		add(sep);
 
 		sep = new ColorBlock(1, 1, 0xFF222222);
 		sep.size(1, bottom - message.bottom());
-		sep.x = 3*WIDTH/4f;
+		sep.x = 3*WIDTH/4f-15;
 		sep.y = message.bottom() + GAP;
 		add(sep);
 
@@ -292,9 +292,9 @@ public class WndUpgrade extends Window {
 		//warning relating to identification
 		if (!toUpgrade.已鉴定()){
 			if (toUpgrade instanceof Ring && !((Ring) toUpgrade).isKnown()){
-				bottom = addMessage(Messages.get(this, "unknown_ring"), CharSprite.WARNING, bottom);
+				bottom = addMessage(Messages.get(this, "unknown_ring"),CharSprite.警告橙,bottom);
 			} else {
-				bottom = addMessage(Messages.get(this, "unided"), CharSprite.WARNING, bottom);
+				bottom = addMessage(Messages.get(this, "unided"),CharSprite.警告橙,bottom);
 			}
 		}
 
@@ -326,7 +326,7 @@ public class WndUpgrade extends Window {
 							warn = Messages.get(this, "glyph", lossChance);
 						}
 					}
-					bottom = addMessage(warn, CharSprite.WARNING, bottom);
+					bottom = addMessage(warn,CharSprite.警告橙,bottom);
 				}
 			}
 
@@ -337,20 +337,20 @@ public class WndUpgrade extends Window {
 
 				if (toUpgrade.cursed && (toUpgrade instanceof Weapon && ((Weapon) toUpgrade).hasCurseEnchant())
 						|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph())){
-					bottom = addMessage(Messages.get(this, "cursed_weaken"), CharSprite.增强, bottom);
+					bottom = addMessage(Messages.get(this, "cursed_weaken"),CharSprite.增强绿,bottom);
 				} else {
-					bottom = addMessage(Messages.get(this, "cursed"), CharSprite.增强, bottom);
+					bottom = addMessage(Messages.get(this, "cursed"),CharSprite.增强绿,bottom);
 				}
 
 				if (curseInfused) {
-					bottom = addMessage(Messages.get(this, "curse_infusion"), CharSprite.WARNING, bottom);
+					bottom = addMessage(Messages.get(this, "curse_infusion"),CharSprite.警告橙,bottom);
 				}
 			}
 		}
 
 		//warning relating to arcane resin
 		if (toUpgrade instanceof Wand && ((Wand) toUpgrade).resinBonus > 0){
-			bottom = addMessage(Messages.get(this, "resin"), CharSprite.WARNING, bottom);
+			bottom = addMessage(Messages.get(this, "resin"),CharSprite.警告橙,bottom);
 		}
 
 		// *** Buttons for confirming/cancelling ***
@@ -450,17 +450,17 @@ public class WndUpgrade extends Window {
 		RenderedTextBlock ttl = PixelScene.renderTextBlock(6);
 		ttl.align(RenderedTextBlock.CENTER_ALIGN);
 		ttl.text(title, WIDTH/2);
-		ttl.setPos(COL_1 - ttl.width() / 2f, bottom + GAP);
+		ttl.setPos(COL_1 - ttl.width() / 2f-15, bottom + GAP);
 		PixelScene.align(ttl);
 		add(ttl);
 
 		RenderedTextBlock m1 = PixelScene.renderTextBlock(msg1, 6);
-		m1.setPos(COL_2 - m1.width() / 2f, ttl.top());
+		m1.setPos(COL_2 - m1.width() / 2f-20, ttl.top());
 		PixelScene.align(m1);
 		add(m1);
 
 		RenderedTextBlock m2 = PixelScene.renderTextBlock(msg2, 6);
-		m2.setPos(COL_3 - m2.width() / 2f, ttl.top());
+		m2.setPos(COL_3 - m2.width() / 2f-10, ttl.top());
 		PixelScene.align(m2);
 		add(m2);
 

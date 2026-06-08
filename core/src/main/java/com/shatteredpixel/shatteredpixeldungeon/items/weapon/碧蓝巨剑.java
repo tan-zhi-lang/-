@@ -15,8 +15,8 @@ public class 碧蓝巨剑 extends Weapon{
 		
 		技能=new 斩击();
 		tier = 1;
-		延迟= 1.35f;
-		伤害= 1.35f;
+		延迟= 1.34f;
+		伤害= 1.34f;
 
 	}
 

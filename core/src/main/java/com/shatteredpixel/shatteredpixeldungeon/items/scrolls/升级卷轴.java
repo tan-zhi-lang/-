@@ -38,11 +38,14 @@ public class 升级卷轴 extends InventoryScroll {
 	}
 
 	protected static final String AC_强化 = "强化";
+	protected static final String AC_自升 = "自升";
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
 		if(已鉴定()&&hero.subClass(HeroSubClass.机械教主))
 		actions.add( AC_强化 );
+		if(hero.符文("升级升级卷轴:自升"))
+		actions.add( AC_自升 );
 		return actions;
 	}
 	@Override
@@ -54,9 +57,15 @@ public class 升级卷轴 extends InventoryScroll {
 			detach( curUser.belongings.backpack );
 			hero.属性成长+=0.045f;
 		}
+		if (action.equals(AC_自升)) {
+			detach( curUser.belongings.backpack );
+			hero.自升++;
+		}
 	}
 	@Override
 	protected boolean usableOnItem(Item item) {
+		if(Dungeon.符文("升级升级卷轴:武器专精")&&item instanceof Wand)return false;
+		if(Dungeon.符文("升级升级卷轴:法杖专精")&&item instanceof Weapon)return false;
 		return item.可升级();
 	}
 
@@ -95,6 +104,7 @@ public class 升级卷轴 extends InventoryScroll {
 
 			item = w.额外升级();
 
+			if(Dungeon.符文("升级升级卷轴:武器专精"))item.额外升级();
 			if (w.cursedKnown && hadCursedEnchant && !w.hasCurseEnchant()){
 				removeCurse( Dungeon.hero );
 			} else if (w.cursedKnown && wasCursed && !w.cursed){
@@ -130,6 +140,9 @@ public class 升级卷轴 extends InventoryScroll {
 			boolean wasCursed = item.cursed;
 
 			item = item.额外升级();
+			if(item instanceof Wand&&Dungeon.符文("升级升级卷轴:武器专精")){
+				item.额外升级(3);
+			}
 
 			if (item.cursedKnown && wasCursed && !item.cursed){
 				removeCurse( Dungeon.hero );

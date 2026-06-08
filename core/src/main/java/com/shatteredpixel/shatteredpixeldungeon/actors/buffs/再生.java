@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
@@ -13,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
@@ -48,13 +50,28 @@ public class 再生 extends Buff {
 			}
 
 			if (regenOn() && !hero.满血() && !hero.isStarving()) {
-				float 再生数值=(float)Math.sqrt(hero.最大生命)/88f;
-					再生数值+=0.004f*hero.等级;
+				float 再生数值=(float)Math.sqrt(hero.最大生命)/50f;
+
+					再生数值+=hero.天赋点数(Talent.勇武,0.025f);
 					再生数值+=hero.再生成长;
+
+					if(hero.符文("光合作用")&&Dungeon.level!=null){
+						int 树=0;
+						for (int i = 0; i < Dungeon.level.length(); i++){
+							if(Dungeon.level.map[i]==Terrain.HIGH_GRASS||Dungeon.level.map[i]==Terrain.GRASS)
+								树++;
+						}
+						再生数值+=(树+Dungeon.level.plants.size)*0.03f;
+					}
 					if(hero.符文("最大护甲转生命再生")){
 						再生数值+=hero.最大护甲(0.01f);
 					}
-					if(hero.hasbuff(WellFed.class))再生数值*=1.2f;
+					if(hero.hasbuff(WellFed.class))再生数值*=Math.min(1,
+						  (float)hero.buff(WellFed.class).left/
+						  (float)hero.buff(WellFed.class).上限()*0.25f+1);
+					if(hero.hasbuff(Hunger.class))再生数值*=Math.min(1,
+																	 (Hunger.STARVING-hero.buff(Hunger.class).level)/
+																	 Hunger.STARVING*0.25f+1);
 
 					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
 						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
@@ -91,7 +108,7 @@ public class 再生 extends Buff {
 						if(hero.heroClass(HeroClass.血鬼))
 							再生数值/=2;
 						if(hero.符文("大胃王"))
-							再生数值*=2;
+							再生数值*=3;
 						if(hero.符文("恢复恢复"))
 							再生数值*=3.5f;
 
@@ -99,6 +116,9 @@ public class 再生 extends Buff {
 							再生数值=0;
 
 						if(hero.符文("吸血习性"))
+							再生数值=0;
+
+						if(hero.符文("猩红诅咒"))
 							再生数值=0;
 
 						partialRegen = 再生数值;

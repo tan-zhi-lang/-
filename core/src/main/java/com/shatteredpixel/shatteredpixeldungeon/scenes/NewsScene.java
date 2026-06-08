@@ -201,7 +201,7 @@ public class NewsScene extends PixelScene {
 			if (message.startsWith("\n\n")) message = message.replaceFirst("\n\n", "");
 			
 			text = PixelScene.renderTextBlock(message, 6);
-			text.hardlight(CharSprite.WARNING);
+			text.hardlight(CharSprite.警告橙);
 			add(text);
 		}
 

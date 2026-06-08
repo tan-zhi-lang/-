@@ -162,7 +162,7 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
 		txt.text(Float.toString(momentumStacks) );
-		txt.hardlight(CharSprite.增强);
+		txt.hardlight(CharSprite.增强绿);
 		txt.measure();
 		return txt;
 	}

@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -133,12 +134,15 @@ public class Chasm implements Hero.Doom {
 		PixelScene.shake( 4, 1f );
 
 		Dungeon.level.occupyCell(hero );
+		if(hero.符文("坠入深渊"))
+		Buff.延长(hero,Invulnerability.class,Dungeon.相对层数());
 
-		for (重锤 i : hero.belongings.getAllItems(重锤.class)) {
-			i.猛击=3;
-		}
+		if(hero.belongings.hasItem(重锤.class))
+			hero.belongings.getItem(重锤.class).猛击=3;
+
 		if( hero.flying
 			||算法.isDebug()
+		   || hero.hasbuff(Invulnerability.class)
 		   || hero.hasbuff(Levitation.class)){
 			return;
 		}

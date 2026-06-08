@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.PurpleParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -115,6 +116,9 @@ public class Eye extends Mob {
 		if (beamCooldown > 0 || (!beamCharged && !beam.subPath(1, beam.dist).contains(enemy.pos))) {
 			return super.doAttack(enemy);
 		} else if (!beamCharged){
+			for (int pos : beam.subPath(1, beam.dist)){
+				Dungeon.hero.sprite.parent.add(new TargetedCell(pos,0xFF0000));//危险点
+			}
 			((EyeSprite)sprite).charge( enemy.pos );
 			spend(攻击延迟()*2f);
 			beamCharged = true;
@@ -124,6 +128,9 @@ public class Eye extends Mob {
 			spend(攻击延迟());
 			
 			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
+				for (int pos : beam.subPath(1, beam.dist)){
+					Dungeon.hero.sprite.parent.add(new TargetedCell(pos,0xFF0000));//危险点
+				}
 				sprite.zap( beam.collisionPos );
 				return false;
 			} else {
@@ -161,7 +168,6 @@ public class Eye extends Mob {
 
 		Invisibility.dispel(this);
 		for (int pos : beam.subPath(1, beam.dist)) {
-
 			if (Dungeon.level.flamable[pos]) {
 
 				Dungeon.level.destroy( pos );
@@ -177,7 +183,7 @@ public class Eye extends Mob {
 
 			if (hit( this, ch, true )) {
 				float dmg = Random.NormalIntRange( 30, 50 );
-				dmg=dmg*Dungeon.难度攻击();
+				dmg=dmg*Dungeon.难度攻击(this);
 				dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 
 				//logic for fists or Yog-Dzewa taking 1/2 or 1/4 damage from aggression stoned minions
@@ -203,7 +209,7 @@ public class Eye extends Mob {
 					GLog.n( Messages.get(this, "deathgaze_kill") );
 				}
 			} else {
-				ch.sprite.showStatus( CharSprite.NEUTRAL,  ch.defenseVerb() );
+				ch.sprite.showStatus(CharSprite.中性黄,ch.defenseVerb());
 			}
 		}
 

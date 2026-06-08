@@ -41,7 +41,7 @@ public class WandOfLightning extends DamageWand {
 	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 
 	public float min(int lvl){
-		return 魔力(0.5f,0.2f);
+		return 魔力(0.5f,0.1f);
 	}
 
 	public float max(int lvl){

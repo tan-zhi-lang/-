@@ -5,9 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blizzard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Inferno;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
@@ -144,12 +145,12 @@ public class 魔法冰霜房间 extends SpecialRoom {
 
 			int cell;
 
-			Freezing freeze = (Freezing)Dungeon.level.blobs.get( Freezing.class );
-			Blizzard
-					bliz = (Blizzard)Dungeon.level.blobs.get(Blizzard.class);
+			Fire freeze = (Fire)Dungeon.level.blobs.get( Fire.class);
+			Inferno
+					bliz = (Inferno)Dungeon.level.blobs.get(Inferno.class);
 
-			Freezing
-					free = (Freezing)Dungeon.level.blobs.get(Freezing.class);
+			Fire
+					free = (Fire)Dungeon.level.blobs.get(Fire.class);
 
 			//if any part of the free is cleared, cleanse the whole thing
 			//Note that this is a bit brittle atm, it assumes only one group of eternal free per floor

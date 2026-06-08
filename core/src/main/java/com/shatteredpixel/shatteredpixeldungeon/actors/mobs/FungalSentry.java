@@ -15,7 +15,7 @@ public class FungalSentry extends Mob {
 	{
 		spriteClass = FungalSentrySprite.class;
 
-		生命 = 最大生命 = Math.round(200*Dungeon.难度生命());
+		生命 = 最大生命 = Math.round(200*Dungeon.难度生命(this));
 		defenseSkill = 12;
 
 		经验 = 10;

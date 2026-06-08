@@ -94,7 +94,7 @@ public class Swarm extends Mob {
 				clone.pos = Random.element( candidates );
 				clone.state = clone.HUNTING;
 				GameScene.add( clone, SPLIT_DELAY ); //we add before assigning HP due to ascension
-				clone.最大生命=Math.round(clone.最大生命*Dungeon.难度生命());
+				clone.最大生命=Math.round(clone.最大生命*Dungeon.难度生命(this));
 				clone.生命 = (生命 - damage) / 2;
 				Actor.add( new Pushing( clone, pos, clone.pos ) );
 

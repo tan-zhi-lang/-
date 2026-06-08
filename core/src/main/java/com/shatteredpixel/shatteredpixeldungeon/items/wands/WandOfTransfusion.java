@@ -39,12 +39,12 @@ public class WandOfTransfusion extends DamageWand {
 
 	@Override
 	public float min(int level) {
-		return 魔力(0.3f,0.333f);
+		return 魔力(0.3f,0.1f);
 	}
 
 	@Override
 	public float max(int level) {
-		return 魔力(0.6f,0.333f);
+		return 魔力(0.6f,0.2f);
 	}
 
 	private boolean freeCharge = false;

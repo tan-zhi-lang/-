@@ -19,7 +19,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorruption;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfDisintegration;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -51,7 +50,8 @@ public class 法师魔杖 extends Weapon{
 		image = 物品表.法师魔杖;
 		
 		tier = 1;
-		伤害=0.68f;
+		伤害=0.6f;
+		魔法=0.25f;
 
 		defaultAction = AC_ZAP;
 		usesTargeting = true;
@@ -78,7 +78,7 @@ public class 法师魔杖 extends Weapon{
 	public int 强化等级(){
 		int l=等级()+转移;
 		if(Dungeon.hero()){
-			l+=new WandOfMagicMissile().强化等级();
+			l+=1;
 		}
 
 		//only the hero can be affected by Degradation

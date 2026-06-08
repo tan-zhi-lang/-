@@ -185,6 +185,7 @@ public class Necromancer extends Mob {
 				}
 			}
 
+
 			//push enemy, or wait a turn if there is no valid pushing position
 			if (pushPos != pos) {
 
@@ -192,6 +193,7 @@ public class Necromancer extends Mob {
 				//no push if char is immovable, move our skeleton instead
 				if (ch == null || Char.hasProp(ch, Property.IMMOVABLE)){
 					summoningPos = pushPos;
+
 				} else {
 				Actor.add( new Pushing( ch, ch.pos, pushPos ) );
 
@@ -206,7 +208,7 @@ public class Necromancer extends Mob {
 				if (blocker != null && blocker.alignment != alignment){
 					float dmg=Random.NormalIntRange(2, 10);
 					
-					dmg=dmg*Dungeon.难度攻击();
+					dmg=dmg*Dungeon.难度攻击(this);
 					blocker.受伤时(dmg, new SummoningBlockDamage() );
 					if (blocker == Dungeon.hero && !blocker.isAlive()){
 						Badges.validateDeathFromEnemyMagic();
@@ -219,6 +221,7 @@ public class Necromancer extends Mob {
 				return;
 			}
 		}
+
 
 		summoning = firstSummon = false;
 

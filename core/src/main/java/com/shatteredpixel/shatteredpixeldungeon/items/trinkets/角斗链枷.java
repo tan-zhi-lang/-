@@ -40,7 +40,7 @@ public class 角斗链枷 extends Trinket {
 		if (level < 0){
 			return 1;
 		} else {
-			return 0.9f+0.05f*level;
+			return 0.9f-0.05f*level;
 		}
 	}
 
@@ -52,7 +52,7 @@ public class 角斗链枷 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.3f+0.1f*level;
+			return 0.2f+0.1f*level;
 		}
 	}
 

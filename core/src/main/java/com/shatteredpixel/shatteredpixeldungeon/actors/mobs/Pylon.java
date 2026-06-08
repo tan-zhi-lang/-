@@ -34,7 +34,7 @@ public class Pylon extends Mob {
 
 		生命 = 最大生命 = Math.round(
 				(Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 80 : 50)
-				*Dungeon.难度生命());
+				*Dungeon.难度生命(this));
 
 		最大等级 = -2;
 
@@ -117,7 +117,7 @@ public class Pylon extends Mob {
 		if (ch != null && !(ch instanceof DM300)){
 			ch.sprite.flash();
 			float dmg=Random.NormalIntRange(10, 20);
-			dmg=dmg*Dungeon.难度攻击();
+			dmg=dmg*Dungeon.难度攻击(this);
 			ch.受伤时(dmg, new Electricity());
 
 			if (ch == Dungeon.hero) {

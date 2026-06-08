@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
@@ -25,7 +27,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.传送阵眼;
+import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
@@ -64,11 +69,13 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.下水道4;
 import com.shatteredpixel.shatteredpixeldungeon.levels.回廊1;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
 import com.shatteredpixel.shatteredpixeldungeon.utils.DungeonSeed;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
@@ -95,6 +102,7 @@ public class Dungeon {
 		生命水晶,
 		活力水晶,
 
+		丛林玫瑰,
 		生命果,
 		神盾果,
 
@@ -189,8 +197,14 @@ public class Dungeon {
 	public static int 地牢时间;
 	public static int 地牢寿命;
 	public static int 地牢天数;
-	public static int 难度;
-	public static boolean 老鼠蝙蝠;
+	public static float 叠钢=0;
+	public static int 难度=2;
+	public static boolean 老鼠蝙蝠=false;
+	public static boolean 跟随强度=false;
+	public static boolean 成长属性=false;
+	public static boolean 高耐久度=false;
+	public static boolean 更多怪物=false;
+	public static boolean 更快刷怪=false;
 	public static float mobsToChampion;
 
 	public static Hero hero;
@@ -209,20 +223,29 @@ public class Dungeon {
 
 	public static int gold=0;
 	public static int energy=0;
-	public static int gold(int x){
+	public static float gold(int x){
+		return gold(x,-1);
+	}
+	public static float gold(int x,int pos){
+		Sample.INSTANCE.play(Assets.Sounds.GOLD,1,1,Random.Float(0.9f,1.1f));
 		if(x>0){
-			energy+=Math.round(圣金之沙.获得()*x);
+			if(hero())
+			x+=Math.round(hero.天赋点数(Talent.丝路,0.1666f)*x);
 
-			if(Dungeon.符文("货币互通"))
-				energy+=Math.round(0.05f*x);
+			energy +=Math.round(圣金之沙.减少()*x);
+
+
+			if(符文("货币互通"))
+				energy+=Math.round(0.15f*x);
 
 			if(hero())
-			x*=Dungeon.hero.幸运值();
+			x*=hero.幸运值();
 
-			x*=优惠卡.获取()/100f;
+//			x/=3;
+			x*=优惠卡.获取();
 
-			if(Dungeon.hero())
-			x*=1+Dungeon.hero.天赋点数(Talent.来世金币,0.25f);
+			if(hero())
+			x*=1+hero.天赋点数(Talent.来世金币,0.25f);
 
 			gold+=x;
 		}
@@ -230,34 +253,64 @@ public class Dungeon {
 			gold+=x;
 		}
 		if(hero()&&hero.heroClass(HeroClass.来世))
-			Rankings.INSTANCE.来世金币=Dungeon.gold;
+			Rankings.INSTANCE.来世金币=gold;
+
 		Statistics.goldCollected += x;
+		if(hero()&&x>0){
+			if(pos==-1)
+				GameScene.pickUp(new Gold(), hero.pos);
+			else
+				GameScene.pickUp(new Gold(),pos);
+			updateQuickslot();
+		}
+
+		if(hero()&&hero.sprite!=null&&x>1)
+			hero.sprite.showStatusWithIcon(CharSprite.中性黄,Integer.toString(x),FloatingText.GOLD);
 		return gold;
 	}
-	public static int energy(int x){
+
+	public static float energy(int x){
+		return energy(x,-1);
+	}
+	public static float energy(int x,int pos){
+		Sample.INSTANCE.play( Assets.Sounds.ITEM );
 		if(x>0){
-			gold+=Math.round(圣金之沙.减少()*x);
+			if(hero())
+			x+=Math.round(hero.天赋点数(Talent.丝路,0.1666f)*x);
 
-			if(Dungeon.符文("货币互通"))
-			gold+=Math.round(60*x);
+			gold+=Math.round(圣金之沙.获得()*x);
 
-			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.魔法灵枢))
-				x*=1.5f+Dungeon.hero.天赋点数(Talent.高额炼化,0.5f);
+			if(符文("货币互通"))
+			gold+=Math.round(2*x);
+
+			if(hero()&&hero.subClass(HeroSubClass.魔法灵枢))
+				x*=1.5f+hero.天赋点数(Talent.高额炼化,0.5f);
 			
-			if(Dungeon.hero())
-			x*=1+Dungeon.hero.天赋点数(Talent.来世能量,0.25f);
+			if(hero())
+			x*=1+hero.天赋点数(Talent.来世能量,0.25f);
 
 			energy+=x;
 		}
 		if(x<0){
-			if(Dungeon.符文("智慧的宠爱"))x*=12;
+			if(符文("智慧的宠爱"))x*=12;
 			energy+=x;
 
-			if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.能量守恒))
-				energy(Math.round(-x*Dungeon.hero.天赋点数(Talent.能量守恒,0.125f)));
+			if(hero()&&hero.天赋(Talent.能量守恒))
+				energy(Math.round(-x*hero.天赋点数(Talent.能量守恒,0.125f)));
 		}
 		if(hero()&&hero.heroClass(HeroClass.来世))
-			Rankings.INSTANCE.来世能量=Dungeon.energy;
+			Rankings.INSTANCE.来世能量=energy;
+
+		Statistics.energyc += x;
+		if(hero()&&x>0){
+			if(pos==-1)
+				GameScene.pickUp(new EnergyCrystal(),hero.pos);
+			else
+				GameScene.pickUp(new EnergyCrystal(),pos);
+			updateQuickslot();
+		}
+		if(hero()&&hero.sprite!=null)
+			hero.sprite.showStatusWithIcon(0x44CCFF,Integer.toString(x),FloatingText.ENERGY);
 		return energy;
 	}
 	
@@ -285,7 +338,7 @@ public class Dungeon {
 			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
 		} else if (!SPDSettings.customSeed().isEmpty()){
 			customSeedText = SPDSettings.customSeed();
-			if(算法.种子()!=null||算法.isDebug()||算法.彩蛋()||算法.海克斯()){
+			if(算法.种子()!=null||算法.isDebug()||算法.彩蛋()){
 				customSeedText = "";
 				seed = DungeonSeed.randomSeed();
 			}else{
@@ -309,8 +362,7 @@ public class Dungeon {
 		地牢时间= 时间(900);
 		地牢寿命= 0;
 		地牢天数= 1;
-		if(难度==0)难度=2;
-		老鼠蝙蝠= false;
+
 		mobsToChampion = 1;
 
 		Actor.clear();
@@ -351,12 +403,12 @@ public class Dungeon {
 		
 		gold=0;
 		energy=0;
-		if(Dungeon.赛季(赛季设置.地牢塔防)){
+		if(赛季(赛季设置.地牢塔防)){
 			energy(10);
 		}
-		if(Dungeon.系统(系统设置.资产破亿)||算法.isDebug()){
-			gold(1_0000);
-			energy(1_0000);
+		if(系统(系统设置.资产丰厚)||算法.isDebug()){
+			gold(1000);
+			energy(500);
 		}
 
 		droppedItems = new SparseArray<>();
@@ -377,33 +429,32 @@ public class Dungeon {
 		Badges.reset();
 		GamesInProgress.selectedClass.initHero( hero );
 
-		Hero.海克斯重置();
 
 	}
 
 	public static boolean isChallenged( int mask ) {
-		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
+		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (challenges & mask) != 0;
 	}
 
 	public static boolean 炼狱( int mask ) {
-		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
+		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (炼狱 & mask) != 0;
 	}
 	public static boolean 解压( int mask ) {
-		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
+		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (解压 & mask) != 0;
 	}
 	public static boolean 系统( int mask ) {
-		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
+		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (系统 & mask) != 0;
 	}
 	public static boolean 派对(int mask) {
-		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
+		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (派对&mask)!=0;
 	}
 	public static boolean 赛季(int mask) {
-		if(Dungeon.符文("大错特错")&&Random.Int(9)==0)return false;
+		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (赛季&mask)!=0;
 	}
 	public static int 时间(int 时间) {
@@ -430,12 +481,31 @@ public class Dungeon {
 			}
 		}
 		if(小时<=9){
-			return "0"+小时+":"+(分钟<=9?"0":分钟);
+			return "0"+小时+":"+(分钟<60?"0":分钟);
 		}
-		return 小时+":"+(分钟<=9?"0"+分钟:分钟);
+		return 小时+":"+(分钟<60?"0"+分钟:分钟);
 	}
-	public static float 难度生命(){
-		float x=0;
+	public static float 综合属性(Char c){
+		float x=1;
+		if(c!=null){
+			if(成长属性)x+=depth*0.2f;
+			if(符文("这不合理"))
+				if(c.老鬼()||c.小老鬼())x*=3f;
+				else x*=0.3f;
+
+			if(符文("太合理了"))
+				if(c.老鬼()||c.小老鬼())x*=0.2f;
+				else x*=2;
+		}
+		return x;
+	}
+	public static float 难度生命(Char c){
+		float x=switch(难度){
+			case 1 -> 0.67f;
+			case 2 -> 1f;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.5f;
+			default -> 1;
+		};
 //		x+=0.25f;
 		if(赛季(赛季设置.回廊传说))
 		x+=10;
@@ -444,65 +514,115 @@ public class Dungeon {
 		}
 
 		if(赛季(赛季设置.生化模式))x+=8;
-		x=switch(难度){
-			case 1 -> 0.67f+x;
-			case 2 -> 1f+x;
-			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.5f+x;
-			default -> 1+x;
-		};
 
+		x*=1+叠钢;
+
+		x*=综合属性(c);
+		if(高耐久度)x*=3;
 		if(符文("打野"))x*=3;
 		if(符文("战斗久"))x*=2;
 		if(符文("来互秒"))x/=5;
 		if(符文("不耐揍的敌人"))x*=0.9f;
+		if(跟随强度&&hero()&&hero.最大生命>125)x*=hero.最大生命/125f;
 		return x;
 	}
-	public static float 难度攻击(){
-		float x=0;
+	public static float 难度攻击(Char c){
+		float x=switch(难度){
+			case 1 -> 0.67f;
+			case 2 -> 1f;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
+			default -> 1;
+		};
 //		x==0.05f;
 		if(赛季(赛季设置.回廊传说))
 			x+=10;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=10+(循环()-1 )*1.67;
 		}
-		x=switch(难度){
-			case 1 -> 0.67f+x;
-			case 2 -> 1f+x;
-			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
-			default -> 1+x;
-		};
+
+		x*=综合属性(c);
 		if(符文("战斗久"))x/=2;
 		if(符文("来互秒"))x*=3;
+		if(跟随强度&&hero()&&hero.最大防御()>50)x*=x*=hero.防御时(null,hero.最大防御()/50f);
 		return x;
 	}
-	public static float 难度防御(){
-		float x=0;
+	public static float 难度防御(Char c){
+		float x=switch(难度){
+			case 1 -> 0.67f;
+			case 2 -> 1f;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
+			default -> 1;
+		};
 		//		x==0.05f;
 		if(赛季(赛季设置.回廊传说))
 			x+=10;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=5+(循环()-1 )*0.84;
 		}
-		return switch(难度){
-			case 1 -> 0.67f+x;
-			case 2 -> 1f+x;
-			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
-			default -> 1+x;
-		};
+
+		x*=综合属性(c);
+		if(跟随强度&&hero()&&hero.最大防御()>70f)x*=hero.攻击时(null,hero.最大攻击()/70f);
+		return x;
 	}
-	public static float 难度命中闪避(){
-		float x=0;
+	public static float 难度命中(Char c){
+		float x=switch(难度){
+			case 1 -> 0.67f;
+			case 2 -> 1f;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
+			default -> 1;
+		};
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=4.5f+(循环()-1 )*0.75f;
 		}
-		return switch(难度){
-			case 1 -> 0.67f+x;
-			case 2 -> 1f+x;
-			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
-			default -> 1+x;
-		};
+		x*=综合属性(c);
+		if(跟随强度&&hero()&&hero.最大命中(null)>30f)x*=hero.最大命中(null)/30f;
+		return x;
 	}
-	public static float 难度经验(){
+	public static float 难度闪避(Char c){
+		float x=switch(难度){
+			case 1 -> 0.67f;
+			case 2 -> 1f;
+			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
+			default -> 1;
+		};
+		if(赛季(赛季设置.刷子地牢)&&循环()>0){
+			x+=4.5f+(循环()-1 )*0.75f;
+		}
+		x*=综合属性(c);
+		if(跟随强度&&hero()&&hero.最大命中(null)>35)x*=hero.最大命中(null)/35f;
+		return x;
+	}
+	public static float 难度攻速(Char c){
+		float x=1;
+		if(跟随强度&&hero())x/=hero.攻击延迟();
+		x*=综合属性(c);
+		return x;
+//		if(赛季(赛季设置.刷子地牢)&&循环()>0){
+//			x+=4.5f+(循环()-1 )*0.75f;
+//		}
+//		return switch(难度){
+//			case 1 -> 0.67f+x;
+//			case 2 -> 1f+x;
+//			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
+//			default -> 1+x;
+//		};
+	}
+	public static float 难度移速(Char c){
+		float x=1;
+		if(跟随强度&&hero())x*=hero.移速();
+		x*=综合属性(c);
+		return x;
+//		if(赛季(赛季设置.刷子地牢)&&循环()>0){
+//			x+=4.5f+(循环()-1 )*0.75f;
+//		}
+//		return switch(难度){
+//			case 1 -> 0.67f+x;
+//			case 2 -> 1f+x;
+//			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f+x;
+//			default -> 1+x;
+//		};
+	}
+	public static float 难度经验(Char c){
 		return switch(难度){
 			case 1 -> 1.5f;
 			case 2 -> 1f;
@@ -510,7 +630,7 @@ public class Dungeon {
 			default -> 1;
 		};
 	}
-	public static float 难度掉率(){
+	public static float 难度掉率(Char c){
 		
 		return switch(难度){
 			case 1-> 1.5f;
@@ -804,6 +924,7 @@ public class Dungeon {
 		}
 		if(!hero.subClass(HeroSubClass.猫头鹰))
 		hero.viewDistance = level.视野范围;
+
 		hero.curAction = hero.lastAction = null;
 
 		observe();
@@ -843,31 +964,16 @@ public class Dungeon {
 	}
 	
 	public static boolean 升级卷轴掉落() {
-//		int souLeftThisSet;
-//		//3 SOU each floor set
-//		int 每层数量=3;
-//
-//		souLeftThisSet = 每层数量 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 每层数量);
-//		if (souLeftThisSet <= 0) return false;
-//
-//		int floorThisSet = (depth % 5);
-//		//chance is floors left / scrolls left
-//		return Random.Int(5 - floorThisSet) < souLeftThisSet;
-		
-		
-		//2 POS each floor set
-		int 每层数量=2;
-		int posLeftThisSet = 每层数量 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 每层数量);
-		if (posLeftThisSet <= 0) return false;
-		
+		int souLeftThisSet;
+		//3 SOU each floor set
+		int 每层数量=3;
+
+		souLeftThisSet = 每层数量 - (LimitedDrops.UPGRADE_SCROLLS.count - (depth / 5) * 每层数量);
+		if (souLeftThisSet <= 0) return false;
+
 		int floorThisSet = (depth % 5);
-		
-		//pos drops every two floors, (numbers 1-2, and 3-4) with a 50% chance for the earlier one each time.
-		int targetPOSLeft = 2 - floorThisSet/2;
-		if (floorThisSet % 2 == 1 && Random.Int(2) == 0) targetPOSLeft --;
-		
-		if (targetPOSLeft < posLeftThisSet) return true;
-		else return false;
+		//chance is floors left / scrolls left
+		return Random.Int(5 - floorThisSet) < souLeftThisSet;
 	}
 	public static boolean asNeeded() {
 		//1 AS each floor set
@@ -932,10 +1038,16 @@ public class Dungeon {
 	private static final String 派对x	= "派对";
 	private static final String 赛季x	= "赛季";
 	private static final String 难度x	= "难度";
+	private static final String 叠钢x	= "叠钢";
 	private static final String 地牢时间x= "地牢时间";
 	private static final String 地牢寿命x= "地牢寿命";
 	private static final String 地牢天数x= "地牢天数";
 	private static final String 老鼠蝙蝠x= "老鼠蝙蝠";
+	private static final String 跟随强度x= "跟随强度";
+	private static final String 成长属性x= "成长属性";
+	private static final String 高耐久度x= "高耐久度";
+	private static final String 更多怪物x= "更多怪物";
+	private static final String 更快刷怪x= "更快刷怪";
 	private static final String MOBS_TO_CHAMPION	= "mobs_to_champion";
 	private static final String HERO		= "hero";
 	private static final String DEPTH		= "depth";
@@ -969,10 +1081,17 @@ public class Dungeon {
 			bundle.put(派对x,派对);
 			bundle.put(赛季x,赛季);
 			bundle.put( 难度x, 难度 );
+			bundle.put( 叠钢x, 叠钢 );
 			bundle.put(地牢时间x,地牢时间);
 			bundle.put(地牢寿命x,地牢寿命);
 			bundle.put(地牢天数x,地牢天数);
 			bundle.put(老鼠蝙蝠x,老鼠蝙蝠);
+			bundle.put(跟随强度x,跟随强度);
+			bundle.put(成长属性x,成长属性);
+			bundle.put(高耐久度x,高耐久度);
+			bundle.put(更多怪物x,更多怪物);
+			bundle.put(更快刷怪x,更快刷怪);
+
 			bundle.put( MOBS_TO_CHAMPION, mobsToChampion );
 			bundle.put( HERO, hero );
 			bundle.put( DEPTH, depth );
@@ -1095,10 +1214,16 @@ public class Dungeon {
 		Dungeon.派对= bundle.getInt(派对x);
 		Dungeon.赛季= bundle.getInt(赛季x);
 		Dungeon.难度 = bundle.getInt( 难度x );
+		Dungeon.叠钢 = bundle.getFloat( 叠钢x );
 		Dungeon.地牢时间= bundle.getInt(地牢时间x);
 		Dungeon.地牢寿命= bundle.getInt(地牢寿命x);
 		Dungeon.地牢天数= bundle.getInt(地牢天数x);
 		Dungeon.老鼠蝙蝠= bundle.getBoolean(老鼠蝙蝠x);
+		Dungeon.跟随强度= bundle.getBoolean(跟随强度x);
+		Dungeon.成长属性= bundle.getBoolean(成长属性x);
+		Dungeon.高耐久度= bundle.getBoolean(高耐久度x);
+		Dungeon.更多怪物= bundle.getBoolean(更多怪物x);
+		Dungeon.更快刷怪= bundle.getBoolean(更快刷怪x);
 		Dungeon.mobsToChampion = bundle.getFloat( MOBS_TO_CHAMPION );
 		
 		Dungeon.level = null;
@@ -1484,5 +1609,25 @@ public class Dungeon {
 	}
 	public static boolean 区域层数(int x){//1~4
 		return 相对层数()%5==x;
+	}
+	public static boolean 跟随强度(boolean b){
+		跟随强度=b;
+		return b;
+	}
+	public static boolean 成长属性(boolean b){
+		成长属性=b;
+		return b;
+	}
+	public static boolean 高耐久度(boolean b){
+		高耐久度=b;
+		return b;
+	}
+	public static boolean 更多怪物(boolean b){
+		更多怪物=b;
+		return b;
+	}
+	public static boolean 更快刷怪(boolean b){
+		更快刷怪=b;
+		return b;
 	}
 }

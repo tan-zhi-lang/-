@@ -16,8 +16,7 @@ public class 双剑 extends Weapon{
 		技能=new 剑舞();
 		
 		tier = 3;
-		延迟= 0.5f;
-		伤害= 0.57f;
+		延迟= 1.175f;
 	}
 
 }

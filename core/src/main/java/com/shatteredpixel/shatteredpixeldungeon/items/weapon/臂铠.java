@@ -12,7 +12,7 @@ public class 臂铠 extends Weapon{
 
 		tier = 1;
 		延迟= 0.5f;
-		伤害= 0.4f;
+		伤害= 0.5f;
 		技能=new 连击();
 		
 

@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.PetrifiedSeed;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -37,7 +38,13 @@ public class HighGrass {
 	//prevents items dropped from grass, from trampling that same grass.
 	//yes this is a bit ugly, oh well.
 	private static boolean freezeTrample = false;
-
+	public static float 概率(){
+		float x=1;
+		if(Dungeon.hero()){
+			if(Dungeon.hero.天赋(Talent.寻觅))x+=Dungeon.hero.天赋点数(Talent.寻觅,0.1f);
+		}
+		return x;
+	}
 	public static void trample( Level level, int pos ) {
 		
 		if (freezeTrample) return;
@@ -121,6 +128,7 @@ public class HighGrass {
 				
 //				float 概率 = 1/(9f + 自然层 *4f);
 				// absolute max drop rate is ~1/6.5 with footwear of nature, ~1/18 without
+				概率 *= 概率();
 				概率 *= PetrifiedSeed.grassLootMultiplier();
 				if(Holiday.getCurrentHoliday()==Holiday.植树节){
 					概率 *=2;
@@ -142,7 +150,7 @@ public class HighGrass {
 				
 				// Dew, scales from 1/6 to 1/4
 				概率 = 1/(6f - 自然层 /2f);
-
+				概率*=概率();
 				//grassy levels spawn half as much dew
 				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
 					概率 /= 2;
@@ -154,13 +162,17 @@ public class HighGrass {
 					level.drop(new Sungrass.Seed(),pos).sprite().drop();
 
 				if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.元素掌控))//元素掌控木
-					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f);
+					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f)*概率();
 
-				if (Random.Float() < 1/300f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
+				if (Random.Float() < 1/300f*概率()&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
-				if (Random.Float() < 1/300f&&Dungeon.符文("海克斯获取:收获")) {
+				if (Random.Float() < 1/900f*概率()&&Dungeon.LimitedDrops.丛林玫瑰.count<1) {
+					Dungeon.LimitedDrops.丛林玫瑰.count++;
+					level.drop(new 丛林玫瑰(),pos).sprite().drop();
+				}
+				if (Random.Float() < 1/300f*概率()&&Dungeon.符文("海克斯获取:收获")) {
 					level.drop(new 海克斯宝典(true),pos).sprite().drop();
 				}
 				
@@ -267,6 +279,7 @@ public class HighGrass {
 				if(Holiday.getCurrentHoliday()==Holiday.植树节){
 					概率 *=2;
 				}
+				概率*=概率();
 				概率*=3;
 				if (Random.Float() < 概率) {
 					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
@@ -298,6 +311,7 @@ public class HighGrass {
 					概率 /= 2;
 				}
 				概率*=3;
+				概率*=概率();
 
 				if (Random.Float() < 概率) {
 					level.drop(new Dewdrop(), pos).sprite().drop();
@@ -308,12 +322,18 @@ public class HighGrass {
 					level.drop(new Sungrass.Seed(),pos).sprite().drop();
 
 				if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.元素掌控))//元素掌控木
-					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f)*3;
-				if (Random.Float() < 1/100f&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
+					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f)*3*概率();
+
+				if (Random.Float() < 1/100f*概率()&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
-				if (Random.Float() < 1/100f&&Dungeon.符文("海克斯获取:收获")) {
+
+				if (Random.Float() < 1/300f*概率()&&Dungeon.LimitedDrops.丛林玫瑰.count<1) {
+					Dungeon.LimitedDrops.丛林玫瑰.count++;
+					level.drop(new 丛林玫瑰(),pos).sprite().drop();
+				}
+				if (Random.Float() < 1/100f*概率()&&Dungeon.符文("海克斯获取:收获")) {
 					level.drop(new 海克斯宝典(true),pos).sprite().drop();
 				}
 				

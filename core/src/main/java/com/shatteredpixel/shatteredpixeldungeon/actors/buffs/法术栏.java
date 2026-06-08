@@ -74,7 +74,7 @@ public class 法术栏 extends Buff  implements 法术栏标.Action{
 		if(item!=null)
 		txt.text(""+item.数量());
 		else return null;
-		txt.hardlight(CharSprite.增强);
+		txt.hardlight(CharSprite.增强绿);
 		txt.measure();
 		return txt;
 	}

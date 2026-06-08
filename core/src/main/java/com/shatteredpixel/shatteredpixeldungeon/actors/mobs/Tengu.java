@@ -606,11 +606,11 @@ public class Tengu extends Mob {
 			
 			PointF p = DungeonTilemap.raisedTileCenterToWorld(bombPos);
 			if (timer == 3) {
-				FloatingText.show(p.x, p.y, bombPos, "3...", CharSprite.WARNING);
+				FloatingText.show(p.x, p.y, bombPos, "3...", CharSprite.警告橙);
 			} else if (timer == 2){
-				FloatingText.show(p.x, p.y, bombPos, "2...", CharSprite.WARNING);
+				FloatingText.show(p.x, p.y, bombPos, "2...", CharSprite.警告橙);
 			} else if (timer == 1){
-				FloatingText.show(p.x, p.y, bombPos, "1...", CharSprite.WARNING);
+				FloatingText.show(p.x, p.y, bombPos, "1...", CharSprite.警告橙);
 			} else {
 				PathFinder.buildDistanceMap( bombPos, BArray.not( Dungeon.level.solid, null ), 2 );
 				for (int cell = 0; cell < PathFinder.distance.length; cell++) {
@@ -620,7 +620,7 @@ public class Tengu extends Mob {
 						if (ch != null && !(ch instanceof Tengu)) {
 							float dmg = Random.NormalIntRange(5 + Dungeon.scalingDepth(), 10 + Dungeon.scalingDepth() * 2);
 
-							dmg=dmg*Dungeon.难度攻击();
+							dmg=dmg*Dungeon.难度攻击(new Tengu());
 							dmg=ch.防御(dmg);
 							dmg=ch.护甲伤害(dmg);
 
@@ -1056,7 +1056,7 @@ public class Tengu extends Mob {
 							Char ch = Actor.findChar(cell);
 							if (ch != null && !(ch instanceof Tengu)){
 								float dmg=2 + Dungeon.scalingDepth();
-								dmg=dmg*Dungeon.难度攻击();
+								dmg=dmg*Dungeon.难度攻击(new Tengu());
 								ch.受伤时(dmg, new Electricity());
 								
 								if (ch == Dungeon.hero){

@@ -17,7 +17,7 @@ import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class 灵焰 extends Buff implements Hero.Doom {
+public class 灵焰 extends 燃烧 implements Hero.Doom {
 	
 	public static final float DURATION = 8f;
 	

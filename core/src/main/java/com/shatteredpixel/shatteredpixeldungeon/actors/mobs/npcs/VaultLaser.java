@@ -52,7 +52,7 @@ public class VaultLaser extends NPC {
 					visible = true;
 				}
 				if (Actor.findChar(cell) == Dungeon.hero){
-					Dungeon.hero.sprite.showStatus(CharSprite.削弱, "!!!");
+					Dungeon.hero.sprite.showStatus(CharSprite.削弱红,"!!!");
 					Sample.INSTANCE.play(Assets.Sounds.RAY);
 					SFXLastPlayed = ShatteredPixelDungeon.realTime;
 				}

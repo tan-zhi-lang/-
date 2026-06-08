@@ -12,11 +12,11 @@ public class 长匕首 extends Weapon{
 		image = 物品表.DIRK;
 		hitSound = Assets.Sounds.HIT_STAB;
 
-		延迟=0.85f;
-		伤害= 0.75f;
+		延迟=0.8f;
+		伤害= 0.8f;
+		伏击=0.25f;
 		技能=new 背刺();
-		
-		伏击=0.67f;
+
 		tier = 2;
 	}
 	

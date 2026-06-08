@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.劈斩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.无情铁手;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -16,7 +15,7 @@ public class 锈右斧 extends Weapon{
 		image = 物品表.锈右斧;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		延迟= 1.5f;
-		伤害=1.2f;
+		伤害=1.25f;
 
 		特别=true;
 		橙色=true;

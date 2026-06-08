@@ -80,7 +80,7 @@ public class 食物栏 extends Buff  implements 食物栏标.Action{
 		if(food!=null)
 		txt.text(""+food.数量());
 		else return null;
-		txt.hardlight(CharSprite.增强);
+		txt.hardlight(CharSprite.增强绿);
 		txt.measure();
 		return txt;
 	}

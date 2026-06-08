@@ -15,7 +15,6 @@ public class 巨剑 extends Weapon{
 		技能=new 斩击();
 		
 		tier = 4;
-		命中=1.1f;
 	}
 
 }

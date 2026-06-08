@@ -14,7 +14,6 @@ public class 单手剑 extends Weapon{
 		
 		技能=new 斩击();
 		tier = 2;
-		命中=1.2f;
 	}
 
 }

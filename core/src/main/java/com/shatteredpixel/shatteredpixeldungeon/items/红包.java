@@ -22,7 +22,7 @@ public class 红包 extends 用品 {
 		if(hero.符文("红包"))
 			new 属性锻造器().放背包();
 
-		Dungeon.level.drop(new Gold().random(),hero.pos).sprite().drop();
+		Dungeon.gold(new Gold().random().数量());
 		super.使用(hero);
 	}
 

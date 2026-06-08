@@ -51,7 +51,7 @@ public class Piranha extends Mob {
 	public Piranha() {
 		super();
 		
-		生命 = 最大生命 =Math.round((10 + Dungeon.depth * 5)*Dungeon.难度生命());
+		生命 = 最大生命 =Math.round((10 + Dungeon.depth * 5)*Dungeon.难度生命(this));
 		defenseSkill = 10 + Dungeon.depth * 2;
 	}
 	

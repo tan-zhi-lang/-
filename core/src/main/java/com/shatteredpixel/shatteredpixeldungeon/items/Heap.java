@@ -78,13 +78,13 @@ public class Heap implements Bundlable {
 			if(Dungeon.hero.天赋概率(Talent.盗墓大师,25)){
 				break;
 			}
-			if(hero.符文("摸金校尉"))Dungeon.gold(500*Dungeon.depth);
+			if(hero.符文("摸金校尉"))Dungeon.gold(75*Dungeon.depth,pos);
 			Wraith.spawnAround( hero.pos );
 			break;
 		case REMAINS:
 		case SKELETON:
 			Badges.解锁道士();
-			if(hero.符文("摸金校尉"))Dungeon.gold(500*Dungeon.depth);
+			if(hero.符文("摸金校尉"))Dungeon.gold(75*Dungeon.depth,pos);
 			CellEmitter.center( pos ).start(Speck.factory(Speck.RATTLE), 0.1f, 3);
 			break;
 
@@ -213,8 +213,8 @@ public class Heap implements Bundlable {
 			sprite.view(this).place( pos );
 		}
 	}
-	
-	public void burn() {//烧灭
+	//烧灭
+	public void burn() {
 		if(Dungeon.符文("我让你破坏"))return;
 		hidden = false;
 
@@ -272,6 +272,7 @@ public class Heap implements Bundlable {
 	}
 
 	//Note: should not be called to initiate an explosion, but rather by an explosion that is happening.
+	//爆炸
 	public void explode() {
 		if(Dungeon.符文("我让你破坏"))return;
 		
@@ -326,7 +327,7 @@ public class Heap implements Bundlable {
 			}
 		}
 	}
-	
+	//冻结
 	public void freeze() {
 		if(Dungeon.符文("我让你破坏"))return;
 

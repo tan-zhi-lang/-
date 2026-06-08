@@ -22,12 +22,12 @@ public class 优惠卡 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
 								100 *打折(),
-								获取()
+								100 *获取()
 							   );
 		} else {
 			return Messages.get(this, "stats_desc",
 								100 *打折(0),
-								获取(0)
+								100 *获取(0)
 							   );
 		}
 	}
@@ -43,15 +43,15 @@ public class 优惠卡 extends Trinket {
 			return 0.9f-0.1f*level;
 		}
 	}
-	public static int 获取(){
+	public static float 获取(){
 		return 获取(trinketLevel(优惠卡.class));
 	}
 
-	public static int 获取(int level){
+	public static float 获取(int level){
 		if (level < 0){
-			return 100;
+			return 1;
 		} else {
-			return 95-5*level;
+			return 0.95f-0.05f*level;
 		}
 	}
 

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.金额;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -10,12 +12,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Succubus;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -32,6 +36,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
+import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
@@ -44,7 +52,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.技能;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
@@ -110,6 +117,7 @@ public class Item implements Bundlable {
 	public boolean 物品 = false;
 	public boolean 丢过 = false;
 
+	public boolean 无动作= false;
 	public boolean 不能丢扔= false;
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
@@ -123,6 +131,9 @@ public class Item implements Bundlable {
 	public String item_Miss		= Assets.Sounds.MISS;
 	public boolean alpha = false;
 	protected int 等级 = 0;
+	public float 装备能量 = 1;
+	public float 金币价值 = 1;
+	public float 能量价值 = 1;
 
 	public boolean 白色 = false;
 	public boolean 黑色 = false;
@@ -167,6 +178,7 @@ public class Item implements Bundlable {
 	public boolean 首次装备 = true;
 	public boolean 房间物品 = false;
 	public boolean 超级等级 = false;
+	public float 魔力收益 = 1;
 	public boolean tr(){
 		if(this instanceof 生命水晶)return true;
 		if(this instanceof 生命果)return true;
@@ -212,6 +224,9 @@ public class Item implements Bundlable {
 	
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = new ArrayList<>();
+		if(无动作){
+			return new ArrayList<>();
+		}
 		if(!不能丢扔){
 			actions.add(AC_DROP);
 			actions.add(AC_THROW);
@@ -257,6 +272,9 @@ public class Item implements Bundlable {
 		if (放背包( hero.belongings.backpack )) {
 			
 			GameScene.pickUp( this, pos );
+			if(this instanceof Gold||this instanceof EnergyCrystal){
+
+			}else
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
 			hero.spendAndNext( pickupDelay() );
 			return true;
@@ -331,7 +349,7 @@ public class Item implements Bundlable {
 		public void onSelect(Item item) {
 			if (item != null) {
 				升级(item.强化等级());
-
+				item.detach();
 				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
 				升级卷轴.upgrade(Dungeon.hero);
 				Item.evoke( Dungeon.hero );
@@ -373,8 +391,8 @@ public class Item implements Bundlable {
 			detach(hero.belongings.backpack);
 
 			float x=0.0001f;
-			x+=金币提升()/quantity/60_0000f;
-			x+=能量提升()/quantity/1_0000f;
+			x+=(float)金币提升()/quantity/20_000f;
+			x+=(float)能量提升()/quantity/10_000f;
 			x+=强化等级()/1_0000f;
 			if(cursedKnown)x+=0.001f;
 			if(levelKnown)x+=0.001f;
@@ -399,7 +417,7 @@ public class Item implements Bundlable {
 				x+=a.tier/1_0000f;
 			}
 			x*=1+(hero.职业精通()?0.25f:0)+hero.天赋点数(Talent.全面吞噬,0.25f);
-			GLog.p(x+"");
+
 			hero.属性成长+=x;
 		} else if (action.equals( AC_RENAME )) {
 			GameScene.show(new WndTextInput("物品重命名",
@@ -643,6 +661,9 @@ public class Item implements Bundlable {
 	public int 强化等级(){
 		if(超级等级)return 10086;
 		int x=0;
+		if(Dungeon.符文("升级升级:等级"))
+			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
+				x+=Dungeon.hero.等级;
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 			&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
@@ -695,6 +716,9 @@ public class Item implements Bundlable {
 			}
 			if(Dungeon.符文("升级升级")){
 				this.等级++;
+			}
+			if(Dungeon.符文("升级升级卷轴:自升")){
+				this.等级+=Dungeon.hero.自升;
 			}
 			if(Dungeon.赛季(赛季设置.升级概率)){
 				if(等级>=17){
@@ -792,6 +816,13 @@ public class Item implements Bundlable {
 		
 		return this;
 	}
+	final public Item 额外升级(int n ) {
+		for (int i=0; i < n; i++) {
+			额外升级();
+		}
+
+		return this;
+	}
 	
 	public Item 降级() {
 		
@@ -857,6 +888,9 @@ public class Item implements Bundlable {
 			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
 				升级();
 		}
+		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.知识))
+			Dungeon.hero.经验(Dungeon.hero.天赋点数(Talent.知识));
+
 		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.真绝伪证))
 			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
 				升级(Dungeon.hero.天赋点数(Talent.真绝伪证));
@@ -964,10 +998,15 @@ public class Item implements Bundlable {
 	public Emitter emitter() { return null; }
 	
 	public int 金币提升(){
-		return (价值提升?Math.round(金币()*1.5f):金币());
+		return Math.round((价值提升?金币()*1.5f:金币())*金币价值/金额);
 	}
 	public int 能量提升(){
-		return (能量提升?Math.round(能量()*1.5f):能量());
+		if(this instanceof Weapon||this instanceof Armor
+		   ||this instanceof Ring||this instanceof Wand||
+		   this instanceof Artifact)
+			return Math.round((能量提升?能量()*1.5f:能量())*能量价值/金币价值);
+
+		return Math.round((能量提升?能量()*1.5f:能量())*能量价值);
 	}
 	
 	public String info() {
@@ -984,26 +1023,30 @@ public class Item implements Bundlable {
 				if(note!=null){
 					//使用技巧没鉴定不显示
 					//we swap underscore(0x5F) with low macron(0x2CD) here to avoid highlighting in the item window
+					if(已鉴定())
 					n+=Messages.get(this,"custom_note_type",note.title().replace('_','ˍ'),
 									note.desc().replace('_','ˍ'))+"\n\n";
 				}
 			}
 		}
 
-		GLog.p(n);
+
 
 		String s="\n代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
 		s+="\n";
 		if(已鉴定()){
-			
+			if(金币()>0){
 			s+="_"+"金币价值"+(金币()>0?
 									   金币提升()+"(出售价)/"+Shopkeeper.sellPrice(this)+"购入价":
 									   "无价")+"_";
 			s+="\n";
-			s+=" @@ 能量价值"+(能量()>0?
-								   ""+能量提升():
-								   "无价")+" @@ ";
-			s+="\n";
+			}
+			if(能量()>0){
+				s+=" @@ 能量价值"+(能量()>0?
+										   ""+能量提升():
+										   "无价")+" @@ ";
+				s+="\n";
+			}
 		}
 		s+="物品";
 		if(this instanceof Bag){
@@ -1087,19 +1130,33 @@ public class Item implements Bundlable {
 			s+="/";
 			if(w.双手())s+="双手 ";
 			else s+="双持 ";
+
 			if(w.tr())s+="泰拉瑞亚";
+			if(w.幻影忍者())s+="乐高幻影忍者";
 			if(w.拳套())s+="拳套";
+			if(w.钝器())s+="钝器";
+			if(w.匕首())s+="匕首";
+//			if(w.短剑())s+="短剑";
+//			if(w.巨剑())s+="巨剑";
+//			if(w.小盾())s+="小盾";
+//			if(w.大盾())s+="大盾";
+//			if(w.战锤())s+="战锤";
+//			if(w.战斧())s+="战斧";
+//			if(w.战镰())s+="战镰";
+//			if(w.巨斧())s+="巨斧";
+//			if(w.巨锤())s+="巨锤";
+//			if(w.巨镰())s+="巨镰";
+//			if(w.长刀())s+="长刀";
+			if(w.盾())s+="盾";
 			if(w.剑())s+="剑";
 			if(w.刀())s+="刀";
 			if(w.斧())s+="斧";
 			if(w.锤())s+="锤";
 			if(w.鞭())s+="鞭";
+			if(w.镰())s+="镰";
 			if(w.棍())s+="棍";
-			if(w.盾())s+="盾";
+			if(w.镖())s+="镖";
 		   s+="类武器";
-		}
-		if(this instanceof 飞镖){
-			s+="、"+"飞镖";
 		}
 		if(this instanceof Armor){
 			s+="、"+"防具";
@@ -1137,41 +1194,48 @@ public class Item implements Bundlable {
 		return 数量(数量()-1);
 	}
 	public Item 数量(int value) {
+		if(quantity!=1&&quantity!=0){
+			if(Dungeon.系统(系统设置.无限资源)){
+				boolean 消耗=false;
+				if(this instanceof Bomb){
+					消耗=true;
+				}
+				if(this instanceof Food){
+					消耗=true;
+				}
+				if(this instanceof Potion){
+					消耗=true;
+				}
+				if(this instanceof Plant.Seed){
+					消耗=true;
+				}
+				if(this instanceof Scroll){
+					消耗=true;
+				}
+				if(this instanceof Spell){
+					消耗=true;
+				}
+				if(this instanceof Runestone){
+					消耗=true;
+				}
+				if(this instanceof 用品){
+					消耗=true;
+				}
+				if(this instanceof 海克斯宝典){
+					消耗=false;
+				}
+				if(消耗){
+					value+=2;
+				}
+			}
 
-		if(Dungeon.系统(系统设置.无限资源)&&value!=1&&value!=0){
-			boolean 消耗=false;
-			if(this instanceof Bomb){
-				消耗=true;
-			}
-			if(this instanceof Food){
-				消耗=true;
-			}
-			if(this instanceof Potion){
-				消耗=true;
-			}
-			if(this instanceof Plant.Seed){
-				消耗=true;
-			}
-			if(this instanceof Scroll){
-				消耗=true;
-			}
-			if(this instanceof Spell){
-				消耗=true;
-			}
-			if(this instanceof Runestone){
-				消耗=true;
-			}
-			if(this instanceof 用品){
-				消耗=true;
-			}
-			if(this instanceof 海克斯宝典){
-				消耗=false;
-			}
-			if(消耗){
-				value++;
-			}
+			if(Dungeon.符文("无限材料"))
+				if(this instanceof GooBlob||this instanceof DarkGold||
+				   this instanceof MetalShard||this instanceof 矮人徽章)
+					value+=2;
 		}
 		quantity = value;
+		if(!可堆叠&&quantity>1)quantity=1;
 		return this;
 	}
 
@@ -1224,6 +1288,7 @@ public class Item implements Bundlable {
 	private static final String 能量提升x = "能量提升";
 	private static final String 快速使用x = "快速使用";
 	private static final String 超级等级x = "超级等级";
+	private static final String 魔力收益x = "魔力收益";
 	private static final String 丢过x = "丢过";
 	private static final String ALPHA = "alpha";
 	
@@ -1244,6 +1309,7 @@ public class Item implements Bundlable {
 		bundle.put( 能量提升x, 能量提升 );
 		bundle.put( 快速使用x, 快速使用 );
 		bundle.put( 超级等级x, 超级等级 );
+		bundle.put( 魔力收益x, 魔力收益 );
 		bundle.put( 丢过x, 丢过 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
@@ -1268,6 +1334,7 @@ public class Item implements Bundlable {
 		能量提升	= bundle.getBoolean( 能量提升x );
 		快速使用	= bundle.getBoolean( 快速使用x );
 		超级等级	= bundle.getBoolean( 超级等级x );
+		魔力收益	= bundle.getFloat( 魔力收益x );
 		丢过	= bundle.getBoolean( 丢过x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
@@ -1332,7 +1399,18 @@ public class Item implements Bundlable {
 							}else{
 								i=Item.this.detach(user.belongings.backpack);
 							}
+
 							if (i != null) i.onThrow(cell);
+							if(user.符文("重扔")&&enemy.isAlive())enemy.受伤时(user.力量()/2f,this);
+
+							if(user.符文("这太几把黄了"))
+							if(Item.this instanceof LiquidMetal){
+								if(enemy instanceof Succubus){
+									Buff.施加(user,Charm.class,Charm.DURATION);
+									new LiquidMetal().数量(2).放背包();
+								}
+							}
+
 							//给效果
 							if (user.buff(Talent.LethalMomentumTracker.class) != null){
 								user.buff(Talent.LethalMomentumTracker.class).detach();

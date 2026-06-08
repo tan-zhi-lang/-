@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class 火毒 extends Buff implements Hero.Doom {
+public class 火毒 extends 燃烧 implements Hero.Doom {
 	
 	public static final float DURATION = 8f;
 	

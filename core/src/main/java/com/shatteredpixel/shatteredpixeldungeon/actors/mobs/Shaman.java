@@ -112,7 +112,7 @@ public abstract class Shaman extends Mob {
 			}
 			
 			float dmg = Random.NormalIntRange( 6, 15 );
-			dmg=dmg*Dungeon.难度攻击();
+			dmg=dmg*Dungeon.难度攻击(this);
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 			enemy.受伤时( dmg, new EarthenBolt() );
 			
@@ -122,7 +122,7 @@ public abstract class Shaman extends Mob {
 				GLog.n( Messages.get(this, "bolt_kill") );
 			}
 		} else {
-			enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+			enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 		}
 	}
 	

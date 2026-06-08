@@ -49,22 +49,22 @@ public class GameLog extends Component implements Signal.Listener<String> {
 						continue;
 					}
 
-					int color = CharSprite.DEFAULT;
+					int color = CharSprite.默认白;
 					if (text.startsWith( GLog.POSITIVE )) {
 						text = text.substring( GLog.POSITIVE.length() );
-						color = CharSprite.增强;
+						color = CharSprite.增强绿;
 					} else
 					if (text.startsWith( GLog.NEGATIVE )) {
 						text = text.substring( GLog.NEGATIVE.length() );
-						color = CharSprite.削弱;
+						color = CharSprite.削弱红;
 					} else
 					if (text.startsWith( GLog.WARNING )) {
 						text = text.substring( GLog.WARNING.length() );
-						color = CharSprite.WARNING;
+						color = CharSprite.警告橙;
 					} else
 					if (text.startsWith( GLog.HIGHLIGHT )) {
 						text = text.substring( GLog.HIGHLIGHT.length() );
-						color = CharSprite.NEUTRAL;
+						color = CharSprite.中性黄;
 					}
 
 					if (lastEntry != null && color == lastColor && lastEntry.nLines < maxLines) {

@@ -20,7 +20,7 @@ public class 神农锄 extends Weapon{
 		技能=new 割草();
 		
 		tier = 5;
-		延迟= 1.25f;
+
 		特别=true;
 		绿色=true;
 	}

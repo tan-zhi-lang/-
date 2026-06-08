@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -161,10 +162,10 @@ public class StartScene extends PixelScene {
 			bg = Chrome.get(Chrome.Type.TOAST_TR);
 			add( bg );
 			
-			name = PixelScene.renderTextBlock(9);
+			name = PixelScene.renderTextBlock(6);//9
 			add(name);
 
-			lastPlayed = PixelScene.renderTextBlock(6);
+			lastPlayed = PixelScene.renderTextBlock(4);//6
 			add(lastPlayed);
 		}
 		
@@ -188,11 +189,15 @@ public class StartScene extends PixelScene {
 					level = null;
 				}
 			} else {
-				
-				if (info.subClass != HeroSubClass.NONE){
-					name.text(Messages.titleCase(info.subClass.title()));
+				if(!info.备注.equals("")){
+					name.text(Messages.titleCase(info.备注));
+				}else if (info.subClass != HeroSubClass.NONE){
+					name.text(Messages.titleCase((info.heroClass蜕变!=HeroClass.NONE
+														  ?info.heroClass蜕变.title()+"的":"")
+												 +info.subClass.title()));
 				} else {
-					name.text(Messages.titleCase(info.heroClass.title()));
+					name.text(Messages.titleCase((info.heroClass蜕变!=HeroClass.NONE
+														  ?info.heroClass蜕变.title()+"的":"")+info.heroClass蜕变.title()+info.heroClass.title()));
 				}
 				
 				if (hero == null){
@@ -271,22 +276,23 @@ public class StartScene extends PixelScene {
 			bg.size( width, height );
 			
 			if (hero != null){
-				hero.x = x+8;
+				float 偏移x=4.5f;
+				hero.x = x+8-偏移x;
 				hero.y = y + (height - hero.height())/2f;
 				align(hero);
 				
 				name.setPos(
-						hero.x + hero.width() + 6,
+						hero.x + hero.width() + 6-偏移x,
 						y + (height - name.height() - lastPlayed.height() - 2)/2f
 				);
 				align(name);
 
 				lastPlayed.setPos(
-						hero.x + hero.width() + 6,
+						hero.x + hero.width() + 6-偏移x,
 						name.bottom()+2
 				);
-				
-				classIcon.x = x + width - 24 + (16 - classIcon.width())/2f;
+
+				classIcon.x = x + width - 24 + (16 - classIcon.width())/2f+偏移x;
 				classIcon.y = y + (height - classIcon.height())/2f;
 				align(classIcon);
 				
@@ -294,7 +300,7 @@ public class StartScene extends PixelScene {
 				level.y = classIcon.y + (classIcon.height() - level.height()) / 2f + 1;
 				align(level);
 				
-				steps.x = x + width - 40 + (16 - steps.width())/2f;
+				steps.x = x + width - 40 + (16 - steps.width())/2f+偏移x;
 				steps.y = y + (height - steps.height())/2f;
 				align(steps);
 				

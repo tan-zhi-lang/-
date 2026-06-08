@@ -10,10 +10,9 @@ public class 圆盾 extends Weapon {
 
 	{
 		image = 物品表.ROUND_SHIELD;
-		
-		延迟= 1.25f;
-		伤害= 0.85f;
+
 		技能=new 防御姿态();
+		伤害=0.7f;
 		tier = 1;
 	}
 

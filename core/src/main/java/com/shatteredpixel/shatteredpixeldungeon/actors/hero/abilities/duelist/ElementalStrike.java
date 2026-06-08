@@ -231,7 +231,7 @@ public class ElementalStrike extends ArmorAbility {
 			if (targetsHit > 0){
 				float shield = Math.round(Math.round(6f*targetsHit*powerMulti));
 				Buff.施加(hero, 护盾.class).设置(Math.round(6f*targetsHit*powerMulti));
-				hero.sprite.showStatusWithIcon(CharSprite.增强, shield, FloatingText.SHIELDING);
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,shield,FloatingText.SHIELDING);
 			}
 
 		//*** Vampiric ***

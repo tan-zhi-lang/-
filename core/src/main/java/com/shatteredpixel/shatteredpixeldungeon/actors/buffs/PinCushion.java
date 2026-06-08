@@ -17,13 +17,13 @@ public class PinCushion extends Buff {
 
 	private ArrayList<Weapon> items = new ArrayList<>();
 	public void stick(Weapon projectile){
-		for (int i = 0; i < items.size(); i++) {
-//			if (projectile.isSimilar(items.get(i))) {
-//				projectile.merge(items.get(i));
-				items.set(i, projectile);
-				return;
-//			}
-		}
+//		for (int i = 0; i < items.size(); i++) {
+////			if (projectile.isSimilar(items.get(i))) {
+////				projectile.merge(items.get(i));
+//				items.set(i, projectile);
+//				return;
+////			}
+//		}
 		items.add(projectile);
 	}
 

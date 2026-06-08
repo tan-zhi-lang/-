@@ -31,8 +31,8 @@ public class PathFinder {
 	public static int[] 范围2;
 	public static int[] 范围3;
 	public static int[] 八卦;
-	public static int[] 垂直;
-	public static int[] 水平;
+	public static int[] 垂直4;
+	public static int[] 水平4;
 	public static int[] 水平32;
 	public static int[] 垂直32;
 	public static int 八卦开门;
@@ -82,16 +82,18 @@ public class PathFinder {
 				+width*2-2,+width*2+2,
 				+width*3};
 
-		水平 = new int[]{
-				-3,-2,-1,+1,+2,+3
+		水平4= new int[]{
+				-4,-3,-2,-1,+1,+2,+3,+4
 		};
-		垂直 = new int[]{
+		垂直4= new int[]{
+				-width*4,
 				-width*3,
 				-width*2,
 				-width,
 				+width,
 				+width*2,
 				+width*3,
+				+width*4,
 		};
 		八卦开门=+width*2+2;
 		八卦休门=+width*3;

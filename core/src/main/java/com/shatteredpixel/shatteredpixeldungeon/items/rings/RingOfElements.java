@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
@@ -15,6 +17,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.法态穿透;
+import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -33,18 +37,18 @@ public class RingOfElements extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					100f * (1f - Math.pow(0.825f, soloBuffedBonus())),
-					100f * (1f - Math.pow(0.825f, soloBuffedBonus()))
+									   kw2(100f*(1f-Math.pow(0.825f,soloBuffedBonus()))),
+									   kw2(100f*(1f-Math.pow(0.825f,soloBuffedBonus())))
 									  );
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero))),
-						100f * (1f - Math.pow(0.825f, combinedBuffedBonus(Dungeon.hero)))
+											  kw2(100f*(1f-Math.pow(0.825f,combinedBuffedBonus(Dungeon.hero)))),
+												  kw2(00f*(1f-Math.pow(0.825f,combinedBuffedBonus(Dungeon.hero))))
 											 );
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 17.5f,17.5f);
+			return Messages.get(this, "stats",  kw2(17.5f), kw2(17.5f));
 		}
 	}
 
@@ -95,23 +99,25 @@ public class RingOfElements extends Ring {
 						x*=0.92f;
 				}
 			}
+			if(hero.符文("艾哲红石")&&hero.belongings.hasItem(TengusMask.class)) x*=0.1f;
 			if(hero.符文("防御转魔抗"))x*=1-hero.最大防御()/(2.5+hero.最大防御());
 			if(hero.subClass(HeroSubClass.大魔法师)) x*=0.7f;
 
 			if(hero.种族天赋.equals("龙人"))x*=0.7f;
+
+			if(hero.符文("法态:穿透")){
+				if(hero.nobuff(法态穿透.class)){
+
+					x*=0;
+				}
+			}
 			if(hero.英精英雄==2)x*=0;
+
 //			if (getBuffedBonus(target, Resistance.class) == 0) return 1;
 					return (float)Math.pow(0.825f, getBuffedBonus(target, Resistance.class))*x;
 
 		}else if(Dungeon.hero()){
-			Hero hero=Dungeon.hero;
-			if(hero.符文("穿针引线"))x*=0.8f;
-			if(hero.种族天赋.equals("龙人"))x*=0.7f;
-			x*=1+hero.天赋点数(Talent.元素之力,0.075f);
-//			if (getBuffedBonus(hero, Resistance.class) == 0) return 1;
-
-			if(hero.subClass(HeroSubClass.大魔法师)&&hero.职业精通()) x*=1+0.3f;
-				return (float)Math.pow(0.825, getBuffedBonus(hero, Resistance.class))*x;
+			return x;
 		}
 		return x;
 	}

@@ -339,7 +339,7 @@ public class Ring extends KindofMisc {
 
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.05f+1+等级());
+		return Math.round(金币提升()*装备能量);
 	}
 	protected RingBuff buff() {
 		return null;
@@ -391,7 +391,7 @@ public class Ring extends KindofMisc {
 			lvl+=3;
 		}
 		lvl+=Dungeon.hero.天赋点数(Talent.戒之九型);
-		lvl*=1+Dungeon.hero.天赋点数(Talent.以戒之名,0.3f);
+		lvl*=1+Dungeon.hero.天赋点数(Talent.以戒之名,0.25f);
 		return lvl;
 	}
 

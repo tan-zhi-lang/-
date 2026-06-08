@@ -72,7 +72,7 @@ public class Sheep extends NPC {
 //			LINE_KEYS = {"Baba"}
 //		}
 		String s = Random.element(LINE_KEYS);
-		sprite.showStatus( CharSprite.NEUTRAL, Messages.get(this,s) );
+		sprite.showStatus(CharSprite.中性黄,Messages.get(this,s));
 
 		if (c == Dungeon.hero) {
 			Badges.解锁兽灵();

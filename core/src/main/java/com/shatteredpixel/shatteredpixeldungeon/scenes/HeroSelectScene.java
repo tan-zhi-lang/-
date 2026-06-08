@@ -1300,6 +1300,16 @@ public class HeroSelectScene extends PixelScene {
         private class Wnd难度设置 extends Window {
 
             OptionSlider optChals;
+            CheckBox 跟随强度;
+            RenderedTextBlock 跟随强度str;
+            CheckBox 成长属性;
+            RenderedTextBlock 成长属性str;
+            CheckBox 高耐久度;
+            RenderedTextBlock 高耐久度str;
+            CheckBox 更多怪物;
+            RenderedTextBlock 更多怪物str;
+            CheckBox 更快刷怪;
+            RenderedTextBlock 更快刷怪str;
 
             public Wnd难度设置(){
                 super();
@@ -1313,41 +1323,105 @@ public class HeroSelectScene extends PixelScene {
                 titlebar.setRect( 0, 0, 120, 8 );
                 add(titlebar);
 
-                RenderedTextBlock desc = PixelScene.renderTextBlock(" _-_ 最大生命："+Dungeon.难度生命()
-                                                                    +"     _-_ 攻击："+Dungeon.难度攻击()
-                                                                    +"     _-_ 防御："+Dungeon.难度防御()
-                                                                    +"\n\n _-_ 命中闪避："+Dungeon.难度命中闪避()
-                                                                    +"     _-_ 经验："+Dungeon.难度经验()
-                                                                    +"     _-_ 掉率："+Dungeon.难度掉率()+"\n",6);
+                RenderedTextBlock desc = PixelScene.renderTextBlock("最大生命："+Dungeon.难度生命(null)
+                                                                    +"/攻击："+Dungeon.难度攻击(null)
+                                                                    +"/防御："+Dungeon.难度防御(null)
+                                                                    +"\n\n命中/闪避："+Dungeon.难度命中(null)+"/"+Dungeon.难度闪避(null)
+                                                                    +"/经验："+Dungeon.难度经验(null)
+                                                                    +"/掉率："+Dungeon.难度掉率(null)+"\n",6);
                 desc.setRect( 0, titlebar.bottom(), 120, 12 );
                 add(desc);
-                optChals = new OptionSlider(Dungeon.难度名称(), "1", "16", 1, 16) {
+
+                optChals = new OptionSlider("难度", "1", "16", 1, 16) {
                     @Override
                     protected void onChange() {
                         Dungeon.难度=optChals.getSelectedValue();
-                        titlebar.label(Dungeon.难度名称());
-                        desc.text(" _-_ 最大生命："+Dungeon.难度生命()
-                                  +"     _-_ 攻击："+Dungeon.难度攻击()
-                                  +"     _-_ 防御："+Dungeon.难度防御()
-                                  +"\n\n _-_ 命中闪避："+Dungeon.难度命中闪避()
-                                  +"     _-_ 经验："+Dungeon.难度经验()
-                                  +"     _-_ 掉率："+Dungeon.难度掉率()+"\n");
+                        desc.text("最大生命："+Dungeon.难度生命(null)
+                                  +"/攻击："+Dungeon.难度攻击(null)
+                                  +"/防御："+Dungeon.难度防御(null)
+                                  +"\n\n命中/闪避："+Dungeon.难度命中(null)+"/"+Dungeon.难度闪避(null)
+                                  +"/经验："+Dungeon.难度经验(null)
+                                  +"/掉率："+Dungeon.难度掉率(null)+"\n");
                     }
                 };
                 optChals.setSelectedValue(难度);
                 optChals.setRect(0, desc.bottom(), 120, 22);
                 add(optChals);
 
-
-				RedButton btnCancel = new RedButton("取消"){
+                跟随强度 = new CheckBox("跟随强度"){
                     @Override
                     protected void onClick() {
                         super.onClick();
-                        hide();
+                        Dungeon.跟随强度(checked());
                     }
                 };
-                btnCancel.setRect(61, desc.bottom()+24, 60, 16);
-                add(btnCancel);
+                跟随强度.checked(Dungeon.跟随强度);
+                跟随强度.setRect(0, desc.bottom()+24, 120, 16);
+                add(跟随强度);
+                跟随强度str = PixelScene.renderTextBlock("敌人的强度随英雄的强度而变化\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
+                跟随强度str.hardlight(0x888888);
+                跟随强度str.setPos(0, 跟随强度.bottom()+1);
+                add(跟随强度str);
+
+                成长属性 = new CheckBox("成长属性"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        Dungeon.成长属性(checked());
+                    }
+                };
+                成长属性.checked(Dungeon.成长属性);
+                成长属性.setRect(0, 跟随强度.bottom()+24, 120, 16);
+                add(成长属性);
+                成长属性str = PixelScene.renderTextBlock("敌人的强度随地牢层数变化，每层+20%\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
+                成长属性str.hardlight(0x888888);
+                成长属性str.setPos(0, 成长属性.bottom()+1);
+                add(成长属性str);
+
+                高耐久度 = new CheckBox("高耐久度"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        Dungeon.高耐久度(checked());
+                    }
+                };
+                高耐久度.checked(Dungeon.高耐久度);
+                高耐久度.setRect(0, 成长属性.bottom()+12, 120, 16);
+                add(高耐久度);
+                高耐久度str = PixelScene.renderTextBlock("敌人最大生命x3", 5);
+                高耐久度str.hardlight(0x888888);
+                高耐久度str.setPos(0, 高耐久度.bottom()+1);
+                add(高耐久度str);
+
+                更多怪物 = new CheckBox("更多怪物"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        Dungeon.更多怪物(checked());
+                    }
+                };
+                更多怪物.checked(Dungeon.更多怪物);
+                更多怪物.setRect(0, 高耐久度.bottom()+8, 120, 16);
+                add(更多怪物);
+                更多怪物str = PixelScene.renderTextBlock("怪物数量x5", 5);
+                更多怪物str.hardlight(0x888888);
+                更多怪物str.setPos(0, 更多怪物.bottom()+1);
+                add(更多怪物str);
+
+                更快刷怪 = new CheckBox("更快刷怪"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        Dungeon.更快刷怪(checked());
+                    }
+                };
+                更快刷怪.checked(Dungeon.更快刷怪);
+                更快刷怪.setRect(0, 更多怪物.bottom()+8, 120, 16);
+                add(更快刷怪);
+                更快刷怪str = PixelScene.renderTextBlock("刷怪速度x5", 5);
+                更快刷怪str.hardlight(0x888888);
+                更快刷怪str.setPos(0, 更快刷怪.bottom()+1);
+                add(更快刷怪str);
 
                 RedButton btnConfirm = new RedButton("确认"){
                     @Override
@@ -1356,8 +1430,19 @@ public class HeroSelectScene extends PixelScene {
                         hide();
                     }
                 };
-                btnConfirm.setRect(0, desc.bottom()+24, 60, 16);
+                btnConfirm.setRect(0, 更快刷怪.bottom()+8, 60, 16);
                 add(btnConfirm);
+
+                RedButton btnCancel = new RedButton("取消"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnCancel.setRect(61, 更快刷怪.bottom()+8, 60, 16);
+                add(btnCancel);
+
 
                 resize(120, (int)btnConfirm.bottom());
 

@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -20,7 +19,7 @@ public class 心之钢 extends Artifact {
 
 	{
 		image = 物品表.心之钢;
-		
+		橙色=true;
 		levelCap = 3;
 		
 		charge = 0;
@@ -30,17 +29,19 @@ public class 心之钢 extends Artifact {
 	@Override
 	public void charge(Hero target, float amount) {
 		if(Dungeon.派对(派对设置.钢门联盟)){
-			charge = Math.min(charge+90*amount,chargeCap);
+			charge = Math.min(charge+100*amount,chargeCap);
 		}else{
-			charge = Math.min(charge+30*amount,chargeCap);
+			charge = Math.min(charge+34*amount,chargeCap);
 		}
 			updateQuickslot();
 	}
 	
 	@Override
 	public String desc() {
-		float 伤害=武力之戒.heromax()+Dungeon.hero.最大生命(0.04f+0.02f*等级());
-		float 生命=伤害*(0.08f+等级()*0.02f);
+		float 伤害=Dungeon.hero.最大生命(0.06f+0.02f*等级());
+		float 生命=伤害*(0.03f+等级()*0.01f);
+		if(Dungeon.派对(派对设置.钢门联盟))生命*=2;
+		if(Dungeon.符文("钢化你心"))生命*=3;
 		String desc = Messages.get(this, "desc",伤害,生命,
 								  Dungeon.hero.大小());
 
@@ -81,9 +82,9 @@ public class 心之钢 extends Artifact {
 		@Override
 		public boolean act(){
 			if(Dungeon.派对(派对设置.钢门联盟)){
-				charge=Math.min(charge+90*能量之戒.artifactChargeMultiplier(target),chargeCap);
+				charge=Math.min(charge+100*能量之戒.artifactChargeMultiplier(target),chargeCap);
 			}else{
-				charge=Math.min(charge+30*能量之戒.artifactChargeMultiplier(target),chargeCap);
+				charge=Math.min(charge+34*能量之戒.artifactChargeMultiplier(target),chargeCap);
 			}
 			updateQuickslot();
 			spend(TICK);
@@ -93,11 +94,12 @@ public class 心之钢 extends Artifact {
 		public float proc(float damage, Char attacker, Char defender){
 			if(charge>=chargeCap){
 				if(attacker instanceof Hero hero){
-					float 伤害=武力之戒.heromax()+attacker.最大生命(0.04f+0.02f*等级());
+					float 伤害=attacker.最大生命(0.06f+0.02f*等级());
 					damage+=伤害;
 
-					float 生命=伤害*(0.08f+等级()*0.02f);
-					if(Dungeon.派对(派对设置.钢门联盟))生命*=3;
+					float 生命=伤害*(0.03f+等级()*0.01f);
+					if(Dungeon.符文("钢化你心"))生命*=3;
+					if(Dungeon.派对(派对设置.钢门联盟))生命*=2;
 					if(cursed)
 					hero.生命成长-=生命;
 					else
@@ -108,16 +110,16 @@ public class 心之钢 extends Artifact {
 					if(cursed)
 						GLog.w("心之钢为这次物理攻击-"+伤害+"伤害，并-"+生命+"最大生命。");
 					else
-					GLog.w("心之钢为这次物理攻击+"+伤害+"伤害，并+"+生命+"最大生命。");
+						GLog.w("心之钢为这次物理攻击+"+伤害+"伤害，并+"+生命+"最大生命。");
 
-					exp+=生命;
+					exp+=Math.round(伤害+生命);
 					charge=0;
 					Sample.INSTANCE.play(Assets.Sounds.心之钢);
 				}
 			}
 			
-			if (exp >= (等级()+1)*33 && 等级() < levelCap){
-				exp -= (等级()+1)*33;
+			if (exp >= (等级()+1)*50 && 等级() < levelCap){
+				exp -= (等级()+1)*50;
 				升级();
 				Catalog.countUse(心之钢.class);
 				GLog.p( Messages.get(this, "levelup") );

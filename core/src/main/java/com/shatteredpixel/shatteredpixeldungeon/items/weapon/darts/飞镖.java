@@ -34,7 +34,7 @@ public class 飞镖 extends Weapon{
 		image = 物品表.DART;
 		hitSound = Assets.Sounds.HIT_ARROW;
 		
-		伤害=0.7f;
+		伤害=0.8f;
 		tier = 1;
 	}
 	

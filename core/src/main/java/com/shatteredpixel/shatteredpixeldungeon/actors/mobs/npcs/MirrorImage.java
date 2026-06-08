@@ -161,7 +161,7 @@ public class MirrorImage extends NPC {
 	public float 最大防御() {
 		float dr = super.最大防御();
 		if (hero != null && hero.belongings.weapon() != null){
-			return dr +hero.belongings.weapon().defenseFactor(this)/2;
+			return dr +hero.belongings.weapon().最大防御(this)/2;
 		} else {
 			return dr;
 		}

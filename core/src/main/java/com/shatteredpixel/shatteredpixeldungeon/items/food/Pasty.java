@@ -152,7 +152,7 @@ public class Pasty extends Food {
 			case 七夕节:
 				if(!hero.单身) {
 					hero.单身=true;
-					hero.sprite.showStatusWithIcon(CharSprite.增强, "10%", FloatingText.STRENGTH);
+					hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10%",FloatingText.STRENGTH);
 					GLog.p( Messages.get(力量药剂.class,"msg",hero.力量()));
 				}
 				break;
@@ -162,7 +162,7 @@ public class Pasty extends Food {
 			case SHATTEREDPD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
 				int expToGive = Math.max(2, hero.升级所需()/10);
-				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(expToGive), FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(expToGive),FloatingText.EXPERIENCE);
 				hero.经验(expToGive, 经验药剂.class);
 				break;
 			case 万圣节:
@@ -172,7 +172,7 @@ public class Pasty extends Food {
 				break;
 			case PD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
-				hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(Math.max(2, hero.升级所需()/10)), FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(Math.max(2,hero.升级所需()/10)),FloatingText.EXPERIENCE);
 				hero.经验(Math.max(2, hero.升级所需()/10), 经验药剂.class);
 				break;
 			case 圣诞节:

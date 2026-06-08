@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
@@ -37,7 +36,7 @@ public class WellFed extends Buff {
 		}
 
 		//salt cube does slow this buff down, but doesn't lessen the bonus health
-		spend(TICK / SaltCube.hungerGainMultiplier());
+		spend(TICK / Hunger.饥饿速度());
 		return true;
 	}
 	
@@ -45,23 +44,15 @@ public class WellFed extends Buff {
 		//heals one HP every 18 turns for 450 turns
 		//25 HP healed in total
 		left = (int)Hunger.STARVING;
-		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-			//150 turns if on diet is enabled
-			left /= 3;
-		}
 		left=Math.min(上限(),left);
 	}
 	public void extend( float duration ) {
 		left += duration;
-		if (Dungeon.isChallenged(Challenges.NO_FOOD)){
-			//150 turns if on diet is enabled
-			left /= 3;
-		}
 		left=Math.min(上限(),left);
 	}
 
 	public static int 上限() {
-		int x=600;
+		int x=450;
 
 		if(Dungeon.hero())
 		x+=极肚之戒.饥饿(Dungeon.hero);

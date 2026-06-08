@@ -75,7 +75,7 @@ public class 治疗药剂 extends Potion {
 
 	@Override
 	public String desc(){
-		if(Dungeon.isChallenged(Challenges.NO_HEALING))return "你对此过敏，会中毒。";
+		if(Dungeon.isChallenged(Challenges.NO_HEALING)&&已鉴定())return "你对此过敏，会中毒。";
 		return super.desc();
 	}
 

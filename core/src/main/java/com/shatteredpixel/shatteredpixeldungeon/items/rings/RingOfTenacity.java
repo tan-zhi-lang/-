@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -17,14 +19,14 @@ public class RingOfTenacity extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   100f * (1f - Math.pow(0.85f, soloBuffedBonus())));
+									   kw2(100f * (1f - Math.pow(0.85f, soloBuffedBonus()))));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						100f * (1f - Math.pow(0.85f, combinedBuffedBonus(Dungeon.hero))));
+											  kw2(100f * (1f - Math.pow(0.85f, combinedBuffedBonus(Dungeon.hero)))));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 15f);
+			return Messages.get(this, "stats",    kw2(15f));
 		}
 	}
 

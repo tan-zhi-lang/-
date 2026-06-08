@@ -59,7 +59,7 @@ public class VaultSentry extends NPC {
 
 				for (int cell : scan.cells) {
 					if (Actor.findChar(cell) == Dungeon.hero && Dungeon.hero.invisible == 0) {
-						Dungeon.hero.sprite.showStatus(CharSprite.削弱, "!!!");
+						Dungeon.hero.sprite.showStatus(CharSprite.削弱红,"!!!");
 						Sample.INSTANCE.play(Assets.Sounds.ZAP);
 						SFXLastPlayed = ShatteredPixelDungeon.realTime;
 					}

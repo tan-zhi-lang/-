@@ -9,11 +9,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
+import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -235,7 +237,7 @@ public class WndHero extends WndTabbed {
 					statSlot("_攻速_/移速",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));
 					pos+=GAP;
 
-					statSlot("==物理增伤/攻击==",Math.round((hero.攻击时(null,100)/100f-1)*100f)+"%/"+kw2(hero.最小攻击())+"~"+kw2(hero.最大攻击()));
+					statSlot("==物理增伤/攻击==",kw2((hero.攻击时(null,100)/100f-1))+"倍/"+kw2(hero.最小攻击())+"~"+kw2(hero.最大攻击()));
 					statSlot("++物理抗性/防御++",Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+kw2(hero.最小防御())+"~"+kw2(hero.最大防御()));
 
 					statSlot("@@元素抗性/魔抗@@",Math.round(100*(1-(RingOfElements.resist(hero))))+"%/"+kw2(hero.最小魔抗())+"~"+kw2(hero.最大魔抗()));
@@ -320,7 +322,7 @@ public class WndHero extends WndTabbed {
 					statSlot("_视野+光照范围_",hero.视野范围get+"+"+hero.光照范围());
 					statSlot("!!搜索/感知范围!!",hero.搜索范围()+"/"+hero.感知范围());
 					statSlot("??隐匿/地牢视野??",Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
-					pos+=GAP;
+//					pos+=GAP;
 					statSlot("**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"+Math.round(hero.全能吸血()*100)+"%");
 					statSlot("++治疗护盾/综合属性++",kw2(hero.治疗护盾())+"/"+kw2(hero.综合属性())+"倍");
 				}
@@ -396,8 +398,12 @@ public class WndHero extends WndTabbed {
 					statSlot("_武器充能倍_",
 							 能量之戒.weaponChargeMultiplier(hero)+"倍"
 							);
-					pos+=GAP;
+					statSlot("刷怪速度/数量",
+							 kw2(1/Level.刷怪速度())+"/"+kw2(Level.刷怪数量())+"倍"
+							);
+//					pos+=GAP;
 					statSlot("--鉴定速度--",Math.round(Talent.鉴定速度(hero,null)*100)+"%");
+					statSlot("--吃饭效果--",Math.round(Hunger.吃饭效率()*100)+"%");
 					statSlot("副武器效果",Math.round(hero.副武器效果()*100)+"%");
 					statSlot("@@附魔刻印效果@@",Math.round(奥术之戒.enchantPowerMultiplier(hero)*100)+"%");
 

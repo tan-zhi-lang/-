@@ -22,7 +22,7 @@ import com.watabou.utils.PathFinder;
 public class 无情铁手 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次131%伤害必中的物理攻击，将目标拉至身旁，并花费攻击延迟的回合";
+		desc="对攻击范围内的一个目标进行一次150%伤害必中的物理攻击，将目标拉至身旁，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -81,7 +81,7 @@ public class 无情铁手 extends 武技{
 				public void call() {
 					AttackIndicator.target(enemy);
 					
-					if (hero.attack(enemy,伤害131,0,Char.INFINITE)) {
+					if (hero.attack(enemy,1.5f,0,Char.INFINITE)) {
 						Sample.INSTANCE.play(wep.hitSound);
 					}
 					Invisibility.notimedispel();

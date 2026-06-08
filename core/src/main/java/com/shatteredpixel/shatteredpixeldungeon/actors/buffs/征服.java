@@ -32,6 +32,9 @@ public class 征服 extends Buff {
 		return true;
 	}
 	
+	public void 叠层(float x){
+		层数= Math.min(层数+2*x,12);
+	}
 	public void 叠层(){
 		层数= Math.min(层数+2,12);
 	}

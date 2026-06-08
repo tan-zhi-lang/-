@@ -34,7 +34,7 @@ public class DarkGold extends Item {
 		super.execute( hero, action );
 
 		if (action.equals(AC_USE)&&hero.符文("吞噬星空")) {
-				hero.属性成长+=0.01f;
+				hero.属性成长+=0.0065f;
 				hero.sprite.operate(hero.pos);
 				hero.spend(1f);
 				hero.busy();

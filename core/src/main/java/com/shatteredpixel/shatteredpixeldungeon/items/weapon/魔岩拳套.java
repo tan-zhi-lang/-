@@ -17,7 +17,7 @@ public class 魔岩拳套 extends Weapon {
 		
 		tier = 4;
 		延迟= 0.5f;
-		伤害= 0.5f;
+		伤害= 0.7f;
 	}
 
 }

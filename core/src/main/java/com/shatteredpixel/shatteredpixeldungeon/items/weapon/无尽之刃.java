@@ -10,8 +10,6 @@ public class 无尽之刃 extends Weapon{
 	{
 		image = 物品表.无尽之刃;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		延迟=1.15f;
-
 		tier=5;
 		特别=true;
 		黄色=true;

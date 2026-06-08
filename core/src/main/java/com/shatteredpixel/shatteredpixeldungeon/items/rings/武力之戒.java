@@ -343,7 +343,7 @@ public class 武力之戒 extends Ring{
 		public void reset(){
 			if(!active){
 				//announce the buff
-				target.sprite.showStatus(CharSprite.增强,Messages.titleCase(name()));
+				target.sprite.showStatus(CharSprite.增强绿,Messages.titleCase(name()));
 			}
 			active=true;
 			minTurnsLeft=50;

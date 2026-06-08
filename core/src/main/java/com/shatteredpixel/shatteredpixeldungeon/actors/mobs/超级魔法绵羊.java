@@ -43,7 +43,7 @@ public class 超级魔法绵羊 extends Mob {
 	public void 受伤时(float dmg, Object 来源){
 		
 		String s=Random.element(LINE_KEYS);
-		sprite.showStatus(CharSprite.NEUTRAL,Messages.get(this,s));
+		sprite.showStatus(CharSprite.中性黄,Messages.get(this,s));
 		
 		Badges.解锁兽灵();
 		if(s.equals("Baba")){

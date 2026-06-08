@@ -68,7 +68,7 @@ public abstract class ShieldBuff extends Buff {
 		if(target instanceof Hero hero)shield*=hero.治疗护盾();
 		if(max()!=-1){
 			if(target!=null&&target.sprite!=null)
-				target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
+				target.sprite.showStatusWithIcon(CharSprite.增强绿,shield,FloatingText.SHIELDING);
 
 			this.shielding=Math.min(max(),shielding+shield);
 
@@ -76,7 +76,7 @@ public abstract class ShieldBuff extends Buff {
 				target.needsShieldUpdate=true;
 		}else{
 			if(target!=null&&target.sprite!=null)
-				target.sprite.showStatusWithIcon(CharSprite.增强,shield,FloatingText.SHIELDING);
+				target.sprite.showStatusWithIcon(CharSprite.增强绿,shield,FloatingText.SHIELDING);
 
 			if(this.shielding<=shield)
 				this.shielding=shield;
@@ -91,17 +91,24 @@ public abstract class ShieldBuff extends Buff {
 	}
 
 	public void 增加(float amt ){
-		if(target instanceof Hero hero)amt*=hero.治疗护盾();
-		if(max()!=-1){
-			target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
-			shielding=Math.min(max(),shielding+amt);
-			if(target!=null)
-				target.needsShieldUpdate=true;
-		}else {
-			target.sprite.showStatusWithIcon(CharSprite.增强,amt,FloatingText.SHIELDING);
-			shielding+=amt;
-			if(target!=null)
-				target.needsShieldUpdate=true;
+		if(target!=null){
+			if(target instanceof Hero hero)
+				amt*=hero.治疗护盾();
+			if(max()!=-1){
+				if(amt>2&&target.sprite!=null)
+					target.sprite.showStatusWithIcon(CharSprite.增强绿,amt,FloatingText.SHIELDING);
+
+				shielding=Math.min(max(),shielding+amt);
+				if(target!=null)
+					target.needsShieldUpdate=true;
+			}else{
+				if(amt>2&&target.sprite!=null)
+					target.sprite.showStatusWithIcon(CharSprite.增强绿,amt,FloatingText.SHIELDING);
+
+				shielding+=amt;
+				if(target!=null)
+					target.needsShieldUpdate=true;
+			}
 		}
 	}
 
@@ -126,7 +133,7 @@ public abstract class ShieldBuff extends Buff {
 				for (int i : PathFinder.相邻) {
 					Char mob = Actor.findChar(hero.pos+i);
 					if (mob != null &&mob.isAlive() && mob.alignment != Char.Alignment.ALLY)
-						mob.受伤时(dmg*1.5f);
+						mob.受伤时(dmg*2);
 
 				}
 		}

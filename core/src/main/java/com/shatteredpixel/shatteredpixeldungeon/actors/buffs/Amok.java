@@ -34,7 +34,7 @@ public class Amok extends FlavourBuff {
 				}
 			}
 		}
-
+		if(Dungeon.符文("魔法披风"))Dungeon.hero.魔力+=20;
 		super.detach();
 	}
 }

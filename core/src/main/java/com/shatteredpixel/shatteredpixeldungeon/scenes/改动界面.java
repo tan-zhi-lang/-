@@ -124,7 +124,7 @@ public class 改动界面 extends PixelScene {
 
 		if (Messages.lang() != Languages.ENGLISH){
 			ChangeInfo langWarn = new ChangeInfo("", true, Messages.get(this, "lang_warn"));
-			langWarn.hardlight(CharSprite.WARNING);
+			langWarn.hardlight(CharSprite.警告橙);
 			changeInfos.add(langWarn);
 		}
 		

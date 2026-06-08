@@ -28,11 +28,11 @@ public class WandOfFrost extends DamageWand {
 	}
 
 	public float min(int lvl){
-		return 魔力(0.2f,0.5f);
+		return 魔力(0.2f,0.1f);
 	}
 
 	public float max(int lvl){
-		return 魔力(0.8f,0.625f);
+		return 魔力(0.8f,0.5f);
 	}
 
 	@Override

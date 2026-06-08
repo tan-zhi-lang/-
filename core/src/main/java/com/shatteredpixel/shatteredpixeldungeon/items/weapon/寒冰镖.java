@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -19,12 +20,19 @@ public class 寒冰镖 extends Weapon{
 		circlingBack=true;
 		延迟=0.8f;
 		伤害=0.8f;
-		伏击=0.8f;
+		伏击=0.25f;
 		tier = 5;
 		特别=true;
 		黄色=true;
 	}
-	
+
+	@Override
+	public float 攻击时(Char attacker,Char defender,float damage) {
+		if(defender!=null){
+			Buff.延长(defender,Chill.class,Chill.DURATION/2f);
+		}
+		return super.攻击时( attacker, defender, damage );
+	}
 	@Override
 	public float 投掷攻击时(Char attacker,Char defender,float damage){
 		if (defender!=null&&attacker.buff(ShurikenInstantTracker.class) == null)

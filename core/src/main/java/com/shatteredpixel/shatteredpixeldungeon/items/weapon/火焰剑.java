@@ -41,7 +41,7 @@ public class 火焰剑 extends Weapon{
 		
 		MagicalFireRoom.EternalFire eternalFire = (MagicalFireRoom.EternalFire)Dungeon.level.blobs.get(MagicalFireRoom.EternalFire.class);
 		if (eternalFire != null && eternalFire.volume > 0) {
-			x+=add*fire.volume;
+			x+=add*eternalFire.volume;
 		}
 		
 		damage*=x;

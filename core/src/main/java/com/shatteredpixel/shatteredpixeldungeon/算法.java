@@ -1,7 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Callback;
@@ -78,6 +77,8 @@ public class 算法 {
 		
 		
     * */
+    public static String 日期="6.8/15:30";
+    public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
     public static int x4=32*3;
@@ -105,13 +106,60 @@ public class 算法 {
     public static int x26=32*25;
     public static int x27=32*26;
     public static int x28=32*27;
+    // 固定步长 0.25，衰减公比 1/2
+    private static final float STEP = 0.25f;
+    private static final float RATIO = 0.5f;
+    public static float 衰减(float x) {
+        float result = 0;
+
+        if (x > 1) {
+            // 大于1：基础值1 + 超额部分的衰减和
+            result = 1;
+            // 计算超过1的部分包含多少个0.25
+            int stepCount =Math.round((x - 1) / STEP);
+            float current = STEP * RATIO; // 第一个衰减项：0.25/2
+
+            // 累加对应数量的衰减项
+            for (int i = 0; i < stepCount; i++) {
+                result += current;
+                current *= RATIO; // 下一项 ÷2
+            }
+        } else {
+            // 小于等于1：直接按0.25步长衰减累加
+            int stepCount = Math.round(x / STEP);
+            float current = STEP; // 第一个项：0.25
+
+            // 累加 步数数+2 项（严格匹配你的0.25示例）
+            for (int i = 0; i < stepCount + 2; i++) {
+                result += current;
+                current *= RATIO;
+            }
+        }
+        return result;
+    }
+    public static String zf(float x){
+        String s="";
+        if(x>0)s+="+";
+        if(x<0)s+="-";
+        return s+x;
+    }
     public static String kw2(float x){
-        if(x>=10000)return String.format("%.2f",x/10000f)+"W";
+        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
+        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
+        return String.format("%.2f",x);
+    }
+    public static String kw2(double x){
+        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
         if(x>=1000)return String.format("%.2f",x/1000f)+"K";
         return String.format("%.2f",x);
     }
     public static String kw(float x){
-        if(x>=10000)return String.format("%.2f",x/10000f)+"W";
+        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
+        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
+        return String.format("%.0f",x);
+    }
+    public static String kw(double x){
+        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
         if(x>=1000)return String.format("%.2f",x/1000f)+"K";
         return String.format("%.0f",x);
     }
@@ -568,18 +616,6 @@ return null;
             return true;
         }
         else return false;
-    }
-    public static boolean 海克斯(){
-        String seed = SPDSettings.customSeed();
-        if (seed.matches(".*调试")) {
-            if(Hero.是海克斯(seed.replaceAll("调试", ""))){
-                return true;
-            }
-        }
-        if(Hero.是海克斯(seed)){
-            return true;
-        }
-         return false;
     }
     public static boolean isDebug(){
 //        Game.version.contains("INDEV")

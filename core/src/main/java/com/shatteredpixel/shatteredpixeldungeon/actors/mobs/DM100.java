@@ -92,7 +92,7 @@ public class DM100 extends Mob implements Callback {
 			Invisibility.dispel(this);
 			if (hit( this, enemy, true )) {
 				float dmg = Random.NormalIntRange(3, 10);
-				dmg=dmg*Dungeon.难度攻击();
+				dmg=dmg*Dungeon.难度攻击(this);
 				dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 				enemy.受伤时( dmg, new LightningBolt() );
 
@@ -112,7 +112,7 @@ public class DM100 extends Mob implements Callback {
 					}
 				}
 			} else {
-				enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+				enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 			}
 			
 			if (sprite != null && (sprite.visible || enemy.sprite.visible)) {

@@ -16,7 +16,7 @@ public class 金纹拐 extends Weapon {
 
 		特别=true;
 		黄色=true;
-		伤害= 0.68f;
+		伤害= 0.7f;
 		tier = 5;
 	}
 

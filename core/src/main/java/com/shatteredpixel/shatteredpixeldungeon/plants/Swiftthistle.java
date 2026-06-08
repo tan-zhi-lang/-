@@ -75,7 +75,8 @@ public class Swiftthistle extends Plant {
 
 		@Override
 		public String iconTextDisplay() {
-			return Integer.toString((int)(left + 0.001f));
+			return Math.round(left)+"";
+//			return Integer.toString((int)(left + 0.001f));
 		}
 
 		public void reset(){
@@ -95,7 +96,8 @@ public class Swiftthistle extends Plant {
 			left -= time;
 
 			//use 1/1,000 to account for rounding errors
-			if (left < -0.001f){
+			if (left <=0){
+//			if (left < -0.001f){
 				detach();
 			}
 			

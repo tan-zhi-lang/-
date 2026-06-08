@@ -23,7 +23,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -190,7 +189,9 @@ public class 荣誉纹章 extends Item {
 	public int 最大等级(){
 		int x=1;
 
-		return x+Dungeon.hero.天赋点数(Talent.纹章荣耀);
+		if(Dungeon.符文("升级荣誉纹章"))x+=10;
+		if(Dungeon.hero()) x+=Dungeon.hero.天赋点数(Talent.纹章荣耀);
+		return x;
 	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
 

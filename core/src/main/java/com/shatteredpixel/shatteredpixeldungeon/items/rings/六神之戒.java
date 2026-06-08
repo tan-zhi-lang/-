@@ -12,6 +12,7 @@ public class 六神之戒 extends Ring {
 	{
 		icon = 物品表.Icons.六神之戒;
 		buffClass = 六神.class;
+		专属=true;
 	}
 
 	public String statsInfo() {

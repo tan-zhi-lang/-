@@ -285,7 +285,7 @@ public class GnollGeomancer extends Mob {
 
 			Buff.施加(this, RockArmor.class).设置(25);
 		}
-		//新加的代码，不止什么原理导致死亡没有正常触发
+		//新加的代码，不知什么原理导致死亡没有正常触发
 		if(!isAlive())死亡时(来源);
 	}
 
@@ -710,7 +710,7 @@ public class GnollGeomancer extends Mob {
 
 							float dmg=Random.NormalIntRange(6, 12);
 							
-							dmg=dmg*Dungeon.难度攻击();
+							dmg=dmg*Dungeon.难度攻击(new GnollGeomancer());
 							ch.受伤时(dmg, new GnollGeomancer.Boulder());
 
 							if (ch == Dungeon.hero){

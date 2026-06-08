@@ -11,8 +11,8 @@ public class 巨斧 extends Weapon{
 	{
 		image = 物品表.巨斧;
 		hitSound = Assets.Sounds.HIT_SLASH;
-		延迟=1.35f;
-		流血=0.2f;
+		延迟=1.25f;
+		流血=0.25f;
 		
 		技能=new 劈斩();
 

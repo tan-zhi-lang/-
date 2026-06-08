@@ -10,12 +10,12 @@ public class 变态刀 extends Weapon{
 		image = 物品表.变态刀;
 		hitSound = Assets.Sounds.HIT_STAB;
 
-		延迟=0.75f;
-		伤害=0.5f;
+		延迟=0.8f;
+		伤害=0.8f;
+		伏击=0.25f;
 
 		特别=true;
 		白色=true;
-		伏击=0.5f;
 		tier=5;
 	}
 

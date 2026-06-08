@@ -14,8 +14,7 @@ public class 短柄镰 extends Weapon {
 		
 		技能=new 割草();
 		tier = 1;
-		延迟= 1.35f;
-		伤害= 1.5f;
-		命中=0.85f;
+		延迟= 1.175f;
+		伤害= 1.175f;
 	}
 }

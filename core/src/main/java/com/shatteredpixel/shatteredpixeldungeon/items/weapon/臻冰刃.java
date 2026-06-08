@@ -16,10 +16,10 @@ public class 臻冰刃 extends Weapon {
 		image = 物品表.臻冰刃;
 		hitSound = Assets.Sounds.HIT_STAB;
 
-		伤害=0.75f;
+		延迟=0.8f;
+		伤害=0.8f;
+		伏击=0.25f;
 		技能=new 背刺();
-		命中=0.75f;
-		伏击=0.67f;
 		特别=true;
 		青色=true;
 		tier = 5;

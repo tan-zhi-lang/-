@@ -4,18 +4,23 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import static com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero.tier;
 import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar;
+import static com.shatteredpixel.shatteredpixeldungeon.sprites.物品表.重力场球;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.世界标尺;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.妖精粉尘;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.桃木剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.水晶碎块;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.男人国徽章;
@@ -28,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
@@ -64,17 +70,24 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锈右斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.GnollTricksterSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GuardSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NecromancerSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.PiranhaSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RatSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SkeletonSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SnakeSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WraithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.传送阵眼动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.地狱猎犬动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.水蛭动画;
@@ -152,26 +165,26 @@ public class 重制 {
 		//endregion
 
 		//region 新物品
-		changes = new ChangeInfo("新机制", false, null);
+		changes = new ChangeInfo("新物品", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.护甲修理工具包), "护甲修理工具包",
 										   "_-_ 护甲机制，和破碎护盾差不多，但是不会随时间流逝，也只能防御物理攻击伤害，包含骷髅死亡爆炸和跳楼受伤(不含流血)。\n" +
-										   "_-_ 护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
-										   "_-_ 最大护甲为2+等级。\n" +
+//										   "_-_ 护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
+										   "_-_ 最大护甲为1+等级(最多+24)。\n" +
 										   "_-_ 每150回合修理1护甲。\n" +
 										   "_-_ 巨魔铁匠可以花费人情修复你的护甲。\n" +
 										   "_-_ 巨魔铁匠可以花费人情升级装备的阶，不超过5。\n" +
 										   "_-_ 商店会出售此物。\n" +
-										   "_-_ 护甲改成防具，防具可以放入炼金锅转换护甲修理工具包，同酶优树脂。"));
+										   "_-_ 护甲改成防具，防具可以放入炼金锅转换护甲修理工具包，同酶优树酯。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MASTERY), "进阶宝典",
-										   "_-_ 2层+2天赋点，3层+3天赋点，+3最大护甲。\n" +
+										   "_-_ 2层+2天赋点，3层+3天赋点，+4最大护甲。\n" +
 										   "_-_ 3区域第3层必定生成一个。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.自残绳), "自残绳",
-										   "_-_ 用于玩家快速自杀。"
+										   "_-_ 用于玩家快速压制血量。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.火把神的恩宠), "火把神的恩宠",
-										   "_-_ 5个火把合成，使用永久+1光照范围。"
+										   "_-_ 3个火把合成，使用永久+1光照范围。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.圣诞礼物), "圣诞礼物",
 										   "_-_ 随机获得物品。\n" +
@@ -212,7 +225,7 @@ public class 重制 {
 										   "_-_ 永久+生命再生0.05。\n" +
 										   "_-_ 五区第三层生成一个。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.神盾果), "神盾果",
-										   "_-_ +3最大护甲。\n" +
+										   "_-_ +4最大护甲。\n" +
 										   "_-_ 矮人城第三层生成一个。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.宝物袋),"宝物袋",
 										   "_-_ 商店出售宝物袋，必定优先卖在第一区域。"));
@@ -258,6 +271,16 @@ public class 重制 {
 										   new 精神支柱().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.圣金之沙), "圣金之沙",
 										   new 圣金之沙().statsDesc()));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.妖精粉尘), "妖精粉尘",
+										   new 妖精粉尘().statsDesc()));
+		changes.addButton(new ChangeButton(new ItemSprite(重力场球),"重力场球",
+										   new 重力场球().statsDesc()));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.水晶碎块), "水晶碎块",
+										   new 水晶碎块().statsDesc()));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.世界标尺), "世界标尺",
+										   new 世界标尺().statsDesc()));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.丛林玫瑰), "丛林玫瑰",
+										   "_-_ 踩踏草丛1/900概率掉落。\n"+new 丛林玫瑰().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.优惠卡), "优惠卡",
 										   "_-_ 双十一开局获得。\n"+ new 优惠卡().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.传奇肛塞), "传奇肛塞",
@@ -278,7 +301,7 @@ public class 重制 {
 										   "新增5阶武器。\n"+new 无影剑().desc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.重锤),"重锤",
 										   "新增5阶武器。\n"+new 重锤().desc()));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.猩红散华),"腥红散华",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.猩红散华),"猩红散华",
 										   "新增5阶武器。\n"+new 猩红散华().desc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.真铜短剑),"真铜短剑",
 										   "新增5阶武器。\n"+new 真铜短剑().desc()));
@@ -480,9 +503,12 @@ public class 重制 {
 											"_-_ 新增各种情况的新表情"
 		));
 		changes = new ChangeInfo("改动", false, null);
-		changes.hardlight(CharSprite.WARNING);
+		changes.hardlight(CharSprite.警告橙);
 		changeInfos.add(changes);
 		
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.TRINKET_CATA), "魔能触媒",
+										   "_-_ 1区域生成一个=>3区。"
+		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MISSILE_HOLDER), "投掷武器",
 										   "_-_ 移除投掷武器，投掷武器和近战武器归类为武器，都可以进行装备、投掷，但不可堆叠。"
 		));
@@ -500,7 +526,7 @@ public class 重制 {
 								
 								"杂项\n\n"+
 								"_-_ 现在正装备的装备以及背包不能放入炼金和提炼。\n" +
-								"_-_ 武器和防具、神器、法杖和戒指可以提炼，提炼量是金币的5%+1+等级。\n" +
+								"_-_ 武器和防具、神器、法杖和戒指可以提炼，提炼量是金币。\n" +
 								"_-_ 饰物=>禁忌物，并且移除遗物，禁忌物提炼能量5=>4+等级x2。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_BEACON), "时空道标",
@@ -525,24 +551,18 @@ public class 重制 {
 										   "_-_ 木房必定生成额外烈焰花物品\n"+
 										   "献祭房\n" +
 										   "_-_ 所需经验减少90%，并且可以站在祭坛上扔治疗药剂直接献祭完成。\n\n"+
-										   "金币宝箱房\n\n" +
-										   "_-_ 金币数量5~15=>标准金币。" ,
 
-										   "尸尘房\n" +
-										   "_-_ 金币数量1=>自然生成金币。\n\n" ,
-										   "毒气房和鼠王房\n" +
-										   "_-_ 金币数量10~15=>标准金币，且毒气房初始毒气30=>8，生产毒气12=>10。" ,
+										   "毒气房\n" +
+										   "_-_ 毒气房初始毒气30=>8，生产毒气12=>10。" ,
 										   
 										   "地牢生成1\n" +
 										   "_-_ 物品生成不会生成在出口。\n"+
 										   "_-_ 3区每层必定3个石头。\n"+
 										   "_-_ 物品也能生成在怪物下。\n"+
-										   "_-_ 1区域生成一个魔能触媒=>3区。",
 
 										   "地牢生成2\n" +
-										   "_-_ 生成金币不计算层。\n" +
 										   "_-_ 每区域偶数层必定生成一个小包口粮，且金币价值减半。\n" +
-										   "_-_ 每区域的升级卷轴数量-1。\n" +
+//										   "_-_ 每区域的升级卷轴数量-1。\n" +
 										   "_-_ 每区域第3层必定生成治疗药剂。\n" +
 										   "_-_ 第四层必定生成一个烈焰花种子和液火药剂。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_HOLDER), "神器",
@@ -634,7 +654,7 @@ public class 重制 {
 										   "魔弹法杖\n" +
 										   "_-_ 升级则会暂时强化其他法杖=>伤害等级收益+25%。\n\n"+
 										   "冰霜法杖\n"+
-										   "_-_ 对冻伤和冻结的敌人建设伤害=>冻伤增加伤害且冻结敌人，如果冻结就减少伤害。\n" +
+										   "_-_ 对冻伤和冻结的敌人减少伤害=>冻伤增加伤害且冻结敌人，如果冻结就减少伤害。\n" +
 										   "_-_ 在水中额外2回合冻伤=>直接冻结。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_HOLDER), "种子",
@@ -705,6 +725,12 @@ public class 重制 {
 										   "_-_ 装备和卸下时间1=>攻击延迟\n" +
 										   "_-_ 5阶都是特别物品\n" +
 										   "_-_ 武器战技重做\n" +
+										   "_-_ 双手武器的命中仅80%\n" +
+										   "_-_ 匕首、短剑、镖25%伏击伤害，特定武器额外25-50%\n" +
+										   "_-_ 非钝器拥有25%流血伤害，特定武器额外25-50%\n" +
+										   "_-_ 大部分武器的命中跟随攻击延迟，每0.25都会进行衰减，大于1的值比如1.75的值为1+0.25/2+0.25/4+0.25/8，小于1的值比如0.25为0.25+0.25/2+0.25/4\n" +
+										   "_-_ 大部分武器的伤害跟随攻击延迟\n" +
+										   "_-_ 武器最大充能(英雄等级+8)/3=>40%英雄等级\n" +
 										   "_-_ 武器投掷物理攻击能触发近战物理攻击效果\n" +
 										   "_-_ 连招，武器范围>1时，那么设定x，x为范围。第x次攻击造成伤害+20%x(4-x)，1范围后会会重置为最初的范围。\n" +
 										   "_-_ 扔出装备的武器时，只花费扔出的时间，不花费卸下的时间。\n"+
@@ -715,8 +741,8 @@ public class 重制 {
 										   "攻击和力量\n"+
 										   "_-_ 武器最小攻击=阶+级、最大攻击=5x(阶+1)+级x(阶+1)不同武器调整5的值=>原来的数值x伤害倍率来改动。\n" +
 										   "_-_ 武器投掷最小攻击2x阶+等级=>(阶+等级)x0.85。\n" +
-										   "_-_ 武器完全适配增加命中，转换效率为根号(力量-武器力量)的1%加成。\n" +
-										   "_-_ 武器完全适配增加攻速，转换效率为根号(力量-武器力量)的2%加成。"
+										   "_-_ 武器完全适配增加命中，转换效率为根号(力量-武器力量)的0.75%加成。\n" +
+										   "_-_ 武器完全适配增加攻速，转换效率为根号(力量-武器力量)的1.5%加成。"
 										   ));
 
 
@@ -728,10 +754,10 @@ public class 重制 {
 										   "_-_ 防具装备和卸下时间2=>攻速x2。\n"+
 										   "_-_ 最小防御等级=>阶级+等级。\n"+
 										   "_-_ 最大防御阶级x(2+等级)=>2x阶级x(1+等级/1.5)。\n"+
-										   "_-_ 防具完全适配增加闪避，转换效率为根号(力量-防具力量)的1%加成。\n"+
-										   "_-_ 防具完全适配增加移速，转换效率为根号(力量-防具力量)的2%加成。\n"+
-										   "_-_ 裸衣增加闪避，转换效率为根号(力量-10)的2%加成。\n"+
-										   "_-_ 裸衣增加移速，转换效率为根号(力量-10)的1%加成。"
+										   "_-_ 防具完全适配增加闪避，转换效率为根号(力量-防具力量)的0.75%加成。\n"+
+										   "_-_ 防具完全适配增加移速，转换效率为根号(力量-防具力量)的1.5%加成。\n"+
+										   "_-_ 裸衣增加闪避，转换效率为根号(力量-10)的1.5%加成。\n"+
+										   "_-_ 裸衣增加移速，转换效率为根号(力量-10)的0.75%加成。"
 		));
 		
 		changes.addButton( new ChangeButton(Icons.get(Icons.TALENT), "天赋",
@@ -762,13 +788,13 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(),"商人房",
 											"_-_ 4区将是商士而不是商人，3区将是商机而不是商人，2区将是商鼠而不是商人。\n" +
 											"_-_ 最大回购3=>6。\n" +
-											"_-_ 物价只计算地牢1层。\n" +
 											"_-_ 神器法杖戒指中随机卖一样，如果斗不卖默认奥术刻印笔=>神器法杖戒指中随机卖一样，并且必卖奥术刻印笔。\n" +
 											"_-_ 炼金菱晶商店不卖。\n" +
 											"_-_ 1区域1层也有商店，卖1阶武器和防具。",
 
 											"_-_ 卖给商人6件物品以上会免费赠送一个商人信标。\n" +
 											"_-_ 不再随机药剂和卷轴必卖净化药剂、极速药剂、隐形药剂和嬗变卷轴，两张鉴定卷轴和治疗药剂。\n" +
+											"_-_ 不能出售正在装备的物品。\n" +
 											"_-_ 非战士在第一个商店会卖水袋。\n" +
 											"_-_ 出售的戒指、法杖和神器现在是鉴定的。\n" +
 											"_-_ 只卖一个武器。\n" +
@@ -776,13 +802,10 @@ public class 重制 {
 											"_-_ 商店的小包口粮x2=>口粮+小包口粮。"));
 		changes.addButton( new ChangeButton(new GhostSprite(),"NPC",
 											"_-_ 悲伤幽灵的任务奖励武器和防具的随机等级使用同一个随机=>不同随机。\n"+
-											"_-_ 老杖匠的奖励额外一个选择，获得3个酶优树脂。\n"+
+											"_-_ 老杖匠的奖励额外一个选择，获得3个酶优树酯。\n"+
 											"_-_ 巨魔铁匠任务要求数量40=>20，携带的数量越多，增加的好感度越多。\n" +
-											"_-_ 巨魔铁匠新增额外选项，不需要人情，如果还有2500以上金币和25能量会赠送锻造锤。\n"+
+											"_-_ 巨魔铁匠新增额外选项，不需要人情，会赠送锻造锤。\n"+
 											"_-_ 野心勃勃的小恶魔不再半透明。"));
-		changes.addButton( new ChangeButton(new NecromancerSprite(),"死灵法师和幽魂法师","_-_ 最大闪避-4。 "));
-
-		changes.addButton( new ChangeButton(new GuardSprite(),"监狱守卫","_-_ 最大闪避+4，最大命中+2。、"));
 
 		changes.addButton( new ChangeButton(new GooSprite(),"老鬼",
 						"小老鬼\n"+
@@ -793,9 +816,9 @@ public class 重制 {
 					"老鬼\n"+
 					"_-_ 古神会播放古神低语。\n"+
 					"_-_ 粘咕获得史莱姆物理减伤，但是回血只有1/10。\n"+
-					"_-_ 天狗陷阱多显示1.75秒。\n"+
+					"_-_ 天狗陷阱多显示2秒。\n"+
 					"_-_ DM300最大攻击+5。\n"+
-					"_-_ 矮人国王死亡掉落矮人国王的皇冠=>狂妄皇冠。\n"+
+					"_-_ 矮人国王死亡掉落矮人国王的皇冠=>狂妄皇冠，且金币价值160。\n"+
 					"_-_ 矮人国王延缓伤害改成和史莱姆一样的固定衰减。\n"+
 					"_-_ 矮人国王在召唤2个矮人尸群时，有一个将是骷髅。\n"+
 					"_-_ 矮人国王最小和最大攻击+10。"));
@@ -804,26 +827,20 @@ public class 重制 {
 											"_-_ 大部分怪物正确获得属性。\n"+
 											"_-_ 1楼刷怪不会刷怪=>25x25回合后才会刷怪(幸福结局回来除外)。\n"+
 											"_-_ 1楼刷怪数量8=>10。\n"+
+											"_-_ 刷怪速度最短1回合，最长450回合。\n"+
 											"_-_ 大部分单位的最小防御+1。\n"+
 											"_-_ 下水道螃蟹移速初始1倍，且所有螃蟹敌人水平移动速度x2倍。\n"+
 											"_-_ 怪物生成不会在出口上。\n"+
 											"_-_ 怪物生成可以在物品上。\n"+
 											"_-_ 史莱姆受到伤害减伤=>物理减伤。\n"+
-											"_-_ 新增树妖、海妖、昆虫、酸性和寒冰属性的生物受到火焰伤害+50%。\n"+
-											"_-_ 食人鱼现在会优先去吃生肉，并产生一个新的食人鱼，不过每个食人鱼只能产生一次。\n"+
+											"_-_ 新增树妖、海妖、昆虫、酸性和冰霜属性的生物受到火焰伤害x2倍。\n"+
 											"_-_ 宝箱怪动画优化。",
 
-											"_-_ 新增怪物都拥有一套新的判定，害怕，受到害怕元素的伤害+50%。\n"+
-											"_-_ 新增火焰属性的生物受到寒冰伤害+50%。\n"+
-											"_-_ 新增动物属性的生物受到流血、中毒、毒气、酸性、火焰和寒冰伤害+50%。\n"+
+											"_-_ 新增怪物都拥有一套新的判定，害怕，受到害怕元素的伤害x2倍。\n"+
+											"_-_ 新增火焰属性的生物受到寒冰伤害x2倍。\n"+
+											"_-_ 新增动物属性的生物受到流血、中毒、毒气、酸性、火焰和寒冰伤害x2倍。\n"+
 											"_-_ 新增暴击率和暴击伤害，默认6%暴击率，和145%暴击伤害，超过的暴击率33%转暴击伤害。如果不是百分比暴击，首次攻击必定不暴击，且600/暴击率次物理攻击未暴击则下次必定暴击，暴击后重置。\n"+
-											"_-_ 怨灵最大生命1=>地牢层数。",
 
-											"_-_ 吸血蝙蝠物理攻击恢复血量1~14(攻击-4)=>3~9(吸血50%)，最大生命+5，最大攻击+3，最大命中+2，最大闪避+1，移速2=>1.5，最大经验和最大等级+1。\n"+
-											"_-_ 骷髅死亡爆炸对于对于目标的伤害会经过防御时，并且更好的处理。\n"+
-											"_-_ 下水道巨蛇最小和最大攻击+2，最大生命+6，最大闪避25=>5，最大等级7=>8，并且替换二层豺狼巡查。\n"+
-											"_-_ 豺狼诡术师(击杀掉落随机武器=>火毒箭矢)、酸液巨蝎和巨蝎接近它后，移速会只有5/6。其他情况的移速100%=>9/6\n"+
-											"_-_ 疯狂小偷和疯狂强盗，没偷东西移速9/6，防御时掉落1金币=>标准金币。"+
 											"_-_ 魔法绵羊交互有彩蛋，还能获得经验。"));
 		
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.WARRIOR,tier(HeroClass.WARRIOR))),"英雄",
@@ -833,10 +850,10 @@ public class 重制 {
 											"_-_ 除了战士都移除水袋，防具都变成专属防具。\n",
 											
 											"英雄机制\n\n" +
-											"_-_ 新增吸血作用于物理攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值(不过对非Boss仅1/3效果)。\n"+
+											"_-_ 新增吸血作用于物理攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值(不过对非Boss仅1/6效果)。\n"+
 											"_-_ 新增魔力，英雄初始是10，法杖、法、巫、道、忍术需要此。\n"+
 											"_-_ 新增穿甲(固定值无视防御)，护甲穿透(百分比无视防御)，先x/后+-。\n"+
-											"_-_ 蛇皮走位，正常行动会叠加0.35层，物理攻击叠加0.35层，最多15层。满层时的物理攻击+移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
+											"_-_ 蛇皮走位，正常行动会叠加4层，物理攻击叠加6层，最多100层。满层时的物理攻击+移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
 											"_-_ 任何饱腹填充都能触发吃饭天赋，不过效果倍率是食物填充值/150。\n"+
 											"_-_ 移除搜索、开锁等动作扣除饥饿值，同时搜索花费时间2=>搜索范围x2。\n",
 
@@ -845,13 +862,14 @@ public class 重制 {
 											"_-_ 视野算法优化。\n"+
 											"_-_ 搜索会在搜索范围内拾取非陷阱上的物品和打开箱子，以及踩踏草。\n"+
 											"_-_ 先处理物理防御时然后处理物理攻击时=>先处理物理攻击时然后处理物理防御时。\n"+
+											"_-_ 暗杀之刃这类伏击武器不再是是最大攻击-最小攻击这样稳定伤害，而是额外造成伤害。\n"+
 											"_-_ 敌人第一次被攻击+0.5伤害，伏击+0.5，隐形伏击再+0.5，敌人第一次被伏击再+0.5。\n"+
-											"_-_ 投掷和弓在近距离最大命中不变，非近距离(抵近射击)-50%最大命中。\n"+
+											"_-_ 武器在近距离最大命中不变，非近距离(抵近射击)-50%最大命中。\n"+
 											"_-_ 燃烧获得火把效果。",
 
 											"英雄机制3\n\n" +
 											"_-_ 击杀敌人施加连杀状态10回合，敌人被发现会施加被发现回合。\n"+
-											"_-_ 点击目的地会提示框，有敌人和陷阱则是红色，普遍绿色。\n"+
+//											"_-_ 点击目的地会提示框，有敌人和陷阱则是红色，普遍绿色。\n"+
 											"_-_ 吃饭回血食物填充/150的生命。\n"+
 											"_-_ 升级不再会同时恢复提升的生命。\n"+
 											"_-_ 神器和戒指栏位=>两个杂项栏位。\n"+
@@ -859,14 +877,15 @@ public class 重制 {
 											"_-_ 浮空状态在深渊点击自身可以无伤掉下去。\n",
 											
 											"英雄属性1\n\n" +
-											"_-_ 最大生命值20+5x升级等级=>15+3x等级。\n"+
-											"_-_ 升级+最大命中和最大闪避=>每级提供最大命中和最大闪避，最大等级-5。\n"+
-											"_-_ 现在每级还会+0.004再生\n" ,
+											"_-_ 生命、护甲、综合属性、力量、魔力属性最低为0.01。\n"+
+											"_-_ 最大生命值20+5x升级等级=>20+3x等级。\n"+
+											"_-_ 升级+最大命中和最大闪避=>最大命中和最大闪避+等级-1(满级额外+1)，最大等级-5。\n" ,
 
 											"英雄属性2\n\n" +
 											"_-_ 女性英雄大小-0.1，男性则+0.1。\n"+
 											"_-_ 升级不在恢复升级所提升的生命。\n"+
-											"_-_ 再生恢复的生命值为延迟值=>1，恢复值1=>根号最大生命/88，提升恢复速度是提升恢复值。且饱腹状态再生速度+20%。\n"+
+											"_-_ 再生恢复的生命值为延迟值=>1，恢复值1=>根号最大生命/50，提升恢复速度是提升恢复值。\n"+
+											"_-_ 根据饥饿值，最多+25%再生速度，以及根据饱腹状态做多再生速度+25%。\n"+
 											"_-_ 空手攻速1=>2。\n" +
 											"_-_ 10回合-1饥饿=>每回合-1。\n"+
 											"_-_ 根据力量增加命中，转换效率为根号(力量-10)x2%。\n" +
@@ -893,7 +912,6 @@ public class 重制 {
 
 										   "_-_ 特别的物品可以出售。\n" +
 										   "_-_ 神秘的肉=>生肉。\n" +
-										   "_-_ 矮人国王的皇冠价值2000。\n" +
 										   "_-_ 现在首次拾取和装备、使用进行一次鉴定效果。\n" +
 										   "_-_ 震爆符石不会对自己也造成伤害。\n" +
 										   "_-_ 冰冠花、冰霜药剂和冰暴魔药不会被燃烧。\n" +
@@ -906,6 +924,9 @@ public class 重制 {
 										   "_-_ 一些物品图片更好。\n" +
 										   "_-_ 物品掉落位置更好。" ));
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "杂项",
+				"_-_ 残血为40%生命以下，健康血为60%生命以上，半血是40~60%之间。半血以下和以上是50%。\n" +
+				"_-_ 伤害显示仅魔法和物理伤害。\n" +
+				"_-_ 属性更新不再是特定情况触发刷新，而是每秒刷新。\n" +
 				"_-_ Buff伤害和防具刻印、炸弹、盟军、陷阱、地牢的伤害也能判定击杀。\n" +
 				"_-_ 陷阱数量生成后处理每5格地板不超过1个陷阱。\n" +
 				"_-_ 成长精英每4回合1%=>每回合0.25%。\n" +
@@ -913,20 +934,22 @@ public class 重制 {
 				"_-_ 武器、防具生成，生成特定阶级时，不再有机会生成其他阶级。\n" +
 				"_-_ 护盾类也算作治疗效果。\n" +
 //				"_-_ 交互商人，英雄升级，打开英雄面板和背包面板会保存游戏，防止意外崩溃的丢失。\n" +
-				"_-_ 现在吃饭超过450的食物也会填充，施加饱腹Buff，但是饱腹最多600。\n" +
+				"_-_ 现在吃饭超过450的食物也会填充，施加饱腹Buff，但是饱腹最多450。\n" +
 				"_-_ 正常角色物理攻击和物理防御施加战斗状态5回合，静止时会施加静止回合。\n" +
 				"_-_ 一些根据最大防御减少伤害的机制都改为正常的经过最小防御~最大防御和防御时。",
 
 				"_-_ 一些物品类别和怪物等的默认有使用技巧备注，如果未鉴定的卷轴、药剂、戒指则不显示物品。\n" +
+				"_-_ 显示危险点提示多显示1秒，并且大部分攻击危险点都提示。\n" +
+				"_-_ 新增存档可以备注。\n" +
+				"_-_ 时间回合轮盘更明显。\n" +
 				"_-_ 新增可以为怪物备注。\n" +
-				"_-_ 自定义备注上限5=>500。\n" +
+				"_-_ 自定义备注上限5=>250。\n" +
 				"_-_ 隐形时发现敌人不再中断。\n" +
 				"_-_ 攻速和移速都改为+-法(武器、防具、空手是直接设定初始值)。\n" +
 				"_-_ 法杖和神器充能改为+-法，特殊情况是如仅50%。",
 
 				"_-_ 新增地牢时间每天为2400回合，100回合一小时，以及天数，初始900回合，第一天。\n" +
-				"_-_ 液金=>金液。\n" +
-				"_-_ 奥术树脂=>酶优树脂。\n" +
+				"_-_ 大于2的回血、护盾、护甲、伤害才显示。\n" +
 				"_-_ 恐药异症中的过敏物品文本介绍以及图标毒粹。\n" +
 				"_-_ 冻伤每回合受到0.25~1+地牢层数/16的伤害。\n" +
 				"_-_ 冻结解冻时受到4~12+地牢层数。" ,
@@ -959,12 +982,16 @@ public class 重制 {
 		changes.addButton(new ChangeButton(bug, "修复",
 				"_-_ 修复酸蚀法杖高等级的施法会导致低等级的施法伤害没有正确分配级。\n" +
 				"_-_ 修复傀儡和老鬼傀儡死亡潜在问题，傀儡和老鬼傀儡死亡不会触发联动效果，以及老鬼和小老鬼也不触发，如击杀掉落等。\n" +
+				"_-_ 修复潜在无敌可能跳楼还会施加Buff和伤害。\n" +
 				"_-_ 修复潜在没惊醒敌人，没有正确流浪、狩猎。\n" +
+				"_-_ 修复时间气泡潜在回合判定错误。\n" +
 				"_-_ 修复潜在相关透视可能黑幕。\n" +
 				"_-_ 修复古神幼虫动画异常。\n" +
 				"_-_ 修复饥饿速率不对受伤修正。\n" +
 				"_-_ 修复魅魔站立动画异常有攻击的一帧，并且不是苍白皮肤色，也有恶魔角，淫纹。" ,
 
+				"_-_ 修复缩餐节食两次计算丰饶之角的吃饭。\n" +
+				"_-_ 修复决斗秘卷只免疫物理攻击伤害。\n" +
 				"_-_ 修复楼层入口和楼层出口文本反了。\n" +
 				"_-_ 修复虹光幻像不在英雄视野还在攻击。\n" +
 				"_-_ 修复0受伤时还显示受伤图标。\n" +
@@ -974,13 +1001,22 @@ public class 重制 {
 				"_-_ 修复恶魔撕裂者有概率自己跳入深渊。"));
 
 		changes = new ChangeInfo("增强", false, null);
-		changes.hardlight(CharSprite.增强);
+		changes.hardlight(CharSprite.增强绿);
 		changeInfos.add(changes);
+		changes.addButton( new ChangeButton(new WraithSprite(),"怨灵","_-_ 最大生命1=>地牢层数。 "));
+
+		changes.addButton( new ChangeButton(new BatSprite(),"吸血蝙蝠","_-_ 物理攻击恢复血量1~14(攻击-4)=>3~9(吸血50%)。\n" +
+																	   "_-_ 最大生命+5，最大攻击+3，最大命中+2，最大闪避+1，移速2=>1.5，最大经验和最大等级+1。"));
+		changes.addButton( new ChangeButton(new GuardSprite(),"监狱守卫","_-_ 最大闪避+4，最大命中+2。"));
+		changes.addButton( new ChangeButton(new PiranhaSprite(),"巨型食人鱼","_-_ 现在会优先去吃生肉，并产生一个新的巨型食人鱼，不过每个巨型食人鱼只能产生一次。"));
+		changes.addButton( new ChangeButton(new SnakeSprite(),"下水道巨蛇","_-_ 最小和最大攻击+2，攻速x2，最大生命+6，最大闪避25=>5，最大等级7=>8，并且替换二层豺狼巡查。"));
+
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
-										   "_-_ 升级所带来的伤害提升减半，包括诅咒升级(但是最小提升x2最大提升x4，英雄等级/6=>英雄等级/5)。\n" +
-										   "_-_ 最小伤害等级/10=>等级/5，最小伤害等级/5=>/2.5。\n" +
-										   "_-_ 可以升级了，且也能吃到强化等级。\n" +
-										   "_-_ 射击伤害x1.5，但是攻击延迟1.5。\n" +
+										   "_-_ 诅咒升级提升1+英雄等级/30~2+英雄等级/15=>1+等级/10~2+等级/5)。\n" +
+										   "_-_ 最小伤害等级/5=>等级/7.5，最大伤害等级/2.5=>等级/3.4。\n" +
+										   "_-_ 射击变成75%为魔法伤害。\n" +
+										   "_-_ 可以升级了，且也能吃到强化等级，还能吃到10%魔力的等级。\n" +
+										   "_-_ 射击伤害x1.25。\n" +
 										   "_-_ 灵能短弓箭矢能触发部分东西。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.AMULET), "Yendor护符",
 										   new 真正护符().statsDesc()));
@@ -1011,14 +1047,37 @@ public class 重制 {
 				"_-_ 移除受伤获得爆发屏障。\n" +
 				"_-_ 提升防具的等级=>防具获得强化等级。\n" +
 				"_-_ 可额外携带1级。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARCANE_RESIN), "酶优树脂",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.LIQUID_METAL), "金液",
+				"_-_ 液金=>金液。\n" +
+				"_-_ 诅咒物品也能合成。\n" +
+				"_-_ 可以为武器升级，消耗(阶级+等级+1)x3瓶。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARCANE_RESIN), "酶优树酯",
+				"_-_ 奥术树脂=>酶优树酯。\n" +
+				"_-_ 诅咒物品也能合成。\n" +
+				"_-_ 专属的升级法杖等级=>增强法杖、神器的施法魔力收益10%。\n" +
 				"_-_ 法杖转换数量2*(级-树脂级)=>级-树脂级+1，并且级-树脂级+1需要大于0才能转换。\n" +
 				"_-_ 取消等级升级上限。"));
 		
 		changes = new ChangeInfo("削弱", false, null);
-		changes.hardlight(CharSprite.削弱);
+		changes.hardlight(CharSprite.削弱红);
 		changeInfos.add(changes);
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.TORCH), "火把",
+		changes.addButton( new ChangeButton(new GnollTricksterSprite(),"豺狼诡术师","_-_ (击杀掉落随机武器=>火毒箭矢)、酸液巨蝎和巨蝎接近它后，移速会只有5/6。其他情况的移速100%=>9/6。"));
+		changes.addButton( new ChangeButton(new ThiefSprite(),"疯狂小偷和疯狂强盗","_-_ 没偷东西移速9/6。"));
+
+		changes.addButton( new ChangeButton(new SkeletonSprite(),"骷髅","_-_ 死亡爆炸对于对于目标的伤害会经过防御时，并且更好的处理。"));
+		changes.addButton( new ChangeButton(new NecromancerSprite(),"死灵法师和幽魂法师","_-_ 最大闪避-4。 "));
+
+		changes.addButton( new ChangeButton(Icons.CHALLENGE_COLOR.get(), "挑战",
+											"精英敌人，生成不会惊醒。\n" +
+											"缩餐节食，食物仅33%=>50%。\n" +
+											"信念护体，不减少灵壤法杖的防御，防具的最小防御也不会为0，但是最大防御-1。\n" +
+											"没入黑暗，视野范围1/4=>1/3，其他光源有效性降至1/5=>1/3(不会影响法杖Buff时间)。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.GOLD), "金币",
+										   "_-_ 商店物价只计算1区，地牢生成金币不计算层且都/5。\n" +
+										   "_-_ 所有物品金币价值/5，并且只显示大于1的金币获取。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量",
+										   "_-_ 生成的能量1=>1~2。"));
+	changes.addButton(new ChangeButton(new ItemSprite(物品表.TORCH), "火把",
 										   "_-_ 提供的光照回合250=>225。"));
 
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.AMULET, true), "护符诡咒",

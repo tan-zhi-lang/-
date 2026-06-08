@@ -56,8 +56,8 @@ public class 商人信标 extends Item {
 			hero.sprite.operate(hero.pos);
 			hero.spend( 1f );
 			hero.busy();
-			if(Dungeon.gold>=Dungeon.depth*25){
-				Dungeon.gold(-Dungeon.depth*25);
+			if(Dungeon.gold>=Shopkeeper.售价(6)){
+				Dungeon.gold(-Shopkeeper.售价(6));
 				Generator.随机物品().放背包();
 			}else{
 				Messages.get(this, "nogold");
@@ -67,8 +67,8 @@ public class 商人信标 extends Item {
 			hero.sprite.operate(hero.pos);
 			hero.spend( 1f );
 			hero.busy();
-			if(Dungeon.gold>=Dungeon.depth*9*25){
-				Dungeon.gold(-Dungeon.depth*9*25);
+			if(Dungeon.gold>=Shopkeeper.售价(9*6)){
+				Dungeon.gold(-Shopkeeper.售价(9*6));
 				int x=1;
 				Item item;
 				while(x<=10){
@@ -174,18 +174,12 @@ public class 商人信标 extends Item {
 		}
 		
 		private void consumeAlchemize(){
-			if (curItem.数量()<=1){
-				curItem.detachAll(Dungeon.hero.belongings.backpack);
-				if (owner != null) {
-					owner.hide();
-				}
-			} else {
-				curItem.detach(Dungeon.hero.belongings.backpack);
-				if (owner != null){
-					owner.hide();
-				}
-				GameScene.selectItem(itemSelector);
+
+//			curItem.detach(Dungeon.hero.belongings.backpack);
+			if (owner != null){
+				owner.hide();
 			}
+			GameScene.selectItem(itemSelector);
 		}
 		
 	}

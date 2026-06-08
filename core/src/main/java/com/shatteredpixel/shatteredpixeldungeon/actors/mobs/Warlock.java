@@ -103,7 +103,7 @@ public class Warlock extends Mob implements Callback {
 			}
 
 			float dmg = Random.NormalIntRange( 12, 18 );
-			dmg=dmg*Dungeon.难度攻击();
+			dmg=dmg*Dungeon.难度攻击(this);
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 
 			//logic for DK taking 1/2 damage from aggression stoned minions
@@ -121,7 +121,7 @@ public class Warlock extends Mob implements Callback {
 				GLog.n( Messages.get(this, "bolt_kill") );
 			}
 		} else {
-			enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+			enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 		}
 	}
 	

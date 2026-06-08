@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -19,6 +20,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.PointF;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -260,6 +262,7 @@ public class BuffIndicator extends Component {
 
 		public Image grey; //only for small
 		public BitmapText text; //only for large
+		private CircleArc counter;
 
 		public BuffButton( Buff buff, boolean large ){
 			super( new BuffIcon(buff, large));
@@ -278,6 +281,9 @@ public class BuffIndicator extends Component {
 
 			text = new BitmapText(PixelScene.pixelFont);
 			add( text );
+//			counter = new CircleArc(18, 4.25f);
+//			counter.color( 0xAAAAAA, true );
+			//		counter.color( 0x808080, true );
 		}
 
 		public void updateIcon(){
@@ -296,11 +302,20 @@ public class BuffIndicator extends Component {
 			} else if (!buff.iconTextDisplay().isEmpty()) {
 				text.visible = true;
 				grey.visible = false;
-				if (buff.type == Buff.buffType.POSITIVE)        text.hardlight(CharSprite.增强);
-				else if (buff.type == Buff.buffType.NEGATIVE)   text.hardlight(CharSprite.削弱);
+				if (buff.type == Buff.buffType.POSITIVE)        text.hardlight(CharSprite.增强绿);
+				else if (buff.type == Buff.buffType.NEGATIVE)   text.hardlight(CharSprite.削弱红);
 				text.alpha(0.7f);
 
 				text.text(buff.iconTextDisplay());
+				//buff数值太长
+
+//				counter.show(this, icon.center(), 0f);
+//				counter.setSweep(buff.iconFadePercent());
+				if(buff.iconTextDisplay().equals("2147483647"))
+					text.alpha(0);
+
+				text.scale=new PointF(2f/buff.iconTextDisplay().length(),
+									  2f/buff.iconTextDisplay().length());
 				text.measure();
 			}
 		}
@@ -311,6 +326,7 @@ public class BuffIndicator extends Component {
 			grey.x = icon.x = this.x + (large ? 0 : 1);
 			grey.y = icon.y = this.y + (large ? 0 : 2);
 
+//			counter.point(icon.center());
 //			if (text.width > width()){
 //				text.scale.set(PixelScene.align(0.5f));
 //			} else {

@@ -55,6 +55,9 @@ public class 掌心雷 extends 目标道术 {
 				hero.sprite.centerEmitter().burst(SparkParticle.FACTORY,10);
 				hero.sprite.flash();
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
+
+				onSpellCast(tome, hero);
+
 				hero.spendAndNext(hero.攻击延迟());
 			}
 		});

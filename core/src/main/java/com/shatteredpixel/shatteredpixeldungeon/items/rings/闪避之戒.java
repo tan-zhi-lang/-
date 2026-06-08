@@ -34,7 +34,7 @@ public class 闪避之戒 extends Ring {
 	}
 
 	public static float 闪避(Char target){
-		return 1+0.15875f*getBuffedBonus(target, 狂怒之戒.Furor.class);
+		return 1+0.15875f*getBuffedBonus(target, Evasion.class);
 	}
 	@Override
 	protected RingBuff buff( ) {

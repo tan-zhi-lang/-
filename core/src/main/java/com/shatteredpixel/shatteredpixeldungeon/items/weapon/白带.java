@@ -12,8 +12,9 @@ public class 白带 extends Weapon{
 		
 		tier = 1;
 		
-		延迟= 0.43f;
+		延迟= 0.5f;
 		伤害= 0.5f;
+		魔法=0.25f;
 		技能=new 连击();
 
 	}

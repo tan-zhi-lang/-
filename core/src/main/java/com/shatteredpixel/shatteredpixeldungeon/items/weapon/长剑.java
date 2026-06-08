@@ -13,11 +13,8 @@ public class 长剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		技能=new 斩击();
-		
-		延迟= 1.25f;
-		伤害= 1.25f;
+
 		tier = 3;
-		命中=1.15f;
 	}
 
 }

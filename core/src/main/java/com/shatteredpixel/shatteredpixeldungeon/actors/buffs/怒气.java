@@ -73,6 +73,13 @@ public class 怒气 extends Buff implements ActionIndicator.Action {
 		ActionIndicator.clearAction(this);
 	}
 
+	public void damage(float x){
+		怒气= Math.min(100,怒气+(5+Math.round(target.根据已损失生命()*10))*x);
+		if (怒气>0){
+			ActionIndicator.setAction(this);
+		}
+		BuffIndicator.refreshHero(); //show new power immediately
+	}
 	public void damage(){
 		怒气= Math.min(100,怒气+5+Math.round(target.根据已损失生命()*10));
 		if (怒气>0){
@@ -104,7 +111,7 @@ public class 怒气 extends Buff implements ActionIndicator.Action {
 	public Visual secondaryVisual() {
 		BitmapText txt = new BitmapText(PixelScene.pixelFont);
 		txt.text(""+Math.round(怒气));
-		txt.hardlight(CharSprite.增强);
+		txt.hardlight(CharSprite.增强绿);
 		txt.measure();
 		return txt;
 	}

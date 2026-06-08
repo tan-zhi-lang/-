@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import static com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene.uiCamera;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.日期;
 
 import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -65,6 +66,7 @@ public class StatusPane extends Component {
 
 	private Image exp;
 	private BitmapText expText;
+	private BitmapText date;
 	private BitmapText fps;
 	private BitmapText time;
 	private BitmapText day;
@@ -173,6 +175,8 @@ public class StatusPane extends Component {
 		expText.hardlight( 0xFFFFAA );
 		expText.alpha(0.6f);
 		add(expText);
+		date = new BitmapText( 日期, PixelScene.pixelFont);
+		add(date);
 		fps = new BitmapText("FPS:"+Gdx.graphics.getFramesPerSecond(),PixelScene.pixelFont);
 		add(fps);
 		time = new BitmapText( Dungeon.地牢时间(), PixelScene.pixelFont);
@@ -194,7 +198,8 @@ public class StatusPane extends Component {
 		add(busytime);
 
 		counter = new CircleArc(18, 4.25f);
-		counter.color( 0x808080, true );
+		counter.color( 0xAAAAAA, true );
+//		counter.color( 0x808080, true );
 		counter.show(this, busy.center(), 0f);
 	}
 
@@ -269,12 +274,16 @@ public class StatusPane extends Component {
 		expText.y = exp.y + (exp.height - (expText.baseLine()+expText.scale.y))/2f;
 		expText.y -= 0.001f; //prefer to be slightly higher
 		PixelScene.align(expText);
-		
-		
+
+
+		date.scale.set(PixelScene.align(0.67f));
+		date.measure();
+		PixelScene.align(date);
+
 		fps.scale.set(PixelScene.align(0.67f));
 		fps.measure();
 		PixelScene.align(fps);
-		
+
 		time.scale.set(PixelScene.align(0.75f));
 		time.measure();
 		PixelScene.align(time);
@@ -419,12 +428,18 @@ public class StatusPane extends Component {
 	
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.经验/Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.经验+"/"+Dungeon.hero.升级所需());
-		
+
+		date.text(日期);
+		date.measure();
+		date.x = uiCamera.width-MenuPane.WIDTH + 30.5f - date.width();
+		date.y = y + 17 + date.height();
+
+
 		fps.text("FPS:" + Gdx.graphics.getFramesPerSecond());
 		fps.measure();
-		fps.x = uiCamera.width-MenuPane.WIDTH + 23.5f - fps.width() / 2f;
-		fps.y = y + 17 + fps.height();
-		
+		fps.x = uiCamera.width-MenuPane.WIDTH + 22.5f - fps.width() / 2f;
+		fps.y = y + 17*1.3f + fps.height();
+
 		time.text(Dungeon.地牢时间());
 		time.measure();
 		time.x = x + 25.5f - time.width() / 2f;

@@ -24,7 +24,7 @@ public class GnollSapper extends Mob {
 
 		spriteClass = GnollSapperSprite.class;
 
-		生命 = 最大生命 = Math.round(45*Dungeon.难度生命());
+		生命 = 最大生命 = Math.round(45*Dungeon.难度生命(this));
 		defenseSkill = 15;
 
 		经验 = 10;

@@ -14,9 +14,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM0;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.毒气宝箱怪;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.超级魔法绵羊;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -142,6 +145,12 @@ public class MasterThievesArmband extends Artifact {
 							} else if (Random.Float() <= lootChance){
 								Item loot = ((Mob) ch).createLoot();
 								boolean 有偷的=true;
+								if(ch instanceof DM0)
+									有偷的=false;
+								if(ch instanceof 毒气宝箱怪)
+									有偷的=false;
+								if(ch instanceof 超级魔法绵羊)
+									有偷的=false;
 								if(ch instanceof Shopkeeper s){
 									if(s.商人信标){
 										s.商人信标=false;
@@ -256,7 +265,7 @@ public class MasterThievesArmband extends Artifact {
 		@Override
 		public boolean act() {
 			if (cursed && Dungeon.gold > 0 && Random.Int(5) == 0){
-				Dungeon.gold(-1);
+				Dungeon.gold(-1,target.pos);
 				updateQuickslot();
 			}
 

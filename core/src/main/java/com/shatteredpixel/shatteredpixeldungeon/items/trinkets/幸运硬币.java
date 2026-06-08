@@ -39,9 +39,9 @@ public class 幸运硬币 extends Trinket {
 
 	public static int 增加(int level){
 		if (level < 0){
-			return 1;
+			return 0;
 		} else {
-			return 2+level;
+			return 1+level;
 		}
 	}
 

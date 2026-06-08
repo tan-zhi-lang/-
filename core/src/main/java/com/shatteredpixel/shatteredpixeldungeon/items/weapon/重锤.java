@@ -18,7 +18,8 @@ public class 重锤 extends Weapon{
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		
 		技能=new 重击();
-		延迟=0.6f;
+		延迟=1.5f;
+		伤害=1.34f;
 
 		特别=true;
 		白色=true;

@@ -12,7 +12,10 @@ public class 小刺 extends Weapon{
 	{
 		image = 物品表.THROWING_SPIKE;
 		hitSound = Assets.Sounds.HIT_STAB;
-		伤害=0.85f;
+
+		延迟=0.8f;
+		伤害=0.8f;
+		伏击=0.25f;
 		技能=new 破击();
 		tier = 1;
 	}

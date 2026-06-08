@@ -97,7 +97,7 @@ public class 九龙拉管 extends Artifact {
 	}
 
 	private float PrickDmg(){
-		return (等级()+1)*5;
+		return (等级()+1)*3f;
 	}
 
 	private void prick(Hero hero){
@@ -180,7 +180,7 @@ public class 九龙拉管 extends Artifact {
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
 			else
-				desc += Messages.get(this, "desc",(等级()+1)*2.5f,0.3f+等级()*0.03f);
+				desc += Messages.get(this, "desc",(等级()+1)*3f,0.3f+(1+等级())*0.03f);
 		}
 
 		return desc;

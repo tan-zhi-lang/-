@@ -18,8 +18,8 @@ public class 硬头锤 extends Weapon{
 		技能=new 重击();
 
 		tier = 2;
-		延迟=1.25f;
-		伤害=1.15f;
+		延迟=1.175f;
+		伤害=1.175f;
 	}
 	
 	@Override

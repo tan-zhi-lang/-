@@ -399,7 +399,7 @@ public class Bomb extends Item {
 			if (bomb.doPickUp(hero, pos)) {
 				//isaaaaac.... (don't bother doing this when not in english)
 				if (SPDSettings.language() == Languages.ENGLISH)
-					hero.sprite.showStatus(CharSprite.NEUTRAL, "1+1 free!");
+					hero.sprite.showStatus(CharSprite.中性黄,"1+1 free!");
 				return true;
 			}
 			return false;

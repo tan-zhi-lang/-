@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 
 public class 能量之戒 extends Ring {
@@ -53,10 +54,14 @@ public class 能量之戒 extends Ring {
 	public static float wandChargeMultiplier( Char target ){
 		float bonus =1+ 0.1845f*getBuffedBonus(target, Energy.class);
 
+		if(Dungeon.符文("法杖工具人")){
+			bonus+=weaponChargeMultiplier(target);
+			bonus+=artifactChargeMultiplier(target);
+		}
 		if (target instanceof Hero hero){
 
 			int 法杖数量=0;
-			for(Item i:hero.belongings.backpack.items){
+			for(Item i:hero.belongings.backpack){
 				if(i instanceof Wand a)
 					法杖数量+=1+a.强化等级();
 			}
@@ -64,7 +69,7 @@ public class 能量之戒 extends Ring {
 				bonus+=1/hero.攻击延迟();
 			if(hero.符文("法杖收集家"))
 				bonus+=法杖数量*0.1f;
-
+			if(算法.isDebug())bonus+=10;
 			if(Dungeon.赛季(赛季设置.鬼怨地牢)) bonus+=0.35f;
 			if (hero.heroClass != HeroClass.CLERIC && hero.天赋(Talent.轻量阅读)){
 				bonus += hero.天赋点数(Talent.轻量阅读,0.07f);
@@ -81,7 +86,7 @@ public class 能量之戒 extends Ring {
 			if(hero.heroClass(HeroClass.巫女)){
 				float c=0;
 				for(Item item:hero.belongings){
-					if(item.cursed)c+=0.1f;
+					if(item.cursed)c+=0.15f;
 				}
 				bonus+=c;
 			}
@@ -101,10 +106,11 @@ public class 能量之戒 extends Ring {
 		if (target instanceof Hero hero){
 
 			int 神器数量=0;
-			for(Item i:hero.belongings.backpack.items){
+			for(Item i:hero.belongings.backpack){
 				if(i instanceof Artifact a)
 					神器数量+=1+a.等级();
 			}
+			if(算法.isDebug())bonus+=10;
 			if(hero.符文("纯粹主义术师"))
 				bonus+=1/hero.攻击延迟();
 			if(hero.符文("神器收集家"))
@@ -122,7 +128,7 @@ public class 能量之戒 extends Ring {
 			if(hero.heroClass(HeroClass.巫女)){
 				float c=0;
 				for(Item item:hero.belongings){
-					if(item.cursed)c+=0.1f;
+					if(item.cursed)c+=0.15f;
 				}
 				bonus+=c;
 			}
@@ -141,11 +147,19 @@ public class 能量之戒 extends Ring {
 		if (target instanceof Hero hero){
 			if(hero.符文("纯粹主义术师"))
 				bonus+=1/hero.攻击延迟();
+			if(算法.isDebug())bonus+=10;
 			if(hero.符文("回归基本功"))bonus+=1.65f;
 			if(hero.符文("无限火力"))bonus+=3.5f;
 			if(hero.符文("缩小引擎"))bonus+=0.04f*hero.缩小引擎;
 			if(hero.符文("面包和果酱"))bonus+=0.5f;
 			if(hero.符文("尖端发明家"))bonus+=0.35f;
+			if(hero.heroClass(HeroClass.巫女)){
+				float c=0;
+				for(Item item:hero.belongings){
+					if(item.cursed)c+=0.15f;
+				}
+				bonus+=c;
+			}
 			if(hero.符文("由暴生急"))bonus+=0.5*hero.暴击率();
 			if(hero.heroClass(HeroClass.DUELIST))bonus+=0.2f;
 		}

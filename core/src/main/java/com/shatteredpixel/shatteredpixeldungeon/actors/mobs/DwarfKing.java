@@ -481,7 +481,7 @@ public class DwarfKing extends Mob {
 			summonCooldown -= dmgTaken/8f;
 			if (生命 <= (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50)) {
 				生命 = (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50);
-				sprite.showStatus(CharSprite.增强, Messages.get(this, "invulnerable"));
+				sprite.showStatus(CharSprite.增强绿,Messages.get(this,"invulnerable"));
 				传送卷轴.appear(this,CityBossLevel.throne);
 				properties.add(Property.IMMOVABLE);
 				phase = 2;
@@ -701,7 +701,7 @@ public class DwarfKing extends Mob {
 					Char ch = Actor.findChar(pos);
 					float dmg=Random.NormalIntRange(20, 40);
 					
-					dmg=dmg*Dungeon.难度攻击();
+					dmg=dmg*Dungeon.难度攻击(new DwarfKing());
 					ch.受伤时(dmg, this);
 					if (((DwarfKing)target).phase == 2){
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)){

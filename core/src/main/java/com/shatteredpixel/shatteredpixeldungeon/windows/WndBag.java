@@ -87,7 +87,7 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.横屏() ? COLS_L : COLS_P;
-		nRows = (Dungeon.解压(解压设置.高级背包)?7:COLS_P); //we expect to lay out 25 slots in all cases
+		nRows = (Dungeon.解压(解压设置.高级背包)?8:COLS_P); //we expect to lay out 25 slots in all cases
 //		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);

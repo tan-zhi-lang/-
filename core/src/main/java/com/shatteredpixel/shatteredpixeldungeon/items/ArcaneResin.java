@@ -7,9 +7,15 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -84,20 +90,25 @@ public class ArcaneResin extends Item {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return item instanceof Wand && item.已鉴定();
+			return (item instanceof Wand
+					||item instanceof 法师魔杖
+					||item instanceof 四叶草法典
+					||item instanceof 神圣法典
+					||item instanceof 灵月法杖
+					||item instanceof 鬼帝钟
+					||item instanceof 叛忍护额
+				   )&&item.已鉴定();
 		}
 
 		@Override
 		public void onSelect( Item item ) {
-			if (item != null && item instanceof Wand) {
-				Wand w = (Wand)item;
-
+			if (item != null) {
 //				if (w.等级() >= 3){
 //					GLog.w(Messages.get(ArcaneResin.class, "level_too_high"));
 //					return;
 //				}
 
-				int resinToUse = w.等级()+1;
+				int resinToUse =Math.round(item.魔力收益/0.1f-9);
 
 				if (数量()<resinToUse){
 					GLog.w(Messages.get(ArcaneResin.class, "not_enough"));
@@ -110,11 +121,11 @@ public class ArcaneResin extends Item {
 					} else {
 						detachAll(Dungeon.hero.belongings.backpack);
 					}
-
-					w.resinBonus++;
-					w.curCharges++;
-					w.updateLevel();
-					Item.updateQuickslot();
+					item.魔力收益+=0.1f;
+//					w.resinBonus++;
+//					w.curCharges++;
+//					w.updateLevel();
+//					Item.updateQuickslot();
 
 					curUser.sprite.operate();
 					Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
@@ -134,7 +145,8 @@ public class ArcaneResin extends Item {
 			return ingredients.size() == 1
 					&& ingredients.get(0) instanceof Wand w
 					&& w.等级-w.resinBonus+1>0
-					&& !w.cursed;
+//					&& !w.cursed
+					;
 		}
 
 		@Override

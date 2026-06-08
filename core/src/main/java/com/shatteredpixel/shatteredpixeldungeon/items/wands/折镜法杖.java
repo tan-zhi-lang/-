@@ -45,11 +45,11 @@ public class 折镜法杖 extends DamageWand {
 	private ArrayList<Lightning.Arc> arcs = new ArrayList<>();
 
 	public float min(int lvl){
-		return 5+lvl;
+		return 魔力(0.2f,0.2f);
 	}
 
 	public float max(int lvl){
-		return 10+5*lvl;
+		return 魔力(1f,0.6f);
 	}
 
 	@Override

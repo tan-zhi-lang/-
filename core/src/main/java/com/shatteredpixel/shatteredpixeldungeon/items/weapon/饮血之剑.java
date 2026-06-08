@@ -11,9 +11,8 @@ public class 饮血之剑 extends Weapon{
 		image = 物品表.饮血之剑;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		tier=5;
-		延迟=1.35f;
+		延迟=1.25f;
 		吸血=0.15f;
-		命中=0.85f;
 		特别=true;
 		红色=true;
 		技能=new 嗜血();

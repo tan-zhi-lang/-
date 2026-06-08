@@ -111,15 +111,19 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.世界标尺;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.妖精粉尘;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.桃木剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.水晶碎块;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.男人国徽章;
@@ -132,6 +136,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
@@ -690,7 +695,13 @@ public class Generator {
 					
 					FerretTuft.class,
 					传奇肛塞.class,
-					
+
+					世界标尺.class,
+					妖精粉尘.class,
+					水晶碎块.class,
+					重力场球.class,
+
+					丛林玫瑰.class,
 					中国国旗.class,
 					优惠卡.class,
 					
@@ -724,7 +735,8 @@ public class Generator {
 												1, 1, 1,
 												
 												1,1,
-												0,0,
+												1,1,1,1,
+												0,0,0,
 												1,1,1,
 												1,1,1,1,
 												1,1,1,1,
@@ -908,6 +920,15 @@ public class Generator {
 		return Reflection.newInstance(cl).random();
 	}
 
+	public static Item randomPotion(){
+		return random(Category.POTION);
+	}
+	public static Item randomScroll(){
+		return random(Category.SCROLL);
+	}
+	public static Item randomFood(){
+		return random(Category.FOOD);
+	}
 	public static Armor randomArmor(){
 		return randomArmor(Dungeon.相对层数() / 5,false);
 	}
@@ -961,7 +982,7 @@ public class Generator {
 			w = (Weapon) random(wepTiers[floorSet]);//之前还有机会
 		}
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
-			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
+			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率(null)-1)));
 		}
 		return w;
 	}
@@ -991,7 +1012,7 @@ public class Generator {
 		Ring r=(Ring) Reflection.newInstance((Class<? extends Ring>) cat.classes[i]).random();
 		
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
-			r.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
+			r.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率(null)-1)));
 		}
 		return r;
 
@@ -1021,7 +1042,7 @@ public class Generator {
 		Wand w= (Wand) Reflection.newInstance((Class<? extends Wand>) cat.classes[i]).random();
 		
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
-			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率()-1)));
+			w.等级(Math.round(Random.IntRange(Dungeon.depth/25,Dungeon.depth/5)*(Dungeon.难度掉率(null)-1)));
 		}
 		return w;
 	}

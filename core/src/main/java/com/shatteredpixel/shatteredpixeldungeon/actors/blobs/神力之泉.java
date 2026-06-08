@@ -35,7 +35,7 @@ public class 神力之泉 extends WellWater {
 
 		hero.力量++;
 		if(hero.符文("真神力之泉"))hero.力量+=175;
-		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(1), FloatingText.STRENGTH);
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(1),FloatingText.STRENGTH);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 
 		Dungeon.hero.interrupt();

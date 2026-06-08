@@ -22,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildM
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.回廊传说;
 import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
+import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -44,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
@@ -73,11 +75,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
@@ -123,6 +121,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯移除器;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
@@ -174,19 +173,21 @@ public enum HeroClass{
 	
 	public void initHero(Hero hero){
 		hero.heroClass=this;
+		hero.海克斯重置();
 
-		Notes.物品类别备注(new 治疗药剂(),"使用技巧","能够站在献祭之火扔向献祭之火即可直接完成献祭");
+		Notes.物品类别备注(new 治疗药剂(),"使用技巧","能够站在献祭之火并扔向献祭之火即可直接完成献祭");
 		Notes.物品类别备注(new 浮空药剂(),"使用技巧","浮空时可以无伤跳楼");
 		Notes.物品类别备注(new 隐形药剂(),"使用技巧","隐形时巨型食人鱼就不会攻击你");
 		Notes.物品类别备注(new 极速药剂(),"使用技巧","只要你跑得够快血色哨卫攻击不到你");
 
-		Notes.物品类别备注(new 液火药剂(),"使用技巧","火焰可以燃烧(必刷烈焰花)");
-		Notes.物品类别备注(new 冰霜药剂(),"使用技巧","可以熄灭魔法火焰(必刷冰冠花)");
+		Notes.物品类别备注(new 液火药剂(),"使用技巧","火焰可以燃烧障碍墙和融化魔法冰霜墙(必刷烈焰花)");
+		Notes.物品类别备注(new 冰霜药剂(),"使用技巧","可以熄灭魔法火焰墙(必刷冰冠花)");
 
-		Notes.物品类别备注(new 净化药剂(),"使用技巧","可以无视很多负面效果，直接去毒气房一探究竟");
+		Notes.物品类别备注(new 净化药剂(),"使用技巧","可以无视很多负面效果，如直接去毒气房一探究竟");
 
 		Notes.物品类别备注(new Bomb(),"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
 		Notes.物品类别备注(new 水袋(),"使用技巧","装满水可以合成永生秘药");
+
 		Notes.物品类别备注(new 毒气药剂(),"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
 		Notes.物品类别备注(new 麻痹药剂(),"使用技巧","只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
 		Notes.物品类别备注(new 灵视药剂(),"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
@@ -195,7 +196,8 @@ public enum HeroClass{
 
 
 
-		if(hero.heroClass(HeroClass.鼠弟))
+		if(hero.heroClass(HeroClass.鼠弟)||hero.heroClass(HeroClass.灵猫))
+			if(Random.Int(2)==0)
 			Dungeon.老鼠蝙蝠= true;
 
 		if(Dungeon.派对(派对设置.英精英雄)){
@@ -241,8 +243,8 @@ public enum HeroClass{
 			if(!(hero.heroClass(鼠弟)&&hero.heroClass(机器)&&hero.heroClass(灵猫)))
 			if(hero.种族天赋.equals("")){
 				hero.种族天赋=Random.oneOf("人类","兽人","鲛人","精灵",
-										   "喵星人","龙人","矮人","猩人","恶魔");
-				//"吸血鬼","半人马","地精","汪星人","鼠人","树妖","不死族","恶魔"
+										   "汪星人","龙人","矮人","猩人","恶魔");
+				//"喵星人","吸血鬼","半人马","地精","鼠人","树妖","不死族"
 				Notes.备注("种族",hero.种族天赋);
 			}
 		}
@@ -254,6 +256,7 @@ public enum HeroClass{
 		}
 		if(Dungeon.派对(派对设置.海克斯)){
 			new 海克斯宝典(true).放背包();
+			new 海克斯移除器().放背包();
 		}
 		if(Dungeon.赛季(赛季设置.回廊传说))
 		Buff.施加(hero,回廊传说.class);
@@ -291,18 +294,20 @@ public enum HeroClass{
 			new Icecap.Seed().数量(x).放背包();
 			new 毒气药剂().数量(x).放背包();
 
-			new 狂怒之戒().放背包();
-			new 狂怒之戒().放背包();
-			new 恢复之戒().放背包();
-			new 闪避之戒().放背包();
-			new 命中之戒().放背包();
+//			new 狂怒之戒().放背包();
+//			new 狂怒之戒().放背包();
+//			new 恢复之戒().放背包();
+//			new 闪避之戒().放背包();
+//			new 命中之戒().放背包();
 			new Torch().数量(x).放背包();
 			new Food().数量(x).放背包();
 
 			new Honeypot().数量(x).放背包();
 
 			new TengusMask().放背包();
-//			new 属性锻造器().数量(10).放背包();
+			new AlchemistsToolkit().放背包();
+
+			new ArcaneResin().数量(x).放背包();
 			
 			new 探地卷轴().数量(x).放背包();
 			new 升级卷轴().数量(x).放背包();

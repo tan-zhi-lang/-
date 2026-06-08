@@ -34,7 +34,7 @@ public class Statue extends Mob {
 	public Statue() {
 		super();
 		
-		生命 = 最大生命 =Math.round((15 + Dungeon.depth * 5)*Dungeon.难度生命());
+		生命 = 最大生命 =Math.round((15 + Dungeon.depth * 5)*Dungeon.难度生命(this));
 		defenseSkill = 4 + Dungeon.depth;
 	}
 
@@ -94,7 +94,7 @@ public class Statue extends Mob {
 
 	@Override
 	public float 最大防御() {
-		return super.最大防御()+Dungeon.depth+weapon.defenseFactor(this);
+		return super.最大防御()+Dungeon.depth+weapon.最大防御(this);
 	}
 	
 	@Override

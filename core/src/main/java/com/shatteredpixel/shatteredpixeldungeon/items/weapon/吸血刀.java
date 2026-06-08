@@ -15,7 +15,7 @@ public class 吸血刀 extends Weapon{
 		红色 = true;
 		特别= true;
 
-		伤害=0.75f;
+		伤害=0.7f;
 		吸血=0.07f;
 		技能=new 嗜血();
 		

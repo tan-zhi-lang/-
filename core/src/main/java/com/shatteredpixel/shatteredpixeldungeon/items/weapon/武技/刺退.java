@@ -21,7 +21,7 @@ import com.watabou.utils.Callback;
 public class 刺退 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次131%伤害必中的物理攻击，击退目标1格，并花费攻击延迟的回合";
+		desc="对攻击范围内的一个目标进行一次150%伤害必中的物理攻击，击退目标1格，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){
@@ -59,7 +59,7 @@ public class 刺退 extends 武技{
 					
 					int oldPos = enemy.pos;
 					//do not push if enemy has moved, or another push is active (e.g. elastic)
-					if (hero.attack(enemy, 伤害131, 0, Char.INFINITE)) {
+					if (hero.attack(enemy, 1.5f, 0, Char.INFINITE)) {
 						if (enemy.isAlive() && enemy.pos == oldPos && !Pushing.pushingExistsForChar(enemy)){
 							//trace a ballistica to our target (which will also extend past them
 							Ballistica

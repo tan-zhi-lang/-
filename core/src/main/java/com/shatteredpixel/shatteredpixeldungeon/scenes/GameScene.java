@@ -773,7 +773,7 @@ public class GameScene extends PixelScene {
 			每秒=0;
 		}else 每秒+=1/60f;
 
-		if (每秒2 >= 1.5f){
+		if (每秒2 >= 2){
 			if(Dungeon.赛季(赛季设置.即时策略))
 			if(Dungeon.hero()&&Dungeon.hero.curAction==null){
 				Dungeon.hero.spendAndNext(1);
@@ -959,24 +959,24 @@ public class GameScene extends PixelScene {
 //			pos = scene.attack.top();
 		}
 
-		if (scene.tag副武器) {
-			scene.副武器.setRect( tagLeft, pos - Tag.SIZE*2, tagWidth, Tag.SIZE );
-			scene.副武器.flip(tagsOnLeft);
-			//			pos = scene.副武器.top();
-		}
 		if (scene.tagResume) {
-			scene.resume.setRect( tagLeft, pos - Tag.SIZE*3, tagWidth, Tag.SIZE );
+			scene.resume.setRect( tagLeft, pos - Tag.SIZE*2, tagWidth, Tag.SIZE );
 			scene.resume.flip(tagsOnLeft);
 		}
 		if (scene.tagAction) {
-			scene.action.setRect( tagLeft, pos - Tag.SIZE*4, tagWidth, Tag.SIZE );
+			scene.action.setRect( tagLeft, pos - Tag.SIZE*3, tagWidth, Tag.SIZE );
 			scene.action.flip(tagsOnLeft);
 			//			pos = scene.action.top();
 		}
 		if (scene.tagLoot) {
-			scene.loot.setRect( tagLeft, pos - Tag.SIZE*5, tagWidth, Tag.SIZE );
+			scene.loot.setRect( tagLeft, pos - Tag.SIZE*4, tagWidth, Tag.SIZE );
 			scene.loot.flip(tagsOnLeft);
 //			pos = scene.loot.top();
+		}
+		if (scene.tag副武器) {
+			scene.副武器.setRect( tagLeft, pos - Tag.SIZE*5, tagWidth, Tag.SIZE );
+			scene.副武器.flip(tagsOnLeft);
+			//			pos = scene.副武器.top();
 		}
 
 
@@ -1242,7 +1242,7 @@ public class GameScene extends PixelScene {
 						GLog.p(Messages.get(Guidebook.class, "hint_desktop", KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL, ControllerHandler.isControllerConnected()))));
 					}
 				}
-				Dungeon.hero.sprite.showStatus(CharSprite.增强, Messages.get(Guidebook.class, "hint_status"));
+				Dungeon.hero.sprite.showStatus(CharSprite.增强绿,Messages.get(Guidebook.class,"hint_status"));
 			}
 			scene.menu.flashForPage( doc, page );
 		}

@@ -171,12 +171,12 @@ public class RipperDemon extends Mob {
 						if (leapVictim != null && alignment != leapVictim.alignment){
 							if (hit(RipperDemon.this,leapVictim,Char.INFINITE,false)) {
 								float dmg=Math.round(0.75f*最大攻击());
-								dmg=dmg*Dungeon.难度攻击();
+								dmg=dmg*Dungeon.难度攻击(new RipperDemon());
 								Buff.施加(leapVictim, 流血.class).set(dmg);
 								leapVictim.sprite.flash();
 								Sample.INSTANCE.play(Assets.Sounds.HIT);
 							} else {
-								leapVictim.sprite.showStatus( CharSprite.NEUTRAL, leapVictim.defenseVerb() );
+								leapVictim.sprite.showStatus(CharSprite.中性黄,leapVictim.defenseVerb());
 								Sample.INSTANCE.play(Assets.Sounds.MISS);
 							}
 						}

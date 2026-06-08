@@ -123,7 +123,7 @@ public class CrystalWisp extends Mob{
 				GLog.n( Messages.get(this, "beam_kill") );
 			}
 		} else {
-			enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+			enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 		}
 	}
 

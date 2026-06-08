@@ -10,7 +10,7 @@ public class 蝙蝠棒 extends Weapon{
 		image = 物品表.蝙蝠棒;
 		hitSound = Assets.Sounds.HIT_CRUSH;
 		tier=5;
-		延迟=0.5f;
+		延迟=0.8f;
 		特别=true;
 		靛色=true;
 		吸血=0.07f;

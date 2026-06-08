@@ -47,6 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SacrificialParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
@@ -93,9 +94,11 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.InterlevelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.CustomTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.系统设置;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Group;
 import com.watabou.noosa.audio.Sample;
@@ -239,6 +242,7 @@ public abstract class Level implements Bundlable {
 			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&!Dungeon.hero.进阶){
 				addItemToSpawn(new 进阶宝典());
 			}
+
 			if(Dungeon.区域()==3&&Dungeon.区域层数(3)&&Dungeon.LimitedDrops.生命水晶.count<1){
 				addItemToSpawn(new 生命水晶());
 				Dungeon.LimitedDrops.生命水晶.count++;
@@ -589,7 +593,7 @@ public abstract class Level implements Bundlable {
 
 		Mob m = Reflection.newInstance(mobsToSpawn.remove(0));
 		
-		m.生命=m.最大生命=Math.round(m.最大生命*Dungeon.难度生命());
+		m.生命=m.最大生命=Math.round(m.最大生命*Dungeon.难度生命(m));
 
 		if(Dungeon.符文("彼岸")&&Random.Int(7)==0)
 		算法.修复效果(()->{
@@ -806,6 +810,62 @@ public abstract class Level implements Bundlable {
 		return respawner;
 	}
 
+	public static float 刷怪速度(){
+		float x=DimensionalSundial.spawnMultiplierAtCurrentTime();
+		if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4))){
+			x*=2;
+		}
+		if(Dungeon.符文("修罗血场")){
+			x*=3;
+		}
+		if(Dungeon.符文("费米悖论")){
+			x/=10f;
+		}
+		if(Dungeon.符文("你才是老鬼")){
+			x*=10;
+		}
+		if(Dungeon.符文("升级破碎像素地牢")){
+			x*=3;
+		}
+
+		if(Dungeon.赛季(赛季设置.危险重重)){
+			x*=2;
+		}
+		if(Dungeon.赛季(赛季设置.刷子地牢)){
+			x*=2;
+		}
+		if(Dungeon.更快刷怪)
+			x*=3;
+
+		return 1f/x;
+	}
+	public static float 刷怪数量(){
+		//并不是生成找不到位置，而是生成太多检测了，比如60x60x100，这都生成到猴年马月
+		float mobs=1;
+		if(Dungeon.赛季(赛季设置.危险重重)){
+			mobs*=2;
+		}
+
+		if(Dungeon.派对(派对设置.小小可爱)) mobs/=2;
+		if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4))){
+			mobs*=2;
+		}
+		if(Dungeon.符文("修罗血场")){
+			mobs*=2;
+		}
+		if(Dungeon.符文("你才是老鬼")){
+			mobs*=2;
+		}
+		if(Dungeon.符文("费米悖论")){
+			mobs/=10f;
+		}
+		if(Dungeon.赛季(赛季设置.刷子地牢)){
+			mobs*=2;
+		}
+		if(Dungeon.更多怪物)mobs*=5;
+
+		return Math.min(20,mobs);
+	}
 	public float respawnCooldown(){
 		float cooldown=TIME_TO_RESPAWN;
 
@@ -824,17 +884,7 @@ public abstract class Level implements Bundlable {
 				cooldown= 2*TIME_TO_RESPAWN/3f;
 			}
 		}
-
-		if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4))){
-			cooldown/=2;
-		}
-		if(Dungeon.符文("修罗血场")){
-			cooldown/=3;
-		}
-		if(Dungeon.符文("升级破碎像素地牢")){
-			cooldown/=3;
-		}
-		return cooldown / DimensionalSundial.spawnMultiplierAtCurrentTime();
+		return GameMath.之内(1,cooldown*刷怪速度(),450);
 	}
 
 	public boolean spawnMob(int disLimit){

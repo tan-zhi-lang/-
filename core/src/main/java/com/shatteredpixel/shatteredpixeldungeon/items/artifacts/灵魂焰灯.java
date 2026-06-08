@@ -107,12 +107,11 @@ public class 灵魂焰灯 extends Artifact {
 	public float 魔力(float 魔力收益,float 等收益,float 等级){
 
 		if(Dungeon.hero())
-			return Dungeon.hero.魔力(魔力收益*(1+等收益*(
-					等级
-			+(Dungeon.hero.击杀数量*(Dungeon.符文("升级灵魂焰灯")?2:1))
-			)));
-		else
-			return 10*魔力收益*(1+等收益*等级);
+			return Dungeon.hero.魔力(this,魔力收益+等收益*
+		 (
+		  等级+1/9f*等级()*
+			   (Dungeon.hero.击杀数量*(Dungeon.符文("升级灵魂焰灯")?2:1))));
+		return 10*魔力收益+10*(等收益*等级);
 	}
 	public void onZap(Ballistica bolt) {
 
@@ -127,9 +126,12 @@ public class 灵魂焰灯 extends Artifact {
 			if(!ch.isAlive()){
 				GLog.w( Messages.get(this, "onprick") );
 				Dungeon.hero.击杀数量+=ch.强度()*(Dungeon.符文("升级灵魂焰灯")?2:1);
-
-				if(Dungeon.hero.击杀数量%6==0&&等级() < levelCap)
+				exp+=ch.强度()*(Dungeon.符文("升级灵魂焰灯")?20:10);
+				if (exp >= (等级()+1)*6 && 等级() < levelCap){
+					exp-=(等级()+1)*6;
 					升级();
+					updateQuickslot();
+				}
 
 			}
 			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f) );
@@ -273,6 +275,7 @@ public class 灵魂焰灯 extends Artifact {
 			image = 物品表.灵魂焰灯3;
 		else if (等级() >= 1)
 			image = 物品表.灵魂焰灯2;
+
 		return super.升级();
 	}
 
@@ -308,16 +311,12 @@ public class 灵魂焰灯 extends Artifact {
 	public String desc() {
 		String desc = "";
 
-		if (isEquipped (Dungeon.hero)){
 			desc += "\n\n";
 			if (cursed)
 				desc += Messages.get(this, "desc_cursed");
-			else
-				desc += Messages.get(this, "desc",魔力(0.3f,1f)
-						,魔力(1.2f,0.75f));
-		}
 
-
+			desc += Messages.get(this, "desc",魔力(0.3f,0.1f)
+						,魔力(1.2f,0.2f));
 
 		return desc;
 	}

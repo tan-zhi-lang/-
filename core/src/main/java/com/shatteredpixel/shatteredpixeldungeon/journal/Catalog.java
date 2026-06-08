@@ -33,8 +33,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.PotionBandolier;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
@@ -64,7 +66,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SupplyRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.噩梦粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.地牢浆果;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.纯净粮食;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
@@ -105,7 +110,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
@@ -113,8 +117,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
@@ -134,9 +138,18 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
+import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
+import com.shatteredpixel.shatteredpixeldungeon.items.奥术水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
+import com.shatteredpixel.shatteredpixeldungeon.items.活力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
+import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.神盾果;
+import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
+import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Bundle;
 
@@ -247,32 +260,41 @@ public enum Catalog {
 		MISC_EQUIPMENT.addItems(荣誉纹章.class,
 
 								短剑.class,
-								法师魔杖.class,
-								四叶草法典.class,
-								双刃.class,CloakOfShadows.class,灵能短弓.class,
+
+								法师魔杖.class,四叶草法典.class,
+
+								匕首.class,CloakOfShadows.class,
+								灵能短弓.class,
+
+								权杖.class,神圣法典.class,
+
 								配刺剑.class,
 
-								权杖.class,
+								血砍刀.class,灵月法杖.class,
+
+								冰门重盾.class,
 								镜刃.class,
+								铜钱剑.class,鬼帝钟.class,
 
 								白带.class,
+								长矛.class,
 								臂铠.class,
 								修理扳手.class,
-								金玫苦无.class,
+								金玫苦无.class,叛忍护额.class,
 								碧蓝巨剑.class,
-								神圣法典.class,血砍刀.class,灵月法杖.class,冰门重盾.class,铜钱剑.class,
-								长矛.class,
 								灵鞭.class,
 								血姬.class,
-								书包.class,十字弩.class,
+								书包.class,
+								十字弩.class,
 								飞镖.class,
-
 								吸血刀.class,
+
 								镐子.class,
 								锻造锤.class,
 								商人信标.class,
 								水袋.class,宝物袋.class,绒布袋.class,
-								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class,真正护符.class);
+								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class
+								);
 
 
 
@@ -285,7 +307,10 @@ public enum Catalog {
 		STONES.addItems(Generator.Category.STONE.classes);
 
 		FOOD.addItems(Food.class,Pasty.class,MysteryMeat.class,ChargrilledMeat.class,
-					  StewedMeat.class,FrozenCarpaccio.class,SmallRation.class,地牢浆果.class,蜂蜜.class,噩梦粮食.class,纯净粮食.class,
+					  StewedMeat.class,FrozenCarpaccio.class,SmallRation.class,
+					  地牢浆果.class,蜂蜜.class,
+					  噩梦粮食.class,纯净粮食.class,
+					  红蘑菇.class,绿蘑菇.class,蓝蘑菇.class,
 					  SupplyRation.class,Blandfruit.class,PhantomMeat.class,MeatPie.class );
 
 		EXOTIC_POTIONS.addItems(ExoticPotion.exoToReg.keySet().toArray(new Class[0]));
@@ -304,14 +329,20 @@ public enum Catalog {
 
 		SPELLS.addItems( UnstableSpell.class, WildEnergy.class, TelekineticGrab.class, PhaseShift.class,
 				炼金菱晶.class, CurseInfusion.class, MagicalInfusion.class, Recycle.class,
-				ReclaimTrap.class, SummonElemental.class, BeaconOfReturning.class);
+				ReclaimTrap.class, SummonElemental.class, BeaconOfReturning.class, BeaconOfReturning.class);
 
-		MISC_CONSUMABLES.addItems( Gold.class, EnergyCrystal.class, Dewdrop.class,
-				IronKey.class, GoldenKey.class, CrystalKey.class, 磨损钥匙.class,
-				TrinketCatalyst.class, Stylus.class, Torch.class, Honeypot.class, Ankh.class,
-				CorpseDust.class, Embers.class, CeremonialCandle.class, DarkGold.class, 矮人徽章.class,
-				GooBlob.class, TengusMask.class, MetalShard.class, 矮人国王的皇冠.class,
-				 ArcaneResin.class);
+		MISC_CONSUMABLES.addItems(Gold.class,EnergyCrystal.class,Dewdrop.class,
+								  IronKey.class,GoldenKey.class,CrystalKey.class,磨损钥匙.class,
+								  TrinketCatalyst.class,Stylus.class,Torch.class,Honeypot.class,Ankh.class,
+								  CorpseDust.class,Embers.class,CeremonialCandle.class,DarkGold.class,矮人徽章.class,
+								  GooBlob.class,TengusMask.class,MetalShard.class,//矮人国王的皇冠
+								  ArcaneResin.class,
+								  进阶宝典.class,商人信标.class,自残绳.class,护甲修理工具包.class,
+
+								  生命水晶.class,生命果.class,
+								  坠牢之星.class,魔力水晶.class,
+								  活力水晶.class,奥术水晶.class,神盾果.class
+								  );
 
 	}
 

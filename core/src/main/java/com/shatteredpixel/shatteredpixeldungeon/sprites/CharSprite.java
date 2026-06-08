@@ -50,11 +50,14 @@ import java.util.HashSet;
 public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip.Listener {
 
 	// Color constants for floating text
-	public static final int DEFAULT		= 0xFFFFFF;
-	public static final int 增强 = 0x00FF00;
-	public static final int 削弱 = 0xFF0000;
-	public static final int WARNING		= 0xFF8800;
-	public static final int NEUTRAL		= 0xFFFF00;
+	public static final int 默认白= 0xFFFFFF;
+	public static final int 增强绿= 0x00FF00;
+	public static final int 削弱红= 0xFF0000;
+	public static final int 警告橙= 0xFF8800;
+	public static final int 魔法紫= 0x8800FF;
+	public static final int 蓝色= 0x3399FF;
+	public static final int 黑色= 0x000000;
+	public static final int 中性黄= 0xFFFF00;
 
 	public static final float DEFAULT_MOVE_INTERVAL = 0.1f;
 	private static float moveInterval = DEFAULT_MOVE_INTERVAL;
@@ -205,7 +208,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 	public void 说(String text) {
-		showStatus(CharSprite.增强,text);
+		showStatus(CharSprite.增强绿,text);
 	}
 	public void showStatus( int color, String text, Object... args ) {
 		showStatusWithIcon(color, text, FloatingText.NO_ICON, args);

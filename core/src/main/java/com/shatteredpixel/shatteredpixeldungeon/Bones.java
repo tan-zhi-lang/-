@@ -199,7 +199,7 @@ public class Bones {
 						bone = artifact;
 						
 					} else {
-						bone = new Gold(bone.金币());
+						bone = new Gold(bone.金币提升());
 					}
 				}
 

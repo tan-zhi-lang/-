@@ -16,7 +16,8 @@ public class 权杖 extends Weapon {
 		
 
 		tier = 1;
-		伤害=0.68f;
+		伤害=0.67f;
+		魔法=0.25f;
 
 	}
 	

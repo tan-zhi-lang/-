@@ -2,66 +2,65 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.watabou.noosa.audio.Sample;
-
-import java.util.ArrayList;
+import com.watabou.utils.Random;
 
 public class EnergyCrystal extends Item {
 
 	{
 		image = 物品表.ENERGY;
 		可堆叠= true;
+		物品= true;
+		无动作= true;
 	}
 
 	public EnergyCrystal() {
-		this( 1 );
+		this(Random.IntRange(1,2));
 	}
 
 	public EnergyCrystal( int value ) {
 		this.quantity = value;
 	}
 
-	@Override
-	public ArrayList<String> actions(Hero hero ) {
-		return new ArrayList<>();
-	}
 
 	@Override
-	public boolean doPickUp(Hero hero, int pos) {
+	public boolean 放背包(Bag container) {
+		if (super.放背包(container)){
+			if (container.owner instanceof Hero){
+				Dungeon.energy(quantity);
 
-		Catalog.setSeen(getClass());
-		Statistics.itemTypesDiscovered.add(getClass());
+				Catalog.setSeen(getClass());
+				Statistics.itemTypesDiscovered.add(getClass());
 
-		Dungeon.energy(quantity);
-		//TODO track energy collected maybe? We do already track recipes crafted though..
-
-		GameScene.pickUp( this, pos );
-		hero.sprite.showStatusWithIcon( 0x44CCFF, Integer.toString(quantity), FloatingText.ENERGY );
-		hero.spendAndNext( pickupDelay() );
-
-		Sample.INSTANCE.play( Assets.Sounds.ITEM );
-
-		updateQuickslot();
-
-		return true;
+				Badges.validateGoldCollected();
+			}
+			detachAll();
+			return true;
+		} else{
+			return false;
+		}
 	}
-
-	@Override
-	public boolean 可升级() {
-		return false;
-	}
-
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
-
+//	@Override
+//	public boolean doPickUp(Hero hero, int pos) {
+//
+//		Catalog.setSeen(getClass());
+//		Statistics.itemTypesDiscovered.add(getClass());
+//
+//		Dungeon.energy(quantity);
+//		//TODO track energy collected maybe? We do already track recipes crafted though..
+//
+//		GameScene.pickUp( this, pos );
+//		hero.spendAndNext( pickupDelay() );
+//
+//
+//		updateQuickslot();
+//
+//		return true;
+//	}
 }

@@ -117,7 +117,7 @@ public class Armor extends EquipableItem {
 	public int 额外阶=0;
 
 	public int tier(){
-		return tier+额外阶;
+		return tier+额外阶+(专属&&Dungeon.符文("随行圣衣")?4:0);
 	}
 	private static final int USES_TO_ID = 10;
 	public float usesLeftToID = USES_TO_ID;
@@ -174,15 +174,16 @@ public class Armor extends EquipableItem {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		if (荣誉纹章!=null) actions.add(AC_DETACH);
-		if(!(this instanceof 背心)&&hero.heroClass(HeroClass.灵猫)){
-			actions.remove(AC_EQUIP);
+		boolean b=false;
+		if(this instanceof 背心&&hero.heroClass(HeroClass.灵猫)){
+			b=true;
+		}else if(this instanceof 披风&&hero.heroClass(HeroClass.鼠弟)){
+			b=true;
+		}else if(hero.heroClass(HeroClass.凌云)){
+			b=true;
 		}
-		if(!(this instanceof 披风)&&hero.heroClass(HeroClass.鼠弟)){
-			actions.remove(AC_EQUIP);
-		}
-		if(hero.heroClass(HeroClass.凌云)){
-			actions.remove(AC_EQUIP);
-		}
+		if(b)
+		actions.remove(AC_EQUIP);
 		return actions;
 	}
 	
@@ -394,7 +395,7 @@ public class Armor extends EquipableItem {
 	public float 最大防御(int lvl){
 //		if(Dungeon.赛季(赛季设置.回廊传说))return 0;
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(1 + tier() + lvl)*防御;
+			return augment.defenseFactor(tier() + lvl)*防御;
 		}
 
 		return augment.defenseFactor(2*tier() * (1 + lvl/1.5f))*防御;
@@ -405,9 +406,9 @@ public class Armor extends EquipableItem {
 	}
 
 	public float 最小防御(int lvl){
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return 0;
-		}
+//		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
+//			return 0;
+//		}
 		return augment.defenseFactor(tier()+lvl)*防御;
 	}
 
@@ -426,7 +427,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero){
 			float aEnc = 力量() - hero.力量();
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
-			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅;
+			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅();
 			
 		}
 		
@@ -439,7 +440,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
 			float aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
-			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅/2f;
+			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅()/2f;
 		}
 		
 		return augment.speedFactor(speed);
@@ -793,7 +794,7 @@ public class Armor extends EquipableItem {
 	}
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.05f+1+等级());
+		return Math.round(金币提升()*装备能量);
 	}
 	public Armor inscribe( Glyph glyph ) {
 		if (glyph == null || !glyph.curse()) curseInfusionBonus = false;

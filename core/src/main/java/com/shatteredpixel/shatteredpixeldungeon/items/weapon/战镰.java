@@ -15,9 +15,8 @@ public class 战镰 extends Weapon{
 		技能=new 横扫();
 		
 		tier = 5;
-		延迟= 1.25f;
-		伤害= 1.35f;
-		命中=0.85f;
+		延迟= 1.34f;
+		伤害= 1.34f;
 	}
 
 

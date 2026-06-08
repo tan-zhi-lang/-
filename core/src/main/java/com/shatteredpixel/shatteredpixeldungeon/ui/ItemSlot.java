@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -57,7 +58,6 @@ public class ItemSlot extends Button {
 	protected BitmapText center;
 
 	private static final String TXT	= "%s";
-	private static final String FLOAT	= "%.0f";
 	private static final String ADD_INT= "+%d";
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
@@ -255,8 +255,8 @@ public class ItemSlot extends Button {
 		} else if (item instanceof Weapon || item instanceof Armor) {
 
 			if (item.levelKnown){
-				float str = item instanceof Weapon ? ((Weapon)item).力量() : ((Armor)item).力量();
-				extra.text( Messages.format( FLOAT, str ) );
+				float str = Math.round(item instanceof Weapon ? ((Weapon)item).力量() : ((Armor)item).力量());
+				extra.text( Messages.format( TXT, Math.round(str) ) );
 				if (Dungeon.hero() && str > Dungeon.hero.力量()) {
 					if(str == Dungeon.hero.力量()){
 						extra.hardlight( WARNING );
@@ -274,9 +274,9 @@ public class ItemSlot extends Button {
 					}
 				}
 			} else {
-				float str = item instanceof Weapon ? ((Weapon)item).力量(0) : ((Armor)item).力量(0);
+				float str = Math.round(item instanceof Weapon ? ((Weapon)item).力量(0) : ((Armor)item).力量(0));
 			
-				extra.text( Messages.format( FLOAT, str ) );
+				extra.text( Messages.format( TXT, Math.round(str) ) );
 				if (Dungeon.hero() && str > Dungeon.hero.力量()) {
 					if(str == Dungeon.hero.力量()){
 						extra.hardlight( WARNING );
@@ -307,48 +307,48 @@ public class ItemSlot extends Button {
 		if(item.已鉴定()){
 			if (item instanceof Food food){
 				float f=food.energy;
-				if(Dungeon.符文("细嚼慢咽"))f*=2;
-				if (Dungeon.isChallenged(Challenges.NO_FOOD))f/=3f;
+				f*=Hunger.吃饭效率();
 
-				center.text( Messages.format( FLOAT, f) );
+				center.text( Messages.format( TXT, Math.round(f)) );
 				center.measure();
 				center.hardlight( UPGRADED );
-				float h= f/150f+Dungeon.hero.天赋点数(Talent.备战,3);
+				float h= f/150f+Dungeon.hero.天赋点数(Talent.备战,2.5f);
+				if(Dungeon.符文("吃货"))h+=Dungeon.hero.最大生命(0.125f);
 				if(Dungeon.符文("饭桶"))h+=Dungeon.hero.最大生命(0.05f);
 				if(Dungeon.符文("细嚼慢咽"))h*=2;
-				extra.text( Messages.format( FLOAT,h));
+				extra.text( Messages.format( TXT,Math.round(h)));
 				extra.measure();
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof 水袋 s) {
-				center.text( Messages.format( FLOAT, Dungeon.hero.最大生命(0.05f*s.volume)) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.05f*s.volume))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof 血药) {
-				center.text( Messages.format( FLOAT, Dungeon.hero.最大生命(0.2f)) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.2f))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof 治疗药剂&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
-				center.text( Messages.format( FLOAT, Dungeon.hero.最大生命(0.9f)) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.9f))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof PotionOfShielding&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
-				center.text( Messages.format( FLOAT, Dungeon.hero.最大生命(0.75f)) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.75f))) );
 				center.measure();
 				center.hardlight( FADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
-				extra.text( Messages.format( FLOAT, 1.5f*x.等级()*x.等级()) );
+				extra.text( Messages.format( TXT, Math.round(1.5f*x.等级()*x.等级())) );
 				extra.measure();
 				extra.hardlight( WARNING );
 			}else if (item instanceof 九龙拉管 x&&x.等级()<10) {
-				extra.text( Messages.format( FLOAT, 2.5f*(x.等级()+1)) );
+				extra.text( Messages.format( TXT, Math.round(3*(x.等级()+1))) );
 				extra.measure();
 				extra.hardlight( WARNING );
 			}else if (item instanceof 生命蜡烛 x&&x.等级()<10) {
-				extra.text( Messages.format( FLOAT, 2.5f*(x.等级()+1)) );
+				extra.text( Messages.format( TXT, Math.round(2.5f*(x.等级()+1))) );
 				extra.measure();
 				extra.hardlight( WARNING );
 			}else if (item instanceof 荆棘斗篷 x) {
-				extra.text( Messages.format( FLOAT, (1+x.等级())/3f*Dungeon.hero.最大护甲 ));
+				extra.text( Messages.format( TXT, Math.round((1+x.等级())/3f*Dungeon.hero.最大护甲 )));
 				extra.measure();
 				extra.hardlight( FADED );
 			}else{

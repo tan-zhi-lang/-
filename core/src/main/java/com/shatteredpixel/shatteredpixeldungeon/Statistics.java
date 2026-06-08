@@ -12,6 +12,7 @@ import java.util.HashSet;
 public class Statistics {
 
 	public static int goldCollected;
+	public static int energyc;
 	public static int deepestFloor;
 	public static int highestAscent;
 	public static int enemiesSlain;
@@ -70,6 +71,7 @@ public class Statistics {
 	public static void reset() {
 		
 		goldCollected	= 0;
+		energyc	= 0;
 		deepestFloor	= 0;
 		highestAscent	= 0;
 		enemiesSlain	= 0;
@@ -113,6 +115,7 @@ public class Statistics {
 	}
 	
 	private static final String GOLD		= "score";
+	private static final String ENERGY		= "energy";
 	private static final String DEEPEST		= "maxDepth";
 	private static final String HIGHEST		= "maxAscent";
 	private static final String SLAIN		= "enemiesSlain";
@@ -166,6 +169,7 @@ public class Statistics {
 	
 	public static void storeInBundle( Bundle bundle ) {
 		bundle.put( GOLD,		goldCollected );
+		bundle.put( ENERGY,		energyc );
 		bundle.put( DEEPEST,	deepestFloor );
 		bundle.put( HIGHEST,	highestAscent );
 		bundle.put( SLAIN,		enemiesSlain );
@@ -223,6 +227,7 @@ public class Statistics {
 	
 	public static void restoreFromBundle( Bundle bundle ) {
 		goldCollected	= bundle.getInt( GOLD );
+		energyc	= bundle.getInt( ENERGY );
 		deepestFloor	= bundle.getInt( DEEPEST );
 		highestAscent   = bundle.getInt( HIGHEST );
 		enemiesSlain	= bundle.getInt( SLAIN );
@@ -293,7 +298,6 @@ public class Statistics {
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ){
-		info.goldCollected  = bundle.getInt( GOLD );
 		info.maxDepth       = bundle.getInt( DEEPEST );
 	}
 

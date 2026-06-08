@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
 
 import java.util.HashSet;
@@ -53,6 +54,9 @@ public class Buff extends Actor {
 		if(target instanceof Hero hero&&hero.subClass(HeroSubClass.灾厄化身)){
 			if(type==NEGATIVE)
 				return false;
+		}
+		if(target instanceof Hero hero){
+			if(hero.符文("免疫学")&&Random.Int(1)==0&&type==NEGATIVE)return false;
 		}
 		if (target.免疫( getClass() )) {
 			return false;

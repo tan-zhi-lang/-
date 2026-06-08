@@ -337,7 +337,7 @@ public abstract class YogFist extends Mob {
 
 			} else {
 
-				enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+				enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 			}
 
 			for (int i : PathFinder.自相邻){
@@ -402,7 +402,7 @@ public abstract class YogFist extends Mob {
 				b.announced = false;
 				b.set(dmg*.6f);
 				b.attachTo(this);
-				sprite.showStatus(CharSprite.WARNING, Messages.titleCase(b.name()) + " " + (int)b.level());
+				sprite.showStatus(CharSprite.警告橙,Messages.titleCase(b.name())+" "+(int)b.level());
 			} else{
 				super.受伤时(dmg,来源);
 			}
@@ -452,7 +452,7 @@ public abstract class YogFist extends Mob {
 				dmg = Math.round( dmg * resist(来源.getClass()));
 				if (dmg >= 0) {
 					Buff.施加(this, Viscosity.DeferedDamage.class).extend(dmg);
-					sprite.showStatus(CharSprite.WARNING, Messages.get(Viscosity.class, "deferred", dmg));
+					sprite.showStatus(CharSprite.警告橙,Messages.get(Viscosity.class,"deferred",dmg));
 				}
 			} else{
 				super.受伤时(dmg,来源);
@@ -495,7 +495,7 @@ public abstract class YogFist extends Mob {
 
 				float dmg=Random.NormalIntRange(10, 20);
 				
-				dmg=dmg*Dungeon.难度攻击();
+				dmg=dmg*Dungeon.难度攻击(this);
 				enemy.受伤时( dmg, new LightBeam() );
 				Buff.延长( enemy, Blindness.class, Blindness.DURATION/2f );
 
@@ -507,7 +507,7 @@ public abstract class YogFist extends Mob {
 
 			} else {
 
-				enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+				enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 			}
 
 		}
@@ -564,7 +564,7 @@ public abstract class YogFist extends Mob {
 
 				float dmg=Random.NormalIntRange(10, 20);
 				
-				dmg=dmg*Dungeon.难度攻击();
+				dmg=dmg*Dungeon.难度攻击(this);
 				enemy.受伤时( dmg, new DarkBolt() );
 
 				Light l = enemy.buff(Light.class);
@@ -580,7 +580,7 @@ public abstract class YogFist extends Mob {
 
 			} else {
 
-				enemy.sprite.showStatus( CharSprite.NEUTRAL,  enemy.defenseVerb() );
+				enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());
 			}
 
 		}

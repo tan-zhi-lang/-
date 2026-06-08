@@ -39,18 +39,18 @@ public class 冰海法杖 extends DamageWand {
 	}
 	//1/2/3 base damage with 1/2/3 scaling based on charges used
 	public float min(int lvl){
-		return 魔力(0.3f,1) * chargesPerCast();
+		return 魔力(0.15f,0.15f) * chargesPerCast();
 	}
 
 	//2/8/18 base damage with 2/4/6 scaling based on charges used
 	public float max(int lvl){
 		switch (chargesPerCast()){
 			case 1: default:
-				return 魔力(0.4f,1);
+				return 魔力(0.3f,0.3f);
 			case 2:
-				return 魔力(2f,0.5f);
+				return 魔力(1.2f,0.3f);
 			case 3:
-				return 魔力(2f,0.3f);
+				return 魔力(2.7f,0.3f);
 		}
 	}
 
@@ -80,7 +80,7 @@ public class 冰海法杖 extends DamageWand {
 				adjacentCells.add(cell);
 				//do burn any heaps located here though
 				if (Dungeon.level.heaps.get(cell) != null){
-					Dungeon.level.heaps.get(cell).burn();
+					Dungeon.level.heaps.get(cell).freeze();
 				}
 			} else {
 				GameScene.add( Blob.seed( cell, 1+chargesPerCast(), Freezing.class));

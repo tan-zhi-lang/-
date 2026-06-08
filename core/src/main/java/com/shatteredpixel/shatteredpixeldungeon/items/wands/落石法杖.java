@@ -39,11 +39,11 @@ public class 落石法杖 extends DamageWand {
 
 
 	public float min(int lvl){
-		return 魔力(0.2f,0.5f);
+		return 魔力(0.2f,0.1f);
 	}
 
 	public float max(int lvl){
-		return 魔力(0.8f,0.25f);
+		return 魔力(0.8f,0.2f);
 	}
 
 	@Override
@@ -53,7 +53,9 @@ public class 落石法杖 extends DamageWand {
 		wandProc(ch, chargesPerCast());
 
 		for (int j : PathFinder.自相邻){
-			if(算法.概率学(5)){
+			if(!Dungeon.level.在墙体(bolt.collisionPos+j)&&
+			   !Dungeon.level.在深渊(bolt.collisionPos+j)
+														 &&算法.概率学(5)){
 				Dungeon.level.drop(new 石头(),bolt.collisionPos+j).sprite().drop();
 			}
 			ch=Actor.findChar(bolt.collisionPos+j);
@@ -128,19 +130,19 @@ public class 落石法杖 extends DamageWand {
 		}
 		//don't want to overly punish players with slow move or attack speed
 		Buff.新增(target,落石.class,GameMath.之内(1,(int)Math.ceil(target.cooldown()),3)).setRockPositions(rockCells);
-		target.buff(落石.class).set(damageRoll(),this);
+		if(target.hasbuff(落石.class))
+		target.buff(落石.class).set(damageRoll());
 	}
 
 	public static class 落石 extends DelayedRockFall{
 		float dmg;
-		Wand w;
-		public void set(float dmg,Wand w){
-			this.w=w;
+		public void set(float dmg){
 			this.dmg=dmg;
 		}
 		@Override
 		public void affectChar(Char ch){
-			ch.受伤时(dmg,w);
+			if(ch==null)return;
+			ch.受伤时(dmg,落石法杖.class);
 
 			if(ch.isAlive()){
 				Buff.延长(ch,Paralysis.class,4);

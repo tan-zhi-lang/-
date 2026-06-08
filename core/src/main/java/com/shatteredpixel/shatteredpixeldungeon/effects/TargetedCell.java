@@ -19,14 +19,14 @@ public class TargetedCell extends Image {
 
 		point( DungeonTilemap.tileToWorld( pos ) );
 
-		alpha = 1f;
+		alpha = 2f;//1
 	}
 
 	@Override
 	public void update() {
 		if ((alpha -= Game.elapsed/2f) > 0) {
 			alpha( alpha );
-			scale.set( alpha );
+			scale.set( alpha/2f );//1
 		} else {
 			killAndErase();
 		}

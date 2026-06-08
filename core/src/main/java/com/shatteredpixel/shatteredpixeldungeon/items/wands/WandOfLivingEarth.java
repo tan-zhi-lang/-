@@ -48,12 +48,12 @@ public class WandOfLivingEarth extends DamageWand {
 	}
 	@Override
 	public float min(int lvl) {
-		return 魔力(0.4f,0.25f);
+		return 魔力(0.4f,0.1f);
 	}
 	
 	@Override
 	public float max(int lvl) {
-		return 魔力(0.6f,0.333f);
+		return 魔力(0.6f,0.2f);
 	}
 	
 	@Override
@@ -189,11 +189,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 	@Override
 	public String upgradeStat3(int level) {
-		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return level + "-" + (2+level);
-		} else {
 			return level + "-" + (3+(3*level));
-		}
 	}
 
 	@Override
@@ -378,11 +374,7 @@ public class WandOfLivingEarth extends DamageWand {
 		@Override
 		public float 最大防御() {
 			float dr = super.最大防御();
-			if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-				return dr + Random.NormalIntRange(wandLevel, 2 + wandLevel);
-			} else {
 				return dr + Random.NormalIntRange(wandLevel, 3 + 3 * wandLevel);
-			}
 		}
 
 		@Override
@@ -390,11 +382,7 @@ public class WandOfLivingEarth extends DamageWand {
 			String desc = Messages.get(this, "desc");
 
 			if (Actor.chars().contains(this)) {
-				if (Dungeon.isChallenged(Challenges.NO_ARMOR)) {
-					desc += "\n\n" + Messages.get(this, "wand_info", wandLevel, 2 + wandLevel);
-				} else {
 					desc += "\n\n" + Messages.get(this, "wand_info", wandLevel, 3 + 3 * wandLevel);
-				}
 			}
 
 			return desc;

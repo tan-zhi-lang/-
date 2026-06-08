@@ -33,7 +33,7 @@ public class 天赋之泉 extends WellWater {
 		Game.runOnRenderThread(()->{
 			GameScene.show(new Wnd选择天赋层(hero));
 		});
-		hero.sprite.showStatusWithIcon(CharSprite.增强, "1", FloatingText.EXPERIENCE);
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,"1",FloatingText.EXPERIENCE);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 
 		Dungeon.hero.interrupt();

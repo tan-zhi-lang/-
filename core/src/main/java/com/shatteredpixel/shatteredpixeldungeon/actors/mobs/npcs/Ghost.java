@@ -164,7 +164,7 @@ public class Ghost extends NPC {
 					questBoss = new GreatCrab();
 					txt_quest = Messages.get(this, "crab_1", Messages.titleCase(Dungeon.hero.name())); break;
 			}
-			questBoss.生命 = questBoss.最大生命 =Math.round(questBoss.最大生命*Dungeon.难度生命());
+			questBoss.生命 = questBoss.最大生命 =Math.round(questBoss.最大生命*Dungeon.难度生命(this));
 			questBoss.pos = Dungeon.level.randomRespawnCell( this );
 
 			if (questBoss.pos != -1) {

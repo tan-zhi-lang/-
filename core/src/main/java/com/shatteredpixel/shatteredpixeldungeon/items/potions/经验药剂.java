@@ -22,7 +22,7 @@ public class 经验药剂 extends Potion {
 	@Override
 	public void apply( Hero hero ) {
 		鉴定();
-		hero.sprite.showStatusWithIcon(CharSprite.增强, Integer.toString(hero.升级所需()), FloatingText.EXPERIENCE);
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(hero.升级所需()),FloatingText.EXPERIENCE);
 		hero.经验( hero.升级所需()*(算法.isDebug()?100:1), getClass() );
 		if(hero.符文("神圣的宠爱")){
 			hero.命中成长+=40;

@@ -12,6 +12,8 @@ public class 半月刃 extends Weapon{
 		image = 物品表.半月刃;
 		hitSound = Assets.Sounds.HIT_SLASH;
 		技能=new 大杀四方();
+		伤害=0.8f;
+		延迟= 1.175f;
 		tier = 3;
 	}
 

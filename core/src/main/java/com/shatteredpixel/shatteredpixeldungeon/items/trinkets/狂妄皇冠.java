@@ -19,7 +19,7 @@ public class 狂妄皇冠 extends Trinket {
 
 	@Override
 	public int 金币(){
-		return 1000;
+		return 160;
 	}
 	@Override
 	public String statsDesc() {
@@ -57,7 +57,9 @@ public class 狂妄皇冠 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.1f+0.05f*level;
+			return 0.1f+0.03f*level;
+//			return (0.05f+0.05f*level)*(1+(Dungeon.hero()&&Dungeon.hero.hasbuff(击杀累计.class)?
+//												  Dungeon.hero.buff(击杀累计.class).count/100f:0));
 		}
 	}
 

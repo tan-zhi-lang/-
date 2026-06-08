@@ -1,6 +1,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.zf;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.RenderedText;
@@ -13,8 +15,8 @@ public class ResistanceIndicator extends Component {
 	private static final int FONT_SIZE = 16;
 	private static final float GAP = 3f;
 
-	private static final int ICON_COLS = 3;
-	private static final float ICON_HEIGHT = 12f;
+	private static final int ICON_COLS = 2;
+	private static final float ICON_HEIGHT = 8;//12
 
 	public ResistanceIndicator(Char charRef) {
 		this.charRef = charRef;
@@ -26,72 +28,34 @@ public class ResistanceIndicator extends Component {
 		elementalText.scale=new PointF(0.27f,0.27f);
 		elementalText.setPos(this.x,this.y);
 		add(elementalText);
-		int x=0;
-		if(charRef.酸性()||charRef.树妖()||charRef.寒冰()){
-			x=1;
-		}
-		if(charRef.火焰()){
-			x=1;
-		}
-		if(charRef.动物()){
-			x=4;
-		}
-		for (int i = 0; i < x; i++) {
+		for (int i = 0; i < 4; i++) {
 			int r = i / ICON_COLS;
 			int c = i % ICON_COLS;
 			String s="";
-			float v=1;
-			if(charRef.酸性()||charRef.树妖()||charRef.海妖()||charRef.昆虫()){
-				if(i==0){
-					s= "火焰伤害";
-					v=0.5f;
-				}
+			float x1=0;
+			if(i==0){
+				s="火焰伤害";
+				x1=charRef.d火焰();
 			}
-			if(charRef.寒冰()){
-				if(i==0){
-					s="火焰伤害";
-					v=0.5f;
-				}
-				if(i==1){
-					s="冰霜伤害";
-					v=-0.5f;
-				}
+			if(i==1){
+				s="冰霜伤害";
+				x1=charRef.d冰霜();
 			}
-			if(charRef.火焰()){
-				if(i==0){
-					s="冰霜伤害";
-					v=0.5f;
-				}
-				if(i==1){
-					s="火焰伤害";
-					v=-0.5f;
-				}
+			if(i==2){
+				s="酸性伤害";
+				x1=charRef.d酸性();
 			}
-			if(charRef.动物()){
-				if(i==0){
-					s="火焰伤害";
-					v=0.5f;
-				}
-				if(i==1){
-					s="冰霜伤害";
-					v=0.5f;
-				}
-				if(i==2){
-					s="酸性伤害";
-					v=0.5f;
-				}
-				if(i==3){
-					s="无机伤害";
-					v=0.5f;
-				}
+			if(i==3){
+				s="无机伤害";
+				x1=charRef.d无机();
 			}
 
-			RenderedText txt = makePercentText(s,v);
+			RenderedText txt = makePercentText(s,x1);
 			txt.setPos(GAP + (width - GAP * 2f) / ICON_COLS * c + GAP ,
-					   elementalText.y + elementalText.height() + GAP + ICON_HEIGHT * r
+					   elementalText.y + elementalText.height() + GAP +ICON_HEIGHT * r
 					   + (- txt.height()) / 2f);
 			add(txt);
-			height = elementalText.height() + ICON_HEIGHT * 2.25f//2
+			height = elementalText.height() + ICON_HEIGHT
 					 + GAP + txt.height();
 		}
 
@@ -128,19 +92,9 @@ public class ResistanceIndicator extends Component {
 	}
 
 	private RenderedText makePercentText(String ts,float value) {
-		int percent = Math.round(value * 100f);
-		RenderedText line = new RenderedText(ts+" "+percent+"%",FONT_SIZE);
+		RenderedText line = new RenderedText(ts+
+			 zf(value)+"倍",FONT_SIZE);
 		line.scale=new PointF(0.27f,0.27f);
-		if (percent > 0) {
-			line = new RenderedText(ts+" +"+percent+"%",FONT_SIZE);
-			line.scale=new PointF(0.27f,0.27f);
-		}else if (percent == 0) {
-			line = new RenderedText(ts+" "+percent+"%",FONT_SIZE);
-			line.scale=new PointF(0.27f,0.27f);
-		} else if (percent < 0) {
-			line = new RenderedText(ts+" -"+percent+"%",FONT_SIZE);
-			line.scale=new PointF(0.27f,0.27f);
-		}
 		if(ts.equals("火焰伤害"))
 			line.hardlight(0xFF8800);
 		else if(ts.equals("冰霜伤害"))
@@ -151,17 +105,5 @@ public class ResistanceIndicator extends Component {
 			line.hardlight(0xff0000);
 		return line;
 	}
-	private RenderedText makePercentText(float value) {
-		int percent = Math.round(value * 100f);
-		RenderedText line = new RenderedText(percent+"%",FONT_SIZE);
-		line.scale=new PointF(0.27f,0.27f);
-		if (percent > 0) {
-			line.hardlight(0x44FF44);
-		}else if (percent == 0) {
-			line.hardlight(0xf1ca3e);
-		} else if (percent < 0) {
-			line.hardlight(0xff0000);
-		}
-		return line;
-	}
+
 }

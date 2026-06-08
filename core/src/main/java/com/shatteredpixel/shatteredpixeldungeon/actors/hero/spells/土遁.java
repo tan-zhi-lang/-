@@ -16,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -92,7 +91,7 @@ public class 土遁 extends 目标忍术 {
 		int rightDirX = 0;
 		int rightDirY = 0;
 
-		int steps = Math.round(hero.魔力(0.1f));
+		int steps = Math.round(hero.法术(this,0.1f));
 
 		switch (closestIdx){
 			case 0: //top left
@@ -207,7 +206,7 @@ public class 土遁 extends 目标忍术 {
 
 	private void placeWall( int pos, int knockbackDIR){
 		if (!Dungeon.level.solid[pos]) {
-			GameScene.add(Blob.seed(pos, Math.round(Dungeon.hero.魔力()), LightWall.class));
+			GameScene.add(Blob.seed(pos, Math.round(Dungeon.hero.法术(1)), LightWall.class));
 
 			Char ch = Actor.findChar(pos);
 			if (ch != null && ch.alignment == Char.Alignment.ENEMY){

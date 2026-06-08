@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.WondrousResin;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -80,7 +81,7 @@ public abstract class Wand extends Item {
 	}
 
 	public float 魔力(){
-		return 魔力(0.1f,1);
+		return 魔力(0.1f,0.1f);
 	}
 	public float 魔力(float 魔力收益){
 		return 魔力(魔力收益,0);
@@ -93,7 +94,7 @@ public abstract class Wand extends Item {
 		return 魔力(魔力收益,等收益,强化等级()+1);
 	}
 	public float 魔力(float 魔力收益,float 等收益,int 等级){
-		float x=1;
+		float x=0;
 		if(Dungeon.符文("没有魔力的魔法帝"))return 0;
 		if(Dungeon.符文("多重施法")){
 			if(算法.概率学(1/2))
@@ -110,6 +111,14 @@ public abstract class Wand extends Item {
 		if(Dungeon.符文("属性:火")){
 			if(this instanceof 焰浪法杖)x+=0.5f;
 			if(this instanceof 烈焰法杖)x+=0.5f;
+		}
+		if(Dungeon.符文("属性:空")){
+			if(this instanceof WandOfBlastWave)x+=0.5f;
+			if(this instanceof WandOfMagicMissile)x+=0.5f;
+		}
+		if(Dungeon.符文("属性:虚")){
+			if(this instanceof WandOfCorruption)x+=0.5f;
+			if(this instanceof WandOfTransfusion)x+=0.5f;
 		}
 		if(Dungeon.符文("属性:冰")){
 			if(this instanceof 冰海法杖)x+=0.5f;
@@ -130,12 +139,15 @@ public abstract class Wand extends Item {
 		if(Dungeon.hero()){
 			x+=Dungeon.hero.天赋点数(Talent.洪荒法力,0.15f);
 		}
+		x+=丛林玫瑰.减少();
+
 		魔力收益+=x;
 		等收益+=x;
+
 		if(Dungeon.hero())
-		return Dungeon.hero.魔力(魔力收益*(1+等收益*等级));
+		return Dungeon.hero.魔力(魔力收益+等收益*等级);
 		else
-			return 10*魔力收益*(1+等收益*等级);
+			return 10*魔力收益+10*(等收益*等级);
 	}
 
 	@Override
@@ -496,12 +508,15 @@ public abstract class Wand extends Item {
 		if(curUser.符文("守护灵"))Buff.施加(curUser,守护灵次数.class).set(10);
 		if(curUser.符文("万世催化石"))curUser.回血(20);
 		if(curUser.符文("不详契约"))curUser.受伤时(curUser.生命(0.05f),curUser);
-		if(!算法.isDebug())
-		curCharges -= cursed ? 1 : chargesPerCast();
+		if(!算法.isDebug()){
+			if(算法.概率学(丛林玫瑰.概率())){
 
-		if(curUser.符文("溢流")&&curCharges>0)
-			curCharges -= cursed ? 1 : chargesPerCast();
+			}else
+			curCharges=Math.max(0,curCharges-(curUser.符文("溢流")?2:1)*(cursed?
+													  1:
+													  chargesPerCast()));
 
+		}
 		if(curUser.subClass(HeroSubClass.祭司))
 			Buff.延长(curUser,Bless.class,Bless.DURATION);
 		//remove magic charge at a higher priority, if we are benefiting from it are and not the
@@ -600,7 +615,7 @@ public abstract class Wand extends Item {
 
 	@Override
 	public int 能量() {
-		return Math.round(金币()*0.05f+1+等级());
+		return Math.round(金币提升()*装备能量);
 	}
 	private static final String USES_LEFT_TO_ID     = "uses_left_to_id";
 	private static final String CUR_CHARGES         = "curCharges";

@@ -13,6 +13,6 @@ public class 镶钉手套 extends Weapon{
 		技能=new 连击();
 		tier = 1;
 		延迟= 0.5f;
-		伤害= 0.57f;
+		伤害= 0.67f;
 	}
 }

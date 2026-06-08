@@ -18,7 +18,6 @@ public class 猩红散华 extends Weapon{
 
 		伤害=0.2f;
 		吸血=0.07f;
-		命中=0.65f;
 		tier = 5;
 	}
 

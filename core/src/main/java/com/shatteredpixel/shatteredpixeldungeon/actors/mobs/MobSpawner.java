@@ -76,6 +76,8 @@ public class MobSpawner extends Actor {
 			// Sewers
 			case 1: default:
 				//3x rat, 1x snake\
+//					return new ArrayList<>(Arrays.asList(
+//							DM0.class));
 					return new ArrayList<>(Arrays.asList(
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,

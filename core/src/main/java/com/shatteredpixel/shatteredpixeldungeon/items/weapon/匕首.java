@@ -12,9 +12,8 @@ public class 匕首 extends Weapon{
 		image = 物品表.小匕;
 		hitSound = Assets.Sounds.HIT_STAB;
 		
-		延迟=0.75f;
-		伤害=0.75f;
-		伏击=0.75f;
+		伤害=0.8f;
+		延迟=0.8f;
 		技能=new 潜行();
 
 

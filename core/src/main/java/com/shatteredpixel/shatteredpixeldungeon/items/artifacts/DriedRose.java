@@ -706,7 +706,7 @@ public class DriedRose extends Artifact {
 				dr += armor().最大防御();
 			}
 			if (weapon() != null){
-				dr += weapon().defenseFactor( this );
+				dr += weapon().最大防御(this);
 			}
 			return dr;
 		}

@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.mechanics;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.watabou.utils.BArray;
 
@@ -39,14 +40,24 @@ public final class ShadowCaster {
 		
 		//scans octants, clockwise
 		try {
+			//上边
 			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, +1, -1, false);
+			//右上角
 			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, -1, +1, true);
+			//右边
 			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, +1, +1, true);
+			//右下角
 			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, +1, +1, false);
-			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, -1, +1, false);
-			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, +1, -1, true);
-			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, -1, -1, true);
-			scanOctant(distance, fieldOfView, blocking, 1, x, y, w, 0.0, 1.0, -1, -1, false);
+			if(!Dungeon.符文("独眼")){
+				//下边
+				scanOctant(distance,fieldOfView,blocking,1,x,y,w,0.0,1.0,-1,+1,false);
+				//左下角
+				scanOctant(distance,fieldOfView,blocking,1,x,y,w,0.0,1.0,+1,-1,true);
+				//左边
+				scanOctant(distance,fieldOfView,blocking,1,x,y,w,0.0,1.0,-1,-1,true);
+				//左上角
+				scanOctant(distance,fieldOfView,blocking,1,x,y,w,0.0,1.0,-1,-1,false);
+			}
 		} catch (Exception e){
 			ShatteredPixelDungeon.reportException(e);
 			BArray.setFalse(fieldOfView);

@@ -21,9 +21,8 @@ public class 冰门重盾 extends Weapon{
 		缴械= false;
 		嬗变= false;
 		专属=true;
-		
-		延迟= 1.25f;
-		伤害= 0.85f;
+
+		伤害= 0.7f;
 		tier = 1;
 	}
 

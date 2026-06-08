@@ -33,7 +33,10 @@ public class 永生秘药 extends Elixir {
 
 		talentFactor = 2f;
 	}
-	public static final String AC_ITEM = "ITEM";
+	@Override
+	public int 金币() {
+		return quantity * 120;
+	}
 	
 	@Override
 	public void apply( Hero hero ) {
@@ -65,7 +68,7 @@ public class 永生秘药 extends Elixir {
 
 	@Override
 	public String desc(){
-		if(Dungeon.isChallenged(Challenges.NO_HEALING))return "你对此过敏，会中毒。";
+		if(Dungeon.isChallenged(Challenges.NO_HEALING)&&已鉴定())return "你对此过敏，会中毒。";
 		return super.desc();
 	}
 	public static void cure( Char ch ) {

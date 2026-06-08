@@ -45,7 +45,7 @@ public class 潮霆法杖 extends DamageWand {
 	}
 
 	public float max(int lvl){
-		return 魔力(2,0.5f);
+		return 魔力(2,1);
 	}
 
 	@Override

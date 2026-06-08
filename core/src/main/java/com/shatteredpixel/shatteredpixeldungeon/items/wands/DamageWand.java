@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WandEmpower;
@@ -54,6 +56,6 @@ public abstract class DamageWand extends Wand{
 
 	@Override
 	public String upgradeStat1(int level) {
-		return min(level) + "-" + max(level);
+		return kw2(min(level)) + "-" + kw2(max(level));
 	}
 }

@@ -846,6 +846,7 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.WARRIOR,tier(HeroClass.WARRIOR))),"英雄",
 											"英雄初始\n\n" +
 											"_-_ 英雄初始不携带口粮。\n"+
+											"_-_ 专属物品金币和能量价值提升50%。\n"+
 											"_-_ 各英雄都拥有特定的效果，武器装备更符合设定。\n"+
 											"_-_ 除了战士都移除水袋，防具都变成专属防具。\n",
 											

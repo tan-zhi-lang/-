@@ -496,8 +496,7 @@ public class WndBlacksmith extends Window {
 		public boolean itemSelectable(Item item) {
 			if(item.可升级()
 			   && item.已鉴定()
-			   && !item.cursed
-			   && item.能量提升){
+			   && !item.cursed){
 				if(item instanceof Weapon w&&w.tier()+1<5){
 					return true;
 				}
@@ -512,10 +511,10 @@ public class WndBlacksmith extends Window {
 		public void onSelect(Item item) {
 			if (item != null) {
 			if(item instanceof Weapon w){
-				w.额外阶++;
+				w.tier++;
 			}
 			if(item instanceof Armor a){
-				a.额外阶++;
+				a.tier++;
 			}
 
 			WndBlacksmith.this.hide();

@@ -41,7 +41,6 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.派对;
 import com.shatteredpixel.shatteredpixeldungeon.windows.炼狱;
 import com.shatteredpixel.shatteredpixeldungeon.windows.系统;
 import com.shatteredpixel.shatteredpixeldungeon.windows.解压;
-import com.shatteredpixel.shatteredpixeldungeon.windows.赛季;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
@@ -912,164 +911,29 @@ public class HeroSelectScene extends PixelScene {
             add(dailyButton);
             buttons.add(dailyButton);
 
-            StyledButton 解压 = new StyledButton(Chrome.Type.BLANK, Messages.get(解压.class, "title"), 6) {
+
+            StyledButton 变简单有趣 = new StyledButton(Chrome.Type.BLANK, "变简单有趣", 6) {
                 @Override
                 protected void onClick() {
-                    if (false) {
-                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
-                                Icons.get(Icons.解压关),
-                                Messages.get(解压.class, "title"),
-                                Messages.get(HeroSelectScene.class, "解压")
-                        ));
-                        return;
-                    }
-
-                    ShatteredPixelDungeon.scene().addToFront(new 解压(SPDSettings.解压(), true) {
-                        public void onBackPressed() {
-                            super.onBackPressed();
-                            icon(Icons.get(SPDSettings.解压() > 0 ? Icons.解压开 : Icons.解压关));
-                            updateOptionsColor();
-                        }
-                    });
+                    ShatteredPixelDungeon.scene().addToFront(new Wnd简单有趣());
                 }
             };
-            解压.leftJustify = true;
-            解压.icon(Icons.get(SPDSettings.解压() > 0 ? Icons.解压开 : Icons.解压关));
-            add(解压);
-            buttons.add(解压);
+            变简单有趣.leftJustify = true;
+            变简单有趣.icon(Icons.好的.get());
+            buttons.add(变简单有趣);
+            add(变简单有趣);
 
-            StyledButton 系统 = new StyledButton(Chrome.Type.BLANK,Messages.get(系统.class,"title"),6) {
+            StyledButton 变困难复杂 = new StyledButton(Chrome.Type.BLANK, "变困难复杂", 6) {
                 @Override
                 protected void onClick() {
-                    if (false) {
-                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
-                                Icons.get(Icons.系统关),
-                                Messages.get(系统.class, "title"),
-                                Messages.get(HeroSelectScene.class, "系统")
-                        ));
-                        return;
-                    }
-
-                    ShatteredPixelDungeon.scene().addToFront(new 系统(SPDSettings.系统(), true) {
-                        public void onBackPressed() {
-                            super.onBackPressed();
-                            icon(Icons.get(SPDSettings.系统() > 0 ? Icons.系统开 : Icons.系统关));
-                            updateOptionsColor();
-                        }
-                    });
+                    ShatteredPixelDungeon.scene().addToFront(new Wnd困难复杂());
                 }
             };
-            系统.leftJustify = true;
-            系统.icon(Icons.get(SPDSettings.系统() > 0 ? Icons.系统开 : Icons.系统关));
-            add(系统);
-            buttons.add(系统);
+            变困难复杂.leftJustify = true;
+            变困难复杂.icon(Icons.坏的.get());
+            buttons.add(变困难复杂);
+            add(变困难复杂);
 
-            challengeButton = new StyledButton(Chrome.Type.BLANK, Messages.get(WndChallenges.class, "title"), 6){
-                @Override
-                protected void onClick() {
-                    if (false) {
-                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
-                                Icons.get(Icons.CHALLENGE_GREY),
-                                Messages.get(WndChallenges.class, "title"),
-                                Messages.get(HeroSelectScene.class, "challenges_nowin")
-                        ));
-                        return;
-                    }
-
-                    ShatteredPixelDungeon.scene().addToFront(new WndChallenges(SPDSettings.challenges(), true) {
-                        public void onBackPressed() {
-                            super.onBackPressed();
-                            icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
-                            updateOptionsColor();
-                        }
-                    });
-                }
-            };
-            challengeButton.leftJustify = true;
-            challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
-            add(challengeButton);
-            buttons.add(challengeButton);
-
-
-            炼狱按钮 = new StyledButton(Chrome.Type.BLANK,Messages.get(炼狱.class,"title"),6) {
-                @Override
-                protected void onClick() {
-                    if (false) {
-                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
-                                Icons.get(Icons.炼狱关),
-                                Messages.get(炼狱.class, "title"),
-                                Messages.get(HeroSelectScene.class, "炼狱")
-                        ));
-                        return;
-                    }
-
-                    ShatteredPixelDungeon.scene().addToFront(new 炼狱(SPDSettings.炼狱(), true) {
-                        public void onBackPressed() {
-                            super.onBackPressed();
-                            icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
-                            updateOptionsColor();
-                        }
-                    });
-                }
-            };
-            炼狱按钮.leftJustify = true;
-            炼狱按钮.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
-            add(炼狱按钮);
-            buttons.add(炼狱按钮);
-
-            StyledButton
-                    派对= new StyledButton(Chrome.Type.BLANK,Messages.get(派对.class,"title"),6) {
-                @Override
-                protected void onClick() {
-                    if (false) {
-                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
-                                Icons.get(Icons.派对关),
-                                Messages.get(派对.class,"title"),
-                                Messages.get(HeroSelectScene.class, "派对")
-                        ));
-                        return;
-                    }
-
-                    ShatteredPixelDungeon.scene().addToFront(new 派对(SPDSettings.派对(),true) {
-                        public void onBackPressed() {
-                            super.onBackPressed();
-                            icon(Icons.get(SPDSettings.派对()>0 ? Icons.派对开: Icons.派对关));
-                            updateOptionsColor();
-                        }
-                    });
-                }
-            };
-            派对.leftJustify = true;
-            派对.icon(Icons.get(SPDSettings.派对()>0 ? Icons.派对开: Icons.派对关));
-            add(派对);
-            buttons.add(派对);
-
-            StyledButton
-                    赛季= new StyledButton(Chrome.Type.BLANK,Messages.get(赛季.class,"title"),6) {
-                @Override
-                protected void onClick() {
-                    if (false) {
-                        ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
-                                Icons.get(Icons.赛季关),
-                                Messages.get(赛季.class,"title"),
-                                Messages.get(HeroSelectScene.class, "赛季")
-                        ));
-                        return;
-                    }
-
-                    ShatteredPixelDungeon.scene().addToFront(new 赛季(SPDSettings.赛季(),true) {
-                        public void onBackPressed() {
-                            super.onBackPressed();
-                            icon(Icons.get(SPDSettings.赛季()>0 ? Icons.赛季开: Icons.赛季关));
-                            updateOptionsColor();
-                        }
-                    });
-                }
-            };
-            赛季.leftJustify = true;
-            赛季.icon(Icons.get(SPDSettings.赛季()>0 ? Icons.赛季开: Icons.赛季关));
-            add(赛季);
-            buttons.add(赛季);
 
             StyledButton randomButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "randomize"), 6) {
                 @Override
@@ -1093,17 +957,6 @@ public class HeroSelectScene extends PixelScene {
             randomButton.icon(Icons.SHUFFLE.get());
             buttons.add(randomButton);
             add(randomButton);
-
-            StyledButton 难度设置 = new StyledButton(Chrome.Type.BLANK, "难度设置", 6) {
-                @Override
-                protected void onClick() {
-                    ShatteredPixelDungeon.scene().addToFront(new Wnd难度设置());
-                }
-            };
-            难度设置.leftJustify = true;
-            难度设置.icon(Icons.STATS.get());
-            buttons.add(难度设置);
-            add(难度设置);
 
             for (int i = 1; i < buttons.size(); i++) {
                 ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
@@ -1186,7 +1039,7 @@ public class HeroSelectScene extends PixelScene {
 						chalWasRandomized = value;
                     }
                 };
-                chkChals.setRect(0, 20, 120, 16);
+                chkChals.setRect(0, chkHero.bottom()+1, 120, 16);
                 add(chkChals);
 
                 int max = Challenges.MAX_CHALS;
@@ -1198,7 +1051,7 @@ public class HeroSelectScene extends PixelScene {
                 };
                 optChals.enable(false);
                 optChals.setSelectedValue(Challenges.activeChallenges(SPDSettings.challenges()));
-                optChals.setRect(0, 38, 120, 22);
+                optChals.setRect(0, chkChals.bottom()+1, 120, 22);
                 add(optChals);
 
 				chkChals.checked(chalWasRandomized);
@@ -1211,7 +1064,7 @@ public class HeroSelectScene extends PixelScene {
                         随机炼狱开关 = value;
                     }
                 };
-                随机炼狱.setRect(0, 58+4, 120, 16);
+                随机炼狱.setRect(0, optChals.bottom()+1, 120, 16);
                 add(随机炼狱);
 
                 int max2 = 炼狱设置.MAX_CHALS;
@@ -1223,7 +1076,7 @@ public class HeroSelectScene extends PixelScene {
                 };
                 炼狱个数.enable(false);
                 炼狱个数.setSelectedValue(炼狱设置.使用(SPDSettings.炼狱()));
-                炼狱个数.setRect(0, 72+4, 120, 22);
+                炼狱个数.setRect(0, 随机炼狱.bottom()+1, 120, 22);
                 add(炼狱个数);
 
                 随机炼狱.checked(随机炼狱开关);
@@ -1235,7 +1088,7 @@ public class HeroSelectScene extends PixelScene {
                         hide();
                     }
                 };
-                btnCancel.setRect(61, 64+26+4, 60, 16);
+                btnCancel.setRect(61, 炼狱个数.bottom()+1, 60, 16);
                 add(btnCancel);
 
                 RedButton btnConfirm = new RedButton(Messages.get(HeroSelectScene.class, "randomize_confirm")){
@@ -1288,7 +1141,7 @@ public class HeroSelectScene extends PixelScene {
                         }
                     }
                 };
-                btnConfirm.setRect(0, 64+26+4, 60, 16);
+                btnConfirm.setRect(0, 炼狱个数.bottom()+1, 60, 16);
                 add(btnConfirm);
 
                 resize(120, (int)btnConfirm.bottom());
@@ -1297,7 +1150,298 @@ public class HeroSelectScene extends PixelScene {
 
         }
 
-        private class Wnd难度设置 extends Window {
+        private class Wnd简单有趣 extends Window {
+
+            public Wnd简单有趣(){
+                super();
+
+
+                StyledButton 解压 = new CheckBox(Messages.get(解压.class,"title")) {
+                    @Override
+                    protected void onClick() {
+                        if (false) {
+                            ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                    Icons.get(Icons.解压关),
+                                    Messages.get(解压.class, "title"),
+                                    Messages.get(HeroSelectScene.class, "解压")
+                            ));
+                            return;
+                        }
+
+                        ShatteredPixelDungeon.scene().addToFront(new 解压(SPDSettings.解压(), true) {
+                            public void onBackPressed() {
+                                super.onBackPressed();
+                                icon(Icons.get(SPDSettings.解压() > 0 ? Icons.解压开 : Icons.解压关));
+                                updateOptionsColor();
+                            }
+                        });
+                    }
+                };
+                解压.leftJustify = true;
+                解压.icon(Icons.get(SPDSettings.解压() > 0 ? Icons.解压开 : Icons.解压关));
+                解压.setRect(0, 0, 120, 16);
+                add(解压);
+
+                StyledButton 系统 = new CheckBox(Messages.get(系统.class,"title")) {
+                    @Override
+                    protected void onClick() {
+                        if (false) {
+                            ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                    Icons.get(Icons.系统关),
+                                    Messages.get(系统.class, "title"),
+                                    Messages.get(HeroSelectScene.class, "系统")
+                            ));
+                            return;
+                        }
+
+                        ShatteredPixelDungeon.scene().addToFront(new 系统(SPDSettings.系统(), true) {
+                            public void onBackPressed() {
+                                super.onBackPressed();
+                                icon(Icons.get(SPDSettings.系统() > 0 ? Icons.系统开 : Icons.系统关));
+                                updateOptionsColor();
+                            }
+                        });
+                    }
+                };
+                系统.leftJustify = true;
+                系统.icon(Icons.get(SPDSettings.系统() > 0 ? Icons.系统开 : Icons.系统关));
+                系统.setRect(0, 解压.bottom()+1, 120, 16);
+                add(系统);
+
+                StyledButton
+                        派对= new CheckBox(Messages.get(派对.class,"title")) {
+                    @Override
+                    protected void onClick() {
+                        if (false) {
+                            ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                    Icons.get(Icons.派对关),
+                                    Messages.get(派对.class,"title"),
+                                    Messages.get(HeroSelectScene.class, "派对")
+                            ));
+                            return;
+                        }
+
+                        ShatteredPixelDungeon.scene().addToFront(new 派对(SPDSettings.派对(),true) {
+                            public void onBackPressed() {
+                                super.onBackPressed();
+                                icon(Icons.get(SPDSettings.派对()>0 ? Icons.派对开: Icons.派对关));
+                                updateOptionsColor();
+                            }
+                        });
+                    }
+                };
+                派对.leftJustify = true;
+                派对.icon(Icons.get(SPDSettings.派对()>0 ? Icons.派对开: Icons.派对关));
+                派对.setRect(0, 系统.bottom()+1, 120, 16);
+                add(派对);
+
+                StyledButton 杂项设置= new CheckBox("杂项设置") {
+                    @Override
+                    protected void onClick() {
+                        ShatteredPixelDungeon.scene().addToFront(new Wnd简单有趣杂项设置());
+                    }
+                };
+                杂项设置.leftJustify = true;
+                杂项设置.icon(Icons.STATS.get());
+                杂项设置.setRect(0,派对.bottom()+1,120,16);
+                add(杂项设置);
+                RedButton btnConfirm = new RedButton("确认"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnConfirm.setRect(0, 杂项设置.bottom()+1, 60, 16);
+                add(btnConfirm);
+
+                RedButton btnCancel = new RedButton("取消"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnCancel.setRect(61, 杂项设置.bottom()+1, 60, 16);
+                add(btnCancel);
+
+
+                resize(120, (int)btnConfirm.bottom());
+
+            }
+
+        }
+        private class Wnd困难复杂 extends Window {
+
+            public Wnd困难复杂(){
+                super();
+
+                challengeButton = new CheckBox(Messages.get(WndChallenges.class, "title")){
+                    @Override
+                    protected void onClick() {
+                        if (false) {
+                            ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                    Icons.get(Icons.CHALLENGE_GREY),
+                                    Messages.get(WndChallenges.class, "title"),
+                                    Messages.get(HeroSelectScene.class, "challenges_nowin")
+                            ));
+                            return;
+                        }
+
+                        ShatteredPixelDungeon.scene().addToFront(new WndChallenges(SPDSettings.challenges(), true) {
+                            public void onBackPressed() {
+                                super.onBackPressed();
+                                icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+                                updateOptionsColor();
+                            }
+                        });
+                    }
+                };
+                challengeButton.leftJustify = true;
+                challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+                challengeButton.setRect(0, 0, 120, 16);
+                add(challengeButton);
+
+                炼狱按钮 = new CheckBox(Messages.get(炼狱.class,"title")) {
+                    @Override
+                    protected void onClick() {
+                        if (false) {
+                            ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                    Icons.get(Icons.炼狱关),
+                                    Messages.get(炼狱.class, "title"),
+                                    Messages.get(HeroSelectScene.class, "炼狱")
+                            ));
+                            return;
+                        }
+
+                        ShatteredPixelDungeon.scene().addToFront(new 炼狱(SPDSettings.炼狱(), true) {
+                            public void onBackPressed() {
+                                super.onBackPressed();
+                                icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
+                                updateOptionsColor();
+                            }
+                        });
+                    }
+                };
+                炼狱按钮.leftJustify = true;
+                炼狱按钮.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
+                炼狱按钮.setRect(0, challengeButton.bottom()+1, 120, 16);
+                add(炼狱按钮);
+
+
+                StyledButton 杂项设置= new CheckBox("杂项设置") {
+                    @Override
+                    protected void onClick() {
+                        ShatteredPixelDungeon.scene().addToFront(new Wnd困难复杂杂项设置());
+                    }
+                };
+                杂项设置.leftJustify = true;
+                杂项设置.icon(Icons.STATS.get());
+                杂项设置.setRect(0,炼狱按钮.bottom()+1,120,16);
+                add(杂项设置);
+
+                RedButton btnConfirm = new RedButton("确认"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnConfirm.setRect(0,杂项设置.bottom()+1,60,16);
+                add(btnConfirm);
+
+                RedButton btnCancel = new RedButton("取消"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnCancel.setRect(61,杂项设置.bottom()+1,60,16);
+                add(btnCancel);
+
+
+                resize(120, (int)btnConfirm.bottom());
+
+            }
+
+        }
+
+        private class Wnd简单有趣杂项设置 extends Window {
+
+            OptionSlider optChals;
+            CheckBox 神英;
+            RenderedTextBlock 神英str;
+
+            public Wnd简单有趣杂项设置(){
+                super();
+
+                RenderedTextBlock desc = PixelScene.renderTextBlock(
+"""
+_-_ 改变的有以下：
+任务奖励的武器防具等级和附魔刻印概率。
+武器防具的等级附魔或刻印诅咒的概率。
+武器防具升级移除附魔、刻印的的概率。
+暴击率判定，以及陷阱生成数。
+法杖戒指带等级诅咒的概率。
+战利品掉率，地牢金币生成。
+英雄命中和闪避的判定。
+海克斯概率。
+								""",6);
+                desc.setRect( 0, 0, 120, 12 );
+                add(desc);
+                optChals = new OptionSlider("幸运值", "1", "9", 1, 9) {
+                    @Override
+                    protected void onChange() {
+                        Dungeon.幸运值=optChals.getSelectedValue();
+                    }
+                };
+                optChals.setSelectedValue(Dungeon.幸运值);
+                optChals.setRect(0, 59, 120, 22);
+                add(optChals);
+
+                神英 = new CheckBox("神英"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        Dungeon.神英(checked());
+                    }
+                };
+                神英.checked(Dungeon.神英);
+                神英.setRect(0, optChals.bottom()+1, 120, 16);
+                add(神英);
+
+                神英str = PixelScene.renderTextBlock("综合属性x2.5", 5);
+                神英str.hardlight(0x888888);
+                神英str.setPos(0, 神英.bottom()+1);
+                add(神英str);
+
+                RedButton btnConfirm = new RedButton("确认"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnConfirm.setRect(0, 神英.bottom()+6, 60, 16);
+                add(btnConfirm);
+                RedButton btnCancel = new RedButton("取消"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        hide();
+                    }
+                };
+                btnCancel.setRect(61, 神英.bottom()+6, 60, 16);
+                add(btnCancel);
+
+
+                resize(120, (int)btnConfirm.bottom());
+
+            }
+
+        }
+        private class Wnd困难复杂杂项设置 extends Window {
 
             OptionSlider optChals;
             CheckBox 跟随强度;
@@ -1311,7 +1455,7 @@ public class HeroSelectScene extends PixelScene {
             CheckBox 更快刷怪;
             RenderedTextBlock 更快刷怪str;
 
-            public Wnd难度设置(){
+            public Wnd困难复杂杂项设置(){
                 super();
                 int 难度=Dungeon.难度;
                 if(难度==0)Dungeon.难度=难度=2;
@@ -1356,7 +1500,7 @@ public class HeroSelectScene extends PixelScene {
                     }
                 };
                 跟随强度.checked(Dungeon.跟随强度);
-                跟随强度.setRect(0, desc.bottom()+24, 120, 16);
+                跟随强度.setRect(0, desc.bottom()+23, 120, 16);
                 add(跟随强度);
                 跟随强度str = PixelScene.renderTextBlock("敌人的强度随英雄的强度而变化\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
                 跟随强度str.hardlight(0x888888);
@@ -1371,7 +1515,7 @@ public class HeroSelectScene extends PixelScene {
                     }
                 };
                 成长属性.checked(Dungeon.成长属性);
-                成长属性.setRect(0, 跟随强度.bottom()+24, 120, 16);
+                成长属性.setRect(0, 跟随强度.bottom()+13, 120, 16);
                 add(成长属性);
                 成长属性str = PixelScene.renderTextBlock("敌人的强度随地牢层数变化，每层+20%\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
                 成长属性str.hardlight(0x888888);
@@ -1386,7 +1530,7 @@ public class HeroSelectScene extends PixelScene {
                     }
                 };
                 高耐久度.checked(Dungeon.高耐久度);
-                高耐久度.setRect(0, 成长属性.bottom()+12, 120, 16);
+                高耐久度.setRect(0, 成长属性.bottom()+13, 120, 16);
                 add(高耐久度);
                 高耐久度str = PixelScene.renderTextBlock("敌人最大生命x3", 5);
                 高耐久度str.hardlight(0x888888);
@@ -1401,7 +1545,7 @@ public class HeroSelectScene extends PixelScene {
                     }
                 };
                 更多怪物.checked(Dungeon.更多怪物);
-                更多怪物.setRect(0, 高耐久度.bottom()+8, 120, 16);
+                更多怪物.setRect(0, 高耐久度.bottom()+6, 120, 16);
                 add(更多怪物);
                 更多怪物str = PixelScene.renderTextBlock("怪物数量x5", 5);
                 更多怪物str.hardlight(0x888888);
@@ -1416,7 +1560,7 @@ public class HeroSelectScene extends PixelScene {
                     }
                 };
                 更快刷怪.checked(Dungeon.更快刷怪);
-                更快刷怪.setRect(0, 更多怪物.bottom()+8, 120, 16);
+                更快刷怪.setRect(0, 更多怪物.bottom()+6, 120, 16);
                 add(更快刷怪);
                 更快刷怪str = PixelScene.renderTextBlock("刷怪速度x5", 5);
                 更快刷怪str.hardlight(0x888888);
@@ -1430,7 +1574,7 @@ public class HeroSelectScene extends PixelScene {
                         hide();
                     }
                 };
-                btnConfirm.setRect(0, 更快刷怪.bottom()+8, 60, 16);
+                btnConfirm.setRect(0, 更快刷怪.bottom()+6, 60, 16);
                 add(btnConfirm);
 
                 RedButton btnCancel = new RedButton("取消"){
@@ -1440,7 +1584,7 @@ public class HeroSelectScene extends PixelScene {
                         hide();
                     }
                 };
-                btnCancel.setRect(61, 更快刷怪.bottom()+8, 60, 16);
+                btnCancel.setRect(61, 更快刷怪.bottom()+6, 60, 16);
                 add(btnCancel);
 
 

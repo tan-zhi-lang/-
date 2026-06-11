@@ -215,7 +215,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 	
 	private static Weapon changeWeapon( Weapon w ) {
 		Weapon n;
-		Generator.Category c= Generator.wepTiers[w.tier - 1];
+		Generator.Category c= Generator.wepTiers[w.tier() - 1];
 		
 		do {
 			n = (Weapon)Generator.randomUsingDefaults(c);

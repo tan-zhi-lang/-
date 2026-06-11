@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EmptyRoom;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -110,6 +111,7 @@ public class CrystalChoiceRoom extends SpecialRoom {
 		//opening the chest is optional, so it doesn't count for exploration bonus
 		chest.autoExplored = true;
 
+		if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
 
 		entrance().set( Door.Type.LOCKED );

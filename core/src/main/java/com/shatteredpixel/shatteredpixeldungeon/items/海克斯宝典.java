@@ -187,6 +187,8 @@ public class 海克斯宝典 extends 用品 {
 	@Override
 	public void 使用(Hero hero){
 
+
+		hero.分配海克斯();
 		Game.runOnRenderThread(()->{
 			Sample.INSTANCE.play(Assets.Sounds.海克斯);
 			GameScene.show(new Wnd选择海克斯(this,hero));

@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.EmptyRoom;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -224,9 +225,11 @@ public class CrystalPathRoom extends SpecialRoom {
 		level.drop(potions.remove(0), shuffle == 1 ? prize1 : prize2).autoExplored = true;
 		level.drop(scrolls.remove(0), shuffle == 1 ? prize2 : prize1).autoExplored = true;
 
-		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
-		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
-		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
+		if(!Dungeon.炼狱(炼狱设置.诅咒之匙)){
+			level.addItemToSpawn(new CrystalKey(Dungeon.depth));
+			level.addItemToSpawn(new CrystalKey(Dungeon.depth));
+			level.addItemToSpawn(new CrystalKey(Dungeon.depth));
+		}
 
 		entrance().set( Door.Type.REGULAR );
 

@@ -24,14 +24,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
-import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
@@ -229,6 +225,7 @@ public class Item implements Bundlable {
 		}
 		if(!不能丢扔){
 			actions.add(AC_DROP);
+			if(!Dungeon.炼狱(炼狱设置.无力投掷))
 			actions.add(AC_THROW);
 		}
 		if(SPDSettings.物品命名())
@@ -263,12 +260,6 @@ public class Item implements Bundlable {
 	}
 
 	public boolean doPickUp(Hero hero, int pos) {
-		if(Dungeon.炼狱(炼狱设置.遗失钥匙)){
-			if(this instanceof 磨损钥匙||this instanceof 骷髅钥匙){
-			}else if(this instanceof GoldenKey||this instanceof CrystalKey){
-				return false;
-			}
-		}
 		if (放背包( hero.belongings.backpack )) {
 			
 			GameScene.pickUp( this, pos );
@@ -406,7 +397,7 @@ public class Item implements Bundlable {
 				if(w.神力) x+=0.001f;
 				if(w.augment!=Weapon.Augment.NONE) x+=0.001f;
 				if(w.hasEnchant())x+=0.001f;
-				x+=w.tier/1_0000f;
+				x+=w.tier()/1_0000f;
 			}
 			if(this instanceof Armor a){
 				if(a.glyphHardened) x+=0.001f;
@@ -414,7 +405,7 @@ public class Item implements Bundlable {
 				if(a.神力) x+=0.001f;
 				if(a.augment!=Armor.Augment.NONE) x+=0.001f;
 				if(a.hasGlyph())x+=0.001f;
-				x+=a.tier/1_0000f;
+				x+=a.tier()/1_0000f;
 			}
 			x*=1+(hero.职业精通()?0.25f:0)+hero.天赋点数(Talent.全面吞噬,0.25f);
 
@@ -998,15 +989,21 @@ public class Item implements Bundlable {
 	public Emitter emitter() { return null; }
 	
 	public int 金币提升(){
-		return Math.round((价值提升?金币()*1.5f:金币())*金币价值/金额);
+		int x=金币();
+		if(专属)x*=1.34f;
+		return Math.round((价值提升?x*1.5f:x)*金币价值/金额);
 	}
 	public int 能量提升(){
+		int x=能量();
+		if(能量提升)x*=1.5f;
+		if(专属)x*=1.5f;
 		if(this instanceof Weapon||this instanceof Armor
 		   ||this instanceof Ring||this instanceof Wand||
-		   this instanceof Artifact)
-			return Math.round((能量提升?能量()*1.5f:能量())*能量价值/金币价值);
-
-		return Math.round((能量提升?能量()*1.5f:能量())*能量价值);
+		   this instanceof Artifact){
+			if(专属)x/=1.5f;
+			return Math.round(x*能量价值/金币价值);
+		}
+		return Math.round(x*能量价值);
 	}
 	
 	public String info() {

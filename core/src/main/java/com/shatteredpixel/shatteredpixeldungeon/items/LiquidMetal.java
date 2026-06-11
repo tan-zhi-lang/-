@@ -183,7 +183,7 @@ public class LiquidMetal extends Item {
 			if(item!=null&&item instanceof Weapon){
 				Weapon m=(Weapon)item;
 				
-				int maxToUse=(1+m.tier+m.等级());
+				int maxToUse=(1+m.tier()+m.等级());
 				if(!Dungeon.符文("升级金液"))
 				maxToUse*=3;
 				if(数量()<maxToUse){

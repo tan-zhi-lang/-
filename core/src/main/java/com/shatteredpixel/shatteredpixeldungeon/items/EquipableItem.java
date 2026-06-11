@@ -54,7 +54,6 @@ public abstract class EquipableItem extends Item {
 		if(isEquipped(hero)&&cursed&&cursedKnown){
 			actions.remove(AC_UNEQUIP);//正装备的诅咒移除扔出和卸下
 			actions.remove(AC_DROP);
-			if(!Dungeon.炼狱(炼狱设置.无力投掷))
 			actions.remove(AC_THROW);
 		}
 		return actions;

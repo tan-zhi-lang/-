@@ -19,12 +19,4 @@ public class 武服 extends Armor {
 	}
 
 	
-	@Override
-	public int 金币() {
-		return Math.round(super.金币()*1.34f);
-	}
-	@Override
-	public int 能量() {
-		return Math.round(super.能量()*1.34f);
-	}
 }

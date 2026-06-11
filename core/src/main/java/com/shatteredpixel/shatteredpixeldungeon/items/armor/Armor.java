@@ -114,10 +114,9 @@ public class Armor extends EquipableItem {
 	public 荣誉纹章 荣誉纹章;
 	
 	public int tier;
-	public int 额外阶=0;
 
 	public int tier(){
-		return tier+额外阶+(专属&&Dungeon.符文("随行圣衣")?4:0);
+		return Math.min(5,tier+(专属&&Dungeon.符文("随行圣衣")?4:0));
 	}
 	private static final int USES_TO_ID = 10;
 	public float usesLeftToID = USES_TO_ID;
@@ -133,7 +132,7 @@ public class Armor extends EquipableItem {
 	private static final String 神力x = "神力";
 	private static final String 荣誉纹章x = "荣誉纹章";
 	private static final String AUGMENT			= "augment";
-	private static final String 额外阶x			= "额外阶";
+	private static final String TIER			= "tier";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -145,7 +144,7 @@ public class Armor extends EquipableItem {
 		bundle.put( 神力x, 神力 );
 		bundle.put(荣誉纹章x,荣誉纹章);
 		bundle.put( AUGMENT, augment);
-		bundle.put( 额外阶x, 额外阶);
+		bundle.put( TIER, tier);
 	}
 
 	@Override
@@ -157,7 +156,7 @@ public class Armor extends EquipableItem {
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 		荣誉纹章= (荣誉纹章)bundle.get(荣誉纹章x);
-		额外阶= bundle.getInt(额外阶x);
+		tier= bundle.getInt(TIER);
 
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}

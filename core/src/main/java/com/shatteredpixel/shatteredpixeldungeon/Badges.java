@@ -975,7 +975,7 @@ public class Badges {
 	public static void validateDuelistUnlock(){
 		if (!isUnlocked(Badge.UNLOCK_DUELIST) && Dungeon.hero()
 				&& Dungeon.hero.belongings.weapon instanceof Weapon
-				&& (Dungeon.hero.belongings.weapon).tier >= 2
+				&& (Dungeon.hero.belongings.weapon).tier() >= 2
 				&& (Dungeon.hero.belongings.weapon).力量() <= Dungeon.hero.力量()){
 
 			if (Dungeon.hero.belongings.weapon.已鉴定() &&

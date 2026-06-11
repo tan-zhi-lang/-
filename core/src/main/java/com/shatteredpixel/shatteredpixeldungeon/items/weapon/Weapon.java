@@ -260,17 +260,12 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		if(SPDSettings.主要战技()){
 			if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
-				if(技能!=null||cursed){
+				if(技能!=null){
 					return AC_ABILITY;
 				}
 			}
-			if(!Dungeon.炼狱(炼狱设置.无力投掷))
+			if(Dungeon.炼狱(炼狱设置.无力投掷))return null;
 			return AC_THROW;
-		}
-		if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
-			if(技能!=null||cursed){
-				return AC_CHOOSE;
-			}
 		}
 
 		if(Dungeon.炼狱(炼狱设置.无力投掷))return null;
@@ -385,9 +380,8 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	public int tier;
-	public int 额外阶=0;
 	public int tier(){
-		return tier+额外阶;
+		return Math.min(5,tier+(专属&&Dungeon.符文("随行圣器")?4:0));
 	}
 	@Override
 	public float 最小攻击(int lvl) {
@@ -474,6 +468,8 @@ abstract public class Weapon extends KindOfWeapon {
 				x++;
 			}
 			if(剑()&&Dungeon.符文("起源:剑"))x+=Dungeon.hero.魔力(this,0.2f);
+			//Dungeon.符文("对子")&&
+			if(Dungeon.hero.belongings.secondWep!=null)x+=Dungeon.hero.belongings.secondWep.等级();
 			if(Dungeon.符文("武器＞防具")&&Dungeon.hero.belongings.armor!=null)x+=Dungeon.hero.belongings.armor.强化等级();
 		}
 		if (!evaluatingTwinUpgrades && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
@@ -1289,7 +1285,7 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final String 神力x = "神力";
 	private static final String 连招范围x = "连招范围";
 	private static final String AUGMENT	        = "augment";
-	private static final String 额外阶x	        = "额外阶";
+	private static final String TIER	        = "tier";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -1301,7 +1297,7 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( 神力x, 神力 );
 		bundle.put( 连招范围x, 连招范围 );
 		bundle.put( AUGMENT, augment );
-		bundle.put( 额外阶x, 额外阶 );
+		bundle.put( TIER, tier );
 	}
 	
 	@Override
@@ -1313,7 +1309,7 @@ abstract public class Weapon extends KindOfWeapon {
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 		连招范围 = bundle.getInt( 连招范围x );
-		额外阶 = bundle.getInt( 额外阶x );
+		tier = bundle.getInt( TIER );
 
 		augment = bundle.getEnum(AUGMENT, Augment.class);
 	}

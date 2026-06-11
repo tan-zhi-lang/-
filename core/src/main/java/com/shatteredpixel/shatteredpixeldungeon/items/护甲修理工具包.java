@@ -38,7 +38,7 @@ public class 护甲修理工具包 extends 用品 {
 			return ingredients.size() == 1
 				   && ingredients.get(0) instanceof Armor a
 				   &&a.荣誉纹章==null
-				   && a.tier+a.等级+1>0
+				   && a.tier()+a.等级+1>0
 //				   && !a.cursed
 					;
 		}
@@ -73,7 +73,7 @@ public class 护甲修理工具包 extends 用品 {
 		}
 		
 		private int resinQuantity(Armor a){
-			int level = a.等级()+a.tier;
+			int level = a.等级()+a.tier();
 			int quantity = level+1;
 			return quantity;
 		}

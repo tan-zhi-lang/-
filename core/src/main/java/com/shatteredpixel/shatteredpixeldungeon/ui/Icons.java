@@ -39,6 +39,8 @@ public enum Icons {
     RIGHTARROW,
     CALENDAR,
     CHEVRON,
+    好的,
+    坏的,
     SHUFFLE,
 
     //misc larger icons, mainly used for buttons, tabs, and journal, spacing for 16x16
@@ -228,6 +230,12 @@ public enum Icons {
                 break;
             case CHEVRON:
                 icon.frame(icon.texture.uvRectBySize(240, 16, 13, 10));
+                break;
+            case 好的:
+                icon.frame(icon.texture.uvRectBySize( 208, 32, 9, 11 ) );
+                break;
+            case 坏的:
+                icon.frame(icon.texture.uvRectBySize( 224, 32, 9, 11 ) );
                 break;
             case SHUFFLE:
                 icon.frame(icon.texture.uvRectBySize( 240, 32, 15, 12 ) );

@@ -198,8 +198,10 @@ public class Dungeon {
 	public static int 地牢寿命;
 	public static int 地牢天数;
 	public static float 叠钢=0;
+	public static int 幸运值=1;
 	public static int 难度=2;
 	public static boolean 老鼠蝙蝠=false;
+	public static boolean 神英=false;
 	public static boolean 跟随强度=false;
 	public static boolean 成长属性=false;
 	public static boolean 高耐久度=false;
@@ -232,20 +234,17 @@ public class Dungeon {
 			if(hero())
 			x+=Math.round(hero.天赋点数(Talent.丝路,0.1666f)*x);
 
-			energy +=Math.round(圣金之沙.减少()*x);
-
-
-			if(符文("货币互通"))
-				energy+=Math.round(0.15f*x);
-
-			if(hero())
-			x*=hero.幸运值();
 
 //			x/=3;
 			x*=优惠卡.获取();
 
 			if(hero())
 			x*=1+hero.天赋点数(Talent.来世金币,0.25f);
+
+			energy +=Math.round(圣金之沙.减少()*x);
+
+			if(符文("货币互通"))
+				energy+=x;
 
 			gold+=x;
 		}
@@ -278,16 +277,17 @@ public class Dungeon {
 			if(hero())
 			x+=Math.round(hero.天赋点数(Talent.丝路,0.1666f)*x);
 
-			gold+=Math.round(圣金之沙.获得()*x);
-
-			if(符文("货币互通"))
-			gold+=Math.round(2*x);
 
 			if(hero()&&hero.subClass(HeroSubClass.魔法灵枢))
 				x*=1.5f+hero.天赋点数(Talent.高额炼化,0.5f);
 			
 			if(hero())
 			x*=1+hero.天赋点数(Talent.来世能量,0.25f);
+
+			gold+=Math.round(圣金之沙.获得()*x);
+
+			if(符文("货币互通"))
+				gold+=x;
 
 			energy+=x;
 		}
@@ -407,7 +407,7 @@ public class Dungeon {
 			energy(10);
 		}
 		if(系统(系统设置.资产丰厚)||算法.isDebug()){
-			gold(1000);
+			gold(500);
 			energy(500);
 		}
 
@@ -1037,12 +1037,14 @@ public class Dungeon {
 	private static final String 系统x	= "系统";
 	private static final String 派对x	= "派对";
 	private static final String 赛季x	= "赛季";
+	private static final String 幸运值x	= "幸运值";
 	private static final String 难度x	= "难度";
 	private static final String 叠钢x	= "叠钢";
 	private static final String 地牢时间x= "地牢时间";
 	private static final String 地牢寿命x= "地牢寿命";
 	private static final String 地牢天数x= "地牢天数";
 	private static final String 老鼠蝙蝠x= "老鼠蝙蝠";
+	private static final String 神英x= "神英";
 	private static final String 跟随强度x= "跟随强度";
 	private static final String 成长属性x= "成长属性";
 	private static final String 高耐久度x= "高耐久度";
@@ -1080,12 +1082,14 @@ public class Dungeon {
 			bundle.put( 系统x, 系统 );
 			bundle.put(派对x,派对);
 			bundle.put(赛季x,赛季);
+			bundle.put( 幸运值x, 幸运值 );
 			bundle.put( 难度x, 难度 );
 			bundle.put( 叠钢x, 叠钢 );
 			bundle.put(地牢时间x,地牢时间);
 			bundle.put(地牢寿命x,地牢寿命);
 			bundle.put(地牢天数x,地牢天数);
 			bundle.put(老鼠蝙蝠x,老鼠蝙蝠);
+			bundle.put(神英x,神英);
 			bundle.put(跟随强度x,跟随强度);
 			bundle.put(成长属性x,成长属性);
 			bundle.put(高耐久度x,高耐久度);
@@ -1213,12 +1217,14 @@ public class Dungeon {
 		Dungeon.系统 = bundle.getInt( 系统x );
 		Dungeon.派对= bundle.getInt(派对x);
 		Dungeon.赛季= bundle.getInt(赛季x);
+		Dungeon.幸运值 = bundle.getInt( 幸运值x );
 		Dungeon.难度 = bundle.getInt( 难度x );
 		Dungeon.叠钢 = bundle.getFloat( 叠钢x );
 		Dungeon.地牢时间= bundle.getInt(地牢时间x);
 		Dungeon.地牢寿命= bundle.getInt(地牢寿命x);
 		Dungeon.地牢天数= bundle.getInt(地牢天数x);
 		Dungeon.老鼠蝙蝠= bundle.getBoolean(老鼠蝙蝠x);
+		Dungeon.神英= bundle.getBoolean(神英x);
 		Dungeon.跟随强度= bundle.getBoolean(跟随强度x);
 		Dungeon.成长属性= bundle.getBoolean(成长属性x);
 		Dungeon.高耐久度= bundle.getBoolean(高耐久度x);
@@ -1609,6 +1615,10 @@ public class Dungeon {
 	}
 	public static boolean 区域层数(int x){//1~4
 		return 相对层数()%5==x;
+	}
+	public static boolean 神英(boolean b){
+		神英=b;
+		return b;
 	}
 	public static boolean 跟随强度(boolean b){
 		跟随强度=b;

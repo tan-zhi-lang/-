@@ -27,10 +27,10 @@ public class 噩梦粮食 extends Food {
 
 	@Override
 	protected void satisfy(Hero hero) {
-		Buff.施加(hero,Weakness.class,10);
-		Buff.施加(hero,Vulnerable.class,10);
-		Buff.施加(hero,Slow.class,10);
-		Buff.施加(hero,Hex.class,10);
+		Buff.施加(hero,Weakness.class,5);
+		Buff.施加(hero,Vulnerable.class,5);
+		Buff.施加(hero,Slow.class,5);
+		Buff.施加(hero,Hex.class,5);
 		super.satisfy(hero);
 	}
 

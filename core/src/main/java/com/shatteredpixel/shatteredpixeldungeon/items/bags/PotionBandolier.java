@@ -21,7 +21,7 @@ public class PotionBandolier extends Bag {
 		if(Dungeon.符文("超级背包"))
 			return super.canHold(item);
 		if (item instanceof Potion || item instanceof LiquidMetal|| item instanceof 水袋){
-			item.价值提升=true;
+			item.能量提升=true;
 			return super.canHold(item);
 		} else {
 			return false;

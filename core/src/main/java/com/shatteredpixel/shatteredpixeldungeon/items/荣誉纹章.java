@@ -367,7 +367,7 @@ public class 荣誉纹章 extends Item {
 		public synchronized int maxShield() {
 
 			if (armor != null && armor.isEquipped((Hero)target) && armor.checkSeal() != null) {
-				return armor.checkSeal().maxShield(armor.tier, armor.等级());
+				return armor.checkSeal().maxShield(armor.tier(), armor.等级());
 			} else {
 				return 0;
 			}

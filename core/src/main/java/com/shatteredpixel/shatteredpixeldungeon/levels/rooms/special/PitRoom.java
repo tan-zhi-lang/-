@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.Point;
 import com.watabou.utils.Random;
 
@@ -71,6 +72,7 @@ public class PitRoom extends SpecialRoom {
 			level.drop( prize( level ), remains ).setHauntedIfCursed();
 		}
 
+		if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 		level.drop( new CrystalKey( Dungeon.depth ), remains );
 	}
 	

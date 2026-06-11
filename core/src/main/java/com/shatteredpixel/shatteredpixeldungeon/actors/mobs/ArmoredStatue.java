@@ -82,7 +82,7 @@ public class ArmoredStatue extends Statue {
 	public CharSprite sprite() {
 		CharSprite sprite = super.sprite();
 		if (armor != null) {
-			((StatueSprite) sprite).setArmor(armor.tier);
+			((StatueSprite) sprite).setArmor(armor.tier());
 		} else {
 			((StatueSprite) sprite).setArmor(3);
 		}

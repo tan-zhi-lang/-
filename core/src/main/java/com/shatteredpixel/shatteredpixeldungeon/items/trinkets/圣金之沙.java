@@ -44,7 +44,7 @@ public class 圣金之沙 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 4+2*level;
+			return 1+level;
 		}
 	}
 
@@ -56,7 +56,7 @@ public class 圣金之沙 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return -0.1f-0.05f*level;
+			return -0.25f-0.25f*level;
 		}
 	}
 

@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.Point;
 
 public class SecretChestChasmRoom extends SecretRoom {
@@ -66,6 +67,7 @@ public class SecretChestChasmRoom extends SecretRoom {
 		p = new Point(left+1, top+1);
 		Painter.set(level, p, Terrain.EMPTY_SP);
 		if (chests > 0) {
+			if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 			level.drop(new GoldenKey(Dungeon.depth), level.pointToCell(p));
 			chests--;
 		}
@@ -73,6 +75,7 @@ public class SecretChestChasmRoom extends SecretRoom {
 		p.x = right-1;
 		Painter.set(level, p, Terrain.EMPTY_SP);
 		if (chests > 0) {
+			if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 			level.drop(new GoldenKey(Dungeon.depth), level.pointToCell(p));
 			chests--;
 		}
@@ -80,6 +83,7 @@ public class SecretChestChasmRoom extends SecretRoom {
 		p.y = bottom-1;
 		Painter.set(level, p, Terrain.EMPTY_SP);
 		if (chests > 0) {
+			if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 			level.drop(new GoldenKey(Dungeon.depth), level.pointToCell(p));
 			chests--;
 		}
@@ -87,6 +91,7 @@ public class SecretChestChasmRoom extends SecretRoom {
 		p.x = left+1;
 		Painter.set(level, p, Terrain.EMPTY_SP);
 		if (chests > 0) {
+			if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 			level.drop(new GoldenKey(Dungeon.depth), level.pointToCell(p));
 			chests--;
 		}

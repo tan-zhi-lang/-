@@ -60,6 +60,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
@@ -475,6 +476,7 @@ public abstract class RegularLevel extends Level {
 			if (item instanceof TrinketCatalyst){
 				drop( item, cell ).type = Heap.Type.LOCKED_CHEST;
 				int keyCell = randomDropCell();
+				if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 				drop( new GoldenKey(Dungeon.depth), keyCell ).type = Heap.Type.HEAP;
 				if (map[keyCell] == Terrain.HIGH_GRASS || map[keyCell] == Terrain.FURROWED_GRASS) {
 					map[keyCell] = Terrain.GRASS;

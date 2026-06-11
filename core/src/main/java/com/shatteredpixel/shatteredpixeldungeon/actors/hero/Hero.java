@@ -683,6 +683,8 @@ public class Hero extends Char {
             put1("坠入深渊",1,0);
             put1("止渴",1,0);
             put1("标局",1,0);
+            put1("顺子",1,0);
+            put1("对子",1,0);
             put1("击暴",1,0);
             put1("麒麟骨",1,0);
             put1("重扔",1,0);
@@ -722,6 +724,7 @@ public class Hero extends Char {
             put1("凯旋",1,0);
             put1("阿玛特拉斯",1,0);
             put1("装备大师",1,0);
+            put1("随行圣器",1,0);
             put1("给你打成折叠屏",1,0);
             put1("暗裔恶魔",1,0);
             put1("地牢原点",1,0);
@@ -1418,7 +1421,7 @@ public class Hero extends Char {
             case "时来运转":return "幸运值随机-1~2";
             case "超级背包":return "所有背包都能装任意物品，但失去专属特性";
             case "高帧战士":return "物理攻击额外造成20%帧率伤害";
-            case "货币互通":return "获得金币+15%能量，获得能量+2倍金币";
+            case "货币互通":return "获得金币+能量，获得能量金币";
             case "千里眼顺风耳":return "视野范围和感知范围+4";
             case "我有一剑":return "剑类武器攻击+20%";
             case "我懂个锤子":return "锤类武器攻击+30%";
@@ -1476,6 +1479,7 @@ public class Hero extends Char {
             case "坚定风采":return "防御和魔抗+20%，残血时翻倍";
             case "暗裔恶魔":return "对老鬼和小老鬼+60%全能吸血";
             case "装备大师":return "从武器和防具获取攻击和防御+15%";
+            case "随行圣器":return "英雄初始武器+4阶级";
             case "阿玛特拉斯":return "发现敌人会施加火毒";
             case "地牢原点":return "在13层时，幸运值+3，综合属性x3";
             case "给你打成折叠屏":return "对敌人的首次物理攻击永久将敌人高度变为一个面，并使其物理攻击伤害-20%";
@@ -1505,6 +1509,8 @@ public class Hero extends Char {
             case "三国杀:赵云":return "闪避判定+命中，命中判定+闪避";
             case "忍者恢复":return "防御时10%概率恢复10%最大生命";
             case "标局":return "只能刷到1和2级海克斯";
+            case "对子":return "主武器等级+副武器等级";
+            case "顺子":return "背包出现1，2，3，4，5阶的5个武器或者防具，每个顺子都会+50%综合属性";
             case "击暴":return "攻击+50%暴击率";
             case "升级金液":return "金液升级武器所需仅1/3";
             case "鞋底抹油":return "移速+50%";
@@ -2520,8 +2526,6 @@ public class Hero extends Char {
     }
     public String 随机海克斯(boolean 完全随机,int 随机等级){
 
-            分配海克斯();
-
             String select="";
             //region 海克斯等级随机
 
@@ -2532,12 +2536,12 @@ public class Hero extends Char {
             if(等级>=21)次数=5;
 
             int 等级=1;
-            int 概率=8;
+            float 概率=0.09f*幸运值();
 
             if(符文("太有用了"))
-                概率*=4;
+                概率*=4f;
             if(符文("豪赌"))
-                概率/=4;
+                概率/=4f;
 
 
             if(符文("升级海克斯"))
@@ -2756,7 +2760,7 @@ public class Hero extends Char {
 
     public float 科学狂人= 0.3f;
     public float 幸运值(){
-        int 幸运=0;
+        float 幸运=Dungeon.幸运值;
 //        if(Rankings.INSTANCE.totalNumber<=1)幸运++;
 //        if(Dungeon.daily&&!Dungeon.dailyReplay)幸运++;
         幸运+=天赋点数(Talent.天命之赐);
@@ -2775,8 +2779,8 @@ public class Hero extends Char {
 
         if(Dungeon.派对(派对设置.幸运转世))
             幸运++;
-
-        return 2*幸运+1;
+        if(幸运>1)幸运=1+幸运*0.33f;
+        return 幸运;
     }
     public String 种族天赋 = "";
     public String 重生怪物 = "";
@@ -4151,12 +4155,12 @@ public class Hero extends Char {
             if(belongings.secondWep!=null){
                 if(belongings.weapon!=null){
                     dr+=天赋点数(Talent.双武格挡,0.25f)*
-                        (belongings.weapon.tier+belongings.secondWep.tier)*
+                        (belongings.weapon.tier()+belongings.secondWep.tier())*
                         (belongings.weapon.强化等级()+belongings.secondWep.强化等级());
                 }
             }else{
                 if(belongings.weapon!=null){
-                    dr+=天赋点数(Talent.双武格挡,0.25f)*belongings.weapon.tier*belongings.weapon.强化等级();
+                    dr+=天赋点数(Talent.双武格挡,0.25f)*belongings.weapon.tier()*belongings.weapon.强化等级();
                 }
             }
         }
@@ -4211,7 +4215,7 @@ public class Hero extends Char {
             int 防具数量=0;
             for(Item i: belongings.backpack){
                 if(i instanceof Armor a)
-                    防具数量+=a.tier+a.强化等级();
+                    防具数量+=a.tier()+a.强化等级();
             }
             dr+=防具数量*3;
         }
@@ -4502,7 +4506,7 @@ public class Hero extends Char {
             int 武器数量=0;
             for(Item i: belongings.backpack){
                 if(i instanceof Weapon a)
-                    武器数量+=a.tier+a.强化等级();
+                    武器数量+=a.tier()+a.强化等级();
             }
             dmg+=武器数量*5;
         }
@@ -4748,6 +4752,8 @@ public class Hero extends Char {
         if(speed>=2){
             Badges.解锁行僧();
         }
+        if(Dungeon.炼狱(炼狱设置.体弱多病))
+            speed=Math.min(1.5f,speed);
 
         if (SPDSettings.固定移速() == 5) {
 
@@ -7808,8 +7814,8 @@ public float 攻击延迟() {
         }
         damage*=中国国旗.受伤();
         if(符文("防具的宠爱")&&belongings.armor()!=null)
-            damage*=1-(belongings.armor.tier+belongings.armor.强化等级())/
-                      (2f+(belongings.armor.tier+belongings.armor.强化等级()));
+            damage*=1-(belongings.armor.tier()+belongings.armor.强化等级())/
+                      (2f+(belongings.armor.tier()+belongings.armor.强化等级()));
 
 
         if(符文("帝星飘摇荧惑高"))
@@ -9671,6 +9677,37 @@ public float 攻击延迟() {
                     禁忌物数量+=1+a.等级();
             }
             x+=禁忌物数量*0.2f;
+        }if(符文("顺子")){
+            int 顺子=0;
+            int 顺子1=0;
+            int 顺子2=0;
+            int 顺子3=0;
+            int 顺子4=0;
+            int 顺子5=0;
+            for(Item i: belongings.backpack){
+                if(i instanceof Weapon w&&w.tier()==1)
+                    顺子1++;
+                if(i instanceof Weapon w&&w.tier()==2)
+                    顺子2++;
+                if(i instanceof Weapon w&&w.tier()==3)
+                    顺子3++;
+                if(i instanceof Weapon w&&w.tier()==4)
+                    顺子4++;
+                if(i instanceof Weapon w&&w.tier()==5)
+                    顺子5++;
+            }
+            if(顺子1>0&&顺子2>0&&顺子3>0&&顺子4>0&&顺子5>0){
+                do
+                {
+                    顺子1--;
+                    顺子2--;
+                    顺子3--;
+                    顺子4--;
+                    顺子5--;
+                    顺子++;
+                }while(顺子1>0&&顺子2>0&&顺子3>0&&顺子4>0&&顺子5>0);
+            }
+            x+=顺子*0.5f;
         }
         if(符文("露出癖")&&空手()&&裸衣())x+=2;
         if(符文("大墟")&&大墟())x+=0.65f;
@@ -9805,6 +9842,8 @@ public float 攻击延迟() {
         )
             x*=2;
         }
+        if(Dungeon.神英)x*=2.5f;
+
         return Math.max(0.01f,x);
     }
 

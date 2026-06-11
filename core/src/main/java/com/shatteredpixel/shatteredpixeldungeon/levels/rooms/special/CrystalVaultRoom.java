@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -64,6 +65,7 @@ public class CrystalVaultRoom extends SpecialRoom {
 		Painter.set(level, i1Pos, Terrain.PEDESTAL);
 		Painter.set(level, i2Pos, Terrain.PEDESTAL);
 
+		if(!Dungeon.炼狱(炼狱设置.诅咒之匙))
 		level.addItemToSpawn( new CrystalKey( Dungeon.depth ) );
 		
 		entrance().set( Door.Type.LOCKED );

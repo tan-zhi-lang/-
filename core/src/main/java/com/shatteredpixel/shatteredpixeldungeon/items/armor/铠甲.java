@@ -26,12 +26,4 @@ public class 铠甲 extends Armor {
 	public float 最大防御(int lvl){
 		return super.最大防御(lvl)+augment.defenseFactor(0.5f);
 	}
-	@Override
-	public int 金币() {
-		return Math.round(super.金币()*1.34f);
-	}
-	@Override
-	public int 能量() {
-		return Math.round(super.能量()*1.34f);
-	}
 }

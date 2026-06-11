@@ -34,11 +34,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ScrollEmpower;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -52,8 +56,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
@@ -68,6 +76,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Image;
@@ -727,6 +736,18 @@ public enum Talent {
 				Generator.randomScroll().放背包();
 			}
 		}
+		if(Dungeon.炼狱(炼狱设置.诅咒之匙)){
+			if(item instanceof 磨损钥匙||item instanceof 骷髅钥匙||
+			   item instanceof GoldenKey||item instanceof CrystalKey){
+			}else {
+
+				Buff.施加(hero,Weakness.class,5);
+				Buff.施加(hero,Vulnerable.class,5);
+				Buff.施加(hero,Slow.class,5);
+				Buff.施加(hero,Hex.class,5);
+			}
+		}
+
 	}
 
 	public static float 伏击时(Hero hero, Char enemy, float dmg ){

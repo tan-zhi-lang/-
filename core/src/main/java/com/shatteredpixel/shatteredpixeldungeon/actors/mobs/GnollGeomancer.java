@@ -348,7 +348,7 @@ public class GnollGeomancer extends Mob {
 				}
 			}
 
-			if ((sapperAlive && !closestisAlive && Dungeon.level.distance(pos, sapperSpawns[i]) <= 16)
+			if ((sapperAlive && !closestisAlive &&Dungeon.level.距离(pos,sapperSpawns[i])<=16)
 					|| Dungeon.level.trueDistance(pos, sapperSpawns[i]) < Dungeon.level.trueDistance(pos, closestSapperPos)) {
 				closestSapperPos = sapperSpawns[i];
 				closestisAlive = sapperAlive;
@@ -414,7 +414,7 @@ public class GnollGeomancer extends Mob {
 		for (int i : exteriorCells){
 			if (!Dungeon.level.solid[i]
 					&& Dungeon.level.map[i] != Terrain.EMPTY_SP
-					&& !Dungeon.level.adjacent(i, Dungeon.level.entrance())
+					&& !Dungeon.level.相邻(i,Dungeon.level.entrance())
 					&& Dungeon.level.traps.get(i) == null
 					&& Dungeon.level.plants.get(i) == null
 					&& Actor.findChar(i) == null){
@@ -452,7 +452,7 @@ public class GnollGeomancer extends Mob {
 				Actor guard = closest.getPartner();
 				closest.linkPartner(this);
 				//moves sapper and its guard toward geomancer if it is too far away
-				if (Dungeon.level.distance(closest.pos, dashPos) > 3){
+				if (Dungeon.level.距离(closest.pos,dashPos)>3){
 					ArrayList<Integer> candidates = new ArrayList<>();
 					for (int i : PathFinder.相邻){
 						if (!Dungeon.level.solid[dashPos+i]
@@ -561,7 +561,7 @@ public class GnollGeomancer extends Mob {
 
 				//use abilities more frequently on the enemy's initial approach or if sapper is alive
 				// but only if enemy isn't stunned, to prevent stunlocking
-				if ((Dungeon.level.distance(pos, enemy.pos) > 2 || hasSapper())
+				if ((Dungeon.level.距离(pos,enemy.pos)>2||hasSapper())
 						&& buff(RockArmor.class) != null
 						&& enemy.buff(Paralysis.class) == null){
 					abilityCooldown -= 1f;
@@ -791,7 +791,7 @@ public class GnollGeomancer extends Mob {
 						&& pos != safeCell
 						&& !(Actor.findChar(pos) instanceof GnollGeomancer)
 						&& !(source instanceof GnollGeomancer && Actor.findChar(pos) instanceof GnollSapper)
-						&& Random.Int(1+Dungeon.level.distance(rockCenter, pos)/2) == 0) {
+						&&Random.Int(1+Dungeon.level.距离(rockCenter,pos)/2)==0) {
 					rockCells.add(pos);
 				}
 				pos++;
@@ -833,7 +833,7 @@ public class GnollGeomancer extends Mob {
 		@Override
 		public void affectCell(int cell) {
 			if (Dungeon.level.map[cell] != Terrain.EMPTY_SP
-					&& !Dungeon.level.adjacent(cell, Dungeon.level.entrance())
+					&& !Dungeon.level.相邻(cell,Dungeon.level.entrance())
 					&& Random.Int(3) == 0) {
 				Level.set(cell, Terrain.MINE_BOULDER);
 				GameScene.updateMap(cell);

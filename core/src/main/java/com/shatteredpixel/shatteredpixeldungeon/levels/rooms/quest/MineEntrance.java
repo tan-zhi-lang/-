@@ -84,7 +84,7 @@ public class MineEntrance extends CaveRoom {
 		if (Blacksmith.Quest.Type() == Blacksmith.Quest.CRYSTAL){
 			for (int i = 0; i < width()*height()/2; i ++){
 				Point r = random(1);
-				if (level.distance(level.pointToCell(r), entrance) > 1
+				if (level.距离(level.pointToCell(r),entrance)>1
 					&& level.map[level.pointToCell(r)] != Terrain.WALL) {
 					Painter.set(level, r, Terrain.MINE_CRYSTAL);
 				}
@@ -112,7 +112,7 @@ public class MineEntrance extends CaveRoom {
 
 			for (Point p : getPoints()){
 				int cell = level.pointToCell(p);
-				if (level.distance(cell, entrance) > 1 && level.map[cell] == Terrain.EMPTY){
+				if (level.距离(cell,entrance)>1&&level.map[cell]==Terrain.EMPTY){
 					float dist = 1000;
 					for (Door d : doors){
 						dist = Math.min(dist, Point.distance(p, d));

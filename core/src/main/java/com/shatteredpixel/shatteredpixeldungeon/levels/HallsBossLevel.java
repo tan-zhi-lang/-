@@ -119,7 +119,7 @@ public class HallsBossLevel extends Level {
 		boolean[] patch = Patch.generate(width, height, 0.20f, 0, true);
 		for (int i = 0; i < length(); i++) {
 			if (map[i] == Terrain.EMPTY && patch[i]) {
-				map[i] = distance(i, bossPos)+Random.Int(5) >= 10 ? Terrain.REGION_DECO : Terrain.STATUE;
+				map[i] =距离(i,bossPos)+Random.Int(5)>=10 ? Terrain.REGION_DECO : Terrain.STATUE;
 			}
 		}
 
@@ -223,7 +223,7 @@ public class HallsBossLevel extends Level {
 	@Override
 	public void occupyCell( Char ch ) {
 		if (map[entrance()] == Terrain.ENTRANCE && map[exit()] != Terrain.EXIT
-				&& ch == Dungeon.hero && Dungeon.level.distance(ch.pos, entrance()) >= 2) {
+				&& ch == Dungeon.hero &&Dungeon.level.距离(ch.pos,entrance())>=2) {
 			seal();
 		}
 

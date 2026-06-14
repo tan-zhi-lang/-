@@ -15,7 +15,7 @@ public class WarpingTrap extends TeleportationTrap {
 
 	@Override
 	public void activate() {
-		if (Dungeon.level.distance(Dungeon.hero.pos, pos) <= 1){
+		if (Dungeon.level.距离(Dungeon.hero.pos,pos)<=1){
 			BArray.setFalse(Dungeon.level.visited);
 			BArray.setFalse(Dungeon.level.mapped);
 		}

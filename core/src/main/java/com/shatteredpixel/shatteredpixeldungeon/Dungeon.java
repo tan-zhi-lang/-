@@ -338,7 +338,7 @@ public class Dungeon {
 			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
 		} else if (!SPDSettings.customSeed().isEmpty()){
 			customSeedText = SPDSettings.customSeed();
-			if(算法.种子()!=null||算法.isDebug()||算法.彩蛋()){
+			if(算法.物品()!=null||算法.isDebug()||算法.彩蛋()){
 				customSeedText = "";
 				seed = DungeonSeed.randomSeed();
 			}else{
@@ -533,7 +533,7 @@ public class Dungeon {
 			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
 			default -> 1;
 		};
-//		x==0.05f;
+		x+=0.25f;
 		if(赛季(赛季设置.回廊传说))
 			x+=10;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
@@ -553,7 +553,7 @@ public class Dungeon {
 			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
 			default -> 1;
 		};
-		//		x==0.05f;
+		x+=0.5f;
 		if(赛季(赛季设置.回廊传说))
 			x+=10;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
@@ -1558,7 +1558,7 @@ public class Dungeon {
 	
 	public static int findStep(Char ch, int to, boolean[] pass, boolean[] visible, boolean chars ) {
 
-		if (Dungeon.level.adjacent( ch.pos, to )) {
+		if (Dungeon.level.相邻(ch.pos,to)) {
 			return Actor.findChar( to ) == null && pass[to] ? to : -1;
 		}
 

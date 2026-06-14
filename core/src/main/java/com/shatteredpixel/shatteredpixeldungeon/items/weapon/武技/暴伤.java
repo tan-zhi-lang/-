@@ -18,7 +18,7 @@ import com.watabou.utils.Callback;
 public class 暴伤 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次x暴击伤害且必中的物理攻击，并花费攻击延迟的回合";
+		desc="对攻击范围内的一个目标进行一次x暴击伤害且必中的攻击，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){

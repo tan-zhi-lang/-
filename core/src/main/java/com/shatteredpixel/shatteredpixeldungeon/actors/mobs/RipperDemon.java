@@ -213,7 +213,7 @@ public class RipperDemon extends Mob {
 				}
 
 				if (leapCooldown <= 0 && enemyInFOV && !rooted
-						&& Dungeon.level.distance(pos, enemy.pos) >= 3) {
+						&&Dungeon.level.距离(pos,enemy.pos)>=3) {
 
 					int targetPos = enemy.pos;
 					if (lastEnemyPos != enemy.pos){

@@ -29,7 +29,7 @@ public class Acidic extends Scorpio {
 
 	@Override
 	public float 防御时(Char enemy, float damage ) {
-		if (Dungeon.level.adjacent(pos, enemy.pos)){
+		if (Dungeon.level.相邻(pos,enemy.pos)){
 			Buff.施加(enemy, Ooze.class).set( Ooze.DURATION );
 		}
 		return super.防御时( enemy, damage );

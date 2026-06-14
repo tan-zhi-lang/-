@@ -17,7 +17,7 @@ public class 双刃 extends Weapon{
 		tier = 1;
 		延迟=1.175f;
 		伤害= 0.8f;
-		伏击=0.25f;
+		伏击=0.15f;
 
 	}
 }

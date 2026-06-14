@@ -153,7 +153,7 @@ public class PotionOfDragonsBreath extends ExoticPotion {
 											}
 
 											//only ignite cells directly near caster if they are flammable
-											if (Dungeon.level.adjacent(bolt.sourcePos, cell) && !Dungeon.level.flamable[cell]){
+											if (Dungeon.level.相邻(bolt.sourcePos,cell)&&!Dungeon.level.flamable[cell]){
 												adjacentCells.add(cell);
 											} else {
 												GameScene.add( Blob.seed( cell, 5, Fire.class ) );

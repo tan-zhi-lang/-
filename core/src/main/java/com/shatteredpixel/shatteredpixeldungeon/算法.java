@@ -77,7 +77,7 @@ public class 算法 {
 		
 		
     * */
-    public static String 日期="6.10/12:30";
+    public static String 日期="6.15/7:33";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -163,7 +163,7 @@ public class 算法 {
         if(x>=1000)return String.format("%.2f",x/1000f)+"K";
         return String.format("%.0f",x);
     }
-    public static Item 种子(){
+    public static Item 物品(){
 
         String seed = SPDSettings.customSeed();
         seed=seed.replaceAll("调试", "");
@@ -372,7 +372,7 @@ public class 算法 {
     }
 
     }
-    public static Item 种子(String s){
+    public static Item 物品(String s){
     try {
         Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+s);
 
@@ -595,41 +595,26 @@ return null;
     }
     public static boolean 彩蛋(String s){
         String seed = SPDSettings.customSeed();
-        if (seed.matches(".*调试")) {
-            if(seed.replaceAll("调试", "").equals("更小")){
-                return true;
-            }
-        }
-        if(seed.equals("更小")){
+        if(seed.contains("更小")){
             return true;
         }
         return false;
     }
     public static boolean 彩蛋(){
         String seed = SPDSettings.customSeed();
-        if (seed.matches(".*调试")) {
-            if(seed.replaceAll("调试", "").equals("更小")){
-                return true;
-            }
-        }
-        if(seed.equals("更小")){
+        if(seed.contains("更小")){
             return true;
         }
-        else return false;
+        return false;
     }
     public static boolean isDebug(){
 //        Game.version.contains("INDEV")
         String seed = SPDSettings.customSeed();
-        if (seed.matches("\\d+调试")) {
+        if (seed.contains("调试")) {
             return true;
         }
-        if (seed.matches(".*调试")) {
-            return true;
-        }
-        if(seed.equals("更小调试"))
-            return true;
 
-        else return false;
+        return false;
     }
     public static boolean 概率学(int x){
         return Random.Int(1,100)<= x+ (x == 33 ? 1 : 0);

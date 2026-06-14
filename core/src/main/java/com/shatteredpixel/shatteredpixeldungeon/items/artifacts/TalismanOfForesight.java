@@ -124,7 +124,7 @@ public class TalismanOfForesight extends Artifact {
 			if (target != null && target != curUser.pos){
 
 				//enforces at least 2 tiles of distance
-				if (Dungeon.level.adjacent(target, curUser.pos)){
+				if (Dungeon.level.相邻(target,curUser.pos)){
 					target += (target - curUser.pos);
 				}
 

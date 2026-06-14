@@ -47,7 +47,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SacrificialParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
@@ -1763,7 +1762,7 @@ public abstract class Level implements Bundlable {
 			int range = 1+(Dungeon.hero.天赋点数(Talent.EAGLE_EYE)-2);
 			for (Mob mob : mobs) {
 				int p = mob.pos;
-				if (!fieldOfView[p] && distance(c.pos, p) <= range) {
+				if (!fieldOfView[p]&&距离(c.pos,p)<=range) {
 					for (int i : PathFinder.自相邻) {
 						fieldOfView[mob.pos + i] = true;
 					}
@@ -1815,7 +1814,7 @@ public abstract class Level implements Bundlable {
 							continue;
 						}
 						int p = mob.pos;
-						if (mob.nobuff(Invisibility.class)&&!fieldOfView[p] && (distance(c.pos, p) <= mindVisRange)) {
+						if (mob.nobuff(Invisibility.class)&&!fieldOfView[p] && (距离(c.pos,p)<=mindVisRange)) {
 							for (int i : PathFinder.自相邻) {
 								heroMindFov[mob.pos + i] = true;
 							}
@@ -1891,7 +1890,7 @@ public abstract class Level implements Bundlable {
 		return 0;
 	}
 	
-	public int distance( int a, int b ) {
+	public int 距离(int a,int b) {
 		int ax = a % width();
 		int ay = a / width();
 		int bx = b % width();
@@ -1900,11 +1899,11 @@ public abstract class Level implements Bundlable {
 	}
 	
 	
-	public boolean adjacent( Char a, Char b ) {
-		return distance( a.pos, b.pos ) == 1;
+	public boolean 相邻(Char a,Char b) {
+		return 距离(a.pos,b.pos)==1;
 	}
-	public boolean adjacent( int a, int b ) {
-		return distance( a, b ) == 1;
+	public boolean 相邻(int a,int b) {
+		return 距离(a,b)==1;
 	}
 	
 	//uses pythagorean theorum for true distance, as if there was no movement grid

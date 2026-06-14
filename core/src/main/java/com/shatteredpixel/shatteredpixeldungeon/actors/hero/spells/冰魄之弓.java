@@ -62,7 +62,7 @@ public class 冰魄之弓 extends 目标法术 {
 			});
 		});
 
-		if (hero.rooted || Dungeon.level.distance(hero.pos, target) > hero.攻击范围()+3){
+		if (hero.rooted ||Dungeon.level.距离(hero.pos,target)>hero.攻击范围()+3){
 			if (hero.rooted) PixelScene.shake(1,1f);
 			return;
 		}
@@ -70,7 +70,7 @@ public class 冰魄之弓 extends 目标法术 {
 
 		int lungeCell = -1;
 		for (int i : PathFinder.相邻){
-			if (Dungeon.level.distance(hero.pos+i, target) <= hero.攻击范围()+3
+			if (Dungeon.level.距离(hero.pos+i,target)<=hero.攻击范围()+3
 				&& Actor.findChar(hero.pos+i) == null
 				&& (Dungeon.level.passable[hero.pos+i] || (Dungeon.level.avoid[hero.pos+i] && hero.flying))){
 				if (lungeCell == -1 || Dungeon.level.trueDistance(hero.pos + i, target) < Dungeon.level.trueDistance(lungeCell, target)){

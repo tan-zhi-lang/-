@@ -572,7 +572,7 @@ public abstract class Mob extends Char{
 	}
 
 	protected boolean canAttack(Char enemy){
-		if(Dungeon.level.adjacent(pos,enemy.pos)){
+		if(Dungeon.level.相邻(pos,enemy.pos)){
 			return true;
 		}
 		for(ChampionEnemy buff: buffs(ChampionEnemy.class)){
@@ -611,7 +611,7 @@ public abstract class Mob extends Char{
 
 		int step=-1;
 
-		if(Dungeon.level.adjacent(pos,target)){
+		if(Dungeon.level.相邻(pos,target)){
 
 			path=null;
 
@@ -628,19 +628,19 @@ public abstract class Mob extends Char{
 			//scrap the current path if it's empty, no longer connects to the current location
 			//or if it's quite inefficient and checking again may result in a much better path
 			//mobs are much more tolerant of inefficient paths if wandering
-			if(path==null||path.isEmpty()||!Dungeon.level.adjacent(pos,path.getFirst())||path.size()>longFactor*Dungeon.level.distance(pos,target)){
+			if(path==null||path.isEmpty()||!Dungeon.level.相邻(pos,path.getFirst())||path.size()>longFactor*Dungeon.level.距离(pos,target)){
 				newPath=true;
 			}else{
 				if(path.getLast()!=target){
 					//if the new target is adjacent to the end of the path, adjust for that
 					//rather than scrapping the whole path.
-					if(Dungeon.level.adjacent(target,path.getLast())){
+					if(Dungeon.level.相邻(target,path.getLast())){
 						int last=path.removeLast();
 
 						if(path.isEmpty()){
 
 							//shorten for a closer one
-							if(Dungeon.level.adjacent(target,pos)){
+							if(Dungeon.level.相邻(target,pos)){
 								path.add(target);
 								//extend the path for a further target
 							}else{
@@ -654,7 +654,7 @@ public abstract class Mob extends Char{
 
 								//if the new target is closer/same, need to modify end of path
 							}else{
-								if(Dungeon.level.adjacent(target,path.getLast())){
+								if(Dungeon.level.相邻(target,path.getLast())){
 									path.add(target);
 
 									//if the new target is further away, need to extend the path
@@ -681,7 +681,7 @@ public abstract class Mob extends Char{
 					//If the next cell on the path can't be moved into, see if there is another cell that could replace it
 					if(!path.isEmpty()){
 						for(int i: PathFinder.相邻){
-							if(Dungeon.level.adjacent(pos,nextCell+i)&&Dungeon.level.adjacent(nextCell+i,path.getFirst())){
+							if(Dungeon.level.相邻(pos,nextCell+i)&&Dungeon.level.相邻(nextCell+i,path.getFirst())){
 								if(cellIsPathable(nextCell+i)){
 									path.addFirst(nextCell+i);
 									newPath=false;
@@ -1038,7 +1038,7 @@ public abstract class Mob extends Char{
 		if(Dungeon.hero()&&Dungeon.符文("魔法箭矢")&&nobuff(魔法箭矢冷却.class))
 			Dungeon.hero.扔出(enemy.pos,new 魔法箭矢(),()->{
 				if(enemy.isAlive()){
-					Buff.施加(enemy,伤害.class).level(最大生命(Math.min(0.09f,0.015f*distance(Dungeon.hero))));
+					Buff.施加(enemy,伤害.class).level(最大生命(Math.min(0.09f,0.015f*距离(Dungeon.hero))));
 					Buff.施加(enemy,魔法箭矢冷却.class,2);
 				}
 			});
@@ -1096,8 +1096,26 @@ public abstract class Mob extends Char{
 			}
 		}
 	}
-	@Override
-	public void 死亡时(Object 来源){
+	public void 死亡击杀效果(Object 来源){
+		int 次数=1;
+		if(Dungeon.符文("鞭尸"))
+			次数++;
+		if(Dungeon.符文("击杀击杀"))次数+=3;
+
+		if(Dungeon.符文("你只是失去了生命")){
+			if(算法.概率学(1/3f))
+				次数*=3;
+			else 次数=0;
+		}
+		击杀效果(来源,次数);
+
+	}
+	public void 击杀效果(Object 来源 ,int 次数){
+		if(次数>0)
+		for(int x=1;x<=次数;x++)
+		击杀效果(来源);
+	}
+	public void 击杀效果(Object 来源){
 
 		if(来源==Chasm.class){
 			//50% chance to round up, 50% to round down
@@ -1106,361 +1124,364 @@ public abstract class Mob extends Char{
 			}
 			经验/=2;
 		}
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
+			int 能量=1;
+			if(Dungeon.hero.地牢塔防更多更快开关&&Random.Int(4)!=0){
+				能量=0;
+			}
+			if(Dungeon.hero.地牢塔防波次%3==0){
+				能量+=最大生命(0.01f);
+			}
+
+			if(Dungeon.赛季(赛季设置.地牢塔防)){
+				for(int n: PathFinder.范围6){
+					Char c=Actor.findChar(pos+n);
+					if(c instanceof 造能结晶 x&&Dungeon.level.距离(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
+						能量=Math.round(能量*(0.3f+0.2f*x.tier));
+					}
+				}
+			}
+			Dungeon.energy(能量);
+		}else{
+			rollToDropLoot();
+		}
+		boolean 可以=true;
+		if(Dungeon.hero())
+			if (Dungeon.hero.buff(灵魂焰灯.燃烧.class)!=null)
+				if(Dungeon.hero.buff(灵魂焰灯.燃烧.class).isCursed()) 可以=false;
+
+		if(可以&&防刷()){
+			if(来源==Dungeon.hero||来源 instanceof 魔攻之戒||
+			   来源 instanceof Artifact||来源 instanceof Wand||
+			   来源 instanceof Weapon||来源 instanceof Weapon.Enchantment||
+			   来源 instanceof Armor.Glyph||
+			   来源 instanceof Dungeon||
+			   来源 instanceof Buff||
+			   来源 instanceof Trap||
+			   来源 instanceof Bomb||
+			   (来源 instanceof Mob m&&m.alignment==Alignment.ALLY)
+			){
+
+				if(!isAlive()){
+					if(Dungeon.hero.subClass(HeroSubClass.戏命师))
+						new Bomb.ConjuredBomb().heroexplode(pos);
+
+					if(来源==Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
+						if(Dungeon.hero.belongings.attackingWeapon() instanceof 草剃){
+							for(int n: PathFinder.相邻){
+								Blooming.plantGrass(pos+n);
+							}
+						}
+						if(Dungeon.hero.belongings.attackingWeapon() instanceof 日炎链刃){
+							new Bomb.ConjuredBomb().heroexplode(pos);
+						}
+						if(Dungeon.hero.belongings.attackingWeapon() instanceof 金纹拐){
+							Dungeon.gold(new Gold().random().数量(),pos);
+						}
+						if(Dungeon.hero.belongings.attackingWeapon() instanceof 蜜剑){
+							Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
+						}
+					}
+					if(Dungeon.符文("坦克引擎"))Dungeon.hero.坦克引擎+=强度();
+					if(Dungeon.符文("缩小引擎"))Dungeon.hero.缩小引擎+=强度();
+					if(Dungeon.hero.subClass(HeroSubClass.狂战士)){
+						算法.修复效果(()->{
+							Buff.施加(Dungeon.hero,怒气.class).damage2();
+						});
+					}
+					if(Dungeon.符文("夜狩")){
+						算法.修复效果(()->{
+							Buff.延长( Dungeon.hero, Invisibility.class, Invisibility.DURATION );
+						});
+					}
+
+					if(Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级/2)){
+						Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
+					}
+					if(血腥生肉.概率()>0&&Random.Int(血腥生肉.概率()-1)==0){
+						Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
+					}
+
+					if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
+						Dungeon.hero.回血(Dungeon.hero.最大生命(0.04f));
+						if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,0.5f)))){
+							if(Dungeon.hero.天赋概率(Talent.残魂侵蚀,25)){
+								Dungeon.level.drop(new 纯净粮食(),pos).sprite().drop();
+							}else{
+								Dungeon.level.drop(new 噩梦粮食(),pos).sprite().drop();
+							}
+						}
+					}
+					if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人)){
+						Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
+					}
+
+					if((this instanceof Rat||this instanceof TransmogRat)&&Dungeon.hero.subClass(HeroSubClass.巫咒王鼠)){
+						if(Random.Int(1)==0||Dungeon.hero.职业精通()){
+							Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
+						}
+					}
+
+					if(Dungeon.hero.天赋概率(Talent.盗墓大师,25)){
+						Dungeon.level.drop(Generator.random(),pos).type=Heap.Type.TOMB;
+					}
+
+					if(恶魔亡灵()&&Dungeon.hero.天赋(Talent.渡魂灵猫)){
+						Dungeon.hero.回血(Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.渡魂灵猫,0.025f)));
+					}
+
+					if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
+						Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
+					}
+					if(Dungeon.hero.heroClass(HeroClass.WARRIOR)){
+						Dungeon.hero.护甲(1);
+					}
+					if(Dungeon.hero.heroClass(HeroClass.近卫)){
+						Dungeon.hero.回已损失血(0.05f);
+					}
+					if(骸骨左轮.增加()>0){
+						Dungeon.hero.回血(骸骨左轮.增加());
+					}
+					if(断骨法杖.增加()>0){
+						Dungeon.hero.belongings.charge(断骨法杖.增加());
+						充能卷轴.charge(Dungeon.hero);
+						Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
+					}
+					if(Dungeon.hero.subClass(HeroSubClass.灵魂武者)){
+						Dungeon.hero.力量+=0.1f+(Dungeon.hero.职业精通()?
+														 0.1f:
+														 0);
+					}
+
+					if(投机之剑.增加()>0&&Dungeon.hero.投机之剑>0){
+						Dungeon.gold(Dungeon.hero.投机之剑,pos);
+					}
+					Buff.施加(Dungeon.hero,击杀累计.class).set(1);
+					if(Dungeon.符文("地狱诅咒")){
+						Dungeon.hero.魔力+=0.25f;
+						Dungeon.hero.防御成长+=0.25f;
+					}
+					if(Dungeon.符文("哎哟我的硬币"))
+						for (int i : PathFinder.相邻) {
+							Dungeon.level.drop(new Gold(15),pos+i).sprite.drop();
+						}
+
+					if(Dungeon.符文("万魂幡力"))Dungeon.hero.魔力+=0.5f;
+					if(Dungeon.符文("牙仙子")){
+						Dungeon.hero.穿甲成长+=0.5f;
+						Dungeon.hero.法穿成长+=0.5f;
+					}
+					if(Dungeon.符文("怪物猎人")){
+						Dungeon.hero.攻速成长+=0.005f;
+						Dungeon.hero.移速成长+=0.005f;
+					}
+					if(Dungeon.符文("脆皮秒了")&&第x次防御<=1){
+
+						回百分比血(0.15f);
+						回百分比护甲(0.15f);
+						Dungeon.hero.buff(Hunger.class).吃饭(Hunger.STARVING*0.15f);
+					}
+					if (Dungeon.符文("铁男单挑竞技场")&&buff(ScrollOfChallenge.ChallengeArena.class)!=null){
+						Dungeon.hero.生命成长+=最大生命(0.1f);
+						Dungeon.hero.攻击成长+=最大攻击()/10f;
+						Dungeon.hero.防御成长+=最大防御()/10f;
+						Dungeon.hero.命中成长+=最大命中(null)/10f;
+						Dungeon.hero.闪避成长+=最大闪避(null)/10f;
+						Dungeon.hero.攻速成长+=1f/攻击延迟/10f;
+						Dungeon.hero.移速成长+=移速()/10f;
+					}
+					if(Dungeon.符文("灵魂熔炉")){
+						Dungeon.hero.生命成长+=5;
+					}
+					if(Dungeon.符文("溶烛化紫")){
+						Dungeon.hero.攻速成长+=0.015f;
+					}
+					if(Dungeon.符文("狂食鸦群")){
+						Dungeon.hero.生命成长+=15;
+					}
+					if(Dungeon.符文("太阳神")&&Random.Int(2)==0){
+						Dungeon.hero.火把神++;
+					}
+					if(Dungeon.符文("嘟嘟哒嘟嘟哒")){
+						Sample.INSTANCE.play(Assets.Sounds.嘟嘟哒);
+
+						if(this instanceof Skeleton){
+							Dungeon.level.drop(new ScrollOfSirensSong().数量(2),pos).sprite.drop();
+						}
+					}
+					if(Dungeon.符文("吃虫饱兰博")&&this instanceof 水蛭){
+						Dungeon.hero.生命成长+=20;
+					}
+					if(Dungeon.符文("我是色批")&&this instanceof Succubus){
+						Dungeon.hero.力量+=10;
+					}
+					if(Dungeon.符文("裁决使")){
+						Weapon.chargeWeapons(10);
+						Recharging.chargeWands(10);
+						ArtifactRecharge.chargeArtifacts(Dungeon.hero,100);
+					}
+
+					if(Dungeon.符文("气功")){
+						Weapon.chargeWeapons(10);
+						Recharging.chargeWands(10);
+						ArtifactRecharge.chargeArtifacts(Dungeon.hero,100);
+					}
+
+
+					if(Dungeon.符文("起源:进食")){
+						Dungeon.hero.攻击成长+=最大攻击()*0.03f;
+						Dungeon.hero.生命成长+=最大生命*0.03f;
+					}
+					if(Dungeon.符文("属性叠属性叠")&&算法.概率学(1/6f)){
+						new 属性锻造器().放背包();
+					}
+					if(Dungeon.符文("海克斯获取:掉落")&&算法.概率学(1/20f))
+						new 海克斯宝典(true).放背包();
+
+					if(Dungeon.符文("心灵净化")){
+						for(int n: PathFinder.相邻){
+							Char c=Actor.findChar(pos+n);
+							if(c!=null&&c.alignment!=Alignment.ALLY){
+								c.受伤时(c.生命(0.25f),Dungeon.hero);
+							}
+						}
+					}
+
+					if(Dungeon.hero.种族天赋.equals("恶魔")){
+						Dungeon.hero.攻击成长+=0.1f;
+						Dungeon.hero.生命成长+=0.33f;
+					}
+					if(Dungeon.派对(派对设置.怪物猎场)&&算法.概率学(25)){
+						Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();
+					}
+
+					if(Dungeon.赛季(赛季设置.回廊传说)){
+						Item i=Random.oneOf(
+								Generator.randomWeapon((Dungeon.相对层数() - 1) / 5),
+								Generator.randomArmor((Dungeon.相对层数() - 1) / 5),
+								new 属性戒指(),
+								new 血药()
+										   );
+
+						if(i instanceof Weapon||i instanceof Armor||i instanceof Ring)
+							i.等级(Random.Int(Dungeon.相对层数()-1,Dungeon.相对层数()+3));
+
+						if(i instanceof 属性戒指 x){
+							int xn=0;
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.攻击=Random.Int(20,40)*i.等级();
+							}
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.防御=Random.Int(20,40)*i.等级();
+							}
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.穿甲=Random.Int(20,40)*i.等级();
+							}
+
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.吸血=Random.Int(20,40)*i.等级();
+							}
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.暴击=Random.Int(20,40)*i.等级();
+							}
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.反击=Random.Int(20,40)*i.等级();
+							}
+
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.命中=Random.Int(20,40)*i.等级();
+							}
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.闪避=Random.Int(20,40)*i.等级();
+							}
+							if(xn<3&&Random.Int(8)==0){
+								xn++;
+								x.生命=Random.Int(400,800)*i.等级();
+							}
+
+						}
+
+						Dungeon.level.drop(i,pos).sprite.drop();
+					}
+
+					if(Dungeon.符文("鬼脑")&&最大攻击()>=Dungeon.hero.最大攻击())Dungeon.hero.攻击成长+=最大攻击();
+					if(Dungeon.符文("凯旋")){
+						Dungeon.gold(new Gold().random().数量()/3,pos);
+						Dungeon.hero.回已损失血(0.1f);
+					}
+
+
+					if(Dungeon.符文("升级狂妄皇冠")&&hasbuff(狂妄皇冠.class)&&hasbuff(连杀状态.class))Dungeon.hero.回已损失血(0.2f);
+					if(Dungeon.符文("吞噬细胞")&&最大生命<=Dungeon.hero.生命)Dungeon.hero.生命成长+=0.03f*最大生命;
+					if(Dungeon.符文("罪恶快感"))Buff.施加(Dungeon.hero,罪恶快感.class).set(1);
+					if(Dungeon.符文("你肩上的恶魔"))
+						Dungeon.level.drop(new 治疗药剂(),pos).sprite.drop();
+
+					if(Dungeon.符文("击杀获得护盾"))
+						Buff.施加(Dungeon.hero, 护盾.class).设置(Dungeon.hero.最大生命(0.15f));
+
+					if(Dungeon.符文("食以民为天"))Dungeon.hero.buff(Hunger.class).吃饭(最大生命);
+					if(Dungeon.符文("超凡邪恶")){
+						Dungeon.hero.魔力+=0.05f;
+					}
+					if(Dungeon.hero.天赋(Talent.久战)){
+						Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,0.5f));
+						Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.久战,0.5f));
+					}
+
+					if(Dungeon.赛季(赛季设置.从零英雄))Dungeon.hero.负数生命=0;
+					//击杀瞬移
+					//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
+				}
+			}
+		}
+	}
+	@Override
+	public void 死亡时(Object 来源){
+
 		if(alignment==Alignment.ENEMY){
 			if(buff(Trap.HazardAssistTracker.class)!=null){
 				Statistics.hazardAssistedKills++;
 				Badges.validateHazardAssists();
 			}
 
-			if(Dungeon.赛季(赛季设置.地牢塔防)){
-				int 能量=1;
-				if(Dungeon.hero.地牢塔防更多更快开关&&Random.Int(4)!=0){
-					能量=0;
-				}
-				if(Dungeon.hero.地牢塔防波次%3==0){
-					能量+=最大生命(0.01f);
-				}
+			死亡击杀效果(来源);
 
-				if(Dungeon.赛季(赛季设置.地牢塔防)){
-					for(int n: PathFinder.范围6){
-						Char c=Actor.findChar(pos+n);
-						if(c instanceof 造能结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
-							能量=Math.round(能量*(0.3f+0.2f*x.tier));
-						}
-					}
-				}
-				Dungeon.energy(能量);
-			}else{
-				rollToDropLoot();
+			Buff.刷新(Dungeon.hero,连杀状态.class,10);
+			if(Dungeon.符文("黑暗收割")){
+				Buff.detach(Dungeon.hero,黑暗收割冷却.class);
 			}
-			boolean 可以=true;
-			if(Dungeon.hero())
-			if (Dungeon.hero.buff(灵魂焰灯.燃烧.class)!=null)
-				if(Dungeon.hero.buff(灵魂焰灯.燃烧.class).isCursed()) 可以=false;
+			if(Dungeon.hero.天赋(Talent.曲境折迁)){
+				Dungeon.hero.空间传送(pos);
+			}
+		}
 
-			if(可以&&防刷()){
-				if(来源==Dungeon.hero||来源 instanceof 魔攻之戒||
-				   来源 instanceof Artifact||来源 instanceof Wand||
-				   来源 instanceof Weapon||来源 instanceof Weapon.Enchantment||
-				   来源 instanceof Armor.Glyph||
-				   来源 instanceof Dungeon||
-				   来源 instanceof Buff||
-				   来源 instanceof Trap||
-				   来源 instanceof Bomb||
-				   (来源 instanceof Mob m&&m.alignment==Alignment.ALLY)
-				){
+			boolean soulMarked=buff(灵魂标记.class)!=null;
 
-					if(!isAlive()){
-						if(Dungeon.hero.subClass(HeroSubClass.戏命师))
-						new Bomb.ConjuredBomb().heroexplode(pos);
-
-						if(来源==Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
-							if(Dungeon.hero.belongings.attackingWeapon() instanceof 草剃){
-								for(int n: PathFinder.相邻){
-									Blooming.plantGrass(pos+n);
-								}
-							}
-							if(Dungeon.hero.belongings.attackingWeapon() instanceof 日炎链刃){
-								new Bomb.ConjuredBomb().heroexplode(pos);
-							}
-							if(Dungeon.hero.belongings.attackingWeapon() instanceof 金纹拐){
-								Dungeon.gold(new Gold().random().数量(),pos);
-							}
-							if(Dungeon.hero.belongings.attackingWeapon() instanceof 蜜剑){
-								Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
-							}
-						}
-						if(Dungeon.符文("坦克引擎"))Dungeon.hero.坦克引擎+=强度();
-						if(Dungeon.符文("缩小引擎"))Dungeon.hero.缩小引擎+=强度();
-						if(Dungeon.hero.subClass(HeroSubClass.狂战士)){
-							算法.修复效果(()->{
-								Buff.施加(Dungeon.hero,怒气.class).damage2();
-							});
-						}
-						if(Dungeon.符文("夜狩")){
-							算法.修复效果(()->{
-								Buff.延长( Dungeon.hero, Invisibility.class, Invisibility.DURATION );
-							});
-						}
-
-						if(Dungeon.解压(解压设置.幸运女神)&&算法.概率学(经验+最大等级/2)){
-							Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
-						}
-						if(血腥生肉.概率()>0&&Random.Int(血腥生肉.概率()-1)==0){
-							Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
-						}
-
-						if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
-							Dungeon.hero.回血(Dungeon.hero.最大生命(0.04f));
-							if(算法.概率学(1/8f*(1+Dungeon.hero.天赋点数(Talent.残魂侵蚀,0.5f)))){
-								if(Dungeon.hero.天赋概率(Talent.残魂侵蚀,25)){
-									Dungeon.level.drop(new 纯净粮食(),pos).sprite().drop();
-								}else{
-									Dungeon.level.drop(new 噩梦粮食(),pos).sprite().drop();
-								}
-							}
-						}
-						if(海妖()&&Dungeon.hero.天赋(Talent.捕鱼达人)){
-							Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.捕鱼达人,2)),pos).sprite().drop();
-						}
-
-						if((this instanceof Rat||this instanceof TransmogRat)&&Dungeon.hero.subClass(HeroSubClass.巫咒王鼠)){
-							if(Random.Int(1)==0||Dungeon.hero.职业精通()){
-								Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
-							}
-						}
-
-						if(Dungeon.hero.天赋概率(Talent.盗墓大师,25)){
-							Dungeon.level.drop(Generator.random(),pos).type=Heap.Type.TOMB;
-						}
-
-						if(恶魔亡灵()&&Dungeon.hero.天赋(Talent.渡魂灵猫)){
-							Dungeon.hero.回血(Dungeon.hero.最大生命(Dungeon.hero.天赋点数(Talent.渡魂灵猫,0.025f)));
-						}
-
-						if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
-							Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
-						}
-						if(Dungeon.hero.heroClass(HeroClass.WARRIOR)){
-							Dungeon.hero.护甲(1);
-						}
-						if(Dungeon.hero.heroClass(HeroClass.近卫)){
-							Dungeon.hero.回已损失血(0.05f);
-						}
-						if(骸骨左轮.增加()>0){
-							Dungeon.hero.回血(骸骨左轮.增加());
-						}
-						if(断骨法杖.增加()>0){
-							Dungeon.hero.belongings.charge(断骨法杖.增加());
-							充能卷轴.charge(Dungeon.hero);
-							Sample.INSTANCE.play(Assets.Sounds.CHARGEUP);
-						}
-						if(Dungeon.hero.subClass(HeroSubClass.灵魂武者)){
-							Dungeon.hero.力量+=0.1f+(Dungeon.hero.职业精通()?
-															 0.1f:
-															 0);
-						}
-
-						if(投机之剑.增加()>0&&Dungeon.hero.投机之剑>0){
-							Dungeon.gold(Dungeon.hero.投机之剑,pos);
-						}
-						Buff.施加(Dungeon.hero,击杀累计.class).set(1);
-						if(Dungeon.符文("地狱诅咒")){
-							Dungeon.hero.魔力+=0.25f;
-							Dungeon.hero.防御成长+=0.25f;
-						}
-						if(Dungeon.符文("万魂幡力"))Dungeon.hero.魔力+=0.5f;
-						if(Dungeon.符文("牙仙子")){
-							Dungeon.hero.穿甲成长+=0.5f;
-							Dungeon.hero.法穿成长+=0.5f;
-						}
-						if(Dungeon.符文("怪物猎人")){
-							Dungeon.hero.攻速成长+=0.005f;
-							Dungeon.hero.移速成长+=0.005f;
-						}
-						if(Dungeon.符文("脆皮秒了")&&第x次防御<=1){
-
-							回百分比血(0.15f);
-							回百分比护甲(0.15f);
-							Dungeon.hero.buff(Hunger.class).吃饭(Hunger.STARVING*0.15f);
-						}
-						if (Dungeon.符文("铁男单挑竞技场")&&buff(ScrollOfChallenge.ChallengeArena.class)!=null){
-							Dungeon.hero.生命成长+=最大生命(0.1f);
-							Dungeon.hero.攻击成长+=最大攻击()/10f;
-							Dungeon.hero.防御成长+=最大防御()/10f;
-							Dungeon.hero.命中成长+=最大命中(null)/10f;
-							Dungeon.hero.闪避成长+=最大闪避(null)/10f;
-							Dungeon.hero.攻速成长+=1f/攻击延迟/10f;
-							Dungeon.hero.移速成长+=移速()/10f;
-						}
-						if(Dungeon.符文("灵魂熔炉")){
-							Dungeon.hero.生命成长+=5;
-						}
-						if(Dungeon.符文("溶烛化紫")){
-							Dungeon.hero.攻速成长+=0.015f;
-						}
-						if(Dungeon.符文("狂食鸦群")){
-							Dungeon.hero.生命成长+=15;
-						}
-						if(Dungeon.符文("太阳神")&&Random.Int(2)==0){
-							Dungeon.hero.火把神++;
-						}
-						if(Dungeon.符文("嘟嘟哒嘟嘟哒")){
-							Sample.INSTANCE.play(Assets.Sounds.嘟嘟哒);
-
-							if(this instanceof Skeleton){
-								Dungeon.level.drop(new ScrollOfSirensSong().数量(2),pos).sprite.drop();
-							}
-						}
-						if(Dungeon.符文("吃虫饱兰博")&&this instanceof 水蛭){
-							Dungeon.hero.生命成长+=20;
-						}
-						if(Dungeon.符文("我是色批")&&this instanceof Succubus){
-							Dungeon.hero.力量+=10;
-						}
-						if(Dungeon.符文("裁决使")){
-							Weapon.chargeWeapons(10);
-							Recharging.chargeWands(10);
-							ArtifactRecharge.chargeArtifacts(Dungeon.hero,100);
-						}
-
-						if(Dungeon.符文("气功")){
-							Weapon.chargeWeapons(10);
-							Recharging.chargeWands(10);
-							ArtifactRecharge.chargeArtifacts(Dungeon.hero,100);
-						}
-
-
-						if(Dungeon.符文("起源:进食")){
-							Dungeon.hero.攻击成长+=最大攻击()*0.03f;
-							Dungeon.hero.生命成长+=最大生命*0.03f;
-						}
-						if(Dungeon.符文("属性叠属性叠")&&算法.概率学(1/6f)){
-							new 属性锻造器().放背包();
-						}
-						if(Dungeon.符文("海克斯获取:掉落")&&算法.概率学(1/20f))
-							new 海克斯宝典(true).放背包();
-
-						if(Dungeon.符文("心灵净化")){
-							for(int n: PathFinder.相邻){
-								Char c=Actor.findChar(pos+n);
-								if(c!=null&&c.alignment!=Alignment.ALLY){
-									c.受伤时(c.生命(0.25f),Dungeon.hero);
-								}
-							}
-						}
-						if(Dungeon.hero.天赋(Talent.曲境折迁)){
-							Dungeon.hero.空间传送(pos);
-						}
-
-						if(Dungeon.hero.种族天赋.equals("恶魔")){
-							Dungeon.hero.攻击成长+=0.1f;
-							Dungeon.hero.生命成长+=0.33f;
-						}
-						if(Dungeon.派对(派对设置.怪物猎场)&&算法.概率学(25)){
-							Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();
-						}
-
-						if(Dungeon.赛季(赛季设置.回廊传说)){
-							Item i=Random.oneOf(
-									Generator.randomWeapon((Dungeon.相对层数() - 1) / 5),
-									Generator.randomArmor((Dungeon.相对层数() - 1) / 5),
-									new 属性戒指(),
-									new 血药()
-											   );
-
-							if(i instanceof Weapon||i instanceof Armor||i instanceof Ring)
-							i.等级(Random.Int(Dungeon.相对层数()-1,Dungeon.相对层数()+3));
-
-							if(i instanceof 属性戒指 x){
-								int xn=0;
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.攻击=Random.Int(20,40)*i.等级();
-								}
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.防御=Random.Int(20,40)*i.等级();
-								}
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.穿甲=Random.Int(20,40)*i.等级();
-								}
-
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.吸血=Random.Int(20,40)*i.等级();
-								}
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.暴击=Random.Int(20,40)*i.等级();
-								}
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.反击=Random.Int(20,40)*i.等级();
-								}
-
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.命中=Random.Int(20,40)*i.等级();
-								}
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.闪避=Random.Int(20,40)*i.等级();
-								}
-								if(xn<3&&Random.Int(8)==0){
-									xn++;
-									x.生命=Random.Int(400,800)*i.等级();
-								}
-
-							}
-
-							Dungeon.level.drop(i,pos).sprite.drop();
-						}
-
-						if(Dungeon.符文("黑暗收割")){
-							Buff.detach(Dungeon.hero,黑暗收割冷却.class);
-						}
-						if(Dungeon.符文("鬼脑")&&最大攻击()>=Dungeon.hero.最大攻击())Dungeon.hero.攻击成长+=最大攻击();
-						if(Dungeon.符文("凯旋")){
-							Dungeon.gold(new Gold().random().数量()/3,pos);
-							Dungeon.hero.回已损失血(0.1f);
-						}
-
-
-						if(Dungeon.符文("升级狂妄皇冠")&&hasbuff(狂妄皇冠.class)&&hasbuff(连杀状态.class))Dungeon.hero.回已损失血(0.2f);
-						if(Dungeon.符文("吞噬细胞")&&最大生命<=Dungeon.hero.生命)Dungeon.hero.生命成长+=0.03f*最大生命;
-						if(Dungeon.符文("罪恶快感"))Buff.施加(Dungeon.hero,罪恶快感.class).set(1);
-						if(Dungeon.符文("你肩上的恶魔"))
-							Dungeon.level.drop(new 治疗药剂(),pos).sprite.drop();
-
-						if(Dungeon.符文("击杀获得护盾"))
-							Buff.施加(Dungeon.hero, 护盾.class).设置(Dungeon.hero.最大生命(0.15f));
-
-						if(Dungeon.符文("食以民为天"))Dungeon.hero.buff(Hunger.class).吃饭(最大生命);
-						if(Dungeon.符文("超凡邪恶")){
-							Dungeon.hero.魔力+=0.05f;
-						}
-						Buff.刷新(Dungeon.hero,连杀状态.class,10);
-						if(Dungeon.hero.天赋(Talent.久战)){
-							Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,0.5f));
-							Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.久战,0.5f));
-						}
-
-						if(Dungeon.赛季(赛季设置.从零英雄))Dungeon.hero.负数生命=0;
-						//击杀瞬移
-						//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
+			if(!(this instanceof Wraith)&&soulMarked&&防刷()&&Random.Float()<(Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
+				Wraith w=Wraith.spawnAt(pos,Wraith.class);
+				if(w!=null){
+					Buff.施加(w,Corruption.class);
+					if(Dungeon.level.heroFOV[pos]){
+						CellEmitter.get(pos).burst(ShadowParticle.CURSE,6);
+						Sample.INSTANCE.play(Assets.Sounds.CURSED);
 					}
 				}
 			}
 
-		}
-
-
-		boolean soulMarked=buff(灵魂标记.class)!=null;
-
-		if(!(this instanceof Wraith)&&soulMarked&&防刷()&&Random.Float()<(Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
-			Wraith w=Wraith.spawnAt(pos,Wraith.class);
-			if(w!=null){
-				Buff.施加(w,Corruption.class);
-				if(Dungeon.level.heroFOV[pos]){
-					CellEmitter.get(pos).burst(ShadowParticle.CURSE,6);
-					Sample.INSTANCE.play(Assets.Sounds.CURSED);
-				}
+			if(Dungeon.hero.isAlive()&&!Dungeon.level.heroFOV[pos]){
+				GLog.i(Messages.get(this,"died"));
 			}
-		}
 
-		if(Dungeon.hero.isAlive()&&!Dungeon.level.heroFOV[pos]){
-			GLog.i(Messages.get(this,"died"));
-		}
-
-		if(Dungeon.符文("击杀击杀")&&防刷()&&首次死亡){
-			首次死亡=false;
-			死亡时(来源);
-		}else{
 			super.死亡时(来源);
-		}
-
 	}
 
 	public float lootChance(){
@@ -1847,12 +1868,12 @@ public abstract class Mob extends Char{
 							//silent steps rogue talent, which also applies to rogue's shadow clone
 							if(ch instanceof Hero hero){//||ch instanceof ShadowClone.ShadowAlly
 								int x=hero.惊醒距离();
-								if(distance(ch)>=x){
+								if(距离(ch)>=x){
 									bestChance=Float.POSITIVE_INFINITY;
 								}
 							}
 							//flying characters are naturally stealthy
-							if(ch.flying&&distance(ch)>=2){
+							if(ch.flying&&距离(ch)>=2){
 								bestChance=Float.POSITIVE_INFINITY;
 							}
 							if(bestChance<highestChance){
@@ -1879,7 +1900,7 @@ public abstract class Mob extends Char{
 
 		//chance is 1 in (distance + stealth)
 		protected float detectionChance( Char enemy ){
-			return 1 / (distance( enemy ) + enemy.stealth());
+			return 1 / (距离(enemy)+enemy.stealth());
 		}
 
 		protected void awaken( boolean enemyInFOV ){
@@ -1897,7 +1918,7 @@ public abstract class Mob extends Char{
 			if (alignment == Alignment.ENEMY && Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)) {
 				for (Mob mob : Dungeon.level.mobs) {
 					if (mob.paralysed <= 0
-						&& Dungeon.level.distance(pos, mob.pos) <= 8
+						&&Dungeon.level.距离(pos,mob.pos)<=8
 						&& mob.state != mob.HUNTING) {
 						mob.beckon(target);
 					}
@@ -1926,7 +1947,7 @@ public abstract class Mob extends Char{
 
 		//chance is 1 in (distance/2 + stealth)
 		protected float detectionChance( Char enemy ){
-			return 1 / (distance( enemy ) / 2f + enemy.stealth());
+			return 1 / (距离(enemy)/2f+enemy.stealth());
 		}
 
 		protected boolean noticeEnemy(){
@@ -1939,7 +1960,7 @@ public abstract class Mob extends Char{
 
 			if(alignment==Alignment.ENEMY&&Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)){
 				for(Mob mob: Dungeon.level.mobs){
-					if(mob.paralysed<=0&&Dungeon.level.distance(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
+					if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
 						mob.beckon(target);
 					}
 				}
@@ -2021,7 +2042,7 @@ public abstract class Mob extends Char{
 			if(!recentlyAttackedBy.isEmpty()){
 				for(Char ch: recentlyAttackedBy){
 					if(ch!=null&&ch.isActive()&&Actor.chars().contains(ch)&&alignment!=ch.alignment&&fieldOfView[ch.pos]&&ch.invisible==0&&!isCharmedBy(ch)){
-						if(canAttack(ch)||enemy==null||Dungeon.level.distance(pos,ch.pos)<Dungeon.level.distance(pos,enemy.pos)){
+						if(canAttack(ch)||enemy==null||Dungeon.level.距离(pos,ch.pos)<Dungeon.level.距离(pos,enemy.pos)){
 							enemy=ch;
 							target=ch.pos;
 							swapped=true;
@@ -2073,7 +2094,7 @@ public abstract class Mob extends Char{
 				target = enemy.pos;
 			} else {
 				//we lose our target BEFORE reaching their last known position
-				if (Dungeon.level.distance(pos, target) <= 1){
+				if (Dungeon.level.距离(pos,target)<=1){
 					sprite.showLost();
 					state = WANDERING;
 					target = ((Mob.Wandering)WANDERING).randomDestination();
@@ -2096,7 +2117,7 @@ public abstract class Mob extends Char{
 		public boolean act(boolean enemyInFOV,boolean justAlerted){
 			enemySeen=enemyInFOV;
 			//triggers escape logic when 0-dist rolls a 6 or greater.
-			if(enemy==null||!enemyInFOV&&1+Random.Int(Dungeon.level.distance(pos,target))>=6){
+			if(enemy==null||!enemyInFOV&&1+Random.Int(Dungeon.level.距离(pos,target))>=6){
 				escaped();
 				if(state!=FLEEING){
 					spend(TICK);
@@ -2176,7 +2197,7 @@ public abstract class Mob extends Char{
 
 				//preserve other intelligent allies if they are near the hero
 			}else{
-				if(mob.alignment==Alignment.ALLY&&mob.intelligentAlly&&Dungeon.level.distance(holdFromPos,mob.pos)<=5){
+				if(mob.alignment==Alignment.ALLY&&mob.intelligentAlly&&Dungeon.level.距离(holdFromPos,mob.pos)<=5){
 					level.mobs.remove(mob);
 					heldAllies.add(mob);
 				}
@@ -2205,7 +2226,7 @@ public abstract class Mob extends Char{
 				Collections.sort(candidatePositions,new Comparator<Integer>(){
 					@Override
 					public int compare(Integer t1,Integer t2){
-						return Dungeon.level.distance(gravitatePos,t1)-Dungeon.level.distance(gravitatePos,t2);
+						return Dungeon.level.距离(gravitatePos,t1)-Dungeon.level.距离(gravitatePos,t2);
 					}
 				});
 			}

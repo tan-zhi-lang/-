@@ -505,7 +505,7 @@ public class 召唤物品 extends Artifact {
 			//moves 2 tiles at a time when returning to the hero
 			if (state == WANDERING
 					&& defendingPos == -1
-					&& Dungeon.level.distance(pos, Dungeon.hero.pos) > 1){
+					&&Dungeon.level.距离(pos,Dungeon.hero.pos)>1){
 				speed *= 2;
 			}
 			

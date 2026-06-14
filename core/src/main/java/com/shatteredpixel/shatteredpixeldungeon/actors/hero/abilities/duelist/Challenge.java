@@ -108,9 +108,9 @@ public class Challenge extends ArmorAbility {
 					continue;
 				}
 
-				if (Dungeon.level.distance(i, targetCh.pos) < Dungeon.level.distance(blinkpos, targetCh.pos)){
+				if (Dungeon.level.距离(i,targetCh.pos)<Dungeon.level.距离(blinkpos,targetCh.pos)){
 					blinkpos = i;
-				} else if (Dungeon.level.distance(i, targetCh.pos) == Dungeon.level.distance(blinkpos, targetCh.pos)){
+				} else if (Dungeon.level.距离(i,targetCh.pos)==Dungeon.level.距离(blinkpos,targetCh.pos)){
 					if (Dungeon.level.trueDistance(i, hero.pos) < Dungeon.level.trueDistance(blinkpos, hero.pos)){
 						blinkpos = i;
 					}
@@ -124,7 +124,7 @@ public class Challenge extends ArmorAbility {
 			return;
 		}
 
-		if (Dungeon.level.distance(blinkpos, targetCh.pos) > 5){
+		if (Dungeon.level.距离(blinkpos,targetCh.pos)>5){
 			GLog.w(Messages.get(this, "distant_target"));
 			if (hero.rooted) PixelScene.shake( 1, 1f );
 			return;
@@ -222,7 +222,7 @@ public class Challenge extends ArmorAbility {
 
 				if (other == null
 					|| target.alignment == other.alignment
-					|| Dungeon.level.distance(target.pos, other.pos) > 5) {
+					||Dungeon.level.距离(target.pos,other.pos)>5) {
 					detach();
 				}
 			}

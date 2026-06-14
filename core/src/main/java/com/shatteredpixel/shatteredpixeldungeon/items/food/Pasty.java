@@ -134,7 +134,7 @@ public class Pasty extends Food {
 					if (!Char.hasProp(ch, Char.Property.BOSS)
 						&&!Char.hasProp(ch, Char.Property.MINIBOSS)
 						&& ch.alignment == Char.Alignment.ENEMY
-						&&Dungeon.level.adjacent(hero.pos,ch.pos)){
+						&&Dungeon.level.相邻(hero.pos,ch.pos)){
 						if (target == null ||ch==TargetHealthIndicator.instance.target()){
 							target = ch;
 						}

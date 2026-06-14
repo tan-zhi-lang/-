@@ -159,7 +159,7 @@ public class YogDzewa extends Mob {
 		//end of char/mob logic
 
 		if (phase == 0){
-			if (Dungeon.hero.viewDistance >= Dungeon.level.distance(pos, Dungeon.hero.pos)) {
+			if (Dungeon.hero.viewDistance >= Dungeon.level.距离(pos,Dungeon.hero.pos)) {
 				Dungeon.observe();
 			}
 			if (Dungeon.level.heroFOV[pos]) {
@@ -493,8 +493,8 @@ public class YogDzewa extends Mob {
 	public void aggro(Char ch) {
 		if (ch != null && ch.alignment != alignment || !(ch instanceof Larva || ch instanceof YogRipper || ch instanceof YogEye || ch instanceof YogScorpio)) {
 			for (Mob mob : (Iterable<Mob>) Dungeon.level.mobs.clone()) {
-				if (mob != ch && Dungeon.level.distance(pos, mob.pos) <= 4 && mob.alignment == alignment &&
-						(mob instanceof Larva || mob instanceof YogRipper || mob instanceof YogEye || mob instanceof YogScorpio)) {
+				if (mob != ch&&Dungeon.level.距离(pos,mob.pos)<=4&&mob.alignment==alignment&&
+					(mob instanceof Larva || mob instanceof YogRipper || mob instanceof YogEye || mob instanceof YogScorpio)) {
 					mob.aggro(ch);
 				}
 			}

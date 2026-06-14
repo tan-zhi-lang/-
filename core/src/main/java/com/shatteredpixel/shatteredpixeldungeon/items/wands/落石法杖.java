@@ -76,7 +76,7 @@ public class 落石法杖 extends DamageWand {
 		final int rockCenter;
 
 		//knock back 2 tiles if adjacent
-		if (Dungeon.level.adjacent(Dungeon.hero.pos, target.pos)){
+		if (Dungeon.level.相邻(Dungeon.hero.pos,target.pos)){
 			int oppositeAdjacent = target.pos + (target.pos - Dungeon.hero.pos);
 			Ballistica trajectory = new Ballistica(target.pos, oppositeAdjacent, Ballistica.MAGIC_BOLT);
 			WandOfBlastWave.throwChar(target, trajectory, 2, false, false, this);
@@ -86,7 +86,7 @@ public class 落石法杖 extends DamageWand {
 			rockCenter = trajectory.path.get(Math.min(trajectory.dist, 2));
 
 			//knock back 1 tile if there's 1 tile of space
-		} else if (Dungeon.hero.fieldOfView[target.pos] && Dungeon.level.distance(Dungeon.hero.pos, target.pos) == 2) {
+		} else if (Dungeon.hero.fieldOfView[target.pos] &&Dungeon.level.距离(Dungeon.hero.pos,target.pos)==2) {
 			int oppositeAdjacent = target.pos + (target.pos - Dungeon.hero.pos);
 			Ballistica trajectory = new Ballistica(target.pos, oppositeAdjacent, Ballistica.MAGIC_BOLT);
 			WandOfBlastWave.throwChar(target, trajectory, 1, false, false, this);
@@ -119,7 +119,7 @@ public class 落石法杖 extends DamageWand {
 					continue;
 				}
 				//add rock cell to pos, if it is not solid, and isn't the safecell
-				if (!Dungeon.level.solid[pos] && pos != safeCell && Random.Int(Dungeon.level.distance(rockCenter, pos)) == 0) {
+				if (!Dungeon.level.solid[pos] && pos != safeCell &&Random.Int(Dungeon.level.距离(rockCenter,pos))==0) {
 					rockCells.add(pos);
 				}
 				pos++;

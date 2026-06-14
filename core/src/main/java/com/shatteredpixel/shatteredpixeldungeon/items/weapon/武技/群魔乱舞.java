@@ -15,7 +15,7 @@ import com.watabou.noosa.audio.Sample;
 public class 群魔乱舞 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的所有目标进行一次100%伤害的物理攻击，对所有相邻敌人同样造成此伤害，并花费攻击延迟2倍的回合";
+		desc="对攻击范围内的所有目标进行一次100%伤害的攻击，对所有相邻敌人同样造成此伤害，并花费攻击延迟2倍的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){

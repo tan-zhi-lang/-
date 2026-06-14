@@ -25,7 +25,7 @@ public class VaultMob extends Mob {
 	public void move(int step, boolean travelling) {
 		previousPos = pos;
 		super.move(step, travelling);
-		if (travelling && !sprite.visible && Dungeon.level.distance(pos, Dungeon.hero.pos) <= 6){
+		if (travelling && !sprite.visible &&Dungeon.level.距离(pos,Dungeon.hero.pos)<=6){
 			if (state == HUNTING){
 				WandOfBlastWave.BlastWave.blast(pos, 1f, 0xFF0000);
 			} else if (state == INVESTIGATING){
@@ -82,7 +82,7 @@ public class VaultMob extends Mob {
 		//TODO balance this
 		//chance is 1 in (distance/2 + stealth) as base, but reduced if enemy was only just seen
 		protected float detectionChance( Char enemy ){
-			float chance = 1 / (distance( enemy ) / 2f + enemy.stealth());
+			float chance = 1 / (距离(enemy)/2f+enemy.stealth());
 			if (investigatingTurns == 1 && chance <= 1){
 				chance -= 0.33f;
 			}
@@ -103,21 +103,21 @@ public class VaultMob extends Mob {
 		@Override
 		protected float detectionChance( Char enemy ){
 			//defaults to 1 in (distance + stealth) (classic sleeping detection)
-			if (!Dungeon.level.adjacent(pos, previousPos)){
-				return 1 / (distance( enemy ) + enemy.stealth());
+			if (!Dungeon.level.相邻(pos,previousPos)){
+				return 1 / (距离(enemy)+enemy.stealth());
 			}
 
 			float movementDir = PointF.angle(Dungeon.level.cellToPoint(previousPos), Dungeon.level.cellToPoint(pos))/PointF.G2R;;
 			float enemyDir = PointF.angle(Dungeon.level.cellToPoint(pos), Dungeon.level.cellToPoint(enemy.pos))/PointF.G2R;
 			//classic wandering detection if enemy is within (or touching) a 90 degree cone of vision
 			if (Math.abs(enemyDir - movementDir) <= 45f){
-				return 1 / (distance( enemy ) / 2f + enemy.stealth());
+				return 1 / (距离(enemy)/2f+enemy.stealth());
 			//classic sleeping (i.e. default) detection if enemy is within a 180 degree vision cone
 			} else if (Math.abs(enemyDir - movementDir) < 90f){
-				return 1 / (distance( enemy ) + enemy.stealth());
+				return 1 / (距离(enemy)+enemy.stealth());
 			//otherwise uses very low chance detection (1/8 at 2 tiles, 0% at 3+)
 			} else {
-				float chance = 1 / (float)Math.pow((distance( enemy ) + enemy.stealth()), 3);
+				float chance = 1 / (float)Math.pow((距离(enemy)+enemy.stealth()),3);
 				if (chance < 0.1f){
 					return 0;
 				} else {
@@ -192,7 +192,7 @@ public class VaultMob extends Mob {
 		//set to 0 if below 10% (usually happens at 4+ distance)
 		@Override
 		protected float detectionChance( Char enemy ){
-			float chance = 1 / (float)Math.pow((distance( enemy ) + enemy.stealth()), 2);
+			float chance = 1 / (float)Math.pow((距离(enemy)+enemy.stealth()),2);
 			if (chance < 0.1f){
 				return 0;
 			} else {

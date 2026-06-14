@@ -18,7 +18,7 @@ import com.watabou.utils.Callback;
 public class 嗜血 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次125%伤害必中的物理攻击，并花费攻击延迟的回合，如果击杀敌人则恢复25%已损失生命值";
+		desc="对攻击范围内的一个目标进行一次125%伤害必中的攻击，并花费攻击延迟的回合，如果击杀敌人则恢复25%已损失生命值";
 	}
 	
 	@Override

@@ -36,7 +36,7 @@ public class DM0 extends Mob {
 		if(hasbuff(Paralysis.class)){
 			return 0;
 		}
-		if(enemy!=null&&Dungeon.level.distance( enemy.pos, pos )<=2)
+		if(enemy!=null&&Dungeon.level.距离(enemy.pos,pos)<=2)
 			return super.移速()*5/6f;
 		else
 			return super.移速()*9/6f;

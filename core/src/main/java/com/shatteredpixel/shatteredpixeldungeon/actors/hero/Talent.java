@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
+import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
@@ -404,44 +405,45 @@ public enum Talent {
 			}
 		}
 		String s="";
+		String f="天赋分支:\n";
 		if(this ==知识){
 			s+="\n";
-			s+="\n"+"分支:\n"+Messages.get(埋伏, 埋伏.name() + ".title")+":"+Messages.get(埋伏, 埋伏.name() + ".desc");
+			s+="\n"+f+Messages.get(埋伏, 埋伏.name() + ".title")+":"+Messages.get(埋伏, 埋伏.name() + ".desc");
 			s+="\n"+Messages.get(招架, 招架.name() + ".title")+":"+Messages.get(招架, 招架.name() + ".desc");
 		}
 		if(this ==勇武){
 			s+="\n";
-			s+="\n"+"分支:\n"+Messages.get(技巧, 技巧.name() + ".title")+":"+Messages.get(技巧, 技巧.name() + ".desc");
+			s+="\n"+f+Messages.get(技巧, 技巧.name() + ".title")+":"+Messages.get(技巧, 技巧.name() + ".desc");
 			s+="\n"+Messages.get(久战, 久战.name() + ".title")+":"+Messages.get(久战, 久战.name() + ".desc");
 		}
 		if(this ==备战){
 			s+="\n";
-			s+="\n"+"分支:\n"+Messages.get(突袭, 突袭.name() + ".title")+":"+Messages.get(突袭, 突袭.name() + ".desc");
+			s+="\n"+f+Messages.get(突袭, 突袭.name() + ".title")+":"+Messages.get(突袭, 突袭.name() + ".desc");
 			s+="\n"+Messages.get(武装, 武装.name() + ".title")+":"+Messages.get(武装, 武装.name() + ".desc");
 		}
 		if(this ==健身){
 			s+="\n";
-			s+="\n"+"分支:\n"+Messages.get(猛攻, 猛攻.name() + ".title")+":"+Messages.get(猛攻, 猛攻.name() + ".desc");
+			s+="\n"+f+Messages.get(猛攻, 猛攻.name() + ".title")+":"+Messages.get(猛攻, 猛攻.name() + ".desc");
 			s+="\n"+Messages.get(硬肤, 硬肤.name() + ".title")+":"+Messages.get(硬肤, 硬肤.name() + ".desc");
 			s+="\n"+Messages.get(坚韧, 坚韧.name() + ".title")+":"+Messages.get(坚韧, 坚韧.name() + ".desc");
 		}
 		if(this ==破绽){
 			s+="\n";
-			s+="\n"+"分支:\n"+Messages.get(集中, 集中.name() + ".title")+":"+Messages.get(集中, 集中.name() + ".desc");
+			s+="\n"+f+Messages.get(集中, 集中.name() + ".title")+":"+Messages.get(集中, 集中.name() + ".desc");
 			s+="\n"+Messages.get(财富, 财富.name() + ".title")+":"+Messages.get(财富, 财富.name() + ".desc");
 			s+="\n"+Messages.get(躲避, 躲避.name() + ".title")+":"+Messages.get(躲避, 躲避.name() + ".desc");
 		}
 
 		if(this ==寻觅){
 			s+="\n";
-			s+="\n"+"分支:\n"+Messages.get(近视, 近视.name() + ".title")+":"+Messages.get(近视, 近视.name() + ".desc");
+			s+="\n"+f+Messages.get(近视, 近视.name() + ".title")+":"+Messages.get(近视, 近视.name() + ".desc");
 			s+="\n"+Messages.get(夜视, 夜视.name() + ".title")+":"+Messages.get(夜视, 夜视.name() + ".desc");
 			s+="\n"+Messages.get(戒备, 戒备.name() + ".title")+":"+Messages.get(戒备, 戒备.name() + ".desc");
 		}
 
 		if(this ==静步){
 			s+="\n";
-			s+="\n"+"分支:\n"+Messages.get(快攻, 快攻.name() + ".title")+":"+Messages.get(快攻, 快攻.name() + ".desc");
+			s+="\n"+f+Messages.get(快攻, 快攻.name() + ".title")+":"+Messages.get(快攻, 快攻.name() + ".desc");
 			s+="\n"+Messages.get(丝路, 丝路.name() + ".title")+":"+Messages.get(丝路, 丝路.name() + ".desc");
 			s+="\n"+Messages.get(速跑, 速跑.name() + ".title")+":"+Messages.get(速跑, 速跑.name() + ".desc");
 		}
@@ -739,7 +741,7 @@ public enum Talent {
 		if(Dungeon.炼狱(炼狱设置.诅咒之匙)){
 			if(item instanceof 磨损钥匙||item instanceof 骷髅钥匙||
 			   item instanceof GoldenKey||item instanceof CrystalKey){
-			}else {
+			}else if(item instanceof IronKey){
 
 				Buff.施加(hero,Weakness.class,5);
 				Buff.施加(hero,Vulnerable.class,5);

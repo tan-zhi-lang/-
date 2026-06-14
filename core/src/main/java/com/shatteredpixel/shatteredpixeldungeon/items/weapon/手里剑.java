@@ -17,7 +17,7 @@ public class 手里剑 extends Weapon{
 
 		延迟=0.8f;
 		伤害=0.8f;
-		伏击=0.25f;
+		伏击=0.15f;
 		tier = 1;
 	}
 	

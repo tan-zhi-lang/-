@@ -33,7 +33,7 @@ public class 超级魔法绵羊 extends Mob {
 
 	@Override
 	public float 移速() {
-		if(enemy!=null&&Dungeon.level.distance( enemy.pos, pos )<=2)
+		if(enemy!=null&&Dungeon.level.距离(enemy.pos,pos)<=2)
 			return super.移速()*5/6f;
 		else
 			return super.移速()*9/6f;

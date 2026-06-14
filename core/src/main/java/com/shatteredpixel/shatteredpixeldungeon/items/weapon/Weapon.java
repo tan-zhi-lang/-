@@ -420,7 +420,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 流血(){
 		float 流血=super.流血();
-		if(!钝器())流血+=0.25f;
+		if(!钝器())流血+=0.15f;
 		return 流血;
 	}
 
@@ -438,7 +438,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 伏击(){
 		float 伏击=super.伏击();
-		if(匕首()||短剑()||镖())伏击+=0.25f;
+		if(匕首()||短剑()||镖())伏击+=0.15f;
 		return 伏击;
 	}
 
@@ -611,19 +611,19 @@ abstract public class Weapon extends KindOfWeapon {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
 						最小防御()+"~"+最大防御()+" ++ 防御，"),
 								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
-								(流血()==0?"":"，额外造成 ** "+Math.round(流血()*100)+"% ** 流血伤害"),
+								(流血()==0?"":"，施加 ** "+Math.round(流血()*100)+"% ** 伤害的流血"),
 								(魔法()==0?"":"，额外造成 @@ "+Math.round(魔法()*100)+"% @@ 魔法伤害"),
 								(吸血()==0?"":"，吸血+ ** "+Math.round(吸血()*100)+"% ** "),
-								(伏击()==0?"":"，伏击额外造成 ## "+Math.round(伏击()/4f*100)+"% ## 伤害")
+								(伏击()==0?"":"，伏击伤害+ ## "+Math.round(伏击()*100)+"% ##")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
 							 最小防御(0)+"~"+最大防御(0)+" ++ 防御，"),
 								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
-								(流血()==0?"":"，额外造成 ** "+Math.round(流血()*100)+"% ** 流血伤害"),
+								(流血()==0?"":"，施加 ** "+Math.round(流血()*100)+"% ** 伤害的流血"),
 								(魔法()==0?"":"，额外造成 @@ "+Math.round(魔法()*100)+"% @@ 魔法伤害"),
 								(吸血()==0?"":"，吸血+ ** "+Math.round(吸血()*100)+"% ** "),
-								(伏击()==0?"":"，伏击额外造成 ## "+Math.round(伏击()/4f*100)+"% ## 伤害")
+								(伏击()==0?"":"，伏击伤害+ ## "+Math.round(伏击()*100)+"% ##")
 							   );
 		}
 	}
@@ -633,7 +633,7 @@ abstract public class Weapon extends KindOfWeapon {
 				(augment.damageFactor(最小攻击()+最大攻击()))/2f
 				/augment.delayFactor(延迟())
 				*(1.25f*命中())*(1+流血())*(1+魔法())
-				*(1+伏击()/4f);
+				*(1+伏击());
 	}
 	@Override
 	public int 金币() {
@@ -918,7 +918,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		if (projecting
 			&& (Dungeon.level.passable[dst] || Dungeon.level.avoid[dst] || Actor.findChar(dst) != null)
-			&& Dungeon.level.distance(user.pos, dst) <= Math.round(user.攻击范围() * Enchantment.genericProcChanceMultiplier(user))){
+			&&Dungeon.level.距离(user.pos,dst)<=Math.round(user.攻击范围()*Enchantment.genericProcChanceMultiplier(user))){
 			return dst;
 		} else {
 			return super.throwPos(user, dst);
@@ -935,10 +935,10 @@ abstract public class Weapon extends KindOfWeapon {
 		if (circlingBack){
 			return 1.5f;
 		}
-		if (target!=null&&Dungeon.level.distance(owner.pos,target.pos)<=范围) {
+		if (target!=null&&Dungeon.level.距离(owner.pos,target.pos)<=范围) {
 			//抵近射击
 			return 1f/Math.max(1,
-							  Dungeon.level.distance(owner.pos,target.pos)-范围);
+							   Dungeon.level.距离(owner.pos,target.pos)-范围);
 		} else {
 			return 1f/2/范围+x;
 		}
@@ -1265,7 +1265,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if(连招)
 		if(连招范围!=-1){
 			if(defender!=null)
-			GLog.w("这次你的物理攻击连招范围是"+连招范围);//+"，将造成"+(1+(范围+1-连招范围)*0.2f)+"倍伤害"
+			GLog.w("这次你的攻击连招范围是"+连招范围);//+"，将造成"+(1+(范围+1-连招范围)*0.2f)+"倍伤害"
 			float x=0.2f;
 			damage=Math.round(damage*(1+(范围+1-连招范围)*x));
 		}

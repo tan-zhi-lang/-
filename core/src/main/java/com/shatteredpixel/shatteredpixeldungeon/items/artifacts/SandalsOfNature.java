@@ -317,7 +317,7 @@ public class SandalsOfNature extends Artifact {
 		public void onSelect(Integer cell) {
 			if (cell != null){
 
-				if (!Dungeon.level.heroFOV[cell] || Dungeon.level.distance(curUser.pos, cell) > 3){
+				if (!Dungeon.level.heroFOV[cell] ||Dungeon.level.距离(curUser.pos,cell)>3){
 					GLog.w(Messages.get(SandalsOfNature.class, "out_of_range"));
 				} else {
 

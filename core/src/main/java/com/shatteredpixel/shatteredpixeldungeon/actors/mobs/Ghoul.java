@@ -202,7 +202,7 @@ public class Ghoul extends Mob {
 			enemySeen = false;
 			
 			Ghoul partner = (Ghoul) Actor.findById( partnerID );
-			if (partner != null && (partner.state != partner.WANDERING || Dungeon.level.distance( pos,  partner.target) > 1)){
+			if (partner != null && (partner.state != partner.WANDERING ||Dungeon.level.距离(pos,partner.target)>1)){
 				target = partner.pos;
 				int oldPos = pos;
 				if (getCloser( target )){
@@ -235,7 +235,7 @@ public class Ghoul extends Mob {
 				Dungeon.level.updateFieldOfView( target, target.fieldOfView );
 			}
 
-			if (!target.fieldOfView[ghoul.pos] && Dungeon.level.distance(ghoul.pos, target.pos) >= 4){
+			if (!target.fieldOfView[ghoul.pos] &&Dungeon.level.距离(ghoul.pos,target.pos)>=4){
 				detach();
 				return true;
 			}
@@ -351,7 +351,7 @@ public class Ghoul extends Mob {
 						ch.fieldOfView = new boolean[Dungeon.level.length()];
 						Dungeon.level.updateFieldOfView( ch, ch.fieldOfView );
 					}
-					if (ch.fieldOfView[dieing.pos] || Dungeon.level.distance(ch.pos, dieing.pos) < 4){
+					if (ch.fieldOfView[dieing.pos] ||Dungeon.level.距离(ch.pos,dieing.pos)<4){
 						return (Ghoul) ch;
 					}
 				}

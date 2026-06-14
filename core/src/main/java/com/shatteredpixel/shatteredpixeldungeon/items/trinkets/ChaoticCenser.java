@@ -181,13 +181,13 @@ public class ChaoticCenser extends Trinket {
 		}
 		float closest = 100;
 		for (int cell : candidateCells.keySet()){
-			float dist = Dungeon.level.distance(cell, targetpos);
+			float dist = Dungeon.level.距离(cell,targetpos);
 			if (dist < closest){
 				closest = dist;
 			}
 		}
 		for (int cell : candidateCells.keySet()){
-			float dist = Dungeon.level.distance(cell, targetpos);
+			float dist = Dungeon.level.距离(cell,targetpos);
 			if (dist - closest == 0) {
 				candidateCells.put(cell, 8f);
 			} else if (dist - closest <= 1) {

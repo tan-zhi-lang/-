@@ -34,8 +34,8 @@ public class DM201 extends DM200 {
 	@Override
 	public void 受伤时(float dmg, Object 来源) {
 		if (!(来源 instanceof Corruption)) {
-			if ((来源 instanceof Char&&!Dungeon.level.adjacent(pos,((Char)来源).pos))
-				|| enemy == null || !Dungeon.level.adjacent(pos, enemy.pos)) {
+			if ((来源 instanceof Char&&!Dungeon.level.相邻(pos,((Char)来源).pos))
+				|| enemy == null || !Dungeon.level.相邻(pos,enemy.pos)) {
 				threatened = true;
 			}
 		}

@@ -138,7 +138,7 @@ public class GnollSapper extends Mob {
 		@Override
 		public boolean act(boolean enemyInFOV, boolean justAlerted) {
 			if (!enemyInFOV) {
-				if (Dungeon.level.distance(spawnPos, target) > 3){
+				if (Dungeon.level.距离(spawnPos,target)>3){
 					//don't chase something more than a few tiles out of spawning position
 					target = pos;
 				}
@@ -153,7 +153,7 @@ public class GnollSapper extends Mob {
 				}
 
 				if (Actor.findById(partnerID) != null
-						&& Dungeon.level.distance(pos, enemy.pos) <= 3){
+						&&Dungeon.level.距离(pos,enemy.pos)<=3){
 					Mob partner = (Mob) Actor.findById(partnerID);
 					if (partner.state == partner.SLEEPING){
 						partner.notice();

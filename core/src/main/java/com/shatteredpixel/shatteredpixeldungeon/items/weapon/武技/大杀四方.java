@@ -15,7 +15,7 @@ import com.watabou.noosa.audio.Sample;
 public class 大杀四方 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次100%伤害的物理攻击，并对所有相邻敌人同样造成此伤害，并花费攻击延迟的回合";
+		desc="对攻击范围内的一个目标进行一次100%伤害的攻击，并对所有相邻敌人同样造成此伤害，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){

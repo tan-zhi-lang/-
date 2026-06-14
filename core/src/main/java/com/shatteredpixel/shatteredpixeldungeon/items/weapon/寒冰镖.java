@@ -20,7 +20,7 @@ public class 寒冰镖 extends Weapon{
 		circlingBack=true;
 		延迟=0.8f;
 		伤害=0.8f;
-		伏击=0.25f;
+		伏击=0.15f;
 		tier = 5;
 		特别=true;
 		黄色=true;

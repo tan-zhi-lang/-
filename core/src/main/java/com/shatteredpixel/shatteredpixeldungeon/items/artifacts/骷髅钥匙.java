@@ -139,7 +139,7 @@ public class 骷髅钥匙 extends Artifact {
 					return;
 				}
 
-				if (Dungeon.level.adjacent(target, curUser.pos)) {
+				if (Dungeon.level.相邻(target,curUser.pos)) {
 					if (Dungeon.level.map[target] == Terrain.LOCKED_EXIT){
 						GLog.w(Messages.get(骷髅钥匙.class, "wont_open"));
 						return;

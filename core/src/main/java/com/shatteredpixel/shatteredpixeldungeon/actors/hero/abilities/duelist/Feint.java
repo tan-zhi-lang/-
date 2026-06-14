@@ -65,7 +65,7 @@ public class Feint extends ArmorAbility {
 			return;
 		}
 
-		if (!Dungeon.level.adjacent(hero.pos, target)){
+		if (!Dungeon.level.相邻(hero.pos,target)){
 			GLog.w(Messages.get(this, "too_far"));
 			return;
 		}
@@ -123,7 +123,7 @@ public class Feint extends ArmorAbility {
 
 		for (Mob m : Dungeon.level.mobs.toArray( new Mob[0] )){
 			if ((m.isTargeting(hero) && m.state == m.HUNTING) ||
-					(m.alignment == Char.Alignment.ENEMY && m.state != m.PASSIVE && Dungeon.level.distance(m.pos, image.pos) <= 2)){
+					(m.alignment == Char.Alignment.ENEMY && m.state != m.PASSIVE &&Dungeon.level.距离(m.pos,image.pos)<=2)){
 				m.aggro(image);
 			}
 		}

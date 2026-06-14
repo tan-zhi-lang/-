@@ -32,6 +32,10 @@ public class Snake extends Mob {
 	public int 最大命中(Char target ) {
 		return 10;
 	}
+	@Override
+	public float 最大防御() {
+		return super.最大防御()+1;
+	}
 	
 	@Override
 	public float 攻击时(Char enemy,float damage){

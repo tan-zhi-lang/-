@@ -69,7 +69,7 @@ public class 木遁 extends 目标忍术 {
 
 			if (!shadowStepping) {
 				for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-					if (Dungeon.level.adjacent(mob.pos, hero.pos) && mob.alignment != Char.Alignment.ALLY) {
+					if (Dungeon.level.相邻(mob.pos,hero.pos)&&mob.alignment!=Char.Alignment.ALLY) {
 						Buff.延长(mob,Blindness.class,Blindness.DURATION/2f);
 						if (mob.state == mob.HUNTING) mob.state = mob.WANDERING;
 						mob.sprite.emitter().burst(Speck.factory(Speck.LIGHT),4);

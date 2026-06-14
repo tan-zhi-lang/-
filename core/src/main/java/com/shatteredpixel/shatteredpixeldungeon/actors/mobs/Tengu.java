@@ -90,7 +90,7 @@ public class Tengu extends Mob {
 	
 	@Override
 	public int 最大命中(Char target ) {
-		if (target!=null&&Dungeon.level.adjacent(pos, target.pos)){
+		if (target!=null&&Dungeon.level.相邻(pos,target.pos)){
 			return 10;
 		} else {
 			return 20;
@@ -271,13 +271,13 @@ public class Tengu extends Mob {
 					newPos = Random.Int(level.length());
 					tries--;
 				} while (  tries > 0 &&
-						(level.solid[newPos] ||
-								level.distance(newPos, enemy.pos) < 5 ||
-								level.distance(newPos, enemy.pos) > 7 ||
-								level.distance(newPos, Dungeon.hero.pos) < 5 ||
-								level.distance(newPos, Dungeon.hero.pos) > 7 ||
-								level.distance(newPos, pos) < 5 ||
-								Actor.findChar(newPos) != null ||
+						(level.solid[newPos]||
+						 level.距离(newPos,enemy.pos)<5||
+						 level.距离(newPos,enemy.pos)>7||
+						 level.距离(newPos,Dungeon.hero.pos)<5||
+						 level.距离(newPos,Dungeon.hero.pos)>7||
+						 level.距离(newPos,pos)<5||
+								Actor.findChar(newPos) != null||
 								Dungeon.level.heaps.get(newPos) != null));
 
 				if (tries <= 0) newPos = pos;
@@ -925,10 +925,10 @@ public class Tengu extends Mob {
 		//Targets closest cell which is adjacent to target, and not adjacent to thrower or another shocker
 		for (int i : PathFinder.相邻){
 			int cell = target.pos + i;
-			if (Dungeon.level.distance(cell, thrower.pos) >= 2 && !Dungeon.level.solid[cell]){
+			if (Dungeon.level.距离(cell,thrower.pos)>=2&&!Dungeon.level.solid[cell]){
 				boolean validTarget = true;
 				for (ShockerAbility s : thrower.buffs(ShockerAbility.class)){
-					if (Dungeon.level.distance(cell, s.shockerPos) < 2){
+					if (Dungeon.level.距离(cell,s.shockerPos)<2){
 						validTarget = false;
 						break;
 					}
@@ -978,7 +978,7 @@ public class Tengu extends Mob {
 				target.sprite.parent.add(new Lightning(shockerPos - 1 - Dungeon.level.width(), shockerPos + 1 + Dungeon.level.width(), null));
 				target.sprite.parent.add(new Lightning(shockerPos - 1 + Dungeon.level.width(), shockerPos + 1 - Dungeon.level.width(), null));
 				
-				if (Dungeon.level.distance(Dungeon.hero.pos, shockerPos) <= 1){
+				if (Dungeon.level.距离(Dungeon.hero.pos,shockerPos)<=1){
 					Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
 				}
 				
@@ -989,7 +989,7 @@ public class Tengu extends Mob {
 				target.sprite.parent.add(new Lightning(shockerPos - Dungeon.level.width(), shockerPos + Dungeon.level.width(), null));
 				target.sprite.parent.add(new Lightning(shockerPos - 1, shockerPos + 1, null));
 				
-				if (Dungeon.level.distance(Dungeon.hero.pos, shockerPos) <= 1){
+				if (Dungeon.level.距离(Dungeon.hero.pos,shockerPos)<=1){
 					Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
 				}
 				

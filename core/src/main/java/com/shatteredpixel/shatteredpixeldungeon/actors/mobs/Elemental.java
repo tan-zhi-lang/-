@@ -129,7 +129,7 @@ public abstract class Elemental extends Mob {
 	
 	protected boolean doAttack( Char enemy ) {
 		
-		if (Dungeon.level.adjacent( pos, enemy.pos )
+		if (Dungeon.level.相邻(pos,enemy.pos)
 				|| rangedCooldown > 0
 				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT ).collisionPos != enemy.pos) {
 			

@@ -15,7 +15,7 @@ import com.watabou.noosa.audio.Sample;
 public class 背刺 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内进行一次150%伤害的物理攻击，并穿越至目标身后，并花费攻击延迟的回合";
+		desc="对攻击范围内进行一次150%伤害的攻击，并穿越至目标身后，并花费攻击延迟的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){

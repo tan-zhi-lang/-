@@ -41,7 +41,7 @@ public class GnollTricksterSprite extends MobSprite {
 
 	@Override
 	public void attack( int cell ) {
-		if (!Dungeon.level.adjacent(cell, ch.pos)) {
+		if (!Dungeon.level.相邻(cell,ch.pos)) {
 
 			((MissileSprite)parent.recycle( MissileSprite.class )).
 					reset( this, cell, new ParalyticDart(), new Callback() {

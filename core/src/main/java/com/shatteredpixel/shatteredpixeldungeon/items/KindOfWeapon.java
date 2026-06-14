@@ -542,7 +542,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	
 	public boolean canReach( Char owner, int target){
 		int reach = owner.攻击范围();
-		if (Dungeon.level.distance( owner.pos, target ) > reach){
+		if (Dungeon.level.距离(owner.pos,target)>reach){
 			return false;
 		} else {
 			boolean[] passable = BArray.not(Dungeon.level.solid, null);
@@ -570,7 +570,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 				return 最大攻击();
 			}
 			if(defender!=null&&伏击()>0&&defender instanceof Mob&&((Mob)defender).surprisedBy(hero)){
-				damage+=damage*伏击()/4f
+				damage+=damage*伏击()
 						*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃
 						  &&hero.暴击判定(defender,1)>1?hero.暴击伤害():1);
 

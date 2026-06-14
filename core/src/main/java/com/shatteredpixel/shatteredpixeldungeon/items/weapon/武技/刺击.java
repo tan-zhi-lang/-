@@ -19,7 +19,7 @@ import com.watabou.utils.Callback;
 public class 刺击 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次150%伤害必中的物理攻击，并花费攻击延迟的回合，如果是海妖类敌人，则造成175%伤害，且击杀额外掉落1生肉";
+		desc="对攻击范围内的一个目标进行一次150%伤害必中的攻击，并花费攻击延迟的回合，如果是海妖类敌人，则造成175%伤害，且击杀额外掉落1生肉";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){

@@ -397,7 +397,7 @@ public class Armor extends EquipableItem {
 			return augment.defenseFactor(tier() + lvl)*防御;
 		}
 
-		return augment.defenseFactor(2*tier() * (1 + lvl/1.5f))*防御;
+		return augment.defenseFactor(tier()*(2+lvl))*防御;
 	}
 
 	public final float 最小防御(){

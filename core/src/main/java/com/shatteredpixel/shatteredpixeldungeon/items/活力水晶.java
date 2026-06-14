@@ -17,7 +17,7 @@ public class 活力水晶 extends 用品 {
 	@Override
 	public void 使用(Hero hero){
 		Sample.INSTANCE.play(Assets.Sounds.生命水晶);
-		hero.再生成长+=0.05f;
+		hero.再生成长+=0.03f;
 		
 		super.使用(hero);
 	}

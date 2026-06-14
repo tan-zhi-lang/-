@@ -14,7 +14,7 @@ public class 战斧 extends Weapon {
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		延迟= 1.25f;
-		流血=0.25f;
+		流血= 0.15f;
 		tier = 3;
 		技能=new 无情铁手();
 	}

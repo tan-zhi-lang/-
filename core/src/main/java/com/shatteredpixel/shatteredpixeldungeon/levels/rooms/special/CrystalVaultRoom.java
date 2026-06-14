@@ -51,7 +51,7 @@ public class CrystalVaultRoom extends SpecialRoom {
 			int neighbourIdx = Random.Int(PathFinder.CIRCLE8.length);
 			i1Pos = c + PathFinder.CIRCLE8[neighbourIdx];
 			i2Pos = c + PathFinder.CIRCLE8[(neighbourIdx+4)%8];
-		} while (level.adjacent(i1Pos, doorPos) || level.adjacent(i2Pos, doorPos));
+		} while (level.相邻(i1Pos,doorPos)||level.相邻(i2Pos,doorPos));
 
 		level.drop( i1, i1Pos ).type = Heap.Type.CRYSTAL_CHEST;
 		float altChance = 1/10f * RatSkull.exoticChanceMultiplier();

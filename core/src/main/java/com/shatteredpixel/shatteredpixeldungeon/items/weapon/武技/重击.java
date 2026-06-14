@@ -19,7 +19,7 @@ public class 重击 extends 武技{
 	
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次134%伤害+力量的物理攻击，并花费攻击延迟1.25倍的回合";
+		desc="对攻击范围内的一个目标进行一次134%伤害+力量的攻击，并花费攻击延迟1.25倍的回合";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){

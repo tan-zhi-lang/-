@@ -52,12 +52,12 @@ public class RitualSiteRoom extends StandardRoom {
 
 	@Override
 	public boolean canPlaceItem(Point p, Level l) {
-		return super.canPlaceItem(p, l) && l.distance(CeremonialCandle.ritualPos, l.pointToCell(p)) >= 2;
+		return super.canPlaceItem(p, l) &&l.距离(CeremonialCandle.ritualPos,l.pointToCell(p))>=2;
 	}
 
 	@Override
 	public boolean canPlaceCharacter(Point p, Level l) {
-		return super.canPlaceCharacter(p, l) && l.distance(CeremonialCandle.ritualPos, l.pointToCell(p)) >= 2;
+		return super.canPlaceCharacter(p, l) &&l.距离(CeremonialCandle.ritualPos,l.pointToCell(p))>=2;
 	}
 
 	public static class RitualMarker extends CustomTilemap {

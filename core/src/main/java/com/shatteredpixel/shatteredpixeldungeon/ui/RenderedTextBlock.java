@@ -50,9 +50,43 @@ public class RenderedTextBlock extends Component {
 	}
 	public void text(String text){
 		this.text = text;
-
+		//文本注解ps
+		if(text.contains("战斗状态")||text.contains("连杀状态")||text.contains("防御")||
+		   text.contains("首次攻击")||text.contains("近战攻击")||text.contains("远程攻击")||
+		   text.contains("攻击")||text.contains("狙击")||
+		   text.contains("已损失")||text.contains("残血")||text.contains("大残")||text.contains("康血")||
+		   text.contains("半血")||text.contains("半血以下")||text.contains("半血以上")||
+		   text.contains("综合属性")||text.contains("治疗护盾")||
+		   text.contains("吸血")||text.contains("全能吸血")){
+//			text+="\n\n文本注解:";//排版一次
+//
+//			if (text.contains("战斗状态")) text+="\n战斗状态:攻击和防御时获得5回合的战斗状态";
+//			if (text.contains("连杀状态")) text+="\n连杀状态:击杀敌人会获得10回合连杀状态";
+//			if (text.contains("防御")) text+="\n防御:正常来说是最大和最小防御，如果有防御效果则是受到来自敌人的攻击触发";
+//
+//			if (text.contains("首次攻击")) text+="\n首次攻击:对每个敌人的首次攻击";
+//			if (text.contains("近战攻击")) text+="\n近战攻击:敌人受到攻击时距离你小于等于2";
+//			if (text.contains("远程攻击")) text+="\n远程攻击:敌人受到攻击时距离你大于2";
+//			if (text.contains("攻击")) text+="\n攻击:正常来说是最大和最小攻击，如果有攻击效果则是空手、武器或武器投掷造成伤害触发";
+//			if (text.contains("狙击")) text+="\n狙击:敌人受到伤害时距离你大于7";
+//
+//			if (text.contains("已损失")) text+="\n已损失:(最大属性-属性)/最大属性";
+//			if (text.contains("残血")) text+="\n残血:生命值低于40%的状态";
+//			if (text.contains("大残")) text+="\n大残:生命值低于10%的状态";
+//			if (text.contains("康血")) text+="\n康血:生命值高于60%的状态";
+//
+//			if (text.contains("半血")) text+="\n\n半血:生命值低于等于60%并且高于等于40%的状态";
+//			if (text.contains("半血以下")) text+="\n半血以下:生命值低于50%的状态";
+//			if (text.contains("半血以上")) text+="\n半血以上:生命值高于50%的状态";
+//
+//			if (text.contains("综合属性")) text+="\n综合属性:生命和护甲、命中和闪避、攻速和移速、力量和魔力的属性加成";
+//			if (text.contains("治疗护盾")) text+="\n治疗护盾:影响恢复生命、恢复护甲、护盾的属性加成";
+//
+//			if (text.contains("吸血")) text+="\n吸血:造成的攻击伤害为你恢复吸血百分比的生命";
+//			if (text.contains("全能吸血")) text+="\n全能吸血:敌人受到的大部分伤害为你恢复全能吸血百分比的生命";
+		}
 		if (text != null && !text.equals("")) {
-			
+
 			tokens = Game.platform.splitforTextBlock(text, multiline);
 
 			build();

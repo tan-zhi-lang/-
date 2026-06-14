@@ -41,7 +41,7 @@ public class Dread extends Buff {
 	public boolean act() {
 
 		if (!Dungeon.level.heroFOV[target.pos]
-				&& Dungeon.level.distance(target.pos, Dungeon.hero.pos) >= 6) {
+				&&Dungeon.level.距离(target.pos,Dungeon.hero.pos)>=6) {
 			if (target instanceof Mob){
 				((Mob) target).经验 /= 2;
 			}

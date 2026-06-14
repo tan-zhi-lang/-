@@ -233,7 +233,7 @@ public class CavesBossLevel extends Level {
 	@Override
 	public boolean setCellToWater(boolean includeTraps, int cell) {
 		for (int i : pylonPositions){
-			if (Dungeon.level.distance(cell, i) <= 1){
+			if (Dungeon.level.距离(cell,i)<=1){
 				return false;
 			}
 		}
@@ -261,7 +261,7 @@ public class CavesBossLevel extends Level {
 		int gatePos = pointToCell(new Point(gate.left, gate.top));
 		if (ch == Dungeon.hero && !locked && solid[gatePos]){
 			for (int pos : pylonPositions){
-				if (Dungeon.level.distance(ch.pos, pos) <= 3){
+				if (Dungeon.level.距离(ch.pos,pos)<=3){
 					seal();
 					break;
 				}
@@ -756,7 +756,7 @@ public class CavesBossLevel extends Level {
 								} else {
 									data[i] = -1;
 								}
-							} else if (Dungeon.level.adjacent(k, j)) {
+							} else if (Dungeon.level.相邻(k,j)) {
 								int w = Dungeon.level.width;
 								data[i] = 54 + (j % w + 8 * (j / w)) - (k % w + 8 * (k / w));
 							}
@@ -812,7 +812,7 @@ public class CavesBossLevel extends Level {
 		public Image image(int tileX, int tileY) {
 			int i = tileX + tileW*(tileY + this.tileY);
 			for (int k : pylonPositions){
-				if (Dungeon.level.distance(i, k) <= 1){
+				if (Dungeon.level.距离(i,k)<=1){
 					return null;
 				}
 			}

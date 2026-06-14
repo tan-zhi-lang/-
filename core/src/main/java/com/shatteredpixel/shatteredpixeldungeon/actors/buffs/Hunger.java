@@ -98,7 +98,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		if(Dungeon.符文("我是瘦子"))x/=4f;
 		x*=SaltCube.hungerGainMultiplier();
 		x*=血腥生肉.饥饿();
-
+		if(Dungeon.hero.heroClass(HeroClass.WARRIOR))x*=0.67f;
 		return x;
 	}
 	@Override

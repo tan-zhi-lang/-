@@ -14,6 +14,7 @@ public class 匕首 extends Weapon{
 		
 		伤害=0.8f;
 		延迟=0.8f;
+		伏击=0.15f;
 		技能=new 潜行();
 
 

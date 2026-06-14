@@ -63,7 +63,7 @@ public class 烈焰法杖 extends DamageWand {
 		}
 
 		//only ignite cells directly near caster if they are flammable or solid
-		if (Dungeon.level.adjacent(bolt.sourcePos, bolt.collisionPos)
+		if (Dungeon.level.相邻(bolt.sourcePos,bolt.collisionPos)
 			&& !(Dungeon.level.flamable[bolt.collisionPos] || Dungeon.level.solid[bolt.collisionPos])){
 			//do burn any heaps located here though
 			if (Dungeon.level.heaps.get(bolt.collisionPos) != null){

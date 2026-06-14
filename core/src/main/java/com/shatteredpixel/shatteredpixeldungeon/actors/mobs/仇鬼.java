@@ -103,7 +103,7 @@ public class 仇鬼 extends Mob implements Callback {
 	
 	protected boolean doAttack( Char enemy ) {
 
-		if (Dungeon.level.adjacent( pos, enemy.pos )
+		if (Dungeon.level.相邻(pos,enemy.pos)
 				|| new Ballistica( pos, enemy.pos, Ballistica.MAGIC_BOLT).collisionPos != enemy.pos) {
 			
 			return super.doAttack( enemy );

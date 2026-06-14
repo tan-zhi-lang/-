@@ -162,7 +162,7 @@ public class Golem extends Mob {
 
 	private boolean canTele(int target){
 		if (enemyTeleCooldown > 0) return false;
-		PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null), Dungeon.level.distance(pos, target)+1);
+		PathFinder.buildDistanceMap(target, BArray.not(Dungeon.level.solid, null),Dungeon.level.距离(pos,target)+1);
 		//zaps can go around blocking terrain, but not through it
 		if (PathFinder.distance[pos] == Integer.MAX_VALUE){
 			return false;
@@ -208,8 +208,8 @@ public class Golem extends Mob {
 
 				int oldPos = pos;
 
-				if (distance(enemy) >= 1 && Random.Int(100/distance(enemy)) == 0
-						&& !Char.hasProp(enemy, Property.IMMOVABLE) && canTele(target)){
+				if (距离(enemy)>=1&&Random.Int(100/距离(enemy))==0
+					&&!Char.hasProp(enemy, Property.IMMOVABLE)&&canTele(target)){
 					if (sprite != null && (sprite.visible || enemy.sprite.visible)) {
 						sprite.zap( enemy.pos );
 						return false;

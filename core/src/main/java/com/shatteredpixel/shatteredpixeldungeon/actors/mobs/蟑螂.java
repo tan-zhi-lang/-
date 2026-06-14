@@ -32,7 +32,7 @@ public class 蟑螂 extends Mob {
 
 	@Override
 	public int 最大闪避(Char enemy){
-		if(enemy!=null&&Dungeon.level.distance( enemy.pos, pos )<=2)return 0;
+		if(enemy!=null&&Dungeon.level.距离(enemy.pos,pos)<=2)return 0;
 
 		return super.最大闪避(enemy);
 	}
@@ -105,7 +105,7 @@ public class 蟑螂 extends Mob {
 		@Override
 		protected void escaped() {
 			if (攻击&& !Dungeon.level.heroFOV[pos]
-				&& Dungeon.level.distance(Dungeon.hero.pos, pos) >= 6) {
+				&&Dungeon.level.距离(Dungeon.hero.pos,pos)>=6) {
 
 				int count = 32;
 				int newPos;
@@ -114,7 +114,7 @@ public class 蟑螂 extends Mob {
 					if (count-- <= 0) {
 						break;
 					}
-				} while (newPos == -1 || Dungeon.level.heroFOV[newPos] || Dungeon.level.distance(newPos, pos) < (count/3));
+				} while (newPos == -1 || Dungeon.level.heroFOV[newPos] ||Dungeon.level.距离(newPos,pos)<(count/3));
 
 				if (newPos != -1) {
 

@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -183,7 +182,7 @@ public class Thief extends Mob {
 		protected void escaped() {
 			if (item != null
 					&& !Dungeon.level.heroFOV[pos]
-					&& Dungeon.level.distance(Dungeon.hero.pos, pos) >= 6) {
+					&&Dungeon.level.距离(Dungeon.hero.pos,pos)>=6) {
 
 				int count = 32;
 				int newPos;
@@ -192,7 +191,7 @@ public class Thief extends Mob {
 					if (count-- <= 0) {
 						break;
 					}
-				} while (newPos == -1 || Dungeon.level.heroFOV[newPos] || Dungeon.level.distance(newPos, pos) < (count/3));
+				} while (newPos == -1 || Dungeon.level.heroFOV[newPos] ||Dungeon.level.距离(newPos,pos)<(count/3));
 
 				if (newPos != -1) {
 

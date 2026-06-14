@@ -60,11 +60,11 @@ public class GnollExile extends Gnoll {
 	}
 	@Override
 	protected boolean canAttack( Char enemy ) {
-		if (Dungeon.level.adjacent( pos, enemy.pos )){
+		if (Dungeon.level.相邻(pos,enemy.pos)){
 			return true;
 		}
 
-		if (Dungeon.level.distance( pos, enemy.pos ) <= 2){
+		if (Dungeon.level.距离(pos,enemy.pos)<=2){
 			boolean[] passable = BArray.not(Dungeon.level.solid, null);
 
 			for (Char ch : Actor.chars()) {

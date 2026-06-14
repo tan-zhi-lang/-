@@ -64,7 +64,7 @@ public class GnollGuard extends Mob {
 
 	@Override
 	public float 最小攻击() {
-		if (enemy != null && !Dungeon.level.adjacent(pos, enemy.pos)){
+		if (enemy != null && !Dungeon.level.相邻(pos,enemy.pos)){
 			return 16;
 		} else {
 			return 6;
@@ -72,7 +72,7 @@ public class GnollGuard extends Mob {
 	}
 	@Override
 	public float 最大攻击() {
-		if (enemy != null && !Dungeon.level.adjacent(pos, enemy.pos)){
+		if (enemy != null && !Dungeon.level.相邻(pos,enemy.pos)){
 			return 22;
 		} else {
 			return 12;
@@ -83,7 +83,7 @@ public class GnollGuard extends Mob {
 	public float 攻击时(final Char enemy, float damage) {
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		float dmg = super.攻击时(enemy, damage);
-		if (enemy == Dungeon.hero && !Dungeon.level.adjacent(pos, enemy.pos) && dmg > 12){
+		if (enemy == Dungeon.hero&&!Dungeon.level.相邻(pos,enemy.pos)&&dmg>12){
 			GLog.n(Messages.get(this, "spear_warn"));
 		}
 		return dmg;
@@ -102,7 +102,7 @@ public class GnollGuard extends Mob {
 	@Override
 	protected boolean canAttack( Char enemy ) {
 		//cannot 'curve' spear hits like the hero, requires fairly open space to hit at a distance
-		return Dungeon.level.distance(enemy.pos, pos) <= 2
+		return Dungeon.level.距离(enemy.pos,pos)<=2
 				&& new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos
 				&& new Ballistica( enemy.pos, pos, Ballistica.PROJECTILE).collisionPos == pos;
 	}

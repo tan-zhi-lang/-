@@ -380,7 +380,7 @@ public class ElementalStrike extends ArmorAbility {
 			Collections.sort(affected, new Comparator<Char>() {
 				@Override
 				public int compare(Char a, Char b) {
-					return Dungeon.level.distance(hero.pos, a.pos) - Dungeon.level.distance(hero.pos, b.pos);
+					return Dungeon.level.距离(hero.pos,a.pos)-Dungeon.level.距离(hero.pos,b.pos);
 				}
 			});
 

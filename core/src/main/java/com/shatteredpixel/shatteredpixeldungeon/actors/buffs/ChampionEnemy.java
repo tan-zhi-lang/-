@@ -155,7 +155,7 @@ public abstract class ChampionEnemy extends Buff {
 
 		@Override
 		public boolean canAttackWithExtraReach(Char enemy) {
-			if (Dungeon.level.distance( target.pos, enemy.pos ) > 4){
+			if (Dungeon.level.距离(target.pos,enemy.pos)>4){
 				return false;
 			} else {
 				boolean[] passable = BArray.not(Dungeon.level.solid, null);
@@ -204,7 +204,7 @@ public abstract class ChampionEnemy extends Buff {
 
 		@Override
 		public boolean canAttackWithExtraReach(Char enemy) {
-			if (Dungeon.level.distance( target.pos, enemy.pos ) > 2){
+			if (Dungeon.level.距离(target.pos,enemy.pos)>2){
 				return false;
 			} else {
 				boolean[] passable = BArray.not(Dungeon.level.solid, null);

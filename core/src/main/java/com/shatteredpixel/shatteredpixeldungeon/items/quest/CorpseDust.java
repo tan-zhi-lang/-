@@ -101,7 +101,7 @@ public class CorpseDust extends Item {
 					if (Dungeon.level.heroFOV[i]
 							&& !Dungeon.level.solid[i]
 							&& Actor.findChar( i ) == null
-							&& Dungeon.level.distance(i, Dungeon.hero.pos) > minDist){
+							&&Dungeon.level.距离(i,Dungeon.hero.pos)>minDist){
 						candidates.add(i);
 					}
 				}

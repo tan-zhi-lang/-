@@ -50,14 +50,14 @@ public class GnollTrickster extends Gnoll {
 	
 	@Override
 	public float 移速() {
-		if(enemy!=null&&Dungeon.level.distance( enemy.pos, pos )<=2)
+		if(enemy!=null&&Dungeon.level.距离(enemy.pos,pos)<=2)
 		return super.移速()*5/6f;
 		else
 		return super.移速()*9/6f;
 	}
 	@Override
 	protected boolean canAttack( Char enemy ) {
-		return !Dungeon.level.adjacent( pos, enemy.pos )
+		return !Dungeon.level.相邻(pos,enemy.pos)
 				&& (super.canAttack(enemy) || new Ballistica( pos, enemy.pos, Ballistica.PROJECTILE).collisionPos == enemy.pos);
 	}
 

@@ -130,7 +130,7 @@ public class RotGardenRoom extends SpecialRoom {
 		newPassable[pos] = false;
 
 		//if lasher isn't near heart, we can just use cardinal directions
-		if (level.distance(pos, heartPos) > 2){
+		if (level.距离(pos,heartPos)>2){
 			for (int i : PathFinder.相邻4){
 				newPassable[pos+i] = false;
 			}

@@ -258,13 +258,13 @@ public abstract class Char extends Actor {
 	}
 
 	public boolean canInteract(Char c){
-		if (c instanceof Hero hero&&c.alignment!=Alignment.ENEMY&&adjacent(c)){
+		if (c instanceof Hero hero&&c.alignment!=Alignment.ENEMY&&相邻(c)){
 			return true;
 		}
 		if (false&&c instanceof Hero hero
 				&& alignment == Alignment.ALLY
 				&& !hasProp(this, Property.IMMOVABLE)
-				&& Dungeon.level.distance(pos, c.pos) <= 2){//移形换位
+				&&Dungeon.level.距离(pos,c.pos)<=2){//移形换位
 			return true;
 		}
 
@@ -574,7 +574,7 @@ public abstract class Char extends Actor {
 			if (!enemy.isAlive()){
 				return true;
 			}
-			if(enemy.distance(this)>viewDistance/2){
+			if(enemy.距离(this)>viewDistance/2){
 				enemy.sprite.愤怒();//你别让我接近！远距离受伤
 			}
 
@@ -1009,7 +1009,7 @@ public abstract class Char extends Actor {
 		if(this instanceof Hero hero){
 			if(!hero.符文("狂怒攻击")){
 				if(hero.符文("安内")){
-					if(Dungeon.level.adjacent(this,enemy)){
+					if(Dungeon.level.相邻(this,enemy)){
 						if(暴击判定(enemy,1)>1)
 							damage=暴击判定(enemy,damage*1.75f);
 					}else damage=暴击判定(enemy,damage*2f/3f);
@@ -1060,7 +1060,7 @@ public abstract class Char extends Actor {
 
 		//if dmg is from a character we already reduced it in Char.attack
 		if(Dungeon.hero.alignment==alignment&&Dungeon.hero.buff(守御灵光.class)!=null&&
-		   Dungeon.level.distance(pos,Dungeon.hero.pos)<=2){
+		   Dungeon.level.距离(pos,Dungeon.hero.pos)<=2){
 			damage*=1f-Dungeon.hero.天赋点数(Talent.守御灵光,0.1f);
 		}
 		if(enemy!=null)
@@ -1075,7 +1075,7 @@ public abstract class Char extends Actor {
 		if (Dungeon.hero() && Dungeon.level != null
 				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment
 				&& Dungeon.hero.buff(守御灵光.class) != null
-				&& (Dungeon.level.distance(pos, Dungeon.hero.pos) <= 2)) {
+				&& (Dungeon.level.距离(pos,Dungeon.hero.pos)<=2)) {
 			return Dungeon.hero.glyphLevel(cls);
 		} else {
 			return -1;
@@ -1246,7 +1246,7 @@ public abstract class Char extends Actor {
 		if(Dungeon.赛季(赛季设置.地牢塔防))
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
-				if(c instanceof 黑暗结晶 x&&Dungeon.level.distance(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
+				if(c instanceof 黑暗结晶 x&&Dungeon.level.距离(pos,x.pos)<=x.viewDistance&&Dungeon.level.heroFOV[c.pos]){
 					dmg*=1.2f+x.tier*0.1f;
 				}
 			}
@@ -1496,6 +1496,10 @@ public abstract class Char extends Actor {
 	
 	public void 死亡时(Object 来源) {
 		destroy();
+
+		if(首次死亡)
+		首次死亡=false;
+
 		if (来源!=Chasm.class) {
 
 			if(来源 instanceof 尘遁) sprite.速度die();
@@ -1709,7 +1713,7 @@ public abstract class Char extends Actor {
 	//travelling may be false when a character is moving instantaneously, such as via teleportation
 	public void move( int step, boolean travelling ) {
 
-		if (travelling && Dungeon.level.adjacent( step, pos ) && buff( Vertigo.class ) != null) {
+		if (travelling&&Dungeon.level.相邻(step,pos)&&buff(Vertigo.class)!=null) {
 			sprite.interruptMotion();
 			int newPos = pos + PathFinder.相邻[Random.Int(8)];
 			if (!(Dungeon.level.passable[newPos] || Dungeon.level.avoid[newPos])
@@ -1752,14 +1756,35 @@ public abstract class Char extends Actor {
 		return false;
 	}
 
-	public boolean adjacent( Char other ) {
-		return Dungeon.level.adjacent( pos, other.pos );
+	public boolean 相邻(int pos2){
+		return 距离(pos2)<=1;
 	}
-	public int distance( Char other ) {
-		return Dungeon.level.distance( pos, other.pos );
+	public boolean 相邻(Char c){//adjacent
+		return Dungeon.level.相邻(pos,c.pos);
 	}
-	public int distance( int target ) {
-		return Dungeon.level.distance( pos, target );
+	public boolean 近战( Char other ) {
+		return Dungeon.level.距离(pos,other.pos)<=2;
+	}
+	public boolean 近战( int target ) {
+		return Dungeon.level.距离(pos,target)<=2;
+	}
+	public boolean 远程( Char other ) {
+		return Dungeon.level.距离(pos,other.pos)>2;
+	}
+	public boolean 远程( int target ) {
+		return Dungeon.level.距离(pos,target)>2;
+	}
+	public boolean 狙击( Char other ) {
+		return Dungeon.level.距离(pos,other.pos)>7;
+	}
+	public boolean 狙击( int target ) {
+		return Dungeon.level.距离(pos,target)>7;
+	}
+	public int 距离(Char other) {//distance
+		return Dungeon.level.距离(pos,other.pos);
+	}
+	public int 距离(int target) {
+		return Dungeon.level.距离(pos,target);
 	}
 	public boolean[] modifyPassable( boolean[] passable){
 		//do nothing by default, but some chars can pass over terrain that others can't
@@ -2021,19 +2046,19 @@ public abstract class Char extends Actor {
 		return 最大生命*x;
 	}
 	public boolean 大残(){
-		return 生命/最大生命<=0.1f;
+		return 生命/最大生命<0.1f;
 	}
 	public boolean 残血(){
-		return 生命/最大生命<=0.4f;
+		return 生命/最大生命<0.4f;
 	}
 	public boolean 半血(){
 		return !残血()&&!康血();
 	}
 	public boolean 半血以下(){
-		return 生命/最大生命<=0.5f;
+		return 生命/最大生命<0.5f;
 	}
 	public boolean 康血(){
-		return 生命/最大生命>=0.6f;
+		return 生命/最大生命>0.6f;
 	}
 	public boolean 满血(){
 		return 生命==最大生命;
@@ -2199,12 +2224,6 @@ public abstract class Char extends Actor {
 		if(在左边(pos2))pos2=左边(pos2);
 		if(在右边(pos2))pos2=右边(pos2);
 		return pos2;
-	}
-	public boolean 相邻(int pos2){
-		return distance(pos2)<=1;
-	}
-	public boolean 相邻(Char c){
-		return distance(c)<=1;
 	}
 	public boolean 在地板(){
 		if(Dungeon.level==null)return false;

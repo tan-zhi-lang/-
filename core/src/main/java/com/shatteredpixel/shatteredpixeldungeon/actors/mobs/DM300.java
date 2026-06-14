@@ -167,13 +167,13 @@ public class DM300 extends Mob {
 			//determine if DM can reach its enemy
 			boolean canReach;
 			if (enemy == null || !enemy.isAlive()){
-				if (Dungeon.level.adjacent(pos, Dungeon.hero.pos)){
+				if (Dungeon.level.相邻(pos,Dungeon.hero.pos)){
 					canReach = true;
 				} else {
 					canReach = (Dungeon.findStep(this, Dungeon.hero.pos, Dungeon.level.openSpace, fieldOfView, true) != -1);
 				}
 			} else {
-				if (Dungeon.level.adjacent(pos, enemy.pos)){
+				if (Dungeon.level.相邻(pos,enemy.pos)){
 					canReach = true;
 				} else {
 					canReach = (Dungeon.findStep(this, enemy.pos, Dungeon.level.openSpace, fieldOfView, true) != -1);
@@ -245,7 +245,7 @@ public class DM300 extends Mob {
 						}
 
 						//doesn't spend a turn if enemy is at a distance
-						if (Dungeon.level.adjacent(pos, enemy.pos)){
+						if (Dungeon.level.相邻(pos,enemy.pos)){
 							spend(TICK);
 						}
 
@@ -403,7 +403,7 @@ public class DM300 extends Mob {
 		final int rockCenter;
 
 		//knock back 2 tiles if adjacent
-		if (Dungeon.level.adjacent(pos, target.pos)){
+		if (Dungeon.level.相邻(pos,target.pos)){
 			int oppositeAdjacent = target.pos + (target.pos - pos);
 			Ballistica trajectory = new Ballistica(target.pos, oppositeAdjacent, Ballistica.MAGIC_BOLT);
 			WandOfBlastWave.throwChar(target, trajectory, 2, false, false, this);
@@ -413,7 +413,7 @@ public class DM300 extends Mob {
 			rockCenter = trajectory.path.get(Math.min(trajectory.dist, 2));
 
 		//knock back 1 tile if there's 1 tile of space
-		} else if (fieldOfView[target.pos] && Dungeon.level.distance(pos, target.pos) == 2) {
+		} else if (fieldOfView[target.pos] &&Dungeon.level.距离(pos,target.pos)==2) {
 			int oppositeAdjacent = target.pos + (target.pos - pos);
 			Ballistica trajectory = new Ballistica(target.pos, oppositeAdjacent, Ballistica.MAGIC_BOLT);
 			WandOfBlastWave.throwChar(target, trajectory, 1, false, false, this);
@@ -446,7 +446,7 @@ public class DM300 extends Mob {
 					continue;
 				}
 				//add rock cell to pos, if it is not solid, and isn't the safecell
-				if (!Dungeon.level.solid[pos] && pos != safeCell && Random.Int(Dungeon.level.distance(rockCenter, pos)) == 0) {
+				if (!Dungeon.level.solid[pos] && pos != safeCell &&Random.Int(Dungeon.level.距离(rockCenter,pos))==0) {
 					rockCells.add(pos);
 				}
 				pos++;
@@ -593,7 +593,7 @@ public class DM300 extends Mob {
 			return true;
 		} else {
 
-			if (!supercharged || state != HUNTING || rooted || target == pos || Dungeon.level.adjacent(pos, target)) {
+			if (!supercharged || state != HUNTING || rooted || target == pos || Dungeon.level.相邻(pos,target)) {
 				return false;
 			}
 

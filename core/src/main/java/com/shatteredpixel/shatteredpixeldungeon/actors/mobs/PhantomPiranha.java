@@ -38,14 +38,14 @@ public class PhantomPiranha extends Piranha {
 		if (来源 instanceof Char) dmgSource = (Char)来源;
 		if (来源 instanceof 魔攻之戒||来源 instanceof Wand||来源 instanceof 法术||来源 instanceof ClericSpell||来源 instanceof 巫术||来源 instanceof 道术||来源 instanceof 忍术) dmgSource = Dungeon.hero;
 
-		if (dmgSource == null || !Dungeon.level.adjacent(pos, dmgSource.pos)){
+		if (dmgSource == null || !Dungeon.level.相邻(pos,dmgSource.pos)){
 			dmg = Math.round(dmg/2f); //halve damage taken if we are going to teleport
 		}
 		super.受伤时(dmg,来源);
 
 		if (isAlive() && !(来源 instanceof Corruption)) {
 			if (dmgSource != null) {
-				if (!Dungeon.level.adjacent(pos, dmgSource.pos)) {
+				if (!Dungeon.level.相邻(pos,dmgSource.pos)) {
 					ArrayList<Integer> candidates = new ArrayList<>();
 					for (int i : PathFinder.相邻) {
 						if (Dungeon.level.water[dmgSource.pos + i] && Actor.findChar(dmgSource.pos + i) == null) {

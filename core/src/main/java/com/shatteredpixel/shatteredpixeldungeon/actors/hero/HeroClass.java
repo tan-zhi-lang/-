@@ -325,8 +325,8 @@ public enum HeroClass{
 			}
 		}
 
-		if(算法.种子()!=null)
-		算法.种子().放背包();
+		if(算法.物品()!=null)
+		算法.物品().放背包();
 
 		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
 

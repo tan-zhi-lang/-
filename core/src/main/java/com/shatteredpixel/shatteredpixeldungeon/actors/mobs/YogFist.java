@@ -93,7 +93,7 @@ public abstract class YogFist extends Mob {
 
 	protected boolean isNearYog(){
 		int yogPos = Dungeon.level.exit() + 3*Dungeon.level.width();
-		return Dungeon.level.distance(pos, yogPos) <= 4;
+		return Dungeon.level.距离(pos,yogPos)<=4;
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public abstract class YogFist extends Mob {
 	@Override
 	protected boolean doAttack( Char enemy ) {
 
-		if (Dungeon.level.adjacent( pos, enemy.pos ) && (!canRangedInMelee || rangedCooldown > 0)) {
+		if (Dungeon.level.相邻(pos,enemy.pos)&&(!canRangedInMelee||rangedCooldown>0)) {
 
 			return super.doAttack( enemy );
 
@@ -359,8 +359,8 @@ public abstract class YogFist extends Mob {
 
 		private boolean canSpreadGrass(int cell){
 			int yogPos = Dungeon.level.exit() + Dungeon.level.width()*3;
-			return Dungeon.level.distance(cell, yogPos) > 4 && !Dungeon.level.solid[cell]
-					&& !(Dungeon.level.map[cell] == Terrain.FURROWED_GRASS || Dungeon.level.map[cell] == Terrain.HIGH_GRASS);
+			return Dungeon.level.距离(cell,yogPos)>4&&!Dungeon.level.solid[cell]
+				   &&!(Dungeon.level.map[cell] == Terrain.FURROWED_GRASS || Dungeon.level.map[cell] == Terrain.HIGH_GRASS);
 		}
 
 	}

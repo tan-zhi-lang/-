@@ -75,7 +75,7 @@ public class 冰海法杖 extends DamageWand {
 			}
 
 			//only ignite cells directly near caster if they are flammable or solid
-			if (Dungeon.level.adjacent(bolt.sourcePos, cell)
+			if (Dungeon.level.相邻(bolt.sourcePos,cell)
 					&& !(Dungeon.level.flamable[cell] || Dungeon.level.solid[cell])){
 				adjacentCells.add(cell);
 				//do burn any heaps located here though

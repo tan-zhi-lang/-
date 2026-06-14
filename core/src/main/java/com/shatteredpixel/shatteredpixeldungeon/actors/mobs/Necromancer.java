@@ -275,14 +275,14 @@ public class Necromancer extends Mob {
 			}
 			
 			//if enemy is seen, and enemy is within range, and we have no skeleton, summon a skeleton!
-			if (enemySeen && Dungeon.level.distance(pos, enemy.pos) <= 4 && mySkeleton == null){
+			if (enemySeen&&Dungeon.level.距离(pos,enemy.pos)<=4&&mySkeleton==null){
 				
 				summoningPos = -1;
 
 				//we can summon around blocking terrain, but not through it, except unlocked doors
 				boolean[] passable = BArray.not(Dungeon.level.solid, null);
 				BArray.or(Dungeon.level.passable, passable, passable);
-				PathFinder.buildDistanceMap(pos, passable, Dungeon.level.distance(pos, enemy.pos)+3);
+				PathFinder.buildDistanceMap(pos, passable,Dungeon.level.距离(pos,enemy.pos)+3);
 
 				for (int c : PathFinder.相邻){
 					if (Actor.findChar(enemy.pos+c) == null
@@ -326,7 +326,7 @@ public class Necromancer extends Mob {
 				} else if (!mySkeleton.canAttack(enemy)){
 					PathFinder.Path skelePath = Dungeon.findPath(mySkeleton, enemy.pos, Dungeon.level.passable, fieldOfView, true);
 
-					if (skelePath == null || skelePath.size() > 2*Dungeon.level.distance(pos, enemy.pos)){
+					if (skelePath == null || skelePath.size() > 2*Dungeon.level.距离(pos,enemy.pos)){
 						teleporting = true;
 					}
 				}
@@ -334,7 +334,7 @@ public class Necromancer extends Mob {
 				if (teleporting){
 
 					//teleport them to the closest spot next to the enemy that can be seen
-					if (!Dungeon.level.adjacent(mySkeleton.pos, enemy.pos)){
+					if (!Dungeon.level.相邻(mySkeleton.pos,enemy.pos)){
 						int telePos = -1;
 						for (int c : PathFinder.相邻){
 							if (Actor.findChar(enemy.pos+c) == null

@@ -467,7 +467,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 					return;
 				}
 
-				if (Dungeon.level.distance(hero.pos, target) > range){
+				if (Dungeon.level.距离(hero.pos,target)>range){
 					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
 					return;
 				}
@@ -578,7 +578,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 							for (Char ch : Actor.chars()){
 								if (ch != enemy
 										&& ch.alignment == Char.Alignment.ENEMY
-										&& Dungeon.level.adjacent(ch.pos, hero.pos)){
+										&& Dungeon.level.相邻(ch.pos,hero.pos)){
 									//trace a ballistica to our target (which will also extend past them
 									Ballistica trajectory = new Ballistica(hero.pos, ch.pos, Ballistica.STOP_TARGET);
 									//trim it to just be the part that goes past them

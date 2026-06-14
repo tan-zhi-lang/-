@@ -193,7 +193,7 @@ public class Shopkeeper extends NPC {
 		if(Holiday.getCurrentHoliday()==Holiday._618){
 			打折*=.9f;
 		}
-//		打折/=2;
+		打折/=5;
 		if(Dungeon.符文("我让你乱卖"))打折*=0.2f;
 
 		return Math.round(g*打折/2*(1/5f+1));

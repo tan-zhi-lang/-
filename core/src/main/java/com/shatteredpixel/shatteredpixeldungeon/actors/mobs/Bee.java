@@ -144,12 +144,12 @@ public class Bee extends Mob {
 			if ((alignment == Alignment.ENEMY || buff(Amok.class) != null ) && state != PASSIVE && state != SLEEPING) {
 				if (enemy != null
 						&& enemy.buff(StoneOfAggression.Aggression.class) != null
-						&& Dungeon.level.distance(enemy.pos, potPos) <= 3){
+						&&Dungeon.level.距离(enemy.pos,potPos)<=3){
 					state = HUNTING;
 					return enemy;
 				}
 				for (Char ch : Actor.chars()) {
-					if (ch != this && fieldOfView[ch.pos] && Dungeon.level.distance(ch.pos, potPos) <= 3
+					if (ch != this && fieldOfView[ch.pos] &&Dungeon.level.距离(ch.pos,potPos)<=3
 							&& ch.buff(StoneOfAggression.Aggression.class) != null) {
 						state = HUNTING;
 						return ch;
@@ -158,7 +158,7 @@ public class Bee extends Mob {
 			}
 			//try to find a new enemy in these circumstances
 			if (enemy == null || !enemy.isAlive() || !Actor.chars().contains(enemy) || state == WANDERING
-					|| Dungeon.level.distance(enemy.pos, potPos) > 3
+					||Dungeon.level.距离(enemy.pos,potPos)>3
 					|| (alignment == Alignment.ALLY && enemy.alignment == Alignment.ALLY)
 					|| (buff( Amok.class ) == null && enemy.是无敌(getClass()))){
 				
@@ -166,11 +166,11 @@ public class Bee extends Mob {
 				Char closest = null;
 				for (Mob mob : Dungeon.level.mobs) {
 					if (!(mob == this)
-							&& Dungeon.level.distance(mob.pos, potPos) <= 3
+							&&Dungeon.level.距离(mob.pos,potPos)<=3
 							&& mob.alignment != Alignment.NEUTRAL
 							&& !mob.是无敌(getClass())
 							&& !(alignment == Alignment.ALLY && mob.alignment == Alignment.ALLY)) {
-						if (closest == null || Dungeon.level.distance(closest.pos, pos) > Dungeon.level.distance(mob.pos, pos)){
+						if (closest == null ||Dungeon.level.距离(closest.pos,pos)>Dungeon.level.距离(mob.pos,pos)){
 							closest = mob;
 						}
 					}
@@ -179,7 +179,7 @@ public class Bee extends Mob {
 				if (closest != null){
 					return closest;
 				} else {
-					if (alignment != Alignment.ALLY && Dungeon.level.distance(Dungeon.hero.pos, potPos) <= 3){
+					if (alignment != Alignment.ALLY &&Dungeon.level.距离(Dungeon.hero.pos,potPos)<=3){
 						return Dungeon.hero;
 					} else {
 						return null;
@@ -200,7 +200,7 @@ public class Bee extends Mob {
 			target = Dungeon.hero.pos;
 		} else if (enemy != null && Actor.findById(potHolder) == enemy) {
 			target = enemy.pos;
-		} else if (potPos != -1 && (state == WANDERING || Dungeon.level.distance(target, potPos) > 3)) {
+		} else if (potPos != -1 && (state == WANDERING ||Dungeon.level.距离(target,potPos)>3)) {
 			if (!Dungeon.level.insideMap(potPos)){
 				potPos = -1;
 			} else {

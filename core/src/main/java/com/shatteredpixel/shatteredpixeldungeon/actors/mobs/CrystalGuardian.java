@@ -108,7 +108,7 @@ public class CrystalGuardian extends Mob{
 		if (enemy == Dungeon.hero){
 			boolean spireNear = false;
 			for (Mob m : Dungeon.level.mobs.toArray(new Mob[0])){
-				if (m instanceof CrystalSpire && m.生命 != m.最大生命 && Dungeon.level.distance(pos, m.pos) <= 8){
+				if (m instanceof CrystalSpire && m.生命 != m.最大生命 &&Dungeon.level.距离(pos,m.pos)<=8){
 					spireNear = true;
 				}
 			}
@@ -212,7 +212,7 @@ public class CrystalGuardian extends Mob{
 		if (state == HUNTING && target != -1){
 			PathFinder.buildDistanceMap(target, passable);
 
-			if (PathFinder.distance[pos] > 2*Dungeon.level.distance(pos, target)) {
+			if (PathFinder.distance[pos] > 2*Dungeon.level.距离(pos,target)) {
 				for (int i = 0; i < Dungeon.level.length(); i++) {
 					passable[i] = passable[i] || Dungeon.level.map[i] == Terrain.MINE_CRYSTAL;
 				}

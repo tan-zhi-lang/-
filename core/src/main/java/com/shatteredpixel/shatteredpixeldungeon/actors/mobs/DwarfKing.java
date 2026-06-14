@@ -344,7 +344,7 @@ public class DwarfKing extends Mob {
 				if (l.object == id()) alreadyLinked = true;
 			}
 			if (!alreadyLinked) {
-				if (furthest == null || Dungeon.level.distance(pos, furthest.pos) < Dungeon.level.distance(pos, m.pos)){
+				if (furthest == null ||Dungeon.level.距离(pos,furthest.pos)<Dungeon.level.距离(pos,m.pos)){
 					furthest = m;
 				}
 			}
@@ -367,7 +367,7 @@ public class DwarfKing extends Mob {
 		Mob furthest = null;
 
 		for (Mob m : getSubjects()){
-			if (furthest == null || Dungeon.level.distance(pos, furthest.pos) < Dungeon.level.distance(pos, m.pos)){
+			if (furthest == null ||Dungeon.level.距离(pos,furthest.pos)<Dungeon.level.距离(pos,m.pos)){
 				furthest = m;
 			}
 		}

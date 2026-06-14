@@ -50,9 +50,9 @@ public class 再生 extends Buff {
 			}
 
 			if (regenOn() && !hero.满血() && !hero.isStarving()) {
-				float 再生数值=(float)Math.sqrt(hero.最大生命)/50f;
+				float 再生数值=(float)Math.sqrt(hero.最大生命)/100f+0.07f;
 
-					再生数值+=hero.天赋点数(Talent.勇武,0.025f);
+					再生数值+=hero.天赋点数(Talent.勇武,0.01f);
 					再生数值+=hero.再生成长;
 
 					if(hero.符文("光合作用")&&Dungeon.level!=null){
@@ -68,10 +68,10 @@ public class 再生 extends Buff {
 					}
 					if(hero.hasbuff(WellFed.class))再生数值*=Math.min(1,
 						  (float)hero.buff(WellFed.class).left/
-						  (float)hero.buff(WellFed.class).上限()*0.25f+1);
+						  (float)hero.buff(WellFed.class).上限()*0.15f+1);
 					if(hero.hasbuff(Hunger.class))再生数值*=Math.min(1,
 																	 (Hunger.STARVING-hero.buff(Hunger.class).level)/
-																	 Hunger.STARVING*0.25f+1);
+																	 Hunger.STARVING*0.15f+1);
 
 					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
 						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())

@@ -470,7 +470,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 
 			} else if (!((Hero)target).canAttack(enemy)){
 				if (!((Hero) target).职业精通()
-					|| Dungeon.level.distance(target.pos, enemy.pos) > 1 +target.buff(连击.class).count/3){
+					||Dungeon.level.距离(target.pos,enemy.pos)>1+target.buff(连击.class).count/3){
 					GLog.w(Messages.get(连击.class,"bad_target"));
 				} else {
 					Ballistica c = new Ballistica(target.pos, enemy.pos, Ballistica.PROJECTILE);

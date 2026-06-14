@@ -56,7 +56,7 @@ public class Blooming extends Weapon.Enchantment {
 			Random.shuffle( positions );
 
 			//The attacker's position is always lowest priority
-			if (Dungeon.level.adjacent(attacker.pos, defender.pos)){
+			if (Dungeon.level.相邻(attacker.pos,defender.pos)){
 				positions.add(attacker.pos);
 			}
 

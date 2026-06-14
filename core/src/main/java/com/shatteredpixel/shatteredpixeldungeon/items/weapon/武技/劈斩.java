@@ -18,7 +18,7 @@ import com.watabou.utils.Callback;
 public class 劈斩 extends 武技{
 	{
 		目标=true;
-		desc="对攻击范围内的一个目标进行一次必中的物理攻击，根据目标生命值最多造成250%伤害，并花费攻击延迟的回合，如果击杀敌人则不消耗能量";
+		desc="对攻击范围内的一个目标进行一次必中的攻击，根据目标生命值最多造成250%伤害，并花费攻击延迟的回合，如果击杀敌人则不消耗能量";
 	}
 	@Override
 	public void 武技(Hero hero,Weapon wep){

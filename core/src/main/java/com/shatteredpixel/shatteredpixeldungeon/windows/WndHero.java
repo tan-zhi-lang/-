@@ -233,8 +233,8 @@ public class WndHero extends WndTabbed {
 					statSlot("**命中**",kw(hero.最大命中(null))+"/"+Math.round((0.5f+hero.回廊(hero.最大命中(null)))*100)+"%");
 					statSlot("##闪避##",kw(hero.最大闪避(null))+"/"+Math.round(hero.回廊(hero.最大命中(null))*100)+"%");
 				}else{
-					statSlot("--力量/魔力--",kw2(hero.力量())+"/"+kw2(hero.魔力()));
-					statSlot("_攻速_/移速",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));
+					statSlot("力量/魔力",kw2(hero.力量())+"/"+kw2(hero.魔力()));
+					statSlot("攻速/移速",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));
 					pos+=GAP;
 
 					statSlot("==物理增伤/攻击==",kw2((hero.攻击时(null,100)/100f-1))+"倍/"+kw2(hero.最小攻击())+"~"+kw2(hero.最大攻击()));

@@ -39,7 +39,7 @@ public class FungalSentrySprite extends MobSprite {
 
 	@Override
 	public void attack( int cell ) {
-		if (!Dungeon.level.adjacent( cell, ch.pos )) {
+		if (!Dungeon.level.相邻(cell,ch.pos)) {
 
 			cellToAttack = cell;
 			zap(cell);

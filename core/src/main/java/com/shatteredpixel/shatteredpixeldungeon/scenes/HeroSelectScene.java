@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.派对;
 import com.shatteredpixel.shatteredpixeldungeon.windows.炼狱;
 import com.shatteredpixel.shatteredpixeldungeon.windows.系统;
 import com.shatteredpixel.shatteredpixeldungeon.windows.解压;
+import com.shatteredpixel.shatteredpixeldungeon.windows.赛季;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
@@ -1156,7 +1157,7 @@ public class HeroSelectScene extends PixelScene {
                 super();
 
 
-                StyledButton 解压 = new CheckBox(Messages.get(解压.class,"title")) {
+                CheckBox 解压 = new CheckBox(Messages.get(解压.class,"title")) {
                     @Override
                     protected void onClick() {
                         if (false) {
@@ -1182,7 +1183,7 @@ public class HeroSelectScene extends PixelScene {
                 解压.setRect(0, 0, 120, 16);
                 add(解压);
 
-                StyledButton 系统 = new CheckBox(Messages.get(系统.class,"title")) {
+                CheckBox 系统 = new CheckBox(Messages.get(系统.class,"title")) {
                     @Override
                     protected void onClick() {
                         if (false) {
@@ -1208,7 +1209,7 @@ public class HeroSelectScene extends PixelScene {
                 系统.setRect(0, 解压.bottom()+1, 120, 16);
                 add(系统);
 
-                StyledButton
+                CheckBox
                         派对= new CheckBox(Messages.get(派对.class,"title")) {
                     @Override
                     protected void onClick() {
@@ -1235,7 +1236,7 @@ public class HeroSelectScene extends PixelScene {
                 派对.setRect(0, 系统.bottom()+1, 120, 16);
                 add(派对);
 
-                StyledButton 杂项设置= new CheckBox("杂项设置") {
+                CheckBox 杂项设置= new CheckBox("杂项设置") {
                     @Override
                     protected void onClick() {
                         ShatteredPixelDungeon.scene().addToFront(new Wnd简单有趣杂项设置());
@@ -1329,7 +1330,35 @@ public class HeroSelectScene extends PixelScene {
                 add(炼狱按钮);
 
 
-                StyledButton 杂项设置= new CheckBox("杂项设置") {
+                CheckBox
+                        赛季= new CheckBox(Messages.get(赛季.class,"title")) {
+                    @Override
+                    protected void onClick() {
+                        if (false) {
+                            ShatteredPixelDungeon.scene().addToFront(new WndTitledMessage(
+                                    Icons.get(Icons.赛季关),
+                                    Messages.get(赛季.class,"title"),
+                                    Messages.get(HeroSelectScene.class, "赛季")
+                            ));
+                            return;
+                        }
+
+                        ShatteredPixelDungeon.scene().addToFront(new 赛季(SPDSettings.赛季(),true) {
+                            public void onBackPressed() {
+                                super.onBackPressed();
+                                icon(Icons.get(SPDSettings.赛季()>0 ? Icons.赛季开: Icons.赛季关));
+                                updateOptionsColor();
+                            }
+                        });
+                    }
+                };
+                赛季.leftJustify = true;
+                赛季.icon(Icons.get(SPDSettings.赛季()>0 ? Icons.赛季开: Icons.赛季关));
+                赛季.setRect(0, 炼狱按钮.bottom()+1, 120, 16);
+                add(赛季);
+
+
+                CheckBox 杂项设置= new CheckBox("杂项设置") {
                     @Override
                     protected void onClick() {
                         ShatteredPixelDungeon.scene().addToFront(new Wnd困难复杂杂项设置());
@@ -1337,7 +1366,7 @@ public class HeroSelectScene extends PixelScene {
                 };
                 杂项设置.leftJustify = true;
                 杂项设置.icon(Icons.STATS.get());
-                杂项设置.setRect(0,炼狱按钮.bottom()+1,120,16);
+                杂项设置.setRect(0,赛季.bottom()+1,120,16);
                 add(杂项设置);
 
                 RedButton btnConfirm = new RedButton("确认"){
@@ -1390,13 +1419,14 @@ _-_ 改变的有以下：
 								""",6);
                 desc.setRect( 0, 0, 120, 12 );
                 add(desc);
+                int 幸运值=Dungeon.幸运值;
                 optChals = new OptionSlider("幸运值", "1", "9", 1, 9) {
                     @Override
                     protected void onChange() {
                         Dungeon.幸运值=optChals.getSelectedValue();
                     }
                 };
-                optChals.setSelectedValue(Dungeon.幸运值);
+                optChals.setSelectedValue(幸运值);
                 optChals.setRect(0, 59, 120, 22);
                 add(optChals);
 
@@ -1458,7 +1488,6 @@ _-_ 改变的有以下：
             public Wnd困难复杂杂项设置(){
                 super();
                 int 难度=Dungeon.难度;
-                if(难度==0)Dungeon.难度=难度=2;
 
                 IconTitle titlebar = new IconTitle();
                 titlebar.icon(Icons.STATS.get());

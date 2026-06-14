@@ -90,7 +90,7 @@ public class GooSprite extends MobSprite {
 			}
 			for (int i = 0; i < Dungeon.level.length(); i++){
 				if (ch.fieldOfView != null && ch.fieldOfView[i]
-						&& Dungeon.level.distance(i, ch.pos) <= pumpUpEmitterDist
+						&&Dungeon.level.距离(i,ch.pos)<=pumpUpEmitterDist
 						&& new Ballistica( ch.pos, i, Ballistica.STOP_TARGET | Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID).collisionPos == i
 						&& new Ballistica( i, ch.pos, Ballistica.STOP_TARGET | Ballistica.STOP_SOLID | Ballistica.IGNORE_SOFT_SOLID).collisionPos == ch.pos){
 

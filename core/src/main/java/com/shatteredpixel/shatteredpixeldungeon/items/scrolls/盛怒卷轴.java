@@ -31,7 +31,7 @@ public class 盛怒卷轴 extends Scroll {
 			}
 		}
 
-		GLog.w( Messages.get(this, "roar") );
+		GLog.橙(Messages.get(this,"roar"));
 		鉴定();
 		
 		curUser.sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );

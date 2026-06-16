@@ -61,7 +61,7 @@ public class 结晶法杖 extends 用品 {
 
 			}else{
 				if (Dungeon.energy<10){
-					GLog.w("能量不足！");
+					GLog.橙("能量不足！");
 					return;
 				}
 				Game.runOnRenderThread(()->{
@@ -83,7 +83,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -109,7 +109,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -135,7 +135,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -161,7 +161,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -187,7 +187,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -213,7 +213,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -239,7 +239,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -265,7 +265,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -291,7 +291,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -317,7 +317,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),
@@ -343,7 +343,7 @@ public class 结晶法杖 extends 用品 {
 				@Override
 				public void call() {
 					if (Dungeon.energy<x.tier*5+5){
-						GLog.w("能量不足！");
+						GLog.橙("能量不足！");
 						return;
 					}
 					GameScene.show(new WndOptions(x.sprite(),

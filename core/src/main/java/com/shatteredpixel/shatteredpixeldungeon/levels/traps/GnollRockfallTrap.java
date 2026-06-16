@@ -76,7 +76,7 @@ public class GnollRockfallTrap extends RockfallTrap {
 
 				if (!ch.isAlive() && ch == Dungeon.hero){
 					Dungeon.fail( this );
-					GLog.n( Messages.get(this, "ondeath") );
+					GLog.红(Messages.get(this,"ondeath"));
 					if (reclaimed) Badges.validateDeathFromFriendlyMagic();
 				}
 			} else if (ch == null

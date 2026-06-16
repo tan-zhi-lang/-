@@ -22,11 +22,11 @@ public class MagicalSleep extends Buff {
 			
 			if (target.alignment == Char.Alignment.ALLY) {
 				if (target.生命 == target.最大生命) {
-					if (target instanceof  Hero) GLog.i(Messages.get(this, "toohealthy"));
+					if (target instanceof  Hero) GLog.白(Messages.get(this,"toohealthy"));
 					detach();
 					return true;
 				} else {
-					if (target instanceof  Hero) GLog.i(Messages.get(this, "fallasleep"));
+					if (target instanceof  Hero) GLog.白(Messages.get(this,"fallasleep"));
 				}
 			}
 
@@ -50,7 +50,7 @@ public class MagicalSleep extends Buff {
 			target.生命 = Math.min(target.生命 +1, target.最大生命);
 			if (target instanceof  Hero) ((Hero) target).resting = true;
 			if (target.生命 == target.最大生命) {
-				if (target instanceof  Hero) GLog.p(Messages.get(this, "wakeup"));
+				if (target instanceof  Hero) GLog.绿(Messages.get(this,"wakeup"));
 				detach();
 			}
 		}

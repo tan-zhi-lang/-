@@ -130,7 +130,7 @@ public class Imp extends NPC {
 	}
 	
 	public void flee() {
-		GLog.w("矮人徽章你就拿着吧！去看看矮人魔法传送阵！");
+		GLog.橙("矮人徽章你就拿着吧！去看看矮人魔法传送阵！");
 		yell( Messages.get(this, "cya", Messages.titleCase(Dungeon.hero.name())) );
 
 		destroy();

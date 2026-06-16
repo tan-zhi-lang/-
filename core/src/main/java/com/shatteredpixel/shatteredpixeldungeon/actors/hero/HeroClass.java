@@ -75,7 +75,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
@@ -294,11 +298,11 @@ public enum HeroClass{
 			new Icecap.Seed().数量(x).放背包();
 			new 毒气药剂().数量(x).放背包();
 
-//			new 狂怒之戒().放背包();
-//			new 狂怒之戒().放背包();
-//			new 恢复之戒().放背包();
-//			new 闪避之戒().放背包();
-//			new 命中之戒().放背包();
+			new 狂怒之戒().放背包();
+			new 狂怒之戒().放背包();
+			new 恢复之戒().放背包();
+			new 闪避之戒().放背包();
+			new 命中之戒().放背包();
 			new Torch().数量(x).放背包();
 			new Food().数量(x).放背包();
 

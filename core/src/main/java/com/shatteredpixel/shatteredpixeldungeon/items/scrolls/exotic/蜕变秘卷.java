@@ -71,12 +71,12 @@ public class 蜕变秘卷 extends ExoticScroll {
 			Dungeon.hero.heroClass蜕变=randomCls;
 
 			Notes.备注(image,Dungeon.hero.heroClass蜕变.title(),Messages.get(HeroClass.class,Dungeon.hero.heroClass蜕变.name()+"_desc"));
-			GLog.w("你已备注了"+Dungeon.hero.heroClass蜕变.title()+"的所有特性。");
+			GLog.橙("你已备注了"+Dungeon.hero.heroClass蜕变.title()+"的所有特性。");
 
 			curUser.sprite.礼物();
 			detach(curUser.belongings.backpack);
 		}else{
-			GLog.w("你没有可蜕变的英雄特性！");
+			GLog.橙("你没有可蜕变的英雄特性！");
 			detach(curUser.belongings.backpack);
 		}
 		//

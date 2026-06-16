@@ -152,6 +152,6 @@ public class 灵焰 extends 燃烧 implements Hero.Doom {
 		Badges.validateDeathFromFire();
 		
 		Dungeon.fail( this );
-		GLog.n( Messages.get(this, "ondeath") );
+		GLog.红(Messages.get(this,"ondeath"));
 	}
 }

@@ -160,7 +160,7 @@ public class RenderedTextBlock extends Component {
 					continue;
 				}  if (str.equals("++")) {
 					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x44FF44 : COLOR_RESET;// 绿色
+					currentColor = isColorActive ? 0x00FF00 : COLOR_RESET;// 绿色
 					continue;
 				}  if (str.equals("^^")) {
 					isColorActive = !isColorActive;

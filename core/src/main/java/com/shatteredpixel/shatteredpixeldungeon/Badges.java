@@ -1260,7 +1260,7 @@ public class Badges {
 		if (isUnlocked( badge )) {
 			
 			if (badge.type == BadgeType.LOCAL) {
-				GLog.h( Messages.get(Badges.class, "endorsed", badge.title()) );
+				GLog.黄(Messages.get(Badges.class,"endorsed",badge.title()));
 				GLog.newLine();
 			}
 			
@@ -1268,7 +1268,7 @@ public class Badges {
 			
 			unlock(badge);
 			
-			GLog.h( Messages.get(Badges.class, "new", badge.title() + " (" + badge.desc() + ")") );
+			GLog.黄(Messages.get(Badges.class,"new",badge.title()+" ("+badge.desc()+")"));
 			GLog.newLine();
 			PixelScene.showBadge( badge );
 		}

@@ -39,25 +39,25 @@ public class 鉴定卷轴 extends InventoryScroll {
 		if (ShardOfOblivion.passiveIDDisabled()) {
 			if (item instanceof Weapon){
 				((Weapon) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+				GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),item.name());
 				return;
 			} else if (item instanceof Armor){
 				((Armor) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+				GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),item.name());
 				return;
 			} else if (item instanceof Ring){
 				((Ring) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+				GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),item.name());
 				return;
 			} else if (item instanceof Wand){
 				((Wand) item).setIDReady();
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), item.name());
+				GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),item.name());
 				return;
 			}
 		}
 
 		item.鉴定();
-		GLog.i(Messages.get(鉴定卷轴.class, "it_is", item.title()));
+		GLog.白(Messages.get(鉴定卷轴.class,"it_is",item.title()));
 		Badges.validateItemLevelAquired( item );
 	}
 	

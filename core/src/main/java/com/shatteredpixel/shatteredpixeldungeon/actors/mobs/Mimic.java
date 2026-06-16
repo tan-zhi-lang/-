@@ -115,7 +115,7 @@ public class Mimic extends Mob {
 			alignment = Alignment.ENEMY;
 			if (sprite != null) sprite.idle();
 			if (Dungeon.level.heroFOV[pos]) {
-				GLog.w(Messages.get(this, "reveal") );
+				GLog.橙(Messages.get(this,"reveal"));
 				CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
 				Sample.INSTANCE.play(Assets.Sounds.MIMIC);
 			}
@@ -194,7 +194,7 @@ public class Mimic extends Mob {
 		if (Actor.chars().contains(this) && Dungeon.level.heroFOV[pos]) {
 			enemy = Dungeon.hero;
 			target = Dungeon.hero.pos;
-			GLog.w(Messages.get(this, "reveal") );
+			GLog.橙(Messages.get(this,"reveal"));
 			CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
 			Sample.INSTANCE.play(Assets.Sounds.MIMIC);
 		}

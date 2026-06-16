@@ -116,7 +116,7 @@ public class ChaliceOfBlood extends Artifact {
 		hero.sprite.operate( hero.pos );
 		hero.busy();
 		hero.spend(Actor.TICK);
-		GLog.w( Messages.get(this, "onprick") );
+		GLog.橙(Messages.get(this,"onprick"));
 		if (damage <= 0){
 			damage = 1;
 		} else {
@@ -129,7 +129,7 @@ public class ChaliceOfBlood extends Artifact {
 		if (!hero.isAlive()) {
 			Badges.validateDeathFromFriendlyMagic();
 			Dungeon.fail( this );
-			GLog.n( Messages.get(this, "ondeath") );
+			GLog.红(Messages.get(this,"ondeath"));
 		} else {
 			升级();
 			Catalog.countUse(getClass());

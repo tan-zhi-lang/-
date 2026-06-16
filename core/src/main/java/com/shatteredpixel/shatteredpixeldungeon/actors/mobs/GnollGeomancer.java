@@ -210,9 +210,9 @@ public class GnollGeomancer extends Mob {
 
 					hits++;
 					if (hits == 1){
-						GLog.w( Messages.get(GnollGeomancer.this, "warning"));
+						GLog.橙(Messages.get(GnollGeomancer.this,"warning"));
 					} if (hits == 3){
-						GLog.n( Messages.get(GnollGeomancer.this, "alert"));
+						GLog.红(Messages.get(GnollGeomancer.this,"alert"));
 						wasSleeping = false;
 						spend(TICK);
 						sprite.idle();
@@ -722,7 +722,7 @@ public class GnollGeomancer extends Mob {
 							} else if (!ch.isAlive() && ch == Dungeon.hero) {
 								Badges.validateDeathFromEnemyMagic();
 								Dungeon.fail( source.getClass() );
-								GLog.n( Messages.get( GnollGeomancer.class, "rock_kill") );
+								GLog.红(Messages.get(GnollGeomancer.class,"rock_kill"));
 							}
 
 							if (!knockedChars.contains(ch) && rockPath.path.size() > rockPath.dist+1) {
@@ -826,7 +826,7 @@ public class GnollGeomancer extends Mob {
 				Buff.延长(ch, Paralysis.class, ch instanceof GnollGuard ? 10 : 3);
 			} else if (ch == Dungeon.hero){
 				Dungeon.fail( target );
-				GLog.n( Messages.get( GnollGeomancer.class, "rockfall_kill") );
+				GLog.红(Messages.get(GnollGeomancer.class,"rockfall_kill"));
 			}
 		}
 

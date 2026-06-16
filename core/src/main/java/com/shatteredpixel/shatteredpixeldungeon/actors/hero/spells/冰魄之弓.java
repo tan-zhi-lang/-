@@ -44,7 +44,7 @@ public class 冰魄之弓 extends 目标法术 {
 
 		Char enemy = Actor.findChar(target);
 		if (enemy == null||enemy instanceof NPC||enemy==hero||hero.isCharmedBy(enemy)||!Dungeon.level.heroFOV[target]) {
-			GLog.w(Messages.get(Weapon.class,"ability_no_target"));
+			GLog.橙(Messages.get(Weapon.class,"ability_no_target"));
 			return;
 		}
 
@@ -80,7 +80,7 @@ public class 冰魄之弓 extends 目标法术 {
 		}
 
 		if (lungeCell == -1){
-			GLog.w(Messages.get(Weapon.class, "ability_target_range"));
+			GLog.橙(Messages.get(Weapon.class,"ability_target_range"));
 			return;
 		}
 
@@ -110,7 +110,7 @@ public class 冰魄之弓 extends 目标法术 {
 					});
 				} else {
 
-					GLog.w(Messages.get(配刺剑.class,"ability_no_target"));
+					GLog.橙(Messages.get(配刺剑.class,"ability_no_target"));
 
 				}
 			}

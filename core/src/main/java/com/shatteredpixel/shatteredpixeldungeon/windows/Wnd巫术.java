@@ -174,7 +174,7 @@ public class Wnd巫术 extends Window {
 
 
 				if(!tome.canCast(Dungeon.hero, spell)){
-					GLog.w(Messages.get(神圣法典.class, "no_spell"));
+					GLog.橙(Messages.get(神圣法典.class,"no_spell"));
 				} else {
 					spell.onCast(tome, Dungeon.hero);
 
@@ -211,7 +211,7 @@ public class Wnd巫术 extends Window {
 						case 0:
 							hide();
 							if(!tome.canCast(Dungeon.hero, spell)){
-								GLog.w(Messages.get(神圣法典.class, "no_spell"));
+								GLog.橙(Messages.get(神圣法典.class,"no_spell"));
 							} else {
 								spell.onCast(tome, Dungeon.hero);
 

@@ -107,13 +107,13 @@ public class 水袋 extends Item {
 
 
 			} else {
-				GLog.w( Messages.get(this, "empty") );
+				GLog.橙(Messages.get(this,"empty"));
 			}
 
 		}
 
 		if (action.equals( AC_合成 )) {
-			GLog.p( Messages.get(this, "合成") );
+			GLog.绿(Messages.get(this,"合成"));
 			volume = 0;
 
 			new 永生秘药().放背包();
@@ -164,12 +164,12 @@ public class 水袋 extends Item {
 
 	public void collectDew( Dewdrop dew ) {
 
-		GLog.i( Messages.get(this, "collected") );
+		GLog.白(Messages.get(this,"collected"));
 		volume += dew.quantity;
 		if(Dungeon.hero.符文("升级水袋"))volume+=dew.quantity*2;
 		if (volume >= MAX_VOLUME) {
 			volume = MAX_VOLUME;
-			GLog.p( Messages.get(this, "full") );
+			GLog.绿(Messages.get(this,"full"));
 		}
 
 		updateQuickslot();

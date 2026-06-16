@@ -206,7 +206,7 @@ public class Eye extends Mob {
 				if (!ch.isAlive() && ch == Dungeon.hero) {
 					Badges.validateDeathFromEnemyMagic();
 					Dungeon.fail( this );
-					GLog.n( Messages.get(this, "deathgaze_kill") );
+					GLog.红(Messages.get(this,"deathgaze_kill"));
 				}
 			} else {
 				ch.sprite.showStatus(CharSprite.中性黄,ch.defenseVerb());

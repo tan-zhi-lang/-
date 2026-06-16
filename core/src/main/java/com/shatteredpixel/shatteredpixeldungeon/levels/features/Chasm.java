@@ -116,7 +116,7 @@ public class Chasm implements Hero.Doom {
 		Badges.validateDeathFromFalling();
 
 		Dungeon.fail( Chasm.class );
-		GLog.n( Messages.get(Chasm.class, "ondeath") );
+		GLog.红(Messages.get(Chasm.class,"ondeath"));
 	}
 
 	public static void heroLand() {

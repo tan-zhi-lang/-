@@ -45,7 +45,7 @@ public class WildMagic extends ArmorAbility {
 		}
 
 		if (target == hero.pos){
-			GLog.w(Messages.get(this, "self_target"));
+			GLog.橙(Messages.get(this,"self_target"));
 			return;
 		}
 
@@ -90,7 +90,7 @@ public class WildMagic extends ArmorAbility {
 		}
 
 		if (wands.size() == 0){
-			GLog.w(Messages.get(this, "no_wands"));
+			GLog.橙(Messages.get(this,"no_wands"));
 			return;
 		}
 

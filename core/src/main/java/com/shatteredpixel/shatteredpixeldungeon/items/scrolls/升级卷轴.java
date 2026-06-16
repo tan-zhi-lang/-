@@ -111,9 +111,9 @@ public class 升级卷轴 extends InventoryScroll {
 				weakenCurse( Dungeon.hero );
 			}
 			if (wasHardened && !w.enchantHardened){
-				GLog.w( Messages.get(Weapon.class, "hardening_gone") );
+				GLog.橙(Messages.get(Weapon.class,"hardening_gone"));
 			} else if (hadGoodEnchant && !w.hasGoodEnchant()){
-				GLog.w( Messages.get(Weapon.class, "incompatible") );
+				GLog.橙(Messages.get(Weapon.class,"incompatible"));
 			}
 
 		} else if (item instanceof Armor){
@@ -131,9 +131,9 @@ public class 升级卷轴 extends InventoryScroll {
 				weakenCurse( Dungeon.hero );
 			}
 			if (wasHardened && !a.glyphHardened){
-				GLog.w( Messages.get(Armor.class, "hardening_gone") );
+				GLog.橙(Messages.get(Armor.class,"hardening_gone"));
 			} else if (hadGoodGlyph && !a.hasGoodGlyph()){
-				GLog.w( Messages.get(Armor.class, "incompatible") );
+				GLog.橙(Messages.get(Armor.class,"incompatible"));
 			}
 
 		} else if (item instanceof Wand || item instanceof Ring) {
@@ -165,12 +165,12 @@ public class 升级卷轴 extends InventoryScroll {
 	}
 
 	public static void weakenCurse( Hero hero ){
-		GLog.p( Messages.get(升级卷轴.class, "weaken_curse") );
+		GLog.绿(Messages.get(升级卷轴.class,"weaken_curse"));
 		hero.sprite.emitter().start( ShadowParticle.UP, 0.05f, 5 );
 	}
 
 	public static void removeCurse( Hero hero ){
-		GLog.p( Messages.get(升级卷轴.class, "remove_curse") );
+		GLog.绿(Messages.get(升级卷轴.class,"remove_curse"));
 		hero.sprite.emitter().start( ShadowParticle.UP, 0.05f, 10 );
 		Badges.validateClericUnlock();
 	}

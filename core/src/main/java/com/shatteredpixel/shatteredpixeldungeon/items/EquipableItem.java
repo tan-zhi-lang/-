@@ -153,7 +153,7 @@ public abstract class EquipableItem extends Item {
 		if (!hero.heroClass(HeroClass.巫女)&&(cursed
 				&& hero.buff(MagicImmune.class) == null
 				&& (!hero.belongings.lostInventory() || keptThroughLostInventory()))) {
-			GLog.w(Messages.get(EquipableItem.class, "unequip_cursed"));
+			GLog.橙(Messages.get(EquipableItem.class,"unequip_cursed"));
 			Dungeon.hero.sprite.哭泣();
 			return false;
 		}

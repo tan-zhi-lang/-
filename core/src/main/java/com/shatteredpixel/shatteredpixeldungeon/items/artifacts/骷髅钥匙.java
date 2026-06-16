@@ -99,10 +99,10 @@ public class 骷髅钥匙 extends Artifact {
 			curUser = hero;
 
 			if (!isEquipped( hero )) {
-				GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+				GLog.白(Messages.get(Artifact.class,"need_to_equip"));
 
 			} else if (cursed) {
-				GLog.w( Messages.get(this, "cursed") );
+				GLog.橙(Messages.get(this,"cursed"));
 
 			} else {
 				GameScene.selectCell(targeter);
@@ -121,7 +121,7 @@ public class 骷髅钥匙 extends Artifact {
 		if (exp > 4+等级()){
 			exp -= 4+等级();
 			升级();
-			GLog.p(Messages.get(this, "levelup"));
+			GLog.绿(Messages.get(this,"levelup"));
 			Catalog.countUse(骷髅钥匙.class);
 		}
 
@@ -135,22 +135,22 @@ public class 骷髅钥匙 extends Artifact {
 			if (target != null && (Dungeon.level.visited[target] || Dungeon.level.mapped[target])){
 
 				if (target == curUser.pos){
-					GLog.w(Messages.get(骷髅钥匙.class, "invalid_target"));
+					GLog.橙(Messages.get(骷髅钥匙.class,"invalid_target"));
 					return;
 				}
 
 				if (Dungeon.level.相邻(target,curUser.pos)) {
 					if (Dungeon.level.map[target] == Terrain.LOCKED_EXIT){
-						GLog.w(Messages.get(骷髅钥匙.class, "wont_open"));
+						GLog.橙(Messages.get(骷髅钥匙.class,"wont_open"));
 						return;
 					}
 					if (Dungeon.level.map[target] == Terrain.LOCKED_DOOR){
 						if (Dungeon.level.locked){
-							GLog.w(Messages.get(骷髅钥匙.class, "wont_open"));
+							GLog.橙(Messages.get(骷髅钥匙.class,"wont_open"));
 							return;
 						}
 						if (charge < 1){
-							GLog.i( Messages.get(骷髅钥匙.class, "iron_charges") );
+							GLog.白(Messages.get(骷髅钥匙.class,"iron_charges"));
 							return;
 						}
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
@@ -188,7 +188,7 @@ public class 骷髅钥匙 extends Artifact {
 					} else if (Dungeon.level.map[target] == Terrain.CRYSTAL_DOOR) {
 
 						if (charge < 5) {
-							GLog.i(Messages.get(骷髅钥匙.class, "crystal_charges"));
+							GLog.白(Messages.get(骷髅钥匙.class,"crystal_charges"));
 							return;
 						}
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
@@ -215,7 +215,7 @@ public class 骷髅钥匙 extends Artifact {
 					} else if (Dungeon.level.map[target] == Terrain.DOOR || Dungeon.level.map[target] == Terrain.OPEN_DOOR){
 
 						if (charge < 2) {
-							GLog.i(Messages.get(骷髅钥匙.class, "lock_charges"));
+							GLog.白(Messages.get(骷髅钥匙.class,"lock_charges"));
 							return;
 						}
 
@@ -241,7 +241,7 @@ public class 骷髅钥匙 extends Artifact {
 								WandOfBlastWave.throwChar(toMove, push, 1, false, false, this);
 								artifactProc(toMove, visiblyUpgraded(), 2);
 							} else {
-								GLog.w(Messages.get(骷髅钥匙.class, "lock_no_space"));
+								GLog.橙(Messages.get(骷髅钥匙.class,"lock_no_space"));
 								return;
 							}
 						}
@@ -280,7 +280,7 @@ public class 骷髅钥匙 extends Artifact {
 
 					} else if (Dungeon.level.heaps.get(target) != null && Dungeon.level.heaps.get(target).type == Heap.Type.LOCKED_CHEST){
 						if (charge < 2) {
-							GLog.i(Messages.get(骷髅钥匙.class, "gold_charges"));
+							GLog.白(Messages.get(骷髅钥匙.class,"gold_charges"));
 							return;
 						}
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
@@ -301,7 +301,7 @@ public class 骷髅钥匙 extends Artifact {
 
 					} else if (Dungeon.level.heaps.get(target) != null && Dungeon.level.heaps.get(target).type == Heap.Type.CRYSTAL_CHEST){
 						if (charge < 5) {
-							GLog.i(Messages.get(骷髅钥匙.class, "crystal_charges"));
+							GLog.白(Messages.get(骷髅钥匙.class,"crystal_charges"));
 							return;
 						}
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
@@ -324,7 +324,7 @@ public class 骷髅钥匙 extends Artifact {
 				}
 
 				if (charge < 2){
-					GLog.i(Messages.get(骷髅钥匙.class, "wall_charges"));
+					GLog.白(Messages.get(骷髅钥匙.class,"wall_charges"));
 					return;
 				}
 
@@ -342,7 +342,7 @@ public class 骷髅钥匙 extends Artifact {
 				int knockBackDir = PathFinder.CIRCLE8[closestIdx];
 
 				if (Dungeon.level.solid[closest]){
-					GLog.w(Messages.get(骷髅钥匙.class, "invalid_target"));
+					GLog.橙(Messages.get(骷髅钥匙.class,"invalid_target"));
 					return;
 				}
 
@@ -661,7 +661,7 @@ public class 骷髅钥匙 extends Artifact {
 			}
 			if (removed){
 				GameScene.updateKeyDisplay();
-				GLog.i(Messages.get(骷髅钥匙.class, "discard"));
+				GLog.白(Messages.get(骷髅钥匙.class,"discard"));
 			}
 		}
 

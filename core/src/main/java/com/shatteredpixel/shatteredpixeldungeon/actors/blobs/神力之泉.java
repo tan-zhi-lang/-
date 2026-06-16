@@ -40,7 +40,7 @@ public class 神力之泉 extends WellWater {
 
 		Dungeon.hero.interrupt();
 	
-		GLog.p( Messages.get(this, "procced") );
+		GLog.绿(Messages.get(this,"procced"));
 		
 		return true;
 	}
@@ -57,10 +57,10 @@ public class 神力之泉 extends WellWater {
 				|| (item instanceof Armor && !((Armor) item).神力)){
 			if (item instanceof Weapon) {
 				((Weapon) item).神力 = true;
-				GLog.p( Messages.get(PotionOfMastery.class, "weapon_easier") );
+				GLog.绿(Messages.get(PotionOfMastery.class,"weapon_easier"));
 			} else if (item instanceof Armor) {
 				((Armor) item).神力 = true;
-				GLog.p( Messages.get(PotionOfMastery.class, "armor_easier") );
+				GLog.绿(Messages.get(PotionOfMastery.class,"armor_easier"));
 			}
 		}
 		return item;

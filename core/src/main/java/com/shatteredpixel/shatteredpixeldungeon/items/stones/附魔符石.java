@@ -51,9 +51,9 @@ public class 附魔符石 extends InventoryStone {
 		Enchanting.show( curUser, item );
 		
 		if (item instanceof Weapon) {
-			GLog.p(Messages.get(this, "weapon"));
+			GLog.绿(Messages.get(this,"weapon"));
 		} else {
-			GLog.p(Messages.get(this, "armor"));
+			GLog.绿(Messages.get(this,"armor"));
 		}
 		
 		useAnimation();

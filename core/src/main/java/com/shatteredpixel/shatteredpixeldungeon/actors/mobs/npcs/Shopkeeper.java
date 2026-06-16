@@ -152,7 +152,7 @@ public class Shopkeeper extends NPC {
 
 		Notes.remove( landmark() );
 		GLog.newLine();
-		GLog.n(Messages.get(this, "flee"));
+		GLog.红(Messages.get(this,"flee"));
 
 		if (sprite != null) {
 			sprite.killAndErase();
@@ -277,10 +277,10 @@ public class Shopkeeper extends NPC {
 									Dungeon.level.drop(i, Dungeon.hero.pos);
 								}
 							}else {
-								GLog.w(Messages.get(Shopkeeper.this, "nogold"));
+								GLog.橙(Messages.get(Shopkeeper.this,"nogold"));
 							}
 						}else if (index > (Dungeon.符文("属性买买买")?2:1)){
-							GLog.i(Messages.get(Shopkeeper.this, "buyback"));
+							GLog.白(Messages.get(Shopkeeper.this,"buyback"));
 							Item returned = buybackItems.remove(index-2);
 							Dungeon.gold(-returned.金币提升(),pos);
 							if (!returned.doPickUp(Dungeon.hero)){

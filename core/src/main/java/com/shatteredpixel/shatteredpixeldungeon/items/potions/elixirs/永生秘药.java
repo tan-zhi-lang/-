@@ -56,7 +56,7 @@ public class 永生秘药 extends Elixir {
 			healing.setHeal(ch.最大生命, 1, 0);
 			healing.applyVialEffect();
 			if (ch == Dungeon.hero){
-				GLog.p(Messages.get(治疗药剂.class,"heal"));
+				GLog.绿(Messages.get(治疗药剂.class,"heal"));
 			}
 		}
 	}

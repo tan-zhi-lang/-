@@ -377,11 +377,11 @@ abstract public class KindOfWeapon extends EquipableItem {
 							doEquip(hero);
 						} else {
 							if(双手()){
-								GLog.w("你装备的武器是双手武器，所以装备至了主武器位置！");
+								GLog.橙("你装备的武器是双手武器，所以装备至了主武器位置！");
 								doEquip(hero);
 							}else{
 								if(hero.belongings.weapon!=null&&hero.belongings.weapon.双手()){
-									GLog.w("你正在装备的武器是双手武器，所以装备至了主武器位置！");
+									GLog.橙("你正在装备的武器是双手武器，所以装备至了主武器位置！");
 									doEquip(hero);
 								}else
 									equipSecondary(hero);
@@ -437,7 +437,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			cursedKnown = true;
 			if (cursed) {
 				equipCursed( hero );
-				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
+				GLog.红(Messages.get(KindOfWeapon.class,"equip_cursed"));
 				Dungeon.hero.sprite.哭泣();
 			}
 			
@@ -468,7 +468,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 			cursedKnown = true;
 			if (cursed) {
 				equipCursed( hero );
-				GLog.n( Messages.get(KindOfWeapon.class, "equip_cursed") );
+				GLog.红(Messages.get(KindOfWeapon.class,"equip_cursed"));
 				Dungeon.hero.sprite.哭泣();
 			}
 

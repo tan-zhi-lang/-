@@ -213,7 +213,7 @@ public class Necromancer extends Mob {
 					if (blocker == Dungeon.hero && !blocker.isAlive()){
 						Badges.validateDeathFromEnemyMagic();
 						Dungeon.fail(this);
-						GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );
+						GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",name())));
 					}
 				}
 

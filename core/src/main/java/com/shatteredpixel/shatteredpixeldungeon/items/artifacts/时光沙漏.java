@@ -83,15 +83,15 @@ public class 时光沙漏 extends Artifact {
 
 		if (action.equals(AC_ACTIVATE)){
 
-			if (!isEquipped( hero ))        GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+			if (!isEquipped( hero ))        GLog.白(Messages.get(Artifact.class,"need_to_equip"));
 			else if (activeBuff != null) {
 				if (activeBuff instanceof timeStasis) { //do nothing
 				} else {
 					activeBuff.detach();
-					GLog.i( Messages.get(this, "deactivate") );
+					GLog.白(Messages.get(this,"deactivate"));
 				}
-			} else if (charge <= 0)         GLog.i( Messages.get(this, "no_charge") );
-			else if (cursed)                GLog.i( Messages.get(this, "cursed") );
+			} else if (charge <= 0)         GLog.白(Messages.get(this,"no_charge"));
+			else if (cursed)                GLog.白(Messages.get(this,"cursed"));
 			else GameScene.show(
 						new WndOptions(new ItemSprite(this),
 								Messages.titleCase(name()),
@@ -101,7 +101,7 @@ public class 时光沙漏 extends Artifact {
 							@Override
 							protected void onSelect(int index) {
 								if (index == 0) {
-									GLog.i( Messages.get(时光沙漏.class, "onstasis") );
+									GLog.白(Messages.get(时光沙漏.class,"onstasis"));
 									GameScene.flash(0x80FFFFFF);
 									Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
@@ -117,7 +117,7 @@ public class 时光沙漏 extends Artifact {
 										}
 									}
 
-									GLog.i( Messages.get(时光沙漏.class, "onfreeze") );
+									GLog.白(Messages.get(时光沙漏.class,"onfreeze"));
 									GameScene.flash(0x80FFFFFF);
 									Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
@@ -495,14 +495,14 @@ public class 时光沙漏 extends Artifact {
 				Catalog.countUses(hourglass.getClass(), 2);
 				Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
 				if (hourglass.等级() == hourglass.levelCap)
-					GLog.p( Messages.get(this, "maxlevel") );
+					GLog.绿(Messages.get(this,"maxlevel"));
 				else
-					GLog.i( Messages.get(this, "levelup") );
+					GLog.白(Messages.get(this,"levelup"));
 				GameScene.pickUp(this, pos);
 				hero.spendAndNext(hero.攻击延迟());
 				return true;
 			} else {
-				GLog.w( Messages.get(this, "no_hourglass") );
+				GLog.橙(Messages.get(this,"no_hourglass"));
 				return false;
 			}
 		}

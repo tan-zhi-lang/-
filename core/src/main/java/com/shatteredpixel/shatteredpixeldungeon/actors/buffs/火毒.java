@@ -147,6 +147,6 @@ public class 火毒 extends 燃烧 implements Hero.Doom {
 		Badges.validateDeathFromFire();
 		
 		Dungeon.fail( this );
-		GLog.n( Messages.get(this, "ondeath") );
+		GLog.红(Messages.get(this,"ondeath"));
 	}
 }

@@ -1051,6 +1051,7 @@ public class Hero extends Char {
             put2("疾风步",1,0);
             put2("守护天使",1,0);
             put2("浪客之道",1,0);
+            put2("缚法宝珠",1,0);
             put2("双发快射",1,0);
             put2("海克斯获取:经验",1,0);
             put2("海克斯获取:强制贸易",1,0);
@@ -1112,6 +1113,7 @@ public class Hero extends Char {
             put2("临终轻语",1,0);
             put2("暴击率的宠爱",1,0);
             put2("防御转魔抗",1,0);
+            put2("新命运",1,0);
             put2("升级缝合像素地牢",1,0);
             put2("即死",1,0);
             put2("攻击Bug",1,0);
@@ -1768,6 +1770,7 @@ public class Hero extends Char {
             case "超强大脑":return "最大护甲+3倍魔力";
             case "飞升":return "升级到满级时会获得2个海克斯宝典";
             case "巨石强森":return "石头的攻击伤害x30";
+            case "缚法宝珠":return "+45%护甲穿透，+45%法术穿透";
             case "浪客之道":return "+25%暴击率，并且总暴击几率x2.5，但是暴击伤害x0.9";
             case "灵魂虹吸":return "+25%暴击率，作用于暴击的12.5%吸血";
             case "光盾打击":return "对敌人的攻击必定暴击，并恢复自身15%已损失生命，每个目标10回合冷却，冷却从武器充能收益";
@@ -1871,6 +1874,8 @@ public class Hero extends Char {
             case "电火迸射":return "攻击伤害仅22.5%，但是攻击6次";
             case "临终轻语":return "+25%暴击率，攻击额外造成敌人9%已损生命值的魔法伤害";
             case "伤害伤害":return "攻击伤害+15%";
+            case "新命运":return "攻击+50%，但是你的攻击速度固定0.5，攻速也会增加攻击";
+            case "防御转魔抗":return "元素抗性+最大防御/(2.5+最大防御)";
             case "暴击率的宠爱":return "暴击率+0.1%英雄攻击次数";
             case "吸血鬼":return "治疗护盾+吸血+全能吸血";
             case "渴血":return "+15%全能吸血";
@@ -2479,7 +2484,7 @@ public class Hero extends Char {
     }
     public void 选择海克斯(String ss){
         if(拥有海克斯()>=120){//最多120
-            GLog.n("地牢承受不住这么庞大的海克斯力量！\n会崩溃的！所以这次获得的海克斯未获得。");
+            GLog.红("地牢承受不住这么庞大的海克斯力量！\n会崩溃的！所以这次获得的海克斯未获得。");
             return;
         }
         if(符文("海克斯获取:海克斯获取")&&Random.Int(1)==0)new 海克斯宝典().放背包();
@@ -2493,7 +2498,7 @@ public class Hero extends Char {
         }
         else {
             Notes.备注(物品表.海克斯宝典,海克斯级(ss)+"级:"+ss,海克斯描述(ss));
-            GLog.w("你已备注了选择的海克斯。");
+            GLog.橙("你已备注了选择的海克斯。");
         }
         if (海克斯表.containsKey(ss))
             if(海克斯表.get(ss)!=百(海克斯表.get(ss))*100
@@ -4351,7 +4356,7 @@ public class Hero extends Char {
 
     public float 攻击效果() {
         float x=1;
-        if (SPDSettings.固定攻速() != 5||subClass(HeroSubClass.灵月杀手)||符文("一板一眼")) {
+        if (SPDSettings.固定攻速() != 5||subClass(HeroSubClass.灵月杀手)||符文("新命运")||符文("一板一眼")) {
             x/=增加攻击的攻速;
         }
         if(x<1)x=1;
@@ -4465,7 +4470,7 @@ public class Hero extends Char {
         if(belongings.weapon instanceof 灵鞭) x+=天赋点数(Talent.灵鞭强化,0.25f);
 
 
-        if (SPDSettings.固定攻速() != 5||subClass(HeroSubClass.灵月杀手)||符文("一板一眼")) {
+        if (SPDSettings.固定攻速() != 5||subClass(HeroSubClass.灵月杀手)||符文("一板一眼")||符文("新命运")) {
             x/=增加攻击的攻速;
         }
         if(天赋(Talent.任督二脉)&&综合属性()>1)x*=1+(综合属性()-1)*天赋点数(Talent.任督二脉,0.25f);
@@ -4984,34 +4989,40 @@ public float 攻击延迟() {
     //                delay /= 1.6f;
     //            }
 
-            if (SPDSettings.固定攻速() >= 5) {
-                攻速get=1/delay;
-                return delay;
-            }
+    if (符文("新命运")) {
+        增加攻击的攻速=delay;
+
+        攻速get=2/delay;
+        return delay <= 2 ? 2 : delay;
+    }
+    if (SPDSettings.固定攻速() == 1||subClass(HeroSubClass.灵月杀手)) {
+        增加攻击的攻速=delay;
+
+        攻速get=1/delay;
+        return delay <= 1 ? 1 : delay;
+    }
+    if (SPDSettings.固定攻速() ==2) {
+        增加攻击的攻速=delay <= 1 ? 1/2f-delay : delay;
+
+        攻速get=1/delay;
+        return delay <= 1/2f ? 1/2f : delay;
+    }
+    if (SPDSettings.固定攻速() ==3) {
+        增加攻击的攻速=delay <= 1/3f ? 1/3f-delay : delay;
+
+        攻速get=1/delay;
+        return delay <= 1/3f ? 1/3f : delay;
+    }
             if (SPDSettings.固定攻速() ==4) {
                     增加攻击的攻速=delay <= 1/4f ? 1/4f-delay : delay;
 
                 攻速get=1/delay;
                 return delay <= 1/4f ? 1/4f : delay;
             }
-            if (SPDSettings.固定攻速() ==3) {
-                    增加攻击的攻速=delay <= 1/3f ? 1/3f-delay : delay;
-
-                攻速get=1/delay;
-                return delay <= 1/3f ? 1/3f : delay;
-            }
-            if (SPDSettings.固定攻速() ==2) {
-                    增加攻击的攻速=delay <= 1 ? 1/2f-delay : delay;
-
-                攻速get=1/delay;
-                return delay <= 1/2f ? 1/2f : delay;
-            }
-            if (SPDSettings.固定攻速() == 1||subClass(HeroSubClass.灵月杀手)||符文("一板一眼")) {
-                    增加攻击的攻速=delay;
-
-                攻速get=1/delay;
-                return delay <= 1 ? 1 : delay;
-            }
+    if (SPDSettings.固定攻速() >= 5) {
+        攻速get=1/delay;
+        return delay;
+    }
             攻速get=1/delay;
             return delay;
     }
@@ -5248,15 +5259,16 @@ public float 攻击延迟() {
     }
     @Override
     public boolean act(){
-                算法.调试(Holiday.getCurrentHoliday()+"");
+        GLog.紫("你吗的");
+        算法.调试(Holiday.getCurrentHoliday()+"");
         sprite.remove(CharSprite.State.领域);
         if((Dungeon.相对层数()>15&&Dungeon.相对层数()<20)&&Dungeon.branch==1){
             if(算法.概率学(2))
-            GLog.w("不知道怎么回去，不看背包的屑。");
+            GLog.橙("不知道怎么回去，不看背包的屑。");
         }
         if(Dungeon.level!=null&&算法.isDebug()){
-            GLog.w(Dungeon.level.width()+"w");
-            GLog.w(Dungeon.level.height()+"k");
+            GLog.橙(Dungeon.level.width()+"w");
+            GLog.橙(Dungeon.level.height()+"k");
         }
 
         if(subClass(HeroSubClass.真人)){
@@ -5702,9 +5714,9 @@ public float 攻击延迟() {
                 地牢塔防更多更快开关=Random.oneOf(true,false,false);
                 if(地牢塔防波次<13){
                     if(地牢塔防更多更快开关){
-                        GLog.w("第"+地牢塔防波次+"波，更多更快！");
+                        GLog.橙("第"+地牢塔防波次+"波，更多更快！");
                     }else{
-                        GLog.w("第"+地牢塔防波次+"波");
+                        GLog.橙("第"+地牢塔防波次+"波");
                     }
                 }
             }
@@ -5728,12 +5740,12 @@ public float 攻击延迟() {
                     地牢塔防更多更快开关=false;
                     地牢塔防去下一层=true;
                     Sample.INSTANCE.play( Assets.Sounds.BOSS );
-                    GLog.p("胜利！前往下一层！");
+                    GLog.绿("胜利！前往下一层！");
                 }
                 if(地牢塔防开关){
                     if(地牢塔防波次%3==0){
                         if(地牢塔防老鬼开关){
-                            GLog.n("第"+地牢塔防波次+"波，老鬼出现！");
+                            GLog.红("第"+地牢塔防波次+"波，老鬼出现！");
                             mob.viewDistance=Dungeon.level.width();
                             mob.大小=0.95f+地牢塔防波次*0.1f;
                             mob.生命=mob.最大生命=7*强度*地牢塔防波次;
@@ -6144,7 +6156,7 @@ public float 攻击延迟() {
 
             AlchemistsToolkit.kitEnergy kit = buff(AlchemistsToolkit.kitEnergy.class);
             if (kit != null && kit.isCursed()) {
-                GLog.w(Messages.get(AlchemistsToolkit.class, "cursed"));
+                GLog.橙(Messages.get(AlchemistsToolkit.class,"cursed"));
                 return false;
             }
 
@@ -6185,7 +6197,7 @@ public float 攻击延迟() {
                     } else if (item instanceof DarkGold) {
                         DarkGold existing = belongings.getItem(DarkGold.class);
                         if (existing != null) {
-							GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
+							GLog.绿(Messages.get(DarkGold.class,"you_now_have",existing.数量()));
                         }
                     } else {
 
@@ -6193,9 +6205,9 @@ public float 攻击延迟() {
                         boolean important =item.特别&&item.已鉴定()&&
                                            (item instanceof Scroll || item instanceof Potion);
                         if (important) {
-                            GLog.p(Messages.capitalize(Messages.get(this, "you_now_have", item.name())));
+                            GLog.绿(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
                         } else {
-                            GLog.i(Messages.capitalize(Messages.get(this, "you_now_have", item.name())));
+                            GLog.白(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
                         }
                     }
 
@@ -6221,7 +6233,7 @@ public float 攻击延迟() {
                         //Do Nothing
                     } else {
                         GLog.newLine();
-                        GLog.n(Messages.capitalize(Messages.get(this, "you_cant_have", item.name())));
+                        GLog.红(Messages.capitalize(Messages.get(this,"you_cant_have",item.name())));
                     }
 
                     ready();
@@ -6253,7 +6265,7 @@ public float 攻击延迟() {
                 if ((heap.type == Type.LOCKED_CHEST && Notes.keyCount(new GoldenKey(Dungeon.depth)) < 1)
                         || (heap.type == Type.CRYSTAL_CHEST && Notes.keyCount(new CrystalKey(Dungeon.depth)) < 1)) {
 
-                    GLog.w(Messages.get(this, "locked_chest"));
+                    GLog.橙(Messages.get(this,"locked_chest"));
                     ready();
                     return false;
 
@@ -6305,7 +6317,7 @@ public float 攻击延迟() {
                 
                 if (belongings.getItem(骷髅钥匙.class) != null
                     && !belongings.getItem(骷髅钥匙.class).cursed){
-                    GLog.i(Messages.get(骷髅钥匙.class, "locked_with_key"));
+                    GLog.白(Messages.get(骷髅钥匙.class,"locked_with_key"));
                     ready();
                     return false;
                 } else {
@@ -6330,7 +6342,7 @@ public float 攻击延迟() {
                 Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
             } else {
-                GLog.w(Messages.get(this, "locked_door"));
+                GLog.橙(Messages.get(this,"locked_door"));
                 ready();
             }
 
@@ -6372,7 +6384,7 @@ public float 攻击延迟() {
                             if (gold.doPickUp(Dungeon.hero)) {
                                 DarkGold existing = belongings.getItem(DarkGold.class);
                                 if (existing != null) {
-									GLog.p(Messages.get(DarkGold.class, "you_now_have", existing.数量()));
+									GLog.绿(Messages.get(DarkGold.class,"you_now_have",existing.数量()));
                                 }
                                 spend(-Actor.TICK); //picking up the gold doesn't spend a turn here
                             } else {
@@ -6495,7 +6507,7 @@ public float 攻击延迟() {
         attackTarget = action.target;
 
         if (isCharmedBy(attackTarget)) {
-            GLog.w(Messages.get(Charm.class, "cant_attack"));
+            GLog.橙(Messages.get(Charm.class,"cant_attack"));
             ready();
             return false;
         }
@@ -6861,7 +6873,6 @@ public float 攻击延迟() {
         damage = Talent.攻击时(this, enemy, damage);
 //        if(enemy!=null)
 //        sprite.parent.add(new TargetedCell(enemy.pos, 0xFF0000));
-
 
         Weapon wep;
         if (武力之戒.fightingUnarmed(this)&&!武力之戒.unarmedGetsWeaponEnchantment(this)) {
@@ -8003,7 +8014,7 @@ public float 攻击延迟() {
 
         if (this.buff(Drowsy.class) != null) {
             Buff.detach(this, Drowsy.class);
-            GLog.w(Messages.get(this, "pain_resist"));
+            GLog.橙(Messages.get(this,"pain_resist"));
         }
 
 		//region 附带效果
@@ -8302,8 +8313,9 @@ public float 攻击延迟() {
         if(符文("传送")||算法.isDebug()){
             int cs=Math.round(1+0.3f*移速()+(算法.isDebug()?16:0));
             if(Dungeon.bossLevel())cs=1;
+
             if (Dungeon.level.passable[target]||(Dungeon.level.pit[target] && !Dungeon.level.solid[target]))
-            if(距离(target)<=cs){
+            if(距离(target)<=cs&&Actor.findChar(target)==null){
                 移动处理(target);
                 传送卷轴.appear(Hero.this,target);
 
@@ -8737,7 +8749,7 @@ public float 攻击延迟() {
                 this.经验= 0;
 
                 GLog.newLine();
-                GLog.p(Messages.get(this, "level_cap"));
+                GLog.绿(Messages.get(this,"level_cap"));
                 Sample.INSTANCE.play(Assets.Sounds.LEVELUP);
             }
 
@@ -8780,12 +8792,12 @@ public float 攻击延迟() {
 
             if (sprite != null) {
                 GLog.newLine();
-                GLog.p(Messages.get(this, "new_level"));
+                GLog.绿(Messages.get(this,"new_level"));
                 sprite.showStatus(CharSprite.增强绿,Messages.get(Hero.class,"level_up"));
                 Sample.INSTANCE.play(Assets.Sounds.LEVELUP);
                 if (等级 < Talent.天赋解锁[Talent.MAX_TALENT_TIERS + 1]) {
                     GLog.newLine();
-                    GLog.p(Messages.get(this, "new_talent"));
+                    GLog.绿(Messages.get(this,"new_talent"));
                     StatusPane.talentBlink = 10f;
                     WndHero.lastIdx = 1;
                 }
@@ -8870,7 +8882,7 @@ public float 攻击延迟() {
         if (sprite != null && added) {
             String msg = buff.heroMessage();
             if (msg != null) {
-                GLog.w(msg);
+                GLog.橙(msg);
             }
 
             if (buff instanceof Paralysis || buff instanceof Vertigo) {
@@ -8966,7 +8978,7 @@ public float 攻击延迟() {
                     }
 
                     Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-                    GLog.w(Messages.get(this,"revive"));
+                    GLog.橙(Messages.get(this,"revive"));
                     Statistics.ankhsUsed++;
                     Catalog.countUse(Ankh.class);
 
@@ -9175,7 +9187,7 @@ public float 攻击延迟() {
             骷髅钥匙.KeyReplacementTracker keyUseTrack = buff(骷髅钥匙.KeyReplacementTracker.class);
             
             if (skele != null && skele.isCursed() && Random.Int(6) != 0){
-                GLog.n(Messages.get(this, "key_distracted"));
+                GLog.红(Messages.get(this,"key_distracted"));
                 spendAndNext(2*Key.TIME_TO_UNLOCK);
 //                Buff.施加(this, Hunger.class).吃饭(-4);
             } else if (Dungeon.level.距离(pos,doorCell)<=1) {
@@ -9191,7 +9203,7 @@ public float 攻击延迟() {
                 } else if (door == Terrain.HERO_LKD_DR) {
                     hasKey = true;
                     Level.set(doorCell, Terrain.DOOR);
-                    GLog.i( Messages.get(骷髅钥匙.class, "force_lock"));
+                    GLog.白(Messages.get(骷髅钥匙.class,"force_lock"));
                 } else if (door == Terrain.CRYSTAL_DOOR) {
                     hasKey = Notes.remove(new CrystalKey(Dungeon.depth));
                     if (hasKey) {
@@ -9228,7 +9240,7 @@ public float 攻击延迟() {
             if (skele != null && skele.isCursed()
                 && (heap.type == Type.LOCKED_CHEST || heap.type == Type.CRYSTAL_CHEST)
                 && Random.Int(6) != 0){
-                GLog.n(Messages.get(this, "key_distracted"));
+                GLog.红(Messages.get(this,"key_distracted"));
                 spend(2*Key.TIME_TO_UNLOCK);
 //                Buff.施加(this, Hunger.class).吃饭(-4);
             } else if (Dungeon.level.距离(pos,heap.pos)<=1){
@@ -9515,7 +9527,7 @@ public float 攻击延迟() {
             if (!Dungeon.level.locked) {
                 if (cursed) {
                     x*=2;
-                    GLog.n(Messages.get(this, "search_distracted"));
+                    GLog.红(Messages.get(this,"search_distracted"));
                 }
             }
             if(subClass(HeroSubClass.神偷无影)){
@@ -9590,7 +9602,7 @@ public float 攻击延迟() {
 
         if (smthFound) {
             sprite.showAlert();//惊讶！
-            GLog.w(Messages.get(this, "noticed_smth"));
+            GLog.橙(Messages.get(this,"noticed_smth"));
             Sample.INSTANCE.play(Assets.Sounds.SECRET);
             interrupt();
             if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.搜索)){
@@ -9994,6 +10006,7 @@ public float 攻击延迟() {
             护甲穿透+=0.2f;
         }
         护甲穿透+=天赋点数(Talent.大荒星陨,0.15f);
+        if(符文("缚法宝珠"))护甲穿透+=0.45f;
         if(符文("穿针引线"))护甲穿透+=0.2f;
         if(符文("起源:切断与结合"))护甲穿透+=0.4f;
         护甲穿透+=穿透成长;
@@ -10013,6 +10026,7 @@ public float 攻击延迟() {
         if (heroClass(HeroClass.罗兰)) {
             法术穿透+=0.2f;
         }
+        if(符文("缚法宝珠"))法术穿透+=0.45f;
         if(符文("穿针引线"))法术穿透+=0.2f;
         if(种族天赋.equals("龙人"))法术穿透+=0.3f;
         法术穿透+=天赋点数(Talent.元素之力,0.075f);
@@ -10109,7 +10123,7 @@ public float 攻击延迟() {
         }
 
         if (wandCls == null){
-            GLog.w(Messages.get(this, "no_staff"));
+            GLog.橙(Messages.get(this,"no_staff"));
             return;
         }
 
@@ -10404,7 +10418,7 @@ public float 攻击延迟() {
         }
 
         if (Actor.findChar(target) == hero){
-            GLog.w(Messages.get(this, "self_target"));
+            GLog.橙(Messages.get(this,"self_target"));
             return;
         }
 
@@ -10414,7 +10428,7 @@ public float 攻击延迟() {
         Char enemy = 风刃.findChar(b,hero, 0/*穿墙*/,targets);
 
         if (enemy == null || !hero.fieldOfView[enemy.pos]){
-            GLog.w(Messages.get(this, "no_target"));
+            GLog.橙(Messages.get(this,"no_target"));
             return;
         }
 
@@ -10535,14 +10549,14 @@ public float 攻击延迟() {
         Char ch = Actor.findChar(target);
 
         if (ch == null || !Dungeon.level.heroFOV[target]) {
-            GLog.w(Messages.get(this, "no_target"));
+            GLog.橙(Messages.get(this,"no_target"));
             return;
         } else if (ch.alignment != Char.Alignment.ENEMY||!(ch instanceof Mob)||ch instanceof 超级魔法绵羊||ch instanceof DM0||ch instanceof 毒气宝箱怪||ch instanceof NPC||ch instanceof Rat){
-            GLog.w(Messages.get(this, "cant_transform"));
+            GLog.橙(Messages.get(this,"cant_transform"));
             return;
         } else if (ch instanceof TransmogRat){
             if (((TransmogRat) ch).allied ){
-                GLog.w(Messages.get(this, "cant_transform"));
+                GLog.橙(Messages.get(this,"cant_transform"));
                 return;
             } else {
                 ((TransmogRat) ch).makeAlly();
@@ -10550,7 +10564,7 @@ public float 攻击延迟() {
                 Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
             }
         } else if (Char.hasProp(ch, Char.Property.MINIBOSS) || Char.hasProp(ch, Char.Property.BOSS)){
-            GLog.w(Messages.get(this, "too_strong"));
+            GLog.橙(Messages.get(this,"too_strong"));
             return;
         } else {
             TransmogRat rat = new TransmogRat();
@@ -10671,7 +10685,7 @@ public float 攻击延迟() {
             return;
         }
         if (target == hero.pos){
-            GLog.w(Messages.get(this, "self_target"));
+            GLog.橙(Messages.get(this,"self_target"));
             return;
         }
         hero.busy();
@@ -10818,6 +10832,7 @@ public float 攻击延迟() {
         return hit;
     }
     public boolean 职业精通(){
+        if(算法.isDebug()&&等级>20)return true;
         return 等级>20&&Badges.local.contains(Badges.Badge.BOSS_SLAIN_4);
     }
     public String 职业精通提示(){
@@ -10980,7 +10995,7 @@ public float 攻击延迟() {
             }
         }
         if(提示){
-            GLog.w("你因为升到21级并击杀第四个Boss已职业精通！\n"+s);
+            GLog.黄("你因为升到21级并击杀第四个Boss已职业精通！\n"+s);
         }
         return s;
     }
@@ -11006,7 +11021,7 @@ public float 攻击延迟() {
 
                         buff(Hunger.class).吃饭(-160+天赋点数(Talent.曲境折迁,40));
                         if (tracker.depth != Dungeon.depth &&false){//跨层
-                            GLog.w( Messages.get(WarpBeaconTracker.class, "depths") );
+                            GLog.橙(Messages.get(WarpBeaconTracker.class,"depths"));
                             return;
                         }
 
@@ -11049,7 +11064,7 @@ public float 攻击延迟() {
                                         Dungeon.level.occupyCell(toPush);
                                         next();
                                     } else {
-                                        GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+                                        GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
                                     }
                                 } else {
                                     传送卷轴.appear(Hero.this,tracker.pos);
@@ -11067,7 +11082,7 @@ public float 攻击延迟() {
                         } else {
 
                             if (!Dungeon.interfloorTeleportAllowed()){
-                                GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+                                GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
                                 return;
                             }
 
@@ -11093,7 +11108,7 @@ public float 攻击延迟() {
             }
 
             if (Dungeon.level.距离(pos,target)>4){
-                GLog.w( Messages.get(WarpBeaconTracker.class, "too_far") );
+                GLog.橙(Messages.get(WarpBeaconTracker.class,"too_far"));
                 return;
             }
 
@@ -11102,7 +11117,7 @@ public float 攻击延迟() {
                 (Dungeon.level.solid[target] && !Dungeon.level.passable[target]) ||
                 !(Dungeon.level.passable[target] || Dungeon.level.avoid[target]) ||
                 PathFinder.distance[pos] == Integer.MAX_VALUE){
-                GLog.w( Messages.get(WarpBeaconTracker.class, "invalid_beacon") );
+                GLog.橙(Messages.get(WarpBeaconTracker.class,"invalid_beacon"));
                 return;
             }
 

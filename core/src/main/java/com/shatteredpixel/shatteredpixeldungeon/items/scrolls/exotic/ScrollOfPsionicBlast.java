@@ -31,7 +31,7 @@ public class ScrollOfPsionicBlast extends ExoticScroll {
 		GameScene.flash( 0x80FFFFFF );
 		
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
-		GLog.i(Messages.get(复仇卷轴.class,"blast"));
+		GLog.白(Messages.get(复仇卷轴.class,"blast"));
 
 		ArrayList<Mob> targets = new ArrayList<>();
 
@@ -60,7 +60,7 @@ public class ScrollOfPsionicBlast extends ExoticScroll {
 		} else {
 			Badges.validateDeathFromFriendlyMagic();
 			Dungeon.fail( this );
-			GLog.n( Messages.get(this, "ondeath") );
+			GLog.红(Messages.get(this,"ondeath"));
 		}
 
 		鉴定();

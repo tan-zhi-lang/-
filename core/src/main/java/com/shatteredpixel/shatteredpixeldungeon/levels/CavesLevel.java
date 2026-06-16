@@ -108,7 +108,7 @@ public class CavesLevel extends RegularLevel {
 			}
 
 			if (smith == null || !Blacksmith.Quest.given() || Blacksmith.Quest.completed()) {
-				GLog.w(Messages.get(Blacksmith.class, "entrance_blocked"));
+				GLog.橙(Messages.get(Blacksmith.class,"entrance_blocked"));
 			} else {
 				final 镐子 pick = hero.belongings.getItem(镐子.class);
 				Game.runOnRenderThread(new Callback() {

@@ -25,9 +25,9 @@ public class 灵视药剂 extends Potion {
 		Dungeon.observe();
 		
 		if (Dungeon.level.mobs.size() > 0) {
-			GLog.i( Messages.get(this, "see_mobs") );
+			GLog.白(Messages.get(this,"see_mobs"));
 		} else {
-			GLog.i( Messages.get(this, "see_none") );
+			GLog.白(Messages.get(this,"see_none"));
 		}
 	}
 	

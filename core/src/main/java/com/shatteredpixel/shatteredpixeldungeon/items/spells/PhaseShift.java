@@ -43,7 +43,7 @@ public class PhaseShift extends TargetedSpell {
 				
 			}
 		} else {
-			GLog.w( Messages.get(this, "no_target") );
+			GLog.橙(Messages.get(this,"no_target"));
 		}
 		onSpellused();
 	}

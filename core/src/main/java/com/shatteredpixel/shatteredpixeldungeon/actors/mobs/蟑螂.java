@@ -69,7 +69,7 @@ public class 蟑螂 extends Mob {
 	@Override
 	public float 防御时(Char enemy,float damage){
 		damage*=1-已损失生命()*0.8f;
-		damage=Math.max(最大生命(0.35f),damage);
+		damage=Math.max(最大生命(0.45f),damage);
 		return super.防御时(enemy,damage);
 	}
 	public boolean 攻击=false;

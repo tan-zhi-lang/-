@@ -37,7 +37,7 @@ public class 风刃 extends 目标忍术 {
 		}
 		
 		if (Actor.findChar(target) == hero){
-			GLog.w(Messages.get(this, "self_target"));
+			GLog.橙(Messages.get(this,"self_target"));
 			return;
 		}
 		
@@ -47,7 +47,7 @@ public class 风刃 extends 目标忍术 {
 		Char enemy = findChar(b,hero, 0/*穿墙*/,targets);
 		
 		if (enemy == null || !hero.fieldOfView[enemy.pos]){
-			GLog.w(Messages.get(this, "no_target"));
+			GLog.橙(Messages.get(this,"no_target"));
 			return;
 		}
 		

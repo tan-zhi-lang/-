@@ -38,13 +38,13 @@ public class 潜行 extends 武技{
 			}
 			PathFinder.buildDistanceMap(Dungeon.hero.pos,BArray.or(Dungeon.level.passable,Dungeon.level.avoid,null),hero.攻击范围()+2);
 			if (PathFinder.distance[target]==Integer.MAX_VALUE||!Dungeon.level.heroFOV[target]||hero.rooted) {
-				GLog.w(Messages.get(wep,"ability_target_range"));
+				GLog.橙(Messages.get(wep,"ability_target_range"));
 				if (Dungeon.hero.rooted) PixelScene.shake(1,1f);
 				return;
 			}
 
 			if (Actor.findChar(target)!=null) {
-				GLog.w(Messages.get(wep, "ability_occupied"));
+				GLog.橙(Messages.get(wep,"ability_occupied"));
 				return;
 			}
 			

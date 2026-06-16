@@ -103,7 +103,7 @@ public class Heap implements Bundlable {
 				hero.受伤时( hero.生命 / 2, this );
 				if (!hero.isAlive()){
 					Dungeon.fail(Wraith.class);
-					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", Messages.get(Wraith.class, "name"))));
+					GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",Messages.get(Wraith.class,"name"))));
 				}
 			}
 			Sample.INSTANCE.play( Assets.Sounds.CURSED );

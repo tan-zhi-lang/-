@@ -581,7 +581,7 @@ return null;
     }
     public static void 调试(String s){
         if(isDebug())
-        GLog.p(s);
+        GLog.绿(s);
     }
     public static void 修复效果(Callback c){
         Actor.add(new Actor() {

@@ -74,15 +74,15 @@ public class MasterThievesArmband extends Artifact {
 			curUser = hero;
 
 			if (!isEquipped( hero )) {
-				GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+				GLog.白(Messages.get(Artifact.class,"need_to_equip"));
 				usesTargeting = false;
 
 			} else if (charge < 1) {
-				GLog.i( Messages.get(this, "no_charge") );
+				GLog.白(Messages.get(this,"no_charge"));
 				usesTargeting = false;
 
 			} else if (cursed) {
-				GLog.w( Messages.get(this, "cursed") );
+				GLog.橙(Messages.get(this,"cursed"));
 				usesTargeting = false;
 
 			} else {
@@ -103,7 +103,7 @@ public class MasterThievesArmband extends Artifact {
 			} else if (Actor.findChar(target) == null){
 			
 			} else if (Dungeon.level.距离(curUser.pos,target)>curUser.攻击范围()){
-				GLog.w( Messages.get(MasterThievesArmband.class, "no_target") );
+				GLog.橙(Messages.get(MasterThievesArmband.class,"no_target"));
 			} else {
 				Char ch = Actor.findChar(target);
 				 if (ch instanceof Mob) {
@@ -141,7 +141,7 @@ public class MasterThievesArmband extends Artifact {
 							}
 
 							if (lootChance == 0){
-								GLog.w(Messages.get(MasterThievesArmband.class, "no_steal"));
+								GLog.橙(Messages.get(MasterThievesArmband.class,"no_steal"));
 							} else if (Random.Float() <= lootChance){
 								Item loot = ((Mob) ch).createLoot();
 								boolean 有偷的=true;
@@ -161,7 +161,7 @@ public class MasterThievesArmband extends Artifact {
 								}
 								
 								if (loot==null||!有偷的){//Evan没写空的情况
-									GLog.i(Messages.get(MasterThievesArmband.class, "failed_steal"));
+									GLog.白(Messages.get(MasterThievesArmband.class,"failed_steal"));
 									Buff.施加(ch, StolenTracker.class).setItemStolen(false);
 								} else {
 									curUser.sprite.说("拿来吧你！");
@@ -171,11 +171,11 @@ public class MasterThievesArmband extends Artifact {
 									} else {
 										Dungeon.level.drop(loot, curUser.pos).sprite().drop();
 									}
-									GLog.i(Messages.get(MasterThievesArmband.class, "stole_item", loot.name()));
+									GLog.白(Messages.get(MasterThievesArmband.class,"stole_item",loot.name()));
 									Buff.施加(ch, StolenTracker.class).setItemStolen(true);
 								}
 							} else {
-								GLog.i(Messages.get(MasterThievesArmband.class, "failed_steal"));
+								GLog.白(Messages.get(MasterThievesArmband.class,"failed_steal"));
 								Buff.施加(ch, StolenTracker.class).setItemStolen(false);
 							}
 
@@ -190,7 +190,7 @@ public class MasterThievesArmband extends Artifact {
 							while (exp >= (10 + Math.round(3.33f * 等级())) && 等级() < levelCap) {
 								exp -= 10 + Math.round(3.33f * 等级());
 								Catalog.countUse(MasterThievesArmband.class);
-								GLog.p(Messages.get(MasterThievesArmband.class, "level_up"));
+								GLog.绿(Messages.get(MasterThievesArmband.class,"level_up"));
 								升级();
 							}
 							Item.updateQuickslot();
@@ -231,7 +231,7 @@ public class MasterThievesArmband extends Artifact {
 				partialCharge--;
 			}
 			if (charge >= chargeCap) {
-				GLog.p(Messages.get(MasterThievesArmband.class, "full"));
+				GLog.绿(Messages.get(MasterThievesArmband.class,"full"));
 				partialCharge = 0;
 				charge = chargeCap;
 			}
@@ -287,7 +287,7 @@ public class MasterThievesArmband extends Artifact {
 					updateQuickslot();
 
 					if (charge == chargeCap){
-						GLog.p( Messages.get(MasterThievesArmband.class, "full") );
+						GLog.绿(Messages.get(MasterThievesArmband.class,"full"));
 						partialCharge = 0;
 					}
 				}
@@ -305,13 +305,13 @@ public class MasterThievesArmband extends Artifact {
 			} else {
 				charge -= chargesUsed;
 				exp += 4 * chargesUsed;
-				GLog.i(Messages.get(MasterThievesArmband.class, "stole_item", item.name()));
+				GLog.白(Messages.get(MasterThievesArmband.class,"stole_item",item.name()));
 
 				Talent.onArtifactUsed(Dungeon.hero);
 				while (exp >= (10 + Math.round(3.33f * 等级())) && 等级() < levelCap) {
 					exp -= 10 + Math.round(3.33f * 等级());
 					Catalog.countUse(MasterThievesArmband.class);
-					GLog.p(Messages.get(MasterThievesArmband.class, "level_up"));
+					GLog.绿(Messages.get(MasterThievesArmband.class,"level_up"));
 					升级();
 				}
 				updateQuickslot();

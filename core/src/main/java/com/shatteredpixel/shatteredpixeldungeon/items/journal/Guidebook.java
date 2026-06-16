@@ -36,11 +36,11 @@ public class Guidebook extends Item {
 		GameScene.pickUpJournal(this, pos);
 		//we do this here so the pickup message appears before the tutorial text
 		GameLog.wipe();
-		GLog.i( Messages.capitalize(Messages.get(Hero.class, "you_now_have", name())) );
+		GLog.白(Messages.capitalize(Messages.get(Hero.class,"you_now_have",name())));
 		if (SPDSettings.interfaceSize() == 0){
-			GLog.p(Messages.get(GameScene.class, "tutorial_guidebook_mobile"));
+			GLog.绿(Messages.get(GameScene.class,"tutorial_guidebook_mobile"));
 		} else {
-			GLog.p(Messages.get(GameScene.class, "tutorial_guidebook_desktop", KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL, ControllerHandler.isControllerConnected()))));
+			GLog.绿(Messages.get(GameScene.class,"tutorial_guidebook_desktop",KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL,ControllerHandler.isControllerConnected()))));
 		}
 		GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_INTRO);
 		Sample.INSTANCE.play( Assets.Sounds.ITEM );

@@ -98,7 +98,7 @@ public class CrystalMimic extends Mimic {
 		if (Actor.chars().contains(this) && Dungeon.level.heroFOV[pos]) {
 			enemy = Dungeon.hero;
 			target = Dungeon.hero.pos;
-			GLog.w(Messages.get(this, "reveal") );
+			GLog.橙(Messages.get(this,"reveal"));
 			CellEmitter.get(pos).burst(Speck.factory(Speck.STAR), 10);
 			Sample.INSTANCE.play(Assets.Sounds.MIMIC, 1, 1.25f);
 		}
@@ -136,7 +136,7 @@ public class CrystalMimic extends Mimic {
 
 		if (item != null&&!item.特别&&item.等级()<1 ) {
 
-			GLog.w( Messages.get(this, "ate", item.name()) );
+			GLog.橙(Messages.get(this,"ate",item.name()));
 			if (!item.可堆叠) {
 				Dungeon.quickslot.convertToPlaceholder(item);
 			}
@@ -167,7 +167,7 @@ public class CrystalMimic extends Mimic {
 		@Override
 		protected void escaped() {
 			if (!Dungeon.level.heroFOV[pos] &&Dungeon.level.距离(Dungeon.hero.pos,pos)>=6) {
-				GLog.n(Messages.get(CrystalMimic.class, "escaped"));
+				GLog.红(Messages.get(CrystalMimic.class,"escaped"));
 				destroy();
 				sprite.killAndErase();
 			} else {

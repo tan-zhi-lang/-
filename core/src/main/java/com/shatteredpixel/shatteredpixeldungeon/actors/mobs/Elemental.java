@@ -316,7 +316,7 @@ public abstract class Elemental extends Mob {
 						}
 					}
 
-					GLog.n(Messages.get(this, "charging"));
+					GLog.红(Messages.get(this,"charging"));
 					spend(GameMath.之内(攻击延迟(),(int)Math.ceil(Dungeon.hero.cooldown()),3*攻击延迟()));
 					Dungeon.hero.interrupt();
 					return true;
@@ -517,7 +517,7 @@ public abstract class Elemental extends Mob {
 				ch.受伤时(damage * 0.4f, new Shocking() );
 				if (ch == Dungeon.hero && !ch.isAlive()){
 					Dungeon.fail(this);
-					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );
+					GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",name())));
 				}
 			}
 

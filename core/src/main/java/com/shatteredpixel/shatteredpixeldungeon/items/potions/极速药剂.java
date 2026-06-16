@@ -26,7 +26,7 @@ public class 极速药剂 extends Potion {
 		if(hero.符文("速度的承载"))
 			Buff.施加(hero,HTBoost.class).add();
 
-		GLog.w( Messages.get(this, "energetic") );
+		GLog.橙(Messages.get(this,"energetic"));
 		Buff.延长( hero, 极速.class, 极速.DURATION);
 		SpellSprite.show(hero, SpellSprite.HASTE, 1, 1, 0);
 	}

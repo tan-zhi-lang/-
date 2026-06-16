@@ -72,18 +72,18 @@ public class Challenge extends ArmorAbility {
 
 		Char targetCh = Actor.findChar(target);
 		if (targetCh == null || !Dungeon.level.heroFOV[target]){
-			GLog.w(Messages.get(this, "no_target"));
+			GLog.橙(Messages.get(this,"no_target"));
 			return;
 		}
 
 		if (hero.buff(DuelParticipant.class) != null){
-			GLog.w(Messages.get(this, "already_dueling"));
+			GLog.橙(Messages.get(this,"already_dueling"));
 			return;
 		}
 
 		if (targetCh.alignment != Char.Alignment.ENEMY
 				&& !(targetCh instanceof Mimic && targetCh.alignment == Char.Alignment.NEUTRAL)){
-			GLog.w(Messages.get(this, "ally_target"));
+			GLog.橙(Messages.get(this,"ally_target"));
 			return;
 		}
 
@@ -119,13 +119,13 @@ public class Challenge extends ArmorAbility {
 		}
 
 		if (reachable[blinkpos] == Integer.MAX_VALUE){
-			GLog.w(Messages.get(this, "unreachable_target"));
+			GLog.橙(Messages.get(this,"unreachable_target"));
 			if (hero.rooted) PixelScene.shake( 1, 1f );
 			return;
 		}
 
 		if (Dungeon.level.距离(blinkpos,targetCh.pos)>5){
-			GLog.w(Messages.get(this, "distant_target"));
+			GLog.橙(Messages.get(this,"distant_target"));
 			if (hero.rooted) PixelScene.shake( 1, 1f );
 			return;
 		}

@@ -258,7 +258,7 @@ public class 潜伏 extends Buff implements ActionIndicator.Action {
 			if (cell == null) return;
 			final Char enemy = Actor.findChar( cell );
 			if (enemy == null || Dungeon.hero.isCharmedBy(enemy) || enemy instanceof NPC || !Dungeon.level.heroFOV[cell] || enemy == Dungeon.hero){
-				GLog.w(Messages.get(潜伏.class,"no_target"));
+				GLog.橙(Messages.get(潜伏.class,"no_target"));
 			} else {
 
 				//just attack them then!
@@ -291,7 +291,7 @@ public class 潜伏 extends Buff implements ActionIndicator.Action {
 				}
 
 				if (dest == -1 || PathFinder.distance[dest] == Integer.MAX_VALUE || Dungeon.hero.rooted){
-					GLog.w(Messages.get(潜伏.class,"out_of_reach"));
+					GLog.橙(Messages.get(潜伏.class,"out_of_reach"));
 					if (Dungeon.hero.rooted) PixelScene.shake( 1, 1f );
 					return;
 				}

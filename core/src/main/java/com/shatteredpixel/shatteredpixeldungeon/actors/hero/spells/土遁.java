@@ -57,7 +57,7 @@ public class 土遁 extends 目标忍术 {
 		if (Dungeon.level.blobs.get(LightWall.class) != null
 				&& Dungeon.level.blobs.get(LightWall.class).volume > 0){
 			Dungeon.level.blobs.get(LightWall.class).fullyClear();
-			GLog.i(Messages.get(this, "early_end"));
+			GLog.白(Messages.get(this,"early_end"));
 			return;
 		}
 		super.onCast(tome, hero);
@@ -70,7 +70,7 @@ public class 土遁 extends 目标忍术 {
 		}
 
 		if (target == hero.pos){
-			GLog.w(Messages.get(this, "invalid_target"));
+			GLog.橙(Messages.get(this,"invalid_target"));
 			return;
 		}
 
@@ -152,7 +152,7 @@ public class 土遁 extends 目标忍术 {
 		if (Dungeon.level.solid[closest]
 				&& Dungeon.level.solid[hero.pos + PathFinder.CIRCLE8[(closestIdx+1)%8]]
 				&& Dungeon.level.solid[hero.pos + PathFinder.CIRCLE8[(closestIdx+7)%8]]){
-			GLog.w(Messages.get(this, "invalid_target"));
+			GLog.橙(Messages.get(this,"invalid_target"));
 			return;
 		}
 

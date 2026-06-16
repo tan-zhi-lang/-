@@ -105,10 +105,10 @@ public class UnstableSpellbook extends Artifact {
 
 		if (action.equals( AC_READ )) {
 
-			if (hero.buff( Blindness.class ) != null) GLog.w( Messages.get(this, "blinded") );
-			else if (!isEquipped( hero ))             GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			else if (charge <= 0)                     GLog.i( Messages.get(this, "no_charge") );
-			else if (cursed)                          GLog.i( Messages.get(this, "cursed") );
+			if (hero.buff( Blindness.class ) != null) GLog.橙(Messages.get(this,"blinded"));
+			else if (!isEquipped( hero ))             GLog.白(Messages.get(Artifact.class,"need_to_equip"));
+			else if (charge <= 0)                     GLog.白(Messages.get(this,"no_charge"));
+			else if (cursed)                          GLog.白(Messages.get(this,"cursed"));
 			else {
 				doReadEffect(hero);
 			}
@@ -384,13 +384,13 @@ public class UnstableSpellbook extends Artifact {
 
 						升级();
 						Catalog.countUse(UnstableSpellbook.class);
-						GLog.i( Messages.get(UnstableSpellbook.class, "infuse_scroll") );
+						GLog.白(Messages.get(UnstableSpellbook.class,"infuse_scroll"));
 						return;
 					}
 				}
-				GLog.w( Messages.get(UnstableSpellbook.class, "unable_scroll") );
+				GLog.橙(Messages.get(UnstableSpellbook.class,"unable_scroll"));
 			} else if (item instanceof Scroll && !item.已鉴定()) {
-				GLog.w( Messages.get(UnstableSpellbook.class, "unknown_scroll") );
+				GLog.橙(Messages.get(UnstableSpellbook.class,"unknown_scroll"));
 			}
 		}
 	};

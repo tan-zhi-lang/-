@@ -123,7 +123,7 @@ public class 魔攻之戒 extends Ring {
 	public boolean tryToZap( Hero owner, int target ){
 		
 		if (owner.buff(WildMagic.WildMagicTracker.class)==null&&owner.buff(MagicImmune.class)!=null){
-			GLog.w( Messages.get(Wand.class, "no_magic") );
+			GLog.橙(Messages.get(Wand.class,"no_magic"));
 			return false;
 		}
 		
@@ -131,7 +131,7 @@ public class 魔攻之戒 extends Ring {
 		if ( owner.buff(WildMagic.WildMagicTracker.class) != null || curCharges >= 1){
 			return true;
 		} else {
-			GLog.w(Messages.get(Wand.class, "fizzles"));
+			GLog.橙(Messages.get(Wand.class,"fizzles"));
 			return false;
 		}
 	}
@@ -165,7 +165,7 @@ public class 魔攻之戒 extends Ring {
 				int cell = shot.collisionPos;
 				
 				if (target == curUser.pos || cell == curUser.pos) {
-					GLog.i( Messages.get(Wand.class, "self_target") );
+					GLog.白(Messages.get(Wand.class,"self_target"));
 					return;
 				}
 				
@@ -191,7 +191,7 @@ public class 魔攻之戒 extends Ring {
 					if (curWand.cursed){
 						Badges.解锁巫女();
 						if (!curWand.cursedKnown){
-							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
+							GLog.红(Messages.get(Wand.class,"curse_discover",curWand.name()));
 							Dungeon.hero.sprite.哭泣();
 						}
 						CursedWand.cursedZap(curWand,

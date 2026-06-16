@@ -59,7 +59,7 @@ public class ScrollOfSirensSong extends ExoticScroll {
 			}
 
 			if (target == null && !anonymous && !identifiedByUse){
-				GLog.w(Messages.get(ScrollOfSirensSong.class, "cancel"));
+				GLog.橙(Messages.get(ScrollOfSirensSong.class,"cancel"));
 				return;
 
 			} else {
@@ -85,7 +85,7 @@ public class ScrollOfSirensSong extends ExoticScroll {
 					}
 					target.sprite.centerEmitter().burst( Speck.factory( Speck.HEART ), 10 );
 				} else {
-					GLog.w(Messages.get(ScrollOfSirensSong.class, "no_target"));
+					GLog.橙(Messages.get(ScrollOfSirensSong.class,"no_target"));
 				}
 
 				if (!identifiedByUse) {

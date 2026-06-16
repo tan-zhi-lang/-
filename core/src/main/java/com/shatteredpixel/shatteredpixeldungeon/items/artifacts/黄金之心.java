@@ -44,7 +44,7 @@ public class 黄金之心 extends Artifact {
 			if (exp >= (等级()+1)*10 && 等级() < levelCap){
 				exp -= (等级()+1)*10;
 				升级();
-				GLog.p( Messages.get(this, "levelup") );
+				GLog.绿(Messages.get(this,"levelup"));
 			}
 			updateQuickslot();
 			spend(TICK);

@@ -252,7 +252,6 @@ public class Item implements Bundlable {
 	}
 
 	public final boolean doPickUp() {
-
 		return doPickUp( Dungeon.hero, Dungeon.hero.pos );
 	}
 	public final boolean doPickUp( Hero hero ) {
@@ -263,10 +262,12 @@ public class Item implements Bundlable {
 		if (放背包( hero.belongings.backpack )) {
 			
 			GameScene.pickUp( this, pos );
+
 			if(this instanceof Gold||this instanceof EnergyCrystal){
 
 			}else
 			Sample.INSTANCE.play( Assets.Sounds.ITEM );
+
 			hero.spendAndNext( pickupDelay() );
 			return true;
 			
@@ -511,7 +512,7 @@ public class Item implements Bundlable {
 			}
 		}
 		if(房间物品){
-			GLog.w("你能感觉某个房间中的事物需要此物品来解密。");
+			GLog.橙("你能感觉某个房间中的事物需要此物品来解密。");
 			房间物品=false;
 		}
 		if(Dungeon.hero()&&Dungeon.hero.sprite!=null){

@@ -136,12 +136,12 @@ public class 灵月法杖 extends Wand {
 		@Override
 		public void doAction() {
 			if (cursed){
-				GLog.w(Messages.get(灵月法杖.class,"cursed"));
+				GLog.橙(Messages.get(灵月法杖.class,"cursed"));
 				return;
 			}
 			
 			if (!canCast(Dungeon.hero, quickSpell)){
-				GLog.w(Messages.get(灵月法杖.class, "fizzles"));
+				GLog.橙(Messages.get(灵月法杖.class,"fizzles"));
 				return;
 			}
 			
@@ -174,12 +174,12 @@ public class 灵月法杖 extends Wand {
 		super.execute( hero, action );
 
 		if (hero.buff(MagicImmune.class) != null){
-			GLog.w( Messages.get(Wand.class, "no_magic") );
+			GLog.橙(Messages.get(Wand.class,"no_magic"));
 			return;
 		}
 
 		if (curCharges == 0){
-			GLog.w( Messages.get(Wand.class, "fizzles") );
+			GLog.橙(Messages.get(Wand.class,"fizzles"));
 			return;
 		}
 		if (action.equals( AC_ZAP )) {

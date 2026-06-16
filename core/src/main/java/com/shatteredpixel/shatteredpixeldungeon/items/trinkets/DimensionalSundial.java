@@ -41,7 +41,7 @@ public class DimensionalSundial extends Trinket {
 		if (trinketLevel(DimensionalSundial.class) != -1) {
 			if (Dungeon.地牢时间>时间(2000)||Dungeon.地牢时间<=时间(800)) {
 				if (!sundialWarned){
-					GLog.w(Messages.get(DimensionalSundial.class, "warning"));
+					GLog.橙(Messages.get(DimensionalSundial.class,"warning"));
 					sundialWarned = true;
 				}
 				return enemySpawnMultiplierNighttime();

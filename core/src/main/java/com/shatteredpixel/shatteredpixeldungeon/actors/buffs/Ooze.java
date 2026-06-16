@@ -85,7 +85,7 @@ public class Ooze extends Buff {
 
 			if (!target.isAlive() && target == Dungeon.hero) {
 				Dungeon.fail( this );
-				GLog.n( Messages.get(this, "ondeath") );
+				GLog.红(Messages.get(this,"ondeath"));
 			}
 			spend( TICK );
 			left -= TICK;

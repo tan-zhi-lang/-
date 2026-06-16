@@ -70,7 +70,7 @@ public class WndBlacksmith extends Window {
 					protected void onSelect(int index) {
 						if (index == 0){
 							if (Blacksmith.Quest.pickaxe.doPickUp( Dungeon.hero )) {
-								GLog.i( Messages.capitalize(Messages.get(Dungeon.hero, "you_now_have", Blacksmith.Quest.pickaxe.name()) ));
+								GLog.白(Messages.capitalize(Messages.get(Dungeon.hero,"you_now_have",Blacksmith.Quest.pickaxe.name())));
 							} else {
 								Dungeon.level.drop( Blacksmith.Quest.pickaxe, Dungeon.hero.pos ).sprite().drop();
 							}
@@ -187,7 +187,7 @@ public class WndBlacksmith extends Window {
 			@Override
 			protected void onClick() {
 				Dungeon.level.drop(new 锻造锤(),Dungeon.hero.pos).sprite().drop();
-				GLog.p("正好这有一把我曾经一直使用的锻造锤，非常好用，送给你了。");
+				GLog.绿("正好这有一把我曾经一直使用的锻造锤，非常好用，送给你了。");
 
 				Blacksmith.Quest.favor -= 5000;
 
@@ -609,7 +609,7 @@ public class WndBlacksmith extends Window {
 						Sample.INSTANCE.play(Assets.Sounds.EVOKE);
 						Item.evoke( Dungeon.hero );
 						if (item.doPickUp( Dungeon.hero )) {
-							GLog.i( Messages.capitalize(Messages.get(Dungeon.hero, "you_now_have", item.name())) );
+							GLog.白(Messages.capitalize(Messages.get(Dungeon.hero,"you_now_have",item.name())));
 						} else {
 							Dungeon.level.drop( item, Dungeon.hero.pos ).sprite().drop();
 						}

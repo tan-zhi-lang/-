@@ -106,7 +106,7 @@ public class 流血 extends Buff {
 						Badges.validateDeathFromFriendlyMagic();
 					}
 					Dungeon.fail( this );
-					GLog.n( Messages.get(this, "ondeath") );
+					GLog.红(Messages.get(this,"ondeath"));
 				}
 
 //				if (source == 短柄镰.HarvestBleedTracker.class&&!target.isAlive()){

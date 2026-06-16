@@ -173,10 +173,10 @@ abstract public class ClassArmor extends Armor {
 				GameScene.show(new WndChooseAbility(null, this, hero));
 			} else if (!isEquipped( hero )) {
 				usesTargeting = false;
-				GLog.w( Messages.get(this, "not_equipped") );
+				GLog.橙(Messages.get(this,"not_equipped"));
 			} else if (charge < hero.armorAbility.chargeUse(hero)) {
 				usesTargeting = false;
-				GLog.w( Messages.get(this, "low_charge") );
+				GLog.橙(Messages.get(this,"low_charge"));
 			} else  {
 				usesTargeting = hero.armorAbility.useTargeting();
 				hero.armorAbility.use(this, hero);
@@ -254,7 +254,7 @@ abstract public class ClassArmor extends Armor {
 									cursedKnown = true;
 								}
 
-								GLog.p( Messages.get(ClassArmor.class, "transfer_complete") );
+								GLog.绿(Messages.get(ClassArmor.class,"transfer_complete"));
 								hero.sprite.operate();
 								hero.sprite.emitter().burst( Speck.factory( Speck.CROWN), 12 );
 								Sample.INSTANCE.play( Assets.Sounds.EVOKE );

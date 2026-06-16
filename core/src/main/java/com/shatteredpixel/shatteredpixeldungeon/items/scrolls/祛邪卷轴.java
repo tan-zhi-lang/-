@@ -54,7 +54,7 @@ public class 祛邪卷轴 extends InventoryScroll {
 			}
 
 			detach(curUser.belongings.backpack);
-			GLog.p(Messages.get(this, "spirit"));
+			GLog.绿(Messages.get(this,"spirit"));
 			spirit.cleanse();
 		} else {
 			super.doRead();
@@ -92,9 +92,9 @@ public class 祛邪卷轴 extends InventoryScroll {
 		}
 
 		if (procced) {
-			GLog.p( Messages.get(this, "cleansed") );
+			GLog.绿(Messages.get(this,"cleansed"));
 		} else {
-			GLog.i( Messages.get(this, "not_cleansed") );
+			GLog.白(Messages.get(this,"not_cleansed"));
 		}
 	}
 

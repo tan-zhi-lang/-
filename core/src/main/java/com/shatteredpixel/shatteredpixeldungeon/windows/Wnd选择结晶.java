@@ -55,7 +55,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 				
@@ -81,7 +81,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -107,7 +107,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -132,7 +132,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -157,7 +157,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -182,7 +182,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -207,7 +207,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -232,7 +232,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -257,7 +257,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 
@@ -282,7 +282,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 				
@@ -307,7 +307,7 @@ public class Wnd选择结晶 extends Window {
 				传送卷轴.瞬移(mob,target);
 				if(hero.地牢塔防波次==0&&!hero.地牢塔防开关){
 					hero.地牢塔防波次++;
-					GLog.w("第"+hero.地牢塔防波次+"波");
+					GLog.橙("第"+hero.地牢塔防波次+"波");
 					hero.地牢塔防开关=true;
 				}
 				

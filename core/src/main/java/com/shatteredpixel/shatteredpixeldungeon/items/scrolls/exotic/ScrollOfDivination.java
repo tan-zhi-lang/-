@@ -94,7 +94,7 @@ public class ScrollOfDivination extends ExoticScroll {
 		}
 
 		if (left == 4){
-			GLog.n( Messages.get(this, "nothing_left") );
+			GLog.红(Messages.get(this,"nothing_left"));
 		} else {
 			GameScene.show(new WndDivination(IDed));
 		}

@@ -153,7 +153,7 @@ public class Pasty extends Food {
 				if(!hero.单身) {
 					hero.单身=true;
 					hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10%",FloatingText.STRENGTH);
-					GLog.p( Messages.get(力量药剂.class,"msg",hero.力量()));
+					GLog.绿(Messages.get(力量药剂.class,"msg",hero.力量()));
 				}
 				break;
 			case 中秋节:

@@ -35,7 +35,7 @@ public class 毒气宝箱怪 extends Mimic {
 	}
 	@Override
 	public boolean interact(Char c) {
-		GLog.p("你打不开这个宝箱！");
+		GLog.绿("你打不开这个宝箱！");
 		return false;
 	}
 }

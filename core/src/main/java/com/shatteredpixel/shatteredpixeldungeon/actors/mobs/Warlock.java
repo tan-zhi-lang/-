@@ -118,7 +118,7 @@ public class Warlock extends Mob implements Callback {
 			if (enemy == Dungeon.hero && !enemy.isAlive()) {
 				Badges.validateDeathFromEnemyMagic();
 				Dungeon.fail( this );
-				GLog.n( Messages.get(this, "bolt_kill") );
+				GLog.红(Messages.get(this,"bolt_kill"));
 			}
 		} else {
 			enemy.sprite.showStatus(CharSprite.中性黄,enemy.defenseVerb());

@@ -35,7 +35,7 @@ public class 催眠卷轴 extends Scroll {
 
 		Buff.施加( curUser, Drowsy.class, Drowsy.DURATION );
 
-		GLog.i( Messages.get(this, "sooth") );
+		GLog.白(Messages.get(this,"sooth"));
 
 		鉴定();
 		readAnimation();

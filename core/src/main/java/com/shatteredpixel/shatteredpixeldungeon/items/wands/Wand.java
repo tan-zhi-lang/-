@@ -195,7 +195,7 @@ public abstract class Wand extends Item {
 	public boolean tryToZap( Hero owner, int target ){
 
 		if (owner.buff(WildMagic.WildMagicTracker.class) == null && owner.buff(MagicImmune.class) != null){
-			GLog.w( Messages.get(this, "no_magic") );
+			GLog.橙(Messages.get(this,"no_magic"));
 			return false;
 		}
 
@@ -203,7 +203,7 @@ public abstract class Wand extends Item {
 		if ( owner.buff(WildMagic.WildMagicTracker.class) != null || curCharges >= chargesPerCast()){
 			return true;
 		} else {
-			GLog.w(Messages.get(this, "fizzles"));
+			GLog.橙(Messages.get(this,"fizzles"));
 			return false;
 		}
 	}
@@ -492,12 +492,12 @@ public abstract class Wand extends Item {
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){
-						GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
+						GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),name());
 					}
 					setIDReady();
 				} else {
 					鉴定();
-					GLog.p(Messages.get(Wand.class, "identify"));
+					GLog.绿(Messages.get(Wand.class,"identify"));
 					Badges.validateItemLevelAquired(this);
 				}
 			}
@@ -703,12 +703,12 @@ public abstract class Wand extends Item {
 					if (target == curUser.pos&&curUser.天赋(Talent.SHIELD_BATTERY)){
 
 						if (curUser.buff(MagicImmune.class) != null){
-							GLog.w( Messages.get(Wand.class, "no_magic") );
+							GLog.橙(Messages.get(Wand.class,"no_magic"));
 							return;
 						}
 
 						if (curWand.curCharges == 0){
-							GLog.w( Messages.get(Wand.class, "fizzles") );
+							GLog.橙(Messages.get(Wand.class,"fizzles"));
 							return;
 						}
 						if(curUser.天赋(Talent.SHIELD_BATTERY)) {
@@ -723,7 +723,7 @@ public abstract class Wand extends Item {
 						curUser.spendAndNext(Actor.TICK);
 						return;
 					}
-					GLog.i( Messages.get(Wand.class, "self_target") );
+					GLog.白(Messages.get(Wand.class,"self_target"));
 					return;
 				}
 
@@ -749,7 +749,7 @@ public abstract class Wand extends Item {
 					if (curWand.cursed){
 						Badges.解锁巫女();
 						if (!curWand.cursedKnown){
-							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
+							GLog.红(Messages.get(Wand.class,"curse_discover",curWand.name()));
 							Dungeon.hero.sprite.哭泣();
 						}
 						CursedWand.cursedZap(curWand,

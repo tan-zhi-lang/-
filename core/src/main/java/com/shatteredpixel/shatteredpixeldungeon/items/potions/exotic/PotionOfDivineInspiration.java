@@ -60,7 +60,7 @@ public class PotionOfDivineInspiration extends ExoticPotion {
 			}
 
 			if (allBoosted){
-				GLog.w(Messages.get(this, "no_more_points"));
+				GLog.橙(Messages.get(this,"no_more_points"));
 				return;
 			}
 		}
@@ -112,7 +112,7 @@ public class PotionOfDivineInspiration extends ExoticPotion {
 					Sample.INSTANCE.play( Assets.Sounds.DRINK );
 					Sample.INSTANCE.playDelayed(Assets.Sounds.LEVELUP, 0.45f, 0.7f, 1.2f);
 					new Flare( 6, 32 ).color(0xFFFF00, true).show( curUser.sprite, 2f );
-					GLog.p(Messages.get(PotionOfDivineInspiration.class, "bonus"));
+					GLog.绿(Messages.get(PotionOfDivineInspiration.class,"bonus"));
 
 					if (!anonymous) {
 						Catalog.countUse(PotionOfDivineInspiration.class);

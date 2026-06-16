@@ -60,7 +60,7 @@ public class 荆棘斗篷 extends Artifact {
 		public float proc(float damage, Char defender){
 				if(charge>=chargeCap){
 					if(defender!=null)
-					GLog.p(Messages.get(this,"radiating",0,(1+等级())/3f*Dungeon.hero.最大护甲));
+					GLog.绿(Messages.get(this,"radiating",0,(1+等级())/3f*Dungeon.hero.最大护甲));
 
 					float deflected=Math.round(damage*(0.5f+等级()*0.05f));
 
@@ -79,7 +79,7 @@ public class 荆棘斗篷 extends Artifact {
 					exp-=(等级()+1)*20;
 					升级();
 					Catalog.countUse(荆棘斗篷.class);
-					GLog.p(Messages.get(this,"levelup"));
+					GLog.绿(Messages.get(this,"levelup"));
 				}
 				if(defender!=null)
 				updateQuickslot();
@@ -89,7 +89,7 @@ public class 荆棘斗篷 extends Artifact {
 
 		public float proc(float damage, Char attacker, Char defender){
 				if (charge >= chargeCap){
-					GLog.p( Messages.get(this, "radiating",Math.round((0.5f+等级()*0.05f)*100)
+					GLog.绿(Messages.get(this,"radiating",Math.round((0.5f+等级()*0.05f)*100)
 							,(1+等级())/3f*Dungeon.hero.最大护甲));
 					float deflected = Math.round(damage*(0.5f+等级()*0.05f));
 					damage=0.5f-0.05f*等级();
@@ -105,7 +105,7 @@ public class 荆棘斗篷 extends Artifact {
 					exp -= (等级()+1)*20;
 					升级();
 					Catalog.countUse(荆棘斗篷.class);
-					GLog.p( Messages.get(this, "levelup") );
+					GLog.绿(Messages.get(this,"levelup"));
 				}
 			updateQuickslot();
 			return damage;

@@ -705,7 +705,7 @@ public class Tengu extends Mob {
 			
 			@Override
 			public boolean doPickUp(Hero hero, int pos) {
-				GLog.w( Messages.get(this, "cant_pickup") );
+				GLog.橙(Messages.get(this,"cant_pickup"));
 				return false;
 			}
 			
@@ -1064,7 +1064,7 @@ public class Tengu extends Mob {
 									Statistics.bossScores[1] -= 100;
 									if (!ch.isAlive()) {
 										Dungeon.fail(Tengu.class);
-										GLog.n(Messages.get(Electricity.class, "ondeath"));
+										GLog.红(Messages.get(Electricity.class,"ondeath"));
 									}
 								}
 							}
@@ -1101,7 +1101,7 @@ public class Tengu extends Mob {
 			
 			@Override
 			public boolean doPickUp(Hero hero, int pos) {
-				GLog.w( Messages.get(this, "cant_pickup") );
+				GLog.橙(Messages.get(this,"cant_pickup"));
 				return false;
 			}
 			

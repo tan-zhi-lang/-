@@ -1,8 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.水蛭动画;
 
 public class 水蛭 extends Mob {
@@ -40,7 +38,7 @@ public class 水蛭 extends Mob {
 
 	@Override
 	protected boolean act(){
-			if(在水中())回血(1f);
+			if(在水中())回百分比血(0.15f);
 		return super.act();
 	}
 }

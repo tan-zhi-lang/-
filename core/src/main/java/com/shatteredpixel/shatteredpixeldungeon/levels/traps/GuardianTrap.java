@@ -31,7 +31,7 @@ public class GuardianTrap extends Trap {
 		}
 
 		if (Dungeon.level.heroFOV[pos]) {
-			GLog.w( Messages.get(this, "alarm") );
+			GLog.橙(Messages.get(this,"alarm"));
 			CellEmitter.center(pos).start( Speck.factory(Speck.SCREAM), 0.3f, 3 );
 		}
 

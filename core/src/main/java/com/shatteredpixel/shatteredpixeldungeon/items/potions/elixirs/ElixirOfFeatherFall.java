@@ -27,7 +27,7 @@ public class ElixirOfFeatherFall extends Elixir {
 		Buff.新增(hero, FeatherBuff.class, FeatherBuff.DURATION);
 
 		hero.sprite.emitter().burst(Speck.factory(Speck.JET), 20);
-		GLog.p(Messages.get(this, "light"));
+		GLog.绿(Messages.get(this,"light"));
 	}
 
 	public static class FeatherBuff extends FlavourBuff{

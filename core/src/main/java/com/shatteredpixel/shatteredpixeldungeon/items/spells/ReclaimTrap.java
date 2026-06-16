@@ -75,7 +75,7 @@ public class ReclaimTrap extends TargetedSpell {
 				Bestiary.setSeen(t.getClass());
 				
 			} else {
-				GLog.w(Messages.get(this, "no_trap"));
+				GLog.橙(Messages.get(this,"no_trap"));
 			}
 			//spell is not consumed, so doesn't count as a full use
 			Invisibility.notimedispel();

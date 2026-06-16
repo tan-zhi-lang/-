@@ -40,7 +40,7 @@ public class 符咒 extends 目标道术 {
 		Ballistica aim = new Ballistica(hero.pos,target,targetingFlags());
 		
 		if (Actor.findChar(aim.collisionPos)==hero){
-			GLog.i(Messages.get(Wand.class,"self_target"));
+			GLog.白(Messages.get(Wand.class,"self_target"));
 			return;
 		}
 		if (Actor.findChar(aim.collisionPos) != null) {

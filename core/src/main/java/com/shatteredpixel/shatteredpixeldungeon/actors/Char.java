@@ -615,10 +615,10 @@ public abstract class Char extends Actor {
 						Badges.validateDeathFromFriendlyMagic();
 					}
 					Dungeon.fail( this );
-					GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );
+					GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",name())));
 					
 				} else if (this == Dungeon.hero) {
-					GLog.i( Messages.capitalize(Messages.get(Char.class, "defeat", enemy.name())) );
+					GLog.白(Messages.capitalize(Messages.get(Char.class,"defeat",enemy.name())));
 				}
 			}
 			
@@ -1203,7 +1203,7 @@ public abstract class Char extends Actor {
 						if(ch==Dungeon.hero){
 							Badges.validateDeathFromFriendlyMagic();
 							Dungeon.fail(来源);
-							GLog.n(Messages.get(LifeLink.class,"ondeath"));
+							GLog.红(Messages.get(LifeLink.class,"ondeath"));
 						}
 					}
 				}

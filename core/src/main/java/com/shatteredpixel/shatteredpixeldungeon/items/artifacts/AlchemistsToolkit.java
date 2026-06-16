@@ -61,18 +61,18 @@ public class AlchemistsToolkit extends Artifact {
 		if (hero.buff(MagicImmune.class) != null) return;
 
 		if (action.equals(AC_BREW)){
-			if (!isEquipped(hero))              GLog.i( Messages.get(this, "need_to_equip") );
-			else if (cursed)                    GLog.w( Messages.get(this, "cursed") );
-			else if (warmUpDelay > 0)           GLog.w( Messages.get(this, "not_ready") );
+			if (!isEquipped(hero))              GLog.白(Messages.get(this,"need_to_equip"));
+			else if (cursed)                    GLog.橙(Messages.get(this,"cursed"));
+			else if (warmUpDelay > 0)           GLog.橙(Messages.get(this,"not_ready"));
 			else {
 				AlchemyScene.assignToolkit(this);
 				Game.switchScene(AlchemyScene.class);
 			}
 			
 		} else if (action.equals(AC_ENERGIZE)){
-			if (!isEquipped(hero))              GLog.i( Messages.get(this, "need_to_equip") );
-			else if (cursed)                    GLog.w( Messages.get(this, "cursed") );
-			else if (Dungeon.energy < 6)        GLog.w( Messages.get(this, "need_energy",6) );
+			if (!isEquipped(hero))              GLog.白(Messages.get(this,"need_to_equip"));
+			else if (cursed)                    GLog.橙(Messages.get(this,"cursed"));
+			else if (Dungeon.energy < 6)        GLog.橙(Messages.get(this,"need_energy",6));
 			else {
 
 				final int maxLevels = Math.min(levelCap - 等级(), Dungeon.energy/6);

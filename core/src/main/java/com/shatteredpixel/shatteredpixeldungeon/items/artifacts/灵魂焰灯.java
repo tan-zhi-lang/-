@@ -124,7 +124,7 @@ public class 灵魂焰灯 extends Artifact {
 					魔力(1.2f,0.75f)
 									 ), this);
 			if(!ch.isAlive()){
-				GLog.w( Messages.get(this, "onprick") );
+				GLog.橙(Messages.get(this,"onprick"));
 				Dungeon.hero.击杀数量+=ch.强度()*(Dungeon.符文("升级灵魂焰灯")?2:1);
 				exp+=ch.强度()*(Dungeon.符文("升级灵魂焰灯")?20:10);
 				if (exp >= (等级()+1)*6 && 等级() < levelCap){
@@ -152,7 +152,7 @@ public class 灵魂焰灯 extends Artifact {
 	public boolean tryToZap( Hero owner, int target ){
 
 		if (owner.buff(WildMagic.WildMagicTracker.class)==null&&owner.buff(MagicImmune.class)!=null){
-			GLog.w( Messages.get(Wand.class, "no_magic") );
+			GLog.橙(Messages.get(Wand.class,"no_magic"));
 			return false;
 		}
 
@@ -160,7 +160,7 @@ public class 灵魂焰灯 extends Artifact {
 		if ( owner.buff(WildMagic.WildMagicTracker.class) != null || charge >= 1){
 			return true;
 		} else {
-			GLog.w(Messages.get(Wand.class, "fizzles"));
+			GLog.橙(Messages.get(Wand.class,"fizzles"));
 			return false;
 		}
 	}
@@ -193,7 +193,7 @@ public class 灵魂焰灯 extends Artifact {
 				int cell = shot.collisionPos;
 
 				if (target == curUser.pos || cell == curUser.pos) {
-					GLog.i( Messages.get(Wand.class, "self_target") );
+					GLog.白(Messages.get(Wand.class,"self_target"));
 					return;
 				}
 
@@ -219,7 +219,7 @@ public class 灵魂焰灯 extends Artifact {
 					if (curWand.cursed){
 						Badges.解锁巫女();
 						if (!curWand.cursedKnown){
-							GLog.n(Messages.get(Wand.class, "curse_discover", curWand.name()));
+							GLog.红(Messages.get(Wand.class,"curse_discover",curWand.name()));
 							Dungeon.hero.sprite.哭泣();
 						}
 						CursedWand.cursedZap(curWand,

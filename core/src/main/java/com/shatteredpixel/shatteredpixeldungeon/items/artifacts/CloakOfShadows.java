@@ -69,9 +69,9 @@ public class CloakOfShadows extends Artifact {
 		if (action.equals( AC_STEALTH )) {
 
 			if (activeBuff == null){
-				if (!isEquipped(hero) && !hero.天赋(Talent.轻便斗篷)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
-				else if (cursed)       GLog.i( Messages.get(this, "cursed") );
-				else if (charge <= 0)  GLog.i( Messages.get(this, "no_charge") );
+				if (!isEquipped(hero) && !hero.天赋(Talent.轻便斗篷)) GLog.白(Messages.get(Artifact.class,"need_to_equip"));
+				else if (cursed)       GLog.白(Messages.get(this,"cursed"));
+				else if (charge <= 0)  GLog.白(Messages.get(this,"no_charge"));
 				else {
 					hero.spend( 1f );
 					hero.busy();
@@ -307,7 +307,7 @@ public class CloakOfShadows extends Artifact {
 				if (charge < 0) {
 					charge = 0;
 					detach();
-					GLog.w(Messages.get(this, "no_charge"));
+					GLog.橙(Messages.get(this,"no_charge"));
 					((Hero) target).interrupt();
 				} else {
 
@@ -317,7 +317,7 @@ public class CloakOfShadows extends Artifact {
 						升级();
 						Catalog.countUse(CloakOfShadows.class);
 						exp -= 等级() * 50;
-						GLog.p(Messages.get(this, "levelup"));
+						GLog.绿(Messages.get(this,"levelup"));
 						
 					}
 					turnsToCost = 4+(Dungeon.符文("升级暗影斗篷")?4:0);

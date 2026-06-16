@@ -83,7 +83,7 @@ public class 贤者之石 extends 用品 {
 
 		if (result == null){
 			//This shouldn't ever trigger
-			GLog.n(Messages.get(嬗变卷轴.class,"nothing"));
+			GLog.红(Messages.get(嬗变卷轴.class,"nothing"));
 			curItem.放背包( curUser.belongings.backpack );
 		} else {
 			if (result != item) {
@@ -123,7 +123,7 @@ public class 贤者之石 extends 用品 {
 			}
 			Transmuting.show(curUser,item,result);
 			curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE),0.2f,10);
-			GLog.p( Messages.get(嬗变卷轴.class, "morph") );
+			GLog.绿(Messages.get(嬗变卷轴.class,"morph"));
 			curUser.sprite.礼物();
 		}
 

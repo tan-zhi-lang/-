@@ -87,7 +87,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 				ActionIndicator.setAction(this);
 				Badges.validateMasteryCombo(count);
 				
-				GLog.p(Messages.get(this,"连击",count));
+				GLog.绿(Messages.get(this,"连击",count));
 				
 			}
 			
@@ -466,21 +466,21 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 					|| enemy == target
 					|| !Dungeon.level.heroFOV[cell]
 					|| target.isCharmedBy( enemy )) {
-				GLog.w(Messages.get(连击.class,"bad_target"));
+				GLog.橙(Messages.get(连击.class,"bad_target"));
 
 			} else if (!((Hero)target).canAttack(enemy)){
 				if (!((Hero) target).职业精通()
 					||Dungeon.level.距离(target.pos,enemy.pos)>1+target.buff(连击.class).count/3){
-					GLog.w(Messages.get(连击.class,"bad_target"));
+					GLog.橙(Messages.get(连击.class,"bad_target"));
 				} else {
 					Ballistica c = new Ballistica(target.pos, enemy.pos, Ballistica.PROJECTILE);
 					if (c.collisionPos == enemy.pos){
 						final int leapPos = c.path.get(c.dist-1);
 						if (!Dungeon.level.passable[leapPos] && !(target.flying && Dungeon.level.avoid[leapPos])){
-							GLog.w(Messages.get(连击.class,"bad_target"));
+							GLog.橙(Messages.get(连击.class,"bad_target"));
 						} else if (Dungeon.hero.rooted) {
 							PixelScene.shake( 1, 1f );
-							GLog.w(Messages.get(连击.class,"bad_target"));
+							GLog.橙(Messages.get(连击.class,"bad_target"));
 						} else {
 							Dungeon.hero.busy();
 							target.sprite.jump(target.pos, leapPos, new Callback() {
@@ -500,7 +500,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 							});
 						}
 					} else {
-						GLog.w(Messages.get(连击.class,"bad_target"));
+						GLog.橙(Messages.get(连击.class,"bad_target"));
 					}
 				}
 

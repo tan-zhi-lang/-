@@ -138,7 +138,7 @@ public class LiquidMetal extends Item {
 
 			Dungeon.level.pressCell( cell );
 			if (Dungeon.level.heroFOV[cell]) {
-				GLog.i( Messages.get(Potion.class, "shatter") );
+				GLog.白(Messages.get(Potion.class,"shatter"));
 				Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 				Splash.at( cell, 0xBFBFBF, 5 );
 			}
@@ -187,17 +187,17 @@ public class LiquidMetal extends Item {
 				if(!Dungeon.符文("升级金液"))
 				maxToUse*=3;
 				if(数量()<maxToUse){
-					GLog.w(Messages.get(LiquidMetal.class,"already_fixed"));
+					GLog.橙(Messages.get(LiquidMetal.class,"already_fixed"));
 					return;
 				}else if(数量()>maxToUse){
 					Catalog.countUses(LiquidMetal.class,maxToUse);
 					数量(数量()-maxToUse);
-					GLog.i(Messages.get(LiquidMetal.class,"apply",maxToUse));
+					GLog.白(Messages.get(LiquidMetal.class,"apply",maxToUse));
 
 					m.升级();
 				}else{
 					Catalog.countUses(LiquidMetal.class,数量());
-					GLog.i(Messages.get(LiquidMetal.class,"apply",数量()));
+					GLog.白(Messages.get(LiquidMetal.class,"apply",数量()));
 					detachAll(Dungeon.hero.belongings.backpack);
 					m.升级();
 				}

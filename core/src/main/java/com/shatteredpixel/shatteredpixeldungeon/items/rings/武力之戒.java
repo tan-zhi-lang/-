@@ -243,7 +243,7 @@ public class 武力之戒 extends Ring{
 				AttackIndicator.updateState();
 				hero.sprite.operate();
 			}else if(!isEquipped(hero)){
-				GLog.w(Messages.get(Weapon.class,"ability_need_equip"));
+				GLog.橙(Messages.get(Weapon.class,"ability_need_equip"));
 				
 			}else{
 				Buff.施加(hero,BrawlersStance.class).reset();

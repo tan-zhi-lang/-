@@ -78,8 +78,8 @@ public class 干涸绝露 extends Artifact {
 
 		if (action.equals(AC_EAT) || action.equals(AC_SNACK)){
 
-			if (!isEquipped(hero) && !hero.天赋(Talent.祸乱绝露)) GLog.i(Messages.get(Artifact.class,"need_to_equip"));
-			else if (charge == 0)  GLog.i( Messages.get(this, "no_food") );
+			if (!isEquipped(hero) && !hero.天赋(Talent.祸乱绝露)) GLog.白(Messages.get(Artifact.class,"need_to_equip"));
+			else if (charge == 0)  GLog.白(Messages.get(this,"no_food"));
 			else {
 				//consume as much food as it takes to be full, to a minimum of 1
 				float chargesToUse = 2;
@@ -117,7 +117,7 @@ public class 干涸绝露 extends Artifact {
 		}
 
 		Sample.INSTANCE.play(Assets.Sounds.CURSED);
-		GLog.i( Messages.get(this, "eat") );
+		GLog.白(Messages.get(this,"eat"));
 
 
 		hero.spend(1);
@@ -174,7 +174,7 @@ public class 干涸绝露 extends Artifact {
 				charge++;
 				
 				if (charge == chargeCap){
-					GLog.p( Messages.get(干涸绝露.class,"full"));
+					GLog.绿(Messages.get(干涸绝露.class,"full"));
 					partialCharge = 0;
 				}
 
@@ -232,12 +232,12 @@ public class 干涸绝露 extends Artifact {
 			种子能量-=upgrades;
 			if (等级() == 10){
 				种子能量= 0;
-				GLog.p( Messages.get(this, "maxlevel") );
+				GLog.绿(Messages.get(this,"maxlevel"));
 			} else {
-				GLog.p( Messages.get(this, "levelup") );
+				GLog.绿(Messages.get(this,"levelup"));
 			}
 		} else {
-			GLog.i( Messages.get(this, "feed") );
+			GLog.白(Messages.get(this,"feed"));
 		}
 	}
 	

@@ -108,9 +108,9 @@ public class 心之钢 extends Artifact {
 					
 
 					if(cursed)
-						GLog.w("心之钢为这次攻击-"+伤害+"伤害，并-"+生命+"最大生命。");
+						GLog.橙("心之钢为这次攻击-"+伤害+"伤害，并-"+生命+"最大生命。");
 					else
-						GLog.w("心之钢为这次攻击+"+伤害+"伤害，并+"+生命+"最大生命。");
+						GLog.橙("心之钢为这次攻击+"+伤害+"伤害，并+"+生命+"最大生命。");
 
 					exp+=Math.round(伤害+生命);
 					charge=0;
@@ -122,7 +122,7 @@ public class 心之钢 extends Artifact {
 				exp -= (等级()+1)*50;
 				升级();
 				Catalog.countUse(心之钢.class);
-				GLog.p( Messages.get(this, "levelup") );
+				GLog.绿(Messages.get(this,"levelup"));
 			}
 			updateQuickslot();
 			return damage;

@@ -83,7 +83,7 @@ public class 震爆方石 extends Weapon{
 			if (target == Dungeon.hero && !target.isAlive()){
 				Badges.validateDeathFromFriendlyMagic();
 				Dungeon.fail(this);
-				GLog.n(Messages.get(this, "ondeath"));
+				GLog.红(Messages.get(this,"ondeath"));
 			}
 		}
 		

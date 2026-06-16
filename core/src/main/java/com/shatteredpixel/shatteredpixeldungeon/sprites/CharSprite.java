@@ -52,7 +52,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	// Color constants for floating text
 	public static final int 默认白= 0xFFFFFF;
 	public static final int 增强绿= 0x00FF00;
-	public static final int 削弱红= 0xFF0000;
+	public static final int 削弱红= 0xFF4444;
 	public static final int 警告橙= 0xFF8800;
 	public static final int 魔法紫= 0x8800FF;
 	public static final int 蓝色= 0x3399FF;

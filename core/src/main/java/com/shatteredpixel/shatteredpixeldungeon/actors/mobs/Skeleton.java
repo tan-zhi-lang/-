@@ -101,7 +101,7 @@ public class Skeleton extends Mob {
 		
 		if (heroKilled) {
 			Dungeon.fail( this );
-			GLog.n( Messages.get(this, "explo_kill") );
+			GLog.红(Messages.get(this,"explo_kill"));
 		}
 	}
 

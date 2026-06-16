@@ -203,7 +203,7 @@ public class 法师魔杖 extends Weapon{
 					Dungeon.level.drop(this.wand, owner.pos);
 				}
 				GLog.newLine();
-				GLog.p(Messages.get(this, "preserved"));
+				GLog.绿(Messages.get(this,"preserved"));
 //			}
 		}
 
@@ -449,7 +449,7 @@ public class 法师魔杖 extends Weapon{
 
 			wand.detach(curUser.belongings.backpack);
 
-			GLog.p( Messages.get(法师魔杖.class, "imbue", wand.name()));
+			GLog.绿(Messages.get(法师魔杖.class,"imbue",wand.name()));
 			imbueWand( wand, curUser );
 
 			updateQuickslot();

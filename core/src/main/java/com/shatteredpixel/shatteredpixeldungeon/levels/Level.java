@@ -902,7 +902,7 @@ public abstract class Level implements Bundlable {
 		if (Dungeon.hero.isAlive() && mob.pos != -1 && PathFinder.distance[mob.pos] >= disLimit) {
 			GameScene.add( mob );
 			if (!mob.buffs(ChampionEnemy.class).isEmpty()){
-				GLog.w(Messages.get(ChampionEnemy.class, "warn"));
+				GLog.橙(Messages.get(ChampionEnemy.class,"warn"));
 			}
 			return true;
 		} else {
@@ -1452,7 +1452,7 @@ public abstract class Level implements Bundlable {
 		case Terrain.SECRET_TRAP:
 			if (hard) {
 				trap = traps.get( cell );
-				GLog.i(Messages.get(Level.class, "hidden_trap", trap.name()));
+				GLog.白(Messages.get(Level.class,"hidden_trap",trap.name()));
 			}
 			break;
 			
@@ -1528,7 +1528,7 @@ public abstract class Level implements Bundlable {
 
 		case Terrain.SECRET_TRAP:
 				trap = traps.get( cell );
-				GLog.i(Messages.get(Level.class, "hidden_trap", trap.name()));
+				GLog.白(Messages.get(Level.class,"hidden_trap",trap.name()));
 			break;
 
 		case Terrain.TRAP:

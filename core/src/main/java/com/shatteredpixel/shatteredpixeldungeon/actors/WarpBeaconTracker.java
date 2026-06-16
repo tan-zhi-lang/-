@@ -104,7 +104,7 @@ public class WarpBeaconTracker extends Buff implements ActionIndicator.Action{
 	public void doAction() {
 		if(target instanceof Hero hero){
 			if(depth!=Dungeon.depth&&false){//跨层
-				GLog.w(Messages.get(WarpBeaconTracker.class,"depths"));
+				GLog.橙(Messages.get(WarpBeaconTracker.class,"depths"));
 				return;
 			}
 
@@ -149,7 +149,7 @@ public class WarpBeaconTracker extends Buff implements ActionIndicator.Action{
 							Dungeon.level.occupyCell(toPush);
 							next();
 						}else{
-							GLog.w(Messages.get(传送卷轴.class,"no_tele"));
+							GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 						}
 					}else{
 						传送卷轴.appear(hero,pos);
@@ -167,7 +167,7 @@ public class WarpBeaconTracker extends Buff implements ActionIndicator.Action{
 			}else{
 
 				if(!Dungeon.interfloorTeleportAllowed()){
-					GLog.w(Messages.get(传送卷轴.class,"no_tele"));
+					GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 					return;
 				}
 

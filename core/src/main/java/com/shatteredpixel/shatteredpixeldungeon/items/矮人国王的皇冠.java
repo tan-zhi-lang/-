@@ -56,7 +56,7 @@ public class 矮人国王的皇冠 extends Item {
 			if (hero.belongings.armor() != null){
 				GameScene.show( new WndChooseAbility(this, hero.belongings.armor(), hero));
 			} else {
-				GLog.w( Messages.get(this, "naked"));
+				GLog.橙(Messages.get(this,"naked"));
 			}
 			
 		}
@@ -72,7 +72,7 @@ public class 矮人国王的皇冠 extends Item {
 		hero.busy();
 
 		if (armor != null){
-				GLog.p(Messages.get(this, "upgraded"));
+				GLog.绿(Messages.get(this,"upgraded"));
 
 			ClassArmor classArmor = ClassArmor.upgrade(hero, armor);
 			if (hero.belongings.armor == armor) {

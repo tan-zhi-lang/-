@@ -58,7 +58,7 @@ public class 神器 extends Artifact {
 
 		public float proc(float damage, Char attacker, Char defender){
 				if (charge >= chargeCap){
-					GLog.p( Messages.get(this, "radiating",Math.round(damage*(0.5f+等级()*0.2f))));
+					GLog.绿(Messages.get(this,"radiating",Math.round(damage*(0.5f+等级()*0.2f))));
 					float deflected = Math.round(damage*(0.5f+等级()*0.2f));
 					damage=0;
 					if (attacker != null) {
@@ -73,7 +73,7 @@ public class 神器 extends Artifact {
 					exp -= (等级()+1)*10;
 					升级();
 					Catalog.countUse(神器.class);
-					GLog.p( Messages.get(this, "levelup") );
+					GLog.绿(Messages.get(this,"levelup"));
 				}
 			updateQuickslot();
 			return damage;

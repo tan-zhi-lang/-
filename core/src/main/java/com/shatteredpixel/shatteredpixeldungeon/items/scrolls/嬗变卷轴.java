@@ -88,7 +88,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 		
 		if (result == null){
 			//This shouldn't ever trigger
-			GLog.n( Messages.get(this, "nothing") );
+			GLog.红(Messages.get(this,"nothing"));
 			curItem.放背包( curUser.belongings.backpack );
 		} else {
 			if (result != item) {
@@ -128,7 +128,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 			}
 			Transmuting.show(curUser, item, result);
 			curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 10);
-			GLog.p( Messages.get(this, "morph") );
+			GLog.绿(Messages.get(this,"morph"));
 			curUser.sprite.礼物();
 		}
 		

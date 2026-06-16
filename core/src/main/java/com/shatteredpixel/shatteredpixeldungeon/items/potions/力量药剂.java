@@ -41,7 +41,7 @@ public class 力量药剂 extends Potion {
 
 		hero.sprite.showStatusWithIcon(CharSprite.增强绿,"1",FloatingText.STRENGTH);
 
-		GLog.p( Messages.get(this, "msg", hero.力量()) );
+		GLog.绿(Messages.get(this,"msg",hero.力量()));
 		
 		Badges.validateStrengthAttained();
 		Badges.validateDuelistUnlock();

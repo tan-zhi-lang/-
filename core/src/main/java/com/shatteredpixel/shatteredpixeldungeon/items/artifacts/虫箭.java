@@ -79,7 +79,7 @@ public class 虫箭 extends Artifact {
 			exp -= (等级()+1)*2;
 			升级();
 			Catalog.countUse(心之钢.class);
-			GLog.p(Messages.get(this,"levelup"));
+			GLog.绿(Messages.get(this,"levelup"));
 		}
 	}
 	@Override

@@ -155,7 +155,7 @@ public class Honeypot extends Item {
 			
 			if (action.equals( AC_修复 )) {
 				if (Dungeon.energy <6){
-					GLog.w(Messages.get(AlchemistsToolkit.class,"need_energy"));
+					GLog.橙(Messages.get(AlchemistsToolkit.class,"need_energy"));
 				}else{
 					Dungeon.energy(-6);
 

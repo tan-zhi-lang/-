@@ -222,8 +222,10 @@ public class WndTradeItem extends WndInfoItem {
 
 		//selling items in the sell interface doesn't spend time
 		hero.spend(-hero.cooldown());
-
-		Dungeon.gold(item.金币提升(),shop.pos);
+		if(shop!=null&&shop.pos!=-1)
+			Dungeon.gold(item.金币提升(),shop.pos);
+		else
+			Dungeon.gold(item.金币提升(),hero.pos);
 
 		if (shop != null){
 			shop.buybackItems.add(item);

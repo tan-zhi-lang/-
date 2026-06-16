@@ -127,7 +127,7 @@ public class WandOfTransfusion extends DamageWand {
 		if (!curUser.isAlive()){
 			Badges.validateDeathFromFriendlyMagic();
 			Dungeon.fail( this );
-			GLog.n( Messages.get(this, "ondeath") );
+			GLog.红(Messages.get(this,"ondeath"));
 		}
 	}
 

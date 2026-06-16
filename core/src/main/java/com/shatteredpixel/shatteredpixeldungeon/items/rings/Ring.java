@@ -368,12 +368,12 @@ public class Ring extends KindofMisc {
 		if (levelsToID <= 0){
 			if (ShardOfOblivion.passiveIDDisabled()){
 				if (levelsToID > -1){
-					GLog.p(Messages.get(ShardOfOblivion.class,"identify_ready"),name());
+					GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),name());
 				}
 				setIDReady();
 			} else {
 				鉴定();
-				GLog.p(Messages.get(Ring.class, "identify"));
+				GLog.绿(Messages.get(Ring.class,"identify"));
 				Badges.validateItemLevelAquired(this);
 			}
 		}

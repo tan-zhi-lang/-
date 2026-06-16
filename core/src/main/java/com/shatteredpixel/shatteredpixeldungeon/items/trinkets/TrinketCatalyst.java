@@ -211,7 +211,7 @@ public class TrinketCatalyst extends Item {
 								Sample.INSTANCE.play( Assets.Sounds.PUFF );
 
 								if (result.doPickUp(Dungeon.hero)){
-									GLog.p( Messages.capitalize(Messages.get(Hero.class, "you_now_have", item.name())) );
+									GLog.绿(Messages.capitalize(Messages.get(Hero.class,"you_now_have",item.name())));
 								} else {
 									Dungeon.level.drop(result, Dungeon.hero.pos);
 								}

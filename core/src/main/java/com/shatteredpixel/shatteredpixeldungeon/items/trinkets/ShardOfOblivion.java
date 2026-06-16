@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Identification;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -100,9 +99,9 @@ public class ShardOfOblivion extends Trinket {
 				curUser.sprite.operate();
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 				curUser.sprite.parent.add( new Identification( curUser.sprite.center().offset( 0, -16 ) ) );
-				GLog.p(Messages.get(ShardOfOblivion.class, "identify"));
+				GLog.绿(Messages.get(ShardOfOblivion.class,"identify"));
 			} else {
-				GLog.w(Messages.get(ShardOfOblivion.class, "identify_not_yet"));
+				GLog.橙(Messages.get(ShardOfOblivion.class,"identify_not_yet"));
 			}
 		}
 	};

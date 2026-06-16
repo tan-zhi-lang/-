@@ -65,14 +65,14 @@ public class 净化药剂 extends Potion {
 			Sample.INSTANCE.play(Assets.Sounds.SHATTER);
 
 			鉴定();
-			GLog.i(Messages.get(this, "freshness"));
+			GLog.白(Messages.get(this,"freshness"));
 		}
 		
 	}
 	
 	@Override
 	public void apply( Hero hero ) {
-		GLog.w( Messages.get(this, "protected") );
+		GLog.橙(Messages.get(this,"protected"));
 		Buff.延长( hero, BlobImmunity.class, BlobImmunity.DURATION );
 		SpellSprite.show(hero, SpellSprite.PURITY);
 		鉴定();

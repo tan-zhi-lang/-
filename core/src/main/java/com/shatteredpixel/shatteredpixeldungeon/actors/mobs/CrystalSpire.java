@@ -140,7 +140,7 @@ public class CrystalSpire extends Mob {
 							Dungeon.level.occupyCell(ch);
 						}
 					} else if (ch == Dungeon.hero){
-						GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", name())) );
+						GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",name())));
 						Dungeon.fail(this);
 					}
 				}
@@ -354,7 +354,7 @@ public class CrystalSpire extends Mob {
 					hits++;
 
 					if (hits == 1){
-						GLog.w(Messages.get(CrystalSpire.class, "warning"));
+						GLog.橙(Messages.get(CrystalSpire.class,"warning"));
 						PixelScene.shake( 1, 0.7f );
 						Sample.INSTANCE.play( Assets.Sounds.MINE );
 					} else if (hits >= 3) {
@@ -362,7 +362,7 @@ public class CrystalSpire extends Mob {
 						if (hits == 3){
 							Sample.INSTANCE.play( Assets.Sounds.ROCKS );
 							PixelScene.shake( 3, 0.7f );
-							GLog.n(Messages.get(CrystalSpire.class, "alert"));
+							GLog.红(Messages.get(CrystalSpire.class,"alert"));
 							BossHealthBar.assignBoss(CrystalSpire.this);
 
 							abilityCooldown = 1; //dely first attack by 1 turn

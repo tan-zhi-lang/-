@@ -110,10 +110,10 @@ public class 荣誉纹章 extends Item {
 	public void affixToArmor(Armor armor, Item outgoing){
 		if (armor != null) {
 			if (!armor.cursedKnown){
-				GLog.w(Messages.get(荣誉纹章.class,"unknown_armor"));
+				GLog.橙(Messages.get(荣誉纹章.class,"unknown_armor"));
 
 			} else if (armor.cursed && (getGlyph() == null || !getGlyph().curse())){
-				GLog.w(Messages.get(荣誉纹章.class,"cursed_armor"));
+				GLog.橙(Messages.get(荣誉纹章.class,"cursed_armor"));
 
 			}else if (armor.glyph != null && getGlyph() != null
 					&& canTransferGlyph()
@@ -137,7 +137,7 @@ public class 荣誉纹章 extends Item {
 						if (index == 0) setGlyph(null);
 						//if index is 1, then the glyph transfer happens in affixSeal
 
-						GLog.p(Messages.get(荣誉纹章.class,"affix"));
+						GLog.绿(Messages.get(荣誉纹章.class,"affix"));
 						Dungeon.hero.sprite.operate();
 						Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 						armor.affixSeal(荣誉纹章.this);
@@ -157,7 +157,7 @@ public class 荣誉纹章 extends Item {
 					((Armor) outgoing).detachSeal();
 				}
 
-				GLog.p(Messages.get(荣誉纹章.class,"affix"));
+				GLog.绿(Messages.get(荣誉纹章.class,"affix"));
 				Dungeon.hero.sprite.operate();
 				Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 				armor.affixSeal(this);

@@ -107,7 +107,7 @@ public class Corrosion extends Buff implements Hero.Doom {
 		}
 
 		Dungeon.fail( this );
-		GLog.n(Messages.get(this, "ondeath"));
+		GLog.红(Messages.get(this,"ondeath"));
 	}
 
 }

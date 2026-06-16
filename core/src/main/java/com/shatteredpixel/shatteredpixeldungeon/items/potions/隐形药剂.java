@@ -21,7 +21,7 @@ public class 隐形药剂 extends Potion {
 	public void apply( Hero hero ) {
 		鉴定();
 		Buff.延长( hero, Invisibility.class, Invisibility.DURATION );
-		GLog.i( Messages.get(this, "invisible") );
+		GLog.白(Messages.get(this,"invisible"));
 		Sample.INSTANCE.play( Assets.Sounds.MELD );
 	}
 	

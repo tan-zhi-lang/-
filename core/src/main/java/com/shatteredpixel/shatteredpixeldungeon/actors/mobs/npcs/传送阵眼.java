@@ -47,12 +47,12 @@ public class 传送阵眼 extends NPC {
 		if(c instanceof Hero hero){
 
 			if(!Imp.Quest.isCompleted()){
-				GLog.w("你没有使用传送阵的权限！");
+				GLog.橙("你没有使用传送阵的权限！");
 			}
 
 			Item i=hero.belongings.getItem(矮人徽章.class);
 			if(i==null){
-				GLog.w("你没有使用传送阵的物品！");
+				GLog.橙("你没有使用传送阵的物品！");
 			}else {
 				if(i.数量()==1){
 					i.detachAll(hero.belongings.backpack);
@@ -64,7 +64,7 @@ public class 传送阵眼 extends NPC {
 			}
 
 		if(k){
-			GLog.w("你使用了矮人魔法传送阵！");
+			GLog.橙("你使用了矮人魔法传送阵！");
 
 			Level.beforeTransition();
 			if(Dungeon.相对层数()==11){

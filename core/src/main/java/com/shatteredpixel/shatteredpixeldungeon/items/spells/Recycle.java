@@ -65,7 +65,7 @@ public class Recycle extends InventorySpell {
 		} while (result.getClass() == item.getClass() || Challenges.isItemBlocked(result));
 		
 		item.detach(curUser.belongings.backpack);
-		GLog.p(Messages.get(this, "recycled", result.name()));
+		GLog.绿(Messages.get(this,"recycled",result.name()));
 		result.放背包();
 		Transmuting.show(curUser, item, result);
 		curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 10);

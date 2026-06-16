@@ -139,7 +139,7 @@ public class Hunger extends Buff implements Hero.Doom {
 				float newLevel = level + hungerDelay;
 				if (newLevel >= STARVING) {//450时
 
-					GLog.n( Messages.get(this, "onstarving") );
+					GLog.红(Messages.get(this,"onstarving"));
 					hero.受伤时( hungerDelay/20f+(float)Math.sqrt(hero.已损失生命())/89f, this);
 
 					hero.interrupt();
@@ -147,7 +147,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 				} else if (newLevel >= HUNGRY && level < HUNGRY) {
 
-					GLog.w( Messages.get(this, "onhungry") );
+					GLog.橙(Messages.get(this,"onhungry"));
 
 					if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_FOOD)){
 						GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_FOOD);
@@ -211,9 +211,9 @@ public class Hunger extends Buff implements Hero.Doom {
 //		}
 
 		if (oldLevel < HUNGRY && level >= HUNGRY){
-			GLog.w( Messages.get(this, "onhungry") );
+			GLog.橙(Messages.get(this,"onhungry"));
 		} else if (oldLevel < STARVING && level >= STARVING){
-			GLog.n( Messages.get(this, "onstarving") );
+			GLog.红(Messages.get(this,"onstarving"));
 			if(Dungeon.符文("我是瘦子"))
 				target.受伤时( 饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f*2, this );
 			else
@@ -272,7 +272,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		Badges.validateDeathFromHunger();
 
 		Dungeon.fail( this );
-		GLog.n( Messages.get(this, "ondeath") );
+		GLog.红(Messages.get(this,"ondeath"));
 	}
 	public boolean 饥饿(){
 		return level > HUNGRY;

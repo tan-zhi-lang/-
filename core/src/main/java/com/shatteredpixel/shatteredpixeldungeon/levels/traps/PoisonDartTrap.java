@@ -102,7 +102,7 @@ public class PoisonDartTrap extends Trap {
 											}
 											if (!finalTarget.isAlive()) {
 												Dungeon.fail(PoisonDartTrap.this);
-												GLog.n(Messages.get(PoisonDartTrap.class, "ondeath"));
+												GLog.红(Messages.get(PoisonDartTrap.class,"ondeath"));
 												if (reclaimed) Badges.validateDeathFromFriendlyMagic();
 											}
 										}

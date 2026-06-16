@@ -214,7 +214,7 @@ public class 粘咕 extends Mob {
 
 			if (Dungeon.level.heroFOV[pos]) {
 				sprite.showStatus(CharSprite.警告橙,Messages.get(this,"!!!"));
-				GLog.n( Messages.get(this, "pumpup") );
+				GLog.红(Messages.get(this,"pumpup"));
 			}
 
 			return true;

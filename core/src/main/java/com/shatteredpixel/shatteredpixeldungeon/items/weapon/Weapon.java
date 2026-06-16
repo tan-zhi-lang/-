@@ -318,11 +318,11 @@ abstract public class Weapon extends KindOfWeapon {
 			技能=null;
 		}if (action.equals(AC_ABILITY)&&技能!=null){
 			if (!isEquipped(hero)) {
-				GLog.w(Messages.get(this, "ability_need_equip"));
+				GLog.橙(Messages.get(this,"ability_need_equip"));
 			} else if (力量() > hero.力量()){
-				GLog.w(Messages.get(this, "ability_low_str"));
+				GLog.橙(Messages.get(this,"ability_low_str"));
 			}else if (charger.charges + charger.partialCharge < 技能.消耗) {
-				GLog.w(Messages.get(this, "ability_no_charge"));
+				GLog.橙(Messages.get(this,"ability_no_charge"));
 			}else {
 				usesTargeting=技能!=null&&技能.目标;
 				技能.武技(hero,this);
@@ -862,7 +862,7 @@ abstract public class Weapon extends KindOfWeapon {
 		public void doAction() {
 			
 			if (Dungeon.hero.belongings.secondWep == null && Dungeon.hero.belongings.backpack.items.size() >= Dungeon.hero.belongings.backpack.capacity()){
-				GLog.w(Messages.get(Weapon.class, "swap_full"));
+				GLog.橙(Messages.get(Weapon.class,"swap_full"));
 				return;
 			}
 			
@@ -1042,7 +1042,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		if(defender!=null){
 			if((cursed||hasCurseEnchant())&&!cursedKnown){
-				GLog.n(Messages.get(this,"curse_discover"));
+				GLog.红(Messages.get(this,"curse_discover"));
 				Dungeon.hero.sprite.哭泣();
 			}
 			cursedKnown=true;
@@ -1077,7 +1077,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){
-						GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
+						GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),name());
 					}
 					setIDReady();
 				} else {
@@ -1246,12 +1246,12 @@ abstract public class Weapon extends KindOfWeapon {
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){
-						GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
+						GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),name());
 					}
 					setIDReady();
 				} else {
 					鉴定();
-					GLog.p(Messages.get(Weapon.class, "identify"));
+					GLog.绿(Messages.get(Weapon.class,"identify"));
 					Badges.validateItemLevelAquired(this);
 				}
 			}
@@ -1265,7 +1265,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if(连招)
 		if(连招范围!=-1){
 			if(defender!=null)
-			GLog.w("这次你的攻击连招范围是"+连招范围);//+"，将造成"+(1+(范围+1-连招范围)*0.2f)+"倍伤害"
+			GLog.橙("这次你的攻击连招范围是"+连招范围);//+"，将造成"+(1+(范围+1-连招范围)*0.2f)+"倍伤害"
 			float x=0.2f;
 			damage=Math.round(damage*(1+(范围+1-连招范围)*x));
 		}

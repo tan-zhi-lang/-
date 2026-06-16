@@ -1478,7 +1478,7 @@ public abstract class Mob extends Char{
 			}
 
 			if(Dungeon.hero.isAlive()&&!Dungeon.level.heroFOV[pos]){
-				GLog.i(Messages.get(this,"died"));
+				GLog.白(Messages.get(this,"died"));
 			}
 
 			super.死亡时(来源);
@@ -1824,7 +1824,7 @@ public abstract class Mob extends Char{
 	public void yell(String str){
 		GLog.newLine();
 		sprite.说(str);//说话修改
-		GLog.n("%s: \"%s\" ",Messages.titleCase(name()),str);
+		GLog.红("%s: \"%s\" ",Messages.titleCase(name()),str);
 	}
 
 	//some mobs have an associated landmark entry, which is added when the hero sees them

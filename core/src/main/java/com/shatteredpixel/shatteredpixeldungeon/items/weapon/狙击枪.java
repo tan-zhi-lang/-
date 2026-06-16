@@ -70,7 +70,7 @@ public class 狙击枪 extends Weapon{
 		curUser = hero;
 		curItem = this;
 		if(!isEquipped(curUser)){
-			GLog.w("你需要装备枪械！");
+			GLog.橙("你需要装备枪械！");
 		}
 		if (action.equals(AC_换弹)) {
 			if(curCharges==0){

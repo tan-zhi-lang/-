@@ -64,10 +64,10 @@ public class TelekineticGrab extends TargetedSpell {
 
 				if (item.doPickUp(hero, ch.pos)) {
 					totalpickupTime += item.pickupDelay();
-					GLog.i( Messages.capitalize(Messages.get(hero, "you_now_have", item.name())) );
+					GLog.白(Messages.capitalize(Messages.get(hero,"you_now_have",item.name())));
 
 				} else {
-					GLog.w(Messages.get(this, "cant_grab"));
+					GLog.橙(Messages.get(this,"cant_grab"));
 					Dungeon.level.drop(item, ch.pos).sprite().drop();
 					break;
 				}
@@ -83,7 +83,7 @@ public class TelekineticGrab extends TargetedSpell {
 			Heap h = Dungeon.level.heaps.get(bolt.collisionPos);
 
 			if (h.type != Heap.Type.HEAP){
-				GLog.w(Messages.get(this, "cant_grab"));
+				GLog.橙(Messages.get(this,"cant_grab"));
 				hero.spend(Actor.TICK);
 				h.sprite.drop();
 			} else {
@@ -93,10 +93,10 @@ public class TelekineticGrab extends TargetedSpell {
 				if (item.doPickUp(hero, h.pos)) {
 					h.pickUp();
 					totalpickupTime += item.pickupDelay();
-					GLog.i( Messages.capitalize(Messages.get(hero, "you_now_have", item.name())) );
+					GLog.白(Messages.capitalize(Messages.get(hero,"you_now_have",item.name())));
 
 				} else {
-					GLog.w(Messages.get(this, "cant_grab"));
+					GLog.橙(Messages.get(this,"cant_grab"));
 						h.sprite.drop();
 					break;
 				}
@@ -109,7 +109,7 @@ public class TelekineticGrab extends TargetedSpell {
 			}
 
 		} else {
-			GLog.w(Messages.get(this, "no_target"));
+			GLog.橙(Messages.get(this,"no_target"));
 			hero.spend(Actor.TICK);
 		}
 

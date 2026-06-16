@@ -169,7 +169,7 @@ public class SacrificialFire extends Blob {
 					bonusSpawns++;
 					CellEmitter.get(firePos).burst( SacrificialParticle.FACTORY, 20 );
 					Sample.INSTANCE.play(Assets.Sounds.BURNING );
-					GLog.w( Messages.get(SacrificialFire.class, "worthy"));
+					GLog.橙(Messages.get(SacrificialFire.class,"worthy"));
 				} else {
 					clear(firePos);
 					if (volume <= 0) Notes.remove( landmark() );
@@ -180,7 +180,7 @@ public class SacrificialFire extends Blob {
 					Sample.INSTANCE.play(Assets.Sounds.BURNING );
 					Sample.INSTANCE.play(Assets.Sounds.BURNING );
 					Sample.INSTANCE.play(Assets.Sounds.BURNING );
-					GLog.w( Messages.get(SacrificialFire.class, "reward"));
+					GLog.橙(Messages.get(SacrificialFire.class,"reward"));
 					if (prize != null) {
 						Dungeon.level.drop(prize, firePos).sprite().drop();
 					} else {
@@ -189,7 +189,7 @@ public class SacrificialFire extends Blob {
 				}
 			} else {
 
-				GLog.w( Messages.get(SacrificialFire.class, "unworthy"));
+				GLog.橙(Messages.get(SacrificialFire.class,"unworthy"));
 
 			}
 		}

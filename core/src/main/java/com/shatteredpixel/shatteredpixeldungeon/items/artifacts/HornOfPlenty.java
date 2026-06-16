@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -84,8 +83,8 @@ public class HornOfPlenty extends Artifact {
 
 		if (action.equals(AC_EAT) || action.equals(AC_SNACK)){
 
-			if (!isEquipped(hero)) GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			else if (charge == 0)  GLog.i( Messages.get(this, "no_food") );
+			if (!isEquipped(hero)) GLog.白(Messages.get(Artifact.class,"need_to_equip"));
+			else if (charge == 0)  GLog.白(Messages.get(this,"no_food"));
 			else {
 				//consume as much food as it takes to be full, to a minimum of 1
 				int satietyPerCharge = (int) (Hunger.STARVING/5f);
@@ -124,7 +123,7 @@ public class HornOfPlenty extends Artifact {
 		hero.busy();
 		SpellSprite.show(hero, SpellSprite.FOOD);
 		Sample.INSTANCE.play(Assets.Sounds.EAT);
-		GLog.i( Messages.get(this, "eat") );
+		GLog.白(Messages.get(this,"eat"));
 
 		if (Dungeon.hero.heroClass(HeroClass.学士)){
 			hero.spend(Food.TIME_TO_EAT - 2);
@@ -156,7 +155,7 @@ public class HornOfPlenty extends Artifact {
 				charge++;
 				
 				if (charge == chargeCap){
-					GLog.p( Messages.get(HornOfPlenty.class, "full") );
+					GLog.绿(Messages.get(HornOfPlenty.class,"full"));
 					partialCharge = 0;
 				}
 
@@ -217,12 +216,12 @@ public class HornOfPlenty extends Artifact {
 			storedFoodEnergy -= upgrades * Hunger.HUNGRY;
 			if (等级() == 10){
 				storedFoodEnergy = 0;
-				GLog.p( Messages.get(this, "maxlevel") );
+				GLog.绿(Messages.get(this,"maxlevel"));
 			} else {
-				GLog.p( Messages.get(this, "levelup") );
+				GLog.绿(Messages.get(this,"levelup"));
 			}
 		} else {
-			GLog.i( Messages.get(this, "feed") );
+			GLog.白(Messages.get(this,"feed"));
 		}
 	}
 	
@@ -277,7 +276,7 @@ public class HornOfPlenty extends Artifact {
 					updateQuickslot();
 
 					if (charge == chargeCap){
-						GLog.p( Messages.get(HornOfPlenty.class, "full") );
+						GLog.绿(Messages.get(HornOfPlenty.class,"full"));
 						partialCharge = 0;
 					}
 				}
@@ -309,7 +308,7 @@ public class HornOfPlenty extends Artifact {
 		public void onSelect( Item item ) {
 			if (item != null && item instanceof Food) {
 				if (item instanceof Blandfruit && ((Blandfruit) item).potionAttrib == null){
-					GLog.w( Messages.get(HornOfPlenty.class, "reject") );
+					GLog.橙(Messages.get(HornOfPlenty.class,"reject"));
 				} else {
 					Hero hero = Dungeon.hero;
 					hero.sprite.operate( hero.pos );

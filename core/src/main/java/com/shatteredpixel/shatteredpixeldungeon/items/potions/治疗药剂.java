@@ -51,7 +51,7 @@ public class 治疗药剂 extends Potion {
 			healing.setHeal(ch.最大生命(0.9f), 0.45f, 0);
 			healing.applyVialEffect();
 			if (ch == Dungeon.hero){
-				GLog.p( Messages.get(治疗药剂.class, "heal") );
+				GLog.绿(Messages.get(治疗药剂.class,"heal"));
 			}
 		}
 	}

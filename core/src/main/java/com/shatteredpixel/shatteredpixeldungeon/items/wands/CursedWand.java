@@ -475,7 +475,7 @@ public class CursedWand {
 						if (user == Dungeon.hero && origin != null) {
 							Badges.validateDeathFromFriendlyMagic();
 							Dungeon.fail( origin );
-							GLog.n( Messages.get( CursedWand.class, "ondeath", origin.name() ) );
+							GLog.红(Messages.get(CursedWand.class,"ondeath",origin.name()));
 						} else {
 							Badges.validateDeathFromEnemyMagic();
 							Dungeon.fail( toHeal );
@@ -559,7 +559,7 @@ public class CursedWand {
 						if (user == Dungeon.hero && origin != null) {
 							Badges.validateDeathFromFriendlyMagic();
 							Dungeon.fail( origin );
-							GLog.n( Messages.get( CursedWand.class, "ondeath", origin.name() ) );
+							GLog.红(Messages.get(CursedWand.class,"ondeath",origin.name()));
 						} else {
 							Badges.validateDeathFromEnemyMagic();
 							Dungeon.fail( user );
@@ -908,7 +908,7 @@ public class CursedWand {
 						if (user == Dungeon.hero && origin != null) {
 							Badges.validateDeathFromFriendlyMagic();
 							Dungeon.fail( origin );
-							GLog.n( Messages.get( CursedWand.class, "ondeath", origin.name() ) );
+							GLog.红(Messages.get(CursedWand.class,"ondeath",origin.name()));
 						} else {
 							Badges.validateDeathFromEnemyMagic();
 							Dungeon.fail( user );
@@ -939,7 +939,7 @@ public class CursedWand {
 			new Flare(5, 48).color(0xFFFF00, true).show(user.sprite, 3f);
 			GameScene.flash(0x80FFFF40);
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-			GLog.p(Messages.get(CursedWand.class, "mass_invuln"));
+			GLog.绿(Messages.get(CursedWand.class,"mass_invuln"));
 
 			return true;
 		}
@@ -965,7 +965,7 @@ public class CursedWand {
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 
 			user.sprite.emitter().burst(Speck.factory(Speck.STEAM), 10);
-			GLog.w(Messages.get(CursedWand.class, "petrify"));
+			GLog.橙(Messages.get(CursedWand.class,"petrify"));
 
 			return true;
 		}
@@ -1008,10 +1008,10 @@ public class CursedWand {
 
 			new Flare(8, 32).color(0xFFFF66, true).show(user.sprite, 2f);
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
-			GLog.p(Messages.get(CursedWand.class, "grass"));
+			GLog.绿(Messages.get(CursedWand.class,"grass"));
 			//only grass, no fire, if positive only
 			if (!positiveOnly) {
-				GLog.w(Messages.get(CursedWand.class, "fire"));
+				GLog.橙(Messages.get(CursedWand.class,"fire"));
 				do {
 					GameScene.add(Blob.seed(Dungeon.level.randomDestination(null), 10, Fire.class));
 				} while (Random.Int(5) != 0);
@@ -1149,9 +1149,9 @@ public class CursedWand {
 			if (result.可升级()) result.升级();
 			result.cursed = result.cursedKnown = true;
 			if (origin instanceof Wand){
-				GLog.w( Messages.get(CursedWand.class, "transmogrify_wand") );
+				GLog.橙(Messages.get(CursedWand.class,"transmogrify_wand"));
 			} else {
-				GLog.w( Messages.get(CursedWand.class, "transmogrify_other") );
+				GLog.橙(Messages.get(CursedWand.class,"transmogrify_other"));
 			}
 			Dungeon.level.drop(result, user.pos).sprite().drop();
 			return true;
@@ -1169,11 +1169,11 @@ public class CursedWand {
 		public boolean effect(Item origin, Char user, Ballistica bolt, boolean positiveOnly) {
 			if (user instanceof Hero){
 				Buff.施加(user, HeroDisguise.class, HeroDisguise.DURATION);
-				GLog.w( Messages.get(CursedWand.class, "disguise") );
+				GLog.橙(Messages.get(CursedWand.class,"disguise"));
 				return true;
 			} else if (Actor.findChar(bolt.collisionPos) instanceof Hero){
 				Buff.施加(Actor.findChar(bolt.collisionPos), HeroDisguise.class, HeroDisguise.DURATION);
-				GLog.w( Messages.get(CursedWand.class, "disguise") );
+				GLog.橙(Messages.get(CursedWand.class,"disguise"));
 				return true;
 			}
 			return false;
@@ -1187,9 +1187,9 @@ public class CursedWand {
 			nova.pos = bolt.collisionPos;
 			nova.harmsAllies = !positiveOnly;
 			if (positiveOnly){
-				GLog.p(Messages.get(CursedWand.class, "supernova_positive"));
+				GLog.绿(Messages.get(CursedWand.class,"supernova_positive"));
 			} else {
-				GLog.w(Messages.get(CursedWand.class, "supernova"));
+				GLog.橙(Messages.get(CursedWand.class,"supernova"));
 			}
 
 			return true;
@@ -1234,9 +1234,9 @@ public class CursedWand {
 			//effect does not harm hero/allies if positive only
 			if (positiveOnly){
 				p.ignoreAllies = true;
-				GLog.p(Messages.get(CursedWand.class, "sinkhole_positive"));
+				GLog.绿(Messages.get(CursedWand.class,"sinkhole_positive"));
 			} else {
-				GLog.w(Messages.get(CursedWand.class, "sinkhole"));
+				GLog.橙(Messages.get(CursedWand.class,"sinkhole"));
 			}
 			return true;
 		}
@@ -1254,9 +1254,9 @@ public class CursedWand {
 			Buff.新增(user, GravityChaosTracker.class).positiveOnly = positiveOnly;
 			Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 			if (positiveOnly){
-				GLog.p(Messages.get(CursedWand.class, "gravity_positive"));
+				GLog.绿(Messages.get(CursedWand.class,"gravity_positive"));
 			} else {
-				GLog.w(Messages.get(CursedWand.class, "gravity"));
+				GLog.橙(Messages.get(CursedWand.class,"gravity"));
 			}
 			return true;
 		}

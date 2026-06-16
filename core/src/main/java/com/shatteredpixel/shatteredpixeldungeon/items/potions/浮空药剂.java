@@ -41,7 +41,7 @@ public class 浮空药剂 extends Potion {
 		Badges.解锁凌云();
 		鉴定();
 		Buff.延长( hero, Levitation.class, Levitation.DURATION );
-		GLog.i( Messages.get(this, "float") );
+		GLog.白(Messages.get(this,"float"));
 	}
 	
 	@Override

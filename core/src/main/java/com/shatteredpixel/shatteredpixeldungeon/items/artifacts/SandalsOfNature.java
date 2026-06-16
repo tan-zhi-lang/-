@@ -129,9 +129,9 @@ public class SandalsOfNature extends Artifact {
 
 		} else if (action.equals(AC_ROOT) && !cursed){
 
-			if (!isEquipped( hero ))                                GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			else if (curSeedEffect == null)                         GLog.i( Messages.get(this, "no_effect") );
-			else if (charge < seedChargeReqs.get(curSeedEffect))    GLog.i( Messages.get(this, "low_charge") );
+			if (!isEquipped( hero ))                                GLog.白(Messages.get(Artifact.class,"need_to_equip"));
+			else if (curSeedEffect == null)                         GLog.白(Messages.get(this,"no_effect"));
+			else if (charge < seedChargeReqs.get(curSeedEffect))    GLog.白(Messages.get(this,"low_charge"));
 			else {
 				GameScene.selectCell(cellSelector);
 			}
@@ -300,11 +300,11 @@ public class SandalsOfNature extends Artifact {
 					升级();
 					Catalog.countUses(SandalsOfNature.class, 等级() == 3 ? 4 : 3);
 					if (等级() >= 1 && 等级() <= 3) {
-						GLog.p( Messages.get(SandalsOfNature.class, "levelup") );
+						GLog.绿(Messages.get(SandalsOfNature.class,"levelup"));
 					}
 
 				} else {
-					GLog.i( Messages.get(SandalsOfNature.class, "absorb_seed") );
+					GLog.白(Messages.get(SandalsOfNature.class,"absorb_seed"));
 				}
 				item.detach(hero.belongings.backpack);
 			}
@@ -318,7 +318,7 @@ public class SandalsOfNature extends Artifact {
 			if (cell != null){
 
 				if (!Dungeon.level.heroFOV[cell] ||Dungeon.level.距离(curUser.pos,cell)>3){
-					GLog.w(Messages.get(SandalsOfNature.class, "out_of_range"));
+					GLog.橙(Messages.get(SandalsOfNature.class,"out_of_range"));
 				} else {
 
 					Ballistica aim = new Ballistica(curUser.pos, cell, Ballistica.STOP_TARGET);

@@ -53,7 +53,7 @@ public class 探地卷轴 extends Scroll {
 		}
 		GameScene.updateFog();
 		
-		GLog.i( Messages.get(this, "layout") );
+		GLog.白(Messages.get(this,"layout"));
 		if (noticed) {
 			Sample.INSTANCE.play( Assets.Sounds.SECRET );
 		}

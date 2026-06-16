@@ -93,14 +93,14 @@ public class 时空道标 extends Artifact {
 			
 			if (Dungeon.bossLevel() || !Dungeon.interfloorTeleportAllowed()) {
 				hero.spend(时空道标.TIME_TO_USE);
-				GLog.w( Messages.get(this, "preventing") );
+				GLog.橙(Messages.get(this,"preventing"));
 				return;
 			}
 			
 			for (int i=0; i < PathFinder.相邻.length;i++) {
 				Char ch = Actor.findChar(hero.pos + PathFinder.相邻[i]);
 				if (ch != null && ch.alignment == Char.Alignment.ENEMY) {
-					GLog.w( Messages.get(this, "creatures") );
+					GLog.橙(Messages.get(this,"creatures"));
 					return;
 				}
 			}
@@ -112,11 +112,11 @@ public class 时空道标 extends Artifact {
 			int chargesToUse = Dungeon.depth > 20 ? 2 : 1;
 
 			if (!isEquipped( hero )) {
-				GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+				GLog.白(Messages.get(Artifact.class,"need_to_equip"));
 				QuickSlotButton.cancel();
 
 			} else if (charge < chargesToUse) {
-				GLog.i( Messages.get(this, "no_charge") );
+				GLog.白(Messages.get(this,"no_charge"));
 				QuickSlotButton.cancel();
 
 			} else {
@@ -134,7 +134,7 @@ public class 时空道标 extends Artifact {
 			hero.sprite.operate( hero.pos );
 			Sample.INSTANCE.play( Assets.Sounds.BEACON );
 			
-			GLog.i( Messages.get(this, "return") );
+			GLog.白(Messages.get(this,"return"));
 			
 		} else if (action == AC_RETURN) {
 			
@@ -214,11 +214,11 @@ public class 时空道标 extends Artifact {
 
 										if (pos == -1 || Dungeon.bossLevel()) {
 
-											GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+											GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 
 										} else if (ch.properties().contains(Char.Property.IMMOVABLE)) {
 
-											GLog.w( Messages.get(时空道标.class,"tele_fail"));
+											GLog.橙(Messages.get(时空道标.class,"tele_fail"));
 
 										} else  {
 
@@ -274,7 +274,7 @@ public class 时空道标 extends Artifact {
 	public Item 升级() {
 		if (等级() == levelCap) return this;
 		chargeCap ++;
-		GLog.p( Messages.get(this, "levelup") );
+		GLog.绿(Messages.get(this,"levelup"));
 		return super.升级();
 	}
 

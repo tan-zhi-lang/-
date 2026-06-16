@@ -47,7 +47,7 @@ public class 来去秘卷 extends ExoticScroll {
 			
 			if ((!Dungeon.interfloorTeleportAllowed()
 				|| Dungeon.depth==1)&&!算法.isDebug()) {
-				GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+				GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 				return;
 			}
 			Level.beforeTransition();
@@ -65,7 +65,7 @@ public class 来去秘卷 extends ExoticScroll {
 			
 			if ( (!Dungeon.interfloorTeleportAllowed()
 				 || Dungeon.depth==26)&&!算法.isDebug()) {
-				GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+				GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 				return;
 			}
 			

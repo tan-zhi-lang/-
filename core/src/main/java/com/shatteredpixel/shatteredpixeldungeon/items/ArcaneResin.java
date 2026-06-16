@@ -111,7 +111,7 @@ public class ArcaneResin extends Item {
 				int resinToUse =Math.round(item.魔力收益/0.1f-9);
 
 				if (数量()<resinToUse){
-					GLog.w(Messages.get(ArcaneResin.class, "not_enough"));
+					GLog.橙(Messages.get(ArcaneResin.class,"not_enough"));
 
 				} else {
 
@@ -132,7 +132,7 @@ public class ArcaneResin extends Item {
 					curUser.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
 
 					curUser.spendAndNext(Actor.TICK);
-					GLog.p(Messages.get(ArcaneResin.class, "apply"));
+					GLog.绿(Messages.get(ArcaneResin.class,"apply"));
 				}
 			}
 		}

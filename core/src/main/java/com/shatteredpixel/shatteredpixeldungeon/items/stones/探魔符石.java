@@ -55,13 +55,13 @@ public class 探魔符石 extends InventoryStone {
 		}
 
 		if (!positiveMagic && !negativeMagic){
-			GLog.i(Messages.get(this, "detected_none"));
+			GLog.白(Messages.get(this,"detected_none"));
 		} else if (positiveMagic && negativeMagic) {
-			GLog.h(Messages.get(this, "detected_both"));
+			GLog.黄(Messages.get(this,"detected_both"));
 		} else if (positiveMagic){
-			GLog.p(Messages.get(this, "detected_good"));
+			GLog.绿(Messages.get(this,"detected_good"));
 		} else if (negativeMagic){
-			GLog.w(Messages.get(this, "detected_bad"));
+			GLog.橙(Messages.get(this,"detected_bad"));
 		}
 
 		if (!anonymous) {

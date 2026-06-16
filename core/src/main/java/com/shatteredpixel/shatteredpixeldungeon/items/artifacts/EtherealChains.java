@@ -76,15 +76,15 @@ public class EtherealChains extends Artifact {
 			curUser = hero;
 
 			if (!isEquipped( hero )) {
-				GLog.i( Messages.get(Artifact.class, "need_to_equip") );
+				GLog.白(Messages.get(Artifact.class,"need_to_equip"));
 				usesTargeting = false;
 
 			} else if (charge < 1) {
-				GLog.i( Messages.get(this, "no_charge") );
+				GLog.白(Messages.get(this,"no_charge"));
 				usesTargeting = false;
 
 			} else if (cursed) {
-				GLog.w( Messages.get(this, "cursed") );
+				GLog.橙(Messages.get(this,"cursed"));
 				usesTargeting = false;
 
 			} else {
@@ -110,7 +110,7 @@ public class EtherealChains extends Artifact {
 				//chains cannot be used to go where it is impossible to walk to
 				PathFinder.buildDistanceMap(target, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
 				if (!(Dungeon.level instanceof MiningLevel) && PathFinder.distance[curUser.pos] == Integer.MAX_VALUE){
-					GLog.w( Messages.get(EtherealChains.class, "cant_reach") );
+					GLog.橙(Messages.get(EtherealChains.class,"cant_reach"));
 					return;
 				}
 				
@@ -136,7 +136,7 @@ public class EtherealChains extends Artifact {
 	private void chainEnemy( Ballistica chain, final Hero hero, final Char enemy ){
 
 		if (enemy.properties().contains(Char.Property.IMMOVABLE)) {
-			GLog.w( Messages.get(this, "cant_pull") );
+			GLog.橙(Messages.get(this,"cant_pull"));
 			return;
 		}
 
@@ -152,7 +152,7 @@ public class EtherealChains extends Artifact {
 		}
 
 		if (bestPos == -1) {
-			GLog.i(Messages.get(this, "does_nothing"));
+			GLog.白(Messages.get(this,"does_nothing"));
 			return;
 		}
 
@@ -160,7 +160,7 @@ public class EtherealChains extends Artifact {
 
 		int chargeUse = Dungeon.level.距离(enemy.pos,pulledPos);
 		if (chargeUse > charge) {
-			GLog.w( Messages.get(this, "no_charge") );
+			GLog.橙(Messages.get(this,"no_charge"));
 			return;
 		}
 
@@ -201,14 +201,14 @@ public class EtherealChains extends Artifact {
 		//don't pull if rooted
 		if (hero.rooted){
 			PixelScene.shake( 1, 1f );
-			GLog.w( Messages.get(EtherealChains.class, "rooted") );
+			GLog.橙(Messages.get(EtherealChains.class,"rooted"));
 			return;
 		}
 
 		//don't pull if the collision spot is in a wall
 		if (Dungeon.level.solid[chain.collisionPos]
 			|| !(Dungeon.level.passable[chain.collisionPos] || Dungeon.level.avoid[chain.collisionPos])){
-			GLog.i( Messages.get(this, "inside_wall"));
+			GLog.白(Messages.get(this,"inside_wall"));
 			return;
 		}
 		
@@ -221,7 +221,7 @@ public class EtherealChains extends Artifact {
 			}
 		}
 		if (!solidFound){
-			GLog.i( Messages.get(EtherealChains.class, "nothing_to_grab") );
+			GLog.白(Messages.get(EtherealChains.class,"nothing_to_grab"));
 			return;
 		}
 		
@@ -229,7 +229,7 @@ public class EtherealChains extends Artifact {
 		
 		int chargeUse = Dungeon.level.距离(hero.pos,newHeroPos);
 		if (chargeUse > charge){
-			GLog.w( Messages.get(EtherealChains.class, "no_charge") );
+			GLog.橙(Messages.get(EtherealChains.class,"no_charge"));
 			return;
 		}
 		
@@ -336,7 +336,7 @@ public class EtherealChains extends Artifact {
 
 			if (exp > 100+ 等级()*100 && 等级() < levelCap){
 				exp -= 100+ 等级()*100;
-				GLog.p( Messages.get(this, "levelup") );
+				GLog.绿(Messages.get(this,"levelup"));
 				Catalog.countUses(EtherealChains.class, 2);
 				升级();
 			}

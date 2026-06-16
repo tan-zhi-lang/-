@@ -114,7 +114,7 @@ public class Bomb extends Item {
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {
 		if (fuse != null) {
-			GLog.w( Messages.get(this, "snuff_fuse") );
+			GLog.橙(Messages.get(this,"snuff_fuse"));
 			fuse.snuff();
 			fuse = null;
 		}
@@ -199,7 +199,7 @@ public class Bomb extends Item {
 					if (this instanceof ConjuredBomb){
 						Badges.validateDeathFromFriendlyMagic();
 					}
-					GLog.n(Messages.get(this, "ondeath"));
+					GLog.红(Messages.get(this,"ondeath"));
 					Dungeon.fail(this);
 				}
 			}

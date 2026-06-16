@@ -228,7 +228,7 @@ public class Potion extends Item {
 		} else if (action.equals( AC_DRINK )) {
 			
 			if(this instanceof 治疗药剂&&已鉴定()&&hero.康血()){
-				GLog.n("生命健康，不推荐治疗，收益不高。");
+				GLog.红("生命健康，不推荐治疗，收益不高。");
 			}
 			if (isKnown() && mustThrowPots.contains(getClass())) {
 				
@@ -350,7 +350,7 @@ public class Potion extends Item {
 	public void shatter( int cell ) {
 		splash( cell );
 		if (Dungeon.level.heroFOV[cell]) {
-			GLog.i( Messages.get(Potion.class, "shatter") );
+			GLog.白(Messages.get(Potion.class,"shatter"));
 			Sample.INSTANCE.play( Assets.Sounds.SHATTER );
 		}
 	}

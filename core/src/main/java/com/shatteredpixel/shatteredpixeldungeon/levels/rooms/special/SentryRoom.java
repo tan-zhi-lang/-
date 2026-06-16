@@ -276,7 +276,7 @@ public class SentryRoom extends SpecialRoom {
 				if (!Dungeon.hero.isAlive()) {
 					Badges.validateDeathFromEnemyMagic();
 					Dungeon.fail(this);
-					GLog.n(Messages.capitalize(Messages.get(Char.class, "kill", name())));
+					GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",name())));
 				}
 			} else {
 				Dungeon.hero.sprite.showStatus(CharSprite.中性黄,Dungeon.hero.defenseVerb());

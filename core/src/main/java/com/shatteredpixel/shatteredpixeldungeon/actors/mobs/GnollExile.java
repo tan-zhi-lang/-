@@ -143,7 +143,7 @@ public class GnollExile extends Gnoll {
 
 			if (fieldOfView[Dungeon.hero.pos] && Dungeon.level.heroFOV[pos]){
 				if (seenNotifyCooldown <= 0){
-					GLog.p(Messages.get(GnollExile.class, "seen_passive"));
+					GLog.绿(Messages.get(GnollExile.class,"seen_passive"));
 				}
 				seenNotifyCooldown = 10;
 			} else {
@@ -153,7 +153,7 @@ public class GnollExile extends Gnoll {
 			if (enemyInFOV && justAlerted) {
 
 				if (Dungeon.level.heroFOV[pos]) {
-					GLog.w(Messages.get(GnollExile.class, "seen_aggro"));
+					GLog.橙(Messages.get(GnollExile.class,"seen_aggro"));
 				}
 				return noticeEnemy();
 
@@ -169,7 +169,7 @@ public class GnollExile extends Gnoll {
 	private class Wandering extends Mob.Wandering {
 		@Override
 		protected boolean noticeEnemy() {
-			GLog.w(Messages.get(GnollExile.class, "seen_aggro"));
+			GLog.橙(Messages.get(GnollExile.class,"seen_aggro"));
 			return super.noticeEnemy();
 		}
 	}

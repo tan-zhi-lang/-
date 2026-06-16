@@ -499,7 +499,7 @@ public class GameScene extends PixelScene {
 		if (InterlevelScene.mode != InterlevelScene.Mode.NONE) {
 			if (Dungeon.depth == Statistics.deepestFloor
 					&& (InterlevelScene.mode == InterlevelScene.Mode.DESCEND || InterlevelScene.mode == InterlevelScene.Mode.FALL)) {
-				GLog.h(Messages.get(this, "descend"), Dungeon.depth);
+				GLog.黄(Messages.get(this,"descend"),Dungeon.depth);
 				Sample.INSTANCE.play(Assets.Sounds.DESCEND);
 				
 				for (Char ch : Actor.chars()){
@@ -518,19 +518,19 @@ public class GameScene extends PixelScene {
 
 					if (spawnersAbove > 0) {
 						if (Dungeon.bossLevel()) {
-							GLog.n(Messages.get(this, "spawner_warn_final"));
+							GLog.红(Messages.get(this,"spawner_warn_final"));
 						} else {
-							GLog.n(Messages.get(this, "spawner_warn"));
+							GLog.红(Messages.get(this,"spawner_warn"));
 						}
 					}
 				}
 				
 			} else if (InterlevelScene.mode == InterlevelScene.Mode.RESET) {
-				GLog.h(Messages.get(this, "warp"));
+				GLog.黄(Messages.get(this,"warp"));
 			} else if (InterlevelScene.mode == InterlevelScene.Mode.RESURRECT) {
-				GLog.h(Messages.get(this, "resurrect"), Dungeon.depth);
+				GLog.黄(Messages.get(this,"resurrect"),Dungeon.depth);
 			} else {
-				GLog.h(Messages.get(this, "return"), Dungeon.depth);
+				GLog.黄(Messages.get(this,"return"),Dungeon.depth);
 			}
 
 			if (Dungeon.hero.heroClass(HeroClass.盗贼)
@@ -544,7 +544,7 @@ public class GameScene extends PixelScene {
 				//offset seed slightly to avoid output patterns
 				Random.pushGenerator(Dungeon.seedCurDepth()+1);
 					if (reqSecrets <= 0 && Dungeon.hero.heroClass(HeroClass.盗贼)){
-						GLog.p(Messages.get(this, "secret_hint"));
+						GLog.绿(Messages.get(this,"secret_hint"));
 					}
 				Random.popGenerator();
 			}
@@ -558,45 +558,45 @@ public class GameScene extends PixelScene {
 			}
 			if (unspentTalents){
 				GLog.newLine();
-				GLog.w( Messages.get(Dungeon.hero, "unspent") );
+				GLog.橙(Messages.get(Dungeon.hero,"unspent"));
 				StatusPane.talentBlink = 10f;
 				WndHero.lastIdx = 1;
 			}
 
 			switch (Dungeon.level.feeling) {
 				case CHASM:
-					GLog.w(Dungeon.level.feeling.desc());
+					GLog.橙(Dungeon.level.feeling.desc());
 					Notes.add(Notes.Landmark.CHASM_FLOOR);
 					break;
 				case WATER:
-					GLog.w(Dungeon.level.feeling.desc());
+					GLog.橙(Dungeon.level.feeling.desc());
 					Notes.add(Notes.Landmark.WATER_FLOOR);
 					break;
 				case GRASS:
-					GLog.w(Dungeon.level.feeling.desc());
+					GLog.橙(Dungeon.level.feeling.desc());
 					Notes.add(Notes.Landmark.GRASS_FLOOR);
 					break;
 				case DARK:
-					GLog.w(Dungeon.level.feeling.desc());
+					GLog.橙(Dungeon.level.feeling.desc());
 					Notes.add(Notes.Landmark.DARK_FLOOR);
 					break;
 				case LARGE:
-					GLog.w(Dungeon.level.feeling.desc());
+					GLog.橙(Dungeon.level.feeling.desc());
 					Notes.add(Notes.Landmark.LARGE_FLOOR);
 					break;
 				case TRAPS:
-					GLog.w(Dungeon.level.feeling.desc());
+					GLog.橙(Dungeon.level.feeling.desc());
 					Notes.add(Notes.Landmark.TRAPS_FLOOR);
 					break;
 				case SECRETS:
-					GLog.w(Dungeon.level.feeling.desc());
+					GLog.橙(Dungeon.level.feeling.desc());
 					Notes.add(Notes.Landmark.SECRETS_FLOOR);
 					break;
 			}
 
 			for (Mob mob : Dungeon.level.mobs) {
 				if (!mob.buffs(ChampionEnemy.class).isEmpty()) {
-					GLog.w(Messages.get(ChampionEnemy.class, "warn"));
+					GLog.橙(Messages.get(ChampionEnemy.class,"warn"));
 				}
 			}
 
@@ -606,7 +606,7 @@ public class GameScene extends PixelScene {
 
 			DimensionalSundial.sundialWarned = true;
 			if (DimensionalSundial.spawnMultiplierAtCurrentTime() > 1){
-				GLog.w(Messages.get(DimensionalSundial.class, "warning"));
+				GLog.橙(Messages.get(DimensionalSundial.class,"warning"));
 			} else {
 				DimensionalSundial.sundialWarned = false;
 			}
@@ -623,13 +623,13 @@ public class GameScene extends PixelScene {
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_INTRO);
 			} else if (ControllerHandler.isControllerConnected()) {
 				GameLog.wipe();
-				GLog.p(Messages.get(GameScene.class, "tutorial_move_controller"));
+				GLog.绿(Messages.get(GameScene.class,"tutorial_move_controller"));
 			} else if (SPDSettings.interfaceSize() == 0) {
 				GameLog.wipe();
-				GLog.p(Messages.get(GameScene.class, "tutorial_move_mobile"));
+				GLog.绿(Messages.get(GameScene.class,"tutorial_move_mobile"));
 			} else {
 				GameLog.wipe();
-				GLog.p(Messages.get(GameScene.class, "tutorial_move_desktop"));
+				GLog.绿(Messages.get(GameScene.class,"tutorial_move_desktop"));
 			}
 			toolbar.visible = toolbar.active = false;
 			status.visible = status.active = false;
@@ -1237,9 +1237,9 @@ public class GameScene extends PixelScene {
 			if (doc == Document.ADVENTURERS_GUIDE){
 				if (!page.equals(Document.GUIDE_INTRO)) {
 					if (SPDSettings.interfaceSize() == 0) {
-						GLog.p(Messages.get(Guidebook.class, "hint_mobile"));
+						GLog.绿(Messages.get(Guidebook.class,"hint_mobile"));
 					} else {
-						GLog.p(Messages.get(Guidebook.class, "hint_desktop", KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL, ControllerHandler.isControllerConnected()))));
+						GLog.绿(Messages.get(Guidebook.class,"hint_desktop",KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL,ControllerHandler.isControllerConnected()))));
 					}
 				}
 				Dungeon.hero.sprite.showStatus(CharSprite.增强绿,Messages.get(Guidebook.class,"hint_status"));
@@ -1273,11 +1273,11 @@ public class GameScene extends PixelScene {
 			});
 			GameLog.wipe();
 			if (SPDSettings.interfaceSize() == 0){
-				GLog.p(Messages.get(GameScene.class, "tutorial_ui_mobile"));
+				GLog.绿(Messages.get(GameScene.class,"tutorial_ui_mobile"));
 			} else {
-				GLog.p(Messages.get(GameScene.class, "tutorial_ui_desktop",
-						KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.HERO_INFO, ControllerHandler.isControllerConnected())),
-						KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.INVENTORY, ControllerHandler.isControllerConnected()))));
+				GLog.绿(Messages.get(GameScene.class,"tutorial_ui_desktop",
+									 KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.HERO_INFO, ControllerHandler.isControllerConnected())),
+									 KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.INVENTORY, ControllerHandler.isControllerConnected()))));
 			}
 
 			//clear hidden doors, it's floor 1 so there are only the entrance ones

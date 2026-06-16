@@ -31,7 +31,7 @@ public class 复仇卷轴 extends Scroll {
 		float power = curUser.根据已损失生命();
 		
 		Sample.INSTANCE.play( Assets.Sounds.BLAST );
-		GLog.i(Messages.get(this, "blast"));
+		GLog.白(Messages.get(this,"blast"));
 
 		ArrayList<Mob> targets = new ArrayList<>();
 

@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
@@ -63,7 +62,7 @@ public class Food extends Item {
 			Catalog.countUse(getClass());
 			
 			satisfy(hero);
-			GLog.i( Messages.get(this, "eat_msg") );
+			GLog.白(Messages.get(this,"eat_msg"));
 			
 			hero.sprite.operate( hero.pos );
 			hero.busy();
@@ -96,7 +95,7 @@ public class Food extends Item {
 		Artifact.ArtifactBuff buff = hero.buff( HornOfPlenty.hornRecharge.class );
 		if (buff != null && buff.isCursed()){
 			foodVal *= 0.67f;
-			GLog.n( Messages.get(Hunger.class, "cursedhorn") );
+			GLog.红(Messages.get(Hunger.class,"cursedhorn"));
 		}
 
 		Buff.施加(hero, Hunger.class).吃饭(foodVal);

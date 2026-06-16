@@ -148,7 +148,7 @@ public class WndEnergizeItem extends WndInfoItem {
 			hero.spend(-hero.cooldown());
 			new EnergyCrystal(item.能量()).doPickUp(hero);
 			item.鉴定();
-			GLog.h("You energized: " + item.name());
+			GLog.黄("You energized: "+item.name());
 
 		}
 	}

@@ -166,13 +166,13 @@ public abstract class Scroll extends Item {
 		if (action.equals( AC_READ )) {
 			
 			if (hero.buff(MagicImmune.class) != null){
-				GLog.w( Messages.get(this, "no_magic") );
+				GLog.橙(Messages.get(this,"no_magic"));
 			} else if (hero.buff( Blindness.class ) != null) {
-				GLog.w( Messages.get(this, "blinded") );
+				GLog.橙(Messages.get(this,"blinded"));
 			} else if (hero.buff(UnstableSpellbook.bookRecharge.class) != null
 					&& hero.buff(UnstableSpellbook.bookRecharge.class).isCursed()
 					&& !(this instanceof 祛邪卷轴 || this instanceof ScrollOfAntiMagic)){
-				GLog.n( Messages.get(this, "cursed") );
+				GLog.红(Messages.get(this,"cursed"));
 			} else {
 				doRead();
 			}

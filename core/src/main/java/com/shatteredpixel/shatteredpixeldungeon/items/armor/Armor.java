@@ -193,7 +193,7 @@ public class Armor extends EquipableItem {
 
 		if (action.equals(AC_DETACH)&&荣誉纹章!=null){
 			荣誉纹章 detaching = detachSeal();
-			GLog.i( Messages.get(Armor.class, "detach_seal") );
+			GLog.白(Messages.get(Armor.class,"detach_seal"));
 			hero.sprite.operate();
 			detaching.放背包();
 			updateQuickslot();
@@ -255,7 +255,7 @@ public class Armor extends EquipableItem {
 			cursedKnown = true;
 			if (cursed) {
 				equipCursed( hero );
-				GLog.n( Messages.get(Armor.class, "equip_cursed") );
+				GLog.红(Messages.get(Armor.class,"equip_cursed"));
 				Dungeon.hero.sprite.哭泣();
 			}
 			
@@ -579,12 +579,12 @@ public class Armor extends EquipableItem {
 			if (usesLeftToID <= 0) {
 				if (ShardOfOblivion.passiveIDDisabled()){
 					if (usesLeftToID > -1){
-						GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready"), name());
+						GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready"),name());
 					}
 					setIDReady();
 				} else {
 					鉴定();
-					GLog.p(Messages.get(Armor.class, "identify"));
+					GLog.绿(Messages.get(Armor.class,"identify"));
 					Badges.validateItemLevelAquired(this);
 				}
 			}

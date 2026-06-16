@@ -80,12 +80,12 @@ public class WandOfWarding extends Wand {
 		Char ch = Actor.findChar(target);
 		if (ch instanceof Ward){
 			if (!wardAvailable && ((Ward) ch).tier <= 3){
-				GLog.w( Messages.get(this, "no_more_wards"));
+				GLog.橙(Messages.get(this,"no_more_wards"));
 				return false;
 			}
 		} else {
 			if ((currentWardEnergy + 1) > maxWardEnergy){
-				GLog.w( Messages.get(this, "no_more_wards"));
+				GLog.橙(Messages.get(this,"no_more_wards"));
 				return false;
 			}
 		}
@@ -103,7 +103,7 @@ public class WandOfWarding extends Wand {
 
 			ch = Actor.findChar(target);
 			if (ch != null && !(ch instanceof Ward)){
-				GLog.w( Messages.get(this, "bad_location"));
+				GLog.橙(Messages.get(this,"bad_location"));
 				Dungeon.level.pressCell(bolt.collisionPos);
 				return;
 			}
@@ -118,12 +118,12 @@ public class WandOfWarding extends Wand {
 				}
 				ch.sprite.emitter().burst(MagicMissile.WardParticle.UP, ((Ward) ch).tier);
 			} else {
-				GLog.w( Messages.get(this, "bad_location"));
+				GLog.橙(Messages.get(this,"bad_location"));
 				Dungeon.level.pressCell(target);
 			}
 
 		} else if (!Dungeon.level.passable[target]){
-			GLog.w( Messages.get(this, "bad_location"));
+			GLog.橙(Messages.get(this,"bad_location"));
 			Dungeon.level.pressCell(target);
 
 		} else {
@@ -325,7 +325,7 @@ public class WandOfWarding extends Wand {
 
 			if (!enemy.isAlive() && enemy == Dungeon.hero) {
 				Badges.validateDeathFromFriendlyMagic();
-				GLog.n(Messages.capitalize(Messages.get( this, "kill", name() )));
+				GLog.红(Messages.capitalize(Messages.get(this,"kill",name())));
 				Dungeon.fail( WandOfWarding.class );
 			}
 

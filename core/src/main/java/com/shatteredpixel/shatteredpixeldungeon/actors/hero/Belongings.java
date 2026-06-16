@@ -461,7 +461,7 @@ public class Belongings implements Iterable<Item> {
 			}
 		}
 		if (ShardOfOblivion.passiveIDDisabled()){
-			GLog.p(Messages.get(ShardOfOblivion.class, "identify_ready_worn"));
+			GLog.绿(Messages.get(ShardOfOblivion.class,"identify_ready_worn"));
 		}
 		for (Item item : backpack) {
 			if (item instanceof EquipableItem || item instanceof Wand) {

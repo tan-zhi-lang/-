@@ -81,7 +81,7 @@ public class GravityChaosTracker extends Buff {
 				blocked.clear();
 				left--;
 				if (left <= 0){
-					GLog.w(Messages.get(CursedWand.class, "gravity_end"));
+					GLog.橙(Messages.get(CursedWand.class,"gravity_end"));
 					Sample.INSTANCE.play(Assets.Sounds.DEGRADE);
 					detach();
 				} else {
@@ -117,7 +117,7 @@ public class GravityChaosTracker extends Buff {
 		if (blocked.isEmpty()){
 			left--;
 			if (left <= 0){
-				GLog.w(Messages.get(CursedWand.class, "gravity_end"));
+				GLog.橙(Messages.get(CursedWand.class,"gravity_end"));
 				Sample.INSTANCE.play(Assets.Sounds.DEGRADE);
 				detach();
 			} else {

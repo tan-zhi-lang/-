@@ -84,7 +84,7 @@ public class GnollGuard extends Mob {
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		float dmg = super.攻击时(enemy, damage);
 		if (enemy == Dungeon.hero&&!Dungeon.level.相邻(pos,enemy.pos)&&dmg>12){
-			GLog.n(Messages.get(this, "spear_warn"));
+			GLog.红(Messages.get(this,"spear_warn"));
 		}
 		return dmg;
 	}

@@ -218,7 +218,7 @@ public class YogDzewa extends Mob {
 						if (!ch.isAlive() && ch == Dungeon.hero) {
 							Badges.validateDeathFromEnemyMagic();
 							Dungeon.fail(this);
-							GLog.n(Messages.get(Char.class, "kill", name()));
+							GLog.红(Messages.get(Char.class,"kill",name()));
 						}
 					} else {
 						ch.sprite.showStatus(CharSprite.中性黄,ch.defenseVerb());
@@ -396,7 +396,7 @@ public class YogDzewa extends Mob {
 			phase++;
 
 			updateVisibility(Dungeon.level);
-			GLog.n(Messages.get(this, "darkness"));
+			GLog.红(Messages.get(this,"darkness"));
 			sprite.showStatus(CharSprite.增强绿,Messages.get(this,"invulnerable"));
 
 			addFist((YogFist)Reflection.newInstance(fistSummons.remove(0)));

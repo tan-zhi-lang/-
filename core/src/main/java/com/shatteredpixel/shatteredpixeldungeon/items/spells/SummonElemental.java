@@ -109,7 +109,7 @@ public class SummonElemental extends Spell {
 			}
 
 		} else {
-			GLog.w(Messages.get(SpiritHawk.class, "no_space"));
+			GLog.橙(Messages.get(SpiritHawk.class,"no_space"));
 		}
 
 	}

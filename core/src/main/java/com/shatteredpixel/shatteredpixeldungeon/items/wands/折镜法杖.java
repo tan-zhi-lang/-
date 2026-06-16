@@ -79,7 +79,7 @@ public class 折镜法杖 extends DamageWand {
 				if (!curUser.isAlive()) {
 					Badges.validateDeathFromFriendlyMagic();
 					Dungeon.fail( this );
-					GLog.n(Messages.get(this, "ondeath"));
+					GLog.红(Messages.get(this,"ondeath"));
 				}
 			} else {
 				Buff.施加(ch,Paralysis.class,2+强化等级());

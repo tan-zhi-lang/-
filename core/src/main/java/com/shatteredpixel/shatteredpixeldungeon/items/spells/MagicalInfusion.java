@@ -86,7 +86,7 @@ public class MagicalInfusion extends InventorySpell {
 			if (wasCurseInfused) ((Wand) item).curseInfusionBonus = true;
 		}
 
-		GLog.p( Messages.get(this, "infuse") );
+		GLog.绿(Messages.get(this,"infuse"));
 		Badges.validateItemLevelAquired(item);
 
 		Catalog.countUse(item.getClass());

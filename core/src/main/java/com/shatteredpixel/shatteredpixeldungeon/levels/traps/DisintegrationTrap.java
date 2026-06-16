@@ -74,7 +74,7 @@ public class DisintegrationTrap extends Trap {
 				if (!hero.isAlive()){
 					Badges.validateDeathFromGrimOrDisintTrap();
 					Dungeon.fail( this );
-					GLog.n( Messages.get(this, "ondeath") );
+					GLog.红(Messages.get(this,"ondeath"));
 					if (reclaimed) Badges.validateDeathFromFriendlyMagic();
 				}
 			}

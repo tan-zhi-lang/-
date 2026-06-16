@@ -38,7 +38,7 @@ public class 天赋之泉 extends WellWater {
 
 		Dungeon.hero.interrupt();
 	
-		GLog.p( Messages.get(this, "procced") );
+		GLog.绿(Messages.get(this,"procced"));
 		
 		return true;
 	}

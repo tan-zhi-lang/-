@@ -43,12 +43,12 @@ public class 突刺 extends 武技{
 			
 			Char enemy = Actor.findChar(target);
 			if (enemy == null||enemy instanceof NPC||enemy==hero||hero.isCharmedBy(enemy)||!Dungeon.level.heroFOV[target]) {
-				GLog.w(Messages.get(Weapon.class,"ability_no_target"));
+				GLog.橙(Messages.get(Weapon.class,"ability_no_target"));
 				return;
 			}
 			
 			if (hero.rooted ||Dungeon.level.距离(hero.pos,target)>hero.攻击范围()+1){
-				GLog.w(Messages.get(wep, "ability_target_range"));
+				GLog.橙(Messages.get(wep,"ability_target_range"));
 				if (hero.rooted) PixelScene.shake(1,1f);
 				return;
 			}
@@ -66,7 +66,7 @@ public class 突刺 extends 武技{
 			}
 			
 			if (lungeCell == -1){
-				GLog.w(Messages.get(wep, "ability_target_range"));
+				GLog.橙(Messages.get(wep,"ability_target_range"));
 				return;
 			}
 			
@@ -102,7 +102,7 @@ public class 突刺 extends 武技{
 						});
 					} else {
 						
-						GLog.w(Messages.get(配刺剑.class,"ability_no_target"));
+						GLog.橙(Messages.get(配刺剑.class,"ability_no_target"));
 						hero.spendAndNext(1/hero.移速());
 					}
 				}

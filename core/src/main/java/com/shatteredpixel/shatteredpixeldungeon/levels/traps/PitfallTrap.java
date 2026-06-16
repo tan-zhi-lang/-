@@ -32,7 +32,7 @@ public class PitfallTrap extends Trap {
 	public void activate() {
 		
 		if( Dungeon.bossLevel() || Dungeon.depth > 25 || Dungeon.branch != 0){
-			GLog.w(Messages.get(this, "no_pit"));
+			GLog.橙(Messages.get(this,"no_pit"));
 			return;
 		}
 
@@ -50,9 +50,9 @@ public class PitfallTrap extends Trap {
 		p.setPositions(positions);
 
 		if (pos == Dungeon.hero.pos){
-			GLog.n(Messages.get(this, "triggered_hero"));
+			GLog.红(Messages.get(this,"triggered_hero"));
 		} else if (Dungeon.level.heroFOV[pos]){
-			GLog.n(Messages.get(this, "triggered"));
+			GLog.红(Messages.get(this,"triggered"));
 		}
 
 	}

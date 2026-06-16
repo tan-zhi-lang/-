@@ -858,7 +858,7 @@ public class CavesBossLevel extends Level {
 								Statistics.bossScores[2] -= 200;
 								if ( !ch.isAlive()) {
 									Dungeon.fail(DM300.class);
-									GLog.n(Messages.get(Electricity.class, "ondeath"));
+									GLog.红(Messages.get(Electricity.class,"ondeath"));
 								}
 							}
 						}

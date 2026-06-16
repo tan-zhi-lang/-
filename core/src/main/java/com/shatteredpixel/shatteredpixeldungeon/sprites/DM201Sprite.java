@@ -68,7 +68,7 @@ public class DM201Sprite extends MobSprite {
 					}
 				} );
 		Sample.INSTANCE.play( Assets.Sounds.MISS, 1f, 1.5f );
-		GLog.w(Messages.get(DM201.class, "vent"));
+		GLog.橙(Messages.get(DM201.class,"vent"));
 	}
 
 	@Override

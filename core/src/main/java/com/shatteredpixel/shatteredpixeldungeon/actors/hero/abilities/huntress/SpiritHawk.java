@@ -96,7 +96,7 @@ public class SpiritHawk extends ArmorAbility {
 				hero.spendAndNext(Actor.TICK);
 
 			} else {
-				GLog.w(Messages.get(this, "no_space"));
+				GLog.橙(Messages.get(this,"no_space"));
 			}
 		}
 
@@ -228,19 +228,19 @@ public class SpiritHawk extends ArmorAbility {
 
 		@Override
 		public void defendPos(int cell) {
-			GLog.i(Messages.get(this, "direct_defend"));
+			GLog.白(Messages.get(this,"direct_defend"));
 			super.defendPos(cell);
 		}
 
 		@Override
 		public void followHero() {
-			GLog.i(Messages.get(this, "direct_follow"));
+			GLog.白(Messages.get(this,"direct_follow"));
 			super.followHero();
 		}
 
 		@Override
 		public void targetChar(Char ch) {
-			GLog.i(Messages.get(this, "direct_attack"));
+			GLog.白(Messages.get(this,"direct_attack"));
 			super.targetChar(ch);
 		}
 

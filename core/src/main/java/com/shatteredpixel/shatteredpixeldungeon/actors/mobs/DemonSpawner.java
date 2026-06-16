@@ -133,7 +133,7 @@ public class DemonSpawner extends Mob {
 			Statistics.spawnersAlive--;
 			Notes.remove(landmark());
 		}
-		GLog.h(Messages.get(this, "on_death"));
+		GLog.黄(Messages.get(this,"on_death"));
 		super.死亡时(来源);
 	}
 

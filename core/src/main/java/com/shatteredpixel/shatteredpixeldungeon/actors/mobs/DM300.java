@@ -324,7 +324,7 @@ public class DM300 extends Mob {
 
 			if (Dungeon.level.heroFOV[pos]) {
 				if (buff(护盾.class)==null) {
-					GLog.w(Messages.get(this, "shield"));
+					GLog.橙(Messages.get(this,"shield"));
 				}
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
 				sprite.emitter().start(SparkParticle.STATIC, 0.05f, 20);
@@ -505,7 +505,7 @@ public class DM300 extends Mob {
 	public boolean 是无敌(Class effect) {
 		if (supercharged && !invulnWarned){
 			invulnWarned = true;
-			GLog.w(Messages.get(this, "charging_hint"));
+			GLog.橙(Messages.get(this,"charging_hint"));
 		}
 		return supercharged || super.是无敌(effect);
 	}
@@ -692,7 +692,7 @@ public class DM300 extends Mob {
 							3);
 				}else if(ch==Dungeon.hero){
 					Dungeon.fail(target);
-					GLog.n(Messages.get(GnollGeomancer.class,"rockfall_kill"));
+					GLog.红(Messages.get(GnollGeomancer.class,"rockfall_kill"));
 				}
 			}
 		}

@@ -89,7 +89,7 @@ public class DisarmingTrap extends Trap{
 				}
 				GameScene.updateFog(cell, 1);
 
-				GLog.w( Messages.get(this, "disarm") );
+				GLog.橙(Messages.get(this,"disarm"));
 
 				Sample.INSTANCE.play(Assets.Sounds.TELEPORT);
 				CellEmitter.get(pos).burst(Speck.factory(Speck.LIGHT), 4);

@@ -66,18 +66,18 @@ public class Feint extends ArmorAbility {
 		}
 
 		if (!Dungeon.level.相邻(hero.pos,target)){
-			GLog.w(Messages.get(this, "too_far"));
+			GLog.橙(Messages.get(this,"too_far"));
 			return;
 		}
 
 		if (Dungeon.hero.rooted){
 			PixelScene.shake( 1, 1f );
-			GLog.w(Messages.get(this, "bad_location"));
+			GLog.橙(Messages.get(this,"bad_location"));
 			return;
 		}
 
 		if (Dungeon.level.solid[target] || Actor.findChar(target) != null){
-			GLog.w(Messages.get(this, "bad_location"));
+			GLog.橙(Messages.get(this,"bad_location"));
 			return;
 		}
 

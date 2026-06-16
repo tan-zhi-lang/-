@@ -126,42 +126,24 @@ public class 重制 {
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.来世,tier(HeroClass.来世))),"来世",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.血鬼, tier(HeroClass.血鬼))), "血鬼",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.凌云, tier(HeroClass.凌云))), "凌云",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.鼠弟, tier(HeroClass.鼠弟))), "鼠弟",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.灵猫, tier(HeroClass.灵猫))), "灵猫",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.学士, tier(HeroClass.学士))), "学士",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.罗兰, tier(HeroClass.罗兰))), "罗兰",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.逐姝, tier(HeroClass.逐姝))), "逐姝",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.戒老, tier(HeroClass.戒老))), "戒老",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.女忍, tier(HeroClass.女忍))), "女忍",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.机器, tier(HeroClass.机器))), "机器",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.兽灵, tier(HeroClass.兽灵))), "兽灵",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.近卫, tier(HeroClass.近卫))), "近卫",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.行僧, tier(HeroClass.行僧))), "行僧",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.道士, tier(HeroClass.道士))), "道士",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.镜魔, tier(HeroClass.镜魔))), "镜魔",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.重武, tier(HeroClass.重武))), "重武",
-											"新增英雄。"));
-		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.巫女, tier(HeroClass.巫女))), "巫女",
-											"新增英雄。"));
+		changes.addButton( new ChangeButton(HeroClass.来世));
+		changes.addButton( new ChangeButton(HeroClass.血鬼));
+		changes.addButton( new ChangeButton(HeroClass.凌云));
+		changes.addButton( new ChangeButton(HeroClass.鼠弟));
+		changes.addButton( new ChangeButton(HeroClass.灵猫));
+		changes.addButton( new ChangeButton(HeroClass.学士));
+		changes.addButton( new ChangeButton(HeroClass.罗兰));
+		changes.addButton( new ChangeButton(HeroClass.逐姝));
+		changes.addButton( new ChangeButton(HeroClass.戒老));
+		changes.addButton( new ChangeButton(HeroClass.女忍));
+		changes.addButton( new ChangeButton(HeroClass.机器));
+		changes.addButton( new ChangeButton(HeroClass.兽灵));
+		changes.addButton( new ChangeButton(HeroClass.近卫));
+		changes.addButton( new ChangeButton(HeroClass.行僧));
+		changes.addButton( new ChangeButton(HeroClass.道士));
+		changes.addButton( new ChangeButton(HeroClass.镜魔));
+		changes.addButton( new ChangeButton(HeroClass.重武));
+		changes.addButton( new ChangeButton(HeroClass.巫女));
 		//endregion
 
 		//region 新物品
@@ -170,7 +152,7 @@ public class 重制 {
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.护甲修理工具包), "护甲修理工具包",
 										   "_-_ 护甲机制，和破碎护盾差不多，但是不会随时间流逝，也只能防御攻击伤害，包含骷髅死亡爆炸和跳楼受伤(不含流血)。\n" +
-//										   "_-_ 护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
+//									   "_-_ 护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
 										   "_-_ 最大护甲为10+等级(满级额外+1)。\n" +
 										   "_-_ 非战斗状态的每150回合修理1护甲。\n" +
 										   "_-_ 巨魔铁匠可以花费人情修复你的护甲。\n" +
@@ -190,7 +172,7 @@ public class 重制 {
 										   "_-_ 随机获得物品。\n" +
 										   "_-_ 圣诞节开局获得一个。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.BEACON), "商人信标",
-										   "_-_ 可以从商人偷取或出售超过20个物品获得。\n" +
+										   "_-_ 可以从商人偷取或出售超过6个物品获得。\n" +
 										   "_-_ 可以无限使用炼金菱晶的商店系统。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.锻造锤), "锻造锤",
 										   "_-_ 可以花费5回合给2级以下的物品升级。\n" +
@@ -476,10 +458,12 @@ public class 重制 {
 											"_-_ 三区怪物，替换一和二层的吸血蝙蝠。\n" +
 											"_-_ 受到伤害会在敌人相邻传送"));
 		changes.addButton( new ChangeButton(new 水蛭动画(),"水蛭",
-											"_-_ 一区怪物，替换二和三层的啮齿老鼠。"));
+											"_-_ 一区怪物，替换二和三层的啮齿老鼠。\n" +
+											"_-_ 在水中每回合恢复15%最大生命。\n" +
+											"_-_ 100%吸血"));
 		changes.addButton( new ChangeButton(new 蟑螂动画(),"蟑螂",
 											"_-_ 一区怪物，替换一层的下水道巨蛇。\n" +
-											"_-_ 根据已损失生命最多获得80%物理伤害减免，不过最少受到1伤害，与敌人相邻时，闪避为0。"));
+											"_-_ 根据已损失生命最多获得80%物理伤害减免，不过最少受到45%最大生命的伤害，与敌人相邻时，闪避为0。"));
 		changes.addButton( new ChangeButton(new 骷髅战士动画(),"骷髅战士",
 											"_-_ 新增骷髅的变异体。\n" +
 											"_-_ 死亡掉落单手剑、长剑、巨剑任意一个。"));
@@ -766,7 +750,7 @@ public class 重制 {
 																			"_-_ 天赋点数5/6/8=>4/5/10。\n" +
 																			"_-_ 二层和三层最大天赋点+1。"));
 		
-		changes.addButton( new ChangeButton(Icons.get(Icons.AUDIO), "剩余",
+		changes.addButton( new ChangeButton(Icons.get(Icons.AUDIO), "声音",
 											"_-_ 主题曲我的三体《夜航星》。\n" +
 											"_-_ 一些物品音效。\n" +
 											"_-_ 一些怪物音效。\n" +
@@ -791,7 +775,6 @@ public class 重制 {
 											"_-_ 炼金菱晶商店不卖。\n" +
 											"_-_ 1区域1层也有商店，卖1阶武器和防具。",
 
-											"_-_ 卖给商人6件物品以上会免费赠送一个商人信标。\n" +
 											"_-_ 不再随机药剂和卷轴必卖净化药剂、极速药剂、隐形药剂和嬗变卷轴，两张鉴定卷轴和治疗药剂。\n" +
 											"_-_ 不能出售正在装备的物品。\n" +
 											"_-_ 非战士在第一个商店会卖水袋。\n" +
@@ -919,12 +902,12 @@ public class 重制 {
 										   "_-_ 炸弹伤害翻倍，经过防御的代码，且减少最大防御的伤害=>最大防御x2。" ,
 										   "_-_ 炸弹不可摧毁可升级的物品，装备不可摧毁=>炸弹不摧毁带等级的物品，神器不可摧毁。\n" +
 										   "_-_ 物品可以重命名。\n" +
-										   "_-_ 20/20水袋可以合成一瓶永生秘药。\n" +
 										   "_-_ 扔出、拾取、丢下花费时间1=>攻速。\n" +
 										   "_-_ 移除大部分没用描述。\n" +
 										   "_-_ 一些物品图片更好。\n" +
 										   "_-_ 物品掉落位置更好。" ));
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "杂项",
+				"_-_ 提示文本可以显示更多行，并且显示颜色优化。\n" +
 				"_-_ 伤害显示仅魔法和物理伤害。\n" +
 				"_-_ 属性更新不再是特定情况触发刷新，而是每秒刷新。\n" +
 				"_-_ Buff伤害和防具刻印、炸弹、盟军、陷阱、地牢的伤害也能判定击杀。\n" +
@@ -1047,6 +1030,8 @@ public class 重制 {
 				"_-_ 移除受伤获得爆发屏障。\n" +
 				"_-_ 提升防具的等级=>防具获得强化等级。\n" +
 				"_-_ 可额外携带1级。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.水袋), "水袋",
+				"_-_ 满的时候可以合成一瓶永生秘药。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.LIQUID_METAL), "金液",
 				"_-_ 液金=>金液。\n" +
 				"_-_ 诅咒物品也能合成。\n" +

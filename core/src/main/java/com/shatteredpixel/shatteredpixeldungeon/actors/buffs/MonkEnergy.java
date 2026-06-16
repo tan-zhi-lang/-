@@ -339,7 +339,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				Char enemy = Actor.findChar(target);
 				if (enemy == null||enemy instanceof NPC||enemy==hero||hero.isCharmedBy(enemy)||!Dungeon.level.heroFOV[target]) {
-					GLog.w(Messages.get(Weapon.class, "ability_no_target"));
+					GLog.橙(Messages.get(Weapon.class,"ability_no_target"));
 					return;
 				}
 
@@ -349,7 +349,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				UnarmedAbilityTracker tracker = Buff.施加(hero, UnarmedAbilityTracker.class);
 				if (!hero.canAttack(enemy)){
-					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
+					GLog.橙(Messages.get(Weapon.class,"ability_target_range"));
 					tracker.detach();
 					if (hero.buff(FlurryEmpowerTracker.class) != null){
 						hero.buff(FlurryEmpowerTracker.class).detach();
@@ -463,17 +463,17 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				if (Dungeon.hero.rooted){
 					PixelScene.shake( 1, 1f );
-					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
+					GLog.橙(Messages.get(Weapon.class,"ability_target_range"));
 					return;
 				}
 
 				if (Dungeon.level.距离(hero.pos,target)>range){
-					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
+					GLog.橙(Messages.get(Weapon.class,"ability_target_range"));
 					return;
 				}
 
 				if (Actor.findChar(target) != null){
-					GLog.w(Messages.get(Weapon.class, "ability_occupied"));
+					GLog.橙(Messages.get(Weapon.class,"ability_occupied"));
 					return;
 				}
 
@@ -481,7 +481,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				if (!dash.collisionPos.equals(target)
 						|| (Dungeon.level.solid[target] && !Dungeon.level.passable[target])){
-					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
+					GLog.橙(Messages.get(Weapon.class,"ability_target_range"));
 					return;
 				}
 
@@ -535,13 +535,13 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 				Char enemy = Actor.findChar(target);
 				if (enemy == null || enemy instanceof NPC|| enemy == hero || hero.isCharmedBy(enemy) || !Dungeon.level.heroFOV[target]) {
-					GLog.w(Messages.get(Weapon.class, "ability_no_target"));
+					GLog.橙(Messages.get(Weapon.class,"ability_no_target"));
 					return;
 				}
 
 				UnarmedAbilityTracker tracker = Buff.施加(hero, UnarmedAbilityTracker.class);
 				if (!hero.canAttack(enemy)){
-					GLog.w(Messages.get(Weapon.class, "ability_target_range"));
+					GLog.橙(Messages.get(Weapon.class,"ability_target_range"));
 					tracker.detach();
 					return;
 				}

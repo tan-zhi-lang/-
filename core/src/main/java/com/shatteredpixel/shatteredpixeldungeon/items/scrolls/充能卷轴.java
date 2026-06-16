@@ -31,7 +31,7 @@ public class 充能卷轴 extends Scroll {
 		Sample.INSTANCE.play( Assets.Sounds.READ );
 		Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 
-		GLog.i( Messages.get(this, "surge") );
+		GLog.白(Messages.get(this,"surge"));
 		SpellSprite.show( curUser, SpellSprite.CHARGE );
 		鉴定();
 

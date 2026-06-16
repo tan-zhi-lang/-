@@ -114,7 +114,7 @@ public class BeaconOfReturning extends Spell {
 		hero.spend( 1f );
 		hero.busy();
 		
-		GLog.i( Messages.get(this, "set") );
+		GLog.白(Messages.get(this,"set"));
 		
 		hero.sprite.operate( hero.pos );
 		Sample.INSTANCE.play( Assets.Sounds.BEACON );
@@ -160,7 +160,7 @@ public class BeaconOfReturning extends Spell {
 						Dungeon.level.occupyCell(toPush);
 					}
 				} else {
-					GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+					GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 					return;
 				}
 			}
@@ -174,13 +174,13 @@ public class BeaconOfReturning extends Spell {
 		} else {
 
 			if (!Dungeon.interfloorTeleportAllowed()) {
-				GLog.w( Messages.get(this, "preventing") );
+				GLog.橙(Messages.get(this,"preventing"));
 				return;
 			}
 
 			//cannot return to mining level
 			if (tracker.returnDepth >= 11 && tracker.returnDepth <= 14 && tracker.returnBranch == 1){
-				GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+				GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 				return;
 			}
 

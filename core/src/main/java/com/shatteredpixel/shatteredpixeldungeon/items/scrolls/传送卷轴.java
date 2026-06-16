@@ -55,7 +55,7 @@ public class 传送卷轴 extends Scroll {
 				|| (!Dungeon.level.passable[pos] && !Dungeon.level.avoid[pos])
 				|| (Actor.findChar(pos) != null && Actor.findChar(pos) != ch)){
 			if (ch == Dungeon.hero){
-				GLog.w( Messages.get(传送卷轴.class,"cant_reach"));
+				GLog.橙(Messages.get(传送卷轴.class,"cant_reach"));
 			}
 			return false;
 		}
@@ -82,7 +82,7 @@ public class 传送卷轴 extends Scroll {
 		}
 
 		if (Char.hasProp(ch, Char.Property.IMMOVABLE) || ch.免疫(source)){
-			GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+			GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 			return false;
 		}
 		
@@ -97,7 +97,7 @@ public class 传送卷轴 extends Scroll {
 		
 		if (pos == -1) {
 			
-			GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+			GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 			return false;
 			
 		} else {
@@ -107,7 +107,7 @@ public class 传送卷轴 extends Scroll {
 			Buff.detach(ch, Roots.class);
 			
 			if (ch == Dungeon.hero) {
-				GLog.i( Messages.get(传送卷轴.class,"tele"));
+				GLog.白(Messages.get(传送卷轴.class,"tele"));
 				
 				Dungeon.observe();
 				GameScene.updateFog();
@@ -173,7 +173,7 @@ public class 传送卷轴 extends Scroll {
 					}
 				}
 			}
-			GLog.i( Messages.get(传送卷轴.class,"tele"));
+			GLog.白(Messages.get(传送卷轴.class,"tele"));
 			appear( hero, pos );
 			Dungeon.level.occupyCell( hero );
 			Buff.detach(hero, Roots.class);
@@ -196,7 +196,7 @@ public class 传送卷轴 extends Scroll {
 	private static boolean teleportInNonRegularLevel(Char ch, boolean preferNotSeen ){
 
 		if (Char.hasProp(ch, Char.Property.IMMOVABLE)){
-			GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+			GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 			return false;
 		}
 
@@ -235,7 +235,7 @@ public class 传送卷轴 extends Scroll {
 		} else if (!visibleValid.isEmpty()){
 			pos = Random.element(visibleValid);
 		} else {
-			GLog.w( Messages.get(传送卷轴.class,"no_tele"));
+			GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 			return false;
 		}
 
@@ -245,7 +245,7 @@ public class 传送卷轴 extends Scroll {
 		Buff.detach(ch, Roots.class);
 
 		if (ch == Dungeon.hero) {
-			GLog.i( Messages.get(传送卷轴.class,"tele"));
+			GLog.白(Messages.get(传送卷轴.class,"tele"));
 
 			Dungeon.observe();
 			GameScene.updateFog();

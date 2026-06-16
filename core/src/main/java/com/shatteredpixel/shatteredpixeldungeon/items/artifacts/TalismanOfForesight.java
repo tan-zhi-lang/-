@@ -68,8 +68,8 @@ public class TalismanOfForesight extends Artifact {
 		if (hero.buff(MagicImmune.class) != null) return;
 
 		if (action.equals(AC_SCRY)){
-			if (!isEquipped(hero))  GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			else if (charge < 5)    GLog.i( Messages.get(this, "low_charge") );
+			if (!isEquipped(hero))  GLog.白(Messages.get(Artifact.class,"need_to_equip"));
+			else if (charge < 5)    GLog.白(Messages.get(this,"low_charge"));
 			else                    GameScene.selectCell(scry);
 		}
 	}
@@ -91,7 +91,7 @@ public class TalismanOfForesight extends Artifact {
 			if (charge >= chargeCap) {
 				charge = chargeCap;
 				partialCharge = 0;
-				GLog.p( Messages.get(TalismanOfForesight.class, "full_charge") );
+				GLog.绿(Messages.get(TalismanOfForesight.class,"full_charge"));
 			}
 			updateQuickslot();
 		}
@@ -197,7 +197,7 @@ public class TalismanOfForesight extends Artifact {
 					exp -= 100 + 50* 等级();
 					升级();
 					Catalog.countUse(TalismanOfForesight.class);
-					GLog.p( Messages.get(TalismanOfForesight.class, "levelup") );
+					GLog.绿(Messages.get(TalismanOfForesight.class,"levelup"));
 				}
 				updateQuickslot();
 
@@ -272,7 +272,7 @@ public class TalismanOfForesight extends Artifact {
 					charge++;
 					if (charge >= chargeCap) {
 						partialCharge = 0;
-						GLog.p(Messages.get(TalismanOfForesight.class, "full_charge"));
+						GLog.绿(Messages.get(TalismanOfForesight.class,"full_charge"));
 					}
 					updateQuickslot();
 				}
@@ -322,7 +322,7 @@ public class TalismanOfForesight extends Artifact {
 					&& !cursed
 					&& target.buff(MagicImmune.class) == null){
 				if (!warn){
-					GLog.w( Messages.get(this, "uneasy") );
+					GLog.橙(Messages.get(this,"uneasy"));
 					if (target instanceof Hero){
 						((Hero)target).interrupt();
 					}

@@ -132,7 +132,7 @@ public class Thief extends Mob {
 
 		if (toSteal != null&&!toSteal.特别&&toSteal.等级()<1 ) {
 			hero.sprite.愤怒();
-			GLog.w( Messages.get(Thief.class, "stole", toSteal.name()) );
+			GLog.橙(Messages.get(Thief.class,"stole",toSteal.name()));
 			if (!toSteal.可堆叠) {
 				Dungeon.quickslot.convertToPlaceholder(toSteal);
 			}
@@ -202,7 +202,7 @@ public class Thief extends Mob {
 
 				}
 
-				if (item != null) GLog.n( Messages.get(Thief.class, "escapes", item.name()));
+				if (item != null) GLog.红(Messages.get(Thief.class,"escapes",item.name()));
 				
 				if(Dungeon.hero.sprite!=null)Dungeon.hero.sprite.哭泣();
 				

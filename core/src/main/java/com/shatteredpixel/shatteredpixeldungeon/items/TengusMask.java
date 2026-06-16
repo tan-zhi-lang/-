@@ -58,7 +58,7 @@ public class TengusMask extends Item {
 				return;
 			}
 			if(hero.heroClass.subClasses()==null){
-				GLog.w("你没有可转职的职业！");
+				GLog.橙("你没有可转职的职业！");
 				return;
 			}
 			GameScene.show(new WndChooseSubclass(this,hero ));
@@ -102,7 +102,7 @@ public class TengusMask extends Item {
 		Emitter e = curUser.sprite.centerEmitter();
 		e.pos(e.x-2, e.y-6, 4, 4);
 		e.start(Speck.factory(Speck.MASK), 0.05f, 20);
-		GLog.p( Messages.get(this, "used"));
+		GLog.绿(Messages.get(this,"used"));
 		
 	}
 }

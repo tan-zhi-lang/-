@@ -33,12 +33,12 @@ public class Explosive extends Weapon.Enchantment {
 
 		if (currentDurability > 50 && durability <= 50){
 			attacker.sprite.showStatus(CharSprite.警告橙,Messages.get(this,"warm"));
-			GLog.w(Messages.get(this, "desc_warm"));
+			GLog.橙(Messages.get(this,"desc_warm"));
 			attacker.sprite.emitter().burst(SmokeParticle.FACTORY, 4);
 			Item.updateQuickslot();
 		} else if (currentDurability > 10 && durability <= 10){
 			attacker.sprite.showStatus(CharSprite.警告橙,Messages.get(this,"hot"));
-			GLog.n(Messages.get(this, "desc_hot"));
+			GLog.红(Messages.get(this,"desc_hot"));
 			attacker.sprite.emitter().burst(BlastParticle.FACTORY, 5);
 			Item.updateQuickslot();
 		} else if (durability <= 0) {

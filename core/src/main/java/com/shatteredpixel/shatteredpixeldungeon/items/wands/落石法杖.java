@@ -148,7 +148,7 @@ public class 落石法杖 extends DamageWand {
 				Buff.延长(ch,Paralysis.class,4);
 			}else if(ch==Dungeon.hero){
 				Dungeon.fail(target);
-				GLog.n(Messages.get(GnollGeomancer.class,"rockfall_kill"));
+				GLog.红(Messages.get(GnollGeomancer.class,"rockfall_kill"));
 			}
 		}
 	}

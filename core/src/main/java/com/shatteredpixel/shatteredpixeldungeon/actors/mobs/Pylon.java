@@ -125,7 +125,7 @@ public class Pylon extends Mob {
 				Statistics.bossScores[2] -= 100;
 				if (!ch.isAlive()) {
 					Dungeon.fail(DM300.class);
-					GLog.n(Messages.get(Electricity.class, "ondeath"));
+					GLog.红(Messages.get(Electricity.class,"ondeath"));
 				}
 			}
 		}

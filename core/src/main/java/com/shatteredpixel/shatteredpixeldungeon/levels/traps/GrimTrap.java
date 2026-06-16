@@ -96,7 +96,7 @@ public class GrimTrap extends Trap {
 											if (!finalTarget.isAlive()) {
 												Badges.validateDeathFromGrimOrDisintTrap();
 												Dungeon.fail( GrimTrap.this );
-												GLog.n( Messages.get(GrimTrap.class, "ondeath") );
+												GLog.红(Messages.get(GrimTrap.class,"ondeath"));
 												if (reclaimed) Badges.validateDeathFromFriendlyMagic();
 											}
 										} else {

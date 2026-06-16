@@ -100,7 +100,7 @@ public abstract class YogFist extends Mob {
 	public boolean 是无敌(Class effect) {
 		if (isNearYog() && !invulnWarned){
 			invulnWarned = true;
-			GLog.w(Messages.get(this, "invuln_warn"));
+			GLog.橙(Messages.get(this,"invuln_warn"));
 		}
 		return isNearYog() || super.是无敌(effect);
 	}
@@ -502,7 +502,7 @@ public abstract class YogFist extends Mob {
 				if (!enemy.isAlive() && enemy == Dungeon.hero) {
 					Badges.validateDeathFromEnemyMagic();
 					Dungeon.fail( this );
-					GLog.n( Messages.get(Char.class, "kill", name()) );
+					GLog.红(Messages.get(Char.class,"kill",name()));
 				}
 
 			} else {
@@ -529,7 +529,7 @@ public abstract class YogFist extends Mob {
 				传送卷轴.appear(this,i);
 				state = WANDERING;
 				GameScene.flash(0x80FFFFFF);
-				GLog.w( Messages.get( this, "teleport" ));
+				GLog.橙(Messages.get(this,"teleport"));
 			} else if (!isAlive()){
 				Buff.延长( Dungeon.hero, Blindness.class, Blindness.DURATION*3f );
 				GameScene.flash(0x80FFFFFF);
@@ -575,7 +575,7 @@ public abstract class YogFist extends Mob {
 				if (!enemy.isAlive() && enemy == Dungeon.hero) {
 					Badges.validateDeathFromEnemyMagic();
 					Dungeon.fail( this );
-					GLog.n( Messages.get(Char.class, "kill", name()) );
+					GLog.红(Messages.get(Char.class,"kill",name()));
 				}
 
 			} else {
@@ -605,7 +605,7 @@ public abstract class YogFist extends Mob {
 				传送卷轴.appear(this,i);
 				state = WANDERING;
 				GameScene.flash(0, false);
-				GLog.w( Messages.get( this, "teleport" ));
+				GLog.橙(Messages.get(this,"teleport"));
 			} else if (!isAlive()){
 				Light l = Dungeon.hero.buff(Light.class);
 				if (l != null){

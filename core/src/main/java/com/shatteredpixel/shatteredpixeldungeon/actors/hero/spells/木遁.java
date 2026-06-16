@@ -61,7 +61,7 @@ public class 木遁 extends 目标忍术 {
 				 !Dungeon.level.heroFOV[target] ||
 				 (target != hero.pos && Actor.findChar( target ) != null)) {
 
-				GLog.w( Messages.get(this, "fov") );
+				GLog.橙(Messages.get(this,"fov"));
 				return;
 			}
 

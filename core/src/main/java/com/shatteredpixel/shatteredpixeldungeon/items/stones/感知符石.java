@@ -103,10 +103,10 @@ public class 感知符石 extends InventoryStone {
 						} else {
 							item.鉴定();
 						}
-						GLog.p( Messages.get(WndGuess.class, "correct") );
+						GLog.绿(Messages.get(WndGuess.class,"correct"));
 						curUser.sprite.parent.add( new Identification( curUser.sprite.center().offset( 0, -16 ) ) );
 					} else {
-						GLog.w( Messages.get(WndGuess.class, "incorrect") );
+						GLog.橙(Messages.get(WndGuess.class,"incorrect"));
 					}
 					if (!anonymous) {
 						Catalog.countUse(感知符石.class);

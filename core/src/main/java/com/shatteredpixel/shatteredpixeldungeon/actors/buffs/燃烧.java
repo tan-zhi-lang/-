@@ -105,7 +105,7 @@ public class 燃烧 extends Buff implements Hero.Doom {
 
 					if (!burnable.isEmpty()){
 						Item toBurn = Random.element(burnable).detach(hero.belongings.backpack);
-						GLog.w( Messages.capitalize(Messages.get(this, "burnsup", toBurn.title())) );
+						GLog.橙(Messages.capitalize(Messages.get(this,"burnsup",toBurn.title())));
 						if (toBurn instanceof MysteryMeat || toBurn instanceof FrozenCarpaccio){
 							ChargrilledMeat steak = new ChargrilledMeat();
 							if (!steak.放背包( hero.belongings.backpack )) {
@@ -214,6 +214,6 @@ public class 燃烧 extends Buff implements Hero.Doom {
 		Badges.validateDeathFromFire();
 		
 		Dungeon.fail( this );
-		GLog.n( Messages.get(this, "ondeath") );
+		GLog.红(Messages.get(this,"ondeath"));
 	}
 }

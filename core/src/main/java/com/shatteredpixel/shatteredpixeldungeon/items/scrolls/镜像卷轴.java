@@ -30,9 +30,9 @@ public class 镜像卷轴 extends Scroll {
 	public void doRead() {
 		detach(curUser.belongings.backpack);
 		if ( spawnImages(curUser, NIMAGES) > 0){
-			GLog.i(Messages.get(this, "copies"));
+			GLog.白(Messages.get(this,"copies"));
 		} else {
-			GLog.i(Messages.get(this, "no_copies"));
+			GLog.白(Messages.get(this,"no_copies"));
 		}
 		鉴定();
 		Badges.解锁镜魔();

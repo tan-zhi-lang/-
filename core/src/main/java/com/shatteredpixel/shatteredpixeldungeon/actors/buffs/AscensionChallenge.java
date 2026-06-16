@@ -184,9 +184,9 @@ public class AscensionChallenge extends Buff {
 		chal.stacks = Math.max(0, chal.stacks);
 		if (!chal.stacksLowered) {
 			chal.stacksLowered = true;
-			GLog.p(Messages.get(AscensionChallenge.class, "weaken"));
+			GLog.绿(Messages.get(AscensionChallenge.class,"weaken"));
 		} else if (chal.stacks < 8f && (int)(chal.stacks/2) != (int)(oldStacks/2f)){
-			GLog.p(Messages.get(AscensionChallenge.class, "weaken"));
+			GLog.绿(Messages.get(AscensionChallenge.class,"weaken"));
 		}
 
 		//if the hero is at the max level, grant them 10 effective xp per stack cleared
@@ -281,7 +281,7 @@ public class AscensionChallenge extends Buff {
 	public void saySwitch(){
 		if (Dungeon.bossLevel()){
 			if (justAscended) {
-				GLog.p(Messages.get(this, "break"));
+				GLog.绿(Messages.get(this,"break"));
 				for (Char ch : Actor.chars()){
 					if (ch instanceof DriedRose.GhostHero){
 						((DriedRose.GhostHero) ch).sayAppeared();
@@ -290,20 +290,20 @@ public class AscensionChallenge extends Buff {
 			}
 		} else {
 			if (Dungeon.depth == 1){
-				GLog.n(Messages.get(this, "almost"));
+				GLog.红(Messages.get(this,"almost"));
 			} else if (stacks >= 8f){
 //				GLog.n(Messages.get(this, "damage"));
 			} else if (stacks >= 6f){
 //				GLog.n(Messages.get(this, "slow"));
 			} else if (stacks >= 4f){
-				GLog.n(Messages.get(this, "haste"));
+				GLog.红(Messages.get(this,"haste"));
 			} else if (stacks >= 2f){
-				GLog.n(Messages.get(this, "beckon"));
+				GLog.红(Messages.get(this,"beckon"));
 			}
 			if (stacks > 4 && !stacksLowered){
-				GLog.h(Messages.get(this, "weaken_info_no_kills"));
+				GLog.黄(Messages.get(this,"weaken_info_no_kills"));
 			} else if (stacks > 8){
-				GLog.h(Messages.get(this, "weaken_info"));
+				GLog.黄(Messages.get(this,"weaken_info"));
 			}
 		}
 		justAscended = false;

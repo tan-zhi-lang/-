@@ -154,7 +154,7 @@ public class WandOfBlastWave extends DamageWand {
 						if (cause instanceof WandOfBlastWave){
 							Badges.validateDeathFromFriendlyMagic();
 						}
-						GLog.n(Messages.get(WandOfBlastWave.class, "knockback_ondeath"));
+						GLog.红(Messages.get(WandOfBlastWave.class,"knockback_ondeath"));
 						Dungeon.fail(cause);
 					}
 				}

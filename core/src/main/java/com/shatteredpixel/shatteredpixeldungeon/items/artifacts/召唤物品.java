@@ -128,8 +128,8 @@ public class 召唤物品 extends Artifact {
 
 			if (hero.buff(MagicImmune.class) != null) return;
 			
-			if (召唤!=null)         GLog.i(Messages.get(this,"spawned"));
-			else if (charge != chargeCap)   GLog.i( Messages.get(this, "no_charge") );
+			if (召唤!=null)         GLog.白(Messages.get(this,"spawned"));
+			else if (charge != chargeCap)   GLog.白(Messages.get(this,"no_charge"));
 			else {
 				ArrayList<Integer> spawnPoints = new ArrayList<>();
 				for (int i=0; i < PathFinder.相邻.length;i++) {
@@ -162,7 +162,7 @@ public class 召唤物品 extends Artifact {
 					updateQuickslot();
 
 				} else
-					GLog.i( Messages.get(this, "no_space") );
+					GLog.白(Messages.get(this,"no_space"));
 			}
 
 		} else if (action.equals(AC_DIRECT)){
@@ -235,7 +235,7 @@ public class 召唤物品 extends Artifact {
 				if (charge >= chargeCap) {
 					charge = chargeCap;
 					partialCharge = 0;
-					GLog.p(Messages.get(召唤物品.class,"charged"));
+					GLog.绿(Messages.get(召唤物品.class,"charged"));
 				}
 				updateQuickslot();
 			}
@@ -344,7 +344,7 @@ public class 召唤物品 extends Artifact {
 					partialCharge--;
 					if (charge == chargeCap){
 						partialCharge = 0f;
-						GLog.p( Messages.get(召唤物品.class,"charged"));
+						GLog.绿(Messages.get(召唤物品.class,"charged"));
 					}
 				}
 			}

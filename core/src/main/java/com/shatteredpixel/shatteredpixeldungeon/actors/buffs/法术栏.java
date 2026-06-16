@@ -88,13 +88,13 @@ public class 法术栏 extends Buff  implements 法术栏标.Action{
 		if(item instanceof Scroll s){
 
 			if (target.buff(MagicImmune.class) != null){
-				GLog.w(Messages.get(Scroll.class,"no_magic"));
+				GLog.橙(Messages.get(Scroll.class,"no_magic"));
 			} else if (target.buff( Blindness.class )!=null) {
-				GLog.w( Messages.get(Scroll.class, "blinded") );
+				GLog.橙(Messages.get(Scroll.class,"blinded"));
 			} else if (target.buff(UnstableSpellbook.bookRecharge.class)!=null
 					   && target.buff(UnstableSpellbook.bookRecharge.class).isCursed()
 					   && !(s instanceof 祛邪卷轴||s instanceof ScrollOfAntiMagic)){
-				GLog.n( Messages.get(Scroll.class, "cursed") );
+				GLog.红(Messages.get(Scroll.class,"cursed"));
 			} else {
 				s.数量减();
 				s.doRead();;

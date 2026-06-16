@@ -37,13 +37,13 @@ public class 刺击 extends 武技{
 			
 			Char enemy = Actor.findChar(target);
 			if (enemy == null||enemy instanceof NPC||enemy==hero||hero.isCharmedBy(enemy)||!Dungeon.level.heroFOV[target]) {
-				GLog.w(Messages.get(Weapon.class,"ability_no_target"));
+				GLog.橙(Messages.get(Weapon.class,"ability_no_target"));
 				return;
 			}
 			
 			hero.belongings.abilityWeapon = wep;
 			if (!hero.canAttack(enemy)){
-				GLog.w(Messages.get(wep, "ability_target_range"));
+				GLog.橙(Messages.get(wep,"ability_target_range"));
 				hero.belongings.abilityWeapon = null;
 				return;
 			}

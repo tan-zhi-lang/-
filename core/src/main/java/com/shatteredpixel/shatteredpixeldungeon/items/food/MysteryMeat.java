@@ -36,19 +36,19 @@ public class MysteryMeat extends Food {
 	public static void effect(Hero hero){
 		switch (Random.Int( 5 )) {
 			case 0:
-				GLog.w( Messages.get(MysteryMeat.class, "hot") );
+				GLog.橙(Messages.get(MysteryMeat.class,"hot"));
 				Buff.施加( hero, 燃烧.class ).reignite( hero );
 				break;
 			case 1:
-				GLog.w( Messages.get(MysteryMeat.class, "legs") );
+				GLog.橙(Messages.get(MysteryMeat.class,"legs"));
 				Buff.延长( hero, Roots.class, Roots.DURATION*2f );
 				break;
 			case 2:
-				GLog.w( Messages.get(MysteryMeat.class, "not_well") );
+				GLog.橙(Messages.get(MysteryMeat.class,"not_well"));
 				Buff.施加( hero, Poison.class ).set( hero.最大生命 / 5 );
 				break;
 			case 3:
-				GLog.w( Messages.get(MysteryMeat.class, "stuffed") );
+				GLog.橙(Messages.get(MysteryMeat.class,"stuffed"));
 				Buff.延长( hero, Slow.class, Slow.DURATION );
 				break;
 		}

@@ -129,10 +129,10 @@ public class DriedRose extends Artifact {
 			if (hero.buff(MagicImmune.class) != null) return;
 
 			if (!Ghost.Quest.completed())   GameScene.show(new WndUseItem(null, this));
-			else if (ghost != null)         GLog.i( Messages.get(this, "spawned") );
-			else if (!isEquipped( hero ))   GLog.i( Messages.get(Artifact.class, "need_to_equip") );
-			else if (charge != chargeCap)   GLog.i( Messages.get(this, "no_charge") );
-			else if (cursed)                GLog.i( Messages.get(this, "cursed") );
+			else if (ghost != null)         GLog.白(Messages.get(this,"spawned"));
+			else if (!isEquipped( hero ))   GLog.白(Messages.get(Artifact.class,"need_to_equip"));
+			else if (charge != chargeCap)   GLog.白(Messages.get(this,"no_charge"));
+			else if (cursed)                GLog.白(Messages.get(this,"cursed"));
 			else {
 				ArrayList<Integer> spawnPoints = new ArrayList<>();
 				for (int i=0; i < PathFinder.相邻.length;i++) {
@@ -177,7 +177,7 @@ public class DriedRose extends Artifact {
 					updateQuickslot();
 
 				} else
-					GLog.i( Messages.get(this, "no_space") );
+					GLog.白(Messages.get(this,"no_space"));
 			}
 
 		} else if (action.equals(AC_DIRECT)){
@@ -286,7 +286,7 @@ public class DriedRose extends Artifact {
 				if (charge >= chargeCap) {
 					charge = chargeCap;
 					partialCharge = 0;
-					GLog.p(Messages.get(DriedRose.class, "charged"));
+					GLog.绿(Messages.get(DriedRose.class,"charged"));
 				}
 				updateQuickslot();
 			}
@@ -405,7 +405,7 @@ public class DriedRose extends Artifact {
 					partialCharge--;
 					if (charge == chargeCap){
 						partialCharge = 0f;
-						GLog.p( Messages.get(DriedRose.class, "charged") );
+						GLog.绿(Messages.get(DriedRose.class,"charged"));
 					}
 				}
 			} else if (cursed && Random.Int(100) == 0) {
@@ -466,10 +466,10 @@ public class DriedRose extends Artifact {
 			DriedRose rose = hero.belongings.getItem( DriedRose.class );
 
 			if (rose == null){
-				GLog.w( Messages.get(this, "no_rose") );
+				GLog.橙(Messages.get(this,"no_rose"));
 				return false;
 			} if ( rose.等级() >= rose.levelCap ){
-				GLog.i( Messages.get(this, "no_room") );
+				GLog.白(Messages.get(this,"no_room"));
 				hero.spendAndNext(hero.攻击延迟());
 				return true;
 			} else {
@@ -477,9 +477,9 @@ public class DriedRose extends Artifact {
 				rose.升级();
 				Catalog.countUse(rose.getClass());
 				if (rose.等级() == rose.levelCap) {
-					GLog.p( Messages.get(this, "maxlevel") );
+					GLog.绿(Messages.get(this,"maxlevel"));
 				} else
-					GLog.i( Messages.get(this, "levelup") );
+					GLog.白(Messages.get(this,"levelup"));
 
 				Sample.INSTANCE.play( Assets.Sounds.DEWDROP );
 				GameScene.pickUp(this, pos);
@@ -643,7 +643,7 @@ public class DriedRose extends Artifact {
 				damage = weapon().攻击时(this, enemy, damage);
 				if (!enemy.isAlive() && enemy == Dungeon.hero) {
 					Dungeon.fail(this);
-					GLog.n(Messages.capitalize(Messages.get(Char.class, "kill", name())));
+					GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",name())));
 				}
 			}
 
@@ -900,16 +900,16 @@ public class DriedRose extends Artifact {
 								if (!(item instanceof Weapon)) {
 									//do nothing, should only happen when window is cancelled
 								} else if (item.特别) {
-									GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_unique"));
 									hide();
 								} else if (item.cursed || !item.cursedKnown) {
-									GLog.w(Messages.get(WndGhostHero.class, "cant_cursed"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_cursed"));
 									hide();
 								}  else if (!item.levelKnown && ((Weapon)item).力量(0) > rose.ghostStrength()){
-									GLog.w( Messages.get(WndGhostHero.class, "cant_strength_unknown"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_strength_unknown"));
 									hide();
 								} else if (((Weapon)item).力量() > rose.ghostStrength()) {
-									GLog.w( Messages.get(WndGhostHero.class, "cant_strength"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_strength"));
 									hide();
 								} else {
 									if (item.isEquipped(Dungeon.hero)){
@@ -975,16 +975,16 @@ public class DriedRose extends Artifact {
 								if (!(item instanceof Armor)) {
 									//do nothing, should only happen when window is cancelled
 								} else if (item.特别||((Armor) item).checkSeal()!=null) {
-									GLog.w( Messages.get(WndGhostHero.class, "cant_unique"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_unique"));
 									hide();
 								} else if (item.cursed || !item.cursedKnown) {
-									GLog.w(Messages.get(WndGhostHero.class, "cant_cursed"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_cursed"));
 									hide();
 								}  else if (!item.levelKnown && ((Armor)item).力量(0) > rose.ghostStrength()){
-									GLog.w( Messages.get(WndGhostHero.class, "cant_strength_unknown"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_strength_unknown"));
 									hide();
 								} else if (((Armor)item).力量() > rose.ghostStrength()) {
-									GLog.w( Messages.get(WndGhostHero.class, "cant_strength"));
+									GLog.橙(Messages.get(WndGhostHero.class,"cant_strength"));
 									hide();
 								} else {
 									if (item.isEquipped(Dungeon.hero)){

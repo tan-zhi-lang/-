@@ -712,7 +712,7 @@ public class DwarfKing extends Mob {
 					}
 					if (!ch.isAlive() && ch == Dungeon.hero) {
 						Dungeon.fail(DwarfKing.class);
-						GLog.n( Messages.capitalize(Messages.get(Char.class, "kill", Messages.get(DwarfKing.class, "name"))));
+						GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",Messages.get(DwarfKing.class,"name"))));
 					}
 				}
 

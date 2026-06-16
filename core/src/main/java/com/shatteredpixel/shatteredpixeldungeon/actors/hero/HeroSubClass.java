@@ -99,7 +99,7 @@ public enum HeroSubClass {
 	}
 
 	public String desc() {
-			return Messages.get(this, name() + "_desc")+"\n\n职业精通:"+Hero.职业精通提示(this,false,true);
+			return Messages.get(this, name() + "_desc")+"\n\n职业精通(升到21级并击杀第四个Boss以职业精通):"+Hero.职业精通提示(this,false,true);
 	}
 
 	public int icon(){

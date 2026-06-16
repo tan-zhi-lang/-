@@ -69,7 +69,7 @@ public class GreatCrab extends Crab {
 				&& (来源 instanceof 魔攻之戒||来源 instanceof Wand||来源 instanceof 法术||来源 instanceof ClericSpell||来源 instanceof 巫术||来源 instanceof 道术||来源 instanceof 忍术)
 				&& enemy == Dungeon.hero
 				&& enemy.invisible == 0){
-			GLog.n( Messages.get(this, "noticed") );
+			GLog.红(Messages.get(this,"noticed"));
 			sprite.showStatus(CharSprite.中性黄,Messages.get(this,"def_verb"));
 			Sample.INSTANCE.play( Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
 			Statistics.questScores[0] -= 50;
@@ -89,7 +89,7 @@ public class GreatCrab extends Crab {
 				&& enemy.invisible == 0){
 			if (sprite != null && sprite.visible) {
 				Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
-				GLog.n( Messages.get(this, "noticed") );
+				GLog.红(Messages.get(this,"noticed"));
 			}
 			if (enemy == Dungeon.hero){
 				Statistics.questScores[0] -= 50;

@@ -62,7 +62,7 @@ public class FlashBangBomb extends Bomb {
 
 			if (ch == Dungeon.hero && !ch.isAlive()) {
 				Badges.validateDeathFromFriendlyMagic();
-				GLog.n(Messages.get(this, "ondeath"));
+				GLog.红(Messages.get(this,"ondeath"));
 				Dungeon.fail(this);
 			}
 		}

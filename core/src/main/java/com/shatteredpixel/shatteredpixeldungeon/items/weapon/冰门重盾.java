@@ -21,6 +21,7 @@ public class 冰门重盾 extends Weapon{
 		缴械= false;
 		嬗变= false;
 		专属=true;
+		防御=true;
 
 		伤害= 0.7f;
 		tier = 1;
@@ -55,8 +56,4 @@ public class 冰门重盾 extends Weapon{
 		return  Math.round(super.最大攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));
 	}
 
-	@Override
-	public float 最大防御(int lvl){
-		return (1+Dungeon.hero.天赋点数(Talent.冰门高防)) + lvl*(1+Dungeon.hero.天赋点数(Talent.冰门高防));
-	}
 }

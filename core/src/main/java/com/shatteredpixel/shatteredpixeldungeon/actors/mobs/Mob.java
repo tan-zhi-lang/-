@@ -83,7 +83,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotio
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.属性戒指;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
@@ -119,7 +118,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.血药;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -960,7 +958,7 @@ public abstract class Mob extends Char{
 				if(Dungeon.hero()){
 					if(Dungeon.hero.全能吸血()>0){
 
-						if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.符文("猛攻")||Dungeon.符文("不全能吸血")){
+						if(Dungeon.符文("猛攻")||Dungeon.符文("不全能吸血")){
 
 						}else{
 							float 全能吸血=Dungeon.hero.全能吸血();
@@ -1099,8 +1097,10 @@ public abstract class Mob extends Char{
 	public void 死亡击杀效果(Object 来源){
 		int 次数=1;
 		if(Dungeon.符文("鞭尸"))
-			次数++;
-		if(Dungeon.符文("击杀击杀"))次数+=3;
+			次数+=4;
+		if(Dungeon.符文("死歌"))
+			次数+=Dungeon.hero.魔力()*0.035f;
+		if(Dungeon.符文("击杀击杀"))次数++;
 
 		if(Dungeon.符文("你只是失去了生命")){
 			if(算法.概率学(1/3f))
@@ -1355,62 +1355,6 @@ public abstract class Mob extends Char{
 						Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();
 					}
 
-					if(Dungeon.赛季(赛季设置.回廊传说)){
-						Item i=Random.oneOf(
-								Generator.randomWeapon((Dungeon.相对层数() - 1) / 5),
-								Generator.randomArmor((Dungeon.相对层数() - 1) / 5),
-								new 属性戒指(),
-								new 血药()
-										   );
-
-						if(i instanceof Weapon||i instanceof Armor||i instanceof Ring)
-							i.等级(Random.Int(Dungeon.相对层数()-1,Dungeon.相对层数()+3));
-
-						if(i instanceof 属性戒指 x){
-							int xn=0;
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.攻击=Random.Int(20,40)*i.等级();
-							}
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.防御=Random.Int(20,40)*i.等级();
-							}
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.穿甲=Random.Int(20,40)*i.等级();
-							}
-
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.吸血=Random.Int(20,40)*i.等级();
-							}
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.暴击=Random.Int(20,40)*i.等级();
-							}
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.反击=Random.Int(20,40)*i.等级();
-							}
-
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.命中=Random.Int(20,40)*i.等级();
-							}
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.闪避=Random.Int(20,40)*i.等级();
-							}
-							if(xn<3&&Random.Int(8)==0){
-								xn++;
-								x.生命=Random.Int(400,800)*i.等级();
-							}
-
-						}
-
-						Dungeon.level.drop(i,pos).sprite.drop();
-					}
 
 					if(Dungeon.符文("鬼脑")&&最大攻击()>=Dungeon.hero.最大攻击())Dungeon.hero.攻击成长+=最大攻击();
 					if(Dungeon.符文("凯旋")){
@@ -1437,7 +1381,6 @@ public abstract class Mob extends Char{
 						Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.久战,0.5f));
 					}
 
-					if(Dungeon.赛季(赛季设置.从零英雄))Dungeon.hero.负数生命=0;
 					//击杀瞬移
 					//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
 				}
@@ -1487,7 +1430,6 @@ public abstract class Mob extends Char{
 	public float lootChance(){
 		float lootChance=this.lootChance;
 
-		if(Dungeon.赛季(赛季设置.回廊传说))lootChance=0;
 		if(Dungeon.解压(解压设置.掉落几率)){
 			lootChance*=3;
 		}
@@ -1498,7 +1440,7 @@ public abstract class Mob extends Char{
 			lootChance*=Dungeon.hero.幸运值();
 		}
 		if(Dungeon.hero()){
-			lootChance*=1+Dungeon.hero.天赋点数(Talent.财富,0.25f);
+			lootChance*=1;
 		}
 
 		float dropBonus=幸运之戒.dropChanceMultiplier(Dungeon.hero);
@@ -1519,8 +1461,6 @@ public abstract class Mob extends Char{
 	}
 
 	public void rollToDropLoot(){
-		if(Dungeon.赛季(赛季设置.回廊传说))
-			return;
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
 
 		}else{
@@ -1729,15 +1669,6 @@ public abstract class Mob extends Char{
 			}
 			desc+="属性:"+属性+"(阵容"+阵容+")\n\n";
 
-			if(Dungeon.赛季(赛季设置.回廊传说)){
-				desc+=" == 攻击 == :"+kw2(最大攻击()*Dungeon.难度攻击(this));
-				desc+=" ++ 防御 ++ :"+kw2(最大防御()*Dungeon.难度防御(this));
-				desc+="\n";
-				desc+=" ## 元素抗性/魔抗 ## :"+Math.round(100*(1-(RingOfElements.resist(this))))+"%/"
-					  +kw2(最小魔抗())+"~"+kw2(最大魔抗());
-				desc+="\n";
-				desc+="\n";
-			}else{
 				desc+=" == 攻击 == "+"/"+" ++ 防御 ++ "+kw2(最小攻击()*Dungeon.难度攻击(this))+"~"+kw2(最大攻击()*Dungeon.难度攻击(this));
 				desc+="/"+kw2(最小防御()*Dungeon.难度防御(this))+"~"+kw2(最大防御()*Dungeon.难度防御(this));
 				desc+="\n";
@@ -1753,7 +1684,7 @@ public abstract class Mob extends Char{
 				desc+="_攻速_/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";
 				desc+="_暴击率/暴击伤害_ :"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
 				desc+="_经验/经验等级上限_ :"+Math.round(经验*Dungeon.难度经验(this))+"/"+(最大等级+2)+"\n";
-			}
+
 			String 战利品="";
 			if(loot instanceof Item i){
 				战利品=i.name();
@@ -1793,19 +1724,6 @@ public abstract class Mob extends Char{
 		return desc;
 	}
 
-	@Override
-	public float 战斗力(){
-		float 战斗力=super.战斗力();
-
-		战斗力+=(最小攻击()+最大攻击()+穿甲())/攻击延迟()
-				/10f*(1+护甲穿透())
-				*(1+暴击率())*暴击伤害()
-				*(1+吸血()+全能吸血())*治疗护盾();
-
-		战斗力+=(最小防御()+最大防御())/10f;
-		战斗力+=(经验+最大等级)/10f-1;
-		return 战斗力;
-	}
 
 	@Override
 	public float 最大魔抗(){

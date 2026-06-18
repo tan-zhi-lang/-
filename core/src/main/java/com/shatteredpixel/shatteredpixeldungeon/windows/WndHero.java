@@ -30,7 +30,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.input.KeyBindings;
 import com.watabou.input.KeyEvent;
 import com.watabou.noosa.Gizmo;
@@ -225,27 +224,28 @@ public class WndHero extends WndTabbed {
 			pos = title.bottom() + GAP;
 
 			if(!hero.符文("黑幕")){
-				if(Dungeon.赛季(赛季设置.回廊传说)){
-					statSlot("==攻击==",kw2(hero.最大攻击()));
-					statSlot("==攻速==",kw2(hero.攻速())+"/"+kw2(1f/hero.攻击延迟()));
-					statSlot("++防御++",kw2(hero.最大防御()));
+					if(hero.主属性("力量")){
+						statSlot("主要属性:_力量_",kw2(hero.力量()));
+						statSlot("敏捷/魔力",kw2(hero.敏捷())+"/"+kw2(hero.魔力()));
+					}
+					if(hero.主属性("敏捷")){
+						statSlot("主要属性:_敏捷_",kw2(hero.敏捷()));
+						statSlot("力量/魔力",kw2(hero.力量())+"/"+kw2(hero.魔力()));
+					}
+					if(hero.主属性("魔力")){
+						statSlot("主要属性:_魔力_",kw2(hero.魔力()));
+						statSlot("力量/敏捷",kw2(hero.力量())+"/"+kw2(hero.敏捷()));
+					}
 					pos+=GAP;
-					statSlot("**命中**",kw(hero.最大命中(null))+"/"+Math.round((0.5f+hero.回廊(hero.最大命中(null)))*100)+"%");
-					statSlot("##闪避##",kw(hero.最大闪避(null))+"/"+Math.round(hero.回廊(hero.最大命中(null))*100)+"%");
-				}else{
-					statSlot("力量/魔力",kw2(hero.力量())+"/"+kw2(hero.魔力()));
-					statSlot("攻速/移速",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));
-					pos+=GAP;
-
 					statSlot("==物理增伤/攻击==",kw2((hero.攻击时(null,100)/100f-1))+"倍/"+kw2(hero.最小攻击())+"~"+kw2(hero.最大攻击()));
 					statSlot("++物理抗性/防御++",Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+kw2(hero.最小防御())+"~"+kw2(hero.最大防御()));
 
 					statSlot("@@元素抗性/魔抗@@",Math.round(100*(1-(RingOfElements.resist(hero))))+"%/"+kw2(hero.最小魔抗())+"~"+kw2(hero.最大魔抗()));
-					pos+=GAP;pos+=GAP;
+
+					statSlot("_攻速/移速_",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));
 
 					statSlot("**攻击范围/命中**",hero.攻击范围()+"/"+kw(hero.最小命中(null))+"~"+kw(hero.最大命中(null)));
 					statSlot("##惊醒距离/闪避##",hero.惊醒距离()+"/"+kw(hero.最小闪避(null))+"~"+kw(hero.最大闪避(null)));
-				}
 			}
 			pos += GAP;
 		}
@@ -306,13 +306,6 @@ public class WndHero extends WndTabbed {
 			pos = GAP*2;
 
 			if(!hero.符文("黑幕")){
-				if(Dungeon.赛季(赛季设置.回廊传说)){
-					statSlot("_暴击_",Math.round(hero.暴击())+"/"+Math.round(hero.暴击率()*100)+"%");
-					statSlot("==反击==",Math.round(hero.反击())+"/"+Math.round(hero.回廊2(hero.反击())*100)+"%");
-					pos+=GAP;
-					statSlot("**吸血**",Math.round(hero.吸血())+"/"+Math.round(hero.全能吸血()*100)+"%");
-					statSlot("==穿甲==",kw2(hero.穿甲()));
-				}else{
 					statSlot("_暴击率/暴击伤害_",Math.round(hero.暴击率()*100)+"%/"+Math.round(hero.暴击伤害()*100)+"%");
 
 					statSlot("==穿甲/护甲穿透==",kw2(hero.穿甲())+"/"+Math.round(hero.护甲穿透()*100)+"%");
@@ -325,7 +318,6 @@ public class WndHero extends WndTabbed {
 //					pos+=GAP;
 					statSlot("**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"+Math.round(hero.全能吸血()*100)+"%");
 					statSlot("++治疗护盾/综合属性++",kw2(hero.治疗护盾())+"/"+kw2(hero.综合属性())+"倍");
-				}
 			}
 			pos += GAP;
 		}
@@ -386,8 +378,6 @@ public class WndHero extends WndTabbed {
 			pos = GAP*2;
 
 			if(!hero.符文("黑幕")){
-				if(Dungeon.赛季(赛季设置.回廊传说)){
-				}else{
 					statSlot("^^幸运值^^",""+hero.幸运值());
 					statSlot("_法杖充能倍_",
 							 能量之戒.wandChargeMultiplier(hero)+"倍"
@@ -409,7 +399,6 @@ public class WndHero extends WndTabbed {
 
 //					statSlot("难度",Dungeon.难度名称());
 					pos+=GAP;
-				}
 			}
 //			if (Dungeon.daily){
 //				if (!Dungeon.dailyReplay) {

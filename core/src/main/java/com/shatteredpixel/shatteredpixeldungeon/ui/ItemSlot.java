@@ -24,7 +24,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.血药;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -245,6 +244,9 @@ public class ItemSlot extends Button {
 		level.text(null);
 		status.text( item.status() );
 
+		if(item instanceof Armor a&&a.荣誉纹章!=null)
+			status.hardlight( UPGRADED );
+
 		if (item.icon != -1 && (item.已鉴定() || (item instanceof Ring && ((Ring) item).isKnown()))){
 			extra.text( null );
 
@@ -321,10 +323,6 @@ public class ItemSlot extends Button {
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof 水袋 s) {
 				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.05f*s.volume))) );
-				center.measure();
-				center.hardlight( UPGRADED );
-			}else if (item instanceof 血药) {
-				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.2f))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof 治疗药剂&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {

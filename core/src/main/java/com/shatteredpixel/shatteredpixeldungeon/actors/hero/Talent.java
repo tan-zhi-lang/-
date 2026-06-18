@@ -215,19 +215,42 @@ public enum Talent {
 	关键时刻(x24+11,4),时间控制(x24+12,4),穿越零界(x24+13,4),
 	完美谢幕(x24+14,4),致命华彩(x24+15,4),万众倾倒(x24+16,4),
 
-	知识(x25),勇武(x25+1),备战(x25+2),
-	
-	健身(x25+4,3),破绽(x25+5,3),寻觅(x25+6,3),静步(x25+7,3),
+	知识(x25),
+	埋伏(x26),
+	招架(x27),
+
+	勇武(x25+1),
+	技巧(x26+1),
+	久战(x27+1),
+
+	备战(x25+2),
+	突袭(x26+2),
+	武装(x27+2),
+
+
+
+
+	健身(x25+4,3),
+	猛攻(x26+4,3),
+	硬肤(x28+4,3),
+	坚韧(x27+4,3),
+
+	机敏(x25+5,3),
+	破绽(x26+5,3),
+	躲避(x27+5,3),
+	静步(x28+5,3),
+
+	智者(x25+6,3),
+	感知(x26+6,3),
+	视察(x28+6,3),
+	充能(x27+6,3),
+
+	天才(x25+7,3),
+	佯攻(x26+7,3),
+	戒备(x28+7,3),
+	活着(x27+7,3),
 	
 	职业精通(x25+9,1),
-	
-	埋伏(x26),技巧(x26+1),突袭(x26+2),
-	猛攻(x26+4,3),集中(x26+5,3),近视(x26+6,3),快攻(x26+7,3),
-	
-	硬肤(x28+4,3),财富(x28+5,3),夜视(x28+6,3),丝路(x28+7,3),
-	
-	招架(x27),久战(x27+1),武装(x27+2),
-	坚韧(x27+4,3),躲避(x27+5,3),戒备(x27+6,3),速跑(x27+7,3),
 
 
 	//universal T4
@@ -427,25 +450,25 @@ public enum Talent {
 			s+="\n"+Messages.get(硬肤, 硬肤.name() + ".title")+":"+Messages.get(硬肤, 硬肤.name() + ".desc");
 			s+="\n"+Messages.get(坚韧, 坚韧.name() + ".title")+":"+Messages.get(坚韧, 坚韧.name() + ".desc");
 		}
-		if(this ==破绽){
+		if(this==机敏){
 			s+="\n";
-			s+="\n"+f+Messages.get(集中, 集中.name() + ".title")+":"+Messages.get(集中, 集中.name() + ".desc");
-			s+="\n"+Messages.get(财富, 财富.name() + ".title")+":"+Messages.get(财富, 财富.name() + ".desc");
+			s+="\n"+Messages.get(破绽,破绽.name()+".title")+":"+Messages.get(破绽,破绽.name()+".desc");
 			s+="\n"+Messages.get(躲避, 躲避.name() + ".title")+":"+Messages.get(躲避, 躲避.name() + ".desc");
+			s+="\n"+f+Messages.get(静步,静步.name()+".title")+":"+Messages.get(静步,静步.name()+".desc");
 		}
 
-		if(this ==寻觅){
+		if(this==智者){
 			s+="\n";
-			s+="\n"+f+Messages.get(近视, 近视.name() + ".title")+":"+Messages.get(近视, 近视.name() + ".desc");
-			s+="\n"+Messages.get(夜视, 夜视.name() + ".title")+":"+Messages.get(夜视, 夜视.name() + ".desc");
-			s+="\n"+Messages.get(戒备, 戒备.name() + ".title")+":"+Messages.get(戒备, 戒备.name() + ".desc");
+			s+="\n"+f+Messages.get(感知,感知.name()+".title")+":"+Messages.get(感知,感知.name()+".desc");
+			s+="\n"+Messages.get(视察,视察.name()+".title")+":"+Messages.get(视察,视察.name()+".desc");
+			s+="\n"+Messages.get(充能,充能.name()+".title")+":"+Messages.get(充能,充能.name()+".desc");
 		}
 
-		if(this ==静步){
+		if(this==天才){
 			s+="\n";
-			s+="\n"+f+Messages.get(快攻, 快攻.name() + ".title")+":"+Messages.get(快攻, 快攻.name() + ".desc");
-			s+="\n"+Messages.get(丝路, 丝路.name() + ".title")+":"+Messages.get(丝路, 丝路.name() + ".desc");
-			s+="\n"+Messages.get(速跑, 速跑.name() + ".title")+":"+Messages.get(速跑, 速跑.name() + ".desc");
+			s+="\n"+f+Messages.get(佯攻,佯攻.name()+".title")+":"+Messages.get(佯攻,佯攻.name()+".desc");
+			s+="\n"+Messages.get(戒备,戒备.name()+".title")+":"+Messages.get(戒备,戒备.name()+".desc");
+			s+="\n"+Messages.get(活着,活着.name()+".title")+":"+Messages.get(活着,活着.name()+".desc");
 		}
 
 		return Messages.get(this, name() + ".desc")+s;
@@ -458,7 +481,7 @@ public enum Talent {
 		}else hero.第1层天赋=false;
 
 		if(!hero.第2层天赋){
-			if(talent==健身||talent==破绽||talent==寻觅||talent==静步)
+			if(talent==健身||talent==机敏||talent==智者||talent==天才)
 				hero.第2层天赋=true;
 		}else hero.第2层天赋=false;
 
@@ -697,7 +720,6 @@ public enum Talent {
 	public static void 装备时(Hero hero, Item item ){
 		boolean identify = false;
 
-		if(Dungeon.赛季(赛季设置.回廊传说))item.鉴定();
 		if (identify){
 			if(ShardOfOblivion.passiveIDDisabled()){
 				if(item instanceof Weapon){
@@ -715,7 +737,6 @@ public enum Talent {
 
 	public static void 拾取时(Hero hero, Item item ){
 
-		if(Dungeon.赛季(赛季设置.回廊传说))item.鉴定();
 		if(hero.符文("肉鸽:武器")){
 			if(item instanceof KindofMisc){
 				if(!(item instanceof Weapon))
@@ -758,7 +779,7 @@ public enum Talent {
 			dmg+=0.5f;
 		}
 		if(hero.天赋(Talent.埋伏))
-		dmg+=hero.天赋点数(Talent.埋伏,2.5f);
+		dmg+=hero.天赋点数(Talent.埋伏,2);
 
 		enemy.第x次背袭++;
 		if(enemy.第x次背袭==1){
@@ -817,9 +838,9 @@ public enum Talent {
 		
 		//tier 2
 		Collections.addAll(tierTalents,健身,猛攻,硬肤,坚韧);
-		Collections.addAll(tierTalents,破绽,集中,财富,躲避);
-		Collections.addAll(tierTalents,寻觅,近视,夜视,戒备);
-		Collections.addAll(tierTalents,静步,快攻,丝路,速跑);
+		Collections.addAll(tierTalents,机敏,破绽,躲避,静步);
+		Collections.addAll(tierTalents,智者,感知,视察,充能);
+		Collections.addAll(tierTalents,天才,佯攻,戒备,活着);
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){
 				talent = replacements.get(talent);

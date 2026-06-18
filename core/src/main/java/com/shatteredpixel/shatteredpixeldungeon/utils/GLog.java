@@ -30,7 +30,7 @@ public class GLog {
 	public static Signal<String> update = new Signal<>();
 
 	public static void newLine(){
-		update.dispatch( NEW_LINE );
+//		update.dispatch( NEW_LINE );//修复
 	}
 	
 	/**

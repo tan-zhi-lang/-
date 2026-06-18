@@ -408,7 +408,6 @@ public abstract class Wand extends Item {
 	public int 强化等级() {
 		int lvl = super.强化等级();
 
-		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		if (charger != null && charger.target instanceof Hero hero) {
 			
 			//inside staff, still need to apply degradation

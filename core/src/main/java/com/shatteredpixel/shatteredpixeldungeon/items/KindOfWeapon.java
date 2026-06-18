@@ -111,6 +111,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public int 最小= 0;
 	public int 最大= 0;
 	public float 伤害= 1f;
+	public boolean 防御= false;
 	public float 伤害(){
 		return 伤害;
 	}

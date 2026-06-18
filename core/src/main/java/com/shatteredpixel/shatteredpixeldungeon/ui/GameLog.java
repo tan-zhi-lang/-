@@ -37,7 +37,7 @@ public class GameLog extends Component implements Signal.Listener<String> {
 		synchronized (textsToAdd){
 			if (!textsToAdd.isEmpty()){
 				int maxLines = SPDSettings.interfaceSize() > 0 ? 5 : 3;//提示文本行
-				maxLines*=4;
+				maxLines*=2;
 				for (String text : textsToAdd){
 					if (length != entries.size()){
 						clear();
@@ -92,19 +92,17 @@ public class GameLog extends Component implements Signal.Listener<String> {
 
 						String lastMessage = lastEntry.text();
 						lastEntry.text( lastMessage.length() == 0 ? text : lastMessage + " " + text );
-//						lastEntry.hardlight( color );//
+						lastEntry.hardlight( color );//修复
 						entries.get( entries.size() - 1 ).text = lastEntry.text();
-//						entries.get( entries.size() - 1 ).color = color;//
+//						entries.get( entries.size() - 1 ).color = color;//修复
 
 					} else {
-
 						lastEntry = PixelScene.renderTextBlock( text, 6 );
 						lastEntry.hardlight( color );
 						lastColor = color;
 						add( lastEntry );
 
 						entries.add( new Entry( text, color ) );
-
 					}
 
 					if (length > 0) {
@@ -145,7 +143,7 @@ public class GameLog extends Component implements Signal.Listener<String> {
 	}
 
 	public synchronized void newLine() {
-		lastEntry = null;
+//		lastEntry = null;//修复
 	}
 
 	@Override

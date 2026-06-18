@@ -52,7 +52,7 @@ public class 再生 extends Buff {
 			if (regenOn() && !hero.满血() && !hero.isStarving()) {
 				float 再生数值=(float)Math.sqrt(hero.最大生命)/100f+0.07f;
 
-					再生数值+=hero.天赋点数(Talent.勇武,0.01f);
+					再生数值+=hero.天赋点数(Talent.坚韧,0.05f);
 					再生数值+=hero.再生成长;
 
 					if(hero.符文("光合作用")&&Dungeon.level!=null){
@@ -112,7 +112,7 @@ public class 再生 extends Buff {
 						if(hero.符文("恢复恢复"))
 							再生数值*=3.5f;
 
-						if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)|| hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
+						if(Dungeon.赛季(赛季设置.地牢塔防)|| hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
 							再生数值=0;
 
 						if(hero.符文("吸血习性"))

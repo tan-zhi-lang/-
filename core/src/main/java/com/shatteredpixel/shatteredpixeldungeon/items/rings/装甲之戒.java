@@ -16,19 +16,19 @@ public class 装甲之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   tier()+3+soloBuffedBonus(),
-									   tier()*(2+soloBuffedBonus()),
-									   (tier()+3+soloBuffedBonus()));
+									   tier()+3/2f+soloBuffedBonus()/2f,
+									   tier()*(2+3/2f+soloBuffedBonus()/2f),
+									   (tier()+3/2f+soloBuffedBonus()/2f));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
 											  tier()+combinedBuffedBonus(Dungeon.hero),
-											 tier()*(5+combinedBuffedBonus(Dungeon.hero)),
+											 tier()*(2+3/2f+combinedBuffedBonus(Dungeon.hero)/2f),
 				
-				(tier()+3+combinedBuffedBonus(Dungeon.hero)));
+				(tier()+3/2f+combinedBuffedBonus(Dungeon.hero)/2f));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats",4,7,4);
+			return Messages.get(this, "stats",1+3/2f,2+3/2f,1+3/2f);
 		}
 	}
 	
@@ -49,14 +49,14 @@ public class 装甲之戒 extends Ring {
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-6);
 		}
-		return (tier()+3+level)+"~"+(tier()*(5+level));
+		return (tier()+3/2f+level/2f)+"~"+(tier()*(2+3/2f+level/2f));
 	}
 	@Override
 	public String upgradeStat2(int level){
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-6);
 		}
-		return ""+(tier()+3+level);
+		return ""+(tier()+3/2f+level/2f);
 	}
 	@Override
 	protected RingBuff buff( ) {

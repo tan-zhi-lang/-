@@ -14,12 +14,9 @@ public class 臂铠 extends Weapon{
 		延迟= 0.5f;
 		伤害= 0.5f;
 		技能=new 连击();
-		
 
-	}
-	@Override
-	public float 最大防御(int lvl){
-		return 1 + lvl;
+		防御=true;
+
 	}
 	
 

@@ -93,7 +93,6 @@ public class 武力之戒 extends Ring{
 	}
 	
 	public static int heromax(){
-		if(Dungeon.赛季(赛季设置.回廊传说))return 2;
 		return Math.round(Dungeon.hero.力量()-8);
 	}
 	public static int min(){

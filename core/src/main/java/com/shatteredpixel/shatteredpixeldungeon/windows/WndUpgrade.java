@@ -94,12 +94,12 @@ public class WndUpgrade extends Window {
 		// *** Sprites, showing item at current level and with +1 ***
 
 		ColorBlock bg1 = new ColorBlock(ITEMSLOT_SIZE, ITEMSLOT_SIZE, 0x9953564D);
-		bg1.x = COL_2 - ITEMSLOT_SIZE/2f-25;
+		bg1.x = COL_2 - ITEMSLOT_SIZE/2f-25;//
 		bg1.y = message.bottom() + 2*GAP;
 		add(bg1);
 
 		ColorBlock bg2 = new ColorBlock(ITEMSLOT_SIZE, ITEMSLOT_SIZE, 0x9953564D);
-		bg2.x = COL_3 - ITEMSLOT_SIZE/2f-15;
+		bg2.x = COL_3 - ITEMSLOT_SIZE/2f-10;//
 		bg2.y = message.bottom() + 2*GAP;
 		add(bg2);
 
@@ -119,7 +119,7 @@ public class WndUpgrade extends Window {
 		ItemSprite i1 = new ItemSprite();
 		add(i1);
 		i1.view(toUpgrade);
-		i1.x = COL_2 - i1.width()/2f-25;
+		i1.x = COL_2 - i1.width()/2f-25;//
 		i1.y = bg1.y + (ITEMSLOT_SIZE-i1.height())/2f;
 		PixelScene.align(i1);
 		add(i1);
@@ -127,7 +127,7 @@ public class WndUpgrade extends Window {
 		ItemSprite i2 = new ItemSprite();
 		add(i2);
 		i2.view(toUpgrade);
-		i2.x = COL_3 - i2.width()/2f-15;
+		i2.x = COL_3 - i2.width()/2f-10;//
 		i2.y = i1.y;
 		PixelScene.align(i2);
 		add(i2);
@@ -155,12 +155,12 @@ public class WndUpgrade extends Window {
 			t2.hardlight(ItemSlot.UPGRADED);
 		}
 		t1.measure();
-		t1.x = COL_2 + ITEMSLOT_SIZE/2f - t1.width();
+		t1.x = COL_2 + ITEMSLOT_SIZE/2f - t1.width()-10;//
 		t1.y = bg1.y + ITEMSLOT_SIZE - t1.baseLine() - 1;
 		add(t1);
 
 		t2.measure();
-		t2.x = COL_3 + ITEMSLOT_SIZE/2f - t2.width();
+		t2.x = COL_3 + ITEMSLOT_SIZE/2f - t2.width()+5;//
 		t2.y = bg2.y + ITEMSLOT_SIZE - t2.baseLine() - 1;
 		add(t2);
 
@@ -277,13 +277,13 @@ public class WndUpgrade extends Window {
 		//visual separators for each column
 		ColorBlock sep = new ColorBlock(1, 1, 0xFF222222);
 		sep.size(1, bottom - message.bottom());
-		sep.x = WIDTH/2f-25;
+		sep.x = WIDTH/2f-25;//
 		sep.y = message.bottom() + GAP;
 		add(sep);
 
 		sep = new ColorBlock(1, 1, 0xFF222222);
 		sep.size(1, bottom - message.bottom());
-		sep.x = 3*WIDTH/4f-15;
+		sep.x = 3*WIDTH/4f-12.5f;//
 		sep.y = message.bottom() + GAP;
 		add(sep);
 
@@ -450,17 +450,17 @@ public class WndUpgrade extends Window {
 		RenderedTextBlock ttl = PixelScene.renderTextBlock(6);
 		ttl.align(RenderedTextBlock.CENTER_ALIGN);
 		ttl.text(title, WIDTH/2);
-		ttl.setPos(COL_1 - ttl.width() / 2f-15, bottom + GAP);
+		ttl.setPos(COL_1 - ttl.width() / 2f-17.5f, bottom + GAP);//
 		PixelScene.align(ttl);
 		add(ttl);
 
 		RenderedTextBlock m1 = PixelScene.renderTextBlock(msg1, 6);
-		m1.setPos(COL_2 - m1.width() / 2f-20, ttl.top());
+		m1.setPos(COL_2 - m1.width() / 2f-17f, ttl.top());//
 		PixelScene.align(m1);
 		add(m1);
 
 		RenderedTextBlock m2 = PixelScene.renderTextBlock(msg2, 6);
-		m2.setPos(COL_3 - m2.width() / 2f-10, ttl.top());
+		m2.setPos(COL_3 - m2.width() / 2f-3f, ttl.top());//
 		PixelScene.align(m2);
 		add(m2);
 

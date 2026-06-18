@@ -111,7 +111,7 @@ public class Hunger extends Buff implements Hero.Doom {
 			|| Dungeon.level instanceof VaultLevel){
 			不饥饿=true;
 		}
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			不饥饿=true;
 		}
 		if(target instanceof Hero hero&&(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){

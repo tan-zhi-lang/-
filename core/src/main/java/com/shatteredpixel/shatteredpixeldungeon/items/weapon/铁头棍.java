@@ -17,11 +17,7 @@ public class 铁头棍 extends Weapon {
 		技能=new 防御姿态();
 		伤害= 0.7f;
 		tier = 1;
-	}
-
-	@Override
-	public float 最大防御(int lvl){
-		return 1 + lvl;
+		防御=true;
 	}
 
 }

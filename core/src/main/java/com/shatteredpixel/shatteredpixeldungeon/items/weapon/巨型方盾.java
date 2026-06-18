@@ -15,10 +15,7 @@ public class 巨型方盾 extends Weapon {
 
 		伤害= 0.7f;
 		tier = 3;
-	}
-	@Override
-	public float 最大防御(int lvl){
-		return 4 + lvl*4;
+		防御=true;
 	}
 
 }

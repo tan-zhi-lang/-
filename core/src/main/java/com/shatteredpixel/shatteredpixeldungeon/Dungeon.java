@@ -66,7 +66,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.下水道1;
 import com.shatteredpixel.shatteredpixeldungeon.levels.下水道2;
 import com.shatteredpixel.shatteredpixeldungeon.levels.下水道3;
 import com.shatteredpixel.shatteredpixeldungeon.levels.下水道4;
-import com.shatteredpixel.shatteredpixeldungeon.levels.回廊1;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -231,8 +230,6 @@ public class Dungeon {
 	public static float gold(int x,int pos){
 		Sample.INSTANCE.play(Assets.Sounds.GOLD,1,1,Random.Float(0.9f,1.1f));
 		if(x>0){
-			if(hero())
-			x+=Math.round(hero.天赋点数(Talent.丝路,0.1666f)*x);
 
 
 //			x/=3;
@@ -274,9 +271,6 @@ public class Dungeon {
 	public static float energy(int x,int pos){
 		Sample.INSTANCE.play( Assets.Sounds.ITEM );
 		if(x>0){
-			if(hero())
-			x+=Math.round(hero.天赋点数(Talent.丝路,0.1666f)*x);
-
 
 			if(hero()&&hero.subClass(HeroSubClass.魔法灵枢))
 				x*=1.5f+hero.天赋点数(Talent.高额炼化,0.5f);
@@ -507,8 +501,6 @@ public class Dungeon {
 			default -> 1;
 		};
 //		x+=0.25f;
-		if(赛季(赛季设置.回廊传说))
-		x+=10;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=15+(循环()-1 )*5;
 		}
@@ -533,9 +525,7 @@ public class Dungeon {
 			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
 			default -> 1;
 		};
-		x+=0.25f;
-		if(赛季(赛季设置.回廊传说))
-			x+=10;
+//		x+=0.25f;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=10+(循环()-1 )*1.67;
 		}
@@ -553,9 +543,7 @@ public class Dungeon {
 			case 3,4,5,6,7,8,9,10,11,12,13,14,15,16->  1f+(难度-2)*0.125f;
 			default -> 1;
 		};
-		x+=0.5f;
-		if(赛季(赛季设置.回廊传说))
-			x+=10;
+//		x+=0.5f;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=5+(循环()-1 )*0.84;
 		}
@@ -674,15 +662,7 @@ public class Dungeon {
 		
 		Level level;
 		if (branch == 0) {
-			if(赛季(赛季设置.回廊传说)){
-				switch (depth){
-					case 1:
-						level=new 回廊1();
-						break;
-					default:
-						level=new DeadEndLevel();
-				}
-			}else if(赛季(赛季设置.地牢塔防)){
+			if(赛季(赛季设置.地牢塔防)){
 				switch (depth){
 					case 1:
 						level=new 下水道1();

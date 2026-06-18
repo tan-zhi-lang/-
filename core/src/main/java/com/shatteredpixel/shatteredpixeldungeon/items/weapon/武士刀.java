@@ -15,11 +15,7 @@ public class 武士刀 extends Weapon {
 		延迟=1.25f;
 		技能=new 突刺();
 		tier = 2;
+		防御=true;
 	}
-	@Override
-	public float 最大防御(int lvl){
-		return 2 + lvl*2;
-	}
-
 
 }

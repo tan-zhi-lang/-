@@ -162,7 +162,6 @@ public abstract class Char extends Actor {
 	public CharSprite sprite;
 
 	public float 最大生命=0;
-	public float 负数生命=0;
 	public float 生命=0;
 	public float 护甲=0;
 	public float 最大护甲=0;
@@ -355,7 +354,6 @@ public abstract class Char extends Actor {
 	}
 	
 	protected static final String POS       = "pos";
-	protected static final String 负数生命x    = "负数生命";
 	protected static final String TAG_HP    = "HP";
 	protected static final String TAG_HT    = "HT";
 	protected static final String 护甲x    = "护甲";
@@ -379,7 +377,6 @@ public abstract class Char extends Actor {
 		super.storeInBundle( bundle );
 		
 		bundle.put( POS, pos );
-		bundle.put( 负数生命x, 负数生命);
 		bundle.put( TAG_HP, 生命);
 		bundle.put( TAG_HT, 最大生命);
 		bundle.put( 护甲x, 护甲);
@@ -404,7 +401,6 @@ public abstract class Char extends Actor {
 		super.restoreFromBundle( bundle );
 		
 		pos = bundle.getInt( POS );
-		负数生命 = bundle.getFloat( 负数生命x );
 		生命 = bundle.getFloat( TAG_HP );
 		最大生命 = bundle.getFloat( TAG_HT );
 		护甲 = bundle.getFloat( 护甲x );
@@ -452,9 +448,6 @@ public abstract class Char extends Actor {
 			
 			float dr = Random.NormalFloat( enemy.最小防御(), enemy.最大防御());
 
-			if(Dungeon.赛季(赛季设置.回廊传说)){
-				dr = enemy.最大防御();
-			}
 			dr*=AscensionChallenge.statModifier(enemy);
 
 			if(enemy instanceof Mob){
@@ -488,13 +481,8 @@ public abstract class Char extends Actor {
 			} else {
 				if(this instanceof Hero hero){
 					dmg=hero.heroDamage(最小攻击(),最大攻击());
-					if(Dungeon.赛季(赛季设置.回廊传说))
-						dmg=最大攻击();
 				}else{
 					dmg=Random.NormalFloat(最小攻击(),最大攻击());
-					if(Dungeon.赛季(赛季设置.回廊传说))
-						dmg=最大攻击();
-
 					dmg*=Dungeon.难度攻击(this);
 				}
 				if(Dungeon.派对(派对设置.英雄联盟)){
@@ -669,11 +657,6 @@ public abstract class Char extends Actor {
 			acuStat=attacker.最小命中(attacker)+attacker.最大命中(defender);
 			defStat=defender.最小闪避(attacker)+defender.最大闪避(attacker);
 		}
-		if(Dungeon.赛季(赛季设置.回廊传说)){
-			acuStat=attacker.最大命中(defender);
-			defStat=defender.最大闪避(attacker);
-		}
-
 		if(attacker instanceof Hero hero){
 			if(magic&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.法伤)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.法伤);
@@ -689,9 +672,6 @@ public abstract class Char extends Actor {
 				defStat=0;
 			}
 			if(算法.isDebug()){
-				defStat=0;
-			}
-			if(Dungeon.赛季(赛季设置.回廊传说)){
 				defStat=0;
 			}
 			if(hero.符文("我让你闪避"))defStat=0;
@@ -716,8 +696,6 @@ public abstract class Char extends Actor {
 			if(hero.damageInterrupt){
 				hero.interrupt();
 			}
-			if(Dungeon.赛季(赛季设置.回廊传说))
-				acuStat=INFINITE;
 		}else{
 			if(defender.诡异)
 				defStat*=10;
@@ -736,9 +714,6 @@ public abstract class Char extends Actor {
 			Buff.detach(defender,必定闪避.class);
 		}
 
-		if(Dungeon.赛季(赛季设置.从零英雄))
-			defStat=0;
-
 		//invisible chars always hit (for the hero this is surprise attacking)
 		if(attacker.invisible>0&&attacker.canSurpriseAttack()){
 			defStat=0;
@@ -746,22 +721,6 @@ public abstract class Char extends Actor {
 
 		if(defender.buff(MonkEnergy.MonkAbility.Focus.FocusBuff.class)!=null){
 			defStat=INFINITE;
-		}
-
-		if(Dungeon.赛季(赛季设置.回廊传说)){
-			if(attacker instanceof Hero hero){
-				if(Random.Float()<=0.5f+回廊(acuStat)){
-					defStat=0;//攻击是英雄，命中敌人闪避为0
-				}else {
-					defStat=INFINITE;
-				}
-			}
-			if(defender instanceof Hero hero){
-				if(Random.Float()<=回廊(defStat)){
-					acuStat=0;//防御是英雄，闪避敌人命中为0
-				}else
-					acuStat=INFINITE;
-			}
 		}
 
 		if(Dungeon.派对(派对设置.英雄联盟)){
@@ -923,27 +882,8 @@ public abstract class Char extends Actor {
 	//TODO it would be nice to have a pre-armor and post-armor proc.
 	// atm attack is always post-armor and defence is already pre-armor
 
-	public static float 回廊(float x){
-		return x*0.004f/(1+x*0.004f);
-	}
-	public static float 回廊2(float x){
-		return x*0.002f/(1+x*0.002f);
-	}
-	public float 攻速(){
-		float 攻速=0;
-		return 攻速;
-	}
-	public float 反击(){
-		float 反击=0;
-		return 反击;
-	}
-	public float 暴击(){
-		float 暴击=0;
-		return 暴击;
-	}
 	public float 暴击率(){
 		float 暴击率=0.06f;
-		暴击率+=回廊(暴击());
 //		if(Dungeon.赛季(赛季设置.英雄联盟)){
 //			暴击率+=18;
 //		}
@@ -1022,12 +962,13 @@ public abstract class Char extends Actor {
 		
 		if(enemy!=null&&吸血()>0){
 			if(this instanceof Hero hero){
-				if(Dungeon.赛季(赛季设置.回廊传说)){
-					回血(damage * 全能吸血());
-				}else if(hero.符文("猛攻")||hero.符文("升级全能吸血")){
+				boolean 不削弱=true;
+				if(老鬼()||小老鬼())
+					不削弱=false;
+				if(hero.符文("猛攻")||hero.符文("升级全能吸血")){
 
 				}else
-					回血(damage * 吸血());
+					回血(damage * 吸血()*(不削弱?1:1/2f));
 			}else
 			回血(damage * 吸血());
 		}
@@ -1449,8 +1390,6 @@ public abstract class Char extends Actor {
 
 		if (生命 < 0) 生命 = 0;
 
-		if(生命==0&&Dungeon.赛季(赛季设置.从零英雄))负数生命+=dmg;
-
 		if (!isAlive()) {
 			死亡时(来源);
 		}
@@ -1521,7 +1460,6 @@ public abstract class Char extends Actor {
 	}
 
 	public boolean isAlive() {
-		if(Dungeon.赛季(赛季设置.从零英雄))return 战斗力()>0;
 		return 生命 > 0;
 	}
 
@@ -2033,6 +1971,9 @@ public abstract class Char extends Actor {
 	public float 根据生命(){
 		return 生命/最大生命;
 	}
+	public float 根据护甲(){
+		return 护甲/最大护甲;
+	}
 	public float 根据已损失生命(){
 		return 已损失生命()/最大生命;
 	}
@@ -2104,22 +2045,6 @@ public abstract class Char extends Actor {
 		}else if(x<0){
 			受伤时(x);
 		}
-	}
-
-	public float 战斗力(){
-		float 战斗力=生命/10f;
-		战斗力+=攻击范围();
-		战斗力+=视野范围();
-		战斗力+=护甲;
-		战斗力+=(最小命中(null)+最大命中(null))/10f;
-
-		战斗力+=(最小闪避(null)+最大闪避(null))/10f*移速();
-		战斗力+=(最小魔抗()+最大魔抗())/RingOfElements.resist(this);
-		战斗力-=负数生命;
-
-		战斗力+=法穿()/(1+法术穿透());
-//		if(战斗力<0)战斗力=0;
-		return 战斗力;
 	}
 
 	public float 防御(float damage){

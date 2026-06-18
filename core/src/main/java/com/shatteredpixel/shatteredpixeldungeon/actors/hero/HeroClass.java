@@ -20,7 +20,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
-import com.shatteredpixel.shatteredpixeldungeon.actors.回廊传说;
 import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -262,12 +261,10 @@ public enum HeroClass{
 			new 海克斯宝典(true).放背包();
 			new 海克斯移除器().放背包();
 		}
-		if(Dungeon.赛季(赛季设置.回廊传说))
-		Buff.施加(hero,回廊传说.class);
 
 		Buff.施加(hero,开局属性更新.class);
 
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 		}else {
 			Buff.施加(hero,食物栏.class);
 			Buff.施加(hero,药剂栏.class);
@@ -332,7 +329,7 @@ public enum HeroClass{
 		if(算法.物品()!=null)
 		算法.物品().放背包();
 
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 
 		}else{
 			//初始物品！
@@ -360,7 +357,7 @@ public enum HeroClass{
 			}
 
 		//region 初始
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 
 		}else
 		switch(this){
@@ -457,7 +454,7 @@ public enum HeroClass{
 		hero.belongings.幸运.activate(hero);
 		hero.belongings.幸运.鉴定();
 		
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			hero.belongings.weapon=null;
 			hero.belongings.armor=null;
 			hero.belongings.misc=null;

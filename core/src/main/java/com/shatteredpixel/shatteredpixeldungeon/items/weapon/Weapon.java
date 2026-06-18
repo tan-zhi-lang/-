@@ -78,7 +78,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.audio.Sample;
@@ -254,7 +253,6 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String defaultAction() {
-		if(Dungeon.赛季(赛季设置.回廊传说))return null;
 		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			技能=null;
 		}
@@ -276,20 +274,18 @@ abstract public class Weapon extends KindOfWeapon {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.炼狱(炼狱设置.战技移除)){
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			技能=null;
 		}
 		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&技能!=null){
 			actions.add(AC_ABILITY);
 		}
-		if(Dungeon.赛季(赛季设置.回廊传说))
-			actions.remove(AC_THROW);
 		return actions;
 	}
 	
 	@Override
 	public String status() {
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.炼狱(炼狱设置.战技移除)){
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			技能=null;
 		}
 		if (技能!=null&&levelKnown&&charger!=null&&Dungeon.hero()&&isEquipped(Dungeon.hero)) {
@@ -300,7 +296,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String actionName(String action, Hero hero) {
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.炼狱(炼狱设置.战技移除)){
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			技能=null;
 		}
 		if (action.equals(AC_ABILITY)){
@@ -314,7 +310,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
 
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.炼狱(炼狱设置.战技移除)){
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			技能=null;
 		}if (action.equals(AC_ABILITY)&&技能!=null){
 			if (!isEquipped(hero)) {
@@ -390,7 +386,6 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大攻击(int lvl) {
-//		if(Dungeon.赛季(赛季设置.回廊传说))return 0;
 		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1))*伤害());
 	}
 
@@ -458,7 +453,6 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int 强化等级() {
 		int x=0;
-		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		if(isEquipped(Dungeon.hero)){
 			x+=神兵之戒.levelBonus(Dungeon.hero);
 
@@ -503,9 +497,6 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		String info = super.info();
 
-		if(Dungeon.赛季(赛季设置.回廊传说)){
-			return "\n"+"最大攻击 + "+最大攻击();
-		}
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known",力量(), tier(),
 										  最小攻击(),
@@ -585,17 +576,6 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		return info;
 	}
-	@Override
-	public float 最大防御(Char owner) {
-		return 最大防御();
-	}
-	public float 最大防御(){
-		return 最大防御(强化等级());
-	}
-	
-	public float 最大防御(int lvl){
-		return 0;
-	}
 	public float 最小防御(){
 		return 最小防御(强化等级());
 	}
@@ -604,6 +584,25 @@ abstract public class Weapon extends KindOfWeapon {
 		return 最小防御();
 	}
 	public float 最小防御(int lvl){
+		return 0;
+	}
+	@Override
+	public float 最大防御(Char owner) {
+		return 最大防御();
+	}
+	public float 最大防御(){
+		return 最大防御(强化等级());
+	}
+
+	public float 最大防御(int lvl){
+		if(防御){
+			int t=tier();
+
+			if(this instanceof 冰门重盾)
+				t+=Dungeon.hero.天赋点数(Talent.冰门高防);
+
+			return t*(1+lvl/2f);
+		}
 		return 0;
 	}
 	public String statsInfo(){
@@ -1340,7 +1339,6 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float accuracyFactor(Char owner, Char target) {
 
-		if(Dungeon.赛季(赛季设置.回廊传说))return 1;
 		float encumbrance = 0;
 		
 		if( owner instanceof Hero hero&&!hero.heroClass(HeroClass.DUELIST)){
@@ -1372,7 +1370,6 @@ abstract public class Weapon extends KindOfWeapon {
 
 	protected float baseDelay( Char owner ){
 		float delay = augment.delayFactor(this.延迟());
-		if(Dungeon.赛季(赛季设置.回廊传说))return 1;
 		if (owner instanceof Hero hero) {
 			float encumbrance = 力量() - hero.力量();
 			if (encumbrance > 0&&!hero.subClass(HeroSubClass.武器大师)){
@@ -1390,7 +1387,6 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int reachFactor(Char owner) {
 		int reach = 范围;
-		if(Dungeon.赛季(赛季设置.回廊传说))return 1;
 
 		if(连招)
 		if(连招范围!=-1){
@@ -1416,7 +1412,6 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	protected static float 力量(int tier, int lvl){
-		if(Dungeon.赛季(赛季设置.回廊传说))return 0;
 		lvl = Math.max(0, lvl);
 		float str=0;
 		if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
@@ -1545,7 +1540,6 @@ abstract public class Weapon extends KindOfWeapon {
 				float effectRoll = Random.Float();
 			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
 
-		if(!Dungeon.赛季(赛季设置.回廊传说)){
 			if(effectRoll<0.3f/ParchmentScrap.curseChanceMultiplier()){
 				enchant(Enchantment.randomCurse());
 				cursed=true;
@@ -1553,7 +1547,6 @@ abstract public class Weapon extends KindOfWeapon {
 				if(effectRoll>=1f-(0.1f*ParchmentScrap.enchantChanceMultiplier())){
 					enchant();
 				}
-		}
 
 		Random.popGenerator();
 

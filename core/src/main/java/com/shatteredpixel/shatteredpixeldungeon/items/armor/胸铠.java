@@ -31,9 +31,5 @@ public class 胸铠 extends Armor {
 		
 		return req;
 	}
-	
-	@Override
-	public float 最大防御(int lvl){
-		return super.最大防御(lvl)+augment.defenseFactor(0.5f);
-	}
+
 }

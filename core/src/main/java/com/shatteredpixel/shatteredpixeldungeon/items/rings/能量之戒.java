@@ -59,7 +59,9 @@ public class 能量之戒 extends Ring {
 			bonus+=artifactChargeMultiplier(target);
 		}
 		if (target instanceof Hero hero){
-
+			bonus--;
+			bonus+=hero.魔力(0.05f);
+			bonus+=hero.天赋点数(Talent.充能,0.12f);
 			int 法杖数量=0;
 			for(Item i:hero.belongings.backpack){
 				if(i instanceof Wand a)
@@ -105,6 +107,9 @@ public class 能量之戒 extends Ring {
 
 		if (target instanceof Hero hero){
 
+			bonus--;
+			bonus+=hero.魔力(0.05f);
+			bonus+=hero.天赋点数(Talent.充能,0.12f);
 			int 神器数量=0;
 			for(Item i:hero.belongings.backpack){
 				if(i instanceof Artifact a)
@@ -145,6 +150,11 @@ public class 能量之戒 extends Ring {
 		float bonus = 1+ 0.1845f*getBuffedBonus(target, Energy.class);
 
 		if (target instanceof Hero hero){
+
+			bonus--;
+			bonus+=hero.魔力(0.05f);
+			bonus+=hero.天赋点数(Talent.充能,0.12f);
+
 			if(hero.符文("纯粹主义术师"))
 				bonus+=1/hero.攻击延迟();
 			if(算法.isDebug())bonus+=10;

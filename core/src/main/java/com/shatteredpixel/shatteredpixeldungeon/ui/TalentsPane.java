@@ -276,55 +276,55 @@ public class TalentsPane extends ScrollPane {
 					//******************************
 					
 					if(Dungeon.hero.天赋(Talent.健身)){
-						if(talent==Talent.破绽||talent==Talent.寻觅||talent==Talent.静步)
+						if(talent==Talent.机敏||talent==Talent.智者||talent==Talent.天才)
 							continue;
-						if(talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
-						   
-						   ||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备
-						   
-						   ||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+						if(talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避
+
+						   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能
+
+						   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
 							continue;
 					}else{
 						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧)
 							continue;
 					}
-					if(Dungeon.hero.天赋(Talent.破绽)){
-						if(talent==Talent.健身||talent==Talent.寻觅||talent==Talent.静步)
+					if(Dungeon.hero.天赋(Talent.机敏)){
+						if(talent==Talent.健身||talent==Talent.智者||talent==Talent.天才)
 							continue;
 						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
-						   
-						   ||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备
-						   
-						   ||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+
+						   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能
+
+						   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
 							continue;
 					}else{
-						if(talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避)
+						if(talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避)
 							continue;
 					}
-					if(Dungeon.hero.天赋(Talent.寻觅)){
-						if(talent==Talent.健身||talent==Talent.破绽||talent==Talent.静步)
+					if(Dungeon.hero.天赋(Talent.智者)){
+						if(talent==Talent.健身||talent==Talent.机敏||talent==Talent.天才)
 							continue;
 						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
-						   
-						   ||talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
-						   
-						   ||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+
+						   ||talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避
+
+						   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
 							continue;
 					}else{
-						if(talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备)
+						if(talent==Talent.感知||talent==Talent.视察||talent==Talent.充能)
 							continue;
 					}
-					if(Dungeon.hero.天赋(Talent.静步)){
-						if(talent==Talent.健身||talent==Talent.破绽||talent==Talent.寻觅)
+					if(Dungeon.hero.天赋(Talent.天才)){
+						if(talent==Talent.健身||talent==Talent.机敏||talent==Talent.智者)
 							continue;
 						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
-						   
-						   ||talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
-						   
-						   ||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备)
+
+						   ||talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避
+
+						   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能)
 							continue;
 					}else{
-						if(talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑)
+						if(talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
 							continue;
 					}
 				}else{
@@ -337,12 +337,12 @@ public class TalentsPane extends ScrollPane {
 						
 						
 					if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
-					
-					||talent==Talent.集中||talent==Talent.财富||talent==Talent.躲避
-					
-					||talent==Talent.近视||talent==Talent.夜视||talent==Talent.戒备
-					
-					||talent==Talent.快攻||talent==Talent.丝路||talent==Talent.速跑
+
+					   ||talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避
+
+					   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能
+
+					   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备
 					)
 						continue;
 				}

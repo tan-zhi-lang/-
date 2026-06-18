@@ -47,14 +47,14 @@ public class 幸运之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   0.236f*soloBuffedBonus(),100*0.06f*soloBuffedBonus());
+									   0.236f*soloBuffedBonus(),100*0.02f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						0.236f*combinedBuffedBonus(Dungeon.hero),100*(0.06f+0.06f*combinedBuffedBonus(Dungeon.hero)));
+						0.236f*combinedBuffedBonus(Dungeon.hero),100*(0.02f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 0.236f,6);
+			return Messages.get(this, "stats", 0.236f,2);
 		}
 	}
 
@@ -66,11 +66,11 @@ public class 幸运之戒 extends Ring {
 	@Override
 	public String upgradeStat2(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return ""+2+level*2;
+		return ""+(level+1)*2;
 	}
 	
 	public static float 暴击率( Char target ){
-		return 0.06f*getBuffedBonus( target, 幸运之戒.Wealth.class);
+		return 0.02f*getBuffedBonus( target, 幸运之戒.Wealth.class);
 	}
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";

@@ -244,7 +244,7 @@ public class StatusPane extends Component {
 		法力条文本.y -= 0.001f; //prefer to be slightly higher
 		PixelScene.align(法力条文本);
 
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			法力条.alpha0();
 			法力条文本.alpha0();
 			法力条框.alpha0();
@@ -261,7 +261,7 @@ public class StatusPane extends Component {
 		绿条文本.y-=0.001f; //prefer to be slightly higher
 		PixelScene.align(绿条文本);
 			
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)||Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)||Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
 			绿条.alpha0();
 			绿条文本.alpha0();
 			绿条框.alpha0();
@@ -321,7 +321,6 @@ public class StatusPane extends Component {
 		super.update();
 
 		float health = Dungeon.hero.生命;
-		if(Dungeon.赛季(赛季设置.从零英雄))health+=Dungeon.hero.战斗力();
 		float max = Dungeon.hero.最大生命;
 		float hunger = 450f-
 				(Dungeon.hero.hasbuff(Hunger.class)?
@@ -405,7 +404,7 @@ public class StatusPane extends Component {
 			}
 		}
 
-		if(Dungeon.赛季(赛季设置.回廊传说)||Dungeon.赛季(赛季设置.地牢塔防)||Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+		if(Dungeon.赛季(赛季设置.地牢塔防)||Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
 			血条文本.text(kw2(health)+"/"+kw2(max));
 		}else {
 			if(血量变化>0){
@@ -416,9 +415,6 @@ public class StatusPane extends Component {
 				血条文本.text(kw2(health)+String.format("%.2f",血量变化)+"/"+kw2(max));
 			}else
 				血条文本.text(kw2(health)+"/"+kw2(max));
-		}
-		if(Dungeon.赛季(赛季设置.从零英雄)){
-			血条文本.text(kw2(Dungeon.hero.战斗力()));
 		}
 		法力条文本.text(kw2(护甲)+(护甲<最大护甲&&恢复速度>0?
 															("+"+String.format("%.2f",恢复速度)

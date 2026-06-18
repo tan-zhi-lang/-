@@ -59,7 +59,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
@@ -310,7 +309,6 @@ public class Armor extends EquipableItem {
 	}
 	@Override
 	public int 强化等级(){
-		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
 				&& (isEquipped( Dungeon.hero ) || Dungeon.hero.belongings.contains( this ))) {
@@ -392,12 +390,11 @@ public class Armor extends EquipableItem {
 	}
 
 	public float 最大防御(int lvl){
-//		if(Dungeon.赛季(赛季设置.回廊传说))return 0;
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(tier() + lvl)*防御;
+			return augment.defenseFactor(tier() + lvl/2f)*防御;
 		}
 
-		return augment.defenseFactor(tier()*(2+lvl))*防御;
+		return augment.defenseFactor(tier()*(2+lvl/2f))*防御;
 	}
 
 	public final float 最小防御(){
@@ -408,7 +405,7 @@ public class Armor extends EquipableItem {
 //		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 //			return 0;
 //		}
-		return augment.defenseFactor(tier()+lvl)*防御;
+		return augment.defenseFactor(tier()+lvl/2f)*防御;
 	}
 
 	//This exists so we can test what a char's base evasion would be without armor affecting it
@@ -416,7 +413,6 @@ public class Armor extends EquipableItem {
 	public static boolean testingNoArmDefSkill = false;
 	
 	public float evasionFactor( Char owner, float evasion ){
-		if(Dungeon.赛季(赛季设置.回廊传说))return 1;
 		if (testingNoArmDefSkill) return evasion;
 		
 		if (hasGlyph(Stone.class, owner) && !Stone.testingEvasion()){
@@ -435,7 +431,6 @@ public class Armor extends EquipableItem {
 	
 	public float speedFactor( Char owner, float speed ){
 
-		if(Dungeon.赛季(赛季设置.回廊传说))return 1;
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
 			float aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
@@ -604,19 +599,17 @@ public class Armor extends EquipableItem {
 	}
 
 	@Override
-	public String desc(){
-		if(荣誉纹章!=null)
-		return Messages.get(this, "desc")+"\n已转移等级"+荣誉纹章.转移等级+"/"+荣誉纹章.最大等级()+"。";
-
-		return Messages.get(this, "desc");
+	public String status() {
+		if (荣誉纹章!=null) {
+			return 荣誉纹章.转移等级 + "/" + 荣誉纹章.最大等级();
+		} else {
+			return null;
+		}
 	}
 	@Override
 	public String info() {
 		String info = super.info();
 
-		if(Dungeon.赛季(赛季设置.回廊传说)){
-			return "\n"+"最大防御 + "+最大防御();
-		}
 		if (levelKnown) {
 
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(), tier(),
@@ -734,7 +727,6 @@ public class Armor extends EquipableItem {
 			float effectRoll = Random.Float();
 			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
 
-			if(!Dungeon.赛季(赛季设置.回廊传说)){
 				if(effectRoll<0.3f/ParchmentScrap.curseChanceMultiplier()){
 					inscribe(Glyph.randomCurse());
 					cursed=true;
@@ -742,7 +734,6 @@ public class Armor extends EquipableItem {
 					if(effectRoll>=1f-(0.15f*ParchmentScrap.enchantChanceMultiplier())){
 						inscribe();
 					}
-			}
 
 		Random.popGenerator();
 
@@ -766,7 +757,6 @@ public class Armor extends EquipableItem {
 	}
 
 	protected static float 力量(int tier, int lvl){
-		if(Dungeon.赛季(赛季设置.回廊传说))return 0;
 		lvl = Math.max(0, lvl);
 		//strength req decreases at +1,+3,+6,+10,etc.
 		return (float)((8+tier*2)-(Math.sqrt(8*lvl+1)-1)/2);

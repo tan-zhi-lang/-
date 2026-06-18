@@ -18,11 +18,8 @@ public class 闪电双截棍 extends Weapon {
 		tier = 5;
 		特别=true;
 		黄色=true;
+		防御=true;
 	}
 
-	@Override
-	public float 最大防御(int lvl){
-		return 5 + lvl*5;
-	}
 	
 }

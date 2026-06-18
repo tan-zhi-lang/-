@@ -87,7 +87,6 @@ public class 灵能短弓 extends Weapon {
 		float dmg =1+ lvl/7.5f
 				   +(curseInfusionBonus ? 1 + lvl/10f : 0);
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
-		dmg*=1.25f;
 		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}
@@ -99,7 +98,6 @@ public class 灵能短弓 extends Weapon {
 		float dmg =6f+ lvl/3.4f
 				   +(curseInfusionBonus ? 2 + lvl/5f : 0);
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
-		dmg*=1.25f;
 		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}

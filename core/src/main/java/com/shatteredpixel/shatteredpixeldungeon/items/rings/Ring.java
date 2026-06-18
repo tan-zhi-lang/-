@@ -383,7 +383,6 @@ public class Ring extends KindofMisc {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-		if(Dungeon.赛季(赛季设置.回廊传说))return super.强化等级();
 		if(Dungeon.hero.heroClass(HeroClass.戒老)){
 			lvl++;
 		}

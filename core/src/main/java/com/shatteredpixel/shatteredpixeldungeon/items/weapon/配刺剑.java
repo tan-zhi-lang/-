@@ -15,12 +15,8 @@ public class 配刺剑 extends Weapon{
 		延迟=1.175f;
 		
 		技能=new 突刺();
+		防御=true;
 
-	}
-	
-	@Override
-	public float 最大防御(int lvl){
-		return 1 + lvl;
 	}
 
 

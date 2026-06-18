@@ -41,7 +41,6 @@ public class HighGrass {
 	public static float 概率(){
 		float x=1;
 		if(Dungeon.hero()){
-			if(Dungeon.hero.天赋(Talent.寻觅))x+=Dungeon.hero.天赋点数(Talent.寻觅,0.25f/3f);
 		}
 		return x;
 	}

@@ -64,7 +64,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
@@ -79,7 +78,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -657,7 +655,7 @@ public enum Talent {
 		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.04f));
 		if(hero.符文("止渴"))hero.回百分比血(0.08f);
 
-		if(hero.符文("5号化合剂")&&item instanceof Elixir)hero.化合剂++;
+		if(hero.符文("5号化合剂"))hero.化合剂++;
 		if(hero.符文("我不是药王"))hero.生命成长+=5;
 		if (false){//喝药加纹章盾
 			// 6.5/10% of max HP
@@ -737,6 +735,7 @@ public enum Talent {
 
 	public static void 拾取时(Hero hero, Item item ){
 
+		if(hero.符文("天材地宝"))item.鉴定();
 		if(hero.符文("肉鸽:武器")){
 			if(item instanceof KindofMisc){
 				if(!(item instanceof Weapon))

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -44,6 +46,11 @@ public class 灵能短弓 extends Weapon {
 		特别= true;
 		专属= true;
 	}
+
+	@Override
+	public String upgradeStat1(int level) {
+		return kw2(最小弓箭攻击(level)) + "-" + kw2(最大弓箭攻击(level));
+	}
 	@Override
 	public String defaultAction() {
 		return defaultAction;
@@ -84,8 +91,7 @@ public class 灵能短弓 extends Weapon {
 		return 最小弓箭攻击(强化等级());
 	}
 	public float 最小弓箭攻击(int lvl) {
-		float dmg =1+ lvl/7.5f
-				   +(curseInfusionBonus ? 1 + lvl/10f : 0);
+		float dmg =1+ lvl/2f*0.6f;
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
 		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
@@ -95,8 +101,7 @@ public class 灵能短弓 extends Weapon {
 		return 最大弓箭攻击(强化等级());
 	}
 	public float 最大弓箭攻击(int lvl) {
-		float dmg =6f+ lvl/3.4f
-				   +(curseInfusionBonus ? 2 + lvl/5f : 0);
+		float dmg =6f+ lvl*0.6f;
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
 		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);

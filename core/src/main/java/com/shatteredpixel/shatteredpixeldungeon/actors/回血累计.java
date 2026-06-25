@@ -2,7 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.watabou.utils.Bundle;
 
 public class 回血累计 extends CountBuff{
@@ -28,7 +28,7 @@ public class 回血累计 extends CountBuff{
 				恢复++;
 				if(恢复>=hero.最大生命){
 					恢复=0;
-					new 海克斯宝典().放背包();
+					new 海克斯秘卷().放背包();
 				}
 			}
 

@@ -309,6 +309,8 @@ public class Assets {
 		public static final String 哈气猫= "sounds/哈气猫.mp3";
 		public static final String 我看见你了= "sounds/我看见你了.mp3";
 		public static final String 汝之希望皆为虚妄= "sounds/汝之希望皆为虚妄.mp3";
+		public static final String 超级加倍= "sounds/超级加倍.mp3";
+		public static final String 加倍= "sounds/加倍.mp3";
 		public static final String MASTERY  = "sounds/mastery.mp3";
 		public static final String PUFF     = "sounds/puff.mp3";
 		public static final String ROCKS    = "sounds/rocks.mp3";
@@ -385,6 +387,8 @@ public class Assets {
 				哈气猫,
 				我看见你了,
 				汝之希望皆为虚妄,
+				超级加倍,
+				加倍,
 				MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,嘟嘟哒,
 				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE
 		};

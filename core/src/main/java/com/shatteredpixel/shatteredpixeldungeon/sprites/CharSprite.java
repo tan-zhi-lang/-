@@ -147,7 +147,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (curAnim == null || curAnim != die) {
 			if(SPDSettings.加快()>1) {
 				if (anim == idle) {
-					anim.delay = 1f;
+//					anim.delay = 1f;
 				} else if (anim == run) {
 					anim.delay = 1f /20f;
 				} else {
@@ -207,8 +207,44 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		point( worldToCamera( cell ) );
 	}
 
-	public void 说(String text) {
-		showStatus(CharSprite.增强绿,text);
+	public void 绿说(String text) {
+		showStatus(0x00FF00,text);
+	}
+	public void 白说(String text) {
+		showStatus(0x00FF00,text);
+	}
+	public void 红说(String text) {
+		showStatus(0xFF4444,text);
+	}
+	public void 橙说(String text) {
+		showStatus(0xFF8800,text);
+	}
+	public void 黄说(String text) {
+		showStatus(0xFFFF00,text);
+	}
+	public void 蓝说(String text) {
+		showStatus(0x3399FF,text);
+	}
+	public void 粉说(String text) {
+		showStatus(0xFF4488,text);
+	}
+	public void 紫说(String text) {
+		showStatus(0x8800FF,text);
+	}
+	public void 灰说(String text) {
+		showStatus(0x999999,text);
+	}
+	public void 黑说(String text) {
+		showStatus(0x000000,text);
+	}
+	public void 棕说(String text) {
+		showStatus(0x8F4E35,text);
+	}
+	public void 青说(String text) {
+		showStatus(0xb2f2ff,text);
+	}
+	public void 靛说(String text) {
+		showStatus(0x2c0d49,text);
 	}
 	public void showStatus( int color, String text, Object... args ) {
 		showStatusWithIcon(color, text, FloatingText.NO_ICON, args);

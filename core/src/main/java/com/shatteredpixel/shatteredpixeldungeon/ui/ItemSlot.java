@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.血药;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -332,7 +333,10 @@ public class ItemSlot extends Button {
 			}else if (item instanceof PotionOfShielding&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
 				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.75f))) );
 				center.measure();
-				center.hardlight( FADED );
+			}else if (item instanceof 血药&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.2f))) );
+				center.measure();
+				center.hardlight( UPGRADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
 				extra.text( Messages.format( TXT, Math.round(1.5f*x.等级()*x.等级())) );
 				extra.measure();

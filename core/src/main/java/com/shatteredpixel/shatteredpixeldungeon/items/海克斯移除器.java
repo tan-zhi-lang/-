@@ -38,8 +38,7 @@ public class 海克斯移除器 extends 用品 {
 				if (positive && !移除.isEmpty()){
 					if(hero.是海克斯(移除)){
 						Sample.INSTANCE.play(Assets.Sounds.海克斯);
-						if(hero.符文(移除))hero.删除海克斯(移除);
-						else hero.重置海克斯(移除);
+						hero.删除海克斯(移除);
 						return;
 					}
 				}

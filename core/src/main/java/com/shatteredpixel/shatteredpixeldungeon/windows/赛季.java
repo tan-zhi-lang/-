@@ -51,6 +51,8 @@ public class 赛季 extends Window {
             CheckBox cb = new CheckBox(Messages.titleCase(Messages.get(赛季设置.class,赛季)));
             cb.checked((checked&赛季设置.MASKS[i])!=0);
             cb.active =editable;
+            if(Messages.get(赛季设置.class,赛季).equals("地牢塔防"))
+                cb.enable(false);
 
             if (i > 0) {
                 pos += GAP;
@@ -65,7 +67,7 @@ public class 赛季 extends Window {
                 protected void onClick() {
                     super.onClick();
                     ShatteredPixelDungeon.scene().add(
-                            new WndMessage(Messages.get(赛季设置.class,赛季+"_desc"))
+                            new WndMessage(Messages.get(赛季设置.class,赛季)+":\n"+Messages.get(赛季设置.class,赛季+"_desc"))
                     );
                 }
             };

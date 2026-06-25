@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -18,10 +17,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
-import com.shatteredpixel.shatteredpixeldungeon.actors.守护灵次数;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -43,7 +40,6 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
@@ -501,33 +497,30 @@ public abstract class Wand extends Item {
 				}
 			}
 			if (ShardOfOblivion.passiveIDDisabled()){
-				Buff.延长(curUser, ShardOfOblivion.WandUseTracker.class, 50f);
+				Buff.延长(Dungeon.hero, ShardOfOblivion.WandUseTracker.class, 50f);
 			}
 		}
-		if(curUser.符文("守护灵"))Buff.施加(curUser,守护灵次数.class).set(10);
-		if(curUser.符文("万世催化石"))curUser.回血(20);
-		if(curUser.符文("不详契约"))curUser.受伤时(curUser.生命(0.05f),curUser);
+		Dungeon.hero.施法();
+
 		if(!算法.isDebug()){
 			if(算法.概率学(丛林玫瑰.概率())){
 
 			}else
-			curCharges=Math.max(0,curCharges-(curUser.符文("溢流")?2:1)*(cursed?
+			curCharges=Math.max(0,curCharges-(Dungeon.hero.符文("溢流")?2:1)*(cursed?
 													  1:
 													  chargesPerCast()));
 
 		}
-		if(curUser.subClass(HeroSubClass.祭司))
-			Buff.延长(curUser,Bless.class,Bless.DURATION);
 		//remove magic charge at a higher priority, if we are benefiting from it are and not the
 		//wand that just applied it
-		WandOfMagicMissile.MagicCharge buff = curUser.buff(WandOfMagicMissile.MagicCharge.class);
+		WandOfMagicMissile.MagicCharge buff = Dungeon.hero.buff(WandOfMagicMissile.MagicCharge.class);
 		if (buff != null
 				&& buff.wandJustApplied() != this
 				&& buff.level() == 强化等级()
 				&& 强化等级() > super.强化等级()){
 			buff.detach();
 		} else {
-			ScrollEmpower empower = curUser.buff(ScrollEmpower.class);
+			ScrollEmpower empower = Dungeon.hero.buff(ScrollEmpower.class);
 			if (empower != null){
 				empower.use();
 			}
@@ -536,7 +529,7 @@ public abstract class Wand extends Item {
 		Invisibility.notimedispel();
 		updateQuickslot();
 
-		curUser.spendAndNext( TIME_TO_ZAP );
+		Dungeon.hero.spendAndNext( TIME_TO_ZAP );
 	}
 	
 	@Override

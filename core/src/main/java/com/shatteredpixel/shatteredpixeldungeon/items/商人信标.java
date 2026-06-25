@@ -124,7 +124,7 @@ public class 商人信标 extends Item {
 				if (item.数量()==1) {
 					
 					RedButton
-							btnSell = new RedButton(Messages.get(this,"sell",item.金币提升())) {
+							btnSell = new RedButton(Messages.get(WndAlchemizeItem.class,"sell",item.金币提升())) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sell(item);
@@ -141,7 +141,7 @@ public class 商人信标 extends Item {
 				} else {
 					
 					int priceAll = item.金币提升();
-					RedButton btnSell1 = new RedButton(Messages.get(this, "sell_1", priceAll / item.数量())) {
+					RedButton btnSell1 = new RedButton(Messages.get(WndAlchemizeItem.class, "sell_1", priceAll / item.数量())) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sellOne(item);
@@ -152,7 +152,7 @@ public class 商人信标 extends Item {
 					btnSell1.setRect(0, pos + GAP, width, BTN_HEIGHT);
 					btnSell1.icon(new ItemSprite(物品表.GOLD));
 					add(btnSell1);
-					RedButton btnSellAll = new RedButton(Messages.get(this, "sell_all", priceAll)) {
+					RedButton btnSellAll = new RedButton(Messages.get(WndAlchemizeItem.class, "sell_all", priceAll)) {
 						@Override
 						protected void onClick() {
 							WndTradeItem.sell(item);

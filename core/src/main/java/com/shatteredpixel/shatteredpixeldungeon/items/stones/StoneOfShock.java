@@ -26,7 +26,7 @@ public class StoneOfShock extends Runestone {
 	}
 	
 	@Override
-	protected void activate(int cell) {
+	public void activate(int cell) {
 		
 		Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
 		

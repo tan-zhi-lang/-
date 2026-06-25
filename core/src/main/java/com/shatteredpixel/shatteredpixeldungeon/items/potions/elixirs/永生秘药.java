@@ -63,7 +63,7 @@ public class 永生秘药 extends Elixir {
 	
 	public static void pharmacophobiaProc( Hero hero ){
 		// harms the hero for ~40% of their max HP in poison
-		Buff.施加( hero, Poison.class).set(8+hero.等级);
+		Buff.施加( hero, Poison.class).set(5 + hero.等级/2f*1.2f);
 	}
 
 	@Override

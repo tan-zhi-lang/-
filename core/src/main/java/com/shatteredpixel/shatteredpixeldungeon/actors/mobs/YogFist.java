@@ -472,7 +472,7 @@ public abstract class YogFist extends Mob {
 		{
 			spriteClass = FistSprite.Bright.class;
 
-			properties.add(Property.ELECTRIC);
+			properties.add(Property.电);
 
 			canRangedInMelee = false;
 		}

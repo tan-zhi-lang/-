@@ -758,8 +758,13 @@ public class Armor extends EquipableItem {
 
 	protected static float 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
+		float str=0;
+		if(Dungeon.符文("控鹤擒龙")){
+			str-=8;
+		}
+
 		//strength req decreases at +1,+3,+6,+10,etc.
-		return (float)((8+tier*2)-(Math.sqrt(8*lvl+1)-1)/2);
+		return (float)(str+(8+tier*2)-(Math.sqrt(8*lvl+1)-1)/2);
 	}
 	
 	@Override

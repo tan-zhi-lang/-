@@ -164,7 +164,7 @@ public class MasterThievesArmband extends Artifact {
 									GLog.白(Messages.get(MasterThievesArmband.class,"failed_steal"));
 									Buff.施加(ch, StolenTracker.class).setItemStolen(false);
 								} else {
-									curUser.sprite.说("拿来吧你！");
+									curUser.sprite.绿说("拿来吧你！");
 									if (loot.doPickUp(curUser)) {
 										//item collection happens instantly
 										curUser.spend(-curUser.攻击延迟());

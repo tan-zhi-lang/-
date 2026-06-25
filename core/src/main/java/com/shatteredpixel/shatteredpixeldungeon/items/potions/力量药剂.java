@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class 力量药剂 extends Potion {
 
@@ -34,8 +35,10 @@ public class 力量药剂 extends Potion {
 		if(!Dungeon.炼狱(炼狱设置.体弱多病)){
 			hero.力量++;
 		}
-		if(hero.符文("III型药剂"))
-			hero.力量+=35;
+		if(hero.符文("地牢圈传来噩耗"))
+			hero.力量++;
+		if(hero.符文("III型药剂")&&Random.Int(1)==0)
+			hero.力量+=10;
 		if(hero.符文("力量的爆发"))
 			Buff.施加(hero,HTBoost.class).add();
 

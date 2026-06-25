@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Chains;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Effects;
@@ -109,7 +110,7 @@ public class Guard extends Mob {
 		enemy.pos = pullPos;
 		enemy.sprite.place(pullPos);
 		Dungeon.level.occupyCell(enemy);
-		Cripple.延长(enemy, Cripple.class, 4f);
+		Buff.延长(enemy,Cripple.class,4f);
 		if (enemy == Dungeon.hero) {
 			Dungeon.hero.interrupt();
 			Dungeon.observe();

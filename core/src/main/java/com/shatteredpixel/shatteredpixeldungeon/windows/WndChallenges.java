@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 
 import java.util.ArrayList;
 
@@ -64,7 +65,7 @@ public class WndChallenges extends Window {
 				protected void onClick() {
 					super.onClick();
 					ShatteredPixelDungeon.scene().add(
-							new WndMessage(Messages.get(Challenges.class, challenge+"_desc"))
+							new WndMessage(Messages.get(Challenges.class,challenge)+":\n"+Messages.get(Challenges.class,challenge+"_desc"))
 					);
 				}
 			};

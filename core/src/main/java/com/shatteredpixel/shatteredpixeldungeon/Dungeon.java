@@ -1581,9 +1581,6 @@ public class Dungeon {
 	public static int 区域(float x){
 		return Math.round(区域()*x);
 	}
-	public static boolean 在区域(int x){
-		return (相对层数() - 1) / 5 + 1==x;
-	}
 	public static int 区域(){
 		return (相对层数() - 1) / 5 + 1;
 	}

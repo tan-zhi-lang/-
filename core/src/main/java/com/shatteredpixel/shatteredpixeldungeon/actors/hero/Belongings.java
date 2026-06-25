@@ -16,7 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.果决攻击;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.技能;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -294,17 +294,17 @@ public class Belongings implements Iterable<Item> {
 	}
 	public boolean 技能(Class itemClass){
 
-		if(hasItem(果决攻击.class)){
+		if(hasItem(itemClass)){
 			return true;
 		}
 		return false;
 	}
 	public boolean 充满技能(Class itemClass){
 
-		if(hasItem(果决攻击.class)){
-			getItem(果决攻击.class).gainCharge(1);
-			if(getItem(果决攻击.class).满充能()){
-				getItem(果决攻击.class).wandUsed();
+		if(hasItem(itemClass)&&getItem(itemClass) instanceof 技能 k){
+			k.gainCharge(1);
+			if(k.满充能()){
+				k.wandUsed();
 				return true;
 			}
 		}
@@ -312,8 +312,8 @@ public class Belongings implements Iterable<Item> {
 	}
 	public int 技能等级(Class itemClass){
 
-		if(hasItem(果决攻击.class)){
-			return getItem(果决攻击.class).强化等级();
+		if(hasItem(itemClass)){
+			return getItem(itemClass).强化等级();
 		}
 		return 0;
 	}

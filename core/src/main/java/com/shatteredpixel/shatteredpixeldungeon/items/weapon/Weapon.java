@@ -381,12 +381,12 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public float 最小攻击(int lvl) {
-		return augment.damageFactor(最小+(tier()+lvl)*伤害());
+		return Math.max(1,augment.damageFactor(最小+(tier()+lvl/2f)*伤害()));
 	}
 	
 	@Override
 	public float 最大攻击(int lvl) {
-		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1))*伤害());
+		return augment.damageFactor(最大+(5*(tier()+1) +lvl/2f*(tier()+1))*伤害());
 	}
 
 	@Override
@@ -454,7 +454,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 强化等级() {
 		int x=0;
 		if(isEquipped(Dungeon.hero)){
-			x+=神兵之戒.levelBonus(Dungeon.hero);
+			x+=0.75f*神兵之戒.levelBonus(Dungeon.hero);
 
 			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
 
@@ -892,7 +892,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击(int lvl) {
-		return augment.damageFactor(最小+(2*tier()+lvl)*(伤害()*0.5f));
+		return Math.max(1,augment.damageFactor(最小+(2*tier()+lvl/2f)*(伤害()*0.5f)));
 //		return Math.round(最小+(2*tier()+lvl)*(伤害()));
 	}
 	
@@ -903,7 +903,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击(int lvl) {
-		return augment.damageFactor(最大+(5 * tier() +tier()*lvl )*(伤害()*1.2f));
+		return augment.damageFactor(最大+(5 * tier() +tier()*lvl/2f )*(伤害()*1.2f));
 //		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害()));
 	}
 	
@@ -1341,7 +1341,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 		float encumbrance = 0;
 		
-		if( owner instanceof Hero hero&&!hero.heroClass(HeroClass.DUELIST)){
+		if( owner instanceof Hero hero){
 			encumbrance = 力量() - hero.力量();
 		}
 
@@ -1414,6 +1414,9 @@ abstract public class Weapon extends KindOfWeapon {
 	protected static float 力量(int tier, int lvl){
 		lvl = Math.max(0, lvl);
 		float str=0;
+		if(Dungeon.符文("控鹤擒龙")){
+			str-=8;
+		}
 		if(Dungeon.hero()&&curItem!=null&&curItem.isEquipped(Dungeon.hero)){
 			str+=磨刀石.力量();
 		}

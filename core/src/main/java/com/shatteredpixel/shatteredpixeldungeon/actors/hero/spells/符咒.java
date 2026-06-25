@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
@@ -56,10 +56,10 @@ public class 符咒 extends 目标道术 {
 
 			Char ch = Actor.findChar(aim.collisionPos);
 			if (ch != null) {
-				Cripple.延长(ch,Slow.class,4f);
-				Cripple.延长(ch,Vulnerable.class,4f);
-				Cripple.延长(ch,Weakness.class,4f);
-				Cripple.延长(ch,Hex.class,4f);
+				Buff.延长(ch,Slow.class,4f);
+				Buff.延长(ch,Vulnerable.class,4f);
+				Buff.延长(ch,Weakness.class,4f);
+				Buff.延长(ch,Hex.class,4f);
 				if(ch.恶魔亡灵())
 					ch.受伤时(Random.NormalFloat(
 							hero.法术(this,0.3f)

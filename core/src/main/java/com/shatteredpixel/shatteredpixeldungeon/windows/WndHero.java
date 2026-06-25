@@ -225,15 +225,15 @@ public class WndHero extends WndTabbed {
 
 			if(!hero.符文("黑幕")){
 					if(hero.主属性("力量")){
-						statSlot("主要属性:_力量_",kw2(hero.力量()));
+						statSlot("主属性:_力量_",kw2(hero.力量()));
 						statSlot("敏捷/魔力",kw2(hero.敏捷())+"/"+kw2(hero.魔力()));
 					}
 					if(hero.主属性("敏捷")){
-						statSlot("主要属性:_敏捷_",kw2(hero.敏捷()));
+						statSlot("主属性:_敏捷_",kw2(hero.敏捷()));
 						statSlot("力量/魔力",kw2(hero.力量())+"/"+kw2(hero.魔力()));
 					}
 					if(hero.主属性("魔力")){
-						statSlot("主要属性:_魔力_",kw2(hero.魔力()));
+						statSlot("主属性:_魔力_",kw2(hero.魔力()));
 						statSlot("力量/敏捷",kw2(hero.力量())+"/"+kw2(hero.敏捷()));
 					}
 					pos+=GAP;

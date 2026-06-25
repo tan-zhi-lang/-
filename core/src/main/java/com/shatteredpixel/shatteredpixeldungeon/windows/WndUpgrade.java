@@ -175,6 +175,24 @@ public class WndUpgrade extends Window {
 								String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelFrom))) + "-" + String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelFrom))),
 											  String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最小攻击(levelTo))) + "-" + String.format("%.2f",aug.damageFactor(((Weapon) toUpgrade).最大攻击(levelTo))),
 					bottom);
+			if (((Weapon) toUpgrade).upgradeStat1(levelFrom) != null){
+				bottom = fillFields(Messages.get(toUpgrade, "upgrade_stat_name_1"),
+									((Weapon) toUpgrade).upgradeStat1(levelFrom),
+									((Weapon) toUpgrade).upgradeStat1(levelTo),
+									bottom);
+			}
+			if (((Weapon) toUpgrade).upgradeStat2(levelFrom) != null){
+				bottom = fillFields(Messages.get(toUpgrade, "upgrade_stat_name_2"),
+									((Weapon) toUpgrade).upgradeStat2(levelFrom),
+									((Weapon) toUpgrade).upgradeStat2(levelTo),
+									bottom);
+			}
+			if (((Weapon) toUpgrade).upgradeStat3(levelFrom) != null){
+				bottom = fillFields(Messages.get(toUpgrade, "upgrade_stat_name_3"),
+									((Weapon) toUpgrade).upgradeStat3(levelFrom),
+									((Weapon) toUpgrade).upgradeStat3(levelTo),
+									bottom);
+			}
 		}
 		
 //升级武技

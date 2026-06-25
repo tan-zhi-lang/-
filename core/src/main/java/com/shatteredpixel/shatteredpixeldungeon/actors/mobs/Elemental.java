@@ -500,7 +500,7 @@ public abstract class Elemental extends Mob {
 			loot = 充能卷轴.class;
 			lootChance = 1/4f;
 			
-			properties.add( Property.ELECTRIC );
+			properties.add( Property.电);
 		}
 		
 		@Override

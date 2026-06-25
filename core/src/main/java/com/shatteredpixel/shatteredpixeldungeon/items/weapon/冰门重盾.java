@@ -37,6 +37,10 @@ public class 冰门重盾 extends Weapon{
 		return actions;
 	}
 	@Override
+	public int tier(){
+		return Math.min(5,super.tier()+Dungeon.hero.天赋点数(Talent.高阶盾武));
+	}
+	@Override
 	public int 能量() {
 		return 0;
 	}
@@ -50,7 +54,6 @@ public class 冰门重盾 extends Weapon{
 	}
 	@Override
 	public float 最大攻击(int lvl) {
-		tier=1+Dungeon.hero.天赋点数(Talent.高阶盾武);
 		命中=1+Dungeon.hero.天赋点数(Talent.用盾诀窍,0.075f);
 		吸血=Dungeon.hero.天赋点数(Talent.用盾诀窍,0.03f);
 		return  Math.round(super.最大攻击(lvl)*(1+Dungeon.hero.天赋点数(Talent.冰门高攻,0.5f)));

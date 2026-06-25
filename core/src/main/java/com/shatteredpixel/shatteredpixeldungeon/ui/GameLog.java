@@ -33,103 +33,122 @@ public class GameLog extends Component implements Signal.Listener<String> {
 	
 	@Override
 	public synchronized void update() {
+		try{
+			synchronized(textsToAdd){
+				if(!textsToAdd.isEmpty()){
+					int maxLines=SPDSettings.interfaceSize()>0?
+							5:
+							3;//提示文本行
+					maxLines*=2;
+					for(String text: textsToAdd){
+						if(length!=entries.size()){
+							clear();
+							recreateLines();
+						}
 
-		synchronized (textsToAdd){
-			if (!textsToAdd.isEmpty()){
-				int maxLines = SPDSettings.interfaceSize() > 0 ? 5 : 3;//提示文本行
-				maxLines*=2;
-				for (String text : textsToAdd){
-					if (length != entries.size()){
-						clear();
-						recreateLines();
-					}
+						if(text.equals(GLog.NEW_LINE)){
+							lastEntry=null;
+							continue;
+						}
 
-					if (text.equals( GLog.NEW_LINE )){
-						lastEntry = null;
-						continue;
-					}
+						int color=0x00FF00;
+						if(text.startsWith(GLog.绿色)){
+							text=text.substring(GLog.绿色.length());
+							color=0x00FF00;
+						}else
+							if(text.startsWith(GLog.红色)){
+								text=text.substring(GLog.红色.length());
+								color=0xFF4444;
+							}else
+								if(text.startsWith(GLog.橙色)){
+									text=text.substring(GLog.橙色.length());
+									color=0xFF8800;
+								}else
+									if(text.startsWith(GLog.黄色)){
+										text=text.substring(GLog.黄色.length());
+										color=0xFFFF00;
+									}else
+										if(text.startsWith(GLog.蓝色)){
+											text=text.substring(GLog.蓝色.length());
+											color=0x3399FF;
+										}else
+											if(text.startsWith(GLog.粉色)){
+												text=text.substring(GLog.粉色.length());
+												color=0xFF4488;
+											}else
+												if(text.startsWith(GLog.紫色)){
+													text=text.substring(GLog.紫色.length());
+													color=0x8800FF;
+												}else
+													if(text.startsWith(GLog.灰色)){
+														text=text.substring(GLog.灰色.length());
+														color=0x999999;
+													}else
+														if(text.startsWith(GLog.黑色)){
+															text=text.substring(GLog.黑色.length());
+															color=0x000000;
+														}else
+															if(text.startsWith(GLog.棕色)){
+																text=text.substring(GLog.棕色.length());
+																color=0x8F4E35;
+															}else
+																if(text.startsWith(GLog.青色)){
+																	text=text.substring(GLog.青色.length());
+																	color=0xb2f2ff;
+																}else
+																	if(text.startsWith(GLog.靛色)){
+																		text=text.substring(GLog.靛色.length());
+																		color=0x2c0d49;
+																	}
 
-					int color = 0x00FF00;
-					if (text.startsWith( GLog.绿色)) {
-						text = text.substring( GLog.绿色.length());
-						color = 0x00FF00;
-					} else if (text.startsWith( GLog.红色)) {
-						text = text.substring( GLog.红色.length());
-						color = 0xFF4444;
-					} else if (text.startsWith( GLog.橙色)) {
-						text = text.substring( GLog.橙色.length());
-						color = 0xFF8800;
-					} else if (text.startsWith( GLog.黄色)) {
-						text = text.substring( GLog.黄色.length());
-						color = 0xFFFF00;
-					} else if (text.startsWith( GLog.蓝色)) {
-						text = text.substring( GLog.蓝色.length());
-						color = 0x3399FF;
-					} else if (text.startsWith( GLog.粉色)) {
-						text = text.substring( GLog.粉色.length());
-						color = 0xFF4488;
-					} else if (text.startsWith( GLog.紫色)) {
-						text = text.substring( GLog.紫色.length());
-						color = 0x8800FF;
-					} else if (text.startsWith( GLog.灰色)) {
-						text = text.substring( GLog.灰色.length());
-						color = 0x999999;
-					} else if (text.startsWith( GLog.黑色)) {
-						text = text.substring( GLog.黑色.length());
-						color = 0x000000;
-					} else if (text.startsWith( GLog.棕色)) {
-						text = text.substring( GLog.棕色.length());
-						color = 0x8F4E35;
-					} else if (text.startsWith( GLog.青色)) {
-						text = text.substring( GLog.青色.length());
-						color = 0xb2f2ff;
-					} else if (text.startsWith( GLog.靛色)) {
-						text = text.substring( GLog.靛色.length());
-						color = 0x2c0d49;
-					}
+						if(lastEntry!=null&&color==lastColor&&lastEntry.nLines<maxLines){
 
-					if (lastEntry != null && color == lastColor && lastEntry.nLines < maxLines) {
+							String lastMessage=lastEntry.text();
+							lastEntry.text(lastMessage.length()==0?
+												   text:
+												   lastMessage+" "+text);
+							lastEntry.hardlight(color);//修复
+							entries.get(entries.size()-1).text=lastEntry.text();
+							//						entries.get( entries.size() - 1 ).color = color;//修复
 
-						String lastMessage = lastEntry.text();
-						lastEntry.text( lastMessage.length() == 0 ? text : lastMessage + " " + text );
-						lastEntry.hardlight( color );//修复
-						entries.get( entries.size() - 1 ).text = lastEntry.text();
-//						entries.get( entries.size() - 1 ).color = color;//修复
+						}else{
+							lastEntry=PixelScene.renderTextBlock(text,6);
+							lastEntry.hardlight(color);
+							lastColor=color;
+							add(lastEntry);
 
-					} else {
-						lastEntry = PixelScene.renderTextBlock( text, 6 );
-						lastEntry.hardlight( color );
-						lastColor = color;
-						add( lastEntry );
+							entries.add(new Entry(text,color));
+						}
 
-						entries.add( new Entry( text, color ) );
-					}
+						if(length>0){
+							int nLines;
+							do
+							{
+								nLines=0;
+								for(int i=0;i<length-1;i++){
+									nLines+=((RenderedTextBlock)members.get(i)).nLines;
+								}
 
-					if (length > 0) {
-						int nLines;
-						do {
-							nLines = 0;
-							for (int i = 0; i < length-1; i++) {
-								nLines += ((RenderedTextBlock) members.get(i)).nLines;
+								if(nLines>maxLines){
+									RenderedTextBlock r=((RenderedTextBlock)members.get(0));
+									remove(r);
+									r.destroy();
+
+									entries.remove(0);
+								}
+							}while(nLines>maxLines);
+							if(entries.isEmpty()){
+								lastEntry=null;
 							}
-
-							if (nLines > maxLines) {
-								RenderedTextBlock r = ((RenderedTextBlock) members.get(0));
-								remove(r);
-								r.destroy();
-
-								entries.remove( 0 );
-							}
-						} while (nLines > maxLines);
-						if (entries.isEmpty()) {
-							lastEntry = null;
 						}
 					}
-				}
 
-				layout();
-				textsToAdd.clear();
+					layout();
+					textsToAdd.clear();
+				}
 			}
+		}catch(Exception e){
+			//新手教程会出现崩溃
 		}
 		super.update();
 	}

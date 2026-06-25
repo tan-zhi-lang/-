@@ -34,15 +34,18 @@ public class 火焰剑 extends Weapon{
 		if(defender!=null&&defender.hasbuff(灵焰.class)){
 			x+=add;
 		}
-		Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
-		if (fire != null && fire.volume > 0) {
-			x+=add*fire.volume;
+		if(Dungeon.level!=null&&Dungeon.level.blobs!=null){
+			Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
+			if (fire != null && fire.volume > 0)
+			x+=add*fire.volume/2f;
 		}
-		
-		MagicalFireRoom.EternalFire eternalFire = (MagicalFireRoom.EternalFire)Dungeon.level.blobs.get(MagicalFireRoom.EternalFire.class);
-		if (eternalFire != null && eternalFire.volume > 0) {
-			x+=add*eternalFire.volume;
+		if(Dungeon.level!=null&&Dungeon.level.blobs!=null){
+			MagicalFireRoom.EternalFire eternalFire = (MagicalFireRoom.EternalFire)Dungeon.level.blobs.get(MagicalFireRoom.EternalFire.class);
+			if (eternalFire != null && eternalFire.volume > 0) {
+				x+=add*eternalFire.volume/2f;
+			}
 		}
+
 		
 		damage*=x;
 		return super.攻击时( attacker, defender, damage );

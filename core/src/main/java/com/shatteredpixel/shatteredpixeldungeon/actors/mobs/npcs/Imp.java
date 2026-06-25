@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.AmbitiousImpRoom;
@@ -245,7 +245,7 @@ public class Imp extends NPC {
 
 			Statistics.questScores[3] = 4000;
 			Notes.remove( Notes.Landmark.IMP );
-			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典(true).放背包();
+			if(Dungeon.符文("海克斯获取:任务"))new 海克斯秘卷(true).放背包();
 		}
 		
 		public static boolean isCompleted() {

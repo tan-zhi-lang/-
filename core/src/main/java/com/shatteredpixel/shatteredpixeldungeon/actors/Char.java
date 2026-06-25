@@ -101,12 +101,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
@@ -116,8 +118,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
@@ -829,9 +833,6 @@ public abstract class Char extends Actor {
 	public int 最小命中(Char target ) {
 		return 0;
 	}
-	public float 增加命中() {
-		return 1;
-	}
 	
 	public int 最大命中(Char target ) {
 		return 0;
@@ -843,9 +844,6 @@ public abstract class Char extends Actor {
 	
 	public int 最大闪避(Char enemy ) {
 		return 0;
-	}
-	public float 增加闪避() {
-		return 1;
 	}
 	
 	public String defenseVerb() {
@@ -915,14 +913,14 @@ public abstract class Char extends Actor {
 				Buff.detach(this,必定暴击.class);
 				x次必暴=0;
 				if(sprite!=null){
-					sprite.说("暴击！");
+					sprite.绿说("暴击！");
 					sprite.歪嘴();
 				}
 			}else{
 				x次必暴++;
 				if(暴击率()!=0&&x次必暴>=600/暴击率()){
 					Buff.施加(this,必定暴击.class);
-					sprite.说("手感火热！");
+					sprite.绿说("手感火热！");
 				}
 			}
 		}
@@ -1081,17 +1079,101 @@ public abstract class Char extends Actor {
 		needsShieldUpdate = false;
 		return cachedShield;
 	}
+	public float 元素反应(Object src,float d){
+
+		if(!Dungeon.赛季(赛季设置.元素反应))return 1;
+		if(sprite==null)return 1;
+
+		if(火焰伤害(src)&&冰霜伤害(src)){
+			sprite.蓝说("融化");//融化
+			new Bomb().heroexplode(pos);
+			return 1+1.5f;
+		}
+		if(冰霜伤害(src)&&火焰伤害(src)){
+			sprite.橙说("蒸发");//蒸发
+			return 1+1.5f;
+		}
+		if(火焰伤害(src)&&电伤害(src)){
+			sprite.紫说("超载");//超载
+			return 1+2.75f;
+		}
+		if(在水中()&&电伤害(src)){
+			sprite.紫说("超导");//超导
+			Buff.施加(this,Vulnerable.class,5);
+			return 1+1.5f;
+		}
+		if(在水中()&&冰霜伤害(src)){
+			sprite.青说("冻结");//冻结
+			算法.修复效果(()->{
+				Buff.施加(this,Frost.class,Frost.DURATION);
+			});
+		}
+		if(hasbuff(Frost.class)&&土伤害(src)){
+			sprite.棕说("碎冰");//碎冰
+			Buff.detach(this,Frost.class);
+			return 1+3;
+		}
+		if(电伤害(src)&&在水中()){
+			sprite.紫说("感电");//感电
+			new StoneOfShock().activate(pos);
+			return 1+2;
+		}
+		if(风伤害(src)&&(火焰伤害(src)||在水中()||电伤害(src)||冰霜伤害(src))){
+			sprite.白说("扩散");//扩散
+			return 1+0.6f;
+		}
+		if(木伤害(src)&&火焰伤害(src)){
+			sprite.橙说("燃烧");//燃烧
+			Buff.施加( this, 燃烧.class ).reignite( this );
+
+			return 1+0.25f;
+		}
+		if(木伤害(src)&&火焰伤害(src)){
+			sprite.绿说("绽放");//绽放
+			new Bomb().heroexplode(pos);
+
+			return 1+2;
+		}
+		return 1;
+	}
 	public boolean 火焰伤害(Object src){
-		return Property.FIERY.immunities().contains(src)||Property.FIERY.resistances().contains(src);
+		return Property.FIERY.immunities().contains(src)||
+			   Property.FIERY.resistances().contains(src)||
+			   hasbuff(燃烧.class)||
+			   hasbuff(火毒.class)||
+			   hasbuff(灵焰.class);
 	}
 	public boolean 冰霜伤害(Object src){
-		return Property.ICY.immunities().contains(src)||Property.ICY.resistances().contains(src);
+		return Property.ICY.immunities().contains(src)||
+			   Property.ICY.resistances().contains(src)||
+			   hasbuff(Chill.class)||
+			   hasbuff(Frost.class);
 	}
 	public boolean 酸性伤害(Object src){
-		return Property.ACIDIC.immunities().contains(src)||Property.ACIDIC.resistances().contains(src);
+		return Property.ACIDIC.immunities().contains(src)||
+			   Property.ACIDIC.resistances().contains(src);
 	}
 	public boolean 无机伤害(Object src){
-		return Property.INORGANIC.immunities().contains(src)||Property.INORGANIC.resistances().contains(src);
+		return Property.INORGANIC.immunities().contains(src)||
+			   Property.INORGANIC.resistances().contains(src);
+	}
+
+	public boolean 土伤害(Object src){
+		return src instanceof WandOfLivingEarth||在地板();
+	}
+	public boolean 木伤害(Object src){
+		return src instanceof WandOfRegrowth||在木板()||在草丛();
+		//||
+		//			   hasbuff(Earthroot.Armor.class)||
+		//			   hasbuff(Barkskin.class)
+	}
+	public boolean 风伤害(Object src){
+		return src instanceof WandOfBlastWave||hasbuff(Vertigo.class);
+	}
+	public boolean 电伤害(Object src){
+		return Property.电.immunities().contains(src)||
+			   Property.电.resistances().contains(src)||
+			   hasbuff(Paralysis.class);
 	}
 
 	public float 最小魔抗(){
@@ -1174,6 +1256,8 @@ public abstract class Char extends Actor {
 			}
 		}
 
+
+		元素反应(来源,dmg);
 
 		if(火焰伤害(来源))
 			dmg*=d火焰();
@@ -1844,7 +1928,7 @@ public abstract class Char extends Actor {
 																							  燃烧.class, Blazing.class))),
 		光明( new HashSet<Class>(),
 			  new HashSet<Class>( Arrays.asList(WandOfPrismaticLight.class,棱镜法杖.class) ),new HashSet<Class>()),
-		机械,
+
 		INORGANIC ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(流血.class, ToxicGas.class, Poison.class) ),new HashSet<Class>()),
 		FIERY ( new HashSet<Class>( Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class)),
@@ -1858,16 +1942,20 @@ public abstract class Char extends Actor {
 		ACIDIC ( new HashSet<Class>( Arrays.asList(Corrosion.class)),
 				new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
 																								燃烧.class, Blazing.class))),
-		ELECTRIC ( new HashSet<Class>( Arrays.asList(WandOfLightning.class, Shocking.class, Potential.class,
-										Electricity.class, ShockingDart.class, Elemental.ShockElemental.class )),new HashSet<Class>(),
-				new HashSet<Class>()),
+		//ELECTRIC
+		电(new HashSet<Class>(Arrays.asList(WandOfLightning.class,潮霆法杖.class,Shocking.class,Potential.class,
+											Electricity.class,ShockingDart.class,Elemental.ShockElemental.class)),new HashSet<Class>(),
+		   new HashSet<Class>()),
 		LARGE,
 		IMMOVABLE ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(Vertigo.class) ),new HashSet<Class>()),
 		//A character that acts in an unchanging manner. immune to AI state debuffs or stuns/slows
 		STATIC( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class, Terror.class, Amok.class, Charm.class, Sleep.class,
-									Paralysis.class, Frost.class, Chill.class, Slow.class, Speed.class) ),new HashSet<Class>());
+									Paralysis.class, Frost.class, Chill.class, Slow.class, Speed.class) ),new HashSet<Class>())
+		,机械( new HashSet<Class>(电.resistances),
+			 new HashSet<Class>(电.immunities),new HashSet<Class>(电.害怕)),
+		;
 
 		private HashSet<Class> resistances;
 		private HashSet<Class> immunities;
@@ -2153,6 +2241,11 @@ public abstract class Char extends Actor {
 	public boolean 在地板(){
 		if(Dungeon.level==null)return false;
 		else
+		return Dungeon.level.map[pos] == Terrain.EMPTY||Dungeon.level.map[pos] == Terrain.EMPTY_DECO;
+	}
+	public boolean 在木板(){
+		if(Dungeon.level==null)return false;
+		else
 		return Dungeon.level.map[pos] == Terrain.EMPTY_SP;
 	}
 	public boolean 在陷阱(){
@@ -2340,7 +2433,7 @@ public abstract class Char extends Actor {
 		return properties().contains(Property.ACIDIC);
 	}
 	public boolean 闪电(){
-		return properties().contains(Property.ELECTRIC);
+		return properties().contains(Property.电);
 	}
 	public boolean 低活动度生物(){
 		return properties().contains(Property.STATIC);

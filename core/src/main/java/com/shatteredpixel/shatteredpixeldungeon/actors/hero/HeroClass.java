@@ -20,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
+import com.shatteredpixel.shatteredpixeldungeon.actors.无法回头;
 import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -123,7 +124,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯移除器;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
@@ -258,7 +259,7 @@ public enum HeroClass{
 			钢门.放背包();
 		}
 		if(Dungeon.派对(派对设置.海克斯)){
-			new 海克斯宝典(true).放背包();
+			new 海克斯秘卷(true).放背包();
 			new 海克斯移除器().放背包();
 		}
 
@@ -269,6 +270,8 @@ public enum HeroClass{
 			Buff.施加(hero,食物栏.class);
 			Buff.施加(hero,药剂栏.class);
 		}
+//			Buff.施加(hero,无法回头.class);
+
 		if(算法.isDebug()){
 
 			new PotionBandolier().放背包();

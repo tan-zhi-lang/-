@@ -116,6 +116,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.动力之靴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.妖精粉尘;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
@@ -708,7 +709,8 @@ public class Generator {
 					圣金之沙.class,
 					精神支柱.class,
 					虚无透纱.class,
-					
+					动力之靴.class,
+
 					幸运硬币.class,
 					磨刀石.class,
 					角斗链枷.class,
@@ -737,7 +739,7 @@ public class Generator {
 												1,1,
 												1,1,1,1,
 												0,0,0,
-												1,1,1,
+												1,1,1,1,
 												1,1,1,1,
 												1,1,1,1,
 												1,1,1,0,

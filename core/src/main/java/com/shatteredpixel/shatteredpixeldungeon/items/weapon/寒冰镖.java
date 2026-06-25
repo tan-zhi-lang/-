@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Image;
 
 public class 寒冰镖 extends Weapon{
@@ -36,7 +37,9 @@ public class 寒冰镖 extends Weapon{
 	@Override
 	public float 投掷攻击时(Char attacker,Char defender,float damage){
 		if (defender!=null&&attacker.buff(ShurikenInstantTracker.class) == null)
-		Buff.施加(defender,Frost.class,Frost.DURATION);
+		算法.修复效果(()->{
+			Buff.施加(defender,Frost.class,Frost.DURATION);
+		});
 		return super.投掷攻击时(attacker,defender,damage);
 	}
 	

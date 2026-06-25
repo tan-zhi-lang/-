@@ -5,10 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 骸骨左轮 extends Trinket {
+public class 动力之靴 extends Trinket {
 
 	{
-		image = 物品表.骸骨左轮;
+		image = 物品表.动力之靴;
 	}
 
 	@Override
@@ -21,39 +21,39 @@ public class 骸骨左轮 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								伤害()*100,
-								减少()*100
+								增加(),
+								减少()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 
-								伤害(0)*100,
-								减少(0)*100
+								增加(0),
+								减少(0)
 							   );
 		}
 	}
 
-	public static float 伤害(){
-		return 伤害(trinketLevel(骸骨左轮.class));
+	public static float 增加(){
+		return 增加(trinketLevel(动力之靴.class));
 	}
 
-	public static float 伤害(int level){
+	public static float 增加(int level){
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.04f+0.02f*level;
+			return 2.5f+2.5f*level;
 		}
 	}
 
 	public static float 减少(){
-		return 减少(trinketLevel(骸骨左轮.class));
+		return 减少(trinketLevel(动力之靴.class));
 	}
 
 	public static float 减少(int level){
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.04f-0.01f*level;
+			return -1-0.5f*level;
 		}
 	}
 

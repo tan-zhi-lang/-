@@ -111,7 +111,7 @@ public class Thief extends Mob {
 		if (alignment == Alignment.ENEMY && item == null
 				&& enemy instanceof Hero && steal( (Hero)enemy )) {
 			state = FLEEING;
-			sprite.说("拿来吧你！");
+			sprite.绿说("拿来吧你！");
 		}
 
 		return damage;

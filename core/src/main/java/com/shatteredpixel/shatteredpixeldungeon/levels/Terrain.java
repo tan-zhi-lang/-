@@ -39,7 +39,7 @@ public class Terrain {
 
 	public static final int CUSTOM_DECO_EMPTY = 32; //regular empty tile that can't be overridden, used for custom visuals mainly
 	//solid environment decorations
-	public static final int CUSTOM_DECO	    = 23; //invisible decoration that will also be a custom visual, re-uses the old terrain ID for signs
+	public static final int CUSTOM_DECO	    = 23;//王座 //invisible decoration that will also be a custom visual, re-uses the old terrain ID for signs
 	public static final int STATUE			= 25;//雕像
 	public static final int STATUE_SP		= 26;
 	//These decorations are environment-specific

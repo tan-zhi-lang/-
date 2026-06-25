@@ -15,17 +15,18 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -128,7 +129,9 @@ public class Bomb extends Item {
 			fuse.snuff();
 			this.fuse = null;
 		}
+		if(Dungeon.符文("寸止"))Dungeon.hero.寸止+=0.3f;
 		if(Dungeon.符文("炸弹狂人"))new Bomb().放背包();
+		if(Dungeon.符文("毁灭高潮"))new LiquidMetal().数量(15).放背包();
 
 		if(Dungeon.符文("王者之翼手雷"))
 		Sample.INSTANCE.play( Assets.Sounds.王翼雷 );
@@ -188,6 +191,7 @@ public class Bomb extends Item {
 				dmg*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
 				dmg*=2;
 				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
+				dmg*=Dungeon.hero.寸止;
 
 				dmg=ch.防御(dmg);
 				dmg=ch.护甲伤害(dmg);
@@ -213,6 +217,8 @@ public class Bomb extends Item {
 	public void heroexplode(int cell){//不破坏物品和不伤害英雄
 
 		if(Dungeon.符文("核聚变"))Dungeon.hero.回满血();
+		if(Dungeon.符文("寸止"))Dungeon.hero.寸止+=0.3f;
+		if(Dungeon.符文("毁灭高潮"))new LiquidMetal().数量(15).放背包();
 		//We're blowing up, so no need for a fuse anymore.
 		this.fuse = null;
 
@@ -265,6 +271,7 @@ public class Bomb extends Item {
 				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
 				dmg*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
 				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
+				dmg*=Dungeon.hero.寸止;
 
 				dmg=ch.防御(dmg);
 				dmg=ch.护甲伤害(dmg);

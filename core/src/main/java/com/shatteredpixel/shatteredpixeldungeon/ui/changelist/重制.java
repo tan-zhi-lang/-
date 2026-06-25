@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.动力之靴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.妖精粉尘;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
@@ -159,6 +160,9 @@ public class 重制 {
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.MASTERY), "进阶宝典",
 										   "_-_ 2层+2天赋点，3层+3天赋点，+4最大护甲。\n" +
 										   "_-_ 3区域第3层必定生成一个。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.血药), "血药",
+										   "_-_ 给买不起治疗药剂的玩家提供选择。"
+		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.自残绳), "自残绳",
 										   "_-_ 用于玩家快速压制血量。"
 		));
@@ -252,6 +256,8 @@ public class 重制 {
 										   new 圣金之沙().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.妖精粉尘), "妖精粉尘",
 										   new 妖精粉尘().statsDesc()));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.动力之靴),"动力之靴",
+										   new 动力之靴().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(重力场球),"重力场球",
 										   new 重力场球().statsDesc()));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.水晶碎块), "水晶碎块",
@@ -464,16 +470,16 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new 骷髅战士动画(),"骷髅战士",
 											"_-_ 新增骷髅的变异体。\n" +
 											"_-_ 死亡掉落单手剑、长剑、巨剑任意一个。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "罕见附魔",
-		"传说\n" +
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "附魔",
+		"罕见传说\n" +
 		"_-_ 获得30%强化等级。"));
 //		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0x666666 )), "诅咒附魔",
 //		"血祭\n" +
 //		"_-_ 攻击损失2%生命，并根据已损失生命造成额外伤害。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x666666 )), "诅咒刻印",
-		"虐待\n" +
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x666666 )), "刻印",
+		"诅咒虐待\n" +
 		"_-_ 受到的物理伤害x4.5，如果没有死亡，则恢复受到的伤害。\n\n"+
-		"焦灼\n" +
+		"诅咒焦灼\n" +
 		"_-_ 防御过程1/8的概率产生火团。"));
 		
 		changes.addButton( new ChangeButton(Icons.CALENDAR.get(), "日历",
@@ -577,7 +583,7 @@ public class 重制 {
 										   "_-_ 取消物品还需要经验的鉴定，戒指是每装备1回合鉴定1/45次。",
 
 										   "神射之戒=>神兵之戒\n" +
-										   "_-_ 增加投掷武器的等级=>装备的武器的等级增加" +
+										   "_-_ 增加投掷武器的等级=>装备的武器的0.75x等级增加" +
 										   "奥术之戒\n" +
 										   "_-_ 1.175=>1+21025x(魔力-10)，每级不再提升附魔和刻印效果，而是+10魔力。\n\n"+
 										   "根骨之戒\n" +
@@ -594,7 +600,7 @@ public class 重制 {
 										   "_-_ 1.2=>1.236。\n"+
 										   "_-_ 现在自身的掉落机制会同时x怪物自身的掉率(最小为1)。\n"+
 										   "_-_ 英雄自带1级。\n"+
-										   "_-_ 暴击率+6%+6%x等级。",
+										   "_-_ 暴击率+2%+2%x等级。",
 										   
 										   "能量之戒\n" +
 										   "_-_ 1.2=>1.1845。\n\n"+
@@ -699,13 +705,17 @@ public class 重制 {
 		));
 		//endregion
 
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "罕见附魔",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "附魔",
 										   "死神\n" +
-										   "_-_ 根据已损失生命的次方=>根据已损失生命。"));
+										   "_-_ 根据已损失生命的次方=>根据已损失生命。\n"+
+										   "喧闹\n"+
+										   "_-_ 文本添加更多，并且随机说话的性格。\n" +
+										   "_-_ 吸引敌人1/20=>1/10，以及一个额外效果，根据性格而定。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "武器",
 										   "_-_ 装备和卸下时间1=>攻击延迟\n" +
 										   "_-_ 5阶都是特别物品\n" +
 										   "_-_ 武器战技重做\n" +
+										   "_-_ 攻击成长减半，最小攻击为1\n" +
 										   "_-_ 双手武器的命中仅80%\n" +
 										   "_-_ 匕首、短剑、镖15%伏击伤害，特定武器30%\n" +
 										   "_-_ 非钝器拥有15%流血伤害，特定武器30%\n" +
@@ -726,7 +736,7 @@ public class 重制 {
 
 
 
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x666666 )), "诅咒刻印",
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x666666 )), "刻印",
 										   "恶臭\n" +
 										   "_-_ 释放的毒气元素能受到奥术之戒的效果。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "防具",
@@ -767,7 +777,7 @@ public class 重制 {
 											"_-_ 炼金菱晶商店不卖。\n" +
 											"_-_ 1区域1层也有商店，卖1阶武器和防具。",
 
-											"_-_ 不再随机药剂和卷轴必卖净化药剂、极速药剂、隐形药剂和嬗变卷轴，两张鉴定卷轴和治疗药剂。\n" +
+											"_-_ 不再随机药剂和卷轴必卖净化药剂、极速药剂、隐形药剂和嬗变卷轴，鉴定卷轴和感知符石、治疗药剂和血药。\n" +
 											"_-_ 不能出售正在装备的物品。\n" +
 											"_-_ 非战士在第一个商店会卖水袋。\n" +
 											"_-_ 出售的戒指、法杖和神器现在是鉴定的。\n" +
@@ -813,7 +823,7 @@ public class 重制 {
 											"_-_ 新增怪物都拥有一套新的判定，害怕，受到害怕元素的伤害x2倍。\n"+
 											"_-_ 新增火焰属性的生物受到寒冰伤害x2倍。\n"+
 											"_-_ 新增动物属性的生物受到流血、中毒、毒气、酸性、火焰和寒冰伤害x2倍。\n"+
-											"_-_ 新增暴击率和暴击伤害，默认6%暴击率，和145%暴击伤害，超过的暴击率33%转暴击伤害。如果不是百分比暴击，首次攻击必定不暴击，且600/暴击率次攻击未暴击则下次必定暴击，暴击后重置。\n"+
+											"_-_ 新增6%暴击率和145%暴击伤害，超过的暴击率33%转暴击伤害。如果不是百分比暴击，首次攻击必定不暴击，且600/暴击率次攻击未暴击则下次必定暴击，暴击后重置。\n"+
 
 											"_-_ 魔法绵羊交互有彩蛋，还能获得经验。"));
 		
@@ -855,9 +865,9 @@ public class 重制 {
 											
 											"英雄属性1\n\n" +
 											"_-_ 武器、法杖、神器充能速度-100%。\n"+
-											"_-_ 治疗护盾-80%。\n"+
-											"_-_ 每个英雄有自己的主要属性，总属性+15%。\n"+
-											"_-_ 力量，4%治疗护盾，0.2%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
+											"_-_ 治疗护盾-10%。\n"+
+											"_-_ 每个英雄有自己的主属性，最大攻击+主属性-10。\n"+
+											"_-_ 力量，1%治疗护盾，0.5%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
 
 											"新增敏捷\n\n"+
 											"_-_ 初始是10+0.4x升级等级(满级额外+0.4)，0.5最大护甲，影响命中、攻速、闪避、移速\n"+
@@ -867,13 +877,13 @@ public class 重制 {
 											"_-_ 空手加成：命中√(力量-10)×0.1%x敏捷，攻速√(力量-10)×0.05%x敏捷",
 											
 											"_-_ 新增魔力，初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度5%，0.2最大魔抗。\n"+
-											"_-_ 生命、护甲、力量、敏捷、魔力属性最低为0.01。\n"+
+											"_-_ 生命、护甲、力量、敏捷、魔力属性最低为0.01，生命和护甲最大10_0000_000。\n"+
 											"_-_ 最大生命值20+5x升级等级=>10+1.625x等级(满级额外+1)。\n"+
 											"_-_ 升级+最大命中和最大闪避=>最大命中和最大闪避+等级-1(满级额外+1)，最大等级-5。\n" ,
 
 											"英雄属性2\n\n" +
 											"_-_ 女性英雄大小-0.1，男性则+0.1。\n"+
-											"_-_ 升级不在恢复升级所提升的生命。\n"+
+											"_-_ 提升最大生命时，不再恢复所提升的生命，并且在最大生命减少时也不会损失生命。\n"+
 											"_-_ 再生恢复的生命值为延迟值=>1，恢复值1=>√最大生命/100+0.1f，提升恢复速度是提升恢复值。\n"+
 											"_-_ 根据饥饿值，最多+15%再生速度，以及根据饱腹状态做多再生速度+15%。\n"+
 											"_-_ 空手攻速1=>2。\n" +
@@ -999,10 +1009,10 @@ public class 重制 {
 		changes.addButton( new ChangeButton(new SnakeSprite(),"下水道巨蛇","_-_ 最小和最大攻击+2，攻速x2，最大生命+6，最大防御+1，最大闪避25=>5，最大等级7=>8，并且替换二层豺狼巡查。"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
-										   "_-_ 诅咒升级提升1+英雄等级/30~2+英雄等级/15=>1+等级/10~2+等级/5)。\n" +
-										   "_-_ 最小伤害等级/5=>等级/7.5，最大伤害等级/2.5=>等级/3.4。\n" +
-										   "_-_ 射击变成75%为魔法伤害。\n" +
-										   "_-_ 可以升级了，且也能吃到强化等级，还能吃到10%魔力的等级。\n" +
+										   "_-_ 诅咒升级提升1+英雄等级/30~2+英雄等级/15=>标准武器诅咒等级提升。\n" +
+										   "_-_ 最小射击伤害1+等级/5=>1+等级/2*0.6f，最大射击伤害6+等级/2.5=>6+等级*0.6f。\n" +
+										   "_-_ 射击伤害其中75%为魔法伤害。\n" +
+										   "_-_ 可以升级了，且也能吃到强化等级，等级+20%英雄等级+10%魔力。\n" +
 										   "_-_ 灵能短弓箭矢能触发部分东西。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.AMULET), "Yendor护符",
 										   new 真正护符().statsDesc()));

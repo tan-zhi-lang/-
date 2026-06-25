@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
+
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -53,6 +55,8 @@ public abstract class 法术{
 		Invisibility.notimedispel();
 		tome.spendCharge(chargeUse(hero));
 		Talent.onArtifactUsed(hero);
+		updateQuickslot();
+		hero.施法();
 	}
 	public static ArrayList<法术> getSpellList(Hero cleric,int tier){
 		ArrayList<法术> spells = new ArrayList<>();

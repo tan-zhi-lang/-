@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.quest.BlacksmithRoom;
@@ -465,7 +465,7 @@ public class Blacksmith extends NPC {
 			if (favor >= 2500){
 				freePickaxe = true;
 			}
-			if(Dungeon.符文("海克斯获取:任务"))new 海克斯宝典(true).放背包();
+			if(Dungeon.符文("海克斯获取:任务"))new 海克斯秘卷(true).放背包();
 		}
 
 		public static boolean rewardsAvailable(){

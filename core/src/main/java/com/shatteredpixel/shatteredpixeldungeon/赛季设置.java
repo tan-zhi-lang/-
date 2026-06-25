@@ -8,8 +8,8 @@ public class 赛季设置{
 	public static final int 升级概率				= 1;
 	public static final int 地牢塔防= 2;
 public static final int 鬼怨地牢				= 4;
-	public static final int 从零英雄				= 8;
-	public static final int 回廊传说= 16;
+	public static final int 元素反应				= 8;
+	public static final int 开团秒跟= 16;
 	public static final int 刷子地牢			= 32;
 	public static final int 危险重重		    = 64;
 		public static final int 生化模式 	= 128;
@@ -21,8 +21,8 @@ public static final int 鬼怨地牢				= 4;
 			"升级概率",
 			"地牢塔防",
 			"鬼怨地牢",
-			"从零英雄",
-			"回廊传说",
+			"元素反应",
+			"开团秒跟",
 			"刷子地牢",
 			"危险重重",
 			"生化模式",
@@ -33,8 +33,8 @@ public static final int 鬼怨地牢				= 4;
 			升级概率,
 			地牢塔防,
 			鬼怨地牢,
-			从零英雄,
-			回廊传说,
+			元素反应,
+			开团秒跟,
 			刷子地牢,
 			危险重重,
 			生化模式,

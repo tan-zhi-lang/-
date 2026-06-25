@@ -58,7 +58,7 @@ public class 治疗药剂 extends Potion {
 
 	public static void pharmacophobiaProc( Hero hero ){
 		// harms the hero for ~40% of their max HP in poison
-		Buff.施加( hero, Poison.class).set(4 + hero.等级/2);
+		Buff.施加( hero, Poison.class).set(4 + hero.等级/2f);
 	}
 	
 	public static void cure( Char ch ) {

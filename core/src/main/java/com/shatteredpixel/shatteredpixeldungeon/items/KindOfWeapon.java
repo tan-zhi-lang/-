@@ -134,6 +134,18 @@ abstract public class KindOfWeapon extends EquipableItem {
 		float 伏击=this.伏击;
 		return 伏击;
 	}
+
+	public String upgradeStat1(int level){
+		return null;
+	}
+
+	public String upgradeStat2(int level){
+		return null;
+	}
+
+	public String upgradeStat3(int level){
+		return null;
+	}
 	public boolean 伤害随攻速= false;
 	public boolean 命中随攻速= false;
 	public boolean 拳套(){//0.5

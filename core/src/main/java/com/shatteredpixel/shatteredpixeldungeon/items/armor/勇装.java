@@ -21,7 +21,7 @@ public class 勇装 extends Armor {
 	
 	@Override
 	public float 力量(int lvl) {
-		float req = 力量(tier, lvl)-2;
+		float req = 力量(tier(), lvl)-2;
 		if(isEquipped(Dungeon.hero)&&Dungeon.hero()){
             req-=Dungeon.hero.护甲力量;
         }

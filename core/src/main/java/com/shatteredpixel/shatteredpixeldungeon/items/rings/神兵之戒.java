@@ -17,14 +17,14 @@ public class 神兵之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					soloBuffedBonus());
+					0.75f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						combinedBuffedBonus(Dungeon.hero));
+						0.75f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 1);
+			return Messages.get(this, "stats", 0.75f);
 		}
 	}
 

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
+
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -50,7 +52,8 @@ public abstract class 巫术 {
 
 	public void onSpellCast(灵月法杖 tome, Hero hero){
 		Invisibility.notimedispel();
-		tome.wandUsed();
+		updateQuickslot();
+		hero.施法();
 	}
 
 	public static ArrayList<巫术> getSpellList(Hero cleric, int tier){

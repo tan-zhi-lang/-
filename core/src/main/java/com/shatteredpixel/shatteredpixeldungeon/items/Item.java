@@ -706,8 +706,11 @@ public class Item implements Bundlable {
 			if(Dungeon.hero()&&Dungeon.hero.种族天赋.equals("矮人")&&Random.Int(1)==0){
 				this.等级++;
 			}
-			if(Dungeon.符文("升级升级")){
+			if(Dungeon.符文("天材地宝")){
 				this.等级++;
+			}
+			if(Dungeon.符文("升级升级")){
+				this.等级+=2;
 			}
 			if(Dungeon.符文("升级升级卷轴:自升")){
 				this.等级+=Dungeon.hero.自升;
@@ -1219,7 +1222,7 @@ public class Item implements Bundlable {
 				if(this instanceof 用品){
 					消耗=true;
 				}
-				if(this instanceof 海克斯宝典){
+				if(this instanceof 海克斯秘卷){
 					消耗=false;
 				}
 				if(消耗){
@@ -1401,6 +1404,7 @@ public class Item implements Bundlable {
 							if (i != null) i.onThrow(cell);
 							if(user.符文("重扔")&&enemy.isAlive())enemy.受伤时(user.力量()/2f,this);
 
+							if(user.符文("王炸"))new Bomb().explode(cell);
 							if(user.符文("这太几把黄了"))
 							if(Item.this instanceof LiquidMetal){
 								if(enemy instanceof Succubus){

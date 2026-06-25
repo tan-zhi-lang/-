@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -48,7 +49,8 @@ public class Wnd选择属性 extends Window {
 			case "护甲穿透"->0.2f;
 			case "法术穿透"->0.2f;
 		};
-
+		if(Dungeon.符文("属性叠属性"))
+			return x;
 		return Random.NormalFloat(x/3f,x);
 	}
 	public String 随机属性(){

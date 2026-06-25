@@ -41,7 +41,7 @@ public class Pylon extends Mob {
 		properties.add(Property.MINIBOSS);
 		properties.add(Property.BOSS_MINION);
 		properties.add(Property.INORGANIC);
-		properties.add(Property.ELECTRIC);
+		properties.add(Property.电);
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.STATIC);
 		properties.add(Property.机械);

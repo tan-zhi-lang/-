@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 
 import java.util.ArrayList;
 
@@ -64,7 +65,7 @@ public class 解压 extends Window {
 				protected void onClick() {
 					super.onClick();
 					ShatteredPixelDungeon.scene().add(
-							new WndMessage(Messages.get(解压设置.class,解压+"_desc"))
+							new WndMessage(Messages.get(解压设置.class,解压)+":\n"+Messages.get(解压设置.class,解压+"_desc"))
 					);
 				}
 			};

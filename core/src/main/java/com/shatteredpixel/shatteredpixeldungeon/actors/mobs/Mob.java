@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
@@ -89,6 +90,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfSirensSong;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
@@ -117,7 +119,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -570,7 +572,8 @@ public abstract class Mob extends Char{
 	}
 
 	protected boolean canAttack(Char enemy){
-		if(Dungeon.level.相邻(pos,enemy.pos)){
+		if(距离(enemy)<=攻击范围()){
+//		if(Dungeon.level.相邻(pos,enemy.pos)){
 			return true;
 		}
 		for(ChampionEnemy buff: buffs(ChampionEnemy.class)){
@@ -1239,8 +1242,8 @@ public abstract class Mob extends Char{
 					if(Dungeon.hero.heroClass(HeroClass.近卫)){
 						Dungeon.hero.回已损失血(0.05f);
 					}
-					if(骸骨左轮.增加()>0){
-						Dungeon.hero.回血(骸骨左轮.增加());
+					if(骸骨左轮.伤害()>0){
+						Dungeon.hero.回血(最大生命(骸骨左轮.伤害())*3);
 					}
 					if(断骨法杖.增加()>0){
 						Dungeon.hero.belongings.charge(断骨法杖.增加());
@@ -1336,7 +1339,7 @@ public abstract class Mob extends Char{
 						new 属性锻造器().放背包();
 					}
 					if(Dungeon.符文("海克斯获取:掉落")&&算法.概率学(1/20f))
-						new 海克斯宝典(true).放背包();
+						new 海克斯秘卷(true).放背包();
 
 					if(Dungeon.符文("心灵净化")){
 						for(int n: PathFinder.相邻){
@@ -1483,7 +1486,16 @@ public abstract class Mob extends Char{
 
 				if(loot!=null){
 					if(loot.可堆叠){
-						loot.数量(loot.数量()+幸运硬币.增加());
+						int x=loot.数量()+幸运硬币.增加();
+						if(Dungeon.符文("加倍")){
+							x*=2;
+							Sample.INSTANCE.play(Assets.Sounds.加倍);
+						}
+						if(Dungeon.符文("超级加倍")){
+							x*=4;
+							Sample.INSTANCE.play(Assets.Sounds.超级加倍);
+						}
+						loot.数量(x);
 						几率*=幸运硬币.减少();
 					}
 					if(Dungeon.符文("绝对爆率")||Random.Float()<lootChance()*几率){
@@ -1674,16 +1686,17 @@ public abstract class Mob extends Char{
 				desc+="\n";
 				desc+=" ## 元素抗性/魔抗 ## :"+Math.round(100*(1-(RingOfElements.resist(this))))+"%/"
 					  +kw2(最小魔抗())+"~"+kw2(最大魔抗());
-				desc+="\n";
-				desc+="\n";
+				desc+="\n\n";
+				desc+=" ** 攻击范围 ** / _视野范围_ :"+攻击范围()+"/"+视野范围()+"\n";
 				desc+=" ** 命中 ** "+"/"+" ## 闪避 ## :"+kw2(最小命中(null)*Dungeon.难度命中(this))+"~"
 					  +kw2(最大命中(null)*Dungeon.难度命中(this));
 				desc+="/"+kw2(最小闪避(null)*Dungeon.难度闪避(this))+"~"
 					  +kw2(最大闪避(null)*Dungeon.难度闪避(this));
 				desc+="\n";
-				desc+="_攻速_/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";
+				desc+="攻速/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";
 				desc+="_暴击率/暴击伤害_ :"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
-				desc+="_经验/经验等级上限_ :"+Math.round(经验*Dungeon.难度经验(this))+"/"+(最大等级+2)+"\n";
+				desc+="_击杀获得经验_ :"+Math.round(经验*Dungeon.难度经验(this))+"\n";
+				desc+="大于此等级不掉战利品 :"+(最大等级+2)+"\n";
 
 			String 战利品="";
 			if(loot instanceof Item i){
@@ -1719,7 +1732,8 @@ public abstract class Mob extends Char{
 				}
 			}
 			if(战利品.equals(""))战利品="无";
-			desc+="_战利品/掉落几率_ :"+战利品+"/"+kw2(lootChance()*Dungeon.难度掉率(this)*100)+"%";
+			desc+="_战利品_ :"+战利品+"\n";
+			desc+="_掉落几率_ :"+kw2(lootChance()*Dungeon.难度掉率(this)*100)+"%";
 		}
 		return desc;
 	}
@@ -1741,7 +1755,7 @@ public abstract class Mob extends Char{
 
 	public void yell(String str){
 		GLog.newLine();
-		sprite.说(str);//说话修改
+		sprite.绿说(str);//说话修改
 		GLog.红("%s: \"%s\" ",Messages.titleCase(name()),str);
 	}
 
@@ -1879,6 +1893,16 @@ public abstract class Mob extends Char{
 			if(alignment==Alignment.ENEMY&&Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)){
 				for(Mob mob: Dungeon.level.mobs){
 					if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
+						mob.beckon(target);
+					}
+				}
+			}
+			if(alignment==Alignment.ENEMY&&Dungeon.赛季(赛季设置.开团秒跟)){
+				for(Mob mob: Dungeon.level.mobs){
+					if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
+
+						Buff.延长(mob,Vulnerable.class,4f);
+						传送卷轴.周身瞬移(mob,target);
 						mob.beckon(target);
 					}
 				}

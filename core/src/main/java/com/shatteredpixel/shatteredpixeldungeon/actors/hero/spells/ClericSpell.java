@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
+
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
@@ -53,7 +55,7 @@ public abstract class ClericSpell {
 	}
 
 	public void onSpellCast(神圣法典 tome, Hero hero){
-		Invisibility.dispel();
+		Invisibility.notimedispel();
 		//施法获得护盾
 		if(hero.subClass(HeroSubClass.祭司))
 			Buff.延长(hero,Bless.class,Bless.DURATION);
@@ -68,6 +70,8 @@ public abstract class ClericSpell {
 //		}
 		tome.spendCharge(chargeUse(hero));
 		Talent.onArtifactUsed(hero);
+		updateQuickslot();
+		hero.施法();
 
 	}
 

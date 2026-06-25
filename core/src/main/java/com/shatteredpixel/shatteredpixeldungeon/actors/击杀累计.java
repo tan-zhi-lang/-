@@ -2,7 +2,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.watabou.utils.Bundle;
 
 public class 击杀累计 extends CountBuff{
@@ -32,7 +32,7 @@ public class 击杀累计 extends CountBuff{
 				屠杀++;
 				if(屠杀>=125){
 					屠杀=0;
-					new 海克斯宝典().放背包();
+					new 海克斯秘卷().放背包();
 				}
 			}
 

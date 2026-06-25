@@ -37,7 +37,7 @@ public class DM100 extends Mob implements Callback {
 		lootChance = 0.25f;
 		properties.add(Property.机械);
 		
-		properties.add(Property.ELECTRIC);
+		properties.add(Property.电);
 		properties.add(Property.INORGANIC);
 	}
 	

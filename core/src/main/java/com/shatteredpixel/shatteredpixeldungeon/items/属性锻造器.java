@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -68,7 +67,7 @@ public class 属性锻造器 extends 用品 {
 		return 使用上限3()-用过3;
 	}
 	public int 使用上限(){
-		return 1+(Dungeon.符文("骰子收集者")?1:0)+(Dungeon.符文("刷新海克斯")?3:0);
+		return 1;
 	}
 	public int 使用上限1(){
 		return 使用上限();

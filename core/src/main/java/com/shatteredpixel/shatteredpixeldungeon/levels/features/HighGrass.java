@@ -22,7 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.PetrifiedSeed;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
@@ -172,7 +172,7 @@ public class HighGrass {
 					level.drop(new 丛林玫瑰(),pos).sprite().drop();
 				}
 				if (Random.Float() < 1/300f*概率()&&Dungeon.符文("海克斯获取:收获")) {
-					level.drop(new 海克斯宝典(true),pos).sprite().drop();
+					level.drop(new 海克斯秘卷(true),pos).sprite().drop();
 				}
 				
 			}
@@ -333,7 +333,7 @@ public class HighGrass {
 					level.drop(new 丛林玫瑰(),pos).sprite().drop();
 				}
 				if (Random.Float() < 1/100f*概率()&&Dungeon.符文("海克斯获取:收获")) {
-					level.drop(new 海克斯宝典(true),pos).sprite().drop();
+					level.drop(new 海克斯秘卷(true),pos).sprite().drop();
 				}
 				
 			}

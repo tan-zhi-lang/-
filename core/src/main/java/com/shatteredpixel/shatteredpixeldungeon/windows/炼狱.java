@@ -64,7 +64,7 @@ public class 炼狱 extends Window {
 				protected void onClick() {
 					super.onClick();
 					ShatteredPixelDungeon.scene().add(
-							new WndMessage(Messages.get(炼狱设置.class,炼狱+"_desc"))
+							new WndMessage(Messages.get(炼狱设置.class,炼狱)+":\n"+Messages.get(炼狱设置.class,炼狱+"_desc"))
 					);
 				}
 			};

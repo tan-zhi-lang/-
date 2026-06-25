@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.levels;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -13,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.LevelTransition;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.CityPainter;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -290,7 +292,7 @@ public class CityBossLevel extends Level {
 	public void occupyCell( Char ch ) {
 		if (map[bottomDoor] != Terrain.LOCKED_DOOR && map[topDoor] == Terrain.LOCKED_DOOR
 				&& ch.pos < bottomDoor && ch == Dungeon.hero) {
-			seal();
+				seal();
 		}
 
 		super.occupyCell( ch );
@@ -305,17 +307,18 @@ public class CityBossLevel extends Level {
 		int doorPos = pointToCell(new Point(arena.left + arena.width()/2, arena.bottom));
 		Mob.holdAllies(this, doorPos);
 		Mob.restoreAllies(this, Dungeon.hero.pos, doorPos);
+		if(!Dungeon.符文("没坐")){
+			DwarfKing boss=new DwarfKing();
+			boss.state=boss.WANDERING;
+			boss.pos=pointToCell(arena.center());
+			GameScene.add(boss);
+			boss.beckon(Dungeon.hero.pos);
 
-		DwarfKing boss = new DwarfKing();
-		boss.state = boss.WANDERING;
-		boss.pos = pointToCell(arena.center());
-		GameScene.add( boss );
-		boss.beckon(Dungeon.hero.pos);
-
-		if (heroFOV[boss.pos]) {
-			boss.notice();
-			boss.sprite.alpha( 0 );
-			boss.sprite.parent.add( new AlphaTweener( boss.sprite, 1, 0.1f ) );
+			if(heroFOV[boss.pos]){
+				boss.notice();
+				boss.sprite.alpha(0);
+				boss.sprite.parent.add(new AlphaTweener(boss.sprite,1,0.1f));
+			}
 		}
 
 		set( bottomDoor, Terrain.LOCKED_DOOR );
@@ -328,6 +331,11 @@ public class CityBossLevel extends Level {
 				Music.INSTANCE.play(Assets.Music.CITY_BOSS, true);
 			}
 		});
+		if(Dungeon.符文("没坐")){
+			unseal();
+			Badges.validateBossSlain();
+			Dungeon.level.drop(new 狂妄皇冠(),throne).sprite().drop();
+		}
 	}
 
 	@Override

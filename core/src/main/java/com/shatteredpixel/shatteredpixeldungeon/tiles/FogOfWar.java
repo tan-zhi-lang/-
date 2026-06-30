@@ -17,22 +17,23 @@ public class FogOfWar extends Image {
 
 	//first index is visibility type, second is brightness level
 	private static final int FOG_COLORS[][] = new int[][]{{
-			//visible
-			0x00000000, //-1 brightness
-			0x00000000, //0  brightness
-			0x00000000, //1  brightness
+			//visible看见了
+
+			SPDSettings.颜色区块()?0x2244FF44:0x00000000, //-1 brightness
+			SPDSettings.颜色区块()?0x1144FF44:0x00000000, //0  brightness
+			SPDSettings.颜色区块()?0x0044FF44:0x00000000, //1  brightness
 			}, {
-			//visited
-			0xCC000000,
-			0x99000000,
-			0x55000000
+			//visited探索过不在视野
+			SPDSettings.颜色区块()?0x33FF4444:0xCC000000,
+			SPDSettings.颜色区块()?0x22FF4444:0x99000000,
+			SPDSettings.颜色区块()?0x11FF4444:0x55000000
 			}, {
-			//mapped
-			0xCC112244,
-			0x99193366,
-			0x55224488
+			//mapped地图透视
+			SPDSettings.颜色区块()?0x333399FF:0xCC112244,
+			SPDSettings.颜色区块()?0x223399FF:0x99193366,
+			SPDSettings.颜色区块()?0x113399FF:0x55224488
 			}, {
-			//invisible
+			//invisible完全没探索
 			0xFF000000,
 			0xFF000000,
 			0xFF000000
@@ -154,7 +155,7 @@ public class FogOfWar extends Image {
 		this.visible = visible;
 		this.visited = visited;
 		this.mapped = mapped;
-		this.brightness = SPDSettings.亮度() + 1;
+		this.brightness = SPDSettings.亮度()+(Dungeon.夜晚()?-1:0) + 1;
 
 		moveToUpdating();
 		
@@ -267,7 +268,6 @@ public class FogOfWar extends Image {
 	}
 
 	private int getCellFog( int cell ){
-
 		if (visible[cell]) {
 			return VISIBLE;
 		} else if (visited[cell]) {

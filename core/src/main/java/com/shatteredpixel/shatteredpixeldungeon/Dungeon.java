@@ -451,6 +451,11 @@ public class Dungeon {
 		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (赛季&mask)!=0;
 	}
+	public static boolean 夜晚() {
+		if(Dungeon.地牢时间>=时间(2200)||Dungeon.地牢时间<=时间(600))
+			return true;
+		return false;
+	}
 	public static int 时间(int 时间) {
 		float x=1;
 		if(符文("勤劳的一天"))x/=10f;
@@ -482,7 +487,7 @@ public class Dungeon {
 	public static float 综合属性(Char c){
 		float x=1;
 		if(c!=null){
-			if(成长属性)x+=depth*0.2f;
+			if(成长属性)x+=depth*0.05f;
 			if(符文("这不合理"))
 				if(c.老鬼()||c.小老鬼())x*=3f;
 				else x*=0.3f;

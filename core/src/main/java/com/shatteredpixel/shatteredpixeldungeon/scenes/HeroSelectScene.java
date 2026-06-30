@@ -1546,7 +1546,7 @@ _-_ 改变的有以下：
                 成长属性.checked(Dungeon.成长属性);
                 成长属性.setRect(0, 跟随强度.bottom()+13, 120, 16);
                 add(成长属性);
-                成长属性str = PixelScene.renderTextBlock("敌人的强度随地牢层数变化，每层+20%\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
+                成长属性str = PixelScene.renderTextBlock("敌人的强度随地牢层数变化，每层+5%\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
                 成长属性str.hardlight(0x888888);
                 成长属性str.setPos(0, 成长属性.bottom()+1);
                 add(成长属性str);

@@ -730,6 +730,7 @@ public class Hero extends Char {
             put1("升级升级:防御",2);
             put1("升级升级:攻击",2);
             put1("死歌",2);
+            put1("暴杀",2);
             put1("顺子",2);
             put1("对子",2);
             put1("击暴",2);
@@ -802,6 +803,8 @@ public class Hero extends Char {
             put1("赐死剑气",2);
             put1("神射法师",2);
             put1("虚空灌注",2);
+            put1("邦！",2);
+            put1("暴击邦！",2);
             put1("专横",2);
             put1("严厉斥责",2);
             put1("神速力",2);
@@ -1576,12 +1579,15 @@ public class Hero extends Char {
             case "偷偷变强一鸣惊人":return "获得隐形时，力量+1";
             case "烈士墓":return "敌人相邻有坟墓时，会每回合受到敌人30%最大生命值的魔法伤害";
             case "神射法师":return "攻击额外造成75%魔力的伤害";
+            case "邦！":return "攻击对敌人和敌人相邻的敌人造成10%的伤害";
+            case "暴击邦！":return "攻击对敌人和敌人相邻的敌人造成45%的伤害";
             case "没事就吃浆果":return "每回合1/150回合概率获得一个地牢浆果";
             case "任务:病毒":return "每回合受到1伤害，触发100次受伤综合属性永久+5%";
             case "三国杀:赵云":return "闪避判定+命中，命中判定+闪避";
             case "忍者恢复":return "防御10%概率恢复10%最大生命";
             case "标局":return "只能刷到1和2级海克斯";
             case "死歌":return "击杀额外触发3.5%魔力的次数";
+            case "暴杀":return "击杀额外触发暴击率x2次数";
             case "对子":return "主武器等级+副武器等级";
             case "顺子":return "背包出现1，2，3，4，5阶的5个武器或者防具，每个顺子都会+50%综合属性";
             case "击暴":return "攻击+50%暴击率";
@@ -7208,7 +7214,7 @@ public float 攻击延迟() {
         if(enemy!=null&&enemy.第x次防御==1)damage+=0.5f;
 
         if(enemy!=null&&enemy.第x次防御==1){
-            damage+=天赋点数(Talent.突袭,2);
+            damage+=天赋点数(Talent.突袭,3);
         }
         if (heroClass(HeroClass.重武)) {
             damage+=最小防御();
@@ -7246,6 +7252,23 @@ public float 攻击延迟() {
 
 
 		//region 附加效果
+        if(enemy!=null&&符文("邦！"))
+            for(int i : PathFinder.自相邻){
+                Char c=Actor.findChar(enemy.pos+i);
+                if ( c!=null&&c.alignment==Alignment.ENEMY){
+                    c.受伤时(damage*0.1f);
+                    break;
+                }
+            }
+        if(enemy!=null&&符文("暴击邦！"))
+            for(int i : PathFinder.自相邻){
+                Char c=Actor.findChar(enemy.pos+i);
+                if ( c!=null&&c.alignment==Alignment.ENEMY){
+                    c.受伤时(damage*0.45f);
+                    break;
+                }
+            }
+
         if(enemy!=null&&符文("你好我能换个位置吗"))
             Actor.add( new Swap(this,enemy ));
 
@@ -9565,6 +9588,7 @@ public float 攻击延迟() {
     public int 视野范围() {
         float x = super.视野范围();
         if(符文("摸不着头脑"))return 1;
+        if(Dungeon.夜晚())x--;
 		x +=天赋点数(Talent.精准感知,2);
 		x +=天赋点数(Talent.命运罗盘);
 		x +=天赋点数(Talent.视察,1.5f);
@@ -9576,10 +9600,6 @@ public float 攻击延迟() {
         if(符文("远视人启动"))x+=5;
         if(Dungeon.isChallenged(Challenges.DARKNESS)||heroClass(HeroClass.戒老)){
             x/=3;
-        }
-        if(subClass(HeroSubClass.阿修罗)){
-            if(职业精通())
-                x+=攻击范围();
         }
         x *= 1f + 天赋点数(Talent.鹰眼远视,0.25f);
         x *= EyeOfNewt.visionRangeMultiplier();

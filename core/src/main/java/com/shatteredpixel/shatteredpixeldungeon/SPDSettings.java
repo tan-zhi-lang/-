@@ -40,6 +40,8 @@ public class SPDSettings extends GameSettings {
 	public static final String KEY_SCREEN_SHAKE = "screen_shake";
 	public static final String 动画加快x = "动画加快";
 	public static final String 透明界面x = "透明界面";
+	public static final String 更多按钮x = "更多按钮";
+	public static final String 颜色区块x = "颜色区块";
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
@@ -91,8 +93,8 @@ public class SPDSettings extends GameSettings {
 	}
 	
 	public static int 亮度() {
-		if(Dungeon.符文("怕光"))return -1;
-		return getInt( KEY_BRIGHTNESS, 0, -1, 1 );
+		if(Dungeon.符文("怕光"))return 0;
+		return getInt( KEY_BRIGHTNESS, 0, 0, 1 );
 	}
 	
 	public static void 网格可视度(int value ){
@@ -135,6 +137,21 @@ public class SPDSettings extends GameSettings {
 
 	public static boolean 透明界面() {
 		return getBoolean(透明界面x, false );
+	}
+
+	public static void 颜色区块(boolean value ){
+		put(颜色区块x, value );
+	}
+
+	public static boolean 颜色区块() {
+		return getBoolean(颜色区块x, true );
+	}
+	public static void 更多按钮(boolean value ){
+		put(更多按钮x, value );
+	}
+
+	public static boolean 更多按钮() {
+		return getBoolean(更多按钮x, true );
 	}
 
 	public static float 加快(){

@@ -1101,6 +1101,8 @@ public abstract class Mob extends Char{
 		int 次数=1;
 		if(Dungeon.符文("鞭尸"))
 			次数+=4;
+		if(Dungeon.符文("暴杀"))
+			次数+=Dungeon.hero.暴击率()*2;
 		if(Dungeon.符文("死歌"))
 			次数+=Dungeon.hero.魔力()*0.035f;
 		if(Dungeon.符文("击杀击杀"))次数++;

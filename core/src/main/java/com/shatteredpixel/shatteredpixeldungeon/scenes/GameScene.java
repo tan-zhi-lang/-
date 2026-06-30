@@ -382,9 +382,11 @@ public class GameScene extends PixelScene {
 		食物栏标= new 食物栏标();
 		食物栏标.camera = uiCamera;
 		add(食物栏标);
+
 		药剂栏标= new 药剂栏标();
 		药剂栏标.camera = uiCamera;
 		add(药剂栏标);
+
 		法术栏标= new 法术栏标();
 		法术栏标.camera = uiCamera;
 		add(法术栏标);
@@ -878,6 +880,11 @@ public class GameScene extends PixelScene {
 
 		}
 
+		if(!SPDSettings.更多按钮()){
+			食物栏标.visible=false;
+			药剂栏标.visible=false;
+			副武器.visible=false;
+		}
 		cellSelector.enable(Dungeon.hero.ready);
 
 		if (!toDestroy.isEmpty()) {

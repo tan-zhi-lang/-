@@ -325,7 +325,7 @@ public class WndHero extends WndTabbed {
 		private void statSlot( String label, String value ) {
 			
 			int size = 8;
-			
+
 			RenderedTextBlock txt;
 			do {
 				txt = PixelScene.renderTextBlock( label, size );

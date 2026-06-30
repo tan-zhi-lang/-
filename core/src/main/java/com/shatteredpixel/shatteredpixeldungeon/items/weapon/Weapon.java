@@ -381,12 +381,12 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public float 最小攻击(int lvl) {
-		return Math.max(1,augment.damageFactor(最小+(tier()+lvl/2f)*伤害()));
+		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*伤害()));
 	}
 	
 	@Override
 	public float 最大攻击(int lvl) {
-		return augment.damageFactor(最大+(5*(tier()+1) +lvl/2f*(tier()+1))*伤害());
+		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1))*伤害());
 	}
 
 	@Override
@@ -892,7 +892,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击(int lvl) {
-		return Math.max(1,augment.damageFactor(最小+(2*tier()+lvl/2f)*(伤害()*0.5f)));
+		return Math.max(1,augment.damageFactor(最小+(2*tier()+lvl)*(伤害()*0.5f)));
 //		return Math.round(最小+(2*tier()+lvl)*(伤害()));
 	}
 	
@@ -903,7 +903,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击(int lvl) {
-		return augment.damageFactor(最大+(5 * tier() +tier()*lvl/2f )*(伤害()*1.2f));
+		return augment.damageFactor(最大+(5 * tier() +tier()*lvl )*(伤害()*1.2f));
 //		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害()));
 	}
 	

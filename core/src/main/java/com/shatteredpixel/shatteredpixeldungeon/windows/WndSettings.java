@@ -228,6 +228,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox chkFullscreen;
 						CheckBox 动画加快;
 						CheckBox 透明界面;
+						CheckBox 颜色区块;
+						CheckBox 更多按钮;
 						CheckBox chkFont;
 						CheckBox chkVibrate;
 						CheckBox 画面同步;
@@ -270,7 +272,28 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							透明界面.checked(SPDSettings.透明界面());
 							add(透明界面);
-							
+
+							颜色区块 = new CheckBox("颜色区块(完全重启刷新)") {
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.颜色区块(checked());
+								}
+							};
+							颜色区块.checked(SPDSettings.颜色区块());
+							add(颜色区块);
+
+
+							更多按钮 = new CheckBox("更多按钮(食物、药剂、副武器栏)") {
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.更多按钮(checked());
+								}
+							};
+							更多按钮.checked(SPDSettings.更多按钮());
+							add(更多按钮);
+
 							chkFont = new CheckBox(Messages.get(DisplayTab.class, "system_font")){
 								@Override
 								protected void onClick() {
@@ -327,7 +350,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 							chkFullscreen.setRect(0,  GAP, width, BTN_HEIGHT);
 							动画加快.setRect(0,  chkFullscreen.bottom()+GAP, width, BTN_HEIGHT);
 							透明界面.setRect(0,  动画加快.bottom()+GAP, width, BTN_HEIGHT);
-							chkFont.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
+							颜色区块.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
+							更多按钮.setRect(0,  颜色区块.bottom()+GAP, width, BTN_HEIGHT);
+							chkFont.setRect(0,  更多按钮.bottom()+GAP, width, BTN_HEIGHT);
 							chkVibrate.setRect(0,  chkFont.bottom()+GAP, width, BTN_HEIGHT);
 							画面同步.setRect(0,  chkVibrate.bottom()+GAP, width, BTN_HEIGHT);
 							画面同步str.maxWidth(width);
@@ -360,7 +385,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							
 							
 							optBrightness = new OptionSlider(Messages.get(DisplayTab.class, "brightness"),
-															 Messages.get(DisplayTab.class, "dark"), Messages.get(DisplayTab.class, "bright"), -1, 1) {
+															 Messages.get(DisplayTab.class, "dark"), Messages.get(DisplayTab.class, "bright"), 0, 1) {
 								@Override
 								protected void onChange() {
 									SPDSettings.亮度(getSelectedValue());

@@ -41,6 +41,7 @@ public class HighGrass {
 	public static float 概率(){
 		float x=1;
 		if(Dungeon.hero()){
+			x*=Dungeon.hero.幸运机制();
 		}
 		return x;
 	}

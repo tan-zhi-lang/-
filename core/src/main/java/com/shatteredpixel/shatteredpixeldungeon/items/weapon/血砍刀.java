@@ -13,7 +13,7 @@ public class 血砍刀 extends Weapon{
 		tier = 1;
 		
 		伤害=0.8f;
-		流血= 0.15f;
+		
 		
 		特别= true;
 

@@ -994,17 +994,16 @@ public class Item implements Bundlable {
 	
 	public int 金币提升(){
 		int x=金币();
-		if(专属)x*=1.34f;
-		return Math.round((价值提升?x*1.5f:x)*金币价值/金额);
+		if(专属)x*=1.25f;
+		return Math.round((价值提升?x*1.25f:x)*金币价值/金额);
 	}
 	public int 能量提升(){
 		int x=能量();
-		if(能量提升)x*=1.5f;
-		if(专属)x*=1.5f;
+		if(能量提升)x*=1.33f;
+		if(专属)x*=1.25f;
 		if(this instanceof Weapon||this instanceof Armor
 		   ||this instanceof Ring||this instanceof Wand||
 		   this instanceof Artifact){
-			if(专属)x/=1.5f;
 			return Math.round(x*能量价值/金币价值);
 		}
 		return Math.round(x*能量价值);

@@ -13,7 +13,7 @@ public class 暗杀之刃 extends Weapon {
 		hitSound = Assets.Sounds.HIT_STAB;
 
 		伤害=0.8f;
-		伏击=0.15f;
+		
 		特别=true;
 		靛色=true;
 		技能=new 背刺();

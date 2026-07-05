@@ -13,7 +13,7 @@ public class 巨型方盾 extends Weapon {
 		
 		技能=new 防御姿态();
 
-		伤害= 0.7f;
+		伤害= 0.6f;
 		tier = 3;
 		防御=true;
 	}

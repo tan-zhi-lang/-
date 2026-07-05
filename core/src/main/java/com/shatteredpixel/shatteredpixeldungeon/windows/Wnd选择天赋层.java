@@ -2,11 +2,13 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.watabou.noosa.audio.Sample;
 
 public class Wnd选择天赋层 extends Window {
 
@@ -34,6 +36,7 @@ public class Wnd选择天赋层 extends Window {
 			protected void onClick(){
 				super.onClick();
 				hero.天赋[1]=true;
+				Sample.INSTANCE.play(Assets.Sounds.LEVELUP,0.7f,1.2f);
 				hide();
 			}
 		};
@@ -50,6 +53,7 @@ public class Wnd选择天赋层 extends Window {
 			protected void onClick(){
 				super.onClick();
 				hero.天赋[2]=true;
+				Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
 				hide();
 			}
 		};
@@ -66,6 +70,7 @@ public class Wnd选择天赋层 extends Window {
 			protected void onClick(){
 				super.onClick();
 				hero.天赋[3]=true;
+				Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
 				hide();
 			}
 		};

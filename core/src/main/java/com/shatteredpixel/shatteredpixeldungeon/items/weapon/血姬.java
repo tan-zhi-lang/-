@@ -13,7 +13,7 @@ public class 血姬 extends Weapon{
 		tier = 1;
 		延迟= 0.5f;
 		伤害= 0.5f;
-		流血= 0.15f;
+		
 		特别= true;
 		红色= true;
 

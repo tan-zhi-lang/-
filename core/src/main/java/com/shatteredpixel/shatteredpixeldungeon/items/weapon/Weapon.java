@@ -7,6 +7,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.衰减;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -381,12 +382,12 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public float 最小攻击(int lvl) {
-		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*伤害()));
+		return Math.max(1,augment.damageFactor(最小+(tier()+lvl))*伤害());
 	}
 	
 	@Override
 	public float 最大攻击(int lvl) {
-		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1))*伤害());
+		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1)))*伤害();
 	}
 
 	@Override
@@ -398,6 +399,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if(延迟()<1)
 				伤害*=延迟();
 		}
+		if(双手()&&!钝器())伤害*=1.5f;
 		return 伤害;
 	}
 
@@ -408,14 +410,18 @@ abstract public class Weapon extends KindOfWeapon {
 
 	public float 命中(){
 		float 命中=this.命中;
-		if(双手())命中*=0.8f;
+		if(双手())命中*=0.85f;
 		if(命中随攻速)命中*=衰减(1/延迟());
 		return 命中;
 	}
 	@Override
 	public float 流血(){
 		float 流血=super.流血();
-		if(!钝器())流血+=0.15f;
+		if(钝器()||this instanceof 铜钱剑){
+
+		}else{
+			流血+=0.15f;
+		}
 		return 流血;
 	}
 
@@ -435,6 +441,35 @@ abstract public class Weapon extends KindOfWeapon {
 		float 伏击=super.伏击();
 		if(匕首()||短剑()||镖())伏击+=0.15f;
 		return 伏击;
+	}
+
+	@Override
+	public float 首攻(){
+		float 首攻=super.首攻;
+		if(长矛()){
+			首攻+=0.45f;
+		}
+		return 首攻;
+	}
+	@Override
+	public float 麻痹(){
+		float 麻痹=super.麻痹;
+		if(钝器()){
+			麻痹+=0.15f;
+		}
+		return 麻痹;
+	}
+
+	@Override
+	public float 冻结(){
+		float 冻结=super.冻结;
+		if(this instanceof 寒冰镖
+		   ||this instanceof 寒冰鱼剑
+		   ||this instanceof 臻冰刃
+		){
+			冻结+=0.15f;
+		}
+		return 冻结;
 	}
 
 	public float 力量(int lvl){
@@ -584,6 +619,9 @@ abstract public class Weapon extends KindOfWeapon {
 		return 最小防御();
 	}
 	public float 最小防御(int lvl){
+		if(防御){
+			return lvl;
+		}
 		return 0;
 	}
 	@Override
@@ -601,7 +639,8 @@ abstract public class Weapon extends KindOfWeapon {
 			if(this instanceof 冰门重盾)
 				t+=Dungeon.hero.天赋点数(Talent.冰门高防);
 
-			return t*(1+lvl/2f);
+			if (Dungeon.isChallenged(Challenges.NO_ARMOR))return t+lvl;
+			return t*(1+0.5f+lvl);
 		}
 		return 0;
 	}
@@ -610,29 +649,52 @@ abstract public class Weapon extends KindOfWeapon {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
 						最小防御()+"~"+最大防御()+" ++ 防御，"),
 								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
-								(流血()==0?"":"，施加 ** "+Math.round(流血()*100)+"% ** 伤害的流血"),
-								(魔法()==0?"":"，额外造成 @@ "+Math.round(魔法()*100)+"% @@ 魔法伤害"),
-								(吸血()==0?"":"，吸血+ ** "+Math.round(吸血()*100)+"% ** "),
-								(伏击()==0?"":"，伏击伤害+ ## "+Math.round(伏击()*100)+"% ##")
+
+								(流血()==0?"":"，攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
+								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
+								(吸血()==0?"":"，攻击 ** "+Math.round(吸血()*100)+"%吸血 ** "),
+								(伏击()==0?"":"，伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
+
+								(首攻()==0?"":"，首次攻击+"+Math.round(首攻()*100)+"%伤害"),
+								(麻痹()==0?"":"，攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
+								(冻结()==0?"":"，攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
 							 最小防御(0)+"~"+最大防御(0)+" ++ 防御，"),
 								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
-								(流血()==0?"":"，施加 ** "+Math.round(流血()*100)+"% ** 伤害的流血"),
-								(魔法()==0?"":"，额外造成 @@ "+Math.round(魔法()*100)+"% @@ 魔法伤害"),
-								(吸血()==0?"":"，吸血+ ** "+Math.round(吸血()*100)+"% ** "),
-								(伏击()==0?"":"，伏击伤害+ ## "+Math.round(伏击()*100)+"% ##")
+
+								(流血()==0?"":"，攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
+								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
+								(吸血()==0?"":"，攻击 ** "+Math.round(吸血()*100)+"%吸血 ** "),
+								(伏击()==0?"":"，伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
+
+								(首攻()==0?"":"，首次攻击+"+Math.round(首攻()*100)+"%伤害"),
+								(麻痹()==0?"":"，攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
+								(冻结()==0?"":"，攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
 							   );
 		}
 	}
 	public float DPS(){
-		return 
-				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?(Dungeon.hero.力量()-力量())/2f:0)+
-				(augment.damageFactor(最小攻击()+最大攻击()))/2f
-				/augment.delayFactor(延迟())
-				*(1.25f*命中())*(1+流血())*(1+魔法())
-				*(1+伏击());
+		return augment.damageFactor(
+				(
+				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?
+						 (Dungeon.hero.力量()-力量())/2f:0)+
+
+				(最小攻击()+最大攻击())/2f+
+				((最小防御()+最大防御())>0?(最小防御()+最大防御())/5f:0)
+				)*
+				1/augment.delayFactor(延迟())
+				*(命中() > 0 ? 1 + 命中() / 3f / 2f : 1f)       // 命中机会和命中和闪避
+				*(魔法() > 0 ? 1 + 魔法() * 2f / 1.2f : 1f)    // 魔法伤害、魔抗机会和魔免机会
+				*(流血() > 0 ? 1 + 流血() / 2f / 2f : 1f)      // 流血伤害是减半和免疫机会
+				*(伏击() > 0 ? 1 + 伏击() / 4f / 2f : 1f)      // 伏击机会和命中和闪避
+
+				*(首攻() > 0 ? 1 + 首攻() / 2f : 1f)            // 首攻机会
+				*(麻痹() > 0 ? 1 + 麻痹() / 2f / 2f : 1f)      // 麻痹机会和额外攻击机会和免疫机会
+				*(冻结() > 0 ? 1 + 冻结() / 2f / 2f : 1f)      // 首攻机会和额外攻击机会和免疫机会
+			   )
+		 ;
 	}
 	@Override
 	public int 金币() {
@@ -1438,7 +1500,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	public Item 额外升级(boolean enchant ) {
 		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
@@ -1467,7 +1529,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public Item 升级(boolean enchant ) {
 
 		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
@@ -1506,7 +1568,7 @@ abstract public class Weapon extends KindOfWeapon {
 		//+2: 5%  (1/20)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运机制();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -1541,7 +1603,7 @@ abstract public class Weapon extends KindOfWeapon {
 			//30% chance to be cursed
 			//10% chance to be enchanted
 				float effectRoll = Random.Float();
-			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
+			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运机制();
 
 			if(effectRoll<0.3f/ParchmentScrap.curseChanceMultiplier()){
 				enchant(Enchantment.randomCurse());

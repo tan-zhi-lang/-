@@ -90,6 +90,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toast;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.ui.上楼标;
+import com.shatteredpixel.shatteredpixeldungeon.ui.下楼标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.副武器;
 import com.shatteredpixel.shatteredpixeldungeon.ui.法术栏标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.药剂栏标;
@@ -189,6 +191,8 @@ public class GameScene extends PixelScene {
 
 	private AttackIndicator attack;
 	private 副武器 副武器;
+	private 上楼标 上楼标;
+	private 下楼标 下楼标;
 	private ResumeIndicator resume;
 	private ActionIndicator action;
 	private LootIndicator loot;
@@ -378,6 +382,13 @@ public class GameScene extends PixelScene {
 		副武器 = new 副武器();
 		副武器.camera = uiCamera;
 		add( 副武器 );
+
+		上楼标= new 上楼标();
+		上楼标.camera = uiCamera;
+		add(上楼标);
+		下楼标= new 下楼标();
+		下楼标.camera = uiCamera;
+		add(下楼标);
 
 		食物栏标= new 食物栏标();
 		食物栏标.camera = uiCamera;
@@ -842,6 +853,8 @@ public class GameScene extends PixelScene {
 			tag药剂栏= 药剂栏标.visible;
 			tag法术栏= 法术栏标.visible;
 			tag副武器 = 副武器.visible;
+			tag上楼标= 上楼标.visible;
+			tag下楼标= 下楼标.visible;
 			tagResume = resume.visible;
 
 			layoutTags();
@@ -853,6 +866,8 @@ public class GameScene extends PixelScene {
 				   tag药剂栏!=药剂栏标.visible||
 				   tag法术栏!=法术栏标.visible||
 				tag副武器 != 副武器.visible||
+				   tag上楼标!=上楼标.visible||
+				   tag下楼标!=下楼标.visible||
 				tagResume != resume.visible) {
 
 			boolean tagAppearing =(attack.active && !tagAttack)||
@@ -862,6 +877,8 @@ public class GameScene extends PixelScene {
 								  (药剂栏标.visible&&!tag药剂栏)||
 								  (法术栏标.visible&&!tag法术栏)||
 								  (副武器.visible && !tag副武器)||
+								  (上楼标.visible&&!tag上楼标)||
+								  (下楼标.visible&&!tag下楼标)||
 								  (resume.visible && !tagResume);
 
 			tagAttack = attack.active;
@@ -871,6 +888,8 @@ public class GameScene extends PixelScene {
 			tag药剂栏= 药剂栏标.visible;
 			tag法术栏= 法术栏标.visible;
 			tag副武器 = 副武器.visible;
+			tag上楼标= 上楼标.visible;
+			tag下楼标= 下楼标.visible;
 			tagResume = resume.visible;
 
 			//if a new tag appears, re-layout tags immediately
@@ -884,6 +903,8 @@ public class GameScene extends PixelScene {
 			食物栏标.visible=false;
 			药剂栏标.visible=false;
 			副武器.visible=false;
+			上楼标.visible=false;
+			下楼标.visible=false;
 		}
 		cellSelector.enable(Dungeon.hero.ready);
 
@@ -913,6 +934,8 @@ public class GameScene extends PixelScene {
 	private boolean tag药剂栏= false;
 	private boolean tag法术栏= false;
 	private boolean tag副武器    = false;
+	private boolean tag上楼标= false;
+	private boolean tag下楼标= false;
 	private boolean tagResume    = false;
 
 	public static void layoutTags() {
@@ -973,17 +996,20 @@ public class GameScene extends PixelScene {
 		if (scene.tagAction) {
 			scene.action.setRect( tagLeft, pos - Tag.SIZE*3, tagWidth, Tag.SIZE );
 			scene.action.flip(tagsOnLeft);
-			//			pos = scene.action.top();
 		}
 		if (scene.tagLoot) {
 			scene.loot.setRect( tagLeft, pos - Tag.SIZE*4, tagWidth, Tag.SIZE );
 			scene.loot.flip(tagsOnLeft);
-//			pos = scene.loot.top();
 		}
-		if (scene.tag副武器) {
-			scene.副武器.setRect( tagLeft, pos - Tag.SIZE*5, tagWidth, Tag.SIZE );
-			scene.副武器.flip(tagsOnLeft);
-			//			pos = scene.副武器.top();
+
+		if (scene.tag上楼标) {
+			scene.上楼标.setRect(tagLeft,pos-Tag.SIZE*5,tagWidth,Tag.SIZE);
+			scene.上楼标.flip(tagsOnLeft);
+		}
+
+		if (scene.tag下楼标) {
+			scene.下楼标.setRect(tagLeft,pos-Tag.SIZE*6,tagWidth,Tag.SIZE);
+			scene.下楼标.flip(tagsOnLeft);
 		}
 
 
@@ -996,8 +1022,12 @@ public class GameScene extends PixelScene {
 			scene.药剂栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*2,tagWidth,Tag.SIZE);
 			scene.药剂栏标.flip(!tagsOnLeft);
 		}
+		if (scene.tag副武器) {
+			scene.副武器.setRect( tagLeft2, scene.status.bottom()+ Tag.SIZE*3, tagWidth, Tag.SIZE );
+			scene.副武器.flip(!tagsOnLeft);
+		}
 		if (scene.tag法术栏) {
-			scene.法术栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*3,tagWidth,Tag.SIZE);
+			scene.法术栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*4,tagWidth,Tag.SIZE);
 			scene.法术栏标.flip(!tagsOnLeft);
 		}
 

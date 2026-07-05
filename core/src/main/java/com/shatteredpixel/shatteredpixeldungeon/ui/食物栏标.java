@@ -29,7 +29,7 @@ public class 食物栏标 extends Tag {
 
 	@Override
 	public GameAction keyAction() {
-		return SPDAction.TAG_ACTION;
+		return SPDAction.NONE;
 	}
 
 	@Override

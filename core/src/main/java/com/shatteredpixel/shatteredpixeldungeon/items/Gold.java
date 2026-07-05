@@ -34,7 +34,7 @@ public class Gold extends Item {
 	public boolean 放背包(Bag container) {
 		if (super.放背包(container)){
 			if (container.owner instanceof Hero){
-					Dungeon.gold(quantity);
+					Dungeon.gold(Math.round((价值提升?quantity*1.25f:quantity)));
 
 					Catalog.setSeen(getClass());
 					Statistics.itemTypesDiscovered.add(getClass());

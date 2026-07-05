@@ -3,8 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.刺击;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +19,5 @@ public class 长矛 extends Weapon{
 //		连招范围=2;
 		范围 = 2;
 	}
-	
-	@Override
-	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(defender instanceof Piranha){
-			damage+=defender.生命(0.5f);
-		}
-		return super.攻击时( attacker, defender, damage );
-	}
+
 }

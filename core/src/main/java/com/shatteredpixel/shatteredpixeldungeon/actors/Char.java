@@ -489,9 +489,6 @@ public abstract class Char extends Actor {
 					dmg=Random.NormalFloat(最小攻击(),最大攻击());
 					dmg*=Dungeon.难度攻击(this);
 				}
-				if(Dungeon.派对(派对设置.英雄联盟)){
-					dmg=最小攻击()+最大攻击();
-				}
 			}
 
 			//flat damage bonus is affected by multipliers
@@ -540,7 +537,7 @@ public abstract class Char extends Actor {
 					dr-=穿甲();
 				}
 				if(Dungeon.派对(派对设置.英雄联盟)){
-					effectiveDamage = Math.max(effectiveDamage*(1f-dr/(dr+2.5f)), 0);
+					effectiveDamage = Math.max(effectiveDamage*(1f-(dr*0.06f)/(dr*0.06f+1)), 0);
 				}else effectiveDamage = Math.max(effectiveDamage - dr, 0);
 
 				if (enemy.buff(Viscosity.ViscosityTracker.class) != null) {
@@ -657,17 +654,17 @@ public abstract class Char extends Actor {
 		float acuStat=Random.Float(attacker.最小命中(attacker),attacker.最大命中(defender));
 		float defStat=Random.Float(defender.最小闪避(attacker),defender.最大闪避(attacker));
 
-		if(Dungeon.派对(派对设置.英雄联盟)){
-			acuStat=attacker.最小命中(attacker)+attacker.最大命中(defender);
-			defStat=defender.最小闪避(attacker)+defender.最大闪避(attacker);
-		}
+//		if(Dungeon.派对(派对设置.英雄联盟)){
+//			acuStat=attacker.最小命中(attacker)+attacker.最大命中(defender);
+//			defStat=defender.最小闪避(attacker)+defender.最大闪避(attacker);
+//		}
 		if(attacker instanceof Hero hero){
 			if(magic&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.法伤)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.法伤);
 			}
 			if(hero.符文("三国杀:赵云"))acuStat+=defStat;
 
-			acuStat*=hero.幸运值();
+			acuStat*=hero.幸运机制();
 
 			if(defender.恶魔亡灵()&&hero.heroClass(HeroClass.道士)){
 				defStat=0;
@@ -688,7 +685,7 @@ public abstract class Char extends Actor {
 		}
 		if(defender instanceof Hero hero){
 			if(hero.符文("三国杀:赵云"))defStat+=acuStat;
-			defStat/=hero.幸运值();
+			defStat/=hero.幸运机制();
 
 			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
 				acuStat*=0.85f;
@@ -727,15 +724,15 @@ public abstract class Char extends Actor {
 			defStat=INFINITE;
 		}
 
-		if(Dungeon.派对(派对设置.英雄联盟)){
-			if(Random.Float()<=acuStat/(acuStat+5f)){
-				defStat=0;
-			}
-			else if(Random.Float()<=defStat/(defStat+5f)){
-				acuStat=0;
-
-			}
-		}
+//		if(Dungeon.派对(派对设置.英雄联盟)){
+//			if(Random.Float()<=acuStat/(acuStat+5f)){
+//				defStat=0;
+//			}
+//			else if(Random.Float()<=defStat/(defStat+5f)){
+//				acuStat=0;
+//
+//			}
+//		}
 
 		//if accuracy or evasion are large enough, treat them as infinite.
 		//note that infinite evasion beats infinite accuracy
@@ -889,9 +886,9 @@ public abstract class Char extends Actor {
 	}
 	public float 暴击伤害(){
 		float 暴击伤害=0.45f;
-//		if(Dungeon.赛季(赛季设置.英雄联盟)){
-//			暴击伤害+=0.3f;
-//		}
+		if(Dungeon.派对(派对设置.英雄联盟)){
+			暴击伤害+=0.3f;
+		}
 		return 暴击伤害;
 	}
 	public float 穿甲(){

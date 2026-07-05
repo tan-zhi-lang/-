@@ -1442,7 +1442,7 @@ public abstract class Mob extends Char{
 			lootChance*=4;
 		}
 		if(Dungeon.hero()){
-			lootChance*=Dungeon.hero.幸运值();
+			lootChance*=Dungeon.hero.幸运机制();
 		}
 		if(Dungeon.hero()){
 			lootChance*=1;

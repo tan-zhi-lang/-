@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯卷轴;
@@ -32,16 +33,23 @@ public class 宝物袋 extends Bag {
 			return super.canHold(item);
 		if (item instanceof Artifact||
 			item instanceof Ring||
+
+			item instanceof Weapon||
+
 			item instanceof Armor||
 			item instanceof Ankh||
+
 			item instanceof 海克斯卷轴||
 			item instanceof 海克斯秘卷||
 			item instanceof 海克斯宝典||
 			item instanceof 海克斯移除器||
+
 			item instanceof 属性碎片||
 			item instanceof 属性锻造器||
+
 			item instanceof Gold||
 			item instanceof EnergyCrystal||
+
 			item instanceof Trinket){
 			item.价值提升=true;
 			return super.canHold(item);

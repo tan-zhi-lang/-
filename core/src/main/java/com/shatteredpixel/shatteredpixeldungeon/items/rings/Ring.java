@@ -24,7 +24,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -267,7 +266,7 @@ public class Ring extends KindofMisc {
 		//+2: 6.67%  (1/15)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运机制();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -296,7 +295,7 @@ public class Ring extends KindofMisc {
 		等级(n);
 
 		float 概率2=1;
-		if(Dungeon.hero()) 概率2/=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率2/=Dungeon.hero.幸运机制();
 		//30% chance to be cursed
 		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;

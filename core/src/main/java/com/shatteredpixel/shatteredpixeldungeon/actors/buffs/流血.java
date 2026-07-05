@@ -55,10 +55,12 @@ public class 流血 extends Buff {
 	}
 
 	public void set( float level, Class source ){
-		if (this.level < level) {
-			this.level = Math.max(this.level, level);
-			this.source = source;
-		}
+		this.level+=level;
+		this.source = source;
+//		if (this.level < level) {
+//			this.level = Math.max(this.level, level);
+//			this.source = source;
+//		}
 	}
 
 	public void extend( float amount ) {

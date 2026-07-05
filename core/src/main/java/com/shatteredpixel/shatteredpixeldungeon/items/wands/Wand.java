@@ -539,7 +539,7 @@ public abstract class Wand extends Item {
 		//+2: 6.67%  (1/15)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运机制();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -569,7 +569,7 @@ public abstract class Wand extends Item {
 		curCharges += n;
 
 		float 概率2=1;
-		if(Dungeon.hero()) 概率2/=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率2/=Dungeon.hero.幸运机制();
 		//30% chance to be cursed
 		if (算法.概率学(概率2*3/10f)) {
 			cursed = true;

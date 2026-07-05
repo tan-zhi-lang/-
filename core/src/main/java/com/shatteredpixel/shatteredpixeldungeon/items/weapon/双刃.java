@@ -13,11 +13,10 @@ public class 双刃 extends Weapon{
 		hitSound = Assets.Sounds.HIT_STAB;
 		
 		技能=new 剑舞();
-
 		tier = 1;
 		延迟=1.175f;
 		伤害= 0.8f;
-		伏击=0.15f;
+		
 
 	}
 }

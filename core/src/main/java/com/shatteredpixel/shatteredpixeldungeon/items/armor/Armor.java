@@ -391,10 +391,10 @@ public class Armor extends EquipableItem {
 
 	public float 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(tier() + lvl/2f)*防御;
+			return augment.defenseFactor(tier() + lvl)*防御;
 		}
 
-		return augment.defenseFactor(tier()*(2+lvl/2f))*防御;
+		return augment.defenseFactor(tier()*(1+1+lvl))*防御;
 	}
 
 	public final float 最小防御(){
@@ -405,7 +405,7 @@ public class Armor extends EquipableItem {
 //		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 //			return 0;
 //		}
-		return augment.defenseFactor(tier()+lvl/2f)*防御;
+		return augment.defenseFactor(tier()+lvl)*防御;
 	}
 
 	//This exists so we can test what a char's base evasion would be without armor affecting it
@@ -458,7 +458,7 @@ public class Armor extends EquipableItem {
 	public Item 额外升级(boolean inscribe ) {
 
 		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (inscribe){
 			if (glyph == null){
 				inscribe( Glyph.random() );
@@ -500,7 +500,7 @@ public class Armor extends EquipableItem {
 	public Item 升级(boolean inscribe ) {
 
 		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (inscribe){
 			if (glyph == null){
 				inscribe( Glyph.random() );
@@ -690,7 +690,7 @@ public class Armor extends EquipableItem {
 		//+2: 5%  (1/20)
 		int n = 0;
 		float 概率=1;
-		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运值();
+		if(Dungeon.hero()) 概率*=Dungeon.hero.幸运机制();
 		if(Dungeon.解压(解压设置.持之以恒)){
 			if (算法.概率学(概率*1/2)){
 				n++;
@@ -725,7 +725,7 @@ public class Armor extends EquipableItem {
 			//30% chance to be cursed
 			//15% chance to be inscribed
 			float effectRoll = Random.Float();
-			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运值();
+			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运机制();
 
 				if(effectRoll<0.3f/ParchmentScrap.curseChanceMultiplier()){
 					inscribe(Glyph.randomCurse());

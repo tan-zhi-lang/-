@@ -17,7 +17,9 @@ public class 金玫苦无 extends Weapon{
 		
 		特别= true;
 
+		延迟=0.8f;
 		伤害=0.8f;
+		
 		
 		tier = 1;
 	}

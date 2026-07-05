@@ -10,6 +10,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.上楼;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.下楼;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.药剂栏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.食物栏;
@@ -20,7 +22,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
-import com.shatteredpixel.shatteredpixeldungeon.actors.无法回头;
 import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -267,6 +268,8 @@ public enum HeroClass{
 
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 		}else {
+			Buff.施加(hero,上楼.class);
+			Buff.施加(hero,下楼.class);
 			Buff.施加(hero,食物栏.class);
 			Buff.施加(hero,药剂栏.class);
 		}

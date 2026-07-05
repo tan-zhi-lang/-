@@ -357,6 +357,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魄罗;
 import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
+import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
@@ -2625,7 +2626,7 @@ public class Hero extends Char {
             if(等级>=21)次数=5;
 
             int 等级=1;
-            float 概率=0.09f*幸运值();
+            float 概率=0.09f*幸运机制();
 
             if(符文("太有用了"))
                 概率*=4f;
@@ -2886,6 +2887,11 @@ public class Hero extends Char {
 
     public float 科学狂人= 0.3f;
     public float 幸运值(){
+        if(幸运机制()>1)return 1+(幸运机制()-1)/0.25f;
+        if(幸运机制()<1)return -((1-幸运机制())/0.25f);
+        return 幸运机制();
+    }
+    public float 幸运机制(){
         float 幸运=Dungeon.幸运值;
 //        if(Rankings.INSTANCE.totalNumber<=1)幸运++;
 //        if(Dungeon.daily&&!Dungeon.dailyReplay)幸运++;
@@ -2905,7 +2911,8 @@ public class Hero extends Char {
 
         if(Dungeon.派对(派对设置.幸运转世))
             幸运++;
-        if(幸运>1)幸运=1+幸运*0.33f;
+        if(幸运>1)幸运=1+幸运*0.25f;
+        if(幸运<1)幸运=1+幸运*0.25f;
         return 幸运;
     }
     public String 种族天赋 = "";
@@ -3024,7 +3031,7 @@ public class Hero extends Char {
         最大生命+=根骨 * 5;
         if(符文("多兰剑"))最大生命+=80;
         if(符文("多兰盔"))最大生命+=110;
-        if(符文("幸不辱命"))最大生命+=幸运值()*100;
+        if(符文("幸不辱命"))最大生命+=幸运机制()*100;
         if(符文("生命的宠爱"))最大生命+=第x次防御*0.35f;
         if(符文("装备黄金之心"))最大生命+=25;
         if(符文("强健体魄"))最大生命+=力量()*10f;
@@ -6131,17 +6138,21 @@ public float 攻击延迟() {
                     ok=true;
                 }
 				if (item instanceof Plant.Seed||
+                    item instanceof Runestone||
+
                     item instanceof Scroll||
                     item instanceof Potion||
-                    item instanceof Runestone||
+
+                    item instanceof Bomb||
                     item instanceof Food)
                     ok=true;
 
                 if(item instanceof Key||
-                    item instanceof Gold||
-                    item instanceof 坠牢之星||
-                    item instanceof EnergyCrystal||
-                    item instanceof Dewdrop)
+                   item instanceof Gold||
+                   item instanceof EnergyCrystal||
+                   item instanceof 坠牢之星||
+                   item instanceof 属性碎片||
+                   item instanceof Dewdrop)
                 ok=true;
                 if(item.丢过)ok=false;
                 if (ok&&item.doPickUp(this)) {
@@ -6930,7 +6941,7 @@ public float 攻击延迟() {
     public boolean 暴击率判定(float x){
         if(heroClass(HeroClass.机器))return true;
         if(subClass(HeroSubClass.狙击手))return false;
-        return (hasbuff(必定暴击.class)||算法.概率学(暴击率()*幸运值()*x));
+        return (hasbuff(必定暴击.class)||算法.概率学(暴击率()*幸运机制()*x));
     }
     @Override
     public float 暴击判定(final Char enemy,float dmg){
@@ -6989,7 +7000,7 @@ public float 攻击延迟() {
                 x次必暴=0;
             }else{
                 x次必暴++;
-                if(暴击率()!=0&&x次必暴>=600/暴击率()*幸运值()){
+                if(暴击率()!=0&&x次必暴>=600/暴击率()*幸运机制()){
                     Buff.施加(this,必定暴击.class);
                     sprite.绿说("手感火热！");
 
@@ -8253,7 +8264,7 @@ public float 攻击延迟() {
         if(heroClass(HeroClass.近卫)){
             damage--;
         }
-        if(符文("未知防御"))damage-=幸运值()*10;
+        if(符文("未知防御"))damage-=幸运机制()*10;
         return super.防御时(enemy, damage);
     }
 
@@ -8469,6 +8480,7 @@ public float 攻击延迟() {
 
                 if(天赋(Talent.绝望安息))
                     Buff.施加(target,伤害.class).level(最大攻击()*天赋点数(Talent.绝望安息,0.25f));
+
 
                 if(符文("阿玛特拉斯"))
                     Buff.施加(target,火毒.class).reignite(target);
@@ -9623,7 +9635,7 @@ public float 攻击延迟() {
         return Math.round(x+光照范围());
     }
 
-    private boolean cellIsPathable(int cell){
+    public boolean cellIsPathable(int cell){
         if(!Dungeon.level.passable[cell]){
             if(flying||buff(Amok.class)!=null){
                 if(!Dungeon.level.avoid[cell]){
@@ -9687,7 +9699,7 @@ public float 攻击延迟() {
             left = Math.max(0, left);
             for (curr = left + y * Dungeon.level.width(); curr <= right + y * Dungeon.level.width(); curr++) {
                 if (intentional) {
-                    if(Dungeon.level.solid[curr]||(Dungeon.level.visited[curr]&&cellIsPathable(curr)))//参观了、以通行的路径
+                    if(Dungeon.level.solid[curr]||(Dungeon.level.visited[curr]&&cellIsPathable(curr)))//参观了、可通行的路径
                     if(Dungeon.level.map[curr]!=Terrain.SECRET_TRAP&&Dungeon.level.map[curr]!=Terrain.TRAP){
                         Heap heap = Dungeon.level.heaps.get(curr);//搜索拾取
                         if (heap != null && (heap.type == Heap.Type.HEAP || heap.type == Heap.Type.CHEST)) {
@@ -10011,7 +10023,7 @@ public float 攻击延迟() {
         }
         if(符文("露出癖")&&空手()&&裸衣())x+=2;
         if(符文("大墟")&&大墟())x+=0.65f;
-        if(符文("天命之子"))x+=2.5f*幸运值();
+        if(符文("天命之子"))x+=2.5f*幸运机制();
         if(符文("抓住未来")&&belongings.hasItem(LiquidMetal.class))x+=belongings.getItem(LiquidMetal.class).数量()*0.08f;
         if(符文("日月星辰"))
         x+=(GregorianCalendar.getInstance().get(Calendar.MONTH)+1)*
@@ -10026,7 +10038,7 @@ public float 攻击延迟() {
         if(belongings!=null&&belongings.hasItem(三叉戟.class)&&在水中()){
             x+=0.1f;
         }
-        if(符文("俺是一个大信球")&&幸运值()<0)x-=幸运值();
+        if(符文("俺是一个大信球")&&幸运机制()<0) x-=幸运机制();
         if(符文("泰君")){
             int tr=0;
             for(Item i: belongings){

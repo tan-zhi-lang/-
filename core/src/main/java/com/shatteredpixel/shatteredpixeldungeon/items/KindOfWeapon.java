@@ -7,6 +7,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -96,6 +98,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
@@ -108,6 +111,9 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 流血 =0;
 	public float 魔法 =0;
 	public float 吸血 =0;
+	public float 首攻 =0;
+	public float 麻痹 =0;
+	public float 冻结 =0;
 	public int 最小= 0;
 	public int 最大= 0;
 	public float 伤害= 1f;
@@ -119,6 +125,21 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 流血(){
 		float 流血=this.流血;
 		return 流血;
+	}
+
+	public float 首攻(){
+		float 首攻=this.首攻;
+		return 首攻;
+	}
+
+	public float 麻痹(){
+		float 麻痹=this.麻痹;
+		return 麻痹;
+	}
+
+	public float 冻结(){
+		float 冻结=this.冻结;
+		return 冻结;
 	}
 
 	public float 吸血(){
@@ -326,6 +347,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 双手(){
+		if(this instanceof 双刃)return true;
 		if(this instanceof 轮刃)return true;
 		if(this instanceof 镶钉手套)return true;
 		if(this instanceof 铁头棍)return true;
@@ -577,11 +599,16 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	
 	public float 攻击时(Char attacker, Char defender, float damage ) {
-		
+
+		if(defender!=null&&defender.第x次防御==1&&首攻()>0){
+			damage+=首攻();
+		}
+		if(defender!=null){
+				算法.修复效果(()->{
+					Buff.施加(defender,Frost.class,2);
+				});
+		}
 		if (attacker instanceof Hero hero){
-			if(defender!=null&&defender.第x次防御==1&&长矛()){
-				return 最大攻击();
-			}
 			if(defender!=null&&伏击()>0&&defender instanceof Mob&&((Mob)defender).surprisedBy(hero)){
 				damage+=damage*伏击()
 						*(hero.符文("升级暗杀之刃")&&this instanceof 暗杀之刃

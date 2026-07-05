@@ -14,7 +14,7 @@ public class 长匕首 extends Weapon{
 
 		延迟=0.8f;
 		伤害= 0.8f;
-		伏击=0.15f;
+		
 		技能=new 背刺();
 
 		tier = 2;

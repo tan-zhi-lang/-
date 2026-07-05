@@ -29,7 +29,7 @@ public class 药剂栏标 extends Tag {
 
 	@Override
 	public GameAction keyAction() {
-		return SPDAction.TAG_ACTION;
+		return SPDAction.NONE;
 	}
 
 	@Override

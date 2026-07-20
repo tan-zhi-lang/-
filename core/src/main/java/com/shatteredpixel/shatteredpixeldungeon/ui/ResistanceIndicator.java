@@ -7,12 +7,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
-import com.watabou.utils.PointF;
 
 public class ResistanceIndicator extends Component {
 	private Char charRef;
 
-	private static final int FONT_SIZE = 16;
+	private static final int FONT_SIZE = 32;
 	private static final float GAP = 3f;
 
 	private static final int ICON_COLS = 2;
@@ -25,7 +24,7 @@ public class ResistanceIndicator extends Component {
 	@Override
 	protected void layout() {
 		RenderedText elementalText = new RenderedText("受到",FONT_SIZE);
-		elementalText.scale=new PointF(0.27f,0.27f);
+		elementalText.scale(0.15f);
 		elementalText.setPos(this.x,this.y);
 		add(elementalText);
 		for (int i = 0; i < 4; i++) {
@@ -94,7 +93,7 @@ public class ResistanceIndicator extends Component {
 	private RenderedText makePercentText(String ts,float value) {
 		RenderedText line = new RenderedText(ts+
 			 zf(value)+"倍",FONT_SIZE);
-		line.scale=new PointF(0.27f,0.27f);
+		line.scale(0.15f);
 		if(ts.equals("火焰伤害"))
 			line.hardlight(0xFF8800);
 		else if(ts.equals("冰霜伤害"))

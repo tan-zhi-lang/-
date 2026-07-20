@@ -427,6 +427,8 @@ public enum Talent {
 		}
 		String s="";
 		String f="天赋分支:\n";
+
+
 		if(this ==知识){
 			s+="\n";
 			s+="\n"+f+Messages.get(埋伏, 埋伏.name() + ".title")+":"+Messages.get(埋伏, 埋伏.name() + ".desc");
@@ -442,6 +444,7 @@ public enum Talent {
 			s+="\n"+f+Messages.get(突袭, 突袭.name() + ".title")+":"+Messages.get(突袭, 突袭.name() + ".desc");
 			s+="\n"+Messages.get(武装, 武装.name() + ".title")+":"+Messages.get(武装, 武装.name() + ".desc");
 		}
+		//////////////////////////////
 		if(this ==健身){
 			s+="\n";
 			s+="\n"+f+Messages.get(猛攻, 猛攻.name() + ".title")+":"+Messages.get(猛攻, 猛攻.name() + ".desc");
@@ -450,18 +453,16 @@ public enum Talent {
 		}
 		if(this==机敏){
 			s+="\n";
-			s+="\n"+Messages.get(破绽,破绽.name()+".title")+":"+Messages.get(破绽,破绽.name()+".desc");
+			s+="\n"+f+Messages.get(破绽,破绽.name()+".title")+":"+Messages.get(破绽,破绽.name()+".desc");
 			s+="\n"+Messages.get(躲避, 躲避.name() + ".title")+":"+Messages.get(躲避, 躲避.name() + ".desc");
-			s+="\n"+f+Messages.get(静步,静步.name()+".title")+":"+Messages.get(静步,静步.name()+".desc");
+			s+="\n"+Messages.get(静步,静步.name()+".title")+":"+Messages.get(静步,静步.name()+".desc");
 		}
-
 		if(this==智者){
 			s+="\n";
 			s+="\n"+f+Messages.get(感知,感知.name()+".title")+":"+Messages.get(感知,感知.name()+".desc");
 			s+="\n"+Messages.get(视察,视察.name()+".title")+":"+Messages.get(视察,视察.name()+".desc");
 			s+="\n"+Messages.get(充能,充能.name()+".title")+":"+Messages.get(充能,充能.name()+".desc");
 		}
-
 		if(this==天才){
 			s+="\n";
 			s+="\n"+f+Messages.get(佯攻,佯攻.name()+".title")+":"+Messages.get(佯攻,佯攻.name()+".desc");

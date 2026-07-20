@@ -18,7 +18,10 @@ public abstract class SecretRoom extends SpecialRoom {
 	
 	private static final ArrayList<Class<? extends SecretRoom>> ALL_SECRETS = new ArrayList<>( Arrays.asList(
 			SecretGardenRoom.class, SecretLaboratoryRoom.class, SecretLibraryRoom.class,
-			SecretLarderRoom.class, SecretWellRoom.class, SecretRunestoneRoom.class,
+			SecretLarderRoom.class,
+			SecretWellRoom.class,
+			SecretWellRoom.class,//新增
+			SecretRunestoneRoom.class,
 			SecretArtilleryRoom.class, SecretChestChasmRoom.class, SecretHoneypotRoom.class,
 			SecretHoardRoom.class, SecretMazeRoom.class, SecretSummoningRoom.class));
 	

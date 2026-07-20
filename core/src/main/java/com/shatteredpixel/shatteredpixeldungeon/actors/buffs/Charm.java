@@ -54,6 +54,7 @@ public class Charm extends FlavourBuff {
 			算法.修复效果(()->{
 				Buff.施加(hero,Paralysis.class,Paralysis.DURATION);
 			});
+		if(target.sprite!=null)target.sprite.爱心();
 		return super.attachTo(target);
 	}
 

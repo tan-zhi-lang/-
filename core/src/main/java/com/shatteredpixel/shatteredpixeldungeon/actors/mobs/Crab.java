@@ -25,8 +25,8 @@ public class Crab extends Mob {
 
 	@Override
 	public float 移速() {
-		if (水平移动) return super.移速()*2f;
-		else return super.移速();
+		if (水平移动) return super.移速()*2.5f;
+		else return super.移速()*1.5f;
 	}
 	@Override
 	public float 最小攻击() {

@@ -13,7 +13,7 @@ public class 无限之剑 extends Weapon{
 		hitSound = Assets.Sounds.HIT_SLASH;
 		
 		技能=new 斩击();
-		
+		特别=true;
 		tier = 5;
 		伤害=1.25f;
 	}

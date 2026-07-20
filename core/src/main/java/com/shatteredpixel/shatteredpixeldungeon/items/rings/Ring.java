@@ -163,11 +163,11 @@ public class Ring extends KindofMisc {
 	
 	public void setKnown() {
 		if (!anonymous) {
-			if (!isKnown()) {
+			if (Dungeon.hero()&&!isKnown()) {
 				handler.know(this);
 			}
 
-			if (Dungeon.hero.isAlive()) {
+			if (Dungeon.hero()&&Dungeon.hero.isAlive()) {
 				Catalog.setSeen(getClass());
 				Statistics.itemTypesDiscovered.add(getClass());
 			}
@@ -214,7 +214,7 @@ public class Ring extends KindofMisc {
 		return desc;
 	}
 	
-	protected String statsInfo(){
+	public String statsInfo(){
 		return "";
 	}
 
@@ -382,14 +382,16 @@ public class Ring extends KindofMisc {
 	@Override
 	public int 强化等级() {
 		int lvl = super.强化等级();
-		if(Dungeon.hero.heroClass(HeroClass.戒老)){
+		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.戒老)){
 			lvl++;
 		}
-		if(Dungeon.hero.subClass(HeroSubClass.指环王)){
+		if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.指环王)){
 			lvl+=3;
 		}
-		lvl+=Dungeon.hero.天赋点数(Talent.戒之九型);
-		lvl*=1+Dungeon.hero.天赋点数(Talent.以戒之名,0.25f);
+		if(Dungeon.hero()){
+			lvl+=Dungeon.hero.天赋点数(Talent.戒之九型);
+			lvl*=1+Dungeon.hero.天赋点数(Talent.以戒之名,0.25f);
+		}
 		return lvl;
 	}
 

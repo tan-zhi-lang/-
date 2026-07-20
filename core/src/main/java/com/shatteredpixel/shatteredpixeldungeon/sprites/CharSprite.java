@@ -147,12 +147,17 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (curAnim == null || curAnim != die) {
 			if(SPDSettings.加快()>1) {
 				if (anim == idle) {
-//					anim.delay = 1f;
+
 				} else if (anim == run) {
 					anim.delay = 1f /20f;
-				} else {
+				} else if(anim == attack||anim == zap){
+
+				}else {
 					anim.delay = 1f / SPDSettings.加快();
 				}
+			}
+			if (anim == attack||anim == zap) {
+				anim.完事延迟 = 1/60f;//打击手感/攻击后摇
 			}
             super.play(anim);
 		}
@@ -347,7 +352,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		animCallback = callback;
 		turnTo( ch.pos, cell );
 		play( zap );
-		ch.sprite.歪嘴();
+		ch.sprite.滑稽();
 	}
 
 	public void turnTo( int from, int to ) {
@@ -923,30 +928,6 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		}
 	}
 
-	public void 微笑() {
-		if(Dungeon.赛季(赛季设置.地牢塔防))return;
-		synchronized (EmoIcon.class) {
-			if((ch!=null&&ch.hasbuff(Invisibility.class))
-			   ||invisible!=null)return;
-			if (!(emo instanceof EmoIcon.微笑)) {
-				if (emo != null) {
-					emo.killAndErase();
-				}
-				emo = new EmoIcon.微笑(this);
-				emo.visible = visible;
-			}
-		}
-	}
-
-	public void 微笑x() {
-		synchronized (EmoIcon.class) {
-			if (emo instanceof EmoIcon.微笑) {
-				emo.killAndErase();
-				emo = null;
-			}
-		}
-	}
-
 	public void 愤怒() {
 		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {
@@ -1020,6 +1001,29 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	}
 
 
+	public void 微笑() {
+		if(Dungeon.赛季(赛季设置.地牢塔防))return;
+		synchronized (EmoIcon.class) {
+			if((ch!=null&&ch.hasbuff(Invisibility.class))
+			   ||invisible!=null)return;
+			if (!(emo instanceof EmoIcon.微笑)) {
+				if (emo != null) {
+					emo.killAndErase();
+				}
+				emo = new EmoIcon.微笑(this);
+				emo.visible = visible;
+			}
+		}
+	}
+
+	public void 微笑x() {
+		synchronized (EmoIcon.class) {
+			if (emo instanceof EmoIcon.微笑) {
+				emo.killAndErase();
+				emo = null;
+			}
+		}
+	}
 	public void 滑稽() {
 		if(Dungeon.赛季(赛季设置.地牢塔防))return;
 		synchronized (EmoIcon.class) {

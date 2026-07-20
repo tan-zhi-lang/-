@@ -499,9 +499,9 @@ public abstract class Char extends Actor {
 			if (buff( Fury.class ) != null) {
 				dmg *= 1.5f;
 			}
-			for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
-				dmg *= buff.meleeDamageFactor();
-			}
+//			for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
+//				dmg *= buff.meleeDamageFactor();
+//			}
 
 			dmg *= AscensionChallenge.statModifier(this);
 
@@ -750,9 +750,9 @@ public abstract class Char extends Actor {
 			if(attacker instanceof Hero hero&&投机之剑.增加()>0){
 				hero.投机之剑-=Math.round(hero.投机之剑*投机之剑.减少());
 			}
-			if(attacker.未命中>=3&&attacker.未命中%3==0){
+			if(attacker.未命中>=2&&attacker.未命中%2==0){
 				if(attacker.sprite!=null)
-					attacker.sprite.哭泣();
+					attacker.sprite.无语();
 			}
 
 			hitMissIcon = FloatingText.getMissReasonIcon(attacker,acuStat,defender,INFINITE);
@@ -808,9 +808,9 @@ public abstract class Char extends Actor {
 				if(投机之剑.增加()>0)
 				hero.投机之剑-=Math.round(hero.投机之剑*投机之剑.减少());
 			}
-			if(attacker.未命中>=3&&attacker.未命中%3==0){
+			if(attacker.未命中>=2&&attacker.未命中%2==0){
 				if(attacker.sprite!=null)
-					attacker.sprite.哭泣();
+					attacker.sprite.无语();
 			}
 			hitMissIcon = FloatingText.getMissReasonIcon(attacker, acuStat, defender, defStat);
 			return false;
@@ -882,6 +882,9 @@ public abstract class Char extends Actor {
 //		if(Dungeon.赛季(赛季设置.英雄联盟)){
 //			暴击率+=18;
 //		}
+		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
+			暴击率+=buff.暴击率();
+		}
 		return 暴击率;
 	}
 	public float 暴击伤害(){
@@ -1323,9 +1326,9 @@ public abstract class Char extends Actor {
 
 		//we ceil these specifically to favor the player vs. champ dmg reduction
 		// most important vs. giant champions in the earlygame
-		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
-			dmg = dmg * buff.damageTakenFactor();
-		}
+//		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
+//			dmg = dmg * buff.damageTakenFactor();
+//		}
 		
 		//TODO improve this when I have proper damage source logic
 		if (AntiMagic.RESISTS.contains(来源.getClass())){
@@ -1376,9 +1379,13 @@ public abstract class Char extends Actor {
 
 		生命 -= dmg;
 
-		if(sprite!=null&&(dmg>=最大生命(0.34f)||生命<=最大生命(0.34f)))
-			sprite.哭泣();
-		
+		if(sprite!=null){
+			if(dmg>=最大生命(0.5f)||生命<=最大生命(0.5f))
+			sprite.扣6();
+			else if(dmg>=最大生命(0.34f)||生命<=最大生命(0.34f))
+				sprite.哭泣();
+		}
+
 		if (生命 > 0 && buff(Grim.GrimTracker.class) != null){
 
 			float finalChance = buff(Grim.GrimTracker.class).maxChance;
@@ -1576,6 +1583,9 @@ public abstract class Char extends Actor {
 		float delay = 攻击延迟;
 		if(诡异)delay/=10f;
 		delay*=重力场球.攻速(this);
+		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
+			delay/=buff.攻速();
+		}
 		return delay;
 	}
 	
@@ -2013,7 +2023,7 @@ public abstract class Char extends Actor {
 
 		}
 		if(dmg>0&&护甲>0){
-			if (护甲<=最大护甲/2&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
+			if (护甲<=最大护甲(0.5f)&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.护甲);
 			}
 			if(护甲>=dmg){
@@ -2120,7 +2130,7 @@ public abstract class Char extends Actor {
 		if(x>0){
 			生命=Math.min(生命+x,最大生命);
 
-			if (Dungeon.level.heroFOV[pos]){
+			if (pos!=-1&&Dungeon.level!=null&&Dungeon.level.heroFOV[pos]){
 				if(x>2&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
 					sprite.showStatusWithIcon(CharSprite.增强绿,x,FloatingText.HEALING);
 					sprite.emitter().burst(Speck.factory(Speck.HEALING),Math.min(6,x/25));
@@ -2334,7 +2344,11 @@ public abstract class Char extends Actor {
 		return false;
 	}
 	public float 吸血(){
-		return 0;
+		float x=0;
+		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
+			x+=buff.吸血();
+		}
+		return x;
 	}
 	public float 全能吸血(){
 		return 0;

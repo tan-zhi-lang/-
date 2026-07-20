@@ -21,6 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Succubus;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
+import com.shatteredpixel.shatteredpixeldungeon.actors.广告30秒;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
@@ -100,6 +101,8 @@ public class Item implements Bundlable {
 	public static final String AC_吞噬= "吞噬";
 	public static final String AC_融合= "融合";
 	public static final String AC_祛邪= "祛邪";
+	public static final String AC_广告双倍= "广告双倍";
+	public static final String AC_荣耀升级= "荣耀升级";
 
 	protected String defaultAction;
 	public boolean usesTargeting=true;
@@ -239,11 +242,15 @@ public class Item implements Bundlable {
 					actions.add(AC_吞噬);
 			}
 		}
-		if(hero.符文("装备融合")&&可升级()&&(this instanceof Weapon||this instanceof Armor||this instanceof Wand||this instanceof Ring))
+		if(hero.符文("装备融合")&&真可升级())
 		actions.add(AC_融合);
 
 		if(hero.符文("我让你诅咒")&&cursed)
 		actions.add(AC_祛邪);
+		if(hero.符文("广告双倍")&&可堆叠)
+		actions.add(AC_广告双倍);
+		if(hero.符文("荣耀升级")&&真可升级())
+		actions.add(AC_荣耀升级);
 		return actions;
 	}
 
@@ -377,6 +384,12 @@ public class Item implements Bundlable {
 			
 		}else if (action.equals(AC_祛邪)){
 			祛邪卷轴.祛邪(hero,this);
+		}else if (action.equals(AC_荣耀升级)){
+			Buff.施加(hero,广告30秒.class);
+			额外升级();
+		}else if (action.equals(AC_广告双倍)){
+			Buff.施加(hero,广告30秒.class);
+			数量改动(2);
 		}else if (action.equals(AC_融合)){
 			GameScene.selectItem(new 装备融合());
 		}else if (action.equals(AC_吞噬)) {
@@ -654,7 +667,7 @@ public class Item implements Bundlable {
 		if(超级等级)return 10086;
 		int x=0;
 		if(Dungeon.符文("升级升级:等级"))
-			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
+			if(真可升级())
 				x+=Dungeon.hero.等级;
 		//only the hero can be affected by Degradation
 		if (Dungeon.hero() && Dungeon.hero.buff( Degrade.class ) != null
@@ -669,20 +682,7 @@ public class Item implements Bundlable {
 		等级 = value;
 		updateQuickslot();
 	}
-	
-	public Item 特殊升级() {
-		if(!可升级()){
-			return this;
-		}
-		if(升级物品){
-			升级();
-			升级物品=false;
-		}
 
-		updateQuickslot();
-		
-		return this;
-	}
 	public Item 升级() {
 		this.等级++;
 		updateQuickslot();
@@ -691,7 +691,7 @@ public class Item implements Bundlable {
 	public Item 额外升级() {
 
 		//region 额外升级
-		if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
+		if(真可升级()){
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.装备)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.装备);
 			}
@@ -846,13 +846,20 @@ public class Item implements Bundlable {
 		return cursed && cursedKnown;
 	}
 	
+	public boolean 真可升级() {
+		if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
+			return true;
+		}
+		return false;
+	}
+
 	public boolean 可升级() {
 		if(物品){
 			return false;
 		}
 		return true;
 	}
-	
+
 	public boolean 已鉴定() {
 		if(物品||this instanceof 技能){
 			return true;
@@ -877,18 +884,23 @@ public class Item implements Bundlable {
 			}
 		}
 		if(Dungeon.解压(解压设置.点石成金)){
-			特殊升级();
+			if(真可升级())
+			升级();
 		}
 		if(Dungeon.符文("鉴定的宠爱")){
-			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
+			if(真可升级())
 				升级();
 		}
+		if(Dungeon.hero()&&Dungeon.hero.sprite!=null&&!cursed&&等级()>0)
+			Dungeon.hero.sprite.微笑();
+
 		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.知识))
 			Dungeon.hero.经验(Dungeon.hero.天赋点数(Talent.知识));
 
 		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.真绝伪证))
-			if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand)
+			if(真可升级())
 				升级(Dungeon.hero.天赋点数(Talent.真绝伪证));
+
 		levelKnown = true;
 		cursedKnown = true;
 		Item.updateQuickslot();
@@ -1189,6 +1201,9 @@ public class Item implements Bundlable {
 	}
 	public Item 数量加() {
 		return 数量(数量()+1);
+	}
+	public Item 数量改动(int x) {
+		return 数量(数量()+x);
 	}
 	public Item 数量减() {
 		return 数量(数量()-1);

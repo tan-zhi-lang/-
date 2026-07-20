@@ -81,6 +81,8 @@ public enum Icons {
     WELL_AWARENESS,
     神力之泉,
     天赋之泉,
+    幸运之泉,
+    泉,
     SACRIFICE_ALTAR,
     DISTANT_WELL,
 
@@ -95,6 +97,7 @@ public enum Icons {
     睡眠,
     感叹,
     问号,
+    调查,
     无语,
     扣6,
     微笑,
@@ -348,11 +351,17 @@ public enum Icons {
             case 天赋之泉:
                 icon.frame(icon.texture.uvRectBySize(176, 64, 16, 16));
                 break;
-            case SACRIFICE_ALTAR:
+            case 幸运之泉:
                 icon.frame(icon.texture.uvRectBySize(192, 64, 16, 16));
                 break;
-            case DISTANT_WELL:
+            case 泉:
                 icon.frame(icon.texture.uvRectBySize(208, 64, 16, 16));
+                break;
+            case SACRIFICE_ALTAR:
+                icon.frame(icon.texture.uvRectBySize(224, 64, 16, 16));
+                break;
+            case DISTANT_WELL:
+                icon.frame(icon.texture.uvRectBySize(240, 64, 16, 16));
                 break;
 
             case SKULL:
@@ -500,35 +509,38 @@ public enum Icons {
             case 问号:
                 icon.frame(icon.texture.uvRectBySizeXY(2, 9));
                 break;
-            case 无语:
+            case 调查:
                 icon.frame(icon.texture.uvRectBySizeXY(3, 9));
                 break;
-            case 扣6:
+            case 无语:
                 icon.frame(icon.texture.uvRectBySizeXY(4, 9));
                 break;
-            case 微笑:
+            case 扣6:
                 icon.frame(icon.texture.uvRectBySizeXY(5, 9));
                 break;
-            case 愤怒:
+            case 微笑:
                 icon.frame(icon.texture.uvRectBySizeXY(6, 9));
                 break;
-            case 爱心:
+            case 愤怒:
                 icon.frame(icon.texture.uvRectBySizeXY(7, 9));
                 break;
-            case 礼物:
+            case 爱心:
                 icon.frame(icon.texture.uvRectBySizeXY(8, 9));
                 break;
-            case 滑稽:
+            case 礼物:
                 icon.frame(icon.texture.uvRectBySizeXY(9, 9));
                 break;
-            case 歪嘴:
+            case 滑稽:
                 icon.frame(icon.texture.uvRectBySizeXY(10, 9));
                 break;
-            case 吃瓜:
+            case 歪嘴:
                 icon.frame(icon.texture.uvRectBySizeXY(11, 9));
                 break;
-            case 哭泣:
+            case 吃瓜:
                 icon.frame(icon.texture.uvRectBySizeXY(12, 9));
+                break;
+            case 哭泣:
+                icon.frame(icon.texture.uvRectBySizeXY(13, 9));
                 break;
         }
         return icon;

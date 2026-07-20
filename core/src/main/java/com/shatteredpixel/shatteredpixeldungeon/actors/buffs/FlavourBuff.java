@@ -23,8 +23,8 @@ public class FlavourBuff extends Buff {
 		return dispTurns(Math.round(visualcooldown()));
 	}
 
-	@Override
-	public String iconTextDisplay() {
-		return Math.round(visualcooldown())+"";
-	}
+//	@Override
+//	public String iconTextDisplay() {
+//		return Math.round(visualcooldown())+"";
+//	}
 }

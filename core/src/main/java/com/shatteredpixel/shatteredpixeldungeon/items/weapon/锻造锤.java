@@ -79,7 +79,7 @@ public class 锻造锤 extends Weapon {
 		@Override
 		public void onSelect(Item item) {
 			if (item != null) {
-				item.升级();
+				item.额外升级();
 				
 				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
 				升级卷轴.upgrade(Dungeon.hero);
@@ -87,7 +87,7 @@ public class 锻造锤 extends Weapon {
 				
 				
 				Dungeon.hero.sprite.operate(Dungeon.hero.pos);
-				Dungeon.hero.spend( 5 );
+				Dungeon.hero.spend( 4 );
 				Dungeon.hero.busy();
 				
 				Badges.validateItemLevelAquired(item);

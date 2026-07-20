@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Image;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
@@ -30,7 +31,7 @@ public abstract class ChampionEnemy extends Buff {
 	}
 
 	protected int color;
-	protected int rays;
+	protected int rays=5;
 
 	@Override
 	public int icon() {
@@ -56,11 +57,28 @@ public abstract class ChampionEnemy extends Buff {
 		return false;
 	}
 
-	public float meleeDamageFactor(){
+	public float DamageFactor(){
 		return 1f;
 	}
 
+	public float 攻速(){
+		return 1f;
+	}
+
+
+	public float 暴击率(){
+		return 0;
+	}
+
+	public float 吸血(){
+		return 0;
+	}
+
 	public float damageTakenFactor(){
+		return 1f;
+	}
+
+	public float 最大生命(){
 		return 1f;
 	}
 
@@ -79,13 +97,17 @@ public abstract class ChampionEnemy extends Buff {
 		//we roll for a champion enemy even if we aren't spawning one to ensure that
 		//mobsToChampion does not affect levelgen RNG (number of calls to Random.Int() is constant)
 		Class<?extends ChampionEnemy> buffCls;
-		switch (Random.Int(6)){
+		switch (Random.Int(6+3)){
 			case 0: default:    buffCls = Blazing.class;      break;
 			case 1:             buffCls = Projecting.class;   break;
 			case 2:             buffCls = AntiMagic.class;    break;
 			case 3:             buffCls = Giant.class;        break;
 			case 4:             buffCls = Blessed.class;      break;
 			case 5:             buffCls = Growing.class;      break;
+
+			case 6:             buffCls = 噩梦.class;      break;
+			case 7:             buffCls = 冰寒.class;      break;
+			case 8:             buffCls = 嗜血.class;      break;
 		}
 
 		if (Dungeon.mobsToChampion <= 0 && Dungeon.isChallenged(Challenges.CHAMPION_ENEMIES)) {
@@ -108,7 +130,6 @@ public abstract class ChampionEnemy extends Buff {
 
 		{
 			color = 0xFF8800;
-			rays = 4;
 		}
 
 		@Override
@@ -132,7 +153,7 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		@Override
-		public float meleeDamageFactor() {
+		public float DamageFactor() {
 			return 1.25f;
 		}
 
@@ -140,16 +161,40 @@ public abstract class ChampionEnemy extends Buff {
 			immunities.add(燃烧.class);
 		}
 	}
+	public static class 冰寒 extends ChampionEnemy {
+
+		{
+			color = 0x3399FF;
+		}
+
+		@Override
+		public void onAttackProc(Char enemy) {
+			if (算法.概率学(15)) {
+				算法.修复效果(()->{
+					Buff.施加(enemy,Frost.class,Frost.DURATION*0.15f);
+				});
+			}
+		}
+
+		@Override
+		public float DamageFactor() {
+			return 1.25f;
+		}
+
+		{
+			immunities.add(Chill.class);
+			immunities.add(Frost.class);
+		}
+	}
 
 	public static class Projecting extends ChampionEnemy {
 
 		{
 			color = 0x8800FF;
-			rays = 4;
 		}
 
 		@Override
-		public float meleeDamageFactor() {
+		public float DamageFactor() {
 			return 1.25f;
 		}
 
@@ -175,12 +220,11 @@ public abstract class ChampionEnemy extends Buff {
 
 		{
 			color = 0x00FF00;
-			rays = 5;
 		}
 
 		@Override
-		public float damageTakenFactor() {
-			return 0.5f;
+		public float 最大生命() {
+			return 2;
 		}
 
 		{
@@ -194,12 +238,11 @@ public abstract class ChampionEnemy extends Buff {
 
 		{
 			color = 0x0088FF;
-			rays = 5;
 		}
 
 		@Override
-		public float damageTakenFactor() {
-			return 0.2f;
+		public float 最大生命() {
+			return 5;
 		}
 
 		@Override
@@ -224,7 +267,6 @@ public abstract class ChampionEnemy extends Buff {
 
 		{
 			color = 0xFFFF00;
-			rays = 6;
 		}
 
 		@Override
@@ -236,11 +278,10 @@ public abstract class ChampionEnemy extends Buff {
 	public static class Growing extends ChampionEnemy {
 
 		{
-			color = 0xFF2222; //a little white helps it stick out from background
-			rays = 6;
+			color = 0x111111;
 		}
 
-		private float multiplier = 1.19f;
+		private float multiplier = 1.2f;
 
 		@Override
 		public boolean act() {
@@ -250,13 +291,13 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		@Override
-		public float meleeDamageFactor() {
+		public float DamageFactor() {
 			return multiplier;
 		}
 
 		@Override
-		public float damageTakenFactor() {
-			return 1f/multiplier;
+		public float 最大生命() {
+			return multiplier;
 		}
 
 		@Override
@@ -282,6 +323,43 @@ public abstract class ChampionEnemy extends Buff {
 			super.restoreFromBundle(bundle);
 			multiplier = bundle.getFloat(MULTIPLIER);
 		}
+	}
+
+	public static class 噩梦 extends ChampionEnemy {
+
+		{
+			color = 0xFFFFFF;
+		}
+
+
+		@Override
+		public float DamageFactor() {
+			return 1.35f;
+		}
+
+		@Override
+		public float 攻速() {
+			return 1.5f;
+		}
+
+	}
+	public static class 嗜血 extends ChampionEnemy {
+
+		{
+			color = 0xFF2222; //a little white helps it stick out from background
+		}
+
+
+		@Override
+		public float 暴击率() {
+			return 0.3f;
+		}
+
+		@Override
+		public float 吸血() {
+			return 0.25f;
+		}
+
 	}
 
 }

@@ -38,12 +38,15 @@ public class 心之钢 extends Artifact {
 	
 	@Override
 	public String desc() {
-		float 伤害=Dungeon.hero.最大生命(0.06f+0.02f*等级());
+		float 伤害=20*(0.06f+0.02f*等级());
+		if(Dungeon.hero())伤害=Dungeon.hero.最大生命(0.06f+0.02f*等级());
+		float 大小 =1;
+		if(Dungeon.hero())大小=Dungeon.hero.大小();
+
 		float 生命=伤害*(0.03f+等级()*0.01f);
 		if(Dungeon.派对(派对设置.钢门联盟))生命*=2;
 		if(Dungeon.符文("钢化你心"))生命*=3;
-		String desc = Messages.get(this, "desc",伤害,生命,
-								  Dungeon.hero.大小());
+		String desc = Messages.get(this, "desc",伤害,生命,大小);
 
 		return desc;
 	}

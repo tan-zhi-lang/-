@@ -11,11 +11,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.UnstableBrew;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.watabou.utils.BArray;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
 
 import java.util.ArrayList;
@@ -82,4 +83,19 @@ public class 净化药剂 extends Potion {
 	public int 金币() {
 		return isKnown() ? 40 * quantity : super.金币();
 	}
+
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{UnstableBrew.class,};
+			inQuantity = new int[]{1,};
+
+			cost = 5;
+
+			output = 净化药剂.class;
+			outQuantity = 1;
+		}
+
+	}
+
 }

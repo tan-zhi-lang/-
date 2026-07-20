@@ -100,6 +100,7 @@ public class Buff extends Actor {
 
 	//text to display on large buff icons in the desktop UI
 	public String iconTextDisplay(){
+		if(!ds.equals(""))return ds;
 		return Math.round(visualcooldown())+"";
 	}
 
@@ -138,9 +139,11 @@ public class Buff extends Actor {
 	}
 	public String name="";
 	public String desc="";
+	public String ds="";
 	private static final String MNEMONIC_EXTENDED    = "mnemonic_extended";
 	private static final String NAME    = "name";
 	private static final String DESC    = "desc";
+	private static final String DS    = "ds";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
@@ -148,6 +151,7 @@ public class Buff extends Actor {
 		if (mnemonicExtended) bundle.put(MNEMONIC_EXTENDED, mnemonicExtended);
 		bundle.put(NAME, name);
 		bundle.put(DESC, desc);
+		bundle.put(DS, ds);
 	}
 
 	@Override
@@ -158,6 +162,7 @@ public class Buff extends Actor {
 		}
 		name = bundle.getString(NAME);
 		desc = bundle.getString(DESC);
+		ds = bundle.getString(DS);
 	}
 
 	//creates a fresh instance of the buff and attaches that, this allows duplication.

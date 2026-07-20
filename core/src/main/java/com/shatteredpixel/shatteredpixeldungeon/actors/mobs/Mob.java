@@ -1004,6 +1004,12 @@ public abstract class Mob extends Char{
 					Buff.施加(this,Frost.class,Dungeon.hero.天赋点数(Talent.元素掌控));
 				});
 		}
+		if(Dungeon.符文("魔法箭矢")&&nobuff(魔法箭矢冷却.class))
+			Dungeon.hero.扔出(pos,new 魔法箭矢(),()->{
+					Buff.施加(this,伤害.class).level(最大生命(Math.min(0.09f,0.015f*距离(Dungeon.hero))));
+					Buff.施加(this,魔法箭矢冷却.class,2);
+			});
+
 		if(Dungeon.符文("虚空裂隙")&&Dungeon.hero.视野范围(this)&&nobuff(虚空裂隙冷却.class)){
 			Buff.施加(this,虚空裂隙.class,6);
 
@@ -1036,13 +1042,6 @@ public abstract class Mob extends Char{
 
 		if(Dungeon.符文("你肩上的恶魔"))dmg*=1.25f;
 		super.受伤时(dmg,来源);
-		if(Dungeon.hero()&&Dungeon.符文("魔法箭矢")&&nobuff(魔法箭矢冷却.class))
-			Dungeon.hero.扔出(enemy.pos,new 魔法箭矢(),()->{
-				if(enemy.isAlive()){
-					Buff.施加(enemy,伤害.class).level(最大生命(Math.min(0.09f,0.015f*距离(Dungeon.hero))));
-					Buff.施加(enemy,魔法箭矢冷却.class,2);
-				}
-			});
 	}
 
 
@@ -1380,7 +1379,12 @@ public abstract class Mob extends Char{
 					if(Dungeon.符文("食以民为天"))Dungeon.hero.buff(Hunger.class).吃饭(最大生命);
 					if(Dungeon.符文("超凡邪恶")){
 						Dungeon.hero.魔力+=0.05f;
+
 					}
+					if(Dungeon.符文("死亡复活")){
+						Dungeon.hero.死亡时(null);
+					}
+
 					if(Dungeon.hero.天赋(Talent.久战)){
 						Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,0.5f));
 						Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.久战,0.5f));
@@ -1403,7 +1407,12 @@ public abstract class Mob extends Char{
 
 			死亡击杀效果(来源);
 
-			Buff.刷新(Dungeon.hero,连杀状态.class,10);
+			if(Dungeon.hero.hasbuff(连杀状态.class)){
+				float x=1+Dungeon.hero.buff(连杀状态.class).count;
+				Buff.刷新(Dungeon.hero,连杀状态.class,10).set(x);
+			}else
+				Buff.刷新(Dungeon.hero,连杀状态.class,10).set(1);
+
 			if(Dungeon.符文("黑暗收割")){
 				Buff.detach(Dungeon.hero,黑暗收割冷却.class);
 			}
@@ -1444,10 +1453,6 @@ public abstract class Mob extends Char{
 		if(Dungeon.hero()){
 			lootChance*=Dungeon.hero.幸运机制();
 		}
-		if(Dungeon.hero()){
-			lootChance*=1;
-		}
-
 		float dropBonus=幸运之戒.dropChanceMultiplier(Dungeon.hero);
 
 		Talent.BountyHunterTracker bhTracker=Dungeon.hero.buff(Talent.BountyHunterTracker.class);
@@ -2004,11 +2009,13 @@ public abstract class Mob extends Char{
 		//Try to switch targets to another enemy that is closer or reachable
 		//unless we have already done that and still can't move toward them, then move on.
 		protected boolean handleUnreachableTarget(boolean enemyInFOV,boolean justAlerted){
+
 			if(!recursing){
 				Char oldEnemy=enemy;
 				enemy=null;
 				enemy=chooseEnemy();
 				if(enemy!=null&&enemy!=oldEnemy){
+					sprite.吃瓜();
 					recursing=true;
 					boolean result=act(enemyInFOV,justAlerted);
 					recursing=false;

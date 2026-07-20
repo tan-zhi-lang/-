@@ -17,10 +17,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChanges;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChangesTabbed;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.停更;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制改动;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.奇袭;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.缝合;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制新增;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -130,10 +130,10 @@ public class 改动界面 extends PixelScene {
 		
 		switch (changesSelected){
 			case 0: default:
-				重制.addAllChanges(changeInfos);
+				重制新增.addAllChanges(changeInfos);
 				break;
 			case 1:
-				停更.addAllChanges(changeInfos);
+				重制改动.addAllChanges(changeInfos);
 				break;
 			case 2:
 				缝合.addAllChanges(changeInfos);
@@ -195,7 +195,7 @@ public class 改动界面 extends PixelScene {
 				panel.innerHeight() + 2);
 		list.scrollTo(0, 0);
 		int w4=Math.round(pw/3.8875f);
-		StyledButton 重制 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "重制", 8){
+		StyledButton 重制 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "重制新增", 8){
 			@Override
 			protected void onClick() {
 				super.onClick();
@@ -209,7 +209,7 @@ public class 改动界面 extends PixelScene {
 		重制.setRect(list.left()-4f, list.bottom(), w4, changesSelected == 0 ? 19 : 15);
 		addToBack(重制);
 
-		StyledButton 停更 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "停更", 8){
+		StyledButton 停更 = new StyledButton(Chrome.Type.GREY_BUTTON_TR, "重制改动", 8){
 			@Override
 			protected void onClick() {
 				super.onClick();

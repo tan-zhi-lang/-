@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.effects;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Bless;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
@@ -44,7 +45,23 @@ import java.util.HashMap;
 
 public class FloatingText extends RenderedTextBlock {
 
-	private static final float LIFESPAN	= 1f;
+	public static float LIFESPAN(){
+		return switch(SPDSettings.文字寿命()){
+			default ->1;
+			case 0->0.5f;
+			case 1->0.75f;
+			case 2->1;
+			case 3->1.25f;
+			case 4->1.5f;
+			case 5->1.75f;
+			case 6->2f;
+			case 7->2.25f;
+			case 8->2.5f;
+			case 9->2.75f;
+			case 10->3;
+
+		};
+	}
 	private static final float DISTANCE	= DungeonTilemap.SIZE;
 
 	public static final int ICON_WIDTH = 7;
@@ -135,10 +152,10 @@ public class FloatingText extends RenderedTextBlock {
 			if ((timeLeft -= Game.elapsed) <= 0) {
 				kill();
 			} else {
-				float p = timeLeft / LIFESPAN;
+				float p = timeLeft / LIFESPAN();
 				alpha( p > 0.5f ? 1 : p * 2 );
 				
-				float yMove = (DISTANCE / LIFESPAN) * Game.elapsed;
+				float yMove = (DISTANCE / LIFESPAN()) * Game.elapsed;
 				y -= yMove;
 				for (RenderedText t : words){
 					t.y -= yMove;
@@ -218,7 +235,7 @@ public class FloatingText extends RenderedTextBlock {
 			PixelScene.align( Camera.main, y - height())
 		);
 		
-		timeLeft = LIFESPAN;
+		timeLeft = LIFESPAN();
 	}
 	
 	/* STATIC METHODS */
@@ -266,7 +283,7 @@ public class FloatingText extends RenderedTextBlock {
 						above.setPos(above.left(), below.top() - above.height() - 4);
 
 						//reduce remaining time on texts being nudged up, to prevent spam
-						above.timeLeft = Math.min(above.timeLeft, LIFESPAN-(numBelow/5f));
+						above.timeLeft = Math.min(above.timeLeft, LIFESPAN()-(numBelow/5f));
 						above.timeLeft = Math.max(above.timeLeft, 0);
 						
 						below = above;

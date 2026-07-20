@@ -110,6 +110,8 @@ public class Guard extends Mob {
 		enemy.pos = pullPos;
 		enemy.sprite.place(pullPos);
 		Dungeon.level.occupyCell(enemy);
+		if(enemy.sprite!=null)enemy.sprite.哭泣();
+
 		Buff.延长(enemy,Cripple.class,4f);
 		if (enemy == Dungeon.hero) {
 			Dungeon.hero.interrupt();

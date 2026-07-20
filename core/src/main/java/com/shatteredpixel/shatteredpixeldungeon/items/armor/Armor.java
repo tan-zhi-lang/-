@@ -422,7 +422,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero){
 			float aEnc = 力量() - hero.力量();
 			if (aEnc > 0&&!hero.heroClass(HeroClass.重武)) evasion /= Math.pow(1.5, aEnc);
-			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅();
+			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅()/3f;
 			
 		}
 		
@@ -434,7 +434,7 @@ public class Armor extends EquipableItem {
 		if (owner instanceof Hero hero&&!hero.heroClass(HeroClass.重武)) {
 			float aEnc = 力量() - hero.力量();
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
-			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅()/2f;
+			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅()/3f;
 		}
 		
 		return augment.speedFactor(speed);

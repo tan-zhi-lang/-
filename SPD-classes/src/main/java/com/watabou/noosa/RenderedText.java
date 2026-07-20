@@ -41,6 +41,11 @@ public class RenderedText extends Image {
 
 		return this;
 	}
+	public RenderedText scale(float sscale) {
+		this.scale.set(sscale);
+		measure();
+		return this;
+	}
 	public RenderedText(String text, int size){
 		this.text = text;
 		this.size = size;
@@ -67,9 +72,9 @@ public class RenderedText extends Image {
 	
 	private synchronized void measure(){
 		
-		if (Thread.currentThread().getName().equals("SHPD Actor Thread")){
-			throw new RuntimeException("Text measured from the actor thread!");
-		}
+//		if (Thread.currentThread().getName().equals("SHPD Actor Thread")){
+//			throw new RuntimeException("Text measured from the actor thread!");
+//		}
 		
 		if ( text == null || text.equals("") ) {
 			text = "";

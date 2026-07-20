@@ -106,7 +106,8 @@ public class EmoIcon extends Image {
 
 			super( owner );
 
-			copy( Icons.get( Icons.INVESTIGATE ) );
+			copy( Icons.get( Icons.调查 ) );
+//			copy( Icons.get( Icons.INVESTIGATE ) );
 
 			origin.set( width / 2, height / 2 );
 			scale.set( Random.Float( minSize, maxSize ) );

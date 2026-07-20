@@ -48,6 +48,7 @@ public class GameSettings {
 			return defValue;
 		}
 	}
+
 	public static Float getFloat( String key, float defValue, float min, float max ) {
 		try {
 			float i = get().getFloat( key, defValue );

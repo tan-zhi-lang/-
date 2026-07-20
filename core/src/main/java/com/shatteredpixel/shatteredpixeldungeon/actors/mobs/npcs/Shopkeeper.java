@@ -188,12 +188,11 @@ public class Shopkeeper extends NPC {
 		return 售价(item.金币提升());
 	}
 	public static int 售价(int g){
-		float 打折=10;
+		float 打折=10*Dungeon.打折;
 		打折*=优惠卡.打折();
 		if(Holiday.getCurrentHoliday()==Holiday._618){
 			打折*=.9f;
 		}
-		打折/=3;
 		if(Dungeon.符文("我让你乱卖"))打折*=0.2f;
 
 		return Math.round(g*打折/2*(1/5f+1));

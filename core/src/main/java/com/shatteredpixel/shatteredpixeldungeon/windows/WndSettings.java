@@ -379,6 +379,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider optScreenShake;
 						OptionSlider 游戏帧率;
 						OptionSlider 字体大小;
+						OptionSlider 文字寿命;
+						OptionSlider 提示行数;
 						OptionSlider optUIScale;
 						
 						{
@@ -446,7 +448,28 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							字体大小.setSelectedValue(SPDSettings.字体大小());
 							add(字体大小);
-							
+
+							文字寿命 = new OptionSlider("文字寿命",
+														"50%", "300%", 0, 10) {
+								@Override
+								protected void onChange() {
+									SPDSettings.文字寿命(getSelectedValue());
+								}
+							};
+							文字寿命.setSelectedValue(SPDSettings.文字寿命());
+							add(文字寿命);
+
+
+							提示行数 = new OptionSlider("提示行数",
+														"25%", "175%", 0, 4) {
+								@Override
+								protected void onChange() {
+									SPDSettings.提示行数(getSelectedValue());
+								}
+							};
+							提示行数.setSelectedValue(SPDSettings.提示行数());
+							add(提示行数);
+
 							if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
 								optUIScale = new OptionSlider("界面尺寸",
 															  (int)Math.ceil(2* Game.density)+ "X",
@@ -473,7 +496,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 							optScreenShake.setRect(0,  optFollowIntensity.bottom()+GAP, width, BTN_HEIGHT);
 							游戏帧率.setRect(0,  optScreenShake.bottom()+GAP, width, BTN_HEIGHT);
 							字体大小.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
-							optUIScale.setRect(0,  字体大小.bottom()+GAP, width, BTN_HEIGHT);
+							文字寿命.setRect(0,  字体大小.bottom()+GAP, width, BTN_HEIGHT);
+							提示行数.setRect(0,  文字寿命.bottom()+GAP, width, BTN_HEIGHT);
+							optUIScale.setRect(0,  提示行数.bottom()+GAP, width, BTN_HEIGHT);
 							
 							resize(WIDTH_P, (int) optUIScale.bottom());
 						}

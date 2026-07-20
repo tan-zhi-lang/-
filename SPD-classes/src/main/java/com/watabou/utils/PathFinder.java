@@ -30,6 +30,11 @@ public class PathFinder {
 	public static int[] 自相邻;
 	public static int[] 范围2;
 	public static int[] 范围3;
+	public static int[] 范围4;
+	public static int[] 范围5;
+	public static int[] 范围6;
+	public static int[] 范围7;
+	public static int[] 范围8;
 	public static int[] 八卦;
 	public static int[] 垂直4;
 	public static int[] 水平4;
@@ -43,11 +48,6 @@ public class PathFinder {
 	public static int 八卦景门;
 	public static int 八卦死门;
 	public static int 八卦惊门;
-	public static int[] 范围4;
-	public static int[] 范围5;
-	public static int[] 范围6;
-	public static int[] 范围7;
-	public static int[] 范围8;
 
 	//similar to their equivalent neighbour arrays, but the order is clockwise.
 	//Useful for some logic functions, but is slower due to lack of array-access order.
@@ -76,6 +76,11 @@ public class PathFinder {
 		
 		范围2=x格(width,2);
 		范围3=x格(width,3);
+		范围4=x格(width,4);
+		范围5=x格(width,5);
+		范围6=x格(width,6);
+		范围7=x格(width,7);
+		范围8=x格(width,8);
 		八卦=new int[]{-width*3,
 				-width*2-2,-width*2+2,
 				-3, +3,
@@ -106,11 +111,6 @@ public class PathFinder {
 
 		水平32=水平(32);
 		垂直32=垂直(width,32);
-		范围4=x格(width,4);
-		范围5=x格(width,5);
-		范围6=x格(width,6);
-		范围7=x格(width,7);
-		范围8=x格(width,8);
 		CIRCLE4 = new int[]{-width, +1, +width, -1};
 		CIRCLE8 = new int[]{-width-1, -width, -width+1, +1, +width+1, +width, +width-1, -1};
 	}
@@ -124,6 +124,7 @@ public class PathFinder {
 		for(int i=-r;i<=r;i++)if(i!=0)arr[idx++]=i*w;
 		return arr;
 	}
+
 	public static int[] x格(int width,int range) {
 		int[] S= new int[1 + 4 * range * (range + 1)];
 		int n=0;

@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -32,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨型方盾;
@@ -247,8 +249,10 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	public boolean 棍(){//1.175
 		if(this instanceof 法师魔杖)return true;
+		if(this instanceof 权杖)return true;
 		if(this instanceof 铁头棍)return true;
 		if(this instanceof 金纹拐)return true;
+		if(this instanceof 封印之杖)return true;
 		if(this instanceof 闪电双截棍)return true;
 		return false;
 	}
@@ -270,7 +274,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean 锤(){//1.25
 		if(this instanceof 硬头锤)return true;
 		if(this instanceof 链枷)return true;
-		if(this instanceof 权杖)return true;
 		if(this instanceof 锻造锤)return true;
 		if(战锤())return true;
 		if(巨锤())return true;
@@ -603,9 +606,14 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(defender!=null&&defender.第x次防御==1&&首攻()>0){
 			damage+=首攻();
 		}
-		if(defender!=null){
+		if(defender!=null&&麻痹()>0){
 				算法.修复效果(()->{
-					Buff.施加(defender,Frost.class,2);
+					Buff.施加(defender,Paralysis.class,Paralysis.DURATION*麻痹());
+				});
+		}
+		if(defender!=null&&冻结()>0){
+				算法.修复效果(()->{
+					Buff.施加(defender,Frost.class,Frost.DURATION*冻结());
 				});
 		}
 		if (attacker instanceof Hero hero){

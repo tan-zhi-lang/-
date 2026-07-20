@@ -55,6 +55,8 @@ public class SPDSettings extends GameSettings {
 	public static final String 画面同步x = "画面同步";
 	public static final String 游戏帧率x = "游戏帧率";
 	public static final String 字体大小x = "字体大小";
+	public static final String 文字寿命x = "文字寿命";
+	public static final String 提示行数x = "提示行数";
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 
@@ -248,6 +250,21 @@ public class SPDSettings extends GameSettings {
 
 	public static int 字体大小() {
 		return getInt(字体大小x, 0,-2,2 );
+	}
+
+	public static void 文字寿命(int value ){
+		put(文字寿命x, value );
+	}
+
+	public static int 文字寿命() {
+		return getInt(文字寿命x, 1,0,10 );
+	}
+	public static void 提示行数(int value ){
+		put(提示行数x, value );
+	}
+
+	public static int 提示行数() {
+		return getInt(提示行数x, 1,0,4 );
 	}
 
 	//Interface

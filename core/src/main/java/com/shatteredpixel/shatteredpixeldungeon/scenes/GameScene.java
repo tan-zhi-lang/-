@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -26,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
+import com.shatteredpixel.shatteredpixeldungeon.actors.广告30秒;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
@@ -782,6 +784,11 @@ public class GameScene extends PixelScene {
 		if (每秒 >= 1){
 			if(Dungeon.hero()){
 				Dungeon.hero.更新数据();
+				if(Dungeon.hero.hasbuff(广告30秒.class)){
+					Buff.施加(Dungeon.hero,广告30秒.class).set(1);
+
+					Dungeon.hero.buff(广告30秒.class).act();
+				}
 			}
 			每秒=0;
 		}else 每秒+=1/60f;
@@ -1273,11 +1280,15 @@ public class GameScene extends PixelScene {
 		if (scene != null) {
 			if (doc == Document.ADVENTURERS_GUIDE){
 				if (!page.equals(Document.GUIDE_INTRO)) {
-					if (SPDSettings.interfaceSize() == 0) {
-						GLog.绿(Messages.get(Guidebook.class,"hint_mobile"));
-					} else {
-						GLog.绿(Messages.get(Guidebook.class,"hint_desktop",KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL,ControllerHandler.isControllerConnected()))));
-					}
+					;
+
+					GLog.绿(Messages.get(Guidebook.class,"hint",Messages.get( Document.class, page + ".title")));
+
+//					if (SPDSettings.interfaceSize() == 0) {
+//						GLog.绿(Messages.get(Guidebook.class,"hint_mobile"));
+//					} else {
+//						GLog.绿(Messages.get(Guidebook.class,"hint_desktop",KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL,ControllerHandler.isControllerConnected()))));
+//					}
 				}
 				Dungeon.hero.sprite.showStatus(CharSprite.增强绿,Messages.get(Guidebook.class,"hint_status"));
 			}

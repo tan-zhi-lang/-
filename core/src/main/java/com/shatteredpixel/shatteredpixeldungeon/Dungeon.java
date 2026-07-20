@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
@@ -222,6 +223,7 @@ public class Dungeon {
 	//keeps track of what levels the game should try to load instead of creating fresh
 	public static ArrayList<Integer> generatedLevels = new ArrayList<>();
 
+	public static float 打折=1;
 	public static int gold=0;
 	public static int energy=0;
 	public static float gold(int x){
@@ -514,6 +516,11 @@ public class Dungeon {
 
 		x*=1+叠钢;
 
+		if(c!=null)
+		for (ChampionEnemy buff : c.buffs(ChampionEnemy.class)){
+				x*=buff.最大生命();
+		}
+
 		x*=综合属性(c);
 		if(高耐久度)x*=3;
 		if(符文("打野"))x*=3;
@@ -533,6 +540,11 @@ public class Dungeon {
 //		x+=0.25f;
 		if(赛季(赛季设置.刷子地牢)&&循环()>0){
 			x+=10+(循环()-1 )*1.67;
+		}
+
+		if(c!=null)
+		for (ChampionEnemy buff : c.buffs(ChampionEnemy.class)){
+			x*=buff.DamageFactor();
 		}
 
 		x*=综合属性(c);
@@ -1040,6 +1052,7 @@ public class Dungeon {
 	private static final String DEPTH		= "depth";
 	private static final String BRANCH		= "branch";
 	private static final String GENERATED_LEVELS    = "generated_levels";
+	private static final String 打折x		= "打折";
 	private static final String GOLD		= "gold";
 	private static final String ENERGY		= "energy";
 	private static final String DROPPED     = "dropped%d";
@@ -1086,6 +1099,7 @@ public class Dungeon {
 			bundle.put( DEPTH, depth );
 			bundle.put( BRANCH, branch );
 
+			bundle.put( 打折x, 打折 );
 			bundle.put( GOLD, gold );
 			bundle.put( ENERGY, energy );
 
@@ -1290,6 +1304,7 @@ public class Dungeon {
 		depth = bundle.getInt( DEPTH );
 		branch = bundle.getInt( BRANCH );
 
+		打折 = bundle.getFloat( 打折x );
 		gold = bundle.getInt( GOLD );
 		energy = bundle.getInt( ENERGY );
 

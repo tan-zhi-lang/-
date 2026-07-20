@@ -47,12 +47,7 @@ public class 神力之泉 extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
-		if(Dungeon.符文("真神力之泉")&&(
-				item instanceof Weapon||
-				item instanceof Armor||
-				item instanceof Ring||
-				item instanceof Wand
-		))item.升级(35);
+		if(Dungeon.符文("真神力之泉")&&item.真可升级())item.升级(35);
 		if((item instanceof Weapon && !((Weapon) item).神力)
 				|| (item instanceof Armor && !((Armor) item).神力)){
 			if (item instanceof Weapon) {

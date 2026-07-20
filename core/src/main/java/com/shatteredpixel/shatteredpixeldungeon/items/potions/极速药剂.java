@@ -64,8 +64,8 @@ public class 极速药剂 extends Potion {
 		public void detach(){
 			if(target instanceof Hero hero)
 				if(hero.符文("速度的承载")){
-					hero.攻速成长+=0.15f;
-					hero.移速成长+=0.15f;
+					hero.攻速成长+=0.2f;
+					hero.移速成长+=0.1f;
 				}
 			super.detach();
 		}

@@ -58,8 +58,15 @@ public class MovieClip extends Image {
 							return;
 						}
 					}
-					
-				} else {
+
+				}else if (curFrame == curAnim.frames.length - 1-1) {
+					if(curAnim.完事延迟>0){
+						frameTimer-=curAnim.完事延迟;
+						curAnim.完事延迟=0;
+					}else {
+						curFrame++;
+					}
+				}else {
 					curFrame++;
 				}
 			}
@@ -95,6 +102,7 @@ public class MovieClip extends Image {
 	public static class Animation {
 		
 		public float delay;
+		public float 完事延迟;
 		public RectF[] frames;
 		public boolean looped;
 		

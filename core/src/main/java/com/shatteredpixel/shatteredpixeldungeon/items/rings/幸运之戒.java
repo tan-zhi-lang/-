@@ -47,20 +47,20 @@ public class 幸运之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   0.236f*soloBuffedBonus(),100*0.02f*soloBuffedBonus());
+									   0.15f*soloBuffedBonus(),100*0.02f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						0.236f*combinedBuffedBonus(Dungeon.hero),100*(0.02f*combinedBuffedBonus(Dungeon.hero)));
+						0.15f*combinedBuffedBonus(Dungeon.hero),100*(0.02f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 0.236f,2);
+			return Messages.get(this, "stats", 0.15f,2);
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return 0.236f*(level+1) + "倍";
+		return 0.15f*(level+1) + "倍";
 	}
 	
 	@Override
@@ -103,7 +103,7 @@ public class 幸运之戒 extends Ring {
 		return super.强化等级()+l;
 	}
 	public static float dropChanceMultiplier( Char target ){
-		return 1+0.236f*getBuffedBonus(target, Wealth.class);
+		return 1+0.15f*getBuffedBonus(target, Wealth.class);
 	}
 	
 	public static ArrayList<Item> tryForBonusDrop(Char target, int tries ){
@@ -115,14 +115,14 @@ public class 幸运之戒 extends Ring {
 				triesToDrop = target.buff(TriesToDropTracker.class);
 		if (triesToDrop == null){
 			triesToDrop = Buff.施加(target, TriesToDropTracker.class);
-			triesToDrop.set( Random.NormalIntRange(0, 20) );
+			triesToDrop.set( Random.NormalIntRange(5, 30) );
 		}
 
 		CountBuff
 				dropsToEquip = target.buff(DropsToEquipTracker.class);
 		if (dropsToEquip == null){
 			dropsToEquip = Buff.施加(target, DropsToEquipTracker.class);
-			dropsToEquip.set( Random.NormalIntRange(5, 10) );
+			dropsToEquip.set( Random.NormalIntRange(8, 15) );
 		}
 
 		//now handle reward logic
@@ -149,7 +149,7 @@ public class 幸运之戒 extends Ring {
 					i = genEquipmentDrop(equipBonus - 1);
 				} while (Challenges.isItemBlocked(i));
 				drops.add(i);
-				dropsToEquip.set(Random.NormalIntRange(5, 10));
+				dropsToEquip.set(Random.NormalIntRange(8, 15));
 			} else {
 				Item i;
 				do {
@@ -158,7 +158,7 @@ public class 幸运之戒 extends Ring {
 				drops.add(i);
 				dropsToEquip.set(-1);
 			}
-			triesToDrop.set( Random.NormalIntRange(0, 20) );
+			triesToDrop.set( Random.NormalIntRange(5, 30) );
 		}
 		
 		return drops;

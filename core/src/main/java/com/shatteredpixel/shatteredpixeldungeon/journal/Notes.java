@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfAwareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfHealth;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.天赋之泉;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.幸运之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.神力之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -117,6 +118,7 @@ public class Notes {
 		WELL_OF_AWARENESS,
 		神力之泉,
 		天赋之泉,
+		幸运之泉,
 		SACRIFICIAL_FIRE,
 		STATUE,
 
@@ -242,6 +244,7 @@ public class Notes {
 				case WELL_OF_AWARENESS: return Messages.get(WaterOfAwareness.class, "desc");
 				case 神力之泉: return Messages.get(神力之泉.class, "desc");
 				case 天赋之泉: return Messages.get(天赋之泉.class,"desc");
+				case 幸运之泉: return Messages.get(幸运之泉.class,"desc");
 				case SACRIFICIAL_FIRE:  return Messages.get(SacrificialFire.class, "desc");
 				case STATUE:            return Messages.get(Statue.class, "desc");
 

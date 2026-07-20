@@ -25,8 +25,8 @@ public class 回血累计 extends CountBuff{
 		if(target instanceof Hero hero){
 
 			if(hero.符文("海克斯获取:恢复")){
-				恢复++;
-				if(恢复>=hero.最大生命){
+				恢复+=x;
+				if(恢复>=hero.最大生命(2f)){
 					恢复=0;
 					new 海克斯秘卷().放背包();
 				}

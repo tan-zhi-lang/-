@@ -23,6 +23,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.S
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
 import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
+import com.shatteredpixel.shatteredpixeldungeon.actors.每10回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.每150回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.每300回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.每450回合;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -206,32 +210,35 @@ public enum HeroClass{
 			Dungeon.老鼠蝙蝠= true;
 
 		if(Dungeon.派对(派对设置.英精英雄)){
-			switch(Random.Int(6)){
+			switch(Random.Int(6+3)){
 				case 0:
 				default:
 					hero.英精英雄=0;
-//					ChampionEnemy.Blazing.class;
 					break;
 				case 1:
 					hero.英精英雄=1;
-//					ChampionEnemy.Projecting.class;
 					break;
 				case 2:
 					hero.英精英雄=2;
-//					ChampionEnemy.AntiMagic.class;
 					break;
 				case 3:
 					hero.英精英雄=3;
-//					ChampionEnemy.Giant.class;
 					break;
 				case 4:
 					hero.英精英雄=4;
-//					ChampionEnemy.Blessed.class;
 					break;
 				case 5:
 					hero.英精英雄=5;
 					hero.英精英雄成长=0.2f;
-//					ChampionEnemy.Growing.class;
+					break;
+				case 6:
+					hero.英精英雄=6;
+					break;
+				case 7:
+					hero.英精英雄=7;
+					break;
+				case 8:
+					hero.英精英雄=8;
 					break;
 			}
 		}
@@ -272,6 +279,11 @@ public enum HeroClass{
 			Buff.施加(hero,下楼.class);
 			Buff.施加(hero,食物栏.class);
 			Buff.施加(hero,药剂栏.class);
+
+			Buff.施加(hero,每10回合.class);
+			Buff.施加(hero,每150回合.class);
+			Buff.施加(hero,每300回合.class);
+			Buff.施加(hero,每450回合.class);
 		}
 //			Buff.施加(hero,无法回头.class);
 
@@ -459,7 +471,8 @@ public enum HeroClass{
 		hero.belongings.幸运=new 幸运之戒();
 		hero.belongings.幸运.activate(hero);
 		hero.belongings.幸运.鉴定();
-		
+//		hero.belongings.幸运.升级(30);
+
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			hero.belongings.weapon=null;
 			hero.belongings.armor=null;

@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret.SecretWellRoom;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 import com.watabou.utils.Reflection;
@@ -70,9 +71,14 @@ public abstract class SpecialRoom extends Room {
 	//10 SPECIAL ROOMS WHICH GIVE CONSUMABLES MORE OFTEN THAN EQUIPMENT
 	//NOTE THAT ALCHEMY ROOMS ARE SPAWNED SEPARATELY
 	private static final ArrayList<Class<? extends SpecialRoom>> CONSUMABLE_SPECIALS = new ArrayList<>( Arrays.asList(
-			RunestoneRoom.class, GardenRoom.class, LibraryRoom.class, StorageRoom.class,
-			TreasuryRoom.class, MagicWellRoom.class, ToxicGasRoom.class, MagicalFireRoom.class, 魔法冰霜房间.class,
-			TrapsRoom.class, CrystalPathRoom.class, DM0房.class
+			RunestoneRoom.class,GardenRoom.class,LibraryRoom.class,StorageRoom.class,
+			TreasuryRoom.class,SecretWellRoom.class,
+
+			SecretWellRoom.class,//新增
+			MagicWellRoom.class,//新增
+
+			ToxicGasRoom.class,MagicalFireRoom.class,魔法冰霜房间.class,
+			TrapsRoom.class,CrystalPathRoom.class,DM0房.class
 	) );
 
 	//only one special that uses crystal keys per floor

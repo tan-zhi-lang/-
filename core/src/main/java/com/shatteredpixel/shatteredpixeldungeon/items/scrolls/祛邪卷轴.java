@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -157,5 +158,19 @@ public class 祛邪卷轴 extends InventoryScroll {
 	@Override
 	public int 金币() {
 		return isKnown() ? 30 * quantity : super.金币();
+	}
+
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{UnstableSpell.class,};
+			inQuantity = new int[]{1,};
+
+			cost = 5;
+
+			output = 祛邪卷轴.class;
+			outQuantity = 1;
+		}
+
 	}
 }

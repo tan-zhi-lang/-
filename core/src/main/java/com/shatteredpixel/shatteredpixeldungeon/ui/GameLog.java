@@ -39,7 +39,16 @@ public class GameLog extends Component implements Signal.Listener<String> {
 					int maxLines=SPDSettings.interfaceSize()>0?
 							5:
 							3;//提示文本行
-					maxLines=Math.round(maxLines*1.33f);
+					maxLines=Math.round(maxLines*1.33f*switch(SPDSettings.提示行数()){
+						default ->1;
+						case 0->0.25f;
+						case 1->0.5f;
+						case 2->1;
+						case 3->1.375f;
+						case 4->1.75f;
+
+					});
+
 					for(String text: textsToAdd){
 						if(length!=entries.size()){
 							clear();

@@ -42,7 +42,9 @@ public abstract class EquipableItem extends Item {
 		boolean b=true;
 		if(Dungeon.炼狱(炼狱设置.诅咒之戒)&&this instanceof Ring){
 			b=false;
-		}else if(Dungeon.炼狱(炼狱设置.诅咒神器)&&this instanceof Artifact){
+		}
+
+		if(Dungeon.炼狱(炼狱设置.诅咒神器)&&this instanceof Artifact){
 			b=false;
 		}
 		if(Dungeon.派对(派对设置.钢门联盟)&&this instanceof 心之钢)b=true;
@@ -51,7 +53,7 @@ public abstract class EquipableItem extends Item {
 		if(b)
 			actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
 
-		if(isEquipped(hero)&&cursed&&cursedKnown){
+		if(isEquipped(hero)&&cursed&&cursedKnown&&!hero.heroClass(HeroClass.巫女)){
 			actions.remove(AC_UNEQUIP);//正装备的诅咒移除扔出和卸下
 			actions.remove(AC_DROP);
 			actions.remove(AC_THROW);
@@ -150,7 +152,7 @@ public abstract class EquipableItem extends Item {
 
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
 
-		if (!hero.heroClass(HeroClass.巫女)&&(cursed
+		if ((cursed
 				&& hero.buff(MagicImmune.class) == null
 				&& (!hero.belongings.lostInventory() || keptThroughLostInventory()))) {
 			GLog.橙(Messages.get(EquipableItem.class,"unequip_cursed"));

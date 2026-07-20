@@ -98,8 +98,10 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯1);
 
-							hero.删除海克斯(final海克斯2);
-							hero.删除海克斯(final海克斯3);
+							if(!hero.符文("不再错过海克斯")){
+								hero.删除海克斯(final海克斯2);
+								hero.删除海克斯(final海克斯3);
+							}
 							if(hero.符文("我全都要")){
 								hero.删除海克斯("我全都要");
 								hero.选择海克斯(final海克斯2);
@@ -168,8 +170,10 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯2);
 
-							hero.删除海克斯(final海克斯1);
-							hero.删除海克斯(final海克斯3);
+							if(!hero.符文("不再错过海克斯")){
+								hero.删除海克斯(final海克斯1);
+								hero.删除海克斯(final海克斯3);
+							}
 							if(hero.符文("我全都要")){
 								hero.删除海克斯("我全都要");
 								hero.选择海克斯(final海克斯1);
@@ -237,8 +241,10 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯3);
 
-							hero.删除海克斯(final海克斯1);
-							hero.删除海克斯(final海克斯2);
+							if(!hero.符文("不再错过海克斯")){
+								hero.删除海克斯(final海克斯1);
+								hero.删除海克斯(final海克斯2);
+							}
 							if(hero.符文("我全都要")){
 								hero.删除海克斯("我全都要");
 								hero.选择海克斯(final海克斯1);
@@ -354,6 +360,7 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯1);
 
+							if(!hero.符文("不再错过海克斯"))
 							hero.删除海克斯(final海克斯2);
 							if(hero.符文("我全都要")){
 								hero.删除海克斯("我全都要");
@@ -421,7 +428,9 @@ public class Wnd选择海克斯 extends Window {
 							INSTANCE.hide();
 							hero.选择海克斯(final海克斯2);
 
+							if(!hero.符文("不再错过海克斯"))
 							hero.删除海克斯(final海克斯1);
+
 							if(hero.符文("我全都要")){
 								hero.删除海克斯("我全都要");
 								hero.选择海克斯(final海克斯1);

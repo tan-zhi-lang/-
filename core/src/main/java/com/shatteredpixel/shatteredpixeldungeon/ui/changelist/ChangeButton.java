@@ -8,6 +8,7 @@ import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.改动界面;
@@ -15,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
 //not actually a button, but functions as one.
@@ -26,25 +28,57 @@ public class ChangeButton extends Component {
 	protected String title;
 	protected String[] messages;
 	
-	public ChangeButton( Item item,String... messages){
+	public ChangeButton( Item item){
 		super();
-		
+
+		item.鉴定();
+
 		this.icon = new ItemSprite(item.image);
 		add(this.icon);
 		
 		this.title = Messages.titleCase(item.name());
-		this.messages =new String[]{item.desc()+messages};
+		if(item instanceof Ring r)
+			this.messages =new String[]{r.statsInfo()};
+		else
+			this.messages =new String[]{item.info()};
 		
 		layout();
 	}
-	public ChangeButton(Mob mob,String... messages){
+	public ChangeButton( Item item, String messages){
+		super();
+
+		item.鉴定();
+
+		this.icon = new ItemSprite(item.image);
+		add(this.icon);
+
+		this.title = Messages.titleCase(item.name());
+
+		if(item instanceof Ring r)
+			this.messages =new String[]{messages,r.statsInfo()};
+		else
+			this.messages =new String[]{messages,item.info()};
+
+		layout();
+	}
+	public ChangeButton(HeroClass heroClass){
+		super();
+		this.icon = new Image(avatar(heroClass,tier(heroClass)));
+		add(this.icon);
+
+		this.title = Messages.titleCase(heroClass.name());
+		this.messages =new String[]{heroClass.unlockMsg(),heroClass.desc()};
+
+		layout();
+	}
+	public ChangeButton(Mob mob, String... messages){
 		super();
 		
 		this.icon = mob.sprite();
 		add(this.icon);
 		
 		this.title = Messages.titleCase(mob.name());
-		this.messages =new String[]{mob.description()+messages};
+		this.messages = messages;
 		
 		layout();
 	}
@@ -59,27 +93,23 @@ public class ChangeButton extends Component {
 		
 		layout();
 	}
-	public ChangeButton(HeroClass heroClass, String... messages){
+
+	public ChangeButton( String it, String title, String... messages){
 		super();
-		this.icon = new Image(avatar(heroClass,tier(heroClass)));
+		if(it.equals(""))
+			this.icon = new RenderedText(title,32).scale(1f/(title.length()+1));
+		else
+			this.icon = new RenderedText(it,32).scale(1f/(it.length()+1));
+
 		add(this.icon);
-
-		this.title = Messages.titleCase(heroClass.name());
-		this.messages =new String[]{heroClass.desc()+messages};
-
-		layout();
-	}
-	public ChangeButton(CharSprite charsprite, String title, String... messages){
-		super();
-
-		this.charsprite = charsprite;
-		add(this.charsprite);
 
 		this.title = Messages.titleCase(title);
 		this.messages = messages;
 
 		layout();
 	}
+
+
 	public ChangeButton(MobSprite mobsprite, String title, String... messages){
 		super();
 
@@ -91,10 +121,7 @@ public class ChangeButton extends Component {
 
 		layout();
 	}
-	
-	public ChangeButton(Item item, String message ){
-		this( new ItemSprite(item), item.name(), message);
-	}
+
 	
 	protected void onClick() {
 		if(icon!=null) {

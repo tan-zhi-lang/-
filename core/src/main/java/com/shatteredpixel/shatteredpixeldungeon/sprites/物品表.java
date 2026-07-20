@@ -457,7 +457,8 @@ public class 物品表 {
     public static final int 破败王剑=WEP_TIER5+26;
     public static final int 妖刀村正=WEP_TIER5+27;
     public static final int 无限之剑=WEP_TIER5+28;
-    public static final int 大肉棒=WEP_TIER5+29;
+    public static final int 封印之杖=WEP_TIER5+29;
+    public static final int 大肉棒=WEP_TIER5+31;
 
     static {
         assignItemRect(英雄断剑, 12, 13);
@@ -492,6 +493,7 @@ public class 物品表 {
         assignItemRect(破败王剑,16);
         assignItemRect(妖刀村正,15,16);
         assignItemRect(无限之剑,16);
+        assignItemRect(封印之杖,16,14);
         assignItemRect(大肉棒,14);
     }
     //endregion

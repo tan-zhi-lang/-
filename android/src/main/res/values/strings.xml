@@ -2,7 +2,9 @@
 <resources>
     <!-- CustomActivityOnCrash 崩溃界面中文翻译 -->
     <string name="customactivityoncrash_error_activity_error_occurred_explanation">请点击崩溃日志\n
-说清楚是怎么崩溃的\n
+说清楚是怎么崩溃的！\n
+说清楚是怎么崩溃的！\n
+说清楚是怎么崩溃的！\n
 并复制发给游戏作者Tan\n
 (Q群335966124)。\n
 崩溃日志与实际代码的位置\n

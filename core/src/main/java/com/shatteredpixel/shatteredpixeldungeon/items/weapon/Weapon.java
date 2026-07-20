@@ -457,6 +457,9 @@ abstract public class Weapon extends KindOfWeapon {
 		if(钝器()){
 			麻痹+=0.15f;
 		}
+		if(Dungeon.符文("柔术"))
+			麻痹+=0.15f;
+
 		return 麻痹;
 	}
 
@@ -488,7 +491,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public int 强化等级() {
 		int x=0;
-		if(isEquipped(Dungeon.hero)){
+		if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
 			x+=0.75f*神兵之戒.levelBonus(Dungeon.hero);
 
 			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
@@ -531,7 +534,8 @@ abstract public class Weapon extends KindOfWeapon {
 	public String info() {
 		
 		String info = super.info();
-
+		float hero力量=10;
+		if(Dungeon.hero())hero力量=Dungeon.hero.力量();
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known",力量(), tier(),
 										  最小攻击(),
@@ -539,15 +543,15 @@ abstract public class Weapon extends KindOfWeapon {
 											最小投掷攻击(),
 										  最大投掷攻击());
 			if (Dungeon.hero()) {
-				if (力量() > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
+				if (力量() > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
 					if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
 						GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
 					}
-				} else if (Dungeon.hero.力量() > 力量()) {
+				} else if (hero力量 > 力量()) {
 					info += " " + Messages.get(Weapon.class, "excess_str",
 											   (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"":"0~")
-							,kw2(Dungeon.hero.力量() - 力量()));
+							,kw2(hero力量 - 力量()));
 				}
 			}
 		} else {
@@ -556,15 +560,15 @@ abstract public class Weapon extends KindOfWeapon {
 										最大攻击(0),
 										  最小投掷攻击(0),
 											最大投掷攻击(0));
-			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
+			if (Dungeon.hero() && 力量(0) > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 				info += " " + Messages.get(Weapon.class, "too_heavy");
 				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
 					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
 				}
-			} else if (Dungeon.hero.力量() > 力量()) {
+			} else if (hero力量 > 力量()) {
 				info += " " + Messages.get(Weapon.class, "excess_str",
 										   (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"":"0~"),
-										   Dungeon.hero.力量() - 力量());
+										   hero力量 - 力量());
 			}
 		}
 		
@@ -676,10 +680,12 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 	}
 	public float DPS(){
+		float hero力量=10;
+		if(Dungeon.hero())hero力量=Dungeon.hero.力量();
 		return augment.damageFactor(
 				(
-				(Dungeon.hero()&&Dungeon.hero.力量()-力量()>0?
-						 (Dungeon.hero.力量()-力量())/2f:0)+
+				(Dungeon.hero()&&hero力量-力量()>0?
+						 (hero力量-力量())/2f:0)+
 
 				(最小攻击()+最大攻击())/2f+
 				((最小防御()+最大防御())>0?(最小防御()+最大防御())/5f:0)
@@ -840,7 +846,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public int chargeCap(){
-			return Math.min(10, Dungeon.hero.等级((Dungeon.hero.heroClass(HeroClass.DUELIST)?0.8f:0.4f)));
+			return Math.min(10, 1+Dungeon.hero.等级((Dungeon.hero.heroClass(HeroClass.DUELIST)?0.4f:0.2f)));
 		}
 
 		public void gainCharge(){
@@ -1438,7 +1444,7 @@ abstract public class Weapon extends KindOfWeapon {
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
-				delay/=1-encumbrance*hero.属性增幅()/2f;
+				delay/=1-encumbrance*hero.属性增幅()/3f;
 			}
 			
 		}

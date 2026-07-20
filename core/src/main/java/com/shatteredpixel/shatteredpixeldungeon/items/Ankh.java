@@ -38,6 +38,7 @@ public class Ankh extends Item {
 		永生秘药 永生秘药 = hero.belongings.getItem(永生秘药.class);
 		if (((水袋 != null && 水袋.isFull())||(永生秘药 != null)) && !blessed)
 			actions.add( AC_BLESS );
+
 		return actions;
 	}
 

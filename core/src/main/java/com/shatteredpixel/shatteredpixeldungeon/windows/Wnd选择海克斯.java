@@ -53,11 +53,13 @@ public class Wnd选择海克斯 extends Window {
 		String 海克斯2s;
 		String 海克斯3s;
 
-		if(s1.equals("")){
+		if(s1.equals(""))
+		do
+		{
 			海克斯1=hero.随机海克斯();
 			if(hero.符文("畸变选择"))
 				海克斯1=hero.选择随机海克斯1();
-		}
+		}while(海克斯2.equals(海克斯1)||海克斯3.equals(海克斯1));
 
 		海克斯1s=hero.海克斯级(海克斯1)+":";
 		if(s2.equals(""))
@@ -66,7 +68,7 @@ public class Wnd选择海克斯 extends Window {
 				海克斯2=hero.随机海克斯();
 			if(hero.符文("畸变选择"))
 				海克斯2=hero.选择随机海克斯2();
-		}while(海克斯1.equals(海克斯2));
+		}while(海克斯1.equals(海克斯2)||海克斯3.equals(海克斯2));
 		海克斯2s=hero.海克斯级(海克斯2)+":";
 
 		if(s3.equals(""))
@@ -326,11 +328,13 @@ public class Wnd选择海克斯 extends Window {
 		String 海克斯1s;
 		String 海克斯2s;
 
-		if(s1.equals("")){
+		if(s1.equals(""))
+			do
+			{
 			海克斯1=hero.随机海克斯();
 			if(hero.符文("畸变选择"))
 				海克斯1=hero.选择随机海克斯1();
-		}
+			}while(海克斯2.equals(海克斯1));
 
 		海克斯1s=hero.海克斯级(海克斯1)+":";
 		if(s2.equals(""))

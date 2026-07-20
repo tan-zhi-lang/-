@@ -20,6 +20,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.世界标尺;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
@@ -62,6 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
@@ -92,10 +95,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.活力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
 import com.shatteredpixel.shatteredpixeldungeon.items.火把神的恩宠;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.神盾果;
+import com.shatteredpixel.shatteredpixeldungeon.items.秘银;
+import com.shatteredpixel.shatteredpixeldungeon.items.精纯药液;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
 import com.shatteredpixel.shatteredpixeldungeon.items.血药;
@@ -243,7 +249,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 神农锄()));
 		changes.addButton(new ChangeButton(new 死神镰刀()));
 		changes.addButton(new ChangeButton(new 无限之剑()));
-//		changes.addButton(new ChangeButton(new 封印之杖()));
+		changes.addButton(new ChangeButton(new 封印之杖()));
 		changes.addButton(new ChangeButton(new 妖刀村正()));
 		changes.addButton(new ChangeButton(new 破败王剑()));
 		changes.addButton(new ChangeButton(new 妖刀村正()));
@@ -316,6 +322,11 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新物品", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 结金菱晶(),"念力结晶+激泥酞酶消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 结能菱晶(),"念力结晶+激泥酞酶消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 精纯药液(),"任意药剂消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 激泥酞酶(),"任意卷轴消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 秘银(),"秘银x3消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 护甲修理工具包(),
 				//									   "护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
 										   "巨魔铁匠可以花费人情修复你的护甲。\n" +
@@ -556,8 +567,24 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 
 		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(),"炼金",
 											"配方\n" +
-											"紊乱魔药消耗5能量合成净化药剂，无序结晶消耗5能量合成祛邪卷轴。\n" +
+											"口粮+护甲修理工具包消耗2能量合成布甲。\n" +
+											"布甲+护甲修理工具包消耗4能量合成皮甲。\n" +
+											"皮甲+护甲修理工具包消耗6能量合成链甲。\n" +
+											"链甲+护甲修理工具包消耗8能量合成鳞甲。\n" +
+											"鳞甲+护甲修理工具包消耗10能量合成板甲。" ,
+
+											"双刃+金液消耗9能量合成双剑。\n" +
+											"匕首+金液消耗6能量合成长匕首。\n" +
+											"短剑+金液消耗6能量合成单手剑。\n" +
+											"单手+金液剑消耗9能量合成长剑。\n" +
+											"长剑+金液消耗12能量合成巨剑。\n" +
+											"匕首+长匕首消耗15能量合成暗杀之刃。\n" +
+											"巨剑+治疗药剂消耗15能量合成饮血之剑。\n" +
+											"战镰+复仇卷轴消耗15能量合成死神镰刀。\n" +
+											"长匕首+冰霜药剂消耗15能量合成臻冰刃。",
+
 											"合成炖肉所需能量为固定数量。\n" +
+											"紊乱魔药消耗5能量合成净化药剂，无序结晶消耗5能量合成祛邪卷轴。\n" +
 											"生肉+隐形药剂消耗5能量合成幻影鱼肉。"
 		));
 		changes.addButton( new ChangeButton(Icons.CALENDAR.get(), "日历",

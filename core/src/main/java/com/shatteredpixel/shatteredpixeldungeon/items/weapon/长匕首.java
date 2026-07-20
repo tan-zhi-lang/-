@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.背刺;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -19,5 +20,19 @@ public class 长匕首 extends Weapon{
 
 		tier = 2;
 	}
-	
+
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{匕首.class,
+					LiquidMetal.class,};
+			inQuantity = new int[]{1,1,};
+
+			cost = 6;
+
+			output = 长匕首.class;
+			outQuantity = 1;
+		}
+
+	}
 }

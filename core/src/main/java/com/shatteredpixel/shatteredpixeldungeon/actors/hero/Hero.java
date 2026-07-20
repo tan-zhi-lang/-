@@ -2604,25 +2604,25 @@ public class Hero extends Char {
         }
     }
 
-    public void 权重4海克斯(String ss){
+    public void 权重4海克斯(String ss){//必刷
         if (海克斯表.containsKey(ss)&&!符文(ss)&&!删除(ss)){//没海克斯
             海克斯表.put(ss,百(海克斯表.get(ss))*100+
                             40+0);
         }
     }
-    public void 权重3海克斯(String ss){
+    public void 权重3海克斯(String ss){//好刷
         if (海克斯表.containsKey(ss)&&!符文(ss)&&!删除(ss)){//没海克斯
             海克斯表.put(ss,百(海克斯表.get(ss))*100+
                             30+0);
         }
     }
-    public void 权重2海克斯(String ss){
+    public void 权重2海克斯(String ss){//普通
         if (海克斯表.containsKey(ss)&&!符文(ss)&&!删除(ss)){//没海克斯
             海克斯表.put(ss,百(海克斯表.get(ss))*100+
                             20+0);
         }
     }
-    public void 权重1海克斯(String ss){
+    public void 权重1海克斯(String ss){//伪删除
         if (海克斯表.containsKey(ss)&&!符文(ss)&&!删除(ss)){//没海克斯
             海克斯表.put(ss,百(海克斯表.get(ss))*100+
                             10+0);
@@ -2735,14 +2735,14 @@ public class Hero extends Char {
 
             if(符文("只要1级海克斯")){
                 for(String s: 海克斯表.keySet()){
-                    if(海克斯权重(s)==2)
+                    if(海克斯权重(s)>=3)
                         随机表.add(s);
                     else if(海克斯级(s)==1)
                         随机表.add(s);
                 }
             }else if(符文("标局")){
                 for(String s: 海克斯表.keySet()){
-                    if(海克斯权重(s)==2)
+                    if(海克斯权重(s)>=3)
                         随机表.add(s);
                     else if(海克斯级(s)!=1)
                         随机表.add(s);
@@ -2750,7 +2750,7 @@ public class Hero extends Char {
             }else{
                 for(String s: 海克斯表.keySet()){
 
-                    if(海克斯权重(s)==2)
+                    if(海克斯权重(s)>=3)
                         随机表.add(s);
                     else {
                         if(等级==1&&海克斯级(s)==1){
@@ -2786,10 +2786,10 @@ public class Hero extends Char {
                         权重表[权重位]=0.01f;
 
                     if(海克斯权重(s)==3)
-                        权重表[权重位]=(float)随机表.size()/2f;
+                        权重表[权重位]=随机表.size()/8f;
 
                     if(海克斯权重(s)==4)//权重4
-                        权重表[权重位]=随机表.size()*2.5f;
+                        权重表[权重位]=随机表.size();
 
                     权重位++;
                 }

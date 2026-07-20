@@ -21,5 +21,18 @@ public class 暗杀之刃 extends Weapon {
 		tier = 5;
 	}
 
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{匕首.class,长匕首.class,};
+			inQuantity = new int[]{1,1,};
+
+			cost = 15;
+
+			output = 暗杀之刃.class;
+			outQuantity = 1;
+		}
+
+	}
 
 }

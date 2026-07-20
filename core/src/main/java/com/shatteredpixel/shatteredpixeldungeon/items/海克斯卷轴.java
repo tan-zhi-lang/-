@@ -105,10 +105,9 @@ public class 海克斯卷轴 extends 用品 {
 						if(hero.是海克斯(祈愿)&&!hero.符文(祈愿)){
 							Sample.INSTANCE.play(Assets.Sounds.海克斯);
 							if(hero.符文("我让你海克斯随机")){
-								hero.权重4海克斯(祈愿);
+								hero.选择海克斯(祈愿);
 								detach();
-							}
-							else hero.权重2海克斯(祈愿);
+							}else hero.权重4海克斯(祈愿);
 						}else
 							GLog.橙("你输入的海克斯名字不存在！");
 					}

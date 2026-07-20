@@ -833,13 +833,50 @@ public class 物品表 {
     public static final int SCROLL_BERKANAN = SCROLLS + 9;
     public static final int SCROLL_ODAL = SCROLLS + 10;
     public static final int SCROLL_TIWAZ = SCROLLS + 11;
+    static {
+        for (int i = SCROLLS; i < SCROLLS + 12; i++)
+            assignItemRect(i, 15, 14);
+    }
 
-    public static final int ARCANE_RESIN = SCROLLS + 13;
+    public static final int ARCANE_RESIN = xy(13, 20);
+    public static final int 激泥酞酶 = ARCANE_RESIN + 1;
+    public static final int WILD_ENERGY = ARCANE_RESIN + 2;
+    public static final int PHASE_SHIFT = ARCANE_RESIN + 3;
+    public static final int TELE_GRAB = ARCANE_RESIN + 4;
+
+    public static final int UNSTABLE_SPELL = xy(13, 21);
+    public static final int RECLAIM_TRAP = UNSTABLE_SPELL + 1;
+    public static final int RETURN_BEACON = UNSTABLE_SPELL + 2;
+    public static final int SUMMON_ELE = UNSTABLE_SPELL + 3;
+
+    public static final int CURSE_INFUSE = xy(13, 22);
+    public static final int MAGIC_INFUSE = CURSE_INFUSE + 1;
+    public static final int ALCHEMIZE = CURSE_INFUSE + 2;
+    public static final int RECYCLE = CURSE_INFUSE + 3;
+    public static final int 结金菱晶 = CURSE_INFUSE + 4;
+    public static final int 结能菱晶 = CURSE_INFUSE + 5;
 
     static {
-        for (int i = SCROLLS; i < SCROLLS + 30; i++)
-            assignItemRect(i, 15, 14);
+
         assignItemRect(ARCANE_RESIN, 12, 11);
+        assignItemRect(激泥酞酶, 12, 11);
+
+        assignItemRect(WILD_ENERGY, 12, 11);
+        assignItemRect(PHASE_SHIFT, 12, 11);
+        assignItemRect(TELE_GRAB, 12, 11);
+
+        assignItemRect(UNSTABLE_SPELL, 12, 13);
+
+        assignItemRect(RECLAIM_TRAP, 8, 16);
+        assignItemRect(RETURN_BEACON, 8, 16);
+        assignItemRect(SUMMON_ELE, 8, 16);
+
+        assignItemRect(CURSE_INFUSE, 10, 15);
+        assignItemRect(MAGIC_INFUSE, 10, 15);
+        assignItemRect(ALCHEMIZE, 10, 15);
+        assignItemRect(RECYCLE, 10, 15);
+        assignItemRect(结金菱晶, 10, 15);
+        assignItemRect(结能菱晶, 10, 15);
     }
 
     private static final int EXOTIC_SCROLLS = xy(0, 21);  //16 slots
@@ -857,7 +894,7 @@ public class 物品表 {
     public static final int EXOTIC_TIWAZ = EXOTIC_SCROLLS + 11;
 
     static {
-        for (int i = EXOTIC_SCROLLS; i < EXOTIC_SCROLLS + 30; i++)
+        for (int i = EXOTIC_SCROLLS; i < EXOTIC_SCROLLS + 12; i++)
             assignItemRect(i, 15, 14);
     }
 
@@ -876,7 +913,7 @@ public class 物品表 {
     public static final int STONE_SHOCK = STONES + 11;
 
     static {
-        for (int i = STONES; i < STONES + 30; i++)
+        for (int i = STONES; i < STONES + 12; i++)
             assignItemRect(i, 14, 12);
     }
     //endregion
@@ -896,15 +933,53 @@ public class 物品表 {
     public static final int POTION_SILVER = POTIONS + 10;
     public static final int POTION_IVORY = POTIONS + 11;
 
-    public static final int LIQUID_METAL = POTIONS + 13;
-    public static final int 血药 = POTIONS + 14;
+    static {
+        for (int i = POTIONS; i < POTIONS + 12; i++)
+            assignItemRect(i, 12, 14);
+    }
+    public static final int LIQUID_METAL = xy(13, 23);
+    public static final int 精纯药液 = POTIONS + 14;
+    public static final int BREW_AQUA = POTIONS + 15;
+    public static final int 血药 = POTIONS + 16;
+
+    public static final int BREW_UNSTABLE = xy(13, 24);
+    public static final int BREW_INFERNAL = BREW_UNSTABLE + 1;
+    public static final int BREW_BLIZZARD = BREW_UNSTABLE + 2;
+    public static final int BREW_SHOCKING = BREW_UNSTABLE + 3;
+    public static final int BREW_CAUSTIC = BREW_UNSTABLE + 4;
+
+    public static final int 永生秘药 = xy(13,25);  //8 slots
+    public static final int ELIXIR_HONEY = 永生秘药 + 1;
+    public static final int ELIXIR_AQUA = 永生秘药 + 2;
+    public static final int ELIXIR_MIGHT = 永生秘药 + 3;
+    public static final int ELIXIR_DRAGON = 永生秘药 + 4;
+    public static final int ELIXIR_TOXIC = 永生秘药 + 5;
+    public static final int ELIXIR_ICY = 永生秘药 + 6;
+    public static final int ELIXIR_ARCANE = 永生秘药 + 7;
+    public static final int ELIXIR_FEATHER = 永生秘药 + 8;
 
     static {
-        for (int i = POTIONS; i < POTIONS + 30; i++)
-            assignItemRect(i, 12, 14);
-
         assignItemRect(LIQUID_METAL, 8, 15);
+        assignItemRect(精纯药液, 6, 15);
+        assignItemRect(BREW_AQUA, 9, 11);
         assignItemRect(血药, 9, 11);
+
+        assignItemRect(BREW_UNSTABLE, 12, 14);
+        assignItemRect(BREW_INFERNAL, 12, 14);
+        assignItemRect(BREW_BLIZZARD, 12, 14);
+        assignItemRect(BREW_SHOCKING, 12, 14);
+        assignItemRect(BREW_CAUSTIC, 12, 14);
+
+        assignItemRect(永生秘药, 12, 14);
+        assignItemRect(ELIXIR_HONEY, 12, 14);
+        assignItemRect(ELIXIR_AQUA, 12, 14);
+        assignItemRect(ELIXIR_MIGHT, 12, 14);
+        assignItemRect(ELIXIR_DRAGON, 12, 14);
+        assignItemRect(ELIXIR_TOXIC, 12, 14);
+        assignItemRect(ELIXIR_ICY, 12, 14);
+        assignItemRect(ELIXIR_ARCANE, 12, 14);
+        assignItemRect(ELIXIR_FEATHER, 12, 14);
+
     }
 
     private static final int EXOTIC_POTIONS = xy(0, 24);  //16 slots
@@ -922,7 +997,7 @@ public class 物品表 {
     public static final int EXOTIC_IVORY = EXOTIC_POTIONS + 11;
 
     static {
-        for (int i = EXOTIC_POTIONS; i < EXOTIC_POTIONS + 30; i++)
+        for (int i = EXOTIC_POTIONS; i < EXOTIC_POTIONS + 12; i++)
             assignItemRect(i, 12, 13);
     }
 
@@ -941,72 +1016,40 @@ public class 物品表 {
     public static final int SEED_BLINDWEED = SEEDS + 11;
 
     static {
-        for (int i = SEEDS; i < SEEDS + 30; i++)
+        for (int i = SEEDS; i < SEEDS + 12; i++)
             assignItemRect(i, 10);
     }
     //endregion
 
-    //region 秘药结晶
-    private static final int BREWS = xy(0, 26);  //8 slots
-    public static final int BREW_INFERNAL = BREWS + 0;
-    public static final int BREW_BLIZZARD = BREWS + 1;
-    public static final int BREW_SHOCKING = BREWS + 2;
-    public static final int BREW_CAUSTIC = BREWS + 3;
-    public static final int BREW_AQUA = BREWS + 4;
-    public static final int BREW_UNSTABLE = BREWS + 5;
-
-    public static final int ELIXIRS = xy(7,26);  //8 slots
-    
-    public static final int 永生秘药 = ELIXIRS;
-    public static final int ELIXIR_HONEY = ELIXIRS + 1;
-    public static final int ELIXIR_AQUA = ELIXIRS + 2;
-    public static final int ELIXIR_MIGHT = ELIXIRS + 3;
-    public static final int ELIXIR_DRAGON = ELIXIRS + 4;
-    public static final int ELIXIR_TOXIC = ELIXIRS + 5;
-    public static final int ELIXIR_ICY = ELIXIRS + 6;
-    public static final int ELIXIR_ARCANE = ELIXIRS + 7;
-    public static final int ELIXIR_FEATHER = ELIXIRS + 8;
+    public static final int 锻造锤 = xy(0, 26);  //16 slots
+    public static final int 属性锻造器 = 锻造锤 + 1;
+    public static final int 红包 = 锻造锤 + 2;
+    public static final int 火把神的恩宠 = 锻造锤 + 3;
+    public static final int 贤者之石 = 锻造锤 + 4;
+    public static final int 海克斯秘卷=锻造锤+5;
+    public static final int 海克斯移除器 = 锻造锤 + 6;
+    public static final int 海克斯卷轴 = 锻造锤 + 7;
+    public static final int 空间之戒 = 锻造锤 + 8;
+    public static final int 未来空间器 = 锻造锤 + 9;
 
     static {
-        for (int i = BREWS; i < BREWS + 30; i++)
-            assignItemRect(i, 12, 14);
-
-        assignItemRect(BREW_AQUA, 9, 11);
+        assignItemRect(锻造锤,   13, 12);
+        assignItemRect(属性锻造器, 13,12);
+        assignItemRect(红包, 11,15);
+        assignItemRect(火把神的恩宠, 13,16);
+        assignItemRect(贤者之石, 16);
+        assignItemRect(海克斯秘卷,16,14);
+        assignItemRect(海克斯移除器, 16,14);
+        assignItemRect(海克斯卷轴, 16,14);
+        assignItemRect(空间之戒, 8);
+        assignItemRect(未来空间器, 16);
     }
-
-//16 free slots
-
-    private static final int SPELLS = xy(0, 27);  //16 slots
-    public static final int WILD_ENERGY = SPELLS + 0;
-    public static final int PHASE_SHIFT = SPELLS + 1;
-    public static final int TELE_GRAB = SPELLS + 2;
-    public static final int UNSTABLE_SPELL = SPELLS + 3;
-
-    public static final int CURSE_INFUSE = SPELLS + 5;
-    public static final int MAGIC_INFUSE = SPELLS + 6;
-    public static final int ALCHEMIZE = SPELLS + 7;
-    public static final int RECYCLE = SPELLS + 8;
-
-    public static final int RECLAIM_TRAP = SPELLS + 10;
-    public static final int RETURN_BEACON = SPELLS + 11;
-    public static final int SUMMON_ELE = SPELLS + 12;
-
+    public static final int 秘银 = xy(0, 27);
+    public static final int 属性碎片 = 秘银 + 1;
     static {
-        assignItemRect(WILD_ENERGY, 12, 11);
-        assignItemRect(PHASE_SHIFT, 12, 11);
-        assignItemRect(TELE_GRAB, 12, 11);
-        assignItemRect(UNSTABLE_SPELL, 12, 13);
-
-        assignItemRect(CURSE_INFUSE, 10, 15);
-        assignItemRect(MAGIC_INFUSE, 10, 15);
-        assignItemRect(ALCHEMIZE, 10, 15);
-        assignItemRect(RECYCLE, 10, 15);
-
-        assignItemRect(RECLAIM_TRAP, 8, 16);
-        assignItemRect(RETURN_BEACON, 8, 16);
-        assignItemRect(SUMMON_ELE, 8, 16);
+        assignItemRect(秘银, 15);
+        assignItemRect(属性碎片, 7,11);
     }
-    //endregion
 
     //region 食物节日
     private static final int FOOD = xy(0, 28);  //16 slots
@@ -1097,16 +1140,6 @@ public class 物品表 {
     public static final int BLOB = QUEST + 6;
     public static final int SHARD = QUEST + 7;
     public static final int ESCAPE = QUEST + 8;
-    public static final int 锻造锤 = QUEST + 9;
-    public static final int 秘银 = QUEST + 10;
-    public static final int 属性碎片 = QUEST + 11;
-    public static final int 属性锻造器 = QUEST + 12;
-    public static final int 红包 = QUEST + 13;
-    public static final int 火把神的恩宠 = QUEST + 14;
-    public static final int 贤者之石 = QUEST + 15;
-    public static final int 海克斯秘卷=QUEST+16;
-    public static final int 海克斯移除器 = QUEST + 17;
-    public static final int 海克斯卷轴 = QUEST + 18;
 
     static {
         assignItemRect(尸尘, 12, 11);
@@ -1118,16 +1151,6 @@ public class 物品表 {
         assignItemRect(BLOB, 10, 9);
         assignItemRect(SHARD, 8, 10);
         assignItemRect(ESCAPE,   8, 16);
-        assignItemRect(锻造锤,   13, 12);
-        assignItemRect(秘银, 15);
-        assignItemRect(属性碎片, 7,11);
-        assignItemRect(属性锻造器, 13,12);
-        assignItemRect(红包, 11,15);
-        assignItemRect(火把神的恩宠, 13,16);
-        assignItemRect(贤者之石, 16);
-        assignItemRect(海克斯秘卷,16,14);
-        assignItemRect(海克斯移除器, 16,14);
-        assignItemRect(海克斯卷轴, 16,14);
     }
     private static final int BAGS = xy(0, 31);  //16 slots
     public static final int BACKPACK = BAGS;
@@ -1139,8 +1162,6 @@ public class 物品表 {
 
     public static final int 水袋 = BAGS + 6;
     public static final int VIAL = BAGS + 7;
-    public static final int 空间之戒 = BAGS + 8;
-    public static final int 未来空间器 = BAGS + 9;
 
     static {
         assignItemRect(BACKPACK, 16);
@@ -1152,8 +1173,6 @@ public class 物品表 {
 
         assignItemRect(水袋, 16, 14);
         assignItemRect(VIAL, 12);
-        assignItemRect(空间之戒, 8);
-        assignItemRect(未来空间器, 16);
     }
     //endregion
 
@@ -1378,6 +1397,8 @@ public class 物品表 {
         public static final int 注魔 = 炼金+8;
         public static final int 诅咒 = 炼金+9;
         public static final int 返回 = 炼金+10;
+        public static final int 结金 = 炼金+11;
+        public static final int 结能 = 炼金+12;
         static {
             assignIconRect(炼金, 5);
             assignIconRect(强能, 7);
@@ -1391,6 +1412,8 @@ public class 物品表 {
             assignIconRect(注魔, 7);
             assignIconRect(诅咒, 7);
             assignIconRect(返回, 7,6);
+            assignIconRect(结金, 5);
+            assignIconRect(结能, 5);
         }
         public static final int 六神之戒 = xy(1, 14);  //16 slots
         public static final int 魔攻之戒=六神之戒+1;

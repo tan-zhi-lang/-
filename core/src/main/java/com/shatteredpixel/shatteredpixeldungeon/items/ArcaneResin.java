@@ -32,6 +32,7 @@ public class ArcaneResin extends Item {
 		image = 物品表.ARCANE_RESIN;
 		
 		可堆叠= true;
+		炼金全放=true;
 		紫色 = true;
 
 		defaultAction = AC_APPLY;

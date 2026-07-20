@@ -14,6 +14,7 @@ public class 护甲修理工具包 extends 用品 {
 	
 	{
 		image = 物品表.护甲修理工具包;
+		炼金全放=true;
 	}
 	
 	@Override

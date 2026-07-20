@@ -15,7 +15,7 @@ public class 闪电双截棍 extends Weapon {
 		技能=new 防御姿态();
 		
 		伤害= 0.7f;
-		魔法=0.35f;
+		魔法=0.65f;
 		tier = 5;
 		特别=true;
 		黄色=true;

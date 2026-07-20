@@ -13,4 +13,17 @@ public class 秘银 extends Item {
 		特别= true;
 		物品 = true;
 	}
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{LiquidMetal.class,};
+			inQuantity = new int[]{3,};
+
+			cost = 5;
+
+			output = 秘银.class;
+			outQuantity = 1;
+		}
+
+	}
 }

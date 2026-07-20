@@ -5,6 +5,11 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
@@ -43,9 +48,20 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -165,6 +181,8 @@ public abstract class Recipe {
 		new ExoticScroll.ScrollToExotic(),
 		new LiquidMetal.Recipe(),
 		new ArcaneResin.Recipe(),
+		new 激泥酞酶.Recipe(),
+		new 精纯药液.Recipe(),
 		new 护甲修理工具包.Recipe(),
 		new BlizzardBrew.Recipe(),
 		new InfernalBrew.Recipe(),
@@ -187,6 +205,7 @@ public abstract class Recipe {
 		new 魔力水晶.Recipe(),
 		new 净化药剂.Recipe(),
 		new 祛邪卷轴.Recipe(),
+
 		new 火把神的恩宠.R(),
 	};
 	
@@ -200,6 +219,25 @@ public abstract class Recipe {
 		new ElixirOfHoneyedHealing.Recipe(),
 		new UnstableSpell.Recipe(),
 		new 炼金菱晶.Recipe(),
+		new 结金菱晶.Recipe(),
+		new 结能菱晶.Recipe(),
+
+		new ClothArmor.Recipe(),
+		new LeatherArmor.Recipe(),
+		new MailArmor.Recipe(),
+		new ScaleArmor.Recipe(),
+		new PlateArmor.Recipe(),
+
+			new 双剑.Recipe(),
+			new 长匕首.Recipe(),
+			new 单手剑.Recipe(),
+			new 长剑.Recipe(),
+			new 巨剑.Recipe(),
+
+		new 暗杀之刃.Recipe(),
+		new 饮血之剑.Recipe(),
+		new 死神镰刀.Recipe(),
+		new 臻冰刃.Recipe(),
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),

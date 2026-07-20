@@ -174,6 +174,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨型方盾;
@@ -539,7 +540,8 @@ public class Generator {
 					暗杀之刃.class,
 					英雄断剑.class,
 					寒冰鱼剑.class,
-					
+
+					封印之杖.class,
 					金纹拐.class,
 					草剃.class,
 					碎缘剑.class,
@@ -572,7 +574,7 @@ public class Generator {
 
 			};
 			WEP_T5.defaultProbs = new float[]{ 2, 2,2,2,
-											   2,2,2,2,2,2,2,
+											   2,2,2,2,2,2,2,2,
 											   2,2,2,2,
 											   2,2,2,2,
 											   2,2,2,2,

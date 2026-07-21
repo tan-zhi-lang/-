@@ -56,7 +56,7 @@ public class 炼金菱晶 extends Spell {
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
-		private static final int OUT_QUANTITY = 8;
+		private static final int OUT_QUANTITY = 6;
 
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
@@ -75,7 +75,7 @@ public class 炼金菱晶 extends Spell {
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 2;
+			return 5;
 		}
 
 		@Override

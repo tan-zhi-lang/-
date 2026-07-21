@@ -28,7 +28,7 @@ public class 魔力水晶 extends 用品 {
 			inputs =  new Class[]{坠牢之星.class,};
 			inQuantity = new int[]{5,};
 
-			cost = 5;
+			cost = 10;
 
 			output = 魔力水晶.class;
 			outQuantity = 1;

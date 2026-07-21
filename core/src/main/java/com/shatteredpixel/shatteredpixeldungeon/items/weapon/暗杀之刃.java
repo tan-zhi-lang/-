@@ -3,7 +3,9 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.背刺;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 暗杀之刃 extends Weapon {
@@ -24,8 +26,10 @@ public class 暗杀之刃 extends Weapon {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
 		{
-			inputs =  new Class[]{匕首.class,长匕首.class,};
-			inQuantity = new int[]{1,1,};
+			inputs =  new Class[]{长匕首.class,
+					隐形药剂.class,
+					器灵.class,};
+			inQuantity = new int[]{1,1,1,};
 
 			cost = 15;
 

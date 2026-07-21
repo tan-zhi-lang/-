@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.嗜血;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 饮血之剑 extends Weapon{
@@ -23,8 +24,9 @@ public class 饮血之剑 extends Weapon{
 
 		{
 			inputs =  new Class[]{巨剑.class,
-					治疗药剂.class,};
-			inQuantity = new int[]{1,1,};
+					治疗药剂.class,
+					器灵.class,};
+			inQuantity = new int[]{1,1,1,};
 
 			cost = 15;
 

@@ -2,20 +2,19 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 import java.util.ArrayList;
 
-public class 精纯药液 extends Item {
+public class 器灵 extends Item {
 
 	{
-		image = 物品表.精纯药液;
+		image = 物品表.器灵;
 		
 		可堆叠= true;
 		炼金全放=true;
-		白色 = true;
+		蓝色 = true;
 		物品 = true;
 
 		遗产= true;
@@ -23,18 +22,15 @@ public class 精纯药液 extends Item {
 
 	@Override
 	public int 金币() {
-		return 15*数量();
+		return 25*数量();
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
 		public boolean testIngredients(ArrayList<Item> ingredients) {
-			if (ingredients.size() != 2) return false;
+			if (ingredients.size() != 1) return false;
 
-			if (ingredients.get(0) instanceof Potion&&ingredients.get(1) instanceof Plant.Seed){
-				return true;
-			}
-			if (ingredients.get(0) instanceof Plant.Seed&&ingredients.get(1) instanceof Potion){
+			if (ingredients.get(0) instanceof Weapon w&&w.tier()>=5){
 				return true;
 			}
 
@@ -50,7 +46,7 @@ public class 精纯药液 extends Item {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			Item result = sampleOutput(ingredients);
-			Potion w = (Potion)ingredients.get(0);
+			Weapon w = (Weapon)ingredients.get(0);
 
 			result.数量(resinQuantity(w));
 			w.数量0();
@@ -60,12 +56,12 @@ public class 精纯药液 extends Item {
 
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
-			Potion s = (Potion)ingredients.get(0);
+			Weapon s = (Weapon)ingredients.get(0);
 
-			return new 精纯药液().数量(resinQuantity(s));
+			return new 器灵().数量(resinQuantity(s));
 		}
 
-		private int resinQuantity(Potion s){
+		private int resinQuantity(Weapon s){
 			return s.quantity;
 		}
 	}

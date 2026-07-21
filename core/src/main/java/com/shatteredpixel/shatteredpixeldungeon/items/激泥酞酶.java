@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 import java.util.ArrayList;
@@ -29,8 +30,18 @@ public class 激泥酞酶 extends Item {
 
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
-			return ingredients.size() == 1
-					&& ingredients.get(0) instanceof Scroll;
+			if (ingredients.size() != 2) return false;
+
+			if (ingredients.get(0) instanceof Scroll&&ingredients.get(1) instanceof Runestone){
+				return true;
+			}
+
+			if (ingredients.get(0) instanceof Runestone&&ingredients.get(1) instanceof Scroll){
+				return true;
+			}
+
+
+			return false;
 		}
 
 		@Override

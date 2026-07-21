@@ -63,17 +63,27 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
+import com.shatteredpixel.shatteredpixeldungeon.items.封禁卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
 import com.shatteredpixel.shatteredpixeldungeon.items.火把神的恩宠;
 import com.shatteredpixel.shatteredpixeldungeon.items.精纯药液;
+import com.shatteredpixel.shatteredpixeldungeon.items.血药;
+import com.shatteredpixel.shatteredpixeldungeon.items.进力药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.进级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
@@ -130,6 +140,7 @@ public class QuickRecipe extends Component {
 				for (Item sim : similar) {
 					//if we are looking for a specific item, it must be IDed
 					if (sim.getClass() != in.getClass() || sim.已鉴定())
+						if(!sim.isEquipped(Dungeon.hero))//非装备的物品
 						quantity += sim.数量();
 				}
 				if (quantity < in.数量()) {
@@ -325,9 +336,11 @@ public class QuickRecipe extends Component {
 				return result;
 			case 3:
 				result.add(new QuickRecipe( new 精纯药液.Recipe(),
-											new ArrayList<Item>(Arrays.asList(new Potion.PlaceHolder())),
+											new ArrayList<Item>(Arrays.asList(new Potion.PlaceHolder(),new Plant.Seed.PlaceHolder())),
 											new 精纯药液()));
 				result.add(new QuickRecipe(new 净化药剂.Recipe()));
+				result.add(new QuickRecipe(new 进力药剂.Recipe()));
+				result.add(new QuickRecipe(new 血药.Recipe()));
 				r = new ExoticPotion.PotionToExotic();
 				for (Class<?> cls : Generator.Category.POTION.classes){
 					Potion pot = (Potion) Reflection.newInstance(cls);
@@ -337,9 +350,11 @@ public class QuickRecipe extends Component {
 				return result;
 			case 4:
 				result.add(new QuickRecipe( new 激泥酞酶.Recipe(),
-											new ArrayList<Item>(Arrays.asList(new Scroll.PlaceHolder())),
+											new ArrayList<Item>(Arrays.asList(new Scroll.PlaceHolder(),new Runestone.PlaceHolder())),
 											new 激泥酞酶()));
 				result.add(new QuickRecipe(new 祛邪卷轴.Recipe()));
+				result.add(new QuickRecipe(new 进级卷轴.Recipe()));
+				result.add(new QuickRecipe(new 封禁卷轴.Recipe()));
 				r = new ExoticScroll.ScrollToExotic();
 				for (Class<?> cls : Generator.Category.SCROLL.classes){
 					Scroll scroll = (Scroll) Reflection.newInstance(cls);
@@ -375,6 +390,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe( new ArcaneResin.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
 						new ArcaneResin()));
+				result.add(null);
 				result.add(new QuickRecipe(new 火把神的恩宠.R()));
 				result.add(null);
 				result.add(new QuickRecipe(new ClothArmor.Recipe()));
@@ -390,22 +406,24 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new 单手剑.Recipe()));
 				result.add(new QuickRecipe(new 长剑.Recipe()));
 				result.add(new QuickRecipe(new 巨剑.Recipe()));
+				result.add(new QuickRecipe(new 魔岩拳套.Recipe()));
+				result.add(new QuickRecipe(new 战镰.Recipe()));
+				result.add(null);
+				result.add(new QuickRecipe( new 器灵.Recipe(),
+											new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
+											new 器灵()));
 				result.add(null);
 				result.add(new QuickRecipe(new 暗杀之刃.Recipe()));
 				result.add(new QuickRecipe(new 饮血之剑.Recipe()));
 				result.add(new QuickRecipe(new 死神镰刀.Recipe()));
 				result.add(new QuickRecipe(new 臻冰刃.Recipe()));
+				result.add(new QuickRecipe(new 火焰剑.Recipe()));
+				result.add(new QuickRecipe(new 寒冰镖.Recipe()));
+				result.add(new QuickRecipe(new 地裂镰.Recipe()));
 
 				return result;
 			case 7:
 				result.add(new QuickRecipe(new UnstableBrew.Recipe(), new ArrayList<>(Arrays.asList(new Potion.PlaceHolder(), new  Plant.Seed.PlaceHolder())), new UnstableBrew()));
-				result.add(null);
-				result.add(new QuickRecipe(new CausticBrew.Recipe()));
-				result.add(new QuickRecipe(new BlizzardBrew.Recipe()));
-				result.add(new QuickRecipe(new ShockingBrew.Recipe()));
-				result.add(new QuickRecipe(new InfernalBrew.Recipe()));
-				result.add(new QuickRecipe(new AquaBrew.Recipe()));
-				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new 根骨秘药.Recipe()));
 				result.add(new QuickRecipe(new 永生秘药.Recipe()));
@@ -416,6 +434,15 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new ElixirOfIcyTouch.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfToxicEssence.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfDragonsBlood.Recipe()));
+				result.add(null);
+				result.add(null);
+				result.add(new QuickRecipe(new CausticBrew.Recipe()));
+				result.add(new QuickRecipe(new BlizzardBrew.Recipe()));
+				result.add(new QuickRecipe(new ShockingBrew.Recipe()));
+				result.add(new QuickRecipe(new InfernalBrew.Recipe()));
+				result.add(new QuickRecipe(new AquaBrew.Recipe()));
+				result.add(null);
+				result.add(null);
 				return result;
 			case 8:
 				result.add(new QuickRecipe(new UnstableSpell.Recipe(), new ArrayList<>(Arrays.asList(new Scroll.PlaceHolder(), new  Runestone.PlaceHolder())), new UnstableSpell()));

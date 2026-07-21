@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.横扫;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 死神镰刀 extends Weapon{
@@ -38,8 +39,9 @@ public class 死神镰刀 extends Weapon{
 
 		{
 			inputs =  new Class[]{战镰.class,
-					复仇卷轴.class,};
-			inQuantity = new int[]{1,1,};
+					复仇卷轴.class,
+					器灵.class,};
+			inQuantity = new int[]{1,1,1,};
 
 			cost = 15;
 

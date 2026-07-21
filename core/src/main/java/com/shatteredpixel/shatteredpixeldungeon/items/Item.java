@@ -114,6 +114,7 @@ public class Item implements Bundlable {
 	
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
+	public boolean 封禁升级 = false;
 	public boolean 丢过 = false;
 
 	public boolean 无动作= false;
@@ -122,6 +123,8 @@ public class Item implements Bundlable {
 	public boolean 能量提升 = false;
 	public boolean 快速使用 = false;
 	public boolean 炼金全放 = false;
+	public boolean 炼金 = true;
+	public boolean 提炼 = true;
 	public boolean 升级物品 = true;
 	public boolean 可以空间 = true;
 	protected int quantity = 1;
@@ -684,6 +687,7 @@ public class Item implements Bundlable {
 	}
 
 	public Item 升级() {
+		if(!封禁升级)
 		this.等级++;
 		updateQuickslot();
 		return this;
@@ -847,6 +851,7 @@ public class Item implements Bundlable {
 	}
 	
 	public boolean 真可升级() {
+		if(封禁升级)return false;
 		if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
 			return true;
 		}
@@ -854,9 +859,9 @@ public class Item implements Bundlable {
 	}
 
 	public boolean 可升级() {
-		if(物品){
+		if(物品||封禁升级)
 			return false;
-		}
+
 		return true;
 	}
 
@@ -1304,6 +1309,7 @@ public class Item implements Bundlable {
 	private static final String 快速使用x = "快速使用";
 	private static final String 超级等级x = "超级等级";
 	private static final String 魔力收益x = "魔力收益";
+	private static final String 封禁升级x = "封禁升级";
 	private static final String 丢过x = "丢过";
 	private static final String ALPHA = "alpha";
 	
@@ -1325,6 +1331,7 @@ public class Item implements Bundlable {
 		bundle.put( 快速使用x, 快速使用 );
 		bundle.put( 超级等级x, 超级等级 );
 		bundle.put( 魔力收益x, 魔力收益 );
+		bundle.put( 封禁升级x, 封禁升级 );
 		bundle.put( 丢过x, 丢过 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
@@ -1350,6 +1357,7 @@ public class Item implements Bundlable {
 		快速使用	= bundle.getBoolean( 快速使用x );
 		超级等级	= bundle.getBoolean( 超级等级x );
 		魔力收益	= bundle.getFloat( 魔力收益x );
+		封禁升级	= bundle.getBoolean( 封禁升级x );
 		丢过	= bundle.getBoolean( 丢过x );
 		alpha	= bundle.getBoolean( ALPHA );
 		

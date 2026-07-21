@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.AlchemyScene;
@@ -136,7 +135,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		if (ShatteredPixelDungeon.scene() instanceof AlchemyScene){
 
-			Dungeon.energy(item.能量());
+			Dungeon.energy(item.能量提升());
 			((AlchemyScene) ShatteredPixelDungeon.scene()).createEnergy();
 			if (!item.已鉴定()){
 				((AlchemyScene) ShatteredPixelDungeon.scene()).showIdentify(item);
@@ -146,9 +145,9 @@ public class WndEnergizeItem extends WndInfoItem {
 
 			//energizing items doesn't spend time
 			hero.spend(-hero.cooldown());
-			new EnergyCrystal(item.能量()).doPickUp(hero);
+			new EnergyCrystal(item.能量提升()).doPickUp(hero);
 			item.鉴定();
-			GLog.黄("You energized: "+item.name());
+			GLog.黄("精力充沛: "+item.name());//You energized
 
 		}
 	}
@@ -171,13 +170,13 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			if(item instanceof Bag) {
+			if(!item.提炼||item.专属) {
 				return false;
 			}
 			if(item instanceof EquipableItem e&&e.isEquipped(Dungeon.hero)){
 				return false;
 			}
-			return item.能量() > 0;
+			return item.能量提升() > 0;
 		}
 
 		@Override

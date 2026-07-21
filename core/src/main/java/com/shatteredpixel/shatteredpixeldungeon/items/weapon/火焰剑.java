@@ -9,6 +9,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.MagicalFireRoom;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -20,6 +22,21 @@ public class 火焰剑 extends Weapon{
 		tier=5;
 		特别=true;
 		黄色=true;
+	}
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{弯刀.class,
+					液火药剂.class,
+					器灵.class,};
+			inQuantity = new int[]{1,1,1,};
+
+			cost = 15;
+
+			output = 火焰剑.class;
+			outQuantity = 1;
+		}
+
 	}
 	float add=0.05f;
 	@Override

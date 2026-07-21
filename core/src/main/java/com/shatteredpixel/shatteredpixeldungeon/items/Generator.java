@@ -37,7 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -354,7 +354,7 @@ public class Generator {
 			GOLD.probs = new float[]{ 1 };
 			
 			POTION.classes = new Class<?>[]{
-					力量药剂.class,//2 drop every chapter, see Dungeon.posNeeded()
+					潜力药剂.class,//2 drop every chapter, see Dungeon.posNeeded()
 					治疗药剂.class,
 					灵视药剂.class,
 					冰霜药剂.class,

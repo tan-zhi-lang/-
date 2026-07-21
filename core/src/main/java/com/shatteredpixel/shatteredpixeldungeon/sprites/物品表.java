@@ -941,6 +941,7 @@ public class 物品表 {
     public static final int 精纯药液 = POTIONS + 14;
     public static final int BREW_AQUA = POTIONS + 15;
     public static final int 血药 = POTIONS + 16;
+    public static final int 血药进级秘卷 = POTIONS + 16;
 
     public static final int BREW_UNSTABLE = xy(13, 24);
     public static final int BREW_INFERNAL = BREW_UNSTABLE + 1;
@@ -1031,24 +1032,38 @@ public class 物品表 {
     public static final int 海克斯卷轴 = 锻造锤 + 7;
     public static final int 空间之戒 = 锻造锤 + 8;
     public static final int 未来空间器 = 锻造锤 + 9;
+    public static final int 进级卷轴 = 锻造锤 + 10;
+    public static final int 进力药剂 = 锻造锤 + 11;
+    public static final int 封禁卷轴 = 锻造锤 + 12;
 
     static {
         assignItemRect(锻造锤,   13, 12);
         assignItemRect(属性锻造器, 13,12);
+
         assignItemRect(红包, 11,15);
         assignItemRect(火把神的恩宠, 13,16);
         assignItemRect(贤者之石, 16);
+
         assignItemRect(海克斯秘卷,16,14);
         assignItemRect(海克斯移除器, 16,14);
         assignItemRect(海克斯卷轴, 16,14);
+
         assignItemRect(空间之戒, 8);
         assignItemRect(未来空间器, 16);
+
+        assignItemRect(进级卷轴, 16);
+        assignItemRect(进力药剂, 12,16);
+        assignItemRect(封禁卷轴, 15,14);
     }
     public static final int 秘银 = xy(0, 27);
     public static final int 属性碎片 = 秘银 + 1;
+    public static final int 器灵 = 秘银 + 2;
+    public static final int 灵气 = 秘银 + 3;
     static {
         assignItemRect(秘银, 15);
         assignItemRect(属性碎片, 7,11);
+        assignItemRect(器灵, 11);
+        assignItemRect(灵气, 12,16);
     }
 
     //region 食物节日

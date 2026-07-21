@@ -150,6 +150,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	public float 魔法(){
 		float 魔法=this.魔法;
+		if(Dungeon.符文("越女剑法"))魔法+=0.25f;
 		return 魔法;
 	}
 
@@ -204,6 +205,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 剑(){//1
+		if(Dungeon.符文("越女剑法"))return true;
 		if(短剑())return true;
 		if(巨剑())return true;
 		if(this instanceof 单手剑)return true;

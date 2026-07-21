@@ -251,7 +251,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFeatherFall;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfDivineInspiration;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
@@ -763,6 +763,7 @@ public class Hero extends Char {
             put1("闪电五连鞭",2);
             put1("我身为汽车维修",2);
             put1("站在布隆后面",2);
+            put1("真我的刀盾",2);
             put1("对冲基金",2);
             put1("来互秒",2);
             put1("超级背包",2);
@@ -822,7 +823,7 @@ public class Hero extends Char {
             put1("魔术基盘",2);
             put1("尊我为王",2);
             put1("黑市:升级卷轴",2);
-            put1("黑市:力量药剂",2);
+            put1("黑市:潜力药剂",2);
             put1("黑市:六神之戒",2);
             put1("幸运",2);
             put1("M4A1仲达",2);
@@ -858,6 +859,9 @@ public class Hero extends Char {
         }
         //22222222222222222
         {
+            put2("六脉神剑",2);
+            put2("太玄经",2);
+            put2("越女剑法",2);
             put2("心之疗",2);
             put2("士兵男孩",2);
             put2("心之力",2);
@@ -1545,6 +1549,7 @@ public class Hero extends Char {
             case "闪电五连鞭":return "鞭类武器攻击+50%";
             case "我身为汽车维修":return "修理扳手攻击+650%";
             case "站在布隆后面":return "盾类武器攻击+50%防御+50%";
+            case "真我的刀盾":return "装备刀+盾武器，攻击和防御+450%";
             case "死神":return "攻击对残血敌人+30%伤害";
             case "交锋":return "攻击对满血敌人必定暴击";
             case "子时已到":return "23:00-1:00，综合属性+500%";
@@ -1654,7 +1659,7 @@ public class Hero extends Char {
             case "我让你诅咒":return "诅咒的装备新增祛邪按钮直接移除诅咒";
             case "期货季节":return "商品的打折每300回合在0.1~10倍变化";
             case "命运绳子":return "自残绳受伤百分比减半，并且50%几率恢复将受伤改成回血";
-            case "远航":return "1级时获得此海克斯，则获得15张升级卷轴、10瓶力量药剂、25个口粮";
+            case "远航":return "1级时获得此海克斯，则获得15张升级卷轴、10瓶潜力药剂、25个口粮";
             case "法杖工具人":return "法杖充能+神器和武器充能(默认+1级能量之戒)";
             case "麒麟骨":return "暴击时+45%攻击，持续5回合";
             case "重扔":return "所有物品扔出对敌人额外造成50%力量的攻击伤害";
@@ -1703,7 +1708,7 @@ public class Hero extends Char {
             case "牙结石":return "吃饭时恢复7.5%的饭量的护甲";
             case "先攻":return "首次攻击造成额外10%伤害，并获得伤害的金币";
             case "升级防具:护甲":return "最大防御+3倍最大护甲";
-            case "地牢圈传来噩耗":return "力量药剂额外+1力量";
+            case "地牢圈传来噩耗":return "潜力药剂额外+1力量";
             case "唯物主义者":return "对怨灵总命中和闪避+75%";
             case "装备死亡之舞":return "受到的攻击30%，像流血那样";
             case "控鹤擒龙":return "武器和防具所需力量为-8";
@@ -1728,7 +1733,7 @@ public class Hero extends Char {
             case "失败的Man":return "力量+40%";
             case "止戈":return "攻击伤害+20%，受到的攻击伤害+10%";
             case "末法":return "无法使用法杖，受到的伤害-20%";
-            case "力量的爆发": return "使用力量药剂时，力量x10，持续900回合，持续时间结束时永久+10%力量";
+            case "力量的爆发": return "使用潜力药剂时，力量x10，持续900回合，持续时间结束时永久+10%力量";
             case "速度的承载": return "使用极速药剂时，攻速+200%，持续900回合，持续时间结束时永久+20%攻速和10%移速";
             case "战场Boss":return "Boss层+20%攻击伤害";
             case "树懒转世":return "饥饿速度-50%，隐匿+600%，动画加快关闭";
@@ -1776,7 +1781,7 @@ public class Hero extends Char {
             case "炸弹狂人":return "炸弹爆炸后获得一个炸弹";
             case "彼岸":return "地牢将有1/8概率生成的是隐形怪，但是你击杀敌人获得的经验x2";
             case "黑市:升级卷轴":return "新的商店会卖升级卷轴x3";
-            case "黑市:力量药剂":return "新的商店会卖力量药剂x2";
+            case "黑市:潜力药剂":return "新的商店会卖潜力药剂x2";
             case "黑市:六神之戒":return "新的商店会卖六神之戒";
             case "M4A1仲达":return "能像灵视那样感知地牢中的物品";
             case "M4A1星象":return "能像灵视那样感知地牢中的陷阱";
@@ -1860,6 +1865,9 @@ public class Hero extends Char {
             case "给我砸":return "所有武器+15%麻痹";
             case "死亡复活":return "击杀敌人触发一次你的复活";
             case "心之疗":return "首次攻击+0.3%治疗护盾";
+            case "越女剑法":return "所有武器都视为剑类，并且攻击额外造成25%的魔法伤害";
+            case "太玄经":return "攻击和施法无攻击动画，并且命中+40%";
+            case "六脉神剑":return "武器是剑时，命中+65%，且攻击范围+2，攻速+45%";
             case "心之力":return "首次攻击+0.2力量";
             case "士兵男孩":return "受到致命伤害产生爆炸效果(不过不会和炸弹一样炸弹英雄以及破坏物品，且伤害减半)";
             case "广告复活":return "死亡后满血复活，并且麻痹30秒，该效果每天重置";
@@ -2047,7 +2055,7 @@ public class Hero extends Char {
             case "???":return "使用放大镜消耗4回合，如果是敌人对进行攻击且为造成15%已损失生命的伤害，如果是友军，则恢复5%最大生命";
             case "!!!":return "惊醒敌人同时会对其造成攻速倍的必定攻击";
             case "草丛伦":return "在草丛时获得隐形，隐形时综合属性+10%";
-            case "繁花的宠爱":return "踩草时必定额外获得回春草之种";
+            case "繁花的宠爱":return "踩草时必定额外获得回春草种子";
             case "叠角龙":return "击杀老鬼、傀儡也能触发死亡联动效果";
             case "闪电打击":return "总攻速+20%，攻击额外造成20魔法伤害";
             case "动物园园长":return "对动物的攻击+45%伤害";
@@ -2077,7 +2085,7 @@ public class Hero extends Char {
             case "台风":return "攻击额外投掷一个无视防御的魔法箭矢，造成30%攻击伤害";
             case "海克斯收集家":return "每有一个海克斯，综合属性+10%";
             case "魔法帝":return "魔力+35";
-            case "III型药剂":return "力量药剂50%概率+10力量";
+            case "III型药剂":return "潜力药剂50%概率+10力量";
             case "升级经验":return "获得的经验x0.35x等级";
             case "冥想":return "等待回合x4，但是恢复25%已损失圣生命，且所受伤害-50%";
             case "粘咕的宠爱":return "在水上时，每回合恢复4%最大生命";
@@ -2116,7 +2124,7 @@ public class Hero extends Char {
             case "肉鸽:卷轴":return "获得药剂随机获得1个其他卷轴";
             case "肉鸽:药剂":return "获得卷轴时随机获得1个其他药剂";
             case "我不吃牛肉":return "拾取到生肉清空，永久+7.5力量";
-            case "还得是高玩":return "获得15张升级卷轴和10瓶力量药剂";
+            case "还得是高玩":return "获得15张升级卷轴和10瓶潜力药剂";
             case "踢踏舞":return "攻速+15%移速，攻击+5%移速，可以无限叠加，脱离战斗状态会移除所有";
             //333333333333333333333333333333333333
             case "荣耀升级":return "武器、防具、法杖、戒指可以点荣耀升级按钮来麻痹30秒并升1次";
@@ -2158,7 +2166,7 @@ public class Hero extends Char {
             case "闪避的宠爱":return "闪避时+0.5最大闪避";
             case "吞噬灵魂":return "敌人被施加负面效果时永久+3最大生命";
             case "衰退的堕落":return "升级武器、防具、法杖、戒指能够额外升级两次，获得150回合降级效果";
-            case "科学狂人":return "攻击5%概率随机加或减0.3大小，+40%最大生命+30%力量，+40%总移速";
+            case "科学狂人":return "攻击5%概率随机加或减0.3大小，+40%最大生命+30%主属性，+40%总移速";
             case "生命的祝福":return "饮用治疗药剂永久+5%最大生命";
             case "炼狱导管":return "每个单位受伤都会使法杖、神器、武器充能0.16，可叠加充能，并在结算时额外受到10%伤害";
             case "属性转换":return "最大命中+最大闪避，最大攻击+最大防御，攻速+移速";
@@ -2281,12 +2289,12 @@ public class Hero extends Char {
                 if(等级==1)return;
 
                 new 升级卷轴().数量(15).放背包();
-                new 力量药剂().数量(10).放背包();
+                new 潜力药剂().数量(10).放背包();
                 new Food().数量(25).放背包();
                 return;
             case "还得是高玩":
                 new 升级卷轴().数量(15).放背包();
-                new 力量药剂().数量(10).放背包();
+                new 潜力药剂().数量(10).放背包();
                 return;
             case "炸死这群王八蛋":
                 new Bomb().数量(25).放背包();
@@ -3435,7 +3443,6 @@ public class Hero extends Char {
         if(符文("失败的Man"))strx+=0.4f;
         if(符文("Man!"))strx+=0.8f;
         if(符文("大饥霸"))strx+=1.75f;
-        if(符文("科学狂人")&&科学狂人==0.3f)str+=0.3f;
         if(符文("沃尔夫冈")&&hasbuff(Hunger.class)){
             if(buff(Hunger.class).level>300)
             strx-=0.25;
@@ -3450,7 +3457,7 @@ public class Hero extends Char {
         }
 
         if(种族天赋.equals("猩人"))strx+=0.3f;
-        if (buff(力量药剂.HTBoost.class)!=null) {
+        if (buff(潜力药剂.HTBoost.class)!=null) {
             strx+=9f;
         }
 
@@ -3492,6 +3499,11 @@ public class Hero extends Char {
         力量get=str;
         return Math.max(0.01f,str);
     }
+    public void 主属性(float 增加){
+        if(主属性("力量"))力量+=增加;
+        if(主属性("敏捷"))敏捷+=增加;
+        if(主属性("魔力"))魔力+=增加;
+    }
     public float 主属性(){
         float x=0;
         if(符文("泰坦的坚决")&&hasbuff(泰坦的坚决.class)){
@@ -3500,6 +3512,11 @@ public class Hero extends Char {
         x+=动力之靴.增加();
         return x;
     }
+    public void 其他属性(float 增加){
+        if(!主属性("力量"))力量+=增加;
+        if(!主属性("敏捷"))敏捷+=增加;
+        if(!主属性("魔力"))魔力+=增加;
+    }
     public float 其他属性(){
         float x=0;
         x+=动力之靴.减少();
@@ -3507,10 +3524,11 @@ public class Hero extends Char {
     }
     public float 主属性倍(){
         float x=1;
-        if(符文("歌利亚巨人"))x*=1.15f;
+        if(符文("歌利亚巨人"))x+=0.15f;
+
+        if(符文("科学狂人")&&科学狂人==0.3f)x+=0.3f;
 
         x*=综合属性()*(1+天赋点数(Talent.手臂强化,0.1f));
-
         return x;
     }
     public float 其他属性倍(){
@@ -4268,6 +4286,10 @@ public class Hero extends Char {
         x *= 综合属性();
         x*=命中之戒.命中(this);
         x*=1+天赋点数(Talent.舞动身法,0.075f);
+        if(符文("六脉神剑")&&
+           ((belongings.weapon!=null&&belongings.weapon.剑())
+            ||(belongings.secondWep!=null&&belongings.secondWep.剑()))) x*=1.65f;
+        if(符文("太玄经")) x*=1.4f;
         if(符文("唯物主义者")&&target!=null&&target instanceof Wraith) x*=1.75f;
 
 
@@ -4525,6 +4547,12 @@ public class Hero extends Char {
         if(天赋(Talent.神圣领域)&&hasbuff(赐福.效果.class)){
             x+=天赋点数(Talent.神圣领域,0.3f);
         }
+        if(符文("真我的刀盾")&&
+           (((belongings.weapon!=null&&belongings.weapon.刀())
+             ||(belongings.secondWep!=null&&belongings.secondWep.盾())))
+
+           ||((belongings.weapon!=null&&belongings.weapon.盾())
+              ||(belongings.secondWep!=null&&belongings.secondWep.刀()))) x+=4.5f;
         if(天赋(Talent.砂之守护)){
             int 墙体数量=0;
             for (int i : PathFinder.相邻){
@@ -4540,10 +4568,18 @@ public class Hero extends Char {
         if(符文("玄武")) x+=1.5f;
         if(符文("血气方刚"))x+=吸血()+全能吸血();
         if(符文("风语者的祝福")) x+=治疗护盾()*1.5f;
-        if(符文("站在布隆后面")&&belongings.weapon!=null&belongings.weapon.盾()) x+=0.5f;
+        if(符文("站在布隆后面")&&
+           ((belongings.weapon!=null&&belongings.weapon.盾())
+            ||(belongings.secondWep!=null&&belongings.secondWep.盾()))) x+=0.5f;
         if(belongings.armor instanceof ClothArmor&&符文("铁布衫"))x+=5.5;
         if(belongings.armor instanceof ScaleArmor&&符文("龙鳞甲")) x+=2;
 
+        if(符文("真我的刀盾")&&
+           (((belongings.weapon!=null&&belongings.weapon.刀())
+             ||(belongings.secondWep!=null&&belongings.secondWep.盾())))
+
+           ||((belongings.weapon!=null&&belongings.weapon.盾())
+              ||(belongings.secondWep!=null&&belongings.secondWep.刀()))) x+=4.5f;
         if(天赋(Talent.戒护环法)){
             int 戒指数量=1;
             for(Item i: belongings.backpack){
@@ -4870,14 +4906,28 @@ public class Hero extends Char {
         if(符文("亮出你的剑"))x+=0.1f*攻击范围get;
         if(符文("我身为汽车维修")&&belongings.weapon instanceof 修理扳手) x+=6.5f;
 
-        if(符文("道长")&&belongings.weapon instanceof 铜钱剑&&belongings.hasItem(桃木剑.class)) x+=6.5f;
-        if(符文("站在布隆后面")&&belongings.weapon!=null&belongings.weapon.盾()) x+=0.5f;
-        if(符文("我有一剑")&&belongings.weapon!=null&belongings.weapon.剑()) x+=0.3f;
-        if(符文("我懂个锤子")&&belongings.weapon!=null&belongings.weapon.锤()) x+=0.4f;
-        if(符文("盘古开天")&&belongings.weapon!=null&belongings.weapon.斧()) x+=0.35f;
-        if(符文("齐天大圣")&&belongings.weapon!=null&belongings.weapon.棍()) x+=0.45f;
-        if(符文("闪电五连鞭")&&belongings.weapon!=null&belongings.weapon.鞭()) x+=0.5f;
-        if(符文("磨刀霍霍向猪羊")&&belongings.weapon!=null&belongings.weapon.刀()) x+=磨刀;
+        if(符文("道长")&&(belongings.weapon instanceof 铜钱剑||belongings.secondWep instanceof 铜钱剑)) x+=6.5f;
+        if(符文("站在布隆后面")&&
+           ((belongings.weapon!=null&&belongings.weapon.盾())
+            ||(belongings.secondWep!=null&&belongings.secondWep.盾()))) x+=0.5f;
+        if(符文("我有一剑")&&
+           ((belongings.weapon!=null&&belongings.weapon.剑())
+            ||(belongings.secondWep!=null&&belongings.secondWep.剑()))) x+=0.3f;
+        if(符文("我懂个锤子")&&
+           ((belongings.weapon!=null&&belongings.weapon.锤())
+            ||(belongings.secondWep!=null&&belongings.secondWep.锤()))) x+=0.4f;
+        if(符文("盘古开天")&&
+           ((belongings.weapon!=null&&belongings.weapon.斧())
+            ||(belongings.secondWep!=null&&belongings.secondWep.斧()))) x+=0.35f;
+        if(符文("齐天大圣")&&
+           ((belongings.weapon!=null&&belongings.weapon.棍())
+            ||(belongings.secondWep!=null&&belongings.secondWep.棍()))) x+=0.45f;
+        if(符文("闪电五连鞭")&&
+           ((belongings.weapon!=null&&belongings.weapon.鞭())
+            ||(belongings.secondWep!=null&&belongings.secondWep.鞭()))) x+=0.5f;
+        if(符文("磨刀霍霍向猪羊")&&
+           ((belongings.weapon!=null&&belongings.weapon.刀())
+            ||(belongings.secondWep!=null&&belongings.secondWep.刀()))) x+=磨刀;
 
         if(belongings.weapon instanceof 灵鞭) x+=天赋点数(Talent.灵鞭强化,0.25f);
 
@@ -5310,6 +5360,10 @@ public float 攻击延迟() {
     if (heroClass(HeroClass.女忍)) {
         攻速+=.25f*根据已损失生命();
     }
+    
+    if(符文("六脉神剑")&&
+       ((belongings.weapon!=null&&belongings.weapon.剑())
+        ||(belongings.secondWep!=null&&belongings.secondWep.剑()))) 攻速+=0.45f;
     if(英精英雄==7)攻速+=0.5f;
     if(subClass(HeroSubClass.狂战士))攻速+=0.5f*根据已损失生命();
     if(符文("狂战之怒"))攻速+=1*根据已损失生命();
@@ -7229,6 +7283,9 @@ public float 攻击延迟() {
         if(英精英雄==1)
             x+=3;
 
+        if(符文("六脉神剑")&&
+           ((belongings.weapon!=null&&belongings.weapon.剑())
+            ||(belongings.secondWep!=null&&belongings.secondWep.剑()))) x+=2;
         x+=世界标尺.范围();
         x+=命中之戒.getBuffedBonus(this,命中之戒.Accuracy.class);
         x+=天赋点数(Talent.控物术法,2);

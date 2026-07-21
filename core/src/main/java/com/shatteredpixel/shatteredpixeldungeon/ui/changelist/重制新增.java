@@ -93,6 +93,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
+import com.shatteredpixel.shatteredpixeldungeon.items.封禁卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
@@ -105,6 +106,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.精纯药液;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
 import com.shatteredpixel.shatteredpixeldungeon.items.血药;
+import com.shatteredpixel.shatteredpixeldungeon.items.进力药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.进级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
@@ -322,10 +325,13 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新物品", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 封禁卷轴(),"升级卷轴消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 进级卷轴(),"升级卷轴+激泥酞酶消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 进力药剂(),"潜力药剂+精纯药液消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 结金菱晶(),"念力结晶+激泥酞酶消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 结能菱晶(),"念力结晶+激泥酞酶消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 精纯药液(),"任意药剂消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 激泥酞酶(),"任意卷轴消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 精纯药液(),"药剂+种子消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 激泥酞酶(),"卷轴+符石消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 秘银(),"秘银x3消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 护甲修理工具包(),
 				//									   "护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
@@ -369,7 +375,7 @@ public class 重制新增{
 										   "19:30~4:30，1/450概率掉落，最多掉落45个。"
 		));
 		changes.addButton(new ChangeButton(new 魔力水晶(),
-										   "5x坠牢之星合成。"
+										   "5x坠牢之星消耗10能量合成。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.奥术水晶),"奥术水晶",
 										   "五区第三层生成一个。"));
@@ -577,13 +583,20 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"匕首+金液消耗6能量合成长匕首。\n" +
 											"短剑+金液消耗6能量合成单手剑。\n" +
 											"单手+金液剑消耗9能量合成长剑。\n" +
-											"长剑+金液消耗12能量合成巨剑。\n" +
-											"匕首+长匕首消耗15能量合成暗杀之刃。\n" +
-											"巨剑+治疗药剂消耗15能量合成饮血之剑。\n" +
-											"战镰+复仇卷轴消耗15能量合成死神镰刀。\n" +
-											"长匕首+冰霜药剂消耗15能量合成臻冰刃。",
+											"短柄镰+金液消耗12能量合成战镰。\n" +
+											"长剑+金液消耗12能量合成巨剑。",
+											"镶钉手套+金液消耗12能量魔岩拳。",
 
-											"合成炖肉所需能量为固定数量。\n" +
+											"长匕首+隐形药剂+器灵消耗15能量合成暗杀之刃。\n" +
+											"巨剑+治疗药剂+器灵消耗15能量合成饮血之剑。\n" +
+											"战镰+复仇卷轴+器灵消耗15能量合成死神镰刀。\n" +
+											"弯刀+液火药剂+器灵消耗15能量合成火焰剑。\n" +
+											"手里剑+冰霜药剂+器灵消耗15能量合成寒冰镖。\n" +
+											"战镰+大地护甲合剂+器灵消耗15能量合成地裂镰。\n" +
+											"长匕首+冰霜药剂+器灵消耗15能量合成臻冰刃。",
+
+											"治疗药剂消耗5能量合成血药x5。\n" +
+											"治疗药剂+血药消耗10能量合成永生秘药。\n" +
 											"紊乱魔药消耗5能量合成净化药剂，无序结晶消耗5能量合成祛邪卷轴。\n" +
 											"生肉+隐形药剂消耗5能量合成幻影鱼肉。"
 		));

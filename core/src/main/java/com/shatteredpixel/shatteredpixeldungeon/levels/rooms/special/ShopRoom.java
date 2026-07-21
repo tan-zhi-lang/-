@@ -36,7 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
@@ -352,8 +352,8 @@ public class ShopRoom extends SpecialRoom {
 		if(Dungeon.符文("海克斯获取:贸易"))
 			itemsToSpawn.add( new 海克斯秘卷(true));
 
-		if(Dungeon.符文("黑市:力量药剂"))
-		itemsToSpawn.add( new 力量药剂().数量(2));
+		if(Dungeon.符文("黑市:潜力药剂"))
+		itemsToSpawn.add( new 潜力药剂().数量(2));
 
 		if(Dungeon.符文("黑市:升级卷轴"))
 		itemsToSpawn.add( new 升级卷轴().数量(3));

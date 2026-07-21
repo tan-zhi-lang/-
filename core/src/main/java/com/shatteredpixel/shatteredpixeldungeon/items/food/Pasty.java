@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.RainbowParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -153,7 +153,7 @@ public class Pasty extends Food {
 				if(!hero.单身) {
 					hero.单身=true;
 					hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10%",FloatingText.STRENGTH);
-					GLog.绿(Messages.get(力量药剂.class,"msg",hero.力量()));
+					GLog.绿(Messages.get(潜力药剂.class,"msg",hero.力量()));
 				}
 				break;
 			case 中秋节:

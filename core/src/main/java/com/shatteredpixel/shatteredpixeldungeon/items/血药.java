@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 血药 extends 用品 {
@@ -18,6 +19,19 @@ public class 血药 extends 用品 {
 		红色=true;
 	}
 
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{治疗药剂.class,};
+			inQuantity = new int[]{1,};
+
+			cost = 5;
+
+			output = 血药.class;
+			outQuantity = 5;
+		}
+
+	}
 	public static void pharmacophobiaProc( Hero hero ){
 		// harms the hero for ~40% of their max HP in poison
 		Buff.施加(hero,Poison.class).set(1+hero.等级/8f);

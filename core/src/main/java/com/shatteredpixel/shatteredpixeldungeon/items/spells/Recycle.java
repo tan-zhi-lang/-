@@ -83,13 +83,13 @@ public class Recycle extends InventorySpell {
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
-		private static final int OUT_QUANTITY = 12;
+		private static final int OUT_QUANTITY = 6;
 		
 		{
 			inputs =  new Class[]{嬗变卷轴.class};
 			inQuantity = new int[]{1};
 			
-			cost = 12;
+			cost = 6;
 			
 			output = Recycle.class;
 			outQuantity = OUT_QUANTITY;

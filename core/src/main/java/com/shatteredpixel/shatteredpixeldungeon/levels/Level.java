@@ -54,7 +54,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
@@ -276,17 +276,17 @@ public abstract class Level implements Bundlable {
 				addItemToSpawn( new 经验药剂());
 				addItemToSpawn( new 经验药剂());
 				
-				addItemToSpawn( new 力量药剂());
-				addItemToSpawn( new 力量药剂());
+				addItemToSpawn( new 潜力药剂());
+				addItemToSpawn( new 潜力药剂());
 			}
 			
 			if(Dungeon.depth==4){
 				addItemToSpawn( new Firebloom.Seed());
 				addItemToSpawn( new 液火药剂());
 			}
-			if (Dungeon.力量药剂掉落()) {
+			if (Dungeon.潜力药剂掉落()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
-				addItemToSpawn( new 力量药剂());
+				addItemToSpawn( new 潜力药剂());
 			}
 			if (Dungeon.升级卷轴掉落()) {
 				Dungeon.LimitedDrops.UPGRADE_SCROLLS.count++;

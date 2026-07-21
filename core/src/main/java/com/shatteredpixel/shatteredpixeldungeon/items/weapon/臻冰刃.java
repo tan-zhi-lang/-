@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.背刺;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 臻冰刃 extends Weapon {
@@ -39,8 +40,9 @@ public class 臻冰刃 extends Weapon {
 
 		{
 			inputs =  new Class[]{长匕首.class,
-					冰霜药剂.class,};
-			inQuantity = new int[]{1,1,};
+					冰霜药剂.class,
+					器灵.class,};
+			inQuantity = new int[]{1,1,1,};
 
 			cost = 15;
 

@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.watabou.utils.Reflection;
 
@@ -31,8 +31,8 @@ public class ExoticPotion extends Potion {
 	public static final LinkedHashMap<Class<?extends Potion>, Class<?extends ExoticPotion>> regToExo = new LinkedHashMap<>();
 	public static final LinkedHashMap<Class<?extends ExoticPotion>, Class<?extends Potion>> exoToReg = new LinkedHashMap<>();
 	static{
-		regToExo.put(力量药剂.class,PotionOfMastery.class);
-		exoToReg.put(PotionOfMastery.class, 力量药剂.class);
+		regToExo.put(潜力药剂.class,PotionOfMastery.class);
+		exoToReg.put(PotionOfMastery.class, 潜力药剂.class);
 
 		regToExo.put(治疗药剂.class, PotionOfShielding.class);
 		exoToReg.put(PotionOfShielding.class, 治疗药剂.class);

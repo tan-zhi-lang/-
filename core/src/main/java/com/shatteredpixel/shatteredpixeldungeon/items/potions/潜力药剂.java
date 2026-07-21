@@ -8,16 +8,19 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择主属性;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
 
-public class 力量药剂 extends Potion {
+public class 潜力药剂 extends Potion {
 
 	{
 		icon = 物品表.Icons.POTION_STRENGTH;
@@ -33,7 +36,10 @@ public class 力量药剂 extends Potion {
 		鉴定();
 		
 		if(!Dungeon.炼狱(炼狱设置.体弱多病)){
-			hero.力量++;
+
+			Game.runOnRenderThread(()->{
+				GameScene.show(new Wnd选择主属性(hero));
+			});
 		}
 		if(hero.符文("地牢圈传来噩耗"))
 			hero.力量++;

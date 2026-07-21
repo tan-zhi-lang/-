@@ -35,6 +35,7 @@ public class LiquidMetal extends Item {
 		
 		可堆叠= true;
 		白色 = true;
+		物品 = true;
 
 		defaultAction = AC_APPLY;
 		
@@ -147,18 +148,8 @@ public class LiquidMetal extends Item {
 	}
 
 	@Override
-	public boolean 可升级() {
-		return false;
-	}
-
-	@Override
-	public boolean 已鉴定() {
-		return true;
-	}
-
-	@Override
 	public int 金币() {
-		return quantity;
+		return 10*数量();
 	}
 
 	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector(){

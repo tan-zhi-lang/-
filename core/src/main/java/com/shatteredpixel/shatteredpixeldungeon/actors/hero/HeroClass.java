@@ -69,7 +69,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -303,7 +303,7 @@ public enum HeroClass{
 			new 经验药剂().数量(x).放背包();
 			new 治疗药剂().数量(x).放背包();
 			new 极速药剂().数量(x).放背包();
-			new 力量药剂().数量(x).放背包();
+			new 潜力药剂().数量(x).放背包();
 			new 液火药剂().数量(x).放背包();
 			new 浮空药剂().数量(x).放背包();
 			new 极速药剂().数量(x).放背包();
@@ -604,7 +604,7 @@ public enum HeroClass{
 		(hero.belongings.weapon=new 配刺剑()).鉴定();
 		
 		
-		new 力量药剂().鉴定();
+		new 潜力药剂().鉴定();
 		new 复仇卷轴().鉴定();
 	}
 	
@@ -680,7 +680,7 @@ public enum HeroClass{
 		
 		(hero.belongings.weapon=new 长矛()).鉴定();
 		(hero.belongings.armor=new 战甲()).鉴定();
-		new 力量药剂().鉴定();
+		new 潜力药剂().鉴定();
 		new 盛怒卷轴().鉴定();
 	}
 	

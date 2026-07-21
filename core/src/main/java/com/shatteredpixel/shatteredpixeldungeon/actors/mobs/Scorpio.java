@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.力量药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ScorpioSprite;
 import com.watabou.utils.Random;
@@ -100,7 +100,7 @@ public class Scorpio extends Mob {
 		Class<?extends Potion> loot;
 		do{
 			loot = (Class<? extends Potion>) Random.oneOf(Generator.Category.POTION.classes);
-		} while (loot == 治疗药剂.class || loot == 力量药剂.class);
+		} while (loot == 治疗药剂.class || loot == 潜力药剂.class);
 
 		return Reflection.newInstance(loot);
 	}

@@ -493,7 +493,7 @@ public class Potion extends Item {
 			types.put(Fadeleaf.Seed.class,      灵视药剂.class);
 			types.put(Firebloom.Seed.class,     液火药剂.class);
 			types.put(Icecap.Seed.class,        冰霜药剂.class);
-			types.put(Rotberry.Seed.class,      力量药剂.class);
+			types.put(Rotberry.Seed.class,      潜力药剂.class);
 			types.put(Sorrowmoss.Seed.class,    毒气药剂.class);
 			types.put(Starflower.Seed.class,    经验药剂.class);
 			types.put(Stormvine.Seed.class,     浮空药剂.class);

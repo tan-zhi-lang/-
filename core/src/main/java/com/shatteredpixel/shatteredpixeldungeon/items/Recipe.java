@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
@@ -55,13 +54,18 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
@@ -181,8 +185,6 @@ public abstract class Recipe {
 		new ExoticScroll.ScrollToExotic(),
 		new LiquidMetal.Recipe(),
 		new ArcaneResin.Recipe(),
-		new 激泥酞酶.Recipe(),
-		new 精纯药液.Recipe(),
 		new 护甲修理工具包.Recipe(),
 		new BlizzardBrew.Recipe(),
 		new InfernalBrew.Recipe(),
@@ -191,8 +193,6 @@ public abstract class Recipe {
 		new ElixirOfDragonsBlood.Recipe(),
 		new ElixirOfIcyTouch.Recipe(),
 		new ElixirOfToxicEssence.Recipe(),
-		new 根骨秘药.Recipe(),
-		new 永生秘药.Recipe(),
 		new ElixirOfFeatherFall.Recipe(),
 		new MagicalInfusion.Recipe(),
 		new BeaconOfReturning.Recipe(),
@@ -205,6 +205,9 @@ public abstract class Recipe {
 		new 魔力水晶.Recipe(),
 		new 净化药剂.Recipe(),
 		new 祛邪卷轴.Recipe(),
+		new 器灵.Recipe(),
+		new 血药.Recipe(),
+		new 封禁卷轴.Recipe(),
 
 		new 火把神的恩宠.R(),
 	};
@@ -219,6 +222,13 @@ public abstract class Recipe {
 		new ElixirOfHoneyedHealing.Recipe(),
 		new UnstableSpell.Recipe(),
 		new 炼金菱晶.Recipe(),
+		new 进级卷轴.Recipe(),
+		new 进力药剂.Recipe(),
+			new 根骨秘药.Recipe(),
+			new 永生秘药.Recipe(),
+
+		new 激泥酞酶.Recipe(),
+		new 精纯药液.Recipe(),
 		new 结金菱晶.Recipe(),
 		new 结能菱晶.Recipe(),
 
@@ -228,16 +238,14 @@ public abstract class Recipe {
 		new ScaleArmor.Recipe(),
 		new PlateArmor.Recipe(),
 
-			new 双剑.Recipe(),
-			new 长匕首.Recipe(),
-			new 单手剑.Recipe(),
-			new 长剑.Recipe(),
-			new 巨剑.Recipe(),
+		new 双剑.Recipe(),
+		new 长匕首.Recipe(),
+		new 单手剑.Recipe(),
+		new 长剑.Recipe(),
+		new 巨剑.Recipe(),
+		new 魔岩拳套.Recipe(),
+		new 战镰.Recipe(),
 
-		new 暗杀之刃.Recipe(),
-		new 饮血之剑.Recipe(),
-		new 死神镰刀.Recipe(),
-		new 臻冰刃.Recipe(),
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new WildEnergy.Recipe(),
@@ -247,6 +255,13 @@ public abstract class Recipe {
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new MeatPie.Recipe(),
+			new 火焰剑.Recipe(),
+			new 寒冰镖.Recipe(),
+			new 暗杀之刃.Recipe(),
+			new 饮血之剑.Recipe(),
+			new 死神镰刀.Recipe(),
+			new 臻冰刃.Recipe(),
+			new 地裂镰.Recipe(),
 	};
 	private static Recipe[] x4IngredientRecipes = new Recipe[]{
 
@@ -312,9 +327,9 @@ public abstract class Recipe {
 	
 	public static boolean usableInRecipe(Item item){//可以放入 炼金条件
 		//only upgradeable thrown weapons and wands allowed among equipment items
-		if(item instanceof Bag) {
+		if(!item.炼金||item.专属)
 			return false;
-		}
+
 		if (item instanceof EquipableItem){
 			if(item.isEquipped(Dungeon.hero))return false;
 			

@@ -135,9 +135,10 @@ public class 嬗变卷轴 extends InventoryScroll {
 	}
 
 	public static Item changeItem( Item item ){
-		if (item instanceof 法师魔杖) {
-			return changeStaff((法师魔杖) item);
-		}else if (item instanceof TippedDart){
+//		if (item instanceof 法师魔杖) {
+//			return changeStaff((法师魔杖) item);
+//		}else
+			if (item instanceof TippedDart){
 			return changeTippedDart( (TippedDart)item );
 		} else if (item instanceof Weapon ) {
 			return changeWeapon( (Weapon)item );
@@ -237,6 +238,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.cursed = w.cursed;
 		n.augment = w.augment;
 		n.enchantHardened = w.enchantHardened;
+		n.封禁升级 = w.封禁升级;
 
 		return n;
 		
@@ -261,6 +263,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.cursed = a.cursed;
 		n.augment = a.augment;
 		n.荣誉纹章= a.荣誉纹章;
+		n.封禁升级= a.封禁升级;
 
 		return n;
 		
@@ -284,7 +287,8 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.levelKnown = r.levelKnown;
 		n.cursedKnown = r.cursedKnown;
 		n.cursed = r.cursed;
-		
+		n.封禁升级 = r.封禁升级;
+
 		return n;
 	}
 	
@@ -347,6 +351,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.resinBonus = w.resinBonus;
 
 		n.curCharges =  w.curCharges;
+		n.封禁升级 =  w.封禁升级;
 		n.updateLevel();
 		
 		return n;

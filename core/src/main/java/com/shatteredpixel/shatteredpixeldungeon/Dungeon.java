@@ -943,7 +943,7 @@ public class Dungeon {
 		dropped.add( item );
 	}
 
-	public static boolean 力量药剂掉落() {
+	public static boolean 潜力药剂掉落() {
 		//2 POS each floor set
 		int 每层数量=2;
 		int posLeftThisSet = 每层数量 - (LimitedDrops.STRENGTH_POTIONS.count - (depth / 5) * 每层数量);

@@ -115,9 +115,7 @@ public abstract class RegularLevel extends Level {
 			standards = (int)Math.ceil(standards * 1.5f);
 		}
 
-		if(Dungeon.赛季(赛季设置.危险重重)){
-			standards*=2;
-		}
+		//房间数量
 		if(Dungeon.派对(派对设置.小小可爱))standards/=2;
 		for (int i = 0; i < standards; i++) {
 			StandardRoom s;
@@ -143,9 +141,7 @@ public abstract class RegularLevel extends Level {
 		if (feeling == Feeling.LARGE){
 			specials++;
 		}
-		if(Dungeon.赛季(赛季设置.危险重重)){
-			specials*=2;
-		}
+		//房间数量
 		if(Dungeon.派对(派对设置.小小可爱))specials/=2;
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
@@ -157,9 +153,7 @@ public abstract class RegularLevel extends Level {
 		int secrets = SecretRoom.secretsForFloor(Dungeon.depth);
 		//one additional secret for secret levels
 		if (feeling == Feeling.SECRETS) secrets++;
-		if(Dungeon.赛季(赛季设置.危险重重)){
-			secrets*=2;
-		}
+		//房间数量
 		if(Dungeon.派对(派对设置.小小可爱))secrets/=2;
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
@@ -407,9 +401,7 @@ public abstract class RegularLevel extends Level {
 			nItems += 2;
 		}
 
-		if(Dungeon.赛季(赛季设置.危险重重)){
-			nItems*=4;
-		}
+		//物品数量
 		if(Dungeon.派对(派对设置.小小可爱))nItems/=4;
 		for (int i=0; i < nItems; i++) {
 

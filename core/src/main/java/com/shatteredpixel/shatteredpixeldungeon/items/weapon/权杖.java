@@ -3,29 +3,20 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 权杖 extends Weapon {
 
 	{
 		image = 物品表.CUDGEL;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		hitSound = Assets.Sounds.攻击锤;
 		
 
 		tier = 1;
-		伤害=0.67f;
-		魔法=0.25f;
+		专属=true;
+		伤害=0.7f;
+		魔法=0.15f;
 
 	}
-	
-	@Override
-	public float 攻击时(Char attacker,Char defender,float damage) {
-		if(defender!=null&&defender.第x次防御==1){
-			Buff.延长(defender,Paralysis.class,1);
-		}
-		return super.攻击时( attacker, defender, damage );
-	}
+
 }

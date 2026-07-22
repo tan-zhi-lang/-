@@ -151,7 +151,7 @@ public class 灵能短弓 extends Weapon {
 		
 		{
 			image = 物品表.SPIRIT_ARROW;
-			hitSound = Assets.Sounds.HIT_ARROW;
+			hitSound = Assets.Sounds.攻击箭;
 
 		}
 

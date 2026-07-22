@@ -41,11 +41,12 @@ public class GameLog extends Component implements Signal.Listener<String> {
 							3;//提示文本行
 					maxLines=Math.round(maxLines*1.33f*switch(SPDSettings.提示行数()){
 						default ->1;
-						case 0->0.25f;
-						case 1->0.5f;
-						case 2->1;
-						case 3->1.375f;
-						case 4->1.75f;
+						case 0->0;
+						case 1->0.25f;
+						case 2->0.5f;
+						case 3->1;
+						case 4->1.375f;
+						case 5->1.75f;
 
 					});
 

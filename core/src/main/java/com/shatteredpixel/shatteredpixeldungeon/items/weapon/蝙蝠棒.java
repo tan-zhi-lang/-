@@ -8,11 +8,11 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 蝙蝠棒 extends Weapon{
 	{
 		image = 物品表.蝙蝠棒;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		hitSound = Assets.Sounds.BAT;
 		tier=5;
-		延迟=0.8f;
+		伤害=0.6f;
 		特别=true;
 		靛色=true;
-		吸血=0.07f;
+		吸血=0.15f;
 	}
 }

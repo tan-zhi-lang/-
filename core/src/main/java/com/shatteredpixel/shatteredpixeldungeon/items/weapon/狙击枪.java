@@ -32,7 +32,6 @@ public class 狙击枪 extends Weapon{
 	
 	{
 		image = 物品表.狙击枪;
-		hitSound = Assets.Sounds.HIT_STAB;
 		范围=2;
 		tier = 4;
 		伤害=0.68f;

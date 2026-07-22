@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
 
 public class WellFed extends Buff {
@@ -37,6 +38,8 @@ public class WellFed extends Buff {
 
 		//salt cube does slow this buff down, but doesn't lessen the bonus health
 		spend(TICK / Hunger.饥饿速度());
+
+		if(Dungeon.赛季(赛季设置.规则怪谈))target.受伤时(target.最大生命(上限()/100f));
 		return true;
 	}
 	

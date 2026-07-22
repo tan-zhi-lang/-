@@ -112,6 +112,8 @@ public class 再生 extends Buff {
 						if(hero.符文("恢复恢复"))
 							再生数值*=3.5f;
 
+							if(hero.种族天赋.equals("树妖"))再生数值*=5;
+
 						if(Dungeon.赛季(赛季设置.地牢塔防)|| hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
 							再生数值=0;
 

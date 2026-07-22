@@ -11,13 +11,13 @@ public class 铁头棍 extends Weapon {
 
 	{
 		image = 物品表.QUARTERSTAFF;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		hitSound = Assets.Sounds.棍棒;
 		
 		
 		技能=new 防御姿态();
 		伤害= 0.7f;
-		tier = 1;
-		防御=true;
+		tier = 2;
+		具备防御=true;
 	}
 
 }

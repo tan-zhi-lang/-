@@ -15,7 +15,7 @@ public class Snake extends Mob {
 
 		生命 = 最大生命 = 10;
 		defenseSkill = 5;
-		攻击延迟=0.5f;
+
 		经验 = 2;
 		最大等级 = 8;
 		loot = Generator.Category.SEED;

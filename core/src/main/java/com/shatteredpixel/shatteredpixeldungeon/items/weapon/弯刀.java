@@ -10,13 +10,12 @@ public class 弯刀 extends Weapon {
 
 	{
 		image = 物品表.SCIMITAR;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		技能=new 剑舞();
 
 		tier = 2;
-		延迟= 0.8f;
 		伤害= 0.8f;
-		命中=1.25f;
+		流血=1.15f;
 	}
 }

@@ -13,7 +13,7 @@ public class 蠕虫 extends Mob {
 			生命 = 最大生命 = 45;
 			defenseSkill = 13;
 			viewDistance = 6;
-			baseSpeed=5/6f;
+
 
 			经验 = 7;
 			最大等级 = 15;

@@ -10,13 +10,13 @@ public class 碧蓝巨剑 extends Weapon{
 
 	{
 		image = 物品表.碧蓝巨剑;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.巨剑;
 		
 		
 		技能=new 斩击();
+		专属=true;
 		tier = 1;
-		延迟= 1.34f;
-		伤害= 1.34f;
+		延迟= 1.3f;
 
 	}
 

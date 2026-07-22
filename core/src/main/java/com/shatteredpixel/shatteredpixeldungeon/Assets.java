@@ -232,26 +232,34 @@ public class Assets {
 		public static final String 鳞甲   = "sounds/鳞甲.mp3";
 		public static final String 板甲   = "sounds/板甲.mp3";
 
-		public static final String 心之钢              = "sounds/心之钢.mp3";
-		public static final String 子弹落地              = "sounds/子弹落地.mp3";
-		public static final String 换弹              = "sounds/换弹.mp3";
-		public static final String 霰弹枪换弹              = "sounds/霰弹枪换弹.mp3";
-		public static final String 火炮换弹              = "sounds/火炮换弹.mp3";
-		public static final String 手枪              = "sounds/手枪.mp3";
-		public static final String 冲锋枪              = "sounds/冲锋枪.mp3";
-		public static final String 火炮              = "sounds/火炮.mp3";
-		public static final String 狙击枪              = "sounds/狙击枪.mp3";
-		public static final String 霰弹枪              = "sounds/霰弹枪.mp3";
-		public static final String HIT              = "sounds/hit.mp3";
-		public static final String MISS             = "sounds/miss.mp3";
-		public static final String HIT_SLASH        = "sounds/hit_slash.mp3";
-		public static final String 镜刃        = "sounds/镜刃.mp3";
-		public static final String HIT_STAB         = "sounds/hit_stab.mp3";
-		public static final String HIT_CRUSH        = "sounds/hit_crush.mp3";
-		public static final String HIT_MAGIC        = "sounds/hit_magic.mp3";
-		public static final String HIT_STRONG       = "sounds/hit_strong.mp3";
-		public static final String HIT_PARRY        = "sounds/hit_parry.mp3";
-		public static final String HIT_ARROW        = "sounds/hit_arrow.mp3";
+		public static final String 心之钢              = "sounds/hit/心之钢.mp3";
+		public static final String 子弹落地              = "sounds/hit/子弹落地.mp3";
+		public static final String 换弹              = "sounds/hit/换弹.mp3";
+		public static final String 霰弹枪换弹              = "sounds/hit/霰弹枪换弹.mp3";
+		public static final String 火炮换弹              = "sounds/hit/火炮换弹.mp3";
+		public static final String 手枪              = "sounds/hit/手枪.mp3";
+		public static final String 冲锋枪              = "sounds/hit/冲锋枪.mp3";
+		public static final String 火炮              = "sounds/hit/火炮.mp3";
+		public static final String 狙击枪              = "sounds/hit/狙击枪.mp3";
+		public static final String 霰弹枪              = "sounds/hit/霰弹枪.mp3";
+		public static final String 鞭子              = "sounds/hit/鞭子.mp3";
+		public static final String 刺剑              = "sounds/hit/刺剑.mp3";
+		public static final String 巨剑              = "sounds/hit/巨剑.mp3";
+		public static final String 爪              = "sounds/hit/爪.mp3";
+		public static final String 棍棒              = "sounds/hit/棍棒.mp3";
+		public static final String 锤打              = "sounds/hit/锤打.mp3";
+		public static final String 盾牌              = "sounds/hit/盾牌.mp3";
+		public static final String 长枪              = "sounds/hit/长枪.mp3";
+		public static final String HIT              = "sounds/hit/hit.mp3";
+		public static final String MISS             = "sounds/hit/miss.mp3";
+		public static final String 攻击砍= "sounds/hit/攻击砍.mp3";
+		public static final String 镜刃        = "sounds/hit/镜刃.mp3";
+		public static final String 攻击刺= "sounds/hit/攻击刺.mp3";
+		public static final String 攻击棍= "sounds/hit/攻击棍.mp3";
+		public static final String 攻击魔法= "sounds/hit/攻击魔法.mp3";
+		public static final String 攻击锤= "sounds/hit/攻击锤.mp3";
+		public static final String 攻击格挡= "sounds/hit/攻击格挡.mp3";
+		public static final String 攻击箭= "sounds/hit/攻击箭.mp3";
 		public static final String ATK_SPIRITBOW    = "sounds/atk_spiritbow.mp3";
 		public static final String ATK_CROSSBOW     = "sounds/atk_crossbow.mp3";
 		public static final String HEALTH_WARN      = "sounds/health_warn.mp3";
@@ -349,8 +357,16 @@ public class Assets {
 				心之钢,
 				子弹落地,换弹,霰弹枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
 				镜刃,布甲,皮甲,链甲,鳞甲,板甲,
-				HIT, MISS, HIT_SLASH, HIT_STAB, HIT_CRUSH, HIT_MAGIC, HIT_STRONG, HIT_PARRY,
-				HIT_ARROW, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL,
+				鞭子,刺剑,巨剑,爪,
+				棍棒,锤打,盾牌,长枪,
+				HIT, MISS,
+				攻击砍,
+				攻击刺,
+				攻击棍,
+				攻击魔法,
+				攻击锤,
+				攻击格挡,
+				攻击箭, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL,
 
 				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
 				CHALLENGE, CURSED, TRAP,

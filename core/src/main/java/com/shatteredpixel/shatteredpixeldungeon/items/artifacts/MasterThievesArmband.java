@@ -126,7 +126,7 @@ public class MasterThievesArmband extends Artifact {
 							if (surprised){
 								lootMultiplier += 0.5f;
 								Surprise.hit(ch);
-								Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
+								Sample.INSTANCE.play(Assets.Sounds.攻击锤);
 								debuffDuration += 2;
 								exp += 2;
 							}

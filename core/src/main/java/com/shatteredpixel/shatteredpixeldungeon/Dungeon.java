@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
@@ -497,6 +498,11 @@ public class Dungeon {
 			if(符文("太合理了"))
 				if(c.老鬼()||c.小老鬼())x*=0.2f;
 				else x*=2;
+
+			if(Dungeon.赛季(赛季设置.规则怪谈)){
+				x*=1+gold/100f;
+				if(c instanceof Wraith)x*=1+区域()/2f;
+			}
 		}
 		return x;
 	}
@@ -527,6 +533,9 @@ public class Dungeon {
 		if(符文("战斗久"))x*=2;
 		if(符文("来互秒"))x/=5;
 		if(符文("不耐揍的敌人"))x*=0.9f;
+		if(Dungeon.赛季(赛季设置.规则怪谈)){
+			if(c instanceof Wraith)x*=1+区域()/2f;
+		}
 		if(跟随强度&&hero()&&hero.最大生命>125)x*=hero.最大生命/125f;
 		return x;
 	}

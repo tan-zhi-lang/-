@@ -11,7 +11,7 @@ public static final int 鬼怨地牢				= 4;
 	public static final int 元素反应				= 8;
 	public static final int 开团秒跟= 16;
 	public static final int 刷子地牢			= 32;
-	public static final int 危险重重		    = 64;
+	public static final int 规则怪谈		    = 64;
 		public static final int 生化模式 	= 128;
 		public static final int 即时策略 	= 256;
 	public static final int MAX_VALUE           = 256*2-1;
@@ -24,7 +24,7 @@ public static final int 鬼怨地牢				= 4;
 			"元素反应",
 			"开团秒跟",
 			"刷子地牢",
-			"危险重重",
+			"规则怪谈",
 			"生化模式",
 			"即时策略",
 	};
@@ -36,7 +36,7 @@ public static final int 鬼怨地牢				= 4;
 			元素反应,
 			开团秒跟,
 			刷子地牢,
-			危险重重,
+			规则怪谈,
 			生化模式,
 			即时策略,
 	};

@@ -9,8 +9,8 @@ import com.watabou.utils.Random;
 public class 算法 {
     /*
 
-        饮血剑和无尽都0.8
 
+        if(符文("不死意志"))全能吸血+=0.075f;
 
         Buff延长
 		public void extend(float extension){
@@ -77,7 +77,7 @@ public class 算法 {
 		
 		
     * */
-    public static String 日期="7.21/10:15";
+    public static String 日期="7.22/15:52";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -106,37 +106,7 @@ public class 算法 {
     public static int x26=32*25;
     public static int x27=32*26;
     public static int x28=32*27;
-    // 固定步长 0.25，衰减公比 1/2
-    private static final float STEP = 0.25f;
-    private static final float RATIO = 0.5f;
-    public static float 衰减(float x) {
-        float result = 0;
 
-        if (x > 1) {
-            // 大于1：基础值1 + 超额部分的衰减和
-            result = 1;
-            // 计算超过1的部分包含多少个0.25
-            int stepCount =Math.round((x - 1) / STEP);
-            float current = STEP * RATIO; // 第一个衰减项：0.25/2
-
-            // 累加对应数量的衰减项
-            for (int i = 0; i < stepCount; i++) {
-                result += current;
-                current *= RATIO; // 下一项 ÷2
-            }
-        } else {
-            // 小于等于1：直接按0.25步长衰减累加
-            int stepCount = Math.round(x / STEP);
-            float current = STEP; // 第一个项：0.25
-
-            // 累加 步数数+2 项（严格匹配你的0.25示例）
-            for (int i = 0; i < stepCount + 2; i++) {
-                result += current;
-                current *= RATIO;
-            }
-        }
-        return result;
-    }
     public static String zf(float x){
         String s="";
         if(x>0)s+="+";

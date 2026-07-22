@@ -443,7 +443,7 @@ public abstract class Char extends Actor {
 			if (visibleFight) {
 				enemy.sprite.showStatus(CharSprite.增强绿,Messages.get(this,"invulnerable"));
 
-				Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1f, Random.Float(0.96f, 1.05f));
+				Sample.INSTANCE.play(Assets.Sounds.攻击格挡,1f,Random.Float(0.96f,1.05f));
 			}
 
 			return false;
@@ -878,7 +878,7 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 
 	public float 暴击率(){
-		float 暴击率=0.06f;
+		float 暴击率=0.07f;
 //		if(Dungeon.赛季(赛季设置.英雄联盟)){
 //			暴击率+=18;
 //		}
@@ -960,13 +960,10 @@ public abstract class Char extends Actor {
 		
 		if(enemy!=null&&吸血()>0){
 			if(this instanceof Hero hero){
-				boolean 不削弱=true;
-				if(老鬼()||小老鬼())
-					不削弱=false;
 				if(hero.符文("猛攻")||hero.符文("升级全能吸血")){
 
 				}else
-					回血(damage * 吸血()*(不削弱?1:1/2f));
+					回血(damage * 吸血());
 			}else
 			回血(damage * 吸血());
 		}
@@ -1087,36 +1084,37 @@ public abstract class Char extends Actor {
 		if(火焰伤害(src)&&冰霜伤害(src)){
 			sprite.蓝说("融化");//融化
 			new Bomb().heroexplode(pos);
-			return 1+1.5f;
+			return 1.5f;
 		}
 		if(冰霜伤害(src)&&火焰伤害(src)){
 			sprite.橙说("蒸发");//蒸发
-			return 1+1.5f;
+			return 1.5f;
 		}
 		if(火焰伤害(src)&&电伤害(src)){
 			sprite.紫说("超载");//超载
-			return 1+2.75f;
+			return 2.75f;
 		}
 		if(在水中()&&电伤害(src)){
 			sprite.紫说("超导");//超导
 			Buff.施加(this,Vulnerable.class,5);
-			return 1+1.5f;
+			return 1.5f;
 		}
 		if(在水中()&&冰霜伤害(src)){
 			sprite.青说("冻结");//冻结
 			算法.修复效果(()->{
 				Buff.施加(this,Frost.class,Frost.DURATION);
 			});
+			return 1;
 		}
 		if(hasbuff(Frost.class)&&土伤害(src)){
 			sprite.棕说("碎冰");//碎冰
 			Buff.detach(this,Frost.class);
-			return 1+3;
+			return 3;
 		}
 		if(电伤害(src)&&在水中()){
 			sprite.紫说("感电");//感电
 			new StoneOfShock().activate(pos);
-			return 1+2;
+			return 2;
 		}
 		if(风伤害(src)&&(火焰伤害(src)||在水中()||电伤害(src)||冰霜伤害(src))){
 			sprite.白说("扩散");//扩散
@@ -1132,7 +1130,7 @@ public abstract class Char extends Actor {
 			sprite.绿说("绽放");//绽放
 			new Bomb().heroexplode(pos);
 
-			return 1+2;
+			return 2;
 		}
 		return 1;
 	}

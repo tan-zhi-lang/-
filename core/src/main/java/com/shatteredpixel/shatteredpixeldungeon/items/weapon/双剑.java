@@ -11,13 +11,13 @@ public class 双剑 extends Weapon{
 
 	{
 		image = 物品表.SAI;
-		hitSound = Assets.Sounds.HIT_STAB;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		
 		技能=new 剑舞();
 		
 		tier = 3;
-		延迟= 1.175f;
+		延迟= 0.5f;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

@@ -11,12 +11,11 @@ public class 手斧 extends Weapon {
 
 	{
 		image = 物品表.HAND_AXE;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		技能=new 劈斩();
-
+		延迟=1.2f;
 		tier = 1;
-		延迟=1.175f;
 		
 	}
 	

@@ -41,7 +41,7 @@ public abstract class DamageWand extends Wand{
 			if (emp.left <= 0) {
 				emp.detach();
 			}
-			Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG, 0.75f, 1.2f);
+			Sample.INSTANCE.play(Assets.Sounds.攻击锤,0.75f,1.2f);
 		}
 		return dmg;
 	}

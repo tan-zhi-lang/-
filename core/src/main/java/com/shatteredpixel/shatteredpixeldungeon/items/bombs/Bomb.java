@@ -121,7 +121,19 @@ public class Bomb extends Item {
 		}
 		return super.doPickUp(hero, pos);
 	}
-
+	public static float 炸弹伤害(){
+		float x=1;
+		x*=2;
+		return x;
+	}
+	public static float 爆炸伤害(){
+		float x=1;
+		x*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
+		if(Dungeon.符文("王者之翼手雷"))x*=4;
+		if(Dungeon.hero.种族天赋.equals("地精"))x*=3;
+		x*=Dungeon.hero.寸止;
+		return x;
+	}
 	public void explode(int cell){
 		if(Dungeon.符文("核聚变"))Dungeon.hero.回满血();
 		//We're blowing up, so no need for a fuse anymore.
@@ -188,10 +200,9 @@ public class Bomb extends Item {
 				}
 
 				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
-				dmg*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
-				dmg*=2;
-				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
-				dmg*=Dungeon.hero.寸止;
+
+				dmg*=炸弹伤害();
+				dmg*=爆炸伤害();
 
 				dmg=ch.防御(dmg);
 				dmg=ch.护甲伤害(dmg);
@@ -269,9 +280,8 @@ public class Bomb extends Item {
 				}
 
 				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
-				dmg*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
-				if(Dungeon.符文("王者之翼手雷"))dmg*=4;
-				dmg*=Dungeon.hero.寸止;
+
+				dmg*=爆炸伤害();
 
 				dmg=ch.防御(dmg);
 				dmg=ch.护甲伤害(dmg);

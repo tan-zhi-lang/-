@@ -12,10 +12,11 @@ public class 臂铠 extends Weapon{
 
 		tier = 1;
 		延迟= 0.5f;
-		伤害= 0.5f;
+		专属=true;
+		特别=true;
 		技能=new 连击();
 
-		防御=true;
+		具备防御=true;
 
 	}
 	

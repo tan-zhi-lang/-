@@ -39,7 +39,7 @@ public class 蟑螂 extends Mob {
 
 	@Override
 	public float 大小(){
-		return super.大小()*0.45f;
+		return super.大小()*0.4f;
 	}
 
 	@Override
@@ -49,12 +49,12 @@ public class 蟑螂 extends Mob {
 	
 	@Override
 	public float 最大攻击() {
-		return 2;
+		return 3;
 	}
 	
 	@Override
 	public int 最大命中(Char target ) {
-		return 8;
+		return 10;
 	}
 
 	@Override
@@ -68,8 +68,7 @@ public class 蟑螂 extends Mob {
 
 	@Override
 	public float 防御时(Char enemy,float damage){
-		damage*=1-已损失生命()*0.8f;
-		damage=Math.max(最大生命(0.45f),damage);
+		damage=Math.max((float)Math.floor(damage*0.35f),1);
 		return super.防御时(enemy,damage);
 	}
 	public boolean 攻击=false;

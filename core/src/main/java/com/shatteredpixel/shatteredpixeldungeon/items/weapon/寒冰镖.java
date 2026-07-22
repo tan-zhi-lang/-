@@ -15,10 +15,9 @@ public class 寒冰镖 extends Weapon{
 
 	{
 		image = 物品表.寒冰镖;
-		hitSound = Assets.Sounds.HIT_STAB;
+		hitSound = Assets.Sounds.攻击刺;
 		circlingBack=true;
 		延迟=0.8f;
-		伤害=0.8f;
 		
 		tier = 5;
 		特别=true;

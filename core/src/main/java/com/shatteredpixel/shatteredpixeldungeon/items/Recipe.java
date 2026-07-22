@@ -52,18 +52,24 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.虚哭神去;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.震爆方石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
 import com.watabou.utils.Reflection;
@@ -206,6 +212,7 @@ public abstract class Recipe {
 		new 净化药剂.Recipe(),
 		new 祛邪卷轴.Recipe(),
 		new 器灵.Recipe(),
+		new 秘银.Recipe(),
 		new 血药.Recipe(),
 		new 封禁卷轴.Recipe(),
 
@@ -242,6 +249,9 @@ public abstract class Recipe {
 		new 长匕首.Recipe(),
 		new 单手剑.Recipe(),
 		new 长剑.Recipe(),
+		new 震爆方石.Recipe(),
+		new 关刀.Recipe(),
+		new 战斧.Recipe(),
 		new 巨剑.Recipe(),
 		new 魔岩拳套.Recipe(),
 		new 战镰.Recipe(),
@@ -257,6 +267,9 @@ public abstract class Recipe {
 		new MeatPie.Recipe(),
 			new 火焰剑.Recipe(),
 			new 寒冰镖.Recipe(),
+			new 日炎链刃.Recipe(),
+			new 虚哭神去.Recipe(),
+			new 重锤.Recipe(),
 			new 暗杀之刃.Recipe(),
 			new 饮血之剑.Recipe(),
 			new 死神镰刀.Recipe(),

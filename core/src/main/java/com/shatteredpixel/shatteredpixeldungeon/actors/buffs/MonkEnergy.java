@@ -554,7 +554,7 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 
 						int oldPos = enemy.pos;
 						if (hero.attack(enemy, empowered ? 9f : 6f, 0, Char.INFINITE)){
-							Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
+							Sample.INSTANCE.play(Assets.Sounds.攻击锤);
 						}
 
 						if (oldPos == enemy.pos){

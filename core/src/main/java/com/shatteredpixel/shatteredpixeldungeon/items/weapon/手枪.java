@@ -32,7 +32,6 @@ public class 手枪 extends Weapon{
 	
 	{
 		image = 物品表.手枪;
-		hitSound = Assets.Sounds.HIT_STAB;
 		
 		tier = 1;
 		伤害=0.68f;

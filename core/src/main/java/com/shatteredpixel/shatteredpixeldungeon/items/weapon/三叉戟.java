@@ -10,11 +10,10 @@ public class 三叉戟 extends Weapon{
 	
 	{
 		image = 物品表.TRIDENT;
-		hitSound = Assets.Sounds.HIT_STAB;
+		hitSound = Assets.Sounds.长枪;
 		
 		技能=new 刺击();
-		延迟= 1.34f;
-		伤害= 1.34f;
+		延迟= 1.5f;
 //		连招范围=2;
 		范围 = 2;
 		

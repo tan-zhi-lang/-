@@ -13,10 +13,12 @@ public class 铜钱剑 extends Weapon{
 
 	{
 		image = 物品表.铜钱剑;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		tier = 1;
-		伤害= 0.6f;
-		
+		伤害= 0.7f;
+		魔法= 0.15f;
+
+		专属=true;
 		特别= true;
 
 	}

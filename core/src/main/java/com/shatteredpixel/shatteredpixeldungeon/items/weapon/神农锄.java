@@ -15,10 +15,10 @@ public class 神农锄 extends Weapon{
 
 	{
 		image = 物品表.神农锄;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		技能=new 割草();
-		
+		延迟=1.2f;
 		tier = 5;
 
 		特别=true;

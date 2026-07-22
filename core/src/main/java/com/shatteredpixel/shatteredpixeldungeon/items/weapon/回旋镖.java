@@ -9,8 +9,7 @@ public class 回旋镖 extends Weapon{
 	
 	{
 		image = 物品表.BOOMERANG;
-		hitSound = Assets.Sounds.HIT_CRUSH;
-		延迟=0.8f;
+		hitSound = Assets.Sounds.攻击棍;
 		伤害=0.67f;
 		tier = 2;
 	}

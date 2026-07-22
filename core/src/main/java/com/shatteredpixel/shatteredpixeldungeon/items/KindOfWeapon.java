@@ -14,87 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.*;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圆盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨型方盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨斧;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.弯刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战锤;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无限之剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.硬头锤;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.符文之刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血姬;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血砍刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.轮刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.配刺剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铁头棍;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链枷;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锈右斧;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锻造锤;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镶钉手套;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长鞭;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -119,7 +40,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public int 最小= 0;
 	public int 最大= 0;
 	public float 伤害= 1f;
-	public boolean 防御= false;
+	public float 防御= 1f;
+	public boolean 具备防御= false;
 	public float 伤害(){
 		return 伤害;
 	}
@@ -170,14 +92,14 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public String upgradeStat3(int level){
 		return null;
 	}
-	public boolean 伤害随攻速= false;
-	public boolean 命中随攻速= false;
+	public boolean 延迟自动转= true;
 	public boolean 拳套(){//0.5
 		if(this instanceof 镶钉手套)return true;
 		if(this instanceof 爪)return true;
 		if(this instanceof 血姬)return true;
 		if(this instanceof 白带)return true;
 		if(this instanceof 臂铠)return true;
+		if(this instanceof 星云拳套)return true;
 		if(this instanceof 魔岩拳套)return true;
 		return false;
 	}
@@ -185,14 +107,18 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 飞镖)return true;
 		if(this instanceof 手里剑)return true;
 		if(this instanceof 苦无)return true;
-		if(this instanceof 小刺)return true;
 		if(this instanceof 寒冰镖)return true;
 		if(this instanceof 金玫苦无)return true;
 		return false;
 	}
 	public boolean 匕首(){//0.8
+		if(this instanceof 变态刀)return true;
 		if(this instanceof 匕首)return true;
 		if(this instanceof 双刃)return true;
+		if(this instanceof 小刀)return true;
+		if(this instanceof 小刺)return true;
+		if(this instanceof 骨刀)return true;
+		if(this instanceof 破甲锥)return true;
 		if(this instanceof 长匕首)return true;
 		if(this instanceof 臻冰刃)return true;
 		return false;
@@ -202,12 +128,14 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 真铜短剑)return true;
 		if(this instanceof 英雄断剑)return true;
 		if(this instanceof 无影剑)return true;
+		if(this instanceof 未知武器)return true;
 		return false;
 	}
 	public boolean 剑(){//1
 		if(Dungeon.符文("越女剑法"))return true;
 		if(短剑())return true;
 		if(巨剑())return true;
+		if(this instanceof 锯齿剑)return true;
 		if(this instanceof 单手剑)return true;
 		if(this instanceof 长剑)return true;
 		if(this instanceof 无限之剑)return true;
@@ -220,10 +148,14 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 寒冰鱼剑)return true;
 		if(this instanceof 配刺剑)return true;
 		if(this instanceof 铜钱剑)return true;
+		if(this instanceof 裂天剑)return true;
+		if(this instanceof 虚哭神去)return true;
 		return false;
 	}
 	public boolean 刀(){//1
+		if(this instanceof 尼泊尔弯刀)return true;
 		if(this instanceof 弯刀)return true;
+		if(this instanceof 骨刀)return true;
 		if(this instanceof 变态刀)return true;
 		if(this instanceof 血砍刀)return true;
 		if(this instanceof 镜刃)return true;
@@ -234,6 +166,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	public boolean 小盾(){//1
 		if(this instanceof 圆盾)return true;
+		if(this instanceof 联合盾)return true;
 		return false;
 	}
 	public boolean 盾(){//1.175
@@ -252,6 +185,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean 棍(){//1.175
 		if(this instanceof 法师魔杖)return true;
 		if(this instanceof 权杖)return true;
+		if(this instanceof 木棍)return true;
 		if(this instanceof 铁头棍)return true;
 		if(this instanceof 金纹拐)return true;
 		if(this instanceof 封印之杖)return true;
@@ -259,10 +193,11 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 钝器(){
-		if(拳套())return true;
 		if(盾())return true;
 		if(棍())return true;
 		if(鞭())return true;
+		if(this instanceof 石头)return true;
+		if(this instanceof 雪球)return true;
 		if(this instanceof 修理扳手)return true;
 		if(this instanceof 回旋镖)return true;
 		return false;
@@ -289,12 +224,14 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	public boolean 斧(){//1.25
 		if(this instanceof 手斧)return true;
+		if(this instanceof 疯狂斧)return true;
 		if(战斧())return true;
 		if(巨斧())return true;
 		return false;
 	}
 	public boolean 战锤(){//1.34
 		if(this instanceof 战锤)return true;
+		if(this instanceof 雷神锤)return true;
 		return false;
 	}
 	public boolean 战镰(){//1.34
@@ -336,6 +273,16 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 斩马刀)return true;
 		return false;
 	}
+	public boolean 复仇者联盟(){
+		if(this instanceof 雷神锤)return true;
+		if(this instanceof 联合盾)return true;
+		return false;
+	}
+	public boolean 我的世界(){
+		if(this instanceof 回旋之刃)return true;
+		if(this instanceof 重锤)return true;
+		return false;
+	}
 	public boolean 幻影忍者(){
 		if(this instanceof 寒冰镖)return true;
 		if(this instanceof 闪电双截棍)return true;
@@ -348,13 +295,20 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 修理扳手)return true;
 		if(this instanceof 血砍刀)return true;
 		if(this instanceof 回旋镖)return true;
+		if(this instanceof 回旋之刃)return true;
+		if(this instanceof 联合盾)return true;
+		if(this instanceof 疯狂斧)return true;
 		if(this instanceof 轮刃)return true;
 		return false;
 	}
 	public boolean 双手(){
 		if(this instanceof 双刃)return true;
-		if(this instanceof 轮刃)return true;
+		if(this instanceof 狼筅)return true;
 		if(this instanceof 镶钉手套)return true;
+		if(this instanceof 星云拳套)return true;
+		if(this instanceof 鹿角刀)return true;
+		if(this instanceof 誓刃)return true;
+		if(this instanceof 木棍)return true;
 		if(this instanceof 铁头棍)return true;
 		if(this instanceof 爪)return true;
 		if(this instanceof 武士刀)return true;

@@ -53,7 +53,7 @@ public class 火球术 extends 目标法术 {
 			QuickSlotButton.target(Actor.findChar(target));
 		}
 		hero.busy();
-		Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
+		Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,Random.Float(0.87f,1.15f));
 		
 		hero.sprite.zap(target);
 		MagicMissile.boltFromChar(hero.sprite.parent, MagicMissile.FIRE, hero.sprite, aim.collisionPos, new Callback() {

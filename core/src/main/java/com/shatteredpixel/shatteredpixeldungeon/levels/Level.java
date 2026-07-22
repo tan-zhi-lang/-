@@ -827,9 +827,6 @@ public abstract class Level implements Bundlable {
 			x*=3;
 		}
 
-		if(Dungeon.赛季(赛季设置.危险重重)){
-			x*=2;
-		}
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
 			x*=2;
 		}
@@ -841,10 +838,6 @@ public abstract class Level implements Bundlable {
 	public static float 刷怪数量(){
 		//并不是生成找不到位置，而是生成太多检测了，比如60x60x100，这都生成到猴年马月
 		float mobs=1;
-		if(Dungeon.赛季(赛季设置.危险重重)){
-			mobs*=2;
-		}
-
 		if(Dungeon.派对(派对设置.小小可爱)) mobs/=2;
 		if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4))){
 			mobs*=2;

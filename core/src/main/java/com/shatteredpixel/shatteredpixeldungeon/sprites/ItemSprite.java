@@ -180,7 +180,9 @@ public class ItemSprite extends MovieClip {
 	}
 
 	public ItemSprite view( Item item ){
-		view(item.image(), item.glowing());
+		ItemSprite.Glowing g=item.glowing2();
+		if(g==null)g=item.glowing();
+		view(item.image(), g);
 		Emitter emitter = item.emitter();
 		if (emitter != null && parent != null) {
 			emitter.pos( this );

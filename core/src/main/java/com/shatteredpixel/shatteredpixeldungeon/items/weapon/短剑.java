@@ -10,8 +10,8 @@ public class 短剑 extends Weapon{
 
 	{
 		image = 物品表.WORN_SHORTSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
-
+		hitSound = Assets.Sounds.攻击砍;
+		专属=true;
 		tier = 1;
 		
 		技能=new 斩击();

@@ -94,7 +94,7 @@ public class 暗影替身 extends NPC {
 	}
 	public float 等级(){
 		if(hero!=null&&hero.belongings.hasItem(虫箭.class)){
-			return hero.belongings.getItem(虫箭.class).等级()*0.1f;
+			return hero.belongings.getItem(虫箭.class).等级()*0.04f;
 		}else return 0;
 	}
 	@Override
@@ -242,13 +242,13 @@ public class 暗影替身 extends NPC {
 
 	@Override
 	public String description(){
-		return Messages.get(this,"desc",Math.round((1-等级()/3f)*100));
+		return Messages.get(this,"desc",90-等级()*4);
 	}
 
 	@Override
 	public void 受伤时(float dmg,Object 来源){
 		if (hero != null){
-			hero.受伤时(dmg*(1-等级()/3f),来源);
+			hero.受伤时(dmg*(0.9f-等级()*0.04f),来源);
 		}
 	}
 	

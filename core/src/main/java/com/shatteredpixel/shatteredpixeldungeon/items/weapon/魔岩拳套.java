@@ -12,13 +12,12 @@ public class 魔岩拳套 extends Weapon {
 	
 	{
 		image = 物品表.GAUNTLETS;
-		hitSound = Assets.Sounds.HIT_CRUSH;
-		
-		技能=new 连击();
+		hitSound = Assets.Sounds.攻击棍;
+
 		
 		tier = 4;
+		技能=new 连击();
 		延迟= 0.5f;
-		伤害= 0.7f;
 	}
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe{
 

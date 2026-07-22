@@ -35,7 +35,6 @@ public class 霰弹枪 extends Weapon{
 	
 	{
 		image = 物品表.霰弹枪;
-		hitSound = Assets.Sounds.HIT_STAB;
 		tier = 3;
 		伤害=0.68f;
 

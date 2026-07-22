@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 流火 extends Weapon{
 	{
 		image = 物品表.流火;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		伤害=0.8f;
 		tier=5;
 		特别=true;

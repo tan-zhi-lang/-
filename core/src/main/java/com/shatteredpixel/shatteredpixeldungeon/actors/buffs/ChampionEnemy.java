@@ -357,7 +357,7 @@ public abstract class ChampionEnemy extends Buff {
 
 		@Override
 		public float 吸血() {
-			return 0.25f;
+			return 0.2f;
 		}
 
 	}

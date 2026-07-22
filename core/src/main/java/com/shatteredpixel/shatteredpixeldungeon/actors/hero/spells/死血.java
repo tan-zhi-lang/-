@@ -25,7 +25,7 @@ public class 死血 extends 巫术 {
 	public void onCast(灵月法杖 tome,Hero hero){
 
 		hero.busy();
-		Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC,1,Random.Float(0.87f,1.15f));
+		Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,Random.Float(0.87f,1.15f));
 
 
 		hero.回血(hero.法术(this,2)*hero.根据已损失生命()*hero.天赋点数(Talent.高级死血,0.05f));

@@ -11,6 +11,7 @@ public class 秘银 extends Item {
 		
 		可堆叠= true;
 		特别= true;
+		炼金全放=true;
 		物品 = true;
 	}
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

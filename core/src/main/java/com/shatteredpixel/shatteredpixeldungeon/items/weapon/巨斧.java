@@ -10,8 +10,8 @@ public class 巨斧 extends Weapon{
 
 	{
 		image = 物品表.巨斧;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		延迟=1.25f;
+		hitSound = Assets.Sounds.巨剑;
+		延迟=1.5f;
 		
 		
 		技能=new 劈斩();

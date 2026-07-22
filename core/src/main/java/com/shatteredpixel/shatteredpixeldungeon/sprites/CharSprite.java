@@ -151,20 +151,21 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				} else if (anim == run) {
 					anim.delay = 1f /20f;
 				} else if(anim == attack||anim == zap){
-
+					anim.delay = 1f / SPDSettings.加快();
 				}else {
 					anim.delay = 1f / SPDSettings.加快();
 				}
 			}
 			if (anim == attack||anim == zap) {
-				if(!Dungeon.符文("太玄经"))
-				anim.完事延迟 = 1/60f;//打击手感/攻击后摇
+				if(Dungeon.符文("太玄经")){
+					if(anim == attack||anim == zap){
+						anim.delay=0;
+					}
+				}else
+				anim.完事延迟 = 1/10f;//打击手感/攻击后摇
 			}
-			if(Dungeon.符文("太玄经")){
-				if(anim == attack||anim == zap){
-					anim.delay=0;
-				}
-			}
+			if(SPDSettings.战斗快速()&&
+			   Dungeon.hero()&&ch!=null&&ch!=Dungeon.hero&&ch.距离(Dungeon.hero)>Dungeon.hero.攻击范围())anim.delay=1f/1000;
             super.play(anim);
 		}
 	}

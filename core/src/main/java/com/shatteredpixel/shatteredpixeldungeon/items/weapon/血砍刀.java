@@ -10,11 +10,11 @@ public class 血砍刀 extends Weapon{
 	
 	{
 		image = 物品表.血砍刀;
-		hitSound = Assets.Sounds.HIT_STAB;
+		hitSound = Assets.Sounds.攻击砍;
 		tier = 1;
-		延迟=0.15f;
-		伤害=0.8f;
+		延迟=0.8f;
 		流血=0.15f;
+		专属=true;
 		技能=new 劈斩();
 		
 		特别= true;

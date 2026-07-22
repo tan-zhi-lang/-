@@ -8,11 +8,12 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 血姬 extends Weapon{
 	
 	{
-		image = 物品表.血姬;
+		image = 物品表.爪;
 		技能=new 连击();
 		tier = 1;
 		延迟= 0.5f;
-		伤害= 0.5f;
+		流血= 0.15f;
+		专属=true;
 		
 		特别= true;
 		红色= true;

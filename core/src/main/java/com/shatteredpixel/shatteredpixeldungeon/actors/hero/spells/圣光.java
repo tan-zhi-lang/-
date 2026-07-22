@@ -58,7 +58,7 @@ public class 圣光 extends TargetedClericSpell {
 					} );
 					if(ch.恶魔亡灵()){
 						ch.受伤时(hero.法术(this,1*(1+hero.天赋点数(Talent.神圣之触,0.25f))),圣光.this);
-						Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
+						Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,Random.Float(0.87f,1.15f));
 						ch.sprite.burst(0xFFFFFF44, 3);
 					}else{
 						ch.回血(hero.法术(this,0.5f*(1+hero.天赋点数(Talent.神圣之触,0.25f))));

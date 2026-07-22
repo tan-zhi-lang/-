@@ -47,7 +47,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 休息速度x = "休息速度";
 	public static final String 物品命名x = "物品命名";
 	public static final String 打断英雄x= "打断英雄";
-	public static final String 游戏提示x = "游戏提示";
+	public static final String 战斗快速x = "战斗快速";
 	public static final String 自动拾取x = "自动拾取";
 	public static final String 装备武器x = "装备武器";
 	public static final String 主要战技x = "主要战技";
@@ -195,12 +195,12 @@ public class SPDSettings extends GameSettings {
 	public static boolean 打断英雄() {
 		return getBoolean(打断英雄x,true);
 	}
-	public static void 游戏提示( boolean value ) {
-		put( 游戏提示x, value );
+	public static void 战斗快速( boolean value ) {
+		put( 战斗快速x, value );
 		
 	}
-	public static boolean 游戏提示() {
-		return getBoolean( 游戏提示x, true);
+	public static boolean 战斗快速() {
+		return getBoolean( 战斗快速x, false);
 	}
 	public static void 自动拾取( boolean value ) {
 		put( 自动拾取x, value );
@@ -264,7 +264,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 提示行数() {
-		return getInt(提示行数x, 1,0,4 );
+		return getInt(提示行数x, 1,0,5 );
 	}
 
 	//Interface

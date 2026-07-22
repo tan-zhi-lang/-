@@ -9,8 +9,9 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 无尽之刃 extends Weapon{
 	{
 		image = 物品表.无尽之刃;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.巨剑;
 		tier=5;
+		伤害=0.8f;
 		特别=true;
 		黄色=true;
 		技能=new 暴伤();

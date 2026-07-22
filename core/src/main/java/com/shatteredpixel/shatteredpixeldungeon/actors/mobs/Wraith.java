@@ -29,7 +29,7 @@ public class Wraith extends Mob {
 	{
 		spriteClass = WraithSprite.class;
 		
-		生命 = 最大生命 = Dungeon.区域(1);
+		生命 = 最大生命 = Dungeon.区域(0.5f);
 
 		最大等级 = -2;
 		
@@ -38,7 +38,16 @@ public class Wraith extends Mob {
 		properties.add(Property.UNDEAD);
 		properties.add(Property.INORGANIC);
 	}
-	
+
+	@Override
+	protected boolean act(){
+
+		if (Dungeon.hero()){
+			if(isAlive()&&Dungeon.hero.距离(this)>8)
+				受伤时(最大生命);
+		}
+		return super.act();
+	}
 	private static final String LEVEL = "level";
 	
 	@Override

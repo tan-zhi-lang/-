@@ -69,12 +69,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
@@ -109,6 +109,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
@@ -126,6 +127,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金玫苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
@@ -252,12 +254,32 @@ public enum HeroClass{
 
 
 		if(Dungeon.派对(派对设置.种族天赋)){
-			if(!(hero.heroClass(鼠弟)&&hero.heroClass(机器)&&hero.heroClass(灵猫)))
+			if(!(hero.heroClass(鼠弟)||hero.heroClass(机器)||hero.heroClass(灵猫)))
 			if(hero.种族天赋.equals("")){
 				hero.种族天赋=Random.oneOf("人类","兽人","鲛人","精灵",
-										   "汪星人","龙人","矮人","猩人","恶魔");
-				//"喵星人","吸血鬼","半人马","地精","鼠人","树妖","不死族"
-				Notes.备注("种族",hero.种族天赋);
+										   "汪星人","龙人","矮人","猩人","恶魔",
+										   "吸血鬼","不死族","机器","树妖","半人马","地精"
+										   );
+
+				String s=switch(hero.种族天赋){
+					case "人类"->"综合属性+5%。";
+					case "兽人"->"暴击率+20%。";
+					case "鲛人"->"在水中综合属性+15%。";
+					case "精灵"->"在草丛中综合属性+15%。";
+					case "汪星人"->"感知范围+7。";
+					case "龙人"->"+30%元素抗性，敌人+30%法术穿透。";
+					case "猩人"->"力量和最大生命+30%。";
+					case "恶魔"->"治疗护盾-40%，击杀敌人+0.1攻击和0.2最大生命。";
+					case "矮人"->"升级武器、防具、法杖、戒指能够50%概率额外升级一次。";
+					case "吸血鬼"->"吸血+12%，白天吸血减半。";
+					case "不死族"->"饥饿不再受伤。";
+					case "机器"->"英雄机器的特性。";
+					case "树妖"->"在草丛上，再生速度x5。";
+					case "半人马"->"移速+50%。";
+					case "地精"->"爆炸伤害x3。";
+					default ->"";
+				};
+				Notes.备注("种族:"+hero.种族天赋,s);
 			}
 		}
 		if(Dungeon.派对(派对设置.钢门联盟)){
@@ -318,6 +340,7 @@ public enum HeroClass{
 			new 恢复之戒().放背包();
 			new 闪避之戒().放背包();
 			new 命中之戒().放背包();
+			new 未知武器().放背包();
 			new Torch().数量(x).放背包();
 			new Food().数量(x).放背包();
 
@@ -643,8 +666,11 @@ public enum HeroClass{
 		
 		冰门重盾 x=new 冰门重盾();
 		(hero.belongings.weapon=x).鉴定();
-		
-		
+
+		雪球 雪球=new 雪球();
+		雪球.鉴定().放背包();
+		Dungeon.quickslot.setSlot(0,雪球);
+
 		new 催眠卷轴().鉴定();
 		new 冰霜药剂().鉴定();
 	}

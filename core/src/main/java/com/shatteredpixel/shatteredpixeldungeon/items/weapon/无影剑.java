@@ -10,8 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 无影剑 extends Weapon{
 	{
 		image = 物品表.无影剑;
-		hitSound = Assets.Sounds.HIT_SLASH;
-		延迟=0.8f;
+		hitSound = Assets.Sounds.攻击砍;
 		伤害=0.8f;
 		特别=true;
 		白色=true;

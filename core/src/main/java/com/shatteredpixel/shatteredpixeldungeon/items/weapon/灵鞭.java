@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.群魔乱舞;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -10,14 +11,14 @@ public class 灵鞭 extends Weapon{
 
 	{
 		image = 物品表.灵鞭;
-		
+
+		hitSound = Assets.Sounds.鞭子;
 		
 		技能=new 群魔乱舞();
 		tier = 1;
 
-		伤害=0.7f;
-		延迟= 1.175f;
-		魔法=0.25f;
+		伤害= 0.7f;
+		魔法=0.15f;
 //		连招范围=3;
 		范围 = 3;
 		专属= true;

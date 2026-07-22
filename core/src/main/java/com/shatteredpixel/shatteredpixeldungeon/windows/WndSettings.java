@@ -461,7 +461,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 
 							提示行数 = new OptionSlider("提示行数",
-														"25%", "175%", 0, 4) {
+														"0%", "175%", 0, 5) {
 								@Override
 								protected void onChange() {
 									SPDSettings.提示行数(getSelectedValue());
@@ -791,14 +791,14 @@ public class WndSettings extends WndTabbed {//WndSettings
 						RenderedTextBlock 物品命名str;
 						CheckBox 打断英雄;
 						RenderedTextBlock 打断英雄str;
-						CheckBox 游戏提示;
-						RenderedTextBlock 游戏提示str;
 						CheckBox 自动拾取;
 						RenderedTextBlock 自动拾取str;
 						CheckBox 装备武器;
 						RenderedTextBlock 装备武器str;
 						CheckBox 主要战技;
 						RenderedTextBlock 主要战技str;
+						CheckBox 战斗快速;
+						RenderedTextBlock 战斗快速str;
 						CheckBox 从不过节;
 						RenderedTextBlock 从不过节str;
 						{
@@ -828,20 +828,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							打断英雄str= PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this,"打断英雄str"),5);
 							打断英雄str.hardlight(0x888888);
 							add(打断英雄str);
-							
-							游戏提示 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "游戏提示")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.游戏提示(checked());
-								}
-							};
-							游戏提示.checked(SPDSettings.游戏提示());
-							add(游戏提示);
-							游戏提示str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "游戏提示str"), 5);
-							游戏提示str.hardlight(0x888888);
-							add(游戏提示str);
-							
+
 							
 							自动拾取 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "自动拾取")){
 								@Override
@@ -869,8 +856,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							装备武器str.hardlight(0x888888);
 							add(装备武器str);
 							
-							
-							
 							主要战技 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "主要战技")){
 								@Override
 								protected void onClick() {
@@ -883,7 +868,21 @@ public class WndSettings extends WndTabbed {//WndSettings
 							主要战技str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "主要战技str"), 5);
 							主要战技str.hardlight(0x888888);
 							add(主要战技str);
-							
+
+
+							战斗快速 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "战斗快速")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.战斗快速(checked());
+								}
+							};
+							战斗快速.checked(SPDSettings.战斗快速());
+							add(战斗快速);
+							战斗快速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "战斗快速str"), 5);
+							战斗快速str.hardlight(0x888888);
+							add(战斗快速str);
+
 							
 							从不过节 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "从不过节")){
 								@Override
@@ -908,12 +907,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 							打断英雄.setRect(0,物品命名str.bottom()+GAP,width,BTN_HEIGHT);
 							打断英雄str.maxWidth(width);
 							打断英雄str.setPos(0,打断英雄.bottom()+1);
+
 							
-							游戏提示.setRect(0,打断英雄str.bottom()+GAP,width,BTN_HEIGHT);
-							游戏提示str.maxWidth(width);
-							游戏提示str.setPos(0, 游戏提示.bottom()+1);
-							
-							自动拾取.setRect(0,  游戏提示str.bottom()+GAP, width, BTN_HEIGHT);
+							自动拾取.setRect(0,  打断英雄str.bottom()+GAP, width, BTN_HEIGHT);
 							自动拾取str.maxWidth(width);
 							自动拾取str.setPos(0, 自动拾取.bottom()+1);
 							
@@ -924,8 +920,12 @@ public class WndSettings extends WndTabbed {//WndSettings
 							主要战技.setRect(0,  装备武器str.bottom()+GAP, width, BTN_HEIGHT);
 							主要战技str.maxWidth(width);
 							主要战技str.setPos(0, 主要战技.bottom()+1);
-							
-							从不过节.setRect(0,  主要战技str.bottom()+GAP, width, BTN_HEIGHT);
+
+							战斗快速.setRect(0,  主要战技str.bottom()+GAP, width, BTN_HEIGHT);
+							战斗快速str.maxWidth(width);
+							战斗快速str.setPos(0, 战斗快速.bottom()+1);
+
+							从不过节.setRect(0,  战斗快速str.bottom()+GAP, width, BTN_HEIGHT);
 							从不过节str.maxWidth(width);
 							从不过节str.setPos(0, 从不过节.bottom()+1);
 							

@@ -194,7 +194,7 @@ public class Shopkeeper extends NPC {
 			打折*=.9f;
 		}
 		if(Dungeon.符文("我让你乱卖"))打折*=0.2f;
-
+		打折/=1.5f;
 		return Math.round(g*打折/2*(1/5f+1));
 //		return Math.round(item.金币() * 打折/2 * (Dungeon.相对层数() / 5f + 1));
 	}

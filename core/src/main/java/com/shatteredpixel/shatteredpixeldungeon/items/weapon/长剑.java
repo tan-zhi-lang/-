@@ -11,7 +11,7 @@ public class 长剑 extends Weapon{
 	
 	{
 		image = 物品表.LONGSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		技能=new 斩击();
 

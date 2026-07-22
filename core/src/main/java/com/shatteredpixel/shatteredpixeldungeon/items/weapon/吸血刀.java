@@ -10,13 +10,14 @@ public class 吸血刀 extends Weapon{
 	
 	{
 		image = 物品表.吸血刀;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		红色 = true;
 		特别= true;
+		专属=true;
 
-		伤害=0.7f;
-		吸血=0.07f;
+		延迟=0.8f;
+		吸血=0.05f;
 		技能=new 嗜血();
 		
 		tier = 1;

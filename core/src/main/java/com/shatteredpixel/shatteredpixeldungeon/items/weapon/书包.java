@@ -14,6 +14,8 @@ public class 书包 extends Weapon{
 		
 
 		tier = 1;
+		专属=true;
+		特别=true;
 		伤害=0.6f;
 		
 

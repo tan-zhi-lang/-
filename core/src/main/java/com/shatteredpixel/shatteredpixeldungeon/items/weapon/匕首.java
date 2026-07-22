@@ -10,9 +10,10 @@ public class 匕首 extends Weapon{
 	
 	{
 		image = 物品表.小匕;
-		hitSound = Assets.Sounds.HIT_STAB;
-		
-		伤害=0.8f;
+		hitSound = Assets.Sounds.攻击刺;
+
+		专属=true;
+		特别=true;
 		延迟=0.8f;
 		
 		技能=new 潜行();

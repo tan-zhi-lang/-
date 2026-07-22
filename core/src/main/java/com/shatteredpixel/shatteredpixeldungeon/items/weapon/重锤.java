@@ -7,7 +7,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.重击;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Bundle;
 
@@ -15,11 +17,10 @@ public class 重锤 extends Weapon{
 
 	{
 		image = 物品表.重锤;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		hitSound = Assets.Sounds.锤打;
 		
 		技能=new 重击();
 		延迟=1.5f;
-		伤害=1.34f;
 
 		特别=true;
 		白色=true;
@@ -27,6 +28,21 @@ public class 重锤 extends Weapon{
 		tier = 5;
 	}
 
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{战锤.class,
+					浮空药剂.class,
+					器灵.class,};
+			inQuantity = new int[]{1,1,1,};
+
+			cost = 15;
+
+			output = 重锤.class;
+			outQuantity = 1;
+		}
+
+	}
 	public int 猛击=0;
 	private static final String 猛击x=        "猛击";
 

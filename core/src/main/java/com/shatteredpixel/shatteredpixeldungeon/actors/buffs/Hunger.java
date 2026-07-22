@@ -85,6 +85,11 @@ public class Hunger extends Buff implements Hero.Doom {
 		if (on) target.sprite.aura( color, rays );
 		else target.sprite.clearAura();
 	}
+	public static float 饥饿伤害(){
+		float x=1;
+		if(Dungeon.hero.种族天赋.equals("不死族"))x=0;
+		return x;
+	}
 	public static float 饥饿速度(){
 		float x=1;
 
@@ -134,7 +139,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 				if (partial > 0){
 //					partial=0;
-					hero.受伤时(partial, this);
+					hero.受伤时(partial*饥饿伤害(), this);
 				}
 				
 			} else {
@@ -144,7 +149,7 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (newLevel >= STARVING) {//450时
 
 					GLog.红(Messages.get(this,"onstarving"));
-					hero.受伤时( hungerDelay/20f+(float)Math.sqrt(hero.已损失生命())/89f, this);
+					hero.受伤时( (hungerDelay/20f+(float)Math.sqrt(hero.已损失生命())/89f)*饥饿伤害(), this);
 
 					hero.interrupt();
 					newLevel = STARVING;
@@ -219,9 +224,9 @@ public class Hunger extends Buff implements Hero.Doom {
 		} else if (oldLevel < STARVING && level >= STARVING){
 			GLog.红(Messages.get(this,"onstarving"));
 			if(Dungeon.符文("我是瘦子"))
-				target.受伤时( 饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f*2, this );
+				target.受伤时( (饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f*2)*饥饿伤害(), this );
 			else
-			target.受伤时( 饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f, this );
+			target.受伤时( (饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f)*饥饿伤害(), this );
 			partial=0;
 		}
 

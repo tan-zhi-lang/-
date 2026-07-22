@@ -10,16 +10,16 @@ public class 闪电双截棍 extends Weapon {
 
 	{
 		image = 物品表.闪电双截棍;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		hitSound = Assets.Sounds.棍棒;
 		
 		技能=new 防御姿态();
 		
 		伤害= 0.7f;
-		魔法=0.65f;
+		魔法=0.45f;
 		tier = 5;
 		特别=true;
 		黄色=true;
-		防御=true;
+		具备防御=true;
 	}
 
 	

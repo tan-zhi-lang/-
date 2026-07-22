@@ -60,40 +60,59 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.半月刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.尼泊尔弯刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无限之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.木棍;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.炼狱铲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狼筅;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.疯狂斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破甲锥;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.联合盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.虚哭神去;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蝙蝠棒;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血荆棘;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.誓刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锈右斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锯齿剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锻造锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雷神锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.鹿角刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.封禁卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.干枯花瓣;
 import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
@@ -160,7 +179,7 @@ public class 重制新增{
 
 		"每个英雄有自己的主属性，最大攻击+主属性-10。\n"+
 			"力量\n" +
-			"1%治疗护盾，0.5%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
+			"1%治疗护盾，0.3%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
 
 				"敏捷\n"+
 				"初始是10+0.4x升级等级(满级额外+0.4)，0.5最大护甲，影响命中、攻速、闪避、移速\n"+
@@ -177,17 +196,16 @@ public class 重制新增{
 											));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.WARRIOR,tier(HeroClass.WARRIOR))),"杂项机制",
 
-											"新增吸血作用于攻击的伤害百分比恢复生命值(不过对非Boss仅1/2效果)，全能吸血作用于大部分的伤害百分比恢复生命值(不过对非Boss仅1/6效果)。\n"+
-											"并且吸血和全能吸血会根据已损失生命，提供最多1.25倍率，最低0.6倍。\n"+
+											"新增吸血作用于攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值。\n"+//(不过对非Boss仅60%效果)
 											"新增穿甲(固定值无视防御)，护甲穿透(百分比无视防御)，先x/后+-。",
 
 
 											"敌人第一次被攻击+0.5伤害，伏击+0.5，隐形伏击再+0.5，敌人第一次被伏击再+0.5。\n"+
-											"蛇皮走位，正常行动会叠加4层，攻击叠加6层，最多100层。满层时的攻击+移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
+											"蛇皮走位，正常行动会叠加4层，攻击叠加6层，最多100层。满层时的攻击x移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
 
 
 											//											"游戏第1、2局幸运值+1，每日挑战非重玩+1幸运值。\n"+
-											"新增护甲，初始是5(5+等级(满级额外+1))，相当于不会随时间损失的物理护盾，根据护甲，最多30%伤害减免，最少10%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
+											"新增护甲，初始是5(5+等级(满级额外+1))，相当于不会随时间损失的物理护盾，并且拥有10%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
 											"击杀敌人施加连杀状态10回合，敌人被发现会施加被发现回合。\n"+
 											//											"点击目的地会提示框，有敌人和陷阱则是红色，普遍绿色。\n"+
 											"吃饭回血食物填充/150的生命。"
@@ -196,7 +214,7 @@ public class 重制新增{
 
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "新增杂项",
-											"设置可调整物品命名、打断英雄、游戏提示、游戏提示、装备武器、装备武器、从不过节。\n"+
+											"设置可调整物品命名、打断英雄、游戏提示、游戏提示、装备武器、主要战技、战斗快速、从不过节。\n"+
 											"设置可调整固定攻速、固定移速、休息速度。\n"+
 											"设置可调整帧率、字体大小、画面同步、动画加快、透明界面、更多按钮、颜色区块、文字寿命、提示行数。"));
 	}
@@ -233,11 +251,22 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new 未知武器()));
 		changes.addButton(new ChangeButton(new 蝙蝠棒()));
 		changes.addButton(new ChangeButton(new 变态刀()));
 		changes.addButton(new ChangeButton(new 无影剑()));
+		changes.addButton(new ChangeButton(new 锯齿剑()));
+		changes.addButton(new ChangeButton(new 炼狱铲()));
+		changes.addButton(new ChangeButton(new 联合盾()));
+		changes.addButton(new ChangeButton(new 雷神锤()));
+		changes.addButton(new ChangeButton(new 骨刀()));
+		changes.addButton(new ChangeButton(new 星云拳套()));
+		changes.addButton(new ChangeButton(new 疯狂斧()));
+		changes.addButton(new ChangeButton(new 血荆棘()));
+		changes.addButton(new ChangeButton(new 裂天剑()));
+		changes.addButton(new ChangeButton(new 虚哭神去()));
+		changes.addButton(new ChangeButton(new 回旋之刃()));
 		changes.addButton(new ChangeButton(new 重锤()));
-		changes.addButton(new ChangeButton(new 蝙蝠棒()));
 		changes.addButton(new ChangeButton(new 猩红散华()));
 		changes.addButton(new ChangeButton(new 真铜短剑()));
 		changes.addButton(new ChangeButton(new 流火()));
@@ -255,27 +284,31 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 封印之杖()));
 		changes.addButton(new ChangeButton(new 妖刀村正()));
 		changes.addButton(new ChangeButton(new 破败王剑()));
-		changes.addButton(new ChangeButton(new 妖刀村正()));
 		changes.addButton(new ChangeButton(new 饮血之剑()));
 		changes.addButton(new ChangeButton(new 无尽之刃()));
 		changes.addButton(new ChangeButton(new 锈右斧()));
-		changes.addButton(new ChangeButton(new 无尽之刃()));
 		changes.addButton(new ChangeButton(new 碎缘剑()));
 		changes.addButton(new ChangeButton(new 草剃()));
 		changes.addButton(new ChangeButton(new 金纹拐()));
 		changes.addButton(new ChangeButton(new 英雄断剑()));
-		changes.addButton(new ChangeButton(new 草剃()));
+		changes.addButton(new ChangeButton(new 誓刃()));
 
 		//4
 		changes.addButton(new ChangeButton(new 寒冰鱼剑()));
+		changes.addButton(new ChangeButton(new 鹿角刀()));
 
 		//3
 		changes.addButton(new ChangeButton(new 斩马刀()));
 		changes.addButton(new ChangeButton(new 破甲锥()));
 		changes.addButton(new ChangeButton(new 半月刃()));
+		changes.addButton(new ChangeButton(new 链刃()));
 
 		//2
 		changes.addButton(new ChangeButton(new 爪()));
+		//1
+		changes.addButton(new ChangeButton(new 木棍()));
+		changes.addButton(new ChangeButton(new 尼泊尔弯刀()));
+		changes.addButton(new ChangeButton(new 狼筅()));
 
 	}
 
@@ -332,7 +365,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 结能菱晶(),"念力结晶+激泥酞酶消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 精纯药液(),"药剂+种子消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 激泥酞酶(),"卷轴+符石消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 秘银(),"秘银x3消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 秘银(),"金液x3消耗5能量合成"));
 		changes.addButton(new ChangeButton(new 护甲修理工具包(),
 				//									   "护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
 										   "巨魔铁匠可以花费人情修复你的护甲。\n" +
@@ -383,7 +416,8 @@ public class 重制新增{
 						  "五区第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 神盾果(),"矮人城第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 宝物袋(),"商店第一区域必定出售。"));
-	
+		changes.addButton(new ChangeButton(new 干枯花瓣(),"装备未诅咒的干枯玫瑰击杀敌人掉落。"));
+
 	}
 
 	public static void 新装备( ArrayList<ChangeInfo> changeInfos ) {
@@ -400,7 +434,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 灵魂焰灯()));
 		changes.addButton(new ChangeButton(new 生命蜡烛()));
 		changes.addButton(new ChangeButton(new 九龙拉管()));
-		changes.addButton(new ChangeButton(new 虫箭()));
+		changes.addButton(new ChangeButton(new 虫箭(),"替身受到的伤害为90%-4%x等级"));
 		changes.addButton(new ChangeButton(new 心之钢()));
 
 	}
@@ -505,11 +539,11 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"受到伤害会在敌人相邻传送"));
 		changes.addButton( new ChangeButton(new 水蛭动画(),"水蛭",
 											"一区怪物，替换二和三层的啮齿老鼠。\n" +
-											"在水中每回合恢复15%最大生命。\n" +
-											"100%吸血"));
+											"在水中每回合恢复20%最大生命。\n" +
+											"80%吸血"));
 		changes.addButton( new ChangeButton(new 蟑螂动画(),"蟑螂",
 											"一区怪物，替换一层的下水道巨蛇。\n" +
-											"根据已损失生命最多获得80%物理伤害减免，不过最少受到45%最大生命的伤害，与敌人相邻时，闪避为0。"));
+											"每次受伤仅受到35%伤害并且向下取整，最小为1，与敌人相邻时，闪避为0。"));
 		changes.addButton( new ChangeButton(new 骷髅战士动画(),"骷髅战士",
 											"新增骷髅的变异体。\n" +
 											"死亡掉落单手剑、长剑、巨剑任意一个。"));
@@ -583,11 +617,18 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"匕首+金液消耗6能量合成长匕首。\n" +
 											"短剑+金液消耗6能量合成单手剑。\n" +
 											"单手+金液剑消耗9能量合成长剑。\n" +
+											"手斧+金液剑消耗9能量合成战斧。" ,
+
 											"短柄镰+金液消耗12能量合成战镰。\n" +
-											"长剑+金液消耗12能量合成巨剑。",
+											"长剑+金液消耗12能量合成巨剑。\n"+
+											"石头+金液消耗12能量合成震爆方石。\n"+
+											"长矛+金液消耗12能量合成关刀。\n"+
 											"镶钉手套+金液消耗12能量魔岩拳。",
 
+											"狼筅+武士刀+器灵消耗15能量合成虚哭神去。\n" +
+											"链刃+炸弹+器灵消耗15能量合成日炎链刃。\n" +
 											"长匕首+隐形药剂+器灵消耗15能量合成暗杀之刃。\n" +
+											"战锤+浮空药剂+器灵消耗15能量合成重锤。\n" +
 											"巨剑+治疗药剂+器灵消耗15能量合成饮血之剑。\n" +
 											"战镰+复仇卷轴+器灵消耗15能量合成死神镰刀。\n" +
 											"弯刀+液火药剂+器灵消耗15能量合成火焰剑。\n" +

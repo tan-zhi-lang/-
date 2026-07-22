@@ -10,12 +10,13 @@ public class 长矛 extends Weapon{
 
 	{
 		image = 物品表.SPEAR;
-		hitSound = Assets.Sounds.HIT_STAB;
+		hitSound = Assets.Sounds.长枪;
 		
 		技能=new 刺击();
 		tier = 1;
-		延迟= 1.25f;
-		伤害= 1.25f;
+		专属=true;
+		特别=true;
+		延迟= 1.5f;
 //		连招范围=2;
 		范围 = 2;
 	}

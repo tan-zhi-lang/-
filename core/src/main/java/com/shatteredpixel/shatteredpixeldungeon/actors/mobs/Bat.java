@@ -50,7 +50,7 @@ public class Bat extends Mob {
 	
 	@Override
 	public float 吸血(){
-		return super.吸血()+0.5f;
+		return super.吸血()+0.4f;
 	}
 	
 	@Override

@@ -11,10 +11,10 @@ public class 白带 extends Weapon{
 		image = 物品表.白带;
 		
 		tier = 1;
+		专属=true;
 		
 		延迟= 0.5f;
-		伤害= 0.5f;
-		魔法=0.25f;
+		魔法=0.15f;
 		技能=new 连击();
 
 	}

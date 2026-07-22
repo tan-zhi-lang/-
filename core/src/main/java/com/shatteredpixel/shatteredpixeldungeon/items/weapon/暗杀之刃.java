@@ -12,9 +12,10 @@ public class 暗杀之刃 extends Weapon {
 
 	{
 		image = 物品表.ASSASSINS_BLADE;
-		hitSound = Assets.Sounds.HIT_STAB;
+		hitSound = Assets.Sounds.攻击刺;
 
 		伤害=0.8f;
+		伏击=0.3f;
 		
 		特别=true;
 		靛色=true;

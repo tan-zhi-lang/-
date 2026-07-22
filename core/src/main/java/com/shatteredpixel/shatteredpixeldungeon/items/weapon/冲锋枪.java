@@ -32,7 +32,6 @@ public class 冲锋枪 extends Weapon{
 	
 	{
 		image = 物品表.冲锋枪;
-		hitSound = Assets.Sounds.HIT_STAB;
 		tier = 2;
 		伤害=0.68f;
 

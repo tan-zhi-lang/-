@@ -36,7 +36,7 @@ public class Wnd选择属性 extends Window {
 			case "最大命中"-> 30;
 			case "最大闪避"-> 15;
 
-			case "全能吸血"-> 0.2f;
+			case "全能吸血"-> 0.1f;
 
 			case "暴击伤害"-> 0.25f;
 			case "暴击率"-> 0.25f;

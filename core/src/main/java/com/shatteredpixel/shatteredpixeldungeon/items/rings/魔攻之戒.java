@@ -105,7 +105,7 @@ public class 魔攻之戒 extends Ring {
 					魔力(0.5f,0.2f),
 					魔力(0.9f,0.67f)
 									 ), this);
-			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f) );
+			Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,Random.Float(0.87f,1.15f));
 			
 			ch.sprite.burst(0xFFFFFFFF);
 			

@@ -14,7 +14,7 @@ public class 神圣长枪 extends Weapon{
 
 		{
 			image = 物品表.SPEAR;
-			hitSound = Assets.Sounds.HIT_STAB;
+			hitSound = Assets.Sounds.长枪;
 		}
 
 

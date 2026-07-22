@@ -10,11 +10,10 @@ public class 短柄镰 extends Weapon {
 
 	{
 		image = 物品表.SICKLE;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		技能=new 割草();
 		tier = 1;
-		延迟= 1.175f;
-		伤害= 1.175f;
+		延迟= 1.4f;
 	}
 }

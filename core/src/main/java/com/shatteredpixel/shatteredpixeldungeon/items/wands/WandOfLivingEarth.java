@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -95,7 +94,7 @@ public class WandOfLivingEarth extends DamageWand {
 			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 			guardian.setInfo(curUser, Math.round(魔力()), armorToAdd);
 			wandProc(guardian, chargesPerCast());
-			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.9f * Random.Float(0.87f, 1.15f) );
+			Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,0.9f*Random.Float(0.87f,1.15f));
 
 		//shooting the guardian at a location
 		} else if ( guardian == null && buff != null && buff.armor >= buff.armorToGuardian()){
@@ -148,7 +147,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 			guardian.sprite.centerEmitter().burst(MagicMissile.EarthParticle.ATTRACT);
 			buff.detach();
-			Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.9f * Random.Float(0.87f, 1.15f) );
+			Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,0.9f*Random.Float(0.87f,1.15f));
 
 		//shooting at a location/enemy with no guardian being shot
 		} else {
@@ -159,7 +158,7 @@ public class WandOfLivingEarth extends DamageWand {
 
 				wandProc(ch, chargesPerCast());
 				ch.受伤时(damage, this);
-				Sample.INSTANCE.play( Assets.Sounds.HIT_MAGIC, 1, 0.8f * Random.Float(0.87f, 1.15f) );
+				Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,0.8f*Random.Float(0.87f,1.15f));
 				
 				if (guardian == null) {
 					if (armorToAdd > 0) {

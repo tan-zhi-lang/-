@@ -27,8 +27,9 @@ public class 锻造锤 extends Weapon {
 	{
 		image = 物品表.锻造锤;
 		defaultAction=AC_升级;
+		hitSound = Assets.Sounds.锤打;
 		物品 = true;
-		
+		延迟=1.2f;
 		特别= true;
 		遗产= false;
 

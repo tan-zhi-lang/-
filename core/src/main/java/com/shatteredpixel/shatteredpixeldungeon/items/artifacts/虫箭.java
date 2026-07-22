@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.替身保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.暗影替身;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -78,9 +79,18 @@ public class 虫箭 extends Artifact {
 		if (exp >= (等级()+1)*2 && 等级() < levelCap){
 			exp -= (等级()+1)*2;
 			升级();
-			Catalog.countUse(心之钢.class);
+			Catalog.countUse(虫箭.class);
 			GLog.绿(Messages.get(this,"levelup"));
 		}
+	}
+	@Override
+	public Item 升级() {
+		if (等级() >= 9)
+			image = 物品表.虫箭3;
+		else if (等级() >= 4)
+			image = 物品表.虫箭2;
+
+		return super.升级();
 	}
 	@Override
 	public void charge(Hero target, float amount) {
@@ -116,6 +126,10 @@ public class 虫箭 extends Artifact {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
 		召唤= bundle.getBoolean(召唤x);
+		if (等级() >= 9)
+			image = 物品表.虫箭3;
+		else if (等级() >= 4)
+			image = 物品表.虫箭2;
 	}
 	@Override
 	public String desc() {

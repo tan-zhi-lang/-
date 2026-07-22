@@ -10,7 +10,7 @@ public class 妖刀村正 extends Weapon{
 
 	{
 		image = 物品表.妖刀村正;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 
 		tier = 5;
 		技能=new 剑舞();

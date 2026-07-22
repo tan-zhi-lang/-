@@ -120,12 +120,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碧蓝巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臂铠;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血姬;
@@ -137,6 +139,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锻造锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.奥术水晶;
@@ -151,6 +154,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
@@ -198,7 +202,7 @@ public enum Catalog {
 	//should only be used when initializing
 	private void addItems( Class<?>... items){
 		for (Class<?> item : items){
-			seen.put(item, false);
+				seen.put(item, false);
 			useCount.put(item, 0);
 		}
 	}
@@ -259,38 +263,61 @@ public enum Catalog {
 
 		MISC_EQUIPMENT.addItems(荣誉纹章.class,
 
-								短剑.class,
+								短剑.class,//1
+								石头.class,//0.6
 
-								法师魔杖.class,四叶草法典.class,
+								法师魔杖.class,//0.6
+								四叶草法典.class,
 
-								匕首.class,CloakOfShadows.class,
-								灵能短弓.class,
+								匕首.class,//0.8
+								CloakOfShadows.class,
 
-								权杖.class,神圣法典.class,
+								灵能短弓.class,//0.6
 
-								配刺剑.class,
+								权杖.class,//0.7
+								神圣法典.class,
 
-								血砍刀.class,灵月法杖.class,
+								配刺剑.class,//0.8
+								小刺.class,//0.8
 
-								冰门重盾.class,
-								镜刃.class,
-								铜钱剑.class,鬼帝钟.class,
+								血砍刀.class,//0.8
+								灵月法杖.class,
 
-								白带.class,
-								长矛.class,
-								臂铠.class,
-								修理扳手.class,
-								金玫苦无.class,叛忍护额.class,
-								碧蓝巨剑.class,
-								灵鞭.class,
-								血姬.class,
-								书包.class,
-								十字弩.class,
-								飞镖.class,
-								吸血刀.class,
+								冰门重盾.class,//0.7
+								雪球.class,//0.7
+
+								镜刃.class,//0.8
+
+								铜钱剑.class,//0.7
+								鬼帝钟.class,
+
+								白带.class,//0.5
+
+								长矛.class,//1.5
+
+								臂铠.class,//0.5
+
+								修理扳手.class,//0.7
+
+								金玫苦无.class,//0.8
+								叛忍护额.class,
+
+								碧蓝巨剑.class,//1.3
+
+								灵鞭.class,//0.7
+
+								血姬.class,//0.5
+
+								书包.class,//0.6
+
+								十字弩.class,//0.6
+								飞镖.class,//0.8
+
+								吸血刀.class,//0.8
 
 								镐子.class,
 								锻造锤.class,
+
 								商人信标.class,
 								水袋.class,宝物袋.class,绒布袋.class,
 								PotionBandolier.class,ScrollHolder.class,MagicalHolster.class

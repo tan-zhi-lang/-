@@ -10,9 +10,10 @@ public class 镜刃 extends Weapon{
 	{
 		image = 物品表.镜刃;
 		hitSound = Assets.Sounds.镜刃;
-		
+
+		专属=true;
 		伤害=0.8f;
-		魔法=0.25f;
+		魔法=0.15f;
 		tier = 1;
 		特别= true;
 		能量价值=2;

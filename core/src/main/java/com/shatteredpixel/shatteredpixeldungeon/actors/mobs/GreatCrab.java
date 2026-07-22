@@ -71,7 +71,7 @@ public class GreatCrab extends Crab {
 				&& enemy.invisible == 0){
 			GLog.红(Messages.get(this,"noticed"));
 			sprite.showStatus(CharSprite.中性黄,Messages.get(this,"def_verb"));
-			Sample.INSTANCE.play( Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
+			Sample.INSTANCE.play(Assets.Sounds.攻击格挡,1,Random.Float(0.96f,1.05f));
 			Statistics.questScores[0] -= 50;
 		} else {
 			super.受伤时(dmg,来源);
@@ -88,7 +88,7 @@ public class GreatCrab extends Crab {
 				&& enemy == this.enemy
 				&& enemy.invisible == 0){
 			if (sprite != null && sprite.visible) {
-				Sample.INSTANCE.play(Assets.Sounds.HIT_PARRY, 1, Random.Float(0.96f, 1.05f));
+				Sample.INSTANCE.play(Assets.Sounds.攻击格挡,1,Random.Float(0.96f,1.05f));
 				GLog.红(Messages.get(this,"noticed"));
 			}
 			if (enemy == Dungeon.hero){

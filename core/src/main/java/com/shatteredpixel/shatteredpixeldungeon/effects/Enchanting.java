@@ -31,8 +31,10 @@ public class Enchanting extends ItemSprite {
 		super( item.image(), null );
 //		originToCenter();
 
-		if (item.glowing() != null) {
-			color = item.glowing().color;
+		ItemSprite.Glowing g=item.glowing2();
+		if(g==null)g=item.glowing();
+		if (g != null) {
+			color = g.color;
 		} else {
 			color = -1;
 		}

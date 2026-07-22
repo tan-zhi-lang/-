@@ -11,11 +11,10 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 破败王剑 extends Weapon{
 	{
 		image = 物品表.破败王剑;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.巨剑;
 		tier=5;
-		延迟=1.25f;
-		吸血=0.075f;
 		伤害=0.8f;
+		吸血=0.1f;
 		特别=true;
 		靛色=true;
 		技能=new 嗜血();

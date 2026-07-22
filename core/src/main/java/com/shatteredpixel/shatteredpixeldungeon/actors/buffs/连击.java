@@ -437,7 +437,7 @@ public class 连击 extends Buff implements ActionIndicator.Action {
 				} else {
 					furyHitsLeft = 0;
 					detach();
-					Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
+					Sample.INSTANCE.play(Assets.Sounds.攻击锤);
 					ActionIndicator.clearAction(连击.this);
 					hero.spendAndNext(hero.攻击延迟());
 				}

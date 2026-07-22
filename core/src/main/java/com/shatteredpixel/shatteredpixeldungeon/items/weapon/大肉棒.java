@@ -10,8 +10,8 @@ import com.watabou.utils.Bundle;
 public class 大肉棒 extends Weapon{
 
 	{
-		image = 物品表.大肉棒;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		image = 物品表.WEAPON_HOLDER;
+		hitSound = Assets.Sounds.攻击棍;
 		
 		技能=new 吃下();
 		

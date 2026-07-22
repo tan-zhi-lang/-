@@ -11,7 +11,7 @@ public class 单手剑 extends Weapon{
 	
 	{
 		image = 物品表.SWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击砍;
 		
 		技能=new 斩击();
 		tier = 2;

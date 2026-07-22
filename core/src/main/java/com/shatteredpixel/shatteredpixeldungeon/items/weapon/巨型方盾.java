@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.防御姿态;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -10,12 +11,13 @@ public class 巨型方盾 extends Weapon {
 
 	{
 		image = 物品表.GREATSHIELD;
-		
+
+		hitSound = Assets.Sounds.盾牌;
 		技能=new 防御姿态();
 
-		伤害= 0.6f;
+		伤害= 0.7f;
 		tier = 3;
-		防御=true;
+		具备防御=true;
 	}
 
 }

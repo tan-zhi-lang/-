@@ -10,14 +10,13 @@ public class 链枷 extends Weapon {
 
 	{
 		image = 物品表.FLAIL;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		hitSound = Assets.Sounds.锤打;
 		
 		技能=new 甩击();
 		tier = 3;
 //		连招范围=2;
 		范围 = 2;
-		延迟= 1.34f;
-		伤害= 1.34f;
+		延迟= 1.5f;
 	}
 	
 	

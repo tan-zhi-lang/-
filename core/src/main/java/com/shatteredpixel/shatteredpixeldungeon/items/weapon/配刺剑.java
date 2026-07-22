@@ -10,12 +10,14 @@ public class 配刺剑 extends Weapon{
 
 	{
 		image = 物品表.RAPIER;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.刺剑;
 		tier = 1;
-		延迟=1.175f;
+		延迟=0.8f;
 		
 		技能=new 突刺();
-		防御=true;
+		专属=true;
+		特别=true;
+		具备防御=true;
 
 	}
 

@@ -11,7 +11,7 @@ public class 猩红散华 extends Weapon{
 	
 	{
 		image = 物品表.猩红散华;
-		hitSound = Assets.Sounds.HIT_ARROW;
+		hitSound = Assets.Sounds.攻击箭;
 		范围=5;
 		红色 = true;
 		特别= true;

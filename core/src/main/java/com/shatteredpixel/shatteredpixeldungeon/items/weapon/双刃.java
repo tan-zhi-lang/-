@@ -10,12 +10,11 @@ public class 双刃 extends Weapon{
 	
 	{
 		image = 物品表.DAGGER;
-		hitSound = Assets.Sounds.HIT_STAB;
+		hitSound = Assets.Sounds.攻击刺;
 		
 		技能=new 剑舞();
+		延迟=0.7f;
 		tier = 1;
-		延迟=1.175f;
-		伤害= 0.8f;
 		
 
 	}

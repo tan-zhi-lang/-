@@ -52,12 +52,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.疯狂斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血荆棘;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -128,7 +133,7 @@ public class Item implements Bundlable {
 	public boolean 升级物品 = true;
 	public boolean 可以空间 = true;
 	protected int quantity = 1;
-	public boolean dropsDownHeap = false;
+	public boolean dropsDownHeap = false;//?
 
 	public String item_Miss		= Assets.Sounds.MISS;
 	public boolean alpha = false;
@@ -189,6 +194,8 @@ public class Item implements Bundlable {
 		if(this instanceof 奥术水晶)return true;
 		if(this instanceof 活力水晶)return true;
 		if(this instanceof 神盾果)return true;
+		if(this instanceof 火把神的恩宠)return true;
+
 		if(this instanceof 猩红散华)return true;
 		if(this instanceof 角斗链枷)return true;
 		if(this instanceof 真铜短剑)return true;
@@ -200,7 +207,11 @@ public class Item implements Bundlable {
 		if(this instanceof 爪)return true;
 		if(this instanceof 寒冰鱼剑)return true;
 		if(this instanceof 圣诞礼物)return true;
-		if(this instanceof 火把神的恩宠)return true;
+		if(this instanceof 星云拳套)return true;
+		if(this instanceof 疯狂斧)return true;
+		if(this instanceof 血荆棘)return true;
+		if(this instanceof 骨刀)return true;
+		if(this instanceof 裂天剑)return true;
 		return false;
 	}
 	public Item 房间物品(){
@@ -954,6 +965,10 @@ public class Item implements Bundlable {
 	}
 	
 	public ItemSprite.Glowing glowing() {
+		return null;
+	}
+
+	public ItemSprite.Glowing glowing2() {
 
 		if(黑光){
 			return new ItemSprite.Glowing( 0x000000 );
@@ -993,16 +1008,16 @@ public class Item implements Bundlable {
 			return new ItemSprite.Glowing( 0x2c0d49 );
 		}
 		if(彩光)
-		return Random.oneOf(
-				new ItemSprite.Glowing(0xFF4444 ),
-				new ItemSprite.Glowing(0xFFFF00 ),
-				new ItemSprite.Glowing(0x3399FF ),
-				new ItemSprite.Glowing(0x44FF44 ),
+			return Random.oneOf(
+					new ItemSprite.Glowing(0xFF4444 ),
+					new ItemSprite.Glowing(0xFFFF00 ),
+					new ItemSprite.Glowing(0x3399FF ),
+					new ItemSprite.Glowing(0x44FF44 ),
 
-				new ItemSprite.Glowing(0xb2f2ff ),
-				new ItemSprite.Glowing(0x2c0d49 ),
-				new ItemSprite.Glowing(0x8800FF )
-						   );
+					new ItemSprite.Glowing(0xb2f2ff ),
+					new ItemSprite.Glowing(0x2c0d49 ),
+					new ItemSprite.Glowing(0x8800FF )
+							   );
 
 		return null;
 	}
@@ -1149,11 +1164,14 @@ public class Item implements Bundlable {
 			else s+="双持 ";
 
 			if(w.tr())s+="泰拉瑞亚";
+			if(w.复仇者联盟())s+="复仇者联盟";
+			if(w.我的世界())s+="我的世界";
 			if(w.幻影忍者())s+="乐高幻影忍者";
 			if(w.拳套())s+="拳套";
 			if(w.钝器())s+="钝器";
 			if(w.匕首())s+="匕首";
-//			if(w.短剑())s+="短剑";
+			if(w.短剑())s+="短剑";
+			if(w.回旋镖())s+="回旋镖";
 //			if(w.巨剑())s+="巨剑";
 //			if(w.小盾())s+="小盾";
 //			if(w.大盾())s+="大盾";

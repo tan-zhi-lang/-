@@ -48,10 +48,11 @@ public class 法师魔杖 extends Weapon{
 
 	{
 		image = 物品表.法师魔杖;
+		hitSound = Assets.Sounds.攻击棍;
 		
 		tier = 1;
 		伤害=0.6f;
-		魔法=0.25f;
+		魔法=0.3f;
 
 		defaultAction = AC_ZAP;
 		usesTargeting = true;

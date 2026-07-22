@@ -10,12 +10,11 @@ public class 爪 extends Weapon{
 
 	{
 		image = 物品表.爪;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.爪;
 
 		技能=new 连击();
 		
 		延迟= 0.5f;
-		伤害= 0.67f;
 		tier = 2;
 	}
 

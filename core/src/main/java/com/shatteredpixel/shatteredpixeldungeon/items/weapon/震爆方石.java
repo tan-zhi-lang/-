@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.TenguDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -28,9 +29,23 @@ public class 震爆方石 extends Weapon{
 		
 		延迟=0.8f;
 		伤害=0.7f;
-		tier = 5;
+		tier = 4;
 	}
 
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{石头.class,
+					LiquidMetal.class,};
+			inQuantity = new int[]{1,1,};
+
+			cost = 12;
+
+			output = 震爆方石.class;
+			outQuantity = 1;
+		}
+
+	}
 
 	@Override
 	public void hitSound(float pitch) {

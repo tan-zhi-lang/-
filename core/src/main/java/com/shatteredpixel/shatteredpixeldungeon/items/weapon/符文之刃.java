@@ -11,7 +11,7 @@ public class 符文之刃 extends Weapon {
 		image = 物品表.RUNIC_BLADE;
 		hitSound = Assets.Sounds.镜刃;
 		tier = 5;
-
+		延迟=0.9f;
 		特别=true;
 		青色=true;
 	}

@@ -12,13 +12,12 @@ public class 地裂镰 extends Weapon{
 
 	{
 		image = 物品表.地裂镰;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.巨剑;
 		
 		技能=new 立地();
 		
 		tier = 5;
-		延迟= 1.5f;
-		伤害= 1.5f;
+		延迟= 2;
 		特别=true;
 		黄色=true;
 	}

@@ -10,10 +10,10 @@ public class 封印之杖 extends Weapon{
 	
 	{
 		image = 物品表.封印之杖;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.攻击锤;
 		tier = 5;
-		麻痹=15;
-		魔法=0.4f;
+		麻痹=0.15f;
+		魔法=0.3f;
 		伤害= 0.7f;
 		特别=true;
 	}

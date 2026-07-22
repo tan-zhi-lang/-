@@ -78,6 +78,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
+import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -671,6 +672,7 @@ public enum Talent {
 	}
 
 	public static void 阅读卷轴(Hero hero,int pos,float factor,Class<?extends Item> cls){
+		if(Dungeon.赛季(赛季设置.规则怪谈)&&hero.视野敌人())hero.受伤时(hero.最大生命(hero.visibleEnemies()/25f));
 		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.04f));
 
 		if(hero.符文("读万卷书"))hero.生命成长+=5;

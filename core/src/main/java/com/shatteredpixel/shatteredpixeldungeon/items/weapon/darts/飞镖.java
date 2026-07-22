@@ -32,9 +32,9 @@ public class 飞镖 extends Weapon{
 		物品 = true;
 
 		image = 物品表.DART;
-		hitSound = Assets.Sounds.HIT_ARROW;
+		hitSound = Assets.Sounds.攻击箭;
 		
-		伤害=0.8f;
+		延迟=0.8f;
 		tier = 1;
 	}
 	

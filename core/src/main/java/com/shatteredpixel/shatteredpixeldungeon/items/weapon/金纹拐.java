@@ -10,7 +10,7 @@ public class 金纹拐 extends Weapon {
 
 	{
 		image = 物品表.金纹拐;
-		hitSound = Assets.Sounds.HIT_CRUSH;
+		hitSound = Assets.Sounds.棍棒;
 		
 		技能=new 防御姿态();
 
@@ -18,7 +18,7 @@ public class 金纹拐 extends Weapon {
 		黄色=true;
 		伤害= 0.7f;
 		tier = 5;
-		防御=true;
+		具备防御=true;
 	}
 
 }

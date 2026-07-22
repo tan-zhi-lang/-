@@ -1,0 +1,297 @@
+
+
+package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
+
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.幽灵保护;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.干枯玫瑰;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
+import com.watabou.utils.Bundle;
+
+public class 幽灵 extends NPC {
+	
+	{
+		spriteClass = GhostSprite.class;
+		
+		alignment = Alignment.ALLY;
+		intelligentAlly = true;
+		state = HUNTING;
+		
+		WANDERING = new Wandering();
+		
+		//before other mobs
+		actPriority = MOB_PRIO + 1;
+		properties.add(Property.INORGANIC);
+	}
+	
+	private Hero hero;
+	private int heroID;
+	
+	@Override
+	protected boolean act() {
+		
+		if (!isAlive()){
+			spend(TICK);
+			return true;
+		}
+		
+		if(!Dungeon.level.heroFOV[pos]){
+			if ( hero==null)
+				hero = (Hero) Actor.findById(heroID);
+
+			Buff.施加(hero, 幽灵保护.class);
+			destroy();
+
+			sprite.die();
+
+			return true;
+		}
+		
+		if ( hero==null){
+			hero = (Hero) Actor.findById(heroID);
+			if ( hero == null||(hero!=null&&!hero.isAlive()) ){
+				destroy();
+				sprite.die();
+				return true;
+			}
+		}
+		
+		
+		return super.act();
+	}
+	
+	@Override
+	public boolean isActive() {
+		return isAlive();
+	}
+
+	private static final String HEROID	= "hero_id";
+	
+	@Override
+	public void storeInBundle( Bundle bundle ) {
+		super.storeInBundle( bundle );
+		bundle.put( HEROID, heroID );
+	}
+	
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle( bundle );
+		heroID = bundle.getInt( HEROID );
+	}
+	
+	public void duplicate( Hero hero) {
+		this.hero = hero;
+		heroID = this.hero.id();
+	}
+	public float 等级(){
+		if(hero!=null&&hero.belongings.hasItem(干枯玫瑰.class)){
+			return hero.belongings.getItem(干枯玫瑰.class).等级()*0.02f;
+		}else return 0;
+	}
+	@Override
+	public float 移速(){
+		if (hero != null) {
+			return hero.移速()*(1+等级());
+		} else {
+			return super.移速();
+		}
+	}
+	
+	@Override
+	public float 攻击延迟(){
+		if (hero != null) {
+			return hero.攻击延迟()/(1+(hero.符文("力速双A替身")?0.45f:0)+等级());
+		} else {
+			return super.攻击延迟();
+		}
+	}
+	
+	@Override
+	public float 最小攻击() {
+		if (hero != null) {
+			return hero.最小攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级());
+		} else {
+			return 0;
+		}
+	}
+	@Override
+	public float 最大攻击() {
+		if (hero != null) {
+			return hero.最大攻击()*(1+(hero.符文("力速双A替身")?0.45f:0)+等级());
+		} else {
+			return 0;
+		}
+	}
+	
+	@Override
+	public int 最小命中(Char target ) {
+		if (hero != null) {
+			return Math.round(hero.最小命中(target)*(1+等级()));
+		}else{
+			return 0;
+		}
+	}
+	@Override
+	public int 最大命中(Char target ) {
+		if (hero != null) {
+			return Math.round(hero.最大命中(target)*(1+等级()));
+		} else {
+			return 0;
+		}
+	}
+	@Override
+	public int 最小闪避(Char target ) {
+		if (hero != null) {
+			return Math.round(hero.最小闪避(target)*(1+等级()));
+		} else {
+			return 0;
+		}
+	}
+	@Override
+	public int 最大闪避(Char enemy) {
+		if (hero != null) {
+			return Math.round(hero.最大闪避(enemy)*(1+等级()));
+		} else {
+			return 0;
+		}
+	}
+	
+	@Override
+	public float 最小防御() {
+		if (hero != null){
+			return hero.最小防御()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+	@Override
+	public float 最大防御() {
+		if (hero != null){
+			return hero.最大防御()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+
+	@Override
+	public float 最小魔抗() {
+		if (hero != null){
+			return hero.最大魔抗()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+	@Override
+	public float 最大魔抗() {
+		if (hero != null){
+			return hero.最大魔抗()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+
+	@Override
+	public float 暴击率() {
+		if (hero != null){
+			return hero.暴击率()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+
+	@Override
+	public float 暴击伤害() {
+		if (hero != null){
+			return hero.暴击伤害()*(1+等级());
+		}else{
+			return 0;
+		}
+	}
+
+	@Override
+	public float 攻击时(final Char enemy, float damage) {
+		if (enemy instanceof Mob) {
+			((Mob)enemy).aggro( this );
+			if(hero!=null&&hero.belongings.hasItem(干枯玫瑰.class)){
+				hero.belongings.getItem(干枯玫瑰.class).经验升级();
+			}
+		}
+		if (hero != null){
+			return hero.攻击时(enemy, damage);
+		}else{
+			return super.防御时(enemy, damage);
+		}
+	}
+	@Override
+	public float 防御时(Char enemy, float damage) {
+		if (hero != null){
+			return hero.防御时(enemy, damage);
+		}else{
+			return super.防御时(enemy, damage);
+		}
+	}
+
+	@Override
+	public String description(){
+		return Messages.get(this,"desc",90-等级()*4);
+	}
+
+	@Override
+	public void 受伤时(float dmg,Object 来源){
+		if (hero != null){
+			hero.受伤时(dmg*(0.9f-等级()*0.04f),来源);
+		}
+	}
+	
+	@Override
+	public int glyphLevel(Class<? extends Armor.Glyph> cls) {
+		if (hero != null){
+			return hero.glyphLevel(cls);
+		} else {
+			return super.glyphLevel(cls);
+		}
+	}
+	
+	@Override
+	public CharSprite sprite() {
+		CharSprite s = super.sprite();
+		hero = (Hero)Actor.findById(heroID);
+		return s;
+	}
+	
+	{
+		immunities.add( AllyBuff.class );
+	}
+	
+	private class Wandering extends Mob.Wandering{
+		
+		@Override
+		public boolean act(boolean enemyInFOV, boolean justAlerted) {
+			
+			if (!enemyInFOV){
+				if ( hero==null)
+					hero = (Hero) Actor.findById(heroID);
+
+				Buff.施加(hero,幽灵保护.class);
+				destroy();
+
+				sprite.die();
+
+				return true;
+			} else {
+				return super.act(enemyInFOV, justAlerted);
+			}
+		}
+		
+	}
+	
+}

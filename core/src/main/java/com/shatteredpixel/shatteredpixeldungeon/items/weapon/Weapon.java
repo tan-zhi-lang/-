@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
-import static com.shatteredpixel.shatteredpixeldungeon.算法.衰减;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -254,6 +253,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String defaultAction() {
+		if(defaultAction!=null)return defaultAction;
 		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			技能=null;
 		}
@@ -393,13 +393,15 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 伤害(){
 		float 伤害=this.伤害;
-		if(伤害随攻速){
+		if(延迟自动转&&伤害==1){
 			if(延迟()>1)
-				伤害*=1+1/延迟();
+				伤害*=1+(延迟()-1)/(tier()>=5?1f:2);
+
 			if(延迟()<1)
 				伤害*=延迟();
 		}
-		if(双手()&&!钝器())伤害*=1.5f;
+		if(tier()>=5)伤害*=1.5f;
+
 		return 伤害;
 	}
 
@@ -410,18 +412,19 @@ abstract public class Weapon extends KindOfWeapon {
 
 	public float 命中(){
 		float 命中=this.命中;
-		if(双手())命中*=0.85f;
-		if(命中随攻速)命中*=衰减(1/延迟());
+		if(延迟自动转&&命中==1){
+			if(延迟()>1)
+				命中/=1+(延迟()-1)/4f;
+
+			if(延迟()<1)
+				命中*=1+(1/延迟()-1)/4f;
+		}
 		return 命中;
 	}
 	@Override
 	public float 流血(){
 		float 流血=super.流血();
-		if(钝器()||this instanceof 铜钱剑){
 
-		}else{
-			流血+=0.15f;
-		}
 		return 流血;
 	}
 
@@ -439,7 +442,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 伏击(){
 		float 伏击=super.伏击();
-		if(匕首()||短剑()||镖())伏击+=0.15f;
+		if(匕首()||镖())伏击+=0.15f;
 		return 伏击;
 	}
 
@@ -447,7 +450,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public float 首攻(){
 		float 首攻=super.首攻;
 		if(长矛()){
-			首攻+=0.45f;
+			首攻+=0.3f;
 		}
 		return 首攻;
 	}
@@ -473,6 +476,11 @@ abstract public class Weapon extends KindOfWeapon {
 			冻结+=0.15f;
 		}
 		return 冻结;
+	}
+
+	public int 范围(){
+		int 范围=this.范围;
+		return 范围;
 	}
 
 	public float 力量(int lvl){
@@ -623,8 +631,8 @@ abstract public class Weapon extends KindOfWeapon {
 		return 最小防御();
 	}
 	public float 最小防御(int lvl){
-		if(防御){
-			return lvl;
+		if(具备防御){
+			return lvl*防御;
 		}
 		return 0;
 	}
@@ -637,14 +645,14 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public float 最大防御(int lvl){
-		if(防御){
+		if(具备防御){
 			int t=tier();
 
 			if(this instanceof 冰门重盾)
 				t+=Dungeon.hero.天赋点数(Talent.冰门高防);
 
 			if (Dungeon.isChallenged(Challenges.NO_ARMOR))return t+lvl;
-			return t*(1+0.5f+lvl);
+			return t*(1+0.5f+lvl)*防御;
 		}
 		return 0;
 	}
@@ -652,7 +660,7 @@ abstract public class Weapon extends KindOfWeapon {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
 						最小防御()+"~"+最大防御()+" ++ 防御，"),
-								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
+								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围()),
 
 								(流血()==0?"":"，攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
 								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
@@ -691,7 +699,8 @@ abstract public class Weapon extends KindOfWeapon {
 				((最小防御()+最大防御())>0?(最小防御()+最大防御())/5f:0)
 				)*
 				1/augment.delayFactor(延迟())
-				*(命中() > 0 ? 1 + 命中() / 3f / 2f : 1f)       // 命中机会和命中和闪避
+				*(范围>1?1+范围*0.15f:1)       // 命中机会和命中和闪避
+				*(命中() > 0 ? 1 + 命中() / 4f / 2f : 1f)       // 命中机会和命中和闪避
 				*(魔法() > 0 ? 1 + 魔法() * 2f / 1.2f : 1f)    // 魔法伤害、魔抗机会和魔免机会
 				*(流血() > 0 ? 1 + 流血() / 2f / 2f : 1f)      // 流血伤害是减半和免疫机会
 				*(伏击() > 0 ? 1 + 伏击() / 4f / 2f : 1f)      // 伏击机会和命中和闪避
@@ -805,7 +814,7 @@ abstract public class Weapon extends KindOfWeapon {
 						chargeToGain *= 0.50f;
 					}
 					chargeToGain*=0.875f/scalingFactor;
-					partialCharge += (1f/chargeToGain)*能量之戒.weaponChargeMultiplier(target);
+					partialCharge += chargeToGain*能量之戒.weaponChargeMultiplier(target);
 					
 				}
 				
@@ -846,7 +855,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public int chargeCap(){
-			return Math.min(10, 1+Dungeon.hero.等级((Dungeon.hero.heroClass(HeroClass.DUELIST)?0.4f:0.2f)));
+			return Math.min(10, 3+Dungeon.hero.等级((Dungeon.hero.heroClass(HeroClass.DUELIST)?0.3f:0.25f)));
 		}
 
 		public void gainCharge(){
@@ -1454,7 +1463,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 	@Override
 	public int reachFactor(Char owner) {
-		int reach = 范围;
+		int reach = 范围();
 
 		if(连招)
 		if(连招范围!=-1){

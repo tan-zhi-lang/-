@@ -71,6 +71,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.干枯玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.灵魂焰灯;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
@@ -119,6 +120,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
+import com.shatteredpixel.shatteredpixeldungeon.items.干枯花瓣;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -280,6 +282,7 @@ public abstract class Mob extends Char{
 		if(Dungeon.符文("缩小射线")&&hasbuff(战斗状态.class)){
 			大小-=0.15;
 		}
+		if(Dungeon.符文("仆从大师")&&alignment==Alignment.ALLY)大小+=.4f;
 		return 大小;
 	}
 	@Override
@@ -815,6 +818,7 @@ public abstract class Mob extends Char{
 		if(恶魔亡灵()){
 			damage*=桃木剑.伤害();
 		}
+		if(Dungeon.符文("仆从大师")&&alignment==Alignment.ALLY)damage*=1.4f;
 		if(Dungeon.符文("威慑纪元"))damage*=1.25f;
 		if(Dungeon.符文("缩小射线")){
 			damage*=大小;
@@ -844,9 +848,9 @@ public abstract class Mob extends Char{
 			//TODO this is somewhat messy, it would be nicer to not have to manually handle delays here
 			// playing the strong hit sound might work best as another property of weapon?
 			if(Dungeon.hero.belongings.attackingWeapon() instanceof 灵能短弓.SpiritArrow||Dungeon.hero.belongings.attackingWeapon() instanceof 飞镖){
-				Sample.INSTANCE.playDelayed(Assets.Sounds.HIT_STRONG,0.125f);
+				Sample.INSTANCE.playDelayed(Assets.Sounds.攻击锤,0.125f);
 			}else{
-				Sample.INSTANCE.play(Assets.Sounds.HIT_STRONG);
+				Sample.INSTANCE.play(Assets.Sounds.攻击锤);
 			}
 			if(enemy.buff(潜伏.class)!=null){
 				Wound.hit(this);
@@ -875,6 +879,7 @@ public abstract class Mob extends Char{
 				Buff.施加(Dungeon.hero,Hunger.class).吃饭(damage*0.15f);
 			}
 		}
+		if(Dungeon.符文("仆从大师")&&alignment==Alignment.ALLY)damage*=0.6f;
 
 		return super.防御时(enemy,damage);
 	}
@@ -965,18 +970,10 @@ public abstract class Mob extends Char{
 
 						}else{
 							float 全能吸血=Dungeon.hero.全能吸血();
-							if((老鬼()||小老鬼())&&Dungeon.符文("暗裔恶魔"))全能吸血+=0.6f;
+							if((老鬼()||小老鬼())&&Dungeon.符文("暗裔恶魔"))全能吸血+=0.15f;
 
-							boolean 不削弱=true;
-							if(老鬼()||小老鬼())
-								不削弱=false;
 
-							if(Dungeon.符文("不死意志"))
-								不削弱=true;
-
-							Dungeon.hero.回血(dmg*全能吸血*(不削弱?
-																				   1:
-																				   1/6f));
+							Dungeon.hero.回血(dmg*全能吸血);
 						}
 					}
 
@@ -1269,7 +1266,10 @@ public abstract class Mob extends Char{
 						for (int i : PathFinder.相邻) {
 							Dungeon.level.drop(new Gold(15),pos+i).sprite.drop();
 						}
-
+					if(Dungeon.hero.belongings.hasItem(干枯玫瑰.class)
+					   &&Dungeon.hero.belongings.getItem(干枯玫瑰.class).isEquipped(Dungeon.hero)
+					   &&!Dungeon.hero.belongings.getItem(干枯玫瑰.class).cursed&&Random.Int(7)==0)
+						Dungeon.level.drop(new 干枯花瓣(),pos).sprite.drop();
 					if(Dungeon.符文("万魂幡力"))Dungeon.hero.魔力+=0.5f;
 					if(Dungeon.符文("牙仙子")){
 						Dungeon.hero.穿甲成长+=0.5f;
@@ -1353,7 +1353,7 @@ public abstract class Mob extends Char{
 
 					if(Dungeon.hero.种族天赋.equals("恶魔")){
 						Dungeon.hero.攻击成长+=0.1f;
-						Dungeon.hero.生命成长+=0.33f;
+						Dungeon.hero.生命成长+=0.2f;
 					}
 					if(Dungeon.派对(派对设置.怪物猎场)&&算法.概率学(25)){
 						Dungeon.level.drop(new 属性碎片(),pos).sprite.drop();

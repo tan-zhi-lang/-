@@ -35,7 +35,6 @@ public class 火炮 extends Weapon{
 	
 	{
 		image = 物品表.火炮;
-		hitSound = Assets.Sounds.HIT_STAB;
 		范围=2;
 		tier = 5;
 		伤害=0.68f;

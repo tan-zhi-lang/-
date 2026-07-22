@@ -49,7 +49,7 @@ public class 火墙术 extends 目标法术 {
 			QuickSlotButton.target(Actor.findChar(target));
 		}
 		hero.busy();
-		Sample.INSTANCE.play(Assets.Sounds.HIT_MAGIC, 1, Random.Float(0.87f, 1.15f));
+		Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,Random.Float(0.87f,1.15f));
 		
 		hero.sprite.zap(target);
 

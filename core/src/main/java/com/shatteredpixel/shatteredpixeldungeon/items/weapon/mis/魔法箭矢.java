@@ -12,7 +12,7 @@ public class 魔法箭矢 extends Weapon{
 
 		image = 物品表.魔法箭矢;
 
-		hitSound = Assets.Sounds.HIT_ARROW;
+		hitSound = Assets.Sounds.攻击箭;
 	}
 
 	@Override

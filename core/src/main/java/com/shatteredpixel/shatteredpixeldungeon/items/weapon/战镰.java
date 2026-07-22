@@ -11,13 +11,12 @@ public class 战镰 extends Weapon{
 
 	{
 		image = 物品表.WAR_SCYTHE;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.巨剑;
 		
 		技能=new 横扫();
 		
 		tier = 4;
-		延迟= 1.34f;
-		伤害= 1.34f;
+		延迟= 1.75f;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

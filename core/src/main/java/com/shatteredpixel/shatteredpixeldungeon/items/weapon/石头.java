@@ -19,7 +19,6 @@ public class 石头 extends Weapon{
 	{
 		image = 物品表.THROWING_STONE;
 		tier = 1;
-		延迟=0.8f;
 		伤害=0.6f;
 		技能=new 重击();
 	}

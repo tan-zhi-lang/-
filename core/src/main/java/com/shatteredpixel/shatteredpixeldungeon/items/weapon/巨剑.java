@@ -11,7 +11,7 @@ public class 巨剑 extends Weapon{
 
 	{
 		image = 物品表.GREATSWORD;
-		hitSound = Assets.Sounds.HIT_SLASH;
+		hitSound = Assets.Sounds.巨剑;
 		
 		技能=new 斩击();
 		

@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -15,15 +16,16 @@ public class 冰门重盾 extends Weapon{
 
 	{
 		image = 物品表.冰门重盾;
+		hitSound = Assets.Sounds.盾牌;
 		技能=new 防御姿态();
 		特别= true;
 
 		缴械= false;
 		嬗变= false;
 		专属=true;
-		防御=true;
-		魔法=0.25f;
-		伤害= 0.6f;
+		具备防御=true;
+		魔法=0.15f;
+		伤害= 0.7f;
 		tier = 1;
 	}
 

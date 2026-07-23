@@ -1093,7 +1093,7 @@ public abstract class Mob extends Char{
 			}
 		}
 	}
-	public void 死亡击杀效果(Object 来源){
+	public int 击杀效果(Object 来源){
 		int 次数=1;
 		if(Dungeon.符文("鞭尸"))
 			次数+=4;
@@ -1108,15 +1108,21 @@ public abstract class Mob extends Char{
 				次数*=3;
 			else 次数=0;
 		}
-		击杀效果(来源,次数);
 
+		if(来源!=null)
+			击杀效果(来源,次数);
+
+		return 次数;
 	}
-	public void 击杀效果(Object 来源 ,int 次数){
-		if(次数>0)
+	public int 击杀效果(Object 来源 ,int 次数){
+
+		if(次数>0&&来源!=null)
 		for(int x=1;x<=次数;x++)
-		击杀效果(来源);
+			死亡效果(来源);
+
+		return 次数;
 	}
-	public void 击杀效果(Object 来源){
+	public void 死亡效果(Object 来源){
 
 		if(来源==Chasm.class){
 			//50% chance to round up, 50% to round down
@@ -1405,13 +1411,13 @@ public abstract class Mob extends Char{
 				Badges.validateHazardAssists();
 			}
 
-			死亡击杀效果(来源);
+			击杀效果(来源);
 
 			if(Dungeon.hero.hasbuff(连杀状态.class)){
 				float x=1+Dungeon.hero.buff(连杀状态.class).count;
-				Buff.刷新(Dungeon.hero,连杀状态.class,10).set(x);
+				Buff.刷新(Dungeon.hero,连杀状态.class,10+Dungeon.hero.暴刹*10).set(x);
 			}else
-				Buff.刷新(Dungeon.hero,连杀状态.class,10).set(1);
+				Buff.刷新(Dungeon.hero,连杀状态.class,10+Dungeon.hero.暴刹*10).set(1);
 
 			if(Dungeon.符文("黑暗收割")){
 				Buff.detach(Dungeon.hero,黑暗收割冷却.class);

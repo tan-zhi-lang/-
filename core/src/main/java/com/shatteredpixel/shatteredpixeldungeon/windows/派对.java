@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 
 import java.util.ArrayList;
 
@@ -32,7 +31,7 @@ public class 派对 extends Window {
 
         this.editable = editable;
 
-        RenderedTextBlock title = PixelScene.renderTextBlock(Messages.get(this, "title"), 12);
+        RenderedTextBlock title = PixelScene.renderTextBlock(Messages.get(this,"title"),12);
         title.hardlight(TITLE_COLOR);
         title.setPos(
                 (WIDTH - title.width()) / 2,

@@ -12,6 +12,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -50,38 +54,50 @@ public class Hunger extends Buff implements Hero.Doom {
 	protected int rays;
 	@Override
 	public void fx(boolean on) {
-		if(target instanceof Hero hero&&hero.英精英雄!=-1){
-			rays = 5;
-			switch(hero.英精英雄){
-				case 0:
-					color = 0xFF8800;
-					break;
-				case 1:
-					color = 0x8800FF;
-					break;
-				case 2:
-					color = 0x00FF00;
-					break;
-				case 3:
-					color = 0x0088FF;
-					break;
-				case 4:
-					color = 0xFFFF00;
-					break;
-				case 5:
-					color = 0x111111;
-					break;
-				case 6:
-					color = 0x3399FF;
-					break;
-				case 7:
-					color = 0xFFFFFF;
-					break;
-				case 8:
-					color = 0xFF2222; //a little white helps it stick out from background
-					break;
+		if(target instanceof Hero hero){
+			if(hero.符文("黄金忍者")&&(
+					hero.belongings.hasItem(火焰剑.class)&&
+					hero.belongings.hasItem(地裂镰.class)&&
+					hero.belongings.hasItem(寒冰镖.class)&&
+					hero.belongings.hasItem(闪电双截棍.class)
+			)){
+				rays=5;
+				color=0xFFFF00;
+			}
+			if(hero.英精英雄!=-1){
+				rays=5;
+				switch(hero.英精英雄){
+					case 0:
+						color=0xFF8800;
+						break;
+					case 1:
+						color=0x8800FF;
+						break;
+					case 2:
+						color=0x00FF00;
+						break;
+					case 3:
+						color=0x0088FF;
+						break;
+					case 4:
+						color=0xFFFF00;
+						break;
+					case 5:
+						color=0x111111;
+						break;
+					case 6:
+						color=0x3399FF;
+						break;
+					case 7:
+						color=0xFFFFFF;
+						break;
+					case 8:
+						color=0xFF2222; //a little white helps it stick out from background
+						break;
+				}
 			}
 		}
+
 		if (on) target.sprite.aura( color, rays );
 		else target.sprite.clearAura();
 	}

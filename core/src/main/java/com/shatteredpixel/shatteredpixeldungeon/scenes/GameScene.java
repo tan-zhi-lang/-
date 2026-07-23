@@ -27,7 +27,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
-import com.shatteredpixel.shatteredpixeldungeon.actors.广告30秒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.广告15秒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.广告5秒;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
@@ -784,10 +785,15 @@ public class GameScene extends PixelScene {
 		if (每秒 >= 1){
 			if(Dungeon.hero()){
 				Dungeon.hero.更新数据();
-				if(Dungeon.hero.hasbuff(广告30秒.class)){
-					Buff.施加(Dungeon.hero,广告30秒.class).set(1);
+				if(Dungeon.hero.hasbuff(广告15秒.class)){
+					Buff.施加(Dungeon.hero,广告15秒.class).set(1);
 
-					Dungeon.hero.buff(广告30秒.class).act();
+					Dungeon.hero.buff(广告15秒.class).act();
+				}
+				if(Dungeon.hero.hasbuff(广告5秒.class)){
+					Buff.施加(Dungeon.hero,广告5秒.class).set(1);
+
+					Dungeon.hero.buff(广告5秒.class).act();
 				}
 			}
 			每秒=0;

@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.HealthBar;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ResistanceIndicator;
 import com.watabou.noosa.ui.Component;
 
@@ -29,7 +29,7 @@ public class WndInfoMob extends WndTitledMessage {
 		private static final int GAP	= 2;
 		
 		private CharSprite image;
-		private RenderedTextBlock name;
+		private RenderedTextBlock2 name;
 		private HealthBar health;
 		private BuffIndicator buffs;
 		private ResistanceIndicator resistances;
@@ -37,7 +37,7 @@ public class WndInfoMob extends WndTitledMessage {
 		boolean b=true;
 		public MobTitle( Mob mob ) {
 			
-			name = PixelScene.renderTextBlock( Messages.titleCase( mob.name() ), 9 );
+			name = PixelScene.renderTextBlock2( Messages.titleCase( mob.name() ), 9 );
 //			name.hardlight( TITLE_COLOR );
 			name.hardlight( 0xFFFFFF );
 			

@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.ui.Component;
 
@@ -16,7 +17,7 @@ public class ChangeInfo extends Component {
 	private RenderedTextBlock title;
 	public boolean major;
 	
-	private RenderedTextBlock text;
+	private RenderedTextBlock2 text;
 	
 	private ArrayList<ChangeButton> buttons = new ArrayList<>();
 	
@@ -37,7 +38,7 @@ public class ChangeInfo extends Component {
 		add(this.title);
 		
 		if (text != null && !text.equals("")){
-			this.text = PixelScene.renderTextBlock(text, 6);
+			this.text = PixelScene.renderTextBlock2(text, 6);
 			add(this.text);
 		}
 		

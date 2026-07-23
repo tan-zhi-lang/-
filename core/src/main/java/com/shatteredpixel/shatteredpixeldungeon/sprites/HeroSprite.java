@@ -7,6 +7,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HeroDisguise;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.watabou.gltextures.SmartTexture;
@@ -322,7 +326,17 @@ public class HeroSprite extends CharSprite {
 	@Override
 	public void update() {
 		sleeping = ch.isAlive() && ((Hero)ch).resting;
-		
+
+		if(ch instanceof Hero hero){
+			if(hero.符文("黄金忍者")&&(
+					hero.belongings.hasItem(火焰剑.class)&&
+					hero.belongings.hasItem(地裂镰.class)&&
+					hero.belongings.hasItem(寒冰镖.class)&&
+					hero.belongings.hasItem(闪电双截棍.class)
+			))
+			tint(0xFFFF00, 0.75f);
+
+		}
 		super.update();
 	}
 	

@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Succubus;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
-import com.shatteredpixel.shatteredpixeldungeon.actors.广告30秒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.广告15秒;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
@@ -399,10 +399,10 @@ public class Item implements Bundlable {
 		}else if (action.equals(AC_祛邪)){
 			祛邪卷轴.祛邪(hero,this);
 		}else if (action.equals(AC_荣耀升级)){
-			Buff.施加(hero,广告30秒.class);
+			Buff.施加(hero,广告15秒.class);
 			额外升级();
 		}else if (action.equals(AC_广告双倍)){
-			Buff.施加(hero,广告30秒.class);
+			Buff.施加(hero,广告15秒.class);
 			数量改动(2);
 		}else if (action.equals(AC_融合)){
 			GameScene.selectItem(new 装备融合());
@@ -1379,12 +1379,12 @@ public class Item implements Bundlable {
 		丢过	= bundle.getBoolean( 丢过x );
 		alpha	= bundle.getBoolean( ALPHA );
 		
-		int level = bundle.getInt( LEVEL );
-		if (level > 0) {
-			升级( level );
-		} else if (level < 0) {
-			降级( -level );
-		}
+		等级 = bundle.getInt( LEVEL );
+//		if (level > 0) {
+//			升级( level );
+//		} else if (level < 0) {
+//			降级( -level );
+//		}
 		
 		cursed	= bundle.getBoolean( CURSED );
 		//only want to populate slots when restoring belongings

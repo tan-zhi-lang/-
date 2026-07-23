@@ -18,7 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentsPane;
@@ -123,22 +123,22 @@ public class WndHeroInfo extends WndTabbed {
 
 	private static class HeroInfoTab extends Component {
 
-		private RenderedTextBlock title;
-		private RenderedTextBlock[] info;
+		private RenderedTextBlock2 title;
+		private RenderedTextBlock2[] info;
 		private Image[] icons;
 
 		public HeroInfoTab(HeroClass cls){
 			super();
-			title = PixelScene.renderTextBlock(Messages.titleCase(cls.title()), 9);
+			title = PixelScene.renderTextBlock2(Messages.titleCase(cls.title()), 9);
 			title.hardlight(TITLE_COLOR);
 			add(title);
 
 			String[] desc_entries = cls.desc().split("\n\n");
 
-			info = new RenderedTextBlock[desc_entries.length];
+			info = new RenderedTextBlock2[desc_entries.length];
 
 			for (int i = 0; i < desc_entries.length; i++){
-				info[i] = PixelScene.renderTextBlock(desc_entries[i], 6);
+				info[i] = PixelScene.renderTextBlock2(desc_entries[i], 6);
 				add(info[i]);
 			}
 
@@ -349,17 +349,17 @@ public class WndHeroInfo extends WndTabbed {
 
 	private static class TalentInfoTab extends Component {
 
-		private RenderedTextBlock title;
-		private RenderedTextBlock message;
+		private RenderedTextBlock2 title;
+		private RenderedTextBlock2 message;
 		private TalentsPane talentPane;
 
 		public TalentInfoTab( HeroClass cls ){
 			super();
-			title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(WndHeroInfo.class, "talents")), 9);
+			title = PixelScene.renderTextBlock2(Messages.titleCase(Messages.get(WndHeroInfo.class, "talents")), 9);
 			title.hardlight(TITLE_COLOR);
 			add(title);
 
-			message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "talents_msg"), 6);
+			message = PixelScene.renderTextBlock2(Messages.get(WndHeroInfo.class, "talents_msg"), 6);
 			add(message);
 
 			ArrayList<LinkedHashMap<Talent, Integer>> talents = new ArrayList<>();
@@ -386,27 +386,27 @@ public class WndHeroInfo extends WndTabbed {
 
 	private static class SubclassInfoTab extends Component {
 
-		private RenderedTextBlock title;
-		private RenderedTextBlock message;
-		private RenderedTextBlock[] subClsDescs;
+		private RenderedTextBlock2 title;
+		private RenderedTextBlock2 message;
+		private RenderedTextBlock2[] subClsDescs;
 		private IconButton[] subClsInfos;
 
 		public SubclassInfoTab( HeroClass cls ){
 			super();
-			title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(WndHeroInfo.class, "subclasses")), 9);
+			title = PixelScene.renderTextBlock2(Messages.titleCase(Messages.get(WndHeroInfo.class, "subclasses")), 9);
 			title.hardlight(TITLE_COLOR);
 			add(title);
 
-			message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "subclasses_msg"), 6);
+			message = PixelScene.renderTextBlock2(Messages.get(WndHeroInfo.class, "subclasses_msg"), 6);
 			add(message);
 
 			HeroSubClass[] subClasses = cls.subClasses();
 
-			subClsDescs = new RenderedTextBlock[subClasses.length];
+			subClsDescs = new RenderedTextBlock2[subClasses.length];
 			subClsInfos = new IconButton[subClasses.length];
 
 			for (int i = 0; i < subClasses.length; i++){
-				subClsDescs[i] = PixelScene.renderTextBlock(subClasses[i].shortDesc(), 6);
+				subClsDescs[i] = PixelScene.renderTextBlock2(subClasses[i].shortDesc(), 6);
 				int finalI = i;
 				subClsInfos[i] = new IconButton( Icons.get(Icons.INFO) ){
 					@Override
@@ -446,27 +446,27 @@ public class WndHeroInfo extends WndTabbed {
 
 	private static class ArmorAbilityInfoTab extends Component {
 
-		private RenderedTextBlock title;
-		private RenderedTextBlock message;
-		private RenderedTextBlock[] abilityDescs;
+		private RenderedTextBlock2 title;
+		private RenderedTextBlock2 message;
+		private RenderedTextBlock2[] abilityDescs;
 		private IconButton[] abilityInfos;
 
 		public ArmorAbilityInfoTab(HeroClass cls){
 			super();
-			title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(WndHeroInfo.class, "abilities")), 9);
+			title = PixelScene.renderTextBlock2(Messages.titleCase(Messages.get(WndHeroInfo.class, "abilities")), 9);
 			title.hardlight(TITLE_COLOR);
 			add(title);
 
-			message = PixelScene.renderTextBlock(Messages.get(WndHeroInfo.class, "abilities_msg"), 6);
+			message = PixelScene.renderTextBlock2(Messages.get(WndHeroInfo.class, "abilities_msg"), 6);
 			add(message);
 
 			ArmorAbility[] abilities = cls.armorAbilities();
 
-			abilityDescs = new RenderedTextBlock[abilities.length];
+			abilityDescs = new RenderedTextBlock2[abilities.length];
 			abilityInfos = new IconButton[abilities.length];
 
 			for (int i = 0; i < abilities.length; i++){
-				abilityDescs[i] = PixelScene.renderTextBlock(abilities[i].shortDesc(), 6);
+				abilityDescs[i] = PixelScene.renderTextBlock2(abilities[i].shortDesc(), 6);
 				int finalI = i;
 				abilityInfos[i] = new IconButton( Icons.get(Icons.INFO) ){
 					@Override

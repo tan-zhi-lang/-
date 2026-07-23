@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 
 public class WndInfoItem extends Window {
@@ -60,7 +60,7 @@ public class WndInfoItem extends Window {
 		IconTitle titlebar = new IconTitle( heap );
 //		titlebar.color( TITLE_COLOR );
 		
-		RenderedTextBlock txtInfo = PixelScene.renderTextBlock( heap.info(), 6 );
+		RenderedTextBlock2 txtInfo = PixelScene.renderTextBlock2( heap.info(), 6 );
 
 		layoutFields(titlebar, txtInfo);
 	}
@@ -82,12 +82,12 @@ public class WndInfoItem extends Window {
 //		}else {
 //			titlebar.color(0xFFFFFF);
 //		}
-		RenderedTextBlock txtInfo = PixelScene.renderTextBlock( item.info(), 6 );
+		RenderedTextBlock2 txtInfo = PixelScene.renderTextBlock2( item.info(), 6 );
 		
 		layoutFields(titlebar, txtInfo);
 	}
 
-	private void layoutFields(IconTitle title, RenderedTextBlock info){
+	private void layoutFields(IconTitle title, RenderedTextBlock2 info){
 		int width = WIDTH_MIN;
 
 		info.maxWidth(width);

@@ -902,6 +902,9 @@ public class 物品表 {
     public static final int RECYCLE = CURSE_INFUSE + 3;
     public static final int 结金菱晶 = CURSE_INFUSE + 4;
     public static final int 结能菱晶 = CURSE_INFUSE + 5;
+    public static final int 清洁菱晶 = CURSE_INFUSE + 6;
+    public static final int 箱引菱晶 = CURSE_INFUSE + 7;
+    public static final int 分解菱晶 = CURSE_INFUSE + 8;
 
     static {
 
@@ -924,6 +927,7 @@ public class 物品表 {
         assignItemRect(RECYCLE, 10, 15);
         assignItemRect(结金菱晶, 10, 15);
         assignItemRect(结能菱晶, 10, 15);
+        assignItemRect(箱引菱晶, 10, 15);
     }
 
     private static final int EXOTIC_SCROLLS = xy(0, 21);  //16 slots
@@ -995,7 +999,7 @@ public class 物品表 {
     public static final int BREW_SHOCKING = BREW_UNSTABLE + 3;
     public static final int BREW_CAUSTIC = BREW_UNSTABLE + 4;
 
-    public static final int 永生秘药 = xy(13,25);  //8 slots
+    public static final int 永生秘药 = xy(14,25);  //8 slots
     public static final int ELIXIR_HONEY = 永生秘药 + 1;
     public static final int ELIXIR_AQUA = 永生秘药 + 2;
     public static final int ELIXIR_MIGHT = 永生秘药 + 3;
@@ -1004,6 +1008,10 @@ public class 物品表 {
     public static final int ELIXIR_ICY = 永生秘药 + 6;
     public static final int ELIXIR_ARCANE = 永生秘药 + 7;
     public static final int ELIXIR_FEATHER = 永生秘药 + 8;
+    public static final int 玄武秘药 = 永生秘药 + 9;
+    public static final int 血怒秘药 = 永生秘药 + 10;
+    public static final int 圣魄秘药 = 永生秘药 + 11;
+    public static final int 暴刹秘药 = 永生秘药 + 12;
 
     static {
         assignItemRect(LIQUID_METAL, 8, 15);
@@ -1026,6 +1034,10 @@ public class 物品表 {
         assignItemRect(ELIXIR_ICY, 12, 14);
         assignItemRect(ELIXIR_ARCANE, 12, 14);
         assignItemRect(ELIXIR_FEATHER, 12, 14);
+        assignItemRect(玄武秘药, 12, 14);
+        assignItemRect(血怒秘药, 12, 14);
+        assignItemRect(圣魄秘药, 12, 14);
+        assignItemRect(暴刹秘药, 12, 14);
 
     }
 
@@ -1440,7 +1452,11 @@ public class 物品表 {
         public static final int 龙血 = 羽落+6;
         public static final int 抗魔 = 羽落+7;
         public static final int 水灵 = 羽落+8;
-        
+        public static final int 玄武 = 羽落+9;
+        public static final int 血怒 = 羽落+10;
+        public static final int 圣魄 = 羽落+11;
+        public static final int 暴刹 = 羽落+12;
+
         static {
             assignIconRect(羽落, 6,7);
             assignIconRect(根骨, 7);
@@ -1450,6 +1466,10 @@ public class 物品表 {
             assignIconRect(圣愈, 6,7);
             assignIconRect(抗魔, 7);
             assignIconRect(水灵, 6,7);
+            assignIconRect(玄武, 6);
+            assignIconRect(血怒, 5);
+            assignIconRect(圣魄, 5,7);
+            assignIconRect(暴刹, 5,7);
         }
         public static final int 炼金 = xy(1, 12);  //16 slots
         public static final int 强能 = 炼金+1;
@@ -1464,6 +1484,9 @@ public class 物品表 {
         public static final int 返回 = 炼金+10;
         public static final int 结金 = 炼金+11;
         public static final int 结能 = 炼金+12;
+        public static final int 清洁 = 炼金+13;
+        public static final int 箱引 = 炼金+14;
+        public static final int 分解 = 炼金+15;
         static {
             assignIconRect(炼金, 5);
             assignIconRect(强能, 7);
@@ -1479,6 +1502,9 @@ public class 物品表 {
             assignIconRect(返回, 7,6);
             assignIconRect(结金, 5);
             assignIconRect(结能, 5);
+            assignIconRect(清洁, 4,7);
+            assignIconRect(箱引, 7,6);
+            assignIconRect(分解, 5,8);
         }
         public static final int 六神之戒 = xy(1, 14);  //16 slots
         public static final int 魔攻之戒=六神之戒+1;

@@ -25,7 +25,7 @@ public class 进级卷轴 extends 用品 {
 					激泥酞酶.class,};
 			inQuantity = new int[]{1,1,};
 
-			cost = 5;
+			cost = 8;
 
 			output = 进级卷轴.class;
 			outQuantity = 1;

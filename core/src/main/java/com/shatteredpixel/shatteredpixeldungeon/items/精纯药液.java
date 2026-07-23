@@ -44,7 +44,7 @@ public class 精纯药液 extends Item {
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 5;
+			return 1;
 		}
 
 		@Override

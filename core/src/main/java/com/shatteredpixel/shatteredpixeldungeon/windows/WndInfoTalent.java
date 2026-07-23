@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.utils.Callback;
@@ -39,7 +39,7 @@ public class WndInfoTalent extends Window {
 		boolean metaDesc = (buttonCallback != null && buttonCallback.metamorphDesc()) ||
 				(Dungeon.hero() && Dungeon.hero.metamorphedTalents.containsValue(talent));
 
-		RenderedTextBlock txtInfo = PixelScene.renderTextBlock(talent.desc(metaDesc), 6);
+		RenderedTextBlock2 txtInfo = PixelScene.renderTextBlock2(talent.desc(metaDesc), 6);
 		txtInfo.maxWidth(width);
 		txtInfo.setPos(titlebar.left(), titlebar.bottom() + 2*GAP);
 		add( txtInfo );

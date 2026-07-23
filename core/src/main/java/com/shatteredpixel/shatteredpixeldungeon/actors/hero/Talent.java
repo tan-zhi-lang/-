@@ -776,16 +776,12 @@ public enum Talent {
 	}
 
 	public static float 伏击时(Hero hero, Char enemy, float dmg ){
-		dmg+=0.5f;
-		if(hero.hasbuff(Invisibility.class)){
-			dmg+=0.5f;
-		}
+
 		if(hero.天赋(Talent.埋伏))
 		dmg+=hero.天赋点数(Talent.埋伏,2);
 
 		enemy.第x次背袭++;
 		if(enemy.第x次背袭==1){
-			dmg+=0.5f;
 			enemy.sprite.愤怒();
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.地势)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.地势);

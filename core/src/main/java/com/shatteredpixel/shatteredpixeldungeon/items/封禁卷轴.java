@@ -24,7 +24,7 @@ public class 封禁卷轴 extends 用品 {
 			inputs =  new Class[]{升级卷轴.class,};
 			inQuantity = new int[]{1,};
 
-			cost = 5;
+			cost = 10;
 
 			output = 封禁卷轴.class;
 			outQuantity = 1;

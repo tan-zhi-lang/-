@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
@@ -29,7 +29,7 @@ public class WndTitledMessage extends Window {
 		titlebar.setRect( 0, 0, width, 0 );
 		add(titlebar);
 
-		RenderedTextBlock text = PixelScene.renderTextBlock( 6 );
+		RenderedTextBlock2 text = PixelScene.renderTextBlock2( 6 );
 		if (!useHighlighting()) text.setHightlighting(false);
 		text.text( message, width );
 		text.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );

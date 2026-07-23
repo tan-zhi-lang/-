@@ -75,7 +75,7 @@ public class 炼金菱晶 extends Spell {
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 5;
+			return 3;
 		}
 
 		@Override

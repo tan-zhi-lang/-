@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.BadgeBanner;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Tooltip;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
@@ -307,6 +308,15 @@ public class PixelScene extends Scene {
 
 	public static RenderedTextBlock renderTextBlock(String text, int size ){
 		RenderedTextBlock result = new RenderedTextBlock( text, size*defaultZoom);
+		result.zoom(1/(float)defaultZoom);
+		return result;
+	}
+	public static RenderedTextBlock2 renderTextBlock2(int size ){
+		return renderTextBlock2("", size);
+	}
+
+	public static RenderedTextBlock2 renderTextBlock2(String text, int size ){
+		RenderedTextBlock2 result = new RenderedTextBlock2(text,size*defaultZoom);
 		result.zoom(1/(float)defaultZoom);
 		return result;
 	}

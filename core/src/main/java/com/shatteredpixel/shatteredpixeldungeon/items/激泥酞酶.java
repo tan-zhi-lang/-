@@ -46,7 +46,7 @@ public class 激泥酞酶 extends Item {
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 5;
+			return 1;
 		}
 
 		@Override

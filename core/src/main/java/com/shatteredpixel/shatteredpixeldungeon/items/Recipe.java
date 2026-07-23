@@ -29,8 +29,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfFe
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfIcyTouch;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.ElixirOfToxicEssence;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.圣魄秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.暴刹秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.根骨秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.玄武秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.血怒秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
@@ -46,7 +50,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.分解菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.清洁菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.箱引菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
@@ -233,11 +240,18 @@ public abstract class Recipe {
 		new 进力药剂.Recipe(),
 			new 根骨秘药.Recipe(),
 			new 永生秘药.Recipe(),
+			new 玄武秘药.Recipe(),
+			new 血怒秘药.Recipe(),
+			new 圣魄秘药.Recipe(),
+			new 暴刹秘药.Recipe(),
 
 		new 激泥酞酶.Recipe(),
 		new 精纯药液.Recipe(),
 		new 结金菱晶.Recipe(),
 		new 结能菱晶.Recipe(),
+		new 清洁菱晶.Recipe(),
+		new 箱引菱晶.Recipe(),
+		new 分解菱晶.Recipe(),
 
 		new ClothArmor.Recipe(),
 		new LeatherArmor.Recipe(),

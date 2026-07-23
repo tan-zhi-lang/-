@@ -20,7 +20,7 @@ public class 进力药剂 extends 用品 {
 					精纯药液.class,};
 			inQuantity = new int[]{1,1,};
 
-			cost = 5;
+			cost = 8;
 
 			output = 进力药剂.class;
 			outQuantity = 1;

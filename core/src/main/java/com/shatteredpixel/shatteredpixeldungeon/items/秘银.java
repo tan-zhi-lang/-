@@ -20,7 +20,7 @@ public class 秘银 extends Item {
 			inputs =  new Class[]{LiquidMetal.class,};
 			inQuantity = new int[]{3,};
 
-			cost = 5;
+			cost = 6;
 
 			output = 秘银.class;
 			outQuantity = 1;

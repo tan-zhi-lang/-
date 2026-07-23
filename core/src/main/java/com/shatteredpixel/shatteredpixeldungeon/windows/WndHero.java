@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
-import static com.shatteredpixel.shatteredpixeldungeon.算法.kw;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -12,6 +11,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
@@ -24,7 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.IconButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
-import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TalentButton;
@@ -244,8 +245,8 @@ public class WndHero extends WndTabbed {
 
 					statSlot("_攻速/移速_",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));
 
-					statSlot("**攻击范围/命中**",hero.攻击范围()+"/"+kw(hero.最小命中(null))+"~"+kw(hero.最大命中(null)));
-					statSlot("##惊醒距离/闪避##",hero.惊醒距离()+"/"+kw(hero.最小闪避(null))+"~"+kw(hero.最大闪避(null)));
+					statSlot("**攻击范围/命中**",hero.攻击范围()+"/"+kw2(hero.最小命中(null))+"~"+kw2(hero.最大命中(null)));
+					statSlot("##惊醒距离/闪避##",hero.惊醒距离()+"/"+kw2(hero.最小闪避(null))+"~"+kw2(hero.最大闪避(null)));
 			}
 			pos += GAP;
 		}
@@ -254,9 +255,9 @@ public class WndHero extends WndTabbed {
 			
 			int size = 8;
 			
-			RenderedTextBlock txt;
+			RenderedTextBlock2 txt;
 			do {
-				txt = PixelScene.renderTextBlock( label, size );
+				txt = PixelScene.renderTextBlock2( label, size );
 				size--;
 			} while (txt.width() >= WIDTH * 0.55f);
 			txt.setPos(0, pos + (6 - txt.height())/2);
@@ -265,7 +266,7 @@ public class WndHero extends WndTabbed {
 			
 			size = 8;
 			do {
-				txt = PixelScene.renderTextBlock( value, size );
+				txt = PixelScene.renderTextBlock2( value, size );
 				size--;
 			} while (txt.width() >= WIDTH * 0.45f);
 			txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
@@ -311,10 +312,11 @@ public class WndHero extends WndTabbed {
 					statSlot("==穿甲/护甲穿透==",kw2(hero.穿甲())+"/"+Math.round(hero.护甲穿透()*100)+"%");
 					statSlot("##法穿/法术穿透##",kw2(hero.法穿())+"/"+Math.round(hero.法术穿透()*100)+"%");
 
-					pos+=GAP;
+//					pos+=GAP;
 					statSlot("_视野+光照范围_",hero.视野范围get+"+"+hero.光照范围());
 					statSlot("!!搜索/感知范围!!",hero.搜索范围()+"/"+hero.感知范围());
-					statSlot("??隐匿/地牢视野??",Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
+					statSlot("隐匿/地牢视野",Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
+					statSlot("_商店打折_",Math.round(Shopkeeper.售价(10)/4f));
 //					pos+=GAP;
 					statSlot("**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"+Math.round(hero.全能吸血()*100)+"%");
 					statSlot("++治疗护盾/综合属性++",kw2(hero.治疗护盾())+"/"+kw2(hero.综合属性())+"倍");
@@ -326,9 +328,9 @@ public class WndHero extends WndTabbed {
 			
 			int size = 8;
 
-			RenderedTextBlock txt;
+			RenderedTextBlock2 txt;
 			do {
-				txt = PixelScene.renderTextBlock( label, size );
+				txt = PixelScene.renderTextBlock2( label, size );
 				size--;
 			} while (txt.width() >= WIDTH * 0.55f);
 			txt.setPos(0, pos + (6 - txt.height())/2);
@@ -337,7 +339,7 @@ public class WndHero extends WndTabbed {
 			
 			size = 8;
 			do {
-				txt = PixelScene.renderTextBlock( value, size );
+				txt = PixelScene.renderTextBlock2( value, size );
 				size--;
 			} while (txt.width() >= WIDTH * 0.45f);
 			txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
@@ -379,23 +381,22 @@ public class WndHero extends WndTabbed {
 
 			if(!hero.符文("黑幕")){
 					statSlot("^^幸运值^^",""+hero.幸运值());
-					statSlot("_法杖充能倍_",
-							 能量之戒.wandChargeMultiplier(hero)+"倍"
-							);
-					statSlot("_神器充能倍_",
+					statSlot("_法杖/神器充能倍_",
+							 能量之戒.wandChargeMultiplier(hero)+"/"+
 							 能量之戒.artifactChargeMultiplier(hero)+"倍"
 							);
 					statSlot("_武器充能倍_",
-							 能量之戒.weaponChargeMultiplier(hero)+"倍"
-							);
+						 能量之戒.weaponChargeMultiplier(hero)+"倍"
+						);
+					statSlot("击杀效果",new Rat().击杀效果(null)+"倍");
+					statSlot("攻击/副武器效果",kw2(hero.攻击效果())+"/"+kw2(hero.副武器效果())+"倍");
+					statSlot("@@附魔/刻印效果@@",kw2(奥术之戒.enchantPowerMultiplier(hero))+"倍");
 					statSlot("刷怪速度/数量",
 							 kw2(1/Level.刷怪速度())+"/"+kw2(Level.刷怪数量())+"倍"
 							);
 //					pos+=GAP;
 					statSlot("--鉴定速度--",Math.round(Talent.鉴定速度(hero,null)*100)+"%");
-					statSlot("--吃饭效果--",Math.round(Hunger.吃饭效率()*100)+"%");
-					statSlot("副武器效果",Math.round(hero.副武器效果()*100)+"%");
-					statSlot("@@附魔刻印效果@@",Math.round(奥术之戒.enchantPowerMultiplier(hero)*100)+"%");
+					statSlot("--饥饿速度/吃饭效果--",kw2(Hunger.饥饿速度())+"/"+kw2(Hunger.吃饭效率())+"倍");
 
 //					statSlot("难度",Dungeon.难度名称());
 					pos+=GAP;
@@ -420,9 +421,9 @@ public class WndHero extends WndTabbed {
 
 			int size = 8;
 
-			RenderedTextBlock txt;
+			RenderedTextBlock2 txt;
 			do {
-				txt = PixelScene.renderTextBlock( label, size );
+				txt = PixelScene.renderTextBlock2( label, size );
 				size--;
 			} while (txt.width() >= WIDTH * 0.55f);
 			txt.setPos(0, pos + (6 - txt.height())/2);
@@ -431,7 +432,7 @@ public class WndHero extends WndTabbed {
 
 			size = 8;
 			do {
-				txt = PixelScene.renderTextBlock( value, size );
+				txt = PixelScene.renderTextBlock2( value, size );
 				size--;
 			} while (txt.width() >= WIDTH * 0.45f);
 			txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
@@ -523,7 +524,7 @@ public class WndHero extends WndTabbed {
 			private Buff buff;
 
 			Image icon;
-			RenderedTextBlock txt;
+			RenderedTextBlock2 txt;
 
 			public BuffSlot( Buff buff ){
 				super();
@@ -533,7 +534,7 @@ public class WndHero extends WndTabbed {
 				icon.y = this.y;
 				add( icon );
 
-				txt = PixelScene.renderTextBlock( Messages.titleCase(buff.name()), 8 );
+				txt = PixelScene.renderTextBlock2( Messages.titleCase(buff.name()), 8 );
 				txt.setPos(
 						icon.width + GAP,
 						this.y + (icon.height - txt.height()) / 2

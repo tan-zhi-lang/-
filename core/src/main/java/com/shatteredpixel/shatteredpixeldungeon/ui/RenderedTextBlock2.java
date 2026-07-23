@@ -8,15 +8,71 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
+import com.shatteredpixel.shatteredpixeldungeon.windows.Wndinfo;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.RenderedText;
-import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
-public class RenderedTextBlock extends Component{
+public class RenderedTextBlock2 extends Button{
+	private static final LinkedHashMap<String, String> TERM_EXPLAIN = new LinkedHashMap<>();
+	static {
+		//英雄面板、Buff、改动、英雄信息、怪物、物品、信息、标题信息、天赋信息、解压系统派对、挑战炼狱赛季
+		// 长词在前，避免短词提前匹配
+		TERM_EXPLAIN.put("战斗状态", "_战斗状态_ :攻击和防御时获得5回合的战斗状态\n");
+		TERM_EXPLAIN.put("连杀状态", "_连杀状态_ :击杀敌人会获得10回合连杀状态\n");
+		TERM_EXPLAIN.put("首次攻击", "_首次攻击_ :对每个敌人的首次攻击\n");
+		TERM_EXPLAIN.put("近战攻击", "_近战攻击_ :敌人受到攻击时距离你小于等于2\n");
+		TERM_EXPLAIN.put("远程攻击", "_远程攻击_ :敌人受到攻击时距离你大于2\n");
+		TERM_EXPLAIN.put("攻击", "==攻击== :正常来说是最小~最大攻击，如果有攻击效果则是空手、武器或武器投掷造成伤害触发\n");
+		TERM_EXPLAIN.put("狙击", "_狙击_ :敌人受到伤害时距离你大于7\n");
+		TERM_EXPLAIN.put("防御", "++防御++ :正常来说是最小~最大防御，如果有防御效果则是受到来自敌人的攻击触发\n");
 
+		TERM_EXPLAIN.put("已损失", "_已损失_ :(最大属性-属性)/最大属性\n");
+		TERM_EXPLAIN.put("大残", "_大残_ :生命值低于10%的状态\n");
+		TERM_EXPLAIN.put("半血以下", "_半血以下_ :生命值低于50%的状态\n");
+		TERM_EXPLAIN.put("半血以上", "_半血以上_ :生命值高于50%的状态\n");
+		TERM_EXPLAIN.put("半血", "_半血_ :生命值低于等于60%并且高于等于40%的状态\n");
+		TERM_EXPLAIN.put("残血", "_残血_ :生命值低于40%的状态\n");
+		TERM_EXPLAIN.put("康血", "_康血_ :生命值高于60%的状态\n");
+
+		TERM_EXPLAIN.put("综合属性", "++综合属性++ :生命和护甲、命中和闪避、攻速和移速\n");
+		TERM_EXPLAIN.put("治疗护盾", "++治疗护盾++ :影响恢复生命、恢复护甲、护盾的属性加成\n");
+		TERM_EXPLAIN.put("全能吸血", "**全能吸血** :敌人受到的大部分伤害为你恢复伤害x全能吸血的生命\n");
+		TERM_EXPLAIN.put("吸血", "**吸血** :造成的物理攻击伤害为你恢复伤害x吸血的生命\n");
+
+		TERM_EXPLAIN.put("穿甲", "==穿甲== :攻击伤害无视敌人固定值防御，先护甲穿透后穿甲\n");
+		TERM_EXPLAIN.put("护甲穿透", "==护甲穿透== :攻击伤害无视敌人百分比防御，先护甲穿透后穿甲\n");
+		TERM_EXPLAIN.put("法穿", "##法穿## :魔法伤害无视敌人固定值防御，先法术穿透后法穿\n");
+		TERM_EXPLAIN.put("法术穿透", "##法术穿透## :魔法伤害无视敌人百分比防御，先法术穿透后法穿\n");
+		TERM_EXPLAIN.put("幸运值", "^^幸运值^^ :影响你能想到的大部分概率事件\n");
+
+		TERM_EXPLAIN.put("暴击率", "_暴击率_ :物理攻击有暴击率的概率造额外造成额外伤害，并且暴击率/600次没有触发暴击时，下次物理攻击必定暴击\n");
+		TERM_EXPLAIN.put("暴击伤害", "_暴击伤害_ :物理攻击暴击造成的额外百分比伤害，并且超过100%的暴击率1/3转为暴击伤害\n");
+		TERM_EXPLAIN.put("惊醒距离", "##惊醒距离## :你的行动把敌人从睡眠状态变成惊醒状态的距离\n");
+		TERM_EXPLAIN.put("隐匿", "##隐匿## :敌人的行动，从地图上寻找到你的位置的机会\n");
+		TERM_EXPLAIN.put("主属性", "_主属性_ :最大攻击和防御+主属性-10\n");
+		TERM_EXPLAIN.put("力量", "_力量_ :每点力量提供1%治疗护盾，0.3%暴击率，1最大生命，以及影响空手的攻击伤害，武器的适配条件和额外伤害\n");
+		TERM_EXPLAIN.put("敏捷", "_敏捷_ :每点敏捷提供0.5最大护甲，以及武器、防具、空手、裸衣的命中、攻速、闪避、移速\n");
+		TERM_EXPLAIN.put("魔力", "_魔力_ :每点魔力提供5%武器、法杖、神器充能速度，最大魔抗+魔力-10，以及法杖、法、巫、道、忍术的收益\n");
+	}
+
+	@Override
+	protected void onClick() {
+		//文本注解ps
+		StringBuilder s = new StringBuilder();
+		for (Map.Entry<String, String> e : TERM_EXPLAIN.entrySet()) {
+			if (text.contains(e.getKey())) {
+				s.append(e.getValue());
+			}
+		}
+		if (s.length() > 0) {
+			Game.scene().addToFront(new Wndinfo("文本注解", s.toString()));
+		}
+	}
 	private int maxWidth = Integer.MAX_VALUE;
 	public int nLines;
 
@@ -31,7 +87,7 @@ public class RenderedTextBlock extends Component{
 	private int size;
 	private float zoom;
 	private int color = -1;
-	
+
 	private int hightlightColor = Window.TITLE_COLOR;
 	private boolean highlightingEnabled = true;
 
@@ -39,12 +95,12 @@ public class RenderedTextBlock extends Component{
 	public static final int CENTER_ALIGN = 2;
 	public static final int RIGHT_ALIGN = 3;
 	private int alignment = LEFT_ALIGN;
-	
-	public RenderedTextBlock(int size){
+
+	public RenderedTextBlock2(int size){
 		this.size = size;
 	}
 
-	public RenderedTextBlock(String text, int size){
+	public RenderedTextBlock2(String text,int size){
 		this.size = size;
 		text(text);
 	}
@@ -100,7 +156,7 @@ public class RenderedTextBlock extends Component{
 		if (tokens == null) return;
 
 		clear();
-
+		add(hotArea); // 重新加回触摸热区
 
 		words = new ArrayList<>();
 		boolean isColorActive = false; // 规范化变量名，替换中文“颜色在用”

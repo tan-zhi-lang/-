@@ -16,10 +16,18 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.圣魄秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.暴刹秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.玄武秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.血怒秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.分解菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.清洁菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.箱引菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
@@ -177,19 +185,19 @@ public class 重制新增{
 
 		changes.addButton( new ChangeButton("","主属性",
 
-		"每个英雄有自己的主属性，最大攻击+主属性-10。\n"+
+		"每个英雄有自己的主属性，最大攻击和防御+主属性-10。\n"+
 			"力量\n" +
 			"1%治疗护盾，0.3%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
 
 				"敏捷\n"+
 				"初始是10+0.4x升级等级(满级额外+0.4)，0.5最大护甲，影响命中、攻速、闪避、移速\n"+
-				"武器满适配：命中√(力量-武器力量)×0.1%x敏捷，攻速√(力量-武器力量)×0.1%x敏捷\n"+
-				"防具满适配：闪避√(力量-防具力量)×0.033%x敏捷，移速√(力量-防具力量)×0.033%x敏捷\n"+
-				"裸身状态：闪避√(力量-10)×0.1%x敏捷，移速√(力量-10)×0.1%x敏捷\n"+
-				"空手加成：命中√(力量-10)×0.1%x敏捷，攻速√(力量-10)×0.033%x敏捷",
+				"武器满适配：命中(力量-武器力量)×0.1%x敏捷，攻速(力量-武器力量)×0.1%x敏捷\n"+
+				"防具满适配：闪避(力量-防具力量)×0.05%x敏捷，移速(力量-防具力量)×0.05x敏捷\n"+
+				"裸身状态：闪避(力量-10)×0.05%x敏捷，移速(力量-10)×0.05%x敏捷\n"+
+				"空手加成：命中(力量-10)×0.1%x敏捷，攻速(力量-10)×0.1%x敏捷",
 
 				"魔力\n" +
-				"初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度5%，0.2最大魔抗。\n"+
+				"初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度5%，最大魔抗+魔力-10。\n"+
 				"生命、护甲、力量、敏捷、魔力属性最低为0.01，生命和护甲最大10_0000_000。\n"+
 				"最大生命值20+5x升级等级=>10+1.625x等级(满级额外+1)。\n"+
 				"升级+最大命中和最大闪避=>最大命中和最大闪避+等级-1(满级额外+1)，最大等级-5。\n"
@@ -199,8 +207,6 @@ public class 重制新增{
 											"新增吸血作用于攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值。\n"+//(不过对非Boss仅60%效果)
 											"新增穿甲(固定值无视防御)，护甲穿透(百分比无视防御)，先x/后+-。",
 
-
-											"敌人第一次被攻击+0.5伤害，伏击+0.5，隐形伏击再+0.5，敌人第一次被伏击再+0.5。\n"+
 											"蛇皮走位，正常行动会叠加4层，攻击叠加6层，最多100层。满层时的攻击x移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
 
 
@@ -251,6 +257,9 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes = new ChangeInfo("5阶", true, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new 未知武器()));
 		changes.addButton(new ChangeButton(new 蝙蝠棒()));
 		changes.addButton(new ChangeButton(new 变态刀()));
@@ -293,19 +302,34 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 英雄断剑()));
 		changes.addButton(new ChangeButton(new 誓刃()));
 
+		changes = new ChangeInfo("4阶以下", true, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+		changes = new ChangeInfo("4阶", false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
 		//4
 		changes.addButton(new ChangeButton(new 寒冰鱼剑()));
 		changes.addButton(new ChangeButton(new 鹿角刀()));
 
+		changes = new ChangeInfo("3阶", false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
 		//3
 		changes.addButton(new ChangeButton(new 斩马刀()));
 		changes.addButton(new ChangeButton(new 破甲锥()));
 		changes.addButton(new ChangeButton(new 半月刃()));
 		changes.addButton(new ChangeButton(new 链刃()));
 
+		changes = new ChangeInfo("2阶", false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
 		//2
 		changes.addButton(new ChangeButton(new 爪()));
 		//1
+		changes = new ChangeInfo("1阶", false, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new 木棍()));
 		changes.addButton(new ChangeButton(new 尼泊尔弯刀()));
 		changes.addButton(new ChangeButton(new 狼筅()));
@@ -358,14 +382,30 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新物品", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
-		changes.addButton(new ChangeButton(new 封禁卷轴(),"升级卷轴消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 进级卷轴(),"升级卷轴+激泥酞酶消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 进力药剂(),"潜力药剂+精纯药液消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 结金菱晶(),"念力结晶+激泥酞酶消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 结能菱晶(),"念力结晶+激泥酞酶消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 精纯药液(),"药剂+种子消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 激泥酞酶(),"卷轴+符石消耗5能量合成"));
-		changes.addButton(new ChangeButton(new 秘银(),"金液x3消耗5能量合成"));
+		changes.addButton(new ChangeButton(new 封禁卷轴(),"升级卷轴消耗10能量合成"));
+		changes.addButton(new ChangeButton(new 进级卷轴(),"升级卷轴+激泥酞酶消耗8能量合成"));
+		changes.addButton(new ChangeButton(new 血药(),
+										   "商店必定出售1个。\n" +
+										   "治疗药剂消耗5能量合成5"
+		));
+		changes.addButton(new ChangeButton(new 进力药剂(),"潜力药剂+精纯药液消耗8能量合成"));
+
+		changes.addButton(new ChangeButton(new 结金菱晶(),"念力结晶+激泥酞酶消耗6能量合成3"));
+		changes.addButton(new ChangeButton(new 结能菱晶(),"念力结晶+激泥酞酶消耗6能量合成3"));
+		changes.addButton(new ChangeButton(new 清洁菱晶(),"祛邪卷轴+鉴定卷轴消耗4能量合成2"));
+		changes.addButton(new ChangeButton(new 箱引菱晶(),"传送卷轴+嬗变卷轴消耗15能量合成2"));
+		changes.addButton(new ChangeButton(new 分解菱晶(),"升级卷轴+潜力药剂消耗20能量合成1"));
+
+		changes.addButton(new ChangeButton(new 永生秘药(),"治疗药剂+血药消耗10能量合成"));
+		changes.addButton(new ChangeButton(new 玄武秘药(),"毒气药剂+麻痹药剂消耗15能量合成"));
+		changes.addButton(new ChangeButton(new 血怒秘药(),"潜力药剂+治疗药剂消耗15能量合成"));
+		changes.addButton(new ChangeButton(new 圣魄秘药(),"净化药剂+经验药剂消耗15能量合成"));
+		changes.addButton(new ChangeButton(new 暴刹秘药(),"潜力药剂+毒气药剂消耗15能量合成"));
+
+		changes.addButton(new ChangeButton(new 精纯药液(),"药剂+种子消耗1能量合成"));
+		changes.addButton(new ChangeButton(new 激泥酞酶(),"卷轴+符石消耗1能量合成"));
+		changes.addButton(new ChangeButton(new 秘银(),"金液x3消耗6能量合成"));
+
 		changes.addButton(new ChangeButton(new 护甲修理工具包(),
 				//									   "护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
 										   "巨魔铁匠可以花费人情修复你的护甲。\n" +
@@ -374,9 +414,6 @@ public class 重制新增{
 										   "护甲改成防具，防具可以放入炼金锅转换护甲修理工具包，同酶优树酯。"));
 		changes.addButton(new ChangeButton(new 进阶宝典(),
 										   "3区域第3层必定生成一个。"));
-		changes.addButton(new ChangeButton(new 血药(),
-										   "商店必定出售1个。"
-		));
 		changes.addButton(new ChangeButton(new 自残绳(),"开局获得"
 		));
 		changes.addButton(new ChangeButton(new 火把神的恩宠(),
@@ -408,7 +445,7 @@ public class 重制新增{
 										   "19:30~4:30，1/450概率掉落，最多掉落45个。"
 		));
 		changes.addButton(new ChangeButton(new 魔力水晶(),
-										   "5x坠牢之星消耗10能量合成。"
+										   "5x坠牢之星消耗5能量合成。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.奥术水晶),"奥术水晶",
 										   "五区第三层生成一个。"));
@@ -637,7 +674,6 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"长匕首+冰霜药剂+器灵消耗15能量合成臻冰刃。",
 
 											"治疗药剂消耗5能量合成血药x5。\n" +
-											"治疗药剂+血药消耗10能量合成永生秘药。\n" +
 											"紊乱魔药消耗5能量合成净化药剂，无序结晶消耗5能量合成祛邪卷轴。\n" +
 											"生肉+隐形药剂消耗5能量合成幻影鱼肉。"
 		));

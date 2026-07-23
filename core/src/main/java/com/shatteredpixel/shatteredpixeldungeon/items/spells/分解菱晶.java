@@ -2,11 +2,10 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.spells;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -14,12 +13,12 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 
 import java.util.ArrayList;
 
-public class 结金菱晶 extends Spell {
+public class 分解菱晶 extends Spell {
 
 	{
-		image = 物品表.结金菱晶;
+		image = 物品表.分解菱晶;
 
-		icon = 物品表.Icons.结金;
+		icon = 物品表.Icons.分解;
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}
 
@@ -43,22 +42,27 @@ public class 结金菱晶 extends Spell {
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
-		private static final int OUT_QUANTITY = 3;
+		private static final int OUT_QUANTITY = 1;
 
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			if (ingredients.size() != 2) return false;
 
-			if (ingredients.get(0) instanceof TelekineticGrab && ingredients.get(1) instanceof 激泥酞酶){
+			if (ingredients.get(0) instanceof 升级卷轴&&ingredients.get(1) instanceof 潜力药剂){
 				return true;
 			}
+
+			if (ingredients.get(0) instanceof 潜力药剂&&ingredients.get(1) instanceof 升级卷轴){
+				return true;
+			}
+
 
 			return false;
 		}
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 6;
+			return 20;
 		}
 
 		@Override
@@ -70,20 +74,19 @@ public class 结金菱晶 extends Spell {
 
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
-			return new 结金菱晶().数量(OUT_QUANTITY);
+			return new 分解菱晶().数量(OUT_QUANTITY);
 		}
 	}
 
 	private static WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 		@Override
 		public String textPrompt() {
-			return Messages.get(结金菱晶.class,"prompt");
+			return Messages.get(分解菱晶.class,"prompt");
 		}
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return !(item instanceof 结金菱晶)
-					&& Shopkeeper.canSell(item);
+			return !(item instanceof 分解菱晶)&&item.等级()>1;
 		}
 
 		@Override
@@ -92,9 +95,12 @@ public class 结金菱晶 extends Spell {
 				if (parentWnd != null) {
 					parentWnd = GameScene.selectItem(itemSelector);
 				}
-				Dungeon.gold(item.金币提升()*20);
-				item.detachAll();
+				升级卷轴 x=new 升级卷轴();
+				x.数量(item.等级()/2);
+				x.放背包();
+				item.等级(0);
 				parentWnd.hide();
+
 				curItem.detach();
 			}
 		}

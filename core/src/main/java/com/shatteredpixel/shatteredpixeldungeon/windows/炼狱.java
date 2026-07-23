@@ -31,7 +31,7 @@ public class 炼狱 extends Window {
 
 		this.editable = editable;
 
-		RenderedTextBlock title = PixelScene.renderTextBlock( Messages.get(this, "title"), 12 );
+		RenderedTextBlock title = PixelScene.renderTextBlock(Messages.get(this,"title"),12);
 		title.hardlight( TITLE_COLOR );
 		title.setPos(
 				(WIDTH - title.width()) / 2,

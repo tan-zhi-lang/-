@@ -77,7 +77,7 @@ public class 算法 {
 		
 		
     * */
-    public static String 日期="7.22/15:52";
+    public static String 日期="7.23/13:06";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -114,24 +114,40 @@ public class 算法 {
         return s+x;
     }
     public static String kw2(float x){
-        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
-        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
-        return String.format("%.2f",x);
+        float val;
+        String suffix = "";
+        if (x >= 1000000) {
+            val = x / 10000.0f;
+            suffix = "W";
+        } else if (x >= 1000) {
+            val = x / 1000.0f;
+            suffix = "K";
+        } else {
+            val = x;
+        }
+        String s = String.format("%.2f", val);
+        if (s.contains(".")) {
+            s = s.replaceAll("0+$", "").replaceAll("\\.$", "");
+        }
+        return s + suffix;
     }
     public static String kw2(double x){
-        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
-        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
-        return String.format("%.2f",x);
-    }
-    public static String kw(float x){
-        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
-        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
-        return String.format("%.0f",x);
-    }
-    public static String kw(double x){
-        if(x>=1000000)return String.format("%.2f",x/10000f)+"W";
-        if(x>=1000)return String.format("%.2f",x/1000f)+"K";
-        return String.format("%.0f",x);
+        double val;
+        String suffix = "";
+        if (x >= 1000000) {
+            val = x / 10000.0f;
+            suffix = "W";
+        } else if (x >= 1000) {
+            val = x / 1000.0f;
+            suffix = "K";
+        } else {
+            val = x;
+        }
+        String s = String.format("%.2f", val);
+        if (s.contains(".")) {
+            s = s.replaceAll("0+$", "").replaceAll("\\.$", "");
+        }
+        return s + suffix;
     }
     public static Item 物品(){
 

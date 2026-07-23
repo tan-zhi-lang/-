@@ -149,7 +149,7 @@ public class 未知武器 extends Weapon{
 	public HashMap<String, Integer> 属性 = new HashMap<>(){
 		{
 			put("阶级",5);
-			put("伤害",0);
+			put("伤害",2);
 			put("攻速",0);
 			put("命中",0);
 			put("范围",0);

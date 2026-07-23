@@ -49,8 +49,8 @@ public class StatusPane extends Component {
 	public static float talentBlink;
 	private float warning;
 
-	public static final float FLASH_RATE = (float)(Math.PI*1.5f); //1.5 blinks per second
-
+	public static final float FLASH_RATE = (float)(Math.PI*2.5f); //1.5 blinks per second
+	//闪烁
 	private int lastTier = 0;
 	private Image 护盾;
 	private Image 血条;
@@ -408,19 +408,19 @@ public class StatusPane extends Component {
 			血条文本.text(kw2(health)+"/"+kw2(max));
 		}else {
 			if(血量变化>0){
-				血条文本.text(kw2(health)+"+"+String.format("%.2f",血量变化)+"/"+kw2(max));
+				血条文本.text(kw2(health)+"+"+kw2(血量变化)+"/"+kw2(max));
 			}else if(血量变化==0){
 				血条文本.text(kw2(health)+"/"+kw2(max));
 			}else if(血量变化<0){
-				血条文本.text(kw2(health)+String.format("%.2f",血量变化)+"/"+kw2(max));
+				血条文本.text(kw2(health)+kw2(血量变化)+"/"+kw2(max));
 			}else
 				血条文本.text(kw2(health)+"/"+kw2(max));
 		}
 		法力条文本.text(kw2(护甲)+(护甲<最大护甲&&恢复速度>0?
-															("+"+String.format("%.2f",恢复速度)
+															("+"+kw2(恢复速度)
 		):"")+"/"+kw2(最大护甲));
-		绿条文本.text(String.format("%.0f",hunger)+
-					  (hunger>0&&hungerDelay>0?String.format("%.2f",-hungerDelay):"") + "/" + String.format("%.0f",450f));
+		绿条文本.text(kw2(hunger)+
+					  (hunger>0&&hungerDelay>0?kw2(-hungerDelay):"") + "/" + String.format("%.0f",450f));
 	
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.经验/Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.经验+"/"+Dungeon.hero.升级所需());

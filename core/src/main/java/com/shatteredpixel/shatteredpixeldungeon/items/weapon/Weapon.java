@@ -400,7 +400,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if(延迟()<1)
 				伤害*=延迟();
 		}
-		if(tier()>=5)伤害*=1.5f;
+		if(!(this instanceof 未知武器)&&tier()>=5)伤害*=1.5f;
 
 		return 伤害;
 	}
@@ -1453,7 +1453,7 @@ abstract public class Weapon extends KindOfWeapon {
 				delay *= Math.pow( 1.2, encumbrance );
 			}
 			if (encumbrance < 0){
-				delay/=1-encumbrance*hero.属性增幅()/3f;
+				delay/=1-encumbrance*hero.属性增幅();
 			}
 			
 		}

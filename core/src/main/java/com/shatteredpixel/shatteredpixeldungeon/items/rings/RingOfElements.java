@@ -21,6 +21,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.法态穿透;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.PathFinder;
@@ -99,6 +103,12 @@ public class RingOfElements extends Ring {
 						x*=0.92f;
 				}
 			}
+			if(hero.符文("黄金忍者")&&(
+					hero.belongings.hasItem(火焰剑.class)&&
+					hero.belongings.hasItem(地裂镰.class)&&
+					hero.belongings.hasItem(寒冰镖.class)&&
+					hero.belongings.hasItem(闪电双截棍.class)
+			))x*=0.5f;
 			if(hero.符文("艾哲红石")&&hero.belongings.hasItem(TengusMask.class)) x*=0.1f;
 			if(hero.符文("防御转魔抗"))x*=1-hero.最大防御()/(2.5+hero.最大防御());
 			if(hero.subClass(HeroSubClass.大魔法师)) x*=0.7f;

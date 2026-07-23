@@ -64,7 +64,7 @@ public abstract class OptionSlider extends Component {
 	public void setSelectedValue(int val) {
 		this.selectedVal = val;
 		sliderNode.x = (int)(x + tickDist*(selectedVal-minVal)) + 0.5f;
-		sliderNode.y = sliderBG.y-4-1;//-4
+		sliderNode.y = sliderBG.y-4-1;//-4拖条更大
 		PixelScene.align(sliderNode);
 	}
 	public void enable( boolean value ) {
@@ -87,7 +87,7 @@ public abstract class OptionSlider extends Component {
 
 		add(sliderBG = new ColorBlock(1, 1, 0xFF222222));
 		sliderNode = Chrome.get(Chrome.Type.RED_BUTTON);
-		sliderNode.size(4/2f*3, 7/2f*3);
+		sliderNode.size(4/2f*3, 7/2f*3);//拖条更大
 //		sliderNode.size(4, 7);
 
 		pointerArea = new PointerArea(0, 0, 0, 0){
@@ -165,7 +165,7 @@ public abstract class OptionSlider extends Component {
 		);
 
 		sliderNode.x = x + tickDist*(selectedVal-minVal) + 0.5f;
-		sliderNode.y = sliderBG.y-3-2;//-3
+		sliderNode.y = sliderBG.y-3-2;//-3拖条更大
 		PixelScene.align(sliderNode);
 
 		pointerArea.x = x;

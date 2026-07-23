@@ -4,29 +4,38 @@ package com.shatteredpixel.shatteredpixeldungeon.items.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
+import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 
 import java.util.ArrayList;
 
-public class 结能菱晶 extends Spell {
+public class 箱引菱晶 extends Spell {
 
 	{
-		image = 物品表.结能菱晶;
+		image = 物品表.箱引菱晶;
 
-		icon = 物品表.Icons.结能;
+		icon = 物品表.Icons.箱引;
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}
 
-	private static WndBag parentWnd;
 
 	@Override
 	protected void onCast(Hero hero) {
-		parentWnd = GameScene.selectItem( itemSelector );
+
+		int x=1;
+		Item item;
+		while(x<=6){
+			x++;
+			do{
+				item = Generator.random();
+			}while(item instanceof Gold);
+			item.放背包();
+		}
+		detach(Dungeon.hero.belongings.backpack);
 	}
 
 	@Override
@@ -42,13 +51,17 @@ public class 结能菱晶 extends Spell {
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
-		private static final int OUT_QUANTITY = 3;
+		private static final int OUT_QUANTITY = 2;
 
 		@Override
 		public boolean testIngredients(ArrayList<Item> ingredients) {
 			if (ingredients.size() != 2) return false;
 
-			if (ingredients.get(0) instanceof TelekineticGrab && ingredients.get(1) instanceof 激泥酞酶){
+			if (ingredients.get(0) instanceof 传送卷轴&&ingredients.get(1) instanceof 嬗变卷轴){
+				return true;
+			}
+
+			if (ingredients.get(0) instanceof 嬗变卷轴&&ingredients.get(1) instanceof 传送卷轴){
 				return true;
 			}
 
@@ -58,7 +71,7 @@ public class 结能菱晶 extends Spell {
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 6;
+			return 15;
 		}
 
 		@Override
@@ -70,35 +83,8 @@ public class 结能菱晶 extends Spell {
 
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
-			return new 结能菱晶().数量(OUT_QUANTITY);
+			return new 箱引菱晶().数量(OUT_QUANTITY);
 		}
 	}
-
-	private static WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
-		@Override
-		public String textPrompt() {
-			return Messages.get(结能菱晶.class,"prompt");
-		}
-
-		@Override
-		public boolean itemSelectable(Item item) {
-			return !(item instanceof 结能菱晶)
-					&& item.能量提升()>0;
-		}
-
-		@Override
-		public void onSelect( Item item ) {
-			if (item != null) {
-				if (parentWnd != null) {
-					parentWnd = GameScene.selectItem(itemSelector);
-				}
-				Dungeon.energy(item.能量提升()*10);
-				item.detachAll();
-				parentWnd.hide();
-				curItem.detach();
-			}
-		}
-	};
-
 
 }

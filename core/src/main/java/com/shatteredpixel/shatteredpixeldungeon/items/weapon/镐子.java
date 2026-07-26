@@ -15,10 +15,9 @@ public class 镐子 extends Weapon {
 		image = 物品表.PICKAXE;
 
 		物品 = true;
-		延迟=1.3f;
+		伤害=0.7f;
 		特别= true;
 		嬗变= false;
-		遗产= false;
 
 		tier = 2;
 	}

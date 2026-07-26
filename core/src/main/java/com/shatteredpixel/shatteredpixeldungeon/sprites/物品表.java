@@ -54,6 +54,7 @@ public class 物品表 {
     public static final int SPELL_HOLDER = PLACEHOLDERS + 15;
     public static final int MOB_HOLDER = PLACEHOLDERS + 16;
     public static final int DOCUMENT_HOLDER = PLACEHOLDERS + 17;
+    public static final int 感叹 = PLACEHOLDERS + 18;
 
     static {
         assignItemRect(ITEM,8,13);
@@ -74,6 +75,7 @@ public class 物品表 {
         assignItemRect(SPELL_HOLDER, 8, 16);
         assignItemRect(MOB_HOLDER, 15, 14);
         assignItemRect(DOCUMENT_HOLDER, 10, 11);
+        assignItemRect(感叹, 6, 13);
     }
 
     private static final int UNCOLLECTIBLE = xy(0, 1);   //14 slots
@@ -89,13 +91,15 @@ public class 物品表 {
     public static final int SPIRIT_ARROW = UNCOLLECTIBLE + 8;
     public static final int 魔法箭矢 = UNCOLLECTIBLE + 9;
     public static final int 符箓 = UNCOLLECTIBLE + 10;
-    public static final int 子弹 = UNCOLLECTIBLE + 11;
     public static final int 手枪子弹 = UNCOLLECTIBLE + 12;
     public static final int 冲锋枪子弹=UNCOLLECTIBLE+13;
     public static final int 霰弹枪子弹 = UNCOLLECTIBLE + 14;
     public static final int 狙击枪子弹 = UNCOLLECTIBLE + 15;
     public static final int 火炮子弹 = UNCOLLECTIBLE + 16;
     public static final int 魄罗 = UNCOLLECTIBLE + 17;
+    public static final int 拳击手套 = UNCOLLECTIBLE + 18;
+    public static final int 真吸血刀 = UNCOLLECTIBLE + 19;
+    public static final int 小吞噬怪 = UNCOLLECTIBLE + 20;
 
     static {
         assignItemRect(GOLD, 15, 13);
@@ -112,13 +116,15 @@ public class 物品表 {
         assignItemRect(魔法箭矢, 11);
         assignItemRect(符箓, 11,16);
 
-        assignItemRect(子弹, 5);
         assignItemRect(手枪子弹, 6,10);
         assignItemRect(冲锋枪子弹,5,8);
         assignItemRect(霰弹枪子弹, 5,10);
         assignItemRect(狙击枪子弹, 5,13);
         assignItemRect(火炮子弹, 12,8);
         assignItemRect(魄罗, 9);
+        assignItemRect(拳击手套, 12,10);
+        assignItemRect(真吸血刀, 7,15);
+        assignItemRect(小吞噬怪, 7,8);
     }
     //endregion
 
@@ -267,7 +273,7 @@ public class 物品表 {
     public static final int 英雄初始 = xy(0, 5);
     public static final int WORN_SHORTSWORD = 英雄初始 ;
     public static final int 法师魔杖 = 英雄初始 + 1;
-    public static final int 小匕 = 英雄初始 + 2;
+    public static final int 匕首=英雄初始+2;
     public static final int 灵能短弓 = 英雄初始 + 3;
     public static final int RAPIER = 英雄初始 + 4;
     public static final int CUDGEL = 英雄初始 + 5;
@@ -297,7 +303,7 @@ public class 物品表 {
         
         assignItemRect(WORN_SHORTSWORD, 13);
         assignItemRect(法师魔杖,16);
-        assignItemRect(小匕, 12,13);
+        assignItemRect(匕首,12,13);
         assignItemRect(灵能短弓, 16);
         assignItemRect(RAPIER, 16);
         assignItemRect(CUDGEL, 15);
@@ -332,7 +338,7 @@ public class 物品表 {
     public static final int 木棍 = WEP_TIER1 + 4;
     public static final int SICKLE = WEP_TIER1 + 5;
     public static final int ROUND_SHIELD = WEP_TIER1 + 6;
-    public static final int 小刀 = WEP_TIER1 + 7;
+    public static final int 指虎 = WEP_TIER1 + 7;
     public static final int 尼泊尔弯刀 = WEP_TIER1 + 8;
     public static final int 狼筅 = WEP_TIER1 + 9;
 
@@ -351,7 +357,7 @@ public class 物品表 {
         assignItemRect(SICKLE, 15);
         assignItemRect(ROUND_SHIELD);
 
-        assignItemRect(小刀, 5,12);
+        assignItemRect(指虎, 15,14);
         assignItemRect(尼泊尔弯刀, 16);
         assignItemRect(狼筅, 16);
 
@@ -525,9 +531,13 @@ public class 物品表 {
     public static final int 虚哭神去=WEP_TIER52+7;
     public static final int 回旋之刃=WEP_TIER52+8;
     public static final int 誓刃=WEP_TIER52+9;
-    public static final int 空杖=WEP_TIER52+10;
-    public static final int 魔法刀=WEP_TIER52+10;
-    public static final int 暗影刀=WEP_TIER52+11;
+    public static final int 钻石镐=WEP_TIER52+10;
+    public static final int 海神三叉戟=WEP_TIER52+11;
+    public static final int 下界合金剑=WEP_TIER52+12;
+    public static final int 致胜拳炮=WEP_TIER52+13;
+    public static final int 猪鲨链球=WEP_TIER52+14;
+    public static final int 腐化灾兵=WEP_TIER52+15;
+
     static{
         assignItemRect(联合盾,15);
         assignItemRect(雷神锤,15,16);
@@ -539,9 +549,13 @@ public class 物品表 {
         assignItemRect(虚哭神去,16);
         assignItemRect(回旋之刃,15,16);
         assignItemRect(誓刃,16,13);
-        assignItemRect(空杖,16);
-        assignItemRect(魔法刀,5,12);
-        assignItemRect(暗影刀,7,15);
+        assignItemRect(钻石镐,14);
+        assignItemRect(海神三叉戟,16);
+        assignItemRect(下界合金剑,16);
+        assignItemRect(致胜拳炮,16,12);
+        assignItemRect(猪鲨链球,15,16);
+        assignItemRect(腐化灾兵,16);
+
     }
     //endregion
     
@@ -785,7 +799,7 @@ public class 物品表 {
     public static final int FERRET_TUFT = TRINKETS + 15;
     public static final int SPYGLASS = TRINKETS + 16;
     public static final int 中国国旗 = TRINKETS + 17;
-    public static final int 传奇肛塞=TRINKETS+18;
+    public static final int 宝石肛塞=TRINKETS+18;
     public static final int 优惠卡=TRINKETS+19;
     public static final int 圣金之沙=TRINKETS+20;
     public static final int 精神支柱=TRINKETS+21;
@@ -819,7 +833,7 @@ public class 物品表 {
         assignItemRect(FERRET_TUFT, 16, 15);
         assignItemRect(SPYGLASS, 15);
         assignItemRect(中国国旗, 16);
-        assignItemRect(传奇肛塞,9,13);
+        assignItemRect(宝石肛塞,9,14);
         assignItemRect(优惠卡,16,14);
         assignItemRect(圣金之沙,14,11);
         assignItemRect(精神支柱,8,16);
@@ -848,7 +862,15 @@ public class 物品表 {
     public static final int 丛林玫瑰=禁忌物+7;
     public static final int 妖精粉尘=禁忌物+8;
     public static final int 重力场球=禁忌物+9;
-    public static final int 动力之靴=禁忌物+10;
+    public static final int 紫色心情=禁忌物+10;
+    public static final int 动力之靴=禁忌物+11;
+    public static final int 魔法飞刀=禁忌物+12;
+    public static final int 暗影飞刀=禁忌物+13;
+    public static final int 心源芯片=禁忌物+14;
+    public static final int 本命玉佩=禁忌物+15;
+    public static final int 世界时表=禁忌物+16;
+    public static final int 断魂佛珠=禁忌物+17;
+    public static final int 皇室佩剑=禁忌物+18;
     static {
         
         assignItemRect(血腥生肉,15,11);
@@ -861,7 +883,15 @@ public class 物品表 {
         assignItemRect(丛林玫瑰,12);
         assignItemRect(妖精粉尘,13,7);
         assignItemRect(重力场球,11,12);
+        assignItemRect(紫色心情,11);
         assignItemRect(动力之靴,16,9);
+        assignItemRect(魔法飞刀,5,12);
+        assignItemRect(暗影飞刀,7,15);
+        assignItemRect(心源芯片,15,12);
+        assignItemRect(本命玉佩,10,16);
+        assignItemRect(世界时表,9,16);
+        assignItemRect(断魂佛珠,16,15);
+        assignItemRect(皇室佩剑,15);
     }
     
     //endregion
@@ -1002,16 +1032,17 @@ public class 物品表 {
     public static final int 永生秘药 = xy(14,25);  //8 slots
     public static final int ELIXIR_HONEY = 永生秘药 + 1;
     public static final int ELIXIR_AQUA = 永生秘药 + 2;
-    public static final int ELIXIR_MIGHT = 永生秘药 + 3;
-    public static final int ELIXIR_DRAGON = 永生秘药 + 4;
-    public static final int ELIXIR_TOXIC = 永生秘药 + 5;
-    public static final int ELIXIR_ICY = 永生秘药 + 6;
-    public static final int ELIXIR_ARCANE = 永生秘药 + 7;
-    public static final int ELIXIR_FEATHER = 永生秘药 + 8;
-    public static final int 玄武秘药 = 永生秘药 + 9;
-    public static final int 血怒秘药 = 永生秘药 + 10;
-    public static final int 圣魄秘药 = 永生秘药 + 11;
-    public static final int 暴刹秘药 = 永生秘药 + 12;
+
+    public static final int ELIXIR_MIGHT = xy(17,25);  //8 slots
+    public static final int ELIXIR_DRAGON = 永生秘药 + 1;
+    public static final int ELIXIR_TOXIC = 永生秘药 + 2;
+    public static final int ELIXIR_ICY = 永生秘药 + 3;
+    public static final int ELIXIR_ARCANE = 永生秘药 + 4;
+    public static final int ELIXIR_FEATHER = 永生秘药 + 5;
+    public static final int 玄武秘药 = 永生秘药 + 6;
+    public static final int 血怒秘药 = 永生秘药 + 7;
+    public static final int 圣魄秘药 = 永生秘药 + 8;
+    public static final int 暴刹秘药 = 永生秘药 + 9;
 
     static {
         assignItemRect(LIQUID_METAL, 8, 15);
@@ -1114,7 +1145,7 @@ public class 物品表 {
         assignItemRect(进级卷轴, 16);
         assignItemRect(进力药剂, 12,16);
         assignItemRect(封禁卷轴, 15,14);
-        assignItemRect(封禁秘卷, 15,14);//
+        assignItemRect(封禁秘卷, 15,14);
         assignItemRect(PETAL, 8, 8);
     }
     public static final int 秘银 = xy(0, 27);

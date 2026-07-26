@@ -42,6 +42,7 @@ public class 灵能短弓 extends Weapon {
 		tier=1;
 
 		绿色 = true;
+		绿光 = true;
 		伤害=0.6f;
 		特别= true;
 		专属= true;
@@ -257,7 +258,7 @@ public class 灵能短弓 extends Weapon {
 
 		@Override
 		public void throwSound() {
-			Sample.INSTANCE.play( Assets.Sounds.ATK_SPIRITBOW, 1, Random.Float(0.87f, 1.15f) );
+			Sample.INSTANCE.play(Assets.Sounds.攻击灵箭,1,Random.Float(0.87f,1.15f));
 		}
 
 		int flurryCount = -1;

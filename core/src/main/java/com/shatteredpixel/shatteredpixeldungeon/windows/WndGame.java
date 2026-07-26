@@ -42,6 +42,13 @@ public class WndGame extends Window {
 		});
 		curBtn.icon(Icons.get(Icons.PREFS));
 
+		addButton( curBtn = new RedButton("点击解决回合卡死") {
+			@Override
+			protected void onClick() {
+				hide();
+				ShatteredPixelDungeon.seamlessResetScene();
+			}
+		} );
 		addButton( curBtn = new RedButton("爱发电赞助") {
 			@Override
 			protected void onClick() {

@@ -83,7 +83,7 @@ public class Skeleton extends Mob {
 					damage -= (preDmg - damage); //apply the flat reduction twice
 				}
 
-				damage=ch.防御(this,damage);
+				damage=ch.物理受伤(damage,this);
 				if(ch instanceof Hero hero){
 					damage=hero.护甲伤害(damage);
 				}

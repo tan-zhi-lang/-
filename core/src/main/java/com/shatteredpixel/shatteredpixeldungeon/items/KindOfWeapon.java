@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.魔法飞刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.*;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -40,10 +41,17 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public int 最小= 0;
 	public int 最大= 0;
 	public float 伤害= 1f;
+	public float 投掷= 1f;
 	public float 防御= 1f;
 	public boolean 具备防御= false;
 	public float 伤害(){
 		return 伤害;
+	}
+
+	public float 投掷(){
+		float 投掷=this.投掷;
+		投掷*=魔法飞刀.投掷();
+		return 投掷;
 	}
 
 	public float 流血(){
@@ -94,10 +102,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 	}
 	public boolean 延迟自动转= true;
 	public boolean 拳套(){//0.5
+		if(this instanceof 致胜拳炮)return true;
 		if(this instanceof 镶钉手套)return true;
 		if(this instanceof 爪)return true;
 		if(this instanceof 血姬)return true;
 		if(this instanceof 白带)return true;
+		if(this instanceof 指虎)return true;
 		if(this instanceof 臂铠)return true;
 		if(this instanceof 星云拳套)return true;
 		if(this instanceof 魔岩拳套)return true;
@@ -115,7 +125,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 变态刀)return true;
 		if(this instanceof 匕首)return true;
 		if(this instanceof 双刃)return true;
-		if(this instanceof 小刀)return true;
+		if(this instanceof 指虎)return true;
 		if(this instanceof 小刺)return true;
 		if(this instanceof 骨刀)return true;
 		if(this instanceof 破甲锥)return true;
@@ -179,6 +189,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean 长矛(){//1.175
 		if(this instanceof 长矛)return true;
 		if(this instanceof 三叉戟)return true;
+		if(this instanceof 海神三叉戟)return true;
 		if(this instanceof 关刀)return true;
 		return false;
 	}
@@ -196,6 +207,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(盾())return true;
 		if(棍())return true;
 		if(鞭())return true;
+		if(this instanceof 镐子)return true;
+		if(this instanceof 钻石镐)return true;
 		if(this instanceof 石头)return true;
 		if(this instanceof 雪球)return true;
 		if(this instanceof 修理扳手)return true;
@@ -211,6 +224,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean 锤(){//1.25
 		if(this instanceof 硬头锤)return true;
 		if(this instanceof 链枷)return true;
+		if(this instanceof 猪鲨链球)return true;
 		if(this instanceof 锻造锤)return true;
 		if(战锤())return true;
 		if(巨锤())return true;
@@ -279,7 +293,10 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 我的世界(){
+		if(this instanceof 下界合金剑)return true;
 		if(this instanceof 回旋之刃)return true;
+		if(this instanceof 钻石镐)return true;
+		if(this instanceof 海神三叉戟)return true;
 		if(this instanceof 重锤)return true;
 		return false;
 	}
@@ -296,6 +313,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 血砍刀)return true;
 		if(this instanceof 回旋镖)return true;
 		if(this instanceof 回旋之刃)return true;
+		if(this instanceof 海神三叉戟)return true;
 		if(this instanceof 联合盾)return true;
 		if(this instanceof 疯狂斧)return true;
 		if(this instanceof 轮刃)return true;
@@ -305,7 +323,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 双刃)return true;
 		if(this instanceof 狼筅)return true;
 		if(this instanceof 镶钉手套)return true;
-		if(this instanceof 星云拳套)return true;
 		if(this instanceof 鹿角刀)return true;
 		if(this instanceof 誓刃)return true;
 		if(this instanceof 木棍)return true;
@@ -326,6 +343,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 英雄断剑)return true;
 		if(this instanceof 无尽之刃)return true;
 		if(this instanceof 饮血之剑)return true;
+		if(this instanceof 下界合金剑)return true;
 		if(this instanceof 死神镰刀)return true;
 		if(this instanceof 日炎链刃)return true;
 		if(this instanceof 地裂镰)return true;
@@ -370,15 +388,24 @@ abstract public class KindOfWeapon extends EquipableItem {
 						if (index == 0) {
 							doEquip(hero);
 						} else {
-							if(双手()){
-								GLog.橙("你装备的武器是双手武器，所以装备至了主武器位置！");
-								doEquip(hero);
-							}else{
-								if(hero.belongings.weapon!=null&&hero.belongings.weapon.双手()){
-									GLog.橙("你正在装备的武器是双手武器，所以装备至了主武器位置！");
+							if(hero.种族天赋.equals("巨灵")){
+
+								if(hero.belongings.weapon==null){
 									doEquip(hero);
 								}else
 									equipSecondary(hero);
+							}else {
+
+								if(双手()){
+									GLog.橙("你装备的武器是双手武器，所以装备至了主武器位置！");
+									doEquip(hero);
+								}else{
+									if(hero.belongings.weapon!=null&&hero.belongings.weapon.双手()){
+										GLog.橙("你正在装备的武器是双手武器，所以装备至了主武器位置！");
+										doEquip(hero);
+									}else
+										equipSecondary(hero);
+								}
 							}
 						}
 						if(hero.符文("跟着我左手右手一个慢动作"))hero.回百分比血(0.03f);

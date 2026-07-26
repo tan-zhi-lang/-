@@ -88,6 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
@@ -142,6 +143,7 @@ import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
@@ -151,6 +153,7 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -178,7 +181,6 @@ public abstract class Char extends Actor {
 	public boolean 折叠屏=false;
 	public boolean 首次死亡=true;
 	public boolean 史莱姆=false;
-	public boolean 吸血鬼飞刀=false;
 	public int 第x次攻击=0;
 	public int 第x次防御 =0;
 	public int 第x次背袭 =0;
@@ -878,7 +880,7 @@ public abstract class Char extends Actor {
 	// atm attack is always post-armor and defence is already pre-armor
 
 	public float 暴击率(){
-		float 暴击率=0.07f;
+		float 暴击率=0.08f;
 //		if(Dungeon.赛季(赛季设置.英雄联盟)){
 //			暴击率+=18;
 //		}
@@ -2014,9 +2016,9 @@ public abstract class Char extends Actor {
 		if(this instanceof Hero hero){
 
 			if(hero.天赋(Talent.元素掌控)||hero.天赋(Talent.镜板镀层)){
-				dmg-=防御(dmg*hero.天赋点数(Talent.元素掌控,0.075f));//元素掌控金
+				dmg-=物理受伤(dmg*hero.天赋点数(Talent.元素掌控,0.075f),hero);//元素掌控金
 
-				dmg-=防御(dmg*hero.天赋点数(Talent.镜板镀层,0.125f));
+				dmg-=物理受伤(dmg*hero.天赋点数(Talent.镜板镀层,0.125f),hero);
 			}
 
 		}
@@ -2080,7 +2082,7 @@ public abstract class Char extends Actor {
 		return 最大生命*x;
 	}
 	public boolean 大残(){
-		return 生命/最大生命<0.1f;
+		return 生命/最大生命<0.15f;
 	}
 	public boolean 残血(){
 		return 生命/最大生命<0.4f;
@@ -2140,13 +2142,16 @@ public abstract class Char extends Actor {
 		}
 	}
 
-	public float 防御(float damage){
-		return 防御(null,damage);
-	}
-	public float 防御(Char enemy, float damage){
+	public float 物理受伤(float damage,Object scr){
 		damage-=Random.NormalFloat(最小防御(),最大防御());
-		damage=防御时(enemy,damage);
+
+		if(scr instanceof Char c)
+		damage=防御时(c,damage);
+
 		if(damage<0)damage=0;
+
+		受伤时(damage,scr);
+
 		return damage;
 	}
 	public int 视野范围(){
@@ -2382,6 +2387,16 @@ public abstract class Char extends Actor {
 		return properties().contains(Property.BOSS_MINION);
 	}
 
+	public void 扔出(int to,Item item,Callback c){
+		if(item instanceof Weapon w)w.hitSound(1);
+
+		MissileSprite m=((MissileSprite) sprite.parent.recycle(MissileSprite.class));
+		m.reset(sprite,
+				to,
+				item,
+				c
+			   );
+	}
 	public float 强度(){
 		float 强度=Dungeon.区域()*0.1f;
 		if(老鬼()||小老鬼())强度=0.5f;
@@ -2390,7 +2405,7 @@ public abstract class Char extends Actor {
 	public boolean 防刷(){
 		if(Dungeon.符文("叠角龙"))return true;
 
-		return !老鬼()&&!小老鬼()&&!傀儡()&&!老鬼傀儡();
+		return !老鬼()&&!傀儡()&&!老鬼傀儡();
 	}
 	public float d火焰(){
 		float x=1;

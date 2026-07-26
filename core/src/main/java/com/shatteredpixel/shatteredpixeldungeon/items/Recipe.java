@@ -70,10 +70,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.海神三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.虚哭神去;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.钻石镐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.震爆方石;
@@ -286,6 +289,9 @@ public abstract class Recipe {
 			new 重锤.Recipe(),
 			new 暗杀之刃.Recipe(),
 			new 饮血之剑.Recipe(),
+			new 海神三叉戟.Recipe(),
+			new 猪鲨链球.Recipe(),
+			new 钻石镐.Recipe(),
 			new 死神镰刀.Recipe(),
 			new 臻冰刃.Recipe(),
 			new 地裂镰.Recipe(),

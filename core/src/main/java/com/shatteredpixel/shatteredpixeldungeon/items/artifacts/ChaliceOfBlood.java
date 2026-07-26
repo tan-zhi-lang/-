@@ -110,7 +110,7 @@ public class ChaliceOfBlood extends Artifact {
 			damage = rockArmor.absorb(damage);
 		}
 
-		damage=hero.防御(damage);
+		damage=hero.物理受伤(damage,this);
 		damage=hero.护甲伤害(damage);
 
 		hero.sprite.operate( hero.pos );

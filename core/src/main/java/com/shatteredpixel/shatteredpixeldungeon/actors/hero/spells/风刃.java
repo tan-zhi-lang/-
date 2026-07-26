@@ -35,24 +35,24 @@ public class 风刃 extends 目标忍术 {
 		if (target == null){
 			return;
 		}
-		
+
 		if (Actor.findChar(target) == hero){
 			GLog.橙(Messages.get(this,"self_target"));
 			return;
 		}
-		
+
 		Ballistica b = new Ballistica(hero.pos, target, Ballistica.WONT_STOP);
 		final HashSet<Char> targets = new HashSet<>();
-		
+
 		Char enemy = findChar(b,hero, 0/*穿墙*/,targets);
-		
+
 		if (enemy == null || !hero.fieldOfView[enemy.pos]){
 			GLog.橙(Messages.get(this,"no_target"));
 			return;
 		}
-		
+
 		targets.add(enemy);
-		
+
 			ConeAOE cone = new ConeAOE(b,60);
 			for (Ballistica ray : cone.rays){
 				Char toAdd = findChar(ray, hero, 0/*穿墙*/, targets);
@@ -73,11 +73,11 @@ public class 风刃 extends 目标忍术 {
 				targets.remove(furthest);
 			}
 		Item.updateQuickslot();
-		
+
 		Item proto = new 手里剑();
-		
+
 		final HashSet<Callback> callbacks = new HashSet<>();
-		
+
 		for (Char ch : targets) {
 			Callback callback = new Callback() {
 				@Override
@@ -91,16 +91,16 @@ public class 风刃 extends 目标忍术 {
 					}
 				}
 			};
-			
+
 			MissileSprite
 					m = ((MissileSprite)hero.sprite.parent.recycle(MissileSprite.class));
 			m.reset( hero.sprite, ch.pos, proto, callback );
 			m.hardlight(0.6f, 1f, 1f);
 			m.alpha(0.8f);
-			
+
 			callbacks.add( callback );
 		}
-		
+
 		onSpellCast(tome, hero);
 		hero.sprite.zap( enemy.pos );
 		hero.busy();
@@ -110,7 +110,7 @@ public class 风刃 extends 目标忍术 {
 		for (int cell : path.path){
 			Char ch = Actor.findChar(cell);
 			if (ch != null){
-				if (ch == hero || existingTargets.contains(ch) || ch.alignment == Char.Alignment.ALLY){
+				if (ch == hero || existingTargets!=null&&existingTargets.contains(ch) || ch.alignment == Char.Alignment.ALLY){
 					continue;
 				} else {
 					return ch;

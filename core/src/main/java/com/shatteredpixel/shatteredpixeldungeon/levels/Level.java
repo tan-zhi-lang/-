@@ -1639,7 +1639,7 @@ public abstract class Level implements Bundlable {
 					}
 				}
 			}
-			if(c instanceof Hero hero&& ((hero.职业精通()&&hero.subClass(HeroSubClass.土影))||hero.belongings.attackingWeapon() instanceof 地裂镰)){
+			if(c instanceof Hero hero&& ((hero.职业精通()&&hero.subClass(HeroSubClass.土影))||hero.belongings.weapon(地裂镰.class))){
 				if(blocking==null){
 					System.arraycopy(Dungeon.level.losBlocking,0,modifiableBlocking,0,modifiableBlocking.length);
 					blocking=modifiableBlocking;

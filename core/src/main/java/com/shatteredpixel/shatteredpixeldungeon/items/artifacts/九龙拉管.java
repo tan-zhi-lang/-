@@ -114,7 +114,7 @@ public class 九龙拉管 extends Artifact {
 			damage = rockArmor.absorb(damage);
 		}
 		charge--;
-		damage=hero.防御(damage);
+		damage=hero.物理受伤(damage,this);
 		damage=hero.护甲伤害(damage);
 		hero.力量+=0.3f+等级()*0.03f;
 		if(hero.符文("极限剂量")){

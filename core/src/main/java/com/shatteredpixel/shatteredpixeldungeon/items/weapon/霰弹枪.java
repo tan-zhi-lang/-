@@ -36,7 +36,8 @@ public class 霰弹枪 extends Weapon{
 	{
 		image = 物品表.霰弹枪;
 		tier = 3;
-		伤害=0.68f;
+		伤害=0.6f;
+		投掷=1.75f;
 
 		usesTargeting = true;
 	}
@@ -116,14 +117,15 @@ public class 霰弹枪 extends Weapon{
 			curUser.busy();
 			(curUser.sprite).operate();
 			updateQuickslot();
-		}
+		}else
+			GLog.橙("你需要枪械子弹！");
 	}
 	
 	public float 最小枪械攻击() {
 		return 最小枪械攻击(强化等级());
 	}
 	public float 最小枪械攻击(int lvl) {
-		int dmg =最小+2*((tier()+4)+lvl);
+		float dmg =最小+((tier())+lvl)*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
@@ -131,7 +133,7 @@ public class 霰弹枪 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public float 最大枪械攻击(int lvl) {
-		int dmg =最大+(5*(tier()+1+4) +lvl*(tier()+1));
+		float dmg =最大+(5*(tier()) +lvl*(tier()+1))*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
@@ -290,15 +292,31 @@ public class 霰弹枪 extends Weapon{
 
 				Ballistica b = new Ballistica(curUser.pos, target, Ballistica.WONT_STOP);
 				final HashSet<Char> targets = new HashSet<>();
-				ConeAOE cone = new ConeAOE(b,60);
+				ConeAOE cone = new ConeAOE(b,90);
 				for (Ballistica ray : cone.rays){
 					Char toAdd = findChar(ray, curUser, 0, targets);
 					if (toAdd != null && curUser.fieldOfView[toAdd.pos]){
 						targets.add(toAdd);
-						knockArrow().cast(curUser, toAdd.pos);
 					}
 				}
+				while (targets.size() > 1+12){
+					Char furthest = null;
+					for (Char ch : targets){
+						if (furthest == null){
+							furthest = ch;
+						} else if (Dungeon.level.trueDistance(curUser.pos, ch.pos) >
+								   Dungeon.level.trueDistance(curUser.pos, furthest.pos)){
+							furthest = ch;
+						}
+					}
+					targets.remove(furthest);
+				}
+//				for(int x=targets.size();x<12;x++)
+//					targets.add(Random.element(targets));
 
+				for (Char ch : targets){
+					knockArrow().cast(curUser,ch.pos);
+				}
 			}
 		}
 		@Override
@@ -314,7 +332,7 @@ public class 霰弹枪 extends Weapon{
 	public class 子弹 extends Weapon {
 
 		{
-			image = 物品表.子弹;
+			image = 物品表.霰弹枪子弹;
 			hitSound = Assets.Sounds.霰弹枪;
 			item_Miss = Assets.Sounds.霰弹枪;
 		}
@@ -341,7 +359,7 @@ public class 霰弹枪 extends Weapon{
 		
 		@Override
 		public float delayFactor(Char user) {
-			return 霰弹枪.this.delayFactor(user)*0.35f;
+			return 霰弹枪.this.delayFactor(user)/2f;
 		}
 		
 		@Override
@@ -355,8 +373,8 @@ public class 霰弹枪 extends Weapon{
 
 		@Override
 		public float 投掷攻击时(Char attacker, Char defender, float damage) {
-			if(defender!=null)
-			damage=Math.round(1+damage*1f/attacker.距离(defender));
+//			if(defender!=null)
+//			damage=Math.round(damage*(1+attacker.距离(defender)/2f));
 			return 霰弹枪.this.投掷攻击时(attacker,defender,damage);
 		}
 

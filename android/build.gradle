@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    compileOptions {
+        encoding "UTF-8"
+    }
+    allprojects {
+        tasks.withType(JavaCompile) {
+            options.encoding = 'UTF-8'
+        }
+    }
     namespace 'com.shatteredpixel.shatteredpixeldungeon.android'
     compileSdk appAndroidCompileSDK
     compileOptions.sourceCompatibility = compileOptions.targetCompatibility = appJavaCompatibility

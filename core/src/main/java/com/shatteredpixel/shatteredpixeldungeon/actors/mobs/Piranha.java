@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PiranhaSprite;
@@ -259,7 +259,7 @@ public class Piranha extends Mob {
 		}
 	}
 	public static Piranha random(){
-		float altChance = 1/50f * RatSkull.exoticChanceMultiplier();
+		float altChance = 1/50f*巨鼠头骨.exoticChanceMultiplier();
 		if (Random.Float() < altChance){
 			return new PhantomPiranha();
 		} else {

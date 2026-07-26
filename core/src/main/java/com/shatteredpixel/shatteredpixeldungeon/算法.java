@@ -10,8 +10,6 @@ public class 算法 {
     /*
 
 
-        if(符文("不死意志"))全能吸血+=0.075f;
-
         Buff延长
 		public void extend(float extension){
 			if (cooldown()+extension <= 2*DURATION){
@@ -77,7 +75,7 @@ public class 算法 {
 		
 		
     * */
-    public static String 日期="7.23/13:06";
+    public static String 日期="7.25/18:01";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -150,421 +148,73 @@ public class 算法 {
         return s + suffix;
     }
     public static Item 物品(){
+        return 物品(SPDSettings.customSeed().replaceAll("调试", ""));
+    }
 
-        String seed = SPDSettings.customSeed();
-        seed=seed.replaceAll("调试", "");
-    try {
-        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+seed);
+    public static Item 物品(String input){
+        String 名称 = input;
+        int 数量 = 1;
+        int 等级 = 0;
+        boolean 需设数量 = false;
+        boolean 需设等级 = false;
 
-        Object item = classn.newInstance();
-        
-        return ((Item)item).鉴定();
 
-    } catch (Exception e) {
-        try {
-            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.armor."+seed);
-
-            Object item = classn.newInstance();
-            
-        return ((Item)item).鉴定();
-
-        } catch (Exception e1) {
-
-            try {
-                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.artifacts."+seed);
-
-                Object item = classn.newInstance();
-                
-        return ((Item)item).鉴定();
-
-            } catch (Exception e2) {
-
-                try {
-                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bags."+seed);
-
-                    Object item = classn.newInstance();
-                    
-        return ((Item)item).鉴定();
-
-                } catch (Exception e3) {
-
-                    try {
-                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bombs."+seed);
-
-                        Object item = classn.newInstance();
-                        
-        return ((Item)item).鉴定();
-
-                    } catch (Exception e4) {
-
-                        try {
-                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.food."+seed);
-
-                            Object item = classn.newInstance();
-                            
-        return ((Item)item).鉴定();
-
-                        } catch (Exception e5) {
-
-                            try {
-                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions."+seed);
-
-                                Object item = classn.newInstance();
-                                
-        return ((Item)item).鉴定();
-
-                            } catch (Exception e6) {
-
-                                try {
-                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.remains."+seed);
-
-                                    Object item = classn.newInstance();
-                                    
-        return ((Item)item).鉴定();
-
-                                } catch (Exception e7) {
-
-                                    try {
-                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.rings."+seed);
-
-                                        Object item = classn.newInstance();
-                                        
-        return ((Item)item).鉴定();
-
-                                    } catch (Exception e8) {
-
-                                        try {
-                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls."+seed);
-
-                                            Object item = classn.newInstance();
-                                            
-        return ((Item)item).鉴定();
-
-                                        } catch (Exception e9) {
-
-                                            try {
-                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.spells."+seed);
-
-                                                Object item = classn.newInstance();
-                                                
-        return ((Item)item).鉴定();
-
-                                            } catch (Exception e10) {
-
-                                                try {
-                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.stones."+seed);
-
-                                                    Object item = classn.newInstance();
-                                                    
-        return ((Item)item).鉴定();
-
-                                                } catch (Exception e11) {
-
-                                                    try {
-                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.trinkets."+seed);
-
-                                                        Object item = classn.newInstance();
-                                                        
-        return ((Item)item).鉴定();
-
-                                                    } catch (Exception e12) {
-
-                                                        try {
-                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.wands."+seed);
-
-                                                            Object item = classn.newInstance();
-                                                            
-        return ((Item)item).鉴定();
-
-                                                        } catch (Exception e13) {
-
-                                                            try {
-                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon."+seed);
-
-                                                                Object item = classn.newInstance();
-                                                                
-        return ((Item)item).鉴定();
-
-                                                            } catch (Exception e14) {
-
-                                                                try {
-                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts."+seed);
-
-                                                                    Object item = classn.newInstance();
-                                                                    
-        return ((Item)item).鉴定();
-
-                                                                } catch (Exception e15) {
-                                                                        try {
-                                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic."+seed);
-
-                                                                            Object item = classn.newInstance();
-                                                                            
-        return ((Item)item).鉴定();
-
-                                                                        } catch (Exception e17) {
-                                                                            try {
-                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.brews."+seed);
-
-                                                                                Object item = classn.newInstance();
-                                                                                
-        return ((Item)item).鉴定();
-
-                                                                            } catch (Exception e18) {
-                                                                                try {
-                                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs."+seed);
-
-                                                                                    Object item = classn.newInstance();
-                                                                                    
-        return ((Item)item).鉴定();
-
-                                                                                } catch (Exception e19) {
-                                                                                    try {
-                                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."+seed);
-
-                                                                                        Object item = classn.newInstance();
-                                                                                        
-        return ((Item)item).鉴定();
-
-                                                                                    } catch (Exception e20) {
-                                                                                            try{
-                                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.mm."+seed);
-                                                                                                
-                                                                                                Object item = classn.newInstance();
-                                                                                                
-        return ((Item)item).鉴定();
-                                                                                            } catch (Exception e21) {
-                                                                                            return null;
-                                                                                            }
-                                                                                    }
-                                                                                }
-                                                                                }
-                                                                            }
-                                                                    }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+            java.util.regex.Matcher m;
+            // 匹配 +数字 → 等级
+            if(input.contains("+")){
+                m=java.util.regex.Pattern.compile("^(.+)\\+(\\d+)$").matcher(input);
+                if(m.matches()){
+                    名称=m.group(1);
+                    等级=Integer.parseInt(m.group(2));
+                    需设等级=true;
                 }
             }
-        }
-    }
-
-    }
-    public static Item 物品(String s){
-    try {
-        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items."+s);
-
-        Object item = classn.newInstance();
-        
-        return ((Item)item).鉴定();
-
-    } catch (Exception e) {
-        try {
-            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.armor."+s);
-
-            Object item = classn.newInstance();
-            
-        return ((Item)item).鉴定();
-
-        } catch (Exception e1) {
-
-            try {
-                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.artifacts."+s);
-
-                Object item = classn.newInstance();
-                
-        return ((Item)item).鉴定();
-
-            } catch (Exception e2) {
-
-                try {
-                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bags."+s);
-
-                    Object item = classn.newInstance();
-                    
-        return ((Item)item).鉴定();
-
-                } catch (Exception e3) {
-
-                    try {
-                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.bombs."+s);
-
-                        Object item = classn.newInstance();
-                        
-        return ((Item)item).鉴定();
-
-                    } catch (Exception e4) {
-
-                        try {
-                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.food."+s);
-
-                            Object item = classn.newInstance();
-                            
-        return ((Item)item).鉴定();
-
-                        } catch (Exception e5) {
-
-                            try {
-                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions."+s);
-
-                                Object item = classn.newInstance();
-                                
-        return ((Item)item).鉴定();
-
-                            } catch (Exception e6) {
-
-                                try {
-                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.remains."+s);
-
-                                    Object item = classn.newInstance();
-                                    
-        return ((Item)item).鉴定();
-
-                                } catch (Exception e7) {
-
-                                    try {
-                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.rings."+s);
-
-                                        Object item = classn.newInstance();
-                                        
-        return ((Item)item).鉴定();
-
-                                    } catch (Exception e8) {
-
-                                        try {
-                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls."+s);
-
-                                            Object item = classn.newInstance();
-                                            
-        return ((Item)item).鉴定();
-
-                                        } catch (Exception e9) {
-
-                                            try {
-                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.spells."+s);
-
-                                                Object item = classn.newInstance();
-                                                
-        return ((Item)item).鉴定();
-
-                                            } catch (Exception e10) {
-
-                                                try {
-                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.stones."+s);
-
-                                                    Object item = classn.newInstance();
-                                                    
-        return ((Item)item).鉴定();
-
-                                                } catch (Exception e11) {
-
-                                                    try {
-                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.trinkets."+s);
-
-                                                        Object item = classn.newInstance();
-                                                        
-        return ((Item)item).鉴定();
-
-                                                    } catch (Exception e12) {
-
-                                                        try {
-                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.wands."+s);
-
-                                                            Object item = classn.newInstance();
-                                                            
-        return ((Item)item).鉴定();
-
-                                                        } catch (Exception e13) {
-
-                                                            try {
-                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon."+s);
-
-                                                                Object item = classn.newInstance();
-                                                                
-        return ((Item)item).鉴定();
-
-                                                            } catch (Exception e14) {
-
-                                                                try {
-                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee."+s);
-
-                                                                    Object item = classn.newInstance();
-                                                                    
-        return ((Item)item).鉴定();
-
-                                                                } catch (Exception e15) {
-                                                                    try {
-                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles."+s);
-
-                                                                        Object item = classn.newInstance();
-                                                                        
-        return ((Item)item).鉴定();
-
-                                                                    } catch (Exception e16) {
-                                                                        try {
-                                                                            Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic."+s);
-
-                                                                            Object item = classn.newInstance();
-                                                                            
-        return ((Item)item).鉴定();
-
-                                                                        } catch (Exception e17) {
-                                                                            try {
-                                                                                Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.brews."+s);
-
-                                                                                Object item = classn.newInstance();
-                                                                                
-        return ((Item)item).鉴定();
-
-                                                                            } catch (Exception e18) {
-                                                                                try {
-                                                                                    Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs."+s);
-
-                                                                                    Object item = classn.newInstance();
-                                                                                    
-        return ((Item)item).鉴定();
-
-                                                                                } catch (Exception e19) {
-                                                                                    try {
-                                                                                        Class<?> classn = Class.forName("com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."+s);
-
-                                                                                        Object item = classn.newInstance();
-                                                                                        
-        return ((Item)item).鉴定();
-
-                                                                                    } catch (Exception e20) {
-return null;
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+            if(input.contains("x") || input.contains("X")){
+                // 匹配 x/X数字 → 数量
+                m = java.util.regex.Pattern.compile("^(.+)[xX](\\d+)$").matcher(input);
+                if (m.matches()) {
+                    名称 = m.group(1);
+                    数量 = Integer.parseInt(m.group(2));
+                    需设数量 = true;
                 }
             }
+
+        String[] 包 = {
+                "com.shatteredpixel.shatteredpixeldungeon.items.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.armor.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.artifacts.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.bags.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.bombs.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.food.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.potions.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.remains.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.rings.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.scrolls.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.spells.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.stones.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.trinkets.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.wands.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts",
+                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.",
+                "com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."
+        };
+        for (String p : 包) {
+            try {
+                Item item = (Item)Class.forName(p + 名称).newInstance();
+                item.鉴定();
+                if (需设数量 && item.可堆叠) item.数量(数量);
+                if (需设等级 && item.真可升级()) item.等级(等级);
+                return item;
+            } catch (Exception ignored) {}
         }
+        return null;
     }
 
-    }
     public static void 调试(String s){
         if(isDebug())
         GLog.绿(s);

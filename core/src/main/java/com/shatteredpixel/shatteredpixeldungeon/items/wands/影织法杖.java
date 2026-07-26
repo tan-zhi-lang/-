@@ -161,7 +161,6 @@ public class 影织法杖 extends DamageWand {
 			}
 			int cell = ray.path.get(ray.dist);
 			curUser.sprite.parent.add(new Beam.DeathRay(curUser.sprite.center(),DungeonTilemap.raisedTileCenterToWorld(cell)));
-
 		}
 		callback.call();
 	}

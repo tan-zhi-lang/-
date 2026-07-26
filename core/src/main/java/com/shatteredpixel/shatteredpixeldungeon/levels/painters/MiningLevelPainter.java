@@ -155,4 +155,5 @@ public class MiningLevelPainter extends CavesPainter {
 			}
 		}
 	}
+
 }

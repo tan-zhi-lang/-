@@ -11,6 +11,7 @@ public class 回旋之刃 extends Weapon{
 		hitSound = Assets.Sounds.攻击砍;
 
 		伤害=0.8f;
+		流血=0.15f;
 		特别=true;
 		白色=true;
 		tier=5;

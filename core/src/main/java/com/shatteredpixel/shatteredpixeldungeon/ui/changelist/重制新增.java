@@ -7,10 +7,12 @@ import static com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite.avatar
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙拉管;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.灵魂焰灯;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
@@ -30,42 +32,51 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.清洁菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.箱引菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.世界时表;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.世界标尺;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.丛林玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.动力之靴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.妖精粉尘;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.宝石肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.心源芯片;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断魂佛珠;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.暗影飞刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.桃木剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.水晶碎块;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.火毒箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.男人国徽章;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.皇室佩剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.魔法飞刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.浓毒法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.半月刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋之刃;
@@ -75,6 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.尼泊尔弯刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.指虎;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
@@ -85,11 +97,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.木棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.海神三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.炼狱铲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狼筅;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.疯狂斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破甲锥;
@@ -97,6 +111,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.联合盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.腐化灾兵;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.致胜拳炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.虚哭神去;
@@ -107,6 +123,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.誓刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.钻石镐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锈右斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锯齿剑;
@@ -187,7 +204,7 @@ public class 重制新增{
 
 		"每个英雄有自己的主属性，最大攻击和防御+主属性-10。\n"+
 			"力量\n" +
-			"1%治疗护盾，0.3%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
+			"1%治疗护盾，0.4%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
 
 				"敏捷\n"+
 				"初始是10+0.4x升级等级(满级额外+0.4)，0.5最大护甲，影响命中、攻速、闪避、移速\n"+
@@ -207,7 +224,7 @@ public class 重制新增{
 											"新增吸血作用于攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值。\n"+//(不过对非Boss仅60%效果)
 											"新增穿甲(固定值无视防御)，护甲穿透(百分比无视防御)，先x/后+-。",
 
-											"蛇皮走位，正常行动会叠加4层，攻击叠加6层，最多100层。满层时的攻击x移速的伤害，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
+											"蛇皮走位，正常行动会叠加4层，攻击叠加6层，最多100层。满层时的攻击伤害x移速，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
 
 
 											//											"游戏第1、2局幸运值+1，每日挑战非重玩+1幸运值。\n"+
@@ -260,6 +277,11 @@ public class 重制新增{
 		changes = new ChangeInfo("5阶", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 腐化灾兵()));
+		changes.addButton(new ChangeButton(new 猪鲨链球()));
+		changes.addButton(new ChangeButton(new 致胜拳炮()));
+		changes.addButton(new ChangeButton(new 钻石镐()));
+		changes.addButton(new ChangeButton(new 海神三叉戟()));
 		changes.addButton(new ChangeButton(new 未知武器()));
 		changes.addButton(new ChangeButton(new 蝙蝠棒()));
 		changes.addButton(new ChangeButton(new 变态刀()));
@@ -294,6 +316,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 妖刀村正()));
 		changes.addButton(new ChangeButton(new 破败王剑()));
 		changes.addButton(new ChangeButton(new 饮血之剑()));
+		changes.addButton(new ChangeButton(new 下界合金剑()));
 		changes.addButton(new ChangeButton(new 无尽之刃()));
 		changes.addButton(new ChangeButton(new 锈右斧()));
 		changes.addButton(new ChangeButton(new 碎缘剑()));
@@ -330,6 +353,7 @@ public class 重制新增{
 		changes = new ChangeInfo("1阶", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 指虎()));
 		changes.addButton(new ChangeButton(new 木棍()));
 		changes.addButton(new ChangeButton(new 尼泊尔弯刀()));
 		changes.addButton(new ChangeButton(new 狼筅()));
@@ -347,16 +371,20 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 优惠卡(),"双十一开局获得"));
 		changes.addButton(new ChangeButton(new 中国国旗(),"国庆节开局获得"));
 
+		changes.addButton(new ChangeButton(new 心源芯片(),"机器开局获得"));
+		changes.addButton(new ChangeButton(new 本命玉佩(),"道士开局获得"));
+		changes.addButton(new ChangeButton(new 世界时表(),"行僧开局获得"));
+		changes.addButton(new ChangeButton(new 断魂佛珠(),"兽灵开局获得"));
+		changes.addButton(new ChangeButton(new 皇室佩剑(),"近卫开局获得"));
 		changes.addButton(new ChangeButton(new 桃木剑()));
 		changes.addButton(new ChangeButton(new 男人国徽章()));
 		changes.addButton(new ChangeButton(new 神圣之剑()));
 		changes.addButton(new ChangeButton(new 投机之剑()));
 		changes.addButton(new ChangeButton(new 血腥生肉()));
-		changes.addButton(new ChangeButton(new 狂妄皇冠()));
+		changes.addButton(new ChangeButton(new 狂妄皇冠(),"击杀矮人国王掉落"));
 
-		changes.addButton(new ChangeButton(new 火毒箭矢()));
-		changes.addButton(new ChangeButton(new RatSkull()));
-		changes.addButton(new ChangeButton(new 巨大蟹钳()));
+		changes.addButton(new ChangeButton(new 火毒箭矢(),"击杀豺狼诡术师掉落"));
+		changes.addButton(new ChangeButton(new 巨大蟹钳(),"击杀巨钳螃蟹掉落"));
 
 		changes.addButton(new ChangeButton(new 骸骨左轮()));
 		changes.addButton(new ChangeButton(new 断骨法杖()));
@@ -370,10 +398,13 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 圣金之沙()));
 		changes.addButton(new ChangeButton(new 妖精粉尘()));
 		changes.addButton(new ChangeButton(new 动力之靴()));
+		changes.addButton(new ChangeButton(new 魔法飞刀()));
+		changes.addButton(new ChangeButton(new 暗影飞刀()));
 		changes.addButton(new ChangeButton(new 重力场球()));
+		changes.addButton(new ChangeButton(new 紫色心情()));
 		changes.addButton(new ChangeButton(new 水晶碎块()));
 		changes.addButton(new ChangeButton(new 世界标尺()));
-		changes.addButton(new ChangeButton(new 传奇肛塞()));
+		changes.addButton(new ChangeButton(new 宝石肛塞()));
 
 	}
 
@@ -468,6 +499,9 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 极肚之戒(),"最大饱腹+100x等级，但是力量+0.5%x等级x(最大饥饿+最大饱腹)。"));
 		changes.addButton(new ChangeButton(new 魔攻之戒(),"施法对目标造成50%魔力+20%等级收益~90%魔力+67%等级收益。"));
 
+		changes.addButton(new ChangeButton(new 鬼帝钟(),"道士开局获得"));
+		changes.addButton(new ChangeButton(new 叛忍护额(),"女忍开局获得"));
+
 		changes.addButton(new ChangeButton(new 灵魂焰灯()));
 		changes.addButton(new ChangeButton(new 生命蜡烛()));
 		changes.addButton(new ChangeButton(new 九龙拉管()));
@@ -516,6 +550,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		ChangeInfo changes = new ChangeInfo("新法杖", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 灵月法杖(),"巫女开局获得"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.浓毒法杖), "浓毒法杖",
 										   "毒气版酸蚀法杖，并且重制毒气代码，伤害1+地牢层数/25=>15%√毒气元素。\n"+new 浓毒法杖().statsDesc()
@@ -662,12 +697,16 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"长矛+金液消耗12能量合成关刀。\n"+
 											"镶钉手套+金液消耗12能量魔岩拳。",
 
+											"链枷+水灵秘药+器灵消耗15能量合成猪鲨链球。\n" +
 											"狼筅+武士刀+器灵消耗15能量合成虚哭神去。\n" +
 											"链刃+炸弹+器灵消耗15能量合成日炎链刃。\n" +
 											"长匕首+隐形药剂+器灵消耗15能量合成暗杀之刃。\n" +
 											"战锤+浮空药剂+器灵消耗15能量合成重锤。\n" +
+											"长剑+龙血秘药+器灵消耗15能量合成下界合金剑。\n" +
 											"巨剑+治疗药剂+器灵消耗15能量合成饮血之剑。\n" +
 											"战镰+复仇卷轴+器灵消耗15能量合成死神镰刀。\n" +
+											"镐子+木棍+器灵消耗15能量合成钻石镐。\n" +
+											"三叉戟+水灵秘药+器灵消耗15能量合成海神三叉戟。\n" +
 											"弯刀+液火药剂+器灵消耗15能量合成火焰剑。\n" +
 											"手里剑+冰霜药剂+器灵消耗15能量合成寒冰镖。\n" +
 											"战镰+大地护甲合剂+器灵消耗15能量合成地裂镰。\n" +

@@ -146,10 +146,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		//Shouldn't interrupt the dieing animation
 		if (curAnim == null || curAnim != die) {
 			if(SPDSettings.加快()>1) {
-				if (anim == idle) {
-
-				} else if (anim == run) {
-					anim.delay = 1f /20f;
+				if (anim == idle||anim == run) {
 				} else if(anim == attack||anim == zap){
 					anim.delay = 1f / SPDSettings.加快();
 				}else {
@@ -165,7 +162,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				anim.完事延迟 = 1/10f;//打击手感/攻击后摇
 			}
 			if(SPDSettings.战斗快速()&&
-			   Dungeon.hero()&&ch!=null&&ch!=Dungeon.hero&&ch.距离(Dungeon.hero)>Dungeon.hero.攻击范围())anim.delay=1f/1000;
+			   Dungeon.hero()&&ch!=null&&ch!=Dungeon.hero&&ch.距离(Dungeon.hero)>Dungeon.hero.攻击范围()){
+				if (anim == idle) {
+
+				}else
+					anim.delay=1f/1000;
+			}
             super.play(anim);
 		}
 	}

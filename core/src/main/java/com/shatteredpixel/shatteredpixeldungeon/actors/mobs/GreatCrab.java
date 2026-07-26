@@ -37,7 +37,7 @@ public class GreatCrab extends Crab {
 		WANDERING = new Wandering();
 		state = WANDERING;
 
-		loot = new 巨大蟹钳();
+		loot = 巨大蟹钳.class;
 		
 
 		properties.add(Property.MINIBOSS);

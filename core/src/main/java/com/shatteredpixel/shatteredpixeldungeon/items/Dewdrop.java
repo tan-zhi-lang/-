@@ -5,12 +5,14 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.VialOfBlood;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -36,7 +38,8 @@ public class Dewdrop extends Item {
 
 			flask.collectDew( this );
 			GameScene.pickUp( this, pos );
-
+			if(hero.女人()&&紫色心情.回合()>0)
+				Buff.施加( hero, Charm.class,紫色心情.回合());
 		} else {
 
 			int terr = Dungeon.level.map[pos];
@@ -74,6 +77,8 @@ public class Dewdrop extends Item {
 			} else {
 				hero.回血(heal);
 			}
+			if(hero.女人()&&紫色心情.回合()>0)
+				Buff.施加( hero, Charm.class,紫色心情.回合());
 			
 		} else if (!force) {
 			GLog.白(Messages.get(Dewdrop.class,"already_full"));

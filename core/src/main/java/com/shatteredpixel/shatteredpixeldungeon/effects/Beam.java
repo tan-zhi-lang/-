@@ -3,6 +3,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.effects;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.watabou.glwrap.Blending;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -39,11 +41,23 @@ public class Beam extends Image {
 		public DeathRay(PointF s, PointF e){
 			super(s, e, Effects.Type.DEATH_RAY, 0.5f);
 		}
+		public DeathRay(Char s,Char e){
+			super(s.sprite.center(), e.sprite.center(), Effects.Type.DEATH_RAY, 0.5f);
+		}
+		public DeathRay(CharSprite s,CharSprite e){
+			super(s.center(), e.center(), Effects.Type.DEATH_RAY, 0.5f);
+		}
 	}
 
 	public static class LightRay extends Beam{
 		public LightRay(PointF s, PointF e){
 			super(s, e, Effects.Type.LIGHT_RAY, 1f);
+		}
+		public LightRay(Char s,Char e){
+			super(s.sprite.center(), e.sprite.center(), Effects.Type.HEALTH_RAY, 1);
+		}
+		public LightRay(CharSprite s,CharSprite e){
+			super(s.center(), e.center(), Effects.Type.LIGHT_RAY, 1);
 		}
 	}
 
@@ -52,11 +66,25 @@ public class Beam extends Image {
 			super(s, e, Effects.Type.LIGHT_RAY, 1f);
 			tint(1, 1, 0.25f, 1);
 		}
+		public SunRay(Char s,Char e){
+			super(s.sprite.center(), e.sprite.center(), Effects.Type.LIGHT_RAY, 1);
+			tint(1, 1, 0.25f, 1);
+		}
+		public SunRay(CharSprite s,CharSprite e){
+			super(s.center(), e.center(), Effects.Type.LIGHT_RAY, 1);
+			tint(1, 1, 0.25f, 1);
+		}
 	}
 
 	public static class HealthRay extends Beam{
 		public HealthRay(PointF s, PointF e){
 			super(s, e, Effects.Type.HEALTH_RAY, 0.75f);
+		}
+		public HealthRay(Char s,Char e){
+			super(s.sprite.center(), e.sprite.center(), Effects.Type.HEALTH_RAY, 0.75f);
+		}
+		public HealthRay(CharSprite s,CharSprite e){
+			super(s.center(), e.center(), Effects.Type.HEALTH_RAY, 0.75f);
 		}
 	}
 	

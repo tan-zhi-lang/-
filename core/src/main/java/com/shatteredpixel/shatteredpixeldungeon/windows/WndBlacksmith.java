@@ -534,6 +534,7 @@ public class WndBlacksmith extends Window {
 				Catalog.countUse(item.getClass());
 			}
 		}
+
 	}
 
 	public static class WndSmith extends Window {

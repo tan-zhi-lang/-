@@ -32,6 +32,11 @@ buildscript {
 }
 
 allprojects {
+    allprojects {
+        tasks.withType(JavaCompile) {
+            options.encoding = 'UTF-8'
+        }
+    }
     ext {
         appName = '缝合像素地牢重制版'
         appPackageName = 'com.sp'

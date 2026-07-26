@@ -232,6 +232,7 @@ public class Assets {
 		public static final String 鳞甲   = "sounds/鳞甲.mp3";
 		public static final String 板甲   = "sounds/板甲.mp3";
 
+		public static final String 泡泡              = "sounds/hit/泡泡.mp3";
 		public static final String 心之钢              = "sounds/hit/心之钢.mp3";
 		public static final String 子弹落地              = "sounds/hit/子弹落地.mp3";
 		public static final String 换弹              = "sounds/hit/换弹.mp3";
@@ -260,8 +261,12 @@ public class Assets {
 		public static final String 攻击锤= "sounds/hit/攻击锤.mp3";
 		public static final String 攻击格挡= "sounds/hit/攻击格挡.mp3";
 		public static final String 攻击箭= "sounds/hit/攻击箭.mp3";
-		public static final String ATK_SPIRITBOW    = "sounds/atk_spiritbow.mp3";
-		public static final String ATK_CROSSBOW     = "sounds/atk_crossbow.mp3";
+		public static final String 日炎链刃    = "sounds/hit/日炎链刃.mp3";
+		public static final String 死神镰刀    = "sounds/hit/死神镰刀.mp3";
+
+		public static final String 攻击灵箭= "sounds/hit/攻击灵箭.mp3";
+		public static final String 攻击弩= "sounds/hit/攻击弩.mp3";
+
 		public static final String HEALTH_WARN      = "sounds/health_warn.mp3";
 		public static final String HEALTH_CRITICAL  = "sounds/health_critical.mp3";
 
@@ -280,8 +285,6 @@ public class Assets {
 		public static final String TRAP     = "sounds/trap.mp3";
 		public static final String EVOKE    = "sounds/evoke.mp3";
 		public static final String 叶子    = "sounds/叶子.mp3";
-		public static final String 日炎链刃    = "sounds/日炎链刃.mp3";
-		public static final String 死神镰刀    = "sounds/死神镰刀.mp3";
 		public static final String 挖爆    = "sounds/挖爆.mp3";
 		public static final String 挖矿    = "sounds/挖矿.mp3";
 		public static final String 生命水晶   = "sounds/生命水晶.mp3";
@@ -353,7 +356,9 @@ public class Assets {
 				GRASS, TRAMPLE,
 
 				STURDY,
-				
+
+				泡泡,
+				我恭喜你发财,
 				心之钢,
 				子弹落地,换弹,霰弹枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
 				镜刃,布甲,皮甲,链甲,鳞甲,板甲,
@@ -366,7 +371,9 @@ public class Assets {
 				攻击魔法,
 				攻击锤,
 				攻击格挡,
-				攻击箭, ATK_SPIRITBOW, ATK_CROSSBOW, HEALTH_WARN, HEALTH_CRITICAL,
+				攻击箭,
+				攻击灵箭,
+				攻击弩, HEALTH_WARN, HEALTH_CRITICAL,
 
 				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
 				CHALLENGE, CURSED, TRAP,
@@ -524,6 +531,7 @@ public class Assets {
 		public static final String 造能结晶    = "sprites/造能结晶.png";
 		public static final String 毒素结晶    = "sprites/毒素结晶.png";
 		public static final String 磐石结晶    = "sprites/磐石结晶.png";
+		public static final String 小吞噬怪    = "sprites/小吞噬怪.png";
 		public static final String GUARDIAN = "sprites/guardian.png";
 		public static final String SLIME    = "sprites/slime.png";
 		public static final String SNAKE    = "sprites/snake.png";

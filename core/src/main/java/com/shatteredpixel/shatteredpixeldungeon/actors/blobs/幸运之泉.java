@@ -15,24 +15,14 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
@@ -63,7 +53,7 @@ public class 幸运之泉 extends WellWater {
 	@Override
 	protected Item affectItem( Item item, int pos ) {
 		if(usableOnItem(item)){
-			changeItem(item);
+			item=changeItem(item);
 		}
 
 		return item;
@@ -82,21 +72,8 @@ public class 幸运之泉 extends WellWater {
 			return !(item instanceof 镐子&&Dungeon.level instanceof MiningLevel);
 
 			//all missile weapons except untipped darts
-		} else if (item instanceof Potion){
-			return !(item instanceof Elixir||item instanceof Brew);
-
-			//all regular or exotic scrolls, except itself (unless un-ided, in which case it was already consumed)
-		} else if (item instanceof Scroll) {
-			return item.数量()>1;
-
-			//all non-unique artifacts (no holy tome or cloak of shadows, basically)
-		} else if (item instanceof Artifact) {
-			return !item.特别;
-
-			//all rings, wands, trinkets, seeds, and runestones
 		} else {
-			return item instanceof Ring||item instanceof Armor||item instanceof Wand||item instanceof Trinket
-				   ||item instanceof Plant.Seed||item instanceof Runestone;
+			return item instanceof Ring||item instanceof Armor||item instanceof Wand;
 		}
 	}
 	public static Item changeItem( Item item ){
@@ -109,36 +86,8 @@ public class 幸运之泉 extends WellWater {
 		} else if (item instanceof Wand) {
 			return changeWand( (Wand)item );
 		}else {
-			return null;
+			return item;
 		}
-	}
-
-	private static 法师魔杖 changeStaff(法师魔杖 staff ){
-		Class<?extends Wand> wandClass = staff.wandClass();
-
-		if (wandClass == null){
-			return null;
-		} else {
-			Wand n;
-			do {
-				n = (Wand) Generator.randomUsingDefaults(Generator.Category.WAND);
-			} while (Challenges.isItemBlocked(n)||n.getClass()==wandClass);
-			n.cursed = false;
-			n.等级(0);
-			n.鉴定();
-			staff.imbueWand(n, null);
-		}
-
-		return staff;
-	}
-
-	private static TippedDart changeTippedDart( TippedDart dart ){
-		TippedDart n;
-		do {
-			n = TippedDart.randomTipped(1);
-		} while (n.getClass() == dart.getClass());
-
-		return n;
 	}
 
 	private static Weapon changeWeapon( Weapon w ) {

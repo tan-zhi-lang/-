@@ -34,7 +34,7 @@ public class GnollTrickster extends Gnoll {
 
 		//at quantity of 1 and no upgrades
 //		loot = Generator.Category.WEAPON;
-		loot =new 火毒箭矢();
+		loot =火毒箭矢.class;
 		
 
 		properties.add(Property.MINIBOSS);

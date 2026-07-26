@@ -7,11 +7,15 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.拳击手套;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.真吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.神圣长枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.符箓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
@@ -41,9 +45,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流星索;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.海神三叉戟;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.炼狱铲;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狙击枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
@@ -68,9 +75,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雷神锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魄罗;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.tweeners.PosTweener;
 import com.watabou.noosa.tweeners.Tweener;
@@ -82,7 +92,7 @@ import java.util.HashMap;
 
 public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
-	private static final float SPEED	= 240f;
+	private static final float SPEED	= 240;
 	
 	private Callback callback;
 	
@@ -137,6 +147,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(匕首.class,0);
 		ANGULAR_SPEEDS.put(长匕首.class,0);
 		ANGULAR_SPEEDS.put(碧蓝巨剑.class,0);
+		ANGULAR_SPEEDS.put(海神三叉戟.class,0);
 		ANGULAR_SPEEDS.put(妖刀村正.class,0);
 		ANGULAR_SPEEDS.put(大肉棒.class,0);
 		ANGULAR_SPEEDS.put(重锤.class,0);
@@ -169,6 +180,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(火焰剑.class,0);
 		ANGULAR_SPEEDS.put(真铜短剑.class,0);
 		ANGULAR_SPEEDS.put(流火.class,0);
+		ANGULAR_SPEEDS.put(下界合金剑.class,0);
 		ANGULAR_SPEEDS.put(饮血之剑.class,0);
 		ANGULAR_SPEEDS.put(破败王剑.class,0);
 		ANGULAR_SPEEDS.put(硬头锤.class,0);
@@ -180,16 +192,23 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(符文之刃.class,0);
 		ANGULAR_SPEEDS.put(暗杀之刃.class,0);
 
-		ANGULAR_SPEEDS.put(魔法箭矢.class,0);
 		ANGULAR_SPEEDS.put(灵能短弓.SpiritArrow.class,       0);
 		ANGULAR_SPEEDS.put(ScorpioSprite.ScorpioShot.class,   0);
-		ANGULAR_SPEEDS.put(神圣长枪.class,0);
 		ANGULAR_SPEEDS.put(手枪.子弹.class,0);
-		
+		ANGULAR_SPEEDS.put(冲锋枪.子弹.class,0);
+		ANGULAR_SPEEDS.put(霰弹枪.子弹.class,0);
+		ANGULAR_SPEEDS.put(狙击枪.子弹.class,0);
+		ANGULAR_SPEEDS.put(火炮.子弹.class,0);
+
+		ANGULAR_SPEEDS.put(符箓.class,0);
+		ANGULAR_SPEEDS.put(神圣长枪.class,0);
+		ANGULAR_SPEEDS.put(魔法箭矢.class,0);
+		ANGULAR_SPEEDS.put(拳击手套.class,0);
+		ANGULAR_SPEEDS.put(真吸血刀.class,0);
+
 		//720 is default
 
 		ANGULAR_SPEEDS.put(GnollGeomancer.Boulder.class,   90);
-		ANGULAR_SPEEDS.put(符箓.class,90);
 
 		ANGULAR_SPEEDS.put(回旋镖.class,1440);
 		ANGULAR_SPEEDS.put(轮刃.class,1440);
@@ -225,30 +244,53 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 				break;
 			}
 		}
-		
-		angle = 135 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
-		
+
+
+		boolean 正上=false;
+		boolean 正右=false;
+		if (item instanceof 符箓
+			||item instanceof GnollGeomancer.Boulder
+			||item instanceof 真吸血刀
+		||item instanceof 手枪.子弹
+		||item instanceof 冲锋枪.子弹
+		||item instanceof 霰弹枪.子弹
+		||item instanceof 狙击枪.子弹
+		)正上=true;
+		else if (item instanceof 魄罗
+				 ||item instanceof 火炮.子弹
+				 ||item instanceof 拳击手套)正右=true;
+
+//		if(item instanceof 真吸血刀)
+//			scale=new PointF(1.25f,1.25f);
+
+		if(正上){
+			angle = 180 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
+		}else if(正右){
+			angle = 90 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
+		}else angle = 135 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
+		//默认正右上角+135即正左
+
 		if (d.x >= 0){
 			flipHorizontal = false;
 			updateFrame();
 			
 		} else {
 			angularSpeed = -angularSpeed;
-			angle += 90;
+			if(正上) angle += 0;
+			else if(正右) angle += 180;
+			else angle += 90;
+			//默认正右上角+90即正右
 			flipHorizontal = true;
 			updateFrame();
 		}
 
-		if (item instanceof GnollGeomancer.Boulder){
-			angle = 0;
-			flipHorizontal = false;
-			updateFrame();
-		}
-		
 		float speed = SPEED;
 		if(SPDSettings.加快()>1){
-			speed*=1.5f;
+			speed*=2f;
 		}
+		if(算法.isDebug())
+			speed/=6;
+
 		if (item instanceof 飞镖
 				&& (Dungeon.hero.belongings.weapon() instanceof 十字弩
 				|| Dungeon.hero.belongings.secondWep() instanceof 十字弩)){

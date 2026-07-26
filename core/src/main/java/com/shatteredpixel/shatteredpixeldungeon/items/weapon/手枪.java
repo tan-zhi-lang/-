@@ -34,7 +34,8 @@ public class 手枪 extends Weapon{
 		image = 物品表.手枪;
 		
 		tier = 1;
-		伤害=0.68f;
+		伤害=0.6f;
+		投掷=1.75f;
 
 		usesTargeting = true;
 	}
@@ -114,14 +115,15 @@ public class 手枪 extends Weapon{
 			curUser.busy();
 			(curUser.sprite).operate();
 			updateQuickslot();
-		}
+		}else
+			GLog.橙("你需要枪械子弹！");
 	}
 	
 	public float 最小枪械攻击() {
 		return 最小枪械攻击(强化等级());
 	}
 	public float 最小枪械攻击(int lvl) {
-		int dmg =最小+2*((tier()+1)+lvl);
+		float dmg =最小+((tier()+1)+lvl)*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
@@ -129,7 +131,7 @@ public class 手枪 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public float 最大枪械攻击(int lvl) {
-		int dmg =最大+(5*(tier()+1+1) +lvl*(tier()+1));
+		float dmg =最大+(5*(tier()+1+1) +lvl*(tier()+1))*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
@@ -280,7 +282,7 @@ public class 手枪 extends Weapon{
 	public class 子弹 extends Weapon {
 
 		{
-			image = 物品表.子弹;
+			image = 物品表.手枪子弹;
 			hitSound = Assets.Sounds.手枪;
 			item_Miss = Assets.Sounds.手枪;
 		}
@@ -297,7 +299,7 @@ public class 手枪 extends Weapon{
 		
 		@Override
 		public float delayFactor(Char user) {
-			return 手枪.this.delayFactor(user)*0.2f;
+			return 手枪.this.delayFactor(user)/5f;
 		}
 		
 		@Override

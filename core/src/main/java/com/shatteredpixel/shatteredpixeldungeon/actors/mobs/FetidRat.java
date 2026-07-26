@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.StenchGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.FetidRatSprite;
 import com.watabou.utils.PathFinder;
@@ -26,7 +26,7 @@ public class FetidRat extends Rat {
 		普通=false;
 
 		经验 = 4;
-		loot =new RatSkull();
+		loot =巨鼠头骨.class;
 		WANDERING = new Wandering();
 		state = WANDERING;
 

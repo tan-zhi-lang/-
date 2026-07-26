@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 
 public class Wnd选择主属性 extends Window {
 
@@ -34,7 +35,7 @@ public class Wnd选择主属性 extends Window {
 			protected void onClick(){
 				super.onClick();
 
-				hero.力量++;
+				hero.力量+=(算法.isDebug()?10:1);
 				
 				hide();
 			}
@@ -52,7 +53,7 @@ public class Wnd选择主属性 extends Window {
 			protected void onClick(){
 				super.onClick();
 
-				hero.敏捷++;
+				hero.敏捷+=(算法.isDebug()?10:1);
 				
 				hide();
 			}
@@ -69,7 +70,7 @@ public class Wnd选择主属性 extends Window {
 			protected void onClick(){
 				super.onClick();
 
-				hero.魔力++;
+				hero.魔力+=(算法.isDebug()?10:1);
 
 				hide();
 			}

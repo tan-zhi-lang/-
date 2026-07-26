@@ -22,13 +22,13 @@ public class 桃木剑 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 								100*伤害(),
-								减少()*100
+								减少()
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 								
 								100*伤害(0),
-								减少(0)*100
+								减少(0)
 							   );
 		}
 	}
@@ -41,7 +41,7 @@ public class 桃木剑 extends Trinket {
 		if (level < 0){
 			return 1;
 		} else {
-			return .85f-0.5f*level;
+			return 1.25f+0.5f*level;
 		}
 	}
 
@@ -53,7 +53,7 @@ public class 桃木剑 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 1+level;
+			return -0.5f-0.5f*level;
 		}
 	}
 

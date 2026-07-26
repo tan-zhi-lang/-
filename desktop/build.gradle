@@ -2,6 +2,15 @@ plugins {
     id 'org.beryx.runtime' version '1.12.7'
 }
 
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+    tasks.withType(JavaExec) {
+        systemProperty 'file.encoding', 'UTF-8'
+        systemProperty 'sun.jnu.encoding', 'UTF-8'
+    }
+}
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 sourceCompatibility = targetCompatibility = appJavaCompatibility
 

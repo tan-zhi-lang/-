@@ -80,11 +80,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
@@ -98,22 +94,31 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.世界时表;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.中国国旗;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.心源芯片;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断魂佛珠;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.本命玉佩;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.皇室佩剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狙击枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
@@ -128,11 +133,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.海克斯移除器;
+import com.shatteredpixel.shatteredpixeldungeon.items.物品生成;
 import com.shatteredpixel.shatteredpixeldungeon.items.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
@@ -140,7 +147,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
@@ -244,6 +250,7 @@ public enum HeroClass{
 					break;
 			}
 		}
+		
 		Talent.initClassTalents(hero);
 		
 		//		Item i = new ClothArmor().鉴定();
@@ -258,7 +265,7 @@ public enum HeroClass{
 			if(hero.种族天赋.equals("")){
 				hero.种族天赋=Random.oneOf("人类","兽人","鲛人","精灵",
 										   "汪星人","龙人","矮人","猩人","恶魔",
-										   "吸血鬼","不死族","机器","树妖","半人马","地精"
+										   "吸血鬼","不死族","机器","树妖","半人马","地精","巨灵"
 										   );
 
 				String s=switch(hero.种族天赋){
@@ -277,6 +284,7 @@ public enum HeroClass{
 					case "树妖"->"在草丛上，再生速度x5。";
 					case "半人马"->"移速+50%。";
 					case "地精"->"爆炸伤害x3。";
+					case "巨灵"->"一直飞行，可以装两把双手武器，并且魔力+25%";
 					default ->"";
 				};
 				Notes.备注("种族:"+hero.种族天赋,s);
@@ -309,63 +317,6 @@ public enum HeroClass{
 		}
 //			Buff.施加(hero,无法回头.class);
 
-		if(算法.isDebug()){
-
-			new PotionBandolier().放背包();
-			new MagicalHolster().放背包();
-			new 宝物袋().放背包();
-			new ScrollHolder().放背包();
-//			new 手枪().放背包();
-//			new 冲锋枪().放背包();
-//			new 霰弹枪().放背包();
-//			new 狙击枪().放背包();
-//			new 火炮().放背包();
-
-			int x=999;
-			new 经验药剂().数量(x).放背包();
-			new 治疗药剂().数量(x).放背包();
-			new 极速药剂().数量(x).放背包();
-			new 潜力药剂().数量(x).放背包();
-			new 液火药剂().数量(x).放背包();
-			new 浮空药剂().数量(x).放背包();
-			new 极速药剂().数量(x).放背包();
-			new 净化药剂().数量(x).放背包();
-			new 隐形药剂().数量(x).放背包();
-			new 灵视药剂().数量(x).放背包();
-			new Icecap.Seed().数量(x).放背包();
-			new 毒气药剂().数量(x).放背包();
-
-			new 狂怒之戒().放背包();
-			new 狂怒之戒().放背包();
-			new 恢复之戒().放背包();
-			new 闪避之戒().放背包();
-			new 命中之戒().放背包();
-			new 未知武器().放背包();
-			new Torch().数量(x).放背包();
-			new Food().数量(x).放背包();
-
-			new Honeypot().数量(x).放背包();
-
-			new TengusMask().放背包();
-			new AlchemistsToolkit().放背包();
-
-			new ArcaneResin().数量(x).放背包();
-			
-			new 探地卷轴().数量(x).放背包();
-			new 升级卷轴().数量(x).放背包();
-			new 鉴定卷轴().数量(x).放背包();
-			new 嬗变卷轴().数量(x).放背包();
-			new 复仇卷轴().数量(x).放背包();
-			new 祛邪卷轴().数量(x).放背包();
-			new 来去秘卷().数量(x).放背包();
-			new 镜像卷轴().数量(x).放背包();
-
-
-			
-			for (Item item : hero.belongings){
-				item.鉴定();
-			}
-		}
 
 		if(算法.物品()!=null)
 		算法.物品().放背包();
@@ -512,9 +463,69 @@ public enum HeroClass{
 			Dungeon.quickslot.setSlot(0,item);
 		}
 		//endregion
-		
-		new 鉴定卷轴().鉴定();
 
+		if(算法.isDebug()){
+			new PotionBandolier().放背包();
+			new MagicalHolster().放背包();
+			new 宝物袋().放背包();
+			new ScrollHolder().放背包();
+
+			new 手枪().放背包();
+			new 冲锋枪().放背包();
+			new 霰弹枪().放背包();
+			new 狙击枪().放背包();
+			new 火炮().放背包();
+
+			int x=999;
+			new 经验药剂().数量(x).放背包();
+			new 治疗药剂().数量(x).放背包();
+			new 极速药剂().数量(x).放背包();
+			new 潜力药剂().数量(x).放背包();
+			new 液火药剂().数量(x).放背包();
+			new 浮空药剂().数量(x).放背包();
+			new 极速药剂().数量(x).放背包();
+			new 净化药剂().数量(x).放背包();
+			new 隐形药剂().数量(x).放背包();
+			new 灵视药剂().数量(x).放背包();
+			//			new Icecap.Seed().数量(x).放背包();
+			new 毒气药剂().数量(x).放背包();
+			//			new DarkGold().数量(x).放背包();
+
+			//			new 狂怒之戒().放背包();
+			//			new 狂怒之戒().放背包();
+			//			new 恢复之戒().放背包();
+			//			new 闪避之戒().放背包();
+			//			new 命中之戒().放背包();
+			
+			new 未知武器().放背包();
+			new 物品生成().放背包();
+
+			new Torch().数量(x).放背包();
+			new Food().数量(x).放背包();
+
+
+			new Honeypot().数量(x).放背包();
+
+			new TengusMask().放背包();
+			new AlchemistsToolkit().放背包();
+
+			new ArcaneResin().数量(x).放背包();
+
+			new 探地卷轴().数量(x).放背包();
+			new 升级卷轴().数量(x).放背包();
+			new 鉴定卷轴().数量(x).放背包();
+			new 嬗变卷轴().数量(x).放背包();
+			new 复仇卷轴().数量(x).放背包();
+			new 祛邪卷轴().数量(x).放背包();
+			new 镜像卷轴().数量(x).放背包();
+
+			new 来去秘卷().数量(x).放背包();
+
+			for (Item item : hero.belongings){
+				item.鉴定();
+			}
+		}
+		new 鉴定卷轴().鉴定();
 
 		水袋 水袋=hero.belongings.getItem(水袋.class);
 		if(水袋!=null)
@@ -671,6 +682,7 @@ public enum HeroClass{
 		雪球.鉴定().放背包();
 		Dungeon.quickslot.setSlot(0,雪球);
 
+
 		new 催眠卷轴().鉴定();
 		new 冰霜药剂().鉴定();
 	}
@@ -686,10 +698,10 @@ public enum HeroClass{
 	private static void 初始道士(Hero hero){
 		(hero.belongings.weapon=new 铜钱剑()).鉴定();
 		(hero.belongings.armor=new 道袍()).鉴定();
-		
+
 		鬼帝钟 tome=new 鬼帝钟();
 		(hero.belongings.misc=tome).鉴定();
-		
+		new 本命玉佩().放背包();
 		Dungeon.quickslot.setSlot(0,tome);
 		new 祛邪卷轴().鉴定();
 		new 净化药剂().鉴定();
@@ -698,6 +710,7 @@ public enum HeroClass{
 	private static void 初始行僧(Hero hero){
 		(hero.belongings.weapon=new 白带()).鉴定();
 		Buff.延长(hero,BlobImmunity.class,450*27);
+		new 世界时表().放背包();
 		new 极速药剂().鉴定();
 		new 净化药剂().鉴定();
 	}
@@ -706,6 +719,7 @@ public enum HeroClass{
 		
 		(hero.belongings.weapon=new 长矛()).鉴定();
 		(hero.belongings.armor=new 战甲()).鉴定();
+		new 皇室佩剑().放背包();
 		new 潜力药剂().鉴定();
 		new 盛怒卷轴().鉴定();
 	}
@@ -713,6 +727,7 @@ public enum HeroClass{
 	private static void 初始兽灵(Hero hero){
 		
 		(hero.belongings.weapon=new 臂铠()).鉴定();
+		new 断魂佛珠().放背包();
 		new 催眠卷轴().鉴定();
 		new 灵视药剂().鉴定();
 	}
@@ -721,7 +736,7 @@ public enum HeroClass{
 		
 		(hero.belongings.weapon=new 修理扳手()).鉴定();
 		
-		
+		new 心源芯片().放背包();
 		Dungeon.quickslot.setSlot(0,hero.belongings.weapon);
 		new 探地卷轴().鉴定();
 		new 灵视药剂().鉴定();

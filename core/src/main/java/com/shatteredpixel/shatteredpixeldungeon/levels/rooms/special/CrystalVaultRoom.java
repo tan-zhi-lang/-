@@ -12,7 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.MimicTooth;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -54,8 +54,8 @@ public class CrystalVaultRoom extends SpecialRoom {
 		} while (level.相邻(i1Pos,doorPos)||level.相邻(i2Pos,doorPos));
 
 		level.drop( i1, i1Pos ).type = Heap.Type.CRYSTAL_CHEST;
-		float altChance = 1/10f * RatSkull.exoticChanceMultiplier();
-		if (altChance > 0.1f) altChance = (altChance+0.1f)/2f; //rat skull is 1/2 as effective here
+		float altChance = 1/10f*巨鼠头骨.弱();
+
 		altChance *= MimicTooth.mimicChanceMultiplier(); //mimic tooth has full effectiveness
 		if (Random.Float() < altChance){
 			level.mobs.add(Mimic.spawnAt(i2Pos, CrystalMimic.class, i2));

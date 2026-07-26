@@ -6,18 +6,17 @@ import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
 
-public class EnergyCrystal extends Item {
+public class EnergyCrystal extends 用品 {
 
 	{
 		image = 物品表.ENERGY;
-		可堆叠= true;
-		物品= true;
-		无动作= true;
+		完全消耗= true;
+		蓝色=true;
+		蓝光=true;
 	}
 
 	public EnergyCrystal() {
@@ -28,24 +27,18 @@ public class EnergyCrystal extends Item {
 		this.quantity = value;
 	}
 
-
 	@Override
-	public boolean 放背包(Bag container) {
-		if (super.放背包(container)){
-			if (container.owner instanceof Hero){
-				Dungeon.energy(quantity);
+	public void 使用(Hero hero){
 
-				Catalog.setSeen(getClass());
-				Statistics.itemTypesDiscovered.add(getClass());
+		Dungeon.energy(quantity);
 
-				Badges.validateGoldCollected();
-			}
-			detachAll();
-			return true;
-		} else{
-			return false;
-		}
+		Catalog.setSeen(getClass());
+		Statistics.itemTypesDiscovered.add(getClass());
+
+		Badges.validateGoldCollected();
+		super.使用(hero);
 	}
+
 //	@Override
 //	public boolean doPickUp(Hero hero, int pos) {
 //

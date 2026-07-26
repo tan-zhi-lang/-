@@ -39,7 +39,7 @@ public class 蟑螂 extends Mob {
 
 	@Override
 	public float 大小(){
-		return super.大小()*0.4f;
+		return super.大小()*0.6f;
 	}
 
 	@Override

@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -204,10 +205,15 @@ public class Bomb extends Item {
 				dmg*=炸弹伤害();
 				dmg*=爆炸伤害();
 
-				dmg=ch.防御(dmg);
+				dmg=ch.物理受伤(dmg,this);
 				dmg=ch.护甲伤害(dmg);
 				if (dmg > 0) {
-					ch.受伤时(dmg, this);
+					if(ch instanceof Hero hero){
+						if(hero.belongings.weapon(下界合金剑.class)){
+
+						}else ch.受伤时(dmg, this);
+					}else
+						ch.受伤时(dmg, this);
 				}
 				
 				if (ch == Dungeon.hero && !ch.isAlive()) {
@@ -283,10 +289,13 @@ public class Bomb extends Item {
 
 				dmg*=爆炸伤害();
 
-				dmg=ch.防御(dmg);
+				dmg=ch.物理受伤(dmg,this);
 				dmg=ch.护甲伤害(dmg);
-				if (ch != Dungeon.hero &&dmg > 0) {
-					ch.受伤时(dmg, this);
+				if (dmg > 0) {
+					if(ch instanceof Hero hero){
+
+					}else
+						ch.受伤时(dmg, this);
 				}
 			}
 			

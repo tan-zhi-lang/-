@@ -5,10 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 传奇肛塞 extends Trinket {
+public class 暗影飞刀 extends Trinket {
 
 	{
-		image = 物品表.传奇肛塞;
+		image = 物品表.暗影飞刀;
 	}
 
 	@Override
@@ -21,35 +21,35 @@ public class 传奇肛塞 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					 100*伏击(),
-								100*受伤());
+					 伏击(),
+								护甲());
 		} else {
 			return Messages.get(this, "stats_desc",
-					 100*伏击(0),
-								100*受伤(0));
+					 伏击(0),
+								护甲(0));
 		}
 	}
 
 	public static float 伏击(){
-		return 伏击(trinketLevel(传奇肛塞.class));
+		return 伏击(trinketLevel(暗影飞刀.class));
 	}
 
 	public static float 伏击(int level){
 		if (level < 0){
 			return 1;
 		} else {
-			return 1.2f + 0.1f*level;
+			return 1.15f + 0.1f*level;
 		}
 	}
-	public static float 受伤(){
-		return 受伤(trinketLevel(传奇肛塞.class));
+	public static float 护甲(){
+		return 护甲(trinketLevel(暗影飞刀.class));
 	}
 
-	public static float 受伤(int level){
+	public static float 护甲(int level){
 		if (level < 0){
-			return 1;
+			return 0;
 		} else {
-			return 1.1f+0.05f*level;
+			return -10-5*level;
 		}
 	}
 

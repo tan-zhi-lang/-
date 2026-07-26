@@ -57,7 +57,7 @@ public class ConeAOE {
 		LinkedHashSet<Integer> outerCells = new LinkedHashSet<>();
 
 		//cast a ray every 0.5 degrees in a clockwise arc, to find cells along the cone's outer arc
-		for (float a = initalAngle+degrees/2f; a >= initalAngle-degrees/2f; a-=0.5f){
+		for (float a = initalAngle+degrees/2f; a >= initalAngle-degrees/2f; a-=0.5f*10){
 			scan.polar(a * PointF.G2R, circleRadius);
 			scan.offset(fromP);
 			scan.x += (fromP.x > scan.x ? +0.5f : -0.5f);

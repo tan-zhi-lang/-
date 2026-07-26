@@ -53,7 +53,7 @@ public class 动力之靴 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return -1-0.5f*level;
+			return -0.5f-0.5f*level;
 		}
 	}
 

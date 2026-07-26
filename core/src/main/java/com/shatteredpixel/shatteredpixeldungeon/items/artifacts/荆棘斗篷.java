@@ -62,7 +62,7 @@ public class 荆棘斗篷 extends Artifact {
 					if(defender!=null)
 					GLog.绿(Messages.get(this,"radiating",0,(1+等级())/3f*Dungeon.hero.最大护甲));
 
-					float deflected=Math.round(damage*(0.5f+等级()*0.05f));
+					float deflected=Math.round(damage*(1-0.5f+等级()*0.05f));
 
 					if(defender!=null){
 						Talent.onArtifactUsed(Dungeon.hero);

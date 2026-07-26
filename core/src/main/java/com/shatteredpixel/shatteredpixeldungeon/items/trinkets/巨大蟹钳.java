@@ -21,13 +21,13 @@ public class 巨大蟹钳 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								受到()*100,
+								(1-受到())*100,
 								减少()*100
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								
-								受到(0)*100,
+
+								(1-受到(0))*100,
 								减少(0)*100
 							   );
 		}

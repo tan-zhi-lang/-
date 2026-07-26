@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Skeleton;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
@@ -54,6 +55,7 @@ public class 重制改动{
 											"刷怪速度最短1回合，最长450回合。\n"+
 											"大部分单位的最小防御+1。\n"+
 
+											"腐化不会改变贴图颜色。\n"+
 											"怪物生成不会在出口上。\n"+
 											"怪物生成可以在物品上。\n"+
 
@@ -63,7 +65,7 @@ public class 重制改动{
 											"新增怪物都拥有一套新的判定，害怕，受到害怕元素的伤害x2倍。\n"+
 											"新增火焰属性的生物受到寒冰伤害x2倍。\n"+
 											"新增动物属性的生物受到流血、中毒、毒气、酸性、火焰和寒冰伤害x2倍。\n"+
-											"新增7%暴击率和145%暴击伤害，超过的暴击率33%转暴击伤害。如果不是百分比暴击，首次攻击必定不暴击，且600/暴击率次攻击未暴击则下次必定暴击，暴击后重置。\n"+
+											"新增8%+地牢区域x2%暴击率(英雄暴击率为0)和145%暴击伤害，超过的暴击率33%转暴击伤害。如果不是百分比暴击，首次攻击必定不暴击，且600/暴击率次攻击未暴击则下次必定暴击，暴击后重置。\n"+
 
 											"魔法绵羊交互有彩蛋，还能获得经验。"));
 
@@ -74,6 +76,7 @@ public class 重制改动{
 											"豺狼诡术师(击杀掉落随机武器=>火毒箭矢)接近它后，移速会只有5/6。其他情况的移速100%=>9/6。",
 
 											"老鬼\n"+
+											"获得的最大生命统统转换为伤害减免(如果增加生命会出现意外Bug)。\n"+
 											"古神会播放古神低语。\n"+
 											"粘咕获得史莱姆物理减伤，但是回血只有1/10。\n"+
 											"天狗陷阱多显示2秒。\n"+
@@ -106,6 +109,9 @@ public class 重制改动{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new 巨鼠头骨(),"击杀腐臭老鼠掉落\n" +
+														  "稀有敌人2+等级=>2.5+1.5x等级\n" +
+														  "并且水晶宝箱怪与装甲石像减半=>-25%-等级x25%"));
 		changes.addButton(new ChangeButton(Icons.get(Icons.PREFS), "物品",
 										   "大部分物品的描述更具现。\n" +
 										   "1阶的武器和防具不会遗产。\n" +
@@ -133,9 +139,9 @@ public class 重制改动{
 										   "术士=>死灵术士。"
 		));changes.addButton(new ChangeButton(new ItemSprite(物品表.GOLD), "金币",
 											  "商店物价只计算1区且/1.5，地牢生成金币不计算层且/5。\n" +
-											  "所有物品金币价值/5，并且只显示大于1的金币获取。"));
+											  "所有物品金币价值/5，并且只显示大于1的金币获取，并且变成金币堆。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量",
-										   "生成的能量1=>1~2。"));
+										   "生成的能量1=>1~2，并且变成能量堆。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.TORCH), "火把",
 										   "提供的光照回合250=>225。"));
 
@@ -197,18 +203,18 @@ public class 重制改动{
 										   "吸引敌人1/20=>1/10，以及一个额外效果，根据性格而定。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER), "武器",
 //							     "生成概率1/2/3/4/5阶" +
-//										   "1区{0,75,20,4,1}\n" +
-//										   "2区{0,25,50,20,5}\n" +
-//										   "3区{0,0,40,50,10}\n" +
-//										   "4区{0,0,20,40,40}\n" +
-//										   "5区{0,0,0,20,80}\n\n"+
-//
-//										   "改成\n" +
-//								 			"{50,35,20,5,1}\n"+
-//										   "{35,50,20,5,1}\n"+
-//										   "{5,20,35,20,5}\n"+
-//										   "{1,5,20,50,35}\n"+
-//										   "{1,5,20,35,50}" ,
+										   "1区{0,75,20,4,1}\n" +
+										   "2区{0,25,50,20,5}\n" +
+										   "3区{0,0,40,50,10}\n" +
+										   "4区{0,0,20,40,40}\n" +
+										   "5区{0,0,0,20,80}\n\n"+
+
+										   "改成\n" +
+										   "{50,35,20,0,0}\n" +
+										   "{20,50,25,5,0}\n" +
+											"{5,20,50,20,5}\n" +
+										   "{0,5,25,50,20}\n" +
+										   "{0,0,20,35,50}",
 
 										   "装备和卸下时间1=>攻击延迟\n" +
 										   "5阶都是特别物品，且都伤害x1.5\n" +
@@ -233,9 +239,9 @@ public class 重制改动{
 										   "大部分武器属性所有调整，阶级有所下降或改变，一部分重叠类型武器删除。\n" +
 										   "武器最小防御为等级，最大格挡量能根据阶级x等级同步提升，且最大防御等级计算+0.5，但是防御成长减半。" ,
 
-										   "攻击和力量\n"+
-										   "武器最小攻击=阶+级、最大攻击=5x(阶+1)+级x(阶+1)不同武器调整5的值=>原来的数值x伤害倍率来改动。\n" +
-										   "武器投掷最小攻击2x阶+等级=>(阶+等级)x0.85。"
+										   "有些武器投掷一次后便消失。\n"+
+										   "武器最小攻击~最大攻击为阶+级~最大攻击=5x(阶+1)+级x(阶+1)=>阶+级~最大攻击=4x(阶+1)+级x(阶+1)。\n" +
+										   "武器投掷最小攻击~最大攻击为2x阶+阶x等=>(阶+阶x等)x0.5~(4x阶+阶x等)x1.6。\n"
 		));
 
 
@@ -467,6 +473,7 @@ public class 重制改动{
 											""));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.WARRIOR,tier(HeroClass.WARRIOR))),"英雄机制",
 											"英雄初始不携带口粮。\n"+
+											"疾行者专属改变移动动画速度=>移速。\n"+
 											"视野算法优化。\n"+
 											"现在吃饭超过450的食物也会填充，施加饱腹Buff，但是饱腹最多450。\n" +
 											"神器和戒指栏位=>两个杂项栏位。\n"+
@@ -501,7 +508,7 @@ public class 重制改动{
 						"优化指标，新增食物栏、药剂栏、上下楼快速去往标，并移除排版的自动优化。",
 
 						"物品信息显示+强化等级。\n" +
-						"更好的物品图标和底色，数值显示。\n" +
+						"更好的物品图标和底色，5阶武器和专属物品有底色或者发光，数值显示。\n" +
 						"优化显示面板以及显示更多内容。\n" +
 						"设置UI更新，且添加和移除部分按钮。\n" +
 						"Yendor护符结算时的英雄贴图采用另一种。\n" +
@@ -536,7 +543,6 @@ public class 重制改动{
 											"游戏中攻击、防御、生命整数类型=>小数类型，并且自动识别保留小数点后2、1、0位。\n" +
 											"补充、通俗易懂的地牢探索指南，每秒闪烁1.5=>2.5，并更好的获得他们，且麻痹5秒。\n"+
 
-											//				"3区没下矿墙壁镶嵌的是秘银，也能被镐子挖取。\n" +
 											"火焰和冰霜相关的物品不会被烧毁。\n" +
 											"毒气陷阱范围1格开始=>3x3，但是气体总量不变，单格气体从1000=>111。\n" +
 											"优化武器的快捷默认使用，如果有战技会弹出使用按钮。" ,
@@ -552,6 +558,7 @@ public class 重制改动{
 
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复,144,0,16,16), "修复",
 										   "修复潜在可能的存储物品等级丢失。\n" +
+										   "修复豺狼地卜师石头扔出角度问题。\n" +
 										   "修复0受伤时还显示受伤图标。\n" +
 										   "修复潜在没惊醒敌人，没有正确流浪、狩猎。\n" +
 										   "修复缩餐节食两次计算丰饶之角的吃饭。\n" +
@@ -645,6 +652,10 @@ public class 重制改动{
 											"巨魔铁匠新增额外选项，不需要人情，会赠送锻造锤。\n"+
 											"野心勃勃的小恶魔不再半透明。"));
 
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.PICKAXE), "挖矿",
+										   "挖墙体必定是装饰地板或普通地板=>1/4概率是装饰地板\n" +
+										   "非任务3区没下矿墙壁镶嵌的是秘银，也能被镐子挖取，装饰墙体1/4生成秘银=>1/4x1/12\n" +
+										   "非任务3区挖墙体有1/8概率是深渊。"));
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.BACKPACK_LRG), "背包",
 											"绒布袋会让此背包的物品使用不消耗回合。\n" +

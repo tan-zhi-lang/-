@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.Room;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTileSheet;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -121,6 +122,7 @@ public class CavesPainter extends RegularPainter {
 			if (map[i] == Terrain.WALL &&
 					DungeonTileSheet.floorTile(map[i + w])
 					&& Random.Int( 4 ) == 0) {
+				if(算法.概率学(1/12f))//秘银装饰墙体
 				map[i] = Terrain.WALL_DECO;
 			}
 		}

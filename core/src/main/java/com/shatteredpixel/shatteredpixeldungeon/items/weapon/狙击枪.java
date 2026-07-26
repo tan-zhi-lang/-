@@ -34,7 +34,8 @@ public class 狙击枪 extends Weapon{
 		image = 物品表.狙击枪;
 		范围=2;
 		tier = 4;
-		伤害=0.68f;
+		伤害=0.6f;
+		投掷=1.75f;
 
 		usesTargeting = true;
 	}
@@ -114,14 +115,15 @@ public class 狙击枪 extends Weapon{
 			curUser.busy();
 			(curUser.sprite).operate();
 			updateQuickslot();
-		}
+		}else
+			GLog.橙("你需要枪械子弹！");
 	}
 	
 	public float 最小枪械攻击() {
 		return 最小枪械攻击(强化等级());
 	}
 	public float 最小枪械攻击(int lvl) {
-		int dmg =最小+2*((tier()+5)+lvl);
+		float dmg =最小+((tier()+3)+lvl)*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
@@ -129,7 +131,7 @@ public class 狙击枪 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public float 最大枪械攻击(int lvl) {
-		int dmg =最大+(5*(tier()+1+5) +lvl*(tier()+1));
+		float dmg =最大+(5*(tier()+1+3) +lvl*(tier()+1))*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
@@ -280,7 +282,7 @@ public class 狙击枪 extends Weapon{
 	public class 子弹 extends Weapon {
 
 		{
-			image = 物品表.子弹;
+			image = 物品表.狙击枪子弹;
 			hitSound = Assets.Sounds.狙击枪;
 			item_Miss = Assets.Sounds.狙击枪;
 		}
@@ -312,7 +314,7 @@ public class 狙击枪 extends Weapon{
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 狙击枪.this.accuracyFactor(owner,target)/2f;
+			return 狙击枪.this.accuracyFactor(owner,target);
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {

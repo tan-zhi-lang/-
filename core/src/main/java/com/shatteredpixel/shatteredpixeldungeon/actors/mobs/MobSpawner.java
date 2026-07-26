@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.RatSkull;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Random;
@@ -265,7 +265,7 @@ public class MobSpawner extends Actor {
 
 	//switches out regular mobs for their alt versions when appropriate
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation) {
-		float altChance = 1 / 50f * RatSkull.exoticChanceMultiplier();
+		float altChance = 1 / 50f*巨鼠头骨.exoticChanceMultiplier();
 		if(Holiday.getCurrentHoliday()==Holiday._1024){
 			altChance*=2;
 		}

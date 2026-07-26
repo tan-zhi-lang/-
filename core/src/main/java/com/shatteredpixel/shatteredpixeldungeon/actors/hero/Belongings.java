@@ -144,6 +144,8 @@ public class Belongings implements Iterable<Item> {
 	public Weapon weapon(){
 		if (!lostInventory() || (weapon != null && weapon.keptThroughLostInventory())){
 			return weapon;
+		}else if (!lostInventory() || (secondWep != null && secondWep.keptThroughLostInventory())){
+			return secondWep;
 		} else {
 			return null;
 		}
@@ -288,6 +290,9 @@ public class Belongings implements Iterable<Item> {
 		}
 
 		return result;
+	}
+	public boolean weapon(Class itemClass){
+		return itemClass.isInstance( weapon )||itemClass.isInstance( secondWep );
 	}
 	public boolean hasItem(Class itemClass){
 		return getItem(itemClass)!=null;

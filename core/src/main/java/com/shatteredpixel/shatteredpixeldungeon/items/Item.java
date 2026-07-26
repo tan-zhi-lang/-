@@ -56,8 +56,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.疯狂斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.致胜拳炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血荆棘;
@@ -116,7 +118,7 @@ public class Item implements Bundlable {
 	public int image = 0;
 	public int icon = -1; //used as an identifier for items with randomized images
 	public String name = "";
-	
+
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
 	public boolean 封禁升级 = false;
@@ -179,6 +181,7 @@ public class Item implements Bundlable {
 	public boolean 缴械= true;
 	public boolean 嬗变= true;
 	public boolean 专属 = false;
+	public boolean 一次性 = false;
 	public boolean 消受投掷 = false;
 	public boolean 首次使用= true;
 	public boolean 首次拾取 = true;
@@ -187,6 +190,8 @@ public class Item implements Bundlable {
 	public boolean 超级等级 = false;
 	public float 魔力收益 = 1;
 	public boolean tr(){
+		if(this instanceof 猪鲨链球)return true;
+		if(this instanceof 致胜拳炮)return true;
 		if(this instanceof 生命水晶)return true;
 		if(this instanceof 生命果)return true;
 		if(this instanceof 坠牢之星)return true;
@@ -470,6 +475,9 @@ public class Item implements Bundlable {
 	}
 	
 	protected void onThrow( int cell ) {
+		if(一次性)
+			return;
+
 		if(消受投掷){
 			消受投掷=false;
 			return;
@@ -1433,7 +1441,10 @@ public class Item implements Bundlable {
 						public void call() {
 							curUser = user;
 							Item i;
-							if(消受投掷){
+							if(一次性){
+
+								i=Item.this.detach(user.belongings.backpack);
+							}else if(消受投掷){
 								i=Item.this;
 								Dungeon.quickslot.alphaItem(Item.this,false);
 								updateQuickslot();
@@ -1476,7 +1487,9 @@ public class Item implements Bundlable {
 						public void call() {
 							curUser = user;
 							Item i;
-							if(消受投掷){
+							if(一次性){
+								i=Item.this.detach(user.belongings.backpack);
+							}else if(消受投掷){
 								i=Item.this;
 								Dungeon.quickslot.alphaItem(Item.this,false);
 								updateQuickslot();

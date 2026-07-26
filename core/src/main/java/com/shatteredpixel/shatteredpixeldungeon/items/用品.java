@@ -18,6 +18,7 @@ public class 用品 extends Item {
 		可堆叠=true;
 		物品 = true;
 	}
+	boolean 完全消耗=false;
 	boolean 重复使用=false;
 	boolean 动作=true;
 	@Override
@@ -39,8 +40,11 @@ public class 用品 extends Item {
 				hero.busy();
 			}
 
-			if(!重复使用)
-			detach(hero.belongings.backpack);
+			if(!重复使用){
+				if(完全消耗)detachAll();
+				else
+				detach();
+			}
 			使用(hero);
 		}
 	}

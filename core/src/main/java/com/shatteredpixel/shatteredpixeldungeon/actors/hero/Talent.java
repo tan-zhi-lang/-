@@ -68,7 +68,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.传奇肛塞;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.宝石肛塞;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.暗影飞刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -787,7 +788,9 @@ public enum Talent {
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.地势);
 			}
 		}
-		dmg*=传奇肛塞.伏击();
+		dmg*=宝石肛塞.伏击();
+
+		dmg*=暗影飞刀.伏击();
 		return dmg;
 	}
 	public static float 攻击时(Hero hero, Char enemy, float dmg ){

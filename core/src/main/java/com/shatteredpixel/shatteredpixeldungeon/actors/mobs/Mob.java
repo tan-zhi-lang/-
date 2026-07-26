@@ -64,6 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -101,7 +102,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.幸运硬币;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断骨法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.桃木剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.断魂佛珠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
@@ -115,6 +116,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
@@ -298,6 +300,17 @@ public abstract class Mob extends Char{
 		}
 		if(Dungeon.符文("烈士墓")&&相邻坟墓()){
 			受伤时(最大生命(0.3f));
+		}
+		if(Dungeon.hero()&&Dungeon.hero.belongings.weapon(猪鲨链球.class)){
+
+			Heap heap = Dungeon.level.heaps.get(pos);
+			if (heap != null &&heap.type==Heap.Type.HEAP){
+				Item item=heap.peek();
+				if(item instanceof Dewdrop){
+					new Bomb().heroexplode(pos);
+					Sample.INSTANCE.play(Assets.Sounds.泡泡);
+				}
+			}
 		}
 		if(Dungeon.符文("黑洞")){
 			受伤时(最大生命(0.05f));
@@ -815,9 +828,6 @@ public abstract class Mob extends Char{
 			damage*=1.35f;
 		}
 		damage*=真正护符.增加();
-		if(恶魔亡灵()){
-			damage*=桃木剑.伤害();
-		}
 		if(Dungeon.符文("仆从大师")&&alignment==Alignment.ALLY)damage*=1.4f;
 		if(Dungeon.符文("威慑纪元"))damage*=1.25f;
 		if(Dungeon.符文("缩小射线")){
@@ -1081,6 +1091,7 @@ public abstract class Mob extends Char{
 					exp=Math.round(10*spawningWeight());
 				}
 
+
 				if(!Dungeon.赛季(赛季设置.地牢塔防)){
 					Dungeon.hero.经验(
 							Math.round(exp*Dungeon.难度经验(this)
@@ -1173,22 +1184,24 @@ public abstract class Mob extends Char{
 					if(Dungeon.hero.subClass(HeroSubClass.戏命师))
 						new Bomb.ConjuredBomb().heroexplode(pos);
 
-					if(来源==Dungeon.hero&&Dungeon.hero.belongings.attackingWeapon()!=null){
-						if(Dungeon.hero.belongings.attackingWeapon() instanceof 草剃){
+					if(来源==Dungeon.hero){
+
+						if(Dungeon.hero.belongings.weapon(草剃.class)){
 							for(int n: PathFinder.相邻){
 								Blooming.plantGrass(pos+n);
 							}
 						}
-						if(Dungeon.hero.belongings.attackingWeapon() instanceof 日炎链刃){
+						if(Dungeon.hero.belongings.weapon(日炎链刃.class)){
 							new Bomb.ConjuredBomb().heroexplode(pos);
 						}
-						if(Dungeon.hero.belongings.attackingWeapon() instanceof 金纹拐){
+						if(Dungeon.hero.belongings.weapon(金纹拐.class)){
 							Dungeon.gold(new Gold().random().数量(),pos);
 						}
-						if(Dungeon.hero.belongings.attackingWeapon() instanceof 蜜剑){
+						if(Dungeon.hero.belongings.weapon(蜜剑.class)){
 							Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
 						}
 					}
+					if(断魂佛珠.回血()>0&&恶魔亡灵())Dungeon.hero.回血(断魂佛珠.回血());
 					if(Dungeon.符文("坦克引擎"))Dungeon.hero.坦克引擎+=强度();
 					if(Dungeon.符文("缩小引擎"))Dungeon.hero.缩小引擎+=强度();
 					if(Dungeon.hero.subClass(HeroSubClass.狂战士)){
@@ -1484,7 +1497,6 @@ public abstract class Mob extends Char{
 				return;
 			}
 		}
-		if(防刷()){
 			if(Dungeon.赛季(赛季设置.刷子地牢)&&算法.概率学(1/8f)){
 				Dungeon.level.drop(Generator.random(),pos).sprite().drop();
 			}
@@ -1542,7 +1554,7 @@ public abstract class Mob extends Char{
 				Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(),pos).sprite().drop();
 				Lucky.showFlare(sprite);
 			}
-		}
+
 	}
 
 	public Object loot=null;
@@ -1603,7 +1615,12 @@ public abstract class Mob extends Char{
 	public String description(){
 		return Messages.get(this,"desc");
 	}
-
+	@Override
+	public float 暴击率(){
+		float 暴击率=super.暴击率();
+		暴击率+=0.02f*Dungeon.区域();
+		return 暴击率;
+	}
 	public String info(){
 		String desc=description();
 
@@ -1708,8 +1725,8 @@ public abstract class Mob extends Char{
 				desc+="\n";
 				desc+="攻速/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";
 				desc+="_暴击率/暴击伤害_ :"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
-				desc+="_击杀获得经验_ :"+Math.round(经验*Dungeon.难度经验(this))+"\n";
-				desc+="大于此等级不掉战利品 :"+(最大等级+2)+"\n";
+				desc+="_击杀经验_ :"+Math.round(经验*Dungeon.难度经验(this))+"\n";
+				desc+="你大于此等级无经验和战利品 :"+(最大等级+2)+"\n";
 
 			String 战利品="";
 			if(loot instanceof Item i){

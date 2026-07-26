@@ -10,7 +10,7 @@ public class 吸血刀 extends Weapon{
 	
 	{
 		image = 物品表.吸血刀;
-		hitSound = Assets.Sounds.攻击砍;
+		hitSound = Assets.Sounds.攻击刺;
 		
 		红色 = true;
 		特别= true;

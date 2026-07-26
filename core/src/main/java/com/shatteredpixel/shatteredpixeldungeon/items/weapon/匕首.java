@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 匕首 extends Weapon{
 	
 	{
-		image = 物品表.小匕;
+		image = 物品表.匕首;
 		hitSound = Assets.Sounds.攻击刺;
 
 		专属=true;

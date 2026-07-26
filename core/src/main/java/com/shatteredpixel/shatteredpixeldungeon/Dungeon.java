@@ -41,6 +41,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.皇室佩剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
@@ -234,6 +235,7 @@ public class Dungeon {
 		Sample.INSTANCE.play(Assets.Sounds.GOLD,1,1,Random.Float(0.9f,1.1f));
 		if(x>0){
 
+			x+=皇室佩剑.亏损();
 
 //			x/=3;
 			x*=优惠卡.获取();

@@ -114,6 +114,8 @@ abstract public class Weapon extends KindOfWeapon {
 	//region MeleeWeapon
 
 	武技 技能=null;
+	boolean 充能 = true;
+	boolean 无限战技 = false;
 	boolean circlingBack = false;
 	public static String AC_ABILITY = "ABILITY";
 	
@@ -335,7 +337,7 @@ abstract public class Weapon extends KindOfWeapon {
 		消耗(hero,技能.消耗);
 	}
 	public void 消耗(Hero hero,int 消耗){
-		if(算法.isDebug())return;
+		if(算法.isDebug()||无限战技)return;
 		hero.belongings.abilityWeapon = this;
 		
 		charger.partialCharge -= 消耗;
@@ -357,7 +359,8 @@ abstract public class Weapon extends KindOfWeapon {
 		if (hero.subClass == HeroSubClass.征服者) {
 			Buff.施加(hero, 征服.class).叠层();
 		}
-		Buff.新增(hero,战斗状态.class,6);
+		Buff.刷新(hero,战斗状态.class,5);
+
 		if (false){//使用武技命中
 			Buff.延长(hero, Talent.PreciseAssaultTracker.class, hero.cooldown()+1f);
 		}
@@ -387,7 +390,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大攻击(int lvl) {
-		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1)))*伤害();
+		return augment.damageFactor(最大+(4f*(tier()+1) +lvl*(tier()+1)))*伤害();
 	}
 
 	@Override
@@ -806,7 +809,7 @@ abstract public class Weapon extends KindOfWeapon {
 		@Override
 		public boolean act() {
 			if (charges < chargeCap()){
-				if (再生.regenOn()){
+				if (充能&&再生.regenOn()){
 					float chargeToGain = 1/(60f-1.5f*(chargeCap()-charges));
 
 					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
@@ -969,7 +972,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击(int lvl) {
-		return Math.max(1,augment.damageFactor(最小+(2*tier()+lvl)*(伤害()*0.5f)));
+		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*(伤害()*投掷()*0.5f)));
 //		return Math.round(最小+(2*tier()+lvl)*(伤害()));
 	}
 	
@@ -980,7 +983,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击(int lvl) {
-		return augment.damageFactor(最大+(5 * tier() +tier()*lvl )*(伤害()*1.2f));
+		return augment.damageFactor(最大+(4f * tier() +tier()*lvl )*(伤害()*投掷()*1.6f));
 //		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害()));
 	}
 	

@@ -99,7 +99,7 @@ public class 清洁菱晶 extends Spell {
 				祛邪卷轴.祛邪(Dungeon.hero,item);
 				item.鉴定();
 
-				item.detachAll();
+
 				parentWnd.hide();
 
 				curItem.detach();

@@ -167,7 +167,7 @@ public class 飞镖 extends Weapon{
 	public void throwSound() {
 		updateCrossbow();
 		if (bow != null) {
-			Sample.INSTANCE.play(Assets.Sounds.ATK_CROSSBOW, 1, Random.Float(0.87f, 1.15f));
+			Sample.INSTANCE.play(Assets.Sounds.攻击弩,1,Random.Float(0.87f,1.15f));
 		} else {
 			super.throwSound();
 		}

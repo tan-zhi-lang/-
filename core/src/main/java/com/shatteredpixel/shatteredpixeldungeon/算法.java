@@ -75,7 +75,7 @@ public class 算法 {
 		
 		
     * */
-    public static String 日期="7.30/13:25";
+    public static String 日期="8.04/16:27";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;

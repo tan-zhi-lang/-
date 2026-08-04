@@ -63,7 +63,7 @@ public class Ring extends KindofMisc {
 	
 	//rings cannot be 'used' like other equipment, so they ID purely based on exp
 	private float levelsToID = 10;
-	
+
 	@SuppressWarnings("unchecked")
 	public static void initGems() {
 		handler = new ItemStatusHandler<>( (Class<? extends Ring>[])Generator.Category.RING.classes, gems );
@@ -118,8 +118,7 @@ public class Ring extends KindofMisc {
 			if(首次拾取){
 				levelsToID -= Talent.鉴定速度(Dungeon.hero,this)/45f;
 			}
-			if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.指环王)&&Dungeon.hero.职业精通())
-				activate(Dungeon.hero);
+
 			return true;
 		} else {
 			return false;
@@ -456,7 +455,8 @@ public class Ring extends KindofMisc {
 			bonus += ((Ring)hero.belongings.幸运()).soloBonus();
 		}
 
-		if(hero.符文("戒指的宠爱"))bonus*=3;
+		if(hero.subClass(HeroSubClass.指环王)&&hero.职业精通())bonus*=1.2;
+		if(hero.符文("戒指的宠爱"))bonus*=1.5;
 		return bonus;
 	}
 
@@ -466,6 +466,9 @@ public class Ring extends KindofMisc {
 	//just used for ring descriptions
 	public int combinedBuffedBonus(Hero hero){
 		int bonus = 0;
+		if (hero.belongings.幸运() != null && hero.belongings.幸运().getClass() == getClass()){
+			bonus+=((Ring)hero.belongings.幸运()).soloBuffedBonus();
+		}
 		if (hero.belongings.misc() != null && hero.belongings.misc().getClass() == getClass()){
 			bonus += ((Ring)hero.belongings.misc()).soloBuffedBonus();
 		}
@@ -475,8 +478,21 @@ public class Ring extends KindofMisc {
 		if (hero.belongings.misc3() != null && hero.belongings.misc3().getClass() == getClass()){
 			bonus += ((Ring)hero.belongings.misc3()).soloBuffedBonus();
 		}
-		if (hero.belongings.幸运() != null && hero.belongings.幸运().getClass() == getClass()){
-			bonus += ((Ring)hero.belongings.幸运()).soloBuffedBonus();
+
+		if (hero.belongings.misc6() != null && hero.belongings.misc6().getClass() == getClass()){
+			bonus += ((Ring)hero.belongings.misc6()).soloBuffedBonus();
+		}
+		if (hero.belongings.misc7() != null && hero.belongings.misc7().getClass() == getClass()){
+			bonus += ((Ring)hero.belongings.misc7()).soloBuffedBonus();
+		}
+		if (hero.belongings.misc8() != null && hero.belongings.misc8().getClass() == getClass()){
+			bonus += ((Ring)hero.belongings.misc8()).soloBuffedBonus();
+		}
+		if (hero.belongings.misc9() != null && hero.belongings.misc9().getClass() == getClass()){
+			bonus += ((Ring)hero.belongings.misc9()).soloBuffedBonus();
+		}
+		if (hero.belongings.misc10() != null && hero.belongings.misc10().getClass() == getClass()){
+			bonus += ((Ring)hero.belongings.misc10()).soloBuffedBonus();
 		}
 		if(hero.符文("戒指的宠爱"))bonus*=3;
 		return bonus;

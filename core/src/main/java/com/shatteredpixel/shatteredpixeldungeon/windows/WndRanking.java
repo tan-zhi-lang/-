@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -343,43 +342,62 @@ public class WndRanking extends WndTabbed {
 	private class ItemsTab extends Group {
 		
 		private float pos;
-		
+		private float pos2;
+		private float pos3;
+
 		public ItemsTab() {
 			super();
-			
+
 			Belongings stuff = Dungeon.hero.belongings;
-			if (stuff.幸运 != null) {
-				addItem( stuff.幸运 );
-			}
 			if (stuff.weapon != null) {
 				addItem( stuff.weapon );
-			}
-			if (stuff.secondWep != null) {
-				addItem( stuff.secondWep );
 			}
 			if (stuff.armor != null) {
 				addItem( stuff.armor );
 			}
+			if (stuff.幸运 != null) {
+				addItem( stuff.幸运 );
+			}
 			if (stuff.armor2 != null) {
 				addItem( stuff.armor2 );
 			}
+			if (stuff.secondWep != null) {
+				addItem( stuff.secondWep );
+			}
 			if (stuff.misc != null) {
-				addItem( stuff.misc );
+				addItem2( stuff.misc );
 			}
 			if (stuff.misc2 != null) {
-				addItem( stuff.misc2 );
+				addItem2( stuff.misc2 );
 			}
 			if (stuff.misc3 != null) {
-				addItem( stuff.misc3 );
+				addItem2( stuff.misc3 );
 			}
 			if (stuff.misc4 != null) {
-				addItem( stuff.misc4 );
+				addItem2( stuff.misc4 );
 			}
 			if (stuff.misc5 != null) {
-				addItem( stuff.misc5 );
+				addItem2( stuff.misc5 );
+			}
+			if (stuff.misc6 != null) {
+				addItem3( stuff.misc6 );
+			}
+			if (stuff.misc7 != null) {
+				addItem3( stuff.misc7 );
+			}
+			if (stuff.misc8 != null) {
+				addItem3( stuff.misc8 );
+			}
+			if (stuff.misc9 != null) {
+				addItem3( stuff.misc9 );
+			}
+			if (stuff.misc10 != null) {
+				addItem3( stuff.misc10 );
 			}
 
 			pos = 0;
+			pos2 = 0;
+			pos3 = 0;
 
 			int slotsActive = 0;
 			for (int i = 0; i < QuickSlot.SIZE; i++){
@@ -388,17 +406,17 @@ public class WndRanking extends WndTabbed {
 				}
 			}
 
-			Trinket trinket = stuff.getItem(Trinket.class);
-			if (trinket != null){
-				slotsActive++;
-			}
+//			Trinket trinket = stuff.getItem(Trinket.class);
+//			if (trinket != null){
+//				slotsActive++;
+//			}
 
 			float slotWidth = Math.min(28, ((WIDTH - slotsActive + 1) / (float)slotsActive));
 
 			for (int i = -1; i < QuickSlot.SIZE; i++){
 				Item item = null;
 				if (i == -1){
-					item = trinket;
+//					item = trinket;
 				} else if (Dungeon.quickslot.isNonePlaceholder(i)) {
 					item = Dungeon.quickslot.getItem(i);
 				}
@@ -422,6 +440,20 @@ public class WndRanking extends WndTabbed {
 			add( slot );
 			
 			pos += slot.height() + 1;
+		}
+		private void addItem2( Item item ) {
+			ItemButton slot = new ItemButton( item );
+			slot.setRect( ItemButton.HEIGHT*1.2125f+1, pos2, width, ItemButton.HEIGHT );
+			add( slot );
+
+			pos2 += slot.height() + 1;
+		}
+		private void addItem3( Item item ) {
+			ItemButton slot = new ItemButton( item );
+			slot.setRect( ItemButton.HEIGHT*1.2125f*2+1*2, pos3, width, ItemButton.HEIGHT );
+			add( slot );
+
+			pos3 += slot.height() + 1;
 		}
 	}
 	
@@ -507,7 +539,8 @@ public class WndRanking extends WndTabbed {
 				bg.ga = -0.15f;
 				bg.ba = -0.15f;
 			} else if (!item.已鉴定()) {
-				if ((item instanceof EquipableItem || item instanceof Wand) && item.cursedKnown){
+				if ((item instanceof EquipableItem
+					 || item instanceof Wand) && item.cursedKnown){
 					bg.ba = +0.3f;
 					bg.ra = -0.1f;
 				} else {
@@ -526,8 +559,8 @@ public class WndRanking extends WndTabbed {
 			slot = new ItemSlot();
 			add( slot );
 			
-			name = PixelScene.renderTextBlock( 7 );
-			add( name );
+//			name = PixelScene.renderTextBlock( 7 );
+//			add( name );
 			
 			super.createChildren();
 		}
@@ -540,13 +573,13 @@ public class WndRanking extends WndTabbed {
 			slot.setRect( x, y, 28, HEIGHT );
 			PixelScene.align(slot);
 			
-			name.maxWidth((int)(width - slot.width() - 2));
-			name.text(Messages.titleCase(item.name()));
-			name.setPos(
-					slot.right()+2,
-					y + (height - name.height()) / 2
-			);
-			PixelScene.align(name);
+//			name.maxWidth((int)(width - slot.width() - 2));
+//			name.text(Messages.titleCase(item.name()));
+//			name.setPos(
+//					slot.right()+2,
+//					y + (height - name.height()) / 2
+//			);
+//			PixelScene.align(name);
 			
 			super.layout();
 		}

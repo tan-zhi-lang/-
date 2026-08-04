@@ -87,7 +87,7 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.横屏() ? COLS_L : COLS_P;
-		nRows = (Dungeon.解压(解压设置.高级背包)?8:COLS_P+1); //we expect to lay out 25 slots in all cases
+		nRows = (Dungeon.解压(解压设置.高级背包)?7:COLS_P+1); //we expect to lay out 25 slots in all cases
 //		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
@@ -241,6 +241,14 @@ public class WndBag extends WndTabbed {
 		placeItem( stuff.misc3 != null ? stuff.misc3 : new Placeholder( 物品表.ITEM));
 		placeItem( stuff.misc4 != null ? stuff.misc4 : new Placeholder( 物品表.ITEM));
 		placeItem( stuff.misc5 != null ? stuff.misc5 : new Placeholder( 物品表.ITEM));
+		placeItem( stuff.misc6 != null ? stuff.misc6 : new Placeholder( 物品表.ITEM));
+		placeItem( stuff.misc7 != null ? stuff.misc7 : new Placeholder( 物品表.ITEM));
+		placeItem( stuff.misc8 != null ? stuff.misc8 : new Placeholder( 物品表.ITEM));
+		placeItem( stuff.misc9 != null ? stuff.misc9 : new Placeholder( 物品表.ITEM));
+		if(Dungeon.hero()&&Dungeon.hero.女人()){
+		placeItem( null);
+		}else
+		placeItem( stuff.misc10 != null ? stuff.misc10 : new Placeholder( 物品表.ITEM));
 
 		int equipped = 5;
 

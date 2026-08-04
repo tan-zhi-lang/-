@@ -41,7 +41,7 @@ public class 水袋 extends Item {
 		}
 		return AC_DRINK;
 	}
-	public int volume = 0;
+	public int volume = 20;
 
 	private static final String VOLUME	= "volume";
 

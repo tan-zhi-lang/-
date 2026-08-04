@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.突刺;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -18,5 +17,4 @@ public class 武士刀 extends Weapon {
 		tier = 2;
 		具备防御=true;
 	}
-
 }

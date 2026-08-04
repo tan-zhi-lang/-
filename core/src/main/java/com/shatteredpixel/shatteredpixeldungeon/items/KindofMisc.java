@@ -18,30 +18,59 @@ public abstract class KindofMisc extends EquipableItem {
 	public boolean doEquip(final Hero hero) {
 
 		boolean equipFull = false;
+		if(hero.女人()){
+			if(hero.belongings.misc != null
+			   &&hero.belongings.misc2 != null
+			   &&hero.belongings.misc3 != null
+			   &&hero.belongings.misc4 != null
+			   &&hero.belongings.misc5 != null
+			   &&hero.belongings.misc6 != null
+			   &&hero.belongings.misc7 != null
+			   &&hero.belongings.misc8 != null
+			   &&hero.belongings.misc9 != null
+			){
+				equipFull=true;//9个时才选择一件取下
+			}
+		}else{
 
-		if(hero.belongings.misc != null
-		   &&hero.belongings.misc2 != null
-		   &&hero.belongings.misc3 != null
-		   &&hero.belongings.misc4 != null
-		   &&hero.belongings.misc5 != null
-		){
-			equipFull=true;//5个时才选择一件取下
+			if(hero.belongings.misc != null
+			   &&hero.belongings.misc2 != null
+			   &&hero.belongings.misc3 != null
+			   &&hero.belongings.misc4 != null
+			   &&hero.belongings.misc5 != null
+			   &&hero.belongings.misc6 != null
+			   &&hero.belongings.misc7 != null
+			   &&hero.belongings.misc8 != null
+			   &&hero.belongings.misc9 != null
+			   &&hero.belongings.misc10 != null
+			){
+				equipFull=true;//10个时才选择一件取下
+			}
 		}
 		if (equipFull) {
-
-			final KindofMisc[] miscs = new KindofMisc[5];
+			final KindofMisc[] miscs = new KindofMisc[10];
 			miscs[0] = hero.belongings.misc;
 			miscs[1] = hero.belongings.misc2;
 			miscs[2] = hero.belongings.misc3;
-			miscs[3] = hero.belongings.misc3;
-			miscs[4] = hero.belongings.misc3;
+			miscs[3] = hero.belongings.misc4;
+			miscs[4] = hero.belongings.misc5;
+			miscs[5] = hero.belongings.misc6;
+			miscs[6] = hero.belongings.misc7;
+			miscs[7] = hero.belongings.misc8;
+			miscs[8] = hero.belongings.misc9;
+			miscs[9] = hero.belongings.misc10;
 
-			final boolean[] enabled = new boolean[5];
+			final boolean[] enabled = new boolean[10];
 			enabled[0] = miscs[0] != null;
 			enabled[1] = miscs[1] != null;
 			enabled[2] = miscs[2] != null;
 			enabled[3] = miscs[3] != null;
 			enabled[4] = miscs[4] != null;
+			enabled[5] = miscs[5] != null;
+			enabled[6] = miscs[6] != null;
+			enabled[7] = miscs[7] != null;
+			enabled[8] = miscs[8] != null;
+			enabled[9] = miscs[9] != null;
 
 			GameScene.show(
 					new WndOptions(new ItemSprite(this),
@@ -51,7 +80,12 @@ public abstract class KindofMisc extends EquipableItem {
 							miscs[1] == null ? "- - -" : Messages.titleCase(miscs[1].title()),
 							miscs[2] == null ? "- - -" : Messages.titleCase(miscs[2].title()),
 							miscs[3] == null ? "- - -" : Messages.titleCase(miscs[3].title()),
-							miscs[4] == null ? "- - -" : Messages.titleCase(miscs[4].title())
+						   miscs[4] == null ? "- - -" : Messages.titleCase(miscs[4].title()),
+						   miscs[5] == null ? "- - -" : Messages.titleCase(miscs[5].title()),
+						   miscs[6] == null ? "- - -" : Messages.titleCase(miscs[6].title()),
+						   miscs[7] == null ? "- - -" : Messages.titleCase(miscs[7].title()),
+						   miscs[8] == null ? "- - -" : Messages.titleCase(miscs[8].title()),
+						   miscs[9] == null ? "- - -" : Messages.titleCase(miscs[9].title())
 					) {
 
 						@Override
@@ -82,6 +116,16 @@ public abstract class KindofMisc extends EquipableItem {
 									hero.belongings.misc4 = KindofMisc.this;
 								} else if (index == 4 ){
 									hero.belongings.misc5 = KindofMisc.this;
+								}else if (index == 5) {
+									hero.belongings.misc6 = KindofMisc.this;
+								} else if (index == 6) {
+									hero.belongings.misc7 = KindofMisc.this;
+								} else if (index == 7) {
+									hero.belongings.misc8 = KindofMisc.this;
+								} else if (index == 8) {
+									hero.belongings.misc9 = KindofMisc.this;
+								} else if (index == 9) {
+									hero.belongings.misc10 = KindofMisc.this;
 								}
 							}
 //							else {
@@ -97,6 +141,10 @@ public abstract class KindofMisc extends EquipableItem {
 
 						@Override
 						protected boolean enabled(int index) {
+							if(hero.女人()&&index==9){
+
+								return false;
+							}
 							return enabled[index];
 						}
 					});
@@ -115,6 +163,16 @@ public abstract class KindofMisc extends EquipableItem {
 				hero.belongings.misc4 = this;
 			}else if(hero.belongings.misc5 == null){
 				hero.belongings.misc5 = this;
+			}else if (hero.belongings.misc6 == null) {
+				hero.belongings.misc6 = this;
+			} else if (hero.belongings.misc7 == null) {
+				hero.belongings.misc7 = this;
+			} else if (hero.belongings.misc8 == null) {
+				hero.belongings.misc8 = this;
+			} else if (hero.belongings.misc9 == null) {
+				hero.belongings.misc9 = this;
+			} else if (hero.belongings.misc10 == null) {
+				hero.belongings.misc10 = this;
 			}
 
 
@@ -150,6 +208,16 @@ public abstract class KindofMisc extends EquipableItem {
 				hero.belongings.misc4 = null;
 			}else if (hero.belongings.misc5 == this) {
 				hero.belongings.misc5 = null;
+			}else if (hero.belongings.misc6 == this) {
+				hero.belongings.misc6 = null;
+			} else if (hero.belongings.misc7 == this) {
+				hero.belongings.misc7 = null;
+			} else if (hero.belongings.misc8 == this) {
+				hero.belongings.misc8 = null;
+			} else if (hero.belongings.misc9 == this) {
+				hero.belongings.misc9 = null;
+			} else if (hero.belongings.misc10 == this) {
+				hero.belongings.misc10 = null;
 			}
 
 			return true;
@@ -166,6 +234,11 @@ public abstract class KindofMisc extends EquipableItem {
 				|| hero.belongings.misc3() == this
 				|| hero.belongings.misc4() == this
 				|| hero.belongings.misc5() == this
+				|| hero.belongings.misc6() == this
+				|| hero.belongings.misc7() == this
+				|| hero.belongings.misc8() == this
+				|| hero.belongings.misc9() == this
+				|| hero.belongings.misc10() == this
 				|| hero.belongings.幸运() == this);
 	}
 

@@ -84,7 +84,6 @@ public class 突刺 extends 武技{
 					hero.pos = dest;
 					Dungeon.level.occupyCell(hero);
 					Dungeon.observe();
-					
 					 //set this early to we can check canAttack
 					if (enemy != null && hero.canAttack(enemy)) {
 						hero.sprite.attack(enemy.pos, new Callback() {
@@ -92,8 +91,17 @@ public class 突刺 extends 武技{
 							public void call() {
 								
 								AttackIndicator.target(enemy);
-								if (hero.attack(enemy, 1.5f,0,Char.INFINITE)) {
+								if (hero.attack(enemy, 1.5f+(hero.符文("猴子给给")?0.5f:0),0,Char.INFINITE)) {
 									Sample.INSTANCE.play(wep.hitSound);
+
+									if(hero.符文("猴子给给")){
+										hero.回百分比血(0.08f);
+										Sample.INSTANCE.play(Assets.Sounds.猴子给给);
+									}
+									if (hero.符文("猴子给给")&&!enemy.isAlive()){
+										wep.charger.gainCharge(1);
+										//击杀
+									}
 								}
 								Invisibility.notimedispel();
 								hero.spendAndNext(hero.攻击延迟());

@@ -52,10 +52,10 @@ public class Ankh extends Item {
 
 			水袋 水袋 = hero.belongings.getItem(水袋.class);
 			永生秘药 永生秘药 = hero.belongings.getItem(永生秘药.class);
-			if (水袋 != null||永生秘药!=null){
+			if (水袋 != null&&水袋.isFull()||永生秘药!=null){
 				blessed = true;
-				if(水袋 != null)
-				水袋.empty();
+				if(水袋 != null&&水袋.isFull())
+					水袋.empty();
 				else if(永生秘药!=null)
 					永生秘药.detach(hero.belongings.backpack);
 

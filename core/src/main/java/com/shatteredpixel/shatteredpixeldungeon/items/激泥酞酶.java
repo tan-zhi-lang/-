@@ -6,8 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-import java.util.ArrayList;
-
 public class 激泥酞酶 extends Item {
 
 	{
@@ -26,68 +24,18 @@ public class 激泥酞酶 extends Item {
 		return 15*数量();
 	}
 
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
-		@Override
-		public boolean testIngredients(ArrayList<Item> ingredients) {
-			if (ingredients.size() != 2) return false;
+		{
+			inputs =  new Class[]{Scroll.class,
+					Runestone.class,};
+			inQuantity = new int[]{1,1};
 
-			if (ingredients.get(0) instanceof Scroll&&ingredients.get(1) instanceof Runestone){
-				return true;
-			}
+			cost = 1;
 
-			if (ingredients.get(0) instanceof Runestone&&ingredients.get(1) instanceof Scroll){
-				return true;
-			}
-
-
-			return false;
+			output = 激泥酞酶.class;
+			outQuantity = 1;
 		}
 
-		@Override
-		public int cost(ArrayList<Item> ingredients) {
-			return 1;
-		}
-
-		@Override
-		public Item brew(ArrayList<Item> ingredients) {
-			Item result = sampleOutput(ingredients);
-			Item w = ingredients.get(0);
-			Item w2 = ingredients.get(1);
-			int x=Math.abs(w.数量()-w2.数量());
-			if(x>0){
-				int xmin=Math.min(w.数量(),w2.数量());
-				if(w.数量()==xmin){
-					result.数量(resinQuantity(w));
-					w2.数量改动(-x);
-					w.数量0();
-				}
-				if(w2.数量()==xmin){
-
-					result.数量(resinQuantity(w2));
-					w.数量改动(-x);
-					w2.数量0();
-				}
-			}
-			else{
-				result.数量(resinQuantity(w));
-				w.数量0();
-				w2.数量0();
-			}
-
-			return result;
-		}
-
-		@Override
-		public Item sampleOutput(ArrayList<Item> ingredients) {
-			Item s = ingredients.get(0);
-
-			return new 激泥酞酶().数量(resinQuantity(s));
-		}
-
-		private int resinQuantity(Item s){
-			return s.quantity;
-		}
 	}
-
 }

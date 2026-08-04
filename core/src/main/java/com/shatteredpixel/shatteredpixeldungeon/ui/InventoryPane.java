@@ -288,6 +288,16 @@ public class InventoryPane extends Component {
 		equipped.get(3).item(stuff.misc4 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc4);
 		equipped.get(4).item(stuff.misc5 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc5);
 
+		equipped.get(5).item(stuff.misc6 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc6);
+		equipped.get(6).item(stuff.misc7 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc7);
+		equipped.get(7).item(stuff.misc8 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc8);
+		equipped.get(8).item(stuff.misc9 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc9);
+		if(Dungeon.hero()&&Dungeon.hero.女人()){
+			equipped.get(9).item(null);
+
+		}else
+			equipped.get(9).item(stuff.misc10 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc10);
+
 		ArrayList<Item> items = (ArrayList<Item>) lastBag.items.clone();
 		if(lastBag == stuff.backpack){
 			if(stuff.weapon!=null){

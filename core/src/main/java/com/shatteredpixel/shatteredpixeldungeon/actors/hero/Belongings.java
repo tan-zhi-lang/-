@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
@@ -43,10 +42,10 @@ public class Belongings implements Iterable<Item> {
 					cap++;
 				}
 			}
-			if (Dungeon.hero() && Dungeon.hero.belongings.secondWep != null){
-				//secondary weapons still occupy an inv. slot
-				cap--;
-			}
+//			if (Dungeon.hero() && Dungeon.hero.belongings.secondWep != null){
+//				//secondary weapons still occupy an inv. slot
+//				cap--;
+//			}
 			return cap;
 		}
 	}
@@ -98,6 +97,11 @@ public class Belongings implements Iterable<Item> {
 	public KindofMisc misc3 = null;
 	public KindofMisc misc4 = null;
 	public KindofMisc misc5 = null;
+	public KindofMisc misc6 = null;
+	public KindofMisc misc7 = null;
+	public KindofMisc misc8 = null;
+	public KindofMisc misc9 = null;
+	public KindofMisc misc10 = null;
 	public KindofMisc 幸运 = null;
 	public LinkedList<Item> 装备(){
 		LinkedList<Item> items = new LinkedList<>();
@@ -117,6 +121,16 @@ public class Belongings implements Iterable<Item> {
 		items.add(misc4());
 		if(misc5()!=null)
 		items.add(misc5());
+		if(misc6()!=null)
+		items.add(misc6());
+		if(misc7()!=null)
+		items.add(misc7());
+		if(misc8()!=null)
+		items.add(misc8());
+		if(misc9()!=null)
+		items.add(misc9());
+		if(misc10()!=null)
+		items.add(misc10());
 
 		if(幸运()!=null)
 		items.add(幸运());
@@ -261,6 +275,42 @@ public class Belongings implements Iterable<Item> {
 			return null;
 		}
 	}
+	public KindofMisc misc6(){
+		if (!lostInventory() || (misc6 != null && misc6.keptThroughLostInventory())){
+			return misc6;
+		} else {
+			return null;
+		}
+	}
+	public KindofMisc misc7(){
+		if (!lostInventory() || (misc7 != null && misc7.keptThroughLostInventory())){
+			return misc7;
+		} else {
+			return null;
+		}
+	}
+	public KindofMisc misc8(){
+		if (!lostInventory() || (misc8 != null && misc8.keptThroughLostInventory())){
+			return misc8;
+		} else {
+			return null;
+		}
+	}
+
+	public KindofMisc misc9(){
+		if (!lostInventory() || (misc9 != null && misc9.keptThroughLostInventory())){
+			return misc9;
+		} else {
+			return null;
+		}
+	}
+	public KindofMisc misc10(){
+		if (!lostInventory() || (misc10 != null && misc10.keptThroughLostInventory())){
+			return misc10;
+		} else {
+			return null;
+		}
+	}
 
 	public KindofMisc 幸运(){
 		if (!lostInventory() || (幸运 != null && 幸运.keptThroughLostInventory())){
@@ -280,6 +330,11 @@ public class Belongings implements Iterable<Item> {
 	private static final String MISC3       = "misc3";
 	private static final String MISC4       = "misc4";
 	private static final String MISC5       = "misc5";
+	private static final String MISC6       = "misc6";
+	private static final String MISC7       = "misc7";
+	private static final String MISC8       = "misc8";
+	private static final String MISC9       = "misc9";
+	private static final String MISC10      = "misc10";
 	private static final String 幸运x       = "幸运";
 
 	private static final String SECOND_WEP = "second_wep";
@@ -296,6 +351,11 @@ public class Belongings implements Iterable<Item> {
 		bundle.put( MISC3, misc3 );
 		bundle.put( MISC4, misc4 );
 		bundle.put( MISC5, misc5 );
+		bundle.put( MISC6, misc6 );
+		bundle.put( MISC7, misc7 );
+		bundle.put( MISC8, misc8 );
+		bundle.put( MISC9, misc9 );
+		bundle.put( MISC10, misc10 );
 		bundle.put( 幸运x, 幸运 );
 		bundle.put( SECOND_WEP, secondWep );
 	}
@@ -334,6 +394,20 @@ public class Belongings implements Iterable<Item> {
 		misc5 = (KindofMisc) bundle.get(MISC5);
 		if (misc5() != null)         misc5().activate( owner );
 
+		misc6 = (KindofMisc) bundle.get(MISC6);
+		if (misc6() != null)         misc6().activate( owner );
+
+		misc7 = (KindofMisc) bundle.get(MISC7);
+		if (misc7() != null)         misc7().activate( owner );
+
+		misc8 = (KindofMisc) bundle.get(MISC8);
+		if (misc8() != null)         misc8().activate( owner );
+
+		misc9 = (KindofMisc) bundle.get(MISC9);
+		if (misc9() != null)         misc9().activate( owner );
+
+		misc10 = (KindofMisc) bundle.get(MISC10);
+		if (misc10() != null)        misc10().activate( owner );
 		幸运 = (KindofMisc) bundle.get(幸运x);
 		if (幸运() != null)         幸运().activate( owner );
 
@@ -346,7 +420,7 @@ public class Belongings implements Iterable<Item> {
 		backpack.clear();
 		weapon = secondWep = null;
 		armor = armor2 = null;
-		misc = misc2 = misc3= misc4= misc5 = null;
+		misc = misc2 = misc3 = misc4 = misc5 = misc6 = misc7 = misc8 = misc9 = misc10 = null;
 		幸运 = null;
 	}
 
@@ -629,7 +703,10 @@ public class Belongings implements Iterable<Item> {
 		
 		private Iterator<Item> backpackIterator = backpack.iterator();
 		
-		private Item[] equipped = {weapon, armor, misc, misc2, misc3, 幸运, secondWep, armor2, misc4, misc5};
+		private Item[] equipped = {weapon, armor, misc, misc2, misc3, 幸运,
+				secondWep, armor2, misc4, misc5
+				,misc6,misc8,misc9,misc10
+		};
 		private int backpackIndex = equipped.length;
 		
 		@Override
@@ -690,6 +767,21 @@ public class Belongings implements Iterable<Item> {
 			case 9:
 					equipped[9] = misc5 = null;
 					break;
+			case 10:
+					equipped[10] = misc6 = null;
+					break;
+			case 11:
+				equipped[11] = misc7 = null;
+				break;
+			case 12:
+				equipped[12] = misc8 = null;
+				break;
+			case 13:
+				equipped[13] = misc9 = null;
+				break;
+			case 14:
+				equipped[14] = misc10 = null;
+				break;
 			default:
 				backpackIterator.remove();
 			}

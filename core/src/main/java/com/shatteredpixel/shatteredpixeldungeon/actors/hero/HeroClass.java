@@ -450,9 +450,20 @@ public enum HeroClass{
 		hero.belongings.misc4.activate(hero);
 		if(hero.belongings.misc5!=null)
 		hero.belongings.misc5.activate(hero);
+		if(hero.belongings.misc6!=null)
+			hero.belongings.misc6.activate(hero);
+		if(hero.belongings.misc7!=null)
+			hero.belongings.misc7.activate(hero);
+		if(hero.belongings.misc8!=null)
+			hero.belongings.misc8.activate(hero);
+		if(hero.belongings.misc9!=null)
+			hero.belongings.misc9.activate(hero);
+		if(hero.belongings.misc10!=null)
+			hero.belongings.misc10.activate(hero);
 
 		hero.belongings.幸运=new 幸运之戒();
 		hero.belongings.幸运.activate(hero);
+		hero.belongings.幸运.无动作=true;
 		hero.belongings.幸运.鉴定();
 //		hero.belongings.幸运.升级(30);
 

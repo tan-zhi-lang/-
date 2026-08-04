@@ -75,7 +75,7 @@ public class Bones {
 		}
 
 		if (Random.Int(3) != 0) {
-			switch (Random.Int(8)) {
+			switch (Random.Int(13)) {
 				case 0:
 					item = hero.belongings.weapon();
 					break;
@@ -97,7 +97,22 @@ public class Bones {
 				case 6:
 					item = hero.belongings.misc5;
 					break;
-				case 7: case 8:
+				case 7:
+					item = hero.belongings.misc6;
+					break;
+				case 8:
+					item = hero.belongings.misc7;
+					break;
+				case 9:
+					item = hero.belongings.misc8;
+					break;
+				case 10:
+					item = hero.belongings.misc9;
+					break;
+				case 11:
+					item = hero.belongings.misc10;
+					break;
+				case 12: case 13:
 					item = Dungeon.quickslot.randomNonePlaceholder();
 					break;
 			}

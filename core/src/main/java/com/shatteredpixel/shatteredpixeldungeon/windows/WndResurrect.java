@@ -110,6 +110,10 @@ public class WndResurrect extends Window {
 		Statistics.ankhsUsed++;
 		Catalog.countUse(Ankh.class);
 
+//		for (Item i : Dungeon.hero.belongings) {
+//			if(i.isEquipped(Dungeon.hero))
+//			i.keptThoughLostInvent=true;
+//		}
 		if (btnItem1.item() != null){
 			btnItem1.item().keptThoughLostInvent = true;
 		}
@@ -131,7 +135,7 @@ public class WndResurrect extends Window {
 		@Override
 		public boolean itemSelectable(Item item) {
 			//cannot select ankhs or bags or equippable items that aren't equipped
-			return !(item instanceof Ankh || item instanceof Bag);
+			return !(item instanceof Ankh || item instanceof Bag|| !item.isEquipped(Dungeon.hero));
 		}
 
 		@Override

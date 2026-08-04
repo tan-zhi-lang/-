@@ -283,6 +283,11 @@ public enum Rankings {
 		if (belongings.misc3 != null)        belongings.backpack.items.add(belongings.misc3);
 		if (belongings.misc4 != null)        belongings.backpack.items.add(belongings.misc4);
 		if (belongings.misc5 != null)        belongings.backpack.items.add(belongings.misc5);
+		if (belongings.misc6 != null)        belongings.backpack.items.add(belongings.misc6);
+		if (belongings.misc7 != null)        belongings.backpack.items.add(belongings.misc7);
+		if (belongings.misc8 != null)        belongings.backpack.items.add(belongings.misc8);
+		if (belongings.misc9 != null)        belongings.backpack.items.add(belongings.misc9);
+		if (belongings.misc10 != null)        belongings.backpack.items.add(belongings.misc10);
 		Ring.saveSelectively(handler, belongings.backpack.items);
 		rec.gameData.put( HANDLERS, handler);
 

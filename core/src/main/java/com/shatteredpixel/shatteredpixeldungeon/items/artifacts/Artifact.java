@@ -45,6 +45,11 @@ public class Artifact extends KindofMisc {
 				|| (hero.belongings.misc3 != null && hero.belongings.misc3.getClass() == this.getClass())
 				|| (hero.belongings.misc4 != null && hero.belongings.misc4.getClass() == this.getClass())
 				|| (hero.belongings.misc5 != null && hero.belongings.misc5.getClass() == this.getClass())
+				|| (hero.belongings.misc6 != null && hero.belongings.misc6.getClass() == this.getClass())
+				|| (hero.belongings.misc7 != null && hero.belongings.misc7.getClass() == this.getClass())
+				|| (hero.belongings.misc8 != null && hero.belongings.misc8.getClass() == this.getClass())
+				|| (hero.belongings.misc9 != null && hero.belongings.misc9.getClass() == this.getClass())
+				|| (hero.belongings.misc10 != null && hero.belongings.misc10.getClass() == this.getClass())
 		){
 
 			GLog.橙(Messages.get(Artifact.class,"cannot_wear_two"));

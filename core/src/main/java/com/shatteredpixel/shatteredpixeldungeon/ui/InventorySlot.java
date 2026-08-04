@@ -66,6 +66,11 @@ public class InventorySlot extends ItemSlot {
 					item == Dungeon.hero.belongings.misc3 ||
 					item == Dungeon.hero.belongings.misc4 ||
 					item == Dungeon.hero.belongings.misc5 ||
+					item == Dungeon.hero.belongings.misc6 ||
+					item == Dungeon.hero.belongings.misc7 ||
+					item == Dungeon.hero.belongings.misc8 ||
+					item == Dungeon.hero.belongings.misc9 ||
+					item == Dungeon.hero.belongings.misc10 ||
 					item == Dungeon.hero.belongings.secondWep;
 
 			bg.texture( TextureCache.createSolid( equipped ? EQUIPPED : NORMAL ) );

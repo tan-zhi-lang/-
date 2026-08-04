@@ -234,6 +234,7 @@ public class Assets {
 
 		public static final String 泡泡              = "sounds/hit/泡泡.mp3";
 		public static final String 心之钢              = "sounds/hit/心之钢.mp3";
+		public static final String 猴子给给              = "sounds/hit/猴子给给.mp3";
 		public static final String 子弹落地              = "sounds/hit/子弹落地.mp3";
 		public static final String 换弹              = "sounds/hit/换弹.mp3";
 		public static final String 霰弹枪换弹              = "sounds/hit/霰弹枪换弹.mp3";
@@ -360,6 +361,7 @@ public class Assets {
 
 				泡泡,
 				我恭喜你发财,
+				猴子给给,
 				心之钢,
 				坠星,
 				子弹落地,换弹,霰弹枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,

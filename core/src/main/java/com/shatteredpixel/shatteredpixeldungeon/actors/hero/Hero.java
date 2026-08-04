@@ -355,6 +355,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.大肉棒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武士刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.海神三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
@@ -365,6 +366,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.联合盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.配刺剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.钻石镐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
@@ -872,6 +874,8 @@ public class Hero extends Char {
         }
         //22222222222222222
         {
+            put2("人皇步",2);
+            put2("还是躲在水里最自在",2);
             put2("不灭之握",2);
             put2("六脉神剑",2);
             put2("仆从大师",2);
@@ -1267,6 +1271,7 @@ public class Hero extends Char {
 
         {
 
+            put1("猴子给给",1);
             put1("黄金忍者",1);
             put1("没坐",1);
 
@@ -1471,6 +1476,12 @@ public class Hero extends Char {
            ){
             权重3海克斯("黄金忍者");
         }
+        if(
+                belongings.hasItem(配刺剑.class)||
+                belongings.hasItem(武士刀.class)
+           ){
+            权重3海克斯("猴子给给");
+        }
 
         if(Dungeon.区域()<4){
             权重3海克斯("没坐");
@@ -1497,6 +1508,7 @@ public class Hero extends Char {
         switch(选择){
             default:return "What?";
             //1111111111111111
+            case "猴子给给":return "配刺剑、武士刀的技能伤害+50%，恢复8%最大生命，并且击杀敌人不消耗充能";
             case "家园卫士":return "未战斗状态时，移速+50%";
             case "死腿快跑啊":return "根据已经损失生命最多+70%移速";
             case "生命跃动":return "敏捷+3%最大生命";
@@ -1557,7 +1569,7 @@ public class Hero extends Char {
             case "古式佳酿":return "法杖施法、神器使用、武技使用都会恢复4.5%最大生命";
             case "额外闪现":return "如果没有闪现符石，在蛇皮走位满层后的攻击获得1个闪现符石";
             case "轮回":return "满级后，升级依旧会获得升级的属性(最大生命、最大命中、最大闪避)";
-            case "戒指的宠爱":return "戒指的结合等级x3";
+            case "戒指的宠爱":return "戒指的结合等级x";
             case "背水一战":return "吸血+2%，攻击伤害+吸血";
             case "吸吸物质为俊杰":return "+3%全能吸血";
             case "对冲基金":return "每天金币+2.5%x天数";
@@ -1899,6 +1911,8 @@ public class Hero extends Char {
             case "不灭之握":return "攻击伤害+4%最大生命的魔法伤害，并永久+5最大生命，并恢复2%最大生命，冷却5回合";
             case "六脉神剑":return "武器是剑时，命中+65%，且攻击范围+2，攻速+45%";
             case "心之力":return "首次攻击+0.2力量";
+            case "人皇步":return "你向非东南西北方向移动速度x2";
+            case "还是躲在水里最自在":return "水上每回合恢复1%最大生命和护甲";
             case "士兵男孩":return "受到致命伤害产生爆炸效果(不过不会和炸弹一样炸弹英雄以及破坏物品，且伤害减半)";
             case "广告复活":return "死亡后满血复活，并且麻痹15秒，该效果每天重置";
             case "花岗岩护盾":return "根据护甲，防御最少+10%，最多90%，以及治疗护盾，不过仅1/3效果";
@@ -2120,7 +2134,7 @@ public class Hero extends Char {
             case "III型药剂":return "潜力药剂50%概率+10力量";
             case "升级经验":return "获得的经验x0.35x等级";
             case "冥想":return "等待回合x4，但是恢复25%已损失圣生命，且所受伤害-50%";
-            case "粘咕的宠爱":return "在水上时，每回合恢复4%最大生命";
+            case "粘咕的宠爱":return "在水上时，每回合恢复2%最大生命";
             case "破败之王":return "腐化敌人不会每回合损失1%最大生命，并且每回合恢复5%最大生命";
             case "精巧狙击手":return "投掷敌人在攻击范围外时，花费的时间/3";
             case "命中的宠爱":return "攻击+0.5最大命中";
@@ -2245,7 +2259,7 @@ public class Hero extends Char {
             case "吸血习性":return "移除生命再生，+20%全能吸血";
             case "玄武": return "总移速-30%，防御+150%";
             case "当心小蛋糕":return "每回合5%概率获得蛋糕，蛋糕吃下会恢复已20%已损失生命，此外你任何治疗都会同时获得金币";
-            case "作弊我能复活":return "综合属性-30%，死亡会复活，所有未装备的道具都会丢失，允许选择两件物品在本层某一处复活，其余物品掉落在死亡地点";
+            case "作弊我能复活":return "综合属性-30%，死亡会复活，所有道具都会丢失，允许选择两件物品在本层某一处复活，其余物品掉落在死亡地点";
             case "我无限回档洞悉所有底牌":return "死亡会复活随机传送，但是地牢将有1/10概率生成的是隐形怪，且当你灵视发现时他们的攻击+10倍，受伤仅10%，命中闪避x10，攻速移速x10";
             case "歌利亚巨人":return "最大生命+60%，+15%主属性，+0.1大小";
             case "巨型坦克":return "最大生命+80%，+0.2大小";
@@ -3077,6 +3091,24 @@ public class Hero extends Char {
                 幸运++;
             else 幸运--;
             if(belongings.misc5!=null&&belongings.misc5.cursed)
+                幸运++;
+            else 幸运--;if(belongings.misc6 != null && belongings.misc6.cursed)
+                幸运++;
+            else 幸运--;
+
+            if(belongings.misc7 != null && belongings.misc7.cursed)
+                幸运++;
+            else 幸运--;
+
+            if(belongings.misc8 != null && belongings.misc8.cursed)
+                幸运++;
+            else 幸运--;
+
+            if(belongings.misc9 != null && belongings.misc9.cursed)
+                幸运++;
+            else 幸运--;
+
+            if(belongings.misc10 != null && belongings.misc10.cursed)
                 幸运++;
             else 幸运--;
         }
@@ -4861,8 +4893,7 @@ public class Hero extends Char {
         return x;
     }
     public boolean 空手(){
-        return belongings.weapon==null&&belongings.secondWep==null;
-//        return 武力之戒.fightingUnarmed(this);
+        return 武力之戒.fightingUnarmed(this);
     }
     public boolean 裸衣(){
         return belongings.armor==null&&belongings.armor2==null;
@@ -5300,7 +5331,8 @@ public class Hero extends Char {
         speed*=移速;
         speed*=世界时表.移速();
 
-                    if(垂直移动||水平移动)speed*=2;
+            if(垂直移动||水平移动)speed*=2;
+            if(符文("人皇步")&&!垂直移动&&!水平移动)speed*=2;
         if (在水中()) {
             if (heroClass(HeroClass.盗贼)) {
                 speed*= 1.07f;
@@ -6037,6 +6069,10 @@ public float 攻击延迟() {
         }
 
 
+        if(符文("还是躲在水里最自在")&&在水中()){
+            回百分比血(0.01f);
+            回百分比护甲(0.01f);
+        }
         if(符文("过敏性鼻炎")&&算法.概率学(2)){
             力量+=0.02f;
             SPDSettings.震屏强度(4);
@@ -6100,7 +6136,7 @@ public float 攻击延迟() {
         if(符文("太阳神"))
             sprite.aura( 0xFFFF00, 11 );
 
-        if(符文("粘咕的宠爱")&&在水中())回百分比血(0.04f);
+        if(符文("粘咕的宠爱")&&在水中())回百分比血(0.02f);
         if(符文("装备黄金之心")&&Random.Int(1)==0)Dungeon.gold(1);
         if(符文("你肩上的恶魔")){
             if(视野敌人())
@@ -6293,7 +6329,7 @@ public float 攻击延迟() {
 
         if(heroClass(HeroClass.血鬼)){
             if(天赋(Talent.适应身体)){
-                回百分比血(天赋点数(Talent.适应身体,0.0125f));
+                回百分比血(天赋点数(Talent.适应身体,0.0015f));
             }else{
                 受伤时(0.01f);
             }
@@ -11582,7 +11618,7 @@ public float 攻击延迟() {
                     s+= "视野范围+攻击范围。";
                     break;
                 case 指环王:
-                    s+= "戒指无需装备也能获得其效果。";
+                    s+= "戒指的结合等级x1.2。";
                     break;
                 case 剑魔:
                     s+= "自我回血的治疗护盾+60%。";

@@ -1031,7 +1031,7 @@ public class 物品表 {
     public static final int BREW_SHOCKING = BREW_UNSTABLE + 3;
     public static final int BREW_CAUSTIC = BREW_UNSTABLE + 4;
 
-    public static final int 永生秘药 = xy(14,25);  //8 slots
+    public static final int 永生秘药 = xy(13,25);  //8 slots
     public static final int ELIXIR_HONEY = 永生秘药 + 1;
     public static final int ELIXIR_AQUA = 永生秘药 + 2;
 

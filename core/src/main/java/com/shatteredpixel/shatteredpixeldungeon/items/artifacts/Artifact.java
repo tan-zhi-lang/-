@@ -42,7 +42,10 @@ public class Artifact extends KindofMisc {
 
 		if ((hero.belongings.misc != null && hero.belongings.misc.getClass() == this.getClass())
 				|| (hero.belongings.misc2 != null && hero.belongings.misc2.getClass() == this.getClass())
-				|| (hero.belongings.misc3 != null && hero.belongings.misc3.getClass() == this.getClass())){
+				|| (hero.belongings.misc3 != null && hero.belongings.misc3.getClass() == this.getClass())
+				|| (hero.belongings.misc4 != null && hero.belongings.misc4.getClass() == this.getClass())
+				|| (hero.belongings.misc5 != null && hero.belongings.misc5.getClass() == this.getClass())
+		){
 
 			GLog.橙(Messages.get(Artifact.class,"cannot_wear_two"));
 			return false;
@@ -242,6 +245,7 @@ public class Artifact extends KindofMisc {
 	
 	private static final String EXP = "exp";
 	private static final String CHARGE = "charge";
+	private static final String CHARGECAP = "chargeCap";
 	private static final String PARTIALCHARGE = "partialcharge";
 
 	@Override
@@ -249,6 +253,7 @@ public class Artifact extends KindofMisc {
 		super.storeInBundle(bundle);
 		bundle.put( EXP , exp );
 		bundle.put( CHARGE , charge );
+		bundle.put( CHARGECAP , chargeCap );
 		bundle.put( PARTIALCHARGE , partialCharge );
 	}
 
@@ -256,8 +261,8 @@ public class Artifact extends KindofMisc {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
 		exp = bundle.getInt( EXP );
-		if (chargeCap > 0)  charge = Math.min( chargeCap, bundle.getInt( CHARGE ));
-		else                charge = bundle.getInt( CHARGE );
+		chargeCap = bundle.getInt( CHARGECAP );
+		charge = bundle.getInt( CHARGE );
 		partialCharge = bundle.getFloat( PARTIALCHARGE );
 	}
 }

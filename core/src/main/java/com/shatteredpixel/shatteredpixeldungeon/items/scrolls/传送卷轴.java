@@ -265,6 +265,26 @@ public class 传送卷轴 extends Scroll {
 
 		瞬移(ch,pos + ofs);
 	}
+	public static void 范围瞬移(Char ch,int pos,int x) {
+		int ofs;
+		do {
+
+			ofs = switch(x){
+				case 1->PathFinder.相邻[Random.Int(PathFinder.相邻.length)];
+				case 2->PathFinder.范围2[Random.Int(PathFinder.范围2.length)];
+				case 3->PathFinder.范围3[Random.Int(PathFinder.范围3.length)];
+				case 4->PathFinder.范围4[Random.Int(PathFinder.范围4.length)];
+				case 5->PathFinder.范围5[Random.Int(PathFinder.范围5.length)];
+				case 6->PathFinder.范围6[Random.Int(PathFinder.范围6.length)];
+				case 7->PathFinder.范围7[Random.Int(PathFinder.范围7.length)];
+				case 8->PathFinder.范围8[Random.Int(PathFinder.范围8.length)];
+				default ->PathFinder.相邻[Random.Int(PathFinder.相邻.length)];
+			};
+		} while (Actor.findChar(pos + ofs)!=null||Dungeon.level.solid[pos + ofs] ||!Dungeon.level.passable[pos + ofs]);
+
+
+		瞬移(ch,pos + ofs);
+	}
 	public static void 瞬移(Char ch,int pos) {
 
 		ch.sprite.interruptMotion();

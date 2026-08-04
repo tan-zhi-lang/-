@@ -11,9 +11,8 @@ public class 战锤 extends Weapon{
 	{
 		image = 物品表.WAR_HAMMER;
 		hitSound = Assets.Sounds.锤打;
-		
+		伤害=0.7f;
 		技能=new 重击();
-		延迟=1.3f;
 		
 		tier = 4;
 	}

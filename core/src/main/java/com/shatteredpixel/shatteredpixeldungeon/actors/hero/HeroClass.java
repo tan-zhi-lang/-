@@ -22,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
+import com.shatteredpixel.shatteredpixeldungeon.actors.地牢时间;
 import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
 import com.shatteredpixel.shatteredpixeldungeon.actors.每10回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.每150回合;
@@ -134,24 +135,27 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
-import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯移除器;
-import com.shatteredpixel.shatteredpixeldungeon.items.物品生成;
-import com.shatteredpixel.shatteredpixeldungeon.items.红包;
-import com.shatteredpixel.shatteredpixeldungeon.items.结晶法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯移除器;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.物品生成;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.红包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.结晶法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.自残绳;
+import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Random;
+
 
 public enum HeroClass{
 	
@@ -284,7 +288,7 @@ public enum HeroClass{
 					case "树妖"->"在草丛上，再生速度x5。";
 					case "半人马"->"移速+50%。";
 					case "地精"->"爆炸伤害x3。";
-					case "巨灵"->"一直飞行，可以装两把双手武器，并且魔力+25%";
+					case "巨灵"->"一直飞行，并且魔力+25%";
 					default ->"";
 				};
 				Notes.备注("种族:"+hero.种族天赋,s);
@@ -314,6 +318,7 @@ public enum HeroClass{
 			Buff.施加(hero,每150回合.class);
 			Buff.施加(hero,每300回合.class);
 			Buff.施加(hero,每450回合.class);
+			Buff.施加(hero,地牢时间.class);
 		}
 //			Buff.施加(hero,无法回头.class);
 
@@ -441,6 +446,10 @@ public enum HeroClass{
 		hero.belongings.misc2.activate(hero);
 		if(hero.belongings.misc3!=null)
 		hero.belongings.misc3.activate(hero);
+		if(hero.belongings.misc4!=null)
+		hero.belongings.misc4.activate(hero);
+		if(hero.belongings.misc5!=null)
+		hero.belongings.misc5.activate(hero);
 
 		hero.belongings.幸运=new 幸运之戒();
 		hero.belongings.幸运.activate(hero);
@@ -487,7 +496,7 @@ public enum HeroClass{
 			new 净化药剂().数量(x).放背包();
 			new 隐形药剂().数量(x).放背包();
 			new 灵视药剂().数量(x).放背包();
-			//			new Icecap.Seed().数量(x).放背包();
+						new Icecap.Seed().数量(x).放背包();
 			new 毒气药剂().数量(x).放背包();
 			//			new DarkGold().数量(x).放背包();
 
@@ -758,7 +767,7 @@ public enum HeroClass{
 	
 	private static void 初始戒老(Hero hero){
 		(hero.belongings.weapon=new 碧蓝巨剑()).鉴定();
-//		new 空间之戒().放背包();
+		new 空间之戒().放背包();
 		(hero.belongings.armor=new 能袍()).鉴定();
 		(hero.belongings.misc=new 六神之戒()).鉴定();
 		new 升级卷轴().鉴定();
@@ -855,7 +864,10 @@ public enum HeroClass{
 	}
 	
 	public String title(){
+		if(Dungeon.hero()&&!Dungeon.hero.名字.equals(""))
+		return Dungeon.hero.名字;
 		return Messages.get(HeroClass.class,name());
+
 	}
 	
 	public String desc(){

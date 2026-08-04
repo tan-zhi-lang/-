@@ -36,9 +36,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
@@ -50,13 +50,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.鉴定卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
-import com.shatteredpixel.shatteredpixeldungeon.items.血药;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.血药;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
@@ -361,6 +363,7 @@ public class ShopRoom extends SpecialRoom {
 		if(Dungeon.符文("黑市:六神之戒"))
 		itemsToSpawn.add( new 六神之戒());
 
+		itemsToSpawn.add(TippedDart.getTipped((Plant.Seed) Generator.randomSeed()));
 		itemsToSpawn.add( new 治疗药剂());
 		itemsToSpawn.add( new 血药());
 		itemsToSpawn.add( new 净化药剂());

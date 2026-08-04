@@ -14,6 +14,6 @@ public class 短柄镰 extends Weapon {
 		
 		技能=new 割草();
 		tier = 1;
-		延迟= 1.4f;
+		延迟= 1.3f;
 	}
 }

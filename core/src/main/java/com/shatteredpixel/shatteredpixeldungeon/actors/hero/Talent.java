@@ -32,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.CountBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
@@ -48,9 +49,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbili
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.醍醐灌顶冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.静止状态;
+import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
+import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
@@ -70,6 +73,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘�
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.宝石肛塞;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.暗影飞刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -310,9 +314,7 @@ public enum Talent {
 	}
 	
 	public static class RejuvenatingStepsFurrow extends CountBuff{{revivePersists = true;}}
-	
-	
-	public static class SpiritBladesTracker extends FlavourBuff{}
+
 	
 	public static class LiquidAgilACCTracker extends FlavourBuff{
 		public int uses;
@@ -372,7 +374,7 @@ public enum Talent {
 	int icon;
 	int 最大点数;
 
-	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 => 2/6/11/21/25 4 5 10
+	// tiers 1/2/3/4 start at levels 2/7/13/21 5 6 8 -> 2/6/11/21/25 4 5 10
 	public static int[] 天赋解锁 = new int[]{0, 2, 6, 11, 21, 25};//25
 //	public static int[] 天赋解锁 = new int[]{0, 2, 7, 13, 21, 30};
 
@@ -552,8 +554,8 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		float h=foodVal+hero.天赋点数(Talent.备战,2.5f);
-		if(hero.天赋(Talent.备战))hero.护甲(hero.天赋点数(Talent.备战,1.5f));
+		float h=foodVal+hero.天赋点数(Talent.备战,2);
+		hero.护甲(hero.天赋点数(Talent.武装,3));
 		if(Dungeon.符文("吃货"))h+=hero.最大生命(0.125f);
 		if(Dungeon.符文("饭桶"))h+=hero.最大生命(0.05f);
 		if(Dungeon.符文("细嚼慢咽"))h*=2;
@@ -655,6 +657,8 @@ public enum Talent {
 	}
 
 	public static void 饮用药剂(Hero hero,int cell,float factor,Item item){
+		hero.回血(hero.天赋点数(Talent.备战,2));
+		hero.护甲(hero.天赋点数(Talent.武装,3));
 		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.04f));
 		if(hero.符文("止渴"))hero.回百分比血(0.08f);
 
@@ -673,6 +677,8 @@ public enum Talent {
 	}
 
 	public static void 阅读卷轴(Hero hero,int pos,float factor,Class<?extends Item> cls){
+		hero.回血(hero.天赋点数(Talent.备战,2));
+		hero.护甲(hero.天赋点数(Talent.武装,3));
 		if(Dungeon.赛季(赛季设置.规则怪谈)&&hero.视野敌人())hero.受伤时(hero.最大生命(hero.visibleEnemies()/25f));
 		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.04f));
 
@@ -739,6 +745,11 @@ public enum Talent {
 
 	public static void 拾取时(Hero hero, Item item ){
 
+		if(
+				(item instanceof LiquidMetal||
+				item instanceof Dewdrop)
+		   &&紫色心情.回合()>0)
+			Buff.施加(hero,Charm.class,紫色心情.回合());
 		if(hero.符文("天材地宝"))item.鉴定();
 		if(hero.符文("肉鸽:武器")){
 			if(item instanceof KindofMisc){
@@ -778,19 +789,21 @@ public enum Talent {
 
 	public static float 伏击时(Hero hero, Char enemy, float dmg ){
 
+		dmg*=宝石肛塞.伏击();
+
+		dmg*=暗影飞刀.伏击();
+
 		if(hero.天赋(Talent.埋伏))
 		dmg+=hero.天赋点数(Talent.埋伏,2);
 
 		enemy.第x次背袭++;
 		if(enemy.第x次背袭==1){
+			dmg+=hero.天赋点数(Talent.突袭,4);
 			enemy.sprite.愤怒();
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.地势)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.地势);
 			}
 		}
-		dmg*=宝石肛塞.伏击();
-
-		dmg*=暗影飞刀.伏击();
 		return dmg;
 	}
 	public static float 攻击时(Hero hero, Char enemy, float dmg ){

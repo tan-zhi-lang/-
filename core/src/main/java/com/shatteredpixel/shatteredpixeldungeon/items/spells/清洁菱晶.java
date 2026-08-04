@@ -87,7 +87,8 @@ public class 清洁菱晶 extends Spell {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			return !(item instanceof 清洁菱晶)&&(!item.已鉴定()||(item.cursed&&item.cursedKnown));
+			return !(item instanceof 清洁菱晶)
+				   &&(!item.已鉴定()||(item.cursed));
 		}
 
 		@Override

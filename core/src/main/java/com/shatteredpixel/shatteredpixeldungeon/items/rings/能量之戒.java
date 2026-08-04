@@ -61,7 +61,7 @@ public class 能量之戒 extends Ring {
 		if (target instanceof Hero hero){
 			bonus--;
 			bonus+=hero.魔力(0.05f);
-			bonus+=hero.天赋点数(Talent.充能,0.12f);
+			bonus+=hero.天赋点数(Talent.充能,0.1f);
 			int 法杖数量=0;
 			for(Item i:hero.belongings.backpack){
 				if(i instanceof Wand a)
@@ -82,7 +82,7 @@ public class 能量之戒 extends Ring {
 			if(hero.符文("面包和黄油"))bonus+=0.5f;
 			if(hero.符文("尖端发明家"))bonus+=0.35f;
 			if(hero.符文("由暴生急"))bonus+=0.5*hero.暴击率();
-			if (hero.belongings.armor instanceof 法袍){
+			if (hero.belongings.armor(法袍.class)){
 				bonus += 0.1f;
 			}
 			if(hero.heroClass(HeroClass.巫女)){
@@ -109,7 +109,7 @@ public class 能量之戒 extends Ring {
 
 			bonus--;
 			bonus+=hero.魔力(0.05f);
-			bonus+=hero.天赋点数(Talent.充能,0.12f);
+			bonus+=hero.天赋点数(Talent.充能,0.1f);
 			int 神器数量=0;
 			for(Item i:hero.belongings.backpack){
 				if(i instanceof Artifact a)
@@ -153,7 +153,7 @@ public class 能量之戒 extends Ring {
 
 			bonus--;
 			bonus+=hero.魔力(0.05f);
-			bonus+=hero.天赋点数(Talent.充能,0.12f);
+			bonus+=hero.天赋点数(Talent.充能,0.1f);
 
 			if(hero.符文("纯粹主义术师"))
 				bonus+=1/hero.攻击延迟();

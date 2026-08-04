@@ -19,10 +19,10 @@ public class RingOfTenacity extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   kw2(100f * (1f - Math.pow(0.85f, soloBuffedBonus()))));
+									   kw2(100f * (float)(1f - Math.pow(0.85f, soloBuffedBonus()))));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  kw2(100f * (1f - Math.pow(0.85f, combinedBuffedBonus(Dungeon.hero)))));
+											  kw2(100f * (float)(1f - Math.pow(0.85f, combinedBuffedBonus(Dungeon.hero)))));
 			}
 			return info;
 		} else {

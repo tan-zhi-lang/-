@@ -31,6 +31,14 @@ public class 蟑螂 extends Mob {
 	}
 
 	@Override
+	public float 移速(){
+
+		if(!攻击)
+			return super.移速()*0.6f;
+		return super.移速();
+	}
+
+	@Override
 	public int 最大闪避(Char enemy){
 		if(enemy!=null&&Dungeon.level.距离(enemy.pos,pos)<=2)return 0;
 

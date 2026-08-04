@@ -38,7 +38,7 @@ public class 蠕虫 extends Mob {
 	public void 受伤时(float dmg,Object 来源){
 		super.受伤时(dmg,来源);
 		if(isAlive()&&来源 instanceof Char c){
-			传送卷轴.周身瞬移(this,c.pos);
+			传送卷轴.范围瞬移(this,c.pos,6);
 			Dungeon.level.occupyCell(this);
 		}
 	}

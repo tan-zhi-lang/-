@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.镐击;
 import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -12,6 +13,7 @@ public class 钻石镐 extends 镐子 {
 
 		特别= true;
 		蓝色=true;
+		技能=new 镐击();
 
 		物品 = false;
 		嬗变= true;

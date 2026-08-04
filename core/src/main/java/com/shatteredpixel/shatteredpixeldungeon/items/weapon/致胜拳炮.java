@@ -15,9 +15,23 @@ public class 致胜拳炮 extends Weapon{
 		范围=3;
 		特别=true;
 		绿色=true;
+
+//		发射器=true;
+//		发射物=new 拳击手套();
+//		充能=false;
+//		无限战技=true;
+
 		tier=5;
 	}
 
+//	@Override
+//	public float 发射器最小攻击(){
+//		return super.最小攻击()*1.5f;
+//	}
+//	@Override
+//	public float 发射器最大攻击(){
+//		return super.最大攻击()*1.5f;
+//	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(defender!=null){

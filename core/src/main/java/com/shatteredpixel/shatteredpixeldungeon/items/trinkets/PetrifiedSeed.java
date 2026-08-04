@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +23,12 @@ public class PetrifiedSeed extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					 100*stoneInsteadOfSeedChance(等级()),
-					 100*(grassLootMultiplier(等级())-1f));
+								kw2(100*stoneInsteadOfSeedChance(等级())),
+									kw2(100*(grassLootMultiplier(等级())-1f)));
 		} else {
 			return Messages.get(this, "stats_desc",
-					 100*stoneInsteadOfSeedChance(0),
-					 100*(grassLootMultiplier(0)-1f));
+								kw2(100*stoneInsteadOfSeedChance(0)),
+								kw2(100*(grassLootMultiplier(0)-1f)));
 		}
 	}
 

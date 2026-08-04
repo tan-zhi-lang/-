@@ -51,14 +51,9 @@ public class FloatingText extends RenderedTextBlock {
 			case 0->0.5f;
 			case 1->0.75f;
 			case 2->1;
-			case 3->1.25f;
-			case 4->1.5f;
-			case 5->1.75f;
-			case 6->2f;
-			case 7->2.25f;
-			case 8->2.5f;
-			case 9->2.75f;
-			case 10->3;
+			case 3->2;
+			case 4->3;
+			case 5->4;
 
 		};
 	}

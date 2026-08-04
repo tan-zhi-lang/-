@@ -112,7 +112,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
@@ -493,11 +495,9 @@ public abstract class Char extends Actor {
 				}
 			}
 
-			//flat damage bonus is affected by multipliers
-			dmg += dmgBonus;
-
-
 			dmg = dmg*dmgMulti;
+
+
 			if (buff( Fury.class ) != null) {
 				dmg *= 1.5f;
 			}
@@ -526,6 +526,9 @@ public abstract class Char extends Actor {
 					dmg *= 0.5f;
 				}
 			}
+			//flat damage bonus is affected by multipliers
+			dmg += dmgBonus;
+
 
 			float effectiveDamage = enemy.防御时( this, dmg );
 			//do not trigger on-hit logic if defenseProc returned a negative value
@@ -689,7 +692,7 @@ public abstract class Char extends Actor {
 			if(hero.符文("三国杀:赵云"))defStat+=acuStat;
 			defStat/=hero.幸运机制();
 
-			if(attacker.恶魔亡灵()&&hero.belongings.armor() instanceof 道袍){
+			if(attacker.恶魔亡灵()&&hero.belongings.armor(道袍.class)){
 				acuStat*=0.85f;
 			}
 
@@ -934,6 +937,10 @@ public abstract class Char extends Actor {
 		return x;
 	}
 	public float 攻击时(final Char enemy, float damage ) {
+
+		if(enemy!=null&&黑桃印记.回合()>0&&算法.概率学(15))
+			Buff.施加(enemy,Charm.class,紫色心情.回合());
+
 		if(enemy!=null)
 		第x次攻击++;
 		if(enemy!=null&&Dungeon.符文("诚信互钢")&&enemy.第x次防御==1){
@@ -992,8 +999,6 @@ public abstract class Char extends Actor {
 
 		float scaleFactor = AscensionChallenge.statModifier(this);
 		float scaledDmg = damage/scaleFactor;
-		if(史莱姆)
-			damage=算法.固衰(scaledDmg,5);
 
 
 		//if dmg is from a character we already reduced it in Char.attack
@@ -1004,6 +1009,8 @@ public abstract class Char extends Actor {
 		if(enemy!=null)
 		damage=护甲伤害(damage);
 
+		if(史莱姆)
+			damage=算法.固衰(scaledDmg,5);
 		return damage;
 	}
 

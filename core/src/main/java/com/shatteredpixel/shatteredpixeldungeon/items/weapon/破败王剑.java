@@ -14,7 +14,7 @@ public class 破败王剑 extends Weapon{
 		hitSound = Assets.Sounds.巨剑;
 		tier=5;
 		伤害=0.8f;
-		吸血=0.1f;
+		吸血=0.12f;
 		特别=true;
 		靛色=true;
 		技能=new 嗜血();

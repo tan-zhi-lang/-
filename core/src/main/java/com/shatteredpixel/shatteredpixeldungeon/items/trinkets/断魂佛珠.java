@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +23,12 @@ public class 断魂佛珠 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								回血(),
-								敏捷());
+								kw2(回血()),
+									kw2(敏捷()));
 		} else {
 			return Messages.get(this,"stats_desc",
-								回血(0),
-								敏捷(0));
+								kw2(回血(0)),
+									kw2(敏捷(0)));
 		}
 	}
 

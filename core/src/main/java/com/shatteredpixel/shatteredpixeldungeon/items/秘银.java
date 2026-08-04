@@ -8,7 +8,8 @@ public class 秘银 extends Item {
 	
 	{
 		image = 物品表.秘银;
-		
+
+		白色=true;
 		可堆叠= true;
 		特别= true;
 		炼金全放=true;

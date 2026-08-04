@@ -16,7 +16,7 @@ public class 战镰 extends Weapon{
 		技能=new 横扫();
 		
 		tier = 4;
-		延迟= 1.75f;
+		延迟= 1.4f;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

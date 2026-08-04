@@ -14,7 +14,7 @@ public class 关刀 extends Weapon{
 		hitSound = Assets.Sounds.长枪;
 		
 		技能=new 刺退();
-		延迟=2;
+		延迟=1.3f;
 		tier = 4;
 //		连招范围=2;
 		范围 = 2;

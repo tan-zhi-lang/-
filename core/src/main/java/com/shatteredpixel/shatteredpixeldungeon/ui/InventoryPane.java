@@ -280,16 +280,32 @@ public class InventoryPane extends Component {
 			lastBag = stuff.backpack;
 		}
 
-		equipped.get(0).item(stuff.weapon == null ? new WndBag.Placeholder( 物品表.WEAPON_HOLDER ) : stuff.weapon);
-		equipped.get(1).item(stuff.armor == null ? new WndBag.Placeholder( 物品表.ARMOR_HOLDER ) : stuff.armor);
-		equipped.get(2).item(stuff.misc == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc);
-		equipped.get(3).item(stuff.misc2 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc2);
-		equipped.get(4).item(stuff.misc3 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc3);
+//		equipped.get(0).item(stuff.weapon == null ? new WndBag.Placeholder( 物品表.WEAPON_HOLDER ) : stuff.weapon);
+//		equipped.get(1).item(stuff.armor == null ? new WndBag.Placeholder( 物品表.ARMOR_HOLDER ) : stuff.armor);
+		equipped.get(0).item(stuff.misc == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc);
+		equipped.get(1).item(stuff.misc2 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc2);
+		equipped.get(2).item(stuff.misc3 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc3);
+		equipped.get(3).item(stuff.misc4 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc4);
+		equipped.get(4).item(stuff.misc5 == null ? new WndBag.Placeholder( 物品表.ITEM) : stuff.misc5);
 
 		ArrayList<Item> items = (ArrayList<Item>) lastBag.items.clone();
-
-		if (lastBag == stuff.backpack && stuff.secondWep != null){
-			items.add(0, stuff.secondWep);
+		if(lastBag == stuff.backpack){
+			if(stuff.幸运!=null)
+			{
+				items.add(0,stuff.幸运);
+			}
+			if(stuff.weapon!=null){
+				items.add(1,stuff.weapon);
+			}
+			if(stuff.secondWep!=null){
+				items.add(2,stuff.secondWep);
+			}
+			if(stuff.armor!=null){
+				items.add(3,stuff.armor);
+			}
+			if(stuff.armor2!=null){
+				items.add(4,stuff.armor2);
+			}
 		}
 
 		int j = 0;

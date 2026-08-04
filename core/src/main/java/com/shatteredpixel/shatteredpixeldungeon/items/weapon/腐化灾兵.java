@@ -22,7 +22,7 @@ public class 腐化灾兵 extends Weapon{
 		专属=true;
 		特别=true;
 		绿色=true;
-		延迟= 1.75f;
+		伤害= 0.8f;
 //		连招范围=2;
 		范围 = 2;
 	}
@@ -36,7 +36,7 @@ public class 腐化灾兵 extends Weapon{
 				mob.攻击=damage*0.6f;
 				mob.target(defender.pos);
 				GameScene.add(mob);
-				传送卷轴.周身瞬移(mob,attacker.pos);
+				传送卷轴.范围瞬移(mob,attacker.pos,8);
 			}
 		}
 		return super.攻击时( attacker, defender, damage );

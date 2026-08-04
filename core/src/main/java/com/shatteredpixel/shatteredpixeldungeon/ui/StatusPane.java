@@ -40,6 +40,7 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.ColorMath;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.PointF;
 
 public class StatusPane extends Component {
 
@@ -65,6 +66,13 @@ public class StatusPane extends Component {
 	private Button heroInfoOnBar;
 
 	private Image exp;
+	private Image 红条阈值15;
+	private Image 红条阈值40;
+	private Image 红条阈值50;
+	private Image 红条阈值60;
+	private Image 蓝条阈值60;
+	private Image 绿条阈值150;
+	private Image 绿条阈值300;
 	private BitmapText expText;
 	private BitmapText date;
 	private BitmapText fps;
@@ -170,7 +178,29 @@ public class StatusPane extends Component {
 
 		exp = new Image(asset, 0, 38, 16, 4);
 		add( exp );
-		
+
+		红条阈值15=new Image(asset,0,38,1,4);
+		红条阈值40=new Image(asset,0,38,1,4);
+		红条阈值50=new Image(asset,0,38,1,4);
+		红条阈值60=new Image(asset,0,38,1,4);
+		绿条阈值150=new Image(asset,0,38,1,4);
+		绿条阈值300=new Image(asset,0,38,1,4);
+
+		红条阈值15.scale.set(new PointF(0.5f,1));
+		红条阈值40.scale.set(new PointF(0.5f,1));
+		红条阈值50.scale.set(new PointF(0.5f,1));
+		红条阈值60.scale.set(new PointF(0.5f,1));
+		绿条阈值150.scale.set(new PointF(0.5f,1));
+		绿条阈值300.scale.set(new PointF(0.5f,1));
+
+		add(红条阈值15);
+		add(红条阈值40);
+		add(红条阈值50);
+		add(红条阈值60);
+
+		add(绿条阈值150);
+		add(绿条阈值300);
+
 		expText = new BitmapText(PixelScene.pixelFont);
 		expText.hardlight( 0xFFFFAA );
 		expText.alpha(0.6f);
@@ -224,9 +254,14 @@ public class StatusPane extends Component {
 		
 			exp.x = x+2;
 			exp.y = y+30;
-
-		血条.x = 护盾.x = x + 30;
-		血条.y = 护盾.y  = y+2;
+		float 阈值=0.5f;
+		血条.x  = 护盾.x = x + 30;
+		红条阈值15.x=血条.x+15*阈值;
+		红条阈值40.x=血条.x+40*阈值;
+		红条阈值50.x=血条.x+50*阈值;
+		红条阈值60.x=血条.x+60*阈值;
+		红条阈值15.y =红条阈值40.y =红条阈值50.y =红条阈值60.y
+				=血条.y = 护盾.y  = y+2;
 
 		血条文本.scale.set(PixelScene.align(0.5f));
 		血条文本.x = 血条.x + 1;
@@ -253,15 +288,23 @@ public class StatusPane extends Component {
 		绿条框.x=法力条框.x;
 		绿条框.y=法力条框.y-2+绿条框.height();
 		绿条.x=法力条.x;
-		绿条.y=法力条.y+绿条.height()+2;
+
+		绿条阈值150.x=绿条.x+33.33f*阈值;
+		绿条阈值300.x=绿条.x+66.66f*阈值;
+		绿条阈值150.y=绿条阈值300.y=绿条.y=法力条.y+绿条.height()+2;
 
 		绿条文本.scale.set(PixelScene.align(0.5f));
 		绿条文本.x=绿条.x+1;
 		绿条文本.y=绿条.y+(绿条.height-(绿条文本.baseLine()+绿条文本.scale.y))/2f;
 		绿条文本.y-=0.001f; //prefer to be slightly higher
 		PixelScene.align(绿条文本);
-			
+		红条阈值15.alpha0();
+		红条阈值40.alpha0();
+		红条阈值50.alpha0();
+		红条阈值60.alpha0();
 		if(Dungeon.赛季(赛季设置.地牢塔防)||Dungeon.hero.heroClass(HeroClass.机器)||Dungeon.hero.heroClass(HeroClass.凌云)){
+			绿条阈值150.alpha0();
+			绿条阈值300.alpha0();
 			绿条.alpha0();
 			绿条文本.alpha0();
 			绿条框.alpha0();
@@ -342,7 +385,7 @@ public class StatusPane extends Component {
 		float 最大护甲 = Dungeon.hero.最大护甲;
 
 		float 恢复速度=Dungeon.hero.护甲恢复();
-		//+40%即2=>2.8，50=>35
+		//+40%即2->2.8，50->35
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);

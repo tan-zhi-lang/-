@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,14 +23,14 @@ public class 磨刀石 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								100*增加(),
-								力量()
+								kw2(100*增加()),
+									kw2(力量())
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								
-								100*增加(0),
-								力量(0)
+
+								kw2(100*增加(0)),
+								kw2(力量(0))
 							   );
 		}
 	}

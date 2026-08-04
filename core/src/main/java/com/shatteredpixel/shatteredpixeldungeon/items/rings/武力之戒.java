@@ -62,24 +62,17 @@ public class 武力之戒 extends Ring{
 		return tier;
 	}
 	
-	public static int notier(){
-		int str=10;
-		int tier=Math.round(Math.max(1,(str-8)/2f));
-		//each str point after 18 is half as effective
-		if(tier>5){
-			tier=5+Math.round((tier-5)/2f);
-		}
-		return tier;
-	}
-	
-	public static int 额外(Hero hero){
-		int dmg=0;
+	public static float 额外(){
+		Hero hero=Dungeon.hero;
+		float dmg=0;
+		if(Dungeon.hero()&&hero.力量()-10+2*tier()>0)dmg+=hero.力量()-10+2*tier();
+
 		int level=getBuffedBonus(hero,Force.class);
 		int tier=tier();
-		if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
+		if(Dungeon.hero()&&hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 			dmg+=Hero.heroDamage(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
 		}
-		if(hero.buff(BrawlersStance.class)!=null&&hero.buff(BrawlersStance.class).active){
+		if(Dungeon.hero()&&hero.buff(BrawlersStance.class)!=null&&hero.buff(BrawlersStance.class).active){
 			// 3+tier base dmg, roughly +60%->45% dmg at T1->5
 			// lvl*((4+2*tier)/8) scaling, +50% dmg
 			dmg+=Math.round(3+tier+(level*((4+2*tier)/8f)));
@@ -87,14 +80,14 @@ public class 武力之戒 extends Ring{
 		return dmg;
 	}
 	
-	public static int heromin(){
-		return Math.round(0.05f * Dungeon.hero.力量());
+	public static float heromin(){
+		return 0.05f * Dungeon.hero.力量();
 	}
 	
-	public static int heromax(){
+	public static float heromax(){
 		return Math.round(Dungeon.hero.力量()-8.5f);
 	}
-	public static int min(){
+	public static float min(){
 		int x=0;
 		if(Dungeon.hero()){
 			if(Dungeon.hero.hasbuff(Force.class)){
@@ -104,7 +97,7 @@ public class 武力之戒 extends Ring{
 		return min(x,tier());
 	}
 	
-	public static int max(){
+	public static float max(){
 		int x=0;
 		if(Dungeon.hero()){
 			if(Dungeon.hero.hasbuff(Force.class)){
@@ -114,25 +107,25 @@ public class 武力之戒 extends Ring{
 		return max(x,tier());
 	}
 	
-	public static int min(int lvl,float tier){
+	public static float min(int lvl,float tier){
 		if(lvl<=0){
 			lvl=0;
 		}
 		
 		return Math.max(0,Math.round((tier+  //base
 									 lvl     //level scaling
-									 )/2));
+									 )/2f));
 	}
 	
 	//same as equivalent tier weapon
-	public static int max(int lvl,float tier){
+	public static float max(int lvl,float tier){
 		if(lvl<=0){
 			lvl=0;
 		}
 		
-		return Math.max(0,Math.round(2.5f*(tier+1)+    //base
+		return Math.max(0,Math.round((5*(tier+1)+    //base
 									  lvl*(tier+1)    //level scaling
-									 ));
+									 )/2f));
 	}
 	
 	@Override
@@ -170,7 +163,7 @@ public class 武力之戒 extends Ring{
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-6);
 		}
-		return Integer.toString(max(level,1));
+		return max(level,1)+"";
 	}
 	
 	@Override

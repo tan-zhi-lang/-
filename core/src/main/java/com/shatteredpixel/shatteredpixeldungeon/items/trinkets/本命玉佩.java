@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +23,12 @@ public class 本命玉佩 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								(1-防御())*100,
-								(1-生命())*100);
+								kw2((1-防御())*100),
+									kw2((1-生命())*100));
 		} else {
 			return Messages.get(this,"stats_desc",
-								(1-防御(0))*100,
-								(1-生命(0))*100);
+								kw2((1-防御(0))*100),
+								kw2((1-生命(0))*100));
 		}
 	}
 

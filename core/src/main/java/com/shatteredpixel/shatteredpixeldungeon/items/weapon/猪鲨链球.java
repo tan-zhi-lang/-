@@ -14,14 +14,14 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 猪鲨链球 extends Weapon {
 
 	{
-		image = 物品表.FLAIL;
+		image = 物品表.猪鲨链球;
 		hitSound = Assets.Sounds.锤打;
 		
 		技能=new 甩击();
 		tier = 5;
 //		连招范围=2;
 		范围 = 2;
-		延迟= 1.4f;
+		延迟= 1.3f;
 	}
 
 	@Override

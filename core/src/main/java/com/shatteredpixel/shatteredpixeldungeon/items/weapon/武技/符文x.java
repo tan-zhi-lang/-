@@ -38,10 +38,10 @@ public class 符文x extends 武技{
 		if (!hero.canAttack(enemy)){
 			GLog.w(Messages.get(this, "ability_target_range"));
 			tracker.detach();
-			hero.belongings.abilityWeapon = null;
+			
 			return;
 		}
-		hero.belongings.abilityWeapon = null;
+		
 
 		hero.sprite.attack(enemy.pos, new Callback() {
 			@Override

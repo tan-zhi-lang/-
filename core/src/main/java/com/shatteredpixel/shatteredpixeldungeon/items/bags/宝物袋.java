@@ -12,12 +12,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
-import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯移除器;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性碎片;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性锻造器;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯移除器;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 
@@ -59,7 +59,7 @@ public class 宝物袋 extends Bag {
 	}
 	
 	public int capacity(){
-		return 19+(Dungeon.解压(解压设置.高级背包)?10:0);
+		return 19+(Dungeon.解压(解压设置.高级背包)?10:5);
 	}
 	
 	@Override

@@ -19,7 +19,7 @@ public class 真铜短剑 extends Weapon{
 		特别=true;
 		橙色=true;
 
-		伤害=0.8f;
+		延迟=0.8f;
 		
 		技能=new 潜行();
 

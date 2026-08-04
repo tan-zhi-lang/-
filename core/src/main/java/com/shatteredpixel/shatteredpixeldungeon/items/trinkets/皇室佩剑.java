@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,14 +23,14 @@ public class 皇室佩剑 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								概率(),
-								回血(),
-								亏损());
+								kw2(概率()),
+									kw2(回血()),
+										kw2(亏损()));
 		} else {
 			return Messages.get(this,"stats_desc",
-								概率(0),
-								回血(0),
-								亏损(0));
+								kw2(概率(0)),
+								kw2(回血(0)),
+									kw2(亏损(0)));
 		}
 	}
 

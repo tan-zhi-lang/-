@@ -10,7 +10,7 @@ public class 疯狂斧 extends Weapon{
 	{
 		image = 物品表.疯狂斧;
 		hitSound = Assets.Sounds.攻击砍;
-		延迟=1.5f;
+		延迟=1.3f;
 		技能=new 劈斩();
 		特别=true;
 		橙色=true;

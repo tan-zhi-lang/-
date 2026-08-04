@@ -65,6 +65,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血荆棘;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.火把神的恩宠;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命果;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.用品;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -878,6 +889,8 @@ public class Item implements Bundlable {
 	}
 
 	public boolean 可升级() {
+		if(升级物品)
+			return true;
 		if(物品||封禁升级)
 			return false;
 
@@ -885,7 +898,7 @@ public class Item implements Bundlable {
 	}
 
 	public boolean 已鉴定() {
-		if(物品||this instanceof 技能){
+		if(升级物品||物品||this instanceof 技能){
 			return true;
 		}
 		return levelKnown && cursedKnown;
@@ -1071,8 +1084,11 @@ public class Item implements Bundlable {
 		}
 
 
-
-		String s="\n代码名"+(已鉴定()?this.getClass().getSimpleName():"待鉴定");
+		String 真代码名=this.getClass().getSimpleName();
+		if(this instanceof Plant.Seed)真代码名=this.getClass().getName()
+				.replaceAll("com.shatteredpixel.shatteredpixeldungeon.plants.", "")
+				.replaceAll("\\$Seed", "");
+		String s="\n代码名"+(已鉴定()?真代码名:"待鉴定");
 		s+="\n";
 		if(已鉴定()){
 			if(金币()>0){
@@ -1411,7 +1427,7 @@ public class Item implements Bundlable {
 	}
 
 	public int throwPos( Hero user, int dst){
-		return new Ballistica( user.pos, dst, Ballistica.PROJECTILE ).collisionPos;
+		return new Ballistica( user.pos, dst, (this instanceof Weapon w&&w.穿透回旋镖()?Ballistica.STOP_TARGET:Ballistica.PROJECTILE) ).collisionPos;
 	}
 
 	public void throwSound(){

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,14 +23,14 @@ public class 骸骨左轮 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								伤害()*100,
-								减少()*100
+								kw2(伤害()*100),
+									kw2(减少()*100)
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 
-								伤害(0)*100,
-								减少(0)*100
+								kw2(伤害(0)*100),
+									kw2(减少(0)*100)
 							   );
 		}
 	}

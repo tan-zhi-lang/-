@@ -32,6 +32,7 @@ public class UnstableBrew extends Brew {
 	{
 		image = 物品表.BREW_UNSTABLE;
 		icon = 物品表.Icons.紊乱;
+		彩光=true;
 	}
 
 	@Override

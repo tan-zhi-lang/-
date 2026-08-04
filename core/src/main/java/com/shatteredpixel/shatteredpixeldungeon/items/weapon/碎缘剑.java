@@ -21,6 +21,7 @@ public class 碎缘剑 extends Weapon{
 		hitSound = Assets.Sounds.镜刃;
 		特别=true;
 		粉色=true;
+		伤害=1.1f;
 		tier=5;
 	}
 	@Override

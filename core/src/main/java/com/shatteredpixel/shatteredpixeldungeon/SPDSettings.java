@@ -56,6 +56,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 游戏帧率x = "游戏帧率";
 	public static final String 字体大小x = "字体大小";
 	public static final String 文字寿命x = "文字寿命";
+	public static final String 保留位数x= "保留位数";
 	public static final String 提示行数x = "提示行数";
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
@@ -257,7 +258,14 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 文字寿命() {
-		return getInt(文字寿命x, 1,0,10 );
+		return getInt(文字寿命x, 1,0,5 );
+	}
+	public static void 保留位数(int value){
+		put(保留位数x,value);
+	}
+
+	public static int 保留位数() {
+		return getInt(保留位数x,2,0,2);
 	}
 	public static void 提示行数(int value ){
 		put(提示行数x, value );
@@ -368,6 +376,7 @@ public class SPDSettings extends GameSettings {
 	
 	public static final String KEY_LAST_CLASS	= "last_class";
 	public static final String KEY_CHALLENGES	= "challenges";
+	public static final String 重命名英雄x	= "重命名英雄";
 	public static final String 炼狱x	= "炼狱";
 	public static final String 解压x	= "解压";
 	public static final String 系统x	= "系统";
@@ -396,10 +405,17 @@ public class SPDSettings extends GameSettings {
 		return getInt( KEY_LAST_CLASS, 0, 0, 3 );
 	}
 	
+	public static void 重命名英雄( String value ) {
+		put( 重命名英雄x, value );
+	}
+	
+	public static String 重命名英雄() {
+		return getString( 重命名英雄x, "");
+	}
 	public static void challenges( int value ) {
 		put( KEY_CHALLENGES, value );
 	}
-	
+
 	public static int challenges() {
 		return getInt( KEY_CHALLENGES, 0, 0, Challenges.MAX_VALUE );
 	}

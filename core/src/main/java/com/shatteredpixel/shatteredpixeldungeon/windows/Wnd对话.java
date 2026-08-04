@@ -26,7 +26,7 @@ public class Wnd对话 extends Window {
 		RedButton btnReward = new RedButton( r1 ) {
 			@Override
 			protected void onClick() {
-
+				完成任务(npc);
 			}
 		};
 		btnReward.setRect( 0, message.top() + message.height() + GAP, WIDTH, BTN_HEIGHT );
@@ -34,7 +34,7 @@ public class Wnd对话 extends Window {
 		RedButton btnReward2 = new RedButton( r2 ) {
 			@Override
 			protected void onClick() {
-
+				完成任务(npc);
 			}
 		};
 		btnReward2.setRect( 0, btnReward.top() + btnReward.height() + GAP, WIDTH, BTN_HEIGHT );
@@ -43,7 +43,7 @@ public class Wnd对话 extends Window {
 		resize( WIDTH, (int)btnReward2.bottom() );
 	}
 	
-	private void takeReward(对话NPC npc) {
+	private void 完成任务(对话NPC npc) {
 		
 		hide();
 		

@@ -107,6 +107,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.狂妄皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
@@ -120,10 +121,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
-import com.shatteredpixel.shatteredpixeldungeon.items.属性碎片;
-import com.shatteredpixel.shatteredpixeldungeon.items.属性锻造器;
-import com.shatteredpixel.shatteredpixeldungeon.items.干枯花瓣;
-import com.shatteredpixel.shatteredpixeldungeon.items.海克斯秘卷;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性碎片;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性锻造器;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.干枯花瓣;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -291,6 +292,9 @@ public abstract class Mob extends Char{
 	protected boolean act(){
 
 		super.act();
+
+		if(黑桃印记.概率()>0&&nobuff(Charm.class))
+			sprite.add(CharSprite.State.DARKENED);
 
 		boolean justAlerted=alerted;
 		alerted=false;
@@ -825,11 +829,11 @@ public abstract class Mob extends Char{
 
 
 		if(Dungeon.符文("来吧老弟")){
-			damage*=1.35f;
+			damage*=1.08f;
 		}
 		damage*=真正护符.增加();
 		if(Dungeon.符文("仆从大师")&&alignment==Alignment.ALLY)damage*=1.4f;
-		if(Dungeon.符文("威慑纪元"))damage*=1.25f;
+		if(Dungeon.符文("威慑纪元"))damage*=1.15f;
 		if(Dungeon.符文("缩小射线")){
 			damage*=大小;
 		}
@@ -905,6 +909,15 @@ public abstract class Mob extends Char{
 		if(Dungeon.符文("你才是老鬼"))x*=3f;
 		if(Dungeon.符文("溜冰"))x/=3f;
 		if(Dungeon.符文("芝诺龟")&&相邻(Dungeon.hero))x/=4f;
+		if((enemy!=null&&
+			(水平移动(enemy.pos)||
+		垂直移动(enemy.pos)
+			))||(
+				水平移动(target)||
+				垂直移动(target)
+		)||水平移动||垂直移动){
+			x*=2;
+		}
 		return super.移速()*AscensionChallenge.enemySpeedModifier(this)*x;
 	}
 
@@ -1044,8 +1057,6 @@ public abstract class Mob extends Char{
 		}
 		if(Dungeon.符文("收集者")&&生命<=最大生命(0.05f))
 			Buff.施加(this, Grim.GrimTracker.class).maxChance = 100f;
-
-		if(Dungeon.符文("雷霆大A"))dmg*=0.75f;
 
 		if(Dungeon.符文("你肩上的恶魔"))dmg*=1.25f;
 		super.受伤时(dmg,来源);
@@ -1404,10 +1415,7 @@ public abstract class Mob extends Char{
 						Dungeon.hero.死亡时(null);
 					}
 
-					if(Dungeon.hero.天赋(Talent.久战)){
-						Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,0.5f));
-						Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.久战,0.5f));
-					}
+					Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.久战,4));
 
 					//击杀瞬移
 					//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));

@@ -44,7 +44,7 @@ public class Statistics {
 	public static int sneakAttacks;
 	public static int thrownAttacks;
 	public static int 物理防御;
-	public static Item item;
+	public static Item item1;
 	public static Item item2;
 	public static Item item3;
 	public static Item item4;
@@ -142,7 +142,7 @@ public class Statistics {
 	private static final String SNEAKS		= "sneakAttacks";
 	private static final String THROWN		= "thrownAssists";
 	private static final String 物理防御x		= "物理防御";
-	private static final String ITEM=        "item";
+	private static final String ITEM1=        "item1";
 	private static final String ITEM2=        "item2";
 	private static final String ITEM3=        "item3";
 	private static final String ITEM4=        "item4";
@@ -201,7 +201,7 @@ public class Statistics {
 		bundle.put( SNEAKS,		sneakAttacks );
 		bundle.put( THROWN,     thrownAttacks);
 		bundle.put( 物理防御x,     物理防御);
-		if (item!=null) bundle.put(ITEM,item);
+		if (item1!=null) bundle.put(ITEM1,item1);
 		if (item2!=null) bundle.put(ITEM2,item2);
 		if (item3!=null) bundle.put(ITEM3,item3);
 		if (item4!=null) bundle.put(ITEM4,item4);
@@ -273,7 +273,7 @@ public class Statistics {
 		sneakAttacks    = bundle.getInt( SNEAKS );
 		thrownAttacks   = bundle.getInt( THROWN );
 		物理防御   = bundle.getInt( 物理防御x );
-		if (bundle.contains(ITEM)) item= (Item)bundle.get(ITEM);
+		if (bundle.contains(ITEM1)) item1= (Item)bundle.get(ITEM1);
 		if (bundle.contains(ITEM2)) item2= (Item)bundle.get(ITEM2);
 		if (bundle.contains(ITEM3)) item3= (Item)bundle.get(ITEM3);
 		if (bundle.contains(ITEM4)) item4= (Item)bundle.get(ITEM4);

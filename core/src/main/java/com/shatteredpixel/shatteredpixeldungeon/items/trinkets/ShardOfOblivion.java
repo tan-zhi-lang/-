@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -41,9 +43,9 @@ public class ShardOfOblivion extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", 等级()+1);
+			return Messages.get(this, "stats_desc", kw2(等级()+1));
 		} else {
-			return Messages.get(this, "stats_desc", 1);
+			return Messages.get(this, "stats_desc", kw2(1));
 		}
 	}
 

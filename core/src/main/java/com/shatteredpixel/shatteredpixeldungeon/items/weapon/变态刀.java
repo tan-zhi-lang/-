@@ -10,7 +10,7 @@ public class 变态刀 extends Weapon{
 		image = 物品表.变态刀;
 		hitSound = Assets.Sounds.攻击刺;
 
-		延迟=0.8f;
+		伤害=0.8f;
 		
 
 		特别=true;

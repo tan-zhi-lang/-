@@ -68,6 +68,8 @@ public class Ghoul extends Mob {
 
 	private int timesDowned = 0;
 	protected int partnerID = -1;
+	int 死亡次数=0;
+	private static final String 死亡次数x = "死亡次数";
 
 	private static final String PARTNER_ID = "partner_id";
 	private static final String TIMES_DOWNED = "times_downed";
@@ -77,6 +79,7 @@ public class Ghoul extends Mob {
 		super.storeInBundle( bundle );
 		bundle.put( PARTNER_ID, partnerID );
 		bundle.put( TIMES_DOWNED, timesDowned );
+		bundle.put(死亡次数x, 死亡次数);
 	}
 	
 	@Override
@@ -84,6 +87,7 @@ public class Ghoul extends Mob {
 		super.restoreFromBundle( bundle );
 		partnerID = bundle.getInt( PARTNER_ID );
 		timesDowned = bundle.getInt( TIMES_DOWNED );
+		死亡次数 = bundle.getInt(死亡次数x);
 	}
 	
 	@Override
@@ -137,6 +141,7 @@ public class Ghoul extends Mob {
 
 	@Override
 	public void 死亡时(Object 来源) {
+		死亡次数++;
 		if (来源!=Chasm.class&&来源!=GhoulLifeLink.class&&!Dungeon.level.pit[pos]){
 			Ghoul nearby = GhoulLifeLink.searchForHost(this);
 			if (nearby != null){
@@ -272,7 +277,9 @@ public class Ghoul extends Mob {
 						return true;
 					}
 				}
-				ghoul.回血(ghoul.最大生命(0.1f));
+				float x=0.125f;
+				x*=(float)Math.pow(0.6f,ghoul.死亡次数);
+				ghoul.回血(ghoul.最大生命(Math.max(0.02f,x)));
 				ghoul.beingLifeLinked = false;
 				Actor.add(ghoul);
 				ghoul.timeToNow();

@@ -10,7 +10,7 @@ public class 誓刃 extends Weapon{
 	{
 		image = 物品表.誓刃;
 		hitSound = Assets.Sounds.攻击砍;
-		延迟=0.5f;
+		延迟=1.1f;
 		流血=0.15f;
 		麻痹=0.15f;
 		tier = 5;

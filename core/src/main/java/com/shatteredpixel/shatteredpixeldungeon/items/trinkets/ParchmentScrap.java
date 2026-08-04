@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -20,9 +22,13 @@ public class ParchmentScrap extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", enchantChanceMultiplier(等级()),  curseChanceMultiplier(等级()));
+			return Messages.get(this, "stats_desc",
+								kw2(enchantChanceMultiplier(等级())),
+									kw2(curseChanceMultiplier(等级())));
 		} else {
-			return Messages.get(this, "stats_desc", enchantChanceMultiplier(0),  curseChanceMultiplier(0));
+			return Messages.get(this, "stats_desc",
+								kw2(enchantChanceMultiplier(0)),
+									kw2(curseChanceMultiplier(0)));
 		}
 	}
 

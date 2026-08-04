@@ -38,9 +38,9 @@ public class 背刺 extends 武技{
 			}
 			
 
-			hero.belongings.abilityWeapon = wep;
+			
 			hero.穿越攻击(hero,enemy.pos,1.5f);
-			hero.belongings.abilityWeapon = null;
+			
 
 			
 			Sample.INSTANCE.play(wep.hitSound);

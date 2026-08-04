@@ -68,6 +68,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.魔法飞刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.影织法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
@@ -134,26 +135,27 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.鹿角刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
-import com.shatteredpixel.shatteredpixeldungeon.items.圣诞礼物;
-import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
-import com.shatteredpixel.shatteredpixeldungeon.items.封禁卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.干枯花瓣;
-import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
-import com.shatteredpixel.shatteredpixeldungeon.items.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
-import com.shatteredpixel.shatteredpixeldungeon.items.火把神的恩宠;
-import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
-import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.神盾果;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.封禁卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.干枯花瓣;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.火把神的恩宠;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命果;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.红包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.自残绳;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.血药;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.进力药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.进级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.进阶宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.秘银;
 import com.shatteredpixel.shatteredpixeldungeon.items.精纯药液;
-import com.shatteredpixel.shatteredpixeldungeon.items.红包;
-import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
-import com.shatteredpixel.shatteredpixeldungeon.items.血药;
-import com.shatteredpixel.shatteredpixeldungeon.items.进力药剂;
-import com.shatteredpixel.shatteredpixeldungeon.items.进级卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
@@ -216,19 +218,19 @@ public class 重制新增{
 				"魔力\n" +
 				"初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度5%，最大魔抗+魔力-10。\n"+
 				"生命、护甲、力量、敏捷、魔力属性最低为0.01，生命和护甲最大10_0000_000。\n"+
-				"最大生命值20+5x升级等级=>10+1.625x等级(满级额外+1)。\n"+
-				"升级+最大命中和最大闪避=>最大命中和最大闪避+等级-1(满级额外+1)，最大等级-5。\n"
+				"最大生命值20+5x升级等级->10+1.625x等级(满级额外+1)。\n"+
+				"升级+最大命中和最大闪避->最大命中和最大闪避+等级-1(满级额外+1)，最大等级-5。\n"
 											));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.WARRIOR,tier(HeroClass.WARRIOR))),"杂项机制",
 
 											"新增吸血作用于攻击的伤害百分比恢复生命值，全能吸血作用于大部分的伤害百分比恢复生命值。\n"+//(不过对非Boss仅60%效果)
 											"新增穿甲(固定值无视防御)，护甲穿透(百分比无视防御)，先x/后+-。",
 
-											"蛇皮走位，正常行动会叠加4层，攻击叠加6层，最多100层。满层时的攻击伤害x移速，获得1回合时间气泡，并恢复移速的生命，并清空。\n"+
+											"蛇皮走位，正常行动会叠加4层，攻击叠加6层，最多100层。满层时的攻击恢复移速的生命，并清空。\n"+
 
 
 											//											"游戏第1、2局幸运值+1，每日挑战非重玩+1幸运值。\n"+
-											"新增护甲，初始是5(5+等级(满级额外+1))，相当于不会随时间损失的物理护盾，并且拥有10%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
+											"新增护甲，初始是5(5+等级(满级额外+1))，相当于不会随时间损失的物理护盾(前提不在战斗状态)，并且拥有10%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
 											"击杀敌人施加连杀状态10回合，敌人被发现会施加被发现回合。\n"+
 											//											"点击目的地会提示框，有敌人和陷阱则是红色，普遍绿色。\n"+
 											"吃饭回血食物填充/150的生命。"
@@ -401,10 +403,12 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 魔法飞刀()));
 		changes.addButton(new ChangeButton(new 暗影飞刀()));
 		changes.addButton(new ChangeButton(new 重力场球()));
-		changes.addButton(new ChangeButton(new 紫色心情()));
 		changes.addButton(new ChangeButton(new 水晶碎块()));
 		changes.addButton(new ChangeButton(new 世界标尺()));
+
 		changes.addButton(new ChangeButton(new 宝石肛塞()));
+		changes.addButton(new ChangeButton(new 紫色心情()));
+		changes.addButton(new ChangeButton(new 黑桃印记()));
 
 	}
 
@@ -473,12 +477,12 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 生命水晶(),
 										   "洞穴层第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 坠牢之星(),
-										   "19:30~4:30，1/450概率掉落，最多掉落45个。"
+										   "19:30~4:30，1/450概率在玩家8格内随机掉落，最多掉落45个。"
 		));
 		changes.addButton(new ChangeButton(new 魔力水晶(),
 										   "5x坠牢之星消耗5能量合成。"
 		));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.奥术水晶),"奥术水晶",
+		changes.addButton(new ChangeButton(new 奥术水晶(),
 										   "五区第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 活力水晶(),
 						  "五区第三层生成一个。"));
@@ -553,7 +557,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		changes.addButton(new ChangeButton(new 灵月法杖(),"巫女开局获得"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.浓毒法杖), "浓毒法杖",
-										   "毒气版酸蚀法杖，并且重制毒气代码，伤害1+地牢层数/25=>15%√毒气元素。\n"+new 浓毒法杖().statsDesc()
+										   "毒气版酸蚀法杖，并且重制毒气代码，伤害1+地牢层数/25->15%√毒气元素。\n"+new 浓毒法杖().statsDesc()
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.潮霆法杖), "潮霆法杖",
 										   "连锁距离更远，伤害更高也更危险的加强版雷霆法杖。\n"+new 潮霆法杖().statsDesc()
@@ -608,14 +612,15 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"三区怪物，替换二层的吸血蝙蝠。"));
 		changes.addButton( new ChangeButton(new 蠕虫动画(),"蠕虫",
 											"三区怪物，替换一和二层的吸血蝙蝠。\n" +
-											"受到伤害会在敌人相邻传送"));
+											"受到伤害会在敌人6范围传送"));
 		changes.addButton( new ChangeButton(new 水蛭动画(),"水蛭",
 											"一区怪物，替换二和三层的啮齿老鼠。\n" +
 											"在水中每回合恢复20%最大生命。\n" +
 											"80%吸血"));
 		changes.addButton( new ChangeButton(new 蟑螂动画(),"蟑螂",
-											"一区怪物，替换一层的下水道巨蛇。\n" +
-											"每次受伤仅受到35%伤害并且向下取整，最小为1，与敌人相邻时，闪避为0。"));
+											"一区怪物，替换2层的1只下水道巨蛇。\n" +
+											"没攻击前移速仅60%，与敌人距离小于等于2时最大闪避为0。\n" +
+											"受到的物理攻击伤害35%伤害并且向下取整，最小为1。"));
 		changes.addButton( new ChangeButton(new 骷髅战士动画(),"骷髅战士",
 											"新增骷髅的变异体。\n" +
 											"死亡掉落单手剑、长剑、巨剑任意一个。"));
@@ -665,6 +670,10 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton( new ChangeButton(new ItemSprite(物品表.SEED_ICECAP),"种子",
+											"植(自)用\n"+
+											"直接让种子的效果赋予自身，而无需花费回合点击自己种植在脚下的植物来触发。",
+											"扔出->丢子(植)，种植->原地种植。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "附魔",
 		"罕见传说\n" +
 		"获得30%强化等级。"));

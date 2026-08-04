@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class ScaleArmor extends Armor {

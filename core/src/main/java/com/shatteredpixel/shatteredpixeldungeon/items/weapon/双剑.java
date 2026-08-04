@@ -17,7 +17,7 @@ public class 双剑 extends Weapon{
 		技能=new 剑舞();
 		
 		tier = 3;
-		延迟= 0.5f;
+		延迟= 1.1f;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

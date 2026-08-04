@@ -52,7 +52,6 @@ public class 再生 extends Buff {
 			if (regenOn() && !hero.满血() && !hero.isStarving()) {
 				float 再生数值=(float)Math.sqrt(hero.最大生命)/100f+0.07f;
 
-					再生数值+=hero.天赋点数(Talent.坚韧,0.05f);
 					再生数值+=hero.再生成长;
 
 					if(hero.符文("光合作用")&&Dungeon.level!=null){
@@ -103,12 +102,14 @@ public class 再生 extends Buff {
 					再生数值/= SaltCube.healthRegenMultiplier();
 				}
 
-				再生数值*=恢复之戒.恢复(hero);
+				再生数值*=1+hero.天赋点数(Talent.坚韧,0.5f);
+					再生数值*=恢复之戒.恢复(hero);
 
 						if(hero.heroClass(HeroClass.血鬼))
 							再生数值/=2;
 						if(hero.符文("大胃王"))
 							再生数值*=3;
+
 						if(hero.符文("恢复恢复"))
 							再生数值*=3.5f;
 

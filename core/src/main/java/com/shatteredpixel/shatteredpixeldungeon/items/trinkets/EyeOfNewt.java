@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +23,12 @@ public class EyeOfNewt extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					 100*(1f-visionRangeMultiplier(等级())),
-					mindVisionRange(等级()));
+								kw2(100*(1f-visionRangeMultiplier(等级()))),
+									kw2(mindVisionRange(等级())));
 		} else {
 			return Messages.get(this, "stats_desc",
-					 100*(1f-visionRangeMultiplier(0)),
-					mindVisionRange(0));
+								kw2(100*(1f-visionRangeMultiplier(0))),
+								kw2(mindVisionRange(0)));
 		}
 	}
 

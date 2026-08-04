@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +23,12 @@ public class 中国国旗 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					 100*(1-受伤()),
-								100*移速());
+								kw2(100*(1-受伤())),
+								kw2(100*移速()));
 		} else {
 			return Messages.get(this, "stats_desc",
-					 100*(1-受伤(0)),
-								100*移速(0));
+								kw2(100*(1-受伤(0))),
+								kw2(100*移速(0)));
 		}
 	}
 

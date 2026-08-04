@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -26,9 +28,13 @@ public class TrapMechanism extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(等级())), (int)(100*revealHiddenTrapChance(等级())));
+			return Messages.get(this, "stats_desc",
+								kw2((100*overrideNormalLevelChance(等级()))),
+									kw2((100*revealHiddenTrapChance(等级()))));
 		} else {
-			return Messages.get(this, "stats_desc", (int)(100*overrideNormalLevelChance(0)), (int)(100*revealHiddenTrapChance(0)));
+			return Messages.get(this, "stats_desc",
+								kw2((100*overrideNormalLevelChance(0))),
+								kw2((100*revealHiddenTrapChance(0))));
 		}
 	}
 

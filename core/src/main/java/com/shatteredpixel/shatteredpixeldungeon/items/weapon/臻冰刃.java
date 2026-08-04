@@ -18,6 +18,7 @@ public class 臻冰刃 extends Weapon {
 		hitSound = Assets.Sounds.攻击刺;
 
 		延迟=0.8f;
+		冻结=0.15f;
 		
 		技能=new 背刺();
 		特别=true;

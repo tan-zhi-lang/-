@@ -62,9 +62,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocki
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.传说;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.发射;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
+import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -94,6 +96,7 @@ import java.util.Arrays;
 abstract public class Weapon extends KindOfWeapon {
 
 
+	//region 占位
 	public static class PlaceHolder extends Weapon{
 
 		{
@@ -111,14 +114,33 @@ abstract public class Weapon extends KindOfWeapon {
 			return "";
 		}
 	}
+	//endregion
 	//region MeleeWeapon
 
 	武技 技能=null;
 	boolean 充能 = true;
+	Item 子弹 = null;
+	public Item 发射物 = null;
+	boolean 发射器 = false;
 	boolean 无限战技 = false;
+	int 最大充能 = -1;
+	public float 发射器最小攻击() {
+		return 0;
+	}
+	public float 发射器最大攻击() {
+		return 0;
+	}
 	boolean circlingBack = false;
 	public static String AC_ABILITY = "ABILITY";
-	
+
+	public 武技 技能() {
+		if(Dungeon.炼狱(炼狱设置.战技移除)){
+			return null;
+		}
+		if(发射器)return new 发射();
+		return 技能;
+	}
+	//region 回旋镖
 	@Override
 	public float pickupDelay() {
 		//pickup is instant when circling back
@@ -140,7 +162,12 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		public void setup(Weapon boomerang,int thrownPos,int returnPos,int returnDepth,int returnBranch){
 			this.boomerang = boomerang;
-			this.thrownPos = thrownPos;
+
+			if(boomerang.穿透回旋镖())
+				this.thrownPos = new Ballistica(returnPos,thrownPos,Ballistica.STOP_TARGET).collisionPos;
+			else
+				this.thrownPos = thrownPos;
+
 			this.returnPos = returnPos;
 			this.returnDepth = returnDepth;
 			this.returnBranch = returnBranch;
@@ -165,7 +192,10 @@ abstract public class Weapon extends KindOfWeapon {
 			if (returnDepth == Dungeon.depth && returnBranch == Dungeon.branch){
 				left--;
 				if (left <= 0){
+					final Char thrownTarget = Actor.findChar(thrownPos);
 					final Char returnTarget = Actor.findChar(returnPos);
+					Ballistica b = new Ballistica(returnPos,thrownPos,Ballistica.STOP_TARGET);
+
 					final Char target = this.target;
 					MissileSprite
 							visual = ((MissileSprite) Dungeon.hero.sprite.parent.recycle(MissileSprite.class));
@@ -177,6 +207,21 @@ abstract public class Weapon extends KindOfWeapon {
 									  public void call() {
 										  detach();
 										  boomerang.circlingBack = true;
+
+										  if(boomerang.穿透回旋镖())
+										  for(int cell:b.path){
+											  Char ch = Actor.findChar(cell);
+											  if(ch != target&&ch != thrownTarget&&ch != returnTarget&&
+												 ch!=null&&((Hero)target).shoot( ch, boomerang )){
+
+											  }
+										  }
+										  if (thrownTarget != target&&thrownTarget != null&&((Hero)target).shoot( thrownTarget, boomerang )) {
+
+										  }
+										  if (returnTarget != target&&returnTarget != null&&((Hero)target).shoot( returnTarget, boomerang )) {
+
+										  }
 										  if (returnTarget == target){
 											  if (!boomerang.spawnedForEffect) {
 												  if (target instanceof Hero hero){
@@ -198,26 +243,20 @@ abstract public class Weapon extends KindOfWeapon {
 														  }
 													  }
 												  }else{
+
 													  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 												  }
-											  }
-											  
-										  } else if (returnTarget != null){
-											  if (((Hero)target).shoot( returnTarget, boomerang )) {
-												 
-											  }
-											  if (!boomerang.spawnedForEffect) {
-												  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 											  }
 											  
 										  } else if (!boomerang.spawnedForEffect) {
 											  Dungeon.level.drop(boomerang, returnPos).sprite().drop();
 										  }
+
 										  boomerang.circlingBack = false;
 										  CircleBack.this.next();
 									  }
 								  });
-					visual.alpha(0f);
+//					visual.alpha(0f);
 					float duration = Dungeon.level.trueDistance(thrownPos, returnPos) / 20f;
 					target.sprite.parent.add(new AlphaTweener(visual,1f,duration));
 					return false;
@@ -253,15 +292,13 @@ abstract public class Weapon extends KindOfWeapon {
 			returnBranch = bundle.contains(RETURN_BRANCH) ? bundle.getInt(RETURN_BRANCH) : 0;
 		}
 	}
+	//endregion
 	@Override
 	public String defaultAction() {
 		if(defaultAction!=null)return defaultAction;
-		if(Dungeon.炼狱(炼狱设置.战技移除)){
-			技能=null;
-		}
 		if(SPDSettings.主要战技()){
 			if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
-				if(技能!=null){
+				if(技能()!=null){
 					return AC_ABILITY;
 				}
 			}
@@ -277,10 +314,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 
-		if(Dungeon.炼狱(炼狱设置.战技移除)){
-			技能=null;
-		}
-		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&技能!=null){
+		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&技能()!=null){
 			actions.add(AC_ABILITY);
 		}
 		return actions;
@@ -288,10 +322,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public String status() {
-		if(Dungeon.炼狱(炼狱设置.战技移除)){
-			技能=null;
-		}
-		if (技能!=null&&levelKnown&&charger!=null&&Dungeon.hero()&&isEquipped(Dungeon.hero)) {
+		if (!无限战技&&技能()!=null&&levelKnown&&charger!=null&&Dungeon.hero()&&isEquipped(Dungeon.hero)) {
 			return charger.charges + "/" + charger.chargeCap();
 		} else {
 			return null;
@@ -299,11 +330,8 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public String actionName(String action, Hero hero) {
-		if(Dungeon.炼狱(炼狱设置.战技移除)){
-			技能=null;
-		}
-		if (action.equals(AC_ABILITY)){
-			return 技能.name();
+		if (技能()!=null&&action.equals(AC_ABILITY)){
+			return 技能().name();
 		} else {
 			return super.actionName(action, hero);
 		}
@@ -312,29 +340,63 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
-
-		if(Dungeon.炼狱(炼狱设置.战技移除)){
-			技能=null;
-		}if (action.equals(AC_ABILITY)&&技能!=null){
+		if (action.equals(AC_ABILITY)&&技能()!=null){
 			if (!isEquipped(hero)) {
 				GLog.橙(Messages.get(this,"ability_need_equip"));
 			} else if (力量() > hero.力量()){
 				GLog.橙(Messages.get(this,"ability_low_str"));
-			}else if (charger.charges + charger.partialCharge < 技能.消耗) {
+			}else if (charger.charges + charger.partialCharge < 技能().消耗) {
 				GLog.橙(Messages.get(this,"ability_no_charge"));
 			}else {
-				usesTargeting=技能!=null&&技能.目标;
-				技能.武技(hero,this);
+				if(子弹!=null&&charger.charges<=0){
+					换弹();
+				}else{
+					usesTargeting=技能()!=null&&技能().目标;
+					技能().武技(hero,this);
+				}
 			}
 		}
 	}
-	
+
+	public void 换弹(){
+		if(curUser==null)return;
+		Item 所需=curUser.belongings.getItem(子弹.getClass());
+		if(所需!=null&&所需.数量()>0){
+			int 消耗=charger.chargeCap()-charger.charges;
+			if(子弹.数量()<消耗){
+				if(charger.charges==0){
+					charger.charges=Math.min(charger.chargeCap(),子弹.数量());
+				}else if(charger.charges>0){
+					charger.charges+=Math.min(charger.chargeCap()-charger.charges,子弹.数量());
+				}
+				子弹.detachAll(curUser.belongings.backpack);
+			}else{
+				if(子弹.数量()==消耗){
+					子弹.detachAll(curUser.belongings.backpack);
+				}else{
+					if(charger.charges==0){
+						charger.charges=Math.min(charger.chargeCap(),子弹.数量());
+					}else if(charger.charges>0){
+						charger.charges+=Math.min(charger.chargeCap()-charger.charges,子弹.数量());
+					}
+					子弹.split(消耗).detachAll(curUser.belongings.backpack);
+				}
+			}
+			Sample.INSTANCE.play( Assets.Sounds.换弹 );
+
+			curUser.spend(4);
+			curUser.busy();
+			(curUser.sprite).operate();
+			updateQuickslot();
+		}else
+			GLog.橙("你需要"+子弹.name()+"子弹！");
+	}
 	@Override
 	public int targetingPos(Hero user, int dst) {
 		return dst; //weapon abilities do not use projectile logic, no autoaim
 	}
 	public void 消耗(Hero hero){
-		消耗(hero,技能.消耗);
+		消耗(hero,技能().消耗);
 	}
 	public void 消耗(Hero hero,int 消耗){
 		if(算法.isDebug()||无限战技)return;
@@ -350,7 +412,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	public void 技能使用(Hero hero){
 		Catalog.countUse(getClass());
-		hero.belongings.abilityWeapon = null;
+		hero.belongings.abilityWeapon = this;
 
 
 		if(hero.符文("万世催化石"))hero.回血(20);
@@ -390,7 +452,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大攻击(int lvl) {
-		return augment.damageFactor(最大+(4f*(tier()+1) +lvl*(tier()+1)))*伤害();
+		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1)))*伤害();
 	}
 
 	@Override
@@ -398,12 +460,13 @@ abstract public class Weapon extends KindOfWeapon {
 		float 伤害=this.伤害;
 		if(延迟自动转&&伤害==1){
 			if(延迟()>1)
-				伤害*=1+(延迟()-1)/(tier()>=5?1f:2);
+				伤害*=1+(延迟()-1)/1f;
+//				伤害*=1+(延迟()-1)/(tier()>=5?1f:2);
 
 			if(延迟()<1)
 				伤害*=延迟();
 		}
-		if(!(this instanceof 未知武器)&&tier()>=5)伤害*=1.5f;
+		if(!(this instanceof 未知武器)&&tier()>=5)伤害*=1.25f;
 
 		return 伤害;
 	}
@@ -472,12 +535,6 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 冻结(){
 		float 冻结=super.冻结;
-		if(this instanceof 寒冰镖
-		   ||this instanceof 寒冰鱼剑
-		   ||this instanceof 臻冰刃
-		){
-			冻结+=0.15f;
-		}
 		return 冻结;
 	}
 
@@ -513,12 +570,12 @@ abstract public class Weapon extends KindOfWeapon {
 			if(剑()&&Dungeon.符文("起源:剑"))x+=Dungeon.hero.魔力(this,0.2f);
 			//Dungeon.符文("对子")&&
 			if(Dungeon.hero.belongings.secondWep!=null)x+=Dungeon.hero.belongings.secondWep.等级();
-			if(Dungeon.符文("武器＞防具")&&Dungeon.hero.belongings.armor!=null)x+=Dungeon.hero.belongings.armor.强化等级();
+			if(Dungeon.符文("武器＞防具")&&Dungeon.hero.belongings.armor()!=null)x+=Dungeon.hero.belongings.armor().强化等级();
 		}
 		if (!evaluatingTwinUpgrades && isEquipped(Dungeon.hero) && Dungeon.hero.天赋(Talent.TWIN_UPGRADES)){
 			KindOfWeapon other = null;
 			if (Dungeon.hero.belongings.weapon() != this) other = Dungeon.hero.belongings.weapon();
-			if (Dungeon.hero.belongings.secondWep() != this) other = Dungeon.hero.belongings.secondWep();
+			if (Dungeon.hero.belongings.weapon2()!=this) other = Dungeon.hero.belongings.weapon2();
 			
 			if (other instanceof Weapon) {
 				evaluatingTwinUpgrades = true;
@@ -548,11 +605,11 @@ abstract public class Weapon extends KindOfWeapon {
 		float hero力量=10;
 		if(Dungeon.hero())hero力量=Dungeon.hero.力量();
 		if (levelKnown) {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known",力量(), tier(),
-										  最小攻击(),
-										  最大攻击(),
-											最小投掷攻击(),
-										  最大投掷攻击());
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known",kw2(力量()), tier(),
+										  kw2(最小攻击()),
+											  kw2(最大攻击()),
+										  kw2(最小投掷攻击()),
+											  kw2(最大投掷攻击()));
 			if (Dungeon.hero()) {
 				if (力量() > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 					info += " " + Messages.get(Weapon.class, "too_heavy");
@@ -561,16 +618,17 @@ abstract public class Weapon extends KindOfWeapon {
 					}
 				} else if (hero力量 > 力量()) {
 					info += " " + Messages.get(Weapon.class, "excess_str",
-											   (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"":"0~")
-							,kw2(hero力量 - 力量()));
+							kw2(hero力量 - 力量()),
+								 (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"~"+kw2((hero力量 - 力量())*2):"")
+								);
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", 力量(0), tier(),
-										  最小攻击(0),
-										最大攻击(0),
-										  最小投掷攻击(0),
-											最大投掷攻击(0));
+			info += "\n\n" + Messages.get(Weapon.class, "stats_known", kw2(力量(0)), tier(),
+										  kw2(最小攻击(0)),
+											  kw2(最大攻击(0)),
+												  kw2(最小投掷攻击(0)),
+													  kw2(最大投掷攻击(0)));
 			if (Dungeon.hero() && 力量(0) > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 				info += " " + Messages.get(Weapon.class, "too_heavy");
 				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
@@ -578,8 +636,9 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			} else if (hero力量 > 力量()) {
 				info += " " + Messages.get(Weapon.class, "excess_str",
-										   (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"":"0~"),
-										   hero力量 - 力量());
+										   hero力量 - 力量(),
+										   (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"~"+kw2((hero力量 - 力量())*2):"")
+										  );
 			}
 		}
 		
@@ -620,8 +679,8 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		
 		//the mage's staff has no ability as it can only be gained by the mage
-		if (Dungeon.hero() &&技能!=null){
-			info += "\n\n" + 技能.desc();
+		if (Dungeon.hero() &&技能()!=null){
+			info += "\n\n" + 技能().desc();
 		}
 		
 		return info;
@@ -662,8 +721,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public String statsInfo(){
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
-						最小防御()+"~"+最大防御()+" ++ 防御，"),
-								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围()),
+				 kw2(最小防御())+"~"+kw2(最大防御())+" ++ 防御，"),
+								kw2(命中()),kw2(延迟()),kw2(伤害()),kw2(DPS()),
+								(连招范围!=-1?连招范围:范围()),
 
 								(流血()==0?"":"，攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
 								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
@@ -676,8 +736,9 @@ abstract public class Weapon extends KindOfWeapon {
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
-							 最小防御(0)+"~"+最大防御(0)+" ++ 防御，"),
-								命中(),延迟(),伤害(),DPS(),(连招范围!=-1?连招范围:范围),
+						 kw2(最小防御(0))+"~"+kw2(最大防御(0))+" ++ 防御，"),
+								kw2(命中()),kw2(延迟()),kw2(伤害()),kw2(DPS()),
+								(连招范围!=-1?连招范围:范围),
 
 								(流血()==0?"":"，攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
 								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
@@ -757,7 +818,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	@Override
 	public void activate( Char ch ) {
-		if(技能!=null)
+		if(技能()!=null)
 		charge(ch);
 	}
 	@Override
@@ -858,6 +919,8 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public int chargeCap(){
+			if(Weapon.this.最大充能!=-1)
+			return Math.min(10, Weapon.this.最大充能);
 			return Math.min(10, 3+Dungeon.hero.等级((Dungeon.hero.heroClass(HeroClass.DUELIST)?0.3f:0.25f)));
 		}
 
@@ -869,6 +932,7 @@ abstract public class Weapon extends KindOfWeapon {
 			gainCharge( charge, false );
 		}
 		public void gainCharge( float charge, boolean overcharge ){
+			if(!充能)return;
 			partialCharge += charge;
 			while (partialCharge >= 1) {
 				if (overcharge) charges = Math.min(chargeCap()+(int)charge, charges+1);
@@ -972,7 +1036,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击(int lvl) {
-		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*(伤害()*投掷()*0.5f)));
+		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*(伤害()*投掷()*1.5f)));
 //		return Math.round(最小+(2*tier()+lvl)*(伤害()));
 	}
 	
@@ -983,7 +1047,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击(int lvl) {
-		return augment.damageFactor(最大+(4f * tier() +tier()*lvl )*(伤害()*投掷()*1.6f));
+		return augment.damageFactor(最大+(5 * (tier()+1) +(tier()+1)*lvl )*(伤害()*投掷()*1.5f));
 //		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害()));
 	}
 	
@@ -1006,47 +1070,59 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	
 	protected float adjacentAccFactor(Char owner, Char target){
-		float x=0;
+		float x=1;
 		if (owner instanceof Hero hero){
 			x+=hero.天赋点数(Talent.鹰眼远视,0.15f);
 		}
 		
 		if (circlingBack){
-			return 1.5f;
+			x+=0.4f;
 		}
 		if (target!=null&&Dungeon.level.距离(owner.pos,target.pos)<=范围) {
-			//抵近射击
-			return 1f/Math.max(1,
-							   Dungeon.level.距离(owner.pos,target.pos)-范围);
+			//抵近射击非近距离
+			int 合适距离=Dungeon.level.距离(owner.pos,target.pos)-范围;
+			if(合适距离>0)
+			x-=Math.max(0.4f,合适距离*0.05f);
 		} else {
-			return 1f/2/范围+x;
+			x-=0.4f;
 		}
+		return x;
 	}
 	@Override
 	protected void onThrow( int cell ) {
 		Char enemy = Actor.findChar(cell);
 		if (enemy == null || enemy == curUser) {
-			if (!spawnedForEffect) super.onThrow( cell );
+			rangedMiss( cell );
+//			if (!spawnedForEffect) super.onThrow( cell );
 		} else {
-			if (!curUser.shoot( enemy, this )) {
-				rangedMiss( cell );
-			} else {
+			if (curUser.shoot( enemy, this )) {
 				rangedHit( enemy, cell );
+			} else {
+				rangedMiss( cell );
 			}
 		}
 	}
-	boolean sticky = true;//默认吸在敌人身上
 	protected void rangedHit( Char enemy, int cell ){
 		if(消受投掷){
 			消受投掷=false;
 			return;
 		}
-		if(回旋镖()){
+		if(回旋镖()&&Dungeon.hero()){
+			if(穿透回旋镖()){
+				Ballistica b = new Ballistica(Dungeon.hero.pos,cell,Ballistica.STOP_TARGET);
+
+				for(int c: b.path){
+					Char ch=Actor.findChar(c);
+					if(ch!=Dungeon.hero&&c!=cell&&ch!=null&&Dungeon.hero.shoot(ch,this)){
+
+					}
+				}
+			}
 			Buff.新增(Dungeon.hero, CircleBack.class).setup(this, cell, Dungeon.hero.pos, Dungeon.depth, Dungeon.branch);
 			return;
 		}
 		if(!spawnedForEffect){
-			if(sticky&&enemy!=null&&enemy.isActive()&&enemy.alignment!=Char.Alignment.ALLY){
+			if(投掷粘()&&enemy!=null&&enemy.isActive()&&enemy.alignment!=Char.Alignment.ALLY){
 				PinCushion p=Buff.施加(enemy,PinCushion.class);
 				if(p.target==enemy){
 					p.stick(this);
@@ -1058,7 +1134,21 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	protected void rangedMiss( int cell ) {
-		if(回旋镖()){
+		if(消受投掷){
+			消受投掷=false;
+			return;
+		}
+		if(回旋镖()&&Dungeon.hero()){
+			if(穿透回旋镖()){
+				Ballistica b = new Ballistica(Dungeon.hero.pos,cell,Ballistica.STOP_TARGET);
+
+				for(int c: b.path){
+					Char ch=Actor.findChar(c);
+					if(ch!=Dungeon.hero&&c!=cell&&ch!=null&&Dungeon.hero.shoot(ch,this)){
+
+					}
+				}
+			}
 			Buff.新增(Dungeon.hero, CircleBack.class).setup(this, cell, Dungeon.hero.pos, Dungeon.depth, Dungeon.branch);
 			return;
 		}
@@ -1068,57 +1158,13 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 投掷攻击时(Char attacker, Char defender, float damage) {
-		
-		if (attacker instanceof Hero hero) {
-			
-			if(defender!=null&&首次使用){
-				首次使用=false;
-				usesLeftToID-=Talent.鉴定速度(hero,this);
-			}
-			if(defender!=null&&hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
-				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
-					hero.现在健身-=0.01f;
-				}else{
-					if(hero.现在健身>=3){
-						Buff.施加(hero,隔天休息.class,900);
-					}else{
-						hero.现在健身+=0.01f;
-						Buff.施加(hero,组间休息.class,1);
-					}
-				}
-			}
-			float exStr = hero.力量() - 力量();
-			if (hero.subClass(HeroSubClass.武器大师)&&hero.职业精通()) {
-				if (exStr > 0) {
-					damage += exStr;
-				}
-			}else{
-				if (exStr > 0) {
-					damage += Hero.heroDamage(0,exStr);
-				}
-			}
-		}
-		
 		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.天赋点数(Talent.SHARED_ENCHANTMENT)){
 			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
 			if (bow != null && bow.enchantment != null && Dungeon.hero.buff(MagicImmune.class) == null) {
 				damage = bow.enchantment.proc(this, attacker, defender, damage);
 			}
 		}
-		
-		if (attacker instanceof Hero hero) {
 
-			float exStr = hero.力量() - 力量();
-			if (hero.subClass(HeroSubClass.武器大师)&&hero.职业精通()) {
-				if (exStr > 0) {
-					damage += exStr;
-				}
-			}else{
-				if (exStr > 0) {
-					damage += Hero.heroDamage(0,exStr);
-				}
-			}
-		}
 		if(defender!=null){
 			if((cursed||hasCurseEnchant())&&!cursedKnown){
 				GLog.红(Messages.get(this,"curse_discover"));
@@ -1218,9 +1264,9 @@ abstract public class Weapon extends KindOfWeapon {
 	public boolean 连招 = false;
 
 	public enum Augment {
-		DAMAGE  (1.125f, 1,1),
-		DELAY(1,0.75f,1),
-		ACCURACY  (1, 1,1.375f),
+		DAMAGE  (1.12f, 1,1),
+		DELAY(1,0.88f,1),
+		ACCURACY  (1, 1,1.25f),
 		NONE	(1,1,1);
 
 		private float damageFactor;
@@ -1288,12 +1334,13 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 			float exStr = hero.力量() - 力量();
 			if (hero.subClass(HeroSubClass.武器大师)&&hero.职业精通()) {
+
 				if (exStr > 0) {
-					damage += exStr;
+					damage += Hero.heroDamage(exStr,exStr*2);
 				}
 			}else{
 				if (exStr > 0) {
-					damage += Hero.heroDamage(0,exStr);
+					damage += exStr;
 				}
 			}
 		}

@@ -3,13 +3,14 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.用品;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择技能;
 import com.watabou.noosa.Game;
 import com.watabou.utils.Bundle;
 
-public class 技能书 extends 用品 {
+public class 技能书 extends 用品{
 	
 	
 	{

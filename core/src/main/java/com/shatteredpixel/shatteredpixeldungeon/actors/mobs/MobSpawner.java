@@ -82,12 +82,12 @@ public class MobSpawner extends Actor {
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
-							蟑螂.class));
+							Snake.class));
 			case 2:
 					//2x rat, 1x snake, 2x gnoll
 					return new ArrayList<>(Arrays.asList(Dungeon.老鼠蝙蝠?Bat.class:水蛭.class,
 														 Dungeon.老鼠蝙蝠?Bat.class:水蛭.class,
-														 Snake.class,
+														 蟑螂.class,
 														 Snake.class, Snake.class));
 				
 			case 3:

@@ -20,7 +20,7 @@ public class 死神镰刀 extends Weapon{
 		
 		
 		tier = 5;
-		延迟= 2;
+		延迟= 1.5f;
 		特别=true;
 		靛色=true;
 	}

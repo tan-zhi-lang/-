@@ -38,10 +38,10 @@ public class 横扫 extends 武技{
 			}
 			
 
-			hero.belongings.abilityWeapon = wep;
+			
 			hero.穿越攻击(hero,enemy.pos,1);
 			hero.九头蛇(hero,enemy.pos);
-			hero.belongings.abilityWeapon = null;
+			
 
 			
 			Sample.INSTANCE.play(wep.hitSound);

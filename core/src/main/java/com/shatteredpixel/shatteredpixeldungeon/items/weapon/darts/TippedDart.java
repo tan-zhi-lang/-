@@ -125,6 +125,9 @@ public abstract class TippedDart extends 飞镖{
 		types.put(Starflower.Seed.class,    HolyDart.class);
 	}
 	
+	public static TippedDart getTipped( Plant.Seed s ){
+		return (TippedDart) Reflection.newInstance(types.get(s.getClass()));
+	}
 	public static TippedDart getTipped( Plant.Seed s, int quantity ){
 		return (TippedDart) Reflection.newInstance(types.get(s.getClass())).数量(quantity);
 	}

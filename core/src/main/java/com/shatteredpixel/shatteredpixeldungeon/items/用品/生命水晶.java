@@ -1,0 +1,27 @@
+
+
+package com.shatteredpixel.shatteredpixeldungeon.items.用品;
+
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.watabou.noosa.audio.Sample;
+
+public class 生命水晶 extends 用品{
+	
+	
+	{
+		image = 物品表.生命水晶;
+		红色 = true;
+		红光 = true;
+	}
+	
+	@Override
+	public void 使用(Hero hero){
+		Sample.INSTANCE.play(Assets.Sounds.生命水晶);
+		hero.根骨+=4;
+		
+		super.使用(hero);
+	}
+
+}

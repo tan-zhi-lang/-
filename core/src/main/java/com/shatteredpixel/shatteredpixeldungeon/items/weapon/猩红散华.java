@@ -22,7 +22,8 @@ public class 猩红散华 extends Weapon{
 		红色 = true;
 		特别= true;
 
-		伤害=0.4f;
+		命中=0.8f;
+		伤害=0.8f;
 		吸血=0.07f;
 		tier = 5;
 	}
@@ -34,14 +35,19 @@ public class 猩红散华 extends Weapon{
 			attacker.扔出(defender.pos,new 真吸血刀(),()->{
 				attacker.sprite.parent.add(new Beam.DeathRay(attacker,defender));
 			});
-			float x=4;
+			float x=0;
+			if(算法.概率学(1/2f))x++;
+			if(算法.概率学(1/2f))x++;
+			if(算法.概率学(1/2f))x++;
+			if(算法.概率学(1/2f))x++;
+
+			if(算法.概率学(1/2f))x++;
+			else if(算法.概率学(1/4f))x+=2;
+			else if(算法.概率学(1/8f))x+=3;
+			else if(算法.概率学(1/16f))x+=4;
+
 			if(attacker instanceof Hero hero &&hero.符文("升级猩红散华")){
-				x+=4;
-			}else {
-				if(算法.概率学(1/2f))x++;
-				else if(算法.概率学(1/4f))x+=2;
-				else if(算法.概率学(1/8f))x+=3;
-				else if(算法.概率学(1/16f))x+=4;
+				x=8;
 			}
 			damage*=x;
 		}

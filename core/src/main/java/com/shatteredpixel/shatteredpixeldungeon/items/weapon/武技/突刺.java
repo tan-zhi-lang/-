@@ -85,7 +85,7 @@ public class 突刺 extends 武技{
 					Dungeon.level.occupyCell(hero);
 					Dungeon.observe();
 					
-					hero.belongings.abilityWeapon = wep; //set this early to we can check canAttack
+					 //set this early to we can check canAttack
 					if (enemy != null && hero.canAttack(enemy)) {
 						hero.sprite.attack(enemy.pos, new Callback() {
 							@Override

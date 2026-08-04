@@ -10,6 +10,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
@@ -194,10 +196,26 @@ public class WndHero extends WndTabbed {
 
 			IconTitle title = new IconTitle();
 			title.icon( HeroSprite.avatar(hero) );
-			if (hero.name().equals(hero.className()))
-				title.label( Messages.get(this, "title", hero.等级, hero.className() ).toUpperCase( Locale.ENGLISH ) );
-			else
-				title.label((hero.name() + "\n" + Messages.get(this, "title", hero.等级, hero.className())).toUpperCase(Locale.ENGLISH));
+
+			String sn="";
+			if(!hero.备注.equals("")){
+				sn+=hero.备注+":"+"/";
+			}
+
+			if (hero.subClass!=HeroSubClass.NONE){
+				sn+=hero.subClass.title();
+			}
+			if (hero.heroClass蜕变!=HeroClass.NONE){
+				sn+=hero.heroClass蜕变.title()+"/";
+			}
+			if(hero.名字.equals("")){
+				sn+=hero.heroClass.title();
+			}else{
+				sn+=hero.名字;
+			}
+
+			title.label( Messages.get(this, "title", hero.等级, sn ).toUpperCase( Locale.ENGLISH ) );
+
 			title.color(Window.TITLE_COLOR);
 			title.setRect( 0, 0, WIDTH-16, 0 );
 			add(title);
@@ -382,20 +400,20 @@ public class WndHero extends WndTabbed {
 			if(!hero.符文("黑幕")){
 					statSlot("^^幸运值^^",""+hero.幸运值());
 					statSlot("_法杖/神器充能倍_",
-							 能量之戒.wandChargeMultiplier(hero)+"/"+
-							 能量之戒.artifactChargeMultiplier(hero)+"倍"
+							 kw2(能量之戒.wandChargeMultiplier(hero))+"/"+
+								 kw2(能量之戒.artifactChargeMultiplier(hero))+"倍"
 							);
 					statSlot("_武器充能倍_",
-						 能量之戒.weaponChargeMultiplier(hero)+"倍"
+							 kw2(能量之戒.weaponChargeMultiplier(hero))+"倍"
 						);
-					statSlot("击杀效果",new Rat().击杀效果(null)+"倍");
+					statSlot("击杀效果",kw2(new Rat().击杀效果(null))+"倍");
 					statSlot("攻击/副武器效果",kw2(hero.攻击效果())+"/"+kw2(hero.副武器效果())+"倍");
 					statSlot("@@附魔/刻印效果@@",kw2(奥术之戒.enchantPowerMultiplier(hero))+"倍");
 					statSlot("刷怪速度/数量",
 							 kw2(1/Level.刷怪速度())+"/"+kw2(Level.刷怪数量())+"倍"
 							);
 //					pos+=GAP;
-					statSlot("--鉴定速度--",Math.round(Talent.鉴定速度(hero,null)*100)+"%");
+					statSlot("--鉴定速度--",kw2(Talent.鉴定速度(hero,null)*100)+"%");
 					statSlot("--饥饿速度/吃饭效果--",kw2(Hunger.饥饿速度())+"/"+kw2(Hunger.吃饭效率())+"倍");
 
 //					statSlot("难度",Dungeon.难度名称());

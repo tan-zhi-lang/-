@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,14 +23,14 @@ public class 火毒箭矢 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								减少()*100,
-								增加()
+								kw2(减少()*100),
+									kw2(增加())
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								
-								减少(0)*100,
-								增加(0)
+
+								kw2(减少(0)*100),
+									kw2(增加(0))
 							   );
 		}
 	}

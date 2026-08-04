@@ -40,13 +40,13 @@ public class 破击 extends 武技{
 				return;
 			}
 			
-			hero.belongings.abilityWeapon = wep;
+			
 			if (!hero.canAttack(enemy)){
 				GLog.橙(Messages.get(wep,"ability_target_range"));
-				hero.belongings.abilityWeapon = null;
+				
 				return;
 			}
-			hero.belongings.abilityWeapon = null;
+			
 			
 			wep.消耗(hero);
 			hero.sprite.attack(enemy.pos, new Callback() {

@@ -13,7 +13,7 @@ public class 三叉戟 extends Weapon{
 		hitSound = Assets.Sounds.长枪;
 		
 		技能=new 刺击();
-		延迟= 1.5f;
+		延迟= 1.2f;
 //		连招范围=2;
 		范围 = 2;
 		

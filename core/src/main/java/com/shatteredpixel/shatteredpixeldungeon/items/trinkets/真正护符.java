@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -128,14 +130,14 @@ public class 真正护符 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								100*综合(),
-								100*增加()
+								kw2(100*综合()),
+									kw2(100*增加())
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								
-								100*综合(0),
-								100*增加(0)
+
+								kw2(100*综合(0)),
+								kw2(100*增加(0))
 							   );
 		}
 	}

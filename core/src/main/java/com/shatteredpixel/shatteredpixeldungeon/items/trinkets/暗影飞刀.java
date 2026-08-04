@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +23,12 @@ public class 暗影飞刀 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this, "stats_desc",
-					 伏击(),
-								护甲());
+								kw2(伏击()),
+									kw2(护甲()));
 		} else {
 			return Messages.get(this, "stats_desc",
-					 伏击(0),
-								护甲(0));
+								kw2(伏击(0)),
+								kw2(护甲(0)));
 		}
 	}
 

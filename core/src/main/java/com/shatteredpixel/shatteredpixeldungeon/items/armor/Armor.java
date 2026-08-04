@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
@@ -17,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -74,11 +77,20 @@ public class Armor extends EquipableItem {
 	protected static final String AC_DETACH       = "DETACH";
 	protected String 换甲 = Assets.Sounds.布甲;
 	public float 防御= 1f;
-	
+
+	public float DR(){
+		Char c=new Rat();
+		return augment.defenseFactor(
+				(
+					((最小防御()+最大防御())>0?(最小防御()+最大防御())/2f:0)
+				)
+								   )
+				;
+	}
 	public enum Augment {
-		DEFENSE (1, 1.12f,1),
-		SPEED (1, 1,1.25f),
-		EVASION (1.375f , 1,1),
+		DEFENSE (1, 1.15f,1),
+		SPEED (1, 1,1.08f),
+		EVASION (1.22f , 1,1),
 		NONE	(1,1,1);
 		
 		private float evasionFactor;
@@ -189,7 +201,64 @@ public class Armor extends EquipableItem {
 	public void execute(Hero hero, String action) {
 
 		super.execute(hero, action);
+		if (action.equals(AC_EQUIP)){
 
+
+			usesTargeting = false;
+			String primaryName = Messages.titleCase(hero.belongings.armor != null ? hero.belongings.armor.trueName() : Messages.get(Armor.class,"empty"));
+			String secondaryName = Messages.titleCase(hero.belongings.armor2 != null ? hero.belongings.armor2.trueName() : Messages.get(Armor.class, "empty"));
+			if (primaryName.length() > 18) primaryName = primaryName.substring(0, 15) + "...";
+			if (secondaryName.length() > 18) secondaryName = secondaryName.substring(0, 15) + "...";
+			GameScene.show(new WndOptions(
+					new ItemSprite(this),
+					Messages.titleCase(name()),
+					Messages.get(Armor.class, "which_equip_msg"),
+					Messages.get(Armor.class, "which_equip_primary", primaryName),
+					Messages.get(Armor.class, "which_equip_secondary", secondaryName)
+			){
+				@Override
+				protected void onSelect(int index) {
+					super.onSelect(index);
+					if (index == 0 || index == 1){
+						//In addition to equipping itself, item reassigns itself to the quickslot
+						//This is a special case as the item is being removed from inventory, but is staying with the hero.
+						int slot = Dungeon.quickslot.getSlot( Armor.this );
+						slotOfUnequipped = -1;
+						if (index == 0) {
+								doEquip(hero);
+						} else {
+
+							if(hero.belongings.armor!=null){
+								equipSecondary(hero);
+							}else
+								doEquip(hero);
+						}
+
+						if (slot != -1) {
+							Dungeon.quickslot.setSlot( slot, Armor.this );
+							updateQuickslot();
+							//if this item wasn't quickslotted, but the item it is replacing as equipped was
+							//then also have the item occupy the unequipped item's quickslot
+						} else if (slotOfUnequipped != -1 && defaultAction() != null) {
+							Dungeon.quickslot.setSlot( slotOfUnequipped, Armor.this );
+							updateQuickslot();
+						}
+					}
+				}
+
+				@Override
+				protected boolean enabled(int index) {
+					if(index ==0){
+
+					}
+					else
+					{
+						if(hero.belongings.armor==null)return false;
+					}
+					return true;
+				}
+			});
+		}
 		if (action.equals(AC_DETACH)&&荣誉纹章!=null){
 			荣誉纹章 detaching = detachSeal();
 			GLog.白(Messages.get(Armor.class,"detach_seal"));
@@ -199,6 +268,139 @@ public class Armor extends EquipableItem {
 		}
 	}
 
+	@Override
+	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
+
+		boolean second = hero.belongings.armor2 == this;
+		if (second){
+			//do this first so that the item can go to a full inventory
+			hero.belongings.armor2 = null;
+		}
+			if (super.doUnequip( hero, collect, single )) {
+
+				if(首次装备){
+					usesLeftToID-=Talent.鉴定速度(hero,this);
+				}
+//				hero.belongings.armor = null;
+				((HeroSprite)hero.sprite).updateArmor();
+
+				//			破损纹章.WarriorShield sealBuff = hero.buff(破损纹章.WarriorShield.class);
+				//			if (sealBuff != null) sealBuff.setArmor(null);
+
+				if (!second){
+					hero.belongings.armor= null;
+				}
+				return true;
+
+			} else {
+
+				if (second){
+					hero.belongings.armor2 = (Armor)this;
+				}
+				return false;
+
+			}
+	}
+
+	@Override
+	public boolean isEquipped( Hero hero ) {
+		return hero != null && (hero.belongings.armor1() == this ||hero.belongings.armor2()==this);
+	}
+
+	public boolean equipSecondary( Hero hero ){
+
+
+		boolean wasInInv = hero.belongings.contains(this);
+		detachAll( hero.belongings.backpack );
+
+		if (hero.belongings.armor2 == null || hero.belongings.armor2.doUnequip( hero, true )) {
+
+			hero.belongings.armor2 = (Armor)this;
+			activate( hero );
+			Talent.装备时(hero, this);
+			Badges.validateDuelistUnlock();
+			updateQuickslot();
+
+			cursedKnown = true;
+			if (cursed) {
+				equipCursed( hero );
+				GLog.红(Messages.get(Armor.class,"equip_cursed"));
+				Dungeon.hero.sprite.哭泣();
+			}
+
+			hero.spendAndNext( timeToEquip(hero) );
+			return true;
+
+		} else {
+
+			放背包( hero.belongings.backpack );
+			return false;
+		}
+	}
+
+	@Override
+	public boolean doEquip( Hero hero ) {
+
+
+
+		detach(hero.belongings.backpack);
+//		Armor oldArmor = hero.belongings.armor;
+		if (hero.belongings.armor == null || hero.belongings.armor.doUnequip( hero, true, false )) {
+
+			hero.belongings.armor = this;
+
+			cursedKnown = true;
+			if (cursed) {
+				equipCursed( hero );
+				GLog.红(Messages.get(Armor.class,"equip_cursed"));
+				Dungeon.hero.sprite.哭泣();
+			}
+
+			((HeroSprite)hero.sprite).updateArmor();
+			activate(hero);
+			Talent.装备时(hero, this);
+//			hero.spend( timeToEquip( hero ) );
+			hero.spendAndNext( timeToEquip(hero) );
+
+//			if (Dungeon.hero.heroClass(HeroClass.WARRIOR) && checkSeal() == null){
+//				荣誉纹章 seal =oldArmor!=null ? oldArmor.checkSeal() : null;
+//				if (seal != null && (!cursed || (seal.getGlyph() != null && seal.getGlyph().curse()))){
+//
+//					GameScene.show(new WndOptions(new ItemSprite(物品表.荣誉纹章),
+//												  Messages.titleCase(seal.title()),
+//												  Messages.get(Armor.class, "seal_transfer"),
+//												  Messages.get(Armor.class, "seal_transfer_yes"),
+//												  Messages.get(Armor.class, "seal_transfer_no")){
+//						@Override
+//						protected void onSelect(int index) {
+//							super.onSelect(index);
+//							if (index == 0){
+//								seal.affixToArmor(Armor.this, oldArmor);
+//								updateQuickslot();
+//							}
+//							super.hide();
+//						}
+//
+//						@Override
+//						public void hide() {
+//							//do nothing, must press button
+//						}
+//					});
+//				} else {
+//					hero.next();
+//				}
+//			} else {
+//				hero.next();
+//			}
+			return true;
+
+		} else {
+
+			放背包( hero.belongings.backpack );
+			return false;
+
+		}
+	}
 	@Override
 	public boolean 放背包(Bag container) {
 		if(super.放背包(container)){
@@ -239,68 +441,6 @@ public class Armor extends EquipableItem {
 	}
 	public void 换甲(){
 		Sample.INSTANCE.play(换甲);
-	}
-	@Override
-	public boolean doEquip( Hero hero ) {
-		
-		
-		
-		detach(hero.belongings.backpack);
-		Armor oldArmor = hero.belongings.armor;
-		if (hero.belongings.armor == null || hero.belongings.armor.doUnequip( hero, true, false )) {
-			
-			hero.belongings.armor = this;
-			
-			cursedKnown = true;
-			if (cursed) {
-				equipCursed( hero );
-				GLog.红(Messages.get(Armor.class,"equip_cursed"));
-				Dungeon.hero.sprite.哭泣();
-			}
-			
-			((HeroSprite)hero.sprite).updateArmor();
-			activate(hero);
-			Talent.装备时(hero, this);
-			hero.spend( timeToEquip( hero ) );
-
-			if (Dungeon.hero.heroClass(HeroClass.WARRIOR) && checkSeal() == null){
-				荣誉纹章 seal =oldArmor!=null ? oldArmor.checkSeal() : null;
-				if (seal != null && (!cursed || (seal.getGlyph() != null && seal.getGlyph().curse()))){
-
-					GameScene.show(new WndOptions(new ItemSprite(物品表.荣誉纹章),
-							Messages.titleCase(seal.title()),
-							Messages.get(Armor.class, "seal_transfer"),
-							Messages.get(Armor.class, "seal_transfer_yes"),
-							Messages.get(Armor.class, "seal_transfer_no")){
-						@Override
-						protected void onSelect(int index) {
-							super.onSelect(index);
-							if (index == 0){
-								seal.affixToArmor(Armor.this, oldArmor);
-								updateQuickslot();
-							}
-							super.hide();
-						}
-
-						@Override
-						public void hide() {
-							//do nothing, must press button
-						}
-					});
-				} else {
-					hero.next();
-				}
-			} else {
-				hero.next();
-			}
-			return true;
-			
-		} else {
-			
-			放背包( hero.belongings.backpack );
-			return false;
-			
-		}
 	}
 
 	@Override
@@ -357,32 +497,6 @@ public class Armor extends EquipableItem {
 
 	public 荣誉纹章 checkSeal(){
 		return 荣誉纹章;
-	}
-
-	@Override
-	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
-		if (super.doUnequip( hero, collect, single )) {
-			if(首次装备){
-				usesLeftToID-=Talent.鉴定速度(hero,this);
-			}
-			hero.belongings.armor = null;
-			((HeroSprite)hero.sprite).updateArmor();
-
-//			破损纹章.WarriorShield sealBuff = hero.buff(破损纹章.WarriorShield.class);
-//			if (sealBuff != null) sealBuff.setArmor(null);
-
-			return true;
-
-		} else {
-
-			return false;
-
-		}
-	}
-	
-	@Override
-	public boolean isEquipped( Hero hero ) {
-		return hero != null && hero.belongings.armor() == this;
 	}
 
 	public final float 最大防御(){
@@ -592,7 +706,7 @@ public class Armor extends EquipableItem {
 	public void onHeroGainExp(float levelPercent, Hero hero) {
 	
 	}
-	
+
 	@Override
 	public String name() {
 				return glyph != null && (cursedKnown || !glyph.curse()) ? glyph.name( super.name() ) : super.name();
@@ -612,8 +726,8 @@ public class Armor extends EquipableItem {
 
 		if (levelKnown) {
 
-			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(), tier(),
-										  最小防御(), 最大防御());
+			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", kw2(力量()), tier(),
+										  kw2(最小防御()), kw2(最大防御()));
 			
 			if (Dungeon.hero() && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
@@ -622,9 +736,9 @@ public class Armor extends EquipableItem {
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", 力量(0), tier(),
-										  最小防御(0),
-										  最大防御(0));
+			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", kw2(力量(0)), tier(),
+									  kw2(最小防御(0)),
+										  kw2(最大防御(0)));
 
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
@@ -881,8 +995,9 @@ public class Armor extends EquipableItem {
 		}
 
 		public static float genericProcChanceMultiplier( Char defender ){
-			float multi = 奥术之戒.enchantPowerMultiplier(defender);
-
+			float multi = 1;
+			if(defender!=null)
+			multi*=奥术之戒.enchantPowerMultiplier(defender);
 			return multi;
 		}
 		

@@ -68,7 +68,7 @@ public class WndGame extends Window {
 				hide();
 				GameScene.show(new WndTextInput("备注存档",
 												"我的存档是无敌哒！",
-												"",
+												Dungeon.hero.备注,
 												50,
 												false,
 												"确定",

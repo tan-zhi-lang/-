@@ -348,11 +348,20 @@ public class WndRanking extends WndTabbed {
 			super();
 			
 			Belongings stuff = Dungeon.hero.belongings;
+			if (stuff.幸运 != null) {
+				addItem( stuff.幸运 );
+			}
 			if (stuff.weapon != null) {
 				addItem( stuff.weapon );
 			}
+			if (stuff.secondWep != null) {
+				addItem( stuff.secondWep );
+			}
 			if (stuff.armor != null) {
 				addItem( stuff.armor );
+			}
+			if (stuff.armor2 != null) {
+				addItem( stuff.armor2 );
 			}
 			if (stuff.misc != null) {
 				addItem( stuff.misc );
@@ -362,6 +371,12 @@ public class WndRanking extends WndTabbed {
 			}
 			if (stuff.misc3 != null) {
 				addItem( stuff.misc3 );
+			}
+			if (stuff.misc4 != null) {
+				addItem( stuff.misc4 );
+			}
+			if (stuff.misc5 != null) {
+				addItem( stuff.misc5 );
 			}
 
 			pos = 0;

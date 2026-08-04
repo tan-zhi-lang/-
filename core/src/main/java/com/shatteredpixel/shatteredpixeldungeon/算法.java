@@ -75,7 +75,7 @@ public class 算法 {
 		
 		
     * */
-    public static String 日期="7.25/18:01";
+    public static String 日期="7.30/13:25";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -111,7 +111,8 @@ public class 算法 {
         if(x<0)s+="-";
         return s+x;
     }
-    public static String kw2(float x){
+    public static String kw2(float x) {
+        // 处理后缀
         float val;
         String suffix = "";
         if (x >= 1000000) {
@@ -123,35 +124,47 @@ public class 算法 {
         } else {
             val = x;
         }
-        String s = String.format("%.2f", val);
-        if (s.contains(".")) {
-            s = s.replaceAll("0+$", "").replaceAll("\\.$", "");
+        // 获取绝对值（后缀不影响）
+        float absVal = Math.abs(val);
+        float frac = absVal - (int)Math.floor(absVal); // 小数部分
+        String formatted="";
+        if(SPDSettings.保留位数()==0){
+            int intVal = Math.round(absVal);
+            formatted = String.valueOf(intVal);
+        }else if(SPDSettings.保留位数()==1){
+            if (frac >= 0.5f||frac==0) {
+                // 进位到整数
+                int intVal = Math.round(absVal);
+                formatted = String.valueOf(intVal);
+            } else {
+                // 保留两位小数
+                formatted = String.format("%.1f", absVal);
+            }
+        }else if(SPDSettings.保留位数()==2){
+            if (frac >= 0.5f||frac==0) {
+                // 进位到整数
+                int intVal = Math.round(absVal);
+                formatted = String.valueOf(intVal);
+            } else if (frac >= 0.05f) {
+                // 保留一位小数
+                formatted = String.format("%.1f", absVal);
+            } else {
+                // 保留两位小数
+                formatted = String.format("%.2f", absVal);
+            }
         }
-        return s + suffix;
-    }
-    public static String kw2(double x){
-        double val;
-        String suffix = "";
-        if (x >= 1000000) {
-            val = x / 10000.0f;
-            suffix = "W";
-        } else if (x >= 1000) {
-            val = x / 1000.0f;
-            suffix = "K";
-        } else {
-            val = x;
+        // 处理符号（原值可能为负）
+        if (val < 0) {
+            formatted = "-" + formatted;
         }
-        String s = String.format("%.2f", val);
-        if (s.contains(".")) {
-            s = s.replaceAll("0+$", "").replaceAll("\\.$", "");
-        }
-        return s + suffix;
+        return formatted + suffix;
     }
     public static Item 物品(){
         return 物品(SPDSettings.customSeed().replaceAll("调试", ""));
     }
 
     public static Item 物品(String input){
+
         String 名称 = input;
         int 数量 = 1;
         int 等级 = 0;
@@ -160,7 +173,7 @@ public class 算法 {
 
 
             java.util.regex.Matcher m;
-            // 匹配 +数字 → 等级
+            // 匹配 +数字 -> 等级
             if(input.contains("+")){
                 m=java.util.regex.Pattern.compile("^(.+)\\+(\\d+)$").matcher(input);
                 if(m.matches()){
@@ -170,7 +183,7 @@ public class 算法 {
                 }
             }
             if(input.contains("x") || input.contains("X")){
-                // 匹配 x/X数字 → 数量
+                // 匹配 x/X数字 -> 数量
                 m = java.util.regex.Pattern.compile("^(.+)[xX](\\d+)$").matcher(input);
                 if (m.matches()) {
                     名称 = m.group(1);
@@ -178,35 +191,42 @@ public class 算法 {
                     需设数量 = true;
                 }
             }
-
+        String 首="com.shatteredpixel.shatteredpixeldungeon.";
         String[] 包 = {
-                "com.shatteredpixel.shatteredpixeldungeon.items.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.armor.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.artifacts.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.bags.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.bombs.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.food.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.potions.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.remains.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.rings.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.scrolls.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.spells.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.stones.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.trinkets.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.wands.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts",
-                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.melee.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.weapon.missiles.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.",
-                "com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic."
+                "plants.",
+                "items.",
+                "items.物品.",
+                "items.用品.用品.",
+                "items.armor.",
+                "items.artifacts.",
+                "items.bags.",
+                "items.bombs.",
+                "items.food.",
+                "items.potions.",
+                "items.remains.",
+                "items.rings.",
+                "items.scrolls.",
+                "items.spells.",
+                "items.stones.",
+                "items.trinkets.",
+                "items.wands.",
+                "items.weapon.",
+                "items.weapon.darts",
+                "items.weapon.melee.",
+                "items.weapon.missiles.",
+                "items.scrolls.exotic.",
+                "items.potions.brews.",
+                "items.potions.elixirs.",
+                "items.potions.exotic."
         };
         for (String p : 包) {
             try {
-                Item item = (Item)Class.forName(p + 名称).newInstance();
-                item.鉴定();
+                Item item = (Item)Class.forName(首+p
+                                                + 名称+(p.equals("plants.")?"$Seed":"")
+                ).newInstance();
+
+
+                    item.鉴定();
                 if (需设数量 && item.可堆叠) item.数量(数量);
                 if (需设等级 && item.真可升级()) item.等级(等级);
                 return item;

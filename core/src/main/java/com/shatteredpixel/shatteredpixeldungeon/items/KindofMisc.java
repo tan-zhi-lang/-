@@ -19,20 +19,29 @@ public abstract class KindofMisc extends EquipableItem {
 
 		boolean equipFull = false;
 
-		if(hero.belongings.misc != null&&hero.belongings.misc2 != null&&hero.belongings.misc3 != null){
-			equipFull=true;//三个时才选择一件取下
+		if(hero.belongings.misc != null
+		   &&hero.belongings.misc2 != null
+		   &&hero.belongings.misc3 != null
+		   &&hero.belongings.misc4 != null
+		   &&hero.belongings.misc5 != null
+		){
+			equipFull=true;//5个时才选择一件取下
 		}
 		if (equipFull) {
 
-			final KindofMisc[] miscs = new KindofMisc[3];
+			final KindofMisc[] miscs = new KindofMisc[5];
 			miscs[0] = hero.belongings.misc;
 			miscs[1] = hero.belongings.misc2;
 			miscs[2] = hero.belongings.misc3;
+			miscs[3] = hero.belongings.misc3;
+			miscs[4] = hero.belongings.misc3;
 
-			final boolean[] enabled = new boolean[3];
+			final boolean[] enabled = new boolean[5];
 			enabled[0] = miscs[0] != null;
 			enabled[1] = miscs[1] != null;
 			enabled[2] = miscs[2] != null;
+			enabled[3] = miscs[3] != null;
+			enabled[4] = miscs[4] != null;
 
 			GameScene.show(
 					new WndOptions(new ItemSprite(this),
@@ -40,7 +49,10 @@ public abstract class KindofMisc extends EquipableItem {
 							Messages.get(KindofMisc.class, "unequip_message"),
 							miscs[0] == null ? "- - -" : Messages.titleCase(miscs[0].title()),
 							miscs[1] == null ? "- - -" : Messages.titleCase(miscs[1].title()),
-							miscs[2] == null ? "- - -" : Messages.titleCase(miscs[2].title())) {
+							miscs[2] == null ? "- - -" : Messages.titleCase(miscs[2].title()),
+							miscs[3] == null ? "- - -" : Messages.titleCase(miscs[3].title()),
+							miscs[4] == null ? "- - -" : Messages.titleCase(miscs[4].title())
+					) {
 
 						@Override
 						protected void onSelect(int index) {
@@ -66,6 +78,10 @@ public abstract class KindofMisc extends EquipableItem {
 									hero.belongings.misc2 = KindofMisc.this;
 								} else if (index == 2 ){
 									hero.belongings.misc3 = KindofMisc.this;
+								} else if (index == 3 ){
+									hero.belongings.misc4 = KindofMisc.this;
+								} else if (index == 4 ){
+									hero.belongings.misc5 = KindofMisc.this;
 								}
 							}
 //							else {
@@ -95,6 +111,10 @@ public abstract class KindofMisc extends EquipableItem {
 				hero.belongings.misc2 = this;
 			}else if(hero.belongings.misc3 == null){
 				hero.belongings.misc3 = this;
+			}else if(hero.belongings.misc4 == null){
+				hero.belongings.misc4 = this;
+			}else if(hero.belongings.misc5 == null){
+				hero.belongings.misc5 = this;
 			}
 
 
@@ -126,6 +146,10 @@ public abstract class KindofMisc extends EquipableItem {
 				hero.belongings.misc2 = null;
 			}else if (hero.belongings.misc3 == this) {
 				hero.belongings.misc3 = null;
+			}else if (hero.belongings.misc4 == this) {
+				hero.belongings.misc4 = null;
+			}else if (hero.belongings.misc5 == this) {
+				hero.belongings.misc5 = null;
 			}
 
 			return true;
@@ -140,6 +164,8 @@ public abstract class KindofMisc extends EquipableItem {
 		return hero != null && (hero.belongings.misc() == this
 				|| hero.belongings.misc2() == this
 				|| hero.belongings.misc3() == this
+				|| hero.belongings.misc4() == this
+				|| hero.belongings.misc5() == this
 				|| hero.belongings.幸运() == this);
 	}
 

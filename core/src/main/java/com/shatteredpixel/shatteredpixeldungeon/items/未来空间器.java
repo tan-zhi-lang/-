@@ -92,12 +92,12 @@ public class 未来空间器 extends Item {
 			btnitem= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (Statistics.item!=null){
+					if (Statistics.item1!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item,Dungeon.hero.pos);
+						if (!Statistics.item1.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(Statistics.item1,Dungeon.hero.pos);
 						}
-						Statistics.item= null;
+						Statistics.item1= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
@@ -125,8 +125,8 @@ public class 未来空间器 extends Item {
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
-									Statistics.item= item;
-									item(Statistics.item);
+									Statistics.item1= item;
+									item(Statistics.item1);
 								}
 							}
 						});
@@ -143,8 +143,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem.setRect(GAP/2+3,message.top()+message.height()+GAP*4,BTN_SIZE,BTN_SIZE);
-			if (Statistics.item!=null) {
-				btnitem.item(Statistics.item);
+			if (Statistics.item1!=null) {
+				btnitem.item(Statistics.item1);
 			} else {
 				btnitem.item(new WndBag.Placeholder(物品表.ITEM));
 			}

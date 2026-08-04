@@ -14,7 +14,7 @@ public class 锈右斧 extends Weapon{
 	{
 		image = 物品表.锈右斧;
 		hitSound = Assets.Sounds.巨剑;
-		延迟= 1.75f;
+		延迟= 1.5f;
 
 		特别=true;
 		橙色=true;

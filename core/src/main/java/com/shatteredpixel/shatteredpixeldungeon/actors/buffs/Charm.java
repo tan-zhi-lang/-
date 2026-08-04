@@ -5,9 +5,13 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
+import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class Charm extends FlavourBuff {
 
@@ -19,6 +23,23 @@ public class Charm extends FlavourBuff {
 	{
 		type = buffType.NEGATIVE;
 		announced = true;
+	}
+
+	@Override
+	public boolean act(){
+		spend( 1 );
+		if(紫色心情.概率()>0&&算法.概率学(紫色心情.概率())){
+			if(target instanceof Hero hero){
+				if(hero.女人())
+					Dungeon.level.dropRandomCell(new Dewdrop(),target.pos);
+				else
+					Dungeon.level.dropRandomCell(new LiquidMetal(),target.pos);
+			}else {
+
+				Dungeon.level.dropRandomCell(Random.oneOf(new Dewdrop(),new LiquidMetal()),target.pos);
+			}
+		}
+		return true;
 	}
 
 	private static final String OBJECT          = "object";

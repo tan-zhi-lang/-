@@ -99,7 +99,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 						//if we turned an equipped artifact into a ring, ring goes into inventory
 						((EquipableItem) item).doUnequip(Dungeon.hero, false);
 						result.放背包();
-					} else if (item instanceof KindOfWeapon && Dungeon.hero.belongings.secondWep() == item){
+					} else if (item instanceof KindOfWeapon &&Dungeon.hero.belongings.weapon2()==item){
 						((EquipableItem) item).doUnequip(Dungeon.hero, false);
 						((KindOfWeapon) result).equipSecondary(Dungeon.hero);
 					} else {

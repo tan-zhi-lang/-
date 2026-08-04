@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,9 +23,11 @@ public class FerretTuft extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc",  100 * (evasionMultiplier(等级())-1f));
+			return Messages.get(this, "stats_desc",
+								kw2(100 * (evasionMultiplier(等级())-1f)));
 		} else {
-			return Messages.get(this, "stats_desc",  100 * (evasionMultiplier(0)-1f));
+			return Messages.get(this, "stats_desc",
+								kw2(100 * (evasionMultiplier(0)-1f)));
 		}
 	}
 

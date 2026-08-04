@@ -12,7 +12,7 @@ public class 无限之剑 extends Weapon{
 	{
 		image = 物品表.无限之剑;
 		hitSound = Assets.Sounds.攻击砍;
-		延迟=0.8f;
+		伤害=0.8f;
 		技能=new 斩击();
 		特别=true;
 		tier = 5;

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -22,13 +24,13 @@ public class SaltCube extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,
 					"stats_desc",
-					 100*((1f/hungerGainMultiplier(等级()))-1f),
-					 100*(1f-healthRegenMultiplier(等级())));
+					kw2(100*((1f/hungerGainMultiplier(等级()))-1f)),
+						kw2(100*(1f-healthRegenMultiplier(等级()))));
 		} else {
 			return Messages.get(this,
 					"stats_desc",
-					 100*((1f/hungerGainMultiplier(0))-1f),
-					 100*(1f-healthRegenMultiplier(0)));
+						kw2(100*((1f/hungerGainMultiplier(0))-1f)),
+							kw2(100*(1f-healthRegenMultiplier(0))));
 		}
 	}
 

@@ -32,6 +32,7 @@ public class UnstableSpell extends Spell {
 	{
 		image = 物品表.UNSTABLE_SPELL;
 		icon = 物品表.Icons.无序;
+		彩光=true;
 	}
 	
 	private static HashMap<Class<? extends Scroll>, Float> scrollChances = new HashMap<>();

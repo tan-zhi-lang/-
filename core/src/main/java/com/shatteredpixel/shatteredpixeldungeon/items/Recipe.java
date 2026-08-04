@@ -82,6 +82,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.震爆方石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.封禁卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.火把神的恩宠;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.血药;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.进力药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.进级卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.魔力水晶;
 import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;

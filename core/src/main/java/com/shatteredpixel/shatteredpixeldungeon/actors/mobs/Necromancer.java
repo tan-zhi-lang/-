@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Beam;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -46,6 +47,7 @@ public class Necromancer extends Mob {
 	}
 	
 	public boolean summoning = false;
+	public int 死亡次数 = 0;
 	public int summoningPos = -1;
 	
 	protected boolean firstSummon = true;
@@ -113,14 +115,16 @@ public class Necromancer extends Mob {
 
 	private static final String SUMMONING = "summoning";
 	private static final String FIRST_SUMMON = "first_summon";
+	private static final String 死亡次数x = "死亡次数";
 	private static final String SUMMONING_POS = "summoning_pos";
 	private static final String MY_SKELETON = "my_skeleton";
-	
+
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put( SUMMONING, summoning );
 		bundle.put( FIRST_SUMMON, firstSummon );
+		bundle.put( 死亡次数x, 死亡次数 );
 		if (summoning){
 			bundle.put( SUMMONING_POS, summoningPos);
 		}
@@ -135,6 +139,7 @@ public class Necromancer extends Mob {
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		summoning = bundle.getBoolean( SUMMONING );
+		死亡次数 = bundle.getInt( 死亡次数x );
 		if (bundle.contains(FIRST_SUMMON)) firstSummon = bundle.getBoolean(FIRST_SUMMON);
 		if (summoning){
 			summoningPos = bundle.getInt( SUMMONING_POS );
@@ -156,7 +161,7 @@ public class Necromancer extends Mob {
 				sprite.parent.add(new Beam.HealthRay(sprite.center(), mySkeleton.sprite.center()));
 			}
 			
-			mySkeleton.回血(mySkeleton.最大生命(0.2f));
+			mySkeleton.回血(mySkeleton.最大生命(0.4f));
 			
 		//otherwise give it adrenaline
 		} else if (mySkeleton.buff(Adrenaline.class) == null) {
@@ -227,9 +232,13 @@ public class Necromancer extends Mob {
 
 		if (mySkeleton == null || !mySkeleton.isActive()) {
 		mySkeleton = new NecroSkeleton();
+		mySkeleton.主人(this);
 		mySkeleton.pos = summoningPos;
 		GameScene.add( mySkeleton );
 		Dungeon.level.occupyCell( mySkeleton );
+
+		if(死亡次数>0)
+		Buff.施加(mySkeleton,Paralysis.class,Math.min(10,死亡次数*2));
 
 		for (Buff b : buffs()){
 			if (b.revivePersists) {
@@ -396,10 +405,38 @@ public class Necromancer extends Mob {
 			最大等级 = -5;
 			
 			//20/25 health to start
-			生命 = 20;
+//			生命 = 20;
 			properties.add(Property.傀儡);
 		}
 
+		private Necromancer 主人;
+		private static final String 主人x = "主人";
+
+		@Override
+		public void storeInBundle(Bundle bundle) {
+			super.storeInBundle(bundle);
+
+			if (主人!=null){
+				bundle.put( 主人x, 主人);
+			}
+		}
+
+		@Override
+		public void restoreFromBundle(Bundle bundle) {
+			super.restoreFromBundle(bundle);
+			主人 = (Necromancer)bundle.get( 主人x );
+		}
+		@Override
+		public void 死亡时(Object 来源){
+			if(主人!=null)
+			主人.死亡次数++;
+			super.死亡时(来源);
+		}
+
+		public Necromancer 主人(Necromancer 主人) {
+			this.主人=主人;
+			return 主人;
+		}
 		@Override
 		public float spawningWeight() {
 			return 0;

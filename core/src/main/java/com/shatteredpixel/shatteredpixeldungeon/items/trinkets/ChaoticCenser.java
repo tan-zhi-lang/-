@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -50,9 +52,9 @@ public class ChaoticCenser extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", averageTurnsUntilGas(等级()));
+			return Messages.get(this, "stats_desc", kw2(averageTurnsUntilGas(等级())));
 		} else {
-			return Messages.get(this, "stats_desc", averageTurnsUntilGas(0));
+			return Messages.get(this, "stats_desc", kw2(averageTurnsUntilGas(0)));
 		}
 	}
 

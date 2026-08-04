@@ -164,17 +164,20 @@ public class ItemSprite extends MovieClip {
 	}
 	
 	public void drop( int from ) {
+		drop(from,1);
+	}
+	public void drop( int from ,float yx) {
 
 		if (heap.pos == from) {
 			drop();
 		} else {
-			
+
 			float px = x;
-			float py = y;
+			float py = y*yx;
 			drop();
-			
+
 			place(from);
-	
+
 			speed.offset((px - x) / DROP_INTERVAL, (py - y) / DROP_INTERVAL);
 		}
 	}

@@ -52,22 +52,40 @@ public class 激泥酞酶 extends Item {
 		@Override
 		public Item brew(ArrayList<Item> ingredients) {
 			Item result = sampleOutput(ingredients);
-			Scroll w = (Scroll)ingredients.get(0);
+			Item w = ingredients.get(0);
+			Item w2 = ingredients.get(1);
+			int x=Math.abs(w.数量()-w2.数量());
+			if(x>0){
+				int xmin=Math.min(w.数量(),w2.数量());
+				if(w.数量()==xmin){
+					result.数量(resinQuantity(w));
+					w2.数量改动(-x);
+					w.数量0();
+				}
+				if(w2.数量()==xmin){
 
-			result.数量(resinQuantity(w));
-			w.数量0();
+					result.数量(resinQuantity(w2));
+					w.数量改动(-x);
+					w2.数量0();
+				}
+			}
+			else{
+				result.数量(resinQuantity(w));
+				w.数量0();
+				w2.数量0();
+			}
 
 			return result;
 		}
 
 		@Override
 		public Item sampleOutput(ArrayList<Item> ingredients) {
-			Scroll s = (Scroll)ingredients.get(0);
+			Item s = ingredients.get(0);
 
 			return new 激泥酞酶().数量(resinQuantity(s));
 		}
 
-		private int resinQuantity(Scroll s){
+		private int resinQuantity(Item s){
 			return s.quantity;
 		}
 	}

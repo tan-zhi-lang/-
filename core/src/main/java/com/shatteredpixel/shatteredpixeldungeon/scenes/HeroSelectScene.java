@@ -753,6 +753,7 @@ public class HeroSelectScene extends PixelScene {
 
             buttons = new ArrayList<>();
             spacers = new ArrayList<>();
+
             StyledButton seedButton = new StyledButton(Chrome.Type.BLANK, Messages.get(HeroSelectScene.class, "custom_seed"), 6) {
                 @Override
                 protected void onClick() {
@@ -959,6 +960,38 @@ public class HeroSelectScene extends PixelScene {
             buttons.add(randomButton);
             add(randomButton);
 
+
+
+            StyledButton 重命名英雄 = new StyledButton(Chrome.Type.BLANK, "重命名英雄", 6) {
+                @Override
+                protected void onClick() {
+
+                    ShatteredPixelDungeon.scene().addToFront(new WndTextInput("重命名英雄",
+                                                                              "该命名将被用作该英雄的默认名。",
+                                                                              SPDSettings.重命名英雄(),
+                                                                              20,
+                                                                              false,
+                                                                              "确认",
+                                                                              "取消") {
+                        @Override
+                        public void onSelect(boolean positive, String text) {
+                            if (positive && !text.equals("")) {
+                                SPDSettings.重命名英雄(text);
+                            } else {
+                                SPDSettings.重命名英雄("");
+                            }
+                            updateOptionsColor();
+                        }
+                    });
+                }
+            };
+            重命名英雄.leftJustify = true;
+            重命名英雄.icon(Icons.get(!SPDSettings.重命名英雄().equals("") ? Icons.SCROLL_COLOR : Icons.SCROLL_GREY));
+
+            buttons.add(重命名英雄);
+            add(重命名英雄);
+
+
             for (int i = 1; i < buttons.size(); i++) {
                 ColorBlock spc = new ColorBlock(1, 1, 0xFF000000);
                 add(spc);
@@ -1110,7 +1143,7 @@ public class HeroSelectScene extends PixelScene {
                                 mask += chalMasks.remove(0);
                             }
                             SPDSettings.challenges(mask);
-                            challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
+//                            challengeButton.icon(Icons.get(SPDSettings.challenges() > 0 ? Icons.CHALLENGE_COLOR : Icons.CHALLENGE_GREY));
                             ShatteredPixelDungeon.scene().addToFront(new WndChallenges(mask, false));
                         }
 
@@ -1126,7 +1159,7 @@ public class HeroSelectScene extends PixelScene {
                                 mask += chalMasks.remove(0);
                             }
                             SPDSettings.炼狱(mask);
-                            炼狱按钮.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
+//                            炼狱按钮.icon(Icons.get(SPDSettings.炼狱() > 0 ? Icons.炼狱开 : Icons.炼狱关));
                             ShatteredPixelDungeon.scene().addToFront(new 炼狱(mask, false));
                         }
 
@@ -1272,6 +1305,7 @@ public class HeroSelectScene extends PixelScene {
             }
 
         }
+
         private class Wnd困难复杂 extends Window {
 
             public Wnd困难复杂(){

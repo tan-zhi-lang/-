@@ -75,7 +75,7 @@ public class 矮人国王的皇冠 extends Item {
 				GLog.绿(Messages.get(this,"upgraded"));
 
 			ClassArmor classArmor = ClassArmor.upgrade(hero, armor);
-			if (hero.belongings.armor == armor) {
+			if (hero.belongings.armor() == armor) {
 
 				hero.belongings.armor = classArmor;
 				((HeroSprite) hero.sprite).updateArmor();

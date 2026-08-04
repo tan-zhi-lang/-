@@ -141,26 +141,26 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
-import com.shatteredpixel.shatteredpixeldungeon.items.坠牢之星;
-import com.shatteredpixel.shatteredpixeldungeon.items.奥术水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
-import com.shatteredpixel.shatteredpixeldungeon.items.活力水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.生命果;
-import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.神盾果;
-import com.shatteredpixel.shatteredpixeldungeon.items.自残绳;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命果;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.自残绳;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.进阶宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
-import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.魔力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.魔力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+
 
 //For items, but includes a few item-like effects, such as enchantments
 public enum Catalog {

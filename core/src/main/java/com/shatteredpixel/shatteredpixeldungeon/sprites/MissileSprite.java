@@ -293,7 +293,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
 		if (item instanceof 飞镖
 				&& (Dungeon.hero.belongings.weapon() instanceof 十字弩
-				|| Dungeon.hero.belongings.secondWep() instanceof 十字弩)){
+				|| Dungeon.hero.belongings.weapon2() instanceof 十字弩)){
 			speed *= 3f;
 			
 		} else if (item instanceof 灵能短弓.SpiritArrow

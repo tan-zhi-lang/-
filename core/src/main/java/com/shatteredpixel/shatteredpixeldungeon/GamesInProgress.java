@@ -142,6 +142,7 @@ public class GamesInProgress {
 		info.heroClass蜕变 = Dungeon.hero.heroClass蜕变;
 		info.subClass = Dungeon.hero.subClass;
 		info.备注 = Dungeon.hero.备注;
+		info.名字 = Dungeon.hero.名字;
 		info.armorTier = Dungeon.hero.tier();
 
 		info.maxDepth = Statistics.deepestFloor;
@@ -181,6 +182,7 @@ public class GamesInProgress {
 		public HeroClass heroClass蜕变;
 		public HeroSubClass subClass;
 		public String 备注="";
+		public String 名字="";
 		public int armorTier;
 
 		public int maxDepth;

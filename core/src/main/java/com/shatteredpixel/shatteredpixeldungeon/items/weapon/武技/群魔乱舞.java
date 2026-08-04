@@ -38,7 +38,7 @@ public class 群魔乱舞 extends 武技{
 			}
 			
 
-			hero.belongings.abilityWeapon = wep;
+			
 			for (Char ch : Actor.chars()){
 				if (ch.alignment == Char.Alignment.ENEMY
 					&& !hero.isCharmedBy(ch)
@@ -47,7 +47,7 @@ public class 群魔乱舞 extends 武技{
 						hero.九头蛇(hero,ch.pos);
 				}
 			}
-			hero.belongings.abilityWeapon = null;
+			
 
 			
 			Sample.INSTANCE.play(wep.hitSound);

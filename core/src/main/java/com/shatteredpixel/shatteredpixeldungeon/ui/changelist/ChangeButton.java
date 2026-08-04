@@ -93,6 +93,17 @@ public class ChangeButton extends Component {
 		
 		layout();
 	}
+	public ChangeButton( int icon, String title, String... messages){
+		super();
+
+		this.icon = new ItemSprite(icon);
+		add(this.icon);
+
+		this.title = Messages.titleCase(title);
+		this.messages = messages;
+
+		layout();
+	}
 
 	public ChangeButton( String it, String title, String... messages){
 		super();

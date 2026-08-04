@@ -12,6 +12,7 @@ public class 寒冰鱼剑 extends Weapon {
 		hitSound = Assets.Sounds.攻击砍;
 		伤害=0.8f;
 		特别=true;
+		冻结=0.15f;
 		青色=true;
 		tier = 5;
 	}

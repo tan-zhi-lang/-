@@ -16,7 +16,7 @@ public class 链枷 extends Weapon {
 		tier = 3;
 //		连招范围=2;
 		范围 = 2;
-		延迟= 1.5f;
+		延迟= 1.3f;
 	}
 	
 	

@@ -289,6 +289,7 @@ public class Assets {
 		public static final String 挖矿    = "sounds/挖矿.mp3";
 		public static final String 生命水晶   = "sounds/生命水晶.mp3";
 		public static final String 我恭喜你发财   = "sounds/我恭喜你发财.mp3";
+		public static final String 坠星   = "sounds/坠星.wav";
 		public static final String 魔力水晶   = "sounds/魔力水晶.mp3";
 		public static final String 海克斯   = "sounds/海克斯.mp3";
 		public static final String TOMB     = "sounds/tomb.mp3";
@@ -360,6 +361,7 @@ public class Assets {
 				泡泡,
 				我恭喜你发财,
 				心之钢,
+				坠星,
 				子弹落地,换弹,霰弹枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
 				镜刃,布甲,皮甲,链甲,鳞甲,板甲,
 				鞭子,刺剑,巨剑,爪,

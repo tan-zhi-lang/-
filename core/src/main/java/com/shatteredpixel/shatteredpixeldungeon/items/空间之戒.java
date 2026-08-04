@@ -43,7 +43,7 @@ public class 空间之戒 extends Item {
 		return actions;
 	}
 	
-	private Item item= null;
+	private Item item1= null;
 	private Item item2= null;
 	private Item item3= null;
 	private Item item4= null;
@@ -67,7 +67,7 @@ public class 空间之戒 extends Item {
 	}
 	
 	
-	private static final String ITEM=        "item";
+	private static final String ITEM1=        "item1";
 	private static final String ITEM2=        "item2";
 	private static final String ITEM3=        "item3";
 	private static final String ITEM4=        "item4";
@@ -81,7 +81,7 @@ public class 空间之戒 extends Item {
 	public void storeInBundle( Bundle bundle) {
 		super.storeInBundle(bundle);
 		
-		if (item!=null) bundle.put(ITEM,item);
+		if (item1!=null) bundle.put(ITEM1,item1);
 		if (item2!=null) bundle.put(ITEM2,item2);
 		if (item3!=null) bundle.put(ITEM3,item3);
 		if (item4!=null) bundle.put(ITEM4,item4);
@@ -95,7 +95,7 @@ public class 空间之戒 extends Item {
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
-		if (bundle.contains(ITEM)) item= (Item)bundle.get(ITEM);
+		if (bundle.contains(ITEM1)) item1= (Item)bundle.get(ITEM1);
 		if (bundle.contains(ITEM2)) item2= (Item)bundle.get(ITEM2);
 		if (bundle.contains(ITEM3)) item3= (Item)bundle.get(ITEM3);
 		if (bundle.contains(ITEM4)) item4= (Item)bundle.get(ITEM4);
@@ -141,18 +141,18 @@ public class 空间之戒 extends Item {
 			btnitem= new ItemButton(){
 				@Override
 				protected void onClick() {
-					if (item!=null){
+					if (item1!=null){
 						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!item.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(item,Dungeon.hero.pos);
+						if (!item1.doPickUp(Dungeon.hero)){
+							Dungeon.level.drop(item1,Dungeon.hero.pos);
 						}
-						item= null;
+						item1= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -174,7 +174,7 @@ public class 空间之戒 extends Item {
 									}else{
 										item.detach(Dungeon.hero.belongings.backpack);
 									}
-									空间之戒.this.item= item;
+									item1= item;
 									item(item);
 								}
 							}
@@ -192,8 +192,8 @@ public class 空间之戒 extends Item {
 				}
 			};
 			btnitem.setRect(GAP/2+3,message.top()+message.height()+GAP*4,BTN_SIZE,BTN_SIZE);
-			if (item!=null) {
-				btnitem.item(item);
+			if (item1!=null) {
+				btnitem.item(item1);
 			} else {
 				btnitem.item(new WndBag.Placeholder(物品表.ITEM));
 			}
@@ -215,7 +215,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -278,7 +278,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -342,7 +342,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -405,7 +405,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -468,7 +468,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -531,7 +531,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -594,7 +594,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override
@@ -657,7 +657,7 @@ public class 空间之戒 extends Item {
 							
 							@Override
 							public String textPrompt() {
-								return Messages.get(空间之戒.Wnd.class,"item_prompt");
+								return Messages.get(Wnd.class,"item_prompt");
 							}
 							
 							@Override

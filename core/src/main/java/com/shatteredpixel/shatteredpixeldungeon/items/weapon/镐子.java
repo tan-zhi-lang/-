@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.镐击;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -13,8 +14,8 @@ public class 镐子 extends Weapon {
 	
 	{
 		image = 物品表.PICKAXE;
-
-		物品 = true;
+		技能=new 镐击();
+		升级物品 = true;
 		伤害=0.7f;
 		特别= true;
 		嬗变= false;

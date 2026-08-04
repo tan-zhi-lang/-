@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,14 +23,14 @@ public class 巨大蟹钳 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								(1-受到())*100,
-								减少()*100
+								kw2((1-受到())*100),
+								kw2(减少()*100)
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
 
-								(1-受到(0))*100,
-								减少(0)*100
+								kw2((1-受到(0))*100),
+									kw2(减少(0)*100)
 							   );
 		}
 	}

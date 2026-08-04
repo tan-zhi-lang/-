@@ -54,8 +54,8 @@ public class 鬼怨 extends Mob {
 	@Override
 	public int 最大命中(Char target ) {
 		if(target instanceof Hero hero){
-			if(hero.belongings.armor!=null
-			   &&(hero.belongings.armor.强化等级()>0||hero.belongings.armor.hasGlyph()))
+			if(hero.belongings.armor()!=null
+			   &&(hero.belongings.armor().强化等级()>0||hero.belongings.armor().hasGlyph()))
 				return Dungeon.区域(8);
 			
 			if(hero.hasbuff(装甲之戒.装甲.class))

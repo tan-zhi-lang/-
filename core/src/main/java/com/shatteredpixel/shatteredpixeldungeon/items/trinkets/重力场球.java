@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -24,13 +26,13 @@ public class 重力场球 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								100*英雄(),
-								100*敌人()
+								kw2(100*英雄()),
+								kw2(100*敌人())
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								100*英雄(0),
-								100*敌人(0)
+								kw2(100*英雄(0)),
+									kw2(100*敌人(0))
 							   );
 		}
 	}

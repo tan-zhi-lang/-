@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
@@ -21,9 +23,13 @@ public class ThirteenLeafClover extends Trinket {
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
-			return Messages.get(this, "stats_desc", Math.round(100*alterHeroDamageChance(等级())), Math.round(100f- 100*alterHeroDamageChance(等级())));
+			return Messages.get(this, "stats_desc",
+								kw2(100*alterHeroDamageChance(等级())),
+									kw2(100f- 100*alterHeroDamageChance(等级())));
 		} else {
-			return Messages.get(this, "stats_desc", Math.round(100*alterHeroDamageChance(0)), Math.round(10f- 100*alterHeroDamageChance(0)));
+			return Messages.get(this, "stats_desc",
+								kw2(100*alterHeroDamageChance(0)),
+									kw2(10f- 100*alterHeroDamageChance(0)));
 		}
 	}
 

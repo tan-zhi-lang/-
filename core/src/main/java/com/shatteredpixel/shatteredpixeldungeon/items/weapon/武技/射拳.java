@@ -40,13 +40,13 @@ public class 射拳 extends 武技{
 				return;
 			}
 			
-			hero.belongings.abilityWeapon = wep;
+			
 			if (Dungeon.level.距离(hero.pos,target)>hero.攻击范围()+3){
 				GLog.橙(Messages.get(wep,"ability_target_range"));
-				hero.belongings.abilityWeapon = null;
+				
 				return;
 			}
-			hero.belongings.abilityWeapon = null;
+			
 
 			wep.消耗(hero);
 			hero.扔出(target,new 拳击手套(),()->{

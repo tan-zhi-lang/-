@@ -10,8 +10,7 @@ public class 鹿角刀 extends Weapon{
 	{
 		image=物品表.鹿角刀;
 		hitSound = Assets.Sounds.巨剑;
-		伤害=1.2f;
-		延迟= 1.2f;
+		延迟= 1.1f;
 
 
 		tier=4;

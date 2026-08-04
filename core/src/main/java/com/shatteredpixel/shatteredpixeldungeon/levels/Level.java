@@ -54,9 +54,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
-import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.潜力药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
@@ -69,14 +69,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrapMechanism;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
-import com.shatteredpixel.shatteredpixeldungeon.items.奥术水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.活力水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.生命水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.神盾果;
-import com.shatteredpixel.shatteredpixeldungeon.items.进阶宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.进阶宝典;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
@@ -735,7 +735,7 @@ public abstract class Level implements Bundlable {
 				items.addAll(b.getStuckItems());
 			}
 		}
-		for (回旋镖.CircleBack b : Dungeon.hero.buffs(回旋镖.CircleBack.class)){
+		for (Weapon.CircleBack b : Dungeon.hero.buffs(Weapon.CircleBack.class)){
 			if (b.activeDepth() == Dungeon.depth) items.add(b.cancel());
 		}
 		return items;
@@ -855,6 +855,7 @@ public abstract class Level implements Bundlable {
 			mobs*=2;
 		}
 		if(Dungeon.更多怪物)mobs*=5;
+		if(算法.isDebug())mobs*=4;
 
 		return Math.min(20,mobs);
 	}
@@ -1195,19 +1196,81 @@ public abstract class Level implements Bundlable {
 	}
 	
 	public void dropRandomCell( Item item, int cell) {
-		
+		dropRandomCell(item,1,cell);
+	}
+	public void dropRandomCell( Item item,int 范围, int cell) {
+
+		int width=Dungeon.level.width();
 		for (int i = 1; i <= item.数量(); i++){
-			int ofs;
-			do {
-				ofs = PathFinder.相邻[Random.Int(8)];
-			} while (solid[cell + ofs] &&!passable[cell + ofs]);
+
+			int ofs = 0;
+			int currentRange = 范围;          // 使用临时变量，不修改原范围
+			boolean found = false;
+
+			while (currentRange >= 1 && !found) {
+				try {
+					do {
+						// 根据当前范围选择偏移数组
+						int[] arr;
+						switch (currentRange) {
+							case 1:  arr = PathFinder.相邻; break;
+							case 2:  arr = PathFinder.范围2; break;
+							case 3:  arr = PathFinder.范围3; break;
+							case 4:  arr = PathFinder.范围4; break;
+							case 5:  arr = PathFinder.范围5; break;
+							case 6:  arr = PathFinder.范围6; break;
+							case 7:  arr = PathFinder.范围7; break;
+							case 8:  arr = PathFinder.范围8; break;
+							default: arr = PathFinder.相邻; break;
+						}
+						ofs = arr[Random.Int(arr.length)];
+
+						if (extracted(i, width)) {
+							continue;   // 超出地图边界，重新选偏移
+						}
+						int col = i % width;
+						if (col == 0 || col == width - 1) {
+							continue;   // 跳过最左/最右列
+						}
+					} while (solid[cell + ofs] && !passable[cell + ofs]);
+					// 正常退出 do-while，说明找到合适偏移
+					found = true;
+				} catch (Exception e) {
+					// 发生异常（通常为数组越界），范围减 1 后重试
+					currentRange--;
+				}
+			}
+
+			// 保底处理：如果所有范围都失败，使用相邻数组（范围=1）再尝试一次
+			if (!found) {
+				do {
+					ofs = PathFinder.相邻[Random.Int(PathFinder.相邻.length)];
+					if (extracted(i, width)) continue;
+					int col = i % width;
+					if (col == 0 || col == width - 1) continue;
+				} while (solid[cell + ofs] && !passable[cell + ofs]);
+				// 这里若仍失败会死循环，与原逻辑一致（原最内层 catch 为空）
+			}
+
 			if (heaps.get(cell+ofs) == null) {
-				drop(item,cell+ofs).sprite().drop(cell);
+				drop(item,cell+ofs).sprite().drop(cell+ofs,4);
 			} else {
-				drop(item, cell + ofs).sprite().drop(cell + ofs);
+				drop(item, cell + ofs).sprite().drop(cell + ofs,4);
 			}
 		}
+
+
 	}
+
+	private boolean extracted(int i,int width){
+		// 跳过第一行、最后一行
+		if(i<width||i>=length-width){
+			//						算法.调试("第"+i+"个");
+			return true;
+		}
+		return false;
+	}
+
 	public Heap drop( Item item, int cell ) {
 		if (item == null || Challenges.isItemBlocked(item)){
 

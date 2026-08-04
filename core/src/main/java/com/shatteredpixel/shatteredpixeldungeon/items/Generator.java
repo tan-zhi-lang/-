@@ -147,6 +147,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.魔法飞刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfCorrosion;
@@ -488,18 +489,18 @@ public class Generator {
 			WEAPON.probs = new float[]{};
 			
 			WEP_T1.classes = new Class<?>[]{
-					双刃.class,//0.7
+					双刃.class,//1.1
 					镶钉手套.class,//0.5
 					手斧.class,//1.2
 					
 					手里剑.class,//0.8
 					木棍.class,//0.7
-					短柄镰.class,//1.4
+					短柄镰.class,//1.3
 					圆盾.class,//0.7
 
 					指虎.class,//0.8
 					尼泊尔弯刀.class,//0.8
-					狼筅.class,//2
+					狼筅.class,//1.5
 
 
 			};
@@ -513,15 +514,15 @@ public class Generator {
 					
 					单手剑.class,//1
 					长匕首.class,//0.8
-					硬头锤.class,//1.2
+					硬头锤.class,//1.3
 					
 					弯刀.class,//0.8
 					长鞭.class,//0.7
 					爪.class,//0.5
-					武士刀.class,//1.5
+					武士刀.class,//0.9
 					
 					回旋镖.class,//0.7
-					斩马刀.class,//2
+					斩马刀.class,//1.5
 					铁头棍.class,//0.7
 			};
 			WEP_T2.defaultProbs = new float[]{  2, 2, 2,
@@ -532,15 +533,15 @@ public class Generator {
 			
 			WEP_T3.classes = new Class<?>[]{
 					长剑.class,//1
-					战斧.class,//1.75
-					链枷.class,//1.5
+					战斧.class,//1.5
+					链枷.class,//1.3
 					
 					巨型方盾.class,//0.7
-					双剑.class,//0.5
+					双剑.class,//1.1
 					半月刃.class,//2
 					破甲锥.class,//0.8
 					
-					流星索.class,//1.3
+					流星索.class,//0.8
 					苦无.class,//0.8
 					链刃.class,//0.8
 			};
@@ -551,17 +552,17 @@ public class Generator {
 			
 			WEP_T4.classes = new Class<?>[]{
 					巨剑.class,//1
-					战锤.class,//1.3
-					三叉戟.class,//1.5
+					战锤.class,//0.7
+					三叉戟.class,//1.2
 					
 					巨斧.class,//1.5
 					魔岩拳套.class,//0.5
 					轮刃.class,//0.8
-					战镰.class,//1.75
+					战镰.class,//1.4
 					
-					震爆方石.class,
-					关刀.class,//2
-					鹿角刀.class//1.2
+					震爆方石.class,//0.6
+					关刀.class,//1.3
+					鹿角刀.class//1.1
 
 			};
 			WEP_T4.defaultProbs = new float[]{ 2, 2, 2,
@@ -579,27 +580,27 @@ public class Generator {
 					封印之杖.class,//0.7
 					金纹拐.class,//0.7
 					草剃.class,//0.8
-					碎缘剑.class,//1
+					碎缘剑.class,//1.1
 
 				    臻冰刃.class,//0.8
-					锈右斧.class,//1.75
+					锈右斧.class,//1.5
 					无尽之刃.class,//0.8
 					饮血之剑.class,//0.8
 
 					//3
-					死神镰刀.class,//2
+					死神镰刀.class,//1.5
 					神农锄.class,//1.2
 					日炎链刃.class,//0.8
 					流火.class,//0.8
 					蜜剑.class,//0.8
 
-					火焰剑.class,//0.8
-					地裂镰.class,//2
+					火焰剑.class,//0.9
+					地裂镰.class,//1.5
 					寒冰镖.class,//0.8
 					闪电双截棍.class,//0.7
 
 					真铜短剑.class,//0.8
-					猩红散华.class,//0.2
+					猩红散华.class,//0.8
 					重锤.class,//1.5
 					无影剑.class,//0.8
 
@@ -617,21 +618,21 @@ public class Generator {
 					雷神锤.class,//0.7
 					骨刀.class,//0.8
 					星云拳套.class,//0.5
-					疯狂斧.class,//1.5
+					疯狂斧.class,//1.3
 
 					//9
 					血荆棘.class,//0.7
-					裂天剑.class,//1.5
+					裂天剑.class,//0.8
 					虚哭神去.class,//0.8
 					回旋之刃.class,//0.8
 
-					誓刃.class,//0.5
+					誓刃.class,//1.1
 					未知武器.class,//1
 					钻石镐.class,//0.7
 					海神三叉戟.class,//1.2
 
-					猪鲨链球.class,//1.4
-					腐化灾兵.class,//1.75
+					猪鲨链球.class,//1.3
+					腐化灾兵.class,//0.8
 			};
 			WEP_T5.defaultProbs = new float[]{
 					//1
@@ -809,6 +810,7 @@ public class Generator {
 					魔法飞刀.class,
 					暗影飞刀.class,
 					桃木剑.class,
+					黑桃印记.class,
 			};
 			TRINKET.defaultProbs = new float[]{
 					0,0,0,
@@ -828,7 +830,7 @@ public class Generator {
 												1,1,1,1,
 												1,1,1,1,
 												1,1,1,1,
-												1,1,1,
+												1,1,1,1,
 
 												};
 			TRINKET.probs = TRINKET.defaultProbs.clone();
@@ -1034,6 +1036,9 @@ public class Generator {
 	}
 	public static Item randomScroll(){
 		return random(Category.SCROLL);
+	}
+	public static Item randomSeed(){
+		return random(Category.SEED);
 	}
 	public static Item randomFood(){
 		return random(Category.FOOD);

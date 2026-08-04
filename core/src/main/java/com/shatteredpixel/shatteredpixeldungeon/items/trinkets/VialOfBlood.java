@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -23,13 +25,13 @@ public class VialOfBlood extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,
 					"stats_desc",
-					 100*(totalHealMultiplier(等级())-1f),
-					maxHealPerTurn(等级()));
+								kw2(100*(totalHealMultiplier(等级())-1f)),
+									kw2(maxHealPerTurn(等级())));
 		} else {
 			return Messages.get(this,
 					"stats_desc",
-					 100*(totalHealMultiplier(0)-1f),
-					maxHealPerTurn(0));
+								kw2(100*(totalHealMultiplier(0)-1f)),
+									kw2(maxHealPerTurn(0)));
 		}
 	}
 

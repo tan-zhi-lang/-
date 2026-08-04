@@ -29,7 +29,7 @@ public class Stylus extends Item {
 		image = 物品表.STYLUS;
 		
 		可堆叠= true;
-		紫色 = true;
+		靛色 = true;
 
 		defaultAction = AC_INSCRIBE;
 		

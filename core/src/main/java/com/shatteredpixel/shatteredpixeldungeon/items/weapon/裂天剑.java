@@ -15,7 +15,7 @@ public class 裂天剑 extends Weapon{
 		hitSound = Assets.Sounds.攻击砍;
 		特别=true;
 		蓝色=true;
-		伤害=1.5f;
+		伤害=0.8f;
 		范围=3;
 		技能=new 刺击();
 		tier=5;

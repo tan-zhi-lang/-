@@ -45,6 +45,9 @@ public class Pasty extends Food {
 			case NONE: default:
 				image = 物品表.PASTY;
 				break;
+			case 游戏周年:
+				image = 物品表.蛋糕;
+				break;
 			case 元旦节:
 				image = 物品表.SPARKLING_POTION;
 				break;
@@ -189,6 +192,8 @@ public class Pasty extends Food {
 				return super.name();
 			case 元旦节:
 				return Messages.get(this, "sparkling_name");
+			case 游戏周年:
+				return Messages.get(this, "游戏周年_name");
 			case 春节:
 				return Messages.get(this, "fish_name");
 			case 复活节:
@@ -221,6 +226,8 @@ public class Pasty extends Food {
 				return super.desc();
 			case 元旦节:
 				return Messages.get(this, "sparkling_desc");
+			case 游戏周年:
+				return Messages.get(this, "游戏周年_desc");
 			case 春节:
 				return Messages.get(this, "fish_desc");
 			case 复活节:

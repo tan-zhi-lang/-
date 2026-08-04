@@ -34,7 +34,7 @@ public class 飞镖 extends Weapon{
 		image = 物品表.DART;
 		hitSound = Assets.Sounds.攻击箭;
 		
-		延迟=0.8f;
+		伤害=0.8f;
 		tier = 1;
 	}
 	
@@ -63,9 +63,9 @@ public class 飞镖 extends Weapon{
 			bow = null;
 		} else if (Dungeon.hero.belongings.weapon() instanceof 十字弩){
 			bow = (十字弩) Dungeon.hero.belongings.weapon();
-		} else if (Dungeon.hero.belongings.secondWep() instanceof 十字弩) {
+		} else if (Dungeon.hero.belongings.weapon2() instanceof 十字弩) {
 			//player can instant swap anyway, so this is just QoL
-			bow = (十字弩) Dungeon.hero.belongings.secondWep();
+			bow = (十字弩) Dungeon.hero.belongings.weapon2();
 		} else {
 			bow = null;
 		}
@@ -244,8 +244,8 @@ public class 飞镖 extends Weapon{
 					if (index == 0){
 							item.detach( curUser.belongings.backpack );
 							curItem.detach(curUser.belongings.backpack);
-						
-						TippedDart newDart = TippedDart.getTipped((Plant.Seed) item, 1);
+
+						TippedDart newDart = TippedDart.getTipped((Plant.Seed) item);
 						if (!newDart.放背包()) Dungeon.level.drop(newDart, curUser.pos).sprite().drop();
 						
 						curUser.spend( 1f );

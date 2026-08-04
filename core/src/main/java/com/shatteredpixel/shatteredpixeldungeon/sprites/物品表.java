@@ -871,6 +871,7 @@ public class 物品表 {
     public static final int 世界时表=禁忌物+16;
     public static final int 断魂佛珠=禁忌物+17;
     public static final int 皇室佩剑=禁忌物+18;
+    public static final int 黑桃印记=禁忌物+19;
     static {
         
         assignItemRect(血腥生肉,15,11);
@@ -892,6 +893,7 @@ public class 物品表 {
         assignItemRect(世界时表,9,16);
         assignItemRect(断魂佛珠,16,15);
         assignItemRect(皇室佩剑,15);
+        assignItemRect(黑桃印记,13,15);
     }
     
     //endregion

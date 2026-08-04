@@ -14,7 +14,7 @@ public class 战斧 extends Weapon {
 		image = 物品表.BATTLE_AXE;
 		hitSound = Assets.Sounds.巨剑;
 		
-		延迟= 1.75f;
+		延迟= 1.5f;
 		
 		tier = 3;
 		技能=new 无情铁手();

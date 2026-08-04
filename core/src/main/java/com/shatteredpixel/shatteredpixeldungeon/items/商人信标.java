@@ -70,13 +70,9 @@ public class 商人信标 extends Item {
 			if(Dungeon.gold>=Shopkeeper.售价(9*6)){
 				Dungeon.gold(-Shopkeeper.售价(9*6));
 				int x=1;
-				Item item;
 				while(x<=10){
 					x++;
-					do{
-						item = Generator.random();
-					}while(item instanceof Gold);
-					item.放背包();
+					Generator.随机物品().放背包();
 				}
 			}else{
 				Messages.get(this, "nogold");

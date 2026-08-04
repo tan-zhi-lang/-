@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Necromancer;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Ghost;
@@ -196,7 +197,7 @@ public class Dungeon {
 	public static int 系统;
 	public static int 派对;
 	public static int 赛季;
-	public static int 地牢时间;
+	public static float 地牢时间;
 	public static int 地牢寿命;
 	public static int 地牢天数;
 	public static float 叠钢=0;
@@ -423,7 +424,7 @@ public class Dungeon {
 
 		hero = new Hero();
 		hero.live();
-		
+		hero.名字=SPDSettings.重命名英雄();
 		
 		Badges.reset();
 		GamesInProgress.selectedClass.initHero( hero );
@@ -463,7 +464,7 @@ public class Dungeon {
 	}
 	public static int 时间(int 时间) {
 		float x=1;
-		if(符文("勤劳的一天"))x/=10f;
+		if(符文("勤劳的一天"))x/=6f;
 		return Math.round(时间*x);
 	}
 	public static String 地牢时间() {
@@ -472,31 +473,31 @@ public class Dungeon {
 		float 时间=地牢时间;
 		boolean 时间计算=true;
 		while(时间计算){
-			if(时间>=时间(100)){
-				时间-=时间(100);
+			if(时间>=时间(60)){//100
+				时间-=时间(60);//100
 				小时++;
 				分钟=0;
 				if(小时>=24){
 					小时=0;
 				}
 			}else{
-				分钟=Math.round(时间/1.67f);
+				分钟=Math.round(时间);///1.6666f
 				时间计算=false;
 			}
 		}
 		if(小时<=9){
-			return "0"+小时+":"+(分钟<60?"0":分钟);
+			return "0"+小时+":"+(分钟<10?"0":分钟);
 		}
-		return 小时+":"+(分钟<60?"0"+分钟:分钟);
+		return 小时+":"+(分钟<10?"0"+分钟:分钟);
 	}
 	public static float 综合属性(Char c){
 		float x=1;
 		if(c!=null){
+			if(c instanceof Necromancer.NecroSkeleton) x-=0.2f;
 			if(成长属性)x+=depth*0.05f;
 			if(符文("这不合理"))
 				if(c.老鬼()||c.小老鬼())x*=3f;
 				else x*=0.3f;
-
 			if(符文("太合理了"))
 				if(c.老鬼()||c.小老鬼())x*=0.2f;
 				else x*=2;
@@ -1230,7 +1231,7 @@ public class Dungeon {
 		Dungeon.幸运值 = bundle.getInt( 幸运值x );
 		Dungeon.难度 = bundle.getInt( 难度x );
 		Dungeon.叠钢 = bundle.getFloat( 叠钢x );
-		Dungeon.地牢时间= bundle.getInt(地牢时间x);
+		Dungeon.地牢时间= bundle.getFloat(地牢时间x);
 		Dungeon.地牢寿命= bundle.getInt(地牢寿命x);
 		Dungeon.地牢天数= bundle.getInt(地牢天数x);
 		Dungeon.老鼠蝙蝠= bundle.getBoolean(老鼠蝙蝠x);

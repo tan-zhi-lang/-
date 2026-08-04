@@ -89,10 +89,15 @@ public class Belongings implements Iterable<Item> {
 	}
 
 	public Weapon weapon = null;
+	//used by the champion subclass
+	public Weapon secondWep = null;
 	public Armor armor = null;
+	public Armor armor2 = null;
 	public KindofMisc misc = null;
 	public KindofMisc misc2 = null;
 	public KindofMisc misc3 = null;
+	public KindofMisc misc4 = null;
+	public KindofMisc misc5 = null;
 	public KindofMisc 幸运 = null;
 	public LinkedList<Item> 装备(){
 		LinkedList<Item> items = new LinkedList<>();
@@ -100,12 +105,19 @@ public class Belongings implements Iterable<Item> {
 		items.add(weapon());
 		if(armor()!=null)
 		items.add(armor());
+
+
 		if(misc()!=null)
 		items.add(misc());
 		if(misc2()!=null)
 		items.add(misc2());
 		if(misc3()!=null)
 		items.add(misc3());
+		if(misc4()!=null)
+		items.add(misc4());
+		if(misc5()!=null)
+		items.add(misc5());
+
 		if(幸运()!=null)
 		items.add(幸运());
 		return items;
@@ -117,8 +129,6 @@ public class Belongings implements Iterable<Item> {
 	//used to ensure that the duelist always uses the weapon she's using the ability of
 	public Weapon abilityWeapon = null;
 
-	//used by the champion subclass
-	public Weapon secondWep = null;
 
 	//*** these accessor methods are so that worn items can be affected by various effects/debuffs
 	// we still want to access the raw equipped items in cases where effects should be ignored though,
@@ -142,23 +152,78 @@ public class Belongings implements Iterable<Item> {
 	}
 
 	public Weapon weapon(){
+		if (!lostInventory() ){
+			//if the hero has two weapons (champion), pick the stronger one
+			Weapon item =null;
+			if((weapon != null && weapon.keptThroughLostInventory()))
+				item=weapon;
+
+			if((secondWep != null && secondWep.keptThroughLostInventory()))
+				item=secondWep;
+
+			if(weapon!=null&&secondWep!=null)
+			if (secondWep.DPS()>weapon.DPS()){
+				item = secondWep;
+			}
+
+			 if(item!=null)
+				 return item;
+		}
+
+		return null;
+
+	}
+
+	public Weapon weapon1(){
 		if (!lostInventory() || (weapon != null && weapon.keptThroughLostInventory())){
 			return weapon;
-		}else if (!lostInventory() || (secondWep != null && secondWep.keptThroughLostInventory())){
+		} else {
+			return null;
+		}
+	}
+	public Weapon weapon2(){
+		if (!lostInventory() || (secondWep != null && secondWep.keptThroughLostInventory())){
 			return secondWep;
 		} else {
 			return null;
 		}
 	}
-
 	public Armor armor(){
+		if (!lostInventory() ){
+			//if the hero has two weapons (champion), pick the stronger one
+			Armor item =null;
+			if((armor != null && armor.keptThroughLostInventory()))
+				item=armor;
+
+			if((armor2 != null && armor2.keptThroughLostInventory()))
+				item=armor2;
+
+			if(armor!=null&&armor2!=null)
+				if (armor2.DR()>armor.DR()){
+					item = armor2;
+				}
+
+			if(item!=null)
+				return item;
+		}
+
+		return null;
+	}
+
+	public Armor armor1(){
 		if (!lostInventory() || (armor != null && armor.keptThroughLostInventory())){
 			return armor;
 		} else {
 			return null;
 		}
 	}
-
+	public Armor armor2(){
+		if (!lostInventory() || (armor2 != null && armor2.keptThroughLostInventory())){
+			return armor2;
+		} else {
+			return null;
+		}
+	}
 	public KindofMisc misc(){
 		if (!lostInventory() || (misc != null && misc.keptThroughLostInventory())){
 			return misc;
@@ -181,17 +246,25 @@ public class Belongings implements Iterable<Item> {
 		}
 	}
 
-	public KindofMisc 幸运(){
-		if (!lostInventory() || (幸运 != null && 幸运.keptThroughLostInventory())){
-			return 幸运;
+	public KindofMisc misc4(){
+		if (!lostInventory() || (misc4 != null && misc4.keptThroughLostInventory())){
+			return misc4;
 		} else {
 			return null;
 		}
 	}
 
-	public Weapon secondWep(){
-		if (!lostInventory() || (secondWep != null && secondWep.keptThroughLostInventory())){
-			return secondWep;
+	public KindofMisc misc5(){
+		if (!lostInventory() || (misc5 != null && misc5.keptThroughLostInventory())){
+			return misc5;
+		} else {
+			return null;
+		}
+	}
+
+	public KindofMisc 幸运(){
+		if (!lostInventory() || (幸运 != null && 幸运.keptThroughLostInventory())){
+			return 幸运;
 		} else {
 			return null;
 		}
@@ -201,9 +274,12 @@ public class Belongings implements Iterable<Item> {
 
 	private static final String WEAPON		= "weapon";
 	private static final String ARMOR		= "armor";
+	private static final String ARMOR2		= "armor2";
 	private static final String MISC       = "misc";
 	private static final String MISC2       = "misc2";
 	private static final String MISC3       = "misc3";
+	private static final String MISC4       = "misc4";
+	private static final String MISC5       = "misc5";
 	private static final String 幸运x       = "幸运";
 
 	private static final String SECOND_WEP = "second_wep";
@@ -214,9 +290,12 @@ public class Belongings implements Iterable<Item> {
 
 		bundle.put( WEAPON, weapon );
 		bundle.put( ARMOR, armor );
+		bundle.put( ARMOR2, armor2 );
 		bundle.put( MISC, misc );
 		bundle.put( MISC2, misc2 );
 		bundle.put( MISC3, misc3 );
+		bundle.put( MISC4, misc4 );
+		bundle.put( MISC5, misc5 );
 		bundle.put( 幸运x, 幸运 );
 		bundle.put( SECOND_WEP, secondWep );
 	}
@@ -235,6 +314,9 @@ public class Belongings implements Iterable<Item> {
 		armor = (Armor)bundle.get( ARMOR );
 		if (armor() != null)        armor().activate( owner );
 
+		armor2 = (Armor)bundle.get( ARMOR2 );
+		if (armor2() != null)        armor2().activate( owner );
+
 		misc = (KindofMisc) bundle.get(MISC);
 		if (misc() != null)         misc().activate( owner );
 
@@ -246,21 +328,25 @@ public class Belongings implements Iterable<Item> {
 		misc3 = (KindofMisc) bundle.get(MISC3);
 		if (misc3() != null)         misc3().activate( owner );
 
+		misc4 = (KindofMisc) bundle.get(MISC4);
+		if (misc4() != null)         misc4().activate( owner );
+
+		misc5 = (KindofMisc) bundle.get(MISC5);
+		if (misc5() != null)         misc5().activate( owner );
+
 		幸运 = (KindofMisc) bundle.get(幸运x);
 		if (幸运() != null)         幸运().activate( owner );
 
 		secondWep = (Weapon) bundle.get(SECOND_WEP);
-		if (secondWep() != null)    secondWep().activate(owner);
+		if (weapon2()!=null)    weapon2().activate(owner);
 		bundleRestoring = false;
 	}
 
 	public void clear(){
 		backpack.clear();
 		weapon = secondWep = null;
-		armor = null;
-		misc = null;
-		misc2 = null;
-		misc3 = null;
+		armor = armor2 = null;
+		misc = misc2 = misc3= misc4= misc5 = null;
 		幸运 = null;
 	}
 
@@ -293,6 +379,9 @@ public class Belongings implements Iterable<Item> {
 	}
 	public boolean weapon(Class itemClass){
 		return itemClass.isInstance( weapon )||itemClass.isInstance( secondWep );
+	}
+	public boolean armor(Class itemClass){
+		return itemClass.isInstance( armor )||itemClass.isInstance( armor2 );
 	}
 	public boolean hasItem(Class itemClass){
 		return getItem(itemClass)!=null;
@@ -417,12 +506,12 @@ public class Belongings implements Iterable<Item> {
 				Badges.validateItemLevelAquired(weapon());
 			}
 		}
-		if (secondWep() != null){
-			if (ShardOfOblivion.passiveIDDisabled() && secondWep() instanceof Weapon){
-				((Weapon) secondWep()).setIDReady();
+		if (weapon2()!=null){
+			if (ShardOfOblivion.passiveIDDisabled()&&weapon2() instanceof Weapon){
+				((Weapon) weapon2()).setIDReady();
 			} else {
-				secondWep().鉴定();
-				Badges.validateItemLevelAquired(secondWep());
+				weapon2().鉴定();
+				Badges.validateItemLevelAquired(weapon2());
 			}
 		}
 		if (armor() != null) {
@@ -431,6 +520,14 @@ public class Belongings implements Iterable<Item> {
 			} else {
 				armor().鉴定();
 				Badges.validateItemLevelAquired(armor());
+			}
+		}
+		if (armor2() != null) {
+			if (ShardOfOblivion.passiveIDDisabled()){
+				armor2().setIDReady();
+			} else {
+				armor2().鉴定();
+				Badges.validateItemLevelAquired(armor2());
 			}
 		}
 		if (misc() != null) {
@@ -457,6 +554,22 @@ public class Belongings implements Iterable<Item> {
 				Badges.validateItemLevelAquired(misc3());
 			}
 		}
+		if (misc4() != null) {
+			if (ShardOfOblivion.passiveIDDisabled() && misc4() instanceof Ring){
+				((Ring) misc4()).setIDReady();
+			} else {
+				misc4().鉴定();
+				Badges.validateItemLevelAquired(misc4());
+			}
+		}
+		if (misc5() != null) {
+			if (ShardOfOblivion.passiveIDDisabled() && misc5() instanceof Ring){
+				((Ring) misc5()).setIDReady();
+			} else {
+				misc5().鉴定();
+				Badges.validateItemLevelAquired(misc5());
+			}
+		}
 		if (幸运() != null) {
 			if (ShardOfOblivion.passiveIDDisabled() && 幸运() instanceof Ring){
 				((Ring) 幸运()).setIDReady();
@@ -477,7 +590,9 @@ public class Belongings implements Iterable<Item> {
 	}
 	
 	public void uncurseEquipped() {
-		祛邪卷轴.祛邪(owner,armor(),weapon(),misc(),misc2(),misc3(),幸运(),secondWep());
+		祛邪卷轴.祛邪(owner,armor(),armor2(),
+					  weapon(),misc(),misc2(),misc3(),misc4(),misc5(),
+					  幸运(),weapon2());
 	}
 	
 	public Item randomUnequipped() {
@@ -514,7 +629,7 @@ public class Belongings implements Iterable<Item> {
 		
 		private Iterator<Item> backpackIterator = backpack.iterator();
 		
-		private Item[] equipped = {weapon, armor, misc, misc2, misc3, 幸运, secondWep};
+		private Item[] equipped = {weapon, armor, misc, misc2, misc3, 幸运, secondWep, armor2, misc4, misc5};
 		private int backpackIndex = equipped.length;
 		
 		@Override
@@ -566,6 +681,15 @@ public class Belongings implements Iterable<Item> {
 			case 6:
 				equipped[6] = secondWep = null;
 				break;
+			case 7:
+				equipped[7] = armor2 = null;
+				break;
+			case 8:
+					equipped[8] = misc4 = null;
+					break;
+			case 9:
+					equipped[9] = misc5 = null;
+					break;
 			default:
 				backpackIterator.remove();
 			}

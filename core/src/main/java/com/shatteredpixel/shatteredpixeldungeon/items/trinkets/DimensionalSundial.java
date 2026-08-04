@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.时间;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -26,12 +27,12 @@ public class DimensionalSundial extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,
 					"stats_desc",
-					(int)(100*(1f - enemySpawnMultiplierDaytime(等级()))),
-					(int)(100*(enemySpawnMultiplierNighttime(等级())-1f)));
+								kw2((100*(1f - enemySpawnMultiplierDaytime(等级())))),
+									kw2((100*(enemySpawnMultiplierNighttime(等级())-1f))));
 		} else {
 			return Messages.get(this, "stats_desc",
-					(int)(100*(1f - enemySpawnMultiplierDaytime(0))),
-					(int)(100*(enemySpawnMultiplierNighttime(0)-1f)));
+								kw2((100*(1f - enemySpawnMultiplierDaytime(0)))),
+									kw2((100*(enemySpawnMultiplierNighttime(0)-1f))));
 		}
 	}
 

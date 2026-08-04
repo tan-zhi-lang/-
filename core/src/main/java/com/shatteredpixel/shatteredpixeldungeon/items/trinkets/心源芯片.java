@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,12 +23,12 @@ public class 心源芯片 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								主要(),
-								其他());
+								kw2(主要()),
+								kw2(其他()));
 		} else {
 			return Messages.get(this,"stats_desc",
-								主要(0),
-								其他(0));
+								kw2(主要(0)),
+									kw2(其他(0)));
 		}
 	}
 

@@ -285,7 +285,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(颜色区块);
 
 
-							更多按钮 = new CheckBox("更多按钮(食物、药剂、副武器栏)") {
+							更多按钮 = new CheckBox("更多按钮(食物、药剂、副武器、上下楼栏)") {
 								@Override
 								protected void onClick() {
 									super.onClick();
@@ -381,6 +381,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider 游戏帧率;
 						OptionSlider 字体大小;
 						OptionSlider 文字寿命;
+						OptionSlider 保留位数;
 						OptionSlider 提示行数;
 						OptionSlider optUIScale;
 						
@@ -451,7 +452,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(字体大小);
 
 							文字寿命 = new OptionSlider("文字寿命",
-														"50%", "300%", 0, 10) {
+														"50%", "400%", 0, 5) {
 								@Override
 								protected void onChange() {
 									SPDSettings.文字寿命(getSelectedValue());
@@ -459,6 +460,17 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							文字寿命.setSelectedValue(SPDSettings.文字寿命());
 							add(文字寿命);
+
+
+							保留位数= new OptionSlider("保留位数",
+													   "0位","2位",0,2) {
+								@Override
+								protected void onChange() {
+									SPDSettings.保留位数(getSelectedValue());
+								}
+							};
+							保留位数.setSelectedValue(SPDSettings.保留位数());
+							add(保留位数);
 
 
 							提示行数 = new OptionSlider("提示行数",
@@ -498,7 +510,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 							游戏帧率.setRect(0,  optScreenShake.bottom()+GAP, width, BTN_HEIGHT);
 							字体大小.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
 							文字寿命.setRect(0,  字体大小.bottom()+GAP, width, BTN_HEIGHT);
-							提示行数.setRect(0,  文字寿命.bottom()+GAP, width, BTN_HEIGHT);
+							保留位数.setRect(0,文字寿命.bottom()+GAP,width,BTN_HEIGHT);
+							提示行数.setRect(0,保留位数.bottom()+GAP,width,BTN_HEIGHT);
 							optUIScale.setRect(0,  提示行数.bottom()+GAP, width, BTN_HEIGHT);
 							
 							resize(WIDTH_P, (int) optUIScale.bottom());

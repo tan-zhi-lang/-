@@ -15,7 +15,7 @@ public class 草剃 extends Weapon {
 		image = 物品表.草剃;
 		hitSound = Assets.Sounds.叶子;
 		
-		延迟= 0.8f;
+		伤害= 0.8f;
 
 		特别=true;
 		绿色=true;

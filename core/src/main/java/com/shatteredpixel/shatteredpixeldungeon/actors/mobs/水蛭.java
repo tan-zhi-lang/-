@@ -23,12 +23,12 @@ public class 水蛭 extends Mob {
 
 		@Override
 		public float 最小攻击() {
-			return 2;
+			return 1;
 		}
 
 		@Override
 		public float 最大攻击() {
-			return 3;
+			return 5;
 		}
 
 	@Override

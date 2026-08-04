@@ -26,9 +26,8 @@ public class 震爆方石 extends Weapon{
 	
 	{
 		image = 物品表.FORCE_CUBE;
-		
-		延迟=0.8f;
-		伤害=0.7f;
+
+		伤害=0.6f;
 		tier = 4;
 	}
 

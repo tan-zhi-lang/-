@@ -189,16 +189,24 @@ public class StartScene extends PixelScene {
 					level = null;
 				}
 			} else {
+				String sn="";
 				if(!info.备注.equals("")){
-					name.text(Messages.titleCase(info.备注));
-				}else if (info.subClass != HeroSubClass.NONE){
-					name.text(Messages.titleCase((info.heroClass蜕变!=HeroClass.NONE
-														  ?info.heroClass蜕变.title()+"的":"")
-												 +info.subClass.title()));
-				} else {
-					name.text(Messages.titleCase((info.heroClass蜕变!=HeroClass.NONE
-														  ?info.heroClass蜕变.title()+"的":"")+info.heroClass蜕变.title()+info.heroClass.title()));
+					sn+=info.备注+":"+"/";
 				}
+
+				if (info.subClass != HeroSubClass.NONE){
+					sn+=info.subClass.title();
+				}
+				if (info.heroClass蜕变 != HeroClass.NONE){
+					sn+=info.heroClass蜕变.title()+"/";
+				}
+				if(info.名字.equals("")){
+					sn+=info.heroClass.title();
+				}else{
+					sn+=info.名字;
+				}
+
+				name.text(Messages.titleCase(sn));
 				
 				if (hero == null){
 					hero = new Image(info.heroClass.spritesheet(), 0, 15*info.armorTier, 12, 15);

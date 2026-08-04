@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.trinkets;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -21,13 +23,13 @@ public class 紫色心情 extends Trinket {
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								概率(),
-								回合()
+								kw2(概率()),
+									kw2(回合())
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								概率(0),
-								回合(0)
+								kw2(概率(0)),
+								kw2(回合(0))
 							   );
 		}
 	}
@@ -41,7 +43,7 @@ public class 紫色心情 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 2-1*level;
+			return 2+1*level;
 		}
 	}
 
@@ -53,7 +55,7 @@ public class 紫色心情 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 1.5f-1.5f*level;
+			return 1.5f+1.5f*level;
 		}
 	}
 

@@ -71,6 +71,8 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Armor extends EquipableItem {
 
@@ -196,15 +198,46 @@ public class Armor extends EquipableItem {
 		actions.remove(AC_EQUIP);
 		return actions;
 	}
-	
+	// 在类中定义静态映射（只需定义一次）
+	private static final Map<Class<?>, HeroClass> ARMOR_RESTRICTIONS = new HashMap<>();
+	static {
+		ARMOR_RESTRICTIONS.put(铠甲.class, HeroClass.WARRIOR);
+		ARMOR_RESTRICTIONS.put(法袍.class, HeroClass.MAGE);
+		ARMOR_RESTRICTIONS.put(风衣.class, HeroClass.盗贼);
+		ARMOR_RESTRICTIONS.put(披风.class, HeroClass.HUNTRESS);
+		ARMOR_RESTRICTIONS.put(胸铠.class, HeroClass.DUELIST);
+		ARMOR_RESTRICTIONS.put(祭服.class, HeroClass.CLERIC);
+		ARMOR_RESTRICTIONS.put(巫服.class, HeroClass.巫女);
+		ARMOR_RESTRICTIONS.put(武服.class, HeroClass.镜魔);
+		ARMOR_RESTRICTIONS.put(道袍.class, HeroClass.道士);
+		ARMOR_RESTRICTIONS.put(战甲.class, HeroClass.近卫);
+		ARMOR_RESTRICTIONS.put(忍服.class, HeroClass.女忍);
+		ARMOR_RESTRICTIONS.put(能袍.class, HeroClass.戒老);
+		ARMOR_RESTRICTIONS.put(勇装.class, HeroClass.逐姝);
+		ARMOR_RESTRICTIONS.put(连裙.class, HeroClass.罗兰);
+		ARMOR_RESTRICTIONS.put(训服.class, HeroClass.学士);
+		ARMOR_RESTRICTIONS.put(背心.class, HeroClass.灵猫);
+		ARMOR_RESTRICTIONS.put(魔披.class, HeroClass.鼠弟);
+	}
+
 	@Override
 	public void execute(Hero hero, String action) {
 
-		super.execute(hero, action);
+
 		if (action.equals(AC_EQUIP)){
 
+			// 在装备方法中：
+			for (
+					Map.Entry<Class<?>, HeroClass> entry : ARMOR_RESTRICTIONS.entrySet()) {
+				if (entry.getKey().isInstance(this)) {
+					if (!hero.真heroClass(entry.getValue())) {
+						GLog.橙("你无法装备他人英雄的防具");
+						return;
+					}
+					break;  // 匹配到对应防具，检查结束
+				}
+			}
 
-			usesTargeting = false;
 			String primaryName = Messages.titleCase(hero.belongings.armor != null ? hero.belongings.armor.trueName() : Messages.get(Armor.class,"empty"));
 			String secondaryName = Messages.titleCase(hero.belongings.armor2 != null ? hero.belongings.armor2.trueName() : Messages.get(Armor.class, "empty"));
 			if (primaryName.length() > 18) primaryName = primaryName.substring(0, 15) + "...";
@@ -220,9 +253,7 @@ public class Armor extends EquipableItem {
 				protected void onSelect(int index) {
 					super.onSelect(index);
 					if (index == 0 || index == 1){
-						//In addition to equipping itself, item reassigns itself to the quickslot
-						//This is a special case as the item is being removed from inventory, but is staying with the hero.
-						int slot = Dungeon.quickslot.getSlot( Armor.this );
+
 						slotOfUnequipped = -1;
 						if (index == 0) {
 								doEquip(hero);
@@ -233,16 +264,7 @@ public class Armor extends EquipableItem {
 							}else
 								doEquip(hero);
 						}
-
-						if (slot != -1) {
-							Dungeon.quickslot.setSlot( slot, Armor.this );
-							updateQuickslot();
-							//if this item wasn't quickslotted, but the item it is replacing as equipped was
-							//then also have the item occupy the unequipped item's quickslot
-						} else if (slotOfUnequipped != -1 && defaultAction() != null) {
-							Dungeon.quickslot.setSlot( slotOfUnequipped, Armor.this );
-							updateQuickslot();
-						}
+						updateQuickslot();
 					}
 				}
 
@@ -259,12 +281,15 @@ public class Armor extends EquipableItem {
 				}
 			});
 		}
-		if (action.equals(AC_DETACH)&&荣誉纹章!=null){
+		else if (action.equals(AC_DETACH)&&荣誉纹章!=null){
 			荣誉纹章 detaching = detachSeal();
 			GLog.白(Messages.get(Armor.class,"detach_seal"));
 			hero.sprite.operate();
 			detaching.放背包();
 			updateQuickslot();
+		}else{
+
+			super.execute(hero, action);
 		}
 	}
 
@@ -304,7 +329,8 @@ public class Armor extends EquipableItem {
 
 	@Override
 	public boolean isEquipped( Hero hero ) {
-		return hero != null && (hero.belongings.armor1() == this ||hero.belongings.armor2()==this);
+		return hero != null &&
+			   (hero.belongings.armor1() == this ||hero.belongings.armor2()==this);
 	}
 
 	public boolean equipSecondary( Hero hero ){
@@ -313,7 +339,8 @@ public class Armor extends EquipableItem {
 		boolean wasInInv = hero.belongings.contains(this);
 		detachAll( hero.belongings.backpack );
 
-		if (hero.belongings.armor2 == null || hero.belongings.armor2.doUnequip( hero, true )) {
+		if (hero.belongings.armor2 == null
+			|| hero.belongings.armor2.doUnequip( hero, true )) {
 
 			hero.belongings.armor2 = (Armor)this;
 			activate( hero );
@@ -343,9 +370,10 @@ public class Armor extends EquipableItem {
 
 
 
-		detach(hero.belongings.backpack);
+		detachAll(hero.belongings.backpack);
 //		Armor oldArmor = hero.belongings.armor;
-		if (hero.belongings.armor == null || hero.belongings.armor.doUnequip( hero, true, false )) {
+		if (hero.belongings.armor == null
+			|| hero.belongings.armor.doUnequip( hero, true )) {
 
 			hero.belongings.armor = this;
 
@@ -401,12 +429,15 @@ public class Armor extends EquipableItem {
 
 		}
 	}
+
 	@Override
 	public boolean 放背包(Bag container) {
 		if(super.放背包(container)){
 			if(首次拾取){
-				
 				usesLeftToID -= Talent.鉴定速度(Dungeon.hero,this);
+			}
+			if (container.owner != null) {
+				activate( container.owner);
 			}
 			if (Dungeon.hero() && Dungeon.hero.isAlive() && 已鉴定() && glyph != null){
 				Catalog.setSeen(glyph.getClass());

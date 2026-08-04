@@ -15,7 +15,7 @@ public class 镐子 extends Weapon {
 	{
 		image = 物品表.PICKAXE;
 		技能=new 镐击();
-		升级物品 = true;
+
 		伤害=0.7f;
 		特别= true;
 		嬗变= false;

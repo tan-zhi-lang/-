@@ -290,21 +290,21 @@ public class InventoryPane extends Component {
 
 		ArrayList<Item> items = (ArrayList<Item>) lastBag.items.clone();
 		if(lastBag == stuff.backpack){
-			if(stuff.幸运!=null)
-			{
-				items.add(0,stuff.幸运);
-			}
 			if(stuff.weapon!=null){
-				items.add(1,stuff.weapon);
-			}
-			if(stuff.secondWep!=null){
-				items.add(2,stuff.secondWep);
+				items.add(0,stuff.weapon);
 			}
 			if(stuff.armor!=null){
-				items.add(3,stuff.armor);
+				items.add(1,stuff.armor);
+			}
+			if(stuff.幸运!=null)
+			{
+				items.add(2,stuff.幸运);
 			}
 			if(stuff.armor2!=null){
-				items.add(4,stuff.armor2);
+				items.add(3,stuff.armor2);
+			}
+			if(stuff.secondWep!=null){
+				items.add(4,stuff.secondWep);
 			}
 		}
 

@@ -348,7 +348,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 魔岩拳套)return true;
 		if(this instanceof 战镰)return true;
 		if(this instanceof 关刀)return true;
-		if(this instanceof 英雄断剑)return true;
 		if(this instanceof 无尽之刃)return true;
 		if(this instanceof 饮血之剑)return true;
 		if(this instanceof 下界合金剑)return true;
@@ -403,10 +402,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 							doEquip(hero);
 						} else {
 
-							if(hero.belongings.weapon!=null){
-								equipSecondary(hero);
-							}else
+							if(双手()){
 								doEquip(hero);
+								GLog.橙("你装备了一把双手武器！");
+							}else{
+								equipSecondary(hero);
+							}
 						}
 						if(hero.符文("跟着我左手右手一个慢动作"))hero.回百分比血(0.03f);
 						if (slot != -1) {
@@ -428,7 +429,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 					}
 					else
 					{
-						if(双手())return false;
+						if(hero.belongings.weapon!=null&&hero.belongings.weapon.双手())return false;
+						if(hero.belongings.weapon==null)return false;
 					}
 					return true;
 				}
@@ -440,18 +442,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	@Override
 	public boolean isEquipped( Hero hero ) {
-		return hero != null && (hero.belongings.weapon1() == this ||hero.belongings.weapon2()==this);
-	}
-
-
-	protected float timeToEquip( Hero hero ) {
-		float x=super.timeToEquip(hero);
-		if(hero.符文("跟着我左手右手一个慢动作"))
-			x*=3;
-		if (hero.subClass(HeroSubClass.武器大师)) {
-			x=0;
-		}
-		return x;
+		return hero != null &&
+			   (hero.belongings.weapon1() == this ||hero.belongings.weapon2()==this);
 	}
 	
 	@Override
@@ -459,7 +451,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 		
 		detachAll( hero.belongings.backpack );
 		
-		if (hero.belongings.weapon == null || hero.belongings.weapon.doUnequip( hero, true )) {
+		if (hero.belongings.weapon == null
+			|| hero.belongings.weapon.doUnequip( hero, true )) {
 			
 			hero.belongings.weapon = (Weapon)this;
 			activate( hero );
@@ -490,7 +483,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 		boolean wasInInv = hero.belongings.contains(this);
 		detachAll( hero.belongings.backpack );
 
-		if (hero.belongings.secondWep == null || hero.belongings.secondWep.doUnequip( hero, true )) {
+		if (hero.belongings.secondWep == null
+			|| hero.belongings.secondWep.doUnequip( hero, true )) {
 
 			hero.belongings.secondWep = (Weapon)this;
 			activate( hero );
@@ -540,6 +534,17 @@ abstract public class KindOfWeapon extends EquipableItem {
 		}
 	}
 
+
+
+	protected float timeToEquip( Hero hero ) {
+		float x=super.timeToEquip(hero);
+		if(hero.符文("跟着我左手右手一个慢动作"))
+			x*=3;
+		if (hero.subClass(HeroSubClass.武器大师)) {
+			x=0;
+		}
+		return x;
+	}
 	public float 最小攻击(){
 		return 最小攻击(强化等级());
 	}

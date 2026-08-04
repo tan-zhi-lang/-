@@ -274,7 +274,11 @@ public class 武力之戒 extends Ring{
 	public static boolean fightingUnarmed(Hero hero){
 
 		if(hero.belongings!=null){
-			if(hero.belongings.attackingWeapon()==null||hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
+			if(hero.belongings.weapon==null&&hero.belongings.secondWep==null)
+				return true;
+
+			if(hero.belongings.attackingWeapon()==null
+			   ||hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 				return true;
 			}
 			if(hero.belongings.thrownWeapon!=null||hero.belongings.abilityWeapon!=null){

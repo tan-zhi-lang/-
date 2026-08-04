@@ -143,7 +143,6 @@ public class Item implements Bundlable {
 	public boolean 炼金全放 = false;
 	public boolean 炼金 = true;
 	public boolean 提炼 = true;
-	public boolean 升级物品 = true;
 	public boolean 可以空间 = true;
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;//?
@@ -889,8 +888,7 @@ public class Item implements Bundlable {
 	}
 
 	public boolean 可升级() {
-		if(升级物品)
-			return true;
+
 		if(物品||封禁升级)
 			return false;
 
@@ -898,7 +896,7 @@ public class Item implements Bundlable {
 	}
 
 	public boolean 已鉴定() {
-		if(升级物品||物品||this instanceof 技能){
+		if(物品||this instanceof 技能){
 			return true;
 		}
 		return levelKnown && cursedKnown;
@@ -1341,7 +1339,6 @@ public class Item implements Bundlable {
 	private static final String KEPT_LOST       = "kept_lost";
 	private static final String CUSTOM_NOTE_ID = "custom_note_id";
 	private static final String NAME = "name";
-	private static final String 升级物品x = "升级物品";
 	private static final String 首次使用x = "首次使用";
 	private static final String 首次拾取x = "首次拾取";
 	private static final String 首次装备x = "首次装备";
@@ -1363,7 +1360,6 @@ public class Item implements Bundlable {
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
 		bundle.put( NAME, name );
-		bundle.put( 升级物品x, 升级物品 );
 		bundle.put(首次使用x,首次使用);
 		bundle.put( 首次拾取x, 首次拾取 );
 		bundle.put( 首次装备x, 首次装备 );
@@ -1389,7 +1385,6 @@ public class Item implements Bundlable {
 		levelKnown	= bundle.getBoolean( LEVEL_KNOWN );
 		cursedKnown	= bundle.getBoolean( CURSED_KNOWN );
 		name	= bundle.getString( NAME );
-		升级物品	= bundle.getBoolean( 升级物品x );
 		首次使用= bundle.getBoolean(首次使用x);
 		首次拾取	= bundle.getBoolean( 首次拾取x );
 		首次装备	= bundle.getBoolean( 首次装备x );

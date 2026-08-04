@@ -4455,8 +4455,6 @@ public class Hero extends Char {
 
         if (!武力之戒.fightingUnarmed(this)&&target!=null) {
             accuracy*=wep.accuracyFactor(this, target);
-            if(belongings.weapon.双手()&&belongings.secondWep!=null)
-                accuracy*=副武器效果();
         }
         if (belongings.secondWep!=null&&!武力之戒.fightingUnarmed(this)&&target!=null) {
             accuracy*=belongings.secondWep.accuracyFactor(this, target)*副武器效果();
@@ -4616,8 +4614,6 @@ public class Hero extends Char {
                 wepDr -= 2 * (((Weapon) belongings.weapon1()).力量() - 力量());
             }
             if (wepDr > 0) dr += wepDr;
-            if(belongings.weapon.双手()&&belongings.secondWep!=null)
-                dr*=副武器效果();
         }
         if (belongings.weapon2()!=null&&!武力之戒.fightingUnarmed(this)) {
             float wepDr =belongings.weapon2().最小防御(this)*(符文("装备大师")?1.15f:1)*副武器效果();
@@ -4759,8 +4755,6 @@ public class Hero extends Char {
                 wepDr -= 2 * (belongings.weapon1().力量() - 力量());
             }
             if (wepDr > 0) dr += wepDr;
-            if(belongings.weapon.双手()&&belongings.secondWep!=null)
-                dr*=副武器效果();
         }
         if (belongings.weapon2()!=null&&!武力之戒.fightingUnarmed(this)) {
             float wepDr =belongings.weapon2().最大防御(this)*(符文("装备大师")?1.15f:1)*副武器效果();
@@ -4867,10 +4861,11 @@ public class Hero extends Char {
         return x;
     }
     public boolean 空手(){
-        return 武力之戒.fightingUnarmed(this);
+        return belongings.weapon==null&&belongings.secondWep==null;
+//        return 武力之戒.fightingUnarmed(this);
     }
     public boolean 裸衣(){
-        return belongings.armor==null||belongings.armor2==null;
+        return belongings.armor==null&&belongings.armor2==null;
     }
     public boolean 女人(){
         if(符文("043809438"))return true;
@@ -4910,8 +4905,7 @@ public class Hero extends Char {
                             dmg+=wep.最小攻击()*副武器效果()*(符文("装备大师")?1.15f:1);
                             dmg+=belongings.secondWep.最小攻击()*副武器效果()*(符文("装备大师")?1.15f:1);
                         }
-                        if(belongings.weapon.双手()&&belongings.secondWep!=null)
-                            dmg*=副武器效果();
+
                         if(wep.拳套()){
                             dmg+=武力之戒.heromin();
                             if(hasbuff(武力之戒.Force.class)){
@@ -5088,8 +5082,7 @@ public class Hero extends Char {
                             dmg+=wep.最大攻击()*副武器效果()*(符文("装备大师")?1.15f:1);
                             dmg+=belongings.secondWep.最大攻击()*副武器效果()*(符文("装备大师")?1.15f:1);
                         }
-                        if(belongings.weapon.双手()&&belongings.secondWep!=null)
-                            dmg*=副武器效果();
+
                         if(wep.拳套()){
                             dmg+=武力之戒.heromax();
                             if(hasbuff(武力之戒.Force.class)){
@@ -5483,8 +5476,6 @@ public float 攻击延迟() {
 
             if(武力之戒.unarmedGetsWeaponAugment(this)){
                 delay=belongings.weapon.augment.delayFactor(delay);
-                if(belongings.weapon.双手()&&belongings.secondWep!=null)
-                    delay*=副武器效果();
             }
             if(武力之戒.unarmedGetsWeaponAugment(this)){
                 delay=belongings.secondWep.augment.delayFactor(delay)*副武器效果();
@@ -10425,6 +10416,9 @@ public float 攻击延迟() {
         if(种族天赋.equals("机器")&&hc==HeroClass.机器)return true;
 
         if(subClass(HeroSubClass.解咒真人)&&hc==HeroClass.凌云)return false;
+        return heroClass == hc;
+    }
+    public boolean 真heroClass(HeroClass hc) {
         return heroClass == hc;
     }
 

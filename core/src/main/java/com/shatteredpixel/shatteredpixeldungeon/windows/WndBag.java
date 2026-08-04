@@ -249,30 +249,32 @@ public class WndBag extends WndTabbed {
 			placeItem(container);
 			count--; //don't count this one, as it's not actually inside of itself
 		}
-		if (stuff.幸运 != null) {
-			//second weapon always goes to the front of view on main bag
-			placeItem(stuff.幸运);
-			equipped++;
-		}
-		if (stuff.weapon != null) {
-			//second weapon always goes to the front of view on main bag
-			placeItem(stuff.weapon);
-			equipped++;
-		}
-		if (stuff.secondWep != null) {
-			//second weapon always goes to the front of view on main bag
-			placeItem(stuff.secondWep);
-			equipped++;
-		}
-		if (stuff.armor != null) {
-			//second weapon always goes to the front of view on main bag
-			placeItem(stuff.armor);
-			equipped++;
-		}
-		if (stuff.armor2 != null) {
-			//second weapon always goes to the front of view on main bag
-			placeItem(stuff.armor2);
-			equipped++;
+		if(lastBag == stuff.backpack){
+			if(stuff.weapon!=null){
+				//second weapon always goes to the front of view on main bag
+				placeItem(stuff.weapon);
+				//			equipped++;
+			}
+			if(stuff.armor!=null){
+				//second weapon always goes to the front of view on main bag
+				placeItem(stuff.armor);
+				//			equipped++;
+			}
+			if(stuff.幸运!=null){
+				//second weapon always goes to the front of view on main bag
+				placeItem(stuff.幸运);
+				//			equipped++;
+			}
+			if(stuff.armor2!=null){
+				//second weapon always goes to the front of view on main bag
+				placeItem(stuff.armor2);
+				//			equipped++;
+			}
+			if(stuff.secondWep!=null){
+				//second weapon always goes to the front of view on main bag
+				placeItem(stuff.secondWep);
+				//			equipped++;
+			}
 		}
 
 		// Items in the bag, except other containers (they have tags at the bottom)

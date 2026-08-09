@@ -63,7 +63,8 @@ public abstract class EquipableItem extends Item {
 					actions.add(AC_UNEQUIP);
 			}else{
 				actions.add(AC_EQUIP);
-				if(hero.男人())
+
+				if(hero.belongings.幸运==null&&hero.男人())
 				actions.add(AC_EQUIP2);
 			}
 		}

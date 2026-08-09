@@ -479,7 +479,7 @@ public class 重制改动{
 
 
 		));
-		changes.addButton( new ChangeButton("","英雄数值",
+		changes.addButton( new ChangeButton("英雄数值","英雄数值",
 											"10回合-1饥饿->每回合-1。\n"+
 											"空手攻速1->2，最大命中+25%。\n" +
 											"饥饿首次受伤450*最大生命/1000，后续受伤最大生命/1000->首次和后续伤害皆为饥饿速率/2+√已损失生命/89，同时优化饥饿算法。\n"+
@@ -499,7 +499,7 @@ public class 重制改动{
 											"移除搜索、开锁等动作扣除饥饿值，同时搜索花费时间2->搜索范围x2。\n"+
 											"治疗护盾-10%。\n"+
 											""));
-		changes.addButton( new ChangeButton("英雄机制",
+		changes.addButton( new ChangeButton("英雄机制","英雄机制",
 											"只有发现敌人才会中断。\n"+
 											"英雄初始不携带口粮。\n"+
 											"空手攻击1~力量-8->5%力量~力量-8.5，并且空手判定不再优先获取投掷和技能。\n" +

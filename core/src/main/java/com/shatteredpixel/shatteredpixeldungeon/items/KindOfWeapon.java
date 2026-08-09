@@ -54,7 +54,10 @@ abstract public class KindOfWeapon extends EquipableItem {
 		float 投掷=this.投掷;
 		投掷*=1.45f;
 		投掷*=魔法飞刀.投掷();
+
+		if(Dungeon.hero())
 		投掷*=神射之戒.levelBonus(Dungeon.hero);
+
 		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.女忍)) 投掷+=.2f;
 		return 投掷;
 	}
@@ -304,6 +307,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 幻影忍者(){
+		if(this instanceof 菱形刀)return true;
 		if(this instanceof 寒冰镖)return true;
 		if(this instanceof 闪电双截棍)return true;
 		if(this instanceof 地裂镰)return true;

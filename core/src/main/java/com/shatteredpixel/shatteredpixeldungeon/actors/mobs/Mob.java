@@ -86,6 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotio
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.杀戮之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
@@ -1310,6 +1311,17 @@ public abstract class Mob extends Char{
 						Dungeon.hero.攻速成长+=0.005f;
 						Dungeon.hero.移速成长+=0.005f;
 					}
+					if(第x次防御==1&&杀戮之戒.属性倍(Dungeon.hero)>0){
+						float x=杀戮之戒.属性倍(Dungeon.hero);
+						Dungeon.hero.攻击成长+=x*最大攻击();
+						Dungeon.hero.攻速成长+=x*1/攻击延迟();
+						Dungeon.hero.移速成长+=x*移速();
+						Dungeon.hero.防御成长+=x*最大防御();
+						Dungeon.hero.生命成长+=x*最大生命;
+						Dungeon.hero.命中成长+=x*最大命中(Dungeon.hero);
+						Dungeon.hero.闪避成长+=x*最大闪避(Dungeon.hero);
+					}
+
 					if(Dungeon.符文("脆皮秒了")&&第x次防御<=1){
 
 						回百分比血(0.15f);
@@ -1420,6 +1432,8 @@ public abstract class Mob extends Char{
 
 					//击杀瞬移
 					//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
+
+					if(Dungeon.hero.isAlive())Dungeon.hero.更新数据();
 				}
 			}
 		}

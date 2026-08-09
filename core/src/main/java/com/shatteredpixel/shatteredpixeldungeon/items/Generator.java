@@ -57,6 +57,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.杀戮之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
@@ -716,6 +717,7 @@ public class Generator {
 					镜钓之戒.class,
 					利害之戒.class,
 					破防之戒.class,
+					杀戮之戒.class,
 
 			};
 			RING.defaultProbs = new float[]{ 3, 3, 3,
@@ -727,7 +729,7 @@ public class Generator {
 
 										 3,3,3,3,
 										 3,3,3,3,
-										 3,3,3,
+										 3,3,3,3,
 
 			};
 			RING.probs = RING.defaultProbs.clone();

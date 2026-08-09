@@ -23,10 +23,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.暴刹秘�
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.玄武秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.血怒秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.杀戮之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.破防之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.神知之戒;
@@ -211,7 +213,7 @@ public class 重制新增{
 		changeInfos.add(changes);
 
 
-		changes.addButton( new ChangeButton("","主属性",
+		changes.addButton( new ChangeButton("主属性","主属性",
 
 		"每个英雄有自己的主属性，最大攻击+主属性-10。\n"+
 			"力量\n" +
@@ -508,18 +510,20 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton(new ChangeButton(new 装甲之戒()));
-		changes.addButton(new ChangeButton(new 恢复之戒()));
-		changes.addButton(new ChangeButton(new 极肚之戒()));
-		changes.addButton(new ChangeButton(new 魔攻之戒()));
-		changes.addButton(new ChangeButton(new 强健之戒()));
-		changes.addButton(new ChangeButton(new 钢壁之戒()));
-		changes.addButton(new ChangeButton(new 府备之戒()));
-		changes.addButton(new ChangeButton(new 身法之戒()));
-		changes.addButton(new ChangeButton(new 神知之戒()));
-		changes.addButton(new ChangeButton(new 镜钓之戒()));
-		changes.addButton(new ChangeButton(new 利害之戒()));
-		changes.addButton(new ChangeButton(new 破防之戒()));
+		changes.addButton(new ChangeButton("六神之戒","六神",new 六神之戒().statsInfo()));
+		changes.addButton(new ChangeButton("装甲之戒","装甲",new 装甲之戒().statsInfo()));
+		changes.addButton(new ChangeButton("恢复之戒","恢复",new 恢复之戒().statsInfo()));
+		changes.addButton(new ChangeButton("极肚之戒","极肚",new 极肚之戒().statsInfo()));
+		changes.addButton(new ChangeButton("魔攻之戒","魔攻",new 魔攻之戒().statsInfo()));
+		changes.addButton(new ChangeButton("强健之戒","强健",new 强健之戒().statsInfo()));
+		changes.addButton(new ChangeButton("钢壁之戒","钢壁",new 钢壁之戒().statsInfo()));
+		changes.addButton(new ChangeButton("府备之戒","府备",new 府备之戒().statsInfo()));
+		changes.addButton(new ChangeButton("身法之戒","身法",new 身法之戒().statsInfo()));
+		changes.addButton(new ChangeButton("神知之戒","神知",new 神知之戒().statsInfo()));
+		changes.addButton(new ChangeButton("镜钓之戒","镜钓",new 镜钓之戒().statsInfo()));
+		changes.addButton(new ChangeButton("利害之戒","利害",new 利害之戒().statsInfo()));
+		changes.addButton(new ChangeButton("破防之戒","破防",new 破防之戒().statsInfo()));
+		changes.addButton(new ChangeButton("杀戮之戒","杀戮",new 杀戮之戒().statsInfo()));
 
 		changes.addButton(new ChangeButton(new 鬼帝钟(),"道士开局获得"));
 		changes.addButton(new ChangeButton(new 叛忍护额(),"女忍开局获得"));

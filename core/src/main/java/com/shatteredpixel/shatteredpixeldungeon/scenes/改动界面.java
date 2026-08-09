@@ -17,9 +17,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.ChangeInfo;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChanges;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.WndChangesTabbed;
-import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制改动;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.奇袭;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.缝合;
+import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制改动;
 import com.shatteredpixel.shatteredpixeldungeon.ui.changelist.重制新增;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.watabou.noosa.Camera;
@@ -127,7 +127,10 @@ public class 改动界面 extends PixelScene {
 			langWarn.hardlight(CharSprite.警告橙);
 			changeInfos.add(langWarn);
 		}
-		
+
+//		Scroll.restore(new Bundle());
+//		Potion.restore(new Bundle());
+//		Ring.restore(new Bundle());
 		switch (changesSelected){
 			case 0: default:
 				重制新增.addAllChanges(changeInfos);

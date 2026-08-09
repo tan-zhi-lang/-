@@ -37,10 +37,7 @@ public class ChangeButton extends Component {
 		add(this.icon);
 		
 		this.title = Messages.titleCase(item.name());
-		if(item instanceof Ring r)
-			this.messages =new String[]{r.statsInfo()};
-		else
-			this.messages =new String[]{item.info()};
+		this.messages =new String[]{item.info()};
 		
 		layout();
 	}
@@ -107,10 +104,7 @@ public class ChangeButton extends Component {
 
 	public ChangeButton( String it, String title, String... messages){
 		super();
-		if(it.equals(""))
-			this.icon = new RenderedText(title,32).scale(1f/(title.length()+1));
-		else
-			this.icon = new RenderedText(it,32).scale(1f/(it.length()+1));
+		this.icon = new RenderedText(it,32).scale(1f/(it.length()+2));
 
 		add(this.icon);
 
@@ -119,7 +113,6 @@ public class ChangeButton extends Component {
 
 		layout();
 	}
-
 
 	public ChangeButton(MobSprite mobsprite, String title, String... messages){
 		super();

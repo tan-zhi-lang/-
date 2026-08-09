@@ -21,21 +21,25 @@ public class Dazzling extends Weapon.Enchantment {
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage ) {
 
-		float procChance = 1/10f * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-			for (Char ch : Actor.chars()){
-				if (ch.fieldOfView != null && ch.fieldOfView[defender.pos]){
-					Buff.延长(ch, Blindness.class, ch == attacker ? Blindness.DURATION : Blindness.DURATION/2f);
-					if (ch == Dungeon.hero){
-						GameScene.flash(0x80FFFFFF);
+		if(defender!=null){
+			float procChance=1/10f*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
+				float powerMulti=Math.max(1f,procChance);
+				for(Char ch: Actor.chars()){
+					if(ch.fieldOfView!=null&&ch.fieldOfView[defender.pos]){
+						Buff.延长(ch,Blindness.class,(ch==attacker?
+															  Blindness.DURATION:
+															  Blindness.DURATION/2f)*powerMulti);
+						if(ch==Dungeon.hero){
+							GameScene.flash(0x80FFFFFF);
+						}
 					}
 				}
-			}
-			if (Dungeon.level.heroFOV[attacker.pos] || Dungeon.level.heroFOV[defender.pos]){
-				Sample.INSTANCE.play( Assets.Sounds.BLAST );
+				if(Dungeon.level.heroFOV[attacker.pos]||Dungeon.level.heroFOV[defender.pos]){
+					Sample.INSTANCE.play(Assets.Sounds.BLAST);
+				}
 			}
 		}
-
 		return damage;
 	}
 

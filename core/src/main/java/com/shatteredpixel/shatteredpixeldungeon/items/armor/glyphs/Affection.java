@@ -18,22 +18,22 @@ public class Affection extends Glyph {
 	
 	@Override
 	public float proc( Armor armor, Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			int level=Math.max(0,armor.强化等级());
 
-		int level = Math.max(0, armor.强化等级());
-		
-		// lvl 0 - 15%
-		// lvl 1 ~ 19%
-		// lvl 2 ~ 23%
-		float procChance = (level+3f)/(level+20f) * procChanceMultiplier(defender);
-		if (Random.Float() < procChance) {
+			// lvl 0 - 15%
+			// lvl 1 ~ 19%
+			// lvl 2 ~ 23%
+			float procChance=(level+3f)/(level+20f)*procChanceMultiplier(defender);
+			if(Random.Float()<procChance){
 
-			float powerMulti = Math.max(1f, procChance);
+				float powerMulti=Math.max(1f,procChance);
 
-			Buff.施加( attacker, Charm.class, Math.round(Charm.DURATION*powerMulti) ).object = defender.id();
-			attacker.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
+				Buff.施加(attacker,Charm.class,Math.round(Charm.DURATION*powerMulti)).object=defender.id();
+				attacker.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f,5);
 
+			}
 		}
-		
 		return damage;
 	}
 

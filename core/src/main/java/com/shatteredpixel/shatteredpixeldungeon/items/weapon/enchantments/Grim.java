@@ -16,27 +16,25 @@ public class Grim extends Weapon.Enchantment {
 	
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
+		if(defender!=null){
+			if(defender.免疫(Grim.class)){
+				return damage;
+			}
 
-		if (defender.免疫(Grim.class)) {
-			return damage;
+			int level=Math.max(0,weapon.强化等级());
+
+			//scales from 0 - 50% based on how low hp the enemy is, plus 0-5% per level
+			float maxChance=0.5f+.05f*level;
+			maxChance*=procChanceMultiplier(attacker);
+
+			//we defer logic using an actor here so we can know the true final damage
+			//see Char.damage
+			Buff.施加(defender,GrimTracker.class).maxChance=maxChance;
+
+			if(defender.buff(GrimTracker.class)!=null&&attacker instanceof Hero&&weapon.hasEnchant(Grim.class,attacker)){
+				defender.buff(GrimTracker.class).qualifiesForBadge=true;
+			}
 		}
-
-		int level = Math.max( 0, weapon.强化等级() );
-
-		//scales from 0 - 50% based on how low hp the enemy is, plus 0-5% per level
-		float maxChance = 0.5f + .05f*level;
-		maxChance *= procChanceMultiplier(attacker);
-
-		//we defer logic using an actor here so we can know the true final damage
-		//see Char.damage
-		Buff.施加(defender, GrimTracker.class).maxChance = maxChance;
-
-		if (defender.buff(GrimTracker.class) != null
-				&& attacker instanceof Hero
-				&& weapon.hasEnchant(Grim.class, attacker)){
-			defender.buff(GrimTracker.class).qualifiesForBadge = true;
-		}
-
 		return damage;
 	}
 	

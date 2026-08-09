@@ -162,6 +162,7 @@ public class QuickRecipe extends Component {
 				for (Item sim : similar) {
 					//if we are looking for a specific item, it must be IDed
 					if (sim.getClass() != in.getClass() || sim.已鉴定())
+						//合成识别
 						if(!sim.isEquipped(Dungeon.hero))//非装备的物品
 						quantity += sim.数量();
 				}
@@ -395,9 +396,6 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 6:
-//				result.add(new QuickRecipe( new LiquidMetal.Recipe(),
-//						new ArrayList<Item>(Arrays.asList(new MissileWeapon.PlaceHolder())),
-//						new LiquidMetal()));
 				result.add(new QuickRecipe( new LiquidMetal.Recipe(),
 											new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
 											new LiquidMetal()));

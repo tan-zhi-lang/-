@@ -136,6 +136,7 @@ public class Item implements Bundlable {
 	public boolean 丢过 = false;
 
 	public boolean 无动作= false;
+	public boolean 幸运装备= false;
 	public boolean 不能丢扔= false;
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
@@ -1350,6 +1351,7 @@ public class Item implements Bundlable {
 	private static final String 魔力收益x = "魔力收益";
 	private static final String 封禁升级x = "封禁升级";
 	private static final String 无动作x = "无动作";
+	private static final String 幸运装备x = "幸运装备";
 	private static final String 丢过x = "丢过";
 	private static final String ALPHA = "alpha";
 	
@@ -1372,6 +1374,7 @@ public class Item implements Bundlable {
 		bundle.put( 魔力收益x, 魔力收益 );
 		bundle.put( 封禁升级x, 封禁升级 );
 		bundle.put( 无动作x, 无动作 );
+		bundle.put( 幸运装备x, 幸运装备 );
 		bundle.put( 丢过x, 丢过 );
 		bundle.put( ALPHA, alpha );
 		if (Dungeon.quickslot.contains(this)) {
@@ -1398,6 +1401,7 @@ public class Item implements Bundlable {
 		魔力收益	= bundle.getFloat( 魔力收益x );
 		封禁升级	= bundle.getBoolean( 封禁升级x );
 		无动作	= bundle.getBoolean( 无动作x );
+		幸运装备	= bundle.getBoolean( 幸运装备x );
 		丢过	= bundle.getBoolean( 丢过x );
 		alpha	= bundle.getBoolean( ALPHA );
 		

@@ -483,6 +483,9 @@ public abstract class Char extends Actor {
 			潜伏 prep = buff(潜伏.class);
 			if (prep != null){
 				dmg = prep.damageRoll(this);
+				if(enemy.isAlive())
+					enemy.受伤时(dmg);
+				dmg=0;
 				if (this == Dungeon.hero && Dungeon.hero.天赋(Talent.BOUNTY_HUNTER)) {
 					Buff.施加(Dungeon.hero, Talent.BountyHunterTracker.class, 0.0f);
 				}

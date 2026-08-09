@@ -23,23 +23,24 @@ public class Blocking extends Weapon.Enchantment {
 	
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
-		
-		int level = Math.max( 0, weapon.强化等级() );
 
-		// lvl 0 - 10%
-		// lvl 1 ~ 12%
-		// lvl 2 ~ 14%
-		float procChance = (level+4f)/(level+40f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance){
-			float powerMulti = Math.max(1f, procChance);
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
-			BlockBuff b = Buff.施加(attacker, BlockBuff.class);
-			float shield = Math.round(powerMulti * (2 + weapon.强化等级()));
-			b.设置(shield);
-			
-			attacker.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 5);
+			// lvl 0 - 10%
+			// lvl 1 ~ 12%
+			// lvl 2 ~ 14%
+			float procChance=(level+4f)/(level+40f)*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
+				float powerMulti=Math.max(1f,procChance);
+
+				BlockBuff b=Buff.施加(attacker,BlockBuff.class);
+				float shield=Math.round(powerMulti*(2+weapon.强化等级()));
+				b.设置(shield);
+
+				attacker.sprite.emitter().burst(Speck.factory(Speck.LIGHT),5);
+			}
 		}
-		
 		return damage;
 	}
 	

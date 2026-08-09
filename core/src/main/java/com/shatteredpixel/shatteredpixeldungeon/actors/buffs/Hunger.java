@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
@@ -193,7 +194,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		return true;
 	}
 
-	public static float 吃饭效率() {
+	public static float 吃饭效果() {
 		float energy=1;
 
 		if(Dungeon.hero.heroClass(HeroClass.来世))energy*=4/3f;
@@ -203,11 +204,12 @@ public class Hunger extends Buff implements Hero.Doom {
 		}
 		if(Dungeon.符文("细嚼慢咽"))energy*=2;
 
+		energy*=极肚之戒.饥饿速度(Dungeon.hero);
 		return energy;
 	}
 	public void 吃饭(float energy ) {
 		if(Dungeon.hero()){
-			energy*=吃饭效率();
+			energy*=吃饭效果();
 		}
 		affectHunger( energy, false );
 	}

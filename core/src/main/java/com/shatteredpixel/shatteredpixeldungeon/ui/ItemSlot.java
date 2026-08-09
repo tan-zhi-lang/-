@@ -312,7 +312,7 @@ public class ItemSlot extends Button {
 		if(item.已鉴定()){
 			if (item instanceof Food food){
 				float f=food.energy;
-				f*=Hunger.吃饭效率();
+				f*=Hunger.吃饭效果();
 
 				center.text( Messages.format( TXT, Math.round(f)) );
 				center.measure();

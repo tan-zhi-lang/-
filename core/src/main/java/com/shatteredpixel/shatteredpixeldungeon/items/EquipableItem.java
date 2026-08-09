@@ -28,7 +28,9 @@ import java.util.ArrayList;
 public abstract class EquipableItem extends Item {
 
 	public static final String AC_EQUIP		= "EQUIP";
+	public static final String AC_EQUIP2		= "EQUIP2";
 	public static final String AC_UNEQUIP	= "UNEQUIP";
+	public static final String AC_UNEQUIP2	= "UNEQUIP2";
 
 	{
 		遗产= true;
@@ -39,6 +41,9 @@ public abstract class EquipableItem extends Item {
 	public ArrayList<String> actions(Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 
+		if(无动作){
+			return new ArrayList<>();
+		}
 		boolean b=true;
 		if(Dungeon.炼狱(炼狱设置.诅咒之戒)&&this instanceof Ring){
 			b=false;
@@ -50,11 +55,23 @@ public abstract class EquipableItem extends Item {
 		if(Dungeon.派对(派对设置.钢门联盟)&&this instanceof 心之钢)b=true;
 		if(专属)b=true;
 
-		if(b)
-			actions.add( isEquipped( hero ) ? AC_UNEQUIP : AC_EQUIP );
+		if(b){
+			if(isEquipped(hero)){
+				if(幸运装备)
+					actions.add(AC_UNEQUIP2);
+				else
+					actions.add(AC_UNEQUIP);
+			}else{
+				actions.add(AC_EQUIP);
+				if(hero.男人())
+				actions.add(AC_EQUIP2);
+			}
+		}
 
 		if(isEquipped(hero)&&cursed&&cursedKnown&&!hero.heroClass(HeroClass.巫女)){
-			actions.remove(AC_UNEQUIP);//正装备的诅咒移除扔出和卸下
+			//正装备的诅咒移除扔出和卸下
+			actions.remove(AC_UNEQUIP2);
+			actions.remove(AC_UNEQUIP);
 			actions.remove(AC_DROP);
 			actions.remove(AC_THROW);
 		}
@@ -100,6 +117,29 @@ public abstract class EquipableItem extends Item {
 			}
 		} else if (action.equals( AC_UNEQUIP )) {
 			doUnequip( hero, true );
+			curItem=null;
+			curUser=null;
+		}
+		if (action.equals( AC_EQUIP2 )) {
+			//In addition to equipping itself, item reassigns itself to the quickslot
+			//This is a special case as the item is being removed from inventory, but is staying with the hero.
+			int slot = Dungeon.quickslot.getSlot( this );
+			slotOfUnequipped = -1;
+			doEquip2(hero);
+			curItem=this;
+			curUser=hero;
+			Dungeon.quickslot.alphaItem(this,false);
+			if (slot != -1) {
+				Dungeon.quickslot.setSlot( slot, this );
+				updateQuickslot();
+			//if this item wasn't quickslotted, but the item it is replacing as equipped was
+			//then also have the item occupy the unequipped item's quickslot
+			} else if (slotOfUnequipped != -1 && defaultAction() != null) {
+				Dungeon.quickslot.setSlot( slotOfUnequipped, this );
+				updateQuickslot();
+			}
+		} else if (action.equals( AC_UNEQUIP2 )) {
+			doUnequip2( hero, true );
 			curItem=null;
 			curUser=null;
 		}
@@ -149,8 +189,42 @@ public abstract class EquipableItem extends Item {
 	}
 
 	public abstract boolean doEquip( Hero hero );
+	public boolean doEquip2( Hero hero ){
+		return true;
+	};
 
 	public boolean doUnequip( Hero hero, boolean collect, boolean single ) {
+
+		if ((cursed
+				&& hero.buff(MagicImmune.class) == null
+				&& (!hero.belongings.lostInventory() || keptThroughLostInventory()))) {
+			GLog.橙(Messages.get(EquipableItem.class,"unequip_cursed"));
+			Dungeon.hero.sprite.哭泣();
+			return false;
+		}
+
+		if (single) {
+			hero.spendAndNext( timeToEquip( hero ) );
+		} else {
+			hero.spend( timeToEquip( hero ) );
+		}
+		首次装备=false;
+		slotOfUnequipped = Dungeon.quickslot.getSlot(this);
+
+		//temporarily keep this item so it can be collected
+		boolean wasKept = keptThoughLostInvent;
+		keptThoughLostInvent = true;
+		if (!collect || !放背包( hero.belongings.backpack )) {
+			onDetach();
+			Dungeon.quickslot.alphaItem(this,true);
+			updateQuickslot();
+			if (collect) Dungeon.level.drop( this, hero.pos ).sprite().drop();
+		}
+		keptThoughLostInvent = wasKept;
+
+		return true;
+	}
+	public boolean doUnequip2( Hero hero, boolean collect, boolean single ) {
 
 		if ((cursed
 				&& hero.buff(MagicImmune.class) == null
@@ -184,6 +258,9 @@ public abstract class EquipableItem extends Item {
 
 	final public boolean doUnequip( Hero hero, boolean collect ) {
 		return doUnequip( hero, collect, true );
+	}
+	final public boolean doUnequip2( Hero hero, boolean collect ) {
+		return doUnequip2( hero, collect, true );
 	}
 
 	public void activate( Char ch ){}

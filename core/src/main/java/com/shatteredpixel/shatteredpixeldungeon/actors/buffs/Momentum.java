@@ -41,18 +41,22 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 
 	@Override
 	public boolean act() {
-		freerunTurns = Math.max(freerunTurns -1, 0);
+//		freerunTurns = Math.max(freerunTurns -1, 0);
 
 		spend(TICK);
 		return true;
 	}
 	
 	public void gainStack(){
+		gainStack(0);
+	}
+	public void gainStack(float nx){
 		if (!freerunning()){
+			float x=0.25f+nx;
 			if(target.hasbuff(Invisibility.class))
-				momentumStacks = Math.min(momentumStacks + 1.5f, 9);
+				x+=0.75f;
 
-			momentumStacks = Math.min(momentumStacks + 1.5f, 9);
+			momentumStacks = Math.min(momentumStacks + x, 10);
 			ActionIndicator.setAction(this);
 			BuffIndicator.refreshHero();
 		}else {
@@ -69,9 +73,9 @@ public class Momentum extends Buff implements ActionIndicator.Action {
 	public float speedMultiplier(){
 		float x=freerunTurns*Dungeon.hero.天赋点数(Talent.SPEEDY_STEALTH,0.02f);
 		if (freerunning()){
-			return 2+x;
+			return 1.5f+x;
 		} else if (target.invisible > 0 ){
-			return 3+x;
+			return 2+x;
 		} else {
 			return 1;
 		}

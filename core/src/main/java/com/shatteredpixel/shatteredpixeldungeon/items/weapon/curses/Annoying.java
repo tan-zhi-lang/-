@@ -24,36 +24,40 @@ public class Annoying extends Weapon.Enchantment {
 
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
-		if(性格==0)性格=Random.Int(1,5);
-		float procChance = 1/10f * procChanceMultiplier(attacker);
-		if(性格==1)procChance=0;
-		if (Random.Float() < procChance) {
-			for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])) {
-				mob.beckon(attacker.pos);
-			}
-			attacker.sprite.centerEmitter().start(Speck.factory(Speck.SCREAM), 0.3f, 3);
-			Sample.INSTANCE.play(Assets.Sounds.MIMIC);
-			Invisibility.notimedispel();
-			//~1/100 for each rare line, ~1/10 for each common line
 
-			if(性格==1){
-				GLog.绿("喧闹附魔:"+Messages.get(this,"msg_"+Random.IntRange(1,14)));
-			}
-			if(性格==2&&defender!=null&&defender.第x次防御==1){
-				Buff.延长(defender,Vertigo.class,3);
-				GLog.黄("喧闹附魔:"+Messages.get(this,"玩梗_"+Random.IntRange(1,14)));
-			}
-			if(性格==3){
-				damage*=1.3f;
-				GLog.红("喧闹附魔:"+Messages.get(this,"暴躁_"+Random.IntRange(1,14)));
-			}
-			if(性格==4&&defender!=null){
-				attacker.回血(0.07f);
-				GLog.蓝("喧闹附魔:"+Messages.get(this,"暴躁_"+Random.IntRange(1,14)));
-			}
+		if(defender!=null){
+			if(性格==0)
+				性格=Random.Int(1,5);
+			float procChance=1/10f*procChanceMultiplier(attacker);
+			if(性格==1)
+				procChance=0;
+			if(Random.Float()<procChance){
+				for(Mob mob: Dungeon.level.mobs.toArray(new Mob[0])){
+					mob.beckon(attacker.pos);
+				}
+				attacker.sprite.centerEmitter().start(Speck.factory(Speck.SCREAM),0.3f,3);
+				Sample.INSTANCE.play(Assets.Sounds.MIMIC);
+				Invisibility.notimedispel();
+				//~1/100 for each rare line, ~1/10 for each common line
 
+				if(性格==1){
+					GLog.绿("喧闹附魔:"+Messages.get(this,"msg_"+Random.IntRange(1,14)));
+				}
+				if(性格==2&&defender!=null&&defender.第x次防御==1){
+					Buff.延长(defender,Vertigo.class,3*procChanceMultiplier(attacker));
+					GLog.黄("喧闹附魔:"+Messages.get(this,"玩梗_"+Random.IntRange(1,14)));
+				}
+				if(性格==3){
+					damage*=1.3f*procChanceMultiplier(attacker);
+					GLog.红("喧闹附魔:"+Messages.get(this,"暴躁_"+Random.IntRange(1,14)));
+				}
+				if(性格==4&&defender!=null){
+					attacker.回血(0.07f*procChanceMultiplier(attacker));
+					GLog.蓝("喧闹附魔:"+Messages.get(this,"暴躁_"+Random.IntRange(1,14)));
+				}
+
+			}
 		}
-
 		return damage;
 	}
 	public String desc() {

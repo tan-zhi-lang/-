@@ -60,11 +60,11 @@ public class DisarmingTrap extends Trap{
 
 		if (Dungeon.hero.pos == pos && !Dungeon.hero.flying){
 			Hero hero = Dungeon.hero;
-			KindOfWeapon weapon = hero.belongings.weapon;
-			if(!weapon.缴械){
-				return;
-			}
+			KindOfWeapon weapon = hero.belongings.weapon();
 			if (weapon != null && !weapon.cursed) {
+				if(!weapon.缴械){
+					return;
+				}
 
 				int cell;
 				int tries = 50;

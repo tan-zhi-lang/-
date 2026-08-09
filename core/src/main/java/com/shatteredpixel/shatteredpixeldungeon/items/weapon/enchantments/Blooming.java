@@ -23,54 +23,56 @@ public class Blooming extends Weapon.Enchantment {
 	
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
-		int level = Math.max( 0, weapon.强化等级() );
 
-		// lvl 0 - 33%
-		// lvl 1 - 50%
-		// lvl 2 - 60%
-		float procChance = (level+1f)/(level+3f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
-			float powerMulti = Math.max(1f, procChance);
+			// lvl 0 - 33%
+			// lvl 1 - 50%
+			// lvl 2 - 60%
+			float procChance=(level+1f)/(level+3f)*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
 
-			float plants = (1f + 0.1f*level) * powerMulti;
-			if (Random.Float() < plants%1){
-				plants = (float)Math.ceil(plants);
-			} else {
-				plants = (float)Math.floor(plants);
-			}
-			
-			if (plantGrass(defender.pos)){
-				plants--;
-				if (plants <= 0){
-					return damage;
+				float powerMulti=Math.max(1f,procChance);
+
+				float plants=(1f+0.1f*level)*powerMulti;
+				if(Random.Float()<plants%1){
+					plants=(float)Math.ceil(plants);
+				}else{
+					plants=(float)Math.floor(plants);
 				}
-			}
-			
-			ArrayList<Integer> positions = new ArrayList<>();
-			for (int i : PathFinder.相邻){
-				if (defender.pos + i != attacker.pos) {
-					positions.add(defender.pos + i);
-				}
-			}
-			Random.shuffle( positions );
 
-			//The attacker's position is always lowest priority
-			if (Dungeon.level.相邻(attacker.pos,defender.pos)){
-				positions.add(attacker.pos);
-			}
-
-			for (int i : positions){
-				if (plantGrass(i)){
+				if(plantGrass(defender.pos)){
 					plants--;
-					if (plants <= 0) {
+					if(plants<=0){
 						return damage;
 					}
 				}
+
+				ArrayList<Integer> positions=new ArrayList<>();
+				for(int i: PathFinder.相邻){
+					if(defender.pos+i!=attacker.pos){
+						positions.add(defender.pos+i);
+					}
+				}
+				Random.shuffle(positions);
+
+				//The attacker's position is always lowest priority
+				if(Dungeon.level.相邻(attacker.pos,defender.pos)){
+					positions.add(attacker.pos);
+				}
+
+				for(int i: positions){
+					if(plantGrass(i)){
+						plants--;
+						if(plants<=0){
+							return damage;
+						}
+					}
+				}
+
 			}
-			
 		}
-		
 		return damage;
 	}
 	

@@ -86,7 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotio
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
@@ -851,7 +851,7 @@ public abstract class Mob extends Char{
 			state=HUNTING;
 			target=h.pos;
 		}
-		if(enemy instanceof Hero&&((Hero)enemy).belongings.attackingWeapon() instanceof Weapon){
+		if(enemy instanceof Hero&&((Hero)enemy).belongings.投掷武器() instanceof Weapon){
 			Statistics.thrownAttacks++;
 			Badges.validateHuntressUnlock();
 		}
@@ -861,7 +861,8 @@ public abstract class Mob extends Char{
 			Badges.validateRogueUnlock();
 			//TODO this is somewhat messy, it would be nicer to not have to manually handle delays here
 			// playing the strong hit sound might work best as another property of weapon?
-			if(Dungeon.hero.belongings.attackingWeapon() instanceof 灵能短弓.SpiritArrow||Dungeon.hero.belongings.attackingWeapon() instanceof 飞镖){
+			if(Dungeon.hero.belongings.投掷武器() instanceof 灵能短弓.SpiritArrow
+			   ||Dungeon.hero.belongings.投掷武器() instanceof 飞镖){
 				Sample.INSTANCE.playDelayed(Assets.Sounds.攻击锤,0.125f);
 			}else{
 				Sample.INSTANCE.play(Assets.Sounds.攻击锤);
@@ -1109,7 +1110,7 @@ public abstract class Mob extends Char{
 									   *(1+(Dungeon.符文("彼岸")?1:0))),getClass());
 				}
 
-				if(Dungeon.hero.subClass==HeroSubClass.武者){
+				if(Dungeon.hero.subClass==HeroSubClass.内力武者){
 					Buff.施加(Dungeon.hero,MonkEnergy.class).gainEnergy(this);
 				}
 			}
@@ -1480,7 +1481,7 @@ public abstract class Mob extends Char{
 		if(Dungeon.hero()){
 			lootChance*=Dungeon.hero.幸运机制();
 		}
-		float dropBonus=幸运之戒.dropChanceMultiplier(Dungeon.hero);
+		float dropBonus=财富之戒.dropChanceMultiplier(Dungeon.hero);
 
 		Talent.BountyHunterTracker bhTracker=Dungeon.hero.buff(Talent.BountyHunterTracker.class);
 		if(bhTracker!=null){
@@ -1537,7 +1538,7 @@ public abstract class Mob extends Char{
 				}
 			}
 			//ring of wealth logic
-			if(Ring.getBuffedBonus(Dungeon.hero,幸运之戒.Wealth.class)>0){
+			if(Ring.getBuffedBonus(Dungeon.hero,财富之戒.Wealth.class)>0){
 				int rolls=1;
 				if(properties().contains(Property.BOSS)){
 					rolls=15;
@@ -1549,11 +1550,11 @@ public abstract class Mob extends Char{
 
 				rolls=Math.max(1,Math.round(lootChance()*rolls));//T
 
-				ArrayList<Item> bonus=幸运之戒.tryForBonusDrop(Dungeon.hero,rolls);
+				ArrayList<Item> bonus=财富之戒.tryForBonusDrop(Dungeon.hero,rolls);
 				if(bonus!=null&&!bonus.isEmpty()){
 					for(Item b: bonus)
 						Dungeon.level.drop(b,pos).sprite().drop();
-					幸运之戒.showFlareForBonusDrop(sprite);
+					财富之戒.showFlareForBonusDrop(sprite);
 				}
 			}
 

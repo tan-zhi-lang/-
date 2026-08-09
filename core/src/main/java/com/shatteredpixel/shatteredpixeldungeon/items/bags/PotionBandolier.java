@@ -29,7 +29,7 @@ public class PotionBandolier extends Bag {
 	}
 
 	public int capacity(){
-		return 19+(Dungeon.解压(解压设置.高级背包)?10:5);
+		return 19+(Dungeon.解压(解压设置.高级背包)?5:0);
 	}
 
 	@Override

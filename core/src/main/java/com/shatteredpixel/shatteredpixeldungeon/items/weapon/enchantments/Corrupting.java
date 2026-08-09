@@ -20,35 +20,34 @@ public class Corrupting extends Weapon.Enchantment {
 	
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
-		int level = Math.max( 0, weapon.强化等级() );
-		
-		// lvl 0 - 20%
-		// lvl 1 ~ 23%
-		// lvl 2 ~ 26%
-		float procChance = (level+5f)/(level+25f) * procChanceMultiplier(attacker);
-		if (damage >= defender.生命
-				&& Random.Float() < procChance
-				&& !defender.免疫(Corruption.class)
-				&& defender.buff(Corruption.class) == null
-				&& defender instanceof Mob
-				&& defender.isAlive()){
-			
-			Mob enemy = (Mob) defender;
-			Hero hero = (attacker instanceof Hero) ? (Hero) attacker : Dungeon.hero;
 
-			Corruption.corruptionHeal(enemy);
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
-			AllyBuff.affectAndLoot(enemy, hero, Corruption.class);
+			// lvl 0 - 20%
+			// lvl 1 ~ 23%
+			// lvl 2 ~ 26%
+			float procChance=(level+5f)/(level+25f)*procChanceMultiplier(attacker);
+			if(damage>=defender.生命&&Random.Float()<procChance&&!defender.免疫(Corruption.class)&&defender.buff(Corruption.class)==null&&defender instanceof Mob&&defender.isAlive()){
 
-			float powerMulti = Math.max(1f, procChance);
-			if (powerMulti > 1.1f){
-				//1 turn of adrenaline for each 20% above 100% proc rate
-				Buff.施加(enemy, Adrenaline.class, Math.round(5*(powerMulti-1f)));
+				Mob enemy=(Mob)defender;
+				Hero hero=(attacker instanceof Hero)?
+						(Hero)attacker:
+						Dungeon.hero;
+
+				Corruption.corruptionHeal(enemy);
+
+				AllyBuff.affectAndLoot(enemy,hero,Corruption.class);
+
+				float powerMulti=Math.max(1f,procChance);
+				if(powerMulti>1.1f){
+					//1 turn of adrenaline for each 20% above 100% proc rate
+					Buff.施加(enemy,Adrenaline.class,Math.round(5*(powerMulti-1f)));
+				}
+
+				return 0;
 			}
-			
-			return 0;
 		}
-		
 		return damage;
 	}
 	

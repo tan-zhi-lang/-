@@ -537,6 +537,8 @@ public class 物品表 {
     public static final int 致胜拳炮=WEP_TIER52+13;
     public static final int 猪鲨链球=WEP_TIER52+14;
     public static final int 腐化灾兵=WEP_TIER52+15;
+    public static final int 种子吹管=WEP_TIER52+16;
+    public static final int 菱形刀=WEP_TIER52+17;
 
     static{
         assignItemRect(联合盾,15);
@@ -555,6 +557,8 @@ public class 物品表 {
         assignItemRect(致胜拳炮,16,12);
         assignItemRect(猪鲨链球,15,16);
         assignItemRect(腐化灾兵,16);
+        assignItemRect(种子吹管,16,14);
+        assignItemRect(菱形刀,15,16);
 
     }
     //endregion
@@ -576,7 +580,7 @@ public class 物品表 {
     public static final int BLINDING_DART = DARTS + 12;
     
     static {
-        for (int i = DARTS; i < DARTS + 30; i++)
+        for (int i = DARTS; i < DARTS + 31; i++)
             assignItemRect(i, 15);
     }
     //endregion
@@ -658,7 +662,7 @@ public class 物品表 {
     public static final int 浓毒法杖 = WANDS + 19;
 
     static {
-        for (int i = WANDS; i < WANDS + 30; i++)
+        for (int i = WANDS; i < WANDS + 31; i++)
             assignItemRect(i, 16);
     }
 
@@ -679,10 +683,32 @@ public class 物品表 {
     public static final int 月亮石=RINGS+13;
     public static final int 黄金=RINGS+14;
     public static final int 暗淡=RINGS+15;
-    public static final int 虚空=RINGS+16;
 
     static {
-        for (int i = RINGS; i < RINGS + 30; i++){
+        for (int i = RINGS; i < RINGS + 15; i++){
+            assignItemRect(i,8,10);
+        }
+    }
+    private static final int RINGS2 = xy(16, 15);  //16 slots
+    public static final int RING_GARNET2 = RINGS2 + 0;
+    public static final int RING_RUBY2 = RINGS2 + 1;
+    public static final int RING_TOPAZ2 = RINGS2 + 2;
+    public static final int RING_EMERALD2 = RINGS2 + 3;
+    public static final int RING_ONYX2 = RINGS2 + 4;
+    public static final int RING_OPAL2 = RINGS2 + 5;
+    public static final int RING_TOURMALINE2 = RINGS2 + 6;
+    public static final int RING_SAPPHIRE2 = RINGS2 + 7;
+    public static final int RING_AMETHYST2 = RINGS2 + 8;
+    public static final int RING_QUARTZ2 = RINGS2 + 9;
+    public static final int RING_AGATE2 = RINGS2 + 10;
+    public static final int RING_DIAMOND2 = RINGS2 + 11;
+    public static final int 黑曜石2=RINGS2+12;
+    public static final int 月亮石2=RINGS2+13;
+    public static final int 黄金2=RINGS2+14;
+    public static final int 暗淡2=RINGS2+15;
+
+    static {
+        for (int i = RINGS2; i < RINGS2 + 15; i++){
             assignItemRect(i,8,10);
         }
     }
@@ -1326,6 +1352,10 @@ public class 物品表 {
         public static final int RING_SHARPSHOOT = RINGS + 9;
         public static final int RING_TENACITY = RINGS + 10;
         public static final int RING_WEALTH = RINGS + 11;
+        public static final int 魔攻之戒 = RINGS + 12;
+        public static final int 装甲之戒 = RINGS + 13;
+        public static final int 恢复之戒 = RINGS + 14;
+        public static final int 极肚之戒 = RINGS + 15;
 
         static {
             assignIconRect(RING_ACCURACY, 7);
@@ -1337,9 +1367,13 @@ public class 物品表 {
             assignIconRect(RING_FUROR, 7, 6);
             assignIconRect(RING_HASTE, 6);
             assignIconRect(RING_MIGHT, 7);
-            assignIconRect(RING_SHARPSHOOT, 6);
+            assignIconRect(RING_SHARPSHOOT, 7);
             assignIconRect(RING_TENACITY, 6);
             assignIconRect(RING_WEALTH, 7, 6);
+            assignIconRect(魔攻之戒,6);
+            assignIconRect(装甲之戒,6);
+            assignIconRect(恢复之戒,6,7);
+            assignIconRect(极肚之戒,6,7);
         }
 
         //16 free slots
@@ -1540,17 +1574,27 @@ public class 物品表 {
             assignIconRect(分解, 5,8);
         }
         public static final int 六神之戒 = xy(1, 14);  //16 slots
-        public static final int 魔攻之戒=六神之戒+1;
-        public static final int 装甲之戒=六神之戒+2;
-        public static final int 恢复之戒=六神之戒+3;
-        public static final int 极肚之戒=六神之戒+4;
+        public static final int 强健之戒=六神之戒+1;
+        public static final int 钢壁之戒=六神之戒+2;
+        public static final int 身法之戒=六神之戒+3;
+        public static final int 府备之戒=六神之戒+4;
+        public static final int 汲取之戒=六神之戒+5;
+        public static final int 神知之戒=六神之戒+6;
+        public static final int 镜钓之戒=六神之戒+7;
+        public static final int 利害之戒=六神之戒+8;
+        public static final int 破防之戒=六神之戒+9;
 
         static {
             assignIconRect(六神之戒, 7);
-            assignIconRect(魔攻之戒,6);
-            assignIconRect(装甲之戒,6);
-            assignIconRect(恢复之戒,6,7);
-            assignIconRect(极肚之戒,6,7);
+            assignIconRect(强健之戒, 7,6);
+            assignIconRect(钢壁之戒,6);
+            assignIconRect(身法之戒,6);
+            assignIconRect(府备之戒,5,6);
+            assignIconRect(汲取之戒,6,7);
+            assignIconRect(神知之戒,7,5);
+            assignIconRect(镜钓之戒,8,6);
+            assignIconRect(利害之戒,7,6);
+            assignIconRect(破防之戒,6);
         }
 
         public static final int 银星 = xy(1, 15);  //16 slots

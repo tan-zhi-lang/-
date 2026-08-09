@@ -1128,8 +1128,8 @@ public class Badges {
 	public static void validateTakingTheMick(Object cause){
 		if ((cause == Dungeon.hero || cause instanceof Explosive.ExplosiveCurseBomb)
 			&&
-				Dungeon.hero.belongings.attackingWeapon() instanceof 镐子
-				&& Dungeon.hero.belongings.attackingWeapon().等级() >= 10){
+				Dungeon.hero.belongings.weapon(镐子.class)
+				&& Dungeon.hero.belongings.getItem(镐子.class).等级() >= 10){
 			local.add( Badge.TAKING_THE_MICK );
 			displayBadge(Badge.TAKING_THE_MICK);
 		}

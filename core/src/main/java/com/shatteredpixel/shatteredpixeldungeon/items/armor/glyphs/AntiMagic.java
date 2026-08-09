@@ -14,13 +14,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.冰魄之弓;
+
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.尘遁;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.掌心雷;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.火球术;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.痛命;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.破冰飞刃;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.符咒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.赐福;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.风刃;
@@ -91,7 +90,6 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( HolyDart.class );
 
 		RESISTS.add( DamageWand.class);
-		RESISTS.add( 魔攻之戒.class);
 		RESISTS.add( Dungeon.class);
 		RESISTS.add( 伤害.class);
 
@@ -99,9 +97,6 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( 赐福.class);
 
 		RESISTS.add( 火球术.class);
-
-		RESISTS.add( 破冰飞刃.class);
-		RESISTS.add( 冰魄之弓.class);
 
 		RESISTS.add( 痛命.class);
 

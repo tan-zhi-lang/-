@@ -38,7 +38,7 @@ public class Bag extends Item implements Iterable<Item> {
 	public ArrayList<Item> items = new ArrayList<>();
 
 	public int capacity(){
-		return 20+(Dungeon.解压(解压设置.高级背包)?10:5); // default container size
+		return 20+(Dungeon.解压(解压设置.高级背包)?5:0); // default container size
 	}
 
 	//if an item is being quick-used from the bag, the bag should take on its targeting properties

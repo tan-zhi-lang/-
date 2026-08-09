@@ -23,6 +23,9 @@ public class 战斗状态 extends FlavourBuff{
             if(hero.符文 ("踢踏舞")){
                 Buff.施加(target,踢踏舞.class).clearCount();
             }
+            if(hero.符文 ("登神长阶")){
+                Buff.施加(target,登神长阶.class).clearCount();
+            }
             if(hero.符文 ("泰坦的坚决")){
                 Buff.施加(target,泰坦的坚决.class).clearCount();
             }

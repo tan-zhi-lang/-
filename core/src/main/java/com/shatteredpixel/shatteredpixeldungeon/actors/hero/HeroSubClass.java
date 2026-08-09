@@ -10,25 +10,25 @@ public enum HeroSubClass {
 	NONE(HeroIcon.NONE),
 	奇经八脉(HeroIcon.肉身成圣),
 
-	狂战士(HeroIcon.BERSERKER),
-	角斗士(HeroIcon.GLADIATOR),
+	不灭战士(HeroIcon.不灭战士),
+	战斗法师(HeroIcon.BATTLEMAGE),
 
-	冰结师(HeroIcon.冰结师),
+	冰魄剑神(HeroIcon.冰魄剑神),
 	大魔法师(HeroIcon.大魔法师),
 
-	刺客(HeroIcon.ASSASSIN),
+	冥法刺客(HeroIcon.ASSASSIN),
 	神偷无影(HeroIcon.神偷无影),
 	
 	狙击手(HeroIcon.SNIPER),
 	守望者(HeroIcon.WARDEN),
 
 	武器大师(HeroIcon.CHAMPION),
-	武者(HeroIcon.MONK),
+	角斗士(HeroIcon.GLADIATOR),
 
 	圣骑士(HeroIcon.PALADIN),
 	祭司(HeroIcon.PRIEST),
 
-	战斗法师(HeroIcon.BATTLEMAGE),
+	金刚独狼(HeroIcon.金刚独狼),
 	黑魔导师(HeroIcon.黑魔导师),
 	
 	健身猛男(HeroIcon.NONE),
@@ -36,8 +36,8 @@ public enum HeroSubClass {
 	盾之勇者(HeroIcon.盾之勇者),
 	轻装步兵(HeroIcon.轻装步兵),
 
-	灵月杀手(HeroIcon.灵月杀手),
-	不灭战士(HeroIcon.不灭战士),
+	灵魂武者(HeroIcon.灵魂武者),
+	内力武者(HeroIcon.MONK),
 
 	死灵术士(HeroIcon.WARLOCK),
 	真人(HeroIcon.真人),
@@ -48,13 +48,13 @@ public enum HeroSubClass {
 	机械教主(HeroIcon.机械教主),
 	魔法灵枢(HeroIcon.魔法灵枢),
 
-	疾行者(HeroIcon.FREERUNNER),
+	苦行者(HeroIcon.FREERUNNER),
 	符文法师(HeroIcon.符文法师),
 
 	征服者(HeroIcon.征服者),
 	皇室卫兵(HeroIcon.皇室卫兵),
 
-	灵魂武者(HeroIcon.灵魂武者),
+	灵月杀手(HeroIcon.灵月杀手),
 	土影(HeroIcon.土影),
 
 	阿修罗(HeroIcon.阿修罗),
@@ -78,7 +78,7 @@ public enum HeroSubClass {
 	解咒真人(HeroIcon.解咒真人),
 	吞噬云烟(HeroIcon.吞噬云烟),
 
-	金刚独狼(HeroIcon.金刚独狼),
+	狂战士(HeroIcon.BERSERKER),
 	血法师(HeroIcon.血法师),
 
 	时间刺客(HeroIcon.时间刺客),

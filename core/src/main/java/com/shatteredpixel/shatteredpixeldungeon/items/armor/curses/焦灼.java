@@ -16,9 +16,11 @@ public class 焦灼 extends Armor.Glyph {
 
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
-		float procChance = 1/8f * procChanceMultiplier(defender);
-		if (Random.Float()<procChance ) {
-			GameScene.add(Blob.seed(defender.pos,Math.round(8*procChance),Fire.class));
+		if(defender!=null){
+			float procChance=1/8f*procChanceMultiplier(defender);
+			if(Random.Float()<procChance){
+				GameScene.add(Blob.seed(defender.pos,Math.round(8*procChance),Fire.class));
+			}
 		}
 		return damage;
 	}

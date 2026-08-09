@@ -31,7 +31,7 @@ public class 狂怒之戒 extends Ring {
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return 0.1845f*(level+1) + "倍";
+		return 0.1845f*(level) + "倍";
 	}
 
 	@Override

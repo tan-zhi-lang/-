@@ -10,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
@@ -65,12 +64,13 @@ public class 再生 extends Buff {
 					if(hero.符文("最大护甲转生命再生")){
 						再生数值+=hero.最大护甲(0.01f);
 					}
-					if(hero.hasbuff(WellFed.class))再生数值*=Math.min(1,
-						  (float)hero.buff(WellFed.class).left/
-						  (float)hero.buff(WellFed.class).上限()*0.15f+1);
-					if(hero.hasbuff(Hunger.class))再生数值*=Math.min(1,
-																	 (Hunger.STARVING-hero.buff(Hunger.class).level)/
-																	 Hunger.STARVING*0.15f+1);
+					if(hero.hasbuff(WellFed.class))再生数值+=0.75f;
+//					if(hero.hasbuff(WellFed.class))再生数值*=Math.min(1,
+//						  (float)hero.buff(WellFed.class).left/
+//						  (float)hero.buff(WellFed.class).上限()*0.15f+1);
+//					if(hero.hasbuff(Hunger.class))再生数值*=Math.min(1,
+//																	 (Hunger.STARVING-hero.buff(Hunger.class).level)/
+//																	 Hunger.STARVING*0.15f+1);
 
 					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
 						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
@@ -102,8 +102,7 @@ public class 再生 extends Buff {
 					再生数值/= SaltCube.healthRegenMultiplier();
 				}
 
-				再生数值*=1+hero.天赋点数(Talent.坚韧,0.5f);
-					再生数值*=恢复之戒.恢复(hero);
+				再生数值*=1+hero.天赋点数(Talent.坚韧);
 
 						if(hero.heroClass(HeroClass.血鬼))
 							再生数值/=2;

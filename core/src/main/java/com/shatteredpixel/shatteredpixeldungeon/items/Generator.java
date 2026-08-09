@@ -51,18 +51,27 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.汲取之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.神兵之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.破防之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神知之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.身法之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.钢壁之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.镜钓之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
@@ -231,6 +240,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臻冰刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.苦无;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.菱形刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.虚哭神去;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蝙蝠棒;
@@ -633,6 +643,7 @@ public class Generator {
 
 					猪鲨链球.class,//1.3
 					腐化灾兵.class,//0.8
+					菱形刀.class,//0.9
 			};
 			WEP_T5.defaultProbs = new float[]{
 					//1
@@ -650,7 +661,7 @@ public class Generator {
 					//9
 					2,2,2,2,
 					2,2,2,2,
-					2,2,
+					2,2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
@@ -684,26 +695,41 @@ public class Generator {
 					疾速之戒.class,
 					根骨之戒.class,
 					
-					神兵之戒.class,
+					神射之戒.class,
 					RingOfTenacity.class,
-					幸运之戒.class,
+					财富之戒.class,
 					
 					魔攻之戒.class,
 					装甲之戒.class,
 					恢复之戒.class,
 					极肚之戒.class,
+					//
+					六神之戒.class,
+					强健之戒.class,
+					钢壁之戒.class,
+					身法之戒.class,
 
-					六神之戒.class
-			
+					府备之戒.class,
+					汲取之戒.class,
+					神知之戒.class,
+
+					镜钓之戒.class,
+					利害之戒.class,
+					破防之戒.class,
+
 			};
 			RING.defaultProbs = new float[]{ 3, 3, 3,
 											 3, 3, 3,
 											 3, 3, 3,
 											 3, 3, 3,
 											 
-											 3,3 ,3,
-					3,
-											 0};
+											 3,3 ,3,3,
+
+										 3,3,3,3,
+										 3,3,3,3,
+										 3,3,3,
+
+			};
 			RING.probs = RING.defaultProbs.clone();
 			
 			ARTIFACT.classes = new Class<?>[]{

@@ -27,8 +27,8 @@ public class 精纯药液 extends Item {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
 		{
-			inputs =  new Class[]{Potion.class,
-					Plant.Seed.class,};
+			inputs =  new Class[]{Potion.PlaceHolder.class,
+					Plant.Seed.PlaceHolder.class,};
 			inQuantity = new int[]{1,1};
 
 			cost = 1;

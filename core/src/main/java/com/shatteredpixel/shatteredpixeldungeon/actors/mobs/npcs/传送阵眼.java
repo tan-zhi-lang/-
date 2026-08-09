@@ -20,6 +20,7 @@ public class 传送阵眼 extends NPC {
 
 	{
 		spriteClass = 传送阵眼动画.class;
+		properties.add(Property.IMMOVABLE);
 	}
 
 
@@ -38,6 +39,10 @@ public class 传送阵眼 extends NPC {
 		return false;
 	}
 
+	@Override
+	public boolean reset() {
+		return true;
+	}
 	@Override
 	public boolean interact(Char c) {
 		boolean k=false;

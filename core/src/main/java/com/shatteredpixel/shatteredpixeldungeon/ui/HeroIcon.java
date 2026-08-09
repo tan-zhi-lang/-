@@ -23,11 +23,11 @@ public class HeroIcon extends Image {
 	public static final int NONE    = 32*8;
 
 	//subclasses
-	public static final int BERSERKER   = 0;
-	public static final int GLADIATOR   = BERSERKER+1;
+	public static final int 不灭战士   = 0;
+	public static final int BATTLEMAGE   = 1;
 
-	public static final int 冰结师  = 8;
-	public static final int 大魔法师=冰结师+1;
+	public static final int 冰魄剑神  = 8;
+	public static final int 大魔法师=冰魄剑神+1;
 
 	public static final int ASSASSIN    = 2*8;
 	public static final int 神偷无影    = ASSASSIN+1;
@@ -36,19 +36,19 @@ public class HeroIcon extends Image {
 	public static final int WARDEN      = SNIPER+1;
 	
 	public static final int CHAMPION    = 4*8;
-	public static final int MONK        = CHAMPION+1;
+	public static final int GLADIATOR        = CHAMPION+1;
 	
 	public static final int PALADIN      = 5*8;
 	public static final int PRIEST= PALADIN+1;
 
-	public static final int 黑魔导师     = 6*8;
-	public static final int BATTLEMAGE  = 黑魔导师+1;
-	
+	public static final int 金刚独狼     = 6*8;
+	public static final int 黑魔导师     = 金刚独狼+1;
+
 	public static final int 盾之勇者     = 7*8;
 	public static final int 轻装步兵     = 盾之勇者+1;
 
-	public static final int 灵月杀手     = 8*8;
-	public static final int 不灭战士     = 灵月杀手+1;
+	public static final int 灵魂武者 = 8*8;
+	public static final int MONK     = 灵魂武者+1;
 
 	public static final int WARLOCK     = 9*8;
 	public static final int 真人     = WARLOCK+1;
@@ -65,11 +65,12 @@ public class HeroIcon extends Image {
 	public static final int 机械教主     = 13*8;
 	public static final int 魔法灵枢     =机械教主+1;
 
-	public static final int 灵魂武者     = 14*8;
-	public static final int 土影     = 灵魂武者+1;
+	public static final int 灵月杀手     = 14*8;
+	public static final int 土影     = 灵月杀手+1;
 
 	public static final int 阿修罗     = 15*8;
 	public static final int 指环王     = 阿修罗+1;
+
 	public static final int 剑魔     = 16*8;
 	public static final int 圣女     = 剑魔+1;
 
@@ -88,8 +89,8 @@ public class HeroIcon extends Image {
 	public static final int 解咒真人     = 21*8;
 	public static final int 吞噬云烟     = 解咒真人+1;
 
-	public static final int 金刚独狼     = 22*8;
-	public static final int 血法师     = 金刚独狼+1;
+	public static final int BERSERKER  = 22*8;
+	public static final int 血法师     = BERSERKER+1;
 
 	public static final int 时间刺客     = 23*8;
 	public static final int 戏命师     = 时间刺客+1;
@@ -117,7 +118,7 @@ public class HeroIcon extends Image {
 	public static final int 火球术=26*8;
 	public static final int 火墙术=火球术+2;
 	public static final int 破冰飞刃=火球术+4;
-	public static final int 冰魄之弓=火球术+6;
+	public static final int 冰魄成剑=火球术+6;
 	public static final int 圣光   = 27*8;
 	public static final int 赐福=圣光+2;
 

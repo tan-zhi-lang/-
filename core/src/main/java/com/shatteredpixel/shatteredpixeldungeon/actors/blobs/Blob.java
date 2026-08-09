@@ -20,6 +20,9 @@ public class Blob extends Actor {
 	}
 	
 	public int volume = 0;
+	public int volume(float x){
+		return Math.round(volume*x);
+	}
 	
 	public int[] cur;
 	protected int[] off;

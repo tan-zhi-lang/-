@@ -286,7 +286,7 @@ public class CloakOfShadows extends Artifact {
 		public boolean attachTo( Char target ) {
 			if (super.attachTo( target )) {
 				target.invisible++;
-				if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.刺客){
+				if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.冥法刺客){
 					Buff.施加(target, 潜伏.class);
 				}
 				if (target instanceof Hero && ((Hero) target).天赋(Talent.体生匿影)){

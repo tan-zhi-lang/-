@@ -27,8 +27,8 @@ public class 激泥酞酶 extends Item {
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
 		{
-			inputs =  new Class[]{Scroll.class,
-					Runestone.class,};
+			inputs =  new Class[]{Scroll.PlaceHolder.class,
+					Runestone.PlaceHolder.class,};
 			inQuantity = new int[]{1,1};
 
 			cost = 1;

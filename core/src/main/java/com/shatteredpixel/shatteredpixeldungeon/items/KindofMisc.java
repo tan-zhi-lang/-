@@ -196,6 +196,29 @@ public abstract class KindofMisc extends EquipableItem {
 	}
 
 	@Override
+	public boolean doEquip2(final Hero hero) {
+		幸运装备=true;
+		if(hero.belongings.幸运 == null){
+			hero.belongings.幸运 = this;
+		}
+
+		detach( hero.belongings.backpack );
+
+		Talent.装备时(hero, this);
+		activate( hero );
+
+		cursedKnown = true;
+		if (cursed) {
+			equipCursed( hero );
+			GLog.红(Messages.get(this,"equip_cursed",this));
+			Dungeon.hero.sprite.哭泣();
+		}
+
+		hero.spendAndNext( timeToEquip(hero) );
+		return true;
+
+	}
+	@Override
 	public boolean doUnequip(Hero hero, boolean collect, boolean single) {
 		if (super.doUnequip(hero, collect, single)){
 			if (hero.belongings.misc == this) {
@@ -218,6 +241,21 @@ public abstract class KindofMisc extends EquipableItem {
 				hero.belongings.misc9 = null;
 			} else if (hero.belongings.misc10 == this) {
 				hero.belongings.misc10 = null;
+			}
+
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean doUnequip2(Hero hero, boolean collect, boolean single) {
+		if (super.doUnequip(hero, collect, single)){
+			幸运装备=false;
+			if (hero.belongings.幸运 == this) {
+				hero.belongings.幸运 = null;
 			}
 
 			return true;

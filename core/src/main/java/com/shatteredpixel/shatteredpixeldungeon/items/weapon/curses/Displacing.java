@@ -4,6 +4,8 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -19,21 +21,24 @@ public class Displacing extends Weapon.Enchantment {
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage ) {
 
-		float procChance = 1/12f * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance && !defender.properties().contains(Char.Property.IMMOVABLE)){
+		if(defender!=null){
+			float procChance=1/12f*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance&&!defender.properties().contains(Char.Property.IMMOVABLE)){
 
-			int oldpos = defender.pos;
-			if (传送卷轴.teleportChar(defender)){
-				if (Dungeon.level.heroFOV[oldpos]) {
-					CellEmitter.get( oldpos ).start( Speck.factory( Speck.LIGHT ), 0.2f, 3 );
-				}
+				float powerMulti=Math.max(1f,procChance);
+				Buff.施加(defender,Paralysis.class,4*powerMulti);
+				int oldpos=defender.pos;
+				if(传送卷轴.teleportChar(defender)){
+					if(Dungeon.level.heroFOV[oldpos]){
+						CellEmitter.get(oldpos).start(Speck.factory(Speck.LIGHT),0.2f,3);
+					}
 
-				if (defender instanceof Mob && ((Mob) defender).state == ((Mob) defender).HUNTING){
-					((Mob) defender).state = ((Mob) defender).WANDERING;
+					if(defender instanceof Mob&&((Mob)defender).state==((Mob)defender).HUNTING){
+						((Mob)defender).state=((Mob)defender).WANDERING;
+					}
 				}
 			}
 		}
-
 		return damage;
 	}
 

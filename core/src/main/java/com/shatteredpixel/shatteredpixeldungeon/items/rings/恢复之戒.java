@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -18,24 +20,24 @@ public class 恢复之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									  0.236f*soloBuffedBonus());
+									   kw2(0.08f*soloBuffedBonus()));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  0.236f*combinedBuffedBonus(Dungeon.hero));
+							  kw2(0.08f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats",0.236f);
+			return Messages.get(this, "stats",kw2(0.08f));
 		}
 	}
 	
 	
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return 0.236f*(level+1) + "倍";
+		return 0.08f*(level) + "倍";
 	}
 	public static float 恢复( Char target){
-		return 1+0.236f*getBuffedBonus(target, 恢复.class);
+		return 1+0.08f*getBuffedBonus(target, 恢复.class);
 	}
 	@Override
 	protected RingBuff buff( ) {

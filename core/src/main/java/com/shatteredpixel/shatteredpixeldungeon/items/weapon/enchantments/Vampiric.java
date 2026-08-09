@@ -15,29 +15,27 @@ public class Vampiric extends Weapon.Enchantment {
 	
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
-		
-		//chance to heal scales from 5%-30% based on missing HP
-		float missingPercent = (attacker.最大生命 - attacker.生命) / (float)attacker.最大生命;
-		float healChance = 0.05f + .25f*missingPercent;
+		if(defender!=null){
+			//chance to heal scales from 5%-30% based on missing HP
+			float missingPercent=(attacker.最大生命-attacker.生命)/(float)attacker.最大生命;
+			float healChance=0.05f+.25f*missingPercent;
 
-		healChance *= procChanceMultiplier(attacker);
-		
-		if (Random.Float() < healChance
-				&& attacker.alignment != defender.alignment
-				&& (defender.alignment != Char.Alignment.NEUTRAL || defender instanceof Mimic)){
+			healChance*=procChanceMultiplier(attacker);
 
-			float powerMulti = Math.max(1f, healChance);
-			
-			//heals for 50% of damage dealt
-			float healAmt = Math.round(damage * 0.5f * powerMulti);
-			healAmt = Math.min( healAmt, attacker.最大生命 - attacker.生命);
-			
-			if (healAmt > 0 && attacker.isAlive()) {
-				
-				attacker.回血(healAmt);
+			if(Random.Float()<healChance&&attacker.alignment!=defender.alignment&&(defender.alignment!=Char.Alignment.NEUTRAL||defender instanceof Mimic)){
+
+				float powerMulti=Math.max(1f,healChance);
+
+				//heals for 50% of damage dealt
+				float healAmt=Math.round(damage*0.5f*powerMulti);
+				healAmt=Math.min(healAmt,attacker.最大生命-attacker.生命);
+
+				if(healAmt>0&&attacker.isAlive()){
+
+					attacker.回血(healAmt);
+				}
 			}
 		}
-
 		return damage;
 	}
 	

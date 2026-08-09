@@ -6,10 +6,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.割草;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.watabou.utils.Random;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 
 public class 神农锄 extends Weapon{
 
@@ -28,13 +27,7 @@ public class 神农锄 extends Weapon{
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(defender!=null){
-			int level=Math.max(0,强化等级());
-
-			// lvl 0 - 33%
-			// lvl 1 - 50%
-			// lvl 2 - 60%
-			float procChance=(level+1f)/(level+3f)*奥术之戒.enchantPowerMultiplier(attacker);
-			if(Random.Float()<procChance){
+			if(算法.概率学(15)){
 				Dungeon.level.drop(Generator.randomUsingDefaults(Generator.Category.SEED),defender.pos).sprite().drop();
 			}
 		}

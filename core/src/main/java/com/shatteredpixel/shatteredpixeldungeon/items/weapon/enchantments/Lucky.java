@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
@@ -18,38 +18,39 @@ public class Lucky extends Weapon.Enchantment {
 	
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
-		int level = Math.max( 0, weapon.强化等级() );
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
-		// lvl 0 - 10%
-		// lvl 1 ~ 12%
-		// lvl 2 ~ 14%
-		float procChance = (level+4f)/(level+40f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance){
+			// lvl 0 - 10%
+			// lvl 1 ~ 12%
+			// lvl 2 ~ 14%
+			float procChance=(level+4f)/(level+40f)*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
 
-			float powerMulti = Math.max(1f, procChance);
+				float powerMulti=Math.max(1f,procChance);
 
-			//default is -5: 80% common, 20% uncommon, 0% rare
-			//ring level increases by 1 for each 20% above 100% proc rate
-			Buff.施加(defender, LuckProc.class).ringLevel = -10 + Math.round(5*powerMulti);
-		} else {
-			//in rare cases where we attack many times at once (e.g. gladiator fury)
-			// make sure that failed luck procs override prior succeeded ones
-			if (defender.buff(LuckProc.class) != null){
-				defender.buff(LuckProc.class).detach();
+				//default is -5: 80% common, 20% uncommon, 0% rare
+				//ring level increases by 1 for each 20% above 100% proc rate
+				Buff.施加(defender,LuckProc.class).ringLevel=-10+Math.round(5*powerMulti);
+			}else{
+				//in rare cases where we attack many times at once (e.g. gladiator fury)
+				// make sure that failed luck procs override prior succeeded ones
+				if(defender.buff(LuckProc.class)!=null){
+					defender.buff(LuckProc.class).detach();
+				}
 			}
 		}
-		
 		return damage;
 
 	}
 	
 	public static Item genLoot(){
 		//80% common, 20% uncommon, 0% rare
-		return 幸运之戒.genConsumableDrop(-5);
+		return 财富之戒.genConsumableDrop(-5);
 	}
 
 	public static void showFlare( Visual vis ){
-		幸运之戒.showFlareForBonusDrop(vis);
+		财富之戒.showFlareForBonusDrop(vis);
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class Lucky extends Weapon.Enchantment {
 
 		public Item genLoot(){
 			detach();
-			return 幸运之戒.genConsumableDrop(ringLevel);
+			return 财富之戒.genConsumableDrop(ringLevel);
 		}
 	}
 	

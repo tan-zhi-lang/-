@@ -278,7 +278,7 @@ public abstract class ChampionEnemy extends Buff {
 	public static class Growing extends ChampionEnemy {
 
 		{
-			color = 0x111111;
+			color = 0xFFFFFF;
 		}
 
 		private float multiplier = 1.2f;
@@ -328,7 +328,7 @@ public abstract class ChampionEnemy extends Buff {
 	public static class 噩梦 extends ChampionEnemy {
 
 		{
-			color = 0xFFFFFF;
+			color = 0x111111;
 		}
 
 

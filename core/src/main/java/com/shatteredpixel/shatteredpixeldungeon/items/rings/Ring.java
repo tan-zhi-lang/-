@@ -53,7 +53,24 @@ public class Ring extends KindofMisc {
 			put("月亮石", 物品表.月亮石);
 			put("黄金", 物品表.黄金);
 			put("暗淡", 物品表.暗淡);
-			put("虚空", 物品表.虚空);
+
+
+			put("garnet2", 物品表.RING_GARNET2);
+			put("ruby2", 物品表.RING_RUBY2);
+			put("topaz2", 物品表.RING_TOPAZ2);
+			put("emerald2", 物品表.RING_EMERALD2);
+			put("onyx2", 物品表.RING_ONYX2);
+			put("opal2", 物品表.RING_OPAL2);
+			put("tourmaline2", 物品表.RING_TOURMALINE2);
+			put("sapphire2", 物品表.RING_SAPPHIRE2);
+			put("amethyst2", 物品表.RING_AMETHYST2);
+			put("quartz2", 物品表.RING_QUARTZ2);
+			put("agate2", 物品表.RING_AGATE2);
+			put("diamond2", 物品表.RING_DIAMOND2);
+			put("黑曜石2", 物品表.黑曜石2);
+			put("月亮石2", 物品表.月亮石2);
+			put("黄金2", 物品表.黄金2);
+			put("暗淡2", 物品表.暗淡2);
 		}
 	};
 	
@@ -430,10 +447,11 @@ public class Ring extends KindofMisc {
 		}
 	}
 	public static int 新等级(int x){
-		return (int)Math.round(x*
-			   Math.sqrt(
-				Math.sqrt(
-				Math.sqrt(x))));
+		return x;
+//		return (int)Math.round(x*
+//			   Math.sqrt(
+//				Math.sqrt(
+//				Math.sqrt(x))));
 	}
 
 	//just used for ring descriptions

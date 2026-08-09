@@ -445,7 +445,7 @@ public class DwarfKing extends Mob {
 	@Override
 	public void 受伤时(float dmg, Object 来源) {
 		//hero counts as unarmed if they aren't attacking with a weapon and aren't benefiting from force
-		if (来源==Dungeon.hero&&(!武力之戒.fightingUnarmed(Dungeon.hero)||Dungeon.hero.buff(武力之戒.Force.class)!=null)){
+		if (来源==Dungeon.hero&&(!武力之戒.空手(Dungeon.hero)||Dungeon.hero.buff(武力之戒.Force.class)!=null)){
 			Statistics.qualifiedForBossChallengeBadge = false;
 		//Corrosion, corruption, and regrowth do no direct damage and so have their own custom logic
 		//Transfusion damages DK and so doesn't need custom logic

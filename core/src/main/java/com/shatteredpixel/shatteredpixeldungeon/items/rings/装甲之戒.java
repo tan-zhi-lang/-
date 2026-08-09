@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -16,19 +18,14 @@ public class 装甲之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   tier()+3/2f+soloBuffedBonus()/2f,
-									   tier()*(2+3/2f+soloBuffedBonus()/2f),
-									   (tier()+3/2f+soloBuffedBonus()/2f));
+									   kw2(tier()*(1+soloBuffedBonus()/2f)));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  tier()+combinedBuffedBonus(Dungeon.hero),
-											 tier()*(2+3/2f+combinedBuffedBonus(Dungeon.hero)/2f),
-				
-				(tier()+3/2f+combinedBuffedBonus(Dungeon.hero)/2f));
+											  kw2(tier()*(1+combinedBuffedBonus(Dungeon.hero)/2f)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats",1+3/2f,2+3/2f,1+3/2f);
+			return Messages.get(this, "stats",kw2(1));
 		}
 	}
 	
@@ -44,19 +41,26 @@ public class 装甲之戒 extends Ring {
 		}
 		return tier;
 	}
+
+	public static float max(){
+		int x=0;
+		return max(x,tier());
+	}
+
+	public static float max(int lvl,float tier){
+		if(lvl<=0){
+			lvl=0;
+		}
+
+		return Math.max(0,tier*(lvl+1)
+					   )*2;
+	}
 	@Override
 	public String upgradeStat1(int level){
 		if(cursed&&cursedKnown){
 			level=Math.min(-1,level-6);
 		}
-		return (tier()+3/2f+level/2f)+"~"+(tier()*(2+3/2f+level/2f));
-	}
-	@Override
-	public String upgradeStat2(int level){
-		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-6);
-		}
-		return ""+(tier()+3/2f+level/2f);
+		return ""+(tier()*(1+level));
 	}
 	@Override
 	protected RingBuff buff( ) {

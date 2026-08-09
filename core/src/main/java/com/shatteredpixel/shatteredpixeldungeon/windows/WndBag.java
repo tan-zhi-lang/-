@@ -87,7 +87,7 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.横屏() ? COLS_L : COLS_P;
-		nRows = (Dungeon.解压(解压设置.高级背包)?7:COLS_P+1); //we expect to lay out 25 slots in all cases
+		nRows = COLS_P+(Dungeon.解压(解压设置.高级背包)?3:2); //we expect to lay out 25 slots in all cases
 //		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
@@ -245,12 +245,10 @@ public class WndBag extends WndTabbed {
 		placeItem( stuff.misc7 != null ? stuff.misc7 : new Placeholder( 物品表.ITEM));
 		placeItem( stuff.misc8 != null ? stuff.misc8 : new Placeholder( 物品表.ITEM));
 		placeItem( stuff.misc9 != null ? stuff.misc9 : new Placeholder( 物品表.ITEM));
-		if(Dungeon.hero()&&Dungeon.hero.女人()){
-		placeItem( null);
-		}else
-		placeItem( stuff.misc10 != null ? stuff.misc10 : new Placeholder( 物品表.ITEM));
+		placeItem(stuff.misc10!=null?stuff.misc10:new Placeholder(物品表.ITEM));
 
-		int equipped = 5;
+		int equipped = 10;//5 10
+		if(Dungeon.hero.女人())equipped--;
 
 		//the container itself if it's not the root backpack
 		if (container != Dungeon.hero.belongings.backpack){
@@ -261,27 +259,33 @@ public class WndBag extends WndTabbed {
 			if(stuff.weapon!=null){
 				//second weapon always goes to the front of view on main bag
 				placeItem(stuff.weapon);
-				//			equipped++;
+				equipped++;
+
 			}
 			if(stuff.armor!=null){
 				//second weapon always goes to the front of view on main bag
 				placeItem(stuff.armor);
-				//			equipped++;
+				equipped++;
+
 			}
+			if(Dungeon.hero()&&Dungeon.hero.男人())
 			if(stuff.幸运!=null){
 				//second weapon always goes to the front of view on main bag
 				placeItem(stuff.幸运);
-				//			equipped++;
+				equipped++;
+
 			}
 			if(stuff.armor2!=null){
 				//second weapon always goes to the front of view on main bag
 				placeItem(stuff.armor2);
-				//			equipped++;
+				equipped++;
+
 			}
 			if(stuff.secondWep!=null){
 				//second weapon always goes to the front of view on main bag
 				placeItem(stuff.secondWep);
-				//			equipped++;
+				equipped++;
+
 			}
 		}
 

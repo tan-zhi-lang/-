@@ -58,7 +58,7 @@ public class RingOfElements extends Ring {
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return 100f * (1f - Math.pow(0.825f, level+1)) + "%";
+		return 100f * (1f - Math.pow(0.825f, level)) + "%";
 	}
 	
 	@Override

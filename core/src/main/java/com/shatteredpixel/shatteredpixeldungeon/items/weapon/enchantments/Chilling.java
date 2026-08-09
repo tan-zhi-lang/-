@@ -17,28 +17,30 @@ public class Chilling extends Weapon.Enchantment {
 	
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
-		int level = Math.max( 0, weapon.强化等级() );
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
-		// lvl 0 - 25%
-		// lvl 1 - 40%
-		// lvl 2 - 50%
-		float procChance = (level+1f)/(level+4f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
+			// lvl 0 - 25%
+			// lvl 1 - 40%
+			// lvl 2 - 50%
+			float procChance=(level+1f)/(level+4f)*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
 
-			float powerMulti = Math.max(1f, procChance);
+				float powerMulti=Math.max(1f,procChance);
 
-			//adds 3 turns of chill per proc, with a cap of 6 turns
-			float durationToAdd = 3f * powerMulti;
-			Chill existing = defender.buff(Chill.class);
-			if (existing != null){
-				durationToAdd = Math.min(durationToAdd, (6f*powerMulti)-existing.cooldown());
+				//adds 3 turns of chill per proc, with a cap of 6 turns
+				float durationToAdd=3f*powerMulti;
+				Chill existing=defender.buff(Chill.class);
+				if(existing!=null){
+					durationToAdd=Math.min(durationToAdd,(6f*powerMulti)-existing.cooldown());
+				}
+
+				if(durationToAdd>0){
+					Buff.施加(defender,Chill.class,durationToAdd);
+				}
+				Splash.at(defender.sprite.center(),0xFFB2D6FF,5);
+
 			}
-
-			if (durationToAdd > 0) {
-				Buff.施加(defender, Chill.class, durationToAdd);
-			}
-			Splash.at( defender.sprite.center(), 0xFFB2D6FF, 5);
-
 		}
 
 		return damage;

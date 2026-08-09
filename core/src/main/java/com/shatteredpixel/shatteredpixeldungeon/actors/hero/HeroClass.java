@@ -81,7 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.幸运之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.催眠卷轴;
@@ -159,22 +159,22 @@ import com.watabou.utils.Random;
 
 public enum HeroClass{
 	
-	WARRIOR(HeroSubClass.狂战士,HeroSubClass.角斗士,HeroSubClass.奇经八脉),
-	MAGE(HeroSubClass.冰结师,HeroSubClass.大魔法师,HeroSubClass.奇经八脉),
-	盗贼(HeroSubClass.刺客,HeroSubClass.神偷无影,HeroSubClass.奇经八脉),
+	WARRIOR(HeroSubClass.不灭战士,HeroSubClass.战斗法师,HeroSubClass.奇经八脉),
+	MAGE(HeroSubClass.冰魄剑神,HeroSubClass.大魔法师,HeroSubClass.奇经八脉),
+	盗贼(HeroSubClass.冥法刺客,HeroSubClass.神偷无影,HeroSubClass.奇经八脉),
 	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者,HeroSubClass.奇经八脉),
 	
-	DUELIST(HeroSubClass.武器大师,HeroSubClass.武者,HeroSubClass.奇经八脉),
+	DUELIST(HeroSubClass.武器大师,HeroSubClass.角斗士,HeroSubClass.奇经八脉),
 	CLERIC(HeroSubClass.圣骑士,HeroSubClass.祭司,HeroSubClass.奇经八脉),
-	巫女(HeroSubClass.战斗法师,HeroSubClass.黑魔导师,HeroSubClass.奇经八脉),
+	巫女(HeroSubClass.金刚独狼,HeroSubClass.黑魔导师,HeroSubClass.奇经八脉),
 	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵,HeroSubClass.奇经八脉),
-	镜魔(HeroSubClass.灵月杀手,HeroSubClass.不灭战士,HeroSubClass.奇经八脉),
+	镜魔(HeroSubClass.灵魂武者,HeroSubClass.内力武者,HeroSubClass.奇经八脉),
 	道士(HeroSubClass.死灵术士,HeroSubClass.真人,HeroSubClass.奇经八脉),
-	行僧(HeroSubClass.疾行者,HeroSubClass.符文法师,HeroSubClass.奇经八脉),
+	行僧(HeroSubClass.苦行者,HeroSubClass.符文法师,HeroSubClass.奇经八脉),
 	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵,HeroSubClass.奇经八脉),
 	兽灵(HeroSubClass.神兽之灵,HeroSubClass.养殖专家,HeroSubClass.奇经八脉),
 	机器(HeroSubClass.机械教主,HeroSubClass.魔法灵枢,HeroSubClass.奇经八脉),
-	女忍(HeroSubClass.灵魂武者,HeroSubClass.土影,HeroSubClass.奇经八脉),
+	女忍(HeroSubClass.灵月杀手,HeroSubClass.土影,HeroSubClass.奇经八脉),
 	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王,HeroSubClass.奇经八脉),
 	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女,HeroSubClass.奇经八脉),
 	罗兰(HeroSubClass.灾厄化身,HeroSubClass.灵剪刺客,HeroSubClass.奇经八脉),
@@ -182,7 +182,7 @@ public enum HeroClass{
 	灵猫(HeroSubClass.黑白双子,HeroSubClass.猫头鹰,HeroSubClass.奇经八脉),
 	鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠,HeroSubClass.奇经八脉),
 	凌云(HeroSubClass.解咒真人,HeroSubClass.吞噬云烟,HeroSubClass.奇经八脉),
-	血鬼(HeroSubClass.金刚独狼,HeroSubClass.血法师,HeroSubClass.奇经八脉),
+	血鬼(HeroSubClass.狂战士,HeroSubClass.血法师,HeroSubClass.奇经八脉),
 	来世(HeroSubClass.时间刺客,HeroSubClass.戏命师,HeroSubClass.奇经八脉),
 	NONE(HeroSubClass.奇经八脉);
 	
@@ -461,11 +461,10 @@ public enum HeroClass{
 		if(hero.belongings.misc10!=null)
 			hero.belongings.misc10.activate(hero);
 
-		hero.belongings.幸运=new 幸运之戒();
-		hero.belongings.幸运.activate(hero);
-		hero.belongings.幸运.无动作=true;
-		hero.belongings.幸运.鉴定();
-//		hero.belongings.幸运.升级(30);
+//		hero.belongings.misc10=new 幸运之戒();
+//		hero.belongings.misc10.activate(hero);
+//		hero.belongings.misc10.鉴定();
+//		hero.belongings.misc10.升级(30);
 
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			hero.belongings.weapon=null;
@@ -474,7 +473,7 @@ public enum HeroClass{
 			hero.belongings.misc2=null;
 			hero.belongings.misc3=null;
 			hero.belongings.幸运=null;
-			Buff.detach(hero,幸运之戒.Wealth.class);
+			Buff.detach(hero,财富之戒.Wealth.class);
 		}
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 			Item item=new 结晶法杖();

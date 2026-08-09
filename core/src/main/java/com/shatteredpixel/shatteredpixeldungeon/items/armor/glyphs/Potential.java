@@ -17,23 +17,23 @@ public class Potential extends Glyph {
 	
 	@Override
 	public float proc( Armor armor, Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			int level=Math.max(0,armor.强化等级());
 
-		int level = Math.max( 0, armor.强化等级() );
-		
-		// lvl 0 - 16.7%
-		// lvl 1 - 28.6%
-		// lvl 2 - 37.5%
-		float procChance = (level+1f)/(level+6f) * procChanceMultiplier(defender);
-		if (Random.Float() < procChance && defender instanceof Hero) {
+			// lvl 0 - 16.7%
+			// lvl 1 - 28.6%
+			// lvl 2 - 37.5%
+			float procChance=(level+1f)/(level+6f)*procChanceMultiplier(defender);
+			if(Random.Float()<procChance&&defender instanceof Hero){
 
-			float powerMulti = Math.max(1f, procChance);
+				float powerMulti=Math.max(1f,procChance);
 
-			int wands = ((Hero) defender).belongings.charge( powerMulti );
-			if (wands > 0) {
-				defender.sprite.centerEmitter().burst(EnergyParticle.FACTORY, 10);
+				int wands=((Hero)defender).belongings.charge(powerMulti);
+				if(wands>0){
+					defender.sprite.centerEmitter().burst(EnergyParticle.FACTORY,10);
+				}
 			}
 		}
-		
 		return damage;
 	}
 

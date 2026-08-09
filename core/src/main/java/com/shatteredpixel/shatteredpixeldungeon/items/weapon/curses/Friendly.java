@@ -17,23 +17,25 @@ public class Friendly extends Weapon.Enchantment {
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage ) {
 
-		if (attacker.buff(Charm.class) != null && attacker.buff(Charm.class).object == defender.id()){
-			damage = 0;
-		}
+		if(defender!=null){
+			if(attacker.buff(Charm.class)!=null&&attacker.buff(Charm.class).object==defender.id()){
+				damage=0;
+			}
 
-		float procChance = 1/10f * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-			
-			Buff.施加( attacker, Charm.class, Charm.DURATION ).object = defender.id();
-			attacker.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
-			
-			Charm c = Buff.施加( defender, Charm.class, Charm.DURATION/2 );
-			c.ignoreNextHit = true;
-			c.object = attacker.id();
-			defender.sprite.centerEmitter().start( Speck.factory( Speck.HEART ), 0.2f, 5 );
-			
+			float procChance=1/10f*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
+				float powerMulti=Math.max(1f,procChance);
+
+				Buff.施加(attacker,Charm.class,Charm.DURATION*powerMulti).object=defender.id();
+				attacker.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f,5);
+
+				Charm c=Buff.施加(defender,Charm.class,Charm.DURATION/2*powerMulti);
+				c.ignoreNextHit=true;
+				c.object=attacker.id();
+				defender.sprite.centerEmitter().start(Speck.factory(Speck.HEART),0.2f,5);
+
+			}
 		}
-		
 		return damage;
 	}
 	

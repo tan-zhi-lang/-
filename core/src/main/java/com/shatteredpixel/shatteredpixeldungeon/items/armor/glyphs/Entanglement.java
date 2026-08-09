@@ -21,18 +21,20 @@ public class Entanglement extends Glyph {
 	
 	@Override
 	public float proc(Armor armor, Char attacker, final Char defender, final float damage ) {
+		if(defender!=null){
+			final int level=Math.max(0,armor.强化等级());
+			float procChance=1/4f*procChanceMultiplier(defender);
 
-		final int level = Math.max( 0, armor.强化等级() );
-		float procChance = 1/4f * procChanceMultiplier(defender);
+			if(Random.Float()<procChance){
 
-		if (Random.Float() < procChance) {
+				float powerMulti=Math.max(1f,procChance);
 
-			float powerMulti = Math.max(1f, procChance);
+				Buff.施加(defender,Earthroot.Armor.class).level(Math.round((5+2*level)*powerMulti));
+				CellEmitter.bottom(defender.pos).start(EarthParticle.FACTORY,0.05f,8);
+				if(defender==Dungeon.hero)
+					PixelScene.shake(1,0.4f);
 
-			Buff.施加( defender, Earthroot.Armor.class ).level( Math.round((5 + 2 * level)*powerMulti) );
-			CellEmitter.bottom( defender.pos ).start( EarthParticle.FACTORY, 0.05f, 8 );
-			if (defender == Dungeon.hero) PixelScene.shake( 1, 0.4f );
-			
+			}
 		}
 
 		return damage;

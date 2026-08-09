@@ -15,28 +15,25 @@ public class Elastic extends Weapon.Enchantment {
 	
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage ) {
-		int level = Math.max( 0, weapon.强化等级() );
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
-		// lvl 0 - 20%
-		// lvl 1 - 33%
-		// lvl 2 - 43%
-		float procChance = (level+1f)/(level+5f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
+			// lvl 0 - 20%
+			// lvl 1 - 33%
+			// lvl 2 - 43%
+			float procChance=(level+1f)/(level+5f)*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
 
-			float powerMulti = Math.max(1f, procChance);
+				float powerMulti=Math.max(1f,procChance);
 
-			//trace a ballistica to our target (which will also extend past them
-			Ballistica trajectory = new Ballistica(attacker.pos, defender.pos, Ballistica.STOP_TARGET);
-			//trim it to just be the part that goes past them
-			trajectory = new Ballistica(trajectory.collisionPos, trajectory.path.get(trajectory.path.size()-1), Ballistica.PROJECTILE);
-			//knock them back along that ballistica
-			WandOfBlastWave.throwChar(defender,
-					trajectory,
-					Math.round(2 * powerMulti),true,
-					true,
-					this);
+				//trace a ballistica to our target (which will also extend past them
+				Ballistica trajectory=new Ballistica(attacker.pos,defender.pos,Ballistica.STOP_TARGET);
+				//trim it to just be the part that goes past them
+				trajectory=new Ballistica(trajectory.collisionPos,trajectory.path.get(trajectory.path.size()-1),Ballistica.PROJECTILE);
+				//knock them back along that ballistica
+				WandOfBlastWave.throwChar(defender,trajectory,Math.round(2*powerMulti),true,true,this);
+			}
 		}
-		
 		return damage;
 	}
 	

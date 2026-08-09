@@ -81,7 +81,8 @@ public class Kinetic extends Weapon.Enchantment {
 		
 		@Override
 		public boolean act() {
-			preservedDamage -= Math.max(preservedDamage*.025f, 0.1f);
+			float powerMulti = Math.max(1f, Weapon.Enchantment.genericProcChanceMultiplier(target));
+			preservedDamage -= Math.max(preservedDamage*.025f, 0.1f)/powerMulti;
 			if (preservedDamage <= 0) detach();
 			
 			spend(TICK);

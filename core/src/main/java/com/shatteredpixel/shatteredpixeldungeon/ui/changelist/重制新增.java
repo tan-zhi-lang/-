@@ -23,9 +23,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.暴刹秘�
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.玄武秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.血怒秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.破防之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神知之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.身法之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.钢壁之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.镜钓之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.分解菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.清洁菱晶;
@@ -116,6 +124,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.腐化灾兵;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.致胜拳炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.菱形刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.虚哭神去;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蝙蝠棒;
@@ -204,7 +213,7 @@ public class 重制新增{
 
 		changes.addButton( new ChangeButton("","主属性",
 
-		"每个英雄有自己的主属性，最大攻击和防御+主属性-10。\n"+
+		"每个英雄有自己的主属性，最大攻击+主属性-10。\n"+
 			"力量\n" +
 			"1%治疗护盾，0.4%暴击率，1最大生命，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
 
@@ -280,6 +289,7 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		changes.addButton(new ChangeButton(new 腐化灾兵()));
+		changes.addButton(new ChangeButton(new 菱形刀()));
 		changes.addButton(new ChangeButton(new 猪鲨链球()));
 		changes.addButton(new ChangeButton(new 致胜拳炮()));
 		changes.addButton(new ChangeButton(new 钻石镐()));
@@ -498,10 +508,18 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton(new ChangeButton(new 装甲之戒(),"裸衣+(根据力量自适应+3/2+等级/2)~根据力量自适应x(2+3/2+等级/2)的防御，防具+根据力量自适应+3/2+等级/2的最大防御。。"));
-		changes.addButton(new ChangeButton(new 恢复之戒(),"生命再生和护甲再生+0.236x等级。"));
-		changes.addButton(new ChangeButton(new 极肚之戒(),"最大饱腹+100x等级，但是力量+0.5%x等级x(最大饥饿+最大饱腹)。"));
-		changes.addButton(new ChangeButton(new 魔攻之戒(),"施法对目标造成50%魔力+20%等级收益~90%魔力+67%等级收益。"));
+		changes.addButton(new ChangeButton(new 装甲之戒()));
+		changes.addButton(new ChangeButton(new 恢复之戒()));
+		changes.addButton(new ChangeButton(new 极肚之戒()));
+		changes.addButton(new ChangeButton(new 魔攻之戒()));
+		changes.addButton(new ChangeButton(new 强健之戒()));
+		changes.addButton(new ChangeButton(new 钢壁之戒()));
+		changes.addButton(new ChangeButton(new 府备之戒()));
+		changes.addButton(new ChangeButton(new 身法之戒()));
+		changes.addButton(new ChangeButton(new 神知之戒()));
+		changes.addButton(new ChangeButton(new 镜钓之戒()));
+		changes.addButton(new ChangeButton(new 利害之戒()));
+		changes.addButton(new ChangeButton(new 破防之戒()));
 
 		changes.addButton(new ChangeButton(new 鬼帝钟(),"道士开局获得"));
 		changes.addButton(new ChangeButton(new 叛忍护额(),"女忍开局获得"));

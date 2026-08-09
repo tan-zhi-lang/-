@@ -12,11 +12,12 @@ public class 虐待 extends Armor.Glyph {
 
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
-		
-		damage=damage*4.5f/procChanceMultiplier(defender);
-		defender.受伤时(damage,this);
-		if(defender.isAlive()){
-			defender.回血(damage);
+		if(defender!=null){
+			damage=damage*4.5f/procChanceMultiplier(defender);
+			defender.受伤时(damage,this);
+			if(defender.isAlive()){
+				defender.回血(damage);
+			}
 		}
 		return 0;
 	}

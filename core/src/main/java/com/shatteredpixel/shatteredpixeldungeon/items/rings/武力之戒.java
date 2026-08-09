@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -87,16 +86,6 @@ public class 武力之戒 extends Ring{
 	public static float heromax(){
 		return Math.round(Dungeon.hero.力量()-8.5f);
 	}
-	public static float min(){
-		int x=0;
-		if(Dungeon.hero()){
-			if(Dungeon.hero.hasbuff(Force.class)){
-				x=Dungeon.hero.buff(Force.class).buffedLvl();
-			}
-		}
-		return min(x,tier());
-	}
-	
 	public static float max(){
 		int x=0;
 		if(Dungeon.hero()){
@@ -107,25 +96,14 @@ public class 武力之戒 extends Ring{
 		return max(x,tier());
 	}
 	
-	public static float min(int lvl,float tier){
-		if(lvl<=0){
-			lvl=0;
-		}
-		
-		return Math.max(0,Math.round((tier+  //base
-									 lvl     //level scaling
-									 )/2f));
-	}
-	
 	//same as equivalent tier weapon
 	public static float max(int lvl,float tier){
 		if(lvl<=0){
 			lvl=0;
 		}
 		
-		return Math.max(0,Math.round((5*(tier+1)+    //base
-									  lvl*(tier+1)    //level scaling
-									 )/2f));
+		return Math.max(0,tier*(lvl+1)
+									 )*5/2f;
 	}
 	
 	@Override
@@ -133,19 +111,16 @@ public class 武力之戒 extends Ring{
 		float tier=tier();
 		if(已鉴定()){
 			int level=soloBuffedBonus();
-			String info=Messages.get(this,"stats",heromin()+min(level,tier),
-									 heromax()+max(level,tier),
-									 max(level,1));
+			String info=Messages.get(this,"stats",
+									 max(level,tier));
 			if(isEquipped(Dungeon.hero)&&soloBuffedBonus()!=combinedBuffedBonus(Dungeon.hero)){
 				level=combinedBuffedBonus(Dungeon.hero);
-				info+="\n\n"+Messages.get(this,"combined_stats",heromin()+min(level,tier),
-										  heromax()+max(level,tier),
-										  max(level,1));
+				info+="\n\n"+Messages.get(this,"combined_stats",
+										  max(level,tier));
 			}
 			return info;
 		}else{
-			return Messages.get(this,"stats",heromin()+min(0,tier),
-								heromax()+max(0,tier),max(0,1));
+			return Messages.get(this,"stats",max(0,tier));
 		}
 	}
 	
@@ -155,30 +130,9 @@ public class 武力之戒 extends Ring{
 			level=Math.min(-1,level-6);
 		}
 		int tier=tier();
-		return (heromin()+min(level+1,tier))+"~"+(heromax()+max(level+1,tier));
+		return ""+max(level,tier);
 	}
-	
-	@Override
-	public String upgradeStat2(int level){
-		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-6);
-		}
-		return max(level,1)+"";
-	}
-	
-	@Override
-	public String upgradeStat3(int level){
-		if(cursed&&cursedKnown){
-			level=Math.min(-1,level-6);
-		}
-		if(Dungeon.hero!=null&&Dungeon.hero.heroClass(HeroClass.DUELIST)){
-			int tier=tier();
-			int bonus=Math.round(3+tier+(level*((4+2*tier)/8f)));
-			return (min(level+1,tier)+bonus)+"-"+(max(level+1,tier)+bonus);
-		}else{
-			return null;
-		}
-	}
+
 	
 	public class Force extends RingBuff{}
 	
@@ -189,14 +143,14 @@ public class 武力之戒 extends Ring{
 	@Override
 	public void activate(Char ch){
 		super.activate(ch);
-		if(ch instanceof Hero&&((Hero)ch).heroClass(HeroClass.DUELIST)){
-//			Buff.施加(ch,MeleeWeapon.Charger.class);
+		if(ch instanceof Hero){
+			Buff.施加(ch,Weapon.Charger.class);
 		}
 	}
 	
 	@Override
 	public String defaultAction(){
-		if(Dungeon.hero!=null&&Dungeon.hero.heroClass(HeroClass.DUELIST)){
+		if(Dungeon.hero!=null){
 			return AC_ABILITY;
 		}else{
 			return super.defaultAction();
@@ -206,7 +160,7 @@ public class 武力之戒 extends Ring{
 	@Override
 	public ArrayList<String> actions(Hero hero){
 		ArrayList<String> actions=super.actions(hero);
-		if(isEquipped(hero)&&hero.heroClass(HeroClass.DUELIST)){
+		if(isEquipped(hero)){
 			actions.add(AC_ABILITY);
 		}
 		return actions;
@@ -271,19 +225,17 @@ public class 武力之戒 extends Ring{
 		return info;
 	}
 	
-	public static boolean fightingUnarmed(Hero hero){
+	public static boolean 空手(Hero hero){
 
 		if(hero.belongings!=null){
-			if(hero.belongings.weapon==null&&hero.belongings.secondWep==null)
-				return true;
-
-			if(hero.belongings.attackingWeapon()==null
-			   ||hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
+			if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 				return true;
 			}
-			if(hero.belongings.thrownWeapon!=null||hero.belongings.abilityWeapon!=null){
-				return false;
-			}
+			if(hero.belongings.weapon==null
+			   &&hero.belongings.secondWep==null
+			&&hero.belongings.thrownWeapon==null
+			)
+				return true;
 		}
 		BrawlersStance stance=hero.buff(BrawlersStance.class);
 		if(stance!=null&&stance.active){
@@ -298,32 +250,7 @@ public class 武力之戒 extends Ring{
 		}
 		return false;
 	}
-	
-	public static boolean unarmedGetsWeaponEnchantment(Hero hero){
-		if(hero.belongings.attackingWeapon()==null){
-			return false;
-		}
-		if(hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
-			return hero.buff(MonkEnergy.MonkAbility.FlurryEmpowerTracker.class)!=null;
-		}
-		BrawlersStance stance=hero.buff(BrawlersStance.class);
-		if(stance!=null&&stance.active){
-			return true;
-		}
-		return false;
-	}
-	
-	public static boolean unarmedGetsWeaponAugment(Hero hero){
-		if(hero.belongings.attackingWeapon()==null||hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
-			return false;
-		}
-		BrawlersStance stance=hero.buff(BrawlersStance.class);
-		if(stance!=null&&stance.active){
-			return true;
-		}
-		return false;
-	}
-	
+
 	public static class BrawlersStance extends Buff{
 		
 		{

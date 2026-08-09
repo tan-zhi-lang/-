@@ -16,27 +16,22 @@ public class Repulsion extends Armor.Glyph {
 	
 	@Override
 	public float proc( Armor armor, Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			int level=Math.max(0,armor.强化等级());
 
-		int level = Math.max( 0, armor.强化等级() );
+			// lvl 0 - 20%
+			// lvl 1 - 33%
+			// lvl 2 - 43%
+			float procChance=(level+1f)/(level+5f)*procChanceMultiplier(defender);
+			if(Dungeon.level.相邻(attacker.pos,defender.pos)&&Random.Float()<procChance){
 
-		// lvl 0 - 20%
-		// lvl 1 - 33%
-		// lvl 2 - 43%
-		float procChance = (level+1f)/(level+5f) * procChanceMultiplier(defender);
-		if (Dungeon.level.相邻(attacker.pos,defender.pos)&&Random.Float()<procChance){
+				float powerMulti=Math.max(1f,procChance);
 
-			float powerMulti = Math.max(1f, procChance);
-
-			int oppositeHero = attacker.pos + (attacker.pos - defender.pos);
-			Ballistica trajectory = new Ballistica(attacker.pos, oppositeHero, Ballistica.MAGIC_BOLT);
-			WandOfBlastWave.throwChar(attacker,
-					trajectory,
-					Math.round(2 * powerMulti),
-					true,
-					true,
-					this);
+				int oppositeHero=attacker.pos+(attacker.pos-defender.pos);
+				Ballistica trajectory=new Ballistica(attacker.pos,oppositeHero,Ballistica.MAGIC_BOLT);
+				WandOfBlastWave.throwChar(attacker,trajectory,Math.round(2*powerMulti),true,true,this);
+			}
 		}
-		
 		return damage;
 	}
 

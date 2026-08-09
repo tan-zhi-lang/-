@@ -23,6 +23,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
+import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.GameAction;
 import com.watabou.input.KeyBindings;
@@ -136,7 +137,7 @@ public class InventoryPane extends Component {
 		};
 
 		equipped = new ArrayList<>();
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < (Dungeon.hero.女人()?9:10); i++){//装备栏
 			InventorySlot btn = new InventoryPaneSlot(null);
 			equipped.add(btn);
 			add(btn);
@@ -159,14 +160,14 @@ public class InventoryPane extends Component {
 		add(promptTxt);
 
 		bagItems = new ArrayList<>();
-		for (int i = 0; i < 20; i++){
+		for (int i=0; i < 20+(Dungeon.解压(解压设置.高级背包)?5:0);i++){
 			InventorySlot btn = new InventoryPaneSlot(null);
 			bagItems.add(btn);
 			add(btn);
 		}
 
 		bags = new ArrayList<>();
-		for (int i = 0; i < 5; i++){
+		for (int i = 0; i < 6; i++){//背包
 			BagButton btn = new BagButton(null, i+1);
 			bags.add(btn);
 			add(btn);
@@ -292,11 +293,8 @@ public class InventoryPane extends Component {
 		equipped.get(6).item(stuff.misc7 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc7);
 		equipped.get(7).item(stuff.misc8 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc8);
 		equipped.get(8).item(stuff.misc9 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc9);
-		if(Dungeon.hero()&&Dungeon.hero.女人()){
-			equipped.get(9).item(null);
 
-		}else
-			equipped.get(9).item(stuff.misc10 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc10);
+		equipped.get(9).item(stuff.misc10==null? new WndBag.Placeholder(物品表.ITEM):stuff.misc10);
 
 		ArrayList<Item> items = (ArrayList<Item>) lastBag.items.clone();
 		if(lastBag == stuff.backpack){
@@ -306,6 +304,7 @@ public class InventoryPane extends Component {
 			if(stuff.armor!=null){
 				items.add(1,stuff.armor);
 			}
+			if(Dungeon.hero()&&Dungeon.hero.男人())
 			if(stuff.幸运!=null)
 			{
 				items.add(2,stuff.幸运);
@@ -319,7 +318,7 @@ public class InventoryPane extends Component {
 		}
 
 		int j = 0;
-		for (int i = 0; i < 20; i++){
+		for (int i = 0; i < 20+(Dungeon.解压(解压设置.高级背包)?5:0); i++){
 			if (i == 0 && lastBag != stuff.backpack){
 				bagItems.get(i).item(lastBag);
 				continue;

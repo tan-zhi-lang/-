@@ -18,17 +18,18 @@ public class Corrosion extends Armor.Glyph {
 
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
-
-		float procChance = 1/10f * procChanceMultiplier(defender);
-		if ( Random.Float() < procChance ) {
-			int pos = defender.pos;
-			for (int i : PathFinder.自相邻){
-				Splash.at(pos+i, 0x000000, 5);
-				if (Actor.findChar(pos+i) != null)
-					Buff.施加(Actor.findChar(pos+i), Ooze.class).set( Ooze.DURATION/2 );
+		if(defender!=null){
+			float procChance=1/10f*procChanceMultiplier(defender);
+			if(Random.Float()<procChance){
+				float powerMulti=Math.max(1f,procChance);
+				int pos=defender.pos;
+				for(int i: PathFinder.自相邻){
+					Splash.at(pos+i,0x000000,5);
+					if(Actor.findChar(pos+i)!=null)
+						Buff.施加(Actor.findChar(pos+i),Ooze.class).set(Ooze.DURATION/2*powerMulti);
+				}
 			}
 		}
-
 		return damage;
 	}
 

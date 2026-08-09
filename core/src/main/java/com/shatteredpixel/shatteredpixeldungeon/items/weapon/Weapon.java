@@ -35,7 +35,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.神兵之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
@@ -314,7 +313,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 
-		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&技能()!=null){
+		if (Dungeon.hero()&&isEquipped(Dungeon.hero)&&charger!=null&&技能()!=null){
 			actions.add(AC_ABILITY);
 		}
 		return actions;
@@ -340,7 +339,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
-		if (action.equals(AC_ABILITY)&&技能()!=null){
+		if (action.equals(AC_ABILITY)&&charger!=null&&技能()!=null){
 			if (!isEquipped(hero)) {
 				GLog.橙(Messages.get(this,"ability_need_equip"));
 			} else if (力量() > hero.力量()){
@@ -560,7 +559,6 @@ abstract public class Weapon extends KindOfWeapon {
 	public int 强化等级() {
 		int x=0;
 		if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
-			x+=0.75f*神兵之戒.levelBonus(Dungeon.hero);
 
 			x+=Dungeon.hero.天赋点数(Talent.高阶配装);
 
@@ -580,7 +578,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if (other instanceof Weapon) {
 				evaluatingTwinUpgrades = true;
 				int otherLevel = other.强化等级()+x;
-				if(hasEnchant(传说.class))otherLevel*=1.3f;
+				if(hasEnchant(传说.class))otherLevel*=1.3f*Enchantment.genericProcChanceMultiplier(Dungeon.hero);
 				evaluatingTwinUpgrades = false;
 				
 				//weaker weapon needs to be 2/1/0 tiers lower, based on talent level
@@ -593,7 +591,7 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		x+=super.强化等级();
 
-		if(hasEnchant(传说.class))x*=1.3f;
+		if(hasEnchant(传说.class))x*=1.3f*Enchantment.genericProcChanceMultiplier(Dungeon.hero);
 		return x;
 	}
 	
@@ -1036,7 +1034,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击(int lvl) {
-		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*(伤害()*投掷()*1.5f)));
+		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*(伤害()*投掷())));
 //		return Math.round(最小+(2*tier()+lvl)*(伤害()));
 	}
 	
@@ -1047,7 +1045,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击(int lvl) {
-		return augment.damageFactor(最大+(5 * (tier()+1) +(tier()+1)*lvl )*(伤害()*投掷()*1.5f));
+		return augment.damageFactor(最大+(5 * (tier()+1) +(tier()+1)*lvl )*(伤害()*投掷()));
 //		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害()));
 	}
 	
@@ -1158,6 +1156,8 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 投掷攻击时(Char attacker, Char defender, float damage) {
+
+		if(defender!=null)
 		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.天赋点数(Talent.SHARED_ENCHANTMENT)){
 			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
 			if (bow != null && bow.enchantment != null && Dungeon.hero.buff(MagicImmune.class) == null) {
@@ -1176,25 +1176,6 @@ abstract public class Weapon extends KindOfWeapon {
 		float result = super.投掷攻击时(attacker, defender, damage);
 		result = super.攻击时(attacker, defender, damage);
 
-		if(defender!=null){
-		boolean becameAlly = false;
-		boolean wasAlly = defender.alignment == Char.Alignment.ALLY;
-		if (attacker.buff(MagicImmune.class) == null) {
-			Enchantment trinityEnchant = null;
-
-			if (enchantment != null) {
-				damage = enchantment.proc(this, attacker, defender, damage);
-				if (defender.alignment == Char.Alignment.ALLY && !wasAlly) {
-					becameAlly = true;
-				}
-			}
-
-			if (defender.isAlive() && !becameAlly && trinityEnchant != null){
-				damage = trinityEnchant.proc(this, attacker, defender, damage);
-			}
-
-		}
-		}
 		if(defender!=null)
 		if (!已鉴定()&& attacker == Dungeon.hero) {
 			float uses =  Talent.鉴定速度(Dungeon.hero,this);
@@ -1210,7 +1191,8 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		}
-		
+
+		if(defender!=null)
 		if (attacker == Dungeon.hero && defender!=null&&!已鉴定() && ShardOfOblivion.passiveIDDisabled()){
 			Buff.延长(Dungeon.hero, ShardOfOblivion.ThrownUseTracker.class, 50f);
 		}
@@ -1520,13 +1502,6 @@ abstract public class Weapon extends KindOfWeapon {
 			reach=连招范围;
 		}
 
-		if (owner instanceof Hero&&武力之戒.fightingUnarmed((Hero) owner)){
-			reach = 1; //brawlers stance benefits from enchantments, but not innate reach
-			if (!武力之戒.unarmedGetsWeaponEnchantment((Hero) owner)){
-				return reach;
-			}
-		}
-
 		if (hasEnchant(Projecting.class, owner)){
 			return reach + Math.round(Enchantment.genericProcChanceMultiplier(owner));
 		} else {
@@ -1775,7 +1750,6 @@ abstract public class Weapon extends KindOfWeapon {
 					multi+=0.5f;
 				}
 				multi*=1+hero.天赋点数(Talent.附魔打击,0.25f);
-				multi*=1+hero.天赋点数(Talent.盈能打击,0.25f);
 				multi*=1+hero.天赋点数(Talent.SHARED_ENCHANTMENT,0.12f);
 			}
 //			if (attacker.buff(符文之刃.RunicSlashTracker.class)!=null){

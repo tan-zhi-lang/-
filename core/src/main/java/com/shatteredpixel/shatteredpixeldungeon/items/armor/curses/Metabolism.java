@@ -18,27 +18,29 @@ public class Metabolism extends Glyph {
 	
 	@Override
 	public float proc( Armor armor, Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			float procChance=1/6f*procChanceMultiplier(defender);
+			if(Random.Float()<procChance&&defender instanceof Hero){
 
-		float procChance = 1/6f * procChanceMultiplier(defender);
-		if ( Random.Float() < procChance && defender instanceof Hero) {
+				//assumes using up 10% of starving, and healing of 1 hp per 10 turns;
+				float healing=Math.min(Hunger.STARVING/100,defender.最大生命-defender.生命);
 
-			//assumes using up 10% of starving, and healing of 1 hp per 10 turns;
-			float healing = Math.min(Hunger.STARVING/100, defender.最大生命 - defender.生命);
+				float powerMulti=Math.max(1f,procChance);
+				healing*=healing;
+				if(healing>0){
 
-			if (healing > 0) {
-				
-				Hunger hunger = Buff.施加(defender, Hunger.class);
-				
-				if (!hunger.isStarving()) {
-					
-					hunger.吃饭( healing * -10 );
-					
-					defender.回血(healing);
+					Hunger hunger=Buff.施加(defender,Hunger.class);
+
+					if(!hunger.isStarving()){
+
+						hunger.吃饭(healing*-10);
+
+						defender.回血(healing);
+					}
 				}
-			}
 
+			}
 		}
-		
 		return damage;
 	}
 

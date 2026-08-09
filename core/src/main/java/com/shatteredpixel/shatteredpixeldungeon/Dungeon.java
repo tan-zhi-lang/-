@@ -39,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.优惠卡;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
@@ -501,6 +502,9 @@ public class Dungeon {
 			if(符文("太合理了"))
 				if(c.老鬼()||c.小老鬼())x*=0.2f;
 				else x*=2;
+
+			if(Dungeon.hero())
+			x*=府备之戒.综合属性(Dungeon.hero);
 
 			if(Dungeon.赛季(赛季设置.规则怪谈)){
 				x*=1+gold/100f;

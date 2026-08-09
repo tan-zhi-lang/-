@@ -30,7 +30,7 @@ public class Invisibility extends FlavourBuff {
 			if(target instanceof Hero hero){
 				if(hero.符文("偷偷变强一鸣惊人"))hero.力量++;
 			}
-			if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.刺客){
+			if (target instanceof Hero && ((Hero) target).subClass == HeroSubClass.冥法刺客){
 				Buff.施加(target, 潜伏.class);
 			}
 			if (target instanceof Hero && ((Hero) target).天赋(Talent.体生匿影)){

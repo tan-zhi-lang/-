@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
@@ -42,10 +43,15 @@ public class Belongings implements Iterable<Item> {
 					cap++;
 				}
 			}
-//			if (Dungeon.hero() && Dungeon.hero.belongings.secondWep != null){
-//				//secondary weapons still occupy an inv. slot
-//				cap--;
-//			}
+			//secondary weapons still occupy an inv. slot
+			if(Dungeon.hero()){
+//				if(Dungeon.hero.belongings.armor!=null) cap--;
+//				if(Dungeon.hero.belongings.weapon!=null) cap--;
+//				if(Dungeon.hero.belongings.幸运!=null) cap--;
+//				if(Dungeon.hero.belongings.armor2!=null) cap--;
+//				if(Dungeon.hero.belongings.secondWep!=null) cap--;
+
+			}
 			return cap;
 		}
 	}
@@ -149,9 +155,11 @@ public class Belongings implements Iterable<Item> {
 	// such as when equipping something, showing an interface, or dealing with items from a dead hero
 
 	//normally the primary equipped weapon, but can also be a thrown weapon or an ability's weapon
-	public Weapon attackingWeapon(){
+	public Weapon 投掷武器(){
 		if (thrownWeapon != null) return thrownWeapon;
-		if (abilityWeapon != null) return abilityWeapon;
+		return null;
+	}public Weapon attackingWeapon(){
+		if (thrownWeapon != null) return thrownWeapon;
 		return weapon();
 	}
 
@@ -188,12 +196,18 @@ public class Belongings implements Iterable<Item> {
 
 	}
 
+	public boolean hasweapon1(){
+		return weapon1()!=null;
+	}
 	public Weapon weapon1(){
 		if (!lostInventory() || (weapon != null && weapon.keptThroughLostInventory())){
 			return weapon;
 		} else {
 			return null;
 		}
+	}
+	public boolean hasweapon2(){
+		return weapon2()!=null;
 	}
 	public Weapon weapon2(){
 		if (!lostInventory() || (secondWep != null && secondWep.keptThroughLostInventory())){
@@ -202,6 +216,7 @@ public class Belongings implements Iterable<Item> {
 			return null;
 		}
 	}
+
 	public Armor armor(){
 		if (!lostInventory() ){
 			//if the hero has two weapons (champion), pick the stronger one
@@ -224,12 +239,18 @@ public class Belongings implements Iterable<Item> {
 		return null;
 	}
 
+	public boolean hasarmor1(){
+		return armor1()!=null;
+	}
 	public Armor armor1(){
 		if (!lostInventory() || (armor != null && armor.keptThroughLostInventory())){
 			return armor;
 		} else {
 			return null;
 		}
+	}
+	public boolean hasarmor2(){
+		return armor2()!=null;
 	}
 	public Armor armor2(){
 		if (!lostInventory() || (armor2 != null && armor2.keptThroughLostInventory())){
@@ -450,6 +471,62 @@ public class Belongings implements Iterable<Item> {
 		}
 
 		return result;
+	}
+	public boolean weapon盾(){
+		boolean 是=false;
+		if(weapon!=null&&weapon.盾())
+			是=true;
+		if(secondWep!=null&&secondWep.盾())
+			是=true;
+		return 是;
+	}
+	public boolean weapon剑(){
+		boolean 是=false;
+		if(weapon!=null&&weapon.剑())
+			是=true;
+		if(secondWep!=null&&secondWep.剑())
+			是=true;
+		return 是;
+	}
+	public boolean weapon锤(){
+		boolean 是=false;
+		if(weapon!=null&&weapon.锤())
+			是=true;
+		if(secondWep!=null&&secondWep.锤())
+			是=true;
+		return 是;
+	}
+	public boolean weapon斧(){
+		boolean 是=false;
+		if(weapon!=null&&weapon.斧())
+			是=true;
+		if(secondWep!=null&&secondWep.斧())
+			是=true;
+		return 是;
+	}
+	public boolean weapon棍(){
+		boolean 是=false;
+		if(weapon!=null&&weapon.棍())
+			是=true;
+		if(secondWep!=null&&secondWep.棍())
+			是=true;
+		return 是;
+	}
+	public boolean weapon鞭(){
+		boolean 是=false;
+		if(weapon!=null&&weapon.鞭())
+			是=true;
+		if(secondWep!=null&&secondWep.鞭())
+			是=true;
+		return 是;
+	}
+	public boolean weapon刀(){
+		boolean 是=false;
+		if(weapon!=null&&weapon.刀())
+			是=true;
+		if(secondWep!=null&&secondWep.刀())
+			是=true;
+		return 是;
 	}
 	public boolean weapon(Class itemClass){
 		return itemClass.isInstance( weapon )||itemClass.isInstance( secondWep );
@@ -705,7 +782,7 @@ public class Belongings implements Iterable<Item> {
 		
 		private Item[] equipped = {weapon, armor, misc, misc2, misc3, 幸运,
 				secondWep, armor2, misc4, misc5
-				,misc6,misc8,misc9,misc10
+				,misc6,misc7,misc8,misc9,misc10
 		};
 		private int backpackIndex = equipped.length;
 		

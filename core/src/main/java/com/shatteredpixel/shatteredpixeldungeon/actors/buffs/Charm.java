@@ -32,7 +32,7 @@ public class Charm extends FlavourBuff {
 			if(target instanceof Hero hero){
 				if(hero.女人())
 					Dungeon.level.dropRandomCell(new Dewdrop(),target.pos);
-				else
+				if(hero.男人())
 					Dungeon.level.dropRandomCell(new LiquidMetal(),target.pos);
 			}else {
 

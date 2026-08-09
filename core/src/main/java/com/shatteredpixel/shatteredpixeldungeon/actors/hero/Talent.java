@@ -99,13 +99,13 @@ public enum Talent {
 
 	纹章荣耀(9, 4), 力大无穷(10,4),
 	//Berserker T3
-	洪荒之怒(11,4), 血气旺盛(12,4), 嗜血成性(13,4),
-	//Gladiator T3
-	连战热忱(14,4), 以战养战(15,4), 连击强化(16,4),
+	不灭之魂(11,4),怀恨在心(12,4),慷慨赴死(13,4),
+	充能护甲(14,4),MYSTICAL_CHARGE(15,4),盈能打击(16,4),
 
+	//Gladiator T3
 	高级魔杖(x2+9,4),轻便法典(x2+10,4),
 	//Battlemage T3
-	寒冰之境(x2+11, 4), 冰魄之弓(x2+12,4), 冰封领域(x2+13,4),
+	寒冰之境(x2+11, 4), 冰魄成剑(x2+12,4), 冰封领域(x2+13,4),
 	SHIELD_BATTERY(x2+14, 4), 破冰飞刃(x2+15,4), 元素掌控(x2+16,4),
 	//Elemental Blast T4
 	//Wild Magic T4
@@ -128,12 +128,13 @@ public enum Talent {
 	//Champion T3
 	双武格挡(139,4), TWIN_UPGRADES(140,4), 复合损伤(141,4),
 	//Monk T3
-	UNENCUMBERED_SPIRIT(142, 4), MONASTIC_VIGOR(143, 4), COMBINED_ENERGY(144, 4),
+	连战热忱(142,4), 以战养战(143,4), 连击强化(144,4),
 	//Challenge T4
 	CLOSE_THE_GAP(145, 4), INVIGORATING_VICTORY(146, 4), ELIMINATION_MATCH(147, 4),
 	//Elemental Strike T4
 	ELEMENTAL_REACH(148, 4), STRIKING_FORCE(149, 4), DIRECTED_POWER(150, 4),
 	//Feint T4
+
 	FEIGNED_RETREAT(151, 4), EXPOSE_WEAKNESS(152, 4), COUNTER_ABILITY(153, 4),
 
 	//Cleric T2
@@ -145,17 +146,16 @@ public enum Talent {
 
 	血爆巫术(x7+8,3),
 	顶福精华(x7+9,4),强能处消(x7+10,4),
-	高级痛命(x7+11,4),高级死血(x7+12,4),高级吸血(x7+13,4),
-
-	EMPOWERED_STRIKE(x7+14,4),MYSTICAL_CHARGE(x7+15,4),盈能打击(x7+16,4),
+	嗜血如故(x7+11,4),兽性猎手(x7+12,4),追捕猎物(x7+13,4),
+	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
 
 	冰门高攻(x8+9,4),冰门高防(x8+10,4),
 	以攻为守(x8+11,4),用盾诀窍(x8+12,4),高阶盾武(x8+13,4),
 	快速布阵(x8+14,4),全副武装(x8+15,4),步兵冲锋(x8+16,4),
 
 	分身升力(x9+9,4),镜板镀层(x9+10,4),
-	蓄势待发(x9+11,4),错失良机(x9+12,4),偷袭姿态(x9+13,4),
-	不灭之魂(x9+14,4),怀恨在心(x9+15,4),慷慨赴死(x9+16,4),
+	灵魂摄击(x9+11,4),生命汲取(x9+12,4),灵魂烈焰(x9+13,4),
+	UNENCUMBERED_SPIRIT(x9+14, 4), MONASTIC_VIGOR(x9+15, 4), COMBINED_ENERGY(x9+16, 4),
 
 
 	残魂侵蚀(x10+9,4),轻便帝钟(x10+10,4),
@@ -179,7 +179,7 @@ public enum Talent {
 	高额炼化(x14+14,4),能量守恒(x14+15,4),能量迸发(x14+16,4),
 
 	元素之力(x15+9,4),轻便护额(x15+10,4),
-	灵魂摄击(x15+11,4),生命汲取(x15+12,4),灵魂烈焰(x15+13,4),
+	蓄势待发(x15+11,4),错失良机(x15+12,4),偷袭姿态(x15+13,4),
 	砂之守护(x15+14,4),绝密尘遁(x15+15,4),浮石冲浪(x15+16,4),
 
 	戒之九型(x16+9,4),命运罗盘(x16+10,4),
@@ -212,7 +212,7 @@ public enum Talent {
 	全面吞噬(x22+14,4),机体解构(x22+15,4),纯极密度(x22+16,4),
 
 	死亡抗拒(x23+9,4),适应身体(x23+10,4),
-	嗜血如故(x23+11,4),兽性猎手(x23+12,4),追捕猎物(x23+13,4),
+	洪荒之怒(x23+11,4), 血气旺盛(x23+12,4), 嗜血成性(x23+13,4),
 	血之潮汐(x23+14,4),血色契约(x23+15,4),鲜血转换(x23+16,4),
 
 	来世金币(x24+9,4),来世能量(x24+10,4),
@@ -979,19 +979,19 @@ public enum Talent {
 			case 奇经八脉: default:
 				Collections.addAll(tierTalents,任督二脉,洗筋伐髓,八门遁甲);
 				break;
-			case 狂战士:
-				Collections.addAll(tierTalents,洪荒之怒,血气旺盛,嗜血成性);
+			case 不灭战士:
+				Collections.addAll(tierTalents, 不灭之魂, 怀恨在心, 慷慨赴死);
 				break;
-			case 角斗士:
-				Collections.addAll(tierTalents,连战热忱,以战养战,连击强化);
+			case 战斗法师:
+				Collections.addAll(tierTalents,充能护甲,MYSTICAL_CHARGE,盈能打击);
 				break;
-			case 冰结师:
-				Collections.addAll(tierTalents,寒冰之境,冰魄之弓,冰封领域);
+			case 冰魄剑神:
+				Collections.addAll(tierTalents,寒冰之境,冰魄成剑,冰封领域);
 				break;
 			case 大魔法师:
 				Collections.addAll(tierTalents,SHIELD_BATTERY, 破冰飞刃, 元素掌控);
 				break;
-			case 刺客:
+			case 冥法刺客:
 				Collections.addAll(tierTalents, ENHANCED_LETHALITY, ASSASSINS_REACH, BOUNTY_HUNTER);
 				break;
 			case 神偷无影:
@@ -1006,8 +1006,8 @@ public enum Talent {
 			case 武器大师:
 				Collections.addAll(tierTalents,双武格挡,TWIN_UPGRADES,复合损伤);
 				break;
-			case 武者:
-				Collections.addAll(tierTalents, UNENCUMBERED_SPIRIT, MONASTIC_VIGOR, COMBINED_ENERGY);
+			case 角斗士:
+				Collections.addAll(tierTalents,连战热忱,以战养战,连击强化);
 				break;
 			case 圣骑士:
 				Collections.addAll(tierTalents,神圣之触,守御灵光,神圣屏障);
@@ -1015,11 +1015,11 @@ public enum Talent {
 			case 祭司:
 				Collections.addAll(tierTalents,神圣长枪,神圣领域,祈愿诗篇);
 				break;
+			case 金刚独狼:
+				Collections.addAll(tierTalents,嗜血如故,兽性猎手,追捕猎物);
+				break;
 			case 黑魔导师:
 				Collections.addAll(tierTalents, 高级痛命, 高级死血, 高级吸血);
-				break;
-			case 战斗法师:
-				Collections.addAll(tierTalents,EMPOWERED_STRIKE,MYSTICAL_CHARGE,盈能打击);
 				break;
 			case 盾之勇者:
 				Collections.addAll(tierTalents,以攻为守,用盾诀窍,高阶盾武);
@@ -1027,11 +1027,11 @@ public enum Talent {
 			case 轻装步兵:
 				Collections.addAll(tierTalents,快速布阵,全副武装,步兵冲锋);
 				break;
-			case 灵月杀手:
-				Collections.addAll(tierTalents, 蓄势待发, 错失良机, 偷袭姿态);
+			case 灵魂武者:
+				Collections.addAll(tierTalents,灵魂摄击,生命汲取,灵魂烈焰);
 				break;
-			case 不灭战士:
-				Collections.addAll(tierTalents, 不灭之魂, 怀恨在心, 慷慨赴死);
+			case 内力武者:
+				Collections.addAll(tierTalents, UNENCUMBERED_SPIRIT, MONASTIC_VIGOR, COMBINED_ENERGY);
 				break;
 			case 死灵术士:
 				Collections.addAll(tierTalents, SOUL_EATER, SOUL_SIPHON, NECROMANCERS_MINIONS);
@@ -1039,7 +1039,7 @@ public enum Talent {
 			case 真人:
 				Collections.addAll(tierTalents, 控物术法, 诡异身法, 金光护罩);
 				break;
-			case 疾行者:
+			case 苦行者:
 				Collections.addAll(tierTalents, EVASIVE_ARMOR, PROJECTILE_MOMENTUM, SPEEDY_STEALTH);
 				break;
 			case 符文法师:
@@ -1063,8 +1063,8 @@ public enum Talent {
 			case 魔法灵枢:
 				Collections.addAll(tierTalents,高额炼化,能量守恒,能量迸发);
 				break;
-			case 灵魂武者:
-				Collections.addAll(tierTalents,灵魂摄击,生命汲取,灵魂烈焰);
+			case 灵月杀手:
+				Collections.addAll(tierTalents, 蓄势待发, 错失良机, 偷袭姿态);
 				break;
 			case 土影:
 				Collections.addAll(tierTalents,砂之守护,绝密尘遁,浮石冲浪);
@@ -1111,8 +1111,8 @@ public enum Talent {
 			case 吞噬云烟:
 				Collections.addAll(tierTalents,全面吞噬,机体解构,纯极密度);
 				break;
-			case 金刚独狼:
-				Collections.addAll(tierTalents,嗜血如故,兽性猎手,追捕猎物);
+			case 狂战士:
+				Collections.addAll(tierTalents,洪荒之怒,血气旺盛,嗜血成性);
 				break;
 			case 血法师:
 				Collections.addAll(tierTalents,血之潮汐,血色契约,鲜血转换);

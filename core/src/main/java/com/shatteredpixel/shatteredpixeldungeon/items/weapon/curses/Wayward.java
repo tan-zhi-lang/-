@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -17,12 +18,18 @@ public class Wayward extends Weapon.Enchantment {
 
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
-		float procChance = 1/4f * procChanceMultiplier(attacker);
+		if(defender!=null){
+			float procChance=1/4f*procChanceMultiplier(attacker);
 
-		if (attacker.buff(WaywardBuff.class) != null){
-			Buff.detach(attacker, WaywardBuff.class);
-		} else if (Random.Float() < procChance){
-			Buff.延长(attacker, WaywardBuff.class, WaywardBuff.DURATION);
+			if(attacker.buff(WaywardBuff.class)!=null){
+				Buff.detach(attacker,WaywardBuff.class);
+				Buff.detach(defender,Hex.class);
+			}else
+				if(Random.Float()<procChance){
+					float powerMulti=Math.max(1f,procChance);
+					Buff.延长(attacker,WaywardBuff.class,WaywardBuff.DURATION*powerMulti);
+					Buff.延长(defender,Hex.class,Hex.DURATION*powerMulti);
+				}
 		}
 
 		return damage;

@@ -18,33 +18,34 @@ public class Blazing extends Weapon.Enchantment {
 	
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
-		int level = Math.max( 0, weapon.强化等级() );
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
-		// lvl 0 - 33%
-		// lvl 1 - 50%
-		// lvl 2 - 60%
-		float procChance = (level+1f)/(level+3f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
+			// lvl 0 - 33%
+			// lvl 1 - 50%
+			// lvl 2 - 60%
+			float procChance=(level+1f)/(level+3f)*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
 
-			float powerMulti = Math.max(1f, procChance);
+				float powerMulti=Math.max(1f,procChance);
 
-			if (defender.buff(燃烧.class) == null){
-				Buff.施加(defender, 燃烧.class).reignite(defender, 8f);
-				powerMulti -= 1;
-			}
-
-			if (powerMulti > 0){
-				float burnDamage = Random.NormalFloat( 1, 3 + Dungeon.scalingDepth()/4f );
-				burnDamage *= 0.67f * powerMulti;
-				if (burnDamage > 0) {
-					defender.受伤时(burnDamage, this);
+				if(defender.buff(燃烧.class)==null){
+					Buff.施加(defender,燃烧.class).reignite(defender,8f);
+					powerMulti-=1;
 				}
-			}
-			
-			defender.sprite.emitter().burst( FlameParticle.FACTORY, level + 1 );
-			
-		}
 
+				if(powerMulti>0){
+					float burnDamage=Random.NormalFloat(1,3+Dungeon.scalingDepth()/4f);
+					burnDamage*=0.67f*powerMulti;
+					if(burnDamage>0){
+						defender.受伤时(burnDamage,this);
+					}
+				}
+
+				defender.sprite.emitter().burst(FlameParticle.FACTORY,level+1);
+
+			}
+		}
 		return damage;
 
 	}

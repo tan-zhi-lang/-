@@ -24,10 +24,10 @@ public class Viscosity extends Glyph {
 	
 	@Override
 	public float proc( Armor armor, Char attacker, Char defender, float damage ) {
-
-		//we use a tracker so that this glyph can apply after armor
-		Buff.施加(defender, ViscosityTracker.class).level = armor.强化等级();
-
+		if(defender!=null){
+			//we use a tracker so that this glyph can apply after armor
+			Buff.施加(defender,ViscosityTracker.class).level=armor.强化等级();
+		}
 		return damage;
 		
 	}

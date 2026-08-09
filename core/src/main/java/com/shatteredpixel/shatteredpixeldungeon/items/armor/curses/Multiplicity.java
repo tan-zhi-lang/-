@@ -33,86 +33,85 @@ public class Multiplicity extends Armor.Glyph {
 
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			float procChance=1/20f*procChanceMultiplier(defender);
+			if(Random.Float()<procChance){
+				ArrayList<Integer> spawnPoints=new ArrayList<>();
 
-		float procChance = 1/20f * procChanceMultiplier(defender);
-		if ( Random.Float() < procChance ) {
-			ArrayList<Integer> spawnPoints = new ArrayList<>();
-
-			for (int i=0; i < PathFinder.相邻.length;i++) {
-				int p = defender.pos + PathFinder.相邻[i];
-				if (Actor.findChar( p ) == null && (Dungeon.level.passable[p] || Dungeon.level.avoid[p])) {
-					spawnPoints.add( p );
-				}
-			}
-
-			if (spawnPoints.size() > 0) {
-
-				Mob m = null;
-				if (Random.Int(2) == 0 && defender instanceof Hero){
-					m = new MirrorImage();
-					((MirrorImage)m).duplicate( (Hero)defender );
-
-				} else {
-					Char toDuplicate = attacker;
-
-					if (toDuplicate instanceof TransmogRat){
-						toDuplicate = ((TransmogRat)attacker).getOriginal();
+				for(int i=0;i<PathFinder.相邻.length;i++){
+					int p=defender.pos+PathFinder.相邻[i];
+					if(Actor.findChar(p)==null&&(Dungeon.level.passable[p]||Dungeon.level.avoid[p])){
+						spawnPoints.add(p);
 					}
+				}
 
-					//FIXME should probably have a mob property for this
-					if (!(toDuplicate instanceof Mob)
-							|| toDuplicate.properties().contains(Char.Property.BOSS) || toDuplicate.properties().contains(Char.Property.MINIBOSS)
-							|| toDuplicate instanceof Mimic || toDuplicate instanceof Statue || toDuplicate instanceof NPC) {
-						m = Dungeon.level.createMob();
-					} else {
-						Actor.fixTime();
+				if(spawnPoints.size()>0){
 
-						m = (Mob)Reflection.newInstance(toDuplicate.getClass());
-						
-						if (m != null) {
-							
-							Bundle store = new Bundle();
-							attacker.storeInBundle(store);
-							m.restoreFromBundle(store);
-							m.pos = 0;
-							m.生命 = m.最大生命;
+					Mob m=null;
+					if(Random.Int(2)==0&&defender instanceof Hero){
+						m=new MirrorImage();
+						((MirrorImage)m).duplicate((Hero)defender);
 
-							//don't duplicate stuck projectiles
-							m.remove(PinCushion.class);
-							//don't duplicate pending damage to dwarf king
-							m.remove(DwarfKing.KingDamager.class);
-							//don't duplicate downed ghouls
-							m.remove(Ghoul.GhoulLifeLink.class);
-							
-							//If a thief has stolen an item, that item is not duplicated.
-							if (m instanceof Thief) {
-								((Thief) m).item = null;
-							}
+					}else{
+						Char toDuplicate=attacker;
+
+						if(toDuplicate instanceof TransmogRat){
+							toDuplicate=((TransmogRat)attacker).getOriginal();
 						}
-					}
-				}
 
-				if (m != null) {
+						//FIXME should probably have a mob property for this
+						if(!(toDuplicate instanceof Mob)||toDuplicate.properties().contains(Char.Property.BOSS)||toDuplicate.properties().contains(Char.Property.MINIBOSS)||toDuplicate instanceof Mimic||toDuplicate instanceof Statue||toDuplicate instanceof NPC){
+							m=Dungeon.level.createMob();
+						}else{
+							Actor.fixTime();
 
-					if (Char.hasProp(m, Char.Property.LARGE)){
-						for ( int i : spawnPoints.toArray(new Integer[0])){
-							if (!Dungeon.level.openSpace[i]){
-								//remove the value, not at the index
-								spawnPoints.remove((Integer) i);
+							m=(Mob)Reflection.newInstance(toDuplicate.getClass());
+
+							if(m!=null){
+
+								Bundle store=new Bundle();
+								attacker.storeInBundle(store);
+								m.restoreFromBundle(store);
+								m.pos=0;
+								float powerMulti=Math.max(1f,procChance);
+								m.生命=m.最大生命*powerMulti;
+
+								//don't duplicate stuck projectiles
+								m.remove(PinCushion.class);
+								//don't duplicate pending damage to dwarf king
+								m.remove(DwarfKing.KingDamager.class);
+								//don't duplicate downed ghouls
+								m.remove(Ghoul.GhoulLifeLink.class);
+
+								//If a thief has stolen an item, that item is not duplicated.
+								if(m instanceof Thief){
+									((Thief)m).item=null;
+								}
 							}
 						}
 					}
 
-					if (!spawnPoints.isEmpty()) {
-						m.pos = Random.element(spawnPoints);
-						GameScene.add(m);
-						传送卷轴.appear(m,m.pos);
-					}
-				}
+					if(m!=null){
 
+						if(Char.hasProp(m,Char.Property.LARGE)){
+							for(int i: spawnPoints.toArray(new Integer[0])){
+								if(!Dungeon.level.openSpace[i]){
+									//remove the value, not at the index
+									spawnPoints.remove((Integer)i);
+								}
+							}
+						}
+
+						if(!spawnPoints.isEmpty()){
+							m.pos=Random.element(spawnPoints);
+							GameScene.add(m);
+							传送卷轴.appear(m,m.pos);
+						}
+					}
+
+				}
 			}
 		}
-
 		return damage;
 	}
 

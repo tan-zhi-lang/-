@@ -23,32 +23,32 @@ public class Shocking extends Weapon.Enchantment {
 
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
-		int level = Math.max( 0, weapon.强化等级() );
+		if(defender!=null){
+			int level=Math.max(0,weapon.强化等级());
 
+			// flat 33% proc chance, effect scales with level via damage dealt
+			float procChance=(1/3f)*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
 
-		// flat 33% proc chance, effect scales with level via damage dealt
-		float procChance = (1/3f) * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
+				float powerMulti=Math.max(1f,procChance);
 
-			float powerMulti = Math.max(1f, procChance);
-			
-			affected.clear();
-			arcs.clear();
-			
-			arc(attacker, defender, 2, affected, arcs);
-			
-			affected.remove(defender); //defender isn't hurt by lightning
-			for (Char ch : affected) {
-				if (ch.alignment != attacker.alignment) {
-					ch.受伤时(damage * 0.5f * powerMulti, this);
+				affected.clear();
+				arcs.clear();
+
+				arc(attacker,defender,2,affected,arcs);
+
+				affected.remove(defender); //defender isn't hurt by lightning
+				for(Char ch: affected){
+					if(ch.alignment!=attacker.alignment){
+						ch.受伤时(damage*0.5f*powerMulti,this);
+					}
 				}
+
+				attacker.sprite.parent.addToFront(new Lightning(arcs,null));
+				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
+
 			}
-
-			attacker.sprite.parent.addToFront( new Lightning( arcs, null ) );
-			Sample.INSTANCE.play( Assets.Sounds.LIGHTNING );
-			
 		}
-
 		return damage;
 
 	}

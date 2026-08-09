@@ -15,21 +15,21 @@ public class Thorns extends Armor.Glyph {
 
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			int level=Math.max(0,armor.强化等级());
 
-		int level = Math.max(0, armor.强化等级());
+			// lvl 0 - 16.7%
+			// lvl 1 - 23.1%
+			// lvl 2 - 28.5%
+			float procChance=(level+2f)/(level+12f)*procChanceMultiplier(defender);
+			if(attacker!=null&&attacker.alignment!=defender.alignment&&Random.Float()<procChance){
 
-		// lvl 0 - 16.7%
-		// lvl 1 - 23.1%
-		// lvl 2 - 28.5%
-		float procChance = (level+2f)/(level+12f) * procChanceMultiplier(defender);
-		if ( attacker!=null&&attacker.alignment != defender.alignment && Random.Float() < procChance ) {
+				float powerMulti=Math.max(1f,procChance);
 
-			float powerMulti = Math.max(1f, procChance);
+				Buff.施加(attacker,流血.class).set(Math.round((4+level)*powerMulti));
 
-			Buff.施加( attacker, 流血.class).set( Math.round((4 + level)*powerMulti) );
-
+			}
 		}
-
 		return damage;
 	}
 

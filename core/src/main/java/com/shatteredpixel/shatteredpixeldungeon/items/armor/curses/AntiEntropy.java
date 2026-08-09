@@ -21,21 +21,22 @@ public class AntiEntropy extends Glyph {
 	
 	@Override
 	public float proc( Armor armor, Char attacker, Char defender, float damage) {
+		if(defender!=null){
+			float procChance=1/8f*procChanceMultiplier(defender);
+			if(Random.Float()<procChance){
 
-		float procChance = 1/8f * procChanceMultiplier(defender);
-		if ( Random.Float() < procChance ) {
+				for(int i: PathFinder.相邻){
+					Freezing.affect(defender.pos+i);
+				}
 
-			for (int i : PathFinder.相邻){
-				Freezing.affect(defender.pos+i);
+				if(!Dungeon.level.water[defender.pos]){
+					float powerMulti=Math.max(1f,procChance);
+					Buff.施加(defender,燃烧.class).reignite(defender,4*powerMulti);
+				}
+				defender.sprite.emitter().burst(FlameParticle.FACTORY,5);
+
 			}
-
-			if (!Dungeon.level.water[defender.pos]) {
-				Buff.施加(defender, 燃烧.class).reignite(defender, 4);
-			}
-			defender.sprite.emitter().burst( FlameParticle.FACTORY, 5 );
-
 		}
-		
 		return damage;
 	}
 

@@ -25,42 +25,43 @@ public class Explosive extends Weapon.Enchantment {
 	private int durability = 100;
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
+		if(defender!=null){
+			//average value of 5, or 20 hits to an explosion
+			int durToReduce=Math.round(Random.IntRange(0,10)*procChanceMultiplier(attacker));
+			int currentDurability=durability;
+			durability-=durToReduce;
 
-		//average value of 5, or 20 hits to an explosion
-		int durToReduce = Math.round(Random.IntRange(0, 10) * procChanceMultiplier(attacker));
-		int currentDurability = durability;
-		durability -= durToReduce;
+			if(currentDurability>50&&durability<=50){
+				attacker.sprite.showStatus(CharSprite.警告橙,Messages.get(this,"warm"));
+				GLog.橙(Messages.get(this,"desc_warm"));
+				attacker.sprite.emitter().burst(SmokeParticle.FACTORY,4);
+				Item.updateQuickslot();
+			}else
+				if(currentDurability>10&&durability<=10){
+					attacker.sprite.showStatus(CharSprite.警告橙,Messages.get(this,"hot"));
+					GLog.红(Messages.get(this,"desc_hot"));
+					attacker.sprite.emitter().burst(BlastParticle.FACTORY,5);
+					Item.updateQuickslot();
+				}else
+					if(durability<=0){
+						//explosion position is the closest adjacent cell to the defender
+						// this will be the attacker's position if they are adjacent
+						int explosionPos=-1;
+						for(int i: PathFinder.相邻){
+							if(!Dungeon.level.solid[defender.pos+i]&&(explosionPos==-1||Dungeon.level.trueDistance(attacker.pos,defender.pos+i)<Dungeon.level.trueDistance(attacker.pos,explosionPos))){
+								explosionPos=defender.pos+i;
+							}
+						}
+						if(explosionPos==-1){
+							explosionPos=defender.pos;
+						}
 
-		if (currentDurability > 50 && durability <= 50){
-			attacker.sprite.showStatus(CharSprite.警告橙,Messages.get(this,"warm"));
-			GLog.橙(Messages.get(this,"desc_warm"));
-			attacker.sprite.emitter().burst(SmokeParticle.FACTORY, 4);
-			Item.updateQuickslot();
-		} else if (currentDurability > 10 && durability <= 10){
-			attacker.sprite.showStatus(CharSprite.警告橙,Messages.get(this,"hot"));
-			GLog.红(Messages.get(this,"desc_hot"));
-			attacker.sprite.emitter().burst(BlastParticle.FACTORY, 5);
-			Item.updateQuickslot();
-		} else if (durability <= 0) {
-			//explosion position is the closest adjacent cell to the defender
-			// this will be the attacker's position if they are adjacent
-			int explosionPos = -1;
-			for (int i : PathFinder.相邻){
-				if (!Dungeon.level.solid[defender.pos+i] &&
-						(explosionPos == -1 ||
-						Dungeon.level.trueDistance(attacker.pos, defender.pos+i) < Dungeon.level.trueDistance(attacker.pos, explosionPos))){
-					explosionPos = defender.pos+i;
-				}
-			}
-			if (explosionPos == -1) {
-				explosionPos = defender.pos;
-			}
+						new ExplosiveCurseBomb().explode(explosionPos);
 
-			new ExplosiveCurseBomb().explode(explosionPos);
+						durability+=100;
+						Item.updateQuickslot();
 
-			durability += 100;
-			Item.updateQuickslot();
-
+					}
 		}
 
 		return damage;

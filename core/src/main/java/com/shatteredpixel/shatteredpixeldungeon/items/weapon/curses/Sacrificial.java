@@ -15,12 +15,15 @@ public class Sacrificial extends Weapon.Enchantment {
 
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage ) {
-
-		float procChance = 1/10f * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-			float bleedAmt = (float)(Math.pow(attacker.根据生命(), 2) * attacker.最大生命)/8f;
-			if (Random.Float() < bleedAmt) {
-				Buff.施加(attacker, 流血.class).set(Math.max(1, bleedAmt), getClass());
+		if(defender!=null){
+			float procChance=1/10f*procChanceMultiplier(attacker);
+			if(Random.Float()<procChance){
+				float powerMulti = Math.max(1f, procChance);
+				float bleedAmt=(float)(Math.pow(attacker.根据生命(),2)*attacker.最大生命)/8f;
+				if(Random.Float()<bleedAmt){
+					Buff.施加(attacker,流血.class).set(Math.max(1,bleedAmt)*powerMulti,getClass());
+					Buff.施加(defender,流血.class).set(Math.max(1,bleedAmt)*powerMulti,getClass());
+				}
 			}
 		}
 

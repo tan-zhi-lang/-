@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.魔法飞刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.*;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
@@ -51,7 +52,9 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	public float 投掷(){
 		float 投掷=this.投掷;
+		投掷*=1.45f;
 		投掷*=魔法飞刀.投掷();
+		投掷*=神射之戒.levelBonus(Dungeon.hero);
 		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.女忍)) 投掷+=.2f;
 		return 投掷;
 	}
@@ -144,6 +147,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 剑(){
+		if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.冰魄剑神))return true;
 		if(Dungeon.符文("越女剑法"))return true;
 		if(短剑())return true;
 		if(巨剑())return true;

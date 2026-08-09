@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -34,7 +36,7 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
-public class 幸运之戒 extends Ring {
+public class 财富之戒 extends Ring {
 
 	{
 		icon = 物品表.Icons.RING_WEALTH;
@@ -47,31 +49,22 @@ public class 幸运之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   0.15f*soloBuffedBonus(),100*0.02f*soloBuffedBonus());
+						   kw2(0.25f*soloBuffedBonus()));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						0.15f*combinedBuffedBonus(Dungeon.hero),100*(0.02f*combinedBuffedBonus(Dungeon.hero)));
+									  kw2(0.25f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 0.15f,2);
+			return Messages.get(this, "stats", kw2(0.25f));
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return 0.15f*(level+1) + "倍";
+		return 0.25f*(level) + "倍";
 	}
-	
-	@Override
-	public String upgradeStat2(int level) {
-		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return ""+(level+1)*2;
-	}
-	
-	public static float 暴击率( Char target ){
-		return 0.02f*getBuffedBonus( target, 幸运之戒.Wealth.class);
-	}
+
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";
 
@@ -93,20 +86,18 @@ public class 幸运之戒 extends Ring {
 	protected RingBuff buff( ) {
 		return new Wealth();
 	}
-	
-	@Override
-	public int 强化等级(){
-		int l=0;
-		if(Dungeon.hero()){
-		
-		}
-		return super.强化等级()+l;
-	}
+
 	public static float dropChanceMultiplier( Char target ){
-		return 1+0.15f*getBuffedBonus(target, Wealth.class);
+		return 1+0.25f*getBuffedBonus(target, Wealth.class);
 	}
 	
 	public static ArrayList<Item> tryForBonusDrop(Char target, int tries ){
+		int x=1;
+		int 概率0=0;
+		int 概率1=20*x;
+
+		int 概率00=5*x;
+		int 概率11=10*x;
 		int bonus = getBuffedBonus(target, Wealth.class);
 
 		if (bonus <= 0) return null;
@@ -115,14 +106,14 @@ public class 幸运之戒 extends Ring {
 				triesToDrop = target.buff(TriesToDropTracker.class);
 		if (triesToDrop == null){
 			triesToDrop = Buff.施加(target, TriesToDropTracker.class);
-			triesToDrop.set( Random.NormalIntRange(5, 30) );
+			triesToDrop.set( Random.NormalIntRange(概率0, 概率1) );
 		}
 
 		CountBuff
 				dropsToEquip = target.buff(DropsToEquipTracker.class);
 		if (dropsToEquip == null){
 			dropsToEquip = Buff.施加(target, DropsToEquipTracker.class);
-			dropsToEquip.set( Random.NormalIntRange(8, 15) );
+			dropsToEquip.set( Random.NormalIntRange(概率00, 概率11) );
 		}
 
 		//now handle reward logic
@@ -149,7 +140,7 @@ public class 幸运之戒 extends Ring {
 					i = genEquipmentDrop(equipBonus - 1);
 				} while (Challenges.isItemBlocked(i));
 				drops.add(i);
-				dropsToEquip.set(Random.NormalIntRange(8, 15));
+				dropsToEquip.set(Random.NormalIntRange(概率00, 概率11));
 			} else {
 				Item i;
 				do {
@@ -158,7 +149,7 @@ public class 幸运之戒 extends Ring {
 				drops.add(i);
 				dropsToEquip.set(-1);
 			}
-			triesToDrop.set( Random.NormalIntRange(5, 30) );
+			triesToDrop.set( Random.NormalIntRange(概率0, 概率1) );
 		}
 		
 		return drops;

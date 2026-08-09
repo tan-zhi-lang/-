@@ -63,19 +63,12 @@ public class 算法 {
 		充能卷轴.charge(hero);
 		Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 		
-		
-		
-		
-		
+
 		Buff.施加( hero, PhysicalEmpower.class).set(Math.max(2, hero.等级 /3), 2);
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
-		
-		
-		
-		
-		
+
     * */
-    public static String 日期="8.04/16:27";
+    public static String 日期="8.09/15:50";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;

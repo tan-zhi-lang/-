@@ -32,12 +32,12 @@ public class RadialMenu extends Window {
 		super(0, 0, Chrome.get(Chrome.Type.BLANK));
 		remove(shadow);
 
-		int size = SPDSettings.interfaceSize() == 0 ? 140 : 200;
+		int size = !SPDSettings.interfaceSize() ? 140 : 200;
 		resize(Game.width, Game.height);
 
 		slots = optionTexts.length;
 		center = new PointF(width/2, height/2);
-		int length = SPDSettings.interfaceSize() == 0 ? 57 : 80;
+		int length = !SPDSettings.interfaceSize() ? 57 : 80;
 
 		selectionArc = new CircleArc(120/slots, size/2 - 1);
 		selectionArc.color(0xFFFFFF, false);
@@ -82,7 +82,7 @@ public class RadialMenu extends Window {
 
 		descTxt = PixelScene.renderTextBlock(desc, 6);
 		descTxt.align(RenderedTextBlock.CENTER_ALIGN);
-		descTxt.maxWidth(SPDSettings.interfaceSize() == 0 ? 80 : 100);
+		descTxt.maxWidth(!SPDSettings.interfaceSize() ? 80 : 100);
 		descTxt.setPos(center.x - descTxt.width()/2, center.y - descTxt.height()/4);
 		add(descTxt);
 

@@ -585,8 +585,8 @@ public class 未来空间器 extends Item {
 				}
 			};
 			btnitem8.setRect( btnitem4.right() + BTN_GAP/3, btnitem7.top(), BTN_SIZE, BTN_SIZE );
-			if (Statistics.item5!=null) {
-				btnitem8.item(Statistics.item5);
+			if (Statistics.item8!=null) {
+				btnitem8.item(Statistics.item8);
 			} else {
 				btnitem8.item(new WndBag.Placeholder(物品表.ITEM));
 			}

@@ -8,8 +8,12 @@ public class 连杀状态 extends FlavourBuff{
         {
             name="连杀状态";
         }
-        public int icon() { return BuffIndicator.TERROR; }
+        public int icon() { return BuffIndicator.连杀状态; }
 
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (10f - visualcooldown()) / 10f);
+    }
     @Override
     public String name(){
         return count+super.name();

@@ -18,7 +18,6 @@ import com.watabou.utils.Random;
 public class Wnd选择属性 extends Window {
 
 	private static final int WIDTH_P = 125;//120
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 	public float 属性(String s){
@@ -103,7 +102,7 @@ public class Wnd选择属性 extends Window {
 		super();
 
 		INSTANCE=this;
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width =  WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock("选择一项属性",9);

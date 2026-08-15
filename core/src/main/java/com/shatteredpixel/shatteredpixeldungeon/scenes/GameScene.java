@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Chrome;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.Rankings;
-import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -116,7 +115,6 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.glwrap.Blending;
 import com.watabou.input.ControllerHandler;
-import com.watabou.input.KeyBindings;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -162,7 +160,7 @@ public class GameScene extends PixelScene {
 
 	private BossHealthBar boss;
 
-	private GameLog log;
+	private GameLog gameLog;
 	
 	private static CellSelector cellSelector;
 	
@@ -358,16 +356,15 @@ public class GameScene extends PixelScene {
 		
 		add( cellSelector = new CellSelector( tiles ) );
 
-		int uiSize = SPDSettings.interfaceSize();
 
 		menu = new MenuPane();
 		menu.camera = uiCamera;
-		menu.setPos( uiCamera.width-MenuPane.WIDTH, uiSize > 0 ? 0 : 1);
+		menu.setPos( uiCamera.width-MenuPane.WIDTH, 1);
 		add(menu);
 
-		status = new StatusPane( SPDSettings.interfaceSize() > 0 );
+		status = new StatusPane( false );
 		status.camera = uiCamera;
-		status.setRect(0, uiSize > 0 ? uiCamera.height-39 : 0, uiCamera.width, 0 );
+		status.setRect(0, 0, uiCamera.width, 0 );
 		add(status);
 
 		boss = new BossHealthBar();
@@ -413,20 +410,17 @@ public class GameScene extends PixelScene {
 		attack.camera = uiCamera;
 		add( attack );
 
-		log = new GameLog();
-		log.camera = uiCamera;
-		log.newLine();
-		add( log );
+		gameLog= new GameLog();
+		gameLog.camera = uiCamera;
+		gameLog.newLine();
+		add(gameLog);
 
-		if (uiSize > 0){
-			bringToFront(status);
-		}
 
 		toolbar = new Toolbar();
 		toolbar.camera = uiCamera;
 		add( toolbar );
 
-		if (uiSize == 2) {
+		if (SPDSettings.interfaceSize()) {
 			inventory = new InventoryPane();
 			inventory.camera = uiCamera;
 			inventory.setPos(uiCamera.width - inventory.width(), uiCamera.height - inventory.height());
@@ -640,12 +634,9 @@ public class GameScene extends PixelScene {
 			} else if (ControllerHandler.isControllerConnected()) {
 				GameLog.wipe();
 				GLog.绿(Messages.get(GameScene.class,"tutorial_move_controller"));
-			} else if (SPDSettings.interfaceSize() == 0) {
-				GameLog.wipe();
-				GLog.绿(Messages.get(GameScene.class,"tutorial_move_mobile"));
 			} else {
 				GameLog.wipe();
-				GLog.绿(Messages.get(GameScene.class,"tutorial_move_desktop"));
+				GLog.绿(Messages.get(GameScene.class,"tutorial_move"));
 			}
 			toolbar.visible = toolbar.active = false;
 			status.visible = status.active = false;
@@ -855,7 +846,7 @@ public class GameScene extends PixelScene {
 		}
 
 		if (Dungeon.hero.ready && Dungeon.hero.paralysed == 0) {
-			log.newLine();
+			gameLog.newLine();
 		}
 
 		if (updateTags){
@@ -971,77 +962,71 @@ public class GameScene extends PixelScene {
 		RectF insets = DeviceCompat.getSafeInsets();
 		insets = insets.scale(1f / uiCamera.zoom);
 
-		boolean tagsOnLeft = SPDSettings.flipTags();
-		float tagWidth = Tag.SIZE + (tagsOnLeft ? insets.left : insets.right);
-		float tagLeft = tagsOnLeft ? 0 : uiCamera.width - tagWidth;
-		float tagLeft2 = tagsOnLeft ? uiCamera.width - tagWidth:0;
+		float tagWidth = Tag.SIZE +insets.right;
+		float tagLeft =  uiCamera.width - tagWidth;
+		float tagLeft2 = 0;
 
-		float y = SPDSettings.interfaceSize() == 0 ? scene.toolbar.top()-2 : scene.status.top()-2;
-		if (SPDSettings.interfaceSize() == 0){
-			if (tagsOnLeft) {
-				scene.log.setRect(tagWidth, y, uiCamera.width - tagWidth - insets.right, 0);
-			} else {
-				scene.log.setRect(insets.left, y, uiCamera.width - tagWidth - insets.left, 0);
-			}
-		} else {
-			if (tagsOnLeft) {
-				scene.log.setRect(tagWidth, y, 160 - tagWidth, 0);
-			} else {
-				scene.log.setRect(insets.left, y, 160 - insets.left, 0);
-			}
-		}
+		scene.gameLog.setRect(insets.left,scene.status.bottom()+Tag.SIZE*7.5f,uiCamera.width-tagWidth-insets.left,0);
 
-		float pos = scene.toolbar.top();
-		if (tagsOnLeft && SPDSettings.interfaceSize() > 0){
-			pos = scene.status.top();
-		}
 
-		if (scene.tagAttack){
-			scene.attack.setRect( tagLeft, pos - Tag.SIZE, tagWidth, Tag.SIZE );
-			scene.attack.flip(tagsOnLeft);
-//			pos = scene.attack.top();
-		}
-
-		if (scene.tagResume) {
-			scene.resume.setRect( tagLeft, pos - Tag.SIZE*2, tagWidth, Tag.SIZE );
-			scene.resume.flip(tagsOnLeft);
-		}
 		if (scene.tagAction) {
-			scene.action.setRect( tagLeft, pos - Tag.SIZE*3, tagWidth, Tag.SIZE );
-			scene.action.flip(tagsOnLeft);
+			scene.action.setRect( tagLeft, scene.status.bottom() + Tag.SIZE, tagWidth, Tag.SIZE );
 		}
 		if (scene.tagLoot) {
-			scene.loot.setRect( tagLeft, pos - Tag.SIZE*4, tagWidth, Tag.SIZE );
-			scene.loot.flip(tagsOnLeft);
+			scene.loot.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*4, tagWidth, Tag.SIZE );
 		}
-
-		if (scene.tag上楼标) {
-			scene.上楼标.setRect(tagLeft,pos-Tag.SIZE*5,tagWidth,Tag.SIZE);
-			scene.上楼标.flip(tagsOnLeft);
+		if (scene.tagResume) {
+			scene.resume.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*5, tagWidth, Tag.SIZE );
 		}
+		if(SPDSettings.interfaceSize()){
+			if (scene.tagAttack){
+				scene.attack.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*4, tagWidth, Tag.SIZE );
+			}
+		}else{
+			if (scene.tagAttack){
+				scene.attack.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*6, tagWidth, Tag.SIZE );
+			}
 
-		if (scene.tag下楼标) {
-			scene.下楼标.setRect(tagLeft,pos-Tag.SIZE*6,tagWidth,Tag.SIZE);
-			scene.下楼标.flip(tagsOnLeft);
 		}
-
 
 		if (scene.tag食物栏) {
 			scene.食物栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE,tagWidth,Tag.SIZE);
-			scene.食物栏标.flip(!tagsOnLeft);
+			scene.食物栏标.flip(true);
 		}
-
 		if (scene.tag药剂栏) {
 			scene.药剂栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*2,tagWidth,Tag.SIZE);
-			scene.药剂栏标.flip(!tagsOnLeft);
+			scene.药剂栏标.flip(true);
 		}
 		if (scene.tag副武器) {
 			scene.副武器.setRect( tagLeft2, scene.status.bottom()+ Tag.SIZE*3, tagWidth, Tag.SIZE );
-			scene.副武器.flip(!tagsOnLeft);
+			scene.副武器.flip(true);
 		}
+
+		if(SPDSettings.interfaceSize()){
+
+			if (scene.tag上楼标) {
+				scene.上楼标.setRect(tagLeft2,scene.status.bottom() + Tag.SIZE*4,tagWidth,Tag.SIZE);
+				scene.上楼标.flip(true);
+			}
+
+			if (scene.tag下楼标) {
+				scene.下楼标.setRect(tagLeft2,scene.status.bottom() + Tag.SIZE*5,tagWidth,Tag.SIZE);
+				scene.下楼标.flip(true);
+			}
+		}else{
+
+			if (scene.tag上楼标) {
+				scene.上楼标.setRect(tagLeft,scene.status.bottom() + Tag.SIZE*2,tagWidth,Tag.SIZE);
+			}
+
+			if (scene.tag下楼标) {
+				scene.下楼标.setRect(tagLeft,scene.status.bottom() + Tag.SIZE*3,tagWidth,Tag.SIZE);
+			}
+		}
+
 		if (scene.tag法术栏) {
-			scene.法术栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*4,tagWidth,Tag.SIZE);
-			scene.法术栏标.flip(!tagsOnLeft);
+			scene.法术栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*6,tagWidth,Tag.SIZE);
+			scene.法术栏标.flip(true);
 		}
 
 	}
@@ -1286,15 +1271,10 @@ public class GameScene extends PixelScene {
 		if (scene != null) {
 			if (doc == Document.ADVENTURERS_GUIDE){
 				if (!page.equals(Document.GUIDE_INTRO)) {
-					;
 
 					GLog.绿(Messages.get(Guidebook.class,"hint",Messages.get( Document.class, page + ".title")));
 
-//					if (SPDSettings.interfaceSize() == 0) {
-//						GLog.绿(Messages.get(Guidebook.class,"hint_mobile"));
-//					} else {
-//						GLog.绿(Messages.get(Guidebook.class,"hint_desktop",KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL,ControllerHandler.isControllerConnected()))));
-//					}
+					GLog.绿(Messages.get(Guidebook.class,"hint_mobile"));
 				}
 				Dungeon.hero.sprite.showStatus(CharSprite.增强绿,Messages.get(Guidebook.class,"hint_status"));
 			}
@@ -1326,13 +1306,9 @@ public class GameScene extends PixelScene {
 				}
 			});
 			GameLog.wipe();
-			if (SPDSettings.interfaceSize() == 0){
-				GLog.绿(Messages.get(GameScene.class,"tutorial_ui_mobile"));
-			} else {
-				GLog.绿(Messages.get(GameScene.class,"tutorial_ui_desktop",
-									 KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.HERO_INFO, ControllerHandler.isControllerConnected())),
-									 KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.INVENTORY, ControllerHandler.isControllerConnected()))));
-			}
+
+			GLog.绿(Messages.get(GameScene.class,"tutorial_ui"));
+
 
 			//clear hidden doors, it's floor 1 so there are only the entrance ones
 			for (int i = 0; i < Dungeon.level.length(); i++){

@@ -561,6 +561,27 @@ public abstract class Level implements Bundlable {
 		return feeling == Feeling.CHASM ? Terrain.EMPTY_SP : Terrain.EMPTY;
 	}
 
+	public int 上边(int pos2){
+		return pos2-width();
+	}
+	public int 左上边(int pos2){
+		return pos2-width()-1;
+	}
+	public int 右上边(int pos2){
+		return pos2-width()+1;
+	}
+	public int 下边(int pos2){
+		return pos2+width();
+	}
+	public int 左下边(int pos2){
+		return pos2+width()-1;
+	}
+	public int 右下边(int pos2){
+		return pos2+width()+1;
+	}
+	public int 左边(int pos2){
+		return pos2-1;
+	}
 	public int width() {
 		return width;
 	}

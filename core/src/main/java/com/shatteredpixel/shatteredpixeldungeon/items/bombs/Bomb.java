@@ -124,7 +124,7 @@ public class Bomb extends Item {
 	}
 	public static float 炸弹伤害(){
 		float x=1;
-		x*=2;
+		x*=1.45f;
 		return x;
 	}
 	public static float 爆炸伤害(){

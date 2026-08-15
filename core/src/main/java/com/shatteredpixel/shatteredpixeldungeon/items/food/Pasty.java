@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
@@ -26,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 
 public class Pasty extends Food {
@@ -100,6 +102,9 @@ public class Pasty extends Food {
 
 	@Override
 	protected void satisfy(Hero hero) {
+		if(!SPDSettings.从不过节())
+			算法.调试("地牢节日:"+Holiday.getCurrentHoliday());
+
 		if (Holiday.getCurrentHoliday() == Holiday.春节){
 			//main item only clears 300 hunger on lunar new year...
 			energy = Hunger.HUNGRY;

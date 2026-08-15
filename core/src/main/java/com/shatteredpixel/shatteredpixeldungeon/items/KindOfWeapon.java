@@ -55,6 +55,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 		投掷*=1.45f;
 		投掷*=魔法飞刀.投掷();
 
+		if(Dungeon.hero()&&Dungeon.hero.belongings.weapon(投掷手套.class))
+			投掷*=1.45f;
 		if(Dungeon.hero())
 		投掷*=神射之戒.levelBonus(Dungeon.hero);
 
@@ -118,6 +120,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 指虎)return true;
 		if(this instanceof 臂铠)return true;
 		if(this instanceof 星云拳套)return true;
+		if(this instanceof 投掷手套)return true;
 		if(this instanceof 魔岩拳套)return true;
 		return false;
 	}
@@ -154,6 +157,8 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(Dungeon.符文("越女剑法"))return true;
 		if(短剑())return true;
 		if(巨剑())return true;
+		if(this instanceof 圣剑)return true;
+		if(this instanceof 黑暗剑)return true;
 		if(this instanceof 锯齿剑)return true;
 		if(this instanceof 单手剑)return true;
 		if(this instanceof 长剑)return true;
@@ -168,10 +173,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 配刺剑)return true;
 		if(this instanceof 铜钱剑)return true;
 		if(this instanceof 裂天剑)return true;
+		if(this instanceof 玉龙)return true;
 		if(this instanceof 虚哭神去)return true;
 		return false;
 	}
 	public boolean 刀(){
+		if(this instanceof 菱形刀)return true;
 		if(this instanceof 尼泊尔弯刀)return true;
 		if(this instanceof 弯刀)return true;
 		if(this instanceof 骨刀)return true;
@@ -183,14 +190,10 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(长刀())return true;
 		return false;
 	}
-	public boolean 小盾(){
+	public boolean 盾(){
 		if(this instanceof 圆盾)return true;
 		if(this instanceof 联合盾)return true;
-		return false;
-	}
-	public boolean 盾(){
-		if(小盾())return true;
-		if(大盾())return true;
+		if(this instanceof 巨型方盾)return true;
 		if(this instanceof 冰门重盾)return true;
 		return false;
 	}
@@ -218,6 +221,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(鞭())return true;
 		if(this instanceof 石头)return true;
 		if(this instanceof 雪球)return true;
+		if(this instanceof 金铲铲)return true;
 		if(this instanceof 修理扳手)return true;
 		if(this instanceof 回旋镖)return true;
 		return false;
@@ -232,46 +236,23 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 链枷)return true;
 		if(this instanceof 猪鲨链球)return true;
 		if(this instanceof 锻造锤)return true;
-		if(战锤())return true;
-		if(巨锤())return true;
+		if(this instanceof 战锤)return true;
+		if(this instanceof 雷神锤)return true;
+		if(this instanceof 龙牙锤)return true;
+		if(this instanceof 重锤)return true;
 		return false;
 	}
 	public boolean 镰(){
 		if(this instanceof 短柄镰)return true;
-		if(战镰())return true;
-		if(巨镰())return true;
+		if(this instanceof 战镰)return true;
+		if(this instanceof 死神镰刀)return true;
+		if(this instanceof 地裂镰)return true;
 		return false;
 	}
 	public boolean 斧(){
 		if(this instanceof 手斧)return true;
 		if(this instanceof 疯狂斧)return true;
-		if(战斧())return true;
-		if(巨斧())return true;
-		return false;
-	}
-	public boolean 战锤(){
-		if(this instanceof 战锤)return true;
-		if(this instanceof 雷神锤)return true;
-		return false;
-	}
-	public boolean 战镰(){
-		if(this instanceof 战镰)return true;
-		return false;
-	}
-	public boolean 战斧(){
 		if(this instanceof 战斧)return true;
-		return false;
-	}
-	public boolean 巨锤(){
-		if(this instanceof 重锤)return true;
-		return false;
-	}
-	public boolean 巨镰(){
-		if(this instanceof 死神镰刀)return true;
-		if(this instanceof 地裂镰)return true;
-		return false;
-	}
-	public boolean 巨斧(){
 		if(this instanceof 巨斧)return true;
 		if(this instanceof 锈右斧)return true;
 		return false;
@@ -282,10 +263,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 饮血之剑)return true;
 		if(this instanceof 碧蓝巨剑)return true;
 		if(this instanceof 巨剑)return true;
-		return false;
-	}
-	public boolean 大盾(){
-		if(this instanceof 巨型方盾)return true;
 		return false;
 	}
 	public boolean 长刀(){
@@ -339,6 +316,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 双刃)return true;
 		if(this instanceof 狼筅)return true;
 		if(this instanceof 镶钉手套)return true;
+		if(this instanceof 投掷手套)return true;
 		if(this instanceof 鹿角刀)return true;
 		if(this instanceof 誓刃)return true;
 		if(this instanceof 木棍)return true;
@@ -590,13 +568,13 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if (Dungeon.level.距离(owner.pos,target)>reach){
 			return false;
 		} else {
-			boolean[] passable = BArray.not(Dungeon.level.solid, null);
+			boolean[] passable = BArray.not(Dungeon.level.solid,null);
 			for (Char ch : Actor.chars()) {
 				if (ch != owner) passable[ch.pos] = false;
 			}
-			
-			PathFinder.buildDistanceMap(target, passable, reach);
-			
+
+			PathFinder.buildDistanceMap(target,passable,reach);
+
 			return PathFinder.distance[owner.pos] <= reach;
 		}
 	}

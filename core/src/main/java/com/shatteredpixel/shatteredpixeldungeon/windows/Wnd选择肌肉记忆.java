@@ -13,14 +13,13 @@ import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 public class Wnd选择肌肉记忆 extends Window {
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 
 	public Wnd选择肌肉记忆(Hero hero){
 		super();
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width =  WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock("选择肌肉记忆武器或护甲",9);

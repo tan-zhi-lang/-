@@ -152,7 +152,7 @@ public class WndHeroInfo extends WndTabbed {
 					icons = new Image[]{ new ItemSprite(物品表.BACKPACK),
 							new TalentIcon(Talent.洗筋伐髓),
 							new BuffIcon(BuffIndicator.HEALING, true),
-							 new BuffIcon(BuffIndicator.SEAL_SHIELD, true),
+							 new BuffIcon(BuffIndicator.修理, true),
 							new ItemSprite(物品表.SCROLL_ISAZ)};
 					break;
 				case MAGE:
@@ -262,7 +262,7 @@ public class WndHeroInfo extends WndTabbed {
 					break;
 				case 逐姝:
 					icons = new Image[]{  new ItemSprite(物品表.BACKPACK),
-							  new BuffIcon(BuffIndicator.SEAL_SHIELD, true),
+							  new BuffIcon(BuffIndicator.修理, true),
 							  Icons.TALENT.get(),
 							  new ItemSprite(物品表.WEAPON_HOLDER),
 							new ItemSprite(物品表.SCROLL_ISAZ)};

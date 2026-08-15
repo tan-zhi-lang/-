@@ -246,8 +246,8 @@ public enum Talent {
 
 	智者(x25+6,3),
 	感知(x26+6,3),
-	视察(x28+6,3),
-	充能(x27+6,3),
+	咒刃(x28+6,3),
+	视察(x27+6,3),
 
 	天才(x25+7,3),
 	佯攻(x26+7,3),
@@ -464,8 +464,8 @@ public enum Talent {
 		if(this==智者){
 			s+="\n";
 			s+="\n"+f+Messages.get(感知,感知.name()+".title")+":"+Messages.get(感知,感知.name()+".desc");
+			s+="\n"+Messages.get(咒刃,咒刃.name()+".title")+":"+Messages.get(咒刃,咒刃.name()+".desc");
 			s+="\n"+Messages.get(视察,视察.name()+".title")+":"+Messages.get(视察,视察.name()+".desc");
-			s+="\n"+Messages.get(充能,充能.name()+".title")+":"+Messages.get(充能,充能.name()+".desc");
 		}
 		if(this==天才){
 			s+="\n";
@@ -853,7 +853,7 @@ public enum Talent {
 		//tier 2
 		Collections.addAll(tierTalents,健身,猛攻,硬肤,坚韧);
 		Collections.addAll(tierTalents,机敏,破绽,躲避,静步);
-		Collections.addAll(tierTalents,智者,感知,视察,充能);
+		Collections.addAll(tierTalents,智者,感知,咒刃,视察);
 		Collections.addAll(tierTalents,天才,佯攻,戒备,活着);
 		for (Talent talent : tierTalents){
 			if (replacements.containsKey(talent)){

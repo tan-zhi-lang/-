@@ -14,6 +14,7 @@ public class 石虱 extends Mob {
 
 			经验 = 8;
 			最大等级 = 16;
+			properties.add(Property.昆虫);
 		}
 
 	@Override

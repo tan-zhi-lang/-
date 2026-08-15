@@ -44,6 +44,7 @@ public class 灵能短弓 extends Weapon {
 		绿色 = true;
 		绿光 = true;
 		伤害=0.6f;
+		魔法=0.15f;
 		特别= true;
 		专属= true;
 	}
@@ -214,8 +215,6 @@ public class 灵能短弓 extends Weapon {
 						break;
 				}
 			}
-			if(defender!=null&&defender.isAlive())defender.受伤时(damage*0.75f);
-			damage/=4;
 			return 灵能短弓.this.投掷攻击时(attacker, defender, damage);
 		}
 		

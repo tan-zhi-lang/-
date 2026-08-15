@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.GameMath;
 
 public class Hunger extends Buff implements Hero.Doom {
 
@@ -38,11 +39,23 @@ public class Hunger extends Buff implements Hero.Doom {
 	private static final String LEVEL			= "level";
 	private static final String PARTIAL 	= "partial";
 
+	private float healingLeft;
+
+	private float percentHealPerTick;
+	private float flatHealPerTick;
+	private static final String LEFT = "left";
+	private static final String PERCENT = "percent";
+	private static final String FLAT = "flat";
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		bundle.put( LEVEL, level );
 		bundle.put( PARTIAL, partial );
+
+		bundle.put(LEFT, healingLeft);
+		bundle.put(PERCENT, percentHealPerTick);
+		bundle.put(FLAT, flatHealPerTick);
 	}
 
 	@Override
@@ -50,6 +63,10 @@ public class Hunger extends Buff implements Hero.Doom {
 		super.restoreFromBundle( bundle );
 		level = bundle.getFloat( LEVEL );
 		partial = bundle.getFloat(PARTIAL);
+
+		healingLeft = bundle.getFloat(LEFT);
+		percentHealPerTick = bundle.getFloat(PERCENT);
+		flatHealPerTick = bundle.getFloat(FLAT);
 	}
 	protected int color;
 	protected int rays;
@@ -149,7 +166,11 @@ public class Hunger extends Buff implements Hero.Doom {
 		}
 
 		if (target.isAlive() && target instanceof Hero hero) {
-			
+			if(healingLeft>0){
+				真吃饭(healingThisTick());
+				healingLeft-=healingThisTick();
+			}
+
 			if (isStarving()) {//饥饿时
 
 				partial=饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f;
@@ -173,6 +194,7 @@ public class Hunger extends Buff implements Hero.Doom {
 
 				} else if (newLevel >= HUNGRY && level < HUNGRY) {
 
+					hero.interrupt();
 					GLog.橙(Messages.get(this,"onhungry"));
 
 					if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.GUIDE_FOOD)){
@@ -208,6 +230,9 @@ public class Hunger extends Buff implements Hero.Doom {
 		return energy;
 	}
 	public void 吃饭(float energy ) {
+		setHeal(energy, 0.5f, 0);
+	}
+	public void 真吃饭(float energy) {
 		if(Dungeon.hero()){
 			energy*=吃饭效果();
 		}
@@ -259,16 +284,37 @@ public class Hunger extends Buff implements Hero.Doom {
 		return level;
 	}
 
-//	@Override
-//	public int icon() {
-//		if (level < HUNGRY) {
-//			return BuffIndicator.NONE;
-//		} else if (level < STARVING) {
-//			return BuffIndicator.HUNGER;
-//		} else {
-//			return BuffIndicator.STARVATION;
-//		}
-//	}
+	private float healingThisTick(){
+		float heal = GameMath.之内(1,
+								   Math.round(healingLeft * percentHealPerTick) + flatHealPerTick,
+								   healingLeft);
+
+		return heal;
+	}
+
+	public void setHeal(float amount, float percentPerTick, float flatPerTick){
+		//multiple sources of healing do not overlap, but do combine the best of their properties
+		healingLeft = Math.max(healingLeft, amount);
+		percentHealPerTick = Math.max(percentHealPerTick, percentPerTick);
+		flatHealPerTick = Math.max(flatHealPerTick, flatPerTick);
+	}
+
+
+	public void increaseHeal( int amount ){
+		healingLeft += amount;
+	}
+
+
+	@Override
+	public int icon() {
+		if (level < HUNGRY) {
+			return BuffIndicator.NONE;
+		} else if (level < STARVING) {
+			return BuffIndicator.HUNGER;
+		} else {
+			return BuffIndicator.STARVATION;
+		}
+	}
 
 	@Override
 	public String name() {

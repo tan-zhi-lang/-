@@ -360,7 +360,7 @@ public class Dungeon {
 		系统 = SPDSettings.系统();
 		派对= SPDSettings.派对();
 		赛季= SPDSettings.赛季();
-		地牢时间= 时间(900);
+		地牢时间= 时间(9);
 		地牢寿命= 0;
 		地牢天数= 1;
 
@@ -458,13 +458,28 @@ public class Dungeon {
 		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (赛季&mask)!=0;
 	}
-	public static boolean 夜晚() {
-		if(Dungeon.地牢时间>=时间(2200)||Dungeon.地牢时间<=时间(600))
+	public static boolean 晚上() {
+		if(Dungeon.地牢时间>=时间(22)||Dungeon.地牢时间<=时间(6))
 			return true;
 		return false;
 	}
-	public static int 时间(int 时间) {
-		float x=1;
+	public static boolean 白天() {
+		if(Dungeon.地牢时间>时间(6)||Dungeon.地牢时间<时间(18))
+			return true;
+		return false;
+	}
+	public static boolean 黄昏() {
+		if(Dungeon.地牢时间>时间(18)||Dungeon.地牢时间<时间(24))
+			return true;
+		return false;
+	}
+	public static boolean 夜晚() {
+		if(Dungeon.地牢时间>时间(0)||Dungeon.地牢时间<时间(6))
+			return true;
+		return false;
+	}
+	public static int 时间(float 时间) {
+		float x=60;
 		if(符文("勤劳的一天"))x/=6f;
 		return Math.round(时间*x);
 	}
@@ -474,8 +489,8 @@ public class Dungeon {
 		float 时间=地牢时间;
 		boolean 时间计算=true;
 		while(时间计算){
-			if(时间>=时间(60)){//100
-				时间-=时间(60);//100
+			if(时间>=时间(1)){//100
+				时间-=时间(1);//100
 				小时++;
 				分钟=0;
 				if(小时>=24){

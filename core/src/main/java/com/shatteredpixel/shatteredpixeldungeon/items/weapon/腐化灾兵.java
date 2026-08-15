@@ -30,13 +30,15 @@ public class 腐化灾兵 extends Weapon{
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(defender!=null){
 			for(int x=1;x<=2;x++){
-				小吞噬怪 mob=new 小吞噬怪();
-				if(attacker instanceof Hero)
-					Buff.施加(mob,Corruption.class);
-				mob.攻击=damage*0.6f;
-				mob.target(defender.pos);
-				GameScene.add(mob);
-				传送卷轴.范围瞬移(mob,attacker.pos,8);
+				if(传送卷轴.周身瞬移(attacker.pos)){
+					小吞噬怪 mob=new 小吞噬怪();
+					if(attacker instanceof Hero)
+						Buff.施加(mob,Corruption.class);
+					mob.攻击=damage*0.6f;
+					mob.target(defender.pos);
+					GameScene.add(mob);
+					传送卷轴.周身瞬移(mob,attacker.pos);
+				}
 			}
 		}
 		return super.攻击时( attacker, defender, damage );

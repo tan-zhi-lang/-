@@ -64,7 +64,7 @@ public abstract class EquipableItem extends Item {
 			}else{
 				actions.add(AC_EQUIP);
 
-				if(hero.belongings.幸运==null&&hero.男人())
+				if(hero.belongings.幸运==null&&this instanceof Ring&&hero.男人())
 				actions.add(AC_EQUIP2);
 			}
 		}

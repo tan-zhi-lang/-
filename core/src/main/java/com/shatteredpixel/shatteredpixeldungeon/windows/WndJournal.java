@@ -72,9 +72,6 @@ public class WndJournal extends WndTabbed {
 	public static final int WIDTH_P     = 126;
 	public static final int HEIGHT_P    = 180;
 	
-	public static final int WIDTH_L     = 216;
-	public static final int HEIGHT_L    = 130;
-	
 	private static final int ITEM_HEIGHT	= 18;
 	
 	private GuideTab guideTab;
@@ -93,8 +90,8 @@ public class WndJournal extends WndTabbed {
 			INSTANCE.hide();
 		}
 		
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
-		int height = PixelScene.横屏() ? HEIGHT_L : HEIGHT_P;
+		int width =  WIDTH_P;
+		int height =HEIGHT_P;
 		
 		resize(width, height);
 		

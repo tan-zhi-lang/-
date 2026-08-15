@@ -1,7 +1,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
-import static com.shatteredpixel.shatteredpixeldungeon.算法.zf;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.watabou.noosa.ColorBlock;
@@ -11,7 +11,7 @@ import com.watabou.noosa.ui.Component;
 public class ResistanceIndicator extends Component {
 	private Char charRef;
 
-	private static final int FONT_SIZE = 32;
+	private static final int FONT_SIZE = 36;
 	private static final float GAP = 3f;
 
 	private static final int ICON_COLS = 2;
@@ -24,10 +24,10 @@ public class ResistanceIndicator extends Component {
 	@Override
 	protected void layout() {
 		RenderedText elementalText = new RenderedText("受到",FONT_SIZE);
-		elementalText.scale(0.15f);
+		elementalText.scale(0.12f);
 		elementalText.setPos(this.x,this.y);
 		add(elementalText);
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			int r = i / ICON_COLS;
 			int c = i % ICON_COLS;
 			String s="";
@@ -41,12 +41,8 @@ public class ResistanceIndicator extends Component {
 				x1=charRef.d冰霜();
 			}
 			if(i==2){
-				s="酸性伤害";
-				x1=charRef.d酸性();
-			}
-			if(i==3){
-				s="无机伤害";
-				x1=charRef.d无机();
+				s="雷电伤害";
+				x1=charRef.d雷电();
 			}
 
 			RenderedText txt = makePercentText(s,x1);
@@ -92,16 +88,14 @@ public class ResistanceIndicator extends Component {
 
 	private RenderedText makePercentText(String ts,float value) {
 		RenderedText line = new RenderedText(ts+
-			 zf(value)+"倍",FONT_SIZE);
-		line.scale(0.15f);
+			 "为"+kw2(value)+"倍",FONT_SIZE);
+		line.scale(0.12f);
 		if(ts.equals("火焰伤害"))
 			line.hardlight(0xFF8800);
 		else if(ts.equals("冰霜伤害"))
 			line.hardlight(0x3399FF);
-		else if(ts.equals("酸性伤害"))
-			line.hardlight(0x44FF44);
-		else if(ts.equals("无机伤害"))
-			line.hardlight(0xff0000);
+		else if(ts.equals("雷电伤害"))
+			line.hardlight(0xFFFF44);
 		return line;
 	}
 

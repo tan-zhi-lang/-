@@ -280,7 +280,7 @@ public class TalentsPane extends ScrollPane {
 							continue;
 						if(talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避
 
-						   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能
+						   ||talent==Talent.感知||talent==Talent.咒刃||talent==Talent.视察
 
 						   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
 							continue;
@@ -293,7 +293,7 @@ public class TalentsPane extends ScrollPane {
 							continue;
 						if(talent==Talent.猛攻||talent==Talent.硬肤||talent==Talent.坚韧
 
-						   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能
+						   ||talent==Talent.感知||talent==Talent.咒刃||talent==Talent.视察
 
 						   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
 							continue;
@@ -311,7 +311,7 @@ public class TalentsPane extends ScrollPane {
 						   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
 							continue;
 					}else{
-						if(talent==Talent.感知||talent==Talent.视察||talent==Talent.充能)
+						if(talent==Talent.感知||talent==Talent.咒刃||talent==Talent.视察)
 							continue;
 					}
 					if(Dungeon.hero.天赋(Talent.天才)){
@@ -321,7 +321,7 @@ public class TalentsPane extends ScrollPane {
 
 						   ||talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避
 
-						   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能)
+						   ||talent==Talent.感知||talent==Talent.咒刃||talent==Talent.视察)
 							continue;
 					}else{
 						if(talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备)
@@ -340,7 +340,7 @@ public class TalentsPane extends ScrollPane {
 
 					   ||talent==Talent.静步||talent==Talent.破绽||talent==Talent.躲避
 
-					   ||talent==Talent.感知||talent==Talent.视察||talent==Talent.充能
+					   ||talent==Talent.感知||talent==Talent.咒刃||talent==Talent.视察
 
 					   ||talent==Talent.佯攻||talent==Talent.活着||talent==Talent.戒备
 					)

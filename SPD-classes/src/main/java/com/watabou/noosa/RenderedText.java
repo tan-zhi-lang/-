@@ -70,7 +70,7 @@ public class RenderedText extends Image {
 
 	private static final ArrayList<Character> alreadyReported = new ArrayList<>();
 	
-	private synchronized void measure(){
+	public synchronized void measure(){
 		
 //		if (Thread.currentThread().getName().equals("SHPD Actor Thread")){
 //			throw new RuntimeException("Text measured from the actor thread!");

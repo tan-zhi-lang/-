@@ -64,7 +64,7 @@ public class MagicalHolster extends Bag {
 	
 	@Override
 	public int 金币() {
-		return 60;
+		return 30;
 	}
 
 }

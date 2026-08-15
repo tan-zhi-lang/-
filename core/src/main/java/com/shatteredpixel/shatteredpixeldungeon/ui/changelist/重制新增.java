@@ -91,12 +91,15 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.半月刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.尼泊尔弯刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.彩虹猫之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投掷手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.指虎;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
@@ -115,6 +118,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狼筅;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.玉龙;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.疯狂斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破甲锥;
@@ -135,6 +139,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.誓刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金铲铲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.钻石镐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锈右斧;
@@ -145,6 +150,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雷神锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.鹿角刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.黑暗剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.龙牙锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
@@ -153,6 +160,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.封禁卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.干枯花瓣;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.星之果实;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.火把神的恩宠;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命果;
@@ -227,10 +235,7 @@ public class 重制新增{
 				"空手加成：命中(力量-10)×0.1%x敏捷，攻速(力量-10)×0.1%x敏捷",
 
 				"魔力\n" +
-				"初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度5%，最大魔抗+魔力-10。\n"+
-				"生命、护甲、力量、敏捷、魔力属性最低为0.01，生命和护甲最大10_0000_000。\n"+
-				"最大生命值20+5x升级等级->10+1.625x等级(满级额外+1)。\n"+
-				"升级+最大命中和最大闪避->最大命中和最大闪避+等级-1(满级额外+1)，最大等级-5。\n"
+				"初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度5%，最大魔抗+魔力-10。"
 											));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.WARRIOR,tier(HeroClass.WARRIOR))),"杂项机制",
 
@@ -250,9 +255,7 @@ public class 重制新增{
 
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "新增杂项",
-											"设置可调整物品命名、打断英雄、游戏提示、游戏提示、装备武器、主要战技、战斗快速、从不过节。\n"+
-											"设置可调整固定攻速、固定移速、休息速度。\n"+
-											"设置可调整帧率、字体大小、画面同步、动画加快、透明界面、更多按钮、颜色区块、文字寿命、提示行数。"));
+											"设置可调整各种设定。"));
 	}
 
 	private static void 新英雄(ArrayList<ChangeInfo> changeInfos) {
@@ -290,6 +293,13 @@ public class 重制新增{
 		changes = new ChangeInfo("5阶", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 黑暗剑()));
+		changes.addButton(new ChangeButton(new 圣剑()));
+		changes.addButton(new ChangeButton(new 龙牙锤()));
+		changes.addButton(new ChangeButton(new 投掷手套()));
+		changes.addButton(new ChangeButton(new 彩虹猫之刃()));
+		changes.addButton(new ChangeButton(new 金铲铲()));
+		changes.addButton(new ChangeButton(new 玉龙()));
 		changes.addButton(new ChangeButton(new 腐化灾兵()));
 		changes.addButton(new ChangeButton(new 菱形刀()));
 		changes.addButton(new ChangeButton(new 猪鲨链球()));
@@ -429,6 +439,7 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新物品", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 星之果实(),"23层，周围4个活动雕像"));
 		changes.addButton(new ChangeButton(new 封禁卷轴(),"升级卷轴消耗10能量合成"));
 		changes.addButton(new ChangeButton(new 进级卷轴(),"升级卷轴+激泥酞酶消耗8能量合成"));
 		changes.addButton(new ChangeButton(new 血药(),
@@ -477,11 +488,11 @@ public class 重制新增{
 										   "金色蜜蜂死亡必定掉落一个蜂蜜。\n" +
 										   "蜂蜜罐击碎必定掉落一个蜂蜜。"));
 		changes.addButton(new ChangeButton(new 红蘑菇(),
-										   "女猎特性可以在高草找到"));
-		changes.addButton(new ChangeButton(new 蓝蘑菇(),
-										   "女猎特性可以在高草找到"));
+										   "女猎特性6-18点可以在高草找到"));
 		changes.addButton(new ChangeButton(new 绿蘑菇(),
-										   "女猎特性可以在高草找到"));
+										   "女猎特性18-24点可以在高草找到"));
+		changes.addButton(new ChangeButton(new 蓝蘑菇(),
+										   "女猎特性0-6点可以在高草找到"));
 		changes.addButton(new ChangeButton(new 红包(),
 										   "春节开局获得"));
 		changes.addButton(new ChangeButton(new 生命果(),

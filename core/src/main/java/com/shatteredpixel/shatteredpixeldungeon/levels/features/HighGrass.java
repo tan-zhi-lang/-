@@ -141,11 +141,13 @@ public class HighGrass {
 					}
 				}
 				
-				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
-				}
-				if(Dungeon.符文("灵感咕力咕力咕力灵感菇")){
-					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+				if (Dungeon.符文("灵感咕力咕力咕力灵感菇")||Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
+					if(Dungeon.白天())
+					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇()),pos).sprite().drop();
+					else if(Dungeon.黄昏())
+						level.drop(Random.oneOf(new 地牢浆果(),new 绿蘑菇()),pos).sprite().drop();
+					else if(Dungeon.夜晚())
+							level.drop(Random.oneOf(new 地牢浆果(),new 蓝蘑菇()),pos).sprite().drop();
 				}
 				
 				// Dew, scales from 1/6 to 1/4
@@ -293,15 +295,13 @@ public class HighGrass {
 					}
 				}
 				
-				if (Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
-					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
-					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
-				}
-				if(Dungeon.符文("灵感咕力咕力咕力灵感菇")){
-					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
-					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
-					level.drop(Random.oneOf(new 红蘑菇(),new 蓝蘑菇(),new 绿蘑菇()),pos).sprite().drop();
+				if (Dungeon.符文("灵感咕力咕力咕力灵感菇")||Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
+					if(Dungeon.白天())
+						level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇()),pos).sprite().drop();
+					else if(Dungeon.黄昏())
+						level.drop(Random.oneOf(new 地牢浆果(),new 绿蘑菇()),pos).sprite().drop();
+					else if(Dungeon.夜晚())
+							level.drop(Random.oneOf(new 地牢浆果(),new 蓝蘑菇()),pos).sprite().drop();
 				}
 				// Dew, scales from 1/6 to 1/4
 				概率 = 1/(6f - 自然层 /2f);

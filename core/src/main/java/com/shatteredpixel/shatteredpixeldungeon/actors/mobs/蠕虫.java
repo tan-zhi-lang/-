@@ -17,6 +17,7 @@ public class 蠕虫 extends Mob {
 
 			经验 = 7;
 			最大等级 = 15;
+			properties.add(Property.动物);
 		}
 
 		@Override

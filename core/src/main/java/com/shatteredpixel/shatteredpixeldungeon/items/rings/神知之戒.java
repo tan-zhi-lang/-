@@ -13,7 +13,7 @@ public class 神知之戒 extends Ring {
 
 	{
 		icon = 物品表.Icons.神知之戒;
-		buffClass = 奥术之戒.Arcana.class;
+		buffClass = 神知.class;
 	}
 
 	public String statsInfo() {
@@ -30,7 +30,7 @@ public class 神知之戒 extends Ring {
 		}
 	}
 	public static int 范围(Char target){
-		return getBuffedBonus( target, 奥术之戒.Arcana.class);
+		return getBuffedBonus( target, 神知.class);
 	}
 
 	@Override

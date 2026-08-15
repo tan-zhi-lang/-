@@ -11,7 +11,7 @@ public class 魔攻之戒 extends Ring {
 
 	{
 		icon = 物品表.Icons.魔攻之戒;
-		buffClass = 奥术之戒.Arcana.class;
+		buffClass = 魔攻.class;
 	}
 
 	public String statsInfo() {
@@ -27,8 +27,8 @@ public class 魔攻之戒 extends Ring {
 			return Messages.get(this, "stats", 1.5f);
 		}
 	}
-	public static int 魔力(Char target){
-		return getBuffedBonus( target, 奥术之戒.Arcana.class);
+	public static float 魔力(Char target){
+		return 1.5f*getBuffedBonus( target, 魔攻.class);
 	}
 
 	@Override

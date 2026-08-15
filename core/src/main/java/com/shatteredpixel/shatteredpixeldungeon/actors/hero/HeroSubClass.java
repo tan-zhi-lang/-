@@ -30,8 +30,6 @@ public enum HeroSubClass {
 
 	金刚独狼(HeroIcon.金刚独狼),
 	黑魔导师(HeroIcon.黑魔导师),
-	
-	健身猛男(HeroIcon.NONE),
 
 	盾之勇者(HeroIcon.盾之勇者),
 	轻装步兵(HeroIcon.轻装步兵),

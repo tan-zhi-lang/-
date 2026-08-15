@@ -11,7 +11,7 @@ public class 汲取之戒 extends Ring {
 
 	{
 		icon = 物品表.Icons.汲取之戒;
-		buffClass = Furor.class;
+		buffClass = 汲取.class;
 	}
 
 	public String statsInfo() {
@@ -36,13 +36,13 @@ public class 汲取之戒 extends Ring {
 
 	@Override
 	protected RingBuff buff( ) {
-		return new Furor();
+		return new 汲取();
 	}
 	
 	public static float 吸血(Char target){
-		return 0.005f*getBuffedBonus(target, Furor.class);
+		return 0.005f*getBuffedBonus(target, 汲取.class);
 	}
 
-	public class Furor extends RingBuff {
+	public class 汲取 extends RingBuff {
 	}
 }

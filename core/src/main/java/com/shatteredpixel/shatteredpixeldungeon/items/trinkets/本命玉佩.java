@@ -24,11 +24,11 @@ public class 本命玉佩 extends Trinket {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 								kw2((1-防御())*100),
-									kw2((1-生命())*100));
+									kw2(生命()*100));
 		} else {
 			return Messages.get(this,"stats_desc",
 								kw2((1-防御(0))*100),
-								kw2((1-生命(0))*100));
+								kw2(生命(0)*100));
 		}
 	}
 

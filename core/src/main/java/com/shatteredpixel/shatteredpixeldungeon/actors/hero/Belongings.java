@@ -174,25 +174,20 @@ public class Belongings implements Iterable<Item> {
 	}
 
 	public Weapon weapon(){
-		if (!lostInventory() ){
 			//if the hero has two weapons (champion), pick the stronger one
 			Weapon item =null;
-			if((weapon != null && weapon.keptThroughLostInventory()))
-				item=weapon;
 
-			if((secondWep != null && secondWep.keptThroughLostInventory()))
-				item=secondWep;
+			if(weapon1()!=null)item=weapon1();
 
-			if(weapon!=null&&secondWep!=null)
-			if (secondWep.DPS()>weapon.DPS()){
-				item = secondWep;
+			if(weapon2()!=null)item=weapon2();
+
+			if(weapon1()!=null&&weapon2()!=null){
+				if(weapon2().DPS()>weapon1().DPS()){
+					item=weapon2();
+				}
 			}
 
-			 if(item!=null)
-				 return item;
-		}
-
-		return null;
+		return item;
 
 	}
 

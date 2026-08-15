@@ -49,8 +49,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.技能;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.彩虹猫之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投掷手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
@@ -65,9 +68,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血荆棘;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.黑暗剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.龙牙锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.星之果实;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.火把神的恩宠;
@@ -200,7 +206,18 @@ public class Item implements Bundlable {
 	public boolean 房间物品 = false;
 	public boolean 超级等级 = false;
 	public float 魔力收益 = 1;
+	public boolean 星露谷物语(){
+
+		if(this instanceof 龙牙锤)return true;
+		if(this instanceof 星之果实)return true;
+		if(this instanceof 圣剑)return true;
+		if(this instanceof 黑暗剑)return true;
+		if(this instanceof 彩虹猫之刃)return true;
+		return false;
+	}
 	public boolean tr(){
+		if(this instanceof 圣诞礼物)return true;
+		if(this instanceof 投掷手套)return true;
 		if(this instanceof 猪鲨链球)return true;
 		if(this instanceof 致胜拳炮)return true;
 		if(this instanceof 生命水晶)return true;
@@ -1190,23 +1207,15 @@ public class Item implements Bundlable {
 			if(w.复仇者联盟())s+="复仇者联盟";
 			if(w.我的世界())s+="我的世界";
 			if(w.幻影忍者())s+="乐高幻影忍者";
+			if(w.星露谷物语())s+="星露谷物语";
 			if(w.拳套())s+="拳套";
 			if(w.钝器())s+="钝器";
 			if(w.匕首())s+="匕首";
 			if(w.短剑())s+="短剑";
 			if(w.回旋镖())s+="回旋镖";
-//			if(w.巨剑())s+="巨剑";
-//			if(w.小盾())s+="小盾";
-//			if(w.大盾())s+="大盾";
-//			if(w.战锤())s+="战锤";
-//			if(w.战斧())s+="战斧";
-//			if(w.战镰())s+="战镰";
-//			if(w.巨斧())s+="巨斧";
-//			if(w.巨锤())s+="巨锤";
-//			if(w.巨镰())s+="巨镰";
-//			if(w.长刀())s+="长刀";
 			if(w.盾())s+="盾";
 			if(w.剑())s+="剑";
+			if(w.巨剑())s+="巨剑";
 			if(w.刀())s+="刀";
 			if(w.斧())s+="斧";
 			if(w.锤())s+="锤";
@@ -1214,6 +1223,7 @@ public class Item implements Bundlable {
 			if(w.镰())s+="镰";
 			if(w.棍())s+="棍";
 			if(w.镖())s+="镖";
+
 		   s+="类武器";
 		}
 		if(this instanceof Armor){

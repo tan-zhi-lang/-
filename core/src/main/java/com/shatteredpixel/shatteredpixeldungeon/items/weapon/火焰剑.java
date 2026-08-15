@@ -6,6 +6,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.火毒元素;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.灵焰元素;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
@@ -53,6 +55,16 @@ public class 火焰剑 extends Weapon{
 		}
 		if(Dungeon.level!=null&&Dungeon.level.blobs!=null){
 			Fire fire = (Fire) Dungeon.level.blobs.get(Fire.class);
+			if (fire != null && fire.volume > 0)
+			x+=add*fire.volume/2f;
+		}
+		if(Dungeon.level!=null&&Dungeon.level.blobs!=null){
+			灵焰元素 fire = (灵焰元素) Dungeon.level.blobs.get(灵焰元素.class);
+			if (fire != null && fire.volume > 0)
+			x+=add*fire.volume/2f;
+		}
+		if(Dungeon.level!=null&&Dungeon.level.blobs!=null){
+			火毒元素 fire = (火毒元素) Dungeon.level.blobs.get(火毒元素.class);
 			if (fire != null && fire.volume > 0)
 			x+=add*fire.volume/2f;
 		}

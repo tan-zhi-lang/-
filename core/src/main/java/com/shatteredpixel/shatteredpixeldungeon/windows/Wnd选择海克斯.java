@@ -21,7 +21,6 @@ import com.watabou.noosa.audio.Sample;
 public class Wnd选择海克斯 extends Window {
 
 	private static final int WIDTH_P = 125;//120
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 	static  Wnd选择海克斯 INSTANCE;
@@ -33,7 +32,7 @@ public class Wnd选择海克斯 extends Window {
 		super();
 		INSTANCE=this;
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width = WIDTH_P;
 		float 刷新x=-32;
 		float 刷新y=3;
 		float pos = MARGIN;
@@ -310,7 +309,7 @@ public class Wnd选择海克斯 extends Window {
 		super();
 		INSTANCE=this;
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width =  WIDTH_P;
 		float 刷新x=-32;
 		float 刷新y=3;
 		float pos = MARGIN;

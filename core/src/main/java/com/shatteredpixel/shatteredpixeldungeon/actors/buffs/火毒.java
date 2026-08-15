@@ -5,11 +5,14 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.火毒元素;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -74,7 +77,10 @@ public class 火毒 extends 燃烧 implements Hero.Doom {
 
 			detach();
 		}
-		
+
+		if (Dungeon.level.flamable[target.pos]&&Blob.volumeAt(target.pos,火毒元素.class)==0) {
+			GameScene.add(Blob.seed(target.pos,4,火毒元素.class));
+		}
 		spend( TICK );
 		left -= TICK;
 		
@@ -117,7 +123,7 @@ public class 火毒 extends 燃烧 implements Hero.Doom {
 	
 	@Override
 	public int icon() {
-		return BuffIndicator.FIRE;
+		return BuffIndicator.火毒;
 	}
 
 	@Override
@@ -132,8 +138,8 @@ public class 火毒 extends 燃烧 implements Hero.Doom {
 
 	@Override
 	public void fx(boolean on) {
-		if (on) target.sprite.add(CharSprite.State.BURNING);
-		else target.sprite.remove(CharSprite.State.BURNING);
+		if (on) target.sprite.add(CharSprite.State.火毒);
+		else target.sprite.remove(CharSprite.State.火毒);
 	}
 
 	@Override

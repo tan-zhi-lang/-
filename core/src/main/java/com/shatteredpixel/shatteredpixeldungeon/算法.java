@@ -6,6 +6,9 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Callback;
 import com.watabou.utils.Random;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class 算法 {
     /*
 
@@ -68,7 +71,7 @@ public class 算法 {
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
     * */
-    public static String 日期="8.09/15:29";
+    public static String 日期="8.15/15:59";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -105,6 +108,9 @@ public class 算法 {
         return s+x;
     }
     public static String kw2(float x) {
+        return kw2(SPDSettings.保留位数(),x);
+    }
+    public static String kw2(int x2,float x) {
         // 处理后缀
         float val;
         String suffix = "";
@@ -117,36 +123,48 @@ public class 算法 {
         } else {
             val = x;
         }
-        // 获取绝对值（后缀不影响）
+
         float absVal = Math.abs(val);
-        float frac = absVal - (int)Math.floor(absVal); // 小数部分
-        String formatted="";
-        if(SPDSettings.保留位数()==0){
-            int intVal = Math.round(absVal);
-            formatted = String.valueOf(intVal);
-        }else if(SPDSettings.保留位数()==1){
-            if (frac >= 0.5f||frac==0) {
-                // 进位到整数
-                int intVal = Math.round(absVal);
-                formatted = String.valueOf(intVal);
-            } else {
-                // 保留两位小数
-                formatted = String.format("%.1f", absVal);
+        // 用字符串构造 BigDecimal，避免二进制浮点误差
+        BigDecimal bd = new BigDecimal(Float.toString(absVal));
+        BigDecimal fracBD = bd.remainder(BigDecimal.ONE); // 小数部分
+
+        int scale=2;
+        int digits = x2;
+
+        if (digits == 0) {
+            scale = 0;
+        } else if (digits == 1) {
+            if(SPDSettings.四舍五入()){
+                // 整数 或 小数 ≥0.5 → 舍入到整数，否则保留一位小数
+                if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
+                    scale=0;
+                }else{
+                    scale=1;
+                }
+            }else{
+                scale=1;
             }
-        }else if(SPDSettings.保留位数()==2){
-            if (frac >= 0.5f||frac==0) {
-                // 进位到整数
-                int intVal = Math.round(absVal);
-                formatted = String.valueOf(intVal);
-            } else if (frac >= 0.05f) {
-                // 保留一位小数
-                formatted = String.format("%.1f", absVal);
-            } else {
-                // 保留两位小数
-                formatted = String.format("%.2f", absVal);
+        } else if (digits == 2){
+            if(SPDSettings.四舍五入()){
+                // 整数 或 小数 ≥0.5 → 整数
+                if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
+                    scale=0;
+                }else
+                    if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
+                        scale=1;          // 小数 ≥0.05 → 保留一位
+                    }else{
+                        scale=2;          // 其他 → 保留两位
+                    }
+            }else{
+                scale=2;
             }
         }
-        // 处理符号（原值可能为负）
+
+        BigDecimal rounded = bd.setScale(scale,RoundingMode.HALF_UP);
+        String formatted = rounded.toString();
+
+        // 处理符号
         if (val < 0) {
             formatted = "-" + formatted;
         }
@@ -189,7 +207,7 @@ public class 算法 {
                 "plants.",
                 "items.",
                 "items.物品.",
-                "items.用品.用品.",
+                "items.用品.",
                 "items.armor.",
                 "items.artifacts.",
                 "items.bags.",

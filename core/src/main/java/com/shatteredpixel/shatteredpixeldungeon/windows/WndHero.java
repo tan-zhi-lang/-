@@ -261,7 +261,7 @@ public class WndHero extends WndTabbed {
 
 					statSlot("@@元素抗性/魔抗@@",Math.round(100*(1-(RingOfElements.resist(hero))))+"%/"+kw2(hero.最小魔抗())+"~"+kw2(hero.最大魔抗()));
 
-					statSlot("_攻速/移速_",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));
+					statSlot("_攻速/移速_",kw2(1f/hero.攻击延迟())+"/"+kw2(hero.移速()));//(hero.水平移动||hero.垂直移动)?hero.移速()/2f:
 
 					statSlot("**攻击范围/命中**",hero.攻击范围()+"/"+kw2(hero.最小命中(null))+"~"+kw2(hero.最大命中(null)));
 					statSlot("##惊醒距离/闪避##",hero.惊醒距离()+"/"+kw2(hero.最小闪避(null))+"~"+kw2(hero.最大闪避(null)));
@@ -325,18 +325,18 @@ public class WndHero extends WndTabbed {
 			pos = GAP*2;
 
 			if(!hero.符文("黑幕")){
-					statSlot("_暴击率/暴击伤害_",Math.round(hero.暴击率()*100)+"%/"+Math.round(hero.暴击伤害()*100)+"%");
+					statSlot("_暴击率/暴击伤害_",kw2(hero.暴击率()*100)+"%/"+kw2(hero.暴击伤害()*100)+"%");
 
-					statSlot("==穿甲/护甲穿透==",kw2(hero.穿甲())+"/"+Math.round(hero.护甲穿透()*100)+"%");
-					statSlot("##法穿/法术穿透##",kw2(hero.法穿())+"/"+Math.round(hero.法术穿透()*100)+"%");
+					statSlot("==穿甲/护甲穿透==",kw2(hero.穿甲())+"/"+kw2(hero.护甲穿透()*100)+"%");
+					statSlot("##法穿/法术穿透##",kw2(hero.法穿())+"/"+kw2(hero.法术穿透()*100)+"%");
 
 //					pos+=GAP;
 					statSlot("_视野+光照范围_",hero.视野范围get+"+"+hero.光照范围());
 					statSlot("!!搜索/感知范围!!",hero.搜索范围()+"/"+hero.感知范围());
-					statSlot("隐匿/地牢视野",Math.round(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
-					statSlot("_商店打折_",Math.round(Shopkeeper.售价(10)/4f));
+					statSlot("隐匿/地牢视野",kw2(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
+					statSlot("_商店打折_",kw2(6000f/Shopkeeper.售价(100)));
 //					pos+=GAP;
-					statSlot("**吸血/全能吸血**",Math.round(hero.吸血()*100)+"%"+"/"+Math.round(hero.全能吸血()*100)+"%");
+					statSlot("**吸血/全能吸血**",kw2(hero.吸血()*100)+"%"+"/"+kw2(hero.全能吸血()*100)+"%");
 					statSlot("++治疗护盾/综合属性++",kw2(hero.治疗护盾())+"/"+kw2(hero.综合属性())+"倍");
 			}
 			pos += GAP;

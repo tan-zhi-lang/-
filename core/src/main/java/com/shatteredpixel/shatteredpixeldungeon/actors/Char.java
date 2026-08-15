@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Daze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
@@ -993,7 +994,7 @@ public abstract class Char extends Actor {
 		if(enemy!=null)
 		第x次防御++;
 		if(enemy!=null)
-		Buff.刷新(this,战斗状态.class,5);
+		Buff.施加(this,战斗状态.class,5);
 
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (enemy!=null&&armor != null) {
@@ -1102,11 +1103,11 @@ public abstract class Char extends Actor {
 			sprite.橙说("蒸发");//蒸发
 			return 1.5f;
 		}
-		if(火焰伤害(src)&&电伤害(src)){
+		if(火焰伤害(src)&&雷电伤害(src)){
 			sprite.紫说("超载");//超载
 			return 2.75f;
 		}
-		if(在水中()&&电伤害(src)){
+		if(在水中()&&雷电伤害(src)){
 			sprite.紫说("超导");//超导
 			Buff.施加(this,Vulnerable.class,5);
 			return 1.5f;
@@ -1123,12 +1124,12 @@ public abstract class Char extends Actor {
 			Buff.detach(this,Frost.class);
 			return 3;
 		}
-		if(电伤害(src)&&在水中()){
+		if(雷电伤害(src)&&在水中()){
 			sprite.紫说("感电");//感电
 			new StoneOfShock().activate(pos);
 			return 2;
 		}
-		if(风伤害(src)&&(火焰伤害(src)||在水中()||电伤害(src)||冰霜伤害(src))){
+		if(风伤害(src)&&(火焰伤害(src)||在水中()||雷电伤害(src)||冰霜伤害(src))){
 			sprite.白说("扩散");//扩散
 			return 1+0.6f;
 		}
@@ -1180,7 +1181,7 @@ public abstract class Char extends Actor {
 	public boolean 风伤害(Object src){
 		return src instanceof WandOfBlastWave||hasbuff(Vertigo.class);
 	}
-	public boolean 电伤害(Object src){
+	public boolean 雷电伤害(Object src){
 		return Property.电.immunities().contains(src)||
 			   Property.电.resistances().contains(src)||
 			   hasbuff(Paralysis.class);
@@ -1206,6 +1207,15 @@ public abstract class Char extends Actor {
 	}
 	public void 受伤时(float dmg){
 		受伤时(dmg,Dungeon.class);
+	}
+	public void 火受伤时(float dmg){
+		受伤时(dmg,燃烧.class);
+	}
+	public void 冰受伤时(float dmg){
+		受伤时(dmg,Frost.class);
+	}
+	public void 电受伤时(float dmg){
+		受伤时(dmg,WandOfLightning.class);
 	}
 	public void 受伤时(float dmg,Object 来源){
 
@@ -1273,10 +1283,8 @@ public abstract class Char extends Actor {
 			dmg*=d火焰();
 		if(冰霜伤害(来源))
 			dmg*=d冰霜();
-		if(酸性伤害(来源))
-			dmg*=d酸性();
-		if(无机伤害(来源))
-			dmg*=d无机();
+		if(雷电伤害(来源))
+			dmg*=d雷电();
 
 		if(Dungeon.赛季(赛季设置.地牢塔防))
 			for(int n: PathFinder.范围6){
@@ -1641,6 +1649,17 @@ public abstract class Char extends Actor {
 			}
 		}
 		return null;
+	}
+	public synchronized  <T extends FlavourBuff> T buff(Class<T> c,String name) {
+		for (Buff b : buffs) {
+			if (b.getClass() == c&&b.name.equals(name)) {
+				return (T)b;
+			}
+		}
+		return null;
+	}
+	public boolean hasbuff( Class c ,String name){
+		return buff(c)!= null&&buff(c).name.equals(name);
 	}
 	public boolean hasbuff( Class c ){
 		return buff(c)!= null;
@@ -2366,36 +2385,6 @@ public abstract class Char extends Actor {
 	public float 全能吸血(){
 		return 0;
 	}
-	public boolean 恶魔(){
-		if(Dungeon.符文("白骨皮肉"))return true;
-		return properties().contains(Property.DEMONIC);
-	}
-	public boolean 亡灵(){
-		if(Dungeon.符文("白骨皮肉"))return true;
-		return properties().contains(Property.UNDEAD);
-	}
-	public boolean 恶魔亡灵(){
-		return 恶魔()||亡灵();
-	}
-	public boolean 老鬼(){
-		return properties().contains(Property.BOSS);
-	}
-	public boolean 豺狼(){
-		if(this instanceof Brute||
-		   this instanceof Gnoll||
-		   this instanceof GnollExile||
-		   this instanceof GnollGeomancer||
-		   this instanceof GnollGuard||
-		   this instanceof GnollSapper||
-		   this instanceof GnollTrickster||
-		   this instanceof Shaman
-		   )return true;
-
-		return false;
-	}
-	public boolean 老鬼傀儡(){
-		return properties().contains(Property.BOSS_MINION);
-	}
 
 	public void 扔出(int to,Item item,Callback c){
 		if(item instanceof Weapon w)w.hitSound(1);
@@ -2425,25 +2414,48 @@ public abstract class Char extends Actor {
 		if(火焰()) x/=2;
 		if(冰霜()) x*=2;
 
-		if(动物())x*=2;
 		return x;
 	}
 	public float d冰霜(){
 		float x=1;
 		if(冰霜()) x/=2;
 		if(火焰())x*=2;
-		if(动物())x*=2;
 		return x;
 	}
-	public float d酸性(){
+	public float d雷电(){
 		float x=1;
 		if(动物())x*=2;
 		return x;
 	}
-	public float d无机(){
-		float x=1;
-		if(动物())x*=2;
-		return x;
+	public boolean 恶魔(){
+		if(Dungeon.符文("白骨皮肉"))return true;
+		return properties().contains(Property.DEMONIC);
+	}
+	public boolean 亡灵(){
+		if(Dungeon.符文("白骨皮肉"))return true;
+		return properties().contains(Property.UNDEAD);
+	}
+	public boolean 恶魔亡灵(){
+		return 恶魔()||亡灵();
+	}
+	public boolean 老鬼(){
+		return properties().contains(Property.BOSS);
+	}
+	public boolean 豺狼(){
+		if(this instanceof Brute||
+		   this instanceof Gnoll||
+		   this instanceof GnollExile||
+		   this instanceof GnollGeomancer||
+		   this instanceof GnollGuard||
+		   this instanceof GnollSapper||
+		   this instanceof GnollTrickster||
+		   this instanceof Shaman
+		)return true;
+
+		return false;
+	}
+	public boolean 老鬼傀儡(){
+		return properties().contains(Property.BOSS_MINION);
 	}
 	public boolean 傀儡(){
 		return properties().contains(Property.傀儡);

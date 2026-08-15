@@ -13,8 +13,6 @@ import java.util.regex.Pattern;
 
 public class GameLog extends Component implements Signal.Listener<String> {
 
-	private static final int MAX_LINES = 3;
-
 	private static final Pattern PUNCTUATION = Pattern.compile( ".*[.,;?! ]$" );
 
 	private RenderedTextBlock lastEntry;
@@ -36,19 +34,16 @@ public class GameLog extends Component implements Signal.Listener<String> {
 		try{
 			synchronized(textsToAdd){
 				if(!textsToAdd.isEmpty()){
-					int maxLines=SPDSettings.interfaceSize()>0?
-							5:
-							3;//提示文本行
-					maxLines=Math.round(maxLines*1.33f*switch(SPDSettings.提示行数()){
+					int maxLines=switch(SPDSettings.提示行数()){//提示文本行
 						default ->1;
 						case 0->0;
-						case 1->0.25f;
-						case 2->0.5f;
-						case 3->1;
-						case 4->1.375f;
-						case 5->1.75f;
+						case 1->1;
+						case 2->2;
+						case 3->3;
+						case 4->4;
+						case 5->5;
 
-					});
+					};
 
 					for(String text: textsToAdd){
 						if(length!=entries.size()){

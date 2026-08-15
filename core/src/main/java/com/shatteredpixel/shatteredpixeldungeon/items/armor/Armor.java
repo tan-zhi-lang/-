@@ -10,14 +10,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.组间休息;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.隔天休息;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
@@ -689,18 +685,6 @@ public class Armor extends EquipableItem {
 		if(defender instanceof Hero hero){
 			if(attacker!=null&&首次使用){
 				usesLeftToID-=Talent.鉴定速度(hero,this);
-			}
-			if(attacker!=null&&hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
-				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
-					hero.现在健身-=0.01f;
-				}else{
-					if(hero.现在健身>=3){
-						Buff.施加(hero,隔天休息.class,900);
-					}else{
-						hero.现在健身+=0.01f;
-						Buff.施加(hero,组间休息.class,1);
-					}
-				}
 			}
 		}
 		if (attacker!=null&&defender.buff(MagicImmune.class) == null) {

@@ -36,6 +36,7 @@ import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
+import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.ColorMath;
@@ -76,8 +77,9 @@ public class StatusPane extends Component {
 	private BitmapText expText;
 	private BitmapText date;
 	private BitmapText fps;
+	private RenderedText 区域;
 	private BitmapText time;
-	private BitmapText day;
+	private RenderedText day;
 
 	private int lastLvl = -1;
 
@@ -88,7 +90,7 @@ public class StatusPane extends Component {
 
 	private BusyIndicator busy;
 	
-	private BitmapText busytime;
+	private RenderedText busytime;
 	private CircleArc counter;
 
 	private boolean 横屏;
@@ -209,10 +211,14 @@ public class StatusPane extends Component {
 		add(date);
 		fps = new BitmapText("FPS:"+Gdx.graphics.getFramesPerSecond(),PixelScene.pixelFont);
 		add(fps);
+
+		区域 = new RenderedText("第"+Dungeon.区域()+"区",32);
+		add(区域);
+
 		time = new BitmapText( Dungeon.地牢时间(), PixelScene.pixelFont);
 		add(time);
 		
-		day = new BitmapText( Dungeon.地牢天数+"Day", PixelScene.pixelFont);
+		day = new RenderedText( "第"+Dungeon.地牢天数+"天",32);
 		add(day);
 
 		level = new BitmapText( PixelScene.pixelFont);
@@ -224,7 +230,8 @@ public class StatusPane extends Component {
 
 		busy = new BusyIndicator();
 		add( busy );
-		busytime = new BitmapText( String.format("%.2f",(1f - Actor.now()%1f)%1f), PixelScene.pixelFont);
+		busytime = new RenderedText("回合差"+ kw2(2,(1f - Actor.now()%1f)%1f)
+				, 32);
 		add(busytime);
 
 		counter = new CircleArc(18, 4.25f);
@@ -327,11 +334,15 @@ public class StatusPane extends Component {
 		fps.measure();
 		PixelScene.align(fps);
 
+		区域.scale.set(PixelScene.align(0.175f));
+		区域.measure();
+		PixelScene.align(区域);
+
 		time.scale.set(PixelScene.align(0.75f));
 		time.measure();
 		PixelScene.align(time);
 		
-		day.scale.set(PixelScene.align(0.85f));
+		day.scale.set(PixelScene.align(0.185f));
 		day.measure();
 		PixelScene.align(day);
 		
@@ -340,7 +351,7 @@ public class StatusPane extends Component {
 		busy.x = x + 1;
 		busy.y = y + 37;
 		
-		busytime.scale.set(PixelScene.align(0.67f));
+		busytime.scale.set(PixelScene.align(0.185f));
 		busytime.measure();
 		PixelScene.align(busytime);
 		
@@ -471,28 +482,33 @@ public class StatusPane extends Component {
 		date.text(日期);
 		date.measure();
 		date.x = uiCamera.width-MenuPane.WIDTH + 30.5f - date.width();
-		date.y = y + 17 + date.height();
+		date.y = y + 16.5f + date.height();
 
 
 		fps.text("FPS:" + Gdx.graphics.getFramesPerSecond());
 		fps.measure();
 		fps.x = uiCamera.width-MenuPane.WIDTH + 22.5f - fps.width() / 2f;
-		fps.y = y + 17*1.3f + fps.height();
+		fps.y = y + 22 + fps.height();
+
+		区域.text("第"+Dungeon.区域()+"区");
+		区域.measure();
+		区域.x = uiCamera.width-MenuPane.WIDTH + 25f - 区域.width() / 2f;
+		区域.y = y + 30 + 区域.height();
 
 		time.text(Dungeon.地牢时间());
 		time.measure();
 		time.x = x + 25.5f - time.width() / 2f;
 		time.y = y + 35 + time.height();
-		
-		day.text(Dungeon.地牢天数+"Day");
+
+		day.text("第"+Dungeon.地牢天数+"天");
 		day.measure();
-		day.x = counter.x + day.width() / 2f;
-		day.y = y + 41.5f + day.height();
-		
-		busytime.text(String.format("%.2f",(1f - Actor.now()%1f)%1f));
+		day.x = counter.x-3;
+		day.y = counter.y+counter.height() + day.height()*2f+2;
+
+		busytime.text("回合差"+kw2(2,(1f - Actor.now()%1f)%1f));
 		busytime.measure();
-		busytime.x = counter.x + busytime.width()/2;
-		busytime.y = counter.y+counter.height() -busytime.height()/2 + (3 - busytime.baseLine());
+		busytime.x = counter.x-3;
+		busytime.y = counter.y+counter.height()+busytime.height()*4+2;
 		
 		if (Dungeon.hero.等级 != lastLvl) {
 

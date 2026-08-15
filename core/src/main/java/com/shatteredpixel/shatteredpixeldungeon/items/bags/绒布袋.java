@@ -36,7 +36,7 @@ public class 绒布袋 extends Bag {
 	
 	@Override
 	public int 金币() {
-		return 30;
+		return 20;
 	}
 
 }

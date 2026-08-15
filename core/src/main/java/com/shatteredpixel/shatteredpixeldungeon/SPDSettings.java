@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Music;
 import com.watabou.noosa.audio.Sample;
@@ -32,7 +31,6 @@ public class SPDSettings extends GameSettings {
 	
 	public static final String KEY_FULLSCREEN	= "fullscreen";
 	public static final String KEY_LANDSCAPE	= "landscape";
-	public static final String KEY_POWER_SAVER 	= "power_saver";
 	public static final String KEY_ZOOM			= "zoom";
 	public static final String KEY_BRIGHTNESS	= "brightness";
 	public static final String KEY_GRID 	    = "visual_grid";
@@ -41,6 +39,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 动画加快x = "动画加快";
 	public static final String 透明界面x = "透明界面";
 	public static final String 更多按钮x = "更多按钮";
+	public static final String 四舍五入x = "四舍五入";
 	public static final String 颜色区块x = "颜色区块";
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
@@ -65,19 +64,13 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static boolean fullscreen() {
-		return getBoolean( KEY_FULLSCREEN, 算法.isDebug()?false:DeviceCompat.isDesktop());
+		return getBoolean( KEY_FULLSCREEN, DeviceCompat.isDesktop());
 	}
-	public static void powerSaver( boolean value ){
-		put( KEY_POWER_SAVER, value );
-		}
 	
 	public static void landscape( boolean value ){
 		put( KEY_LANDSCAPE, value );
 		((ShatteredPixelDungeon)ShatteredPixelDungeon.instance).updateDisplaySize();
 	}
-	public static boolean powerSaver(){
-		return getBoolean( KEY_POWER_SAVER, false );
-		}
 	public static boolean landscape(){
 		return getBoolean(KEY_LANDSCAPE, false);
 	}
@@ -155,6 +148,14 @@ public class SPDSettings extends GameSettings {
 
 	public static boolean 更多按钮() {
 		return getBoolean(更多按钮x, true );
+	}
+
+	public static void 四舍五入(boolean value ){
+		put(四舍五入x, value );
+	}
+
+	public static boolean 四舍五入() {
+		return getBoolean(四舍五入x, true );
 	}
 
 	public static float 加快(){
@@ -272,16 +273,15 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 提示行数() {
-		return getInt(提示行数x, 1,0,5 );
+		return getInt(提示行数x, 3,0,5 );
 	}
 
 	//Interface
 
-	public static final String KEY_UI_SIZE 	    = "full_ui";
+	public static final String KEY_UI 	    = "key_ui";
 	public static final String KEY_SCALE		= "scale";
 	public static final String KEY_QUICK_SWAP	= "quickslot_swapper";
-	public static final String KEY_FLIPTOOLBAR	= "flipped_ui";
-	public static final String KEY_FLIPTAGS 	= "flip_tags";
+
 	public static final String KEY_BARMODE		= "toolbar_mode";
 	public static final String KEY_SLOTWATERSKIN= "quickslot_waterskin";
 	public static final String KEY_SYSTEMFONT	= "system_font";
@@ -289,22 +289,12 @@ public class SPDSettings extends GameSettings {
 
 	public static final String KEY_GAMES_SORT    = "games_sort";
 
-	//0 = mobile, 1 = mixed (large without inventory in main UI), 2 = large
-	public static void interfaceSize( int value ){
-		put( KEY_UI_SIZE, value );
+	public static void interfaceSize( boolean value ){
+		put( KEY_UI, value );
 	}
 
-	public static int interfaceSize(){
-		int size = getInt( KEY_UI_SIZE, DeviceCompat.isDesktop() ? 2 : 0 );
-		if (size > 0){
-			//force mobile UI if there is not enough space for full UI
-			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
-			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
-			if (Math.min(wMin, hMin) < 2*Game.density){
-				size = 0;
-			}
-		}
-		return size;
+	public static boolean interfaceSize(){
+		return getBoolean(KEY_UI,false);
 	}
 
 	public static void scale( int value ) {
@@ -317,24 +307,15 @@ public class SPDSettings extends GameSettings {
 	
 	public static void quickSwapper(boolean value ){ put( KEY_QUICK_SWAP, value ); }
 	
-	public static boolean quickSwapper(){ return getBoolean( KEY_QUICK_SWAP, true); }
-	
-	public static void flipToolbar( boolean value) {
-		put(KEY_FLIPTOOLBAR, value );
-	}
-	
-	public static boolean flipToolbar(){ return getBoolean(KEY_FLIPTOOLBAR, false); }
-	
-	public static void flipTags( boolean value) {
-		put(KEY_FLIPTAGS, value );
-	}
-	
-	public static boolean flipTags(){ return getBoolean(KEY_FLIPTAGS, false); }
-	
+
+
 	public static void toolbarMode( String value ) {
 		put( KEY_BARMODE, value );
 	}
-	
+		public static boolean quickSwapper(){
+		return getBoolean( KEY_QUICK_SWAP, true);
+	}
+
 	public static String toolbarMode() {
 		return getString(KEY_BARMODE,  "GROUP");
 	}

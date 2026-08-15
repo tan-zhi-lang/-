@@ -12,14 +12,13 @@ import com.shatteredpixel.shatteredpixeldungeon.算法;
 public class Wnd选择主属性 extends Window {
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 
 	public Wnd选择主属性(Hero hero){
 		super();
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width =  WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock("选择提升的属性",9);

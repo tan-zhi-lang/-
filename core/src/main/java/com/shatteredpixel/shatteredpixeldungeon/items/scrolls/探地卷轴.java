@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 
 public class 探地卷轴 extends Scroll {
@@ -23,6 +24,9 @@ public class 探地卷轴 extends Scroll {
 	@Override
 	public void doRead() {
 
+		if(Dungeon.level!=null){
+			算法.调试(Dungeon.level.width()+"/"+Dungeon.level.height()+"宽度/高度");
+		}
 		detach(curUser.belongings.backpack);
 		int length = Dungeon.level.length();
 		int[] map = Dungeon.level.map;

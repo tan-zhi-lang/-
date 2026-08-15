@@ -84,9 +84,7 @@ public class 仇鬼 extends Mob implements Callback {
 			if(hero.belongings.weapon!=null
 		   &&(hero.belongings.weapon.强化等级()>0||hero.belongings.weapon.hasEnchant()))
 			return Dungeon.层数(0.5f)+Dungeon.区域(0.5f);
-			
-			if(hero.hasbuff(武力之戒.BrawlersStance.class))
-			return Dungeon.层数(0.5f)+Dungeon.区域(0.5f);
+
 		}
 		return Char.INFINITE;
 	}

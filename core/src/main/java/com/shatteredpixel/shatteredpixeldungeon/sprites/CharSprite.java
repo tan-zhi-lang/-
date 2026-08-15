@@ -22,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.TorchHalo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.火毒粒子;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.灵焰粒子;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -75,6 +76,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 	public enum State {
 		BURNING,
+		火毒,
 		灵焰,
 		LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING,
 		SHIELDED,
@@ -105,6 +107,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected PosTweener motion;
 
 	protected Emitter burning;
+	protected Emitter 火毒;
 	protected Emitter 灵焰;
 	protected Emitter chilled;
 	protected Emitter marked;
@@ -492,6 +495,14 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					Sample.INSTANCE.play(Assets.Sounds.BURNING);
 				}
 				break;
+			case 火毒:
+				if (火毒 != null) 火毒.on = false;
+				火毒 = emitter();
+				火毒.pour(火毒粒子.FACTORY,0.06f);
+				if (visible) {
+					Sample.INSTANCE.play(Assets.Sounds.BURNING);
+				}
+				break;
 			case 灵焰:
 				if (灵焰 != null) 灵焰.on = false;
 				灵焰 = emitter();
@@ -617,6 +628,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					burning = null;
 				}
 				break;
+			case 火毒:
+				if (火毒 != null) {
+					火毒.on = false;
+					火毒 = null;
+				}
+				break;
 			case 灵焰:
 				if (灵焰 != null) {
 					灵焰.on = false;
@@ -737,6 +754,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 
 		if (burning != null) {
 			burning.visible = visible;
+		}
+		if (火毒 != null) {
+			火毒.visible = visible;
 		}
 		if (灵焰 != null) {
 			灵焰.visible = visible;

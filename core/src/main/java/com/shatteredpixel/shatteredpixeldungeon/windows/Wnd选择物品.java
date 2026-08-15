@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 public class Wnd选择物品 extends Window {
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int WIDTH		= 120;
 	private static final int BTN_SIZE	= 32;
@@ -30,7 +29,7 @@ public class Wnd选择物品 extends Window {
 		this.i1=i1;
 		this.i2=i2;
 		this.i2=i3;
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width =WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock("选择物品",9);

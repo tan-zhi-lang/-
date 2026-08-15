@@ -300,7 +300,7 @@ public class Toolbar extends Component {
 			@Override
 			protected void onClick() {
 				if (Dungeon.hero() && (Dungeon.hero.ready || !Dungeon.hero.isAlive())) {
-					if (SPDSettings.interfaceSize() == 2) {
+					if (SPDSettings.interfaceSize()) {
 						GameScene.toggleInvPane();
 					} else {
 						if (!GameScene.cancel()) {
@@ -336,7 +336,7 @@ public class Toolbar extends Component {
 				super.createChildren();
 				arrow = Icons.get(Icons.COMPASS);
 				arrow.originToCenter();
-				arrow.visible = SPDSettings.interfaceSize() == 2;
+				arrow.visible = SPDSettings.interfaceSize();
 				arrow.tint(0x3D2E18, 1f);
 				add(arrow);
 
@@ -494,12 +494,39 @@ public class Toolbar extends Component {
 			}
 		}
 
-		if (SPDSettings.interfaceSize() > 0){
-			btnInventory.setPos(right - btnInventory.width(), y);
-			btnWait.setPos(btnInventory.left() - btnWait.width(), y);
-			btnSearch.setPos(btnWait.left() - btnSearch.width(), y);
+		if (SPDSettings.interfaceSize()){
 
-			right = btnSearch.left();
+			Toolbar.Mode mode;
+			try {
+				mode = Mode.valueOf(SPDSettings.toolbarMode());
+			} catch (Exception e){
+				Game.reportException(e);
+				mode = Mode.GROUP;
+			}
+
+			switch(mode){
+				case SPLIT:
+
+					btnInventory.setPos(right - btnWait.width(), y);
+					btnSearch.setPos(btnInventory.left() - btnSearch.width(), y);
+					btnWait.setPos(btnSearch.left() - btnInventory.width(), y);
+
+					right = btnWait.left();
+
+					break;
+				case GROUP:
+				case CENTER:
+				default:
+
+					btnWait.setPos(right - btnWait.width(), y);
+					btnSearch.setPos(btnWait.left() - btnSearch.width(), y);
+					btnInventory.setPos(btnSearch.left() - btnInventory.width(), y);
+
+					right = btnInventory.left();
+
+					break;
+			}
+
 			for(int i = endingSlot; i >= startingSlot; i--) {
 				if (i == endingSlot){
 					btnQuick[i].border(0, 2);
@@ -520,13 +547,13 @@ public class Toolbar extends Component {
 			return;
 		}
 
-		for(int i = startingSlot; i <= endingSlot; i++) {
-			if (i == startingSlot && !SPDSettings.flipToolbar() ||
-				i == endingSlot && SPDSettings.flipToolbar()){
+		for(int i = startingSlot; i <= endingSlot; i++) {//翻转工具栏
+			if (i == startingSlot && true ||
+				i == endingSlot && false){
 				btnQuick[i].border(0, 2);
 				btnQuick[i].frame(106, 0, 19, 24);
-			} else if (i == startingSlot && SPDSettings.flipToolbar() ||
-					i == endingSlot && !SPDSettings.flipToolbar()){
+			} else if (i == startingSlot && false ||
+					i == endingSlot && true){
 				btnQuick[i].border(2, 1);
 				btnQuick[i].frame(86, 0, 20, 24);
 			} else {
@@ -536,12 +563,13 @@ public class Toolbar extends Component {
 		}
 
 		float shift = 0;
+
 		Toolbar.Mode mode;
 		try {
 			mode = Mode.valueOf(SPDSettings.toolbarMode());
 		} catch (Exception e){
 			Game.reportException(e);
-			mode = PixelScene.横屏() ? Mode.GROUP : Mode.SPLIT;
+			mode = Mode.GROUP;
 		}
 		switch(mode){
 			case SPLIT:
@@ -605,7 +633,7 @@ public class Toolbar extends Component {
 
 		right = width;
 
-		if (SPDSettings.flipToolbar()) {
+		if (false) {//翻转工具栏
 
 			btnWait.setPos( (right - btnWait.right()), y);
 			btnSearch.setPos( (right - btnSearch.right()), y);
@@ -843,7 +871,7 @@ public class Toolbar extends Component {
 
 			int slot;
 			int slotDir;
-			if (SPDSettings.flipToolbar()){
+			if (false){//翻转工具栏
 				slot = swappedQuickslots ? 0 : 3;
 				slotDir = +1;
 			} else {

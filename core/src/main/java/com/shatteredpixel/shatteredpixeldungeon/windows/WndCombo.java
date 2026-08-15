@@ -17,14 +17,13 @@ import com.watabou.noosa.Image;
 public class WndCombo extends Window {
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 
 	public WndCombo( 连击 连击){
 		super();
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width = WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock(Messages.titleCase(Messages.get(this, "title")), 9);

@@ -256,6 +256,15 @@ public class 传送卷轴 extends Scroll {
 
 	}
 
+	public static boolean 周身瞬移(int pos) {
+		for (int ofs : PathFinder.相邻){
+			if(Actor.findChar(pos + ofs)!=null||
+			   Dungeon.level.solid[pos + ofs] ||
+			   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+		}
+		return false;
+	}
 	public static void 周身瞬移(Char ch,int pos) {
 		int ofs;
 		do {
@@ -264,6 +273,73 @@ public class 传送卷轴 extends Scroll {
 
 
 		瞬移(ch,pos + ofs);
+	}
+	public static boolean 范围瞬移(int pos,int x) {
+		if(x==1){
+			for (int ofs : PathFinder.相邻){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		if(x==2){
+			for (int ofs : PathFinder.范围2){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		if(x==3){
+			for (int ofs : PathFinder.范围3){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		if(x==4){
+			for (int ofs : PathFinder.范围4){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		if(x==5){
+			for (int ofs : PathFinder.范围5){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		if(x==6){
+			for (int ofs : PathFinder.范围6){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		if(x==7){
+			for (int ofs : PathFinder.范围7){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		if(x==8){
+			for (int ofs : PathFinder.范围8){
+				if(Actor.findChar(pos + ofs)!=null||
+				   Dungeon.level.solid[pos + ofs] ||
+				   !Dungeon.level.passable[pos + ofs])return false;
+				else return true;
+			}
+		}
+		return false;
 	}
 	public static void 范围瞬移(Char ch,int pos,int x) {
 		int ofs;
@@ -284,6 +360,12 @@ public class 传送卷轴 extends Scroll {
 
 
 		瞬移(ch,pos + ofs);
+	}
+	public static boolean 瞬移(int pos) {
+			if(Actor.findChar(pos)!=null||
+			   Dungeon.level.solid[pos] ||
+			   !Dungeon.level.passable[pos])return false;
+			else return true;
 	}
 	public static void 瞬移(Char ch,int pos) {
 

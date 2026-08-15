@@ -118,6 +118,10 @@ public class Buff extends Actor {
 		}
 	}
 
+	public Buff name( String name ) {
+		this.name=name;
+		return this;
+	}
 	public String name() {
 		if(!name.equals(""))return name;
 		return Messages.get(this, "name");
@@ -177,6 +181,16 @@ public class Buff extends Actor {
 		buff.spend( duration * target.resist(buffClass) );
 		return buff;
 	}
+	public static<T extends FlavourBuff> T 冷却(Char target, Class<T> buffClass, float duration ,String name) {
+		T buff = target.buff( buffClass,name);
+		if (buff != null) {
+			return buff;
+		} else {
+			buff= 新增( target, buffClass,duration);
+			buff.name(name);
+			return buff;
+		}
+	}
 
 	//same as append, but prevents duplication.
 	public static<T extends Buff> T 施加(Char target, Class<T> buffClass ) {//不重复
@@ -195,12 +209,13 @@ public class Buff extends Actor {
 	}
 
 	//same as append, but prevents duplication.
-	public static<T extends Buff> T 刷新(Char target, Class<T> buffClass ) {//不重复
+	public static<T extends Buff> T 刷新(Char target, Class<T> buffClass ) {
 		T buff = target.buff( buffClass );
 		if (buff != null) {
-			return buff;
+			buff.detach();
+			return 施加( target, buffClass );
 		} else {
-			return 新增( target, buffClass );
+			return 施加( target, buffClass );
 		}
 	}
 
@@ -208,13 +223,9 @@ public class Buff extends Actor {
 		T buff = target.buff( buffClass );
 		if (buff != null) {
 			buff.detach();
-			T newbuff = 施加( target, buffClass );
-			newbuff.spend( duration * target.resist(buffClass) );
-			return newbuff;
+			return 施加( target, buffClass,duration );
 		} else {
-			T newbuff = 施加( target, buffClass );
-			newbuff.spend( duration * target.resist(buffClass) );
-			return newbuff;
+			return 施加( target, buffClass,duration );
 		}
 	}
 

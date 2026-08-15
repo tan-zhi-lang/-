@@ -16,9 +16,6 @@ public class PathFinder {
 	
 	private static int size = 0;
 	private static int width = 0;
-	public static int width(){
-		return width;
-	}
 
 	private static int[] dir;
 	private static int[] dirLR;

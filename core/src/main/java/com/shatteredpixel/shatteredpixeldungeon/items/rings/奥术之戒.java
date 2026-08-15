@@ -38,7 +38,7 @@ public class 奥术之戒 extends Ring {
 	}
 
 	public static float enchantPowerMultiplier(Char target ){
-		return 1+0.21025f*getBuffedBonus(target, 奥术之戒.Arcana.class);
+		return 1+0.21025f*getBuffedBonus(target, Arcana.class);
 	}
 
 	public class Arcana extends RingBuff {

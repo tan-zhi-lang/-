@@ -190,6 +190,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圆盾;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
@@ -200,11 +201,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨型方盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.弯刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.彩虹猫之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手里剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投掷手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.指虎;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.斩马刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
@@ -226,6 +229,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狼筅;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.玉龙;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.疯狂斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短柄镰;
@@ -251,6 +255,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.誓刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.轮刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金铲铲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.钻石镐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铁头棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链刃;
@@ -268,6 +273,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魔岩拳套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.鹿角刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.黑暗剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.龙牙锤;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
@@ -644,7 +651,16 @@ public class Generator {
 
 					猪鲨链球.class,//1.3
 					腐化灾兵.class,//0.8
-					菱形刀.class,//0.9
+					菱形刀.class,//0.8
+					玉龙.class,//0.8
+					//12
+					金铲铲.class,//0.7
+					彩虹猫之刃.class,//0.8
+					投掷手套.class,//0.5
+					龙牙锤.class,//0.7
+
+					圣剑.class,//0.8
+					黑暗剑.class,//0.8
 			};
 			WEP_T5.defaultProbs = new float[]{
 					//1
@@ -662,7 +678,10 @@ public class Generator {
 					//9
 					2,2,2,2,
 					2,2,2,2,
-					2,2,2,
+					2,2,2,2,
+					//12
+					2,2,2,2,
+					2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
@@ -706,6 +725,7 @@ public class Generator {
 					极肚之戒.class,
 					//
 					六神之戒.class,
+
 					强健之戒.class,
 					钢壁之戒.class,
 					身法之戒.class,
@@ -717,6 +737,7 @@ public class Generator {
 					镜钓之戒.class,
 					利害之戒.class,
 					破防之戒.class,
+
 					杀戮之戒.class,
 
 			};
@@ -727,9 +748,11 @@ public class Generator {
 											 
 											 3,3 ,3,3,
 
-										 3,3,3,3,
-										 3,3,3,3,
-										 3,3,3,3,
+										 3,
+										3,3,3,
+										 3,3,3,
+										 3,3,3,
+										3,
 
 			};
 			RING.probs = RING.defaultProbs.clone();

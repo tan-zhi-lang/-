@@ -155,7 +155,7 @@ public class FogOfWar extends Image {
 		this.visible = visible;
 		this.visited = visited;
 		this.mapped = mapped;
-		this.brightness = SPDSettings.亮度()+(Dungeon.夜晚()?-1:0) + 1;
+		this.brightness =SPDSettings.亮度()+(Dungeon.晚上()?-1:0)+1;
 
 		moveToUpdating();
 		

@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
@@ -62,7 +63,7 @@ public class 重制改动{
 
 											"新增怪物都拥有一套新的判定，害怕，受到害怕元素的伤害x2倍。\n"+
 											"新增火焰属性的生物受到寒冰伤害x2倍。\n"+
-											"新增动物属性的生物受到流血、中毒、毒气、酸性、火焰和寒冰伤害x2倍。\n"+
+											"新增动物属性的生物受到雷电伤害x2倍。\n"+
 											"新增8%+地牢区域x2%暴击率和145%暴击伤害，超过的暴击率33%转暴击伤害。如果不是百分比暴击，首次攻击必定不暴击，且600/暴击率次攻击未暴击则下次必定暴击，暴击后重置。\n"+
 
 											"魔法绵羊交互有彩蛋，还能获得经验。"));
@@ -112,6 +113,8 @@ public class 重制改动{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new 镐子(),"能挖取非Boss层的3区墙体"));
+
 		changes.addButton(new ChangeButton(new 飞镖(),"金币价值/2->不减半"));
 
 		changes.addButton(new ChangeButton(new 巨鼠头骨(),"击杀腐臭老鼠掉落\n" +
@@ -129,7 +132,7 @@ public class 重制改动{
 										   "现在首次拾取和装备、使用进行一次鉴定效果。\n" +
 										   "震爆符石不会对自己也造成伤害。\n" +
 										   "冰冠花、冰霜药剂和冰暴魔药不会被燃烧。\n" +
-										   "炸弹伤害翻倍，经过防御的代码，且减少最大防御的伤害->最大防御x2。" ,
+										   "炸弹伤害x1.45，经过防御的代码，且减少最大防御的伤害->最大防御x2。" ,
 										   "炸弹不可摧毁可升级的物品，装备不可摧毁->炸弹不摧毁带等级的物品，神器不可摧毁。\n" +
 										   "物品可以重命名。\n" +
 										   "扔出、拾取、丢下花费时间1->攻速。\n" +
@@ -147,8 +150,8 @@ public class 重制改动{
 										   "术士->死灵术士职业给到道士。\n" +
 										   "勇士->武器大师(所有人拥有副武器功能，但仅30%攻击效果)。"
 		));changes.addButton(new ChangeButton(new ItemSprite(物品表.GOLD), "金币",
-											  "商店物价只计算1区且/1.5，地牢生成金币不计算层且/5。\n" +
-											  "所有物品金币价值/5，并且只显示大于1的金币获取，并且变成金币堆，在背包时可以直接使用获得其金币数量。"));
+											  "商店物价只计算1层且/，地牢生成金币只计算3层且/5。\n" +
+											  "所有物品金币价值/5，并且变成金币堆，在背包时可以直接使用获得其金币数量。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ENERGY), "能量",
 										   "生成的能量1->1~2，并且变成能量堆，在背包时可以直接使用获得其能量数量。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.TORCH), "火把",
@@ -242,7 +245,7 @@ public class 重制改动{
 										   "装备两把武器时，代码判定真实等级最强的掉落遗产->DPS伤害最高的\n" +
 										   "新增双手和双持武器类，装备双手武器(只能装在主武器，并)\n" +
 										   "装备和卸下时间1->攻击延迟\n" +
-										   "5阶都是特别物品，且都伤害x1.25\n" +
+										   "5阶都是特别物品\n" +
 										   "武器战技重做\n" +
 										   "最小攻击为1" ,
 
@@ -422,6 +425,7 @@ public class 重制改动{
 										   "特别物品。\n" +
 										   "最大生命80%+14->90%。\n" +
 										   "每次治疗护盾25%->50%。\n\n"+
+
 										   "奥术护盾合剂\n"+
 										   "最大生命60%+10->75%最大生命。",
 
@@ -470,8 +474,12 @@ public class 重制改动{
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.BACKPACK),"背包",
 											"武器、防具显示和副武器一样，并且新增副防具仅仅30%效果。\n"+
-											"新增2个杂项栏位。\n"+
-											"在背包里的常规装备(非禁忌物)不会占位置。\n"+
+											"新增5个杂项栏位。\n"+
+											"绒布袋金币价值30->20。\n"+
+											"药剂带金币价值40->30。\n"+
+											"卷轴筒金币价值40->30。\n"+
+											"魔法筒金币价值60->30。\n"+
+											"在背包里的已装备常规装备(非禁忌物)不会占位置。\n"+
 											"神器和戒指栏位->两个杂项栏位。\n"+
 											"绒布袋会让此背包的物品使用不消耗回合。\n" +
 											"魔法筒袋现在也会给武器充能。\n" +
@@ -480,6 +488,9 @@ public class 重制改动{
 
 		));
 		changes.addButton( new ChangeButton("英雄数值","英雄数值",
+											"生命、护甲、力量、敏捷、魔力属性最低为0.01，生命和护甲最大10_0000_000。\n"+
+											"最大生命值20+5x升级等级->10+0.5x等级。\n"+//(满级额外+1)
+											"升级+最大命中和最大闪避->最大命中和最大闪避+等级-1(满级额外+1)，最大等级-5。\n"+
 											"10回合-1饥饿->每回合-1。\n"+
 											"空手攻速1->2，最大命中+25%。\n" +
 											"饥饿首次受伤450*最大生命/1000，后续受伤最大生命/1000->首次和后续伤害皆为饥饿速率/2+√已损失生命/89，同时优化饥饿算法。\n"+
@@ -501,10 +512,12 @@ public class 重制改动{
 											""));
 		changes.addButton( new ChangeButton("英雄机制","英雄机制",
 											"只有发现敌人才会中断。\n"+
+											"有点饿也会打断。\n"+
 											"英雄初始不携带口粮。\n"+
 											"空手攻击1~力量-8->5%力量~力量-8.5，并且空手判定不再优先获取投掷和技能。\n" +
 											"疾行者专属改变移动动画速度->移速。\n"+
-											"视野算法优化。\n"+
+											"视野算法优化。",
+
 											"现在吃饭超过450的食物也会填充，施加饱腹Buff，但是饱腹最多450。\n" +
 											"浮空状态在深渊点击自身可以无伤掉下去。\n"+
 											"燃烧获得火把效果。",
@@ -527,7 +540,7 @@ public class 重制改动{
 						"时间回合轮盘更明显。\n" +
 						"护盾特效偏粉->偏白。" ,
 
-						"提示文本可以显示更多行，并且显示颜色优化。\n" +
+						"提示文本行显示颜色优化。\n" +
 						"设置界面和英雄属性界面更好。\n" +
 						"显示更多信息。\n" +
 						"拖条按钮更大。\n" +
@@ -545,7 +558,8 @@ public class 重制改动{
 						"伤害显示仅魔法和物理伤害。"));
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "杂项",
 											"流血伤害不再只限于施加的伤害，而是可以堆叠。\n" +
-											"水平和垂直方向移动速度x2。\n" +
+//											"水平和垂直方向移动速度x2。\n" +
+											"吃饭恢复的饥饿值同治疗Buff一样缓慢吃。\n" +
 											"属性更新不再是特定情况触发刷新，而是每秒刷新。\n" +
 											"Buff伤害和防具刻印、炸弹、盟军、陷阱、地牢的伤害也能判定击杀。\n" +
 											"陷阱数量生成后处理每5格地板不超过1个陷阱。\n" +

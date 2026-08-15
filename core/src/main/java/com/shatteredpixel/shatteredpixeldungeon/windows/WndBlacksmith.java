@@ -33,14 +33,13 @@ import java.util.ArrayList;
 public class WndBlacksmith extends Window {
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int GAP  = 2;
 
 	public WndBlacksmith( Blacksmith troll, Hero hero ) {
 		super();
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width = WIDTH_P;
 
 		IconTitle titlebar = new IconTitle();
 		titlebar.icon( troll.sprite() );
@@ -203,7 +202,7 @@ public class WndBlacksmith extends Window {
 				GameScene.show(new WndOptions(
 						troll.sprite(),
 						Messages.titleCase( troll.name() ),
-						Messages.get(WndBlacksmith.class, "cashout_verify", Blacksmith.Quest.favor),
+						Messages.get(WndBlacksmith.class, "cashout_verify", Blacksmith.Quest.favor/10),
 						Messages.get(WndBlacksmith.class, "cashout_yes"),
 						Messages.get(WndBlacksmith.class, "cashout_no")
 				){

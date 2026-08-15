@@ -155,8 +155,7 @@ public class MenuPane extends Component {
 		btnJournal.setPos( btnMenu.left() - btnJournal.width() + 2, y );
 
 		depthIcon.x = btnJournal.left() - 7 + (7 - depthIcon.width())/2f - 0.1f;
-		depthIcon.y = y + 1;
-		if (SPDSettings.interfaceSize() == 0) depthIcon.y++;
+		depthIcon.y = y + 1+1;
 		PixelScene.align(depthIcon);
 
 		depthText.scale.set(PixelScene.align(0.67f));
@@ -168,8 +167,7 @@ public class MenuPane extends Component {
 
 		if (challengeIcon != null){
 			challengeIcon.x = btnJournal.left() - 14 + (7 - challengeIcon.width())/2f - 0.1f;
-			challengeIcon.y = y + 1;
-			if (SPDSettings.interfaceSize() == 0) challengeIcon.y++;
+			challengeIcon.y = y + 1+1;
 			PixelScene.align(challengeIcon);
 
 			challengeText.scale.set(PixelScene.align(0.67f));
@@ -185,7 +183,7 @@ public class MenuPane extends Component {
 		version.x = x-1 + WIDTH-0.5f - version.width();
 		version.y = y + bg.height() + (3 - version.baseLine());
 		PixelScene.align(version);
-		danger.setPos( x + WIDTH - danger.width(), y + bg.height+danger.height() + 3 );
+		danger.setPos( x + WIDTH - danger.width(), y + bg.height+danger.height() + 4 );
 	}
 	
 	@Override

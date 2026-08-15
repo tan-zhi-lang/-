@@ -15,7 +15,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogDzewa;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -159,17 +158,6 @@ public class MonkEnergy extends Buff implements ActionIndicator.Action {
 					}
 				}
 
-				if (hero.belongings.weapon() instanceof Weapon
-						&& (hero.buff(武力之戒.BrawlersStance.class)==null
-						|| !hero.buff(武力之戒.BrawlersStance.class).active)){
-					if (((Weapon) hero.belongings.weapon()).tier() <= 1 && points >= 3){
-						enGainMulti += 1.00f;
-					} else if (((Weapon) hero.belongings.weapon()).tier()<=2&&points>=2){
-						enGainMulti += 0.75f;
-					} else if (((Weapon) hero.belongings.weapon()).tier() <= 3 && points >= 1){
-						enGainMulti += 0.50f;
-					}
-				}
 
 			}
 		}

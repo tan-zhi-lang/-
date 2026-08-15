@@ -1,7 +1,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.watabou.noosa.Image;
@@ -10,7 +9,6 @@ public class 赞助 extends Window{
 
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 	static  赞助 INSTANCE;
@@ -19,7 +17,7 @@ public class 赞助 extends Window{
 		super();
 		INSTANCE=this;
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width = WIDTH_P;
 
 		float pos = MARGIN;
 

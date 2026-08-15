@@ -634,8 +634,8 @@ public class 空间之戒 extends Item {
 				}
 			};
 			btnitem8.setRect( btnitem4.right() + BTN_GAP/3, btnitem7.top(), BTN_SIZE, BTN_SIZE );
-			if (item5!=null) {
-				btnitem8.item(item5);
+			if (item8!=null) {
+				btnitem8.item(item8);
 			} else {
 				btnitem8.item(new WndBag.Placeholder(物品表.ITEM));
 			}

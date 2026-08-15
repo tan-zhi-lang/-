@@ -12,6 +12,8 @@ public class 生命果 extends 用品{
 	
 	{
 		image = 物品表.生命果;
+		黄色=true;
+		黄光=true;
 	}
 	
 	@Override

@@ -2,11 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.用品;
 
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.修理;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 import java.util.ArrayList;
 
@@ -20,11 +21,12 @@ public class 护甲修理工具包 extends 用品{
 	
 	@Override
 	public void 使用(Hero hero){
-		if(hero.护甲>=hero.最大护甲*0.7f){
-			GLog.红("护甲没有破损，不推荐修复护甲，收益不高。");
-			return;
-		}
-		hero.回百分比护甲(0.85f);
+//		if(hero.护甲>=hero.最大护甲*0.7f){
+//			GLog.红("护甲没有破损，不推荐修复护甲，收益不高。");
+//			return;
+//		}
+		修理 护甲修理 = Buff.施加(hero,修理.class);
+		护甲修理.setHeal(hero.最大生命(0.9f), 0.45f, 0);
 		super.使用(hero);
 	}
 	

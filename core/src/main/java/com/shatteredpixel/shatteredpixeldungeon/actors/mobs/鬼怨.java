@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.噩梦粮食;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.鬼怨动画;
 import com.watabou.noosa.audio.Sample;
@@ -71,9 +70,7 @@ public class 鬼怨 extends Mob {
 			if(hero.belongings.weapon!=null
 			   &&(hero.belongings.weapon.强化等级()>0||hero.belongings.weapon.hasEnchant()))
 				return Dungeon.层数(0.5f)+Dungeon.区域(0.5f);
-			
-			if(hero.hasbuff(武力之戒.BrawlersStance.class))
-				return Dungeon.层数(0.5f)+Dungeon.区域(0.5f);
+
 		}
 		return Char.INFINITE;
 	}

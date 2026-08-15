@@ -100,6 +100,7 @@ public class 物品表 {
     public static final int 拳击手套 = UNCOLLECTIBLE + 18;
     public static final int 真吸血刀 = UNCOLLECTIBLE + 19;
     public static final int 小吞噬怪 = UNCOLLECTIBLE + 20;
+    public static final int 彩虹猫 = UNCOLLECTIBLE + 21;
 
     static {
         assignItemRect(GOLD, 15, 13);
@@ -125,6 +126,7 @@ public class 物品表 {
         assignItemRect(拳击手套, 12,10);
         assignItemRect(真吸血刀, 7,15);
         assignItemRect(小吞噬怪, 7,8);
+        assignItemRect(彩虹猫, 12);
     }
     //endregion
 
@@ -178,6 +180,7 @@ public class 物品表 {
     public static final int 海克斯宝典 = MISC_CONSUMABLE + 24;
     public static final int 自残绳 = MISC_CONSUMABLE + 25;
     public static final int 技能书 = MISC_CONSUMABLE + 26;
+    public static final int 星之果实 = MISC_CONSUMABLE + 27;
 
 
     static {
@@ -212,6 +215,7 @@ public class 物品表 {
         assignItemRect(海克斯宝典, 13, 16);
         assignItemRect(自残绳, 14, 16);
         assignItemRect(技能书, 13, 16);
+        assignItemRect(星之果实, 14, 16);
     }
     //endregion
 
@@ -537,8 +541,16 @@ public class 物品表 {
     public static final int 致胜拳炮=WEP_TIER52+13;
     public static final int 猪鲨链球=WEP_TIER52+14;
     public static final int 腐化灾兵=WEP_TIER52+15;
-    public static final int 种子吹管=WEP_TIER52+16;
-    public static final int 菱形刀=WEP_TIER52+17;
+    public static final int 菱形刀=WEP_TIER52+16;
+    public static final int 玉龙=WEP_TIER52+17;
+    public static final int 金铲铲=WEP_TIER52+18;
+    public static final int 彩虹猫之刃=WEP_TIER52+19;
+    public static final int 投掷手套=WEP_TIER52+20;
+    public static final int 龙牙锤=WEP_TIER52+21;
+    public static final int 圣剑=WEP_TIER52+22;
+    public static final int 黑暗剑=WEP_TIER52+23;
+
+    public static final int 种子吹管=WEP_TIER52+24;
 
     static{
         assignItemRect(联合盾,15);
@@ -557,8 +569,16 @@ public class 物品表 {
         assignItemRect(致胜拳炮,16,12);
         assignItemRect(猪鲨链球,15,16);
         assignItemRect(腐化灾兵,16);
-        assignItemRect(种子吹管,16,14);
         assignItemRect(菱形刀,15,16);
+        assignItemRect(玉龙,16);
+        assignItemRect(金铲铲,16,15);
+        assignItemRect(彩虹猫之刃,16);
+        assignItemRect(投掷手套,14,15);
+        assignItemRect(龙牙锤,16);
+        assignItemRect(圣剑,16);
+        assignItemRect(黑暗剑,16);
+
+        assignItemRect(种子吹管,16,14);
 
     }
     //endregion

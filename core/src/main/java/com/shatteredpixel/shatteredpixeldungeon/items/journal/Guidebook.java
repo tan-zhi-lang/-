@@ -3,8 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.journal;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.SPDAction;
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -13,8 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.input.ControllerHandler;
-import com.watabou.input.KeyBindings;
 import com.watabou.noosa.audio.Sample;
 
 public class Guidebook extends Item {
@@ -37,11 +33,9 @@ public class Guidebook extends Item {
 		//we do this here so the pickup message appears before the tutorial text
 		GameLog.wipe();
 		GLog.白(Messages.capitalize(Messages.get(Hero.class,"you_now_have",name())));
-		if (SPDSettings.interfaceSize() == 0){
-			GLog.绿(Messages.get(GameScene.class,"tutorial_guidebook_mobile"));
-		} else {
-			GLog.绿(Messages.get(GameScene.class,"tutorial_guidebook_desktop",KeyBindings.getKeyName(KeyBindings.getFirstKeyForAction(SPDAction.JOURNAL,ControllerHandler.isControllerConnected()))));
-		}
+
+		GLog.绿(Messages.get(GameScene.class,"tutorial_guidebook"));
+
 		GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_INTRO);
 		Sample.INSTANCE.play( Assets.Sounds.ITEM );
 		hero.spendAndNext( pickupDelay() );

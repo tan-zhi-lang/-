@@ -232,6 +232,8 @@ public class Assets {
 		public static final String 鳞甲   = "sounds/鳞甲.mp3";
 		public static final String 板甲   = "sounds/板甲.mp3";
 
+		public static final String 彩虹猫1              = "sounds/hit/彩虹猫1.mp3";
+		public static final String 彩虹猫2              = "sounds/hit/彩虹猫2.mp3";
 		public static final String 泡泡              = "sounds/hit/泡泡.mp3";
 		public static final String 心之钢              = "sounds/hit/心之钢.mp3";
 		public static final String 猴子给给              = "sounds/hit/猴子给给.mp3";
@@ -289,6 +291,7 @@ public class Assets {
 		public static final String 挖爆    = "sounds/挖爆.mp3";
 		public static final String 挖矿    = "sounds/挖矿.mp3";
 		public static final String 生命水晶   = "sounds/生命水晶.mp3";
+		public static final String 星之果实   = "sounds/星之果实.mp3";
 		public static final String 我恭喜你发财   = "sounds/我恭喜你发财.mp3";
 		public static final String 坠星   = "sounds/坠星.wav";
 		public static final String 魔力水晶   = "sounds/魔力水晶.mp3";
@@ -359,6 +362,8 @@ public class Assets {
 
 				STURDY,
 
+				彩虹猫1,
+				彩虹猫2,
 				泡泡,
 				我恭喜你发财,
 				猴子给给,
@@ -387,6 +392,7 @@ public class Assets {
 				日炎链刃,
 				死神镰刀,
 				生命水晶,
+				星之果实,
 				魔力水晶,
 				海克斯,
 				挖矿,

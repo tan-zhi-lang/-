@@ -258,7 +258,7 @@ public class 荣誉纹章 extends Item {
 		@Override
 		public int icon() {
 			if (coolingDown() || 护盾量() > 0|| cooldown < 0){
-				return BuffIndicator.SEAL_SHIELD;
+				return BuffIndicator.修理;
 			} else {
 				return BuffIndicator.NONE;
 			}

@@ -10,7 +10,7 @@ public class 静止状态 extends CountBuff{
         name="静止状态";
     }
 
-    public int icon() { return BuffIndicator.SHADOWS; }
+    public int icon() { return BuffIndicator.静止; }
     public int pos = -1;
 
     @Override

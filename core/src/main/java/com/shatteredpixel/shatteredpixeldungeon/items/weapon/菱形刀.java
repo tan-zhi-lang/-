@@ -11,7 +11,7 @@ public class 菱形刀 extends Weapon{
 	{
 		image = 物品表.菱形刀;
 		hitSound = Assets.Sounds.攻击砍;
-		伤害=0.9f;
+		伤害=0.8f;
 		tier=5;
 		特别=true;
 		彩光=true;

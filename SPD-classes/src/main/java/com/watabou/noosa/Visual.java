@@ -140,7 +140,7 @@ public class Visual extends Gizmo {
 	public void originToCenter() {
 		origin.set(width / 2, height / 2);
 	}
-	
+
 	public float width() {
 		return width * scale.x;
 	}

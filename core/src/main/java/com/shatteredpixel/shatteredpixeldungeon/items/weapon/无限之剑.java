@@ -15,6 +15,7 @@ public class 无限之剑 extends Weapon{
 		伤害=0.8f;
 		技能=new 斩击();
 		特别=true;
+		紫色=true;
 		tier = 5;
 	}
 

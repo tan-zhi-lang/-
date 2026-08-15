@@ -911,15 +911,15 @@ public abstract class Mob extends Char{
 		if(Dungeon.符文("你才是老鬼"))x*=3f;
 		if(Dungeon.符文("溜冰"))x/=3f;
 		if(Dungeon.符文("芝诺龟")&&相邻(Dungeon.hero))x/=4f;
-		if((enemy!=null&&
-			(水平移动(enemy.pos)||
-		垂直移动(enemy.pos)
-			))||(
-				水平移动(target)||
-				垂直移动(target)
-		)||水平移动||垂直移动){
-			x*=2;
-		}
+//		if((enemy!=null&&
+//			(水平移动(enemy.pos)||
+//		垂直移动(enemy.pos)
+//			))||(
+//				水平移动(target)||
+//				垂直移动(target)
+//		)||水平移动||垂直移动){
+//			x*=2;
+//		}
 		return super.移速()*AscensionChallenge.enemySpeedModifier(this)*x;
 	}
 
@@ -1313,11 +1313,18 @@ public abstract class Mob extends Char{
 					}
 					if(第x次防御==1&&杀戮之戒.属性倍(Dungeon.hero)>0){
 						float x=杀戮之戒.属性倍(Dungeon.hero);
-						Dungeon.hero.攻击成长+=x*最大攻击();
-						Dungeon.hero.攻速成长+=x*1/攻击延迟();
-						Dungeon.hero.移速成长+=x*移速();
-						Dungeon.hero.防御成长+=x*最大防御();
+
 						Dungeon.hero.生命成长+=x*最大生命;
+
+						Dungeon.hero.攻击成长+=x*最大攻击();
+						Dungeon.hero.防御成长+=x*最大防御();
+
+						Dungeon.hero.攻速成长+=x*1f/攻击延迟();
+						Dungeon.hero.移速成长+=x*移速();
+
+						Dungeon.hero.暴率成长+=x*暴击率();
+						Dungeon.hero.暴伤成长+=x*暴击伤害();
+
 						Dungeon.hero.命中成长+=x*最大命中(Dungeon.hero);
 						Dungeon.hero.闪避成长+=x*最大闪避(Dungeon.hero);
 					}
@@ -1746,7 +1753,7 @@ public abstract class Mob extends Char{
 				desc+="/"+kw2(最小闪避(null)*Dungeon.难度闪避(this))+"~"
 					  +kw2(最大闪避(null)*Dungeon.难度闪避(this));
 				desc+="\n";
-				desc+="攻速/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";
+				desc+="攻速/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";//(水平移动||垂直移动)?移速()/2f:
 				desc+="_暴击率/暴击伤害_ :"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
 				desc+="_击杀经验_ :"+Math.round(经验*Dungeon.难度经验(this))+"\n";
 				desc+="你大于此等级无经验和战利品 :"+(最大等级+2)+"\n";
@@ -1953,10 +1960,11 @@ public abstract class Mob extends Char{
 			if(alignment==Alignment.ENEMY&&Dungeon.赛季(赛季设置.开团秒跟)){
 				for(Mob mob: Dungeon.level.mobs){
 					if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
-
-						Buff.延长(mob,Vulnerable.class,4f);
-						传送卷轴.周身瞬移(mob,target);
-						mob.beckon(target);
+						if(传送卷轴.周身瞬移(target)){
+							Buff.延长(mob,Vulnerable.class,4f);
+							传送卷轴.周身瞬移(mob,target);
+							mob.beckon(target);
+						}
 					}
 				}
 			}

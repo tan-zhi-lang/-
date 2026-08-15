@@ -90,11 +90,7 @@ public class PixelScene extends Scene {
 		}
 
 		float minWidth, minHeight, scaleFactor;
-		if (SPDSettings.interfaceSize() > 0){
-			minWidth = MIN_WIDTH_FULL;
-			minHeight = MIN_HEIGHT_FULL;
-			scaleFactor = 3.75f;
-		} else if (横屏()) {
+		if (横屏()) {
 			minWidth = MIN_WIDTH_L;
 			minHeight = MIN_HEIGHT_L;
 			scaleFactor = 2.5f;
@@ -110,10 +106,6 @@ public class PixelScene extends Scene {
 
 		if (defaultZoom < Math.ceil( Game.density * 2 ) || defaultZoom > maxDefaultZoom){
 			defaultZoom = (int)GameMath.之内(2,(int)Math.ceil(Game.density*scaleFactor),maxDefaultZoom);
-
-			if (SPDSettings.interfaceSize() > 0 && defaultZoom < (maxDefaultZoom+1)/2){
-				defaultZoom = (maxDefaultZoom+1)/2;
-			}
 		}
 
 		minZoom = 1;
@@ -298,7 +290,7 @@ public class PixelScene extends Scene {
 	}
 
 	public static boolean 横屏(){
-		return SPDSettings.interfaceSize() > 0 || Game.width > Game.height;
+		return Game.width > Game.height;
 	}
 
 

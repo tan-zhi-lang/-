@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.彩虹猫;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.拳击手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.真吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.神圣长枪;
@@ -23,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.大肉棒;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
@@ -30,6 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.彩虹猫之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
@@ -51,6 +54,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.炼狱铲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.狙击枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.玉龙;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.破败王剑;
@@ -64,9 +68,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.虚哭神去;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血荆棘;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.誓刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.轮刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.重锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金铲铲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铁头棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锯齿剑;
@@ -79,6 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魄罗;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.黑暗剑;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Visual;
@@ -171,10 +179,14 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(长矛.class,0);
 		ANGULAR_SPEEDS.put(关刀.class,0);
 		ANGULAR_SPEEDS.put(战斧.class,0);
+		ANGULAR_SPEEDS.put(金铲铲.class,0);
 		ANGULAR_SPEEDS.put(寒冰鱼剑.class,0);
+		ANGULAR_SPEEDS.put(玉龙.class,0);
 		ANGULAR_SPEEDS.put(草剃.class,0);
 		ANGULAR_SPEEDS.put(碎缘剑.class,0);
 		ANGULAR_SPEEDS.put(臻冰刃.class,0);
+		ANGULAR_SPEEDS.put(彩虹猫之刃.class,0);
+		ANGULAR_SPEEDS.put(誓刃.class,0);
 		ANGULAR_SPEEDS.put(无尽之刃.class,0);
 		ANGULAR_SPEEDS.put(蜜剑.class,0);
 		ANGULAR_SPEEDS.put(火焰剑.class,0);
@@ -182,6 +194,8 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(流火.class,0);
 		ANGULAR_SPEEDS.put(下界合金剑.class,0);
 		ANGULAR_SPEEDS.put(饮血之剑.class,0);
+		ANGULAR_SPEEDS.put(圣剑.class,0);
+		ANGULAR_SPEEDS.put(黑暗剑.class,0);
 		ANGULAR_SPEEDS.put(破败王剑.class,0);
 		ANGULAR_SPEEDS.put(硬头锤.class,0);
 		ANGULAR_SPEEDS.put(权杖.class,0);
@@ -191,6 +205,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(武士刀.class,0);
 		ANGULAR_SPEEDS.put(符文之刃.class,0);
 		ANGULAR_SPEEDS.put(暗杀之刃.class,0);
+		ANGULAR_SPEEDS.put(血荆棘.class,0);
 
 		ANGULAR_SPEEDS.put(灵能短弓.SpiritArrow.class,       0);
 		ANGULAR_SPEEDS.put(ScorpioSprite.ScorpioShot.class,   0);
@@ -204,6 +219,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		ANGULAR_SPEEDS.put(神圣长枪.class,0);
 		ANGULAR_SPEEDS.put(魔法箭矢.class,0);
 		ANGULAR_SPEEDS.put(拳击手套.class,0);
+		ANGULAR_SPEEDS.put(彩虹猫.class,0);
 		ANGULAR_SPEEDS.put(真吸血刀.class,0);
 
 		//720 is default
@@ -248,8 +264,12 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
 		boolean 正上=false;
 		boolean 正右=false;
+		boolean 正左上=false;
 		if (item instanceof 符箓
 			||item instanceof GnollGeomancer.Boulder
+			||item instanceof 骨刀
+			||item instanceof 誓刃
+			||item instanceof 血荆棘
 			||item instanceof 真吸血刀
 		||item instanceof 手枪.子弹
 		||item instanceof 冲锋枪.子弹
@@ -258,7 +278,9 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 		)正上=true;
 		else if (item instanceof 魄罗
 				 ||item instanceof 火炮.子弹
-				 ||item instanceof 拳击手套)正右=true;
+				 ||item instanceof 拳击手套
+				 ||item instanceof 彩虹猫)正右=true;
+		else if (item instanceof 无尽之刃)正左上=true;
 
 //		if(item instanceof 真吸血刀)
 //			scale=new PointF(1.25f,1.25f);
@@ -267,6 +289,8 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 			angle = 180 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
 		}else if(正右){
 			angle = 90 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
+		}else if(正左上){
+			angle = -135 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
 		}else angle = 135 - (float)(Math.atan2( d.x, d.y ) / 3.1415926 * 180);
 		//默认正右上角+135即正左
 
@@ -278,6 +302,7 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 			angularSpeed = -angularSpeed;
 			if(正上) angle += 0;
 			else if(正右) angle += 180;
+			else if(正左上) angle -= 90;
 			else angle += 90;
 			//默认正右上角+90即正右
 			flipHorizontal = true;

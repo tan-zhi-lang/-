@@ -18,7 +18,6 @@ import com.watabou.utils.DeviceCompat;
 public class Wnd物品代码名 extends Window {
 
 	private static final int WIDTH = 135;
-	private static final int W_LAND_EXTRA = 220; //extra width is sometimes used in landscape
 	private static final int MARGIN = 1;
 	public static final int BUTTON_HEIGHT = 16;
 
@@ -37,12 +36,7 @@ public class Wnd物品代码名 extends Window {
 						 final boolean multiLine,final String posTxt,final String negTxt) {
 		super();
 
-		final int width;
-		if (PixelScene.横屏() && (multiLine || body != null)) {
-			width = W_LAND_EXTRA; //more space for landscape users
-		} else {
-			width = WIDTH;
-		}
+		final int width= WIDTH;
 		pos=2;
 
 		if (title != null) {

@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 日炎链刃 extends Weapon {
 
 	{
-		image = 物品表.猪鲨链球;
+		image = 物品表.日炎链刃;
 		hitSound = Assets.Sounds.日炎链刃;
 		
 		伤害=0.8f;

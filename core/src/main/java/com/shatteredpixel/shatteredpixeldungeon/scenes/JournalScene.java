@@ -29,7 +29,6 @@ import com.watabou.utils.SparseArray;
 public class JournalScene extends PixelScene {
 
 	public static final int WIDTH_P     = 126;
-	public static final int WIDTH_L     = 216;
 
 	private static int lastIDX = 0;
 
@@ -72,7 +71,7 @@ public class JournalScene extends PixelScene {
 
 		NinePatch panel = Chrome.get(Chrome.Type.TOAST);
 
-		int pw = (横屏() ? WIDTH_L : WIDTH_P) + panel.marginHor();
+		int pw =  WIDTH_P + panel.marginHor();
 		int ph = h - 50 + panel.marginVer();
 
 		panel.size(pw, ph);

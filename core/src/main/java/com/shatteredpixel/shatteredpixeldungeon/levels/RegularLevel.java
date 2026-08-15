@@ -45,6 +45,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.ShopRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.StatueRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.干涸大井;
+import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.星之果实神殿;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.矮人传送魔法阵;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
@@ -62,7 +63,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -131,6 +131,9 @@ public abstract class RegularLevel extends Level {
 
 		if(Dungeon.相对层数()==11||Dungeon.相对层数()==18)
 			initRooms.add(new 矮人传送魔法阵());
+
+		if(Dungeon.相对层数()==23)
+			initRooms.add(new 星之果实神殿());
 
 		if(Dungeon.相对层数()==13)
 			initRooms.add(new 干涸大井());

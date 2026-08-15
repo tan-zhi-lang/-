@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.services.news.News;
 import com.shatteredpixel.shatteredpixeldungeon.services.updates.Updates;
@@ -207,12 +206,11 @@ public class WndSettings extends WndTabbed {//WndSettings
 		ColorBlock sep2;
 		RedButton 所有拖条;
 		ColorBlock sep3;
+
 		RedButton btnToolbarSettings;
 		ColorBlock sep4;
-		CheckBox chkFlipTags;
-		
-		CheckBox chkSaver;
-		OptionSlider optUIMode;
+		CheckBox chkLandscape;
+
 		
 		@Override
 		protected void createChildren() {
@@ -227,18 +225,22 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 						CheckBox chkFullscreen;
+						CheckBox optUIMode;
 						CheckBox 动画加快;
 						CheckBox 透明界面;
 						CheckBox 颜色区块;
 						CheckBox 更多按钮;
+						CheckBox 四舍五入;
 						CheckBox chkFont;
 						CheckBox chkVibrate;
 						CheckBox 画面同步;
-						RenderedTextBlock 画面同步str;
 						
 						{
-							
-							chkFullscreen = new CheckBox( Messages.get(DisplayTab.class, "fullscreen") ) {
+							String fullscreenText = "全屏模式";
+							if (DeviceCompat.isAndroid()){
+								fullscreenText = "隐藏导航栏";
+							}
+							chkFullscreen = new CheckBox(fullscreenText ) {
 								@Override
 								protected void onClick() {
 									super.onClick();
@@ -252,8 +254,24 @@ public class WndSettings extends WndTabbed {//WndSettings
 								chkFullscreen.enable(false);
 							}
 							add(chkFullscreen);
-							
-							resize(WIDTH_P, 0);
+
+								optUIMode=new CheckBox(Messages.get(WndSettings.DisplayTab.this,"ui_mode")){
+									@Override
+									protected void onClick(){
+										super.onClick();
+										SPDSettings.interfaceSize(checked());
+										if(SPDSettings.interfaceSize()){
+											SPDSettings.quickSwapper(false);
+										}
+										ShatteredPixelDungeon.seamlessResetScene();
+									}
+								};
+								optUIMode.enable(PixelScene.横屏());
+								if (optUIMode.active) {
+									optUIMode.checked(SPDSettings.interfaceSize());
+								}
+								add(optUIMode);
+
 							动画加快 = new CheckBox("动画加快") {
 								@Override
 								protected void onClick() {
@@ -285,7 +303,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(颜色区块);
 
 
-							更多按钮 = new CheckBox("更多按钮(食物、药剂、副武器、上下楼栏)") {
+							更多按钮 = new CheckBox("更多按钮(快捷栏位、上下楼栏)") {
 								@Override
 								protected void onClick() {
 									super.onClick();
@@ -294,6 +312,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							更多按钮.checked(SPDSettings.更多按钮());
 							add(更多按钮);
+
+							四舍五入 = new CheckBox("四舍五入(四舍五入保留位数)") {
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.四舍五入(checked());
+								}
+							};
+							四舍五入.checked(SPDSettings.四舍五入());
+							add(四舍五入);
 
 							chkFont = new CheckBox(Messages.get(DisplayTab.class, "system_font")){
 								@Override
@@ -341,25 +369,22 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							画面同步.checked(SPDSettings.画面同步());
 							add(画面同步);
-							
-							画面同步str = PixelScene.renderTextBlock(Messages.get(WndSettings.DisplayTab.this, "画面同步str"), 5);
-							画面同步str.hardlight(0x888888);
-							add(画面同步str);
+
 							
 							//layout
 							resize(WIDTH_P, 0);
 							chkFullscreen.setRect(0,  GAP, width, BTN_HEIGHT);
-							动画加快.setRect(0,  chkFullscreen.bottom()+GAP, width, BTN_HEIGHT);
+							optUIMode.setRect(0,  chkFullscreen.bottom()+GAP, width, BTN_HEIGHT);
+							动画加快.setRect(0,  optUIMode.bottom()+GAP, width, BTN_HEIGHT);
 							透明界面.setRect(0,  动画加快.bottom()+GAP, width, BTN_HEIGHT);
 							颜色区块.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
 							更多按钮.setRect(0,  颜色区块.bottom()+GAP, width, BTN_HEIGHT);
-							chkFont.setRect(0,  更多按钮.bottom()+GAP, width, BTN_HEIGHT);
+							四舍五入.setRect(0,  更多按钮.bottom()+GAP, width, BTN_HEIGHT);
+							chkFont.setRect(0,  四舍五入.bottom()+GAP, width, BTN_HEIGHT);
 							chkVibrate.setRect(0,  chkFont.bottom()+GAP, width, BTN_HEIGHT);
 							画面同步.setRect(0,  chkVibrate.bottom()+GAP, width, BTN_HEIGHT);
-							画面同步str.maxWidth(width);
-							画面同步str.setPos(0, 画面同步.bottom()+1);
 							
-							resize(WIDTH_P, (int) 画面同步str.bottom());
+							resize(WIDTH_P, (int) 画面同步.bottom());
 							
 						}
 					});
@@ -474,7 +499,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 
 							提示行数 = new OptionSlider("提示行数",
-														"0%", "175%", 0, 5) {
+														"0", "5", 0, 5) {
 								@Override
 								protected void onChange() {
 									SPDSettings.提示行数(getSelectedValue());
@@ -523,20 +548,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 			
 			sep3 = new ColorBlock(1, 1, 0xFF000000);
 			add(sep3);
-			
-			
-			if (SPDSettings.interfaceSize() == 0) {
+
 				btnToolbarSettings = new RedButton(Messages.get(DisplayTab.class, "toolbar_settings"), 9){
 					@Override
 					protected void onClick() {
 						ShatteredPixelDungeon.scene().addToFront(new Window(){
-							
+
 							RedButton btnSplit; RedButton btnGrouped; RedButton btnCentered;
+
 							CheckBox chkQuickSwapper;
-							RenderedTextBlock swapperDesc;
-							CheckBox chkFlipToolbar;
-							CheckBox chkFlipTags;
-							
+
 							{
 								btnSplit = new RedButton(Messages.get(WndSettings.DisplayTab.this, "split")) {
 									@Override
@@ -552,7 +573,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 									btnSplit.textColor(TITLE_COLOR);
 								}
 								add(btnSplit);
-								
+
 								btnGrouped = new RedButton(Messages.get(WndSettings.DisplayTab.this, "group")) {
 									@Override
 									protected void onClick() {
@@ -567,7 +588,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 									btnGrouped.textColor(TITLE_COLOR);
 								}
 								add(btnGrouped);
-								
+
 								btnCentered = new RedButton(Messages.get(WndSettings.DisplayTab.this, "center")) {
 									@Override
 									protected void onClick() {
@@ -582,148 +603,64 @@ public class WndSettings extends WndTabbed {//WndSettings
 									btnCentered.textColor(TITLE_COLOR);
 								}
 								add(btnCentered);
-								
-								chkQuickSwapper = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "quickslot_swapper")) {
-									@Override
-									protected void onClick() {
-										super.onClick();
-										SPDSettings.quickSwapper(checked());
-										Toolbar.updateLayout();
+
+
+
+									chkQuickSwapper = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "quickslot_swapper")) {
+										@Override
+										protected void onClick() {
+											super.onClick();
+											SPDSettings.quickSwapper(checked());
+											if(SPDSettings.quickSwapper()){
+												SPDSettings.interfaceSize(false);
+											}
+											Toolbar.updateLayout();
+										}
+									};
+									chkQuickSwapper.enable(!PixelScene.横屏());
+									if (chkQuickSwapper.active) {
+										chkQuickSwapper.checked(SPDSettings.quickSwapper());
 									}
-								};
-								chkQuickSwapper.checked(SPDSettings.quickSwapper());
-								add(chkQuickSwapper);
-								
-								swapperDesc = PixelScene.renderTextBlock(Messages.get(WndSettings.DisplayTab.this, "swapper_desc"), 5);
-								swapperDesc.hardlight(0x888888);
-								add(swapperDesc);
-								
-								chkFlipToolbar = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "flip_toolbar")) {
-									@Override
-									protected void onClick() {
-										super.onClick();
-										SPDSettings.flipToolbar(checked());
-										Toolbar.updateLayout();
-									}
-								};
-								chkFlipToolbar.checked(SPDSettings.flipToolbar());
-								add(chkFlipToolbar);
-								
-								chkFlipTags = new CheckBox(Messages.get(WndSettings.DisplayTab.this, "flip_indicators")){
-									@Override
-									protected void onClick() {
-										super.onClick();
-										SPDSettings.flipTags(checked());
-										GameScene.layoutTags();
-									}
-								};
-								chkFlipTags.checked(SPDSettings.flipTags());
-								add(chkFlipTags);
-								
+									add(chkQuickSwapper);
+
+
 								//layout
 								resize(WIDTH_P, 0);
-								
+
 								int btnWidth = (int) (width - 2 * GAP) / 3;
 								btnSplit.setRect(0, GAP, btnWidth, BTN_HEIGHT-2);
 								btnGrouped.setRect(btnSplit.right() + GAP, btnSplit.top(), btnWidth, BTN_HEIGHT-2);
 								btnCentered.setRect(btnGrouped.right() + GAP, btnSplit.top(), btnWidth, BTN_HEIGHT-2);
-								
+
 								chkQuickSwapper.setRect(0, btnGrouped.bottom() + GAP, width, BTN_HEIGHT);
-								
-								swapperDesc.maxWidth(width);
-								swapperDesc.setPos(0, chkQuickSwapper.bottom()+1);
-								
-								if (width > 200) {
-									chkFlipToolbar.setRect(0, swapperDesc.bottom() + GAP, width / 2 - 1, BTN_HEIGHT);
-									chkFlipTags.setRect(chkFlipToolbar.right() + GAP, chkFlipToolbar.top(), width / 2 - 1, BTN_HEIGHT);
-								} else {
-									chkFlipToolbar.setRect(0, swapperDesc.bottom() + GAP, width, BTN_HEIGHT);
-									chkFlipTags.setRect(0, chkFlipToolbar.bottom() + GAP, width, BTN_HEIGHT);
-								}
-								
-								resize(WIDTH_P, (int)chkFlipTags.bottom());
-								
+
+
+								resize(WIDTH_P, (int)chkQuickSwapper.bottom());
+
 							}
 						});
 					}
 				};
 				add(btnToolbarSettings);
-				
-			} else {
-				
-				chkFlipTags = new CheckBox(Messages.get(DisplayTab.class, "flip_indicators")) {
+
+
+			sep4 = new ColorBlock(1, 1, 0xFF000000);
+			add(sep4);
+
+			if (DeviceCompat.isAndroid()) {
+				chkLandscape = new CheckBox(Messages.get(this, "landscape")) {
 					@Override
 					protected void onClick() {
 						super.onClick();
-						SPDSettings.flipTags(checked());
-						GameScene.layoutTags();
+						SPDSettings.landscape(checked());
 					}
 				};
-				chkFlipTags.checked(SPDSettings.flipTags());
-				add(chkFlipTags);
-				
+				chkLandscape.checked(SPDSettings.landscape());
+				add(chkLandscape);
+
 			}
-			
-			sep4 = new ColorBlock(1, 1, 0xFF000000);
-			add(sep4);
-			
-			//region 省电
-			//power saver is being slowly phased out, only show it on old (4.3-) android devices
-			// this is being phased out as the setting is useless on all but very old devices anyway
-			// and support is going to be dropped for 4.3- in the forseeable future
-			
-			if (DeviceCompat.isAndroid() && PixelScene.maxScreenZoom >= 2
-				&& (SPDSettings.powerSaver() || !DeviceCompat.supportsFullScreen())){
-				chkSaver=new CheckBox(Messages.get(this,"saver")){
-					@Override
-					protected void onClick(){
-						super.onClick();
-						if(checked()){
-							checked(!checked());
-							ShatteredPixelDungeon.scene().add(new WndOptions(Icons.get(Icons.DISPLAY),Messages.get(DisplayTab.class,"saver"),Messages.get(DisplayTab.class,"saver_desc"),Messages.get(DisplayTab.class,"okay"),Messages.get(DisplayTab.class,"cancel")){
-								@Override
-								protected void onSelect(int index){
-									if(index==0){
-										checked(!checked());
-										SPDSettings.powerSaver(checked());
-									}
-								}
-							});
-						}else{
-							SPDSettings.powerSaver(checked());
-						}
-					}
-				};
-				chkSaver.checked(SPDSettings.powerSaver());
-				add(chkSaver);
-			}
-			
-			//endregion
-			
-			//region 可能关闭
-			//add slider for UI size only if device has enough space to support it
-			float wMin = Game.width / PixelScene.MIN_WIDTH_FULL;
-			float hMin = Game.height / PixelScene.MIN_HEIGHT_FULL;
-			
-			if (Math.min(wMin, hMin) >= 2*Game.density&&false){
-				optUIMode = new OptionSlider(
-						Messages.get(DisplayTab.class, "ui_mode"),
-						Messages.get(DisplayTab.class, "mobile"),
-						Messages.get(DisplayTab.class, "full"),
-						0,
-						2
-				) {
-					@Override
-					protected void onChange() {
-						SPDSettings.interfaceSize(getSelectedValue());
-						ShatteredPixelDungeon.seamlessResetScene();
-					}
-				};
-				optUIMode.setSelectedValue(SPDSettings.interfaceSize());
-				add(optUIMode);
-			}
-			
-			
+
+
 		}
 
 		@Override
@@ -752,27 +689,19 @@ public class WndSettings extends WndTabbed {//WndSettings
 			sep3.size(width, 1);
 			sep3.y = bottom + GAP;
 			bottom = sep3.y + 1;
-			
-			if (btnToolbarSettings != null) {
-				btnToolbarSettings.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = btnToolbarSettings.bottom();
-			}
-			if (chkFlipTags != null) {
-				chkFlipTags.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = chkFlipTags.bottom();
-			}
+
+
+			btnToolbarSettings.setRect(0,bottom+GAP,width,BTN_HEIGHT);
+			bottom=btnToolbarSettings.bottom();
+
 			sep4.size(width, 1);
 			sep4.y = bottom + GAP;
 			bottom = sep4.y + 1;
-			
-			if (chkSaver != null) {
-				chkSaver.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = chkSaver.bottom();
+			if(chkLandscape!=null){
+				chkLandscape.setRect(0,bottom+GAP,width,BTN_HEIGHT);
+				bottom=chkLandscape.bottom();
 			}
-			if (optUIMode != null) {
-				optUIMode.setRect(0, bottom + GAP, width, BTN_HEIGHT);
-				bottom = optUIMode.bottom();
-			}
+
 			height = bottom;
 		}
 

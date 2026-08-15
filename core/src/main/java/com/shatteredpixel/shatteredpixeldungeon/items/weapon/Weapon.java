@@ -20,8 +20,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.征服;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.组间休息;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.隔天休息;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -465,7 +463,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if(延迟()<1)
 				伤害*=延迟();
 		}
-		if(!(this instanceof 未知武器)&&tier()>=5)伤害*=1.25f;
+//		if(!(this instanceof 未知武器)&&tier()>=5)伤害*=1.25f;
 
 		return 伤害;
 	}
@@ -723,9 +721,9 @@ abstract public class Weapon extends KindOfWeapon {
 								kw2(命中()),kw2(延迟()),kw2(伤害()),kw2(DPS()),
 								(连招范围!=-1?连招范围:范围()),
 
-								(流血()==0?"":"，攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
+								(流血()==0?"":"，攻击施加 ** "+Math.round(流血()*100)+"%流血伤害 ** "),
 								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
-								(吸血()==0?"":"，攻击 ** "+Math.round(吸血()*100)+"%吸血 ** "),
+								(吸血()==0?"":"，获得 ** "+Math.round(吸血()*100)+"%吸血 ** "),
 								(伏击()==0?"":"，伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
 
 								(首攻()==0?"":"，首次攻击+"+Math.round(首攻()*100)+"%伤害"),
@@ -871,10 +869,6 @@ abstract public class Weapon extends KindOfWeapon {
 				if (充能&&再生.regenOn()){
 					float chargeToGain = 1/(60f-1.5f*(chargeCap()-charges));
 
-					//50% slower charge gain with brawler's stance enabled, even if buff is inactive
-					if (Dungeon.hero.buff(武力之戒.BrawlersStance.class)!=null){
-						chargeToGain *= 0.50f;
-					}
 					chargeToGain*=0.875f/scalingFactor;
 					partialCharge += chargeToGain*能量之戒.weaponChargeMultiplier(target);
 					
@@ -1302,18 +1296,7 @@ abstract public class Weapon extends KindOfWeapon {
 				首次使用=false;
 				usesLeftToID-=Talent.鉴定速度(hero,this);
 			}
-			if(hero.subClass(HeroSubClass.健身猛男)&&力量() > hero.力量()&&hero.nobuff(隔天休息.class)){
-				if(hero.hasbuff(组间休息.class)&&hero.现在健身>0){
-					hero.现在健身-=0.01f;
-				}else{
-					if(hero.现在健身>=3){
-						Buff.施加(hero,隔天休息.class,900);
-					}else{
-						hero.现在健身+=0.01f;
-						Buff.施加(hero,组间休息.class,1);
-					}
-				}
-			}
+
 			float exStr = hero.力量() - 力量();
 			if (hero.subClass(HeroSubClass.武器大师)&&hero.职业精通()) {
 
@@ -1378,7 +1361,9 @@ abstract public class Weapon extends KindOfWeapon {
 			damage=Math.round(damage*(1+(范围+1-连招范围)*x));
 		}
 
-		if(defender!=null&&defender.isAlive()&&魔法()>0)defender.受伤时(魔法()*damage);
+		if(defender!=null&&defender.isAlive()&&魔法()>0){
+			defender.受伤时(魔法()*damage);
+		}
 		return damage;
 	}
 	

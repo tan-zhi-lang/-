@@ -27,14 +27,13 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 public class Wnd选择结晶 extends Window {
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 
 	public Wnd选择结晶(int target,Hero hero){
 		super();
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width =  WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock("选择结晶",9);

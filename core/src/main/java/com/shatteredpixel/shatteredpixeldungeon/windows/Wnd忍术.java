@@ -103,11 +103,8 @@ public class Wnd忍术 extends Window {
 
 		resize(WIDTH, top + BTN_SIZE);
 
-		//if we are on mobile, offset the window down to just above the toolbar
-		if (SPDSettings.interfaceSize() != 2){
-			offset(0, (int) (GameScene.uiCamera.height/2 - 30 - height/2));
-		}
-
+		//偏移到工具栏上面
+		offset(0, (int) (GameScene.uiCamera.height/2 - 30 - height/2));
 	}
 
 	public class SpellButton extends IconButton {

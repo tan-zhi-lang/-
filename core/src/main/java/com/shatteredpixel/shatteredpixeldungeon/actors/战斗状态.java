@@ -7,12 +7,12 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class 战斗状态 extends FlavourBuff{
         {name="战斗状态";}
-        public int icon() { return BuffIndicator.WEAPON; }
+        public int icon() { return BuffIndicator.战斗状态; }
 
-//    @Override
-//    public float iconFadePercent() {
-//        return Math.max(0, 1/cooldown());
-//    }
+    @Override
+    public float iconFadePercent() {
+        return Math.max(0, (5f - visualcooldown()) / 5f);
+    }
     @Override
     public void detach(){
         if(target instanceof Hero hero){

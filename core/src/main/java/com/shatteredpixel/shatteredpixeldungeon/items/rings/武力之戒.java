@@ -4,19 +4,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.watabou.utils.Bundle;
-
-import java.util.ArrayList;
 
 public class 武力之戒 extends Ring{
 	
@@ -33,22 +24,7 @@ public class 武力之戒 extends Ring{
 	public static int armedDamageBonus(Char ch){
 		return getBuffedBonus(ch,Force.class);
 	}
-	
-	@Override
-	public boolean doUnequip(Hero hero,boolean collect,boolean single){
-		if(super.doUnequip(hero,collect,single)){
-			if(hero.buff(BrawlersStance.class)!=null&&hero.buff(Force.class)==null){
-				//clear brawler's stance if no ring of force is equipped
-				hero.buff(BrawlersStance.class).active=false;
-			}
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	// *** Weapon-like properties ***
-	
+
 	public static int tier(){
 		float str=Dungeon.hero!=null?
 				Dungeon.hero.力量():
@@ -70,11 +46,6 @@ public class 武力之戒 extends Ring{
 		int tier=tier();
 		if(Dungeon.hero()&&hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
 			dmg+=Hero.heroDamage(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
-		}
-		if(Dungeon.hero()&&hero.buff(BrawlersStance.class)!=null&&hero.buff(BrawlersStance.class).active){
-			// 3+tier base dmg, roughly +60%->45% dmg at T1->5
-			// lvl*((4+2*tier)/8) scaling, +50% dmg
-			dmg+=Math.round(3+tier+(level*((4+2*tier)/8f)));
 		}
 		return dmg;
 	}
@@ -135,95 +106,7 @@ public class 武力之戒 extends Ring{
 
 	
 	public class Force extends RingBuff{}
-	
-	//Duelist stuff
-	
-	public static String AC_ABILITY="ABILITY";
-	
-	@Override
-	public void activate(Char ch){
-		super.activate(ch);
-		if(ch instanceof Hero){
-			Buff.施加(ch,Weapon.Charger.class);
-		}
-	}
-	
-	@Override
-	public String defaultAction(){
-		if(Dungeon.hero!=null){
-			return AC_ABILITY;
-		}else{
-			return super.defaultAction();
-		}
-	}
-	
-	@Override
-	public ArrayList<String> actions(Hero hero){
-		ArrayList<String> actions=super.actions(hero);
-		if(isEquipped(hero)){
-			actions.add(AC_ABILITY);
-		}
-		return actions;
-	}
-	
-	@Override
-	public String actionName(String action,Hero hero){
-		if(action.equals(AC_ABILITY)){
-			return Messages.upperCase(Messages.get(this,"ability_name"));
-		}else{
-			return super.actionName(action,hero);
-		}
-	}
-	
-	@Override
-	public void execute(Hero hero,String action){
-		if(action.equals(AC_ABILITY)){
-			if(hero.buff(BrawlersStance.class)!=null){
-				if(!hero.buff(BrawlersStance.class).active){
-					hero.buff(BrawlersStance.class).reset();
-				}else{
-					hero.buff(BrawlersStance.class).active=false;
-				}
-				BuffIndicator.refreshHero();
-				AttackIndicator.updateState();
-				hero.sprite.operate();
-			}else if(!isEquipped(hero)){
-				GLog.橙(Messages.get(Weapon.class,"ability_need_equip"));
-				
-			}else{
-				Buff.施加(hero,BrawlersStance.class).reset();
-				AttackIndicator.updateState();
-				hero.sprite.operate();
-			}
-		}else{
-			super.execute(hero,action);
-		}
-	}
-	
-	@Override
-	public String info(){
-		String info=super.info();
-		
-//		if(Dungeon.hero!=null&&Dungeon.hero.heroClass(HeroClass.DUELIST)&&(anonymous||已鉴定()||isEquipped(Dungeon.hero))){
-//			//0 if unidentified, solo level if unequipped, combined level if equipped
-//			int level=已鉴定()?
-//					(isEquipped(Dungeon.hero)?
-//							 getBuffedBonus(Dungeon.hero,Force.class):
-//							 soloBuffedBonus()):
-//					0;
-//			int tier=已鉴定()?
-//					tier():
-//					notier();
-//			int dmgBoost=Math.round(3+tier+(level*((4+2*tier)/8f)));
-//			if(已鉴定()){
-//				info+="\n\n"+Messages.get(this,"ability_desc",min(level,tier)+dmgBoost,max(level,tier)+dmgBoost);
-//			}else{
-//				info+="\n\n"+Messages.get(this,"typical_ability_desc",min(level,tier)+dmgBoost,max(level,tier))+dmgBoost;
-//			}
-//		}
-		
-		return info;
-	}
+
 	
 	public static boolean 空手(Hero hero){
 
@@ -237,75 +120,8 @@ public class 武力之戒 extends Ring{
 			)
 				return true;
 		}
-		BrawlersStance stance=hero.buff(BrawlersStance.class);
-		if(stance!=null&&stance.active){
-			//clear the buff if no ring of force is equipped
-			if(hero.buff(武力之戒.Force.class)==null){
-				stance.active=false;
-				AttackIndicator.updateState();
-				return false;
-			}else{
-				return true;
-			}
-		}
 		return false;
 	}
 
-	public static class BrawlersStance extends Buff{
-		
-		{
-			announced=true;
-			type=buffType.POSITIVE;
-		}
-		
-		//buff must be active for at least 50 turns, to discourage micro-managing for max charges
-		public boolean active=true;
-		private int minTurnsLeft;
-		
-		public void reset(){
-			if(!active){
-				//announce the buff
-				target.sprite.showStatus(CharSprite.增强绿,Messages.titleCase(name()));
-			}
-			active=true;
-			minTurnsLeft=50;
-		}
-		
-		@Override
-		public int icon(){
-			return active?
-					BuffIndicator.DUEL_BRAWL:
-					BuffIndicator.NONE;
-		}
-		
-		@Override
-		public boolean act(){
-			minTurnsLeft--;
-			
-			if(!active&&minTurnsLeft<=0){
-				detach();
-			}
-			
-			spend(TICK);
-			return true;
-		}
-		
-		public static final String ACTIVE="active";
-		public static final String MIN_TURNS_LEFT="min_turns_left";
-		
-		@Override
-		public void storeInBundle(Bundle bundle){
-			super.storeInBundle(bundle);
-			bundle.put(ACTIVE,active);
-			bundle.put(MIN_TURNS_LEFT,minTurnsLeft);
-		}
-		
-		@Override
-		public void restoreFromBundle(Bundle bundle){
-			super.restoreFromBundle(bundle);
-			active=bundle.getBoolean(ACTIVE);
-			minTurnsLeft=bundle.getInt(MIN_TURNS_LEFT);
-		}
-	}
 }
 

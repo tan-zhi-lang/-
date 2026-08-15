@@ -34,7 +34,7 @@ public class PotionBandolier extends Bag {
 
 	@Override
 	public int 金币() {
-		return 40;
+		return 30;
 	}
 
 }

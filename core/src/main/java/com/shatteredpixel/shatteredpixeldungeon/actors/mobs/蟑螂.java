@@ -27,7 +27,7 @@ public class 蟑螂 extends Mob {
 
 		WANDERING = new 蟑螂.Wandering();
 		FLEEING = new 蟑螂.Fleeing();
-		properties.add(Property.动物);
+		properties.add(Property.昆虫);
 	}
 
 	@Override

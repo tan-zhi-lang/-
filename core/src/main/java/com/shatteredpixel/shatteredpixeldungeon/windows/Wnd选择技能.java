@@ -31,7 +31,6 @@ import java.util.ArrayList;
 public class Wnd选择技能 extends Window {
 
 	private static final int WIDTH_P = 120;
-	private static final int WIDTH_L = 180;
 
 	private static final int MARGIN  = 2;
 	static Wnd选择技能 INSTANCE;
@@ -41,7 +40,7 @@ public class Wnd选择技能 extends Window {
 		super();
 		INSTANCE=this;
 
-		int width = PixelScene.横屏() ? WIDTH_L : WIDTH_P;
+		int width = WIDTH_P;
 
 		float pos = MARGIN;
 		RenderedTextBlock title = PixelScene.renderTextBlock("选择一个技能",9);

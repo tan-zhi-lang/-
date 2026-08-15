@@ -12,6 +12,7 @@ public class 神盾果 extends 用品{
 	
 	{
 		image = 物品表.神盾果;
+		彩光=true;
 	}
 	
 	@Override

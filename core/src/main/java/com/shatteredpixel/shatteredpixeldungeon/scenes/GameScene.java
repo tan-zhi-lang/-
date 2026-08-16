@@ -966,7 +966,8 @@ public class GameScene extends PixelScene {
 		float tagLeft =  uiCamera.width - tagWidth;
 		float tagLeft2 = 0;
 
-		scene.gameLog.setRect(insets.left,scene.status.bottom()+Tag.SIZE*7.5f,uiCamera.width-tagWidth-insets.left,0);
+		scene.gameLog.setRect(insets.left,scene.status.bottom()
+							  +SPDSettings.getscale(145,80,20,0)+Tag.SIZE*7.5f,uiCamera.width-tagWidth-insets.left,0);
 
 
 		if (scene.tagAction) {
@@ -990,27 +991,32 @@ public class GameScene extends PixelScene {
 		}
 
 		if (scene.tag食物栏) {
-			scene.食物栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE,tagWidth,Tag.SIZE);
+			scene.食物栏标.setRect(tagLeft2,scene.status.bottom()
+											+SPDSettings.getscale(30,20,10,0)+Tag.SIZE,tagWidth,Tag.SIZE);
 			scene.食物栏标.flip(true);
 		}
 		if (scene.tag药剂栏) {
-			scene.药剂栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*2,tagWidth,Tag.SIZE);
+			scene.药剂栏标.setRect(tagLeft2,scene.status.bottom()
+											+SPDSettings.getscale(30,20,10,0)+Tag.SIZE*2,tagWidth,Tag.SIZE);
 			scene.药剂栏标.flip(true);
 		}
 		if (scene.tag副武器) {
-			scene.副武器.setRect( tagLeft2, scene.status.bottom()+ Tag.SIZE*3, tagWidth, Tag.SIZE );
+			scene.副武器.setRect( tagLeft2, scene.status.bottom()
+											+SPDSettings.getscale(30,20,10,0)+ Tag.SIZE*3, tagWidth, Tag.SIZE );
 			scene.副武器.flip(true);
 		}
 
 		if(SPDSettings.interfaceSize()){
 
 			if (scene.tag上楼标) {
-				scene.上楼标.setRect(tagLeft2,scene.status.bottom() + Tag.SIZE*4,tagWidth,Tag.SIZE);
+				scene.上楼标.setRect(tagLeft2,scene.status.bottom()
+											  +SPDSettings.getscale(30,20,10,0)+ Tag.SIZE*4,tagWidth,Tag.SIZE);
 				scene.上楼标.flip(true);
 			}
 
 			if (scene.tag下楼标) {
-				scene.下楼标.setRect(tagLeft2,scene.status.bottom() + Tag.SIZE*5,tagWidth,Tag.SIZE);
+				scene.下楼标.setRect(tagLeft2,scene.status.bottom()
+											  +SPDSettings.getscale(30,20,10,0)+ Tag.SIZE*5,tagWidth,Tag.SIZE);
 				scene.下楼标.flip(true);
 			}
 		}else{

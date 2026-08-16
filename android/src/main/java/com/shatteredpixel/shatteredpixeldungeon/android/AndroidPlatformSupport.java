@@ -46,8 +46,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		boolean fullscreen = Build.VERSION.SDK_INT < Build.VERSION_CODES.N
 				|| !AndroidLauncher.instance.isInMultiWindowMode();
 
-		if (fullscreen && SPDSettings.landscape()==true||SPDSettings.landscape()==false
-				&& (Game.dispWidth >= Game.dispHeight) != SPDSettings.landscape()){
+		if (fullscreen && (Game.dispWidth >= Game.dispHeight) != SPDSettings.landscape()) {
 			int tmp = Game.dispWidth;
 			Game.dispWidth = Game.dispHeight;
 			Game.dispHeight = tmp;
@@ -57,7 +56,7 @@ public class AndroidPlatformSupport extends PlatformSupport {
 		
 		float renderWidth = dispRatio > 1 ? PixelScene.MIN_WIDTH_L : PixelScene.MIN_WIDTH_P;
 		float renderHeight = dispRatio > 1 ? PixelScene.MIN_HEIGHT_L : PixelScene.MIN_HEIGHT_P;
-		
+
 		if (fullscreen){
 			
 			int maxZoom = (int)Math.min(Game.dispWidth/renderWidth, Game.dispHeight/renderHeight);

@@ -2,9 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
@@ -1472,10 +1475,10 @@ public abstract class Char extends Actor {
 //				icon = hitMissIcon;
 //			}
 //			hitMissIcon = -1;
-			if(dmg + shielded>2&&!Dungeon.赛季(赛季设置.地牢塔防))//伤害显示
+			if((dmg + shielded>最大生命(SPDSettings.数值显示()*0.05f))&&!Dungeon.赛季(赛季设置.地牢塔防))//伤害显示
 			{
 				if (AntiMagic.RESISTS.contains(来源.getClass()))
-				sprite.showStatusWithIcon(CharSprite.蓝色,dmg+shielded,icon);
+				sprite.showStatusWithIcon(CharSprite.蓝色,kw2(dmg+shielded),icon);
 //				else if(来源 instanceof 燃烧||来源 instanceof Corrosion)
 //					sprite.showStatusWithIcon(CharSprite.警告橙,dmg+shielded,icon);
 //				else if (来源 instanceof Chill||来源 instanceof Frost||来源 instanceof GeyserTrap)
@@ -1490,7 +1493,7 @@ public abstract class Char extends Actor {
 //					sprite.showStatusWithIcon(CharSprite.默认白,dmg+shielded,icon);
 //				else if (来源 instanceof 流血)
 //					sprite.showStatusWithIcon(CharSprite.削弱红,dmg+shielded,icon);
-				else sprite.showStatusWithIcon(CharSprite.削弱红,dmg+shielded,icon);//物理
+				else sprite.showStatusWithIcon(CharSprite.削弱红,kw2(dmg+shielded),icon);//物理
 			}
 		}
 
@@ -2029,8 +2032,8 @@ public abstract class Char extends Actor {
 		return 生命力()*x;
 	}
 	public void 护甲(float x){
-		if(x>2)
-			sprite.showStatusWithIcon(CharSprite.增强绿,x,FloatingText.SHIELDING);
+		if(x>最大护甲(SPDSettings.数值显示()*0.05f))
+			sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.SHIELDING);
 
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲);
 	}
@@ -2160,8 +2163,8 @@ public abstract class Char extends Actor {
 			生命=Math.min(生命+x,最大生命);
 
 			if (pos!=-1&&Dungeon.level!=null&&Dungeon.level.heroFOV[pos]){
-				if(x>2&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
-					sprite.showStatusWithIcon(CharSprite.增强绿,x,FloatingText.HEALING);
+				if(x>最大生命(SPDSettings.数值显示()*0.05f)&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
+					sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.HEALING);
 					sprite.emitter().burst(Speck.factory(Speck.HEALING),Math.min(6,x/25));
 				}
 			}

@@ -71,7 +71,7 @@ public class 算法 {
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
     * */
-    public static String 日期="8.15/15:59";
+    public static String 日期="8.16/13:52";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -114,11 +114,14 @@ public class 算法 {
         // 处理后缀
         float val;
         String suffix = "";
-        if (x >= 1000000) {
-            val = x / 10000.0f;
-            suffix = "W";
+        if (x >= 1000_0000) {
+            val = x / 1000_0000f;
+            suffix = "kw";
+        }else if (x >= 1_0000) {
+            val = x / 1_0000f;
+            suffix = "w";
         } else if (x >= 1000) {
-            val = x / 1000.0f;
+            val = x / 1000f;
             suffix = "K";
         } else {
             val = x;

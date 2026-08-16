@@ -492,7 +492,7 @@ public class StatusPane extends Component {
 
 		区域.text("第"+Dungeon.区域()+"区");
 		区域.measure();
-		区域.x = uiCamera.width-MenuPane.WIDTH + 25f - 区域.width() / 2f;
+		区域.x = fps.x+SPDSettings.getscale(7,8.5f,9.5f,10) - 区域.width() / 2f;
 		区域.y = y + 30 + 区域.height();
 
 		time.text(Dungeon.地牢时间());

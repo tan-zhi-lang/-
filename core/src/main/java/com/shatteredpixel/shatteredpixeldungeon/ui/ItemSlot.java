@@ -36,7 +36,7 @@ import com.watabou.noosa.Image;
 import com.watabou.utils.Rect;
 
 public class ItemSlot extends Button {
-	public static final int DEGRADED    = 0xFF4444; // 深红色
+	public static final int DEGRADED    = 0xFF4444; // 红色
 	public static final int UPGRADED    = 0x44FF44; // 亮绿色
 	public static final int FADED       = 0x999999; // 灰色
 	public static final int WARNING     = 0xFF8800; // 橙色

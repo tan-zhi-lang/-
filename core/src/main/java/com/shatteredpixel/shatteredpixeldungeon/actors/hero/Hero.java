@@ -5898,7 +5898,6 @@ public class Hero extends Char {
     }
     @Override
     public boolean act(){
-
         if((Dungeon.相对层数()>15&&Dungeon.相对层数()<20)&&Dungeon.branch==1){
             if(算法.概率学(2))
                 GLog.橙("不知道怎么回去，不看背包的屑。");
@@ -8742,7 +8741,8 @@ public class Hero extends Char {
         //regular damage interrupt, triggers on any damage except specific mild DOT effects
         // unless the player recently hit 'continue moving', in which case this is ignored
         if (!(来源 instanceof Hunger||来源 instanceof Viscosity.DeferedDamage)&&damageInterrupt) {
-            if(SPDSettings.打断英雄()&&dmg>2){
+            if(dmg>最大生命(SPDSettings.受伤打断()*0.15f)){
+                Sample.INSTANCE.play(Assets.Sounds.HEALTH_CRITICAL,1);
                 interrupt();
             }
         }
@@ -8783,17 +8783,8 @@ public class Hero extends Char {
             buff(Challenge.DuelParticipant.class).addDamage(effectiveDamage);
         }
 
-        //flash red when hit for serious damage.
-        float percentDMG = effectiveDamage / (float) preHP; //percent of current HP that was taken
-        float percentHP = 1 - ((最大生命 - postHP) / (float) 最大生命); //percent health after damage was taken
-        // The flash intensity increases primarily based on damage taken and secondarily on missing HP.
-        float flashIntensity = 0.25f * (percentDMG * percentDMG) / percentHP;
         //if the intensity is very low don't flash at all
-        if (effectiveDamage>=1&&flashIntensity >= 0.05f) {
-            flashIntensity = Math.min(1 / 3f, flashIntensity); //cap intensity at 1/3
-
-            if(!符文("我让你额啊"))
-            GameScene.flash((int) (0xFF * flashIntensity) << 16);
+        if (effectiveDamage>最大生命(SPDSettings.受伤打断()*0.15f*1.68f)) {
 
             if (isAlive()) {
                 if(符文("士兵男孩"))
@@ -8803,11 +8794,10 @@ public class Hero extends Char {
                     回百分比护甲(0.15f);
 
                 if(!符文("我让你额啊")){
-                    if(flashIntensity>=1/6f){
-                        Sample.INSTANCE.play(Assets.Sounds.HEALTH_CRITICAL,1/3f+flashIntensity*2f);
-                    }else{
-                        Sample.INSTANCE.play(Assets.Sounds.HEALTH_WARN,1/3f+flashIntensity*4f);
-                    }
+                    GameScene.flash(0xFF4444);
+
+                    Sample.INSTANCE.play(Assets.Sounds.HEALTH_WARN,1);
+
                     //hero gets interrupted on taking serious damage, regardless of any other factor
                     interrupt();
                     damageInterrupt=true;

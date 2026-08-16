@@ -51,6 +51,7 @@ public class 赛季 extends Window {
             CheckBox cb = new CheckBox(Messages.titleCase(Messages.get(赛季设置.class,赛季)));
             cb.checked((checked&赛季设置.MASKS[i])!=0);
             cb.active =editable;
+
             if(Messages.get(赛季设置.class,赛季).equals("地牢塔防"))
                 cb.enable(false);
 

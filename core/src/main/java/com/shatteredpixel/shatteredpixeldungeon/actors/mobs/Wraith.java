@@ -39,15 +39,6 @@ public class Wraith extends Mob {
 		properties.add(Property.INORGANIC);
 	}
 
-	@Override
-	protected boolean act(){
-
-		if (Dungeon.hero()){
-			if(isAlive()&&Dungeon.hero.距离(this)>8)
-				受伤时(最大生命);
-		}
-		return super.act();
-	}
 	private static final String LEVEL = "level";
 	
 	@Override

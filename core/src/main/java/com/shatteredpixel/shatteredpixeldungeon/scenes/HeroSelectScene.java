@@ -257,50 +257,44 @@ public class HeroSelectScene extends PixelScene {
             SPDSettings.customSeed("");
         }
 
-        if (横屏()) {
+        if (横屏()) {//没优化横屏选英雄
             float leftArea = Math.max(100, Camera.main.width / 3f);
             float uiHeight = Math.min(Camera.main.height - 20, 300);
             float uiSpacing = (uiHeight - 120) / 2f;
-
-            if (uiHeight >= 160) uiSpacing -= 5;
-            if (uiHeight >= 180) uiSpacing -= 6;
 
             background.x += leftArea / 6f;
 
             float fadeLeftScale = 47 * (leftArea - background.x) / leftArea;
             fadeLeft.scale = new PointF(3 + Math.max(0, fadeLeftScale), background.height());
 
-            title.setPos((leftArea - title.width()) / 2f, (Camera.main.height - uiHeight) / 2f);
+            title.setPos((leftArea - title.width()) / 2f+24+2, (Camera.main.height - uiHeight) / 2f);
             align(title);
 
-            int btnHeight = HeroBtn.HEIGHT;
-            if (uiHeight >= 180) {
-                btnHeight += 6;
-            }
+            int btnHeight = HeroBtn.HEIGHTL;
 
             int cols = (int) Math.ceil(4 / 2f);
             //1
-            int btnWidth = HeroBtn.MIN_WIDTH + 15;
+            int btnWidth = HeroBtn.MIN_WIDTHL + 15;
             float curX = (leftArea - btnWidth * cols + (cols - 1)) / 2f;
             float curY = title.bottom() -btnHeight*2+uiSpacing;
             //2
-            int btnWidth2 = HeroBtn.MIN_WIDTH + 15;
+            int btnWidth2 = HeroBtn.MIN_WIDTHL + 15;
             float curX2 = (leftArea - btnWidth2 * cols + (cols - 1)) / 2f;
             float curY2 = title.bottom() -btnHeight*2 + uiSpacing+btnHeight*(2-1);
             //3
-            int btnWidth3 = HeroBtn.MIN_WIDTH + 15;
+            int btnWidth3 = HeroBtn.MIN_WIDTHL + 15;
             float curX3 = (leftArea - btnWidth * cols + (cols - 1)) / 2f;
             float curY3 = title.bottom() -btnHeight*2 + uiSpacing+btnHeight*(3-1);
             //4
-            int btnWidth4 = HeroBtn.MIN_WIDTH + 15;
+            int btnWidth4 = HeroBtn.MIN_WIDTHL + 15;
             float curX4 = (leftArea - btnWidth * cols + (cols - 1)) / 2f;
             float curY4 = title.bottom() -btnHeight*2 + uiSpacing+btnHeight*(4-1);
             //5
-            int btnWidth5 = HeroBtn.MIN_WIDTH + 15;
+            int btnWidth5 = HeroBtn.MIN_WIDTHL + 15;
             float curX5 = (leftArea - btnWidth * cols + (cols - 1)) / 2f;
             float curY5 = title.bottom() -btnHeight*2 + uiSpacing+btnHeight*(5-1);
             //6
-            int btnWidth6 = HeroBtn.MIN_WIDTH + 15;
+            int btnWidth6 = HeroBtn.MIN_WIDTHL + 15;
             float curX6 = (leftArea - btnWidth * cols + (cols - 1)) / 2f;
             float curY6 = title.bottom() -btnHeight*2 + uiSpacing+btnHeight*(6-1);
 
@@ -354,7 +348,7 @@ public class HeroSelectScene extends PixelScene {
 
             startBtn.text(Messages.titleCase(Messages.get(this, "start")));
             startBtn.setSize(startBtn.reqWidth() + 8, 21);
-            startBtn.setPos((leftArea - startBtn.width()) / 2f, title.top() + uiHeight - startBtn.height());
+            startBtn.setPos((leftArea - startBtn.width()) / 2f+100, title.top() + uiHeight - startBtn.height());
             align(startBtn);
 
             btnFade = new IconButton(Icons.CHEVRON.get()) {
@@ -388,7 +382,7 @@ public class HeroSelectScene extends PixelScene {
             btnExit.setPos(Camera.main.width - btnExit.width(), 0);
             add(btnExit);
             btnExit.visible = btnExit.active = !SPDSettings.intro();
-        } else {
+        } else {//竖屏
             background.visible = false;
 
             //1
@@ -560,23 +554,18 @@ public class HeroSelectScene extends PixelScene {
 
         float leftPortion = Math.max(100, Camera.main.width / 3f);
 
-        if (横屏()) {
+        if (横屏()) {//没优化横屏选英雄
 
             heroName.text(Messages.titleCase(cl.title()));
             heroName.hardlight(Window.TITLE_COLOR);
-            heroName.setPos((leftPortion - heroName.width() - 20) / 2f, heroName.top());
+            heroName.setPos((leftPortion - heroName.width() - 20) / 2f+25, heroName.top());
             align(heroName);
 
             heroDesc.text(cl.shortDesc());
             heroDesc.maxWidth(80);
-            heroDesc.setPos((leftPortion - heroDesc.width()) / 2f, heroName.bottom() + 5);
+            heroDesc.setPos((leftPortion - heroDesc.width()) / 2f+25, heroName.bottom() + 5);
             align(heroDesc);
 
-            while (startBtn.top() < heroDesc.bottom()) {
-                heroDesc.maxWidth(heroDesc.maxWidth() + 10);
-                heroDesc.setPos(Math.max(0, (leftPortion - heroDesc.width()) / 2f), heroName.bottom() + 5);
-                align(heroDesc);
-            }
 
             btnFade.visible = btnFade.active = true;
 
@@ -654,20 +643,6 @@ public class HeroSelectScene extends PixelScene {
         infoButton.enable(alpha != 0);
         infoButton.icon().alpha(alpha);
 
-        if (横屏()) {
-
-            background.x = (Camera.main.width - background.width()) / 2f;
-
-            float leftPortion = Math.max(100, Camera.main.width / 3f);
-
-            background.x += (leftPortion / 2f) * alpha;
-
-            float fadeLeftScale = 47 * (leftPortion - background.x) / leftPortion;
-            fadeLeft.scale.x = 3 + Math.max(fadeLeftScale, 0) * alpha;
-            fadeLeft.x = background.x - 4;
-            fadeRight.x = background.x + background.width() + 4;
-        }
-
         fadeLeft.x = background.x - 5;
         fadeRight.x = background.x + background.width() + 5;
 
@@ -692,7 +667,9 @@ public class HeroSelectScene extends PixelScene {
 
     private class HeroBtn extends StyledButton {
 
+        private static final int MIN_WIDTHL = 10;
         private static final int MIN_WIDTH = 20;
+        private static final int HEIGHTL = 24;
         private static final int HEIGHT = 24;
         private HeroClass cl;
 

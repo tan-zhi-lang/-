@@ -145,55 +145,6 @@ public class 下水道1 extends Level {
 			return super.activateTransition(hero, transition);
 		}
 	}
-	private int mapToTerrain(int i) {
-		if (!(i == 1 || i == 2)) {
-			if (i != 3) {
-				if (i != 4) {
-					if (i == 16) {
-						return 7;
-					}
-					if (i == 17) {
-						return 8;
-					}
-					switch (i) {
-						case -2147483644:
-							break;
-						case -2147483584:
-						case 64:
-						case 190:
-							return 4;
-						case -2147483550:
-						case 98:
-							return 25;
-						case -2147483524:
-						case 124:
-						case 140:
-							return 27;
-						case 4:
-							return 14;
-						case 69:
-							return 12;
-						case 80:
-							return SIZE;
-						case 85:
-							return 11;
-						case 96:
-							return 23;
-						case 120:
-							return 20;
-						case 123:
-							return 29;
-						case 161:
-							return 12;
-						default:
-							return 1;
-					}
-				}
-				return 14;
-			}
-		}
-		return 29;
-	}
 	@Override
 	public Mob createMob() {
 		return null;

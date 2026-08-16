@@ -44,6 +44,10 @@ public class SPDSettings extends GameSettings {
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
+	public static final String 弹道速度x = "弹道速度";
+	public static final String 受伤打断x = "受伤打断";
+	public static final String 数值显示x = "数值显示";
+	public static final String 获取显示x = "获取显示";
 	public static final String 物品命名x = "物品命名";
 	public static final String 打断英雄x= "打断英雄";
 	public static final String 战斗快速x = "战斗快速";
@@ -182,7 +186,54 @@ public class SPDSettings extends GameSettings {
 	public static int 休息速度() {
 		return getInt(休息速度x, 2,1,5 );
 	}
-	
+	public static void 弹道速度(int value ){
+		put(弹道速度x, value );
+	}
+
+	public static int 弹道速度() {
+		return getInt(弹道速度x, 3,1,7 );
+	}
+	public static int 弹道速度调整() {
+		int x=getInt(弹道速度x, 3,1,7 );
+
+		return Math.round(x*(SPDSettings.加快()>1?1.75f:1)*switch(x){
+			case 1->50-15-15;
+			case 2->50-15;
+
+			default -> 50;
+			case 3->50;
+
+			case 4->50+15;
+			case 5->50+15+30;
+			case 6->50+15+30+45;
+			case 7->50+15+30+45+60;
+		});
+
+	}
+
+	public static void 受伤打断(int value ){
+		put(受伤打断x, value );
+	}
+
+	public static int 受伤打断() {
+		return getInt(受伤打断x, 1,1,4 );//15/30/45/60
+	}
+	public static void 数值显示(int value ){
+		put(数值显示x, value );
+	}
+
+	public static int 数值显示() {
+		return getInt(数值显示x, 1,1,5 );//10/20/30/40/50
+	}
+
+	public static void 获取显示(int value ){
+		put(获取显示x, value );
+	}
+
+	public static int 获取显示() {
+		return getInt(获取显示x, 1,1,10 );//10/20/30/40/50/60/70/80/90/100
+	}
+
 	public static void 物品命名( boolean value ) {
 		put( 物品命名x, value );
 		
@@ -279,7 +330,7 @@ public class SPDSettings extends GameSettings {
 	//Interface
 
 	public static final String KEY_UI 	    = "key_ui";
-	public static final String KEY_SCALE		= "scale";
+	public static final String KEY_SCALE		= "newscale";
 	public static final String KEY_QUICK_SWAP	= "quickslot_swapper";
 
 	public static final String KEY_BARMODE		= "toolbar_mode";
@@ -302,9 +353,13 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int scale() {
-		return getInt( KEY_SCALE, 9 );
+		return getInt( KEY_SCALE, 4 );
 	}
-	
+
+	public static float getscale(float x1,float x2,float x3,float x4) {
+		return (scale()==4?x4:(scale()==3?x3:(SPDSettings.scale()==2?x2:x1)));
+	}
+
 	public static void quickSwapper(boolean value ){ put( KEY_QUICK_SWAP, value ); }
 	
 

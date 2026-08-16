@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 import static com.shatteredpixel.shatteredpixeldungeon.items.Item.updateQuickslot;
+import static com.shatteredpixel.shatteredpixeldungeon.算法.金额;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -259,7 +260,7 @@ public class Dungeon {
 			Rankings.INSTANCE.来世金币=gold;
 
 		Statistics.goldCollected += x;
-		if(hero()&&x>0){
+		if(hero()&&x>SPDSettings.获取显示()*2*金额){
 			if(pos==-1)
 				GameScene.pickUp(new Gold(), hero.pos);
 			else
@@ -303,7 +304,7 @@ public class Dungeon {
 			Rankings.INSTANCE.来世能量=energy;
 
 		Statistics.energyc += x;
-		if(hero()&&x>0){
+		if(hero()&&x>SPDSettings.获取显示()*2*金额){
 			if(pos==-1)
 				GameScene.pickUp(new EnergyCrystal(),hero.pos);
 			else

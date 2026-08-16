@@ -34,7 +34,6 @@ import com.watabou.noosa.ui.Component;
 import com.watabou.noosa.ui.Cursor;
 import com.watabou.utils.Callback;
 import com.watabou.utils.DeviceCompat;
-import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Reflection;
 import com.watabou.utils.Signal;
@@ -89,23 +88,30 @@ public class PixelScene extends Scene {
 			Holiday.clearCachedHoliday();
 		}
 
-		float minWidth, minHeight, scaleFactor;
-		if (横屏()) {
-			minWidth = MIN_WIDTH_L;
-			minHeight = MIN_HEIGHT_L;
-			scaleFactor = 2.5f;
-		} else {
-			minWidth = MIN_WIDTH_P;
-			minHeight = MIN_HEIGHT_P;
-			scaleFactor = 2.5f;
+//		float minWidth, minHeight, scaleFactor;
+//		if (SPDSettings.interfaceSize()){
+//			minWidth = MIN_WIDTH_FULL;
+//			minHeight = MIN_HEIGHT_FULL;
+//			scaleFactor = 3.75f;
+//		} else if (横屏()) {
+//			minWidth = MIN_WIDTH_L;
+//			minHeight = MIN_HEIGHT_L;
+//			scaleFactor = 2.5f;
+//		} else {
+//			minWidth = MIN_WIDTH_P;
+//			minHeight = MIN_HEIGHT_P;
+//			scaleFactor = 2.5f;
+//		}
+
+		if(DeviceCompat.isDesktop()){
+			defaultZoom=4+SPDSettings.scale();
+			maxDefaultZoom =defaultZoom+1;
+			maxScreenZoom =defaultZoom+1;
 		}
-
-		maxDefaultZoom = (int)Math.min(Game.width/minWidth, Game.height/minHeight)+1;
-		maxScreenZoom = (int)Math.min(Game.dispWidth/minWidth, Game.dispHeight/minHeight);
-		defaultZoom = SPDSettings.scale();
-
-		if (defaultZoom < Math.ceil( Game.density * 2 ) || defaultZoom > maxDefaultZoom){
-			defaultZoom = (int)GameMath.之内(2,(int)Math.ceil(Game.density*scaleFactor),maxDefaultZoom);
+		if(DeviceCompat.isAndroid()){
+			defaultZoom=SPDSettings.scale();
+			maxDefaultZoom =defaultZoom+1;
+			maxScreenZoom =defaultZoom+1;
 		}
 
 		minZoom = 1;
@@ -290,7 +296,7 @@ public class PixelScene extends Scene {
 	}
 
 	public static boolean 横屏(){
-		return Game.width > Game.height;
+		return SPDSettings.interfaceSize()||Game.width > Game.height;
 	}
 
 

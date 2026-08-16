@@ -27,7 +27,7 @@ import com.watabou.utils.Random;
 
 public class MagicMissile extends Emitter {
 
-	private static final float SPEED	= 200f;
+	private static final float SPEED	= 1;
 	
 	private Callback callback;
 	
@@ -107,13 +107,10 @@ public class MagicMissile extends Emitter {
 		height = 0;
 		
 		PointF d = PointF.diff( to, from );
-		PointF speed = new PointF( d ).normalize().scale( SPEED);
+		PointF speed = new PointF( d ).normalize().scale( SPEED*SPDSettings.弹道速度调整());
 		sx = speed.x;
 		sy = speed.y;
-		time = d.length() / SPEED;
-		if(SPDSettings.加快()>1){
-			time = d.length() / SPEED/1.5f;
-		}
+		time = d.length() / SPEED/SPDSettings.弹道速度调整();
 
 		//for now all specks share the same size and volume, this can easily be customized later if needed
 		if (type >= SPECK){

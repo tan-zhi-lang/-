@@ -217,9 +217,6 @@ public class Item implements Bundlable {
 	}
 	public boolean tr(){
 		if(this instanceof 圣诞礼物)return true;
-		if(this instanceof 投掷手套)return true;
-		if(this instanceof 猪鲨链球)return true;
-		if(this instanceof 致胜拳炮)return true;
 		if(this instanceof 生命水晶)return true;
 		if(this instanceof 生命果)return true;
 		if(this instanceof 坠牢之星)return true;
@@ -229,6 +226,9 @@ public class Item implements Bundlable {
 		if(this instanceof 神盾果)return true;
 		if(this instanceof 火把神的恩宠)return true;
 
+		if(this instanceof 投掷手套)return true;
+		if(this instanceof 猪鲨链球)return true;
+		if(this instanceof 致胜拳炮)return true;
 		if(this instanceof 猩红散华)return true;
 		if(this instanceof 角斗链枷)return true;
 		if(this instanceof 真铜短剑)return true;
@@ -239,7 +239,6 @@ public class Item implements Bundlable {
 		if(this instanceof 英雄断剑)return true;
 		if(this instanceof 爪)return true;
 		if(this instanceof 寒冰鱼剑)return true;
-		if(this instanceof 圣诞礼物)return true;
 		if(this instanceof 星云拳套)return true;
 		if(this instanceof 疯狂斧)return true;
 		if(this instanceof 血荆棘)return true;

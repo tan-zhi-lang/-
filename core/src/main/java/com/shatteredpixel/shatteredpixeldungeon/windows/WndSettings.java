@@ -507,13 +507,11 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							提示行数.setSelectedValue(SPDSettings.提示行数());
 							add(提示行数);
-
-							if ((int)Math.ceil(2* Game.density) < PixelScene.maxDefaultZoom) {
 								optUIScale = new OptionSlider("界面尺寸",
-															  (int)Math.ceil(2* Game.density)+ "X",
-															  PixelScene.maxDefaultZoom + "X",
-															  (int)Math.ceil(2* Game.density),
-															  PixelScene.maxDefaultZoom ) {
+															  1+ "X",
+															  4+ "X",
+															  1,
+															  4 ) {
 									@Override
 									protected void onChange() {
 										if (getSelectedValue() != SPDSettings.scale()) {
@@ -522,9 +520,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 										}
 									}
 								};
-								optUIScale.setSelectedValue(PixelScene.defaultZoom);
+								optUIScale.setSelectedValue(SPDSettings.scale());
 								add(optUIScale);
-							}
 							
 							//layout
 							resize(WIDTH_P, 0);
@@ -537,6 +534,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							文字寿命.setRect(0,  字体大小.bottom()+GAP, width, BTN_HEIGHT);
 							保留位数.setRect(0,文字寿命.bottom()+GAP,width,BTN_HEIGHT);
 							提示行数.setRect(0,保留位数.bottom()+GAP,width,BTN_HEIGHT);
+
 							optUIScale.setRect(0,  提示行数.bottom()+GAP, width, BTN_HEIGHT);
 							
 							resize(WIDTH_P, (int) optUIScale.bottom());
@@ -653,6 +651,13 @@ public class WndSettings extends WndTabbed {//WndSettings
 					protected void onClick() {
 						super.onClick();
 						SPDSettings.landscape(checked());
+
+						if(SPDSettings.landscape())
+							SPDSettings.scale(3);
+						else
+							SPDSettings.scale(4);
+
+						ShatteredPixelDungeon.seamlessResetScene();
 					}
 				};
 				chkLandscape.checked(SPDSettings.landscape());
@@ -731,19 +736,15 @@ public class WndSettings extends WndTabbed {//WndSettings
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 
 						CheckBox 物品命名;
-						RenderedTextBlock 物品命名str;
 						CheckBox 打断英雄;
-						RenderedTextBlock 打断英雄str;
 						CheckBox 自动拾取;
 						RenderedTextBlock 自动拾取str;
 						CheckBox 装备武器;
 						RenderedTextBlock 装备武器str;
 						CheckBox 主要战技;
-						RenderedTextBlock 主要战技str;
 						CheckBox 战斗快速;
 						RenderedTextBlock 战斗快速str;
 						CheckBox 从不过节;
-						RenderedTextBlock 从不过节str;
 						{
 							
 							物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
@@ -755,9 +756,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							物品命名.checked(SPDSettings.物品命名());
 							add(物品命名);
-							物品命名str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "物品命名str"), 5);
-							物品命名str.hardlight(0x888888);
-							add(物品命名str);
 							
 							打断英雄= new CheckBox(Messages.get(WndSettings.游戏设置.this,"打断英雄")){
 								@Override
@@ -768,10 +766,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							打断英雄.checked(SPDSettings.打断英雄());
 							add(打断英雄);
-							打断英雄str= PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this,"打断英雄str"),5);
-							打断英雄str.hardlight(0x888888);
-							add(打断英雄str);
-
 							
 							自动拾取 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "自动拾取")){
 								@Override
@@ -808,9 +802,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							主要战技.checked(SPDSettings.主要战技());
 							add(主要战技);
-							主要战技str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "主要战技str"), 5);
-							主要战技str.hardlight(0x888888);
-							add(主要战技str);
 
 
 							战斗快速 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "战斗快速")){
@@ -836,23 +827,15 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							从不过节.checked(SPDSettings.从不过节());
 							add(从不过节);
-							从不过节str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "从不过节str"), 5);
-							从不过节str.hardlight(0x888888);
-							add(从不过节str);
 							
 							
 							resize(WIDTH_P, 0);
 							
 							物品命名.setRect(0,  GAP, width, BTN_HEIGHT);
-							物品命名str.maxWidth(width);
-							物品命名str.setPos(0, 物品命名.bottom()+1);
-							
-							打断英雄.setRect(0,物品命名str.bottom()+GAP,width,BTN_HEIGHT);
-							打断英雄str.maxWidth(width);
-							打断英雄str.setPos(0,打断英雄.bottom()+1);
 
+							打断英雄.setRect(0,物品命名.bottom()+GAP,width,BTN_HEIGHT);
 							
-							自动拾取.setRect(0,  打断英雄str.bottom()+GAP, width, BTN_HEIGHT);
+							自动拾取.setRect(0,  打断英雄.bottom()+GAP, width, BTN_HEIGHT);
 							自动拾取str.maxWidth(width);
 							自动拾取str.setPos(0, 自动拾取.bottom()+1);
 							
@@ -861,18 +844,14 @@ public class WndSettings extends WndTabbed {//WndSettings
 							装备武器str.setPos(0, 装备武器.bottom()+1);
 							
 							主要战技.setRect(0,  装备武器str.bottom()+GAP, width, BTN_HEIGHT);
-							主要战技str.maxWidth(width);
-							主要战技str.setPos(0, 主要战技.bottom()+1);
 
-							战斗快速.setRect(0,  主要战技str.bottom()+GAP, width, BTN_HEIGHT);
+							战斗快速.setRect(0,  主要战技.bottom()+GAP, width, BTN_HEIGHT);
 							战斗快速str.maxWidth(width);
 							战斗快速str.setPos(0, 战斗快速.bottom()+1);
 
 							从不过节.setRect(0,  战斗快速str.bottom()+GAP, width, BTN_HEIGHT);
-							从不过节str.maxWidth(width);
-							从不过节str.setPos(0, 从不过节.bottom()+1);
 							
-							resize(WIDTH_P, (int) 从不过节str.bottom());
+							resize(WIDTH_P, (int) 从不过节.bottom());
 
 						}
 					});
@@ -892,7 +871,14 @@ public class WndSettings extends WndTabbed {//WndSettings
 						RenderedTextBlock 固定攻速str;
 						OptionSlider 固定移速;
 						RenderedTextBlock 固定移速str;
+						OptionSlider 受伤打断;
+						RenderedTextBlock 受伤打断str;
+						OptionSlider 数值显示;
+						RenderedTextBlock 数值显示str;
+						OptionSlider 获取显示;
+						RenderedTextBlock 获取显示str;
 						OptionSlider 休息速度;
+						OptionSlider 弹道速度;
 						{
 							
 							固定攻速 = new OptionSlider("固定攻速",
@@ -904,6 +890,12 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							固定攻速.setSelectedValue(SPDSettings.固定攻速());
 							add(固定攻速);
+
+							固定攻速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "固定攻速str"), 5);
+							固定攻速str.hardlight(0x888888);
+							add(固定攻速str);
+
+
 							固定移速 = new OptionSlider("固定移速",
 														"1", "无限", 1, 5) {
 								@Override
@@ -913,7 +905,54 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							固定移速.setSelectedValue(SPDSettings.固定移速());
 							add(固定移速);
-							
+							固定移速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "固定移速str"), 5);
+							固定移速str.hardlight(0x888888);
+							add(固定移速str);
+
+
+							受伤打断 = new OptionSlider("受伤打断",
+														"15%", "60%", 1, 4) {
+								@Override
+								protected void onChange() {
+									SPDSettings.受伤打断(getSelectedValue());
+								}
+							};
+							受伤打断.setSelectedValue(SPDSettings.受伤打断());
+							add(受伤打断);
+							受伤打断str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "受伤打断str"), 5);
+							受伤打断str.hardlight(0x888888);
+							add(受伤打断str);
+
+
+							数值显示 = new OptionSlider("数值显示",
+														"10%", "50%", 1, 5) {
+								@Override
+								protected void onChange() {
+									SPDSettings.数值显示(getSelectedValue());
+								}
+							};
+							数值显示.setSelectedValue(SPDSettings.数值显示());
+							add(数值显示);
+							数值显示str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "数值显示str"), 5);
+							数值显示str.hardlight(0x888888);
+							add(数值显示str);
+
+
+
+							获取显示 = new OptionSlider("获取显示",
+														"10", "100", 1, 10) {
+								@Override
+								protected void onChange() {
+									SPDSettings.获取显示(getSelectedValue());
+								}
+							};
+							获取显示.setSelectedValue(SPDSettings.获取显示());
+							add(获取显示);
+							获取显示str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "获取显示str"), 5);
+							获取显示str.hardlight(0x888888);
+							add(获取显示str);
+
+
 							休息速度 = new OptionSlider("休息速度",
 														"1", "5", 1, 5) {
 								@Override
@@ -924,14 +963,17 @@ public class WndSettings extends WndTabbed {//WndSettings
 							休息速度.setSelectedValue(SPDSettings.休息速度());
 							add(休息速度);
 
-							固定攻速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "固定攻速str"), 5);
-							固定攻速str.hardlight(0x888888);
-							add(固定攻速str);
 
+							弹道速度 = new OptionSlider("弹道速度",
+														"减慢", "加快", 1, 7) {
+								@Override
+								protected void onChange() {
+									SPDSettings.弹道速度(getSelectedValue());
+								}
+							};
+							弹道速度.setSelectedValue(SPDSettings.弹道速度());
+							add(弹道速度);
 
-							固定移速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "固定移速str"), 5);
-							固定移速str.hardlight(0x888888);
-							add(固定移速str);
 
 
 							resize(WIDTH_P, 0);
@@ -943,8 +985,22 @@ public class WndSettings extends WndTabbed {//WndSettings
 							固定移速str.maxWidth(width);
 							固定移速str.setPos(0, 固定移速.bottom()+1);
 
-							休息速度.setRect(0,  固定移速str.bottom()+GAP, width, BTN_HEIGHT);
-							resize(WIDTH_P, (int) 休息速度.bottom());
+							受伤打断.setRect(0,  固定移速str.bottom()+GAP, width, BTN_HEIGHT);
+							受伤打断str.maxWidth(width);
+							受伤打断str.setPos(0, 受伤打断.bottom()+1);
+
+							数值显示.setRect(0,  受伤打断str.bottom()+GAP, width, BTN_HEIGHT);
+							数值显示str.maxWidth(width);
+							数值显示str.setPos(0, 数值显示.bottom()+1);
+
+							获取显示.setRect(0,  数值显示str.bottom()+GAP, width, BTN_HEIGHT);
+							获取显示str.maxWidth(width);
+							获取显示str.setPos(0, 获取显示.bottom()+1);
+
+
+							休息速度.setRect(0,  获取显示str.bottom()+GAP, width, BTN_HEIGHT);
+							弹道速度.setRect(0,  休息速度.bottom()+GAP, width, BTN_HEIGHT);
+							resize(WIDTH_P, (int) 弹道速度.bottom());
 							
 						}
 					});

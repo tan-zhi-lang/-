@@ -142,7 +142,24 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 				(left + right) / 2 + (((right - left) % 2) == 1 ? Random.Int( 2 ) : 0),
 				(top + bottom) / 2 + (((bottom - top) % 2) == 1 ? Random.Int( 2 ) : 0) );
 	}
-	
+	// 四个角点（向内收缩一格）
+	public Point topLeft() {
+		return new Point(left + 1, top + 1);
+	}
+
+	public Point topRight() {
+		return new Point(right - 1, top + 1);
+	}
+
+	public Point bottomLeft() {
+		return new Point(left + 1, bottom - 1);
+	}
+
+	public Point bottomRight() {
+		return new Point(right - 1, bottom - 1);
+	}
+
+
 	
 	// **** Connection logic ****
 	

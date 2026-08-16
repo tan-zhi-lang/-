@@ -41,6 +41,7 @@ public class Assets {
 		public static final String 干涸的大井     = "environment/custom_tiles/干涸的大井.png";
 		public static final String 矮人传送魔法阵11     = "environment/custom_tiles/矮人传送魔法阵11.png";
 		public static final String 矮人传送魔法阵18     = "environment/custom_tiles/矮人传送魔法阵18.png";
+		public static final String 异世界传送门     = "environment/custom_tiles/异世界传送门.png";
 		public static final String PRISON_EXIT      = "environment/custom_tiles/prison_exit.png";
 		public static final String CAVES_QUEST      = "environment/custom_tiles/caves_quest.png";
 		public static final String CAVES_BOSS       = "environment/custom_tiles/caves_boss.png";

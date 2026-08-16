@@ -88,7 +88,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.骨刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魄罗;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.黑暗剑;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Visual;
 import com.watabou.noosa.tweeners.PosTweener;
 import com.watabou.noosa.tweeners.Tweener;
@@ -100,7 +99,7 @@ import java.util.HashMap;
 
 public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
-	private static final float SPEED	= 240;
+	private static final float SPEED	= 1;
 	
 	private Callback callback;
 	
@@ -311,20 +310,15 @@ public class MissileSprite extends ItemSprite implements Tweener.Listener {
 
 		float speed = SPEED;
 		if(SPDSettings.加快()>1){
-			speed*=2f;
+			speed*=2;
 		}
-		if(算法.isDebug())
-			speed/=6;
-
-		if (item instanceof 飞镖
-				&& (Dungeon.hero.belongings.weapon() instanceof 十字弩
-				|| Dungeon.hero.belongings.weapon2() instanceof 十字弩)){
-			speed *= 3f;
-			
-		} else if (item instanceof 灵能短弓.SpiritArrow
+		speed*=SPDSettings.弹道速度调整();
+		if ((item instanceof 飞镖
+					&& Dungeon.hero.belongings.weapon(十字弩.class))
+		&&item instanceof 灵能短弓.SpiritArrow
 				|| item instanceof ScorpioSprite.ScorpioShot
 				|| item instanceof TenguSprite.TenguShuriken){
-			speed *= 1.5f;
+			speed *= 2;
 		}
 		
 		PosTweener tweener = new PosTweener( this, to, d.length() / speed );

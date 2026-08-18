@@ -14,6 +14,7 @@ public class 活力水晶 extends 用品{
 		image = 物品表.活力水晶;
 		粉色=true;
 		粉光=true;
+		结晶=true;
 	}
 	
 	@Override

@@ -2,8 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
-import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -26,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.血药;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -321,22 +320,25 @@ public class ItemSlot extends Button {
 				if(Dungeon.符文("吃货"))h+=Dungeon.hero.最大生命(0.125f);
 				if(Dungeon.符文("饭桶"))h+=Dungeon.hero.最大生命(0.05f);
 				if(Dungeon.符文("细嚼慢咽"))h*=2;
-				extra.text( Messages.format(TXT,kw2(h)));
+				extra.text( Messages.format(TXT,Math.round(h)));
 				extra.measure();
 				extra.hardlight( UPGRADED );
 			}else if (item instanceof 水袋 s) {
-				center.text( Messages.format( TXT, kw2(Dungeon.hero.最大生命(0.05f*s.volume))) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.05f*s.volume))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof 治疗药剂&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
-				center.text( Messages.format( TXT, kw2(Dungeon.hero.最大生命(0.9f))) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.9f))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof PotionOfShielding&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
-				center.text( Messages.format( TXT, kw2(Dungeon.hero.最大生命(0.75f))) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.75f))) );
+				center.measure();
+			}else if (item instanceof 护甲修理工具包) {
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.9f))) );
 				center.measure();
 			}else if (item instanceof 血药&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
-				center.text( Messages.format( TXT, kw2(Dungeon.hero.最大生命(0.2f))) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.2f))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
@@ -352,7 +354,7 @@ public class ItemSlot extends Button {
 				extra.measure();
 				extra.hardlight( WARNING );
 			}else if (item instanceof 荆棘斗篷 x) {
-				extra.text( Messages.format( TXT, kw2(Dungeon.hero.最大护甲((1+x.等级())/3f) )));
+				extra.text( Messages.format( TXT, Math.round(Dungeon.hero.最大护甲((1+x.等级())/3f) )));
 				extra.measure();
 				extra.hardlight( FADED );
 			}else{

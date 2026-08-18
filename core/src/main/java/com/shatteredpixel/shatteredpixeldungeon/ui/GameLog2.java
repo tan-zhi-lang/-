@@ -4,14 +4,14 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog2;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.Signal;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class GameLog extends Component implements Signal.Listener<String> {
+public class GameLog2 extends Component implements Signal.Listener<String> {
 
 	private static final Pattern PUNCTUATION = Pattern.compile( ".*[.,;?! ]$" );
 
@@ -20,9 +20,9 @@ public class GameLog extends Component implements Signal.Listener<String> {
 
 	private static ArrayList<Entry> entries = new ArrayList<>();
 
-	public GameLog() {
+	public GameLog2() {
 		super();
-		GLog.update.replace( this );
+		GLog2.update.replace( this );
 
 		recreateLines();
 	}
@@ -53,58 +53,58 @@ public class GameLog extends Component implements Signal.Listener<String> {
 							recreateLines();
 						}
 
-						if(text.equals(GLog.NEW_LINE)){
+						if(text.equals(GLog2.NEW_LINE)){
 							lastEntry=null;
 							continue;
 						}
 
 						int color=0x00FF00;
-						if(text.startsWith(GLog.绿色)){
-							text=text.substring(GLog.绿色.length());
+						if(text.startsWith(GLog2.绿色)){
+							text=text.substring(GLog2.绿色.length());
 							color=0x00FF00;
 						}else
-							if(text.startsWith(GLog.红色)){
-								text=text.substring(GLog.红色.length());
+							if(text.startsWith(GLog2.红色)){
+								text=text.substring(GLog2.红色.length());
 								color=0xFF4444;
 							}else
-								if(text.startsWith(GLog.橙色)){
-									text=text.substring(GLog.橙色.length());
+								if(text.startsWith(GLog2.橙色)){
+									text=text.substring(GLog2.橙色.length());
 									color=0xFF8800;
 								}else
-									if(text.startsWith(GLog.黄色)){
-										text=text.substring(GLog.黄色.length());
+									if(text.startsWith(GLog2.黄色)){
+										text=text.substring(GLog2.黄色.length());
 										color=0xFFFF00;
 									}else
-										if(text.startsWith(GLog.蓝色)){
-											text=text.substring(GLog.蓝色.length());
+										if(text.startsWith(GLog2.蓝色)){
+											text=text.substring(GLog2.蓝色.length());
 											color=0x3399FF;
 										}else
-											if(text.startsWith(GLog.粉色)){
-												text=text.substring(GLog.粉色.length());
+											if(text.startsWith(GLog2.粉色)){
+												text=text.substring(GLog2.粉色.length());
 												color=0xFF4488;
 											}else
-												if(text.startsWith(GLog.紫色)){
-													text=text.substring(GLog.紫色.length());
+												if(text.startsWith(GLog2.紫色)){
+													text=text.substring(GLog2.紫色.length());
 													color=0x8800FF;
 												}else
-													if(text.startsWith(GLog.灰色)){
-														text=text.substring(GLog.灰色.length());
+													if(text.startsWith(GLog2.灰色)){
+														text=text.substring(GLog2.灰色.length());
 														color=0x999999;
 													}else
-														if(text.startsWith(GLog.黑色)){
-															text=text.substring(GLog.黑色.length());
+														if(text.startsWith(GLog2.黑色)){
+															text=text.substring(GLog2.黑色.length());
 															color=0x000000;
 														}else
-															if(text.startsWith(GLog.棕色)){
-																text=text.substring(GLog.棕色.length());
+															if(text.startsWith(GLog2.棕色)){
+																text=text.substring(GLog2.棕色.length());
 																color=0x8F4E35;
 															}else
-																if(text.startsWith(GLog.青色)){
-																	text=text.substring(GLog.青色.length());
+																if(text.startsWith(GLog2.青色)){
+																	text=text.substring(GLog2.青色.length());
 																	color=0xb2f2ff;
 																}else
-																	if(text.startsWith(GLog.靛色)){
-																		text=text.substring(GLog.靛色.length());
+																	if(text.startsWith(GLog2.靛色)){
+																		text=text.substring(GLog2.靛色.length());
 																		color=0x2c0d49;
 																	}
 

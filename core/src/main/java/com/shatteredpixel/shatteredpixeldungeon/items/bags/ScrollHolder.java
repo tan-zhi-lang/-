@@ -23,8 +23,14 @@ public class ScrollHolder extends Bag {
 	public boolean canHold( Item item ) {
 		if(Dungeon.符文("超级背包"))
 			return super.canHold(item);
-		if (item instanceof Scroll || item instanceof Spell
-				|| item instanceof ArcaneResin || item instanceof Stylus){
+		if (item instanceof Scroll ||
+			item instanceof Spell||
+			item instanceof ArcaneResin ||
+			item.卷轴 ||
+			item.秘卷 ||
+			item.符石 ||
+			item.结晶 ||
+			item instanceof Stylus){
 			item.能量提升=true;
 			return super.canHold(item);
 		} else {

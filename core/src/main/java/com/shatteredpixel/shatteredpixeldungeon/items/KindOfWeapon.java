@@ -388,12 +388,16 @@ abstract public class KindOfWeapon extends EquipableItem {
 							doEquip(hero);
 						} else {
 
-							if(双手()){
-								doEquip(hero);
-								GLog.橙("你装备了一把双手武器！");
-							}else{
-								equipSecondary(hero);
-							}
+							if(hero.belongings.weapon1()==null)doEquip(hero);
+							else equipSecondary(hero);
+
+//							if(双手()){
+//								doEquip(hero);
+//								GLog.橙("你装备了一把双手武器！");
+//							}else{
+//								if(hero.belongings.weapon1()==null)doEquip(hero);
+//								else equipSecondary(hero);
+//							}
 						}
 						if(hero.符文("跟着我左手右手一个慢动作"))hero.回百分比血(0.03f);
 						if (slot != -1) {

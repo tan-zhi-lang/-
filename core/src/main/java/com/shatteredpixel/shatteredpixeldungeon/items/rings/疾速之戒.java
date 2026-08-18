@@ -16,20 +16,20 @@ public class 疾速之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   0.12f * soloBuffedBonus());
+									   0.125f * soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  0.12f*combinedBuffedBonus(Dungeon.hero));
+											  0.125f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 0.12f);
+			return Messages.get(this, "stats", 0.125f);
 		}
 	}
 	
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return 0.12f*(level) + "倍";
+		return 0.125f*(level) + "倍";
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class 疾速之戒 extends Ring {
 	}
 	
 	public static float speedMultiplier( Char target ){
-		return 1+0.12f*getBuffedBonus(target, Haste.class);
+		return 1+0.125f*getBuffedBonus(target, Haste.class);
 	}
 	
 	public class Haste extends RingBuff {

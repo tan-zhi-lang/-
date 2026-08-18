@@ -11,13 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性碎片;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性锻造器;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯移除器;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.用品;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 
@@ -34,18 +28,10 @@ public class 宝物袋 extends Bag {
 		if (item instanceof Artifact||
 			item instanceof Ring||
 
-			item instanceof Weapon||
-
 			item instanceof Armor||
 			item instanceof Ankh||
 
-			item instanceof 海克斯卷轴||
-			item instanceof 海克斯秘卷||
-			item instanceof 海克斯宝典||
-			item instanceof 海克斯移除器||
-
-			item instanceof 属性碎片||
-			item instanceof 属性锻造器||
+			item instanceof 用品||
 
 			item instanceof Gold||
 			item instanceof EnergyCrystal||

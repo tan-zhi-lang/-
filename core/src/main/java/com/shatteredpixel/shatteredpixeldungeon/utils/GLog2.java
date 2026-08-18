@@ -6,7 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.Signal;
 
-public class GLog {
+public class GLog2{
 
 	public static final String TAG = "GAME";
 	

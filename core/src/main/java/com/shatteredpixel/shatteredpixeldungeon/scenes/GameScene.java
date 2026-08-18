@@ -78,6 +78,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Banner;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BossHealthBar;
 import com.shatteredpixel.shatteredpixeldungeon.ui.CharHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
+import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.InventoryPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.LootIndicator;
@@ -161,7 +162,8 @@ public class GameScene extends PixelScene {
 	private BossHealthBar boss;
 
 	private GameLog gameLog;
-	
+	private GameLog2 gameLog2;
+
 	private static CellSelector cellSelector;
 	
 	private Group terrain;
@@ -416,6 +418,12 @@ public class GameScene extends PixelScene {
 		add(gameLog);
 
 
+		gameLog2= new GameLog2();
+		gameLog2.camera = uiCamera;
+		gameLog2.newLine();
+		add(gameLog2);
+
+
 		toolbar = new Toolbar();
 		toolbar.camera = uiCamera;
 		add( toolbar );
@@ -633,9 +641,11 @@ public class GameScene extends PixelScene {
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_INTRO);
 			} else if (ControllerHandler.isControllerConnected()) {
 				GameLog.wipe();
+				GameLog2.wipe();
 				GLog.绿(Messages.get(GameScene.class,"tutorial_move_controller"));
 			} else {
 				GameLog.wipe();
+				GameLog2.wipe();
 				GLog.绿(Messages.get(GameScene.class,"tutorial_move"));
 			}
 			toolbar.visible = toolbar.active = false;
@@ -847,6 +857,7 @@ public class GameScene extends PixelScene {
 
 		if (Dungeon.hero.ready && Dungeon.hero.paralysed == 0) {
 			gameLog.newLine();
+			gameLog2.newLine();
 		}
 
 		if (updateTags){
@@ -955,7 +966,7 @@ public class GameScene extends PixelScene {
 		} else {
 			Camera.main.setCenterOffset(0, 0);
 		}
-		//Camera.main.panTo(Dungeon.hero.sprite.center(), 5f);
+		Camera.main.panTo(Dungeon.hero.sprite.center(), 5f);
 
 		//primarily for phones displays with notches
 		//TODO Android never draws into notch atm, perhaps allow it for center notches?
@@ -966,8 +977,9 @@ public class GameScene extends PixelScene {
 		float tagLeft =  uiCamera.width - tagWidth;
 		float tagLeft2 = 0;
 
-		scene.gameLog.setRect(insets.left,scene.status.bottom()
-							  +SPDSettings.getscale(145,80,20,0)+Tag.SIZE*7.5f,uiCamera.width-tagWidth-insets.left,0);
+		scene.gameLog.setRect(insets.left,scene.toolbar.top()- Tag.SIZE/2f,uiCamera.width-tagWidth-insets.left,0);
+
+		scene.gameLog2.setRect(Tag.SIZE*2.33f,scene.status.bottom()+ Tag.SIZE,uiCamera.width-tagWidth-Tag.SIZE*2,0);
 
 
 		if (scene.tagAction) {
@@ -981,28 +993,28 @@ public class GameScene extends PixelScene {
 		}
 		if(SPDSettings.interfaceSize()){
 			if (scene.tagAttack){
-				scene.attack.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*4, tagWidth, Tag.SIZE );
+				scene.attack.setRect( tagLeft, scene.toolbar.top() - Tag.SIZE, tagWidth, Tag.SIZE );
 			}
 		}else{
 			if (scene.tagAttack){
-				scene.attack.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*6, tagWidth, Tag.SIZE );
+				scene.attack.setRect( tagLeft, scene.toolbar.top() - Tag.SIZE, tagWidth, Tag.SIZE );
 			}
 
 		}
-
+		float sx=SPDSettings.getscale(30,20,10,0)+(DeviceCompat.isAndroid()?20:0);
 		if (scene.tag食物栏) {
 			scene.食物栏标.setRect(tagLeft2,scene.status.bottom()
-											+SPDSettings.getscale(30,20,10,0)+Tag.SIZE,tagWidth,Tag.SIZE);
+											+sx+Tag.SIZE,tagWidth,Tag.SIZE);
 			scene.食物栏标.flip(true);
 		}
 		if (scene.tag药剂栏) {
 			scene.药剂栏标.setRect(tagLeft2,scene.status.bottom()
-											+SPDSettings.getscale(30,20,10,0)+Tag.SIZE*2,tagWidth,Tag.SIZE);
+											+sx+Tag.SIZE*2,tagWidth,Tag.SIZE);
 			scene.药剂栏标.flip(true);
 		}
 		if (scene.tag副武器) {
 			scene.副武器.setRect( tagLeft2, scene.status.bottom()
-											+SPDSettings.getscale(30,20,10,0)+ Tag.SIZE*3, tagWidth, Tag.SIZE );
+											+sx+ Tag.SIZE*3, tagWidth, Tag.SIZE );
 			scene.副武器.flip(true);
 		}
 
@@ -1010,13 +1022,13 @@ public class GameScene extends PixelScene {
 
 			if (scene.tag上楼标) {
 				scene.上楼标.setRect(tagLeft2,scene.status.bottom()
-											  +SPDSettings.getscale(30,20,10,0)+ Tag.SIZE*4,tagWidth,Tag.SIZE);
+											  +sx+ Tag.SIZE*4,tagWidth,Tag.SIZE);
 				scene.上楼标.flip(true);
 			}
 
 			if (scene.tag下楼标) {
 				scene.下楼标.setRect(tagLeft2,scene.status.bottom()
-											  +SPDSettings.getscale(30,20,10,0)+ Tag.SIZE*5,tagWidth,Tag.SIZE);
+											  +sx+ Tag.SIZE*5,tagWidth,Tag.SIZE);
 				scene.下楼标.flip(true);
 			}
 		}else{

@@ -37,6 +37,7 @@ public class 结晶法杖 extends 用品{
 		不能丢扔=true;
 		重复使用=true;
 		动作=false;
+		法杖=true;
 	}
 
 

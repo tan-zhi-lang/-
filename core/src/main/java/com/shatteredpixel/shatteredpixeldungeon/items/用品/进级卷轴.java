@@ -18,6 +18,7 @@ public class 进级卷轴 extends 用品{
 	
 	{
 		image = 物品表.进级卷轴;
+		卷轴=true;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

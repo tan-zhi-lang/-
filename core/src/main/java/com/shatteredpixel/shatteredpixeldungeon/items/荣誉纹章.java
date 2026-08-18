@@ -47,7 +47,6 @@ public class 荣誉纹章 extends Item {
 	}
 
 	private Armor.Glyph glyph;
-	public int 转移等级 = 0;
 
 	public boolean canTransferGlyph(){
 		if (glyph == null){
@@ -188,9 +187,9 @@ public class 荣誉纹章 extends Item {
 	}
 	public int 最大等级(){
 		int x=1;
-
-		if(Dungeon.符文("升级荣誉纹章"))x+=10;
-		if(Dungeon.hero()) x+=Dungeon.hero.天赋点数(Talent.纹章荣耀);
+		x+=7;
+		if(Dungeon.hero()) x+=Dungeon.hero.天赋点数(Talent.纹章荣耀,2);
+		if(Dungeon.符文("升级荣誉纹章"))x=Integer.MAX_VALUE;
 		return x;
 	}
 	protected static WndBag.ItemSelector armorSelector = new WndBag.ItemSelector() {
@@ -220,20 +219,17 @@ public class 荣誉纹章 extends Item {
 	};
 
 	private static final String GLYPH = "glyph";
-	private static final String 转移等级x  = "转移等级";
 
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(GLYPH, glyph);
-		bundle.put(转移等级x, 转移等级);
 	}
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
 		glyph = (Armor.Glyph)bundle.get(GLYPH);
-		转移等级 = bundle.getInt(转移等级x);
 	}
 
 	public static class WarriorShield extends ShieldBuff {

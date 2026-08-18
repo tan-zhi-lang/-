@@ -26,10 +26,10 @@ public class 修理 extends Buff {
 	@Override
 	public boolean act(){
 
-		if (target.生命 < target.最大生命) {
+		if (target.护甲 < target.最大护甲) {
 			target.护甲(healingThisTick());
 
-			if (target.生命 == target.最大生命 && target instanceof Hero) {
+			if (target.护甲 == target.最大护甲 && target instanceof Hero) {
 				((Hero) target).resting = false;
 			}
 		}

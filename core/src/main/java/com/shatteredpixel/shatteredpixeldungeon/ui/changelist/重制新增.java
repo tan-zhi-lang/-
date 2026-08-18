@@ -14,10 +14,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.财富炸弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.面包;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.圣魄秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.暴刹秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
@@ -391,7 +393,7 @@ public class 重制新增{
 		changeInfos.add(changes);
 
 		changes.addButton(new ChangeButton(new 真正护符(),"26层获得"));
-		changes.addButton(new ChangeButton(new 丛林玫瑰(),"踩踏草丛1/900概率掉落"));
+		changes.addButton(new ChangeButton(new 丛林玫瑰(),"踩踏草丛1/(24x60)概率掉落"));
 		changes.addButton(new ChangeButton(new 优惠卡(),"双十一开局获得"));
 		changes.addButton(new ChangeButton(new 中国国旗(),"国庆节开局获得"));
 
@@ -439,6 +441,8 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新物品", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 财富炸弹()));
+		changes.addButton(new ChangeButton(new 面包(),"替换商店的口粮为此"));
 		changes.addButton(new ChangeButton(new 星之果实(),"23层，周围4个活动雕像"));
 		changes.addButton(new ChangeButton(new 封禁卷轴(),"升级卷轴消耗10能量合成"));
 		changes.addButton(new ChangeButton(new 进级卷轴(),"升级卷轴+激泥酞酶消耗8能量合成"));
@@ -721,6 +725,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 
 		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(),"炼金",
 											"配方\n" +
+											"小包口粮消耗3能量合成口粮。\n" +
 											"口粮+护甲修理工具包消耗2能量合成布甲。\n" +
 											"布甲+护甲修理工具包消耗4能量合成皮甲。\n" +
 											"皮甲+护甲修理工具包消耗6能量合成链甲。\n" +
@@ -756,7 +761,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 
 											"治疗药剂消耗5能量合成血药x5。\n" +
 											"紊乱魔药消耗5能量合成净化药剂，无序结晶消耗5能量合成祛邪卷轴。\n" +
-											"生肉+隐形药剂消耗5能量合成幻影鱼肉。"
+											"生肉+隐形药剂消耗4能量合成幻影鱼肉。"
 		));
 		changes.addButton( new ChangeButton(Icons.CALENDAR.get(), "日历",
 				"地牢探索指南新增日历节日。\n" +

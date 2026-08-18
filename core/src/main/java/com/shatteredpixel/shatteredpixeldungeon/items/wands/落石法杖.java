@@ -126,7 +126,7 @@ public class 落石法杖 extends DamageWand {
 			}
 		}
 		for (int i : rockCells){
-			Dungeon.hero.sprite.parent.add(new TargetedCell(i,0xFF0000));
+			Dungeon.hero.sprite.parent.add(new TargetedCell(i));
 		}
 		//don't want to overly punish players with slow move or attack speed
 		Buff.新增(target,落石.class,GameMath.之内(1,(int)Math.ceil(target.cooldown()),3)).setRockPositions(rockCells);

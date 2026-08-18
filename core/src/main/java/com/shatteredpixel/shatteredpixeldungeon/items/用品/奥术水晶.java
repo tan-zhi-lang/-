@@ -13,6 +13,7 @@ public class 奥术水晶 extends 用品{
 	{
 		image = 物品表.奥术水晶;
 		彩光 = true;
+		结晶=true;
 	}
 
 	@Override

@@ -331,10 +331,24 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 2:
+				result.add(new QuickRecipe(new Food.Recipe()));
 				result.add(new QuickRecipe( new StewedMeat.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new MysteryMeat.PlaceHolderC())),
 						new StewedMeat()));
 				result.add(null);
+				result.add(new QuickRecipe( new Blandfruit.CookFruit(),
+											new ArrayList<>(Arrays.asList(new Blandfruit(), new Plant.Seed.PlaceHolder())),
+											new Blandfruit(){
+
+												public String name(){
+													return Messages.get(Blandfruit.class, "cooked");
+												}
+
+												@Override
+												public String info() {
+													return "";
+												}
+											}));
 				result.add(new QuickRecipe( new PhantomMeat.R(),
 						new ArrayList<Item>(Arrays.asList(new MysteryMeat(), new 隐形药剂())),
 						new PhantomMeat()));
@@ -342,23 +356,10 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe( new MeatPie.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Pasty(), new Food(), new MysteryMeat.PlaceHolder())),
 						new MeatPie()));
-				result.add(null);
-				result.add(new QuickRecipe( new Blandfruit.CookFruit(),
-						new ArrayList<>(Arrays.asList(new Blandfruit(), new Plant.Seed.PlaceHolder())),
-						new Blandfruit(){
 
-							public String name(){
-								return Messages.get(Blandfruit.class, "cooked");
-							}
-							
-							@Override
-							public String info() {
-								return "";
-							}
-						}));
 				return result;
 			case 3:
-				result.add(new QuickRecipe( new 精纯药液.Recipe()));
+				result.add(new QuickRecipe(new 精纯药液.Recipe()));
 				result.add(new QuickRecipe(new 净化药剂.Recipe()));
 				result.add(new QuickRecipe(new 进力药剂.Recipe()));
 				result.add(new QuickRecipe(new 血药.Recipe()));
@@ -385,10 +386,10 @@ public class QuickRecipe extends Component {
 				r = new Bomb.EnhanceBomb();
 				int i = 0;
 				for (Class<?> cls : Bomb.EnhanceBomb.validIngredients.keySet()){
-					if (i == 2){
-						result.add(null);
-						i = 0;
-					}
+//					if (i == 2){
+//						result.add(null);
+//						i = 0;
+//					}
 					Item item = (Item) Reflection.newInstance(cls);
 					ArrayList<Item> in = new ArrayList<>(Arrays.asList(new Bomb(), item));
 					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));

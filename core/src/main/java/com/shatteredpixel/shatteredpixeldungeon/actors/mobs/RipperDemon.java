@@ -240,7 +240,7 @@ public class RipperDemon extends Mob {
 						spend(GameMath.之内(攻击延迟(),(int)Math.ceil(enemy.cooldown()),3*攻击延迟()));
 						if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[leapPos]){
 							GLog.橙(Messages.get(RipperDemon.this,"leap"));
-							sprite.parent.addToBack(new TargetedCell(leapPos, 0xFF0000));
+							sprite.parent.addToBack(new TargetedCell(leapPos));
 							((RipperSprite)sprite).leapPrep( leapPos );
 							Dungeon.hero.interrupt();
 						}

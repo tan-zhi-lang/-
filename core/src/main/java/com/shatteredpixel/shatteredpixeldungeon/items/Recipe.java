@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
@@ -231,6 +232,7 @@ public abstract class Recipe {
 		new 器灵.Recipe(),
 		new 秘银.Recipe(),
 		new 血药.Recipe(),
+		new Food.Recipe(),
 		new 封禁卷轴.Recipe(),
 
 		new 火把神的恩宠.R(),

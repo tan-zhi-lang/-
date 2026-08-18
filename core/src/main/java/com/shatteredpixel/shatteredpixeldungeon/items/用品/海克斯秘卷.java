@@ -27,6 +27,7 @@ public class 海克斯秘卷 extends 用品{
 		嬗变=false;
 		可堆叠=false;
 		特别= true;
+		秘卷=true;
 	}
 
 	public 海克斯秘卷(){

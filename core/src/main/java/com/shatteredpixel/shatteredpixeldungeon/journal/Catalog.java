@@ -47,12 +47,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Firebomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.FlashBangBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.FrostBomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.bombs.HolyBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Noisemaker;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.RegrowthBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ShrapnelBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.SmokeBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.WoollyBomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.神圣炸弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.财富炸弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -141,18 +142,18 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.自残绳;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.进阶宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
-import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.魔力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Bundle;
 
@@ -344,8 +345,9 @@ public enum Catalog {
 
 		EXOTIC_SCROLLS.addItems(ExoticScroll.exoToReg.keySet().toArray(new Class[0]));
 
-		BOMBS.addItems( Bomb.class, FrostBomb.class, Firebomb.class, SmokeBomb.class, RegrowthBomb.class,
-				WoollyBomb.class, Noisemaker.class, FlashBangBomb.class, HolyBomb.class, ArcaneBomb.class, ShrapnelBomb.class);
+		BOMBS.addItems(Bomb.class,FrostBomb.class,Firebomb.class,SmokeBomb.class,RegrowthBomb.class,
+					   WoollyBomb.class,Noisemaker.class,FlashBangBomb.class,财富炸弹.class,ArcaneBomb.class,
+					   ShrapnelBomb.class,神圣炸弹.class);
 
 		TIPPED_DARTS.addItems(TippedDart.types.values().toArray(new Class[0]));
 

@@ -41,7 +41,7 @@ public class 丛林玫瑰 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.05f-0.05f*level;
+			return 0.03f-0.03f*level;
 		}
 	}
 
@@ -53,7 +53,7 @@ public class 丛林玫瑰 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.2f+0.05f*level;
+			return 0.1f+0.05f*level;
 		}
 	}
 

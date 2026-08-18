@@ -40,7 +40,20 @@ public class Food extends Item {
 		遗产= true;
 		物品 = true;
 	}
-	
+
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+					inputs =  new Class[]{SmallRation.class,};
+			inQuantity = new int[]{1,};
+
+			cost = 3;
+
+			output = Food.class;
+			outQuantity = 1;
+		}
+
+	}
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );

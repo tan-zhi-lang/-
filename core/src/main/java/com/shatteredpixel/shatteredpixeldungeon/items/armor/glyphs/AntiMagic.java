@@ -14,7 +14,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
-
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.尘遁;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.掌心雷;
@@ -33,8 +32,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.bombs.HolyBomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.神圣炸弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
@@ -83,7 +81,7 @@ public class AntiMagic extends Armor.Glyph {
 		RESISTS.add( GrimTrap.class );
 
 		RESISTS.add( ArcaneBomb.class );
-		RESISTS.add( HolyBomb.HolyDamage.class );
+		RESISTS.add( 神圣炸弹.HolyDamage.class);
 		RESISTS.add( 复仇卷轴.class);
 		RESISTS.add( ScrollOfPsionicBlast.class );
 		RESISTS.add( 传送卷轴.class);

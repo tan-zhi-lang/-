@@ -499,7 +499,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 
 							提示行数 = new OptionSlider("提示行数",
-														"0", "5", 0, 5) {
+														"0", "7", 0, 7) {
 								@Override
 								protected void onChange() {
 									SPDSettings.提示行数(getSelectedValue());
@@ -508,9 +508,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 							提示行数.setSelectedValue(SPDSettings.提示行数());
 							add(提示行数);
 								optUIScale = new OptionSlider("界面尺寸",
-															  1+ "X",
+															  2+ "X",
 															  4+ "X",
-															  1,
+															  2,
 															  4 ) {
 									@Override
 									protected void onChange() {
@@ -745,6 +745,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox 战斗快速;
 						RenderedTextBlock 战斗快速str;
 						CheckBox 从不过节;
+						CheckBox 隐藏细节;
 						{
 							
 							物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
@@ -827,7 +828,17 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							从不过节.checked(SPDSettings.从不过节());
 							add(从不过节);
-							
+
+							隐藏细节 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "隐藏细节")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.隐藏细节(checked());
+								}
+							};
+							隐藏细节.checked(SPDSettings.隐藏细节());
+							add(隐藏细节);
+
 							
 							resize(WIDTH_P, 0);
 							
@@ -850,8 +861,10 @@ public class WndSettings extends WndTabbed {//WndSettings
 							战斗快速str.setPos(0, 战斗快速.bottom()+1);
 
 							从不过节.setRect(0,  战斗快速str.bottom()+GAP, width, BTN_HEIGHT);
-							
-							resize(WIDTH_P, (int) 从不过节.bottom());
+
+							隐藏细节.setRect(0,  从不过节.bottom()+GAP, width, BTN_HEIGHT);
+
+							resize(WIDTH_P, (int) 隐藏细节.bottom());
 
 						}
 					});
@@ -925,7 +938,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 
 							数值显示 = new OptionSlider("数值显示",
-														"10%", "50%", 1, 5) {
+														"2.5%", "25%", 1, 5) {
 								@Override
 								protected void onChange() {
 									SPDSettings.数值显示(getSelectedValue());

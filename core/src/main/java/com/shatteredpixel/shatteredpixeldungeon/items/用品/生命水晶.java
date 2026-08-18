@@ -14,6 +14,7 @@ public class 生命水晶 extends 用品{
 		image = 物品表.生命水晶;
 		红色 = true;
 		红光 = true;
+		结晶=true;
 	}
 	
 	@Override

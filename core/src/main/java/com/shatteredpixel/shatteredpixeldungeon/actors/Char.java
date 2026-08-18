@@ -1475,7 +1475,7 @@ public abstract class Char extends Actor {
 //				icon = hitMissIcon;
 //			}
 //			hitMissIcon = -1;
-			if((dmg + shielded>最大生命(SPDSettings.数值显示()*0.05f))&&!Dungeon.赛季(赛季设置.地牢塔防))//伤害显示
+			if((dmg + shielded>最大生命(SPDSettings.数值显示()*0.025f))&&!Dungeon.赛季(赛季设置.地牢塔防))//伤害显示
 			{
 				if (AntiMagic.RESISTS.contains(来源.getClass()))
 				sprite.showStatusWithIcon(CharSprite.蓝色,kw2(dmg+shielded),icon);
@@ -2032,8 +2032,11 @@ public abstract class Char extends Actor {
 		return 生命力()*x;
 	}
 	public void 护甲(float x){
-		if(x>最大护甲(SPDSettings.数值显示()*0.05f))
+		if(x>最大护甲(SPDSettings.数值显示()*0.025f))
 			sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.SHIELDING);
+
+		if(x<-最大护甲(SPDSettings.数值显示()*0.025f))
+			sprite.showStatusWithIcon(CharSprite.削弱红,kw2(x),FloatingText.SHIELDING);
 
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲);
 	}
@@ -2045,15 +2048,6 @@ public abstract class Char extends Actor {
 	}
 
 	public float 护甲伤害(float dmg){
-		if(this instanceof Hero hero){
-
-			if(hero.天赋(Talent.元素掌控)||hero.天赋(Talent.镜板镀层)){
-				dmg-=物理受伤(dmg*hero.天赋点数(Talent.元素掌控,0.075f),hero);//元素掌控金
-
-				dmg-=物理受伤(dmg*hero.天赋点数(Talent.镜板镀层,0.125f),hero);
-			}
-
-		}
 		if(dmg>0&&护甲>0){
 			if (护甲<=最大护甲(0.5f)&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.护甲);
@@ -2163,7 +2157,7 @@ public abstract class Char extends Actor {
 			生命=Math.min(生命+x,最大生命);
 
 			if (pos!=-1&&Dungeon.level!=null&&Dungeon.level.heroFOV[pos]){
-				if(x>最大生命(SPDSettings.数值显示()*0.05f)&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
+				if(x>最大生命(SPDSettings.数值显示()*0.025f)&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
 					sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.HEALING);
 					sprite.emitter().burst(Speck.factory(Speck.HEALING),Math.min(6,x/25));
 				}

@@ -63,7 +63,7 @@ public class 物品生成 extends 用品{
 						item.放背包();
 //						Dungeon.level.drop(item,hero.pos);
 					}else
-						GLog.橙("你输入的代码名不存在！");
+						GLog.红("你输入的代码名不存在！");
 				}
 			}
 		});

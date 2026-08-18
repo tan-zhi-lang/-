@@ -605,7 +605,7 @@ public class GnollGeomancer extends Mob {
 
 							Ballistica warnPath = new Ballistica(aim.sourcePos, aim.collisionPos, Ballistica.STOP_SOLID);
 							for (int j : warnPath.subPath(0, warnPath.dist)){
-								sprite.parent.add(new TargetedCell(j, 0xFF0000));
+								sprite.parent.add(new TargetedCell(j));
 							}
 
 							aim = GnollGeomancer.prepRockThrowAttack(enemy, GnollGeomancer.this);
@@ -798,7 +798,7 @@ public class GnollGeomancer extends Mob {
 			}
 		}
 		for (int i : rockCells){
-			source.sprite.parent.add(new TargetedCell(i, 0xFF0000));
+			source.sprite.parent.add(new TargetedCell(i));
 		}
 		//don't want to overly punish players with slow move or attack speed
 		Buff.新增(source, GnollRockFall.class, GameMath.之内(TICK,(int)Math.ceil(target.cooldown()),3*TICK)).setRockPositions(rockCells);

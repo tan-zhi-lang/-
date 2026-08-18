@@ -34,10 +34,8 @@ public class Hunger extends Buff implements Hero.Doom {
 	public static final float STARVING	= 450f;
 	
 	public float level;
-	public float partial=0;
 
 	private static final String LEVEL			= "level";
-	private static final String PARTIAL 	= "partial";
 
 	private float healingLeft;
 
@@ -51,7 +49,6 @@ public class Hunger extends Buff implements Hero.Doom {
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		bundle.put( LEVEL, level );
-		bundle.put( PARTIAL, partial );
 
 		bundle.put(LEFT, healingLeft);
 		bundle.put(PERCENT, percentHealPerTick);
@@ -62,7 +59,6 @@ public class Hunger extends Buff implements Hero.Doom {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle( bundle );
 		level = bundle.getFloat( LEVEL );
-		partial = bundle.getFloat(PARTIAL);
 
 		healingLeft = bundle.getFloat(LEFT);
 		percentHealPerTick = bundle.getFloat(PERCENT);
@@ -119,8 +115,8 @@ public class Hunger extends Buff implements Hero.Doom {
 		if (on) target.sprite.aura( color, rays );
 		else target.sprite.clearAura();
 	}
-	public static float 饥饿伤害(){
-		float x=1;
+	public float 饥饿伤害(){
+		float x=饥饿速度()/20f+(float)Math.sqrt(target.已损失生命())/89f;
 		if(Dungeon.hero.种族天赋.equals("不死族"))x=0;
 		return x;
 	}
@@ -173,11 +169,9 @@ public class Hunger extends Buff implements Hero.Doom {
 
 			if (isStarving()) {//饥饿时
 
-				partial=饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f;
 
-				if (partial > 0){
-//					partial=0;
-					hero.受伤时(partial*饥饿伤害(), this);
+				if (饥饿伤害() > 0){
+					hero.受伤时(饥饿伤害(), this);
 				}
 				
 			} else {
@@ -270,7 +264,6 @@ public class Hunger extends Buff implements Hero.Doom {
 				target.受伤时( (饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f*2)*饥饿伤害(), this );
 			else
 			target.受伤时( (饥饿速度()/20f+(float)Math.sqrt(hero.已损失生命())/89f)*饥饿伤害(), this );
-			partial=0;
 		}
 
 		BuffIndicator.refreshHero();

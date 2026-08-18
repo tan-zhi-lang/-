@@ -184,7 +184,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
-import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
@@ -384,7 +383,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魄罗;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.龙牙锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯秘卷;
@@ -1797,7 +1795,7 @@ public class Hero extends Char {
             case "龙鳞甲":return "鳞甲防御+200%";
             case "小猫咪找爸爸":return "白猫存在时，黑猫治疗护盾+100%，移速+35%";
             case "魔法披风":return "狂乱分离时永久+20魔力";
-            case "升级荣誉纹章":return "纹章可额外携带10级";
+            case "升级荣誉纹章":return "取消纹章携带等级限制";
             case "升级暗杀之刃":return "伏击伤害可以暴击";
             case "升级饮血之剑":return "+5%吸血，同时无需满血也能恢复护盾";
             case "升级破败王剑":return "+2.5%吸血，同时造成攻击额外造成3.5%敌人最大生命";
@@ -1884,7 +1882,7 @@ public class Hero extends Char {
             case "魔术回路":return "魔力将不再是固定值，而是75%~125%";
             case "钢铁意志":return "根据已损失生命最多+300%最大护甲";
             case "战斗狂怒":return "根据已损失生命最多+50%暴击率";
-            case "魔法转物理":return "力量+魔力";
+            case "魔法转物理":return "50%此消(魔力)彼长(力量)";
             case "点亮他们":return "每第四次攻击额外最大攻击的魔法伤害";
             case "不全能吸血":return "全能吸血无效，吸血+200%全能吸血。";
             case "升级便无敌的我":return "升级会获得等级回合的无敌";
@@ -2102,8 +2100,8 @@ public class Hero extends Char {
             case "万用瞄准镜":return "攻击范围+4，如果攻击范围大于3则攻击范围+2";
             case "痛苦":return "攻击+死亡次数x50魔法伤害";
             case "重量级打击手":return "攻击伤害+5%最大生命";
-            case "攻击转防御":return "最大防御+50%最大攻击";
-            case "防御转攻击":return "最大攻击+最大防御";
+            case "攻击转防御":return "50%此消(最大防御)彼长(最大攻击)";
+            case "防御转攻击":return "50%此消(最大防御)彼长(最大攻击)";
             case "武器收集家":return "背包每把武器的阶级+等级，+5最大攻击";
             case "防具收集家":return "背包每件防具的阶级+等级，+3最大防御";
             case "法杖收集家":return "背包每把法杖1+等级，+10%法杖充能";
@@ -2151,7 +2149,7 @@ public class Hero extends Char {
             case "精巧狙击手":return "投掷敌人在攻击范围外时，花费的时间/3";
             case "命中的宠爱":return "攻击+0.5最大命中";
             case "暴击暴击":return "暴击伤害能再次暴击x暴击伤害";
-            case "物理转魔法":return "魔力+力量";
+            case "物理转魔法":return "50%此消(力量)彼长(魔力)";
             case "海克斯获取:卷轴转换":return "清空卷轴，每5个获得一个海克斯秘卷";
             case "海克斯获取:药剂转换":return "清空药剂，每5个获得一个海克斯秘卷";
             case "DM-300的宠爱":return "在每个区域的第1、4层获得无敌";
@@ -2175,7 +2173,7 @@ public class Hero extends Char {
             case "疾风步":return "闪避恢复5%最大生命";
             case "揠苗助攻":return "在草丛上攻击范围+4，攻击伤害+魔力的魔法伤害";
             case "守护天使":return "最大攻击和最大防御+40，死亡会以20%生命值复活，复活后冷却300回合，从武器充能收益";
-            case "勤劳的一天":return "游戏时间1小时60->10回合，并且开始新的一天时，会恢复50%最大生命、最大护甲和饥饿";
+            case "勤劳的一天":return "游戏时间1小时60回合改为10回合，并且开始新的一天时，会恢复50%最大生命、最大护甲和饥饿";
             case "帝星飘摇荧惑高":return "攻击伤害+50%，攻速+50%，物理抗性-50%";
             case "最终Boss":return "Boss层+45%攻击伤害";
             case "毒素":return "攻击对施加45%伤害的中毒";
@@ -2892,7 +2890,6 @@ public class Hero extends Char {
             Set.of("亮出你的枪", "亮出你的剑"),
             Set.of("肉鸽:卷轴", "肉鸽:药剂"),
             Set.of("灵魂虹吸", "会心治疗"),
-            Set.of("物理转魔法", "魔法转物理"),
             Set.of("作弊我能复活", "我无限回档洞悉所有底牌"),
             Set.of("防御转魔抗", "魔抗转防御"),
             Set.of("不全能吸血", "升级全能吸血"),
@@ -2905,9 +2902,6 @@ public class Hero extends Char {
 
     public boolean 不能海克斯(String 随到){
         if(subClass(HeroSubClass.NONE)&&随到.equals("回归基本功"))
-            return true;
-
-        if(subClass(HeroSubClass.符文法师)&&随到.equals("魔法转物理"))
             return true;
 
         for (Set<String> pair : 不能海克斯) {
@@ -2933,9 +2927,6 @@ public class Hero extends Char {
 
         //内部任意两个不同符文都互斥
         Set<String> 不能螺旋= new HashSet<>() {{
-            add("魔法转物理");
-            add("攻击转防御");
-            add("防御转攻击");
             add("武器＞防具");
             add("进攻是最好的防御");
             add("属性转换");
@@ -3299,7 +3290,7 @@ public class Hero extends Char {
         if(符文("究极玻璃大炮"))最大生命*=0.7f;
         if(符文("超级玻璃大炮"))最大生命*=0.5f;
         最大生命*=1+英精英雄成长;
-        if(符文("青青子衿悠悠我心"))最大生命*=1+buff(再生.class).partialRegen;
+        if(符文("青青子衿悠悠我心"))最大生命*=1+buff(再生.class).再生生命();
         if(符文("亮出你的剑"))最大生命*=1+0.1f*攻击范围get;
         if(符文("小源魔力"))最大生命*=0.85;
 
@@ -3399,9 +3390,7 @@ public class Hero extends Char {
         m+=魔攻之戒.魔力(this);
         m+=天赋点数(Talent.以身做法,0.02f)*最大生命;
         if(subClass(HeroSubClass.魔法灵枢))m+=Dungeon.energy*0.03f;
-        if(subClass(HeroSubClass.符文法师)){
-            m+=力量()/2f;
-            if(职业精通()){
+        if(subClass(HeroSubClass.符文法师)&&职业精通()){
 
                 int 符石数量=0;
                 for(Item i: belongings.backpack){
@@ -3409,10 +3398,8 @@ public class Hero extends Char {
                         符石数量+=r.数量()/2f;
                 }
                 m+=符石数量;
-            }
         }
         if(符文("虚空灌注"))m+=最大生命(0.075f);
-        if(符文("物理转魔法"))m+=力量();
 
         if(主属性("魔力"))m+=主属性();
         else m+=其他属性();
@@ -3425,6 +3412,9 @@ public class Hero extends Char {
         if(belongings.armor(魔披.class)){
             mx+=1.5f;
         }
+        if(subClass(HeroSubClass.符文法师))
+            mx+=0.25f;
+
         if (heroClass(HeroClass.MAGE)) mx+=0.15f;
         if(符文("动力法术学")&&半血以下())mx+=0.2f;
         if(符文("我是Evan"))mx+=0.15f;
@@ -3434,11 +3424,17 @@ public class Hero extends Char {
 
         m*=mx;
 
+
+
+        if(heroClass(HeroClass.HUNTRESS))m*=1-0.15f;
+
         m*=所有属性倍();
         if(主属性("魔力"))
             m*=主属性倍();
         else m*=其他属性倍();
 
+        if(符文("魔法转物理"))m/=2f;
+        if(符文("物理转魔法"))m*=1.5f;
         if(符文("魔术回路"))m=Random.NormalFloat(m*0.75f,m*1.25f);
         if(符文("投影魔术"))m*=0.9f;
 
@@ -3513,6 +3509,8 @@ public class Hero extends Char {
 
         x*=x2;
 
+        if(heroClass(HeroClass.HUNTRESS))x*=1.15f;
+
         if(主属性("敏捷"))
             x*=主属性倍();
         else x*=其他属性倍();
@@ -3555,7 +3553,7 @@ public class Hero extends Char {
         str+=最大生命(天赋点数(Talent.兽性之力,0.025f));
         if(符文("升级升级:力量"))str+=0.5f*等级;
         if(符文("专横"))str+=最大生命(0.15f);
-        if(符文("魔法转物理"))str+=魔力();
+
         str+=所有属性();
 
         float strx=1;
@@ -3599,7 +3597,8 @@ public class Hero extends Char {
             str*=主属性倍();
         else str*=其他属性倍();
 
-
+        if(符文("魔法转物理"))str*=1.5f;
+        if(符文("物理转魔法"))str/=2f;
         if(男人())
             str*=男人国徽章.力量();
         if(符文("短跑壮如牛长跑瘦如猴"))
@@ -4276,8 +4275,6 @@ public class Hero extends Char {
 
     public int tier() {
         Armor armor = belongings.armor1();
-        if(armor==null)
-        armor = belongings.armor2();
         if (armor instanceof ClassArmor) {
             return 6;
         }
@@ -4497,6 +4494,8 @@ public class Hero extends Char {
 
         if (belongings.weapon1()!=null&&target!=null) {
             accuracy*=belongings.weapon1().accuracyFactor(this, target);
+            if(belongings.weapon1().双手()&&belongings.weapon2()!=null)
+                accuracy*=0.8f;
         }
         if (belongings.weapon2()!=null&&target!=null) {
             accuracy*=belongings.weapon2().accuracyFactor(this, target);
@@ -4816,7 +4815,6 @@ public class Hero extends Char {
         if(符文("防御的宠爱"))dr+=第x次防御*0.075f;
         if(符文("装备黄金之心"))dr+=10;
         if(符文("铜皮铁骨"))dr+=力量()*4.5f;
-        if(符文("攻击转防御"))dr+=最大攻击()/2f;
 
         if(符文("防具收集家")){
             int 防具数量=0;
@@ -4834,6 +4832,8 @@ public class Hero extends Char {
             dr+=装甲之戒.max();
         }
 
+        if(符文("防御转攻击"))dr/=2f;
+        if(符文("攻击转防御"))dr*=1.5f;
         dr*=1+天赋点数(Talent.钢铁甲胄,0.4f);
         dr*=增加防御();
         防御get=dr;
@@ -4842,6 +4842,7 @@ public class Hero extends Char {
 
     public float 副防具效果(){
         float x=0.3f;
+        x+=天赋点数(Talent.防御具铠,0.075f);
         return x;
     }
     @Override
@@ -4914,14 +4915,18 @@ public class Hero extends Char {
             if(belongings!=null){
                 if(belongings.投掷武器()!=null){
                     dmg+=belongings.投掷武器().最小攻击();
-                }
+                }else{
                     if(belongings.weapon1()!=null){
-                        dmg+=belongings.weapon1().最小攻击()*(符文("装备大师")?1.15f:1);
+                        dmg+=belongings.weapon1().最小攻击()*(符文("装备大师")?
+                                                                      1.15f:
+                                                                      1);
                     }
                     if(belongings.weapon2()!=null){
-                        dmg+=belongings.weapon2().最小攻击()*副武器效果()*(符文("装备大师")?1.15f:1);
+                        dmg+=belongings.weapon2().最小攻击()*副武器效果()*(符文("装备大师")?
+                                                                                   1.15f:
+                                                                                   1);
                     }
-
+                }
 
             }
 
@@ -5069,14 +5074,19 @@ public class Hero extends Char {
             if(belongings!=null){
                 if(belongings.投掷武器()!=null){
                     dmg+=belongings.投掷武器().最大攻击();
-                }
+                }else{
 
-                if(belongings.weapon1()!=null){
-                    dmg+=belongings.weapon1().最大攻击()*(符文("装备大师")?1.15f:1);
+                    if(belongings.weapon1()!=null){
+                        dmg+=belongings.weapon1().最大攻击()*(符文("装备大师")?
+                                                                      1.15f:
+                                                                      1);
 
-                }
-                if(belongings.weapon2()!=null){
-                    dmg+=belongings.weapon2().最大攻击()*副武器效果()*(符文("装备大师")?1.15f:1);
+                    }
+                    if(belongings.weapon2()!=null){
+                        dmg+=belongings.weapon2().最大攻击()*副武器效果()*(符文("装备大师")?
+                                                                                   1.15f:
+                                                                                   1);
+                    }
                 }
             }
 
@@ -5107,7 +5117,6 @@ public class Hero extends Char {
             dmg+=武器数量*5;
         }
         if(符文("攻击的宠爱"))dmg+=第x次攻击*0.15f;
-        if(符文("防御转攻击"))dmg+=最大防御();
         if(符文("守护天使"))dmg+=40;
 
         if(符文("升级升级:攻击"))dmg+=等级(1.5f);
@@ -5129,6 +5138,8 @@ public class Hero extends Char {
 
 
 
+        if(符文("防御转攻击"))dmg*=1.5f;
+        if(符文("攻击转防御"))dmg/=2f;
         dmg*=破损短剑.减少();
         dmg*=增加攻击();
 
@@ -6454,32 +6465,19 @@ public class Hero extends Char {
 			if (heap != null && heap.type == Type.HEAP) {
 //                Buff.施加(this, Hunger.class).吃饭(TIME_TO_SEARCH - HUNGER_FOR_SEARCH);
 				Item item = heap.peek();
-				boolean ok=false;
-                if (belongings.contains(item)){
-                    ok=true;
-                }
-                if (item instanceof 用品){
-                    ok=true;
-                }
-				if (item instanceof Plant.Seed||
-                    item instanceof Runestone||
 
-                    item instanceof Scroll||
-                    item instanceof Potion||
+                if (物品能自动拾取(item)&&item.doPickUp(this)) {
 
-                    item instanceof Bomb||
-                    item instanceof Food)
-                    ok=true;
+                    //TODO make all unique items important? or just POS / SOU?
+                    boolean important =item.特别&&item.已鉴定()&&
+                                       (item instanceof Scroll || item instanceof Potion);
+                    if (important) {
+                        GLog.绿(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
+                    } else {
+                        GLog.白(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
+                    }
+                    if(hasbuff(Hunger.class))buff(Hunger.class).吃饭(攻击延迟());
 
-                if(item instanceof Key||
-                   item instanceof Gold||
-                   item instanceof EnergyCrystal||
-                   item instanceof 坠牢之星||
-                   item instanceof 属性碎片||
-                   item instanceof Dewdrop)
-                ok=true;
-                if(item.丢过)ok=false;
-                if (ok&&item.doPickUp(this)) {
                     heap.pickUp();
                     水袋 flask = belongings.getItem(水袋.class);
                     if (item instanceof Dewdrop&&flask != null && !flask.isFull()){
@@ -6608,7 +6606,7 @@ public class Hero extends Char {
 
         float 护甲恢复=1;
         if(符文("护甲是生命"))
-            护甲恢复+=buff(再生.class).partialRegen*2;
+            护甲恢复+=buff(再生.class).再生生命()*2;
         if(Dungeon.赛季(赛季设置.鬼怨地牢)) 护甲恢复*=1.5f;
         if(subClass(HeroSubClass.皇室卫兵))
             护甲恢复*=5+(职业精通()?4:0);
@@ -6777,64 +6775,55 @@ public class Hero extends Char {
         if (pos == dst) {
 
             Heap heap = Dungeon.level.heaps.get(pos);
-            if (heap != null) {
-                Item item = heap.peek();
-                if (item.doPickUp(this)) {
+            if (heap != null){
+                Item item=heap.peek();
+                if(SPDSettings.自动拾取()&&物品能自动拾取(item)){
+
+                }else{
+                    
+                if(item.doPickUp(this)){
                     heap.pickUp();
 
-                    if (
-                            item instanceof Gold
-                            ||item instanceof Dewdrop
-                            || item instanceof 时光沙漏.sandBag
-                            || item instanceof DriedRose.Petal
-                            || item instanceof Key
-                            || item instanceof Guidebook) {
-                        //Do Nothing
-                    } else if (item instanceof DarkGold) {
-                        DarkGold existing = belongings.getItem(DarkGold.class);
-                        if (existing != null) {
-							GLog.绿(Messages.get(DarkGold.class,"you_now_have",existing.数量()));
+                    if(item instanceof DarkGold){
+                        DarkGold existing=belongings.getItem(DarkGold.class);
+                        if(existing!=null){
+                            GLog.绿(Messages.get(DarkGold.class,"you_now_have",existing.数量()));
                         }
-                    } else {
+                    }else{
 
                         //TODO make all unique items important? or just POS / SOU?
-                        boolean important =item.特别&&item.已鉴定()&&
-                                           (item instanceof Scroll || item instanceof Potion);
-                        if (important) {
+                        boolean important=item.特别&&item.已鉴定()&&(item instanceof Scroll||item instanceof Potion);
+
+                        if(important){
                             GLog.绿(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
-                        } else {
+                        }else{
                             GLog.白(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
                         }
+
                     }
 
-                    curAction = null;
-                } else {
+                    curAction=null;
+                }else{
 
-                    if (waitOrPickup) {
+                    if(waitOrPickup){
                         spendAndNextConstant(攻击延迟());
-//                        spendAndNextConstant(TIME_TO_REST);
+                        //                        spendAndNextConstant(TIME_TO_REST);
                     }
 
                     //allow the hero to move between levels even if they can't collect the item
-                    if (Dungeon.level.getTransition(pos) != null) {
+                    if(Dungeon.level.getTransition(pos)!=null){
                         throwItems();
-                    } else {
+                    }else{
                         heap.sprite().drop();
                     }
 
-                    if (item instanceof Gold
-                        ||item instanceof Dewdrop
-                            || item instanceof 时光沙漏.sandBag
-                            || item instanceof DriedRose.Petal
-                            || item instanceof Key) {
-                        //Do Nothing
-                    } else {
-                        GLog.newLine();
-                        GLog.红(Messages.capitalize(Messages.get(this,"you_cant_have",item.name())));
-                    }
+                    GLog.newLine();
+                    GLog.红(Messages.capitalize(Messages.get(this,"you_cant_have",item.name())));
+
 
                     ready();
                 }
+            }
             } else {
                 ready();
             }
@@ -6849,6 +6838,34 @@ public class Hero extends Char {
             ready();
             return false;
         }
+    }
+
+    private boolean 物品能自动拾取(Item item){
+        boolean ok=false;
+        if (belongings.contains(item)){
+            ok=true;
+        }
+        if (item instanceof 用品){
+            ok=true;
+        }
+        if (item instanceof Plant.Seed||
+            item instanceof Runestone||
+
+            item instanceof Scroll||
+            item instanceof Potion||
+
+            item instanceof Bomb||
+            item instanceof Food)
+            ok=true;
+
+        if(item instanceof Key||
+           item instanceof 时光沙漏.sandBag||
+           item instanceof DriedRose.Petal||
+           item instanceof Guidebook||
+           item instanceof Dewdrop)
+            ok=true;
+        if(item.丢过) ok=false;
+        return ok;
     }
 
     private boolean actOpenChest(HeroAction.OpenChest action) {
@@ -7533,7 +7550,7 @@ public class Hero extends Char {
         damage = super.攻击时(enemy, damage);
         damage = Talent.攻击时(this, enemy, damage);
 //        if(enemy!=null)
-//        sprite.parent.add(new TargetedCell(enemy.pos, 0xFF0000));
+//        sprite.parent.add(new TargetedCell(enemy.pos));
 
 //        GameScene.flashForDocument(Document.ADVENTURERS_GUIDE, Document.GUIDE_INTRO);
 
@@ -7864,7 +7881,7 @@ public class Hero extends Char {
         if(符文("无敌左手"))
             x+=1.7f;
         if(subClass(HeroSubClass.武器大师)&&职业精通())
-            x+=0.15f;
+            x+=0.3f;
         return x;
     }
 
@@ -8391,7 +8408,7 @@ public class Hero extends Char {
         }
         if(enemy!=null&&天赋(Talent.丝缕缠流)){
             if(hasbuff(再生.class)){
-                回血(buff(再生.class).partialRegen*天赋点数(Talent.丝缕缠流)*攻击效果());
+                回血(buff(再生.class).再生生命()*天赋点数(Talent.丝缕缠流)*攻击效果());
             }
             护甲(护甲恢复()*天赋点数(Talent.丝缕缠流)*攻击效果());
         }
@@ -8575,6 +8592,7 @@ public class Hero extends Char {
         }
         if(enemy!=null&&皇室佩剑.概率()>0&&算法.概率学(皇室佩剑.概率()))
             回血(皇室佩剑.回血());
+
         if(enemy!=null&&符文("忍者恢复")&&算法.概率学(10)){
             回百分比血(0.1f);
         }
@@ -9030,7 +9048,7 @@ public class Hero extends Char {
             if(Dungeon.level.在陷阱(target))
                 红=true;
 //            if(红){
-//                sprite.parent.add(new TargetedCell(target,0xFF0000));
+//                sprite.parent.add(new TargetedCell(target));
 //            }else{
 //                sprite.parent.add(new TargetedCell(target,0x44FF44));
 //            }
@@ -9374,6 +9392,10 @@ public class Hero extends Char {
                 护甲成长+=x*0.06f;
             }
             x*=0.9f-天赋点数(Talent.硬肤,0.05f);
+
+                x*=1-天赋点数(Talent.元素掌控,0.0625f);//元素掌控金
+                x*=1-天赋点数(Talent.镜板镀层,0.075f);
+
         }
         super.护甲(x);
         if(x!=0)
@@ -10823,7 +10845,6 @@ public class Hero extends Char {
         if (heroClass(HeroClass.罗兰)) {
             护甲穿透+=0.2f;
         }
-        护甲穿透+=天赋点数(Talent.大荒星陨,0.15f);
         if(符文("缚法宝珠"))护甲穿透+=0.45f;
         if(符文("穿针引线"))护甲穿透+=0.2f;
         if(符文("起源:切断与结合"))护甲穿透+=0.4f;
@@ -10896,7 +10917,7 @@ public class Hero extends Char {
                     public void call() {
                         int charsHit=0;
                         for (int cell : aoe.cells) {
-                            sprite.parent.add(new TargetedCell(cell,0xFF0000));
+                            sprite.parent.add(new TargetedCell(cell));
                             Char mob = Actor.findChar(cell);
                             float damage = 最大生命(0.03f+天赋点数(Talent.血色契约,0.015f));
                             if (mob != null && damage > 0 && mob.alignment != Char.Alignment.ALLY){
@@ -11070,7 +11091,7 @@ public class Hero extends Char {
                                 }
                             }
 
-                            sprite.parent.add(new TargetedCell(cell,0xFF0000));
+                            sprite.parent.add(new TargetedCell(cell));
                             //### Deal damage ###
                             Char mob = Actor.findChar(cell);
                             int damage = Math.round(Hero.heroDamage(15,25)
@@ -11378,7 +11399,7 @@ public class Hero extends Char {
             
             hero.busy();
             for (int i : PathFinder.相邻) {
-                sprite.parent.add(new TargetedCell(i,0xFF0000));
+                sprite.parent.add(new TargetedCell(i));
                 Char mob = Actor.findChar(hero.pos + i);
                 if (mob != null && mob != hero && mob.alignment != Char.Alignment.ALLY) {
                     
@@ -11436,7 +11457,7 @@ public class Hero extends Char {
         //final zap at 2/3 distance, for timing of the actual effect
         
         for (int cell : cone.cells){
-            sprite.parent.add(new TargetedCell(cell,0xFF0000));
+            sprite.parent.add(new TargetedCell(cell));
             Char ch = Actor.findChar(cell);
             if (ch != null && ch.alignment != hero.alignment){
                 hero.attack(ch, 1, 0, Char.INFINITE);
@@ -11589,7 +11610,7 @@ public class Hero extends Char {
                     s+= "踩踏植物会获得额外效果取代原本效果，所有植株对其无害。";
                     break;
                 case 武器大师:
-                    s+= "因为力量攻击伤害+为力量大于武器力量~(力量大于武器力量)x2，副武器攻击效果+15%。";
+                    s+= "副武器攻击效果+30%。";
                     break;
                 case 角斗士:
                     s+= "连击重置回合+5，6+连击时连击技获得强化。";

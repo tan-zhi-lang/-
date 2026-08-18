@@ -42,18 +42,18 @@ public class 皇室佩剑 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 15+5*level;
+			return 8+4*level;
 		}
 	}
 	public static float 回血(){
-		return 概率(trinketLevel(皇室佩剑.class));
+		return 回血(trinketLevel(皇室佩剑.class));
 	}
 
 	public static float 回血(int level){
 		if (level < 0){
 			return 0;
 		} else {
-			return 2+2*level;
+			return 1.5f+1.5f*level;
 		}
 	}
 	public static float 亏损(){

@@ -101,7 +101,7 @@ public class VaultSentry extends NPC {
 
 			for (int cell : scan.cells) {
 				if (Dungeon.level.heroFOV[cell]) {
-						sprite.parent.add(new TargetedCell(cell,0xFF0000));
+						sprite.parent.add(new TargetedCell(cell));
 					}
 				}
 			}

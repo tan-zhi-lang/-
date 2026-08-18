@@ -166,7 +166,7 @@ public enum Talent {
 	EVASIVE_ARMOR(x11+11, 4), PROJECTILE_MOMENTUM(x11+12, 4), SPEEDY_STEALTH(x11+13, 4),
 	奥术专精(x11+14, 4), 符文势力(x11+15, 4), 曲境折迁(x11+16, 4),
 
-	战斗本能(x12+9,4),大荒星陨(x12+10,4),
+	战斗本能(x12+9,4),防御具铠(x12+10,4),
 	战争热诚(x12+11,4),致命节奏(x12+12,4),征服之姿(x12+13,4),
 	荣耀之证(x12+14,4),皇室传承(x12+15,4),钢铁甲胄(x12+16,4),
 
@@ -902,7 +902,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,蓄意轰拳,铁布回音);
 				break;
 			case 近卫:
-				Collections.addAll(tierTalents,战斗本能,大荒星陨);
+				Collections.addAll(tierTalents,战斗本能,防御具铠);
 				break;
 			case 兽灵:
 				Collections.addAll(tierTalents,兽性之力,心灵之力);

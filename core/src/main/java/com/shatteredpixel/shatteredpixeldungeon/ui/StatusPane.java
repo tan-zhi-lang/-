@@ -40,6 +40,7 @@ import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.ColorMath;
+import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 
@@ -452,9 +453,9 @@ public class StatusPane extends Component {
 		float 血量变化=0;
 		if(Dungeon.hero.hasbuff(Hunger.class)){
 			if(Dungeon.hero.buff(Hunger.class).isStarving()){
-				血量变化-=Dungeon.hero.buff(Hunger.class).partial;
+				血量变化-=Dungeon.hero.buff(Hunger.class).饥饿伤害();
 			}else if(!Dungeon.hero.满血()){
-				血量变化+=Dungeon.hero.buff(再生.class).partialRegen;
+				血量变化+=Dungeon.hero.buff(再生.class).再生生命();
 			}
 		}
 
@@ -492,7 +493,7 @@ public class StatusPane extends Component {
 
 		区域.text("第"+Dungeon.区域()+"区");
 		区域.measure();
-		区域.x = fps.x+SPDSettings.getscale(7,8.5f,9.5f,10) - 区域.width() / 2f;
+		区域.x = fps.x+SPDSettings.getscale(7,8.5f,9.5f,10)-(DeviceCompat.isAndroid()?2:0)-区域.width()/2f;
 		区域.y = y + 30 + 区域.height();
 
 		time.text(Dungeon.地牢时间());

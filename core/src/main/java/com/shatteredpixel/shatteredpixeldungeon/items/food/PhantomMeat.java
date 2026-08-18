@@ -41,7 +41,7 @@ public class PhantomMeat extends Food {
 			inputs =  new Class[]{MysteryMeat.class, 隐形药剂.class};
 			inQuantity = new int[]{1,1};
 
-			cost = 5;
+			cost = 4;
 
 			output = PhantomMeat.class;
 		}

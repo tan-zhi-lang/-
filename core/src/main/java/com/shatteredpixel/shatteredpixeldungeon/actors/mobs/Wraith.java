@@ -73,8 +73,13 @@ public class Wraith extends Mob {
 	public int 最大命中(Char target ) {
 		return 10 + level;
 	}
-	
-	public void adjustStats( int level ) {
+
+	@Override
+	public int 最大闪避(Char enemy){
+		return super.最大闪避(enemy);
+	}
+
+	public void adjustStats(int level) {
 		this.level = level;
 		defenseSkill = 最大命中( null ) * 5;
 		enemySeen = true;

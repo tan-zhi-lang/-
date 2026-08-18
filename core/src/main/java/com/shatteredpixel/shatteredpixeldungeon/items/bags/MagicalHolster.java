@@ -22,7 +22,10 @@ public class MagicalHolster extends Bag {
 	public boolean canHold( Item item ) {
 		if(Dungeon.符文("超级背包"))
 			return super.canHold(item);
-		if (item instanceof Wand||item instanceof Weapon||item instanceof Bomb){
+		if (item instanceof Wand||
+			item instanceof Weapon||
+			item.法杖||
+			item instanceof Bomb){
 			return super.canHold(item);
 		} else {
 			return false;

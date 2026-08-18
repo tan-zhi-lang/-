@@ -24,6 +24,7 @@ public class 超级升级符石 extends 用品{
 	
 	{
 		image = 物品表.STONE_AUGMENTATION;
+		符石=true;
 	}
 	@Override
 	public void 使用(Hero hero){

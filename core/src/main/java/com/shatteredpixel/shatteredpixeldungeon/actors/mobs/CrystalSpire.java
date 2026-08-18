@@ -151,7 +151,7 @@ public class CrystalSpire extends Mob {
 
 			if (!targetedCells.isEmpty()){
 				for (int i : targetedCells.get(0)){
-					sprite.parent.add(new TargetedCell(i, 0xFF0000));
+					sprite.parent.add(new TargetedCell(i));
 				}
 			}
 
@@ -171,7 +171,7 @@ public class CrystalSpire extends Mob {
 				}
 
 				for (int i : targetedCells.get(0)){
-					sprite.parent.add(new TargetedCell(i, 0xFF0000));
+					sprite.parent.add(new TargetedCell(i));
 				}
 
 				abilityCooldown += ABILITY_CD;

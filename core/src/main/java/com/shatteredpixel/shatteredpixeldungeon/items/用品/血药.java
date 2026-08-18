@@ -18,6 +18,7 @@ public class 血药 extends 用品{
 		image = 物品表.血药;
 		红色=true;
 		红光=true;
+		药剂=true;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

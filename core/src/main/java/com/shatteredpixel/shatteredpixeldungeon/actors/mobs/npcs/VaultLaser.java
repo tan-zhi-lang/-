@@ -85,7 +85,7 @@ public class VaultLaser extends NPC {
 			Ballistica nextBeam = new Ballistica(pos, laserDirs[laserDirIdx], Ballistica.STOP_SOLID);
 			for (int cell : nextBeam.subPath(1, nextBeam.dist)){
 				if (Dungeon.level.heroFOV[cell]) {
-					sprite.parent.add(new TargetedCell(cell, 0xFF0000));
+					sprite.parent.add(new TargetedCell(cell));
 				}
 			}
 

@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -1664,6 +1665,9 @@ public abstract class Mob extends Char{
 		if(this instanceof Mimic m&&m.alignment==Char.Alignment.ENEMY&&m.state!=PASSIVE){
 			b=false;
 		}
+		if(SPDSettings.隐藏细节())
+			b=true;
+
 		if(b){
 			desc+="\n\n";
 
@@ -1795,6 +1799,7 @@ public abstract class Mob extends Char{
 			desc+="_战利品_ :"+战利品+"\n";
 			desc+="_掉落几率_ :"+kw2(lootChance()*Dungeon.难度掉率(this)*100)+"%";
 		}
+
 		return desc;
 	}
 

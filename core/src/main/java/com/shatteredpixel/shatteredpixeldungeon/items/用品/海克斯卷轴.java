@@ -27,6 +27,7 @@ public class 海克斯卷轴 extends 用品{
 		嬗变=false;
 		可堆叠=false;
 		特别= true;
+		卷轴=true;
 	}
 
 	public 海克斯卷轴(){

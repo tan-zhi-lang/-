@@ -40,6 +40,7 @@ public class 贤者之石 extends 用品{
 	{
 		image = 物品表.贤者之石;
 		重复使用=true;
+		符石=true;
 	}
 
 	@Override

@@ -730,7 +730,7 @@ public class Armor extends EquipableItem {
 	@Override
 	public String status() {
 		if (荣誉纹章!=null) {
-			return 荣誉纹章.转移等级 + "/" + 荣誉纹章.最大等级();
+			return 荣誉纹章.等级() + "/" + 荣誉纹章.最大等级();
 		} else {
 			return null;
 		}

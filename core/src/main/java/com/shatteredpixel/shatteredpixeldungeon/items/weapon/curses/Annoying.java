@@ -43,7 +43,7 @@ public class Annoying extends Weapon.Enchantment {
 				if(性格==1){
 					GLog.绿("喧闹附魔:"+Messages.get(this,"msg_"+Random.IntRange(1,14)));
 				}
-				if(性格==2&&defender!=null&&defender.第x次防御==1){
+				if(性格==2&&defender.第x次防御==1){
 					Buff.延长(defender,Vertigo.class,3*procChanceMultiplier(attacker));
 					GLog.黄("喧闹附魔:"+Messages.get(this,"玩梗_"+Random.IntRange(1,14)));
 				}
@@ -51,7 +51,7 @@ public class Annoying extends Weapon.Enchantment {
 					damage*=1.3f*procChanceMultiplier(attacker);
 					GLog.红("喧闹附魔:"+Messages.get(this,"暴躁_"+Random.IntRange(1,14)));
 				}
-				if(性格==4&&defender!=null){
+				if(性格==4){
 					attacker.回血(0.07f*procChanceMultiplier(attacker));
 					GLog.蓝("喧闹附魔:"+Messages.get(this,"暴躁_"+Random.IntRange(1,14)));
 				}

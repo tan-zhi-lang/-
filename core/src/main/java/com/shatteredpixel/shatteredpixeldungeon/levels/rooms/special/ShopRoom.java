@@ -33,8 +33,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.ScrollHolder;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.宝物袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.SmallRation;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.面包;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
@@ -385,7 +385,7 @@ public class ShopRoom extends SpecialRoom {
 		if(imp)
 		itemsToSpawn.add( new 矮人徽章().数量(Random.Int(4,5)));
 
-		itemsToSpawn.add( new Food() );
+		itemsToSpawn.add( new 面包());
 		itemsToSpawn.add( new SmallRation() );
 		
 		

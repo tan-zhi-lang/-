@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.盛怒卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.祛邪卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.镜像卷轴;
@@ -63,8 +64,10 @@ public class Bomb extends Item {
 
 	//FIXME using a static variable for this is kinda gross, should be a better way
 	private static boolean lightingFuse = false;
+	private static boolean 等爆 = false;
 
 	private static final String AC_LIGHTTHROW = "LIGHTTHROW";
+	private static final String AC_等爆 = "等爆";
 
 	@Override
 	public boolean isSimilar(Item item) {
@@ -89,8 +92,12 @@ public class Bomb extends Item {
 	@Override
 	public void execute(Hero hero, String action) {
 
-		if (action.equals(AC_LIGHTTHROW)) {
+		if (action.equals(AC_LIGHTTHROW)||action.equals(AC_等爆)) {
 			lightingFuse = true;
+
+			if(action.equals(AC_等爆))
+				等爆 = true;
+
 			action = AC_THROW;
 		} else
 			lightingFuse = false;
@@ -108,7 +115,10 @@ public class Bomb extends Item {
 			if(Dungeon.符文("王者之翼手雷"))
 				Sample.INSTANCE.play( Assets.Sounds.龟内 );
 
-			Actor.addDelayed(fuse = createFuse().ignite(this), 2);
+			if(Dungeon.hero()&&等爆)
+			Dungeon.hero.spend(2);
+
+			Actor.addDelayed(fuse = createFuse().ignite(this), (等爆?0:2));
 		}
 		super.onThrow( cell );
 	}
@@ -446,8 +456,10 @@ public class Bomb extends Item {
 			validIngredients.put(充能卷轴.class,FlashBangBomb.class);
 			
 			validIngredients.put(治疗药剂.class,         RegrowthBomb.class);
-			validIngredients.put(祛邪卷轴.class,     HolyBomb.class);
-			
+			validIngredients.put(嬗变卷轴.class,财富炸弹.class);
+
+			validIngredients.put(祛邪卷轴.class,     神圣炸弹.class);
+
 			validIngredients.put(GooBlob.class,                 ArcaneBomb.class);
 			validIngredients.put(MetalShard.class,              ShrapnelBomb.class);
 		}
@@ -464,8 +476,10 @@ public class Bomb extends Item {
 			bombCosts.put(FlashBangBomb.class,      2);
 
 			bombCosts.put(RegrowthBomb.class,   3);
-			bombCosts.put(HolyBomb.class,       3);
-			
+			bombCosts.put(财富炸弹.class,3);
+
+			bombCosts.put(神圣炸弹.class,       4);
+
 			bombCosts.put(ArcaneBomb.class,     6);
 			bombCosts.put(ShrapnelBomb.class,   6);
 		}

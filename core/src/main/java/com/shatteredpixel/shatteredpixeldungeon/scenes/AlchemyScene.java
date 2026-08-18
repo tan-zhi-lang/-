@@ -160,7 +160,7 @@ public class AlchemyScene extends PixelScene {
 
 		if (splitAlchGuide &&
 				Camera.main.width >= 300 &&
-				Camera.main.height >= PixelScene.MIN_HEIGHT_FULL){
+				Camera.main.height >= 200){//高度修
 			w = Math.min(150, Camera.main.width/2);
 			left = (Camera.main.width/2 - w);
 			centerW = left + w/2;
@@ -467,7 +467,7 @@ public class AlchemyScene extends PixelScene {
 			@Override
 			protected void onClick() {
 				super.onClick();
-				if (Camera.main.width >= 300 && Camera.main.height >= PixelScene.MIN_HEIGHT_FULL){
+				if (Camera.main.width >= 300 && Camera.main.height >= 200){//高度修
 					splitAlchGuide = !splitAlchGuide;
 					ShatteredPixelDungeon.seamlessResetScene();
 				} else {

@@ -80,7 +80,7 @@ public class 改动界面 extends PixelScene {
 		int pw = 135 + panel.marginLeft() + panel.marginRight() - 2;
 		int ph = h - 36;
 
-		if (h >= PixelScene.MIN_HEIGHT_FULL && w >= 300) {
+		if (h >= 200 && w >= 300) {//高度修
 			panel.size( pw, ph );
 			panel.x = (w - pw) / 2f - pw/2 - 1;
 			panel.y = 20;

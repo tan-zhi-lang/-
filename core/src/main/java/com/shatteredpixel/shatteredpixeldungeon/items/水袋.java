@@ -187,6 +187,6 @@ public class 水袋 extends Item {
 
 	@Override
 	public int 金币() {
-		return 40;
+		return 20;
 	}
 }

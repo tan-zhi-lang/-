@@ -205,7 +205,7 @@ public class ChaoticCenser extends Trinket {
 				Buff.施加(Dungeon.hero, GasSpewer.class, Dungeon.hero.cooldown()).set(targetCell, gasToSpawn, (int)gasQuantity);
 				GLog.橙(Messages.get(ChaoticCenser.class,"spew",Messages.titleCase(Messages.get(gasToSpawn,"name"))));
 				if (target.sprite != null && target.sprite.parent != null) {
-					target.sprite.parent.addToBack(new TargetedCell(targetCell, 0xFF0000));
+					target.sprite.parent.addToBack(new TargetedCell(targetCell));
 				}
 				return true;
 			}

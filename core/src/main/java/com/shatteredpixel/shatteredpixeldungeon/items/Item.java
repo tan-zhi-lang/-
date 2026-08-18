@@ -136,6 +136,13 @@ public class Item implements Bundlable {
 	public int icon = -1; //used as an identifier for items with randomized images
 	public String name = "";
 
+	public boolean 药剂=false;
+	public boolean 卷轴=false;
+	public boolean 符石=false;
+	public boolean 结晶=false;
+	public boolean 法杖=false;
+	public boolean 秘卷=false;
+
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
 	public boolean 封禁升级 = false;
@@ -1098,7 +1105,6 @@ public class Item implements Bundlable {
 			}
 		}
 
-
 		String 真代码名=this.getClass().getSimpleName();
 		if(this instanceof Plant.Seed)真代码名=this.getClass().getName()
 				.replaceAll("com.shatteredpixel.shatteredpixeldungeon.plants.", "")
@@ -1135,7 +1141,7 @@ public class Item implements Bundlable {
 		if(this instanceof Trinket){
 			s+="、"+"禁忌物";
 		}
-		if(this instanceof Potion){
+		if(this instanceof Potion||药剂){
 			s+="、"+"药剂";
 		}
 		if(this instanceof Plant.Seed){
@@ -1150,16 +1156,16 @@ public class Item implements Bundlable {
 		if(this instanceof ExoticPotion){
 			s+="、"+"合剂";
 		}
-		if(this instanceof Scroll){
+		if(this instanceof Scroll||卷轴){
 			s+="、"+"卷轴";
 		}
-		if(this instanceof Spell){
+		if(this instanceof Spell||结晶){
 			s+="、"+"结晶";
 		}
-		if(this instanceof ExoticScroll){
+		if(this instanceof ExoticScroll||秘卷){
 			s+="、"+"秘卷";
 		}
-		if(this instanceof Runestone){
+		if(this instanceof Runestone||符石){
 			s+="、"+"符石";
 		}
 
@@ -1234,11 +1240,11 @@ public class Item implements Bundlable {
 		if(this instanceof Ring){
 			s+="、"+"神器";
 		}
-		if(this instanceof Wand){
+		if(this instanceof Wand||法杖){
 			s+="、"+"法杖";
 		}
 
-		return n+desc()+s;
+		return n+desc()+(SPDSettings.隐藏细节()?"":s);
 	}
 	
 	public String desc() {

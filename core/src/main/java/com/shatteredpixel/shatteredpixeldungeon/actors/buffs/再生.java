@@ -16,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.VaultLevel;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
-import com.watabou.utils.Bundle;
 
 public class 再生 extends Buff {
 	
@@ -26,12 +25,12 @@ public class 再生 extends Buff {
 		actPriority = HERO_PRIO - 1;
 	}
 
-	public float partialRegen = 0f;
 	@Override
 	public boolean attachTo( Char target) {
 		if (super.attachTo( target )) {
 			//if we're loading in and the hero has partially spent a turn, delay for 1 turn
-			if (target instanceof Hero && Dungeon.hero == null && cooldown() == 0 && target.cooldown() > 0) {
+			if (target instanceof Hero hero&&
+				hero == null && cooldown() == 0 && hero.cooldown() > 0) {
 				spend(TICK);
 			}
 			return true;
@@ -45,93 +44,17 @@ public class 再生 extends Buff {
 			//if other trinkets ever get buffs like this should probably make the buff attaching
 			// behaviour more like wands/rings/artifacts
 			if (ChaoticCenser.averageTurnsUntilGas() != -1){
-				Buff.施加(Dungeon.hero, ChaoticCenser.CenserGasTracker.class);
+				Buff.施加(hero, ChaoticCenser.CenserGasTracker.class);
 			}
 
 			if (regenOn() && !hero.满血() && !hero.isStarving()) {
-				float 再生数值=(float)Math.sqrt(hero.最大生命)/100f+0.07f;
+				
+				if(再生生命() > 0)hero.回血(再生生命());
 
-					再生数值+=hero.再生成长;
-
-					if(hero.符文("光合作用")&&Dungeon.level!=null){
-						int 树=0;
-						for (int i = 0; i < Dungeon.level.length(); i++){
-							if(Dungeon.level.map[i]==Terrain.HIGH_GRASS||Dungeon.level.map[i]==Terrain.GRASS)
-								树++;
-						}
-						再生数值+=(树+Dungeon.level.plants.size)*0.03f;
-					}
-					if(hero.符文("最大护甲转生命再生")){
-						再生数值+=hero.最大护甲(0.01f);
-					}
-					if(hero.hasbuff(WellFed.class))再生数值+=0.75f;
-//					if(hero.hasbuff(WellFed.class))再生数值*=Math.min(1,
-//						  (float)hero.buff(WellFed.class).left/
-//						  (float)hero.buff(WellFed.class).上限()*0.15f+1);
-//					if(hero.hasbuff(Hunger.class))再生数值*=Math.min(1,
-//																	 (Hunger.STARVING-hero.buff(Hunger.class).level)/
-//																	 Hunger.STARVING*0.15f+1);
-
-					if (Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null) {
-						if(Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
-							再生数值/= 1.75f;
-						else{
-							if(hero.符文("升级蓄血圣杯")){
-								再生数值+=hero.已损失生命(0.0225f);
-							}
-							再生数值 +=(0.133f+Dungeon.hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel()*0.0667f)*1.5f;
-						}
-					}
-					if (Dungeon.hero.buff(生命蜡烛.燃烧.class)!=null) {
-						if(Dungeon.hero.buff(生命蜡烛.燃烧.class).isCursed())
-							再生数值/= 1.75f;
-						else
-							再生数值 +=(0.133f+Dungeon.hero.buff(生命蜡烛.燃烧.class).itemLevel()*0.0667f)*1.5f;
-					}
-					if (Dungeon.hero.buff(虫箭.保护.class)!=null) {
-						if(Dungeon.hero.buff(虫箭.保护.class).isCursed())
-							再生数值/= 1.25f;
-						else
-							再生数值 +=(0.133f+Dungeon.hero.buff(虫箭.保护.class).itemLevel()*0.0667f)/2f;
-					}
-					再生数值*= 能量之戒.artifactChargeMultiplier(hero);
-
-		
-				//salt cube is turned off while regen is disabled.
-				if (hero.buff(LockedFloor.class) == null) {
-					再生数值/= SaltCube.healthRegenMultiplier();
+				if (hero.满血()) {
+					hero.resting = false;
 				}
-
-				再生数值*=1+hero.天赋点数(Talent.坚韧);
-
-						if(hero.heroClass(HeroClass.血鬼))
-							再生数值/=2;
-						if(hero.符文("大胃王"))
-							再生数值*=3;
-
-						if(hero.符文("恢复恢复"))
-							再生数值*=3.5f;
-
-							if(hero.种族天赋.equals("树妖"))再生数值*=5;
-
-						if(Dungeon.赛季(赛季设置.地牢塔防)|| hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
-							再生数值=0;
-
-						if(hero.符文("吸血习性"))
-							再生数值=0;
-
-						if(hero.符文("猩红诅咒"))
-							再生数值=0;
-
-						partialRegen = 再生数值;
-
-						float x=partialRegen;
-						if(partialRegen > 0)hero.回血(x);
-
-						if (hero.满血()) {
-							hero.resting = false;
-						}
-					}
+			}
 
 			spend( TICK );
 			
@@ -144,6 +67,89 @@ public class 再生 extends Buff {
 		return true;
 	}
 
+	public float 再生生命(){
+		if(target instanceof Hero hero){
+			float 再生数值=(float)Math.sqrt(hero.最大生命)/100f+0.07f;
+
+			再生数值+=hero.再生成长;
+
+			if(hero.符文("光合作用")&&Dungeon.level!=null){
+				int 树=0;
+				for(int i=0;i<Dungeon.level.length();i++){
+					if(Dungeon.level.map[i]==Terrain.HIGH_GRASS||Dungeon.level.map[i]==Terrain.GRASS)
+						树++;
+				}
+				再生数值+=(树+Dungeon.level.plants.size)*0.03f;
+			}
+			if(hero.符文("最大护甲转生命再生")){
+				再生数值+=hero.最大护甲(0.01f);
+			}
+			if(hero.hasbuff(WellFed.class))
+				再生数值+=0.75f;
+			//					if(hero.hasbuff(WellFed.class))再生数值*=Math.min(1,
+			//						  (float)hero.buff(WellFed.class).left/
+			//						  (float)hero.buff(WellFed.class).上限()*0.15f+1);
+			//					if(hero.hasbuff(Hunger.class))再生数值*=Math.min(1,
+			//																	 (Hunger.STARVING-hero.buff(Hunger.class).level)/
+			//																	 Hunger.STARVING*0.15f+1);
+
+			if(hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null){
+				if(hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
+					再生数值/=1.75f;
+				else{
+					if(hero.符文("升级蓄血圣杯")){
+						再生数值+=hero.已损失生命(0.0225f);
+					}
+					再生数值+=(0.133f+hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel()*0.0667f)*1.5f;
+				}
+			}
+			if(hero.buff(生命蜡烛.燃烧.class)!=null){
+				if(hero.buff(生命蜡烛.燃烧.class).isCursed())
+					再生数值/=1.75f;
+				else
+					再生数值+=(0.133f+hero.buff(生命蜡烛.燃烧.class).itemLevel()*0.0667f)*1.5f;
+			}
+			if(hero.buff(虫箭.保护.class)!=null){
+				if(hero.buff(虫箭.保护.class).isCursed())
+					再生数值/=1.25f;
+				else
+					再生数值+=(0.133f+hero.buff(虫箭.保护.class).itemLevel()*0.0667f)/2f;
+			}
+			再生数值*=能量之戒.artifactChargeMultiplier(hero);
+
+
+			//salt cube is turned off while regen is disabled.
+			if(hero.buff(LockedFloor.class)==null){
+				再生数值/=SaltCube.healthRegenMultiplier();
+			}
+
+			再生数值*=1+hero.天赋点数(Talent.坚韧);
+
+			if(hero.heroClass(HeroClass.血鬼))
+				再生数值/=2;
+			if(hero.符文("大胃王"))
+				再生数值*=3;
+
+			if(hero.符文("恢复恢复"))
+				再生数值*=3.5f;
+
+			if(hero.种族天赋.equals("树妖"))
+				再生数值*=5;
+
+			if(Dungeon.赛季(赛季设置.地牢塔防)||hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))
+				再生数值=0;
+
+			if(hero.符文("吸血习性"))
+				再生数值=0;
+
+			if(hero.符文("猩红诅咒"))
+				再生数值=0;
+
+			return 再生数值;
+		}
+		return 0;
+	}
+
 	public static boolean regenOn(){
 		LockedFloor lock = Dungeon.hero.buff(LockedFloor.class);
 		if (lock != null && !lock.regenOn()){
@@ -154,18 +160,5 @@ public class 再生 extends Buff {
 		}
 		return true;
 	}
-
-	public static final String PARTIAL_REGEN = "partial_regen";
-
-	@Override
-	public void storeInBundle(Bundle bundle) {
-		super.storeInBundle(bundle);
-		bundle.put(PARTIAL_REGEN, partialRegen);
-	}
-
-	@Override
-	public void restoreFromBundle(Bundle bundle) {
-		super.restoreFromBundle(bundle);
-		partialRegen = bundle.getFloat(PARTIAL_REGEN);
-	}
+	
 }

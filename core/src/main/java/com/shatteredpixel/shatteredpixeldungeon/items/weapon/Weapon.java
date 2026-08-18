@@ -31,7 +31,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
@@ -602,8 +601,12 @@ abstract public class Weapon extends KindOfWeapon {
 		if(Dungeon.hero())hero力量=Dungeon.hero.力量();
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known",kw2(力量()), tier(),
+										  范围,
 										  kw2(最小攻击()),
 											  kw2(最大攻击()),
+										  (最小防御()==0&&最大防御()==0?"":"　防御+ ++ "+
+															 kw2(最小防御())+"~"+kw2(最大防御())+" ++ "),
+										kw2(DPS()),
 										  kw2(最小投掷攻击()),
 											  kw2(最大投掷攻击()));
 			if (Dungeon.hero()) {
@@ -614,16 +617,19 @@ abstract public class Weapon extends KindOfWeapon {
 					}
 				} else if (hero力量 > 力量()) {
 					info += " " + Messages.get(Weapon.class, "excess_str",
-							kw2(hero力量 - 力量()),
-								 (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"~"+kw2((hero力量 - 力量())*2):"")
+								 (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~")+kw2((hero力量 - 力量()))
 								);
 				}
 			}
 		} else {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known", kw2(力量(0)), tier(),
+										  范围,
 										  kw2(最小攻击(0)),
 											  kw2(最大攻击(0)),
-												  kw2(最小投掷攻击(0)),
+										  (最小防御()==0&&最大防御(0)==0?"":"　防御+ ++ "+
+															 kw2(最小防御(0))+"~"+kw2(最大防御(0))+" ++ "),
+										  kw2(DPS()),
+										  kw2(最小投掷攻击(0)),
 													  kw2(最大投掷攻击(0)));
 			if (Dungeon.hero() && 力量(0) > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 				info += " " + Messages.get(Weapon.class, "too_heavy");
@@ -632,8 +638,8 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			} else if (hero力量 > 力量()) {
 				info += " " + Messages.get(Weapon.class, "excess_str",
-										   hero力量 - 力量(),
-										   (Dungeon.hero.subClass(HeroSubClass.武器大师)&&Dungeon.hero.职业精通()?"~"+kw2((hero力量 - 力量())*2):"")
+
+										   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~")+kw2((hero力量 - 力量()))
 										  );
 			}
 		}
@@ -716,25 +722,25 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	public String statsInfo(){
 		if (已鉴定()){
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
-				 kw2(最小防御())+"~"+kw2(最大防御())+" ++ 防御，"),
-								kw2(命中()),kw2(延迟()),kw2(伤害()),kw2(DPS()),
-								(连招范围!=-1?连招范围:范围()),
+			return Messages.get(this,"stats_desc",
 
-								(流血()==0?"":"，攻击施加 ** "+Math.round(流血()*100)+"%流血伤害 ** "),
-								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
-								(吸血()==0?"":"，获得 ** "+Math.round(吸血()*100)+"%吸血 ** "),
-								(伏击()==0?"":"，伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
+								(伤害()==0||伤害()==1?"":kw2(伤害())+"　倍伤害"),
+								(命中()==0||命中()==1?"":kw2(命中())+"　倍命中"),
+								(延迟()==0||延迟()==1?"":kw2(延迟())+"　倍攻击延迟"),
+								(流血()==0?"":"　攻击施加 ** "+Math.round(流血()*100)+"%流血伤害 ** "),
+								(魔法()==0?"":"　攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
+								(吸血()==0?"":"　获得 ** "+Math.round(吸血()*100)+"%吸血 ** "),
+								(伏击()==0?"":"　伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
 
-								(首攻()==0?"":"，首次攻击+"+Math.round(首攻()*100)+"%伤害"),
-								(麻痹()==0?"":"，攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
-								(冻结()==0?"":"，攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
+								(首攻()==0?"":"　首次攻击+"+Math.round(首攻()*100)+"%伤害"),
+								(麻痹()==0?"":"　攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
+								(冻结()==0?"":"　攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
 							   );
 		} else {
-			return Messages.get(this,"stats_desc",(最大防御(0)==0?"":"装备+ ++ "+
-						 kw2(最小防御(0))+"~"+kw2(最大防御(0))+" ++ 防御，"),
-								kw2(命中()),kw2(延迟()),kw2(伤害()),kw2(DPS()),
-								(连招范围!=-1?连招范围:范围),
+			return Messages.get(this,"stats_desc",
+								(伤害()==0?"":"_"+kw2(伤害())+"倍攻击伤害_"),
+								(命中()==0?"":"_"+kw2(命中())+"倍最大命中_"),
+								(延迟()==0?"":"_"+kw2(延迟())+"倍攻击延迟_"),
 
 								(流血()==0?"":"，攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
 								(魔法()==0?"":"，攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
@@ -753,7 +759,7 @@ abstract public class Weapon extends KindOfWeapon {
 		return augment.damageFactor(
 				(
 				(Dungeon.hero()&&hero力量-力量()>0?
-						 (hero力量-力量())/2f:0)+
+						 (hero力量-力量())*(Dungeon.hero.subClass(HeroSubClass.武器大师)?1:0.5f):0)+
 
 				(最小攻击()+最大攻击())/2f+
 				((最小防御()+最大防御())>0?(最小防御()+最大防御())/5f:0)
@@ -1298,15 +1304,11 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 
 			float exStr = hero.力量() - 力量();
-			if (hero.subClass(HeroSubClass.武器大师)&&hero.职业精通()) {
-
-				if (exStr > 0) {
-					damage += Hero.heroDamage(exStr,exStr*2);
-				}
-			}else{
-				if (exStr > 0) {
+			if (exStr > 0)
+			if (hero.subClass(HeroSubClass.武器大师)) {
 					damage += exStr;
-				}
+			}else{
+					damage += Hero.heroDamage(0,exStr);
 			}
 		}
 		if(defender!=null&&流血()>0)

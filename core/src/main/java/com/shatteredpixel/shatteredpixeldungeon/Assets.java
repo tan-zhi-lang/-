@@ -279,6 +279,7 @@ public class Assets {
 		public static final String READ     = "sounds/read.mp3";
 		public static final String LULLABY  = "sounds/lullaby.mp3";
 		public static final String DRINK    = "sounds/drink.mp3";
+		public static final String 面包吃    = "sounds/面包吃.mp3";
 		public static final String SHATTER  = "sounds/shatter.mp3";
 		public static final String ZAP      = "sounds/zap.mp3";
 		public static final String LIGHTNING= "sounds/lightning.mp3";
@@ -333,6 +334,7 @@ public class Assets {
 		public static final String PUFF     = "sounds/puff.mp3";
 		public static final String ROCKS    = "sounds/rocks.mp3";
 		public static final String BURNING  = "sounds/burning.mp3";
+		public static final String 神圣手雷  = "sounds/神圣手雷.mp3";
 		public static final String FALLING  = "sounds/falling.mp3";
 		public static final String GHOST    = "sounds/ghost.mp3";
 		public static final String SECRET   = "sounds/secret.mp3";
@@ -385,7 +387,10 @@ public class Assets {
 				攻击灵箭,
 				攻击弩, HEALTH_WARN, HEALTH_CRITICAL,
 
-				DESCEND, EAT, READ, LULLABY, DRINK, SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
+				DESCEND, EAT, READ, LULLABY,
+				DRINK,
+				面包吃,
+				SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
 				CHALLENGE, CURSED, TRAP,
 				EVOKE,
 				挖爆,
@@ -424,7 +429,10 @@ public class Assets {
 				汝之希望皆为虚妄,
 				超级加倍,
 				加倍,
-				MASTERY, PUFF, ROCKS, BURNING, FALLING, GHOST, SECRET, BONES,嘟嘟哒,
+				MASTERY, PUFF, ROCKS,
+				BURNING,
+				神圣手雷,
+				FALLING, GHOST, SECRET, BONES,嘟嘟哒,
 				BEE, DEGRADE, MIMIC, DEBUFF, CHARGEUP, GAS, CHAINS, SCAN, SHEEP, MINE
 		};
 	}

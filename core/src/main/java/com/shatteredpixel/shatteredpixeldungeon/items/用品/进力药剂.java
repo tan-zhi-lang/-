@@ -12,6 +12,7 @@ public class 进力药剂 extends 用品{
 	
 	{
 		image = 物品表.进力药剂;
+		药剂=true;
 	}
 
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

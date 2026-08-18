@@ -11,6 +11,9 @@ public class TargetedCell extends Image {
 
 	private float alpha;
 
+	public TargetedCell( int pos) {
+		this(pos,0xFF0000);
+	}
 	public TargetedCell( int pos, int color ) {
 		super(Icons.get(Icons.TARGET));
 		hardlight(color);
@@ -19,7 +22,7 @@ public class TargetedCell extends Image {
 
 		point( DungeonTilemap.tileToWorld( pos ) );
 
-		alpha = 2f;//1
+		alpha = 1.68f;//1
 	}
 
 	@Override

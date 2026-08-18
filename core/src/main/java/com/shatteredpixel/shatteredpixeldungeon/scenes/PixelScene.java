@@ -43,19 +43,13 @@ import java.util.ArrayList;
 public class PixelScene extends Scene {
 
 	// Minimum virtual display size for mobile portrait orientation
-	public static final float MIN_WIDTH_P = 135;
-	public static final float MIN_HEIGHT_P = 225;
+	public static final float MIN_WIDTH_P = 100;
+	public static final float MIN_HEIGHT_P = 240;
 
 	// Minimum virtual display size for mobile landscape orientation
 	public static final float MIN_WIDTH_L = 240;
-	public static final float MIN_HEIGHT_L = 160;
+	public static final float MIN_HEIGHT_L = 100;
 
-	// Minimum virtual display size for full desktop UI (landscape only)
-	//TODO maybe include another scale for mixed UI? might make it more accessible to mobile devices
-	// mixed UI has similar requirements to mobile landscape tbh... Maybe just merge them?
-	// mixed UI can possible be used on mobile portrait for tablets though.. Does that happen often?
-	public static final float MIN_WIDTH_FULL = 360;
-	public static final float MIN_HEIGHT_FULL = 200;
 
 	public static int defaultZoom = 0;
 	public static int maxDefaultZoom = 0;
@@ -88,30 +82,22 @@ public class PixelScene extends Scene {
 			Holiday.clearCachedHoliday();
 		}
 
-//		float minWidth, minHeight, scaleFactor;
-//		if (SPDSettings.interfaceSize()){
-//			minWidth = MIN_WIDTH_FULL;
-//			minHeight = MIN_HEIGHT_FULL;
-//			scaleFactor = 3.75f;
-//		} else if (横屏()) {
-//			minWidth = MIN_WIDTH_L;
-//			minHeight = MIN_HEIGHT_L;
-//			scaleFactor = 2.5f;
-//		} else {
-//			minWidth = MIN_WIDTH_P;
-//			minHeight = MIN_HEIGHT_P;
-//			scaleFactor = 2.5f;
-//		}
+		float minWidth, minHeight;
+		if (横屏()) {
+			minWidth = MIN_WIDTH_L;
+			minHeight = MIN_HEIGHT_L;
+		} else {
+			minWidth = MIN_WIDTH_P;
+			minHeight = MIN_HEIGHT_P;
+		}
+		maxDefaultZoom = (int)Math.min(Game.width/minWidth, Game.height/minHeight)+1;
+		maxScreenZoom = (int)Math.min(Game.dispWidth/minWidth, Game.dispHeight/minHeight);
 
 		if(DeviceCompat.isDesktop()){
 			defaultZoom=4+SPDSettings.scale();
-			maxDefaultZoom =defaultZoom+1;
-			maxScreenZoom =defaultZoom+1;
 		}
 		if(DeviceCompat.isAndroid()){
 			defaultZoom=SPDSettings.scale();
-			maxDefaultZoom =defaultZoom+1;
-			maxScreenZoom =defaultZoom+1;
 		}
 
 		minZoom = 1;

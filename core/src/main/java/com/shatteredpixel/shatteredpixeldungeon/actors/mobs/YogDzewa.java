@@ -259,7 +259,7 @@ public class YogDzewa extends Mob {
 				for (int i : targetedCells){
 					Ballistica b = new Ballistica(pos, i, Ballistica.WONT_STOP);
 					for (int p : b.path){
-						sprite.parent.add(new TargetedCell(p, 0xFF0000));
+						sprite.parent.add(new TargetedCell(p));
 						affectedCells.add(p);
 					}
 				}

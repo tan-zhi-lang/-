@@ -230,23 +230,9 @@ public class 物品表 {
     public static final int HALLS_PAGE = TRINKET_CATA + 7;
     public static final int JANE_PAGE = TRINKET_CATA + 8;
 
-    private static final int BOMBS = xy(9, 4);   //16 slots
-    public static final int BOMB = BOMBS + 0;
-    public static final int DBL_BOMB = BOMBS + 1;
-    public static final int FIRE_BOMB = BOMBS + 2;
-    public static final int FROST_BOMB = BOMBS + 3;
-    public static final int REGROWTH_BOMB = BOMBS + 4;
-    public static final int SMOKE_BOMB = BOMBS + 5;
-    public static final int FLASHBANG = BOMBS + 6;
-    public static final int HOLY_BOMB = BOMBS + 7;
-    public static final int WOOLY_BOMB = BOMBS + 8;
-    public static final int NOISEMAKER = BOMBS + 9;
-    public static final int ARCANE_BOMB = BOMBS + 10;
-    public static final int SHRAPNEL_BOMB = BOMBS + 11;
-
     static {
         assignItemRect(TRINKET_CATA, 12, 11);
-        
+
         assignItemRect(GUIDE_PAGE, 10, 11);
         assignItemRect(ALCH_PAGE, 10, 11);
         assignItemRect(SEWER_PAGE, 10, 11);
@@ -257,6 +243,21 @@ public class 物品表 {
         assignItemRect(JANE_PAGE, 10, 11);
     }
 
+    private static final int BOMBS = xy(9, 4);   //16 slots
+    public static final int BOMB = BOMBS + 0;
+    public static final int DBL_BOMB = BOMBS + 1;
+    public static final int FIRE_BOMB = BOMBS + 2;
+    public static final int FROST_BOMB = BOMBS + 3;
+    public static final int REGROWTH_BOMB = BOMBS + 4;
+    public static final int SMOKE_BOMB = BOMBS + 5;
+    public static final int FLASHBANG = BOMBS + 6;
+    public static final int 财富炸弹=BOMBS+7;
+    public static final int WOOLY_BOMB = BOMBS + 8;
+    public static final int NOISEMAKER = BOMBS + 9;
+    public static final int ARCANE_BOMB = BOMBS + 10;
+    public static final int SHRAPNEL_BOMB = BOMBS + 11;
+    public static final int 神圣炸弹=BOMBS+12;
+
     static {
         assignItemRect(BOMB, 10, 13);
         assignItemRect(DBL_BOMB, 14, 13);
@@ -265,11 +266,12 @@ public class 物品表 {
         assignItemRect(REGROWTH_BOMB, 13, 12);
         assignItemRect(SMOKE_BOMB, 13, 12);
         assignItemRect(FLASHBANG, 10, 13);
-        assignItemRect(HOLY_BOMB, 10, 13);
+        assignItemRect(财富炸弹,10,13);
         assignItemRect(WOOLY_BOMB, 10, 13);
         assignItemRect(NOISEMAKER, 10, 13);
         assignItemRect(ARCANE_BOMB, 10, 13);
         assignItemRect(SHRAPNEL_BOMB, 10, 13);
+        assignItemRect(神圣炸弹,13,15);
     }
     //endregion
     
@@ -317,7 +319,7 @@ public class 物品表 {
         assignItemRect(镜刃, 15, 16);
         assignItemRect(铜钱剑, 16);
         assignItemRect(白带, 15,16);
-        assignItemRect(SPEAR);
+        assignItemRect(SPEAR,16);
         assignItemRect(臂铠, 16);
         assignItemRect(修理扳手,16);
         assignItemRect(金玫苦无, 15, 16);
@@ -1082,15 +1084,17 @@ public class 物品表 {
     public static final int ELIXIR_AQUA = 永生秘药 + 2;
 
     public static final int ELIXIR_MIGHT = xy(17,25);  //8 slots
-    public static final int ELIXIR_DRAGON = 永生秘药 + 1;
-    public static final int ELIXIR_TOXIC = 永生秘药 + 2;
-    public static final int ELIXIR_ICY = 永生秘药 + 3;
-    public static final int ELIXIR_ARCANE = 永生秘药 + 4;
-    public static final int ELIXIR_FEATHER = 永生秘药 + 5;
-    public static final int 玄武秘药 = 永生秘药 + 6;
-    public static final int 血怒秘药 = 永生秘药 + 7;
-    public static final int 圣魄秘药 = 永生秘药 + 8;
-    public static final int 暴刹秘药 = 永生秘药 + 9;
+    public static final int ELIXIR_DRAGON = ELIXIR_MIGHT + 1;
+    public static final int ELIXIR_TOXIC = ELIXIR_MIGHT + 2;
+
+    public static final int ELIXIR_ICY = ELIXIR_MIGHT + 3;
+    public static final int ELIXIR_ARCANE = ELIXIR_MIGHT + 4;
+    public static final int ELIXIR_FEATHER = ELIXIR_MIGHT + 5;
+
+    public static final int 玄武秘药 = ELIXIR_MIGHT + 6;
+    public static final int 血怒秘药 = ELIXIR_MIGHT + 7;
+    public static final int 圣魄秘药 = ELIXIR_MIGHT + 8;
+    public static final int 暴刹秘药 = ELIXIR_MIGHT + 9;
 
     static {
         assignItemRect(LIQUID_METAL, 8, 15);
@@ -1107,12 +1111,15 @@ public class 物品表 {
         assignItemRect(永生秘药, 12, 14);
         assignItemRect(ELIXIR_HONEY, 12, 14);
         assignItemRect(ELIXIR_AQUA, 12, 14);
+
         assignItemRect(ELIXIR_MIGHT, 12, 14);
         assignItemRect(ELIXIR_DRAGON, 12, 14);
         assignItemRect(ELIXIR_TOXIC, 12, 14);
+
         assignItemRect(ELIXIR_ICY, 12, 14);
         assignItemRect(ELIXIR_ARCANE, 12, 14);
         assignItemRect(ELIXIR_FEATHER, 12, 14);
+
         assignItemRect(玄武秘药, 12, 14);
         assignItemRect(血怒秘药, 12, 14);
         assignItemRect(圣魄秘药, 12, 14);
@@ -1228,6 +1235,7 @@ public class 物品表 {
     public static final int 红蘑菇 = FOOD + 16;
     public static final int 蓝蘑菇 = FOOD + 17;
     public static final int 绿蘑菇 = FOOD + 18;
+    public static final int 面包 = FOOD + 19;
 
     static {
         assignItemRect(MEAT, 15, 11);
@@ -1249,6 +1257,7 @@ public class 物品表 {
         assignItemRect(红蘑菇, 16, 14);
         assignItemRect(蓝蘑菇, 16, 13);
         assignItemRect(绿蘑菇, 16, 15);
+        assignItemRect(面包, 14);
     }
 
     private static final int HOLIDAY_FOOD = xy(0, 29);  //16 slots

@@ -16,6 +16,6 @@ public class 弯刀 extends Weapon {
 
 		tier = 2;
 		伤害= 0.8f;
-		流血=1.15f;
+		流血=0.15f;
 	}
 }

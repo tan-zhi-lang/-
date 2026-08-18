@@ -27,6 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
@@ -603,7 +604,11 @@ public class Tengu extends Mob {
 			if (smokeEmitters.isEmpty()){
 				fx(true);
 			}
-			
+			for(int i: PathFinder.范围2)
+				Dungeon.hero.sprite.parent.add(new TargetedCell(bombPos+i));//危险点
+
+			Dungeon.hero.sprite.parent.add(new TargetedCell(bombPos));//危险点
+
 			PointF p = DungeonTilemap.raisedTileCenterToWorld(bombPos);
 			if (timer == 3) {
 				FloatingText.show(p.x, p.y, bombPos, "3...", CharSprite.警告橙);
@@ -785,6 +790,8 @@ public class Tengu extends Mob {
 				curCells = new int[toCells.size()];
 				int i = 0;
 				for (Integer c : toCells){
+					Dungeon.hero.sprite.parent.add(new TargetedCell(c));//危险点
+
 					GameScene.add(Blob.seed(c, 2, FireBlob.class));
 					curCells[i] = c;
 					i++;
@@ -974,7 +981,12 @@ public class Tengu extends Mob {
 				
 				spreadblob();
 			} else if (shockingOrdinals){
-				
+
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos - 1));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos + 1));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos - Dungeon.level.width()));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos + Dungeon.level.width()));//危险点
 				target.sprite.parent.add(new Lightning(shockerPos - 1 - Dungeon.level.width(), shockerPos + 1 + Dungeon.level.width(), null));
 				target.sprite.parent.add(new Lightning(shockerPos - 1 + Dungeon.level.width(), shockerPos + 1 - Dungeon.level.width(), null));
 				
@@ -985,7 +997,12 @@ public class Tengu extends Mob {
 				shockingOrdinals = false;
 				spreadblob();
 			} else {
-				
+
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos + 1 - Dungeon.level.width()));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos - 1 - Dungeon.level.width()));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos + 1 + Dungeon.level.width()));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(shockerPos - 1 + Dungeon.level.width()));//危险点
 				target.sprite.parent.add(new Lightning(shockerPos - Dungeon.level.width(), shockerPos + Dungeon.level.width(), null));
 				target.sprite.parent.add(new Lightning(shockerPos - 1, shockerPos + 1, null));
 				

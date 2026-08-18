@@ -55,6 +55,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 装备武器x = "装备武器";
 	public static final String 主要战技x = "主要战技";
 	public static final String 从不过节x = "从不过节";
+	public static final String 隐藏细节x = "隐藏细节";
 	public static final String 画面同步x = "画面同步";
 	public static final String 游戏帧率x = "游戏帧率";
 	public static final String 字体大小x = "字体大小";
@@ -94,7 +95,7 @@ public class SPDSettings extends GameSettings {
 	
 	public static int 亮度() {
 		if(Dungeon.符文("怕光"))return 0;
-		return getInt( KEY_BRIGHTNESS, 0, 0, 1 );
+		return getInt( KEY_BRIGHTNESS, 1, 0, 1 );
 	}
 	
 	public static void 网格可视度(int value ){
@@ -274,7 +275,7 @@ public class SPDSettings extends GameSettings {
 		
 	}
 	public static boolean 主要战技() {
-		return getBoolean( 主要战技x, false);
+		return getBoolean( 主要战技x, true);
 	}
 	public static void 从不过节( boolean value ) {
 		put( 从不过节x, value );
@@ -282,6 +283,13 @@ public class SPDSettings extends GameSettings {
 	}
 	public static boolean 从不过节() {
 		return getBoolean( 从不过节x, false);
+	}
+	public static void 隐藏细节( boolean value ) {
+		put( 隐藏细节x, value );
+
+	}
+	public static boolean 隐藏细节() {
+		return getBoolean( 隐藏细节x, true);
 	}
 	public static void 画面同步(boolean value ){
 		put(画面同步x, value );
@@ -324,7 +332,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 提示行数() {
-		return getInt(提示行数x, 3,0,5 );
+		return getInt(提示行数x, 4,0,7 );
 	}
 
 	//Interface

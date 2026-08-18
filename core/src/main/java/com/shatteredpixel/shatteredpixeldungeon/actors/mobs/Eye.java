@@ -117,7 +117,7 @@ public class Eye extends Mob {
 			return super.doAttack(enemy);
 		} else if (!beamCharged){
 			for (int pos : beam.subPath(1, beam.dist)){
-				Dungeon.hero.sprite.parent.add(new TargetedCell(pos,0xFF0000));//危险点
+				Dungeon.hero.sprite.parent.add(new TargetedCell(pos));//危险点
 			}
 			((EyeSprite)sprite).charge( enemy.pos );
 			spend(攻击延迟()*2f);
@@ -129,7 +129,7 @@ public class Eye extends Mob {
 			
 			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
 				for (int pos : beam.subPath(1, beam.dist)){
-					Dungeon.hero.sprite.parent.add(new TargetedCell(pos,0xFF0000));//危险点
+					Dungeon.hero.sprite.parent.add(new TargetedCell(pos));//危险点
 				}
 				sprite.zap( beam.collisionPos );
 				return false;

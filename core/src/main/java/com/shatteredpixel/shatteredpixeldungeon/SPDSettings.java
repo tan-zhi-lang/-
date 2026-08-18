@@ -40,7 +40,6 @@ public class SPDSettings extends GameSettings {
 	public static final String 透明界面x = "透明界面";
 	public static final String 更多按钮x = "更多按钮";
 	public static final String 四舍五入x = "四舍五入";
-	public static final String 新手提示x = "新手提示";
 	public static final String 颜色区块x = "颜色区块";
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
@@ -59,10 +58,10 @@ public class SPDSettings extends GameSettings {
 	public static final String 隐藏细节x = "隐藏细节";
 	public static final String 画面同步x = "画面同步";
 	public static final String 游戏帧率x = "游戏帧率";
-	public static final String 字体大小x = "字体大小";
 	public static final String 文字寿命x = "文字寿命";
 	public static final String 保留位数x= "保留位数";
 	public static final String 提示行数x = "提示行数";
+	public static final String 新手提示x = "新手提示";
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 
@@ -162,13 +161,6 @@ public class SPDSettings extends GameSettings {
 
 	public static boolean 四舍五入() {
 		return getBoolean(四舍五入x, true );
-	}
-	public static void 新手提示(boolean value ){
-		put(新手提示x, value );
-	}
-
-	public static boolean 新手提示() {
-		return getBoolean(新手提示x, true );
 	}
 
 	public static float 加快(){
@@ -313,13 +305,6 @@ public class SPDSettings extends GameSettings {
 	public static int 游戏帧率() {
 		return getInt(游戏帧率x, 2,1,6 );
 	}
-	public static void 字体大小(int value ){
-		put(字体大小x, value );
-	}
-
-	public static int 字体大小() {
-		return getInt(字体大小x, 0,-2,2 );
-	}
 
 	public static void 文字寿命(int value ){
 		put(文字寿命x, value );
@@ -341,6 +326,13 @@ public class SPDSettings extends GameSettings {
 
 	public static int 提示行数() {
 		return getInt(提示行数x, 4,0,7 );
+	}
+	public static void 新手提示(int value ){
+		put(新手提示x, value );
+	}
+
+	public static int 新手提示() {
+		return getInt(新手提示x, 2,0,4 );
 	}
 
 	//Interface

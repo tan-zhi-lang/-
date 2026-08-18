@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
-import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -158,10 +157,6 @@ public class RenderedTextBlock2 extends Button{
 		return maxWidth;
 	}
 
-	//region 颜色文本渲染
-	private static final int COLOR_WHITE = 0xFFFFFF;      // 默认白色
-	private static final int COLOR_RESET = -1;            // 颜色重置值
-	//使用文本渲染时建议空格隔开，如a == abc == c
 	private synchronized void build() {
 		if (tokens == null) return;
 
@@ -169,134 +164,79 @@ public class RenderedTextBlock2 extends Button{
 		add(hotArea); // 重新加回触摸热区
 
 		words = new ArrayList<>();
-		boolean isColorActive = false; // 规范化变量名，替换中文“颜色在用”
-		int currentColor = COLOR_RESET; // 独立维护当前颜色，避免color全局残留
+		boolean highlighting = false;
+		int currentDynamicColor = -1; // 当前动态颜色，-1表示未激活
 
 		for (String str : tokens) {
-			// 统一判断highlightingEnabled：所有颜色标记符都需要该开关生效
-//			System.out.println(str);
 
-			if (highlightingEnabled) {
-				if (str.equals("_")) {
-					isColorActive = !isColorActive; // 简化toggle逻辑
-					currentColor = isColorActive ? 0xFFFF00 : COLOR_RESET;
-					continue;
+			// 原有高亮标记 _ 和 ** (切换高亮)
+			if ((str.equals("_")) && highlightingEnabled){
+				highlighting = !highlighting;
+				continue; // 跳过标记本身
 				}
+
+			// ---- 新增颜色标记 ----
 				if (str.equals("**")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0xFF4444 : COLOR_RESET;// 红色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0xFF4444  : -1; // 红色
 					continue;
-				}
-				if (str.equals("@@")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x3399FF : COLOR_RESET;// 蓝色
+				}  if (str.equals("@@")) {
+				currentDynamicColor = (currentDynamicColor == -1) ? 0x3399FF : -1; // 蓝色
 					continue;
 				}  if (str.equals("++")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x00FF00 : COLOR_RESET;// 绿色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0x00FF00 : -1; // 绿色
 					continue;
 				}  if (str.equals("^^")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0xFF4488 : COLOR_RESET;// 粉色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0xFF4488 : -1; // 粉色
 					continue;
 				}  if (str.equals("##")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x8800FF : COLOR_RESET;// 紫色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0x8800FF : -1; // 紫色
 					continue;
 				}  if (str.equals("--")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x999999 : COLOR_RESET;// 灰色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0x999999 : -1; // 灰色
 					continue;
 				}  if (str.equals(",,")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x000000 : COLOR_RESET;// 黑色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0x000000 : -1; // 黑色
 					continue;
 				}  if (str.equals("==")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0xFF8800 : COLOR_RESET;// 橙色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0xFF8800 : -1; // 橙色
 					continue;
 				}if (str.equals(";;")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x8F4E35 : COLOR_RESET;// 棕色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0x8F4E35 : -1; // 棕色
 					continue;
 				}if (str.equals("!!")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0xb2f2ff : COLOR_RESET;// 青色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0xb2f2ff : -1; // 青色
 					continue;
 				}if (str.equals("??")) {
-					isColorActive = !isColorActive;
-					currentColor = isColorActive ? 0x2c0d49 : COLOR_RESET;// 靛色
+				currentDynamicColor = (currentDynamicColor == -1) ? 0x2c0d49 : -1; // 靛色
 					continue;
 				}
-					// 非颜色标记符，正常处理
-					processNormalToken(str, isColorActive, currentColor);
-			} else {
-				// 高亮关闭时，直接处理普通token（不解析颜色标记符）
-				processNormalToken(str, false, COLOR_RESET);
-			}
-		}
-		layout();
-	}
 
-	/**
-	 * 抽离普通token处理逻辑，提升代码复用性和可读性
-	 */
-	private void processNormalToken(String str, boolean isColorActive, int currentColor) {
+			// 普通文本或换行、空格处理
 		if (str.equals("\n")) {
 			words.add(NEWLINE);
-			return;
-		}
-		if (str.equals(" ")) {
-//			words.add(SPACE);
-			return;
-		}
-
-		//the ~ symbol is more commonly used in Chinese
-//		if (Messages.lang() == Languages.CHI_SMPL || Messages.lang() == Languages.CHI_TRAD){
-//			str = str.replace('-', '~');
-//			str = str.replace('-', '~');
-//		}
-		// 清理所有颜色标记符（补充**的替换，修正转义）
-		String cleanStr = str.replaceAll("_", "")
-				.replaceAll("\\*\\*", "")
-				.replaceAll("@@", "")
-				.replaceAll("\\+\\+", "")
-				.replaceAll("\\^\\^", "")
-				.replaceAll("##", "")
-				.replaceAll("--", "")
-				.replaceAll(",,", "")
-				.replaceAll("==", "")
-				.replaceAll(";;", "")
-				.replaceAll("!!", "")
-				.replaceAll("\\?\\?", "");
-
-		// 避免空字符串生成无效的RenderedText
-		if (cleanStr.isEmpty()) {
-			return;
-		}
-
-		RenderedText word = new RenderedText(cleanStr, size);
-
-		// 颜色逻辑：激活且颜色有效时用指定颜色，否则用白色
-		if (isColorActive && currentColor != COLOR_RESET) {
-			word.hardlight(currentColor);
+			} else if (str.equals(" ")){
+				// 空格不渲染（保持原逻辑）
 		} else {
-			word.hardlight(COLOR_WHITE);
-		}
+				RenderedText word = new RenderedText(str, size);
 
-		// 缩放计算：提取魔法值为注释，提升可读性
-		float scaleFactor = zoom * (1 + SPDSettings.字体大小() * 0.25f);
-		word.scale.set(scaleFactor);
+				// 颜色优先级：高亮 > 动态颜色 > 全局硬编码颜色
+				if (highlighting) {
+					word.hardlight(hightlightColor);
+				} else if (currentDynamicColor != -1) {
+					word.hardlight(currentDynamicColor);
+				} else if (color != -1) {
+					word.hardlight(color);
+		}
+				word.scale.set(zoom);
 
 		words.add(word);
 		add(word);
 
-		// 更新最大高度
-		if (height < word.height()) {
-			height = word.height();
+				if (height < word.height()) height = word.height();
 		}
 	}
-	//endregion
+		layout();
+	}
 
 	public synchronized void zoom(float zoom){
 		this.zoom = zoom;

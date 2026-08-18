@@ -193,6 +193,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
+import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
@@ -3216,8 +3217,8 @@ public class Hero extends Char {
 
     public Hero() {
         super();
-        生命 = 最大生命 = 0.001f;
-        护甲 = 最大护甲 = 0.001f;
+        生命 = 最大生命 = 1;
+        护甲 = 最大护甲 = 1;
         力量 = 10;
         敏捷 = 10;
         魔力 = 10;
@@ -3242,11 +3243,11 @@ public class Hero extends Char {
             最大生命=200;
             return;
         }
-        最大生命 = 1* (等级 - 1);
+        最大生命 = 1+1* (等级 - 1);
         if(等级==最大等级)最大生命++;
         /** 100
 
-         0
+         1
 
          35
          12每级1+1满级+10进阶
@@ -3259,7 +3260,7 @@ public class Hero extends Char {
          20力量+20满级力量
         */
         if(进阶)最大生命+=10;
-        最大生命+=力量()*2;
+        最大生命+=力量()*2-1;
 
         最大生命+=HTBoost;
         最大生命+=生命成长;
@@ -3328,11 +3329,12 @@ public class Hero extends Char {
 
     @Override
     public float 更新护甲(){
-        最大护甲=0.5f*(等级-1);
+        最大护甲=1+0.5f*(等级-1);
         if(等级==最大等级)最大护甲++;
+
         if(进阶)最大护甲+=7;
         /** 50
-         0
+         1
 
          13
          12每级0.5+1满级
@@ -3344,7 +3346,7 @@ public class Hero extends Char {
          10敏捷+10满级敏捷
          */
         //
-        最大护甲+=敏捷()*1;
+        最大护甲+=敏捷()*1-1;
         最大护甲+=护甲成长;
         最大护甲+=暗影飞刀.护甲();
 
@@ -6816,6 +6818,10 @@ public class Hero extends Char {
                         if(existing!=null){
                             GLog.绿(Messages.get(DarkGold.class,"you_now_have",existing.数量()));
                         }
+                    }else if(item instanceof TengusMask){
+                        GLog2.黄("使用天狗面具来转职！");
+                        GLog.绿(Messages.get(this,"you_now_have",item.name()));
+
                     }else{
 
                         //TODO make all unique items important? or just POS / SOU?
@@ -9577,7 +9583,7 @@ public class Hero extends Char {
                 new 海克斯秘卷().放背包();
                 new 海克斯秘卷().放背包();
             }
-            GLog2.黄("点击:左上角英雄图标→星星图标页面→学习天赋");
+            GLog2.黄("点击:依次左上角英雄图标→星星图标页面→学习天赋");
             if (sprite != null) {
                 GLog.newLine();
                 GLog.绿(Messages.get(this,"new_level"));

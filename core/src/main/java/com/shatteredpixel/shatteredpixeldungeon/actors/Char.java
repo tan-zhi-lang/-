@@ -997,7 +997,7 @@ public abstract class Char extends Actor {
 		if(enemy!=null)
 		第x次防御++;
 		if(enemy!=null)
-		Buff.施加(this,战斗状态.class,5);
+		Buff.刷新(this,战斗状态.class,5);
 
 		Earthroot.Armor armor = buff( Earthroot.Armor.class );
 		if (enemy!=null&&armor != null) {

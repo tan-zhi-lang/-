@@ -40,9 +40,10 @@ public class GLog {
 		if (args.length > 0) {
 			text = Messages.format( text, args );
 		}
-		update.dispatch( NEW_LINE );
 		DeviceCompat.log( TAG, text );
 		update.dispatch( text );
+
+//		update.dispatch( NEW_LINE );
 
 	}
 	public static void 白(String text,Object... args) {

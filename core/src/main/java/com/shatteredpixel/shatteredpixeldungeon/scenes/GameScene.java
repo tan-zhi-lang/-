@@ -518,7 +518,10 @@ public class GameScene extends PixelScene {
 		if((Dungeon.相对层数()>15&&Dungeon.相对层数()<20)&&Dungeon.branch==1){
 			GLog.橙("背包又回去的道具。");
 		}
-		GLog2.黄("点击:右上角第2个图标→设置自己找相关设置一目了然");
+
+		GLog2.黄("依次点击:右上角第2个图标→设置自己找相关设置一目了然");
+
+
 		if (InterlevelScene.mode != InterlevelScene.Mode.NONE) {
 			if (Dungeon.depth == Statistics.deepestFloor
 					&& (InterlevelScene.mode == InterlevelScene.Mode.DESCEND || InterlevelScene.mode == InterlevelScene.Mode.FALL)) {
@@ -982,9 +985,9 @@ public class GameScene extends PixelScene {
 		float tagLeft =  uiCamera.width - tagWidth;
 		float tagLeft2 = 0;
 
-		scene.gameLog.setRect(insets.left,scene.toolbar.top()- Tag.SIZE/2f,uiCamera.width-tagWidth-insets.left,0);
+		scene.gameLog.setRect(insets.left,scene.toolbar.top()- Tag.SIZE/2f,uiCamera.width-tagWidth-insets.left-Tag.SIZE*2,0);
 
-		scene.gameLog2.setRect(Tag.SIZE*2.33f,scene.status.bottom()+ Tag.SIZE,uiCamera.width-tagWidth-Tag.SIZE*2,0);
+		scene.gameLog2.setRect(Tag.SIZE*1.85f,scene.status.bottom()+ Tag.SIZE*1.5f,uiCamera.width-tagWidth-Tag.SIZE*2,0);
 
 
 		if (scene.tagAction) {

@@ -34,7 +34,7 @@ public class 水蛭 extends Mob {
 
 	@Override
 	public float 吸血(){
-		return super.吸血()+0.8f;
+		return super.吸血()+0.6f;
 	}
 
 	@Override

@@ -231,7 +231,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox 颜色区块;
 						CheckBox 更多按钮;
 						CheckBox 四舍五入;
-						CheckBox 新手提示;
 						CheckBox chkFont;
 						CheckBox chkVibrate;
 						CheckBox 画面同步;
@@ -324,15 +323,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							四舍五入.checked(SPDSettings.四舍五入());
 							add(四舍五入);
 
-							新手提示 = new CheckBox("新手提示(屏幕中上方的新手提示)") {
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.新手提示(checked());
-								}
-							};
-							新手提示.checked(SPDSettings.新手提示());
-							add(新手提示);
 
 							chkFont = new CheckBox(Messages.get(DisplayTab.class, "system_font")){
 								@Override
@@ -391,8 +381,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							颜色区块.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
 							更多按钮.setRect(0,  颜色区块.bottom()+GAP, width, BTN_HEIGHT);
 							四舍五入.setRect(0,  更多按钮.bottom()+GAP, width, BTN_HEIGHT);
-							新手提示.setRect(0,  四舍五入.bottom()+GAP, width, BTN_HEIGHT);
-							chkFont.setRect(0,  新手提示.bottom()+GAP, width, BTN_HEIGHT);
+							chkFont.setRect(0,  四舍五入.bottom()+GAP, width, BTN_HEIGHT);
 							chkVibrate.setRect(0,  chkFont.bottom()+GAP, width, BTN_HEIGHT);
 							画面同步.setRect(0,  chkVibrate.bottom()+GAP, width, BTN_HEIGHT);
 							
@@ -416,10 +405,10 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider optFollowIntensity;
 						OptionSlider optScreenShake;
 						OptionSlider 游戏帧率;
-						OptionSlider 字体大小;
 						OptionSlider 文字寿命;
 						OptionSlider 保留位数;
 						OptionSlider 提示行数;
+						OptionSlider 新手提示;
 						OptionSlider optUIScale;
 						
 						{
@@ -477,16 +466,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							游戏帧率.setSelectedValue(SPDSettings.游戏帧率());
 							add(游戏帧率);
-							
-							字体大小 = new OptionSlider("字体大小",
-														"50%", "150%", -2, 2) {
-								@Override
-								protected void onChange() {
-									SPDSettings.字体大小(getSelectedValue());
-								}
-							};
-							字体大小.setSelectedValue(SPDSettings.字体大小());
-							add(字体大小);
 
 							文字寿命 = new OptionSlider("文字寿命",
 														"0.25s", "4s", 0, 6) {
@@ -519,6 +498,17 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							提示行数.setSelectedValue(SPDSettings.提示行数());
 							add(提示行数);
+
+							新手提示 = new OptionSlider("新手提示行(屏幕中间的新手提示)",
+														"0", "4", 0, 4) {
+								@Override
+								protected void onChange() {
+									SPDSettings.新手提示(getSelectedValue());
+								}
+							};
+							新手提示.setSelectedValue(SPDSettings.新手提示());
+							add(新手提示);
+
 								optUIScale = new OptionSlider("界面尺寸",
 															  2+ "X",
 															  4+ "X",
@@ -542,12 +532,13 @@ public class WndSettings extends WndTabbed {//WndSettings
 							optFollowIntensity.setRect(0,  optVisGrid.bottom()+GAP, width, BTN_HEIGHT);
 							optScreenShake.setRect(0,  optFollowIntensity.bottom()+GAP, width, BTN_HEIGHT);
 							游戏帧率.setRect(0,  optScreenShake.bottom()+GAP, width, BTN_HEIGHT);
-							字体大小.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
-							文字寿命.setRect(0,  字体大小.bottom()+GAP, width, BTN_HEIGHT);
+
+							文字寿命.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
 							保留位数.setRect(0,文字寿命.bottom()+GAP,width,BTN_HEIGHT);
 							提示行数.setRect(0,保留位数.bottom()+GAP,width,BTN_HEIGHT);
+							新手提示.setRect(0,提示行数.bottom()+GAP,width,BTN_HEIGHT);
 
-							optUIScale.setRect(0,  提示行数.bottom()+GAP, width, BTN_HEIGHT);
+							optUIScale.setRect(0,  新手提示.bottom()+GAP, width, BTN_HEIGHT);
 							
 							resize(WIDTH_P, (int) optUIScale.bottom());
 						}

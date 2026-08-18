@@ -71,7 +71,7 @@ public class 算法 {
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
     * */
-    public static String 日期="8.17/20:45";
+    public static String 日期="8.18/13:35";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -126,52 +126,57 @@ public class 算法 {
         } else {
             val = x;
         }
+        try{
+            float absVal=Math.abs(val);
+            // 用字符串构造 BigDecimal，避免二进制浮点误差
+            BigDecimal bd=new BigDecimal(Float.toString(absVal));
+            BigDecimal fracBD=bd.remainder(BigDecimal.ONE); // 小数部分
 
-        float absVal = Math.abs(val);
-        // 用字符串构造 BigDecimal，避免二进制浮点误差
-        BigDecimal bd = new BigDecimal(Float.toString(absVal));
-        BigDecimal fracBD = bd.remainder(BigDecimal.ONE); // 小数部分
+            int scale=2;
+            int digits=x2;
 
-        int scale=2;
-        int digits = x2;
-
-        if (digits == 0) {
-            scale = 0;
-        } else if (digits == 1) {
-            if(SPDSettings.四舍五入()){
-                // 整数 或 小数 ≥0.5 → 舍入到整数，否则保留一位小数
-                if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
-                    scale=0;
-                }else{
-                    scale=1;
-                }
-            }else{
-                scale=1;
-            }
-        } else if (digits == 2){
-            if(SPDSettings.四舍五入()){
-                // 整数 或 小数 ≥0.5 → 整数
-                if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
-                    scale=0;
-                }else
-                    if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
-                        scale=1;          // 小数 ≥0.05 → 保留一位
+            if(digits==0){
+                scale=0;
+            }else
+                if(digits==1){
+                    if(SPDSettings.四舍五入()){
+                        // 整数 或 小数 ≥0.5 → 舍入到整数，否则保留一位小数
+                        if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
+                            scale=0;
+                        }else{
+                            scale=1;
+                        }
                     }else{
-                        scale=2;          // 其他 → 保留两位
+                        scale=1;
                     }
-            }else{
-                scale=2;
+                }else
+                    if(digits==2){
+                        if(SPDSettings.四舍五入()){
+                            // 整数 或 小数 ≥0.5 → 整数
+                            if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
+                                scale=0;
+                            }else
+                                if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
+                                    scale=1;          // 小数 ≥0.05 → 保留一位
+                                }else{
+                                    scale=2;          // 其他 → 保留两位
+                                }
+                        }else{
+                            scale=2;
+                        }
+                    }
+
+            BigDecimal rounded=bd.setScale(scale,RoundingMode.HALF_UP);
+            String formatted=rounded.toString();
+
+            // 处理符号
+            if(val<0){
+                formatted="-"+formatted;
             }
+            return formatted+suffix;
+        }catch(Exception e){
         }
-
-        BigDecimal rounded = bd.setScale(scale,RoundingMode.HALF_UP);
-        String formatted = rounded.toString();
-
-        // 处理符号
-        if (val < 0) {
-            formatted = "-" + formatted;
-        }
-        return formatted + suffix;
+        return x+"";
     }
     public static Item 物品(){
         return 物品(SPDSettings.customSeed().replaceAll("调试", ""));

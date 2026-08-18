@@ -101,14 +101,7 @@ public class TalismanOfForesight extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		if ( isEquipped( Dungeon.hero ) ){
-			if (!cursed) {
 				desc += "\n\n" + Messages.get(this, "desc_worn");
-
-			} else {
-				desc += "\n\n" + Messages.get(this, "desc_cursed");
-			}
-		}
 
 		return desc;
 	}

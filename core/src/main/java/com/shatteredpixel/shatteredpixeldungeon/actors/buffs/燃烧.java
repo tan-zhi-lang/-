@@ -13,8 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ElmoParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.ChargrilledMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
@@ -160,21 +158,9 @@ public class 燃烧 extends Buff implements Hero.Doom {
 	}
 	
 	public void reignite( Char ch, float duration ) {
-		if (ch.免疫(燃烧.class)){
-			if (ch.glyphLevel(Brimstone.class) >= 0){
-				//generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
-				float shieldChance = 2*(Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);
-				float shieldCap = Math.round(shieldChance*4f);
-				float shieldGain = (int)shieldChance;
-				if (Random.Float() < shieldChance%1) shieldGain++;
-				if (shieldCap > 0 && shieldGain > 0){
-					护盾 护盾= Buff.施加(ch,护盾.class);
-					if (护盾.护盾量()<shieldCap){
-						护盾.增加(Math.min(shieldGain,shieldCap-护盾.护盾量()));
-					}
-				}
-			}
-		}
+		if (ch.免疫(燃烧.class))
+			return;
+
 		if (left < duration) left = duration;
 		acted = false;
 	}

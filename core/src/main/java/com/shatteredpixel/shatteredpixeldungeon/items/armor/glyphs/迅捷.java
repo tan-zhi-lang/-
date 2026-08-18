@@ -9,11 +9,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
-public class Swiftness extends Armor.Glyph {
-
-	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF00 );
+public class 迅捷 extends Armor.Glyph {
 
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
@@ -39,16 +36,15 @@ public class Swiftness extends Armor.Glyph {
 			return 1;
 		} else {
 			if (owner.sprite != null){
-				int particles = 1 + (int)Random.Float(1+level/5f);
-				owner.sprite.emitter().startDelayed(Speck.factory(Speck.YELLOW_LIGHT),0.02f,particles,0.05f);
+				owner.sprite.emitter().startDelayed(Speck.factory(Speck.YELLOW_LIGHT),0.02f,5,0.05f);
 			}
-			return (1.2f + 0.04f * level) * genericProcChanceMultiplier(owner);
+			return 1.15f * genericProcChanceMultiplier(owner);
 		}
 	}
 
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return YELLOW;
+		return 黄;
 	}
 
 }

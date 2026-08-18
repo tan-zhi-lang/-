@@ -4,7 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 
@@ -18,7 +18,7 @@ public class MagicImmune extends FlavourBuff {
 	}
 	
 	{
-		immunities.addAll(AntiMagic.RESISTS);
+		immunities.addAll(敌法.RESISTS);
 	}
 
 	@Override

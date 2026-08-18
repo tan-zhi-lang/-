@@ -41,6 +41,7 @@ public class 灵魂焰灯 extends Artifact {
 		image = 物品表.灵魂焰灯;
 		defaultAction=AC_PRICK;
 		levelCap = 3;
+		增强方式="用此击杀敌人";
 		charge = Math.min(2+2*等级(),6);
 		partialCharge = 0;
 		chargeCap = Math.min(2+2*等级(),6);
@@ -309,16 +310,8 @@ public class 灵魂焰灯 extends Artifact {
 	
 	@Override
 	public String desc() {
-		String desc = "";
-
-			desc += "\n\n";
-			if (cursed)
-				desc += Messages.get(this, "desc_cursed");
-
-			desc += Messages.get(this, "desc",魔力(0.3f,0.1f)
-						,魔力(1.2f,0.2f));
-
-		return desc;
+		return  Messages.get(this, "desc",魔力(0.3f,0.1f)
+						,魔力(1.2f,0.2f))+stas();
 	}
 
 	public class 燃烧 extends ArtifactBuff {

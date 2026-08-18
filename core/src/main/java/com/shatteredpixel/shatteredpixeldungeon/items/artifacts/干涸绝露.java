@@ -191,15 +191,6 @@ public class 干涸绝露 extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		if ( isEquipped( Dungeon.hero ) ){
-			if (!cursed) {
-				if (等级() < levelCap)
-					desc += "\n\n" +Messages.get(this, "desc_hint");
-			} else {
-				desc += "\n\n" +Messages.get(this, "desc_cursed");
-			}
-		}
-
 		return desc;
 	}
 
@@ -289,8 +280,6 @@ public class 干涸绝露 extends Artifact {
 				partialCharge = 0;
 			}
 
-			if (cooldown > 0)
-				cooldown --;
 
 			updateQuickslot();
 

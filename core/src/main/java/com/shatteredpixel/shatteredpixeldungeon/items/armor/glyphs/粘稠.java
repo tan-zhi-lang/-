@@ -12,21 +12,18 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor.Glyph;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 
-public class Viscosity extends Glyph {
-	
-	private static ItemSprite.Glowing PURPLE = new ItemSprite.Glowing( 0x8844CC );
-	
+public class 粘稠 extends Glyph {
+
 	@Override
 	public float proc( Armor armor, Char attacker, Char defender, float damage ) {
 		if(defender!=null){
 			//we use a tracker so that this glyph can apply after armor
-			Buff.施加(defender,ViscosityTracker.class).level=armor.强化等级();
+			Buff.施加(defender,ViscosityTracker.class);
 		}
 		return damage;
 		
@@ -34,7 +31,7 @@ public class Viscosity extends Glyph {
 
 	@Override
 	public Glowing glowing() {
-		return PURPLE;
+		return 粉;
 	}
 
 	public static class ViscosityTracker extends Buff {
@@ -43,7 +40,6 @@ public class Viscosity extends Glyph {
 			actPriority = Actor.VFX_PRIO;
 		}
 
-		private float level = 0;
 
 		public float deferDamage(float dmg){
 			//account for icon stomach (just skip the glyph)
@@ -51,24 +47,16 @@ public class Viscosity extends Glyph {
 				return dmg;
 			}
 
-			float level = Math.max( 0, this.level );
+			float percent = 0.3f*genericProcChanceMultiplier(target);
 
-			float percent = (level+1)/(level+6);
-			percent *= genericProcChanceMultiplier(target);
+			float amount= dmg * percent;
 
-			float amount;
-			if (percent > 1f){
-				dmg = Math.round(dmg / percent);
-				amount = dmg;
-			} else {
-				amount = (int)Math.ceil(dmg * percent);
-			}
 
 			if (amount > 0){
 				DeferedDamage deferred = Buff.施加( target, DeferedDamage.class );
 				deferred.extend( amount );
 
-				target.sprite.showStatus(CharSprite.警告橙,Messages.get(Viscosity.class,"deferred",amount));
+				target.sprite.showStatus(CharSprite.警告橙,Messages.get(粘稠.class,"deferred",amount));
 			}
 
 			return dmg - amount;

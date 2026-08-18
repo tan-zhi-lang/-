@@ -1,35 +1,28 @@
 
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
 
-public class Polarized extends Weapon.Enchantment {
-	
-	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
-	
+public class 极化 extends Weapon.Enchantment {
+
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 
-		float procChance = 1/2f * procChanceMultiplier(attacker);
-		if (Random.Float() < procChance) {
-			return Math.round(1.5f*damage);
+		if (Random.Float() < 1/2f) {
+			return 2*damage* procChanceMultiplier(attacker);
 		} else {
 			return 0;
 		}
 		
 	}
-	
-	@Override
-	public boolean curse() {
-		return true;
-	}
+
 	
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return BLACK;
+		return 黑;
 	}
 }

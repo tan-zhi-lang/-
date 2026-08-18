@@ -19,7 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.法态穿透;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
@@ -79,7 +79,7 @@ public class RingOfElements extends Ring {
 		RESISTS.add( Paralysis.class );//麻痹
 		RESISTS.add( Electricity.class );//电
 
-		RESISTS.addAll( AntiMagic.RESISTS );
+		RESISTS.addAll(敌法.RESISTS);
 	}
 	
 	public static float resist( Char target, Class effect ){

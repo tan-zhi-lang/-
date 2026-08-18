@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -250,7 +251,9 @@ public class Ring extends KindofMisc {
 	public Item 升级() {
 		super.升级();
 
-		cursed = false;
+		if (Random.Int(3)==0) {
+			cursed = false;
+		}
 		
 		return this;
 	}
@@ -411,8 +414,15 @@ public class Ring extends KindofMisc {
 		return lvl;
 	}
 
-	public static int getBonus(Char target, Class<?extends RingBuff> type){
-		if (target.buff(MagicImmune.class) != null) return 0;
+	@Override
+	public int 等级(){
+		if(Dungeon.hero())
+		if (Dungeon.hero.buff(MagicImmune.class)==null&&cursed) return 0;
+
+		return super.等级();
+	}
+
+	public static int getBonus(Char target,Class<?extends RingBuff> type){
 		int bonus = 0;
 		for (RingBuff buff : target.buffs(type)) {
 			bonus += buff.level();
@@ -421,7 +431,6 @@ public class Ring extends KindofMisc {
 	}
 
 	public static int getBuffedBonus(Char target, Class<?extends RingBuff> type){
-		if (target.buff(MagicImmune.class) != null) return 0;
 		int bonus = 0;
 		for (RingBuff buff : target.buffs(type)) {
 			bonus += buff.buffedLvl();
@@ -431,20 +440,12 @@ public class Ring extends KindofMisc {
 
 	//just used for ring descriptions
 	public int soloBonus(){
-		if (cursed){
-			return Math.min( 0, 新等级(Ring.this.等级())-5 );
-		} else {
-			return 新等级(Ring.this.等级()+1);
-		}
+		return 新等级(Ring.this.等级()+1);
 	}
 
 	//just used for ring descriptions
 	public int soloBuffedBonus(){
-		if (cursed){
-			return Math.min( 0, 新等级(Ring.this.强化等级())-6 );
-		} else {
 			return 新等级(Ring.this.强化等级()+1);
-		}
 	}
 	public static int 新等级(int x){
 		return x;

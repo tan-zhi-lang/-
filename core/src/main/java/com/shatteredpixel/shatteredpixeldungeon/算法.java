@@ -71,7 +71,7 @@ public class 算法 {
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
     * */
-    public static String 日期="8.18/13:35";
+    public static String 日期="8.18/19:59";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -140,7 +140,7 @@ public class 算法 {
             }else
                 if(digits==1){
                     if(SPDSettings.四舍五入()){
-                        // 整数 或 小数 ≥0.5 → 舍入到整数，否则保留一位小数
+                        // 整数 或 小数 ≥0.5 -> 舍入到整数，否则保留一位小数
                         if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
                             scale=0;
                         }else{
@@ -152,14 +152,14 @@ public class 算法 {
                 }else
                     if(digits==2){
                         if(SPDSettings.四舍五入()){
-                            // 整数 或 小数 ≥0.5 → 整数
+                            // 整数 或 小数 ≥0.5 -> 整数
                             if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
                                 scale=0;
                             }else
                                 if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
-                                    scale=1;          // 小数 ≥0.05 → 保留一位
+                                    scale=1;          // 小数 ≥0.05 -> 保留一位
                                 }else{
-                                    scale=2;          // 其他 → 保留两位
+                                    scale=2;          // 其他 -> 保留两位
                                 }
                         }else{
                             scale=2;

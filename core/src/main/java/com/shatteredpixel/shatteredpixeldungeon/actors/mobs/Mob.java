@@ -75,7 +75,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.干枯玫瑰;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.灵魂焰灯;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
@@ -114,8 +113,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
@@ -1059,7 +1058,7 @@ public abstract class Mob extends Char{
 			dmg*=1+buff(机体解构层数.class).count*Dungeon.hero.天赋点数(Talent.机体解构,0.03f);
 		}
 		if(Dungeon.符文("收集者")&&生命<=最大生命(0.05f))
-			Buff.施加(this, Grim.GrimTracker.class).maxChance = 100f;
+			Buff.施加(this, 死神.GrimTracker.class).maxChance = 100f;
 
 		if(Dungeon.符文("你肩上的恶魔"))dmg*=1.25f;
 		super.受伤时(dmg,来源);
@@ -1177,12 +1176,8 @@ public abstract class Mob extends Char{
 		}else{
 			rollToDropLoot();
 		}
-		boolean 可以=true;
-		if(Dungeon.hero())
-			if (Dungeon.hero.buff(灵魂焰灯.燃烧.class)!=null)
-				if(Dungeon.hero.buff(灵魂焰灯.燃烧.class).isCursed()) 可以=false;
 
-		if(可以&&防刷()){
+		if(防刷()){
 			if(来源==Dungeon.hero||来源 instanceof 魔攻之戒||
 			   来源 instanceof Artifact||来源 instanceof Wand||
 			   来源 instanceof Weapon||来源 instanceof Weapon.Enchantment||
@@ -1560,7 +1555,7 @@ public abstract class Mob extends Char{
 				}
 			}
 			//ring of wealth logic
-			if(Ring.getBuffedBonus(Dungeon.hero,财富之戒.Wealth.class)>0){
+			if(财富之戒.getBuffedBonus(Dungeon.hero,财富之戒.Wealth.class)>0){
 				int rolls=1;
 				if(properties().contains(Property.BOSS)){
 					rolls=15;
@@ -1581,9 +1576,9 @@ public abstract class Mob extends Char{
 			}
 
 			//lucky enchant logic
-			if(buff(Lucky.LuckProc.class)!=null){
-				Dungeon.level.drop(buff(Lucky.LuckProc.class).genLoot(),pos).sprite().drop();
-				Lucky.showFlare(sprite);
+			if(buff(幸运.LuckProc.class)!=null){
+				Dungeon.level.drop(buff(幸运.LuckProc.class).genLoot(),pos).sprite().drop();
+				幸运.showFlare(sprite);
 			}
 
 	}

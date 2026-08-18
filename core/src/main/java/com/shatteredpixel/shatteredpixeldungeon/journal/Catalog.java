@@ -244,15 +244,10 @@ public enum Catalog {
 					   魔披.class
 					   );
 
-		ENCHANTMENTS.addItems(Weapon.Enchantment.common);
-		ENCHANTMENTS.addItems(Weapon.Enchantment.uncommon);
-		ENCHANTMENTS.addItems(Weapon.Enchantment.rare);
-		ENCHANTMENTS.addItems(Weapon.Enchantment.curses);
+		ENCHANTMENTS.addItems(Weapon.Enchantment.all);
 
-		GLYPHS.addItems(Armor.Glyph.common);
-		GLYPHS.addItems(Armor.Glyph.uncommon);
-		GLYPHS.addItems(Armor.Glyph.rare);
-		GLYPHS.addItems(Armor.Glyph.curses);
+
+		GLYPHS.addItems(Armor.Glyph.all);
 
 		WANDS.addItems(Generator.Category.WAND.classes);
 

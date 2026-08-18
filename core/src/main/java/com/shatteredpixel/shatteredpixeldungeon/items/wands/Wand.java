@@ -139,7 +139,10 @@ public abstract class Wand extends Item {
 
 		魔力收益+=x;
 		等收益+=x;
-
+		if(cursed){
+			魔力收益/=2f;
+			等收益/=2f;
+		}
 		if(Dungeon.hero())
 		return Dungeon.hero.魔力(魔力收益+等收益*等级);
 		else
@@ -372,7 +375,9 @@ public abstract class Wand extends Item {
 
 		super.升级();
 
-		cursed = false;
+		if (Random.Int(3) == 0) {
+			cursed = false;
+		}
 
 		if(this instanceof 技能 x){
 			maxCharges = initialCharges() - 等级()*x.充能;

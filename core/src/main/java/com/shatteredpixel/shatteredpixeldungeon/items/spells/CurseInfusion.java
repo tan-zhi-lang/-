@@ -44,28 +44,14 @@ public class CurseInfusion extends InventorySpell {
 		item.cursed = true;
 		if (item instanceof Weapon) {
 			Weapon w = (Weapon) item;
-			if (w.enchantment != null) {
-				//if we are freshly applying curse infusion, don't replace an existing curse
-				if (w.hasGoodEnchant() || w.curseInfusionBonus) {
-					w.enchant(Weapon.Enchantment.randomCurse(w.enchantment.getClass()));
-				}
-			} else {
-				w.enchant(Weapon.Enchantment.randomCurse());
-			}
+			w.cursed=true;
 			w.curseInfusionBonus = true;
 			if (w instanceof 法师魔杖){
 				((法师魔杖) w).updateWand();
 			}
 		} else if (item instanceof Armor){
 			Armor a = (Armor) item;
-			if (a.glyph != null){
-				//if we are freshly applying curse infusion, don't replace an existing curse
-				if (a.hasGoodGlyph() || a.curseInfusionBonus) {
-					a.inscribe(Armor.Glyph.randomCurse(a.glyph.getClass()));
-				}
-			} else {
-				a.inscribe(Armor.Glyph.randomCurse());
-			}
+			a.cursed=true;
 			a.curseInfusionBonus = true;
 		} else if (item instanceof Wand){
 			((Wand) item).curseInfusionBonus = true;

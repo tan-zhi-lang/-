@@ -26,7 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -448,11 +448,11 @@ public abstract class YogFist extends Mob {
 
 		@Override
 		public void 受伤时(float dmg, Object 来源) {
-			if (!是无敌(来源.getClass())&&!(来源 instanceof Viscosity.DeferedDamage)){
+			if (!是无敌(来源.getClass())&&!(来源 instanceof 粘稠.DeferedDamage)){
 				dmg = Math.round( dmg * resist(来源.getClass()));
 				if (dmg >= 0) {
-					Buff.施加(this, Viscosity.DeferedDamage.class).extend(dmg);
-					sprite.showStatus(CharSprite.警告橙,Messages.get(Viscosity.class,"deferred",dmg));
+					Buff.施加(this, 粘稠.DeferedDamage.class).extend(dmg);
+					sprite.showStatus(CharSprite.警告橙,Messages.get(粘稠.class,"deferred",dmg));
 				}
 			} else{
 				super.受伤时(dmg,来源);

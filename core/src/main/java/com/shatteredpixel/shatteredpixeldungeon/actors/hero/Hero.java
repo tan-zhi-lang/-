@@ -193,15 +193,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
+import com.shatteredpixel.shatteredpixeldungeon.items.Stylus;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Stone;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.忍服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
@@ -347,9 +346,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.防御力;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.风斩电刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
@@ -3565,9 +3564,6 @@ public class Hero extends Char {
             str+=Dungeon.gold*0.08f;
         }
 
-        if(hasbuff(九龙拉管.力量.class)&&buff(九龙拉管.力量.class).isCursed())
-            str-=buff(九龙拉管.力量.class).itemLevel();
-
         str+=天赋点数(Talent.健身);
         str+=天赋点数(Talent.天才,0.5f);
 
@@ -4467,6 +4463,16 @@ public class Hero extends Char {
             }
             if(未惊醒)x*=1+天赋点数(Talent.无声突袭,0.2f);
         }
+
+        if (belongings.weapon1()!=null&&target!=null) {
+            x*=belongings.weapon1().accuracyFactor(this, target);
+            if(belongings.weapon1().双手()&&belongings.weapon2()!=null)
+                x*=0.8f;
+        }
+        if (belongings.weapon2()!=null&&target!=null) {
+            x*=belongings.weapon2().accuracyFactor(this, target);
+        }
+
         return x;
     }
     @Override
@@ -4523,14 +4529,6 @@ public class Hero extends Char {
 //            accuracy *= 1.50f;
 //        }
 
-        if (belongings.weapon1()!=null&&target!=null) {
-            accuracy*=belongings.weapon1().accuracyFactor(this, target);
-            if(belongings.weapon1().双手()&&belongings.weapon2()!=null)
-                accuracy*=0.8f;
-        }
-        if (belongings.weapon2()!=null&&target!=null) {
-            accuracy*=belongings.weapon2().accuracyFactor(this, target);
-        }
 
         命中get=accuracy;
         return Math.max(1, Math.round(accuracy));
@@ -4573,6 +4571,12 @@ public class Hero extends Char {
         x*=1+天赋点数(Talent.舞动身法,0.04f);
         x*=1+天赋点数(Talent.躲避,0.0833f);
         if(hasbuff(幽灵保护.class)) x*=1.3f;
+        if (belongings.armor1() != null) {
+            x = belongings.armor1().evasionFactor(this, x);
+        }
+        if (belongings.armor2() != null) {
+            x = belongings.armor2().evasionFactor(this, x);
+        }
         return x;
     }
     @Override
@@ -4617,20 +4621,6 @@ public class Hero extends Char {
         }
         evasion*=evasionx*增加闪避(enemy);
 
-        if (belongings.armor1() != null) {
-            evasion = belongings.armor1().evasionFactor(this, evasion);
-        }
-        if (belongings.armor2() != null) {
-            evasion = belongings.armor2().evasionFactor(this, evasion);
-        }
-        //stone specifically overrides to 0 always, guaranteed hit
-        if (belongings.armor1() != null&&belongings.armor1().hasGlyph(Stone.class, this) && !Stone.testingEvasion()){
-            evasion=0;
-        }
-        //stone specifically overrides to 0 always, guaranteed hit
-        if (belongings.armor2() != null&&belongings.armor2().hasGlyph(Stone.class, this) && !Stone.testingEvasion()){
-            evasion=0;
-        }
         命中get=evasion;
         return Math.max(1, Math.round(evasion));
     }
@@ -5129,7 +5119,7 @@ public class Hero extends Char {
                     dmg+=freezing.volume*天赋点数(Talent.冰魄成剑,0.1f);
             }
 
-
+        if(空手())
         for(Item i: belongings.backpack){
             if(i instanceof Ring r &&r.isEquipped(hero))
                 dmg++;
@@ -5747,6 +5737,7 @@ public class Hero extends Char {
             immunes.add(Chill.class);
         }
         if (subClass(HeroSubClass.冰魄剑神)
+       		||glyphLevel(位素.class)>=0
             ||belongings.weapon(寒冰镖.class)
             ||英精英雄==6) {
             immunes.add(Chill.class);
@@ -5769,7 +5760,6 @@ public class Hero extends Char {
             immunes.add(WandOfLightning.class);
             immunes.add(潮霆法杖.class);
             immunes.add(Shocking.class);
-            immunes.add(Potential.class);
             immunes.add(Electricity.class);
             immunes.add(ShockingDart.class);
             immunes.add(Elemental.ShockElemental.class);
@@ -5779,11 +5769,8 @@ public class Hero extends Char {
         }
 
         if (belongings.armor(法袍.class)||
-            glyphLevel(Brimstone.class) >= 0||
+            glyphLevel(位素.class)>=0||
             (belongings.weapon(下界合金剑.class))) {
-            immunes.add(Fire.class);
-            immunes.add(火毒.class);
-            immunes.add(灵焰.class);
             immunes.add(燃烧.class);
         }
 
@@ -6247,7 +6234,7 @@ public class Hero extends Char {
                 Char c= Actor.findChar(pos+n);
                 if(c!=null&&c.alignment == Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
                     if(移速()>=c.移速()*3||大小>=c.大小*1.5f)
-                    Buff.施加(c, Grim.GrimTracker.class).maxChance = 100f;
+                    Buff.施加(c, 死神.GrimTracker.class).maxChance = 100f;
                 }
             }
         }
@@ -6773,13 +6760,7 @@ public class Hero extends Char {
         if (Dungeon.level.距离(dst,pos)<=1) {
 
             ready();
-
-            AlchemistsToolkit.kitEnergy kit = buff(AlchemistsToolkit.kitEnergy.class);
-            if (kit != null && kit.isCursed()) {
-                GLog.橙(Messages.get(AlchemistsToolkit.class,"cursed"));
-                return false;
-            }
-
+            //允许炼金
             AlchemyScene.clearToolkit();
             ShatteredPixelDungeon.switchScene(AlchemyScene.class);
             return false;
@@ -6895,6 +6876,7 @@ public class Hero extends Char {
            item instanceof 时光沙漏.sandBag||
            item instanceof DriedRose.Petal||
            item instanceof Dewdrop||
+           item instanceof Stylus||
            item instanceof Guidebook
         )
             ok=true;
@@ -7863,13 +7845,13 @@ public class Hero extends Char {
         if(天赋(Talent.响破云霄))
             damage+=最大防御()*天赋点数(Talent.响破云霄,0.35f);
 
-        if (buff(Kinetic.ConservedDamage.class) != null) {
+        if (buff(恒动.ConservedDamage.class)!=null) {
             float conservedDamage = 0;
-            conservedDamage = buff(Kinetic.ConservedDamage.class).damageBonus();
+            conservedDamage = buff(恒动.ConservedDamage.class).damageBonus();
             if(enemy!=null){
-                buff(Kinetic.ConservedDamage.class).detach();
+                buff(恒动.ConservedDamage.class).detach();
                 //use a tracker so that we can know the true final damage
-                Buff.施加(this,Kinetic.KineticTracker.class).conservedDamage=conservedDamage;
+                Buff.施加(this,恒动.KineticTracker.class).conservedDamage=conservedDamage;
             }
             damage+= conservedDamage;
         }
@@ -8155,7 +8137,7 @@ public class Hero extends Char {
                (符文("即死")?
                         enemy.最大生命(0.25f):0)
                +(符文("飞身踢")?最大生命(0.2f):0))
-                Buff.施加(enemy,Grim.GrimTracker.class).maxChance = 100f;
+                Buff.施加(enemy,死神.GrimTracker.class).maxChance = 100f;
         }
 
         if(enemy!=null&&符文("连锁闪电")){
@@ -8170,7 +8152,7 @@ public class Hero extends Char {
             Buff.延长(enemy,Paralysis.class,3);
 
         if(enemy!=null&&符文("我开挂了"))
-            Buff.施加(enemy,Grim.GrimTracker.class).maxChance = 100f;
+            Buff.施加(enemy,死神.GrimTracker.class).maxChance = 100f;
 
         if (enemy!=null&&subClass==HeroSubClass.征服者) {
             Buff.施加(this, 征服.class).叠层(攻击效果());
@@ -8253,7 +8235,7 @@ public class Hero extends Char {
                 触发=true;
             }
             if(enemy.pos==pos+PathFinder.八卦死门){
-                Buff.施加(enemy,Grim.GrimTracker.class).maxChance=100f;
+                Buff.施加(enemy,死神.GrimTracker.class).maxChance=100f;
                 sprite.绿说("死门");
                 触发=true;
             }
@@ -8778,6 +8760,16 @@ public class Hero extends Char {
             return super.glyphLevel(cls);
         }
     }
+    @Override
+    public int enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
+        if (belongings.weapon1() != null && belongings.weapon1().hasEnchant(cls, this)) {
+            return Math.max(super.enchantmentlevel(cls), belongings.weapon.强化等级());
+        }else if (belongings.weapon2() != null && belongings.weapon2().hasEnchant(cls, this)) {
+            return Math.max(super.enchantmentlevel(cls), belongings.secondWep.强化等级());
+        } else {
+            return super.enchantmentlevel(cls);
+        }
+    }
 
     @Override
     public void 受伤时(float dmg, Object 来源) {
@@ -8792,7 +8784,7 @@ public class Hero extends Char {
         }
         //regular damage interrupt, triggers on any damage except specific mild DOT effects
         // unless the player recently hit 'continue moving', in which case this is ignored
-        if (!(来源 instanceof Hunger||来源 instanceof Viscosity.DeferedDamage)&&damageInterrupt) {
+        if (!(来源 instanceof Hunger||来源 instanceof 粘稠.DeferedDamage)&&damageInterrupt) {
             if(dmg>最大生命(SPDSettings.受伤打断()*0.15f)){
                 Sample.INSTANCE.play(Assets.Sounds.HEALTH_CRITICAL,1);
                 interrupt();
@@ -9583,7 +9575,7 @@ public class Hero extends Char {
                 new 海克斯秘卷().放背包();
                 new 海克斯秘卷().放背包();
             }
-            GLog2.黄("点击:依次左上角英雄图标→星星图标页面→学习天赋");
+            GLog2.黄("点击:依次左上角英雄图标->星星图标页面->学习天赋");
             if (sprite != null) {
                 GLog.newLine();
                 GLog.绿(Messages.get(this,"new_level"));
@@ -10009,12 +10001,8 @@ public class Hero extends Char {
             int door = Dungeon.level.map[doorCell];
             骷髅钥匙.keyRecharge skele = buff(骷髅钥匙.keyRecharge.class);
             骷髅钥匙.KeyReplacementTracker keyUseTrack = buff(骷髅钥匙.KeyReplacementTracker.class);
-            
-            if (skele != null && skele.isCursed() && Random.Int(6) != 0){
-                GLog.红(Messages.get(this,"key_distracted"));
-                spendAndNext(2*Key.TIME_TO_UNLOCK);
-//                Buff.施加(this, Hunger.class).吃饭(-4);
-            } else if (Dungeon.level.距离(pos,doorCell)<=1) {
+            //允许开锁
+            if (Dungeon.level.距离(pos,doorCell)<=1) {
                 boolean hasKey = true;
                 if (door == Terrain.LOCKED_DOOR) {
                     hasKey = Notes.remove(new IronKey(Dungeon.depth));
@@ -10056,18 +10044,12 @@ public class Hero extends Char {
         } else if (curAction instanceof HeroAction.OpenChest) {
 
             Heap heap = Dungeon.level.heaps.get(((HeroAction.OpenChest) curAction).dst);
-            
+
             骷髅钥匙.keyRecharge skele = buff(骷髅钥匙.keyRecharge.class);
             骷髅钥匙.KeyReplacementTracker keyUseTrack = buff(骷髅钥匙.KeyReplacementTracker.class);
             
-            
-            if (skele != null && skele.isCursed()
-                && (heap.type == Type.LOCKED_CHEST || heap.type == Type.CRYSTAL_CHEST)
-                && Random.Int(6) != 0){
-                GLog.红(Messages.get(this,"key_distracted"));
-                spend(2*Key.TIME_TO_UNLOCK);
-//                Buff.施加(this, Hunger.class).吃饭(-4);
-            } else if (Dungeon.level.距离(pos,heap.pos)<=1){
+            //允许开锁
+            if (Dungeon.level.距离(pos,heap.pos)<=1){
                 boolean hasKey = true;
                 if (heap.type == Type.SKELETON || heap.type == Type.REMAINS) {
                     Sample.INSTANCE.play(Assets.Sounds.BONES);
@@ -10247,7 +10229,7 @@ public class Hero extends Char {
         Point c = Dungeon.level.cellToPoint(pos);
 
         TalismanOfForesight.Foresight talisman = buff(TalismanOfForesight.Foresight.class);
-        boolean cursed = talisman != null && talisman.isCursed();
+
 
         int[] rounding = ShadowCaster.rounding[distance];
 
@@ -10327,10 +10309,6 @@ public class Hero extends Char {
                             chance = 1f;
 
                             //unintentional searches always fail with a cursed talisman
-                        } else if (cursed) {
-                            chance = 0f;
-
-                            //unintentional trap detection scales from 40% at floor 0 to 30% at floor 25
                         } else if (Dungeon.level.map[curr] == Terrain.SECRET_TRAP) {
                             chance = 0.4f - (Dungeon.depth / 250f);
 
@@ -10373,12 +10351,7 @@ public class Hero extends Char {
             float x=1;
             sprite.showStatus(CharSprite.默认白,Messages.get(this,"search"));
             sprite.operate(pos);
-            if (!Dungeon.level.locked) {
-                if (cursed) {
-                    x*=2;
-                    GLog.红(Messages.get(this,"search_distracted"));
-                }
-            }
+
             if(subClass(HeroSubClass.神偷无影)){
                 x*=1-0.25f;
                 if(职业精通())x*=0.75f;

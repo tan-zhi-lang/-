@@ -237,9 +237,6 @@ public class CloakOfShadows extends Artifact {
 				partialCharge = 0;
 			}
 
-			if (cooldown > 0)
-				cooldown --;
-
 			updateQuickslot();
 
 			spend( TICK );

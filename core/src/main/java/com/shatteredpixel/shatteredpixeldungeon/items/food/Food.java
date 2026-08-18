@@ -105,11 +105,6 @@ public class Food extends Item {
 	
 	protected void satisfy( Hero hero ){
 		float foodVal = energy;
-		Artifact.ArtifactBuff buff = hero.buff( HornOfPlenty.hornRecharge.class );
-		if (buff != null && buff.isCursed()){
-			foodVal *= 0.67f;
-			GLog.红(Messages.get(Hunger.class,"cursedhorn"));
-		}
 
 		Buff.施加(hero, Hunger.class).吃饭(foodVal);
 	}

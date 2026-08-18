@@ -15,9 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.ItemStatusHandler;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfAntiMagic;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfBlink;
@@ -169,11 +167,7 @@ public abstract class Scroll extends Item {
 				GLog.橙(Messages.get(this,"no_magic"));
 			} else if (hero.buff( Blindness.class ) != null) {
 				GLog.橙(Messages.get(this,"blinded"));
-			} else if (hero.buff(UnstableSpellbook.bookRecharge.class) != null
-					&& hero.buff(UnstableSpellbook.bookRecharge.class).isCursed()
-					&& !(this instanceof 祛邪卷轴 || this instanceof ScrollOfAntiMagic)){
-				GLog.红(Messages.get(this,"cursed"));
-			} else {
+			}else {
 				doRead();
 			}
 			

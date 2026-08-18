@@ -227,7 +227,6 @@ public class 法师魔杖 extends Weapon{
 		if (wand.cursed && (!this.cursed || !this.hasCurseEnchant())){
 			equipCursed(Dungeon.hero);
 			this.cursed = this.cursedKnown = true;
-			enchant(Enchantment.randomCurse());
 		}
 
 		//This is necessary to reset any particles.

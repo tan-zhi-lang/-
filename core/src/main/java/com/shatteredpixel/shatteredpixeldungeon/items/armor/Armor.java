@@ -19,29 +19,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.AntiEntropy;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Corrosion;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Displacement;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Metabolism;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Multiplicity;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Overgrowth;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Stench;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.焦灼;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.虐待;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Affection;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Entanglement;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Flow;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Obfuscation;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Repulsion;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Stone;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Thorns;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.代谢;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐岩;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.荆棘;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.虐待;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迅捷;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
@@ -556,7 +542,7 @@ public class Armor extends EquipableItem {
 	public float evasionFactor( Char owner, float evasion ){
 		if (testingNoArmDefSkill) return evasion;
 		
-		if (hasGlyph(Stone.class, owner) && !Stone.testingEvasion()){
+		if (hasGlyph(磐岩.class,owner)){
 			return 0;
 		}
 		
@@ -566,7 +552,8 @@ public class Armor extends EquipableItem {
 			if (aEnc < 0) evasion *= 1-aEnc*owner.属性增幅()/2f;
 			
 		}
-		
+
+		if(cursed)evasion*=0.7f;
 		return augment.evasionFactor(evasion);
 	}
 	
@@ -577,7 +564,7 @@ public class Armor extends EquipableItem {
 			if (aEnc > 0) speed /= Math.pow(1.2, aEnc);
 			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅()/2f;
 		}
-		
+		if(cursed)speed*=0.7f;
 		return augment.speedFactor(speed);
 		
 	}
@@ -857,7 +844,6 @@ public class Armor extends EquipableItem {
 			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运机制();
 
 				if(effectRoll<0.3f/ParchmentScrap.curseChanceMultiplier()){
-					inscribe(Glyph.randomCurse());
 					cursed=true;
 				}else
 					if(effectRoll>=1f-(0.15f*ParchmentScrap.enchantChanceMultiplier())){
@@ -981,28 +967,21 @@ public class Armor extends EquipableItem {
 	}
 	
 	public static abstract class Glyph implements Bundlable {
-		
-		public static final Class<?>[] common = new Class<?>[]{
-				Obfuscation.class, Swiftness.class, Viscosity.class, Potential.class };
 
-		public static final Class<?>[] uncommon = new Class<?>[]{
-				Brimstone.class, Stone.class, Entanglement.class,
-				Repulsion.class, Camouflage.class, Flow.class };
-
-		public static final Class<?>[] rare = new Class<?>[]{
-				Affection.class, AntiMagic.class, Thorns.class };
-
-		public static final float[] typeChances = new float[]{
-				50, //12.5% each
-				40, //6.67% each
-				10  //3.33% each
+		public ItemSprite.Glowing 深红= new ItemSprite.Glowing(0xa6001c );
+		public ItemSprite.Glowing 黄= new ItemSprite.Glowing(0xFFFF00 );
+		public ItemSprite.Glowing 棕= new ItemSprite.Glowing(0x4d3d2e );
+		public ItemSprite.Glowing 青= new ItemSprite.Glowing(0x00feff );
+		public ItemSprite.Glowing 蓝= new ItemSprite.Glowing(0x0000FF );
+		public ItemSprite.Glowing 紫= new ItemSprite.Glowing(0x7828f );
+		public ItemSprite.Glowing 绿= new ItemSprite.Glowing(0x50ff60 );
+		public ItemSprite.Glowing 粉= new ItemSprite.Glowing(0xff4cd2 );
+		public static final Class<?>[] all = new Class<?>[]{
+				位素.class,荆棘.class,磐岩.class,
+				敌法.class,  虐待.class, 代谢.class,
+				粘稠.class,迅捷.class, 涌流.class
 		};
 
-		public static final Class<?>[] curses = new Class<?>[]{
-				AntiEntropy.class, Corrosion.class, Displacement.class, Metabolism.class,
-				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class, 虐待.class, 焦灼.class
-		};
-		
 		public abstract float proc( Armor armor, Char attacker, Char defender, float damage );
 
 		protected float procChanceMultiplier( Char defender ){
@@ -1047,19 +1026,12 @@ public class Armor extends EquipableItem {
 
 		@SuppressWarnings("unchecked")
 		public static Glyph random( Class<? extends Glyph> ... toIgnore ) {
-			switch(Random.chances(typeChances)){
-				case 0: default:
-					return randomCommon( toIgnore );
-				case 1:
-					return randomUncommon( toIgnore );
-				case 2:
-					return randomRare( toIgnore );
-			}
+				return randomAll( toIgnore );
 		}
 		
 		@SuppressWarnings("unchecked")
-		public static Glyph randomCommon( Class<? extends Glyph> ... toIgnore ){
-			ArrayList<Class<?>> glyphs = new ArrayList<>(Arrays.asList(common));
+		public static Glyph randomAll( Class<? extends Glyph> ... toIgnore ){
+			ArrayList<Class<?>> glyphs = new ArrayList<>(Arrays.asList(all));
 			glyphs.removeAll(Arrays.asList(toIgnore));
 			if (glyphs.isEmpty()) {
 				return random();
@@ -1067,39 +1039,8 @@ public class Armor extends EquipableItem {
 				return (Glyph) Reflection.newInstance(Random.element(glyphs));
 			}
 		}
-		
-		@SuppressWarnings("unchecked")
-		public static Glyph randomUncommon( Class<? extends Glyph> ... toIgnore ){
-			ArrayList<Class<?>> glyphs = new ArrayList<>(Arrays.asList(uncommon));
-			glyphs.removeAll(Arrays.asList(toIgnore));
-			if (glyphs.isEmpty()) {
-				return random();
-			} else {
-				return (Glyph) Reflection.newInstance(Random.element(glyphs));
-			}
-		}
-		
-		@SuppressWarnings("unchecked")
-		public static Glyph randomRare( Class<? extends Glyph> ... toIgnore ){
-			ArrayList<Class<?>> glyphs = new ArrayList<>(Arrays.asList(rare));
-			glyphs.removeAll(Arrays.asList(toIgnore));
-			if (glyphs.isEmpty()) {
-				return random();
-			} else {
-				return (Glyph) Reflection.newInstance(Random.element(glyphs));
-			}
-		}
-		
-		@SuppressWarnings("unchecked")
-		public static Glyph randomCurse( Class<? extends Glyph> ... toIgnore ){
-			ArrayList<Class<?>> glyphs = new ArrayList<>(Arrays.asList(curses));
-			glyphs.removeAll(Arrays.asList(toIgnore));
-			if (glyphs.isEmpty()) {
-				return random();
-			} else {
-				return (Glyph) Reflection.newInstance(Random.element(glyphs));
-			}
-		}
+
+
 		
 	}
 	

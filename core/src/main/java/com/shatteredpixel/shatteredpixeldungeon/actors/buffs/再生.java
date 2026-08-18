@@ -8,9 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -88,28 +85,11 @@ public class 再生 extends Buff {
 				再生数值+=1;
 
 			if(hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null){
-				if(hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
-					再生数值/=1.75f;
-				else{
-					if(hero.符文("升级蓄血圣杯")){
-						再生数值+=hero.已损失生命(0.0225f);
-					}
-					再生数值+=(0.133f+hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel()*0.0667f)*1.5f;
+				if(hero.符文("升级蓄血圣杯")){
+					再生数值+=hero.已损失生命(0.0225f);
 				}
+				再生数值+=(0.133f+hero.buff(ChaliceOfBlood.chaliceRegen.class).itemLevel()*0.0667f)*1.5f;
 			}
-			if(hero.buff(生命蜡烛.燃烧.class)!=null){
-				if(hero.buff(生命蜡烛.燃烧.class).isCursed())
-					再生数值/=1.75f;
-				else
-					再生数值+=(0.133f+hero.buff(生命蜡烛.燃烧.class).itemLevel()*0.0667f)*1.5f*能量之戒.artifactChargeMultiplier(hero);
-			}
-			if(hero.buff(虫箭.保护.class)!=null){
-				if(hero.buff(虫箭.保护.class).isCursed())
-					再生数值/=1.25f;
-				else
-					再生数值+=(0.133f+hero.buff(虫箭.保护.class).itemLevel()*0.0667f)/2f*能量之戒.artifactChargeMultiplier(hero);
-			}
-
 
 			//salt cube is turned off while regen is disabled.
 			if(hero.buff(LockedFloor.class)==null){

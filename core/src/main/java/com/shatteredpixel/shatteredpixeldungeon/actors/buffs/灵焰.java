@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.灵焰元素;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.位素;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -98,21 +98,9 @@ public class 灵焰 extends 燃烧 implements Hero.Doom {
 	}
 	
 	public void reignite( Char ch, float duration ) {
-		if (ch.免疫(灵焰.class)){
-			if (ch.glyphLevel(Brimstone.class) >= 0){
-				//generate avg of 1 shield per turn per 50% boost, to a max of 4x boost
-				float shieldChance = 2*(Armor.Glyph.genericProcChanceMultiplier(ch) - 1f);
-				float shieldCap = Math.round(shieldChance*4f);
-				float shieldGain = (int)shieldChance;
-				if (Random.Float() < shieldChance%1) shieldGain++;
-				if (shieldCap > 0 && shieldGain > 0){
-					护盾 护盾= Buff.施加(ch,护盾.class);
-					if (护盾.护盾量()<shieldCap){
-						护盾.增加(Math.min(shieldGain,shieldCap-护盾.护盾量()));
-					}
-				}
-			}
-		}
+		if (ch.免疫(灵焰.class))
+			return;
+
 		if (left < duration) left = duration;
 		acted = false;
 	}

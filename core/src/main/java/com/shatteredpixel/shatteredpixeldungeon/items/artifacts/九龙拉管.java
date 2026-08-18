@@ -173,17 +173,8 @@ public class 九龙拉管 extends Artifact {
 	
 	@Override
 	public String desc() {
-		String desc = "";
-
-		if (isEquipped (Dungeon.hero)){
-			desc += "\n\n";
-			if (cursed)
-				desc += Messages.get(this, "desc_cursed");
-			else
-				desc += Messages.get(this, "desc",(等级()+1)*3f,0.3f+(1+等级())*0.03f);
-		}
-
-		return desc;
+		return Messages.get(this, "desc",
+							(等级()+1)*3f,0.3f+(1+等级())*0.03f)+stas();
 	}
 
 	public class 力量 extends ArtifactBuff {

@@ -25,6 +25,7 @@ public class 干枯玫瑰 extends Artifact {
 		image = 物品表.ARTIFACT_ROSE1;
 		usesTargeting=false;
 		levelCap=10;
+		增强方式="幽灵攻击";
 	}
 	protected static final String AC_USE1 = "USE1";
 	protected static final String AC_USE2 = "USE2";

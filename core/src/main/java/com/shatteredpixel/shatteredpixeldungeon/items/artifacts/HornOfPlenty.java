@@ -40,6 +40,7 @@ public class HornOfPlenty extends Artifact {
 		image = 物品表.ARTIFACT_HORN1;
 
 		levelCap = 10;
+		增强方式="使用此收集食物";
 
 		charge = 0;
 		partialCharge = 0;
@@ -168,22 +169,7 @@ public class HornOfPlenty extends Artifact {
 			}
 		}
 	}
-	
-	@Override
-	public String desc() {
-		String desc = super.desc();
 
-		if ( isEquipped( Dungeon.hero ) ){
-			if (!cursed) {
-				if (等级() < levelCap)
-					desc += "\n\n" +Messages.get(this, "desc_hint");
-			} else {
-				desc += "\n\n" +Messages.get(this, "desc_cursed");
-			}
-		}
-
-		return desc;
-	}
 
 	@Override
 	public void 等级(int value) {

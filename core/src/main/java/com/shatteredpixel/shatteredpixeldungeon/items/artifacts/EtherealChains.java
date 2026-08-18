@@ -45,6 +45,7 @@ public class EtherealChains extends Artifact {
 		levelCap = 5;
 		exp = 0;
 
+		增强方式="获得经验";
 		charge = 5;
 
 		defaultAction = AC_CAST;
@@ -284,13 +285,8 @@ public class EtherealChains extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		if (isEquipped( Dungeon.hero )){
-			desc += "\n\n";
-			if (cursed)
-				desc += Messages.get(this, "desc_cursed");
-			else
 				desc += Messages.get(this, "desc_equipped");
-		}
+
 		return desc;
 	}
 

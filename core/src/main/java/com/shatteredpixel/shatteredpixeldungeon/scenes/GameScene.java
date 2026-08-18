@@ -519,7 +519,7 @@ public class GameScene extends PixelScene {
 			GLog.橙("背包又回去的道具。");
 		}
 
-		GLog2.黄("依次点击:右上角第2个图标→设置自己找相关设置一目了然");
+		GLog2.黄("依次点击:右上角第2个图标->设置自己找相关设置一目了然");
 
 
 		if (InterlevelScene.mode != InterlevelScene.Mode.NONE) {

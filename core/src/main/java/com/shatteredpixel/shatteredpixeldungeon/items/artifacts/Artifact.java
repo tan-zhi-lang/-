@@ -36,6 +36,23 @@ public class Artifact extends KindofMisc {
 
 	//used by some artifacts to keep track of duration of effects or cooldowns to use.
 	protected int cooldown = 0;
+	String 增强方式="使用此";
+	@Override
+	public String desc(){
+		String desc = super.desc();
+		return desc+stas();
+	}
+	public String stas(){
+		String stas = "";
+		if (isEquipped( Dungeon.hero )){
+			if (等级() < levelCap )
+				stas += "\n\n" + Messages.get(this, "desc_hint",增强方式);
+
+			if (cursed)
+				stas += "\n\n" + Messages.get(this, "desc_cursed");
+		}
+		return stas;
+	}
 
 	@Override
 	public boolean doEquip( final Hero hero ) {
@@ -118,6 +135,12 @@ public class Artifact extends KindofMisc {
 	public int 强化等级() {
 		//level isn't affected by buffs/debuffs
 		return 等级();
+	}
+
+	@Override
+	public int 等级(){
+		if(cursed)return 0;
+		return super.等级();
 	}
 
 	//transfers upgrades from another artifact, transfer level will equal the displayed level
@@ -236,6 +259,7 @@ public class Artifact extends KindofMisc {
 		}
 
 		public int itemLevel() {
+			if(target.buff(MagicImmune.class) == null &&cursed)return 0;
 			return 等级();
 		}
 

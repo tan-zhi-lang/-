@@ -17,20 +17,20 @@ public class 奥术之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   0.175f * soloBuffedBonus());
+									   0.12f * soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  0.175f*combinedBuffedBonus(Dungeon.hero));
+											  0.12f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 0.175f);
+			return Messages.get(this, "stats", 0.12f);
 		}
 	}
 	@Override
 	public String upgradeStat1(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return ""+(1+0.175f*level);
+		return ""+(1+0.12f*level);
 	}
 	@Override
 	protected RingBuff buff( ) {
@@ -38,7 +38,7 @@ public class 奥术之戒 extends Ring {
 	}
 
 	public static float enchantPowerMultiplier(Char target ){
-		return 1+0.21025f*getBuffedBonus(target, Arcana.class);
+		return 1+0.12f*getBuffedBonus(target, Arcana.class);
 	}
 
 	public class Arcana extends RingBuff {

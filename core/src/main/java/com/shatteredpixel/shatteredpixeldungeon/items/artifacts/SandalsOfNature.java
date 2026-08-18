@@ -55,6 +55,7 @@ public class SandalsOfNature extends Artifact {
 
 		levelCap = 3;
 
+		增强方式="使用此收集种子";
 		charge = 0;
 		chargeCap = 100;
 
@@ -178,16 +179,6 @@ public class SandalsOfNature extends Artifact {
 	public String desc() {
 		String desc = Messages.get(this, "desc_" + (等级()+1));
 
-		if ( isEquipped ( Dungeon.hero ) ) {
-			desc += "\n\n";
-
-			if (!cursed) {
-				desc += Messages.get(this, "desc_hint");
-			} else {
-				desc += Messages.get(this, "desc_cursed");
-			}
-
-		}
 
 		if (curSeedEffect != null){
 				desc += "\n\n" + Messages.get(this, "desc_ability",

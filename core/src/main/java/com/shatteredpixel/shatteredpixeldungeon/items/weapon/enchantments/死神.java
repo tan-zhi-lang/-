@@ -7,31 +7,24 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 
-public class Grim extends Weapon.Enchantment {
-	
-	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
-	
+public class 死神 extends Weapon.Enchantment {
+
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 		if(defender!=null){
-			if(defender.免疫(Grim.class)){
+			if(defender.免疫(死神.class)){
 				return damage;
 			}
 
-			int level=Math.max(0,weapon.强化等级());
 
-			//scales from 0 - 50% based on how low hp the enemy is, plus 0-5% per level
-			float maxChance=0.5f+.05f*level;
-			maxChance*=procChanceMultiplier(attacker);
+			float maxChance=0.5f
+							*procChanceMultiplier(attacker);
 
-			//we defer logic using an actor here so we can know the true final damage
-			//see Char.damage
 			Buff.施加(defender,GrimTracker.class).maxChance=maxChance;
 
-			if(defender.buff(GrimTracker.class)!=null&&attacker instanceof Hero&&weapon.hasEnchant(Grim.class,attacker)){
+			if(defender.buff(GrimTracker.class)!=null&&attacker instanceof Hero&&weapon.hasEnchant(死神.class,attacker)){
 				defender.buff(GrimTracker.class).qualifiesForBadge=true;
 			}
 		}
@@ -40,7 +33,7 @@ public class Grim extends Weapon.Enchantment {
 	
 	@Override
 	public Glowing glowing() {
-		return BLACK;
+		return 暗红;
 	}
 
 	public static class GrimTracker extends Buff {

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
@@ -21,6 +23,7 @@ public class 荆棘斗篷 extends Artifact {
 
 		levelCap = 10;
 
+		增强方式="物理防御";
 		charge = 0;
 		chargeCap = 100;
 
@@ -35,10 +38,8 @@ public class 荆棘斗篷 extends Artifact {
 	
 	@Override
 	public String desc() {
-		String desc = Messages.get(this, "desc",Math.round((0.5f+等级()*0.05f)*100)
-				,(1+等级())/3f*Dungeon.hero.最大护甲);
-
-		return desc;
+		return Messages.get(this, "desc",Math.round((0.5f+等级()*0.05f)*100)
+				,kw2(Dungeon.hero.最大护甲((1+等级())/3f)))+stas();
 	}
 	
 	

@@ -74,17 +74,7 @@ public class SacrificeRoom extends SpecialRoom {
 			return new Gold().random();
 		}
 
-		//always generate the curse to prevent parchment scrap from altering levelgen
-		Weapon.Enchantment curse = Weapon.Enchantment.randomCurse();
-
-		//if it isn't already cursed, give it a free upgrade
-		if (!prize.cursed){
-			prize.升级();
-			//curse the weapon, unless it has a glyph
-			if (!prize.hasGoodEnchant()){
-				prize.enchant(curse);
-			}
-		}
+		prize.升级();
 		prize.cursed = prize.cursedKnown = true;
 
 		return prize;

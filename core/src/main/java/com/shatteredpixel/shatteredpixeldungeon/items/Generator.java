@@ -758,29 +758,29 @@ public class Generator {
 			RING.probs = RING.defaultProbs.clone();
 			
 			ARTIFACT.classes = new Class<?>[]{
-					AlchemistsToolkit.class,
-					ChaliceOfBlood.class,
+					AlchemistsToolkit.class,//
+					ChaliceOfBlood.class,//
 					
-					干枯玫瑰.class,//DriedRose
-					时空道标.class,
-					荆棘斗篷.class,
+					干枯玫瑰.class,//DriedRose NO!
+					时空道标.class,//
+					荆棘斗篷.class,//
 
-					心之钢.class,
+					心之钢.class,//
 
-					九龙拉管.class,
-					生命蜡烛.class,
-					灵魂焰灯.class,
-					虫箭.class,
+					九龙拉管.class,//
+					生命蜡烛.class,//
+					灵魂焰灯.class,//
+					虫箭.class,//
 
-					EtherealChains.class,
-					HornOfPlenty.class,
-					MasterThievesArmband.class,
-					SandalsOfNature.class,
+					EtherealChains.class,//
+					HornOfPlenty.class,//
+					MasterThievesArmband.class,//
+					SandalsOfNature.class,//
 
-					TalismanOfForesight.class,
-					时光沙漏.class,
-					UnstableSpellbook.class,
-					骷髅钥匙.class
+					TalismanOfForesight.class,//
+					时光沙漏.class,//
+					UnstableSpellbook.class,//
+					骷髅钥匙.class//
 			};
 			ARTIFACT.defaultProbs = new float[]{ 1, 1,
 					1,1, 1,

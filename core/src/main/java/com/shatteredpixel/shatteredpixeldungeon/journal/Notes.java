@@ -691,7 +691,7 @@ public class Notes {
 		rec.assignID();
 		if (!records.contains(rec)){
 			boolean result = records.add(rec);
-			GLog2.橙("依次点击:右上角第1个图标→第一页界面→详情备注");
+			GLog2.橙("依次点击:右上角第1个图标->第一页界面->详情备注");
 			Collections.sort(records, comparator);
 			return result;
 		}

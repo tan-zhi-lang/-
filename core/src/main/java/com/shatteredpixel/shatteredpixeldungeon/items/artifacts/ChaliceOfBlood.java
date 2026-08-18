@@ -185,9 +185,7 @@ public class ChaliceOfBlood extends Artifact {
 
 		if (isEquipped (Dungeon.hero)){
 			desc += "\n\n";
-			if (cursed)
-				desc += Messages.get(this, "desc_cursed");
-			else if (等级() == 0)
+			if (等级() == 0)
 				desc += Messages.get(this, "desc_1");
 			else if (等级() < levelCap)
 				desc += Messages.get(this, "desc_2");

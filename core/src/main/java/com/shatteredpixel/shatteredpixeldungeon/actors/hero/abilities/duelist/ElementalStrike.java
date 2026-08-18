@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
@@ -22,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
@@ -44,8 +43,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Dazzling;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Displacing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Friendly;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Polarized;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Sacrificial;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocking;
@@ -53,13 +50,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Bloomi
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Chilling;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Corrupting;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Elastic;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projecting;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.极化;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.紊乱;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.索敌;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.血饮;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -85,25 +83,24 @@ public class ElementalStrike extends ArmorAbility {
 	static {
 		effectTypes.put(Blazing.class,      MagicMissile.FIRE_CONE);
 		effectTypes.put(Chilling.class,     MagicMissile.FROST_CONE);
-		effectTypes.put(Kinetic.class,      MagicMissile.FORCE_CONE);
+		effectTypes.put(恒动.class,MagicMissile.FORCE_CONE);
 		effectTypes.put(Shocking.class,     MagicMissile.SPARK_CONE);
 		effectTypes.put(Blocking.class,     MagicMissile.WARD_CONE);
 		effectTypes.put(Blooming.class,     MagicMissile.FOLIAGE_CONE);
 		effectTypes.put(Elastic.class,      MagicMissile.FORCE_CONE);
-		effectTypes.put(Lucky.class,        MagicMissile.RAINBOW_CONE);
-		effectTypes.put(Projecting.class,   MagicMissile.PURPLE_CONE);
-		effectTypes.put(Unstable.class,     MagicMissile.RAINBOW_CONE);
+		effectTypes.put(幸运.class,MagicMissile.RAINBOW_CONE);
+		effectTypes.put(索敌.class,MagicMissile.PURPLE_CONE);
+		effectTypes.put(紊乱.class,MagicMissile.RAINBOW_CONE);
 		effectTypes.put(Corrupting.class,   MagicMissile.SHADOW_CONE);
-		effectTypes.put(Grim.class,         MagicMissile.SHADOW_CONE);
-		effectTypes.put(Vampiric.class,     MagicMissile.BLOOD_CONE);
+		effectTypes.put(死神.class,MagicMissile.SHADOW_CONE);
+		effectTypes.put(血饮.class,MagicMissile.BLOOD_CONE);
 
 		effectTypes.put(Annoying.class,     MagicMissile.SHADOW_CONE);
 		effectTypes.put(Displacing.class,   MagicMissile.SHADOW_CONE);
 		effectTypes.put(Dazzling.class,     MagicMissile.SHADOW_CONE);
 		effectTypes.put(Explosive.class,    MagicMissile.SHADOW_CONE);
-		effectTypes.put(Sacrificial.class,  MagicMissile.SHADOW_CONE);
 		effectTypes.put(Wayward.class,      MagicMissile.SHADOW_CONE);
-		effectTypes.put(Polarized.class,    MagicMissile.SHADOW_CONE);
+		effectTypes.put(极化.class,MagicMissile.SHADOW_CONE);
 		effectTypes.put(Friendly.class,     MagicMissile.SHADOW_CONE);
 
 		effectTypes.put(null,               MagicMissile.MAGIC_MISS_CONE);
@@ -221,9 +218,9 @@ public class ElementalStrike extends ArmorAbility {
 		float powerMulti = 1f + 0.30f*Dungeon.hero.天赋点数(Talent.STRIKING_FORCE);
 
 		//*** Kinetic ***
-		if (ench instanceof Kinetic){
-			if (hero.buff(Kinetic.ConservedDamage.class) != null) {
-				storedKineticDamage = hero.buff(Kinetic.ConservedDamage.class).damageBonus();
+		if (ench instanceof 恒动){
+			if (hero.buff(恒动.ConservedDamage.class)!=null) {
+				storedKineticDamage = hero.buff(恒动.ConservedDamage.class).damageBonus();
 			}
 
 		//*** Blocking ***
@@ -235,7 +232,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Vampiric ***
-		} else if (ench instanceof Vampiric){
+		} else if (ench instanceof 血饮){
 			if (targetsHit > 0){
 				float heal = Math.round(2.5f*targetsHit*powerMulti);
 				heal = Math.min( heal, hero.最大生命 - hero.生命);
@@ -246,8 +243,6 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Sacrificial ***
-		} else if (ench instanceof Sacrificial){
-			Buff.施加(hero, 流血.class).set(10 * powerMulti);
 		}
 
 	}
@@ -353,7 +348,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Kinetic ***
-		} else if (ench instanceof Kinetic){
+		} else if (ench instanceof 恒动){
 			if (storedKineticDamage > 0) {
 				for (Char ch : affected) {
 					if (ch != primaryTarget) {
@@ -363,8 +358,8 @@ public class ElementalStrike extends ArmorAbility {
 				storedKineticDamage = 0;
 			}
 			//clear stored damage if there was no primary target
-			if (primaryTarget == null && hero.buff(Kinetic.ConservedDamage.class) != null){
-				hero.buff(Kinetic.ConservedDamage.class).detach();
+			if (primaryTarget == null &&hero.buff(恒动.ConservedDamage.class)!=null){
+				hero.buff(恒动.ConservedDamage.class).detach();
 			}
 
 		//*** Blooming ***
@@ -398,19 +393,19 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Lucky ***
-		} else if (ench instanceof Lucky){
+		} else if (ench instanceof 幸运){
 			for (Char ch : affected){
 				if (ch.alignment == Char.Alignment.ENEMY
 						&& Random.Float() < 0.125f*powerMulti
 						&& ch.buff(ElementalStrikeLuckyTracker.class) == null) {
-					Dungeon.level.drop(Lucky.genLoot(), ch.pos).sprite().drop();
-					Lucky.showFlare(ch.sprite);
+					Dungeon.level.drop(幸运.genLoot(),ch.pos).sprite().drop();
+					幸运.showFlare(ch.sprite);
 					Buff.施加(ch, ElementalStrikeLuckyTracker.class);
 				}
 			}
 
 		//*** Projecting ***
-		} else if (ench instanceof Projecting){
+		} else if (ench instanceof 索敌){
 			for (Char ch : affected){
 				if (ch != primaryTarget) {
 					ch.受伤时(hero.最大攻击()*0.3f*powerMulti,ench);
@@ -418,7 +413,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Unstable ***
-		} else if (ench instanceof Unstable){
+		} else if (ench instanceof 紊乱){
 			KindOfWeapon w = hero.belongings.weapon();
 			if (w instanceof Weapon) {
 				for (Char ch : affected){
@@ -446,13 +441,13 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Grim ***
-		} else if (ench instanceof Grim){
+		} else if (ench instanceof 死神){
 			for (Char ch : affected){
 				if (ch != primaryTarget) {
 					float hpMissing = 1f - (ch.生命 / (float)ch.最大生命);
 					float chance = 0.06f + 0.24f*hpMissing; //6-30%
 					if (Random.Float() < chance*powerMulti){
-						ch.受伤时( ch.生命, Grim.class );
+						ch.受伤时( ch.生命, 死神.class);
 						ch.sprite.emitter().burst( ShadowParticle.UP, 5 );
 					}
 				}
@@ -500,12 +495,6 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Sacrificial ***
-		} else if (ench instanceof Sacrificial){
-			for (Char ch : affected){
-				Buff.施加(ch, 流血.class).set(12f*powerMulti);
-			}
-
-		//*** Wayward ***
 		} else if (ench instanceof Wayward){
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
@@ -514,7 +503,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Polarized ***
-		} else if (ench instanceof Polarized){
+		} else if (ench instanceof 极化){
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
 					ch.受伤时(Hero.heroDamage(24,36),ElementalStrike.this);

@@ -36,28 +36,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Dazzling;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Displacing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Friendly;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Polarized;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Sacrificial;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocking;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Chilling;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Corrupting;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Elastic;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Lucky;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Projecting;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Unstable;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Vampiric;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.传说;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.极化;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.精准;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.紊乱;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.索敌;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.血祭;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.血饮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.发射;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -575,7 +563,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if (other instanceof Weapon) {
 				evaluatingTwinUpgrades = true;
 				int otherLevel = other.强化等级()+x;
-				if(hasEnchant(传说.class))otherLevel*=1.3f*Enchantment.genericProcChanceMultiplier(Dungeon.hero);
+
 				evaluatingTwinUpgrades = false;
 				
 				//weaker weapon needs to be 2/1/0 tiers lower, based on talent level
@@ -588,7 +576,6 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		x+=super.强化等级();
 
-		if(hasEnchant(传说.class))x*=1.3f*Enchantment.genericProcChanceMultiplier(Dungeon.hero);
 		return x;
 	}
 	
@@ -1053,7 +1040,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public int throwPos(Hero user, int dst) {
 		
 		boolean projecting = false;
-		if (hasEnchant(Projecting.class, user)){
+		if (hasEnchant(索敌.class,user)){
 			projecting=true;
 		}
 		
@@ -1448,8 +1435,10 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 		if(encumbrance > 0 )ACC/=Math.pow( 1.5, encumbrance );
 		if(encumbrance < 0 )ACC*=1-encumbrance*owner.属性增幅();
-		
-		
+
+
+		if(cursed)ACC*=0.7f;
+		if(hasEnchant(精准.class))ACC*=1.3f;
 		ACC *= adjacentAccFactor(owner, target);
 		return augment.accuracyFactor(ACC);
 	}
@@ -1461,6 +1450,8 @@ abstract public class Weapon extends KindOfWeapon {
 		//		if (owner.buff(弯刀.SwordDance.class)!=null){
 		//			multi += 0.6f;
 		//		}
+		if(cursed)multi*=0.7f;
+		if (hasEnchant(紊乱.class,owner))multi*=Random.Float(0.5f,1.25f);
 		return baseDelay(owner)/multi;
 	}
 
@@ -1488,12 +1479,9 @@ abstract public class Weapon extends KindOfWeapon {
 		if(连招范围!=-1){
 			reach=连招范围;
 		}
+		if (hasEnchant(索敌.class,owner))reach+=Math.round(2*Enchantment.genericProcChanceMultiplier(owner));
 
-		if (hasEnchant(Projecting.class, owner)){
-			return reach + Math.round(Enchantment.genericProcChanceMultiplier(owner));
-		} else {
-			return reach;
-		}
+		return reach;
 	}
 
 	public float 力量(){
@@ -1633,7 +1621,6 @@ abstract public class Weapon extends KindOfWeapon {
 			if(Dungeon.hero()) effectRoll*=Dungeon.hero.幸运机制();
 
 			if(effectRoll<0.3f/ParchmentScrap.curseChanceMultiplier()){
-				enchant(Enchantment.randomCurse());
 				cursed=true;
 			}else
 				if(effectRoll>=1f-(0.1f*ParchmentScrap.enchantChanceMultiplier())){
@@ -1702,27 +1689,20 @@ abstract public class Weapon extends KindOfWeapon {
 
 	public static abstract class Enchantment implements Bundlable {
 
-		public static final Class<?>[] common = new Class<?>[]{
-				Blazing.class, Chilling.class, Kinetic.class, Shocking.class};
+		public ItemSprite.Glowing 红= new ItemSprite.Glowing(0xff0000 );
+		public ItemSprite.Glowing 暗红= new ItemSprite.Glowing(0x660022 );
+		public ItemSprite.Glowing 深红= new ItemSprite.Glowing(0xa6001c );
+		public ItemSprite.Glowing 黑= new ItemSprite.Glowing(0x000000 );
+		public ItemSprite.Glowing 黄= new ItemSprite.Glowing(0xFFFF00 );
+		public ItemSprite.Glowing 绿= new ItemSprite.Glowing(0x00FF00 );
+		public ItemSprite.Glowing 灰= new ItemSprite.Glowing(0x999999 );
+		public static final Class<?>[] all = new Class<?>[]{
+				幸运.class,紊乱.class,
+				精准.class,
+				恒动.class,索敌.class,极化.class,
+				死神.class, 血饮.class, 血祭.class};
 
-		public static final Class<?>[] uncommon = new Class<?>[]{
-				Blocking.class, Blooming.class, Elastic.class,
-				Lucky.class, Projecting.class, Unstable.class};
 
-		public static final Class<?>[] rare = new Class<?>[]{
-				Corrupting.class, Grim.class, Vampiric.class, 传说.class};
-
-		public static final float[] typeChances = new float[]{
-				50, //12.5% each
-				40, //6.67% each
-				10  //3.33% each
-		};
-
-		public static final Class<?>[] curses = new Class<?>[]{
-				Annoying.class, Displacing.class, Dazzling.class, Explosive.class,
-				Sacrificial.class, Wayward.class, Polarized.class, Friendly.class
-		};
-		
 			
 		public abstract float proc( Weapon weapon, Char attacker, Char defender, float damage );
 
@@ -1784,52 +1764,12 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		@SuppressWarnings("unchecked")
 		public static Enchantment random( Class<? extends Enchantment> ... toIgnore ) {
-			switch(Random.chances(typeChances)){
-				case 0: default:
-					return randomCommon( toIgnore );
-				case 1:
-					return randomUncommon( toIgnore );
-				case 2:
-					return randomRare( toIgnore );
-			}
+			return randomAll( toIgnore );
 		}
 		
 		@SuppressWarnings("unchecked")
-		public static Enchantment randomCommon( Class<? extends Enchantment> ... toIgnore ) {
-			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(common));
-			enchants.removeAll(Arrays.asList(toIgnore));
-			if (enchants.isEmpty()) {
-				return random();
-			} else {
-				return (Enchantment) Reflection.newInstance(Random.element(enchants));
-			}
-		}
-		
-		@SuppressWarnings("unchecked")
-		public static Enchantment randomUncommon( Class<? extends Enchantment> ... toIgnore ) {
-			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(uncommon));
-			enchants.removeAll(Arrays.asList(toIgnore));
-			if (enchants.isEmpty()) {
-				return random();
-			} else {
-				return (Enchantment) Reflection.newInstance(Random.element(enchants));
-			}
-		}
-		
-		@SuppressWarnings("unchecked")
-		public static Enchantment randomRare( Class<? extends Enchantment> ... toIgnore ) {
-			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(rare));
-			enchants.removeAll(Arrays.asList(toIgnore));
-			if (enchants.isEmpty()) {
-				return random();
-			} else {
-				return (Enchantment) Reflection.newInstance(Random.element(enchants));
-			}
-		}
-
-		@SuppressWarnings("unchecked")
-		public static Enchantment randomCurse( Class<? extends Enchantment> ... toIgnore ){
-			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(curses));
+		public static Enchantment randomAll( Class<? extends Enchantment> ... toIgnore ) {
+			ArrayList<Class<?>> enchants = new ArrayList<>(Arrays.asList(all));
 			enchants.removeAll(Arrays.asList(toIgnore));
 			if (enchants.isEmpty()) {
 				return random();

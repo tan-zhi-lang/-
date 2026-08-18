@@ -72,12 +72,8 @@ public class HighGrass {
 			if (ch != null) {
 				SandalsOfNature.Naturalism naturalism = ch.buff( SandalsOfNature.Naturalism.class );
 				if (naturalism != null) {
-					if (!naturalism.isCursed()) {
-						自然层 = naturalism.itemLevel() + 1;
-						naturalism.charge();
-					} else {
-						自然层 = -1;
-					}
+					自然层 = naturalism.itemLevel() + 1;
+					naturalism.charge();
 				}
 
 //				//berries try to drop on floors 2/3/4/6/7/8, to a max of 4/6
@@ -222,12 +218,8 @@ public class HighGrass {
 			if (ch != null) {
 				SandalsOfNature.Naturalism naturalism = ch.buff( SandalsOfNature.Naturalism.class );
 				if (naturalism != null) {
-					if (!naturalism.isCursed()) {
-						自然层 = naturalism.itemLevel() + 1;
-						naturalism.charge();
-					} else {
-						自然层 = -1;
-					}
+					自然层 = naturalism.itemLevel() + 1;
+					naturalism.charge();
 				}
 
 //				//berries try to drop on floors 2/3/4/6/7/8, to a max of 4/6

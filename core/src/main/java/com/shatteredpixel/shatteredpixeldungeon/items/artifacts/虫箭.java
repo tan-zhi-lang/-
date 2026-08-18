@@ -25,6 +25,7 @@ public class 虫箭 extends Artifact {
 		image = 物品表.虫箭;
 		usesTargeting=false;
 		levelCap=10;
+		增强方式="暗影替身攻击";
 	}
 	protected static final String AC_USE1 = "USE1";
 	protected static final String AC_USE2 = "USE2";
@@ -74,6 +75,8 @@ public class 虫箭 extends Artifact {
 			}
 		}
 	}
+
+
 	public void 经验升级(){
 		exp+=1;
 		if (exp >= (等级()+1)*2 && 等级() < levelCap){
@@ -131,12 +134,7 @@ public class 虫箭 extends Artifact {
 		else if (等级() >= 4)
 			image = 物品表.虫箭2;
 	}
-	@Override
-	public String desc() {
-		String desc = Messages.get(this, "desc");
 
-		return desc;
-	}
 
 	@Override
 	protected ArtifactBuff passiveBuff() {

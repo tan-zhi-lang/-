@@ -711,17 +711,13 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"植(自)用\n"+
 											"直接让种子的效果赋予自身，而无需花费回合点击自己种植在脚下的植物来触发。",
 											"扔出->丢子(植)，种植->原地种植。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "附魔",
-		"罕见传说\n" +
-		"获得30%强化等级。"));
-//		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0x666666 )), "诅咒附魔",
-//		"血祭\n" +
-//		"攻击损失2%生命，并根据已损失生命造成额外伤害。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0x666666 )), "刻印",
-		"诅咒虐待\n" +
-		"受到的物理伤害x4.5，如果没有死亡，则恢复受到的伤害。\n\n"+
-		"诅咒焦灼\n" +
-		"防御过程1/8的概率产生火团。"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "诅咒附魔",
+		"精准\n" +
+		"总命中+30%"));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "刻印",
+		"虐待\n" +
+		"恢复8%受到物理伤害的生命。"
+		));
 
 		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(),"炼金",
 											"配方\n" +

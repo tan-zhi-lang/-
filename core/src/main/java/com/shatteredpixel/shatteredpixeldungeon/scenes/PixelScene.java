@@ -44,10 +44,10 @@ public class PixelScene extends Scene {
 
 	// Minimum virtual display size for mobile portrait orientation
 	public static final float MIN_WIDTH_P = 100;
-	public static final float MIN_HEIGHT_P = 240;
+	public static final float MIN_HEIGHT_P = 220;
 
 	// Minimum virtual display size for mobile landscape orientation
-	public static final float MIN_WIDTH_L = 240;
+	public static final float MIN_WIDTH_L = 220;
 	public static final float MIN_HEIGHT_L = 100;
 
 

@@ -50,6 +50,7 @@ public class UnstableSpellbook extends Artifact {
 
 		levelCap = 10;
 
+		增强方式="用此收集卷轴";
 		charge = (int)(等级()*0.6f)+2;
 		partialCharge = 0;
 		chargeCap = (int)(等级()*0.6f)+2;
@@ -282,9 +283,6 @@ public class UnstableSpellbook extends Artifact {
 		String desc = super.desc();
 
 		if (isEquipped(Dungeon.hero)) {
-			if (cursed) {
-				desc += "\n\n" + Messages.get(this, "desc_cursed");
-			}
 			
 			if (等级() < levelCap && scrolls.size() > 0) {
 				desc += "\n\n" + Messages.get(this, "desc_index");

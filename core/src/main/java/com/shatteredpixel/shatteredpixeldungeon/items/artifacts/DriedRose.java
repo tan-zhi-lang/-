@@ -210,17 +210,6 @@ public class DriedRose extends Artifact {
 		
 		String desc = super.desc();
 
-		if (isEquipped( Dungeon.hero )){
-			if (!cursed){
-
-				if (等级() < levelCap)
-					desc+= "\n\n" + Messages.get(this, "desc_hint");
-
-			} else {
-				desc += "\n\n" + Messages.get(this, "desc_cursed");
-			}
-		}
-
 		if (weapon != null || armor != null) {
 			desc += "\n";
 

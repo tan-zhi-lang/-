@@ -94,14 +94,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.curses.Bulk;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.AntiMagic;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Brimstone;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Flow;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Obfuscation;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Potential;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Swiftness;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Viscosity;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迅捷;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
@@ -133,8 +130,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Grim;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Kinetic;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -552,9 +549,9 @@ public abstract class Char extends Actor {
 					effectiveDamage = Math.max(effectiveDamage*(1f-(dr*0.06f)/(dr*0.06f+1)), 0);
 				}else effectiveDamage = Math.max(effectiveDamage - dr, 0);
 
-				if (enemy.buff(Viscosity.ViscosityTracker.class) != null) {
-					effectiveDamage = enemy.buff(Viscosity.ViscosityTracker.class).deferDamage(effectiveDamage);
-					enemy.buff(Viscosity.ViscosityTracker.class).detach();
+				if (enemy.buff(粘稠.ViscosityTracker.class)!=null) {
+					effectiveDamage = enemy.buff(粘稠.ViscosityTracker.class).deferDamage(effectiveDamage);
+					enemy.buff(粘稠.ViscosityTracker.class).detach();
 				}
 
 				//vulnerable specifically applies after armor reductions
@@ -1025,15 +1022,21 @@ public abstract class Char extends Actor {
 	//This function is needed as (unlike enchantments) many glyphs trigger in a variety of cases
 	public int glyphLevel(Class<? extends Armor.Glyph> cls){
 		if (Dungeon.hero() && Dungeon.level != null
-				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment
-				&& Dungeon.hero.buff(守御灵光.class) != null
-				&& (Dungeon.level.距离(pos,Dungeon.hero.pos)<=2)) {
+				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment) {
 			return Dungeon.hero.glyphLevel(cls);
 		} else {
 			return -1;
 		}
 	}
-	
+	public int enchantmentlevel(Class<? extends Weapon.Enchantment> cls){
+		if (Dungeon.hero() && Dungeon.level != null
+				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment) {
+			return Dungeon.hero.enchantmentlevel(cls);
+		} else {
+			return -1;
+		}
+	}
+
 	public float 移速() {
 		float speed = baseSpeed;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
@@ -1046,9 +1049,8 @@ public abstract class Char extends Actor {
 
 		if(诡异)speed*=10f;
 
-		speed *= Swiftness.speedBoost(this, glyphLevel(Swiftness.class));
-		speed *= Flow.speedBoost(this, glyphLevel(Flow.class));
-		speed *= Bulk.speedBoost(this, glyphLevel(Bulk.class));
+		speed *= 迅捷.speedBoost(this, glyphLevel(迅捷.class));
+		speed *= 涌流.speedBoost(this,glyphLevel(涌流.class));
 
 		if(移速翻倍){
 			speed*=2;
@@ -1192,19 +1194,14 @@ public abstract class Char extends Actor {
 
 	public float 最小魔抗(){
 		float x=0;
-
-		int l=glyphLevel(AntiMagic.class);
-		if (l != -1)
-			x+=l* Armor.Glyph.genericProcChanceMultiplier(this);
-
 		return x;
 	}
 	public float 最大魔抗(){
 		float x=0;
 
-		int l=glyphLevel(AntiMagic.class);
+		int l=glyphLevel(敌法.class);
 		if (l != -1)
-			x+=(3 + (l * 1.5f)) * Armor.Glyph.genericProcChanceMultiplier(this);
+			x+=3 * Armor.Glyph.genericProcChanceMultiplier(this);
 
 		return x;
 	}
@@ -1352,7 +1349,7 @@ public abstract class Char extends Actor {
 //		}
 		
 		//TODO improve this when I have proper damage source logic
-		if (AntiMagic.RESISTS.contains(来源.getClass())){
+		if (敌法.RESISTS.contains(来源.getClass())){
 			if(Dungeon.hero()){
 				float 魔抗=Random.NormalFloat(最小魔抗(),最大魔抗());
 
@@ -1407,32 +1404,32 @@ public abstract class Char extends Actor {
 				sprite.哭泣();
 		}
 
-		if (生命 > 0 && buff(Grim.GrimTracker.class) != null){
+		if (生命 > 0 &&buff(死神.GrimTracker.class)!=null){
 
-			float finalChance = buff(Grim.GrimTracker.class).maxChance;
+			float finalChance = buff(死神.GrimTracker.class).maxChance;
 			finalChance *= 已损失生命();
 
 			if (Random.Float() < finalChance) {
-				float extraDmg = 生命 *resist(Grim.class);
+				float extraDmg = 生命 *resist(死神.class);
 				dmg += extraDmg;
 				生命 -= extraDmg;
 
 				sprite.emitter().burst( ShadowParticle.UP, 5 );
-				if (!isAlive() && buff(Grim.GrimTracker.class).qualifiesForBadge){
+				if (!isAlive() && buff(死神.GrimTracker.class).qualifiesForBadge){
 					Badges.validateGrimWeapon();
 				}
 			}
 		}
 
 		if (生命 < 0&&来源 instanceof Char&&alignment==Alignment.ENEMY){
-			if (((Char)来源).buff(Kinetic.KineticTracker.class)!=null){
+			if (((Char)来源).buff(恒动.KineticTracker.class)!=null){
 				float dmgToAdd = -生命;
-				dmgToAdd -= ((Char)来源).buff(Kinetic.KineticTracker.class).conservedDamage;
+				dmgToAdd -= ((Char)来源).buff(恒动.KineticTracker.class).conservedDamage;
 				dmgToAdd = dmgToAdd * Weapon.Enchantment.genericProcChanceMultiplier((Char)来源);
 				if (dmgToAdd > 0) {
-					Buff.施加((Char)来源,Kinetic.ConservedDamage.class).setBonus(dmgToAdd);
+					Buff.施加((Char)来源,恒动.ConservedDamage.class).setBonus(dmgToAdd);
 				}
-				((Char)来源).buff(Kinetic.KineticTracker.class).detach();
+				((Char)来源).buff(恒动.KineticTracker.class).detach();
 			}
 		}
 		
@@ -1440,7 +1437,7 @@ public abstract class Char extends Actor {
 			//defaults to normal damage icon if no other ones apply
 			int  icon = FloatingText.PHYS_DMG;
 //			if (NO_ARMOR_PHYSICAL_SOURCES.contains(来源.getClass())) icon = FloatingText.PHYS_DMG_NO_BLOCK;
-			if (AntiMagic.RESISTS.contains(来源.getClass())) icon = FloatingText.MAGIC_DMG;
+			if (敌法.RESISTS.contains(来源.getClass())) icon = FloatingText.MAGIC_DMG;
 //			if (来源 instanceof 镐子) icon = FloatingText.PICK_DMG;
 
 			//special case for sniper when using ranged attacks
@@ -1477,7 +1474,7 @@ public abstract class Char extends Actor {
 //			hitMissIcon = -1;
 			if((dmg + shielded>最大生命(SPDSettings.数值显示()*0.025f))&&!Dungeon.赛季(赛季设置.地牢塔防))//伤害显示
 			{
-				if (AntiMagic.RESISTS.contains(来源.getClass()))
+				if (敌法.RESISTS.contains(来源.getClass()))
 				sprite.showStatusWithIcon(CharSprite.蓝色,kw2(dmg+shielded),icon);
 //				else if(来源 instanceof 燃烧||来源 instanceof Corrosion)
 //					sprite.showStatusWithIcon(CharSprite.警告橙,dmg+shielded,icon);
@@ -1759,7 +1756,6 @@ public abstract class Char extends Actor {
 	public float stealth() {
 		float stealth = 0;
 
-		stealth += Obfuscation.stealthBoost(this, glyphLevel(Obfuscation.class));
 
 		return stealth;
 	}
@@ -1908,8 +1904,10 @@ public abstract class Char extends Actor {
 		for (Buff b : buffs()){
 			immunes.addAll(b.immunities());
 		}
-		if (glyphLevel(Brimstone.class) >= 0){
+		if (glyphLevel(位素.class)>=0){
 			immunes.add(燃烧.class);
+			immunes.add(Chill.class);
+			immunes.add(Frost.class);
 		}
 		
 		for (Class c : immunes){
@@ -1938,7 +1936,7 @@ public abstract class Char extends Actor {
 	}
 
 	public enum Property{
-		BOSS ( new HashSet<Class>( Arrays.asList(Grim.class,GrimTrap.class,复仇卷轴.class,ScrollOfPsionicBlast.class)),
+		BOSS ( new HashSet<Class>( Arrays.asList(死神.class,GrimTrap.class,复仇卷轴.class,ScrollOfPsionicBlast.class)),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) ),new HashSet<Class>()),
 		MINIBOSS ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) ),new HashSet<Class>()),
@@ -1982,7 +1980,7 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
 																								燃烧.class, Blazing.class))),
 		//ELECTRIC
-		电(new HashSet<Class>(Arrays.asList(WandOfLightning.class,潮霆法杖.class,Shocking.class,Potential.class,
+		电(new HashSet<Class>(Arrays.asList(WandOfLightning.class,潮霆法杖.class,Shocking.class,
 											Electricity.class,ShockingDart.class,Elemental.ShockElemental.class)),new HashSet<Class>(),
 		   new HashSet<Class>()),
 		LARGE,

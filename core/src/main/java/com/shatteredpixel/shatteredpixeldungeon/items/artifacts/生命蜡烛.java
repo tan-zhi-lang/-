@@ -161,18 +161,8 @@ public class 生命蜡烛 extends Artifact {
 	
 	@Override
 	public String desc() {
-		String desc = "";
-
-		if (isEquipped (Dungeon.hero)){
-			desc += "\n\n";
-			if (cursed)
-				desc += Messages.get(this, "desc_cursed");
-			else
-				desc += Messages.get(this, "desc",(等级()+1)*2.5f
-						,4+等级()*2.5f);
-		}
-
-		return desc;
+		return Messages.get(this, "desc",(等级()+1)*2.5f
+						,4+等级()*2.5f)+stas();
 	}
 
 	public class 燃烧 extends ArtifactBuff {

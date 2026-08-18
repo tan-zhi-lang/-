@@ -32,9 +32,9 @@ public class ArtifactRecharge extends Buff {
 						if (b instanceof HornOfPlenty.hornRecharge && ignoreHornOfPlenty){
 							continue;
 						}
-						if (!((Artifact.ArtifactBuff) b).isCursed()) {
-							((Artifact.ArtifactBuff) b).charge((Hero) target, chargeAmount);
-						}
+
+						((Artifact.ArtifactBuff) b).charge((Hero) target, chargeAmount);
+
 					}
 				}
 			}
@@ -108,8 +108,8 @@ public class ArtifactRecharge extends Buff {
 
 	public static void chargeArtifacts( Hero hero, float turns ){
 		for (Buff b : hero.buffs()){
-			if (b instanceof Artifact.ArtifactBuff && !((Artifact.ArtifactBuff) b).isCursed()){
-				if (!((Artifact.ArtifactBuff) b).isCursed()) ((Artifact.ArtifactBuff) b).charge(hero, turns);
+			if (b instanceof Artifact.ArtifactBuff){
+				((Artifact.ArtifactBuff) b).charge(hero, turns);
 			}
 		}
 	}

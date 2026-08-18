@@ -31,6 +31,7 @@ public class AlchemistsToolkit extends Artifact {
 		defaultAction = AC_BREW;
 
 		levelCap = 10;
+		增强方式="使用此收集能量";
 		
 		charge = 0;
 		partialCharge = 0;
@@ -167,24 +168,22 @@ public class AlchemistsToolkit extends Artifact {
 		String result = Messages.get(this, "desc");
 
 		if (isEquipped(Dungeon.hero)) {
-			if (cursed)                 result += "\n\n" + Messages.get(this, "desc_cursed");
-			else if (warmUpDelay > 0)   result += "\n\n" + Messages.get(this, "desc_warming");
-			else                        result += "\n\n" + Messages.get(this, "desc_hint");
+			if (warmUpDelay > 0)   result += "\n\n" + Messages.get(this, "desc_warming");
 		}
-		
+
 		return result;
 	}
 	
 	@Override
 	public boolean doEquip(Hero hero) {
 		if (super.doEquip(hero)){
-			warmUpDelay = 101f;
+			warmUpDelay = 100;
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	private static final String WARM_UP = "warm_up";
 	
 	@Override
@@ -207,8 +206,6 @@ public class AlchemistsToolkit extends Artifact {
 			if (warmUpDelay > 0){
 				if (等级() == 10){
 					warmUpDelay = 0;
-				} else if (warmUpDelay == 101){
-					warmUpDelay = 100f;
 				} else if (!cursed && target.buff(MagicImmune.class) == null) {
 					float turnsToWarmUp = (int) Math.pow(10 - 等级(), 2);
 					warmUpDelay -= 100 / turnsToWarmUp;

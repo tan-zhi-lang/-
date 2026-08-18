@@ -12,9 +12,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
 
-public class Kinetic extends Weapon.Enchantment {
-	
-	private static ItemSprite.Glowing YELLOW = new ItemSprite.Glowing( 0xFFFF00 );
+public class 恒动 extends Weapon.Enchantment {
+
 
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
@@ -24,7 +23,7 @@ public class Kinetic extends Weapon.Enchantment {
 	
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return YELLOW;
+		return 黄;
 	}
 
 	public static class KineticTracker extends Buff {

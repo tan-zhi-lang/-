@@ -1,6 +1,6 @@
 
 
-package com.shatteredpixel.shatteredpixeldungeon.items.armor.curses;
+package com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -8,27 +8,18 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 
 public class 虐待 extends Armor.Glyph {
 
-	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
-
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
 		if(defender!=null){
-			damage=damage*4.5f/procChanceMultiplier(defender);
-			defender.受伤时(damage,this);
 			if(defender.isAlive()){
-				defender.回血(damage);
+				defender.回血(damage*0.08f*procChanceMultiplier(defender));
 			}
 		}
-		return 0;
+		return damage;
 	}
 
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return BLACK;
-	}
-
-	@Override
-	public boolean curse() {
-		return true;
+		return 深红;
 	}
 }

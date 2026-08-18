@@ -408,13 +408,7 @@ public class 骷髅钥匙 extends Artifact {
 	public String desc() {
 		String desc = super.desc();
 
-		if ( isEquipped (Dungeon.hero) ){
-			if (cursed){
-				desc += "\n\n" + Messages.get(this, "desc_cursed");
-			} else {
-				desc += "\n\n" + Messages.get(this, "desc_worn");
-			}
-		}
+			desc += "\n\n" + Messages.get(this, "desc_worn");
 
 		return desc;
 	}

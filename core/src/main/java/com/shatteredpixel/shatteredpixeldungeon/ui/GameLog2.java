@@ -46,6 +46,7 @@ public class GameLog2 extends Component implements Signal.Listener<String> {
 						case 7->7;
 
 					}-1;
+					if(!SPDSettings.新手提示())maxLines=-1;
 
 					for(String text: textsToAdd){
 						if(length!=entries.size()){

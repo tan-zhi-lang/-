@@ -40,6 +40,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 透明界面x = "透明界面";
 	public static final String 更多按钮x = "更多按钮";
 	public static final String 四舍五入x = "四舍五入";
+	public static final String 新手提示x = "新手提示";
 	public static final String 颜色区块x = "颜色区块";
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
@@ -161,6 +162,13 @@ public class SPDSettings extends GameSettings {
 
 	public static boolean 四舍五入() {
 		return getBoolean(四舍五入x, true );
+	}
+	public static void 新手提示(boolean value ){
+		put(新手提示x, value );
+	}
+
+	public static boolean 新手提示() {
+		return getBoolean(新手提示x, true );
 	}
 
 	public static float 加快(){
@@ -318,7 +326,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 文字寿命() {
-		return getInt(文字寿命x, 1,0,5 );
+		return getInt(文字寿命x, 0,0,6 );
 	}
 	public static void 保留位数(int value){
 		put(保留位数x,value);

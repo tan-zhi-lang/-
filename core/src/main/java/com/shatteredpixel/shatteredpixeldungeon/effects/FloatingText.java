@@ -48,12 +48,13 @@ public class FloatingText extends RenderedTextBlock {
 	public static float LIFESPAN(){
 		return switch(SPDSettings.文字寿命()){
 			default ->1;
-			case 0->0.5f;
-			case 1->0.75f;
-			case 2->1;
-			case 3->2;
-			case 4->3;
-			case 5->4;
+			case 0->0.25f;
+			case 1->0.5f;
+			case 2->0.75f;
+			case 3->1;
+			case 4->2;
+			case 5->3;
+			case 6->4;
 
 		};
 	}

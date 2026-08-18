@@ -423,6 +423,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StatusPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TargetHealthIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog2;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
@@ -3215,8 +3216,8 @@ public class Hero extends Char {
 
     public Hero() {
         super();
-        生命 = 最大生命 = 10;
-        护甲 = 最大护甲 = 5;
+        生命 = 最大生命 = 0.001f;
+        护甲 = 最大护甲 = 0.001f;
         力量 = 10;
         敏捷 = 10;
         魔力 = 10;
@@ -3241,10 +3242,25 @@ public class Hero extends Char {
             最大生命=200;
             return;
         }
-        最大生命 = 10 + 0.5f* (等级 - 1);
-//        if(等级==最大等级)最大生命++;
+        最大生命 = 1* (等级 - 1);
+        if(等级==最大等级)最大生命++;
+        /** 100
+
+         0
+
+         35
+         12每级1+1满级+10进阶
+
+
+         25
+         20生命果+5生命果
+
+         40
+         20力量+20满级力量
+        */
         if(进阶)最大生命+=10;
-        最大生命+=力量()*1;
+        最大生命+=力量()*2;
+
         最大生命+=HTBoost;
         最大生命+=生命成长;
         最大生命+=根骨 * 5;
@@ -3305,17 +3321,30 @@ public class Hero extends Char {
             if(符文("全副武装"))
                 最大生命*=0.3f;
         }
-        最大生命=GameMath.之内(0.01f,最大生命,10_0000_000);
+        最大生命=GameMath.之内(0.001f,最大生命,10_0000_000);
 
 //        生命 = Math.min(生命, 最大生命);//取消生命更新变动
     }
 
     @Override
     public float 更新护甲(){
-        最大护甲 =5+等级-1;
+        最大护甲=0.5f*(等级-1);
         if(等级==最大等级)最大护甲++;
+        if(进阶)最大护甲+=7;
+        /** 50
+         0
 
-        最大护甲+=敏捷()*0.5f;
+         13
+         12每级0.5+1满级
+
+         17
+         7进阶+10神盾果
+
+         20
+         10敏捷+10满级敏捷
+         */
+        //
+        最大护甲+=敏捷()*1;
         最大护甲+=护甲成长;
         最大护甲+=暗影飞刀.护甲();
 
@@ -3345,7 +3374,7 @@ public class Hero extends Char {
             最大护甲get=最大护甲;
             最大护甲=0;
         }
-        最大护甲 =GameMath.之内(0.01f,最大护甲,10_0000_000);
+        最大护甲 =GameMath.之内(0.001f,最大护甲,10_0000_000);
         return 最大护甲;
     }
     public float 魔力() {
@@ -3439,7 +3468,7 @@ public class Hero extends Char {
         if(符文("投影魔术"))m*=0.9f;
 
         魔力get=m;
-        return Math.max(0.01f,m);
+        return Math.max(0.001f,m);
     }
     public float 法术(Object o,float x) {
         if(o instanceof 火球术||
@@ -3518,7 +3547,7 @@ public class Hero extends Char {
         x*=所有属性倍();
 
 
-        return Math.max(0.01f,x);
+        return Math.max(0.001f,x);
     }
     public float 力量(float x) {
 
@@ -3608,7 +3637,7 @@ public class Hero extends Char {
         if(heroClass(HeroClass.机器))str*=1.25f;
         //最后结算
         力量get=str;
-        return Math.max(0.01f,str);
+        return Math.max(0.001f,str);
     }
     public void 主属性(float 增加){
         if(主属性("力量"))力量+=增加;
@@ -5909,10 +5938,7 @@ public class Hero extends Char {
     }
     @Override
     public boolean act(){
-        if((Dungeon.相对层数()>15&&Dungeon.相对层数()<20)&&Dungeon.branch==1){
-            if(算法.概率学(2))
-                GLog.橙("不知道怎么回去，不看背包的屑。");
-        }
+
 
         sprite.remove(CharSprite.State.领域);
 
@@ -6779,8 +6805,9 @@ public class Hero extends Char {
                 Item item=heap.peek();
                 if(SPDSettings.自动拾取()&&物品能自动拾取(item)){
 
+                    ready();
                 }else{
-                    
+
                 if(item.doPickUp(this)){
                     heap.pickUp();
 
@@ -6861,8 +6888,9 @@ public class Hero extends Char {
         if(item instanceof Key||
            item instanceof 时光沙漏.sandBag||
            item instanceof DriedRose.Petal||
-           item instanceof Guidebook||
-           item instanceof Dewdrop)
+           item instanceof Dewdrop||
+           item instanceof Guidebook
+        )
             ok=true;
         if(item.丢过) ok=false;
         return ok;
@@ -9549,7 +9577,7 @@ public class Hero extends Char {
                 new 海克斯秘卷().放背包();
                 new 海克斯秘卷().放背包();
             }
-
+            GLog2.黄("点击:左上角英雄图标→星星图标页面→学习天赋");
             if (sprite != null) {
                 GLog.newLine();
                 GLog.绿(Messages.get(this,"new_level"));

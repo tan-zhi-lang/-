@@ -46,6 +46,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.StatueSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog2;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.Visual;
@@ -690,6 +691,7 @@ public class Notes {
 		rec.assignID();
 		if (!records.contains(rec)){
 			boolean result = records.add(rec);
+			GLog2.橙("点击:右上角第1个图标→第一页界面→详情备注");
 			Collections.sort(records, comparator);
 			return result;
 		}

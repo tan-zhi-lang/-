@@ -231,6 +231,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox 颜色区块;
 						CheckBox 更多按钮;
 						CheckBox 四舍五入;
+						CheckBox 新手提示;
 						CheckBox chkFont;
 						CheckBox chkVibrate;
 						CheckBox 画面同步;
@@ -323,6 +324,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 							四舍五入.checked(SPDSettings.四舍五入());
 							add(四舍五入);
 
+							新手提示 = new CheckBox("新手提示(屏幕中上方的新手提示)") {
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.新手提示(checked());
+								}
+							};
+							新手提示.checked(SPDSettings.新手提示());
+							add(新手提示);
+
 							chkFont = new CheckBox(Messages.get(DisplayTab.class, "system_font")){
 								@Override
 								protected void onClick() {
@@ -380,7 +391,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 							颜色区块.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
 							更多按钮.setRect(0,  颜色区块.bottom()+GAP, width, BTN_HEIGHT);
 							四舍五入.setRect(0,  更多按钮.bottom()+GAP, width, BTN_HEIGHT);
-							chkFont.setRect(0,  四舍五入.bottom()+GAP, width, BTN_HEIGHT);
+							新手提示.setRect(0,  四舍五入.bottom()+GAP, width, BTN_HEIGHT);
+							chkFont.setRect(0,  新手提示.bottom()+GAP, width, BTN_HEIGHT);
 							chkVibrate.setRect(0,  chkFont.bottom()+GAP, width, BTN_HEIGHT);
 							画面同步.setRect(0,  chkVibrate.bottom()+GAP, width, BTN_HEIGHT);
 							
@@ -477,7 +489,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(字体大小);
 
 							文字寿命 = new OptionSlider("文字寿命",
-														"50%", "400%", 0, 5) {
+														"0.25s", "4s", 0, 6) {
 								@Override
 								protected void onChange() {
 									SPDSettings.文字寿命(getSelectedValue());

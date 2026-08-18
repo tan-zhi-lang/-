@@ -100,6 +100,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.法术栏标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.药剂栏标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.食物栏标;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog2;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGame;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
@@ -514,6 +515,10 @@ public class GameScene extends PixelScene {
 		}
 		Camera.main.panTo(hero.center(), 2.5f);
 
+		if((Dungeon.相对层数()>15&&Dungeon.相对层数()<20)&&Dungeon.branch==1){
+			GLog.橙("背包又回去的道具。");
+		}
+		GLog2.黄("点击:右上角第2个图标→设置自己找相关设置一目了然");
 		if (InterlevelScene.mode != InterlevelScene.Mode.NONE) {
 			if (Dungeon.depth == Statistics.deepestFloor
 					&& (InterlevelScene.mode == InterlevelScene.Mode.DESCEND || InterlevelScene.mode == InterlevelScene.Mode.FALL)) {

@@ -69,7 +69,7 @@ public class 再生 extends Buff {
 
 	public float 再生生命(){
 		if(target instanceof Hero hero){
-			float 再生数值=(float)Math.sqrt(hero.最大生命)/100f+0.07f;
+			float 再生数值=(float)Math.sqrt(hero.最大生命(0.0005f));
 
 			再生数值+=hero.再生成长;
 
@@ -85,13 +85,7 @@ public class 再生 extends Buff {
 				再生数值+=hero.最大护甲(0.01f);
 			}
 			if(hero.hasbuff(WellFed.class))
-				再生数值+=0.75f;
-			//					if(hero.hasbuff(WellFed.class))再生数值*=Math.min(1,
-			//						  (float)hero.buff(WellFed.class).left/
-			//						  (float)hero.buff(WellFed.class).上限()*0.15f+1);
-			//					if(hero.hasbuff(Hunger.class))再生数值*=Math.min(1,
-			//																	 (Hunger.STARVING-hero.buff(Hunger.class).level)/
-			//																	 Hunger.STARVING*0.15f+1);
+				再生数值+=1;
 
 			if(hero.buff(ChaliceOfBlood.chaliceRegen.class)!=null){
 				if(hero.buff(ChaliceOfBlood.chaliceRegen.class).isCursed())
@@ -107,15 +101,14 @@ public class 再生 extends Buff {
 				if(hero.buff(生命蜡烛.燃烧.class).isCursed())
 					再生数值/=1.75f;
 				else
-					再生数值+=(0.133f+hero.buff(生命蜡烛.燃烧.class).itemLevel()*0.0667f)*1.5f;
+					再生数值+=(0.133f+hero.buff(生命蜡烛.燃烧.class).itemLevel()*0.0667f)*1.5f*能量之戒.artifactChargeMultiplier(hero);
 			}
 			if(hero.buff(虫箭.保护.class)!=null){
 				if(hero.buff(虫箭.保护.class).isCursed())
 					再生数值/=1.25f;
 				else
-					再生数值+=(0.133f+hero.buff(虫箭.保护.class).itemLevel()*0.0667f)/2f;
+					再生数值+=(0.133f+hero.buff(虫箭.保护.class).itemLevel()*0.0667f)/2f*能量之戒.artifactChargeMultiplier(hero);
 			}
-			再生数值*=能量之戒.artifactChargeMultiplier(hero);
 
 
 			//salt cube is turned off while regen is disabled.

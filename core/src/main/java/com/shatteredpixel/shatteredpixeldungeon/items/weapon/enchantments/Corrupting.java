@@ -15,9 +15,9 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
 
 public class Corrupting extends Weapon.Enchantment {
-	
+
 	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x440066 );
-	
+
 	@Override
 	public float proc(Weapon weapon, Char attacker, Char defender, float damage) {
 

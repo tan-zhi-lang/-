@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -113,8 +114,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
@@ -122,6 +123,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性碎片;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.干枯花瓣;
@@ -1199,6 +1201,9 @@ public abstract class Mob extends Char{
 							for(int n: PathFinder.相邻){
 								Blooming.plantGrass(pos+n);
 							}
+						}
+						if(!免疫(流血.class)&&Dungeon.hero.belongings.weapon(饮血之剑.class)){
+							Dungeon.hero.吸血成长+=0.04f/100f;
 						}
 						if(Dungeon.hero.belongings.weapon(日炎链刃.class)){
 							new Bomb.ConjuredBomb().heroexplode(pos);

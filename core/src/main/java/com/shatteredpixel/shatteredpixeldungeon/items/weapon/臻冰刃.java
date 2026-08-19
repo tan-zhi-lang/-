@@ -30,7 +30,7 @@ public class 臻冰刃 extends Weapon {
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(defender!=null){
 			if(defender.hasbuff(Chill.class)||defender.hasbuff(Frost.class)){
-				damage+=damage*0.45f;
+				damage*=1.75f;
 			}
 		}
 			return super.攻击时( attacker, defender, damage );

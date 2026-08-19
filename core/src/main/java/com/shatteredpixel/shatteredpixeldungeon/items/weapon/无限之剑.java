@@ -22,7 +22,7 @@ public class 无限之剑 extends Weapon{
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage) {
 
-		damage*=(float)(Math.pow(1.03f, 强化等级()));
+		damage*=(float)(Math.pow(1.05f, 1+强化等级()));
 		return super.攻击时( attacker, defender, damage );
 	}
 }

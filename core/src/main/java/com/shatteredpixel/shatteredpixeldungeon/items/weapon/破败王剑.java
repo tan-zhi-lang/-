@@ -14,7 +14,7 @@ public class 破败王剑 extends Weapon{
 		hitSound = Assets.Sounds.巨剑;
 		tier=5;
 		伤害=0.8f;
-		吸血=0.12f;
+		吸血=0.10f;
 		特别=true;
 		靛色=true;
 		技能=new 嗜血();
@@ -23,8 +23,12 @@ public class 破败王剑 extends Weapon{
 	public float 攻击时(Char attacker,Char defender,float damage) {
 		if(defender!=null&&attacker instanceof Hero hero&&hero.符文("升级破败王剑"))
 			damage+=defender.最大生命(0.035f);
-		if(defender!=null)
-		damage+=defender.生命(0.15f);
+		if(defender!=null){
+			if(defender.第x次防御==1)
+			damage+=defender.最大生命(0.15f);
+
+			damage+=defender.生命(0.08f);
+		}
 		return super.攻击时( attacker, defender, damage );
 	}
 

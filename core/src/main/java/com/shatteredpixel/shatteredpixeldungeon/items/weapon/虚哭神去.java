@@ -11,7 +11,7 @@ public class 虚哭神去 extends Weapon{
 	{
 		image = 物品表.虚哭神去;
 		hitSound = Assets.Sounds.攻击砍;
-		吸血=0.15f;
+		吸血=0.12f;
 		伤害=0.8f;
 		特别=true;
 		红色=true;

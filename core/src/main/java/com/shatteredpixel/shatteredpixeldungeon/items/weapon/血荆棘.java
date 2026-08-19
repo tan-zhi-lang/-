@@ -10,7 +10,7 @@ public class 血荆棘 extends Weapon{
 	{
 		image = 物品表.血荆棘;
 		hitSound = Assets.Sounds.攻击刺;
-		吸血=0.18f;
+		吸血=0.15f;
 		伤害=0.7f;
 		特别=true;
 		红色=true;

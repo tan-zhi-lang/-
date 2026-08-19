@@ -17,7 +17,7 @@ public class 吸血刀 extends Weapon{
 		专属=true;
 
 		延迟=0.8f;
-		吸血=0.05f;
+		吸血=0.03f;
 		技能=new 嗜血();
 		
 		tier = 1;

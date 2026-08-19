@@ -139,6 +139,7 @@ public class Bomb extends Item {
 	}
 	public static float 爆炸伤害(){
 		float x=1;
+		x*=1.45f/2f;
 		x*=1+Dungeon.hero.天赋点数(Talent.万众倾倒,0.5f);
 		if(Dungeon.符文("王者之翼手雷"))x*=4;
 		if(Dungeon.hero.种族天赋.equals("地精"))x*=3;

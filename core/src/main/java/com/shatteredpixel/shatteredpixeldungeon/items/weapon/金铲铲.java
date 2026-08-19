@@ -23,7 +23,7 @@ public class 金铲铲 extends Weapon {
 
 		if(defender!=null)
 		if(attacker instanceof Hero hero&&hero.hasbuff(Hunger.class))
-			hero.buff(Hunger.class).吃饭(15);
+			hero.buff(Hunger.class).吃饭(damage*0.3f);
 
 		return super.攻击时( attacker, defender, damage );
 	}

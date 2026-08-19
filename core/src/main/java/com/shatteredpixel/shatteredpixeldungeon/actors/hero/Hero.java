@@ -86,7 +86,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.老婆保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.饮血之剑护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
@@ -1802,9 +1801,9 @@ public class Hero extends Char {
             case "魔法披风":return "狂乱分离时永久+20魔力";
             case "升级荣誉纹章":return "取消纹章携带等级限制";
             case "升级暗杀之刃":return "伏击伤害可以暴击";
-            case "升级饮血之剑":return "+5%吸血，同时无需满血也能恢复护盾";
-            case "升级破败王剑":return "+2.5%吸血，同时造成攻击额外造成3.5%敌人最大生命";
-            case "升级猩红散华":return "+2.5%吸血，必定伤害最高";
+            case "升级饮血之剑":return "+12%吸血";
+            case "升级破败王剑":return "+2%吸血，同时造成攻击额外造成3.5%敌人最大生命";
+            case "升级猩红散华":return "+2%吸血，必定伤害最高";
             case "升级无影剑":return "无影剑+20%伤害";
             case "道长":return "装备铜钱剑且拥有桃木剑时，攻击+650%";
             case "黄金幻影忍者":return "综合属性+100%x幻影忍者的黄金武器数量";
@@ -9463,11 +9462,6 @@ public class Hero extends Char {
         if(subClass(HeroSubClass.剑魔)&&职业精通())x*=1.6f;
         if(x>0){
 
-            if(belongings.weapon(饮血之剑.class)){
-                if(满血()||符文("升级饮血之剑")){
-                    Buff.施加(this,饮血之剑护盾.class).增加(x);
-                }
-            }
             if(符文("死亡之环"))
                 for(int n: PathFinder.范围2){
                     Char c=Actor.findChar(pos+n);
@@ -10761,7 +10755,7 @@ public class Hero extends Char {
         if(符文("背水一战"))吸血+=0.02f;
         if(符文("战神"))吸血+=0.15f;
         if(符文("真战士"))吸血+=0.02f;
-        if(符文("升级饮血之剑"))吸血+=0.05f;
+        if(符文("升级饮血之剑"))吸血+=0.12f;
         if(符文("升级破败王剑"))吸血+=0.025f;
         if(符文("升级猩红散华"))吸血+=0.025f;
         if(符文("暴风吸入"))吸血+=0.1f*暴击伤害();

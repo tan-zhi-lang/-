@@ -70,15 +70,6 @@ public class ArmoredStatue extends Statue {
 	}
 
 	@Override
-	public int glyphLevel(Class<? extends Armor.Glyph> cls) {
-		if (armor != null && armor.hasGlyph(cls, this)){
-			return Math.max(super.glyphLevel(cls), armor.强化等级());
-		} else {
-			return super.glyphLevel(cls);
-		}
-	}
-
-	@Override
 	public CharSprite sprite() {
 		CharSprite sprite = super.sprite();
 		if (armor != null) {

@@ -35,6 +35,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
 import com.shatteredpixel.shatteredpixeldungeon.items.Torch;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.代谢;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.冰心;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.勇装;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.忍服;
@@ -633,8 +634,8 @@ public enum HeroClass{
 		
 		(hero.belongings.weapon=new 匕首()).鉴定();
 
-		hero.belongings.weapon.enchant(new 血饮());
-		hero.belongings.armor.inscribe(new 代谢());
+//		hero.belongings.weapon.enchant(new 血饮());
+//		hero.belongings.armor.inscribe(new 冰心());
 
 		CloakOfShadows cloak=new CloakOfShadows();
 		(hero.belongings.misc=cloak).鉴定();

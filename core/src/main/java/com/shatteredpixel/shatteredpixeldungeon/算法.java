@@ -71,7 +71,7 @@ public class 算法 {
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
     * */
-    public static String 日期="8.18/19:59";
+    public static String 日期="8.19/13:00";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;

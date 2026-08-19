@@ -707,7 +707,7 @@ public class 物品表 {
     public static final int 暗淡=RINGS+15;
 
     static {
-        for (int i = RINGS; i < RINGS + 15; i++){
+        for (int i = RINGS; i < RINGS + 16; i++){
             assignItemRect(i,8,10);
         }
     }
@@ -730,7 +730,7 @@ public class 物品表 {
     public static final int 暗淡2=RINGS2+15;
 
     static {
-        for (int i = RINGS2; i < RINGS2 + 15; i++){
+        for (int i = RINGS2; i < RINGS2 + 16; i++){
             assignItemRect(i,8,10);
         }
     }
@@ -1613,6 +1613,7 @@ public class 物品表 {
         public static final int 利害之戒=六神之戒+8;
         public static final int 破防之戒=六神之戒+9;
         public static final int 杀戮之戒=六神之戒+10;
+        public static final int 丛林之戒=六神之戒+11;
 
         static {
             assignIconRect(六神之戒, 6,7);
@@ -1626,6 +1627,7 @@ public class 物品表 {
             assignIconRect(利害之戒,7,6);
             assignIconRect(破防之戒,6);
             assignIconRect(杀戮之戒,6);
+            assignIconRect(丛林之戒,7,6);
         }
 
         public static final int 银星 = xy(1, 15);  //16 slots

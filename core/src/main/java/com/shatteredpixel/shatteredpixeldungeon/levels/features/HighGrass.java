@@ -14,9 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.Camouflage;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迷彩;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.地牢浆果;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
@@ -139,11 +138,11 @@ public class HighGrass {
 				
 				if (Dungeon.符文("灵感咕力咕力咕力灵感菇")||Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
 					if(Dungeon.白天())
-					level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇()),pos).sprite().drop();
+					level.drop(Random.oneOf(new 红蘑菇()),pos).sprite().drop();
 					else if(Dungeon.黄昏())
-						level.drop(Random.oneOf(new 地牢浆果(),new 绿蘑菇()),pos).sprite().drop();
+						level.drop(Random.oneOf(new 绿蘑菇()),pos).sprite().drop();
 					else if(Dungeon.夜晚())
-							level.drop(Random.oneOf(new 地牢浆果(),new 蓝蘑菇()),pos).sprite().drop();
+							level.drop(Random.oneOf(new 蓝蘑菇()),pos).sprite().drop();
 				}
 				
 				// Dew, scales from 1/6 to 1/4
@@ -176,8 +175,8 @@ public class HighGrass {
 				
 			}
 
-			if (ch != null) {
-				Camouflage.activate(ch, ch.glyphLevel(Camouflage.class));
+			if (ch instanceof Hero) {
+				迷彩.activate(ch,ch.glyphLevel(迷彩.class));
 			}
 			
 		}
@@ -289,11 +288,11 @@ public class HighGrass {
 				
 				if (Dungeon.符文("灵感咕力咕力咕力灵感菇")||Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
 					if(Dungeon.白天())
-						level.drop(Random.oneOf(new 地牢浆果(),new 红蘑菇()),pos).sprite().drop();
+						level.drop(Random.oneOf(new 红蘑菇()),pos).sprite().drop();
 					else if(Dungeon.黄昏())
-						level.drop(Random.oneOf(new 地牢浆果(),new 绿蘑菇()),pos).sprite().drop();
+						level.drop(Random.oneOf(new 绿蘑菇()),pos).sprite().drop();
 					else if(Dungeon.夜晚())
-							level.drop(Random.oneOf(new 地牢浆果(),new 蓝蘑菇()),pos).sprite().drop();
+							level.drop(Random.oneOf(new 蓝蘑菇()),pos).sprite().drop();
 				}
 				// Dew, scales from 1/6 to 1/4
 				概率 = 1/(6f - 自然层 /2f);
@@ -331,8 +330,8 @@ public class HighGrass {
 				
 			}
 
-			if (ch != null) {
-				Camouflage.activate(ch, ch.glyphLevel(Camouflage.class));
+			if (ch instanceof Hero) {
+				迷彩.activate(ch,ch.glyphLevel(迷彩.class));
 			}
 			
 		}

@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 
 public class 死神 extends Weapon.Enchantment {
 
@@ -19,8 +18,8 @@ public class 死神 extends Weapon.Enchantment {
 			}
 
 
-			float maxChance=0.5f
-							*procChanceMultiplier(attacker);
+			float maxChance=0.35f
+							*procChanceMultiplier(attacker)*attacker.enchantmentlevel(死神.class);
 
 			Buff.施加(defender,GrimTracker.class).maxChance=maxChance;
 
@@ -30,11 +29,7 @@ public class 死神 extends Weapon.Enchantment {
 		}
 		return damage;
 	}
-	
-	@Override
-	public Glowing glowing() {
-		return 暗红;
-	}
+
 
 	public static class GrimTracker extends Buff {
 

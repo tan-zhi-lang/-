@@ -146,6 +146,9 @@ public class Bomb extends Item {
 		return x;
 	}
 	public void explode(int cell){
+		explode(cell,1);
+	}
+	public void explode(int cell,float x){
 		if(Dungeon.符文("核聚变"))Dungeon.hero.回满血();
 		//We're blowing up, so no need for a fuse anymore.
 		if (fuse != null) {
@@ -214,6 +217,7 @@ public class Bomb extends Item {
 
 				dmg*=炸弹伤害();
 				dmg*=爆炸伤害();
+				dmg*=x;
 
 				dmg=ch.物理受伤(dmg,this);
 				dmg=ch.护甲伤害(dmg);
@@ -241,7 +245,11 @@ public class Bomb extends Item {
 		}
 	}
 
-	public void heroexplode(int cell){//不破坏物品和不伤害英雄
+	public void heroexplode(int cell){
+		heroexplode(cell,1);
+	}
+	//不破坏物品和不伤害英雄
+	public void heroexplode(int cell,float x){
 
 		if(Dungeon.符文("核聚变"))Dungeon.hero.回满血();
 		if(Dungeon.符文("寸止"))Dungeon.hero.寸止+=0.3f;
@@ -298,15 +306,17 @@ public class Bomb extends Item {
 				float dmg = Random.NormalFloat(4 + Dungeon.scalingDepth(), 12 + 3*Dungeon.scalingDepth());
 
 				dmg*=爆炸伤害();
+				dmg*=x;
 
-				dmg=ch.物理受伤(dmg,this);
-				dmg=ch.护甲伤害(dmg);
-				if (dmg > 0) {
-					if(ch instanceof Hero hero){
+				if(ch instanceof Hero hero){
 
-					}else
-						ch.受伤时(dmg, this);
+				}else{
+					dmg=ch.物理受伤(dmg,this);
+					dmg=ch.护甲伤害(dmg);
+					if (dmg > 0)
+					ch.受伤时(dmg,this);
 				}
+
 			}
 			
 			if (terrainAffected) {

@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocking;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -60,8 +59,6 @@ public class 饮血之剑护盾 extends ShieldBuff {
 	public void fx(boolean on) {
 		if (on) {
 			target.sprite.add(CharSprite.State.SHIELDED);
-		} else if (target.buff(Blocking.BlockBuff.class) == null) {
-			target.sprite.remove(CharSprite.State.SHIELDED);
 		}
 	}
 	

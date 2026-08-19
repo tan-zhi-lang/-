@@ -551,6 +551,7 @@ public class Notes {
 			bundle.put(TYPE, type);
 			bundle.put(ID_NUMBER, ID);
 			if (itemClass != null) bundle.put(ITEM_CLASS, itemClass);
+			if (mobClass != null) bundle.put(MOB_CLASS, mobClass);
 			bundle.put(TITLE, title);
 			bundle.put(BODY, body);
 			bundle.put(IMAGE, image);
@@ -578,13 +579,7 @@ public class Notes {
 			if (bundle.contains(MOB_CLASS)) {
 				mobClass= bundle.getClass(MOB_CLASS);
 				if (type == CustomType.MOB_TYPE){
-					//prior to v3.1 specific item notes and item type notes were the same
-					//we assume notes are for a specific item if they're for an equipment
-					if (EquipableItem.class.isAssignableFrom(mobClass)){
-						type = CustomType.MOB_TYPE;
-					} else {
-						type = CustomType.MOB_TYPE;
-					}
+					type = CustomType.MOB_TYPE;
 				}
 			}
 

@@ -173,13 +173,6 @@ public class HeroIcon extends Image {
 		}
 		frame(film.get(action.actionIcon()));
 	}
-	public HeroIcon(法术栏标.Action action){
-		super( Assets.Interfaces.HERO_ICONS );
-		if (film == null){
-			film = new TextureFilm(texture, SIZE, SIZE);
-		}
-		frame(film.get(action.actionIcon()));
-	}
 	public HeroIcon(副武器.Action action){
 		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){

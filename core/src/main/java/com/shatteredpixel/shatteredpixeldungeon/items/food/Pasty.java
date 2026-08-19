@@ -158,11 +158,12 @@ public class Pasty extends Food {
 			case 端午节:
 				break;
 			case 七夕节:
-				if(!hero.单身) {
-					hero.单身=true;
-					hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10%",FloatingText.STRENGTH);
-					GLog.绿(Messages.get(潜力药剂.class,"msg",hero.力量()));
-				}
+				hero.力量+=0.1f;
+				hero.生命成长+=10f;
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"0.1",FloatingText.STRENGTH);
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10",FloatingText.HEALING);
+				GLog.绿(Messages.get(潜力药剂.class,"msg"));
+
 				break;
 			case 中秋节:
 				Buff.施加(hero, Swiftthistle.TimeBubble.class).reset();

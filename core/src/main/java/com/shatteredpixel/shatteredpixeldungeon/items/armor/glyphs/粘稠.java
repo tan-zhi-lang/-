@@ -12,7 +12,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor.Glyph;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
@@ -29,11 +28,6 @@ public class 粘稠 extends Glyph {
 		
 	}
 
-	@Override
-	public Glowing glowing() {
-		return 粉;
-	}
-
 	public static class ViscosityTracker extends Buff {
 
 		{
@@ -47,7 +41,9 @@ public class 粘稠 extends Glyph {
 				return dmg;
 			}
 
-			float percent = 0.3f*genericProcChanceMultiplier(target);
+			float percent = 0.3f
+							*genericProcChanceMultiplier(target)
+							*target.glyphLevel(粘稠.class);
 
 			float amount= dmg * percent;
 

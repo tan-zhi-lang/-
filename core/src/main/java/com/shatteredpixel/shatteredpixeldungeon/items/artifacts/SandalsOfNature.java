@@ -291,7 +291,7 @@ public class SandalsOfNature extends Artifact {
 					升级();
 					Catalog.countUses(SandalsOfNature.class, 等级() == 3 ? 4 : 3);
 					if (等级() >= 1 && 等级() <= 3) {
-						GLog.绿(Messages.get(SandalsOfNature.class,"levelup"));
+						GLog.绿(Messages.get(this,"levelup"));
 					}
 
 				} else {

@@ -190,7 +190,7 @@ public class TalismanOfForesight extends Artifact {
 					exp -= 100 + 50* 等级();
 					升级();
 					Catalog.countUse(TalismanOfForesight.class);
-					GLog.绿(Messages.get(TalismanOfForesight.class,"levelup"));
+					GLog.绿(Messages.get(this,"levelup"));
 				}
 				updateQuickslot();
 

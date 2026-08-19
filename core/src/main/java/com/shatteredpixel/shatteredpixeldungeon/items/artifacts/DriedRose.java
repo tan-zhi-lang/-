@@ -701,13 +701,22 @@ public class DriedRose extends Artifact {
 		}
 
 		@Override
-		public int glyphLevel(Class<? extends Armor.Glyph> cls) {
+		public float glyphLevel(Class<? extends Armor.Glyph> cls) {
 			if (armor() != null && armor().hasGlyph(cls, this)){
-				return Math.max(super.glyphLevel(cls), armor().强化等级());
+				return 0.03f*(1+armor().强化等级());
 			} else {
 				return super.glyphLevel(cls);
 			}
 		}
+		@Override
+		public float enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
+			if (weapon() != null){
+				return 0.03f*(1+weapon().强化等级());
+			} else {
+				return super.enchantmentlevel(cls);
+			}
+		}
+
 
 		@Override
 		public boolean interact(Char c) {

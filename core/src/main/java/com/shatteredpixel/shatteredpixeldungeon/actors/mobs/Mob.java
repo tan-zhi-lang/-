@@ -179,7 +179,7 @@ public abstract class Mob extends Char{
 			25:
 			Hero.最大等级;
 
-	protected Char enemy;
+	public Char enemy;
 	protected int enemyID=-1; //used for save/restore
 	protected boolean enemySeen;
 	protected boolean alerted=false;
@@ -1653,6 +1653,10 @@ public abstract class Mob extends Char{
 		for(Buff b: buffs(ChampionEnemy.class)){
 			desc+="\n\n_"+Messages.titleCase(b.name())+"_\n"+b.desc();
 		}
+		Notes.CustomRecord note = Notes.findCustomRecord(this);
+		if (note != null){
+			desc+="\n\n"+Messages.get(this,"custom_note_type",note.title().replace('_','ˍ'),note.desc().replace('_','ˍ'));
+		}
 		boolean b=true;
 		if(this instanceof NPC){
 			b=false;
@@ -1661,7 +1665,7 @@ public abstract class Mob extends Char{
 			b=false;
 		}
 		if(SPDSettings.隐藏细节())
-			b=true;
+			b=false;
 
 		if(b){
 			desc+="\n\n";

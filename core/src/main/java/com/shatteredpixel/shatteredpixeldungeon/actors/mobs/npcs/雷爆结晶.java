@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -94,7 +94,7 @@ public class 雷爆结晶 extends NPC {
 		arcs.clear();
 		
 		
-		Shocking.arc(this,enemy,viewDistance,affected,arcs);
+		电击.arc(this,enemy,viewDistance,affected,arcs);
 		
 		affected.remove(enemy); //defender isn't hurt by lightning
 		affected.remove(Dungeon.hero);

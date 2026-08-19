@@ -168,6 +168,7 @@ public enum Catalog {
 
 	//EQUIPMENT
 	MELEE_WEAPONS,
+	MELEE_5WEAPONS,
 	ARMOR,
 	ENCHANTMENTS,
 	GLYPHS,
@@ -230,7 +231,8 @@ public enum Catalog {
 		MELEE_WEAPONS.addItems(Generator.Category.WEP_T2.classes);
 		MELEE_WEAPONS.addItems(Generator.Category.WEP_T3.classes);
 		MELEE_WEAPONS.addItems(Generator.Category.WEP_T4.classes);
-		MELEE_WEAPONS.addItems(Generator.Category.WEP_T5.classes);
+
+		MELEE_5WEAPONS.addItems(Generator.Category.WEP_T5.classes);
 
 		ARMOR.addItems(Generator.Category.ARMOR.classes);
 		ARMOR.addItems(铠甲.class,法袍.class,
@@ -373,7 +375,7 @@ public enum Catalog {
 	//old badges for pre-2.5
 	public static LinkedHashMap<Catalog, Badges.Badge> catalogBadges = new LinkedHashMap<>();
 	static {
-		catalogBadges.put(MELEE_WEAPONS, Badges.Badge.ALL_WEAPONS_IDENTIFIED);
+		catalogBadges.put(MELEE_5WEAPONS, Badges.Badge.ALL_WEAPONS_IDENTIFIED);
 		catalogBadges.put(ARMOR, Badges.Badge.ALL_ARMOR_IDENTIFIED);
 		catalogBadges.put(WANDS, Badges.Badge.ALL_WANDS_IDENTIFIED);
 		catalogBadges.put(RINGS, Badges.Badge.ALL_RINGS_IDENTIFIED);
@@ -385,6 +387,7 @@ public enum Catalog {
 	public static ArrayList<Catalog> equipmentCatalogs = new ArrayList<>();
 	static {
 		equipmentCatalogs.add(MELEE_WEAPONS);
+		equipmentCatalogs.add(MELEE_5WEAPONS);
 		equipmentCatalogs.add(ARMOR);
 		equipmentCatalogs.add(ENCHANTMENTS);
 		equipmentCatalogs.add(GLYPHS);

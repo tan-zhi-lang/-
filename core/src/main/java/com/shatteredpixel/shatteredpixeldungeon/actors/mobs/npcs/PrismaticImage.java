@@ -20,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PrismaticSprite;
@@ -208,11 +209,20 @@ public class PrismaticImage extends NPC {
 	}
 
 	@Override
-	public int glyphLevel(Class<? extends Armor.Glyph> cls) {
+	public float glyphLevel(Class<? extends Armor.Glyph> cls) {
 		if (hero != null){
-			return Math.max(super.glyphLevel(cls), hero.glyphLevel(cls));
+			return hero.glyphLevel(cls);
 		} else {
 			return super.glyphLevel(cls);
+		}
+	}
+
+	@Override
+	public float enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
+		if (hero != null){
+			return hero.enchantmentlevel(cls);
+		} else {
+			return super.enchantmentlevel(cls);
 		}
 	}
 

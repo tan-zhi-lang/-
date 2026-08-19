@@ -199,8 +199,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.同位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.臃肿;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迅捷;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.巫服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.忍服;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.披风;
@@ -256,6 +260,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.DarkGold;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.丛林之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
@@ -347,8 +352,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.风斩电刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
@@ -495,7 +500,6 @@ public class Hero extends Char {
     public float 属性翻倍= 1;
     public float 寸止= 1;
     public boolean[] 天赋 = {false,false,false,false,false,};
-    public boolean 单身 = false;
     public boolean 进阶 = false;
     public boolean 奥术 = false;
     public boolean 生化 = true;
@@ -2144,7 +2148,7 @@ public class Hero extends Char {
             case "魔法帝":return "魔力+35";
             case "III型药剂":return "潜力药剂50%概率+10力量";
             case "升级经验":return "获得的经验x0.35x等级";
-            case "冥想":return "等待回合x4，但是恢复25%已损失圣生命，且所受伤害-50%";
+            case "冥想":return "等待回合x4，但是恢复25%已损失生命，且期间所受伤害-50%";
             case "粘咕的宠爱":return "在水上时，每回合恢复2%最大生命";
             case "破败之王":return "腐化敌人不会每回合损失1%最大生命，并且每回合恢复5%最大生命";
             case "精巧狙击手":return "投掷敌人在攻击范围外时，花费的时间/3";
@@ -3050,13 +3054,16 @@ public class Hero extends Char {
     public float 科学狂人= 0.3f;
     public float 幸运值(){
         if(幸运机制()>1)return 1+(幸运机制()-1)/0.25f;
+        if(幸运机制()==1)return 1;
         if(幸运机制()<1)return -((1-幸运机制())/0.25f);
         return 幸运机制();
     }
     public float 幸运机制(){
         float 幸运=Dungeon.幸运值;
+
 //        if(Rankings.INSTANCE.totalNumber<=1)幸运++;
 //        if(Dungeon.daily&&!Dungeon.dailyReplay)幸运++;
+
         幸运+=天赋点数(Talent.天命之赐);
         if(subClass(HeroSubClass.灾厄化身)){
             幸运--;
@@ -3290,6 +3297,8 @@ public class Hero extends Char {
 
         最大生命*=强健之戒.最大生命(this);
         最大生命*=本命玉佩.生命();
+        if(glyphLevel(臃肿.class)>=0)
+        最大生命*=1+glyphLevel(臃肿.class)*0.2f;
 
         if(符文("你才是老鬼"))最大生命*=10;
         if(符文("科学狂人")&&科学狂人==0.3f)最大生命*=1.4f;
@@ -3607,9 +3616,6 @@ public class Hero extends Char {
             strx+=9f;
         }
 
-        if(单身){
-            strx+=0.1f;
-        }
         if(符文("谁说女子不如男")){
             if(女人())strx*=1.5f;
 
@@ -3774,7 +3780,6 @@ public class Hero extends Char {
     private static final String 击杀数量x= "击杀数量";
     private static final String 属性翻倍x= "属性翻倍";
     private static final String 寸止x= "寸止";
-    private static final String 单身x = "单身";
     private static final String 进阶x = "进阶";
     private static final String 奥术x = "奥术";
     private static final String 生化x = "生化";
@@ -3868,7 +3873,6 @@ public class Hero extends Char {
         bundle.put(击杀数量x,击杀数量);
         bundle.put(属性翻倍x,属性翻倍);
         bundle.put(寸止x,寸止);
-        bundle.put(单身x, 单身);
         bundle.put(进阶x, 进阶);
         bundle.put(奥术x, 奥术);
         bundle.put(生化x, 生化);
@@ -3969,7 +3973,6 @@ public class Hero extends Char {
         击杀数量= bundle.getFloat(击杀数量x);
         属性翻倍= bundle.getFloat(属性翻倍x);
         寸止= bundle.getFloat(寸止x);
-        单身 = bundle.getBoolean(单身x);
         进阶 = bundle.getBoolean(进阶x);
         奥术 = bundle.getBoolean(奥术x);
         生化 = bundle.getBoolean(生化x);
@@ -4882,6 +4885,10 @@ public class Hero extends Char {
         float x=super.最小魔抗();
         x+=魔力()-10;
         x+=魔抗成长;
+        if (glyphLevel(敌法.class)!=-1)
+            x+=4 * Armor.Glyph.genericProcChanceMultiplier(this)*
+               glyphLevel(敌法.class);
+
 
         if(符文("泰坦的坚决")&&hasbuff(泰坦的坚决.class)){
             x+= buff(泰坦的坚决.class).count;
@@ -5361,6 +5368,8 @@ public class Hero extends Char {
 
         if(hasbuff(鬼刀.class))speed*=3;
 
+        speed *= 迅捷.speedBoost(this,glyphLevel(迅捷.class));
+        speed *= 涌流.speedBoost(this,glyphLevel(涌流.class));
         speed *= 疾速之戒.speedMultiplier(this);
 
         speed*=1+天赋点数(Talent.诡异身法,0.075f);
@@ -5737,7 +5746,7 @@ public class Hero extends Char {
             immunes.add(Chill.class);
         }
         if (subClass(HeroSubClass.冰魄剑神)
-       		||glyphLevel(位素.class)>=0
+       		||glyphLevel(同位素.class)>=0
             ||belongings.weapon(寒冰镖.class)
             ||英精英雄==6) {
             immunes.add(Chill.class);
@@ -5759,7 +5768,7 @@ public class Hero extends Char {
         if(belongings.weapon(闪电双截棍.class)){
             immunes.add(WandOfLightning.class);
             immunes.add(潮霆法杖.class);
-            immunes.add(Shocking.class);
+            immunes.add(电击.class);
             immunes.add(Electricity.class);
             immunes.add(ShockingDart.class);
             immunes.add(Elemental.ShockElemental.class);
@@ -5769,7 +5778,7 @@ public class Hero extends Char {
         }
 
         if (belongings.armor(法袍.class)||
-            glyphLevel(位素.class)>=0||
+            glyphLevel(同位素.class)>=0||
             (belongings.weapon(下界合金剑.class))) {
             immunes.add(燃烧.class);
         }
@@ -5884,6 +5893,9 @@ public class Hero extends Char {
         if(符文("缩小引擎"))大小-=0.02f*缩小引擎;
         if(符文("坦克引擎"))大小+=0.025f*坦克引擎;
         if(belongings.hasItem(心之钢.class))大小+=(1+belongings.getItem(心之钢.class).等级())*0.075f;
+
+        if(glyphLevel(臃肿.class)>=0)
+            大小+=glyphLevel(臃肿.class)*0.02f;
         return 大小;
     }
     public float 治疗护盾(){
@@ -6346,8 +6358,26 @@ public class Hero extends Char {
             if(bonus!=null&&Dungeon.level!=null&&!bonus.isEmpty()){
                 for(Item b: bonus)
                     Dungeon.level.dropRandomCell(b,pos);
+
+                Sample.INSTANCE.play(Assets.Sounds.钓鱼);
+
                 if(sprite!=null)
                 镜钓之戒.showFlareForBonusDrop(sprite);
+            }
+        }
+        if(在草丛()&&!Dungeon.bossLevel()&&Dungeon.branch==0){
+            ArrayList<Item> bonus=丛林之戒.tryForBonusDrop(this,
+                                                           丛林之戒.累计(this));
+            if(bonus!=null&&Dungeon.level!=null&&!bonus.isEmpty()){
+                for(Item b: bonus)
+                    Dungeon.level.dropRandomCell(b,pos);
+
+                Dungeon.level.dropRandomCell(new 地牢浆果(),pos);
+
+                Sample.INSTANCE.play(Assets.Sounds.拾荒);
+                
+                if(sprite!=null)
+                    丛林之戒.showFlareForBonusDrop(sprite);
             }
         }
         if(Dungeon.赛季(赛季设置.地牢塔防)&&地牢塔防开关){
@@ -7493,8 +7523,8 @@ public class Hero extends Char {
     @Override
     public int 攻击范围(){
         int x =1;
-        if(belongings.weapon!=null){
-            x=belongings.weapon.reachFactor(this);
+        if(belongings.weapon()!=null){
+            x=belongings.weapon().reachFactor(this);
         }
         if(符文("登神长阶")&&等级>=8)x+=5;
         if(符文("登神长阶")&&等级>=22)x++;
@@ -8551,7 +8581,7 @@ public class Hero extends Char {
 //        }
         if(enemy!=null&&(heroClass(HeroClass.机器)||种族天赋.equals("机器")))
             Sample.INSTANCE.play(Assets.Sounds.金属受伤);
-        
+
         if(enemy!=null&&heroClass(HeroClass.灵猫)&&damage>=最大生命(0.25f))
             Sample.INSTANCE.play(Assets.Sounds.哈气猫);
 
@@ -8751,21 +8781,21 @@ public class Hero extends Char {
     }
 
     @Override
-    public int glyphLevel(Class<? extends Armor.Glyph> cls) {
+    public float glyphLevel(Class<? extends Armor.Glyph> cls) {
         if (belongings.armor1() != null && belongings.armor1().hasGlyph(cls, this)) {
-            return Math.max(super.glyphLevel(cls), belongings.armor.强化等级());
+            return 1+0.03f*belongings.armor.强化等级();
         }else if (belongings.armor2() != null && belongings.armor2().hasGlyph(cls, this)) {
-            return Math.max(super.glyphLevel(cls), belongings.armor2.强化等级());
+            return 1+0.03f*belongings.armor2.强化等级();
         } else {
             return super.glyphLevel(cls);
         }
     }
     @Override
-    public int enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
+    public float enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
         if (belongings.weapon1() != null && belongings.weapon1().hasEnchant(cls, this)) {
-            return Math.max(super.enchantmentlevel(cls), belongings.weapon.强化等级());
+            return 0.03f*belongings.weapon.强化等级();
         }else if (belongings.weapon2() != null && belongings.weapon2().hasEnchant(cls, this)) {
-            return Math.max(super.enchantmentlevel(cls), belongings.secondWep.强化等级());
+            return 0.03f*belongings.secondWep.强化等级();
         } else {
             return super.enchantmentlevel(cls);
         }
@@ -10086,7 +10116,6 @@ public class Hero extends Char {
         if(heroClass(HeroClass.盗贼)){
             x++;
         }
-        x += 神知之戒.范围(this);
         x += 天赋点数(Talent.感知);
         x+=遗失符石.减少();
         if(符文("橡皮长枪手"))x+=2*攻击范围();

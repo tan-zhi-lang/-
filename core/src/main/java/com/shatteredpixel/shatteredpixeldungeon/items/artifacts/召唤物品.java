@@ -527,10 +527,6 @@ public class 召唤物品 extends Artifact {
 			return dr;
 		}
 
-		@Override
-		public int glyphLevel(Class<? extends Armor.Glyph> cls) {
-			return super.glyphLevel(cls);
-		}
 
 		@Override
 		public boolean interact(Char c) {

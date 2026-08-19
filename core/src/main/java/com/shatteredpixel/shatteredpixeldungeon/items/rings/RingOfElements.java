@@ -14,6 +14,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
@@ -66,22 +69,40 @@ public class RingOfElements extends Ring {
 		return new Resistance();
 	}
 
+	public static final HashSet<Class> 火焰 = new HashSet<>();
+	static {
+		火焰.add( 燃烧.class);
+		火焰.add( 灵焰.class );
+		火焰.add( 火毒.class);
+
+	}
+	public static final HashSet<Class> 冰霜 = new HashSet<>();
+	static {
+		冰霜.add( Chill.class );//冰霜
+		冰霜.add( Frost.class );
+
+	}
+	public static final HashSet<Class> 毒= new HashSet<>();
+	static {
+		毒.add(Ooze.class);//淤泥
+		毒.add(Corrosion.class);//酸蚀
+		毒.add(ToxicGas.class);//毒气
+		毒.add(Poison.class);//中毒
+
+	}
+
+	public static final HashSet<Class> 电 = new HashSet<>();
+	static {
+		电.add( Paralysis.class );//麻痹
+		电.add( Electricity.class );//电
+
+	}
+
 	public static final HashSet<Class> RESISTS = new HashSet<>();
 	static {
-		RESISTS.add( Chill.class );//冰霜
-		RESISTS.add( Frost.class );
-
-		RESISTS.add( Ooze.class );//淤泥
-		RESISTS.add( Corrosion.class );//酸蚀
-		RESISTS.add( ToxicGas.class );//毒气
-		RESISTS.add( Poison.class );//中毒
-
-		RESISTS.add( Paralysis.class );//麻痹
-		RESISTS.add( Electricity.class );//电
 
 		RESISTS.addAll(敌法.RESISTS);
 	}
-	
 	public static float resist( Char target, Class effect ){
 		for (Class c : RESISTS){
 			if (c.isAssignableFrom(effect)){

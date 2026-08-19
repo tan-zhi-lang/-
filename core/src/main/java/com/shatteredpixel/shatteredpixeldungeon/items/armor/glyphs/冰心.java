@@ -2,28 +2,28 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 
-public class 涌流 extends Armor.Glyph {
-
+public class 冰心 extends Armor.Glyph {
 	@Override
 	public float proc(Armor armor, Char attacker, Char defender, float damage) {
-		//no proc effect, triggers in Char.speed()
+
 		return damage;
 	}
 
-	public static float speedBoost( Char owner, float level ){
-		if (level == -1||!owner.在水中()){
+	public static float speedBoost(Char owner){
+		if (Dungeon.hero==owner||Dungeon.hero.glyphLevel(冰心.class) == -1||Dungeon.hero.距离(owner)>2){
 			return 1;
 		}
-		if(owner.sprite!=null){
+
+		if (owner.sprite != null){
 			owner.sprite.emitter().startDelayed(Speck.factory(Speck.BLUE_LIGHT),0.02f,5,0.05f);
 		}
-		return 1.2f*genericProcChanceMultiplier(owner)*level;
+		return 0.8f / genericProcChanceMultiplier(Dungeon.hero)*Dungeon.hero.glyphLevel(冰心.class);
 
 	}
-
 
 }

@@ -1,6 +1,6 @@
 
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -17,7 +17,7 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-public class Explosive extends Weapon.Enchantment {
+public class 易爆 extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing BLACK = new ItemSprite.Glowing( 0x000000 );
 	private static ItemSprite.Glowing WARM = new ItemSprite.Glowing( 0x000000, 0.5f );
@@ -27,9 +27,10 @@ public class Explosive extends Weapon.Enchantment {
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 		if(defender!=null){
 			//average value of 5, or 20 hits to an explosion
-			int durToReduce=Math.round(Random.IntRange(0,10)*procChanceMultiplier(attacker));
+			float durToReduce=procChanceMultiplier(attacker)
+									   *attacker.enchantmentlevel(易爆.class);
 			int currentDurability=durability;
-			durability-=durToReduce;
+			durability-=Random.IntRange(0,10)*durToReduce;
 
 			if(currentDurability>50&&durability<=50){
 				attacker.sprite.showStatus(CharSprite.警告橙,Messages.get(this,"warm"));
@@ -56,7 +57,7 @@ public class Explosive extends Weapon.Enchantment {
 							explosionPos=defender.pos;
 						}
 
-						new ExplosiveCurseBomb().explode(explosionPos);
+						new ExplosiveCurseBomb().heroexplode(explosionPos,durToReduce);
 
 						durability+=100;
 						Item.updateQuickslot();
@@ -67,7 +68,7 @@ public class Explosive extends Weapon.Enchantment {
 		return damage;
 	}
 
-	public void merge(Explosive other){
+	public void merge(易爆 other){
 		int diff = 100 - other.durability;
 		durability -= diff;
 		//this can make durability negative, in which case many explosions can happen in succession.

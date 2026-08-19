@@ -19,15 +19,22 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.丛生;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.代谢;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.冰心;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.同位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.守护;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐岩;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐石;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.臃肿;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.荆棘;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.虐待;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.轻便;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迅捷;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迷彩;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.魅惑;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
@@ -542,7 +549,7 @@ public class Armor extends EquipableItem {
 	public float evasionFactor( Char owner, float evasion ){
 		if (testingNoArmDefSkill) return evasion;
 		
-		if (hasGlyph(磐岩.class,owner)){
+		if (hasGlyph(磐石.class,owner)){
 			return 0;
 		}
 		
@@ -554,6 +561,8 @@ public class Armor extends EquipableItem {
 		}
 
 		if(cursed)evasion*=0.7f;
+		if(hasGlyph(轻便.class))
+		evasion*=1.2f*Glyph.genericProcChanceMultiplier(owner)*owner.glyphLevel(轻便.class);
 		return augment.evasionFactor(evasion);
 	}
 	
@@ -675,12 +684,8 @@ public class Armor extends EquipableItem {
 			}
 		}
 		if (attacker!=null&&defender.buff(MagicImmune.class) == null) {
-			Glyph trinityGlyph = null;
 				if (glyph != null) {
 					damage = glyph.proc(this, attacker, defender, damage);
-				}
-				if (trinityGlyph != null){
-					damage = trinityGlyph.proc( this, attacker, defender, damage );
 				}
 			damage = Math.max(damage, 0);
 		}
@@ -976,10 +981,29 @@ public class Armor extends EquipableItem {
 		public ItemSprite.Glowing 紫= new ItemSprite.Glowing(0x7828f );
 		public ItemSprite.Glowing 绿= new ItemSprite.Glowing(0x50ff60 );
 		public ItemSprite.Glowing 粉= new ItemSprite.Glowing(0xff4cd2 );
+		public ItemSprite.Glowing 白= new ItemSprite.Glowing(0xFFFFFF );
+		public ItemSprite.Glowing 深灰= new ItemSprite.Glowing(0x222222 );
 		public static final Class<?>[] all = new Class<?>[]{
-				位素.class,荆棘.class,磐岩.class,
-				敌法.class,  虐待.class, 代谢.class,
-				粘稠.class,迅捷.class, 涌流.class
+				轻便.class,//
+				丛生.class,//
+				臃肿.class,//
+
+				冰心.class,//
+				同位素.class,//
+				荆棘.class,//
+				磐石.class,//
+
+				迅捷.class,//
+				敌法.class,//
+				虐待.class,//
+				代谢.class,//
+
+				粘稠.class,//
+				守护.class,//
+				迷彩.class,//
+				涌流.class,//
+
+				魅惑.class//
 		};
 
 		public abstract float proc( Armor armor, Char attacker, Char defender, float damage );
@@ -1009,7 +1033,6 @@ public class Armor extends EquipableItem {
 		public String desc() {
 			return Messages.get(this, "desc");
 		}
-
 		public boolean curse() {
 			return false;
 		}
@@ -1022,7 +1045,9 @@ public class Armor extends EquipableItem {
 		public void storeInBundle( Bundle bundle ) {
 		}
 		
-		public abstract ItemSprite.Glowing glowing();
+		public ItemSprite.Glowing glowing(){
+			return 白;
+		};
 
 		@SuppressWarnings("unchecked")
 		public static Glyph random( Class<? extends Glyph> ... toIgnore ) {

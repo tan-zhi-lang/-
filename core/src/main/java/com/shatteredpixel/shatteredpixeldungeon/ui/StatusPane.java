@@ -40,7 +40,6 @@ import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.ColorMath;
-import com.watabou.utils.DeviceCompat;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.PointF;
 
@@ -335,7 +334,7 @@ public class StatusPane extends Component {
 		fps.measure();
 		PixelScene.align(fps);
 
-		区域.scale.set(PixelScene.align(0.175f));
+		区域.scale.set(0.165f);
 		区域.measure();
 		PixelScene.align(区域);
 
@@ -343,7 +342,7 @@ public class StatusPane extends Component {
 		time.measure();
 		PixelScene.align(time);
 		
-		day.scale.set(PixelScene.align(0.185f));
+		day.scale.set(0.165f);
 		day.measure();
 		PixelScene.align(day);
 		
@@ -352,7 +351,7 @@ public class StatusPane extends Component {
 		busy.x = x + 1;
 		busy.y = y + 37;
 		
-		busytime.scale.set(PixelScene.align(0.185f));
+		busytime.scale.set(0.165f);
 		busytime.measure();
 		PixelScene.align(busytime);
 		
@@ -493,7 +492,7 @@ public class StatusPane extends Component {
 
 		区域.text("第"+Dungeon.区域()+"区");
 		区域.measure();
-		区域.x = fps.x+SPDSettings.getscale(7,8.5f,9.5f,10)-(DeviceCompat.isAndroid()?2:0)-区域.width()/2f;
+		区域.x = fps.x+7f-区域.width()/2f;
 		区域.y = y + 30 + 区域.height();
 
 		time.text(Dungeon.地牢时间());
@@ -508,7 +507,7 @@ public class StatusPane extends Component {
 
 		busytime.text("回合差"+kw2(2,(1f - Actor.now()%1f)%1f));
 		busytime.measure();
-		busytime.x = counter.x-3;
+		busytime.x = counter.x-2.5f;
 		busytime.y = counter.y+counter.height()+busytime.height()*4+2;
 		
 		if (Dungeon.hero.等级 != lastLvl) {

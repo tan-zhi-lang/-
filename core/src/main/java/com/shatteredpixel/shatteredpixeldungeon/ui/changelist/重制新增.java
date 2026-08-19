@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.暴刹秘�
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.玄武秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.血怒秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.丛林之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
@@ -525,20 +526,21 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		
-		changes.addButton(new ChangeButton("六神之戒","六神",new 六神之戒().statsInfo()));
-		changes.addButton(new ChangeButton("装甲之戒","装甲",new 装甲之戒().statsInfo()));
-		changes.addButton(new ChangeButton("恢复之戒","恢复",new 恢复之戒().statsInfo()));
-		changes.addButton(new ChangeButton("极肚之戒","极肚",new 极肚之戒().statsInfo()));
-		changes.addButton(new ChangeButton("魔攻之戒","魔攻",new 魔攻之戒().statsInfo()));
-		changes.addButton(new ChangeButton("强健之戒","强健",new 强健之戒().statsInfo()));
-		changes.addButton(new ChangeButton("钢壁之戒","钢壁",new 钢壁之戒().statsInfo()));
-		changes.addButton(new ChangeButton("府备之戒","府备",new 府备之戒().statsInfo()));
-		changes.addButton(new ChangeButton("身法之戒","身法",new 身法之戒().statsInfo()));
-		changes.addButton(new ChangeButton("神知之戒","神知",new 神知之戒().statsInfo()));
-		changes.addButton(new ChangeButton("镜钓之戒","镜钓",new 镜钓之戒().statsInfo()));
-		changes.addButton(new ChangeButton("利害之戒","利害",new 利害之戒().statsInfo()));
-		changes.addButton(new ChangeButton("破防之戒","破防",new 破防之戒().statsInfo()));
-		changes.addButton(new ChangeButton("杀戮之戒","杀戮",new 杀戮之戒().statsInfo()));
+		changes.addButton(new ChangeButton("六神","六神之戒",new 六神之戒().statsInfo()));
+		changes.addButton(new ChangeButton("装甲","装甲之戒",new 装甲之戒().statsInfo()));
+		changes.addButton(new ChangeButton("恢复","恢复之戒",new 恢复之戒().statsInfo()));
+		changes.addButton(new ChangeButton("极肚","极肚之戒",new 极肚之戒().statsInfo()));
+		changes.addButton(new ChangeButton("魔攻","魔攻之戒",new 魔攻之戒().statsInfo()));
+		changes.addButton(new ChangeButton("强健","强健之戒",new 强健之戒().statsInfo()));
+		changes.addButton(new ChangeButton("钢壁","钢壁之戒",new 钢壁之戒().statsInfo()));
+		changes.addButton(new ChangeButton("府备","府备之戒",new 府备之戒().statsInfo()));
+		changes.addButton(new ChangeButton("身法","身法之戒",new 身法之戒().statsInfo()));
+		changes.addButton(new ChangeButton("神知","神知之戒",new 神知之戒().statsInfo()));
+		changes.addButton(new ChangeButton("镜钓","镜钓之戒",new 镜钓之戒().statsInfo()));
+		changes.addButton(new ChangeButton("丛林","丛林之戒",new 丛林之戒().statsInfo()));
+		changes.addButton(new ChangeButton("利害","利害之戒",new 利害之戒().statsInfo()));
+		changes.addButton(new ChangeButton("破防","破防之戒",new 破防之戒().statsInfo()));
+		changes.addButton(new ChangeButton("杀戮","杀戮之戒",new 杀戮之戒().statsInfo()));
 
 		changes.addButton(new ChangeButton(new 鬼帝钟(),"道士开局获得"));
 		changes.addButton(new ChangeButton(new 叛忍护额(),"女忍开局获得"));
@@ -712,11 +714,32 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"直接让种子的效果赋予自身，而无需花费回合点击自己种植在脚下的植物来触发。",
 											"扔出->丢子(植)，种植->原地种植。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "诅咒附魔",
+		"重创\n" +
+		"对康血敌人的攻击伤害+20%",
+
+		"诡秘\n" +
+		"伏击伤害+20%",
+
+		"除魔\n" +
+		"对恶魔亡灵的攻击伤害+20%",
+
+		"破甲\n" +
+		"攻击伤害+敌人最大防御",
+
 		"精准\n" +
 		"总命中+30%"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "刻印",
+		"守护\n" +
+		"物理抗性+2。",
+
+		"轻便\n" +
+		"闪避+20%。",
+
 		"虐待\n" +
-		"恢复8%受到物理伤害的生命。"
+		"恢复8%受到物理伤害的生命。",
+
+	   "冰心\n" +
+		"2格范围的敌人攻速和移速-20%。"
 		));
 
 		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(),"炼金",

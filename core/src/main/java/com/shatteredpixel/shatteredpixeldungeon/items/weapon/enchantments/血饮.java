@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
 public class 血饮 extends Weapon.Enchantment {
@@ -16,15 +15,11 @@ public class 血饮 extends Weapon.Enchantment {
 							  *procChanceMultiplier(attacker)){
 				if(attacker.isAlive()){
 					attacker.回血(damage*0.04f
-								  *procChanceMultiplier(attacker));
+								  *procChanceMultiplier(attacker)*attacker.enchantmentlevel(血饮.class));
 				}
 			}
 		}
 		return damage;
 	}
-	
-	@Override
-	public Glowing glowing() {
-		return 红;
-	}
+
 }

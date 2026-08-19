@@ -361,11 +361,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int scale() {
-		return getInt( KEY_SCALE, 4 );
-	}
-
-	public static float getscale(float x1,float x2,float x3,float x4) {
-		return (scale()==4?x4:(scale()==3?x3:(SPDSettings.scale()==2?x2:x1)));
+		return getInt( KEY_SCALE, 5 );
 	}
 
 	public static void quickSwapper(boolean value ){ put( KEY_QUICK_SWAP, value ); }

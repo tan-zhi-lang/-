@@ -511,9 +511,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 								optUIScale = new OptionSlider("界面尺寸",
 															  2+ "X",
-															  4+ "X",
+															  5+ "X",
 															  2,
-															  4 ) {
+															  5 ) {
 									@Override
 									protected void onChange() {
 										if (getSelectedValue() != SPDSettings.scale()) {

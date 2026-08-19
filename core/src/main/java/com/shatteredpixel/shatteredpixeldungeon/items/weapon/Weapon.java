@@ -37,15 +37,22 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ShardOfOblivion;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.招架;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.易爆;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.极化;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.破甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.精准;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.紊乱;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.索敌;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.腐化;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.血祭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.血饮;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.诡秘;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.重创;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.除魔;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.发射;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -492,6 +499,9 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 伏击(){
 		float 伏击=super.伏击();
+		if(Dungeon.hero()&&hasEnchant(诡秘.class)) 伏击+=0.2f
+														 *Enchantment.genericProcChanceMultiplier(Dungeon.hero)
+														 *Dungeon.hero.enchantmentlevel(诡秘.class);
 		if(匕首()||镖())伏击+=0.15f;
 		return 伏击;
 	}
@@ -1046,7 +1056,8 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		if (projecting
 			&& (Dungeon.level.passable[dst] || Dungeon.level.avoid[dst] || Actor.findChar(dst) != null)
-			&&Dungeon.level.距离(user.pos,dst)<=Math.round(user.攻击范围()*Enchantment.genericProcChanceMultiplier(user))){
+			&&Dungeon.level.距离(user.pos,dst)<=Math.round(user.攻击范围()
+			   *Enchantment.genericProcChanceMultiplier(user))){
 			return dst;
 		} else {
 			return super.throwPos(user, dst);
@@ -1438,7 +1449,7 @@ abstract public class Weapon extends KindOfWeapon {
 
 
 		if(cursed)ACC*=0.7f;
-		if(hasEnchant(精准.class))ACC*=1.3f;
+		if(hasEnchant(精准.class))ACC*=1.3f*enchantment.procChanceMultiplier(owner)*owner.enchantmentlevel(精准.class);
 		ACC *= adjacentAccFactor(owner, target);
 		return augment.accuracyFactor(ACC);
 	}
@@ -1451,7 +1462,8 @@ abstract public class Weapon extends KindOfWeapon {
 		//			multi += 0.6f;
 		//		}
 		if(cursed)multi*=0.7f;
-		if (hasEnchant(紊乱.class,owner))multi*=Random.Float(0.5f,1.25f);
+		if (hasEnchant(紊乱.class,owner))multi*=Random.Float(0.8f,1.5f)*enchantment.procChanceMultiplier(owner)*
+										 owner.enchantmentlevel(紊乱.class);
 		return baseDelay(owner)/multi;
 	}
 
@@ -1479,7 +1491,11 @@ abstract public class Weapon extends KindOfWeapon {
 		if(连招范围!=-1){
 			reach=连招范围;
 		}
-		if (hasEnchant(索敌.class,owner))reach+=Math.round(2*Enchantment.genericProcChanceMultiplier(owner));
+		if (hasEnchant(索敌.class,owner))reach+=
+				Math.round(1
+						   *Enchantment.genericProcChanceMultiplier(owner)
+						   *owner.enchantmentlevel(索敌.class)
+						  );
 
 		return reach;
 	}
@@ -1696,11 +1712,29 @@ abstract public class Weapon extends KindOfWeapon {
 		public ItemSprite.Glowing 黄= new ItemSprite.Glowing(0xFFFF00 );
 		public ItemSprite.Glowing 绿= new ItemSprite.Glowing(0x00FF00 );
 		public ItemSprite.Glowing 灰= new ItemSprite.Glowing(0x999999 );
+		public ItemSprite.Glowing 白= new ItemSprite.Glowing(0xFFFFFF );
 		public static final Class<?>[] all = new Class<?>[]{
-				幸运.class,紊乱.class,
-				精准.class,
-				恒动.class,索敌.class,极化.class,
-				死神.class, 血饮.class, 血祭.class};
+				诡秘.class,//
+				电击.class,//
+				腐化.class,//
+
+				招架.class,//
+				破甲.class,//
+				重创.class,//
+				除魔.class,//
+
+				紊乱.class,//
+				精准.class,//
+				恒动.class,//
+				索敌.class,//
+
+				极化.class,//
+				死神.class,//
+				血饮.class,//
+				易爆.class,//
+
+				血祭.class//
+		};
 
 
 			
@@ -1759,9 +1793,9 @@ abstract public class Weapon extends KindOfWeapon {
 		@Override
 		public void storeInBundle( Bundle bundle ) {
 		}
-		
-		public abstract ItemSprite.Glowing glowing();
-		
+		public ItemSprite.Glowing glowing() {
+			return 白;
+		}
 		@SuppressWarnings("unchecked")
 		public static Enchantment random( Class<? extends Enchantment> ... toIgnore ) {
 			return randomAll( toIgnore );

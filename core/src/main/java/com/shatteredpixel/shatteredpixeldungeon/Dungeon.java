@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Awareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Levitation;
@@ -521,6 +522,8 @@ public class Dungeon {
 
 			if(Dungeon.hero())
 			x*=府备之戒.综合属性(Dungeon.hero);
+
+			if(c.hasbuff(Corruption.class))x*=c.buff(Corruption.class).综合属性;
 
 			if(Dungeon.赛季(赛季设置.规则怪谈)){
 				x*=1+gold/100f;

@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
 import com.watabou.utils.Bundle;
@@ -20,11 +19,7 @@ public class 恒动 extends Weapon.Enchantment {
 
 		return damage;
 	}
-	
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return 黄;
-	}
+
 
 	public static class KineticTracker extends Buff {
 
@@ -80,7 +75,8 @@ public class 恒动 extends Weapon.Enchantment {
 		
 		@Override
 		public boolean act() {
-			float powerMulti = Math.max(1f, Weapon.Enchantment.genericProcChanceMultiplier(target));
+			float powerMulti = Weapon.Enchantment.genericProcChanceMultiplier(target)
+							   *target.enchantmentlevel(恒动.class);
 			preservedDamage -= Math.max(preservedDamage*.025f, 0.1f)/powerMulti;
 			if (preservedDamage <= 0) detach();
 			

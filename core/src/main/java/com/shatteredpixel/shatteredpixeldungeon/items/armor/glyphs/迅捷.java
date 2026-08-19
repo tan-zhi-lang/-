@@ -7,7 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.PathFinder;
 
 public class 迅捷 extends Armor.Glyph {
@@ -18,7 +17,7 @@ public class 迅捷 extends Armor.Glyph {
 		return damage;
 	}
 
-	public static float speedBoost( Char owner, int level ){
+	public static float speedBoost( Char owner, float level ){
 		if (level == -1){
 			return 1;
 		}
@@ -38,13 +37,9 @@ public class 迅捷 extends Armor.Glyph {
 			if (owner.sprite != null){
 				owner.sprite.emitter().startDelayed(Speck.factory(Speck.YELLOW_LIGHT),0.02f,5,0.05f);
 			}
-			return 1.15f * genericProcChanceMultiplier(owner);
+			return 1.2f * genericProcChanceMultiplier(owner)*level;
 		}
 	}
 
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return 黄;
-	}
 
 }

@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClassArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CityLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -218,14 +219,22 @@ public class ShadowClone extends ArmorAbility {
 		}
 
 		@Override
-		public int glyphLevel(Class<? extends Armor.Glyph> cls) {
+		public float glyphLevel(Class<? extends Armor.Glyph> cls) {
 			if (Dungeon.hero() && Random.Int(4) < 4){
-				return Math.max(super.glyphLevel(cls), Dungeon.hero.glyphLevel(cls));
+				return Dungeon.hero.glyphLevel(cls);
 			} else {
 				return super.glyphLevel(cls);
 			}
 		}
 
+		@Override
+		public float enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
+			if (Dungeon.hero() && Random.Int(4) < 4){
+				return Dungeon.hero.enchantmentlevel(cls);
+			} else {
+				return super.enchantmentlevel(cls);
+			}
+		}
 		@Override
 		public float 防御时(Char enemy, float damage) {
 			damage = super.防御时(enemy, damage);

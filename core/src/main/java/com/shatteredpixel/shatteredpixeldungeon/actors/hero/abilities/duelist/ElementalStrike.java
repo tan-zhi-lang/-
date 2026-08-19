@@ -41,16 +41,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Annoying;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Dazzling;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Displacing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.易爆;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Friendly;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blocking;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.招架;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Chilling;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Corrupting;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.腐化;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Elastic;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.极化;
@@ -84,21 +84,21 @@ public class ElementalStrike extends ArmorAbility {
 		effectTypes.put(Blazing.class,      MagicMissile.FIRE_CONE);
 		effectTypes.put(Chilling.class,     MagicMissile.FROST_CONE);
 		effectTypes.put(恒动.class,MagicMissile.FORCE_CONE);
-		effectTypes.put(Shocking.class,     MagicMissile.SPARK_CONE);
-		effectTypes.put(Blocking.class,     MagicMissile.WARD_CONE);
+		effectTypes.put(电击.class,MagicMissile.SPARK_CONE);
+		effectTypes.put(招架.class,MagicMissile.WARD_CONE);
 		effectTypes.put(Blooming.class,     MagicMissile.FOLIAGE_CONE);
 		effectTypes.put(Elastic.class,      MagicMissile.FORCE_CONE);
 		effectTypes.put(幸运.class,MagicMissile.RAINBOW_CONE);
 		effectTypes.put(索敌.class,MagicMissile.PURPLE_CONE);
 		effectTypes.put(紊乱.class,MagicMissile.RAINBOW_CONE);
-		effectTypes.put(Corrupting.class,   MagicMissile.SHADOW_CONE);
+		effectTypes.put(腐化.class,MagicMissile.SHADOW_CONE);
 		effectTypes.put(死神.class,MagicMissile.SHADOW_CONE);
 		effectTypes.put(血饮.class,MagicMissile.BLOOD_CONE);
 
 		effectTypes.put(Annoying.class,     MagicMissile.SHADOW_CONE);
 		effectTypes.put(Displacing.class,   MagicMissile.SHADOW_CONE);
 		effectTypes.put(Dazzling.class,     MagicMissile.SHADOW_CONE);
-		effectTypes.put(Explosive.class,    MagicMissile.SHADOW_CONE);
+		effectTypes.put(易爆.class,MagicMissile.SHADOW_CONE);
 		effectTypes.put(Wayward.class,      MagicMissile.SHADOW_CONE);
 		effectTypes.put(极化.class,MagicMissile.SHADOW_CONE);
 		effectTypes.put(Friendly.class,     MagicMissile.SHADOW_CONE);
@@ -224,7 +224,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Blocking ***
-		} else if (ench instanceof Blocking){
+		} else if (ench instanceof 招架){
 			if (targetsHit > 0){
 				float shield = Math.round(Math.round(6f*targetsHit*powerMulti));
 				Buff.施加(hero, 护盾.class).设置(Math.round(6f*targetsHit*powerMulti));
@@ -282,7 +282,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Shocking ***
-		} else if (ench instanceof Shocking){
+		} else if (ench instanceof 电击){
 			for (int cell : cone.cells) {
 				GameScene.add(Blob.seed(cell, Math.round(8 * powerMulti), Electricity.class));
 			}
@@ -424,7 +424,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Corrupting ***
-		} else if (ench instanceof Corrupting){
+		} else if (ench instanceof 腐化){
 			for (Char ch : affected){
 				if (ch != primaryTarget
 						&& !ch.免疫(Corruption.class)
@@ -488,7 +488,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Explosive ***
-		} else if (ench instanceof Explosive){
+		} else if (ench instanceof 易爆){
 			if (Random.Float() < 0.5f*powerMulti){
 				Char exploding = Random.element(affected);
 				if (exploding != null) new Bomb.ConjuredBomb().explode(exploding.pos);

@@ -21,7 +21,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐岩;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐石;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
@@ -332,7 +332,7 @@ public class FloatingText extends RenderedTextBlock {
 		if (defender instanceof ArmoredStatue) arm = ((ArmoredStatue)defender).armor();
 		if (defender instanceof DriedRose.GhostHero) arm = ((DriedRose.GhostHero)defender).armor();
 		
-		if (defRoll == 0 && arm != null && arm.hasGlyph(磐岩.class,defender)){
+		if (defRoll == 0 && arm != null && arm.hasGlyph(磐石.class,defender)){
 			return HIT_ARM;
 		}
 		//accuracy boosts (always > 1)

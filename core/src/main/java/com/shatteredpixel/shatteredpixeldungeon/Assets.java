@@ -314,6 +314,8 @@ public class Assets {
 		public static final String 古神   = "sounds/古神.mp3";
 		public static final String 骷髅   = "sounds/骷髅.mp3";
 		public static final String 金属受伤   = "sounds/金属受伤.mp3";
+		public static final String 钓鱼   = "sounds/钓鱼.mp3";
+		public static final String 拾荒   = "sounds/拾荒.mp3";
 		public static final String 狗叫   = "sounds/狗叫.mp3";
 		public static final String 鬼叫   = "sounds/鬼叫.mp3";
 		public static final String 蛇叫   = "sounds/蛇叫.mp3";
@@ -413,6 +415,8 @@ public class Assets {
 				古神,
 				骷髅,
 				金属受伤,
+				钓鱼,
+				拾荒,
 				狗叫,
 				鬼叫,
 				蛇叫,

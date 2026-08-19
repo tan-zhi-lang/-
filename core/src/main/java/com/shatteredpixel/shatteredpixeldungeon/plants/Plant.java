@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迷彩;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -45,7 +46,10 @@ public abstract class Plant implements Bundlable {
 		if (ch instanceof Hero hero){
 			hero.interrupt();
 			hero.生命成长+=hero.天赋点数(Talent.元素掌控);//元素掌控土
+
+			迷彩.activate(ch,ch.glyphLevel(迷彩.class));
 		}
+
 		//视野内植物触发
 
 		wither();

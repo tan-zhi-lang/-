@@ -9,28 +9,21 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Lightning;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
-import com.watabou.utils.BArray;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class Shocking extends Weapon.Enchantment {
-
-	private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing( 0xFFFFFF, 0.5f );
+public class 电击 extends Weapon.Enchantment {
 
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 		if(defender!=null){
-			int level=Math.max(0,weapon.强化等级());
-
 			// flat 33% proc chance, effect scales with level via damage dealt
-			float procChance=(1/3f)*procChanceMultiplier(attacker);
-			if(Random.Float()<procChance){
-
-				float powerMulti=Math.max(1f,procChance);
+			float powerMulti=0.1f
+							 *procChanceMultiplier(attacker)
+							 *attacker.enchantmentlevel(电击.class);
 
 				affected.clear();
 				arcs.clear();
@@ -40,23 +33,18 @@ public class Shocking extends Weapon.Enchantment {
 				affected.remove(defender); //defender isn't hurt by lightning
 				for(Char ch: affected){
 					if(ch.alignment!=attacker.alignment){
-						ch.受伤时(damage*0.5f*powerMulti,this);
+						ch.受伤时(damage*powerMulti,this);
 					}
 				}
 
 				attacker.sprite.parent.addToFront(new Lightning(arcs,null));
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
 
-			}
 		}
 		return damage;
 
 	}
 
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return WHITE;
-	}
 
 	private ArrayList<Char> affected = new ArrayList<>();
 

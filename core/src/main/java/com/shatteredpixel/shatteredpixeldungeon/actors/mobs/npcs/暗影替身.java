@@ -12,6 +12,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虫箭;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.替身动画;
@@ -253,11 +254,19 @@ public class 暗影替身 extends NPC {
 	}
 	
 	@Override
-	public int glyphLevel(Class<? extends Armor.Glyph> cls) {
+	public float glyphLevel(Class<? extends Armor.Glyph> cls) {
 		if (hero != null){
 			return hero.glyphLevel(cls);
 		} else {
 			return super.glyphLevel(cls);
+		}
+	}
+	@Override
+	public float enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
+		if (hero != null){
+			return hero.enchantmentlevel(cls);
+		} else {
+			return super.enchantmentlevel(cls);
 		}
 	}
 	

@@ -36,11 +36,11 @@ import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
 
-public class 镜钓之戒 extends Ring {
+public class 丛林之戒 extends Ring {
 
 	{
-		icon = 物品表.Icons.镜钓之戒;
-		buffClass = 钓鱼佬空军.class;
+		icon = 物品表.Icons.丛林之戒;
+		buffClass = 丛林搜索.class;
 	}
 
 	private float triesToDrop = Float.MIN_VALUE;
@@ -67,7 +67,7 @@ public class 镜钓之戒 extends Ring {
 
 	
 	public static float 累计(Char target){
-		return 1/10f*getBuffedBonus( target, 钓鱼佬空军.class);
+		return 1/10f*getBuffedBonus( target, 丛林搜索.class);
 	}
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";
@@ -88,19 +88,19 @@ public class 镜钓之戒 extends Ring {
 
 	@Override
 	protected RingBuff buff( ) {
-		return new 钓鱼佬空军();
+		return new 丛林搜索();
 	}
 
 	
 	public static ArrayList<Item> tryForBonusDrop(Char target, float tries ){
-		int x=3;
+		int x=2;
 
 		int 概率0=0;
 		int 概率1=20*x;
 
 		int 概率00=5*x;
 		int 概率11=10*x;
-		int bonus = getBuffedBonus(target, 钓鱼佬空军.class);
+		int bonus = getBuffedBonus(target, 丛林搜索.class);
 		if (bonus <= 0) return null;
 
 		CountBuff
@@ -128,7 +128,7 @@ public class 镜钓之戒 extends Ring {
 				//A second ring of wealth can be at most +1 when calculating wealth bonus for equips
 				//This is to prevent using an upgraded wealth to farm another upgraded wealth and
 				//using the two to get substantially more upgrade value than intended
-				for (钓鱼佬空军 w : target.buffs(钓鱼佬空军.class)){
+				for (丛林搜索 w : target.buffs(丛林搜索.class)){
 					if (w.buffedLvl() > equipBonus){
 						equipBonus = w.buffedLvl() + Math.min(equipBonus, 2);
 					} else {
@@ -300,7 +300,7 @@ public class 镜钓之戒 extends Ring {
 		return result;
 	}
 
-	public class 钓鱼佬空军 extends RingBuff {
+	public class 丛林搜索 extends RingBuff {
 	}
 
 	public static class TriesToDropTracker extends CountBuff{

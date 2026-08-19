@@ -743,8 +743,10 @@ public abstract class Wand extends Item {
 //
 //					}
 					
-					if (curWand.cursed){
+					if (curWand.cursed)
 						Badges.解锁巫女();
+
+					if (curWand.cursed&&false){
 						if (!curWand.cursedKnown){
 							GLog.红(Messages.get(Wand.class,"curse_discover",curWand.name()));
 							Dungeon.hero.sprite.哭泣();

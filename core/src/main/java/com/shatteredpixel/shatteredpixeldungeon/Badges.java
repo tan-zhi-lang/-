@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Explosive;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.易爆;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Bestiary;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -1126,7 +1126,7 @@ public class Badges {
 	}
 
 	public static void validateTakingTheMick(Object cause){
-		if ((cause == Dungeon.hero || cause instanceof Explosive.ExplosiveCurseBomb)
+		if ((cause == Dungeon.hero || cause instanceof 易爆.ExplosiveCurseBomb)
 			&&
 				Dungeon.hero.belongings.weapon(镐子.class)
 				&& Dungeon.hero.belongings.getItem(镐子.class).等级() >= 10){

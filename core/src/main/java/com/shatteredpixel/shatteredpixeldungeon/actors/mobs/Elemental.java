@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.CursedWand;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -507,14 +507,14 @@ public abstract class Elemental extends Mob {
 		protected void meleeProc( Char enemy, float damage ) {
 			ArrayList<Char> affected = new ArrayList<>();
 			ArrayList<Lightning.Arc> arcs = new ArrayList<>();
-			Shocking.arc( this, enemy, 2, affected, arcs );
+			电击.arc(this,enemy,2,affected,arcs);
 			
 			if (!Dungeon.level.water[enemy.pos]) {
 				affected.remove( enemy );
 			}
 			
 			for (Char ch : affected) {
-				ch.受伤时(damage * 0.4f, new Shocking() );
+				ch.受伤时(damage * 0.4f, new 电击());
 				if (ch == Dungeon.hero && !ch.isAlive()){
 					Dungeon.fail(this);
 					GLog.红(Messages.capitalize(Messages.get(Char.class,"kill",name())));

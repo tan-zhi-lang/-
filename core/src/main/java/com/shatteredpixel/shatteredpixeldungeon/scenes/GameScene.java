@@ -96,7 +96,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.ui.上楼标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.下楼标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.副武器;
-import com.shatteredpixel.shatteredpixeldungeon.ui.法术栏标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.药剂栏标;
 import com.shatteredpixel.shatteredpixeldungeon.ui.食物栏标;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -202,7 +201,6 @@ public class GameScene extends PixelScene {
 	private LootIndicator loot;
 	private 食物栏标 食物栏标;
 	private 药剂栏标 药剂栏标;
-	private 法术栏标 法术栏标;
 
 	{
 		inGameScene = true;
@@ -401,9 +399,6 @@ public class GameScene extends PixelScene {
 		药剂栏标.camera = uiCamera;
 		add(药剂栏标);
 
-		法术栏标= new 法术栏标();
-		法术栏标.camera = uiCamera;
-		add(法术栏标);
 
 		loot = new LootIndicator();
 		loot.camera = uiCamera;
@@ -874,7 +869,6 @@ public class GameScene extends PixelScene {
 			tagAction = action.visible;
 			tag食物栏= 食物栏标.visible;
 			tag药剂栏= 药剂栏标.visible;
-			tag法术栏= 法术栏标.visible;
 			tag副武器 = 副武器.visible;
 			tag上楼标= 上楼标.visible;
 			tag下楼标= 下楼标.visible;
@@ -887,7 +881,6 @@ public class GameScene extends PixelScene {
 				tagAction != action.visible||
 				   tag食物栏!=食物栏标.visible||
 				   tag药剂栏!=药剂栏标.visible||
-				   tag法术栏!=法术栏标.visible||
 				tag副武器 != 副武器.visible||
 				   tag上楼标!=上楼标.visible||
 				   tag下楼标!=下楼标.visible||
@@ -898,7 +891,6 @@ public class GameScene extends PixelScene {
 								  (action.visible && !tagAction)||
 								  (食物栏标.visible&&!tag食物栏)||
 								  (药剂栏标.visible&&!tag药剂栏)||
-								  (法术栏标.visible&&!tag法术栏)||
 								  (副武器.visible && !tag副武器)||
 								  (上楼标.visible&&!tag上楼标)||
 								  (下楼标.visible&&!tag下楼标)||
@@ -909,7 +901,6 @@ public class GameScene extends PixelScene {
 			tagAction = action.visible;
 			tag食物栏= 食物栏标.visible;
 			tag药剂栏= 药剂栏标.visible;
-			tag法术栏= 法术栏标.visible;
 			tag副武器 = 副武器.visible;
 			tag上楼标= 上楼标.visible;
 			tag下楼标= 下楼标.visible;
@@ -955,7 +946,6 @@ public class GameScene extends PixelScene {
 	private boolean tagAction    = false;
 	private boolean tag食物栏= false;
 	private boolean tag药剂栏= false;
-	private boolean tag法术栏= false;
 	private boolean tag副武器    = false;
 	private boolean tag上楼标= false;
 	private boolean tag下楼标= false;
@@ -1009,20 +999,20 @@ public class GameScene extends PixelScene {
 			}
 
 		}
-		float sx=SPDSettings.getscale(30,20,10,0)+(DeviceCompat.isAndroid()?20:0);
+		float sx=0;
 		if (scene.tag食物栏) {
 			scene.食物栏标.setRect(tagLeft2,scene.status.bottom()
-											+sx+Tag.SIZE,tagWidth,Tag.SIZE);
+											+sx+Tag.SIZE*1.5f,tagWidth,Tag.SIZE);
 			scene.食物栏标.flip(true);
 		}
 		if (scene.tag药剂栏) {
 			scene.药剂栏标.setRect(tagLeft2,scene.status.bottom()
-											+sx+Tag.SIZE*2,tagWidth,Tag.SIZE);
+											+sx+Tag.SIZE*2.5f,tagWidth,Tag.SIZE);
 			scene.药剂栏标.flip(true);
 		}
 		if (scene.tag副武器) {
 			scene.副武器.setRect( tagLeft2, scene.status.bottom()
-											+sx+ Tag.SIZE*3, tagWidth, Tag.SIZE );
+											+sx+ Tag.SIZE*3.5f, tagWidth, Tag.SIZE );
 			scene.副武器.flip(true);
 		}
 
@@ -1030,13 +1020,13 @@ public class GameScene extends PixelScene {
 
 			if (scene.tag上楼标) {
 				scene.上楼标.setRect(tagLeft2,scene.status.bottom()
-											  +sx+ Tag.SIZE*4,tagWidth,Tag.SIZE);
+											  +sx+ Tag.SIZE*4.5f,tagWidth,Tag.SIZE);
 				scene.上楼标.flip(true);
 			}
 
 			if (scene.tag下楼标) {
 				scene.下楼标.setRect(tagLeft2,scene.status.bottom()
-											  +sx+ Tag.SIZE*5,tagWidth,Tag.SIZE);
+											  +sx+ Tag.SIZE*5.5f,tagWidth,Tag.SIZE);
 				scene.下楼标.flip(true);
 			}
 		}else{
@@ -1048,11 +1038,6 @@ public class GameScene extends PixelScene {
 			if (scene.tag下楼标) {
 				scene.下楼标.setRect(tagLeft,scene.status.bottom() + Tag.SIZE*3,tagWidth,Tag.SIZE);
 			}
-		}
-
-		if (scene.tag法术栏) {
-			scene.法术栏标.setRect(tagLeft2,scene.status.bottom()+Tag.SIZE*6,tagWidth,Tag.SIZE);
-			scene.法术栏标.flip(true);
 		}
 
 	}
@@ -1297,9 +1282,6 @@ public class GameScene extends PixelScene {
 		if (scene != null) {
 			if (doc == Document.ADVENTURERS_GUIDE){
 				if (!page.equals(Document.GUIDE_INTRO)) {
-
-					GLog.绿(Messages.get(Guidebook.class,"hint",Messages.get( Document.class, page + ".title")));
-
 					GLog.绿(Messages.get(Guidebook.class,"hint_mobile"));
 				}
 				Dungeon.hero.sprite.showStatus(CharSprite.增强绿,Messages.get(Guidebook.class,"hint_status"));

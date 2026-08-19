@@ -94,10 +94,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.冰心;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.位素;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.迅捷;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
@@ -130,9 +128,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Shocking;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -1020,21 +1018,11 @@ public abstract class Char extends Actor {
 
 	//Returns the level a glyph is at for a char, or -1 if they are not benefitting from that glyph
 	//This function is needed as (unlike enchantments) many glyphs trigger in a variety of cases
-	public int glyphLevel(Class<? extends Armor.Glyph> cls){
-		if (Dungeon.hero() && Dungeon.level != null
-				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment) {
-			return Dungeon.hero.glyphLevel(cls);
-		} else {
-			return -1;
-		}
+	public float glyphLevel(Class<? extends Armor.Glyph> cls){
+		return -1;
 	}
-	public int enchantmentlevel(Class<? extends Weapon.Enchantment> cls){
-		if (Dungeon.hero() && Dungeon.level != null
-				&& this != Dungeon.hero && Dungeon.hero.alignment == alignment) {
-			return Dungeon.hero.enchantmentlevel(cls);
-		} else {
-			return -1;
-		}
+	public float enchantmentlevel(Class<? extends Weapon.Enchantment> cls){
+		return -1;
 	}
 
 	public float 移速() {
@@ -1049,8 +1037,9 @@ public abstract class Char extends Actor {
 
 		if(诡异)speed*=10f;
 
-		speed *= 迅捷.speedBoost(this, glyphLevel(迅捷.class));
-		speed *= 涌流.speedBoost(this,glyphLevel(涌流.class));
+
+		if(alignment==Alignment.ENEMY)
+		speed *= 冰心.speedBoost(this);
 
 		if(移速翻倍){
 			speed*=2;
@@ -1198,10 +1187,6 @@ public abstract class Char extends Actor {
 	}
 	public float 最大魔抗(){
 		float x=0;
-
-		int l=glyphLevel(敌法.class);
-		if (l != -1)
-			x+=3 * Armor.Glyph.genericProcChanceMultiplier(this);
 
 		return x;
 	}
@@ -1604,6 +1589,9 @@ public abstract class Char extends Actor {
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			delay/=buff.攻速();
 		}
+		if(alignment==Alignment.ENEMY)
+		delay/=冰心.speedBoost(this);
+
 		return delay;
 	}
 	
@@ -1904,11 +1892,6 @@ public abstract class Char extends Actor {
 		for (Buff b : buffs()){
 			immunes.addAll(b.immunities());
 		}
-		if (glyphLevel(位素.class)>=0){
-			immunes.add(燃烧.class);
-			immunes.add(Chill.class);
-			immunes.add(Frost.class);
-		}
 		
 		for (Class c : immunes){
 			if (c.isAssignableFrom(effect)){
@@ -1980,7 +1963,7 @@ public abstract class Char extends Actor {
 				new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
 																								燃烧.class, Blazing.class))),
 		//ELECTRIC
-		电(new HashSet<Class>(Arrays.asList(WandOfLightning.class,潮霆法杖.class,Shocking.class,
+		电(new HashSet<Class>(Arrays.asList(WandOfLightning.class,潮霆法杖.class,电击.class,
 											Electricity.class,ShockingDart.class,Elemental.ShockElemental.class)),new HashSet<Class>(),
 		   new HashSet<Class>()),
 		LARGE,

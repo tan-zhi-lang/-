@@ -77,12 +77,16 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.火炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.狙击枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
+import com.shatteredpixel.shatteredpixeldungeon.items.冲锋枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.火炮子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.狙击枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.进阶宝典;
+import com.shatteredpixel.shatteredpixeldungeon.items.霰弹枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
@@ -291,27 +295,31 @@ public abstract class Level implements Bundlable {
 				addItemToSpawn( new 液火药剂());
 			}
 			if(Dungeon.派对(派对设置.枪支弹药)){
+				if(Dungeon.区域()==1&&算法.概率学(Dungeon.相对层数()*5))
+					addItemToSpawn( new 手枪().random());
+				if(Dungeon.区域()==1)
+					addItemToSpawn( new 手枪子弹().数量(Random.Int(7/2,7*5)));
 
-				if(Dungeon.区域()==1&&算法.概率学(Dungeon.相对层数()*5)){
-					addItemToSpawn( new 手枪());
-					addItemToSpawn( new 手枪子弹().数量(Random.Int(7,7*5)));
-				}
-				if(Dungeon.区域()==2&&算法.概率学(Dungeon.相对层数()*3)){
-					addItemToSpawn( new 冲锋枪());
-					addItemToSpawn( new 手枪子弹().数量(Random.Int(30,30*5)*2));
-				}
-				if(Dungeon.区域()==3&&算法.概率学(Dungeon.相对层数()*3)){
-					addItemToSpawn( new 霰弹枪());
-					addItemToSpawn( new 手枪子弹().数量(Random.Int(2,2*5)*3));
-				}
-				if(Dungeon.区域()==4&&算法.概率学(Dungeon.相对层数()*2)){
-					addItemToSpawn( new 狙击枪());
-					addItemToSpawn( new 手枪子弹().数量(Random.Int(5,5*5)*4));
-				}
-				if(Dungeon.区域()==5&&算法.概率学(Dungeon.相对层数()*1)){
-					addItemToSpawn( new 火炮());
-					addItemToSpawn( new 手枪子弹().数量(Random.Int(1,1*5)*5));
-				}
+				if(Dungeon.区域()==2&&算法.概率学(Dungeon.相对层数()*3))
+					addItemToSpawn( new 冲锋枪().random());
+				if(Dungeon.区域()==2)
+					addItemToSpawn( new 冲锋枪子弹().数量(Random.Int(30/2,30*5*2)));
+
+				if(Dungeon.区域()==3&&算法.概率学(Dungeon.相对层数()*3))
+					addItemToSpawn( new 霰弹枪().random());
+				if(Dungeon.区域()==3)
+					addItemToSpawn( new 霰弹枪子弹().数量(Random.Int(2/2,2*5*3)));
+
+				if(Dungeon.区域()==4&&算法.概率学(Dungeon.相对层数()*2))
+					addItemToSpawn( new 狙击枪().random());
+				if(Dungeon.区域()==4)
+					addItemToSpawn( new 狙击枪子弹().数量(Random.Int(5/2,5*5*4)));
+
+				if(Dungeon.区域()==5&&算法.概率学(Dungeon.相对层数()*1))
+					addItemToSpawn( new 火炮().random());
+				if(Dungeon.区域()==5)
+					addItemToSpawn( new 火炮子弹().数量(Random.Int(1,1*5*5)));
+
 			}
 			if (Dungeon.潜力药剂掉落()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;

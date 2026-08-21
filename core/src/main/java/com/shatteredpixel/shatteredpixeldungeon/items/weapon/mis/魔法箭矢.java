@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 魔法箭矢 extends Weapon{
 	{
 
-		image = 物品表.魔法箭矢;
+		image = 物品表.冰霜箭矢;
 
 		hitSound = Assets.Sounds.攻击箭;
 	}

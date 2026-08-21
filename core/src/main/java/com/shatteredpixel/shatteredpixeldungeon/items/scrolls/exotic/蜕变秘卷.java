@@ -241,7 +241,7 @@ public class 蜕变秘卷 extends ExoticScroll {
 				clsTalentsAtTier.remove(Talent.纹章荣耀);
 				clsTalentsAtTier.remove(Talent.高级魔杖);
 				clsTalentsAtTier.remove(Talent.轻便斗篷);
-				clsTalentsAtTier.remove(Talent.弓箭强化);
+				clsTalentsAtTier.remove(Talent.自然之护);
 
 				clsTalentsAtTier.remove(Talent.轻量阅读);
 				clsTalentsAtTier.remove(Talent.轻便帝钟);

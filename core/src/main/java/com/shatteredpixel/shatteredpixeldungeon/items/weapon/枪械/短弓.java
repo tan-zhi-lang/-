@@ -6,14 +6,15 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 十字弩 extends 枪械{
+public class 短弓 extends 枪械{
 	
 	{
-		image = 物品表.十字弩;
+		image = 物品表.短弓;
 		
 		tier = 1;
 		伤害=0.6f;
-		射速=2;
+		枪伤=1.35f;
+		射速=1;
 		子弹 = new 箭矢();
 		image2 = 物品表.箭矢;
 		hitSound2 = Assets.Sounds.攻击箭;

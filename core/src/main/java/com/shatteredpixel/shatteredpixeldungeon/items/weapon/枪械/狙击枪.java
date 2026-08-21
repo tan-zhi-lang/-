@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.items.狙击枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.狙击枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 狙击枪 extends 枪械{
@@ -15,7 +15,7 @@ public class 狙击枪 extends 枪械{
 		范围=2;
 		tier = 4;
 		伤害=0.6f;
-		枪伤=4.5f;
+		枪伤=4.75f;
 		破甲弹=true;
 		子弹=new 狙击枪子弹();
 		射速=2;

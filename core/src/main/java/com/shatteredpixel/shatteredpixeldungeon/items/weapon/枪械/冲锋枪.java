@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.items.冲锋枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.冲锋枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 冲锋枪 extends 枪械{

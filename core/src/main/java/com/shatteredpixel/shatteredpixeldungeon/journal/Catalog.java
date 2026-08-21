@@ -118,12 +118,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
@@ -268,7 +268,7 @@ public enum Catalog {
 								匕首.class,//0.8
 								CloakOfShadows.class,
 
-								灵能短弓.class,//0.6
+								短弓.class,//0.6
 
 								权杖.class,//0.7
 								神圣法典.class,

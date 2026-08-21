@@ -117,7 +117,7 @@ public enum Talent {
 	ENHANCED_LETHALITY(75, 4), ASSASSINS_REACH(76, 4), BOUNTY_HUNTER(77, 4),
 	边搜边打(78, 4),盗墓大师(79, 4), 捉拿抓鬼(80,4),
 
-	弓箭强化(105,4), SEER_SHOT(106,4),
+	自然之护(105,4), SEER_SHOT(106,4),
 	//Sniper T3
 	鹰眼远视(107,4), SHARED_ENCHANTMENT(108,4), 狙击弱点(109,4),
 	//Warden T3
@@ -878,7 +878,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,体生匿影,轻便斗篷);
 				break;
 			case HUNTRESS:
-				Collections.addAll(tierTalents,弓箭强化,SEER_SHOT);
+				Collections.addAll(tierTalents,自然之护,SEER_SHOT);
 				break;
 			case DUELIST:
 				Collections.addAll(tierTalents,附魔打击,高阶配装);

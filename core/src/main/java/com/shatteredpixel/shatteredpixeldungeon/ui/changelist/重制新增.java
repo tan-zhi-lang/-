@@ -112,6 +112,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.木棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.暗裔短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.炼金动力十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.自然之力;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.流火;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.海神三叉戟;
@@ -249,7 +255,8 @@ public class 重制新增{
 
 
 											//											"游戏第1、2局幸运值+1，每日挑战非重玩+1幸运值。\n"+
-											"新增护甲，1+0.5x等级(满级额外+1)，相当于不会随时间损失的物理护盾(前提不在战斗状态)，并且拥有10%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
+											"新增护甲，1+0.5x等级(满级额外+1)，相当于不会随时间损失的物理护盾(前提不在战斗状态)\n" +
+											"并且拥有10%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
 											"击杀敌人施加连杀状态10回合，敌人被发现会施加被发现回合。\n"+
 											//											"点击目的地会提示框，有敌人和陷阱则是红色，普遍绿色。\n"+
 											"吃饭回血食物填充/150的生命。"
@@ -293,6 +300,16 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes = new ChangeInfo("特殊", true, null);
+		changes.hardlight(Window.TITLE_COLOR);
+		changeInfos.add(changes);
+
+		changes.addButton(new ChangeButton(new 短弓(),"替换女猎的初始武器"));
+		changes.addButton(new ChangeButton(new 炼金动力十字弩(),"十字弩+毒气药剂消耗9能量合成"));
+		changes.addButton(new ChangeButton(new 圣银十字弩(),"炼金十字弩+祛邪卷轴消耗15能量合成"));
+		changes.addButton(new ChangeButton(new 冰结短弓(),"灵能短弓+冰霜药剂+器灵消耗15能量合成"));
+		changes.addButton(new ChangeButton(new 暗裔短弓(),"灵能短弓+血怒秘药+器灵消耗15能量合成"));
+		changes.addButton(new ChangeButton(new 自然之力(),"灵能短弓+玄武秘药+器灵消耗15能量合成"));
 		changes = new ChangeInfo("5阶", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
@@ -740,6 +757,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 
 		changes.addButton( new ChangeButton(Icons.ALCHEMY.get(),"炼金",
 											"配方\n" +
+											"短弓+器灵消耗9能量合成灵能短弓。\n" +
 											"小包口粮消耗3能量合成口粮。\n" +
 											"口粮+护甲修理工具包消耗2能量合成布甲。\n" +
 											"布甲+护甲修理工具包消耗4能量合成皮甲。\n" +
@@ -753,11 +771,11 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"单手+金液剑消耗9能量合成长剑。\n" +
 											"手斧+金液剑消耗9能量合成战斧。" ,
 
-											"短柄镰+金液消耗12能量合成战镰。\n" +
-											"长剑+金液消耗12能量合成巨剑。\n"+
-											"石头+金液消耗12能量合成震爆方石。\n"+
-											"长矛+金液消耗12能量合成关刀。\n"+
-											"镶钉手套+金液消耗12能量魔岩拳。",
+											"短柄镰+秘银消耗12能量合成战镰。\n" +
+											"长剑+秘银消耗12能量合成巨剑。\n"+
+											"石头+炸弹消耗12能量合成震爆方石。\n"+
+											"长矛+秘银消耗12能量合成关刀。\n"+
+											"镶钉手套+秘银消耗12能量魔岩拳套。",
 
 											"链枷+水灵秘药+器灵消耗15能量合成猪鲨链球。\n" +
 											"狼筅+武士刀+器灵消耗15能量合成虚哭神去。\n" +

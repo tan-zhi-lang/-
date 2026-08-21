@@ -191,7 +191,7 @@ public enum Document {
 				case 升级:
 					return Icons.get(Icons.TALENT);
 				case 地势:
-					return new ItemSprite( 物品表.灵能短弓);
+					return new ItemSprite( 物品表.短弓);
 				case 法伤:
 					return new ItemSprite( 物品表.焰浪法杖);
 				case 护甲:

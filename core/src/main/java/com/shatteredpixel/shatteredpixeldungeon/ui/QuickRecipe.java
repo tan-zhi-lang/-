@@ -83,6 +83,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.暗裔短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.炼金动力十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.自然之力;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.海神三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
@@ -423,6 +429,9 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new 长匕首.Recipe()));
 				result.add(null);
 				result.add(new QuickRecipe(new 单手剑.Recipe()));
+				result.add(null);
+				result.add(new QuickRecipe(new 灵能短弓.Recipe()));
+				result.add(new QuickRecipe(new 炼金动力十字弩.Recipe()));
 				result.add(new QuickRecipe(new 长剑.Recipe()));
 				result.add(new QuickRecipe(new 战斧.Recipe()));
 				result.add(null);
@@ -436,6 +445,10 @@ public class QuickRecipe extends Component {
 											new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
 											new 器灵()));
 				result.add(null);
+				result.add(new QuickRecipe(new 圣银十字弩.Recipe()));
+				result.add(new QuickRecipe(new 冰结短弓.Recipe()));
+				result.add(new QuickRecipe(new 暗裔短弓.Recipe()));
+				result.add(new QuickRecipe(new 自然之力.Recipe()));
 				result.add(new QuickRecipe(new 暗杀之刃.Recipe()));
 				result.add(new QuickRecipe(new 虚哭神去.Recipe()));
 				result.add(new QuickRecipe(new 日炎链刃.Recipe()));

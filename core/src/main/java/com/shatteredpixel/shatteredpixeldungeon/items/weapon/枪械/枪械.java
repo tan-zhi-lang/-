@@ -9,15 +9,23 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlameParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.LeafParticle;
+import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -26,11 +34,14 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-abstract class 枪械 extends Weapon{
+public abstract class 枪械 extends Weapon{
 	public static final String AC_SHOOT		= "SHOOT";
 	public static final String AC_换弹		= "换弹";
 	
@@ -43,8 +54,11 @@ abstract class 枪械 extends Weapon{
 		usesTargeting = true;
 	}
 	public float 枪伤= 1.75f;
+	public boolean 无限子弹 = false;
 	public boolean 掉落子弹 = false;
 	public boolean 爆炸效果 = false;
+	public boolean 箭矢发射 = false;
+	public boolean 开火效果 = true;
 	public boolean 霰弹效果 = false;
 	public boolean 破甲弹 = false;
 	public Item 子弹 = new 手枪子弹();
@@ -58,18 +72,19 @@ abstract class 枪械 extends Weapon{
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
 		actions.add(AC_SHOOT);
+		if(!无限子弹)
 		actions.add(AC_换弹);
 		return actions;
 	}@Override
 	public String defaultAction() {
-		if(curCharges>0)
+		if(curCharges>0||无限子弹)
 		return AC_SHOOT;
 
 		return AC_换弹;
 	}
 	@Override
 	public String status() {
-		if (levelKnown) {
+		if (levelKnown&&!无限子弹) {
 			return curCharges + "/" + maxCharges;
 		} else {
 			return null;
@@ -83,23 +98,23 @@ abstract class 枪械 extends Weapon{
 
 		if (action.equals(AC_换弹)) {
 			if(curCharges==0){
-				if(算法.isDebug())无限换弹();
-				else 换弹();
+				换弹();
 				return;
 			}
 		}
-		if (action.equals(AC_SHOOT)&&isEquipped(curUser)) {
+		if (action.equals(AC_SHOOT)) {
 			if(curCharges==0){
-				if(算法.isDebug())无限换弹();
-				else 换弹();
+				换弹();
 				return;
 			}
 			GameScene.selectCell( shooter );
 		}
 	}
-	public float 装弹回合(){
+	public float 换弹回合(){
 		float x=4;
-		if(this instanceof 十字弩||this instanceof 火炮)
+		if(箭矢发射)
+			x=0;
+		else if(this instanceof 火炮)
 			x=1;
 		else if(this instanceof 霰弹枪)
 			x=2;
@@ -109,46 +124,56 @@ abstract class 枪械 extends Weapon{
 
 		curCharges=maxCharges;
 
+		if(开火效果)
 		Sample.INSTANCE.play( Assets.Sounds.换弹 );
 
-		curUser.spend(装弹回合());
+		curUser.spend(换弹回合());
 
 		curUser.busy();
 		(curUser.sprite).operate();
 		updateQuickslot();
 	}
 	public void 换弹(){
-		Item 弹=curUser.belongings.getItem(子弹.getClass());
-		if(弹!=null&&弹.数量()>0){
-			int 消耗=maxCharges-curCharges;
-			if(弹.数量()<消耗){
-				if(curCharges==0){
-					curCharges=Math.min(maxCharges,弹.数量());
-				}else if(curCharges>0){
-					curCharges+=Math.min(maxCharges-curCharges,弹.数量());
-				}
-				弹.detachAll(curUser.belongings.backpack);
-			}else{
-				if(弹.数量()==消耗){
-					弹.detachAll(curUser.belongings.backpack);
-				}else{
-					if(curCharges==0){
-						curCharges=Math.min(maxCharges,弹.数量());
-					}else if(curCharges>0){
-						curCharges+=Math.min(maxCharges-curCharges,弹.数量());
-					}
-					弹.split(消耗).detachAll(curUser.belongings.backpack);
-				}
-			}
-			Sample.INSTANCE.play( Assets.Sounds.换弹 );
+		if(算法.isDebug()){
+			无限换弹();
+			return;
+		}
 
-			curUser.spend(装弹回合());
+			Item 弹 = curUser.belongings.getItem(子弹.getClass());
+		if (弹 == null || 弹.数量() <= 0) {
+			GLog.红("你需要" + 子弹.name() + "！");
+			return;
+		}
 
-			curUser.busy();
-			(curUser.sprite).operate();
-			updateQuickslot();
-		}else
-			GLog.橙("你需要"+子弹.name()+"！");
+		int 消耗 = maxCharges - curCharges;
+		if (消耗 <= 0) {
+			GLog.黄("弹夹已满！");
+			return;
+		}
+		if(换弹回合()<=0)
+			GLog.绿("因为装弹回合为0且有弹药，已自动装弹！");
+
+		int 可用 = 弹.数量();
+		int 实际填充 = Math.min(消耗, 可用);
+		curCharges += 实际填充;  // 这里正确更新了弹夹容量
+
+		GLog.黄("已装备弹药！");
+		if (可用 <= 消耗) {
+			// 子弹全部用完（或刚好够），移除整组
+			弹.detachAll(curUser.belongings.backpack);
+		} else {
+			// 子弹有剩余，只消耗需要的那部分
+			弹.split(消耗).detachAll(curUser.belongings.backpack);
+		}
+
+		if(开火效果)
+		Sample.INSTANCE.play(Assets.Sounds.换弹);
+
+		curUser.spend(换弹回合());
+		curUser.busy();
+		curUser.sprite.operate();
+
+		updateQuickslot();
 	}
 
 	public float 枪伤(){
@@ -183,13 +208,13 @@ abstract class 枪械 extends Weapon{
 //											  kw2(枪伤()),
 											  kw2(精度()),
 							kw2(射速()),
-							kw2(装弹回合()),
+							kw2(换弹回合()),
 								kw2(最小枪械攻击()),
 									kw2(最大枪械攻击()))+st();
 	}
 	public String st() {
 		if(Messages.get(this, "st").equals(""))return "";
-		return "\n"+Messages.get(this, "st");
+		return "\n\n"+Messages.get(this, "st");
 	}
 	public int maxCharges = initialCharges();
 	public int initialCharges() {
@@ -197,6 +222,13 @@ abstract class 枪械 extends Weapon{
 	}
 	protected int chargesPerCast() {
 		return 1;
+	}
+	public Item knockArrow(){
+		return new 子弹(枪().子弹);
+	}
+
+	public 枪械 枪(){
+		return this;
 	}
 	public int curCharges = maxCharges;
 	public float partialCharge = 0f;
@@ -221,12 +253,18 @@ abstract class 枪械 extends Weapon{
 		@Override
 		public void onSelect( Integer target ) {
 			if (target != null) {
+				if(!枪().无限子弹)
 				curCharges = Math.max(curCharges-chargesPerCast(),0);
 
-				for(int x=1;x<=发射次数;x++){
+				for(int x=1;x<=枪().发射次数;x++){
+
 					knockArrow().cast(curUser, target);
 
+					if(枪().爆炸效果)
 					new Bomb.ConjuredBomb().heroexplode(target);
+				}
+				if(枪().换弹回合()<=0){
+					枪().换弹();
 				}
 			}
 		}
@@ -235,13 +273,6 @@ abstract class 枪械 extends Weapon{
 			return Messages.get(枪(),"prompt");
 		}
 	};
-	public 子弹 knockArrow(){
-		return new 子弹();
-	}
-
-	public 枪械 枪(){
-		return 枪械.this;
-	}
 	private int targetPos;
 	public class 子弹 extends Weapon {
 
@@ -250,6 +281,12 @@ abstract class 枪械 extends Weapon{
 			hitSound = hitSound2;
 			item_Miss = item_Miss2;
 		}
+
+		public 子弹(Item 子弹){
+			this.子弹=子弹;
+		}
+
+		public static Item 子弹 = new 手枪子弹();
 		@Override
 		public float 最小投掷攻击(int lvl) {
 			return 枪().最小枪械攻击(lvl);
@@ -268,7 +305,13 @@ abstract class 枪械 extends Weapon{
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 枪().accuracyFactor(owner,target)/2f*精度();
+			return 枪().accuracyFactor(owner,target)*(
+					(
+					枪() instanceof 冲锋枪||
+					枪() instanceof 霰弹枪||
+					枪() instanceof 火炮
+					 )?1:0.5f
+					)*精度();
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
@@ -278,10 +321,10 @@ abstract class 枪械 extends Weapon{
 		@Override
 		public float 投掷攻击时(Char attacker, Char defender, float damage) {
 			if(defender!=null){
-				if(破甲弹)damage+=defender.最大防御();
+				if(枪().破甲弹)damage+=defender.最大防御();
 
-				damage*=(1+2f/attacker.距离(defender));
-				if(霰弹效果){
+				if(枪().霰弹效果){
+					damage*=(1+2f/attacker.距离(defender));
 					float x=0;
 					float 命中率=0.6f;
 					if(算法.概率学(命中率))
@@ -320,37 +363,175 @@ abstract class 枪械 extends Weapon{
 		public float 力量(int lvl) {
 			return 枪().力量();
 		}
+		@Override
+		public Emitter emitter() {
+			if(枪().开火效果){
+				Emitter e=new Emitter();
+				e.pos(5,5);
+				e.fillTarget=false;
+				e.pour(FlameParticle.FACTORY,0.01f);
+				return e;
+			}
+			if(枪() instanceof 冰结短弓){
+				Emitter e=new Emitter();
+				e.pos(5,5);
+				e.fillTarget=false;
+				e.pour(MagicMissile.MagicParticle.FACTORY,0.01f);
+				return e;
+			}
+			if(枪() instanceof 暗裔短弓){
+				Emitter e=new Emitter();
+				e.pos(5,5);
+				e.fillTarget=false;
+				e.pour(ShadowParticle.UP,0.01f);
+				return e;
+			}
+			if(枪() instanceof 自然之力){
+				Emitter e=new Emitter();
+				e.pos(5,5);
+				e.fillTarget=false;
+				e.pour(LeafParticle.GENERAL,0.01f);
+				return e;
+			}
+			if(枪() instanceof 炼金动力十字弩){
+				Emitter e=new Emitter();
+				e.pos(5,5);
+				e.fillTarget=false;
+				e.pour(Speck.factory(Speck.TOXIC),0.01f);
+				return e;
+			}
+			return null;
+		}
 
 		@Override
+		public void throwSound() {
+			if(枪().箭矢发射)
+				Sample.INSTANCE.play(item_Miss,1,Random.Float(0.87f,1.15f));
+			else super.throwSound();
+		}
+		@Override
 		protected void onThrow( int cell ) {
-			if (Dungeon.level.heroFOV[cell]) {
-				CellEmitter.center(cell).burst(BlastParticle.FACTORY, 4);
-			}
 			if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
-				Dungeon.level.pressCell( cell );
+
+				if(枪().爆炸效果){
+
+					for(int n: PathFinder.自相邻)Dungeon.level.pressCell( cell+n );
+				}else Dungeon.level.pressCell( cell );
 			}
 			if(枪() instanceof 十字弩)Sample.INSTANCE.play(Assets.Sounds.攻击弩);
-			if(爆炸效果){
-				WandOfBlastWave.BlastWave.blast(cell);
-				PixelScene.shake(2,0.5f);
-			}
-			if(掉落子弹)
-			Dungeon.level.drop(子弹,cell).sprite.drop();
 
-			Char enemy = Actor.findChar( cell );
-			if (enemy == null || enemy == curUser) {
-				
-				if (Dungeon.level.heroFOV[cell]) {
-					CellEmitter.get(cell).burst(SmokeParticle.FACTORY,4);
+			if(枪().爆炸效果)
+				WandOfBlastWave.BlastWave.blast(cell);
+
+
+			if(枪().爆炸效果||
+			   枪() instanceof 霰弹枪||
+			   枪() instanceof 狙击枪
+			   )
+				PixelScene.shake(2,0.5f);
+
+
+			if(枪().开火效果){
+				if(枪().爆炸效果){
+
+					for(int n: PathFinder.自相邻){
+						Splash.at(cell+n,0xFF8800,1);
+						CellEmitter.get(cell+n).burst(FlameParticle.FACTORY,4);
+					}
+				}else{
+					Splash.at(cell,0xFF8800,1);
+					CellEmitter.get(cell).burst(FlameParticle.FACTORY,4);
 				}
-			} else {
-				if (!curUser.shoot( enemy, this )) {
-					if (Dungeon.level.heroFOV[cell]) {
-						CellEmitter.get(cell).burst(SmokeParticle.FACTORY, 4);
+				Char enemy=Actor.findChar(cell);
+				if(enemy==null||enemy==curUser){
+
+					if(Dungeon.level.heroFOV[cell]){
+						if(枪().爆炸效果){
+							for(int n: PathFinder.自相邻)
+								CellEmitter.get(cell+n).burst(SmokeParticle.FACTORY,4);
+
+						}else
+							CellEmitter.get(cell).burst(SmokeParticle.FACTORY,4);
+					}
+				}else{
+					if(!curUser.shoot(enemy,this)){
+						if(Dungeon.level.heroFOV[cell]){
+							if(枪().爆炸效果){
+								for(int n: PathFinder.自相邻)
+									CellEmitter.get(cell+n).burst(BlastParticle.FACTORY,4);
+
+							}else
+							CellEmitter.get(cell).burst(BlastParticle.FACTORY,4);
+						}
+
+					}
+				}
+			}else{
+
+				if(Dungeon.level.heroFOV[cell]){
+
+					if(枪() instanceof 冰结短弓){
+						Splash.at(cell,0xFFFFFF,1);
+						CellEmitter.get(cell).burst(MagicMissile.MagicParticle.FACTORY,4);
+					}
+					if(枪() instanceof 冰结短弓){
+						Splash.at(cell,0x3399FF,1);
+						CellEmitter.get(cell).burst(MagicMissile.MagicParticle.FACTORY,4);
+					}
+					if(枪() instanceof 暗裔短弓){
+						Splash.at(cell,0x8800FF,1);
+						CellEmitter.get(cell).burst(ShadowParticle.UP,4);
+					}
+					if(枪() instanceof 自然之力){
+						Splash.at(cell,0x00FF00,1);
+						CellEmitter.get(cell).burst(LeafParticle.GENERAL,4);
+					}
+					if(枪() instanceof 炼金动力十字弩){
+						Splash.at(cell,0x00FF00,1);
+						CellEmitter.get(cell).burst(Speck.factory(Speck.TOXIC),4);
+					}
+				}
+
+			}
+
+
+
+			if(枪().掉落子弹){
+				Item item=枪().子弹;
+				try {
+					item = (Item)枪().子弹.getClass().newInstance();
+
+				} catch (Exception ignored) {}
+
+				Char enemy=Actor.findChar(cell);
+				if(enemy==null||enemy==curUser){
+
+					Dungeon.level.drop(item,cell).sprite.drop();
+				}else{
+
+					if(!curUser.shoot(enemy,this)){
+
+						Dungeon.level.drop(item,cell).sprite().drop();
+					}else{
+
+						if(投掷粘()&&enemy.isActive()&&enemy.alignment!=Char.Alignment.ALLY){
+							PinCushion p=Buff.施加(enemy,PinCushion.class);
+							if(p.target==enemy){
+								p.stick(item);
+								return;
+							}
+						}
+						Dungeon.level.drop(item,cell).sprite().drop();
 					}
 
 				}
 			}
+
+
+
+
+
+
 		}
 		@Override
 		public void cast(final Hero user, final int dst) {

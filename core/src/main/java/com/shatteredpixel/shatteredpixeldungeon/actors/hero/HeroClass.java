@@ -107,18 +107,26 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.手枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冲锋枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.手枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.暗裔短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.火炮;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.炼金动力十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.狙击枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.自然之力;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.霰弹枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.白带;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
@@ -133,8 +141,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.霰弹枪;
-import com.shatteredpixel.shatteredpixeldungeon.items.十字弩飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
@@ -495,6 +501,13 @@ public enum HeroClass{
 			new 狙击枪().放背包();
 			new 火炮().放背包();
 
+			new 灵能短弓().放背包();
+			new 自然之力().放背包();
+			new 暗裔短弓().放背包();
+			new 冰结短弓().放背包();
+
+			new 炼金动力十字弩().放背包();
+			new 圣银十字弩().放背包();
 			int x=999;
 			new 经验药剂().数量(x).放背包();
 			new 治疗药剂().数量(x).放背包();
@@ -646,8 +659,8 @@ public enum HeroClass{
 	private static void initHuntress(Hero hero){
 		(hero.belongings.armor=new 披风()).鉴定();
 		
-		(hero.belongings.weapon=new 灵能短弓()).鉴定();
-		
+		(hero.belongings.weapon=new 短弓()).鉴定();
+		new 箭矢().数量(8).放背包();
 		Dungeon.quickslot.setSlot(0,hero.belongings.weapon);
 		
 		new 灵视药剂().鉴定();
@@ -836,6 +849,7 @@ public enum HeroClass{
 		十字弩 x=new 十字弩();
 		(hero.belongings.weapon=x).鉴定();
 
+		new 箭矢().数量(5).放背包();
 
 		Dungeon.quickslot.setSlot(0,x);
 		(hero.belongings.armor=new 魔披()).鉴定();

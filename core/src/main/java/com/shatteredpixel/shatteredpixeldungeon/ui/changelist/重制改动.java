@@ -14,7 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
-import com.shatteredpixel.shatteredpixeldungeon.items.十字弩飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.十字弩飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
@@ -163,12 +163,12 @@ public class 重制改动{
 
 		changes.addButton(new ChangeButton(new BuffIcon(BuffIndicator.AMULET,true),"护符诡咒",
 										   "移除后续对英雄的减速和伤害。"));
-		changes.addButton(new ChangeButton(new ItemSprite(物品表.灵能短弓), "灵能短弓",
-										   "诅咒升级提升1+英雄等级/30~2+英雄等级/15->标准武器诅咒等级提升。\n" +
-										   "最小射击伤害1+等级/5->1+等级/2*0.6f，最大射击伤害6+等级/2.5->6+等级*0.6f。\n" +
-										   "射击伤害其中75%为魔法伤害。\n" +
-										   "可以升级了，且也能吃到强化等级，等级+20%英雄等级+10%魔力。\n" +
-										   "灵能短弓箭矢能触发部分东西。"));
+//		changes.addButton(new ChangeButton(new ItemSprite(物品表.短弓),"灵能短弓",
+//										   "诅咒升级提升1+英雄等级/30~2+英雄等级/15->标准武器诅咒等级提升。\n" +
+//										   "最小射击伤害1+等级/5->1+等级/2*0.6f，最大射击伤害6+等级/2.5->6+等级*0.6f。\n" +
+//										   "射击伤害其中75%为魔法伤害。\n" +
+//										   "可以升级了，且也能吃到强化等级，等级+20%英雄等级+10%魔力。\n" +
+//										   "灵能短弓箭矢能触发部分东西。"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.STONE_AUGMENTATION), "强化符石",
 										   "强化武器\n" +

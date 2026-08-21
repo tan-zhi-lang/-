@@ -70,6 +70,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.暗裔短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.灵能短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.炼金动力十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.自然之力;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.海神三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
@@ -281,6 +287,8 @@ public abstract class Recipe {
 		new 巨剑.Recipe(),
 		new 魔岩拳套.Recipe(),
 		new 战镰.Recipe(),
+		new 灵能短弓.Recipe(),
+		new 炼金动力十字弩.Recipe(),
 
 		new CurseInfusion.Recipe(),
 		new ReclaimTrap.Recipe(),
@@ -291,6 +299,10 @@ public abstract class Recipe {
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new MeatPie.Recipe(),
+			new 圣银十字弩.Recipe(),
+			new 自然之力.Recipe(),
+			new 暗裔短弓.Recipe(),
+			new 冰结短弓.Recipe(),
 			new 火焰剑.Recipe(),
 			new 寒冰镖.Recipe(),
 			new 日炎链刃.Recipe(),

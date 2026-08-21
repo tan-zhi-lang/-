@@ -83,24 +83,30 @@ public class 物品表 {
     public static final int ENERGY = UNCOLLECTIBLE + 1;
 
     public static final int DEWDROP = UNCOLLECTIBLE + 2;
-    public static final int SANDBAG = UNCOLLECTIBLE + 4;
+    public static final int SANDBAG = UNCOLLECTIBLE + 3;
+    public static final int TENGU_BOMB = UNCOLLECTIBLE + 4;
+    public static final int TENGU_SHOCKER = UNCOLLECTIBLE + 5;
+    public static final int GEO_BOULDER = UNCOLLECTIBLE + 6;
 
-    public static final int TENGU_BOMB = UNCOLLECTIBLE + 5;
-    public static final int TENGU_SHOCKER = UNCOLLECTIBLE + 6;
-    public static final int GEO_BOULDER = UNCOLLECTIBLE + 7;
-    public static final int SPIRIT_ARROW = UNCOLLECTIBLE + 8;
-    public static final int 魔法箭矢 = UNCOLLECTIBLE + 9;
-    public static final int 符箓 = UNCOLLECTIBLE + 10;
-    public static final int 手枪子弹 = UNCOLLECTIBLE + 12;
-    public static final int 冲锋枪子弹=UNCOLLECTIBLE+13;
-    public static final int 霰弹枪子弹 = UNCOLLECTIBLE + 14;
-    public static final int 狙击枪子弹 = UNCOLLECTIBLE + 15;
-    public static final int 火炮子弹 = UNCOLLECTIBLE + 16;
-    public static final int 魄罗 = UNCOLLECTIBLE + 17;
-    public static final int 拳击手套 = UNCOLLECTIBLE + 18;
-    public static final int 真吸血刀 = UNCOLLECTIBLE + 19;
-    public static final int 小吞噬怪 = UNCOLLECTIBLE + 20;
-    public static final int 彩虹猫 = UNCOLLECTIBLE + 21;
+    public static final int 箭矢 = UNCOLLECTIBLE + 7;
+    public static final int 自然箭矢=UNCOLLECTIBLE+8;
+    public static final int 冰霜箭矢=UNCOLLECTIBLE+9;
+    public static final int 暗裔箭矢 = UNCOLLECTIBLE + 10;
+    public static final int 圣银箭矢=UNCOLLECTIBLE+11;
+
+
+    public static final int 符箓 = UNCOLLECTIBLE + 12;
+
+    public static final int 手枪子弹 = UNCOLLECTIBLE + 13;
+    public static final int 冲锋枪子弹=UNCOLLECTIBLE+14;
+    public static final int 霰弹枪子弹 = UNCOLLECTIBLE + 15;
+    public static final int 狙击枪子弹 = UNCOLLECTIBLE + 16;
+    public static final int 火炮子弹 = UNCOLLECTIBLE + 17;
+    public static final int 魄罗 = UNCOLLECTIBLE + 18;
+    public static final int 拳击手套 = UNCOLLECTIBLE + 19;
+    public static final int 真吸血刀 = UNCOLLECTIBLE + 20;
+    public static final int 小吞噬怪 = UNCOLLECTIBLE + 21;
+    public static final int 彩虹猫 = UNCOLLECTIBLE + 22;
 
     static {
         assignItemRect(GOLD, 15, 13);
@@ -113,8 +119,12 @@ public class 物品表 {
         assignItemRect(TENGU_SHOCKER, 10);
         assignItemRect(GEO_BOULDER, 16, 14);
 
-        assignItemRect(SPIRIT_ARROW, 11);
-        assignItemRect(魔法箭矢, 11);
+        assignItemRect(箭矢, 15);
+        assignItemRect(自然箭矢,15);
+        assignItemRect(冰霜箭矢,15);
+        assignItemRect(暗裔箭矢,15);
+        assignItemRect(圣银箭矢,15);
+
         assignItemRect(符箓, 11,16);
 
         assignItemRect(手枪子弹, 6,10);
@@ -280,7 +290,7 @@ public class 物品表 {
     public static final int WORN_SHORTSWORD = 英雄初始 ;
     public static final int 法师魔杖 = 英雄初始 + 1;
     public static final int 匕首=英雄初始+2;
-    public static final int 灵能短弓 = 英雄初始 + 3;
+    public static final int 短弓=英雄初始+3;
     public static final int RAPIER = 英雄初始 + 4;
     public static final int CUDGEL = 英雄初始 + 5;
     public static final int 血砍刀 = 英雄初始 + 6;
@@ -310,7 +320,7 @@ public class 物品表 {
         assignItemRect(WORN_SHORTSWORD, 13);
         assignItemRect(法师魔杖,16);
         assignItemRect(匕首,12,13);
-        assignItemRect(灵能短弓, 16);
+        assignItemRect(短弓,16);
         assignItemRect(RAPIER, 16);
         assignItemRect(CUDGEL, 15);
         assignItemRect(血砍刀, 16);
@@ -412,6 +422,8 @@ public class 物品表 {
     public static final int BOLAS = WEP_TIER3 + 7;
     public static final int KUNAI = WEP_TIER3 + 8;
     public static final int 链刃 = WEP_TIER3 + 9;
+    public static final int 灵能短弓 = WEP_TIER3 + 11;
+    public static final int 炼金动力十字弩 = WEP_TIER3 + 12;
 
     static {
         assignItemRect(LONGSWORD, 15);
@@ -425,6 +437,8 @@ public class 物品表 {
         assignItemRect(BOLAS, 15, 14);
         assignItemRect(KUNAI, 15);
         assignItemRect(链刃, 15,16);
+        assignItemRect(灵能短弓, 16);
+        assignItemRect(炼金动力十字弩, 16);
     }
 
     private static final int WEP_TIER4 = xy(0, 9);   //8 slots
@@ -554,6 +568,11 @@ public class 物品表 {
 
     public static final int 种子吹管=WEP_TIER52+24;
 
+    public static final int 自然之力=WEP_TIER52+25;
+    public static final int 冰结短弓=WEP_TIER52+26;
+    public static final int 暗裔短弓=WEP_TIER52+27;
+    public static final int 圣银十字弩=WEP_TIER52+28;
+
     static{
         assignItemRect(联合盾,15);
         assignItemRect(雷神锤,15,16);
@@ -581,6 +600,11 @@ public class 物品表 {
         assignItemRect(黑暗剑,16);
 
         assignItemRect(种子吹管,16,14);
+
+        assignItemRect(自然之力,16);
+        assignItemRect(冰结短弓,16);
+        assignItemRect(暗裔短弓,16);
+        assignItemRect(圣银十字弩,16);
 
     }
     //endregion

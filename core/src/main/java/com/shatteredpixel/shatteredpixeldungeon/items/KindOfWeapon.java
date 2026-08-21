@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -19,10 +20,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.神射之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.魔法飞刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.*;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.暗裔短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.枪械;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.火炮;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.炼金动力十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.狙击枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.短弓;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.自然之力;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -45,6 +53,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 首攻 =0;
 	public float 麻痹 =0;
 	public float 冻结 =0;
+	public float 中毒=0;
 	public int 最小= 0;
 	public int 最大= 0;
 	public float 伤害= 1f;
@@ -87,6 +96,10 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 冻结(){
 		float 冻结=this.冻结;
 		return 冻结;
+	}
+	public float 中毒(){
+		float 毒素=this.中毒;
+		return 毒素;
 	}
 
 	public float 吸血(){
@@ -229,6 +242,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 金铲铲)return true;
 		if(this instanceof 修理扳手)return true;
 		if(this instanceof 回旋镖)return true;
+		if(this instanceof 枪械)return true;
 		return false;
 	}
 	public boolean 鞭(){
@@ -349,12 +363,20 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 闪电双截棍)return true;
 		if(this instanceof 猩红散华)return true;
 		if(this instanceof 重锤)return true;
-		if(this instanceof 灵能短弓)return true;
 		if(this instanceof 白带)return true;
 		if(this instanceof 臂铠)return true;
 		if(this instanceof 长矛)return true;
 		if(this instanceof 血姬)return true;
+
+		if(this instanceof 短弓)return true;
+		if(this instanceof 冰结短弓)return true;
+		if(this instanceof 暗裔短弓)return true;
+		if(this instanceof 灵能短弓)return true;
+		if(this instanceof 自然之力)return true;
 		if(this instanceof 十字弩)return true;
+		if(this instanceof 炼金动力十字弩)return true;
+		if(this instanceof 圣银十字弩)return true;
+
 		if(this instanceof 狙击枪)return true;
 		if(this instanceof 冲锋枪)return true;
 		if(this instanceof 霰弹枪)return true;
@@ -608,6 +630,12 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(defender!=null&&冻结()>0){
 				算法.修复效果(()->{
 					Buff.施加(defender,Frost.class,Frost.DURATION*冻结());
+				});
+		}
+		if(defender!=null&&中毒()>0){
+			float finalDamage=damage;
+			算法.修复效果(()->{
+					Buff.施加(defender,Poison.class).set(finalDamage*中毒());
 				});
 		}
 		if (attacker instanceof Hero hero){

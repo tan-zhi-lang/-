@@ -14,6 +14,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -53,11 +54,14 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.技能;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.十字弩飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.枪弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.彩虹猫之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投掷手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.枪械;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.死神镰刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猩红散华;
@@ -1446,7 +1450,9 @@ public class Item implements Bundlable {
 		final int cell = throwPos( user, dst );
 		user.sprite.zap( cell );
 		user.busy();
+		if(this instanceof 枪械.子弹 子弹&&子弹.子弹 instanceof 枪弹){
 
+		}else
 		throwSound();
 
 		Char enemy = Actor.findChar( cell );
@@ -1454,6 +1460,12 @@ public class Item implements Bundlable {
 
 		final float delay = castDelay(user, cell);
 
+		if (user.天赋(Talent.SEER_SHOT)){
+			RevealedArea a = Buff.施加(user,RevealedArea.class,5);
+			a.depth = Dungeon.depth;
+			a.branch = Dungeon.branch;
+			a.pos = cell;
+		}
 		if (enemy != null) {
 			((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).
 					reset(user.sprite,

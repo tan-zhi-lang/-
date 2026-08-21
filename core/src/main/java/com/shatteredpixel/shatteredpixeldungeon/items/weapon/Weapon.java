@@ -16,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.RevealedArea;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.征服;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
@@ -54,6 +53,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.血饮
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.诡秘;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.重创;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.除魔;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.自然之力;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -548,10 +548,10 @@ abstract public class Weapon extends KindOfWeapon {
 		if(Dungeon.hero())hero力量=Dungeon.hero.力量();
 		if (levelKnown) {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known",kw2(力量()), tier(),
-										  范围,
+										  kw2(范围),
 										  kw2(最小攻击()),
 											  kw2(最大攻击()),
-										  (最小防御()==0&&最大防御()==0?"":"　防御+ ++ "+
+										  (最小防御()==0&&最大防御()==0?"":"\n防御+ ++ "+
 															 kw2(最小防御())+"~"+kw2(最大防御())+" ++ "),
 										kw2(DPS()),
 										  kw2(最小投掷攻击()),
@@ -570,10 +570,10 @@ abstract public class Weapon extends KindOfWeapon {
 			}
 		} else {
 			info += "\n\n" + Messages.get(Weapon.class, "stats_known", kw2(力量(0)), tier(),
-										  范围,
+										  kw2(范围),
 										  kw2(最小攻击(0)),
 											  kw2(最大攻击(0)),
-										  (最小防御()==0&&最大防御(0)==0?"":"　防御+ ++ "+
+										  (最小防御()==0&&最大防御(0)==0?"":"\n防御+ ++ "+
 															 kw2(最小防御(0))+"~"+kw2(最大防御(0))+" ++ "),
 										  kw2(DPS()),
 										  kw2(最小投掷攻击(0)),
@@ -666,32 +666,34 @@ abstract public class Weapon extends KindOfWeapon {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
 
-								(伤害()==0||伤害()==1?"":"　"+kw2(伤害())+"倍伤害"),
-								(命中()==0||命中()==1?"":"　"+kw2(命中())+"倍命中"),
-								(延迟()==0||延迟()==1?"":"　"+kw2(延迟())+"倍攻击延迟"),
-								(流血()==0?"":"　攻击施加 ** "+Math.round(流血()*100)+"%流血伤害 ** "),
-								(魔法()==0?"":"　攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
-								(吸血()==0?"":"　获得 ** "+Math.round(吸血()*100)+"%吸血 ** "),
-								(伏击()==0?"":"　伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
+								(伤害()==0||伤害()==1?"":"\n"+kw2(伤害())+"倍伤害"),
+								(命中()==0||命中()==1?"":"\n"+kw2(命中())+"倍命中"),
+								(延迟()==0||延迟()==1?"":"\n"+kw2(延迟())+"倍攻击延迟"),
+								(流血()==0?"":"\n攻击施加 ** "+Math.round(流血()*100)+"%流血伤害 ** "),
+								(中毒()==0?"":"\n攻击+ ++ "+Math.round(中毒()*100)+"%中毒伤害 ++ "),
+								(魔法()==0?"":"\n攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
+								(吸血()==0?"":"\n获得 ** "+Math.round(吸血()*100)+"%吸血 ** "),
+								(伏击()==0?"":"\n伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
 
-								(首攻()==0?"":"　首次攻击+"+Math.round(首攻()*100)+"%伤害"),
-								(麻痹()==0?"":"　攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
-								(冻结()==0?"":"　攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
+								(首攻()==0?"":"\n首次攻击+"+Math.round(首攻()*100)+"%伤害"),
+								(麻痹()==0?"":"\n攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
+								(冻结()==0?"":"\n攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-								(伤害()==0||伤害()==1?"":"　"+kw2(伤害())+"倍伤害"),
-								(命中()==0||命中()==1?"":"　"+kw2(命中())+"倍命中"),
-								(延迟()==0||延迟()==1?"":"　"+kw2(延迟())+"倍攻击延迟"),
+								(伤害()==0||伤害()==1?"":"\n"+kw2(伤害())+"倍伤害"),
+								(命中()==0||命中()==1?"":"\n"+kw2(命中())+"倍命中"),
+								(延迟()==0||延迟()==1?"":"\n"+kw2(延迟())+"倍攻击延迟"),
 
-								(流血()==0?"":"　攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
-								(魔法()==0?"":"　攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
-								(吸血()==0?"":"　攻击 ** "+Math.round(吸血()*100)+"%吸血 ** "),
-								(伏击()==0?"":"　伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
+								(流血()==0?"":"\n攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
+								(中毒()==0?"":"\n攻击+ ++ "+Math.round(中毒()*100)+"%中毒伤害 ++ "),
+								(魔法()==0?"":"\n攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
+								(吸血()==0?"":"\n攻击 ** "+Math.round(吸血()*100)+"%吸血 ** "),
+								(伏击()==0?"":"\n伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
 
-								(首攻()==0?"":"　首次攻击+"+Math.round(首攻()*100)+"%伤害"),
-								(麻痹()==0?"":"　攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
-								(冻结()==0?"":"　攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
+								(首攻()==0?"":"\n首次攻击+"+Math.round(首攻()*100)+"%伤害"),
+								(麻痹()==0?"":"\n攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
+								(冻结()==0?"":"\n攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
 							   );
 		}
 	}
@@ -711,6 +713,7 @@ abstract public class Weapon extends KindOfWeapon {
 				*(命中() > 0 ? 1 + 命中() / 4f / 2f : 1f)       // 命中机会和命中和闪避
 				*(魔法() > 0 ? 1 + 魔法() * 2f / 1.2f : 1f)    // 魔法伤害、魔抗机会和魔免机会
 				*(流血() > 0 ? 1 + 流血() / 2f / 2f : 1f)      // 流血伤害是减半和免疫机会
+				*(中毒()>0 ?1+中毒()/2f/2f : 1f)      // 毒素伤害是减半和免疫机会
 				*(伏击() > 0 ? 1 + 伏击() / 4f / 2f : 1f)      // 伏击机会和命中和闪避
 
 				*(首攻() > 0 ? 1 + 首攻() / 2f : 1f)            // 首攻机会
@@ -1156,15 +1159,6 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public void cast(Hero user,int dst){
-		if (user.天赋(Talent.SEER_SHOT)){
-			int shotPos = throwPos(user, dst);
-			if (Actor.findChar(shotPos) == null) {
-				RevealedArea a = Buff.施加(user, RevealedArea.class, 5);
-				a.depth = Dungeon.depth;
-				a.branch = Dungeon.branch;
-				a.pos = shotPos;
-			}
-		}
 		super.cast(user,dst);
 	}
 	//endregion
@@ -1308,7 +1302,10 @@ abstract public class Weapon extends KindOfWeapon {
 			defender.受伤时(魔法()*damage);
 		}
 		if(defender!=null&&涂药种类!=null&&涂药种类.涂药次数>0){
-			涂药种类.消耗();
+			if(this instanceof 自然之力){
+
+			}else 涂药种类.消耗();
+
 			if(涂药种类.涂药次数<=0){
 				涂药种类=null;
 				GLog.橙(Messages.get(this,"has_broken"));

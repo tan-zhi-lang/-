@@ -36,7 +36,7 @@ public class 灵能短弓 extends Weapon {
 	public static final String AC_SHOOT		= "SHOOT";
 	
 	{
-		image = 物品表.灵能短弓;
+		image = 物品表.短弓;
 		defaultAction = AC_SHOOT;
 		usesTargeting = true;
 		tier=1;
@@ -95,7 +95,6 @@ public class 灵能短弓 extends Weapon {
 	public float 最小弓箭攻击(int lvl) {
 		float dmg =1+ lvl/2f*0.6f;
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
-		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}
 	
@@ -105,7 +104,6 @@ public class 灵能短弓 extends Weapon {
 	public float 最大弓箭攻击(int lvl) {
 		float dmg =6f+ lvl*0.6f;
 		if(Dungeon.hero.符文("升级灵能短弓"))dmg*=3.5;
-		dmg*=1+Dungeon.hero.天赋点数(Talent.弓箭强化,0.2f);
 		return Math.max(0, dmg);
 	}
 	@Override
@@ -152,7 +150,7 @@ public class 灵能短弓 extends Weapon {
 	public class SpiritArrow extends Weapon {
 		
 		{
-			image = 物品表.SPIRIT_ARROW;
+			image = 物品表.自然箭矢;
 			hitSound = Assets.Sounds.攻击箭;
 
 		}

@@ -4,8 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
-import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Bundle;
@@ -15,8 +13,8 @@ import java.util.Collection;
 
 public class PinCushion extends Buff {
 
-	private ArrayList<Weapon> items = new ArrayList<>();
-	public void stick(Weapon projectile){
+	private ArrayList<Item> items = new ArrayList<>();
+	public void stick(Item projectile){
 //		for (int i = 0; i < items.size(); i++) {
 ////			if (projectile.isSimilar(items.get(i))) {
 ////				projectile.merge(items.get(i));
@@ -35,7 +33,7 @@ public class PinCushion extends Buff {
 		return item;
 	}
 
-	public ArrayList<KindOfWeapon> getStuckItems(){
+	public ArrayList<Item> getStuckItems(){
 		return new ArrayList<>(items);
 	}
 
@@ -56,7 +54,7 @@ public class PinCushion extends Buff {
 
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
-		items = new ArrayList<>((Collection<Weapon>) ((Collection<?>) bundle.getCollection(ITEMS)));
+		items = new ArrayList<>((Collection<Item>) ((Collection<?>) bundle.getCollection(ITEMS)));
 		super.restoreFromBundle( bundle );
 	}
 

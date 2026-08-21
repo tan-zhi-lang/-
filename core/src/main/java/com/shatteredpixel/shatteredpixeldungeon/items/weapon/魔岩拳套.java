@@ -3,9 +3,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-
-import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.连击;
+import com.shatteredpixel.shatteredpixeldungeon.items.秘银;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 魔岩拳套 extends Weapon {
@@ -23,7 +22,7 @@ public class 魔岩拳套 extends Weapon {
 
 		{
 			inputs=new Class[]{镶钉手套.class,
-					LiquidMetal.class,};
+					秘银.class,};
 			inQuantity=new int[]{1,
 					1,};
 

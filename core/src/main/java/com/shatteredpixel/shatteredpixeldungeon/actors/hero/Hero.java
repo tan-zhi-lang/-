@@ -361,6 +361,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.大肉棒;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.弹药;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无尽之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.无影剑;
@@ -4746,6 +4747,22 @@ public class Hero extends Char {
             x+=戒指数量*天赋点数(Talent.戒护环法,0.1f);
         }
         if(天赋(Talent.任督二脉)&&综合属性()>1)x*=1+(综合属性()-1)*天赋点数(Talent.任督二脉,0.25f);
+        if(天赋(Talent.自然之护)){
+            if(在草丛())
+            x*=1+天赋点数(Talent.自然之护,0.75f);
+
+            if(belongings.weapon1()!=null&&belongings.weapon.涂药种类!=null)
+            x*=1+天赋点数(Talent.自然之护,0.75f);
+
+            if(belongings.weapon2()!=null&&belongings.secondWep.涂药种类!=null)
+            x*=1+天赋点数(Talent.自然之护,0.75f)*副武器效果();
+
+            if(belongings.armor1()!=null&&belongings.armor.涂药种类!=null)
+            x*=1+天赋点数(Talent.自然之护,0.75f);
+
+            if(belongings.armor2()!=null&&belongings.armor2.涂药种类!=null)
+            x*=1+天赋点数(Talent.自然之护,0.75f)*副防具效果();
+        }
 
         if(belongings.技能(防御力.class)) x*=1.05f+0.05f*belongings.技能等级(防御力.class);
         if(符文("爬楼"))x*=1+Dungeon.depth*0.5f;
@@ -6810,7 +6827,7 @@ public class Hero extends Char {
                 Item item=heap.peek();
                 if(SPDSettings.自动拾取()&&物品能自动拾取(item)){
 
-                    return true;
+                    return false;
                 }else{
 
                 if(item.doPickUp(this)){
@@ -6881,7 +6898,9 @@ public class Hero extends Char {
         if (belongings.contains(item)){
             ok=true;
         }
-        if (item instanceof 用品){
+        if (item instanceof 用品||
+            item instanceof 弹药
+        ){
             ok=true;
         }
         if (item instanceof Plant.Seed||

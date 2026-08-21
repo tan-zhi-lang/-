@@ -709,10 +709,6 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
-		changes.addButton( new ChangeButton(new ItemSprite(物品表.SEED_ICECAP),"种子",
-											"植(自)用\n"+
-											"直接让种子的效果赋予自身，而无需花费回合点击自己种植在脚下的植物来触发。",
-											"扔出->丢子(植)，种植->原地种植。"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WEAPON_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "诅咒附魔",
 		"重创\n" +
 		"对康血敌人的攻击伤害+20%",

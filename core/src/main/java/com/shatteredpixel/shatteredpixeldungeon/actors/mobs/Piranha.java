@@ -37,7 +37,7 @@ public class Piranha extends Mob {
 
 		baseSpeed = 2f;
 		
-		loot = MysteryMeat.class;
+		loot = new MysteryMeat(this);
 		
 		
 		SLEEPING = new Sleeping();
@@ -206,7 +206,7 @@ public class Piranha extends Mob {
 		}
 	}
 	public void 寻找肉(){
-		if(产卵){
+		if(true){
 			for(int n: PathFinder.范围4){
 				Heap heap=Dungeon.level.heaps.get(pos+n);
 				if(heap!=null&&heap.type==Heap.Type.HEAP){
@@ -223,7 +223,6 @@ public class Piranha extends Mob {
 										piranha.pos=pos+nx;
 										if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&Dungeon.level.findMob(piranha.pos)==null){
 											newp=false;
-											产卵=false;
 											GameScene.add(piranha,1);
 											Actor.add(piranha);
 											Dungeon.level.occupyCell(piranha);
@@ -233,7 +232,7 @@ public class Piranha extends Mob {
 							}
 						}
 					}else{
-						if(item instanceof MysteryMeat){
+						if(item instanceof MysteryMeat m&&!m.name().equals(new MysteryMeat(this).name())){
 							target=heap.pos;
 							if(pos==heap.pos){
 								heap.destroy();
@@ -244,7 +243,6 @@ public class Piranha extends Mob {
 										piranha.pos=pos+nx;
 										if(Dungeon.level.map[piranha.pos]==Terrain.WATER&&Dungeon.level.findMob(piranha.pos)==null){
 											newp=false;
-											产卵=false;
 											GameScene.add(piranha,1);
 											Actor.add(piranha);
 											Dungeon.level.occupyCell(piranha);

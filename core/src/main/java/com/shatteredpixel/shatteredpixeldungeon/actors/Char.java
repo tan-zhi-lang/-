@@ -126,11 +126,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.电击药物;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -185,7 +185,6 @@ public abstract class Char extends Actor {
 	public int 第x次攻击=0;
 	public int 第x次防御 =0;
 	public int 第x次背袭 =0;
-	public boolean 产卵=true;
 	public boolean 诡异 =false;
 	public boolean 移速翻倍=false;
 	public boolean 移速减半=false;
@@ -373,7 +372,6 @@ public abstract class Char extends Actor {
 	protected static final String 第x次攻击x 	    = "第x次攻击";
 	protected static final String 第x次防御x 	    = "第x次防御";
 	protected static final String 第x次背袭x 	    = "第x次背袭";
-	protected static final String 产卵x 	    = "产卵";
 	protected static final String 诡异x 	    = "诡异";
 	protected static final String 大小x 	    = "大小";
 	protected static final String 折叠屏x 	    = "折叠屏";
@@ -396,7 +394,6 @@ public abstract class Char extends Actor {
 		bundle.put( 第x次攻击x, 第x次攻击);
 		bundle.put( 第x次防御x, 第x次防御);
 		bundle.put( 第x次背袭x, 第x次背袭);
-		bundle.put( 产卵x, 产卵);
 		bundle.put( 诡异x, 诡异);
 		bundle.put( 大小x, 大小);
 		bundle.put( 折叠屏x, 折叠屏);
@@ -419,7 +416,6 @@ public abstract class Char extends Actor {
 		第x次攻击 = bundle.getInt( 第x次攻击x );
 		第x次防御 = bundle.getInt( 第x次防御x );
 		第x次背袭 = bundle.getInt( 第x次背袭x );
-		产卵 = bundle.getBoolean( 产卵x );
 		诡异 = bundle.getBoolean( 诡异x );
 		大小 = bundle.getFloat( 大小x );
 		折叠屏 = bundle.getBoolean( 折叠屏x );
@@ -1964,7 +1960,7 @@ public abstract class Char extends Actor {
 																								燃烧.class, Blazing.class))),
 		//ELECTRIC
 		电(new HashSet<Class>(Arrays.asList(WandOfLightning.class,潮霆法杖.class,电击.class,
-											Electricity.class,ShockingDart.class,Elemental.ShockElemental.class)),new HashSet<Class>(),
+											Electricity.class,电击药物.class,Elemental.ShockElemental.class)),new HashSet<Class>(),
 		   new HashSet<Class>()),
 		LARGE,
 		IMMOVABLE ( new HashSet<Class>(),

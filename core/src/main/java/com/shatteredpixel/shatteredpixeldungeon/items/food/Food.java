@@ -96,11 +96,8 @@ public class Food extends Item {
 
 	public float eatingTime(){
 		if(Dungeon.符文("细嚼慢咽"))return TIME_TO_EAT*1.5f;
-		if (快速使用){
-			return 0;
-		} else {
-			return TIME_TO_EAT;
-		}
+		return TIME_TO_EAT;
+
 	}
 	
 	protected void satisfy( Hero hero ){

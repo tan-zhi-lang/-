@@ -54,9 +54,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.HolyDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.神圣药物;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.DisintegrationTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrimTrap;
 
@@ -81,7 +81,7 @@ public class 敌法 extends Armor.Glyph {
 		RESISTS.add(复仇卷轴.class);
 		RESISTS.add(ScrollOfPsionicBlast.class);
 		RESISTS.add(传送卷轴.class);
-		RESISTS.add(HolyDart.class);
+		RESISTS.add(神圣药物.class);
 
 		RESISTS.add(Dungeon.class);
 		RESISTS.add(伤害.class);

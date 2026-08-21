@@ -251,9 +251,6 @@ public class Ring extends KindofMisc {
 	public Item 升级() {
 		super.升级();
 
-		if (Random.Int(3)==0) {
-			cursed = false;
-		}
 		
 		return this;
 	}

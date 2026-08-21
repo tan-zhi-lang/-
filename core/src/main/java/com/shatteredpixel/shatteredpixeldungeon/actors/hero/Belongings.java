@@ -445,6 +445,10 @@ public class Belongings implements Iterable<Item> {
 			Armor armor = ((Armor)bundle.get( ARMOR ));
 			if (armor instanceof ClassArmor||armor.专属){
 				info.armorTier = 6;
+				if(Dungeon.hero.heroClass(HeroClass.灵猫)||
+				   Dungeon.hero.heroClass(HeroClass.鼠弟)){
+					info.armorTier = 1;
+				}
 			} else {
 				info.armorTier = armor.tier();
 			}

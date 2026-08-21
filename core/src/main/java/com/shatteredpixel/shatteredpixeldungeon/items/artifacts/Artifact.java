@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.Bundle;
 
 public class Artifact extends KindofMisc {
@@ -210,9 +209,6 @@ public class Artifact extends KindofMisc {
 		float 概率=1;
 		概率/=Dungeon.hero.幸运机制();
 		//30% chance to be cursed
-		if (算法.概率学(概率*3/10f)) {
-			cursed = true;
-		}
 		return this;
 	}
 

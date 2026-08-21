@@ -112,10 +112,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.骸骨左轮;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
@@ -862,14 +862,10 @@ public abstract class Mob extends Char{
 		if(enemy!=null&&surprisedBy(enemy)){
 			Statistics.sneakAttacks++;
 			Badges.validateRogueUnlock();
-			//TODO this is somewhat messy, it would be nicer to not have to manually handle delays here
-			// playing the strong hit sound might work best as another property of weapon?
-			if(Dungeon.hero.belongings.投掷武器() instanceof 灵能短弓.SpiritArrow
-			   ||Dungeon.hero.belongings.投掷武器() instanceof 飞镖){
-				Sample.INSTANCE.playDelayed(Assets.Sounds.攻击锤,0.125f);
-			}else{
-				Sample.INSTANCE.play(Assets.Sounds.攻击锤);
-			}
+
+			Sample.INSTANCE.play(Assets.Sounds.攻击锤);
+
+
 			if(enemy.buff(潜伏.class)!=null){
 				Wound.hit(this);
 			}else{
@@ -980,13 +976,16 @@ public abstract class Mob extends Char{
 				state=HUNTING;
 				target=h.pos;
 			}
-			if(来源==Dungeon.hero||来源 instanceof 魔攻之戒||
-			   来源 instanceof Artifact||来源 instanceof Wand||
-			   来源 instanceof Weapon||来源 instanceof Weapon.Enchantment||
+			if(来源==Dungeon.hero||
+			   来源 instanceof Artifact||
+			   来源 instanceof Wand||
+			   来源 instanceof Weapon||
+
+			   来源 instanceof Weapon.Enchantment||
 			   来源 instanceof Armor.Glyph||
+
 			   来源 instanceof Dungeon||
 			   来源 instanceof Buff||
-			   来源 instanceof Trap||
 			   来源 instanceof Bomb||
 			   (来源 instanceof Mob m&&m.alignment==Alignment.ALLY)){
 
@@ -1233,7 +1232,7 @@ public abstract class Mob extends Char{
 						Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
 					}
 					if(血腥生肉.概率()>0&&Random.Int(血腥生肉.概率()-1)==0){
-						Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
+						Dungeon.level.drop(new MysteryMeat(this),pos).sprite().drop();
 					}
 
 					if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
@@ -1252,7 +1251,7 @@ public abstract class Mob extends Char{
 
 					if((this instanceof Rat||this instanceof TransmogRat)&&Dungeon.hero.subClass(HeroSubClass.巫咒王鼠)){
 						if(Random.Int(1)==0||Dungeon.hero.职业精通()){
-							Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
+							Dungeon.level.drop(new MysteryMeat(this),pos).sprite().drop();
 						}
 					}
 

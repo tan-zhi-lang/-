@@ -112,16 +112,6 @@ public class WndBlacksmith extends Window {
 		reforge.enable(Blacksmith.Quest.favor >= reforgecost);
 		buttons.add(reforge);
 
-		int hardenCost = 500 + 1000*Blacksmith.Quest.hardens;
-		RedButton harden = new RedButton(Messages.get(this, "harden", hardenCost), 6){
-			@Override
-			protected void onClick() {
-				GameScene.selectItem(new HardenSelector());
-			}
-		};
-		harden.enable(Blacksmith.Quest.favor >= hardenCost);
-		buttons.add(harden);
-
 		int upgradeCost = 1000 + 1000*Blacksmith.Quest.upgrades;
 		RedButton upgrade = new RedButton(Messages.get(this, "upgrade", upgradeCost), 6){
 			@Override
@@ -391,49 +381,6 @@ public class WndBlacksmith extends Window {
 
 	}
 
-	private class HardenSelector extends WndBag.ItemSelector {
-
-		@Override
-		public String textPrompt() {
-			return Messages.get(this, "prompt");
-		}
-
-		@Override
-		public Class<?extends Bag> preferredBag(){
-			return Belongings.Backpack.class;
-		}
-
-		@Override
-		public boolean itemSelectable(Item item) {
-			return item.可升级()
-					&& item.已鉴定() && !item.cursed
-					&& ((item instanceof Weapon && !((Weapon) item).enchantHardened)
-					|| (item instanceof Armor && !((Armor) item).glyphHardened));
-		}
-
-		@Override
-		public void onSelect(Item item) {
-			if (item != null) {
-				if (item instanceof Weapon){
-					((Weapon) item).enchantHardened = true;
-				} else if (item instanceof Armor){
-					((Armor) item).glyphHardened = true;
-				}
-
-				Blacksmith.Quest.favor -= 500 + 1000*Blacksmith.Quest.hardens;
-				Blacksmith.Quest.hardens++;
-
-				WndBlacksmith.this.hide();
-
-				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
-				Item.evoke( Dungeon.hero );
-
-				if (!Blacksmith.Quest.rewardsAvailable()){
-					Notes.remove( Notes.Landmark.TROLL );
-				}
-			}
-		}
-	}
 
 	private class UpgradeSelector extends WndBag.ItemSelector {
 

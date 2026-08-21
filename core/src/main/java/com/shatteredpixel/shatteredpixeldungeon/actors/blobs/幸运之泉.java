@@ -113,7 +113,6 @@ public class 幸运之泉 extends WellWater {
 		n.cursedKnown = w.cursedKnown;
 		n.cursed = w.cursed;
 		n.augment = w.augment;
-		n.enchantHardened = w.enchantHardened;
 
 		return n;
 

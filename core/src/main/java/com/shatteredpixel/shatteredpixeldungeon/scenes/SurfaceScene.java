@@ -124,7 +124,7 @@ public class SurfaceScene extends PixelScene {
 			window.add( patch );
 		}
 		
-		Image a = new Image(avatar(Dungeon.hero.heroClass, tier(Dungeon.hero.heroClass)));
+		Image a = new Image(avatar(Dungeon.hero.heroClass, tier(Dungeon.hero.heroClass,Dungeon.hero.belongings.armor1())));
 		// Removing semitransparent contour
 		a.scale.x=2;
 		a.scale.y=2;

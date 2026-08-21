@@ -13,17 +13,51 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.绒布袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.传送药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.净化药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.寒霜药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.毒液药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.治疗药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.涂药;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.激素药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.燃烧药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.电击药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.神圣药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.腐莓药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.致盲药物;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.麻痹药物;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Blindweed;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Fadeleaf;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Mageroyal;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Rotberry;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sorrowmoss;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Starflower;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Stormvine;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Sungrass;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
+import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
+import com.watabou.utils.Reflection;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public abstract class EquipableItem extends Item {
 
@@ -31,11 +65,27 @@ public abstract class EquipableItem extends Item {
 	public static final String AC_EQUIP2		= "EQUIP2";
 	public static final String AC_UNEQUIP	= "UNEQUIP";
 	public static final String AC_UNEQUIP2	= "UNEQUIP2";
+	protected static final String AC_TIP = "TIP";
+	private static final String AC_CLEAN = "CLEAN";
 
 	{
 		遗产= true;
 	}
 	public boolean 不花费= false;
+	public 涂药 涂药种类=null;
+	public static final String 涂药种类x	= "涂药种类";
+
+	@Override
+	public void storeInBundle( Bundle bundle) {
+		super.storeInBundle( bundle );
+		bundle.put( 涂药种类x, 涂药种类 );
+	}
+
+	@Override
+	public void restoreFromBundle( Bundle bundle ) {
+		super.restoreFromBundle( bundle );
+		涂药种类 = (涂药)bundle.get( 涂药种类x );
+	}
 
 	@Override
 	public ArrayList<String> actions(Hero hero ) {
@@ -68,6 +118,12 @@ public abstract class EquipableItem extends Item {
 				actions.add(AC_EQUIP2);
 			}
 		}
+		if(this instanceof Weapon||this instanceof Armor){
+			if(涂药种类!=null)
+			actions.add( AC_CLEAN );
+			else
+			actions.add(AC_TIP);
+		}
 
 		if(isEquipped(hero)&&cursed&&cursedKnown&&!hero.heroClass(HeroClass.巫女)){
 			//正装备的诅咒移除扔出和卸下
@@ -93,11 +149,124 @@ public abstract class EquipableItem extends Item {
 
 	protected static int slotOfUnequipped = -1;
 
-	@Override
+	private final WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
+
+		@Override
+		public String textPrompt() {
+			return "选择一粒种子";
+		}
+
+		@Override
+		public Class<?extends Bag> preferredBag(){
+			return 绒布袋.class;
+		}
+
+		@Override
+		public boolean itemSelectable(Item item) {
+			return item instanceof Plant.Seed;
+		}
+
+		@Override
+		public void onSelect(final Item item) {
+
+			if (item == null) return;
+
+			final String[] options;
+			options = new String[]{
+					"用1粒种子为此装备涂药",
+					"取消"};
+
+			涂药 tipResult = 涂药((Plant.Seed) item);
+
+			GameScene.show(new WndOptions(new ItemSprite(item),
+										  Messages.titleCase(item.name()),
+										  Messages.get(EquipableItem.class,"tip_desc",tipResult.name())+"\n\n"+tipResult.desc(),
+										  options){
+
+				@Override
+				protected void onSelect(int index) {
+					super.onSelect(index);
+
+					if (index == 0){
+						item.detach( curUser.belongings.backpack );
+
+						涂药种类=tipResult;
+
+						if(涂药种类 instanceof 腐莓药物)涂药种类.涂药次数=3;
+						else 涂药种类.涂药次数=2;
+
+						curUser.spend( 1f );
+						curUser.busy();
+						curUser.sprite.operate();
+					}
+				}
+			});
+
+		}
+
+	};
+
+	public static final LinkedHashMap<Class<?extends Plant.Seed>, Class<?extends 涂药>> types = new LinkedHashMap<>();
+	static {
+		types.put(Rotberry.Seed.class,腐莓药物.class);
+		types.put(Sungrass.Seed.class,治疗药物.class);
+		types.put(Fadeleaf.Seed.class,传送药物.class);
+		types.put(Icecap.Seed.class,寒霜药物.class);
+		types.put(Firebloom.Seed.class,燃烧药物.class);
+		types.put(Sorrowmoss.Seed.class,毒液药物.class);
+		types.put(Swiftthistle.Seed.class,激素药物.class);
+		types.put(Blindweed.Seed.class,致盲药物.class);
+		types.put(Stormvine.Seed.class,电击药物.class);
+		types.put(Earthroot.Seed.class,麻痹药物.class);
+		types.put(Mageroyal.Seed.class,净化药物.class);
+		types.put(Starflower.Seed.class,神圣药物.class);
+	}
+
+	public 涂药 涂药( Plant.Seed s ){
+		return (涂药) Reflection.newInstance(types.get(s.getClass()));
+	}
+
+	public 涂药 随机涂药(){
+		Plant.Seed s;
+		do
+		{
+			s=(Plant.Seed)Generator.randomUsingDefaults(Generator.Category.SEED);
+		}while(!types.containsKey(s.getClass()));
+
+		return 涂药(s);
+	}
+		@Override
 	public void execute( Hero hero, String action ) {
 
 		super.execute( hero, action );
 
+		if (action.equals(AC_TIP)){
+			GameScene.selectItem(itemSelector);
+		}
+		if (action.equals( AC_CLEAN )){
+
+			String[] options = new String[]{
+					"清洗",
+					"取消"
+			};
+
+			GameScene.show(new WndOptions(new ItemSprite(this),
+										  Messages.titleCase(name()),
+										  Messages.get(this, "clean_desc"),
+										  options){
+				@Override
+				protected void onSelect(int index) {
+					if (index == 0){
+						涂药种类=null;
+
+						hero.spend( 1f );
+						hero.busy();
+						hero.sprite.operate();
+					}
+				}
+			});
+
+		}
 		if (action.equals( AC_EQUIP )) {
 			//In addition to equipping itself, item reassigns itself to the quickslot
 			//This is a special case as the item is being removed from inventory, but is staying with the hero.

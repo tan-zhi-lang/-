@@ -13,7 +13,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.PoisonDart;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.毒液药物;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
@@ -89,9 +90,11 @@ public class PoisonDartTrap extends Trap {
 					final Char finalTarget = target;
 					if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[target.pos]) {
 						((MissileSprite) ShatteredPixelDungeon.scene().recycle(MissileSprite.class)).
-								reset(pos, finalTarget.sprite, new PoisonDart(), new Callback() {
+								reset(pos,finalTarget.sprite,new 飞镖(),new Callback() {
 									@Override
 									public void call() {
+										new 毒液药物().触发(finalTarget);
+
 										float dmg = Random.NormalIntRange(4, 8) - finalTarget.最大防御();
 										finalTarget.受伤时(dmg, PoisonDartTrap.this);
 										if (finalTarget == Dungeon.hero){

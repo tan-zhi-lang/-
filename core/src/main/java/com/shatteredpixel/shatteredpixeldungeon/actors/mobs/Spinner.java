@@ -32,7 +32,7 @@ public class Spinner extends Mob {
 		经验 = 9;
 		最大等级 = 17;
 
-		loot = MysteryMeat.class;
+		loot = new MysteryMeat(this);
 		lootChance = 0.125f;
 
 		HUNTING = new Hunting();

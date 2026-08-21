@@ -45,8 +45,7 @@ public class 封禁卷轴 extends 用品{
 	}
 
 	protected void onItemSelected(Item item) {
-		item.额外升级(item.等级()/5+1);
-		item.封禁升级=true;
+		item.额外升级(item.等级()/4);
 	}
 	public WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 

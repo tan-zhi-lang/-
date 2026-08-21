@@ -30,9 +30,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.涂药;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.levels.MiningLevel;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -140,9 +140,8 @@ public class 嬗变卷轴 extends InventoryScroll {
 //		if (item instanceof 法师魔杖) {
 //			return changeStaff((法师魔杖) item);
 //		}else
-			if (item instanceof TippedDart){
-			return changeTippedDart( (TippedDart)item );
-		} else if (item instanceof Weapon ) {
+
+		if (item instanceof Weapon ) {
 			return changeWeapon( (Weapon)item );
 		} else if (item instanceof Armor ) {
 			return changeArmor( (Armor)item );
@@ -210,13 +209,12 @@ public class 嬗变卷轴 extends InventoryScroll {
 		return staff;
 	}
 
-	private static TippedDart changeTippedDart( TippedDart dart ){
-		TippedDart n;
+	private static EquipableItem change涂药(EquipableItem e){
+		涂药 n;
 		do {
-			n = TippedDart.randomTipped(1);
-		} while (n.getClass() == dart.getClass());
-
-		return n;
+			n = e.随机涂药();
+		} while (n == e.涂药种类);
+		return e;
 	}
 	
 	private static Weapon changeWeapon( Weapon w ) {
@@ -234,7 +232,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 		} else if (level < 0) {
 			n.降级( -level );
 		}
-		
+		if(n.涂药种类!=null)change涂药(n);
 		n.enchantment = w.enchantment;
 		n.curseInfusionBonus = w.curseInfusionBonus;
 		n.神力 = w.神力;
@@ -242,8 +240,6 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.cursedKnown = w.cursedKnown;
 		n.cursed = w.cursed;
 		n.augment = w.augment;
-		n.enchantHardened = w.enchantHardened;
-		n.封禁升级 = w.封禁升级;
 
 		return n;
 		
@@ -259,7 +255,8 @@ public class 嬗变卷轴 extends InventoryScroll {
 		} else if (level < 0) {
 			n.降级( -level );
 		}
-		
+
+		if(n.涂药种类!=null)change涂药(n);
 		n.glyph = a.glyph;
 		n.curseInfusionBonus = a.curseInfusionBonus;
 		n.神力 = a.神力;
@@ -268,7 +265,6 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.cursed = a.cursed;
 		n.augment = a.augment;
 		n.荣誉纹章= a.荣誉纹章;
-		n.封禁升级= a.封禁升级;
 
 		return n;
 		
@@ -292,7 +288,6 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.levelKnown = r.levelKnown;
 		n.cursedKnown = r.cursedKnown;
 		n.cursed = r.cursed;
-		n.封禁升级 = r.封禁升级;
 
 		return n;
 	}
@@ -356,7 +351,6 @@ public class 嬗变卷轴 extends InventoryScroll {
 		n.resinBonus = w.resinBonus;
 
 		n.curCharges =  w.curCharges;
-		n.封禁升级 =  w.封禁升级;
 		n.updateLevel();
 		
 		return n;

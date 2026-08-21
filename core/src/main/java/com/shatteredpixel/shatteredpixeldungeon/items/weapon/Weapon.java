@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
 import com.shatteredpixel.shatteredpixeldungeon.actors.鬼刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
@@ -657,13 +658,6 @@ abstract public class Weapon extends KindOfWeapon {
 			case NONE:
 		}
 
-		if (enchantment != null && (cursedKnown || !enchantment.curse())){
-			info += "\n\n" + Messages.capitalize(Messages.get(Weapon.class, "enchanted", enchantment.name()));
-			if (enchantHardened) info += " " + Messages.get(Weapon.class, "enchant_hardened");
-			info += " " + enchantment.desc();
-		} else if (enchantHardened){
-			info += "\n\n" + Messages.get(Weapon.class, "hardened_no_enchant");
-		}
 		
 		if (cursed && isEquipped( Dungeon.hero )) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
@@ -676,7 +670,9 @@ abstract public class Weapon extends KindOfWeapon {
 				info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
 			}
 		}
-		
+		if(涂药种类!=null&&涂药种类.涂药次数>0)
+			info += "\n\n" + Messages.get(Armor.class,"uses_left",涂药种类.涂药次数);
+
 		//the mage's staff has no ability as it can only be gained by the mage
 		if (Dungeon.hero() &&技能()!=null){
 			info += "\n\n" + 技能().desc();
@@ -1282,7 +1278,6 @@ abstract public class Weapon extends KindOfWeapon {
 	public float usesLeftToID = usesToID();
 	
 	public Enchantment enchantment;
-	public boolean enchantHardened = false;
 	public boolean curseInfusionBonus = false;
 	public boolean 神力 = false;
 	
@@ -1294,7 +1289,6 @@ abstract public class Weapon extends KindOfWeapon {
 			连招范围--;
 			else 连招范围=范围;
 		}
-
 		if (defender!=null&&attacker instanceof Hero hero) {
 			if(首次使用){
 				首次使用=false;
@@ -1364,6 +1358,15 @@ abstract public class Weapon extends KindOfWeapon {
 		if(defender!=null&&defender.isAlive()&&魔法()>0){
 			defender.受伤时(魔法()*damage);
 		}
+		if(defender!=null&&涂药种类!=null&&涂药种类.涂药次数>0){
+			涂药种类.消耗();
+			if(涂药种类.涂药次数<=0){
+				涂药种类=null;
+				GLog.橙(Messages.get(this,"has_broken"));
+			}else{
+				damage=涂药种类.触发(defender,damage);
+			}
+		}
 		return damage;
 	}
 	
@@ -1373,7 +1376,6 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	private static final String USES_LEFT_TO_ID = "uses_left_to_id";
 	private static final String ENCHANTMENT	    = "enchantment";
-	private static final String ENCHANT_HARDENED = "enchant_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
 	private static final String 神力x = "神力";
 	private static final String 连招范围x = "连招范围";
@@ -1385,7 +1387,6 @@ abstract public class Weapon extends KindOfWeapon {
 		super.storeInBundle( bundle );
 		bundle.put( USES_LEFT_TO_ID, usesLeftToID );
 		bundle.put( ENCHANTMENT, enchantment );
-		bundle.put( ENCHANT_HARDENED, enchantHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( 神力x, 神力 );
 		bundle.put( 连招范围x, 连招范围 );
@@ -1398,7 +1399,6 @@ abstract public class Weapon extends KindOfWeapon {
 		super.restoreFromBundle( bundle );
 		usesLeftToID = bundle.getFloat( USES_LEFT_TO_ID );
 		enchantment = (Enchantment)bundle.get( ENCHANTMENT );
-		enchantHardened = bundle.getBoolean( ENCHANT_HARDENED );
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 		连招范围 = bundle.getInt( 连招范围x );
@@ -1530,59 +1530,22 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	
 	public Item 额外升级(boolean enchant ) {
-		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
 			}
-		} else if (enchantment != null) {
-			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
-			if (enchantHardened){
-				if (等级() >= 6 && Random.Float(10) < 概率*Math.pow(2, 等级()-6)){
-					enchantHardened = false;
-				}
-
-				//chance to remove curse is a static 33%
-			} else if (hasCurseEnchant()) {
-				if (算法.概率学(概率*1/4f)) enchant(null);
-
-				//otherwise chance to lose enchant is 10/20/40/80/100% when upgrading from +4/5/6/7/8
-			} else if (等级() >= 4 && Random.Float(10) < 概率*Math.pow(2, 等级()-4)){
-				enchant(null);
-			}
 		}
-
-		cursed = false;
 
 		return super.额外升级();
 	}
 	public Item 升级(boolean enchant ) {
 
-		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
 			}
-		} else if (enchantment != null) {
-			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
-			if (enchantHardened){
-				if (等级() >= 6 && Random.Float(10) < 概率*Math.pow(2, 等级()-6)){
-					enchantHardened = false;
-				}
-
-			//chance to remove curse is a static 33%
-			} else if (hasCurseEnchant()) {
-				if (算法.概率学(概率*1/4f)) enchant(null);
-
-			//otherwise chance to lose enchant is 10/20/40/80/100% when upgrading from +4/5/6/7/8
-			} else if (等级() >= 4 && Random.Float(10) < 概率*Math.pow(2, 等级()-4)){
-				enchant(null);
-			}
 		}
-		
-		cursed = false;
+
 
 		return super.升级();
 	}

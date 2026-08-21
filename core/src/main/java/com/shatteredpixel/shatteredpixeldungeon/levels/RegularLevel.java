@@ -46,7 +46,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.StatueRoom;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.干涸大井;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.星之果实神殿;
-import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.特殊房间;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.矮人传送魔法阵;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.standard.StandardRoom;
@@ -138,6 +137,8 @@ public abstract class RegularLevel extends Level {
 
 		if(Dungeon.相对层数()==23)
 			initRooms.add(new 星之果实神殿());
+
+//			initRooms.add(new PoolRoom());
 
 		if(Dungeon.相对层数()==13)
 			initRooms.add(new 干涸大井());

@@ -20,7 +20,7 @@ public class Albino extends Rat {
 		经验 = Dungeon.老鼠蝙蝠?8:2;
 		普通=false;
 		
-		loot = MysteryMeat.class;
+		loot = new MysteryMeat(this);
 		
 		properties.add(Property.动物);
 	}

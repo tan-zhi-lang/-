@@ -109,7 +109,6 @@ public class Armor extends EquipableItem {
 	public Augment augment = Augment.NONE;
 	
 	public Glyph glyph;
-	public boolean glyphHardened = false;
 	public boolean curseInfusionBonus = false;
 	public boolean 神力 = false;
 	
@@ -129,7 +128,6 @@ public class Armor extends EquipableItem {
 	
 	private static final String USES_LEFT_TO_ID = "uses_left_to_id";
 	private static final String GLYPH			= "glyph";
-	private static final String GLYPH_HARDENED	= "glyph_hardened";
 	private static final String CURSE_INFUSION_BONUS = "curse_infusion_bonus";
 	private static final String 神力x = "神力";
 	private static final String 荣誉纹章x = "荣誉纹章";
@@ -141,7 +139,6 @@ public class Armor extends EquipableItem {
 		super.storeInBundle( bundle );
 		bundle.put( USES_LEFT_TO_ID, usesLeftToID );
 		bundle.put( GLYPH, glyph );
-		bundle.put( GLYPH_HARDENED, glyphHardened );
 		bundle.put( CURSE_INFUSION_BONUS, curseInfusionBonus );
 		bundle.put( 神力x, 神力 );
 		bundle.put(荣誉纹章x,荣誉纹章);
@@ -154,7 +151,6 @@ public class Armor extends EquipableItem {
 		super.restoreFromBundle(bundle);
 		usesLeftToID = bundle.getInt( USES_LEFT_TO_ID );
 		inscribe((Glyph) bundle.get(GLYPH));
-		glyphHardened = bundle.getBoolean(GLYPH_HARDENED);
 		curseInfusionBonus = bundle.getBoolean( CURSE_INFUSION_BONUS );
 		神力 = bundle.getBoolean( 神力x );
 		荣誉纹章= (荣誉纹章)bundle.get(荣誉纹章x);
@@ -594,36 +590,11 @@ public class Armor extends EquipableItem {
 	
 	public Item 额外升级(boolean inscribe ) {
 
-		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (inscribe){
 			if (glyph == null){
 				inscribe( Glyph.random() );
 			}
-		} else if (glyph != null) {
-			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
-			if (glyphHardened) {
-				if (等级() >= 6 && Random.Float(10) < 概率*Math.pow(2, 等级()-6)){
-					glyphHardened = false;
-				}
-
-			//chance to remove curse is a static 33%
-			} else if (hasCurseGlyph()){
-				if (算法.概率学(概率*1/4f)) inscribe(null);
-
-			//otherwise chance to lose glyph is 10/20/40/80/100% when upgrading from +4/5/6/7/8
-			} else {
-
-				//the chance from +4/5, and then +6 can be set to 0% with metamorphed runic transference
-				int lossChanceStart = 4;
-
-				if (等级() >= lossChanceStart && Random.Float(10) < 概率*Math.pow(2, 等级()-4)) {
-					inscribe(null);
-				}
-			}
 		}
-		
-		cursed = false;
 
 		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
 			荣誉纹章.额外升级();//优先纹章
@@ -636,36 +607,11 @@ public class Armor extends EquipableItem {
 
 	public Item 升级(boolean inscribe ) {
 
-		float 概率=1;
-		if(Dungeon.hero()) 概率/=Dungeon.hero.幸运机制();
 		if (inscribe){
 			if (glyph == null){
 				inscribe( Glyph.random() );
 			}
-		} else if (glyph != null) {
-			//chance to lose harden buff is 10/20/40/80/100% when upgrading from +6/7/8/9/10
-			if (glyphHardened) {
-				if (等级() >= 6 && Random.Float(10) < 概率*Math.pow(2, 等级()-6)){
-					glyphHardened = false;
-				}
-
-			//chance to remove curse is a static 33%
-			} else if (hasCurseGlyph()){
-				if (算法.概率学(概率*1/4f)) inscribe(null);
-
-			//otherwise chance to lose glyph is 10/20/40/80/100% when upgrading from +4/5/6/7/8
-			} else {
-
-				//the chance from +4/5, and then +6 can be set to 0% with metamorphed runic transference
-				int lossChanceStart = 4;
-
-				if (等级() >= lossChanceStart && Random.Float(10) < 概率*Math.pow(2, 等级()-4)) {
-					inscribe(null);
-				}
-			}
 		}
-
-		cursed = false;
 
 		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
 			荣誉纹章.升级();//优先纹章
@@ -705,7 +651,16 @@ public class Armor extends EquipableItem {
 				}
 			}
 		}
-		
+
+		if(attacker!=null&&涂药种类!=null&&涂药种类.涂药次数>0){
+			涂药种类.消耗();
+			if(涂药种类.涂药次数<=0){
+				涂药种类=null;
+				GLog.红(Messages.get(this,"has_broken"));
+			}else{
+				damage=涂药种类.触发(defender,damage);
+			}
+		}
 		return damage;
 	}
 	
@@ -767,13 +722,6 @@ public class Armor extends EquipableItem {
 				break;
 			case NONE:
 		}
-		if (glyph != null  && (cursedKnown || !glyph.curse())) {
-			info += "\n\n" +  Messages.capitalize(Messages.get(Armor.class, "inscribed", glyph.name()));
-			if (glyphHardened) info += " " + Messages.get(Armor.class, "glyph_hardened");
-			info += " " + glyph.desc();
-		} else if (glyphHardened){
-			info += "\n\n" + Messages.get(Armor.class, "hardened_no_glyph");
-		}
 		
 		if (cursed && isEquipped( Dungeon.hero )) {
 			info += "\n\n" + Messages.get(Armor.class, "cursed_worn");
@@ -786,6 +734,8 @@ public class Armor extends EquipableItem {
 				info += "\n\n" + Messages.get(Armor.class, "not_cursed");
 			}
 		}
+		if(涂药种类!=null&&涂药种类.涂药次数>0)
+			info += "\n\n" + Messages.get(Armor.class, "uses_left",涂药种类.涂药次数);
 //
 //		if (破损纹章 != null) {
 //			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier(), 强化等级()));

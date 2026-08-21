@@ -113,10 +113,7 @@ public abstract class Plant implements Bundlable {
 	public static class Seed extends Item {
 
 		public static final String AC_PLANT	= "PLANT";
-		public static final String AC_植用	= "植用";
 		protected static final String AC_USE = "USE";
-		
-		private static final float TIME_TO_PLANT = 1f;
 		
 		{
 			可堆叠= true;
@@ -131,7 +128,6 @@ public abstract class Plant implements Bundlable {
 		@Override
 		public ArrayList<String> actions( Hero hero ) {
 			ArrayList<String> actions = super.actions( hero );
-			actions.add( AC_植用 );
 			actions.add( AC_PLANT );
 			return actions;
 		}
@@ -146,6 +142,10 @@ public abstract class Plant implements Bundlable {
 			} else {
 				Catalog.countUse(getClass());
 				Dungeon.level.plant( this, cell );
+
+				if(Actor.hasfindChar(cell))
+				Dungeon.level.plants.get( cell ).trigger();
+
 				if (Dungeon.hero.subClass == HeroSubClass.守望者) {
 					for (int i : PathFinder.相邻) {
 						int c = Dungeon.level.map[cell + i];
@@ -170,23 +170,16 @@ public abstract class Plant implements Bundlable {
 			if (action.equals( AC_PLANT )) {
 
 				hero.busy();
-				((Seed)detach( hero.belongings.backpack )).onThrow( hero.pos );
-				if(快速使用){
-					hero.spend( 0 );
-				}else{
-					hero.spend( TIME_TO_PLANT );
-				}
+
+				detach( hero.belongings.backpack );
+				Dungeon.level.plant( this, hero.pos );
+
+				hero.spend( 1 );
 
 				hero.sprite.operate( hero.pos );
-				
-			}
-			if (action.equals( AC_植用 )) {
 
-				hero.busy();
-				((Seed)detach( hero.belongings.backpack )).onThrow( hero.pos );
-
-				hero.sprite.operate( hero.pos );
 				Dungeon.level.plants.get( hero.pos ).trigger();
+				
 			}
 		}
 		

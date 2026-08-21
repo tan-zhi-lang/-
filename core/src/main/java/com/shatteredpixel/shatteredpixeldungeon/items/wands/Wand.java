@@ -375,10 +375,6 @@ public abstract class Wand extends Item {
 
 		super.升级();
 
-		if (Random.Int(3) == 0) {
-			cursed = false;
-		}
-
 		if(this instanceof 技能 x){
 			maxCharges = initialCharges() - 等级()*x.充能;
 			updateQuickslot();

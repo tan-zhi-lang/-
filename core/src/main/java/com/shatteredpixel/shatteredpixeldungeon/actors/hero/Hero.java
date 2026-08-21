@@ -183,6 +183,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.TargetedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
+import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
@@ -349,7 +350,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.防御力;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.风斩电刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ShockingDart;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
@@ -386,6 +386,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魄罗;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.龙牙锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.电击药物;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.属性锻造器;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.海克斯宝典;
@@ -4281,16 +4282,11 @@ public class Hero extends Char {
         if (armor instanceof ClassArmor) {
             return 6;
         }
-        if(heroClass==HeroClass.凌云){
+        if(heroClass==HeroClass.凌云)
             return 0;
-        }
-        //        if(heroSubClass(subClass.合金忍者)){
-        //            return 6;
-        //        }
         if(heroClass==HeroClass.灵猫||heroClass==HeroClass.鼠弟){
-            if(armor!=null){
+            if(armor!=null)
                 return 1;
-            }
             return 0;
         }
         if (armor != null&&armor.专属) {
@@ -4310,9 +4306,6 @@ public class Hero extends Char {
         if(heroClass(HeroClass.凌云)){
             return 0;
         }
-//        if(heroSubClass(subClass.合金忍者)){
-//            return 6;
-//        }
         if(heroClass(HeroClass.灵猫)||heroClass(HeroClass.鼠弟)){
             if(armor!=null){
                 return 1;
@@ -4329,10 +4322,7 @@ public class Hero extends Char {
     }
 
     public static int tier(HeroClass hs) {
-        if(hs==HeroClass.灵猫){
-            return 1;
-        }
-        if(hs==HeroClass.鼠弟){
+        if(hs==HeroClass.灵猫||hs==HeroClass.鼠弟){
             return 1;
         }
         if(hs==HeroClass.血鬼||hs==HeroClass.来世||hs==HeroClass.凌云){
@@ -4941,7 +4931,7 @@ public class Hero extends Char {
         if(!空手()) {
             if(belongings!=null){
                 if(belongings.投掷武器()!=null){
-                    dmg+=belongings.投掷武器().最小攻击();
+                    dmg+=belongings.投掷武器().最小投掷攻击();
                 }else{
                     if(belongings.weapon1()!=null){
                         dmg+=belongings.weapon1().最小攻击()*(符文("装备大师")?
@@ -5100,7 +5090,7 @@ public class Hero extends Char {
         if(!空手()){
             if(belongings!=null){
                 if(belongings.投掷武器()!=null){
-                    dmg+=belongings.投掷武器().最大攻击();
+                    dmg+=belongings.投掷武器().最大投掷攻击();
                 }else{
 
                     if(belongings.weapon1()!=null){
@@ -5769,7 +5759,7 @@ public class Hero extends Char {
             immunes.add(潮霆法杖.class);
             immunes.add(电击.class);
             immunes.add(Electricity.class);
-            immunes.add(ShockingDart.class);
+            immunes.add(电击药物.class);
             immunes.add(Elemental.ShockElemental.class);
         }
         if(belongings.armor(连裙.class)){
@@ -6509,26 +6499,29 @@ public class Hero extends Char {
 			if (heap != null && heap.type == Type.HEAP) {
 //                Buff.施加(this, Hunger.class).吃饭(TIME_TO_SEARCH - HUNGER_FOR_SEARCH);
 				Item item = heap.peek();
+                if(!物品能自动拾取(item)){
 
-                if (物品能自动拾取(item)&&item.doPickUp(this)) {
+                }else{
+                    if(item.doPickUp(this)){
 
-                    //TODO make all unique items important? or just POS / SOU?
-                    boolean important =item.特别&&item.已鉴定()&&
-                                       (item instanceof Scroll || item instanceof Potion);
-                    if (important) {
-                        GLog.绿(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
-                    } else {
-                        GLog.白(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
+                        //TODO make all unique items important? or just POS / SOU?
+                        boolean important=item.特别&&item.已鉴定()&&(item instanceof Scroll||item instanceof Potion);
+                        if(important){
+                            GLog.绿(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
+                        }else{
+                            GLog.白(Messages.capitalize(Messages.get(this,"you_now_have",item.name())));
+                        }
+                        if(hasbuff(Hunger.class))
+                            buff(Hunger.class).吃饭(攻击延迟());
+
+                        heap.pickUp();
+                        //                    水袋 flask = belongings.getItem(水袋.class);
+                        //                    if (item instanceof Dewdrop&&flask != null && !flask.isFull()){
+                        //                        flask.collectDew((Dewdrop)item);
+                        //                    }
+                    }else{
+                        heap.sprite().drop();
                     }
-                    if(hasbuff(Hunger.class))buff(Hunger.class).吃饭(攻击延迟());
-
-                    heap.pickUp();
-                    水袋 flask = belongings.getItem(水袋.class);
-                    if (item instanceof Dewdrop&&flask != null && !flask.isFull()){
-                        flask.collectDew((Dewdrop)item);
-                    }
-                } else {
-                    heap.sprite().drop();
                 }
 			}
 		}
@@ -6817,7 +6810,7 @@ public class Hero extends Char {
                 Item item=heap.peek();
                 if(SPDSettings.自动拾取()&&物品能自动拾取(item)){
 
-                    ready();
+                    return true;
                 }else{
 
                 if(item.doPickUp(this)){
@@ -6905,10 +6898,13 @@ public class Hero extends Char {
            item instanceof 时光沙漏.sandBag||
            item instanceof DriedRose.Petal||
            item instanceof Dewdrop||
+           item instanceof EnergyCrystal||
+           item instanceof Gold||
            item instanceof Stylus||
            item instanceof Guidebook
         )
             ok=true;
+
         if(item.丢过) ok=false;
         return ok;
     }

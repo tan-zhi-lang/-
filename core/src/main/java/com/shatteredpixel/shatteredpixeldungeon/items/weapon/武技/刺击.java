@@ -57,7 +57,7 @@ public class 刺击 extends 武技{
 					if(enemy.海妖()){
 						if(hero.attack(enemy,1.75f,0,Char.INFINITE)){
 							if(!enemy.isAlive())
-							Dungeon.level.drop(new MysteryMeat(),enemy.pos).sprite().drop();
+							Dungeon.level.drop(new MysteryMeat(enemy),enemy.pos).sprite().drop();
 							Sample.INSTANCE.play(wep.hitSound);
 						}
 					}else{

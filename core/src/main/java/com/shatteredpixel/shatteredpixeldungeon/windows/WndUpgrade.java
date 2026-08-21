@@ -316,56 +316,6 @@ public class WndUpgrade extends Window {
 			}
 		}
 
-		// various messages relating to enchantments and curses
-		if (!(upgrader instanceof MagicalInfusion)) {
-
-			if ((toUpgrade instanceof Weapon && ((Weapon) toUpgrade).hasGoodEnchant())
-					|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasGoodGlyph())) {
-				int lossChance;
-				if ((toUpgrade instanceof Weapon && ((Weapon) toUpgrade).enchantHardened)
-						|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).glyphHardened)) {
-					lossChance = Math.min(100, 10 * (int) Math.pow(2, levelFrom - 6));
-				} else {
-					lossChance = Math.min(100, 10 * (int) Math.pow(2, levelFrom - 4));
-				}
-
-				if (lossChance >= 10) {
-					String warn;
-					if (toUpgrade instanceof Weapon) {
-						if (((Weapon) toUpgrade).enchantHardened) {
-							warn = Messages.get(this, "harden", lossChance);
-						} else {
-							warn = Messages.get(this, "enchant", lossChance);
-						}
-					} else {
-						if (((Armor) toUpgrade).glyphHardened) {
-							warn = Messages.get(this, "harden", lossChance);
-						} else {
-							warn = Messages.get(this, "glyph", lossChance);
-						}
-					}
-					bottom = addMessage(warn,CharSprite.警告橙,bottom);
-				}
-			}
-
-			if ((toUpgrade.cursed
-					|| (toUpgrade instanceof Weapon && ((Weapon) toUpgrade).hasCurseEnchant())
-					|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph()))
-					&& toUpgrade.cursedKnown) {
-
-				if (toUpgrade.cursed && (toUpgrade instanceof Weapon && ((Weapon) toUpgrade).hasCurseEnchant())
-						|| (toUpgrade instanceof Armor && ((Armor) toUpgrade).hasCurseGlyph())){
-					bottom = addMessage(Messages.get(this, "cursed_weaken"),CharSprite.增强绿,bottom);
-				} else {
-					bottom = addMessage(Messages.get(this, "cursed"),CharSprite.增强绿,bottom);
-				}
-
-				if (curseInfused) {
-					bottom = addMessage(Messages.get(this, "curse_infusion"),CharSprite.警告橙,bottom);
-				}
-			}
-		}
-
 		//warning relating to arcane resin
 		if (toUpgrade instanceof Wand && ((Wand) toUpgrade).resinBonus > 0){
 			bottom = addMessage(Messages.get(this, "resin"),CharSprite.警告橙,bottom);

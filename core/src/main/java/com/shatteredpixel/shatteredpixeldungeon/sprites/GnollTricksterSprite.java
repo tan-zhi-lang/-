@@ -4,7 +4,9 @@ package com.shatteredpixel.shatteredpixeldungeon.sprites;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.ParalyticDart;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.涂药.电击药物;
 import com.watabou.noosa.MovieClip;
 import com.watabou.noosa.TextureFilm;
 import com.watabou.utils.Callback;
@@ -44,9 +46,12 @@ public class GnollTricksterSprite extends MobSprite {
 		if (!Dungeon.level.相邻(cell,ch.pos)) {
 
 			((MissileSprite)parent.recycle( MissileSprite.class )).
-					reset( this, cell, new ParalyticDart(), new Callback() {
+					reset(this,cell,new 飞镖(),new Callback() {
 						@Override
 						public void call() {
+							if(Actor.hasfindChar(cell))
+							new 电击药物().触发(Actor.findChar(cell));
+
 							ch.onAttackComplete();
 						}
 					} );

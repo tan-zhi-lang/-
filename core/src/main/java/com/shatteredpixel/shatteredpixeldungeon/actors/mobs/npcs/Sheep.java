@@ -79,7 +79,7 @@ public class Sheep extends NPC {
 
 			if(Dungeon.hero.天赋概率(Talent.群羊牵引,25)){
 				s="咩咩咩";
-				Dungeon.level.drop(new MysteryMeat().数量(Dungeon.hero.天赋点数(Talent.群羊牵引)),pos).sprite.drop();
+				Dungeon.level.drop(new MysteryMeat(this).数量(Dungeon.hero.天赋点数(Talent.群羊牵引)),pos).sprite.drop();
 			}
 
 			if(s.equals("咩咩咩")){

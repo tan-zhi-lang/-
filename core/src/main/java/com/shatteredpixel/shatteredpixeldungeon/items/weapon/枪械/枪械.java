@@ -1,6 +1,8 @@
 
 
-package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
+package com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械;
+
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -18,6 +20,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SmokeParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
@@ -25,27 +28,35 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 
 import java.util.ArrayList;
 
-public class 火炮 extends Weapon{
+public class 枪械 extends Weapon{
 	public static final String AC_SHOOT		= "SHOOT";
 	public static final String AC_换弹		= "换弹";
 	
 	{
-		image = 物品表.火炮;
-		范围=2;
-		tier = 5;
+		image = 物品表.十字弩;
+		
+		tier = 1;
 		伤害=0.6f;
-		投掷=1.75f;
+		投掷=1.5f;
 
 		usesTargeting = true;
 	}
-	@Override
-	public int 金币() {
-		return Math.round(super.金币()*1.34f);
-	}
+	public boolean 掉落子弹 = false;
+	public boolean 爆炸效果 = false;
+	public boolean 霰弹效果 = false;
+	public boolean 破甲弹 = false;
+	public Item 子弹 = new 手枪子弹();
+	public int 发射次数 = 1;
+	public float 射速 = 6;
+	public float 精度 = 1;
+	public int image2 = 物品表.手枪子弹;
+	public String hitSound2 = Assets.Sounds.手枪;
+	public String item_Miss2 = Assets.Sounds.手枪;
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions(hero);
@@ -54,10 +65,9 @@ public class 火炮 extends Weapon{
 		return actions;
 	}@Override
 	public String defaultAction() {
-		if(Dungeon.hero()&&isEquipped(Dungeon.hero)){
-			return AC_SHOOT;
-		}
+		if(curCharges>0)
 		return AC_SHOOT;
+		return super.defaultAction();
 	}
 	@Override
 	public String status() {
@@ -72,9 +82,7 @@ public class 火炮 extends Weapon{
 		super.execute(hero, action);
 		curUser = hero;
 		curItem = this;
-		if(!isEquipped(curUser)){
-			GLog.橙("你需要装备枪械！");
-		}
+
 		if (action.equals(AC_换弹)) {
 			if(curCharges==0){
 				换弹();
@@ -90,43 +98,47 @@ public class 火炮 extends Weapon{
 		}
 	}
 	public void 换弹(){
-		Item 子弹=curUser.belongings.getItem(手枪子弹.class);
-		if(子弹!=null&&子弹.数量()>0){
+		Item 弹=curUser.belongings.getItem(子弹.getClass());
+		if(弹!=null&&弹.数量()>0){
 			int 消耗=maxCharges-curCharges;
-			if(子弹.数量()<消耗){
+			if(弹.数量()<消耗){
 				if(curCharges==0){
-					curCharges=Math.min(maxCharges,子弹.数量());
+					curCharges=Math.min(maxCharges,弹.数量());
 				}else if(curCharges>0){
-					curCharges+=Math.min(maxCharges-curCharges,子弹.数量());
+					curCharges+=Math.min(maxCharges-curCharges,弹.数量());
 				}
-				子弹.detachAll(curUser.belongings.backpack);
+				弹.detachAll(curUser.belongings.backpack);
 			}else{
-				if(子弹.数量()==消耗){
-					子弹.detachAll(curUser.belongings.backpack);
+				if(弹.数量()==消耗){
+					弹.detachAll(curUser.belongings.backpack);
 				}else{
 					if(curCharges==0){
-						curCharges=Math.min(maxCharges,子弹.数量());
+						curCharges=Math.min(maxCharges,弹.数量());
 					}else if(curCharges>0){
-						curCharges+=Math.min(maxCharges-curCharges,子弹.数量());
+						curCharges+=Math.min(maxCharges-curCharges,弹.数量());
 					}
-					子弹.split(消耗).detachAll(curUser.belongings.backpack);
+					弹.split(消耗).detachAll(curUser.belongings.backpack);
 				}
 			}
-			Sample.INSTANCE.play( Assets.Sounds.火炮换弹 );
-			
+			Sample.INSTANCE.play( Assets.Sounds.换弹 );
+
+			if(this instanceof 十字弩||this instanceof 火炮)
+			curUser.spend(1);
+			else
 			curUser.spend(4);
+
 			curUser.busy();
 			(curUser.sprite).operate();
 			updateQuickslot();
 		}else
-			GLog.橙("你需要枪械子弹！");
+			GLog.橙("你需要"+子弹.name()+"！");
 	}
 	
 	public float 最小枪械攻击() {
 		return 最小枪械攻击(强化等级());
 	}
 	public float 最小枪械攻击(int lvl) {
-		float dmg =最小+((tier()+3)+lvl)*伤害()*投掷();
+		float dmg =最小+((tier()+1)+lvl)*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
@@ -134,13 +146,20 @@ public class 火炮 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public float 最大枪械攻击(int lvl) {
-		float dmg =最大+(5*(tier()+1+3) +lvl*(tier()+1))*伤害()*投掷();
+		float dmg =最大+(5*(tier()+1) +lvl*(tier()+1))*伤害()*投掷();
 		return Math.max(0, dmg);
 	}
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",最小枪械攻击(),最大枪械攻击());
+		return Messages.get(this, "desc",kw2(精度),
+							kw2(射速),
+								kw2(最小枪械攻击()),
+									kw2(最大枪械攻击()))+st();
+	}
+	public String st() {
+		if(Messages.get(this, "st").equals(""))return "";
+		return "\n"+Messages.get(this, "st");
 	}
 	public int maxCharges = initialCharges();
 	public int initialCharges() {
@@ -152,7 +171,7 @@ public class 火炮 extends Weapon{
 	public int curCharges = maxCharges;
 	public float partialCharge = 0f;
 
-	protected 火炮.Charger charger;
+	protected 枪械.Charger charger;
 
 	public void gainCharge(){
 		gainCharge(1);
@@ -241,8 +260,8 @@ public class 火炮 extends Weapon{
 			}
 		}
 
-		public 火炮 枪(){
-			return 火炮.this;
+		public 枪械 枪(){
+			return 枪械.this;
 		}
 
 		public void gainCharge(float charge){
@@ -269,14 +288,17 @@ public class 火炮 extends Weapon{
 		public void onSelect( Integer target ) {
 			if (target != null) {
 				curCharges = Math.max(curCharges-chargesPerCast(),0);
-				knockArrow().cast(curUser, target);
 
-				new Bomb.ConjuredBomb().heroexplode(target);
+				for(int x=1;x<=发射次数;x++){
+					knockArrow().cast(curUser, target);
+
+					new Bomb.ConjuredBomb().heroexplode(target);
+				}
 			}
 		}
 		@Override
 		public String prompt() {
-			return Messages.get(火炮.class,"prompt");
+			return Messages.get(枪械.class,"prompt");
 		}
 	};
 	public 子弹 knockArrow(){
@@ -287,65 +309,90 @@ public class 火炮 extends Weapon{
 	public class 子弹 extends Weapon {
 
 		{
-			image = 物品表.火炮子弹;
-			hitSound = Assets.Sounds.火炮;
-			item_Miss = Assets.Sounds.火炮;
-		}
-
-		@Override
-		public ArrayList<String> actions(Hero hero) {
-			return new ArrayList<>();
-		}
-
-		@Override
-		public String defaultAction() {
-			return null;
+			image = image2;
+			hitSound = hitSound2;
+			item_Miss = item_Miss2;
 		}
 		@Override
 		public float 最小投掷攻击(int lvl) {
-			return 火炮.this.最小枪械攻击(lvl);
+			return 枪械.this.最小枪械攻击(lvl);
 		}
 		
 		@Override
 		public float 最大投掷攻击(int lvl) {
-			return 火炮.this.最大枪械攻击(lvl);
+			return 枪械.this.最大枪械攻击(lvl);
 			
 		}
 		
 		@Override
 		public float delayFactor(Char user) {
-			return 火炮.this.delayFactor(user)/2f;
+			return 枪械.this.delayFactor(user)/射速;
 		}
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 火炮.this.accuracyFactor(owner,target)/2f;
+			return 枪械.this.accuracyFactor(owner,target)/2f*精度;
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
-			return 火炮.this.hasEnchant(type,owner);
+			return 枪械.this.hasEnchant(type,owner);
 		}
 
 		@Override
 		public float 投掷攻击时(Char attacker, Char defender, float damage) {
-			return 火炮.this.投掷攻击时(attacker,defender,damage);
+			if(defender!=null){
+				if(破甲弹)damage+=defender.最大防御();
+
+				damage*=(1+2f/attacker.距离(defender));
+				if(霰弹效果){
+					float x=0;
+					if(算法.概率学(1/2f))
+						x++;
+					if(算法.概率学(1/2f))
+						x++;
+					if(算法.概率学(1/2f))
+						x++;
+
+					if(算法.概率学(1/2f))
+						x++;
+					if(算法.概率学(1/2f))
+						x++;
+					if(算法.概率学(1/2f))
+						x++;
+
+					if(算法.概率学(1/2f))
+						x++;
+					if(算法.概率学(1/2f))
+						x++;
+					if(算法.概率学(1/2f))
+						x++;
+					damage*=x;
+				}
+			}
+			return 枪械.this.投掷攻击时(attacker,defender,damage);
 		}
 
 		@Override
 		public float 力量(int lvl) {
-			return 火炮.this.力量();
+			return 枪械.this.力量();
 		}
 
 		@Override
 		protected void onThrow( int cell ) {
-			WandOfBlastWave.BlastWave.blast(cell);
-			PixelScene.shake(2,0.5f);
 			if (Dungeon.level.heroFOV[cell]) {
-				CellEmitter.center(cell).burst(BlastParticle.FACTORY, 30);
+				CellEmitter.center(cell).burst(BlastParticle.FACTORY, 4);
 			}
 			if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
 				Dungeon.level.pressCell( cell );
 			}
+			if(枪械.this instanceof 十字弩)Sample.INSTANCE.play(Assets.Sounds.攻击弩);
+			if(爆炸效果){
+				WandOfBlastWave.BlastWave.blast(cell);
+				PixelScene.shake(2,0.5f);
+			}
+			if(掉落子弹)
+			Dungeon.level.drop(子弹,cell).sprite.drop();
+
 			Char enemy = Actor.findChar( cell );
 			if (enemy == null || enemy == curUser) {
 				
@@ -364,7 +411,7 @@ public class 火炮 extends Weapon{
 		@Override
 		public void cast(final Hero user, final int dst) {
 			final int cell = throwPos( user, dst );
-			火炮.this.targetPos = cell;
+			枪械.this.targetPos = cell;
 				super.cast(user, dst);
 		}
 	}

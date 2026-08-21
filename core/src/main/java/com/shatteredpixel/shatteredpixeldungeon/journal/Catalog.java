@@ -113,13 +113,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
@@ -187,7 +186,6 @@ public enum Catalog {
 	EXOTIC_POTIONS,
 	EXOTIC_SCROLLS,
 	BOMBS,
-	TIPPED_DARTS,
 	BREWS_ELIXIRS,
 	SPELLS,
 	MISC_CONSUMABLES;
@@ -346,8 +344,6 @@ public enum Catalog {
 					   WoollyBomb.class,Noisemaker.class,FlashBangBomb.class,财富炸弹.class,ArcaneBomb.class,
 					   ShrapnelBomb.class,神圣炸弹.class);
 
-		TIPPED_DARTS.addItems(TippedDart.types.values().toArray(new Class[0]));
-
 		BREWS_ELIXIRS.addItems( UnstableBrew.class, InfernalBrew.class, BlizzardBrew.class,
 				ShockingBrew.class, CausticBrew.class, AquaBrew.class, ElixirOfHoneyedHealing.class,
 				ElixirOfAquaticRejuvenation.class, ElixirOfArcaneArmor.class, ElixirOfDragonsBlood.class,
@@ -408,7 +404,6 @@ public enum Catalog {
 		consumableCatalogs.add(EXOTIC_POTIONS);
 		consumableCatalogs.add(EXOTIC_SCROLLS);
 		consumableCatalogs.add(BOMBS);
-		consumableCatalogs.add(TIPPED_DARTS);
 		consumableCatalogs.add(BREWS_ELIXIRS);
 		consumableCatalogs.add(SPELLS);
 		consumableCatalogs.add(MISC_CONSUMABLES);

@@ -106,7 +106,6 @@ abstract public class ClassArmor extends Armor {
 		if (armor.荣誉纹章!=null) {
 			classArmor.荣誉纹章= armor.荣誉纹章;
 		}
-		classArmor.glyphHardened = armor.glyphHardened;
 		classArmor.cursed = armor.cursed;
 		classArmor.curseInfusionBonus = armor.curseInfusionBonus;
 		if (armor.levelKnown && armor.cursedKnown) {

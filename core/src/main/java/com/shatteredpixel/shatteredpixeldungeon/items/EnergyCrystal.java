@@ -2,21 +2,20 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.用品.用品;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
 
-public class EnergyCrystal extends 用品{
+public class EnergyCrystal extends Item{
 
 	{
 		image = 物品表.ENERGY;
-		完全消耗= true;
+		特别= true;
+		物品 = true;
 		蓝色=true;
 		蓝光=true;
 	}
@@ -29,16 +28,6 @@ public class EnergyCrystal extends 用品{
 		this.quantity = value;
 	}
 
-	@Override
-	public void 使用(Hero hero){
-		Dungeon.energy(quantity);
-
-		Catalog.setSeen(getClass());
-		Statistics.itemTypesDiscovered.add(getClass());
-
-		Badges.validateGoldCollected();
-		super.使用(hero);
-	}
 
 	@Override
 	public boolean doPickUp(Hero hero, int pos) {

@@ -12,10 +12,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.TippedDart;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -37,13 +36,12 @@ public class Recycle extends InventorySpell {
 		return (item instanceof Potion && !(item instanceof Elixir || item instanceof Brew)) ||
 				item instanceof Scroll ||
 				item instanceof Plant.Seed ||
-				item instanceof Runestone ||
-				item instanceof TippedDart;
+				item instanceof Runestone;
 	}
 
 	@Override
 	protected void onItemSelected(Item item) {
-		Item result;
+		Item result=item;
 		do {
 			if (item instanceof Potion) {
 				result = Generator.randomUsingDefaults(Generator.Category.POTION);
@@ -59,8 +57,6 @@ public class Recycle extends InventorySpell {
 				result = Generator.randomUsingDefaults(Generator.Category.SEED);
 			} else if (item instanceof Runestone) {
 				result = Generator.randomUsingDefaults(Generator.Category.STONE);
-			} else {
-				result = TippedDart.randomTipped(1);
 			}
 		} while (result.getClass() == item.getClass() || Challenges.isItemBlocked(result));
 		

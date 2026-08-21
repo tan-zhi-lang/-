@@ -17,8 +17,8 @@ public class Crab extends Mob {
 		
 		经验 = 4;
 		最大等级 = 9;
-		
-		loot = MysteryMeat.class;
+
+		loot = new MysteryMeat(this);
 		lootChance = 0.167f;
 		properties.add(Property.海妖);
 	}

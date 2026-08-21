@@ -28,6 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.Key;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.Brew;
@@ -38,6 +39,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.quest.GooBlob;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.MetalShard;
 import com.shatteredpixel.shatteredpixeldungeon.items.quest.矮人徽章;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
@@ -118,7 +120,7 @@ public class Item implements Bundlable {
 
 	protected static final String TXT_TO_STRING_LVL		= "%s %+d";
 	protected static final String TXT_TO_STRING_X		= "%s x%d";
-	
+
 	public static final String AC_DROP		= "DROP";
 	public static final String AC_THROW		= "THROW";
 	public static final String AC_RENAME		= "RENAME";
@@ -145,7 +147,6 @@ public class Item implements Bundlable {
 
 	public boolean 可堆叠= false;
 	public boolean 物品 = false;
-	public boolean 封禁升级 = false;
 	public boolean 丢过 = false;
 
 	public boolean 无动作= false;
@@ -153,7 +154,6 @@ public class Item implements Bundlable {
 	public boolean 不能丢扔= false;
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
-	public boolean 快速使用 = false;
 	public boolean 炼金全放 = false;
 	public boolean 炼金 = true;
 	public boolean 提炼 = true;
@@ -199,7 +199,7 @@ public class Item implements Bundlable {
 
 	public boolean cursed=false;
 	public boolean cursedKnown=false;
-	
+
 	// Unique items persist through revival
 	public boolean 特别= false;
 	public boolean 缴械= true;
@@ -266,14 +266,14 @@ public class Item implements Bundlable {
 	public boolean 遗产= false;
 
 	public int customNoteID = -1;
-	
+
 	public static final Comparator<Item> itemComparator = new Comparator<Item>() {
 		@Override
 		public int compare( Item lhs, Item rhs ) {
 			return Generator.Category.order( lhs ) - Generator.Category.order( rhs );
 		}
 	};
-	
+
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = new ArrayList<>();
 		if(无动作){
@@ -286,7 +286,7 @@ public class Item implements Bundlable {
 		}
 		if(SPDSettings.物品命名())
 		actions.add( AC_RENAME );
-		
+
 		if(hero.subClass(HeroSubClass.吞噬云烟)){
 			if(!(this instanceof Bag)){
 				if(this instanceof EquipableItem&&!isEquipped(hero))
@@ -320,7 +320,7 @@ public class Item implements Bundlable {
 
 	public boolean doPickUp(Hero hero, int pos) {
 		if (放背包( hero.belongings.backpack )) {
-			
+
 			GameScene.pickUp( this, pos );
 
 			if(this instanceof Gold||this instanceof EnergyCrystal){
@@ -330,7 +330,7 @@ public class Item implements Bundlable {
 
 			hero.spendAndNext( pickupDelay() );
 			return true;
-			
+
 		} else {
 			return false;
 		}
@@ -424,17 +424,17 @@ public class Item implements Bundlable {
 		if (action.equals( AC_CHOOSE )){
 			GameScene.show(new WndUseItem(null,this));
 		}else if (action.equals( AC_DROP )) {
-			
+
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doDrop(hero);
 				丢过=true;
 			}
-			
+
 		} else if (action.equals( AC_THROW )) {
 			if (hero.belongings.backpack.contains(this) || isEquipped(hero)) {
 				doThrow(hero);
 			}
-			
+
 		}else if (action.equals(AC_祛邪)){
 			祛邪卷轴.祛邪(hero,this);
 		}else if (action.equals(AC_荣耀升级)){
@@ -459,7 +459,6 @@ public class Item implements Bundlable {
 				x+=f.energy/1_0000f;
 			}
 			if(this instanceof Weapon w){
-				if(w.enchantHardened) x+=0.001f;
 				if(w.curseInfusionBonus) x+=0.001f;
 				if(w.神力) x+=0.001f;
 				if(w.augment!=Weapon.Augment.NONE) x+=0.001f;
@@ -467,7 +466,6 @@ public class Item implements Bundlable {
 				x+=w.tier()/1_0000f;
 			}
 			if(this instanceof Armor a){
-				if(a.glyphHardened) x+=0.001f;
 				if(a.curseInfusionBonus) x+=0.001f;
 				if(a.神力) x+=0.001f;
 				if(a.augment!=Armor.Augment.NONE) x+=0.001f;
@@ -477,7 +475,7 @@ public class Item implements Bundlable {
 			x*=1+(hero.职业精通()?0.25f:0)+hero.天赋点数(Talent.全面吞噬,0.25f);
 
 			hero.属性成长+=x;
-		} else if (action.equals( AC_RENAME )) {
+		} else if (action.equals( AC_RENAME )&&this instanceof MysteryMeat) {
 			GameScene.show(new WndTextInput("物品重命名",
 											"",
 											"",
@@ -492,7 +490,7 @@ public class Item implements Bundlable {
 					}
 				}
 			});
-			
+
 		}
 	}
 
@@ -500,14 +498,14 @@ public class Item implements Bundlable {
 	public String defaultAction(){
 		return defaultAction;
 	}
-	
+
 	public void execute( Hero hero ) {
 		String action = defaultAction();
 		if (action != null) {
 			execute(hero, defaultAction());
 		}
 	}
-	
+
 	protected void onThrow( int cell ) {
 		if(一次性)
 			return;
@@ -521,7 +519,7 @@ public class Item implements Bundlable {
 			heap.sprite().drop( cell );
 		}
 	}
-	
+
 	//takes two items and merges them (if possible)
 	public Item merge( Item other ){
 		if (isSimilar( other )){
@@ -530,12 +528,12 @@ public class Item implements Bundlable {
 		}
 		return this;
 	}
-	
+
 	public boolean 放背包(Bag container ) {
 		if (quantity <= 0){
 			return true;
 		}
-		
+
 		ArrayList<Item> items = container.items;
 
 		if (items.contains( this )) {
@@ -553,7 +551,7 @@ public class Item implements Bundlable {
 		if (!container.canHold(this)){
 			return false;
 		}
-		
+
 		if (可堆叠) {
 			for (Item item:items) {
 				if (isSimilar( item )) {
@@ -589,7 +587,7 @@ public class Item implements Bundlable {
 				if(可升级()){
 					Dungeon.hero.sprite.礼物();
 				}else{
-					
+
 					Dungeon.hero.sprite.showLost();
 				}
 			}
@@ -603,7 +601,7 @@ public class Item implements Bundlable {
 		return true;
 
 	}
-	
+
 	public final boolean 放背包() {
 		boolean 放=放背包( Dungeon.hero.belongings.backpack );
 		if(!放){
@@ -611,7 +609,7 @@ public class Item implements Bundlable {
 		}
 		return 放;
 	}
-	
+
 	//returns a new item if the split was sucessful and there are now 2 items, otherwise null
 	public Item split( int amount ){
 		if (amount <= 0 ||amount>=数量()) {
@@ -619,11 +617,11 @@ public class Item implements Bundlable {
 		} else {
 			//pssh, who needs copy constructors?
 			Item split = Reflection.newInstance(getClass());
-			
+
 			if (split == null){
 				return null;
 			}
-			
+
 			Bundle copy = new Bundle();
 			this.storeInBundle(copy);
 			split.restoreFromBundle(copy);
@@ -631,7 +629,7 @@ public class Item implements Bundlable {
 
 			数量(quantity-amount);
 //			quantity -= amount;
-			
+
 			return split;
 		}
 	}
@@ -646,7 +644,7 @@ public class Item implements Bundlable {
 		dupe.restoreFromBundle(copy);
 		return dupe;
 	}
-	
+
 	public final Item detach(){
 		return detach(Dungeon.hero.belongings.backpack);
 	}
@@ -661,16 +659,16 @@ public class Item implements Bundlable {
 				if(可堆叠){
 					Dungeon.quickslot.convertToPlaceholder(this);
 				}
-				
+
 				return detachAll(container);
-				
+
 			}else{
 				Item detached=split(1);
 				updateQuickslot();
 				if(detached!=null)
 					detached.onDetach();
 				return detached;
-				
+
 			}
 		}
 	}
@@ -698,7 +696,7 @@ public class Item implements Bundlable {
 		updateQuickslot();
 		return this;
 	}
-	
+
 	public boolean isSimilar( Item item ) {
 		return getClass() == item.getClass();
 	}
@@ -716,7 +714,7 @@ public class Item implements Bundlable {
 		if(超级等级)return 10086;
 		return 等级;
 	}
-	
+
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions
 	//note that not all item properties should care about buffs/debuffs! (e.g. str requirement)
 	public int 强化等级(){
@@ -740,7 +738,6 @@ public class Item implements Bundlable {
 	}
 
 	public Item 升级() {
-		if(!封禁升级)
 		this.等级++;
 		updateQuickslot();
 		return this;
@@ -860,12 +857,12 @@ public class Item implements Bundlable {
 
 		return this;
 	}
-	
+
 	final public Item 升级(int n ) {
 		for (int i=0; i < n; i++) {
 			升级();
 		}
-		
+
 		return this;
 	}
 	final public Item 额外升级(int n ) {
@@ -875,22 +872,22 @@ public class Item implements Bundlable {
 
 		return this;
 	}
-	
+
 	public Item 降级() {
-		
+
 		this.等级--;
-		
+
 		return this;
 	}
-	
+
 	final public Item 降级(int n ) {
 		for (int i=0; i < n; i++) {
 			降级();
 		}
-		
+
 		return this;
 	}
-	
+
 	public int visiblyUpgraded() {
 		return levelKnown ? 等级() : 0;
 	}
@@ -898,13 +895,12 @@ public class Item implements Bundlable {
 	public int buffedVisiblyUpgraded() {
 		return levelKnown ? 强化等级() : 0;
 	}
-	
+
 	public boolean visiblyCursed() {
 		return cursed && cursedKnown;
 	}
-	
+
 	public boolean 真可升级() {
-		if(封禁升级)return false;
 		if(this instanceof Weapon||this instanceof Armor||this instanceof Ring||this instanceof Wand){
 			return true;
 		}
@@ -913,7 +909,7 @@ public class Item implements Bundlable {
 
 	public boolean 可升级() {
 
-		if(物品||封禁升级)
+		if(物品)
 			return false;
 
 		return true;
@@ -925,7 +921,7 @@ public class Item implements Bundlable {
 		}
 		return levelKnown && cursedKnown;
 	}
-	
+
 	public boolean isEquipped( Hero hero ) {
 		return false;
 	}
@@ -937,7 +933,7 @@ public class Item implements Bundlable {
 	public Item 鉴定(boolean byHero ) {
 		if(byHero){
 			if (Dungeon.hero()&& Dungeon.hero.isAlive()){
-				
+
 				Catalog.setSeen(getClass());
 				Statistics.itemTypesDiscovered.add(getClass());
 			}
@@ -963,14 +959,14 @@ public class Item implements Bundlable {
 		levelKnown = true;
 		cursedKnown = true;
 		Item.updateQuickslot();
-		
+
 		return this;
 	}
-	
+
 	public void onHeroGainExp( float levelPercent, Hero hero ){
 		//do nothing by default
 	}
-	
+
 	public static void evoke( Hero hero ) {
 		hero.sprite.emitter().burst( Speck.factory( Speck.EVOKE ), 5 );
 	}
@@ -991,22 +987,22 @@ public class Item implements Bundlable {
 		return name;
 
 	}
-	
+
 	public String name() {
 		return trueName();
 	}
-	
+
 	public final String trueName() {
 		if(!name.equals("")){
 			return name;
 		}
 		return Messages.get(this, "name");
 	}
-	
+
 	public int image() {
 		return image;
 	}
-	
+
 	public ItemSprite.Glowing glowing() {
 		return null;
 	}
@@ -1066,7 +1062,7 @@ public class Item implements Bundlable {
 	}
 
 	public Emitter emitter() { return null; }
-	
+
 	public int 金币提升(){
 		int x=金币();
 		if(专属)x*=1.25f;
@@ -1083,7 +1079,7 @@ public class Item implements Bundlable {
 		}
 		return Math.round(x*能量价值);
 	}
-	
+
 	public String info() {
 		String n="";
 		if (Dungeon.hero()) {
@@ -1246,11 +1242,11 @@ public class Item implements Bundlable {
 
 		return n+desc()+(SPDSettings.隐藏细节()?"":s);
 	}
-	
+
 	public String desc() {
 		return Messages.get(this, "desc");
 	}
-	
+
 	public int 数量() {
 		return quantity;
 	}
@@ -1324,20 +1320,20 @@ public class Item implements Bundlable {
 	public int 能量() {
 		return 0;
 	}
-	
+
 	public Item virtual(){
 		Item item = Reflection.newInstance(getClass());
 		if (item == null) return null;
-		
+
 		item.quantity = 0;
 		item.等级 = 等级;
 		return item;
 	}
-	
+
 	public Item random() {
 		return this;
 	}
-	
+
 	public String status() {
 		return quantity != 1 ? Integer.toString( quantity ) : null;
 	}
@@ -1345,7 +1341,7 @@ public class Item implements Bundlable {
 	public static void updateQuickslot() {
 		GameScene.updateItemDisplays = true;
 	}
-	
+
 	private static final String QUANTITY		= "quantity";
 	private static final String LEVEL			= "level";
 	private static final String LEVEL_KNOWN		= "levelKnown";
@@ -1361,15 +1357,13 @@ public class Item implements Bundlable {
 	private static final String 房间物品x = "房间物品";
 	private static final String 价值提升x = "价值提升";
 	private static final String 能量提升x = "能量提升";
-	private static final String 快速使用x = "快速使用";
 	private static final String 超级等级x = "超级等级";
 	private static final String 魔力收益x = "魔力收益";
-	private static final String 封禁升级x = "封禁升级";
 	private static final String 无动作x = "无动作";
 	private static final String 幸运装备x = "幸运装备";
 	private static final String 丢过x = "丢过";
 	private static final String ALPHA = "alpha";
-	
+
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		bundle.put( QUANTITY, quantity );
@@ -1384,10 +1378,8 @@ public class Item implements Bundlable {
 		bundle.put( 房间物品x, 房间物品 );
 		bundle.put( 价值提升x, 价值提升 );
 		bundle.put( 能量提升x, 能量提升 );
-		bundle.put( 快速使用x, 快速使用 );
 		bundle.put( 超级等级x, 超级等级 );
 		bundle.put( 魔力收益x, 魔力收益 );
-		bundle.put( 封禁升级x, 封禁升级 );
 		bundle.put( 无动作x, 无动作 );
 		bundle.put( 幸运装备x, 幸运装备 );
 		bundle.put( 丢过x, 丢过 );
@@ -1398,7 +1390,7 @@ public class Item implements Bundlable {
 		bundle.put( KEPT_LOST, keptThoughLostInvent );
 		if (customNoteID != -1)     bundle.put(CUSTOM_NOTE_ID, customNoteID);
 	}
-	
+
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		quantity	= bundle.getInt( QUANTITY );
@@ -1411,22 +1403,20 @@ public class Item implements Bundlable {
 		房间物品	= bundle.getBoolean( 房间物品x );
 		价值提升	= bundle.getBoolean( 价值提升x );
 		能量提升	= bundle.getBoolean( 能量提升x );
-		快速使用	= bundle.getBoolean( 快速使用x );
 		超级等级	= bundle.getBoolean( 超级等级x );
 		魔力收益	= bundle.getFloat( 魔力收益x );
-		封禁升级	= bundle.getBoolean( 封禁升级x );
 		无动作	= bundle.getBoolean( 无动作x );
 		幸运装备	= bundle.getBoolean( 幸运装备x );
 		丢过	= bundle.getBoolean( 丢过x );
 		alpha	= bundle.getBoolean( ALPHA );
-		
+
 		等级 = bundle.getInt( LEVEL );
 //		if (level > 0) {
 //			升级( level );
 //		} else if (level < 0) {
 //			降级( -level );
 //		}
-		
+
 		cursed	= bundle.getBoolean( CURSED );
 		//only want to populate slots when restoring belongings
 		if (Belongings.bundleRestoring) {
@@ -1450,9 +1440,9 @@ public class Item implements Bundlable {
 	public void throwSound(){
 		Sample.INSTANCE.play(item_Miss, 0.6f, 0.6f, 1.5f);
 	}
-	
+
 	public void cast( final Hero user, final int dst ) {
-		
+
 		final int cell = throwPos( user, dst );
 		user.sprite.zap( cell );
 		user.busy();
@@ -1461,7 +1451,7 @@ public class Item implements Bundlable {
 
 		Char enemy = Actor.findChar( cell );
 		QuickSlotButton.target(enemy);
-		
+
 		final float delay = castDelay(user, cell);
 
 		if (enemy != null) {
@@ -1486,6 +1476,9 @@ public class Item implements Bundlable {
 							}
 
 							if (i != null) i.onThrow(cell);
+
+							if(i instanceof 十字弩飞镖&&enemy.isAlive())enemy.受伤时(
+									Dungeon.hero.heroDamage(武力之戒.heromin(),武力之戒.heromax()),this);
 							if(user.符文("重扔")&&enemy.isAlive())enemy.受伤时(user.力量()/2f,this);
 
 							if(user.符文("王炸"))new Bomb().explode(cell);
@@ -1502,11 +1495,9 @@ public class Item implements Bundlable {
 								user.buff(Talent.LethalMomentumTracker.class).detach();
 								user.next();
 							} else {
-								if(快速使用){
-									user.spendAndNext(0);
-								}else{
+
 									user.spendAndNext(delay);
-								}
+
 							}
 						}
 					});
@@ -1526,30 +1517,26 @@ public class Item implements Bundlable {
 								i=Item.this;
 								Dungeon.quickslot.alphaItem(Item.this,false);
 								updateQuickslot();
-								
+
 							}else{
 								i=Item.this.detach(user.belongings.backpack);
 							}
-							
-							if(快速使用){
-								user.spend(0);
-							}else{
-								user.spend(delay);
-							}
-							
+
+							user.spend(delay);
+
 							if (i != null) i.onThrow(cell);
 							user.next();
 						}
 					});
 		}
-		
+
 		usesTargeting=false;
 	}
-	
+
 	public float castDelay( Char user, int cell ){
 		return Dungeon.hero.攻击延迟();
 	}
-	
+
 	public static Hero curUser = null;
 	public static Item curItem = null;
 	public void setCurrent( Hero hero ){

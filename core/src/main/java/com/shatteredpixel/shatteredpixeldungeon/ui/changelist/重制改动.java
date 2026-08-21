@@ -13,8 +13,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.darts.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
+import com.shatteredpixel.shatteredpixeldungeon.items.十字弩飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
@@ -120,7 +120,8 @@ public class 重制改动{
 					   "炸弹不可摧毁可升级的物品，装备不可摧毁->炸弹不摧毁带等级的物品，神器不可摧毁。\n" +
 								   "神圣炸弹贴图改，并且爆炸范围2->5"));
 
-		changes.addButton(new ChangeButton(new 飞镖(),"金币价值/2->不减半"));
+		changes.addButton(new ChangeButton(new 十字弩飞镖(),"商店不再售卖。\n" +
+															"伤害改为空手伤害"));
 
 		changes.addButton(new ChangeButton(new 巨鼠头骨(),"击杀腐臭老鼠掉落\n" +
 														  "稀有敌人2+等级->2.5+1.5x等级\n" +
@@ -137,7 +138,7 @@ public class 重制改动{
 										   "现在首次拾取和装备、使用进行一次鉴定效果。\n" +
 										   "震爆符石不会对自己也造成伤害。\n" +
 										   "冰冠花、冰霜药剂和冰暴魔药不会被燃烧。\n" +
-										   "物品可以重命名。\n" +
+										   "生肉之外的物品可以重命名。\n" +
 										   "扔出、拾取、丢下花费时间1->攻速。\n" +
 										   "移除大部分没用描述。\n" +
 										   "一些物品图片更好。\n" +
@@ -316,6 +317,8 @@ public class 重制改动{
 										   "装备两把武器时，代码判定真实等级最强的掉落遗产->DPS伤害最高的\n" +
 										   "新增双手和双持武器类，装备双手武器(副武器不为空则减少20%命中)，并且攻击范围取DPS最高的武器\n" +
 										   "只影响最大命中->命中\n" +
+										   "升级祛邪->不祛邪\n" +
+										   "升级不概率移除附魔\n" +
 										   "装备和卸下时间1->攻击延迟\n" +
 										   "5阶都是特别物品\n" +
 										   "武器战技重做\n" +
@@ -348,12 +351,15 @@ public class 重制改动{
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER), "防具",
 										   "防具装备和卸下时间2->攻速x2。\n"+
+										   "升级祛邪->不祛邪\n" +
+										   "升级不概率移除刻印\n" +
 										   "只影响最大闪避->闪避\n" +
 										   "最小防御等级->阶级+等级。"
 		));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_HOLDER), "神器",
 										   "诅咒时，等级为0。\n"+
+										   "升级33%概率祛邪->不祛邪\n" +
 										   "诅咒神器在神器充能Buff也能充能。\n"+
 										   "神器充能整数->小数。\n"+
 										   "装备和卸下花费1->攻速。\n\n"+
@@ -384,6 +390,7 @@ public class 重制改动{
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.RING_HOLDER), "戒指",
 										   "新增银戒类型贴图\n" +
+										   "升级25%概率祛邪->不祛邪\n" +
 										   "每装备一个戒指，空手最大攻击+1\n" +
 										   "诅咒等级-3->0(魔法免疫能阻止诅咒不给予等级)。\n" +
 										   "数值都从指数提升改成固定x等级的提升，以防止数据溢出。\n" +
@@ -461,6 +468,7 @@ public class 重制改动{
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
 										   "诅咒随机施法->魔力收益减半\n" +
 										   "14x14贴图->16x16\n" +
+										   "升级25%概率祛邪->不祛邪\n" +
 										   "法杖的数值都从魔力中收益，每级提升等级且还能提升法杖的魔力百分比收益。\n"+
 										   "大部分的法杖施加Buff从等级收益改成固定。\n"+
 										   "法杖的特效固定，不再从等级收益，防止后期特效炸满。\n"+
@@ -486,11 +494,15 @@ public class 重制改动{
 										   "在水中额外2回合冻伤->直接冻结。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_HOLDER), "种子",
+										   "能给武器、防具涂药\n" +
+										   "扔出->丢子(植)，如果目标点有敌人直接触发\n" +
+										   "种植->(植)自用，直接在原地对自己触发。",
+
 										   "速行蓟\n" +
-										   "时间气泡攻击不会打断。\n\n" +
+										   "时间气泡攻击不会打断。",
 
 										   "烈焰花\n" +
-										   "不会被烧毁。\n\n" +
+										   "不会被烧毁。",
 
 										   "冰冠花\n" +
 										   "不会被烧毁。\n" +
@@ -528,9 +540,13 @@ public class 重制改动{
 										   "羽落秘药\n"+
 										   "持续时间50->100。跳楼减少10回合->减少20回合。并且还能自动识别环境获得5回合浮空。"
 		));
+		changes.addButton(new ChangeButton(new ItemSprite(物品表.SPELL_HOLDER), "卷轴",
+										   "注魔菱晶\n" +
+										   "对有附魔刻印的装备使用会随机附魔刻印->随机附魔刻印"));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SCROLL_HOLDER), "卷轴",
 										   "祛邪卷轴\n" +
 										   "特别物品。\n\n" +
+
 										   "蜕变秘卷\n" +
 										   "移除蜕变天赋，而是改变英雄的特性。\n\n" +
 
@@ -780,6 +796,7 @@ public class 重制改动{
 											"悲伤幽灵的任务奖励武器和防具的随机等级使用同一个随机->不同随机。\n"+
 											"老杖匠的奖励额外一个选择，获得3个酶优树酯。\n"+
 											"巨魔铁匠任务要求数量40->20，携带的数量越多，增加的好感度越多，并且给的镐子是鉴定的。\n" +
+											"巨魔铁匠移除硬化。\n"+
 											"巨魔铁匠新增额外选项，不需要人情，会赠送锻造锤。\n"+
 											"野心勃勃的小恶魔不再半透明。"));
 

@@ -836,7 +836,6 @@ public enum HeroClass{
 		十字弩 x=new 十字弩();
 		(hero.belongings.weapon=x).鉴定();
 
-		new 十字弩飞镖().放背包();
 
 		Dungeon.quickslot.setSlot(0,x);
 		(hero.belongings.armor=new 魔披()).鉴定();

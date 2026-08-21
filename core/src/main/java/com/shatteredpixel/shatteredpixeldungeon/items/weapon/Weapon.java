@@ -54,7 +54,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.血饮
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.诡秘;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.重创;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.除魔;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.发射;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.武技;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
@@ -111,17 +110,8 @@ abstract public class Weapon extends KindOfWeapon {
 
 	武技 技能=null;
 	boolean 充能 = true;
-	Item 子弹 = null;
-	public Item 发射物 = null;
-	boolean 发射器 = false;
 	boolean 无限战技 = false;
 	int 最大充能 = -1;
-	public float 发射器最小攻击() {
-		return 0;
-	}
-	public float 发射器最大攻击() {
-		return 0;
-	}
 	boolean circlingBack = false;
 	public static String AC_ABILITY = "ABILITY";
 
@@ -129,7 +119,6 @@ abstract public class Weapon extends KindOfWeapon {
 		if(Dungeon.炼狱(炼狱设置.战技移除)){
 			return null;
 		}
-		if(发射器)return new 发射();
 		return 技能;
 	}
 	//region 回旋镖
@@ -339,50 +328,10 @@ abstract public class Weapon extends KindOfWeapon {
 				GLog.橙(Messages.get(this,"ability_low_str"));
 			}else if (charger.charges + charger.partialCharge < 技能().消耗) {
 				GLog.橙(Messages.get(this,"ability_no_charge"));
-			}else {
-				if(子弹!=null&&charger.charges<=0){
-					换弹();
-				}else{
-					usesTargeting=技能()!=null&&技能().目标;
-					技能().武技(hero,this);
-				}
 			}
 		}
 	}
 
-	public void 换弹(){
-		if(curUser==null)return;
-		Item 所需=curUser.belongings.getItem(子弹.getClass());
-		if(所需!=null&&所需.数量()>0){
-			int 消耗=charger.chargeCap()-charger.charges;
-			if(子弹.数量()<消耗){
-				if(charger.charges==0){
-					charger.charges=Math.min(charger.chargeCap(),子弹.数量());
-				}else if(charger.charges>0){
-					charger.charges+=Math.min(charger.chargeCap()-charger.charges,子弹.数量());
-				}
-				子弹.detachAll(curUser.belongings.backpack);
-			}else{
-				if(子弹.数量()==消耗){
-					子弹.detachAll(curUser.belongings.backpack);
-				}else{
-					if(charger.charges==0){
-						charger.charges=Math.min(charger.chargeCap(),子弹.数量());
-					}else if(charger.charges>0){
-						charger.charges+=Math.min(charger.chargeCap()-charger.charges,子弹.数量());
-					}
-					子弹.split(消耗).detachAll(curUser.belongings.backpack);
-				}
-			}
-			Sample.INSTANCE.play( Assets.Sounds.换弹 );
-
-			curUser.spend(4);
-			curUser.busy();
-			(curUser.sprite).operate();
-			updateQuickslot();
-		}else
-			GLog.橙("你需要"+子弹.name()+"子弹！");
-	}
 	@Override
 	public int targetingPos(Hero user, int dst) {
 		return dst; //weapon abilities do not use projectile logic, no autoaim

@@ -13,7 +13,6 @@ public class 手枪 extends 枪械{
 		
 		tier = 1;
 		伤害=0.6f;
-		投掷=1.75f;
 		射速=5;
 		精度=0.7f;
 		子弹=new 手枪子弹();

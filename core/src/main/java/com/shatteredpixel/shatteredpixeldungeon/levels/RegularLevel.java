@@ -61,7 +61,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.PitfallTrap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
-import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
@@ -116,7 +115,7 @@ public abstract class RegularLevel extends Level {
 		}
 
 		//房间数量
-		if(Dungeon.派对(派对设置.小小可爱))standards/=2;
+
 		for (int i = 0; i < standards; i++) {
 			StandardRoom s;
 			do {
@@ -150,7 +149,7 @@ public abstract class RegularLevel extends Level {
 			specials++;
 		}
 		//房间数量
-		if(Dungeon.派对(派对设置.小小可爱))specials/=2;
+
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
 			SpecialRoom s = SpecialRoom.createRoom();
@@ -162,7 +161,7 @@ public abstract class RegularLevel extends Level {
 		//one additional secret for secret levels
 		if (feeling == Feeling.SECRETS) secrets++;
 		//房间数量
-		if(Dungeon.派对(派对设置.小小可爱))secrets/=2;
+
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
 		}
@@ -410,7 +409,6 @@ public abstract class RegularLevel extends Level {
 		}
 
 		//物品数量
-		if(Dungeon.派对(派对设置.小小可爱))nItems/=4;
 		for (int i=0; i < nItems; i++) {
 
 			Item toDrop = Generator.random();

@@ -15,7 +15,7 @@ public class 狙击枪 extends 枪械{
 		范围=2;
 		tier = 4;
 		伤害=0.6f;
-		投掷=1.75f;
+		枪伤=4.5f;
 		破甲弹=true;
 		子弹=new 狙击枪子弹();
 		射速=2;
@@ -25,7 +25,7 @@ public class 狙击枪 extends 枪械{
 	}
 	@Override
 	public int initialCharges() {
-		return 7;
+		return 5;
 	}
 	@Override
 	protected int chargesPerCast() {

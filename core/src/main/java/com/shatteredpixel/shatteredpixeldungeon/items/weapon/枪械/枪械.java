@@ -9,10 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.BlastParticle;
@@ -30,22 +26,23 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class 枪械 extends Weapon{
+abstract class 枪械 extends Weapon{
 	public static final String AC_SHOOT		= "SHOOT";
 	public static final String AC_换弹		= "换弹";
 	
 	{
-		image = 物品表.十字弩;
-		
+		image = 物品表.手枪;
+
 		tier = 1;
 		伤害=0.6f;
-		投掷=1.5f;
 
 		usesTargeting = true;
 	}
+	public float 枪伤= 1.75f;
 	public boolean 掉落子弹 = false;
 	public boolean 爆炸效果 = false;
 	public boolean 霰弹效果 = false;
@@ -67,7 +64,8 @@ public class 枪械 extends Weapon{
 	public String defaultAction() {
 		if(curCharges>0)
 		return AC_SHOOT;
-		return super.defaultAction();
+
+		return AC_换弹;
 	}
 	@Override
 	public String status() {
@@ -85,17 +83,39 @@ public class 枪械 extends Weapon{
 
 		if (action.equals(AC_换弹)) {
 			if(curCharges==0){
-				换弹();
+				if(算法.isDebug())无限换弹();
+				else 换弹();
 				return;
 			}
 		}
 		if (action.equals(AC_SHOOT)&&isEquipped(curUser)) {
 			if(curCharges==0){
-				换弹();
+				if(算法.isDebug())无限换弹();
+				else 换弹();
 				return;
 			}
 			GameScene.selectCell( shooter );
 		}
+	}
+	public float 装弹回合(){
+		float x=4;
+		if(this instanceof 十字弩||this instanceof 火炮)
+			x=1;
+		else if(this instanceof 霰弹枪)
+			x=2;
+		return x;
+	}
+	public void 无限换弹(){
+
+		curCharges=maxCharges;
+
+		Sample.INSTANCE.play( Assets.Sounds.换弹 );
+
+		curUser.spend(装弹回合());
+
+		curUser.busy();
+		(curUser.sprite).operate();
+		updateQuickslot();
 	}
 	public void 换弹(){
 		Item 弹=curUser.belongings.getItem(子弹.getClass());
@@ -122,10 +142,7 @@ public class 枪械 extends Weapon{
 			}
 			Sample.INSTANCE.play( Assets.Sounds.换弹 );
 
-			if(this instanceof 十字弩||this instanceof 火炮)
-			curUser.spend(1);
-			else
-			curUser.spend(4);
+			curUser.spend(装弹回合());
 
 			curUser.busy();
 			(curUser.sprite).operate();
@@ -133,12 +150,22 @@ public class 枪械 extends Weapon{
 		}else
 			GLog.橙("你需要"+子弹.name()+"！");
 	}
-	
+
+	public float 枪伤(){
+		return 枪伤;
+	}
+	public float 精度(){
+		return 精度;
+	}
+	public float 射速(){
+		return 射速;
+	}
+
 	public float 最小枪械攻击() {
 		return 最小枪械攻击(强化等级());
 	}
 	public float 最小枪械攻击(int lvl) {
-		float dmg =最小+((tier()+1)+lvl)*伤害()*投掷();
+		float dmg =最小+((tier()+1)+lvl)*伤害()*投掷()*枪伤();
 		return Math.max(0, dmg);
 	}
 	
@@ -146,14 +173,17 @@ public class 枪械 extends Weapon{
 		return 最大枪械攻击(强化等级());
 	}
 	public float 最大枪械攻击(int lvl) {
-		float dmg =最大+(5*(tier()+1) +lvl*(tier()+1))*伤害()*投掷();
+		float dmg =最大+(5*(tier()+1) +lvl*(tier()+1))*伤害()*投掷()*枪伤();
 		return Math.max(0, dmg);
 	}
 	
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc",kw2(精度),
-							kw2(射速),
+		return super.desc()+"\n"+Messages.get(this, "descq",
+//											  kw2(枪伤()),
+											  kw2(精度()),
+							kw2(射速()),
+							kw2(装弹回合()),
 								kw2(最小枪械攻击()),
 									kw2(最大枪械攻击()))+st();
 	}
@@ -171,117 +201,21 @@ public class 枪械 extends Weapon{
 	public int curCharges = maxCharges;
 	public float partialCharge = 0f;
 
-	protected 枪械.Charger charger;
+	public static final String CHARGES          = "charges";
+	private static final String PARTIALCHARGE   = "partialCharge";
 
-	public void gainCharge(){
-		gainCharge(1);
-	}
-	public void gainCharge( float amt ){
-		gainCharge( amt, false );
-	}
-
-	public void gainCharge( float amt, boolean overcharge ){
-		partialCharge += amt;
-		while (partialCharge >= 1) {
-			if (overcharge) curCharges = Math.min(maxCharges+(int)amt, curCharges+1);
-			else curCharges = Math.min(maxCharges, curCharges+1);
-			partialCharge--;
-			updateQuickslot();
-		}
+	@Override
+	public void storeInBundle(Bundle bundle) {
+		super.storeInBundle(bundle);
+		bundle.put(CHARGES, curCharges);
+		bundle.put(PARTIALCHARGE, partialCharge);
 	}
 
-	public void charge( Char owner ) {
-		if (charger == null) charger = new Charger();
-		charger.attachTo( owner );
-	}
-
-	public void charge( Char owner, float chargeScaleFactor ){
-		charge( owner );
-		charger.setScaleFactor( chargeScaleFactor );
-	}
-	public class Charger extends Buff {
-
-		private static final float BASE_CHARGE_DELAY = 10f;
-		private static final float SCALING_CHARGE_ADDITION = 40f;
-		private static final float NORMAL_SCALE_FACTOR = 0.875f;
-
-		private static final float CHARGE_BUFF_BONUS = 0.25f;
-
-		float scalingFactor = NORMAL_SCALE_FACTOR;
-
-		@Override
-		public boolean attachTo( Char target ) {
-			if (super.attachTo( target )) {
-				//if we're loading in and the hero has partially spent a turn, delay for 1 turn
-				if(target instanceof Hero){
-					if (Dungeon.hero == null && cooldown() == 0 && target.cooldown() > 0) {
-						spend(TICK);
-					}
-				}
-				return true;
-			}
-			return false;
-		}
-
-		@Override
-		public boolean act() {
-			if (curCharges < maxCharges && target.buff(MagicImmune.class) == null)
-				recharge();
-
-			while (partialCharge >= 1 && curCharges < maxCharges) {
-				partialCharge--;
-				curCharges++;
-				updateQuickslot();
-			}
-
-			if (curCharges == maxCharges){
-				partialCharge = 0;
-			}
-
-			spend( TICK );
-
-			return true;
-		}
-
-		private void recharge(){
-			int missingCharges = maxCharges - curCharges;
-			missingCharges = Math.max(0, missingCharges);
-
-			float turnsToCharge = (float) (BASE_CHARGE_DELAY
-					+ (SCALING_CHARGE_ADDITION * Math.pow(scalingFactor, missingCharges)));
-
-			if (再生.regenOn())
-				partialCharge += (1f/turnsToCharge/3f);
-
-			for (Recharging bonus : target.buffs(Recharging.class)){
-				if (bonus != null && bonus.remainder() > 0f) {
-					partialCharge += CHARGE_BUFF_BONUS * bonus.remainder();
-				}
-			}
-		}
-
-		public 枪械 枪(){
-			return 枪械.this;
-		}
-
-		public void gainCharge(float charge){
-			if (curCharges < maxCharges) {
-				partialCharge += charge;
-				while (partialCharge >= 1f) {
-					curCharges++;
-					partialCharge--;
-				}
-				if (curCharges >= maxCharges){
-					partialCharge = 0;
-					curCharges = maxCharges;
-				}
-				updateQuickslot();
-			}
-		}
-
-		private void setScaleFactor(float value){
-			this.scalingFactor = value;
-		}
+	@Override
+	public void restoreFromBundle(Bundle bundle) {
+		super.restoreFromBundle(bundle);
+		curCharges = bundle.getInt(CHARGES);
+		partialCharge = bundle.getFloat(PARTIALCHARGE);
 	}
 	private CellSelector.Listener shooter = new CellSelector.Listener() {
 		@Override
@@ -298,13 +232,16 @@ public class 枪械 extends Weapon{
 		}
 		@Override
 		public String prompt() {
-			return Messages.get(枪械.class,"prompt");
+			return Messages.get(枪(),"prompt");
 		}
 	};
 	public 子弹 knockArrow(){
 		return new 子弹();
 	}
-	
+
+	public 枪械 枪(){
+		return 枪械.this;
+	}
 	private int targetPos;
 	public class 子弹 extends Weapon {
 
@@ -315,27 +252,27 @@ public class 枪械 extends Weapon{
 		}
 		@Override
 		public float 最小投掷攻击(int lvl) {
-			return 枪械.this.最小枪械攻击(lvl);
+			return 枪().最小枪械攻击(lvl);
 		}
 		
 		@Override
 		public float 最大投掷攻击(int lvl) {
-			return 枪械.this.最大枪械攻击(lvl);
+			return 枪().最大枪械攻击(lvl);
 			
 		}
 		
 		@Override
 		public float delayFactor(Char user) {
-			return 枪械.this.delayFactor(user)/射速;
+			return 枪().delayFactor(user)/射速();
 		}
 		
 		@Override
 		public float accuracyFactor(Char owner, Char target) {
-			return 枪械.this.accuracyFactor(owner,target)/2f*精度;
+			return 枪().accuracyFactor(owner,target)/2f*精度();
 		}
 		@Override
 		public boolean hasEnchant(Class<? extends Enchantment> type, Char owner) {
-			return 枪械.this.hasEnchant(type,owner);
+			return 枪().hasEnchant(type,owner);
 		}
 
 		@Override
@@ -346,35 +283,42 @@ public class 枪械 extends Weapon{
 				damage*=(1+2f/attacker.距离(defender));
 				if(霰弹效果){
 					float x=0;
-					if(算法.概率学(1/2f))
+					float 命中率=0.6f;
+					if(算法.概率学(命中率))
 						x++;
-					if(算法.概率学(1/2f))
+					if(算法.概率学(命中率))
 						x++;
-					if(算法.概率学(1/2f))
+					if(算法.概率学(命中率))
 						x++;
-
-					if(算法.概率学(1/2f))
-						x++;
-					if(算法.概率学(1/2f))
-						x++;
-					if(算法.概率学(1/2f))
+					if(算法.概率学(命中率))
 						x++;
 
-					if(算法.概率学(1/2f))
+					if(算法.概率学(命中率))
 						x++;
-					if(算法.概率学(1/2f))
+					if(算法.概率学(命中率))
 						x++;
-					if(算法.概率学(1/2f))
+					if(算法.概率学(命中率))
+						x++;
+					if(算法.概率学(命中率))
+						x++;
+
+					if(算法.概率学(命中率))
+						x++;
+					if(算法.概率学(命中率))
+						x++;
+					if(算法.概率学(命中率))
+						x++;
+					if(算法.概率学(命中率))
 						x++;
 					damage*=x;
 				}
 			}
-			return 枪械.this.投掷攻击时(attacker,defender,damage);
+			return 枪().投掷攻击时(attacker,defender,damage);
 		}
 
 		@Override
 		public float 力量(int lvl) {
-			return 枪械.this.力量();
+			return 枪().力量();
 		}
 
 		@Override
@@ -385,7 +329,7 @@ public class 枪械 extends Weapon{
 			if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
 				Dungeon.level.pressCell( cell );
 			}
-			if(枪械.this instanceof 十字弩)Sample.INSTANCE.play(Assets.Sounds.攻击弩);
+			if(枪() instanceof 十字弩)Sample.INSTANCE.play(Assets.Sounds.攻击弩);
 			if(爆炸效果){
 				WandOfBlastWave.BlastWave.blast(cell);
 				PixelScene.shake(2,0.5f);
@@ -411,7 +355,7 @@ public class 枪械 extends Weapon{
 		@Override
 		public void cast(final Hero user, final int dst) {
 			final int cell = throwPos( user, dst );
-			枪械.this.targetPos = cell;
+			枪().targetPos = cell;
 				super.cast(user, dst);
 		}
 	}

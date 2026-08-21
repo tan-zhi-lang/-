@@ -71,7 +71,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冲锋枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.手枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.火炮;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.狙击枪;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
+import com.shatteredpixel.shatteredpixeldungeon.items.手枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
@@ -280,9 +286,32 @@ public abstract class Level implements Bundlable {
 				addItemToSpawn( new 潜力药剂());
 			}
 			
-			if(Dungeon.depth==4){
+			if(Dungeon.相对层数()==4){
 				addItemToSpawn( new Firebloom.Seed());
 				addItemToSpawn( new 液火药剂());
+			}
+			if(Dungeon.派对(派对设置.枪支弹药)){
+
+				if(Dungeon.区域()==1&&算法.概率学(Dungeon.相对层数()*5)){
+					addItemToSpawn( new 手枪());
+					addItemToSpawn( new 手枪子弹().数量(Random.Int(7,7*5)));
+				}
+				if(Dungeon.区域()==2&&算法.概率学(Dungeon.相对层数()*3)){
+					addItemToSpawn( new 冲锋枪());
+					addItemToSpawn( new 手枪子弹().数量(Random.Int(30,30*5)*2));
+				}
+				if(Dungeon.区域()==3&&算法.概率学(Dungeon.相对层数()*3)){
+					addItemToSpawn( new 霰弹枪());
+					addItemToSpawn( new 手枪子弹().数量(Random.Int(2,2*5)*3));
+				}
+				if(Dungeon.区域()==4&&算法.概率学(Dungeon.相对层数()*2)){
+					addItemToSpawn( new 狙击枪());
+					addItemToSpawn( new 手枪子弹().数量(Random.Int(5,5*5)*4));
+				}
+				if(Dungeon.区域()==5&&算法.概率学(Dungeon.相对层数()*1)){
+					addItemToSpawn( new 火炮());
+					addItemToSpawn( new 手枪子弹().数量(Random.Int(1,1*5)*5));
+				}
 			}
 			if (Dungeon.潜力药剂掉落()) {
 				Dungeon.LimitedDrops.STRENGTH_POTIONS.count++;
@@ -319,7 +348,7 @@ public abstract class Level implements Bundlable {
 				addItemToSpawn( new TrinketCatalyst());
 			}
 			
-			if (Dungeon.depth > 1) {
+			if (Dungeon.相对层数() > 1) {
 				//50% chance of getting a level feeling
 				//~7.15% chance for each feeling
 				switch (Random.Int( 14 )) {
@@ -608,7 +637,7 @@ public abstract class Level implements Bundlable {
 	
 	public Mob createMob() {
 		if (mobsToSpawn == null || mobsToSpawn.isEmpty()) {
-			mobsToSpawn = MobSpawner.getMobRotation(Dungeon.depth);
+			mobsToSpawn = MobSpawner.getMobRotation(Dungeon.相对层数());
 		}
 
 		Mob m = Reflection.newInstance(mobsToSpawn.remove(0));
@@ -859,7 +888,7 @@ public abstract class Level implements Bundlable {
 	public static float 刷怪数量(){
 		//并不是生成找不到位置，而是生成太多检测了，比如60x60x100，这都生成到猴年马月
 		float mobs=1;
-		if(Dungeon.派对(派对设置.小小可爱)) mobs/=2;
+
 		if(Dungeon.符文("大赦天下")&&(Dungeon.区域层数(2)||Dungeon.区域层数(4))){
 			mobs*=2;
 		}
@@ -884,7 +913,7 @@ public abstract class Level implements Bundlable {
 		float cooldown=TIME_TO_RESPAWN;
 
 		if (Statistics.amuletObtained){
-			if (Dungeon.depth == 1){
+			if (Dungeon.相对层数() == 1){
 				//very fast spawns on floor 1! 0/2/4/6/8/10/12, etc.
 				cooldown = (Dungeon.level.mobCount()) * (TIME_TO_RESPAWN / 25f);
 			} else {
@@ -892,7 +921,7 @@ public abstract class Level implements Bundlable {
 				cooldown = Math.round(GameMath.之内(TIME_TO_RESPAWN/10f,Dungeon.level.mobCount()*(TIME_TO_RESPAWN/10f),TIME_TO_RESPAWN/2f));
 			}
 		}else{
-			if (Dungeon.depth == 1){
+			if (Dungeon.相对层数() == 1){
 				cooldown*=25*25;
 			}else if(Dungeon.level.feeling==Feeling.DARK){
 				cooldown= 2*TIME_TO_RESPAWN/3f;

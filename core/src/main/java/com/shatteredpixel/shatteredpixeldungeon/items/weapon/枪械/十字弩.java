@@ -13,7 +13,7 @@ public class 十字弩 extends 枪械{
 		
 		tier = 1;
 		伤害=0.6f;
-		投掷=1.75f;
+		枪伤=1.25f;
 		射速=2;
 		子弹 = new 十字弩飞镖();
 		image2 = 物品表.DART;

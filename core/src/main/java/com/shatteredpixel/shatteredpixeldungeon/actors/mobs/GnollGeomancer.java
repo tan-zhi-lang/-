@@ -64,9 +64,9 @@ public class GnollGeomancer extends Mob {
 		// Because of this geomancer can see through high grass and shrouding fod
 		viewDistance = 12;
 
-		properties.add(Property.BOSS);
-		properties.add(Property.IMMOVABLE); //moves itself via ability, otherwise is static
-		properties.add(Property.动物);
+		属性表.add(Property.BOSS);
+		属性表.add(Property.IMMOVABLE); //moves itself via ability, otherwise is static
+		属性表.add(Property.动物);
 	}
 
 	private int abilityCooldown = Random.NormalIntRange(3, 5);

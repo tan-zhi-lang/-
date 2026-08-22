@@ -35,7 +35,7 @@ public class GnollExile extends Gnoll {
 		defenseSkill = 6;
 		生命 = 最大生命 = 24;
 		
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 		lootChance = 0f; //see rollToDropLoot
 	}
 

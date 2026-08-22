@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.幽灵保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.幽灵;
+import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -57,12 +58,15 @@ public class 干枯玫瑰 extends Artifact {
 		if (action.equals(AC_USE1)&&isEquipped(hero)) {
 			if(召唤){
 				召唤=false;
+				GLog.绿("幽灵正在保护你！");
+				SpellSprite.show(hero,SpellSprite.保护);
 				Buff.施加(hero,幽灵保护.class);
 			}
 		}
 		if (action.equals(AC_USE2)&&isEquipped(hero)) {
 			{
 				召唤=true;
+				GLog.红("你取消了幽灵的保护！");
 
 				for (Mob m : Dungeon.level.mobs){
 					if (m instanceof 幽灵 x){

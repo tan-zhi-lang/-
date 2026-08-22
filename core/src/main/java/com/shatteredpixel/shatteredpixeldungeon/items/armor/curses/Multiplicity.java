@@ -60,7 +60,7 @@ public class Multiplicity extends Armor.Glyph {
 						}
 
 						//FIXME should probably have a mob property for this
-						if(!(toDuplicate instanceof Mob)||toDuplicate.properties().contains(Char.Property.BOSS)||toDuplicate.properties().contains(Char.Property.MINIBOSS)||toDuplicate instanceof Mimic||toDuplicate instanceof Statue||toDuplicate instanceof NPC){
+						if(!(toDuplicate instanceof Mob)||toDuplicate.属性表().contains(Char.Property.BOSS)||toDuplicate.属性表().contains(Char.Property.MINIBOSS)||toDuplicate instanceof Mimic||toDuplicate instanceof Statue||toDuplicate instanceof NPC){
 							m=Dungeon.level.createMob();
 						}else{
 							Actor.fixTime();

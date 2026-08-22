@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -66,6 +67,12 @@ public class Swiftthistle extends Plant {
 		@Override
 		public void tintIcon(Image icon) {
 			icon.hardlight(1f, 1f, 0);
+		}
+
+		@Override
+		public boolean attachTo(Char target){
+			SpellSprite.show(target,SpellSprite.时间回溯);
+			return super.attachTo(target);
 		}
 
 		@Override

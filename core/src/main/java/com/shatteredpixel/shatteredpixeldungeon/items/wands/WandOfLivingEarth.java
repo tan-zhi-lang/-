@@ -331,7 +331,7 @@ public class WandOfLivingEarth extends DamageWand {
 			state = HUNTING;
 			intelligentAlly = true;
 
-			properties.add(Property.INORGANIC);
+			属性表.add(Property.INORGANIC);
 
 			WANDERING = new Wandering();
 
@@ -389,7 +389,7 @@ public class WandOfLivingEarth extends DamageWand {
 		}
 		
 		{
-			immunities.add( AllyBuff.class );
+			免疫表.add(AllyBuff.class);
 		}
 
 		private static final String DEFENSE = "defense";

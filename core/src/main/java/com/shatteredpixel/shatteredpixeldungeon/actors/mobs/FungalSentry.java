@@ -23,8 +23,8 @@ public class FungalSentry extends Mob {
 
 		state = WANDERING = new Waiting();
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.MINIBOSS);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.MINIBOSS);
 	}
 
 	@Override
@@ -77,8 +77,8 @@ public class FungalSentry extends Mob {
 	}
 
 	{
-		immunities.add( ToxicGas.class );
-		immunities.add( Poison.class );
+		免疫表.add(ToxicGas.class);
+		免疫表.add(Poison.class);
 	}
 
 	private class Waiting extends Mob.Wandering{

@@ -96,9 +96,9 @@ public class FireImbue extends Buff {
 	}
 
 	{
-		immunities.add( 燃烧.class );
-		immunities.add( 火毒.class );
-		immunities.add( 灵焰.class );
+		免疫表.add(燃烧.class);
+		免疫表.add(火毒.class);
+		免疫表.add(灵焰.class);
 	}
 
 	@Override

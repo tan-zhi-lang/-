@@ -139,9 +139,9 @@ public class SpiritHawk extends ArmorAbility {
 			}
 			attacksAutomatically = false;
 
-			immunities.addAll(new BlobImmunity().immunities());
-			immunities.add(AllyBuff.class);
-			properties.add(Property.动物);
+			免疫表.addAll(new BlobImmunity().免疫表());
+			免疫表.add(AllyBuff.class);
+			属性表.add(Property.动物);
 		}
 
 		@Override

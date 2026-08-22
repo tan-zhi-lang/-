@@ -30,9 +30,9 @@ public class GnollSapper extends Mob {
 		经验 = 10;
 		最大等级 = -2;
 
-		properties.add(Property.MINIBOSS);
+		属性表.add(Property.MINIBOSS);
 		
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 		HUNTING = new Hunting();
 		WANDERING = new Wandering();
 		state = SLEEPING;

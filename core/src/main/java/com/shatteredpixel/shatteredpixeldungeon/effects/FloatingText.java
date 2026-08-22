@@ -67,31 +67,33 @@ public class FloatingText extends RenderedTextBlock {
 	public static int NO_ICON   = -1;
 
 	//combat damage icons
-	public static int PHYS_DMG          = 0;
-	public static int PHYS_DMG_NO_BLOCK = 1;
-	public static int MAGIC_DMG         = 2;
-	public static int PICK_DMG          = 3;
+	public static int 物理伤害= 0;
+	public static int 魔法伤害= 1;
+	public static int PHYS_DMG_NO_BLOCK = 2;
 
 	//debuff/dot damage icons
-	public static int HUNGER    = 5;
-	public static int BURNING   = 6;
-	public static int SHOCKING  = 7;
-	public static int FROST     = 8;
-	public static int WATER     = 9;
-	public static int BLEEDING  = 10;
+	public static int 饥饿伤害= 3;
+	public static int 火焰伤害= 4;
+	public static int 灵焰伤害= 5;
+	public static int 火毒伤害= 6;
+	public static int 电伤害  = 7;
+	public static int 冰伤害     = 8;
+	public static int 水伤害     = 9;
+	public static int 流血伤害  = 10;
 	public static int TOXIC     = 11;
 	public static int CORROSION = 12;
 	public static int POISON    = 13;
 	public static int OOZE      = 14;
 	public static int DEFERRED  = 15;
+
 	public static int CORRUPTION= 16;
 	public static int AMULET    = 17;
 
 	//positive icons
-	public static int HEALING   = 18;
-	public static int SHIELDING = 19;
-	public static int EXPERIENCE= 20;
-	public static int STRENGTH  = 21;
+	public static int 回血数值= 18;
+	public static int 护盾护甲数值= 19;
+	public static int 经验数值= 20;
+	public static int 力量数值= 21;
 
 	//currency icons
 	public static int GOLD      = 23;

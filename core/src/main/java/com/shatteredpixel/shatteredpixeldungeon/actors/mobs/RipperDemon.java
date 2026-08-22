@@ -38,8 +38,8 @@ public class RipperDemon extends Mob {
 
 		baseSpeed = 1f;
 
-		properties.add(Property.DEMONIC);
-		properties.add(Property.UNDEAD);
+		属性表.add(Property.DEMONIC);
+		属性表.add(Property.UNDEAD);
 	}
 
 	@Override

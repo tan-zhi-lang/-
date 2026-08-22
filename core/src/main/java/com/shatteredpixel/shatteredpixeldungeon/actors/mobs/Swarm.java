@@ -37,7 +37,7 @@ public class Swarm extends Mob {
 
 		loot = 治疗药剂.class;
 		lootChance = 0.1667f; //by default, see lootChance()
-		properties.add(Property.昆虫);
+		属性表.add(Property.昆虫);
 	}
 	
 	private static final float SPLIT_DELAY	= 1f;
@@ -83,7 +83,7 @@ public class Swarm extends Mob {
 				if (!Dungeon.level.solid[n]
 						&& Actor.findChar( n ) == null
 						&& (Dungeon.level.passable[n] || Dungeon.level.avoid[n])
-						&& (!properties().contains(Property.LARGE) || Dungeon.level.openSpace[n])) {
+						&& (!属性表().contains(Property.LARGE)||Dungeon.level.openSpace[n])) {
 					candidates.add( n );
 				}
 			}

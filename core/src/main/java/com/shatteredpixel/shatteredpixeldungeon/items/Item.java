@@ -1441,22 +1441,23 @@ public class Item implements Bundlable {
 		return new Ballistica( user.pos, dst, (this instanceof Weapon w&&w.穿透回旋镖()?Ballistica.STOP_TARGET:Ballistica.PROJECTILE) ).collisionPos;
 	}
 
-	public void throwSound(){
-		Sample.INSTANCE.play(item_Miss, 0.6f, 0.6f, 1.5f);
-	}
-
 	public void cast( final Hero user, final int dst ) {
 
 		final int cell = throwPos( user, dst );
 		user.sprite.zap( cell );
 		user.busy();
-		if(this instanceof 枪械.子弹 子弹&&子弹.子弹 instanceof 枪弹){
-
-		}else
-		throwSound();
 
 		Char enemy = Actor.findChar( cell );
 		QuickSlotButton.target(enemy);
+
+		if(this instanceof 枪械.子弹 子弹&&子弹.子弹 instanceof 枪弹){
+
+			if(enemy==null)
+				Sample.INSTANCE.play(item_Miss, 0.6f, 0.6f, 1.5f);
+
+		}else{
+			Sample.INSTANCE.play(item_Miss, 0.6f, 0.6f, 1.5f);
+		}
 
 		final float delay = castDelay(user, cell);
 

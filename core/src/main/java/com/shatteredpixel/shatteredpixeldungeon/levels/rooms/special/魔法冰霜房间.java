@@ -232,7 +232,7 @@ public class 魔法冰霜房间 extends SpecialRoom {
 					float turnsToAdd = Dungeon.level.water[cell] ? 5f : 3f;
 					if (chill != null){
 						float chillToCap = Chill.DURATION - chill.cooldown();
-						chillToCap /= ch.resist(Chill.class); //account for resistance to chill
+						chillToCap /= ch.抗性计算(Chill.class); //account for resistance to chill
 						turnsToAdd = Math.min(turnsToAdd, chillToCap);
 					}
 					if (turnsToAdd > 0f) {

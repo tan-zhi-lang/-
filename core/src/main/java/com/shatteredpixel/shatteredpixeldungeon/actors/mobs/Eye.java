@@ -46,7 +46,7 @@ public class Eye extends Mob {
 		loot = new Dewdrop();
 		
 
-		properties.add(Property.DEMONIC);
+		属性表.add(Property.DEMONIC);
 	}
 
 	@Override
@@ -262,10 +262,10 @@ public class Eye extends Mob {
 	}
 
 	{
-		resistances.add( WandOfDisintegration.class );
-		resistances.add( 影织法杖.class);
-		resistances.add( DeathGaze.class );
-		resistances.add( DisintegrationTrap.class );
+		抗性表.add(WandOfDisintegration.class);
+		抗性表.add(影织法杖.class);
+		抗性表.add(DeathGaze.class);
+		抗性表.add(DisintegrationTrap.class);
 	}
 
 	private class Hunting extends Mob.Hunting{

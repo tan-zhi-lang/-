@@ -22,6 +22,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Rat;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RipperDemon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.粘咕;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蟑螂;
 import com.shatteredpixel.shatteredpixeldungeon.actors.地牢时间;
 import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
 import com.shatteredpixel.shatteredpixeldungeon.actors.每10回合;
@@ -220,6 +228,16 @@ public enum HeroClass{
 		Notes.物品类别备注(new 灵视药剂(),"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
 		
 		Notes.物品类别备注(new PotionOfCleansing(),"使用技巧","饥饿值为0时饮用可以填充450饥饿");
+
+		Notes.怪物备注(new Elemental.FireElemental(),"火焰怪物应对技巧","用冰霜伤害能更快击杀它！");
+		Notes.怪物备注(new Elemental.FrostElemental(),"冰霜怪物应对技巧","用火焰伤害能更快击杀它！");
+		Notes.怪物备注(new 粘咕(),"酸性怪物应对技巧","用火焰伤害能更快击杀它！");
+		Notes.怪物备注(new Wraith(),"亡灵应对技巧","用雷和光伤害能更快击杀它！");
+		Notes.怪物备注(new RipperDemon(),"恶魔应对技巧","用光伤害能更快击杀它！");
+		Notes.怪物备注(new 蟑螂(),"昆虫应对技巧","用电和火伤害能更快击杀它！");
+		Notes.怪物备注(new RotLasher(),"树妖应对技巧","用电和火伤害能更快击杀它！");
+		Notes.怪物备注(new Piranha(),"海妖应对技巧","用电和毒伤害能更快击杀它！");
+		Notes.怪物备注(new Rat(),"动物应对技巧","用冰火、电毒、毒、流血伤害能更快击杀它！");
 
 
 
@@ -660,7 +678,7 @@ public enum HeroClass{
 		(hero.belongings.armor=new 披风()).鉴定();
 		
 		(hero.belongings.weapon=new 短弓()).鉴定();
-		new 箭矢().数量(8).放背包();
+		new 箭矢().数量(10).放背包();
 		Dungeon.quickslot.setSlot(0,hero.belongings.weapon);
 		
 		new 灵视药剂().鉴定();
@@ -849,7 +867,7 @@ public enum HeroClass{
 		十字弩 x=new 十字弩();
 		(hero.belongings.weapon=x).鉴定();
 
-		new 箭矢().数量(5).放背包();
+		new 箭矢().数量(7).放背包();
 
 		Dungeon.quickslot.setSlot(0,x);
 		(hero.belongings.armor=new 魔披()).鉴定();

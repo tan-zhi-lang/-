@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -66,7 +65,7 @@ public class WandOfPrismaticLight extends DamageWand {
 		Buff.延长(ch, Blindness.class, 2);
 		ch.sprite.emitter().burst(Speck.factory(Speck.LIGHT));
 
-		if (ch.properties().contains(Char.Property.DEMONIC) || ch.properties().contains(Char.Property.UNDEAD)){
+		if (ch.属性表().contains(Char.Property.DEMONIC)||ch.属性表().contains(Char.Property.UNDEAD)){
 			ch.sprite.emitter().start( ShadowParticle.UP, 0.05f );
 			Sample.INSTANCE.play(Assets.Sounds.BURNING);
 

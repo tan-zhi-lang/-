@@ -18,7 +18,7 @@ public class 地狱猎犬 extends Mob {
 		经验 = 12;
 		最大等级 = 25;
 
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 	
 	@Override

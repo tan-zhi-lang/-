@@ -3,9 +3,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-
-import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.无情铁手;
+import com.shatteredpixel.shatteredpixeldungeon.items.秘银;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 战斧 extends Weapon {
@@ -23,7 +22,7 @@ public class 战斧 extends Weapon {
 
 		{
 			inputs =  new Class[]{手斧.class,
-					LiquidMetal.class,};
+					秘银.class,};
 			inQuantity = new int[]{1,1,};
 
 			cost = 9;

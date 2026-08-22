@@ -221,7 +221,7 @@ public abstract class Elemental extends Mob {
 			loot = 液火药剂.class;
 			lootChance = 1/8f;
 			
-			properties.add( Property.FIERY );
+			属性表.add(Property.FIERY);
 			
 			harmfulBuffs.add( com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost.class );
 			harmfulBuffs.add( Chill.class );
@@ -253,7 +253,7 @@ public abstract class Elemental extends Mob {
 
 			defenseSkill = 12;
 			
-			properties.add(Property.MINIBOSS);
+			属性表.add(Property.MINIBOSS);
 		}
 
 		private int targetingPos = -1;
@@ -459,7 +459,7 @@ public abstract class Elemental extends Mob {
 		{
 			rangedCooldown = Integer.MAX_VALUE;
 
-			properties.remove(Property.MINIBOSS);
+			属性表.remove(Property.MINIBOSS);
 		}
 
 	}
@@ -472,7 +472,7 @@ public abstract class Elemental extends Mob {
 			loot = 冰霜药剂.class;
 			lootChance = 1/8f;
 			
-			properties.add( Property.ICY );
+			属性表.add(Property.ICY);
 			
 			harmfulBuffs.add( 燃烧.class );
 		}
@@ -500,7 +500,7 @@ public abstract class Elemental extends Mob {
 			loot = 充能卷轴.class;
 			lootChance = 1/4f;
 			
-			properties.add( Property.电);
+			属性表.add(Property.电);
 		}
 		
 		@Override

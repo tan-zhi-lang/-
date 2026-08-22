@@ -135,7 +135,7 @@ public class Frost extends FlavourBuff {
 
 	{
 		//can't chill what's frozen!
-		immunities.add( Chill.class );
+		免疫表.add(Chill.class);
 	}
 
 }

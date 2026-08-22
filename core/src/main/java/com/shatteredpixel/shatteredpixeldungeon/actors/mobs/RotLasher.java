@@ -28,9 +28,9 @@ public class RotLasher extends Mob {
 		state = WANDERING = new Waiting();
 		viewDistance = 1;
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.MINIBOSS);
-		properties.add(Property.树妖);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.MINIBOSS);
+		属性表.add(Property.树妖);
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class RotLasher extends Mob {
 	}
 	
 	{
-		immunities.add( ToxicGas.class );
+		免疫表.add(ToxicGas.class);
 	}
 
 	private class Waiting extends Mob.Wandering{

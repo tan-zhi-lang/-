@@ -41,24 +41,24 @@ public class BlobImmunity extends FlavourBuff {
 
 	{
 		//all harmful blobs
-		immunities.add( Blizzard.class );
-		immunities.add( ConfusionGas.class );
-		immunities.add( CorrosiveGas.class );
-		immunities.add( Electricity.class );
-		immunities.add( Fire.class );
-		immunities.add( MagicalFireRoom.EternalFire.class );
-		immunities.add(魔法冰霜房间.魔法冰霜.class );
-		immunities.add( Freezing.class );
-		immunities.add( Inferno.class );
-		immunities.add( ParalyticGas.class );
-		immunities.add( Regrowth.class );
-		immunities.add( SmokeScreen.class );
-		immunities.add( StenchGas.class );
-		immunities.add( StormCloud.class );
-		immunities.add( ToxicGas.class );
-		immunities.add( Web.class );
+		免疫表.add(Blizzard.class);
+		免疫表.add(ConfusionGas.class);
+		免疫表.add(CorrosiveGas.class);
+		免疫表.add(Electricity.class);
+		免疫表.add(Fire.class);
+		免疫表.add(MagicalFireRoom.EternalFire.class);
+		免疫表.add(魔法冰霜房间.魔法冰霜.class);
+		免疫表.add(Freezing.class);
+		免疫表.add(Inferno.class);
+		免疫表.add(ParalyticGas.class);
+		免疫表.add(Regrowth.class);
+		免疫表.add(SmokeScreen.class);
+		免疫表.add(StenchGas.class);
+		免疫表.add(StormCloud.class);
+		免疫表.add(ToxicGas.class);
+		免疫表.add(Web.class);
 
-		immunities.add(Tengu.FireAbility.FireBlob.class);
+		免疫表.add(Tengu.FireAbility.FireBlob.class);
 	}
 
 }

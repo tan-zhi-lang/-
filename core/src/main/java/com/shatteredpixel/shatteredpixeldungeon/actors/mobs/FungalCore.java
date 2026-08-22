@@ -15,8 +15,8 @@ public class FungalCore extends Mob {
 
 		state = PASSIVE;
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.BOSS);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.BOSS);
 	}
 
 	@Override

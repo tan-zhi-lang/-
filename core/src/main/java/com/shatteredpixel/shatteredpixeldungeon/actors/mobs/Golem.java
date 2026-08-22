@@ -33,9 +33,9 @@ public class Golem extends Mob {
 		loot = Random.oneOf(Generator.Category.WEAPON, Generator.Category.ARMOR);
 		lootChance = 0.2f; //initially, see lootChance()
 
-		properties.add(Property.INORGANIC);
-		properties.add(Property.LARGE);
-		properties.add(Property.机械);
+		属性表.add(Property.INORGANIC);
+		属性表.add(Property.LARGE);
+		属性表.add(Property.机械);
 
 		WANDERING = new Wandering();
 		HUNTING = new Hunting();

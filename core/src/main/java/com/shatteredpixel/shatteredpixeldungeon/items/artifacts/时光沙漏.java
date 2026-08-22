@@ -15,6 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.effects.SpellSprite;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -347,6 +348,11 @@ public class 时光沙漏 extends Artifact {
 				presses.add(cell);
 		}
 
+		@Override
+		public boolean attachTo(Char target){
+			SpellSprite.show(target,SpellSprite.时间回溯);
+			return super.attachTo(target);
+		}
 		public void triggerPresses(){
 			ArrayList<Integer> toTrigger = presses;
 			presses = new ArrayList<>();

@@ -35,8 +35,8 @@ public class Imp extends NPC {
 	{
 		spriteClass = ImpSprite.class;
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.DEMONIC);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.DEMONIC);
 	}
 	
 	private boolean seenBefore = false;

@@ -62,10 +62,10 @@ public class YogDzewa extends Mob {
 		loot = Dungeon.赛季(赛季设置.刷子地牢)?new 真正护符():null;
 		viewDistance = 12;
 
-		properties.add(Property.BOSS);
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.DEMONIC);
-		properties.add(Property.STATIC);
+		属性表.add(Property.BOSS);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.DEMONIC);
+		属性表.add(Property.STATIC);
 	}
 
 	private int phase = 0;
@@ -634,8 +634,8 @@ public class YogDzewa extends Mob {
 			经验 = 5;
 			最大等级 = -2;
 
-			properties.add(Property.DEMONIC);
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.DEMONIC);
+			属性表.add(Property.老鬼傀儡);
 		}
 
 		@Override
@@ -664,19 +664,19 @@ public class YogDzewa extends Mob {
 	public static class YogRipper extends RipperDemon {
 		{
 			最大等级 = -2;
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 		}
 	}
 	public static class YogEye extends Eye {
 		{
 			最大等级 = -2;
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 		}
 	}
 	public static class YogScorpio extends Scorpio {
 		{
 			最大等级 = -2;
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 		}
 	}
 }

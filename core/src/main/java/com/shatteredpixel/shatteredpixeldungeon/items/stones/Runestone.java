@@ -39,6 +39,8 @@ public abstract class Runestone extends Item {
 				Catalog.countUse(getClass());
 				Talent.onRunestoneUsed(curUser, cell, getClass());
 			}
+			Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.备战));
+			Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.武装,2));
 			activate(cell);
 			if (Actor.findChar(cell) == null) Dungeon.level.pressCell( cell );
 			Invisibility.notimedispel();

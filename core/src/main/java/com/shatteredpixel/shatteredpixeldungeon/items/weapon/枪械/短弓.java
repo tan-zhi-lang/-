@@ -27,4 +27,5 @@ public class 短弓 extends 枪械{
 	public int initialCharges() {
 		return 1;
 	}
+
 }

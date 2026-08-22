@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -49,7 +50,8 @@ public abstract class InventoryStone extends Runestone {
 	
 	protected void useAnimation() {
 		curUser.spend( 1f );
-
+		curUser.回血(curUser.天赋点数(Talent.备战));
+		curUser.护甲(curUser.天赋点数(Talent.武装,2));
 		curUser.busy();
 		curUser.sprite.operate();
 

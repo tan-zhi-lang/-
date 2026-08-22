@@ -86,6 +86,7 @@ public class Bomb extends Item {
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
 		actions.add ( AC_LIGHTTHROW );
+		actions.add ( AC_等爆 );
 		return actions;
 	}
 
@@ -94,6 +95,9 @@ public class Bomb extends Item {
 
 		if (action.equals(AC_LIGHTTHROW)||action.equals(AC_等爆)) {
 			lightingFuse = true;
+
+			hero.回血(hero.天赋点数(Talent.备战));
+			hero.护甲(hero.天赋点数(Talent.武装,2));
 
 			if(action.equals(AC_等爆))
 				等爆 = true;

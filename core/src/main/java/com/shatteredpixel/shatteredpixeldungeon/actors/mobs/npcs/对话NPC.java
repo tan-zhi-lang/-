@@ -16,7 +16,7 @@ public class 对话NPC extends NPC {
 
 	{
 		spriteClass = ImpSprite.class;
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 	}
 
 	@Override

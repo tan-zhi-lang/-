@@ -71,7 +71,7 @@ public class 算法 {
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
     * */
-    public static String 日期="8.21/20:32";
+    public static String 日期="8.22/15:53";
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -230,10 +230,8 @@ public class 算法 {
                 "items.trinkets.",
                 "items.wands.",
                 "items.weapon.",
-                "items.weapon.子弹",
-                "items.weapon.枪械",
-                "items.weapon.melee.",
-                "items.weapon.missiles.",
+                "items.weapon.子弹.",
+                "items.weapon.枪械.",
                 "items.scrolls.exotic.",
                 "items.potions.brews.",
                 "items.potions.elixirs.",
@@ -261,6 +259,9 @@ public class 算法 {
     }
     public static void 修复效果(Callback c){
         Actor.add(new Actor() {
+            {
+                actPriority = VFX_PRIO-1;//优先级
+            }
             @Override
             protected boolean act() {
                 c.call();

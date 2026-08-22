@@ -32,7 +32,7 @@ public class Brute extends Mob {
 		
 		loot = new Gold().random();
 		lootChance = 0.5f;
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 	
 	protected boolean hasRaged = false;
@@ -95,7 +95,7 @@ public class Brute extends Mob {
 	protected void triggerEnrage(){
 		rage = Buff.施加(this, BruteRage.class);
 		rage.设置(最大生命/2 + 4);
-		sprite.showStatusWithIcon(CharSprite.增强绿,最大生命/2+4,FloatingText.SHIELDING);
+		sprite.showStatusWithIcon(CharSprite.增强绿,最大生命/2+4,FloatingText.护盾护甲数值);
 		if (Dungeon.level.heroFOV[pos]) {
 			SpellSprite.show( this, SpellSprite.BERSERK);
 		}

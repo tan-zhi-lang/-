@@ -377,8 +377,8 @@ public class WandOfRegrowth extends DamageWand {
 
 		{
 			alignment = Alignment.NEUTRAL;
-			properties.add(Property.IMMOVABLE);
-			properties.add(Property.STATIC);
+			属性表.add(Property.IMMOVABLE);
+			属性表.add(Property.STATIC);
 
 			spriteClass = LotusSprite.class;
 
@@ -440,7 +440,7 @@ public class WandOfRegrowth extends DamageWand {
 		}
 
 		{
-			immunities.add( Doom.class );
+			免疫表.add(Doom.class);
 		}
 
 		@Override

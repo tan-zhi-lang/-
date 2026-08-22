@@ -34,7 +34,7 @@ public class WndInfoMob extends WndTitledMessage {
 		private BuffIndicator buffs;
 		private ResistanceIndicator resistances;
 
-		boolean b=true;
+		boolean 是否显示文本框=true;
 		public MobTitle( Mob mob ) {
 			
 			name = PixelScene.renderTextBlock2( Messages.titleCase( mob.name() ), 9 );
@@ -54,12 +54,13 @@ public class WndInfoMob extends WndTitledMessage {
 			add( buffs );
 
 			resistances = new ResistanceIndicator(mob);
-			if(mob instanceof NPC) b=false;
+			if(mob instanceof NPC) 是否显示文本框=false;
 			if(mob instanceof Mimic m&&
-			   m.alignment==Char.Alignment.ENEMY&&m.state!=mob.PASSIVE) b=false;
-			if(mob.hasbuff(Invisibility.class))b=false;
-
-			if(b)
+			   m.alignment==Char.Alignment.ENEMY&&m.state!=mob.PASSIVE) 是否显示文本框=false;
+			if(mob.hasbuff(Invisibility.class))
+				是否显示文本框=false;
+			是否显示文本框=false;
+			if(是否显示文本框)
 			add(resistances);
 		}
 		
@@ -89,7 +90,7 @@ public class WndInfoMob extends WndTitledMessage {
 			resistances.setRect(3f, image.y + image.height() + 6f//3
 					, width - 6f, 0f);
 
-			if(b)
+			if(是否显示文本框)
 			height = resistances.bottom();
 			else
 			height = Math.max(image.y + image.height(), health.bottom());

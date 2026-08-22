@@ -23,7 +23,7 @@ public class Displacing extends Weapon.Enchantment {
 
 		if(defender!=null){
 			float procChance=1/12f*procChanceMultiplier(attacker);
-			if(Random.Float()<procChance&&!defender.properties().contains(Char.Property.IMMOVABLE)){
+			if(Random.Float()<procChance&&!defender.属性表().contains(Char.Property.IMMOVABLE)){
 
 				float powerMulti=Math.max(1f,procChance);
 				Buff.施加(defender,Paralysis.class,4*powerMulti);

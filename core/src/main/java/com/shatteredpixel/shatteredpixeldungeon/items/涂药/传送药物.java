@@ -19,7 +19,7 @@ public class 传送药物 extends 涂药{
 			//attempts to teleport the enemy to a position 8-10 cells away from the hero
 			//prioritizes the closest visible cell to the defender, or closest non-visible if no visible are present
 			//grants vision on the defender if teleport goes to non-visible
-			if(!c.properties().contains(Char.Property.IMMOVABLE)){
+			if(!c.属性表().contains(Char.Property.IMMOVABLE)){
 
 				ArrayList<Integer> visiblePositions=new ArrayList<>();
 				ArrayList<Integer> nonVisiblePositions=new ArrayList<>();

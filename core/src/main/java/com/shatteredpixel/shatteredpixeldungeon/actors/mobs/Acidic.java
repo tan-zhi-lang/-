@@ -15,11 +15,11 @@ public class Acidic extends Scorpio {
 	{
 		spriteClass = AcidicSprite.class;
 		
-		properties.add(Property.ACIDIC);
+		属性表.add(Property.ACIDIC);
 
 		loot = 经验药剂.class;
 		
-		properties.add(Property.昆虫);
+		属性表.add(Property.昆虫);
 	}
 	@Override
 	public float 攻击时(final Char enemy, float damage) {

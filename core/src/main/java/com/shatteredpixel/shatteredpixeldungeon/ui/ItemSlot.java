@@ -316,7 +316,7 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Math.round(f)) );
 				center.measure();
 				center.hardlight( UPGRADED );
-				float h= f/150f+Dungeon.hero.天赋点数(Talent.备战,2.5f);
+				float h= f/150f+Dungeon.hero.天赋点数(Talent.备战,1.5f);
 				if(Dungeon.符文("吃货"))h+=Dungeon.hero.最大生命(0.125f);
 				if(Dungeon.符文("饭桶"))h+=Dungeon.hero.最大生命(0.05f);
 				if(Dungeon.符文("细嚼慢咽"))h*=2;

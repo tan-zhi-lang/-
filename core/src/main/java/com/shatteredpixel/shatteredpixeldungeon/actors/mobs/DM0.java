@@ -23,7 +23,7 @@ public class DM0 extends Mob {
 		state = WANDERING;
 		flying = true;
 		
-		properties.add(Property.机械);
+		属性表.add(Property.机械);
 		loot = Random.oneOf(Generator.randomUsingDefaults( Generator.Category.POTION ),
 							Generator.randomUsingDefaults( Generator.Category.SCROLL ));
 	}

@@ -96,7 +96,7 @@ public class 再生 extends Buff {
 				再生数值/=SaltCube.healthRegenMultiplier();
 			}
 
-			再生数值*=1+hero.天赋点数(Talent.坚韧);
+			再生数值*=1+hero.天赋点数(Talent.坚韧,0.5f);
 
 			if(hero.heroClass(HeroClass.血鬼))
 				再生数值/=2;

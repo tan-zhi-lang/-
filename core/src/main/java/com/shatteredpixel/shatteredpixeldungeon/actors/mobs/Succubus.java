@@ -43,7 +43,7 @@ public class Succubus extends Mob {
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.33f;
 
-		properties.add(Property.DEMONIC);
+		属性表.add(Property.DEMONIC);
 	}
 	
 	@Override
@@ -112,13 +112,13 @@ public class Succubus extends Mob {
 		if (Actor.findChar( cell ) != null && cell != this.pos)
 			cell = route.path.get(route.dist-1);
 
-		if (Dungeon.level.avoid[ cell ] || (properties().contains(Property.LARGE) && !Dungeon.level.openSpace[cell])){
+		if (Dungeon.level.avoid[ cell ] || (属性表().contains(Property.LARGE)&&!Dungeon.level.openSpace[cell])){
 			ArrayList<Integer> candidates = new ArrayList<>();
 			for (int n : PathFinder.相邻) {
 				cell = route.collisionPos + n;
 				if (Dungeon.level.passable[cell]
 						&& Actor.findChar( cell ) == null
-						&& (!properties().contains(Property.LARGE) || Dungeon.level.openSpace[cell])) {
+						&& (!属性表().contains(Property.LARGE)||Dungeon.level.openSpace[cell])) {
 					candidates.add( cell );
 				}
 			}
@@ -157,7 +157,7 @@ public class Succubus extends Mob {
 	}
 
 	{
-		immunities.add( Charm.class );
+		免疫表.add(Charm.class);
 	}
 
 	private static final String BLINK_CD = "blink_cd";

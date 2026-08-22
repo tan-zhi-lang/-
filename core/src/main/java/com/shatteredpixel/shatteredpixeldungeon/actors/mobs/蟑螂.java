@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -11,7 +10,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.蟑螂动画;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 
 public class 蟑螂 extends Mob {
@@ -27,7 +25,7 @@ public class 蟑螂 extends Mob {
 
 		WANDERING = new 蟑螂.Wandering();
 		FLEEING = new 蟑螂.Fleeing();
-		properties.add(Property.昆虫);
+		属性表.add(Property.昆虫);
 	}
 
 	@Override
@@ -146,7 +144,7 @@ public class 蟑螂 extends Mob {
 
 	@Override
 	public String defenseVerb() {
-		Sample.INSTANCE.play(Assets.Sounds.蛇叫);
+
 		if (Dungeon.level.heroFOV[pos]) {
 			dodges++;
 		}

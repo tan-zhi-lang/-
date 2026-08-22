@@ -1638,6 +1638,7 @@ public class 物品表 {
         public static final int 破防之戒=六神之戒+9;
         public static final int 杀戮之戒=六神之戒+10;
         public static final int 丛林之戒=六神之戒+11;
+        public static final int 法爆之戒=六神之戒+12;
 
         static {
             assignIconRect(六神之戒, 6,7);
@@ -1652,6 +1653,7 @@ public class 物品表 {
             assignIconRect(破防之戒,6);
             assignIconRect(杀戮之戒,6);
             assignIconRect(丛林之戒,7,6);
+            assignIconRect(法爆之戒,6);
         }
 
         public static final int 银星 = xy(1, 15);  //16 slots

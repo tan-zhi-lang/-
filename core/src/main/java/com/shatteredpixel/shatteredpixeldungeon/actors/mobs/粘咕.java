@@ -38,9 +38,9 @@ public class 粘咕 extends Mob {
 		spriteClass = GooSprite.class;
 		史莱姆=true;
 
-		properties.add(Property.BOSS);
-		properties.add(Property.INORGANIC);
-		properties.add(Property.ACIDIC);
+		属性表.add(Property.BOSS);
+		属性表.add(Property.INORGANIC);
+		属性表.add(Property.ACIDIC);
 	}
 
 	private int pumpedUp = 0;

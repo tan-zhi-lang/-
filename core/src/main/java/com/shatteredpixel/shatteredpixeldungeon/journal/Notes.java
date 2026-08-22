@@ -780,19 +780,19 @@ public class Notes {
 //		note.editText(t,d);
 	}
 	public static void 物品备注(Item i,String t,String d){
-//		if(t.equals("使用技巧"))t=i.name()+t;
+		if(t.equals("使用技巧"))t=i.name()+"的"+t;
 		Notes.CustomRecord note = new Notes.CustomRecord(i,t,d);
 		Notes.add(note);
 //		note.editText(t,d);
 	}
 	public static void 怪物备注(Mob m,String t,String d){
-//		if(t.equals("应对技巧"))t=m.name()+t;
-		Notes.CustomRecord note = new Notes.CustomRecord(m.getClass(),t,d);
+		if(t.equals("应对技巧"))t=m.name()+"的"+t;
+		Notes.CustomRecord note = new Notes.CustomRecord(m,t,d);
 		Notes.add(note);
 //		note.editText(t,d);
 	}
 	public static void 物品类别备注(Item i,String t,String d){
-//		if(t.equals("使用技巧"))t=i.name()+t;
+		if(t.equals("使用技巧"))t=i.name()+"的"+t;
 		Notes.CustomRecord note = new Notes.CustomRecord(i.getClass(),t,d);
 		Notes.add(note);
 //		note.editText(t,d);

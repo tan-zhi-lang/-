@@ -24,7 +24,7 @@ public class Statue extends Mob {
 
 		state = PASSIVE;
 		
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	protected Weapon weapon;
@@ -176,7 +176,7 @@ public class Statue extends Mob {
 	}
 	
 	{
-		resistances.add(死神.class);
+		抗性表.add(死神.class);
 	}
 
 	public static Statue random(){

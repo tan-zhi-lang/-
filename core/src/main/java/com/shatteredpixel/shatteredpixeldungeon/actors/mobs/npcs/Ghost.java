@@ -48,8 +48,8 @@ public class Ghost extends NPC {
 		state = WANDERING;
 
 		//not actually large of course, but this makes the ghost stick to the exit room
-		properties.add(Property.LARGE);
-		properties.add(Property.UNDEAD);
+		属性表.add(Property.LARGE);
+		属性表.add(Property.UNDEAD);
 	}
 
 	protected class Wandering extends Mob.Wandering{

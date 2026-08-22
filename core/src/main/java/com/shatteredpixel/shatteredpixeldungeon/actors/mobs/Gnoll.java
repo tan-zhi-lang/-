@@ -21,7 +21,7 @@ public class Gnoll extends Mob {
 		
 		loot = new Gold().random();
 		lootChance = 0.5f;
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 	
 	@Override

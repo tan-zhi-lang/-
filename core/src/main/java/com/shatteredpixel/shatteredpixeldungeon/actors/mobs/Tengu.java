@@ -75,7 +75,7 @@ public class Tengu extends Mob {
 		
 		HUNTING = new Hunting();
 		
-		properties.add(Property.BOSS);
+		属性表.add(Property.BOSS);
 		
 		viewDistance = 12;
 	}
@@ -333,10 +333,10 @@ public class Tengu extends Mob {
 	}
 	
 	{
-		immunities.add( Roots.class );
-		immunities.add( Blindness.class );
-		immunities.add( Dread.class );
-		immunities.add( Terror.class );
+		免疫表.add(Roots.class);
+		免疫表.add(Blindness.class);
+		免疫表.add(Dread.class);
+		免疫表.add(Terror.class);
 	}
 	
 	private static final String LAST_ABILITY     = "last_ability";

@@ -216,7 +216,7 @@ public class 时空道标 extends Artifact {
 
 											GLog.橙(Messages.get(传送卷轴.class,"no_tele"));
 
-										} else if (ch.properties().contains(Char.Property.IMMOVABLE)) {
+										} else if (ch.属性表().contains(Char.Property.IMMOVABLE)) {
 
 											GLog.橙(Messages.get(时空道标.class,"tele_fail"));
 

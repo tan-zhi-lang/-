@@ -48,7 +48,7 @@ public class Shopkeeper extends NPC {
 		spriteClass = ShopkeeperSprite.class;
 		
 		loot = new 商人信标();
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 	}
 
 	public static int MAX_BUYBACK_HISTORY = 6;
@@ -109,7 +109,7 @@ public class Shopkeeper extends NPC {
 				protected boolean act() {
 					//cleanses all harmful blobs in the shop
 					ArrayList<Blob> blobs = new ArrayList<>();
-					for (Class c : new BlobImmunity().immunities()){
+					for (Class c : new BlobImmunity().免疫表()){
 						Blob b = Dungeon.level.blobs.get(c);
 						if (b != null && b.volume > 0){
 							blobs.add(b);

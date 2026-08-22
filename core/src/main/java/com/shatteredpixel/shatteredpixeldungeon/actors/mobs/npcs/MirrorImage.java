@@ -206,10 +206,10 @@ public class MirrorImage extends NPC {
 	}
 	
 	{
-		immunities.add( ToxicGas.class );
-		immunities.add( CorrosiveGas.class );
-		immunities.add( 燃烧.class );
-		immunities.add( AllyBuff.class );
+		免疫表.add(ToxicGas.class);
+		免疫表.add(CorrosiveGas.class);
+		免疫表.add(燃烧.class);
+		免疫表.add(AllyBuff.class);
 	}
 	
 	public static class MirrorInvis extends Invisibility {

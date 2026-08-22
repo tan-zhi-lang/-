@@ -6,23 +6,11 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.法态穿透;
 import com.shatteredpixel.shatteredpixeldungeon.items.TengusMask;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨大蟹钳;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
@@ -30,11 +18,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.火焰剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.元素类型;
 import com.watabou.utils.PathFinder;
 
-import java.util.HashSet;
-
-public class RingOfElements extends Ring {
+public class 元素之戒 extends Ring {
 
 	{
 		icon = 物品表.Icons.RING_ELEMENTS;
@@ -45,17 +32,17 @@ public class RingOfElements extends Ring {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
 									   kw2(100f*(float)(1f-Math.pow(0.825f,soloBuffedBonus()))),
-									   kw2(100f*(float)(1f-Math.pow(0.825f,soloBuffedBonus())))
+									   kw2(100f*(float)(1f/Math.pow(0.825f,soloBuffedBonus())))
 									  );
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
 											  kw2(100f*(float)(1f-Math.pow(0.825f,combinedBuffedBonus(Dungeon.hero)))),
-												  kw2(00f*(float)(1f-Math.pow(0.825f,combinedBuffedBonus(Dungeon.hero))))
+												  kw2(100f*(float)(1f/Math.pow(0.825f,combinedBuffedBonus(Dungeon.hero))))
 											 );
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats",  kw2(17.5f), kw2(17.5f));
+			return Messages.get(this, "stats",  kw2(17.5f), kw2(100f/82.5f));
 		}
 	}
 
@@ -63,57 +50,27 @@ public class RingOfElements extends Ring {
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
 		return 100f * (1f - Math.pow(0.825f, level)) + "%";
 	}
+	public String upgradeStat2(int level){
+		if (cursed && cursedKnown) level = Math.min(-1, level-6);
+		return 100f * (1f/Math.pow(0.825f, level)) + "%";
+	}
 	
 	@Override
 	protected RingBuff buff( ) {
 		return new Resistance();
 	}
 
-	public static final HashSet<Class> 火焰 = new HashSet<>();
-	static {
-		火焰.add( 燃烧.class);
-		火焰.add( 灵焰.class );
-		火焰.add( 火毒.class);
-
-	}
-	public static final HashSet<Class> 冰霜 = new HashSet<>();
-	static {
-		冰霜.add( Chill.class );//冰霜
-		冰霜.add( Frost.class );
-
-	}
-	public static final HashSet<Class> 毒= new HashSet<>();
-	static {
-		毒.add(Ooze.class);//淤泥
-		毒.add(Corrosion.class);//酸蚀
-		毒.add(ToxicGas.class);//毒气
-		毒.add(Poison.class);//中毒
-
-	}
-
-	public static final HashSet<Class> 电 = new HashSet<>();
-	static {
-		电.add( Paralysis.class );//麻痹
-		电.add( Electricity.class );//电
-
-	}
-
-	public static final HashSet<Class> RESISTS = new HashSet<>();
-	static {
-
-		RESISTS.addAll(敌法.RESISTS);
-	}
-	public static float resist( Char target, Class effect ){
-		for (Class c : RESISTS){
+	public static float 抗性(Char target,Class effect){
+		for (Class c : 元素类型.RESISTS){
 			if (c.isAssignableFrom(effect)){
-				return resist(target);
+				return 抗性(target);
 			}else{
 				return 1;
 			}
 		}
 		return 1;
 	}
-	public static float resist( Char target ){
+	public static float 抗性(Char target){
 		float x=1;
 		if(target instanceof Hero hero){
 			x*=1-hero.天赋点数(Talent.神圣净化,0.1f);
@@ -152,7 +109,29 @@ public class RingOfElements extends Ring {
 		}
 		return x;
 	}
-	
+
+	public static float 害怕( Char target, Class effect ){
+		for (Class c : 元素类型.RESISTS){
+			if (c.isAssignableFrom(effect)){
+				return 害怕(target);
+			}else{
+				return 1;
+			}
+		}
+		return 1;
+	}
+	public static float 害怕( Char target ){
+		float x=1;
+		if(target instanceof Hero hero){
+			return x;
+		}else if(Dungeon.hero()){
+			//			if (getBuffedBonus(target, Resistance.class) == 0) return 1;
+			return 1f/(float)Math.pow(0.825f, getBuffedBonus(target, Resistance.class))*x;
+
+		}
+		return x;
+	}
+
 	public class Resistance extends RingBuff {
 	
 	}

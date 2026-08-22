@@ -274,92 +274,28 @@ public class 传送卷轴 extends Scroll {
 
 		瞬移(ch,pos + ofs);
 	}
-	public static boolean 范围瞬移(int pos,int x) {
-		if(x==1){
-			for (int ofs : PathFinder.相邻){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		if(x==2){
-			for (int ofs : PathFinder.范围2){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		if(x==3){
-			for (int ofs : PathFinder.范围3){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		if(x==4){
-			for (int ofs : PathFinder.范围4){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		if(x==5){
-			for (int ofs : PathFinder.范围5){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		if(x==6){
-			for (int ofs : PathFinder.范围6){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		if(x==7){
-			for (int ofs : PathFinder.范围7){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		if(x==8){
-			for (int ofs : PathFinder.范围8){
-				if(Actor.findChar(pos + ofs)!=null||
-				   Dungeon.level.solid[pos + ofs] ||
-				   !Dungeon.level.passable[pos + ofs])return false;
-				else return true;
-			}
-		}
-		return false;
-	}
-	public static void 范围瞬移(Char ch,int pos,int x) {
-		int ofs;
+	public static void 范围瞬移(Char ch, int pos, int x) {
+		int ofs = 0;
+		int attempts = 0;
+		final int MAX_ATTEMPTS = 30;
+
 		do {
+			// 用传统 switch 选择偏移数组
+			int[] arr=PathFinder.x范围(x);
+			ofs = arr[Random.Int(arr.length)];
+			attempts++;
 
-			ofs = switch(x){
-				case 1->PathFinder.相邻[Random.Int(PathFinder.相邻.length)];
-				case 2->PathFinder.范围2[Random.Int(PathFinder.范围2.length)];
-				case 3->PathFinder.范围3[Random.Int(PathFinder.范围3.length)];
-				case 4->PathFinder.范围4[Random.Int(PathFinder.范围4.length)];
-				case 5->PathFinder.范围5[Random.Int(PathFinder.范围5.length)];
-				case 6->PathFinder.范围6[Random.Int(PathFinder.范围6.length)];
-				case 7->PathFinder.范围7[Random.Int(PathFinder.范围7.length)];
-				case 8->PathFinder.范围8[Random.Int(PathFinder.范围8.length)];
-				default ->PathFinder.相邻[Random.Int(PathFinder.相邻.length)];
-			};
-		} while (Actor.findChar(pos + ofs)!=null||Dungeon.level.solid[pos + ofs] ||!Dungeon.level.passable[pos + ofs]);
+			// 保底：尝试过多则使用原位置
+			if (attempts >= MAX_ATTEMPTS) {
+				ofs = 0;
+				break;
+			}
+		} while (Actor.findChar(pos + ofs) != null ||
+				 Dungeon.level.solid[pos + ofs] ||
+				 !Dungeon.level.passable[pos + ofs]);
 
-
-		瞬移(ch,pos + ofs);
+		int target = pos + ofs;
+		瞬移(ch, target);
 	}
 	public static boolean 瞬移(int pos) {
 			if(Actor.findChar(pos)!=null||

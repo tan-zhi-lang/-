@@ -4,8 +4,8 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.元素类型;
 import com.watabou.noosa.Image;
 
 public class MagicImmune extends FlavourBuff {
@@ -18,14 +18,14 @@ public class MagicImmune extends FlavourBuff {
 	}
 	
 	{
-		immunities.addAll(敌法.RESISTS);
+		免疫表.addAll(元素类型.RESISTS);
 	}
 
 	@Override
 	public boolean attachTo(Char target) {
 		if (super.attachTo(target)){
 			for (Buff b : target.buffs()){
-				for (Class immunity : immunities){
+				for (Class immunity : 免疫表){
 					if (b.getClass().isAssignableFrom(immunity)){
 						b.detach();
 						break;

@@ -73,8 +73,8 @@ public class DwarfKing extends Mob {
 		经验 = 40;
 		defenseSkill = 22;
 
-		properties.add(Property.BOSS);
-		properties.add(Property.UNDEAD);
+		属性表.add(Property.BOSS);
+		属性表.add(Property.UNDEAD);
 	}
 
 	@Override
@@ -135,7 +135,7 @@ public class DwarfKing extends Mob {
 		abilityCooldown = bundle.getFloat( ABILITY_CD );
 		lastAbility = bundle.getInt( LAST_ABILITY );
 
-		if (phase == 2) properties.add(Property.IMMOVABLE);
+		if (phase == 2) 属性表.add(Property.IMMOVABLE);
 
 		BossHealthBar.assignBoss(this);
 		if (phase == 3) BossHealthBar.bleed(true);
@@ -483,7 +483,7 @@ public class DwarfKing extends Mob {
 				生命 = (Dungeon.isChallenged(Challenges.STRONGER_BOSSES) ? 100 : 50);
 				sprite.showStatus(CharSprite.增强绿,Messages.get(this,"invulnerable"));
 				传送卷轴.appear(this,CityBossLevel.throne);
-				properties.add(Property.IMMOVABLE);
+				属性表.add(Property.IMMOVABLE);
 				phase = 2;
 				summonsMade = 0;
 				sprite.idle();
@@ -503,7 +503,7 @@ public class DwarfKing extends Mob {
 				}
 			}
 		} else if (phase == 2 && shielding() == 0) {
-			properties.remove(Property.IMMOVABLE);
+			属性表.remove(Property.IMMOVABLE);
 			phase = 3;
 			summonsMade = 1; //monk/warlock on 3rd summon
 			sprite.centerEmitter().start( Speck.factory( Speck.SCREAM ), 0.4f, 2 );
@@ -591,13 +591,13 @@ public class DwarfKing extends Mob {
 	public static class DKSkeleton extends Skeleton {
 		{
 			spriteClass = UndeadSprite.class;
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 			state = HUNTING;
 		}
 	}
 	public static class DKGhoul extends Ghoul {
 		{
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 			state = HUNTING;
 		}
 
@@ -610,14 +610,14 @@ public class DwarfKing extends Mob {
 
 	public static class DKMonk extends Monk {
 		{
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 			state = HUNTING;
 		}
 	}
 
 	public static class DKWarlock extends Warlock {
 		{
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 			state = HUNTING;
 		}
 
@@ -632,7 +632,7 @@ public class DwarfKing extends Mob {
 
 	public static class DKGolem extends Golem {
 		{
-			properties.add(Property.BOSS_MINION);
+			属性表.add(Property.老鬼傀儡);
 			state = HUNTING;
 		}
 	}

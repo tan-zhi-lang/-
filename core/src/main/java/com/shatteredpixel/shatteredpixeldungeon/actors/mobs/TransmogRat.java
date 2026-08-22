@@ -159,7 +159,7 @@ public class TransmogRat extends Mob {
 		}
 
 		{
-			immunities.add(AllyBuff.class);
+			免疫表.add(AllyBuff.class);
 		}
 
 		private static final String ORIGINAL = "original";

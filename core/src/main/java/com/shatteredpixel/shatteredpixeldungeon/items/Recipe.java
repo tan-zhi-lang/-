@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
@@ -59,7 +58,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
@@ -69,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
@@ -168,6 +167,16 @@ public abstract class Recipe {
 
 			int[] needed = inQuantity.clone();
 
+			// ★ 1. 记录输入材料的最高等级
+			int maxLevel = 0;
+			for (Item ingredient : ingredients) {
+				if (ingredient.等级() > maxLevel) {
+					maxLevel = ingredient.等级();
+				}
+			}
+			//int firstLevel = ingredients.get(0).等级();
+
+			// ★ 2. 消耗材料（原有逻辑）
 			for (Item ingredient : ingredients){
 				for (int i = 0; i < inputs.length; i++) {
 					if (ingredient.getClass() == inputs[i] && needed[i] > 0) {
@@ -182,9 +191,14 @@ public abstract class Recipe {
 				}
 			}
 
+			// ★ 3. 创建产物并继承最高等级
+			Item result = sampleOutput(null);
+			if (result != null && maxLevel > 0) {
+				result.等级(maxLevel);
+			}
 			//sample output and real output are identical in this case.
-			return sampleOutput(null);
-		}
+			return result;
+			}
 
 		//ingredients are ignored, as output doesn't vary
 		public Item sampleOutput(ArrayList<Item> ingredients){
@@ -312,6 +326,7 @@ public abstract class Recipe {
 			new 饮血之剑.Recipe(),
 			new 海神三叉戟.Recipe(),
 			new 猪鲨链球.Recipe(),
+			new 星云拳套.Recipe(),
 			new 钻石镐.Recipe(),
 			new 死神镰刀.Recipe(),
 			new 臻冰刃.Recipe(),
@@ -383,15 +398,13 @@ public abstract class Recipe {
 		//only upgradeable thrown weapons and wands allowed among equipment items
 		if(!item.炼金||item.专属)
 			return false;
-
 		if (item instanceof EquipableItem){
 			if(item.isEquipped(Dungeon.hero))return false;
 			
-			return !item.cursed&&
-				   (item instanceof Weapon||item instanceof Armor)&&item.可升级();
+			return true;
 		} else {
 			//other items can be unidentified, but not cursed
-			return !item.cursed;
+			return false;
 		}
 	}
 }

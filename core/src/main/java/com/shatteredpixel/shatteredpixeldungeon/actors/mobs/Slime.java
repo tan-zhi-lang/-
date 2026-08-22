@@ -24,7 +24,7 @@ public class Slime extends Mob {
 		最大等级 = 9;
 		史莱姆=true;
 		lootChance = 0.2f; //by default, see lootChance()
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	@Override

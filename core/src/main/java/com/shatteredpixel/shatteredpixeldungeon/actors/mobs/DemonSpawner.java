@@ -35,10 +35,10 @@ public class DemonSpawner extends Mob {
 		loot = 治疗药剂.class;
 		
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.MINIBOSS);
-		properties.add(Property.DEMONIC);
-		properties.add(Property.STATIC);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.MINIBOSS);
+		属性表.add(Property.DEMONIC);
+		属性表.add(Property.STATIC);
 	}
 
 	@Override

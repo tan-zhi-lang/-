@@ -29,8 +29,8 @@ public class 鬼怨 extends Mob {
 		lootChance = 1/8f;
 		flying = true;
 
-		properties.add(Property.UNDEAD);
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.UNDEAD);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	

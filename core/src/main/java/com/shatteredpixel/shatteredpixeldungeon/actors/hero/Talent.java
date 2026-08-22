@@ -554,14 +554,15 @@ public enum Talent {
 		}
 	}
 	public static void 吃饭时(Hero hero, float foodVal ){
-		float h=foodVal+hero.天赋点数(Talent.备战,2);
-		hero.护甲(hero.天赋点数(Talent.武装,3));
+		float h=foodVal;
+		h+=hero.天赋点数(Talent.备战);
 		if(Dungeon.符文("吃货"))h+=hero.最大生命(0.125f);
 		if(Dungeon.符文("饭桶"))h+=hero.最大生命(0.05f);
 		if(Dungeon.符文("细嚼慢咽"))h*=2;
 
 		hero.回血(h);
 
+		hero.护甲(hero.天赋点数(Talent.武装,2));
 		if(hero.符文("饿死鬼投胎")&&hero.buff(Hunger.class).空腹()){
 			hero.回百分比血(0.2f*foodVal);
 		}
@@ -657,8 +658,8 @@ public enum Talent {
 	}
 
 	public static void 饮用药剂(Hero hero,int cell,float factor,Item item){
-		hero.回血(hero.天赋点数(Talent.备战,2));
-		hero.护甲(hero.天赋点数(Talent.武装,3));
+		hero.回血(hero.天赋点数(Talent.备战));
+		hero.护甲(hero.天赋点数(Talent.武装,2));
 		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.04f));
 		if(hero.符文("止渴"))hero.回百分比血(0.08f);
 
@@ -677,8 +678,8 @@ public enum Talent {
 	}
 
 	public static void 阅读卷轴(Hero hero,int pos,float factor,Class<?extends Item> cls){
-		hero.回血(hero.天赋点数(Talent.备战,2));
-		hero.护甲(hero.天赋点数(Talent.武装,3));
+		hero.回血(hero.天赋点数(Talent.备战));
+		hero.护甲(hero.天赋点数(Talent.武装,2));
 		if(Dungeon.赛季(赛季设置.规则怪谈)&&hero.视野敌人())hero.受伤时(hero.最大生命(hero.visibleEnemies()/25f));
 		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.04f));
 
@@ -798,7 +799,7 @@ public enum Talent {
 
 		enemy.第x次背袭++;
 		if(enemy.第x次背袭==1){
-			dmg+=hero.天赋点数(Talent.突袭,4);
+			dmg+=hero.天赋点数(Talent.突袭,3.5f);
 			enemy.sprite.愤怒();
 			if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.地势)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.地势);

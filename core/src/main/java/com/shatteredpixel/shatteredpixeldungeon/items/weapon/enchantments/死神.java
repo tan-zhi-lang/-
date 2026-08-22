@@ -13,9 +13,9 @@ public class 死神 extends Weapon.Enchantment {
 	@Override
 	public float proc( Weapon weapon, Char attacker, Char defender, float damage ) {
 		if(defender!=null){
-			if(defender.免疫(死神.class)){
-				return damage;
-			}
+//			if(defender.免疫(死神.class)){
+//				return damage;
+//			}
 
 
 			float maxChance=0.35f

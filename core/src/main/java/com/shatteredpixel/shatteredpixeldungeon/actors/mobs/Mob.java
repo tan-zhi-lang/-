@@ -86,7 +86,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.元素之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.杀戮之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
@@ -115,10 +115,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.幸运;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵能短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
@@ -1300,7 +1298,7 @@ public abstract class Mob extends Char{
 						}
 					if(Dungeon.hero.belongings.hasItem(干枯玫瑰.class)
 					   &&Dungeon.hero.belongings.getItem(干枯玫瑰.class).isEquipped(Dungeon.hero)
-					   &&!Dungeon.hero.belongings.getItem(干枯玫瑰.class).cursed&&Random.Int(7)==0)
+					   &&Random.Int(100)<=强度())
 						Dungeon.level.drop(new 干枯花瓣(),pos).sprite.drop();
 					if(Dungeon.符文("万魂幡力"))Dungeon.hero.魔力+=0.5f;
 					if(Dungeon.符文("牙仙子")){
@@ -1435,7 +1433,7 @@ public abstract class Mob extends Char{
 						Dungeon.hero.死亡时(null);
 					}
 
-					Dungeon.hero.护甲(Dungeon.hero.天赋点数(Talent.久战,4));
+					Dungeon.hero.回血(Dungeon.hero.天赋点数(Talent.久战,2.5f));
 
 					//击杀瞬移
 					//					Buff.施加(Dungeon.hero, GreaterHaste.class).set(Dungeon.hero.天赋点数(Talent.LETHAL_HASTE));
@@ -1472,7 +1470,7 @@ public abstract class Mob extends Char{
 
 			boolean soulMarked=buff(灵魂标记.class)!=null;
 
-			if(!(this instanceof Wraith)&&soulMarked&&防刷()&&Random.Float()<(Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
+			if(!(this instanceof Wraith)&&soulMarked&&Random.Float()<(Dungeon.hero.天赋点数(Talent.NECROMANCERS_MINIONS,0.13f))){
 				Wraith w=Wraith.spawnAt(pos,Wraith.class);
 				if(w!=null){
 					Buff.施加(w,Corruption.class);
@@ -1561,10 +1559,10 @@ public abstract class Mob extends Char{
 			//ring of wealth logic
 			if(财富之戒.getBuffedBonus(Dungeon.hero,财富之戒.Wealth.class)>0){
 				int rolls=1;
-				if(properties().contains(Property.BOSS)){
+				if(属性表().contains(Property.BOSS)){
 					rolls=15;
 				}else{
-					if(properties().contains(Property.MINIBOSS)){
+					if(属性表().contains(Property.MINIBOSS)){
 						rolls=5;
 					}
 				}
@@ -1751,7 +1749,7 @@ public abstract class Mob extends Char{
 				desc+=" == 攻击 == "+"/"+" ++ 防御 ++ "+kw2(最小攻击()*Dungeon.难度攻击(this))+"~"+kw2(最大攻击()*Dungeon.难度攻击(this));
 				desc+="/"+kw2(最小防御()*Dungeon.难度防御(this))+"~"+kw2(最大防御()*Dungeon.难度防御(this));
 				desc+="\n";
-				desc+=" ## 元素抗性/魔抗 ## :"+Math.round(100*(1-(RingOfElements.resist(this))))+"%/"
+				desc+=" ## 元素抗性/魔抗 ## :"+Math.round(100*(1-(元素之戒.抗性(this))))+"%/"
 					  +kw2(最小魔抗())+"~"+kw2(最大魔抗());
 				desc+="\n\n";
 				desc+=" ** 攻击范围 ** / _视野范围_ :"+攻击范围()+"/"+视野范围()+"\n";

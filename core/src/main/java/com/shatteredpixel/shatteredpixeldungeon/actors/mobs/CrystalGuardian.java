@@ -38,8 +38,8 @@ public class CrystalGuardian extends Mob{
 		SLEEPING = new Sleeping();
 		state = SLEEPING;
 
-		properties.add(Property.INORGANIC);
-		properties.add(Property.MINIBOSS);
+		属性表.add(Property.INORGANIC);
+		属性表.add(Property.MINIBOSS);
 	}
 
 	private boolean recovering = false;

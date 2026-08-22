@@ -8,11 +8,9 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
@@ -24,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Daze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
@@ -45,10 +44,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ShieldBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.SnipersMark;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Speed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Stamina;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
@@ -71,7 +68,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bee;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Brute;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalSpire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DwarfKing;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Gnoll;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollExile;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGeomancer;
@@ -95,7 +91,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.冰心;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
@@ -103,10 +98,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesi
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.元素之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.复仇卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
@@ -116,28 +109,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfFrost;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfPrismaticLight;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.冰海法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.棱镜法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
-import com.shatteredpixel.shatteredpixeldungeon.items.涂药.电击药物;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GnollRockfallTrap;
-import com.shatteredpixel.shatteredpixeldungeon.levels.traps.GrimTrap;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Languages;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Earthroot;
@@ -147,6 +129,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MobSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.元素类型;
 import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
@@ -159,7 +142,6 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
@@ -235,7 +217,7 @@ public abstract class Char extends Actor {
 		Dungeon.level.updateFieldOfView( this, fieldOfView );
 
 		//throw any items that are on top of an immovable char
-		if (properties().contains(Property.IMMOVABLE)){
+		if (属性表().contains(Property.IMMOVABLE)){
 			throwItems();
 		}
 		return false;
@@ -286,8 +268,8 @@ public abstract class Char extends Actor {
 		}
 
 		//can't swap into a space without room
-		if (properties().contains(Property.LARGE) && !Dungeon.level.openSpace[c.pos]
-			|| c.properties().contains(Property.LARGE) && !Dungeon.level.openSpace[pos]){
+		if (属性表().contains(Property.LARGE)&&!Dungeon.level.openSpace[c.pos]
+			||c.属性表().contains(Property.LARGE)&&!Dungeon.level.openSpace[pos]){
 			return true;
 		}
 
@@ -1097,12 +1079,12 @@ public abstract class Char extends Actor {
 			sprite.紫说("超载");//超载
 			return 2.75f;
 		}
-		if(在水中()&&雷电伤害(src)){
+		if(水伤害(src)&&雷电伤害(src)){
 			sprite.紫说("超导");//超导
 			Buff.施加(this,Vulnerable.class,5);
 			return 1.5f;
 		}
-		if(在水中()&&冰霜伤害(src)){
+		if(水伤害(src)&&冰霜伤害(src)){
 			sprite.青说("冻结");//冻结
 			算法.修复效果(()->{
 				Buff.施加(this,Frost.class,Frost.DURATION);
@@ -1114,12 +1096,12 @@ public abstract class Char extends Actor {
 			Buff.detach(this,Frost.class);
 			return 3;
 		}
-		if(雷电伤害(src)&&在水中()){
+		if(雷电伤害(src)&&水伤害(src)){
 			sprite.紫说("感电");//感电
 			new StoneOfShock().activate(pos);
 			return 2;
 		}
-		if(风伤害(src)&&(火焰伤害(src)||在水中()||雷电伤害(src)||冰霜伤害(src))){
+		if(风伤害(src)&&(火焰伤害(src)||水伤害(src)||雷电伤害(src)||冰霜伤害(src))){
 			sprite.白说("扩散");//扩散
 			return 1+0.6f;
 		}
@@ -1138,43 +1120,60 @@ public abstract class Char extends Actor {
 		return 1;
 	}
 	public boolean 火焰伤害(Object src){
-		return Property.FIERY.immunities().contains(src)||
-			   Property.FIERY.resistances().contains(src)||
-			   hasbuff(燃烧.class)||
-			   hasbuff(火毒.class)||
-			   hasbuff(灵焰.class);
+		for(Class c:元素类型.火焰){
+			if(hasbuff(c)){
+				return true;
+			}
+		}
+		return 元素类型.火焰.contains(src);
 	}
 	public boolean 冰霜伤害(Object src){
-		return Property.ICY.immunities().contains(src)||
-			   Property.ICY.resistances().contains(src)||
-			   hasbuff(Chill.class)||
-			   hasbuff(Frost.class);
+		for(Class c:元素类型.冰霜){
+			if(hasbuff(c)){
+				return true;
+			}
+		}
+		return 元素类型.冰霜.contains(src);
 	}
 	public boolean 酸性伤害(Object src){
-		return Property.ACIDIC.immunities().contains(src)||
-			   Property.ACIDIC.resistances().contains(src);
+		for(Class c:元素类型.毒){
+			if(hasbuff(c)){
+				return true;
+			}
+		}
+		return 元素类型.毒.contains(src);
 	}
-	public boolean 无机伤害(Object src){
-		return Property.INORGANIC.immunities().contains(src)||
-			   Property.INORGANIC.resistances().contains(src);
+	public boolean 血肉伤害(Object src){
+		for(Class c:元素类型.血肉害怕){
+			if(hasbuff(c)){
+				return true;
+			}
+		}
+		return 元素类型.血肉害怕.contains(src);
 	}
 
 	public boolean 土伤害(Object src){
-		return src instanceof WandOfLivingEarth||在地板();
+		return 元素类型.土.contains(src)||在地板();
 	}
 	public boolean 木伤害(Object src){
-		return src instanceof WandOfRegrowth||在木板()||在草丛();
+		return 元素类型.木.contains(src)||在木板()||在草丛();
 		//||
 		//			   hasbuff(Earthroot.Armor.class)||
 		//			   hasbuff(Barkskin.class)
 	}
+	public boolean 水伤害(Object src){
+		return 元素类型.水.contains(src)||在水中();
+	}
 	public boolean 风伤害(Object src){
-		return src instanceof WandOfBlastWave||hasbuff(Vertigo.class);
+		return 元素类型.风.contains(src);
 	}
 	public boolean 雷电伤害(Object src){
-		return Property.电.immunities().contains(src)||
-			   Property.电.resistances().contains(src)||
-			   hasbuff(Paralysis.class);
+		for(Class c:元素类型.电){
+			if(hasbuff(c)){
+				return true;
+			}
+		}
+		return 元素类型.电.contains(src);
 	}
 
 	public float 最小魔抗(){
@@ -1260,13 +1259,6 @@ public abstract class Char extends Actor {
 
 		元素反应(来源,dmg);
 
-		if(火焰伤害(来源))
-			dmg*=d火焰();
-		if(冰霜伤害(来源))
-			dmg*=d冰霜();
-		if(雷电伤害(来源))
-			dmg*=d雷电();
-
 		if(Dungeon.赛季(赛季设置.地牢塔防))
 			for(int n: PathFinder.范围6){
 				Char c=Actor.findChar(pos+n);
@@ -1320,7 +1312,8 @@ public abstract class Char extends Actor {
 		if (免疫( srcClass )) {
 			dmg = 0;
 		} else {
-			dmg *= resist( srcClass );
+			dmg *= 抗性计算(srcClass);
+			dmg *= 害怕计算(srcClass);
 		}
 
 		//we ceil these specifically to favor the player vs. champ dmg reduction
@@ -1330,7 +1323,7 @@ public abstract class Char extends Actor {
 //		}
 		
 		//TODO improve this when I have proper damage source logic
-		if (敌法.RESISTS.contains(来源.getClass())){
+		if (元素类型.RESISTS.contains(来源.getClass())){
 			if(Dungeon.hero()){
 				float 魔抗=Random.NormalFloat(最小魔抗(),最大魔抗());
 
@@ -1391,7 +1384,7 @@ public abstract class Char extends Actor {
 			finalChance *= 已损失生命();
 
 			if (Random.Float() < finalChance) {
-				float extraDmg = 生命 *resist(死神.class);
+				float extraDmg =生命*抗性计算(死神.class);
 				dmg += extraDmg;
 				生命 -= extraDmg;
 
@@ -1416,9 +1409,9 @@ public abstract class Char extends Actor {
 		
 		if (sprite != null) {
 			//defaults to normal damage icon if no other ones apply
-			int  icon = FloatingText.PHYS_DMG;
+			int  icon = FloatingText.物理伤害;
 //			if (NO_ARMOR_PHYSICAL_SOURCES.contains(来源.getClass())) icon = FloatingText.PHYS_DMG_NO_BLOCK;
-			if (敌法.RESISTS.contains(来源.getClass())) icon = FloatingText.MAGIC_DMG;
+			if (元素类型.RESISTS.contains(来源.getClass())) icon = FloatingText.魔法伤害;
 //			if (来源 instanceof 镐子) icon = FloatingText.PICK_DMG;
 
 			//special case for sniper when using ranged attacks
@@ -1433,18 +1426,24 @@ public abstract class Char extends Actor {
 //				icon = FloatingText.PHYS_DMG_NO_BLOCK;
 //			}
 
-//			if (来源 instanceof Hunger) icon = FloatingText.HUNGER;
-//			if (来源 instanceof 燃烧) icon = FloatingText.BURNING;
-//			if (来源 instanceof Chill||来源 instanceof Frost) icon = FloatingText.FROST;
+			if (来源 instanceof Hunger) icon = FloatingText.饥饿伤害;
+			if (来源 instanceof 燃烧||元素类型.火焰.contains(来源)) icon = FloatingText.火焰伤害;
+			if (来源 instanceof 灵焰) icon = FloatingText.灵焰伤害;
+			if (来源 instanceof 火毒) icon = FloatingText.火毒伤害;
+			if (元素类型.电.contains(来源)) icon = FloatingText.电伤害;
+			if (元素类型.冰霜.contains(来源)) icon = FloatingText.冰伤害;
+			if (元素类型.水.contains(来源)) icon = FloatingText.水伤害;
+			if (来源 instanceof 流血) icon = FloatingText.流血伤害;
+
+			if (来源 instanceof ToxicGas) icon = FloatingText.TOXIC;
+			if (来源 instanceof Corrosion) icon = FloatingText.CORROSION;
+			if (来源 instanceof Poison) icon = FloatingText.POISON;
+			if (来源 instanceof Ooze) icon = FloatingText.OOZE;
+			if (来源 instanceof 粘稠.DeferedDamage) icon = FloatingText.DEFERRED;
+
+			if (来源 instanceof Corruption) icon = FloatingText.CORRUPTION;
 //			if (来源 instanceof GeyserTrap||来源 instanceof StormCloud) icon = FloatingText.WATER;
 //			if (来源 instanceof Electricity) icon = FloatingText.SHOCKING;
-//			if (来源 instanceof 流血) icon = FloatingText.BLEEDING;
-//			if (来源 instanceof ToxicGas) icon = FloatingText.TOXIC;
-//			if (来源 instanceof Corrosion) icon = FloatingText.CORROSION;
-//			if (来源 instanceof Poison) icon = FloatingText.POISON;
-//			if (来源 instanceof Ooze) icon = FloatingText.OOZE;
-//			if (来源 instanceof Viscosity.DeferedDamage) icon = FloatingText.DEFERRED;
-//			if (来源 instanceof Corruption) icon = FloatingText.CORRUPTION;
 //			if (来源 instanceof AscensionChallenge) icon = FloatingText.AMULET;
 
 //			if ((icon == FloatingText.PHYS_DMG || icon == FloatingText.PHYS_DMG_NO_BLOCK) && hitMissIcon != -1){
@@ -1455,7 +1454,7 @@ public abstract class Char extends Actor {
 //			hitMissIcon = -1;
 			if((dmg + shielded>最大生命(SPDSettings.数值显示()*0.025f))&&!Dungeon.赛季(赛季设置.地牢塔防))//伤害显示
 			{
-				if (敌法.RESISTS.contains(来源.getClass()))
+				if (元素类型.RESISTS.contains(来源.getClass()))
 				sprite.showStatusWithIcon(CharSprite.蓝色,kw2(dmg+shielded),icon);
 //				else if(来源 instanceof 燃烧||来源 instanceof Corrosion)
 //					sprite.showStatusWithIcon(CharSprite.警告橙,dmg+shielded,icon);
@@ -1600,9 +1599,6 @@ public abstract class Char extends Actor {
 			//slowed and chilled do not stack
 		} else if (buff( Chill.class ) != null) {
 			timeScale *= buff( Chill.class ).speedFactor();
-		}
-		if (buff( Speed.class ) != null) {
-			timeScale *= 2.0f;
 		}
 		
 		super.spend( time / timeScale );
@@ -1758,7 +1754,7 @@ public abstract class Char extends Actor {
 			sprite.interruptMotion();
 			int newPos = pos + PathFinder.相邻[Random.Int(8)];
 			if (!(Dungeon.level.passable[newPos] || Dungeon.level.avoid[newPos])
-					|| (properties().contains(Property.LARGE) && !Dungeon.level.openSpace[newPos])
+					|| (属性表().contains(Property.LARGE)&&!Dungeon.level.openSpace[newPos])
 					|| Actor.findChar( newPos ) != null)
 				return;
 			else {
@@ -1845,48 +1841,56 @@ public abstract class Char extends Actor {
 	public void onOperateComplete() {
 		next();
 	}
-	
-	protected final HashSet<Class> 害怕 = new HashSet<>();
-	protected final HashSet<Class> resistances = new HashSet<>();
+
+	protected final HashSet<Class> 抗性表= new HashSet<>();
 
 	//returns percent effectiveness after resistances
 	//TODO currently resistances reduce effectiveness by a static 50%, and do not stack.
-	public float resist( Class effect ){
-		HashSet<Class> resists = new HashSet<>(resistances);
-		for (Property p : properties()){
-			resists.addAll(p.resistances());
+	public float 抗性计算(Class effect){
+		HashSet<Class> 抗性x= new HashSet<>(抗性表);
+		for (Property p : 属性表()){
+			抗性x.addAll(p.抗性());
 		}
 		for (Buff b : buffs()){
-			resists.addAll(b.resistances());
+			抗性x.addAll(b.抗性表());
 		}
 		float result = 1f;
-		for (Class c : resists){
+		for (Class c : 抗性x){
 			if (c.isAssignableFrom(effect)){
-				result *= 0.5f;
+				result *= 0.25f;
 			}
 		}
-		HashSet<Class> 害怕x = new HashSet<>(害怕);
+		return result*元素之戒.抗性(this,effect);
+	}
 
-		for (Property p : properties()){
-			resists.addAll(p.害怕());
+	protected final HashSet<Class> 害怕表= new HashSet<>();
+		public float 害怕计算(Class effect){
+		float result = 1f;
+		HashSet<Class> 害怕x = new HashSet<>(害怕表);
+
+		for (Property p : 属性表()){
+			害怕x.addAll(p.害怕());
 		}
+			for (Buff b : buffs()){
+				害怕x.addAll(b.害怕表());
+			}
 		for (Class c : 害怕x){
 			if (c.isAssignableFrom(effect)){
-				result *= 1.5f;
+				result *= 4;
 			}
 		}
-		return result * RingOfElements.resist(this, effect);
+		return result*元素之戒.害怕(this,effect);
 	}
-	
-	protected final HashSet<Class> immunities = new HashSet<>();
+
+	protected final HashSet<Class> 免疫表= new HashSet<>();
 	
 	public boolean 免疫(Class effect ){
-		HashSet<Class> immunes = new HashSet<>(immunities);
-		for (Property p : properties()){
-			immunes.addAll(p.immunities());
+		HashSet<Class> immunes = new HashSet<>(免疫表);
+		for (Property p : 属性表()){
+			immunes.addAll(p.免疫());
 		}
 		for (Buff b : buffs()){
-			immunes.addAll(b.immunities());
+			immunes.addAll(b.免疫表());
 		}
 		
 		for (Class c : immunes){
@@ -1903,96 +1907,71 @@ public abstract class Char extends Actor {
 		return buff(Challenge.SpectatorFreeze.class) != null || buff(Invulnerability.class) != null;
 	}
 
-	public HashSet<Property> properties = new HashSet<>();
+	public HashSet<Property> 属性表= new HashSet<>();
 
-	public HashSet<Property> properties() {
-		HashSet<Property> props = new HashSet<>(properties);
+	public HashSet<Property> 属性表() {
+		HashSet<Property> props = new HashSet<>(属性表);
 		//TODO any more of these and we should make it a property of the buff, like with resistances/immunities
 		if (buff(ChampionEnemy.Giant.class) != null) {
 			props.add(Property.LARGE);
 		}
 		return props;
 	}
-
 	public enum Property{
-		BOSS ( new HashSet<Class>( Arrays.asList(死神.class,GrimTrap.class,复仇卷轴.class,ScrollOfPsionicBlast.class)),
-				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) ),new HashSet<Class>()),
-		MINIBOSS ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class) ),new HashSet<Class>()),
-		BOSS_MINION,
+		BOSS ( 元素类型.老鬼),
+		MINIBOSS (元素类型.小老鬼),
+		老鬼傀儡,
 		傀儡,
-		UNDEAD,
-		DEMONIC,
-		昆虫( new HashSet<Class>(),
-			   new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
-																							   燃烧.class, Blazing.class))),
-		动物(new HashSet<Class>(),new HashSet<Class>(),new HashSet<Class>(Arrays.asList(
-				流血.class, ToxicGas.class, Poison.class,
+		UNDEAD(元素类型.无机免疫,null,元素类型.雷光),
+		DEMONIC(null,null,元素类型.光),
+		昆虫(null,null,元素类型.雷火),
 
-				Corrosion.class,
-				Ooze.class,
+		动物(null,null,元素类型.血肉害怕),
+		树妖(null,null,元素类型.雷火),
+		海妖( null,null,元素类型.毒电),
 
-				WandOfFrost.class,冰海法杖.class, Elemental.FrostElemental.class,
-				Frost.class, Chill.class,
-
-				焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
-				燃烧.class, Blazing.class))),
-		树妖(new HashSet<Class>(),new HashSet<Class>(),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
-																						燃烧.class,Blazing.class))),
-		海妖( new HashSet<Class>(),
-			  new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
-																							  燃烧.class, Blazing.class))),
-		光明( new HashSet<Class>(),
-			  new HashSet<Class>( Arrays.asList(WandOfPrismaticLight.class,棱镜法杖.class) ),new HashSet<Class>()),
-
-		INORGANIC ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(流血.class, ToxicGas.class, Poison.class) ),new HashSet<Class>()),
-		FIERY ( new HashSet<Class>( Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class)),
-				new HashSet<Class>( Arrays.asList(燃烧.class, Blazing.class)),new HashSet<Class>(
-				Arrays.asList(WandOfFrost.class,冰海法杖.class, Elemental.FrostElemental.class,
-							  Frost.class, Chill.class))),
-		ICY ( new HashSet<Class>( Arrays.asList(WandOfFrost.class,冰海法杖.class,Elemental.FrostElemental.class)),
-				new HashSet<Class>( Arrays.asList(Frost.class, Chill.class)),new HashSet<Class>(
-				Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
-				燃烧.class, Blazing.class))),
-		ACIDIC ( new HashSet<Class>( Arrays.asList(Corrosion.class)),
-				new HashSet<Class>( Arrays.asList(Ooze.class)),new HashSet<Class>(Arrays.asList(焰浪法杖.class,火毒.class,Elemental.FireElemental.class,
-																								燃烧.class, Blazing.class))),
+		INORGANIC ( null,元素类型.无机免疫),
+		FIERY (null,元素类型.火焰,元素类型.冰霜),
+		ICY (null,元素类型.冰霜,元素类型.火焰),
+		ACIDIC (null,元素类型.毒,元素类型.火焰),
 		//ELECTRIC
-		电(new HashSet<Class>(Arrays.asList(WandOfLightning.class,潮霆法杖.class,电击.class,
-											Electricity.class,电击药物.class,Elemental.ShockElemental.class)),new HashSet<Class>(),
-		   new HashSet<Class>()),
+		电(null,元素类型.电),
 		LARGE,
-		IMMOVABLE ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Vertigo.class) ),new HashSet<Class>()),
-		//A character that acts in an unchanging manner. immune to AI state debuffs or stuns/slows
-		STATIC( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(AllyBuff.class, Dread.class, Terror.class, Amok.class, Charm.class, Sleep.class,
-									Paralysis.class, Frost.class, Chill.class, Slow.class, Speed.class) ),new HashSet<Class>())
-		,机械( new HashSet<Class>(电.resistances),
-			 new HashSet<Class>(电.immunities),new HashSet<Class>(电.害怕)),
+		IMMOVABLE ( null,元素类型.不能移动),//免疫AI状态减益或晕眩减速
+		STATIC( null,元素类型.静态),
+		机械(null,元素类型.电),
 		;
 
-		private HashSet<Class> resistances;
-		private HashSet<Class> immunities;
+		private HashSet<Class> 抗性;
+		private HashSet<Class> 免疫;
 		private HashSet<Class> 害怕;
 
 		Property(){
-			this(new HashSet<Class>(), new HashSet<Class>(), new HashSet<Class>());
+			this(null,null,null);
 		}
 		
-		Property( HashSet<Class> resistances, HashSet<Class> immunities, HashSet<Class> 害怕){
-			this.resistances = resistances;
-			this.immunities = immunities;
-			this.害怕 = 害怕;
+		Property(HashSet<Class> 免疫){
+			this(null,免疫,null);
+		}
+		Property(HashSet<Class> 抗性,HashSet<Class> 免疫){
+			this(抗性,免疫,null);
+		}
+		Property(HashSet<Class> 抗性,HashSet<Class> 免疫,HashSet<Class> 害怕){
+			if(抗性==null)抗性=new HashSet<Class>();
+			if(免疫==null)免疫=new HashSet<Class>();
+			if(害怕==null)害怕=new HashSet<Class>();
+
+			this.抗性=抗性;
+			this.免疫=免疫;
+			this.害怕=害怕;
 		}
 		
-		public HashSet<Class> resistances(){
-			return new HashSet<>(resistances);
+		public HashSet<Class> 抗性(){
+			return new HashSet<>(抗性);
 		}
 		
-		public HashSet<Class> immunities(){
-			return new HashSet<>(immunities);
+		public HashSet<Class> 免疫(){
+			return new HashSet<>(免疫);
 		}
 		public HashSet<Class> 害怕(){
 			return new HashSet<>(害怕);
@@ -2000,7 +1979,7 @@ public abstract class Char extends Actor {
 	}
 
 	public static boolean hasProp( Char ch, Property p){
-		return (ch != null && ch.properties().contains(p));
+		return (ch != null && ch.属性表().contains(p));
 	}
 	public float 生命力(){
 		return (float)Math.sqrt(最大生命);
@@ -2010,10 +1989,10 @@ public abstract class Char extends Actor {
 	}
 	public void 护甲(float x){
 		if(x>最大护甲(SPDSettings.数值显示()*0.025f))
-			sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.SHIELDING);
+			sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.护盾护甲数值);
 
 		if(x<-最大护甲(SPDSettings.数值显示()*0.025f))
-			sprite.showStatusWithIcon(CharSprite.削弱红,kw2(x),FloatingText.SHIELDING);
+			sprite.showStatusWithIcon(CharSprite.削弱红,kw2(x),FloatingText.护盾护甲数值);
 
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲);
 	}
@@ -2135,7 +2114,7 @@ public abstract class Char extends Actor {
 
 			if (pos!=-1&&Dungeon.level!=null&&Dungeon.level.heroFOV[pos]){
 				if(x>最大生命(SPDSettings.数值显示()*0.025f)&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
-					sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.HEALING);
+					sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.回血数值);
 					sprite.emitter().burst(Speck.factory(Speck.HEALING),Math.min(6,x/25));
 				}
 			}
@@ -2362,14 +2341,58 @@ public abstract class Char extends Actor {
 
 	public void 扔出(int to,Item item,Callback c){
 		if(item instanceof Weapon w)w.hitSound(1);
+		MissileSprite m=((MissileSprite) sprite.parent.recycle(MissileSprite.class));
+		m.reset(sprite,
+				to,
+				item,
+				c);
+	}
+
+	int flurryCount = -1;
+	Actor flurryActor = null;
+	public void 扔出(int to,Item item,Callback c,int 次数){
+		if(item instanceof Weapon w)w.hitSound(1);
+
+		if(flurryCount==-1)flurryCount=次数;
 
 		MissileSprite m=((MissileSprite) sprite.parent.recycle(MissileSprite.class));
 		m.reset(sprite,
 				to,
 				item,
-				c
+				()->{
+					c.call();
+
+
+					flurryCount--;
+					if (flurryCount > 0){
+						Actor.add(new Actor() {
+
+							{
+								actPriority = VFX_PRIO-1;
+							}
+
+							@Override
+							protected boolean act() {
+								flurryActor = this;
+								扔出(to,item,c,flurryCount);
+								Actor.remove(this);
+								return false;
+							}
+						});
+						next();
+					} else {
+						flurryCount = -1;
+					}
+					if (flurryActor != null){
+						flurryActor.next();
+						flurryActor = null;
+					}
+				}
 			   );
+
+
 	}
+
 	public float 强度(){
 		float 强度=Dungeon.区域()*0.1f;
 		if(老鬼()||小老鬼())强度=0.5f;
@@ -2380,40 +2403,19 @@ public abstract class Char extends Actor {
 
 		return !老鬼()&&!傀儡()&&!老鬼傀儡();
 	}
-	public float d火焰(){
-		float x=1;
-
-		if(酸性()||树妖()||海妖()||昆虫())x*=2;
-
-		if(火焰()) x/=2;
-		if(冰霜()) x*=2;
-
-		return x;
-	}
-	public float d冰霜(){
-		float x=1;
-		if(冰霜()) x/=2;
-		if(火焰())x*=2;
-		return x;
-	}
-	public float d雷电(){
-		float x=1;
-		if(动物())x*=2;
-		return x;
-	}
 	public boolean 恶魔(){
 		if(Dungeon.符文("白骨皮肉"))return true;
-		return properties().contains(Property.DEMONIC);
+		return 属性表().contains(Property.DEMONIC);
 	}
 	public boolean 亡灵(){
 		if(Dungeon.符文("白骨皮肉"))return true;
-		return properties().contains(Property.UNDEAD);
+		return 属性表().contains(Property.UNDEAD);
 	}
 	public boolean 恶魔亡灵(){
 		return 恶魔()||亡灵();
 	}
 	public boolean 老鬼(){
-		return properties().contains(Property.BOSS);
+		return 属性表().contains(Property.BOSS);
 	}
 	public boolean 豺狼(){
 		if(this instanceof Brute||
@@ -2429,51 +2431,51 @@ public abstract class Char extends Actor {
 		return false;
 	}
 	public boolean 老鬼傀儡(){
-		return properties().contains(Property.BOSS_MINION);
+		return 属性表().contains(Property.老鬼傀儡);
 	}
 	public boolean 傀儡(){
-		return properties().contains(Property.傀儡);
+		return 属性表().contains(Property.傀儡);
 	}
 	public boolean 小老鬼(){
-		return properties().contains(Property.MINIBOSS);
+		return 属性表().contains(Property.MINIBOSS);
 	}
 	public boolean 庞大(){
-		return properties().contains(Property.LARGE);
+		return 属性表().contains(Property.LARGE);
 	}
 	public boolean 无机物(){
-		return properties().contains(Property.INORGANIC);
+		return 属性表().contains(Property.INORGANIC);
 	}
 	public boolean 火焰(){
-		return properties().contains(Property.FIERY);
+		return 属性表().contains(Property.FIERY);
 	}
 	public boolean 冰霜(){
-		return properties().contains(Property.ICY);
+		return 属性表().contains(Property.ICY);
 	}
 	public boolean 酸性(){
-		return properties().contains(Property.ACIDIC);
+		return 属性表().contains(Property.ACIDIC);
 	}
 	public boolean 闪电(){
-		return properties().contains(Property.电);
+		return 属性表().contains(Property.电);
 	}
 	public boolean 低活动度生物(){
-		return properties().contains(Property.STATIC);
+		return 属性表().contains(Property.STATIC);
 	}
 	public boolean 静物(){
-		return properties().contains(Property.IMMOVABLE);
+		return 属性表().contains(Property.IMMOVABLE);
 	}
 	public boolean 动物(){
-		return properties().contains(Property.动物);
+		return 属性表().contains(Property.动物);
 	}
 	public boolean 昆虫(){
-		return properties().contains(Property.昆虫);
+		return 属性表().contains(Property.昆虫);
 	}
 	public boolean 树妖(){
-		return properties().contains(Property.树妖);
+		return 属性表().contains(Property.树妖);
 	}
 	public boolean 海妖(){
-		return properties().contains(Property.海妖);
+		return 属性表().contains(Property.海妖);
 	}
 	public boolean 机械(){
-		return properties().contains(Property.机械);
+		return 属性表().contains(Property.机械);
 	}
 }

@@ -34,7 +34,7 @@ public class Dread extends Buff {
 	}
 
 	{
-		immunities.add(Terror.class);
+		免疫表.add(Terror.class);
 	}
 
 	@Override

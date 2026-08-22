@@ -670,8 +670,8 @@ public class CursedWand {
 			Char ch = Actor.findChar( bolt.collisionPos );
 			if (ch != null && !(ch instanceof Hero)
 					//ignores bosses, questgivers, rat king, etc.
-					&& !ch.properties().contains(Char.Property.BOSS)
-					&& !ch.properties().contains(Char.Property.MINIBOSS)
+					&& !ch.属性表().contains(Char.Property.BOSS)
+					&& !ch.属性表().contains(Char.Property.MINIBOSS)
 					&& !(ch instanceof NPC && ch.alignment == Char.Alignment.NEUTRAL)){
 				return true;
 			} else {

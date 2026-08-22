@@ -39,7 +39,7 @@ public class Guard extends Mob {
 		loot = Generator.Category.ARMOR;
 		lootChance = 0.2f; //by default, see lootChance()
 
-		properties.add(Property.UNDEAD);
+		属性表.add(Property.UNDEAD);
 		
 		HUNTING = new Hunting();
 	}
@@ -54,7 +54,7 @@ public class Guard extends Mob {
 	}
 
 	private boolean chain(int target){
-		if (chainsUsed || enemy.properties().contains(Property.IMMOVABLE))
+		if (chainsUsed || enemy.属性表().contains(Property.IMMOVABLE))
 			return false;
 
 		Ballistica chain = new Ballistica(pos, target, Ballistica.PROJECTILE);
@@ -82,7 +82,8 @@ public class Guard extends Mob {
 
 				if (sprite.visible || enemy.sprite.visible) {
 					yell(Messages.get(this, "scorpion"));
-					new Item().throwSound();
+					Sample.INSTANCE.play(Assets.Sounds.MISS, 0.6f, 0.6f, 1.5f);
+
 					Sample.INSTANCE.play(Assets.Sounds.CHAINS);
 					sprite.parent.add(new Chains(sprite.center(),
 							enemy.sprite.destinationCenter(),

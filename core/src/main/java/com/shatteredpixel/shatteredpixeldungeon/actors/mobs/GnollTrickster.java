@@ -37,8 +37,8 @@ public class GnollTrickster extends Gnoll {
 		loot =火毒箭矢.class;
 		
 
-		properties.add(Property.MINIBOSS);
-		properties.add(Property.动物);
+		属性表.add(Property.MINIBOSS);
+		属性表.add(Property.动物);
 	}
 
 	private int combo = 0;

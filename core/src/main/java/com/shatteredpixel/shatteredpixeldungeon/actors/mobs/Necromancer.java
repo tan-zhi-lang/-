@@ -41,7 +41,7 @@ public class Necromancer extends Mob {
 		loot = 治疗药剂.class;
 		lootChance = 0.2f; //see lootChance()
 		
-		properties.add(Property.UNDEAD);
+		属性表.add(Property.UNDEAD);
 		
 		HUNTING = new Hunting();
 	}
@@ -406,7 +406,7 @@ public class Necromancer extends Mob {
 			
 			//20/25 health to start
 //			生命 = 20;
-			properties.add(Property.傀儡);
+			属性表.add(Property.傀儡);
 		}
 
 		private Necromancer 主人;

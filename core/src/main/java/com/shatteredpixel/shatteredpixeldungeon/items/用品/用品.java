@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.用品;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 
@@ -40,6 +41,8 @@ public class 用品 extends Item{
 				hero.spend(1f);
 				hero.busy();
 			}
+			hero.回血(hero.天赋点数(Talent.备战));
+			hero.护甲(hero.天赋点数(Talent.武装,2));
 
 			if(!重复使用){
 				if(完全消耗)detachAll();

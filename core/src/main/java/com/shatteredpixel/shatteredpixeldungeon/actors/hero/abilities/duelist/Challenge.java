@@ -146,7 +146,7 @@ public class Challenge extends ArmorAbility {
 		boolean bossTarget = Char.hasProp(targetCh, Char.Property.BOSS);
 		for (Char toFreeze : Actor.chars()){
 			if (toFreeze != targetCh && toFreeze.alignment != Char.Alignment.ALLY && !(toFreeze instanceof NPC)
-				&& (!bossTarget || !(Char.hasProp(targetCh, Char.Property.BOSS) || Char.hasProp(targetCh, Char.Property.BOSS_MINION)))) {
+				&& (!bossTarget || !(Char.hasProp(targetCh, Char.Property.BOSS) || Char.hasProp(targetCh, Char.Property.老鬼傀儡)))) {
 				Actor.delayChar(toFreeze, DuelParticipant.DURATION);
 				Buff.施加(toFreeze, SpectatorFreeze.class, DuelParticipant.DURATION);
 			}
@@ -324,7 +324,7 @@ public class Challenge extends ArmorAbility {
 		}
 
 		{
-			immunities.addAll(new BlobImmunity().immunities());
+			免疫表.addAll(new BlobImmunity().免疫表());
 		}
 
 	}

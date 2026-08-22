@@ -242,7 +242,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 金铲铲)return true;
 		if(this instanceof 修理扳手)return true;
 		if(this instanceof 回旋镖)return true;
-		if(this instanceof 枪械)return true;
+		if(this instanceof 枪械 x&&x.开火效果)return true;
 		return false;
 	}
 	public boolean 鞭(){
@@ -332,10 +332,18 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 双手(){
+		if(this instanceof 镶钉手套)return true;
+		if(this instanceof 血姬)return true;
+		if(this instanceof 白带)return true;
+		if(this instanceof 指虎)return true;
+		if(this instanceof 臂铠)return true;
+		if(this instanceof 星云拳套)return true;
+		if(this instanceof 投掷手套)return true;
+		if(this instanceof 魔岩拳套)return true;
+
 		if(this instanceof 双刃)return true;
 		if(this instanceof 狼筅)return true;
-		if(this instanceof 镶钉手套)return true;
-		if(this instanceof 投掷手套)return true;
+
 		if(this instanceof 鹿角刀)return true;
 		if(this instanceof 誓刃)return true;
 		if(this instanceof 木棍)return true;
@@ -350,7 +358,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 巨剑)return true;
 		if(this instanceof 战锤)return true;
 		if(this instanceof 巨斧)return true;
-		if(this instanceof 魔岩拳套)return true;
+
 		if(this instanceof 战镰)return true;
 		if(this instanceof 关刀)return true;
 		if(this instanceof 无尽之刃)return true;
@@ -363,10 +371,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 闪电双截棍)return true;
 		if(this instanceof 猩红散华)return true;
 		if(this instanceof 重锤)return true;
-		if(this instanceof 白带)return true;
-		if(this instanceof 臂铠)return true;
 		if(this instanceof 长矛)return true;
-		if(this instanceof 血姬)return true;
 
 		if(this instanceof 短弓)return true;
 		if(this instanceof 冰结短弓)return true;

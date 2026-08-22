@@ -136,7 +136,7 @@ public class EtherealChains extends Artifact {
 	//pulls an enemy to a position along the chain's path, as close to the hero as possible
 	private void chainEnemy( Ballistica chain, final Hero hero, final Char enemy ){
 
-		if (enemy.properties().contains(Char.Property.IMMOVABLE)) {
+		if (enemy.属性表().contains(Char.Property.IMMOVABLE)) {
 			GLog.橙(Messages.get(this,"cant_pull"));
 			return;
 		}
@@ -166,7 +166,8 @@ public class EtherealChains extends Artifact {
 		}
 
 		hero.busy();
-		throwSound();
+		Sample.INSTANCE.play(Assets.Sounds.MISS, 0.6f, 0.6f, 1.5f);
+
 		Sample.INSTANCE.play( Assets.Sounds.CHAINS );
 		hero.sprite.parent.add(new Chains(hero.sprite.center(),
 				enemy.sprite.center(),
@@ -235,7 +236,8 @@ public class EtherealChains extends Artifact {
 		}
 		
 		hero.busy();
-		throwSound();
+		Sample.INSTANCE.play(Assets.Sounds.MISS, 0.6f, 0.6f, 1.5f);
+
 		Sample.INSTANCE.play( Assets.Sounds.CHAINS );
 		hero.sprite.parent.add(new Chains(hero.sprite.center(),
 				DungeonTilemap.raisedTileCenterToWorld(newHeroPos),

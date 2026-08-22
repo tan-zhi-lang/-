@@ -16,7 +16,7 @@ public class HermitCrab extends Crab {
 
 		//3x more likely to drop meat, and drops a guaranteed armor
 		lootChance = 0.5f;
-		properties.add(Property.海妖);
+		属性表.add(Property.海妖);
 	}
 
 	@Override

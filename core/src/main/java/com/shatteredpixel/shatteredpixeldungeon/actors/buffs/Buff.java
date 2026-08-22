@@ -38,16 +38,19 @@ public class Buff extends Actor {
 	//whether a buff should persist through revive effects or similar (e.g. transmogrify)
 	public boolean revivePersists = false;
 	
-	protected HashSet<Class> resistances = new HashSet<>();
-	
-	public HashSet<Class> resistances() {
-		return new HashSet<>(resistances);
+	protected HashSet<Class> 抗性表= new HashSet<>();
+	public HashSet<Class> 抗性表() {
+		return new HashSet<>(抗性表);
 	}
 	
-	protected HashSet<Class> immunities = new HashSet<>();
-	
-	public HashSet<Class> immunities() {
-		return new HashSet<>(immunities);
+	protected HashSet<Class> 免疫表= new HashSet<>();
+	public HashSet<Class> 免疫表() {
+		return new HashSet<>(免疫表);
+	}
+
+	protected HashSet<Class> 害怕表 = new HashSet<>();
+	public HashSet<Class> 害怕表() {
+		return new HashSet<>(害怕表);
 	}
 	
 	public boolean attachTo( Char target ) {
@@ -178,7 +181,7 @@ public class Buff extends Actor {
 
 	public static<T extends FlavourBuff> T 新增(Char target, Class<T> buffClass, float duration ) {
 		T buff = 新增( target, buffClass );
-		buff.spend( duration * target.resist(buffClass) );
+		buff.spend( duration * target.抗性计算(buffClass));
 		return buff;
 	}
 	public static<T extends FlavourBuff> T 冷却(Char target, Class<T> buffClass, float duration ,String name) {
@@ -204,7 +207,7 @@ public class Buff extends Actor {
 	//affect
 	public static<T extends FlavourBuff> T 施加(Char target, Class<T> buffClass, float duration ) {
 		T buff = 施加( target, buffClass );
-		buff.spend( duration * target.resist(buffClass) );
+		buff.spend( duration * target.抗性计算(buffClass));
 		return buff;
 	}
 
@@ -232,7 +235,7 @@ public class Buff extends Actor {
 	//postpones an already active buff, or creates & attaches a new buff and delays that.
 	public static<T extends FlavourBuff> T 延长(Char target, Class<T> buffClass, float duration ) {//没有新增
 		T buff = 施加( target, buffClass );
-		buff.postpone( duration * target.resist(buffClass) );
+		buff.postpone( duration * target.抗性计算(buffClass));
 		return buff;
 	}
 

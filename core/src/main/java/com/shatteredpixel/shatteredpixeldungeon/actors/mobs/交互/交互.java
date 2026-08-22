@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 public class 交互 extends Mob{
 	{
 		alignment = Alignment.NEUTRAL;
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 	}
 	@Override
 	public int 最大闪避(Char enemy ) {

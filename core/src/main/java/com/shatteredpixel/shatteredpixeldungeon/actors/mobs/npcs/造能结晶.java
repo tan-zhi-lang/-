@@ -29,8 +29,8 @@ public class 造能结晶 extends NPC {
 		
 		alignment = Alignment.ALLY;
 		
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.INORGANIC);
 		
 		viewDistance = 4;
 		state = WANDERING;
@@ -155,11 +155,11 @@ public class 造能结晶 extends NPC {
 	}
 	
 	{
-		immunities.add( Sleep.class);
-		immunities.add( Terror.class);
-		immunities.add( Dread.class);
-		immunities.add( Vertigo.class);
-		immunities.add( AllyBuff.class);
+		免疫表.add(Sleep.class);
+		免疫表.add(Terror.class);
+		免疫表.add(Dread.class);
+		免疫表.add(Vertigo.class);
+		免疫表.add(AllyBuff.class);
 	}
 	
 	private static final String TIER = "tier";

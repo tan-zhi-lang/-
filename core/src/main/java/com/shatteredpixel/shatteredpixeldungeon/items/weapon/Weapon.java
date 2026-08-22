@@ -1022,11 +1022,13 @@ abstract public class Weapon extends KindOfWeapon {
 		if (circlingBack){
 			x+=0.4f;
 		}
-		if (target!=null&&Dungeon.level.距离(owner.pos,target.pos)<=范围) {
+		if (target!=null&&Dungeon.level.距离(owner.pos,target.pos)<=owner.攻击范围()) {
 			//抵近射击非近距离
-			int 合适距离=Dungeon.level.距离(owner.pos,target.pos)-范围;
-			if(合适距离>0)
-			x-=Math.max(0.4f,合适距离*0.05f);
+			int 合适距离=Dungeon.level.距离(owner.pos,target.pos)-owner.攻击范围();
+			if(合适距离>0){
+
+				x-=Math.min(0.4f,owner.攻击范围()*0.1f);
+			}
 		} else {
 			x-=0.4f;
 		}
@@ -1185,7 +1187,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public enum Augment {
 		DAMAGE  (1.12f, 1,1),
 		DELAY(1,0.88f,1),
-		ACCURACY  (1, 1,1.25f),
+		ACCURACY  (1, 1,1.18f),
 		NONE	(1,1,1);
 
 		private float damageFactor;

@@ -8,7 +8,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.矮人国王的皇冠;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -26,7 +25,7 @@ public class RatKing extends NPC {
 	{
 		spriteClass = RatKingSprite.class;
 		state = SLEEPING;
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 	
 	@Override

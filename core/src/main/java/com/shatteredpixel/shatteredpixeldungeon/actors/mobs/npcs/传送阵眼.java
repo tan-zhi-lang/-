@@ -20,7 +20,7 @@ public class 传送阵眼 extends NPC {
 
 	{
 		spriteClass = 传送阵眼动画.class;
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 	}
 
 

@@ -40,8 +40,8 @@ public class GreatCrab extends Crab {
 		loot = 巨大蟹钳.class;
 		
 
-		properties.add(Property.MINIBOSS);
-		properties.add(Property.海妖);
+		属性表.add(Property.MINIBOSS);
+		属性表.add(Property.海妖);
 	}
 
 	private int moving = 0;

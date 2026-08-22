@@ -82,8 +82,8 @@ public class 潜伏 extends Buff implements ActionIndicator.Action {
 		}
 		
 		public boolean canKO(Char defender){
-			if (defender.properties().contains(Char.Property.MINIBOSS)
-					|| defender.properties().contains(Char.Property.BOSS)){
+			if (defender.属性表().contains(Char.Property.MINIBOSS)
+					|| defender.属性表().contains(Char.Property.BOSS)){
 				return (defender.生命 /(float)defender.最大生命) < (KOThreshold()/5f);
 			} else {
 				return (defender.生命 /(float)defender.最大生命) < KOThreshold();

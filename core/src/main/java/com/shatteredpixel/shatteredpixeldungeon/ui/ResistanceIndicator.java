@@ -34,15 +34,15 @@ public class ResistanceIndicator extends Component {
 			float x1=0;
 			if(i==0){
 				s="火焰伤害";
-				x1=charRef.d火焰();
+//				x1=charRef.d火焰();
 			}
 			if(i==1){
 				s="冰霜伤害";
-				x1=charRef.d冰霜();
+//				x1=charRef.d冰霜();
 			}
 			if(i==2){
 				s="雷电伤害";
-				x1=charRef.d雷电();
+//				x1=charRef.d雷电();
 			}
 
 			RenderedText txt = makePercentText(s,x1);

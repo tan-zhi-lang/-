@@ -43,6 +43,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Blacksmith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
+import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.FlowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SacrificialParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WindParticle;
@@ -71,22 +73,23 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.冲锋枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.手枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.火炮子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.狙击枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.霰弹枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.火炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.狙击枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.霰弹枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.石头;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.冲锋枪子弹;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.手枪子弹;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.火炮子弹;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.狙击枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.进阶宝典;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.霰弹枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Door;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.HighGrass;
@@ -836,7 +839,7 @@ public abstract class Level implements Bundlable {
 	public int mobCount(){
 		float count = 0;
 		for (Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
-			if (mob.alignment == Char.Alignment.ENEMY && !mob.properties().contains(Char.Property.MINIBOSS)) {
+			if (mob.alignment == Char.Alignment.ENEMY && !mob.属性表().contains(Char.Property.MINIBOSS)) {
 				count += mob.spawningWeight();
 			}
 		}
@@ -1255,70 +1258,42 @@ public abstract class Level implements Bundlable {
 	
 	public void dropRandomCell( Item item, int cell) {
 		dropRandomCell(item,1,cell);
-	}
-	public void dropRandomCell( Item item,int 范围, int cell) {
+	}public void dropRandomCell(Item item, int 范围, int cell) {
+		int length = Dungeon.level.length();
+		int[] offsets = PathFinder.x范围(范围);   // 辅助方法见下方
 
-		int width=Dungeon.level.width();
-		for (int i = 1; i <= item.数量(); i++){
+		for (int i = 1; i <= item.数量(); i++) {
+			int target = cell;
+			int attempts = 0;
+			final int MAX_ATTEMPTS = 30;
 
-			int ofs = 0;
-			int currentRange = 范围;          // 使用临时变量，不修改原范围
-			boolean found = false;
+			do {
+				int ofs = offsets[Random.Int(offsets.length)];
+				int pos = cell + ofs;
+				attempts++;
 
-			while (currentRange >= 1 && !found) {
-				try {
-					do {
-						// 根据当前范围选择偏移数组
-						int[] arr;
-						switch (currentRange) {
-							case 1:  arr = PathFinder.相邻; break;
-							case 2:  arr = PathFinder.范围2; break;
-							case 3:  arr = PathFinder.范围3; break;
-							case 4:  arr = PathFinder.范围4; break;
-							case 5:  arr = PathFinder.范围5; break;
-							case 6:  arr = PathFinder.范围6; break;
-							case 7:  arr = PathFinder.范围7; break;
-							case 8:  arr = PathFinder.范围8; break;
-							default: arr = PathFinder.相邻; break;
-						}
-						ofs = arr[Random.Int(arr.length)];
-
-						if (extracted(i, width)) {
-							continue;   // 超出地图边界，重新选偏移
-						}
-						int col = i % width;
-						if (col == 0 || col == width - 1) {
-							continue;   // 跳过最左/最右列
-						}
-					} while (solid[cell + ofs] && !passable[cell + ofs]);
-					// 正常退出 do-while，说明找到合适偏移
-					found = true;
-				} catch (Exception e) {
-					// 发生异常（通常为数组越界），范围减 1 后重试
-					currentRange--;
+				if (pos >= 0 && pos < length &&
+					!Dungeon.level.solid[pos] &&
+					Dungeon.level.passable[pos] &&
+					Actor.findChar(pos) == null) {
+					target = pos;
+					break;
 				}
-			}
 
-			// 保底处理：如果所有范围都失败，使用相邻数组（范围=1）再尝试一次
-			if (!found) {
-				do {
-					ofs = PathFinder.相邻[Random.Int(PathFinder.相邻.length)];
-					if (extracted(i, width)) continue;
-					int col = i % width;
-					if (col == 0 || col == width - 1) continue;
-				} while (solid[cell + ofs] && !passable[cell + ofs]);
-				// 这里若仍失败会死循环，与原逻辑一致（原最内层 catch 为空）
-			}
+				if (attempts >= MAX_ATTEMPTS) {
+					target = cell;   // 保底
+					break;
+				}
+			} while (true);
+			if(item instanceof 坠牢之星){
+				Splash.at(target,0xFFFF00,1);
+				CellEmitter.get(target).burst(Speck.factory(Speck.STAR),4);
 
-			if (heaps.get(cell+ofs) == null) {
-				drop(item,cell+ofs).sprite().drop(cell+ofs,4);
-			} else {
-				drop(item, cell + ofs).sprite().drop(cell + ofs,4);
 			}
+			drop(item, target).sprite().drop(target, 4);
 		}
-
-
 	}
+
 
 	private boolean extracted(int i,int width){
 		// 跳过第一行、最后一行

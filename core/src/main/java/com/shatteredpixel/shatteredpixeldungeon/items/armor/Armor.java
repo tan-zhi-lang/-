@@ -24,7 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.代谢;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.冰心;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.同位素;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.守护;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.元法;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐石;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
@@ -944,7 +944,7 @@ public class Armor extends EquipableItem {
 				磐石.class,//
 
 				迅捷.class,//
-				敌法.class,//
+				元法.class,//
 				虐待.class,//
 				代谢.class,//
 

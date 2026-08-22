@@ -499,8 +499,8 @@ public class DriedRose extends Artifact {
 			
 			state = HUNTING;
 			
-			properties.add(Property.UNDEAD);
-			properties.add(Property.INORGANIC);
+			属性表.add(Property.UNDEAD);
+			属性表.add(Property.INORGANIC);
 		}
 		
 		private DriedRose rose = null;
@@ -833,11 +833,11 @@ public class DriedRose extends Artifact {
 		}
 		
 		{
-			immunities.add( CorrosiveGas.class );
-			immunities.add( 燃烧.class );
-			immunities.add( 复仇卷轴.class);
-			immunities.add( ScrollOfPsionicBlast.class );
-			immunities.add( AllyBuff.class );
+			免疫表.add(CorrosiveGas.class);
+			免疫表.add(燃烧.class);
+			免疫表.add(复仇卷轴.class);
+			免疫表.add(ScrollOfPsionicBlast.class);
+			免疫表.add(AllyBuff.class);
 		}
 
 	}

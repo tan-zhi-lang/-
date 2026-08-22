@@ -159,9 +159,9 @@ public class Pasty extends Food {
 				break;
 			case 七夕节:
 				hero.力量+=0.1f;
-				hero.生命成长+=10f;
-				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"0.1",FloatingText.STRENGTH);
-				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10",FloatingText.HEALING);
+				hero.生命成长+=2f;
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"0.1",FloatingText.力量数值);
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10",FloatingText.回血数值);
 				GLog.绿(Messages.get(潜力药剂.class,"msg"));
 
 				break;
@@ -171,7 +171,7 @@ public class Pasty extends Food {
 			case SHATTEREDPD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
 				int expToGive = Math.max(2, hero.升级所需()/10);
-				hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(expToGive),FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(expToGive),FloatingText.经验数值);
 				hero.经验(expToGive, 经验药剂.class);
 				break;
 			case 万圣节:
@@ -181,7 +181,7 @@ public class Pasty extends Food {
 				break;
 			case PD_BIRTHDAY:
 				//gives 10% of level in exp, min of 2
-				hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(Math.max(2,hero.升级所需()/10)),FloatingText.EXPERIENCE);
+				hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(Math.max(2,hero.升级所需()/10)),FloatingText.经验数值);
 				hero.经验(Math.max(2, hero.升级所需()/10), 经验药剂.class);
 				break;
 			case 圣诞节:

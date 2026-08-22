@@ -14,7 +14,7 @@ public class 水蛭 extends Mob {
 
 			经验 = 2;
 			最大等级 = 7;
-			properties.add(Property.动物);
+			属性表.add(Property.动物);
 		}
 
 		@Override

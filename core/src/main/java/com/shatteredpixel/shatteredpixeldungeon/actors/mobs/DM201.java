@@ -19,7 +19,7 @@ public class DM201 extends DM200 {
 
 		生命 = 最大生命 = 120;
 
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 
 		HUNTING = new Hunting();
 	}

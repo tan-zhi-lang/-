@@ -39,13 +39,13 @@ public class Pylon extends Mob {
 
 		最大等级 = -2;
 
-		properties.add(Property.MINIBOSS);
-		properties.add(Property.BOSS_MINION);
-		properties.add(Property.INORGANIC);
-		properties.add(Property.电);
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.STATIC);
-		properties.add(Property.机械);
+		属性表.add(Property.MINIBOSS);
+		属性表.add(Property.老鬼傀儡);
+		属性表.add(Property.INORGANIC);
+		属性表.add(Property.电);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.STATIC);
+		属性表.add(Property.机械);
 
 		state = PASSIVE;
 		alignment = Alignment.NEUTRAL;

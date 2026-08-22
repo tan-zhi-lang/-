@@ -49,7 +49,7 @@ public class FungalSpinner extends Spinner {
 	}
 
 	{
-		immunities.add(Regrowth.class);
+		免疫表.add(Regrowth.class);
 	}
 
 }

@@ -22,7 +22,7 @@ public class Albino extends Rat {
 		
 		loot = new MysteryMeat(this);
 		
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 	
 	@Override

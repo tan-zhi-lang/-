@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 public class 腐莓药物 extends 涂药{
 	@Override
 	public float 触发(Char c,float damage) {
-			if(c.properties().contains(Char.Property.BOSS)||c.properties().contains(Char.Property.MINIBOSS)){
+			if(c.属性表().contains(Char.Property.BOSS)||c.属性表().contains(Char.Property.MINIBOSS)){
 				Buff.施加(c,Corrosion.class).set(5f,Dungeon.scalingDepth()/3);
 			}else{
 				Buff.施加(c,Corrosion.class).set(10f,Dungeon.scalingDepth());

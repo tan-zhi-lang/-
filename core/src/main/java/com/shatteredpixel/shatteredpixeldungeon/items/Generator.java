@@ -48,9 +48,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.经验药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfElements;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.丛林之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.元素之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
@@ -63,6 +63,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.汲取之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.法爆之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.疾速之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.破防之戒;
@@ -706,7 +707,7 @@ public class Generator {
 			RING.classes = new Class<?>[]{
 					命中之戒.class,
 					奥术之戒.class,
-					RingOfElements.class,
+					元素之戒.class,
 					
 					能量之戒.class,
 					闪避之戒.class,
@@ -741,6 +742,7 @@ public class Generator {
 
 					杀戮之戒.class,
 					丛林之戒.class,
+					法爆之戒.class,
 
 			};
 			RING.defaultProbs = new float[]{ 3, 3, 3,
@@ -754,7 +756,7 @@ public class Generator {
 										3,3,3,
 										 3,3,3,
 										 3,3,3,
-										3,3,
+										3,3,3,
 
 			};
 			RING.probs = RING.defaultProbs.clone();

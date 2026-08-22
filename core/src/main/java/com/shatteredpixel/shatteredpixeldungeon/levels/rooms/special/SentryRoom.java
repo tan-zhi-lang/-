@@ -209,7 +209,7 @@ public class SentryRoom extends SpecialRoom {
 		{
 			spriteClass = SentrySprite.class;
 
-			properties.add(Property.IMMOVABLE);
+			属性表.add(Property.IMMOVABLE);
 		}
 
 		private float initialChargeDelay;
@@ -228,7 +228,7 @@ public class SentryRoom extends SpecialRoom {
 			}
 			Dungeon.level.updateFieldOfView( this, fieldOfView );
 
-			if (properties().contains(Property.IMMOVABLE)){
+			if (属性表().contains(Property.IMMOVABLE)){
 				throwItems();
 			}
 

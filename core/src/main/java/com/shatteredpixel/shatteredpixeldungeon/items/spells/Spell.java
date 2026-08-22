@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.spells;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -45,7 +46,9 @@ public abstract class Spell extends Item {
 			}
 			
 			onCast( hero );
-			
+			hero.回血(hero.天赋点数(Talent.备战));
+			hero.护甲(hero.天赋点数(Talent.武装,2));
+
 		}
 	}
 	

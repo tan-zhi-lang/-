@@ -14,8 +14,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMastery;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -35,7 +33,7 @@ public class 神力之泉 extends WellWater {
 
 		hero.力量++;
 		if(hero.符文("真神力之泉"))hero.力量+=175;
-		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(1),FloatingText.STRENGTH);
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(1),FloatingText.力量数值);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 
 		Dungeon.hero.interrupt();

@@ -29,7 +29,7 @@ public class Monk extends Mob {
 		loot = Food.class;
 		lootChance = 0.083f;
 
-		properties.add(Property.UNDEAD);
+		属性表.add(Property.UNDEAD);
 	}
 	
 	@Override

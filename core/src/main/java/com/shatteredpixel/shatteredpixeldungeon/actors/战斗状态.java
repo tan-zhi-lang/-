@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 
 public class 战斗状态 extends FlavourBuff{
         {name="战斗状态";}
-        public int icon() { return BuffIndicator.战斗状态; }
+        public int icon() { return BuffIndicator.CHALLENGE; }
 
     @Override
     public float iconFadePercent() {

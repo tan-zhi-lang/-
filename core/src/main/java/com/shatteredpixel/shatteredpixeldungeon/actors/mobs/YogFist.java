@@ -55,9 +55,9 @@ public abstract class YogFist extends Mob {
 
 		state = HUNTING;
 
-		properties.add(Property.BOSS_MINION);
+		属性表.add(Property.老鬼傀儡);
 //		properties.add(Property.BOSS);
-		properties.add(Property.DEMONIC);
+		属性表.add(Property.DEMONIC);
 	}
 
 	private float rangedCooldown;
@@ -175,7 +175,7 @@ public abstract class YogFist extends Mob {
 	}
 
 	{
-		immunities.add( Sleep.class );
+		免疫表.add(Sleep.class);
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public abstract class YogFist extends Mob {
 		{
 			spriteClass = FistSprite.Burning.class;
 
-			properties.add(Property.FIERY);
+			属性表.add(Property.FIERY);
 		}
 
 		@Override
@@ -262,10 +262,10 @@ public abstract class YogFist extends Mob {
 		}
 
 		{
-			immunities.add(Frost.class);
+			免疫表.add(Frost.class);
 
-			resistances.add(StormCloud.class);
-			resistances.add(GeyserTrap.class);
+			抗性表.add(StormCloud.class);
+			抗性表.add(GeyserTrap.class);
 		}
 
 	}
@@ -370,7 +370,7 @@ public abstract class YogFist extends Mob {
 		{
 			spriteClass = FistSprite.Rotting.class;
 
-			properties.add(Property.ACIDIC);
+			属性表.add(Property.ACIDIC);
 		}
 
 		@Override
@@ -391,7 +391,7 @@ public abstract class YogFist extends Mob {
 					&& !(来源 instanceof 流血)
 //					&&buff(短柄镰.HarvestBleedTracker.class)==null
 			){
-				dmg = Math.round( dmg * resist(来源.getClass()));
+				dmg = Math.round(dmg*抗性计算(来源.getClass()));
 				if (dmg < 0){
 					return;
 				}
@@ -427,7 +427,7 @@ public abstract class YogFist extends Mob {
 		}
 
 		{
-			immunities.add(ToxicGas.class);
+			免疫表.add(ToxicGas.class);
 		}
 
 	}
@@ -437,8 +437,8 @@ public abstract class YogFist extends Mob {
 		{
 			spriteClass = FistSprite.Rusted.class;
 
-			properties.add(Property.LARGE);
-			properties.add(Property.INORGANIC);
+			属性表.add(Property.LARGE);
+			属性表.add(Property.INORGANIC);
 		}
 
 		@Override
@@ -449,7 +449,7 @@ public abstract class YogFist extends Mob {
 		@Override
 		public void 受伤时(float dmg, Object 来源) {
 			if (!是无敌(来源.getClass())&&!(来源 instanceof 粘稠.DeferedDamage)){
-				dmg = Math.round( dmg * resist(来源.getClass()));
+				dmg = Math.round(dmg*抗性计算(来源.getClass()));
 				if (dmg >= 0) {
 					Buff.施加(this, 粘稠.DeferedDamage.class).extend(dmg);
 					sprite.showStatus(CharSprite.警告橙,Messages.get(粘稠.class,"deferred",dmg));
@@ -472,7 +472,7 @@ public abstract class YogFist extends Mob {
 		{
 			spriteClass = FistSprite.Bright.class;
 
-			properties.add(Property.电);
+			属性表.add(Property.电);
 
 			canRangedInMelee = false;
 		}

@@ -114,14 +114,14 @@ public class 木遁 extends 目标忍术 {
 			spriteClass = NinjaLogSprite.class;
 			defenseSkill = 0;
 
-			properties.add(Property.INORGANIC); //wood is organic, but this is accurate for game logic
+			属性表.add(Property.INORGANIC); //wood is organic, but this is accurate for game logic
 
 			alignment = Alignment.ALLY;
 
 			最大生命 = 20;
 
 			生命 = 最大生命;
-			properties.add(Property.树妖);
+			属性表.add(Property.树妖);
 		}
 
 		@Override
@@ -130,12 +130,12 @@ public class 木遁 extends 目标忍术 {
 		}
 
 		{
-			immunities.add( Dread.class);
-			immunities.add( Terror.class);
-			immunities.add( Amok.class);
-			immunities.add( Charm.class);
-			immunities.add( Sleep.class);
-			immunities.add( AllyBuff.class);
+			免疫表.add(Dread.class);
+			免疫表.add(Terror.class);
+			免疫表.add(Amok.class);
+			免疫表.add(Charm.class);
+			免疫表.add(Sleep.class);
+			免疫表.add(AllyBuff.class);
 		}
 
 	}

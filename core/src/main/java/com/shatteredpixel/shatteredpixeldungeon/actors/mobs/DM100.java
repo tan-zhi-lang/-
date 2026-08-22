@@ -35,10 +35,10 @@ public class DM100 extends Mob implements Callback {
 		
 		loot = Generator.Category.SCROLL;
 		lootChance = 0.25f;
-		properties.add(Property.机械);
+		属性表.add(Property.机械);
 		
-		properties.add(Property.电);
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.电);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	@Override

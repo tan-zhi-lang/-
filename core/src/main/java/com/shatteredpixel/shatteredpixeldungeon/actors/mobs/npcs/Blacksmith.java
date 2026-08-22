@@ -37,7 +37,7 @@ public class Blacksmith extends NPC {
 	{
 		spriteClass = BlacksmithSprite.class;
 
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 	}
 
 	@Override

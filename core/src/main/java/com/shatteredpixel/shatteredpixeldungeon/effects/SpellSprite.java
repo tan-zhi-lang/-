@@ -22,7 +22,10 @@ public class SpellSprite extends Image {
 	public static final int HASTE       = 5;
 	public static final int VISION      = 6;
 	public static final int PURITY      = 7;
-	
+
+	public static final int 时间回溯      = 8;
+	public static final int 保护      = 9;
+
 	private static final int SIZE	= 16;
 	
 	private enum Phase {
@@ -45,9 +48,9 @@ public class SpellSprite extends Image {
 	
 	public SpellSprite() {
 		super( Assets.Effects.SPELL_ICONS );
-		
+
 		if (film == null) {
-			film = new TextureFilm( texture, SIZE );
+			film = new TextureFilm( Assets.Effects.SPELL_ICONS, SIZE, SIZE );
 		}
 	}
 	
@@ -117,7 +120,7 @@ public class SpellSprite extends Image {
 	
 	public static void show( Char ch, int index, float r, float g, float b ) {
 		
-		if (!ch.sprite.visible) {
+		if (ch.sprite==null||!ch.sprite.visible) {
 			return;
 		}
 		

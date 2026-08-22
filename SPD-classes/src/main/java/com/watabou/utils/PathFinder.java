@@ -121,7 +121,19 @@ public class PathFinder {
 		for(int i=-r;i<=r;i++)if(i!=0)arr[idx++]=i*w;
 		return arr;
 	}
-
+	public static int[] x范围(int 范围) {
+		switch (范围) {
+			case 1:  return PathFinder.相邻;
+			case 2:  return PathFinder.范围2;
+			case 3:  return PathFinder.范围3;
+			case 4:  return PathFinder.范围4;
+			case 5:  return PathFinder.范围5;
+			case 6:  return PathFinder.范围6;
+			case 7:  return PathFinder.范围7;
+			case 8:  return PathFinder.范围8;
+			default: return PathFinder.相邻;
+		}
+	}
 	public static int[] x格(int width,int range) {
 		int[] S= new int[1 + 4 * range * (range + 1)];
 		int n=0;

@@ -94,7 +94,7 @@ public class BuffIndicator extends Component {
 	public static final int IMBUE       = DEGRADE+7;
 	public static final int 火毒      = DEGRADE+8;
 	public static final int INVERT_MARK = DEGRADE+9;
-	public static final int 战斗状态= DEGRADE+10;
+
 	public static final int AMULET      = DEGRADE+11;
 	public static final int 修理 = DEGRADE+12;
 	public static final int 静止  = DEGRADE+13;

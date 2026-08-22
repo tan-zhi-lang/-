@@ -66,10 +66,10 @@ public class DM300 extends Mob {
 		经验 = 30;
 		defenseSkill = 15;
 
-		properties.add(Property.BOSS);
-		properties.add(Property.INORGANIC);
-		properties.add(Property.LARGE);
-		properties.add(Property.机械);
+		属性表.add(Property.BOSS);
+		属性表.add(Property.INORGANIC);
+		属性表.add(Property.LARGE);
+		属性表.add(Property.机械);
 	}
 
 	@Override
@@ -328,7 +328,7 @@ public class DM300 extends Mob {
 				}
 				Sample.INSTANCE.play(Assets.Sounds.LIGHTNING);
 				sprite.emitter().start(SparkParticle.STATIC, 0.05f, 20);
-				sprite.showStatusWithIcon(CharSprite.增强绿,30+(最大生命-生命)/10,FloatingText.SHIELDING);
+				sprite.showStatusWithIcon(CharSprite.增强绿,30+(最大生命-生命)/10,FloatingText.护盾护甲数值);
 			}
 
 			Buff.施加(this, 护盾.class).设置(30+(最大生命-生命)/10);
@@ -658,16 +658,16 @@ public class DM300 extends Mob {
 	}
 
 	{
-		immunities.add(Sleep.class);
+		免疫表.add(Sleep.class);
 
-		resistances.add(Terror.class);
-		resistances.add(Charm.class);
-		resistances.add(Vertigo.class);
-		resistances.add(Cripple.class);
-		resistances.add(Chill.class);
-		resistances.add(Frost.class);
-		resistances.add(Roots.class);
-		resistances.add(Slow.class);
+		抗性表.add(Terror.class);
+		抗性表.add(Charm.class);
+		抗性表.add(Vertigo.class);
+		抗性表.add(Cripple.class);
+		抗性表.add(Chill.class);
+		抗性表.add(Frost.class);
+		抗性表.add(Roots.class);
+		抗性表.add(Slow.class);
 	}
 
 	public static class FallingRockBuff extends DelayedRockFall{

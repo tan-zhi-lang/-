@@ -20,7 +20,7 @@ public class VaultLaser extends NPC {
 	{
 		spriteClass = WardSprite.class;
 
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 	}
 
 	//turn into int[][] if we ever want one laser to fire multiple shots per turn

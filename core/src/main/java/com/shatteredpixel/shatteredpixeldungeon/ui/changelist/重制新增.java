@@ -33,6 +33,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.杀戮之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.法爆之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.破防之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.神知之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
@@ -237,7 +238,7 @@ public class 重制新增{
 			"1%治疗护盾，0.4%暴击率，2最大生命(但是会从最基础的-1)，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
 
 				"敏捷\n"+
-				"初始是10+0.4x升级等级(满级额外+0.4)，1最大护甲(但是会从最基础的-1)，影响命中、攻速、闪避、移速\n"+
+				"初始是10+0.4x升级等级(满级额外+0.4)，每点敏捷+1命中和0.5闪避，1最大护甲(但是会从最基础的-1)，影响命中、攻速、闪避、移速\n"+
 				"武器满适配：命中(力量-武器力量)×0.1%x敏捷，攻速(力量-武器力量)×0.1%x敏捷\n"+
 				"防具满适配：闪避(力量-防具力量)×0.05%x敏捷，移速(力量-防具力量)×0.05x敏捷\n"+
 				"裸身状态：闪避(力量-10)×0.05%x敏捷，移速(力量-10)×0.05%x敏捷\n"+
@@ -256,7 +257,7 @@ public class 重制新增{
 
 											//											"游戏第1、2局幸运值+1，每日挑战非重玩+1幸运值。\n"+
 											"新增护甲，1+0.5x等级(满级额外+1)，相当于不会随时间损失的物理护盾(前提不在战斗状态)\n" +
-											"并且拥有10%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
+											"并且拥有8%伤害减免，包含爆炸、骷髅死亡爆炸和跳楼受伤(不含流血)。非战斗状态的每150回合修理1护甲。\n" +
 											"击杀敌人施加连杀状态10回合，敌人被发现会施加被发现回合。\n"+
 											//											"点击目的地会提示框，有敌人和陷阱则是红色，普遍绿色。\n"+
 											"吃饭回血食物填充/150的生命。"
@@ -533,7 +534,7 @@ public class 重制新增{
 						  "五区第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 神盾果(),"矮人城第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 宝物袋(),"商店第一区域必定出售。"));
-		changes.addButton(new ChangeButton(new 干枯花瓣(),"装备未诅咒的干枯玫瑰击杀敌人掉落。"));
+		changes.addButton(new ChangeButton(new 干枯花瓣(),"装备干枯玫瑰击杀敌人敌人强度概率掉落。"));
 
 	}
 
@@ -557,6 +558,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton("丛林","丛林之戒",new 丛林之戒().statsInfo()));
 		changes.addButton(new ChangeButton("利害","利害之戒",new 利害之戒().statsInfo()));
 		changes.addButton(new ChangeButton("破防","破防之戒",new 破防之戒().statsInfo()));
+		changes.addButton(new ChangeButton("法爆","法爆之戒",new 法爆之戒().statsInfo()));
 		changes.addButton(new ChangeButton("杀戮","杀戮之戒",new 杀戮之戒().statsInfo()));
 
 		changes.addButton(new ChangeButton(new 鬼帝钟(),"道士开局获得"));
@@ -768,8 +770,8 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"双刃+金液消耗9能量合成双剑。\n" +
 											"匕首+金液消耗6能量合成长匕首。\n" +
 											"短剑+金液消耗6能量合成单手剑。\n" +
-											"单手+金液剑消耗9能量合成长剑。\n" +
-											"手斧+金液剑消耗9能量合成战斧。" ,
+											"单手+秘银剑消耗9能量合成长剑。\n" +
+											"手斧+秘银剑消耗9能量合成战斧。" ,
 
 											"短柄镰+秘银消耗12能量合成战镰。\n" +
 											"长剑+秘银消耗12能量合成巨剑。\n"+
@@ -777,6 +779,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"长矛+秘银消耗12能量合成关刀。\n"+
 											"镶钉手套+秘银消耗12能量魔岩拳套。",
 
+											"魔岩拳套+浮空药剂+器灵消耗15能量合成星云拳套。\n" +
 											"链枷+水灵秘药+器灵消耗15能量合成猪鲨链球。\n" +
 											"狼筅+武士刀+器灵消耗15能量合成虚哭神去。\n" +
 											"链刃+炸弹+器灵消耗15能量合成日炎链刃。\n" +

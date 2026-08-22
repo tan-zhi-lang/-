@@ -20,7 +20,7 @@ public class Snake extends Mob {
 		最大等级 = 8;
 		loot = Generator.Category.SEED;
 		lootChance = 0.25f;
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 
 	@Override

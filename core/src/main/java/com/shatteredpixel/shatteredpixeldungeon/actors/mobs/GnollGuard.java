@@ -29,7 +29,7 @@ public class GnollGuard extends Mob {
 		lootChance = 0.1f;
 
 		WANDERING = new Wandering();
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 
 	private int sapperID = -1;

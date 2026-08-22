@@ -2,7 +2,8 @@ package com.shatteredpixel.shatteredpixeldungeon.items.用品;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
-import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
@@ -48,7 +49,8 @@ public class 干枯花瓣 extends 用品{
 
 			Wraith mob = new Wraith();
 			mob.adjustStats( Dungeon.scalingDepth() );
-			mob.alignment=Char.Alignment.ALLY;
+
+			Buff.施加(mob,Corruption.class);
 			mob.state=mob.HUNTING;
 			hero.sprite.emitter().burst(ShadowParticle.CURSE,5);
 			GameScene.add(mob);

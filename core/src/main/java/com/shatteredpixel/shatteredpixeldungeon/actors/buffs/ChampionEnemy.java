@@ -13,10 +13,10 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.敌法;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.元素类型;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Image;
 import com.watabou.utils.BArray;
@@ -88,7 +88,7 @@ public abstract class ChampionEnemy extends Buff {
 	}
 
 	{
-		immunities.add(AllyBuff.class);
+		免疫表.add(AllyBuff.class);
 	}
 
 	public static void rollForChampion(Mob m){
@@ -159,7 +159,7 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		{
-			immunities.add(燃烧.class);
+			免疫表.add(燃烧.class);
 		}
 	}
 	public static class 冰寒 extends ChampionEnemy {
@@ -183,8 +183,8 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		{
-			immunities.add(Chill.class);
-			immunities.add(Frost.class);
+			免疫表.add(Chill.class);
+			免疫表.add(Frost.class);
 		}
 	}
 
@@ -229,7 +229,7 @@ public abstract class ChampionEnemy extends Buff {
 		}
 
 		{
-			immunities.addAll(敌法.RESISTS);
+			免疫表.addAll(元素类型.RESISTS);
 		}
 
 	}

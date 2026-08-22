@@ -99,7 +99,7 @@ public class WandOfBlastWave extends DamageWand {
 
 	public static void throwChar(final Char ch, final Ballistica trajectory, int power,
 	                             boolean closeDoors, boolean collideDmg, Object cause){
-		if (ch.properties().contains(Char.Property.BOSS)) {
+		if (ch.属性表().contains(Char.Property.BOSS)) {
 			power = (power+1)/2;
 		}
 
@@ -109,7 +109,7 @@ public class WandOfBlastWave extends DamageWand {
 
 		if (dist <= 0
 				|| ch.rooted
-				|| ch.properties().contains(Char.Property.IMMOVABLE)) return;
+				|| ch.属性表().contains(Char.Property.IMMOVABLE)) return;
 
 		//large characters cannot be moved into non-open space
 		if (Char.hasProp(ch, Char.Property.LARGE)) {

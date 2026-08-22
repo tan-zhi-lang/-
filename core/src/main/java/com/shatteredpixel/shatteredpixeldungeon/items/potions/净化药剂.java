@@ -30,7 +30,7 @@ public class 净化药剂 extends Potion {
 	{
 		icon = 物品表.Icons.POTION_PURITY;
 		
-		affectedBlobs = new ArrayList<>(new BlobImmunity().immunities());
+		affectedBlobs = new ArrayList<>(new BlobImmunity().免疫表());
 	}
 
 	@Override

@@ -97,8 +97,8 @@ public class ToxicImbue extends Buff {
 	}
 
 	{
-		immunities.add( ToxicGas.class );
-		immunities.add( Poison.class );
+		免疫表.add(ToxicGas.class);
+		免疫表.add(Poison.class);
 	}
 
 	@Override

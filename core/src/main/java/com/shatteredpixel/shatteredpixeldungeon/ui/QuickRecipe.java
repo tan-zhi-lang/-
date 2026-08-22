@@ -82,6 +82,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战镰;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.星云拳套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.暗杀之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
@@ -456,6 +457,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new 饮血之剑.Recipe()));
 				result.add(new QuickRecipe(new 海神三叉戟.Recipe()));
 				result.add(new QuickRecipe(new 猪鲨链球.Recipe()));
+				result.add(new QuickRecipe(new 星云拳套.Recipe()));
 				result.add(new QuickRecipe(new 钻石镐.Recipe()));
 				result.add(new QuickRecipe(new 死神镰刀.Recipe()));
 				result.add(new QuickRecipe(new 臻冰刃.Recipe()));

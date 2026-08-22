@@ -37,7 +37,6 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -84,7 +83,14 @@ public abstract class 枪械 extends Weapon{
 	}
 	@Override
 	public String status() {
-		if (levelKnown&&!无限子弹) {
+		if (!无限子弹) {
+			if(levelKnown){
+//				换弹回合()<=0&&
+				Item 弹=Dungeon.hero.belongings.getItem(子弹.getClass());
+				if(弹!=null&&弹.数量()>0&&Dungeon.hero()&&isEquipped(Dungeon.hero)){
+					return curCharges+"/"+弹.数量();
+				}
+			}
 			return curCharges + "/" + maxCharges;
 		} else {
 			return null;
@@ -150,8 +156,6 @@ public abstract class 枪械 extends Weapon{
 			GLog.黄("弹夹已满！");
 			return;
 		}
-		if(换弹回合()<=0)
-			GLog.绿("因为装弹回合为0且有弹药，已自动装弹！");
 
 		int 可用 = 弹.数量();
 		int 实际填充 = Math.min(消耗, 可用);
@@ -404,12 +408,6 @@ public abstract class 枪械 extends Weapon{
 		}
 
 		@Override
-		public void throwSound() {
-			if(枪().箭矢发射)
-				Sample.INSTANCE.play(item_Miss,1,Random.Float(0.87f,1.15f));
-			else super.throwSound();
-		}
-		@Override
 		protected void onThrow( int cell ) {
 			if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
 
@@ -537,6 +535,7 @@ public abstract class 枪械 extends Weapon{
 		public void cast(final Hero user, final int dst) {
 			final int cell = throwPos( user, dst );
 			枪().targetPos = cell;
+
 				super.cast(user, dst);
 		}
 	}

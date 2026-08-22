@@ -37,7 +37,7 @@ public class Spinner extends Mob {
 
 		HUNTING = new Hunting();
 		FLEEING = new Fleeing();
-		properties.add(Property.昆虫);
+		属性表.add(Property.昆虫);
 	}
 
 	@Override
@@ -207,11 +207,11 @@ public class Spinner extends Mob {
 	}
 
 	{
-		resistances.add(Poison.class);
+		抗性表.add(Poison.class);
 	}
 	
 	{
-		immunities.add(Web.class);
+		免疫表.add(Web.class);
 	}
 
 	private class Hunting extends Mob.Hunting {

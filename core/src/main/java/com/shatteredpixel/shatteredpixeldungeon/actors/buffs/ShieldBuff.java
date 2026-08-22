@@ -68,7 +68,7 @@ public abstract class ShieldBuff extends Buff {
 		if(target instanceof Hero hero)shield*=hero.治疗护盾();
 		if(max()!=-1){
 			if(target!=null&&target.sprite!=null)
-				target.sprite.showStatusWithIcon(CharSprite.增强绿,shield,FloatingText.SHIELDING);
+				target.sprite.showStatusWithIcon(CharSprite.增强绿,shield,FloatingText.护盾护甲数值);
 
 			this.shielding=Math.min(max(),shielding+shield);
 
@@ -76,7 +76,7 @@ public abstract class ShieldBuff extends Buff {
 				target.needsShieldUpdate=true;
 		}else{
 			if(target!=null&&target.sprite!=null)
-				target.sprite.showStatusWithIcon(CharSprite.增强绿,shield,FloatingText.SHIELDING);
+				target.sprite.showStatusWithIcon(CharSprite.增强绿,shield,FloatingText.护盾护甲数值);
 
 			if(this.shielding<=shield)
 				this.shielding=shield;
@@ -96,14 +96,14 @@ public abstract class ShieldBuff extends Buff {
 				amt*=hero.治疗护盾();
 			if(max()!=-1){
 				if(amt>2&&target.sprite!=null)
-					target.sprite.showStatusWithIcon(CharSprite.增强绿,amt,FloatingText.SHIELDING);
+					target.sprite.showStatusWithIcon(CharSprite.增强绿,amt,FloatingText.护盾护甲数值);
 
 				shielding=Math.min(max(),shielding+amt);
 				if(target!=null)
 					target.needsShieldUpdate=true;
 			}else{
 				if(amt>2&&target.sprite!=null)
-					target.sprite.showStatusWithIcon(CharSprite.增强绿,amt,FloatingText.SHIELDING);
+					target.sprite.showStatusWithIcon(CharSprite.增强绿,amt,FloatingText.护盾护甲数值);
 
 				shielding+=amt;
 				if(target!=null)

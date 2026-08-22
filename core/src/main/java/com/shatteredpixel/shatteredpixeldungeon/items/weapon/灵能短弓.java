@@ -24,10 +24,8 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MissileSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
-import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Callback;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -151,7 +149,8 @@ public class 灵能短弓 extends Weapon {
 		
 		{
 			image = 物品表.自然箭矢;
-			hitSound = Assets.Sounds.攻击箭;
+			hitSound = Assets.Sounds.攻击灵箭;
+			item_Miss = Assets.Sounds.攻击灵箭;
 
 		}
 
@@ -253,10 +252,6 @@ public class 灵能短弓 extends Weapon {
 			}
 		}
 
-		@Override
-		public void throwSound() {
-			Sample.INSTANCE.play(Assets.Sounds.攻击灵箭,1,Random.Float(0.87f,1.15f));
-		}
 
 		int flurryCount = -1;
 		Actor flurryActor = null;
@@ -290,8 +285,7 @@ public class 灵能短弓 extends Weapon {
 				QuickSlotButton.target(enemy);
 				
 				user.busy();
-				
-				throwSound();
+
 
 				user.sprite.zap(cell);
 				((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).

@@ -143,7 +143,7 @@ public class Feint extends ArmorAbility {
 			spriteClass = AfterImageSprite.class;
 			defenseSkill = 0;
 
-			properties.add(Property.IMMOVABLE);
+			属性表.add(Property.IMMOVABLE);
 
 			alignment = Alignment.ALLY;
 			state = PASSIVE;
@@ -213,7 +213,7 @@ public class Feint extends ArmorAbility {
 		}
 
 		{
-			immunities.addAll(new BlobImmunity().immunities());
+			免疫表.addAll(new BlobImmunity().免疫表());
 		}
 
 		@Override

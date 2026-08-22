@@ -50,6 +50,6 @@ public class MagicalSight extends FlavourBuff {
 	}
 
 	{
-		immunities.add(Blindness.class);
+		免疫表.add(Blindness.class);
 	}
 }

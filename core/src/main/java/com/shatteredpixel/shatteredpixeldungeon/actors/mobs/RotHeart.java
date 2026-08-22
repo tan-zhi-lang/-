@@ -26,10 +26,10 @@ public class RotHeart extends Mob {
 
 		state = PASSIVE;
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.MINIBOSS);
-		properties.add(Property.STATIC);
-		properties.add(Property.树妖);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.MINIBOSS);
+		属性表.add(Property.STATIC);
+		属性表.add(Property.树妖);
 	}
 
 	@Override
@@ -119,7 +119,7 @@ public class RotHeart extends Mob {
 	}
 	
 	{
-		immunities.add( ToxicGas.class );
+		免疫表.add(ToxicGas.class);
 	}
 
 }

@@ -31,7 +31,7 @@ public class 幽灵 extends NPC {
 		
 		//before other mobs
 		actPriority = MOB_PRIO + 1;
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	private Hero hero;
@@ -279,7 +279,7 @@ public class 幽灵 extends NPC {
 	}
 	
 	{
-		immunities.add( AllyBuff.class );
+		免疫表.add(AllyBuff.class);
 	}
 	
 	private class Wandering extends Mob.Wandering{

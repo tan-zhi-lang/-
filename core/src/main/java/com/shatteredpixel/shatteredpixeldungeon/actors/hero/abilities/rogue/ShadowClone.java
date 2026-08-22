@@ -130,9 +130,9 @@ public class ShadowClone extends ArmorAbility {
 
 			生命 = 最大生命 = 80;
 
-			immunities.add(AllyBuff.class);
+			免疫表.add(AllyBuff.class);
 
-			properties.add(Property.INORGANIC);
+			属性表.add(Property.INORGANIC);
 		}
 
 		public ShadowAlly(){
@@ -271,8 +271,8 @@ public class ShadowClone extends ArmorAbility {
 				return true;
 			}
 
-			if (properties().contains(Property.LARGE) && !Dungeon.level.openSpace[c.pos]
-					|| c.properties().contains(Property.LARGE) && !Dungeon.level.openSpace[pos]){
+			if (属性表().contains(Property.LARGE)&&!Dungeon.level.openSpace[c.pos]
+				||c.属性表().contains(Property.LARGE)&&!Dungeon.level.openSpace[pos]){
 				return true;
 			}
 

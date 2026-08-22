@@ -158,7 +158,7 @@ public class CorpseDust extends Item {
 
 	public static class DustWraith extends Wraith{
 		{
-			properties.add(Property.傀儡);
+			属性表.add(Property.傀儡);
 		}
 		private int atkCount = 0;
 

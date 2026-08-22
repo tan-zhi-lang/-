@@ -158,12 +158,12 @@ public class Piranha extends Mob {
 	}
 	
 	{
-		for (Class c : new BlobImmunity().immunities()){
+		for (Class c : new BlobImmunity().免疫表()){
 			if (c != Electricity.class && c != Freezing.class){
-				immunities.add(c);
+				免疫表.add(c);
 			}
 		}
-		immunities.add( 燃烧.class );
+		免疫表.add(燃烧.class);
 	}
 	
 	//if there is not a path to the enemy, piranhas act as if they can't see them

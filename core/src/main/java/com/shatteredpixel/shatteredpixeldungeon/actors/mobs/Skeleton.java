@@ -34,8 +34,8 @@ public class Skeleton extends Mob {
 		loot = Generator.Category.WEAPON;
 		lootChance = 0.1667f; //by default, see lootChance()
 
-		properties.add(Property.UNDEAD);
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.UNDEAD);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	@Override

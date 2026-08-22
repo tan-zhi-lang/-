@@ -281,7 +281,7 @@ public abstract class RegularLevel extends Level {
 					|| mob.pos == entrance()
 					|| mob.pos == exit()
 					|| traps.get(mob.pos) != null || plants.get(mob.pos) != null
-					|| (!openSpace[mob.pos] && mob.properties().contains(Char.Property.LARGE))));
+					|| (!openSpace[mob.pos] && mob.属性表().contains(Char.Property.LARGE))));
 
 			if (tries >= 0) {//如果还有尝试生成机会，继续生成
 				mobsToSpawn--;
@@ -309,7 +309,7 @@ public abstract class RegularLevel extends Level {
 							|| mob.pos == entrance()
 							|| mob.pos == exit()
 							|| traps.get(mob.pos) != null || plants.get(mob.pos) != null
-							|| (!openSpace[mob.pos] && mob.properties().contains(Char.Property.LARGE))));
+							|| (!openSpace[mob.pos] && mob.属性表().contains(Char.Property.LARGE))));
 
 					if (tries >= 0) {
 						mobsToSpawn--;

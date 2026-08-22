@@ -18,8 +18,8 @@ public class 骷髅战士 extends Skeleton {
 
 		loot=Random.oneOf(单手剑.class,长剑.class,巨剑.class);
 
-		properties.add(Property.UNDEAD);
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.UNDEAD);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	@Override

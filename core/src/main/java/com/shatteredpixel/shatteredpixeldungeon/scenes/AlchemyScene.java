@@ -61,6 +61,7 @@ import com.watabou.noosa.ui.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AlchemyScene extends PixelScene {
 
@@ -582,6 +583,13 @@ public class AlchemyScene extends PixelScene {
 		repeat.enable(false);
 
 		ArrayList<Item> ingredients = filterInput(Item.class);
+		// ★ 过滤掉不可用物品
+		Iterator<Item> it = ingredients.iterator();
+		while (it.hasNext()) {
+			if (!Recipe.usableInRecipe(it.next())) {
+				it.remove();
+			}
+		}
 		ArrayList<Recipe> recipes = Recipe.findRecipes(ingredients);
 
 		//disables / hides unneeded buttons
@@ -772,12 +780,34 @@ public class AlchemyScene extends PixelScene {
 			int needed = finding.数量();
 			ArrayList<Item> found = inventory.getAllSimilar(finding);
 			while (!found.isEmpty() && needed > 0){
+				Item item = found.get(0);
+
+				// ★ 先检查该物品是否可用
+				if (!Recipe.usableInRecipe(item)) {
+					found.remove(0);
+					continue;
+				}
+
 				Item detached;
-				if (finding.炼金全放) {
+				if (finding.炼金全放&&finding.可堆叠) {
 					detached = found.get(0).detachAll(inventory.backpack);
 				} else {
 					detached = found.get(0).detach(inventory.backpack);
 				}
+
+				if (detached == null || detached.数量() == 0) {
+					// 分离失败，可能物品已经没了
+					found.remove(0);
+					continue;
+				}
+
+				// ★ 再检查分离后的物品是否可用（双重保险）
+				if (!Recipe.usableInRecipe(detached)) {
+					detached.放背包();  // 尝试放回
+					found.remove(0);
+					continue;
+				}
+
 				inputs[curslot].item(detached);
 				curslot++;
 				needed -= detached.数量();

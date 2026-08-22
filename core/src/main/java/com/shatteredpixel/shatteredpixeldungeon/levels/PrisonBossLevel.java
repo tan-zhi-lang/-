@@ -496,7 +496,7 @@ public class PrisonBossLevel extends Level {
 				//remove all mobs, but preserve allies
 				ArrayList<Mob> allies = new ArrayList<>();
 				for(Mob m : mobs.toArray(new Mob[0])){
-					if (m.alignment == Char.Alignment.ALLY && !m.properties().contains(Char.Property.IMMOVABLE)){
+					if (m.alignment == Char.Alignment.ALLY && !m.属性表().contains(Char.Property.IMMOVABLE)){
 						allies.add(m);
 						mobs.remove(m);
 					}

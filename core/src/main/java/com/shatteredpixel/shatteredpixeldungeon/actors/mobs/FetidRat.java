@@ -30,8 +30,8 @@ public class FetidRat extends Rat {
 		WANDERING = new Wandering();
 		state = WANDERING;
 
-		properties.add(Property.MINIBOSS);
-		properties.add(Property.DEMONIC);
+		属性表.add(Property.MINIBOSS);
+		属性表.add(Property.DEMONIC);
 	}
 
 	@Override
@@ -89,6 +89,6 @@ public class FetidRat extends Rat {
 	}
 	
 	{
-		immunities.add( StenchGas.class );
+		免疫表.add(StenchGas.class);
 	}
 }

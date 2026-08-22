@@ -54,10 +54,10 @@ public class CrystalSpire extends Mob {
 
 		alignment = Alignment.NEUTRAL;
 
-		properties.add(Property.IMMOVABLE);
-		properties.add(Property.BOSS);
-		properties.add(Property.INORGANIC);
-		properties.add(Property.STATIC);
+		属性表.add(Property.IMMOVABLE);
+		属性表.add(Property.BOSS);
+		属性表.add(Property.INORGANIC);
+		属性表.add(Property.STATIC);
 	}
 
 	private float abilityCooldown;
@@ -497,7 +497,7 @@ public class CrystalSpire extends Mob {
 	}
 
 	{
-		immunities.add( Blindness.class );
+		免疫表.add(Blindness.class);
 	}
 
 }

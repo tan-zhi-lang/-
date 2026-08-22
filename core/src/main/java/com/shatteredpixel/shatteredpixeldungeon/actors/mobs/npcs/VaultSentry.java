@@ -20,7 +20,7 @@ public class VaultSentry extends NPC {
 	{
 		spriteClass = WardSprite.class;
 
-		properties.add(Property.IMMOVABLE);
+		属性表.add(Property.IMMOVABLE);
 	}
 
 	public float scanWidth;

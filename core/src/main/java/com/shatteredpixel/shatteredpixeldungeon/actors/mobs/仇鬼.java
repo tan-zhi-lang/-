@@ -17,7 +17,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Imp;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.噩梦粮食;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
@@ -46,8 +45,8 @@ public class 仇鬼 extends Mob implements Callback {
 		loot = 噩梦粮食.class;
 		lootChance = 1/8f;
 		
-		properties.add(Property.UNDEAD);
-		properties.add(Property.INORGANIC);
+		属性表.add(Property.UNDEAD);
+		属性表.add(Property.INORGANIC);
 	}
 	
 	@Override

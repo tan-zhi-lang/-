@@ -32,7 +32,7 @@ public class 白猫 extends NPC {
 		
 		//before other mobs
 		actPriority = MOB_PRIO + 1;
-		properties.add(Property.动物);
+		属性表.add(Property.动物);
 	}
 	
 	private Hero hero;
@@ -237,7 +237,7 @@ public class 白猫 extends NPC {
 	}
 	
 	{
-		immunities.add( AllyBuff.class );
+		免疫表.add(AllyBuff.class);
 	}
 	
 	private class Wandering extends Mob.Wandering{

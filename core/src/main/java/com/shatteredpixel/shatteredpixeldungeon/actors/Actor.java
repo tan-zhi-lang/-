@@ -309,7 +309,7 @@ public abstract class Actor implements Bundlable {
 	public static void add( Actor actor ) {
 		add( actor, now );
 	}
-	
+
 	public static void addDelayed( Actor actor, float delay ) {
 		add( actor, now + Math.max(delay, 0) );
 	}

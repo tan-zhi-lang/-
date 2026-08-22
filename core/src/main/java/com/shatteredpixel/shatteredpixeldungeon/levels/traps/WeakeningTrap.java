@@ -26,8 +26,8 @@ public class WeakeningTrap extends Trap{
 
 		Char ch = Actor.findChar( pos );
 		if (ch != null){
-			if (ch.properties().contains(Char.Property.BOSS)
-				|| ch.properties().contains(Char.Property.MINIBOSS)){
+			if (ch.属性表().contains(Char.Property.BOSS)
+				|| ch.属性表().contains(Char.Property.MINIBOSS)){
 				Buff.延长( ch, Weakness.class, Weakness.DURATION/2f );
 			}
 			Buff.延长( ch, Weakness.class, Weakness.DURATION*3f );

@@ -50,7 +50,7 @@ public class 神圣炸弹 extends Bomb {
 		}
 
 		for (Char ch : affected){
-			if (ch.properties().contains(Char.Property.UNDEAD) || ch.properties().contains(Char.Property.DEMONIC)){
+			if (ch.属性表().contains(Char.Property.UNDEAD)||ch.属性表().contains(Char.Property.DEMONIC)){
 				ch.sprite.emitter().start(ShadowParticle.UP,0.05f,10);
 
 				//bomb deals an additional 50% damage to unholy enemies

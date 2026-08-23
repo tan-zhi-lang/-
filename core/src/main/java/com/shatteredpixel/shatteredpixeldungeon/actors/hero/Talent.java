@@ -149,7 +149,7 @@ public enum Talent {
 	嗜血如故(x7+11,4),兽性猎手(x7+12,4),追捕猎物(x7+13,4),
 	高级痛命(x7+14,4),高级死血(x7+15,4),高级吸血(x7+16,4),
 
-	冰门高攻(x8+9,4),冰门高防(x8+10,4),
+	重铸冰门(x8+9,4),冰门高防(x8+10,4),
 	以攻为守(x8+11,4),用盾诀窍(x8+12,4),高阶盾武(x8+13,4),
 	快速布阵(x8+14,4),全副武装(x8+15,4),步兵冲锋(x8+16,4),
 
@@ -891,7 +891,7 @@ public enum Talent {
 				Collections.addAll(tierTalents,顶福精华,强能处消);
 				break;
 			case 重武:
-				Collections.addAll(tierTalents,冰门高攻,冰门高防);
+				Collections.addAll(tierTalents,重铸冰门,冰门高防);
 				break;
 			case 镜魔:
 				Collections.addAll(tierTalents,分身升力,镜板镀层);

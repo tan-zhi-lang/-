@@ -203,6 +203,7 @@ public class 重制改动{
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.荣誉纹章),"荣誉纹章",
 										   "破损纹章->荣誉纹章。\n" +
 										   "最大护甲+防具等级+防具阶级-1。\n" +
+										   "不可被升级。\n" +
 										   "移除受伤获得爆发屏障。\n" +
 										   "提升防具的等级->防具获得强化等级。\n" +
 										   "携带等级1->7。"));
@@ -504,7 +505,7 @@ public class 重制改动{
 										   "在水中额外2回合冻伤->直接冻结。"
 		));
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.SEED_HOLDER), "种子",
-										   "能给武器、防具涂药\n" +
+										   "能给武器、防具涂药使用10/15(腐莓)次数\n" +
 										   "扔出->丢子(植)，如果目标点有敌人直接触发\n" +
 										   "种植->(植)自用，直接在原地对自己触发。",
 

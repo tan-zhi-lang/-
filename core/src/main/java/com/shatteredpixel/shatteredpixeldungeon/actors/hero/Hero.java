@@ -10291,8 +10291,11 @@ public class Hero extends Char {
             left = Math.max(0, left);
             for (curr = left + y * Dungeon.level.width(); curr <= right + y * Dungeon.level.width(); curr++) {
                 if (intentional) {
-                    if(Dungeon.level.solid[curr]||(Dungeon.level.visited[curr]&&cellIsPathable(curr)))//参观了、可通行的路径
-                    if(Dungeon.level.map[curr]!=Terrain.SECRET_TRAP&&Dungeon.level.map[curr]!=Terrain.TRAP){
+                    if(Dungeon.level.solid[curr]||//墙体
+                       (Dungeon.level.visited[curr]&&cellIsPathable(curr)))
+                        //参观了、可通行的路径
+                    if(Dungeon.level.map[curr]!=Terrain.SECRET_TRAP&&//陷阱
+                       Dungeon.level.map[curr]!=Terrain.TRAP){
                         Heap heap = Dungeon.level.heaps.get(curr);//搜索拾取
                         if (heap != null && (heap.type == Heap.Type.HEAP
                                              || heap.type == Heap.Type.CHEST

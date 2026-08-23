@@ -140,6 +140,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
+import com.shatteredpixel.shatteredpixeldungeon.items.传说之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
@@ -299,6 +300,7 @@ public enum Catalog {
 								叛忍护额.class,
 
 								碧蓝巨剑.class,//1.3
+								传说之戒.class,//1.3
 
 								灵鞭.class,//0.7
 

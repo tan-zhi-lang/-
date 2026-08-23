@@ -718,7 +718,33 @@ public class Item implements Bundlable {
 		if(超级等级)return 10086;
 		return 等级;
 	}
+	public static int 转移等级(Item 物品1给2,Item i2,int 最大等级,int 当前等级){
+		int 转移量=最大等级-当前等级;
+		if(转移量>0){
+			if(物品1给2.真等级()>0){
+				int 转移=0;
+				int 剩余转移=物品1给2.真等级()-转移量;
+				if(剩余转移>0){
+					转移=物品1给2.真等级();
+					物品1给2.等级(剩余转移);
+					return 转移;
+				}else if(剩余转移==0){
 
+					转移=物品1给2.真等级();
+					物品1给2.等级(0);
+					return 转移;
+				}else{
+					GLog.绿("无转移等级！");
+					return 0;
+				}
+			}else{
+				GLog.橙("物品等级为0！");
+				return 0;
+			}
+		}//无转移等级
+		GLog.橙("转移等级已满级！");
+		return 0;
+	}
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions
 	//note that not all item properties should care about buffs/debuffs! (e.g. str requirement)
 	public int 强化等级(){

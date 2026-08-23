@@ -21,10 +21,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.丛生;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.代谢;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.元法;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.冰心;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.同位素;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.守护;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.元法;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐石;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
@@ -494,11 +494,8 @@ public class Armor extends EquipableItem {
 //			}
 
 			荣誉纹章 detaching =荣誉纹章;
-			int 转移量 =荣誉纹章.最大等级()-荣誉纹章.等级();
-			if(转移量>0&&真等级()>0&&真等级()-转移量>=0){
-				等级(真等级()-转移量);
-				荣誉纹章.升级(转移量);
-			}
+			detaching.等级(Item.转移等级(this,detaching,detaching.最大等级(),detaching.等级()));
+
 			荣誉纹章= null;
 			if (detaching.canTransferGlyph()){
 				inscribe(null);

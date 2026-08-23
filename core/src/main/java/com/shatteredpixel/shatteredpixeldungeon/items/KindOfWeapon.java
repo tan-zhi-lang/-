@@ -63,6 +63,9 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 伤害(){
 		return 伤害;
 	}
+	public float 防御(){
+		return 防御;
+	}
 
 	public float 投掷(){
 		float 投掷=this.投掷;

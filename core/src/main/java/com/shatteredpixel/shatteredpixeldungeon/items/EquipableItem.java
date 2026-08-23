@@ -192,8 +192,8 @@ public abstract class EquipableItem extends Item {
 
 						涂药种类=tipResult;
 
-						if(涂药种类 instanceof 腐莓药物)涂药种类.涂药次数=3;
-						else 涂药种类.涂药次数=2;
+						if(涂药种类 instanceof 腐莓药物)涂药种类.涂药次数=10;
+						else 涂药种类.涂药次数=15;
 
 						curUser.spend( 1f );
 						curUser.busy();

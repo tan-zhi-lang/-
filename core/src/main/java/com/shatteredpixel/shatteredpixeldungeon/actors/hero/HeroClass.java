@@ -149,6 +149,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.铜钱剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镜刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.雪球;
+import com.shatteredpixel.shatteredpixeldungeon.items.传说之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
@@ -158,7 +159,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.用品.物品生成;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.红包;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.结晶法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.自残绳;
-import com.shatteredpixel.shatteredpixeldungeon.items.空间之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
@@ -811,7 +811,7 @@ public enum HeroClass{
 	
 	private static void 初始戒老(Hero hero){
 		(hero.belongings.weapon=new 碧蓝巨剑()).鉴定();
-		new 空间之戒().放背包();
+		new 传说之戒().放背包();
 		(hero.belongings.armor=new 能袍()).鉴定();
 		(hero.belongings.misc=new 六神之戒()).鉴定();
 		new 升级卷轴().鉴定();

@@ -328,6 +328,9 @@ abstract public class Weapon extends KindOfWeapon {
 				GLog.橙(Messages.get(this,"ability_low_str"));
 			}else if (charger.charges + charger.partialCharge < 技能().消耗) {
 				GLog.橙(Messages.get(this,"ability_no_charge"));
+			}else{
+				usesTargeting=技能()!=null&&技能().目标;
+				技能().武技(hero,this);
 			}
 		}
 	}
@@ -410,6 +413,11 @@ abstract public class Weapon extends KindOfWeapon {
 //		if(!(this instanceof 未知武器)&&tier()>=5)伤害*=1.25f;
 
 		return 伤害;
+	}
+	@Override
+	public float 防御(){
+		float 防御=this.防御;
+		return 防御;
 	}
 
 	public float 延迟(){
@@ -638,7 +646,8 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 	public float 最小防御(int lvl){
 		if(具备防御){
-			return lvl*防御;
+			if (Dungeon.isChallenged(Challenges.NO_ARMOR))return 0;
+			return lvl*防御();
 		}
 		return 0;
 	}
@@ -654,11 +663,8 @@ abstract public class Weapon extends KindOfWeapon {
 		if(具备防御){
 			int t=tier();
 
-			if(this instanceof 冰门重盾)
-				t+=Dungeon.hero.天赋点数(Talent.冰门高防);
-
-			if (Dungeon.isChallenged(Challenges.NO_ARMOR))return t+lvl;
-			return t*(1+0.5f+lvl)*防御;
+			if (Dungeon.isChallenged(Challenges.NO_ARMOR))return (t+lvl)*防御();
+			return t*(1+0.5f+lvl)*防御();
 		}
 		return 0;
 	}

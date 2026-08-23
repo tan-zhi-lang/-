@@ -193,14 +193,12 @@ public class 法师魔杖 extends Weapon{
 //			Talent.WandPreservationCount counter = Buff.施加(Dungeon.hero,Talent.WandPreservationCount.class);
 //			if (counter.count == 0){
 //				counter.set(1);
-				
-				int 转移量 = 最大转移()- 转移;
-				if(转移量>0&&this.wand.等级()>0&&this.wand.等级()-转移量>=0){
-					this.wand.等级(this.wand.等级()-转移量);
-					转移+=转移量;
-				}
 
-				if (!this.wand.放背包()) {
+
+				转移=Item.转移等级(wand,this,最大转移(),等级());
+
+
+			if (!this.wand.放背包()) {
 					Dungeon.level.drop(this.wand, owner.pos);
 				}
 				GLog.newLine();

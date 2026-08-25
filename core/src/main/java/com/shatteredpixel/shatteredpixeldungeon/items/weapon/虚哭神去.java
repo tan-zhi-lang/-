@@ -37,7 +37,7 @@ public class 虚哭神去 extends Weapon{
 
 			cost = 15;
 
-			output = 日炎链刃.class;
+			output = 虚哭神去.class;
 			outQuantity = 1;
 		}
 

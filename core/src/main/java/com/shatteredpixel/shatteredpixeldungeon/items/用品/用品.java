@@ -42,7 +42,6 @@ public class 用品 extends Item{
 				hero.busy();
 			}
 			hero.回血(hero.天赋点数(Talent.备战));
-			hero.护甲(hero.天赋点数(Talent.武装,2));
 
 			if(!重复使用){
 				if(完全消耗)detachAll();

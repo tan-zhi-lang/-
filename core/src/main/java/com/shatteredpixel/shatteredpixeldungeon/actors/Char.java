@@ -109,11 +109,11 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfBlastWave;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLightning;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfLivingEarth;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -158,7 +158,6 @@ public abstract class Char extends Actor {
 	public int x次必暴=0;
 	public int 变脸=0;
 	public int 未命中=0;
-	public boolean 暴击了=false;
 
 	public float 大小=1;
 	public boolean 折叠屏=false;
@@ -350,7 +349,6 @@ public abstract class Char extends Actor {
 	protected static final String x次必暴x 	    = "x次必暴";
 	protected static final String 变脸x 	    = "变脸";
 	protected static final String 未命中x 	    = "未命中";
-	protected static final String 暴击了x 	    = "暴击了";
 	protected static final String 第x次攻击x 	    = "第x次攻击";
 	protected static final String 第x次防御x 	    = "第x次防御";
 	protected static final String 第x次背袭x 	    = "第x次背袭";
@@ -372,7 +370,6 @@ public abstract class Char extends Actor {
 		bundle.put( x次必暴x, x次必暴);
 		bundle.put( 变脸x, 变脸);
 		bundle.put( 未命中x, 未命中);
-		bundle.put( 暴击了x, 暴击了);
 		bundle.put( 第x次攻击x, 第x次攻击);
 		bundle.put( 第x次防御x, 第x次防御);
 		bundle.put( 第x次背袭x, 第x次背袭);
@@ -394,7 +391,6 @@ public abstract class Char extends Actor {
 		x次必暴 = bundle.getInt( x次必暴x );
 		变脸 = bundle.getInt( 变脸x );
 		未命中 = bundle.getInt( 未命中x );
-		暴击了 = bundle.getBoolean( 暴击了x );
 		第x次攻击 = bundle.getInt( 第x次攻击x );
 		第x次防御 = bundle.getInt( 第x次防御x );
 		第x次背袭 = bundle.getInt( 第x次背袭x );
@@ -468,7 +464,7 @@ public abstract class Char extends Actor {
 				}
 			} else {
 				if(this instanceof Hero hero){
-					dmg=hero.heroDamage(最小攻击(),最大攻击());
+					dmg=hero.英雄伤害(最小攻击(),最大攻击());
 				}else{
 					dmg=Random.NormalFloat(最小攻击(),最大攻击());
 					dmg*=Dungeon.难度攻击(this);
@@ -935,13 +931,6 @@ public abstract class Char extends Actor {
 
 		if(this instanceof Hero hero){
 			if(!hero.符文("狂怒攻击")){
-				if(hero.符文("安内")){
-					if(Dungeon.level.相邻(this,enemy)){
-						if(暴击判定(enemy,1)>1)
-							damage=暴击判定(enemy,damage*1.75f);
-					}else damage=暴击判定(enemy,damage*2f/3f);
-				}
-				else
 				damage=暴击判定(enemy,damage);
 			}
 		}else
@@ -1156,7 +1145,7 @@ public abstract class Char extends Actor {
 		return 元素类型.土.contains(src)||在地板();
 	}
 	public boolean 木伤害(Object src){
-		return 元素类型.木.contains(src)||在木板()||在草丛();
+		return 元素类型.木.contains(src)||在草丛();
 		//||
 		//			   hasbuff(Earthroot.Armor.class)||
 		//			   hasbuff(Barkskin.class)
@@ -1195,7 +1184,7 @@ public abstract class Char extends Actor {
 		受伤时(dmg,Frost.class);
 	}
 	public void 电受伤时(float dmg){
-		受伤时(dmg,WandOfLightning.class);
+		受伤时(dmg,电击.class);
 	}
 	public void 受伤时(float dmg,Object 来源){
 
@@ -1314,6 +1303,7 @@ public abstract class Char extends Actor {
 		} else {
 			dmg *= 抗性计算(srcClass);
 			dmg *= 害怕计算(srcClass);
+			dmg *= 克制计算(srcClass);
 		}
 
 		//we ceil these specifically to favor the player vs. champ dmg reduction
@@ -1327,10 +1317,13 @@ public abstract class Char extends Actor {
 			if(Dungeon.hero()){
 				float 魔抗=Random.NormalFloat(最小魔抗(),最大魔抗());
 
-				if(Dungeon.hero.法术穿透()>0)
-					魔抗*=1-Dungeon.hero.法术穿透();
-				if(Dungeon.hero.法穿()>0)
-					魔抗-=Dungeon.hero.法穿();
+				if(!(this instanceof Hero)){
+					if(Dungeon.hero.法术穿透()>0)
+						魔抗*=1-Dungeon.hero.法术穿透();
+
+					if(Dungeon.hero.法穿()>0)
+						魔抗-=Dungeon.hero.法穿();
+				}
 				dmg -= 魔抗;
 				if(this instanceof Mob&&Dungeon.hero.符文("法态:穿透"))
 					Buff.施加(Dungeon.hero,法态穿透.class,5);
@@ -1857,7 +1850,7 @@ public abstract class Char extends Actor {
 		float result = 1f;
 		for (Class c : 抗性x){
 			if (c.isAssignableFrom(effect)){
-				result *= 0.25f;
+				result /=2f;
 			}
 		}
 		return result*元素之戒.抗性(this,effect);
@@ -1876,10 +1869,28 @@ public abstract class Char extends Actor {
 			}
 		for (Class c : 害怕x){
 			if (c.isAssignableFrom(effect)){
-				result *= 4;
+				result *= 2;
 			}
 		}
 		return result*元素之戒.害怕(this,effect);
+	}
+	protected final HashSet<Class> 克制表= new HashSet<>();
+		public float 克制计算(Class effect){
+		float result = 1f;
+		HashSet<Class> 克制x = new HashSet<>(克制表);
+
+		for (Property p : 属性表()){
+			克制x.addAll(p.克制());
+		}
+			for (Buff b : buffs()){
+				克制x.addAll(b.克制表());
+			}
+		for (Class c : 克制x){
+			if (c.isAssignableFrom(effect)){
+				result *= 4;
+			}
+		}
+		return result;
 	}
 
 	protected final HashSet<Class> 免疫表= new HashSet<>();
@@ -1922,18 +1933,20 @@ public abstract class Char extends Actor {
 		MINIBOSS (元素类型.小老鬼),
 		老鬼傀儡,
 		傀儡,
-		UNDEAD(元素类型.无机免疫,null,元素类型.雷光),
-		DEMONIC(null,null,元素类型.光),
-		昆虫(null,null,元素类型.雷火),
+		活尸(),
+		灵魂(null,元素类型.无机免疫,null,元素类型.雷光),
+		UNDEAD(),
+		DEMONIC(null,null,null,元素类型.光),
+		昆虫(null,null,null,元素类型.雷火),
 
 		动物(null,null,元素类型.血肉害怕),
-		树妖(null,null,元素类型.雷火),
-		海妖( null,null,元素类型.毒电),
+		树妖(null,null,null,元素类型.雷火),
+		海妖( null,null,null,元素类型.毒电),
 
 		INORGANIC ( null,元素类型.无机免疫),
-		FIERY (null,元素类型.火焰,元素类型.冰霜),
-		ICY (null,元素类型.冰霜,元素类型.火焰),
-		ACIDIC (null,元素类型.毒,元素类型.火焰),
+		FIERY (null,元素类型.火焰,null,元素类型.冰霜),
+		ICY (null,元素类型.冰霜,null,元素类型.火焰),
+		ACIDIC (null,元素类型.毒,null,元素类型.火焰),
 		//ELECTRIC
 		电(null,元素类型.电),
 		LARGE,
@@ -1945,25 +1958,32 @@ public abstract class Char extends Actor {
 		private HashSet<Class> 抗性;
 		private HashSet<Class> 免疫;
 		private HashSet<Class> 害怕;
+		private HashSet<Class> 克制;
 
 		Property(){
-			this(null,null,null);
+			this(null,null,null,null);
 		}
 		
 		Property(HashSet<Class> 免疫){
-			this(null,免疫,null);
+			this(null,免疫,null,null);
 		}
 		Property(HashSet<Class> 抗性,HashSet<Class> 免疫){
-			this(抗性,免疫,null);
+			this(抗性,免疫,null,null);
 		}
 		Property(HashSet<Class> 抗性,HashSet<Class> 免疫,HashSet<Class> 害怕){
+			this(抗性,免疫,害怕,null);
+		}
+		Property(HashSet<Class> 抗性,HashSet<Class> 免疫,
+				 HashSet<Class> 害怕,HashSet<Class> 克制){
 			if(抗性==null)抗性=new HashSet<Class>();
 			if(免疫==null)免疫=new HashSet<Class>();
 			if(害怕==null)害怕=new HashSet<Class>();
+			if(克制==null)克制=new HashSet<Class>();
 
 			this.抗性=抗性;
 			this.免疫=免疫;
 			this.害怕=害怕;
+			this.克制=克制;
 		}
 		
 		public HashSet<Class> 抗性(){
@@ -1975,6 +1995,9 @@ public abstract class Char extends Actor {
 		}
 		public HashSet<Class> 害怕(){
 			return new HashSet<>(害怕);
+		}
+		public HashSet<Class> 克制(){
+			return new HashSet<>(克制);
 		}
 	}
 
@@ -2234,11 +2257,6 @@ public abstract class Char extends Actor {
 		if(Dungeon.level==null)return false;
 		else
 		return Dungeon.level.map[pos] == Terrain.EMPTY||Dungeon.level.map[pos] == Terrain.EMPTY_DECO;
-	}
-	public boolean 在木板(){
-		if(Dungeon.level==null)return false;
-		else
-		return Dungeon.level.map[pos] == Terrain.EMPTY_SP;
 	}
 	public boolean 在陷阱(){
 		if(Dungeon.level==null)return false;

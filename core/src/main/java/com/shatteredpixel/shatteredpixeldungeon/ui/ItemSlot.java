@@ -335,10 +335,10 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.75f))) );
 				center.measure();
 			}else if (item instanceof 护甲修理工具包) {
-				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.9f))) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大护甲(0.9f))) );
 				center.measure();
 			}else if (item instanceof 血药&&!Dungeon.isChallenged(Challenges.NO_HEALING)) {
-				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.2f))) );
+				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.3f))) );
 				center.measure();
 				center.hardlight( UPGRADED );
 			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {

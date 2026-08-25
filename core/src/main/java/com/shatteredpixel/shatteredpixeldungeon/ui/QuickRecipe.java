@@ -16,6 +16,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
+import com.shatteredpixel.shatteredpixeldungeon.items.bombs.神圣炸弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
@@ -59,7 +60,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.Recycle;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
@@ -70,6 +70,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.箱引菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.转级菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -367,9 +368,12 @@ public class QuickRecipe extends Component {
 				return result;
 			case 3:
 				result.add(new QuickRecipe(new 精纯药液.Recipe()));
+				result.add(new QuickRecipe(new 血药.Recipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new 净化药剂.Recipe()));
 				result.add(new QuickRecipe(new 进力药剂.Recipe()));
-				result.add(new QuickRecipe(new 血药.Recipe()));
+				result.add(null);
+				result.add(null);
 				r = new ExoticPotion.PotionToExotic();
 				for (Class<?> cls : Generator.Category.POTION.classes){
 					Potion pot = (Potion) Reflection.newInstance(cls);
@@ -379,9 +383,12 @@ public class QuickRecipe extends Component {
 				return result;
 			case 4:
 				result.add(new QuickRecipe( new 激泥酞酶.Recipe()));
+				result.add(new QuickRecipe(new 封禁卷轴.Recipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new 祛邪卷轴.Recipe()));
 				result.add(new QuickRecipe(new 进级卷轴.Recipe()));
-				result.add(new QuickRecipe(new 封禁卷轴.Recipe()));
+				result.add(null);
+				result.add(null);
 				r = new ExoticScroll.ScrollToExotic();
 				for (Class<?> cls : Generator.Category.SCROLL.classes){
 					Scroll scroll = (Scroll) Reflection.newInstance(cls);
@@ -393,38 +400,44 @@ public class QuickRecipe extends Component {
 				r = new Bomb.EnhanceBomb();
 				int i = 0;
 				for (Class<?> cls : Bomb.EnhanceBomb.validIngredients.keySet()){
-//					if (i == 2){
-//						result.add(null);
-//						i = 0;
-//					}
+					if (i == 2){
+						result.add(null);
+						i = 0;
+					}
 					Item item = (Item) Reflection.newInstance(cls);
 					ArrayList<Item> in = new ArrayList<>(Arrays.asList(new Bomb(), item));
+
+					if(r.sampleOutput(in) instanceof 神圣炸弹)
+					result.add(null);
+
 					result.add(new QuickRecipe( r, in, r.sampleOutput(in)));
 					i++;
 				}
 				return result;
 			case 6:
-				result.add(new QuickRecipe( new LiquidMetal.Recipe(),
-											new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
-											new LiquidMetal()));
+				result.add(new QuickRecipe( new ArcaneResin.Recipe(),
+						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
+						new ArcaneResin()));
+				result.add(new QuickRecipe(new 火把神的恩宠.R()));
+				result.add(null);
 				result.add(new QuickRecipe( new 护甲修理工具包.Recipe(),
 											new ArrayList<Item>(Arrays.asList(new Armor.PlaceHolder())),
 											new 护甲修理工具包()));
 				result.add(null);
-				result.add(new QuickRecipe( new ArcaneResin.Recipe(),
-						new ArrayList<Item>(Arrays.asList(new Wand.PlaceHolder())),
-						new ArcaneResin()));
-				result.add(null);
-				result.add(new QuickRecipe(new 火把神的恩宠.R()));
-				result.add(null);
 				result.add(new QuickRecipe(new ClothArmor.Recipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new LeatherArmor.Recipe()));
 				result.add(new QuickRecipe(new MailArmor.Recipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new ScaleArmor.Recipe()));
 				result.add(new QuickRecipe(new PlateArmor.Recipe()));
 
 				result.add(null);
-				result.add(new QuickRecipe(new 秘银.Recipe()));
+				result.add(null);
+				result.add(new QuickRecipe( new LiquidMetal.Recipe(),
+											new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
+											new LiquidMetal()));
+				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new 双剑.Recipe()));
 				result.add(new QuickRecipe(new 长匕首.Recipe()));
@@ -433,6 +446,12 @@ public class QuickRecipe extends Component {
 				result.add(null);
 				result.add(new QuickRecipe(new 灵能短弓.Recipe()));
 				result.add(new QuickRecipe(new 炼金动力十字弩.Recipe()));
+
+				result.add(null);
+				result.add(null);
+				result.add(new QuickRecipe(new 秘银.Recipe()));
+				result.add(null);
+				result.add(null);
 				result.add(new QuickRecipe(new 长剑.Recipe()));
 				result.add(new QuickRecipe(new 战斧.Recipe()));
 				result.add(null);
@@ -442,9 +461,11 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new 关刀.Recipe()));
 				result.add(new QuickRecipe(new 战镰.Recipe()));
 				result.add(null);
+				result.add(null);
 				result.add(new QuickRecipe( new 器灵.Recipe(),
 											new ArrayList<Item>(Arrays.asList(new Weapon.PlaceHolder())),
 											new 器灵()));
+				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new 圣银十字弩.Recipe()));
 				result.add(new QuickRecipe(new 冰结短弓.Recipe()));
@@ -470,51 +491,68 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new UnstableBrew.Recipe(), new ArrayList<>(Arrays.asList(new Potion.PlaceHolder(), new  Plant.Seed.PlaceHolder())), new UnstableBrew()));
 				result.add(null);
 				result.add(new QuickRecipe(new 根骨秘药.Recipe()));
-				result.add(new QuickRecipe(new 永生秘药.Recipe()));
 				result.add(new QuickRecipe(new 玄武秘药.Recipe()));
-				result.add(new QuickRecipe(new 血怒秘药.Recipe()));
-				result.add(new QuickRecipe(new 圣魄秘药.Recipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new 暴刹秘药.Recipe()));
-				result.add(new QuickRecipe(new ElixirOfFeatherFall.Recipe()));
+				result.add(new QuickRecipe(new 血怒秘药.Recipe()));
+				result.add(null);
+				result.add(new QuickRecipe(new 圣魄秘药.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfHoneyedHealing.Recipe()));
+				result.add(null);
+				result.add(new QuickRecipe(new 永生秘药.Recipe()));
+				result.add(null);
+				result.add(null);
 				result.add(new QuickRecipe(new ElixirOfAquaticRejuvenation.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfArcaneArmor.Recipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new ElixirOfIcyTouch.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfToxicEssence.Recipe()));
+				result.add(null);
+				result.add(new QuickRecipe(new ElixirOfFeatherFall.Recipe()));
 				result.add(new QuickRecipe(new ElixirOfDragonsBlood.Recipe()));
 				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new CausticBrew.Recipe()));
 				result.add(new QuickRecipe(new BlizzardBrew.Recipe()));
+				result.add(null);
 				result.add(new QuickRecipe(new ShockingBrew.Recipe()));
 				result.add(new QuickRecipe(new InfernalBrew.Recipe()));
+				if (!PixelScene.横屏()) result.add(null);
 				result.add(new QuickRecipe(new AquaBrew.Recipe()));
-				result.add(null);
-				result.add(null);
 				return result;
 			case 8:
 				result.add(new QuickRecipe(new UnstableSpell.Recipe(), new ArrayList<>(Arrays.asList(new Scroll.PlaceHolder(), new  Runestone.PlaceHolder())), new UnstableSpell()));
 				result.add(null);
 				result.add(new QuickRecipe(new 魔力水晶.Recipe()));
+				if (PixelScene.横屏()) result.add(null);
 				result.add(new QuickRecipe(new WildEnergy.Recipe()));
 				result.add(new QuickRecipe(new TelekineticGrab.Recipe()));
 				result.add(new QuickRecipe(new PhaseShift.Recipe()));
+
 				if (!PixelScene.横屏()) result.add(null);
-				result.add(null);
 				result.add(new QuickRecipe(new 炼金菱晶.Recipe(), new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder(), new Runestone.PlaceHolder())), new 炼金菱晶().数量(6)));
+				result.add(new QuickRecipe(new 转级菱晶.Recipe()));
+
+				if (!PixelScene.横屏()) result.add(null);
 				result.add(new QuickRecipe(new 结金菱晶.Recipe(),new ArrayList<>(Arrays.asList(new TelekineticGrab(),new 激泥酞酶())),new 结金菱晶().数量(3)));
 				result.add(new QuickRecipe(new 结能菱晶.Recipe(),new ArrayList<>(Arrays.asList(new TelekineticGrab(),new 激泥酞酶())),new 结能菱晶().数量(3)));
+
+				if (!PixelScene.横屏()) result.add(null);
 				result.add(new QuickRecipe(new 清洁菱晶.Recipe(),new ArrayList<>(Arrays.asList(new 祛邪卷轴(),new 鉴定卷轴())),new 清洁菱晶().数量(2)));
 				result.add(new QuickRecipe(new 箱引菱晶.Recipe(),new ArrayList<>(Arrays.asList(new 传送卷轴(),new 嬗变卷轴())),new 箱引菱晶().数量(2)));
+
+				if (!PixelScene.横屏()) result.add(null);
 				result.add(new QuickRecipe(new 分解菱晶.Recipe(),new ArrayList<>(Arrays.asList(new 升级卷轴(),new 潜力药剂())),new 分解菱晶().数量(1)));
 				result.add(new QuickRecipe(new CurseInfusion.Recipe()));
+
+				if (!PixelScene.横屏()) result.add(null);
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
-				result.add(new QuickRecipe(new Recycle.Recipe()));
+
+				result.add(null);
+				result.add(new QuickRecipe(new SummonElemental.Recipe()));
 				if (!PixelScene.横屏())
 					result.add(null);
-				result.add(null);
 				result.add(new QuickRecipe(new ReclaimTrap.Recipe()));
-				result.add(new QuickRecipe(new SummonElemental.Recipe()));
 				result.add(new QuickRecipe(new BeaconOfReturning.Recipe()));
 				return result;
 		}

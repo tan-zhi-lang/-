@@ -344,7 +344,7 @@ public class ElementalStrike extends ArmorAbility {
 		//*** no enchantment ***
 		if (ench == null) {
 			for (Char ch : affected){
-				ch.受伤时(powerMulti* Hero.heroDamage(6,12),ElementalStrike.this);
+				ch.受伤时(powerMulti* Hero.英雄伤害(6,12),ElementalStrike.this);
 			}
 
 		//*** Kinetic ***
@@ -506,7 +506,7 @@ public class ElementalStrike extends ArmorAbility {
 		} else if (ench instanceof 极化){
 			for (Char ch : affected){
 				if (Random.Float() < 0.5f*powerMulti){
-					ch.受伤时(Hero.heroDamage(24,36),ElementalStrike.this);
+					ch.受伤时(Hero.英雄伤害(24,36),ElementalStrike.this);
 				}
 			}
 

@@ -75,6 +75,7 @@ public class DwarfKing extends Mob {
 
 		属性表.add(Property.BOSS);
 		属性表.add(Property.UNDEAD);
+		属性表.add(Property.活尸);
 	}
 
 	@Override

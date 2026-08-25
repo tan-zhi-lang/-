@@ -25,7 +25,7 @@ public class MysteryMeat extends Food {
 	}
 
 	public MysteryMeat(Char c){
-		this.name=c.name()+name();
+		this.真name=c.name()+name();
 	}
 
 	public MysteryMeat(){

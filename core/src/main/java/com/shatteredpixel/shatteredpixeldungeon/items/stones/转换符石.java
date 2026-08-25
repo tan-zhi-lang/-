@@ -1,8 +1,10 @@
 
 
-package com.shatteredpixel.shatteredpixeldungeon.items.spells;
+package com.shatteredpixel.shatteredpixeldungeon.items.stones;
 
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Transmuting;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
@@ -13,34 +15,37 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.Elixir;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.嬗变卷轴;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
-import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Reflection;
 
-public class Recycle extends InventorySpell {
+public class 转换符石 extends InventoryStone {
 	
 	{
-		image = 物品表.RECYCLE;
-		icon = 物品表.Icons.转换;
-
-		talentFactor = 2;
-		talentChance = 1/(float)Recipe.OUT_QUANTITY;
+		preferredBag = Belongings.Backpack.class;
+		image = 物品表.STONE_ENCHANT;
+		
+		特别= true;
 	}
+
 
 	@Override
 	protected boolean usableOnItem(Item item) {
-		return (item instanceof Potion && !(item instanceof Elixir || item instanceof Brew)) ||
-				item instanceof Scroll ||
-				item instanceof Plant.Seed ||
-				item instanceof Runestone;
+		return (item instanceof Potion&&!(item instanceof Elixir||item instanceof Brew))||
+			   item instanceof Scroll||
+			   item instanceof Plant.Seed||
+			   item instanceof Runestone;
 	}
 
 	@Override
 	protected void onItemSelected(Item item) {
+		if (!anonymous) {
+			curItem.detach(curUser.belongings.backpack);
+			Catalog.countUse(getClass());
+			Talent.onRunestoneUsed(curUser, curUser.pos, getClass());
+		}
+
 		Item result=item;
 		do {
 			if (item instanceof Potion) {
@@ -58,38 +63,21 @@ public class Recycle extends InventorySpell {
 			} else if (item instanceof Runestone) {
 				result = Generator.randomUsingDefaults(Generator.Category.STONE);
 			}
-		} while (result.getClass() == item.getClass() || Challenges.isItemBlocked(result));
-		
-		item.detach(curUser.belongings.backpack);
-		GLog.绿(Messages.get(this,"recycled",result.name()));
-		result.放背包();
-		Transmuting.show(curUser, item, result);
+		} while (result.getClass() == item.getClass()||Challenges.isItemBlocked(result));
+
+		Transmuting.show(curUser,item,result);
 		curUser.sprite.emitter().start(Speck.factory(Speck.CHANGE), 0.2f, 10);
+
+		useAnimation();
 	}
-	
 	@Override
 	public int 金币() {
-		return (int)(60 * (quantity/(float)Recipe.OUT_QUANTITY));
+		return 30 * quantity;
 	}
 
 	@Override
 	public int 能量() {
-		return (int)(12 * (quantity/(float)Recipe.OUT_QUANTITY));
+		return 5 * quantity;
 	}
-	
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
 
-		private static final int OUT_QUANTITY = 6;
-		
-		{
-			inputs =  new Class[]{嬗变卷轴.class};
-			inQuantity = new int[]{1};
-			
-			cost = 6;
-			
-			output = Recycle.class;
-			outQuantity = OUT_QUANTITY;
-		}
-		
-	}
 }

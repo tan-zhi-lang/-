@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 import static com.shatteredpixel.shatteredpixeldungeon.算法.金额;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
@@ -54,7 +55,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.技能;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.妖刀村正;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.十字弩飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.枪弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.彩虹猫之刃;
@@ -140,6 +140,7 @@ public class Item implements Bundlable {
 	//TODO should these be private and accessed through methods?
 	public int image = 0;
 	public int icon = -1; //used as an identifier for items with randomized images
+	public String 真name = "";
 	public String name = "";
 
 	public boolean 药剂=false;
@@ -199,8 +200,8 @@ public class Item implements Bundlable {
 	public boolean 粉光 = false;
 	public boolean 靛光 = false;
 	public boolean 彩光 = false;
+	
 	public boolean levelKnown = false;
-
 	public boolean cursed=false;
 	public boolean cursedKnown=false;
 
@@ -1026,6 +1027,9 @@ public class Item implements Bundlable {
 		if(!name.equals("")){
 			return name;
 		}
+		if(!真name.equals("")){
+			return 真name;
+		}
 		return Messages.get(this, "name");
 	}
 
@@ -1269,8 +1273,12 @@ public class Item implements Bundlable {
 		if(this instanceof Wand||法杖){
 			s+="、"+"法杖";
 		}
+		String 扔="";
+		if(!(this instanceof Weapon)){
+			扔+="\n"+"扔出伤害"+kw2(武力之戒.heromin())+"~"+kw2(武力之戒.heromax());
+		}
 
-		return n+desc()+(SPDSettings.隐藏细节()?"":s);
+		return n+desc()+(SPDSettings.隐藏细节()?"":s)+扔;
 	}
 
 	public String desc() {
@@ -1381,6 +1389,7 @@ public class Item implements Bundlable {
 	private static final String KEPT_LOST       = "kept_lost";
 	private static final String CUSTOM_NOTE_ID = "custom_note_id";
 	private static final String NAME = "name";
+	private static final String 真NAME = "真name";
 	private static final String 首次使用x = "首次使用";
 	private static final String 首次拾取x = "首次拾取";
 	private static final String 首次装备x = "首次装备";
@@ -1402,6 +1411,7 @@ public class Item implements Bundlable {
 		bundle.put( CURSED, cursed );
 		bundle.put( CURSED_KNOWN, cursedKnown );
 		bundle.put( NAME, name );
+		bundle.put( 真NAME, 真name );
 		bundle.put(首次使用x,首次使用);
 		bundle.put( 首次拾取x, 首次拾取 );
 		bundle.put( 首次装备x, 首次装备 );
@@ -1427,6 +1437,7 @@ public class Item implements Bundlable {
 		levelKnown	= bundle.getBoolean( LEVEL_KNOWN );
 		cursedKnown	= bundle.getBoolean( CURSED_KNOWN );
 		name	= bundle.getString( NAME );
+		真name	= bundle.getString( 真NAME );
 		首次使用= bundle.getBoolean(首次使用x);
 		首次拾取	= bundle.getBoolean( 首次拾取x );
 		首次装备	= bundle.getBoolean( 首次装备x );
@@ -1516,10 +1527,11 @@ public class Item implements Bundlable {
 
 							if (i != null) i.onThrow(cell);
 
-							if(i instanceof 十字弩飞镖&&enemy.isAlive())enemy.受伤时(
-									Dungeon.hero.heroDamage(武力之戒.heromin(),武力之戒.heromax()),this);
-							if(user.符文("重扔")&&enemy.isAlive())enemy.受伤时(user.力量()/2f,this);
+							if(user.符文("重扔")&&enemy.isAlive())enemy.受伤时(user.力量()/2f,Item.this);
 
+							if(!(Item.this instanceof Weapon)&&enemy.isAlive()){
+								enemy.受伤时(user.空手伤害(),Item.this);
+							}
 							if(user.符文("王炸"))new Bomb().explode(cell);
 							if(user.符文("这太几把黄了"))
 							if(Item.this instanceof LiquidMetal){

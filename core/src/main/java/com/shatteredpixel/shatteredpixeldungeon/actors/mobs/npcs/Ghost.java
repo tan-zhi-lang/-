@@ -49,7 +49,7 @@ public class Ghost extends NPC {
 
 		//not actually large of course, but this makes the ghost stick to the exit room
 		属性表.add(Property.LARGE);
-		属性表.add(Property.UNDEAD);
+		属性表.add(Property.灵魂);
 	}
 
 	protected class Wandering extends Mob.Wandering{
@@ -284,7 +284,7 @@ public class Ghost extends NPC {
 		}
 		
 		public static void spawn( SewerLevel level, Room room ) {
-			if (!spawned && Dungeon.depth > 1 && Random.Int( 5 - Dungeon.depth ) == 0) {
+			if (!spawned && Dungeon.相对层数() > 1 && Random.Int( 5 - Dungeon.相对层数() ) == 0) {
 				
 				Ghost ghost = new Ghost();
 				do {
@@ -295,7 +295,7 @@ public class Ghost extends NPC {
 				spawned = true;
 				//dungeon depth determines type of quest.
 				//depth2=fetid rat, 3=gnoll trickster, 4=great crab
-				type = Dungeon.depth-1;
+				type = Dungeon.相对层数()-1;
 				
 				given = false;
 				processed = false;

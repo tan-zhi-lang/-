@@ -51,7 +51,6 @@ public abstract class InventoryStone extends Runestone {
 	protected void useAnimation() {
 		curUser.spend( 1f );
 		curUser.回血(curUser.天赋点数(Talent.备战));
-		curUser.护甲(curUser.天赋点数(Talent.武装,2));
 		curUser.busy();
 		curUser.sprite.operate();
 

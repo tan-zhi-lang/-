@@ -27,10 +27,10 @@ public class 血药 extends 用品{
 			inputs =  new Class[]{治疗药剂.class,};
 			inQuantity = new int[]{1,};
 
-			cost = 5;
+			cost = 1;
 
 			output = 血药.class;
-			outQuantity = 5;
+			outQuantity = 3;
 		}
 
 	}
@@ -44,13 +44,13 @@ public class 血药 extends 用品{
 		if (Dungeon.isChallenged(Challenges.NO_HEALING)){
 			pharmacophobiaProc(hero);
 		} else {
-			hero.回百分比血(0.2f);
+			hero.回百分比血(0.3f);
 		}
 		super.使用(hero);
 	}
 
 	@Override
 	public int 金币() {
-		return Math.round(7.5f * quantity*1.125f);
+		return Math.round(10 * quantity*1.125f);
 	}
 }

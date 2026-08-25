@@ -210,7 +210,10 @@ public enum Bestiary {
 					   YogDzewa.class);
 
 
-		UNIVERSAL.addEntities(Wraith.class,Piranha.class,Mimic.class,GoldenMimic.class,EbonyMimic.class,DM0.class,毒气宝箱怪.class,超级魔法绵羊.class,Statue.class,GuardianTrap.Guardian.class,SentryRoom.Sentry.class);
+		UNIVERSAL.addEntities(Wraith.class,Piranha.class,Mimic.class,GoldenMimic.class,EbonyMimic.class,
+							  DM0.class,毒气宝箱怪.class,超级魔法绵羊.class,
+							  Statue.class,GuardianTrap.Guardian.class,
+							  SentryRoom.Sentry.class);
 
 		RARE.addEntities(Albino.class,GnollExile.class,HermitCrab.class,CausticSlime.class,
 						 骷髅战士.class,Bandit.class,SpectralNecromancer.class,

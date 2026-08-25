@@ -649,14 +649,10 @@ public class Armor extends EquipableItem {
 			}
 		}
 
-		if(attacker!=null&&涂药种类!=null&&涂药种类.涂药次数>0){
-			涂药种类.消耗();
-			if(涂药种类.涂药次数<=0){
-				涂药种类=null;
-				GLog.红(Messages.get(this,"has_broken"));
-			}else{
-				damage=涂药种类.触发(defender,damage);
-			}
+		if(attacker!=null&&涂药种类!=null){
+			damage=涂药种类.触发(defender,damage);
+			涂药种类.消耗(this);
+
 		}
 		return damage;
 	}
@@ -709,17 +705,20 @@ public class Armor extends EquipableItem {
 
 		switch (augment) {
 			case DEFENSE:
-				info += " " + Messages.get(Armor.class, "defense");
+				info += "\n\n" + Messages.get(Armor.class, "defense");
 				break;
 			case SPEED:
-				info += " " + Messages.get(Armor.class, "speed");
+				info += "\n\n" + Messages.get(Armor.class, "speed");
 				break;
 			case EVASION:
-				info += " " + Messages.get(Armor.class, "evasion");
+				info += "\n\n" + Messages.get(Armor.class, "evasion");
 				break;
 			case NONE:
 		}
-		
+		if (glyph != null) {
+			info += "\n\n" + glyph.desc();
+		}
+
 		if (cursed && isEquipped( Dungeon.hero )) {
 			info += "\n\n" + Messages.get(Armor.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
@@ -731,9 +730,12 @@ public class Armor extends EquipableItem {
 				info += "\n\n" + Messages.get(Armor.class, "not_cursed");
 			}
 		}
-		if(涂药种类!=null&&涂药种类.涂药次数>0)
-			info += "\n\n" + Messages.get(Armor.class, "uses_left",涂药种类.涂药次数);
-//
+		if (涂药种类 != null){
+			info += "\n\n" +"这件防具涂抹了_"+ 涂药种类.name()+"_，效果为"+ 涂药种类.desc();
+			if(涂药种类.涂药次数>0)
+				info += "\n" + Messages.get(Armor.class, "uses_left",涂药种类.涂药次数);
+			//
+		}
 //		if (破损纹章 != null) {
 //			info += "\n\n" + Messages.get(Armor.class, "seal_attached", 破损纹章.maxShield(tier(), 强化等级()));
 //		}

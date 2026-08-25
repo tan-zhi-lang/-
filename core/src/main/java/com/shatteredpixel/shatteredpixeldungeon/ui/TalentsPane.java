@@ -13,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
@@ -69,6 +70,8 @@ public class TalentsPane extends ScrollPane {
 			
 //			if(tiersAvailable > 3)
 //				tiersAvailable = 3;
+			if(算法.isDebug())
+				tiersAvailable = 3;
 		}
 
 		tiersAvailable = Math.min(tiersAvailable, talents.size());

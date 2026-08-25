@@ -128,9 +128,9 @@ public class 物品表 {
         assignItemRect(符箓, 11,16);
 
         assignItemRect(手枪子弹, 6,10);
-        assignItemRect(冲锋枪子弹,5,8);
+        assignItemRect(冲锋枪子弹,5,10);
         assignItemRect(霰弹枪子弹, 5,10);
-        assignItemRect(狙击枪子弹, 5,13);
+        assignItemRect(狙击枪子弹, 5,14);
         assignItemRect(火炮子弹, 12,8);
         assignItemRect(魄罗, 9);
         assignItemRect(拳击手套, 12,10);
@@ -358,10 +358,11 @@ public class 物品表 {
     public static final int 尼泊尔弯刀 = WEP_TIER1 + 8;
     public static final int 狼筅 = WEP_TIER1 + 9;
 
-    public static final int THROWING_STONE = WEP_TIER1 + 11;
-    public static final int THROWING_SPIKE = WEP_TIER1 + 12;
-    public static final int 雪球 = WEP_TIER1 + 13;
-    public static final int 骨头 = WEP_TIER1 + 14;
+    public static final int DART = WEP_TIER1 + 11;
+    public static final int THROWING_STONE = WEP_TIER1 + 12;
+    public static final int THROWING_SPIKE = WEP_TIER1 + 13;
+    public static final int 雪球 = WEP_TIER1 + 14;
+    public static final int 骨头 = WEP_TIER1 + 15;
 
     static {
         
@@ -377,6 +378,7 @@ public class 物品表 {
         assignItemRect(尼泊尔弯刀, 16);
         assignItemRect(狼筅, 16);
 
+        assignItemRect(DART, 15);
         assignItemRect(THROWING_STONE, 12, 10);
         assignItemRect(THROWING_SPIKE, 11, 10);
         assignItemRect(雪球, 7);
@@ -609,25 +611,12 @@ public class 物品表 {
     }
     //endregion
     
-    //region 飞镖
-    public static final int DARTS = xy(0, 12);  //16 slots
-    public static final int DART = DARTS ;
-    public static final int ROT_DART = DARTS + 1;
-    public static final int INCENDIARY_DART = DARTS + 2;
-    public static final int ADRENALINE_DART = DARTS + 3;
-    public static final int HEALING_DART = DARTS + 4;
-    public static final int CHILLING_DART = DARTS + 5;
-    public static final int SHOCKING_DART = DARTS + 6;
-    public static final int POISON_DART = DARTS + 7;
-    public static final int CLEANSING_DART = DARTS + 8;
-    public static final int PARALYTIC_DART = DARTS + 9;
-    public static final int HOLY_DART = DARTS + 10;
-    public static final int DISPLACING_DART = DARTS + 11;
-    public static final int BLINDING_DART = DARTS + 12;
+    //region 特殊武器
+    public static final int 特殊武器 = xy(0, 12);  //16 slots
+    public static final int 特殊武器1 = 特殊武器+0;
     
     static {
-        for (int i = DARTS; i < DARTS + 31; i++)
-            assignItemRect(i, 15);
+//            assignItemRect(i, 15);
     }
     //endregion
 
@@ -1198,7 +1187,7 @@ public class 物品表 {
     public static final int 海克斯秘卷=锻造锤+5;
     public static final int 海克斯移除器 = 锻造锤 + 6;
     public static final int 海克斯卷轴 = 锻造锤 + 7;
-    public static final int 空间之戒 = 锻造锤 + 8;
+    public static final int 传说之戒=锻造锤+8;
     public static final int 未来空间器 = 锻造锤 + 9;
     public static final int 进级卷轴 = 锻造锤 + 10;
     public static final int 进力药剂 = 锻造锤 + 11;
@@ -1218,7 +1207,7 @@ public class 物品表 {
         assignItemRect(海克斯移除器, 16,14);
         assignItemRect(海克斯卷轴, 16,14);
 
-        assignItemRect(空间之戒, 8);
+        assignItemRect(传说之戒,8);
         assignItemRect(未来空间器, 16);
 
         assignItemRect(进级卷轴, 16);

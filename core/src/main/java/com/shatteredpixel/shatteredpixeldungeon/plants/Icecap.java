@@ -43,6 +43,10 @@ public class Icecap extends Plant {
 		if (eternalFire != null && eternalFire.volume > 0) {
 			eternalFire.clear( pos );
 		}
+		Fire fire = (Fire)Dungeon.level.blobs.get(MagicalFireRoom.EternalFire.class);
+		if (fire != null && fire.volume > 0) {
+			fire.clear( pos );
+		}
 	}
 	public static class Seed extends Plant.Seed {
 		{

@@ -9,6 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
@@ -36,7 +37,12 @@ public class 背刺 extends 武技{
 				GLog.橙(Messages.get(Weapon.class,"ability_no_target"));
 				return;
 			}
-			
+
+			if (hero.rooted ||Dungeon.level.距离(hero.pos,target)>hero.攻击范围()+1){
+				GLog.橙(Messages.get(wep,"ability_target_range"));
+				if (hero.rooted) PixelScene.shake(1,1f);
+				return;
+			}
 
 			
 			hero.穿越攻击(hero,enemy.pos,1.5f);

@@ -30,6 +30,7 @@ public class Monk extends Mob {
 		lootChance = 0.083f;
 
 		属性表.add(Property.UNDEAD);
+		属性表.add(Property.活尸);
 	}
 	
 	@Override

@@ -2,29 +2,23 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械;
 
-import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.圣银箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 圣银十字弩 extends 枪械{
+public class 圣银十字弩 extends 十字弩{
 	
 	{
 		image = 物品表.圣银十字弩;
 		
 		tier = 5;
-		伤害=0.6f;
-		射速=2;
 		子弹 = new 圣银箭矢();
 		image2 = 物品表.圣银箭矢;
-		hitSound2 = Assets.Sounds.攻击灵箭;
-		item_Miss2 = Assets.Sounds.攻击灵箭;
 
-		箭矢发射=true;
 		无限子弹=true;
-		开火效果=false;
+		掉落子弹=false;
 	}
 
 	@Override

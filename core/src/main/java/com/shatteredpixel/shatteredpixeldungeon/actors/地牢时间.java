@@ -21,7 +21,7 @@ public class 地牢时间 extends FlavourBuff{
     public boolean act(){
         spend( 1 );
         Dungeon.地牢时间++;
-        if(Dungeon.地牢时间%时间(2400)==0){
+        if(Dungeon.地牢时间==时间(24)){
             Dungeon.地牢天数++;
             if(Dungeon.hero()){
                 Hero hero=Dungeon.hero;

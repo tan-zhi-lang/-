@@ -232,7 +232,7 @@ public class Piranha extends Mob {
 							}
 						}
 					}else{
-						if(item instanceof MysteryMeat m&&!m.name().equals(new MysteryMeat(this).name())){
+						if(item instanceof MysteryMeat m&&!m.真name.equals(new MysteryMeat(this).真name)){
 							target=heap.pos;
 							if(pos==heap.pos){
 								heap.destroy();

@@ -31,6 +31,9 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.CellSelector;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+import com.shatteredpixel.shatteredpixeldungeon.ui.OptionSlider;
+import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
+import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
@@ -57,6 +60,7 @@ public abstract class 枪械 extends Weapon{
 	public boolean 掉落子弹 = false;
 	public boolean 爆炸效果 = false;
 	public boolean 箭矢发射 = false;
+	public boolean 弩发射 = false;
 	public boolean 开火效果 = true;
 	public boolean 霰弹效果 = false;
 	public boolean 破甲弹 = false;
@@ -65,6 +69,7 @@ public abstract class 枪械 extends Weapon{
 	public float 射速 = 6;
 	public float 精度 = 1;
 	public int image2 = 物品表.手枪子弹;
+	public String 换弹声音 = Assets.Sounds.换弹;
 	public String hitSound2 = Assets.Sounds.手枪;
 	public String item_Miss2 = Assets.Sounds.手枪;
 	@Override
@@ -73,6 +78,10 @@ public abstract class 枪械 extends Weapon{
 		actions.add(AC_SHOOT);
 		if(!无限子弹)
 		actions.add(AC_换弹);
+
+		if(箭矢发射&&!弩发射)
+			actions.add(AC_弓力);
+
 		return actions;
 	}@Override
 	public String defaultAction() {
@@ -96,6 +105,12 @@ public abstract class 枪械 extends Weapon{
 			return null;
 		}
 	}
+	public int 弓力 = 2;
+
+	private static final int WIDTH_P	    = 122;
+	private static final float GAP          = 1;
+	private static final int BTN_HEIGHT	    = 16;
+	protected static final String AC_弓力 = "弓力";
 	@Override
 	public void execute(Hero hero, String action) {
 		super.execute(hero, action);
@@ -108,6 +123,42 @@ public abstract class 枪械 extends Weapon{
 				return;
 			}
 		}
+		if (action.equals(AC_弓力)) {
+
+			ShatteredPixelDungeon.scene().addToFront(new Window(){
+				OptionSlider 弓力托条;
+				RenderedTextBlock 弓力str;
+
+				{
+
+
+					弓力托条 = new OptionSlider("弓力",
+											"0.5","1.5",1,3) {
+						@Override
+						protected void onChange() {
+							弓力=getSelectedValue();
+						}
+					};
+					弓力托条.setSelectedValue(弓力);
+					add(弓力托条);
+
+					弓力str = PixelScene.renderTextBlock("弓力越大伤害，但是攻速越慢",5);
+					弓力str.hardlight(0x888888);
+					add(弓力str);
+
+					//layout
+
+					resize(WIDTH_P, 0);
+
+					弓力托条.setRect(0,  GAP, width, BTN_HEIGHT);
+
+					弓力str.maxWidth(width);
+					弓力str.setPos(0, 弓力托条.bottom()+1);
+
+					resize(WIDTH_P, (int) 弓力str.bottom());
+				}
+			});
+		}
 		if (action.equals(AC_SHOOT)) {
 			if(curCharges==0){
 				换弹();
@@ -116,6 +167,7 @@ public abstract class 枪械 extends Weapon{
 			GameScene.selectCell( shooter );
 		}
 	}
+
 	public float 换弹回合(){
 		float x=4;
 		if(箭矢发射)
@@ -130,8 +182,7 @@ public abstract class 枪械 extends Weapon{
 
 		curCharges=maxCharges;
 
-		if(开火效果)
-		Sample.INSTANCE.play( Assets.Sounds.换弹 );
+		Sample.INSTANCE.play( 换弹声音 );
 
 		curUser.spend(换弹回合());
 
@@ -170,8 +221,8 @@ public abstract class 枪械 extends Weapon{
 			弹.split(消耗).detachAll(curUser.belongings.backpack);
 		}
 
-		if(开火效果)
-		Sample.INSTANCE.play(Assets.Sounds.换弹);
+
+		Sample.INSTANCE.play(换弹声音);
 
 		curUser.spend(换弹回合());
 		curUser.busy();
@@ -180,14 +231,30 @@ public abstract class 枪械 extends Weapon{
 		updateQuickslot();
 	}
 
+	@Override
+	public float 延迟(){
+		return super.延迟()*弓力();
+	}
+
 	public float 枪伤(){
-		return 枪伤;
+		return augment.damageFactor(枪伤)*弓力();
 	}
 	public float 精度(){
-		return 精度;
+		return augment.accuracyFactor(精度);
 	}
 	public float 射速(){
-		return 射速;
+		return 射速/augment.delayFactor(1);
+	}
+
+	public float 弓力(){
+		if(弓力==1)
+		return 0.5f;
+		if(弓力==2)
+		return 1;
+		if(弓力==3)
+		return 1.5f;
+
+		return 1;
 	}
 
 	public float 最小枪械攻击() {
@@ -240,11 +307,14 @@ public abstract class 枪械 extends Weapon{
 	public static final String CHARGES          = "charges";
 	private static final String PARTIALCHARGE   = "partialCharge";
 
+	private static final String 弓力x	= "弓力";
+
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
 		bundle.put(CHARGES, curCharges);
 		bundle.put(PARTIALCHARGE, partialCharge);
+		bundle.put( 弓力x, 弓力 );
 	}
 
 	@Override
@@ -252,6 +322,7 @@ public abstract class 枪械 extends Weapon{
 		super.restoreFromBundle(bundle);
 		curCharges = bundle.getInt(CHARGES);
 		partialCharge = bundle.getFloat(PARTIALCHARGE);
+		弓力 = bundle.getInt( 弓力x );
 	}
 	private CellSelector.Listener shooter = new CellSelector.Listener() {
 		@Override

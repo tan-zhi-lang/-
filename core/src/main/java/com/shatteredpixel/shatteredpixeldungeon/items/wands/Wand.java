@@ -836,6 +836,7 @@ public abstract class Wand extends Item {
 			while (partialCharge >= 1 && curCharges < maxCharges) {
 				partialCharge--;
 				curCharges++;
+				Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 				updateQuickslot();
 			}
 			

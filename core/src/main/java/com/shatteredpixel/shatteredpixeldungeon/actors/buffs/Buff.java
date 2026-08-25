@@ -52,6 +52,10 @@ public class Buff extends Actor {
 	public HashSet<Class> 害怕表() {
 		return new HashSet<>(害怕表);
 	}
+	protected HashSet<Class> 克制表 = new HashSet<>();
+	public HashSet<Class> 克制表() {
+		return new HashSet<>(克制表);
+	}
 	
 	public boolean attachTo( Char target ) {
 		if(target instanceof Hero hero&&hero.subClass(HeroSubClass.灾厄化身)){

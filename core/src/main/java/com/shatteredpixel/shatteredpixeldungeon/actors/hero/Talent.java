@@ -562,7 +562,6 @@ public enum Talent {
 
 		hero.回血(h);
 
-		hero.护甲(hero.天赋点数(Talent.武装,2));
 		if(hero.符文("饿死鬼投胎")&&hero.buff(Hunger.class).空腹()){
 			hero.回百分比血(0.2f*foodVal);
 		}
@@ -659,7 +658,6 @@ public enum Talent {
 
 	public static void 饮用药剂(Hero hero,int cell,float factor,Item item){
 		hero.回血(hero.天赋点数(Talent.备战));
-		hero.护甲(hero.天赋点数(Talent.武装,2));
 		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.04f));
 		if(hero.符文("止渴"))hero.回百分比血(0.08f);
 
@@ -679,7 +677,6 @@ public enum Talent {
 
 	public static void 阅读卷轴(Hero hero,int pos,float factor,Class<?extends Item> cls){
 		hero.回血(hero.天赋点数(Talent.备战));
-		hero.护甲(hero.天赋点数(Talent.武装,2));
 		if(Dungeon.赛季(赛季设置.规则怪谈)&&hero.视野敌人())hero.受伤时(hero.最大生命(hero.visibleEnemies()/25f));
 		if(hero.天赋(破解符文))hero.回百分比血(hero.天赋点数(Talent.破解符文,0.04f));
 

@@ -45,17 +45,21 @@ public class 武力之戒 extends Ring{
 		int level=getBuffedBonus(hero,Force.class);
 		int tier=tier();
 		if(Dungeon.hero()&&hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
-			dmg+=Hero.heroDamage(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
+			dmg+=Hero.英雄伤害(2,Math.round(1.5f*(Dungeon.hero.力量()-8)));
 		}
 		return dmg;
 	}
 	
 	public static float heromin(){
+		if(Dungeon.hero())
 		return 0.05f * Dungeon.hero.力量();
+		return 0.05f * 10;
 	}
 	
 	public static float heromax(){
-		return Math.round(Dungeon.hero.力量()-8.5f);
+		if(Dungeon.hero())
+		return Dungeon.hero.力量()-8.5f;
+		return 10-8.5f;
 	}
 	public static float max(){
 		int x=0;

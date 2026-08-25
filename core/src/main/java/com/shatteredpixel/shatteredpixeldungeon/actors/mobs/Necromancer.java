@@ -42,7 +42,8 @@ public class Necromancer extends Mob {
 		lootChance = 0.2f; //see lootChance()
 		
 		属性表.add(Property.UNDEAD);
-		
+		属性表.add(Property.活尸);
+
 		HUNTING = new Hunting();
 	}
 	

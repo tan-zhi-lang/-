@@ -99,7 +99,7 @@ public class 幸运之泉 extends WellWater {
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级(0);
-		int level = w.真等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*2);
+		int level = w.真等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*3);
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
@@ -122,7 +122,7 @@ public class 幸运之泉 extends WellWater {
 		Armor n = Generator.randomArmor();
 
 		n.等级(0);
-		int level = a.真等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*2);
+		int level = a.真等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*3);
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
@@ -150,7 +150,7 @@ public class 幸运之泉 extends WellWater {
 
 		n.等级(0);
 
-		int level =r.等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*2);
+		int level =r.等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*3);
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
@@ -171,7 +171,7 @@ public class 幸运之泉 extends WellWater {
 		} while ( Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级( 0 );
-		int level = w.真等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*2);
+		int level = w.真等级()+Random.Int(Dungeon.幸运值,Dungeon.幸运值*3);
 		n.升级( level );
 
 		n.levelKnown = w.levelKnown;

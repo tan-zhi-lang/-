@@ -64,7 +64,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ScrollOfCha
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.转换符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.DimensionalSundial;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.MossyClump;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrapMechanism;
@@ -273,7 +273,7 @@ public abstract class Level implements Bundlable {
 			}
 			if(Dungeon.区域()==3){
 				addItemToSpawn(new 石头());
-				addItemToSpawn(new 石头());
+				if(Random.Int(1)==0)
 				addItemToSpawn(new 石头());
 			}
 			if(SPDSettings.customSeed().equals("速通地牢"))
@@ -344,7 +344,7 @@ public abstract class Level implements Bundlable {
 			}
 			if ( Dungeon.附魔符石掉落() ){
 				Dungeon.LimitedDrops.ENCH_STONE.drop();
-				addItemToSpawn( new 附魔符石() );
+				addItemToSpawn( new 转换符石());
 			}
 			if ( Dungeon.intStoneNeeded() ){
 				Dungeon.LimitedDrops.INT_STONE.drop();
@@ -1181,6 +1181,12 @@ public abstract class Level implements Bundlable {
 	public boolean 在水中(int pos){
 		return map[pos] == Terrain.WATER;
 	}
+	public boolean 可挖矿(int pos){
+		return (map[pos]==Terrain.WALL||
+				map[pos]==Terrain.WALL_DECO||
+				map[pos]==Terrain.MINE_CRYSTAL||
+				map[pos]==Terrain.MINE_BOULDER);
+	}
 	public boolean 在草丛(int pos){
 		return map[pos] == Terrain.GRASS||
 			   map[pos] == Terrain.HIGH_GRASS||
@@ -1255,10 +1261,57 @@ public abstract class Level implements Bundlable {
 
 		updateOpenSpace(cell);
 	}
-	
+
+	public Heap drop( Item item, int cell ) {
+		if (item == null || Challenges.isItemBlocked(item)){
+
+			//create a dummy heap, give it a dummy sprite, don't add it to the game, and return it.
+			//effectively nullifies whatever the logic calling this wants to do, including dropping items.
+			Heap heap = new Heap();
+			ItemSprite sprite = heap.sprite = new ItemSprite();
+			sprite.link(heap);
+			return heap;
+
+		}
+
+		Heap heap = heaps.get( cell );
+		if (heap == null) {
+
+			heap = new Heap();
+			heap.seen = Dungeon.level == this && heroFOV[cell];
+			heap.pos = cell;
+			heap.drop(item);
+			if (map[cell] == Terrain.CHASM || (Dungeon.level != null && pit[cell])) {
+				Dungeon.dropToChasm( item );
+				GameScene.discard( heap );
+			} else {
+				heaps.put( cell, heap );
+				GameScene.add( heap );
+			}
+
+		} else if (heap.type == Heap.Type.LOCKED_CHEST || heap.type == Heap.Type.CRYSTAL_CHEST) {
+
+			int n;
+			do {
+				n = cell + PathFinder.相邻[Random.Int(8)];
+			} while (!passable[n] && !avoid[n]);
+			return drop( item, n );
+
+		} else {
+			heap.drop(item);
+		}
+
+		if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
+			pressCell( cell );
+		}
+
+		return heap;
+	}
+
 	public void dropRandomCell( Item item, int cell) {
 		dropRandomCell(item,1,cell);
-	}public void dropRandomCell(Item item, int 范围, int cell) {
+	}
+	public void dropRandomCell(Item item, int 范围, int cell) {
 		int length = Dungeon.level.length();
 		int[] offsets = PathFinder.x范围(范围);   // 辅助方法见下方
 
@@ -1304,52 +1357,6 @@ public abstract class Level implements Bundlable {
 		return false;
 	}
 
-	public Heap drop( Item item, int cell ) {
-		if (item == null || Challenges.isItemBlocked(item)){
-
-			//create a dummy heap, give it a dummy sprite, don't add it to the game, and return it.
-			//effectively nullifies whatever the logic calling this wants to do, including dropping items.
-			Heap heap = new Heap();
-			ItemSprite sprite = heap.sprite = new ItemSprite();
-			sprite.link(heap);
-			return heap;
-
-		}
-		
-		Heap heap = heaps.get( cell );
-		if (heap == null) {
-			
-			heap = new Heap();
-			heap.seen = Dungeon.level == this && heroFOV[cell];
-			heap.pos = cell;
-			heap.drop(item);
-			if (map[cell] == Terrain.CHASM || (Dungeon.level != null && pit[cell])) {
-				Dungeon.dropToChasm( item );
-				GameScene.discard( heap );
-			} else {
-				heaps.put( cell, heap );
-				GameScene.add( heap );
-			}
-			
-		} else if (heap.type == Heap.Type.LOCKED_CHEST || heap.type == Heap.Type.CRYSTAL_CHEST) {
-			
-			int n;
-			do {
-				n = cell + PathFinder.相邻[Random.Int(8)];
-			} while (!passable[n] && !avoid[n]);
-			return drop( item, n );
-			
-		} else {
-			heap.drop(item);
-		}
-		
-		if (Dungeon.level != null && ShatteredPixelDungeon.scene() instanceof GameScene) {
-			pressCell( cell );
-		}
-		
-		return heap;
-	}
-	
 	public Plant plant( Plant.Seed seed, int pos ) {
 
 		Plant plant = plants.get( pos );

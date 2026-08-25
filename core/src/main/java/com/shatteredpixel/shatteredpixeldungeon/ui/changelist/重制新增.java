@@ -163,6 +163,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.鹿角刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.黑暗剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.龙牙锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.商人信标;
+import com.shatteredpixel.shatteredpixeldungeon.items.器灵;
 import com.shatteredpixel.shatteredpixeldungeon.items.激泥酞酶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.圣诞礼物;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
@@ -466,8 +467,8 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 封禁卷轴(),"升级卷轴消耗10能量合成"));
 		changes.addButton(new ChangeButton(new 进级卷轴(),"升级卷轴+激泥酞酶消耗8能量合成"));
 		changes.addButton(new ChangeButton(new 血药(),
-										   "商店必定出售1个。\n" +
-										   "治疗药剂消耗5能量合成5"
+										   "商店必定出售3个。\n" +
+										   "治疗药剂消耗1能量合成3"
 		));
 		changes.addButton(new ChangeButton(new 进力药剂(),"潜力药剂+精纯药液消耗8能量合成"));
 
@@ -486,12 +487,13 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 精纯药液(),"药剂+种子消耗1能量合成"));
 		changes.addButton(new ChangeButton(new 激泥酞酶(),"卷轴+符石消耗1能量合成"));
 		changes.addButton(new ChangeButton(new 秘银(),"金液x3消耗6能量合成"));
+		changes.addButton(new ChangeButton(new 器灵(),"5阶武器消耗10能量合成"));
 
 		changes.addButton(new ChangeButton(new 护甲修理工具包(),
 				//									   "护盾机制，改成免疫一次伤害，并且可以叠加，也不会随时间流逝。\n\n" +
 										   "巨魔铁匠可以花费人情修复你的护甲。\n" +
 										   "巨魔铁匠可以花费人情升级装备的阶，不超过5。\n" +
-										   "商店会出售2+区域层数量。\n" +
+										   "商店会出售1+区域层数量。\n" +
 										   "护甲改成防具，防具可以放入炼金锅转换护甲修理工具包，同酶优树酯。"));
 		changes.addButton(new ChangeButton(new 进阶宝典(),
 										   "3区域第3层必定生成一个。"));
@@ -595,7 +597,7 @@ public class 重制新增{
 		changes.addButton( new ChangeButton(Icons.天赋之泉.get(), "天赋之泉",
 											"英雄站上面永久+1天赋点，物品在上面升级一次。"));
 changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
-											"英雄站上面永久+1幸运值，物品在上面随机变成更好的物品。"));
+											"英雄站上面永久+1幸运值，物品在上面随机变成更好的物品，即等级+1~3。"));
 
 		changes.addButton( new ChangeButton(Icons.DISTANT_WELL.get(),"干涸大井",
 											"13层生成干涸大井。\n" +
@@ -795,7 +797,6 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"战镰+大地护甲合剂+器灵消耗15能量合成地裂镰。\n" +
 											"长匕首+冰霜药剂+器灵消耗15能量合成臻冰刃。",
 
-											"治疗药剂消耗5能量合成血药x5。\n" +
 											"紊乱魔药消耗5能量合成净化药剂，无序结晶消耗5能量合成祛邪卷轴。\n" +
 											"生肉+隐形药剂消耗4能量合成幻影鱼肉。"
 		));

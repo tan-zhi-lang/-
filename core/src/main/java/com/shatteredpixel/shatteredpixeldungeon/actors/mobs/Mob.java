@@ -1212,9 +1212,12 @@ public abstract class Mob extends Char{
 							Dungeon.level.drop(new 蜂蜜(),pos).sprite().drop();
 						}
 					}
-					if(断魂佛珠.回血()>0&&恶魔亡灵())Dungeon.hero.回血(断魂佛珠.回血());
-					if(Dungeon.符文("坦克引擎"))Dungeon.hero.坦克引擎+=强度();
-					if(Dungeon.符文("缩小引擎"))Dungeon.hero.缩小引擎+=强度();
+					if(断魂佛珠.回血()>0&&恶魔亡灵())
+						Dungeon.hero.回血(断魂佛珠.回血());
+					if(Dungeon.符文("坦克引擎"))
+						Dungeon.hero.坦克引擎+=强度();
+					if(Dungeon.符文("缩小引擎"))
+						Dungeon.hero.缩小引擎+=强度();
 					if(Dungeon.hero.subClass(HeroSubClass.狂战士)){
 						算法.修复效果(()->{
 							Buff.施加(Dungeon.hero,怒气.class).damage2();
@@ -1222,7 +1225,7 @@ public abstract class Mob extends Char{
 					}
 					if(Dungeon.符文("夜狩")){
 						算法.修复效果(()->{
-							Buff.延长( Dungeon.hero, Invisibility.class, Invisibility.DURATION );
+							Buff.延长(Dungeon.hero,Invisibility.class,Invisibility.DURATION);
 						});
 					}
 
@@ -1293,9 +1296,8 @@ public abstract class Mob extends Char{
 						Dungeon.hero.防御成长+=0.25f;
 					}
 					if(Dungeon.符文("哎哟我的硬币"))
-						for (int i : PathFinder.相邻) {
-							Dungeon.level.drop(new Gold(15),pos+i).sprite.drop();
-						}
+						Dungeon.level.dropRandomCell(new Gold(15),pos);
+
 					if(Dungeon.hero.belongings.hasItem(干枯玫瑰.class)
 					   &&Dungeon.hero.belongings.getItem(干枯玫瑰.class).isEquipped(Dungeon.hero)
 					   &&Random.Int(100)<=强度())

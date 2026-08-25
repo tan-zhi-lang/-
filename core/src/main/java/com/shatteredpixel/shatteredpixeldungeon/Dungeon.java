@@ -866,6 +866,8 @@ public class Dungeon {
 	}
 	
 	public static boolean shopOnLevel() {
+		if(相对层数()<3)return false;
+		if(相对层数()==3)return true;
 		if(区域()==5)return false;
 		return 区域层数(1);
 	}

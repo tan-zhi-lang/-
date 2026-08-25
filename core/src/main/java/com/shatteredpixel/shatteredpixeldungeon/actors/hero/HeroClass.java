@@ -678,7 +678,7 @@ public enum HeroClass{
 		(hero.belongings.armor=new 披风()).鉴定();
 		
 		(hero.belongings.weapon=new 短弓()).鉴定();
-		new 箭矢().数量(10).放背包();
+		new 箭矢().数量(20).放背包();
 		Dungeon.quickslot.setSlot(0,hero.belongings.weapon);
 		
 		new 灵视药剂().鉴定();
@@ -867,7 +867,7 @@ public enum HeroClass{
 		十字弩 x=new 十字弩();
 		(hero.belongings.weapon=x).鉴定();
 
-		new 箭矢().数量(7).放背包();
+		new 箭矢().数量(10).放背包();
 
 		Dungeon.quickslot.setSlot(0,x);
 		(hero.belongings.armor=new 魔披()).鉴定();
@@ -948,6 +948,61 @@ public enum HeroClass{
 	
 	public String spritesheet(){
 		switch(this){
+			case WARRIOR:
+			default:
+				return Assets.Sprites.WARRIOR;
+			case MAGE:
+				return Assets.Sprites.MAGE;
+			case 盗贼:
+				return Assets.Sprites.ROGUE;
+			case HUNTRESS:
+				return Assets.Sprites.HUNTRESS;
+			case DUELIST:
+				return Assets.Sprites.DUELIST;
+			case CLERIC:
+				return Assets.Sprites.CLERIC;
+			case 巫女:
+				return Assets.Sprites.巫女;
+			case 重武:
+				return Assets.Sprites.重武;
+			case 镜魔:
+				return Assets.Sprites.镜魔;
+			case 道士:
+				return Assets.Sprites.道士;
+			case 行僧:
+				return Assets.Sprites.行僧;
+			case 近卫:
+				return Assets.Sprites.近卫;
+			case 兽灵:
+				return Assets.Sprites.兽灵;
+			case 机器:
+				return Assets.Sprites.机器;
+			case 女忍:
+				return Assets.Sprites.女忍;
+			case 戒老:
+				return Assets.Sprites.戒老;
+			case 逐姝:
+				return Assets.Sprites.逐姝;
+			case 罗兰:
+				return Assets.Sprites.罗兰;
+			case 学士:
+				return Assets.Sprites.学士;
+			case 灵猫:
+				return Assets.Sprites.灵猫;
+			case 鼠弟:
+				return Assets.Sprites.鼠弟;
+			case 凌云:
+				if(Dungeon.hero()&&Dungeon.hero.subClass(HeroSubClass.解咒真人))
+					return Assets.Sprites.凌云真人;
+				return Assets.Sprites.凌云;
+			case 血鬼:
+				return Assets.Sprites.血鬼;
+			case 来世:
+				return Assets.Sprites.来世;
+		}
+	}
+	public static String spritesheet(HeroClass heroClass){
+		switch(heroClass){
 			case WARRIOR:
 			default:
 				return Assets.Sprites.WARRIOR;

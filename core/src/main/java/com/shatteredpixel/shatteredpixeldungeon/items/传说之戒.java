@@ -15,7 +15,7 @@ public class 传说之戒 extends Item {
 	
 
 	{
-		image = 物品表.空间之戒;
+		image = 物品表.传说之戒;
 		特别 = true;
 		物品 = true;
 		可以空间=false;

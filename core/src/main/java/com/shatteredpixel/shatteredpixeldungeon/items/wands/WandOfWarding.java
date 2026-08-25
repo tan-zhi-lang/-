@@ -314,9 +314,9 @@ public class WandOfWarding extends Wand {
 			spend( 1f );
 
 			//always hits
-			float dmg = Hero.heroDamage(魔力(0.2f,0.1f),
-										魔力(0.8f,0.4f)
-										);
+			float dmg = Hero.英雄伤害(魔力(0.2f,0.1f),
+									  魔力(0.8f,0.4f)
+									 );
 			Char enemy = this.enemy;
 			enemy.受伤时( dmg, this );
 			if (enemy.isAlive()){

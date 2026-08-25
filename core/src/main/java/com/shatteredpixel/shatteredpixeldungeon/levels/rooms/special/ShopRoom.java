@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.商士;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.商机;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.商鼠;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.对话NPC;
 import com.shatteredpixel.shatteredpixeldungeon.items.Ankh;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -58,7 +57,6 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.utils.Point;
@@ -127,11 +125,11 @@ public class ShopRoom extends SpecialRoom {
 		shopkeeper.pos = pos;
 		level.mobs.add( shopkeeper );
 
-		if(算法.isDebug()){
-			Mob 对话NPC= new 对话NPC();
-			对话NPC.pos=pos+1;
-			level.mobs.add(对话NPC);
-		}
+//		if(算法.isDebug()){
+//			Mob 交易NPC= new 交易NPC();
+//			交易NPC.pos=pos+1;
+//			level.mobs.add(交易NPC);
+//		}
 	}
 
 	protected void placeItems( Level level ){
@@ -241,10 +239,6 @@ public class ShopRoom extends SpecialRoom {
 		case 1: default:
 			w = (Weapon) Generator.random(Generator.wepTiers[0]);
 			a=new ClothArmor();
-			if(Dungeon.hero()&&!Dungeon.hero.heroClass(HeroClass.WARRIOR)) {
-				if(Dungeon.depth==1)
-				itemsToSpawn.add(new 水袋());
-			}
 			break;
 		case 6:
 			w = (Weapon) Generator.random(Generator.wepTiers[1]);
@@ -319,14 +313,14 @@ public class ShopRoom extends SpecialRoom {
 				}
 			}
 		}
-		if(w!=null){
+		if(Dungeon.相对层数()>3&&w!=null){
 			w.enchant(null);
 			w.cursed = false;
 			w.升级(n);
 			w.鉴定(true);
 			itemsToSpawn.add(w);
 		}
-		if(a!=null){
+		if(Dungeon.相对层数()>3&&a!=null){
 			a.inscribe(null);
 			a.cursed=false;
 			a.升级(n2);
@@ -349,6 +343,12 @@ public class ShopRoom extends SpecialRoom {
 				itemsToSpawn.add(bag);
 			}
 		}
+
+		if(Dungeon.hero()&&!Dungeon.hero.heroClass(HeroClass.WARRIOR)) {
+			if(Dungeon.depth==3)
+				itemsToSpawn.add(new 水袋());
+		}
+
 		if(Dungeon.符文("海克斯获取:贸易"))
 			itemsToSpawn.add( new 海克斯秘卷(true));
 
@@ -361,16 +361,25 @@ public class ShopRoom extends SpecialRoom {
 		if(Dungeon.符文("黑市:六神之戒"))
 		itemsToSpawn.add( new 六神之戒());
 
+		if(Dungeon.相对层数()>3)
+		itemsToSpawn.add( new Ankh() );
+
+
+		if(Dungeon.相对层数()>3){
+			itemsToSpawn.add(new 血药().数量(3));
+			itemsToSpawn.add( new 护甲修理工具包().数量(1+Dungeon.区域()));
+
+			itemsToSpawn.add(new Stylus());
+			itemsToSpawn.add(new 强化符石());
+			itemsToSpawn.add( new 感知符石());
+		}
+
 		itemsToSpawn.add( new 治疗药剂());
-		itemsToSpawn.add( new 血药());
 		itemsToSpawn.add( new 净化药剂());
 		itemsToSpawn.add( new 隐形药剂());
 		itemsToSpawn.add( new 极速药剂());
 
-
 		itemsToSpawn.add( new 鉴定卷轴() );
-		itemsToSpawn.add( new 感知符石());
-
 		itemsToSpawn.add( new 嬗变卷轴() );
 		itemsToSpawn.add( new 祛邪卷轴() );
 		itemsToSpawn.add( new 探地卷轴() );
@@ -382,12 +391,12 @@ public class ShopRoom extends SpecialRoom {
 		if(imp)
 		itemsToSpawn.add( new 矮人徽章().数量(Random.Int(4,5)));
 
-		itemsToSpawn.add( new 面包());
-		itemsToSpawn.add( new SmallRation() );
-		
-		
-		itemsToSpawn.add( new 护甲修理工具包().数量(2+Dungeon.区域()));
-		
+		if(Dungeon.相对层数()>3){
+			itemsToSpawn.add(new 面包());
+			itemsToSpawn.add(new SmallRation());
+		}
+
+		if(Dungeon.相对层数()>3)
 		switch (Random.Int(4)){
 			case 0:
 				itemsToSpawn.add( new Bomb() );
@@ -400,10 +409,6 @@ public class ShopRoom extends SpecialRoom {
 				itemsToSpawn.add( new Honeypot() );
 				break;
 		}
-
-		itemsToSpawn.add( new Ankh() );
-		itemsToSpawn.add( new 强化符石() );
-		itemsToSpawn.add( new Stylus() );
 
 		时光沙漏 hourglass = Dungeon.hero.belongings.getItem(时光沙漏.class);
 		if (hourglass != null && hourglass.已鉴定() && !hourglass.cursed){
@@ -469,7 +474,7 @@ public class ShopRoom extends SpecialRoom {
 				rare = Random.oneOf(Generator.randomArtifact(),
 									Generator.randomWand(),Generator.randomRing());
 		}
-		if(rare!=null){
+		if(Dungeon.相对层数()>3&&rare!=null){
 			rare.cursed=false;
 			rare.鉴定(true);
 			itemsToSpawn.add(rare);

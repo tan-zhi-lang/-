@@ -41,6 +41,7 @@ public class Warlock extends Mob implements Callback {
 		lootChance = 0.5f;
 
 		属性表.add(Property.UNDEAD);
+		属性表.add(Property.活尸);
 	}
 	
 	@Override

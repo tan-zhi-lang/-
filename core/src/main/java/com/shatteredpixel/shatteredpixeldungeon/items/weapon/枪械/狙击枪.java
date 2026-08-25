@@ -19,6 +19,7 @@ public class 狙击枪 extends 枪械{
 		破甲弹=true;
 		子弹=new 狙击枪子弹();
 		射速=2;
+		换弹声音 = Assets.Sounds.狙击枪换弹;
 		image2 = 物品表.狙击枪子弹;
 		hitSound2 = Assets.Sounds.狙击枪;
 		item_Miss2 = Assets.Sounds.狙击枪;

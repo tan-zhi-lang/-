@@ -27,7 +27,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.转换符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.震爆符石;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -302,8 +302,8 @@ public abstract class Scroll extends Item {
 			stones.put(祛邪卷轴.class,   探魔符石.class);
 			stones.put(传送卷轴.class,StoneOfBlink.class);
 			stones.put(恐惧卷轴.class,StoneOfFear.class);
-			stones.put(嬗变卷轴.class, 强化符石.class);
-			stones.put(升级卷轴.class,       附魔符石.class);
+			stones.put(嬗变卷轴.class, 转换符石.class);
+			stones.put(升级卷轴.class,       强化符石.class);
 		}
 		
 		@Override

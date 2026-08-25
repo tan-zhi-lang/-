@@ -47,7 +47,6 @@ public abstract class Spell extends Item {
 			
 			onCast( hero );
 			hero.回血(hero.天赋点数(Talent.备战));
-			hero.护甲(hero.天赋点数(Talent.武装,2));
 
 		}
 	}

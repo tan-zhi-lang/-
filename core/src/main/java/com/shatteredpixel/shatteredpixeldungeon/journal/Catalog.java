@@ -104,7 +104,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.Recycle;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.转级菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
@@ -352,7 +352,7 @@ public enum Catalog {
 				ElixirOfIcyTouch.class, ElixirOfToxicEssence.class, 根骨秘药.class, ElixirOfFeatherFall.class);
 
 		SPELLS.addItems( UnstableSpell.class, WildEnergy.class, TelekineticGrab.class, PhaseShift.class,
-				炼金菱晶.class, CurseInfusion.class, MagicalInfusion.class, Recycle.class,
+				炼金菱晶.class, CurseInfusion.class, MagicalInfusion.class, 转级菱晶.class,
 				ReclaimTrap.class, SummonElemental.class, BeaconOfReturning.class, BeaconOfReturning.class);
 
 		MISC_CONSUMABLES.addItems(Gold.class,EnergyCrystal.class,Dewdrop.class,

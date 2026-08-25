@@ -111,7 +111,6 @@ abstract public class Weapon extends KindOfWeapon {
 	武技 技能=null;
 	boolean 充能 = true;
 	boolean 无限战技 = false;
-	int 最大充能 = -1;
 	boolean circlingBack = false;
 	public static String AC_ABILITY = "ABILITY";
 
@@ -604,18 +603,21 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		switch (augment) {
 			case DAMAGE:
-				info += " " + Messages.get(Weapon.class, "damage");
+				info += "\n\n" + Messages.get(Weapon.class, "damage");
 				break;
 			case DELAY:
-				info += " " + Messages.get(Weapon.class, "delay");
+				info += "\n\n" + Messages.get(Weapon.class, "delay");
 				break;
 			case ACCURACY:
-				info += " " + Messages.get(Weapon.class, "accuracy");
+				info += "\n\n" + Messages.get(Weapon.class, "accuracy");
 				break;
 			case NONE:
 		}
 
-		
+		if (enchantment != null){
+			info += "\n\n" + enchantment.desc();
+		}
+
 		if (cursed && isEquipped( Dungeon.hero )) {
 			info += "\n\n" + Messages.get(Weapon.class, "cursed_worn");
 		} else if (cursedKnown && cursed) {
@@ -627,8 +629,13 @@ abstract public class Weapon extends KindOfWeapon {
 				info += "\n\n" + Messages.get(Weapon.class, "not_cursed");
 			}
 		}
-		if(涂药种类!=null&&涂药种类.涂药次数>0)
-			info += "\n\n" + Messages.get(Armor.class,"uses_left",涂药种类.涂药次数);
+
+		if (涂药种类 != null){
+			info += "\n\n" +"这件武器涂抹了_"+ 涂药种类.name()+"_，效果为"+ 涂药种类.desc();
+			if(涂药种类.涂药次数>0)
+				info += "\n" + Messages.get(Armor.class,"uses_left",涂药种类.涂药次数);
+
+		}
 
 		//the mage's staff has no ability as it can only be gained by the mage
 		if (Dungeon.hero() &&技能()!=null){
@@ -810,7 +817,7 @@ abstract public class Weapon extends KindOfWeapon {
 			//so that duelist keeps weapon charge on ankh revive
 			revivePersists = true;
 		}
-		public int charges = 1;
+		public int charges = chargeCap();
 		public float partialCharge;
 		
 		float scalingFactor = 0.875f;
@@ -839,6 +846,7 @@ abstract public class Weapon extends KindOfWeapon {
 				
 				if (partialCharge >= 1){
 					charges++;
+					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 					partialCharge--;
 					updateQuickslot();
 				}
@@ -868,8 +876,9 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		public int chargeCap(){
-			if(Weapon.this.最大充能!=-1)
-			return Math.min(10, Weapon.this.最大充能);
+			if(Dungeon.hero==null)
+			return Math.min(10, 3);
+
 			return Math.min(10, 3+Dungeon.hero.等级((Dungeon.hero.heroClass(HeroClass.DUELIST)?0.3f:0.25f)));
 		}
 
@@ -1251,7 +1260,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if (hero.subClass(HeroSubClass.武器大师)) {
 					damage += exStr;
 			}else{
-					damage += Hero.heroDamage(0,exStr);
+					damage += Hero.英雄伤害(0,exStr);
 			}
 		}
 		if(defender!=null&&流血()>0)
@@ -1309,17 +1318,13 @@ abstract public class Weapon extends KindOfWeapon {
 		if(defender!=null&&defender.isAlive()&&魔法()>0){
 			defender.受伤时(魔法()*damage);
 		}
-		if(defender!=null&&涂药种类!=null&&涂药种类.涂药次数>0){
+		if(defender!=null&&涂药种类!=null){
+			damage=涂药种类.触发(defender,damage);
 			if(this instanceof 自然之力){
 
-			}else 涂药种类.消耗();
+			}else 涂药种类.消耗(this);
 
-			if(涂药种类.涂药次数<=0){
-				涂药种类=null;
-				GLog.橙(Messages.get(this,"has_broken"));
-			}else{
-				damage=涂药种类.触发(defender,damage);
-			}
+
 		}
 		return damage;
 	}

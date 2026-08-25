@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
@@ -45,7 +46,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.Recycle;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
@@ -56,8 +56,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.箱引菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结能菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.结金菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.转级菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
@@ -169,9 +171,23 @@ public abstract class Recipe {
 
 			// ★ 1. 记录输入材料的最高等级
 			int maxLevel = 0;
+			boolean levelKnown = false;
+			boolean cursed = false;
+			boolean cursedKnown = false;
+			Armor.Glyph ag=null;
+			Weapon.Enchantment we=null;
 			for (Item ingredient : ingredients) {
-				if (ingredient.等级() > maxLevel) {
-					maxLevel = ingredient.等级();
+				if(ingredient instanceof EquipableItem){
+					if(ingredient.等级()>maxLevel){
+						maxLevel=ingredient.等级();
+					}
+					levelKnown=ingredient.levelKnown;
+					cursed=ingredient.cursed;
+					cursedKnown=ingredient.cursedKnown;
+					if(ingredient instanceof Armor a)
+						ag=a.glyph;
+					if(ingredient instanceof Weapon w)
+						we=w.enchantment;
 				}
 			}
 			//int firstLevel = ingredients.get(0).等级();
@@ -193,8 +209,17 @@ public abstract class Recipe {
 
 			// ★ 3. 创建产物并继承最高等级
 			Item result = sampleOutput(null);
-			if (result != null && maxLevel > 0) {
-				result.等级(maxLevel);
+			if (result != null) {
+				if(result instanceof EquipableItem){
+					result.等级(maxLevel);
+					result.levelKnown=levelKnown;
+					result.cursed=cursed;
+					result.cursedKnown=cursedKnown;
+					if(result instanceof Armor a)
+						a.glyph=ag;
+					if(result instanceof Weapon w)
+						w.enchantment=we;
+				}
 			}
 			//sample output and real output are identical in this case.
 			return result;
@@ -238,10 +263,8 @@ public abstract class Recipe {
 		new ElixirOfIcyTouch.Recipe(),
 		new ElixirOfToxicEssence.Recipe(),
 		new ElixirOfFeatherFall.Recipe(),
-		new MagicalInfusion.Recipe(),
 		new BeaconOfReturning.Recipe(),
 		new PhaseShift.Recipe(),
-		new Recycle.Recipe(),
 		new TelekineticGrab.Recipe(),
 		new SummonElemental.Recipe(),
 		new TrinketCatalyst.Recipe(),
@@ -284,6 +307,7 @@ public abstract class Recipe {
 		new 清洁菱晶.Recipe(),
 		new 箱引菱晶.Recipe(),
 		new 分解菱晶.Recipe(),
+			new 转级菱晶.Recipe(),
 
 		new ClothArmor.Recipe(),
 		new LeatherArmor.Recipe(),
@@ -313,6 +337,7 @@ public abstract class Recipe {
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{
 		new Potion.SeedToPotion(),
 		new MeatPie.Recipe(),
+			new MagicalInfusion.Recipe(),
 			new 圣银十字弩.Recipe(),
 			new 自然之力.Recipe(),
 			new 暗裔短弓.Recipe(),
@@ -396,16 +421,15 @@ public abstract class Recipe {
 	
 	public static boolean usableInRecipe(Item item){//可以放入 炼金条件
 		//only upgradeable thrown weapons and wands allowed among equipment items
-		if(!item.炼金||item.专属)
+		if(item.专属)
 			return false;
-		if (item instanceof EquipableItem){
-			if(item.isEquipped(Dungeon.hero))return false;
-			
-			return true;
-		} else {
-			//other items can be unidentified, but not cursed
+
+		if (item instanceof EquipableItem&&item.isEquipped(Dungeon.hero))
 			return false;
-		}
+
+		//other items can be unidentified, but not cursed
+		return item.炼金;
+
 	}
 }
 

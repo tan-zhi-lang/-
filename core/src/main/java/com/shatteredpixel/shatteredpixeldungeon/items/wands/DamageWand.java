@@ -32,7 +32,7 @@ public abstract class DamageWand extends Wand{
 	}
 
 	public float damageRoll(int lvl){
-		float dmg = Hero.heroDamage(min(lvl),max(lvl));
+		float dmg = Hero.英雄伤害(min(lvl),max(lvl));
 
 		WandEmpower emp = Dungeon.hero.buff(WandEmpower.class);
 		if (emp != null){

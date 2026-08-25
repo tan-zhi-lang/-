@@ -53,7 +53,7 @@ public class Bomb extends Item {
 	{
 		image = 物品表.BOMB;
 
-		defaultAction = AC_LIGHTTHROW;
+		defaultAction = AC_CHOOSE;
 		usesTargeting = true;
 		
 		可堆叠= true;
@@ -97,7 +97,6 @@ public class Bomb extends Item {
 			lightingFuse = true;
 
 			hero.回血(hero.天赋点数(Talent.备战));
-			hero.护甲(hero.天赋点数(Talent.武装,2));
 
 			if(action.equals(AC_等爆))
 				等爆 = true;
@@ -473,10 +472,12 @@ public class Bomb extends Item {
 			validIngredients.put(治疗药剂.class,         RegrowthBomb.class);
 			validIngredients.put(嬗变卷轴.class,财富炸弹.class);
 
-			validIngredients.put(祛邪卷轴.class,     神圣炸弹.class);
 
 			validIngredients.put(GooBlob.class,                 ArcaneBomb.class);
 			validIngredients.put(MetalShard.class,              ShrapnelBomb.class);
+
+
+			validIngredients.put(祛邪卷轴.class,     神圣炸弹.class);
 		}
 		
 		private static final HashMap<Class<?extends Bomb>, Integer> bombCosts = new HashMap<>();
@@ -493,10 +494,10 @@ public class Bomb extends Item {
 			bombCosts.put(RegrowthBomb.class,   3);
 			bombCosts.put(财富炸弹.class,3);
 
-			bombCosts.put(神圣炸弹.class,       4);
+			bombCosts.put(ArcaneBomb.class,     4);
+			bombCosts.put(ShrapnelBomb.class,   4);
 
-			bombCosts.put(ArcaneBomb.class,     6);
-			bombCosts.put(ShrapnelBomb.class,   6);
+			bombCosts.put(神圣炸弹.class,       6);
 		}
 		
 		@Override

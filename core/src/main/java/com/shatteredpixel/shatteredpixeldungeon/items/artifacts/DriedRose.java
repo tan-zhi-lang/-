@@ -499,8 +499,7 @@ public class DriedRose extends Artifact {
 			
 			state = HUNTING;
 			
-			属性表.add(Property.UNDEAD);
-			属性表.add(Property.INORGANIC);
+			属性表.add(Property.灵魂);
 		}
 		
 		private DriedRose rose = null;

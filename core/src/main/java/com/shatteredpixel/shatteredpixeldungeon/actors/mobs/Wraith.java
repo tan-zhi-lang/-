@@ -35,6 +35,7 @@ public class Wraith extends Mob {
 		
 		flying = true;
 
+		属性表.add(Property.灵魂);
 		属性表.add(Property.UNDEAD);
 		属性表.add(Property.INORGANIC);
 	}

@@ -17,21 +17,21 @@ public class 神射之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-					0.1f*soloBuffedBonus());
+					0.08f*soloBuffedBonus());
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-						0.1f*combinedBuffedBonus(Dungeon.hero));
+						0.08f*combinedBuffedBonus(Dungeon.hero));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", 0.1f);
+			return Messages.get(this, "stats", 0.08f);
 		}
 	}
 
 	@Override
 	public String upgradeStat1(int level) {
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return ""+level*0.1f;
+		return ""+level*0.08f;
 	}
 	@Override
 	protected RingBuff buff( ) {
@@ -39,7 +39,7 @@ public class 神射之戒 extends Ring {
 	}
 	
 	public static float levelBonus(Char target){
-		return 1+0.1f*getBuffedBonus(target, 神射之戒.Aim.class);
+		return 0.08f*getBuffedBonus(target, 神射之戒.Aim.class);
 	}
 
 	public class Aim extends RingBuff {

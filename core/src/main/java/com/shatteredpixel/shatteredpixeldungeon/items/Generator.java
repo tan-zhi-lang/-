@@ -103,7 +103,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.强化符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.感知符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.探魔符石;
-import com.shatteredpixel.shatteredpixeldungeon.items.stones.附魔符石;
+import com.shatteredpixel.shatteredpixeldungeon.items.stones.转换符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.震爆符石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.DimensionalSundial;
@@ -455,7 +455,7 @@ public class Generator {
 			SCROLL.probs = SCROLL.defaultProbs.clone();
 			
 			STONE.classes = new Class<?>[]{
-					附魔符石.class,   //1 is guaranteed to drop on floors 6-19
+					转换符石.class,   //1 is guaranteed to drop on floors 6-19
 					感知符石.class,     //1 additional stone is also dropped on floors 1-3
 					探魔符石.class,
 					StoneOfFlock.class,

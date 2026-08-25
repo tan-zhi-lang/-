@@ -17,8 +17,9 @@ public class 短弓 extends 枪械{
 		射速=1;
 		子弹 = new 箭矢();
 		image2 = 物品表.箭矢;
-		hitSound2 = Assets.Sounds.攻击箭;
-		item_Miss2 = Assets.Sounds.攻击箭;
+		hitSound2 = Assets.Sounds.攻击灵箭;
+		item_Miss2 = Assets.Sounds.攻击灵箭;
+		换弹声音 = Assets.Sounds.拉弓;
 		掉落子弹=true;
 		箭矢发射=true;
 		开火效果=false;

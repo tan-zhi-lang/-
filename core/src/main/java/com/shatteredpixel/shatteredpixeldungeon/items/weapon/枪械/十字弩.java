@@ -16,8 +16,10 @@ public class 十字弩 extends 枪械{
 		射速=2;
 		子弹 = new 箭矢();
 		image2 = 物品表.箭矢;
-		hitSound2 = Assets.Sounds.攻击箭;
-		item_Miss2 = Assets.Sounds.攻击箭;
+		hitSound2 = Assets.Sounds.攻击弩;
+		item_Miss2 = Assets.Sounds.攻击弩;
+		换弹声音 = Assets.Sounds.拉弓;
+		弩发射=true;
 		掉落子弹=true;
 		箭矢发射=true;
 		开火效果=false;

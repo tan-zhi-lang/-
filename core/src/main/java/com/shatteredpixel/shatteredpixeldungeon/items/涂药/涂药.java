@@ -1,6 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.涂药;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.items.EquipableItem;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundlable;
@@ -22,13 +23,20 @@ public class 涂药 implements Bundlable{
 	public String desc() {
 		return Messages.get(this, "desc");
 	}
-	public int 消耗(){
+	public void 消耗(EquipableItem i){
 		涂药次数=Math.max(0,--涂药次数);
 
-		if(涂药次数==1)
-			GLog.橙("你装备上的涂药快要失效了。");
-
-		return 涂药次数;
+		if(this instanceof 腐莓药物){
+			if(涂药次数==15/2)
+				GLog.橙("你装备上的涂药快要失效了。");
+		}else{
+			if(涂药次数==5)
+				GLog.橙("你装备上的涂药快要失效了。");
+		}
+		if(涂药次数==0){
+			GLog.橙("你装备上的涂药已经失效了。");
+			i.涂药种类=null;
+		}
 	}
 	public int 涂药次数=0;
 	public static final String 涂药次数x	= "涂药次数";

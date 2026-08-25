@@ -19,6 +19,7 @@ public class 火炮 extends 枪械{
 		爆炸效果=true;
 		子弹=new 火炮子弹();
 		image2 = 物品表.火炮子弹;
+		换弹声音 = Assets.Sounds.火炮换弹;
 		hitSound2 = Assets.Sounds.火炮;
 		item_Miss2 = Assets.Sounds.火炮;
 	}

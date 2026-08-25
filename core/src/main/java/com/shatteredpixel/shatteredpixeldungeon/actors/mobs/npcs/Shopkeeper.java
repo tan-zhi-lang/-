@@ -205,7 +205,7 @@ public class Shopkeeper extends NPC {
 	public static boolean canSell(Item item){
 		if (item.金币() <= 0)                                              return false;
 		if (item instanceof Armor && ((Armor) item).checkSeal() != null)    return false;
-		if (item.isEquipped(Dungeon.hero) && item.cursed)                   return false;
+		if (item.isEquipped(Dungeon.hero))                   return false;
 		return true;
 	}
 

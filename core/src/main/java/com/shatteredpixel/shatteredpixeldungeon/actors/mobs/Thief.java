@@ -37,6 +37,7 @@ public class Thief extends Mob {
 		FLEEING = new Fleeing();
 
 		属性表.add(Property.UNDEAD);
+		属性表.add(Property.活尸);
 	}
 
 	private static final String ITEM = "item";

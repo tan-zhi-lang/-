@@ -40,7 +40,7 @@ public class 器灵 extends Item {
 
 		@Override
 		public int cost(ArrayList<Item> ingredients) {
-			return 5;
+			return 10;
 		}
 
 		@Override

@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -45,6 +46,10 @@ public class Firebloom extends Plant {
 		if (魔法冰霜 != null && 魔法冰霜.volume > 0) {
 			魔法冰霜.clear( pos );
 		}
+		Freezing freezing = (Freezing)Dungeon.level.blobs.get(Freezing.class);
+		if (freezing != null && freezing.volume > 0) {
+			freezing.clear( pos );
+		}
 	}
 	
 	public static class Seed extends Plant.Seed {
@@ -52,6 +57,19 @@ public class Firebloom extends Plant {
 			image = 物品表.SEED_FIREBLOOM;
 
 			plantClass = Firebloom.class;
+		}
+		@Override
+		protected void onThrow( int cell ) {
+
+			魔法冰霜房间.魔法冰霜 魔法冰霜 = (魔法冰霜房间.魔法冰霜)Dungeon.level.blobs.get(魔法冰霜房间.魔法冰霜.class);
+			Freezing freezing = (Freezing)Dungeon.level.blobs.get(Freezing.class);
+			if ((魔法冰霜 != null && 魔法冰霜.volume > 0)||(freezing != null && freezing.volume > 0)) {
+				Plant plant=new Icecap();
+				plant.pos=cell;
+				plant.activate(null);
+			}else {
+				super.onThrow(cell);
+			}
 		}
 	}
 }

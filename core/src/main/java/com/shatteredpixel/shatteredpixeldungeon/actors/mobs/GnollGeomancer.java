@@ -195,7 +195,7 @@ public class GnollGeomancer extends Mob {
 				public void call() {
 					//does its own special damage calculation that's only influenced by pickaxe level and augment
 					//we pretend the geomancer is the owner here so that properties like hero str or or other equipment do not factor in
-					float dmg = Hero.heroDamage(p.最小攻击(),p.最大攻击());
+					float dmg = Hero.英雄伤害(p.最小攻击(),p.最大攻击());
 
 					boolean wasSleeping = state == SLEEPING;
 

@@ -144,7 +144,7 @@ public class 元素类型{
 	}
 	public static final HashSet<Class> 水 = new HashSet<>();
 	static {
-		水.add( 水元素.class);//冰霜
+		水.add( 水元素.class);
 		水.add( GeyserTrap.class);
 		水.add( StormCloud.class);
 	}
@@ -178,7 +178,7 @@ public class 元素类型{
 		光.add( 圣光.class);
 		光.add( 赐福.class);
 		光.add( 神圣药物.class);
-		光.add(神圣炸弹.HolyDamage.class);
+		光.add( 神圣炸弹.HolyDamage.class);
 		光.add( YogFist.BrightFist.LightBeam.class);
 	}
 	public static final HashSet<Class> 暗 = new HashSet<>();

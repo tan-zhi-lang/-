@@ -207,7 +207,7 @@ public class StatusPane extends Component {
 		expText.hardlight( 0xFFFFAA );
 		expText.alpha(0.6f);
 		add(expText);
-		date = new BitmapText( 日期, PixelScene.pixelFont);
+		date = new BitmapText( 日期(), PixelScene.pixelFont);
 		add(date);
 		fps = new BitmapText("FPS:"+Gdx.graphics.getFramesPerSecond(),PixelScene.pixelFont);
 		add(fps);
@@ -479,7 +479,7 @@ public class StatusPane extends Component {
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.经验/Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.经验+"/"+Dungeon.hero.升级所需());
 
-		date.text(日期);
+		date.text(日期());
 		date.measure();
 		date.x = uiCamera.width-MenuPane.WIDTH + 30.5f - date.width();
 		date.y = y + 16.5f + date.height();

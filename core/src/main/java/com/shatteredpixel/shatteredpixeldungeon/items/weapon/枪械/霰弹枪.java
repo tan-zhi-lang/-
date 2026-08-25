@@ -19,6 +19,7 @@ public class 霰弹枪 extends 枪械{
 		破甲弹=true;
 		霰弹效果=true;
 		子弹=new 霰弹枪子弹();
+		换弹声音 = Assets.Sounds.霰弹枪换弹;
 		image2 = 物品表.霰弹枪子弹;
 		hitSound2 = Assets.Sounds.霰弹枪;
 		item_Miss2 = Assets.Sounds.霰弹枪;

@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class 算法 {
+
+	//region x
     /*
 
 
@@ -71,7 +73,12 @@ public class 算法 {
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
     * */
-    public static String 日期="8.22/15:53";
+	//endregion
+
+    public static String 日期(){
+        return "8.25/18:31";
+    }
+
     public static float 金额=5;
     public static int x2=32;
     public static int x3=32*2;
@@ -391,14 +398,5 @@ public class 算法 {
             value=0.1f;
         }
         return value;
-    }
-    public static int 取大小( int min, int value, int max ) {
-        if (value < min) {
-            return min;
-        } else if (value > max) {
-            return max;
-        } else {
-            return value;
-        }
     }
 }

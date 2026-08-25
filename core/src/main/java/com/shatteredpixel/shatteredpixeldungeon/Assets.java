@@ -219,10 +219,13 @@ public class Assets {
 		public static final String UNLOCK   = "sounds/unlock.mp3";
 		public static final String ITEM     = "sounds/item.mp3";
 		public static final String DEWDROP  = "sounds/dewdrop.mp3";
+
 		public static final String STEP     = "sounds/step.mp3";
 		public static final String 金属网= "sounds/金属网.mp3";
 		public static final String 金属板= "sounds/金属板.mp3";
 		public static final String 地毯= "sounds/地毯.mp3";
+		public static final String 瓷砖= "sounds/瓷砖.mp3";
+
 		public static final String WATER    = "sounds/water.mp3";
 		public static final String GRASS    = "sounds/grass.mp3";
 		public static final String TRAMPLE  = "sounds/trample.mp3";
@@ -241,6 +244,7 @@ public class Assets {
 		public static final String 子弹落地              = "sounds/hit/子弹落地.mp3";
 		public static final String 换弹              = "sounds/hit/换弹.mp3";
 		public static final String 霰弹枪换弹              = "sounds/hit/霰弹枪换弹.mp3";
+		public static final String 狙击枪换弹              = "sounds/hit/狙击枪换弹.mp3";
 		public static final String 火炮换弹              = "sounds/hit/火炮换弹.mp3";
 		public static final String 手枪              = "sounds/hit/手枪.mp3";
 		public static final String 冲锋枪              = "sounds/hit/冲锋枪.mp3";
@@ -270,6 +274,7 @@ public class Assets {
 
 		public static final String 攻击灵箭= "sounds/hit/攻击灵箭.mp3";
 		public static final String 攻击弩= "sounds/hit/攻击弩.mp3";
+		public static final String 拉弓= "sounds/hit/拉弓.mp3";
 
 		public static final String HEALTH_WARN      = "sounds/health_warn.mp3";
 		public static final String HEALTH_CRITICAL  = "sounds/health_critical.mp3";
@@ -362,6 +367,7 @@ public class Assets {
 				金属网,
 				金属板,
 				地毯,
+				瓷砖,
 				WATER,
 				GRASS, TRAMPLE,
 
@@ -374,7 +380,7 @@ public class Assets {
 				猴子给给,
 				心之钢,
 				坠星,
-				子弹落地,换弹,霰弹枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
+				子弹落地,换弹,霰弹枪换弹,狙击枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
 				镜刃,布甲,皮甲,链甲,鳞甲,板甲,
 				鞭子,刺剑,巨剑,爪,
 				棍棒,锤打,盾牌,长枪,
@@ -387,7 +393,9 @@ public class Assets {
 				攻击格挡,
 				攻击箭,
 				攻击灵箭,
-				攻击弩, HEALTH_WARN, HEALTH_CRITICAL,
+				攻击弩,
+				拉弓,
+				HEALTH_WARN, HEALTH_CRITICAL,
 
 				DESCEND, EAT, READ, LULLABY,
 				DRINK,

@@ -74,8 +74,6 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 		if(Dungeon.hero()&&Dungeon.hero.belongings.weapon(投掷手套.class))
 			投掷*=1.45f;
-		if(Dungeon.hero())
-		投掷*=神射之戒.levelBonus(Dungeon.hero);
 
 		if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.女忍)) 投掷+=.2f;
 		return 投掷;
@@ -450,12 +448,15 @@ abstract public class KindOfWeapon extends EquipableItem {
 				@Override
 				protected boolean enabled(int index) {
 					if(index ==0){
-
+						if(hero.belongings.weapon!=null)
+							return !hero.belongings.weapon.cursed;
 					}
 					else
 					{
-						if(hero.belongings.weapon!=null&&hero.belongings.weapon.双手())return false;
-						if(hero.belongings.weapon==null)return false;
+						if(hero.belongings.secondWep!=null)
+							return !hero.belongings.secondWep.cursed;
+//						if(hero.belongings.weapon!=null&&hero.belongings.weapon.双手())return false;
+//						if(hero.belongings.weapon==null)return false;
 					}
 					return true;
 				}

@@ -194,7 +194,7 @@ public class Imp extends NPC {
 		}
 		
 		public static ArrayList<Room> spawn(ArrayList<Room> rooms) {
-			if (!spawned && Dungeon.depth > 16 && Random.Int( 20 - Dungeon.depth ) == 0) {
+			if (!spawned && Dungeon.相对层数() > 16 && Random.Int( 20 - Dungeon.相对层数() ) == 0) {
 
 				rooms.add(new AmbitiousImpRoom());
 				
@@ -202,7 +202,7 @@ public class Imp extends NPC {
 
 
 				//always assigns monks on floor 17, golems on floor 19, and 50/50 between either on 18
-				switch (Dungeon.depth){
+				switch (Dungeon.相对层数()){
 					case 17: default:
 						alternative = true;
 						break;
@@ -230,7 +230,7 @@ public class Imp extends NPC {
 		}
 		
 		public static void process( Mob mob ) {
-			if (spawned && given && !completed && Dungeon.depth != 20) {
+			if (spawned && given && !completed && Dungeon.相对层数() != 20) {
 				if ((alternative && mob instanceof Monk) ||
 					(!alternative && mob instanceof Golem)) {
 					

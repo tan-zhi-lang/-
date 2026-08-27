@@ -144,29 +144,30 @@ public class Hunger extends Buff implements Hero.Doom {
 	}
 	@Override
 	public boolean act() {
-		boolean 不饥饿=false;
-		if (Dungeon.level.locked
-				|| target.buff(WellFed.class) != null
-				|| SPDSettings.intro()
-				|| target.buff(ScrollOfChallenge.ChallengeArena.class) != null
-			|| Dungeon.level instanceof VaultLevel){
-			不饥饿=true;
-		}
-		if(Dungeon.赛季(赛季设置.地牢塔防)){
-			不饥饿=true;
-		}
-		if(target instanceof Hero hero&&(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云))){
-			不饥饿=true;
-		}
-		if(不饥饿){
-			spend(TICK);
-			return true;
-		}
 
 		if (target.isAlive() && target instanceof Hero hero) {
 			if(healingLeft>0){
 				真吃饭(healingThisTick());
 				healingLeft-=healingThisTick();
+			}
+
+			boolean 不饥饿=false;
+			if (Dungeon.level.locked
+				|| target.buff(WellFed.class) != null
+				||SPDSettings.intro()
+				||target.buff(ScrollOfChallenge.ChallengeArena.class)!=null
+				||Dungeon.level instanceof VaultLevel){
+				不饥饿=true;
+			}
+			if(Dungeon.赛季(赛季设置.地牢塔防)){
+				不饥饿=true;
+			}
+			if(hero.heroClass(HeroClass.机器)||hero.heroClass(HeroClass.凌云)){
+				不饥饿=true;
+			}
+			if(不饥饿){
+				spend(TICK);
+				return true;
 			}
 
 			if (isStarving()) {//饥饿时

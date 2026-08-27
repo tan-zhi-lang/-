@@ -272,7 +272,7 @@ public abstract class 枪械 extends Weapon{
 		float dmg =最大+(5*(tier()+1) +lvl*(tier()+1))*伤害()*投掷()*枪伤();
 		return Math.max(0, dmg);
 	}
-	
+
 	@Override
 	public String desc() {
 		return super.desc()+"\n"+Messages.get(this, "descq",

@@ -565,12 +565,12 @@ abstract public class Weapon extends KindOfWeapon {
 											  kw2(最大投掷攻击()));
 			if (Dungeon.hero()) {
 				if (力量() > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
-					info += " " + Messages.get(Weapon.class, "too_heavy");
+					info += "\n" + Messages.get(Weapon.class, "too_heavy");
 					if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
 						GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
 					}
 				} else if (hero力量 > 力量()) {
-					info += " " + Messages.get(Weapon.class, "excess_str",
+					info += "\n" + Messages.get(Weapon.class, "excess_str",
 								 (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~")+kw2((hero力量 - 力量()))
 								);
 				}
@@ -586,12 +586,12 @@ abstract public class Weapon extends KindOfWeapon {
 										  kw2(最小投掷攻击(0)),
 													  kw2(最大投掷攻击(0)));
 			if (Dungeon.hero() && 力量(0) > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
-				info += " " + Messages.get(Weapon.class, "too_heavy");
+				info += "\n" + Messages.get(Weapon.class, "too_heavy");
 				if (!Document.ADVENTURERS_GUIDE.isPageRead(Document.力量)){
 					GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.力量);
 				}
 			} else if (hero力量 > 力量()) {
-				info += " " + Messages.get(Weapon.class, "excess_str",
+				info += "\n" + Messages.get(Weapon.class, "excess_str",
 
 										   (Dungeon.hero.subClass(HeroSubClass.武器大师)?"":"0~")+kw2((hero力量 - 力量()))
 										  );

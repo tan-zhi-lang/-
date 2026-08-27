@@ -215,6 +215,11 @@ public class Assets {
 		public static final String BADGE    = "sounds/badge.mp3";
 		public static final String GOLD     = "sounds/gold.mp3";
 
+		public static final String 木门     = "sounds/木门.mp3";
+		public static final String 监狱门     = "sounds/监狱门.mp3";
+		public static final String 洞穴门     = "sounds/洞穴门.mp3";
+		public static final String 石门     = "sounds/石门.mp3";
+		public static final String 地狱门     = "sounds/地狱门.mp3";
 		public static final String OPEN     = "sounds/door_open.mp3";
 		public static final String UNLOCK   = "sounds/unlock.mp3";
 		public static final String ITEM     = "sounds/item.mp3";
@@ -286,6 +291,7 @@ public class Assets {
 		public static final String DRINK    = "sounds/drink.mp3";
 		public static final String 面包吃    = "sounds/面包吃.mp3";
 		public static final String SHATTER  = "sounds/shatter.mp3";
+		public static final String 水晶碎  = "sounds/水晶碎.mp3";
 		public static final String ZAP      = "sounds/zap.mp3";
 		public static final String LIGHTNING= "sounds/lightning.mp3";
 		public static final String LEVELUP  = "sounds/levelup.mp3";
@@ -361,6 +367,11 @@ public class Assets {
 		public static final String[] all = new String[]{
 				CLICK, BADGE, GOLD,
 
+		木门,
+		监狱门,
+		洞穴门,
+		石门,
+		地狱门,
 				OPEN, UNLOCK, ITEM, DEWDROP,
 
 				STEP,
@@ -400,7 +411,9 @@ public class Assets {
 				DESCEND, EAT, READ, LULLABY,
 				DRINK,
 				面包吃,
-				SHATTER, ZAP, LIGHTNING, LEVELUP, DEATH,
+				水晶碎,
+				SHATTER,
+				ZAP, LIGHTNING, LEVELUP, DEATH,
 				CHALLENGE, CURSED, TRAP,
 				EVOKE,
 				挖爆,

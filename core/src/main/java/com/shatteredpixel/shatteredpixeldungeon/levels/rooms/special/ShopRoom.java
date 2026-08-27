@@ -117,8 +117,8 @@ public class ShopRoom extends SpecialRoom {
 
 		int pos = level.pointToCell(center());
 
-		Mob shopkeeper = new Shopkeeper();
-		if(Dungeon.区域()==2)shopkeeper=new 商鼠();
+		Mob shopkeeper = new 商鼠();
+		if(Dungeon.区域()==2)shopkeeper=new Shopkeeper();
 		if(Dungeon.区域()==3)shopkeeper=new 商机();
 		if(Dungeon.区域()==4)shopkeeper=new 商士();
 

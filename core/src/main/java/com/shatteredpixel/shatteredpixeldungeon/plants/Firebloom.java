@@ -64,7 +64,7 @@ public class Firebloom extends Plant {
 			魔法冰霜房间.魔法冰霜 魔法冰霜 = (魔法冰霜房间.魔法冰霜)Dungeon.level.blobs.get(魔法冰霜房间.魔法冰霜.class);
 			Freezing freezing = (Freezing)Dungeon.level.blobs.get(Freezing.class);
 			if ((魔法冰霜 != null && 魔法冰霜.volume > 0)||(freezing != null && freezing.volume > 0)) {
-				Plant plant=new Icecap();
+				Plant plant=new Firebloom();
 				plant.pos=cell;
 				plant.activate(null);
 			}else {

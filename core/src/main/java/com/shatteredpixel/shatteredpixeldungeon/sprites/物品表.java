@@ -341,7 +341,7 @@ public class 物品表 {
         assignItemRect(吸血刀,11);
         assignItemRect(手枪, 13, 7);
         assignItemRect(冲锋枪, 16, 12);
-        assignItemRect(霰弹枪, 14, 16);
+        assignItemRect(霰弹枪, 16);
         assignItemRect(狙击枪,  16);
         assignItemRect(火炮, 16);
     }

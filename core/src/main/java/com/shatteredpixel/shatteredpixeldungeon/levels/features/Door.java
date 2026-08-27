@@ -19,7 +19,18 @@ public class Door {
 
 		if (Dungeon.level.heroFOV[pos]) {
 			Dungeon.observe();
-			Sample.INSTANCE.play( Assets.Sounds.OPEN );
+
+
+			if(Dungeon.区域()==5){
+				Sample.INSTANCE.play( Assets.Sounds.地狱门 );
+			}else if(Dungeon.区域()==4){
+				Sample.INSTANCE.play( Assets.Sounds.石门 );
+			}else if(Dungeon.区域()==3){
+				Sample.INSTANCE.play( Assets.Sounds.洞穴门 );
+			}else if(Dungeon.区域()==2){
+				Sample.INSTANCE.play( Assets.Sounds.监狱门 );
+			}else
+			Sample.INSTANCE.play( Assets.Sounds.木门 );
 		}
 	}
 
@@ -36,6 +47,17 @@ public class Door {
 			GameScene.updateMap( pos );
 			if (Dungeon.level.heroFOV[pos])
 				Dungeon.observe();
+
+			if(Dungeon.区域()==5){
+				Sample.INSTANCE.play( Assets.Sounds.地狱门,0.8f );
+			}else if(Dungeon.区域()==4){
+				Sample.INSTANCE.play( Assets.Sounds.石门 ,0.8f );
+			}else if(Dungeon.区域()==3){
+				Sample.INSTANCE.play( Assets.Sounds.洞穴门,0.8f  );
+			}else if(Dungeon.区域()==2){
+				Sample.INSTANCE.play( Assets.Sounds.监狱门,0.8f  );
+			}else
+				Sample.INSTANCE.play( Assets.Sounds.木门 ,0.8f );
 		}
 	}
 }

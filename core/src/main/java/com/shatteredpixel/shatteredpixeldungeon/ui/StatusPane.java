@@ -239,7 +239,7 @@ public class StatusPane extends Component {
 //		counter.color( 0x808080, true );
 		counter.show(this, busy.center(), 0f);
 	}
-
+	float 文本大小=0.75f;//0.5
 	@Override
 	protected void layout() {
 
@@ -270,7 +270,7 @@ public class StatusPane extends Component {
 		红条阈值15.y =红条阈值40.y =红条阈值50.y =红条阈值60.y
 				=血条.y = 护盾.y  = y+2;
 
-		血条文本.scale.set(PixelScene.align(0.5f));
+		血条文本.scale.set(PixelScene.align(文本大小));
 		血条文本.x = 血条.x + 1;
 		血条文本.y = 血条.y + (血条.height - (血条文本.baseLine()+ 血条文本.scale.y))/2f;
 		血条文本.y -= 0.001f; //prefer to be slightly higher
@@ -280,7 +280,7 @@ public class StatusPane extends Component {
 		法力条.x= 血条.x;
 		法力条.y  = 血条.y + 法力条.height()+2;
 		
-		法力条文本.scale.set(PixelScene.align(0.5f));
+		法力条文本.scale.set(PixelScene.align(文本大小));
 		法力条文本.x = 法力条.x + 1;
 		法力条文本.y = 法力条.y + (法力条.height - (法力条文本.baseLine()+ 法力条文本.scale.y))/2f;
 		法力条文本.y -= 0.001f; //prefer to be slightly higher
@@ -300,7 +300,7 @@ public class StatusPane extends Component {
 		绿条阈值300.x=绿条.x+66.66f*阈值;
 		绿条阈值150.y=绿条阈值300.y=绿条.y=法力条.y+绿条.height()+2;
 
-		绿条文本.scale.set(PixelScene.align(0.5f));
+		绿条文本.scale.set(PixelScene.align(文本大小));
 		绿条文本.x=绿条.x+1;
 		绿条文本.y=绿条.y+(绿条.height-(绿条文本.baseLine()+绿条文本.scale.y))/2f;
 		绿条文本.y-=0.001f; //prefer to be slightly higher
@@ -319,7 +319,7 @@ public class StatusPane extends Component {
 		护盾.alpha0();
 		heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 			
-		expText.scale.set(PixelScene.align(0.5f));
+		expText.scale.set(PixelScene.align(文本大小));
 		expText.x = exp.x + 1;
 		expText.y = exp.y + (exp.height - (expText.baseLine()+expText.scale.y))/2f;
 		expText.y -= 0.001f; //prefer to be slightly higher

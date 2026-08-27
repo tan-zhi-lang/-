@@ -915,6 +915,8 @@ public abstract class Level implements Bundlable {
 		if(Dungeon.赛季(赛季设置.刷子地牢)){
 			mobs*=2;
 		}
+		if(算法.彩蛋("更小"))mobs/=2;
+		if(算法.彩蛋("更大"))mobs*=2;
 		if(Dungeon.更多怪物)mobs*=5;
 		if(算法.isDebug())mobs*=4;
 

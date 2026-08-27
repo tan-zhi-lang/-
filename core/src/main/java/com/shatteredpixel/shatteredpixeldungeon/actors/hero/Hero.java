@@ -5143,6 +5143,7 @@ public class Hero extends Char {
     public boolean act(){
 
 
+
         sprite.remove(CharSprite.State.领域);
 
         if(黑桃印记.概率()>0&&nobuff(Charm.class))
@@ -5528,7 +5529,7 @@ public class Hero extends Char {
                 }
             }
         }
-        蛇皮走位=Math.min(100,蛇皮走位+4);
+        蛇皮走位=Math.min(100,蛇皮走位+2);
 
 
         if(++变脸>=3){
@@ -6338,7 +6339,7 @@ public class Hero extends Char {
             //1 hunger spent total
         } else if (Dungeon.level.map[dst]==Terrain.MINE_CRYSTAL) {
             Splash.at(dst,0xFFFFFF,5);
-            Sample.INSTANCE.play(Assets.Sounds.SHATTER);
+            Sample.INSTANCE.play(Assets.Sounds.水晶碎, 1, Random.Float(0.75f, 1.25f));
 
             if(Dungeon.branch==1){
                 if(算法.概率学(1/4f))
@@ -6411,7 +6412,7 @@ public class Hero extends Char {
                         }
                     }
                     if (broke) {
-                        Sample.INSTANCE.play(Assets.Sounds.SHATTER);
+                        Sample.INSTANCE.play(Assets.Sounds.水晶碎, 1, Random.Float(0.75f, 1.25f));
                     }
 
                     for (int i : PathFinder.自相邻) {
@@ -8780,7 +8781,7 @@ public class Hero extends Char {
             return;
         }
         //TODO hero cannot take damage in the vault tester area
-        if (Dungeon.depth > 15 && Dungeon.branch == 1){
+        if (Dungeon.相对层数() > 15 && Dungeon.branch == 1){
             dmg = 0;
         }
         //regular damage interrupt, triggers on any damage except specific mild DOT effects
@@ -10037,6 +10038,7 @@ public class Hero extends Char {
                     GameScene.updateKeyDisplay();
                     GameScene.updateMap(doorCell);
                     spend(Key.TIME_TO_UNLOCK);
+                    Sample.INSTANCE.play( Assets.Sounds.OPEN );
                 }
             }
 
@@ -10068,6 +10070,7 @@ public class Hero extends Char {
                     GameScene.updateKeyDisplay();
                     heap.open(this);
                     spend(Key.TIME_TO_UNLOCK);
+                    Sample.INSTANCE.play( Assets.Sounds.OPEN );
                 }
             }
 

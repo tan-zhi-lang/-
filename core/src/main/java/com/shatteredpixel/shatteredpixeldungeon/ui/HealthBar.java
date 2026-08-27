@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -69,30 +70,33 @@ public class HealthBar extends Component {
 		height = HEIGHT;
 	}
 
+	float 框大小=1.34f;//1
 	@Override
 	public synchronized void update(){
 		
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
-		Bg.size( width, height );
+		Bg.size( width, height*框大小 );
 		
 		
 		//logic here rounds up to the nearest pixel
 		float pixelWidth = width;
 		if (camera() != null) pixelWidth *= camera().zoom;
-		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
-		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height );
-		hpText.text(kw2(生命)+"/"+kw2(max));
+		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height*框大小 );
+		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height*框大小 );
 
-		hpText.measure();
-		hpText.x = Hp.x+0.5f;
-		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
-//		if(护盾>=1){
-//			护盾t.text(kw(护盾));
+		hpText.scale.set(PixelScene.align(文本大小));
+		hpText.text(kw2(生命)+"/"+kw2(max));
+//		hpText.measure();
+		hpText.x = Bg.x+0.5f;
+		hpText.y = Bg.y +0.5f+ (Bg.height - (hpText.baseLine()+hpText.scale.y))/2f;
+		if(护盾>=max*(SPDSettings.数值显示()*0.025f)&&false){
+			护盾t.scale.set(PixelScene.align(文本大小));
+			护盾t.text(kw2(护盾));
 //			护盾t.measure();
-//			护盾t.x=Hp.x+width-护盾t.width+0.5f;
-//			护盾t.y=Hp.y+0.5f+(Hp.height-(护盾t.baseLine()+护盾t.scale.y))/2f;
-//		}
+			护盾t.x=Bg.x+width-护盾t.width+0.5f;
+			护盾t.y=Bg.y+0.5f+(Bg.height-(护盾t.baseLine()+护盾t.scale.y))/2f;
+		}
 		if(隐形){
 			Bg.alpha(0);
 			Shld.alpha(0);
@@ -109,25 +113,26 @@ public class HealthBar extends Component {
 		super.update();
 	}
 
+	float 文本大小=0.68f;//0.34
 	@Override
 	protected void layout() {
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
-		Bg.size( width, height );
+		Bg.size( width, height*框大小 );
 		
 		//logic here rounds up to the nearest pixel
 		float pixelWidth = width;
 		if (camera() != null) pixelWidth *= camera().zoom;
-		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height );
-		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height );
+		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height*框大小 );
+		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height*框大小 );
 
-		hpText.scale.set(PixelScene.align(0.34f));
-		hpText.x = Hp.x+0.5f;
-		hpText.y = Hp.y +0.5f+ (Hp.height - (hpText.baseLine()+hpText.scale.y))/2f;
+		hpText.scale.set(PixelScene.align(文本大小));
+		hpText.x = Bg.x+0.5f;
+		hpText.y = Bg.y +0.5f+ (Bg.height - (hpText.baseLine()+hpText.scale.y))/2f;
 
-		护盾t.scale.set(PixelScene.align(0.34f));
-		护盾t.x = Hp.x+width-护盾t.width+0.5f;
-		护盾t.y = Hp.y +0.5f+ (Hp.height - (护盾t.baseLine()+护盾t.scale.y))/2f;
+		护盾t.scale.set(PixelScene.align(文本大小));
+		护盾t.x = Bg.x+width-护盾t.width+0.5f;
+		护盾t.y = Bg.y +0.5f+ (Bg.height - (护盾t.baseLine()+护盾t.scale.y))/2f;
 
 		if(隐形){
 			Bg.alpha(0);

@@ -62,6 +62,7 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.traps.Trap;
 import com.shatteredpixel.shatteredpixeldungeon.levels.traps.WornDartTrap;
 import com.shatteredpixel.shatteredpixeldungeon.mechanics.ShadowCaster;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -115,6 +116,8 @@ public abstract class RegularLevel extends Level {
 		}
 
 		//房间数量
+		if(算法.彩蛋("更小"))standards/=2;
+		if(算法.彩蛋("更大"))standards*=2;
 
 		for (int i = 0; i < standards; i++) {
 			StandardRoom s;
@@ -149,6 +152,8 @@ public abstract class RegularLevel extends Level {
 			specials++;
 		}
 		//房间数量
+		if(算法.彩蛋("更小"))specials/=2;
+		if(算法.彩蛋("更大"))specials*=2;
 
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
@@ -157,10 +162,12 @@ public abstract class RegularLevel extends Level {
 			initRooms.add(s);
 		}
 		
-		int secrets = SecretRoom.secretsForFloor(Dungeon.depth);
+		int secrets = SecretRoom.secretsForFloor(Dungeon.相对层数());
 		//one additional secret for secret levels
 		if (feeling == Feeling.SECRETS) secrets++;
 		//房间数量
+		if(算法.彩蛋("更小"))secrets/=2;
+		if(算法.彩蛋("更大"))secrets*=2;
 
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
@@ -195,7 +202,7 @@ public abstract class RegularLevel extends Level {
 	protected abstract Painter painter();
 	
 	protected int nTraps() {
-		return Random.NormalIntRange( 2, 3 + (Dungeon.depth/5) );
+		return Random.NormalIntRange( 2, 3 + (Dungeon.相对层数()/5) );
 	}
 	
 	protected Class<?>[] trapClasses(){
@@ -208,8 +215,8 @@ public abstract class RegularLevel extends Level {
 	
 	@Override
 	public int mobLimit() {
-		int mobs = 3 + Dungeon.depth % 5 + Random.Int(3);
-		if (Dungeon.depth == 1){
+		int mobs = 3 + Dungeon.相对层数() % 5 + Random.Int(3);
+		if (Dungeon.相对层数() == 1){
 //			if (!Statistics.amuletObtained) mobs=0;
 //			else mobs=8;
 			mobs=10;
@@ -293,7 +300,7 @@ public abstract class RegularLevel extends Level {
 
 				//chance to add a second mob to this room, except on floor 1
 				//一层也能额外生成一次
-				if (Dungeon.depth >= 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
+				if (Dungeon.相对层数() >= 1 && mobsToSpawn > 0 && Random.Int(4) == 0){
 					mob = createMob();
 
 					tries = 30;
@@ -408,6 +415,8 @@ public abstract class RegularLevel extends Level {
 			nItems += 2;
 		}
 
+		if(算法.彩蛋("更小"))nItems/=2;
+		if(算法.彩蛋("更大"))nItems*=2;
 		//物品数量
 		for (int i=0; i < nItems; i++) {
 
@@ -440,7 +449,7 @@ public abstract class RegularLevel extends Level {
 				type = Heap.Type.CHEST;
 				break;
 			case 5:
-				if (Dungeon.depth > 1 && findMob(cell) == null){
+				if (Dungeon.相对层数() > 1 && findMob(cell) == null){
 					mobs.add(Mimic.spawnAt(cell, toDrop));
 					continue;
 				}
@@ -455,7 +464,7 @@ public abstract class RegularLevel extends Level {
 					(toDrop.可升级() && Random.Int(4 - toDrop.等级()) == 0)){
 
 				float mimicChance = 1/10f * MimicTooth.mimicChanceMultiplier();
-				if (Dungeon.depth > 1 && Random.Float() < mimicChance && findMob(cell) == null){
+				if (Dungeon.相对层数() > 1 && Random.Float() < mimicChance && findMob(cell) == null){
 					mobs.add(Mimic.spawnAt(cell, GoldenMimic.class, toDrop));
 				} else {
 					Heap dropped = drop(toDrop, cell);
@@ -535,7 +544,7 @@ public abstract class RegularLevel extends Level {
 		DriedRose rose = Dungeon.hero.belongings.getItem( DriedRose.class );
 		if (rose != null && rose.已鉴定() && !rose.cursed && Ghost.Quest.completed()){
 			//aim to drop 1 petal every 2 floors
-			int petalsNeeded = (int) Math.ceil((float)((Dungeon.depth / 2) - rose.droppedPetals) / 3);
+			int petalsNeeded = (int) Math.ceil((float)((Dungeon.相对层数() / 2) - rose.droppedPetals) / 3);
 
 			for (int i=1; i <= petalsNeeded; i++) {
 				//the player may miss a single petal and still max their rose.
@@ -558,7 +567,7 @@ public abstract class RegularLevel extends Level {
 //				Talent.寻宝猎人 dropped = Buff.施加(Dungeon.hero, Talent.寻宝猎人.class);
 //				int targetFloor = (int)(2 + dropped.count);
 //				if (dropped.count > 4) targetFloor++;
-//				if (Dungeon.depth >= targetFloor && dropped.count < Dungeon.hero.天赋点数(Talent.寻宝猎人)){
+//				if (Dungeon.相对层数() >= targetFloor && dropped.count < Dungeon.hero.天赋点数(Talent.寻宝猎人)){
 //					int cell;
 //					int tries = 100;
 //					boolean valid;
@@ -597,7 +606,7 @@ public abstract class RegularLevel extends Level {
 			missingPages.remove(Document.GUIDE_SEARCHING);
 
 			//chance to find a page is 0/25/50/75/100% for floors 1/2/3/4/5+
-			float dropChance = 0.25f*(Dungeon.depth-1);
+			float dropChance = 0.25f*(Dungeon.相对层数()-1);
 			if (!missingPages.isEmpty() && Random.Float() < dropChance){
 				GuidePage p = new GuidePage();
 				p.page(missingPages.get(0));
@@ -615,7 +624,7 @@ public abstract class RegularLevel extends Level {
 		Random.pushGenerator( Random.Long() );
 			if (Document.ADVENTURERS_GUIDE.allPagesFound()){
 
-				int region = 1+(Dungeon.depth-1)/5;
+				int region = 1+(Dungeon.相对层数()-1)/5;
 
 				Document regionDoc;
 				switch( region ){
@@ -653,7 +662,7 @@ public abstract class RegularLevel extends Level {
 						targetFloor += Math.round(3*percentComplete);
 
 						//TODO maybe drop last page in boss floor with custom logic?
-						if (Dungeon.depth >= targetFloor){
+						if (Dungeon.相对层数() >= targetFloor){
 							DocumentPage page = RegionLorePage.pageForDoc(regionDoc);
 							page.page(pageToDrop);
 							int cell = randomDropCell();
@@ -677,7 +686,7 @@ public abstract class RegularLevel extends Level {
 		Random.pushGenerator( Random.Long() );
 			if (Document.ADVENTURERS_GUIDE.allPagesFound()){
 
-				int region = 1+(Dungeon.depth-1)/5;
+				int region = 1+(Dungeon.相对层数()-1)/5;
 
 				Document regionDoc;
 				switch( region ){
@@ -715,7 +724,7 @@ public abstract class RegularLevel extends Level {
 						targetFloor += Math.round(3*percentComplete);
 
 						//TODO maybe drop last page in boss floor with custom logic?
-						if (Dungeon.depth >= targetFloor){
+						if (Dungeon.相对层数() >= targetFloor){
 							DocumentPage page = RegionLorePage.pageForDoc(regionDoc);
 							page.page(pageToDrop);
 							int cell = randomDropCell();

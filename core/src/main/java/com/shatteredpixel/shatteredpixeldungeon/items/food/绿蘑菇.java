@@ -33,4 +33,17 @@ public class 绿蘑菇 extends Food {
 	public int 金币() {
 		return 0;
 	}
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+
+		{
+			inputs =  new Class[]{绿蘑菇.class};
+			inQuantity = new int[]{1,};
+
+			cost = 1;
+
+			output = 蓝蘑菇.class;
+			outQuantity = 1;
+		}
+
+	}
 }

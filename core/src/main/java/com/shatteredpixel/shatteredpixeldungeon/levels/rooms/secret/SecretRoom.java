@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 
-import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.watabou.utils.Bundle;
@@ -49,7 +48,6 @@ public abstract class SecretRoom extends SpecialRoom {
 	}
 	
 	public static int secretsForFloor(int depth){
-		depth=Dungeon.相对层数();
 		
 		if (depth == 1) return 0;
 		

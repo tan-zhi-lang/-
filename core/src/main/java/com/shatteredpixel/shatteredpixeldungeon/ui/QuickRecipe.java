@@ -24,6 +24,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Pasty;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -364,6 +367,11 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe( new MeatPie.Recipe(),
 						new ArrayList<Item>(Arrays.asList(new Pasty(), new Food(), new MysteryMeat.PlaceHolder())),
 						new MeatPie()));
+				result.add(null);
+				result.add(new QuickRecipe(new 红蘑菇.Recipe()));
+				if (PixelScene.横屏()) result.add(null);
+				result.add(new QuickRecipe(new 绿蘑菇.Recipe()));
+				result.add(new QuickRecipe(new 蓝蘑菇.Recipe()));
 
 				return result;
 			case 3:

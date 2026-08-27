@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -11,6 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.枪械;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -229,6 +232,12 @@ public class WndUpgrade extends Window {
 								String.format("%.2f",(((Armor) toUpgrade).力量(levelFrom))),
 								String.format("%.2f",(((Armor) toUpgrade).力量(levelTo))),
 					bottom);
+
+		}if (toUpgrade instanceof 枪械 q){
+			bottom = fillFields("射击伤害",
+								kw2(q.最小枪械攻击(levelFrom))+"~"+kw2(q.最大枪械攻击(levelFrom)),
+								kw2(q.最小枪械攻击(levelTo))+"~"+kw2(q.最大枪械攻击(levelTo)),
+								bottom);
 		}
 
 		//we use a separate reference for wand properties so that mage's staff can include them

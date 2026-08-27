@@ -16,6 +16,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MeatPie;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.PhantomMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.StewedMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.AquaBrew;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.brews.BlizzardBrew;
@@ -274,6 +277,9 @@ public abstract class Recipe {
 		new 祛邪卷轴.Recipe(),
 		new 器灵.Recipe(),
 		new 秘银.Recipe(),
+		new 红蘑菇.Recipe(),
+		new 蓝蘑菇.Recipe(),
+		new 绿蘑菇.Recipe(),
 		new 血药.Recipe(),
 		new Food.Recipe(),
 		new 封禁卷轴.Recipe(),

@@ -76,7 +76,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "8.25/18:31";
+        return "8.27/18:36";
     }
 
     public static float 金额=5;
@@ -279,14 +279,17 @@ public class 算法 {
     }
     public static boolean 彩蛋(String s){
         String seed = SPDSettings.customSeed();
-        if(seed.contains("更小")){
+        if(seed.contains(s)){
             return true;
         }
         return false;
     }
     public static boolean 彩蛋(){
         String seed = SPDSettings.customSeed();
-        if(seed.contains("更小")){
+        if(
+            seed.contains("更小")||
+            seed.contains("更大")
+           ){
             return true;
         }
         return false;
@@ -324,79 +327,5 @@ public class 算法 {
             x = (float)((超过-1)+(Math.sqrt(8*(x-(超过-1))+1)-1)/2);
         }
         return x;
-    }
-    public static float 变1值(float value) {
-        
-        if(value==1.0f){
-            value=0.0f;
-        }
-        if(value==0.0f){
-            value=0.1f;
-        }
-        if(value==0.1){
-            value=0.2f;
-        }
-        if(value==0.2){
-            value=0.3f;
-        }
-        if(value==0.4){
-            value=0.5f;
-        }
-        if(value==0.5){
-            value=0.6f;
-        }
-        if(value==0.5){
-            value=0.6f;
-        }
-        if(value==0.6){
-            value=0.7f;
-        }
-        if(value==0.7){
-            value=0.8f;
-        }
-        if(value==0.8){
-            value=0.9f;
-        }
-        if(value==0.9){
-            value=1.0f;
-        }
-        return value;
-    }
-    public static float 变2值(float value) {
-        
-        if(value==0.1f){
-            value=0.00f;
-        }
-        if(value==0.00f){
-            value=0.01f;
-        }
-        if(value==0.01){
-            value=0.02f;
-        }
-        if(value==0.02){
-            value=0.03f;
-        }
-        if(value==0.04){
-            value=0.05f;
-        }
-        if(value==0.05){
-            value=0.06f;
-        }
-        if(value==0.05){
-            value=0.06f;
-        }
-        if(value==0.06){
-            value=0.07f;
-        }
-        if(value==0.07){
-            value=0.08f;
-        }
-        if(value==0.08){
-            value=0.09f;
-        }
-        if(value==0.09){
-            value=0.1f;
-        }
-        return value;
     }
 }

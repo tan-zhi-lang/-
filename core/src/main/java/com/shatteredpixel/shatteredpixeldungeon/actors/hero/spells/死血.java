@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -28,7 +30,7 @@ public class 死血 extends 巫术 {
 		Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,Random.Float(0.87f,1.15f));
 
 
-		hero.回血(hero.法术(this,2)*hero.根据已损失生命()*hero.天赋点数(Talent.高级死血,0.05f));
+		hero.回血(hero.魔力(this,2)*hero.根据已损失生命()*hero.天赋点数(Talent.高级死血,0.05f));
 
 		onSpellCast(tome, hero);
 
@@ -36,7 +38,10 @@ public class 死血 extends 巫术 {
 
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-															  Dungeon.hero.法术(this,2)*Dungeon.hero.根据已损失生命()*Dungeon.hero.天赋点数(Talent.高级死血,0.05f));
+								   kw2(Dungeon.hero.魔力(this,2)*
+								   Dungeon.hero.根据已损失生命()*
+								   Dungeon.hero.天赋点数(Talent.高级死血,0.05f)
+								  ));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

@@ -47,8 +47,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.actors.醍醐灌顶冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.静止状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.醍醐灌顶冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.静止状态;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
@@ -263,6 +263,10 @@ public enum Talent {
 	任督二脉(x25+11,4),
 	洗筋伐髓(x25+12,4),
 	八门遁甲(x25+13,4),
+
+	远程攻击(x25+14,4),
+	魔法攻击(x25+15,4),
+	全能属性(x25+16,4)
 	;
 	
 	//region Buff
@@ -974,8 +978,12 @@ public enum Talent {
 
 		//tier 3
 		switch (cls){
-			case 奇经八脉: default:
+			default:
+			case 奇经八脉:
 				Collections.addAll(tierTalents,任督二脉,洗筋伐髓,八门遁甲);
+				break;
+			case 多面手:
+				Collections.addAll(tierTalents,远程攻击,魔法攻击,全能属性);
 				break;
 			case 不灭战士:
 				Collections.addAll(tierTalents, 不灭之魂, 怀恨在心, 慷慨赴死);

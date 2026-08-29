@@ -239,7 +239,7 @@ public class StatusPane extends Component {
 //		counter.color( 0x808080, true );
 		counter.show(this, busy.center(), 0f);
 	}
-	float 文本大小=0.75f;//0.5
+	float 文本大小=0.68f;//0.5
 	@Override
 	protected void layout() {
 

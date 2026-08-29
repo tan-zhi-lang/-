@@ -2,8 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
-import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff.buffType.NEGATIVE;
-
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -59,11 +57,13 @@ public class Buff extends Actor {
 	
 	public boolean attachTo( Char target ) {
 		if(target instanceof Hero hero&&hero.subClass(HeroSubClass.灾厄化身)){
-			if(type==NEGATIVE)
+			if(type==Buff.buffType.NEGATIVE)
 				return false;
 		}
 		if(target instanceof Hero hero){
-			if(hero.符文("免疫学")&&Random.Int(1)==0&&type==NEGATIVE)return false;
+			if(hero.符文("免疫学")
+			   &&Random.Int(1)==0
+			   &&type==Buff.buffType.NEGATIVE)return false;
 		}
 		if (target.免疫( getClass() )) {
 			return false;

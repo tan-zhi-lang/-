@@ -4,8 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.时间;
-import static com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff.buffType.NEGATIVE;
-
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
@@ -18,7 +16,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.WarpBeaconTracker;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Electricity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
@@ -35,14 +32,30 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.任务病毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.击杀累计;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.受伤累计;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.吸收痛苦;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.回血累计;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.守护灵次数;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.快炖;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.慢炖;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.暴击律动;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.暴雨层;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.泰坦的坚决;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.物法皆修;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.登神长阶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.经验累计;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.罪恶快感;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.踢踏舞;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.高压锅;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.黑暗收割;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Foresight;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.GreaterHaste;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HeroDisguise;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.HoldFast;
@@ -55,8 +68,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Momentum;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.Momentum;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
@@ -68,23 +81,63 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WellFed;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.灵焰;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.圣盾;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.多面手施法;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.幽灵保护;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.征服;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.征服;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.时间能力;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.不灭之握冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.专注;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.丛刃;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.丛刃冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.仙法;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.光盾打击冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.冥想;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.吸元秘术冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.回力OK标冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.外交豁免;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.守护天使冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.心之钢冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.无形威胁;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.无终恨意冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.疾射火炮;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.神圣干预冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.赐死剑气冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.连拨击锤上冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.连拨击锤下冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.连拨击锤右冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.连拨击锤左冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.量子计算冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.鬼刀;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.麒麟骨;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.黑暗收割冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.时间能力;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.替身保护;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WarpBeaconTracker;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告15秒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告复活冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.开局属性更新;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定命中;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定暴击;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.被发现;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.连杀状态;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.死舞;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.老婆保护;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.连击;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
@@ -114,60 +167,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.毒气宝箱怪;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.超级魔法绵羊;
-import com.shatteredpixel.shatteredpixeldungeon.actors.不灭之握冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.专注;
-import com.shatteredpixel.shatteredpixeldungeon.actors.丛刃;
-import com.shatteredpixel.shatteredpixeldungeon.actors.丛刃冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.仙法;
-import com.shatteredpixel.shatteredpixeldungeon.actors.任务病毒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
-import com.shatteredpixel.shatteredpixeldungeon.actors.光盾打击冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.冥想;
-import com.shatteredpixel.shatteredpixeldungeon.actors.击杀累计;
-import com.shatteredpixel.shatteredpixeldungeon.actors.受伤累计;
-import com.shatteredpixel.shatteredpixeldungeon.actors.吸元秘术冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.吸收痛苦;
-import com.shatteredpixel.shatteredpixeldungeon.actors.回力OK标冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.回血累计;
-import com.shatteredpixel.shatteredpixeldungeon.actors.外交豁免;
-import com.shatteredpixel.shatteredpixeldungeon.actors.守护天使冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.守护灵次数;
-import com.shatteredpixel.shatteredpixeldungeon.actors.广告15秒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.广告复活冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
-import com.shatteredpixel.shatteredpixeldungeon.actors.心之钢冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.必定命中;
-import com.shatteredpixel.shatteredpixeldungeon.actors.必定暴击;
-import com.shatteredpixel.shatteredpixeldungeon.actors.快炖;
-import com.shatteredpixel.shatteredpixeldungeon.actors.慢炖;
-import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.无形威胁;
-import com.shatteredpixel.shatteredpixeldungeon.actors.无终恨意冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.星蚀;
-import com.shatteredpixel.shatteredpixeldungeon.actors.星蚀冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.暴击律动;
-import com.shatteredpixel.shatteredpixeldungeon.actors.暴雨层;
-import com.shatteredpixel.shatteredpixeldungeon.actors.泰坦的坚决;
-import com.shatteredpixel.shatteredpixeldungeon.actors.物法皆修;
-import com.shatteredpixel.shatteredpixeldungeon.actors.疾射火炮;
-import com.shatteredpixel.shatteredpixeldungeon.actors.登神长阶;
-import com.shatteredpixel.shatteredpixeldungeon.actors.神圣干预冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.经验累计;
-import com.shatteredpixel.shatteredpixeldungeon.actors.罪恶快感;
-import com.shatteredpixel.shatteredpixeldungeon.actors.被发现;
-import com.shatteredpixel.shatteredpixeldungeon.actors.赐死剑气冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.踢踏舞;
-import com.shatteredpixel.shatteredpixeldungeon.actors.连拨击锤上冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.连拨击锤下冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.连拨击锤右冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.连拨击锤左冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.连杀状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.量子计算冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.高压锅;
-import com.shatteredpixel.shatteredpixeldungeon.actors.鬼刀;
-import com.shatteredpixel.shatteredpixeldungeon.actors.麒麟骨;
-import com.shatteredpixel.shatteredpixeldungeon.actors.黑暗收割;
-import com.shatteredpixel.shatteredpixeldungeon.actors.黑暗收割冷却;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CheckedCell;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
@@ -2034,7 +2033,7 @@ public class Hero extends Char {
             case "没有魔力的魔法帝":return "法杖魔力收益仅0%，但是综合属性+275%";
             case "真以身做法":return "法杖魔力收益+2%生命";
             case "天材地宝":return "拾取物品会鉴定，并升级武器、防具、法杖、戒指1次";
-            case "心寒":return "冻伤会每回合对目标造成15%生命的魔法伤害";
+            case "心寒":return "冻僵会每回合对目标造成15%生命的魔法伤害";
             case "附魔剑":return "攻击额外造成魔法伤害，该魔法伤害根据攻击伤害x附魔刻印强度倍";
             case "左撇子":return "副武器攻击效果+70%";
             case "炼狱之神":return "综合属性+炼狱数量x50%";
@@ -3307,7 +3306,7 @@ public class Hero extends Char {
         if(符文("真战士"))最大生命+=75;
         if(符文("星界躯体"))最大生命+=150;
         if(符文("淬体"))最大生命+=最大护甲get*10;
-        最大生命+=根骨之戒.strengthBonus(this)*25;
+
         最大生命+=天赋点数(Talent.勇武,5);
         //*************************
         if(种族天赋.equals("猩人"))最大生命*=1.3f;
@@ -3510,7 +3509,7 @@ public class Hero extends Char {
         魔力get=m;
         return Math.max(0.001f,m);
     }
-    public float 法术(Object o,float x) {
+    public float 魔力(Object o,float x) {
         if(o instanceof 火球术||
            o instanceof 火墙术){
             if(belongings.hasItem(四叶草法典.class))
@@ -3541,16 +3540,7 @@ public class Hero extends Char {
         if(o instanceof Item i){
             x*=i.魔力收益;
         }
-        return 魔力(x);
-    }
-    public float 法术(float x) {
         return 魔力()*x;
-    }
-    public float 魔力(Object o,float x) {
-        if(o instanceof Item i){
-            x*=i.魔力收益;
-        }
-        return 魔力(x);
     }
     public float 魔力(float x) {
         return 魔力()*x;
@@ -3720,6 +3710,7 @@ public class Hero extends Char {
     }
     public float 所有属性倍(){
         float x=1;
+        x+=天赋点数(Talent.全能属性,0.075f);
         return x;
     }
     public boolean 主属性(String s){
@@ -4436,8 +4427,11 @@ public class Hero extends Char {
     @Override
     public float 增加防御(){
         float x=1;
-        if (heroClass(HeroClass.WARRIOR)) {
-            x+=0.15f;
+        if (hasbuff(战斗状态.class)&&heroClass(HeroClass.WARRIOR)) {
+            x+=0.25f;
+        }
+        if(nobuff(战斗状态.class)&&heroClass(HeroClass.近卫)){
+            x+=0.45f;
         }
         if(天赋(Talent.以攻为守))
             x+=增加攻击()*(天赋点数(Talent.以攻为守,0.1f));
@@ -5521,6 +5515,9 @@ public class Hero extends Char {
         }
         if (subClass == HeroSubClass.时间刺客&&nobuff(Swiftthistle.TimeBubble.class)) {
             Buff.施加(this, 时间能力.class).gainStack();
+        }
+        if (subClass == HeroSubClass.多面手) {
+            Buff.施加(this, 多面手施法.class).gainStack();
         }
         if(visibleEnemies()>0){
             for(Mob m:getVisibleEnemies()){
@@ -6629,7 +6626,6 @@ public class Hero extends Char {
     @Override
     public int 最小命中(Char target ) {
         float x=0;
-        if(heroClass(HeroClass.镜魔))x+=最大命中(target)*0.15f;
 
         x*=增加命中(target);
 
@@ -6833,8 +6829,8 @@ public class Hero extends Char {
             x+=0.3f;
         if(符文("右手麒麟臂"))
             x+=0.15f;
-        if (heroClass(HeroClass.WARRIOR)) {
-            x+=0.15f;
+        if (hasbuff(战斗状态.class)&&heroClass(HeroClass.WARRIOR)) {
+            x+=0.25f;
         }
         if(天赋(Talent.窄区突围)){
             int 墙体数量=0;
@@ -7433,6 +7429,11 @@ public class Hero extends Char {
         }
         if(符文("登神长阶")&&等级>=8)x+=5;
         if(符文("登神长阶")&&等级>=22)x++;
+
+        if (subClass(HeroSubClass.多面手)){
+            x+=1;
+        }
+        x+=天赋点数(Talent.远程攻击,2);
         if (subClass(HeroSubClass.真人)){
             x++;
             if(职业精通())
@@ -8275,9 +8276,9 @@ public class Hero extends Char {
 
         if (enemy!=null&&enemy.isAlive()&&buff(赐福.效果.class)!=null) {
             if(enemy.恶魔亡灵())
-                enemy.受伤时(法术(神圣法典.class,0.4f*攻击效果()),赐福.INSTANCE);
+                enemy.受伤时(魔力(神圣法典.class,0.4f*攻击效果()),赐福.INSTANCE);
             else
-                enemy.受伤时(法术(神圣法典.class,0.2f*攻击效果()),赐福.INSTANCE);
+                enemy.受伤时(魔力(神圣法典.class,0.2f*攻击效果()),赐福.INSTANCE);
         }
         if(enemy!=null&&enemy.isAlive()&&符文("血之饥渴")){
             enemy.受伤时(0.1f*最大攻击()*攻击效果());
@@ -8607,9 +8608,6 @@ public class Hero extends Char {
         if(男人())
         damage+=男人国徽章.受伤();
 
-        if(heroClass(HeroClass.近卫)){
-            damage--;
-        }
         if(符文("未知防御"))damage-=幸运机制()*10;
 
         if(enemy!=null&&重生怪物.equals("史莱姆"))
@@ -9660,8 +9658,8 @@ public class Hero extends Char {
 
     @Override
     public boolean add(Buff buff) {
-        if (buff.type == NEGATIVE &&
-                (buff(时光沙漏.timeStasis.class) != null || buff(TimeStasis.class) != null)) {
+        if (buff.type==Buff.buffType.NEGATIVE&&
+            (buff(时光沙漏.timeStasis.class) != null || buff(TimeStasis.class) != null)) {
             return false;
         }
 
@@ -10539,8 +10537,6 @@ public class Hero extends Char {
     public float stealth() {
         float 隐匿= super.stealth();//6+
         隐匿+=虚无透纱.增加();
-        if(heroClass(HeroClass.镜魔))
-            隐匿+=1.5f;
         if(符文("树懒转世"))
             隐匿+=6;
         return 隐匿;
@@ -10856,7 +10852,7 @@ public class Hero extends Char {
         }
         if(英精英雄==8)吸血+=0.2f;
 
-        if(heroClass(HeroClass.WARRIOR))吸血+=0.02f;
+        if(hasbuff(战斗状态.class)&&heroClass(HeroClass.WARRIOR))吸血+=0.05f;
         if(subClass(HeroSubClass.剑魔))吸血+=0.05f;
         if(符文("日蚀"))吸血+=1f/攻击延迟()*0.05f;
         if(符文("狂战之怒"))吸血+=0.1f*根据已损失生命();
@@ -11859,8 +11855,12 @@ public class Hero extends Char {
         String s="";
         if(职业精通){
             switch(sc){
-                case 奇经八脉: default:
+                default:
+                case 奇经八脉:
                     s+= "总综合属性+15%。";
+                    break;
+                case 多面手:
+                    s+= "武器在非攻击范围不减少命中。";
                     break;
                 case 不灭战士:
                     s+= "战斗状态时，获得3%全能吸血。";

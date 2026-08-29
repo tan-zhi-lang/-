@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Blob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -63,7 +63,8 @@ public class Firebloom extends Plant {
 
 			魔法冰霜房间.魔法冰霜 魔法冰霜 = (魔法冰霜房间.魔法冰霜)Dungeon.level.blobs.get(魔法冰霜房间.魔法冰霜.class);
 			Freezing freezing = (Freezing)Dungeon.level.blobs.get(Freezing.class);
-			if ((魔法冰霜 != null && 魔法冰霜.volume > 0)||(freezing != null && freezing.volume > 0)) {
+			if ((魔法冰霜 != null && 魔法冰霜.volume > 0)||
+				(freezing != null && freezing.volume > 0)) {
 				Plant plant=new Firebloom();
 				plant.pos=cell;
 				plant.activate(null);

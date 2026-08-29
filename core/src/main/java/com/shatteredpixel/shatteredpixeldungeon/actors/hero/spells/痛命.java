@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -57,10 +59,10 @@ public class 痛命 extends 目标巫术 {
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
 					float f=Random.NormalFloat(
-							Dungeon.hero.法术(this,0.3f)+
+							Dungeon.hero.魔力(this,0.3f)+
 							hero.天赋点数(Talent.高级痛命,0.15f)*hero.最小攻击()
 							,
-							Dungeon.hero.法术(this,1.2f)+
+							Dungeon.hero.魔力(this,1.2f)+
 							hero.天赋点数(Talent.高级痛命,0.15f)*hero.最大攻击()
 												 );
 					ch.受伤时(f, 痛命.this);
@@ -82,11 +84,14 @@ public class 痛命 extends 目标巫术 {
 
 	@Override
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.法术(this,0.3f)+
-									Dungeon.hero.天赋点数(Talent.高级痛命,0.15f)*Dungeon.hero.最小攻击(),
-								   Dungeon.hero.法术(this,1.2f)+
-								   Dungeon.hero.天赋点数(Talent.高级痛命,0.15f)*Dungeon.hero.最大攻击(),
-								  Dungeon.hero.生命(0.015f));
+		String desc = Messages.get(this, "desc",
+								   kw2(Dungeon.hero.魔力(this,0.3f)+
+									Dungeon.hero.天赋点数(Talent.高级痛命,0.15f)*Dungeon.hero.最小攻击()),
+
+								   kw2(Dungeon.hero.魔力(this,1.2f)+
+								   Dungeon.hero.天赋点数(Talent.高级痛命,0.15f)*Dungeon.hero.最大攻击()),
+
+									   kw2(Dungeon.hero.生命(0.015f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

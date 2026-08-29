@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -35,7 +37,8 @@ public class 土遁 extends 目标忍术 {
 
 	@Override
 	public String desc() {
-		return Messages.get(this, "desc", 1 + 2*Dungeon.hero.天赋点数(Talent.神圣屏障))+"\n\n"+Messages.get(this,"charge_cost",(int)chargeUse(Dungeon.hero));
+		return Messages.get(this, "desc", Math.round(1 + 2*Dungeon.hero.天赋点数(Talent.神圣屏障)))
+			   +"\n\n"+Messages.get(this,"charge_cost",(int)chargeUse(Dungeon.hero));
 	}
 
 	@Override
@@ -91,7 +94,7 @@ public class 土遁 extends 目标忍术 {
 		int rightDirX = 0;
 		int rightDirY = 0;
 
-		int steps = Math.round(hero.法术(this,0.1f));
+		int steps = Math.round(hero.魔力(this,0.1f));
 
 		switch (closestIdx){
 			case 0: //top left
@@ -206,7 +209,7 @@ public class 土遁 extends 目标忍术 {
 
 	private void placeWall( int pos, int knockbackDIR){
 		if (!Dungeon.level.solid[pos]) {
-			GameScene.add(Blob.seed(pos, Math.round(Dungeon.hero.法术(1)), LightWall.class));
+			GameScene.add(Blob.seed(pos,Math.round(Dungeon.hero.魔力(this,1)),LightWall.class));
 
 			Char ch = Actor.findChar(pos);
 			if (ch != null && ch.alignment == Char.Alignment.ENEMY){

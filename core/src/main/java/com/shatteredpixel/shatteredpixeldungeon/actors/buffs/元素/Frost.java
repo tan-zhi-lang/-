@@ -1,0 +1,144 @@
+
+
+package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素;
+
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Thief;
+import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.FrozenCarpaccio;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.watabou.noosa.Image;
+import com.watabou.utils.Random;
+
+import java.util.ArrayList;
+
+public class Frost extends FlavourBuff{
+
+	public static final float DURATION	= 10f;
+
+	{
+		type = buffType.NEGATIVE;
+		announced = true;
+	}
+	
+	@Override
+	public boolean attachTo( Char target ) {
+		Buff.detach(target,燃烧.class);
+
+		if (super.attachTo( target )) {
+			
+			target.paralysed++;
+			Buff.detach( target, Chill.class);
+
+			if (target instanceof Hero) {
+
+				Hero hero = (Hero)target;
+				ArrayList<Item> freezable = new ArrayList<>();
+				//does not reach inside of containers
+				if (!hero.belongings.lostInventory()) {
+					for (Item i : hero.belongings.backpack.items) {
+						if (!i.特别&&(i instanceof Potion||i instanceof MysteryMeat)) {
+							freezable.add(i);
+						}
+					}
+				}
+				
+				if (!freezable.isEmpty()){
+					Item toFreeze = Random.element(freezable).detach( hero.belongings.backpack );
+					GLog.橙(Messages.capitalize(Messages.get(this,"freezes",toFreeze.title())));
+					if (toFreeze instanceof Potion){
+						((Potion) toFreeze).shatter(hero.pos);
+					} else if (toFreeze instanceof MysteryMeat){
+						FrozenCarpaccio carpaccio = new FrozenCarpaccio();
+						if (!carpaccio.放背包( hero.belongings.backpack )) {
+							Dungeon.level.drop( carpaccio, target.pos ).sprite().drop();
+						}
+					}
+				}
+				
+			} else if (target instanceof Thief) {
+
+				Item item = ((Thief) target).item;
+
+				if (item instanceof Potion && !item.特别) {
+					((Potion) ((Thief) target).item).shatter(target.pos);
+					((Thief) target).item = null;
+				} else if (item instanceof MysteryMeat){
+					((Thief) target).item = new FrozenCarpaccio();
+				}
+
+			}
+
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public void detach() {
+		super.detach();
+		float damage = Random.NormalFloat(4,12+Dungeon.scalingDepth());
+
+		if(Dungeon.hero.符文("wc冰!"))damage+=Dungeon.hero.最小攻击()+Dungeon.hero.力量()+Dungeon.hero.最大攻击();
+
+		if(Dungeon.hero.符文("冰霜之书")){
+			if(Dungeon.hero.暴击判定(null,1)>1)
+			damage*=Dungeon.hero.暴击伤害();
+			Dungeon.hero.回血(damage);
+		}
+
+		if (target instanceof Hero hero
+			&&target.buff(时光沙漏.timeStasis.class)==null
+			&&target.buff(TimeStasis.class)==null){
+			hero.受伤时(damage,this);
+		}
+		if (target.paralysed > 0)
+			target.paralysed--;
+		if (Dungeon.level.water[target.pos])
+			Buff.延长(target, Chill.class, Chill.DURATION/2f);
+	}
+	
+	@Override
+	public int icon() {
+		return BuffIndicator.FROST;
+	}
+
+	@Override
+	public void tintIcon(Image icon) {
+		icon.hardlight(0f, 0.75f, 1f);
+	}
+
+	@Override
+	public float iconFadePercent() {
+		return Math.max(0, (DURATION - visualcooldown()) / DURATION);
+	}
+
+	@Override
+	public void fx(boolean on) {
+		if (on) {
+			target.sprite.add(CharSprite.State.FROZEN);
+			target.sprite.add(CharSprite.State.PARALYSED);
+		} else {
+			target.sprite.remove(CharSprite.State.FROZEN);
+			if (target.paralysed <= 1) target.sprite.remove(CharSprite.State.PARALYSED);
+		}
+	}
+
+	{
+		//can't chill what's frozen!
+		免疫表.add(Chill.class);
+	}
+
+}

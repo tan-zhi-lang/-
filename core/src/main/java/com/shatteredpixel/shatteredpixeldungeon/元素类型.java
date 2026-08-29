@@ -10,12 +10,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.灵焰元素;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Degrade;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
@@ -27,10 +27,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.多面手施法;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.灵焰;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.圣光;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.尘遁;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells.掌心雷;
@@ -46,7 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
-import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.荆棘;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.神圣炸弹;
@@ -111,7 +112,7 @@ public class 元素类型{
 		小老鬼.add(Amok.class);//狂乱
 		小老鬼.add(Charm.class);
 		小老鬼.add(Sleep.class);//魔法睡眠
-		小老鬼.add(Chill.class);//冻伤
+		小老鬼.add(Chill.class);//冻僵
 		小老鬼.add(Frost.class);//冻结
 		小老鬼.add(Slow.class);//迟缓
 		小老鬼.add(Paralysis.class);//麻痹
@@ -263,6 +264,7 @@ public class 元素类型{
 	static {
 		魔法伤害.add(痛命.class);
 		魔法伤害.add(符咒.class);
+		魔法伤害.add(多面手施法.class);
 
 		魔法伤害.add(WandOfMagicMissile.class);
 		魔法伤害.add(WandOfTransfusion.class);

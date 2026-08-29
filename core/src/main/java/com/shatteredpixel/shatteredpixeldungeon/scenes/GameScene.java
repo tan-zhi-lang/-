@@ -26,8 +26,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
-import com.shatteredpixel.shatteredpixeldungeon.actors.广告15秒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.广告5秒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告15秒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告5秒;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
@@ -979,21 +979,25 @@ public class GameScene extends PixelScene {
 
 		scene.gameLog2.setRect(Tag.SIZE*1.85f,scene.status.bottom()+ Tag.SIZE*1.5f,uiCamera.width-tagWidth-Tag.SIZE*2,0);
 
-
-		if (scene.tagAction) {
-			scene.action.setRect( tagLeft, scene.status.bottom() + Tag.SIZE, tagWidth, Tag.SIZE );
-		}
 		if (scene.tagLoot) {
-			scene.loot.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*4, tagWidth, Tag.SIZE );
+			scene.loot.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*3, tagWidth, Tag.SIZE );
 		}
 		if (scene.tagResume) {
-			scene.resume.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*5, tagWidth, Tag.SIZE );
+			scene.resume.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*4, tagWidth, Tag.SIZE );
 		}
 		if(SPDSettings.interfaceSize()){
+
+			if (scene.tagAction) {
+				scene.action.setRect( tagLeft, scene.toolbar.top() - Tag.SIZE*2, tagWidth, Tag.SIZE );
+			}
 			if (scene.tagAttack){
 				scene.attack.setRect( tagLeft, scene.toolbar.top() - Tag.SIZE, tagWidth, Tag.SIZE );
 			}
 		}else{
+
+			if (scene.tagAction) {
+				scene.action.setRect( tagLeft,scene.toolbar.top() - Tag.SIZE*2, tagWidth, Tag.SIZE );
+			}
 			if (scene.tagAttack){
 				scene.attack.setRect( tagLeft, scene.toolbar.top() - Tag.SIZE, tagWidth, Tag.SIZE );
 			}

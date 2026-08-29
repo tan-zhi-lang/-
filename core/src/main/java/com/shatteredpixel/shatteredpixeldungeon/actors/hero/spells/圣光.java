@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -9,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.神圣长枪;
@@ -57,11 +59,11 @@ public class 圣光 extends TargetedClericSpell {
 						Buff.施加(ch,伤害.class).level(hero.魔力天赋点数(Talent.神圣之触,0.25f));
 					} );
 					if(ch.恶魔亡灵()){
-						ch.受伤时(hero.法术(this,1*(1+hero.天赋点数(Talent.神圣之触,0.25f))),圣光.this);
+						ch.受伤时(hero.魔力(this,1*(1+hero.天赋点数(Talent.神圣之触,0.25f))),圣光.this);
 						Sample.INSTANCE.play(Assets.Sounds.攻击魔法,1,Random.Float(0.87f,1.15f));
 						ch.sprite.burst(0xFFFFFF44, 3);
 					}else{
-						ch.回血(hero.法术(this,0.5f*(1+hero.天赋点数(Talent.神圣之触,0.25f))));
+						ch.回血(hero.魔力(this,0.5f*(1+hero.天赋点数(Talent.神圣之触,0.25f))));
 					}
 				} else {
 					Dungeon.level.pressCell(aim.collisionPos);
@@ -77,8 +79,8 @@ public class 圣光 extends TargetedClericSpell {
 	}
 
 	public String desc(){
-		String desc = Messages.get(this, "desc",Dungeon.hero.法术(this,0.2f)*(1+Dungeon.hero.天赋点数(Talent.神圣之触,0.25f)),
-										Dungeon.hero.法术(this,1+Dungeon.hero.天赋点数(Talent.神圣之触,0.25f)));
+		String desc = Messages.get(this, "desc",kw2(Dungeon.hero.魔力(this,0.2f)*(1+Dungeon.hero.天赋点数(Talent.神圣之触,0.25f))),
+													kw2(Dungeon.hero.魔力(this,1+Dungeon.hero.天赋点数(Talent.神圣之触,0.25f))));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 }

@@ -8,10 +8,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燥热;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
@@ -88,13 +86,13 @@ public class 烈焰法杖 extends DamageWand {
 			Sample.INSTANCE.play( Assets.Sounds.BURNING, 1, 1.1f * Random.Float(0.87f, 1.15f) );
 
 			if (ch.isAlive()){
-				if (ch.buff(Chill.class) != null){
-					Buff.施加(ch,Paralysis.class,4f);
+				if (ch.buff(燥热.class) != null){
+					Buff.施加(ch,燃烧.class).reignite(ch,8);
 				}
 				if (ch.在草丛()||ch.在门上()) {
-					Buff.施加(ch, 火毒.class).reignite(ch,8);
+					Buff.施加(ch, 燃烧.class).reignite(ch,8);
 				} else {
-					Buff.施加(ch, 火毒.class).reignite(ch,4);
+					Buff.施加(ch, 燥热.class,4);
 				}
 			}
 		} else {

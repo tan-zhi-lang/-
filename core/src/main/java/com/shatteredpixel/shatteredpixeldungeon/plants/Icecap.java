@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Fire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.FrostImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
@@ -43,7 +43,7 @@ public class Icecap extends Plant {
 		if (eternalFire != null && eternalFire.volume > 0) {
 			eternalFire.clear( pos );
 		}
-		Fire fire = (Fire)Dungeon.level.blobs.get(MagicalFireRoom.EternalFire.class);
+		Fire fire = (Fire)Dungeon.level.blobs.get(Fire.class);
 		if (fire != null && fire.volume > 0) {
 			fire.clear( pos );
 		}
@@ -58,7 +58,8 @@ public class Icecap extends Plant {
 		protected void onThrow( int cell ) {
 			MagicalFireRoom.EternalFire eternalFire = (MagicalFireRoom.EternalFire)Dungeon.level.blobs.get(MagicalFireRoom.EternalFire.class);
 			Fire fire = (Fire)Dungeon.level.blobs.get(Fire.class);
-			if ((eternalFire != null && eternalFire.volume > 0)||(fire != null && fire.volume > 0)) {
+			if ((eternalFire != null && eternalFire.volume > 0)||
+				(fire != null && fire.volume > 0)) {
 				Plant plant=new Icecap();
 				plant.pos=cell;
 				plant.activate(null);

@@ -14,18 +14,18 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.征服;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.征服;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
-import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.鬼刀;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.鬼刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
@@ -713,6 +713,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public float DPS(){
 		float hero力量=10;
 		if(Dungeon.hero())hero力量=Dungeon.hero.力量();
+
 		return augment.damageFactor(
 				(
 				(Dungeon.hero()&&hero力量-力量()>0?
@@ -846,7 +847,6 @@ abstract public class Weapon extends KindOfWeapon {
 				
 				if (partialCharge >= 1){
 					charges++;
-					Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 					partialCharge--;
 					updateQuickslot();
 				}
@@ -1037,16 +1037,17 @@ abstract public class Weapon extends KindOfWeapon {
 		if (circlingBack){
 			x+=0.4f;
 		}
-		if (target!=null&&Dungeon.level.距离(owner.pos,target.pos)<=owner.攻击范围()) {
+		if (target!=null&&Dungeon.level.距离(owner.pos,target.pos)>owner.攻击范围()) {
 			//抵近射击非近距离
 			int 合适距离=Dungeon.level.距离(owner.pos,target.pos)-owner.攻击范围();
 			if(合适距离>0){
+				if(owner instanceof Hero hero&&hero.subClass(HeroSubClass.多面手)){
 
+				}else
 				x-=Math.min(0.4f,owner.攻击范围()*0.1f);
 			}
-		} else {
-			x-=0.4f;
 		}
+
 		return x;
 	}
 	@Override

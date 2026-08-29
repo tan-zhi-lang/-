@@ -10,11 +10,11 @@ import com.shatteredpixel.shatteredpixeldungeon.Rankings;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.BlobImmunity;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.上楼;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.下楼;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.上楼;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.下楼;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.药剂栏;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.食物栏;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.药剂栏;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.食物栏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.ElementalStrike;
@@ -30,12 +30,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.粘咕;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蟑螂;
-import com.shatteredpixel.shatteredpixeldungeon.actors.地牢时间;
-import com.shatteredpixel.shatteredpixeldungeon.actors.开局属性更新;
-import com.shatteredpixel.shatteredpixeldungeon.actors.每10回合;
-import com.shatteredpixel.shatteredpixeldungeon.actors.每150回合;
-import com.shatteredpixel.shatteredpixeldungeon.actors.每300回合;
-import com.shatteredpixel.shatteredpixeldungeon.actors.每450回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.地牢时间;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.开局属性更新;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每10回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每150回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每300回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每450回合;
 import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Honeypot;
@@ -173,32 +173,32 @@ import com.watabou.utils.Random;
 
 public enum HeroClass{
 	
-	WARRIOR(HeroSubClass.不灭战士,HeroSubClass.战斗法师,HeroSubClass.奇经八脉),
-	MAGE(HeroSubClass.冰魄剑神,HeroSubClass.大魔法师,HeroSubClass.奇经八脉),
-	盗贼(HeroSubClass.冥法刺客,HeroSubClass.神偷无影,HeroSubClass.奇经八脉),
-	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者,HeroSubClass.奇经八脉),
+	WARRIOR(HeroSubClass.不灭战士,HeroSubClass.战斗法师,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	MAGE(HeroSubClass.冰魄剑神,HeroSubClass.大魔法师,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	盗贼(HeroSubClass.冥法刺客,HeroSubClass.神偷无影,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	HUNTRESS(HeroSubClass.狙击手,HeroSubClass.守望者,HeroSubClass.奇经八脉,HeroSubClass.多面手),
 	
-	DUELIST(HeroSubClass.武器大师,HeroSubClass.角斗士,HeroSubClass.奇经八脉),
-	CLERIC(HeroSubClass.圣骑士,HeroSubClass.祭司,HeroSubClass.奇经八脉),
-	巫女(HeroSubClass.金刚独狼,HeroSubClass.黑魔导师,HeroSubClass.奇经八脉),
-	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵,HeroSubClass.奇经八脉),
-	镜魔(HeroSubClass.灵魂武者,HeroSubClass.内力武者,HeroSubClass.奇经八脉),
-	道士(HeroSubClass.死灵术士,HeroSubClass.真人,HeroSubClass.奇经八脉),
-	行僧(HeroSubClass.苦行者,HeroSubClass.符文法师,HeroSubClass.奇经八脉),
-	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵,HeroSubClass.奇经八脉),
-	兽灵(HeroSubClass.神兽之灵,HeroSubClass.养殖专家,HeroSubClass.奇经八脉),
-	机器(HeroSubClass.机械教主,HeroSubClass.魔法灵枢,HeroSubClass.奇经八脉),
-	女忍(HeroSubClass.灵月杀手,HeroSubClass.土影,HeroSubClass.奇经八脉),
-	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王,HeroSubClass.奇经八脉),
-	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女,HeroSubClass.奇经八脉),
-	罗兰(HeroSubClass.灾厄化身,HeroSubClass.灵剪刺客,HeroSubClass.奇经八脉),
-	学士(HeroSubClass.幸运之子,HeroSubClass.图书管理员,HeroSubClass.奇经八脉),
-	灵猫(HeroSubClass.黑白双子,HeroSubClass.猫头鹰,HeroSubClass.奇经八脉),
-	鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠,HeroSubClass.奇经八脉),
-	凌云(HeroSubClass.解咒真人,HeroSubClass.吞噬云烟,HeroSubClass.奇经八脉),
-	血鬼(HeroSubClass.狂战士,HeroSubClass.血法师,HeroSubClass.奇经八脉),
-	来世(HeroSubClass.时间刺客,HeroSubClass.戏命师,HeroSubClass.奇经八脉),
-	NONE(HeroSubClass.奇经八脉);
+	DUELIST(HeroSubClass.武器大师,HeroSubClass.角斗士,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	CLERIC(HeroSubClass.圣骑士,HeroSubClass.祭司,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	巫女(HeroSubClass.金刚独狼,HeroSubClass.黑魔导师,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	重武(HeroSubClass.盾之勇者,HeroSubClass.轻装步兵,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	镜魔(HeroSubClass.灵魂武者,HeroSubClass.内力武者,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	道士(HeroSubClass.死灵术士,HeroSubClass.真人,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	行僧(HeroSubClass.苦行者,HeroSubClass.符文法师,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	近卫(HeroSubClass.征服者,HeroSubClass.皇室卫兵,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	兽灵(HeroSubClass.神兽之灵,HeroSubClass.养殖专家,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	机器(HeroSubClass.机械教主,HeroSubClass.魔法灵枢,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	女忍(HeroSubClass.灵月杀手,HeroSubClass.土影,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	戒老(HeroSubClass.阿修罗,HeroSubClass.指环王,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	逐姝(HeroSubClass.剑魔,HeroSubClass.圣女,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	罗兰(HeroSubClass.灾厄化身,HeroSubClass.灵剪刺客,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	学士(HeroSubClass.幸运之子,HeroSubClass.图书管理员,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	灵猫(HeroSubClass.黑白双子,HeroSubClass.猫头鹰,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	鼠弟(HeroSubClass.巫咒王鼠,HeroSubClass.实验狂鼠,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	凌云(HeroSubClass.解咒真人,HeroSubClass.吞噬云烟,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	血鬼(HeroSubClass.狂战士,HeroSubClass.血法师,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	来世(HeroSubClass.时间刺客,HeroSubClass.戏命师,HeroSubClass.奇经八脉,HeroSubClass.多面手),
+	NONE(HeroSubClass.奇经八脉,HeroSubClass.多面手);
 	
 	private HeroSubClass[] subClasses;
 	

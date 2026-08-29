@@ -114,6 +114,7 @@ public class HeroIcon extends Image {
 	public static final int MONK_ABILITIES  = BERSERK+6;
 	public static final int 时间能力  = BERSERK+7;
 	public static final int 空间信标  = BERSERK+8;
+	public static final int 多面手施法  = BERSERK+9;
 
 	public static final int 火球术=26*8;
 	public static final int 火墙术=火球术+2;
@@ -133,8 +134,9 @@ public class HeroIcon extends Image {
 	public static final int 尘遁= 风刃+4;
 	public static final int 土遁= 风刃+6;
 
-	public static final int 肉身成圣=31*8;
-	public static final int 食物栏=32*8;
+	public static final int 奇经八脉=31*8;
+	public static final int 多面手=奇经八脉+1;
+
 
 	public HeroIcon(HeroSubClass subCls){
 		super( Assets.Interfaces.HERO_ICONS );

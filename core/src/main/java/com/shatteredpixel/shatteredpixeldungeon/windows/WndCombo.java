@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.连击;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -41,7 +41,7 @@ public class WndCombo extends Window {
 			icon = new ItemSprite(new Item(){ {image = 物品表.WEAPON_HOLDER; }});
 		}
 
-		for (连击.ComboMove move : com.shatteredpixel.shatteredpixeldungeon.actors.buffs.连击.ComboMove.values()) {
+		for (连击.ComboMove move : com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.连击.ComboMove.values()) {
 
 			String text = "_" + Messages.titleCase(move.title()) + " "  + ":_ " + move.desc(连击.getComboCount());
 			RedButton moveBtn = new RedButton(text, 6){

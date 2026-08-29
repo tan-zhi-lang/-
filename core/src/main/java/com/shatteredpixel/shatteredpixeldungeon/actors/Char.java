@@ -20,17 +20,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corrosion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.吸收痛苦;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.炼狱导管;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Daze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Doom;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FireImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FrostImbue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Fury;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hex;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
@@ -38,7 +36,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeLink;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
@@ -51,13 +49,24 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.FireImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.FrostImbue;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.灵焰;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燥热;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.守御灵光;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.法态穿透;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定命中;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定暴击;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定闪避;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.被发现;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵焰;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -1005,9 +1014,6 @@ public abstract class Char extends Actor {
 		if(诡异)speed*=10f;
 
 
-		if(alignment==Alignment.ENEMY)
-		speed *= 冰心.speedBoost(this);
-
 		if(移速翻倍){
 			speed*=2;
 		}
@@ -1577,8 +1583,6 @@ public abstract class Char extends Actor {
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			delay/=buff.攻速();
 		}
-		if(alignment==Alignment.ENEMY)
-		delay/=冰心.speedBoost(this);
 
 		return delay;
 	}
@@ -1592,8 +1596,13 @@ public abstract class Char extends Actor {
 			//slowed and chilled do not stack
 		} else if (buff( Chill.class ) != null) {
 			timeScale *= buff( Chill.class ).speedFactor();
+		} else if (buff( 燥热.class)!=null) {
+			timeScale *= buff( 燥热.class ).speedFactor();
 		}
-		
+
+		if(alignment==Alignment.ENEMY)
+			timeScale*=冰心.speedBoost(this);
+
 		super.spend( time / timeScale );
 	}
 	

@@ -8,7 +8,9 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.HeroIcon;
 public enum HeroSubClass {
 
 	NONE(HeroIcon.NONE),
-	奇经八脉(HeroIcon.肉身成圣),
+
+	奇经八脉(HeroIcon.奇经八脉),
+	多面手(HeroIcon.多面手),
 
 	不灭战士(HeroIcon.不灭战士),
 	战斗法师(HeroIcon.BATTLEMAGE),

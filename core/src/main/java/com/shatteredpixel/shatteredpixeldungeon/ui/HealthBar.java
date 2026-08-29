@@ -70,7 +70,7 @@ public class HealthBar extends Component {
 		height = HEIGHT;
 	}
 
-	float 框大小=1.34f;//1
+	float 框大小=1.25f;//1
 	@Override
 	public synchronized void update(){
 		
@@ -113,7 +113,7 @@ public class HealthBar extends Component {
 		super.update();
 	}
 
-	float 文本大小=0.68f;//0.34
+	float 文本大小=0.5f;//0.34
 	@Override
 	protected void layout() {
 		Bg.x = Shld.x = Hp.x = x;

@@ -109,7 +109,7 @@ public class 灵魂焰灯 extends Artifact {
 
 		if(Dungeon.hero())
 			return Dungeon.hero.魔力(this,魔力收益+等收益*
-		 (
+												   (
 		  等级+1/9f*等级()*
 			   (Dungeon.hero.击杀数量*(Dungeon.符文("升级灵魂焰灯")?2:1))));
 		return 10*魔力收益+10*(等收益*等级);

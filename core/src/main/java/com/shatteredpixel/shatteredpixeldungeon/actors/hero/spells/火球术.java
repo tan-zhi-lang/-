@@ -8,9 +8,9 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Freezing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.燃烧;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
@@ -77,9 +77,9 @@ public class 火球术 extends 目标法术 {
 				Char ch = Actor.findChar( aim.collisionPos );
 
 				float damage = Random.NormalFloat(
-						hero.法术(this,0.1f)
+						hero.魔力(this,0.1f)
 						,
-						hero.法术(this,0.4f)
+						hero.魔力(this,0.4f)
 												 );
 
 				if (ch != null) {
@@ -99,7 +99,7 @@ public class 火球术 extends 目标法术 {
 							Buff.施加(ch,Paralysis.class,4f);
 						} else {
 							ch.sprite.burst( 0xFF99CCFF);
-							Buff.施加(ch, 燃烧.class).reignite(ch,4+hero.法术(this,0.3f));
+							Buff.施加(ch, 燃烧.class).reignite(ch,4+hero.魔力(this,0.3f));
 						}
 					}
 				} else {
@@ -119,9 +119,9 @@ public class 火球术 extends 目标法术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-								   Dungeon.hero.法术(this,0.1f)
+								   Dungeon.hero.魔力(this,0.1f)
 				,
-								   Dungeon.hero.法术(this,0.4f));
+								   Dungeon.hero.魔力(this,0.4f));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 

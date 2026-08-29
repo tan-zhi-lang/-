@@ -22,11 +22,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MonkEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
@@ -34,7 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.潜伏;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -51,17 +51,17 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
-import com.shatteredpixel.shatteredpixeldungeon.actors.伤害;
-import com.shatteredpixel.shatteredpixeldungeon.actors.击杀累计;
-import com.shatteredpixel.shatteredpixeldungeon.actors.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.机体解构层数;
-import com.shatteredpixel.shatteredpixeldungeon.actors.生化特性;
-import com.shatteredpixel.shatteredpixeldungeon.actors.罪恶快感;
-import com.shatteredpixel.shatteredpixeldungeon.actors.虚空裂隙;
-import com.shatteredpixel.shatteredpixeldungeon.actors.虚空裂隙冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.连杀状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.魔法箭矢冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.黑暗收割冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.击杀累计;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.机体解构层数;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.生化特性;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.罪恶快感;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.虚空裂隙;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.虚空裂隙冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.连杀状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.魔法箭矢冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.黑暗收割冷却;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
@@ -1267,10 +1267,10 @@ public abstract class Mob extends Char{
 					if(Dungeon.hero.heroClass(HeroClass.镜魔)&&Dungeon.hero.buff(Talent.LethalMomentumTracker.class)==null){
 						Buff.施加(Dungeon.hero,Talent.LethalMomentumTracker.class,0f);
 					}
-					if(Dungeon.hero.heroClass(HeroClass.WARRIOR)){
+					if(Dungeon.hero.heroClass(HeroClass.镜魔)){
 						Dungeon.hero.护甲(1);
 					}
-					if(Dungeon.hero.heroClass(HeroClass.近卫)){
+					if(Dungeon.hero.heroClass(HeroClass.镜魔)){
 						Dungeon.hero.回已损失血(0.05f);
 					}
 					if(骸骨左轮.伤害()>0){

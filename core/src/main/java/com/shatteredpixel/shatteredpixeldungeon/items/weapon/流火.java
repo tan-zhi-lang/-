@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.火毒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.火毒;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 流火 extends Weapon{

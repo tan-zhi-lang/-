@@ -27,7 +27,7 @@ public class 老婆动画 extends MobSprite{
 		updateArmor();
 	}
 	public void updateArmor(){
-		updateArmor( ((老婆)ch).armTier);
+		updateArmor(Math.min(((老婆)ch).armTier,2));
 	}
 	public void updateArmor( int x) {
 		texture(Assets.Sprites.老婆);
@@ -37,13 +37,13 @@ public class 老婆动画 extends MobSprite{
 		idle = new Animation( 1, true );
 		idle.frames(film,0+x,0+x,0+x,1+x,0+x,0+x,1+x,1+x);
 		
-		run = new Animation(RUN_FRAMERATE+x,true );
-		run.frames(film,2+x+x,3+x+x,4+x+x,5+x+x,6+x+x,7+x);
+		run = new Animation(RUN_FRAMERATE,true );
+		run.frames(film,2+x,3+x,4+x,5+x,6+x,7+x);
 		
-		die = new Animation(20+x,false );
+		die = new Animation(20,false );
 		die.frames(film,8+x,9+x,10+x,11+x,12+x,11+x);
 		
-		attack = new Animation(15+x,false );
+		attack = new Animation(15,false );
 		attack.frames(film,13+x,14+x,15+x,0+x);
 		
 		zap = attack.clone();

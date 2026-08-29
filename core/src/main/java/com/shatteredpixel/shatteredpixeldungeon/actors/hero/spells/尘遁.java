@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
@@ -30,8 +32,8 @@ public class 尘遁 extends 目标忍术 {
 
 	@Override
 	public String desc() {
-		float d = Dungeon.hero.法术(this,3)*(1+Dungeon.hero.天赋点数(Talent.绝密尘遁,0.25f));
-		return Messages.get(this, "desc", d) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
+		float d =Dungeon.hero.魔力(this,3)*(1+Dungeon.hero.天赋点数(Talent.绝密尘遁,0.25f));
+		return Messages.get(this, "desc", kw2(d)) + "\n\n" + Messages.get(this, "charge_cost", (int)chargeUse(Dungeon.hero));
 	}
 
 
@@ -68,7 +70,7 @@ public class 尘遁 extends 目标忍术 {
 		Char ch = Actor.findChar( aim.collisionPos );
 		if (ch != null) {
 			ch.sprite.burst(0xffffff);
-				ch.受伤时(hero.法术(this,3)*(1+hero.天赋点数(Talent.绝密尘遁,0.25f)),尘遁.this);
+				ch.受伤时(hero.魔力(this,3)*(1+hero.天赋点数(Talent.绝密尘遁,0.25f)),尘遁.this);
 		}
 
 		hero.spend( 1f );

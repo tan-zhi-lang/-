@@ -53,7 +53,6 @@ public class 能量之戒 extends Ring {
 	
 	public static float wandChargeMultiplier( Char target ){
 		float bonus =1+ 0.1845f*getBuffedBonus(target, Energy.class);
-
 		if(Dungeon.符文("法杖工具人")){
 			bonus+=weaponChargeMultiplier(target);
 			bonus+=artifactChargeMultiplier(target);
@@ -62,6 +61,7 @@ public class 能量之戒 extends Ring {
 			bonus--;
 			bonus+=hero.魔力(0.05f);
 
+			bonus +=hero.天赋点数(Talent.强能处消,0.25f);
 			int 法杖数量=0;
 			for(Item i:hero.belongings.backpack){
 				if(i instanceof Wand a)

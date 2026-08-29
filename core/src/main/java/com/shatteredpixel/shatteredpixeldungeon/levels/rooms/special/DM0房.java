@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
+import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
 import com.watabou.utils.Point;
 
 public class DM0房 extends SpecialRoom {
@@ -24,6 +25,7 @@ public class DM0房 extends SpecialRoom {
 		door.set( Door.Type.REGULAR );
 
 		level.addItemToSpawn( new 麻痹药剂().房间物品());
+		level.addItemToSpawn( new Icecap.Seed().房间物品());
 		
 		DM0 statue = new DM0();
 		statue.pos = cx + cy * level.width();

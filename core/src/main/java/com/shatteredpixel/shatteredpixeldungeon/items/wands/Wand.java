@@ -856,7 +856,7 @@ public abstract class Wand extends Item {
 					+ ((SCALING_CHARGE_ADDITION) * Math.pow(scalingFactor, missingCharges)));
 			
 			if (再生.regenOn())
-				partialCharge += (1f/turnsToCharge) * 能量之戒.wandChargeMultiplier(target)*(1+Dungeon.hero.天赋点数(Talent.强能处消,0.25f));
+				partialCharge += (1f/turnsToCharge) * 能量之戒.wandChargeMultiplier(target);
 
 			for (Recharging bonus : target.buffs(Recharging.class)){
 				if (bonus != null && bonus.remainder() > 0f) {

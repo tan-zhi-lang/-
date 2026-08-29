@@ -24,6 +24,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SnowParticle;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.火毒粒子;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.灵焰粒子;
+import com.shatteredpixel.shatteredpixeldungeon.effects.红温;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -78,7 +79,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		BURNING,
 		火毒,
 		灵焰,
-		LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING,
+		LEVITATING, INVISIBLE, PARALYSED,
+		FROZEN,
+		ILLUMINATED,
+		燥热,
+		CHILLED,
+		DARKENED, MARKED, HEALING,
 		SHIELDED,
 		领域,
 		HEARTS, GLOWING, AURA
@@ -116,6 +122,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Emitter hearts;
 
 	protected IceBlock iceBlock;
+	protected 红温 红温;
 	protected DarkBlock darkBlock;
 	protected GlowBlock glowBlock;
 	protected TorchHalo light;
@@ -546,6 +553,10 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (light != null) light.putOut();
 				GameScene.effect(light = new TorchHalo(this));
 				break;
+			case 燥热:
+				if (红温 != null) 红温.killAndErase();
+				红温 = 红温.freeze(this);
+				break;
 			case CHILLED:
 				if (chilled != null) chilled.on = false;
 				chilled = emitter();
@@ -666,6 +677,12 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				if (light != null) {
 					light.putOut();
 					light = null;
+				}
+				break;
+			case 燥热:
+				if (红温 != null) {
+					红温.melt();
+					红温 = null;
 				}
 				break;
 			case CHILLED:

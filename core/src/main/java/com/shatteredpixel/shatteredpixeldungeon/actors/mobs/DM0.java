@@ -6,9 +6,13 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
-import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
@@ -53,7 +57,12 @@ public class DM0 extends Mob {
 	
 	@Override
 	public boolean add( Buff buff) {
-		if(buff instanceof Paralysis||buff instanceof 落石法杖.落石){
+		if(buff instanceof Paralysis||
+		   buff instanceof Vertigo||
+		   buff instanceof Charm||
+		   buff instanceof Dread||
+		   buff instanceof Terror||
+		   buff instanceof Frost){
 			受伤时(最大生命,buff);
 			return true;
 		}

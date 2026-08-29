@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.hero.spells;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -62,9 +64,9 @@ public class 符咒 extends 目标道术 {
 				Buff.延长(ch,Hex.class,4f);
 				if(ch.恶魔亡灵())
 					ch.受伤时(Random.NormalFloat(
-							hero.法术(this,0.3f)
+							hero.魔力(this,0.3f)
 							,
-							hero.法术(this,1.2f)
+							hero.魔力(this,1.2f)
 												   ), 符咒.this);
 
 			} else {
@@ -87,9 +89,9 @@ public class 符咒 extends 目标道术 {
 	@Override
 	public String desc(){
 		String desc = Messages.get(this, "desc",
-								   Dungeon.hero.法术(this,0.3f)
+								   kw2(Dungeon.hero.魔力(this,0.3f))
 				,
-								   Dungeon.hero.法术(this,1.2f));
+									   kw2(Dungeon.hero.魔力(this,1.2f)));
 		return desc + "\n\n" + Messages.get(this, "charge_cost", chargeUse(Dungeon.hero));
 	}
 }

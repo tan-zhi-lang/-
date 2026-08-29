@@ -213,7 +213,7 @@ public class 老婆 extends NPC {
 	public CharSprite sprite() {
 		CharSprite s = super.sprite();
 		hero = (Hero)Actor.findById(heroID);
-		armTier=Math.max(hero.等级/8,1);
+		armTier=Math.min(hero.等级/10,2);
 		return s;
 	}
 	

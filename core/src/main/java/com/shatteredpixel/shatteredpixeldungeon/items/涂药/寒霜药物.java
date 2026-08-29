@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.涂药;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Chill;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Chill;
 
 public class 寒霜药物 extends 涂药{
 

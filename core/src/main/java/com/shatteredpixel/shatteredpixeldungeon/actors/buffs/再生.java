@@ -7,6 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ChaoticCenser;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
@@ -106,6 +107,8 @@ public class 再生 extends Buff {
 			if(hero.符文("恢复恢复"))
 				再生数值*=3.5f;
 
+			if(hero.nobuff(战斗状态.class)&&hero.heroClass(HeroClass.近卫))
+				再生数值*=3f;
 			if(hero.种族天赋.equals("树妖"))
 				再生数值*=5;
 

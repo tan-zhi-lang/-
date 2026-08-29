@@ -10295,7 +10295,7 @@ public class Hero extends Char {
 					//endregion
                     
                     if(true){//踩踏草
-                        Dungeon.level.pressCellgrass(curr);
+                        Dungeon.level.pressCellgrasshero(curr);
                     }
                     if(Actor.hasfindChar(curr)&&Actor.findChar(curr)!=this){
                         if(Actor.findChar(curr) instanceof Mimic m){

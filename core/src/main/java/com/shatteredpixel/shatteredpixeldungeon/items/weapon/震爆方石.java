@@ -106,7 +106,7 @@ public class 震爆方石 extends Weapon{
 			Actor.add(new Actor() {
 
 				{
-					actPriority = VFX_PRIO-1;
+					actPriority = MAX;
 				}
 
 				@Override

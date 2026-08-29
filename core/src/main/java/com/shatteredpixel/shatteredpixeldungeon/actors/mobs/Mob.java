@@ -1177,9 +1177,13 @@ public abstract class Mob extends Char{
 		}
 
 		if(防刷()){
-			if(来源==Dungeon.hero||来源 instanceof 魔攻之戒||
-			   来源 instanceof Artifact||来源 instanceof Wand||
-			   来源 instanceof Weapon||来源 instanceof Weapon.Enchantment||
+
+		}else{
+			if(来源==Dungeon.hero||
+			   来源 instanceof Artifact||
+			   来源 instanceof Wand||
+			   来源 instanceof Weapon||
+			   来源 instanceof Weapon.Enchantment||
 			   来源 instanceof Armor.Glyph||
 			   来源 instanceof Dungeon||
 			   来源 instanceof Buff||
@@ -1680,16 +1684,16 @@ public abstract class Mob extends Char{
 			}
 
 			if(老鬼()){
-				属性+="/老鬼";
+				属性+="/老鬼(大部分击杀效果不能触发)";
 			}
 			if(小老鬼()){
-				属性+="/小老鬼";
+				属性+="/小老鬼(大部分击杀效果不能触发)";
 			}
 			if(老鬼傀儡()){
-				属性+="/老鬼傀儡";
+				属性+="/老鬼傀儡(大部分击杀效果不能触发)";
 			}
 			if(傀儡()){
-				属性+="/傀儡";
+				属性+="/傀儡(大部分击杀效果不能触发)";
 			}
 			if(低活动度生物()){
 				属性+=" 低活动度生物";

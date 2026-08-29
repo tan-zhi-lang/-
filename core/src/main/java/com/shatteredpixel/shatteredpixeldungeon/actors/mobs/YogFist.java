@@ -495,7 +495,7 @@ public abstract class YogFist extends Mob {
 
 				float dmg=Random.NormalIntRange(10, 20);
 				
-				dmg=dmg*Dungeon.难度攻击(this);
+				dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 				enemy.受伤时( dmg, new LightBeam() );
 				Buff.延长( enemy, Blindness.class, Blindness.DURATION/2f );
 
@@ -564,7 +564,7 @@ public abstract class YogFist extends Mob {
 
 				float dmg=Random.NormalIntRange(10, 20);
 				
-				dmg=dmg*Dungeon.难度攻击(this);
+				dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 				enemy.受伤时( dmg, new DarkBolt() );
 
 				Light l = enemy.buff(Light.class);

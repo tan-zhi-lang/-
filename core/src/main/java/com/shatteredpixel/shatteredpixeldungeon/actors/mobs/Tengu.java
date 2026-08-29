@@ -1073,7 +1073,7 @@ public class Tengu extends Mob {
 							Char ch = Actor.findChar(cell);
 							if (ch != null && !(ch instanceof Tengu)){
 								float dmg=2 + Dungeon.scalingDepth();
-								dmg=dmg*Dungeon.难度攻击(new Tengu());
+								dmg=dmg*Dungeon.难度攻击(new Tengu())*Dungeon.难度魔法(new Tengu());
 								ch.受伤时(dmg, new Electricity());
 								
 								if (ch == Dungeon.hero){

@@ -119,7 +119,7 @@ public class Pylon extends Mob {
 		if (ch != null && !(ch instanceof DM300)){
 			ch.sprite.flash();
 			float dmg=Random.NormalIntRange(10, 20);
-			dmg=dmg*Dungeon.难度攻击(this);
+			dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 			ch.受伤时(dmg, new Electricity());
 
 			if (ch == Dungeon.hero) {

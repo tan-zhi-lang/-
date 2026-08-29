@@ -112,7 +112,7 @@ public abstract class Shaman extends Mob {
 			}
 			
 			float dmg = Random.NormalIntRange( 6, 15 );
-			dmg=dmg*Dungeon.难度攻击(this);
+			dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 			enemy.受伤时( dmg, new EarthenBolt() );
 			

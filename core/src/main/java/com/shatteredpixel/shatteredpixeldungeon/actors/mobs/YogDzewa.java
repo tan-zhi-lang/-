@@ -204,11 +204,11 @@ public class YogDzewa extends Mob {
 					if (hit( this, ch, true )) {
 						if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES)) {
 							float dmg=Random.NormalIntRange(30, 50);
-							dmg=dmg*Dungeon.难度攻击(this);
+							dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 							ch.受伤时(dmg, new Eye.DeathGaze());
 						} else {
 							float dmg=Random.NormalIntRange(20, 30);
-							dmg=dmg*Dungeon.难度攻击(this);
+							dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 							ch.受伤时(dmg, new Eye.DeathGaze());
 						}
 						if (Dungeon.level.heroFOV[pos]) {

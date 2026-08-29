@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
@@ -13,8 +14,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.十字弩飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
@@ -48,6 +49,7 @@ public class 重制改动{
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS),"怪物",
+											"所有远程魔法攻击伤害-33%。\n"+
 											"大部分怪物正确获得属性。\n"+
 											"1楼刷怪不会刷怪->25x25回合后才会刷怪(幸福结局回来除外)。\n"+
 											"1楼刷怪数量8->10。\n"+
@@ -93,6 +95,7 @@ public class 重制改动{
 											"矮人国王在召唤2个矮人尸群时，有一个将是骷髅。\n"+
 											"矮人国王最小和最大攻击+10。"));
 
+		changes.addButton( new ChangeButton(new Eye(),"邪眼","相邻时不会施法。"));
 		changes.addButton( new ChangeButton(new GhoulSprite(),"矮人尸群","复活的生命10%->12.5%，但是每次死亡都会使复活的生命x0.6。"));
 		changes.addButton( new ChangeButton(new Slime(),"所有史莱姆","史莱姆受到伤害减伤->物理减伤。"));
 		changes.addButton( new ChangeButton(new Crab(),"所有螃蟹","下水道螃蟹移速初始1.5倍，且所有螃蟹敌人水平移动速度x2.5倍。"));

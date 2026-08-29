@@ -17,6 +17,9 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.watabou.utils.Random;
 
 public class 地牢时间 extends FlavourBuff{
+    {
+        actPriority=MAX;
+    }
     @Override
     public boolean act(){
         spend( 1 );

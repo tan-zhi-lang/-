@@ -26,6 +26,7 @@ public abstract class Actor implements Bundlable {
 	//default priority values for general actor categories
 	//note that some specific actors pick more specific values
 	//e.g. a buff acting before all normal buffs might have priority BUFF_PRIO + 1
+	protected static final int MAX    = 99;//最高优先级
 	protected static final int VFX_PRIO    = 100;   //visual effects take priority
 	protected static final int HERO_PRIO   = 0;     //positive is before hero, negative after
 	protected static final int BLOB_PRIO   = -10;   //blobs act after hero, before mobs

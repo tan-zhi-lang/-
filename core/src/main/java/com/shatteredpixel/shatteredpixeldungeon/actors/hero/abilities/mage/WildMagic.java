@@ -207,7 +207,7 @@ public class WildMagic extends ArmorAbility {
 		if (!wands.isEmpty() && hero.isAlive()) {
 			Actor.add(new Actor() {
 				{
-					actPriority = VFX_PRIO-1;
+					actPriority = MAX;
 				}
 
 				@Override

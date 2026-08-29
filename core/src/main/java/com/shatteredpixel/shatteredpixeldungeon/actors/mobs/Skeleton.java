@@ -64,8 +64,8 @@ public class Skeleton extends Mob {
 			Char ch = findChar( pos + PathFinder.相邻[i]);
 			if (ch != null && ch.isAlive()) {
 				float damage = Random.NormalIntRange(6, 12);
-				damage=Math.round(damage*Dungeon.难度攻击(this));
-				damage = Math.round( damage * AscensionChallenge.statModifier(this));
+				damage=damage*Dungeon.难度攻击(this);
+				damage =damage*AscensionChallenge.statModifier(this);
 				//all sources of DR are 2x effective vs. bone explosion
 				//this does not consume extra uses of rock armor and earthroot armor
 

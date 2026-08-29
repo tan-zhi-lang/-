@@ -44,8 +44,28 @@ public class HighGrass {
 		}
 		return x;
 	}
+	public static void tramplehero( Level level, int pos ) {
+
+		if (level.map[pos] == Terrain.FURROWED_GRASS){
+			if (Dungeon.hero()&& Dungeon.hero.heroClass(HeroClass.HUNTRESS)){
+				//Do nothing
+				freezeTrample = true;
+			} else {
+				Level.set(pos, Terrain.GRASS);
+			}
+
+		} else{
+			if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)){
+				Level.set(pos,Terrain.FURROWED_GRASS);
+				freezeTrample=true;
+			}else{
+				Level.set(pos,Terrain.GRASS);
+			}
+		}
+	trample( level, pos );
+	}
 	public static void trample( Level level, int pos ) {
-		
+
 		if (freezeTrample) return;
 		
 		Char ch = Actor.findChar(pos);

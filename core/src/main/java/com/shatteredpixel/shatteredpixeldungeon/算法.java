@@ -76,7 +76,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "8.28/18:38";
+        return "8.29/17:12";
     }
 
     public static float 金额=5;
@@ -267,7 +267,7 @@ public class 算法 {
     public static void 修复效果(Callback c){
         Actor.add(new Actor() {
             {
-                actPriority = VFX_PRIO-1;//优先级
+                actPriority = MAX;//优先级
             }
             @Override
             protected boolean act() {

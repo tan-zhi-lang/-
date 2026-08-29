@@ -77,7 +77,7 @@ public class Eye extends Mob {
 	@Override
 	protected boolean canAttack( Char enemy ) {
 
-		if (beamCooldown == 0) {
+		if (beamCooldown == 0&&!相邻(enemy)) {
 			Ballistica aim = new Ballistica(pos, enemy.pos, Ballistica.STOP_SOLID);
 
 			if (enemy.invisible == 0 && !isCharmedBy(enemy) && fieldOfView[enemy.pos]
@@ -100,7 +100,7 @@ public class Eye extends Mob {
 			beamCharged = false;
 			sprite.idle();
 		}
-		if (beam == null && beamTarget != -1) {
+		if (beam == null && beamTarget != -1&&!相邻(beamTarget)) {
 			beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
 			sprite.turnTo(pos, beamTarget);
 		}
@@ -113,7 +113,7 @@ public class Eye extends Mob {
 	protected boolean doAttack( Char enemy ) {
 
 		beam = new Ballistica(pos, beamTarget, Ballistica.STOP_SOLID);
-		if (beamCooldown > 0 || (!beamCharged && !beam.subPath(1, beam.dist).contains(enemy.pos))) {
+		if (相邻(enemy)||beamCooldown > 0 || (!beamCharged && !beam.subPath(1, beam.dist).contains(enemy.pos))) {
 			return super.doAttack(enemy);
 		} else if (!beamCharged){
 			for (int pos : beam.subPath(1, beam.dist)){
@@ -127,7 +127,7 @@ public class Eye extends Mob {
 
 			spend(攻击延迟());
 			
-			if (Dungeon.level.heroFOV[pos] || Dungeon.level.heroFOV[beam.collisionPos] ) {
+			if(Dungeon.level.heroFOV[pos] ||Dungeon.level.heroFOV[beam.collisionPos] ) {
 				for (int pos : beam.subPath(1, beam.dist)){
 					Dungeon.hero.sprite.parent.add(new TargetedCell(pos));//危险点
 				}
@@ -183,7 +183,7 @@ public class Eye extends Mob {
 
 			if (hit( this, ch, true )) {
 				float dmg = Random.NormalIntRange( 30, 50 );
-				dmg=dmg*Dungeon.难度攻击(this);
+				dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 				dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 
 				//logic for fists or Yog-Dzewa taking 1/2 or 1/4 damage from aggression stoned minions

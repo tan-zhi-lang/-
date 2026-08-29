@@ -133,7 +133,7 @@ public class 仇鬼 extends Mob implements Callback {
 			}
 
 			float dmg = Random.NormalIntRange( Dungeon.区域(2), Dungeon.区域(5) );
-			dmg=dmg*Dungeon.难度攻击(this);
+			dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 			dmg = Math.round(dmg * AscensionChallenge.statModifier(this));
 
 			//logic for DK taking 1/2 damage from aggression stoned minions

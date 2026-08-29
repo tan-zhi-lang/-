@@ -305,7 +305,7 @@ public class 灵能短弓 extends Weapon {
 											Actor.add(new Actor() {
 
 												{
-													actPriority = VFX_PRIO-1;
+													actPriority = MAX;
 												}
 
 												@Override

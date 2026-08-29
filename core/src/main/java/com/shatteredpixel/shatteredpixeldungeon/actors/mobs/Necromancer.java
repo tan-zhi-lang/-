@@ -214,7 +214,7 @@ public class Necromancer extends Mob {
 				if (blocker != null && blocker.alignment != alignment){
 					float dmg=Random.NormalIntRange(2, 10);
 					
-					dmg=dmg*Dungeon.难度攻击(this);
+					dmg=dmg*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 					blocker.受伤时(dmg, new SummoningBlockDamage() );
 					if (blocker == Dungeon.hero && !blocker.isAlive()){
 						Badges.validateDeathFromEnemyMagic();

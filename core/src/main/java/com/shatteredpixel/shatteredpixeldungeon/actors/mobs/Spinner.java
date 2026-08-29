@@ -109,8 +109,8 @@ public class Spinner extends Mob {
 		Sample.INSTANCE.play(Assets.Sounds.蜘蛛叫);
 		damage = super.攻击时( enemy, damage );
 		if (Random.Int(2) == 0) {
-			int duration = Random.IntRange(7, 8);
-			duration=Math.round(duration*Dungeon.难度攻击(this));
+			float duration = Random.IntRange(7, 8);
+			duration=duration*Dungeon.难度攻击(this)*Dungeon.难度魔法(this);
 			//we only use half the ascension modifier here as total poison dmg doesn't scale linearly
 			duration = Math.round(duration * (AscensionChallenge.statModifier(this)/2f + 0.5f));
 			Buff.施加(enemy, Poison.class).set(duration);

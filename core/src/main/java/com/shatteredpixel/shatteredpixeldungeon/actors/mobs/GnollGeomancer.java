@@ -710,7 +710,7 @@ public class GnollGeomancer extends Mob {
 
 							float dmg=Random.NormalIntRange(6, 12);
 							
-							dmg=dmg*Dungeon.难度攻击(new GnollGeomancer());
+							dmg=dmg*Dungeon.难度攻击(new GnollGeomancer())*Dungeon.难度魔法(new GnollGeomancer());
 							ch.受伤时(dmg, new GnollGeomancer.Boulder());
 
 							if (ch == Dungeon.hero){

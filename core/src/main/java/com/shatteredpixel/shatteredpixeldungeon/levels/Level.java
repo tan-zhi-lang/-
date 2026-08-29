@@ -1689,6 +1689,15 @@ public abstract class Level implements Bundlable {
 				break;
 		}
 	}
+	public void pressCellgrasshero(int cell) {
+		switch (map[cell]) {
+
+			case Terrain.HIGH_GRASS:
+			case Terrain.FURROWED_GRASS:
+				HighGrass.tramplehero( this, cell);
+				break;
+		}
+	}
 	public void pressCellgrass3(int cell) {
 		switch (map[cell]) {
 			

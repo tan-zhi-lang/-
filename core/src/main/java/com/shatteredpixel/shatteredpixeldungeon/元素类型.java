@@ -102,20 +102,20 @@ public class 元素类型{
 	}
 	public static final HashSet<Class> 不能移动 = new HashSet<>();
 	static{
-		小老鬼.add(Vertigo.class);//眩晕
+		不能移动.add(Vertigo.class);//眩晕
 	}
 	public static final HashSet<Class> 静态 = new HashSet<>();
 	static{
-		小老鬼.add(AllyBuff.class);//盟友
-		小老鬼.add(Dread.class);//魂飞魄散
-		小老鬼.add(Terror.class);//恐惧
-		小老鬼.add(Amok.class);//狂乱
-		小老鬼.add(Charm.class);
-		小老鬼.add(Sleep.class);//魔法睡眠
-		小老鬼.add(Chill.class);//冻僵
-		小老鬼.add(Frost.class);//冻结
-		小老鬼.add(Slow.class);//迟缓
-		小老鬼.add(Paralysis.class);//麻痹
+		静态.add(AllyBuff.class);//盟友
+		静态.add(Dread.class);//魂飞魄散
+		静态.add(Terror.class);//恐惧
+		静态.add(Amok.class);//狂乱
+		静态.add(Charm.class);
+		静态.add(Sleep.class);//魔法睡眠
+		静态.add(Chill.class);//冻僵
+		静态.add(Frost.class);//冻结
+		静态.add(Slow.class);//迟缓
+		静态.add(Paralysis.class);//麻痹
 	}
 	//endregion
 

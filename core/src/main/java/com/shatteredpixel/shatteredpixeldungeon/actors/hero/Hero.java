@@ -2736,7 +2736,7 @@ public class Hero extends Char {
         else {
             if(符文(ss)){
                 Notes.备注(物品表.海克斯秘卷,海克斯级(ss)+"级:"+ss,海克斯描述(ss));
-                GLog.橙("你已备注了选择的海克斯。");
+                GLog.橙("你已备注了选择的海克斯(右上角自己找)。");
             }
         }
     }
@@ -4896,7 +4896,7 @@ public class Hero extends Char {
         if(符文("乌龟"))speed*=0.9f;
         if(符文("玄武"))speed*=0.7f;
         if(符文("最后生还者")&&半血以下())speed*=1.25f;
-        if(符文("最后生还者")&&半血以下())speed*=1.25f;
+
         if(符文("沃尔夫冈")&&hasbuff(Hunger.class)){
             if(buff(Hunger.class).level>150&&buff(Hunger.class).level<300)
                 speed*=1.1f;
@@ -7702,7 +7702,7 @@ public class Hero extends Char {
         if(enemy!=null&&符文("小怪猎手")&&(!enemy.老鬼()||!enemy.老鬼())) 伤害倍率+=.15f;
         if(enemy!=null&&符文("杀戮之神")&&(!enemy.老鬼()||!enemy.老鬼())) 伤害倍率+=.5f;
         if(enemy!=null&&符文("死神")&&enemy.残血()) 伤害倍率+=.3f;
-        if(enemy!=null&&符文("唯快不破")) 伤害倍率+=Math.min(0,(移速()/enemy.移速()-1)*1/3f);
+        if(enemy!=null&&符文("唯快不破")&&(移速()-enemy.移速())>0) 伤害倍率+=(移速()-enemy.移速())/3f;
         if(符文("止戈"))伤害倍率+=.2f;
 
         if(第x次攻击%2==0){

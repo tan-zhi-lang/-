@@ -144,7 +144,7 @@ public abstract class Wand extends Item {
 			等收益*=1-0.6f;
 		}
 		if(Dungeon.hero())
-		return Dungeon.hero.魔力(魔力收益+等收益*等级);
+		return Dungeon.hero.魔力(this,魔力收益+等收益*等级);
 		else
 			return 10*魔力收益+10*(等收益*等级);
 	}

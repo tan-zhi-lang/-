@@ -273,7 +273,7 @@ public abstract class Level implements Bundlable {
 			}
 			if(Dungeon.区域()==3){
 				addItemToSpawn(new 石头());
-				if(Random.Int(1)==0)
+				if(Random.Int(2)==0)
 				addItemToSpawn(new 石头());
 			}
 			if(SPDSettings.customSeed().equals("速通地牢"))

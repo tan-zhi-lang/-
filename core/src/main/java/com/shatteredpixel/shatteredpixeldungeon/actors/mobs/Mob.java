@@ -882,7 +882,7 @@ public abstract class Mob extends Char{
 		}
 
 		if(enemy!=null&&buff(灵魂标记.class)!=null){
-			if(enemy!=Dungeon.hero){
+			if(enemy!=Dungeon.hero&&Dungeon.hero.天赋(Talent.SOUL_SIPHON)){
 				Dungeon.hero.回血(damage*Dungeon.hero.天赋点数(Talent.SOUL_EATER,0.13f)*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
 				Buff.施加(Dungeon.hero,Hunger.class).吃饭(damage*0.15f*Dungeon.hero.天赋点数(Talent.SOUL_SIPHON,0.13f));
 			}else{

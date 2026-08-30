@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 
 public class 广告5秒 extends CountBuff{
     {
-        maxcount=15;
+        maxcount=5;
     }
 
     @Override

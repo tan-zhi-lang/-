@@ -729,6 +729,7 @@ public class 重制改动{
 
 		changes.addButton(new ChangeButton(new Image(Assets.Sprites.修复,144,0,16,16), "修复",
 										   "修复潜在可能的存储物品等级丢失。\n" +
+										   "修复选中敌人时，血条叠加显示。\n" +
 										   "修复所有物品拾取都能正确显示获得了。\n" +
 										   "修复神器未知情况的最大充能丢失。\n" +
 										   "修复回旋镖扔出没有敌人的地板时不回旋。\n" +

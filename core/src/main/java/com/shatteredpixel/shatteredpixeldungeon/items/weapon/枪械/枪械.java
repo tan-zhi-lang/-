@@ -191,7 +191,7 @@ public abstract class 枪械 extends Weapon{
 		updateQuickslot();
 	}
 	public void 换弹(){
-		if(算法.isDebug()){
+		if(算法.isDebug()||无限子弹){
 			无限换弹();
 			return;
 		}

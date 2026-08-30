@@ -31,9 +31,11 @@ public class CharHealthIndicator extends HealthBar {
 			CharSprite sprite = target.sprite;
 			width = sprite.width()*(4/6f);
 			x = sprite.x + sprite.width()/6f;
-//			y = sprite.y -2;
+			y = sprite.y -2;
 			level( target );
-			visible = target.生命 < target.最大生命 || target.shielding() > 0;
+			visible = (target.生命 < target.最大生命 || target.shielding() > 0)
+					  && TargetHealthIndicator.instance.target() != target;
+//			visible = target.生命 < target.最大生命 || target.shielding() > 0;//
 		} else {
 			visible = false;
 		}

@@ -49,7 +49,7 @@ public class 重制改动{
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS),"怪物",
-											"所有远程魔法攻击伤害-33%。\n"+
+											"所有远程魔法攻击伤害-25%。\n"+
 											"大部分怪物正确获得属性。\n"+
 											"1楼刷怪不会刷怪->25x25回合后才会刷怪(幸福结局回来除外)。\n"+
 											"1楼刷怪数量8->10。\n"+

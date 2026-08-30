@@ -8271,7 +8271,7 @@ public class Hero extends Char {
         if(enemy!=null&&算法.概率学(天赋点数(Talent.灵魂烈焰,15)))
             Buff.施加(enemy,灵焰.class).reignite(enemy);
 
-        if(enemy!=null&&火毒箭矢.增加()>0){
+        if(enemy!=null&&enemy.isAlive()&&火毒箭矢.增加()>0){
 
             int effect=Random.Int(4)+火毒箭矢.增加();
 

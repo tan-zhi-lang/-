@@ -266,11 +266,15 @@ public class 传送卷轴 extends Scroll {
 		return false;
 	}
 	public static void 周身瞬移(Char ch,int pos) {
-		int ofs;
-		do {
-			ofs = PathFinder.相邻[Random.Int(8)];
-		} while (Actor.findChar(pos + ofs)!=null||Dungeon.level.solid[pos + ofs] ||!Dungeon.level.passable[pos + ofs]);
+		int ofs=0;
 
+		try{
+			do {
+				ofs = PathFinder.相邻[Random.Int(8)];
+			} while (Actor.findChar(pos + ofs)!=null||Dungeon.level.solid[pos + ofs] ||!Dungeon.level.passable[pos + ofs]);
+		}catch(Exception e){
+			ofs=0;
+		}
 
 		瞬移(ch,pos + ofs);
 	}
@@ -278,23 +282,25 @@ public class 传送卷轴 extends Scroll {
 		int ofs = 0;
 		int attempts = 0;
 		final int MAX_ATTEMPTS = 30;
+		try{
+			do
+			{
+				// 用传统 switch 选择偏移数组
+				int[] arr=PathFinder.x范围(x);
+				ofs=arr[Random.Int(arr.length)];
+				attempts++;
 
-		do {
-			// 用传统 switch 选择偏移数组
-			int[] arr=PathFinder.x范围(x);
-			ofs = arr[Random.Int(arr.length)];
-			attempts++;
+				// 保底：尝试过多则使用原位置
+				if(attempts>=MAX_ATTEMPTS){
+					ofs=0;
+					break;
+				}
+			}while(Actor.findChar(pos+ofs)!=null||Dungeon.level.solid[pos+ofs]||!Dungeon.level.passable[pos+ofs]);
 
-			// 保底：尝试过多则使用原位置
-			if (attempts >= MAX_ATTEMPTS) {
-				ofs = 0;
-				break;
-			}
-		} while (Actor.findChar(pos + ofs) != null ||
-				 Dungeon.level.solid[pos + ofs] ||
-				 !Dungeon.level.passable[pos + ofs]);
-
-		int target = pos + ofs;
+		}catch(Exception e){
+			ofs=0;
+		}
+			int target=pos+ofs;
 		瞬移(ch, target);
 	}
 	public static boolean 瞬移(int pos) {

@@ -58,6 +58,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燥热;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.守御灵光;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.法态穿透;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.延迟元素反应;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定命中;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定暴击;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.必定闪避;
@@ -1056,9 +1057,11 @@ public abstract class Char extends Actor {
 		return cachedShield;
 	}
 	public float 元素反应(Object src,float d){
-
 		if(!Dungeon.赛季(赛季设置.元素反应))return 1;
 		if(sprite==null)return 1;
+		if(hasbuff(延迟元素反应.class))return 1;
+
+		Buff.施加(this,延迟元素反应.class,2);
 
 		if(火焰伤害(src)&&冰霜伤害(src)){
 			sprite.蓝说("融化");//融化

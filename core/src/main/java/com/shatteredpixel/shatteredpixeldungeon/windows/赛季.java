@@ -55,6 +55,9 @@ public class 赛季 extends Window {
             if(Messages.get(赛季设置.class,赛季).equals("地牢塔防"))
                 cb.enable(false);
 
+//            if(Messages.get(赛季设置.class,赛季).equals("元素反应"))
+//                cb.enable(false);
+
             if (i > 0) {
                 pos += GAP;
             }

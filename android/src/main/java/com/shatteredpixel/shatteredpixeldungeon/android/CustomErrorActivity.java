@@ -36,9 +36,8 @@ public class CustomErrorActivity extends Activity {
 		//所有包名一律裁掉，只留简约类名（小写包名段+点，后面跟大写/中文类名）
 		stackTrace = stackTrace.replaceAll("(?<![\\w$])(?:[a-z_]\\w*\\.)+(?=[A-Z一-鿿])", "");
 		//at 改为中文
-		stackTrace = stackTrace.replaceAll("(?m)^\\s*at ", "崩溃跟此有关: ");
-		//(Char.java:928) 改为 (可能在928行)
-		stackTrace = stackTrace.replaceAll("\\([\\w$一-鿿]+\\.java:(\\d+)\\)", "(可能在$1行)");
+		stackTrace = stackTrace.replaceAll("(?m)^\\s*at ", "有关: ");
+
 		//日志开头加版本日期标记
 		stackTrace = "版本日期: " + 算法.日期() + "\n\n" + stackTrace;
 		final String report = stackTrace;

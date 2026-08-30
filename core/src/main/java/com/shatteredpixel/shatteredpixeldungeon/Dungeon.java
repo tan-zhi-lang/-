@@ -512,7 +512,7 @@ public class Dungeon {
 
 	public static float 难度魔法(Char c){
 		float x=1;
-		x-=0.33f;
+		x-=0.25f;//0.33f
 		return x;
 	}
 	public static float 综合属性(Char c){

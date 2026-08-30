@@ -67,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
@@ -88,6 +89,7 @@ import com.watabou.noosa.Image;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -664,7 +666,8 @@ public enum Talent {
 		hero.回血(hero.天赋点数(Talent.备战));
 		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.04f));
 		if(hero.符文("止渴"))hero.回百分比血(0.08f);
-
+if(hero.符文("备用治疗药剂")&&item instanceof 治疗药剂&&Random.Int(1)==0)new 治疗药剂().放背包();
+		if(hero.符文("三国杀:华佗")&&!(item instanceof 治疗药剂)&&Random.Int(2)==0)new 治疗药剂().apply(hero);
 		if(hero.符文("5号化合剂"))hero.化合剂++;
 		if(hero.符文("我不是药王"))hero.生命成长+=5;
 		if (false){//喝药加纹章盾

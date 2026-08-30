@@ -41,6 +41,7 @@ public class 灵能短弓 extends Weapon {
 
 		绿色 = true;
 		绿光 = true;
+
 		伤害=0.6f;
 		魔法=0.15f;
 		特别= true;

@@ -161,20 +161,6 @@ public class HeroIcon extends Image {
 		}
 		frame(film.get(action.actionIcon()));
 	}
-	public HeroIcon(食物栏标.Action action){
-		super( Assets.Interfaces.HERO_ICONS );
-		if (film == null){
-			film = new TextureFilm(texture, SIZE, SIZE);
-		}
-		frame(film.get(action.actionIcon()));
-	}
-	public HeroIcon(药剂栏标.Action action){
-		super( Assets.Interfaces.HERO_ICONS );
-		if (film == null){
-			film = new TextureFilm(texture, SIZE, SIZE);
-		}
-		frame(film.get(action.actionIcon()));
-	}
 	public HeroIcon(副武器.Action action){
 		super( Assets.Interfaces.HERO_ICONS );
 		if (film == null){

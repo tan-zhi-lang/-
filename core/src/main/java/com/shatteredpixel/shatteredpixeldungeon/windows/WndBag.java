@@ -246,8 +246,8 @@ public class WndBag extends WndTabbed {
 		placeItem( stuff.misc8 != null ? stuff.misc8 : new Placeholder( 物品表.ITEM));
 		placeItem( stuff.misc9 != null ? stuff.misc9 : new Placeholder( 物品表.ITEM));
 
-		if(Dungeon.hero.男人())
-			placeItem(stuff.misc10!=null?stuff.misc10:new Placeholder(物品表.ITEM));
+
+		placeItem(stuff.misc10!=null?stuff.misc10:new Placeholder(物品表.ITEM));
 
 		int equipped = 10;//5 10
 		if(Dungeon.hero.女人())equipped--;

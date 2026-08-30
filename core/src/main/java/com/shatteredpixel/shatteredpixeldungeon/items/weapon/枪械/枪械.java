@@ -160,7 +160,7 @@ public abstract class 枪械 extends Weapon{
 			});
 		}
 		if (action.equals(AC_SHOOT)) {
-			if(curCharges==0){
+			if(curCharges==0&&!无限子弹){
 				换弹();
 				return;
 			}
@@ -593,6 +593,20 @@ public abstract class 枪械 extends Weapon{
 						Dungeon.level.drop(item,cell).sprite().drop();
 					}
 
+				}
+			}else {
+
+				if(箭矢发射||弩发射){
+
+					Char enemy=Actor.findChar(cell);
+					if(enemy==null||enemy==curUser){
+
+					}else{
+						if(!curUser.shoot(enemy,this)){
+
+						}
+
+					}
 				}
 			}
 

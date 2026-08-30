@@ -18,8 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每10回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每150回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每300回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每450回合;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.药剂栏;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.食物栏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
@@ -114,7 +112,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.皇室佩剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.诡秘;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
@@ -341,8 +338,6 @@ public enum HeroClass{
 		}else {
 			Buff.施加(hero,上楼.class);
 			Buff.施加(hero,下楼.class);
-			Buff.施加(hero,食物栏.class);
-			Buff.施加(hero,药剂栏.class);
 
 			Buff.施加(hero,每10回合.class);
 			Buff.施加(hero,每150回合.class);
